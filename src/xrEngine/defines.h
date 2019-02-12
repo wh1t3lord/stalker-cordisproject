@@ -40,7 +40,6 @@ enum
     rsR3 = (1ul << 21ul),
     rsR4 = (1ul << 22ul), // 22 was reserved for editor
     rsRGL = (1ul << 23ul), // 23 was reserved for editor
-    rsR11 = (1ul << 24ul)
     // 24-32 bit - reserved to Editor
 };
 

@@ -42,11 +42,6 @@ BOOL R_constant_table::parseConstants(ID3DShaderReflectionConstantBuffer* pTable
         // LPCSTR   name        =   LPCSTR(ptr+it->Name);
         LPCSTR name = VarDesc.Name;
 
-        if (name == "s_test_constant")
-        {
-            Msg("Found");
-        }
-
         // Type
         // u16      type        =   RC_float;
         u16 type = u16(-1);
@@ -91,7 +86,9 @@ BOOL R_constant_table::parseConstants(ID3DShaderReflectionConstantBuffer* pTable
                 switch (TypeDesc.Rows)
                 {
                 case 2: r_type = RC_2x4; break;
-                case 3: r_type = RC_3x4; break;
+                case 3:
+                    r_type = RC_3x4;
+                    break;
                 /*
                 switch (it->RegisterCount)
                 {
@@ -131,7 +128,7 @@ BOOL R_constant_table::parseConstants(ID3DShaderReflectionConstantBuffer* pTable
             {
             // ***Register sampler***
             // We have determined all valuable info, search if constant already created
-            ref_constant    C       =   get (name, type);
+            ref_constant    C       =   get (name);
             if (!C) {
             C                   =   new R_constant();//.g_constant_allocator.create();
             C->name             =   name;
@@ -164,7 +161,7 @@ BOOL R_constant_table::parseConstants(ID3DShaderReflectionConstantBuffer* pTable
             continue;
 
         // We have determined all valuable info, search if constant already created
-        ref_constant C = get(name, type);
+        ref_constant C = get(name);
         if (!C)
         {
             C = new R_constant(); //.g_constant_allocator.create();
@@ -246,7 +243,7 @@ BOOL R_constant_table::parseResources(ID3DShaderReflection* pReflection, int Res
             VERIFY(0);
         }
 
-        ref_constant C = get(ResDesc.Name, type);
+        ref_constant C = get(ResDesc.Name);
         if (!C)
         {
             C = new R_constant(); //.g_constant_allocator.create();

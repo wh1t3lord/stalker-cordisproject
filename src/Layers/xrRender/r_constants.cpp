@@ -8,44 +8,24 @@
 // pool
 //.static	poolSS<R_constant,512>			g_constant_allocator;
 
-struct searchValues
-{
-    pcstr name;
-    u16 type;
-
-    searchValues(pcstr name, u16 type) : name(name), type(type) {}
-};
+// R_constant_table::~R_constant_table	()	{	dxRenderDeviceRender::Instance().Resources->_DeleteConstantTable(this);
+// }
 
 R_constant_table::~R_constant_table() { RImplementation.Resources->_DeleteConstantTable(this); }
 void R_constant_table::fatal(LPCSTR S) { FATAL(S); }
-
 // predicates
-IC bool p_search(ref_constant C, searchValues S)
-{
-    return xr_strcmp(*C->name, S.name) < 0 && C->type != S.type;
-}
-
+IC bool p_search(ref_constant C, LPCSTR S) { return xr_strcmp(*C->name, S) < 0; }
 IC bool p_sort(ref_constant C1, ref_constant C2) { return xr_strcmp(C1->name, C2->name) < 0; }
-
-ref_constant R_constant_table::get(LPCSTR S, u16 type /*= u16(-1)*/)
+ref_constant R_constant_table::get(LPCSTR S)
 {
     // assumption - sorted by name
-    //auto I = std::lower_bound(table.begin(), table.end(), searchValues(S, type), p_search);
-    auto I = std::find_if(table.begin(), table.end(), [&](ref_constant constant)
-    {
-        return 0 == xr_strcmp(constant->name.c_str(), S) && constant->type == type;
-    });
-
-    if (I == table.end())
+    c_table::iterator I = std::lower_bound(table.begin(), table.end(), S, p_search);
+    if (I == table.end() || (0 != xr_strcmp(*(*I)->name, S)))
         return nullptr;
-
-    /*if (0 != xr_strcmp((*I)->name.c_str(), S))
-        return nullptr;*/
-
-    return *I;
+    else
+        return *I;
 }
-
-ref_constant R_constant_table::get(shared_str& S, u16 type /*= u16(-1)*/)
+ref_constant R_constant_table::get(shared_str& S)
 {
     // linear search, but only ptr-compare
     c_table::iterator I = table.begin();
@@ -53,10 +33,9 @@ ref_constant R_constant_table::get(shared_str& S, u16 type /*= u16(-1)*/)
     for (; I != E; ++I)
     {
         ref_constant C = *I;
-        if (C->name.equal(S) && C->type == type)
+        if (C->name.equal(S))
             return C;
     }
-
     return nullptr;
 }
 

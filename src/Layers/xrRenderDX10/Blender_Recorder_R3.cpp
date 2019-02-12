@@ -41,7 +41,7 @@ void CBlender_Compile::r_dx10Texture(LPCSTR ResourceName, LPCSTR texture)
     fix_texture_name(TexName);
 
     // Find index
-    ref_constant C = ctable.get(ResourceName, RC_dx10texture);
+    ref_constant C = ctable.get(ResourceName);
     // VERIFY(C);
     if (!C)
         return;

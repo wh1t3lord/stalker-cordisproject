@@ -16,14 +16,12 @@ constexpr pcstr setup_function = "SetupEnv";
 constexpr pcstr mode_function  = "GetModeName";
 
 constexpr pcstr r1_library     = "xrRender_R1";
-constexpr pcstr r11_library    = "xrRender_R11";
 constexpr pcstr r2_library     = "xrRender_R2";
 constexpr pcstr r3_library     = "xrRender_R3";
 constexpr pcstr r4_library     = "xrRender_R4";
 constexpr pcstr gl_library     = "xrRender_GL";
 
 constexpr pcstr renderer_r1    = "renderer_r1";
-constexpr pcstr renderer_r11   = "renderer_r11";
 constexpr pcstr renderer_r2a   = "renderer_r2a";
 constexpr pcstr renderer_r2    = "renderer_r2";
 constexpr pcstr renderer_r2_5  = "renderer_r2.5";
@@ -92,7 +90,6 @@ void CEngineAPI::SelectRenderer()
     select(r4_library, rsR4, 4, rsR3);
     select(r3_library, rsR3, 3, rsR2);
     select(r2_library, rsR2, 2, rsR1);
-    select(r11_library, rsR11, 11);
 #endif
 
     select(r1_library, rsR1, 1);
@@ -133,9 +130,6 @@ void CEngineAPI::InitializeRenderers()
 
     if (GEnv.CurrentRenderer != 2)
         renderers[r2_library]->close();
-
-    if (GEnv.CurrentRenderer != 11)
-        renderers[r11_library]->close();
 
     if (GEnv.CurrentRenderer != 1)
         renderers[r1_library]->close();*/
@@ -215,7 +209,6 @@ void CEngineAPI::CreateRendererList()
     // Hide "d3d10.dll not found" message box for XP
     SetErrorMode(SEM_FAILCRITICALERRORS);
 
-    renderers[r11_library] = XRay::LoadModule(r11_library);
     renderers[r2_library] = XRay::LoadModule(r2_library);
     renderers[r3_library] = XRay::LoadModule(r3_library);
     renderers[r4_library] = XRay::LoadModule(r4_library);
@@ -242,7 +235,6 @@ void CEngineAPI::CreateRendererList()
 
 #if defined(WINDOWS)
     checkRenderer(r1_library, renderer_r1, 0);
-    checkRenderer(r11_library, renderer_r11, 11);
     if (renderers[r2_library]->IsLoaded())
     {
         modes.emplace_back(renderer_r2a, 1);

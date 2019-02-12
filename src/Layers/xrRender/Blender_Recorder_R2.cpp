@@ -76,7 +76,7 @@ u32 CBlender_Compile::i_Sampler(LPCSTR _name)
     fix_texture_name(name);
 
     // Find index
-    ref_constant C = ctable.get(name, RC_sampler);
+    ref_constant C = ctable.get(name);
     if (!C)
         return u32(-1);
 

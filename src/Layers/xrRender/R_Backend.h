@@ -382,17 +382,17 @@ public:
     IC void set_Scissor(Irect* rect = nullptr);
 
     // constants
-    ICF ref_constant get_c(LPCSTR n, u16 type = u16(-1))
+    ICF ref_constant get_c(LPCSTR n)
     {
         if (ctable)
-            return ctable->get(n, type);
+            return ctable->get(n);
         return nullptr;
     }
 
-    ICF ref_constant get_c(shared_str& n, u16 type = u16(-1))
+    ICF ref_constant get_c(shared_str& n)
     {
         if (ctable)
-            return ctable->get(n, type);
+            return ctable->get(n);
         return nullptr;
     }
 

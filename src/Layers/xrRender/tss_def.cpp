@@ -416,10 +416,6 @@ void SimulatorStates::UpdateDesc(D3D_SAMPLER_DESC descArray[D3D_COMMONSHADER_SAM
                     desc.Filter = (D3D_FILTER)(desc.Filter | MagfilterLinear);
                     //desc.Filter |= MagfilterLinear;
                     break;
-                case D3DTEXF_ANISOTROPIC:
-                    //desc.Filter = (D3D_FILTER)(desc.Filter | MinfilterLinear);
-                    // desc.Filter |= MinfilterLinear;
-                    break;
                 default: NODEFAULT;
                 }
                 break;
@@ -434,10 +430,6 @@ void SimulatorStates::UpdateDesc(D3D_SAMPLER_DESC descArray[D3D_COMMONSHADER_SAM
                     break;
                 case D3DTEXF_LINEAR:
                     desc.Filter = (D3D_FILTER)(desc.Filter | MinfilterLinear);
-                    // desc.Filter |= MinfilterLinear;
-                    break;
-                case D3DTEXF_ANISOTROPIC:
-                    //desc.Filter = (D3D_FILTER)(desc.Filter | MinfilterLinear);
                     // desc.Filter |= MinfilterLinear;
                     break;
                 default: NODEFAULT;
@@ -455,10 +447,6 @@ void SimulatorStates::UpdateDesc(D3D_SAMPLER_DESC descArray[D3D_COMMONSHADER_SAM
                 case D3DTEXF_LINEAR:
                     desc.Filter = (D3D_FILTER)(desc.Filter | MipfilterLinear);
                     // desc.Filter |= MipfilterLinear;
-                    break;
-                case D3DTEXF_ANISOTROPIC:
-                    //desc.Filter = (D3D_FILTER)(desc.Filter | MinfilterLinear);
-                    // desc.Filter |= MinfilterLinear;
                     break;
                 default: NODEFAULT;
                 }

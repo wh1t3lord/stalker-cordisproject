@@ -19,42 +19,25 @@ struct ShaderTypeTraits<SVS>
     static inline const char* GetShaderExt() { return ".vs"; }
     static inline const char* GetCompilationTarget()
     {
-#if defined(USE_DX11)
-        if (HW.FeatureLevel == D3D_FEATURE_LEVEL_9_3)
-            return "vs_4_0_level_9_3";
-        else if (HW.FeatureLevel < D3D_FEATURE_LEVEL_9_3)
-            return "vs_4_0_level_9_1";
-#endif
         return "vs_2_0";
     }
 
     static void GetCompilationTarget(const char*& target, const char*& entry, const char* data)
     {
-#if defined(USE_DX11)
-        if (HW.FeatureLevel > D3D_FEATURE_LEVEL_9_3)
-#endif
-        {
-            if (HW.Caps.geometry_major >= 2)
-                target = "vs_2_0";
-            else
-                target = "vs_1_1";
-        }
+        if (HW.Caps.geometry_major >= 2)
+            target = "vs_2_0";
+        else
+            target = "vs_1_1";
 
         if (strstr(data, "main_vs_1_1"))
         {
-#if defined(USE_DX11)
-            if (HW.FeatureLevel > D3D_FEATURE_LEVEL_9_3)
-#endif
-                target = "vs_1_1";
+            target = "vs_1_1";
             entry = "main_vs_1_1";
         }
 
         if (strstr(data, "main_vs_2_0"))
         {
-#if defined(USE_DX11)
-            if (HW.FeatureLevel > D3D_FEATURE_LEVEL_9_3)
-#endif
-                target = "vs_2_0";
+            target = "vs_2_0";
             entry = "main_vs_2_0";
         }
     }
@@ -93,12 +76,6 @@ struct ShaderTypeTraits<SPS>
     static inline const char* GetShaderExt() { return ".ps"; }
     static inline const char* GetCompilationTarget()
     {
-#if defined(USE_DX11)
-        if (HW.FeatureLevel == D3D_FEATURE_LEVEL_9_3)
-            return "ps_4_0_level_9_3";
-        else if (HW.FeatureLevel < D3D_FEATURE_LEVEL_9_3)
-            return "ps_4_0_level_9_1";
-#endif
         return "ps_2_0";
     }
 
@@ -106,42 +83,27 @@ struct ShaderTypeTraits<SPS>
     {
         if (strstr(data, "main_ps_1_1"))
         {
-#if defined(USE_DX11)
-            if (HW.FeatureLevel > D3D_FEATURE_LEVEL_9_3)
-#endif
-                target = "ps_1_1";
+            target = "ps_1_1";
             entry = "main_ps_1_1";
         }
         if (strstr(data, "main_ps_1_2"))
         {
-#if defined(USE_DX11)
-            if (HW.FeatureLevel > D3D_FEATURE_LEVEL_9_3)
-#endif
-                target = "ps_1_2";
+            target = "ps_1_2";
             entry = "main_ps_1_2";
         }
         if (strstr(data, "main_ps_1_3"))
         {
-#if defined(USE_DX11)
-            if (HW.FeatureLevel > D3D_FEATURE_LEVEL_9_3)
-#endif
-                target = "ps_1_3";
+            target = "ps_1_3";
             entry = "main_ps_1_3";
         }
         if (strstr(data, "main_ps_1_4"))
         {
-#if defined(USE_DX11)
-            if (HW.FeatureLevel > D3D_FEATURE_LEVEL_9_3)
-#endif
-                target = "ps_1_4";
+            target = "ps_1_4";
             entry = "main_ps_1_4";
         }
         if (strstr(data, "main_ps_2_0"))
         {
-#if defined(USE_DX11)
-            if (HW.FeatureLevel > D3D_FEATURE_LEVEL_9_3)
-#endif
-                target = "ps_2_0";
+            target = "ps_2_0";
             entry = "main_ps_2_0";
         }
     }
@@ -447,8 +409,6 @@ inline T* CResourceManager::CreateShader(const char* name, const char* filename 
 
 #ifdef USE_OGL
         DWORD flags = 0;
-#elif defined(USE_DX11) && RENDER == R_R1
-        DWORD flags = D3D10_SHADER_DEBUG | D3D10_SHADER_PACK_MATRIX_ROW_MAJOR | D3D10_SHADER_ENABLE_BACKWARDS_COMPATIBILITY;
 #elif defined(USE_DX10) || defined(USE_DX11)
         DWORD flags = D3D10_SHADER_PACK_MATRIX_ROW_MAJOR;
 #else
@@ -477,7 +437,7 @@ bool CResourceManager::DestroyShader(const T* sh)
     if (0 == (sh->dwFlags & xr_resource_flagged::RF_REGISTERED))
         return false;
 
-    typename ShaderTypeTraits<T>::MapType& sh_map = GetShaderMap<typename ShaderTypeTraits<T>::MapType>();
+   typename ShaderTypeTraits<T>::MapType& sh_map = GetShaderMap<typename ShaderTypeTraits<T>::MapType>();
 
     LPSTR N = LPSTR(*sh->cName);
     auto iterator = sh_map.find(N);

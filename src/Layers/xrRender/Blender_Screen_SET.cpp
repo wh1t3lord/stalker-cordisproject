@@ -113,7 +113,7 @@ void CBlender_Screen_SET::Load(IReader& fs, u16 version)
     }
 }
 
-#if defined(USE_DX10) || defined(USE_DX11) && RENDER != R_R1
+#if defined(USE_DX10) || defined(USE_DX11)
 
 void CBlender_Screen_SET::Compile(CBlender_Compile& C)
 {

@@ -598,13 +598,11 @@ public:
         // 4 - r3
         // 5 - r4
         // 6 - rgl
-        // 11 - r11
         psDeviceFlags.set(rsR1, renderer_value == 0);
         psDeviceFlags.set(rsR2, ((renderer_value > 0) && renderer_value < 4));
         psDeviceFlags.set(rsR3, (renderer_value == 4));
         psDeviceFlags.set(rsR4, (renderer_value == 5));
         psDeviceFlags.set(rsRGL, (renderer_value == 6));
-        psDeviceFlags.set(rsR11, (renderer_value == 11));
 
         r2_sun_static = (renderer_value < 2);
 
