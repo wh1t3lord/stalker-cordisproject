@@ -166,7 +166,7 @@ void ALDeviceList::Enumerate()
 
     int majorVersion, minorVersion;
 
-    for (u32 j = 0; j < GetNumDevices(); j++)
+    for (uint32_t j = 0; j < GetNumDevices(); ++j)
     {
         GetDeviceVersion(j, &majorVersion, &minorVersion);
         Msg("%d. %s, Spec Version %d.%d %s eax[%d] efx[%s] xram[%s]", j + 1, GetDeviceName(j), majorVersion,
@@ -175,6 +175,7 @@ void ALDeviceList::Enumerate()
             GetDeviceDesc(j).props.xram ? "yes" : "no");
     }
 #if defined(WINDOWS)
+    // TO Lord: Подумай стоит ли это здесь иметь и поддерживать????
     if (!strstr(GetCommandLine(), "-weather"))
         CoInitializeEx(nullptr, COINIT_MULTITHREADED);
 #endif
