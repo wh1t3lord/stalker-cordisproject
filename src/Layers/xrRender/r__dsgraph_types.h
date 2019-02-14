@@ -37,7 +37,7 @@ struct _LodItem
     float ssa;
     dxRender_Visual* pVisual;
 };
-
+// TO LORD: также подумать над препроцессором
 using state_type = SState*;
 #ifndef USE_OGL
 using ps_type = ID3DPixelShader*;

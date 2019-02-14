@@ -1,6 +1,12 @@
 #include "stdafx.h"
 #include "dxFontRender.h"
+
+#ifndef XRRENDER_SDK_EXPORTS
 #include "xrEngine/GameFont.h"
+#else
+#include "xrEngine_SDK/GameFont.h"
+#endif
+
 #include "xrCore/Text/StringConversion.hpp"
 
 dxFontRender::dxFontRender() {}

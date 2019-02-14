@@ -120,6 +120,7 @@ class XRCORE_API xrCore
 {
     const char* buildDate = "";
     u32 buildId = 0;
+    bool UseSDK = false;
 
 public:
     string64 ApplicationName;
@@ -131,12 +132,19 @@ public:
     DWORD dwFrame;
     bool PluginMode;
 
-    void Initialize(
-        pcstr ApplicationName, pcstr commandLine = nullptr, LogCallback cb = nullptr, bool init_fs = true, pcstr fs_fname = nullptr, bool plugin = false);
+    void Initialize(pcstr ApplicationName, pcstr commandLine = nullptr, LogCallback cb = nullptr, bool init_fs = true,
+        pcstr fs_fname = nullptr, bool plugin = false);
     void _destroy();
     const char* GetBuildDate() const { return buildDate; }
     u32 GetBuildId() const { return buildId; }
     static constexpr pcstr GetBuildConfiguration();
+    inline void ActivateSDK(void)
+    {
+        if (!UseSDK)
+            UseSDK = true;
+    }
+
+    inline bool CanUseSDK(void) { return UseSDK; }
 
 private:
     void CalculateBuildId();

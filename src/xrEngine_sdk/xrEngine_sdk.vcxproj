@@ -1,0 +1,475 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Mixed|Win32">
+      <Configuration>Mixed</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Mixed|x64">
+      <Configuration>Mixed</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{6FABF2CC-4887-4328-BD6A-5C210AF2B0E2}</ProjectGuid>
+    <RootNamespace>xrEngine_sdk</RootNamespace>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <PlatformToolset>v141</PlatformToolset>
+    <CharacterSet>MultiByte</CharacterSet>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <PlatformToolset>v141</PlatformToolset>
+    <CharacterSet>MultiByte</CharacterSet>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Mixed|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <PlatformToolset>v141</PlatformToolset>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Mixed|x64'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <PlatformToolset>v141</PlatformToolset>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <PlatformToolset>v141</PlatformToolset>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <PlatformToolset>v141</PlatformToolset>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="$(SolutionDir)Common.props" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup>
+    <_ProjectFileVersion>12.0.30501.0</_ProjectFileVersion>
+  </PropertyGroup>
+  <ItemDefinitionGroup>
+    <ClCompile>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+    </ClCompile>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>$(xrExternals)OpenAutomate\inc;$(xrExternals)libogg\include;$(xrExternals)libtheora\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>ENGINE_BUILD;INGAME_EDITOR;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <EnableEnhancedInstructionSet>StreamingSIMDExtensions2</EnableEnhancedInstructionSet>
+    </ClCompile>
+    <Link>
+      <AdditionalDependencies>vfw32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+    <CustomBuildStep>
+      <Command>if not exist "$(OutDir)amd_ags_$(PlatformShortName).dll" copy /y "$(xrExternals)AGS_SDK\ags_lib\lib\amd_ags_$(PlatformShortName).dll" "$(OutDir)amd_ags_$(PlatformShortName).dll"</Command>
+      <Outputs>$(OutDir)amd_ags_$(PlatformShortName).dll;%(Outputs)</Outputs>
+      <Inputs>$(xrExternals)AGS_SDK\ags_lib\lib\amd_ags_$(PlatformShortName).dll;%(Inputs)</Inputs>
+      <TreatOutputAsContent>true</TreatOutputAsContent>
+    </CustomBuildStep>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>$(xrExternals)OpenAutomate\inc;$(xrExternals)libogg\include;$(xrExternals)libtheora\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>ENGINE_BUILD;INGAME_EDITOR;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ClCompile>
+    <Link>
+      <AdditionalDependencies>vfw32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+    <CustomBuildStep>
+      <Command>if not exist "$(OutDir)amd_ags_$(PlatformShortName).dll" copy /y "$(xrExternals)AGS_SDK\ags_lib\lib\amd_ags_$(PlatformShortName).dll" "$(OutDir)amd_ags_$(PlatformShortName).dll"</Command>
+      <Outputs>$(OutDir)amd_ags_$(PlatformShortName).dll;%(Outputs)</Outputs>
+      <Inputs>$(xrExternals)AGS_SDK\ags_lib\lib\amd_ags_$(PlatformShortName).dll;%(Inputs)</Inputs>
+      <TreatOutputAsContent>true</TreatOutputAsContent>
+    </CustomBuildStep>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Mixed|Win32'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>$(xrExternals)OpenAutomate\inc;$(xrExternals)libogg\include;$(xrExternals)libtheora\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>ENGINE_BUILD;INGAME_EDITOR;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ClCompile>
+    <Link>
+      <AdditionalDependencies>vfw32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+    <CustomBuildStep>
+      <Command>if not exist "$(OutDir)amd_ags_$(PlatformShortName).dll" copy /y "$(xrExternals)AGS_SDK\ags_lib\lib\amd_ags_$(PlatformShortName).dll" "$(OutDir)amd_ags_$(PlatformShortName).dll"</Command>
+      <Outputs>$(OutDir)amd_ags_$(PlatformShortName).dll;%(Outputs)</Outputs>
+      <Inputs>$(xrExternals)AGS_SDK\ags_lib\lib\amd_ags_$(PlatformShortName).dll;%(Inputs)</Inputs>
+      <TreatOutputAsContent>true</TreatOutputAsContent>
+    </CustomBuildStep>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Mixed|x64'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>$(xrExternals)OpenAutomate\inc;$(xrExternals)libogg\include;$(xrExternals)libtheora\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>ENGINE_BUILD;INGAME_EDITOR;ENGINE_SDK;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ClCompile>
+    <Link>
+      <AdditionalDependencies>vfw32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+    <CustomBuildStep>
+      <Command>if not exist "$(OutDir)amd_ags_$(PlatformShortName).dll" copy /y "$(xrExternals)AGS_SDK\ags_lib\lib\amd_ags_$(PlatformShortName).dll" "$(OutDir)amd_ags_$(PlatformShortName).dll"</Command>
+      <Outputs>$(OutDir)amd_ags_$(PlatformShortName).dll;%(Outputs)</Outputs>
+      <Inputs>$(xrExternals)AGS_SDK\ags_lib\lib\amd_ags_$(PlatformShortName).dll;%(Inputs)</Inputs>
+      <TreatOutputAsContent>true</TreatOutputAsContent>
+    </CustomBuildStep>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>$(xrExternals)OpenAutomate\inc;$(xrExternals)libogg\include;$(xrExternals)libtheora\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>ENGINE_BUILD;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <EnableEnhancedInstructionSet>StreamingSIMDExtensions2</EnableEnhancedInstructionSet>
+    </ClCompile>
+    <ResourceCompile />
+    <Link>
+      <AdditionalDependencies>vfw32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+    <CustomBuildStep>
+      <Command>if not exist "$(OutDir)amd_ags_$(PlatformShortName).dll" copy /y "$(xrExternals)AGS_SDK\ags_lib\lib\amd_ags_$(PlatformShortName).dll" "$(OutDir)amd_ags_$(PlatformShortName).dll"</Command>
+      <Outputs>$(OutDir)amd_ags_$(PlatformShortName).dll;%(Outputs)</Outputs>
+      <Inputs>$(xrExternals)AGS_SDK\ags_lib\lib\amd_ags_$(PlatformShortName).dll;%(Inputs)</Inputs>
+      <TreatOutputAsContent>true</TreatOutputAsContent>
+    </CustomBuildStep>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>$(xrExternals)OpenAutomate\inc;$(xrExternals)libogg\include;$(xrExternals)libtheora\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>ENGINE_BUILD;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ClCompile>
+    <Link>
+      <AdditionalDependencies>vfw32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+    <CustomBuildStep>
+      <Command>if not exist "$(OutDir)amd_ags_$(PlatformShortName).dll" copy /y "$(xrExternals)AGS_SDK\ags_lib\lib\amd_ags_$(PlatformShortName).dll" "$(OutDir)amd_ags_$(PlatformShortName).dll"</Command>
+      <Outputs>$(OutDir)amd_ags_$(PlatformShortName).dll;%(Outputs)</Outputs>
+      <Inputs>$(xrExternals)AGS_SDK\ags_lib\lib\amd_ags_$(PlatformShortName).dll;%(Inputs)</Inputs>
+      <TreatOutputAsContent>true</TreatOutputAsContent>
+    </CustomBuildStep>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClInclude Include="CameraBase.h" />
+    <ClInclude Include="CameraDefs.h" />
+    <ClInclude Include="CameraManager.h" />
+    <ClInclude Include="cf_dynamic_mesh.h" />
+    <ClInclude Include="CustomHUD.h" />
+    <ClInclude Include="defines.h" />
+    <ClInclude Include="device.h" />
+    <ClInclude Include="editor_environment_ambients_ambient.hpp" />
+    <ClInclude Include="editor_environment_ambients_effect_id.hpp" />
+    <ClInclude Include="editor_environment_ambients_manager.hpp" />
+    <ClInclude Include="editor_environment_ambients_sound_id.hpp" />
+    <ClInclude Include="editor_environment_detail.hpp" />
+    <ClInclude Include="editor_environment_effects_effect.hpp" />
+    <ClInclude Include="editor_environment_effects_manager.hpp" />
+    <ClInclude Include="editor_environment_levels_manager.hpp" />
+    <ClInclude Include="editor_environment_manager.hpp" />
+    <ClInclude Include="editor_environment_sound_channels_channel.hpp" />
+    <ClInclude Include="editor_environment_sound_channels_manager.hpp" />
+    <ClInclude Include="editor_environment_sound_channels_source.hpp" />
+    <ClInclude Include="editor_environment_suns_blend.hpp" />
+    <ClInclude Include="editor_environment_suns_flare.hpp" />
+    <ClInclude Include="editor_environment_suns_flares.hpp" />
+    <ClInclude Include="editor_environment_suns_gradient.hpp" />
+    <ClInclude Include="editor_environment_suns_manager.hpp" />
+    <ClInclude Include="editor_environment_suns_sun.hpp" />
+    <ClInclude Include="editor_environment_thunderbolts_collection.hpp" />
+    <ClInclude Include="editor_environment_thunderbolts_gradient.hpp" />
+    <ClInclude Include="editor_environment_thunderbolts_manager.hpp" />
+    <ClInclude Include="editor_environment_thunderbolts_thunderbolt.hpp" />
+    <ClInclude Include="editor_environment_thunderbolts_thunderbolt_id.hpp" />
+    <ClInclude Include="editor_environment_weathers_manager.hpp" />
+    <ClInclude Include="editor_environment_weathers_time.hpp" />
+    <ClInclude Include="editor_environment_weathers_weather.hpp" />
+    <ClInclude Include="edit_actions.h" />
+    <ClInclude Include="Effector.h" />
+    <ClInclude Include="EffectorPP.h" />
+    <ClInclude Include="Engine.h" />
+    <ClInclude Include="EngineAPI.h" />
+    <ClInclude Include="engine_impl.hpp" />
+    <ClInclude Include="EnnumerateVertices.h" />
+    <ClInclude Include="Environment.h" />
+    <ClInclude Include="EventAPI.h" />
+    <ClInclude Include="FDemoPlay.h" />
+    <ClInclude Include="FDemoRecord.h" />
+    <ClInclude Include="Feel_Sound.h" />
+    <ClInclude Include="Feel_Touch.h" />
+    <ClInclude Include="Feel_Vision.h" />
+    <ClInclude Include="GameFont.h" />
+    <ClInclude Include="GameMtlLib.h" />
+    <ClInclude Include="ICollidable.h" />
+    <ClInclude Include="ide.hpp" />
+    <ClInclude Include="IGameFont.hpp" />
+    <ClInclude Include="IGame_Level.h" />
+    <ClInclude Include="IGame_ObjectPool.h" />
+    <ClInclude Include="IGame_Persistent.h" />
+    <ClInclude Include="IInputReceiver.h" />
+    <ClInclude Include="ILoadingScreen.h" />
+    <ClInclude Include="IObjectPhysicsCollision.h" />
+    <ClInclude Include="IPerformanceAlert.hpp" />
+    <ClInclude Include="IPHdebug.h" />
+    <ClInclude Include="IPhysicsGeometry.h" />
+    <ClInclude Include="IPhysicsShell.h" />
+    <ClInclude Include="IRenderable.h" />
+    <ClInclude Include="ISheduled.h" />
+    <ClInclude Include="LightAnimLibrary.h" />
+    <ClInclude Include="line_editor.h" />
+    <ClInclude Include="line_edit_control.h" />
+    <ClInclude Include="main.h" />
+    <ClInclude Include="MonitorManager.hpp" />
+    <ClInclude Include="mp_logging.h" />
+    <ClInclude Include="ObjectAnimator.h" />
+    <ClInclude Include="ObjectDump.h" />
+    <ClInclude Include="PerformanceAlert.hpp" />
+    <ClInclude Include="perlin.h" />
+    <ClInclude Include="profiler.h" />
+    <ClInclude Include="profiler_inline.h" />
+    <ClInclude Include="Properties.h" />
+    <ClInclude Include="property_collection.hpp" />
+    <ClInclude Include="property_collection_forward.hpp" />
+    <ClInclude Include="property_collection_inline.hpp" />
+    <ClInclude Include="PS_instance.h" />
+    <ClInclude Include="pure.h" />
+    <ClInclude Include="pure_relcase.h" />
+    <ClInclude Include="Rain.h" />
+    <ClInclude Include="Render.h" />
+    <ClInclude Include="splash.h" />
+    <ClInclude Include="ShadersExternalData.h" />
+    <ClInclude Include="StatGraph.h" />
+    <ClInclude Include="Stats.h" />
+    <ClInclude Include="stdafx.h" />
+    <ClInclude Include="std_classes.h" />
+    <ClInclude Include="StringTable\IStringTable.h" />
+    <ClInclude Include="StringTable\IStringTableDefs.h" />
+    <ClInclude Include="Text_Console.h" />
+    <ClInclude Include="thunderbolt.h" />
+    <ClInclude Include="tntQAVI.h" />
+    <ClInclude Include="vis_common.h" />
+    <ClInclude Include="vis_object_data.h" />
+    <ClInclude Include="WaveForm.h" />
+    <ClInclude Include="xrHemisphere.h" />
+    <ClInclude Include="xrImage_Resampler.h" />
+    <ClInclude Include="xrSASH.h" />
+    <ClInclude Include="xrSheduler.h" />
+    <ClInclude Include="xrTheora_Stream.h" />
+    <ClInclude Include="xrTheora_Surface.h" />
+    <ClInclude Include="xr_collide_form.h" />
+    <ClInclude Include="xr_efflensflare.h" />
+    <ClInclude Include="xr_input.h" />
+    <ClInclude Include="xr_input_xinput.h" />
+    <ClInclude Include="XR_IOConsole.h" />
+    <ClInclude Include="xr_ioc_cmd.h" />
+    <ClInclude Include="xr_object.h" />
+    <ClInclude Include="xr_object_list.h" />
+    <ClInclude Include="x_ray.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="CameraBase.cpp" />
+    <ClCompile Include="CameraManager.cpp" />
+    <ClCompile Include="cf_dynamic_mesh.cpp" />
+    <ClCompile Include="CustomHUD.cpp" />
+    <ClCompile Include="defines.cpp" />
+    <ClCompile Include="device.cpp" />
+    <ClCompile Include="Device_create.cpp" />
+    <ClCompile Include="Device_destroy.cpp" />
+    <ClCompile Include="Device_Initialize.cpp" />
+    <ClCompile Include="Device_Misc.cpp" />
+    <ClCompile Include="Device_overdraw.cpp" />
+    <ClCompile Include="Device_wndproc.cpp" />
+    <ClCompile Include="editor_environment_ambients_ambient.cpp" />
+    <ClCompile Include="editor_environment_ambients_effect_id.cpp" />
+    <ClCompile Include="editor_environment_ambients_manager.cpp" />
+    <ClCompile Include="editor_environment_ambients_sound_id.cpp" />
+    <ClCompile Include="editor_environment_detail.cpp" />
+    <ClCompile Include="editor_environment_effects_effect.cpp" />
+    <ClCompile Include="editor_environment_effects_manager.cpp" />
+    <ClCompile Include="editor_environment_levels_manager.cpp" />
+    <ClCompile Include="editor_environment_manager.cpp" />
+    <ClCompile Include="editor_environment_manager_properties.cpp">
+      <ExcludedFromBuild>true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="editor_environment_sound_channels_channel.cpp" />
+    <ClCompile Include="editor_environment_sound_channels_manager.cpp" />
+    <ClCompile Include="editor_environment_sound_channels_source.cpp" />
+    <ClCompile Include="editor_environment_suns_blend.cpp" />
+    <ClCompile Include="editor_environment_suns_flare.cpp" />
+    <ClCompile Include="editor_environment_suns_flares.cpp" />
+    <ClCompile Include="editor_environment_suns_gradient.cpp" />
+    <ClCompile Include="editor_environment_suns_manager.cpp" />
+    <ClCompile Include="editor_environment_suns_sun.cpp" />
+    <ClCompile Include="editor_environment_thunderbolts_collection.cpp" />
+    <ClCompile Include="editor_environment_thunderbolts_gradient.cpp" />
+    <ClCompile Include="editor_environment_thunderbolts_manager.cpp" />
+    <ClCompile Include="editor_environment_thunderbolts_thunderbolt.cpp" />
+    <ClCompile Include="editor_environment_thunderbolts_thunderbolt_id.cpp" />
+    <ClCompile Include="editor_environment_weathers_manager.cpp" />
+    <ClCompile Include="editor_environment_weathers_time.cpp" />
+    <ClCompile Include="editor_environment_weathers_weather.cpp" />
+    <ClCompile Include="edit_actions.cpp" />
+    <ClCompile Include="Effector.cpp" />
+    <ClCompile Include="EffectorPP.cpp" />
+    <ClCompile Include="Engine.cpp" />
+    <ClCompile Include="EngineAPI.cpp" />
+    <ClCompile Include="engine_impl.cpp" />
+    <ClCompile Include="Environment.cpp" />
+    <ClCompile Include="Environment_misc.cpp" />
+    <ClCompile Include="Environment_render.cpp" />
+    <ClCompile Include="EventAPI.cpp" />
+    <ClCompile Include="FDemoPlay.cpp" />
+    <ClCompile Include="FDemoRecord.cpp" />
+    <ClCompile Include="Feel_Touch.cpp" />
+    <ClCompile Include="Feel_Vision.cpp" />
+    <ClCompile Include="GameFont.cpp" />
+    <ClCompile Include="GameMtlLib.cpp" />
+    <ClCompile Include="GameMtlLib_Engine.cpp" />
+    <ClCompile Include="ICollidable.cpp" />
+    <ClCompile Include="IGame_Level.cpp" />
+    <ClCompile Include="IGame_Level_check_textures.cpp" />
+    <ClCompile Include="IGame_ObjectPool.cpp" />
+    <ClCompile Include="IGame_Persistent.cpp" />
+    <ClCompile Include="IInputReceiver.cpp" />
+    <ClCompile Include="IRenderable.cpp" />
+    <ClCompile Include="ISheduled.cpp" />
+    <ClCompile Include="LightAnimLibrary.cpp" />
+    <ClCompile Include="line_editor.cpp" />
+    <ClCompile Include="line_edit_control.cpp" />
+    <ClCompile Include="mailSlot.cpp" />
+    <ClCompile Include="MonitorManager.cpp" />
+    <ClCompile Include="ObjectAnimator.cpp" />
+    <ClCompile Include="ObjectDump.cpp" />
+    <ClCompile Include="PerformanceAlert.cpp" />
+    <ClCompile Include="perlin.cpp" />
+    <ClCompile Include="phdebug.cpp" />
+    <ClCompile Include="profiler.cpp" />
+    <ClCompile Include="PS_instance.cpp" />
+    <ClCompile Include="pure.cpp" />
+    <ClCompile Include="pure_relcase.cpp" />
+    <ClCompile Include="Rain.cpp" />
+    <ClCompile Include="Render.cpp" />
+    <ClCompile Include="splash.cpp" />
+    <ClCompile Include="StatGraph.cpp" />
+    <ClCompile Include="Stats.cpp" />
+    <ClCompile Include="stdafx.cpp">
+      <PrecompiledHeader>Create</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="StringTable\IStringTable.cpp" />
+    <ClCompile Include="Text_Console.cpp" />
+    <ClCompile Include="Text_Console_WndProc.cpp" />
+    <ClCompile Include="thunderbolt.cpp" />
+    <ClCompile Include="tntQAVI.cpp" />
+    <ClCompile Include="xrHemisphere.cpp" />
+    <ClCompile Include="xrImage_Resampler.cpp" />
+    <ClCompile Include="xrSASH.cpp" />
+    <ClCompile Include="xrSheduler.cpp" />
+    <ClCompile Include="xrTheora_Stream.cpp" />
+    <ClCompile Include="xrTheora_Surface.cpp" />
+    <ClCompile Include="xr_collide_form.cpp" />
+    <ClCompile Include="xr_efflensflare.cpp" />
+    <ClCompile Include="xr_input.cpp" />
+    <ClCompile Include="xr_input_xinput.cpp" />
+    <ClCompile Include="XR_IOConsole.cpp" />
+    <ClCompile Include="XR_IOConsole_callback.cpp" />
+    <ClCompile Include="XR_IOConsole_control.cpp" />
+    <ClCompile Include="XR_IOConsole_get.cpp" />
+    <ClCompile Include="xr_ioc_cmd.cpp" />
+    <ClCompile Include="xr_object.cpp" />
+    <ClCompile Include="xr_object_list.cpp" />
+    <ClCompile Include="x_ray.cpp" />
+    <ClCompile Include="main.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="ClientServer.txt" />
+    <Text Include="Effects description.txt" />
+    <Text Include="features.txt" />
+    <Text Include="TODO.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Externals\openal\OpenAL-Windows\Router\Router.vcxproj">
+      <Project>{566551f4-4ef1-4cb4-a131-f982e7606907}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Externals\luabind.vcxproj">
+      <Project>{ccd4afae-aa10-42c6-a452-fdee497ccdf1}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\Layers\xrAPI\xrAPI.vcxproj">
+      <Project>{1daec516-e52c-4a3c-a4da-ae3553e6e0f8}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\xrNetServer\xrNetServer.vcxproj">
+      <Project>{435bac9a-b225-457d-ab40-c9bd0cc8838c}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\xrSound\xrSound.vcxproj">
+      <Project>{ccca7859-eb86-493e-9b53-c4235f45b3c5}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\xrScriptEngine\xrScriptEngine.vcxproj">
+      <Project>{132c62de-de85-4978-9675-c78ed4da46f0}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Externals\libogg_static.vcxproj">
+      <Project>{15cbfeff-7965-41f5-b4e2-21e8795c9159}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Externals\libtheora_static.vcxproj">
+      <Project>{653f3841-3f26-49b9-afcf-091db4b67031}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Externals\LuaJIT-proj\LuaJIT.vcxproj">
+      <Project>{632aeeb6-dc06-4e15-9551-b2b09a4b73c5}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Externals\oalib.vcxproj">
+      <Project>{61d4856f-fa82-4f02-bb88-909ddfb1fe74}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\utils\xrMiscMath\xrMiscMath.vcxproj">
+      <Project>{7885cf3c-ee04-4c67-9467-1fbf9a36b037}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\xrCDB\xrCDB.vcxproj">
+      <Project>{a19b1df2-82ec-4364-8bdf-85d13a1c89b5}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\xrCore\xrCore.vcxproj">
+      <Project>{a0f7d1fb-59a7-4717-a7e4-96f37e91998e}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\xrPhysics\xrPhysics.vcxproj">
+      <Project>{98d24a3d-7666-4c11-9d6e-b10393ce8cba}</Project>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+    <Import Project="..\packages\sdl2.redist.2.0.5\build\native\sdl2.redist.targets" Condition="Exists('..\packages\sdl2.redist.2.0.5\build\native\sdl2.redist.targets')" />
+    <Import Project="..\packages\sdl2.2.0.5\build\native\sdl2.targets" Condition="Exists('..\packages\sdl2.2.0.5\build\native\sdl2.targets')" />
+  </ImportGroup>
+  <ProjectExtensions>
+    <VisualStudio>
+      <UserProperties DevPartner_IsInstrumented="1" />
+    </VisualStudio>
+  </ProjectExtensions>
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>Данный проект ссылается на пакеты NuGet, отсутствующие на этом компьютере. Используйте восстановление пакетов NuGet, чтобы скачать их.  Дополнительную информацию см. по адресу: http://go.microsoft.com/fwlink/?LinkID=322105. Отсутствует следующий файл: {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\sdl2.redist.2.0.5\build\native\sdl2.redist.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\sdl2.redist.2.0.5\build\native\sdl2.redist.targets'))" />
+    <Error Condition="!Exists('..\packages\sdl2.2.0.5\build\native\sdl2.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\sdl2.2.0.5\build\native\sdl2.targets'))" />
+  </Target>
+</Project>

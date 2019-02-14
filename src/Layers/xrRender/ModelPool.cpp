@@ -3,7 +3,11 @@
 #include "ModelPool.h"
 
 #ifndef _EDITOR
+#ifndef XRRENDER_SDK_EXPORTS
 #include "xrEngine/IGame_Persistent.h"
+#else
+#include "xrEngine_SDK/IGame_Persistent.h"
+#endif
 #include "xrCore/FMesh.hpp"
 #include "FHierrarhyVisual.h"
 #include "SkeletonAnimated.h"

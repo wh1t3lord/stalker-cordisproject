@@ -2,7 +2,11 @@
 #define dxWallMarkArray_included
 #pragma once
 
+#ifndef XRRENDER_SDK_EXPORTS
 #include "Include/xrRender/WallMarkArray.h"
+#else
+#include "Include/xrRenderSDK/WallMarkArray.h"
+#endif // XRRENDER_SDK_EXPORTS
 
 class dxWallMarkArray : public IWallMarkArray
 {

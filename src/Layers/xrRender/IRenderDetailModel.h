@@ -2,8 +2,11 @@
 #define IRenderDetailModelH
 #pragma once
 
+#ifndef XRRENDER_SDK_EXPORTS
 #include "Include/xrRender/RenderDetailModel.h"
-
+#else
+#include "Include/xrRenderSDK/RenderDetailModel.h"
+#endif
 //////////////////////////////////////////////////////////////////////////
 // definition (Detail Model)
 class IRender_DetailModel

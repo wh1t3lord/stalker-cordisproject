@@ -3,8 +3,15 @@
 #pragma once
 
 #ifdef DEBUG
+
+
+#ifndef XRRENDER_SDK_EXPORTS
 #include "Include/xrRender/ObjectSpaceRender.h"
 #include "xrEngine/xr_collide_form.h"
+#else
+#include "Include/xrRenderSDK/ObjectSpaceRender.h"
+#include "xrEngine_SDK/xr_collide_form.h"
+#endif
 
 class dxObjectSpaceRender : public IObjectSpaceRender
 {

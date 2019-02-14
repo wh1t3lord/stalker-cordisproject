@@ -1,8 +1,11 @@
 //---------------------------------------------------------------------------
 #ifndef ParticleCustomH
 #define ParticleCustomH
-
+#ifndef XRRENDER_SDK_EXPORTS
 #include "Include/xrRender/ParticleCustom.h"
+#else
+#include "Include/xrRenderSDK/ParticleCustom.h"
+#endif
 #include "FBasicVisual.h"
 //---------------------------------------------------------------------------
 class dxParticleCustom : public dxRender_Visual, public IParticleCustom

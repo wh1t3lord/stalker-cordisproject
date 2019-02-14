@@ -12,15 +12,20 @@
 #include "blenders/Blender_Recorder.h"
 #include "blenders/Blender.h"
 
+#ifndef XRRENDER_SDK_EXPORTS
 #include "xrEngine/IGame_Persistent.h"
 #include "xrEngine/Environment.h"
+#else
+#include "xrEngine_SDK/IGame_Persistent.h"
+#include "xrEngine_SDK/Environment.h"
+#endif
 
 // matrices
-#define BIND_DECLARE(xf)\
-    class cl_xform_##xf : public R_constant_setup\
-    {\
-        virtual void setup(R_constant* C) { RCache.xforms.set_c_##xf(C); }\
-    };\
+#define BIND_DECLARE(xf)                                                   \
+    class cl_xform_##xf : public R_constant_setup                          \
+    {                                                                      \
+        virtual void setup(R_constant* C) { RCache.xforms.set_c_##xf(C); } \
+    };                                                                     \
     static cl_xform_##xf binder_##xf
 BIND_DECLARE(w);
 BIND_DECLARE(invw);
@@ -30,11 +35,11 @@ BIND_DECLARE(wv);
 BIND_DECLARE(vp);
 BIND_DECLARE(wvp);
 
-#define DECLARE_TREE_BIND(c)\
-    class cl_tree_##c : public R_constant_setup\
-    {\
-        virtual void setup(R_constant* C) { RCache.tree.set_c_##c(C); }\
-    };\
+#define DECLARE_TREE_BIND(c)                                            \
+    class cl_tree_##c : public R_constant_setup                         \
+    {                                                                   \
+        virtual void setup(R_constant* C) { RCache.tree.set_c_##c(C); } \
+    };                                                                  \
     static cl_tree_##c tree_binder_##c
 
 DECLARE_TREE_BIND(m_xform_v);
@@ -74,33 +79,18 @@ class cl_texgen : public R_constant_setup
         Fmatrix mTexgen;
 
 #ifdef USE_OGL
-        Fmatrix mTexelAdjust =
-        {
-            0.5f, 0.0f, 0.0f, 0.0f,
-            0.0f, 0.5f, 0.0f, 0.0f,
-            0.0f, 0.0f, 1.0f, 0.0f,
-            0.5f, 0.5f, 0.0f, 1.0f
-        };
+        Fmatrix mTexelAdjust = {
+            0.5f, 0.0f, 0.0f, 0.0f, 0.0f, 0.5f, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.5f, 0.5f, 0.0f, 1.0f};
 #elif defined(USE_DX10) || defined(USE_DX11)
-        Fmatrix mTexelAdjust =
-        {
-            0.5f, 0.0f, 0.0f, 0.0f,
-            0.0f, -0.5f, 0.0f, 0.0f,
-            0.0f, 0.0f, 1.0f, 0.0f,
-            0.5f, 0.5f, 0.0f, 1.0f
-        };
+        Fmatrix mTexelAdjust = {
+            0.5f, 0.0f, 0.0f, 0.0f, 0.0f, -0.5f, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.5f, 0.5f, 0.0f, 1.0f};
 #else // USE_DX10
         float _w = float(RDEVICE.dwWidth);
         float _h = float(RDEVICE.dwHeight);
         float o_w = (.5f / _w);
         float o_h = (.5f / _h);
-        Fmatrix mTexelAdjust =
-        {
-            0.5f, 0.0f, 0.0f, 0.0f,
-            0.0f, -0.5f, 0.0f, 0.0f,
-            0.0f, 0.0f, 1.0f, 0.0f,
-            0.5f + o_w, 0.5f + o_h, 0.0f, 1.0f
-        };
+        Fmatrix mTexelAdjust = {0.5f, 0.0f, 0.0f, 0.0f, 0.0f, -0.5f, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.5f + o_w,
+            0.5f + o_h, 0.0f, 1.0f};
 #endif // USE_DX10
 
         mTexgen.mul(mTexelAdjust, RCache.xforms.m_wvp);
@@ -116,33 +106,18 @@ class cl_VPtexgen : public R_constant_setup
         Fmatrix mTexgen;
 
 #ifdef USE_OGL
-        Fmatrix mTexelAdjust =
-        {
-            0.5f, 0.0f, 0.0f, 0.0f,
-            0.0f, 0.5f, 0.0f, 0.0f,
-            0.0f, 0.0f, 1.0f, 0.0f,
-            0.5f, 0.5f, 0.0f, 1.0f
-        };
+        Fmatrix mTexelAdjust = {
+            0.5f, 0.0f, 0.0f, 0.0f, 0.0f, 0.5f, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.5f, 0.5f, 0.0f, 1.0f};
 #elif defined(USE_DX10) || defined(USE_DX11)
-        Fmatrix mTexelAdjust =
-        {
-            0.5f, 0.0f, 0.0f, 0.0f,
-            0.0f, -0.5f, 0.0f, 0.0f,
-            0.0f, 0.0f, 1.0f, 0.0f,
-            0.5f, 0.5f, 0.0f, 1.0f
-        };
+        Fmatrix mTexelAdjust = {
+            0.5f, 0.0f, 0.0f, 0.0f, 0.0f, -0.5f, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.5f, 0.5f, 0.0f, 1.0f};
 #else // USE_DX10
         float _w = float(RDEVICE.dwWidth);
         float _h = float(RDEVICE.dwHeight);
         float o_w = (.5f / _w);
         float o_h = (.5f / _h);
-        Fmatrix mTexelAdjust =
-        {
-            0.5f, 0.0f, 0.0f, 0.0f,
-            0.0f, -0.5f, 0.0f, 0.0f,
-            0.0f, 0.0f, 1.0f, 0.0f,
-            0.5f + o_w, 0.5f + o_h, 0.0f, 1.0f
-        };
+        Fmatrix mTexelAdjust = {0.5f, 0.0f, 0.0f, 0.0f, 0.0f, -0.5f, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.5f + o_w,
+            0.5f + o_h, 0.0f, 1.0f};
 #endif // USE_DX10
 
         mTexgen.mul(mTexelAdjust, RCache.xforms.m_vp);
@@ -449,7 +424,7 @@ void CBlender_Compile::SetMapping()
     r_Constant("L_sun_color", &binder_sun0_color);
     r_Constant("L_sun_dir_w", &binder_sun0_dir_w);
     r_Constant("L_sun_dir_e", &binder_sun0_dir_e);
-    //r_Constant("L_lmap_color", &binder_lm_color);
+    // r_Constant("L_lmap_color", &binder_lm_color);
     r_Constant("L_hemi_color", &binder_hemi_color);
     r_Constant("L_ambient", &binder_amb_color);
 #endif

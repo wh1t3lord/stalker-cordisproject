@@ -6,7 +6,11 @@
 #define AFX_BLENDER_H__A023332E_C09B_4D93_AA53_57C052CCC075__INCLUDED_
 #pragma once
 
+#ifndef XRRENDER_SDK_EXPORTS
 #include "xrEngine/Properties.h"
+#else
+#include "xrEngine_SDK/Properties.h"
+#endif
 #include "Blender_Recorder.h"
 
 #pragma pack(push, 4)

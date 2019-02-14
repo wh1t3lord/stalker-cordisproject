@@ -482,6 +482,7 @@ void CMainMenu::OnRender()
     if (g_pGameLevel)
         GEnv.Render->Calculate();
 
+    // TO Lord: Место где рендиться 
     GEnv.Render->Render();
     if (!OnRenderPPUI_query())
     {

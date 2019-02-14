@@ -5,10 +5,19 @@
 #include "stdafx.h"
 #include "r__sector.h"
 #include "Common/LevelStructure.hpp"
+#ifndef XRRENDER_SDK_EXPORTS
 #include "xrEngine/xr_object.h"
-#include "FBasicVisual.h"
-#include "xrEngine/IGame_Persistent.h"
+#else
+#include "xrEngine_SDK/xr_object.h"
+#endif
 
+
+#include "FBasicVisual.h"
+#ifndef XRRENDER_SDK_EXPORTS
+#include "xrEngine/IGame_Persistent.h"
+#else
+#include "xrEngine_SDK/IGame_Persistent.h"
+#endif
 //////////////////////////////////////////////////////////////////////
 // Construction/Destruction
 //////////////////////////////////////////////////////////////////////

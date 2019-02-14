@@ -1,7 +1,15 @@
 #include "stdafx.h"
 #include "Layers/xrRender/DetailManager.h"
+
+#ifndef XRRENDER_SDK_EXPORTS
 #include "xrEngine/IGame_Persistent.h"
 #include "xrEngine/Environment.h"
+#else
+#include "xrEngine_SDK/IGame_Persistent.h"
+#include "xrEngine_SDK/Environment.h"
+#endif
+
+
 #include "Layers/xrRenderDX10/dx10BufferUtils.h"
 
 const int quant = 16384;

@@ -1,6 +1,11 @@
 #include "stdafx.h"
 
+#ifndef XRRENDER_SDK_EXPORTS
 #include "xrEngine/Render.h"
+#else
+#include "xrEngine_SDK/Render.h"
+#endif
+
 #include "Layers/xrRender/ResourceManager.h"
 #include "Layers/xrRender/tss.h"
 #include "Layers/xrRender/blenders/blender.h"

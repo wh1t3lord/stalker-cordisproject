@@ -2,7 +2,12 @@
 #define dxFontRender_included
 #pragma once
 
+#ifndef XRRENDER_SDK_EXPORTS
 #include "Include/xrRender/FontRender.h"
+#else
+#include "Include/xrRenderSDK/FontRender.h"
+#endif
+
 
 class dxFontRender : public IFontRender
 {

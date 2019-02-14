@@ -1,6 +1,10 @@
 #pragma once
-
+#ifndef XRRENDER_SDK_EXPORTS
 #include "xrEngine/Render.h"
+#else
+#include "xrEngine_SDK/Render.h"
+#endif
+
 #include "xrCDB/ISpatial.h"
 #include "r__dsgraph_types.h"
 #include "r__sector.h"

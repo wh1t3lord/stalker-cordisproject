@@ -2,7 +2,12 @@
 #define dxRainRender_included
 #pragma once
 
+#ifndef XRRENDER_SDK_EXPORTS
 #include "Include/xrRender/RainRender.h"
+#else
+#include "Include/xrRenderSDK/RainRender.h"
+#endif
+
 
 class dxRainRender : public IRainRender
 {

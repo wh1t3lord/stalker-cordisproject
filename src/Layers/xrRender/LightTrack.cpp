@@ -4,15 +4,26 @@
 
 #include "stdafx.h"
 #include "LightTrack.h"
+
+#ifndef XRRENDER_SDK_EXPORTS
 #include "Include/xrRender/RenderVisual.h"
 #include "xrEngine/xr_object.h"
-
+#else
+#include "Include/xrRenderSDK/RenderVisual.h"
+#include "xrEngine_SDK/xr_object.h"
+#endif
 #ifdef _EDITOR
 #include "IGame_Persistent.h"
 #include "Environment.h"
 #else
+#ifndef XRRENDER_SDK_EXPORTS
 #include "xrEngine/IGame_Persistent.h"
 #include "xrEngine/Environment.h"
+#else
+#include "xrEngine_SDK/IGame_Persistent.h"
+#include "xrEngine_SDK/Environment.h"
+#endif
+
 #endif
 
 //////////////////////////////////////////////////////////////////////

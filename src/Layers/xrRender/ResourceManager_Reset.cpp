@@ -3,7 +3,11 @@
 
 #include "ResourceManager.h"
 #ifndef _EDITOR
+#ifndef XRRENDER_SDK_EXPORTS
 #include "xrEngine/Render.h"
+#else
+#include "xrEngine_SDK/Render.h"
+#endif
 #else
 #include "Include/xrAPI/xrAPI.h"
 #endif

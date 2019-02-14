@@ -16,7 +16,7 @@
 
 #if defined(LINUX)
 #include <stdint.h>
-#define _A_HIDDEN      0x02
+#define _A_HIDDEN 0x02
 #define _A_SUBDIR 0x00000010
 
 #if defined(XR_X64)
@@ -30,7 +30,8 @@ typedef __int64 __time64_t;
 typedef long __time32_t;
 typedef unsigned long _fsize_t;
 
-struct _finddata64i32_t {
+struct _finddata64i32_t
+{
     unsigned attrib;
     __time64_t time_create;
     __time64_t time_access;
@@ -99,18 +100,18 @@ public:
         u32 vfs_idx = u32(-1);
         shared_str path;
 #if defined(WINDOWS)
-        void *hSrcFile = nullptr;
-        void *hSrcMap = nullptr;
+        void* hSrcFile = nullptr;
+        void* hSrcMap = nullptr;
 #elif defined(LINUX)
         int hSrcFile = 0;
 #endif
         CInifile* header = nullptr;
-        
+
         archive() = default;
         void open();
         void close();
     };
-    
+
     struct archive_header
     {
         u32 size_real;
@@ -145,7 +146,7 @@ private:
 
     Lock* m_auth_lock;
     u64 m_auth_code;
-
+    bool bSDK;
     const file* RegisterExternal(pcstr name);
     const file* Register(pcstr name, u32 vfs, u32 crc, u32 ptr, u32 size_real, u32 size_compressed, u32 modif);
     void ProcessArchive(pcstr path);
@@ -189,7 +190,6 @@ private:
     void copy_file_to_build(T*& R, pcstr source_name);
 
     bool check_for_file(pcstr path, pcstr _fname, string_path& fname, const file*& desc);
-
     template <typename T>
     T* r_open_impl(pcstr path, pcstr _fname);
 
@@ -202,6 +202,8 @@ public:
     ~CLocatorAPI();
     void _initialize(u32 flags, pcstr target_folder = nullptr, pcstr fs_name = nullptr);
     void _destroy();
+
+    inline bool IsSDK(void) { return bSDK; }
 
     CStreamReader* rs_open(pcstr initial, pcstr N);
     IReader* r_open(pcstr initial, pcstr N);

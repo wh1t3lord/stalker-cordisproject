@@ -1,7 +1,11 @@
 #include "stdafx.h"
 #include "dxRainRender.h"
 
+#ifndef XRRENDER_SDK_EXPORTS
 #include "xrEngine/Rain.h"
+#else
+#include "xrEngine_SDK/Rain.h"
+#endif
 
 //	Warning: duplicated in rain.cpp
 static const int max_desired_items = 2500;

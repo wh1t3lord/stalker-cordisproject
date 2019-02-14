@@ -1,9 +1,16 @@
 #include "stdafx.h"
 #include "dx103DFluidObstacles.h"
+#ifndef XRRENDER_SDK_EXPORTS 
 #include "xrEngine/xr_object.h"
 #include "xrEngine/IPhysicsShell.h"
 #include "xrEngine/IObjectPhysicsCollision.h"
 #include "xrEngine/IPhysicsGeometry.h"
+#else
+#include "xrEngine_SDK/xr_object.h"
+#include "xrEngine_SDK/IPhysicsShell.h"
+#include "xrEngine_SDK/IObjectPhysicsCollision.h"
+#include "xrEngine_SDK/IPhysicsGeometry.h"
+#endif
 #include "dx103DFluidBlenders.h"
 #include "dx103DFluidData.h"
 #include "dx103DFluidGrid.h"

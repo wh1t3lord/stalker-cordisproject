@@ -1,9 +1,19 @@
 #include "stdafx.h"
 #include "dxEnvironmentRender.h"
+#ifndef XRRENDER_SDK_EXPORTS
 #include "xrEngine/Environment.h"
+#else
+#include "xrEngine_SDK/Environment.h"
+#endif
+
+
 #include "Layers/xrRender/ResourceManager.h"
 
+#ifndef XRRENDER_SDK_EXPORTS
 #include "xrEngine/xr_efflensflare.h"
+#else
+#include "xrEngine_SDK/xr_efflensflare.h"
+#endif
 
 //////////////////////////////////////////////////////////////////////////
 // half box def

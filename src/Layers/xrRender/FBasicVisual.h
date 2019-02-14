@@ -1,10 +1,17 @@
 #ifndef FBasicVisualH
 #define FBasicVisualH
 #pragma once
-
+#ifndef XRRENDER_SDK_EXPORTS
 #include "xrEngine/vis_common.h"
+#else
+#include "xrEngine_SDK/vis_common.h"
+#endif
 
+#ifndef XRRENDER_SDK_EXPORTS
 #include "Include/xrRender/RenderVisual.h"
+#else
+#include "Include/xrRenderSDK/RenderVisual.h"
+#endif
 
 #define VLOAD_NOVERTICES (1 << 0)
 

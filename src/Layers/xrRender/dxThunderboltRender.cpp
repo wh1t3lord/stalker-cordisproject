@@ -1,7 +1,11 @@
 #include "stdafx.h"
 #include "dxThunderboltRender.h"
-
+#ifndef XRRENDER_SDK_EXPORTS
 #include "xrEngine/thunderbolt.h"
+#else
+#include "xrEngine_SDK/thunderbolt.h"
+#endif
+
 #include "dxThunderboltDescRender.h"
 #include "dxLensFlareRender.h"
 

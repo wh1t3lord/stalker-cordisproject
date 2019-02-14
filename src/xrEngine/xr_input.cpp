@@ -8,7 +8,9 @@
 #include "PerformanceAlert.hpp"
 #include "xrCore/Text/StringConversion.hpp"
 
-CInput* pInput = NULL;
+ 
+
+CInput* pInput = nullptr;
 IInputReceiver dummyController;
 
 ENGINE_API float psMouseSens = 1.f;
@@ -47,7 +49,6 @@ CInput::CInput(const bool exclusive)
     xrDebug::SetDialogHandler(on_error_dialog);
 
     SDL_StopTextInput(); // sanity
-
     Device.seqAppActivate.Add(this);
     Device.seqAppDeactivate.Add(this, REG_PRIORITY_HIGH);
     Device.seqFrame.Add(this, REG_PRIORITY_HIGH);
@@ -71,6 +72,7 @@ void CInput::DumpStatistics(IGameFont& font, IPerformanceAlert* alert)
 void CInput::MouseUpdate()
 {
     SDL_PumpEvents();
+    
 
     bool mouse_prev[COUNT_MOUSE_BUTTONS];
 
@@ -81,6 +83,7 @@ void CInput::MouseUpdate()
     offs[0] = offs[1] = offs[2] = 0;
 
     SDL_Event event;
+
     while (SDL_PeepEvents(&event, 1, SDL_GETEVENT, SDL_MOUSEMOTION, SDL_MOUSEWHEEL))
     {
         switch (event.type)
@@ -135,8 +138,11 @@ void CInput::KeyUpdate()
     SDL_PumpEvents();
 
     SDL_Event event;
+
+
     while (SDL_PeepEvents(&event, 1, SDL_GETEVENT, SDL_KEYDOWN, SDL_KEYUP))
     {
+      
         switch (event.type)
         {
         case SDL_KEYDOWN:

@@ -1,9 +1,15 @@
 #include "stdafx.h"
 #pragma hdrstop
-
+#ifndef XRRENDER_SDK_EXPORTS
 #include "xrEngine/IGame_Persistent.h"
 #include "xrEngine/IGame_Level.h"
 #include "xrEngine/Environment.h"
+#else
+#include "xrEngine_SDK/IGame_Persistent.h"
+#include "xrEngine_SDK/IGame_Level.h"
+#include "xrEngine_SDK/Environment.h"
+#endif
+
 #include "xrCore/FMesh.hpp"
 #include "FTreeVisual.h"
 

@@ -4,8 +4,11 @@
 
 #include "FHierrarhyVisual.h"
 #include "xrCore/Animation/Bone.hpp"
+#ifndef XRRENDER_SDK_EXPORTS
 #include "Include/xrRender/Kinematics.h"
-
+#else
+#include "Include/xrRenderSDK/Kinematics.h"
+#endif
 // consts
 extern Lock UCalc_Mutex;
 

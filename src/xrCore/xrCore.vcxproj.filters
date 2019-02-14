@@ -121,6 +121,18 @@
     <Filter Include="Events">
       <UniqueIdentifier>{f17d865f-a3fd-41ac-b217-d7d34ed591f5}</UniqueIdentifier>
     </Filter>
+    <Filter Include="SDK UI">
+      <UniqueIdentifier>{b15f6cdb-4c4e-4f1d-ba5f-93518949b216}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SDK UI\ImGui">
+      <UniqueIdentifier>{9d734dfe-ae24-418d-9ffd-f84b846ff81b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SDK UI\ImGui\Private">
+      <UniqueIdentifier>{b729187d-3474-4dd0-b95a-7ff5e49457a2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SDK UI\ImGui\Public">
+      <UniqueIdentifier>{9da24584-3b91-46e4-93ae-136a70159129}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="FTimer.cpp">
@@ -329,6 +341,21 @@
     </ClCompile>
     <ClCompile Include="Memory\xrMemory_align.cpp">
       <Filter>Memory</Filter>
+    </ClCompile>
+    <ClCompile Include="Imgui\imgui.cpp">
+      <Filter>SDK UI\ImGui\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Imgui\imgui_draw.cpp">
+      <Filter>SDK UI\ImGui\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Imgui\imgui_widgets.cpp">
+      <Filter>SDK UI\ImGui\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Imgui\imgui_impl_dx11.cpp">
+      <Filter>SDK UI\ImGui\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Imgui\imgui_impl_sdl.cpp">
+      <Filter>SDK UI\ImGui\Private</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -721,6 +748,30 @@
     </ClInclude>
     <ClInclude Include="Containers\FixedMap.h">
       <Filter>Containers</Filter>
+    </ClInclude>
+    <ClInclude Include="Imgui\imconfig.h">
+      <Filter>SDK UI\ImGui\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Imgui\imgui.h">
+      <Filter>SDK UI\ImGui\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Imgui\imgui_internal.h">
+      <Filter>SDK UI\ImGui\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Imgui\imstb_rectpack.h">
+      <Filter>SDK UI\ImGui\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Imgui\imstb_textedit.h">
+      <Filter>SDK UI\ImGui\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Imgui\imstb_truetype.h">
+      <Filter>SDK UI\ImGui\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Imgui\imgui_impl_dx11.h">
+      <Filter>SDK UI\ImGui\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Imgui\imgui_impl_sdl.h">
+      <Filter>SDK UI\ImGui\Public</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

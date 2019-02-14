@@ -229,8 +229,14 @@ Flags32 ps_actor_shadow_flags = { 0 };
 float ps_r2_gloss_factor = 4.0f;
 //- Mad Max
 #ifndef _EDITOR
+#ifndef XRRENDER_SDK_EXPORTS
 #include "xrEngine/XR_IOConsole.h"
 #include "xrEngine/xr_ioc_cmd.h"
+#else
+#include "xrEngine_SDK/XR_IOConsole.h"
+#include "xrEngine_SDK/xr_ioc_cmd.h"
+#endif
+
 
 #if defined(USE_DX10) || defined(USE_DX11)
 #include "Layers/xrRenderDX10/StateManager/dx10SamplerStateCache.h"

@@ -2,7 +2,11 @@
 #define dxConsoleRender_included
 #pragma once
 
+#ifndef XRRENDER_SDK_EXPORTS
 #include "Include/xrRender/ConsoleRender.h"
+#else
+#include "Include/xrRenderSDK/ConsoleRender.h"
+#endif
 
 class dxConsoleRender : public IConsoleRender
 {

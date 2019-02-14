@@ -2,13 +2,21 @@
 #pragma hdrstop
 
 #include "Layers/xrRender/ResourceManager.h"
-
+#ifndef XRRENDER_SDK_EXPORTS
 #ifndef _EDITOR
 #include "xrEngine/Render.h"
 #endif
 
 #include "xrEngine/tntQAVI.h"
 #include "xrEngine/xrTheora_Surface.h"
+#else
+#ifndef _EDITOR
+#include "xrEngine_SDK/Render.h"
+#endif
+
+#include "xrEngine_SDK/tntQAVI.h"
+#include "xrEngine_SDK/xrTheora_Surface.h"
+#endif
 #include "StateManager/dx10ShaderResourceStateCache.h"
 
 #define PRIORITY_HIGH 12

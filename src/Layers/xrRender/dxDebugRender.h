@@ -4,7 +4,12 @@
 
 #ifdef DEBUG
 
+#ifndef XRRENDER_SDK_EXPORTS
 #include "Include/xrRender/DebugRender.h"
+#else
+#include "Include/xrRenderSDK/DebugRender.h"
+#endif
+
 
 class dxDebugRender : public IDebugRender
 {

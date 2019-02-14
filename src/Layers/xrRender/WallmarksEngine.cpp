@@ -4,9 +4,16 @@
 
 #include "stdafx.h"
 #include "WallmarksEngine.h"
+#ifndef XRRENDER_SDK_EXPORTS
 #include "xrEngine/xr_object.h"
 #include "xrEngine/x_ray.h"
 #include "xrEngine/GameFont.h"
+#else
+#include "xrEngine_SDK/xr_object.h"
+#include "xrEngine_SDK/x_ray.h"
+#include "xrEngine_SDK/GameFont.h"
+#endif
+
 #include "SkeletonCustom.h"
 
 u32 g_r = 1;

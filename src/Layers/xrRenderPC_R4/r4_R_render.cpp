@@ -5,7 +5,9 @@
 #include "xrEngine/xr_object.h"
 
 #include "Layers/xrRender/QueryHelper.h"
-
+#include "../../xrCore/Imgui/imgui.h"
+#include "../../xrCore/Imgui/imgui_impl_sdl.h"
+#include "../../xrCore/Imgui/imgui_impl_dx11.h"
 IC bool pred_sp_sort(ISpatial* _1, ISpatial* _2)
 {
     float d1 = _1->GetSpatialData().sphere.P.distance_to_sqr(Device.vCameraPosition);
@@ -70,7 +72,7 @@ void CRender::render_main(Fmatrix& m_ViewProjection, bool _fportals)
         PortalTraverser.traverse(pLastSector, ViewBase, Device.vCameraPosition, m_ViewProjection,
             CPortalTraverser::VQ_HOM + CPortalTraverser::VQ_SSA + CPortalTraverser::VQ_FADE
             //. disabled scissoring (HW.Caps.bScissor?CPortalTraverser::VQ_SCISSOR:0)	// generate scissoring info
-            );
+        );
 
         // Determine visibility for static geometry hierrarhy
         for (u32 s_it = 0; s_it < PortalTraverser.r_sectors.size(); s_it++)
@@ -172,7 +174,9 @@ void CRender::render_menu()
     {
         FLOAT ColorRGBA[4] = {127.0f / 255.0f, 127.0f / 255.0f, 0.0f, 127.0f / 255.0f};
         Target->u_setrt(Target->rt_Generic_1, 0, 0, HW.pBaseZB); // Now RT is a distortion mask
+
         HW.pContext->ClearRenderTargetView(Target->rt_Generic_1->pRT, ColorRGBA);
+
         g_pGamePersistent->OnRenderPPUI_PP(); // PP-UI
     }
 

@@ -39,20 +39,19 @@ private:
 #ifdef DEBUG
     struct stats_item
     {
+        std::uint32_t size;
         void* buff_ptr;
-        u32 size;
-        enum_stats_buffer_type type;
         _D3DPOOL location;
-    }; // stats_item
+        enum_stats_buffer_type type;
+    };
 
     xr_vector<stats_item> m_buffers_list;
 #endif
 }; // class stats_manager
 
-u32 get_format_pixel_size(D3DFORMAT format);
+std::uint32_t get_format_pixel_size(D3DFORMAT format);
 
-#if defined(USE_DX10) || defined(USE_DX11)
-u32 get_format_pixel_size(DXGI_FORMAT format);
-#endif
+std::uint32_t get_format_pixel_size(DXGI_FORMAT format);
+
 
 #endif // #ifndef STATS_MANAGER_H_INCLUDED

@@ -34,6 +34,9 @@
 #include "xr_input.h"
 #include "splash.h"
 
+#include "../xrCore/Imgui/Imgui.h"
+#include "../xrCore/Imgui/imgui_impl_sdl.h"
+
 ENGINE_API CRenderDevice Device;
 ENGINE_API CLoadScreenRenderer load_screen_renderer;
 
@@ -335,83 +338,105 @@ void CRenderDevice::message_loop_weather_editor()
 
 void CRenderDevice::message_loop()
 {
-    if (editor())
+    if (FS.IsSDK())
     {
-        message_loop_weather_editor();
-        return;
-    }
-
-    SDL_Event event;
-
-    SDL_PumpEvents();
-    SDL_PeepEvents(&event, 1, SDL_PEEKEVENT, SDL_FIRSTEVENT, SDL_SYSWMEVENT);
-
-    while (SDL_QUIT != event.type)
-    {
-        if (SDL_PeepEvents(&event, 1, SDL_GETEVENT, SDL_FIRSTEVENT, SDL_SYSWMEVENT))
+        SDL_Event event;
+        bool done = false;
+         Device.b_is_Active = TRUE;
+        while (!done)
         {
-            switch (event.type)
+            while (SDL_PollEvent(&event))
             {
-            case SDL_WINDOWEVENT:
-            {
-                switch (event.window.event)
+                if (event.type == SDL_WINDOWEVENT_CLOSE)
                 {
-                case SDL_WINDOWEVENT_MOVED:
-                    UpdateWindowRects();
-                    break;
-
-                case SDL_WINDOWEVENT_RESIZED:
-                case SDL_WINDOWEVENT_SIZE_CHANGED:
-                {
-                    if (!psDeviceFlags.is(rsFullscreen))
-                    {
-                        if (psCurrentVidMode[0] == event.window.data1 && psCurrentVidMode[1] == event.window.data2)
-                            break; // we don't need to reset device if resolution wasn't really changed
-
-                        string32 buff;
-                        xr_sprintf(buff, sizeof(buff), "vid_mode %dx%d", event.window.data1, event.window.data2);
-                        Console->Execute(buff);
-                        Reset();
-                    }
-                    else
-                        UpdateWindowRects();
-
-                    break;
+                    done = true;
                 }
 
-                case SDL_WINDOWEVENT_SHOWN:
-                case SDL_WINDOWEVENT_FOCUS_GAINED:
-                case SDL_WINDOWEVENT_RESTORED:
-                case SDL_WINDOWEVENT_MAXIMIZED:
+                if (event.type == SDL_WINDOWEVENT_MAXIMIZED)
+                {
                     OnWM_Activate(1, event.window.data2);
-                    break;
-
-                case SDL_WINDOWEVENT_HIDDEN:
-                case SDL_WINDOWEVENT_FOCUS_LOST:
-                case SDL_WINDOWEVENT_MINIMIZED:
-                    OnWM_Activate(0, event.window.data2);
-                    break;
-
-                case SDL_WINDOWEVENT_ENTER:
-                    SDL_ShowCursor(SDL_FALSE);
-                    break;
-
-                case SDL_WINDOWEVENT_LEAVE:
-                    SDL_ShowCursor(SDL_TRUE);
-                    break;
-
-                case SDL_WINDOWEVENT_CLOSE:
-                    event.type = SDL_QUIT;
                 }
+
+           //     OnWM_Activate(1, event.window.data2);
+                on_idle();
+                ImGui_ImplSDL2_ProcessEvent(&event);
+                
             }
-            }
+
+            
         }
 
-        on_idle();
-        SDL_PumpEvents();
     }
-}
+    else
+    {
+        if (editor())
+        {
+            message_loop_weather_editor();
+            return;
+        }
 
+        SDL_Event event;
+
+        SDL_PumpEvents();
+        SDL_PeepEvents(&event, 1, SDL_PEEKEVENT, SDL_FIRSTEVENT, SDL_SYSWMEVENT);
+
+        while (SDL_QUIT != event.type)
+        {
+            if (SDL_PeepEvents(&event, 1, SDL_GETEVENT, SDL_FIRSTEVENT, SDL_SYSWMEVENT))
+            {
+                switch (event.type)
+                {
+                case SDL_WINDOWEVENT:
+                {
+                    switch (event.window.event)
+                    {
+                    case SDL_WINDOWEVENT_MOVED: UpdateWindowRects(); break;
+
+                    case SDL_WINDOWEVENT_RESIZED:
+                    case SDL_WINDOWEVENT_SIZE_CHANGED:
+                    {
+                        if (!psDeviceFlags.is(rsFullscreen))
+                        {
+                            if (psCurrentVidMode[0] == event.window.data1 && psCurrentVidMode[1] == event.window.data2)
+                                break; // we don't need to reset device if resolution wasn't really changed
+
+                            string32 buff;
+                            xr_sprintf(buff, sizeof(buff), "vid_mode %dx%d", event.window.data1, event.window.data2);
+                            Console->Execute(buff);
+                            Reset();
+                        }
+                        else
+                            UpdateWindowRects();
+
+                        break;
+                    }
+
+                    case SDL_WINDOWEVENT_SHOWN:
+                    case SDL_WINDOWEVENT_FOCUS_GAINED:
+                    case SDL_WINDOWEVENT_RESTORED:
+                    case SDL_WINDOWEVENT_MAXIMIZED: OnWM_Activate(1, event.window.data2); break;
+
+                    case SDL_WINDOWEVENT_HIDDEN:
+                    case SDL_WINDOWEVENT_FOCUS_LOST:
+                    case SDL_WINDOWEVENT_MINIMIZED: OnWM_Activate(0, event.window.data2); break;
+
+                    case SDL_WINDOWEVENT_ENTER: SDL_ShowCursor(SDL_FALSE); break;
+
+                    case SDL_WINDOWEVENT_LEAVE: SDL_ShowCursor(SDL_TRUE); break;
+
+                    case SDL_WINDOWEVENT_CLOSE: event.type = SDL_QUIT;
+                    }
+                }
+                }
+            }
+
+            on_idle();
+            SDL_PumpEvents();
+        }
+    }
+
+}
+bool done = false;
 void CRenderDevice::Run()
 {
     g_bLoaded = FALSE;
@@ -442,8 +467,15 @@ void CRenderDevice::Run()
     SDL_FlushEvents(SDL_WINDOWEVENT, SDL_SYSWMEVENT);
     SDL_ShowWindow(m_sdlWnd);
     SDL_RaiseWindow(m_sdlWnd);
-    pInput->GrabInput(true);
+
+    // Lord: Определяем использовать нам инпут ПЫС или нет
+    if (FS.IsSDK())
+        pInput->GrabInput(false);
+    else
+        pInput->GrabInput(true);
+
     message_loop();
+
     seqAppEnd.Process();
     // Stop Balance-Thread
     mt_bMustExit = TRUE;
@@ -611,16 +643,10 @@ CRenderDevice* get_device() { return &Device; }
 u32 script_time_global() { return Device.dwTimeGlobal; }
 u32 script_time_global_async() { return Device.TimerAsync_MMT(); }
 
-SCRIPT_EXPORT(Device, (),
-{
+SCRIPT_EXPORT(Device, (), {
     using namespace luabind;
-    module(luaState)
-    [
-        def("time_global", &script_time_global),
-        def("time_global_async", &script_time_global_async),
-        def("device", &get_device),
-        def("is_enough_address_space_available", &is_enough_address_space_available)
-    ];
+    module(luaState)[def("time_global", &script_time_global), def("time_global_async", &script_time_global_async),
+        def("device", &get_device), def("is_enough_address_space_available", &is_enough_address_space_available)];
 });
 
 CLoadScreenRenderer::CLoadScreenRenderer() : b_registered(false), b_need_user_input(false) {}

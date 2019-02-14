@@ -2,9 +2,14 @@
 #ifndef dxStatGraphRender_included
 #define dxStatGraphRender_included
 
+
+#ifndef XRRENDER_SDK_EXPORTS
 #include "Include/xrRender/StatGraphRender.h"
 #include "xrEngine/StatGraph.h"
-
+#else
+#include "Include/xrRenderSDK/StatGraphRender.h"
+#include "xrEngine_SDK/StatGraph.h"
+#endif
 class dxStatGraphRender : public IStatGraphRender
 {
 public:

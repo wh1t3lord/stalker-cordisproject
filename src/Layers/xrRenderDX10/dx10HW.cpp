@@ -1,8 +1,14 @@
 #include "stdafx.h"
 
 #include "Layers/xrRender/HW.h"
+#ifndef XRRENDER_SDK_EXPORTS
 #include "xrEngine/xr_input.h"
 #include "xrEngine/XR_IOConsole.h"
+#else
+#include "xrEngine_SDK/xr_input.h"
+#include "xrEngine_SDK/XR_IOConsole.h"
+#endif
+
 #include "xrCore/xr_token.h"
 
 #include "StateManager/dx10SamplerStateCache.h"
@@ -60,6 +66,8 @@ void CHW::DestroyD3D()
     _RELEASE(m_pFactory);
 }
 
+
+
 void CHW::CreateDevice(SDL_Window* m_sdlWnd)
 {
     CreateD3D();
@@ -85,7 +93,6 @@ void CHW::CreateDevice(SDL_Window* m_sdlWnd)
 
     HRESULT R;
 
-#ifdef USE_DX11
     D3D_FEATURE_LEVEL featureLevels[] =
     {
         D3D_FEATURE_LEVEL_11_0,
@@ -95,18 +102,7 @@ void CHW::CreateDevice(SDL_Window* m_sdlWnd)
         D3D_DRIVER_TYPE_UNKNOWN, // Если мы выбираем конкретный адаптер, то мы обязаны использовать D3D_DRIVER_TYPE_UNKNOWN.
         nullptr, createDeviceFlags, featureLevels, sizeof(featureLevels) / sizeof(featureLevels[0]),
         D3D11_SDK_VERSION, &pDevice, &FeatureLevel, &pContext);
-#else
-    R = D3D10CreateDevice(m_pAdapter, m_DriverType, NULL, createDeviceFlags, D3D10_SDK_VERSION, &pDevice);
 
-    pContext = pDevice;
-    FeatureLevel = D3D_FEATURE_LEVEL_10_0;
-    if (!FAILED(R))
-    {
-        D3DX10GetFeatureLevel1(pDevice, &pDevice1);
-        FeatureLevel = D3D_FEATURE_LEVEL_10_1;
-    }
-    pContext1 = pDevice1;
-#endif
 
     if (FAILED(R))
     {
@@ -185,6 +181,7 @@ void CHW::CreateDevice(SDL_Window* m_sdlWnd)
 
     const auto memory = Desc.DedicatedVideoMemory;
     Msg("*   Texture memory: %d M", memory / (1024 * 1024));
+   
     //Msg("*        DDI-level: %2.1f", float(D3DXGetDriverLevel(pDevice)) / 100.f);
 }
 
@@ -208,14 +205,8 @@ void CHW::DestroyDevice()
         m_pSwapChain->SetFullscreenState(FALSE, NULL);
     _SHOW_REF("refCount:m_pSwapChain", m_pSwapChain);
     _RELEASE(m_pSwapChain);
-
-#ifdef USE_DX11
     _RELEASE(pContext);
-#endif
 
-#ifndef USE_DX11
-    _RELEASE(HW.pDevice1);
-#endif
     _SHOW_REF("refCount:HW.pDevice:", HW.pDevice);
     _RELEASE(HW.pDevice);
 

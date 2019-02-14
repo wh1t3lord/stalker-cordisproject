@@ -2,8 +2,11 @@
 
 #include "stdafx.h"
 #pragma hdrstop
-
+#ifndef XRRENDER_SDK_EXPORTS
 #include "xrEngine/GameFont.h"
+#else
+#include "xrEngine_SDK/GameFont.h"
+#endif
 #include "D3DUtils.h"
 #include "du_box.h"
 #include "du_sphere.h"
@@ -33,28 +36,28 @@ static Fvector boxvert[boxvertcount];
 
 #ifdef _EDITOR
 #define DU_DRAW_RS dxRenderDeviceRender::Instance().SetRS
-#define DU_DRAW_SH_C(a, c)\
-    {\
-        dxRenderDeviceRender::Instance().SetShader(a);\
-        dxRenderDeviceRender::Instance().SetRS(D3DRS_TEXTUREFACTOR, c);\
+#define DU_DRAW_SH_C(a, c)                                              \
+    {                                                                   \
+        dxRenderDeviceRender::Instance().SetShader(a);                  \
+        dxRenderDeviceRender::Instance().SetRS(D3DRS_TEXTUREFACTOR, c); \
     }
-#define DU_DRAW_SH(a)\
-    {\
-        dxRenderDeviceRender::Instance().SetShader(a);\
-        dxRenderDeviceRender::Instance().SetRS(D3DRS_TEXTUREFACTOR, 0xFFFFFFFF);\
+#define DU_DRAW_SH(a)                                                            \
+    {                                                                            \
+        dxRenderDeviceRender::Instance().SetShader(a);                           \
+        dxRenderDeviceRender::Instance().SetRS(D3DRS_TEXTUREFACTOR, 0xFFFFFFFF); \
     }
 #else
 #define DU_DRAW_RS RCache.dbg_SetRS
-#define DU_DRAW_SH_C(sh, c)\
-    {\
-        RCache.set_Shader(sh);\
-        RCache.set_c("tfactor", float(color_get_R(c)) / 255.f, float(color_get_G(c)) / 255.f,\
-            float(color_get_B(c)) / 255.f, float(color_get_A(c)) / 255.f);\
+#define DU_DRAW_SH_C(sh, c)                                                                   \
+    {                                                                                         \
+        RCache.set_Shader(sh);                                                                \
+        RCache.set_c("tfactor", float(color_get_R(c)) / 255.f, float(color_get_G(c)) / 255.f, \
+            float(color_get_B(c)) / 255.f, float(color_get_A(c)) / 255.f);                    \
     }
-#define DU_DRAW_SH(sh)\
-    {\
-        RCache.set_Shader(sh);\
-        RCache.set_c("tfactor", 1, 1, 1, 1);\
+#define DU_DRAW_SH(sh)                       \
+    {                                        \
+        RCache.set_Shader(sh);               \
+        RCache.set_c("tfactor", 1, 1, 1, 1); \
     }
 #endif
 
@@ -113,7 +116,7 @@ u32 m_ColorSafeRect = 0xffB040B0;
 void SPrimitiveBuffer::CreateFromData(
     D3DPRIMITIVETYPE _pt, u32 _p_cnt, u32 FVF, LPVOID vertices, u32 _v_cnt, u16* indices, u32 _i_cnt)
 {
-#if defined(USE_DX10) || defined(USE_DX11)  || defined(USE_OGL)
+#if defined(USE_DX10) || defined(USE_DX11) || defined(USE_OGL)
 //  TODO: DX10: Implement SPrimitiveBuffer::CreateFromData for DX10
 //  VERIFY(!"SPrimitiveBuffer::CreateFromData not implemented for dx10");
 #else //    USE_DX10

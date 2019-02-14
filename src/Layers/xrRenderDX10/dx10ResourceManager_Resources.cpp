@@ -6,7 +6,11 @@
 #include <d3dx9.h>
 #ifndef _EDITOR
 #pragma comment(lib, "d3dx9.lib")
+#ifndef XRRENDER_SDK_EXPORTS
 #include "xrEngine/Render.h"
+#else
+#include "xrEngine_SDK/Render.h"
+#endif
 #endif
 #pragma warning(pop)
 

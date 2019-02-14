@@ -2,8 +2,11 @@
 #define SH_MATRIX_H
 #pragma once
 
+#ifndef XRRENDER_SDK_EXPORTS
 #include "xrEngine/WaveForm.h"
-
+#else
+#include "xrEngine_SDK/WaveForm.h"
+#endif
 class IReader;
 class IWriter;
 

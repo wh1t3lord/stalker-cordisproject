@@ -3,8 +3,11 @@
 //////////////////////////////////////////////////////////////////////
 #pragma once
 #include "xrCore/intrusive_ptr.h"
+#ifndef XRRENDER_SDK_EXPORTS
 #include "xrEngine/Render.h"
-
+#else
+#include "xrEngine_SDK/Render.h"
+#endif
 namespace WallmarksEngine
 {
 struct wm_slot;

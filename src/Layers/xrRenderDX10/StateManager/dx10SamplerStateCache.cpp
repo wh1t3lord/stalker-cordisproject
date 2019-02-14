@@ -119,7 +119,7 @@ void dx10SamplerStateCache::GSApplySamplers(HArray& samplers)
     HW.pContext->GSSetSamplers(0, D3D_COMMONSHADER_SAMPLER_SLOT_COUNT, pSS);
 }
 
-#ifdef USE_DX11
+
 void dx10SamplerStateCache::HSApplySamplers(HArray& samplers)
 {
     ID3DSamplerState* pSS[D3D_COMMONSHADER_SAMPLER_SLOT_COUNT] = { nullptr };
@@ -140,7 +140,7 @@ void dx10SamplerStateCache::CSApplySamplers(HArray& samplers)
     PrepareSamplerStates(samplers, pSS);
     HW.pContext->CSSetSamplers(0, D3D_COMMONSHADER_SAMPLER_SLOT_COUNT, pSS);
 }
-#endif
+
 
 void dx10SamplerStateCache::SetMaxAnisotropy(u32 uiMaxAniso)
 {

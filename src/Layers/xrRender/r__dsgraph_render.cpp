@@ -1,8 +1,12 @@
 #include "stdafx.h"
 
+#ifndef XRRENDER_SDK_EXPORTS
 #include "xrEngine/IRenderable.h"
 #include "xrEngine/CustomHUD.h"
-
+#else
+#include "xrEngine_SDK/IRenderable.h"
+#include "xrEngine_SDK/CustomHUD.h"
+#endif
 #include "FBasicVisual.h"
 
 using namespace R_dsgraph;
@@ -110,13 +114,16 @@ void D3DXRenderBase::r_dsgraph_render_graph(u32 _priority)
             mapNormalVS& vs = mapNormalPasses[_priority][iPass];
 
             nrmVS.reserve(vs.size());
-            for (auto &i : vs) nrmVS.push_back(&i);
+
+            for (auto &i : vs) 
+                nrmVS.push_back(&i);
+
             std::sort(nrmVS.begin(), nrmVS.end(), cmp_second_ssa<mapNormalVS::value_type *>);
+
             for (auto & vs_it : nrmVS)
             {
                 RCache.set_VS(vs_it->first);
 
-#ifndef USE_DX9
                 //	GS setup
                 mapNormalGS& gs = vs_it->second;
                 gs.ssa = 0;
@@ -129,9 +136,6 @@ void D3DXRenderBase::r_dsgraph_render_graph(u32 _priority)
                     RCache.set_GS(gs_it->first);
 
                     mapNormalPS& ps = gs_it->second;
-#else
-                    mapNormalPS& ps = vs_it->second;
-#endif
                     ps.ssa = 0;
 
                     nrmPS.reserve(ps.size());
@@ -140,14 +144,10 @@ void D3DXRenderBase::r_dsgraph_render_graph(u32 _priority)
                     for (auto &ps_it : nrmPS)
                     {
                         RCache.set_PS(ps_it->first);
-#ifdef USE_DX11
                         RCache.set_HS(ps_it->second.hs);
                         RCache.set_DS(ps_it->second.ds);
 
                         mapNormalCS& cs = ps_it->second.mapCS;
-#else
-                        mapNormalCS& cs = ps_it->second;
-#endif
                         cs.ssa = 0;
 
                         nrmCS.reserve(cs.size());
@@ -183,9 +183,9 @@ void D3DXRenderBase::r_dsgraph_render_graph(u32 _priority)
                                     for (auto &it_it : items)
                                     {
                                         float LOD = calcLOD(it_it.ssa, it_it.pVisual->vis.sphere.R);
-#ifdef USE_DX11
+ 
                                         RCache.LOD.set_LOD(LOD);
-#endif
+ 
                                         //--#SM+#-- Обновляем шейдерные данные модели [update shader values for this model]
                                         RCache.hemi.c_update(it_it.pVisual);
 
@@ -205,11 +205,11 @@ void D3DXRenderBase::r_dsgraph_render_graph(u32 _priority)
                     }
                     nrmPS.clear();
                     ps.clear();
-#ifndef USE_DX9
+ 
                 }
                 nrmGS.clear();
                 gs.clear();
-#endif
+ 
             }
             nrmVS.clear();
             vs.clear();
@@ -231,7 +231,7 @@ void D3DXRenderBase::r_dsgraph_render_graph(u32 _priority)
         {
             RCache.set_VS(vs_id->first);
 
-#ifndef USE_DX9
+ 
             mapMatrixGS& gs = vs_id->second;
             gs.ssa = 0;
 
@@ -243,9 +243,7 @@ void D3DXRenderBase::r_dsgraph_render_graph(u32 _priority)
                 RCache.set_GS(gs_it->first);
 
                 mapMatrixPS& ps = gs_it->second;
-#else
-                mapMatrixPS& ps = vs_id->second;
-#endif
+ 
                 ps.ssa = 0;
 
                 matPS.reserve(ps.size());
@@ -254,14 +252,12 @@ void D3DXRenderBase::r_dsgraph_render_graph(u32 _priority)
                 for (auto &ps_it : matPS)
                 {
                     RCache.set_PS(ps_it->first);
-#ifdef USE_DX11
+ 
                     RCache.set_HS(ps_it->second.hs);
                     RCache.set_DS(ps_it->second.ds);
 
                     mapMatrixCS& cs = ps_it->second.mapCS;
-#else
-                    mapMatrixCS& cs = ps_it->second;
-#endif
+ 
                     cs.ssa = 0;
 
                     matCS.reserve(cs.size());
@@ -301,9 +297,9 @@ void D3DXRenderBase::r_dsgraph_render_graph(u32 _priority)
                                     RImplementation.apply_lmaterial();
 
                                     float LOD = calcLOD(ni_it.ssa, ni_it.pVisual->vis.sphere.R);
-#ifdef USE_DX11
+ 
                                     RCache.LOD.set_LOD(LOD);
-#endif
+ 
                                     //--#SM+#-- Обновляем шейдерные данные модели [update shader values for this model]
                                     RCache.hemi.c_update(ni_it.pVisual);
 

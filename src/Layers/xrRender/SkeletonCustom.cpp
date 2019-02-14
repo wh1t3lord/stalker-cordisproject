@@ -6,7 +6,12 @@
 #include "SkeletonX.h"
 #include "xrCore/FMesh.hpp"
 #ifndef _EDITOR
+#ifndef XRRENDER_SDK_EXPORTS
 #include "xrEngine/Render.h"
+#else
+#include "xrEngine_SDK/Render.h"
+#endif
+
 #endif
 int psSkeletonUpdate = 32;
 Lock UCalc_Mutex

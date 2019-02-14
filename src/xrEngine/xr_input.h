@@ -2,6 +2,7 @@
 
 #include "SDL.h"
 
+#ifndef ENGINE_SDK
 // Mouse2 is a middle button in SDL,
 // but in X-Ray this is a right button
 enum xrMouse
@@ -154,3 +155,4 @@ public:
 };
 
 extern ENGINE_API CInput* pInput;
+#endif

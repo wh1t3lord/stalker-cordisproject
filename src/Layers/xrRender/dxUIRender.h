@@ -2,7 +2,12 @@
 #define dxUIRender_included
 #pragma once
 
+#ifndef XRRENDER_SDK_EXPORTS
 #include "Include/xrRender/UIRender.h"
+#else
+#include "Include/xrRenderSDK/UIRender.h"
+#endif
+
 
 class dxUIRender : public IUIRender
 {

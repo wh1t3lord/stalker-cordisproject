@@ -2,7 +2,12 @@
 #define r_backend_hemiH
 #pragma once
 
+#ifndef XRRENDER_SDK_EXPORTS
 #include "Include/xrRender/RenderVisual.h" //--#SM+#--
+#else
+#include "Include/xrRenderSDK/RenderVisual.h"
+#endif
+
 
 class ECORE_API R_hemi
 {

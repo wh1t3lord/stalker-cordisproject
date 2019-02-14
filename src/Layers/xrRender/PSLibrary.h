@@ -4,7 +4,11 @@
 #ifndef PSLibraryH
 #define PSLibraryH
 
+#ifndef XRRENDER_SDK_EXPORTS
 #include "Include/xrRender/particles_systems_library_interface.hpp"
+#else
+#include "Include/xrRenderSDK/particles_systems_library_interface.hpp"
+#endif
 
 namespace PS
 {

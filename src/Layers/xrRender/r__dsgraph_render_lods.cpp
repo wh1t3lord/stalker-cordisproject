@@ -5,8 +5,15 @@
 #include "IGame_Persistent.h"
 #include "Environment.h"
 #else
+
+#ifndef XRRENDER_SDK_EXPORTS
 #include "xrEngine/IGame_Persistent.h"
 #include "xrEngine/Environment.h"
+#else
+#include "xrEngine_SDK/IGame_Persistent.h"
+#include "xrEngine_SDK/Environment.h"
+#endif
+
 #endif
 
 extern float r_ssaLOD_A;

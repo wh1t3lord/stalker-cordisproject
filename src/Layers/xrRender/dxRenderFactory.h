@@ -2,7 +2,12 @@
 #define dxRenderFactory_included
 #pragma once
 
+#ifndef XRRENDER_SDK_EXPORTS
 #include "Include/xrRender/RenderFactory.h"
+#else
+#include "Include/xrRenderSDK/RenderFactory.h"
+#endif
+
 
 #define RENDER_FACTORY_DECLARE(Class)\
     virtual I##Class* Create##Class();\

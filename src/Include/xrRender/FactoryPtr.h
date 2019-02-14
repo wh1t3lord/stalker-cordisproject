@@ -1,5 +1,6 @@
 #pragma once
 
+#ifndef XRRENDER_SDK_EXPORTS
 #include "RenderFactory.h"
 
 #define FACTORY_PTR_INSTANCIATE(Class)\
@@ -79,3 +80,4 @@ void FactoryPtr<IStatsRender>::DestroyObject(void)
     m_pObject = NULL;
 }
 */
+#endif

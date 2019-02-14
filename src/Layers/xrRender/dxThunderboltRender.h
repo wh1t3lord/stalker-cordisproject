@@ -2,7 +2,12 @@
 #define dxThunderboltRender_included
 #pragma once
 
+#ifndef XRRENDER_SDK_EXPORTS
 #include "Include/xrRender/ThunderboltRender.h"
+#else
+#include "Include/xrRenderSDK/ThunderboltRender.h"
+#endif
+
 
 class dxThunderboltRender : public IThunderboltRender
 {

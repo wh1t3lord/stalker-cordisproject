@@ -1,8 +1,14 @@
 #include "stdafx.h"
 #include "Common/_d3d_extensions.h"
 #include "Common/LevelStructure.hpp"
+#ifndef XRRENDER_SDK_EXPORTS
 #include "xrEngine/IGame_Persistent.h"
 #include "xrEngine/Environment.h"
+#else
+#include "xrEngine_SDK/IGame_Persistent.h"
+#include "xrEngine_SDK/Environment.h"
+#endif
+
 #include "utils/xrLC_Light/R_light.h"
 #include "Light_DB.h"
 

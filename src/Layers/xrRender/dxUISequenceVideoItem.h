@@ -2,7 +2,12 @@
 #define dxUISequenceVideoItem_included
 #pragma once
 
+#ifndef XRRENDER_SDK_EXPORTS
 #include "Include/xrRender/UISequenceVideoItem.h"
+#else
+#include "Include/xrRenderSDK/UISequenceVideoItem.h"
+#endif
+
 
 class dxUISequenceVideoItem : public IUISequenceVideoItem
 {

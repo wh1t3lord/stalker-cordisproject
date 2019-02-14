@@ -3,8 +3,13 @@
 //////////////////////////////////////////////////////////////////////
 #pragma once
 
+#ifndef XRRENDER_SDK_EXPORTS
 #include "xrEngine/IGame_Persistent.h"
 #include "xrEngine/Render.h"
+#else
+#include "xrEngine_SDK/IGame_Persistent.h"
+#include "xrEngine_SDK/Render.h"
+#endif
 
 class occTri;
 

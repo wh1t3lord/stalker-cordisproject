@@ -1,7 +1,13 @@
 #include "stdafx.h"
 #include "xr_effgamma.h"
 #include "xrCore/Media/Image.hpp"
+
+#ifndef XRRENDER_SDK_EXPORTS
 #include "xrEngine/xrImage_Resampler.h"
+#else
+#include "xrEngine_SDK/xrImage_Resampler.h"
+#endif
+
 #if defined(USE_DX10) || defined(USE_DX11)
 #include "d3dx10tex.h"
 #endif // USE_DX10
