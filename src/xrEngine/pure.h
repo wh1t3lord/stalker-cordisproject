@@ -2,11 +2,12 @@
 #include "xrCommon/xr_vector.h"
 
 // messages
-#define REG_PRIORITY_LOW 0x11111111
-#define REG_PRIORITY_NORMAL 0x22222222
-#define REG_PRIORITY_HIGH 0x33333333
-#define REG_PRIORITY_CAPTURE 0x7fffffff
-#define REG_PRIORITY_INVALID 0x80000000 // -2147483648, lowest for int
+constexpr int REG_PRIORITY_LOW = 0x11111111;
+constexpr int REG_PRIORITY_NORMAL = 0x22222222;
+constexpr int REG_PRIORITY_HIGH = 0x33333333;
+constexpr int REG_PRIORITY_CAPTURE = 0x7fffffff;
+constexpr unsigned int REG_PRIORITY_INVALID = 0x80000000; // -2147483648, lowest for int
+
 
 struct IPure
 {
@@ -14,24 +15,85 @@ struct IPure
     virtual void OnPure() = 0;
 };
 
-#define DECLARE_MESSAGE(name)\
-struct pure##name : IPure\
-{\
-    virtual void On##name() = 0;\
-private:\
-    void OnPure() override { On##name(); }\
+struct pureFrame : IPure
+{
+    virtual void OnFrame() = 0;
+
+private:
+    void OnPure(void) override { OnFrame(); }
 };
 
-DECLARE_MESSAGE(Frame); // XXX: rename to FrameStart
-DECLARE_MESSAGE(FrameEnd);
-DECLARE_MESSAGE(Render);
-DECLARE_MESSAGE(AppActivate);
-DECLARE_MESSAGE(AppDeactivate);
-DECLARE_MESSAGE(AppStart);
-DECLARE_MESSAGE(AppEnd);
-DECLARE_MESSAGE(DeviceReset);
-DECLARE_MESSAGE(UIReset);
-DECLARE_MESSAGE(ScreenResolutionChanged);
+struct pureFrameEnd : IPure
+{
+    virtual void OnFrameEnd(void) = 0;
+
+private:
+    void OnPure(void) override { OnFrameEnd(); }
+};
+
+struct pureRender : IPure
+{
+    virtual void OnRender(void) = 0;
+
+private:
+    void OnPure(void) override { OnRender(); }
+};
+
+struct pureAppActivate : IPure
+{
+    virtual void OnAppActivate(void) = 0;
+
+private:
+    void OnPure(void) override { OnAppActivate(); }
+};
+
+struct pureAppStart : IPure
+{
+    virtual void OnAppStart(void) = 0;
+
+private:
+    void OnPure(void) override { OnAppStart(); }
+};
+
+struct pureAppDeactivate : IPure
+{
+    virtual void OnAppDeactivate(void) = 0;
+
+private:
+    void OnPure(void) override { OnAppDeactivate(); }
+};
+
+struct pureAppEnd : IPure
+{
+    virtual void OnAppEnd(void) = 0;
+
+private:
+    void OnPure(void) override { OnAppEnd(); }
+};
+
+struct pureDeviceReset : IPure
+{
+    virtual void OnDeviceReset(void) = 0;
+
+private:
+    void OnPure(void) override { OnDeviceReset(); }
+};
+
+struct pureUIReset : IPure
+{
+    virtual void OnUIReset(void) = 0;
+
+private:
+    void OnPure(void) override { OnUIReset(); }
+};
+
+struct pureScreenResolutionChanged : IPure
+{
+    virtual void OnScreenResolutionChanged(void) = 0;
+
+private:
+    void OnPure(void) override { OnScreenResolutionChanged(); }
+};
 
 struct MessageObject
 {
@@ -39,7 +101,7 @@ struct MessageObject
     int Prio;
 };
 
-template<class T>
+template <class T>
 class MessageRegistry
 {
     bool changed, inProcess;
@@ -50,10 +112,7 @@ public:
 
     void Clear() { messages.clear(); }
 
-    constexpr void Add(T* object, const int priority = REG_PRIORITY_NORMAL)
-    {
-        Add({ object, priority });
-    }
+    constexpr void Add(T* object, const int priority = REG_PRIORITY_NORMAL) { Add({object, priority}); }
 
     void Add(MessageObject&& newMessage)
     {
@@ -98,7 +157,7 @@ public:
             messages[0].Object->OnPure();
         else
         {
-            for (int i = 0; i < messages.size(); i++)
+            for (int i = 0; i < messages.size(); ++i)
                 if (messages[i].Prio != REG_PRIORITY_INVALID)
                     messages[i].Object->OnPure();
         }
@@ -111,9 +170,10 @@ public:
 
     void Resort()
     {
-        if (!messages.empty()) {
-            std::sort(std::begin(messages), std::end(messages),
-                [](const auto& a, const auto& b) { return a.Prio > b.Prio; });
+        if (!messages.empty())
+        {
+            std::sort(
+                std::begin(messages), std::end(messages), [](const auto& a, const auto& b) { return a.Prio > b.Prio; });
         }
 
         while (!messages.empty() && messages.back().Prio == REG_PRIORITY_INVALID)

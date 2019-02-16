@@ -9,7 +9,7 @@
 
 #define C_DEFAULT color_xrgb(0xff, 0xff, 0xff)
 
-CUICursor::CUICursor() : m_static(NULL), m_b_use_win_cursor(false)
+CUICursor::CUICursor() : m_static(nullptr), m_b_use_win_cursor(false)
 {
     bVisible = false;
     vPrevPos.set(0.0f, 0.0f);
@@ -32,7 +32,7 @@ void CUICursor::OnUIReset()
 
 void CUICursor::Show()
 {
-    bVisible = true;
+   bVisible = true;
 }
 
 void CUICursor::Hide()
@@ -68,8 +68,12 @@ void CUICursor::InitInternal()
 u32 last_render_frame = 0;
 void CUICursor::OnRender()
 {
-    g_btnHint->OnRender();
-    g_statHint->OnRender();
+    // Lord: вырезание меню
+    if (g_btnHint)
+        g_btnHint->OnRender();
+
+    if (g_statHint)
+        g_statHint->OnRender();
 
     if (!IsVisible())
         return;

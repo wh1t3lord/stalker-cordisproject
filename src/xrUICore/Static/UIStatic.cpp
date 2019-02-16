@@ -78,8 +78,14 @@ void CUIStatic::DrawText()
         GetAbsolutePos(p);
         m_pTextControl->Draw(p.x, p.y);
     }
-    if (g_statHint->Owner() == this)
-        g_statHint->Draw_();
+
+    // Lord: пока что хз почему здесь вылетает (вырезание меню)
+    if (g_statHint)
+    {
+        if (g_statHint->Owner() == this)
+            g_statHint->Draw_();
+    }
+
 }
 
 #include "Include/xrRender/UIShader.h"

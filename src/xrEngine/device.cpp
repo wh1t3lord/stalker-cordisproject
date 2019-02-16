@@ -36,7 +36,7 @@
 
 #include "../xrCore/Imgui/Imgui.h"
 #include "../xrCore/Imgui/imgui_impl_sdl.h"
-
+#include "../xrCore/SDK_QuitMessage.h"
 ENGINE_API CRenderDevice Device;
 ENGINE_API CLoadScreenRenderer load_screen_renderer;
 
@@ -341,15 +341,16 @@ void CRenderDevice::message_loop()
     if (FS.IsSDK())
     {
         SDL_Event event;
-        bool done = false;
-         Device.b_is_Active = TRUE;
-        while (!done)
+ 
+        Device.b_is_Active = TRUE;
+        // Lord: Message system for SDK
+        while (!SDK_QuitMessage::GetState())
         {
             while (SDL_PollEvent(&event))
             {
                 if (event.type == SDL_WINDOWEVENT_CLOSE)
                 {
-                    done = true;
+                    SDK_QuitMessage::TellAppToClose();
                 }
 
                 if (event.type == SDL_WINDOWEVENT_MAXIMIZED)
@@ -357,7 +358,6 @@ void CRenderDevice::message_loop()
                     OnWM_Activate(1, event.window.data2);
                 }
 
-           //     OnWM_Activate(1, event.window.data2);
                 on_idle();
                 ImGui_ImplSDL2_ProcessEvent(&event);
                 

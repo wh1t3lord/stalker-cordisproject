@@ -178,6 +178,24 @@
     <Filter Include="Debug">
       <UniqueIdentifier>{8d6caf5d-f49d-40f7-b1ae-f1fd5c4f0d58}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Cordis">
+      <UniqueIdentifier>{106da059-c7eb-4194-ac06-175da798ae46}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\SDK">
+      <UniqueIdentifier>{f2f9753a-7eaa-4291-9589-34f92dfd402a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\SDK\Scene management">
+      <UniqueIdentifier>{a77de1f2-6eaf-4cc8-9258-bc5fbebac0ef}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\SDK\UI management">
+      <UniqueIdentifier>{12df46ed-8294-4930-83a0-97c8b1413c68}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\SDK\UI management\Private">
+      <UniqueIdentifier>{29675fc3-99bd-4e9f-b1d3-8631a76ba9ab}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\SDK\UI management\Public">
+      <UniqueIdentifier>{625ab781-3dea-46d5-810a-3be1cbc9c1ed}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\xrRenderDX10\DXCommonTypes.h">
@@ -719,6 +737,9 @@
     </ClInclude>
     <ClInclude Include="..\xrRender\KinematicsAddBoneTransform.hpp">
       <Filter>Refactored\Execution &amp; 3D\Visuals\Skeleton</Filter>
+    </ClInclude>
+    <ClInclude Include="SDKUI.h">
+      <Filter>Cordis\SDK\UI management\Public</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -1312,6 +1333,9 @@
     </ClCompile>
     <ClCompile Include="r4_shaders.cpp">
       <Filter>Core</Filter>
+    </ClCompile>
+    <ClCompile Include="SDKUI.cpp">
+      <Filter>Cordis\SDK\UI management\Private</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

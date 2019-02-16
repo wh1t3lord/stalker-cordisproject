@@ -5,9 +5,8 @@
 #include "xrEngine/xr_object.h"
 
 #include "Layers/xrRender/QueryHelper.h"
-#include "../../xrCore/Imgui/imgui.h"
-#include "../../xrCore/Imgui/imgui_impl_sdl.h"
-#include "../../xrCore/Imgui/imgui_impl_dx11.h"
+#include "SDKUI.h"
+ 
 IC bool pred_sp_sort(ISpatial* _1, ISpatial* _2)
 {
     float d1 = _1->GetSpatialData().sphere.P.distance_to_sqr(Device.vCameraPosition);
@@ -222,8 +221,11 @@ void CRender::Render()
     if (_menu_pp)
     {
         render_menu();
+
         return;
     };
+
+
 
     IMainMenu* pMainMenu = g_pGamePersistent ? g_pGamePersistent->m_pMainMenu : 0;
     bool bMenu = pMainMenu ? pMainMenu->CanSkipSceneRendering() : false;
@@ -231,6 +233,16 @@ void CRender::Render()
     if (!(g_pGameLevel && g_hud) || bMenu)
     {
         Target->u_setrt(Device.dwWidth, Device.dwHeight, HW.pBaseRT, NULL, NULL, HW.pBaseZB);
+        if (FS.IsSDK())
+        {
+            SDKUI::Begin();
+            SDKUI::DrawUITestFrame();
+
+            ID3D11RenderTargetView* Sas = RCache.get_RT();
+            HW.pContext->OMSetRenderTargets(1, &Sas, NULL);
+            ClearTarget();
+            SDKUI::End();
+        }
         return;
     }
 
@@ -547,6 +559,8 @@ void CRender::Render()
     }
 
     VERIFY(0 == mapDistort.size());
+
+
 }
 
 void CRender::render_forward()

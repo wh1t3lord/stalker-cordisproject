@@ -1265,6 +1265,7 @@
     <ClInclude Include="script_watch_action.h" />
     <ClInclude Include="script_watch_action_inline.h" />
     <ClInclude Include="script_zone.h" />
+    <ClInclude Include="SDKRender_Connection.h" />
     <ClInclude Include="searchlight.h" />
     <ClInclude Include="secure_messaging.h" />
     <ClInclude Include="seniority_hierarchy_holder.h" />
@@ -3072,6 +3073,7 @@
       <PrecompiledHeaderFile>pch_script.h</PrecompiledHeaderFile>
       <PrecompiledHeaderOutputFile>$(IntDir)$(ProjectName)_script.pch</PrecompiledHeaderOutputFile>
     </ClCompile>
+    <ClCompile Include="SDKRender_Connection.cpp" />
     <ClCompile Include="searchlight.cpp" />
     <ClCompile Include="secure_messaging.cpp" />
     <ClCompile Include="seniority_hierarchy_holder.cpp" />

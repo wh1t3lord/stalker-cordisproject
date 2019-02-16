@@ -20,7 +20,7 @@
 #endif
 #include "xrServerEntities/smart_cast.h"
 #include "xr_input.h"
-
+#include "../xrCore/SDK_QuitMessage.h"
 //---------------------------------------------------------------------
 
 ENGINE_API CApplication* pApp = nullptr;
@@ -170,6 +170,12 @@ void CApplication::OnEvent(EVENT E, u64 P1, u64 P2)
         event.type = SDL_QUIT;
         SDL_PeepEvents(&event, 1, SDL_ADDEVENT, SDL_FIRSTEVENT, SDL_LASTEVENT);
 
+        // Lord: сообщаем СДК для закрытия 
+        if (FS.IsSDK())
+        {
+            SDK_QuitMessage::TellAppToClose();
+        }
+
         for (u32 i = 0; i < Levels.size(); i++)
         {
             xr_free(Levels[i].folder);
@@ -183,6 +189,7 @@ void CApplication::OnEvent(EVENT E, u64 P1, u64 P2)
         Level_Current = u32(-1);
         R_ASSERT(nullptr == g_pGameLevel);
         R_ASSERT(nullptr != g_pGamePersistent);
+        // Lord: вырезание меню
         Console->Execute("main_menu off");
         Console->Hide();
         //! this line is commented by Dima
@@ -214,6 +221,7 @@ void CApplication::OnEvent(EVENT E, u64 P1, u64 P2)
 
             if ((FALSE == Engine.Event.Peek("KERNEL:quit")) && (FALSE == Engine.Event.Peek("KERNEL:start")))
             {
+                    // Lord: вырезание меню
                 Console->Execute("main_menu off");
                 Console->Execute("main_menu on");
             }
@@ -233,7 +241,7 @@ void CApplication::OnEvent(EVENT E, u64 P1, u64 P2)
 
         R_ASSERT(nullptr == g_pGameLevel);
         R_ASSERT(nullptr != g_pGamePersistent);
-
+        // Lord: вырезание меню
         Console->Execute("main_menu off");
         Console->Hide();
         Device.Reset(false);

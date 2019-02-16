@@ -421,6 +421,7 @@ void CUISequencer::IR_OnKeyboardPress(int dik)
             CurrentGameUI()->HidePdaMenu();
             return;
         }
+        // Lord: вырезание меню
         Console->Execute("main_menu");
         return;
     }

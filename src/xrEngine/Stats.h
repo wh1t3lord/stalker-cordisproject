@@ -9,7 +9,14 @@
 
 class ENGINE_API CGameFont;
 
-DECLARE_MESSAGE(Stats);
+struct pureStats : IPure
+{
+    virtual void OnStats(void) = 0;
+
+private:
+    void OnPure(void) override { OnStats(); }
+};
+//DECLARE_MESSAGE(Stats);
 
 class ENGINE_API CStats : public pureRender
 {

@@ -716,9 +716,6 @@
     <ClCompile Include="Text_Console_WndProc.cpp">
       <Filter>Render\Execution &amp; 3D\TextConsole</Filter>
     </ClCompile>
-    <ClCompile Include="pure.cpp">
-      <Filter>Engine</Filter>
-    </ClCompile>
     <ClCompile Include="XR_IOConsole.cpp">
       <Filter>Engine\Console</Filter>
     </ClCompile>

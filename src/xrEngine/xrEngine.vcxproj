@@ -367,7 +367,6 @@
     <ClCompile Include="phdebug.cpp" />
     <ClCompile Include="profiler.cpp" />
     <ClCompile Include="PS_instance.cpp" />
-    <ClCompile Include="pure.cpp" />
     <ClCompile Include="pure_relcase.cpp" />
     <ClCompile Include="Rain.cpp" />
     <ClCompile Include="Render.cpp" />

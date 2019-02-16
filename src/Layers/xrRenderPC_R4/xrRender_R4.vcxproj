@@ -343,6 +343,7 @@
     <ClInclude Include="r4_rendertarget_wallmarks.h" />
     <ClInclude Include="r4_R_sun_support.h" />
     <ClInclude Include="R_Backend_LOD.h" />
+    <ClInclude Include="SDKUI.h" />
     <ClInclude Include="SMAP_Allocator.h" />
     <ClInclude Include="stdafx.h" />
   </ItemGroup>
@@ -542,6 +543,7 @@
     <ClCompile Include="r4_R_sun_support.cpp" />
     <ClCompile Include="r4_shaders.cpp" />
     <ClCompile Include="R_Backend_LOD.cpp" />
+    <ClCompile Include="SDKUI.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>

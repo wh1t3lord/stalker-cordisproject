@@ -173,6 +173,7 @@ void CLevel::IR_OnKeyboardPress(int key)
         }
         else
         {
+            // Lord: вырезание меню
             Console->Execute("main_menu");
         }
         return;

@@ -16,7 +16,7 @@
 #include "../../xrCore/Imgui/imgui.h"
 #include "../../xrCore/Imgui/imgui_impl_sdl.h"
 #include "../../xrCore/Imgui/imgui_impl_dx11.h"
-
+#include "SDKUI.h"
 using namespace R_dsgraph;
 // TO LORD: Подумай над избавлением данных препроцессоров, которые связаны с USE_DX11
 ////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -1122,7 +1122,7 @@ void D3DXRenderBase::DestroyHW()
         bool bUseVSync = psDeviceFlags.is(rsFullscreen) &&
             psDeviceFlags.test(
                 rsVSync); // xxx: weird tearing glitches when VSync turned on for windowed mode in DX10\11
-        HW.m_pSwapChain->Present(bUseVSync ? 1 : 0, 0);
+        HW.m_pSwapChain->Present(1, 0);
 #else
         CHK_DX(HW.pDevice->EndScene());
         HW.pDevice->Present(nullptr, nullptr, nullptr, nullptr);
@@ -1133,7 +1133,7 @@ void D3DXRenderBase::DestroyHW()
     void D3DXRenderBase::ClearTarget()
     {
 #ifndef USE_DX9
-        FLOAT ColorRGBA[4] = {0.0f, 0.0f, 0.0f, 0.0f};
+        FLOAT ColorRGBA[4] = {0.45f, 0.55f, 0.60f, 1.00f};
         HW.pContext->ClearRenderTargetView(RCache.get_RT(), ColorRGBA);
 #else
         CHK_DX(HW.pDevice->Clear(0, nullptr, D3DCLEAR_TARGET, color_xrgb(0, 0, 0), 1, 0));

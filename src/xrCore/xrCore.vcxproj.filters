@@ -133,6 +133,18 @@
     <Filter Include="SDK UI\ImGui\Public">
       <UniqueIdentifier>{9da24584-3b91-46e4-93ae-136a70159129}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Cordis">
+      <UniqueIdentifier>{39e69ac0-e04a-4b53-afb4-ae0c48ac52cf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\SDK">
+      <UniqueIdentifier>{178b048e-ad9b-49b3-a98e-3d40e20de865}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\SDK\Public">
+      <UniqueIdentifier>{7a2d9f4a-1067-4ad5-b2ac-e7ddfa70b860}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\SDK\Private">
+      <UniqueIdentifier>{6013f32d-5c8c-425e-b1ba-b157287f938d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="FTimer.cpp">
@@ -356,6 +368,9 @@
     </ClCompile>
     <ClCompile Include="Imgui\imgui_impl_sdl.cpp">
       <Filter>SDK UI\ImGui\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="SDK_QuitMessage.cpp">
+      <Filter>Cordis\SDK\Private</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -772,6 +787,9 @@
     </ClInclude>
     <ClInclude Include="Imgui\imgui_impl_sdl.h">
       <Filter>SDK UI\ImGui\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="SDK_QuitMessage.h">
+      <Filter>Cordis\SDK\Public</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

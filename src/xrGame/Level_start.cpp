@@ -264,6 +264,7 @@ bool CLevel::net_start6()
         if (m_connect_server_err == xrServer::ErrConnect && !psNET_direct_connect && !GEnv.isDedicatedServer)
         {
             DEL_INSTANCE(g_pGameLevel);
+            // Lord: вырезание меню
             Console->Execute("main_menu on");
 
             MainMenu()->SwitchToMultiplayerMenu();
@@ -280,6 +281,7 @@ bool CLevel::net_start6()
             STRCONCAT(dialog_string, level_id_string, StringTable().translate("ui_st_map_not_found"));
 
             DEL_INSTANCE(g_pGameLevel);
+            // Lord: вырезание меню
             Console->Execute("main_menu on");
 
             if (!GEnv.isDedicatedServer)
@@ -300,6 +302,7 @@ bool CLevel::net_start6()
 
             g_pGameLevel->net_Stop();
             DEL_INSTANCE(g_pGameLevel);
+            // Lord: вырезание меню
             Console->Execute("main_menu on");
             if (!GEnv.isDedicatedServer)
             {
@@ -310,6 +313,7 @@ bool CLevel::net_start6()
         else
         {
             DEL_INSTANCE(g_pGameLevel);
+            // Lord: вырезание меню
             Console->Execute("main_menu on");
         }
 

@@ -593,6 +593,9 @@ void CConsole::ExecuteCommand(LPCSTR cmd_str, bool record_cmd)
 
 void CConsole::Show()
 {
+    if (FS.IsSDK())
+        return;
+
     if (bVisible)
     {
         return;

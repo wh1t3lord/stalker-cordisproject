@@ -1338,19 +1338,23 @@ public:
     CCC_MainMenu(LPCSTR N) : IConsole_Command(N) { bEmptyArgsHandled = true; };
     virtual void Execute(LPCSTR args)
     {
-        bool bWhatToDo = TRUE;
+        bool bWhatToDo = true;
         if (0 == xr_strlen(args))
         {
             bWhatToDo = !MainMenu()->IsActive();
         };
 
         if (EQ(args, "on") || EQ(args, "1"))
-            bWhatToDo = TRUE;
+            bWhatToDo = true;
 
         if (EQ(args, "off") || EQ(args, "0"))
-            bWhatToDo = FALSE;
+            bWhatToDo = false;
 
-        MainMenu()->Activate(bWhatToDo);
+ 
+
+        // Lord: вырезание меню
+        if (!FS.IsSDK())
+            MainMenu()->Activate(bWhatToDo);
     }
 };
 
