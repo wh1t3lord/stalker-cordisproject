@@ -37,6 +37,7 @@
 #include "../xrCore/Imgui/Imgui.h"
 #include "../xrCore/Imgui/imgui_impl_sdl.h"
 #include "../xrCore/SDK_QuitMessage.h"
+
 ENGINE_API CRenderDevice Device;
 ENGINE_API CLoadScreenRenderer load_screen_renderer;
 
@@ -341,7 +342,7 @@ void CRenderDevice::message_loop()
     if (FS.IsSDK())
     {
         SDL_Event event;
- 
+
         Device.b_is_Active = TRUE;
         // Lord: Message system for SDK
         while (!SDK_QuitMessage::GetState())
@@ -358,14 +359,10 @@ void CRenderDevice::message_loop()
                     OnWM_Activate(1, event.window.data2);
                 }
 
-                on_idle();
                 ImGui_ImplSDL2_ProcessEvent(&event);
-                
+                on_idle();
             }
-
-            
         }
-
     }
     else
     {
@@ -434,7 +431,6 @@ void CRenderDevice::message_loop()
             SDL_PumpEvents();
         }
     }
-
 }
 bool done = false;
 void CRenderDevice::Run()
@@ -461,8 +457,11 @@ void CRenderDevice::Run()
     seqAppStart.Process();
     GEnv.Render->ClearTarget();
     splash::hide();
+
     if (GEnv.isDedicatedServer || strstr(Core.Params, "-center_screen"))
         SDL_SetWindowPosition(m_sdlWnd, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED);
+
+    // Lord: установка параметров для окна
     SDL_HideWindow(m_sdlWnd);
     SDL_FlushEvents(SDL_WINDOWEVENT, SDL_SYSWMEVENT);
     SDL_ShowWindow(m_sdlWnd);

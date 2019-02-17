@@ -83,9 +83,17 @@ void CRenderDevice::UpdateWindowProps(const bool windowed)
             maximalResolution = true;
 
         // Set SDL_WINDOW_FULLSCREEN_DESKTOP if maximal resolution is selected
-        SDL_SetWindowFullscreen(m_sdlWnd, maximalResolution ? SDL_WINDOW_FULLSCREEN_DESKTOP : 0);
-        SDL_SetWindowSize(m_sdlWnd, psCurrentVidMode[0], psCurrentVidMode[1]);
-        SDL_SetWindowBordered(m_sdlWnd, drawBorders ? SDL_TRUE : SDL_FALSE);
+        if (FS.IsSDK())
+        {
+            SDL_SetWindowSize(m_sdlWnd, r.first, r.second);
+        }
+        else
+        {
+            SDL_SetWindowFullscreen(m_sdlWnd, maximalResolution ? SDL_WINDOW_FULLSCREEN_DESKTOP : 0);
+            SDL_SetWindowSize(m_sdlWnd, psCurrentVidMode[0], psCurrentVidMode[1]);
+            SDL_SetWindowBordered(m_sdlWnd, drawBorders ? SDL_TRUE : SDL_FALSE);
+        }
+
     }
     else
     {

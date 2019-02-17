@@ -741,6 +741,7 @@
     <ClInclude Include="SDKUI.h">
       <Filter>Cordis\SDK\UI management\Public</Filter>
     </ClInclude>
+    <ClInclude Include="SDKUI_Helpers.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -1337,6 +1338,7 @@
     <ClCompile Include="SDKUI.cpp">
       <Filter>Cordis\SDK\UI management\Private</Filter>
     </ClCompile>
+    <ClCompile Include="SDKUI_Helpers.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Natvis Include="..\..\TypeHelper.natvis" />

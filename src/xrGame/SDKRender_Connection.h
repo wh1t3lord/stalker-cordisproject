@@ -9,12 +9,12 @@
 class SDK_Connection : public pureRender, public pureFrame
 {
 private:
-    SDK_Connection(void) { Device.seqFrame.Add(this, REG_PRIORITY_LOW - 1000); }
+    SDK_Connection(void) { }
 
 public:
     SDK_Connection(SDK_Connection&) = delete;
     SDK_Connection& operator=(SDK_Connection const&) = delete;
-    ~SDK_Connection(void) { Device.seqFrame.Remove(this); }
+    ~SDK_Connection(void) {}
 
     static SDK_Connection* GetInstance(void)
     {
@@ -30,7 +30,7 @@ public:
     {
         if (!bActivated)
         {
-            Device.seqRender.Add(this, 1);
+            Device.seqRender.Add(this, REG_PRIORITY_HIGH);
             bActivated = true;
         }
     }

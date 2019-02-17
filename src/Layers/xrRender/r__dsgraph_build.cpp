@@ -842,7 +842,7 @@ void D3DXRenderBase::DestroyHW()
         Resources->reset_begin();
         Memory.mem_compact();
         HW.Reset();
-
+ 
 #if defined(USE_OGL)
         dwWidth = psCurrentVidMode[0];
         dwHeight = psCurrentVidMode[1];
@@ -954,7 +954,7 @@ void D3DXRenderBase::DestroyHW()
             IMGUI_CHECKVERSION();
             ImGui::CreateContext();
             ImGuiIO& io = ImGui::GetIO();
-
+            io.IniFilename = nullptr;
             if (ImGui_ImplSDL2_InitForDirectX11(Device.m_sdlWnd))
             {
                 Msg("[IMGUI] -> Initialized for SDL ... Successful!");
@@ -1057,7 +1057,7 @@ void D3DXRenderBase::DestroyHW()
 #ifdef USE_OGL
         //  TODO: OGL: Implement GetDeviceState
 #elif !defined(USE_DX9)
-        const auto result = HW.m_pSwapChain->Present(0, DXGI_PRESENT_TEST);
+        const auto result = HW.m_pSwapChain->Present(1, DXGI_PRESENT_TEST);
 
         switch (result)
         {
@@ -1123,6 +1123,7 @@ void D3DXRenderBase::DestroyHW()
             psDeviceFlags.test(
                 rsVSync); // xxx: weird tearing glitches when VSync turned on for windowed mode in DX10\11
         HW.m_pSwapChain->Present(1, 0);
+ 
 #else
         CHK_DX(HW.pDevice->EndScene());
         HW.pDevice->Present(nullptr, nullptr, nullptr, nullptr);

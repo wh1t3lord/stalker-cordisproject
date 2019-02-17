@@ -3,7 +3,7 @@
 // Used by xr_3da_sdk.rc
 //
 #define IDI_ICON1                       101
-
+#define IDB_BITMAP1 123
 // Next default values for new objects
 // 
 #ifdef APSTUDIO_INVOKED

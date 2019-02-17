@@ -123,7 +123,7 @@
   </ItemGroup>
   <ItemGroup>
     <Image Include="splash.ico" />
-    <Image Include="splash_xrcs_en.bmp" />
+    <Image Include="logo.bmp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

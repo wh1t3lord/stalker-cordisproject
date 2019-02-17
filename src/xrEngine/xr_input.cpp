@@ -57,6 +57,7 @@ CInput::CInput(const bool exclusive)
 CInput::~CInput()
 {
     GrabInput(false);
+ 
     Device.seqFrame.Remove(this);
     Device.seqAppDeactivate.Remove(this);
     Device.seqAppActivate.Remove(this);
@@ -230,7 +231,7 @@ void CInput::GrabInput(const bool grab)
 
     // Grab the mouse
     SDL_SetRelativeMouseMode(grab ? SDL_TRUE : SDL_FALSE);
-
+ 
     // We're done here.
     inputGrabbed = grab;
 }
@@ -308,8 +309,13 @@ void CInput::OnFrame(void)
 
     if (Device.dwPrecacheFrame == 0 && !Device.IsAnselActive)
     {
-        KeyUpdate();
-        MouseUpdate();
+        // Lord: Потом добавить обработку под тестировании уровня
+        if (!FS.IsSDK())
+        {
+            KeyUpdate();
+            MouseUpdate();
+        }
+
     }
     else
     {

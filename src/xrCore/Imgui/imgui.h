@@ -1579,7 +1579,7 @@ struct ImGuiTextFilter
 
 // Helper: Growable text buffer for logging/accumulating text
 // (this could be called 'ImGuiTextBuilder' / 'ImGuiStringBuilder')
-struct ImGuiTextBuffer
+struct IMGUI_API ImGuiTextBuffer
 {
     ImVector<char>      Buf;
     static char         EmptyString[1];
@@ -1593,9 +1593,9 @@ struct ImGuiTextBuffer
     void                clear()                 { Buf.clear(); }
     void                reserve(int capacity)   { Buf.reserve(capacity); }
     const char*         c_str() const           { return Buf.Data ? Buf.Data : EmptyString; }
-    IMGUI_API void      append(const char* str, const char* str_end = NULL);
-    IMGUI_API void      appendf(const char* fmt, ...) IM_FMTARGS(2);
-    IMGUI_API void      appendfv(const char* fmt, va_list args) IM_FMTLIST(2);
+    void      append(const char* str, const char* str_end = NULL);
+    void      appendf(const char* fmt, ...) IM_FMTARGS(2);
+    void      appendfv(const char* fmt, va_list args) IM_FMTLIST(2);
 };
 
 // Helper: Key->Value storage

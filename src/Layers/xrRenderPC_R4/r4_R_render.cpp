@@ -229,19 +229,21 @@ void CRender::Render()
 
     IMainMenu* pMainMenu = g_pGamePersistent ? g_pGamePersistent->m_pMainMenu : 0;
     bool bMenu = pMainMenu ? pMainMenu->CanSkipSceneRendering() : false;
-
+    
+    // Lord: основной рендеринг СДК
+    // @ Подумать над переключением при тестировании сцены!!!
     if (!(g_pGameLevel && g_hud) || bMenu)
     {
         Target->u_setrt(Device.dwWidth, Device.dwHeight, HW.pBaseRT, NULL, NULL, HW.pBaseZB);
         if (FS.IsSDK())
         {
-            SDKUI::Begin();
-            SDKUI::DrawUITestFrame();
+            SDKUI::UI().Begin();
+            SDKUI::UI().Draw();
 
             ID3D11RenderTargetView* Sas = RCache.get_RT();
             HW.pContext->OMSetRenderTargets(1, &Sas, NULL);
             ClearTarget();
-            SDKUI::End();
+            SDKUI::UI().End();
         }
         return;
     }

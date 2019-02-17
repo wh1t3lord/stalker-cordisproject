@@ -159,7 +159,7 @@ void CStats::Show()
         font.SetHeight(refHeight);
     }
 #ifdef DEBUG
-    if (!g_bDisableRedText && errors.size())
+    if (!g_bDisableRedText && errors.size() && !FS.IsSDK())
     {
         font.SetColor(color_rgba(255, 16, 16, 191));
         font.OutSet(400, 0);
