@@ -61,7 +61,7 @@ private:
 
 private:
     bool bShowMainMenuBar;
-
+    bool bCloseOnce = false;
     int DisplayX;
     int DisplayY;
 };

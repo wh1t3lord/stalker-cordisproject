@@ -15,6 +15,19 @@ void SDKUI::Begin(void)
 void SDKUI::KeyBoardMessages(void)
 {
     // @ Хендлим шорткаты
+    if (ImGui::IsKeyPressed(SDL_Scancode::SDL_SCANCODE_LALT) || ImGui::IsKeyPressed(SDL_Scancode::SDL_SCANCODE_RALT))
+    {
+        if (ImGui::IsKeyPressed(SDL_Scancode::SDL_SCANCODE_F4) && !bCloseOnce)
+        {
+            SDKUI_Log::Widget().SetColor(good);
+            SDKUI_Log::Widget().AddText("Application is closing...");
+            Console->Execute("quit");
+            bCloseOnce = true;
+            return;
+        }
+    }
+
+
     if (ImGui::IsKeyPressed(SDL_Scancode::SDL_SCANCODE_F12))
     {
         Console->Execute("screenshot 1");
@@ -50,9 +63,12 @@ void SDKUI::DrawMainMenuBar(void)
     {
         if (ImGui::BeginMenu("File"))
         {
-            if (ImGui::MenuItem("Quit"))
+            if (ImGui::MenuItem("Quit", "ALT + F4"))
             {
+                SDKUI_Log::Widget().SetColor(good);
+                SDKUI_Log::Widget().AddText("Application is closing...");
                 Console->Execute("quit");
+                bCloseOnce = true;
             }
             ImGui::EndMenu();
         }
@@ -88,7 +104,7 @@ void SDKUI::DrawMainMenuBar(void)
 
 void SDKUI::Draw(void)
 {
-    //   ImGui::ShowDemoWindow();
+    ImGui::ShowDemoWindow();
     KeyBoardMessages();
     DrawMainMenuBar();
     SDKUI_Log::Widget().Draw();

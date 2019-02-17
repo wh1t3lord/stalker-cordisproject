@@ -360,8 +360,8 @@ void CRenderDevice::message_loop()
                 }
 
                 ImGui_ImplSDL2_ProcessEvent(&event);
-                on_idle();
             }
+            on_idle();
         }
     }
     else

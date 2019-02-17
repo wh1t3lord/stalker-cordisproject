@@ -37,37 +37,22 @@ void SDKUI_Log::Draw(void)
 
                     ImGui::TextColored(col, text.c_str());
             }
-
-            /*
-            
-            ImGuiListClipper clip;
-            clip.Begin(LineOffSet.Size);
-
-            while (clip.Step())
-            {
-                for (int line_no = clip.DisplayStart; line_no < clip.DisplayEnd; ++line_no)
-                {
-                    const char* line_start = buf.begin() + LineOffSet[line_no];
-                    if (strstr(line_start, "ERROR"))
-                        ImGui::PushStyleColor(ImGuiCol_Text, ImVec4(255, 0, 0, 255));
-                    else if (strstr(line_start, "WARNING"))
-                        ImGui::PushStyleColor(ImGuiCol_Text, ImVec4(219, 234, 56, 255));
-                    else if (strstr(line_start, "INFO"))
-                        ImGui::PushStyleColor(ImGuiCol_Text, ImVec4(26, 62, 98, 255));
-                    else if (strstr(line_start, "OLD"))
-                        ImGui::PushStyleColor(ImGuiCol_Text, ImVec4(113, 113, 113, 255));
-                    else
-                        ImGui::PushStyleColor(ImGuiCol_Text, ImVec4(255, 255, 255, 255));
-
-                    const char* line_end = (line_no + 1 < LineOffSet.Size) ? (buf.begin() + LineOffSet[line_no + 1] - 1)
-            : buf.end();
-                    
-                    ImGui::PopStyleColor();
-                }
-            }
-            clip.End();
-            */
             ImGui::PopStyleVar();
+
+            if (ImGui::BeginPopupContextWindow())
+            {
+                if (ImGui::MenuItem("Clear"))
+                {
+                    buff.clear();
+                }
+
+                if (ImGui::MenuItem("Close"))
+                {
+                    Hide();
+                }
+
+                ImGui::EndPopup();
+            }
         }
         ImGui::End();
     }
