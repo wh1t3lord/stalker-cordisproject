@@ -23,7 +23,7 @@ private:
         Clear();
         currentcolor = default;
     }
- 
+
 public:
     static SDKUI_Log& Widget()
     {
@@ -74,7 +74,7 @@ public:
     {
         Init(x, y, size.x, size.y, flag);
     }
-    
+
     // @ Use it before call AddText method
     inline void SetColor(SDKErrorType type)
     {
@@ -85,7 +85,7 @@ public:
     inline void AddText(const char* fmt, ...)
     {
         va_list args;
-        va_start(args, fmt);   
+        va_start(args, fmt);
         buf.appendfv(fmt, args);
         xr_string sas = "[";
         sas += __TIME__;
@@ -94,34 +94,22 @@ public:
             currentcolor = default;
 
         if (currentcolor == SDKErrorType::error)
-        {
             sas += "|ERROR";
-        }
         else if (currentcolor == SDKErrorType::warning)
-        {
             sas += "|WARNING";
-        }
         else if (currentcolor == SDKErrorType::special)
-        {
             sas += "|INFO";
-        }
         else if (currentcolor == SDKErrorType::unimportant)
-        {
             sas += "|OLD";
-        }
         else if (currentcolor == SDKErrorType::good)
-        {
             sas += "|SUCCESSFUL";
-        }
-
+        
         sas += "] ";
         sas += buf.c_str();
 
-        if (sas[sas.size()-1] != '\n')
-        {
+        if (sas[sas.size() - 1] != '\n')
             sas += '\n';
-        }
-
+    
         va_end(args);
         buff.push_back(sas);
         buf.clear();
@@ -139,6 +127,14 @@ public:
 private:
     bool bShow = true;
     bool bSysCall = false;
+
+    bool bShowErrors = true;
+    bool bShowWarnings = true;
+    bool bShowDefault = true;
+    bool bShowSpecial = true;
+    bool bShowUn = true; // @ unimportant
+    bool bShowGood = true;
+
     int CurrentSizeX = 0;
     int CurrentSizeY = 0;
     int CurrentPosX = 0;
@@ -149,4 +145,33 @@ private:
     xr_vector<xr_string> buff;
 
     ImVector<int> LineOffSet;
+};
+
+class SDKUI_Overlay
+{
+private:
+    SDKUI_Overlay() = default;
+ 
+public:
+    static SDKUI_Overlay& Widget(void)
+    { 
+        static SDKUI_Overlay instance;
+        return instance;
+    }
+
+    ~SDKUI_Overlay() = default;
+    SDKUI_Overlay(SDKUI_Overlay&) = delete;
+    SDKUI_Overlay& operator=(const SDKUI_Overlay&) = delete;
+
+    
+    void Draw(void);
+    inline void Show(void) { bShow = true; }
+    inline void Hide(void) { bShow = false; }
+    inline bool GetVisible(void) { return bShow; }
+
+private: 
+    bool bShow = true;
+    bool bShowOnlySDKInfo = true;
+    bool bShowOnlySysInfo = true;
+    bool bShowOnlyProjectInfo = true;
 };

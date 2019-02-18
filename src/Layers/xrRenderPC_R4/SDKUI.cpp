@@ -15,7 +15,25 @@ void SDKUI::Begin(void)
 void SDKUI::KeyBoardMessages(void)
 {
     // @ Хендлим шорткаты
-    if (ImGui::IsKeyPressed(SDL_Scancode::SDL_SCANCODE_LALT) || ImGui::IsKeyPressed(SDL_Scancode::SDL_SCANCODE_RALT))
+
+    // @ Глобальные клики можно обрабатывать динамические пупапы если надо
+    if (ImGui::IsMouseClicked(0)) // @ Left button
+    {
+
+    }
+
+    if (ImGui::IsMouseClicked(1)) // @ Right button
+    {
+
+    }
+
+    if (ImGui::IsMouseClicked(2)) // @ Wheel
+    {
+
+    }
+
+    // @ Exit
+    if (ImGui::IsKeyDown(SDL_Scancode::SDL_SCANCODE_LALT) || ImGui::IsKeyDown(SDL_Scancode::SDL_SCANCODE_RALT))
     {
         if (ImGui::IsKeyPressed(SDL_Scancode::SDL_SCANCODE_F4) && !bCloseOnce)
         {
@@ -27,34 +45,50 @@ void SDKUI::KeyBoardMessages(void)
         }
     }
 
-
-    if (ImGui::IsKeyPressed(SDL_Scancode::SDL_SCANCODE_F12))
+    // @ Screenshot
+    if (ImGui::IsKeyDown(SDL_Scancode::SDL_SCANCODE_F12))
     {
         Console->Execute("screenshot 1");
         SDKUI_Log::Widget().AddText("Screenshot was made!", SDKErrorType::special);
         return;
     }
 
-    if (ImGui::IsKeyPressed(SDL_Scancode::SDL_SCANCODE_LCTRL) || ImGui::IsKeyPressed(SDL_Scancode::SDL_SCANCODE_RCTRL))
+    // @ Log
+    if (ImGui::IsKeyDown(SDL_Scancode::SDL_SCANCODE_LCTRL) || ImGui::IsKeyDown(SDL_Scancode::SDL_SCANCODE_RCTRL))
     {
         if (ImGui::IsKeyPressed(SDL_Scancode::SDL_SCANCODE_L))
         {
-            if (SDKUI_Log::Widget().GetVisible() == false)
+            if (!SDKUI_Log::Widget().GetVisible())
             {
+                SDKUI_Log::Widget().SetColor(unimportant);
+                SDKUI_Log::Widget().AddText("Log window is shown");
                 SDKUI_Log::Widget().Show();
-                SDKUI_Log::Widget().SetColor(unimportant);
-                SDKUI_Log::Widget().AddText("The logger show");
-                return;
-            }
-            else
-            {
-                SDKUI_Log::Widget().Hide();
-                SDKUI_Log::Widget().SetColor(unimportant);
-                SDKUI_Log::Widget().AddText("The logger hide");
-                return;
             }
         }
     }
+
+    // @ Overlay
+    if (ImGui::IsKeyDown(SDL_Scancode::SDL_SCANCODE_LCTRL) || ImGui::IsKeyDown(SDL_Scancode::SDL_SCANCODE_RCTRL))
+    {
+        if (ImGui::IsKeyDown(SDL_Scancode::SDL_SCANCODE_LALT) || ImGui::IsKeyDown(SDL_Scancode::SDL_SCANCODE_RALT))
+        {
+            if (ImGui::IsKeyPressed(SDL_Scancode::SDL_SCANCODE_S))
+            {
+                if (!SDKUI_Overlay::Widget().GetVisible())
+                {
+                    SDKUI_Overlay::Widget().Show();
+                    SDKUI_Log::Widget().SetColor(unimportant);
+                    SDKUI_Log::Widget().AddText("Overlay window is shown");
+                }
+            }
+        }
+    }
+}
+
+void SDKUI::DrawAllHelpers(void)
+{
+    SDKUI_Log::Widget().Draw();
+    SDKUI_Overlay::Widget().Draw();
 }
 
 void SDKUI::DrawMainMenuBar(void)
@@ -63,7 +97,7 @@ void SDKUI::DrawMainMenuBar(void)
     {
         if (ImGui::BeginMenu("File"))
         {
-            if (ImGui::MenuItem("Quit", "ALT + F4"))
+            if (ImGui::MenuItem("Quit", "ALT+F4"))
             {
                 SDKUI_Log::Widget().SetColor(good);
                 SDKUI_Log::Widget().AddText("Application is closing...");
@@ -77,7 +111,7 @@ void SDKUI::DrawMainMenuBar(void)
         {
             if (ImGui::BeginMenu("Others"))
             {
-                if (ImGui::MenuItem("Show Log", "CTRL + L"))
+                if (ImGui::MenuItem("Show Log", "CTRL+L"))
                 {
                     if (SDKUI_Log::Widget().GetVisible() == false)
                     {
@@ -85,6 +119,13 @@ void SDKUI::DrawMainMenuBar(void)
                         SDKUI_Log::Widget().SetColor(unimportant);
                         SDKUI_Log::Widget().AddText("The logger show");
                     }
+                }
+
+                if (ImGui::MenuItem("Show Overlay", "CTRL+ALT+S"))
+                {
+                    SDKUI_Overlay::Widget().Show();
+                    SDKUI_Log::Widget().SetColor(unimportant);
+                    SDKUI_Log::Widget().AddText("Overlay window is shown");
                 }
 
                 if (ImGui::MenuItem("ScreenShot", "F12"))
@@ -107,7 +148,8 @@ void SDKUI::Draw(void)
     ImGui::ShowDemoWindow();
     KeyBoardMessages();
     DrawMainMenuBar();
-    SDKUI_Log::Widget().Draw();
+    DrawAllHelpers();
+
     ImGui::Render();
 }
 

@@ -18,7 +18,7 @@ private:
         bShowMainMenuBar = true;
         // @ Init All stuff
         SDKUI_Log::Widget().Init(GetPosBottomLeft(), 500, 150, ImGuiWindowFlags_NoResize);
-        SDKUI_Log::Widget().SetColor(error);
+        SDKUI_Log::Widget().SetColor(good);
         SDKUI_Log::Widget().AddText("SDK was initialized! %s", "Test");
     } 
 
@@ -36,18 +36,19 @@ public:
     void End(void);
 
 
-    inline void Show(void)
+    inline void ShowMainMenuBar(void)
     {
         bShowMainMenuBar = true;
     }
 
-    inline void Hide(void)
+    inline void HideMainMenuBar(void)
     { 
         bShowMainMenuBar = false;
     }
 
 private:
     void DrawMainMenuBar(void);
+    void DrawAllHelpers(void);
     void KeyBoardMessages(void);
 
     inline int GetCenteredX(void) { return DisplayX / 2; }
