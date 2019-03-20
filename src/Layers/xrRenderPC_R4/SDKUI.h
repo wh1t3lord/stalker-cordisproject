@@ -5,6 +5,7 @@
 
 #pragma once
 
+#include "SDKUI_Render.h"
 #include "SDKUI_Helpers.h"
 #include "../../xrEngine/MonitorManager.hpp"
 

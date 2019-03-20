@@ -1133,12 +1133,8 @@ void D3DXRenderBase::DestroyHW()
     void D3DXRenderBase::ResourcesDestroyNecessaryTextures() { Resources->DestroyNecessaryTextures(); }
     void D3DXRenderBase::ClearTarget()
     {
-#ifndef USE_DX9
-        FLOAT ColorRGBA[4] = {0.45f, 0.55f, 0.60f, 1.00f};
+        float ColorRGBA[4] = {0.0f, 0.0f, 0.0f, 1.00f};
         HW.pContext->ClearRenderTargetView(RCache.get_RT(), ColorRGBA);
-#else
-        CHK_DX(HW.pDevice->Clear(0, nullptr, D3DCLEAR_TARGET, color_xrgb(0, 0, 0), 1, 0));
-#endif
     }
 
     void D3DXRenderBase::SetCacheXform(Fmatrix & mView, Fmatrix & mProject)

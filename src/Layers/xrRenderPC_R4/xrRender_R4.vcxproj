@@ -345,6 +345,7 @@
     <ClInclude Include="R_Backend_LOD.h" />
     <ClInclude Include="SDKUI.h" />
     <ClInclude Include="SDKUI_Helpers.h" />
+    <ClInclude Include="SDKUI_Render.h" />
     <ClInclude Include="SMAP_Allocator.h" />
     <ClInclude Include="stdafx.h" />
   </ItemGroup>
@@ -546,6 +547,7 @@
     <ClCompile Include="R_Backend_LOD.cpp" />
     <ClCompile Include="SDKUI.cpp" />
     <ClCompile Include="SDKUI_Helpers.cpp" />
+    <ClCompile Include="SDKUI_Render.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>

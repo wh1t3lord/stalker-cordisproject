@@ -196,6 +196,12 @@
     <Filter Include="Cordis\SDK\UI management\Public">
       <UniqueIdentifier>{625ab781-3dea-46d5-810a-3be1cbc9c1ed}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Cordis\SDK\Render">
+      <UniqueIdentifier>{5636342d-3e87-4061-8bd8-f088d54f4fcc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\SDK\Render\Kernel">
+      <UniqueIdentifier>{2c3ab64d-be8c-433a-a1a9-11c8fd86b313}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\xrRenderDX10\DXCommonTypes.h">
@@ -742,6 +748,7 @@
       <Filter>Cordis\SDK\UI management\Public</Filter>
     </ClInclude>
     <ClInclude Include="SDKUI_Helpers.h" />
+    <ClInclude Include="SDKUI_Render.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -1339,6 +1346,7 @@
       <Filter>Cordis\SDK\UI management\Private</Filter>
     </ClCompile>
     <ClCompile Include="SDKUI_Helpers.cpp" />
+    <ClCompile Include="SDKUI_Render.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Natvis Include="..\..\TypeHelper.natvis" />
