@@ -11,7 +11,7 @@ void SDKUI_Render::Initialize(void)
 
 void SDKUI_Render::MainRender(void)
 {
-    RImplementation.SetFullOM(); // Lord: переименовать данный метод 
+    RImplementation.SetFullOM();  
 
     SDKUI::UI().Begin();
     SDKUI::UI().Draw();
@@ -20,7 +20,7 @@ void SDKUI_Render::MainRender(void)
     HW.pContext->ClearDepthStencilView(RCache.get_ZB(), D3D_CLEAR_DEPTH | D3D_CLEAR_STENCIL, 1.0f, 0);
 
 #pragma region TheDrawingStuff
-    DUImpl.UpdateGrid(1000, 10);
+    DUImpl.UpdateGrid(10000, 10);
     DUImpl.DrawGrid();
 #pragma endregion
 
