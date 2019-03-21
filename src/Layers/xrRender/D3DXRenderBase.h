@@ -219,7 +219,7 @@ public:
     virtual void SetCacheXform(Fmatrix& mView, Fmatrix& mProject) override;
     virtual void OnAssetsChanged() override;
     virtual void DumpStatistics(class IGameFont& font, class IPerformanceAlert* alert) override;
-    void SDK_Init(void)
+    inline void SetFullOM(void)
     {
         if (FS.IsSDK())
         {
