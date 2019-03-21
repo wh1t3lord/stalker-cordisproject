@@ -17,6 +17,7 @@ public:
     SDKUI_Render(SDKUI_Render&&) = delete;
     SDKUI_Render& operator=(SDKUI_Render&&) = delete;
 
+    void Initialize(void);
     void MainRender(void);
 
     ~SDKUI_Render(void);

@@ -472,7 +472,7 @@ void CRenderDevice::Run()
         pInput->GrabInput(false);
     else
         pInput->GrabInput(true);
-
+   
     message_loop();
 
     seqAppEnd.Process();

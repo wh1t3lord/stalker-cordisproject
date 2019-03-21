@@ -219,13 +219,7 @@ void CRender::Render()
 
     if (FS.IsSDK())
     {
-        SDKUI::UI().Begin();
-        SDKUI::UI().Draw();
-
-        ID3D11RenderTargetView* Sas = RCache.get_RT();
-        HW.pContext->OMSetRenderTargets(1, &Sas, NULL);
-        this->ClearTarget();
-        SDKUI::UI().End();
+        SDKUI_Render::GetInstance().MainRender();
     }
     else
     {

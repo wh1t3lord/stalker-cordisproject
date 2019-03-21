@@ -346,6 +346,7 @@
     <ClInclude Include="SDKUI.h" />
     <ClInclude Include="SDKUI_Helpers.h" />
     <ClInclude Include="SDKUI_Render.h" />
+    <ClInclude Include="SDK_ConstantBuffer.h" />
     <ClInclude Include="SMAP_Allocator.h" />
     <ClInclude Include="stdafx.h" />
   </ItemGroup>

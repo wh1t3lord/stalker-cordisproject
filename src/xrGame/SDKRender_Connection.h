@@ -10,12 +10,14 @@
 class SDK_Connection : public pureRender
 {
 private:
-    SDK_Connection(void) {  }
+    SDK_Connection(void) {}
 
 public:
-    SDK_Connection(SDK_Connection&) = delete;
-    SDK_Connection& operator=(SDK_Connection const&) = delete;
-    ~SDK_Connection(void) {  }
+    SDK_Connection(const SDK_Connection&) = delete;
+    SDK_Connection& operator=(const SDK_Connection&) = delete;
+    SDK_Connection(SDK_Connection&&) = delete;
+    SDK_Connection& operator=(SDK_Connection&&) = delete;
+    ~SDK_Connection(void) {}
 
     static SDK_Connection* GetInstance(void)
     {
@@ -46,7 +48,6 @@ public:
     }
 
     void OnRender(void) override { GEnv.Render->Render(); }
-
 
 private:
     bool bActivated = false;

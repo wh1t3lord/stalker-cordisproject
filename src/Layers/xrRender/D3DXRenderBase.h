@@ -44,7 +44,7 @@ public:
     R_dsgraph::mapHUD_T mapHUD;
     R_dsgraph::mapLOD_T mapLOD;
     R_dsgraph::mapSorted_T mapDistort;
-    R_dsgraph::mapHUD_T    mapHUDSorted;
+    R_dsgraph::mapHUD_T mapHUDSorted;
 
 #if RENDER != R_R1
     R_dsgraph::mapSorted_T mapWmark; // sorted
@@ -53,25 +53,25 @@ public:
 #endif
 
     // Runtime structures
-    xr_vector<R_dsgraph::mapNormalVS::value_type *> nrmVS;
+    xr_vector<R_dsgraph::mapNormalVS::value_type*> nrmVS;
 #ifndef USE_DX9
-    xr_vector<R_dsgraph::mapNormalGS::value_type *> nrmGS;
+    xr_vector<R_dsgraph::mapNormalGS::value_type*> nrmGS;
 #endif //	USE_DX10
-    xr_vector<R_dsgraph::mapNormalPS::value_type *> nrmPS;
-    xr_vector<R_dsgraph::mapNormalCS::value_type *> nrmCS;
-    xr_vector<R_dsgraph::mapNormalStates::value_type *> nrmStates;
-    xr_vector<R_dsgraph::mapNormalTextures::value_type *> nrmTextures;
-    xr_vector<R_dsgraph::mapNormalTextures::value_type *> nrmTexturesTemp;
+    xr_vector<R_dsgraph::mapNormalPS::value_type*> nrmPS;
+    xr_vector<R_dsgraph::mapNormalCS::value_type*> nrmCS;
+    xr_vector<R_dsgraph::mapNormalStates::value_type*> nrmStates;
+    xr_vector<R_dsgraph::mapNormalTextures::value_type*> nrmTextures;
+    xr_vector<R_dsgraph::mapNormalTextures::value_type*> nrmTexturesTemp;
 
-    xr_vector<R_dsgraph::mapMatrixVS::value_type *> matVS;
+    xr_vector<R_dsgraph::mapMatrixVS::value_type*> matVS;
 #ifndef USE_DX9
-    xr_vector<R_dsgraph::mapMatrixGS::value_type *> matGS;
+    xr_vector<R_dsgraph::mapMatrixGS::value_type*> matGS;
 #endif //	USE_DX10
-    xr_vector<R_dsgraph::mapMatrixPS::value_type *> matPS;
-    xr_vector<R_dsgraph::mapMatrixCS::value_type *> matCS;
-    xr_vector<R_dsgraph::mapMatrixStates::value_type *> matStates;
-    xr_vector<R_dsgraph::mapMatrixTextures::value_type *> matTextures;
-    xr_vector<R_dsgraph::mapMatrixTextures::value_type *> matTexturesTemp;
+    xr_vector<R_dsgraph::mapMatrixPS::value_type*> matPS;
+    xr_vector<R_dsgraph::mapMatrixCS::value_type*> matCS;
+    xr_vector<R_dsgraph::mapMatrixStates::value_type*> matStates;
+    xr_vector<R_dsgraph::mapMatrixTextures::value_type*> matTextures;
+    xr_vector<R_dsgraph::mapMatrixTextures::value_type*> matTexturesTemp;
     xr_vector<int> lstLODgroups;
     xr_vector<ISpatial*> lstRenderables;
     xr_vector<ISpatial*> lstSpatial;
@@ -219,6 +219,14 @@ public:
     virtual void SetCacheXform(Fmatrix& mView, Fmatrix& mProject) override;
     virtual void OnAssetsChanged() override;
     virtual void DumpStatistics(class IGameFont& font, class IPerformanceAlert* alert) override;
+    void SDK_Init(void)
+    {
+        if (FS.IsSDK())
+        {
+            ID3D11RenderTargetView* Sas = RCache.get_RT();
+            HW.pContext->OMSetRenderTargets(1, &Sas, RCache.get_ZB());
+        }
+    }
 
 public:
     CResourceManager* Resources;

@@ -33,28 +33,24 @@ void CBackend::OnFrameEnd()
     }
 }
 
-void CBackend::OnFrameBegin()
+void CBackend::OnFrameBegin() // Lord: Действительно важный метод, всё обнуляет дальше всё просчитывает и устанавивает
 {
     if (!GEnv.isDedicatedServer)
     {
         PGO(Msg("PGO:*****frame[%d]*****", RDEVICE.dwFrame));
-
-        // DX9 sets base rt and base zb by default
-#ifndef USE_DX9
-        Invalidate();
-
-        // Getting broken HUD hands for OpenGL after calling rmNormal()
-#ifndef USE_OGL
+        this->Invalidate();
         RImplementation.rmNormal();
-#endif
-        set_RT(HW.pBaseRT);
-        set_ZB(HW.pBaseZB);
-#endif
+        this->set_RT(HW.pBaseRT);
 
-        ZeroMemory(&stat, sizeof(stat));
-        Vertex.Flush();
-        Index.Flush();
-        set_Stencil(FALSE);
+        if (FS.IsSDK())
+            
+
+        this->set_ZB(HW.pBaseZB);
+
+        this->stat = {0};
+        this->Vertex.Flush();
+        this->Index.Flush();
+        this->set_Stencil(FALSE);
     }
 }
 
@@ -150,7 +146,6 @@ void CBackend::Invalidate()
 
 void CBackend::set_ClipPlanes(u32 _enable, Fplane* _planes /*=NULL */, u32 count /* =0*/)
 {
-
 #ifndef USE_DX9
     // TODO: DX10: Implement in the corresponding vertex shaders
     // Use this to set up location, were shader setup code will get data
@@ -237,7 +232,7 @@ void CBackend::set_Textures(STextureList* _T)
         std::pair<u32, ref_texture>& loader = *_it;
         u32 load_id = loader.first;
         CTexture* load_surf = &*loader.second;
-        //if (load_id < 256) {
+        // if (load_id < 256) {
         if (load_id < CTexture::rstVertex)
         {
             // Set up pixel shader resources
@@ -255,13 +250,13 @@ void CBackend::set_Textures(STextureList* _T)
                 {
                     PGO(Msg("PGO:tex%d:%s", load_id, load_surf->cName.c_str()));
                     load_surf->bind(load_id);
-                    //load_surf->Apply(load_id);
+                    // load_surf->Apply(load_id);
                 }
             }
         }
         else
 #if defined(USE_DX10) || defined(USE_DX11)
-        if (load_id < CTexture::rstGeometry)
+            if (load_id < CTexture::rstGeometry)
 #endif // UDE_DX10
         {
             // Set up pixel shader resources
@@ -281,7 +276,7 @@ void CBackend::set_Textures(STextureList* _T)
                 {
                     PGO(Msg("PGO:tex%d:%s", load_id, load_surf->cName.c_str()));
                     load_surf->bind(load_id);
-                    //load_surf->Apply(load_id);
+                    // load_surf->Apply(load_id);
                 }
             }
         }
@@ -305,7 +300,7 @@ void CBackend::set_Textures(STextureList* _T)
                 {
                     PGO(Msg("PGO:tex%d:%s", load_id, load_surf->cName.c_str()));
                     load_surf->bind(load_id);
-                    //load_surf->Apply(load_id);
+                    // load_surf->Apply(load_id);
                 }
             }
         }
@@ -329,7 +324,7 @@ void CBackend::set_Textures(STextureList* _T)
                 {
                     PGO(Msg("PGO:tex%d:%s", load_id, load_surf->cName.c_str()));
                     load_surf->bind(load_id);
-                    //load_surf->Apply(load_id);
+                    // load_surf->Apply(load_id);
                 }
             }
         }
@@ -352,7 +347,7 @@ void CBackend::set_Textures(STextureList* _T)
                 {
                     PGO(Msg("PGO:tex%d:%s", load_id, load_surf->cName.c_str()));
                     load_surf->bind(load_id);
-                    //load_surf->Apply(load_id);
+                    // load_surf->Apply(load_id);
                 }
             }
         }
@@ -375,7 +370,7 @@ void CBackend::set_Textures(STextureList* _T)
                 {
                     PGO(Msg("PGO:tex%d:%s", load_id, load_surf->cName.c_str()));
                     load_surf->bind(load_id);
-                    //load_surf->Applyload_id);
+                    // load_surf->Applyload_id);
                 }
             }
         }

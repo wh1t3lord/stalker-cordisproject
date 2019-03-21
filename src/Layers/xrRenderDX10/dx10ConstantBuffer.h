@@ -10,11 +10,14 @@ class dx10ConstantBuffer : public xr_resource_named
 public:
     dx10ConstantBuffer(ID3DShaderReflectionConstantBuffer* pTable);
     ~dx10ConstantBuffer();
+    //	Never try to copy objects of this class due to the pointer and autoptr members
+    dx10ConstantBuffer(const dx10ConstantBuffer&) = delete;
+    dx10ConstantBuffer& operator=(const dx10ConstantBuffer&) = delete;
+
 
     bool Similar(dx10ConstantBuffer& _in);
     ID3DBuffer* GetBuffer() { return m_pBuffer; }
     void Flush();
-
     //	Set copy data into constant buffer
     //	Plain buffer member
     void set(R_constant* C, R_constant_load& L, const Fmatrix& A);
@@ -46,9 +49,7 @@ private:
 
     static const u32 lineSize = sizeof(Fvector4);
 
-    //	Never try to copy objects of this class due to the pointer and autoptr members
-    dx10ConstantBuffer(const dx10ConstantBuffer&);
-    dx10ConstantBuffer& operator=(dx10ConstantBuffer&);
+
 };
 
 typedef resptr_core<dx10ConstantBuffer, resptr_base<dx10ConstantBuffer>> ref_cbuffer;

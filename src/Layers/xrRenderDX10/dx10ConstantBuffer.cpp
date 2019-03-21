@@ -7,8 +7,13 @@ dx10ConstantBuffer::~dx10ConstantBuffer()
 {
     RImplementation.Resources->_DeleteConstantBuffer(this);
     //	Flush();
-    _RELEASE(m_pBuffer);
-    xr_free(m_pBufferData);
+    if (this->m_pBuffer)
+    {
+        this->m_pBuffer->Release();
+        this->m_pBuffer = nullptr;
+    }
+
+    xr_free(this->m_pBufferData);
 }
 
 dx10ConstantBuffer::dx10ConstantBuffer(ID3DShaderReflectionConstantBuffer* pTable) : m_bChanged(true)
@@ -17,13 +22,13 @@ dx10ConstantBuffer::dx10ConstantBuffer(ID3DShaderReflectionConstantBuffer* pTabl
 
     CHK_DX(pTable->GetDesc(&Desc));
 
-    m_strBufferName._set(Desc.Name);
-    m_eBufferType = Desc.Type;
-    m_uiBufferSize = Desc.Size;
+    this->m_strBufferName._set(Desc.Name);
+    this->m_eBufferType = Desc.Type;
+    this->m_uiBufferSize = Desc.Size;
 
     //	Fill member list with variable descriptions
-    m_MembersList.resize(Desc.Variables);
-    m_MembersNames.resize(Desc.Variables);
+    this->m_MembersList.resize(Desc.Variables);
+    this->m_MembersNames.resize(Desc.Variables);
     for (u32 i = 0; i < Desc.Variables; ++i)
     {
         ID3DShaderReflectionVariable* pVar;
@@ -38,15 +43,15 @@ dx10ConstantBuffer::dx10ConstantBuffer(ID3DShaderReflectionConstantBuffer* pTabl
         pType->GetDesc(&m_MembersList[i]);
         //	Buffers with the same layout can contain totally different members
         CHK_DX(pVar->GetDesc(&var_desc));
-        m_MembersNames[i] = var_desc.Name;
+        this->m_MembersNames[i] = var_desc.Name;
     }
 
-    m_uiMembersCRC = crc32(&m_MembersList[0], Desc.Variables * sizeof(m_MembersList[0]));
+    this->m_uiMembersCRC = crc32(&m_MembersList[0], Desc.Variables * sizeof(m_MembersList[0]));
 
-    R_CHK(dx10BufferUtils::CreateConstantBuffer(&m_pBuffer, Desc.Size));
-    VERIFY(m_pBuffer);
-    m_pBufferData = xr_malloc(Desc.Size);
-    VERIFY(m_pBufferData);
+    R_CHK(dx10BufferUtils::CreateConstantBuffer(&this->m_pBuffer, Desc.Size));
+    VERIFY(this->m_pBuffer);
+    this->m_pBufferData = xr_malloc(Desc.Size);
+    VERIFY(this->m_pBufferData);
 }
 
 bool dx10ConstantBuffer::Similar(dx10ConstantBuffer& _in)
@@ -80,24 +85,32 @@ bool dx10ConstantBuffer::Similar(dx10ConstantBuffer& _in)
 
 void dx10ConstantBuffer::Flush()
 {
-    if (m_bChanged)
+    if (this->m_bChanged)
     {
-        void* pData;
-#ifdef USE_DX11
         D3D11_MAPPED_SUBRESOURCE pSubRes;
-        CHK_DX(HW.pContext->Map(m_pBuffer, 0, D3D_MAP_WRITE_DISCARD, 0, &pSubRes));
-        pData = pSubRes.pData;
-#else
-        CHK_DX(m_pBuffer->Map(D3D_MAP_WRITE_DISCARD, 0, &pData));
-#endif
-        VERIFY(pData);
-        VERIFY(m_pBufferData);
-        CopyMemory(pData, m_pBufferData, m_uiBufferSize);
-#ifdef USE_DX11
-        HW.pContext->Unmap(m_pBuffer, 0);
-#else
-        m_pBuffer->Unmap();
-#endif
-        m_bChanged = false;
+        HRESULT hr;
+        hr = HW.pContext->Map(this->m_pBuffer, 0, D3D_MAP_WRITE_DISCARD, 0, &pSubRes);
+
+        if (FAILED(hr))
+        {
+            ASSERT(TEXT("Can't apply map!"));
+            return;
+        }
+
+        if (!pSubRes.pData)
+        {
+            ASSERT(TEXT("pData was null"));
+            return;
+        }
+
+        if (!this->m_pBufferData)
+        {
+            ASSERT(TEXT("was null!"));
+            return;
+        }
+
+        CopyMemory(pSubRes.pData, this->m_pBufferData, this->m_uiBufferSize);
+        HW.pContext->Unmap(this->m_pBuffer, 0);
+        this->m_bChanged = false;
     }
 }
