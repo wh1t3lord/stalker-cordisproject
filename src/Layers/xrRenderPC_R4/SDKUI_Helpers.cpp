@@ -2,6 +2,7 @@
 #include "SDKUI_Helpers.h"
 #include <chrono>
 #include <ctime>
+#include "../../xrEngine/SDK_Camera.h"
 /*
     @ UI_Log
 */
@@ -83,7 +84,7 @@ void SDKUI_Log::Draw(void)
                         bShowWarnings = false;
                         bShowDefault = false;
                         bShowSpecial = false;
-                        bShowUn = false;  
+                        bShowUn = false;
                         bShowGood = false;
                     }
 
@@ -156,17 +157,19 @@ void SDKUI_Overlay::Draw(void)
     if (bShow)
     {
         ImGuiWindowFlags flag = ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoResize |
-            ImGuiWindowFlags_NoScrollbar | ImGuiWindowFlags_NoNav | ImGuiWindowFlags_AlwaysAutoResize | ImGuiWindowFlags_NoBackground;
+            ImGuiWindowFlags_NoScrollbar | ImGuiWindowFlags_NoNav | ImGuiWindowFlags_AlwaysAutoResize |
+            ImGuiWindowFlags_NoBackground;
         ImGui::SetNextWindowPos(ImVec2(30, 30), ImGuiCond_Once);
         if (ImGui::Begin("Overlay", &bShow, ImVec2(200, 500), 0.005f, flag))
         {
             if (bShowOnlySDKInfo)
             {
-                ImGui::Text("Level Editor: \n"); // @ Сделать нормальный вывод и того в каком редакторе мы сейчас находимся
+                ImGui::Text(
+                    "Level Editor: \n"); // @ Сделать нормальный вывод и того в каком редакторе мы сейчас находимся
                 ImGui::Text("FPS: %d \n");
-                ImGui::Text("Total tris: \n");
-                ImGui::Text("Total vertecies: \n");
-                ImGui::Text("Total something: \n");
+
+                ImGui::Text("Total tris: %d \n");
+                ImGui::Text("Total vertecies: %d \n");
             }
 
             if (bShowOnlyProjectInfo)
@@ -180,7 +183,62 @@ void SDKUI_Overlay::Draw(void)
                 ImGui::Text("   objects   \n");
                 ImGui::Text("   spawn_elements   \n");
                 ImGui::Text("   way_points   \n");
-                ImGui::Text(" ");
+                if (ImGui::TreeNode("Grid:"))
+                {
+                    ImGui::ColorEdit3("Grid Color", GridOptions::col);
+                    static xr_string a = "100|10";
+                    ImGui::SliderInt("Grid Type", &this->iGridType, 0, 5, a.c_str());
+                    switch (this->iGridType)
+                    {
+                    case 0:
+                    { 
+                        GridOptions::Size = 100;
+                        GridOptions::separator = 10;
+                        a = "100|10";
+                        break;
+                    }
+                    case 1:
+                    {
+                        GridOptions::Size = 100;
+                        GridOptions::separator = 20;
+                        a = "100|20";
+                        break;
+                    }
+                    case 2:
+                    { 
+                        GridOptions::Size = 100;
+                        GridOptions::separator = 50;
+                        a = "100|50";
+                        break;
+                    }
+                    case 3:
+                    {
+                        GridOptions::Size = 100;
+                        GridOptions::separator = 100;
+                        a = "100|100";
+                        break;
+                    }
+                    case 4:
+                    { 
+                        GridOptions::Size = 10;
+                        GridOptions::separator = 1;
+                        a = "10|1";
+                        break;
+                    }
+                    case 5:
+                    { 
+                        GridOptions::Size = 10000;
+                        GridOptions::separator = 10;
+                        a = "10000|10";
+                        break;
+                    }
+                    }
+                    ImGui::TreePop();
+                }
+ 
+ 
+                
+ 
             }
 
             if (bShowOnlySysInfo)
@@ -200,7 +258,6 @@ void SDKUI_Overlay::Draw(void)
                 ImGui::Text("Current Date: %s", result.c_str());
                 ImGui::Text("Current time: %s", r2.c_str());
             }
-
 
             if (ImGui::BeginPopupContextWindow())
             {
@@ -272,8 +329,6 @@ void SDKUI_Overlay::Draw(void)
                     ImGui::EndMenu();
                 }
 
-
-
                 if (ImGui::MenuItem("Close"))
                 {
                     bShow = false;
@@ -282,6 +337,48 @@ void SDKUI_Overlay::Draw(void)
                 ImGui::EndPopup();
             }
         }
+        ImGui::End();
+    }
+}
+
+void SDKUI_CameraHelper::Draw(void)
+{
+    //   ImGuiWindowFlags flag =
+    if (this->bShow)
+    {
+        if (ImGui::Begin("Camera Manager", &this->bShow, ImGuiWindowFlags_AlwaysAutoResize))
+        {
+            ImGui::Text("Position:");
+            ImGui::DragFloat("PosX", &Device.vCameraPosition.x, 1.0f);
+            ImGui::SameLine();
+            ImGui::DragFloat("PosY", &Device.vCameraPosition.y, 1.0f);
+            ImGui::SameLine();
+            ImGui::DragFloat("PosZ", &Device.vCameraPosition.z, 1.0f);
+            ImGui::Separator();
+            ImGui::Text("Direction: (read-only)");
+            ImGui::DragFloat("DirX", &Device.vCameraDirection.x, 0.0f);
+            ImGui::SameLine();
+            ImGui::DragFloat("DirY", &Device.vCameraDirection.y, 0.0f);
+            ImGui::SameLine();
+            ImGui::DragFloat("DirZ", &Device.vCameraDirection.z, 0.0f);
+            ImGui::Separator();
+            ImGui::Text("Normal: (read-only)");
+            ImGui::DragFloat("NorX", &Device.vCameraTop.x, 0.0f);
+            ImGui::SameLine();
+            ImGui::DragFloat("NorY", &Device.vCameraTop.y, 0.0f);
+            ImGui::SameLine();
+            ImGui::DragFloat("NorZ", &Device.vCameraTop.z, 0.0f);
+            ImGui::Separator();
+            ImGui::Text("Sens: ");
+            ImGui::DragFloat("koef", &SDK_Camera::GetInstance().fSens, 0.0001f, 0.0f, 1.0f);
+            ImGui::Text("System attributes: ");
+            ImGui::DragFloat("FOV", &SDK_Camera::GetInstance().f_fov, 1.0f, 1.0f, 90.0f);
+            ImGui::DragFloat("ASPECT", &SDK_Camera::GetInstance().f_aspect, 0.1f, 0.1f, 1.0f);
+            ImGui::DragFloat("SPEED", &SDK_Camera::GetInstance().fMoveSpeed, 1.0f, 1.0f, 10000.0f);
+            ImGui::DragFloat("NearPlane (read-only)", &SDK_Camera::GetInstance().fNear, 0.0f);
+            ImGui::DragFloat("FarPlane (read-only)", &SDK_Camera::GetInstance().fFar, 1.0f, 1.0f, 3000.0f);
+        }
+
         ImGui::End();
     }
 }

@@ -928,6 +928,7 @@ void D3DXRenderBase::DestroyHW()
             m_SelectionShader.create("editor" DELIMITER "selection");
             DUImpl.OnDeviceCreate();
         }
+        SDKUI_Render::GetInstance().Initialize();
     }
 
     void D3DXRenderBase::Create(SDL_Window * hWnd, u32 & dwWidth, u32 & dwHeight, float& fWidth_2, float& fHeight_2)

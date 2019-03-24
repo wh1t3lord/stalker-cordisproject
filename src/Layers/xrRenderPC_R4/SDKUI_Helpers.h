@@ -103,13 +103,13 @@ public:
             sas += "|OLD";
         else if (currentcolor == SDKErrorType::good)
             sas += "|SUCCESSFUL";
-        
+
         sas += "] ";
         sas += buf.c_str();
 
         if (sas[sas.size() - 1] != '\n')
             sas += '\n';
-    
+
         va_end(args);
         buff.push_back(sas);
         buf.clear();
@@ -151,10 +151,10 @@ class SDKUI_Overlay
 {
 private:
     SDKUI_Overlay() = default;
- 
+
 public:
     static SDKUI_Overlay& Widget(void)
-    { 
+    {
         static SDKUI_Overlay instance;
         return instance;
     }
@@ -163,15 +163,41 @@ public:
     SDKUI_Overlay(SDKUI_Overlay&) = delete;
     SDKUI_Overlay& operator=(const SDKUI_Overlay&) = delete;
 
-    
     void Draw(void);
     inline void Show(void) { bShow = true; }
     inline void Hide(void) { bShow = false; }
     inline bool GetVisible(void) { return bShow; }
 
-private: 
+private:
     bool bShow = true;
     bool bShowOnlySDKInfo = true;
     bool bShowOnlySysInfo = true;
     bool bShowOnlyProjectInfo = true;
+    int iGridType = 0;
+};
+
+class SDKUI_CameraHelper
+{
+private:
+    SDKUI_CameraHelper(void) = default;
+
+public:
+    inline static SDKUI_CameraHelper& Widget(void)
+    { 
+        static SDKUI_CameraHelper instance;
+        return instance;
+    }
+    SDKUI_CameraHelper(const SDKUI_CameraHelper&) = delete;
+    SDKUI_CameraHelper& operator=(const SDKUI_CameraHelper&) = delete;
+    SDKUI_CameraHelper(SDKUI_CameraHelper&&) = delete;
+    SDKUI_CameraHelper& operator=(SDKUI_CameraHelper&&) = delete;
+    ~SDKUI_CameraHelper(void) = default;
+
+    void Draw(void);
+    inline void Show(void) { this->bShow = true; }
+    inline void Hide(void) { this->bShow = false; }
+    inline bool GetVisible(void) const { return this->bShow; }
+
+private:
+    bool bShow = true;
 };

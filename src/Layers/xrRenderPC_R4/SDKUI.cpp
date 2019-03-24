@@ -83,12 +83,30 @@ void SDKUI::KeyBoardMessages(void)
             }
         }
     }
+
+    // @ Camera manager
+    if (ImGui::IsKeyDown(SDL_Scancode::SDL_SCANCODE_LCTRL) || ImGui::IsKeyDown(SDL_Scancode::SDL_SCANCODE_RCTRL))
+    {
+        if (ImGui::IsKeyDown(SDL_Scancode::SDL_SCANCODE_SPACE))
+        {
+            if (ImGui::IsKeyPressed(SDL_Scancode::SDL_SCANCODE_C))
+            {
+                if (!SDKUI_CameraHelper::Widget().GetVisible())
+                {
+                    SDKUI_CameraHelper::Widget().Show();
+                    SDKUI_Log::Widget().SetColor(unimportant);
+                    SDKUI_Log::Widget().AddText("Camera manager is shown");
+                }
+            }
+        }
+    }
 }
 
 void SDKUI::DrawAllHelpers(void)
 {
     SDKUI_Log::Widget().Draw();
     SDKUI_Overlay::Widget().Draw();
+    SDKUI_CameraHelper::Widget().Draw();
 }
 
 void SDKUI::DrawMainMenuBar(void)
@@ -128,12 +146,22 @@ void SDKUI::DrawMainMenuBar(void)
                     SDKUI_Log::Widget().AddText("Overlay window is shown");
                 }
 
+                if (ImGui::MenuItem("Show Camera Manager", "CTRL+SPACE+C"))
+                {
+                    SDKUI_CameraHelper::Widget().Show();
+                    SDKUI_Log::Widget().SetColor(unimportant);
+                    SDKUI_Log::Widget().AddText("Camera manager is shown");
+                }
+
                 if (ImGui::MenuItem("ScreenShot", "F12"))
                 {
                     Console->Execute("screenshot 1");
                     SDKUI_Log::Widget().SetColor(special);
                     SDKUI_Log::Widget().AddText("Screenshot was made!");
                 }
+
+
+
                 ImGui::EndMenu();
             }
 

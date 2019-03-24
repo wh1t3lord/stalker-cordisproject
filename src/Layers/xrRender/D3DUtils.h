@@ -202,6 +202,12 @@ public:
 
     virtual void OnRender();
 };
+
+struct GridOptions
+{
+    static  int Size, separator;
+    static float col[3];
+};
 extern ECORE_API CDrawUtilities DUImpl;
 //----------------------------------------------------
 #endif /*_INCDEF_D3DUtils_H_*/

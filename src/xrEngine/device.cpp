@@ -37,7 +37,7 @@
 #include "../xrCore/Imgui/Imgui.h"
 #include "../xrCore/Imgui/imgui_impl_sdl.h"
 #include "../xrCore/SDK_QuitMessage.h"
-
+#include "SDK_Camera.h"
 ENGINE_API CRenderDevice Device;
 ENGINE_API CLoadScreenRenderer load_screen_renderer;
 
@@ -339,6 +339,10 @@ void CRenderDevice::message_loop_weather_editor()
 
 void CRenderDevice::message_loop()
 {
+    static bool bDrag = false;
+    static int WindowX = 0;
+    static int WindowY = 0;
+    SDL_GetWindowSize(Device.m_sdlWnd, &WindowX, &WindowY);
     if (FS.IsSDK())
     {
         SDL_Event event;
@@ -347,16 +351,87 @@ void CRenderDevice::message_loop()
         // Lord: Message system for SDK
         while (!SDK_QuitMessage::GetState())
         {
+            const Uint8* keystate = SDL_GetKeyboardState(NULL);
+            if (bDrag)
+            {
+                if (keystate[SDL_SCANCODE_W])
+                {
+                    SDK_Camera::GetInstance().MoveForward(0.1f);
+                }
+                if (keystate[SDL_SCANCODE_S])
+                {
+                    SDK_Camera::GetInstance().MoveForward(-0.1f);
+                }
+                if (keystate[SDL_SCANCODE_A])
+                {
+                    SDK_Camera::GetInstance().MoveRight(-0.1f);
+                }
+                if (keystate[SDL_SCANCODE_D])
+                {
+                    SDK_Camera::GetInstance().MoveRight(0.1f);
+                }
+            }
+
             while (SDL_PollEvent(&event))
             {
                 if (event.type == SDL_WINDOWEVENT_CLOSE)
                 {
                     SDK_QuitMessage::TellAppToClose();
                 }
-
-                if (event.type == SDL_WINDOWEVENT_MAXIMIZED)
+                else if (event.type == SDL_WINDOWEVENT_MAXIMIZED)
                 {
                     OnWM_Activate(1, event.window.data2);
+                }
+                else if (event.type == SDL_MOUSEBUTTONDOWN)
+                {
+                    switch (event.button.button)
+                    {
+                    case SDL_BUTTON_RIGHT:
+                    {
+                        bDrag = true;
+                        SDL_WarpMouseInWindow(Device.m_sdlWnd, WindowX / 2, WindowY / 2);
+                        SDL_SetWindowGrab(Device.m_sdlWnd, SDL_TRUE);
+
+                        SDL_SetRelativeMouseMode(SDL_TRUE);
+
+                        break;
+                    }
+                    }
+                }
+                else if (event.type == SDL_MOUSEBUTTONUP)
+                {
+                    switch (event.button.button)
+                    {
+                    case SDL_BUTTON_RIGHT:
+                    {
+                        bDrag = false;
+                        SDL_SetRelativeMouseMode(SDL_FALSE);
+                        SDL_SetWindowGrab(Device.m_sdlWnd, SDL_FALSE);
+                        break;
+                    }
+                    }
+                }
+                else if (event.type == SDL_MOUSEMOTION)
+                {
+                    if (bDrag)
+                    {
+                        float dx = 0;
+                        float dy = 0;
+                        float scale = SDK_Camera::GetInstance().fSens;
+
+                        dx += event.motion.xrel;
+                        dy += event.motion.yrel;
+                        if (dx)
+                        {
+                            float d = float(dx) * scale;
+                            SDK_Camera::GetInstance().Rotate((d < 0) ? kLEFT : kRIGHT, _abs(d));
+                        }
+                        if (dy)
+                        {
+                            float d = float(dy) * scale * 3.f / 4.f;
+                            SDK_Camera::GetInstance().Rotate((d > 0) ? kUP : kDOWN, _abs(d));
+                        }
+                    }
                 }
 
                 ImGui_ImplSDL2_ProcessEvent(&event);
@@ -472,7 +547,7 @@ void CRenderDevice::Run()
         pInput->GrabInput(false);
     else
         pInput->GrabInput(true);
-   
+
     message_loop();
 
     seqAppEnd.Process();
