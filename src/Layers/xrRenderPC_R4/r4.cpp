@@ -495,7 +495,7 @@ void CRender::reset_begin()
         Lights_LastFrame.clear();
     }
 
-    //AVO: let's reload details while changed details options on vid_restart
+    // AVO: let's reload details while changed details options on vid_restart
     if (b_loaded && (dm_current_size != dm_size || ps_r__Detail_density != ps_current_detail_density))
     {
         Details->Unload();
@@ -529,7 +529,7 @@ void CRender::reset_end()
 
     Target = new CRenderTarget();
 
-    //AVO: let's reload details while changed details options on vid_restart
+    // AVO: let's reload details while changed details options on vid_restart
     if (b_loaded && (dm_current_size != dm_size || ps_r__Detail_density != ps_current_detail_density))
     {
         Details = new CDetailManager();
@@ -677,7 +677,16 @@ IRender_Glow* CRender::glow_create() { return new CGlow(); }
 void CRender::flush() { r_dsgraph_render_graph(0); }
 BOOL CRender::occ_visible(vis_data& P) { return HOM.visible(P); }
 BOOL CRender::occ_visible(sPoly& P) { return HOM.visible(P); }
-BOOL CRender::occ_visible(Fbox& P) { return HOM.visible(P); }
+BOOL CRender::occ_visible(Fbox& P)
+{ 
+    if (!FS.IsSDK())
+        return HOM.visible(P); 
+    else
+    {
+        u32 mask = 0xff;
+        return this->ViewBase.testAABB(P.data(), mask);
+    }
+}
 void CRender::add_Visual(IRenderVisual* V) { add_leafs_Dynamic((dxRender_Visual*)V); }
 void CRender::add_Geometry(IRenderVisual* V) { add_Static((dxRender_Visual*)V, View->getMask()); }
 void CRender::add_StaticWallmark(ref_shader& S, const Fvector& P, float s, CDB::TRI* T, Fvector* verts)
@@ -747,8 +756,13 @@ void CRender::rmNormal()
 //////////////////////////////////////////////////////////////////////
 // Construction/Destruction
 //////////////////////////////////////////////////////////////////////
-CRender::CRender() : m_bFirstFrameAfterReset(false), Sectors_xrc("render") { init_cacades(); }
-CRender::~CRender() {}
+CRender::CRender() : m_bFirstFrameAfterReset(false), Sectors_xrc("render")
+{
+    init_cacades();
+    obj = new CEditableObject(TEXT("aaaa"));
+    obj->Load(TEXT("D:\\Stalker Call Of Pripyat\\gamedata\\trees_sosna_1_sux_02.object"));
+}
+CRender::~CRender() { }
 void CRender::DumpStatistics(IGameFont& font, IPerformanceAlert* alert)
 {
     D3DXRenderBase::DumpStatistics(font, alert);

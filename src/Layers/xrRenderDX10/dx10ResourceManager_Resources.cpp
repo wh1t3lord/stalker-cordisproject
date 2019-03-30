@@ -138,7 +138,7 @@ SVS* CResourceManager::_CreateVS(LPCSTR _name)
         xr_strcat(name, "_3");
     if (4 == GEnv.Render->m_skinning)
         xr_strcat(name, "_4");
-    
+
     return CreateShader<SVS>(name, _name, true);
 }
 
@@ -377,8 +377,12 @@ void CResourceManager::DeleteGeom(const SGeometry* Geom)
 {
     if (0 == (Geom->dwFlags & xr_resource_flagged::RF_REGISTERED))
         return;
+
     if (reclaim(v_geoms, Geom))
-        return;
+       return;
+
+
+
     Msg("! ERROR: Failed to find compiled geometry-declaration");
 }
 

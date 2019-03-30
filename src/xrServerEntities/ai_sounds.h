@@ -118,6 +118,6 @@ enum ESoundTypes : u32
 #define CROUCH_SOUND_FACTOR .3f
 #define ACCELERATED_SOUND_FACTOR .5f
 
-extern const xr_token anomaly_type_token[];
+extern __declspec(dllexport) const xr_token anomaly_type_token[];
 
 #endif

@@ -13,7 +13,10 @@ SMatrixList::~SMatrixList() { RImplementation.Resources->_DeleteMatrixList(this)
 SConstantList::~SConstantList() { RImplementation.Resources->_DeleteConstantList(this); }
 SPass::~SPass() { RImplementation.Resources->_DeletePass(this); }
 ShaderElement::~ShaderElement() { RImplementation.Resources->_DeleteElement(this); }
-SGeometry::~SGeometry() { RImplementation.Resources->DeleteGeom(this); }
+SGeometry::~SGeometry()
+{
+    RImplementation.Resources->DeleteGeom(this); 
+}
 Shader::~Shader() { RImplementation.Resources->Delete(this); }
 //////////////////////////////////////////////////////////////////////////
 void resptrcode_shader::create(LPCSTR s_shader, LPCSTR s_textures, LPCSTR s_constants, LPCSTR s_matrices)

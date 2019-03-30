@@ -123,9 +123,7 @@ void STextureParams::Save(IWriter& F)
     F.w_u8(fade_delay);
     F.close_chunk();
 }
-
-#ifdef _EDITOR
-#include "xrServerEntities/PropertiesListHelper.h"
+ 
 
 void STextureParams::OnTypeChange(PropValue* prop)
 {
@@ -151,10 +149,13 @@ void STextureParams::OnTypeChange(PropValue* prop)
     if (!OnTypeChangeEvent.empty())
         OnTypeChangeEvent(prop);
 }
-
+/* 
 void STextureParams::FillProp(LPCSTR base_name, PropItemVec& items, PropValue::TOnChange on_type_change)
 {
-    OnTypeChangeEvent = on_type_change;
+   // OnTypeChangeEvent = on_type_change;
+    /*
+    
+    
     PropValue* P = PHelper().CreateToken32(items, "Type", (u32*)&type, ttype_token);
     P->OnChangeEvent.bind(this, &STextureParams::OnTypeChange);
     PHelper().CreateCaption(items, "Source" DELIMITER "Width", shared_str().printf("%d", width));
@@ -173,7 +174,7 @@ void STextureParams::FillProp(LPCSTR base_name, PropItemVec& items, PropValue::T
         P->OnChangeEvent.bind(this, &STextureParams::OnTypeChange);
         if (tbmUse == bump_mode || tbmUseParallax == bump_mode)
         {
-            AnsiString path;
+            xr_string path;
             path = base_name;
             PHelper().CreateChoose(items, "Bump" DELIMITER "Texture", &bump_name, smTexture, path.c_str());
         }
@@ -186,7 +187,7 @@ void STextureParams::FillProp(LPCSTR base_name, PropItemVec& items, PropValue::T
         PHelper().CreateToken32(items, "Material" DELIMITER "Base", (u32*)&material, tmtl_token);
         PHelper().CreateFloat(items, "Material" DELIMITER "Weight", &material_weight);
 
-        //      PHelper().CreateFlag32      (items, "Flags" DELIMITER "Binary Alpha",      &flags,             flBinaryAlpha);
+        //      PHelper().CreateFlag32      (items, "Flags" DELIMITER "Binary Alpha",      &flags, flBinaryAlpha);
         PHelper().CreateFlag32(items, "Flags" DELIMITER "Dither", &flags, flDitherColor);
         PHelper().CreateFlag32(items, "Flags" DELIMITER "Dither Each MIP", &flags, flDitherEachMIPLevel);
         PHelper().CreateFlag32(items, "Flags" DELIMITER "Implicit Lighted", &flags, flImplicitLighted);
@@ -229,18 +230,21 @@ void STextureParams::FillProp(LPCSTR base_name, PropItemVec& items, PropValue::T
         P->Owner()->Enable(false);
         break;
     }
-}
+    */
+//}
 
-BOOL STextureParams::similar(STextureParams& tp1, xr_vector<AnsiString>& sel_params)
+
+ 
+BOOL STextureParams::similar(STextureParams& tp1, xr_vector<xr_string>& sel_params)
 {
     BOOL res = TRUE;
 
-    xr_vector<AnsiString>::iterator it = sel_params.begin();
-    xr_vector<AnsiString>::iterator it_e = sel_params.end();
+    xr_vector<xr_string>::iterator it = sel_params.begin();
+    xr_vector<xr_string>::iterator it_e = sel_params.end();
 
     for (; it != it_e; ++it)
     {
-        const AnsiString& par_name = *it;
+        const xr_string& par_name = *it;
         if (par_name == "Type")
         {
             res = (type == tp1.type);
@@ -408,4 +412,4 @@ u32 STextureParams::MemoryUsage(LPCSTR base_name)
     }
     return mem_usage;
 }
-#endif
+ 

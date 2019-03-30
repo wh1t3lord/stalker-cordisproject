@@ -12,24 +12,46 @@ void SDKUI::Begin(void)
     ImGui::NewFrame();
 }
 
+void SDKUI::PickObject(void)
+{
+    Ivector2 p;
+    p.x = ImGui::GetIO().MousePos.x;
+    p.y = ImGui::GetIO().MousePos.y;
+    Fvector dir;
+    SDK_Camera::GetInstance().MouseRayFromPoint(dir, p);
+    this->dis_to_current_obj = SDK_Camera::GetInstance().fFar;
+    Fbox a = RImplementation.obj->GetBox();
+    if (RImplementation.occ_visible(a))
+    {
+        if (RImplementation.obj->RayPick(this->dis_to_current_obj, Device.vCameraPosition, dir, Fidentity))
+            this->bSelected = true;
+        else
+            this->bSelected = false;
+    }
+}
+
 void SDKUI::KeyBoardMessages(void)
 {
     // @ Хендлим шорткаты
 
     // @ Глобальные клики можно обрабатывать динамические пупапы если надо
-    if (ImGui::IsMouseClicked(0)) // @ Left button
+    if (ImGui::IsMouseClicked(0) && this->bCanUseLeftButton) // @ Left button
     {
+        this->PickObject();
+    }
 
+    if (ImGui::IsMouseReleased(1))
+    {
+        this->bCanUseLeftButton = true;
     }
 
     if (ImGui::IsMouseClicked(1)) // @ Right button
     {
-
+        this->bCanUseLeftButton = false;
     }
 
     if (ImGui::IsMouseClicked(2)) // @ Wheel
     {
-
     }
 
     // @ Exit
@@ -159,8 +181,6 @@ void SDKUI::DrawMainMenuBar(void)
                     SDKUI_Log::Widget().SetColor(special);
                     SDKUI_Log::Widget().AddText("Screenshot was made!");
                 }
-
-
 
                 ImGui::EndMenu();
             }

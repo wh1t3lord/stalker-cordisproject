@@ -1,5 +1,7 @@
 #pragma once
 
+#include "xrEngine/SDK_Camera.h"
+
 class SDKUI_Render
 {
 private:

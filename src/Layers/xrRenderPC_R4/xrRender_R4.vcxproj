@@ -155,7 +155,7 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Mixed|x64'">
     <ClCompile>
-      <AdditionalIncludeDirectories>$(xrExternals)OpenAutomate\inc;$(xrExternals)nvapi;$(xrExternals)AGS_SDK;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>D:\Cordis Project\Xray\Externals\FreeMagic\Source\Core;D:\Cordis Project\Xray\Externals\FreeMagic\Source;D:\Cordis Project\Xray\Externals\FreeMagic\Source\Core3D;$(xrExternals)OpenAutomate\inc;$(xrExternals)nvapi;$(xrExternals)AGS_SDK;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>_USRDLL;XRRENDER_R4_EXPORTS;USE_DX11;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalOptions> %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
@@ -332,11 +332,27 @@
     <ClInclude Include="blender_ssao.h" />
     <ClInclude Include="ComputeShader.h" />
     <ClInclude Include="CSCompiler.h" />
+    <ClInclude Include="CSurface.h" />
     <ClInclude Include="dx11HDAOCSBlender.h" />
     <ClInclude Include="dx11MinMaxSMBlender.h" />
     <ClInclude Include="..\xrRender\light_gi.h" />
     <ClInclude Include="..\xrRender\Light_Render_Direct.h" />
     <ClInclude Include="..\xrRender\light_smapvis.h" />
+    <ClInclude Include="EditMesh.h" />
+    <ClInclude Include="EditObject.h" />
+    <ClInclude Include="EditorPref.h" />
+    <ClInclude Include="EThumbnail.h" />
+    <ClInclude Include="ExportObjectOGF.h" />
+    <ClInclude Include="ExportSkeleton.h" />
+    <ClInclude Include="ImageManager.h" />
+    <ClInclude Include="itterate_adjacents_dynamic.h" />
+    <ClInclude Include="NvMender2003\convert.h" />
+    <ClInclude Include="NvMender2003\mender_input_output.h" />
+    <ClInclude Include="NvMender2003\NVMeshMender.h" />
+    <ClInclude Include="NvMender2003\remove_isolated_verts.h" />
+    <ClInclude Include="PhysicsShellHolderEditorBase.h" />
+    <ClInclude Include="pick_defs.h" />
+    <ClInclude Include="PropertiesListTypes.h" />
     <ClInclude Include="r2_types.h" />
     <ClInclude Include="r4.h" />
     <ClInclude Include="r4_rendertarget.h" />
@@ -348,6 +364,27 @@
     <ClInclude Include="SDKUI_Render.h" />
     <ClInclude Include="SMAP_Allocator.h" />
     <ClInclude Include="stdafx.h" />
+    <ClInclude Include="WildMagic\WmlApprGaussPointsFit3.h" />
+    <ClInclude Include="WildMagic\WmlBox3.h" />
+    <ClInclude Include="WildMagic\WmlContBox3.h" />
+    <ClInclude Include="WildMagic\WmlContMinBox3.h" />
+    <ClInclude Include="WildMagic\WmlEigen.h" />
+    <ClInclude Include="WildMagic\WmlGMatrix.h" />
+    <ClInclude Include="WildMagic\WmlGVector.h" />
+    <ClInclude Include="WildMagic\WmlMath.h" />
+    <ClInclude Include="WildMagic\WmlMatrix.h" />
+    <ClInclude Include="WildMagic\WmlMatrix2.h" />
+    <ClInclude Include="WildMagic\WmlMatrix3.h" />
+    <ClInclude Include="WildMagic\WmlMatrix4.h" />
+    <ClInclude Include="WildMagic\WmlMinimize1.h" />
+    <ClInclude Include="WildMagic\WmlMinimizeN.h" />
+    <ClInclude Include="WildMagic\WmlQuaternion.h" />
+    <ClInclude Include="WildMagic\WmlSystem.h" />
+    <ClInclude Include="WildMagic\WmlVector.h" />
+    <ClInclude Include="WildMagic\WmlVector2.h" />
+    <ClInclude Include="WildMagic\WmlVector3.h" />
+    <ClInclude Include="WildMagic\WmlVector4.h" />
+    <ClInclude Include="WildMagic\WmlWinSystem.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\xrRenderDX10\3DFluid\dx103DFluidBlenders.cpp" />
@@ -499,6 +536,7 @@
     <ClCompile Include="blender_ssao.cpp" />
     <ClCompile Include="ComputeShader.cpp" />
     <ClCompile Include="CSCompiler.cpp" />
+    <ClCompile Include="CSurface.cpp" />
     <ClCompile Include="dx11HDAOCSBlender.cpp" />
     <ClCompile Include="dx11MinMaxSMBlender.cpp" />
     <ClCompile Include="..\xrRender\light_GI.cpp" />
@@ -506,6 +544,15 @@
     <ClCompile Include="..\xrRender\Light_Render_Direct_ComputeXFS.cpp" />
     <ClCompile Include="..\xrRender\light_smapvis.cpp" />
     <ClCompile Include="..\xrRender\light_vis.cpp" />
+    <ClCompile Include="EditMesh.cpp" />
+    <ClCompile Include="EditObject.cpp" />
+    <ClCompile Include="EditorPref.cpp" />
+    <ClCompile Include="EThumbnail.cpp" />
+    <ClCompile Include="ExportObjectOGF.cpp" />
+    <ClCompile Include="ExportSkeleton.cpp" />
+    <ClCompile Include="ImageManager.cpp" />
+    <ClCompile Include="NvMender2003\NVMeshMender.cpp" />
+    <ClCompile Include="PhysicsShellHolderEditorBase.cpp" />
     <ClCompile Include="r2_blenders.cpp" />
     <ClCompile Include="r2_R_calculate.cpp" />
     <ClCompile Include="r2_R_lights.cpp" />
@@ -556,6 +603,24 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="WildMagic\RAPIDMinBox.cpp" />
+    <ClCompile Include="WildMagic\WmlApprGaussPointsFit3.cpp" />
+    <ClCompile Include="WildMagic\WmlBox3.cpp" />
+    <ClCompile Include="WildMagic\WmlContBox3.cpp" />
+    <ClCompile Include="WildMagic\WmlContMinBox3.cpp" />
+    <ClCompile Include="WildMagic\WmlEigen.cpp" />
+    <ClCompile Include="WildMagic\WmlMath.cpp" />
+    <ClCompile Include="WildMagic\WmlMatrix2.cpp" />
+    <ClCompile Include="WildMagic\WmlMatrix3.cpp" />
+    <ClCompile Include="WildMagic\WmlMatrix4.cpp" />
+    <ClCompile Include="WildMagic\WmlMinimize1.cpp" />
+    <ClCompile Include="WildMagic\WmlMinimizeN.cpp" />
+    <ClCompile Include="WildMagic\WmlQuaternion.cpp" />
+    <ClCompile Include="WildMagic\WmlSystem.cpp" />
+    <ClCompile Include="WildMagic\WmlVector2.cpp" />
+    <ClCompile Include="WildMagic\WmlVector3.cpp" />
+    <ClCompile Include="WildMagic\WmlVector4.cpp" />
+    <ClCompile Include="WildMagic\WmlWinSystem.cpp" />
     <ClCompile Include="xrRender_R4.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -586,12 +651,41 @@
     <ProjectReference Include="..\..\..\Externals\LuaJIT-proj\LuaJIT.vcxproj">
       <Project>{632aeeb6-dc06-4e15-9551-b2b09a4b73c5}</Project>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\Externals\MagicFM.vcxproj">
+      <Project>{848e8ab3-9962-4c04-b813-5690399c8a3e}</Project>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\Externals\oalib.vcxproj">
       <Project>{61d4856f-fa82-4f02-bb88-909ddfb1fe74}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\..\utils\ETools\ETools.vcxproj">
+      <Project>{65cbb9d0-fbc6-41a4-8316-f5e9b5d7fb33}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\..\utils\LWO\LWO.vcxproj">
+      <Project>{a6ebbbbb-5fef-4c20-8460-dfab11734ded}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\..\utils\xrDXT\DXT.vcxproj">
+      <Project>{ebf9b543-0830-4866-9b48-dc0740e87e8a}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\..\xrPhysics\xrPhysics.vcxproj">
+      <Project>{98d24a3d-7666-4c11-9d6e-b10393ce8cba}</Project>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+    <None Include="WildMagic\WmlGMatrix.inl" />
+    <None Include="WildMagic\WmlGVector.inl" />
+    <None Include="WildMagic\WmlMath.inl" />
+    <None Include="WildMagic\WmlMatrix.inl" />
+    <None Include="WildMagic\WmlMatrix2.inl" />
+    <None Include="WildMagic\WmlMatrix3.inl" />
+    <None Include="WildMagic\WmlMatrix4.inl" />
+    <None Include="WildMagic\WmlQuaternion.inl" />
+    <None Include="WildMagic\WmlSystem.inl" />
+    <None Include="WildMagic\WmlSystem.mcr" />
+    <None Include="WildMagic\WmlVector.inl" />
+    <None Include="WildMagic\WmlVector2.inl" />
+    <None Include="WildMagic\WmlVector3.inl" />
+    <None Include="WildMagic\WmlVector4.inl" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

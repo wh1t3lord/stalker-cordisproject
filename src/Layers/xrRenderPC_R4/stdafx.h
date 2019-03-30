@@ -52,3 +52,32 @@ IC void jitter(CBlender_Compile& C)
     C.r_dx10Texture("jitterMipped", r2_jitter_mipped);
     C.r_dx10Sampler("smp_jitter");
 }
+
+// Lord: протестить
+using AStringVec = xr_vector<xr_string>;
+using AStringIt = AStringVec::iterator;
+
+using LPAStringVec = xr_vector<xr_string*>;
+using LPAStringIt = LPAStringVec::iterator;
+
+#include "EditorPref.h"
+
+inline float CalcSSA(Fvector& C, float R)
+{
+    float distSQ = Device.vCameraPosition.distance_to_sqr(C);
+    return R * R / distSQ;
+}
+// Lord: Понять как это используется и улучшить эти возможности
+enum
+{
+    rsFilterLinear = (1ul << 20ul),
+    rsEdgedFaces = (1ul << 21ul),
+    rsRenderTextures = (1ul << 22ul),
+    rsLighting = (1ul << 23ul),
+    rsFog = (1ul << 24ul),
+    rsRenderRealTime = (1ul << 25ul),
+    rsDrawGrid = (1ul << 26ul),
+    rsDrawSafeRect = (1ul << 27ul),
+    rsMuteSounds = (1ul << 28ul),
+    rsEnvironment = (1ul << 29ul),
+};

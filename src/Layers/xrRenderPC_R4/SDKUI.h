@@ -21,7 +21,7 @@ private:
         SDKUI_Log::Widget().Init(GetPosBottomLeft(), 500, 150, ImGuiWindowFlags_NoResize);
         SDKUI_Log::Widget().SetColor(good);
         SDKUI_Log::Widget().AddText("SDK was initialized! %s", "Test");
-    } 
+    }
 
 public:
     static SDKUI& UI(void)
@@ -36,16 +36,11 @@ public:
     void Draw(void);
     void End(void);
 
+    inline void ShowMainMenuBar(void) { this->bShowMainMenuBar = true; }
 
-    inline void ShowMainMenuBar(void)
-    {
-        bShowMainMenuBar = true;
-    }
+    inline void HideMainMenuBar(void) { this->bShowMainMenuBar = false; }
 
-    inline void HideMainMenuBar(void)
-    { 
-        bShowMainMenuBar = false;
-    }
+    inline bool IsSelected(void) const { return this->bSelected; }
 
 private:
     void DrawMainMenuBar(void);
@@ -61,9 +56,14 @@ private:
     inline ImVec2 GetPosBottomLeft(void) { return ImVec2(0, DisplayY); }
     inline ImVec2 GetPosBottomRight(void) { return ImVec2(DisplayX, DisplayY); }
 
+    void PickObject(void);
+
 private:
     bool bShowMainMenuBar;
     bool bCloseOnce = false;
+    bool bSelected = false;
+    bool bCanUseLeftButton = true;
     int DisplayX;
     int DisplayY;
+    float dis_to_current_obj = SDK_Camera::GetInstance().fFar;
 };

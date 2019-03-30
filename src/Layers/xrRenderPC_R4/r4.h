@@ -21,8 +21,10 @@
 
 #include "xrEngine/IRenderable.h"
 #include "xrCore/FMesh.hpp"
-
+#include "utils/Shader_xrLC.h"
 class dxRender_Visual;
+
+#include "EditObject.h"
 
 // definition
 class CRender : public D3DXRenderBase
@@ -159,8 +161,8 @@ public:
     xr_vector<ref_shader> Shaders;
     typedef svector<D3DVERTEXELEMENT9, MAXD3DDECLLENGTH + 1> VertexDeclarator;
     xr_vector<VertexDeclarator> nDC, xDC;
-    xr_vector<ID3DVertexBuffer *> nVB, xVB;
-    xr_vector<ID3DIndexBuffer *> nIB, xIB;
+    xr_vector<ID3DVertexBuffer*> nVB, xVB;
+    xr_vector<ID3DIndexBuffer*> nIB, xIB;
     xr_vector<dxRender_Visual*> Visuals;
     CPSLibrary PSLibrary;
 
@@ -190,6 +192,8 @@ public:
     bool m_bMakeAsyncSS;
     bool m_bFirstFrameAfterReset; // Determines weather the frame is the first after resetting device.
     xr_vector<sun::cascade> m_sun_cascades;
+    // Lord: Было добавлено для СДК
+    Shader_xrLC_LIB ShaderXRLC;
 
 private:
     // Loading / Unloading
@@ -358,7 +362,7 @@ public:
     virtual void OnFrame();
 
     void BeforeWorldRender() override; //--#SM+#-- +SecondVP+ Вызывается перед началом рендера мира и пост-эффектов
-    void AfterWorldRender() override;  //--#SM+#-- +SecondVP+ Вызывается после рендера мира и перед UI
+    void AfterWorldRender() override; //--#SM+#-- +SecondVP+ Вызывается после рендера мира и перед UI
 
     // Render mode
     virtual void rmNear();
@@ -382,6 +386,10 @@ protected:
 
 private:
     FS_FileSet m_file_set;
+
+public:
+
+    CEditableObject* obj;
 };
 
 extern CRender RImplementation;

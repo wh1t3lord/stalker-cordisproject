@@ -7,7 +7,7 @@
 #include "xrCDB.h"
 class IGameFont;
 class IPerformanceAlert;
-
+ 
 class XRCDB_API xrXRC
 {
     CDB::COLLIDER CL;
@@ -62,6 +62,8 @@ public:
         CL.box_query(m_def, b_center, b_dim);
         Stats.BoxQuery.End();
     }
+
+
 
     IC void frustum_options(u32 f) { CL.frustum_options(f); }
     IC void frustum_query(const CDB::MODEL* m_def, const CFrustum& F)

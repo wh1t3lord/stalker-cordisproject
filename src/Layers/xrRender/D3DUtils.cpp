@@ -759,6 +759,7 @@ void CDrawUtilities::dbgDrawPlacement(const Fvector& p, int sz, u32 clr, LPCSTR 
     Stream->Unlock(5, vs_TL->vb_stride);
 
     // Render it as line strip
+   // DU_DRAW_SH(RImplementation.m_WireShader);
     DU_DRAW_DP(D3DPT_LINESTRIP, vs_TL, vBase, 4);
     if (caption)
     {
@@ -805,7 +806,7 @@ void CDrawUtilities::DrawLine(const Fvector& p0, const Fvector& p1, u32 c)
     pv++;
     Stream->Unlock(2, vs_L->vb_stride);
     // and Render it as triangle list
-    DU_DRAW_DP(D3DPT_LINELIST, vs_L, vBase, 1);
+    DU_DRAW_DP(D3DPT_LINELIST, vs_L, vBase, 2);
 }
 
 //----------------------------------------------------
@@ -826,9 +827,9 @@ void CDrawUtilities::DrawSelectionBox(const Fvector& C, const Fvector& S, u32* c
     Stream->Unlock(boxvertcount, vs_L->vb_stride);
 
     // and Render it as triangle list
-    DU_DRAW_RS(D3DRS_FILLMODE, D3DFILL_SOLID);
+   // DU_DRAW_RS(D3DRS_FILLMODE, D3DFILL_SOLID);
     DU_DRAW_DP(D3DPT_LINELIST, vs_L, vBase, boxvertcount / 2);
-    DU_DRAW_RS(D3DRS_FILLMODE, FILL_MODE);
+//    DU_DRAW_RS(D3DRS_FILLMODE, FILL_MODE);
 }
 
 void CDrawUtilities::DrawBox(const Fvector& offs, const Fvector& Size, BOOL bSolid, BOOL bWire, u32 clr_s, u32 clr_w)
@@ -1275,6 +1276,7 @@ void CDrawUtilities::DrawCross(
     }
     // unlock VB and Render it as triangle list
     Stream->Unlock(bRot45 ? 12 : 6, vs_L->vb_stride);
+ 
     DU_DRAW_DP(D3DPT_LINELIST, vs_L, vBase, bRot45 ? 6 : 3);
 }
 

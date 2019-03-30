@@ -144,6 +144,7 @@ void SDKUI_Log::Draw(void)
                 ImGui::EndPopup();
             }
         }
+        ImGui::SetScrollHereY();
         ImGui::End();
     }
 }

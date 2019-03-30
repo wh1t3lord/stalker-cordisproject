@@ -1,6 +1,9 @@
 #ifndef ETextureParamsH
 #define ETextureParamsH
 class INetReader;
+
+#include "xrServerEntities/PropertiesListTypes.h"
+
 #pragma pack(push, 1)
 struct /*ECORE_API*/ STextureParams
 {
@@ -167,15 +170,15 @@ struct /*ECORE_API*/ STextureParams
     void write(IWriter& w) const;
     BOOL HasSurface() const { return flags.is(flHasSurface); }
     void SetHasSurface(BOOL val) { flags.set(flHasSurface, val); }
-#ifdef _EDITOR
+ 
     PropValue::TOnChange OnTypeChangeEvent;
     void __stdcall OnTypeChange(PropValue* v);
-    void FillProp(LPCSTR base_name, PropItemVec& items, PropValue::TOnChange OnChangeEvent);
+  //  void FillProp(LPCSTR base_name, PropItemVec& items, PropValue::TOnChange OnChangeEvent);
     LPCSTR FormatString();
     u32 MemoryUsage(LPCSTR base_name);
-    BOOL similar(STextureParams& tp1, xr_vector<AnsiString>& sel_params);
+    BOOL similar(STextureParams& tp1, xr_vector<xr_string>& sel_params);
 
-#endif
+ 
 };
 #pragma pack(pop)
 

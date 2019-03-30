@@ -21,8 +21,6 @@ void SDK_Camera::Initialize(void)
     vRight = {0, 0, 0};
     fSens = 0.002f;
 
- 
-
     Device.seqFrame.Add(this, REG_PRIORITY_HIGH);
 }
 
@@ -71,18 +69,41 @@ void SDK_Camera::MoveUp(float val)
 {
     if (val == 0)
         return;
- 
-    Device.vCameraPosition.y += val;
 
+    Device.vCameraPosition.y += val;
 }
 
 void SDK_Camera::Update(void)
 {
- 
     Fmatrix mR;
     mR.setHPB(-yaw, -pitch, -roll);
 
     vDirection.set(mR.k);
     vNormal.set(mR.j);
+    vRight.set(mR.i);
+}
 
+void SDK_Camera::MouseRayFromPoint(Fvector& direction, const Ivector2& point)
+{
+    int w, h;
+    SDL_GetWindowSize(Device.m_sdlWnd, &w, &h);
+    int halfwidth = w/2;
+    int halfheight = h/2;
+
+    if (!halfwidth || !halfheight)
+        return;
+
+    Ivector2 point2;
+    point2.set(point.x - halfwidth, halfheight - point.y);
+
+    float size_y = this->fNear * tan(deg2rad(this->f_fov) * 0.5f);
+    float size_x = size_y / this->f_aspect;
+
+    float r_pt = float(point2.x) * size_x / (float)halfwidth;
+    float u_pt = float(point2.y) * size_y / (float)halfheight;
+
+    direction.mul(this->vDirection, this->fNear);
+    direction.mad(direction, this->vNormal, u_pt);
+    direction.mad(direction, this->vRight, r_pt);
+    direction.normalize();
 }

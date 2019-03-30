@@ -8,6 +8,9 @@ void CResourceManager::OnDeviceDestroy(BOOL)
 {
     if (RDEVICE.b_is_Ready)
         return;
+
+    delete RImplementation.obj;
+
     m_textures_description.UnLoad();
 
     // Matrices

@@ -250,33 +250,6 @@
     <Filter Include="Cordis\SDK\Camera\Private">
       <UniqueIdentifier>{11b14290-0809-4865-a76c-1b94f0c91cff}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Cordis\SDK\Custom Object">
-      <UniqueIdentifier>{269b841d-890d-44e5-bfdf-707c56b8e768}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Cordis\SDK\Custom Object\Public">
-      <UniqueIdentifier>{500a0b46-7d0a-41a3-9cd9-89320cd4275a}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Cordis\SDK\Custom Object\Private">
-      <UniqueIdentifier>{bbff8de1-0262-4867-9f73-c5f1be04ac3e}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Cordis\SDK\Editable Mesh">
-      <UniqueIdentifier>{d1ffa437-c05d-4070-aa39-a6af68dde3e7}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Cordis\SDK\Editable Mesh\Public">
-      <UniqueIdentifier>{877c6ac3-9b47-4379-bf5d-8a7fdb1938df}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Cordis\SDK\Editable Mesh\Private">
-      <UniqueIdentifier>{34bf6c17-8dd8-4f38-b6cc-4730eeddb852}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Cordis\SDK\Editable Object">
-      <UniqueIdentifier>{af3a2365-4404-4a70-b72d-ee658a7a40c3}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Cordis\SDK\Editable Object\Public">
-      <UniqueIdentifier>{e21ceab6-dea6-47b6-a8b9-1d3df365c53f}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Cordis\SDK\Editable Object\Private">
-      <UniqueIdentifier>{9497050d-ee43-4ffd-8608-c128c6d627fb}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="defines.h">

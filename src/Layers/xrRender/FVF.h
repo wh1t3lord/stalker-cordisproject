@@ -26,6 +26,19 @@ struct L
 };
 const u32 F_L = D3DFVF_XYZ | D3DFVF_DIFFUSE;
 
+struct LAL
+{
+    Fvector p;
+    Fvector n;
+    Fvector2 uv;
+    void set(const Fvector& _p, const Fvector& _n, const Fvector2& _uv)
+    {
+        p.set(_p);
+        n.set(_n);
+        uv.set(_uv);
+    }
+};
+
 struct V
 {
     Fvector p;
@@ -218,7 +231,7 @@ struct TL4uv
     };
 };
 const u32 F_TL4uv = D3DFVF_XYZRHW | D3DFVF_DIFFUSE | D3DFVF_TEX4;
-};
+}; // namespace FVF
 #pragma pack(pop)
 
 //-----------------------------------------------------------------------------

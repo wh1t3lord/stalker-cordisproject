@@ -114,6 +114,7 @@ public:
         buff.push_back(sas);
         buf.clear();
         bSysCall = false;
+       
     }
 
     inline void Clear(void)

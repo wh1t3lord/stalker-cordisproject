@@ -124,7 +124,7 @@ void STextureParams::Save(IWriter& F)
     F.close_chunk();
 }
 
-#ifdef _EDITOR
+ 
 #include "xrServerEntities/PropertiesListHelper.h"
 
 void STextureParams::OnTypeChange(PropValue* prop)
@@ -151,7 +151,7 @@ void STextureParams::OnTypeChange(PropValue* prop)
     if (!OnTypeChangeEvent.empty())
         OnTypeChangeEvent(prop);
 }
-
+/* 
 void STextureParams::FillProp(LPCSTR base_name, PropItemVec& items, PropValue::TOnChange on_type_change)
 {
     OnTypeChangeEvent = on_type_change;
@@ -173,7 +173,7 @@ void STextureParams::FillProp(LPCSTR base_name, PropItemVec& items, PropValue::T
         P->OnChangeEvent.bind(this, &STextureParams::OnTypeChange);
         if (tbmUse == bump_mode || tbmUseParallax == bump_mode)
         {
-            AnsiString path;
+            xr_string path;
             path = base_name;
             PHelper().CreateChoose(items, "Bump\\Texture", &bump_name, smTexture, path.c_str());
         }
@@ -229,18 +229,18 @@ void STextureParams::FillProp(LPCSTR base_name, PropItemVec& items, PropValue::T
         P->Owner()->Enable(false);
         break;
     }
-}
+} */
 
-BOOL STextureParams::similar(STextureParams& tp1, xr_vector<AnsiString>& sel_params)
+BOOL STextureParams::similar(STextureParams& tp1, xr_vector<xr_string>& sel_params)
 {
     BOOL res = TRUE;
 
-    xr_vector<AnsiString>::iterator it = sel_params.begin();
-    xr_vector<AnsiString>::iterator it_e = sel_params.end();
+    xr_vector<xr_string>::iterator it = sel_params.begin();
+    xr_vector<xr_string>::iterator it_e = sel_params.end();
 
     for (; it != it_e; ++it)
     {
-        const AnsiString& par_name = *it;
+        const xr_string& par_name = *it;
         if (par_name == "Type")
         {
             res = (type == tp1.type);
@@ -408,7 +408,7 @@ u32 STextureParams::MemoryUsage(LPCSTR base_name)
     }
     return mem_usage;
 }
-#endif
+ 
 
 #include "serialize.h"
 

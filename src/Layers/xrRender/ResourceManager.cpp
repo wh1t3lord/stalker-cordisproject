@@ -361,8 +361,8 @@ void	CResourceManager::DeferredUnload	()
         t->second->Unload();
 }
 */
-#ifdef _EDITOR
-void CResourceManager::ED_UpdateTextures(AStringVec* names)
+
+void CResourceManager::ED_UpdateTextures(xr_vector<xr_string>* names)
 {
     // 1. Unload
     if (names)
@@ -383,7 +383,7 @@ void CResourceManager::ED_UpdateTextures(AStringVec* names)
     // 2. Load
     // DeferredUpload	();
 }
-#endif
+
 
 void CResourceManager::_GetMemoryUsage(u32& m_base, u32& c_base, u32& m_lmaps, u32& c_lmaps)
 {

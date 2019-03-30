@@ -26,8 +26,8 @@ public:
     void MoveRight(float val);
     void MoveUp(float val);
     void Update(void);
-
-    inline constexpr Fvector GetPosition(void) const { return vPosition; }
+    void MouseRayFromPoint(Fvector&, const Ivector2&);
+ //   inline constexpr Fvector GetPosition(void) const { return vPosition; }
 
     inline constexpr Fvector GetDirection(void) const { return vDirection; }
 

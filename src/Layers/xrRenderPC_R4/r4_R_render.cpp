@@ -208,6 +208,7 @@ void CRender::render_menu()
 }
 
 extern u32 g_r;
+
 void CRender::Render()
 {
     PIX_EVENT(CRender_Render);
@@ -219,7 +220,15 @@ void CRender::Render()
 
     if (FS.IsSDK())
     {
+          
+        this->ViewBase.CreateFromMatrix(Device.mFullTransform, FRUSTUM_P_LRTB + FRUSTUM_P_FAR);
+        
+
         SDKUI_Render::GetInstance().MainRender();
+
+   //     u32 clr = 0xFFFFFFFF;
+  //      DUImpl.DrawSelectionBoxB(obj->GetBox(), &clr);
+      //  obj->RayPick(SDK_Camera::GetInstance().fFar, 
     }
     else
     {

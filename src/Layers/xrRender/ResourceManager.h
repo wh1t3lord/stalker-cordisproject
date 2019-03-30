@@ -5,7 +5,7 @@
 #ifndef ResourceManagerH
 #define ResourceManagerH
 #pragma once
-
+#include "stdafx.h"
 #include "Shader.h"
 #include "tss_def.h"
 #include "TextureDescrManager.h"
@@ -32,6 +32,7 @@ private:
 public:
     using map_Blender = xr_map<const char*, IBlender*, str_pred>;
     using map_Texture = xr_map<const char*, CTexture*, str_pred>;
+    using map_TextureIt = map_Texture::iterator;
     using map_Matrix = xr_map<const char*, CMatrix*, str_pred>;
     using map_Constant = xr_map<const char*, CConstant*, str_pred>;
     using map_RT = xr_map<const char*, CRT*, str_pred>;
@@ -125,9 +126,7 @@ public:
     void ED_UpdateBlender(LPCSTR Name, IBlender* data);
     void ED_UpdateMatrix(LPCSTR Name, CMatrix* data);
     void ED_UpdateConstant(LPCSTR Name, CConstant* data);
-#ifdef _EDITOR
-    void ED_UpdateTextures(AStringVec* names);
-#endif
+    void ED_UpdateTextures(xr_vector<xr_string> *names); // Lord: протестить
 
     // Low level resource creation
     CTexture* _CreateTexture(LPCSTR Name);
@@ -189,7 +188,7 @@ public:
     void _DeleteState(const SState* SB);
 
 #ifdef USE_OGL
-    SDeclaration* _CreateDecl (u32 FVF);
+    SDeclaration* _CreateDecl(u32 FVF);
 #endif
 
     SDeclaration* _CreateDecl(D3DVERTEXELEMENT9* dcl);
@@ -207,9 +206,10 @@ public:
     ShaderElement* _CreateElement(ShaderElement& L);
     void _DeleteElement(const ShaderElement* L);
 
-    Shader* _cpp_Create(LPCSTR s_shader, LPCSTR s_textures = nullptr, LPCSTR s_constants = nullptr, LPCSTR s_matrices = nullptr);
     Shader* _cpp_Create(
-        IBlender* B, LPCSTR s_shader = nullptr, LPCSTR s_textures = nullptr, LPCSTR s_constants = nullptr, LPCSTR s_matrices = nullptr);
+        LPCSTR s_shader, LPCSTR s_textures = nullptr, LPCSTR s_constants = nullptr, LPCSTR s_matrices = nullptr);
+    Shader* _cpp_Create(IBlender* B, LPCSTR s_shader = nullptr, LPCSTR s_textures = nullptr,
+        LPCSTR s_constants = nullptr, LPCSTR s_matrices = nullptr);
     Shader* _lua_Create(LPCSTR s_shader, LPCSTR s_textures);
     BOOL _lua_HasShader(LPCSTR s_shader);
 
@@ -224,9 +224,10 @@ public:
     void reset_end();
 
     // Creation/Destroying
-    Shader* Create(LPCSTR s_shader = nullptr, LPCSTR s_textures = nullptr, LPCSTR s_constants = nullptr, LPCSTR s_matrices = nullptr);
-    Shader* Create(
-        IBlender* B, LPCSTR s_shader = nullptr, LPCSTR s_textures = nullptr, LPCSTR s_constants = nullptr, LPCSTR s_matrices = nullptr);
+    Shader* Create(LPCSTR s_shader = nullptr, LPCSTR s_textures = nullptr, LPCSTR s_constants = nullptr,
+        LPCSTR s_matrices = nullptr);
+    Shader* Create(IBlender* B, LPCSTR s_shader = nullptr, LPCSTR s_textures = nullptr, LPCSTR s_constants = nullptr,
+        LPCSTR s_matrices = nullptr);
     void Delete(const Shader* S);
     void RegisterConstantSetup(LPCSTR name, R_constant_setup* s)
     {
