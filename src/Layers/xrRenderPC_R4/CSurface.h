@@ -3,6 +3,7 @@
 #include "xrEngine/GameMtlLib.h"
 #include "ImageManager.h"
 
+#include "blender_sdk.h"
 
 struct SSimpleImage;
 
@@ -57,6 +58,7 @@ public:
     {
         R_ASSERT(!m_Shader);
         xr_delete(m_ImageData);
+        xr_delete(blender);
     }
     inline void CopyFrom(CSurface* surf)
     {
@@ -102,15 +104,30 @@ public:
 
     inline void SetVMap(LPCSTR name) { m_VMap = name; }
 
-
-    inline u32 _GameMtl() const { return GMLib.GetMaterialID(*m_GameMtlName); } // Lord: есть ли разница однако использовать PGMLib или GMLib, хех
+    inline u32 _GameMtl() const
+    {
+        return GMLib.GetMaterialID(*m_GameMtlName);
+    } // Lord: есть ли разница однако использовать PGMLib или GMLib, хех
     inline void OnDeviceCreate()
     {
         R_ASSERT(!m_RTFlags.is(rtValidShader));
         if (m_ShaderName.size() && m_Texture.size())
-            m_Shader.create("editor\\wire"/*, *m_Texture*/);
+        {
+            if (strstr(*m_ShaderName, "def_trans"))
+                blender = new blender_sdk(false, false, true);
+            else if (strstr(*m_ShaderName, "leaf_wave"))
+                blender = new blender_sdk(true, false);
+            else if (strstr(*m_ShaderName, "def_vertex"))
+                blender = new blender_sdk(false, false);
+            else 
+                blender = new blender_sdk(false);
+
+            m_Shader.create(blender, nullptr, *m_Texture);
+            //   m_Shader.create(*m_ShaderName, *m_Texture);
+        }
         else
             m_Shader.create("editor\\wire");
+
         m_RTFlags.set(rtValidShader, TRUE);
     }
     inline void OnDeviceDestroy()
@@ -121,6 +138,8 @@ public:
     void CreateImageData();
     void RemoveImageData();
 
+private:
+    blender_sdk* blender;
 };
 
 using SurfaceVec = xr_vector<CSurface*>;

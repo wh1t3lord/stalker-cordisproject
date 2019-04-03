@@ -38,6 +38,10 @@
 #include "Layers/xrRender/xrRender_console.h"
 #include "r4.h"
 
+#include "xrCore/Imgui/imgui.h"
+#include "xrCore/Imgui/imgui_impl_sdl.h"
+#include "xrCore/Imgui/imgui_impl_dx11.h"
+
 IC void jitter(CBlender_Compile& C)
 {
     //	C.r_Sampler	("jitter0",	JITTER(0), true, D3DTADDRESS_WRAP, D3DTEXF_POINT, D3DTEXF_NONE, D3DTEXF_POINT);

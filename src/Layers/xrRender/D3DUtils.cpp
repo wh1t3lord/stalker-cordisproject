@@ -31,7 +31,8 @@ static Fvector circledef2[LINE_DIVISION];
 static Fvector circledef3[LINE_DIVISION];
 int GridOptions::Size;
 int GridOptions::separator;
-float GridOptions::col[3] = {1.0f, 0.0f,0.0f};
+float GridOptions::col[3] = {0.1f, 0.1f, 0.1f};
+float GridOptions::col_background[4] = {0.2f, 0.2f, 0.2f, 1.0f};
 const u32 boxcolor = D3DCOLOR_RGBA(255, 255, 255, 0);
 static const int boxvertcount = 48;
 static Fvector boxvert[boxvertcount];
@@ -759,7 +760,7 @@ void CDrawUtilities::dbgDrawPlacement(const Fvector& p, int sz, u32 clr, LPCSTR 
     Stream->Unlock(5, vs_TL->vb_stride);
 
     // Render it as line strip
-   // DU_DRAW_SH(RImplementation.m_WireShader);
+    // DU_DRAW_SH(RImplementation.m_WireShader);
     DU_DRAW_DP(D3DPT_LINESTRIP, vs_TL, vBase, 4);
     if (caption)
     {
@@ -827,9 +828,10 @@ void CDrawUtilities::DrawSelectionBox(const Fvector& C, const Fvector& S, u32* c
     Stream->Unlock(boxvertcount, vs_L->vb_stride);
 
     // and Render it as triangle list
-   // DU_DRAW_RS(D3DRS_FILLMODE, D3DFILL_SOLID);
+    // DU_DRAW_RS(D3DRS_FILLMODE, D3DFILL_SOLID);
+    DU_DRAW_SH(RImplementation.m_WireShader)
     DU_DRAW_DP(D3DPT_LINELIST, vs_L, vBase, boxvertcount / 2);
-//    DU_DRAW_RS(D3DRS_FILLMODE, FILL_MODE);
+    //    DU_DRAW_RS(D3DRS_FILLMODE, FILL_MODE);
 }
 
 void CDrawUtilities::DrawBox(const Fvector& offs, const Fvector& Size, BOOL bSolid, BOOL bWire, u32 clr_s, u32 clr_w)
@@ -1276,7 +1278,7 @@ void CDrawUtilities::DrawCross(
     }
     // unlock VB and Render it as triangle list
     Stream->Unlock(bRot45 ? 12 : 6, vs_L->vb_stride);
- 
+    RCache.set_xform_world(Fidentity);
     DU_DRAW_DP(D3DPT_LINELIST, vs_L, vBase, bRot45 ? 6 : 3);
 }
 
@@ -1370,26 +1372,26 @@ void CDrawUtilities::DrawObjectAxis(const Fmatrix& T, float sz, BOOL sel)
     d.x = (float)iFloor(_x2real(d.x));
     d.y = (float)iFloor(_y2real(-d.y));
 
-    u32 vBase;
-    FVF::TL* pv = (FVF::TL*)Stream->Lock(6, vs_TL->vb_stride, vBase);
-    pv->set(c.x, c.y, 0, 1, 0xFF222222, 0, 0);
+    u32 vBase;  
+    FVF::L* pv = (FVF::L*)Stream->Lock(6, vs_L->vb_stride, vBase);
+    pv->set(c.x, c.y, 0, 0xFF222222);
     pv++;
-    pv->set(d.x, d.y, 0, 1, sel ? 0xFF0000FF : 0xFF000080, 0, 0);
+    pv->set(d.x, d.y, 0, sel ? 0xFF0000FF : 0xFF000080);
     pv++;
-    pv->set(c.x, c.y, 0, 1, 0xFF222222, 0, 0);
+    pv->set(c.x, c.y, 0, 0xFF222222);
     pv++;
-    pv->set(r.x, r.y, 0, 1, sel ? 0xFFFF0000 : 0xFF800000, 0, 0);
+    pv->set(r.x, r.y, 0, sel ? 0xFFFF0000 : 0xFF800000);
     pv++;
-    pv->set(c.x, c.y, 0, 1, 0xFF222222, 0, 0);
+    pv->set(c.x, c.y, 0, 0xFF222222);
     pv++;
-    pv->set(n.x, n.y, 0, 1, sel ? 0xFF00FF00 : 0xFF008000, 0, 0);
-    Stream->Unlock(6, vs_TL->vb_stride);
+    pv->set(n.x, n.y, 0, sel ? 0xFF00FF00 : 0xFF008000);
+    Stream->Unlock(6, vs_L->vb_stride);
 
     // Render it as line list
-    DU_DRAW_RS(D3DRS_SHADEMODE, D3DSHADE_GOURAUD);
+//    DU_DRAW_RS(D3DRS_SHADEMODE, D3DSHADE_GOURAUD);
     DU_DRAW_SH(RImplementation.m_WireShader);
-    DU_DRAW_DP(D3DPT_LINELIST, vs_TL, vBase, 3);
-    DU_DRAW_RS(D3DRS_SHADEMODE, SHADE_MODE);
+    DU_DRAW_DP(D3DPT_LINELIST, vs_L, vBase, 3);
+ //   DU_DRAW_RS(D3DRS_SHADEMODE, SHADE_MODE);
 
     m_Font->SetColor(sel ? 0xFF000000 : 0xFF909090);
     m_Font->Out(r.x, r.y, "x");

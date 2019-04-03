@@ -207,6 +207,7 @@ struct GridOptions
 {
     static  int Size, separator;
     static float col[3];
+    static float col_background[4];
 };
 extern ECORE_API CDrawUtilities DUImpl;
 //----------------------------------------------------

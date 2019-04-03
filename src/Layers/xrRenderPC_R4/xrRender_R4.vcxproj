@@ -321,6 +321,7 @@
     <ClInclude Include="blender_deffer_aref.h" />
     <ClInclude Include="blender_deffer_flat.h" />
     <ClInclude Include="blender_deffer_model.h" />
+    <ClInclude Include="blender_editor_sdk.h" />
     <ClInclude Include="blender_fxaa.h" />
     <ClInclude Include="blender_light_direct.h" />
     <ClInclude Include="blender_light_mask.h" />
@@ -329,6 +330,7 @@
     <ClInclude Include="blender_light_reflected.h" />
     <ClInclude Include="blender_light_spot.h" />
     <ClInclude Include="blender_luminance.h" />
+    <ClInclude Include="blender_sdk.h" />
     <ClInclude Include="blender_ssao.h" />
     <ClInclude Include="ComputeShader.h" />
     <ClInclude Include="CSCompiler.h" />
@@ -361,7 +363,10 @@
     <ClInclude Include="R_Backend_LOD.h" />
     <ClInclude Include="SDKUI.h" />
     <ClInclude Include="SDKUI_Helpers.h" />
+    <ClInclude Include="SDKUI_ObjectPrefs.h" />
     <ClInclude Include="SDKUI_Render.h" />
+    <ClInclude Include="SDK_CustomObject.h" />
+    <ClInclude Include="SDK_ObjectStaticGeometry.h" />
     <ClInclude Include="SMAP_Allocator.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="WildMagic\WmlApprGaussPointsFit3.h" />
@@ -525,6 +530,7 @@
     <ClCompile Include="blender_deffer_aref.cpp" />
     <ClCompile Include="blender_deffer_flat.cpp" />
     <ClCompile Include="blender_deffer_model.cpp" />
+    <ClCompile Include="blender_editor_sdk.cpp" />
     <ClCompile Include="blender_fxaa.cpp" />
     <ClCompile Include="blender_light_direct.cpp" />
     <ClCompile Include="blender_light_mask.cpp" />
@@ -533,6 +539,7 @@
     <ClCompile Include="blender_light_reflected.cpp" />
     <ClCompile Include="blender_light_spot.cpp" />
     <ClCompile Include="blender_luminance.cpp" />
+    <ClCompile Include="blender_sdk.cpp" />
     <ClCompile Include="blender_ssao.cpp" />
     <ClCompile Include="ComputeShader.cpp" />
     <ClCompile Include="CSCompiler.cpp" />
@@ -594,7 +601,10 @@
     <ClCompile Include="R_Backend_LOD.cpp" />
     <ClCompile Include="SDKUI.cpp" />
     <ClCompile Include="SDKUI_Helpers.cpp" />
+    <ClCompile Include="SDKUI_ObjectPrefs.cpp" />
     <ClCompile Include="SDKUI_Render.cpp" />
+    <ClCompile Include="SDK_CustomObject.cpp" />
+    <ClCompile Include="SDK_ObjectStaticGeometry.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>

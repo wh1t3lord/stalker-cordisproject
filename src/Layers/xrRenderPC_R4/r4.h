@@ -25,6 +25,7 @@
 class dxRender_Visual;
 
 #include "EditObject.h"
+#include "SDK_ObjectStaticGeometry.h"
 
 // definition
 class CRender : public D3DXRenderBase
@@ -388,8 +389,7 @@ private:
     FS_FileSet m_file_set;
 
 public:
-
-    CEditableObject* obj;
+    SDK_ObjectStaticGeometry* obj;
 };
 
 extern CRender RImplementation;

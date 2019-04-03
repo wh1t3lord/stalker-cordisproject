@@ -14,7 +14,7 @@
 #include "Layers/xrRenderDX10/3DFluid/dx103DFluidManager.h"
 #include "Layers/xrRender/ShaderResourceTraits.h"
 #include "D3DX10Core.h"
-
+#include "SDK_ObjectStaticGeometry.h"
 CRender RImplementation;
 
 //////////////////////////////////////////////////////////////////////////
@@ -678,9 +678,9 @@ void CRender::flush() { r_dsgraph_render_graph(0); }
 BOOL CRender::occ_visible(vis_data& P) { return HOM.visible(P); }
 BOOL CRender::occ_visible(sPoly& P) { return HOM.visible(P); }
 BOOL CRender::occ_visible(Fbox& P)
-{ 
+{
     if (!FS.IsSDK())
-        return HOM.visible(P); 
+        return HOM.visible(P);
     else
     {
         u32 mask = 0xff;
@@ -759,10 +759,14 @@ void CRender::rmNormal()
 CRender::CRender() : m_bFirstFrameAfterReset(false), Sectors_xrc("render")
 {
     init_cacades();
-    obj = new CEditableObject(TEXT("aaaa"));
-    obj->Load(TEXT("D:\\Stalker Call Of Pripyat\\gamedata\\trees_sosna_1_sux_02.object"));
+    obj = new SDK_ObjectStaticGeometry(nullptr, "");
+  
+    obj->Load(TEXT("D:\\Stalker Call Of Pripyat\\gamedata\\mi6_dead_fire.object"));
 }
-CRender::~CRender() { }
+CRender::~CRender()
+{
+  //  delete obj; 
+}
 void CRender::DumpStatistics(IGameFont& font, IPerformanceAlert* alert)
 {
     D3DXRenderBase::DumpStatistics(font, alert);

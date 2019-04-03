@@ -20,11 +20,19 @@ void SDKUI::PickObject(void)
     Fvector dir;
     SDK_Camera::GetInstance().MouseRayFromPoint(dir, p);
     this->dis_to_current_obj = SDK_Camera::GetInstance().fFar;
-    Fbox a = RImplementation.obj->GetBox();
+    Fbox a = RImplementation.obj->GetData()->GetBox();
+    a.xform(RImplementation.obj->GetTransform()); // LORD: УЧИТЫВАЕМ ПРОСЧЁТ BBOX!!!!!!!!
     if (RImplementation.occ_visible(a))
     {
-        if (RImplementation.obj->RayPick(this->dis_to_current_obj, Device.vCameraPosition, dir, Fidentity))
+        Fmatrix lol = RImplementation.obj->GetTransform();
+        lol.invert();
+    //    SDKUI_Log::Widget().AddText("Rendering!");
+        if (RImplementation.obj->GetData()->RayPick(this->dis_to_current_obj, Device.vCameraPosition, dir, lol))
+        {
             this->bSelected = true;
+        //    SDKUI_Log::Widget().AddText("Selected!");
+        }
+
         else
             this->bSelected = false;
     }
@@ -33,8 +41,17 @@ void SDKUI::PickObject(void)
 void SDKUI::KeyBoardMessages(void)
 {
     // @ Хендлим шорткаты
-
+    
     // @ Глобальные клики можно обрабатывать динамические пупапы если надо
+    if (ImGui::IsMouseHoveringAnyWindow())
+    {
+        this->bCanUseLeftButton = false;
+    }
+    else
+    {
+        this->bCanUseLeftButton = true;
+    }
+
     if (ImGui::IsMouseClicked(0) && this->bCanUseLeftButton) // @ Left button
     {
         this->PickObject();

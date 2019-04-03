@@ -9,7 +9,7 @@
 #include "r__dsgraph_types.h"
 #include "r__sector.h"
 #include "xr_effgamma.h"
-
+#include "blender_editor_sdk.h"
 // feedback	for receiving visuals
 class R_feedback
 {
@@ -33,6 +33,10 @@ public:
     u32 marker;
     bool pmask[2];
     bool pmask_wmark;
+    blender_editor_sdk* editor_wire;
+    blender_editor_sdk* editor_selection;
+    ref_shader m_SDKWireShader;
+    ref_shader m_SDKSelectionShader;
 
 public:
     // Dynamic scene graph

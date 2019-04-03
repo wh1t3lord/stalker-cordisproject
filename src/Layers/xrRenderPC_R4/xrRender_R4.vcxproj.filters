@@ -190,12 +190,6 @@
     <Filter Include="Cordis\SDK\UI management">
       <UniqueIdentifier>{12df46ed-8294-4930-83a0-97c8b1413c68}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Cordis\SDK\UI management\Private">
-      <UniqueIdentifier>{29675fc3-99bd-4e9f-b1d3-8631a76ba9ab}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Cordis\SDK\UI management\Public">
-      <UniqueIdentifier>{625ab781-3dea-46d5-810a-3be1cbc9c1ed}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Cordis\SDK\Render">
       <UniqueIdentifier>{5636342d-3e87-4061-8bd8-f088d54f4fcc}</UniqueIdentifier>
     </Filter>
@@ -330,6 +324,117 @@
     </Filter>
     <Filter Include="Cordis\SDK\Scene management\GSC\Other Stuff\Editor Preferences\Private">
       <UniqueIdentifier>{18a3c0ce-8931-47da-86e5-2f9e3cfc45e7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Shading templates\SDK">
+      <UniqueIdentifier>{f308a181-ed59-44fb-903a-4fd5d28d6ee3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Shading templates\SDK\Public">
+      <UniqueIdentifier>{b49acf9f-4cb0-4d72-b02c-558a9ac064f7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Shading templates\SDK\Private">
+      <UniqueIdentifier>{05bba999-183e-4fad-968f-51a66a8850be}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\SDK\Scene management\Own">
+      <UniqueIdentifier>{484092c5-d4cf-4381-aac4-df99b33fa7b9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\SDK\Scene management\Own\Kernel">
+      <UniqueIdentifier>{df6f223d-f9ef-419a-93df-abde395ac818}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\SDK\Scene management\Own\Kernel\Custom Object">
+      <UniqueIdentifier>{9b94ddf4-0564-44c3-a6ab-47305569cc9a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\SDK\Scene management\Own\Kernel\Custom Object\Public">
+      <UniqueIdentifier>{a8849663-5707-4760-8caa-89d4dd8c23df}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\SDK\Scene management\Own\Kernel\Custom Object\Private">
+      <UniqueIdentifier>{dcfd6a75-9845-4740-92eb-4d6e4ae963e8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\SDK\Scene management\Own\Objects">
+      <UniqueIdentifier>{3ff27a07-71cf-43f9-9192-914428004055}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\SDK\Scene management\Own\Objects\Static Geometry">
+      <UniqueIdentifier>{04caae8f-76fc-4458-8b69-798278b2356b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\SDK\Scene management\Own\Objects\Static Geometry\Public">
+      <UniqueIdentifier>{a5d75dce-080e-4b38-be3c-55d67548e08e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\SDK\Scene management\Own\Objects\Static Geometry\Private">
+      <UniqueIdentifier>{3fb6dc6f-e7b8-4575-b362-4916d5922121}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\SDK\Scene management\Own\Objects\Sector">
+      <UniqueIdentifier>{9849ca6f-3dff-43e4-8735-e88cbc18bfc5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\SDK\Scene management\Own\Objects\Sector\Public">
+      <UniqueIdentifier>{66c19620-c21e-47a5-b813-85e6e958ff23}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\SDK\Scene management\Own\Objects\Sector\Private">
+      <UniqueIdentifier>{da1d5b67-203e-4d47-9749-de2db6feb789}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\SDK\Scene management\Own\Objects\Spawn Element">
+      <UniqueIdentifier>{f2c75f12-9f78-4746-a0b3-ae3b1f014d82}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\SDK\Scene management\Own\Objects\Spawn Element\Public">
+      <UniqueIdentifier>{44086bd3-c2a9-4219-87cb-fb577040bd1a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\SDK\Scene management\Own\Objects\Spawn Element\Private">
+      <UniqueIdentifier>{58171d37-3f66-407d-a269-f4b06b65f501}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\SDK\Scene management\Own\Objects\Way Point">
+      <UniqueIdentifier>{d7840e86-3b4f-468c-a884-8c7392e922eb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\SDK\Scene management\Own\Objects\Way Point\Public">
+      <UniqueIdentifier>{8942580f-356c-4131-bacb-be5ab991dfae}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\SDK\Scene management\Own\Objects\Way Point\Private">
+      <UniqueIdentifier>{ad1fac43-489b-4efb-9a2a-17d233b16c02}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\SDK\Scene management\Own\Objects\Light">
+      <UniqueIdentifier>{5cd628da-ad7f-46a8-ae26-19d177aa04fc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\SDK\Scene management\Own\Objects\Light\Public">
+      <UniqueIdentifier>{6aecc213-ab81-4ded-b49b-92df673fa04e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\SDK\Scene management\Own\Objects\Light\Private">
+      <UniqueIdentifier>{b36b8227-6790-4d47-9275-30fa4113fa46}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\SDK\Scene management\Own\Kernel\Scene Manager">
+      <UniqueIdentifier>{2914e362-3b14-43b9-8ac7-585cb224a6c4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\SDK\Scene management\Own\Kernel\Scene Manager\Public">
+      <UniqueIdentifier>{0b82b38d-2a5a-4078-86cb-4a62714da4fd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\SDK\Scene management\Own\Kernel\Scene Manager\Private">
+      <UniqueIdentifier>{88cfaef7-bb55-46a6-96bb-d9fb9030c687}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\SDK\UI management\Kernel">
+      <UniqueIdentifier>{7f5b1186-547c-43eb-b8e4-fe73765188c2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\SDK\UI management\Kernel\Private">
+      <UniqueIdentifier>{29675fc3-99bd-4e9f-b1d3-8631a76ba9ab}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\SDK\UI management\Kernel\Public">
+      <UniqueIdentifier>{625ab781-3dea-46d5-810a-3be1cbc9c1ed}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\SDK\UI management\Helpers">
+      <UniqueIdentifier>{0c13f614-6649-4ae8-a453-420f1b5e03b4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\SDK\UI management\Helpers\Main">
+      <UniqueIdentifier>{bb70c8f3-7a35-4f10-ad1d-8b2c1f0db48f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\SDK\UI management\Helpers\Main\Public">
+      <UniqueIdentifier>{a4c2ac3b-1df5-49cf-b312-4371f5a8b4e7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\SDK\UI management\Helpers\Main\Private">
+      <UniqueIdentifier>{89b72770-1a61-4be9-bd35-d38bdb36fa9f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\SDK\UI management\Helpers\Object Preferences">
+      <UniqueIdentifier>{ca14f648-c77e-44cc-8b8e-bc804a70cb4d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\SDK\UI management\Helpers\Object Preferences\Public">
+      <UniqueIdentifier>{62f17a2c-2db3-4844-b2ec-92c5098178c7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\SDK\UI management\Helpers\Object Preferences\Private">
+      <UniqueIdentifier>{6c5caab0-4725-4a3a-be41-15953b1db1d2}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -874,13 +979,10 @@
       <Filter>Refactored\Execution &amp; 3D\Visuals\Skeleton</Filter>
     </ClInclude>
     <ClInclude Include="SDKUI.h">
-      <Filter>Cordis\SDK\UI management\Public</Filter>
+      <Filter>Cordis\SDK\UI management\Kernel\Public</Filter>
     </ClInclude>
     <ClInclude Include="SDKUI_Render.h">
       <Filter>Cordis\SDK\Render\Kernel\Public</Filter>
-    </ClInclude>
-    <ClInclude Include="SDKUI_Helpers.h">
-      <Filter>Cordis\SDK</Filter>
     </ClInclude>
     <ClInclude Include="pick_defs.h">
       <Filter>Cordis\SDK\Scene management\GSC\Picking</Filter>
@@ -990,6 +1092,24 @@
     </ClInclude>
     <ClInclude Include="NvMender2003\remove_isolated_verts.h">
       <Filter>MeshMender2003\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="blender_sdk.h">
+      <Filter>Shading templates\SDK\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="blender_editor_sdk.h">
+      <Filter>Shading templates\SDK\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="SDK_CustomObject.h">
+      <Filter>Cordis\SDK\Scene management\Own\Kernel\Custom Object\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="SDK_ObjectStaticGeometry.h">
+      <Filter>Cordis\SDK\Scene management\Own\Objects\Static Geometry\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="SDKUI_Helpers.h">
+      <Filter>Cordis\SDK\UI management\Helpers\Main\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="SDKUI_ObjectPrefs.h">
+      <Filter>Cordis\SDK\UI management\Helpers\Object Preferences\Public</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -1585,13 +1705,10 @@
       <Filter>Core</Filter>
     </ClCompile>
     <ClCompile Include="SDKUI.cpp">
-      <Filter>Cordis\SDK\UI management\Private</Filter>
+      <Filter>Cordis\SDK\UI management\Kernel\Private</Filter>
     </ClCompile>
     <ClCompile Include="SDKUI_Render.cpp">
       <Filter>Cordis\SDK\Render\Kernel\Private</Filter>
-    </ClCompile>
-    <ClCompile Include="SDKUI_Helpers.cpp">
-      <Filter>Cordis\SDK</Filter>
     </ClCompile>
     <ClCompile Include="EditMesh.cpp">
       <Filter>Cordis\SDK\Scene management\GSC\Model\Editable Mesh\Private</Filter>
@@ -1676,6 +1793,24 @@
     </ClCompile>
     <ClCompile Include="NvMender2003\NVMeshMender.cpp">
       <Filter>MeshMender2003\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="blender_sdk.cpp">
+      <Filter>Shading templates\SDK\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="blender_editor_sdk.cpp">
+      <Filter>Shading templates\SDK\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="SDK_CustomObject.cpp">
+      <Filter>Cordis\SDK\Scene management\Own\Kernel\Custom Object\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="SDK_ObjectStaticGeometry.cpp">
+      <Filter>Cordis\SDK\Scene management\Own\Objects\Static Geometry\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="SDKUI_Helpers.cpp">
+      <Filter>Cordis\SDK\UI management\Helpers\Main\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="SDKUI_ObjectPrefs.cpp">
+      <Filter>Cordis\SDK\UI management\Helpers\Object Preferences\Private</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

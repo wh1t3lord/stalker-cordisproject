@@ -175,6 +175,7 @@ private:
     bool bShowOnlySysInfo = true;
     bool bShowOnlyProjectInfo = true;
     int iGridType = 0;
+    Fvector vSavedPosition;
 };
 
 class SDKUI_CameraHelper

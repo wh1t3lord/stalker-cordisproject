@@ -155,13 +155,13 @@ void SDKUI_Log::Draw(void)
 
 void SDKUI_Overlay::Draw(void)
 {
-    if (bShow)
+    if (this->bShow)
     {
         ImGuiWindowFlags flag = ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoResize |
             ImGuiWindowFlags_NoScrollbar | ImGuiWindowFlags_NoNav | ImGuiWindowFlags_AlwaysAutoResize |
             ImGuiWindowFlags_NoBackground;
         ImGui::SetNextWindowPos(ImVec2(30, 30), ImGuiCond_Once);
-        if (ImGui::Begin("Overlay", &bShow, ImVec2(200, 500), 0.005f, flag))
+        if (ImGui::Begin("Overlay", &this->bShow, ImVec2(200, 500), 0.005f, flag))
         {
             if (bShowOnlySDKInfo)
             {
@@ -187,12 +187,13 @@ void SDKUI_Overlay::Draw(void)
                 if (ImGui::TreeNode("Grid:"))
                 {
                     ImGui::ColorEdit3("Grid Color", GridOptions::col);
+                    ImGui::ColorEdit4("Background Scene color: ", GridOptions::col_background);
                     static xr_string a = "100|10";
                     ImGui::SliderInt("Grid Type", &this->iGridType, 0, 5, a.c_str());
                     switch (this->iGridType)
                     {
                     case 0:
-                    { 
+                    {
                         GridOptions::Size = 100;
                         GridOptions::separator = 10;
                         a = "100|10";
@@ -206,7 +207,7 @@ void SDKUI_Overlay::Draw(void)
                         break;
                     }
                     case 2:
-                    { 
+                    {
                         GridOptions::Size = 100;
                         GridOptions::separator = 50;
                         a = "100|50";
@@ -220,14 +221,14 @@ void SDKUI_Overlay::Draw(void)
                         break;
                     }
                     case 4:
-                    { 
+                    {
                         GridOptions::Size = 10;
                         GridOptions::separator = 1;
                         a = "10|1";
                         break;
                     }
                     case 5:
-                    { 
+                    {
                         GridOptions::Size = 10000;
                         GridOptions::separator = 10;
                         a = "10000|10";
@@ -236,10 +237,21 @@ void SDKUI_Overlay::Draw(void)
                     }
                     ImGui::TreePop();
                 }
- 
- 
-                
- 
+                if (ImGui::TreeNode("Camera: "))
+                {
+                    if (ImGui::Button("Start Location"))
+                    {
+                        this->vSavedPosition = Device.vCameraPosition;
+                        Device.vCameraPosition.set(0,0,0);
+                    }
+
+                    if (ImGui::Button("Previous Location"))
+                    {
+                        Device.vCameraPosition.set(this->vSavedPosition);
+                    }
+
+                    ImGui::TreePop();
+                }
             }
 
             if (bShowOnlySysInfo)

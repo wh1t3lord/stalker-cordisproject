@@ -220,15 +220,8 @@ void CRender::Render()
 
     if (FS.IsSDK())
     {
-          
         this->ViewBase.CreateFromMatrix(Device.mFullTransform, FRUSTUM_P_LRTB + FRUSTUM_P_FAR);
-        
-
         SDKUI_Render::GetInstance().MainRender();
-
-   //     u32 clr = 0xFFFFFFFF;
-  //      DUImpl.DrawSelectionBoxB(obj->GetBox(), &clr);
-      //  obj->RayPick(SDK_Camera::GetInstance().fFar, 
     }
     else
     {

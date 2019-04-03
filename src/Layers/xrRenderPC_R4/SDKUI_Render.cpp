@@ -1,15 +1,20 @@
 #include "stdafx.h"
 #include "SDKUI_Render.h"
 #include "SDKUI.h"
+#include "r4.h"
 SDKUI_Render::~SDKUI_Render() {}
- 
+static Fvector move;
+static Fvector rot;
+static float koef_speed = 0.0009f;
+static float koef_scale = 0.0005f;
 void SDKUI_Render::Initialize(void)
 {
     // Lord: наверное сюда же нужно поместить контант буфферы компиляцию шейдеров и прочее, хотя наверное только онли
     // рантайм загрузка Lord: БЛЯТЬ ДЖОННИ ЭТО ПИЗДЕЦ КАК ЖЕ ПЫС ЗАЕБАЛИ ХАРДКОДИТЬ
     GridOptions::Size = 100;
     GridOptions::separator = 10;
- 
+    move.set(0, 0, 0);
+    rot.set(0, 0, 0);
 }
 
 void SDKUI_Render::MainRender(void)
@@ -37,22 +42,20 @@ void SDKUI_Render::MainRender(void)
 
     RImplementation.ClearTarget();
     HW.pContext->ClearDepthStencilView(RCache.get_ZB(), D3D_CLEAR_DEPTH | D3D_CLEAR_STENCIL, 1.0f, 0);
-
-
-
-    RImplementation.obj->Render(Fidentity, 1, false);
+    RImplementation.obj->Render(1, false);
     u32 clr = D3DCOLOR_ARGB(255, 255, 255, 255);
 
     if (SDKUI::UI().IsSelected())
     {
-
-        DUImpl.DrawSelectionBoxB(RImplementation.obj->GetBox(), &clr);
+        //    RImplementation.obj->RenderSelection(Fidentity);
+        //  DUImpl.DrawObjectAxis(RImplementation.obj->GetTransform(), 0.1f, TRUE);
+        DUImpl.DrawSelectionBoxB(RImplementation.obj->GetData()->GetBox(), &clr);
     }
- 
+
 #pragma region TheGrid
     Fvector pos_pivot;
-    pos_pivot.set(0, 1, 0);
-    DUImpl.DrawPivot(pos_pivot, GridOptions::Size/2);
+    pos_pivot.set(0, 0, 0);
+    DUImpl.DrawPivot(pos_pivot, GridOptions::Size / 2);
 
     DUImpl.UpdateGrid(GridOptions::Size, GridOptions::separator);
     DUImpl.DrawGrid();

@@ -54,15 +54,19 @@ private:
     EditorPref(void)
     {
         this->object_flags.zero();
+        this->Settings_flags.zero();
+        this->bDrawAnimationPath = false;
+        this->snap_angle = 0.0f;
+        this->snap_move = 0.0f;
+        this->snap_moveto = 0.0f;
     }
 
 public:
-    inline static EditorPref& GetInstance(void) 
-    { 
+    inline static EditorPref& GetInstance(void)
+    {
         static EditorPref instance;
         return instance;
     }
-
 
     void OnClose(void);
     void ApplyValues(void);
@@ -72,6 +76,10 @@ public:
     ~EditorPref(void);
 
 public:
+    bool bDrawAnimationPath;
     Flags32 object_flags;
     Flags32 Settings_flags;
+    float snap_angle;
+    float snap_move;
+    float snap_moveto;
 };

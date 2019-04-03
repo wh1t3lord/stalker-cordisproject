@@ -1447,11 +1447,11 @@ void CEditableMesh::GenerateRenderBuffers()
             
             D3D11_BUFFER_DESC vbDesc = {0}; // Lord: подумать над переносом правильно ли было сделано
             vbDesc.Usage = D3D11_USAGE_DEFAULT;
-            vbDesc.ByteWidth = sizeof(FVF::L) * num_verts;
+            vbDesc.ByteWidth = sizeof(FVF::V) * num_verts;
             vbDesc.BindFlags = D3D11_BIND_VERTEX_BUFFER;
             vbDesc.CPUAccessFlags = 0;
             vbDesc.MiscFlags = 0;
-            xr_vector<FVF::L> mData;
+            xr_vector<FVF::V> mData;
             // @ Filling
             {
                /// LPBYTE data = src_data;
@@ -1475,7 +1475,7 @@ void CEditableMesh::GenerateRenderBuffers()
  
  
                         int offs = 0;
-                        FVF::L mask;
+                        FVF::V mask;
                         Fvector2 data_UV;
                         for (int t = 0; t < dwTexCnt; t++)
                         {
@@ -1491,8 +1491,9 @@ void CEditableMesh::GenerateRenderBuffers()
                              st_VMap* vmap = m_VMaps[vm_pt.vmap_index];
                              VERIFY2(vm_pt.index < vmap->size(), "- VMap point index out of range");
                              data_UV = vmap->getUV(vm_pt.index);
+                             
                         }
-                        mask.set(V, D3DCOLOR_ARGB(255,128,128,255));
+                        mask.set(V, data_UV.x, data_UV.y);
                         mData.push_back(mask);
                     }
                 }
@@ -1510,7 +1511,7 @@ void CEditableMesh::GenerateRenderBuffers()
          //   CopyMemory(vbSub.pData, bytes, sizeof(bytes));
          //   HW.pContext->Unmap(pVB, 0);
 
-            rb.pGeom.create(FVF::F_L, pVB, 0);
+            rb.pGeom.create(FVF::F_V, pVB, 0);
             v_cnt -= V_LIM;
             start_face += (_S->m_Flags.is(CSurface::sf2Sided)) ? rb.dwNumVertex / 6 : rb.dwNumVertex / 3;
         } while (v_cnt > 0);
@@ -1688,11 +1689,11 @@ void CEditableMesh::RenderList(const Fmatrix& parent, u32 color, bool bEdge, Int
     RB_cnt = 0;
     if (bEdge)
     {
-        RCache.set_Shader(RImplementation.m_WireShader);
+        RCache.set_Shader(RImplementation.m_SDKWireShader);
        // RCache.set_States(D3DRS_FILLMODE, D3DFILL_WIREFRAME);
     }
     else
-        RCache.set_Shader(RImplementation.m_SelectionShader);
+        RCache.set_Shader(RImplementation.m_SDKSelectionShader);
 
     for (IntIt dw_it = fl.begin(); dw_it != fl.end(); ++dw_it)
     {
@@ -1762,7 +1763,7 @@ void CEditableMesh::RenderEdge(const Fmatrix& parent, CSurface* s, u32 color)
         GenerateRenderBuffers();
     //	if (!m_Visible) return;
     RCache.set_xform_world(parent);
-    RCache.set_Shader(RImplementation.m_WireShader);
+    RCache.set_Shader(RImplementation.m_SDKWireShader);
     //EDevice.RenderNearer(0.001);
 
     // render
@@ -1779,6 +1780,7 @@ void CEditableMesh::RenderEdge(const Fmatrix& parent, CSurface* s, u32 color)
         for (RBMapPairIt p_it = m_RenderBuffers->begin(); p_it != m_RenderBuffers->end(); p_it++)
         {
             RBVector& rb_vec = p_it->second;
+ 
             for (RBVecIt rb_it = rb_vec.begin(); rb_it != rb_vec.end(); rb_it++)
                 RCache.dbg_DP(D3DPT_TRIANGLELIST, rb_it->pGeom, 0, rb_it->dwNumVertex / 3);
         }

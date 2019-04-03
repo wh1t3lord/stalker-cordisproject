@@ -35,14 +35,6 @@ void CBlender_deffer_aref::Compile(CBlender_Compile& C)
     IBlender::Compile(C);
 
     // oBlend.value	= FALSE	;
-    if (FS.IsSDK())
-    {
-        C.r_Pass("detail_still", "detail_still", false);
-        C.r_dx10Texture("s_base", C.L_textures[0]);
-        C.r_End();
-    }
-    else
-    {
         if (oBlend.value)
         {
             switch (C.iElement)
@@ -60,16 +52,14 @@ void CBlender_deffer_aref::Compile(CBlender_Compile& C)
                     C.r_Pass("lmapE", "lmapE", TRUE, TRUE, FALSE, TRUE, D3DBLEND_SRCALPHA, D3DBLEND_INVSRCALPHA, TRUE,
                         oAREF.value);
                     C.r_dx10Texture("s_base", C.L_textures[0]);
+                        C.r_dx10Texture("s_lmap", C.L_textures[1]);
 
-                    C.r_dx10Texture("s_lmap", C.L_textures[1]);
+                        C.r_dx10Texture("s_hemi", *C.L_textures[2]);
+                        C.r_dx10Texture("s_env", r2_T_envs0);
 
-                    C.r_dx10Texture("s_hemi", *C.L_textures[2]);
-                    C.r_dx10Texture("s_env", r2_T_envs0);
-
-                    C.r_dx10Sampler("smp_base");
-                    C.r_dx10Sampler("smp_linear");
-                    C.r_dx10Sampler("smp_rtlinear");
-
+                        C.r_dx10Sampler("smp_base");
+                        C.r_dx10Sampler("smp_linear");
+                        C.r_dx10Sampler("smp_rtlinear");
                     C.r_End();
                 }
                 else
@@ -156,6 +146,5 @@ void CBlender_deffer_aref::Compile(CBlender_Compile& C)
                 break;
             }
         }
-    }
 
 }
