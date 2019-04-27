@@ -4,7 +4,7 @@
 class ENGINE_API SDK_Camera : pureFrame
 {
 private:
-    SDK_Camera(void) = default;
+    SDK_Camera(void) noexcept = default;
 
 public:
     static SDK_Camera& GetInstance(void)

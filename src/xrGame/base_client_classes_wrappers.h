@@ -44,8 +44,8 @@ template <typename TBase, typename... TClasses>
 class ISheduledWrapper : public TBase, public TClasses...
 {
 public:
-    ISheduledWrapper() = default;
-    virtual ~ISheduledWrapper() = default;
+    ISheduledWrapper(void) = default;
+    virtual ~ISheduledWrapper(void) = default;
 
     virtual float shedule_Scale()
     {
@@ -96,8 +96,8 @@ public:
 class CEntityWrapper : public CEntity, public luabind::wrap_base
 {
 public:
-    CEntityWrapper() = default;
-    virtual ~CEntityWrapper() = default;
+    CEntityWrapper(void) = default;
+    virtual ~CEntityWrapper(void) = default;
 
     virtual void HitSignal(float P, Fvector& local_dir, IGameObject* who, s16 element)
     {

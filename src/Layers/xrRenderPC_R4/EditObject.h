@@ -179,7 +179,7 @@ public:
 public:
     // constructor/destructor methods
     CEditableObject(LPCSTR name);
-    CEditableObject(void) = default;
+    CEditableObject(void) noexcept = default;
     virtual ~CEditableObject();
 
     LPCSTR GetName() { return m_LibName.c_str(); }
@@ -280,7 +280,7 @@ public:
     void EvictObject();
 
     // pick methods
-    bool RayPick(float& dist, const Fvector& S, const Fvector& D, const Fmatrix& inv_parent, SRayPickInfo* pinf = 0);
+    bool RayPick(float& dist, const Fvector& S, const Fvector& D, const Fmatrix& inv_parent, SRayPickInfo* pinf = nullptr);
  
     void AddBone(CBone* parent_bone);
     void DeleteBone(CBone* bone);

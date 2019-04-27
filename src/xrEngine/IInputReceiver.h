@@ -17,7 +17,7 @@ using Ivector2 = _vector2<int>;
 class ENGINE_API IInputReceiver
 {
 public:
-    virtual ~IInputReceiver() = default;
+    virtual ~IInputReceiver() noexcept = default;
     static void IR_GetLastMouseDelta(Ivector2& p);
     static void IR_GetMousePosScreen(Ivector2& p);
     static void IR_GetMousePosReal(SDL_Window* m_sdlWnd, Ivector2& p);

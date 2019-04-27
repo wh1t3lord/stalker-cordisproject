@@ -978,13 +978,13 @@ void CLocatorAPI::_destroy()
     m_archives.clear();
 }
 
-const CLocatorAPI::file* CLocatorAPI::GetFileDesc(pcstr path)
+const CLocatorAPI::file* CLocatorAPI::GetFileDesc(const char* path)
 {
     auto it = file_find_it(path);
     return it != m_files.end() ? &*it : nullptr;
 }
 
-FileStatus CLocatorAPI::exist(pcstr fn, FSType fsType /*= FSType::Virtual*/)
+FileStatus CLocatorAPI::exist(const char* fn, FSType fsType /*= FSType::Virtual*/)
 {
     if ((fsType | FSType::Virtual) == FSType::Virtual)
     {

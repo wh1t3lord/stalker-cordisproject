@@ -43,8 +43,8 @@ public:
     static void MakeThumbnailImage(ETextureThumbnail* THM, u32* data, u32 w, u32 h, u32 a);
 
 public:
-    CImageManager(void) = default;
-    ~CImageManager(void) = default;
+    CImageManager(void) noexcept = default;
+    ~CImageManager(void) noexcept = default;
 
     // texture routines
     void __stdcall RemoveTexture(LPCSTR fname, EItemType type, bool& res);

@@ -436,16 +436,17 @@ void EObjectThumbnail::CreateFromData(u32* p, u32 w, u32 h, int fc, int vc)
 
 bool EObjectThumbnail::Load(LPCSTR src_name, LPCSTR path)
 {
-    string_path fn;
-    strcpy(fn, EFS.ChangeFileExt(src_name ? src_name : m_Name.c_str(), ".thm").c_str());
-    if (path)
-        FS.update_path(fn, path, fn);
-    else
-        FS.update_path(fn, _objects_, fn);
-    if (!FS.exist(fn))
-        return false;
-
-    IReader* F = FS.r_open(fn);
+//     string_path fn;
+//     strcpy(fn, EFS.ChangeFileExt(src_name ? src_name : m_Name.c_str(), ".thm").c_str());
+//     if (path)
+//         FS.update_path(fn, path, fn);
+//     else
+//         FS.update_path(fn, _objects_, fn);
+//     if (!FS.exist(fn))
+//         return false;
+    xr_string bbb = path;
+    bbb += src_name;
+    IReader* F = FS.r_open(bbb.c_str());
     u16 version = 0;
 
     R_ASSERT(F->r_chunk(THM_CHUNK_VERSION, &version));
@@ -469,7 +470,7 @@ bool EObjectThumbnail::Load(LPCSTR src_name, LPCSTR path)
     face_count = F->r_u32();
     vertex_count = F->r_u32();
 
-    m_Age = FS.get_file_age(fn);
+    m_Age = FS.get_file_age((xr_string(src_name) + xr_string(path)).c_str());
 
     FS.r_close(F);
 

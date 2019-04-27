@@ -26,7 +26,7 @@ class dxRender_Visual;
 
 #include "EditObject.h"
 #include "SDK_ObjectStaticGeometry.h"
-
+#include "EThumbnail.h"
 // definition
 class CRender : public D3DXRenderBase
 {
@@ -390,6 +390,8 @@ private:
 
 public:
     SDK_ObjectStaticGeometry* obj;
+    EObjectThumbnail image_test = EObjectThumbnail("bush_1_02.thm", false);
+
 };
 
 extern CRender RImplementation;

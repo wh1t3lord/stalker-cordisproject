@@ -3,13 +3,15 @@
 
 #include "ResourceManager.h"
 #include "blenders/Blender.h"
-
+#include "SDK_Cache.h"
 void CResourceManager::OnDeviceDestroy(BOOL)
 {
     if (RDEVICE.b_is_Ready)
         return;
 
     delete RImplementation.obj;
+    SDK_Cache::GetInstance().DeleteResources();
+    // Lord: здесь мы удаляем все ресурсы (потом данный коммент удалить!)
 
     m_textures_description.UnLoad();
 
@@ -158,8 +160,10 @@ void CResourceManager::StoreNecessaryTextures()
     for (; it != it_e; ++it)
     {
         LPCSTR texture_name = it->first;
+
         if (strstr(texture_name, DELIMITER "levels" DELIMITER))
             continue;
+
         if (!strchr(texture_name, _DELIMITER))
             continue;
 

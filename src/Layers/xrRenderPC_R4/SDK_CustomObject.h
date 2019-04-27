@@ -45,13 +45,13 @@ class SDK_CustomObject
 {
 public:
     SDK_CustomObject(void) = delete;
-    SDK_CustomObject(LPVOID data, LPCSTR name);
+    SDK_CustomObject(LPCSTR name);
     virtual ~SDK_CustomObject(void);
 
-    inline const Fmatrix& GetTransform(void) const { return this->mTransform; }
-    inline const Fvector& GetPosition(void) const { return this->vPosition; }
-    inline const Fvector& GetRotation(void) const { return this->vRotation; }
-    inline const Fvector& GetScale(void) const { return this->vScale; }
+    inline const Fmatrix& GetTransform(void) const noexcept { return this->mTransform; }
+    inline const Fvector& GetPosition(void) const noexcept { return this->vPosition; }
+    inline const Fvector& GetRotation(void) const noexcept { return this->vRotation; }
+    inline const Fvector& GetScale(void) const noexcept { return this->vScale; }
     inline void SetPosition(const Fvector& pos) { this->vPosition = pos; }
     inline void SetRotation(const Fvector& rot)
     {
@@ -60,22 +60,22 @@ public:
     }
     inline void SetScale(const Fvector& scl) { this->vScale = scl; }
 
-    inline bool IsVisible(void) const { return this->bVisible; }
-    inline void Show(void)
+ //   inline bool IsVisible(void) const noexcept { return this->bVisible; }
+    inline void Show(void) noexcept
     {
         if (!this->bVisible)
             this->bVisible = true;
     }
 
-    inline void Hide(void)
+    inline void Hide(void) noexcept
     {
         if (this->bVisible)
             this->bVisible = false;
     }
 
-    inline bool IsRender(void) const { return this->bRendering; }
-    inline bool IsSelected(void) const { return this->bSelected; }
-
+   // inline bool IsRender(void) const noexcept { return this->bRendering; }
+    //inline bool IsSelected(void) const noexcept { return this->bSelected; }
+   
     void UpdateTransform(void)
     {
         this->mTransformR.setXYZi(-this->vRotation.x, -this->vRotation.y, -this->vRotation.z);
@@ -122,11 +122,16 @@ public:
     //     void AnimationUpdate(const float& t);
     //     void OnMotionChange(void);
 
-    SceneObjectType GetType(void) const { return this->ObjectType; }
+    SceneObjectType GetType(void) const noexcept { return this->ObjectType; }
+    xr_string GetSceneName(void) const noexcept { return this->SceneName; }
+    inline const Fbox& GetBox(void) const noexcept { return this->Box; }
+
     virtual void Render(const int&, const bool&) = 0;
     virtual void DrawPreferences(void) = 0;
+    virtual bool RayPick(float&, const Fvector&, const Fvector&) = 0;
 
-private : bool bSelected;
+public:
+    bool bSelected;
     bool bVisible;
     bool bRendering;
 
@@ -140,6 +145,7 @@ private:
     Fvector vRotation;
 
 protected:
+    Fbox Box;
     xr_string SceneName;
 
 private:

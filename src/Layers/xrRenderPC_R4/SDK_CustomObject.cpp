@@ -13,8 +13,11 @@
 #define CUSTOMOBJECT_CHUNK_NAME 0xF907
 #define CUSTOMOBJECT_CHUNK_MOTION_PARAM 0xF908
 
-SDK_CustomObject::SDK_CustomObject(LPVOID data, LPCSTR name)
+SDK_CustomObject::SDK_CustomObject(LPCSTR name)
 {
+    this->bSelected = false;
+    this->bRendering = false;
+    this->bVisible = false;
     this->vPosition.set(0, 0, 0);
     this->vRotation.set(0, 0, 0);
     this->vScale.set(1, 1, 1);
@@ -24,6 +27,7 @@ SDK_CustomObject::SDK_CustomObject(LPVOID data, LPCSTR name)
     this->mTransformRP.identity();
     this->mITransform.identity();
     this->mITransformRP.identity();
+    this->SceneName = name;
 }
 
 SDK_CustomObject::~SDK_CustomObject(void) {}
@@ -35,7 +39,7 @@ SDK_CustomObject::~SDK_CustomObject(void) {}
 
 void SDK_CustomObject::MoveTo(const Fvector& pos, const Fvector& up) // @ Lord: метод не реализован!
 {
-    ASSERT(TEXT("It's implement now!"));
+//    ASSERT(TEXT("It's implement now!"));
     this->vPosition.set(pos);
     this->bUpdateTransform = true;
     // @ Lord: Реализовать поддержку etfNormalAlign

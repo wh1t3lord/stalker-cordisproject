@@ -157,101 +157,101 @@ void SDKUI_Overlay::Draw(void)
 {
     if (this->bShow)
     {
-        ImGuiWindowFlags flag = ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoResize |
-            ImGuiWindowFlags_NoScrollbar | ImGuiWindowFlags_NoNav | ImGuiWindowFlags_AlwaysAutoResize |
-            ImGuiWindowFlags_NoBackground;
         ImGui::SetNextWindowPos(ImVec2(30, 30), ImGuiCond_Once);
         if (ImGui::Begin("Overlay", &this->bShow, ImVec2(200, 500), 0.005f, flag))
         {
             if (bShowOnlySDKInfo)
             {
-                ImGui::Text(
-                    "Level Editor: \n"); // @ Сделать нормальный вывод и того в каком редакторе мы сейчас находимся
+                ImGui::Text("Editor - \n"); // @ Сделать нормальный вывод и того в каком редакторе мы сейчас находимся
                 ImGui::Text("FPS: %d \n");
-
-                ImGui::Text("Total tris: %d \n");
-                ImGui::Text("Total vertecies: %d \n");
             }
 
             if (bShowOnlyProjectInfo)
             {
                 if (bShowOnlySDKInfo)
                     ImGui::Separator();
-
-                ImGui::Text("Project info: \n");
-                ImGui::Text("Scene name: \n");
-                ImGui::Text("Total:\n");
-                ImGui::Text("   objects   \n");
-                ImGui::Text("   spawn_elements   \n");
-                ImGui::Text("   way_points   \n");
-                if (ImGui::TreeNode("Grid:"))
+                if (ImGui::TreeNode("Project info:"))
                 {
-                    ImGui::ColorEdit3("Grid Color", GridOptions::col);
-                    ImGui::ColorEdit4("Background Scene color: ", GridOptions::col_background);
-                    static xr_string a = "100|10";
-                    ImGui::SliderInt("Grid Type", &this->iGridType, 0, 5, a.c_str());
-                    switch (this->iGridType)
+                    ImGui::Text("Scene name: \n");
+                    if (ImGui::TreeNode("Total:"))
                     {
-                    case 0:
-                    {
-                        GridOptions::Size = 100;
-                        GridOptions::separator = 10;
-                        a = "100|10";
-                        break;
+                        ImGui::Text("objects - ");
+                        ImGui::Text("tris - ");
+                        ImGui::Text("vertices - ");
+
+                        ImGui::TreePop();
                     }
-                    case 1:
+                    if (ImGui::TreeNode("Grid:"))
                     {
-                        GridOptions::Size = 100;
-                        GridOptions::separator = 20;
-                        a = "100|20";
-                        break;
+                        ImGui::ColorEdit3("Grid Color", GridOptions::col);
+                        ImGui::ColorEdit4("Background Scene color: ", GridOptions::col_background);
+                        static xr_string a = "100|10";
+                        ImGui::SliderInt("Grid Type", &this->iGridType, 0, 5, a.c_str());
+                        switch (this->iGridType)
+                        {
+                        case 0:
+                        {
+                            GridOptions::Size = 100;
+                            GridOptions::separator = 10;
+                            a = "100|10";
+                            break;
+                        }
+                        case 1:
+                        {
+                            GridOptions::Size = 100;
+                            GridOptions::separator = 20;
+                            a = "100|20";
+                            break;
+                        }
+                        case 2:
+                        {
+                            GridOptions::Size = 100;
+                            GridOptions::separator = 50;
+                            a = "100|50";
+                            break;
+                        }
+                        case 3:
+                        {
+                            GridOptions::Size = 100;
+                            GridOptions::separator = 100;
+                            a = "100|100";
+                            break;
+                        }
+                        case 4:
+                        {
+                            GridOptions::Size = 10;
+                            GridOptions::separator = 1;
+                            a = "10|1";
+                            break;
+                        }
+                        case 5:
+                        {
+                            GridOptions::Size = 10000;
+                            GridOptions::separator = 10;
+                            a = "10000|10";
+                            break;
+                        }
+                        }
+                        ImGui::TreePop();
                     }
-                    case 2:
+                    if (ImGui::TreeNode("Camera: "))
                     {
-                        GridOptions::Size = 100;
-                        GridOptions::separator = 50;
-                        a = "100|50";
-                        break;
-                    }
-                    case 3:
-                    {
-                        GridOptions::Size = 100;
-                        GridOptions::separator = 100;
-                        a = "100|100";
-                        break;
-                    }
-                    case 4:
-                    {
-                        GridOptions::Size = 10;
-                        GridOptions::separator = 1;
-                        a = "10|1";
-                        break;
-                    }
-                    case 5:
-                    {
-                        GridOptions::Size = 10000;
-                        GridOptions::separator = 10;
-                        a = "10000|10";
-                        break;
-                    }
+                        if (ImGui::Button("Start Location"))
+                        {
+                            this->vSavedPosition = Device.vCameraPosition;
+                            Device.vCameraPosition.set(0, 0, 0);
+                        }
+
+                        if (ImGui::Button("Previous Location"))
+                        {
+                            Device.vCameraPosition.set(this->vSavedPosition);
+                        }
+
+                        ImGui::TreePop();
                     }
                     ImGui::TreePop();
                 }
-                if (ImGui::TreeNode("Camera: "))
-                {
-                    if (ImGui::Button("Start Location"))
-                    {
-                        this->vSavedPosition = Device.vCameraPosition;
-                        Device.vCameraPosition.set(0,0,0);
-                    }
-
-                    if (ImGui::Button("Previous Location"))
-                    {
-                        Device.vCameraPosition.set(this->vSavedPosition);
-                    }
-
-                    ImGui::TreePop();
-                }
+               
             }
 
             if (bShowOnlySysInfo)
@@ -259,7 +259,6 @@ void SDKUI_Overlay::Draw(void)
                 if (bShowOnlyProjectInfo || bShowOnlySDKInfo)
                     ImGui::Separator();
 
-                ImGui::Text("System info: \n");
                 std::chrono::system_clock::time_point x = std::chrono::system_clock::now();
                 std::time_t t = std::chrono::system_clock::to_time_t(x);
                 xr_string result = std::ctime(&t);
@@ -268,8 +267,7 @@ void SDKUI_Overlay::Draw(void)
                 xr_string& r1 = result.erase(result.rfind(' '));
                 r1.erase(r1.rfind(' '));
 
-                ImGui::Text("Current Date: %s", result.c_str());
-                ImGui::Text("Current time: %s", r2.c_str());
+                ImGui::Text("%s | %s", result.c_str(), r2.c_str());
             }
 
             if (ImGui::BeginPopupContextWindow())

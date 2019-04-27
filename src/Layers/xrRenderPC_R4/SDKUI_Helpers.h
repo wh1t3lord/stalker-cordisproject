@@ -18,46 +18,62 @@ enum SDKErrorType
 class SDKUI_Log
 {
 private:
-    SDKUI_Log()
+    SDKUI_Log(void) 
     {
-        Clear();
-        currentcolor = default;
+        this->bShow = true;
+        this->bSysCall = false;
+
+        this->bShowErrors = true;
+        this->bShowWarnings = true;
+        this->bShowDefault = true;
+        this->bShowSpecial = true;
+        this->bShowUn = true; // @ unimportant
+        this->bShowGood = true;
+
+        this->CurrentSizeX = 0;
+        this->CurrentSizeY = 0;
+        this->CurrentPosX = 0;
+        this->CurrentPosY = 0;
+        this->Clear();
+        this->currentcolor = default;
     }
 
 public:
-    static SDKUI_Log& Widget()
+    inline static SDKUI_Log& Widget(void) noexcept
     {
         static SDKUI_Log instance;
         return instance;
     }
     SDKUI_Log(SDKUI_Log&) = delete;
     SDKUI_Log& operator=(const SDKUI_Log&) = delete;
-    ~SDKUI_Log() = default;
+    SDKUI_Log(SDKUI_Log&&) = delete;
+    SDKUI_Log& operator=(SDKUI_Log&&) = delete;
+    ~SDKUI_Log(void) noexcept = default;
 
     void Draw(void);
 
-    inline void Show(void) { bShow = true; }
-    inline void Hide(void) { bShow = false; }
-    inline bool GetVisible(void) { return bShow; }
+    inline void Show(void) noexcept { this->bShow = true; }
+    inline void Hide(void) noexcept { this->bShow = false; }
+    inline bool GetVisible(void) const noexcept { return this->bShow; }
     inline void Init(int x, int y, int SizeX, int SizeY, ImGuiWindowFlags flag = NULL)
     {
-        CurrentSizeX = SizeX;
-        CurrentSizeY = SizeY;
-        CurrentPosX = x;
+        this->CurrentSizeX = SizeX;
+        this->CurrentSizeY = SizeY;
+        this->CurrentPosX = x;
 
-        if (CurrentPosX - (CurrentSizeX) < 0)
-            CurrentPosX = 0;
+        if (this->CurrentPosX - (this->CurrentSizeX) < 0)
+            this->CurrentPosX = 0;
         else
-            CurrentPosX -= CurrentSizeX;
+            this->CurrentPosX -= this->CurrentSizeX;
 
-        CurrentPosY = y;
+        this->CurrentPosY = y;
 
-        if (CurrentPosY - (CurrentSizeY) < 0)
-            CurrentPosY = 0;
+        if (this->CurrentPosY - (this->CurrentSizeY) < 0)
+            this->CurrentPosY = 0;
         else
-            CurrentPosY -= CurrentSizeY;
+            this->CurrentPosY -= this->CurrentSizeY;
 
-        wndFlags = flag;
+        this->wndFlags = flag;
     }
 
     inline void Init(const ImVec2& pos, const ImVec2& size, ImGuiWindowFlags flag = NULL)
@@ -86,7 +102,7 @@ public:
     {
         va_list args;
         va_start(args, fmt);
-        buf.appendfv(fmt, args);
+        this->buf.appendfv(fmt, args);
         xr_string sas = "[";
         sas += __TIME__;
 
@@ -112,9 +128,8 @@ public:
 
         va_end(args);
         buff.push_back(sas);
-        buf.clear();
+        this->buf.clear();
         bSysCall = false;
-       
     }
 
     inline void Clear(void)
@@ -129,17 +144,17 @@ private:
     bool bShow = true;
     bool bSysCall = false;
 
-    bool bShowErrors = true;
-    bool bShowWarnings = true;
-    bool bShowDefault = true;
-    bool bShowSpecial = true;
-    bool bShowUn = true; // @ unimportant
-    bool bShowGood = true;
+    bool bShowErrors;
+    bool bShowWarnings;
+    bool bShowDefault;
+    bool bShowSpecial;
+    bool bShowUn; // @ unimportant
+    bool bShowGood;
 
-    int CurrentSizeX = 0;
-    int CurrentSizeY = 0;
-    int CurrentPosX = 0;
-    int CurrentPosY = 0;
+    int CurrentSizeX;
+    int CurrentSizeY;
+    int CurrentPosX;
+    int CurrentPosY;
     SDKErrorType currentcolor;
     ImGuiWindowFlags wndFlags;
     ImGuiTextBuffer buf;
@@ -151,41 +166,54 @@ private:
 class SDKUI_Overlay
 {
 private:
-    SDKUI_Overlay() = default;
+    SDKUI_Overlay(void)
+    {
+        this->bShow = true;
+        this->bShowOnlySDKInfo = true;
+        this->bShowOnlySysInfo = true;
+        this->bShowOnlyProjectInfo = true;
+        this->flag = ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoResize |
+            ImGuiWindowFlags_NoScrollbar | ImGuiWindowFlags_NoNav | ImGuiWindowFlags_AlwaysAutoResize |
+            ImGuiWindowFlags_NoBackground;
+        this->iGridType = 0;
+        this->vSavedPosition.set(0, 0, 0);
+    }
 
 public:
-    static SDKUI_Overlay& Widget(void)
+    inline static SDKUI_Overlay& Widget(void) noexcept
     {
         static SDKUI_Overlay instance;
         return instance;
     }
 
-    ~SDKUI_Overlay() = default;
+    ~SDKUI_Overlay(void) noexcept = default;
     SDKUI_Overlay(SDKUI_Overlay&) = delete;
     SDKUI_Overlay& operator=(const SDKUI_Overlay&) = delete;
-
+    SDKUI_Overlay(SDKUI_Overlay&&) = delete;
+    SDKUI_Overlay& operator=(SDKUI_Overlay&&) = delete;
     void Draw(void);
-    inline void Show(void) { bShow = true; }
-    inline void Hide(void) { bShow = false; }
-    inline bool GetVisible(void) { return bShow; }
+    inline void Show(void) noexcept { this->bShow = true; }
+    inline void Hide(void) noexcept { this->bShow = false; }
+    inline bool GetVisible(void) const noexcept { return this->bShow; }
 
 private:
-    bool bShow = true;
-    bool bShowOnlySDKInfo = true;
-    bool bShowOnlySysInfo = true;
-    bool bShowOnlyProjectInfo = true;
-    int iGridType = 0;
+    bool bShow;
+    bool bShowOnlySDKInfo;
+    bool bShowOnlySysInfo;
+    bool bShowOnlyProjectInfo;
+    int iGridType;
+    ImGuiWindowFlags flag;
     Fvector vSavedPosition;
 };
 
 class SDKUI_CameraHelper
 {
 private:
-    SDKUI_CameraHelper(void) = default;
+    SDKUI_CameraHelper(void) noexcept = default;
 
 public:
-    inline static SDKUI_CameraHelper& Widget(void)
-    { 
+    inline static SDKUI_CameraHelper& Widget(void) noexcept
+    {
         static SDKUI_CameraHelper instance;
         return instance;
     }
@@ -193,13 +221,13 @@ public:
     SDKUI_CameraHelper& operator=(const SDKUI_CameraHelper&) = delete;
     SDKUI_CameraHelper(SDKUI_CameraHelper&&) = delete;
     SDKUI_CameraHelper& operator=(SDKUI_CameraHelper&&) = delete;
-    ~SDKUI_CameraHelper(void) = default;
+    ~SDKUI_CameraHelper(void) noexcept = default;
 
     void Draw(void);
-    inline void Show(void) { this->bShow = true; }
-    inline void Hide(void) { this->bShow = false; }
-    inline bool GetVisible(void) const { return this->bShow; }
+    inline void Show(void) noexcept { this->bShow = true; }
+    inline void Hide(void) noexcept { this->bShow = false; }
+    inline bool GetVisible(void) const noexcept { return this->bShow; }
 
 private:
-    bool bShow = true;
+    bool bShow = false;
 };

@@ -5,7 +5,7 @@
 class SDKUI_Render
 {
 private:
-    SDKUI_Render(void) = default;
+    SDKUI_Render(void) noexcept = default;
 
 public:
     inline static SDKUI_Render& GetInstance(void)

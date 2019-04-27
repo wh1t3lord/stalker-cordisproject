@@ -21,11 +21,11 @@ private:
     TokenVector tokens;
 
 public:
-    MonitorsManager() = default;
-    ~MonitorsManager() = default;
+    MonitorsManager(void) = default;
+    ~MonitorsManager(void) = default;
 
-    void Initialize();
-    void Destroy();
+    void Initialize(void);
+    void Destroy(void);
 
     ResolutionPair GetMinimalResolution();
     ResolutionPair GetMaximalResolution();

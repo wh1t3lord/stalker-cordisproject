@@ -2,6 +2,7 @@
 #include "SDKUI_Render.h"
 #include "SDKUI.h"
 #include "r4.h"
+#include "SDK_SceneManager.h"
 SDKUI_Render::~SDKUI_Render() {}
 static Fvector move;
 static Fvector rot;
@@ -43,14 +44,28 @@ void SDKUI_Render::MainRender(void)
     RImplementation.ClearTarget();
     HW.pContext->ClearDepthStencilView(RCache.get_ZB(), D3D_CLEAR_DEPTH | D3D_CLEAR_STENCIL, 1.0f, 0);
     RImplementation.obj->Render(1, false);
-    u32 clr = D3DCOLOR_ARGB(255, 255, 255, 255);
 
-    if (SDKUI::UI().IsSelected())
+    u32 clr = D3DCOLOR_ARGB(255, 255, 255, 255); // Lord: добавить кастомизацию
+
+    for (xr_list<SDK_CustomObject*>::value_type object : SDK_SceneManager::GetInstance().ObjectList)
     {
-        //    RImplementation.obj->RenderSelection(Fidentity);
-        //  DUImpl.DrawObjectAxis(RImplementation.obj->GetTransform(), 0.1f, TRUE);
-        DUImpl.DrawSelectionBoxB(RImplementation.obj->GetData()->GetBox(), &clr);
+        object->Render(1, false);
+
+        if (object->bSelected)
+        {
+           // RCache.set_xform_world(object->GetTransform());
+            DUImpl.DrawSelectionBoxB(object->GetBox(), &clr);
+        }
     }
+
+
+
+//     if (SDKUI::UI().IsSelected())
+//     {
+//         //    RImplementation.obj->RenderSelection(Fidentity);
+//   //      DUImpl.DrawObjectAxis(RImplementation.obj->GetTransform(), 1.0f, TRUE);
+//         DUImpl.DrawSelectionBoxB(RImplementation.obj->GetData()->GetBox(), &clr);
+//     }
 
 #pragma region TheGrid
     Fvector pos_pivot;

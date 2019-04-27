@@ -41,7 +41,7 @@ public:
     CSurface()
     {
         m_GameMtlName = "default";
-        m_ImageData = 0;
+        m_ImageData = nullptr;
         m_Shader = 0;
         m_RTFlags.zero();
         m_Flags.zero();
@@ -50,6 +50,7 @@ public:
         mtl = 0;
         mid = 0;
 #endif
+        blender = nullptr;
         tag = 0;
     }
     inline bool Validate() { return (0 != xr_strlen(m_Texture)) && (0 != xr_strlen(m_ShaderName)); }
@@ -57,8 +58,12 @@ public:
     ~CSurface()
     {
         R_ASSERT(!m_Shader);
-        xr_delete(m_ImageData);
-        xr_delete(blender);
+
+        if (m_ImageData)
+            xr_delete(m_ImageData);
+
+        if (blender)
+            xr_delete(blender);
     }
     inline void CopyFrom(CSurface* surf)
     {
@@ -119,7 +124,7 @@ public:
                 blender = new blender_sdk(true, false);
             else if (strstr(*m_ShaderName, "def_vertex"))
                 blender = new blender_sdk(false, false);
-            else 
+            else
                 blender = new blender_sdk(false);
 
             m_Shader.create(blender, nullptr, *m_Texture);

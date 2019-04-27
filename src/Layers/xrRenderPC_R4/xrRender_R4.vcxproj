@@ -365,8 +365,12 @@
     <ClInclude Include="SDKUI_Helpers.h" />
     <ClInclude Include="SDKUI_ObjectPrefs.h" />
     <ClInclude Include="SDKUI_Render.h" />
+    <ClInclude Include="SDKUI_RightWindow.h" />
+    <ClInclude Include="SDK_Cache.h" />
     <ClInclude Include="SDK_CustomObject.h" />
     <ClInclude Include="SDK_ObjectStaticGeometry.h" />
+    <ClInclude Include="SDK_ObjectWayPoint.h" />
+    <ClInclude Include="SDK_SceneManager.h" />
     <ClInclude Include="SMAP_Allocator.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="WildMagic\WmlApprGaussPointsFit3.h" />
@@ -603,8 +607,12 @@
     <ClCompile Include="SDKUI_Helpers.cpp" />
     <ClCompile Include="SDKUI_ObjectPrefs.cpp" />
     <ClCompile Include="SDKUI_Render.cpp" />
+    <ClCompile Include="SDKUI_RightWindow.cpp" />
+    <ClCompile Include="SDK_Cache.cpp" />
     <ClCompile Include="SDK_CustomObject.cpp" />
     <ClCompile Include="SDK_ObjectStaticGeometry.cpp" />
+    <ClCompile Include="SDK_ObjectWayPoint.cpp" />
+    <ClCompile Include="SDK_SceneManager.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>

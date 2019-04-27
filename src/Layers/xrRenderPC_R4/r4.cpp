@@ -759,13 +759,21 @@ void CRender::rmNormal()
 CRender::CRender() : m_bFirstFrameAfterReset(false), Sectors_xrc("render")
 {
     init_cacades();
-    obj = new SDK_ObjectStaticGeometry(nullptr, "");
-  
+    obj = new SDK_ObjectStaticGeometry("");
+
     obj->Load(TEXT("D:\\Stalker Call Of Pripyat\\gamedata\\mi6_dead_fire.object"));
+    if (this->image_test.Load("mi6_dead_fire.thm", "D:\\Stalker Call Of Pripyat\\gamedata\\"))
+    {
+    }
+    else
+    {
+        ASSERT("A");
+    }
+
 }
 CRender::~CRender()
 {
-  //  delete obj; 
+ 
 }
 void CRender::DumpStatistics(IGameFont& font, IPerformanceAlert* alert)
 {

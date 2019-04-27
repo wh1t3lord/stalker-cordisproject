@@ -18,7 +18,7 @@ public:
     SDKUI_StaticGeometryPref& operator=(const SDKUI_StaticGeometryPref&) = delete;
     SDKUI_StaticGeometryPref(SDKUI_StaticGeometryPref&&) = delete;
     SDKUI_StaticGeometryPref& operator=(SDKUI_StaticGeometryPref&&) = delete;
-    ~SDKUI_StaticGeometryPref(void) = default;
+    ~SDKUI_StaticGeometryPref(void) noexcept = default;
 
     inline void Show(void) { this->bShow = true; }
     inline void Hide(void) { this->bShow = false; }

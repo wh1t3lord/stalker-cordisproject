@@ -11,8 +11,8 @@ constexpr unsigned int REG_PRIORITY_INVALID = 0x80000000; // -2147483648, lowest
 
 struct IPure
 {
-    virtual ~IPure() = default;
-    virtual void OnPure() = 0;
+    virtual ~IPure(void) noexcept = default;
+    virtual void OnPure(void) = 0;
 };
 
 struct pureFrame : IPure

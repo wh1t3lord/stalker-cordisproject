@@ -436,6 +436,24 @@
     <Filter Include="Cordis\SDK\UI management\Helpers\Object Preferences\Private">
       <UniqueIdentifier>{6c5caab0-4725-4a3a-be41-15953b1db1d2}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Cordis\SDK\UI management\Right Window">
+      <UniqueIdentifier>{d8e94095-597c-43d0-b6dc-acba40ebd7f8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\SDK\UI management\Right Window\Public">
+      <UniqueIdentifier>{65461f0f-efa4-4746-8a95-5ed2aa9d5445}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\SDK\UI management\Right Window\Private">
+      <UniqueIdentifier>{e832cf16-8865-4505-af81-584814487fda}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\SDK\Scene management\Own\Cache">
+      <UniqueIdentifier>{0e03297b-1b82-4275-8f2f-d56cdbd1b233}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\SDK\Scene management\Own\Cache\Public">
+      <UniqueIdentifier>{5b4defe7-b496-4045-b04d-bbe0d99eef4b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\SDK\Scene management\Own\Cache\Private">
+      <UniqueIdentifier>{df7e28fe-90c0-4d85-8014-d341144a6872}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\xrRenderDX10\DXCommonTypes.h">
@@ -1110,6 +1128,18 @@
     </ClInclude>
     <ClInclude Include="SDKUI_ObjectPrefs.h">
       <Filter>Cordis\SDK\UI management\Helpers\Object Preferences\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="SDKUI_RightWindow.h">
+      <Filter>Cordis\SDK\UI management\Right Window\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="SDK_SceneManager.h">
+      <Filter>Cordis\SDK\Scene management\Own\Kernel\Scene Manager\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="SDK_Cache.h">
+      <Filter>Cordis\SDK\Scene management\Own\Cache\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="SDK_ObjectWayPoint.h">
+      <Filter>Cordis\SDK\Scene management\Own\Objects\Way Point\Public</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -1811,6 +1841,18 @@
     </ClCompile>
     <ClCompile Include="SDKUI_ObjectPrefs.cpp">
       <Filter>Cordis\SDK\UI management\Helpers\Object Preferences\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="SDKUI_RightWindow.cpp">
+      <Filter>Cordis\SDK\UI management\Right Window\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="SDK_SceneManager.cpp">
+      <Filter>Cordis\SDK\Scene management\Own\Kernel\Scene Manager\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="SDK_Cache.cpp">
+      <Filter>Cordis\SDK\Scene management\Own\Cache\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="SDK_ObjectWayPoint.cpp">
+      <Filter>Cordis\SDK\Scene management\Own\Objects\Way Point\Private</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
