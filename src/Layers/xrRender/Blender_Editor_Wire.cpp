@@ -31,7 +31,11 @@ void CBlender_Editor_Wire::Compile(CBlender_Compile& C)
     IBlender::Compile(C);
 
     {
-        C.r_Pass("editor", "simple_color", false, TRUE, TRUE);
+        if (this->bDebug)
+            C.r_Pass("editor", "simple_color", false, FALSE, TRUE);
+        else
+            C.r_Pass("editor", "simple_color", false, TRUE, TRUE);
+
         C.r_End();
     }
 }

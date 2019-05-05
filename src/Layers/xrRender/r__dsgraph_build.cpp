@@ -16,6 +16,7 @@
 #include "../../xrCore/Imgui/imgui.h"
 #include "../../xrCore/Imgui/imgui_impl_sdl.h"
 #include "../../xrCore/Imgui/imgui_impl_dx11.h"
+
 #include "SDKUI.h"
 using namespace R_dsgraph;
 // TO LORD: Подумай над избавлением данных препроцессоров, которые связаны с USE_DX11
@@ -814,10 +815,12 @@ void D3DXRenderBase::OnDeviceDestroy(bool bKeepTextures)
 {
     m_WireShader.destroy();
     m_SelectionShader.destroy();
+    m_GizmoShader.destroy();
     m_SDKWireShader.destroy();
     m_SDKSelectionShader.destroy();
     delete editor_wire;
     delete editor_selection;
+    delete this->editor_blender_wire;
     Resources->OnDeviceDestroy(bKeepTextures);
     RCache.OnDeviceDestroy();
 }
@@ -930,11 +933,18 @@ void D3DXRenderBase::OnDeviceCreate(const char* shName)
     {
         m_WireShader.create("editor" DELIMITER "wire");
         m_SelectionShader.create("editor" DELIMITER "selection");
+        
+
+     //   this->m_GizmoShader->create()
         editor_wire = new blender_editor_sdk(false);
         editor_selection = new blender_editor_sdk(true);
+        this->editor_blender_wire = new CBlender_Editor_Wire();
+        this->editor_blender_wire->bDebug = true;
+        m_GizmoShader.create(this->editor_blender_wire);
         m_SDKWireShader.create(editor_wire);
         m_SDKSelectionShader.create(editor_selection);
         DUImpl.OnDeviceCreate();
+ 
     }
     SDKUI_Render::GetInstance().Initialize();
 }

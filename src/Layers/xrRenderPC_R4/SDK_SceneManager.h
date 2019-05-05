@@ -1,6 +1,7 @@
 #pragma once
 
 #include "SDK_Cache.h"
+#include "SDK_GizmoManager.h"
 
 class SDK_SceneManager // Lord: реализовать отображение context window (когда background засветляется)
 {
@@ -27,6 +28,7 @@ private:
 #pragma endregion
 
         this->current_distance_to_object = 0;
+        this->CurrentObject = nullptr;
     }
 
 public:
@@ -43,13 +45,14 @@ public:
 
     void AddObject(const Fvector&, const Fvector&);
     void DeleteResources(void);
-  //  void PickObject(const Fvector& start, const Fvector& direction);
+    //  void PickObject(const Fvector& start, const Fvector& direction);
     SDK_CustomObject* SingleSelection(const Fvector& start, const Fvector& direction);
+    AxisType SelectionAxisMove(void);
+
 private:
     //  SDK_CustomObject* _CreateObject(void); Lord: Implement this
     SDK_CustomObject* _AddObjectStaticGeometry(LPCSTR name);
     void _AddObjectLight(void);
-
 
 public:
 #pragma region Statistic
@@ -70,8 +73,10 @@ public:
     unsigned int total_deleted_objects;
 #pragma endregion
 
-    xr_list<SDK_CustomObject*> ObjectList; // All kind of object in the scene
-
 private:
     float current_distance_to_object;
+
+public:
+    SDK_CustomObject* CurrentObject;
+    xr_list<SDK_CustomObject*> ObjectList; // All kind of object in the scene
 };

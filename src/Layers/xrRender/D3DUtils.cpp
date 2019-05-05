@@ -14,6 +14,7 @@
 #include "du_cone.h"
 #include "du_cylinder.h"
 #include "xrCore/_obb.h"
+#include "xrCore/vector.h"
 
 #if defined(WINDOWS)
 #pragma warning(push)
@@ -36,7 +37,7 @@ float GridOptions::col_background[4] = {0.2f, 0.2f, 0.2f, 1.0f};
 const u32 boxcolor = D3DCOLOR_RGBA(255, 255, 255, 0);
 static const int boxvertcount = 48;
 static Fvector boxvert[boxvertcount];
-
+int GizmoLineSize = 15;
 #ifdef _EDITOR
 #define DU_DRAW_RS dxRenderDeviceRender::Instance().SetRS
 #define DU_DRAW_SH_C(a, c)                                              \
@@ -76,6 +77,7 @@ static Fvector boxvert[boxvertcount];
 
 // identity box
 const u32 identboxcolor = D3DCOLOR_RGBA(255, 255, 255, 0);
+
 static const int identboxwirecount = 24;
 static Fvector identboxwire[identboxwirecount] = {{-0.5f, -0.5f, -0.5f}, {-0.5f, +0.5f, -0.5f}, {-0.5f, +0.5f, -0.5f},
     {+0.5f, +0.5f, -0.5f}, {+0.5f, +0.5f, -0.5f}, {+0.5f, -0.5f, -0.5f}, {+0.5f, -0.5f, -0.5f}, {-0.5f, -0.5f, -0.5f},
@@ -1327,10 +1329,10 @@ void CDrawUtilities::DrawAxis(const Fmatrix& T)
 
     // unlock VB and Render it as triangle list
     Stream->Unlock(6, vs_TL->vb_stride);
-    DU_DRAW_RS(D3DRS_SHADEMODE, D3DSHADE_GOURAUD);
+    //   DU_DRAW_RS(D3DRS_SHADEMODE, D3DSHADE_GOURAUD);
     DU_DRAW_SH(RImplementation.m_WireShader);
     DU_DRAW_DP(D3DPT_LINELIST, vs_TL, vBase, 3);
-    DU_DRAW_RS(D3DRS_SHADEMODE, SHADE_MODE);
+    //  DU_DRAW_RS(D3DRS_SHADEMODE, SHADE_MODE);
 
     m_Font->SetColor(0xFF909090);
     m_Font->Out(p[1].x, p[1].y, "x");
@@ -1372,7 +1374,7 @@ void CDrawUtilities::DrawObjectAxis(const Fmatrix& T, float sz, BOOL sel)
     d.x = (float)iFloor(_x2real(d.x));
     d.y = (float)iFloor(_y2real(-d.y));
 
-    u32 vBase;  
+    u32 vBase;
     FVF::L* pv = (FVF::L*)Stream->Lock(6, vs_L->vb_stride, vBase);
     pv->set(c.x, c.y, 0, 0xFF222222);
     pv++;
@@ -1388,10 +1390,10 @@ void CDrawUtilities::DrawObjectAxis(const Fmatrix& T, float sz, BOOL sel)
     Stream->Unlock(6, vs_L->vb_stride);
 
     // Render it as line list
-//    DU_DRAW_RS(D3DRS_SHADEMODE, D3DSHADE_GOURAUD);
+    //    DU_DRAW_RS(D3DRS_SHADEMODE, D3DSHADE_GOURAUD);
     DU_DRAW_SH(RImplementation.m_WireShader);
     DU_DRAW_DP(D3DPT_LINELIST, vs_L, vBase, 3);
- //   DU_DRAW_RS(D3DRS_SHADEMODE, SHADE_MODE);
+    //   DU_DRAW_RS(D3DRS_SHADEMODE, SHADE_MODE);
 
     m_Font->SetColor(sel ? 0xFF000000 : 0xFF909090);
     m_Font->Out(r.x, r.y, "x");
@@ -1536,6 +1538,195 @@ void CDrawUtilities::DrawLink(const Fvector& p0, const Fvector& p1, float sz, u3
 
 void CDrawUtilities::DrawJoint(const Fvector& p, float radius, u32 clr) { DrawLineSphere(p, radius, clr, false); }
 void CDrawUtilities::OnRender() { m_Font->OnRender(); }
+
+void CDrawUtilities::DrawGizmoLine(const Fvector& start, const Fvector& end, u32 clr)
+{
+    R_ASSERT(Device.b_is_Ready);
+    _VertexStream* Stream = &RCache.Vertex;
+    u32 vBase;
+    // fill VB
+    FVF::L* pv = (FVF::L*)Stream->Lock(2, vs_L->vb_stride, vBase);
+    pv->set(start, clr);
+    pv++;
+    pv->set(end, clr);
+    pv++;
+    Stream->Unlock(2, vs_L->vb_stride);
+    // Render it as triangle list
+    Fmatrix ddd;
+    ddd.identity();
+    RCache.set_xform_world(ddd);
+    DU_DRAW_SH(RImplementation.m_GizmoShader);
+    DU_DRAW_DP(D3DPT_LINELIST, vs_L, vBase, 1);
+}
+
+void CDrawUtilities::DrawGizmoPlane(const Fvector* points, u32 clr_left, u32 clr_right)
+{
+    /*    static const WORD Indecies[] = {0, 1, 2, 0, 2, 3};*/
+    u32 vBase /*, iBase*/;
+
+    int k;
+    FVF::L* pv;
+    WORD* i;
+    _VertexStream* Stream = &RCache.Vertex;
+    /*    _IndexStream* StreamI = &RCache.Index;*/
+
+    // fill VB
+    pv = (FVF::L*)Stream->Lock(5, vs_L->vb_stride, vBase);
+    pv->set(points[0].x, points[0].y, points[0].z, clr_left);
+    pv++;
+    pv->set(points[1].x, points[1].y, points[1].z, clr_left);
+    pv++;
+    pv->set(points[2].x, points[2].y, points[2].z, clr_right);
+    pv++;
+    pv->set(points[3].x, points[3].y, points[3].z, clr_right);
+    pv++;
+    pv->set(points[0].x, points[0].y, points[0].z, clr_left);
+    pv++;
+    Stream->Unlock(5, vs_L->vb_stride);
+
+    /*
+        i = StreamI->Lock(6, iBase);
+        for (k = 0; k < 6; k++, i++)
+            *i = Indecies[k];
+        StreamI->Unlock(6);*/
+
+    DU_DRAW_SH(RImplementation.m_GizmoShader);
+    DU_DRAW_DP(D3DPT_LINESTRIP, vs_L, vBase, 4);
+    //  DU_DRAW_DIP(D3DPT_LINELIST, vs_L, vBase, 0, 6, iBase, 2);
+}
+
+void CDrawUtilities::DrawGizmoMove(const Fvector& pos)
+{
+    unsigned int GizmoPlaneSize = GizmoLineSize / 5;
+    for (unsigned int i = 0; i < 3; ++i)
+    {
+        for (unsigned int j = 0; j < 4; ++j)
+        {
+            GizmoMovePlanes[i].points[j] = pos;
+        }
+    }
+
+    // @ X
+    {
+        GizmoMove[0].origin = pos;
+        GizmoMove[0].origin.x += GizmoPlaneSize;
+        GizmoMove[0].end = pos;
+        GizmoMove[0].end.x += GizmoLineSize;
+
+        DrawGizmoLine(GizmoMove[0].origin, GizmoMove[0].end, GizmoMove[0].clr);
+        this->OutText(GizmoMove[0].end, "X", D3DCOLOR_ARGB(255, 255, 255, 255));
+
+        // @ Arrows
+        Fvector new_pos = GizmoMove[0].end;
+        new_pos.x -= 1;
+
+        new_pos.z -= 0.95;
+        DrawGizmoLine(GizmoMove[0].end, new_pos, GizmoMove[0].clr);
+
+        new_pos.z += 0.95;
+        new_pos.z += 0.95;
+        DrawGizmoLine(GizmoMove[0].end, new_pos, GizmoMove[0].clr);
+
+        new_pos.z -= 0.95;
+        new_pos.y += 0.95;
+        DrawGizmoLine(GizmoMove[0].end, new_pos, GizmoMove[0].clr);
+
+        new_pos.y -= 0.95;
+        new_pos.y -= 0.95;
+        DrawGizmoLine(GizmoMove[0].end, new_pos, GizmoMove[0].clr);
+    }
+
+    // @ Y
+    {
+        GizmoMove[1].origin = pos;
+        GizmoMove[1].origin.y += GizmoPlaneSize;
+        GizmoMove[1].end = pos;
+        GizmoMove[1].end.y += GizmoLineSize;
+
+        DrawGizmoLine(GizmoMove[1].origin, GizmoMove[1].end, GizmoMove[1].clr);
+        this->OutText(GizmoMove[1].end, "Y", D3DCOLOR_ARGB(255, 255, 255, 255));
+        // @ Arrows
+        Fvector new_pos = GizmoMove[1].end;
+        new_pos.y -= 1;
+
+        new_pos.z -= 0.95;
+        DrawGizmoLine(GizmoMove[1].end, new_pos, GizmoMove[1].clr);
+
+        new_pos.z += 0.95;
+        new_pos.z += 0.95;
+        DrawGizmoLine(GizmoMove[1].end, new_pos, GizmoMove[1].clr);
+
+        new_pos.z -= 0.95;
+        new_pos.x += 0.95;
+        DrawGizmoLine(GizmoMove[1].end, new_pos, GizmoMove[1].clr);
+
+        new_pos.x -= 0.95;
+        new_pos.x -= 0.95;
+        DrawGizmoLine(GizmoMove[1].end, new_pos, GizmoMove[1].clr);
+    }
+
+    // @ Z
+    {
+        GizmoMove[2].origin = pos;
+        GizmoMove[2].origin.z -= GizmoPlaneSize;
+        GizmoMove[2].end = pos;
+        GizmoMove[2].end.z -= GizmoLineSize;
+
+        DrawGizmoLine(GizmoMove[2].origin, GizmoMove[2].end, GizmoMove[2].clr);
+        this->OutText(GizmoMove[2].end, "Z", D3DCOLOR_ARGB(255, 255, 255, 255));
+        // @ Arrows
+        Fvector new_pos = GizmoMove[2].end;
+        new_pos.z += 1;
+
+        new_pos.x -= 0.95;
+        DrawGizmoLine(GizmoMove[2].end, new_pos, GizmoMove[2].clr);
+
+        new_pos.x += 0.95;
+        new_pos.x += 0.95;
+        DrawGizmoLine(GizmoMove[2].end, new_pos, GizmoMove[2].clr);
+
+        new_pos.x -= 0.95;
+        new_pos.y += 0.95;
+        DrawGizmoLine(GizmoMove[2].end, new_pos, GizmoMove[2].clr);
+
+        new_pos.y -= 0.95;
+        new_pos.y -= 0.95;
+        DrawGizmoLine(GizmoMove[2].end, new_pos, GizmoMove[2].clr);
+    }
+
+
+
+    // @ XY
+    {
+        GizmoMovePlanes[0].points[1].y += GizmoPlaneSize;
+        GizmoMovePlanes[0].points[2].y += GizmoPlaneSize;
+        GizmoMovePlanes[0].points[2].x += GizmoPlaneSize;
+        GizmoMovePlanes[0].points[3].x += GizmoPlaneSize;
+
+        this->DrawGizmoPlane(GizmoMovePlanes[0].points, GizmoMovePlanes[0].clr_left, GizmoMovePlanes[0].clr_right);
+    }
+
+    // @ ZY
+    {
+        GizmoMovePlanes[1].points[1].y += GizmoPlaneSize;
+        GizmoMovePlanes[1].points[2].y += GizmoPlaneSize;
+        GizmoMovePlanes[1].points[2].z -= GizmoPlaneSize;
+        GizmoMovePlanes[1].points[3].z -= GizmoPlaneSize;
+
+        this->DrawGizmoPlane(GizmoMovePlanes[1].points, GizmoMovePlanes[1].clr_left, GizmoMovePlanes[1].clr_right);
+    }
+
+    // @ XZ
+    {
+        GizmoMovePlanes[2].points[1].x += GizmoPlaneSize;
+        GizmoMovePlanes[2].points[2].x += GizmoPlaneSize;
+        GizmoMovePlanes[2].points[2].z -= GizmoPlaneSize;
+        GizmoMovePlanes[2].points[3].z -= GizmoPlaneSize;
+
+        this->DrawGizmoPlane(GizmoMovePlanes[2].points, GizmoMovePlanes[2].clr_left, GizmoMovePlanes[2].clr_right);
+    }
+}
+
 void CDrawUtilities::OutText(const Fvector& pos, LPCSTR text, u32 color, u32 shadow_color)
 {
     Fvector p;
@@ -1550,6 +1741,6 @@ void CDrawUtilities::OutText(const Fvector& pos, LPCSTR text, u32 color, u32 sha
         m_Font->SetColor(shadow_color);
         m_Font->Out(p.x, p.y, (LPSTR)text);
         m_Font->SetColor(color);
-        m_Font->Out(p.x - 1, p.y - 1, (LPSTR)text);
+        m_Font->Out(p.x, p.y, (LPSTR)text);
     }
 }

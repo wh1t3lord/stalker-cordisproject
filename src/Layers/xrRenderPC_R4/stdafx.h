@@ -65,7 +65,7 @@ using LPAStringVec = xr_vector<xr_string*>;
 using LPAStringIt = LPAStringVec::iterator;
 
 #include "EditorPref.h"
-
+#include "SDKUI.h"
 inline float CalcSSA(Fvector& C, float R)
 {
     float distSQ = Device.vCameraPosition.distance_to_sqr(C);

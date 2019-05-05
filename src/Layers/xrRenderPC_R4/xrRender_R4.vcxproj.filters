@@ -454,6 +454,45 @@
     <Filter Include="Cordis\SDK\Scene management\Own\Cache\Private">
       <UniqueIdentifier>{df7e28fe-90c0-4d85-8014-d341144a6872}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Cordis\SDK\Scene management\Own\Gizmos">
+      <UniqueIdentifier>{712b3bef-093a-45c7-bf92-1a66ccd67133}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\SDK\Scene management\Own\Gizmos\Move">
+      <UniqueIdentifier>{d8dd18b6-05a1-4491-8881-a3ee85ea6294}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\SDK\Scene management\Own\Gizmos\Rotation">
+      <UniqueIdentifier>{fe0eb2a7-b8bd-4a65-9bf2-1d18f81a8db5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\SDK\Scene management\Own\Gizmos\Scale">
+      <UniqueIdentifier>{811d063f-ac8c-4c87-960b-a93de0e65956}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\SDK\Scene management\Own\Gizmos\Move\Public">
+      <UniqueIdentifier>{a64596ed-79c9-4298-816a-3ce47d8d3107}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\SDK\Scene management\Own\Gizmos\Move\Private">
+      <UniqueIdentifier>{d9532efc-d379-48c1-b654-74bfbd6db893}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\SDK\Scene management\Own\Gizmos\Scale\Public">
+      <UniqueIdentifier>{541d1d13-f28c-4ba5-8138-a4710d9c7f77}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\SDK\Scene management\Own\Gizmos\Scale\Private">
+      <UniqueIdentifier>{0d0843a6-3407-4788-babe-478f6db288aa}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\SDK\Scene management\Own\Gizmos\Rotation\Public">
+      <UniqueIdentifier>{90df8acb-bd98-46ea-8c9d-3e03b23f415e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\SDK\Scene management\Own\Gizmos\Rotation\Private">
+      <UniqueIdentifier>{74cc4ade-3cea-41e9-82ce-9688ffc078c1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\SDK\Scene management\Own\Gizmos\Manager">
+      <UniqueIdentifier>{fa55db8c-b66b-4776-8f57-1bd45540dce6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\SDK\Scene management\Own\Gizmos\Manager\Public">
+      <UniqueIdentifier>{5069beec-3208-41b1-be82-7477b6e60996}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\SDK\Scene management\Own\Gizmos\Manager\Private">
+      <UniqueIdentifier>{208a9bc6-54e8-429d-ad02-79c6984f8732}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\xrRenderDX10\DXCommonTypes.h">
@@ -1140,6 +1179,12 @@
     </ClInclude>
     <ClInclude Include="SDK_ObjectWayPoint.h">
       <Filter>Cordis\SDK\Scene management\Own\Objects\Way Point\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="SDK_GizmoMove.h">
+      <Filter>Cordis\SDK\Scene management\Own\Gizmos\Move\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="SDK_GizmoManager.h">
+      <Filter>Cordis\SDK\Scene management\Own\Gizmos\Manager\Public</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -1853,6 +1898,12 @@
     </ClCompile>
     <ClCompile Include="SDK_ObjectWayPoint.cpp">
       <Filter>Cordis\SDK\Scene management\Own\Objects\Way Point\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="SDK_GizmoMove.cpp">
+      <Filter>Cordis\SDK\Scene management\Own\Gizmos\Move\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="SDK_GizmoManager.cpp">
+      <Filter>Cordis\SDK\Scene management\Own\Gizmos\Manager\Private</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

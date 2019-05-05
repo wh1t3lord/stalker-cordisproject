@@ -1,5 +1,5 @@
 #pragma once
-
+#include "ImageManager.h"
 class SDKUI_RightWindow
 {
 private:
@@ -60,6 +60,7 @@ public:
 private:
     bool bShow = true;
     bool bShowPopup = false;
+    bool was_init = false;
     int MainMenuBarY;
     int Current_Section = 0;
     ImGuiWindowFlags flag;

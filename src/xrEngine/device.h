@@ -211,8 +211,8 @@ public:
     Fmatrix mInvFullTransform;
 
     CRenderDevice()
-        : fWidth_2(0), fHeight_2(0), m_editor_module(nullptr), m_editor_initialize(nullptr),
-          m_editor_finalize(nullptr), m_editor(nullptr), m_engine(nullptr)
+        : fWidth_2(0), fHeight_2(0), m_editor_module(nullptr), m_editor_initialize(nullptr), m_editor_finalize(nullptr),
+          m_editor(nullptr), m_engine(nullptr)
     {
         m_sdlWnd = NULL;
         b_is_Active = FALSE;
@@ -368,7 +368,8 @@ public:
 class CUIResetAndResolutionNotifier : public pureUIReset, pureScreenResolutionChanged
 {
 public:
-    CUIResetAndResolutionNotifier(const int uiResetPrio = REG_PRIORITY_NORMAL, const int resolutionChangedPrio = REG_PRIORITY_NORMAL)
+    CUIResetAndResolutionNotifier(
+        const int uiResetPrio = REG_PRIORITY_NORMAL, const int resolutionChangedPrio = REG_PRIORITY_NORMAL)
     {
         Device.seqUIReset.Add(this, uiResetPrio);
         Device.seqResolutionChanged.Add(this, resolutionChangedPrio);

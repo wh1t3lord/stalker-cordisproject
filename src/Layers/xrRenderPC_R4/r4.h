@@ -390,7 +390,6 @@ private:
 
 public:
     SDK_ObjectStaticGeometry* obj;
-    EObjectThumbnail image_test = EObjectThumbnail("bush_1_02.thm", false);
 
 };
 

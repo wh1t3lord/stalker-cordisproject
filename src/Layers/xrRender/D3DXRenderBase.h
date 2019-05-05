@@ -10,6 +10,7 @@
 #include "r__sector.h"
 #include "xr_effgamma.h"
 #include "blender_editor_sdk.h"
+#include "Blender_Editor_Wire.h"
 // feedback	for receiving visuals
 class R_feedback
 {
@@ -35,6 +36,7 @@ public:
     bool pmask_wmark;
     blender_editor_sdk* editor_wire;
     blender_editor_sdk* editor_selection;
+    CBlender_Editor_Wire* editor_blender_wire;
     ref_shader m_SDKWireShader;
     ref_shader m_SDKSelectionShader;
 
@@ -236,6 +238,7 @@ public:
     CResourceManager* Resources;
     ref_shader m_WireShader;
     ref_shader m_SelectionShader;
+    ref_shader m_GizmoShader;
 
 private:
 #ifndef USE_OGL

@@ -20,6 +20,13 @@
 #define DU_DRAW_DIP RCache.dbg_DIP
 #define DU_DRAW_DP RCache.dbg_DP
 #endif
+#include "SDK_GizmoMove.h"
+// @ Lord: Вот это всё в какую-нибудь структуру 
+extern int GizmoLineSize;
+constexpr unsigned int GizmoXColor = D3DCOLOR_ARGB(255, 255, 0, 0);
+constexpr unsigned int GizmoYColor = D3DCOLOR_ARGB(255, 0, 255, 0);
+constexpr unsigned int GizmoZColor = D3DCOLOR_ARGB(255, 0, 0, 255);
+constexpr unsigned int GizmoSelectedColor = D3DCOLOR_ARGB(255, 255, 255, 0);
 
 struct SPrimitiveBuffer
 {
@@ -201,11 +208,15 @@ public:
         const Fvector& pos, LPCSTR text, u32 color = 0xFF000000, u32 shadow_color = 0xFF909090);
 
     virtual void OnRender();
+
+    void DrawGizmoLine(const Fvector& start, const Fvector& end, u32 clr);
+    void DrawGizmoPlane(const Fvector* points, u32 clr_left, u32 clr_right);
+    void DrawGizmoMove(const Fvector& pos);
 };
 
 struct GridOptions
 {
-    static  int Size, separator;
+    static int Size, separator;
     static float col[3];
     static float col_background[4];
 };

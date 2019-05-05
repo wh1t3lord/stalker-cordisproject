@@ -368,6 +368,8 @@
     <ClInclude Include="SDKUI_RightWindow.h" />
     <ClInclude Include="SDK_Cache.h" />
     <ClInclude Include="SDK_CustomObject.h" />
+    <ClInclude Include="SDK_GizmoManager.h" />
+    <ClInclude Include="SDK_GizmoMove.h" />
     <ClInclude Include="SDK_ObjectStaticGeometry.h" />
     <ClInclude Include="SDK_ObjectWayPoint.h" />
     <ClInclude Include="SDK_SceneManager.h" />
@@ -610,6 +612,8 @@
     <ClCompile Include="SDKUI_RightWindow.cpp" />
     <ClCompile Include="SDK_Cache.cpp" />
     <ClCompile Include="SDK_CustomObject.cpp" />
+    <ClCompile Include="SDK_GizmoManager.cpp" />
+    <ClCompile Include="SDK_GizmoMove.cpp" />
     <ClCompile Include="SDK_ObjectStaticGeometry.cpp" />
     <ClCompile Include="SDK_ObjectWayPoint.cpp" />
     <ClCompile Include="SDK_SceneManager.cpp" />

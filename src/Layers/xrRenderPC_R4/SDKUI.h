@@ -9,6 +9,7 @@
 #include "SDKUI_Helpers.h"
 #include "../../xrEngine/MonitorManager.hpp"
 #include "SDKUI_RightWindow.h"
+#include "SDK_SceneManager.h" // Lord: потом убрать
 
 class SDKUI
 {
@@ -22,7 +23,7 @@ private:
         SDKUI_Log::Widget().Init(GetPosBottomLeft(), 500, 150, ImGuiWindowFlags_NoResize);
         SDKUI_Log::Widget().SetColor(good);
         SDKUI_Log::Widget().AddText("SDK was initialized! %s", "Test"); // Lord: изменить здесь потом текст
- 
+
         // Lord: удалить потом реализовать в EThumbnail
         //         D3D11_TEXTURE2D_DESC desc = {0};
         //         desc.Width = 128;
@@ -74,6 +75,10 @@ public:
     inline int GetDisplayX(void) const { return this->DisplayX; }
     inline int GetDisplayY(void) const { return this->DisplayY; }
 
+    // @ Mouse ray origin
+    inline Fvector GetmPos(void) const noexcept { return this->mPos; }
+    // @ Mouse ray direction
+    inline Fvector GetmDir(void) const noexcept { return this->mDir; }
     bool PickGround(Fvector& hitpoint, const Fvector& start, const Fvector& dir, /*int bSnap,*/ Fvector* hitnormal);
 
 private:
@@ -101,6 +106,8 @@ private:
     int DisplayX;
     int DisplayY;
     float dis_to_current_obj = SDK_Camera::GetInstance().fFar;
+    // @ Mouse-Ray origin
     Fvector mPos;
+    // @ Mouse-Ray
     Fvector mDir;
 };

@@ -3,7 +3,10 @@
 #include "SDKUI.h"
 #include "SDK_SceneManager.h"
 
-SDKUI_RightWindow::~SDKUI_RightWindow(void) {}
+SDKUI_RightWindow::~SDKUI_RightWindow(void) 
+{ 
+
+}
 
 void SDKUI_RightWindow::Draw(void)
 {
@@ -41,6 +44,7 @@ void SDKUI_RightWindow::Draw(void)
                         it != SDK_Cache::GetInstance().LibStaticGeometry.cend(); ++it)
                     {
                         bool is_selected = (this->CurrentSelectedStaticObject == it->first);
+                        
                         if (ImGui::Selectable(it->first.c_str(), is_selected))
                         {
                             this->CurrentSelectedStaticObject = it->first;

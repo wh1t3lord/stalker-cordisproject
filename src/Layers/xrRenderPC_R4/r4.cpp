@@ -560,10 +560,17 @@ void CRender::OnFrame()
 
 // Implementation
 IRender_ObjectSpecific* CRender::ros_create(IRenderable* parent) { return new CROS_impl(); }
+
 void CRender::ros_destroy(IRender_ObjectSpecific*& p) { xr_delete(p); }
-IRenderVisual* CRender::model_Create(LPCSTR name, IReader* data) { return Models->Create(name, data); }
-IRenderVisual* CRender::model_CreateChild(LPCSTR name, IReader* data) { return Models->CreateChild(name, data); }
-IRenderVisual* CRender::model_Duplicate(IRenderVisual* V) { return Models->Instance_Duplicate((dxRender_Visual*)V); }
+
+IRenderVisual* CRender::model_Create(LPCSTR name, IReader* data) 
+{ return Models->Create(name, data); }
+
+IRenderVisual* CRender::model_CreateChild(LPCSTR name, IReader* data)
+{ return Models->CreateChild(name, data); }
+
+IRenderVisual* CRender::model_Duplicate(IRenderVisual* V) 
+{ return Models->Instance_Duplicate((dxRender_Visual*)V); }
 void CRender::model_Delete(IRenderVisual*& V, BOOL bDiscard)
 {
     dxRender_Visual* pVisual = (dxRender_Visual*)V;
@@ -762,13 +769,6 @@ CRender::CRender() : m_bFirstFrameAfterReset(false), Sectors_xrc("render")
     obj = new SDK_ObjectStaticGeometry("");
 
     obj->Load(TEXT("D:\\Stalker Call Of Pripyat\\gamedata\\mi6_dead_fire.object"));
-    if (this->image_test.Load("mi6_dead_fire.thm", "D:\\Stalker Call Of Pripyat\\gamedata\\"))
-    {
-    }
-    else
-    {
-        ASSERT("A");
-    }
 
 }
 CRender::~CRender()

@@ -59,6 +59,7 @@ private:
         this->snap_angle = 0.0f;
         this->snap_move = 0.0f;
         this->snap_moveto = 0.0f;
+        this->bDrawGrid = true;
     }
 
 public:
@@ -77,6 +78,7 @@ public:
 
 public:
     bool bDrawAnimationPath;
+    bool bDrawGrid;
     Flags32 object_flags;
     Flags32 Settings_flags;
     float snap_angle;

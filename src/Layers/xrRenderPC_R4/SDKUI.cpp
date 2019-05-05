@@ -5,6 +5,7 @@
 #include "../../xrCore/Imgui/imgui_impl_dx11.h"
 #include "xrEngine/XR_IOConsole.h"
 #include "SDK_SceneManager.h"
+
 void SDKUI::Begin(void)
 {
     ImGui_ImplDX11_NewFrame();
@@ -30,12 +31,12 @@ bool PickGrid(Fvector& hitpoint, const Fvector& start, const Fvector& dir, /*int
     hitpoint.y = start.y + dir.y * alpha;
     hitpoint.z = start.z + dir.z * alpha;
 
-//     if (Tools->GetSettings(etfGSnap) && bSnap) Lord: реализовать это 
-//     {
-//         hitpoint.x = snapto(hitpoint.x, LTools->m_MoveSnap);
-//         hitpoint.z = snapto(hitpoint.z, LTools->m_MoveSnap);
-//         hitpoint.y = 0.f;
-//     }
+    //     if (Tools->GetSettings(etfGSnap) && bSnap) Lord: реализовать это
+    //     {
+    //         hitpoint.x = snapto(hitpoint.x, LTools->m_MoveSnap);
+    //         hitpoint.z = snapto(hitpoint.z, LTools->m_MoveSnap);
+    //         hitpoint.y = 0.f;
+    //     }
 
     if (hitnormal)
         hitnormal->set(0, 1, 0);
@@ -44,21 +45,21 @@ bool PickGrid(Fvector& hitpoint, const Fvector& start, const Fvector& dir, /*int
 }
 
 bool SDKUI::PickGround(Fvector& hitpoint, const Fvector& start, const Fvector& dir, /*int bSnap,*/ Fvector* hitnormal)
-{ 
-        // pick object geometry Lord: реализовать
-//     if ((bSnap == -1) || (Tools->GetSettings(etfOSnap) && (bSnap == 1)))
-//     {
-//         bool b = PickObjectGeometry(est, hitpoint, start, direction, bSnap, hitnormal);
-//         if (b)
-//             return true;
-//     }
+{
+    // pick object geometry Lord: реализовать
+    //     if ((bSnap == -1) || (Tools->GetSettings(etfOSnap) && (bSnap == 1)))
+    //     {
+    //         bool b = PickObjectGeometry(est, hitpoint, start, direction, bSnap, hitnormal);
+    //         if (b)
+    //             return true;
+    //     }
     return PickGrid(hitpoint, start, dir, hitnormal);
 }
 
 void SDKUI::PickObject(void)
 {
     this->dis_to_current_obj = SDK_Camera::GetInstance().fFar;
- 
+
     Fbox a = RImplementation.obj->GetData()->GetBox();
     a.xform(RImplementation.obj->GetTransform()); // LORD: УЧИТЫВАЕМ ПРОСЧЁТ BBOX!!!!!!!!
     if (RImplementation.occ_visible(a))
@@ -91,34 +92,327 @@ void SDKUI::KeyBoardMessages(void)
         this->bCanUseLeftButton = true;
     }
 
-    if (ImGui::IsMouseClicked(0) && this->bCanUseLeftButton && !this->bClickedRightButton) // @ Left button
+    if (this->bCanUseLeftButton) // Lord: добавить описание если используем сам инструмент перемещения
     {
         Ivector2 p;
         p.x = ImGui::GetIO().MousePos.x;
         p.y = ImGui::GetIO().MousePos.y;
         this->mPos.set(Device.vCameraPosition);
         SDK_Camera::GetInstance().MouseRayFromPoint(this->mDir, p);
+    }
+
+    if (this->bCanUseLeftButton &&
+        !SDK_GizmoManager::GetInstance()
+             .bUseGizmo) // Lord: сюда добавить поддержку того что если используем инструмент перемещение
+    {
+        SDK_GizmoManager::GetInstance().current_gizmo = SDK_SceneManager::GetInstance().SelectionAxisMove();
+        switch (SDK_GizmoManager::GetInstance().current_gizmo) // Lord: цвета переместить в constexpr!
+        {
+        case GIZMO_X:
+        {
+            GizmoMove[1].clr = GizmoYColor;
+            GizmoMove[2].clr = GizmoZColor;
+            GizmoMove[0].clr = GizmoSelectedColor;
+
+            if (ImGui::IsMouseClicked(0))
+            {
+                SDK_GizmoManager::GetInstance().bUseGizmo = true;
+            }
+
+            break;
+        }
+        case GIZMO_Y:
+        {
+            GizmoMove[0].clr = GizmoXColor;
+            GizmoMove[2].clr = GizmoZColor;
+            GizmoMove[1].clr = GizmoSelectedColor;
+
+            if (ImGui::IsMouseClicked(0))
+            {
+                SDK_GizmoManager::GetInstance().bUseGizmo = true;
+            }
+
+            break;
+        }
+        case GIZMO_Z:
+        {
+            GizmoMove[0].clr = GizmoXColor;
+            GizmoMove[1].clr = GizmoYColor;
+            GizmoMove[2].clr = GizmoSelectedColor;
+
+            if (ImGui::IsMouseClicked(0))
+            {
+                SDK_GizmoManager::GetInstance().bUseGizmo = true;
+            }
+
+            break;
+        }
+        case GIZMO_PLANE_XY:
+        {
+            GizmoMovePlanes[1].clr_left = GizmoYColor;
+            GizmoMovePlanes[1].clr_right = GizmoZColor;
+            GizmoMovePlanes[2].clr_left = GizmoXColor;
+            GizmoMovePlanes[2].clr_right = GizmoZColor; 
+            GizmoMovePlanes[0].clr_left =
+            GizmoMovePlanes[0].clr_right = GizmoSelectedColor;
+            SDKUI_Log::Widget().AddText("XY");
+            if (ImGui::IsMouseClicked(0))
+            {
+                SDK_GizmoManager::GetInstance().bUseGizmo = true;
+            }
+
+            break;
+        }
+        case GIZMO_PLANE_ZY:
+        {
+            GizmoMovePlanes[0].clr_left = GizmoYColor;
+            GizmoMovePlanes[0].clr_right = GizmoXColor;
+            GizmoMovePlanes[2].clr_left = GizmoXColor;
+            GizmoMovePlanes[2].clr_right = GizmoZColor;
+            GizmoMovePlanes[1].clr_left = GizmoMovePlanes[1].clr_right = GizmoSelectedColor;
+            SDKUI_Log::Widget().AddText("ZY");
+            if (ImGui::IsMouseClicked(0))
+            {
+                SDK_GizmoManager::GetInstance().bUseGizmo = true;
+            }
+
+            break;
+        }
+        case GIZMO_PLANE_XZ:
+        {
+            GizmoMovePlanes[0].clr_left = GizmoYColor;
+            GizmoMovePlanes[0].clr_right = GizmoXColor;
+            GizmoMovePlanes[1].clr_left = GizmoYColor;
+            GizmoMovePlanes[1].clr_right = GizmoZColor;
+            GizmoMovePlanes[2].clr_left = GizmoMovePlanes[2].clr_right = GizmoSelectedColor;
+            SDKUI_Log::Widget().AddText("XZ");
+            if (ImGui::IsMouseClicked(0))
+            {
+                SDK_GizmoManager::GetInstance().bUseGizmo = true;
+            }
+
+            break;
+        }
+
+        case GIZMO_UNKNOWN:
+        {
+            GizmoMove[0].clr = GizmoXColor;
+            GizmoMove[1].clr = GizmoYColor;
+            GizmoMove[2].clr = GizmoZColor;
+            GizmoMovePlanes[0].clr_left = GizmoYColor;
+            GizmoMovePlanes[0].clr_right = GizmoXColor;
+            GizmoMovePlanes[1].clr_left = GizmoYColor;
+            GizmoMovePlanes[1].clr_right = GizmoZColor;
+            GizmoMovePlanes[2].clr_left = GizmoXColor;
+            GizmoMovePlanes[2].clr_right = GizmoZColor;
+            break;
+        }
+        }
+    }
+
+    if (ImGui::IsMouseDragging(0))
+    {
+        switch (SDK_GizmoManager::GetInstance().current_gizmo)
+        {
+        case GIZMO_X:
+        {
+            if (!SDK_SceneManager::GetInstance().CurrentObject)
+                break;
+
+            float dx = ImGui::GetIO().MouseDelta.x;
+            Fvector new_pos;
+            new_pos.set(0, 0, 0);
+
+            Fvector p = SDK_SceneManager::GetInstance().CurrentObject->GetPosition();
+
+            if (Device.vCameraPosition.z > p.z)
+            {
+                dx *= -1;
+            }
+
+            new_pos.x += dx * SDK_GizmoManager::GetInstance().fSpeed;
+            SDK_SceneManager::GetInstance().CurrentObject->Move(new_pos);
+            break;
+        }
+
+        case GIZMO_Y:
+        {
+            Fvector new_pos;
+            new_pos.set(0, 0, 0);
+            new_pos.y += -ImGui::GetIO().MouseDelta.y * SDK_GizmoManager::GetInstance().fSpeed;
+
+            if (SDK_SceneManager::GetInstance().CurrentObject)
+                SDK_SceneManager::GetInstance().CurrentObject->Move(new_pos);
+
+            break;
+        }
+        case GIZMO_Z:
+        {
+            if (!SDK_SceneManager::GetInstance().CurrentObject)
+                break;
+
+            Fvector new_pos;
+            new_pos.set(0, 0, 0);
+            float dy = ImGui::GetIO().MouseDelta.y;
+            float dx = ImGui::GetIO().MouseDelta.x;
+            
+ 
+            if (Device.vCameraPosition.x < SDK_SceneManager::GetInstance().CurrentObject->GetPosition().x)
+                dx *= -1;
+
+            new_pos.z += (-dy+dx) * SDK_GizmoManager::GetInstance().fSpeed;
+     
+
+            SDK_SceneManager::GetInstance().CurrentObject->Move(new_pos);
+
+            break;
+        }
+
+        case GIZMO_PLANE_XY:
+        {
+            if (!SDK_SceneManager::GetInstance().CurrentObject)
+                break;
+
+            Fvector new_pos;
+            new_pos.set(0, 0, 0);
+            float dy = ImGui::GetIO().MouseDelta.y;
+            float dx = ImGui::GetIO().MouseDelta.x;
+
+            if (Device.vCameraPosition.z > SDK_SceneManager::GetInstance().CurrentObject->GetPosition().z)
+                dx *= -1;
+
+            new_pos.x += dx * SDK_GizmoManager::GetInstance().fSpeed;
+            new_pos.y -= dy * SDK_GizmoManager::GetInstance().fSpeed;
+
+
+
+            SDK_SceneManager::GetInstance().CurrentObject->Move(new_pos);
+
+            break;
+        }
+        case GIZMO_PLANE_ZY:
+        {
+            if (!SDK_SceneManager::GetInstance().CurrentObject)
+                break;
+
+            Fvector new_pos;
+            new_pos.set(0,0,0);
+            float dy = ImGui::GetIO().MouseDelta.y;
+            float dx = ImGui::GetIO().MouseDelta.x;
+
+            if (Device.vCameraPosition.x > SDK_SceneManager::GetInstance().CurrentObject->GetPosition().x)
+                dx *= -1;
+
+            new_pos.z += -dx * SDK_GizmoManager::GetInstance().fSpeed;
+            new_pos.y += -dy * SDK_GizmoManager::GetInstance().fSpeed;
+
+            SDK_SceneManager::GetInstance().CurrentObject->Move(new_pos);
+
+            break;
+        }
+
+        case GIZMO_PLANE_XZ:
+        {
+            if (!SDK_SceneManager::GetInstance().CurrentObject)
+                break;
+
+            Fvector new_pos;
+            new_pos.set(0, 0, 0);
+            float dy = ImGui::GetIO().MouseDelta.y;
+            float dx = ImGui::GetIO().MouseDelta.x;
+
+            if (Device.vCameraPosition.z > SDK_SceneManager::GetInstance().CurrentObject->GetPosition().z)
+            {
+                dx *= -1;
+                dy *= -1;
+            }
+
+
+            new_pos.x += dx * SDK_GizmoManager::GetInstance().fSpeed;
+            new_pos.z += -dy * SDK_GizmoManager::GetInstance().fSpeed;
+
+            SDK_SceneManager::GetInstance().CurrentObject->Move(new_pos);
+
+            break;
+        }
+        }
+    }
+
+    // Lord: переделать в одну функцию
+    if (ImGui::IsMouseClicked(0) && this->bCanUseLeftButton && !this->bClickedRightButton &&
+        !SDK_GizmoManager::GetInstance().bUseGizmo) // @ Left button
+    {
+        /*
+                Ivector2 p;
+                p.x = ImGui::GetIO().MousePos.x;
+                p.y = ImGui::GetIO().MousePos.y;
+                this->mPos.set(Device.vCameraPosition);
+                SDK_Camera::GetInstance().MouseRayFromPoint(this->mDir, p);*/
         // Lord: написать функционал для Ctrl и Alt
         if (this->bAddTool)
         {
-
             Fvector p, n;
             if (this->PickGround(p, this->mPos, this->mDir, &n))
             {
-                SDK_SceneManager::GetInstance().AddObject(p,n);
+                SDK_SceneManager::GetInstance().AddObject(p, n);
             }
-                 
         }
         else
         {
-            
-         //   this->PickObject();
+            //   this->PickObject();
 
             if (SDK_SceneManager::GetInstance().SingleSelection(this->mPos, this->mDir))
             {
-
+                SDKUI_Log::Widget().AddText("Selected!");
             }
+            else
+            {
+                SDKUI_Log::Widget().AddText("UnSelected!");
+            }
+
+            // Lord: перемещение по лучу можно и реальзовать
+            // Device.vCameraPosition.set(this->mDir.mul(SDK_Camera::GetInstance().fFar).add(this->mPos));
+            /*
+                        for (size_t i = 0; i < 3; i++)
+                        {
+                            // @ Have intersection
+                            if (GizmoMove[i].RayPick(SDK_Camera::GetInstance().fFar, this->mPos, this->mDir) < 1)
+                            {
+                                GizmoMove[i].clr = D3DCOLOR_ARGB(255, 255, 255, 0);
+                            }
+                            else
+                            {
+                                switch (GizmoMove[i].id)
+                                {
+                                case GIZMO_X:
+                                {
+                                    GizmoMove[i].clr = D3DCOLOR_ARGB(255, 255, 0, 0);
+                                    break;
+                                }
+                                case GIZMO_Y:
+                                {
+                                    GizmoMove[i].clr = D3DCOLOR_ARGB(255, 0, 255, 0);
+                                    break;
+                                }
+                                case GIZMO_Z:
+                                {
+                                    GizmoMove[i].clr = D3DCOLOR_ARGB(255, 0, 0, 255);
+                                    break;
+                                }
+                                }
+                            }
+
+                            //   SDKUI_Log::Widget().AddText("%d %s",
+                            //   i,std::to_string(GizmoMove[i].RayPick(SDK_Camera::GetInstance().fFar, this->mPos,
+                            //   this->mDir)).c_str());
+                        }*/
         }
+    }
+
+    if (ImGui::IsMouseReleased(0) &&
+        SDK_GizmoManager::GetInstance().bUseGizmo) // Lord: обработка если мы в драге моде и инструмент перемешение
+    {
+        SDK_GizmoManager::GetInstance().bUseGizmo = false;
     }
 
     if (ImGui::IsMouseReleased(1))
@@ -149,7 +443,6 @@ void SDKUI::KeyBoardMessages(void)
             SDKUI_Log::Widget().AddText("AddTool: ON");
             this->bAddTool = true;
         }
-
     }
 
     // @ Exit
@@ -286,6 +579,7 @@ void SDKUI::DrawMainMenuBar(void)
 
             ImGui::EndMenu();
         }
+
         ImGui::EndMainMenuBar();
     }
 }

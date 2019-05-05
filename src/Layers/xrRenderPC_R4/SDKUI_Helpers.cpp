@@ -3,6 +3,7 @@
 #include <chrono>
 #include <ctime>
 #include "../../xrEngine/SDK_Camera.h"
+
 /*
     @ UI_Log
 */
@@ -173,6 +174,7 @@ void SDKUI_Overlay::Draw(void)
                 if (ImGui::TreeNode("Project info:"))
                 {
                     ImGui::Text("Scene name: \n");
+                    ImGui::Checkbox("Draw Grid", &EditorPref::GetInstance().bDrawGrid);
                     if (ImGui::TreeNode("Total:"))
                     {
                         ImGui::Text("objects - ");
@@ -181,59 +183,64 @@ void SDKUI_Overlay::Draw(void)
 
                         ImGui::TreePop();
                     }
-                    if (ImGui::TreeNode("Grid:"))
+
+                    if (EditorPref::GetInstance().bDrawGrid)
                     {
-                        ImGui::ColorEdit3("Grid Color", GridOptions::col);
-                        ImGui::ColorEdit4("Background Scene color: ", GridOptions::col_background);
-                        static xr_string a = "100|10";
-                        ImGui::SliderInt("Grid Type", &this->iGridType, 0, 5, a.c_str());
-                        switch (this->iGridType)
+                        if (ImGui::TreeNode("Grid:"))
                         {
-                        case 0:
-                        {
-                            GridOptions::Size = 100;
-                            GridOptions::separator = 10;
-                            a = "100|10";
-                            break;
+                            ImGui::ColorEdit3("Grid Color", GridOptions::col);
+                            ImGui::ColorEdit4("Background Scene color: ", GridOptions::col_background);
+                            static xr_string a = "100|10";
+                            ImGui::SliderInt("Grid Type", &this->iGridType, 0, 5, a.c_str());
+                            switch (this->iGridType)
+                            {
+                            case 0:
+                            {
+                                GridOptions::Size = 100;
+                                GridOptions::separator = 10;
+                                a = "100|10";
+                                break;
+                            }
+                            case 1:
+                            {
+                                GridOptions::Size = 100;
+                                GridOptions::separator = 20;
+                                a = "100|20";
+                                break;
+                            }
+                            case 2:
+                            {
+                                GridOptions::Size = 100;
+                                GridOptions::separator = 50;
+                                a = "100|50";
+                                break;
+                            }
+                            case 3:
+                            {
+                                GridOptions::Size = 100;
+                                GridOptions::separator = 100;
+                                a = "100|100";
+                                break;
+                            }
+                            case 4:
+                            {
+                                GridOptions::Size = 10;
+                                GridOptions::separator = 1;
+                                a = "10|1";
+                                break;
+                            }
+                            case 5:
+                            {
+                                GridOptions::Size = 10000;
+                                GridOptions::separator = 10;
+                                a = "10000|10";
+                                break;
+                            }
+                            }
+                            ImGui::TreePop();
                         }
-                        case 1:
-                        {
-                            GridOptions::Size = 100;
-                            GridOptions::separator = 20;
-                            a = "100|20";
-                            break;
-                        }
-                        case 2:
-                        {
-                            GridOptions::Size = 100;
-                            GridOptions::separator = 50;
-                            a = "100|50";
-                            break;
-                        }
-                        case 3:
-                        {
-                            GridOptions::Size = 100;
-                            GridOptions::separator = 100;
-                            a = "100|100";
-                            break;
-                        }
-                        case 4:
-                        {
-                            GridOptions::Size = 10;
-                            GridOptions::separator = 1;
-                            a = "10|1";
-                            break;
-                        }
-                        case 5:
-                        {
-                            GridOptions::Size = 10000;
-                            GridOptions::separator = 10;
-                            a = "10000|10";
-                            break;
-                        }
-                        }
-                        ImGui::TreePop();
                     }
+
                     if (ImGui::TreeNode("Camera: "))
                     {
                         if (ImGui::Button("Start Location"))
@@ -249,6 +256,15 @@ void SDKUI_Overlay::Draw(void)
 
                         ImGui::TreePop();
                     }
+
+                    if (ImGui::TreeNode("Gizmo: "))
+                    {
+                        ImGui::DragInt("Gizmo Size", &GizmoLineSize, 1.0f, 5, 20);
+                        ImGui::DragFloat("Gizmo Sens", &SDK_GizmoManager::GetInstance().fSpeed, 0.001f, 0.001f, 1.0f);
+                        ImGui::TreePop();
+                    }
+
+
                     ImGui::TreePop();
                 }
                

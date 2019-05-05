@@ -413,14 +413,13 @@ void CRenderDevice::message_loop()
                 }
                 else if (event.type == SDL_MOUSEMOTION)
                 {
+                    float dx = event.motion.xrel;
+                    float dy = event.motion.yrel;
                     if (bDrag)
                     {
-                        float dx = 0;
-                        float dy = 0;
+
                         float scale = SDK_Camera::GetInstance().fSens;
 
-                        dx += event.motion.xrel;
-                        dy += event.motion.yrel;
                         if (dx)
                         {
                             float d = float(dx) * scale;
@@ -432,6 +431,8 @@ void CRenderDevice::message_loop()
                             SDK_Camera::GetInstance().Rotate((d > 0) ? kUP : kDOWN, _abs(d));
                         }
                     }
+
+
                 }
 
                 ImGui_ImplSDL2_ProcessEvent(&event);
