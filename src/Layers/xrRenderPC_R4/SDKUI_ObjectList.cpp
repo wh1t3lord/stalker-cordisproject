@@ -16,11 +16,7 @@ void SDKUI_ObjectList::Draw(void)
 
     if (ImGui::Begin("Object List", &this->bShow, this->flag))
     {
-
-
-
-
-
+        
         ImGui::End();
     }
 }
