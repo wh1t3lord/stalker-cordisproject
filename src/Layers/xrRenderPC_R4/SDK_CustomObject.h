@@ -7,7 +7,7 @@ struct SExportStreamItem
     int chunk;
     CMemoryWriter stream;
 
-    SExportStreamItem() : chunk(0) {}
+    SExportStreamItem(void) : chunk(0) {}
 };
 
 struct SExportStreams
@@ -54,13 +54,19 @@ public:
     inline const Fvector& GetScale(void) const noexcept { return this->vScale; }
     inline void SetPosition(const Fvector& pos) { this->vPosition = pos; }
     inline void SetRotation(const Fvector& rot)
-    {
-        this->vRotation = rot;
-        VERIFY(_valid(this->vRotation));
+    { 
+        if (_valid(rot))
+        {
+            this->vRotation = rot;
+        }
+        else
+        {
+            this->vRotation = {0, 0, 0};
+        }
     }
     inline void SetScale(const Fvector& scl) { this->vScale = scl; }
 
- //   inline bool IsVisible(void) const noexcept { return this->bVisible; }
+    //   inline bool IsVisible(void) const noexcept { return this->bVisible; }
     inline void Show(void) noexcept
     {
         if (!this->bVisible)
@@ -73,9 +79,9 @@ public:
             this->bVisible = false;
     }
 
-   // inline bool IsRender(void) const noexcept { return this->bRendering; }
-    //inline bool IsSelected(void) const noexcept { return this->bSelected; }
-   
+    // inline bool IsRender(void) const noexcept { return this->bRendering; }
+    // inline bool IsSelected(void) const noexcept { return this->bSelected; }
+
     void UpdateTransform(void)
     {
         this->mTransformR.setXYZi(-this->vRotation.x, -this->vRotation.y, -this->vRotation.z);

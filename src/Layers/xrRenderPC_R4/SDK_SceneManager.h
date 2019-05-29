@@ -7,28 +7,15 @@ class SDK_SceneManager // Lord: реализовать отображение co
 {
 private:
     SDK_SceneManager(void)
+        : total_count_objects(0), total_count_objects_glows(0), total_count_objects_groups(0),
+          total_count_objects_sound_environments(0), total_count_objects_sound_sources(0),
+          total_count_objects_spawn_elements(0), total_count_objects_static_particles(0),
+          total_count_objects_wallmarks(0), total_count_objects_waypoints(0), total_count_objects_lights(0),
+          total_count_objects_ai_nodes(0), total_current_selected_objects(0), total_deleted_objects(0),
+          total_count_objects_static_geometry(0), total_count_objects_shapes(0), current_distance_to_object(0),
+          CurrentObject(nullptr)
     {
         SDK_Cache::GetInstance().MakeCache();
-
-#pragma region Statistics
-        this->total_count_objects = 0;
-        this->total_count_objects_glows = 0;
-        this->total_count_objects_ai_nodes = 0;
-        this->total_count_objects_lights = 0;
-        this->total_count_objects_shapes = 0;
-        this->total_count_objects_sound_sources = 0;
-        this->total_count_objects_spawn_elements = 0;
-        this->total_count_objects_wallmarks = 0;
-        this->total_count_objects_waypoints = 0;
-        this->total_count_objects_static_geometry = 0;
-        this->total_count_objects_static_particles = 0;
-        this->total_count_objects_groups = 0;
-        this->total_current_selected_objects = 0;
-        this->total_deleted_objects = 0;
-#pragma endregion
-
-        this->current_distance_to_object = 0;
-        this->CurrentObject = nullptr;
     }
 
 public:
@@ -44,10 +31,32 @@ public:
     SDK_SceneManager& operator=(SDK_SceneManager&&) = delete;
 
     void AddObject(const Fvector&, const Fvector&);
+    void ZoomExtentSelected(const Fbox& bbox);
     void DeleteResources(void);
     //  void PickObject(const Fvector& start, const Fvector& direction);
-    SDK_CustomObject* SingleSelection(const Fvector& start, const Fvector& direction);
+    SDK_CustomObject* Selection(const Fvector& start, const Fvector& direction, bool bSingleSelection = false);
+    void DeSelection(const Fvector& start, const Fvector& direction);
+    void UnSelectAll(void);
     AxisType SelectionAxisMove(void);
+    void Move(const Fvector& vec);
+    void Rotate(const Fvector& vec);
+    void Scale(const Fvector& vec);
+
+    inline const Fvector& GetPositionFromLastSelectedObject(void)
+    {
+        if (SDKUI::UI().IsUsedMoveTool() || SDKUI::UI().IsUsedRotateTool() || SDKUI::UI().IsUsedScaleTool())
+        {
+            if (!this->SelectedObjectsList.size())
+                return Fvector({0, 0, 0});
+
+            SDK_CustomObject* object = this->SelectedObjectsList.back();
+            return object->GetPosition();
+        }
+
+        SDKUI_Log::Widget().SetColor(warning);
+        SDKUI_Log::Widget().AddText("Warning getting position from unused state!");
+        return Fvector({0, 0, 0});
+    }
 
 private:
     //  SDK_CustomObject* _CreateObject(void); Lord: Implement this
@@ -78,5 +87,6 @@ private:
 
 public:
     SDK_CustomObject* CurrentObject;
+    xr_list<SDK_CustomObject*> SelectedObjectsList;
     xr_list<SDK_CustomObject*> ObjectList; // All kind of object in the scene
 };

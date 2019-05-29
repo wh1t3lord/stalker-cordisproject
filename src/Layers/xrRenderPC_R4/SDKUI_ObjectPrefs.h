@@ -5,7 +5,7 @@ class SDK_ObjectStaticGeometry;
 class SDKUI_StaticGeometryPref
 {
 private:
-    SDKUI_StaticGeometryPref(void) { this->bShow = false; }
+    SDKUI_StaticGeometryPref(void) : bShow(false) {}
 
 public:
     inline static SDKUI_StaticGeometryPref& Widget(void)

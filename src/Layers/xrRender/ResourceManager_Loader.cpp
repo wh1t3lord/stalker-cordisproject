@@ -9,10 +9,6 @@ void CResourceManager::OnDeviceDestroy(BOOL)
     if (RDEVICE.b_is_Ready)
         return;
 
-    delete RImplementation.obj;
-    SDK_Cache::GetInstance().DeleteResources();
-    // Lord: здесь мы удаляем все ресурсы (потом данный коммент удалить!)
-
     m_textures_description.UnLoad();
 
     // Matrices

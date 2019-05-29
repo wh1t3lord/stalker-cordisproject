@@ -1597,7 +1597,9 @@ void CDrawUtilities::DrawGizmoPlane(const Fvector* points, u32 clr_left, u32 clr
 
 void CDrawUtilities::DrawGizmoMove(const Fvector& pos)
 {
-    unsigned int GizmoPlaneSize = GizmoLineSize / 5;
+    int CurrentGizmoLineSize = GizmoLineSize;
+
+    unsigned int GizmoPlaneSize = CurrentGizmoLineSize / 3;
     for (unsigned int i = 0; i < 3; ++i)
     {
         for (unsigned int j = 0; j < 4; ++j)
@@ -1611,8 +1613,7 @@ void CDrawUtilities::DrawGizmoMove(const Fvector& pos)
         GizmoMove[0].origin = pos;
         GizmoMove[0].origin.x += GizmoPlaneSize;
         GizmoMove[0].end = pos;
-        GizmoMove[0].end.x += GizmoLineSize;
-
+        GizmoMove[0].end.x += CurrentGizmoLineSize;
         DrawGizmoLine(GizmoMove[0].origin, GizmoMove[0].end, GizmoMove[0].clr);
         this->OutText(GizmoMove[0].end, "X", D3DCOLOR_ARGB(255, 255, 255, 255));
 
@@ -1641,7 +1642,7 @@ void CDrawUtilities::DrawGizmoMove(const Fvector& pos)
         GizmoMove[1].origin = pos;
         GizmoMove[1].origin.y += GizmoPlaneSize;
         GizmoMove[1].end = pos;
-        GizmoMove[1].end.y += GizmoLineSize;
+        GizmoMove[1].end.y += CurrentGizmoLineSize;
 
         DrawGizmoLine(GizmoMove[1].origin, GizmoMove[1].end, GizmoMove[1].clr);
         this->OutText(GizmoMove[1].end, "Y", D3DCOLOR_ARGB(255, 255, 255, 255));
@@ -1670,7 +1671,7 @@ void CDrawUtilities::DrawGizmoMove(const Fvector& pos)
         GizmoMove[2].origin = pos;
         GizmoMove[2].origin.z -= GizmoPlaneSize;
         GizmoMove[2].end = pos;
-        GizmoMove[2].end.z -= GizmoLineSize;
+        GizmoMove[2].end.z -= CurrentGizmoLineSize;
 
         DrawGizmoLine(GizmoMove[2].origin, GizmoMove[2].end, GizmoMove[2].clr);
         this->OutText(GizmoMove[2].end, "Z", D3DCOLOR_ARGB(255, 255, 255, 255));
@@ -1693,8 +1694,6 @@ void CDrawUtilities::DrawGizmoMove(const Fvector& pos)
         new_pos.y -= 0.95;
         DrawGizmoLine(GizmoMove[2].end, new_pos, GizmoMove[2].clr);
     }
-
-
 
     // @ XY
     {
@@ -1732,6 +1731,7 @@ void CDrawUtilities::OutText(const Fvector& pos, LPCSTR text, u32 color, u32 sha
     Fvector p;
     float w = pos.x * Device.mFullTransform._14 + pos.y * Device.mFullTransform._24 +
         pos.z * Device.mFullTransform._34 + Device.mFullTransform._44;
+
     if (w >= 0)
     {
         Device.mFullTransform.transform(p, pos);

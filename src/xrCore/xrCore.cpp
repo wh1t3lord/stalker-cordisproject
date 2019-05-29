@@ -301,6 +301,9 @@ void xrCore::Initialize(pcstr _ApplicationName, pcstr commandLine, LogCallback c
 #endif
 #endif
         FS._initialize(flags, nullptr, fs_fname);
+
+
+
         EFS._initialize();
 #ifdef DEBUG
 #ifndef _EDITOR

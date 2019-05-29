@@ -3,22 +3,22 @@
 #include "SDKUI.h"
 #include "r4.h"
 #include "SDK_SceneManager.h"
+#include "SDK_Settings.h"
 
-SDKUI_Render::~SDKUI_Render() {}
+SDKUI_Render::~SDKUI_Render(void)
+{
 
-static Fvector move;
-static Fvector rot;
-static float koef_speed = 0.0009f;
-static float koef_scale = 0.0005f;
+}
 
 void SDKUI_Render::Initialize(void)
 {
     // Lord: наверное сюда же нужно поместить контант буфферы компиляцию шейдеров и прочее, хотя наверное только онли
     // рантайм загрузка Lord: БЛЯТЬ ДЖОННИ ЭТО ПИЗДЕЦ КАК ЖЕ ПЫС ЗАЕБАЛИ ХАРДКОДИТЬ
+
+
+    SDK_Settings::GetInstance().Initialize();
     GridOptions::Size = 100;
     GridOptions::separator = 10;
-    move.set(0, 0, 0);
-    rot.set(0, 0, 0);
 }
 
 void SDKUI_Render::MainRender(void)
@@ -46,7 +46,6 @@ void SDKUI_Render::MainRender(void)
 
     RImplementation.ClearTarget();
     HW.pContext->ClearDepthStencilView(RCache.get_ZB(), D3D_CLEAR_DEPTH | D3D_CLEAR_STENCIL, 1.0f, 0);
-    RImplementation.obj->Render(1, false);
     Fvector a;
     a.set(0, 0, 0);
  
@@ -62,7 +61,11 @@ void SDKUI_Render::MainRender(void)
         {
             // RCache.set_xform_world(object->GetTransform());
             DUImpl.DrawSelectionBoxB(object->GetBox(), &clr);
-            DUImpl.DrawGizmoMove(object->GetPosition());
+            if (SDKUI::UI().IsUsedMoveTool())
+            {
+                DUImpl.DrawGizmoMove(SDK_SceneManager::GetInstance().GetPositionFromLastSelectedObject());
+            }
+
         }
     }
 
@@ -91,13 +94,28 @@ void SDKUI_Render::MainRender(void)
     DUImpl.DrawGizmoLine(GizmoMove[0].end, new_pos, GizmoMove[0].clr);
 */
     // Lord: Debug ray by mouse (ADD it as debug??? :D)
+
+
+/*
     Fvector test_pos = SDKUI::UI().GetmPos();
     test_pos.x += 2;
-    DUImpl.DrawGizmoLine(test_pos,
-         SDKUI::UI().GetmDir().mul(1000).add(SDKUI::UI().GetmPos()),
-         D3DCOLOR_ARGB(255, 255, 255, 0)); 
+    static xr_vector<Fvector> starts;
+    static xr_vector<Fvector> ends;
+    starts.push_back(test_pos);
+    Fvector dir = SDKUI::UI().GetmDir();
+    ends.push_back(SDK_GizmoManager::GetInstance().ray_end_point_plane);
+    for (int i = 0, j = 0; i < starts.size(), j < ends.size(); ++i, ++j)
+    {
+        DUImpl.DrawGizmoLine(starts[i], ends[i], D3DCOLOR_ARGB(255, 155, 200, 0));
+    }
 
-
+    if (starts.size() > 100)
+    {
+        starts.clear();
+        ends.clear();
+    }*/
+    
+  //  DUImpl.DrawGizmoLine(test_pos, ray_end_point, D3DCOLOR_ARGB(255, 255, 255, 0));
 #pragma region TheGrid
     if (EditorPref::GetInstance().bDrawGrid)
     {

@@ -18,7 +18,8 @@ public:
     SDK_GizmoMove(AxisType type) : id(type) {}
     ~SDK_GizmoMove(void) = default;
 
-    float RayPick(const float& distance, const Fvector& pos, const Fvector& dir);
+    bool GetPoint(const Fvector& pos, const Fvector& dir, Fvector& pB);
+    float RayPick(const Fvector& pos, const Fvector& dir);
 
 public:
     AxisType id;
@@ -34,6 +35,7 @@ public:
     SDK_GizmoMovePlane(AxisType type) : id(type) {}
     ~SDK_GizmoMovePlane(void) = default;
 
+    bool GetPoint(const Fvector& p, const Fvector& d);
     bool RayPick(const Fvector& p, const Fvector& d);
 
     void SetPoints(const Fvector& p0, const Fvector& p1, const Fvector& p2, const Fvector& p3)
@@ -46,12 +48,14 @@ public:
 
     inline const Fvector& Origin(void) { return this->points[0]; }
 
+private:
+    Fvector GetNormalOfPlane(void);
+
 public:
     AxisType id;
     unsigned int clr_left;
     unsigned int clr_right;
     Fvector points[4];
- 
 };
 
 extern SDK_GizmoMove GizmoMove[3];

@@ -431,7 +431,7 @@ void CRenderDevice::message_loop()
                             SDK_Camera::GetInstance().Rotate((d > 0) ? kUP : kDOWN, _abs(d));
                         }
                     }
-
+ 
 
                 }
 

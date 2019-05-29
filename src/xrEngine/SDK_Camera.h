@@ -4,10 +4,10 @@
 class ENGINE_API SDK_Camera : pureFrame
 {
 private:
-    SDK_Camera(void) noexcept = default;
+    SDK_Camera(void) = default;
 
 public:
-    static SDK_Camera& GetInstance(void)
+    inline static SDK_Camera& GetInstance(void) noexcept
     {
         static SDK_Camera instance;
         return instance;
@@ -18,7 +18,7 @@ public:
     SDK_Camera(SDK_Camera&&) = delete;
     SDK_Camera& operator=(SDK_Camera&&) = delete;
 
-    ~SDK_Camera() { Device.seqFrame.Remove(this); }
+    ~SDK_Camera(void) { Device.seqFrame.Remove(this); }
 
     void Initialize(void);
     void Rotate(int cmd, float val);

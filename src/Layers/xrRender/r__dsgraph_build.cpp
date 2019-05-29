@@ -18,6 +18,7 @@
 #include "../../xrCore/Imgui/imgui_impl_dx11.h"
 
 #include "SDKUI.h"
+#include "SDK_Cache.h"
 using namespace R_dsgraph;
 // TO LORD: Подумай над избавлением данных препроцессоров, которые связаны с USE_DX11
 ////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -818,9 +819,15 @@ void D3DXRenderBase::OnDeviceDestroy(bool bKeepTextures)
     m_GizmoShader.destroy();
     m_SDKWireShader.destroy();
     m_SDKSelectionShader.destroy();
-    delete editor_wire;
-    delete editor_selection;
-    delete this->editor_blender_wire;
+#pragma region SDK_RESOURCES_DESTROY
+    if (FS.IsSDK())
+    {
+        delete editor_wire;
+        delete editor_selection;
+        delete this->editor_blender_wire;
+        SDK_Cache::GetInstance().DeleteResources();
+    }
+#pragma endregion
     Resources->OnDeviceDestroy(bKeepTextures);
     RCache.OnDeviceDestroy();
 }
@@ -934,15 +941,20 @@ void D3DXRenderBase::OnDeviceCreate(const char* shName)
         m_WireShader.create("editor" DELIMITER "wire");
         m_SelectionShader.create("editor" DELIMITER "selection");
         
-
+        // @ Lord подумать над всем этим здесь
      //   this->m_GizmoShader->create()
-        editor_wire = new blender_editor_sdk(false);
-        editor_selection = new blender_editor_sdk(true);
-        this->editor_blender_wire = new CBlender_Editor_Wire();
-        this->editor_blender_wire->bDebug = true;
-        m_GizmoShader.create(this->editor_blender_wire);
-        m_SDKWireShader.create(editor_wire);
-        m_SDKSelectionShader.create(editor_selection);
+        if (FS.IsSDK())
+        {
+            editor_wire = new blender_editor_sdk(false);
+            editor_selection = new blender_editor_sdk(true);
+            this->editor_blender_wire = new CBlender_Editor_Wire();
+            this->editor_blender_wire->bDebug = true;
+            m_GizmoShader.create(this->editor_blender_wire);
+            m_SDKWireShader.create(editor_wire);
+            m_SDKSelectionShader.create(editor_selection);
+        }
+
+
         DUImpl.OnDeviceCreate();
  
     }

@@ -160,7 +160,7 @@
       <AdditionalOptions> %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>d3d9.lib;nvapi64.lib;amd_ags_$(PlatformShortName).lib;dxgi.lib;dxguid.lib;d3dcompiler.lib;d3d11.lib;d3dx11.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>d3d9.lib;nvapi64.lib;amd_ags_$(PlatformShortName).lib;dxgi.lib;dxguid.lib;d3dcompiler.lib;d3d11.lib;d3dx11.lib;shlwapi.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>$(xrExternals)OpenAutomate\libraries;$(xrExternals)AGS_SDK\ags_lib\lib;$(xrExternals)nvapi\amd64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
@@ -363,16 +363,22 @@
     <ClInclude Include="R_Backend_LOD.h" />
     <ClInclude Include="SDKUI.h" />
     <ClInclude Include="SDKUI_Helpers.h" />
+    <ClInclude Include="SDKUI_ObjectList.h" />
     <ClInclude Include="SDKUI_ObjectPrefs.h" />
     <ClInclude Include="SDKUI_Render.h" />
     <ClInclude Include="SDKUI_RightWindow.h" />
+    <ClInclude Include="SDKUI_ToolBar.h" />
     <ClInclude Include="SDK_Cache.h" />
     <ClInclude Include="SDK_CustomObject.h" />
+    <ClInclude Include="SDK_FileSystemState.h" />
     <ClInclude Include="SDK_GizmoManager.h" />
     <ClInclude Include="SDK_GizmoMove.h" />
+    <ClInclude Include="SDK_IconManager.h" />
+    <ClInclude Include="SDK_KeybindingManager.h" />
     <ClInclude Include="SDK_ObjectStaticGeometry.h" />
     <ClInclude Include="SDK_ObjectWayPoint.h" />
     <ClInclude Include="SDK_SceneManager.h" />
+    <ClInclude Include="SDK_Settings.h" />
     <ClInclude Include="SMAP_Allocator.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="WildMagic\WmlApprGaussPointsFit3.h" />
@@ -607,16 +613,22 @@
     <ClCompile Include="R_Backend_LOD.cpp" />
     <ClCompile Include="SDKUI.cpp" />
     <ClCompile Include="SDKUI_Helpers.cpp" />
+    <ClCompile Include="SDKUI_ObjectList.cpp" />
     <ClCompile Include="SDKUI_ObjectPrefs.cpp" />
     <ClCompile Include="SDKUI_Render.cpp" />
     <ClCompile Include="SDKUI_RightWindow.cpp" />
+    <ClCompile Include="SDKUI_ToolBar.cpp" />
     <ClCompile Include="SDK_Cache.cpp" />
     <ClCompile Include="SDK_CustomObject.cpp" />
+    <ClCompile Include="SDK_FileSystemState.cpp" />
     <ClCompile Include="SDK_GizmoManager.cpp" />
     <ClCompile Include="SDK_GizmoMove.cpp" />
+    <ClCompile Include="SDK_IconManager.cpp" />
+    <ClCompile Include="SDK_KeybindingManager.cpp" />
     <ClCompile Include="SDK_ObjectStaticGeometry.cpp" />
     <ClCompile Include="SDK_ObjectWayPoint.cpp" />
     <ClCompile Include="SDK_SceneManager.cpp" />
+    <ClCompile Include="SDK_Settings.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>

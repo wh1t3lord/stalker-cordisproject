@@ -3,7 +3,11 @@
 class SDKUI_RightWindow
 {
 private:
-    SDKUI_RightWindow(void) 
+    SDKUI_RightWindow(void)
+        : flag(ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoMove |
+              ImGuiWindowFlags_HorizontalScrollbar),
+          Current_Section(0), CurrentSelectedStaticObject(""), bShow(true), bShowPopup(false), was_init(false)
+
     {
         if (ImGui::BeginMainMenuBar())
         {
@@ -12,7 +16,6 @@ private:
             ImGui::EndMainMenuBar();
         }
 
-        this->flag = ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoMove | ImGuiWindowFlags_HorizontalScrollbar;
         this->sections.push_back("Objects"); // 0 ..
         this->sections.push_back("Lights");
         this->sections.push_back("Sound Source");
@@ -29,8 +32,6 @@ private:
         this->sections.push_back("AI Map");
         this->sections.push_back("Wallmarks");
         this->sections.push_back("Fog Volumes"); // 15
-        this->Current_Section = 0;
-        this->CurrentSelectedStaticObject = "";
     }
 
 public:
@@ -58,11 +59,11 @@ public:
     }
 
 private:
-    bool bShow = true;
-    bool bShowPopup = false;
-    bool was_init = false;
+    bool bShow;
+    bool bShowPopup;
+    bool was_init;
     int MainMenuBarY;
-    int Current_Section = 0;
+    int Current_Section;
     ImGuiWindowFlags flag;
     xr_string CurrentSelectedStaticObject; // @ From list
     xr_vector<xr_string> sections;

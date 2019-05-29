@@ -2,9 +2,9 @@
 #include "SDK_ObjectStaticGeometry.h"
 #include "SDKUI_Helpers.h"
 
-SDK_ObjectStaticGeometry::SDK_ObjectStaticGeometry(LPCSTR name) : inherited(name)
+SDK_ObjectStaticGeometry::SDK_ObjectStaticGeometry(LPCSTR name)
+    : inherited(name), Data(nullptr)
 {
-    this->Data = nullptr;
     this->ObjectType = OBJECT_CLASS_STATIC_GEOMETRY;
     this->OccBox.invalidate();
 }

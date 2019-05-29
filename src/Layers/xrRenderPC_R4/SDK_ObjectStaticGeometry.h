@@ -13,6 +13,7 @@ private:
 
 public:
     SDK_ObjectStaticGeometry(LPCSTR name);
+    SDK_ObjectStaticGeometry(void) = delete;
     ~SDK_ObjectStaticGeometry(void);
 
     void Render(const int&, const bool&);

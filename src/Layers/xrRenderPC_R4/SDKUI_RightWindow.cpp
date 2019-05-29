@@ -2,7 +2,7 @@
 #include "SDKUI_RightWindow.h"
 #include "SDKUI.h"
 #include "SDK_SceneManager.h"
-
+#include "SDK_IconManager.h"
 SDKUI_RightWindow::~SDKUI_RightWindow(void) 
 { 
 
@@ -16,6 +16,7 @@ void SDKUI_RightWindow::Draw(void)
         if (ImGui::Begin("Manager list", &this->bShow, ImVec2(250, SDKUI::UI().GetDisplayY() - this->MainMenuBarY),
                 -1.0f, this->flag))
         {
+#pragma region SECTIONS
             ImGui::Text("Section: ");
             static xr_string current_section = this->sections[0];
             if (ImGui::BeginCombo("", current_section.c_str()))
@@ -35,6 +36,8 @@ void SDKUI_RightWindow::Draw(void)
 
                 ImGui::EndCombo();
             }
+#pragma endregion
+
             ImGui::Separator();
             if (this->Current_Section == 0)
             {
@@ -44,7 +47,7 @@ void SDKUI_RightWindow::Draw(void)
                         it != SDK_Cache::GetInstance().LibStaticGeometry.cend(); ++it)
                     {
                         bool is_selected = (this->CurrentSelectedStaticObject == it->first);
-                        
+                    //    ImGui::Image(SDK_IconManager::GetInstance().GetImageFromToolsIcons(0), ImVec2(164, 164));
                         if (ImGui::Selectable(it->first.c_str(), is_selected))
                         {
                             this->CurrentSelectedStaticObject = it->first;

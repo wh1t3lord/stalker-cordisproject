@@ -2,15 +2,71 @@
 #include "SDK_GizmoMove.h"
 #include "SDKUI_Helpers.h"
 #include "FreeMagic/Source/Intersection3D/MgcIntr3DLinBox.h"
+#include "SDK_GizmoManager.h"
 
 SDK_GizmoMove GizmoMove[3] = {SDK_GizmoMove(GIZMO_X), SDK_GizmoMove(GIZMO_Y), SDK_GizmoMove(GIZMO_Z)};
 SDK_GizmoMovePlane GizmoMovePlanes[3] = {
     SDK_GizmoMovePlane(GIZMO_PLANE_XY), SDK_GizmoMovePlane(GIZMO_PLANE_ZY), SDK_GizmoMovePlane(GIZMO_PLANE_XZ)};
 
-float SDK_GizmoMove::RayPick(const float& distance, const Fvector& pos, const Fvector& dir)
+bool SDK_GizmoMove::GetPoint(const Fvector& pos, const Fvector& dir, Fvector& pB)
+{
+    pB.set(0, 0, 0);
+    Fvector dir_copy = dir;
+    Fvector end_point = dir_copy.mul(SDK_Camera::GetInstance().fFar).add(pos);
+
+    Fvector p13, p43, p21;
+    float d1343, d4321, d1321, d4343, d2121;
+    float numer, denom;
+
+    p13.x = pos.x - this->origin.x;
+    p13.y = pos.y - this->origin.y;
+    p13.z = pos.z - this->origin.z;
+    p43.x = this->end.x - this->origin.x;
+    p43.y = this->end.y - this->origin.y;
+    p43.z = this->end.z - this->origin.z;
+
+    if (fis_zero(p43.x) && fis_zero(p43.y) && fis_zero(p43.z))
+        return false;
+
+    p21.x = end_point.x - pos.x;
+    p21.y = end_point.y - pos.y;
+    p21.z = end_point.z - pos.z;
+    //  if (ABS(p21.x) < EPS && ABS(p21.y) < EPS && ABS(p21.z) < EPS)
+    if (fis_zero(p21.x) && fis_zero(p21.y) && fis_zero(p21.z))
+        return false;
+
+    d1343 = p13.x * p43.x + p13.y * p43.y + p13.z * p43.z;
+    d4321 = p43.x * p21.x + p43.y * p21.y + p43.z * p21.z;
+    d1321 = p13.x * p21.x + p13.y * p21.y + p13.z * p21.z;
+    d4343 = p43.x * p43.x + p43.y * p43.y + p43.z * p43.z;
+    d2121 = p21.x * p21.x + p21.y * p21.y + p21.z * p21.z;
+
+    denom = d2121 * d4343 - d4321 * d4321;
+
+    if (fis_zero(denom))
+        return false;
+
+    numer = d1343 * d4321 - d1321 * d4343;
+    float mua = 0.0f;
+    float mub = 0.0f;
+
+    mua = numer / denom;
+    mub = (d1343 + d4321 * (mua)) / d4343;
+    /*
+     pA.x = pos.x + mua * p21.x;
+     pA.y = pos.y + mua * p21.y;
+     pA.z = pos.z + mua * p21.z;*/
+    pB.x = this->origin.x + mub * p43.x;
+    pB.y = this->origin.y + mub * p43.y;
+    pB.z = this->origin.z + mub * p43.z;
+
+    return true;
+}
+
+float SDK_GizmoMove::RayPick(const Fvector& pos, const Fvector& dir)
 {
     Fvector dir_copy = dir;
-    Fvector end_point = dir_copy.mul(distance);
+    Fvector end_point = dir_copy.mul(SDK_Camera::GetInstance().fFar);
     end_point.add(pos);
     Fvector p2_copy = this->end;
     Fvector pos_copy = pos;
@@ -100,6 +156,56 @@ float SDK_GizmoMove::RayPick(const float& distance, const Fvector& pos, const Fv
     return sqrt(w.x * w.x + w.y * w.y + w.z * w.z);
 }
 
+bool SDK_GizmoMovePlane::GetPoint(const Fvector& p, const Fvector& d)
+{
+    /*
+        Fvector d_ = d;
+        Fvector p_ = p;
+        Fvector end_point = d_.mul(SDK_Camera::GetInstance().fFar).add(p);
+        Fvector u = end_point.sub(p);
+        Fvector w = p_.sub(this->points[0]);
+
+        float D = this->GetNormalOfPlane().dotproduct(u);
+        float N = -this->GetNormalOfPlane().dotproduct(w);
+
+        if (fis_zero(D))
+        { // segment is parallel to plane
+            if (fis_zero(N)) // segment lies in plane
+                return false;
+            else
+                return false; // no intersection
+        }
+        // they are not parallel
+        // compute intersect param
+        float sI = N / D;
+        if (sI < 0 || sI > 1)
+            return false; // no intersection
+
+      //  *I = S.P0 + sI * u; // compute segment intersect point
+        SDK_GizmoManager::GetInstance().ray_end_point_plane = u.mul(sI).add(p);
+        return true;*/
+    Fvector normal = this->GetNormalOfPlane();
+    float denom = normal.dotproduct(d);
+
+    if (!fis_zero(denom))
+    {
+        Fvector p_ = this->points[0];
+        Fvector bb = p_.sub(p);
+        float t = normal.dotproduct(bb) / denom;
+
+        if (t >= 0)
+        {
+            Fvector d_ = d;
+            SDK_GizmoManager::GetInstance().ray_end_point_plane = d_.mul(t).add(p);
+            return true;
+        }
+
+        return false;
+    }
+
+    return false;
+}
+
 bool SDK_GizmoMovePlane::RayPick(const Fvector& p, const Fvector& d)
 {
     float tmin = (this->points[0].x - p.x) / d.x;
@@ -139,4 +245,14 @@ bool SDK_GizmoMovePlane::RayPick(const Fvector& p, const Fvector& d)
         tmax = tzmax;
 
     return true;
+}
+
+Fvector SDK_GizmoMovePlane::GetNormalOfPlane(void)
+{
+    Fvector p3 = this->points[3];
+    Fvector p1 = this->points[1];
+    Fvector a = p3.sub(this->points[0]);
+    Fvector b = p1.sub(this->points[0]);
+    Fvector c = {0,0,0};
+    return c.crossproduct(b,a);
 }

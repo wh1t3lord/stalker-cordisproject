@@ -18,24 +18,10 @@ enum SDKErrorType
 class SDKUI_Log
 {
 private:
-    SDKUI_Log(void) 
+    SDKUI_Log(void) noexcept : bShow(true), bSysCall(false), bShowErrors(true), bShowWarnings(true), bShowDefault(true), bShowSpecial(true),
+          bShowUn(true), bShowGood(true), CurrentSizeX(0), CurrentSizeY(0), CurrentPosX(0), CurrentPosY(0), currentcolor(default)
     {
-        this->bShow = true;
-        this->bSysCall = false;
-
-        this->bShowErrors = true;
-        this->bShowWarnings = true;
-        this->bShowDefault = true;
-        this->bShowSpecial = true;
-        this->bShowUn = true; // @ unimportant
-        this->bShowGood = true;
-
-        this->CurrentSizeX = 0;
-        this->CurrentSizeY = 0;
-        this->CurrentPosX = 0;
-        this->CurrentPosY = 0;
         this->Clear();
-        this->currentcolor = default;
     }
 
 public:
@@ -44,7 +30,7 @@ public:
         static SDKUI_Log instance;
         return instance;
     }
-    SDKUI_Log(SDKUI_Log&) = delete;
+    SDKUI_Log(const SDKUI_Log&) = delete;
     SDKUI_Log& operator=(const SDKUI_Log&) = delete;
     SDKUI_Log(SDKUI_Log&&) = delete;
     SDKUI_Log& operator=(SDKUI_Log&&) = delete;
@@ -141,8 +127,8 @@ public:
     }
 
 private:
-    bool bShow = true;
-    bool bSysCall = false;
+    bool bShow;
+    bool bSysCall;
 
     bool bShowErrors;
     bool bShowWarnings;
@@ -166,17 +152,13 @@ private:
 class SDKUI_Overlay
 {
 private:
-    SDKUI_Overlay(void)
+    SDKUI_Overlay(void) noexcept
+        : bShow(true), bShowOnlySDKInfo(true), bShowOnlySysInfo(true), bShowOnlyProjectInfo(true),
+          flag(ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoResize |
+              ImGuiWindowFlags_NoScrollbar | ImGuiWindowFlags_NoNav | ImGuiWindowFlags_AlwaysAutoResize |
+              ImGuiWindowFlags_NoBackground),
+          iGridType(0), vSavedPosition({0, 0, 0})
     {
-        this->bShow = true;
-        this->bShowOnlySDKInfo = true;
-        this->bShowOnlySysInfo = true;
-        this->bShowOnlyProjectInfo = true;
-        this->flag = ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoResize |
-            ImGuiWindowFlags_NoScrollbar | ImGuiWindowFlags_NoNav | ImGuiWindowFlags_AlwaysAutoResize |
-            ImGuiWindowFlags_NoBackground;
-        this->iGridType = 0;
-        this->vSavedPosition.set(0, 0, 0);
     }
 
 public:
@@ -209,7 +191,10 @@ private:
 class SDKUI_CameraHelper
 {
 private:
-    SDKUI_CameraHelper(void) noexcept = default;
+    SDKUI_CameraHelper(void) noexcept : bShow(false)
+    {
+        
+    }
 
 public:
     inline static SDKUI_CameraHelper& Widget(void) noexcept
@@ -229,5 +214,5 @@ public:
     inline bool GetVisible(void) const noexcept { return this->bShow; }
 
 private:
-    bool bShow = false;
+    bool bShow;
 };

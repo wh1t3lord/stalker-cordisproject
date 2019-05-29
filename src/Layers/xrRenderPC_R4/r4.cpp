@@ -766,10 +766,6 @@ void CRender::rmNormal()
 CRender::CRender() : m_bFirstFrameAfterReset(false), Sectors_xrc("render")
 {
     init_cacades();
-    obj = new SDK_ObjectStaticGeometry("");
-
-    obj->Load(TEXT("D:\\Stalker Call Of Pripyat\\gamedata\\mi6_dead_fire.object"));
-
 }
 CRender::~CRender()
 {

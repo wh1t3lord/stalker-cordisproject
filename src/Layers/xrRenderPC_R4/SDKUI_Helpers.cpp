@@ -3,7 +3,7 @@
 #include <chrono>
 #include <ctime>
 #include "../../xrEngine/SDK_Camera.h"
-
+#include "SDK_GizmoManager.h"
 /*
     @ UI_Log
 */
@@ -60,8 +60,11 @@ void SDKUI_Log::Draw(void)
                     if (!bShowDefault)
                         continue;
                 }
-
-                ImGui::TextColored(col, text.c_str());
+                ImGui::PushStyleColor(ImGuiCol_::ImGuiCol_Text, col.Value);
+                ImGui::TextWrapped(text.c_str());
+                ImGui::PopStyleColor();
+                
+              //  ImGui::TextColored(col, text.c_str());
             }
             ImGui::PopStyleVar();
 
