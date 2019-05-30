@@ -51,13 +51,11 @@ void SDKUI_Render::MainRender(void)
  
     u32 clr = D3DCOLOR_ARGB(255, 255, 255, 255); // Lord: добавить кастомизацию
 
-    for (xr_list<SDK_CustomObject*>::value_type object : SDK_SceneManager::GetInstance().ObjectList)
+    for (xr_list<SDK_CustomObject*>::value_type object : SDK_SceneManager::GetInstance().m_objects_list)
     {
-
-
         object->Render(1, false);
 
-        if (object->bSelected)
+        if (object->m_is_selected)
         {
             // RCache.set_xform_world(object->GetTransform());
             DUImpl.DrawSelectionBoxB(object->GetBox(), &clr);

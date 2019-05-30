@@ -365,6 +365,7 @@
     <ClInclude Include="SDKUI_Helpers.h" />
     <ClInclude Include="SDKUI_ObjectList.h" />
     <ClInclude Include="SDKUI_ObjectPrefs.h" />
+    <ClInclude Include="SDKUI_ObjectInspector.h" />
     <ClInclude Include="SDKUI_Render.h" />
     <ClInclude Include="SDKUI_RightWindow.h" />
     <ClInclude Include="SDKUI_ToolBar.h" />
@@ -615,6 +616,7 @@
     <ClCompile Include="SDKUI_Helpers.cpp" />
     <ClCompile Include="SDKUI_ObjectList.cpp" />
     <ClCompile Include="SDKUI_ObjectPrefs.cpp" />
+    <ClCompile Include="SDKUI_ObjectInspector.cpp" />
     <ClCompile Include="SDKUI_Render.cpp" />
     <ClCompile Include="SDKUI_RightWindow.cpp" />
     <ClCompile Include="SDKUI_ToolBar.cpp" />

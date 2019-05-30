@@ -262,8 +262,8 @@ void SDKUI_Overlay::Draw(void)
 
                     if (ImGui::TreeNode("Gizmo: "))
                     {
-                        ImGui::DragInt("Gizmo Size", &GizmoLineSize, 1.0f, 5, 20);
-                        ImGui::DragFloat("Gizmo Sens", &SDK_GizmoManager::GetInstance().fSpeed, 0.001f, 0.001f, 1.0f);
+                        ImGui::DragInt("Gizmo Size", &g_size_gizmoline, 1.0f, 5, 20);
+                        ImGui::DragFloat("Gizmo Sens", &SDK_GizmoManager::GetInstance().m_speed, 0.001f, 0.001f, 1.0f);
                         ImGui::TreePop();
                     }
 

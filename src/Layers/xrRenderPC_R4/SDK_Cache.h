@@ -3,7 +3,7 @@
 class SDK_Cache
 {
 private:
-    SDK_Cache(void) : RawDataPath(Core.WorkingPath) 
+    SDK_Cache(void) : m_rawdata_path(Core.WorkingPath) 
     {
       //  RawDataPath.append();
     }
@@ -35,6 +35,6 @@ private:
     void UpdateStaticGeometryCache(void);
 
 public:
-    xr_string RawDataPath;
-    xr_map<xr_string, CEditableObject*> LibStaticGeometry;
+    xr_string m_rawdata_path;
+    xr_map<xr_string, CEditableObject*> m_staticgeometry;
 };

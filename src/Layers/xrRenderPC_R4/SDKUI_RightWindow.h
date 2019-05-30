@@ -1,37 +1,44 @@
 #pragma once
 #include "ImageManager.h"
+
+constexpr const char* SECTION_STATICOBJECTS_NAME = "Objects";
+constexpr const char* SECTION_LIGHTS_NAME = "Lights";
+constexpr const char* SECTION_SOUNDSOURCE_NAME = "Sound Source";
+constexpr const char* SECTION_SOUNDENVIRONMENT_NAME = "Sound Environment";
+constexpr const char* SECTION_GLOWS_NAME = "Glows";
+constexpr const char* SECTION_SHAPES_NAME = "Shapes";
+constexpr const char* SECTION_SPAWNELEMENTS_NAME = "Spawn Elements";
+constexpr const char* SECTION_WAYPOINTS_NAME = "Way Points";
+constexpr const char* SECTION_SECTORS_NAME = "Sectors";
+constexpr const char* SECTION_PORTALS_NAME = "Portals";
+constexpr const char* SECTION_GROUPS_NAME = "Groups";
+constexpr const char* SECTION_STATICPARTICLES_NAME = "Static Particles";
+constexpr const char* SECTION_DETAILOBJECTS_NAME = "Detail Objects";
+constexpr const char* SECTION_AIMAP_NAME = "AI Map";
+constexpr const char* SECTION_WALLMARKS_NAME = "Wallmarks";
+constexpr const char* SECTION_FOGVOLUMES_NAME = "Fog Volumes";
+
 class SDKUI_RightWindow
 {
 private:
     SDKUI_RightWindow(void)
-        : flag(ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoMove |
+        : m_flag(ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoMove |
               ImGuiWindowFlags_HorizontalScrollbar),
-          Current_Section(0), CurrentSelectedStaticObject(""), bShow(true), bShowPopup(false), was_init(false)
+          m_id_currentsection(0), m_currentselected_staticobject_name(""), m_is_visible(true), m_is_show_popup(false),
+          m_is_init(false),
+          m_sections({SECTION_STATICOBJECTS_NAME, SECTION_LIGHTS_NAME, SECTION_SOUNDSOURCE_NAME,
+              SECTION_SOUNDENVIRONMENT_NAME, SECTION_GLOWS_NAME, SECTION_SHAPES_NAME, SECTION_SPAWNELEMENTS_NAME,
+              SECTION_WAYPOINTS_NAME, SECTION_SECTORS_NAME, SECTION_PORTALS_NAME, SECTION_GROUPS_NAME,
+              SECTION_STATICPARTICLES_NAME, SECTION_DETAILOBJECTS_NAME, SECTION_AIMAP_NAME, SECTION_WALLMARKS_NAME,
+              SECTION_FOGVOLUMES_NAME})
 
     {
         if (ImGui::BeginMainMenuBar())
         {
             ImVec2 a = ImGui::GetWindowSize();
-            this->MainMenuBarY = a.y;
+            this->m_size_mainmenubar_y = a.y;
             ImGui::EndMainMenuBar();
         }
-
-        this->sections.push_back("Objects"); // 0 ..
-        this->sections.push_back("Lights");
-        this->sections.push_back("Sound Source");
-        this->sections.push_back("Sound Environment");
-        this->sections.push_back("Glows");
-        this->sections.push_back("Shapes");
-        this->sections.push_back("Spawn Elements");
-        this->sections.push_back("Way Points");
-        this->sections.push_back("Sectors");
-        this->sections.push_back("Portals");
-        this->sections.push_back("Groups");
-        this->sections.push_back("Static Particles");
-        this->sections.push_back("Detail Objects");
-        this->sections.push_back("AI Map");
-        this->sections.push_back("Wallmarks");
-        this->sections.push_back("Fog Volumes"); // 15
     }
 
 public:
@@ -49,22 +56,22 @@ public:
 
     void Draw(void);
 
-    inline void Hide(void) { this->bShow = false; }
-    inline void Show(void) { this->bShow = true; }
-    inline bool IsVisible(void) const { return this->bShow; }
-    inline int GetSection(void) const { return this->Current_Section; }
+    inline void Hide(void) { this->m_is_visible = false; }
+    inline void Show(void) { this->m_is_visible = true; }
+    inline bool IsVisible(void) const noexcept { return this->m_is_visible; }
+    inline int GetSection(void) const noexcept { return this->m_id_currentsection; }
     inline const xr_string& GetCurrentSelectedStaticObject(void) const noexcept
     {
-        return this->CurrentSelectedStaticObject;
+        return this->m_currentselected_staticobject_name;
     }
 
 private:
-    bool bShow;
-    bool bShowPopup;
-    bool was_init;
-    int MainMenuBarY;
-    int Current_Section;
-    ImGuiWindowFlags flag;
-    xr_string CurrentSelectedStaticObject; // @ From list
-    xr_vector<xr_string> sections;
+    bool m_is_visible;
+    bool m_is_show_popup;
+    bool m_is_init;
+    int m_size_mainmenubar_y;
+    int m_id_currentsection;
+    ImGuiWindowFlags m_flag;
+    xr_string m_currentselected_staticobject_name; // @ From list
+    xr_vector<xr_string> m_sections;
 };

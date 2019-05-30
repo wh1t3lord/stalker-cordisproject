@@ -37,7 +37,7 @@ float GridOptions::col_background[4] = {0.2f, 0.2f, 0.2f, 1.0f};
 const u32 boxcolor = D3DCOLOR_RGBA(255, 255, 255, 0);
 static const int boxvertcount = 48;
 static Fvector boxvert[boxvertcount];
-int GizmoLineSize = 15;
+int g_size_gizmoline = 15;
 #ifdef _EDITOR
 #define DU_DRAW_RS dxRenderDeviceRender::Instance().SetRS
 #define DU_DRAW_SH_C(a, c)                                              \
@@ -1597,132 +1597,132 @@ void CDrawUtilities::DrawGizmoPlane(const Fvector* points, u32 clr_left, u32 clr
 
 void CDrawUtilities::DrawGizmoMove(const Fvector& pos)
 {
-    int CurrentGizmoLineSize = GizmoLineSize;
+    int size_currentgizmoline = g_size_gizmoline;
 
-    unsigned int GizmoPlaneSize = CurrentGizmoLineSize / 3;
+    unsigned int size_gizmoplane = size_currentgizmoline / 3;
     for (unsigned int i = 0; i < 3; ++i)
     {
         for (unsigned int j = 0; j < 4; ++j)
         {
-            GizmoMovePlanes[i].points[j] = pos;
+            GizmoMovePlanes[i].m_points[j] = pos;
         }
     }
 
     // @ X
     {
-        GizmoMove[0].origin = pos;
-        GizmoMove[0].origin.x += GizmoPlaneSize;
-        GizmoMove[0].end = pos;
-        GizmoMove[0].end.x += CurrentGizmoLineSize;
-        DrawGizmoLine(GizmoMove[0].origin, GizmoMove[0].end, GizmoMove[0].clr);
-        this->OutText(GizmoMove[0].end, "X", D3DCOLOR_ARGB(255, 255, 255, 255));
+        GizmoMove[0].m_origin_point = pos;
+        GizmoMove[0].m_origin_point.x += size_gizmoplane;
+        GizmoMove[0].m_end_point = pos;
+        GizmoMove[0].m_end_point.x += size_currentgizmoline;
+        DrawGizmoLine(GizmoMove[0].m_origin_point, GizmoMove[0].m_end_point, GizmoMove[0].m_color_value);
+        this->OutText(GizmoMove[0].m_end_point, "X", D3DCOLOR_ARGB(255, 255, 255, 255));
 
         // @ Arrows
-        Fvector new_pos = GizmoMove[0].end;
+        Fvector new_pos = GizmoMove[0].m_end_point;
         new_pos.x -= 1;
 
         new_pos.z -= 0.95;
-        DrawGizmoLine(GizmoMove[0].end, new_pos, GizmoMove[0].clr);
+        DrawGizmoLine(GizmoMove[0].m_end_point, new_pos, GizmoMove[0].m_color_value);
 
         new_pos.z += 0.95;
         new_pos.z += 0.95;
-        DrawGizmoLine(GizmoMove[0].end, new_pos, GizmoMove[0].clr);
+        DrawGizmoLine(GizmoMove[0].m_end_point, new_pos, GizmoMove[0].m_color_value);
 
         new_pos.z -= 0.95;
         new_pos.y += 0.95;
-        DrawGizmoLine(GizmoMove[0].end, new_pos, GizmoMove[0].clr);
+        DrawGizmoLine(GizmoMove[0].m_end_point, new_pos, GizmoMove[0].m_color_value);
 
         new_pos.y -= 0.95;
         new_pos.y -= 0.95;
-        DrawGizmoLine(GizmoMove[0].end, new_pos, GizmoMove[0].clr);
+        DrawGizmoLine(GizmoMove[0].m_end_point, new_pos, GizmoMove[0].m_color_value);
     }
 
     // @ Y
     {
-        GizmoMove[1].origin = pos;
-        GizmoMove[1].origin.y += GizmoPlaneSize;
-        GizmoMove[1].end = pos;
-        GizmoMove[1].end.y += CurrentGizmoLineSize;
+        GizmoMove[1].m_origin_point = pos;
+        GizmoMove[1].m_origin_point.y += size_gizmoplane;
+        GizmoMove[1].m_end_point = pos;
+        GizmoMove[1].m_end_point.y += size_currentgizmoline;
 
-        DrawGizmoLine(GizmoMove[1].origin, GizmoMove[1].end, GizmoMove[1].clr);
-        this->OutText(GizmoMove[1].end, "Y", D3DCOLOR_ARGB(255, 255, 255, 255));
+        DrawGizmoLine(GizmoMove[1].m_origin_point, GizmoMove[1].m_end_point, GizmoMove[1].m_color_value);
+        this->OutText(GizmoMove[1].m_end_point, "Y", D3DCOLOR_ARGB(255, 255, 255, 255));
         // @ Arrows
-        Fvector new_pos = GizmoMove[1].end;
+        Fvector new_pos = GizmoMove[1].m_end_point;
         new_pos.y -= 1;
 
         new_pos.z -= 0.95;
-        DrawGizmoLine(GizmoMove[1].end, new_pos, GizmoMove[1].clr);
+        DrawGizmoLine(GizmoMove[1].m_end_point, new_pos, GizmoMove[1].m_color_value);
 
         new_pos.z += 0.95;
         new_pos.z += 0.95;
-        DrawGizmoLine(GizmoMove[1].end, new_pos, GizmoMove[1].clr);
+        DrawGizmoLine(GizmoMove[1].m_end_point, new_pos, GizmoMove[1].m_color_value);
 
         new_pos.z -= 0.95;
         new_pos.x += 0.95;
-        DrawGizmoLine(GizmoMove[1].end, new_pos, GizmoMove[1].clr);
+        DrawGizmoLine(GizmoMove[1].m_end_point, new_pos, GizmoMove[1].m_color_value);
 
         new_pos.x -= 0.95;
         new_pos.x -= 0.95;
-        DrawGizmoLine(GizmoMove[1].end, new_pos, GizmoMove[1].clr);
+        DrawGizmoLine(GizmoMove[1].m_end_point, new_pos, GizmoMove[1].m_color_value);
     }
 
     // @ Z
     {
-        GizmoMove[2].origin = pos;
-        GizmoMove[2].origin.z -= GizmoPlaneSize;
-        GizmoMove[2].end = pos;
-        GizmoMove[2].end.z -= CurrentGizmoLineSize;
+        GizmoMove[2].m_origin_point = pos;
+        GizmoMove[2].m_origin_point.z -= size_gizmoplane;
+        GizmoMove[2].m_end_point = pos;
+        GizmoMove[2].m_end_point.z -= size_currentgizmoline;
 
-        DrawGizmoLine(GizmoMove[2].origin, GizmoMove[2].end, GizmoMove[2].clr);
-        this->OutText(GizmoMove[2].end, "Z", D3DCOLOR_ARGB(255, 255, 255, 255));
+        DrawGizmoLine(GizmoMove[2].m_origin_point, GizmoMove[2].m_end_point, GizmoMove[2].m_color_value);
+        this->OutText(GizmoMove[2].m_end_point, "Z", D3DCOLOR_ARGB(255, 255, 255, 255));
         // @ Arrows
-        Fvector new_pos = GizmoMove[2].end;
+        Fvector new_pos = GizmoMove[2].m_end_point;
         new_pos.z += 1;
 
         new_pos.x -= 0.95;
-        DrawGizmoLine(GizmoMove[2].end, new_pos, GizmoMove[2].clr);
+        DrawGizmoLine(GizmoMove[2].m_end_point, new_pos, GizmoMove[2].m_color_value);
 
         new_pos.x += 0.95;
         new_pos.x += 0.95;
-        DrawGizmoLine(GizmoMove[2].end, new_pos, GizmoMove[2].clr);
+        DrawGizmoLine(GizmoMove[2].m_end_point, new_pos, GizmoMove[2].m_color_value);
 
         new_pos.x -= 0.95;
         new_pos.y += 0.95;
-        DrawGizmoLine(GizmoMove[2].end, new_pos, GizmoMove[2].clr);
+        DrawGizmoLine(GizmoMove[2].m_end_point, new_pos, GizmoMove[2].m_color_value);
 
         new_pos.y -= 0.95;
         new_pos.y -= 0.95;
-        DrawGizmoLine(GizmoMove[2].end, new_pos, GizmoMove[2].clr);
+        DrawGizmoLine(GizmoMove[2].m_end_point, new_pos, GizmoMove[2].m_color_value);
     }
 
     // @ XY
     {
-        GizmoMovePlanes[0].points[1].y += GizmoPlaneSize;
-        GizmoMovePlanes[0].points[2].y += GizmoPlaneSize;
-        GizmoMovePlanes[0].points[2].x += GizmoPlaneSize;
-        GizmoMovePlanes[0].points[3].x += GizmoPlaneSize;
+        GizmoMovePlanes[0].m_points[1].y += size_gizmoplane;
+        GizmoMovePlanes[0].m_points[2].y += size_gizmoplane;
+        GizmoMovePlanes[0].m_points[2].x += size_gizmoplane;
+        GizmoMovePlanes[0].m_points[3].x += size_gizmoplane;
 
-        this->DrawGizmoPlane(GizmoMovePlanes[0].points, GizmoMovePlanes[0].clr_left, GizmoMovePlanes[0].clr_right);
+        this->DrawGizmoPlane(GizmoMovePlanes[0].m_points, GizmoMovePlanes[0].m_color_left_value, GizmoMovePlanes[0].m_color_right_value);
     }
 
     // @ ZY
     {
-        GizmoMovePlanes[1].points[1].y += GizmoPlaneSize;
-        GizmoMovePlanes[1].points[2].y += GizmoPlaneSize;
-        GizmoMovePlanes[1].points[2].z -= GizmoPlaneSize;
-        GizmoMovePlanes[1].points[3].z -= GizmoPlaneSize;
+        GizmoMovePlanes[1].m_points[1].y += size_gizmoplane;
+        GizmoMovePlanes[1].m_points[2].y += size_gizmoplane;
+        GizmoMovePlanes[1].m_points[2].z -= size_gizmoplane;
+        GizmoMovePlanes[1].m_points[3].z -= size_gizmoplane;
 
-        this->DrawGizmoPlane(GizmoMovePlanes[1].points, GizmoMovePlanes[1].clr_left, GizmoMovePlanes[1].clr_right);
+        this->DrawGizmoPlane(GizmoMovePlanes[1].m_points, GizmoMovePlanes[1].m_color_left_value, GizmoMovePlanes[1].m_color_right_value);
     }
 
     // @ XZ
     {
-        GizmoMovePlanes[2].points[1].x += GizmoPlaneSize;
-        GizmoMovePlanes[2].points[2].x += GizmoPlaneSize;
-        GizmoMovePlanes[2].points[2].z -= GizmoPlaneSize;
-        GizmoMovePlanes[2].points[3].z -= GizmoPlaneSize;
+        GizmoMovePlanes[2].m_points[1].x += size_gizmoplane;
+        GizmoMovePlanes[2].m_points[2].x += size_gizmoplane;
+        GizmoMovePlanes[2].m_points[2].z -= size_gizmoplane;
+        GizmoMovePlanes[2].m_points[3].z -= size_gizmoplane;
 
-        this->DrawGizmoPlane(GizmoMovePlanes[2].points, GizmoMovePlanes[2].clr_left, GizmoMovePlanes[2].clr_right);
+        this->DrawGizmoPlane(GizmoMovePlanes[2].m_points, GizmoMovePlanes[2].m_color_left_value, GizmoMovePlanes[2].m_color_right_value);
     }
 }
 

@@ -35,7 +35,7 @@ bool SDK_IconManager::LoadImageThmIcons(const xr_string& path, const xr_string& 
     ID3D11ShaderResourceView* obj = this->LoadImage(path, width, height);
     if (obj)
     {
-        this->thm_icons.insert(std::pair<xr_string, ID3D11ShaderResourceView*>(object_name, obj));
+        this->m_thm_icons.insert(std::pair<xr_string, ID3D11ShaderResourceView*>(object_name, obj));
         return true;
     }
 
@@ -47,7 +47,7 @@ bool SDK_IconManager::LoadImageToolsIcons(const xr_string& path, int width, int 
     ID3D11ShaderResourceView* obj = this->LoadImage(path, width, height);
     if (obj)
     {
-        this->tools_icons.push_back(obj);
+        this->m_tools_icons.push_back(obj);
         return true;
     }
 
@@ -57,7 +57,7 @@ bool SDK_IconManager::LoadImageToolsIcons(const xr_string& path, int width, int 
 void SDK_IconManager::DestroyData(void)
 {
 #pragma region TOOLS
-    for (xr_vector<ID3D11ShaderResourceView*>::iterator it = this->tools_icons.begin(); it != this->tools_icons.end();
+    for (xr_vector<ID3D11ShaderResourceView*>::iterator it = this->m_tools_icons.begin(); it != this->m_tools_icons.end();
          ++it)
     {
         if ((*it))
@@ -67,11 +67,11 @@ void SDK_IconManager::DestroyData(void)
         }
     }
 
-    this->tools_icons.clear();
+    this->m_tools_icons.clear();
 #pragma endregion
 
 #pragma region THM
-    for (auto& obj : this->thm_icons)
+    for (xr_map<xr_string, ID3D11ShaderResourceView*>::value_type& obj : this->m_thm_icons)
     {
         if (obj.second)
         {
@@ -80,6 +80,6 @@ void SDK_IconManager::DestroyData(void)
         }
     }
 
-    this->thm_icons.clear();
+    this->m_thm_icons.clear();
 #pragma endregion
 }

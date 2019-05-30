@@ -22,11 +22,11 @@
 #endif
 #include "SDK_GizmoMove.h"
 // @ Lord: Вот это всё в какую-нибудь структуру 
-extern int GizmoLineSize;
-constexpr unsigned int GizmoXColor = D3DCOLOR_ARGB(255, 255, 0, 0);
-constexpr unsigned int GizmoYColor = D3DCOLOR_ARGB(255, 0, 255, 0);
-constexpr unsigned int GizmoZColor = D3DCOLOR_ARGB(255, 0, 0, 255);
-constexpr unsigned int GizmoSelectedColor = D3DCOLOR_ARGB(255, 255, 255, 0);
+extern int g_size_gizmoline;
+constexpr unsigned int g_gizmo_x_color = D3DCOLOR_ARGB(255, 255, 0, 0);
+constexpr unsigned int g_gizmo_y_color = D3DCOLOR_ARGB(255, 0, 255, 0);
+constexpr unsigned int g_gizmo_z_color = D3DCOLOR_ARGB(255, 0, 0, 255);
+constexpr unsigned int g_gizmo_selectedcolor = D3DCOLOR_ARGB(255, 255, 255, 0);
 
 struct SPrimitiveBuffer
 {

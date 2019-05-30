@@ -18,12 +18,12 @@ bool SDK_GizmoMove::GetPoint(const Fvector& pos, const Fvector& dir, Fvector& pB
     float d1343, d4321, d1321, d4343, d2121;
     float numer, denom;
 
-    p13.x = pos.x - this->origin.x;
-    p13.y = pos.y - this->origin.y;
-    p13.z = pos.z - this->origin.z;
-    p43.x = this->end.x - this->origin.x;
-    p43.y = this->end.y - this->origin.y;
-    p43.z = this->end.z - this->origin.z;
+    p13.x = pos.x - this->m_origin_point.x;
+    p13.y = pos.y - this->m_origin_point.y;
+    p13.z = pos.z - this->m_origin_point.z;
+    p43.x = this->m_end_point.x - this->m_origin_point.x;
+    p43.y = this->m_end_point.y - this->m_origin_point.y;
+    p43.z = this->m_end_point.z - this->m_origin_point.z;
 
     if (fis_zero(p43.x) && fis_zero(p43.y) && fis_zero(p43.z))
         return false;
@@ -56,9 +56,9 @@ bool SDK_GizmoMove::GetPoint(const Fvector& pos, const Fvector& dir, Fvector& pB
      pA.x = pos.x + mua * p21.x;
      pA.y = pos.y + mua * p21.y;
      pA.z = pos.z + mua * p21.z;*/
-    pB.x = this->origin.x + mub * p43.x;
-    pB.y = this->origin.y + mub * p43.y;
-    pB.z = this->origin.z + mub * p43.z;
+    pB.x = this->m_origin_point.x + mub * p43.x;
+    pB.y = this->m_origin_point.y + mub * p43.y;
+    pB.z = this->m_origin_point.z + mub * p43.z;
 
     return true;
 }
@@ -68,11 +68,11 @@ float SDK_GizmoMove::RayPick(const Fvector& pos, const Fvector& dir)
     Fvector dir_copy = dir;
     Fvector end_point = dir_copy.mul(SDK_Camera::GetInstance().fFar);
     end_point.add(pos);
-    Fvector p2_copy = this->end;
+    Fvector p2_copy = this->m_end_point;
     Fvector pos_copy = pos;
     Fvector u = end_point.sub(pos);
-    Fvector v = p2_copy.sub(this->origin);
-    Fvector w = pos_copy.sub(this->origin);
+    Fvector v = p2_copy.sub(this->m_origin_point);
+    Fvector w = pos_copy.sub(this->m_origin_point);
 
     float a = u.dotproduct(u);
     float b = u.dotproduct(v);
@@ -189,14 +189,14 @@ bool SDK_GizmoMovePlane::GetPoint(const Fvector& p, const Fvector& d)
 
     if (!fis_zero(denom))
     {
-        Fvector p_ = this->points[0];
+        Fvector p_ = this->m_points[0];
         Fvector bb = p_.sub(p);
         float t = normal.dotproduct(bb) / denom;
 
         if (t >= 0)
         {
             Fvector d_ = d;
-            SDK_GizmoManager::GetInstance().ray_end_point_plane = d_.mul(t).add(p);
+            SDK_GizmoManager::GetInstance().m_ray_end_point_plane = d_.mul(t).add(p);
             return true;
         }
 
@@ -208,14 +208,14 @@ bool SDK_GizmoMovePlane::GetPoint(const Fvector& p, const Fvector& d)
 
 bool SDK_GizmoMovePlane::RayPick(const Fvector& p, const Fvector& d)
 {
-    float tmin = (this->points[0].x - p.x) / d.x;
-    float tmax = (this->points[2].x - p.x) / d.x;
+    float tmin = (this->m_points[0].x - p.x) / d.x;
+    float tmax = (this->m_points[2].x - p.x) / d.x;
 
     if (tmin > tmax)
         std::swap(tmin, tmax);
 
-    float tymin = (this->points[0].y - p.y) / d.y;
-    float tymax = (this->points[2].y - p.y) / d.y;
+    float tymin = (this->m_points[0].y - p.y) / d.y;
+    float tymax = (this->m_points[2].y - p.y) / d.y;
 
     if (tymin > tymax)
         std::swap(tymin, tymax);
@@ -229,8 +229,8 @@ bool SDK_GizmoMovePlane::RayPick(const Fvector& p, const Fvector& d)
     if (tymax < tmax)
         tmax = tymax;
 
-    float tzmin = (this->points[0].z - p.z) / d.z;
-    float tzmax = (this->points[2].z - p.z) / d.z;
+    float tzmin = (this->m_points[0].z - p.z) / d.z;
+    float tzmax = (this->m_points[2].z - p.z) / d.z;
 
     if (tzmin > tzmax)
         std::swap(tzmin, tzmax);
@@ -249,10 +249,10 @@ bool SDK_GizmoMovePlane::RayPick(const Fvector& p, const Fvector& d)
 
 Fvector SDK_GizmoMovePlane::GetNormalOfPlane(void)
 {
-    Fvector p3 = this->points[3];
-    Fvector p1 = this->points[1];
-    Fvector a = p3.sub(this->points[0]);
-    Fvector b = p1.sub(this->points[0]);
+    Fvector p3 = this->m_points[3];
+    Fvector p1 = this->m_points[1];
+    Fvector a = p3.sub(this->m_points[0]);
+    Fvector b = p1.sub(this->m_points[0]);
     Fvector c = {0,0,0};
     return c.crossproduct(b,a);
 }

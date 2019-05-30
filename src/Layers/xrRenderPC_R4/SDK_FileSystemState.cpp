@@ -2,8 +2,8 @@
 #include "SDK_FileSystemState.h"
 #include <shlwapi.h>
 
-bool SDK_FileSystemState::bStaticGeometryEmpty;
-bool SDK_FileSystemState::bGroupsEmpty;
+bool SDK_FileSystemState::m_is_staticgeometryempty;
+bool SDK_FileSystemState::m_is_groupsempty;
 
 void SDK_FileSystemState::MakeInfoAboutRawDataFolder(void)
 {
@@ -20,20 +20,20 @@ void SDK_FileSystemState::MakeInfoAboutRawDataFolder(void)
     #ifdef _WIN32
     if (PathIsDirectoryEmptyA((path + xr_string(sg_folder)).c_str()))
     {
-        bStaticGeometryEmpty = true;
+        m_is_staticgeometryempty = true;
     }
     else
     {
-        bStaticGeometryEmpty = false;
+        m_is_staticgeometryempty = false;
     }
 
     if (PathIsDirectoryEmptyA((path + xr_string(groups_folder)).c_str()))
     {
-        bGroupsEmpty = true;
+        m_is_groupsempty = true;
     }
     else
     {
-        bGroupsEmpty = false;
+        m_is_groupsempty = false;
     }
     #endif
 }

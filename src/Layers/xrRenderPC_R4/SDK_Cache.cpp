@@ -9,8 +9,8 @@ std::wstring_convert<std::codecvt_utf8<wchar_t>> converter;
 
 void SDK_Cache::DeleteResources(void)
 {
-    for (xr_map<xr_string, CEditableObject*>::iterator it = this->LibStaticGeometry.begin();
-         it != this->LibStaticGeometry.end(); ++it)
+    for (xr_map<xr_string, CEditableObject*>::iterator it = this->m_staticgeometry.begin();
+         it != this->m_staticgeometry.end(); ++it)
     {
         if (it->second)
         {
@@ -18,7 +18,7 @@ void SDK_Cache::DeleteResources(void)
             it->second = nullptr;
         }
 
-        this->LibStaticGeometry.erase(it->first);
+        this->m_staticgeometry.erase(it->first);
     }
 }
 
@@ -32,7 +32,7 @@ void SDK_Cache::UpdateCache(void) { this->UpdateStaticGeometryCache(); }
 
 void SDK_Cache::MakeStaticGeometryCache(void)
 {
-    if (FS.IsRawDataEmpty() || SDK_FileSystemState::bStaticGeometryEmpty)
+    if (FS.IsRawDataEmpty() || SDK_FileSystemState::m_is_staticgeometryempty)
     {
         SDKUI_Log::Widget().SetColor(warning);
         SDKUI_Log::Widget().AddText("Can't load any object, because your folder 'Static Geometry' is empty!");
@@ -76,7 +76,7 @@ void SDK_Cache::MakeStaticGeometryCache(void)
             SDKUI_Log::Widget().AddText(TEXT("Can't load static geometry object - %s"), object_name.c_str());
             delete obj_value;
         }
-        this->LibStaticGeometry.insert(std::pair<xr_string, CEditableObject*>(object_name, obj_value));
+        this->m_staticgeometry.insert(std::pair<xr_string, CEditableObject*>(object_name, obj_value));
     }
 }
 
@@ -87,8 +87,8 @@ CEditableObject* SDK_Cache::GetGeometry(LPCSTR name)
     if (!name)
         return nullptr;
 
-    xr_map<xr_string, CEditableObject*>::iterator it = this->LibStaticGeometry.find(name);
-    if (it != this->LibStaticGeometry.end())
+    xr_map<xr_string, CEditableObject*>::iterator it = this->m_staticgeometry.find(name);
+    if (it != this->m_staticgeometry.end())
     {
         return it->second;
     }

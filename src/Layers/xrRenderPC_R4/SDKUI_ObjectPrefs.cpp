@@ -4,11 +4,11 @@
 
 void SDKUI_StaticGeometryPref::Draw(SDK_ObjectStaticGeometry* data)
 {
-    if (this->bShow)
+    if (this->m_is_visible)
     {
         if (data)
         {
-            if (ImGui::Begin("Object Preferences", &this->bShow))
+            if (ImGui::Begin("Object Preferences", &this->m_is_visible))
             {
                 
             }

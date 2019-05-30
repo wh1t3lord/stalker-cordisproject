@@ -3,7 +3,7 @@
 class SDKUI_ToolBar
 {
 private:
-    SDKUI_ToolBar(void);
+    SDKUI_ToolBar(void) : m_is_visible(true), m_flag(ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_AlwaysAutoResize) {}
 
 public:
     inline static SDKUI_ToolBar& Widget(void) noexcept
@@ -19,10 +19,10 @@ public:
     ~SDKUI_ToolBar(void);
 
     void Draw(void);
-    inline void Show(void) noexcept { this->bShow = true; }
-    inline void Hide(void) noexcept { this->bShow = false; }
-    inline bool IsVisible(void) noexcept { return this->bShow; }
-    private:
-    bool bShow;
-    ImGuiWindowFlags flag;
+    inline void Show(void) noexcept { this->m_is_visible = true; }
+    inline void Hide(void) noexcept { this->m_is_visible = false; }
+    inline bool IsVisible(void) const noexcept { return this->m_is_visible; }
+private:
+    bool m_is_visible;
+    ImGuiWindowFlags m_flag;
 };

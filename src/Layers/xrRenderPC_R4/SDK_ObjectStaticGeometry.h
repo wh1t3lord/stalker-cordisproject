@@ -19,16 +19,15 @@ public:
     void Render(const int&, const bool&);
     void Load(LPCSTR model_name);
     void SetGeometry(CEditableObject*);
-    inline CEditableObject* GetData(void) const { return this->Data; }
-    inline EditMeshVec* Meshes(void) const { return this->Data ? &this->Data->Meshes() : nullptr; }
-    inline LPCSTR GetDataName(void) const { return this->Data ? this->Data->GetName() : ""; }
-    inline void HidePreferences(void) { SDKUI_StaticGeometryPref::Widget().Hide(); }
-    inline void ShowPreferences(void) { SDKUI_StaticGeometryPref::Widget().Show(); }
     void DrawPreferences(void);
     bool RayPick(float& distance, const Fvector& start, const Fvector& direction);
- 
 
+    inline CEditableObject* GetData(void) const { return this->m_data; }
+    inline EditMeshVec* Meshes(void) const { return this->m_data ? &this->m_data->Meshes() : nullptr; }
+    inline LPCSTR GetDataName(void) const { return this->m_data ? this->m_data->GetName() : ""; }
+    inline void HidePreferences(void) { SDKUI_StaticGeometryPref::Widget().Hide(); }
+    inline void ShowPreferences(void) { SDKUI_StaticGeometryPref::Widget().Show(); }
 private:
-    Fbox OccBox;
-    CEditableObject* Data;
+    Fbox m_occbox;
+    CEditableObject* m_data;
 };

@@ -16,26 +16,26 @@ public:
     ID3D11ShaderResourceView* LoadImage(const xr_string&, int, int);
     bool LoadImageToolsIcons(const xr_string&, int, int);
     bool LoadImageThmIcons(const xr_string&, const xr_string&, int, int);
-    inline size_t GetCountTHMIcons(void) { return this->thm_icons.size(); }
-    inline size_t GetCountToolsIcons(void) { return this->tools_icons.size(); }
-    inline ID3D11ShaderResourceView* GetImageFromToolsIcons(int idx)
+    inline size_t GetCountTHMIcons(void) const noexcept { return this->m_thm_icons.size(); }
+    inline size_t GetCountToolsIcons(void) const noexcept { return this->m_tools_icons.size(); }
+    inline ID3D11ShaderResourceView* GetImageFromToolsIcons(int idx) const
     {
-        if (idx > this->tools_icons.size() || !this->tools_icons.size())
+        if (idx > this->m_tools_icons.size() || !this->m_tools_icons.size())
             return nullptr;
 
-        return this->tools_icons[idx];
+        return this->m_tools_icons[idx];
     }
 
     inline ID3D11ShaderResourceView* GetImageFromTHMIcons(const xr_string& object_name)
     {
-        if (!object_name.size() || !this->thm_icons.size())
+        if (!object_name.size() || !this->m_thm_icons.size())
             return nullptr;
 
         ID3D11ShaderResourceView* object = nullptr;
 
         try
         {
-            object = this->thm_icons[object_name];
+            object = this->m_thm_icons[object_name];
         }
         catch (...)
         {
@@ -48,6 +48,6 @@ public:
     void DestroyData(void);
 
 private:
-    xr_vector<ID3D11ShaderResourceView*> tools_icons;
-    xr_map<xr_string, ID3D11ShaderResourceView*> thm_icons;
+    xr_vector<ID3D11ShaderResourceView*> m_tools_icons;
+    xr_map<xr_string, ID3D11ShaderResourceView*> m_thm_icons;
 };

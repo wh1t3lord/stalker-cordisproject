@@ -556,6 +556,15 @@
     <Filter Include="Cordis\SDK\UI management\Object List\Private">
       <UniqueIdentifier>{3b7c252b-bed5-4d54-b73b-dcc6490ab4e2}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Cordis\SDK\UI management\Object Properties %28Window%29">
+      <UniqueIdentifier>{bc03f2fd-e74d-447c-aed0-0d498fe19806}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\SDK\UI management\Object Properties %28Window%29\Public">
+      <UniqueIdentifier>{192a2071-6eb8-487d-beb1-86985649932b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\SDK\UI management\Object Properties %28Window%29\Private">
+      <UniqueIdentifier>{f0ef3b12-9c65-4009-9ff9-8d6521cfa51f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\xrRenderDX10\DXCommonTypes.h">
@@ -1266,6 +1275,9 @@
     </ClInclude>
     <ClInclude Include="SDKUI_ObjectList.h">
       <Filter>Cordis\SDK\UI management\Object List\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="SDKUI_ObjectInspector.h">
+      <Filter>Cordis\SDK\UI management\Object Properties %28Window%29\Public</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -2003,6 +2015,9 @@
     </ClCompile>
     <ClCompile Include="SDKUI_ObjectList.cpp">
       <Filter>Cordis\SDK\UI management\Object List\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="SDKUI_ObjectInspector.cpp">
+      <Filter>Cordis\SDK\UI management\Object Properties %28Window%29\Private</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

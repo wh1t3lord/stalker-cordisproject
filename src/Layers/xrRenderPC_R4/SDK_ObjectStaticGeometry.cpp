@@ -3,40 +3,40 @@
 #include "SDKUI_Helpers.h"
 
 SDK_ObjectStaticGeometry::SDK_ObjectStaticGeometry(LPCSTR name)
-    : inherited(name), Data(nullptr)
+    : inherited(name), m_data(nullptr)
 {
-    this->ObjectType = OBJECT_CLASS_STATIC_GEOMETRY;
-    this->OccBox.invalidate();
+    this->m_id_objecttype = OBJECT_CLASS_STATIC_GEOMETRY;
+    this->m_occbox.invalidate();
 }
 
 SDK_ObjectStaticGeometry::~SDK_ObjectStaticGeometry(void)
 {
-    if (this->Data)
-        delete this->Data;
+    if (this->m_data)
+        delete this->m_data;
 }
 
 void SDK_ObjectStaticGeometry::Render(const int& prior, const bool& strit)
 {
-    if (!this->Data)
+    if (!this->m_data)
     {
         SDKUI_Log::Widget().SetColor(warning);
         SDKUI_Log::Widget().AddText(TEXT("Can't draw data, because it was null!"));
         return;
     }
 
-    if (this->bUpdateTransform)
+    if (this->m_is_updatetransform)
     {
         this->UpdateTransform();
         // this->Box.xform(this->GetTransform());
-        this->OccBox.set(this->Data->GetBox());
-        this->OccBox.xform(this->GetTransform());
+        this->m_occbox.set(this->m_data->GetBox());
+        this->m_occbox.xform(this->GetTransform());
     }
 
     // Fbox b = this->Box;
     // b.xform(this->GetTransform());
     //     if (RImplementation.occ_visible(this->OccBox))
     //     {
-    this->Data->Render(this->GetTransform(), prior, strit);
+    this->m_data->Render(this->GetTransform(), prior, strit);
     //         this->bRendering = true;
     //     }
     //     else
@@ -44,7 +44,7 @@ void SDK_ObjectStaticGeometry::Render(const int& prior, const bool& strit)
     //         this->bRendering = false;
     //     }
 
-    this->bUpdateTransform = false;
+    this->m_is_updatetransform = false;
 }
 
 void SDK_ObjectStaticGeometry::Load(LPCSTR model_name)
@@ -56,9 +56,9 @@ void SDK_ObjectStaticGeometry::Load(LPCSTR model_name)
         return;
     }
 
-    this->Data = new CEditableObject(TEXT("")); // Lord: нормально ли так TEXT("")
+    this->m_data = new CEditableObject(TEXT("")); // Lord: нормально ли так TEXT("")
 
-    if (!this->Data->Load(model_name))
+    if (!this->m_data->Load(model_name))
     {
         SDKUI_Log::Widget().SetColor(error);
         SDKUI_Log::Widget().AddText(TEXT("Can't load model error!"));
@@ -76,22 +76,22 @@ void SDK_ObjectStaticGeometry::SetGeometry(CEditableObject* obj)
         return;
     }
 
-    this->Data = obj;
-    this->Box = this->Data->GetBox();
+    this->m_data = obj;
+    this->m_box = this->m_data->GetBox();
 }
 
 bool SDK_ObjectStaticGeometry::RayPick(float& distance, const Fvector& start, const Fvector& direction) 
 {
-    if (!this->Data)
+    if (!this->m_data)
     {
         return false;
     }
 
     Fmatrix _m = this->GetTransform();
     _m.invert();
-    if (RImplementation.occ_visible(this->OccBox))
+    if (RImplementation.occ_visible(this->m_occbox))
     {
-        if (this->Data->RayPick(distance, start, direction, _m))
+        if (this->m_data->RayPick(distance, start, direction, _m))
         {
             return true;
         }

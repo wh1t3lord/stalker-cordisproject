@@ -48,35 +48,35 @@ public:
     SDK_CustomObject(LPCSTR name);
     virtual ~SDK_CustomObject(void);
 
-    inline const Fmatrix& GetTransform(void) const noexcept { return this->mTransform; }
-    inline const Fvector& GetPosition(void) const noexcept { return this->vPosition; }
-    inline const Fvector& GetRotation(void) const noexcept { return this->vRotation; }
-    inline const Fvector& GetScale(void) const noexcept { return this->vScale; }
-    inline void SetPosition(const Fvector& pos) { this->vPosition = pos; }
+    inline const Fmatrix& GetTransform(void) const noexcept { return this->m_transform; }
+    inline const Fvector& GetPosition(void) const noexcept { return this->m_position; }
+    inline const Fvector& GetRotation(void) const noexcept { return this->m_rotation; }
+    inline const Fvector& GetScale(void) const noexcept { return this->m_scale; }
+    inline void SetPosition(const Fvector& pos) { this->m_position = pos; }
     inline void SetRotation(const Fvector& rot)
     { 
         if (_valid(rot))
         {
-            this->vRotation = rot;
+            this->m_rotation = rot;
         }
         else
         {
-            this->vRotation = {0, 0, 0};
+            this->m_rotation = {0, 0, 0};
         }
     }
-    inline void SetScale(const Fvector& scl) { this->vScale = scl; }
+    inline void SetScale(const Fvector& scl) { this->m_scale = scl; }
 
     //   inline bool IsVisible(void) const noexcept { return this->bVisible; }
     inline void Show(void) noexcept
     {
-        if (!this->bVisible)
-            this->bVisible = true;
+        if (!this->m_is_visible)
+            this->m_is_visible = true;
     }
 
     inline void Hide(void) noexcept
     {
-        if (this->bVisible)
-            this->bVisible = false;
+        if (this->m_is_visible)
+            this->m_is_visible = false;
     }
 
     // inline bool IsRender(void) const noexcept { return this->bRendering; }
@@ -84,19 +84,19 @@ public:
 
     void UpdateTransform(void)
     {
-        this->mTransformR.setXYZi(-this->vRotation.x, -this->vRotation.y, -this->vRotation.z);
-        this->mTransformS.scale(this->vScale);
-        this->mTransformP.translate(this->vPosition);
-        this->mTransformRP.mul(mTransformP, mTransformR);
-        mTransform.mul(mTransformRP, mTransformS);
-        mITransformRP.invert(mTransformRP);
-        mITransform.invert(mTransform);
+        this->m_transform_rotation.setXYZi(-this->m_rotation.x, -this->m_rotation.y, -this->m_rotation.z);
+        this->m_transform_scaling.scale(this->m_scale);
+        this->m_transform_position.translate(this->m_position);
+        this->m_transform_rotation_position.mul(this->m_transform_position, this->m_transform_rotation);
+        this->m_transform.mul(this->m_transform_rotation_position, this->m_transform_scaling);
+        this->m_invert_transform_rotation_position.invert(this->m_transform_rotation_position);
+        this->m_invert_transform.invert(this->m_transform);
     }
 
     inline void Move(const Fvector& v)
     {
-        this->vPosition.add(v);
-        this->bUpdateTransform = true;
+        this->m_position.add(v);
+        this->m_is_updatetransform = true;
     }
     void MoveTo(const Fvector& pos, const Fvector& up);
     void RotateParent(const Fvector& axis, const float& angle);
@@ -128,40 +128,40 @@ public:
     //     void AnimationUpdate(const float& t);
     //     void OnMotionChange(void);
 
-    SceneObjectType GetType(void) const noexcept { return this->ObjectType; }
-    xr_string GetSceneName(void) const noexcept { return this->SceneName; }
-    inline const Fbox& GetBox(void) const noexcept { return this->Box; }
+    SceneObjectType GetType(void) const noexcept { return this->m_id_objecttype; }
+    xr_string GetSceneName(void) const noexcept { return this->m_scene_name; }
+    inline const Fbox& GetBox(void) const noexcept { return this->m_box; }
 
     virtual void Render(const int&, const bool&) = 0;
     virtual void DrawPreferences(void) = 0;
     virtual bool RayPick(float&, const Fvector&, const Fvector&) = 0;
 
 public:
-    bool bSelected;
-    bool bVisible;
-    bool bRendering;
+    bool m_is_selected;
+    bool m_is_visible;
+    bool m_is_rendering;
 
 protected:
-    bool bUpdateTransform;
-    SceneObjectType ObjectType;
+    bool m_is_updatetransform;
+    SceneObjectType m_id_objecttype;
 
 private:
-    Fvector vPosition;
-    Fvector vScale;
-    Fvector vRotation;
+    Fvector m_position;
+    Fvector m_scale;
+    Fvector m_rotation;
 
 protected:
-    Fbox Box;
-    xr_string SceneName;
+    Fbox m_box;
+    xr_string m_scene_name;
 
 private:
-    Fmatrix mTransformP;
-    Fmatrix mTransformR;
-    Fmatrix mTransformS;
-    Fmatrix mTransformRP;
-    Fmatrix mTransform; // @ main
+    Fmatrix m_transform_position;
+    Fmatrix m_transform_rotation;
+    Fmatrix m_transform_scaling;
+    Fmatrix m_transform_rotation_position;
+    Fmatrix m_transform; // @ main
 
     // @ Invert
-    Fmatrix mITransform;
-    Fmatrix mITransformRP;
+    Fmatrix m_invert_transform;
+    Fmatrix m_invert_transform_rotation_position;
 };

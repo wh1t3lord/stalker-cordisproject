@@ -18,7 +18,7 @@ void SDK_SceneManager::AddObject(const Fvector& p, const Fvector& n)
             SDK_CustomObject* object =
                 this->_AddObjectStaticGeometry(SDKUI_RightWindow::Widget().GetCurrentSelectedStaticObject().c_str());
             object->MoveTo(p, n);
-            this->ObjectList.push_back(object);
+            this->m_objects_list.push_back(object);
         }
         else
         {
@@ -62,19 +62,19 @@ SDK_CustomObject* SDK_SceneManager::Selection(const Fvector& start, const Fvecto
 
     if (bSingleSelection)
     {
-        for (xr_list<SDK_CustomObject*>::value_type it : this->ObjectList)
+        for (xr_list<SDK_CustomObject*>::value_type it : this->m_selectedobjects_list)
         {
-            it->bSelected = false;
+            it->m_is_selected = false;
         }
 
-        this->SelectedObjectsList.clear();
+        this->m_selectedobjects_list.clear();
         // @ Lord добавлять сюда
     }
 
     SDK_CustomObject* obj = nullptr;
-    for (xr_list<SDK_CustomObject*>::value_type it : this->ObjectList)
+    for (xr_list<SDK_CustomObject*>::value_type it : this->m_objects_list)
     {
-        if (it->RayPick(this->current_distance_to_object, start, direction) && !it->bSelected)
+        if (it->RayPick(this->current_distance_to_object, start, direction) && !it->m_is_selected)
         {
             obj = it;
         }
@@ -83,8 +83,8 @@ SDK_CustomObject* SDK_SceneManager::Selection(const Fvector& start, const Fvecto
     // @ Lord: подумать над дизайном, нормально ли это, скорее нет
     if (obj)
     {
-        obj->bSelected = true;
-        this->SelectedObjectsList.push_back(obj);
+        obj->m_is_selected = true;
+        this->m_selectedobjects_list.push_back(obj);
     }
 
     return obj;
@@ -95,7 +95,7 @@ void SDK_SceneManager::DeSelection(const Fvector& start, const Fvector& directio
     this->current_distance_to_object = SDK_Camera::GetInstance().fFar;
 
     SDK_CustomObject* obj = nullptr;
-    for (xr_list<SDK_CustomObject*>::value_type it : this->ObjectList)
+    for (xr_list<SDK_CustomObject*>::value_type it : this->m_objects_list)
     {
         if (it->RayPick(this->current_distance_to_object, start, direction))
         {
@@ -106,24 +106,24 @@ void SDK_SceneManager::DeSelection(const Fvector& start, const Fvector& directio
     // @ Lord: подумать над дизайном, нормально ли это, скорее нет
     if (obj)
     {
-        obj->bSelected = false;
-        this->SelectedObjectsList.remove(obj);
+        obj->m_is_selected = false;
+        this->m_selectedobjects_list.remove(obj);
     }
 }
 
 void SDK_SceneManager::UnSelectAll(void)
 {
-    if (!this->SelectedObjectsList.size())
+    if (!this->m_selectedobjects_list.size())
         return;
 
-    for (xr_list<SDK_CustomObject*>::iterator it = this->SelectedObjectsList.begin();
-        it != this->SelectedObjectsList.end(); ++it)
+    for (xr_list<SDK_CustomObject*>::iterator it = this->m_selectedobjects_list.begin();
+        it != this->m_selectedobjects_list.end(); ++it)
     {
-        (*it)->bSelected = false;
+        (*it)->m_is_selected = false;
     }
 
 
-    this->SelectedObjectsList.clear();
+    this->m_selectedobjects_list.clear();
 }
 AxisType SDK_SceneManager::SelectionAxisMove(void)
 {
@@ -136,7 +136,7 @@ AxisType SDK_SceneManager::SelectionAxisMove(void)
         if (current_distance > distance)
         {
             current_distance = distance;
-            id_ = GizmoMove[i].id;
+            id_ = GizmoMove[i].m_axis_id;
         }
         //   SDKUI_Log::Widget().AddText("%d %s", i,std::to_string(GizmoMove[i].RayPick(SDK_Camera::GetInstance().fFar,
         //   SDKUI::UI().GetmPos(), SDKUI::UI().GetmDir())).c_str());
@@ -150,7 +150,7 @@ AxisType SDK_SceneManager::SelectionAxisMove(void)
     for (unsigned int i = 0; i < 3; ++i)
     {
         if (GizmoMovePlanes[i].RayPick(SDKUI::UI().GetmPos(), SDKUI::UI().GetmDir()))
-            id_ = GizmoMovePlanes[i].id;
+            id_ = GizmoMovePlanes[i].m_axis_id;
     }
     //   this->gizmo_distance = current_distance;
     return id_;
@@ -158,11 +158,11 @@ AxisType SDK_SceneManager::SelectionAxisMove(void)
 
 void SDK_SceneManager::Move(const Fvector& vec)
 {
-    if (!this->SelectedObjectsList.size())
+    if (!this->m_selectedobjects_list.size())
         return;
 
-    for (xr_list<SDK_CustomObject*>::iterator it = this->SelectedObjectsList.begin();
-         it != this->SelectedObjectsList.end(); ++it)
+    for (xr_list<SDK_CustomObject*>::iterator it = this->m_selectedobjects_list.begin();
+         it != this->m_selectedobjects_list.end(); ++it)
     {
         (*it)->Move(vec);
     }
@@ -170,7 +170,7 @@ void SDK_SceneManager::Move(const Fvector& vec)
 
 void SDK_SceneManager::Rotate(const Fvector& vec)
 {
-    if (!this->SelectedObjectsList.size())
+    if (!this->m_selectedobjects_list.size())
         return;
     // @ Lord реализовать нормально
 /*
@@ -182,11 +182,11 @@ void SDK_SceneManager::Rotate(const Fvector& vec)
 
 void SDK_SceneManager::Scale(const Fvector& vec)
 {
-    if (!this->SelectedObjectsList.size())
+    if (!this->m_selectedobjects_list.size())
         return;
 
-    for (xr_list<SDK_CustomObject*>::iterator it = this->SelectedObjectsList.begin();
-        it != this->SelectedObjectsList.end(); ++it)
+    for (xr_list<SDK_CustomObject*>::iterator it = this->m_selectedobjects_list.begin();
+        it != this->m_selectedobjects_list.end(); ++it)
     {
         (*it)->Scale(vec);
     }

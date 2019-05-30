@@ -14,13 +14,13 @@
 #define CUSTOMOBJECT_CHUNK_MOTION_PARAM 0xF908
 
 SDK_CustomObject::SDK_CustomObject(LPCSTR name)
-    : bSelected(false), bRendering(false), bVisible(false), vPosition({0, 0, 0}), vRotation({0, 0, 0}),
-      vScale({1, 1, 1}), ObjectType(OBJECT_CLASS_NULL), bUpdateTransform(false), SceneName(name)
+    : m_is_selected(false), m_is_rendering(false), m_is_visible(false), m_position({0, 0, 0}), m_rotation({0, 0, 0}),
+      m_scale({1, 1, 1}), m_id_objecttype(OBJECT_CLASS_NULL), m_is_updatetransform(false), m_scene_name(name)
 {
-    this->mTransform.identity();
-    this->mTransformRP.identity();
-    this->mITransform.identity();
-    this->mITransformRP.identity();
+    this->m_transform.identity();
+    this->m_transform_rotation_position.identity();
+    this->m_invert_transform.identity();
+    this->m_invert_transform_rotation_position.identity();
 }
 
 SDK_CustomObject::~SDK_CustomObject(void) {}
@@ -30,41 +30,41 @@ SDK_CustomObject::~SDK_CustomObject(void) {}
 //     this->vPosition.add(v);
 // }
 
-void SDK_CustomObject::MoveTo(const Fvector& pos, const Fvector& up) // @ Lord: метод не реализован!
+void SDK_CustomObject::MoveTo(const Fvector& position, const Fvector& up) // @ Lord: метод не реализован!
 {
     //    ASSERT(TEXT("It's implement now!"));
-    this->vPosition.set(pos);
-    this->bUpdateTransform = true;
+    this->m_position.set(position);
+    this->m_is_updatetransform = true;
     // @ Lord: Реализовать поддержку etfNormalAlign
 }
 
-void SDK_CustomObject::RotateParent(const Fvector& v, const float& angle) { this->vRotation.mad(v, angle); }
+void SDK_CustomObject::RotateParent(const Fvector& v, const float& angle) { this->m_rotation.mad(v, angle); }
 
 void SDK_CustomObject::RotateLocal(const Fvector& v, const float& angle)
 {
     Fmatrix m;
     Fvector r;
     m.rotation(v, angle);
-    this->mTransformRP.mulB_43(m);
-    this->mTransformRP.getXYZ(r);
-    this->vRotation = r;
-    this->bUpdateTransform = true;
+    this->m_transform_rotation_position.mulB_43(m);
+    this->m_transform_rotation_position.getXYZ(r);
+    this->m_rotation = r;
+    this->m_is_updatetransform = true;
 }
 
 void SDK_CustomObject::Scale(const Fvector& v)
 {
-    this->vScale.add(v);
+    this->m_scale.add(v);
 
-    if (this->vScale.x < EPS)
-        this->vScale.x = EPS;
+    if (this->m_scale.x < EPS)
+        this->m_scale.x = EPS;
 
-    if (this->vScale.y < EPS)
-        this->vScale.y = EPS;
+    if (this->m_scale.y < EPS)
+        this->m_scale.y = EPS;
 
-    if (this->vScale.z < EPS)
-        this->vScale.z = EPS;
+    if (this->m_scale.z < EPS)
+        this->m_scale.z = EPS;
 
-    this->bUpdateTransform = true;
+    this->m_is_updatetransform = true;
 }
 
 void SDK_CustomObject::NormalAlign(Fvector& rot, const Fvector& up, const Fvector& dir)
@@ -83,7 +83,7 @@ void SDK_CustomObject::NormalAlign(Fvector& rot, const Fvector& up, const Fvecto
     mR.set(vR, vN, vD, vR);
     mR.getXYZ(rot);
 
-    this->bUpdateTransform = true;
+    this->m_is_updatetransform = true;
 }
 
 void SDK_CustomObject::SnapMove(Fvector& pos, Fvector& rot, const Fmatrix& rotRP, const Fvector& amount)
@@ -124,5 +124,5 @@ void SDK_CustomObject::SnapMove(Fvector& pos, Fvector& rot, const Fmatrix& rotRP
         else
             pos.add(amount);*/
 
-    this->bUpdateTransform = true;
+    this->m_is_updatetransform = true;
 }

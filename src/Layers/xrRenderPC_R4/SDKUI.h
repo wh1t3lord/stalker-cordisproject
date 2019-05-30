@@ -27,7 +27,7 @@ private:
         SDKUI_Log::Widget().Init(GetPosBottomLeft(), 500, 150, ImGuiWindowFlags_NoResize);
         SDKUI_Log::Widget().SetColor(good);
         SDKUI_Log::Widget().AddText("SDK was initialized! %s", "Test"); // Lord: изменить здесь потом текст
-
+ 
         // Lord: удалить потом реализовать в EThumbnail
         //         D3D11_TEXTURE2D_DESC desc = {0};
         //         desc.Width = 128;
