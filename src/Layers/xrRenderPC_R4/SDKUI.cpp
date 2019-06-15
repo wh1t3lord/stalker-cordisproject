@@ -8,6 +8,11 @@
 #include "SDKUI_ToolBar.h"
 #include "SDKUI_ObjectInspector.h"
 #include "SDKUI_ObjectList.h"
+
+namespace Cordis
+{
+namespace SDK
+{
 void SDKUI::Begin(void)
 {
     ImGui_ImplDX11_NewFrame();
@@ -58,29 +63,6 @@ bool SDKUI::PickGround(Fvector& hitpoint, const Fvector& start, const Fvector& d
     return PickGrid(hitpoint, start, dir, hitnormal);
 }
 
-void SDKUI::PickObject(void)
-{
-    /*
-        this->dis_to_current_obj = SDK_Camera::GetInstance().fFar;
-
-        Fbox a = RImplementation.obj->GetData()->GetBox();
-        a.xform(RImplementation.obj->GetTransform()); // LORD: УЧИТЫВАЕМ ПРОСЧЁТ BBOX!!!!!!!!
-        if (RImplementation.occ_visible(a))
-        {
-            Fmatrix lol = RImplementation.obj->GetTransform();
-            lol.invert();
-            //    SDKUI_Log::Widget().AddText("Rendering!");
-            if (RImplementation.obj->GetData()->RayPick(this->dis_to_current_obj, this->mPos, this->mDir, lol))
-            {
-                this->bSelected = true;
-                //    SDKUI_Log::Widget().AddText("Selected!");
-            }
-
-            else
-                this->bSelected = false;
-        }*/
-}
-
 void SDKUI::KeyBoardMessages(void)
 {
     // @ Хендлим шорткаты
@@ -89,6 +71,11 @@ void SDKUI::KeyBoardMessages(void)
     if (ImGui::IsMouseHoveringAnyWindow())
     {
         this->bCanUseLeftButton = false;
+
+        if (!this->b_is_dragged_selection_rectangle)
+            this->b_is_used_selectionrectengular = false;
+
+        this->b_is_hovered_coloredit = false;
     }
     else
     {
@@ -101,23 +88,53 @@ void SDKUI::KeyBoardMessages(void)
         p.x = ImGui::GetIO().MousePos.x;
         p.y = ImGui::GetIO().MousePos.y;
         this->mPos.set(Device.vCameraPosition);
-        SDK_Camera::GetInstance().MouseRayFromPoint(this->mDir, p);
+
+        if (!this->bClickedRightButton)
+            SDK_Camera::GetInstance().MouseRayFromPoint(this->mDir, p);
 
 #pragma region GIZMO
-        if (SDK_GizmoManager::GetInstance().m_current_gizmo != GIZMO_UNKNOWN &&
-            SDK_GizmoManager::GetInstance().m_current_gizmo < 3)
+        if (this->bMoveTool)
         {
-            SDK_GizmoManager::GetInstance().m_prev_point = SDK_GizmoManager::GetInstance().m_ray_end_point;
-            GizmoMove[SDK_GizmoManager::GetInstance().m_current_gizmo].GetPoint(
-                SDKUI::UI().GetmPos(), SDKUI::UI().GetmDir(), SDK_GizmoManager::GetInstance().m_ray_end_point);
+            if (SDK_GizmoManager::GetInstance().m_current_gizmo != GIZMO_UNKNOWN &&
+                SDK_GizmoManager::GetInstance().m_current_gizmo < 3)
+            {
+                SDK_GizmoManager::GetInstance().m_prev_point = SDK_GizmoManager::GetInstance().m_ray_end_point;
+                GizmoMove[SDK_GizmoManager::GetInstance().m_current_gizmo].GetPoint(
+                    SDKUI::UI().GetmPos(), SDKUI::UI().GetmDir(), SDK_GizmoManager::GetInstance().m_ray_end_point);
+            }
+
+            if (SDK_GizmoManager::GetInstance().m_current_gizmo != GIZMO_UNKNOWN &&
+                SDK_GizmoManager::GetInstance().m_current_gizmo > 2)
+            {
+                SDK_GizmoManager::GetInstance().m_prev_point = SDK_GizmoManager::GetInstance().m_ray_end_point_plane;
+                GizmoMovePlanes[SDK_GizmoManager::GetInstance().m_current_gizmo - 3].GetPoint(
+                    SDKUI::UI().GetmPos(), SDKUI::UI().GetmDir());
+            }
         }
 
-        if (SDK_GizmoManager::GetInstance().m_current_gizmo != GIZMO_UNKNOWN &&
-            SDK_GizmoManager::GetInstance().m_current_gizmo > 2)
+        if (this->bScaleTool)
         {
-            SDK_GizmoManager::GetInstance().m_prev_point = SDK_GizmoManager::GetInstance().m_ray_end_point_plane;
-            GizmoMovePlanes[SDK_GizmoManager::GetInstance().m_current_gizmo - 3].GetPoint(
-                SDKUI::UI().GetmPos(), SDKUI::UI().GetmDir());
+            if (SDK_GizmoManager::GetInstance().m_current_scale_gizmo != GIZMO_UNKNOWN &&
+                SDK_GizmoManager::GetInstance().m_current_scale_gizmo < 3)
+            {
+                SDK_GizmoManager::GetInstance().m_prev_point = SDK_GizmoManager::GetInstance().m_ray_end_point;
+                g_gizmo_lines_scale[SDK_GizmoManager::GetInstance().m_current_scale_gizmo].getPoint(
+                    SDKUI::UI().GetmPos(), SDKUI::UI().GetmDir(), SDK_GizmoManager::GetInstance().m_ray_end_point);
+            }
+
+            if (SDK_GizmoManager::GetInstance().m_current_scale_gizmo != GIZMO_UNKNOWN &&
+                SDK_GizmoManager::GetInstance().m_current_scale_gizmo > 2)
+            {
+                SDK_GizmoManager::GetInstance().m_prev_point = SDK_GizmoManager::GetInstance().m_ray_end_point_plane;
+                g_gizmo_planes_scale[SDK_GizmoManager::GetInstance().m_current_scale_gizmo - 3].getPoint(
+                    SDKUI::UI().GetmPos(), SDKUI::UI().GetmDir());
+            }
+
+            if (SDK_GizmoManager::GetInstance().m_current_scale_gizmo == GIZMO_SCALE_BOX)
+            {
+                SDK_GizmoManager::GetInstance().m_prev_point = SDK_GizmoManager::GetInstance().m_ray_end_point;
+                g_gizmo_lines_scale[1].getPoint(SDKUI::UI().GetmPos(), SDKUI::UI().GetmDir(), SDK_GizmoManager::GetInstance().m_ray_end_point);
+            }
         }
 #pragma endregion
     }
@@ -125,10 +142,59 @@ void SDKUI::KeyBoardMessages(void)
     this->GizmoHandler();
     this->SelectionHandler();
 
-    if (ImGui::IsMouseReleased(0) &&
-        SDK_GizmoManager::GetInstance().m_is_usegizmo) // Lord: обработка если мы в драге моде и инструмент перемешение
+    /*
+                 if (ImGui::IsMouseDragging(0))
+                 {
+                   //  SDKUI_Log::Widget().AddText("%f %f", ImGui::GetIO().MousePos.x, ImGui::GetIO().MousePos.y);
+                     if (ImGui::GetMousePos().x == 0)
+                     {
+                         SetCursorPos(this->GetDisplayX()-4, ImGui::GetIO().MousePos.y);
+                     }
+        
+                     if (ImGui::GetMousePos().x == this->GetDisplayX()-1)
+                     {
+                         SetCursorPos(4, ImGui::GetIO().MousePos.y);
+                     }
+        
+
+        
+        
+                 }*/
+
+    if (ImGui::IsMouseReleased(0)) // Lord: обработка если мы в драге моде и инструмент перемешение
     {
-        SDK_GizmoManager::GetInstance().m_is_usegizmo = false;
+        if (SDK_GizmoManager::GetInstance().m_is_usegizmo)
+            SDK_GizmoManager::GetInstance().m_is_usegizmo = false;
+
+        this->b_is_left_mouse_clicked_still_using = false;
+
+        if (this->b_is_used_selectionrectengular)
+        {
+            // @ Frustrum selection
+            this->b_is_used_selectionrectengular = false;
+            this->b_is_dragged_selection_rectangle = false;
+            CFrustum frustum;
+
+            if (this->PrepareSelectionFrustum(frustum))
+            {
+                const unsigned char* keyboard_state = SDL_GetKeyboardState(NULL);
+
+                if ((keyboard_state[SDL_SCANCODE_LCTRL] || keyboard_state[SDL_SCANCODE_RCTRL]) &&
+                    (!keyboard_state[SDL_SCANCODE_RALT] && !keyboard_state[SDL_SCANCODE_LALT]))
+                {
+                    SDK_SceneManager::GetInstance().Selection(frustum);
+                }
+                else if ((keyboard_state[SDL_SCANCODE_LALT] || keyboard_state[SDL_SCANCODE_RALT]) &&
+                    (!keyboard_state[SDL_SCANCODE_RCTRL] && !keyboard_state[SDL_SCANCODE_LCTRL]))
+                {
+                    SDK_SceneManager::GetInstance().DeSelection(frustum);
+                }
+                else
+                {
+                    SDK_SceneManager::GetInstance().Selection(frustum, true);
+                }
+            }
+        }
     }
 
     if (ImGui::IsMouseReleased(1))
@@ -141,6 +207,11 @@ void SDKUI::KeyBoardMessages(void)
     {
         this->bCanUseLeftButton = false;
         this->bClickedRightButton = true;
+
+        if (this->bMoveTool) // @ Lord дописывать и для остальных инструментов
+        {
+            SDK_GizmoManager::GetInstance().ChangeColorAxisMoveDefault();
+        }
     }
 
     if (ImGui::IsMouseClicked(2)) // @ Wheel
@@ -154,10 +225,12 @@ void SDKUI::KeyBoardMessages(void)
         {
             SDKUI_Log::Widget().AddText("AddTool: OFF");
             this->bAddTool = false;
+            this->b_is_used_any_tool = false;
         }
         else
         {
             SDKUI_Log::Widget().AddText("AddTool: ON");
+            this->b_is_used_any_tool = true;
             this->bAddTool = true;
             this->bMoveTool = false;
             this->bRotateTool = false;
@@ -238,15 +311,37 @@ void SDKUI::KeyBoardMessages(void)
     {
         if (!this->bMoveTool)
         {
+            this->b_is_used_any_tool = true;
             this->bMoveTool = true;
+            this->bScaleTool = false;
             SDKUI_Log::Widget().SetColor(unimportant);
             SDKUI_Log::Widget().AddText("Move Tool: ON");
         }
         else
         {
+            this->b_is_used_any_tool = false;
             this->bMoveTool = false;
             SDKUI_Log::Widget().SetColor(unimportant);
             SDKUI_Log::Widget().AddText("Move Tool: OFF");
+        }
+    }
+
+    if (ImGui::IsKeyPressed(SDL_SCANCODE_S) && !this->bClickedRightButton)
+    {
+        if (!this->bScaleTool)
+        {
+            this->b_is_used_any_tool = true;
+            this->bMoveTool = false;
+            this->bScaleTool = true;
+            SDKUI_Log::Widget().SetColor(unimportant);
+            SDKUI_Log::Widget().AddText("Scale Tool: ON");
+        }
+        else
+        {
+            this->bScaleTool = false;
+            this->b_is_used_any_tool = false;
+            SDKUI_Log::Widget().SetColor(unimportant);
+            SDKUI_Log::Widget().AddText("Scale Tool: OFF");
         }
     }
 
@@ -262,6 +357,7 @@ void SDKUI::DrawAllHelpers(void)
     SDKUI_ToolBar::Widget().Draw();
     SDKUI_ObjectInspector::Widget().Draw();
     SDKUI_ObjectList::Widget().Draw();
+    SDKUI_SceneOptions::Widget().Draw();
 }
 
 void SDKUI::DrawMainMenuBar(void)
@@ -354,7 +450,7 @@ void SDKUI::End(void)
 
 void SDKUI::GizmoHandler(void)
 {
-    if (!this->bMoveTool)
+    if (!this->bMoveTool && !this->bScaleTool)
         return;
 
     if (this->bCanUseLeftButton && !this->bClickedRightButton && !SDK_GizmoManager::GetInstance().m_is_usegizmo &&
@@ -365,16 +461,7 @@ void SDKUI::GizmoHandler(void)
         {
         case GIZMO_X:
         {
-            GizmoMove[1].m_color_value = g_gizmo_y_color;
-            GizmoMove[2].m_color_value = g_gizmo_z_color;
-            GizmoMovePlanes[0].m_color_left_value = g_gizmo_y_color;
-            GizmoMovePlanes[0].m_color_right_value = g_gizmo_x_color;
-            GizmoMovePlanes[1].m_color_left_value = g_gizmo_y_color;
-            GizmoMovePlanes[1].m_color_right_value = g_gizmo_z_color;
-            GizmoMovePlanes[2].m_color_left_value = g_gizmo_x_color;
-            GizmoMovePlanes[2].m_color_right_value = g_gizmo_z_color;
-            GizmoMove[0].m_color_value = g_gizmo_selectedcolor;
-
+            SDK_GizmoManager::GetInstance().ChangeColorAxisMoveX();
             if (ImGui::IsMouseClicked(0))
             {
                 SDK_GizmoManager::GetInstance().m_is_usegizmo = true;
@@ -384,16 +471,7 @@ void SDKUI::GizmoHandler(void)
         }
         case GIZMO_Y:
         {
-            GizmoMove[0].m_color_value = g_gizmo_x_color;
-            GizmoMove[2].m_color_value = g_gizmo_z_color;
-            GizmoMovePlanes[0].m_color_left_value = g_gizmo_y_color;
-            GizmoMovePlanes[0].m_color_right_value = g_gizmo_x_color;
-            GizmoMovePlanes[1].m_color_left_value = g_gizmo_y_color;
-            GizmoMovePlanes[1].m_color_right_value = g_gizmo_z_color;
-            GizmoMovePlanes[2].m_color_left_value = g_gizmo_x_color;
-            GizmoMovePlanes[2].m_color_right_value = g_gizmo_z_color;
-            GizmoMove[1].m_color_value = g_gizmo_selectedcolor;
-
+            SDK_GizmoManager::GetInstance().ChangeColorAxisMoveY();
             if (ImGui::IsMouseClicked(0))
             {
                 SDK_GizmoManager::GetInstance().m_is_usegizmo = true;
@@ -403,15 +481,7 @@ void SDKUI::GizmoHandler(void)
         }
         case GIZMO_Z:
         {
-            GizmoMove[0].m_color_value = g_gizmo_x_color;
-            GizmoMove[1].m_color_value = g_gizmo_y_color;
-            GizmoMovePlanes[0].m_color_left_value = g_gizmo_y_color;
-            GizmoMovePlanes[0].m_color_right_value = g_gizmo_x_color;
-            GizmoMovePlanes[1].m_color_left_value = g_gizmo_y_color;
-            GizmoMovePlanes[1].m_color_right_value = g_gizmo_z_color;
-            GizmoMovePlanes[2].m_color_left_value = g_gizmo_x_color;
-            GizmoMovePlanes[2].m_color_right_value = g_gizmo_z_color;
-            GizmoMove[2].m_color_value = g_gizmo_selectedcolor;
+            SDK_GizmoManager::GetInstance().ChangeColorAxisMoveZ();
             if (ImGui::IsMouseClicked(0))
             {
                 SDK_GizmoManager::GetInstance().m_is_usegizmo = true;
@@ -421,15 +491,7 @@ void SDKUI::GizmoHandler(void)
         }
         case GIZMO_PLANE_XY:
         {
-            GizmoMove[0].m_color_value = g_gizmo_x_color;
-            GizmoMove[1].m_color_value = g_gizmo_y_color;
-            GizmoMove[2].m_color_value = g_gizmo_z_color;
-            GizmoMovePlanes[1].m_color_left_value = g_gizmo_y_color;
-            GizmoMovePlanes[1].m_color_right_value = g_gizmo_z_color;
-            GizmoMovePlanes[2].m_color_left_value = g_gizmo_x_color;
-            GizmoMovePlanes[2].m_color_right_value = g_gizmo_z_color;
-            GizmoMovePlanes[0].m_color_left_value = GizmoMovePlanes[0].m_color_right_value = g_gizmo_selectedcolor;
-
+            SDK_GizmoManager::GetInstance().ChangeColorAxisMovePlaneYX();
             if (ImGui::IsMouseClicked(0))
             {
                 SDK_GizmoManager::GetInstance().m_is_usegizmo = true;
@@ -439,14 +501,7 @@ void SDKUI::GizmoHandler(void)
         }
         case GIZMO_PLANE_ZY:
         {
-            GizmoMove[0].m_color_value = g_gizmo_x_color;
-            GizmoMove[1].m_color_value = g_gizmo_y_color;
-            GizmoMove[2].m_color_value = g_gizmo_z_color;
-            GizmoMovePlanes[0].m_color_left_value = g_gizmo_y_color;
-            GizmoMovePlanes[0].m_color_right_value = g_gizmo_x_color;
-            GizmoMovePlanes[2].m_color_left_value = g_gizmo_x_color;
-            GizmoMovePlanes[2].m_color_right_value = g_gizmo_z_color;
-            GizmoMovePlanes[1].m_color_left_value = GizmoMovePlanes[1].m_color_right_value = g_gizmo_selectedcolor;
+            SDK_GizmoManager::GetInstance().ChangeColorAxisMovePlaneZY();
             if (ImGui::IsMouseClicked(0))
             {
                 SDK_GizmoManager::GetInstance().m_is_usegizmo = true;
@@ -456,14 +511,7 @@ void SDKUI::GizmoHandler(void)
         }
         case GIZMO_PLANE_XZ:
         {
-            GizmoMove[0].m_color_value = g_gizmo_x_color;
-            GizmoMove[1].m_color_value = g_gizmo_y_color;
-            GizmoMove[2].m_color_value = g_gizmo_z_color;
-            GizmoMovePlanes[0].m_color_left_value = g_gizmo_y_color;
-            GizmoMovePlanes[0].m_color_right_value = g_gizmo_x_color;
-            GizmoMovePlanes[1].m_color_left_value = g_gizmo_y_color;
-            GizmoMovePlanes[1].m_color_right_value = g_gizmo_z_color;
-            GizmoMovePlanes[2].m_color_left_value = GizmoMovePlanes[2].m_color_right_value = g_gizmo_selectedcolor;
+            SDK_GizmoManager::GetInstance().ChangeColorAxisMovePlaneXZ();
             if (ImGui::IsMouseClicked(0))
             {
                 SDK_GizmoManager::GetInstance().m_is_usegizmo = true;
@@ -474,15 +522,7 @@ void SDKUI::GizmoHandler(void)
 
         case GIZMO_UNKNOWN:
         {
-            GizmoMove[0].m_color_value = g_gizmo_x_color;
-            GizmoMove[1].m_color_value = g_gizmo_y_color;
-            GizmoMove[2].m_color_value = g_gizmo_z_color;
-            GizmoMovePlanes[0].m_color_left_value = g_gizmo_y_color;
-            GizmoMovePlanes[0].m_color_right_value = g_gizmo_x_color;
-            GizmoMovePlanes[1].m_color_left_value = g_gizmo_y_color;
-            GizmoMovePlanes[1].m_color_right_value = g_gizmo_z_color;
-            GizmoMovePlanes[2].m_color_left_value = g_gizmo_x_color;
-            GizmoMovePlanes[2].m_color_right_value = g_gizmo_z_color;
+            SDK_GizmoManager::GetInstance().ChangeColorAxisMoveDefault();
             break;
         }
         }
@@ -559,10 +599,183 @@ void SDKUI::GizmoHandler(void)
             }
         }
     }
+    else if (this->bScaleTool)
+    {
+        if (!SDK_GizmoManager::GetInstance().m_is_usegizmo)
+            SDK_GizmoManager::GetInstance().m_current_scale_gizmo =
+                SDK_SceneManager::GetInstance().SelectionAxisScale();
+
+        AxisScaleType& _id = SDK_GizmoManager::GetInstance().m_current_scale_gizmo;
+        switch (_id)
+        {
+        case GIZMO_SCALE_X:
+        {
+            SDKUI_Log::Widget().AddText("Intersection: X");
+            SDK_GizmoManager::GetInstance().ChangeColorAxisScaleX();
+            if (ImGui::IsMouseClicked(0))
+            {
+                SDK_GizmoManager::GetInstance().m_is_usegizmo = true;
+            }
+            break;
+        }
+        case GIZMO_SCALE_Y:
+        {
+            SDKUI_Log::Widget().AddText("Intersection: Y");
+            SDK_GizmoManager::GetInstance().ChangeColorAxisScaleY();
+            if (ImGui::IsMouseClicked(0))
+            {
+                SDK_GizmoManager::GetInstance().m_is_usegizmo = true;
+            }
+            break;
+        }
+        case GIZMO_SCALE_Z:
+        {
+            SDKUI_Log::Widget().AddText("Intersection: Z");
+            SDK_GizmoManager::GetInstance().ChangeColorAxisScaleZ();
+            if (ImGui::IsMouseClicked(0))
+            {
+                SDK_GizmoManager::GetInstance().m_is_usegizmo = true;
+            }
+            break;
+        }
+        case GIZMO_SCALE_PLANE_XY:
+        {
+            SDKUI_Log::Widget().AddText("Intersection: XY");
+            SDK_GizmoManager::GetInstance().ChangeColorAxisScalePlaneYX();
+            if (ImGui::IsMouseClicked(0))
+            {
+                SDK_GizmoManager::GetInstance().m_is_usegizmo = true;
+            }
+            break;
+        }
+        case GIZMO_SCALE_PLANE_XZ:
+        {
+            SDKUI_Log::Widget().AddText("Intersection: XZ");
+            SDK_GizmoManager::GetInstance().ChangeColorAxisScalePlaneXZ();
+            if (ImGui::IsMouseClicked(0))
+            {
+                SDK_GizmoManager::GetInstance().m_is_usegizmo = true;
+            }
+            break;
+        }
+        case GIZMO_SCALE_PLANE_ZY:
+        {
+            SDKUI_Log::Widget().AddText("Intersection: ZY");
+            SDK_GizmoManager::GetInstance().ChangeColorAxisScalePlaneZY();
+            if (ImGui::IsMouseClicked(0))
+            {
+                SDK_GizmoManager::GetInstance().m_is_usegizmo = true;
+            }
+            break;
+        }
+        case GIZMO_SCALE_BOX:
+        {
+            SDKUI_Log::Widget().AddText("Intersection: BOX");
+            SDK_GizmoManager::GetInstance().ChangeColorAxisScaleBOX();
+            if (ImGui::IsMouseClicked(0))
+            {
+                SDK_GizmoManager::GetInstance().m_is_usegizmo = true;
+            }
+            break;
+        }
+        case GIZMO_SCALE_UNKNOWN:
+        {
+            SDK_GizmoManager::GetInstance().ChangeColorAxisScaleDefault();
+            if (ImGui::IsMouseClicked(0))
+            {
+                SDK_GizmoManager::GetInstance().m_is_usegizmo = true;
+            }
+            break;
+        }
+        }
+
+        if (ImGui::IsMouseDragging(0))
+        {
+            switch (SDK_GizmoManager::GetInstance().m_current_scale_gizmo)
+            {
+            case GIZMO_SCALE_X:
+            {
+                Fvector delta = SDK_GizmoManager::GetInstance().m_ray_end_point;
+                delta.sub(SDK_GizmoManager::GetInstance().m_prev_point);
+                delta.y = 0.0f;
+                delta.z = 0.0f;
+
+                SDK_SceneManager::GetInstance().Scale(delta);
+                break;
+            }
+            case GIZMO_SCALE_Y:
+            {
+                Fvector delta = SDK_GizmoManager::GetInstance().m_ray_end_point;
+                delta.sub(SDK_GizmoManager::GetInstance().m_prev_point);
+                delta.x = 0.0f;
+                delta.z = 0.0f;
+
+                SDK_SceneManager::GetInstance().Scale(delta);
+                break;
+            }
+            case GIZMO_SCALE_Z:
+            {
+                Fvector delta = SDK_GizmoManager::GetInstance().m_ray_end_point;
+                delta.sub(SDK_GizmoManager::GetInstance().m_prev_point);
+                delta.y = 0.0f;
+                delta.x = 0.0f;
+                SDK_SceneManager::GetInstance().Scale(delta);
+                break;
+            }
+
+            case GIZMO_SCALE_PLANE_XY:
+            {
+                Fvector delta = SDK_GizmoManager::GetInstance().m_ray_end_point_plane;
+                delta.sub(SDK_GizmoManager::GetInstance().m_prev_point);
+                delta.z = 0.0f;
+                SDK_SceneManager::GetInstance().Scale(delta);
+                break;
+            }
+
+            case GIZMO_SCALE_PLANE_ZY:
+            {
+                Fvector delta = SDK_GizmoManager::GetInstance().m_ray_end_point_plane;
+                delta.sub(SDK_GizmoManager::GetInstance().m_prev_point);
+                delta.x = 0.0f;
+                SDK_SceneManager::GetInstance().Scale(delta);
+                break;
+            }
+            case GIZMO_SCALE_PLANE_XZ:
+            {
+                Fvector delta = SDK_GizmoManager::GetInstance().m_ray_end_point_plane;
+                delta.sub(SDK_GizmoManager::GetInstance().m_prev_point);
+                delta.y = 0.0f;
+
+                SDK_SceneManager::GetInstance().Scale(delta);
+                break;
+            }
+            case GIZMO_SCALE_BOX:
+            {
+                Fvector delta = SDK_GizmoManager::GetInstance().m_ray_end_point;
+                delta.sub(SDK_GizmoManager::GetInstance().m_prev_point);
+
+                delta.x = delta.z = delta.y;
+                SDK_SceneManager::GetInstance().Scale(delta);
+                break;
+            }
+            }
+        }
+    }
 }
 
 void SDKUI::SelectionHandler(void)
 {
+    if (!this->b_is_hovered_coloredit && !this->b_is_used_any_tool)
+    {
+        if (ImGui::IsMouseDragging(0) && !SDK_GizmoManager::GetInstance().m_is_usegizmo &&
+            !this->b_is_left_mouse_clicked_still_using)
+        {
+            this->b_is_used_selectionrectengular = true;
+            this->b_is_dragged_selection_rectangle = true;
+            this->m_current_mouseposition = ImGui::GetIO().MousePos;
+        }
+    }
+
     if (ImGui::IsMouseClicked(0) && this->bCanUseLeftButton && !this->bClickedRightButton &&
         !SDK_GizmoManager::GetInstance().m_is_usegizmo) // @ Left button
     {
@@ -578,11 +791,14 @@ void SDKUI::SelectionHandler(void)
         else
         {
             const unsigned char* keyboard_state = SDL_GetKeyboardState(NULL);
-
+            this->m_start_mouseposition = ImGui::GetIO().MousePos;
             if ((keyboard_state[SDL_SCANCODE_LCTRL] || keyboard_state[SDL_SCANCODE_RCTRL]) &&
                 (!keyboard_state[SDL_SCANCODE_LALT] && !keyboard_state[SDL_SCANCODE_RALT]))
             {
-                SDK_SceneManager::GetInstance().Selection(this->mPos, this->mDir);
+                if (SDK_SceneManager::GetInstance().Selection(this->mPos, this->mDir))
+                {
+                    this->b_is_left_mouse_clicked_still_using = true;
+                }
             }
             else if ((keyboard_state[SDL_SCANCODE_LALT] || keyboard_state[SDL_SCANCODE_RALT]) &&
                 (!keyboard_state[SDL_SCANCODE_RCTRL] && !keyboard_state[SDL_SCANCODE_LCTRL]))
@@ -592,7 +808,10 @@ void SDKUI::SelectionHandler(void)
             else
             {
                 if (!this->bMoveTool)
-                    SDK_SceneManager::GetInstance().Selection(this->mPos, this->mDir, true);
+                {
+                    if (SDK_SceneManager::GetInstance().Selection(this->mPos, this->mDir, true))
+                        this->b_is_left_mouse_clicked_still_using = true;
+                }
             }
             // Lord: перемещение по лучу можно и реальзовать
             // Device.vCameraPosition.set(this->mDir.mul(SDK_Camera::GetInstance().fFar).add(this->mPos));
@@ -633,3 +852,46 @@ void SDKUI::SelectionHandler(void)
         }
     }
 }
+
+bool SDKUI::PrepareSelectionFrustum(CFrustum& frustum)
+{
+    float x1, x2, y1, y2, depth;
+    Ivector2 points_2d[4];
+    Fvector start, direction, points_3d[4];
+
+    depth = SDK_Camera::GetInstance().fFar;
+
+    x1 = this->m_start_mouseposition.x;
+    y1 = this->m_start_mouseposition.y;
+    x2 = this->m_current_mouseposition.x;
+    y2 = this->m_current_mouseposition.y;
+
+    if (x1 == x2 && y1 == y2)
+        return false;
+
+    points_2d[0].set(_min(x1, x2), _min(y1, y2));
+    points_2d[1].set(_max(x1, x2), _min(y1, y2));
+    points_2d[2].set(_max(x1, x2), _max(y1, y2));
+    points_2d[3].set(_min(x1, x2), _max(y1, y2));
+
+    for (int i = 0; i < 4; ++i)
+    {
+        SDK_Camera::GetInstance().MouseRayFromPoint(direction, points_2d[i]);
+        points_3d[i].mad(Device.vCameraPosition, direction, depth);
+    }
+
+    frustum.CreateFromPoints(points_3d, 4, Device.vCameraPosition);
+
+    Fplane plane;
+    plane.build(points_3d[0], points_3d[1], points_3d[2]);
+
+    if (plane.classify(Device.vCameraPosition) > 0)
+        plane.build(points_3d[2], points_3d[1], points_3d[0]);
+
+    frustum._add(plane);
+
+    return true;
+}
+
+} // namespace SDK
+} // namespace Cordis

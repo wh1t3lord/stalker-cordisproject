@@ -1,33 +1,22 @@
 #include "stdafx.h"
 #include "SDKUI_ObjectInspector.h"
 
- 
-SDKUI_ObjectInspector::~SDKUI_ObjectInspector(void)
+namespace Cordis
 {
-
-}
-
+namespace SDK
+{
+SDKUI_ObjectInspector::~SDKUI_ObjectInspector(void) {}
 
 void SDKUI_ObjectInspector::Draw(void)
 {
-    if (!this->m_is_visible)
+    if (!this->m_is_visible || !SDK_SceneManager::GetInstance().m_objects_list.size())
         return;
-    
+
     if (ImGui::Begin("Object Properties", &this->m_is_visible, this->m_flag))
-    {   
-        ImGui::Columns(2);
-        
-
-
-
-        ImGui::NextColumn();
- 
-
-
-
-
-
+    {
+        // @ Lord -> Затем добавить вертикальный separator (таблицу)
         ImGui::End();
     }
-
 }
+} // namespace SDK
+} // namespace Cordis

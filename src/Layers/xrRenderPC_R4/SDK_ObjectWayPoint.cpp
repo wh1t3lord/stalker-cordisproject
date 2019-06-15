@@ -2,8 +2,11 @@
 #include "SDK_ObjectWayPoint.h"
 
  
-
-SDK_ObjectWayPoint::~SDK_ObjectWayPoint(void) 
+namespace Cordis
 {
+    namespace SDK
+    {
+    SDK_ObjectWayPoint::~SDK_ObjectWayPoint(void) {}
 
+    }
 }

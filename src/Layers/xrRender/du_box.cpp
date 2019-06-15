@@ -3,6 +3,7 @@
 #pragma hdrstop
 
 #include "du_box.h"
+#include "SDK_ObjectShape.h"
 //---------------------------------------------------------------------------
 //#pragma package(smart_init)
 Fvector du_box_vertices2[DU_BOX_NUMVERTEX2] = {{-0.5f, -0.5f, -0.5f}, {-0.5f, +0.5f, -0.5f}, {+0.5f, +0.5f, -0.5f},
@@ -14,9 +15,15 @@ Fvector du_box_vertices2[DU_BOX_NUMVERTEX2] = {{-0.5f, -0.5f, -0.5f}, {-0.5f, +0
     {+0.5f, -0.5f, +0.5f}, {-0.5f, -0.5f, +0.5f}, {-0.5f, +0.5f, -0.5f}, {-0.5f, +0.5f, +0.5f}, {+0.5f, +0.5f, +0.5f},
     {-0.5f, +0.5f, -0.5f}, {+0.5f, +0.5f, +0.5f}, {+0.5f, +0.5f, -0.5f}};
 
-Fvector du_box_vertices[DU_BOX_NUMVERTEX] = {
-    {-0.5f, -0.5f, -0.5f}, {-0.5f, +0.5f, -0.5f}, {+0.5f, +0.5f, -0.5f}, {+0.5f, -0.5f, -0.5f}, {-0.5f, +0.5f, +0.5f},
-    {-0.5f, -0.5f, +0.5f}, {+0.5f, +0.5f, +0.5f}, {+0.5f, -0.5f, +0.5f},
+FVF::L du_box_vertices[DU_BOX_NUMVERTEX] = {
+    {-0.5f, -0.5f, -0.5f, Cordis::SDK::ShapesColors::kEdgeColor},
+    {-0.5f, +0.5f, -0.5f, Cordis::SDK::ShapesColors::kEdgeColor},
+    {+0.5f, +0.5f, -0.5f, Cordis::SDK::ShapesColors::kEdgeColor},
+    {+0.5f, -0.5f, -0.5f, Cordis::SDK::ShapesColors::kEdgeColor},
+    {-0.5f, +0.5f, +0.5f, Cordis::SDK::ShapesColors::kEdgeColor},
+    {-0.5f, -0.5f, +0.5f, Cordis::SDK::ShapesColors::kEdgeColor},
+    {+0.5f, +0.5f, +0.5f, Cordis::SDK::ShapesColors::kEdgeColor},
+    {+0.5f, -0.5f, +0.5f, Cordis::SDK::ShapesColors::kEdgeColor},
 };
 
 WORD du_box_faces[DU_BOX_NUMFACES * 3] = {

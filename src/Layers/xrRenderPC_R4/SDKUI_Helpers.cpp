@@ -4,67 +4,75 @@
 #include <ctime>
 #include "../../xrEngine/SDK_Camera.h"
 #include "SDK_GizmoManager.h"
-/*
-    @ UI_Log
-*/
-void SDKUI_Log::Draw(void)
+namespace Cordis
 {
-    if (bShow)
+    namespace SDK
     {
-        ImGui::SetNextWindowPos(ImVec2(CurrentPosX, CurrentPosY), ImGuiCond_Once);
-        if (ImGui::Begin("Log Window", &bShow, ImVec2(CurrentSizeX, CurrentSizeY), 0.5f, wndFlags))
+    /*
+        @ UI_Log
+    */
+
+#pragma region Logger
+    void SDKUI_Log::Draw(void)
+    {
+        if (!this->m_is_visible)
+            return;
+
+        ImGui::SetNextWindowPos(ImVec2(this->m_currentposition_x, this->m_currentposition_y), ImGuiCond_Once);
+        if (ImGui::Begin("Log Window", &this->m_is_visible, ImVec2(this->m_currentsize_x, this->m_currentsize_y), 0.5f,
+                this->m_flag))
         {
             ImGui::PushStyleVar(ImGuiStyleVar_ItemSpacing, ImVec2(0, 0));
             ImColor col = {1.0f, 1.0f, 1.0f, 1.0f};
-            for (xr_string text : buff)
+            for (xr_string text : this->m_string_buffer)
             {
                 if (strstr(text.c_str(), "|ERROR"))
                 {
                     col = ImColor(1.0f, 0.0f, 0.0f, 1.0f);
 
-                    if (!bShowErrors)
+                    if (!this->m_show_errors)
                         continue;
                 }
                 else if (strstr(text.c_str(), "|WARNING"))
                 {
                     col = ImColor(0.8f, 0.9f, 0.2f, 1.0f);
 
-                    if (!bShowWarnings)
+                    if (!this->m_show_warnings)
                         continue;
                 }
                 else if (strstr(text.c_str(), "|OLD"))
                 {
                     col = ImColor(0.4f, 0.4f, 0.4f, 1.0f);
 
-                    if (!bShowUn)
+                    if (!this->m_show_unimportant)
                         continue;
                 }
                 else if (strstr(text.c_str(), "|SUCCESSFUL"))
                 {
                     col = ImColor(0.2f * 2, 0.4f * 2, 0.1f * 2, 1.0f);
 
-                    if (!bShowGood)
+                    if (!this->m_show_good)
                         continue;
                 }
                 else if (strstr(text.c_str(), "|INFO"))
                 {
                     col = ImColor(0.0f, 0.0f, 1.0f, 1.0f);
 
-                    if (!bShowSpecial)
+                    if (!this->m_show_special)
                         continue;
                 }
                 else
                 {
                     col = {1.0f, 1.0f, 1.0f};
 
-                    if (!bShowDefault)
+                    if (!this->m_show_default)
                         continue;
                 }
                 ImGui::PushStyleColor(ImGuiCol_::ImGuiCol_Text, col.Value);
                 ImGui::TextWrapped(text.c_str());
                 ImGui::PopStyleColor();
-                
-              //  ImGui::TextColored(col, text.c_str());
+
+                //  ImGui::TextColored(col, text.c_str());
             }
             ImGui::PopStyleVar();
 
@@ -74,62 +82,62 @@ void SDKUI_Log::Draw(void)
                 {
                     if (ImGui::MenuItem("All"))
                     {
-                        bShowErrors = true;
-                        bShowWarnings = true;
-                        bShowDefault = true;
-                        bShowSpecial = true;
-                        bShowUn = true;
-                        bShowGood = true;
+                        this->m_show_errors = true;
+                        this->m_show_warnings = true;
+                        this->m_show_default = true;
+                        this->m_show_special = true;
+                        this->m_show_unimportant = true;
+                        this->m_show_good = true;
                     }
 
                     if (ImGui::MenuItem("Errors"))
                     {
-                        bShowErrors = true;
-                        bShowWarnings = false;
-                        bShowDefault = false;
-                        bShowSpecial = false;
-                        bShowUn = false;
-                        bShowGood = false;
+                        this->m_show_errors = true;
+                        this->m_show_warnings = false;
+                        this->m_show_default = false;
+                        this->m_show_special = false;
+                        this->m_show_unimportant = false;
+                        this->m_show_good = false;
                     }
 
                     if (ImGui::MenuItem("Warnings"))
                     {
-                        bShowErrors = false;
-                        bShowWarnings = true;
-                        bShowDefault = false;
-                        bShowSpecial = false;
-                        bShowUn = false;
-                        bShowGood = false;
+                        this->m_show_errors = false;
+                        this->m_show_warnings = true;
+                        this->m_show_default = false;
+                        this->m_show_special = false;
+                        this->m_show_unimportant = false;
+                        this->m_show_good = false;
                     }
 
                     if (ImGui::MenuItem("UnImportant"))
                     {
-                        bShowErrors = false;
-                        bShowWarnings = false;
-                        bShowDefault = false;
-                        bShowSpecial = false;
-                        bShowUn = true;
-                        bShowGood = false;
+                        this->m_show_errors = false;
+                        this->m_show_warnings = false;
+                        this->m_show_default = false;
+                        this->m_show_special = false;
+                        this->m_show_unimportant = true;
+                        this->m_show_good = false;
                     }
 
                     if (ImGui::MenuItem("Successful"))
                     {
-                        bShowErrors = false;
-                        bShowWarnings = false;
-                        bShowDefault = false;
-                        bShowSpecial = false;
-                        bShowUn = false;
-                        bShowGood = true;
+                        this->m_show_errors = false;
+                        this->m_show_warnings = false;
+                        this->m_show_default = false;
+                        this->m_show_special = false;
+                        this->m_show_unimportant = false;
+                        this->m_show_good = true;
                     }
 
                     if (ImGui::MenuItem("Default"))
                     {
-                        bShowErrors = false;
-                        bShowWarnings = false;
-                        bShowDefault = true;
-                        bShowSpecial = false;
-                        bShowUn = false;
-                        bShowGood = false;
+                        this->m_show_errors = false;
+                        this->m_show_warnings = false;
+                        this->m_show_default = true;
+                        this->m_show_special = false;
+                        this->m_show_unimportant = false;
+                        this->m_show_good = false;
                     }
 
                     ImGui::EndMenu();
@@ -137,7 +145,7 @@ void SDKUI_Log::Draw(void)
 
                 if (ImGui::MenuItem("Clear"))
                 {
-                    buff.clear();
+                    this->m_string_buffer.clear();
                 }
 
                 if (ImGui::MenuItem("Close"))
@@ -151,29 +159,30 @@ void SDKUI_Log::Draw(void)
         ImGui::SetScrollHereY();
         ImGui::End();
     }
-}
-
-/*
-    @ UI_Overlay
-*/
-
-void SDKUI_Overlay::Draw(void)
-{
-    if (this->bShow)
+#pragma endregion
+    /*
+        @ UI_Overlay
+    */
+#pragma region Overlay
+    void SDKUI_Overlay::Draw(void)
     {
+        if (!this->m_is_visible)
+            return;
+
         ImGui::SetNextWindowPos(ImVec2(30, 30), ImGuiCond_Once);
-        if (ImGui::Begin("Overlay", &this->bShow, ImVec2(200, 500), 0.005f, flag))
+        if (ImGui::Begin("Overlay", &this->m_is_visible, ImVec2(200, 500), 0.005f, this->m_flag))
         {
-            if (bShowOnlySDKInfo)
+            if (this->m_showonly_sdkinfo)
             {
                 ImGui::Text("Editor - \n"); // @ Сделать нормальный вывод и того в каком редакторе мы сейчас находимся
                 ImGui::Text("FPS: %d \n");
             }
 
-            if (bShowOnlyProjectInfo)
+            if (this->m_showonly_projectinfo)
             {
-                if (bShowOnlySDKInfo)
+                if (this->m_showonly_sdkinfo)
                     ImGui::Separator();
+
                 if (ImGui::TreeNode("Project info:"))
                 {
                     ImGui::Text("Scene name: \n");
@@ -191,11 +200,20 @@ void SDKUI_Overlay::Draw(void)
                     {
                         if (ImGui::TreeNode("Grid:"))
                         {
-                            ImGui::ColorEdit3("Grid Color", GridOptions::col);
-                            ImGui::ColorEdit4("Background Scene color: ", GridOptions::col_background);
+                            if (ImGui::ColorEdit3("Grid Color", GridOptions::col))
+                            {
+                                SDKUI::UI().setHoveredColorEdit(true);
+                            }
+
+                            if (ImGui::ColorEdit4("Background Scene color: ", GridOptions::col_background))
+                            {
+                                SDKUI::UI().setHoveredColorEdit(true);
+                            }
+
+
                             static xr_string a = "100|10";
-                            ImGui::SliderInt("Grid Type", &this->iGridType, 0, 5, a.c_str());
-                            switch (this->iGridType)
+                            ImGui::SliderInt("Grid Type", &this->m_gridtype, 0, 5, a.c_str());
+                            switch (this->m_gridtype)
                             {
                             case 0:
                             {
@@ -248,13 +266,13 @@ void SDKUI_Overlay::Draw(void)
                     {
                         if (ImGui::Button("Start Location"))
                         {
-                            this->vSavedPosition = Device.vCameraPosition;
+                            this->m_savedposition = Device.vCameraPosition;
                             Device.vCameraPosition.set(0, 0, 0);
                         }
 
                         if (ImGui::Button("Previous Location"))
                         {
-                            Device.vCameraPosition.set(this->vSavedPosition);
+                            Device.vCameraPosition.set(this->m_savedposition);
                         }
 
                         ImGui::TreePop();
@@ -267,15 +285,13 @@ void SDKUI_Overlay::Draw(void)
                         ImGui::TreePop();
                     }
 
-
                     ImGui::TreePop();
                 }
-               
             }
 
-            if (bShowOnlySysInfo)
+            if (this->m_showonly_sysinfo)
             {
-                if (bShowOnlyProjectInfo || bShowOnlySDKInfo)
+                if (this->m_showonly_projectinfo || this->m_showonly_sdkinfo)
                     ImGui::Separator();
 
                 std::chrono::system_clock::time_point x = std::chrono::system_clock::now();
@@ -295,23 +311,23 @@ void SDKUI_Overlay::Draw(void)
                 {
                     if (ImGui::MenuItem("SDK info"))
                     {
-                        bShowOnlySDKInfo = true;
-                        bShowOnlyProjectInfo = false;
-                        bShowOnlySysInfo = false;
+                        this->m_showonly_sdkinfo = true;
+                        this->m_showonly_projectinfo = false;
+                        this->m_showonly_sysinfo = false;
                     }
 
                     if (ImGui::MenuItem("Project info"))
                     {
-                        bShowOnlyProjectInfo = true;
-                        bShowOnlySysInfo = false;
-                        bShowOnlySDKInfo = false;
+                        this->m_showonly_projectinfo = true;
+                        this->m_showonly_sysinfo = false;
+                        this->m_showonly_sdkinfo = false;
                     }
 
                     if (ImGui::MenuItem("System info"))
                     {
-                        bShowOnlySysInfo = true;
-                        bShowOnlySDKInfo = false;
-                        bShowOnlyProjectInfo = false;
+                        this->m_showonly_sysinfo = true;
+                        this->m_showonly_sdkinfo = false;
+                        this->m_showonly_projectinfo = false;
                     }
 
                     ImGui::EndMenu();
@@ -321,22 +337,22 @@ void SDKUI_Overlay::Draw(void)
                 {
                     if (ImGui::MenuItem("All"))
                     {
-                        bShowOnlySysInfo = true;
-                        bShowOnlySDKInfo = true;
-                        bShowOnlyProjectInfo = true;
+                        this->m_showonly_sysinfo = true;
+                        this->m_showonly_sdkinfo = true;
+                        this->m_showonly_projectinfo = true;
                     }
 
                     if (ImGui::MenuItem("SDK Info"))
                     {
-                        bShowOnlySDKInfo = true;
+                        this->m_showonly_sdkinfo = true;
                     }
                     if (ImGui::MenuItem("Project info"))
                     {
-                        bShowOnlyProjectInfo = true;
+                        this->m_showonly_projectinfo = true;
                     }
                     if (ImGui::MenuItem("System info"))
                     {
-                        bShowOnlySysInfo = true;
+                        this->m_showonly_sysinfo = true;
                     }
 
                     ImGui::EndMenu();
@@ -346,22 +362,22 @@ void SDKUI_Overlay::Draw(void)
                 {
                     if (ImGui::MenuItem("SDK Info"))
                     {
-                        bShowOnlySDKInfo = false;
+                        this->m_showonly_sdkinfo = false;
                     }
                     if (ImGui::MenuItem("Project info"))
                     {
-                        bShowOnlyProjectInfo = false;
+                        this->m_showonly_projectinfo = false;
                     }
                     if (ImGui::MenuItem("System info"))
                     {
-                        bShowOnlySysInfo = false;
+                        this->m_showonly_sysinfo = false;
                     }
                     ImGui::EndMenu();
                 }
 
                 if (ImGui::MenuItem("Close"))
                 {
-                    bShow = false;
+                    this->m_is_visible = false;
                 }
 
                 ImGui::EndPopup();
@@ -369,14 +385,15 @@ void SDKUI_Overlay::Draw(void)
         }
         ImGui::End();
     }
-}
+#pragma endregion
 
-void SDKUI_CameraHelper::Draw(void)
-{
-    //   ImGuiWindowFlags flag =
-    if (this->bShow)
+#pragma region CameraHelper
+    void SDKUI_CameraHelper::Draw(void)
     {
-        if (ImGui::Begin("Camera Manager", &this->bShow, ImGuiWindowFlags_AlwaysAutoResize))
+        if (!this->m_is_visible)
+            return;
+
+        if (ImGui::Begin("Camera Manager", &this->m_is_visible, ImGuiWindowFlags_AlwaysAutoResize))
         {
             ImGui::Text("Position:");
             ImGui::DragFloat("PosX", &Device.vCameraPosition.x, 1.0f);
@@ -410,5 +427,24 @@ void SDKUI_CameraHelper::Draw(void)
         }
 
         ImGui::End();
+    }
+#pragma endregion
+
+#pragma region SceneOptions
+    SDKUI_SceneOptions::~SDKUI_SceneOptions(void) {}
+
+    void SDKUI_SceneOptions::Draw(void)
+    {
+        if (!this->m_is_visible)
+            return;
+
+        if (ImGui::Begin("Scene Preferences", &this->m_is_visible, this->m_flag))
+        {
+            ImGui::End();
+        }
+    }
+
+#pragma endregion
+
     }
 }

@@ -21,11 +21,12 @@
 #define DU_DRAW_DP RCache.dbg_DP
 #endif
 #include "SDK_GizmoMove.h"
-// @ Lord: Вот это всё в какую-нибудь структуру 
+// @ Lord: Вот это всё в какую-нибудь структуру
 extern int g_size_gizmoline;
 constexpr unsigned int g_gizmo_x_color = D3DCOLOR_ARGB(255, 255, 0, 0);
 constexpr unsigned int g_gizmo_y_color = D3DCOLOR_ARGB(255, 0, 255, 0);
 constexpr unsigned int g_gizmo_z_color = D3DCOLOR_ARGB(255, 0, 0, 255);
+constexpr unsigned int g_gizmo_box_color = D3DCOLOR_RGBA(150, 150, 150, 255);
 constexpr unsigned int g_gizmo_selectedcolor = D3DCOLOR_ARGB(255, 255, 255, 0);
 
 struct SPrimitiveBuffer
@@ -52,16 +53,6 @@ struct SPrimitiveBuffer
 //----------------------------------------------------
 class ECORE_API CDrawUtilities : public CDUInterface, public pureRender
 {
-    SPrimitiveBuffer m_SolidCone;
-    SPrimitiveBuffer m_WireCone;
-    SPrimitiveBuffer m_SolidSphere;
-    SPrimitiveBuffer m_WireSphere;
-    SPrimitiveBuffer m_SolidSpherePart;
-    SPrimitiveBuffer m_WireSpherePart;
-    SPrimitiveBuffer m_SolidCylinder;
-    SPrimitiveBuffer m_WireCylinder;
-    SPrimitiveBuffer m_SolidBox;
-    SPrimitiveBuffer m_WireBox;
     CGameFont* m_Font;
 
 public:
@@ -158,11 +149,11 @@ public:
         box.getcenter(C);
         DrawSelectionBox(C, S, c);
     }
-    virtual void __stdcall DrawIdentSphere(BOOL bSolid, BOOL bWire, u32 clr_s, u32 clr_w);
+    virtual void __stdcall DrawIdentSphere(const Fmatrix&, bool selected = false);
     virtual void __stdcall DrawIdentSpherePart(BOOL bSolid, BOOL bWire, u32 clr_s, u32 clr_w);
     virtual void __stdcall DrawIdentCone(BOOL bSolid, BOOL bWire, u32 clr_s, u32 clr_w);
     virtual void __stdcall DrawIdentCylinder(BOOL bSolid, BOOL bWire, u32 clr_s, u32 clr_w);
-    virtual void __stdcall DrawIdentBox(BOOL bSolid, BOOL bWire, u32 clr_s, u32 clr_w);
+    virtual void __stdcall DrawIdentBox(const Fmatrix& position, bool selected = false);
 
     virtual void __stdcall DrawBox(
         const Fvector& offs, const Fvector& Size, BOOL bSolid, BOOL bWire, u32 clr_s, u32 clr_w);
@@ -212,6 +203,7 @@ public:
     void DrawGizmoLine(const Fvector& start, const Fvector& end, u32 clr);
     void DrawGizmoPlane(const Fvector* points, u32 clr_left, u32 clr_right);
     void DrawGizmoMove(const Fvector& pos);
+    void DrawGizmoScale(const Fvector& position_object);
 };
 
 struct GridOptions
@@ -221,5 +213,6 @@ struct GridOptions
     static float col_background[4];
 };
 extern ECORE_API CDrawUtilities DUImpl;
+extern float some_factor_test; // @ Lord destroy it
 //----------------------------------------------------
 #endif /*_INCDEF_D3DUtils_H_*/

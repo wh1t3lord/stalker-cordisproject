@@ -9,7 +9,7 @@ namespace FVF
 struct L
 {
     Fvector p;
-    u32 color;
+    unsigned int color;
     void set(const L& src) { *this = src; };
 
     void set(float x, float y, float z, u32 C)

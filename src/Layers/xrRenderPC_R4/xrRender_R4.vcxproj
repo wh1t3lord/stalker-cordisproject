@@ -316,6 +316,7 @@
     <ClInclude Include="..\xrRender\xrRender_console.h" />
     <ClInclude Include="..\xrRender\xrStripify.h" />
     <ClInclude Include="..\xrRender\xr_effgamma.h" />
+    <ClInclude Include="Blender_2D_UI.h" />
     <ClInclude Include="blender_bloom_build.h" />
     <ClInclude Include="blender_combine.h" />
     <ClInclude Include="blender_deffer_aref.h" />
@@ -364,7 +365,6 @@
     <ClInclude Include="SDKUI.h" />
     <ClInclude Include="SDKUI_Helpers.h" />
     <ClInclude Include="SDKUI_ObjectList.h" />
-    <ClInclude Include="SDKUI_ObjectPrefs.h" />
     <ClInclude Include="SDKUI_ObjectInspector.h" />
     <ClInclude Include="SDKUI_Render.h" />
     <ClInclude Include="SDKUI_RightWindow.h" />
@@ -374,12 +374,14 @@
     <ClInclude Include="SDK_FileSystemState.h" />
     <ClInclude Include="SDK_GizmoManager.h" />
     <ClInclude Include="SDK_GizmoMove.h" />
+    <ClInclude Include="SDK_GizmoScale.h" />
     <ClInclude Include="SDK_IconManager.h" />
     <ClInclude Include="SDK_KeybindingManager.h" />
     <ClInclude Include="SDK_ObjectStaticGeometry.h" />
     <ClInclude Include="SDK_ObjectWayPoint.h" />
     <ClInclude Include="SDK_SceneManager.h" />
     <ClInclude Include="SDK_Settings.h" />
+    <ClInclude Include="SDK_ObjectShape.h" />
     <ClInclude Include="SMAP_Allocator.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="WildMagic\WmlApprGaussPointsFit3.h" />
@@ -538,6 +540,7 @@
     <ClCompile Include="..\xrRender\xrRender_console.cpp" />
     <ClCompile Include="..\xrRender\xrStripify.cpp" />
     <ClCompile Include="..\xrRender\xr_effgamma.cpp" />
+    <ClCompile Include="Blender_2D_UI.cpp" />
     <ClCompile Include="blender_bloom_build.cpp" />
     <ClCompile Include="blender_combine.cpp" />
     <ClCompile Include="blender_deffer_aref.cpp" />
@@ -615,7 +618,6 @@
     <ClCompile Include="SDKUI.cpp" />
     <ClCompile Include="SDKUI_Helpers.cpp" />
     <ClCompile Include="SDKUI_ObjectList.cpp" />
-    <ClCompile Include="SDKUI_ObjectPrefs.cpp" />
     <ClCompile Include="SDKUI_ObjectInspector.cpp" />
     <ClCompile Include="SDKUI_Render.cpp" />
     <ClCompile Include="SDKUI_RightWindow.cpp" />
@@ -625,12 +627,14 @@
     <ClCompile Include="SDK_FileSystemState.cpp" />
     <ClCompile Include="SDK_GizmoManager.cpp" />
     <ClCompile Include="SDK_GizmoMove.cpp" />
+    <ClCompile Include="SDK_GizmoScale.cpp" />
     <ClCompile Include="SDK_IconManager.cpp" />
     <ClCompile Include="SDK_KeybindingManager.cpp" />
     <ClCompile Include="SDK_ObjectStaticGeometry.cpp" />
     <ClCompile Include="SDK_ObjectWayPoint.cpp" />
     <ClCompile Include="SDK_SceneManager.cpp" />
     <ClCompile Include="SDK_Settings.cpp" />
+    <ClCompile Include="SDK_ObjectShape.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>

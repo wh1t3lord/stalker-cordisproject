@@ -1,33 +1,44 @@
 #pragma once
+#include "SDK_SceneManager.h"
 
-class SDKUI_ObjectInspector
+namespace Cordis
 {
-private:
-    SDKUI_ObjectInspector(void) : m_is_visible(true), m_flag(ImGuiWindowFlags_AlwaysAutoResize) // @ Lord bShow(false)!
+    namespace SDK
     {
-    
-    }
-
-public:
-    inline static SDKUI_ObjectInspector& Widget(void) noexcept
+    class SDKUI_ObjectInspector
     {
-        static SDKUI_ObjectInspector instance;
-        return instance;
+        friend class SDK_SceneManager;
+
+    private:
+        SDKUI_ObjectInspector(void) noexcept
+            : m_is_visible(false), m_flag(ImGuiWindowFlags_AlwaysAutoResize) // @ Lord bShow(false)!
+        {
+        }
+
+    public:
+        inline static SDKUI_ObjectInspector& Widget(void) noexcept
+        {
+            static SDKUI_ObjectInspector instance;
+            return instance;
+        }
+
+        SDKUI_ObjectInspector(const SDKUI_ObjectInspector&) = delete;
+        SDKUI_ObjectInspector& operator=(const SDKUI_ObjectInspector&) = delete;
+        SDKUI_ObjectInspector(SDKUI_ObjectInspector&&) = delete;
+        SDKUI_ObjectInspector& operator=(SDKUI_ObjectInspector&&) = delete;
+        ~SDKUI_ObjectInspector(void);
+
+        inline void Show(void) noexcept { this->m_is_visible = true; }
+        inline void Hide(void) noexcept { this->m_is_visible = false; }
+        inline bool IsVisible(void) const noexcept { return this->m_is_visible; }
+
+        void Draw(void);
+
+    private:
+        bool m_is_visible;
+        ImGuiWindowFlags m_flag;
+    };
+
     }
+}
 
-    SDKUI_ObjectInspector(const SDKUI_ObjectInspector&) = delete;
-    SDKUI_ObjectInspector& operator=(const SDKUI_ObjectInspector&) = delete;
-    SDKUI_ObjectInspector(SDKUI_ObjectInspector&&) = delete;
-    SDKUI_ObjectInspector& operator=(SDKUI_ObjectInspector&&) = delete;
-    ~SDKUI_ObjectInspector(void);
-
-    inline void Show(void) noexcept { this->m_is_visible = true; }
-    inline void Hide(void) noexcept { this->m_is_visible = false; }
-    inline bool IsVisible(void) const noexcept { return this->m_is_visible; }
-
-    void Draw(void);
-
-private:
-    bool m_is_visible;
-    ImGuiWindowFlags m_flag;
-};

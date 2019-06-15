@@ -26,7 +26,7 @@ public:
     void MoveRight(float val);
     void MoveUp(float val);
     void Update(void);
-    void MouseRayFromPoint(Fvector&, const Ivector2&);
+    void MouseRayFromPoint(Fvector& direction, const Ivector2& mouse_position);
  //   inline constexpr Fvector GetPosition(void) const { return vPosition; }
 
     inline constexpr Fvector GetDirection(void) const { return vDirection; }
@@ -63,6 +63,11 @@ public:
 
 private:
     float yaw, pitch, roll;
+
+public:
+    float dx, dy;
+
+private:
     Fvector2 lim_yaw, lim_pitch, lim_roll;
 public:
     Fvector vPosition, vDirection, vNormal, vRight;

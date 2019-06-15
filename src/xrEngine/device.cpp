@@ -415,6 +415,9 @@ void CRenderDevice::message_loop()
                 {
                     float dx = event.motion.xrel;
                     float dy = event.motion.yrel;
+
+                    SDK_Camera::GetInstance().dx = dx;
+                    SDK_Camera::GetInstance().dy = dy;
                     if (bDrag)
                     {
 
@@ -424,11 +427,13 @@ void CRenderDevice::message_loop()
                         {
                             float d = float(dx) * scale;
                             SDK_Camera::GetInstance().Rotate((d < 0) ? kLEFT : kRIGHT, _abs(d));
+
                         }
                         if (dy)
                         {
                             float d = float(dy) * scale * 3.f / 4.f;
                             SDK_Camera::GetInstance().Rotate((d > 0) ? kUP : kDOWN, _abs(d));
+                            
                         }
                     }
  

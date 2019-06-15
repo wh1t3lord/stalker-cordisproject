@@ -11,6 +11,7 @@
 #include "xr_effgamma.h"
 #include "blender_editor_sdk.h"
 #include "Blender_Editor_Wire.h"
+#include "Blender_2D_UI.h"
 // feedback	for receiving visuals
 class R_feedback
 {
@@ -36,6 +37,7 @@ public:
     bool pmask_wmark;
     blender_editor_sdk* editor_wire;
     blender_editor_sdk* editor_selection;
+    Blender_2D_UI* m_blender_2d_ui;
     CBlender_Editor_Wire* editor_blender_wire;
     ref_shader m_SDKWireShader;
     ref_shader m_SDKSelectionShader;
@@ -239,6 +241,7 @@ public:
     ref_shader m_WireShader;
     ref_shader m_SelectionShader;
     ref_shader m_GizmoShader;
+    ref_shader m_Shader2D;
 
 private:
 #ifndef USE_OGL

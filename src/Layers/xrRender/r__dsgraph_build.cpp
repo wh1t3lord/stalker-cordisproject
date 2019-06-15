@@ -819,13 +819,15 @@ void D3DXRenderBase::OnDeviceDestroy(bool bKeepTextures)
     m_GizmoShader.destroy();
     m_SDKWireShader.destroy();
     m_SDKSelectionShader.destroy();
+    this->m_Shader2D.destroy();
 #pragma region SDK_RESOURCES_DESTROY
     if (FS.IsSDK())
     {
         delete editor_wire;
         delete editor_selection;
         delete this->editor_blender_wire;
-        SDK_Cache::GetInstance().DeleteResources();
+        delete this->m_blender_2d_ui;
+        Cordis::SDK::SDK_Cache::GetInstance().DeleteResources();
     }
 #pragma endregion
     Resources->OnDeviceDestroy(bKeepTextures);
@@ -940,25 +942,27 @@ void D3DXRenderBase::OnDeviceCreate(const char* shName)
     {
         m_WireShader.create("editor" DELIMITER "wire");
         m_SelectionShader.create("editor" DELIMITER "selection");
-        
+       
         // @ Lord подумать над всем этим здесь
      //   this->m_GizmoShader->create()
         if (FS.IsSDK())
         {
             editor_wire = new blender_editor_sdk(false);
             editor_selection = new blender_editor_sdk(true);
+            this->m_blender_2d_ui = new Blender_2D_UI();
             this->editor_blender_wire = new CBlender_Editor_Wire();
             this->editor_blender_wire->bDebug = true;
             m_GizmoShader.create(this->editor_blender_wire);
             m_SDKWireShader.create(editor_wire);
             m_SDKSelectionShader.create(editor_selection);
+            this->m_Shader2D.create(this->m_blender_2d_ui);
         }
 
 
         DUImpl.OnDeviceCreate();
  
     }
-    SDKUI_Render::GetInstance().Initialize();
+    Cordis::SDK::SDKUI_Render::GetInstance().Initialize();
 }
 
 void D3DXRenderBase::Create(SDL_Window* hWnd, u32& dwWidth, u32& dwHeight, float& fWidth_2, float& fHeight_2)

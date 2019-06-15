@@ -22,8 +22,9 @@
 #include "d3dx9.h"
 #pragma warning(pop)
 #endif
-
+#include "SDKUI.h"
 CDrawUtilities DUImpl;
+#include "SDK_GizmoScale.h"
 
 #define LINE_DIVISION 32 // не меньше 6!!!!!
 // for drawing sphere
@@ -38,6 +39,7 @@ const u32 boxcolor = D3DCOLOR_RGBA(255, 255, 255, 0);
 static const int boxvertcount = 48;
 static Fvector boxvert[boxvertcount];
 int g_size_gizmoline = 15;
+float some_factor_test = 0.0f;
 #ifdef _EDITOR
 #define DU_DRAW_RS dxRenderDeviceRender::Instance().SetRS
 #define DU_DRAW_SH_C(a, c)                                              \
@@ -114,16 +116,62 @@ static FLvertexVec m_GridPoints;
 u32 m_ColorAxis = 0xff000000;
 u32 m_ColorGrid = 0xff909090;
 u32 m_ColorGridTh = 0xffb4b4b4;
-u32 m_SelectionRect = D3DCOLOR_RGBA(127, 255, 127, 64);
+u32 m_SelectionRect = D3DCOLOR_RGBA(60, 255, 60, 50);
 
 u32 m_ColorSafeRect = 0xffB040B0;
 
 void SPrimitiveBuffer::CreateFromData(
     D3DPRIMITIVETYPE _pt, u32 _p_cnt, u32 FVF, LPVOID vertices, u32 _v_cnt, u16* indices, u32 _i_cnt)
 {
-#if defined(USE_DX10) || defined(USE_DX11) || defined(USE_OGL)
-//  TODO: DX10: Implement SPrimitiveBuffer::CreateFromData for DX10
-//  VERIFY(!"SPrimitiveBuffer::CreateFromData not implemented for dx10");
+#if defined(USE_DX11) || defined(USE_OGL)
+    HRESULT handle_result;
+
+    ID3DVertexBuffer* p_vertexbuffer = nullptr;
+    D3D11_BUFFER_DESC buffer_desc = {0};
+    buffer_desc.Usage = D3D11_USAGE_DEFAULT;
+    buffer_desc.ByteWidth = sizeof(FVF::L) * _v_cnt;
+    buffer_desc.CPUAccessFlags = NULL;
+    buffer_desc.MiscFlags = NULL;
+
+    D3D11_SUBRESOURCE_DATA buffer_data = {0};
+    buffer_data.pSysMem = vertices;
+
+    handle_result = HW.pDevice->CreateBuffer(&buffer_desc, &buffer_data, &p_vertexbuffer);
+    if (FAILED(handle_result))
+    {
+        R_ASSERT2(false, "Can't create a vertex buffer!");
+    }
+
+    ID3DIndexBuffer* p_indexbuffer = nullptr;
+    if (_i_cnt)
+    {
+        D3D11_BUFFER_DESC index_desc = {0};
+        index_desc.Usage = D3D11_USAGE_DEFAULT;
+        index_desc.ByteWidth = sizeof(unsigned int) * _i_cnt;
+        index_desc.CPUAccessFlags = NULL;
+        index_desc.MiscFlags = NULL;
+
+        D3D11_SUBRESOURCE_DATA index_data = {0};
+        index_data.pSysMem = indices;
+
+        handle_result = HW.pDevice->CreateBuffer(&index_desc, &index_data, &p_indexbuffer);
+        if (FAILED(handle_result))
+        {
+            R_ASSERT2(false, "Can't create an index buffer!");
+        }
+        OnRender.bind(this, &SPrimitiveBuffer::RenderDIP);
+    }
+    else
+    {
+        OnRender.bind(this, &SPrimitiveBuffer::RenderDP);
+    }
+
+    this->i_cnt = _i_cnt;
+    this->p_cnt = p_cnt;
+    this->p_type = _pt;
+    this->v_cnt = _v_cnt;
+    this->pGeom.create(FVF, p_vertexbuffer, p_indexbuffer);
+
 #else //    USE_DX10
     ID3DVertexBuffer* pVB = nullptr;
     ID3DIndexBuffer* pIB = nullptr;
@@ -163,8 +211,8 @@ void SPrimitiveBuffer::Destroy()
 #ifndef USE_OGL
     if (pGeom)
     {
-        HW.stats_manager.decrement_stats_vb(pGeom->vb);
-        HW.stats_manager.decrement_stats_ib(pGeom->ib);
+        //   HW.stats_manager.decrement_stats_vb(pGeom->vb);
+        //  HW.stats_manager.decrement_stats_ib(pGeom->ib);
         _RELEASE(pGeom->vb);
         _RELEASE(pGeom->ib);
         pGeom.destroy();
@@ -238,27 +286,6 @@ void CDrawUtilities::OnDeviceCreate()
 {
     Device.seqRender.Add(this, REG_PRIORITY_LOW - 1000);
 
-    m_SolidBox.CreateFromData(D3DPT_TRIANGLELIST, DU_BOX_NUMFACES, D3DFVF_XYZ | D3DFVF_DIFFUSE, du_box_vertices,
-        DU_BOX_NUMVERTEX, du_box_faces, DU_BOX_NUMFACES * 3);
-    m_SolidCone.CreateFromData(D3DPT_TRIANGLELIST, DU_CONE_NUMFACES, D3DFVF_XYZ | D3DFVF_DIFFUSE, du_cone_vertices,
-        DU_CONE_NUMVERTEX, du_cone_faces, DU_CONE_NUMFACES * 3);
-    m_SolidSphere.CreateFromData(D3DPT_TRIANGLELIST, DU_SPHERE_NUMFACES, D3DFVF_XYZ | D3DFVF_DIFFUSE,
-        du_sphere_vertices, DU_SPHERE_NUMVERTEX, du_sphere_faces, DU_SPHERE_NUMFACES * 3);
-    m_SolidSpherePart.CreateFromData(D3DPT_TRIANGLELIST, DU_SPHERE_PART_NUMFACES, D3DFVF_XYZ | D3DFVF_DIFFUSE,
-        du_sphere_part_vertices, DU_SPHERE_PART_NUMVERTEX, du_sphere_part_faces, DU_SPHERE_PART_NUMFACES * 3);
-    m_SolidCylinder.CreateFromData(D3DPT_TRIANGLELIST, DU_CYLINDER_NUMFACES, D3DFVF_XYZ | D3DFVF_DIFFUSE,
-        du_cylinder_vertices, DU_CYLINDER_NUMVERTEX, du_cylinder_faces, DU_CYLINDER_NUMFACES * 3);
-    m_WireBox.CreateFromData(D3DPT_LINELIST, DU_BOX_NUMLINES, D3DFVF_XYZ | D3DFVF_DIFFUSE, du_box_vertices,
-        DU_BOX_NUMVERTEX, du_box_lines, DU_BOX_NUMLINES * 2);
-    m_WireCone.CreateFromData(D3DPT_LINELIST, DU_CONE_NUMLINES, D3DFVF_XYZ | D3DFVF_DIFFUSE, du_cone_vertices,
-        DU_CONE_NUMVERTEX, du_cone_lines, DU_CONE_NUMLINES * 2);
-    m_WireSphere.CreateFromData(D3DPT_LINELIST, DU_SPHERE_NUMLINES, D3DFVF_XYZ | D3DFVF_DIFFUSE, du_sphere_verticesl,
-        DU_SPHERE_NUMVERTEXL, du_sphere_lines, DU_SPHERE_NUMLINES * 2);
-    m_WireSpherePart.CreateFromData(D3DPT_LINELIST, DU_SPHERE_PART_NUMLINES, D3DFVF_XYZ | D3DFVF_DIFFUSE,
-        du_sphere_part_vertices, DU_SPHERE_PART_NUMVERTEX, du_sphere_part_lines, DU_SPHERE_PART_NUMLINES * 2);
-    m_WireCylinder.CreateFromData(D3DPT_LINELIST, DU_CYLINDER_NUMLINES, D3DFVF_XYZ | D3DFVF_DIFFUSE,
-        du_cylinder_vertices, DU_CYLINDER_NUMVERTEX, du_cylinder_lines, DU_CYLINDER_NUMLINES * 2);
-
     for (int i = 0; i < LINE_DIVISION; i++)
     {
         float angle = M_PI * 2.f * (i / (float)LINE_DIVISION);
@@ -301,16 +328,6 @@ void CDrawUtilities::OnDeviceDestroy()
 {
     Device.seqRender.Remove(this);
     xr_delete(m_Font);
-    m_SolidBox.Destroy();
-    m_SolidCone.Destroy();
-    m_SolidSphere.Destroy();
-    m_SolidSpherePart.Destroy();
-    m_SolidCylinder.Destroy();
-    m_WireBox.Destroy();
-    m_WireCone.Destroy();
-    m_WireSphere.Destroy();
-    m_WireSpherePart.Destroy();
-    m_WireCylinder.Destroy();
 
     vs_L.destroy();
     vs_TL.destroy();
@@ -592,84 +609,136 @@ void CDrawUtilities::DrawRomboid(const Fvector& p, float r, u32 c)
 
 void CDrawUtilities::DrawSound(const Fvector& p, float r, u32 c) { DrawCross(p, r, r, r, r, r, r, c, true); }
 //------------------------------------------------------------------------------
-void CDrawUtilities::DrawIdentCone(BOOL bSolid, BOOL bWire, u32 clr_s, u32 clr_w)
+void CDrawUtilities::DrawIdentCone(BOOL bSolid, BOOL bWire, u32 clr_s, u32 clr_w) { VERIFY("Lord реализовать это!"); }
+
+void CDrawUtilities::DrawIdentSphere(const Fmatrix& transform, bool selected)
 {
-    if (bWire)
+#pragma region GeometryWire
     {
-        DU_DRAW_SH_C(RImplementation.m_WireShader, clr_w);
-        m_WireCone.Render();
+        _VertexStream* stream_vertex = &RCache.Vertex;
+        _IndexStream* stream_index = &RCache.Index;
+        unsigned int v_base;
+        unsigned int i_base;
+
+        FVF::L* pv = (FVF::L*)stream_vertex->Lock(DU_SPHERE_NUMVERTEXL, vs_L->vb_stride, v_base);
+        for (int k = 0; k < DU_SPHERE_NUMVERTEXL; ++k, pv++)
+        {
+            pv->color = Cordis::SDK::ShapesColors::kEdgeColor;
+            pv->p = du_sphere_verticesl[k];
+        }
+        stream_vertex->Unlock(DU_SPHERE_NUMVERTEXL, vs_L->vb_stride);
+
+        WORD* index = stream_index->Lock(DU_SPHERE_NUMLINES * 2, i_base);
+
+        for (int k = 0; k < DU_SPHERE_NUMLINES * 2; ++k, index++)
+            *index = du_sphere_lines[k];
+
+        stream_index->Unlock(DU_SPHERE_NUMLINES * 2);
+        RCache.set_xform_world(transform);
+        RCache.set_Shader(RImplementation.m_WireShader);
+        DU_DRAW_DIP(D3DPT_LINELIST, vs_L, v_base, 0, DU_SPHERE_NUMVERTEXL, i_base, DU_SPHERE_NUMLINES);
     }
-    if (bSolid)
+#pragma endregion
+
+#pragma region GeometrySolid
     {
-        DU_DRAW_SH_C(
-            color_get_A(clr_s) >= 254 ? RImplementation.m_WireShader : RImplementation.m_SelectionShader, clr_s);
-        m_SolidCone.Render();
+        _VertexStream* stream_vertex = &RCache.Vertex;
+        _IndexStream* stream_index = &RCache.Index;
+        unsigned int v_base;
+        unsigned int i_base;
+
+        FVF::L* buffer_vertex = (FVF::L*)stream_vertex->Lock(DU_SPHERE_NUMVERTEX, vs_L->vb_stride, v_base);
+
+        for (int k = 0; k < DU_SPHERE_NUMVERTEX; ++k, buffer_vertex++)
+        {
+            buffer_vertex->color = Cordis::SDK::ShapesColors::kTransparentColor;
+            buffer_vertex->p = du_sphere_vertices[k];
+        }
+
+        stream_vertex->Unlock(DU_SPHERE_NUMVERTEX, vs_L->vb_stride);
+
+        WORD* buffer_index = stream_index->Lock(DU_SPHERE_NUMFACES * 3, i_base);
+
+        for (int k = 0; k < DU_SPHERE_NUMFACES * 3; ++k, buffer_index++)
+            *buffer_index = du_sphere_faces[k];
+
+        stream_index->Unlock(DU_SPHERE_NUMFACES * 3);
+
+        RCache.set_Shader(RImplementation.m_SelectionShader);
+
+        if (selected)
+            RCache.set_c("tfactor", 1, 1, 1, 3);
+
+        DU_DRAW_DIP(D3DPT_TRIANGLELIST, vs_L, v_base, 0, DU_SPHERE_NUMVERTEX, i_base, DU_SPHERE_NUMFACES);
     }
-    DU_DRAW_RS(D3DRS_TEXTUREFACTOR, 0xffffffff);
+#pragma endregion
 }
 
-void CDrawUtilities::DrawIdentSphere(BOOL bSolid, BOOL bWire, u32 clr_s, u32 clr_w)
-{
-    if (bWire)
-    {
-        DU_DRAW_SH_C(RImplementation.m_WireShader, clr_w);
-        m_WireSphere.Render();
-    }
-    if (bSolid)
-    {
-        DU_DRAW_SH_C(
-            color_get_A(clr_s) >= 254 ? RImplementation.m_WireShader : RImplementation.m_SelectionShader, clr_s);
-        m_SolidSphere.Render();
-    }
-    DU_DRAW_RS(D3DRS_TEXTUREFACTOR, 0xffffffff);
-}
+void CDrawUtilities::DrawIdentSpherePart(BOOL bSolid, BOOL bWire, u32 clr_s, u32 clr_w) { VERIFY("Lord реализовать!"); }
 
-void CDrawUtilities::DrawIdentSpherePart(BOOL bSolid, BOOL bWire, u32 clr_s, u32 clr_w)
-{
-    if (bWire)
-    {
-        DU_DRAW_SH_C(RImplementation.m_WireShader, clr_w);
-        m_WireSpherePart.Render();
-    }
-    if (bSolid)
-    {
-        DU_DRAW_SH_C(
-            color_get_A(clr_s) >= 254 ? RImplementation.m_WireShader : RImplementation.m_SelectionShader, clr_s);
-        m_SolidSpherePart.Render();
-    }
-    DU_DRAW_RS(D3DRS_TEXTUREFACTOR, 0xffffffff);
-}
+void CDrawUtilities::DrawIdentCylinder(BOOL bSolid, BOOL bWire, u32 clr_s, u32 clr_w) { VERIFY("Lord реализовать!"); }
 
-void CDrawUtilities::DrawIdentCylinder(BOOL bSolid, BOOL bWire, u32 clr_s, u32 clr_w)
+void CDrawUtilities::DrawIdentBox(const Fmatrix& transform, bool selected)
 {
-    if (bWire)
+#pragma region GeometryWire
     {
-        DU_DRAW_SH_C(RImplementation.m_WireShader, clr_w);
-        m_WireCylinder.Render();
-    }
-    if (bSolid)
-    {
-        DU_DRAW_SH_C(
-            color_get_A(clr_s) >= 254 ? RImplementation.m_WireShader : RImplementation.m_SelectionShader, clr_s);
-        m_SolidCylinder.Render();
-    }
-    DU_DRAW_RS(D3DRS_TEXTUREFACTOR, 0xffffffff);
-}
+        _VertexStream* stream = &RCache.Vertex;
+        _IndexStream* stream_index = &RCache.Index;
+        unsigned int v_base;
+        unsigned int i_base;
 
-void CDrawUtilities::DrawIdentBox(BOOL bSolid, BOOL bWire, u32 clr_s, u32 clr_w)
-{
-    if (bWire)
-    {
-        DU_DRAW_SH_C(RImplementation.m_WireShader, clr_w);
-        m_WireBox.Render();
+        FVF::L* pv = (FVF::L*)stream->Lock(DU_BOX_NUMVERTEX, vs_L->vb_stride, v_base);
+
+        for (int k = 0; k < DU_BOX_NUMVERTEX; ++k, pv++)
+            *pv = du_box_vertices[k];
+
+        stream->Unlock(DU_BOX_NUMVERTEX, vs_L->vb_stride);
+
+        WORD* i = stream_index->Lock(DU_BOX_NUMLINES * 2, i_base);
+
+        for (int k = 0; k < DU_BOX_NUMLINES * 2; ++k, i++)
+            *i = du_box_lines[k];
+
+        stream_index->Unlock(DU_BOX_NUMLINES * 2);
+
+        RCache.set_xform_world(transform);
+        RCache.set_Shader(RImplementation.m_WireShader);
+        DU_DRAW_DIP(D3DPT_LINELIST, vs_L, v_base, 0, DU_BOX_NUMVERTEX, i_base, DU_BOX_NUMLINES);
     }
-    if (bSolid)
+
+#pragma endregion
+
+#pragma region GeometrySolid
     {
-        DU_DRAW_SH_C(
-            color_get_A(clr_s) >= 254 ? RImplementation.m_WireShader : RImplementation.m_SelectionShader, clr_s);
-        m_SolidBox.Render();
+        _VertexStream* stream_vertex = &RCache.Vertex;
+        _IndexStream* stream_index = &RCache.Index;
+        unsigned int v_base;
+        unsigned int i_base;
+
+        FVF::L* pv = (FVF::L*)stream_vertex->Lock(DU_BOX_NUMVERTEX, vs_L->vb_stride, v_base);
+
+        for (int k = 0; k < DU_BOX_NUMVERTEX; ++k, pv++)
+        {
+            pv->color = Cordis::SDK::ShapesColors::kTransparentColor;
+            pv->p = du_box_vertices[k].p;
+        }
+
+        stream_vertex->Unlock(DU_BOX_NUMVERTEX, vs_L->vb_stride);
+
+        WORD* index = stream_index->Lock(36, i_base);
+
+        for (int k = 0; k < 36; ++k, index++)
+            *index = du_box_faces[k];
+
+        stream_index->Unlock(36);
+        RCache.set_Shader(RImplementation.m_SelectionShader);
+
+        if (selected)
+            RCache.set_c("tfactor", 1, 1, 1, 3);
+
+        DU_DRAW_DIP(D3DPT_TRIANGLELIST, vs_L, v_base, 0, 8, i_base, 12);
     }
-    DU_DRAW_RS(D3DRS_TEXTUREFACTOR, 0xffffffff);
+#pragma endregion
 }
 
 void CDrawUtilities::DrawLineSphere(const Fvector& p, float radius, u32 c, BOOL bCross)
@@ -880,7 +949,7 @@ void CDrawUtilities::DrawOBB(const Fmatrix& parent, const Fobb& box, u32 clr_s, 
     X.mul_43(R, S);
     R.mul_43(parent, X);
     RCache.set_xform_world(R);
-    DrawIdentBox(true, true, clr_s, clr_w);
+    DrawIdentBox(R);
 }
 //----------------------------------------------------
 
@@ -892,7 +961,7 @@ void CDrawUtilities::DrawAABB(
     S.translate_over(center);
     R.mul_43(parent, S);
     RCache.set_xform_world(R);
-    DrawIdentBox(bSolid, bWire, clr_s, clr_w);
+    DrawIdentBox(R);
 }
 
 void CDrawUtilities::DrawAABB(const Fvector& p0, const Fvector& p1, u32 clr_s, u32 clr_w, BOOL bSolid, BOOL bWire)
@@ -903,7 +972,7 @@ void CDrawUtilities::DrawAABB(const Fvector& p0, const Fvector& p1, u32 clr_s, u
     R.scale(_abs(p1.x - p0.x), _abs(p1.y - p0.y), _abs(p1.z - p0.z));
     R.translate_over(C);
     RCache.set_xform_world(R);
-    DrawIdentBox(bSolid, bWire, clr_s, clr_w);
+    DrawIdentBox(R);
 }
 
 void CDrawUtilities::DrawSphere(
@@ -913,8 +982,8 @@ void CDrawUtilities::DrawSphere(
     B.scale(radius, radius, radius);
     B.translate_over(center);
     B.mulA_43(parent);
-    RCache.set_xform_world(B);
-    DrawIdentSphere(bSolid, bWire, clr_s, clr_w);
+    // RCache.set_xform_world(B);
+    DrawIdentSphere(B);
 }
 //----------------------------------------------------
 
@@ -1429,21 +1498,38 @@ void CDrawUtilities::DrawSelectionRect(const Ivector2& m_SelStart, const Ivector
     // fill VB
     _VertexStream* Stream = &RCache.Vertex;
     u32 vBase;
-    FVF::TL* pv = (FVF::TL*)Stream->Lock(4, vs_TL->vb_stride, vBase);
-    pv->set(m_SelStart.x * SCREEN_QUALITY, m_SelStart.y * SCREEN_QUALITY, m_SelectionRect, 0.f, 0.f);
+    FVF::L* pv = (FVF::L*)Stream->Lock(6, vs_L->vb_stride, vBase);
+    //     pv->set(m_SelStart.x * SCREEN_QUALITY, m_SelStart.y * SCREEN_QUALITY, 0, m_SelectionRect);
+    //     pv++;
+    //     pv->set(m_SelStart.x * SCREEN_QUALITY, m_SelEnd.y * SCREEN_QUALITY, 0, m_SelectionRect);
+    //     pv++;
+    //     pv->set(m_SelEnd.x * SCREEN_QUALITY, m_SelEnd.y * SCREEN_QUALITY, 0, m_SelectionRect);
+    //     pv++;
+    //     pv->set(m_SelEnd.x * SCREEN_QUALITY, m_SelStart.y * SCREEN_QUALITY, 0, m_SelectionRect);
+    //     pv++;
+    pv->set(m_SelStart.x, m_SelEnd.y, 0.001f, m_SelectionRect); // v0
     pv++;
-    pv->set(m_SelStart.x * SCREEN_QUALITY, m_SelEnd.y * SCREEN_QUALITY, m_SelectionRect, 0.f, 0.f);
+    pv->set(m_SelStart.x, m_SelStart.y, 0.001f, m_SelectionRect); // v1
     pv++;
-    pv->set(m_SelEnd.x * SCREEN_QUALITY, m_SelStart.y * SCREEN_QUALITY, m_SelectionRect, 0.f, 0.f);
+    pv->set(m_SelEnd.x, m_SelEnd.y, 0.001f, m_SelectionRect); // v2
     pv++;
-    pv->set(m_SelEnd.x * SCREEN_QUALITY, m_SelEnd.y * SCREEN_QUALITY, m_SelectionRect, 0.f, 0.f);
+    pv->set(m_SelStart.x, m_SelStart.y, 0.001f, m_SelectionRect); // v1
     pv++;
-    Stream->Unlock(4, vs_TL->vb_stride);
+    pv->set(m_SelEnd.x, m_SelStart.y, 0.001f, m_SelectionRect); // v3
+    pv++;
+    pv->set(m_SelEnd.x, m_SelEnd.y, 0.001f, m_SelectionRect); // v2
+    pv++;
+    Stream->Unlock(6, vs_L->vb_stride);
     // Render it as triangle list
-    DU_DRAW_RS(D3DRS_CULLMODE, D3DCULL_NONE);
-    DU_DRAW_SH(RImplementation.m_SelectionShader);
-    DU_DRAW_DP(D3DPT_TRIANGLESTRIP, vs_TL, vBase, 2);
-    DU_DRAW_RS(D3DRS_CULLMODE, D3DCULL_CCW);
+    Fmatrix world = Fidentity;
+    world.build_projection_orthoOffCentrLH(
+        Cordis::SDK::SDKUI::UI().GetDisplayX(), Cordis::SDK::SDKUI::UI().GetDisplayY(), 0, 1);
+    //  world.transpose();
+    RCache.set_xform_project(Fidentity);
+    RCache.set_xform_view(Fidentity);
+    RCache.set_xform_world(world);
+    RCache.set_Shader(RImplementation.m_Shader2D);
+    DU_DRAW_DP(D3DPT_TRIANGLELIST, vs_L, vBase, 2);
 }
 
 void CDrawUtilities::DrawPrimitiveL(
@@ -1604,126 +1690,399 @@ void CDrawUtilities::DrawGizmoMove(const Fvector& pos)
     {
         for (unsigned int j = 0; j < 4; ++j)
         {
-            GizmoMovePlanes[i].m_points[j] = pos;
+            Cordis::SDK::GizmoMovePlanes[i].m_points[j] = pos;
         }
     }
 
     // @ X
     {
-        GizmoMove[0].m_origin_point = pos;
-        GizmoMove[0].m_origin_point.x += size_gizmoplane;
-        GizmoMove[0].m_end_point = pos;
-        GizmoMove[0].m_end_point.x += size_currentgizmoline;
-        DrawGizmoLine(GizmoMove[0].m_origin_point, GizmoMove[0].m_end_point, GizmoMove[0].m_color_value);
-        this->OutText(GizmoMove[0].m_end_point, "X", D3DCOLOR_ARGB(255, 255, 255, 255));
+        Cordis::SDK::GizmoMove[0].m_origin_point = pos;
+        Cordis::SDK::GizmoMove[0].m_origin_point.x += size_gizmoplane;
+        Cordis::SDK::GizmoMove[0].m_end_point = pos;
+        Cordis::SDK::GizmoMove[0].m_end_point.x += size_currentgizmoline;
+        DrawGizmoLine(Cordis::SDK::GizmoMove[0].m_origin_point, Cordis::SDK::GizmoMove[0].m_end_point,
+            Cordis::SDK::GizmoMove[0].m_color_value);
+        this->OutText(Cordis::SDK::GizmoMove[0].m_end_point, "X", D3DCOLOR_ARGB(255, 255, 255, 255));
 
         // @ Arrows
-        Fvector new_pos = GizmoMove[0].m_end_point;
+        Fvector new_pos = Cordis::SDK::GizmoMove[0].m_end_point;
         new_pos.x -= 1;
 
         new_pos.z -= 0.95;
-        DrawGizmoLine(GizmoMove[0].m_end_point, new_pos, GizmoMove[0].m_color_value);
+        DrawGizmoLine(Cordis::SDK::GizmoMove[0].m_end_point, new_pos, Cordis::SDK::GizmoMove[0].m_color_value);
 
         new_pos.z += 0.95;
         new_pos.z += 0.95;
-        DrawGizmoLine(GizmoMove[0].m_end_point, new_pos, GizmoMove[0].m_color_value);
+        DrawGizmoLine(Cordis::SDK::GizmoMove[0].m_end_point, new_pos, Cordis::SDK::GizmoMove[0].m_color_value);
 
         new_pos.z -= 0.95;
         new_pos.y += 0.95;
-        DrawGizmoLine(GizmoMove[0].m_end_point, new_pos, GizmoMove[0].m_color_value);
+        DrawGizmoLine(Cordis::SDK::GizmoMove[0].m_end_point, new_pos, Cordis::SDK::GizmoMove[0].m_color_value);
 
         new_pos.y -= 0.95;
         new_pos.y -= 0.95;
-        DrawGizmoLine(GizmoMove[0].m_end_point, new_pos, GizmoMove[0].m_color_value);
+        DrawGizmoLine(Cordis::SDK::GizmoMove[0].m_end_point, new_pos, Cordis::SDK::GizmoMove[0].m_color_value);
     }
 
     // @ Y
     {
-        GizmoMove[1].m_origin_point = pos;
-        GizmoMove[1].m_origin_point.y += size_gizmoplane;
-        GizmoMove[1].m_end_point = pos;
-        GizmoMove[1].m_end_point.y += size_currentgizmoline;
+        Cordis::SDK::GizmoMove[1].m_origin_point = pos;
+        Cordis::SDK::GizmoMove[1].m_origin_point.y += size_gizmoplane;
+        Cordis::SDK::GizmoMove[1].m_end_point = pos;
+        Cordis::SDK::GizmoMove[1].m_end_point.y += size_currentgizmoline;
 
-        DrawGizmoLine(GizmoMove[1].m_origin_point, GizmoMove[1].m_end_point, GizmoMove[1].m_color_value);
-        this->OutText(GizmoMove[1].m_end_point, "Y", D3DCOLOR_ARGB(255, 255, 255, 255));
+        DrawGizmoLine(Cordis::SDK::GizmoMove[1].m_origin_point, Cordis::SDK::GizmoMove[1].m_end_point,
+            Cordis::SDK::GizmoMove[1].m_color_value);
+        this->OutText(Cordis::SDK::GizmoMove[1].m_end_point, "Y", D3DCOLOR_ARGB(255, 255, 255, 255));
         // @ Arrows
-        Fvector new_pos = GizmoMove[1].m_end_point;
+        Fvector new_pos = Cordis::SDK::GizmoMove[1].m_end_point;
         new_pos.y -= 1;
 
         new_pos.z -= 0.95;
-        DrawGizmoLine(GizmoMove[1].m_end_point, new_pos, GizmoMove[1].m_color_value);
+        DrawGizmoLine(Cordis::SDK::GizmoMove[1].m_end_point, new_pos, Cordis::SDK::GizmoMove[1].m_color_value);
 
         new_pos.z += 0.95;
         new_pos.z += 0.95;
-        DrawGizmoLine(GizmoMove[1].m_end_point, new_pos, GizmoMove[1].m_color_value);
+        DrawGizmoLine(Cordis::SDK::GizmoMove[1].m_end_point, new_pos, Cordis::SDK::GizmoMove[1].m_color_value);
 
         new_pos.z -= 0.95;
         new_pos.x += 0.95;
-        DrawGizmoLine(GizmoMove[1].m_end_point, new_pos, GizmoMove[1].m_color_value);
+        DrawGizmoLine(Cordis::SDK::GizmoMove[1].m_end_point, new_pos, Cordis::SDK::GizmoMove[1].m_color_value);
 
         new_pos.x -= 0.95;
         new_pos.x -= 0.95;
-        DrawGizmoLine(GizmoMove[1].m_end_point, new_pos, GizmoMove[1].m_color_value);
+        DrawGizmoLine(Cordis::SDK::GizmoMove[1].m_end_point, new_pos, Cordis::SDK::GizmoMove[1].m_color_value);
     }
 
     // @ Z
     {
-        GizmoMove[2].m_origin_point = pos;
-        GizmoMove[2].m_origin_point.z -= size_gizmoplane;
-        GizmoMove[2].m_end_point = pos;
-        GizmoMove[2].m_end_point.z -= size_currentgizmoline;
+        Cordis::SDK::GizmoMove[2].m_origin_point = pos;
+        Cordis::SDK::GizmoMove[2].m_origin_point.z -= size_gizmoplane;
+        Cordis::SDK::GizmoMove[2].m_end_point = pos;
+        Cordis::SDK::GizmoMove[2].m_end_point.z -= size_currentgizmoline;
 
-        DrawGizmoLine(GizmoMove[2].m_origin_point, GizmoMove[2].m_end_point, GizmoMove[2].m_color_value);
-        this->OutText(GizmoMove[2].m_end_point, "Z", D3DCOLOR_ARGB(255, 255, 255, 255));
+        DrawGizmoLine(Cordis::SDK::GizmoMove[2].m_origin_point, Cordis::SDK::GizmoMove[2].m_end_point,
+            Cordis::SDK::GizmoMove[2].m_color_value);
+        this->OutText(Cordis::SDK::GizmoMove[2].m_end_point, "Z", D3DCOLOR_ARGB(255, 255, 255, 255));
         // @ Arrows
-        Fvector new_pos = GizmoMove[2].m_end_point;
+        Fvector new_pos = Cordis::SDK::GizmoMove[2].m_end_point;
         new_pos.z += 1;
 
         new_pos.x -= 0.95;
-        DrawGizmoLine(GizmoMove[2].m_end_point, new_pos, GizmoMove[2].m_color_value);
+        DrawGizmoLine(Cordis::SDK::GizmoMove[2].m_end_point, new_pos, Cordis::SDK::GizmoMove[2].m_color_value);
 
         new_pos.x += 0.95;
         new_pos.x += 0.95;
-        DrawGizmoLine(GizmoMove[2].m_end_point, new_pos, GizmoMove[2].m_color_value);
+        DrawGizmoLine(Cordis::SDK::GizmoMove[2].m_end_point, new_pos, Cordis::SDK::GizmoMove[2].m_color_value);
 
         new_pos.x -= 0.95;
         new_pos.y += 0.95;
-        DrawGizmoLine(GizmoMove[2].m_end_point, new_pos, GizmoMove[2].m_color_value);
+        DrawGizmoLine(Cordis::SDK::GizmoMove[2].m_end_point, new_pos, Cordis::SDK::GizmoMove[2].m_color_value);
 
         new_pos.y -= 0.95;
         new_pos.y -= 0.95;
-        DrawGizmoLine(GizmoMove[2].m_end_point, new_pos, GizmoMove[2].m_color_value);
+        DrawGizmoLine(Cordis::SDK::GizmoMove[2].m_end_point, new_pos, Cordis::SDK::GizmoMove[2].m_color_value);
     }
 
     // @ XY
     {
-        GizmoMovePlanes[0].m_points[1].y += size_gizmoplane;
-        GizmoMovePlanes[0].m_points[2].y += size_gizmoplane;
-        GizmoMovePlanes[0].m_points[2].x += size_gizmoplane;
-        GizmoMovePlanes[0].m_points[3].x += size_gizmoplane;
+        Cordis::SDK::GizmoMovePlanes[0].m_points[1].y += size_gizmoplane;
+        Cordis::SDK::GizmoMovePlanes[0].m_points[2].y += size_gizmoplane;
+        Cordis::SDK::GizmoMovePlanes[0].m_points[2].x += size_gizmoplane;
+        Cordis::SDK::GizmoMovePlanes[0].m_points[3].x += size_gizmoplane;
 
-        this->DrawGizmoPlane(GizmoMovePlanes[0].m_points, GizmoMovePlanes[0].m_color_left_value, GizmoMovePlanes[0].m_color_right_value);
+        this->DrawGizmoPlane(Cordis::SDK::GizmoMovePlanes[0].m_points,
+            Cordis::SDK::GizmoMovePlanes[0].m_color_left_value, Cordis::SDK::GizmoMovePlanes[0].m_color_right_value);
     }
 
     // @ ZY
     {
-        GizmoMovePlanes[1].m_points[1].y += size_gizmoplane;
-        GizmoMovePlanes[1].m_points[2].y += size_gizmoplane;
-        GizmoMovePlanes[1].m_points[2].z -= size_gizmoplane;
-        GizmoMovePlanes[1].m_points[3].z -= size_gizmoplane;
+        Cordis::SDK::GizmoMovePlanes[1].m_points[1].y += size_gizmoplane;
+        Cordis::SDK::GizmoMovePlanes[1].m_points[2].y += size_gizmoplane;
+        Cordis::SDK::GizmoMovePlanes[1].m_points[2].z -= size_gizmoplane;
+        Cordis::SDK::GizmoMovePlanes[1].m_points[3].z -= size_gizmoplane;
 
-        this->DrawGizmoPlane(GizmoMovePlanes[1].m_points, GizmoMovePlanes[1].m_color_left_value, GizmoMovePlanes[1].m_color_right_value);
+        this->DrawGizmoPlane(Cordis::SDK::GizmoMovePlanes[1].m_points,
+            Cordis::SDK::GizmoMovePlanes[1].m_color_left_value, Cordis::SDK::GizmoMovePlanes[1].m_color_right_value);
     }
 
     // @ XZ
     {
-        GizmoMovePlanes[2].m_points[1].x += size_gizmoplane;
-        GizmoMovePlanes[2].m_points[2].x += size_gizmoplane;
-        GizmoMovePlanes[2].m_points[2].z -= size_gizmoplane;
-        GizmoMovePlanes[2].m_points[3].z -= size_gizmoplane;
+        Cordis::SDK::GizmoMovePlanes[2].m_points[1].x += size_gizmoplane;
+        Cordis::SDK::GizmoMovePlanes[2].m_points[2].x += size_gizmoplane;
+        Cordis::SDK::GizmoMovePlanes[2].m_points[2].z -= size_gizmoplane;
+        Cordis::SDK::GizmoMovePlanes[2].m_points[3].z -= size_gizmoplane;
 
-        this->DrawGizmoPlane(GizmoMovePlanes[2].m_points, GizmoMovePlanes[2].m_color_left_value, GizmoMovePlanes[2].m_color_right_value);
+        this->DrawGizmoPlane(Cordis::SDK::GizmoMovePlanes[2].m_points,
+            Cordis::SDK::GizmoMovePlanes[2].m_color_left_value, Cordis::SDK::GizmoMovePlanes[2].m_color_right_value);
     }
+}
+
+void CDrawUtilities::DrawGizmoScale(const Fvector& position_object)
+{
+    float size_gizmoplane = g_size_gizmoline / 5;
+    for (unsigned int i = 0; i < 9; ++i)
+    {
+        for (unsigned int j = 0; j < 4; ++j)
+        {
+            Cordis::SDK::g_gizmo_planes_scale[i].m_points[j] = position_object;
+        }
+    }
+
+#pragma region Lines
+    // @ X
+    {
+        Cordis::SDK::SDK_GizmoScale& line_x = Cordis::SDK::g_gizmo_lines_scale[0];
+        line_x.m_origin_point = position_object;
+        line_x.m_end_point = position_object;
+        line_x.m_origin_point.x += size_gizmoplane;
+        line_x.m_end_point.x += g_size_gizmoline;
+        line_x.m_origin_point.z -= size_gizmoplane / 2;
+        line_x.m_origin_point.y += size_gizmoplane / 2;
+        line_x.m_end_point.y += size_gizmoplane / 2;
+        line_x.m_end_point.z -= size_gizmoplane / 2;
+
+        this->DrawGizmoLine(line_x.m_origin_point, line_x.m_end_point, line_x.m_color);
+        this->OutText(line_x.m_end_point, "X", D3DCOLOR_RGBA(255, 255, 255, 255));
+    }
+
+    // @ Y
+    {
+        Cordis::SDK::SDK_GizmoScale& line_y = Cordis::SDK::g_gizmo_lines_scale[1];
+        line_y.m_origin_point = position_object;
+        line_y.m_end_point = position_object;
+        line_y.m_origin_point.y += size_gizmoplane;
+        line_y.m_origin_point.x += size_gizmoplane / 2;
+        line_y.m_origin_point.z -= size_gizmoplane / 2;
+        line_y.m_end_point.y += g_size_gizmoline;
+        line_y.m_end_point.x += size_gizmoplane / 2;
+        line_y.m_end_point.z -= size_gizmoplane / 2;
+        this->DrawGizmoLine(line_y.m_origin_point, line_y.m_end_point, line_y.m_color);
+        this->OutText(line_y.m_end_point, "Y", D3DCOLOR_RGBA(255,255,255,255));
+    }
+
+    // @ Z
+    {
+        Cordis::SDK::SDK_GizmoScale& line_z = Cordis::SDK::g_gizmo_lines_scale[2];
+        line_z.m_origin_point = position_object;
+        line_z.m_end_point = position_object;
+        line_z.m_origin_point.z -= size_gizmoplane;
+        line_z.m_end_point.z -= g_size_gizmoline;
+        line_z.m_origin_point.x += size_gizmoplane / 2;
+        line_z.m_origin_point.y += size_gizmoplane / 2;
+        line_z.m_end_point.y += size_gizmoplane / 2;
+        line_z.m_end_point.x += size_gizmoplane / 2;
+        this->DrawGizmoLine(line_z.m_origin_point, line_z.m_end_point, line_z.m_color);
+        this->OutText(line_z.m_end_point, "Z", D3DCOLOR_RGBA(255, 255, 255, 255));
+    }
+#pragma endregion
+
+#pragma region AxisPlanes
+    {
+        Cordis::SDK::SDK_GizmoScalePlane& plane_x = Cordis::SDK::g_gizmo_planes_scale[0];
+        plane_x.m_points[0].x += size_gizmoplane + (size_gizmoplane);
+        plane_x.m_points[0].y += size_gizmoplane + (size_gizmoplane);
+        plane_x.m_points[1].x += size_gizmoplane + (size_gizmoplane);
+        plane_x.m_points[1].y += size_gizmoplane + size_gizmoplane + (size_gizmoplane);
+        plane_x.m_points[2] = plane_x.m_points[1];
+        plane_x.m_points[2].x += size_gizmoplane;
+        plane_x.m_points[3] = plane_x.m_points[0];
+        plane_x.m_points[3].x += size_gizmoplane;
+
+        _VertexStream* stream_vertex = &RCache.Vertex;
+        unsigned int base_vertex;
+
+        FVF::L* buffer_vertex = (FVF::L*)stream_vertex->Lock(5, vs_L->vb_stride, base_vertex);
+
+        for (unsigned int i = 0; i < 4; ++i, ++buffer_vertex)
+            buffer_vertex->set(plane_x.m_points[i], plane_x.m_color);
+
+        buffer_vertex->set(plane_x.m_points[0], plane_x.m_color);
+        buffer_vertex++;
+        stream_vertex->Unlock(5, vs_L->vb_stride);
+
+        RCache.set_Shader(RImplementation.m_GizmoShader);
+        DU_DRAW_DP(D3DPT_LINESTRIP, vs_L, base_vertex, 4);
+    }
+
+    {
+        Cordis::SDK::SDK_GizmoScalePlane& plane_y = Cordis::SDK::g_gizmo_planes_scale[2];
+        plane_y.m_points[0].z -= size_gizmoplane + (size_gizmoplane);
+        plane_y.m_points[0].y += size_gizmoplane + (size_gizmoplane);
+        plane_y.m_points[1].z -= size_gizmoplane + (size_gizmoplane);
+        plane_y.m_points[1].y += size_gizmoplane + size_gizmoplane + (size_gizmoplane);
+        plane_y.m_points[2] = plane_y.m_points[1];
+        plane_y.m_points[2].z -= size_gizmoplane;
+        plane_y.m_points[3] = plane_y.m_points[0];
+        plane_y.m_points[3].z -= size_gizmoplane;
+
+        _VertexStream* stream_vertex = &RCache.Vertex;
+        unsigned int base_vertex;
+
+        FVF::L* buffer_vertex = (FVF::L*)stream_vertex->Lock(5, vs_L->vb_stride, base_vertex);
+
+        for (unsigned int i = 0; i < 4; ++i, ++buffer_vertex)
+            buffer_vertex->set(plane_y.m_points[i], plane_y.m_color);
+
+        buffer_vertex->set(plane_y.m_points[0], plane_y.m_color);
+        buffer_vertex++;
+        stream_vertex->Unlock(5, vs_L->vb_stride);
+
+        RCache.set_Shader(RImplementation.m_GizmoShader);
+        DU_DRAW_DP(D3DPT_LINESTRIP, vs_L, base_vertex, 4);
+    }
+
+    {
+        Cordis::SDK::SDK_GizmoScalePlane& plane_z = Cordis::SDK::g_gizmo_planes_scale[1];
+        plane_z.m_points[0].z -= size_gizmoplane + (size_gizmoplane);
+        plane_z.m_points[0].x += size_gizmoplane + (size_gizmoplane);
+        plane_z.m_points[1].z -= size_gizmoplane + (size_gizmoplane);
+        plane_z.m_points[1].x += size_gizmoplane + size_gizmoplane + (size_gizmoplane);
+        plane_z.m_points[2] = plane_z.m_points[1];
+        plane_z.m_points[2].z -= size_gizmoplane;
+        plane_z.m_points[3] = plane_z.m_points[0];
+        plane_z.m_points[3].z -= size_gizmoplane;
+
+        _VertexStream* stream_vertex = &RCache.Vertex;
+        unsigned int base_vertex;
+
+        FVF::L* buffer_vertex = (FVF::L*)stream_vertex->Lock(5, vs_L->vb_stride, base_vertex);
+
+        for (unsigned int i = 0; i < 4; ++i, ++buffer_vertex)
+            buffer_vertex->set(plane_z.m_points[i], plane_z.m_color);
+
+        buffer_vertex->set(plane_z.m_points[0], plane_z.m_color);
+        buffer_vertex++;
+        stream_vertex->Unlock(5, vs_L->vb_stride);
+
+        RCache.set_Shader(RImplementation.m_GizmoShader);
+        DU_DRAW_DP(D3DPT_LINESTRIP, vs_L, base_vertex, 4);
+    }
+#pragma endregion
+
+#pragma region BOX
+    {
+        Cordis::SDK::SDK_GizmoScalePlane& first_plane = Cordis::SDK::g_gizmo_planes_scale[3];
+        first_plane.m_points[0].x += size_gizmoplane;
+        first_plane.m_points[1].x += size_gizmoplane;
+        first_plane.m_points[1].y += size_gizmoplane;
+        first_plane.m_points[2].x += size_gizmoplane;
+        first_plane.m_points[2].y += size_gizmoplane;
+        first_plane.m_points[2].z -= size_gizmoplane;
+        first_plane.m_points[3].x += size_gizmoplane;
+        first_plane.m_points[3].z -= size_gizmoplane;
+
+        Cordis::SDK::SDK_GizmoScalePlane& second_plane = Cordis::SDK::g_gizmo_planes_scale[4];
+        second_plane.m_points[0].x += size_gizmoplane;
+        second_plane.m_points[0].z -= size_gizmoplane;
+        second_plane.m_points[1].z -= size_gizmoplane;
+        second_plane.m_points[2].z -= size_gizmoplane;
+        second_plane.m_points[2].y += size_gizmoplane;
+        second_plane.m_points[3].x += size_gizmoplane;
+        second_plane.m_points[3].y += size_gizmoplane;
+        second_plane.m_points[3].z -= size_gizmoplane;
+
+        Cordis::SDK::SDK_GizmoScalePlane& third_plane = Cordis::SDK::g_gizmo_planes_scale[5];
+        third_plane.m_points[1].z -= size_gizmoplane;
+        third_plane.m_points[2].z -= size_gizmoplane;
+        third_plane.m_points[2].y += size_gizmoplane;
+        third_plane.m_points[3].y += size_gizmoplane;
+
+        Cordis::SDK::SDK_GizmoScalePlane& fourth_plane = Cordis::SDK::g_gizmo_planes_scale[6];
+        fourth_plane.m_points[1].x += size_gizmoplane;
+        fourth_plane.m_points[2].x += size_gizmoplane;
+        fourth_plane.m_points[2].y += size_gizmoplane;
+        fourth_plane.m_points[3].y += size_gizmoplane;
+
+        Cordis::SDK::SDK_GizmoScalePlane& fifth_plane = Cordis::SDK::g_gizmo_planes_scale[7];
+        fifth_plane.m_points[1].x += size_gizmoplane;
+        fifth_plane.m_points[2].x += size_gizmoplane;
+        fifth_plane.m_points[2].z -= size_gizmoplane;
+        fifth_plane.m_points[3].z -= size_gizmoplane;
+
+        Cordis::SDK::SDK_GizmoScalePlane& sixth_plane = Cordis::SDK::g_gizmo_planes_scale[8];
+        sixth_plane.m_points[0].y += size_gizmoplane;
+        sixth_plane.m_points[1].x += size_gizmoplane;
+        sixth_plane.m_points[1].y += size_gizmoplane;
+        sixth_plane.m_points[2].x += size_gizmoplane;
+        sixth_plane.m_points[2].y += size_gizmoplane;
+        sixth_plane.m_points[2].z -= size_gizmoplane;
+        sixth_plane.m_points[3].z -= size_gizmoplane;
+        sixth_plane.m_points[3].y += size_gizmoplane;
+
+        _VertexStream* stream_vertex = &RCache.Vertex;
+        unsigned int vertex_base;
+        FVF::L* buffer_vertex = (FVF::L*)stream_vertex->Lock(30, vs_L->vb_stride, vertex_base);
+
+        for (unsigned int i = 0; i < 4; ++i, ++buffer_vertex)
+            buffer_vertex->set(first_plane.m_points[i], first_plane.m_color);
+        
+
+        buffer_vertex->set(first_plane.m_points[0], first_plane.m_color);
+        buffer_vertex++;
+// //         buffer_vertex->set(first_plane.m_points[2], first_plane.m_color);
+// //         buffer_vertex++;
+// //         buffer_vertex->set(first_plane.m_points[3], first_plane.m_color);
+// //         buffer_vertex++;
+// 
+        for (unsigned int i = 0; i < 4; ++i, ++buffer_vertex)
+            buffer_vertex->set(second_plane.m_points[i], first_plane.m_color);
+
+        buffer_vertex->set(second_plane.m_points[0], first_plane.m_color);
+        buffer_vertex++;
+// //         buffer_vertex->set(second_plane.m_points[2], first_plane.m_color);
+// //         buffer_vertex++;
+// //         buffer_vertex->set(second_plane.m_points[3], first_plane.m_color);
+// //         buffer_vertex++;
+// 
+        for (unsigned int i = 0; i < 4; ++i, ++buffer_vertex)
+            buffer_vertex->set(third_plane.m_points[i], first_plane.m_color);
+
+        buffer_vertex->set(third_plane.m_points[0], first_plane.m_color);
+        buffer_vertex++;
+// //         buffer_vertex->set(third_plane.m_points[2], first_plane.m_color);
+// //         buffer_vertex++;
+// //         buffer_vertex->set(third_plane.m_points[3], first_plane.m_color);
+// //         buffer_vertex++;
+// 
+        for (unsigned int i = 0; i < 4; ++i, ++buffer_vertex)
+            buffer_vertex->set(fourth_plane.m_points[i], first_plane.m_color);
+
+        buffer_vertex->set(fourth_plane.m_points[0], first_plane.m_color);
+        buffer_vertex++;
+// //         buffer_vertex->set(fourth_plane.m_points[2], first_plane.m_color);
+// //         buffer_vertex++;
+// //         buffer_vertex->set(fourth_plane.m_points[3], first_plane.m_color);
+// //         buffer_vertex++;
+// 
+         for (unsigned int i = 0; i < 4; ++i, ++buffer_vertex)
+             buffer_vertex->set(fifth_plane.m_points[i], first_plane.m_color);
+ 
+         buffer_vertex->set(fifth_plane.m_points[0], first_plane.m_color);
+         buffer_vertex++;
+//         buffer_vertex->set(fifth_plane.m_points[2], first_plane.m_color);
+//         buffer_vertex++;
+//         buffer_vertex->set(fifth_plane.m_points[3], first_plane.m_color);
+//         buffer_vertex++;
+
+        for (unsigned int i = 0; i < 4; ++i, ++buffer_vertex)
+            buffer_vertex->set(sixth_plane.m_points[i], first_plane.m_color);
+
+         buffer_vertex->set(sixth_plane.m_points[0], first_plane.m_color);
+         buffer_vertex++;
+//         buffer_vertex->set(sixth_plane.m_points[2], first_plane.m_color);
+//         buffer_vertex++;
+//         buffer_vertex->set(sixth_plane.m_points[3], first_plane.m_color);
+//         buffer_vertex++;
+
+        stream_vertex->Unlock(30, vs_L->vb_stride);
+
+        //  RCache.set_xform_world(Fidentity);
+        RCache.set_Shader(RImplementation.m_GizmoShader);
+
+        DU_DRAW_DP(D3DPT_LINESTRIP, vs_L, vertex_base, 29);
+    }
+#pragma endregion
 }
 
 void CDrawUtilities::OutText(const Fvector& pos, LPCSTR text, u32 color, u32 shadow_color)

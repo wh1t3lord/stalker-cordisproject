@@ -221,7 +221,7 @@ void CRender::Render()
     if (FS.IsSDK())
     {
         this->ViewBase.CreateFromMatrix(Device.mFullTransform, FRUSTUM_P_LRTB + FRUSTUM_P_FAR);
-        SDKUI_Render::GetInstance().MainRender();
+        Cordis::SDK::SDKUI_Render::GetInstance().MainRender();
     }
     else
     {

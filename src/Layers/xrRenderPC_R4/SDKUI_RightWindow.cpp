@@ -5,29 +5,31 @@
 #include "SDK_IconManager.h"
 #include "SDKUI_ObjectList.h"
 
-SDKUI_RightWindow::~SDKUI_RightWindow(void) {}
-
-void SDKUI_RightWindow::Draw(void)
+namespace Cordis
 {
-    if (!this->m_is_visible)
-        return;
+    namespace SDK
+    {
+    SDKUI_RightWindow::~SDKUI_RightWindow(void) {}
 
+    void SDKUI_RightWindow::Draw(void)
+    {
+        if (!this->m_is_visible)
+            return;
 
         ImGui::SetNextWindowPos(ImVec2(SDKUI::UI().GetDisplayX() - 250, this->m_size_mainmenubar_y), ImGuiCond_Once);
-        if (ImGui::Begin("Manager list", &this->m_is_visible, ImVec2(250, SDKUI::UI().GetDisplayY() - this->m_size_mainmenubar_y),
-                -1.0f, this->m_flag))
+        if (ImGui::Begin("Manager list", &this->m_is_visible, ImVec2(250, SDKUI::UI().GetDisplayY() - this->m_size_mainmenubar_y), -1.0f, this->m_flag))
         {
 #pragma region SECTIONS
             ImGui::Text("Section: ");
-            static xr_string current_section_name = this->m_sections[0];
-            if (ImGui::BeginCombo("", current_section_name.c_str()))
+           // this->m_currentselected_sectionname = this->m_sections[0];
+            if (ImGui::BeginCombo("", this->m_currentselected_sectionname.c_str()))
             {
                 for (uint32_t i = 0; i < this->m_sections.size(); ++i)
                 {
-                    bool is_selected = (current_section_name == this->m_sections[i]);
+                    bool is_selected = (this->m_currentselected_sectionname == this->m_sections[i]);
                     if (ImGui::Selectable(this->m_sections[i].c_str(), is_selected))
                     {
-                        current_section_name = this->m_sections[i];
+                        this->m_currentselected_sectionname = this->m_sections[i];
                         this->m_id_currentsection = i;
                     }
 
@@ -49,7 +51,143 @@ void SDKUI_RightWindow::Draw(void)
                     SDKUI_ObjectList::Widget().Hide();
                 }
             }
+
+            if (ImGui::Button("Show Scene Options"))
+            {
+                if (!SDKUI_SceneOptions::Widget().IsVisible())
+                {
+                    SDKUI_SceneOptions::Widget().Show();
+                }
+                else
+                {
+                    SDKUI_SceneOptions::Widget().Hide();
+                }
+            }
             ImGui::Separator();
+
+            switch (this->m_id_currentsection)
+            {
+            case kSection_StaticGeometry:
+            {
+                if (ImGui::CollapsingHeader("Catalog Static Geometry"))
+                {
+                    for (xr_map<xr_string, CEditableObject*>::const_iterator it =
+                             SDK_Cache::GetInstance().m_staticgeometry.cbegin();
+                         it != SDK_Cache::GetInstance().m_staticgeometry.cend(); ++it)
+                    {
+                        bool is_selected = (this->m_currentselected_staticobject_name == it->first);
+                        //    ImGui::Image(SDK_IconManager::GetInstance().GetImageFromToolsIcons(0), ImVec2(164, 164));
+                        if (ImGui::Selectable(it->first.c_str(), is_selected))
+                        {
+                            this->m_currentselected_staticobject_name = it->first;
+                        }
+                    }
+                }
+                ImGui::Separator();
+                ImGui::Text("Total Static Geometry: %d", SDK_SceneManager::GetInstance().m_total_count_objects_static_geometry);
+                ImGui::Text("Selected Object: %s", this->m_currentselected_staticobject_name.c_str());
+                break;
+            }
+            case kSection_Lights: 
+            {
+                break;
+            }
+            case kSection_SoundSource: 
+            {
+                break;
+            }
+            case kSection_SoundEnvironment: 
+            {
+                break;
+            }
+            case kSection_Glows:
+            { 
+                break;
+            }
+            case kSection_Shapes: 
+            {
+                ImGui::Text("Geometry type: ");
+
+ 
+                    if (ImGui::Checkbox("Sphere", &this->m_checked_sphere_selection))
+                    {
+                        if (!this->m_checked_box_selection && !this->m_checked_sphere_selection)
+                            this->m_checked_sphere_selection = true;
+
+                        this->m_checked_box_selection = false;
+                    }
+ 
+
+ 
+                    if (ImGui::Checkbox("Cube", &this->m_checked_box_selection))
+                    {
+                        if (!this->m_checked_box_selection && !this->m_checked_sphere_selection)
+                            this->m_checked_box_selection = true;
+
+                        this->m_checked_sphere_selection = false;
+                    }
+ 
+
+
+                ImGui::Separator();
+
+                if (ImGui::Button("Attach Shapes"))
+                {
+
+                }
+                if (ImGui::Button("Detach All"))
+                {
+
+                }
+
+                break;
+            }
+            case kSection_SpawnElements: 
+            {
+                break;
+            }
+            case kSection_WayPoints: 
+            {
+                break;
+            }
+            case kSection_Sectors:
+            {
+                break;
+            }
+            case kSection_Portals: 
+            { 
+                break;
+            }
+            case kSection_Groups:
+            { 
+                break;
+            }
+            case kSection_StaticParticles: 
+            {
+                break;
+            }
+            case kSection_DetailObjects: 
+            {
+                break;
+            }
+            case kSection_AIMap:
+            {
+                break;
+            }
+            case kSection_Wallmarks: 
+            { 
+                break;
+            }
+            case kSection_FogVolumes: 
+            {
+                break;
+            }
+                // @
+            }
+
+
+/*
+
             if (this->m_id_currentsection == 0)
             {
                 if (ImGui::CollapsingHeader("Catalog Static Geometry"))
@@ -97,8 +235,8 @@ void SDKUI_RightWindow::Draw(void)
             {
                 ImGui::Text("Total Shapes: %d",
                     SDK_SceneManager::GetInstance()
-                        .m_total_count_objects_shapes); // Lord: улучшить это посчитать как сумму shapes и shapes, которые
-                                                      // используется в spawn elemnets
+                        .m_total_count_objects_shapes); // Lord: улучшить это посчитать как сумму shapes и shapes,
+                                                        // которые используется в spawn elemnets
             }
             else if (this->m_id_currentsection == 6)
             {
@@ -123,8 +261,8 @@ void SDKUI_RightWindow::Draw(void)
             }
             else if (this->m_id_currentsection == 11)
             {
-                ImGui::Text(
-                    "Total Static Particles: %d", SDK_SceneManager::GetInstance().m_total_count_objects_static_particles);
+                ImGui::Text("Total Static Particles: %d",
+                    SDK_SceneManager::GetInstance().m_total_count_objects_static_particles);
             }
             else if (this->m_id_currentsection == 12)
             {
@@ -142,8 +280,10 @@ void SDKUI_RightWindow::Draw(void)
             else if (this->m_id_currentsection == 15)
             {
                 // ImGui::Text("Total Fog Volumes"); Lord: think about it
-            }
+            }*/
         }
         ImGui::End();
-    
+    }
+
+    }
 }

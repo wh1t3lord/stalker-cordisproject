@@ -336,6 +336,27 @@ struct _matrix
         return *this;
     }
 
+    inline SelfRef build_projection_orthoOffCentrLH(float width, float height, float znear, float zfar)
+    {
+        _11 = T(2) / width;
+        _12 = 0;
+        _13 = 0;
+        _14 = 0;
+        _21 = 0;
+        _22 = T(2) / -height;
+        _23 = 0;
+        _24 = 0;
+        _31 = 0;
+        _32 = 0;
+        _33 = T(1) / (zfar - znear);
+        _34 = 0;
+        _41 = T(-1);
+        _42 = T(1);
+        _43 = znear / (znear - zfar);
+        _44 = T(1);
+        return *this;
+    }
+
     IC SelfRef build_camera(const Tvector& vFrom, const Tvector& vAt, const Tvector& vWorldUp)
     {
         // Get the z basis vector3, which points straight ahead. This is the

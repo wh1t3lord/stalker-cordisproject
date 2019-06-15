@@ -148,7 +148,7 @@ private:
     u64 m_auth_code;
     bool bSDK;
     bool bWasInitialized;
-    bool bRawDataIsEmpty;
+    bool bRawDataIsEmpty = false;
     const file* RegisterExternal(pcstr name);
     const file* Register(pcstr name, u32 vfs, u32 crc, u32 ptr, u32 size_real, u32 size_compressed, u32 modif);
     void ProcessArchive(pcstr path);

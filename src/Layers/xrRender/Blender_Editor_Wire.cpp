@@ -36,6 +36,7 @@ void CBlender_Editor_Wire::Compile(CBlender_Compile& C)
         else
             C.r_Pass("editor", "simple_color", false, TRUE, TRUE);
 
+        C.r_CullMode(D3DCULL_NONE);
         C.r_End();
     }
 }

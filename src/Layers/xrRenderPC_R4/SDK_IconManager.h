@@ -1,53 +1,60 @@
 #pragma once
 
-class SDK_IconManager
+namespace Cordis
 {
-private:
-    SDK_IconManager(void) = default;
-
-public:
-    inline static SDK_IconManager& GetInstance(void) noexcept
+    namespace SDK
     {
-        static SDK_IconManager instance;
-        return instance;
-    }
-    ~SDK_IconManager(void) = default;
-
-    ID3D11ShaderResourceView* LoadImage(const xr_string&, int, int);
-    bool LoadImageToolsIcons(const xr_string&, int, int);
-    bool LoadImageThmIcons(const xr_string&, const xr_string&, int, int);
-    inline size_t GetCountTHMIcons(void) const noexcept { return this->m_thm_icons.size(); }
-    inline size_t GetCountToolsIcons(void) const noexcept { return this->m_tools_icons.size(); }
-    inline ID3D11ShaderResourceView* GetImageFromToolsIcons(int idx) const
+    class SDK_IconManager
     {
-        if (idx > this->m_tools_icons.size() || !this->m_tools_icons.size())
-            return nullptr;
+    private:
+        SDK_IconManager(void) = default;
 
-        return this->m_tools_icons[idx];
-    }
-
-    inline ID3D11ShaderResourceView* GetImageFromTHMIcons(const xr_string& object_name)
-    {
-        if (!object_name.size() || !this->m_thm_icons.size())
-            return nullptr;
-
-        ID3D11ShaderResourceView* object = nullptr;
-
-        try
+    public:
+        inline static SDK_IconManager& GetInstance(void) noexcept
         {
-            object = this->m_thm_icons[object_name];
+            static SDK_IconManager instance;
+            return instance;
         }
-        catch (...)
+        ~SDK_IconManager(void) = default;
+
+        ID3D11ShaderResourceView* LoadImage(const xr_string&, int, int);
+        bool LoadImageToolsIcons(const xr_string&, int, int);
+        bool LoadImageThmIcons(const xr_string&, const xr_string&, int, int);
+        inline size_t GetCountTHMIcons(void) const noexcept { return this->m_thm_icons.size(); }
+        inline size_t GetCountToolsIcons(void) const noexcept { return this->m_tools_icons.size(); }
+        inline ID3D11ShaderResourceView* GetImageFromToolsIcons(int idx) const
         {
-            SDKUI_Log::Widget().SetColor(warning);
-            SDKUI_Log::Widget().AddText("Something goes wrong, because application can't get thm icon for object");
+            if (idx > this->m_tools_icons.size() || !this->m_tools_icons.size())
+                return nullptr;
+
+            return this->m_tools_icons[idx];
         }
 
-        return object;
-    }
-    void DestroyData(void);
+        inline ID3D11ShaderResourceView* GetImageFromTHMIcons(const xr_string& object_name)
+        {
+            if (!object_name.size() || !this->m_thm_icons.size())
+                return nullptr;
 
-private:
-    xr_vector<ID3D11ShaderResourceView*> m_tools_icons;
-    xr_map<xr_string, ID3D11ShaderResourceView*> m_thm_icons;
-};
+            ID3D11ShaderResourceView* object = nullptr;
+
+            try
+            {
+                object = this->m_thm_icons[object_name];
+            }
+            catch (...)
+            {
+                SDKUI_Log::Widget().SetColor(warning);
+                SDKUI_Log::Widget().AddText("Something goes wrong, because application can't get thm icon for object");
+            }
+
+            return object;
+        }
+        void DestroyData(void);
+
+    private:
+        xr_vector<ID3D11ShaderResourceView*> m_tools_icons;
+        xr_map<xr_string, ID3D11ShaderResourceView*> m_thm_icons;
+    };
+
+    }
+}

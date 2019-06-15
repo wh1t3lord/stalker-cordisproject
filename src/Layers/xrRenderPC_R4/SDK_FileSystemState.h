@@ -1,9 +1,16 @@
 #pragma once
 
-struct SDK_FileSystemState
+namespace Cordis
 {
-    // @ That's about folders
-    static bool m_is_staticgeometryempty;
-    static bool m_is_groupsempty;
-    static void MakeInfoAboutRawDataFolder(void);
-};
+    namespace SDK
+    {
+    struct SDK_FileSystemState
+    {
+        // @ That's about folders
+        static bool m_is_staticgeometryempty;
+        static bool m_is_groupsempty;
+        static void MakeInfoAboutRawDataFolder(void);
+    };
+    }
+}
+

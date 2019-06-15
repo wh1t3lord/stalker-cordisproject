@@ -250,15 +250,6 @@
     <Filter Include="Cordis\SDK\Scene management\GSC\Model">
       <UniqueIdentifier>{acf145d4-beb8-48d3-801b-e7ed0a768405}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Cordis\SDK\Scene management\GSC\Model\Custom Object">
-      <UniqueIdentifier>{86b1335f-7071-4d56-8634-deb370ad7899}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Cordis\SDK\Scene management\GSC\Model\Custom Object\Public">
-      <UniqueIdentifier>{e608037f-990c-4fd0-a502-c5e0ef9f4a35}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Cordis\SDK\Scene management\GSC\Model\Custom Object\Private">
-      <UniqueIdentifier>{ecc4aa3a-c86b-4b9b-9bdf-044cb03d0ffc}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Cordis\SDK\Scene management\GSC\Model\Editable Mesh">
       <UniqueIdentifier>{1dcb798c-0148-4fed-824d-0f37c2f39af1}</UniqueIdentifier>
     </Filter>
@@ -427,15 +418,6 @@
     <Filter Include="Cordis\SDK\UI management\Helpers\Main\Private">
       <UniqueIdentifier>{89b72770-1a61-4be9-bd35-d38bdb36fa9f}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Cordis\SDK\UI management\Helpers\Object Preferences">
-      <UniqueIdentifier>{ca14f648-c77e-44cc-8b8e-bc804a70cb4d}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Cordis\SDK\UI management\Helpers\Object Preferences\Public">
-      <UniqueIdentifier>{62f17a2c-2db3-4844-b2ec-92c5098178c7}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Cordis\SDK\UI management\Helpers\Object Preferences\Private">
-      <UniqueIdentifier>{6c5caab0-4725-4a3a-be41-15953b1db1d2}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Cordis\SDK\UI management\Right Window">
       <UniqueIdentifier>{d8e94095-597c-43d0-b6dc-acba40ebd7f8}</UniqueIdentifier>
     </Filter>
@@ -523,20 +505,11 @@
     <Filter Include="Cordis\SDK\UI management\Icon Manager">
       <UniqueIdentifier>{7edbc25a-58dd-49a3-b703-cc163711a396}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Cordis\SDK\UI management\Icon Manager\THM Manager">
-      <UniqueIdentifier>{6e5323f6-c0ca-47d0-ab1e-d73f55ad3147}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Cordis\SDK\UI management\Icon Manager\Public">
       <UniqueIdentifier>{b11ccbb4-37a3-4659-acb1-3edf75dab389}</UniqueIdentifier>
     </Filter>
     <Filter Include="Cordis\SDK\UI management\Icon Manager\Private">
       <UniqueIdentifier>{84fab1a1-58bc-4d48-961f-48169153e5b6}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Cordis\SDK\UI management\Icon Manager\THM Manager\Public">
-      <UniqueIdentifier>{471fae41-024d-4564-8a7d-9735203c1413}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Cordis\SDK\UI management\Icon Manager\THM Manager\Private">
-      <UniqueIdentifier>{50c1f84a-27ba-4636-b8cb-e7b862e5394b}</UniqueIdentifier>
     </Filter>
     <Filter Include="Cordis\SDK\UI management\ToolBar">
       <UniqueIdentifier>{31e79885-84c9-4edc-86dd-de4e27cfa904}</UniqueIdentifier>
@@ -556,13 +529,22 @@
     <Filter Include="Cordis\SDK\UI management\Object List\Private">
       <UniqueIdentifier>{3b7c252b-bed5-4d54-b73b-dcc6490ab4e2}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Cordis\SDK\UI management\Object Properties %28Window%29">
+    <Filter Include="Cordis\SDK\Scene management\Own\Objects\Shapes">
+      <UniqueIdentifier>{8db0f3bf-44c2-4576-869f-207c754b5f90}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\SDK\Scene management\Own\Objects\Shapes\Public">
+      <UniqueIdentifier>{e2f3b812-87eb-4101-9bad-02fbf4ae2749}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\SDK\Scene management\Own\Objects\Shapes\Private">
+      <UniqueIdentifier>{eb6d8794-b811-4ddd-9668-851bacc64432}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\SDK\UI management\Object Properties">
       <UniqueIdentifier>{bc03f2fd-e74d-447c-aed0-0d498fe19806}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Cordis\SDK\UI management\Object Properties %28Window%29\Public">
+    <Filter Include="Cordis\SDK\UI management\Object Properties\Public">
       <UniqueIdentifier>{192a2071-6eb8-487d-beb1-86985649932b}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Cordis\SDK\UI management\Object Properties %28Window%29\Private">
+    <Filter Include="Cordis\SDK\UI management\Object Properties\Private">
       <UniqueIdentifier>{f0ef3b12-9c65-4009-9ff9-8d6521cfa51f}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
@@ -1237,9 +1219,6 @@
     <ClInclude Include="SDKUI_Helpers.h">
       <Filter>Cordis\SDK\UI management\Helpers\Main\Public</Filter>
     </ClInclude>
-    <ClInclude Include="SDKUI_ObjectPrefs.h">
-      <Filter>Cordis\SDK\UI management\Helpers\Object Preferences\Public</Filter>
-    </ClInclude>
     <ClInclude Include="SDKUI_RightWindow.h">
       <Filter>Cordis\SDK\UI management\Right Window\Public</Filter>
     </ClInclude>
@@ -1277,8 +1256,15 @@
       <Filter>Cordis\SDK\UI management\Object List\Public</Filter>
     </ClInclude>
     <ClInclude Include="SDKUI_ObjectInspector.h">
-      <Filter>Cordis\SDK\UI management\Object Properties %28Window%29\Public</Filter>
+      <Filter>Cordis\SDK\UI management\Object Properties\Public</Filter>
     </ClInclude>
+    <ClInclude Include="SDK_ObjectShape.h">
+      <Filter>Cordis\SDK\Scene management\Own\Objects\Shapes\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Blender_2D_UI.h">
+      <Filter>Shading templates\SDK\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="SDK_GizmoScale.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -1977,9 +1963,6 @@
     <ClCompile Include="SDKUI_Helpers.cpp">
       <Filter>Cordis\SDK\UI management\Helpers\Main\Private</Filter>
     </ClCompile>
-    <ClCompile Include="SDKUI_ObjectPrefs.cpp">
-      <Filter>Cordis\SDK\UI management\Helpers\Object Preferences\Private</Filter>
-    </ClCompile>
     <ClCompile Include="SDKUI_RightWindow.cpp">
       <Filter>Cordis\SDK\UI management\Right Window\Private</Filter>
     </ClCompile>
@@ -2017,8 +2000,15 @@
       <Filter>Cordis\SDK\UI management\Object List\Private</Filter>
     </ClCompile>
     <ClCompile Include="SDKUI_ObjectInspector.cpp">
-      <Filter>Cordis\SDK\UI management\Object Properties %28Window%29\Private</Filter>
+      <Filter>Cordis\SDK\UI management\Object Properties\Private</Filter>
     </ClCompile>
+    <ClCompile Include="SDK_ObjectShape.cpp">
+      <Filter>Cordis\SDK\Scene management\Own\Objects\Shapes\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Blender_2D_UI.cpp">
+      <Filter>Shading templates\SDK\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="SDK_GizmoScale.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Natvis Include="..\..\TypeHelper.natvis" />

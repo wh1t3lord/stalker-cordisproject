@@ -15,11 +15,10 @@ IC s32 clamp_to_8bit(const s32 val) throw()
 
 // XXX: maybe make functions constexpr
 // maps unsigned 8 bits/channel to D3DCOLOR
-ICF u32 color_argb(u32 a, u32 r, u32 g, u32 b) noexcept
+inline u32 color_argb(u32 a, u32 r, u32 g, u32 b) noexcept
 { return ((a & 0xff) << 24) | ((r & 0xff) << 16) | ((g & 0xff) << 8) | (b & 0xff); }
-ICF u32 color_rgba(u32 r, u32 g, u32 b, u32 a) noexcept
-{ return color_argb(a, r, g, b); }
-ICF u32 color_argb_f(f32 a, f32 r, f32 g, f32 b) noexcept
+inline u32 color_rgba(u32 r, u32 g, u32 b, u32 a) noexcept { return color_argb(a, r, g, b); }
+inline u32 color_argb_f(f32 a, f32 r, f32 g, f32 b) noexcept
 {
 #if 0
     s32 _r = clampr(iFloor(r*255.f), 0, 255);
@@ -34,16 +33,15 @@ ICF u32 color_argb_f(f32 a, f32 r, f32 g, f32 b) noexcept
 #endif
     return color_argb(_a, _r, _g, _b);
 }
-ICF u32 color_rgba_f(f32 r, f32 g, f32 b, f32 a) noexcept
-{ return color_argb_f(a, r, g, b); }
-ICF u32 color_xrgb(u32 r, u32 g, u32 b) { return color_argb(0xff, r, g, b); }
-ICF u32 color_get_R(u32 rgba) noexcept { return ((rgba >> 16) & 0xff); }
-ICF u32 color_get_G(u32 rgba) noexcept { return ((rgba >> 8) & 0xff); }
-ICF u32 color_get_B(u32 rgba) noexcept { return (rgba & 0xff); }
-ICF u32 color_get_A(u32 rgba) noexcept { return (rgba >> 24); }
-ICF u32 subst_alpha(u32 rgba, u32 a) { return (rgba & ~color_rgba(0, 0, 0, 0xff)) | color_rgba(0, 0, 0, a); }
-ICF u32 bgr2rgb(u32 bgr) { return color_rgba(color_get_B(bgr), color_get_G(bgr), color_get_R(bgr), 0); }
-ICF u32 rgb2bgr(u32 rgb) { return bgr2rgb(rgb); }
+inline u32 color_rgba_f(f32 r, f32 g, f32 b, f32 a) noexcept { return color_argb_f(a, r, g, b); }
+inline u32 color_xrgb(u32 r, u32 g, u32 b) { return color_argb(0xff, r, g, b); }
+inline u32 color_get_R(u32 rgba) noexcept { return ((rgba >> 16) & 0xff); }
+inline u32 color_get_G(u32 rgba) noexcept { return ((rgba >> 8) & 0xff); }
+inline u32 color_get_B(u32 rgba) noexcept { return (rgba & 0xff); }
+inline u32 color_get_A(u32 rgba) noexcept { return (rgba >> 24); }
+inline u32 subst_alpha(u32 rgba, u32 a) { return (rgba & ~color_rgba(0, 0, 0, 0xff)) | color_rgba(0, 0, 0, a); }
+inline u32 bgr2rgb(u32 bgr) { return color_rgba(color_get_B(bgr), color_get_G(bgr), color_get_R(bgr), 0); }
+inline u32 rgb2bgr(u32 rgb) { return bgr2rgb(rgb); }
 
 struct Fcolor
 {

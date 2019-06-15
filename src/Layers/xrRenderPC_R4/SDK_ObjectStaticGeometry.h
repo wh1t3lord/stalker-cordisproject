@@ -1,33 +1,35 @@
 #pragma once
  
 #include "SDK_CustomObject.h"
-#include "SDKUI_ObjectPrefs.h"
 
- 
-class SDK_ObjectStaticGeometry : public SDK_CustomObject
+
+namespace Cordis
 {
-    friend class SDKUI_StaticGeometryPref;
+    namespace SDK
+    {
+    class SDK_ObjectStaticGeometry : public SDK_CustomObject
+    {
+    private:
+        using inherited = SDK_CustomObject;
 
-private:
-    using inherited = SDK_CustomObject;
+    public:
+        SDK_ObjectStaticGeometry(LPCSTR name);
+        SDK_ObjectStaticGeometry(void) = delete;
+        ~SDK_ObjectStaticGeometry(void);
 
-public:
-    SDK_ObjectStaticGeometry(LPCSTR name);
-    SDK_ObjectStaticGeometry(void) = delete;
-    ~SDK_ObjectStaticGeometry(void);
+        void Render(const int&, const bool&);
+        void Load(LPCSTR model_name);
+        void SetGeometry(CEditableObject*);
+        bool RayPick(float& distance, const Fvector& start, const Fvector& direction);
+        bool FrustumPick(const CFrustum& frustum);
+        inline CEditableObject* GetData(void) const { return this->m_data; }
+        inline EditMeshVec* Meshes(void) const { return this->m_data ? &this->m_data->Meshes() : nullptr; }
+        inline LPCSTR GetDataName(void) const { return this->m_data ? this->m_data->GetName() : ""; }
 
-    void Render(const int&, const bool&);
-    void Load(LPCSTR model_name);
-    void SetGeometry(CEditableObject*);
-    void DrawPreferences(void);
-    bool RayPick(float& distance, const Fvector& start, const Fvector& direction);
+    private:
+        Fbox m_occbox;
+        CEditableObject* m_data;
+    };
+    }
+}
 
-    inline CEditableObject* GetData(void) const { return this->m_data; }
-    inline EditMeshVec* Meshes(void) const { return this->m_data ? &this->m_data->Meshes() : nullptr; }
-    inline LPCSTR GetDataName(void) const { return this->m_data ? this->m_data->GetName() : ""; }
-    inline void HidePreferences(void) { SDKUI_StaticGeometryPref::Widget().Hide(); }
-    inline void ShowPreferences(void) { SDKUI_StaticGeometryPref::Widget().Show(); }
-private:
-    Fbox m_occbox;
-    CEditableObject* m_data;
-};
