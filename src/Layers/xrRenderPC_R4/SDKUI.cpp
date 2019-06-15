@@ -1,4 +1,4 @@
-#include "stdafx.h"
+﻿#include "stdafx.h"
 #include "SDKUI.h"
 #include "../../xrCore/Imgui/imgui.h"
 #include "../../xrCore/Imgui/imgui_impl_sdl.h"
@@ -8,7 +8,7 @@
 #include "SDKUI_ToolBar.h"
 #include "SDKUI_ObjectInspector.h"
 #include "SDKUI_ObjectList.h"
-
+// New commit a 
 namespace Cordis
 {
 namespace SDK
