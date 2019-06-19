@@ -81,6 +81,15 @@ namespace Cordis
 
         virtual inline void SetScale(const Fvector& scl)
         {
+			if (this->m_scale.x < EPS)
+				this->m_scale.x = EPS;
+
+			if (this->m_scale.y < EPS)
+				this->m_scale.y = EPS;
+
+			if (this->m_scale.z < EPS)
+				this->m_scale.z = EPS;
+
             this->m_scale = scl;
             this->m_is_updatetransform = true;
         }
