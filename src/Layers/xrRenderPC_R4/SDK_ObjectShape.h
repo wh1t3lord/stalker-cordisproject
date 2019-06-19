@@ -37,7 +37,6 @@ public:
     void Render(const int&, const bool&);
     bool RayPick(float& distance, const Fvector& start, const Fvector& direction);
     bool FrustumPick(const CFrustum& frustum);
-   // void Scale(const Fvector& value);
 
 private:
     void ComputeBounds(void);
