@@ -59,6 +59,7 @@ namespace Cordis
         virtual void Render(const int&, const bool&) = 0;
         virtual bool RayPick(float&, const Fvector&, const Fvector&) = 0;
         virtual bool FrustumPick(const CFrustum&) = 0;
+
         virtual inline void SetPosition(const Fvector& pos)
         {
             this->m_position = pos;

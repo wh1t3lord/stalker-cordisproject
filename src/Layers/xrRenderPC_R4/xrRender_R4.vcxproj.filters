@@ -1264,7 +1264,12 @@
     <ClInclude Include="Blender_2D_UI.h">
       <Filter>Shading templates\SDK\Public</Filter>
     </ClInclude>
-    <ClInclude Include="SDK_GizmoScale.h" />
+    <ClInclude Include="SDK_GizmoRotation.h">
+      <Filter>Cordis\SDK\Scene management\Own\Gizmos\Rotation\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="SDK_GizmoScale.h">
+      <Filter>Cordis\SDK\Scene management\Own\Gizmos\Scale\Public</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -2008,7 +2013,12 @@
     <ClCompile Include="Blender_2D_UI.cpp">
       <Filter>Shading templates\SDK\Private</Filter>
     </ClCompile>
-    <ClCompile Include="SDK_GizmoScale.cpp" />
+    <ClCompile Include="SDK_GizmoRotation.cpp">
+      <Filter>Cordis\SDK\Scene management\Own\Gizmos\Rotation\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="SDK_GizmoScale.cpp">
+      <Filter>Cordis\SDK\Scene management\Own\Gizmos\Scale\Private</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Natvis Include="..\..\TypeHelper.natvis" />

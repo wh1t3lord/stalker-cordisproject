@@ -82,8 +82,6 @@ void SDK_ObjectShape::Render(const int&, const bool&)
     this->m_is_updatetransform = false;
 }
 
-void SDK_ObjectShape::Scale(const Fvector& value) {}
-
 bool SDK_ObjectShape::RayPick(float& distance, const Fvector& start, const Fvector& direction)
 { 
         float dist = distance;

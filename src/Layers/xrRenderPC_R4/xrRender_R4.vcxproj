@@ -155,13 +155,13 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Mixed|x64'">
     <ClCompile>
-      <AdditionalIncludeDirectories>D:\Cordis Project\Xray\Externals\FreeMagic\Source\Core;D:\Cordis Project\Xray\Externals\FreeMagic\Source;D:\Cordis Project\Xray\Externals\FreeMagic\Source\Core3D;$(xrExternals)OpenAutomate\inc;$(xrExternals)nvapi;$(xrExternals)AGS_SDK;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(xrExternals)FreeMagic\Source\Core;$(xrExternals)FreeMagic\Source;$(xrExternals)FreeMagic\Source\Core3D;$(xrExternals)OpenAutomate\inc;$(xrExternals)nvapi;$(xrExternals)AGS_SDK;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>_USRDLL;XRRENDER_R4_EXPORTS;USE_DX11;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalOptions> %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <Link>
       <AdditionalDependencies>d3d9.lib;nvapi64.lib;amd_ags_$(PlatformShortName).lib;dxgi.lib;dxguid.lib;d3dcompiler.lib;d3d11.lib;d3dx11.lib;shlwapi.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>$(xrExternals)OpenAutomate\libraries;$(xrExternals)AGS_SDK\ags_lib\lib;$(xrExternals)nvapi\amd64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(xrExternals)OpenAutomate\libraries;$(xrExternals)AGS_SDK\ags_lib\lib;$(xrExternals)nvapi\amd64;C:\Program Files %28x86%29\Windows Kits\8.1\Lib\winv6.3\um\x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
@@ -374,6 +374,7 @@
     <ClInclude Include="SDK_FileSystemState.h" />
     <ClInclude Include="SDK_GizmoManager.h" />
     <ClInclude Include="SDK_GizmoMove.h" />
+    <ClInclude Include="SDK_GizmoRotation.h" />
     <ClInclude Include="SDK_GizmoScale.h" />
     <ClInclude Include="SDK_IconManager.h" />
     <ClInclude Include="SDK_KeybindingManager.h" />
@@ -627,6 +628,7 @@
     <ClCompile Include="SDK_FileSystemState.cpp" />
     <ClCompile Include="SDK_GizmoManager.cpp" />
     <ClCompile Include="SDK_GizmoMove.cpp" />
+    <ClCompile Include="SDK_GizmoRotation.cpp" />
     <ClCompile Include="SDK_GizmoScale.cpp" />
     <ClCompile Include="SDK_IconManager.cpp" />
     <ClCompile Include="SDK_KeybindingManager.cpp" />

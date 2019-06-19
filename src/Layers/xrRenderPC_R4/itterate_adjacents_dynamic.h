@@ -12,21 +12,16 @@ struct itterate_adjacents_params_dynamic
 
 private:
     Fvector& normal;
-    const u32* m_SmoothGroups;
+    const unsigned int* m_SmoothGroups;
     const Fvector* m_FaceNormals;
     const IntVec& a_lst;
     const type_face* m_Faces;
-    u32 m_FaceCount;
-    xr_vector<u8> m_procesed;
+    unsigned int m_FaceCount;
+    xr_vector<unsigned char> m_procesed;
 
 public:
-    itterate_adjacents_params_dynamic(
-
-        Fvector& _normal, const u32* _SmoothGroups, const Fvector* _FaceNormals, const IntVec& _a_lst,
-        const type_face* _Faces, u32 _FaceCount)
-        :
-
-          normal(_normal), m_SmoothGroups(_SmoothGroups), m_FaceNormals(_FaceNormals), a_lst(_a_lst), m_Faces(_Faces),
+    itterate_adjacents_params_dynamic(Fvector& _normal, const unsigned int* _SmoothGroups, const Fvector* _FaceNormals, const IntVec& _a_lst,
+        const type_face* _Faces, unsigned int _FaceCount) : normal(_normal), m_SmoothGroups(_SmoothGroups), m_FaceNormals(_FaceNormals), a_lst(_a_lst), m_Faces(_Faces),
           m_FaceCount(_FaceCount)
 
     {
@@ -65,20 +60,22 @@ private:
         }
         return false;
     }
-    inline u32 face_idx(u32 adj_idx) const
+
+    inline unsigned int face_idx(unsigned int adj_idx) const
     {
         VERIFY(adj_idx < a_lst.size());
         return a_lst[adj_idx];
     }
-    inline const type_face* current_adjacents_face(u32 adj_idx) const
+
+    inline const type_face* current_adjacents_face(unsigned int adj_idx) const
     {
         VERIFY(m_Faces);
-        u32 index = face_idx(adj_idx);
+        unsigned int index = face_idx(adj_idx);
         VERIFY(index < m_FaceCount);
         return &m_Faces[index];
     }
 
-    inline bool do_connect_faces(u32 start_face_idx, u32 test_face_idx, u16 start_common_edge_idx, u16 test_common_edge_idx)
+    inline bool do_connect_faces(unsigned int start_face_idx, unsigned int test_face_idx, unsigned short start_common_edge_idx, unsigned short test_common_edge_idx)
     {
         VERIFY(start_face_idx < m_FaceCount);
         VERIFY(test_face_idx < m_FaceCount);
@@ -86,19 +83,19 @@ private:
             m_SmoothGroups[start_face_idx], m_SmoothGroups[test_face_idx], start_common_edge_idx, test_common_edge_idx);
     }
 
-    inline bool is_processed(u32 adj_idx) const
+    inline bool is_processed(unsigned int adj_idx) const
     {
         VERIFY(adj_idx < a_lst.size());
         return !!m_procesed[adj_idx];
     }
 
-    inline void set_processed(u32 adj_idx)
+    inline void set_processed(unsigned int adj_idx)
     {
         VERIFY(adj_idx < a_lst.size());
-        m_procesed[adj_idx] = u8(1);
+        m_procesed[adj_idx] = unsigned char(1);
     }
 
-    inline void add_adjacents(u32 test_face_idx)
+    inline void add_adjacents(unsigned int test_face_idx)
     {
         VERIFY(test_face_idx < m_FaceCount);
 
@@ -106,7 +103,7 @@ private:
     }
 
 public:
-    inline bool add_adjacents(u32 start_face_adj_idx, u32 test_face_adj_idx)
+    inline bool add_adjacents(unsigned int start_face_adj_idx, unsigned int test_face_adj_idx)
     {
         if (is_processed(test_face_adj_idx))
             return false;
@@ -114,11 +111,11 @@ public:
         const type_face* start_face = current_adjacents_face(start_face_adj_idx);
         const type_face* test_face = current_adjacents_face(test_face_adj_idx);
 
-        u32 test_face_idx = face_idx(test_face_adj_idx);
-        u32 start_face_idx = face_idx(start_face_adj_idx);
+        unsigned int test_face_idx = face_idx(test_face_adj_idx);
+        unsigned int start_face_idx = face_idx(start_face_adj_idx);
 
-        u16 StartFace_common_edge_index = u16(-1);
-        u16 TestFace_common_edge_index = u16(-1);
+        unsigned short StartFace_common_edge_index = unsigned short(-1);
+        unsigned short TestFace_common_edge_index = unsigned short(-1);
 
         if (has_same_edge(start_face, test_face, StartFace_common_edge_index, TestFace_common_edge_index))
         {
@@ -134,3 +131,5 @@ public:
         return false;
     }
 };
+
+ 

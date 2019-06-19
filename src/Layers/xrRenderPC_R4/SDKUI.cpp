@@ -150,15 +150,31 @@ void SDKUI::KeyBoardMessages(void)
                      {
                          SetCursorPos(this->GetDisplayX()-4, ImGui::GetIO().MousePos.y);
                      }
-        
+        
+
+
+
+
                      if (ImGui::GetMousePos().x == this->GetDisplayX()-1)
                      {
                          SetCursorPos(4, ImGui::GetIO().MousePos.y);
                      }
-        
+        
 
-        
-        
+
+
+
+
+        
+
+
+
+
+        
+
+
+
+
                  }*/
 
     if (ImGui::IsMouseReleased(0)) // Lord: обработка если мы в драге моде и инструмент перемешение
