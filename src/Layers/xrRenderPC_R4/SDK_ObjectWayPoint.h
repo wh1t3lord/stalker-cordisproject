@@ -11,7 +11,9 @@ namespace Cordis
 		SDK_ObjectWayPoint(LPCSTR name);
         ~SDK_ObjectWayPoint(void);
 
-		
+		void Render(const int&, const bool&);
+		bool RayPick(float& distance, const Fvector& position, const Fvector& direction);
+		bool FrustumPick(const CFrustum& frustum);
     };
     }
 }
