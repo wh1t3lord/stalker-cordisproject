@@ -1270,6 +1270,7 @@
     <ClInclude Include="SDK_GizmoScale.h">
       <Filter>Cordis\SDK\Scene management\Own\Gizmos\Scale\Public</Filter>
     </ClInclude>
+    <ClInclude Include="SDK_ObjectLight.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -2019,6 +2020,7 @@
     <ClCompile Include="SDK_GizmoScale.cpp">
       <Filter>Cordis\SDK\Scene management\Own\Gizmos\Scale\Private</Filter>
     </ClCompile>
+    <ClCompile Include="SDK_ObjectLight.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Natvis Include="..\..\TypeHelper.natvis" />

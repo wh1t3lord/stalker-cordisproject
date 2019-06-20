@@ -5,45 +5,62 @@
 #include "EditObject.h"
 #include "xrCore/Animation/Bone.hpp"
 #include "utils/xrLC_Light/itterate_adjacents.h"
-//#include "itterate_adjacents_dynamic.h"
 
 #include "Utils/ETools/ETools.h"
 //#include "UI_ToolsCustom.h"
 #include "itterate_adjacents_dynamic.h"
 
 #pragma region EditMesh
-CEditableMesh::~CEditableMesh()
+CEditableMesh::CEditableMesh(CEditableObject* parent) : m_Parent(parent), m_Box({ 0, 0, 0, 0, 0, 0 }),
+m_Name(""), m_CFModel(nullptr), m_Vertices(nullptr), m_SmoothGroups(nullptr),
+m_Adjs(nullptr), m_Faces(nullptr), m_FaceNormals(nullptr), m_VertexNormals(nullptr), m_SVertices(nullptr),
+m_SVertInfl(0), m_RenderBuffers(nullptr), m_FNormalsRefs(0), m_VNormalsRefs(0), m_AdjsRefs(0), m_SVertRefs(0)
+
+{
+	this->m_Flags.assign(flVisible);
+}
+
+CEditableMesh::CEditableMesh(CEditableMesh* source, CEditableObject* parent) : m_Parent(parent), m_Box({ 0, 0, 0, 0, 0, 0 }),
+m_Name(""), m_CFModel(nullptr), m_Vertices(nullptr), m_SmoothGroups(nullptr),
+m_Adjs(nullptr), m_Faces(nullptr), m_FaceNormals(nullptr), m_VertexNormals(nullptr), m_SVertices(nullptr),
+m_SVertInfl(0), m_RenderBuffers(nullptr), m_FNormalsRefs(0), m_VNormalsRefs(0), m_AdjsRefs(0), m_SVertRefs(0)
+{
+	this->m_Flags.assign(flVisible);
+	//this->CloneFrom(source); // Lord: этот метод вообще не реализован у ПЫС
+}
+
+CEditableMesh::~CEditableMesh(void)
 {
     Clear();
     R_ASSERT2(0 == m_RenderBuffers, "Render buffer still referenced.");
 }
+// 
+// void CEditableMesh::Construct(void)
+// {
+//     m_Box.set(0, 0, 0, 0, 0, 0);
+//     m_Flags.assign(flVisible);
+//     m_Name = "";
+// 
+//     m_CFModel = 0;
+// 
+//     m_Vertices = 0;
+//     m_SmoothGroups = 0;
+//     m_Adjs = 0;
+//     m_Faces = 0;
+//     m_FaceNormals = 0;
+//     m_VertexNormals = 0;
+//     m_SVertices = 0;
+//     m_SVertInfl = 0;
+// 
+//     m_RenderBuffers = 0;
+// 
+//     m_FNormalsRefs = 0;
+//     m_VNormalsRefs = 0;
+//     m_AdjsRefs = 0;
+//     m_SVertRefs = 0;
+// }
 
-void CEditableMesh::Construct()
-{
-    m_Box.set(0, 0, 0, 0, 0, 0);
-    m_Flags.assign(flVisible);
-    m_Name = "";
-
-    m_CFModel = 0;
-
-    m_Vertices = 0;
-    m_SmoothGroups = 0;
-    m_Adjs = 0;
-    m_Faces = 0;
-    m_FaceNormals = 0;
-    m_VertexNormals = 0;
-    m_SVertices = 0;
-    m_SVertInfl = 0;
-
-    m_RenderBuffers = 0;
-
-    m_FNormalsRefs = 0;
-    m_VNormalsRefs = 0;
-    m_AdjsRefs = 0;
-    m_SVertRefs = 0;
-}
-
-void CEditableMesh::Clear()
+void CEditableMesh::Clear(void)
 {
     UnloadRenderBuffers();
 
@@ -66,10 +83,11 @@ void CEditableMesh::Clear()
     m_VMRefs.clear();
 }
 
-void CEditableMesh::UnloadCForm()
+void CEditableMesh::UnloadCForm(void)
 {
     // ETOOLS::destroy_model(m_CFModel);
-    xr_delete(m_CFModel);
+	if (this->m_CFModel)
+		xr_delete(m_CFModel);
 }
 
 void CEditableMesh::UnloadFNormals(bool force)
@@ -77,7 +95,9 @@ void CEditableMesh::UnloadFNormals(bool force)
     m_FNormalsRefs--;
     if (force || m_FNormalsRefs <= 0)
     {
-        xr_free(m_FaceNormals);
+		if (this->m_FaceNormals)
+			xr_free(m_FaceNormals);
+
         m_FNormalsRefs = 0;
     }
 }
@@ -87,7 +107,9 @@ void CEditableMesh::UnloadVNormals(bool force)
     m_VNormalsRefs--;
     if (force || m_VNormalsRefs <= 0)
     {
-        xr_free(m_VertexNormals);
+		if (this->m_VertexNormals)
+			xr_free(m_VertexNormals);
+
         m_VNormalsRefs = 0;
     }
 }

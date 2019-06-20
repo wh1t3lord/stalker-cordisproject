@@ -3,6 +3,9 @@ namespace Cordis
 {
     namespace SDK
     {
+
+
+
     class SDK_ObjectWayPoint : public SDK_CustomObject
     {
 		using inherited = SDK_CustomObject;

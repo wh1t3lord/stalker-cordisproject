@@ -281,11 +281,11 @@ class   CEditableMesh
 
     CEditableObject* m_Parent;
 
-    void GenerateCFModel();
-    void GenerateRenderBuffers();
-    void UnloadCForm();
+    void GenerateCFModel(void);
+    void GenerateRenderBuffers(void);
+    void UnloadCForm(void);
  
-    void UnloadRenderBuffers();
+    void UnloadRenderBuffers(void);
  
 public:
     static BOOL m_bDraftMeshMode;
@@ -357,20 +357,17 @@ public:
     void OptimizeMesh(BOOL NoOpt);
 
 public:
-    CEditableMesh(CEditableObject* parent)
-    {
-        m_Parent = parent;
-        Construct();
-    }
-    CEditableMesh(CEditableMesh* source, CEditableObject* parent)
-    {
-        m_Parent = parent;
-        Construct();
-        CloneFrom(source);
-    }
-    virtual ~CEditableMesh();
-    void Construct();
-    void Clear();
+	CEditableMesh(CEditableObject* parent);
+
+	CEditableMesh(CEditableMesh* source, CEditableObject* parent);
+//     {
+//         m_Parent = parent;
+//         Construct();
+//         CloneFrom(source);
+//     }
+    virtual ~CEditableMesh(void);
+/*    void Construct(void);*/
+    void Clear(void);
 
     inline void SetName(LPCSTR name) { m_Name = name; }
     inline shared_str Name() { return m_Name; }
@@ -381,7 +378,7 @@ public:
     inline BOOL Visible() { return m_Flags.is(flVisible); }
     inline void Show(BOOL bVisible) { m_Flags.set(flVisible, bVisible); }
     // mesh modify routine
-    void CloneFrom(CEditableMesh* source);
+ //   void CloneFrom(CEditableMesh* source); Lord: метод в оригинале не реализован
     void Transform(const Fmatrix& parent);
 
     inline CEditableObject* Parent() { return m_Parent; }

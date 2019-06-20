@@ -180,6 +180,7 @@ namespace Cordis
         Fvector m_position;
         Fvector m_scale;
         Fvector m_rotation;
+
     protected:
         Fbox m_box;
         xr_string m_scene_name;

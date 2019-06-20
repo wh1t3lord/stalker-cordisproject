@@ -378,6 +378,7 @@
     <ClInclude Include="SDK_GizmoScale.h" />
     <ClInclude Include="SDK_IconManager.h" />
     <ClInclude Include="SDK_KeybindingManager.h" />
+    <ClInclude Include="SDK_ObjectLight.h" />
     <ClInclude Include="SDK_ObjectStaticGeometry.h" />
     <ClInclude Include="SDK_ObjectWayPoint.h" />
     <ClInclude Include="SDK_SceneManager.h" />
@@ -632,6 +633,7 @@
     <ClCompile Include="SDK_GizmoScale.cpp" />
     <ClCompile Include="SDK_IconManager.cpp" />
     <ClCompile Include="SDK_KeybindingManager.cpp" />
+    <ClCompile Include="SDK_ObjectLight.cpp" />
     <ClCompile Include="SDK_ObjectStaticGeometry.cpp" />
     <ClCompile Include="SDK_ObjectWayPoint.cpp" />
     <ClCompile Include="SDK_SceneManager.cpp" />
