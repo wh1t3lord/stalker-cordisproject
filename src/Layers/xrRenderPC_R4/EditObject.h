@@ -275,9 +275,9 @@ public:
     void RenderLOD(const Fmatrix& parent);
 
     // update methods
-    void OnFrame();
-    void UpdateBox();
-    void EvictObject();
+    void OnFrame(void);
+    void UpdateBox(void);
+    void EvictObject(void);
 
     // pick methods
     bool RayPick(float& dist, const Fvector& S, const Fvector& D, const Fmatrix& inv_parent, SRayPickInfo* pinf = nullptr);

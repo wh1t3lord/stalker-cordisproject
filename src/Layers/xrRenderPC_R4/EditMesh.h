@@ -360,13 +360,9 @@ public:
 	CEditableMesh(CEditableObject* parent);
 
 	CEditableMesh(CEditableMesh* source, CEditableObject* parent);
-//     {
-//         m_Parent = parent;
-//         Construct();
-//         CloneFrom(source);
-//     }
+ 
     virtual ~CEditableMesh(void);
-/*    void Construct(void);*/
+ 
     void Clear(void);
 
     inline void SetName(LPCSTR name) { m_Name = name; }

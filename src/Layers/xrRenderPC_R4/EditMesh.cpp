@@ -34,31 +34,6 @@ CEditableMesh::~CEditableMesh(void)
     Clear();
     R_ASSERT2(0 == m_RenderBuffers, "Render buffer still referenced.");
 }
-// 
-// void CEditableMesh::Construct(void)
-// {
-//     m_Box.set(0, 0, 0, 0, 0, 0);
-//     m_Flags.assign(flVisible);
-//     m_Name = "";
-// 
-//     m_CFModel = 0;
-// 
-//     m_Vertices = 0;
-//     m_SmoothGroups = 0;
-//     m_Adjs = 0;
-//     m_Faces = 0;
-//     m_FaceNormals = 0;
-//     m_VertexNormals = 0;
-//     m_SVertices = 0;
-//     m_SVertInfl = 0;
-// 
-//     m_RenderBuffers = 0;
-// 
-//     m_FNormalsRefs = 0;
-//     m_VNormalsRefs = 0;
-//     m_AdjsRefs = 0;
-//     m_SVertRefs = 0;
-// }
 
 void CEditableMesh::Clear(void)
 {
