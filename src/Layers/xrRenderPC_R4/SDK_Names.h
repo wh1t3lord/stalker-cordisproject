@@ -44,13 +44,18 @@ namespace Cordis
 				return this->m_current_language;
 			}
 
-			void Initialize(void)
+			inline void setCurrentLanguage(const xr_string& str)
 			{
-#ifdef WINDOWS
-				
-#endif
+				if (str.empty())
+					return;
+
+				this->m_current_language = str;
 			}
 
+			void Initialize(void)
+			{
+ 
+			}
 
 		private:
 			xr_string m_current_language;

@@ -1915,6 +1915,11 @@ bool CLocatorAPI::CheckSDKMainFolder(void)
         {
             this->CreateFolder(path_to_folder + xr_string(textures_folder));
         }
+
+		if (!this->dirExists(path_to_folder + xr_string(translation_folder)))
+		{
+			this->CreateFolder(path_to_folder + xr_string(translation_folder));
+		}
     }
     else
     {
@@ -1984,12 +1989,14 @@ void CLocatorAPI::CreateSDKSubFolders(const xr_string& path)
     if (!path.size())
         return;
 
-    this->CreateFolder(path + xr_string("\\StaticGeometry"));
-    this->CreateFolder(path + xr_string("\\Groups"));
-    this->CreateFolder(path + xr_string("\\Textures"));
-    this->CreateFolder(path + xr_string("\\Sounds"));
-    this->CreateFolder(path + xr_string("\\Particles"));
-    this->CreateFolder(path + xr_string("\\Levels"));
+    this->CreateFolder(path + xr_string(sg_folder));
+    this->CreateFolder(path + xr_string(groups_folder));
+    this->CreateFolder(path + xr_string(textures_folder));
+    this->CreateFolder(path + xr_string(sounds_folder));
+    this->CreateFolder(path + xr_string(particles_folder));
+    this->CreateFolder(path + xr_string(levels_folder));
+	this->CreateFolder(path + xr_string(translation_folder));
+
 }
 
 void CLocatorAPI::check_pathes()
