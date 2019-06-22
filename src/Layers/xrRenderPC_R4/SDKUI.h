@@ -29,7 +29,27 @@ namespace Cordis
               b_is_left_mouse_clicked_still_using(false), mouse_drag_delta(0.0f)
         {
             FS.CheckSDKMainFolder();
-            SDK_FileSystemState::MakeInfoAboutRawDataFolder();
+			SDK_FileSystemState::MakeInfoAboutRawDataFolder();
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
             // @ Init All stuff
             SDKUI_Log::Widget().Init(GetPosBottomLeft(), 500, 150, ImGuiWindowFlags_NoResize);
             SDKUI_Log::Widget().SetColor(good);
