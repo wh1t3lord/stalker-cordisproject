@@ -1888,6 +1888,7 @@ bool CLocatorAPI::CheckSDKMainFolder(void)
 
         if (!this->dirExists(path_to_folder + xr_string(sg_folder)))
         {
+			this->bRawDataIsEmpty = true;
             this->CreateFolder(path_to_folder + xr_string(sg_folder));
         }
 

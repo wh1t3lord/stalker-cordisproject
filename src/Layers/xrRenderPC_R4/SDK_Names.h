@@ -27,7 +27,7 @@ namespace Cordis
 				if (id.empty() || this->m_current_language.empty())
 					return xr_string(TEXT("ERROR"));
 
-				for (auto it : this->m_data)
+				for (std::pair<xr_string, xr_map<xr_string, xr_string>>::value_type it : this->m_data)
 				{
 					if (it.first == this->m_current_language)
 					{
@@ -54,7 +54,7 @@ namespace Cordis
 
 			void Initialize(void)
 			{
- 
+				
 			}
 
 		private:
