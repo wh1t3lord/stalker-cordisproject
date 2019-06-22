@@ -1276,6 +1276,7 @@
     <ClInclude Include="SDK_Names.h">
       <Filter>Cordis\SDK\UI management\Kernel\Public</Filter>
     </ClInclude>
+    <ClInclude Include="resource.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -2076,5 +2077,8 @@
     <None Include="WildMagic\WmlSystem.mcr">
       <Filter>Cordis\SDK\WildMagic</Filter>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="xrRender_R4.rc" />
   </ItemGroup>
 </Project>

@@ -1,5 +1,7 @@
 #pragma once
 
+#include "SDK_FileSystemState.h"
+
 namespace Cordis
 {
 	namespace SDK
@@ -54,7 +56,16 @@ namespace Cordis
 
 			void Initialize(void)
 			{
+				if (SDK_FileSystemState::m_is_translationempty)
+				{
+					SDKUI_Log::Widget().SetColor(warning);
+					SDKUI_Log::Widget().AddText("Can't use any language! Because translation folder is empty!");
+					return;
+				}
+
+#ifdef WINDOWS
 				
+#endif
 			}
 
 		private:

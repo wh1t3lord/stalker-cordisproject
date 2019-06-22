@@ -361,6 +361,7 @@
     <ClInclude Include="r4_rendertarget.h" />
     <ClInclude Include="r4_rendertarget_wallmarks.h" />
     <ClInclude Include="r4_R_sun_support.h" />
+    <ClInclude Include="resource.h" />
     <ClInclude Include="R_Backend_LOD.h" />
     <ClInclude Include="SDKUI.h" />
     <ClInclude Include="SDKUI_Helpers.h" />
@@ -731,6 +732,9 @@
     <None Include="WildMagic\WmlVector2.inl" />
     <None Include="WildMagic\WmlVector3.inl" />
     <None Include="WildMagic\WmlVector4.inl" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="xrRender_R4.rc" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

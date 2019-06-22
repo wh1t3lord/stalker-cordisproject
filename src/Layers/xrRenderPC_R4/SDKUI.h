@@ -30,7 +30,7 @@ namespace Cordis
         {
             FS.CheckSDKMainFolder();
 			SDK_FileSystemState::MakeInfoAboutRawDataFolder();
-
+			SDK_Names::getInstance().Initialize();
 
 
 
