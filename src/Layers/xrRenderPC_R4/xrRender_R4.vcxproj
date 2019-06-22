@@ -378,6 +378,7 @@
     <ClInclude Include="SDK_GizmoScale.h" />
     <ClInclude Include="SDK_IconManager.h" />
     <ClInclude Include="SDK_KeybindingManager.h" />
+    <ClInclude Include="SDK_Names.h" />
     <ClInclude Include="SDK_ObjectLight.h" />
     <ClInclude Include="SDK_ObjectStaticGeometry.h" />
     <ClInclude Include="SDK_ObjectWayPoint.h" />

@@ -65,6 +65,7 @@ using LPAStringVec = xr_vector<xr_string*>;
 using LPAStringIt = LPAStringVec::iterator;
 
 #include "EditorPref.h"
+#include "SDK_Names.h"
 #include "SDKUI.h"
 inline float CalcSSA(Fvector& C, float R)
 {

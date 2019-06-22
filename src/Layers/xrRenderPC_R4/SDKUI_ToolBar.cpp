@@ -34,8 +34,8 @@ namespace Cordis
                     ImGui::Separator();
                 }
             }
-            ImGui::End();
         }
+		ImGui::End();
     }
 
     }

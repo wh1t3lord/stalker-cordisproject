@@ -13,15 +13,30 @@ namespace Cordis
 		SDK_ObjectLight::~SDK_ObjectLight(void)
 		{
 		}
+
 		void SDK_ObjectLight::Render(const int &, const bool &)
 		{
+
+
+
+
+
+
+
 		}
+
 		bool SDK_ObjectLight::RayPick(float & distance, const Fvector & position, const Fvector & direction)
 		{
+
+
+
 			return false;
 		}
+
 		bool SDK_ObjectLight::FrustumPick(const CFrustum & frustum)
 		{
+
+
 			return false;
 		}
 	}

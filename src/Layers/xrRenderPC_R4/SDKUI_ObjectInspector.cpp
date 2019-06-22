@@ -15,8 +15,9 @@ void SDKUI_ObjectInspector::Draw(void)
     if (ImGui::Begin("Object Properties", &this->m_is_visible, this->m_flag))
     {
         // @ Lord -> Затем добавить вертикальный separator (таблицу)
-        ImGui::End();
+        
     }
+	ImGui::End();
 }
 } // namespace SDK
 } // namespace Cordis

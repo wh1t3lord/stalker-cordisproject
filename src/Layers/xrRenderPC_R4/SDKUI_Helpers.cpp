@@ -440,8 +440,45 @@ namespace Cordis
 
         if (ImGui::Begin("Scene Preferences", &this->m_is_visible, this->m_flag))
         {
-            ImGui::End();
+			ImGui::InputText("Level prefix", this->m_level_prefix, IM_ARRAYSIZE(this->m_level_prefix));	
+
+			if (ImGui::TreeNode("Build options"))
+			{
+				xr_string jitter_result = "";
+
+				switch (this->m_jitter_samples)
+				{
+				case 0:
+				{
+					jitter_result.append("Low");
+					break;
+				}
+				case 1:
+				{
+					jitter_result.append("Medium");
+					break;
+				}
+				case 2: 
+				{
+					jitter_result.append("High");
+					break;
+				}
+				}
+
+				 
+				ImGui::SliderInt("Hemisphere quality", &this->m_hemisphere_quality, 0, 3);
+				ImGui::SliderInt("Sun shadow quality", &this->m_sun_shadow_quality, 0, 3);
+				ImGui::DragFloat("Pixel per meter", &this->m_pixel_per_meter, 1.0f, 0.0f, 100.0f);
+				ImGui::DragInt("Light map collapsing", &this->m_light_map_collapsing, 1.0f, 0, 100);
+				ImGui::DragInt("Light map error", &this->m_light_map_zero, 1.0f, 0, 100);
+				ImGui::SliderInt("Jitter samples", &this->m_jitter_samples, 0, 2, jitter_result.c_str());
+				
+
+
+				ImGui::TreePop();
+			}
         }
+		ImGui::End();
     }
 
 #pragma endregion

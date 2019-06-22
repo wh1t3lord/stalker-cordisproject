@@ -162,9 +162,8 @@ namespace Cordis
                     ImGui::TreePop();
                 }
             }
-
-            ImGui::End();
         }
+		ImGui::End();
     }
     }
 }

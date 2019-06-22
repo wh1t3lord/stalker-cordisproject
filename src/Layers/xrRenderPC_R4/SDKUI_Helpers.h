@@ -219,10 +219,19 @@ namespace Cordis
         bool m_is_visible;
     };
 
+
+	struct SDK_BuildingConstants
+	{
+		static constexpr int kJitterSamplesLow = 1;
+		static constexpr int kJitterSamplesMedium = 4;
+		static constexpr int kJitterSamplesHigh = 9;
+	};
+
     class SDKUI_SceneOptions
     {
     private:
-        SDKUI_SceneOptions(void) noexcept : m_is_visible(false), m_flag(ImGuiWindowFlags_AlwaysAutoResize) {}
+        SDKUI_SceneOptions(void) noexcept : m_is_visible(false), m_hemisphere_quality(3), m_sun_shadow_quality(3), m_pixel_per_meter(10.0f), m_light_map_collapsing(4),
+			m_light_map_zero(4), m_jitter_samples(2), m_normal_smooth_angle(75.0f), m_weld_distance(0.0050f), m_level_prefix("level"), m_flag(ImGuiWindowFlags_AlwaysAutoResize) {}
 
     public:
         inline static SDKUI_SceneOptions& Widget(void) noexcept
@@ -244,7 +253,17 @@ namespace Cordis
 
     private:
         bool m_is_visible;
-        ImGuiWindowFlags m_flag;
+		ImGuiWindowFlags m_flag;
+		int m_hemisphere_quality;
+		int m_sun_shadow_quality;
+		int m_light_map_collapsing;
+		int m_light_map_zero;
+		int m_normal_smooth_angle;
+		int m_jitter_samples;
+		float m_weld_distance;
+		float m_pixel_per_meter;
+		char m_level_prefix[30];
+
     };
 
     }

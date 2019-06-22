@@ -8,6 +8,7 @@
 #include "SDKUI_ToolBar.h"
 #include "SDKUI_ObjectInspector.h"
 #include "SDKUI_ObjectList.h"
+
 // New commit a 
 namespace Cordis
 {
@@ -70,6 +71,7 @@ void SDKUI::KeyBoardMessages(void)
     // @ Глобальные клики можно обрабатывать динамические пупапы если надо
     if (ImGui::IsMouseHoveringAnyWindow())
     {
+		SDKUI_Log::Widget().AddText("Dragging");
         this->bCanUseLeftButton = false;
 
         if (!this->b_is_dragged_selection_rectangle)
@@ -223,11 +225,19 @@ void SDKUI::KeyBoardMessages(void)
     {
         this->bCanUseLeftButton = false;
         this->bClickedRightButton = true;
-
+		this->m_start_mouseposition.x = this->m_current_mouseposition.x;
+		this->m_start_mouseposition.y = this->m_current_mouseposition.y;
         if (this->bMoveTool) // @ Lord дописывать и для остальных инструментов
         {
             SDK_GizmoManager::GetInstance().ChangeColorAxisMoveDefault();
         }
+
+		if (this->bScaleTool)
+		{
+			SDK_GizmoManager::GetInstance().ChangeColorAxisScaleDefault();
+		}
+
+
     }
 
     if (ImGui::IsMouseClicked(2)) // @ Wheel
@@ -323,43 +333,47 @@ void SDKUI::KeyBoardMessages(void)
         }
     }
 
-    if (ImGui::IsKeyPressed(SDL_SCANCODE_M) && !this->bClickedRightButton)
-    {
-        if (!this->bMoveTool)
-        {
-            this->b_is_used_any_tool = true;
-            this->bMoveTool = true;
-            this->bScaleTool = false;
-            SDKUI_Log::Widget().SetColor(unimportant);
-            SDKUI_Log::Widget().AddText("Move Tool: ON");
-        }
-        else
-        {
-            this->b_is_used_any_tool = false;
-            this->bMoveTool = false;
-            SDKUI_Log::Widget().SetColor(unimportant);
-            SDKUI_Log::Widget().AddText("Move Tool: OFF");
-        }
-    }
+	if (!SDK_SceneManager::GetInstance().m_selectedobjects_list.empty())
+	{
+		if (ImGui::IsKeyPressed(SDL_SCANCODE_M) && !this->bClickedRightButton)
+		{
+			if (!this->bMoveTool)
+			{
+				this->b_is_used_any_tool = true;
+				this->bMoveTool = true;
+				this->bScaleTool = false;
+				SDKUI_Log::Widget().SetColor(unimportant);
+				SDKUI_Log::Widget().AddText("Move Tool: ON");
+			}
+			else
+			{
+				this->b_is_used_any_tool = false;
+				this->bMoveTool = false;
+				SDKUI_Log::Widget().SetColor(unimportant);
+				SDKUI_Log::Widget().AddText("Move Tool: OFF");
+			}
+		}
 
-    if (ImGui::IsKeyPressed(SDL_SCANCODE_S) && !this->bClickedRightButton)
-    {
-        if (!this->bScaleTool)
-        {
-            this->b_is_used_any_tool = true;
-            this->bMoveTool = false;
-            this->bScaleTool = true;
-            SDKUI_Log::Widget().SetColor(unimportant);
-            SDKUI_Log::Widget().AddText("Scale Tool: ON");
-        }
-        else
-        {
-            this->bScaleTool = false;
-            this->b_is_used_any_tool = false;
-            SDKUI_Log::Widget().SetColor(unimportant);
-            SDKUI_Log::Widget().AddText("Scale Tool: OFF");
-        }
-    }
+		if (ImGui::IsKeyPressed(SDL_SCANCODE_S) && !this->bClickedRightButton)
+		{
+			if (!this->bScaleTool)
+			{
+				this->b_is_used_any_tool = true;
+				this->bMoveTool = false;
+				this->bScaleTool = true;
+				SDKUI_Log::Widget().SetColor(unimportant);
+				SDKUI_Log::Widget().AddText("Scale Tool: ON");
+			}
+			else
+			{
+				this->bScaleTool = false;
+				this->b_is_used_any_tool = false;
+				SDKUI_Log::Widget().SetColor(unimportant);
+				SDKUI_Log::Widget().AddText("Scale Tool: OFF");
+			}
+		}
+	}
+
 
 #pragma endregion
 }
@@ -882,7 +896,8 @@ bool SDKUI::PrepareSelectionFrustum(CFrustum& frustum)
     x2 = this->m_current_mouseposition.x;
     y2 = this->m_current_mouseposition.y;
 
-    if (x1 == x2 && y1 == y2)
+	// Lord: Buggy shit
+    if (x1 == x2 || y2 == y1)
         return false;
 
     points_2d[0].set(_min(x1, x2), _min(y1, y2));
