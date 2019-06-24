@@ -3,15 +3,12 @@
 #include "SDKUI_Helpers.h"
 #include "SDK_IconManager.h"
 #include <filesystem>
-#include <codecvt>
 #include <shlwapi.h>
 
 namespace Cordis
 {
     namespace SDK
-    {
-    std::wstring_convert<std::codecvt_utf8<wchar_t>> converter;
-
+	{
     void SDK_Cache::DeleteResources(void)
     {
         for (xr_map<xr_string, CEditableObject*>::iterator it = this->m_staticgeometry.begin();
@@ -59,7 +56,7 @@ namespace Cordis
         for (std::filesystem::directory_entry object :
             std::filesystem::directory_iterator(path.c_str())) // Подумать над тем, когда мы будем вызывать из под папки
         {
-            std::string full_path = converter.to_bytes(object.path().c_str());
+            std::string full_path = Helper::converter.to_bytes(object.path().c_str());
             xr_string object_name = full_path.c_str();
             if (std::filesystem::is_directory(full_path))
                 continue;
@@ -141,7 +138,7 @@ namespace Cordis
                     {
                         for (std::filesystem::directory_entry file : std::filesystem::directory_iterator(path.c_str()))
                         {
-                            xr_string file_str = converter.to_bytes(file.path().c_str()).c_str();
+                            xr_string file_str = Helper::converter.to_bytes(file.path().c_str()).c_str();
 
                             if (file_str.substr(file_str.find('.')) == ".png")
                             {

@@ -37,7 +37,7 @@ namespace Cordis
 
             if (this->m_index_currentsection == 1 || this->m_index_currentsection == 0)
             {
-                if (ImGui::TreeNode(SECTION_STATICOBJECTS_NAME))
+                if (ImGui::TreeNode(SDK_Names::getInstance().getName("st_name_staticgeometry").c_str()))
                 {
                     ImGui::TreePop();
                 }

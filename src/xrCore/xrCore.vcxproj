@@ -278,6 +278,10 @@ if not exist "$(OutDir)tbbmalloc_proxy.dll" copy /y "$(xrSdkDir)binaries\$(Platf
     <ClCompile Include="Compression\ppmd_compressor.cpp" />
     <ClCompile Include="Compression\rt_compressor.cpp" />
     <ClCompile Include="Compression\rt_compressor9.cpp" />
+    <ClCompile Include="Cordis\XML\cordis_str.cpp" />
+    <ClCompile Include="Cordis\XML\cordis_xml.cpp" />
+    <ClCompile Include="Cordis\XML\cordis_xmlerror.cpp" />
+    <ClCompile Include="Cordis\XML\cordis_xmlparser.cpp" />
     <ClCompile Include="cpuid.cpp" />
     <ClCompile Include="crc32.cpp" />
     <ClCompile Include="Crypto\xr_dsa.cpp" />
@@ -388,6 +392,8 @@ if not exist "$(OutDir)tbbmalloc_proxy.dll" copy /y "$(xrSdkDir)binaries\$(Platf
     <ClInclude Include="Containers\AssociativeVector.hpp" />
     <ClInclude Include="Containers\AssociativeVectorComparer.hpp" />
     <ClInclude Include="Containers\FixedMap.h" />
+    <ClInclude Include="Cordis\XML\cordis_str.h" />
+    <ClInclude Include="Cordis\XML\cordis_xml.h" />
     <ClInclude Include="cpuid.h" />
     <ClInclude Include="Crypto\xr_dsa.h" />
     <ClInclude Include="Crypto\xr_dsa_signer.h" />

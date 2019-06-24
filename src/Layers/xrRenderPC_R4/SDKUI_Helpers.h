@@ -4,10 +4,17 @@
 #include "../../xrCore/Imgui/imgui.h"
 #include "../../xrCore/Imgui/imgui_impl_sdl.h"
 #include "../../xrCore/Imgui/imgui_impl_dx11.h"
+
+#include <codecvt>
 namespace Cordis
 {
     namespace SDK
-    {
+    {	
+		namespace Helper
+		{
+			static std::wstring_convert<std::codecvt_utf8<wchar_t>> converter;
+		}
+
     enum SDKErrorType
     {
         default, // white

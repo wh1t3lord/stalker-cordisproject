@@ -369,6 +369,7 @@
     <ClInclude Include="SDKUI_ObjectInspector.h" />
     <ClInclude Include="SDKUI_Render.h" />
     <ClInclude Include="SDKUI_RightWindow.h" />
+    <ClInclude Include="SDKUI_Settings.h" />
     <ClInclude Include="SDKUI_ToolBar.h" />
     <ClInclude Include="SDK_Cache.h" />
     <ClInclude Include="SDK_CustomObject.h" />
@@ -625,6 +626,7 @@
     <ClCompile Include="SDKUI_ObjectInspector.cpp" />
     <ClCompile Include="SDKUI_Render.cpp" />
     <ClCompile Include="SDKUI_RightWindow.cpp" />
+    <ClCompile Include="SDKUI_Settings.cpp" />
     <ClCompile Include="SDKUI_ToolBar.cpp" />
     <ClCompile Include="SDK_Cache.cpp" />
     <ClCompile Include="SDK_CustomObject.cpp" />

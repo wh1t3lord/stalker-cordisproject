@@ -547,6 +547,18 @@
     <Filter Include="Cordis\SDK\UI management\Object Properties\Private">
       <UniqueIdentifier>{f0ef3b12-9c65-4009-9ff9-8d6521cfa51f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Resources">
+      <UniqueIdentifier>{80b69493-09b8-44cf-a38a-15ec0d3abebc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\SDK\UI management\Settings">
+      <UniqueIdentifier>{fc0aabd9-5642-4bbb-8b8d-9b1874c7281f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\SDK\UI management\Settings\Public">
+      <UniqueIdentifier>{204ded98-b86f-4fc6-bb0f-de5dcad07d0d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\SDK\UI management\Settings\Private">
+      <UniqueIdentifier>{b7c6a23d-ff22-4066-8ad3-f1bc39139d3b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\xrRenderDX10\DXCommonTypes.h">
@@ -1277,6 +1289,9 @@
       <Filter>Cordis\SDK\UI management\Kernel\Public</Filter>
     </ClInclude>
     <ClInclude Include="resource.h" />
+    <ClInclude Include="SDKUI_Settings.h">
+      <Filter>Cordis\SDK\UI management\Settings\Public</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -2028,6 +2043,9 @@
     </ClCompile>
     <ClCompile Include="SDK_ObjectLight.cpp">
       <Filter>Cordis\SDK\Scene management\Own\Objects\Light\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="SDKUI_Settings.cpp">
+      <Filter>Cordis\SDK\UI management\Settings\Private</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

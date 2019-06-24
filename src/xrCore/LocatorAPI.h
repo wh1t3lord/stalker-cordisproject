@@ -289,5 +289,5 @@ constexpr const char* particles_folder = "\\Particles";
 constexpr const char* groups_folder = "\\Groups";
 constexpr const char* textures_folder = "\\Textures";
 constexpr const char* sounds_folder = "\\Sounds";
-constexpr const char* translation_folder = "\\Translation";
+constexpr const char* translation_folder = "\\resources\\translation";
 #define FS (*xr_FS)

@@ -145,6 +145,15 @@
     <Filter Include="Cordis\SDK UI\ImGui\Public">
       <UniqueIdentifier>{9da24584-3b91-46e4-93ae-136a70159129}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Cordis\XML">
+      <UniqueIdentifier>{52c60c37-78d9-4050-a9ea-b00c37119992}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\XML\Public">
+      <UniqueIdentifier>{c46cf684-a36c-481e-b445-2a554cbbd1be}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\XML\Private">
+      <UniqueIdentifier>{33b71a54-4105-4ba9-8f91-23e57e2ad9fe}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="FTimer.cpp">
@@ -374,6 +383,18 @@
     </ClCompile>
     <ClCompile Include="Imgui\imgui_demo.cpp">
       <Filter>Cordis\SDK UI\ImGui\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Cordis\XML\cordis_xml.cpp">
+      <Filter>Cordis\XML\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Cordis\XML\cordis_str.cpp">
+      <Filter>Cordis\XML\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Cordis\XML\cordis_xmlerror.cpp">
+      <Filter>Cordis\XML\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Cordis\XML\cordis_xmlparser.cpp">
+      <Filter>Cordis\XML\Private</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -793,6 +814,12 @@
     </ClInclude>
     <ClInclude Include="SDK_QuitMessage.h">
       <Filter>Cordis\SDK\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Cordis\XML\cordis_xml.h">
+      <Filter>Cordis\XML\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Cordis\XML\cordis_str.h">
+      <Filter>Cordis\XML\Public</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

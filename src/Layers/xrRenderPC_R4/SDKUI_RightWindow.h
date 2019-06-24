@@ -5,7 +5,6 @@ namespace Cordis
 {
 namespace SDK
 {
-constexpr const char* SECTION_STATICOBJECTS_NAME = "Objects";
 constexpr const char* SECTION_LIGHTS_NAME = "Lights";
 constexpr const char* SECTION_SOUNDSOURCE_NAME = "Sound Source";
 constexpr const char* SECTION_SOUNDENVIRONMENT_NAME = "Sound Environment";
@@ -26,18 +25,12 @@ class SDKUI_RightWindow
 {
 private:
     SDKUI_RightWindow(void)
-        : m_flag(ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoMove |
-              ImGuiWindowFlags_HorizontalScrollbar),
+        : m_flag(ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoMove | 
+			ImGuiWindowFlags_HorizontalScrollbar),
           m_id_currentsection(0), m_currentselected_staticobject_name(""), m_is_visible(true), m_is_show_popup(false),
-          m_is_init(false),
-          m_sections(
-              {SECTION_STATICOBJECTS_NAME, SECTION_LIGHTS_NAME, SECTION_SOUNDSOURCE_NAME, SECTION_SOUNDENVIRONMENT_NAME,
-                  SECTION_GLOWS_NAME, SECTION_SHAPES_NAME, SECTION_SPAWNELEMENTS_NAME, SECTION_WAYPOINTS_NAME,
-                  SECTION_SECTORS_NAME, SECTION_PORTALS_NAME, SECTION_GROUPS_NAME, SECTION_STATICPARTICLES_NAME,
-                  SECTION_DETAILOBJECTS_NAME, SECTION_AIMAP_NAME, SECTION_WALLMARKS_NAME, SECTION_FOGVOLUMES_NAME}),
-          m_checked_box_selection(true), m_checked_sphere_selection(false)
+          m_is_init(false), m_checked_box_selection(true), m_checked_sphere_selection(false)
     {
-        this->m_currentselected_sectionname = this->m_sections[0];
+		this->m_currentselected_sectionname = SDK_Names::getInstance().getName("st_name_staticgeometry");
         if (ImGui::BeginMainMenuBar())
         {
             ImVec2 a = ImGui::GetWindowSize();

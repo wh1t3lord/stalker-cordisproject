@@ -8,7 +8,7 @@
 #include "SDKUI_ToolBar.h"
 #include "SDKUI_ObjectInspector.h"
 #include "SDKUI_ObjectList.h"
-
+#include "SDKUI_Settings.h"
 // New commit a 
 namespace Cordis
 {
@@ -71,7 +71,8 @@ void SDKUI::KeyBoardMessages(void)
     // @ Глобальные клики можно обрабатывать динамические пупапы если надо
     if (ImGui::IsMouseHoveringAnyWindow())
     {
-		SDKUI_Log::Widget().AddText("Dragging");
+		// Lord: Исправить функционал при переносе какого-либо окна, появляется выделение которого вообще не должно быть
+	//	SDKUI_Log::Widget().AddText("Dragging");
         this->bCanUseLeftButton = false;
 
         if (!this->b_is_dragged_selection_rectangle)
@@ -388,6 +389,8 @@ void SDKUI::DrawAllHelpers(void)
     SDKUI_ObjectInspector::Widget().Draw();
     SDKUI_ObjectList::Widget().Draw();
     SDKUI_SceneOptions::Widget().Draw();
+	SDKUI_Settings::Widget().Draw();
+
 }
 
 void SDKUI::DrawMainMenuBar(void)
@@ -453,6 +456,33 @@ void SDKUI::DrawMainMenuBar(void)
 
             ImGui::EndMenu();
         } // @ Tools
+
+		if (ImGui::BeginMenu(SDK_Names::getInstance().getName("st_label_settings").c_str()))
+		{
+			if (ImGui::BeginMenu(SDK_Names::getInstance().getName("st_label_languages").c_str()))
+			{
+				bool _current_language = false;
+				for (auto language : SDK_Names::getInstance().m_languages)
+				{
+
+					if (language == SDK_Names::getInstance().getCurrentLanguage())
+						_current_language = true;
+					else
+						_current_language = false;
+
+					if (ImGui::MenuItem(language.c_str(), NULL, _current_language))
+					{
+						SDK_Names::getInstance().setCurrentLanguage(language);
+					}
+				}
+				
+
+				ImGui::EndMenu();
+			}
+
+			ImGui::EndMenu();
+		}
+
 
         ImGui::EndMainMenuBar();
     }
