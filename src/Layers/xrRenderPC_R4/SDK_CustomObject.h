@@ -12,7 +12,7 @@ namespace Cordis
         kSection_Lights,
         kSection_SoundSource,
         kSection_SoundEnvironment,
-        kSection_Glows,
+  //      kSection_Glows, Lord: у нас нет места для этого дерьма Джонни!!!
         kSection_Shapes,
         kSection_SpawnElements,
         kSection_WayPoints,
@@ -60,13 +60,13 @@ namespace Cordis
         virtual bool RayPick(float&, const Fvector&, const Fvector&) = 0;
         virtual bool FrustumPick(const CFrustum&) = 0;
 
-        virtual inline void SetPosition(const Fvector& pos)
+        virtual inline void setPosition(const Fvector& pos)
         {
             this->m_position = pos;
             this->m_is_updatetransform = true;
         }
 
-        virtual inline void SetRotation(const Fvector& rot)
+        virtual inline void setRotation(const Fvector& rot)
         {
             if (_valid(rot))
             {
@@ -79,7 +79,7 @@ namespace Cordis
             this->m_is_updatetransform = true;
         }
 
-        virtual inline void SetScale(const Fvector& scl)
+        virtual inline void setScale(const Fvector& scl)
         {
 			if (this->m_scale.x < EPS)
 				this->m_scale.x = EPS;
@@ -103,11 +103,11 @@ namespace Cordis
         virtual void RotateLocal(const Fvector& axis, const float& angle);
         virtual void Scale(const Fvector& v);
 
-        inline const Fmatrix& GetTransform(void) const noexcept { return this->m_transform; }
-        inline const Fvector& GetPosition(void) const noexcept { return this->m_position; }
-        inline const Fvector& GetRotation(void) const noexcept { return this->m_rotation; }
-        inline const Fvector& GetScale(void) const noexcept { return this->m_scale; }
-        inline const Fbox& GetBox(void) const noexcept { return this->m_box; }
+        inline const Fmatrix& getTransform(void) const noexcept { return this->m_transform; }
+        inline const Fvector& getPosition(void) const noexcept { return this->m_position; }
+        inline const Fvector& getRotation(void) const noexcept { return this->m_rotation; }
+        inline const Fvector& getScale(void) const noexcept { return this->m_scale; }
+        inline const Fbox& getBox(void) const noexcept { return this->m_box; }
 
         //   inline bool IsVisible(void) const noexcept { return this->bVisible; }
         inline void Show(void) noexcept
@@ -164,8 +164,8 @@ namespace Cordis
         //     void AnimationUpdate(const float& t);
         //     void OnMotionChange(void);
 
-        CurrentSectionType GetType(void) const noexcept { return this->m_id_objecttype; }
-        xr_string GetSceneName(void) const noexcept { return this->m_scene_name; }
+        CurrentSectionType getType(void) const noexcept { return this->m_id_objecttype; }
+        xr_string getSceneName(void) const noexcept { return this->m_scene_name; }
 
     public:
         bool m_is_selected;

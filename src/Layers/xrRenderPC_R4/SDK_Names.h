@@ -64,7 +64,10 @@ namespace Cordis
 		class SDK_Names
 		{
 		private:
-			SDK_Names(void) = default;
+			SDK_Names(void) : m_generated_index(0) 
+			{
+			
+			}
 
 		public:
 			inline static SDK_Names& getInstance(void) noexcept
@@ -228,11 +231,9 @@ namespace Cordis
 			{
 				if (filepath.empty())
 					return false;
-#ifndef UNICODE
+ 
 				XML::TiXmlDocument document(filepath.c_str());
-#else
-				XML::TiXmlDocument document(Helper::converter.to_bytes(filepath).c_str());
-#endif
+ 
 				std::pair<xr_string, xr_map<xr_string, xr_string>> data;
 				std::pair<xr_string, xr_string> data_map;
 
@@ -263,8 +264,14 @@ namespace Cordis
 
 									if (!text.empty())
 									{
+										xr_string string_id = u8"##ID";
+										++m_generated_index;
+										string_id += this->m_generated_index;
 										data_map.first = attribute;
 										data_map.second = u8""+text;
+
+										if (!strstr(data_map.first.c_str(), "_text"))
+											data_map.second.append(string_id);
 
 										data.second.insert(data_map);
 									}
@@ -284,6 +291,7 @@ namespace Cordis
 				return false;
 			}
 		private:
+			int m_generated_index;
 			xr_string m_current_language;
 		public:
 			xr_vector<xr_string> m_languages;

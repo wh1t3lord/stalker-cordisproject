@@ -24,7 +24,7 @@ void SDK_ObjectShape::ComputeBounds(void)
         switch (this->m_shape_geometry_type)
         {
         case kShapeType_Sphere:
-        {
+        { // @ Lord: подумать и доделать за ПЫС как сделать, чтобы просчитывалось для трансформации любой оси нужно подумать и сделать
             Fsphere& transform = this->m_sphere_data;
             Fvector point;
             point.set(transform.P);
@@ -48,7 +48,7 @@ void SDK_ObjectShape::ComputeBounds(void)
             break;
         }
 
-        //   this->m_box.getsphere(this->m_sphere.P, this->m_sphere.R);
+        //this->m_box.getsphere(this->m_sphere.P, this->m_sphere.R);
     }
 }
 
@@ -64,7 +64,7 @@ void SDK_ObjectShape::Render(const int&, const bool&)
             this->ComputeBounds();
         }
 
-        DUImpl.DrawIdentBox(this->GetTransform());
+        DUImpl.DrawIdentBox(this->getTransform());
         break;
     }
     case kShapeType_Sphere:
@@ -74,7 +74,7 @@ void SDK_ObjectShape::Render(const int&, const bool&)
             this->UpdateTransform();
             this->ComputeBounds();
         }
-        DUImpl.DrawIdentSphere(this->GetTransform());
+        DUImpl.DrawIdentSphere(this->getTransform());
         break;
     }
     }
@@ -146,7 +146,7 @@ bool SDK_ObjectShape::FrustumPick(const CFrustum& frustum)
         Fbox box;
         box.identity();
         Fmatrix data = this->m_box_data;
-        data.mulA_43(this->GetTransform());
+        data.mulA_43(this->getTransform());
         box.xform(data);
         unsigned int mask = 0xff;
 
@@ -158,9 +158,9 @@ bool SDK_ObjectShape::FrustumPick(const CFrustum& frustum)
     case kShapeType_Sphere:
     { 
         Fvector center;
-        this->GetTransform().transform_tiny(center, this->m_sphere_data.P);
+        this->getTransform().transform_tiny(center, this->m_sphere_data.P);
 
-        if (frustum.testSphere_dirty(center, this->m_sphere_data.R * this->GetScale().x))
+        if (frustum.testSphere_dirty(center, this->m_sphere_data.R * this->getScale().x))
             return true;
 
         break;

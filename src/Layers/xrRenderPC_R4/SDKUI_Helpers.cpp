@@ -21,42 +21,42 @@ namespace Cordis
             return;
 
         ImGui::SetNextWindowPos(ImVec2(this->m_currentposition_x, this->m_currentposition_y), ImGuiCond_Once);
-        if (ImGui::Begin("Log Window", &this->m_is_visible, ImVec2(this->m_currentsize_x, this->m_currentsize_y), 0.5f,
+        if (ImGui::Begin(SDK_Names::getInstance().getName("st_label_manager_log").c_str(), &this->m_is_visible, ImVec2(this->m_currentsize_x, this->m_currentsize_y), 0.5f,
                 this->m_flag))
         {
             ImGui::PushStyleVar(ImGuiStyleVar_ItemSpacing, ImVec2(0, 0));
             ImColor col = {1.0f, 1.0f, 1.0f, 1.0f};
             for (xr_string text : this->m_string_buffer)
             {
-                if (strstr(text.c_str(), "|ERROR"))
+                if (strstr(text.c_str(), u8"|ERROR"))
                 {
                     col = ImColor(1.0f, 0.0f, 0.0f, 1.0f);
 
                     if (!this->m_show_errors)
                         continue;
                 }
-                else if (strstr(text.c_str(), "|WARNING"))
+                else if (strstr(text.c_str(), u8"|WARNING"))
                 {
                     col = ImColor(0.8f, 0.9f, 0.2f, 1.0f);
 
                     if (!this->m_show_warnings)
                         continue;
                 }
-                else if (strstr(text.c_str(), "|OLD"))
+                else if (strstr(text.c_str(), u8"|OLD"))
                 {
                     col = ImColor(0.4f, 0.4f, 0.4f, 1.0f);
 
                     if (!this->m_show_unimportant)
                         continue;
                 }
-                else if (strstr(text.c_str(), "|SUCCESSFUL"))
+                else if (strstr(text.c_str(), u8"|SUCCESSFUL"))
                 {
                     col = ImColor(0.2f * 2, 0.4f * 2, 0.1f * 2, 1.0f);
 
                     if (!this->m_show_good)
                         continue;
                 }
-                else if (strstr(text.c_str(), "|INFO"))
+                else if (strstr(text.c_str(), u8"|INFO"))
                 {
                     col = ImColor(0.0f, 0.0f, 1.0f, 1.0f);
 
@@ -82,7 +82,7 @@ namespace Cordis
             {
                 if (ImGui::BeginMenu("Show (Only):"))
                 {
-                    if (ImGui::MenuItem("All"))
+                    if (ImGui::MenuItem(SDK_Names::getInstance().getName("st_log_all").c_str()))
                     {
                         this->m_show_errors = true;
                         this->m_show_warnings = true;
@@ -92,7 +92,7 @@ namespace Cordis
                         this->m_show_good = true;
                     }
 
-                    if (ImGui::MenuItem("Errors"))
+                    if (ImGui::MenuItem(SDK_Names::getInstance().getName("st_log_errors").c_str()))
                     {
                         this->m_show_errors = true;
                         this->m_show_warnings = false;
@@ -102,7 +102,7 @@ namespace Cordis
                         this->m_show_good = false;
                     }
 
-                    if (ImGui::MenuItem("Warnings"))
+                    if (ImGui::MenuItem(SDK_Names::getInstance().getName("st_log_warnings").c_str()))
                     {
                         this->m_show_errors = false;
                         this->m_show_warnings = true;
@@ -112,7 +112,7 @@ namespace Cordis
                         this->m_show_good = false;
                     }
 
-                    if (ImGui::MenuItem("UnImportant"))
+                    if (ImGui::MenuItem(SDK_Names::getInstance().getName("st_log_unimportant").c_str()))
                     {
                         this->m_show_errors = false;
                         this->m_show_warnings = false;
@@ -122,7 +122,7 @@ namespace Cordis
                         this->m_show_good = false;
                     }
 
-                    if (ImGui::MenuItem("Successful"))
+                    if (ImGui::MenuItem(SDK_Names::getInstance().getName("st_log_successful").c_str()))
                     {
                         this->m_show_errors = false;
                         this->m_show_warnings = false;
@@ -132,7 +132,7 @@ namespace Cordis
                         this->m_show_good = true;
                     }
 
-                    if (ImGui::MenuItem("Default"))
+                    if (ImGui::MenuItem(SDK_Names::getInstance().getName("st_log_default").c_str()))
                     {
                         this->m_show_errors = false;
                         this->m_show_warnings = false;
@@ -145,12 +145,12 @@ namespace Cordis
                     ImGui::EndMenu();
                 }
 
-                if (ImGui::MenuItem("Clear"))
+                if (ImGui::MenuItem(SDK_Names::getInstance().getName("st_log_clear").c_str()))
                 {
                     this->m_string_buffer.clear();
                 }
 
-                if (ImGui::MenuItem("Close"))
+                if (ImGui::MenuItem(SDK_Names::getInstance().getName("st_log_close").c_str()))
                 {
                     Hide();
                 }
@@ -172,7 +172,7 @@ namespace Cordis
             return;
 
         ImGui::SetNextWindowPos(ImVec2(30, 30), ImGuiCond_Once);
-        if (ImGui::Begin("Overlay", &this->m_is_visible, ImVec2(200, 500), 0.005f, this->m_flag))
+        if (ImGui::Begin(SDK_Names::getInstance().getName("st_overlay_overlay").c_str(), &this->m_is_visible, ImVec2(200, 500), 0.005f, this->m_flag))
         {
             if (this->m_showonly_sdkinfo)
             {
@@ -185,11 +185,11 @@ namespace Cordis
                 if (this->m_showonly_sdkinfo)
                     ImGui::Separator();
 
-                if (ImGui::TreeNode("Project info:"))
+                if (ImGui::TreeNode(SDK_Names::getInstance().getName("st_overlay_projectinfo").c_str()))
                 {
                     ImGui::Text("Scene name: \n");
-                    ImGui::Checkbox("Draw Grid", &EditorPref::GetInstance().bDrawGrid);
-                    if (ImGui::TreeNode("Total:"))
+                    ImGui::Checkbox(SDK_Names::getInstance().getName("st_overlay_drawgrid").c_str(), &EditorPref::GetInstance().bDrawGrid);
+                    if (ImGui::TreeNode(SDK_Names::getInstance().getName("st_overlay_total").c_str()))
                     {
                         ImGui::Text("objects - ");
                         ImGui::Text("tris - ");
@@ -200,21 +200,21 @@ namespace Cordis
 
                     if (EditorPref::GetInstance().bDrawGrid)
                     {
-                        if (ImGui::TreeNode("Grid:"))
+                        if (ImGui::TreeNode(SDK_Names::getInstance().getName("st_overlay_grid").c_str()))
                         {
-                            if (ImGui::ColorEdit3("Grid Color", GridOptions::col))
+                            if (ImGui::ColorEdit3(SDK_Names::getInstance().getName("st_overlay_grid_color").c_str(), GridOptions::col))
                             {
                                 SDKUI::UI().setHoveredColorEdit(true);
                             }
 
-                            if (ImGui::ColorEdit4("Background Scene color: ", GridOptions::col_background))
+                            if (ImGui::ColorEdit4(SDK_Names::getInstance().getName("st_overlay_background_color").c_str(), GridOptions::col_background))
                             {
                                 SDKUI::UI().setHoveredColorEdit(true);
                             }
 
 
                             static xr_string a = "100|10";
-                            ImGui::SliderInt("Grid Type", &this->m_gridtype, 0, 5, a.c_str());
+                            ImGui::SliderInt(SDK_Names::getInstance().getName("st_overlay_grid_type").c_str(), &this->m_gridtype, 0, 5, a.c_str());
                             switch (this->m_gridtype)
                             {
                             case 0:
@@ -264,15 +264,15 @@ namespace Cordis
                         }
                     }
 
-                    if (ImGui::TreeNode("Camera: "))
+                    if (ImGui::TreeNode(SDK_Names::getInstance().getName("st_overlay_camera").c_str()))
                     {
-                        if (ImGui::Button("Start Location"))
+                        if (ImGui::Button(SDK_Names::getInstance().getName("st_overlay_sloc").c_str()))
                         {
                             this->m_savedposition = Device.vCameraPosition;
                             Device.vCameraPosition.set(0, 0, 0);
                         }
 
-                        if (ImGui::Button("Previous Location"))
+                        if (ImGui::Button(SDK_Names::getInstance().getName("st_overlay_prevpos").c_str()))
                         {
                             Device.vCameraPosition.set(this->m_savedposition);
                         }
@@ -280,10 +280,10 @@ namespace Cordis
                         ImGui::TreePop();
                     }
 
-                    if (ImGui::TreeNode("Gizmo: "))
+                    if (ImGui::TreeNode(SDK_Names::getInstance().getName("st_overlay_gizmo").c_str()))
                     {
-                        ImGui::DragInt("Gizmo Size", &g_size_gizmoline, 1.0f, 5, 20);
-                        ImGui::DragFloat("Gizmo Sens", &SDK_GizmoManager::GetInstance().m_speed, 0.001f, 0.001f, 1.0f);
+                        ImGui::DragInt(SDK_Names::getInstance().getName("st_overlay_gizmosize").c_str(), &g_size_gizmoline, 1.0f, 5, 20);
+                        ImGui::DragFloat(SDK_Names::getInstance().getName("st_overlay_gizmosens").c_str(), &SDK_GizmoManager::GetInstance().m_speed, 0.001f, 0.001f, 1.0f);
                         ImGui::TreePop();
                     }
 
@@ -309,23 +309,23 @@ namespace Cordis
 
             if (ImGui::BeginPopupContextWindow())
             {
-                if (ImGui::BeginMenu("Show only:"))
+                if (ImGui::BeginMenu(SDK_Names::getInstance().getName("st_overlay_popup_showonly").c_str()))
                 {
-                    if (ImGui::MenuItem("SDK info"))
+                    if (ImGui::MenuItem(SDK_Names::getInstance().getName("st_overlay_popup_sdkinfo").c_str()))
                     {
                         this->m_showonly_sdkinfo = true;
                         this->m_showonly_projectinfo = false;
                         this->m_showonly_sysinfo = false;
                     }
 
-                    if (ImGui::MenuItem("Project info"))
+                    if (ImGui::MenuItem(SDK_Names::getInstance().getName("st_overlay_popup_projectinfo").c_str()))
                     {
                         this->m_showonly_projectinfo = true;
                         this->m_showonly_sysinfo = false;
                         this->m_showonly_sdkinfo = false;
                     }
 
-                    if (ImGui::MenuItem("System info"))
+                    if (ImGui::MenuItem(SDK_Names::getInstance().getName("st_overlay_popup_systeminfo").c_str()))
                     {
                         this->m_showonly_sysinfo = true;
                         this->m_showonly_sdkinfo = false;
@@ -335,24 +335,24 @@ namespace Cordis
                     ImGui::EndMenu();
                 }
 
-                if (ImGui::BeginMenu("Show:"))
+                if (ImGui::BeginMenu(SDK_Names::getInstance().getName("st_overlay_popup_show").c_str()))
                 {
-                    if (ImGui::MenuItem("All"))
+                    if (ImGui::MenuItem(SDK_Names::getInstance().getName("st_overlay_popup_all").c_str()))
                     {
                         this->m_showonly_sysinfo = true;
                         this->m_showonly_sdkinfo = true;
                         this->m_showonly_projectinfo = true;
                     }
 
-                    if (ImGui::MenuItem("SDK Info"))
+                    if (ImGui::MenuItem(SDK_Names::getInstance().getName("st_overlay_popup_sdkinfo").c_str()))
                     {
                         this->m_showonly_sdkinfo = true;
                     }
-                    if (ImGui::MenuItem("Project info"))
+                    if (ImGui::MenuItem(SDK_Names::getInstance().getName("st_overlay_popup_projectinfo").c_str()))
                     {
                         this->m_showonly_projectinfo = true;
                     }
-                    if (ImGui::MenuItem("System info"))
+                    if (ImGui::MenuItem(SDK_Names::getInstance().getName("st_overlay_popup_systeminfo").c_str()))
                     {
                         this->m_showonly_sysinfo = true;
                     }
@@ -360,24 +360,24 @@ namespace Cordis
                     ImGui::EndMenu();
                 }
 
-                if (ImGui::BeginMenu("Hide:"))
+                if (ImGui::BeginMenu(SDK_Names::getInstance().getName("st_overlay_popup_hide").c_str()))
                 {
-                    if (ImGui::MenuItem("SDK Info"))
+                    if (ImGui::MenuItem(SDK_Names::getInstance().getName("st_overlay_popup_sdkinfo").c_str()))
                     {
                         this->m_showonly_sdkinfo = false;
                     }
-                    if (ImGui::MenuItem("Project info"))
+                    if (ImGui::MenuItem(SDK_Names::getInstance().getName("st_overlay_popup_projectinfo").c_str()))
                     {
                         this->m_showonly_projectinfo = false;
                     }
-                    if (ImGui::MenuItem("System info"))
+                    if (ImGui::MenuItem(SDK_Names::getInstance().getName("st_overlay_popup_systeminfo").c_str()))
                     {
                         this->m_showonly_sysinfo = false;
                     }
                     ImGui::EndMenu();
                 }
 
-                if (ImGui::MenuItem("Close"))
+                if (ImGui::MenuItem(SDK_Names::getInstance().getName("st_overlay_popup_close").c_str()))
                 {
                     this->m_is_visible = false;
                 }
@@ -395,37 +395,37 @@ namespace Cordis
         if (!this->m_is_visible)
             return;
 
-        if (ImGui::Begin("Camera Manager", &this->m_is_visible, ImGuiWindowFlags_AlwaysAutoResize))
+        if (ImGui::Begin(SDK_Names::getInstance().getName("st_manager_camera").c_str(), &this->m_is_visible, ImGuiWindowFlags_AlwaysAutoResize))
         {
-            ImGui::Text("Position:");
-            ImGui::DragFloat("PosX", &Device.vCameraPosition.x, 1.0f);
+            ImGui::Text(SDK_Names::getInstance().getName("st_text_position_camera_manager").c_str());
+            ImGui::DragFloat(SDK_Names::getInstance().getName("st_posX_camera_manager").c_str(), &Device.vCameraPosition.x, 1.0f);
             ImGui::SameLine();
-            ImGui::DragFloat("PosY", &Device.vCameraPosition.y, 1.0f);
+            ImGui::DragFloat(SDK_Names::getInstance().getName("st_posY_camera_manager").c_str(), &Device.vCameraPosition.y, 1.0f);
             ImGui::SameLine();
-            ImGui::DragFloat("PosZ", &Device.vCameraPosition.z, 1.0f);
+            ImGui::DragFloat(SDK_Names::getInstance().getName("st_posZ_camera_manager").c_str(), &Device.vCameraPosition.z, 1.0f);
             ImGui::Separator();
-            ImGui::Text("Direction: (read-only)");
-            ImGui::DragFloat("DirX", &Device.vCameraDirection.x, 0.0f);
+            ImGui::Text(SDK_Names::getInstance().getName("st_text_direction_ro_camera_manager").c_str());
+            ImGui::DragFloat(SDK_Names::getInstance().getName("st_dirX_camera_manager").c_str(), &Device.vCameraDirection.x, 0.0f);
             ImGui::SameLine();
-            ImGui::DragFloat("DirY", &Device.vCameraDirection.y, 0.0f);
+            ImGui::DragFloat(SDK_Names::getInstance().getName("st_dirY_camera_manager").c_str(), &Device.vCameraDirection.y, 0.0f);
             ImGui::SameLine();
-            ImGui::DragFloat("DirZ", &Device.vCameraDirection.z, 0.0f);
+            ImGui::DragFloat(SDK_Names::getInstance().getName("st_dirZ_camera_manager").c_str(), &Device.vCameraDirection.z, 0.0f);
             ImGui::Separator();
-            ImGui::Text("Normal: (read-only)");
-            ImGui::DragFloat("NorX", &Device.vCameraTop.x, 0.0f);
+            ImGui::Text(SDK_Names::getInstance().getName("st_text_normal_ro_camera_manager").c_str());
+            ImGui::DragFloat(SDK_Names::getInstance().getName("st_norX_camera_manager").c_str(), &Device.vCameraTop.x, 0.0f);
             ImGui::SameLine();
-            ImGui::DragFloat("NorY", &Device.vCameraTop.y, 0.0f);
+            ImGui::DragFloat(SDK_Names::getInstance().getName("st_norY_camera_manager").c_str(), &Device.vCameraTop.y, 0.0f);
             ImGui::SameLine();
-            ImGui::DragFloat("NorZ", &Device.vCameraTop.z, 0.0f);
+            ImGui::DragFloat(SDK_Names::getInstance().getName("st_norZ_camera_manager").c_str(), &Device.vCameraTop.z, 0.0f);
             ImGui::Separator();
-            ImGui::Text("Sens: ");
-            ImGui::DragFloat("koef", &SDK_Camera::GetInstance().fSens, 0.0001f, 0.0f, 1.0f);
-            ImGui::Text("System attributes: ");
-            ImGui::DragFloat("FOV", &SDK_Camera::GetInstance().f_fov, 1.0f, 1.0f, 90.0f);
-            ImGui::DragFloat("ASPECT", &SDK_Camera::GetInstance().f_aspect, 0.1f, 0.1f, 1.0f);
-            ImGui::DragFloat("SPEED", &SDK_Camera::GetInstance().fMoveSpeed, 1.0f, 1.0f, 10000.0f);
-            ImGui::DragFloat("NearPlane (read-only)", &SDK_Camera::GetInstance().fNear, 0.0f);
-            ImGui::DragFloat("FarPlane (read-only)", &SDK_Camera::GetInstance().fFar, 1.0f, 1.0f, 3000.0f);
+            ImGui::Text(SDK_Names::getInstance().getName("st_text_sensivity_camera_manager").c_str());
+            ImGui::DragFloat(SDK_Names::getInstance().getName("st_sensvalue_camera_manager").c_str(), &SDK_Camera::GetInstance().fSens, 0.0001f, 0.0f, 1.0f);
+            ImGui::Text(SDK_Names::getInstance().getName("st_text_camera_sysatt").c_str());
+            ImGui::DragFloat(SDK_Names::getInstance().getName("st_camera_FOV").c_str(), &SDK_Camera::GetInstance().f_fov, 1.0f, 1.0f, 90.0f);
+            ImGui::DragFloat(SDK_Names::getInstance().getName("st_camera_aspect").c_str(), &SDK_Camera::GetInstance().f_aspect, 0.1f, 0.1f, 1.0f);
+            ImGui::DragFloat(SDK_Names::getInstance().getName("st_speed_camera_manager").c_str(), &SDK_Camera::GetInstance().fMoveSpeed, 1.0f, 1.0f, 10000.0f);
+            ImGui::DragFloat(SDK_Names::getInstance().getName("st_camera_near_plane").c_str(), &SDK_Camera::GetInstance().fNear, 0.0f);
+            ImGui::DragFloat(SDK_Names::getInstance().getName("st_camera_far_plane").c_str(), &SDK_Camera::GetInstance().fFar, 1.0f, 1.0f, 3000.0f);
         }
 
         ImGui::End();

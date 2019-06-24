@@ -17,7 +17,7 @@ namespace Cordis
             return;
 
 		this->m_sections = { SDK_Names::getInstance().getName("st_name_staticgeometry"), SDK_Names::getInstance().getName("st_name_light"), SDK_Names::getInstance().getName("st_name_sound_sources"), SDK_Names::getInstance().getName("st_name_sound_environments"),
-				  SECTION_GLOWS_NAME, SDK_Names::getInstance().getName("st_name_shapes"), SDK_Names::getInstance().getName("st_name_spawnelements"), SDK_Names::getInstance().getName("st_name_waypoints"),
+				  SDK_Names::getInstance().getName("st_name_shapes"), SDK_Names::getInstance().getName("st_name_spawnelements"), SDK_Names::getInstance().getName("st_name_waypoints"),
 				  SDK_Names::getInstance().getName("st_name_sectors"), SDK_Names::getInstance().getName("st_name_portals"), SDK_Names::getInstance().getName("st_name_groups"), SDK_Names::getInstance().getName("st_name_staticparticles"),
 				  SDK_Names::getInstance().getName("st_name_detail_objects"), SDK_Names::getInstance().getName("st_name_aimap"), SDK_Names::getInstance().getName("st_name_wallmarks"), SDK_Names::getInstance().getName("st_name_fogvolumes") };
 
@@ -47,7 +47,7 @@ namespace Cordis
                 ImGui::EndCombo();
             }
 #pragma endregion
-            if (ImGui::Button("Show Object List"))
+            if (ImGui::Button(SDK_Names::getInstance().getName("st_show_object_list").c_str()))
             {
                 if (!SDKUI_ObjectList::Widget().IsVisible())
                 {
@@ -59,7 +59,7 @@ namespace Cordis
                 }
             }
 
-            if (ImGui::Button("Show Scene Options"))
+            if (ImGui::Button(SDK_Names::getInstance().getName("st_show_scene_options").c_str()))
             {
                 if (!SDKUI_SceneOptions::Widget().IsVisible())
                 {
@@ -76,7 +76,7 @@ namespace Cordis
             {
             case kSection_StaticGeometry:
             {
-                if (ImGui::CollapsingHeader("Catalog Static Geometry"))
+                if (ImGui::CollapsingHeader(SDK_Names::getInstance().getName("st_catalog_sg").c_str()))
                 {
                     for (xr_map<xr_string, CEditableObject*>::const_iterator it =
                              SDK_Cache::GetInstance().m_staticgeometry.cbegin();
@@ -107,16 +107,12 @@ namespace Cordis
             {
                 break;
             }
-            case kSection_Glows:
-            { 
-                break;
-            }
             case kSection_Shapes: 
             {
-                ImGui::Text("Geometry type: ");
+                ImGui::Text(SDK_Names::getInstance().getName("st_shapes_geometrytype").c_str());
 
  
-                    if (ImGui::Checkbox("Sphere", &this->m_checked_sphere_selection))
+                    if (ImGui::Checkbox(SDK_Names::getInstance().getName("st_shapes_geometry_sphere").c_str(), &this->m_checked_sphere_selection))
                     {
                         if (!this->m_checked_box_selection && !this->m_checked_sphere_selection)
                             this->m_checked_sphere_selection = true;
@@ -126,7 +122,7 @@ namespace Cordis
  
 
  
-                    if (ImGui::Checkbox("Cube", &this->m_checked_box_selection))
+                    if (ImGui::Checkbox(SDK_Names::getInstance().getName("st_shapes_geometry_cube").c_str(), &this->m_checked_box_selection))
                     {
                         if (!this->m_checked_box_selection && !this->m_checked_sphere_selection)
                             this->m_checked_box_selection = true;

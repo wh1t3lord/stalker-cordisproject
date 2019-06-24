@@ -59,14 +59,14 @@ namespace Cordis
             if (object->m_is_selected)
             {
                 // RCache.set_xform_world(object->GetTransform());
-                DUImpl.DrawSelectionBoxB(object->GetBox(), &clr);
+                DUImpl.DrawSelectionBoxB(object->getBox(), &clr);
                 if (SDKUI::UI().IsUsedMoveTool())
                 {
-                    DUImpl.DrawGizmoMove(SDK_SceneManager::GetInstance().GetPositionFromLastSelectedObject());
+                    DUImpl.DrawGizmoMove(SDK_SceneManager::GetInstance().getPositionFromLastSelectedObject());
                 }
                 else if (SDKUI::UI().IsUsedScaleTool())
                 {
-                    DUImpl.DrawGizmoScale(SDK_SceneManager::GetInstance().GetPositionFromLastSelectedObject());
+                    DUImpl.DrawGizmoScale(SDK_SceneManager::GetInstance().getPositionFromLastSelectedObject());
                 }
             }
         }

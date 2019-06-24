@@ -5,21 +5,7 @@ namespace Cordis
 {
 namespace SDK
 {
-constexpr const char* SECTION_LIGHTS_NAME = "Lights";
-constexpr const char* SECTION_SOUNDSOURCE_NAME = "Sound Source";
-constexpr const char* SECTION_SOUNDENVIRONMENT_NAME = "Sound Environment";
-constexpr const char* SECTION_GLOWS_NAME = "Glows";
-constexpr const char* SECTION_SHAPES_NAME = "Shapes";
-constexpr const char* SECTION_SPAWNELEMENTS_NAME = "Spawn Elements";
-constexpr const char* SECTION_WAYPOINTS_NAME = "Way Points";
-constexpr const char* SECTION_SECTORS_NAME = "Sectors";
-constexpr const char* SECTION_PORTALS_NAME = "Portals";
-constexpr const char* SECTION_GROUPS_NAME = "Groups";
-constexpr const char* SECTION_STATICPARTICLES_NAME = "Static Particles";
-constexpr const char* SECTION_DETAILOBJECTS_NAME = "Detail Objects";
-constexpr const char* SECTION_AIMAP_NAME = "AI Map";
-constexpr const char* SECTION_WALLMARKS_NAME = "Wallmarks";
-constexpr const char* SECTION_FOGVOLUMES_NAME = "Fog Volumes";
+
 
 class SDKUI_RightWindow
 {

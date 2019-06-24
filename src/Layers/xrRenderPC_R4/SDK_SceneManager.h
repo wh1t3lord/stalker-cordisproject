@@ -15,7 +15,7 @@ namespace Cordis
 
     private:
         SDK_SceneManager(void)
-            : m_total_count_objects(0), m_total_count_objects_glows(0), m_total_count_objects_groups(0),
+            : m_total_count_objects(0), /*m_total_count_objects_glows(0),*/ m_total_count_objects_groups(0),
               m_total_count_objects_sound_environments(0), m_total_count_objects_sound_sources(0),
               m_total_count_objects_spawn_elements(0), m_total_count_objects_static_particles(0),
               m_total_count_objects_wallmarks(0), m_total_count_objects_waypoints(0), m_total_count_objects_lights(0),
@@ -38,7 +38,7 @@ namespace Cordis
         SDK_SceneManager(SDK_SceneManager&&) = delete;
         SDK_SceneManager& operator=(SDK_SceneManager&&) = delete;
 
-        void AddObject(const Fvector&, const Fvector&);
+		void AddObject(const Fvector&, const Fvector&);
         void ZoomExtentSelected(const Fbox& bbox);
         void DeleteResources(void);
         //  void PickObject(const Fvector& start, const Fvector& direction);
@@ -54,7 +54,7 @@ namespace Cordis
         void Rotate(const Fvector& value);
         void Scale(const Fvector& value);
 
-        inline const Fvector& GetPositionFromLastSelectedObject(void)
+        inline const Fvector& getPositionFromLastSelectedObject(void)
         {
             if (SDKUI::UI().IsUsedMoveTool() || SDKUI::UI().IsUsedRotateTool() || SDKUI::UI().IsUsedScaleTool())
             {
@@ -62,7 +62,7 @@ namespace Cordis
                     return Fvector({0, 0, 0});
 
                 SDK_CustomObject* object = this->m_selectedobjects_list.back();
-                return object->GetPosition();
+                return object->getPosition();
             }
 
             SDKUI_Log::Widget().SetColor(warning);
@@ -71,11 +71,11 @@ namespace Cordis
         }
 
     private:
-        //  SDK_CustomObject* _CreateObject(void); Lord: Implement this
         SDK_CustomObject* _AddObjectStaticGeometry(LPCSTR name);
         SDK_CustomObject* _AddObjectShape(const xr_string& name);
+		SDK_CustomObject* _AddObjectLight(const xr_string& name);
         void _AddObjectGeometryOfShape(ShapeType type);
-        void _AddObjectLight(void);
+        
 
     public:
 #pragma region Statistic
@@ -83,7 +83,7 @@ namespace Cordis
         unsigned int m_total_count_objects_static_geometry;
         unsigned int m_total_count_objects_waypoints;
         unsigned int m_total_count_objects_lights;
-        unsigned int m_total_count_objects_glows;
+  //      unsigned int m_total_count_objects_glows;
         unsigned int m_total_count_objects_spawn_elements;
         unsigned int m_total_count_objects_ai_nodes; // @ Lord: Interpret this to recastAnddetour
         unsigned int m_total_count_objects_wallmarks;

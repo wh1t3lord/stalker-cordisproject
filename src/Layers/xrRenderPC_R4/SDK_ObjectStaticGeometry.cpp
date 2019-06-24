@@ -31,14 +31,14 @@ namespace Cordis
             this->UpdateTransform();
             // this->Box.xform(this->GetTransform());
             this->m_occbox.set(this->m_data->GetBox());
-            this->m_occbox.xform(this->GetTransform());
+            this->m_occbox.xform(this->getTransform());
         }
 
         // Fbox b = this->Box;
         // b.xform(this->GetTransform());
         //     if (RImplementation.occ_visible(this->OccBox))
         //     {
-        this->m_data->Render(this->GetTransform(), prior, strit);
+        this->m_data->Render(this->getTransform(), prior, strit);
         //         this->bRendering = true;
         //     }
         //     else
@@ -87,11 +87,11 @@ namespace Cordis
             return false;
         }
 
-        Fmatrix _m = this->GetTransform();
-        _m.invert();
+        Fmatrix _matrix = this->getTransform();
+		_matrix.invert();
         if (RImplementation.occ_visible(this->m_occbox))
         {
-            if (this->m_data->RayPick(distance, start, direction, _m))
+            if (this->m_data->RayPick(distance, start, direction, _matrix))
             {
                 return true;
             }
@@ -107,7 +107,7 @@ namespace Cordis
 
         if (RImplementation.occ_visible(this->m_occbox))
         {
-            return this->m_data->FrustumPick(frustum, this->GetTransform());
+            return this->m_data->FrustumPick(frustum, this->getTransform());
         }
 
         return false;

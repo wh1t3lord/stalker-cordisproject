@@ -16,8 +16,8 @@ SDK_SceneManager::~SDK_SceneManager(void) {}
 
 void SDK_SceneManager::AddObject(const Fvector& position, const Fvector& normal)
 {
-    /*
-            kSection_StaticGeometry,
+    /* Памятка 
+		kSection_StaticGeometry,
         kSection_Lights,
         kSection_SoundSource,
         kSection_SoundEnvironment,
@@ -61,10 +61,6 @@ void SDK_SceneManager::AddObject(const Fvector& position, const Fvector& normal)
     }
     case kSection_SoundEnvironment: 
     { 
-        break;
-    }
-    case kSection_Glows: 
-    {
         break;
     }
     case kSection_Shapes: 
