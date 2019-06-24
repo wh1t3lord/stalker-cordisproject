@@ -6,6 +6,58 @@ namespace Cordis
 {
 	namespace SDK
 	{
+		const char xml_data_default_english[] = "<?xml version=\"1.0\" ?>\
+												<string_table>\
+												<!-- System information -->\
+												<string id=\"st_language\">Integrated English</string>\
+												<!-- System information -->\
+												<!-- Main data -->\
+												<string id=\"st_direction\">Direction</string>\
+												<string id=\"st_position\">Position</string>\
+												<string id=\"st_scale\">Scale</string>\
+												<string id=\"st_altitude\">Altitude</string>\
+												<string id=\"st_magnitude\">Magnitude</string>\
+												<string id=\"st_\"></string>\
+												<string id=\"st_x\">X</string>\
+												<string id=\"st_y\">Y</string>\
+												<string id=\"st_z\">Z</string>\
+												<string id=\"st_warning\">Warning</string>\
+												<string id=\"st_error\">Error</string>\
+												<!-- Main data -->\
+												<!-- Camera Manager -->\
+												<string id=\"st_manager_show_camera\">Show camera manager</string>\
+												<string id=\"st_label_manager_camera\">Camera manager</string>\
+												<!-- Camera Manager -->\
+												<!-- Log Manager -->\
+												<string id=\"st_manager_show_log\">Show log</string>\
+												<string id=\"st_label_manager_log\">Log manager</string>\
+												<!-- Log Manager -->\
+												<!-- Weather Manager -->\
+												<string id=\"st_manager_show_weather\">Show weather manager</string>\
+												<!-- Weather Manager -->\
+												<!-- Right Window -->\
+												<string id=\"st_name_staticgeometry\">Static geometry</string>\
+												<string id=\"st_name_groups\">Groups</string>\
+												<string id=\"st_name_light\">Lights</string>\
+												<string id=\"st_name_staticparticles\">Static particles</string>\
+												<string id=\"st_name_waypoints\">Way points</string>\
+												<string id=\"st_name_sound_environment\">Sound environments</string>\
+												<string id=\"st_name_ainodes\">AI-Nodes</string>\
+												<string id=\"st_name_spawnelements\">Spawn elements</string>\
+												<!-- Right Window -->\
+												<!-- Overlay -->\
+												<string id=\"st_grid\">Grid</string>\
+												<string id=\"st_background_color\">Background color</string>\
+												<string id=\"st_grid_color\">Grid color</string>\
+												<!-- Overlay -->\
+												<!-- Main Menu Bar -->\
+												<string id=\"st_help\">Help</string>\
+												<string id=\"st_file\">File</string>\
+												<string id=\"st_quit\">Quit</string>\
+												<string id=\"st_recent_files\">Recent files</string>\
+												<!-- Main Menu Bar -->\
+												</string_table>";
+
 		void SDK_Names::Initialize(void)
 		{
 			if (SDK_FileSystemState::m_is_translationempty)

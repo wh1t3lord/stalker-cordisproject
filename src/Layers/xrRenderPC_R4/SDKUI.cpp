@@ -71,7 +71,6 @@ void SDKUI::KeyBoardMessages(void)
     // @ Глобальные клики можно обрабатывать динамические пупапы если надо
     if (ImGui::IsMouseHoveringAnyWindow())
     {
-		// Lord: Исправить функционал при переносе какого-либо окна, появляется выделение которого вообще не должно быть
         this->bCanUseLeftButton = false;
 
         if (!this->b_is_dragged_selection_rectangle)
@@ -86,13 +85,13 @@ void SDKUI::KeyBoardMessages(void)
 
     if (this->bCanUseLeftButton) // Lord: добавить описание если используем сам инструмент перемещения
     {
-        Ivector2 p;
-        p.x = ImGui::GetIO().MousePos.x;
-        p.y = ImGui::GetIO().MousePos.y;
+        Ivector2 mouse_position;
+		mouse_position.x = ImGui::GetIO().MousePos.x;
+		mouse_position.y = ImGui::GetIO().MousePos.y;
         this->mPos.set(Device.vCameraPosition);
 
         if (!this->bClickedRightButton)
-            SDK_Camera::GetInstance().MouseRayFromPoint(this->mDir, p);
+            SDK_Camera::GetInstance().MouseRayFromPoint(this->mDir, mouse_position);
 
 #pragma region GIZMO
         if (this->bMoveTool)
@@ -145,39 +144,10 @@ void SDKUI::KeyBoardMessages(void)
     this->SelectionHandler();
 
     /*
-                 if (ImGui::IsMouseDragging(0))
-                 {
+                 if (ImGui::IsMouseDragging(0)){
                    //  SDKUI_Log::Widget().AddText("%f %f", ImGui::GetIO().MousePos.x, ImGui::GetIO().MousePos.y);
-                     if (ImGui::GetMousePos().x == 0)
-                     {
-                         SetCursorPos(this->GetDisplayX()-4, ImGui::GetIO().MousePos.y);
-                     }
-        
-
-
-
-
-                     if (ImGui::GetMousePos().x == this->GetDisplayX()-1)
-                     {
-                         SetCursorPos(4, ImGui::GetIO().MousePos.y);
-                     }
-        
-
-
-
-
-
-        
-
-
-
-
-        
-
-
-
-
-                 }*/
+                     if (ImGui::GetMousePos().x == 0){SetCursorPos(this->GetDisplayX()-4, ImGui::GetIO().MousePos.y);}
+                     if (ImGui::GetMousePos().x == this->GetDisplayX()-1){SetCursorPos(4, ImGui::GetIO().MousePos.y);}}*/
 
     if (ImGui::IsMouseReleased(0)) // Lord: обработка если мы в драге моде и инструмент перемешение
     {
@@ -215,13 +185,15 @@ void SDKUI::KeyBoardMessages(void)
         }
     }
 
+	// @ Right button
     if (ImGui::IsMouseReleased(1))
     {
         this->bCanUseLeftButton = true;
         this->bClickedRightButton = false;
     }
 
-    if (ImGui::IsMouseClicked(1)) // @ Right button
+	// @ Right button
+    if (ImGui::IsMouseClicked(1)) 
     {
         this->bCanUseLeftButton = false;
         this->bClickedRightButton = true;
@@ -840,10 +812,10 @@ void SDKUI::SelectionHandler(void)
     {
         if (this->bAddTool)
         {
-            Fvector p, n;
-            if (this->PickGround(p, this->mPos, this->mDir, &n))
+			Fvector position, normal;
+            if (this->PickGround(position, this->getMousePosition(), this->getMouseDirection(), &normal))
             {
-                SDK_SceneManager::GetInstance().AddObject(p, n);
+                SDK_SceneManager::GetInstance().AddObject(position, normal);
                 SDK_SceneManager::GetInstance().UnSelectAll();
             }
         }
@@ -854,7 +826,7 @@ void SDKUI::SelectionHandler(void)
             if ((keyboard_state[SDL_SCANCODE_LCTRL] || keyboard_state[SDL_SCANCODE_RCTRL]) &&
                 (!keyboard_state[SDL_SCANCODE_LALT] && !keyboard_state[SDL_SCANCODE_RALT]))
             {
-                if (SDK_SceneManager::GetInstance().Selection(this->mPos, this->mDir))
+                if (SDK_SceneManager::GetInstance().Selection(this->getMousePosition(), this->getMouseDirection()))
                 {
                     this->b_is_left_mouse_clicked_still_using = true;
                 }
@@ -862,13 +834,13 @@ void SDKUI::SelectionHandler(void)
             else if ((keyboard_state[SDL_SCANCODE_LALT] || keyboard_state[SDL_SCANCODE_RALT]) &&
                 (!keyboard_state[SDL_SCANCODE_RCTRL] && !keyboard_state[SDL_SCANCODE_LCTRL]))
             {
-                SDK_SceneManager::GetInstance().DeSelection(this->mPos, this->mDir);
+                SDK_SceneManager::GetInstance().DeSelection(this->getMousePosition(), this->getMouseDirection());
             }
             else
             {
                 if (!this->bMoveTool)
                 {
-                    if (SDK_SceneManager::GetInstance().Selection(this->mPos, this->mDir, true))
+                    if (SDK_SceneManager::GetInstance().Selection(this->getMousePosition(), this->getMouseDirection(), true))
                         this->b_is_left_mouse_clicked_still_using = true;
                 }
             }

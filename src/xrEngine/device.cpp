@@ -389,8 +389,9 @@ void CRenderDevice::message_loop()
                     case SDL_BUTTON_RIGHT:
                     {
                         bDrag = true;
-                        SDL_WarpMouseInWindow(Device.m_sdlWnd, WindowX / 2, WindowY / 2);
-                        SDL_SetWindowGrab(Device.m_sdlWnd, SDL_TRUE);
+						// Lord: Что-то перемещает курсор при right click
+//                         SDL_WarpMouseInWindow(Device.m_sdlWnd, WindowX / 2, WindowY / 2);  
+//                         SDL_SetWindowGrab(Device.m_sdlWnd, SDL_TRUE);
 
                         SDL_SetRelativeMouseMode(SDL_TRUE);
 
