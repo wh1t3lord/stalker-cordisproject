@@ -4,6 +4,7 @@
 #include <ctime>
 #include "../../xrEngine/SDK_Camera.h"
 #include "SDK_GizmoManager.h"
+ 
 namespace Cordis
 {
     namespace SDK
@@ -28,35 +29,35 @@ namespace Cordis
             ImColor col = {1.0f, 1.0f, 1.0f, 1.0f};
             for (xr_string text : this->m_string_buffer)
             {
-                if (strstr(text.c_str(), u8"|ERROR"))
+                if (strstr(text.c_str(), SDK_Names::getInstance().getName("st_text_log_state_error").c_str()))
                 {
                     col = ImColor(1.0f, 0.0f, 0.0f, 1.0f);
 
                     if (!this->m_show_errors)
                         continue;
                 }
-                else if (strstr(text.c_str(), u8"|WARNING"))
+                else if (strstr(text.c_str(), SDK_Names::getInstance().getName("st_text_log_state_warning").c_str()))
                 {
                     col = ImColor(0.8f, 0.9f, 0.2f, 1.0f);
 
                     if (!this->m_show_warnings)
                         continue;
                 }
-                else if (strstr(text.c_str(), u8"|OLD"))
+                else if (strstr(text.c_str(), SDK_Names::getInstance().getName("st_text_log_state_old").c_str()))
                 {
                     col = ImColor(0.4f, 0.4f, 0.4f, 1.0f);
 
                     if (!this->m_show_unimportant)
                         continue;
                 }
-                else if (strstr(text.c_str(), u8"|SUCCESSFUL"))
+                else if (strstr(text.c_str(), SDK_Names::getInstance().getName("st_text_log_state_successful").c_str()))
                 {
                     col = ImColor(0.2f * 2, 0.4f * 2, 0.1f * 2, 1.0f);
 
                     if (!this->m_show_good)
                         continue;
                 }
-                else if (strstr(text.c_str(), u8"|INFO"))
+                else if (strstr(text.c_str(), SDK_Names::getInstance().getName("st_text_log_state_info").c_str()))
                 {
                     col = ImColor(0.0f, 0.0f, 1.0f, 1.0f);
 

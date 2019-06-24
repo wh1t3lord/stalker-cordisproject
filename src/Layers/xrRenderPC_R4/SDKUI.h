@@ -10,6 +10,7 @@
 #include "SDKUI_RightWindow.h"
 #include "SDK_FileSystemState.h"
 #include "SDK_IconManager.h"
+
 namespace Cordis
 {
     namespace SDK
@@ -98,10 +99,8 @@ namespace Cordis
         inline bool IsSelected(void) const { return this->bSelected; }
         inline int GetDisplayX(void) const { return this->DisplayX; }
         inline int GetDisplayY(void) const { return this->DisplayY; }
-        // @ Mouse ray origin
-        inline Fvector GetmPos(void) const noexcept { return this->mPos; }
-        // @ Mouse ray direction
-        inline Fvector GetmDir(void) const noexcept { return this->mDir; }
+        inline Fvector getMousePosition(void) const noexcept { return this->mPos; }
+        inline Fvector getMouseDirection(void) const noexcept { return this->mDir; }
         inline bool IsUsedAddTool(void) noexcept { return this->bAddTool; }
         inline bool IsUsedMoveTool(void) noexcept { return this->bMoveTool; }
         inline bool IsUsedRotateTool(void) noexcept { return this->bRotateTool; }

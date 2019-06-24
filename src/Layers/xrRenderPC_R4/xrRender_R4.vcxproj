@@ -637,6 +637,7 @@
     <ClCompile Include="SDK_GizmoScale.cpp" />
     <ClCompile Include="SDK_IconManager.cpp" />
     <ClCompile Include="SDK_KeybindingManager.cpp" />
+    <ClCompile Include="SDK_Names.cpp" />
     <ClCompile Include="SDK_ObjectLight.cpp" />
     <ClCompile Include="SDK_ObjectStaticGeometry.cpp" />
     <ClCompile Include="SDK_ObjectWayPoint.cpp" />

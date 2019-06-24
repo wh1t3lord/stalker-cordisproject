@@ -2047,6 +2047,9 @@
     <ClCompile Include="SDKUI_Settings.cpp">
       <Filter>Cordis\SDK\UI management\Settings\Private</Filter>
     </ClCompile>
+    <ClCompile Include="SDK_Names.cpp">
+      <Filter>Cordis\SDK\UI management\Kernel\Private</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Natvis Include="..\..\TypeHelper.natvis" />

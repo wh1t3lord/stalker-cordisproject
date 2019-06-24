@@ -308,7 +308,7 @@ void SDK_SceneManager::AddObject(const Fvector& position, const Fvector& normal)
             for (unsigned int i = 0; i < 3; i++)
             {
                 // @ Have intersection
-                float distance = GizmoMove[i].RayPick(SDKUI::UI().GetmPos(), SDKUI::UI().GetmDir());
+                float distance = GizmoMove[i].RayPick(SDKUI::UI().getMousePosition(), SDKUI::UI().getMouseDirection());
                 if (current_distance > distance)
                 {
                     current_distance = distance;
@@ -326,7 +326,7 @@ void SDK_SceneManager::AddObject(const Fvector& position, const Fvector& normal)
 
             for (unsigned int i = 0; i < 3; ++i)
             {
-                if (GizmoMovePlanes[i].RayPick(SDKUI::UI().GetmPos(), SDKUI::UI().GetmDir()))
+                if (GizmoMovePlanes[i].RayPick(SDKUI::UI().getMousePosition(), SDKUI::UI().getMouseDirection()))
                     id_ = GizmoMovePlanes[i].m_axis_id;
             }
             //   this->gizmo_distance = current_distance;
@@ -344,7 +344,7 @@ void SDK_SceneManager::AddObject(const Fvector& position, const Fvector& normal)
         float distance = -1.0f;
         for (unsigned int i = 0; i < 3; ++i)
         {
-            distance = g_gizmo_lines_scale[i].RayPick(SDKUI::UI().GetmPos(), SDKUI::UI().GetmDir());
+            distance = g_gizmo_lines_scale[i].RayPick(SDKUI::UI().getMousePosition(), SDKUI::UI().getMouseDirection());
             if (current_distance > distance)
             {
                 current_distance = distance;
@@ -357,7 +357,7 @@ void SDK_SceneManager::AddObject(const Fvector& position, const Fvector& normal)
 
         for (unsigned int i = 0; i < 9; ++i)
         {
-            if (g_gizmo_planes_scale[i].RayPick(SDKUI::UI().GetmPos(), SDKUI::UI().GetmDir()))
+            if (g_gizmo_planes_scale[i].RayPick(SDKUI::UI().getMousePosition(), SDKUI::UI().getMouseDirection()))
                 _id = g_gizmo_planes_scale[i].m_axis_id;
         }
         

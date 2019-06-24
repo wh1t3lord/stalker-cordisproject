@@ -103,7 +103,7 @@ void SDKUI::KeyBoardMessages(void)
             {
                 SDK_GizmoManager::GetInstance().m_prev_point = SDK_GizmoManager::GetInstance().m_ray_end_point;
                 GizmoMove[SDK_GizmoManager::GetInstance().m_current_gizmo].GetPoint(
-                    SDKUI::UI().GetmPos(), SDKUI::UI().GetmDir(), SDK_GizmoManager::GetInstance().m_ray_end_point);
+                    SDKUI::UI().getMousePosition(), SDKUI::UI().getMouseDirection(), SDK_GizmoManager::GetInstance().m_ray_end_point);
             }
 
             if (SDK_GizmoManager::GetInstance().m_current_gizmo != GIZMO_UNKNOWN &&
@@ -111,7 +111,7 @@ void SDKUI::KeyBoardMessages(void)
             {
                 SDK_GizmoManager::GetInstance().m_prev_point = SDK_GizmoManager::GetInstance().m_ray_end_point_plane;
                 GizmoMovePlanes[SDK_GizmoManager::GetInstance().m_current_gizmo - 3].GetPoint(
-                    SDKUI::UI().GetmPos(), SDKUI::UI().GetmDir());
+                    SDKUI::UI().getMousePosition(), SDKUI::UI().getMouseDirection());
             }
         }
 
@@ -122,7 +122,7 @@ void SDKUI::KeyBoardMessages(void)
             {
                 SDK_GizmoManager::GetInstance().m_prev_point = SDK_GizmoManager::GetInstance().m_ray_end_point;
                 g_gizmo_lines_scale[SDK_GizmoManager::GetInstance().m_current_scale_gizmo].getPoint(
-                    SDKUI::UI().GetmPos(), SDKUI::UI().GetmDir(), SDK_GizmoManager::GetInstance().m_ray_end_point);
+                    SDKUI::UI().getMousePosition(), SDKUI::UI().getMouseDirection(), SDK_GizmoManager::GetInstance().m_ray_end_point);
             }
 
             if (SDK_GizmoManager::GetInstance().m_current_scale_gizmo != GIZMO_UNKNOWN &&
@@ -130,13 +130,13 @@ void SDKUI::KeyBoardMessages(void)
             {
                 SDK_GizmoManager::GetInstance().m_prev_point = SDK_GizmoManager::GetInstance().m_ray_end_point_plane;
                 g_gizmo_planes_scale[SDK_GizmoManager::GetInstance().m_current_scale_gizmo - 3].getPoint(
-                    SDKUI::UI().GetmPos(), SDKUI::UI().GetmDir());
+                    SDKUI::UI().getMousePosition(), SDKUI::UI().getMouseDirection());
             }
 
             if (SDK_GizmoManager::GetInstance().m_current_scale_gizmo == GIZMO_SCALE_BOX)
             {
                 SDK_GizmoManager::GetInstance().m_prev_point = SDK_GizmoManager::GetInstance().m_ray_end_point;
-                g_gizmo_lines_scale[1].getPoint(SDKUI::UI().GetmPos(), SDKUI::UI().GetmDir(), SDK_GizmoManager::GetInstance().m_ray_end_point);
+                g_gizmo_lines_scale[1].getPoint(SDKUI::UI().getMousePosition(), SDKUI::UI().getMouseDirection(), SDK_GizmoManager::GetInstance().m_ray_end_point);
             }
         }
 #pragma endregion
@@ -271,7 +271,7 @@ void SDKUI::KeyBoardMessages(void)
         if (ImGui::IsKeyPressed(SDL_Scancode::SDL_SCANCODE_F4) && !bCloseOnce)
         {
             SDKUI_Log::Widget().SetColor(good);
-            SDKUI_Log::Widget().AddText("Application is closing...");
+            SDKUI_Log::Widget().AddText(SDK_Names::getInstance().getName("st_text_closing_application").c_str());
             Console->Execute("quit");
             bCloseOnce = true;
             return;
@@ -282,7 +282,7 @@ void SDKUI::KeyBoardMessages(void)
     if (ImGui::IsKeyDown(SDL_Scancode::SDL_SCANCODE_F12))
     {
         Console->Execute("screenshot 1");
-        SDKUI_Log::Widget().AddText("Screenshot was made!", SDKErrorType::special);
+        SDKUI_Log::Widget().AddText(SDK_Names::getInstance().getName("st_text_making_screenshot").c_str(), SDKErrorType::special);
         return;
     }
 

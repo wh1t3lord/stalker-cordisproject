@@ -21,7 +21,7 @@ namespace Cordis
 		xr_string currentsection_name = this->m_sections[this->m_index_currentsection];
         if (ImGui::Begin(SDK_Names::getInstance().getName("st_label_object_list").c_str(), &this->m_is_visible, this->m_flag))
         {
-            ImGui::Text(SDK_Names::getInstance().getName("st_section").c_str());
+            ImGui::Text(SDK_Names::getInstance().getName("st_text_section").c_str());
             
             if (ImGui::BeginCombo("", currentsection_name.c_str()))
             {

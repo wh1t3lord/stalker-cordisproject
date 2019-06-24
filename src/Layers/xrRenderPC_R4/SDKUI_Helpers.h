@@ -1,15 +1,13 @@
 #pragma once
-#include "stdafx.h"
-
-#include "../../xrCore/Imgui/imgui.h"
-#include "../../xrCore/Imgui/imgui_impl_sdl.h"
-#include "../../xrCore/Imgui/imgui_impl_dx11.h"
 
 #include <codecvt>
+ 
 namespace Cordis
 {
     namespace SDK
     {	
+ 
+
 		namespace Helper
 		{
 			static std::wstring_convert<std::codecvt_utf8<wchar_t>> converter;
@@ -101,31 +99,36 @@ namespace Cordis
             va_list args;
             va_start(args, fmt);
             this->m_buffer.appendfv(fmt, args);
-            xr_string sas = "[";
-            sas += __TIME__;
+            xr_string result = u8"[";
+			std::chrono::system_clock::time_point x = std::chrono::system_clock::now();
+			std::time_t t = std::chrono::system_clock::to_time_t(x);
+			xr_string _result_time = std::ctime(&t);
+			xr_string r2 = _result_time.substr(_result_time.rfind(' ') - 8);
+			r2.erase(r2.rfind(' '));
+            result += r2;
 
             if (!this->m_is_syscall)
                 this->m_currentcolor = default;
 
             if (this->m_currentcolor == SDKErrorType::error)
-                sas += "|ERROR";
+                result += SDK_Names::getInstance().getName("st_text_log_state_error");
             else if (this->m_currentcolor == SDKErrorType::warning)
-                sas += "|WARNING";
+                result += SDK_Names::getInstance().getName("st_text_log_state_warning");
             else if (this->m_currentcolor == SDKErrorType::special)
-                sas += "|INFO";
+                result += SDK_Names::getInstance().getName("st_text_log_state_info");
             else if (this->m_currentcolor == SDKErrorType::unimportant)
-                sas += "|OLD";
+                result += SDK_Names::getInstance().getName("st_text_log_state_old");
             else if (this->m_currentcolor == SDKErrorType::good)
-                sas += "|SUCCESSFUL";
+                result += SDK_Names::getInstance().getName("st_text_log_state_successful");
 
-            sas += "] ";
-            sas += this->m_buffer.c_str();
+            result += u8"] ";
+            result += this->m_buffer.c_str();
 
-            if (sas[sas.size() - 1] != '\n')
-                sas += '\n';
+            if (result[result.size() - 1] != u8'\n')
+                result += u8'\n';
 
             va_end(args);
-            this->m_string_buffer.push_back(sas);
+            this->m_string_buffer.push_back(result);
             this->m_buffer.clear();
             this->m_is_syscall = false;
         }

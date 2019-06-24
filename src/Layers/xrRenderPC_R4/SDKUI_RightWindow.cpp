@@ -27,7 +27,7 @@ namespace Cordis
         if (ImGui::Begin("Manager list", &this->m_is_visible, ImVec2(250, SDKUI::UI().GetDisplayY() - this->m_size_mainmenubar_y), -1.0f, this->m_flag))
         {
 #pragma region SECTIONS
-            ImGui::Text(SDK_Names::getInstance().getName("st_section").c_str());
+            ImGui::Text(SDK_Names::getInstance().getName("st_text_section").c_str());
            // this->m_currentselected_sectionname = this->m_sections[0];
             if (ImGui::BeginCombo("", this->m_currentselected_sectionname.c_str()))
             {
