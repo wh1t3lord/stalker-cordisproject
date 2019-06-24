@@ -72,7 +72,6 @@ void SDKUI::KeyBoardMessages(void)
     if (ImGui::IsMouseHoveringAnyWindow())
     {
 		// Lord: Исправить функционал при переносе какого-либо окна, появляется выделение которого вообще не должно быть
-	//	SDKUI_Log::Widget().AddText("Dragging");
         this->bCanUseLeftButton = false;
 
         if (!this->b_is_dragged_selection_rectangle)
@@ -825,7 +824,7 @@ void SDKUI::GizmoHandler(void)
 
 void SDKUI::SelectionHandler(void)
 {
-    if (!this->b_is_hovered_coloredit && !this->b_is_used_any_tool)
+    if (!this->b_is_hovered_coloredit && !this->b_is_used_any_tool && this->bCanUseLeftButton)
     {
         if (ImGui::IsMouseDragging(0) && !SDK_GizmoManager::GetInstance().m_is_usegizmo &&
             !this->b_is_left_mouse_clicked_still_using)

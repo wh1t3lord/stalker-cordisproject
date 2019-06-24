@@ -100,6 +100,7 @@ namespace Cordis
             va_start(args, fmt);
             this->m_buffer.appendfv(fmt, args);
             xr_string result = u8"[";
+
 			std::chrono::system_clock::time_point x = std::chrono::system_clock::now();
 			std::time_t t = std::chrono::system_clock::to_time_t(x);
 			xr_string _result_time = std::ctime(&t);
