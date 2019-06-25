@@ -1522,8 +1522,7 @@ void CDrawUtilities::DrawSelectionRect(const Ivector2& m_SelStart, const Ivector
     Stream->Unlock(6, vs_L->vb_stride);
     // Render it as triangle list
     Fmatrix world = Fidentity;
-    world.build_projection_orthoOffCentrLH(
-        Cordis::SDK::SDKUI::UI().GetDisplayX(), Cordis::SDK::SDKUI::UI().GetDisplayY(), 0, 1);
+    world.build_projection_orthoOffCentrLH(Cordis::SDK::SDKUI::UI().getDisplayX(), Cordis::SDK::SDKUI::UI().getDisplayY(), 0, 1);
     //  world.transpose();
     RCache.set_xform_project(Fidentity);
     RCache.set_xform_view(Fidentity);

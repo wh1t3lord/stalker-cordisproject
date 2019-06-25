@@ -51,21 +51,21 @@ namespace Cordis
         inline void Show(void) noexcept { this->m_is_visible = true; }
         inline void Hide(void) noexcept { this->m_is_visible = false; }
         inline bool GetVisible(void) const noexcept { return this->m_is_visible; }
-        inline void Init(int x, int y, int SizeX, int SizeY, ImGuiWindowFlags flag = NULL)
+        inline void Init(float x, float y, float SizeX, float SizeY, ImGuiWindowFlags flag = NULL)
         {
             this->m_currentsize_x = SizeX;
             this->m_currentsize_y = SizeY;
             this->m_currentposition_x = x;
 
-            if (this->m_currentposition_x - (this->m_currentsize_x) < 0)
-                this->m_currentposition_x = 0;
+            if (this->m_currentposition_x - (this->m_currentsize_x) < 0.0f)
+                this->m_currentposition_x = 0.0f;
             else
                 this->m_currentposition_x -= this->m_currentsize_x;
 
             this->m_currentposition_y = y;
 
-            if (this->m_currentposition_y - (this->m_currentsize_y) < 0)
-                this->m_currentposition_y = 0;
+            if (this->m_currentposition_y - (this->m_currentsize_y) < 0.0f)
+                this->m_currentposition_y = 0.0f;
             else
                 this->m_currentposition_y -= this->m_currentsize_y;
 
@@ -77,12 +77,12 @@ namespace Cordis
             Init(pos.x, pos.y, size.x, size.y, flag);
         }
 
-        inline void Init(const ImVec2& pos, int SizeX, int SizeY, ImGuiWindowFlags flag = NULL)
+        inline void Init(const ImVec2& pos, float SizeX, float SizeY, ImGuiWindowFlags flag = NULL)
         {
             Init(pos.x, pos.y, SizeX, SizeY, flag);
         }
 
-        inline void Init(int x, int y, const ImVec2& size, ImGuiWindowFlags flag = NULL)
+        inline void Init(float x, float y, const ImVec2& size, ImGuiWindowFlags flag = NULL)
         {
             Init(x, y, size.x, size.y, flag);
         }
@@ -152,11 +152,10 @@ namespace Cordis
         bool m_show_special;
         bool m_show_unimportant;
         bool m_show_good;
-
-        int m_currentsize_x;
-        int m_currentsize_y;
-        int m_currentposition_x;
-        int m_currentposition_y;
+        float m_currentposition_x;
+        float m_currentposition_y;
+		float m_currentsize_x;
+		float m_currentsize_y;
         SDKErrorType m_currentcolor;
         ImGuiWindowFlags m_flag;
         ImGuiTextBuffer m_buffer;

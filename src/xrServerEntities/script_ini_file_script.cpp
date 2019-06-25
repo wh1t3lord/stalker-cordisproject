@@ -109,4 +109,6 @@ static void CScriptIniFile_Export(lua_State* luaState)
     ];
 }
 
+#ifdef XRGAME_EXPORTS
 SCRIPT_EXPORT_FUNC(CScriptIniFile, (), CScriptIniFile_Export);
+#endif

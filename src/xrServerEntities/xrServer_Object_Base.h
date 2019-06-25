@@ -117,8 +117,8 @@ public:
     virtual ~CSE_Abstract();
     virtual void OnEvent(NET_Packet& /*tNetPacket*/, u16 /*type*/, u32 /*time*/, ClientID /*sender*/){}
 #ifndef XRGAME_EXPORTS
-    virtual void FillProps(LPCSTR pref, PropItemVec& items);
-    virtual void __stdcall FillProp(LPCSTR pref, PropItemVec& items);
+//     virtual void FillProps(LPCSTR pref, PropItemVec& items);
+//     virtual void __stdcall FillProp(LPCSTR pref, PropItemVec& items);
     virtual void __stdcall on_render(CDUInterface* /*du*/, IServerEntityLEOwner* /*owner*/, bool /*bSelected*/,
         const Fmatrix& /*parent*/, int /*priority*/, bool /*strictB2F*/)
     {

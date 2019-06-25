@@ -172,8 +172,8 @@ namespace Cordis
         if (!this->m_is_visible)
             return;
 
-        ImGui::SetNextWindowPos(ImVec2(30, 30), ImGuiCond_Once);
-        if (ImGui::Begin(SDK_Names::getInstance().getName("st_overlay_overlay").c_str(), &this->m_is_visible, ImVec2(200, 500), 0.005f, this->m_flag))
+        ImGui::SetNextWindowPos(ImVec2(SDKUI::UI().getDisplayX() / 64.0f, SDKUI::UI().getDisplayY() / 36.0f), ImGuiCond_Once);
+        if (ImGui::Begin(SDK_Names::getInstance().getName("st_overlay_overlay").c_str(), &this->m_is_visible, ImVec2((SDKUI::UI().getDisplayX() / 9.6f), (SDKUI::UI().getDisplayY() / 2.16f)), 0.005f, this->m_flag))
         {
             if (this->m_showonly_sdkinfo)
             {

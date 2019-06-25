@@ -458,6 +458,9 @@ void CRender::create()
 
 void CRender::destroy()
 {
+	if (FS.IsSDK())
+		this->Models->OnDeviceDestroy();
+
     m_bMakeAsyncSS = false;
     FluidManager.Destroy();
     ::PortalTraverser.destroy();

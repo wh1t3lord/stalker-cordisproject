@@ -12,6 +12,7 @@
 
 using namespace luabind;
 
+#ifdef XRGAME_EXPORTS
 SCRIPT_EXPORT(CScriptTokenList, (), {
     module(luaState)[class_<xr_token>("token")
                          .def(constructor<>())
@@ -26,3 +27,4 @@ SCRIPT_EXPORT(CScriptTokenList, (), {
             .def("id", &CScriptTokenList::id)
             .def("name", &CScriptTokenList::name)];
 });
+#endif

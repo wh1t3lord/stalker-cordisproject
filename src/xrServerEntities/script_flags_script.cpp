@@ -54,6 +54,7 @@ void one(T* self)
     self->assign(typename T::TYPE(-1));
 }
 
+#ifdef XRGAME_EXPORTS
 SCRIPT_EXPORT(Flags8, (),
 {
     module(luaState)
@@ -134,3 +135,4 @@ SCRIPT_EXPORT(Flags32, (),
             .def("equal", (bool(*)(Flags32*, const Flags32&, const Flags32::TYPE))(&equal<Flags32>))
     ];
 });
+#endif

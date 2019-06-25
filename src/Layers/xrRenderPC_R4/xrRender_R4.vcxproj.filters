@@ -559,6 +559,15 @@
     <Filter Include="Cordis\SDK\UI management\Settings\Private">
       <UniqueIdentifier>{b7c6a23d-ff22-4066-8ad3-f1bc39139d3b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Cordis\SDK\Scene management\GSC\Other Stuff\IniFileStream">
+      <UniqueIdentifier>{48869062-33b7-4d53-bd93-a83647d147c6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\SDK\Scene management\GSC\Other Stuff\IniFileStream\Public">
+      <UniqueIdentifier>{d508de5a-4e0b-44e7-8f0e-4af5a0c0bbdd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\SDK\Scene management\GSC\Other Stuff\IniFileStream\Private">
+      <UniqueIdentifier>{507e3bcd-2319-4c29-b533-cc19c4357936}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\xrRenderDX10\DXCommonTypes.h">
@@ -1291,6 +1300,10 @@
     <ClInclude Include="resource.h" />
     <ClInclude Include="SDKUI_Settings.h">
       <Filter>Cordis\SDK\UI management\Settings\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="SDK_ObjectSpawnElement.h" />
+    <ClInclude Include="SIniFileStream.h">
+      <Filter>Cordis\SDK\Scene management\GSC\Other Stuff\IniFileStream\Public</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -2049,6 +2062,10 @@
     </ClCompile>
     <ClCompile Include="SDK_Names.cpp">
       <Filter>Cordis\SDK\UI management\Kernel\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="SDK_ObjectSpawnElement.cpp" />
+    <ClCompile Include="SIniFileStream.cpp">
+      <Filter>Cordis\SDK\Scene management\GSC\Other Stuff\IniFileStream\Private</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -14,7 +14,7 @@
 #include "xrCommon/xr_vector.h"
 
 #ifndef XRGAME_EXPORTS
-#define SERVER_ENTITY_EDITOR_METHODS virtual void FillProps(LPCSTR pref, PropItemVec& values);
+#define SERVER_ENTITY_EDITOR_METHODS 
 #else // #ifdef XRGAME_EXPORTS
 #define SERVER_ENTITY_EDITOR_METHODS
 #endif // #ifndef XRGAME_EXPORTS

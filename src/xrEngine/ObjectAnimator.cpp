@@ -131,10 +131,11 @@ float CObjectAnimator::GetLength() const
     return res;
 }
 
-#ifdef _EDITOR
+ 
 
-#include "editors/ECore/Editor/d3dutils.h"
-#include "envelope.h"
+// Lord: перенести данный функционал в DUImpl, и адаптировать под xrRender_R4 проект
+/*
+#include "utils/LWO/envelope.h"
 
 static FvectorVec path_points;
 
@@ -156,11 +157,10 @@ void CObjectAnimator::DrawPath()
             path_points.push_back(T);
         }
 
-        EDevice.SetShader(EDevice.m_WireShader);
+        RImplementation.SetShader(EDevice.m_WireShader);
         RCache.set_xform_world(Fidentity);
         if (!path_points.empty())
-            DU_impl.DrawPrimitiveL(
-                D3DPT_LINESTRIP, path_points.size() - 1, path_points.begin(), path_points.size(), clr, true, false);
+            DU_impl.DrawPrimitiveL(D3DPT_LINESTRIP, path_points.size() - 1, path_points.begin(), path_points.size(), clr, true, false);
         CEnvelope* E = m_Current->Envelope();
         for (KeyIt k_it = E->keys.begin(); k_it != E->keys.end(); k_it++)
         {
@@ -172,5 +172,5 @@ void CObjectAnimator::DrawPath()
             }
         }
     }
-}
-#endif
+}*/
+ 

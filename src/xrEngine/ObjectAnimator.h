@@ -40,7 +40,7 @@ public:
     float GetLength() const;
     // Update
     void Update(float dt);
-    void DrawPath();
+ //   void DrawPath();
 };
 
 #endif // ObjectAnimatorH

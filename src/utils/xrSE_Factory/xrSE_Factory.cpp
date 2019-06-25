@@ -31,7 +31,8 @@ FACTORY_API void __stdcall destroy_entity(IServerEntity*& abstract)
     abstract = 0;
 }
 };
-
+static bool was_initialized_dll = false; // Lord-Remark: это создано для обхода повторной инициализации, потому что мы всё же лоадим xrGame.dll
+static bool was_deinitialized_dll = false; // Lord-Remark: Аналогично выше
 BOOL APIENTRY DllMain(HANDLE module_handle, DWORD call_reason, LPVOID reserved)
 {
     switch (call_reason)
@@ -40,28 +41,36 @@ BOOL APIENTRY DllMain(HANDLE module_handle, DWORD call_reason, LPVOID reserved)
     {
         //xrDebug::Initialize();
         //Core.Initialize("xrSE_Factory", nullptr, true, "fsfactory.ltx");
-        string_path SYSTEM_LTX;
-        FS.update_path(SYSTEM_LTX, "$game_config$", "system.ltx");
-        pSettings = new CInifile(SYSTEM_LTX);
+		if (!was_initialized_dll)
+		{
+			string_path SYSTEM_LTX;
+			FS.update_path(SYSTEM_LTX, "$game_config$", "system.ltx");
+			pSettings = new CInifile(SYSTEM_LTX);
 
-        CCharacterInfo::InitInternal();
-        CSpecificCharacter::InitInternal();
-
+			CCharacterInfo::InitInternal();
+			CSpecificCharacter::InitInternal();
+			was_initialized_dll = true;
+		}
         break;
     }
     case DLL_PROCESS_DETACH:
     {
-        CCharacterInfo::DeleteSharedData();
-        CCharacterInfo::DeleteIdToIndexData();
-        CSpecificCharacter::DeleteSharedData();
-        CSpecificCharacter::DeleteIdToIndexData();
+		if (!was_deinitialized_dll)
+		{
+			CCharacterInfo::DeleteSharedData();
+			CCharacterInfo::DeleteIdToIndexData();
+			CSpecificCharacter::DeleteSharedData();
+			CSpecificCharacter::DeleteIdToIndexData();
 
-        auto s = (CInifile**)&pSettings;
-        xr_delete(*s);
-        xr_delete(g_property_list_helper);
-        xr_delete(g_ai_space);
-        xr_delete(g_object_factory);
-        prop_helper_module = nullptr;
+			auto s = (CInifile**)&pSettings;
+			xr_delete(*s);
+			xr_delete(g_property_list_helper);
+			xr_delete(g_ai_space);
+			xr_delete(g_object_factory);
+			prop_helper_module = nullptr;
+			was_deinitialized_dll = true;
+		}
+
         //Core._destroy();
         break;
     }

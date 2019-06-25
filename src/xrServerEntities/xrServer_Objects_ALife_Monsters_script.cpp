@@ -24,6 +24,7 @@ SCRIPT_EXPORT(CSE_ALifeTraderAbstract, (), {
                          .def("reputation", &CSE_ALifeTraderAbstract::Reputation)];
 });
 #else
+/* Lord-Remark: закометил потому что всё равно всё юзается только xrGame.dll
 LPCSTR profile_name_script(CSE_ALifeTraderAbstract* ta) { return *ta->character_profile(); }
 SCRIPT_EXPORT(CSE_ALifeTraderAbstract, (), {
     module(luaState)[class_<CSE_ALifeTraderAbstract>("cse_alife_trader_abstract")
@@ -31,10 +32,11 @@ SCRIPT_EXPORT(CSE_ALifeTraderAbstract, (), {
     //.def("community", &CSE_ALifeTraderAbstract::CommunityName)
     .def("profile_name", &profile_name_script)
     //.def("rank", &CSE_ALifeTraderAbstract::Rank)
-    /*.def("reputation", &CSE_ALifeTraderAbstract::Reputation)*/];
-    });
+    / *.def("reputation", &CSE_ALifeTraderAbstract::Reputation)* /];
+    });*/
 #endif
 
+#ifdef XRGAME_EXPORTS
 SCRIPT_EXPORT(CSE_ALifeTrader, (CSE_ALifeDynamicObjectVisual, CSE_ALifeTraderAbstract), {
     module(luaState)[luabind_class_dynamic_alife2(
         CSE_ALifeTrader, "cse_alife_trader", CSE_ALifeDynamicObjectVisual, CSE_ALifeTraderAbstract)];
@@ -53,3 +55,4 @@ SCRIPT_EXPORT(CSE_ALifeMonsterRat, (CSE_ALifeMonsterAbstract, CSE_ALifeInventory
     module(luaState)[luabind_class_monster2(
         CSE_ALifeMonsterRat, "cse_alife_monster_rat", CSE_ALifeMonsterAbstract, CSE_ALifeInventoryItem)];
 });
+#endif

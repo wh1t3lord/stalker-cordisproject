@@ -21,6 +21,8 @@ LPCSTR r_stringZ(IReader* self)
 
 bool r_bool(IReader* self) { return (!!self->r_u8()); }
 void r_fvector3(IReader* self, Fvector* arg0) { self->r_fvector3(*arg0); }
+
+#ifdef XRGAME_EXPORTS
 SCRIPT_EXPORT(IReader, (), {
     module(luaState)[class_<IReader>(
         "reader").def("r_seek", &IReader::seek)
@@ -47,3 +49,4 @@ SCRIPT_EXPORT(IReader, (), {
                          .def("r_advance", &IReader::advance)
                          .def("r_eof", &r_eof)];
 });
+#endif

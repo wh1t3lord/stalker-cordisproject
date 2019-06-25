@@ -386,26 +386,26 @@ const xr_token game_types[] = {{"any_game", eGameIDNoGame}, {"single", eGameIDSi
     {nullptr, 0}};
 
 #ifndef XRGAME_EXPORTS
-void CSE_Abstract::FillProps(LPCSTR pref, PropItemVec& items)
-{
-#ifdef XRSE_FACTORY_EXPORTS
-    m_gameType.FillProp(pref, items);
-#endif // #ifdef XRSE_FACTORY_EXPORTS
-    /*
-    #ifdef XRGAME_EXPORTS
-    #	ifdef DEBUG
-        PHelper().CreateToken8		(items,	PrepareKey(pref,"Game Type"),			&s_gameid,		game_types);
-        PHelper().CreateU16			(items,	PrepareKey(pref, "Respawn Time (s)"),	&RespawnTime,	0,43200);
-
-    */
-}
-
-void CSE_Abstract::FillProp(LPCSTR pref, PropItemVec& items)
-{
-    CScriptValueContainer::assign();
-    CScriptValueContainer::clear();
-    FillProps(pref, items);
-}
+// void CSE_Abstract::FillProps(LPCSTR pref, PropItemVec& items)
+// {
+// #ifdef XRSE_FACTORY_EXPORTS
+//     m_gameType.FillProp(pref, items);
+// #endif // #ifdef XRSE_FACTORY_EXPORTS
+//     /*
+//     #ifdef XRGAME_EXPORTS
+//     #	ifdef DEBUG
+//         PHelper().CreateToken8		(items,	PrepareKey(pref,"Game Type"),			&s_gameid,		game_types);
+//         PHelper().CreateU16			(items,	PrepareKey(pref, "Respawn Time (s)"),	&RespawnTime,	0,43200);
+// 
+//     */
+// }
+// 
+// void CSE_Abstract::FillProp(LPCSTR pref, PropItemVec& items)
+// {
+//     CScriptValueContainer::assign();
+//     CScriptValueContainer::clear();
+//     FillProps(pref, items);
+// }
 #endif // #ifndef XRGAME_EXPORTS
 
 bool CSE_Abstract::validate() { return (true); }

@@ -261,11 +261,11 @@ public:
     virtual CSE_Abstract* base() { return (inherited1::base()); }
     virtual const CSE_Abstract* base() const { return (inherited1::base()); }
 #ifndef XRGAME_EXPORTS
-    virtual void FillProps(LPCSTR pref, PropItemVec& items)
-    {
-        inherited1::FillProps(pref, items);
-        inherited2::FillProps(pref, items);
-    };
+//     virtual void FillProps(LPCSTR pref, PropItemVec& items)
+//     {
+//         inherited1::FillProps(pref, items);
+//         inherited2::FillProps(pref, items);
+//     };
 #endif // #ifndef XRGAME_EXPORTS
 
     virtual CSE_Abstract* cast_abstract() { return (this); }

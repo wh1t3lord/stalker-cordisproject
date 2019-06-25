@@ -19,8 +19,8 @@ private:
 		this->m_currentselected_sectionname = SDK_Names::getInstance().getName("st_name_staticgeometry");
         if (ImGui::BeginMainMenuBar())
         {
-            ImVec2 a = ImGui::GetWindowSize();
-            this->m_size_mainmenubar_y = a.y;
+            ImVec2 size = ImGui::GetWindowSize();
+            this->m_size_mainmenubar_y = size.y;
             ImGui::EndMainMenuBar();
         }
     }
@@ -75,8 +75,8 @@ private:
     bool m_is_init;
     bool m_checked_sphere_selection;
     bool m_checked_box_selection;
-    int m_size_mainmenubar_y;
     int m_id_currentsection;
+	float m_size_mainmenubar_y;
     ImGuiWindowFlags m_flag;
     xr_string m_currentselected_staticobject_name; // @ From list
     xr_string m_currentselected_sectionname;

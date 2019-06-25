@@ -23,8 +23,8 @@ namespace Cordis
 
 		this->m_currentselected_sectionname = this->m_sections[this->m_id_currentsection];
 
-        ImGui::SetNextWindowPos(ImVec2(SDKUI::UI().GetDisplayX() - 250, this->m_size_mainmenubar_y), ImGuiCond_Once);
-        if (ImGui::Begin("Manager list", &this->m_is_visible, ImVec2(250, SDKUI::UI().GetDisplayY() - this->m_size_mainmenubar_y), -1.0f, this->m_flag))
+        ImGui::SetNextWindowPos(ImVec2(SDKUI::UI().getDisplayX() - (SDKUI::UI().getDisplayX() / 7.68f), this->m_size_mainmenubar_y), ImGuiCond_Once);
+        if (ImGui::Begin("Manager list", &this->m_is_visible, ImVec2((SDKUI::UI().getDisplayX() / 7.68f), SDKUI::UI().getDisplayY() - this->m_size_mainmenubar_y), -1.0f, this->m_flag))
         {
 #pragma region SECTIONS
             ImGui::Text(SDK_Names::getInstance().getName("st_text_section").c_str());

@@ -12,6 +12,7 @@
 
 using namespace luabind;
 
+#ifdef XRGAME_EXPORTS
 SCRIPT_EXPORT(CScriptRTokenList, (), {
     module(luaState)[class_<CScriptRTokenList>("rtoken_list")
                          .def(constructor<>())
@@ -21,3 +22,4 @@ SCRIPT_EXPORT(CScriptRTokenList, (), {
                          .def("count", &CScriptRTokenList::size)
                          .def("get", &CScriptRTokenList::get)];
 });
+#endif

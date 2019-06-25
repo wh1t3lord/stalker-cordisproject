@@ -68,6 +68,7 @@ CScriptPropertiesListHelper* properties_helper()
     return (g_property_list_helper);
 }
 
+#ifdef XRGAME_EXPORTS
 SCRIPT_EXPORT(
     CScriptPropertiesListHelper, (), {
         module(luaState)[class_<PropValue>("prop_value"), class_<PropItemVec>("prop_item_vec"),
@@ -315,3 +316,4 @@ SCRIPT_EXPORT(
                 ,
             def("properties_helper", &properties_helper)];
     });
+#endif

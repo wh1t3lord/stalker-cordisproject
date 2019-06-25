@@ -90,6 +90,7 @@ static void CSE_ALifeMonsterAbstract_Export(lua_State* luaState)
 #endif
     ];
 }
+#ifdef XRGAME_EXPORTS
 SCRIPT_EXPORT_FUNC(
     CSE_ALifeMonsterAbstract, (CSE_ALifeCreatureAbstract, CSE_ALifeSchedulable), CSE_ALifeMonsterAbstract_Export);
 
@@ -111,3 +112,4 @@ SCRIPT_EXPORT_FUNC(
 SCRIPT_EXPORT(CSE_ALifePsyDogPhantom, (CSE_ALifeMonsterBase), {
     module(luaState)[luabind_class_monster1(CSE_ALifePsyDogPhantom, "cse_alife_psydog_phantom", CSE_ALifeMonsterBase)];
 });
+#endif

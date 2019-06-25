@@ -86,6 +86,7 @@ void CObjectFactory::register_script() const
     luabind::module(GEnv.ScriptEngine->lua())[instance];
 }
 
+#ifdef XRGAME_EXPORTS
 SCRIPT_EXPORT(CObjectFactory, (), {
     module(luaState)[class_<CObjectFactory>("object_factory")
                          .def("register", (void (CObjectFactory::*)(LPCSTR, LPCSTR, LPCSTR, LPCSTR))(
@@ -93,3 +94,4 @@ SCRIPT_EXPORT(CObjectFactory, (), {
                          .def("register", (void (CObjectFactory::*)(LPCSTR, LPCSTR, LPCSTR))(
                                               &CObjectFactory::register_script_class))];
 });
+#endif

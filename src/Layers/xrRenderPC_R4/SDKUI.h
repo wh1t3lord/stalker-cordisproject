@@ -33,28 +33,10 @@ namespace Cordis
 			SDK_FileSystemState::MakeInfoAboutRawDataFolder();
 			SDK_Names::getInstance().Initialize();
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
             // @ Init All stuff
-            SDKUI_Log::Widget().Init(GetPosBottomLeft(), 500, 150, ImGuiWindowFlags_NoResize);
+            SDKUI_Log::Widget().Init(this->getPosBottomLeft(), this->getDisplayX() / 3.84f, this->getDisplayY() / 7.2f, ImGuiWindowFlags_NoResize);
             SDKUI_Log::Widget().SetColor(good);
-            SDKUI_Log::Widget().AddText("SDK was initialized! %s", "Test"); // Lord: изменить здесь потом текст
+            SDKUI_Log::Widget().AddText("SDK was initialized!"); // Lord: изменить здесь потом текст
 
             // Lord: удалить потом реализовать в EThumbnail
             //         D3D11_TEXTURE2D_DESC desc = {0};
@@ -97,8 +79,8 @@ namespace Cordis
         inline void ShowMainMenuBar(void) { this->bShowMainMenuBar = true; }
         inline void HideMainMenuBar(void) { this->bShowMainMenuBar = false; }
         inline bool IsSelected(void) const { return this->bSelected; }
-        inline int GetDisplayX(void) const { return this->DisplayX; }
-        inline int GetDisplayY(void) const { return this->DisplayY; }
+        inline float getDisplayX(void) const { return this->DisplayX; }
+        inline float getDisplayY(void) const { return this->DisplayY; }
         inline Fvector getMousePosition(void) const noexcept { return this->mPos; }
         inline Fvector getMouseDirection(void) const noexcept { return this->mDir; }
         inline bool IsUsedAddTool(void) noexcept { return this->bAddTool; }
@@ -116,13 +98,13 @@ namespace Cordis
         void End(void);
         bool PickGround(Fvector& hitpoint, const Fvector& start, const Fvector& dir, /*int bSnap,*/ Fvector* hitnormal);
     private:
-        inline int GetCenteredX(void) { return DisplayX / 2; }
-        inline int GetCenteredY(void) { return DisplayY / 2; }
-        inline ImVec2 GetPosCentered(void) { return ImVec2(GetCenteredX(), GetCenteredY()); }
-        inline ImVec2 GetPosTopLeft(void) { return ImVec2(0, 0); }
-        inline ImVec2 GetPosTopRight(void) { return ImVec2(DisplayX, 0); }
-        inline ImVec2 GetPosBottomLeft(void) { return ImVec2(0, DisplayY); }
-        inline ImVec2 GetPosBottomRight(void) { return ImVec2(DisplayX, DisplayY); }
+        inline int getCenteredX(void) { return DisplayX / 2; }
+        inline int getCenteredY(void) { return DisplayY / 2; }
+        inline ImVec2 getPosCentered(void) { return ImVec2(this->getCenteredX(), this->getCenteredY()); }
+        inline ImVec2 getPosTopLeft(void) { return ImVec2(0.0f, 0.0f); }
+        inline ImVec2 getPosTopRight(void) { return ImVec2(DisplayX, 0.0f); }
+        inline ImVec2 getPosBottomLeft(void) { return ImVec2(0.0f, DisplayY); }
+        inline ImVec2 getPosBottomRight(void) { return ImVec2(DisplayX, DisplayY); }
 
         void DrawMainMenuBar(void);
         void DrawAllHelpers(void);
@@ -151,13 +133,13 @@ namespace Cordis
         bool bRotateTool;
         bool bScaleTool;
 #pragma endregion
-
-        int DisplayX;
-        int DisplayY;
+        float DisplayX;
+        float DisplayY;
+		float dis_to_current_obj = SDK_Camera::GetInstance().fFar;
+		float mouse_drag_delta;
         ImVec2 m_start_mouseposition;
         ImVec2 m_current_mouseposition;
-        float dis_to_current_obj = SDK_Camera::GetInstance().fFar;
-        float mouse_drag_delta;
+
         // @ Mouse-Ray origin
         Fvector mPos;
         // @ Mouse-Ray

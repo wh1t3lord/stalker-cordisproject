@@ -131,7 +131,7 @@ public:
     void __stdcall OnControlClick(ButtonValue* sender, bool& bDataModified, bool& bSafe);
     void __stdcall OnActionsClick(ButtonValue* sender, bool& bDataModified, bool& bSafe);
     bool __stdcall OnAfterActionNameEdit(PropValue* sender, shared_str& edit_val);
-    void FillProp(LPCSTR pref, ::PropItemVec& items, ::ListItem* owner);
+  //  void FillProp(LPCSTR pref, ::PropItemVec& items, ::ListItem* owner);
     void Copy(const CPEDef& src);
     BOOL Equal(const CPEDef* pe);
     void Render(const Fmatrix& parent);

@@ -382,11 +382,13 @@
     <ClInclude Include="SDK_KeybindingManager.h" />
     <ClInclude Include="SDK_Names.h" />
     <ClInclude Include="SDK_ObjectLight.h" />
+    <ClInclude Include="SDK_ObjectSpawnElement.h" />
     <ClInclude Include="SDK_ObjectStaticGeometry.h" />
     <ClInclude Include="SDK_ObjectWayPoint.h" />
     <ClInclude Include="SDK_SceneManager.h" />
     <ClInclude Include="SDK_Settings.h" />
     <ClInclude Include="SDK_ObjectShape.h" />
+    <ClInclude Include="SIniFileStream.h" />
     <ClInclude Include="SMAP_Allocator.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="WildMagic\WmlApprGaussPointsFit3.h" />
@@ -639,11 +641,13 @@
     <ClCompile Include="SDK_KeybindingManager.cpp" />
     <ClCompile Include="SDK_Names.cpp" />
     <ClCompile Include="SDK_ObjectLight.cpp" />
+    <ClCompile Include="SDK_ObjectSpawnElement.cpp" />
     <ClCompile Include="SDK_ObjectStaticGeometry.cpp" />
     <ClCompile Include="SDK_ObjectWayPoint.cpp" />
     <ClCompile Include="SDK_SceneManager.cpp" />
     <ClCompile Include="SDK_Settings.cpp" />
     <ClCompile Include="SDK_ObjectShape.cpp" />
+    <ClCompile Include="SIniFileStream.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
@@ -714,6 +718,9 @@
     </ProjectReference>
     <ProjectReference Include="..\..\utils\xrDXT\DXT.vcxproj">
       <Project>{ebf9b543-0830-4866-9b48-dc0740e87e8a}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\..\utils\xrSE_Factory\xrSE_Factory.vcxproj">
+      <Project>{3ad26fd3-4f52-4e22-a4cf-ad4c49e74c61}</Project>
     </ProjectReference>
     <ProjectReference Include="..\..\xrPhysics\xrPhysics.vcxproj">
       <Project>{98d24a3d-7666-4c11-9d6e-b10393ce8cba}</Project>

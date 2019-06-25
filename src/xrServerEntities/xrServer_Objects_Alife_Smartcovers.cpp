@@ -131,26 +131,26 @@ void CSE_SmartCover::STATE_Write(NET_Packet& tNetPacket)
 void CSE_SmartCover::UPDATE_Read(NET_Packet& tNetPacket) { inherited1::UPDATE_Read(tNetPacket); }
 void CSE_SmartCover::UPDATE_Write(NET_Packet& tNetPacket) { inherited1::UPDATE_Write(tNetPacket); }
 #ifndef XRGAME_EXPORTS
-void CSE_SmartCover::FillProps(LPCSTR pref, PropItemVec& items)
-{
-#ifdef XRSE_FACTORY_EXPORTS
-    PHelper().CreateFloat(items, PrepareKey(pref, *s_name, "hold position time"), &m_hold_position_time, 0.f, 60.f);
-    RListValue* value = PHelper().CreateRList(items, PrepareKey(pref, *s_name, "description"), &m_description,
-        &*fp_data.smart_covers.begin(), fp_data.smart_covers.size());
-    value->OnChangeEvent.bind(this, &CSE_SmartCover::OnChangeDescription);
-
-    PHelper().CreateFloat(
-        items, PrepareKey(pref, *s_name, "enter min enemy distance"), &m_enter_min_enemy_distance, 0.f, 100.f);
-    PHelper().CreateFloat(
-        items, PrepareKey(pref, *s_name, "exit min enemy distance"), &m_exit_min_enemy_distance, 0.f, 100.f);
-
-    if (is_combat_cover(m_description))
-    {
-        PHelper().CreateBOOL(items, PrepareKey(pref, *s_name, "is combat cover"), &m_is_combat_cover);
-        PHelper().CreateBOOL(items, PrepareKey(pref, *s_name, "can fire"), &m_can_fire);
-    }
-#endif // #ifdef XRSE_FACTORY_EXPORTS
-}
+// void CSE_SmartCover::FillProps(LPCSTR pref, PropItemVec& items)
+// {
+// #ifdef XRSE_FACTORY_EXPORTS
+//     PHelper().CreateFloat(items, PrepareKey(pref, *s_name, "hold position time"), &m_hold_position_time, 0.f, 60.f);
+//     RListValue* value = PHelper().CreateRList(items, PrepareKey(pref, *s_name, "description"), &m_description,
+//         &*fp_data.smart_covers.begin(), fp_data.smart_covers.size());
+//     value->OnChangeEvent.bind(this, &CSE_SmartCover::OnChangeDescription);
+// 
+//     PHelper().CreateFloat(
+//         items, PrepareKey(pref, *s_name, "enter min enemy distance"), &m_enter_min_enemy_distance, 0.f, 100.f);
+//     PHelper().CreateFloat(
+//         items, PrepareKey(pref, *s_name, "exit min enemy distance"), &m_exit_min_enemy_distance, 0.f, 100.f);
+// 
+//     if (is_combat_cover(m_description))
+//     {
+//         PHelper().CreateBOOL(items, PrepareKey(pref, *s_name, "is combat cover"), &m_is_combat_cover);
+//         PHelper().CreateBOOL(items, PrepareKey(pref, *s_name, "can fire"), &m_can_fire);
+//     }
+// #endif // #ifdef XRSE_FACTORY_EXPORTS
+// }
 #endif // #ifndef XRGAME_EXPORTS
 
 #ifdef XRSE_FACTORY_EXPORTS

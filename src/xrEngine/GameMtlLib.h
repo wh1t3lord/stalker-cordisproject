@@ -142,7 +142,7 @@ public:
     void Save(IWriter& fs);
     int GetID() { return ID; }
 #ifdef _EDITOR
-    void FillProp(PropItemVec& values, ListItem* owner);
+   // void FillProp(PropItemVec& values, ListItem* owner);
 #endif
 };
 using GameMtlVec = xr_vector<SGameMtl*>;
@@ -226,7 +226,7 @@ public:
     void __stdcall OnParentClick(ButtonValue* sender, bool& bModif, bool& bSafe);
     void __stdcall OnCommandClick(ButtonValue* sender, bool& bModif, bool& bSafe);
     void __stdcall FillChooseMtl(ChooseItemVec& items, void* param);
-    void FillProp(PropItemVec& values);
+ //   void FillProp(PropItemVec& values);
     void TransferFromParent(SGameMtlPair* parent);
     bool SetParent(int parentId);
 #endif

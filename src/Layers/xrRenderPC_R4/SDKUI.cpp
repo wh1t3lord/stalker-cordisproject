@@ -69,7 +69,7 @@ void SDKUI::KeyBoardMessages(void)
     // @ Хендлим шорткаты
 
     // @ Глобальные клики можно обрабатывать динамические пупапы если надо
-    if (ImGui::IsMouseHoveringAnyWindow())
+    if (ImGui::IsMouseHoveringAnyWindow() || ImGui::IsAnyWindowFocused())
     {
         this->bCanUseLeftButton = false;
 
