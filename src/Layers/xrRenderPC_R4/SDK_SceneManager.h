@@ -1,6 +1,5 @@
 #pragma once
 
-#include "SDK_Cache.h"
 #include "SDK_GizmoManager.h"
 
  
@@ -23,7 +22,6 @@ namespace Cordis
               m_total_count_objects_static_geometry(0), m_total_count_objects_shapes(0), current_distance_to_object(0),
               m_currentobject(nullptr)
         {
-            SDK_Cache::GetInstance().MakeCache();
         }
 
     public:

@@ -154,6 +154,27 @@
     <Filter Include="Cordis\XML\Private">
       <UniqueIdentifier>{33b71a54-4105-4ba9-8f91-23e57e2ad9fe}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Cordis\SDK\Data structures">
+      <UniqueIdentifier>{d6a41cba-d882-477e-8d5a-3517fd51c7a0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\SDK\Data structures\Tree">
+      <UniqueIdentifier>{ffe0b022-40ff-4f04-98a1-2a695dba00f1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\SDK\Data structures\Tree\Private">
+      <UniqueIdentifier>{35d14f0d-725d-4cba-8b29-12d9354720f4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\SDK\Data structures\Tree\Public">
+      <UniqueIdentifier>{fa7c401b-775c-4546-b87b-1bbc5839a20a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\SDK\Data structures\Tree\Node">
+      <UniqueIdentifier>{0a959e25-a53f-497d-9ac7-fd20d9c4ad66}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\SDK\Data structures\Tree\Node\Public">
+      <UniqueIdentifier>{7afedce4-d8f4-4414-b32a-da9f018688f1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\SDK\Data structures\Tree\Node\Private">
+      <UniqueIdentifier>{3d43d80d-9fe7-4302-965b-e91076076049}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="FTimer.cpp">
@@ -395,6 +416,12 @@
     </ClCompile>
     <ClCompile Include="Cordis\XML\cordis_xmlparser.cpp">
       <Filter>Cordis\XML\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="SDK_TreeFolder.cpp">
+      <Filter>Cordis\SDK\Data structures\Tree\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="SDK_NodeTreeFolder.cpp">
+      <Filter>Cordis\SDK\Data structures\Tree\Node\Private</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -820,6 +847,12 @@
     </ClInclude>
     <ClInclude Include="Cordis\XML\cordis_str.h">
       <Filter>Cordis\XML\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="SDK_TreeFolder.h">
+      <Filter>Cordis\SDK\Data structures\Tree\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="SDK_NodeTreeFolder.h">
+      <Filter>Cordis\SDK\Data structures\Tree\Node\Public</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

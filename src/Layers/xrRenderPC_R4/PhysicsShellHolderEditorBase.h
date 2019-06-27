@@ -35,8 +35,7 @@ private:
         VERIFY(false);
         return 0;
     }
-    //	virtual	IRenderVisual*				_BCL	ObjectVisual						()				 { return
-    // m_pVisual;}
+   // virtual	IRenderVisual* ObjectVisual(void) { return m_pVisual;}
     virtual IDamageSource* ObjectCastIDamageSource() { return 0; }
     virtual void ObjectProcessingDeactivate() { ; }
     virtual void ObjectProcessingActivate() {}

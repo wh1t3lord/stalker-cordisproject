@@ -27,6 +27,7 @@ namespace Cordis
     void SDK_Cache::MakeCache(void)
     {
         this->MakeStaticGeometryCache();
+		this->MakeSpawnElementsCache();
         this->LoadDataForIconManager();
     }
 
@@ -81,7 +82,40 @@ namespace Cordis
         }
     }
 
-    void SDK_Cache::UpdateStaticGeometryCache(void) {}
+	void SDK_Cache::MakeSpawnElementsCache(void)
+	{
+		std::pair<xr_string, xr_string> cache_element;
+		for (CInifile::Root::const_iterator it = pSettings->sections().begin(); it != pSettings->sections().end(); ++it)
+		{
+			LPCSTR value;
+			if ((*it)->line_exist("$spawn", &value))
+			{
+				shared_str sdk_info = pSettings->r_string_wb((*it)->Name, "$spawn");
+
+				if (sdk_info.size())
+					cache_element.first = sdk_info.c_str();
+				else
+					continue;
+
+				if ((*it)->Name.size())
+					cache_element.second = (*it)->Name.c_str(); // @ Section name 
+				else 
+					continue;
+
+				this->m_spawnelements.push_back(cache_element);
+			}
+		}
+	}
+
+    void SDK_Cache::UpdateStaticGeometryCache(void) 
+	{
+	
+	}
+
+	void SDK_Cache::UpdateSpawnElementsCache(void)
+	{
+
+	}
 
     CEditableObject* SDK_Cache::GetGeometry(LPCSTR name)
     {

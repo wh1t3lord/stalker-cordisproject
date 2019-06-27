@@ -69,7 +69,7 @@ void SDKUI::KeyBoardMessages(void)
     // @ Хендлим шорткаты
 
     // @ Глобальные клики можно обрабатывать динамические пупапы если надо
-    if (ImGui::IsMouseHoveringAnyWindow() || ImGui::IsAnyWindowFocused())
+    if (ImGui::IsMouseHoveringAnyWindow())
     {
         this->bCanUseLeftButton = false;
 
@@ -80,7 +80,8 @@ void SDKUI::KeyBoardMessages(void)
     }
     else
     {
-        this->bCanUseLeftButton = true;
+		if (!ImGui::IsAnyWindowFocused())
+			this->bCanUseLeftButton = true;
     }
 
     if (this->bCanUseLeftButton) // Lord: добавить описание если используем сам инструмент перемещения
@@ -305,6 +306,10 @@ void SDKUI::KeyBoardMessages(void)
         }
     }
 
+
+	// Lord: памятка нужно следить за тем когда какой объект будет создаваться ибо если не уследить можно получить undefiend behavior, нужно построить нормально систему
+	// Простой пример RightWindow инициализируется раньше и пытается спарсить папки, но к этому моменту они не готовы потому что не был инициализирован
+	// SDK_Cache::m_spawnelements!!!! Над этим все нужно подумать, так уж все инициализации наверное нужно переместить в SDKUI::SDKUI
 	if (!SDK_SceneManager::GetInstance().m_selectedobjects_list.empty())
 	{
 		if (ImGui::IsKeyPressed(SDL_SCANCODE_M) && !this->bClickedRightButton)

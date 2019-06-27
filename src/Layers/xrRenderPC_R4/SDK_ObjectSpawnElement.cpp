@@ -649,6 +649,7 @@ void CSpawnPoint::SSpawnData::FillProp(LPCSTR pref, PropItemVec& items)
 
 //			this->setValid(); Lord: подумать над данным методом !!!! ¬ообще нужно или нет
 			//this->m_em_flags.one();
+			
 		}
 
 		SDK_ObjectSpawnElement::~SDK_ObjectSpawnElement(void)
@@ -673,7 +674,185 @@ void CSpawnPoint::SSpawnData::FillProp(LPCSTR pref, PropItemVec& items)
 			return false;
 		}
 
+		bool SDK_ObjectSpawnElement::CreateSpawnData(LPCSTR entity_reference)
+		{
+			if (!entity_reference)
+			{
+				SDKUI_Log::Widget().SetColor(error);
+				SDKUI_Log::Widget().AddText("Can't create data for this object, because reference was null!");
+				return false;
+			}
+			this->m_spawndata.Destroy();
+			this->m_spawndata.Create(entity_reference);
 
+			bool result = this->m_spawndata.Valid();
+
+			if (result)
+				this->m_type = ptSpawnPoint;
+
+			return result;
+
+		}
+
+		IKinematics* SDK_ObjectSpawnElement::ObjectKinematics(void)
+		{
+			if (!this->m_spawndata.m_visual || this->m_spawndata.m_visual->m_visual)
+				return nullptr;
+
+			return this->m_spawndata.m_visual->m_visual->dcast_PKinematics();
+		}
+
+		/*
+		void CSpawnPoint::OnFillChooseItems(ChooseValue* val)
+{
+	ESceneSpawnTool* st = dynamic_cast<ESceneSpawnTool*>(ParentTool);
+	VERIFY(st);
+	CLASS_ID cls_id = m_SpawnData.m_ClassID;
+	ESceneSpawnTool::ClassSpawnMapIt cls_it = st->m_Classes.find(cls_id);
+	VERIFY(cls_it != st->m_Classes.end());
+	*val->m_Items = cls_it->second;
+}
+
+shared_str CSpawnPoint::SectionToEditor(shared_str nm)
+{
+	ESceneSpawnTool* st = dynamic_cast<ESceneSpawnTool*>(ParentTool);
+	VERIFY(st);
+	ESceneSpawnTool::ClassSpawnMapIt cls_it = st->m_Classes.find(m_SpawnData.m_ClassID);
+	VERIFY(cls_it != st->m_Classes.end());
+	for (ESceneSpawnTool::SSVecIt ss_it = cls_it->second.begin(); ss_it != cls_it->second.end(); ++ss_it)
+		if (nm.equal(ss_it->hint))
+			return ss_it->name;
+	return 0;
+}
+
+shared_str CSpawnPoint::EditorToSection(shared_str nm)
+{
+	ESceneSpawnTool* st = dynamic_cast<ESceneSpawnTool*>(ParentTool);
+	VERIFY(st);
+	ESceneSpawnTool::ClassSpawnMapIt cls_it = st->m_Classes.find(m_SpawnData.m_ClassID);
+	VERIFY(cls_it != st->m_Classes.end());
+	for (ESceneSpawnTool::SSVecIt ss_it = cls_it->second.begin(); ss_it != cls_it->second.end(); ++ss_it)
+		if (nm.equal(ss_it->name))
+			return ss_it->hint;
+	return 0;
+}
+
+void CSpawnPoint::OnRPointTypeChange(PropValue* prop) { ExecCommand(COMMAND_UPDATE_PROPERTIES); }
+void CSpawnPoint::OnProfileChange(PropValue* prop)
+{
+	if (m_SpawnData.m_Profile.size() != 0)
+	{
+		shared_str s_name = EditorToSection(m_SpawnData.m_Profile);
+		VERIFY(s_name.size());
+		if (0 != strcmp(m_SpawnData.m_Data->name(), *s_name))
+		{
+			IServerEntity* tmp = create_entity(*s_name);
+			VERIFY(tmp);
+			NET_Packet Packet;
+			tmp->Spawn_Write(Packet, TRUE);
+			R_ASSERT(m_SpawnData.m_Data->Spawn_Read(Packet));
+			m_SpawnData.m_Data->set_editor_flag(IServerEntity::flVisualChange | IServerEntity::flVisualAnimationChange);
+			destroy_entity(tmp);
+		}
+	}
+	else
+	{
+		m_SpawnData.m_Profile = SectionToEditor(m_SpawnData.m_Data->name());
+	}
+}
+
+void CSpawnPoint::FillProp(LPCSTR pref, PropItemVec& items)
+{
+	inherited::FillProp(pref, items);
+
+	if (m_SpawnData.Valid())
+	{
+		shared_str pref1 = PrepareKey(pref, m_SpawnData.m_Data->name());
+		m_SpawnData.m_Profile = SectionToEditor(m_SpawnData.m_Data->name());
+		ChooseValue* C = PHelper().CreateChoose(items, PrepareKey(pref1.c_str(), "Profile (spawn section)"),
+			&m_SpawnData.m_Profile, smCustom, 0, 0, 1, cfFullExpand);
+		C->OnChooseFillEvent.bind(this, &CSpawnPoint::OnFillChooseItems);
+		C->OnChangeEvent.bind(this, &CSpawnPoint::OnProfileChange);
+		m_SpawnData.FillProp(pref, items);
+	}
+	else
+	{
+		switch (m_Type)
+		{
+		case ptRPoint:
+		{
+			if (m_RP_Type == rptItemSpawn)
+			{
+				ChooseValue* C = PHelper().CreateChoose(
+					items, PrepareKey(pref, "Respawn Point\\Profile"), &m_rpProfile, smCustom, 0, 0, 10, cfMultiSelect);
+				C->OnChooseFillEvent.bind(this, &CSpawnPoint::OnFillRespawnItemProfile);
+			}
+			else
+			{
+				PHelper().CreateU8(items, PrepareKey(pref, "Respawn Point\\Team"), &m_RP_TeamID, 0, 7);
+			}
+			Token8Value* TV =
+				PHelper().CreateToken8(items, PrepareKey(pref, "Respawn Point\\Spawn Type"), &m_RP_Type, rpoint_type);
+			TV->OnChangeEvent.bind(this, &CSpawnPoint::OnRPointTypeChange);
+
+			m_GameType.FillProp(pref, items);
+		}
+		break;
+		case ptEnvMod:
+		{
+			PHelper().CreateFloat(
+				items, PrepareKey(pref, "Environment Modificator\\Radius"), &m_EM_Radius, EPS_L, 10000.f);
+			PHelper().CreateFloat(items, PrepareKey(pref, "Environment Modificator\\Power"), &m_EM_Power, EPS, 1000.f);
+
+			Flag16Value* FV = NULL;
+
+			FV = PHelper().CreateFlag16(
+				items, PrepareKey(pref, "Environment Modificator\\View Distance"), &m_EM_Flags, eViewDist);
+			FV->OnChangeEvent.bind(this, &CSpawnPoint::OnEnvModFlagChange);
+			if (m_EM_Flags.test(eViewDist))
+				PHelper().CreateFloat(items, PrepareKey(pref, "Environment Modificator\\View Distance\\ "),
+					&m_EM_ViewDist, EPS_L, 10000.f);
+
+			FV = PHelper().CreateFlag16(
+				items, PrepareKey(pref, "Environment Modificator\\Fog Color"), &m_EM_Flags, eFogColor);
+			FV->OnChangeEvent.bind(this, &CSpawnPoint::OnEnvModFlagChange);
+			if (m_EM_Flags.test(eFogColor))
+				PHelper().CreateColor(items, PrepareKey(pref, "Environment Modificator\\Fog Color\\ "), &m_EM_FogColor);
+
+			FV = PHelper().CreateFlag16(
+				items, PrepareKey(pref, "Environment Modificator\\Fog Density"), &m_EM_Flags, eFogDensity);
+			FV->OnChangeEvent.bind(this, &CSpawnPoint::OnEnvModFlagChange);
+			if (m_EM_Flags.test(eFogDensity))
+				PHelper().CreateFloat(
+					items, PrepareKey(pref, "Environment Modificator\\Fog Density\\ "), &m_EM_FogDensity, 0.f, 10000.f);
+
+			FV = PHelper().CreateFlag16(
+				items, PrepareKey(pref, "Environment Modificator\\Ambient Color"), &m_EM_Flags, eAmbientColor);
+			FV->OnChangeEvent.bind(this, &CSpawnPoint::OnEnvModFlagChange);
+			if (m_EM_Flags.test(eAmbientColor))
+				PHelper().CreateColor(
+					items, PrepareKey(pref, "Environment Modificator\\Ambient Color\\ "), &m_EM_AmbientColor);
+
+			FV = PHelper().CreateFlag16(
+				items, PrepareKey(pref, "Environment Modificator\\Sky Color"), &m_EM_Flags, eSkyColor);
+			FV->OnChangeEvent.bind(this, &CSpawnPoint::OnEnvModFlagChange);
+			if (m_EM_Flags.test(eSkyColor))
+				PHelper().CreateColor(items, PrepareKey(pref, "Environment Modificator\\Sky Color\\ "), &m_EM_SkyColor);
+
+			FV = PHelper().CreateFlag16(
+				items, PrepareKey(pref, "Environment Modificator\\Hemi Color"), &m_EM_Flags, eHemiColor);
+			FV->OnChangeEvent.bind(this, &CSpawnPoint::OnEnvModFlagChange);
+			if (m_EM_Flags.test(eHemiColor))
+				PHelper().CreateColor(
+					items, PrepareKey(pref, "Environment Modificator\\Hemi Color\\ "), &m_EM_HemiColor);
+		}
+		break;
+		default: THROW;
+		}
+	}
+}
+		
+		*/
 	}
 }
 

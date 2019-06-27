@@ -9,6 +9,55 @@ namespace Cordis
 {
     namespace SDK
     {
+		
+		void RenderTreeView_Items(SDK_NodeTreeFolder* node);
+
+		void RenderTreeView_Folders(SDK_NodeTreeFolder* node) // Lord: вообще подумать как можно это оптимизировать
+		{
+			if (!node)
+				return;
+
+			if (node->IsFolder())
+			{
+				if (ImGui::TreeNode(node->getValue().c_str()))
+				{
+					xr_map<xr_string, SDK_NodeTreeFolder*> folders;
+					xr_map<xr_string, SDK_NodeTreeFolder*> items;
+					for (SDK_NodeTreeFolder* it : node->getChildrens())
+					{
+						if (it->IsFolder())
+							folders[it->getValue()] = it;
+						else
+							items[it->getValue()] = it;
+					}
+
+					for (const std::pair<xr_string, SDK_NodeTreeFolder*>& it : folders)
+					{
+						RenderTreeView_Folders(it.second);
+					}
+
+					for (const std::pair<xr_string, SDK_NodeTreeFolder*>& it : items)
+					{
+						RenderTreeView_Items(it.second);
+					}
+					ImGui::TreePop();
+				}
+			}
+		}
+
+		void RenderTreeView_Items(SDK_NodeTreeFolder* node)
+		{
+			if (!node)
+				return;
+
+			if (!node->IsFolder())
+			{
+				ImGui::Selectable(node->getValue().c_str());
+			}
+		}
+
+
+
     SDKUI_RightWindow::~SDKUI_RightWindow(void) {}
 
     void SDKUI_RightWindow::Draw(void)
@@ -78,11 +127,11 @@ namespace Cordis
             {
                 if (ImGui::CollapsingHeader(SDK_Names::getInstance().getName("st_catalog_sg").c_str()))
                 {
-                    for (xr_map<xr_string, CEditableObject*>::const_iterator it =
-                             SDK_Cache::GetInstance().m_staticgeometry.cbegin();
-                         it != SDK_Cache::GetInstance().m_staticgeometry.cend(); ++it)
+                    for (xr_map<xr_string, CEditableObject*>::const_iterator it = SDK_Cache::GetInstance().getStaticGeometryCache().cbegin();
+                         it != SDK_Cache::GetInstance().getStaticGeometryCache().cend(); ++it)
                     {
                         bool is_selected = (this->m_currentselected_staticobject_name == it->first);
+						// Lord: доделать отображение с использованием thm'ок
                         //    ImGui::Image(SDK_IconManager::GetInstance().GetImageFromToolsIcons(0), ImVec2(164, 164));
                         if (ImGui::Selectable(it->first.c_str(), is_selected))
                         {
@@ -136,17 +185,33 @@ namespace Cordis
 
                 if (ImGui::Button("Attach Shapes"))
                 {
-
+					// Lord: реализовать
                 }
                 if (ImGui::Button("Detach All"))
                 {
-
+					// Lord: реализовать
                 }
 
                 break;
             }
             case kSection_SpawnElements: 
             {
+				// Lord: чтобы реализовать файловую систему еужно использовать Tree data structe (Boost Graph structes) 
+				// Либо найти самый оптимизированный вариант представление Tree (опять же ссылаюсь на Boost)
+				// Updated: реализовал своё, можно забить. . .
+
+ 
+				for (const xr_map<xr_string, SDK_TreeFolder>::value_type& it : this->m_folders)
+				{
+					RenderTreeView_Folders(it.second.m_root);
+				}
+				
+				for (const xr_map<xr_string, SDK_TreeFolder>::value_type& it : this->m_folders)
+				{
+					RenderTreeView_Items(it.second.m_root);
+				}
+
+
                 break;
             }
             case kSection_WayPoints: 

@@ -32,7 +32,7 @@ namespace Cordis
             FS.CheckSDKMainFolder();
 			SDK_FileSystemState::MakeInfoAboutRawDataFolder();
 			SDK_Names::getInstance().Initialize();
-
+			SDK_Cache::GetInstance().MakeCache();
             // @ Init All stuff
             SDKUI_Log::Widget().Init(this->getPosBottomLeft(), this->getDisplayX() / 3.84f, this->getDisplayY() / 7.2f, ImGuiWindowFlags_NoResize);
             SDKUI_Log::Widget().SetColor(good);

@@ -102,12 +102,13 @@ namespace Cordis
         virtual void RotateParent(const Fvector& axis, const float& angle);
         virtual void RotateLocal(const Fvector& axis, const float& angle);
         virtual void Scale(const Fvector& v);
+		virtual inline const Fbox& getBox(void) const noexcept { return this->m_box; }
 
         inline const Fmatrix& getTransform(void) const noexcept { return this->m_transform; }
         inline const Fvector& getPosition(void) const noexcept { return this->m_position; }
         inline const Fvector& getRotation(void) const noexcept { return this->m_rotation; }
         inline const Fvector& getScale(void) const noexcept { return this->m_scale; }
-        inline const Fbox& getBox(void) const noexcept { return this->m_box; }
+       
 
         //   inline bool IsVisible(void) const noexcept { return this->bVisible; }
         inline void Show(void) noexcept

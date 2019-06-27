@@ -110,7 +110,21 @@ namespace Cordis
 			void Render(const int&, const bool&);
 			bool RayPick(float&, const Fvector&, const Fvector&);
 			bool FrustumPick(const CFrustum&);
+			
+			inline bool ReferenceCompare(LPCSTR reference_name){ return reference_name && reference_name[0] && this->m_spawndata.Valid() ? (strcmp(reference_name, this->m_spawndata.m_data->name()) == 0) : false;}
+			inline LPCSTR getReferenceName(void) { return this->m_spawndata.Valid() ? this->m_spawndata.m_data->name() : nullptr; }
 
+			bool CreateSpawnData(LPCSTR entity_reference);
+			IKinematics* ObjectKinematics(void);
+			// Lord: потом реализовать данные методы
+			bool AttachObject(SDK_CustomObject* object);
+			bool OnAppendObject(SDK_CustomObject* object);
+			bool LoadLTX(CInifile &ini, LPCSTR section_name);
+			void SaveLTX(CInifile &ini, LPCSTR section_name);
+			bool LoadStream(IReader &reader);
+			void SaveStream(IWriter &writer);	
+			bool ExportGame(SExportStreams* stream);
+			void DetachObject(void);
 
 
 
