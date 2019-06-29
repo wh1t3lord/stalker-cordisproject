@@ -22,7 +22,7 @@ namespace Cordis
 			SDK_TreeFolder& operator=(SDK_TreeFolder&&) = delete;
 			~SDK_TreeFolder(void);
 
-			void Initialize(const xr_vector<xr_string>& data);
+			void Initialize(const xr_vector<xr_string>& data, const xr_string& data_realname);
 			static xr_vector<xr_string> ParsePath(xr_string path)
 			{
 				if (path.empty())

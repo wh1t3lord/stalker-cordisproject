@@ -29,6 +29,20 @@ DLL_API IFactoryObject* __cdecl xrFactory_Create(CLASS_ID clsid)
 }
 
 DLL_API void __cdecl xrFactory_Destroy(IFactoryObject* O) { xr_delete(O); }
+
+__declspec(dllexport) CSE_Abstract* __cdecl xrServer_Create(LPCSTR section)
+{
+	CSE_Abstract* obj = object_factory().server_object(pSettings->r_clsid(section, "class"), section);
+	return obj;
+}
+
+__declspec(dllexport) void __cdecl xrServer_Destroy(IServerEntity*& entity)
+{
+	auto object = smart_cast<CSE_Abstract*>(entity);
+	xr_delete(entity);
+	entity = nullptr;
+}
+
 };
 
 void CCC_RegisterCommands();

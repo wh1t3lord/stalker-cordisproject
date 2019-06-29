@@ -11,6 +11,10 @@
 #include "xrCore/clsid.h"
 #include "xrCore/xrCore_benchmark_macros.h"
 
+
+class CSE_Abstract;
+class IServerEntity;
+
 class IFactoryObject
 {
 public:
@@ -37,6 +41,8 @@ public:
 extern "C" {
 using Factory_Create = DLL_API IFactoryObject* __cdecl(CLASS_ID CLS_ID);
 using Factory_Destroy = DLL_API void __cdecl(IFactoryObject* O);
+using ServerFactory_Create = CSE_Abstract* __cdecl(LPCSTR section);
+using ServerFactory_Destroy = void __cdecl(IServerEntity*& entity);
 };
 
 // Tuning interface
@@ -62,7 +68,8 @@ public:
 
     Factory_Create*  pCreate;
     Factory_Destroy* pDestroy;
-
+	ServerFactory_Create* m_callback_create_entity;
+	ServerFactory_Destroy* m_callback_destroy_entity;
     bool      tune_enabled;
     VTPause*  tune_pause;
     VTResume* tune_resume;

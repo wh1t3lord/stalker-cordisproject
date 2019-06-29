@@ -158,6 +158,7 @@
       <PreprocessorDefinitions>_USRDLL;XRGAME_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <DisableSpecificWarnings>4237;4250;%(DisableSpecificWarnings)</DisableSpecificWarnings>
       <AdditionalOptions> %(AdditionalOptions)</AdditionalOptions>
+      <CallingConvention>StdCall</CallingConvention>
     </ClCompile>
     <Link>
       <DelayLoadDLLs>AnselSDK$(PlatformArchitecture).dll;</DelayLoadDLLs>

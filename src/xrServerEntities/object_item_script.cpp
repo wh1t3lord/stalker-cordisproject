@@ -51,9 +51,10 @@ ObjectFactory::ServerObjectBaseClass* CObjectItemScript::server_object(LPCSTR se
     }
 
     R_ASSERT(object);
+/*
     object = object->init();
-    R_ASSERT(object);
-    return (object);
+    R_ASSERT(object);*/
+    return (object->init());
 }
 
 CObjectItemScript::CObjectItemScript(

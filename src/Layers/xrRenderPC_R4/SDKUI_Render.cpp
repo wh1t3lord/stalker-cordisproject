@@ -56,7 +56,7 @@ namespace Cordis
         {
             object->Render(1, false);
 
-            if (object->m_is_selected)
+            if (object->IsSelected())
             {
                 // RCache.set_xform_world(object->GetTransform());
                 DUImpl.DrawSelectionBoxB(object->getBox(), &clr);

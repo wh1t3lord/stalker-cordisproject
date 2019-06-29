@@ -55,11 +55,12 @@ namespace SDK
 						SDK_NodeTreeFolder* node = new SDK_NodeTreeFolder();
 						node->setValue(data.back());
 						node->setValue(false);
+						node->setRealName(it.second);
 						this->m_folders[data.back()].m_root = node;
 					}
 
 					if (!this->m_folders[data.back()].m_root)
-						this->m_folders[data.back()].Initialize(data);
+						this->m_folders[data.back()].Initialize(data, it.second);
 				}
 
 
@@ -68,7 +69,7 @@ namespace SDK
 					xr_vector<xr_string>& data = SDK_TreeFolder::ParsePath(it.first);
 
 					if (this->m_folders[data.back()].m_root->IsFolder())
-						this->m_folders[data.back()].m_root->AddElementRecursivly(this->m_folders[data.back()].m_root, data, data.size() - 2);
+						this->m_folders[data.back()].m_root->AddElementRecursivly(this->m_folders[data.back()].m_root, data, it.second, data.size() - 2);
 				}
 			}
 		}
@@ -94,6 +95,10 @@ namespace SDK
 		{
 			return this->m_currentselected_staticobject_name;
 		}
+		inline const xr_string& getCurrentSelectedSpawnElement(void) const noexcept
+		{
+			return this->m_currentselected_spawnelement_name;
+		}
 		inline ShapeType GetCurrentShapeType() const noexcept
 		{
 			if (this->m_id_currentsection == kSection_Shapes)
@@ -116,6 +121,9 @@ namespace SDK
 		void Draw(void);
 
 
+	private:
+		void RenderTreeView_Folders(SDK_NodeTreeFolder* node);
+		void RenderTreeView_Items(SDK_NodeTreeFolder* node);
 
 	private:
 		bool m_is_visible;
@@ -127,6 +135,7 @@ namespace SDK
 		float m_size_mainmenubar_y;
 		ImGuiWindowFlags m_flag;
 		xr_string m_currentselected_staticobject_name; // @ From list
+		xr_string m_currentselected_spawnelement_name;
 		xr_string m_currentselected_sectionname;
 		xr_vector<xr_string> m_sections;
 

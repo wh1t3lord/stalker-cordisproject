@@ -61,7 +61,8 @@ namespace Cordis
 		}
 
  
-		void SDK_NodeTreeFolder::AddElementRecursivly(SDK_NodeTreeFolder* element, const xr_vector<xr_string>& data, int start_index)
+		void SDK_NodeTreeFolder::AddElementRecursivly(SDK_NodeTreeFolder* element, const xr_vector<xr_string>& data, const xr_string& data_realname,
+			int start_index)
 		{
 			if (data.size() == 1)
 			{
@@ -82,6 +83,7 @@ namespace Cordis
 			if (0 == start_index)
 			{
 				node->setValue(false);
+				node->setRealName(data_realname);
 				element->AddElement(node);
 				return;
 			}
@@ -89,13 +91,10 @@ namespace Cordis
 			SDK_NodeTreeFolder* last_link = element->AddElement(node);
 			if (last_link)
 			{
-				return AddElementRecursivly(last_link, data, start_index - 1);
+				return AddElementRecursivly(last_link, data, data_realname, start_index - 1);
 			}
 			
-			return AddElementRecursivly(element->getChildrens().back(), data, start_index - 1);
-
-
-			
+			return AddElementRecursivly(element->getChildrens().back(), data, data_realname, start_index - 1);
 		}
 
 	}

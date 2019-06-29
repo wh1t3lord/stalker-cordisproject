@@ -10,15 +10,16 @@ namespace Cordis
     namespace SDK
     {
 		
-		void RenderTreeView_Items(SDK_NodeTreeFolder* node);
+ 
 
-		void RenderTreeView_Folders(SDK_NodeTreeFolder* node) // Lord: вообще подумать как можно это оптимизировать
+		void SDKUI_RightWindow::RenderTreeView_Folders(SDK_NodeTreeFolder* node) // Lord: вообще подумать как можно это оптимизировать
 		{
 			if (!node)
 				return;
 
 			if (node->IsFolder())
 			{
+				ImGui::PushStyleColor(ImGuiCol_Text, ImVec4(0.5f, 0.5f, 0.5f, 1.0f));
 				if (ImGui::TreeNode(node->getValue().c_str()))
 				{
 					xr_map<xr_string, SDK_NodeTreeFolder*> folders;
@@ -42,17 +43,26 @@ namespace Cordis
 					}
 					ImGui::TreePop();
 				}
+				ImGui::PopStyleColor();
 			}
 		}
 
-		void RenderTreeView_Items(SDK_NodeTreeFolder* node)
+		void SDKUI_RightWindow::RenderTreeView_Items(SDK_NodeTreeFolder* node)
 		{
 			if (!node)
 				return;
 
 			if (!node->IsFolder())
 			{
-				ImGui::Selectable(node->getValue().c_str());
+				bool is_selected = false;
+				ImGui::PushStyleColor(ImGuiCol_Text, ImVec4(1.0f, 1.0f, 1.0f, 1.0f));
+				if (ImGui::Selectable(node->getValue().c_str(), &is_selected))
+				{
+					SDKUI_Log::Widget().AddText("Real Section Name: %s", node->getSectionName().c_str());
+					this->m_currentselected_spawnelement_name = node->getSectionName();
+					
+				}
+				ImGui::PopStyleColor();
 			}
 		}
 
@@ -203,12 +213,12 @@ namespace Cordis
  
 				for (const xr_map<xr_string, SDK_TreeFolder>::value_type& it : this->m_folders)
 				{
-					RenderTreeView_Folders(it.second.m_root);
+					this->RenderTreeView_Folders(it.second.m_root);
 				}
 				
 				for (const xr_map<xr_string, SDK_TreeFolder>::value_type& it : this->m_folders)
 				{
-					RenderTreeView_Items(it.second.m_root);
+					this->RenderTreeView_Items(it.second.m_root);
 				}
 
 

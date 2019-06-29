@@ -2,6 +2,7 @@
 
 
 #include "Common/LevelGameDef.h"
+#include "xrServerEntities/xrServer_Object_Base.h"
 #include "xrServerEntities/xrServer_Objects_Abstract.h"
 
 constexpr unsigned int SPAWNPOINT_VERSION = 0x0017;
@@ -94,7 +95,7 @@ namespace Cordis
 			public:
 				Flags8 m_flags;
 				CLASS_ID m_classid;
-				IServerEntity* m_data;
+				CSE_Abstract* m_data;
 				CLE_Visual* m_visual;
 				CLE_Motion* m_motion;
 				xr_vector<CLE_Visual*> m_visualhelpers;
@@ -104,7 +105,7 @@ namespace Cordis
 #pragma endregion
 
 			SDK_ObjectSpawnElement(void) = delete;
-			SDK_ObjectSpawnElement(LPCSTR name);
+			SDK_ObjectSpawnElement(LPCSTR name, LPCSTR reference_name);
 			~SDK_ObjectSpawnElement(void);
 
 			void Render(const int&, const bool&);
@@ -116,6 +117,7 @@ namespace Cordis
 
 			bool CreateSpawnData(LPCSTR entity_reference);
 			IKinematics* ObjectKinematics(void);
+			void RenderSimulationBoxes(void);
 			// Lord: потом реализовать данные методы
 			bool AttachObject(SDK_CustomObject* object);
 			bool OnAppendObject(SDK_CustomObject* object);
@@ -160,7 +162,6 @@ namespace Cordis
 
 
 		}; // SDK_ObjectSpawnElement
-
 	}
 }
 

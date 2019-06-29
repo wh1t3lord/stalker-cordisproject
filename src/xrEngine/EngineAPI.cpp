@@ -8,6 +8,7 @@
 
 #include "xrCore/ModuleLookup.hpp"
 #include "xrCore/xr_token.h"
+#include "xrServerEntities/xrServer_Object_Base.h"
 
 extern xr_vector<xr_token> VidQualityToken;
 
@@ -142,11 +143,21 @@ void CEngineAPI::Initialize(void)
     hGame = XRay::LoadModule("xrGame");
     R_ASSERT2(hGame->IsLoaded(), "Game DLL raised exception during loading or there is no game DLL at all");
 
+
     pCreate = (Factory_Create*)hGame->GetProcAddress("xrFactory_Create");
     R_ASSERT(pCreate);
 
     pDestroy = (Factory_Destroy*)hGame->GetProcAddress("xrFactory_Destroy");
     R_ASSERT(pDestroy);
+
+	if (FS.IsSDK())
+	{
+		
+		this->m_callback_create_entity = (ServerFactory_Create*)hGame->GetProcAddress("xrServer_Create");
+		CHECK_OR_EXIT(this->m_callback_create_entity, "Can't create callback for SDK! -> xrServer_Create");
+		this->m_callback_destroy_entity = (ServerFactory_Destroy*)hGame->GetProcAddress("xrServer_Destroy");
+		CHECK_OR_EXIT(this->m_callback_destroy_entity, "Can't create callback for SDK! -> xrServer_Destroy"); 
+	}
 
     //////////////////////////////////////////////////////////////////////////
     // vTune

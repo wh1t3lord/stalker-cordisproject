@@ -49,7 +49,8 @@ public:
     virtual void load(NET_Packet& tNetPacket);
     virtual void save(NET_Packet& tNetPacket);
 };
-
+// Lord: подумать из-за чего сбивается содержимое класса ибо не доступен set_name и прч наверное методы, но действительным оказывается Spawn_Read
+// Этот трабл нужно разрешить иначе не получится сделать spawn_elements!!!!!!
 class CSE_Abstract : public IServerEntity, public CPureServerObject, public CScriptValueContainer
 {
     using inherited1 = IServerEntity;
@@ -118,34 +119,34 @@ public:
     virtual void OnEvent(NET_Packet& /*tNetPacket*/, u16 /*type*/, u32 /*time*/, ClientID /*sender*/){}
 #ifndef XRGAME_EXPORTS
 //     virtual void FillProps(LPCSTR pref, PropItemVec& items);
-//     virtual void __stdcall FillProp(LPCSTR pref, PropItemVec& items);
-    virtual void __stdcall on_render(CDUInterface* /*du*/, IServerEntityLEOwner* /*owner*/, bool /*bSelected*/,
+//     virtual void __cdecl FillProp(LPCSTR pref, PropItemVec& items);
+    virtual void __cdecl on_render(CDUInterface* /*du*/, IServerEntityLEOwner* /*owner*/, bool /*bSelected*/,
         const Fmatrix& /*parent*/, int /*priority*/, bool /*strictB2F*/)
     {
     }
-    virtual visual_data* __stdcall visual_collection() const { return nullptr; }
-    virtual u32 __stdcall visual_collection_size() const { return 0; }
-    virtual void __stdcall set_additional_info(void* /*info*/) {};
+    virtual visual_data* __cdecl visual_collection() const { return nullptr; }
+    virtual u32 __cdecl visual_collection_size() const { return 0; }
+    virtual void __cdecl set_additional_info(void* /*info*/) {};
 #endif // #ifndef XRGAME_EXPORTS
     virtual BOOL Net_Relevant() { return FALSE; } // !!!! WARNING!!!
     //
-    virtual void __stdcall Spawn_Write(NET_Packet& tNetPacket, BOOL bLocal);
-    virtual BOOL __stdcall Spawn_Read(NET_Packet& tNetPacket);
-    virtual LPCSTR __stdcall name() const;
-    virtual LPCSTR __stdcall name_replace() const;
-    virtual void __stdcall set_name(LPCSTR s) { s_name = s; }
-    virtual void __stdcall set_name_replace(LPCSTR s)
+    virtual void __cdecl Spawn_Write(NET_Packet& tNetPacket, BOOL bLocal);
+    virtual BOOL __cdecl Spawn_Read(NET_Packet& tNetPacket);
+    virtual LPCSTR __cdecl name() const;
+    virtual LPCSTR __cdecl name_replace() const;
+    virtual void __cdecl set_name(LPCSTR s) { s_name = s; }
+    virtual void __cdecl set_name_replace(LPCSTR s)
     {
         xr_free(s_name_replace);
         s_name_replace = xr_strdup(s);
     };
-    virtual Fvector& __stdcall position();
-    virtual Fvector& __stdcall angle();
-    virtual Flags16& __stdcall flags();
-    virtual CSE_Visual* __stdcall visual();
-    virtual IServerEntityShape* __stdcall shape();
-    virtual CSE_Motion* __stdcall motion();
-    virtual bool __stdcall validate();
+    virtual Fvector& __cdecl position();
+    virtual Fvector& __cdecl angle();
+    virtual Flags16& __cdecl flags();
+    virtual CSE_Visual* __cdecl visual();
+    virtual IServerEntityShape* __cdecl shape();
+    virtual CSE_Motion* __cdecl motion();
+    virtual bool __cdecl validate();
     //
 
     IC const Fvector& Position() const { return o_Position; }

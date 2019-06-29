@@ -38,6 +38,9 @@ namespace Cordis
             SDKUI_Log::Widget().SetColor(good);
             SDKUI_Log::Widget().AddText("SDK was initialized!"); // Lord: изменить здесь потом текст
 
+			this->m_handle_xrgame = LoadLibrary("xrGame.dll");
+			CHECK_OR_EXIT(this->m_handle_xrgame, "Can't LoadLibrary -> xrGame.dll");
+
             // Lord: удалить потом реализовать в EThumbnail
             //         D3D11_TEXTURE2D_DESC desc = {0};
             //         desc.Width = 128;
@@ -74,7 +77,10 @@ namespace Cordis
             return instance;
         }
 
-        ~SDKUI(void) = default;
+		~SDKUI(void)
+		{
+			FreeLibrary(this->m_handle_xrgame);
+		}
 
         inline void ShowMainMenuBar(void) { this->bShowMainMenuBar = true; }
         inline void HideMainMenuBar(void) { this->bShowMainMenuBar = false; }
@@ -137,6 +143,7 @@ namespace Cordis
         float DisplayY;
 		float dis_to_current_obj = SDK_Camera::GetInstance().fFar;
 		float mouse_drag_delta;
+		HMODULE m_handle_xrgame;
         ImVec2 m_start_mouseposition;
         ImVec2 m_current_mouseposition;
 

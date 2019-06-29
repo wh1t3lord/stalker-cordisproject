@@ -5,6 +5,8 @@
 #include "SDKUI_Helpers.h"
 #include "xrEngine/SDK_Camera.h"
 #include "SDK_ObjectShape.h"
+#include "SDK_ObjectLight.h"
+#include "SDK_ObjectSpawnElement.h"
 
 namespace Cordis
 {
@@ -53,6 +55,10 @@ void SDK_SceneManager::AddObject(const Fvector& position, const Fvector& normal)
     }
     case kSection_Lights:
     { 
+		// Lord: нужно реализовать генерацию имени!
+		SDK_CustomObject* object = this->_AddObjectLight("1");
+		object->MoveTo(position, normal);
+		this->m_objects_list.push_back(object);
         break;
     }
     case kSection_SoundSource:
@@ -72,6 +78,18 @@ void SDK_SceneManager::AddObject(const Fvector& position, const Fvector& normal)
     }
     case kSection_SpawnElements: 
     {
+		if (!SDKUI_RightWindow::Widget().getCurrentSelectedSpawnElement().size())
+		{
+			SDKUI_Log::Widget().SetColor(warning);
+			SDKUI_Log::Widget().AddText("Can't add object, because nothing selected");
+			break;
+		}
+
+
+		// Lord: реализовать генерацию имени!
+		SDK_CustomObject* object = this->_AddObjectSpawnElement("lel");
+		object->MoveTo(position, normal);
+		this->m_objects_list.push_back(object);
         break;
     }
     case kSection_WayPoints: 
@@ -131,6 +149,7 @@ void SDK_SceneManager::AddObject(const Fvector& position, const Fvector& normal)
         CEditableObject* o = SDK_Cache::GetInstance().GetGeometry(name);
         if (o == nullptr)
         {
+			SDKUI_Log::Widget().SetColor(error);
             SDKUI_Log::Widget().AddText("Geometry was null!");
         }
 
@@ -156,6 +175,23 @@ void SDK_SceneManager::AddObject(const Fvector& position, const Fvector& normal)
         object->m_sphere_data = sphere;
         return object;
     }
+
+	SDK_CustomObject* SDK_SceneManager::_AddObjectLight(const xr_string& name)
+	{
+		if (!name.size())
+			return nullptr;
+
+		SDK_ObjectLight* object = new SDK_ObjectLight(name.c_str());
+		return object;
+	}
+
+	SDK_CustomObject* SDK_SceneManager::_AddObjectSpawnElement(const xr_string& name)
+	{
+		if (!name.size())
+			return nullptr;
+		SDK_ObjectSpawnElement* object = new SDK_ObjectSpawnElement(name.c_str(), SDKUI_RightWindow::Widget().getCurrentSelectedSpawnElement().c_str());
+		return object;
+	}
 
     void SDK_SceneManager::_AddObjectGeometryOfShape(ShapeType type)
     {

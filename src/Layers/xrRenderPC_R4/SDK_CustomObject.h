@@ -123,6 +123,8 @@ namespace Cordis
                 this->m_is_visible = false;
         }
 
+		inline bool IsSelected(void) const noexcept { return this->m_is_selected; }
+
         // inline bool IsRender(void) const noexcept { return this->bRendering; }
         // inline bool IsSelected(void) const noexcept { return this->bSelected; }
 

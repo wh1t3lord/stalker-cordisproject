@@ -1,12 +1,11 @@
 #include "stdafx.h"
 #include "SDK_ObjectSpawnElement.h"
+#include "xrServerEntities/xrMessages.h"
+#include "xrServerEntities/xrServer_Objects_ALife.h"
 #include "../xrRender/SkeletonAnimated.h"
 #include "xrEngine/ObjectAnimator.h"
-#include "../../utils/xrSE_Factory/xrSE_Factory_import_export.h"
-#include "xrServerEntities/xrMessages.h"
-
-
 #include "SIniFileStream.h"
+
 
 #define SPAWNPOINT_CHUNK_VERSION 0xE411
 #define SPAWNPOINT_CHUNK_POSITION 0xE412
@@ -32,8 +31,6 @@
 #define ENVMOD_SIZE 0.25f
 #define MAX_TEAM 6
 const u32 RP_COLORS[MAX_TEAM] = { 0xff0000, 0x00ff00, 0x0000ff, 0xffff00, 0x00ffff, 0xff00ff };
-
-
 
 namespace Cordis
 {
@@ -256,11 +253,13 @@ namespace Cordis
 
 		void SDK_ObjectSpawnElement::SpawnData::Create(LPCSTR entity_reference)
 		{
-			this->m_data = create_entity(entity_reference);
+		//	this->m_data = sdk_createentity(entity_reference)->getServerObject(entity_reference);
+			this->m_data = Engine.External.m_callback_create_entity(entity_reference);
 			if (this->m_data)
 			{
+				// Lord: здесь багует вызывает вместо set_name -> angle()
 				this->m_data->set_name(entity_reference);
-
+ 
 				if (this->m_data->visual())
 				{
 					this->m_visual = new CLE_Visual(this->m_data->visual());
@@ -272,15 +271,15 @@ namespace Cordis
 					this->m_motion = new CLE_Motion(this->m_data->motion());
 					this->m_data->set_editor_flag(IServerEntity::flMotionChange);
 				}
-
-				if (pSettings->line_exist(this->m_data->name(), "$player"))
+ 
+				if (pSettings->line_exist(entity_reference, "$player"))
 				{
-					if (pSettings->r_bool(this->m_data->name(), "$player"))
+					if (pSettings->r_bool(entity_reference, "$player"))
 					{
 						this->m_data->flags().set(M_SPAWN_OBJECT_ASPLAYER, true);
 					}
 				}
-				this->m_classid = pSettings->r_clsid(this->m_data->name(), "class");
+				this->m_classid = pSettings->r_clsid(entity_reference, "class");
 			}
 			else
 			{
@@ -292,7 +291,11 @@ namespace Cordis
 		void SDK_ObjectSpawnElement::SpawnData::Destroy(void)
 		{
 			if (this->m_data)
-				destroy_entity(this->m_data);
+			{
+				IServerEntity* reference = this->m_data;
+				Engine.External.m_callback_destroy_entity(reference);
+			}
+
 
 			if (this->m_visual)
 				xr_delete(this->m_visual);
@@ -602,7 +605,7 @@ void CSpawnPoint::SSpawnData::FillProp(LPCSTR pref, PropItemVec& items)
 		}
 #pragma endregion
 
-		SDK_ObjectSpawnElement::SDK_ObjectSpawnElement(LPCSTR name) : inherited(name), m_spawndata(this), m_rp_profile(""), m_attachedobject(nullptr)
+		SDK_ObjectSpawnElement::SDK_ObjectSpawnElement(LPCSTR name, LPCSTR reference_name) : inherited(name), m_spawndata(this), m_rp_profile(""), m_attachedobject(nullptr)
 		{
 			this->m_id_objecttype = kSection_SpawnElements;
 
@@ -649,7 +652,12 @@ void CSpawnPoint::SSpawnData::FillProp(LPCSTR pref, PropItemVec& items)
 
 //			this->setValid(); Lord: подумать над данным методом !!!! Вообще нужно или нет
 			//this->m_em_flags.one();
-			
+			this->CreateSpawnData(reference_name);
+			if (!this->m_spawndata.Valid())
+			{
+				SDKUI_Log::Widget().SetColor(warning);
+				SDKUI_Log::Widget().AddText("Can't create geometry for spawnelement - %s", name);
+			}
 		}
 
 		SDK_ObjectSpawnElement::~SDK_ObjectSpawnElement(void)
@@ -658,20 +666,99 @@ void CSpawnPoint::SSpawnData::FillProp(LPCSTR pref, PropItemVec& items)
 				xr_delete(this->m_attachedobject);
 		}
 
+
+		void SDK_ObjectSpawnElement::RenderSimulationBoxes(void)
+		{
+			Fvector center, dimensions;
+			this->getBox().get_CD(center, dimensions);
+			Fmatrix matrix;
+			matrix.scale(Fvector().mul(dimensions, 2.0f));
+			matrix.c.set(center);
+			unsigned int color = 0x06005000;
+			DUImpl.DrawIdentBox(matrix, false);
+		}
+
 		void SDK_ObjectSpawnElement::Render(const int&, const bool&)
 		{
+			if (this->m_physics_shell)
+			{
+				this->UpdateObjectXform(this->m_transform_rotation_position);
+				this->RenderSimulationBoxes();
+			}
 
+			//  Scene->SelectLightsForObject(this);
+
+			if (this->m_attachedobject)
+				this->m_attachedobject->Render(1, true);
+
+			if (this->m_spawndata.Valid())
+			{
+				this->m_spawndata.Render(this->IsSelected(), this->m_transform_rotation_position, 1, false);
+				
+				/* Lord: реализовать
+				RCache.set_xform_world(this->m_transform_rotation_position);
+								ESceneSpawnTool* st = dynamic_cast<ESceneSpawnTool*>(ParentTool);
+				VERIFY(st);
+				ref_shader s = st->GetIcon(m_SpawnData.m_Data->name());
+				DU_impl.DrawEntity(0xffffffff, s);
+				*/
+			}
+
+
+			
 		}
 
 
-		bool SDK_ObjectSpawnElement::RayPick(float&, const Fvector&, const Fvector&)
+		bool SDK_ObjectSpawnElement::RayPick(float& distance, const Fvector& start, const Fvector& direction)
 		{
+			if (this->m_attachedobject)
+			{
+				return this->m_attachedobject->RayPick(distance, start, direction);
+			}
+
+
+			Fvector position;
+			float radius;
+			this->getBox().getsphere(position, radius);
+
+			Fvector ray;
+			ray.sub(position, start);
+
+			float result = ray.dotproduct(direction);
+
+			if (result > 0)
+			{
+				float result2 = ray.magnitude();
+
+				if (((result2 * result2 - result * result) < (radius * radius)) && (result > radius))
+				{
+					Fvector point;
+					Fbox fbox = this->getBox();
+					if (Fbox::rpOriginOutside == fbox.Pick2(start, direction, point))
+					{
+						result = start.distance_to(point);
+						if (result < distance)
+						{
+							distance = result;
+							return true;
+						}
+					}
+				}
+			}
+
+
+
+
 			return false;
 		}
 
-		bool SDK_ObjectSpawnElement::FrustumPick(const CFrustum&)
+		bool SDK_ObjectSpawnElement::FrustumPick(const CFrustum& frustum)
 		{
-			return false;
+			if (this->m_attachedobject && this->m_attachedobject->FrustumPick(frustum))
+				return true;
+
+			unsigned int mask = 0xff;
+			return frustum.testAABB(this->getBox().data(), mask);
 		}
 
 		bool SDK_ObjectSpawnElement::CreateSpawnData(LPCSTR entity_reference)

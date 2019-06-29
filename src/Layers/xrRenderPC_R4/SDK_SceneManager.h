@@ -72,6 +72,7 @@ namespace Cordis
         SDK_CustomObject* _AddObjectStaticGeometry(LPCSTR name);
         SDK_CustomObject* _AddObjectShape(const xr_string& name);
 		SDK_CustomObject* _AddObjectLight(const xr_string& name);
+		SDK_CustomObject* _AddObjectSpawnElement(const xr_string& name);
         void _AddObjectGeometryOfShape(ShapeType type);
         
 
