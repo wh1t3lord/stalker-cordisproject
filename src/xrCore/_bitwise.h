@@ -4,6 +4,8 @@
 #include "math_constants.h"
 #include "_types.h"
 
+ 
+
 // float values defines
 #define fdSGN 0x080000000 // mask for sign bit
 #define fdMABS 0x07FFFFFFF // mask for absolute value (~sgn)
@@ -89,7 +91,7 @@ IC u64 btwCount1(u64 v)
 
 IC int iFloor(float x)
 {
-    return std::floor(x);
+    return floor(x);
 }
 
 /* intCeil() is a non-interesting variant, since effectively
@@ -97,7 +99,7 @@ IC int iFloor(float x)
  */
 IC int iCeil(float x)
 {
-    return std::ceil(x);
+    return ceil(x);
 }
 
 // Validity checks
