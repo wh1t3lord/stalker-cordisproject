@@ -202,7 +202,7 @@ namespace Cordis
 								{
 									xr_string string_id = u8"##ID";
 									++m_generated_index;
-									string_id += this->m_generated_index;
+									string_id += std::to_string(this->m_generated_index).c_str();
 									data_map.first = attribute;
 									data_map.second = u8"" + text;
 

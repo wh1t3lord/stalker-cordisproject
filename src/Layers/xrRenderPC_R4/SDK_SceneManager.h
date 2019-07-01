@@ -36,6 +36,10 @@ namespace Cordis
         SDK_SceneManager(SDK_SceneManager&&) = delete;
         SDK_SceneManager& operator=(SDK_SceneManager&&) = delete;
 
+
+		inline const xr_list<SDK_CustomObject*>& getObjectsList(void) noexcept { return this->m_objects_list; }
+		inline const xr_list<SDK_CustomObject*>& getObjectsListSelected(void) noexcept { return this->m_selectedobjects_list; }
+
 		void AddObject(const Fvector&, const Fvector&);
         void ZoomExtentSelected(const Fbox& bbox);
         void DeleteResources(void);
@@ -97,8 +101,6 @@ namespace Cordis
 
     private:
         float current_distance_to_object;
-
-    public:
         SDK_CustomObject* m_currentobject;
         xr_list<SDK_CustomObject*> m_selectedobjects_list;
         xr_list<SDK_CustomObject*> m_objects_list; // All kind of object in the scene

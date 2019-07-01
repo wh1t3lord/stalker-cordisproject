@@ -625,8 +625,8 @@
     <ClCompile Include="R_Backend_LOD.cpp" />
     <ClCompile Include="SDKUI.cpp" />
     <ClCompile Include="SDKUI_Helpers.cpp" />
-    <ClCompile Include="SDKUI_ObjectList.cpp" />
     <ClCompile Include="SDKUI_ObjectInspector.cpp" />
+    <ClCompile Include="SDKUI_ObjectList.cpp" />
     <ClCompile Include="SDKUI_Render.cpp" />
     <ClCompile Include="SDKUI_RightWindow.cpp" />
     <ClCompile Include="SDKUI_Settings.cpp" />

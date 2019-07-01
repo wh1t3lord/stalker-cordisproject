@@ -9,6 +9,7 @@
 #include "SDKUI_ObjectInspector.h"
 #include "SDKUI_ObjectList.h"
 #include "SDKUI_Settings.h"
+#include "SDKUI_ObjectInspector.h"
 // New commit a 
 namespace Cordis
 {
@@ -310,7 +311,7 @@ void SDKUI::KeyBoardMessages(void)
 	// Lord: памятка нужно следить за тем когда какой объект будет создаваться ибо если не уследить можно получить undefiend behavior, нужно построить нормально систему
 	// Простой пример RightWindow инициализируется раньше и пытается спарсить папки, но к этому моменту они не готовы потому что не был инициализирован
 	// SDK_Cache::m_spawnelements!!!! Над этим все нужно подумать, так уж все инициализации наверное нужно переместить в SDKUI::SDKUI
-	if (!SDK_SceneManager::GetInstance().m_selectedobjects_list.empty())
+	if (!SDK_SceneManager::GetInstance().getObjectsListSelected().empty())
 	{
 		if (ImGui::IsKeyPressed(SDL_SCANCODE_M) && !this->bClickedRightButton)
 		{
@@ -366,7 +367,6 @@ void SDKUI::DrawAllHelpers(void)
     SDKUI_ObjectList::Widget().Draw();
     SDKUI_SceneOptions::Widget().Draw();
 	SDKUI_Settings::Widget().Draw();
-
 }
 
 void SDKUI::DrawMainMenuBar(void)

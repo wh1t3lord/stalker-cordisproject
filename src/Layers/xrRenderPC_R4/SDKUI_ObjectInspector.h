@@ -7,11 +7,9 @@ namespace Cordis
     {
     class SDKUI_ObjectInspector
     {
-        friend class SDK_SceneManager;
-
     private:
         SDKUI_ObjectInspector(void) noexcept
-            : m_is_visible(false), m_flag(ImGuiWindowFlags_AlwaysAutoResize) // @ Lord bShow(false)!
+            : m_is_visible(true), m_flag(ImGuiWindowFlags_AlwaysAutoResize) // @ Lord bShow(false)!
         {
         }
 

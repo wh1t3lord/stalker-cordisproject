@@ -52,7 +52,7 @@ namespace Cordis
 
         u32 clr = D3DCOLOR_ARGB(255, 255, 255, 255); // Lord: добавить кастомизацию
 
-        for (xr_list<SDK_CustomObject*>::value_type object : SDK_SceneManager::GetInstance().m_objects_list)
+        for (xr_list<SDK_CustomObject*>::value_type object : SDK_SceneManager::GetInstance().getObjectsList())
         {
             object->Render(1, false);
 

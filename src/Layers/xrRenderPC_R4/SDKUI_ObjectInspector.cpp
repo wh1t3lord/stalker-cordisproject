@@ -1,83 +1,54 @@
 #include "stdafx.h"
 #include "SDKUI_ObjectInspector.h"
-#include "SDKUI_RightWindow.h"
 
 namespace Cordis
 {
-namespace SDK
-{
-SDKUI_ObjectInspector::~SDKUI_ObjectInspector(void) {}
+	namespace SDK
+	{
+		SDKUI_ObjectInspector::~SDKUI_ObjectInspector(void)
+		{
 
-void SDKUI_ObjectInspector::Draw(void)
-{
-    if (!this->m_is_visible || !SDK_SceneManager::GetInstance().m_objects_list.size())
-        return;
+		}
 
-    if (ImGui::Begin("Object Properties", &this->m_is_visible, this->m_flag))
-    {
-        // @ Lord -> Затем добавить вертикальный separator (таблицу)
-		switch (SDKUI_RightWindow::Widget().GetSection())
+		void SDKUI_ObjectInspector::Draw(void)
 		{
-		case kSection_SpawnElements:
-		{
-			break;
-		}
-		case kSection_WayPoints:
-		{
-			break;
-		}
-		case kSection_StaticGeometry:
-		{
+			if (!this->m_is_visible && !SDK_SceneManager::GetInstance().getObjectsListSelected().size())
+				return;
+
+			if (ImGui::Begin(SDK_Names::getInstance().getName("st_object_inspector_name").c_str(), &this->m_is_visible, this->m_flag))
+			{
+				switch (SDKUI_RightWindow::Widget().GetSection())
+				{
+				case kSection_StaticGeometry:
+				{
+					const xr_list<SDK_CustomObject*>& selectedobjects = SDK_SceneManager::GetInstance().getObjectsListSelected();
+					if (selectedobjects.size() == 1)
+					{
+						SDK_CustomObject* object = selectedobjects.back();
+						xr_vector<char> buffer_string;
+						
+						if (ImGui::InputText(SDK_Names::getInstance().getName("st_object_inspector_sg_name").c_str(), object->getSceneName().data(), object->getSceneName().size(), ImGuiInputTextFlags_EnterReturnsTrue))
+						{
+
+						}
+
+						if (ImGui::TreeNode(SDK_Names::getInstance().getName("st_object_inspector_sg_transform").c_str()))
+						{
+
+
+							ImGui::TreePop();
+						}
+					}
+					else
+					{
+
+					}
+					break;
+				}
+				}
+			}
+			ImGui::End();
 			
-			break;
 		}
-		case kSection_Lights:
-		{
-			break;
-		}
-		case kSection_Sectors:
-		{
-			break;
-		}
-		case kSection_Portals:
-		{
-			break;
-		}
-		case kSection_SoundEnvironment:
-		{
-			break;
-		}
-		case kSection_SoundSource:
-		{
-			break;
-		}
-		case kSection_AIMap:
-		{
-			break;
-		}
-		case kSection_Groups:
-		{
-			break;
-		}
-		case kSection_StaticParticles:
-		{
-			break;
-		}
-		case kSection_FogVolumes:
-		{
-			break;
-		}
-		case kSection_Wallmarks:
-		{
-			break;
-		}
-		case kSection_DetailObjects:
-		{
-			break;
-		}
-		}
-    }
-	ImGui::End();
+	}
 }
-} // namespace SDK
-} // namespace Cordis

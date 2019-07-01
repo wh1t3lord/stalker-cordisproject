@@ -2039,9 +2039,6 @@
     <ClCompile Include="SDKUI_ObjectList.cpp">
       <Filter>Cordis\SDK\UI management\Object List\Private</Filter>
     </ClCompile>
-    <ClCompile Include="SDKUI_ObjectInspector.cpp">
-      <Filter>Cordis\SDK\UI management\Object Properties\Private</Filter>
-    </ClCompile>
     <ClCompile Include="SDK_ObjectShape.cpp">
       <Filter>Cordis\SDK\Scene management\Own\Objects\Shapes\Private</Filter>
     </ClCompile>
@@ -2066,6 +2063,9 @@
     <ClCompile Include="SDK_ObjectSpawnElement.cpp" />
     <ClCompile Include="SIniFileStream.cpp">
       <Filter>Cordis\SDK\Scene management\GSC\Other Stuff\IniFileStream\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="SDKUI_ObjectInspector.cpp">
+      <Filter>Cordis\SDK\UI management\Object Properties\Private</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
