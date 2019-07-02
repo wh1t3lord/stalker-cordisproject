@@ -19,7 +19,7 @@ namespace Cordis
               m_total_count_objects_spawn_elements(0), m_total_count_objects_static_particles(0),
               m_total_count_objects_wallmarks(0), m_total_count_objects_waypoints(0), m_total_count_objects_lights(0),
               m_total_count_objects_ai_nodes(0), m_total_current_selected_objects(0), m_total_deleted_objects(0),
-              m_total_count_objects_static_geometry(0), m_total_count_objects_shapes(0), current_distance_to_object(0),
+              m_total_count_objects_static_geometry(0), m_total_count_objects_shapes(0), m_current_distance_to_object(0),
               m_currentobject(nullptr)
         {
         }
@@ -79,7 +79,7 @@ namespace Cordis
 		SDK_CustomObject* _AddObjectSpawnElement(const xr_string& name);
         void _AddObjectGeometryOfShape(ShapeType type);
         
-        const xr_string& GenerateName(void);
+        const xr_string& GenerateName(const xr_string& object_name);
 
     public:
 #pragma region Statistic
