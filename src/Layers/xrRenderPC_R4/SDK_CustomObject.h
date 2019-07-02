@@ -167,9 +167,9 @@ namespace Cordis
         //     void AnimationUpdate(const float& t);
         //     void OnMotionChange(void);
 
-        CurrentSectionType getType(void) const noexcept { return this->m_id_objecttype; }
-        xr_string getSceneName(void) const noexcept { return this->m_scene_name; }
-
+        inline CurrentSectionType getType(void) const noexcept { return this->m_id_objecttype; }
+        inline xr_string getSceneName(void) const noexcept { return this->m_scene_name; }
+		inline void setSceneName(const char* name) noexcept { this->m_scene_name = name; }
     public:
         bool m_is_selected;
         bool m_is_visible;

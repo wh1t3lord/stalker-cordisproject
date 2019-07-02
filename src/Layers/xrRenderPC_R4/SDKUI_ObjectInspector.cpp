@@ -25,8 +25,11 @@ namespace Cordis
 					if (selectedobjects.size() == 1)
 					{
 						SDK_CustomObject* object = selectedobjects.back();
-						if (ImGui::InputText(SDK_Names::getInstance().getName("st_object_inspector_sg_name").c_str(), object->getSceneName().data(), object->getSceneName().size() + 32, ImGuiInputTextFlags_EnterReturnsTrue))
+						static char buffer[128];
+						strcpy_s(buffer, object->getSceneName().c_str());
+						if (ImGui::InputText(SDK_Names::getInstance().getName("st_object_inspector_sg_name").c_str(), buffer, IM_ARRAYSIZE(buffer), ImGuiInputTextFlags_EnterReturnsTrue))
 						{
+							object->setSceneName(buffer);
 							SDKUI_Log::Widget().AddText(object->getSceneName().c_str());
 						}
 
