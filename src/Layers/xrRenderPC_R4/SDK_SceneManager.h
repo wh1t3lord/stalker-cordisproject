@@ -79,6 +79,7 @@ namespace Cordis
 		SDK_CustomObject* _AddObjectSpawnElement(const xr_string& name);
         void _AddObjectGeometryOfShape(ShapeType type);
         
+        const xr_string& GenerateName(void);
 
     public:
 #pragma region Statistic
@@ -100,7 +101,7 @@ namespace Cordis
 #pragma endregion
 
     private:
-        float current_distance_to_object;
+        float m_current_distance_to_object;
         SDK_CustomObject* m_currentobject;
         xr_list<SDK_CustomObject*> m_selectedobjects_list;
         xr_list<SDK_CustomObject*> m_objects_list; // All kind of object in the scene

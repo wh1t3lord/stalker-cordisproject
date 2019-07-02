@@ -12,7 +12,7 @@ namespace Cordis
         kSection_Lights,
         kSection_SoundSource,
         kSection_SoundEnvironment,
-  //      kSection_Glows, Lord: ó íàñ íåò ìåñòà äëÿ ýòîãî äåðüìà Äæîííè!!!
+  //      kSection_Glows, Lord: Ñƒ Ð½Ð°Ñ Ð½ÐµÑ‚ Ð¼ÐµÑÑ‚Ð° Ð´Ð»Ñ ÑÑ‚Ð¾Ð³Ð¾ Ð´ÐµÑ€ÑŒÐ¼Ð° Ð”Ð¶Ð¾Ð½Ð½Ð¸!!!
         kSection_Shapes,
         kSection_SpawnElements,
         kSection_WayPoints,
@@ -104,10 +104,10 @@ namespace Cordis
         virtual void Scale(const Fvector& v);
 		virtual inline const Fbox& getBox(void) const noexcept { return this->m_box; }
 
-        inline const Fmatrix& getTransform(void) const noexcept { return this->m_transform; }
-        inline const Fvector& getPosition(void) const noexcept { return this->m_position; }
-        inline const Fvector& getRotation(void) const noexcept { return this->m_rotation; }
-        inline const Fvector& getScale(void) const noexcept { return this->m_scale; }
+        inline Fmatrix& getTransform(void) noexcept { return this->m_transform; }
+        inline Fvector& getPosition(void) noexcept { return this->m_position; }
+        inline Fvector& getRotation(void) noexcept { return this->m_rotation; }
+        inline Fvector& getScale(void) noexcept { return this->m_scale; }
        
 
         //   inline bool IsVisible(void) const noexcept { return this->bVisible; }
@@ -127,6 +127,10 @@ namespace Cordis
 
         // inline bool IsRender(void) const noexcept { return this->bRendering; }
         // inline bool IsSelected(void) const noexcept { return this->bSelected; }
+
+        inline CurrentSectionType getType(void) const noexcept { return this->m_id_objecttype; }
+        inline xr_string getSceneName(void) const noexcept { return this->m_scene_name; }
+        inline void setSceneName(const char* name) noexcept { this->m_scene_name = name; }
 
         void UpdateTransform(void)
         {
@@ -166,11 +170,7 @@ namespace Cordis
         //     inline void AnimationDeleteKey(const float& t) { this->m_Motion->DeleteKey(t); }
         //     void AnimationUpdate(const float& t);
         //     void OnMotionChange(void);
-
-        inline CurrentSectionType getType(void) const noexcept { return this->m_id_objecttype; }
-        inline xr_string getSceneName(void) const noexcept { return this->m_scene_name; }
-		inline void setSceneName(const char* name) noexcept { this->m_scene_name = name; }
-    public:
+    private:
         bool m_is_selected;
         bool m_is_visible;
         bool m_is_rendering;

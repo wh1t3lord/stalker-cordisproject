@@ -1301,9 +1301,11 @@
     <ClInclude Include="SDKUI_Settings.h">
       <Filter>Cordis\SDK\UI management\Settings\Public</Filter>
     </ClInclude>
-    <ClInclude Include="SDK_ObjectSpawnElement.h" />
     <ClInclude Include="SIniFileStream.h">
       <Filter>Cordis\SDK\Scene management\GSC\Other Stuff\IniFileStream\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="SDK_ObjectSpawnElement.h">
+      <Filter>Cordis\SDK\Scene management\Own\Objects\Spawn Element\Public</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -2060,12 +2062,14 @@
     <ClCompile Include="SDK_Names.cpp">
       <Filter>Cordis\SDK\UI management\Kernel\Private</Filter>
     </ClCompile>
-    <ClCompile Include="SDK_ObjectSpawnElement.cpp" />
     <ClCompile Include="SIniFileStream.cpp">
       <Filter>Cordis\SDK\Scene management\GSC\Other Stuff\IniFileStream\Private</Filter>
     </ClCompile>
     <ClCompile Include="SDKUI_ObjectInspector.cpp">
       <Filter>Cordis\SDK\UI management\Object Properties\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="SDK_ObjectSpawnElement.cpp">
+      <Filter>Cordis\SDK\Scene management\Own\Objects\Spawn Element\Private</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

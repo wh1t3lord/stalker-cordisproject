@@ -8,8 +8,7 @@ namespace Cordis
     class SDKUI_ObjectInspector
     {
     private:
-        SDKUI_ObjectInspector(void) noexcept
-            : m_is_visible(true), m_flag(ImGuiWindowFlags_AlwaysAutoResize) // @ Lord bShow(false)!
+        SDKUI_ObjectInspector(void) noexcept : m_is_visible(true), m_flag(ImGuiWindowFlags_AlwaysAutoResize) // @ Lord bShow(false)!
         {
         }
 
