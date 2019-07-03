@@ -24,4 +24,7 @@
   <ItemGroup>
     <CustomBuild Include="screenshots_writer.h" />
   </ItemGroup>
+  <ItemGroup>
+    <Natvis Include="..\..\TypeHelper.natvis" />
+  </ItemGroup>
 </Project>

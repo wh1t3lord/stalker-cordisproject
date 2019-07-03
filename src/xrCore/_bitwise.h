@@ -89,7 +89,7 @@ IC u64 btwCount1(u64 v)
 
 IC int iFloor(float x)
 {
-    return std::floor(x);
+    return floor(x);
 }
 
 /* intCeil() is a non-interesting variant, since effectively
@@ -97,7 +97,7 @@ IC int iFloor(float x)
  */
 IC int iCeil(float x)
 {
-    return std::ceil(x);
+    return ceil(x);
 }
 
 // Validity checks
