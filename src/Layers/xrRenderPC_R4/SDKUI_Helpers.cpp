@@ -15,9 +15,10 @@ namespace Cordis
         @ UI_Log
     */
 
-#pragma region Logger
+#pragma region Logger 
     void SDKUI_Log::Draw(void)
     {
+        // @ Lord: ПОФИКСИТЬ ЗДЕСЬ ИБО ЛАГАЕТ ЖУТКО
         if (!this->m_is_visible)
             return;
 

@@ -22,7 +22,7 @@ namespace Cordis
     SDK_CustomObject::SDK_CustomObject(LPCSTR name)
         : m_is_selected(false), m_is_rendering(false), m_is_visible(false), m_position({0, 0, 0}),
           m_rotation({0, 0, 0}), m_scale({1, 1, 1}), m_id_objecttype(kSection_NULL), m_is_updatetransform(false),
-          m_scene_name(name)
+          m_scene_name(name), m_reference_name("")
     {
         this->m_transform.identity();
         this->m_transform_rotation_position.identity();

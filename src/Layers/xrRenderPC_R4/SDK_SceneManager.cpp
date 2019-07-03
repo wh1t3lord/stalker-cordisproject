@@ -43,8 +43,7 @@ void SDK_SceneManager::AddObject(const Fvector& position, const Fvector& normal)
     {
         if (!SDKUI_RightWindow::Widget().GetCurrentSelectedStaticObject().empty())
         {
-            SDK_CustomObject* object =
-                this->_AddObjectStaticGeometry(SDKUI_RightWindow::Widget().GetCurrentSelectedStaticObject().c_str());
+            SDK_CustomObject* object = this->_AddObjectStaticGeometry(this->GenerateName(SDKUI_RightWindow::Widget().GetCurrentSelectedStaticObject()));
             object->MoveTo(position, normal);
             this->m_objects_list.push_back(object);
         }
@@ -57,7 +56,7 @@ void SDK_SceneManager::AddObject(const Fvector& position, const Fvector& normal)
     case kSection_Lights:
     {
         // Lord: нужно реализовать генерацию имени!
-        SDK_CustomObject* object = this->_AddObjectLight("1");
+        SDK_CustomObject* object = this->_AddObjectLight(this->GenerateName("light"));
         object->MoveTo(position, normal);
         this->m_objects_list.push_back(object);
         break;
@@ -68,7 +67,7 @@ void SDK_SceneManager::AddObject(const Fvector& position, const Fvector& normal)
     }
     case kSection_Shapes:
     {
-        SDK_CustomObject* object = this->_AddObjectShape("lel");
+        SDK_CustomObject* object = this->_AddObjectShape(this->GenerateName("shape"));
         object->MoveTo(position, normal);
         this->m_objects_list.push_back(object);
         break;
@@ -83,7 +82,7 @@ void SDK_SceneManager::AddObject(const Fvector& position, const Fvector& normal)
         }
 
         // Lord: реализовать генерацию имени!
-        SDK_CustomObject* object = this->_AddObjectSpawnElement("lel");
+        SDK_CustomObject* object = this->_AddObjectSpawnElement(this->GenerateName(SDKUI_RightWindow::Widget().getCurrentSelectedSpawnElement()));
         object->MoveTo(position, normal);
         this->m_objects_list.push_back(object);
         break;
@@ -113,23 +112,23 @@ void SDK_SceneManager::AddObject(const Fvector& position, const Fvector& normal)
 void SDK_SceneManager::ZoomExtentSelected(const Fbox& bbox) {}
 
 #pragma region AddingObjects
-SDK_CustomObject* SDK_SceneManager::_AddObjectStaticGeometry(LPCSTR name)
+SDK_CustomObject* SDK_SceneManager::_AddObjectStaticGeometry(const xr_string& name)
 {
-    if (!name)
+    if (!name.size())
         return nullptr;
 
     // Lord: сюда добавить генерацию имени
-    SDK_ObjectStaticGeometry* b = new SDK_ObjectStaticGeometry("lel");
-    CEditableObject* o = SDK_Cache::GetInstance().GetGeometry(name);
-    if (o == nullptr)
+    SDK_ObjectStaticGeometry* object = new SDK_ObjectStaticGeometry(name.c_str());
+    CEditableObject* model = SDK_Cache::GetInstance().GetGeometry(SDKUI_RightWindow::Widget().GetCurrentSelectedStaticObject().c_str());
+    if (object == nullptr)
     {
         SDKUI_Log::Widget().SetColor(error);
         SDKUI_Log::Widget().AddText("Geometry was null!");
     }
 
-    b->SetGeometry(o);
-
-    return b;
+    object->SetGeometry(model);
+    object->setReferenceName(name);
+    return object;
 }
 
 SDK_CustomObject* SDK_SceneManager::_AddObjectShape(const xr_string& name)
@@ -163,8 +162,7 @@ SDK_CustomObject* SDK_SceneManager::_AddObjectSpawnElement(const xr_string& name
 {
     if (!name.size())
         return nullptr;
-    SDK_ObjectSpawnElement* object =
-        new SDK_ObjectSpawnElement(name.c_str(), SDKUI_RightWindow::Widget().getCurrentSelectedSpawnElement().c_str());
+    SDK_ObjectSpawnElement* object = new SDK_ObjectSpawnElement(name.c_str(), SDKUI_RightWindow::Widget().getCurrentSelectedSpawnElement().c_str());
     return object;
 }
 
@@ -408,14 +406,22 @@ void SDK_SceneManager::Scale(const Fvector& vec)
     }
 }
 
-const xr_string& SDK_SceneManager::GenerateName(const xr_string& object_name)
+xr_string SDK_SceneManager::GenerateName(const xr_string& object_name_from_list)
 {
     if (!SDKUI_SceneOptions::Widget().getLevelPrefix())
         return xr_string("generated_level_prefix");
 
-    xr_string generated_name = SDKUI_SceneOptions::Widget().getLevelPrefix();
-   // generated_name.append()
-    return generated_name;
+   xr_string generated_name = SDKUI_SceneOptions::Widget().getLevelPrefix();
+   generated_name.append("_");
+   generated_name.append(object_name_from_list);
+   
+   // @ Ya know it's a lazy implementation каюсь)
+   static int generated_id = 0;
+   generated_name.append("_");
+   generated_name.append(std::to_string(generated_id).c_str());
+   ++generated_id;
+
+   return generated_name;
 }
 
 } // namespace SDK

@@ -73,13 +73,13 @@ namespace Cordis
         }
 
     private:
-        SDK_CustomObject* _AddObjectStaticGeometry(LPCSTR name);
+        SDK_CustomObject* _AddObjectStaticGeometry(const xr_string& name);
         SDK_CustomObject* _AddObjectShape(const xr_string& name);
 		SDK_CustomObject* _AddObjectLight(const xr_string& name);
 		SDK_CustomObject* _AddObjectSpawnElement(const xr_string& name);
         void _AddObjectGeometryOfShape(ShapeType type);
         
-        const xr_string& GenerateName(const xr_string& object_name);
+        xr_string GenerateName(const xr_string& object_name);
 
     public:
 #pragma region Statistic
