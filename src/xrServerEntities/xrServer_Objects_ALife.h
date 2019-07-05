@@ -32,7 +32,7 @@ class CALifeSmartTerrainTask;
 class CALifeMonsterAbstract;
 class CSE_ALifeInventoryItem;
 
-struct SFillPropData
+struct  SFillPropData
 {
     RTokenVec locations[4];
     RStringVec level_ids;
@@ -50,7 +50,7 @@ struct SFillPropData
     void dec();
 };
 
-class CSE_ALifeSchedulable : public IPureSchedulableObject
+class  CSE_ALifeSchedulable : public IPureSchedulableObject
 {
     using inherited = IPureSchedulableObject;
 
@@ -111,7 +111,7 @@ public:
     SERVER_ENTITY_EDITOR_METHODS
 };
 
-class CSE_ALifeObject : public CSE_Abstract, public CRandom
+class  CSE_ALifeObject : public CSE_Abstract, public CRandom
 {
     using inherited1 = CSE_Abstract;
     using inherited2 = CRandom;
@@ -183,7 +183,7 @@ public:
     SERVER_ENTITY_EDITOR_METHODS
 };
 
-class CSE_ALifeGroupAbstract
+class  CSE_ALifeGroupAbstract
 {
 public:
     ALife::OBJECT_VECTOR m_tpMembers;
@@ -317,7 +317,7 @@ public:
     SERVER_ENTITY_EDITOR_METHODS
 };
 
-class CSE_ALifeDynamicObjectVisual : public CSE_ALifeDynamicObject, public CSE_Visual
+class  CSE_ALifeDynamicObjectVisual : public CSE_ALifeDynamicObject, public CSE_Visual
 {
     using inherited1 = CSE_ALifeDynamicObject;
     using inherited2 = CSE_Visual;

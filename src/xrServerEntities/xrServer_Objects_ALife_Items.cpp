@@ -12,7 +12,7 @@
 #include "clsid_game.h"
 #include "Common/object_broker.h"
 #include "xrCore/Animation/Bone.hpp"
-
+#include "smart_cast.h"
 #ifdef XRGAME_EXPORTS
 #ifdef DEBUG
 #define PHPH_DEBUG

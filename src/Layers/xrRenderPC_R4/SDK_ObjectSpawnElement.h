@@ -24,7 +24,7 @@ namespace Cordis
 
 		public:
 #pragma region CLE_Visual
-			// @ Lord: подумать над системой анимаций и найти нормальное решение
+			// @ Lord: РїРѕРґСѓРјР°С‚СЊ РЅР°Рґ СЃРёСЃС‚РµРјРѕР№ Р°РЅРёРјР°С†РёР№ Рё РЅР°Р№С‚Рё РЅРѕСЂРјР°Р»СЊРЅРѕРµ СЂРµС€РµРЅРёРµ
 			class CLE_Visual
 			{
 			public:
@@ -118,7 +118,7 @@ namespace Cordis
 			bool CreateSpawnData(LPCSTR entity_reference);
 			IKinematics* ObjectKinematics(void);
 			void RenderSimulationBoxes(void);
-			// Lord: потом реализовать данные методы
+			// Lord: РїРѕС‚РѕРј СЂРµР°Р»РёР·РѕРІР°С‚СЊ РґР°РЅРЅС‹Рµ РјРµС‚РѕРґС‹
 			bool AttachObject(SDK_CustomObject* object);
 			bool OnAppendObject(SDK_CustomObject* object);
 			bool LoadLTX(CInifile &ini, LPCSTR section_name);

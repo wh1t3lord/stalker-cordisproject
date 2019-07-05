@@ -156,7 +156,7 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Mixed|x64'">
     <ClCompile>
-      <AdditionalIncludeDirectories>$(xrExternals)FreeMagic\Source\Core;$(xrExternals)FreeMagic\Source;$(xrExternals)FreeMagic\Source\Core3D;$(xrExternals)OpenAutomate\inc;$(xrExternals)nvapi;$(xrExternals)AGS_SDK;C:\Users\1\projects\cordisproject\src\utils\xrSE_Factory;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(xrExternals)FreeMagic\Source\Core;$(xrExternals)FreeMagic\Source;$(xrExternals)FreeMagic\Source\Core3D;$(xrExternals)OpenAutomate\inc;$(xrExternals)nvapi;$(xrExternals)AGS_SDK;..\..\utils\xrSE_Factory;D:\Cordis Project\Xray\src\xrCore\XML;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>_USRDLL;XRRENDER_R4_EXPORTS;USE_DX11;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalOptions> %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
@@ -356,7 +356,6 @@
     <ClInclude Include="NvMender2003\remove_isolated_verts.h" />
     <ClInclude Include="PhysicsShellHolderEditorBase.h" />
     <ClInclude Include="pick_defs.h" />
-    <ClInclude Include="PropertiesListTypes.h" />
     <ClInclude Include="r2_types.h" />
     <ClInclude Include="r4.h" />
     <ClInclude Include="r4_rendertarget.h" />

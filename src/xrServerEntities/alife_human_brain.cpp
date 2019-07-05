@@ -5,7 +5,6 @@
 //	Author		: Dmitriy Iassenev
 //	Description : ALife human brain class
 ////////////////////////////////////////////////////////////////////////////
-
 #include "StdAfx.h"
 #include "alife_human_brain.h"
 #include "Common/object_broker.h"

@@ -5,7 +5,7 @@
 //	Author		: Dmitriy Iassenev
 //	Description : Object factory
 ////////////////////////////////////////////////////////////////////////////
-
+ 
 #include "pch_script.h"
 #pragma hdrstop
 

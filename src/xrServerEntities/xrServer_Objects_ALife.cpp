@@ -13,7 +13,6 @@
 #include "Common/object_broker.h"
 #include "restriction_space.h"
 #include "xrCore/xr_token.h"
-
 #ifdef _MSC_VER
 #pragma warning(disable: 4100) // unreferenced formal parameter
 #endif

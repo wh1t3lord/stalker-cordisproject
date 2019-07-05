@@ -5,7 +5,6 @@
 //	Author		: Dmitriy Iassenev
 //	Description : ALife monster brain class
 ////////////////////////////////////////////////////////////////////////////
-
 #include "StdAfx.h"
 #include "alife_monster_brain.h"
 #include "Common/object_broker.h"

@@ -8,6 +8,7 @@
 #else
 #define FACTORY_API XR_IMPORT
 #endif
+class IServerEntity;
 
 extern "C" {
 FACTORY_API IServerEntity* __stdcall create_entity(LPCSTR section);

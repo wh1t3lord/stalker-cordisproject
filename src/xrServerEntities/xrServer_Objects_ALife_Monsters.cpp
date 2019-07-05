@@ -5,13 +5,12 @@
 //  Author      : Oles Shyshkovtsov, Alexander Maksimchuk, Victor Reutskiy and Dmitriy Iassenev
 //  Description : Server objects monsters for ALife simulator
 ////////////////////////////////////////////////////////////////////////////
-
 #include "StdAfx.h"
 #include "xrServer_Objects_ALife_Items.h"
 #include "xrServer_Objects_ALife_Monsters.h"
 #include "Common/object_broker.h"
 #include "alife_human_brain.h"
-
+#include "smart_cast.h"
 #ifndef AI_COMPILER
 #include "ai_space.h"
 #include "character_info.h"

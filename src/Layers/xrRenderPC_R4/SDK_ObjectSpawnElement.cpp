@@ -5,7 +5,7 @@
 #include "../xrRender/SkeletonAnimated.h"
 #include "xrEngine/ObjectAnimator.h"
 #include "SIniFileStream.h"
-
+ 
 
 #define SPAWNPOINT_CHUNK_VERSION 0xE411
 #define SPAWNPOINT_CHUNK_POSITION 0xE412
@@ -62,7 +62,7 @@ namespace Cordis
 				{
 					SDKUI_Log::Widget().SetColor(error);
 					SDKUI_Log::Widget().AddText("This section doesn't implemented!");
-					// Lord: ñþäà modal window
+					// Lord: ÑÑŽÐ´Ð° modal window
 					/*
 								xr_string _msg = "Model [" + xr_string(source->visual_name.c_str()) +
 				"] not found. Do you want to select it from library?";
@@ -145,7 +145,7 @@ namespace Cordis
 			if (kinematics)
 				kinematics->CalculateBones();
 		}
-		// Lord: âîîáùå ïåðåïèñàòü ñèñòåìó àíèìàöèé ÏÛÑ, ñîçäàòü ÷òî-òî íîâîå è ïîëó÷øå
+		// Lord: Ð²Ð¾Ð¾Ð±Ñ‰Ðµ Ð¿ÐµÑ€ÐµÐ¿Ð¸ÑÐ°Ñ‚ÑŒ ÑÐ¸ÑÑ‚ÐµÐ¼Ñƒ Ð°Ð½Ð¸Ð¼Ð°Ñ†Ð¸Ð¹ ÐŸÐ«Ð¡, ÑÐ¾Ð·Ð´Ð°Ñ‚ÑŒ Ñ‡Ñ‚Ð¾-Ñ‚Ð¾ Ð½Ð¾Ð²Ð¾Ðµ Ð¸ Ð¿Ð¾Ð»ÑƒÑ‡ÑˆÐµ
 		struct SetBlendLastFrameCB : public IterateBlendsCallback
 		{
 			virtual void operator()(CBlend& B)
@@ -254,21 +254,24 @@ namespace Cordis
 		void SDK_ObjectSpawnElement::SpawnData::Create(LPCSTR entity_reference)
 		{
 		//	this->m_data = sdk_createentity(entity_reference)->getServerObject(entity_reference);
-			this->m_data = Engine.External.m_callback_create_entity(entity_reference);
+            CSE_Motion* data_motion = nullptr;
+            CSE_Visual* data_visual = nullptr;
+  
+			//this->m_data = object_factory().server_object(pSettings->r_clsid(entity_reference, "class"), entity_reference);
 			if (this->m_data)
 			{
-				// Lord: çäåñü áàãóåò âûçûâàåò âìåñòî set_name -> angle()
-				this->m_data->set_name(entity_reference);
+				// Lord: Ð·Ð´ÐµÑÑŒ Ð±Ð°Ð³ÑƒÐµÑ‚ Ð²Ñ‹Ð·Ñ‹Ð²Ð°ÐµÑ‚ Ð²Ð¼ÐµÑÑ‚Ð¾ set_name -> angle()
  
-				if (this->m_data->visual())
+ 
+				if (data_visual)
 				{
-					this->m_visual = new CLE_Visual(this->m_data->visual());
+                    this->m_visual = new CLE_Visual(data_visual);
 					this->m_data->set_editor_flag(IServerEntity::flVisualChange | IServerEntity::flVisualAnimationChange);
 				}
 
-				if (this->m_data->motion())
+				if (data_motion)
 				{
-					this->m_motion = new CLE_Motion(this->m_data->motion());
+                    this->m_motion = new CLE_Motion(data_motion);
 					this->m_data->set_editor_flag(IServerEntity::flMotionChange);
 				}
  
@@ -335,13 +338,13 @@ namespace Cordis
 			if (ini.line_exist(section_name, "fl"))
 				this->m_flags.assign(ini.r_u8(section_name, "fl"));
 
-			NET_Packet packet; // @ Ëîë, ïàêåò
+			NET_Packet packet; // @ Ð›Ð¾Ð», Ð¿Ð°ÐºÐµÑ‚
 			SIniFileStream inistream;
 			inistream.m_ini = &ini;
 			inistream.m_section = section_name;
 			inistream.move_begin();
 			packet.inistream = &inistream;
-			// Lord: Ïîäóìàòü çäåñü 
+			// Lord: ÐŸÐ¾Ð´ÑƒÐ¼Ð°Ñ‚ÑŒ Ð·Ð´ÐµÑÑŒ 
 			/*
 				if (Valid())
 		if (!m_Data->Spawn_Read(Packet))
@@ -407,7 +410,7 @@ namespace Cordis
 
 
 			return false;
-			/* Lord: ïîäóìàòü
+			/* Lord: Ð¿Ð¾Ð´ÑƒÐ¼Ð°Ñ‚ÑŒ
 				if (Valid())
 		if (!m_Data->Spawn_Read(Packet))
 			Destroy();
@@ -416,7 +419,7 @@ namespace Cordis
 			*/
 		}
 
-		// Lord: Äàííûé ìåòîä ðåàëèçîâàòü!!!
+		// Lord: Ð”Ð°Ð½Ð½Ñ‹Ð¹ Ð¼ÐµÑ‚Ð¾Ð´ Ñ€ÐµÐ°Ð»Ð¸Ð·Ð¾Ð²Ð°Ñ‚ÑŒ!!!
 		bool SDK_ObjectSpawnElement::SpawnData::ExportGame(SExportStreams* stream, SDK_ObjectSpawnElement* owner)
 		{
 			this->m_data->set_name_replace(owner->m_scene_name.c_str());
@@ -438,7 +441,7 @@ namespace Cordis
 				R_ASSERT(shape);
 				// shape->ApplyScale();
 				owner->setScale(shape->getScale());
-				// Lord: Äàííûé ìåòîä íå ðåàëèçîâàí ñìîòðè ìåòîä cform->assign_shapes()
+				// Lord: Ð”Ð°Ð½Ð½Ñ‹Ð¹ Ð¼ÐµÑ‚Ð¾Ð´ Ð½Ðµ Ñ€ÐµÐ°Ð»Ð¸Ð·Ð¾Ð²Ð°Ð½ ÑÐ¼Ð¾Ñ‚Ñ€Ð¸ Ð¼ÐµÑ‚Ð¾Ð´ cform->assign_shapes()
 			//	cform->assign_shapes(&*)
 			}
 
@@ -453,7 +456,7 @@ namespace Cordis
 			return true;
 		}
 
-		// Lord: èíòåðïðåòèðîâàòü äàííûé ôóíêöèîíàë 
+		// Lord: Ð¸Ð½Ñ‚ÐµÑ€Ð¿Ñ€ÐµÑ‚Ð¸Ñ€Ð¾Ð²Ð°Ñ‚ÑŒ Ð´Ð°Ð½Ð½Ñ‹Ð¹ Ñ„ÑƒÐ½ÐºÑ†Ð¸Ð¾Ð½Ð°Ð» 
 		/*
 		void CSpawnPoint::SSpawnData::OnAnimControlClick(ButtonValue* value, bool& bModif, bool& bSafe)
 {
@@ -513,7 +516,7 @@ void CSpawnPoint::SSpawnData::FillProp(LPCSTR pref, PropItemVec& items)
 				RImplementation.Models->Render((dxRender_Visual*)this->m_visual->m_visual, parent, priority, strictB2F, 1.0f);
 
 			if (this->m_motion && this->m_motion->m_animator && selected && (priority == 1) && (strictB2F == false))
-			{	// Lord: ñìîòðè äàííûé ìåòîä CObjectAnimator::DrawPath()! Åãî íóæíî ðåàëèçîâàòü â DUImpl
+			{	// Lord: ÑÐ¼Ð¾Ñ‚Ñ€Ð¸ Ð´Ð°Ð½Ð½Ñ‹Ð¹ Ð¼ÐµÑ‚Ð¾Ð´ CObjectAnimator::DrawPath()! Ð•Ð³Ð¾ Ð½ÑƒÐ¶Ð½Ð¾ Ñ€ÐµÐ°Ð»Ð¸Ð·Ð¾Ð²Ð°Ñ‚ÑŒ Ð² DUImpl
 				//this->m_motion->m_animator->DrawPath();
 			}
 
@@ -536,12 +539,12 @@ void CSpawnPoint::SSpawnData::FillProp(LPCSTR pref, PropItemVec& items)
 			}
 		}
 
-		// Lord: íå ñîâñåì ðåàëèçîâàíî!!!
+		// Lord: Ð½Ðµ ÑÐ¾Ð²ÑÐµÐ¼ Ñ€ÐµÐ°Ð»Ð¸Ð·Ð¾Ð²Ð°Ð½Ð¾!!!
 		void SDK_ObjectSpawnElement::SpawnData::OnFrame(void)
 		{
 			if (this->m_data->m_editor_flags.is(IServerEntity::flUpdateProperties))
 			{
-				// Lord: ïîäóìàòü îñòàâèòü èìåííî òàê èëè ïåðåäàëòü?
+				// Lord: Ð¿Ð¾Ð´ÑƒÐ¼Ð°Ñ‚ÑŒ Ð¾ÑÑ‚Ð°Ð²Ð¸Ñ‚ÑŒ Ð¸Ð¼ÐµÐ½Ð½Ð¾ Ñ‚Ð°Ðº Ð¸Ð»Ð¸ Ð¿ÐµÑ€ÐµÐ´Ð°Ð»Ñ‚ÑŒ?
 				// ExecCommand(COMMAND_UPDATE_PROPERTIES);
 			}
 
@@ -650,7 +653,7 @@ void CSpawnPoint::SSpawnData::FillProp(LPCSTR pref, PropItemVec& items)
 	}
 			*/
 
-//			this->setValid(); Lord: ïîäóìàòü íàä äàííûì ìåòîäîì !!!! Âîîáùå íóæíî èëè íåò
+//			this->setValid(); Lord: Ð¿Ð¾Ð´ÑƒÐ¼Ð°Ñ‚ÑŒ Ð½Ð°Ð´ Ð´Ð°Ð½Ð½Ñ‹Ð¼ Ð¼ÐµÑ‚Ð¾Ð´Ð¾Ð¼ !!!! Ð’Ð¾Ð¾Ð±Ñ‰Ðµ Ð½ÑƒÐ¶Ð½Ð¾ Ð¸Ð»Ð¸ Ð½ÐµÑ‚
 			//this->m_em_flags.one();
 			this->CreateSpawnData(reference_name);
 			if (!this->m_spawndata.Valid())
@@ -695,7 +698,7 @@ void CSpawnPoint::SSpawnData::FillProp(LPCSTR pref, PropItemVec& items)
 			{
 				this->m_spawndata.Render(this->IsSelected(), this->m_transform_rotation_position, 1, false);
 				
-				/* Lord: ðåàëèçîâàòü
+				/* Lord: Ñ€ÐµÐ°Ð»Ð¸Ð·Ð¾Ð²Ð°Ñ‚ÑŒ
 				RCache.set_xform_world(this->m_transform_rotation_position);
 								ESceneSpawnTool* st = dynamic_cast<ESceneSpawnTool*>(ParentTool);
 				VERIFY(st);

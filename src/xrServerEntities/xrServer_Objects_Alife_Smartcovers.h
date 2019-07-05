@@ -8,7 +8,6 @@
 
 #ifndef xrServer_Objects_ALife_SmartcoversH
 #define xrServer_Objects_ALife_SmartcoversH
-
 #include "xrServer_Objects_ALife.h"
 #include "PropertiesListTypes.h"
 #pragma warning(push)

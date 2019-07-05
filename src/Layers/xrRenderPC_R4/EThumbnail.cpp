@@ -335,22 +335,22 @@ EImageThumbnail::~EImageThumbnail(void)
 
     //------------------------------------------------------------------------------
 
-    void ETextureThumbnail::FillProp(PropItemVec & items, PropValue::TOnChange on_type_change)
-    {
-        // m_TexParams.FillProp(m_SrcName.c_str(), items, on_type_change);
-    }
+//     void ETextureThumbnail::FillProp(PropItemVec & items, PropValue::TOnChange on_type_change)
+//     {
+//         // m_TexParams.FillProp(m_SrcName.c_str(), items, on_type_change);
+//     }
 
     //------------------------------------------------------------------------------
 
-    void ETextureThumbnail::FillInfo(PropItemVec & items)
-    {
-        STextureParams& F = m_TexParams;
-        //   PHelper().CreateCaption(items, "Format", get_token_name(tfmt_token, F.fmt));
-        //  PHelper().CreateCaption(items, "Type", get_token_name(ttype_token, F.type));
-        //   PHelper().CreateCaption(items, "Width", shared_str().printf("%d", _Width()));
-        //   PHelper().CreateCaption(items, "Height", shared_str().printf("%d", _Height()));
-        //    PHelper().CreateCaption(items, "Alpha", _Alpha() ? "on" : "off");
-    }
+//     void ETextureThumbnail::FillInfo(PropItemVec & items)
+//     {
+//         STextureParams& F = m_TexParams;
+//         //   PHelper().CreateCaption(items, "Format", get_token_name(tfmt_token, F.fmt));
+//         //  PHelper().CreateCaption(items, "Type", get_token_name(ttype_token, F.type));
+//         //   PHelper().CreateCaption(items, "Width", shared_str().printf("%d", _Width()));
+//         //   PHelper().CreateCaption(items, "Height", shared_str().printf("%d", _Height()));
+//         //    PHelper().CreateCaption(items, "Alpha", _Alpha() ? "on" : "off");
+//     }
 
     BOOL ETextureThumbnail::similar(ETextureThumbnail * thm1, xr_vector<xr_string> & sel_params)
     {
@@ -566,19 +566,19 @@ void ETextureThumbnail::Draw(HDC hdc, const Irect& R) Lord: Interpret
 
     //------------------------------------------------------------------------------
 
-    void EObjectThumbnail::FillProp(PropItemVec & items)
-    { // Lord: подумать
-      //    PHelper().CreateCaption(items, "Face Count", xr_string(face_count).c_str());
-      //  PHelper().CreateCaption(items, "Vertex Count", xr_string(vertex_count).c_str());
-    }
-
-    //------------------------------------------------------------------------------
-
-    void EObjectThumbnail::FillInfo(PropItemVec & items)
-    { // Lord: подумать
-      //   PHelper().CreateCaption(items, "Face Count", xr_string(face_count).c_str());
-      //   PHelper().CreateCaption(items, "Vertex Count", xr_string(vertex_count).c_str());
-    }
+//     void EObjectThumbnail::FillProp(PropItemVec & items)
+//     { // Lord: подумать
+//       //    PHelper().CreateCaption(items, "Face Count", xr_string(face_count).c_str());
+//       //  PHelper().CreateCaption(items, "Vertex Count", xr_string(vertex_count).c_str());
+//     }
+// 
+//     //------------------------------------------------------------------------------
+// 
+//     void EObjectThumbnail::FillInfo(PropItemVec & items)
+//     { // Lord: подумать
+//       //   PHelper().CreateCaption(items, "Face Count", xr_string(face_count).c_str());
+//       //   PHelper().CreateCaption(items, "Vertex Count", xr_string(vertex_count).c_str());
+//     }
 
     //------------------------------------------------------------------------------
 
@@ -767,31 +767,31 @@ void ETextureThumbnail::Draw(HDC hdc, const Irect& R) Lord: Interpret
         */
     }
 
-    void ESoundThumbnail::FillProp(PropItemVec & items)
-    {
-        FloatValue* V = 0;
-        // PHelper().CreateFloat(items, "Quality", &m_fQuality);
-        //  PHelper().CreateFloat(items, "Min Dist", &m_fMinDist, 0.01f, 1000.f);
-        //  V = PHelper().CreateFloat(items, "Max Dist", &m_fMaxDist, 0.1f, 1000.f);
-        //  V->OnChangeEvent.bind(this, &ESoundThumbnail::OnMaxDistChange);
-        //   V = PHelper().CreateFloat(items, "Max AI Dist", &m_fMaxAIDist, 0.1f, 1000.f);
-        //   V->OnAfterEditEvent.bind(this, &ESoundThumbnail::OnMaxAIDistAfterEdit);
-        //    PHelper().CreateFloat(items, "Base Volume", &m_fBaseVolume, 0.f, 2.f);
-        //    PHelper().CreateToken32(items, "Game Type", &m_uGameType, anomaly_type_token);
-    }
-
-    //------------------------------------------------------------------------------
-
-    void ESoundThumbnail::FillInfo(PropItemVec & items)
-    {
-        // Lord: подумать надо как это переписать
-        //  PHelper().CreateCaption(items, "Quality", AnsiString().sprintf("%3.2f", m_fQuality).c_str());
-        //   PHelper().CreateCaption(items, "Min Dist", AnsiString().sprintf("%3.2f", m_fMinDist).c_str());
-        ///  PHelper().CreateCaption(items, "Max Dist", AnsiString().sprintf("%3.2f", m_fMaxDist).c_str());
-        //  PHelper().CreateCaption(items, "Max AI Dist", AnsiString().sprintf("%3.2f", m_fMaxAIDist).c_str());
-        // PHelper().CreateCaption(items, "Base Volume", AnsiString().sprintf("%3.2f", m_fBaseVolume).c_str());
-        //    PHelper().CreateCaption(items, "Game Type", get_token_name(anomaly_type_token, m_uGameType));
-    }
+//     void ESoundThumbnail::FillProp(PropItemVec & items)
+//     {
+//         FloatValue* V = 0;
+//         // PHelper().CreateFloat(items, "Quality", &m_fQuality);
+//         //  PHelper().CreateFloat(items, "Min Dist", &m_fMinDist, 0.01f, 1000.f);
+//         //  V = PHelper().CreateFloat(items, "Max Dist", &m_fMaxDist, 0.1f, 1000.f);
+//         //  V->OnChangeEvent.bind(this, &ESoundThumbnail::OnMaxDistChange);
+//         //   V = PHelper().CreateFloat(items, "Max AI Dist", &m_fMaxAIDist, 0.1f, 1000.f);
+//         //   V->OnAfterEditEvent.bind(this, &ESoundThumbnail::OnMaxAIDistAfterEdit);
+//         //    PHelper().CreateFloat(items, "Base Volume", &m_fBaseVolume, 0.f, 2.f);
+//         //    PHelper().CreateToken32(items, "Game Type", &m_uGameType, anomaly_type_token);
+//     }
+// 
+//     //------------------------------------------------------------------------------
+// 
+//     void ESoundThumbnail::FillInfo(PropItemVec & items)
+//     {
+//         // Lord: подумать надо как это переписать
+//         //  PHelper().CreateCaption(items, "Quality", AnsiString().sprintf("%3.2f", m_fQuality).c_str());
+//         //   PHelper().CreateCaption(items, "Min Dist", AnsiString().sprintf("%3.2f", m_fMinDist).c_str());
+//         ///  PHelper().CreateCaption(items, "Max Dist", AnsiString().sprintf("%3.2f", m_fMaxDist).c_str());
+//         //  PHelper().CreateCaption(items, "Max AI Dist", AnsiString().sprintf("%3.2f", m_fMaxAIDist).c_str());
+//         // PHelper().CreateCaption(items, "Base Volume", AnsiString().sprintf("%3.2f", m_fBaseVolume).c_str());
+//         //    PHelper().CreateCaption(items, "Game Type", get_token_name(anomaly_type_token, m_uGameType));
+//     }
 
     //------------------------------------------------------------------------------
 
@@ -908,17 +908,17 @@ void ETextureThumbnail::Draw(HDC hdc, const Irect& R) Lord: Interpret
 
     //------------------------------------------------------------------------------
 
-    void EGroupThumbnail::FillProp(PropItemVec & items)
-    { // Lord: подумать
-      // PHelper().CreateCaption(items, "Objects\\Count", xr_string(objects.size()).c_str());
-      //  for (SStringVecIt it = objects.begin(); it != objects.end(); it++)
-      // //       PHelper().CreateCaption(items, xr_string().sprintf("Objects\\#%d", it - objects.begin()).c_str(),
-      // it->c_str());
-    }
+//     void EGroupThumbnail::FillProp(PropItemVec & items)
+//     { // Lord: подумать
+//       // PHelper().CreateCaption(items, "Objects\\Count", xr_string(objects.size()).c_str());
+//       //  for (SStringVecIt it = objects.begin(); it != objects.end(); it++)
+//       // //       PHelper().CreateCaption(items, xr_string().sprintf("Objects\\#%d", it - objects.begin()).c_str(),
+//       // it->c_str());
+//     }
 
     //------------------------------------------------------------------------------
 
-    void EGroupThumbnail::FillInfo(PropItemVec & items) { FillProp(items); }
+/*    void EGroupThumbnail::FillInfo(PropItemVec & items) { FillProp(items); }*/
     //------------------------------------------------------------------------------
 
 #pragma endregion

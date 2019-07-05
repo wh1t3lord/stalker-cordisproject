@@ -9,7 +9,6 @@
 #pragma once
 #ifndef xrServer_Objects_ALife_MonstersH
 #define xrServer_Objects_ALife_MonstersH
-
 #include "xrServer_Objects_ALife.h"
 #include "xrServer_Objects_ALife_Items.h"
 #include "character_info_defs.h"
@@ -24,7 +23,7 @@ class CALifeOnlineOfflineGroupBrain;
 #pragma warning(push)
 #pragma warning(disable : 4005)
 
-class CSE_ALifeTraderAbstract
+class  CSE_ALifeTraderAbstract
 {
 public:
     enum eTraderFlags
@@ -101,7 +100,7 @@ public:
     SERVER_ENTITY_EDITOR_METHODS
 };
 
-class CSE_ALifeTrader : public CSE_ALifeDynamicObjectVisual, public CSE_ALifeTraderAbstract
+class  CSE_ALifeTrader : public CSE_ALifeDynamicObjectVisual, public CSE_ALifeTraderAbstract
 {
     using inherited1 = CSE_ALifeDynamicObjectVisual;
     using inherited2 = CSE_ALifeTraderAbstract;
@@ -134,7 +133,7 @@ public:
     SERVER_ENTITY_EDITOR_METHODS
 };
 
-class CSE_ALifeCustomZone : public CSE_ALifeSpaceRestrictor
+class  CSE_ALifeCustomZone : public CSE_ALifeSpaceRestrictor
 {
     using inherited = CSE_ALifeSpaceRestrictor;
 
@@ -155,7 +154,7 @@ public:
     SERVER_ENTITY_EDITOR_METHODS
 };
 
-class CSE_ALifeAnomalousZone : public CSE_ALifeCustomZone
+class  CSE_ALifeAnomalousZone : public CSE_ALifeCustomZone
 {
     typedef CSE_ALifeCustomZone inherited;
 
@@ -191,7 +190,7 @@ public:
     SERVER_ENTITY_EDITOR_METHODS
 };
 
-class CSE_ALifeTorridZone : public CSE_ALifeCustomZone, public CSE_Motion
+class  CSE_ALifeTorridZone : public CSE_ALifeCustomZone, public CSE_Motion
 {
     using inherited1 = CSE_ALifeCustomZone;
     using inherited2 = CSE_Motion;
@@ -207,7 +206,7 @@ public:
     SERVER_ENTITY_EDITOR_METHODS
 };
 
-class CSE_ALifeZoneVisual : public CSE_ALifeAnomalousZone, public CSE_Visual
+class  CSE_ALifeZoneVisual : public CSE_ALifeAnomalousZone, public CSE_Visual
 {
     using inherited1 = CSE_ALifeAnomalousZone;
     using inherited2 = CSE_Visual;
@@ -224,7 +223,7 @@ public:
     SERVER_ENTITY_EDITOR_METHODS
 };
 
-class CSE_ALifeCreatureAbstract : public CSE_ALifeDynamicObjectVisual
+class  CSE_ALifeCreatureAbstract : public CSE_ALifeDynamicObjectVisual
 {
     using inherited = CSE_ALifeDynamicObjectVisual;
 
@@ -289,7 +288,7 @@ public:
     SERVER_ENTITY_EDITOR_METHODS
 };
 
-class CSE_ALifeMonsterAbstract : public CSE_ALifeCreatureAbstract,
+class  CSE_ALifeMonsterAbstract : public CSE_ALifeCreatureAbstract,
                                  public CSE_ALifeSchedulable,
                                  public CMovementManagerHolder
 {
@@ -383,7 +382,7 @@ public:
     SERVER_ENTITY_EDITOR_METHODS
 };
 
-class CSE_ALifeCreatureActor : public CSE_ALifeCreatureAbstract, public CSE_ALifeTraderAbstract, public CSE_PHSkeleton
+class  CSE_ALifeCreatureActor : public CSE_ALifeCreatureAbstract, public CSE_ALifeTraderAbstract, public CSE_PHSkeleton
 {
     using inherited1 = CSE_ALifeCreatureAbstract;
     using inherited2 = CSE_ALifeTraderAbstract;
@@ -435,7 +434,7 @@ public:
     SERVER_ENTITY_EDITOR_METHODS
 };
 
-class CSE_ALifeCreatureCrow : public CSE_ALifeCreatureAbstract
+class  CSE_ALifeCreatureCrow : public CSE_ALifeCreatureAbstract
 {
     using inherited = CSE_ALifeCreatureAbstract;
 
@@ -450,7 +449,7 @@ public:
     SERVER_ENTITY_EDITOR_METHODS
 };
 
-class CSE_ALifeCreaturePhantom : public CSE_ALifeCreatureAbstract
+class  CSE_ALifeCreaturePhantom : public CSE_ALifeCreatureAbstract
 {
     using inherited = CSE_ALifeCreatureAbstract;
 
@@ -510,7 +509,7 @@ public:
     SERVER_ENTITY_EDITOR_METHODS
 };
 
-class CSE_ALifeMonsterZombie : public CSE_ALifeMonsterAbstract
+class  CSE_ALifeMonsterZombie : public CSE_ALifeMonsterAbstract
 {
     using inherited = CSE_ALifeMonsterAbstract;
 
@@ -538,7 +537,7 @@ public:
     SERVER_ENTITY_EDITOR_METHODS
 };
 
-class CSE_ALifeMonsterBase : public CSE_ALifeMonsterAbstract, public CSE_PHSkeleton
+class  CSE_ALifeMonsterBase : public CSE_ALifeMonsterAbstract, public CSE_PHSkeleton
 {
     using inherited1 = CSE_ALifeMonsterAbstract;
     using inherited2 = CSE_PHSkeleton;
@@ -564,7 +563,7 @@ public:
     SERVER_ENTITY_EDITOR_METHODS
 };
 
-class CSE_ALifePsyDogPhantom : public CSE_ALifeMonsterBase
+class  CSE_ALifePsyDogPhantom : public CSE_ALifeMonsterBase
 {
     using inherited = CSE_ALifeMonsterBase;
 

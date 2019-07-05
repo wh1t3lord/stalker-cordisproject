@@ -24,7 +24,7 @@ SCRIPT_EXPORT(CSE_ALifeTraderAbstract, (), {
                          .def("reputation", &CSE_ALifeTraderAbstract::Reputation)];
 });
 #else
-/* Lord-Remark: çàêîìåòèë ïîòîìó ÷òî âñ¸ ðàâíî âñ¸ þçàåòñÿ òîëüêî xrGame.dll
+/* Lord-Remark: Ð·Ð°ÐºÐ¾Ð¼ÐµÑ‚Ð¸Ð» Ð¿Ð¾Ñ‚Ð¾Ð¼Ñƒ Ñ‡Ñ‚Ð¾ Ð²ÑÑ‘ Ñ€Ð°Ð²Ð½Ð¾ Ð²ÑÑ‘ ÑŽÐ·Ð°ÐµÑ‚ÑÑ Ñ‚Ð¾Ð»ÑŒÐºÐ¾ xrGame.dll
 LPCSTR profile_name_script(CSE_ALifeTraderAbstract* ta) { return *ta->character_profile(); }
 SCRIPT_EXPORT(CSE_ALifeTraderAbstract, (), {
     module(luaState)[class_<CSE_ALifeTraderAbstract>("cse_alife_trader_abstract")

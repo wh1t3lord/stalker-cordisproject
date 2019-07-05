@@ -1,3 +1,4 @@
+
 #include "StdAfx.h"
 #include "alife_space.h"
 #include "xrCore/xr_token.h"

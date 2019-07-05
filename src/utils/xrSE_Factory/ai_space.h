@@ -7,11 +7,12 @@
 ////////////////////////////////////////////////////////////////////////////
 
 #pragma once
+#include "../../utils/xrSE_Factory/xrSE_Factory_import_export.h"
 #include "xrCore/Events/Notifier.h"
 
 class CScriptEngine;
 
-class CAI_Space
+class FACTORY_API CAI_Space
 {
 private:
     bool m_inited = false;
@@ -46,6 +47,6 @@ public:
 
 IC CAI_Space& ai();
 
-extern CAI_Space* g_ai_space;
+FACTORY_API extern CAI_Space* g_ai_space;
 
 #include "ai_space_inline.h"

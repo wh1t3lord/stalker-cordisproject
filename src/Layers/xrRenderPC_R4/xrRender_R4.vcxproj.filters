@@ -1140,7 +1140,6 @@
     <ClInclude Include="PhysicsShellHolderEditorBase.h">
       <Filter>Cordis\SDK\Scene management\GSC\Physics\Public</Filter>
     </ClInclude>
-    <ClInclude Include="PropertiesListTypes.h" />
     <ClInclude Include="ExportSkeleton.h">
       <Filter>Cordis\SDK\Scene management\GSC\Model\Export Skeleton\Public</Filter>
     </ClInclude>

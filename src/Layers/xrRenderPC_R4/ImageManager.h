@@ -3,15 +3,16 @@
 #include "stdafx.h"
 #include "EThumbnail.h"
 // Lord: добавить реализацию CEditableObject
-
+#include "xrServerEntities/xrEProps.h"
 class CEditableObject;
 
+/*
 enum EItemType
 {
     TYPE_INVALID = -1,
     TYPE_FOLDER = 0,
     TYPE_OBJECT = 1
-};
+};*/
 
 struct SSimpleImage
 {

@@ -11,9 +11,10 @@
 #include "xrCore/clsid.h"
 #include "xrCore/xrCore_benchmark_macros.h"
 
-
 class CSE_Abstract;
 class IServerEntity;
+class CSE_Motion;
+class CSE_Visual;
 
 class IFactoryObject
 {
@@ -41,7 +42,9 @@ public:
 extern "C" {
 using Factory_Create = DLL_API IFactoryObject* __cdecl(CLASS_ID CLS_ID);
 using Factory_Destroy = DLL_API void __cdecl(IFactoryObject* O);
-using ServerFactory_Create = CSE_Abstract* __cdecl(LPCSTR section);
+using ServerFactory_Create = CSE_Abstract* __cdecl(LPCSTR section, CSE_Motion*& motion, CSE_Visual*& visual);
+using ServerFactory_GetMotion = CSE_Motion* __cdecl(CSE_Abstract*);
+using ServerFactory_GetVisual = CSE_Visual* __cdecl(CSE_Abstract*);
 using ServerFactory_Destroy = void __cdecl(IServerEntity*& entity);
 };
 
@@ -53,9 +56,9 @@ using VTResume = void __cdecl();
 
 class ENGINE_API CEngineAPI
 {
-    using SupportCheck = bool(*)();
-    using SetupEnv     = void(*)();
-    using GetModeName  = pcstr(*)();
+    using SupportCheck = bool (*)();
+    using SetupEnv = void (*)();
+    using GetModeName = pcstr (*)();
 
     XRay::Module hGame;
     XRay::Module hTuner;
@@ -66,12 +69,14 @@ class ENGINE_API CEngineAPI
 public:
     BENCH_SEC_SCRAMBLEMEMBER1
 
-    Factory_Create*  pCreate;
+    Factory_Create* pCreate;
     Factory_Destroy* pDestroy;
-	ServerFactory_Create* m_callback_create_entity;
-	ServerFactory_Destroy* m_callback_destroy_entity;
-    bool      tune_enabled;
-    VTPause*  tune_pause;
+    ServerFactory_Create* m_callback_create_entity;
+    ServerFactory_Destroy* m_callback_destroy_entity;
+    ServerFactory_GetVisual* m_callback_getvisual;
+    ServerFactory_GetMotion* m_callback_getmotion;
+    bool tune_enabled;
+    VTPause* tune_pause;
     VTResume* tune_resume;
 
     void Initialize();
@@ -90,8 +95,8 @@ public:
 ENGINE_API bool is_enough_address_space_available();
 
 #define NEW_INSTANCE(a) Engine.External.pCreate(a)
-#define DEL_INSTANCE(a)\
-    {\
-        Engine.External.pDestroy(a);\
-        a = NULL;\
+#define DEL_INSTANCE(a)              \
+    {                                \
+        Engine.External.pDestroy(a); \
+        a = NULL;                    \
     }

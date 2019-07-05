@@ -124,6 +124,7 @@ void STextureParams::Save(IWriter& F)
     F.close_chunk();
 }
  
+/*
 
 void STextureParams::OnTypeChange(PropValue* prop)
 {
@@ -148,7 +149,7 @@ void STextureParams::OnTypeChange(PropValue* prop)
     }
     if (!OnTypeChangeEvent.empty())
         OnTypeChangeEvent(prop);
-}
+}*/
 /* 
 void STextureParams::FillProp(LPCSTR base_name, PropItemVec& items, PropValue::TOnChange on_type_change)
 {

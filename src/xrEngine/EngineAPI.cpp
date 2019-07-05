@@ -14,21 +14,21 @@ extern xr_vector<xr_token> VidQualityToken;
 
 constexpr pcstr check_function = "CheckRendererSupport";
 constexpr pcstr setup_function = "SetupEnv";
-constexpr pcstr mode_function  = "GetModeName";
+constexpr pcstr mode_function = "GetModeName";
 
-constexpr pcstr r1_library     = "xrRender_R1";
-constexpr pcstr r2_library     = "xrRender_R2";
-constexpr pcstr r3_library     = "xrRender_R3";
-constexpr pcstr r4_library     = "xrRender_R4";
-constexpr pcstr gl_library     = "xrRender_GL";
+constexpr pcstr r1_library = "xrRender_R1";
+constexpr pcstr r2_library = "xrRender_R2";
+constexpr pcstr r3_library = "xrRender_R3";
+constexpr pcstr r4_library = "xrRender_R4";
+constexpr pcstr gl_library = "xrRender_GL";
 
-constexpr pcstr renderer_r1    = "renderer_r1";
-constexpr pcstr renderer_r2a   = "renderer_r2a";
-constexpr pcstr renderer_r2    = "renderer_r2";
-constexpr pcstr renderer_r2_5  = "renderer_r2.5";
-constexpr pcstr renderer_r3    = "renderer_r3";
-constexpr pcstr renderer_r4    = "renderer_r4";
-constexpr pcstr renderer_gl    = "renderer_gl";
+constexpr pcstr renderer_r1 = "renderer_r1";
+constexpr pcstr renderer_r2a = "renderer_r2a";
+constexpr pcstr renderer_r2 = "renderer_r2";
+constexpr pcstr renderer_r2_5 = "renderer_r2.5";
+constexpr pcstr renderer_r3 = "renderer_r3";
+constexpr pcstr renderer_r4 = "renderer_r4";
+constexpr pcstr renderer_gl = "renderer_gl";
 
 //////////////////////////////////////////////////////////////////////
 // Construction/Destruction
@@ -47,10 +47,7 @@ CEngineAPI::CEngineAPI()
     tune_resume = dummy;
 }
 
-CEngineAPI::~CEngineAPI()
-{
-    VidQualityToken.clear();
-}
+CEngineAPI::~CEngineAPI() { VidQualityToken.clear(); }
 
 bool is_enough_address_space_available()
 {
@@ -67,8 +64,7 @@ void CEngineAPI::SelectRenderer()
 {
     GEnv.CurrentRenderer = -1;
 
-    const auto select = [&](pcstr library, u32 selected, int index, u32 fallback = 0)
-    {
+    const auto select = [&](pcstr library, u32 selected, int index, u32 fallback = 0) {
         if (psDeviceFlags.test(selected))
         {
             if (renderers[library]->IsLoaded())
@@ -100,8 +96,7 @@ void CEngineAPI::InitializeRenderers()
 {
     SelectRenderer();
 
-    if (setupSelectedRenderer == nullptr
-        && VidQualityToken[0].id != -1)
+    if (setupSelectedRenderer == nullptr && VidQualityToken[0].id != -1)
     {
         // if engine failed to load renderer
         // but there is at least one available
@@ -143,21 +138,23 @@ void CEngineAPI::Initialize(void)
     hGame = XRay::LoadModule("xrGame");
     R_ASSERT2(hGame->IsLoaded(), "Game DLL raised exception during loading or there is no game DLL at all");
 
-
     pCreate = (Factory_Create*)hGame->GetProcAddress("xrFactory_Create");
     R_ASSERT(pCreate);
 
     pDestroy = (Factory_Destroy*)hGame->GetProcAddress("xrFactory_Destroy");
     R_ASSERT(pDestroy);
 
-	if (FS.IsSDK())
-	{
-		
-		this->m_callback_create_entity = (ServerFactory_Create*)hGame->GetProcAddress("xrServer_Create");
-		CHECK_OR_EXIT(this->m_callback_create_entity, "Can't create callback for SDK! -> xrServer_Create");
-		this->m_callback_destroy_entity = (ServerFactory_Destroy*)hGame->GetProcAddress("xrServer_Destroy");
-		CHECK_OR_EXIT(this->m_callback_destroy_entity, "Can't create callback for SDK! -> xrServer_Destroy"); 
-	}
+    if (FS.IsSDK())
+    {
+        this->m_callback_create_entity = (ServerFactory_Create*)hGame->GetProcAddress("xrServer_Create");
+        CHECK_OR_EXIT(this->m_callback_create_entity, "Can't create callback for SDK! -> xrServer_Create");
+        this->m_callback_destroy_entity = (ServerFactory_Destroy*)hGame->GetProcAddress("xrServer_Destroy");
+        CHECK_OR_EXIT(this->m_callback_destroy_entity, "Can't create callback for SDK! -> xrServer_Destroy");
+        this->m_callback_getmotion = (ServerFactory_GetMotion*)hGame->GetProcAddress("xrServer_GetMotion");
+        CHECK_OR_EXIT(this->m_callback_getmotion, "Can't create callback for SDK! -> xrServer_GetMotion");
+        this->m_callback_getvisual = (ServerFactory_GetVisual*)hGame->GetProcAddress("xrServer_GetVisual");
+        CHECK_OR_EXIT(this->m_callback_getvisual, "Can't create callback for SDK! -> xrServer_GetVisual");
+    }
 
     //////////////////////////////////////////////////////////////////////////
     // vTune
@@ -228,13 +225,12 @@ void CEngineAPI::CreateRendererList()
     SetErrorMode(0);
 #endif
 
-    const auto checkRenderer = [&](pcstr library, pcstr mode, int index)
-    {
+    const auto checkRenderer = [&](pcstr library, pcstr mode, int index) {
         if (renderers[library]->IsLoaded())
         {
             // Load SupportCheck, SetupEnv and GetModeName functions from DLL
             const auto checkSupport = (SupportCheck)renderers[library]->GetProcAddress(check_function);
-            const auto getModeName  = (GetModeName)renderers[library]->GetProcAddress(mode_function);
+            const auto getModeName = (GetModeName)renderers[library]->GetProcAddress(mode_function);
 
             // Test availability
             if (checkSupport && checkSupport())
@@ -249,11 +245,11 @@ void CEngineAPI::CreateRendererList()
     if (renderers[r2_library]->IsLoaded())
     {
         modes.emplace_back(renderer_r2a, 1);
-        modes.emplace_back(renderer_r2,  2);
+        modes.emplace_back(renderer_r2, 2);
     }
     checkRenderer(r2_library, renderer_r2_5, 3);
-    checkRenderer(r3_library, renderer_r3,   4);
-    checkRenderer(r4_library, renderer_r4,   5);
+    checkRenderer(r3_library, renderer_r3, 4);
+    checkRenderer(r4_library, renderer_r4, 5);
 #endif
 
     checkRenderer(gl_library, renderer_gl, 6);

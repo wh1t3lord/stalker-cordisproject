@@ -6,7 +6,7 @@
 #include "xrCore/_std_extensions.h"
 
  
-#include "PropertiesListTypes.h"
+//#include "PropertiesListTypes.h"
 #include "xrEngine/GameMtlLib.h"
 #include "pick_defs.h"
  

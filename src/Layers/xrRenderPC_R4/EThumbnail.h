@@ -1,7 +1,7 @@
 #pragma once
 
 #include "Layers/xrRender/ETextureParams.h"
-#include "PropertiesListTypes.h"
+//#include "PropertiesListTypes.h"
 //#include "MXCtrls.hpp"
 //------------------------------------------------------------------------------
 // Custom class
@@ -37,7 +37,7 @@ public:
     virtual void Save(int age = 0, LPCSTR path = 0) = 0;
     virtual bool Valid(void) = 0;
     //	virtual void	FillProp		(PropItemVec& values)=0; // Lord: Interpret
-    virtual void FillInfo(PropItemVec& values) = 0;
+//    virtual void FillInfo(PropItemVec& values) = 0;
 };
 
 //------------------------------------------------------------------------------
@@ -98,8 +98,8 @@ public:
     virtual void Save(int age = 0, LPCSTR path = 0);
     virtual bool Valid(void) { return m_bValid; /*return !m_Pixels.empty();*/ }
     void SetValid(void) { m_bValid = true; }
-    virtual void FillProp(PropItemVec& values, PropValue::TOnChange on_type_change); // Lord: [InterPret]
-    virtual void FillInfo(PropItemVec& values);
+  //  virtual void FillProp(PropItemVec& values, PropValue::TOnChange on_type_change); // Lord: [InterPret]
+ //   virtual void FillInfo(PropItemVec& values);
 
     //   virtual void Draw(HDC hdc, const Irect& r);
     ///   virtual void Draw(TMxPanel* panel) { inherited::Draw(panel); }
@@ -131,8 +131,8 @@ public:
     virtual bool Load(LPCSTR src_name = 0, LPCSTR path = 0);
     virtual void Save(int age = 0, LPCSTR path = 0);
     virtual bool Valid(void) { return !m_Pixels.empty(); }
-    virtual void FillProp(PropItemVec& values);
-    virtual void FillInfo(PropItemVec& values);
+  //  virtual void FillProp(PropItemVec& values);
+  //  virtual void FillInfo(PropItemVec& values);
 };
 
 //------------------------------------------------------------------------------
@@ -156,8 +156,8 @@ public:
     virtual bool Load(LPCSTR src_name = 0, LPCSTR path = 0);
     virtual void Save(int age = 0, LPCSTR path = 0);
     virtual bool Valid() { return !m_Pixels.empty(); }
-    virtual void FillProp(PropItemVec& values);
-    virtual void FillInfo(PropItemVec& values);
+  //  virtual void FillProp(PropItemVec& values);
+ //   virtual void FillInfo(PropItemVec& values);
 };
 
 //------------------------------------------------------------------------------
@@ -185,8 +185,8 @@ public:
     virtual bool Load(LPCSTR src_name = nullptr, LPCSTR path = nullptr);
     virtual void Save(int age = 0, LPCSTR path = nullptr);
     virtual bool Valid(void) { return true; }
-    virtual void FillProp(PropItemVec& values);
-    virtual void FillInfo(PropItemVec& values);
+  //  virtual void FillProp(PropItemVec& values);
+  //  virtual void FillInfo(PropItemVec& values);
     float MinDist(void) { return m_fMinDist; }
     float MaxDist(void) { return m_fMaxDist; };
     float BaseVolume(void) { return m_fBaseVolume; };

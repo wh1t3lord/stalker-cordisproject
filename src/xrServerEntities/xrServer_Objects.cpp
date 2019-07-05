@@ -9,7 +9,7 @@
 #include "StdAfx.h"
 #include "xrServer_Objects.h"
 #include "game_base_space.h"
-
+#include "smart_cast.h"
 ////////////////////////////////////////////////////////////////////////////
 // CSE_Shape
 ////////////////////////////////////////////////////////////////////////////
@@ -69,7 +69,7 @@ void CSE_Shape::cform_write(NET_Packet& tNetPacket)
         }
     }
 }
-// Lord: изменить функционал
+// Lord: РёР·РјРµРЅРёС‚СЊ С„СѓРЅРєС†РёРѕРЅР°Р»
 void CSE_Shape::assign_shapes(CShapeData::shape_def* _shapes, u32 _cnt)
 {
     shapes.resize(_cnt);

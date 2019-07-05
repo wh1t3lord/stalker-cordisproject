@@ -30,19 +30,36 @@ DLL_API IFactoryObject* __cdecl xrFactory_Create(CLASS_ID clsid)
 
 DLL_API void __cdecl xrFactory_Destroy(IFactoryObject* O) { xr_delete(O); }
 
-__declspec(dllexport) CSE_Abstract* __cdecl xrServer_Create(LPCSTR section)
+__declspec(dllexport) CSE_Abstract* __cdecl xrServer_Create(LPCSTR section, CSE_Motion*& motion, CSE_Visual*& visual)
 {
-	CSE_Abstract* obj = object_factory().server_object(pSettings->r_clsid(section, "class"), section);
-	return obj;
+    IServerEntity* obj = object_factory().server_object(pSettings->r_clsid(section, "class"), section);
+    motion = obj->motion();
+    visual = obj->visual();
+    return (CSE_Abstract*)obj;
 }
 
 __declspec(dllexport) void __cdecl xrServer_Destroy(IServerEntity*& entity)
 {
-	auto object = smart_cast<CSE_Abstract*>(entity);
-	xr_delete(entity);
-	entity = nullptr;
+    auto object = smart_cast<CSE_Abstract*>(entity);
+    xr_delete(entity);
+    entity = nullptr;
 }
 
+__declspec(dllexport) CSE_Motion* __cdecl xrServer_GetMotion(CSE_Abstract* object)
+{
+    if (!object)
+        return nullptr;
+
+    return object->motion();
+}
+
+__declspec(dllexport) CSE_Visual* __cdecl xrServer_GetVisual(CSE_Abstract* object)
+{
+    if (!object)
+        return nullptr;
+
+    return object->visual();
+}
 };
 
 void CCC_RegisterCommands();
@@ -50,7 +67,8 @@ void CCC_RegisterCommands();
 #ifdef LINUX
 __attribute__((constructor))
 #endif
-static void load(int argc, char** argv, char** envp)
+static void
+load(int argc, char** argv, char** envp)
 {
     // Fill ui style token
     FillUIStyleToken();
@@ -69,7 +87,8 @@ static void load(int argc, char** argv, char** envp)
 #ifdef LINUX
 __attribute__((destructor))
 #endif
-static void unload()
+static void
+unload()
 {
     CleanupUIStyleToken();
     xr_delete(gStringTable);
