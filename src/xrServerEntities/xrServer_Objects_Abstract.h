@@ -26,7 +26,7 @@ class CDUInterface;
 #endif
 
 //#include "xrEProps.h"
-#include "Include/xrRender/DrawUtils.h"
+#include "DrawUtils.h"
 #pragma warning(push)
 #pragma warning(disable : 4005)
 

@@ -39,11 +39,11 @@
 #include "Common/object_saver.h" // ~500
 #include "Include/xrRender/animation_blend.h" // ~500
 #include "Include/xrRender/animation_motion.h" // ~500
-#include "Include/xrRender/Kinematics.h" // ~360
-#include "Include/xrRender/KinematicsAnimated.h" // ~500
-#include "Include/xrRender/RenderVisual.h" // ~370
-#include "Include/xrRender/UIRender.h" // ~450
-#include "Include/xrRender/UIShader.h" // ~490
+#include "Kinematics.h" // ~360
+#include "KinematicsAnimated.h" // ~500
+#include "RenderVisual.h" // ~370
+#include "UIRender.h" // ~450
+#include "UIShader.h" // ~490
 #include "xrCore/_plane2.h" // ~450
 #include "xrAICore/AISpaceBase.hpp" // ~650
 #include "xrAICore/Navigation/game_graph.h" // ~600
@@ -231,10 +231,85 @@
 #include "xrGame/ai/monsters/control_path_builder.h" // ~130
 #include "xrGame/ai/monsters/monster_corpse_manager.h" // ~130
 #include "xrGame/ai/stalker/ai_stalker.h"
-#include "Include/xrRender/WallMarkArray.h" // ~80
+
+#include <d3dx9.h>
+
+#include <D3D11.h>
+#include <D3Dx11core.h>
+#include <D3DCompiler.h>
+
+#include "HW.h"
+#include "Shader.h"
+#include "R_Backend.h"
+#include "R_Backend_Runtime.h"
+#include "ResourceManager.h"
+#include "Blender.h"
+#include "Blender_CLSID.h"
+#include "xrRender_console.h"
+#include "r4.h"
+
+#include "xrCore/Imgui/imgui.h"
+#include "xrCore/Imgui/imgui_impl_sdl.h"
+#include "xrCore/Imgui/imgui_impl_dx11.h"
+
+#include "EditorPref.h"
+#include "SDK_Names.h"
+#include "SDKUI.h"
+
+#include "WallMarkArray.h" // ~80
 //#include "xrAICore/Navigation/ai_object_location.h" // ~95, very heavy to compile
 #include "xrAICore/Navigation/graph_engine.h" // ~80, VERY heavy to compile
 #include "xrAICore/Navigation/PatrolPath/patrol_path.h" // ~80, VERY heavy to compile
+
 #ifdef DEBUG
-#include "Include/xrRender/DebugRender.h"
+#include "DebugRender.h"
 #endif
+
+#define R_GL 0
+#define R_R1 1
+#define R_R2 2
+#define R_R3 3
+#define R_R4 4
+#define RENDER R_R4
+
+IC void jitter(CBlender_Compile& C)
+{
+    //	C.r_Sampler	("jitter0",	JITTER(0), true, D3DTADDRESS_WRAP, D3DTEXF_POINT, D3DTEXF_NONE, D3DTEXF_POINT);
+    //	C.r_Sampler	("jitter1",	JITTER(1), true, D3DTADDRESS_WRAP, D3DTEXF_POINT, D3DTEXF_NONE, D3DTEXF_POINT);
+    //	C.r_Sampler	("jitter2",	JITTER(2), true, D3DTADDRESS_WRAP, D3DTEXF_POINT, D3DTEXF_NONE, D3DTEXF_POINT);
+    //	C.r_Sampler	("jitter3",	JITTER(3), true, D3DTADDRESS_WRAP, D3DTEXF_POINT, D3DTEXF_NONE, D3DTEXF_POINT);
+    C.r_dx10Texture("jitter0", JITTER(0));
+    C.r_dx10Texture("jitter1", JITTER(1));
+    C.r_dx10Texture("jitter2", JITTER(2));
+    C.r_dx10Texture("jitter3", JITTER(3));
+    C.r_dx10Texture("jitter4", JITTER(4));
+    C.r_dx10Texture("jitterMipped", r2_jitter_mipped);
+    C.r_dx10Sampler("smp_jitter");
+}
+
+
+using AStringVec = xr_vector<xr_string>;
+using AStringIt = AStringVec::iterator;
+
+using LPAStringVec = xr_vector<xr_string*>;
+using LPAStringIt = LPAStringVec::iterator;
+
+inline float CalcSSA(Fvector& C, float R)
+{
+    float distSQ = Device.vCameraPosition.distance_to_sqr(C);
+    return R * R / distSQ;
+}
+// Lord: Понять как это используется и улучшить эти возможности
+enum
+{
+    rsFilterLinear = (1ul << 20ul),
+    rsEdgedFaces = (1ul << 21ul),
+    rsRenderTextures = (1ul << 22ul),
+    rsLighting = (1ul << 23ul),
+    rsFog = (1ul << 24ul),
+    rsRenderRealTime = (1ul << 25ul),
+    rsDrawGrid = (1ul << 26ul),
+    rsDrawSafeRect = (1ul << 27ul),
+    rsMuteSounds = (1ul << 28ul),
+    rsEnvironment = (1ul << 29ul),
+};

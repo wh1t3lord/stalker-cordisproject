@@ -4,8 +4,8 @@
 
 #include "xrServer_Objects_ALife.h"
 #include "Level.h"
-#include "Include/xrRender/Kinematics.h"
-#include "Include/xrRender/KinematicsAnimated.h"
+#include "Kinematics.h"
+#include "KinematicsAnimated.h"
 #include "xrEngine/xr_collide_form.h"
 #include "xrEngine/cf_dynamic_mesh.h"
 #include "PHSynchronize.h"

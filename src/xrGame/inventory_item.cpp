@@ -17,7 +17,7 @@
 #include "game_cl_base.h"
 #include "Actor.h"
 #include "string_table.h"
-#include "Include/xrRender/Kinematics.h"
+#include "Kinematics.h"
 #include "xrAICore/Navigation/ai_object_location.h"
 #include "Common/object_broker.h"
 #include "xrEngine/IGame_Persistent.h"

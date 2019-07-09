@@ -2,8 +2,8 @@
 
 #include "control_combase.h"
 
-#include "Include/xrRender/RenderVisual.h"
-#include "Include/xrRender/KinematicsAnimated.h"
+#include "RenderVisual.h"
+#include "KinematicsAnimated.h"
 
 struct SAnimationPart
 {

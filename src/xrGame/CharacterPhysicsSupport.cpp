@@ -7,7 +7,7 @@
 #include "PHMovementControl.h"
 #include "CustomMonster.h"
 
-#include "Include/xrRender/KinematicsAnimated.h"
+#include "KinematicsAnimated.h"
 
 #include "xrPhysics/PhysicsShell.h"
 #include "xrPhysics/IActivationShape.h"

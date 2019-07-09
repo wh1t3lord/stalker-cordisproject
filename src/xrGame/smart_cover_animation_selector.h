@@ -10,7 +10,7 @@
 
 #include "smart_cover_detail.h"
 #include "Common/Noncopyable.hpp"
-#include "Include/xrRender/KinematicsAnimated.h"
+#include "KinematicsAnimated.h"
 #include "smart_cover_animation_planner.h"
 
 class CAI_Stalker;

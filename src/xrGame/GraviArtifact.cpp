@@ -10,7 +10,7 @@
 #include "Level.h"
 #include "xrMessages.h"
 #include "game_cl_base.h"
-#include "Include/xrRender/Kinematics.h"
+#include "Kinematics.h"
 #include "xrPhysics/IPHWorld.h"
 // extern CPHWorld*	ph_world;
 #define CHOOSE_MAX(x, inst_x, y, inst_y, z, inst_z) \

@@ -2,7 +2,7 @@
 #ifndef _EDITOR
 #define RENDER 1
 #include "xrEngine/Render.h"
-#include "Layers/xrRender/light.h"
+#include "xrGame/Render/Kernel/light.h"
 #endif
 
 namespace XRay

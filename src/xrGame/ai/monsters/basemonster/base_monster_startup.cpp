@@ -6,7 +6,7 @@
 #include "CharacterPhysicsSupport.h"
 #include "PHMovementControl.h"
 #include "ai/monsters/ai_monster_squad_manager.h"
-#include "Include/xrRender/KinematicsAnimated.h"
+#include "KinematicsAnimated.h"
 #include "detail_path_manager.h"
 #include "xrAICore/Navigation/level_graph.h"
 #include "ai/monsters/corpse_cover.h"

@@ -7,8 +7,8 @@
 #include "Level.h"
 #include "game_cl_base.h"
 #include "entity_alive.h"
-#include "Include/xrRender/KinematicsAnimated.h"
-#include "Include/xrRender/Kinematics.h"
+#include "KinematicsAnimated.h"
+#include "Kinematics.h"
 #include "Common/object_broker.h"
 #include "ActorHelmet.h"
 

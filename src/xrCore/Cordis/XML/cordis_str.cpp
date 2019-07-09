@@ -22,7 +22,7 @@ distribution.
 */
 
 #include "stdafx.h"
-#ifndef TIXML_USE_STL
+#ifndef CordisXml_USE_STL
 
 #include "cordis_str.h"
 
@@ -31,18 +31,18 @@ namespace Cordis
 	namespace XML
 	{
 		// Error value for find primitive
-		const TiXmlString::size_type TiXmlString::npos = static_cast<TiXmlString::size_type>(-1);
+		const CordisXmlString::size_type CordisXmlString::npos = static_cast<CordisXmlString::size_type>(-1);
 
 
 		// Null rep.
-		TiXmlString::Rep TiXmlString::nullrep_ = { 0, 0, { '\0' } };
+		CordisXmlString::Rep CordisXmlString::nullrep_ = { 0, 0, { '\0' } };
 
 
-		void TiXmlString::reserve(size_type cap)
+		void CordisXmlString::reserve(size_type cap)
 		{
 			if (cap > capacity())
 			{
-				TiXmlString tmp;
+				CordisXmlString tmp;
 				tmp.init(length(), cap);
 				memcpy(tmp.start(), data(), length());
 				swap(tmp);
@@ -50,12 +50,12 @@ namespace Cordis
 		}
 
 
-		TiXmlString& TiXmlString::assign(const char* str, size_type len)
+		CordisXmlString& CordisXmlString::assign(const char* str, size_type len)
 		{
 			size_type cap = capacity();
 			if (len > cap || cap > 3 * (len + 8))
 			{
-				TiXmlString tmp;
+				CordisXmlString tmp;
 				tmp.init(len);
 				memcpy(tmp.start(), str, len);
 				swap(tmp);
@@ -69,7 +69,7 @@ namespace Cordis
 		}
 
 
-		TiXmlString& TiXmlString::append(const char* str, size_type len)
+		CordisXmlString& CordisXmlString::append(const char* str, size_type len)
 		{
 			size_type newsize = length() + len;
 			if (newsize > capacity())
@@ -82,29 +82,29 @@ namespace Cordis
 		}
 
 
-		TiXmlString operator + (const TiXmlString & a, const TiXmlString & b)
+		CordisXmlString operator + (const CordisXmlString & a, const CordisXmlString & b)
 		{
-			TiXmlString tmp;
+			CordisXmlString tmp;
 			tmp.reserve(a.length() + b.length());
 			tmp += a;
 			tmp += b;
 			return tmp;
 		}
 
-		TiXmlString operator + (const TiXmlString & a, const char* b)
+		CordisXmlString operator + (const CordisXmlString & a, const char* b)
 		{
-			TiXmlString tmp;
-			TiXmlString::size_type b_len = static_cast<TiXmlString::size_type>(strlen(b));
+			CordisXmlString tmp;
+			CordisXmlString::size_type b_len = static_cast<CordisXmlString::size_type>(strlen(b));
 			tmp.reserve(a.length() + b_len);
 			tmp += a;
 			tmp.append(b, b_len);
 			return tmp;
 		}
 
-		TiXmlString operator + (const char* a, const TiXmlString & b)
+		CordisXmlString operator + (const char* a, const CordisXmlString & b)
 		{
-			TiXmlString tmp;
-			TiXmlString::size_type a_len = static_cast<TiXmlString::size_type>(strlen(a));
+			CordisXmlString tmp;
+			CordisXmlString::size_type a_len = static_cast<CordisXmlString::size_type>(strlen(a));
 			tmp.reserve(a_len + b.length());
 			tmp.append(a, a_len);
 			tmp += b;
@@ -115,4 +115,4 @@ namespace Cordis
 	}
 }
 
-#endif	// TIXML_USE_STL
+#endif	// CordisXml_USE_STL

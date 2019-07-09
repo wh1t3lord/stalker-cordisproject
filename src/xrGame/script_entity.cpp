@@ -11,7 +11,7 @@
 #include "CustomMonster.h"
 #include "xrEngine/Feel_Vision.h"
 #include "xrCore/Animation/Motion.hpp"
-#include "Include/xrRender/Kinematics.h"
+#include "Kinematics.h"
 #include "script_entity_action.h"
 #include "Weapon.h"
 #include "ParticlesObject.h"

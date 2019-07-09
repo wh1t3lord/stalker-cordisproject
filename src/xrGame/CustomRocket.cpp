@@ -15,7 +15,7 @@
 #include "xrMessages.h"
 #include "xrEngine/GameMtlLib.h"
 
-#include "Include/xrRender/RenderVisual.h"
+#include "RenderVisual.h"
 
 #include "Actor.h"
 #ifdef DEBUG

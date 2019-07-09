@@ -2,8 +2,8 @@
 #ifndef StatGraphH
 #define StatGraphH
 
-#include "Include/xrRender/FactoryPtr.h"
-#include "Include/xrRender/StatGraphRender.h"
+#include "xrGame/Render/Kernel/FactoryPtr.h"
+#include "xrGame/Render/Kernel/StatGraphRender.h"
 #include "xrCommon/xr_deque.h"
 
 //---------------------------------------------------------------------------

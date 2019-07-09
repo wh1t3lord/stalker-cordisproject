@@ -2,7 +2,7 @@
 #include "PHCollisionDamageReceiver.h"
 #include "xrPhysics/IPhysicsShellHolder.h"
 #include "xrCore/xr_ini.h"
-#include "Include/xrRender/Kinematics.h"
+#include "Kinematics.h"
 #include "xrPhysics/Geometry.h"
 #include "xrPhysics/PhysicsShell.h"
 

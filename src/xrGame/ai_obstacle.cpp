@@ -11,7 +11,7 @@
 #include "ai_space.h"
 #include "xrAICore/Navigation/level_graph.h"
 #include "GameObject.h"
-#include "Include/xrRender/Kinematics.h"
+#include "Kinematics.h"
 #include "xrCore/Animation/Bone.hpp"
 
 #pragma warning(push)

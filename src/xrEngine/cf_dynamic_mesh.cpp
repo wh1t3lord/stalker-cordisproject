@@ -4,8 +4,8 @@
 
 #include "xr_object.h"
 
-#include "Include/xrRender/RenderVisual.h"
-#include "Include/xrRender/Kinematics.h"
+#include "xrGame/Render/Kernel/RenderVisual.h"
+#include "xrGame/Render/Kernel/Kinematics.h"
 
 #ifdef DEBUG
 #include "IPHdebug.h"

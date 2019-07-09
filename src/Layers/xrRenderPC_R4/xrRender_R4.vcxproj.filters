@@ -220,15 +220,6 @@
     <Filter Include="Cordis\SDK\Scene management\GSC\Other Stuff">
       <UniqueIdentifier>{8e3a56e4-b163-4381-9415-1ed8e1f3e3c2}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Cordis\SDK\Scene management\GSC\Other Stuff\List Helper">
-      <UniqueIdentifier>{f462e2b0-785b-4cbd-8116-9d2c64295c79}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Cordis\SDK\Scene management\GSC\Other Stuff\List Helper\Public">
-      <UniqueIdentifier>{6ef21e2f-7470-4d58-b328-6c007fc9d9f2}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Cordis\SDK\Scene management\GSC\Other Stuff\List Helper\Private">
-      <UniqueIdentifier>{fbc200f3-ab90-4999-9675-7f6029389a4e}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Cordis\SDK\Scene management\GSC\Other Stuff\Image Manager">
       <UniqueIdentifier>{749cf32f-73df-494a-a0ed-759e4dbace5c}</UniqueIdentifier>
     </Filter>

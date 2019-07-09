@@ -6,7 +6,7 @@
 #include "Physics.h"
 #include "ExtendedGeom.h"
 
-#include "Include/xrRender/Kinematics.h"
+#include "xrGame/Render/Kernel/Kinematics.h"
 #include "IPhysicsShellHolder.h"
 #include "xrCore/Animation/Bone.hpp"
 #include "xrEngine/device.h"

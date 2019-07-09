@@ -6,7 +6,7 @@
 #include "PHCharacter.h"
 #include "IClimableObject.h"
 
-#include "Include/xrRender/Kinematics.h"
+#include "xrGame/Render/Kernel/Kinematics.h"
 #include "PHCollideValidator.h"
 #include "xrEngine/xr_object.h"
 #include "xrCore/Animation/Bone.hpp"

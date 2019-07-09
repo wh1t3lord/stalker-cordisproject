@@ -10,7 +10,7 @@
 #include "Level.h"
 #include "xr_level_controller.h"
 #include "game_cl_base.h"
-#include "Include/xrRender/Kinematics.h"
+#include "Kinematics.h"
 #include "xrAICore/Navigation/ai_object_location.h"
 #include "xrPhysics/MathUtils.h"
 #include "Common/object_broker.h"

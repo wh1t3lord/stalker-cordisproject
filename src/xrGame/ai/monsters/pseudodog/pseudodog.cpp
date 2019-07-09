@@ -1,7 +1,7 @@
 #include "StdAfx.h"
 #include "pseudodog.h"
 #include "pseudodog_state_manager.h"
-#include "Include/xrRender/KinematicsAnimated.h"
+#include "KinematicsAnimated.h"
 #include "sound_player.h"
 #include "Level.h"
 #include "ai_monster_space.h"

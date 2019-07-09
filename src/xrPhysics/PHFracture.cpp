@@ -5,7 +5,7 @@
 #include "PHShell.h"
 #include "console_vars.h"
 
-#include "Include/xrRender/Kinematics.h"
+#include "xrGame/Render/Kernel/Kinematics.h"
 #include "ph_valid_ode.h"
 #include "xrCore/Animation/Bone.hpp"
 

@@ -11,7 +11,7 @@
 #include "GamePersistent.h"
 #include "game_cl_base.h"
 #include "xrMessages.h"
-#include "Include/xrRender/Kinematics.h"
+#include "Kinematics.h"
 #include "Actor.h"
 #include "ai/stalker/ai_stalker.h"
 #include "character_info.h"

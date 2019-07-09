@@ -24,7 +24,7 @@
 #include "saved_game_wrapper.h"
 #include "xrNetServer/NET_Messages.h"
 
-#include "Include/xrRender/DebugRender.h"
+#include "DebugRender.h"
 
 #ifdef DEBUG
 #include "ai/monsters/basemonster/base_monster.h"

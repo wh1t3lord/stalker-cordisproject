@@ -3,7 +3,7 @@
 #include "xrUICore/XML/UITextureMaster.h"
 #include "UIInventoryUtilities.h"
 
-#include "Include/xrRender/UIShader.h"
+#include "UIShader.h"
 
 CUIStatsIcon::TEX_INFO CUIStatsIcon::m_tex_info[MAX_DEF_TEX][2];
 

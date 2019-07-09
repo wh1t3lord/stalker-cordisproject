@@ -2,7 +2,7 @@
 #include "helicopter.h"
 #include "ExplosiveRocket.h"
 #include "xrMessages.h"
-#include "Include/xrRender/Kinematics.h"
+#include "Kinematics.h"
 #include "Level.h"
 
 void CHelicopter::BoneMGunCallbackX(CBoneInstance* B)

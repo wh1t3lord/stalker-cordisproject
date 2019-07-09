@@ -20,7 +20,7 @@
 #include "xrPhysics/IPHWorld.h"
 #endif
 
-#include "Include/xrRender/Kinematics.h"
+#include "Kinematics.h"
 /*
 [impulse_transition_to_parts]
 random_min              =1       ; х массу объекта = величина случайно направленного импульса

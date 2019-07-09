@@ -1,6 +1,6 @@
 #include "StdAfx.h"
 #include "BoneProtections.h"
-#include "Include/xrRender/Kinematics.h"
+#include "Kinematics.h"
 #include "xrCore/Animation/Bone.hpp"
 #include "Level.h"
 

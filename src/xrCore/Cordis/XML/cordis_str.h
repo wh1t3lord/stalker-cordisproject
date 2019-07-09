@@ -22,26 +22,26 @@ distribution.
 */
 
 
-#ifndef TIXML_USE_STL
+#ifndef CordisXml_USE_STL
 
-#ifndef TIXML_STRING_INCLUDED
-#define TIXML_STRING_INCLUDED
+#ifndef CordisXml_STRING_INCLUDED
+#define CordisXml_STRING_INCLUDED
 
 #include <assert.h>
 #include <string.h>
 
 /*	The support for explicit isn't that universal, and it isn't really
-	required - it is used to check that the TiXmlString class isn't incorrectly
+	required - it is used to check that the CordisXmlString class isn't incorrectly
 	used. Be nice to old compilers and macro it here:
 */
 #if defined(_MSC_VER) && (_MSC_VER >= 1200 )
 	// Microsoft visual studio, version 6 and higher.
-	#define TIXML_EXPLICIT explicit
+	#define CordisXml_EXPLICIT explicit
 #elif defined(__GNUC__) && (__GNUC__ >= 3 )
 	// GCC version 3 and higher.s
-	#define TIXML_EXPLICIT explicit
+	#define CordisXml_EXPLICIT explicit
 #else
-	#define TIXML_EXPLICIT
+	#define CordisXml_EXPLICIT
 #endif
 
 namespace Cordis
@@ -50,13 +50,13 @@ namespace Cordis
 	{
 
 		/*
-		   TiXmlString is an emulation of a subset of the std::string template.
+		   CordisXmlString is an emulation of a subset of the std::string template.
 		   Its purpose is to allow compiling TinyXML on compilers with no or poor STL support.
 		   Only the member functions relevant to the TinyXML project have been implemented.
 		   The buffer allocation is made by a simplistic power of 2 like mechanism : if we increase
 		   a string and there's no more room, we allocate a buffer twice as big as we need.
 		*/
-		class XRCORE_API TiXmlString
+		class XRCORE_API CordisXmlString
 		{
 		public:
 			// The size type used
@@ -66,81 +66,81 @@ namespace Cordis
 			static const size_type npos; // = -1;
 
 
-			// TiXmlString empty constructor
-			TiXmlString() : rep_(&nullrep_)
+			// CordisXmlString empty constructor
+			CordisXmlString() : rep_(&nullrep_)
 			{
 			}
 
-			// TiXmlString copy constructor
-			TiXmlString(const TiXmlString & copy) : rep_(0)
+			// CordisXmlString copy constructor
+			CordisXmlString(const CordisXmlString & copy) : rep_(0)
 			{
 				init(copy.length());
 				memcpy(start(), copy.data(), length());
 			}
 
-			// TiXmlString constructor, based on a string
-			TIXML_EXPLICIT TiXmlString(const char * copy) : rep_(0)
+			// CordisXmlString constructor, based on a string
+			CordisXml_EXPLICIT CordisXmlString(const char * copy) : rep_(0)
 			{
 				init(static_cast<size_type>(strlen(copy)));
 				memcpy(start(), copy, length());
 			}
 
-			// TiXmlString constructor, based on a string
-			TIXML_EXPLICIT TiXmlString(const char * str, size_type len) : rep_(0)
+			// CordisXmlString constructor, based on a string
+			CordisXml_EXPLICIT CordisXmlString(const char * str, size_type len) : rep_(0)
 			{
 				init(len);
 				memcpy(start(), str, len);
 			}
 
-			// TiXmlString destructor
-			~TiXmlString()
+			// CordisXmlString destructor
+			~CordisXmlString()
 			{
 				quit();
 			}
 
-			TiXmlString& operator = (const char * copy)
+			CordisXmlString& operator = (const char * copy)
 			{
 				return assign(copy, (size_type)strlen(copy));
 			}
 
-			TiXmlString& operator = (const TiXmlString & copy)
+			CordisXmlString& operator = (const CordisXmlString & copy)
 			{
 				return assign(copy.start(), copy.length());
 			}
 
 
 			// += operator. Maps to append
-			TiXmlString& operator += (const char * suffix)
+			CordisXmlString& operator += (const char * suffix)
 			{
 				return append(suffix, static_cast<size_type>(strlen(suffix)));
 			}
 
 			// += operator. Maps to append
-			TiXmlString& operator += (char single)
+			CordisXmlString& operator += (char single)
 			{
 				return append(&single, 1);
 			}
 
 			// += operator. Maps to append
-			TiXmlString& operator += (const TiXmlString & suffix)
+			CordisXmlString& operator += (const CordisXmlString & suffix)
 			{
 				return append(suffix.data(), suffix.length());
 			}
 
 
-			// Convert a TiXmlString into a null-terminated char *
+			// Convert a CordisXmlString into a null-terminated char *
 			const char * c_str() const { return rep_->str; }
 
-			// Convert a TiXmlString into a char * (need not be null terminated).
+			// Convert a CordisXmlString into a char * (need not be null terminated).
 			const char * data() const { return rep_->str; }
 
-			// Return the length of a TiXmlString
+			// Return the length of a CordisXmlString
 			size_type length() const { return rep_->size; }
 
 			// Alias for length()
 			size_type size() const { return rep_->size; }
 
-			// Checks if a TiXmlString is empty
+			// Checks if a CordisXmlString is empty
 			bool empty() const { return rep_->size == 0; }
 
 			// Return capacity of string
@@ -161,13 +161,13 @@ namespace Cordis
 				return rep_->str[index];
 			}
 
-			// find a char in a string. Return TiXmlString::npos if not found
+			// find a char in a string. Return CordisXmlString::npos if not found
 			size_type find(char lookup) const
 			{
 				return find(lookup, 0);
 			}
 
-			// find a char in a string from an offset. Return TiXmlString::npos if not found
+			// find a char in a string from an offset. Return CordisXmlString::npos if not found
 			size_type find(char tofind, size_type offset) const
 			{
 				if (offset >= length()) return npos;
@@ -183,22 +183,22 @@ namespace Cordis
 			{
 				//Lee:
 				//The original was just too strange, though correct:
-				//	TiXmlString().swap(*this);
+				//	CordisXmlString().swap(*this);
 				//Instead use the quit & re-init:
 				quit();
 				init(0, 0);
 			}
 
 			/*	Function to reserve a big amount of data when we know we'll need it. Be aware that this
-				function DOES NOT clear the content of the TiXmlString if any exists.
+				function DOES NOT clear the content of the CordisXmlString if any exists.
 			*/
 			void reserve(size_type cap);
 
-			TiXmlString& assign(const char* str, size_type len);
+			CordisXmlString& assign(const char* str, size_type len);
 
-			TiXmlString& append(const char* str, size_type len);
+			CordisXmlString& append(const char* str, size_type len);
 
-			void swap(TiXmlString& other)
+			void swap(CordisXmlString& other)
 			{
 				Rep* r = rep_;
 				rep_ = other.rep_;
@@ -256,48 +256,48 @@ namespace Cordis
 		};
 
 
-		inline bool operator == (const TiXmlString & a, const TiXmlString & b)
+		inline bool operator == (const CordisXmlString & a, const CordisXmlString & b)
 		{
 			return    (a.length() == b.length())				// optimization on some platforms
 				&& (strcmp(a.c_str(), b.c_str()) == 0);	// actual compare
 		}
-		inline bool operator < (const TiXmlString & a, const TiXmlString & b)
+		inline bool operator < (const CordisXmlString & a, const CordisXmlString & b)
 		{
 			return strcmp(a.c_str(), b.c_str()) < 0;
 		}
 
-		inline bool operator != (const TiXmlString & a, const TiXmlString & b) { return !(a == b); }
-		inline bool operator >  (const TiXmlString & a, const TiXmlString & b) { return b < a; }
-		inline bool operator <= (const TiXmlString & a, const TiXmlString & b) { return !(b < a); }
-		inline bool operator >= (const TiXmlString & a, const TiXmlString & b) { return !(a < b); }
+		inline bool operator != (const CordisXmlString & a, const CordisXmlString & b) { return !(a == b); }
+		inline bool operator >  (const CordisXmlString & a, const CordisXmlString & b) { return b < a; }
+		inline bool operator <= (const CordisXmlString & a, const CordisXmlString & b) { return !(b < a); }
+		inline bool operator >= (const CordisXmlString & a, const CordisXmlString & b) { return !(a < b); }
 
-		inline bool operator == (const TiXmlString & a, const char* b) { return strcmp(a.c_str(), b) == 0; }
-		inline bool operator == (const char* a, const TiXmlString & b) { return b == a; }
-		inline bool operator != (const TiXmlString & a, const char* b) { return !(a == b); }
-		inline bool operator != (const char* a, const TiXmlString & b) { return !(b == a); }
+		inline bool operator == (const CordisXmlString & a, const char* b) { return strcmp(a.c_str(), b) == 0; }
+		inline bool operator == (const char* a, const CordisXmlString & b) { return b == a; }
+		inline bool operator != (const CordisXmlString & a, const char* b) { return !(a == b); }
+		inline bool operator != (const char* a, const CordisXmlString & b) { return !(b == a); }
 
-		TiXmlString operator + (const TiXmlString & a, const TiXmlString & b);
-		TiXmlString operator + (const TiXmlString & a, const char* b);
-		TiXmlString operator + (const char* a, const TiXmlString & b);
+		CordisXmlString operator + (const CordisXmlString & a, const CordisXmlString & b);
+		CordisXmlString operator + (const CordisXmlString & a, const char* b);
+		CordisXmlString operator + (const char* a, const CordisXmlString & b);
 
 
 		/*
-		   TiXmlOutStream is an emulation of std::ostream. It is based on TiXmlString.
+		   CordisXmlOutStream is an emulation of std::ostream. It is based on CordisXmlString.
 		   Only the operators that we need for TinyXML have been developped.
 		*/
-		class TiXmlOutStream : public TiXmlString
+		class CordisXmlOutStream : public CordisXmlString
 		{
 		public:
 
-			// TiXmlOutStream << operator.
-			TiXmlOutStream & operator << (const TiXmlString & in)
+			// CordisXmlOutStream << operator.
+			CordisXmlOutStream & operator << (const CordisXmlString & in)
 			{
 				*this += in;
 				return *this;
 			}
 
-			// TiXmlOutStream << operator.
-			TiXmlOutStream & operator << (const char * in)
+			// CordisXmlOutStream << operator.
+			CordisXmlOutStream & operator << (const char * in)
 			{
 				*this += in;
 				return *this;
@@ -308,5 +308,5 @@ namespace Cordis
 	}
 }
 
-#endif	// TIXML_STRING_INCLUDED
-#endif	// TIXML_USE_STL
+#endif	// CordisXml_STRING_INCLUDED
+#endif	// CordisXml_USE_STL

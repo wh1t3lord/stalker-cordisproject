@@ -3,8 +3,8 @@
 
 #include "xrCDB/xr_collide_defs.h"
 
-#include "Include/xrRender/FactoryPtr.h"
-#include "Include/xrRender/LensFlareRender.h"
+#include "xrGame/Render/Kernel/FactoryPtr.h"
+#include "xrGame/Render/Kernel/LensFlareRender.h"
 
 class ENGINE_API CInifile;
 class ENGINE_API CEnvironment;

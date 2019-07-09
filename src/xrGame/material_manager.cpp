@@ -12,7 +12,7 @@
 #include "PHMovementControl.h"
 #include "entity_alive.h"
 #include "CharacterPhysicsSupport.h"
-#include "Include/xrRender/Kinematics.h"
+#include "Kinematics.h"
 
 CMaterialManager::CMaterialManager(IGameObject* object, CPHMovementControl* movement_control)
 {

@@ -18,7 +18,7 @@
 #include "game_cl_base.h"
 #include "InfoPortion.h"
 #include "alife_registry_wrappers.h"
-#include "Include/xrRender/Kinematics.h"
+#include "Kinematics.h"
 #include "client_spawn_manager.h"
 #include "Hit.h"
 #include "PHDestroyable.h"

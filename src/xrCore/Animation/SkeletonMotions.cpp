@@ -6,7 +6,7 @@
 
 #include "FMesh.hpp"
 #include "Motion.hpp"
-#include "Include/xrRender/Kinematics.h"
+#include "xrGame/Render/Kernel/Kinematics.h"
 
 motions_container* g_pMotionsContainer = nullptr;
 

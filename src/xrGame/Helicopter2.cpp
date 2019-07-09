@@ -3,7 +3,7 @@
 
 #include "script_game_object.h"
 #include "script_game_object_impl.h"
-#include "Include/xrRender/Kinematics.h"
+#include "Kinematics.h"
 #include "xrEngine/LightAnimLibrary.h"
 
 #include "xrScriptEngine/script_callback_ex.h"

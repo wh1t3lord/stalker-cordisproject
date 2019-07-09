@@ -1,8 +1,8 @@
 #pragma once
 #include "xr_collide_defs.h"
 #include "Common/Noncopyable.hpp"
-#include "Include/xrRender/FactoryPtr.h"
-#include "Include/xrRender/ObjectSpaceRender.h"
+#include "xrGame/Render/Kernel/FactoryPtr.h"
+#include "xrGame/Render/Kernel/ObjectSpaceRender.h"
 #include "xrXRC.h"
 #include "xrCDB.h"
 #include "xrCore/_fbox.h"

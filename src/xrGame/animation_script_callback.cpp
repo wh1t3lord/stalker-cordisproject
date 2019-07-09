@@ -4,7 +4,7 @@
 #include "xrScriptEngine/script_callback_ex.h"
 #include "GameObject.h"
 #include "game_object_space.h"
-#include "Include/xrRender/KinematicsAnimated.h"
+#include "KinematicsAnimated.h"
 
 CBlend* PlayMotionByParts(
     IKinematicsAnimated* sa, MotionID motion_ID, BOOL bMixIn, PlayCallback Callback, LPVOID CallbackParam)

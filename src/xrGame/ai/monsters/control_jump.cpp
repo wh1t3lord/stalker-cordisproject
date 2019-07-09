@@ -3,7 +3,7 @@
 #include "basemonster/base_monster.h"
 #include "control_manager.h"
 #include "PHMovementControl.h"
-#include "Include/xrRender/KinematicsAnimated.h"
+#include "KinematicsAnimated.h"
 #include "detail_path_manager.h"
 #include "Level.h"
 #include "control_animation_base.h"

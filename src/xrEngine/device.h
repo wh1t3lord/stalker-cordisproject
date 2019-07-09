@@ -23,7 +23,7 @@
 #define DEVICE_RESET_PRECACHE_FRAME_COUNT 10
 
 #include "Include/editor/interfaces.hpp"
-#include "Include/xrRender/FactoryPtr.h"
+#include "xrGame/Render/Kernel/FactoryPtr.h"
 #include "Render.h"
 #include "SDL.h"
 

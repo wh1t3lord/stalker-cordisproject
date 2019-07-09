@@ -3,7 +3,7 @@
 #include "xrCore/FMesh.hpp"
 #include "xrEngine/XR_IOConsole.h"
 #include "xrEngine/GameMtlLib.h"
-#include "Include/xrRender/Kinematics.h"
+#include "Kinematics.h"
 #include "xrEngine/profiler.h"
 #include "MainMenu.h"
 #include "xrUICore/Cursor/UICursor.h"

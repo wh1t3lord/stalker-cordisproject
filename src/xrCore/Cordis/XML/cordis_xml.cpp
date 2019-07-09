@@ -20,11 +20,12 @@ must not be misrepresented as being the original software.
 
 3. This notice may not be removed or altered from any source
 distribution.
-*/
+*/ 
+
 #include "stdafx.h"
 #include <ctype.h>
 
-#ifdef TIXML_USE_STL
+#ifdef CordisXml_USE_STL
 #include <sstream>
 #include <iostream>
 #endif
@@ -36,12 +37,12 @@ namespace Cordis
 	namespace XML
 	{
 
-		FILE* TiXmlFOpen(const char* filename, const char* mode);
+		FILE* CordisXmlFOpen(const char* filename, const char* mode);
 
-		bool TiXmlBase::condenseWhiteSpace = true;
+		bool CordisXmlBase::condenseWhiteSpace = true;
 
 		// Microsoft compiler security
-		FILE* TiXmlFOpen(const char* filename, const char* mode)
+		FILE* CordisXmlFOpen(const char* filename, const char* mode)
 		{
 #if defined(_MSC_VER) && (_MSC_VER >= 1400 )
 			FILE* fp = 0;
@@ -54,7 +55,7 @@ namespace Cordis
 #endif
 		}
 
-		void TiXmlBase::EncodeString(const TIXML_STRING& str, TIXML_STRING* outString)
+		void CordisXmlBase::EncodeString(const CordisXml_STRING& str, CordisXml_STRING* outString)
 		{
 			int i = 0;
 
@@ -116,8 +117,8 @@ namespace Cordis
 					// Below 32 is symbolic.
 					char buf[32];
 
-#if defined(TIXML_SNPRINTF)		
-					TIXML_SNPRINTF(buf, sizeof(buf), "&#x%02X;", (unsigned)(c & 0xff));
+#if defined(CordisXml_SNPRINTF)		
+					CordisXml_SNPRINTF(buf, sizeof(buf), "&#x%02X;", (unsigned)(c & 0xff));
 #else
 					sprintf(buf, "&#x%02X;", (unsigned)(c & 0xff));
 #endif		
@@ -138,7 +139,7 @@ namespace Cordis
 		}
 
 
-		TiXmlNode::TiXmlNode(NodeType _type) : TiXmlBase()
+		CordisXmlNode::CordisXmlNode(NodeType _type) : CordisXmlBase()
 		{
 			parent = 0;
 			type = _type;
@@ -149,10 +150,10 @@ namespace Cordis
 		}
 
 
-		TiXmlNode::~TiXmlNode()
+		CordisXmlNode::~CordisXmlNode()
 		{
-			TiXmlNode* node = firstChild;
-			TiXmlNode* temp = 0;
+			CordisXmlNode* node = firstChild;
+			CordisXmlNode* temp = 0;
 
 			while (node)
 			{
@@ -163,7 +164,7 @@ namespace Cordis
 		}
 
 
-		void TiXmlNode::CopyTo(TiXmlNode* target) const
+		void CordisXmlNode::CopyTo(CordisXmlNode* target) const
 		{
 			target->SetValue(value.c_str());
 			target->userData = userData;
@@ -171,10 +172,10 @@ namespace Cordis
 		}
 
 
-		void TiXmlNode::Clear()
+		void CordisXmlNode::Clear()
 		{
-			TiXmlNode* node = firstChild;
-			TiXmlNode* temp = 0;
+			CordisXmlNode* node = firstChild;
+			CordisXmlNode* temp = 0;
 
 			while (node)
 			{
@@ -188,16 +189,16 @@ namespace Cordis
 		}
 
 
-		TiXmlNode* TiXmlNode::LinkEndChild(TiXmlNode* node)
+		CordisXmlNode* CordisXmlNode::LinkEndChild(CordisXmlNode* node)
 		{
 			assert(node->parent == 0 || node->parent == this);
 			assert(node->GetDocument() == 0 || node->GetDocument() == this->GetDocument());
 
-			if (node->Type() == TiXmlNode::TINYXML_DOCUMENT)
+			if (node->Type() == CordisXmlNode::TINYXML_DOCUMENT)
 			{
 				delete node;
 				if (GetDocument())
-					GetDocument()->SetError(TIXML_ERROR_DOCUMENT_TOP_ONLY, 0, 0, TIXML_ENCODING_UNKNOWN);
+					GetDocument()->SetError(CordisXml_ERROR_DOCUMENT_TOP_ONLY, 0, 0, CordisXml_ENCODING_UNKNOWN);
 				return 0;
 			}
 
@@ -216,15 +217,15 @@ namespace Cordis
 		}
 
 
-		TiXmlNode* TiXmlNode::InsertEndChild(const TiXmlNode& addThis)
+		CordisXmlNode* CordisXmlNode::InsertEndChild(const CordisXmlNode& addThis)
 		{
-			if (addThis.Type() == TiXmlNode::TINYXML_DOCUMENT)
+			if (addThis.Type() == CordisXmlNode::TINYXML_DOCUMENT)
 			{
 				if (GetDocument())
-					GetDocument()->SetError(TIXML_ERROR_DOCUMENT_TOP_ONLY, 0, 0, TIXML_ENCODING_UNKNOWN);
+					GetDocument()->SetError(CordisXml_ERROR_DOCUMENT_TOP_ONLY, 0, 0, CordisXml_ENCODING_UNKNOWN);
 				return 0;
 			}
-			TiXmlNode* node = addThis.Clone();
+			CordisXmlNode* node = addThis.Clone();
 			if (!node)
 				return 0;
 
@@ -232,19 +233,19 @@ namespace Cordis
 		}
 
 
-		TiXmlNode* TiXmlNode::InsertBeforeChild(TiXmlNode* beforeThis, const TiXmlNode& addThis)
+		CordisXmlNode* CordisXmlNode::InsertBeforeChild(CordisXmlNode* beforeThis, const CordisXmlNode& addThis)
 		{
 			if (!beforeThis || beforeThis->parent != this) {
 				return 0;
 			}
-			if (addThis.Type() == TiXmlNode::TINYXML_DOCUMENT)
+			if (addThis.Type() == CordisXmlNode::TINYXML_DOCUMENT)
 			{
 				if (GetDocument())
-					GetDocument()->SetError(TIXML_ERROR_DOCUMENT_TOP_ONLY, 0, 0, TIXML_ENCODING_UNKNOWN);
+					GetDocument()->SetError(CordisXml_ERROR_DOCUMENT_TOP_ONLY, 0, 0, CordisXml_ENCODING_UNKNOWN);
 				return 0;
 			}
 
-			TiXmlNode* node = addThis.Clone();
+			CordisXmlNode* node = addThis.Clone();
 			if (!node)
 				return 0;
 			node->parent = this;
@@ -265,19 +266,19 @@ namespace Cordis
 		}
 
 
-		TiXmlNode* TiXmlNode::InsertAfterChild(TiXmlNode* afterThis, const TiXmlNode& addThis)
+		CordisXmlNode* CordisXmlNode::InsertAfterChild(CordisXmlNode* afterThis, const CordisXmlNode& addThis)
 		{
 			if (!afterThis || afterThis->parent != this) {
 				return 0;
 			}
-			if (addThis.Type() == TiXmlNode::TINYXML_DOCUMENT)
+			if (addThis.Type() == CordisXmlNode::TINYXML_DOCUMENT)
 			{
 				if (GetDocument())
-					GetDocument()->SetError(TIXML_ERROR_DOCUMENT_TOP_ONLY, 0, 0, TIXML_ENCODING_UNKNOWN);
+					GetDocument()->SetError(CordisXml_ERROR_DOCUMENT_TOP_ONLY, 0, 0, CordisXml_ENCODING_UNKNOWN);
 				return 0;
 			}
 
-			TiXmlNode* node = addThis.Clone();
+			CordisXmlNode* node = addThis.Clone();
 			if (!node)
 				return 0;
 			node->parent = this;
@@ -298,7 +299,7 @@ namespace Cordis
 		}
 
 
-		TiXmlNode* TiXmlNode::ReplaceChild(TiXmlNode* replaceThis, const TiXmlNode& withThis)
+		CordisXmlNode* CordisXmlNode::ReplaceChild(CordisXmlNode* replaceThis, const CordisXmlNode& withThis)
 		{
 			if (!replaceThis)
 				return 0;
@@ -308,13 +309,13 @@ namespace Cordis
 
 			if (withThis.ToDocument()) {
 				// A document can never be a child.	Thanks to Noam.
-				TiXmlDocument* document = GetDocument();
+				CordisXmlDocument* document = GetDocument();
 				if (document)
-					document->SetError(TIXML_ERROR_DOCUMENT_TOP_ONLY, 0, 0, TIXML_ENCODING_UNKNOWN);
+					document->SetError(CordisXml_ERROR_DOCUMENT_TOP_ONLY, 0, 0, CordisXml_ENCODING_UNKNOWN);
 				return 0;
 			}
 
-			TiXmlNode* node = withThis.Clone();
+			CordisXmlNode* node = withThis.Clone();
 			if (!node)
 				return 0;
 
@@ -337,7 +338,7 @@ namespace Cordis
 		}
 
 
-		bool TiXmlNode::RemoveChild(TiXmlNode* removeThis)
+		bool CordisXmlNode::RemoveChild(CordisXmlNode* removeThis)
 		{
 			if (!removeThis) {
 				return false;
@@ -363,9 +364,9 @@ namespace Cordis
 			return true;
 		}
 
-		const TiXmlNode* TiXmlNode::FirstChild(const char * _value) const
+		const CordisXmlNode* CordisXmlNode::FirstChild(const char * _value) const
 		{
-			const TiXmlNode* node;
+			const CordisXmlNode* node;
 			for (node = firstChild; node; node = node->next)
 			{
 				if (strcmp(node->Value(), _value) == 0)
@@ -375,9 +376,9 @@ namespace Cordis
 		}
 
 
-		const TiXmlNode* TiXmlNode::LastChild(const char * _value) const
+		const CordisXmlNode* CordisXmlNode::LastChild(const char * _value) const
 		{
-			const TiXmlNode* node;
+			const CordisXmlNode* node;
 			for (node = lastChild; node; node = node->prev)
 			{
 				if (strcmp(node->Value(), _value) == 0)
@@ -387,7 +388,7 @@ namespace Cordis
 		}
 
 
-		const TiXmlNode* TiXmlNode::IterateChildren(const TiXmlNode* previous) const
+		const CordisXmlNode* CordisXmlNode::IterateChildren(const CordisXmlNode* previous) const
 		{
 			if (!previous)
 			{
@@ -401,7 +402,7 @@ namespace Cordis
 		}
 
 
-		const TiXmlNode* TiXmlNode::IterateChildren(const char * val, const TiXmlNode* previous) const
+		const CordisXmlNode* CordisXmlNode::IterateChildren(const char * val, const CordisXmlNode* previous) const
 		{
 			if (!previous)
 			{
@@ -415,9 +416,9 @@ namespace Cordis
 		}
 
 
-		const TiXmlNode* TiXmlNode::NextSibling(const char * _value) const
+		const CordisXmlNode* CordisXmlNode::NextSibling(const char * _value) const
 		{
-			const TiXmlNode* node;
+			const CordisXmlNode* node;
 			for (node = next; node; node = node->next)
 			{
 				if (strcmp(node->Value(), _value) == 0)
@@ -427,9 +428,9 @@ namespace Cordis
 		}
 
 
-		const TiXmlNode* TiXmlNode::PreviousSibling(const char * _value) const
+		const CordisXmlNode* CordisXmlNode::PreviousSibling(const char * _value) const
 		{
-			const TiXmlNode* node;
+			const CordisXmlNode* node;
 			for (node = prev; node; node = node->prev)
 			{
 				if (strcmp(node->Value(), _value) == 0)
@@ -439,13 +440,13 @@ namespace Cordis
 		}
 
 
-		void TiXmlElement::RemoveAttribute(const char * name)
+		void CordisXmlElement::RemoveAttribute(const char * name)
 		{
-#ifdef TIXML_USE_STL
-			TIXML_STRING str(name);
-			TiXmlAttribute* node = attributeSet.Find(str);
+#ifdef CordisXml_USE_STL
+			CordisXml_STRING str(name);
+			CordisXmlAttribute* node = attributeSet.Find(str);
 #else
-			TiXmlAttribute* node = attributeSet.Find(name);
+			CordisXmlAttribute* node = attributeSet.Find(name);
 #endif
 			if (node)
 			{
@@ -454,9 +455,9 @@ namespace Cordis
 			}
 		}
 
-		const TiXmlElement* TiXmlNode::FirstChildElement() const
+		const CordisXmlElement* CordisXmlNode::FirstChildElement() const
 		{
-			const TiXmlNode* node;
+			const CordisXmlNode* node;
 
 			for (node = FirstChild();
 				node;
@@ -469,9 +470,9 @@ namespace Cordis
 		}
 
 
-		const TiXmlElement* TiXmlNode::FirstChildElement(const char * _value) const
+		const CordisXmlElement* CordisXmlNode::FirstChildElement(const char * _value) const
 		{
-			const TiXmlNode* node;
+			const CordisXmlNode* node;
 
 			for (node = FirstChild(_value);
 				node;
@@ -484,9 +485,9 @@ namespace Cordis
 		}
 
 
-		const TiXmlElement* TiXmlNode::NextSiblingElement() const
+		const CordisXmlElement* CordisXmlNode::NextSiblingElement() const
 		{
-			const TiXmlNode* node;
+			const CordisXmlNode* node;
 
 			for (node = NextSibling();
 				node;
@@ -499,9 +500,9 @@ namespace Cordis
 		}
 
 
-		const TiXmlElement* TiXmlNode::NextSiblingElement(const char * _value) const
+		const CordisXmlElement* CordisXmlNode::NextSiblingElement(const char * _value) const
 		{
-			const TiXmlNode* node;
+			const CordisXmlNode* node;
 
 			for (node = NextSibling(_value);
 				node;
@@ -514,9 +515,9 @@ namespace Cordis
 		}
 
 
-		const TiXmlDocument* TiXmlNode::GetDocument() const
+		const CordisXmlDocument* CordisXmlNode::GetDocument() const
 		{
-			const TiXmlNode* node;
+			const CordisXmlNode* node;
 
 			for (node = this; node; node = node->parent)
 			{
@@ -527,17 +528,17 @@ namespace Cordis
 		}
 
 
-		TiXmlElement::TiXmlElement(const char * _value)
-			: TiXmlNode(TiXmlNode::TINYXML_ELEMENT)
+		CordisXmlElement::CordisXmlElement(const char * _value)
+			: CordisXmlNode(CordisXmlNode::TINYXML_ELEMENT)
 		{
 			firstChild = lastChild = 0;
 			value = _value;
 		}
 
 
-#ifdef TIXML_USE_STL
-		TiXmlElement::TiXmlElement(const std::string& _value)
-			: TiXmlNode(TiXmlNode::TINYXML_ELEMENT)
+#ifdef CordisXml_USE_STL
+		CordisXmlElement::CordisXmlElement(const std::string& _value)
+			: CordisXmlNode(CordisXmlNode::TINYXML_ELEMENT)
 		{
 			firstChild = lastChild = 0;
 			value = _value;
@@ -545,15 +546,15 @@ namespace Cordis
 #endif
 
 
-		TiXmlElement::TiXmlElement(const TiXmlElement& copy)
-			: TiXmlNode(TiXmlNode::TINYXML_ELEMENT)
+		CordisXmlElement::CordisXmlElement(const CordisXmlElement& copy)
+			: CordisXmlNode(CordisXmlNode::TINYXML_ELEMENT)
 		{
 			firstChild = lastChild = 0;
 			copy.CopyTo(this);
 		}
 
 
-		TiXmlElement& TiXmlElement::operator=(const TiXmlElement& base)
+		CordisXmlElement& CordisXmlElement::operator=(const CordisXmlElement& base)
 		{
 			ClearThis();
 			base.CopyTo(this);
@@ -561,37 +562,37 @@ namespace Cordis
 		}
 
 
-		TiXmlElement::~TiXmlElement()
+		CordisXmlElement::~CordisXmlElement()
 		{
 			ClearThis();
 		}
 
 
-		void TiXmlElement::ClearThis()
+		void CordisXmlElement::ClearThis()
 		{
 			Clear();
 			while (attributeSet.First())
 			{
-				TiXmlAttribute* node = attributeSet.First();
+				CordisXmlAttribute* node = attributeSet.First();
 				attributeSet.Remove(node);
 				delete node;
 			}
 		}
 
 
-		const char* TiXmlElement::Attribute(const char* name) const
+		const char* CordisXmlElement::Attribute(const char* name) const
 		{
-			const TiXmlAttribute* node = attributeSet.Find(name);
+			const CordisXmlAttribute* node = attributeSet.Find(name);
 			if (node)
 				return node->Value();
 			return 0;
 		}
 
 
-#ifdef TIXML_USE_STL
-		const std::string* TiXmlElement::Attribute(const std::string& name) const
+#ifdef CordisXml_USE_STL
+		const std::string* CordisXmlElement::Attribute(const std::string& name) const
 		{
-			const TiXmlAttribute* attrib = attributeSet.Find(name);
+			const CordisXmlAttribute* attrib = attributeSet.Find(name);
 			if (attrib)
 				return &attrib->ValueStr();
 			return 0;
@@ -599,9 +600,9 @@ namespace Cordis
 #endif
 
 
-		const char* TiXmlElement::Attribute(const char* name, int* i) const
+		const char* CordisXmlElement::Attribute(const char* name, int* i) const
 		{
-			const TiXmlAttribute* attrib = attributeSet.Find(name);
+			const CordisXmlAttribute* attrib = attributeSet.Find(name);
 			const char* result = 0;
 
 			if (attrib) {
@@ -614,10 +615,10 @@ namespace Cordis
 		}
 
 
-#ifdef TIXML_USE_STL
-		const std::string* TiXmlElement::Attribute(const std::string& name, int* i) const
+#ifdef CordisXml_USE_STL
+		const std::string* CordisXmlElement::Attribute(const std::string& name, int* i) const
 		{
-			const TiXmlAttribute* attrib = attributeSet.Find(name);
+			const CordisXmlAttribute* attrib = attributeSet.Find(name);
 			const std::string* result = 0;
 
 			if (attrib) {
@@ -631,9 +632,9 @@ namespace Cordis
 #endif
 
 
-		const char* TiXmlElement::Attribute(const char* name, double* d) const
+		const char* CordisXmlElement::Attribute(const char* name, double* d) const
 		{
-			const TiXmlAttribute* attrib = attributeSet.Find(name);
+			const CordisXmlAttribute* attrib = attributeSet.Find(name);
 			const char* result = 0;
 
 			if (attrib) {
@@ -646,10 +647,10 @@ namespace Cordis
 		}
 
 
-#ifdef TIXML_USE_STL
-		const std::string* TiXmlElement::Attribute(const std::string& name, double* d) const
+#ifdef CordisXml_USE_STL
+		const std::string* CordisXmlElement::Attribute(const std::string& name, double* d) const
 		{
-			const TiXmlAttribute* attrib = attributeSet.Find(name);
+			const CordisXmlAttribute* attrib = attributeSet.Find(name);
 			const std::string* result = 0;
 
 			if (attrib) {
@@ -663,20 +664,20 @@ namespace Cordis
 #endif
 
 
-		int TiXmlElement::QueryIntAttribute(const char* name, int* ival) const
+		int CordisXmlElement::QueryIntAttribute(const char* name, int* ival) const
 		{
-			const TiXmlAttribute* attrib = attributeSet.Find(name);
+			const CordisXmlAttribute* attrib = attributeSet.Find(name);
 			if (!attrib)
-				return TIXML_NO_ATTRIBUTE;
+				return CordisXml_NO_ATTRIBUTE;
 			return attrib->QueryIntValue(ival);
 		}
 
 
-		int TiXmlElement::QueryUnsignedAttribute(const char* name, unsigned* value) const
+		int CordisXmlElement::QueryUnsignedAttribute(const char* name, unsigned* value) const
 		{
-			const TiXmlAttribute* node = attributeSet.Find(name);
+			const CordisXmlAttribute* node = attributeSet.Find(name);
 			if (!node)
-				return TIXML_NO_ATTRIBUTE;
+				return CordisXml_NO_ATTRIBUTE;
 
 			int ival = 0;
 			int result = node->QueryIntValue(&ival);
@@ -685,76 +686,76 @@ namespace Cordis
 		}
 
 
-		int TiXmlElement::QueryBoolAttribute(const char* name, bool* bval) const
+		int CordisXmlElement::QueryBoolAttribute(const char* name, bool* bval) const
 		{
-			const TiXmlAttribute* node = attributeSet.Find(name);
+			const CordisXmlAttribute* node = attributeSet.Find(name);
 			if (!node)
-				return TIXML_NO_ATTRIBUTE;
+				return CordisXml_NO_ATTRIBUTE;
 
-			int result = TIXML_WRONG_TYPE;
-			if (StringEqual(node->Value(), "true", true, TIXML_ENCODING_UNKNOWN)
-				|| StringEqual(node->Value(), "yes", true, TIXML_ENCODING_UNKNOWN)
-				|| StringEqual(node->Value(), "1", true, TIXML_ENCODING_UNKNOWN))
+			int result = CordisXml_WRONG_TYPE;
+			if (StringEqual(node->Value(), "true", true, CordisXml_ENCODING_UNKNOWN)
+				|| StringEqual(node->Value(), "yes", true, CordisXml_ENCODING_UNKNOWN)
+				|| StringEqual(node->Value(), "1", true, CordisXml_ENCODING_UNKNOWN))
 			{
 				*bval = true;
-				result = TIXML_SUCCESS;
+				result = CordisXml_SUCCESS;
 			}
-			else if (StringEqual(node->Value(), "false", true, TIXML_ENCODING_UNKNOWN)
-				|| StringEqual(node->Value(), "no", true, TIXML_ENCODING_UNKNOWN)
-				|| StringEqual(node->Value(), "0", true, TIXML_ENCODING_UNKNOWN))
+			else if (StringEqual(node->Value(), "false", true, CordisXml_ENCODING_UNKNOWN)
+				|| StringEqual(node->Value(), "no", true, CordisXml_ENCODING_UNKNOWN)
+				|| StringEqual(node->Value(), "0", true, CordisXml_ENCODING_UNKNOWN))
 			{
 				*bval = false;
-				result = TIXML_SUCCESS;
+				result = CordisXml_SUCCESS;
 			}
 			return result;
 		}
 
 
 
-#ifdef TIXML_USE_STL
-		int TiXmlElement::QueryIntAttribute(const std::string& name, int* ival) const
+#ifdef CordisXml_USE_STL
+		int CordisXmlElement::QueryIntAttribute(const std::string& name, int* ival) const
 		{
-			const TiXmlAttribute* attrib = attributeSet.Find(name);
+			const CordisXmlAttribute* attrib = attributeSet.Find(name);
 			if (!attrib)
-				return TIXML_NO_ATTRIBUTE;
+				return CordisXml_NO_ATTRIBUTE;
 			return attrib->QueryIntValue(ival);
 		}
 #endif
 
 
-		int TiXmlElement::QueryDoubleAttribute(const char* name, double* dval) const
+		int CordisXmlElement::QueryDoubleAttribute(const char* name, double* dval) const
 		{
-			const TiXmlAttribute* attrib = attributeSet.Find(name);
+			const CordisXmlAttribute* attrib = attributeSet.Find(name);
 			if (!attrib)
-				return TIXML_NO_ATTRIBUTE;
+				return CordisXml_NO_ATTRIBUTE;
 			return attrib->QueryDoubleValue(dval);
 		}
 
 
-#ifdef TIXML_USE_STL
-		int TiXmlElement::QueryDoubleAttribute(const std::string& name, double* dval) const
+#ifdef CordisXml_USE_STL
+		int CordisXmlElement::QueryDoubleAttribute(const std::string& name, double* dval) const
 		{
-			const TiXmlAttribute* attrib = attributeSet.Find(name);
+			const CordisXmlAttribute* attrib = attributeSet.Find(name);
 			if (!attrib)
-				return TIXML_NO_ATTRIBUTE;
+				return CordisXml_NO_ATTRIBUTE;
 			return attrib->QueryDoubleValue(dval);
 		}
 #endif
 
 
-		void TiXmlElement::SetAttribute(const char * name, int val)
+		void CordisXmlElement::SetAttribute(const char * name, int val)
 		{
-			TiXmlAttribute* attrib = attributeSet.FindOrCreate(name);
+			CordisXmlAttribute* attrib = attributeSet.FindOrCreate(name);
 			if (attrib) {
 				attrib->SetIntValue(val);
 			}
 		}
 
 
-#ifdef TIXML_USE_STL
-		void TiXmlElement::SetAttribute(const std::string& name, int val)
+#ifdef CordisXml_USE_STL
+		void CordisXmlElement::SetAttribute(const std::string& name, int val)
 		{
-			TiXmlAttribute* attrib = attributeSet.FindOrCreate(name);
+			CordisXmlAttribute* attrib = attributeSet.FindOrCreate(name);
 			if (attrib) {
 				attrib->SetIntValue(val);
 			}
@@ -762,19 +763,19 @@ namespace Cordis
 #endif
 
 
-		void TiXmlElement::SetDoubleAttribute(const char * name, double val)
+		void CordisXmlElement::SetDoubleAttribute(const char * name, double val)
 		{
-			TiXmlAttribute* attrib = attributeSet.FindOrCreate(name);
+			CordisXmlAttribute* attrib = attributeSet.FindOrCreate(name);
 			if (attrib) {
 				attrib->SetDoubleValue(val);
 			}
 		}
 
 
-#ifdef TIXML_USE_STL
-		void TiXmlElement::SetDoubleAttribute(const std::string& name, double val)
+#ifdef CordisXml_USE_STL
+		void CordisXmlElement::SetDoubleAttribute(const std::string& name, double val)
 		{
-			TiXmlAttribute* attrib = attributeSet.FindOrCreate(name);
+			CordisXmlAttribute* attrib = attributeSet.FindOrCreate(name);
 			if (attrib) {
 				attrib->SetDoubleValue(val);
 			}
@@ -782,19 +783,19 @@ namespace Cordis
 #endif 
 
 
-		void TiXmlElement::SetAttribute(const char * cname, const char * cvalue)
+		void CordisXmlElement::SetAttribute(const char * cname, const char * cvalue)
 		{
-			TiXmlAttribute* attrib = attributeSet.FindOrCreate(cname);
+			CordisXmlAttribute* attrib = attributeSet.FindOrCreate(cname);
 			if (attrib) {
 				attrib->SetValue(cvalue);
 			}
 		}
 
 
-#ifdef TIXML_USE_STL
-		void TiXmlElement::SetAttribute(const std::string& _name, const std::string& _value)
+#ifdef CordisXml_USE_STL
+		void CordisXmlElement::SetAttribute(const std::string& _name, const std::string& _value)
 		{
-			TiXmlAttribute* attrib = attributeSet.FindOrCreate(_name);
+			CordisXmlAttribute* attrib = attributeSet.FindOrCreate(_name);
 			if (attrib) {
 				attrib->SetValue(_value);
 			}
@@ -802,7 +803,7 @@ namespace Cordis
 #endif
 
 
-		void TiXmlElement::Print(FILE* cfile, int depth) const
+		void CordisXmlElement::Print(FILE* cfile, int depth) const
 		{
 			int i;
 			assert(cfile);
@@ -812,7 +813,7 @@ namespace Cordis
 
 			fprintf(cfile, "<%s", value.c_str());
 
-			const TiXmlAttribute* attrib;
+			const CordisXmlAttribute* attrib;
 			for (attrib = attributeSet.First(); attrib; attrib = attrib->Next())
 			{
 				fprintf(cfile, " ");
@@ -823,7 +824,7 @@ namespace Cordis
 			// 1) An element without children is printed as a <foo /> node
 			// 2) An element with only a text child is printed as <foo> text </foo>
 			// 3) An element with children is printed on multiple lines.
-			TiXmlNode* node;
+			CordisXmlNode* node;
 			if (!firstChild)
 			{
 				fprintf(cfile, " />");
@@ -855,14 +856,14 @@ namespace Cordis
 		}
 
 
-		void TiXmlElement::CopyTo(TiXmlElement* target) const
+		void CordisXmlElement::CopyTo(CordisXmlElement* target) const
 		{
 			// superclass:
-			TiXmlNode::CopyTo(target);
+			CordisXmlNode::CopyTo(target);
 
 			// Element class: 
 			// Clone the attributes, then clone the children.
-			const TiXmlAttribute* attribute = 0;
+			const CordisXmlAttribute* attribute = 0;
 			for (attribute = attributeSet.First();
 				attribute;
 				attribute = attribute->Next())
@@ -870,18 +871,18 @@ namespace Cordis
 				target->SetAttribute(attribute->Name(), attribute->Value());
 			}
 
-			TiXmlNode* node = 0;
+			CordisXmlNode* node = 0;
 			for (node = firstChild; node; node = node->NextSibling())
 			{
 				target->LinkEndChild(node->Clone());
 			}
 		}
 
-		bool TiXmlElement::Accept(TiXmlVisitor* visitor) const
+		bool CordisXmlElement::Accept(CordisXmlVisitor* visitor) const
 		{
 			if (visitor->VisitEnter(*this, attributeSet.First()))
 			{
-				for (const TiXmlNode* node = FirstChild(); node; node = node->NextSibling())
+				for (const CordisXmlNode* node = FirstChild(); node; node = node->NextSibling())
 				{
 					if (!node->Accept(visitor))
 						break;
@@ -891,9 +892,9 @@ namespace Cordis
 		}
 
 
-		TiXmlNode* TiXmlElement::Clone() const
+		CordisXmlNode* CordisXmlElement::Clone() const
 		{
-			TiXmlElement* clone = new TiXmlElement(Value());
+			CordisXmlElement* clone = new CordisXmlElement(Value());
 			if (!clone)
 				return 0;
 
@@ -902,11 +903,11 @@ namespace Cordis
 		}
 
 
-		const char* TiXmlElement::GetText() const
+		const char* CordisXmlElement::GetText() const
 		{
-			const TiXmlNode* child = this->FirstChild();
+			const CordisXmlNode* child = this->FirstChild();
 			if (child) {
-				const TiXmlText* childText = child->ToText();
+				const CordisXmlText* childText = child->ToText();
 				if (childText) {
 					return childText->Value();
 				}
@@ -915,14 +916,14 @@ namespace Cordis
 		}
 
 
-		TiXmlDocument::TiXmlDocument() : TiXmlNode(TiXmlNode::TINYXML_DOCUMENT)
+		CordisXmlDocument::CordisXmlDocument() : CordisXmlNode(CordisXmlNode::TINYXML_DOCUMENT)
 		{
 			tabsize = 4;
 			useMicrosoftBOM = false;
 			ClearError();
 		}
 
-		TiXmlDocument::TiXmlDocument(const char * documentName) : TiXmlNode(TiXmlNode::TINYXML_DOCUMENT)
+		CordisXmlDocument::CordisXmlDocument(const char * documentName) : CordisXmlNode(CordisXmlNode::TINYXML_DOCUMENT)
 		{
 			tabsize = 4;
 			useMicrosoftBOM = false;
@@ -931,8 +932,8 @@ namespace Cordis
 		}
 
 
-#ifdef TIXML_USE_STL
-		TiXmlDocument::TiXmlDocument(const std::string& documentName) : TiXmlNode(TiXmlNode::TINYXML_DOCUMENT)
+#ifdef CordisXml_USE_STL
+		CordisXmlDocument::CordisXmlDocument(const std::string& documentName) : CordisXmlNode(CordisXmlNode::TINYXML_DOCUMENT)
 		{
 			tabsize = 4;
 			useMicrosoftBOM = false;
@@ -942,13 +943,13 @@ namespace Cordis
 #endif
 
 
-		TiXmlDocument::TiXmlDocument(const TiXmlDocument& copy) : TiXmlNode(TiXmlNode::TINYXML_DOCUMENT)
+		CordisXmlDocument::CordisXmlDocument(const CordisXmlDocument& copy) : CordisXmlNode(CordisXmlNode::TINYXML_DOCUMENT)
 		{
 			copy.CopyTo(this);
 		}
 
 
-		TiXmlDocument& TiXmlDocument::operator=(const TiXmlDocument& copy)
+		CordisXmlDocument& CordisXmlDocument::operator=(const CordisXmlDocument& copy)
 		{
 			Clear();
 			copy.CopyTo(this);
@@ -956,24 +957,24 @@ namespace Cordis
 		}
 
 
-		bool TiXmlDocument::LoadFile(TiXmlEncoding encoding)
+		bool CordisXmlDocument::LoadFile(CordisXmlEncoding encoding)
 		{
 			return LoadFile(Value(), encoding);
 		}
 
 
-		bool TiXmlDocument::SaveFile() const
+		bool CordisXmlDocument::SaveFile() const
 		{
 			return SaveFile(Value());
 		}
 
-		bool TiXmlDocument::LoadFile(const char* _filename, TiXmlEncoding encoding)
+		bool CordisXmlDocument::LoadFile(const char* _filename, CordisXmlEncoding encoding)
 		{
-			TIXML_STRING filename(_filename);
+			CordisXml_STRING filename(_filename);
 			value = filename;
 
 			// reading in binary mode so that tinyxml can normalize the EOL
-			FILE* file = TiXmlFOpen(value.c_str(), "rb");
+			FILE* file = CordisXmlFOpen(value.c_str(), "rb");
 
 			if (file)
 			{
@@ -983,16 +984,16 @@ namespace Cordis
 			}
 			else
 			{
-				SetError(TIXML_ERROR_OPENING_FILE, 0, 0, TIXML_ENCODING_UNKNOWN);
+				SetError(CordisXml_ERROR_OPENING_FILE, 0, 0, CordisXml_ENCODING_UNKNOWN);
 				return false;
 			}
 		}
 
-		bool TiXmlDocument::LoadFile(FILE* file, TiXmlEncoding encoding)
+		bool CordisXmlDocument::LoadFile(FILE* file, CordisXmlEncoding encoding)
 		{
 			if (!file)
 			{
-				SetError(TIXML_ERROR_OPENING_FILE, 0, 0, TIXML_ENCODING_UNKNOWN);
+				SetError(CordisXml_ERROR_OPENING_FILE, 0, 0, CordisXml_ENCODING_UNKNOWN);
 				return false;
 			}
 
@@ -1009,7 +1010,7 @@ namespace Cordis
 			// Strange case, but good to handle up front.
 			if (length <= 0)
 			{
-				SetError(TIXML_ERROR_DOCUMENT_EMPTY, 0, 0, TIXML_ENCODING_UNKNOWN);
+				SetError(CordisXml_ERROR_DOCUMENT_EMPTY, 0, 0, CordisXml_ENCODING_UNKNOWN);
 				return false;
 			}
 
@@ -1039,7 +1040,7 @@ namespace Cordis
 
 			if (fread(buf, length, 1, file) != 1) {
 				delete[] buf;
-				SetError(TIXML_ERROR_OPENING_FILE, 0, 0, TIXML_ENCODING_UNKNOWN);
+				SetError(CordisXml_ERROR_OPENING_FILE, 0, 0, CordisXml_ENCODING_UNKNOWN);
 				return false;
 			}
 
@@ -1086,10 +1087,10 @@ namespace Cordis
 		}
 
 
-		bool TiXmlDocument::SaveFile(const char * filename) const
+		bool CordisXmlDocument::SaveFile(const char * filename) const
 		{
 			// The old c stuff lives on...
-			FILE* fp = TiXmlFOpen(filename, "w");
+			FILE* fp = CordisXmlFOpen(filename, "w");
 			if (fp)
 			{
 				bool result = SaveFile(fp);
@@ -1100,26 +1101,26 @@ namespace Cordis
 		}
 
 
-		bool TiXmlDocument::SaveFile(FILE* fp) const
+		bool CordisXmlDocument::SaveFile(FILE* fp) const
 		{
 			if (useMicrosoftBOM)
 			{
-				const unsigned char TIXML_UTF_LEAD_0 = 0xefU;
-				const unsigned char TIXML_UTF_LEAD_1 = 0xbbU;
-				const unsigned char TIXML_UTF_LEAD_2 = 0xbfU;
+				const unsigned char CordisXml_UTF_LEAD_0 = 0xefU;
+				const unsigned char CordisXml_UTF_LEAD_1 = 0xbbU;
+				const unsigned char CordisXml_UTF_LEAD_2 = 0xbfU;
 
-				fputc(TIXML_UTF_LEAD_0, fp);
-				fputc(TIXML_UTF_LEAD_1, fp);
-				fputc(TIXML_UTF_LEAD_2, fp);
+				fputc(CordisXml_UTF_LEAD_0, fp);
+				fputc(CordisXml_UTF_LEAD_1, fp);
+				fputc(CordisXml_UTF_LEAD_2, fp);
 			}
 			Print(fp, 0);
 			return (ferror(fp) == 0);
 		}
 
 
-		void TiXmlDocument::CopyTo(TiXmlDocument* target) const
+		void CordisXmlDocument::CopyTo(CordisXmlDocument* target) const
 		{
-			TiXmlNode::CopyTo(target);
+			CordisXmlNode::CopyTo(target);
 
 			target->error = error;
 			target->errorId = errorId;
@@ -1128,7 +1129,7 @@ namespace Cordis
 			target->errorLocation = errorLocation;
 			target->useMicrosoftBOM = useMicrosoftBOM;
 
-			TiXmlNode* node = 0;
+			CordisXmlNode* node = 0;
 			for (node = firstChild; node; node = node->NextSibling())
 			{
 				target->LinkEndChild(node->Clone());
@@ -1136,9 +1137,9 @@ namespace Cordis
 		}
 
 
-		TiXmlNode* TiXmlDocument::Clone() const
+		CordisXmlNode* CordisXmlDocument::Clone() const
 		{
-			TiXmlDocument* clone = new TiXmlDocument();
+			CordisXmlDocument* clone = new CordisXmlDocument();
 			if (!clone)
 				return 0;
 
@@ -1147,10 +1148,10 @@ namespace Cordis
 		}
 
 
-		void TiXmlDocument::Print(FILE* cfile, int depth) const
+		void CordisXmlDocument::Print(FILE* cfile, int depth) const
 		{
 			assert(cfile);
-			for (const TiXmlNode* node = FirstChild(); node; node = node->NextSibling())
+			for (const CordisXmlNode* node = FirstChild(); node; node = node->NextSibling())
 			{
 				node->Print(cfile, depth);
 				fprintf(cfile, "\n");
@@ -1158,11 +1159,11 @@ namespace Cordis
 		}
 
 
-		bool TiXmlDocument::Accept(TiXmlVisitor* visitor) const
+		bool CordisXmlDocument::Accept(CordisXmlVisitor* visitor) const
 		{
 			if (visitor->VisitEnter(*this))
 			{
-				for (const TiXmlNode* node = FirstChild(); node; node = node->NextSibling())
+				for (const CordisXmlNode* node = FirstChild(); node; node = node->NextSibling())
 				{
 					if (!node->Accept(visitor))
 						break;
@@ -1172,7 +1173,7 @@ namespace Cordis
 		}
 
 
-		const TiXmlAttribute* TiXmlAttribute::Next() const
+		const CordisXmlAttribute* CordisXmlAttribute::Next() const
 		{
 			// We are using knowledge of the sentinel. The sentinel
 			// have a value or name.
@@ -1182,7 +1183,7 @@ namespace Cordis
 		}
 
 		/*
-		TiXmlAttribute* TiXmlAttribute::Next()
+		CordisXmlAttribute* CordisXmlAttribute::Next()
 		{
 			// We are using knowledge of the sentinel. The sentinel
 			// have a value or name.
@@ -1192,7 +1193,7 @@ namespace Cordis
 		}
 		*/
 
-		const TiXmlAttribute* TiXmlAttribute::Previous() const
+		const CordisXmlAttribute* CordisXmlAttribute::Previous() const
 		{
 			// We are using knowledge of the sentinel. The sentinel
 			// have a value or name.
@@ -1202,7 +1203,7 @@ namespace Cordis
 		}
 
 		/*
-		TiXmlAttribute* TiXmlAttribute::Previous()
+		CordisXmlAttribute* CordisXmlAttribute::Previous()
 		{
 			// We are using knowledge of the sentinel. The sentinel
 			// have a value or name.
@@ -1212,14 +1213,14 @@ namespace Cordis
 		}
 		*/
 
-		void TiXmlAttribute::Print(FILE* cfile, int /*depth*/, TIXML_STRING* str) const
+		void CordisXmlAttribute::Print(FILE* cfile, int /*depth*/, CordisXml_STRING* str) const
 		{
-			TIXML_STRING n, v;
+			CordisXml_STRING n, v;
 
 			EncodeString(name, &n);
 			EncodeString(value, &v);
 
-			if (value.find('\"') == TIXML_STRING::npos) {
+			if (value.find('\"') == CordisXml_STRING::npos) {
 				if (cfile) {
 					fprintf(cfile, "%s=\"%s\"", n.c_str(), v.c_str());
 				}
@@ -1238,60 +1239,60 @@ namespace Cordis
 		}
 
 
-		int TiXmlAttribute::QueryIntValue(int* ival) const
+		int CordisXmlAttribute::QueryIntValue(int* ival) const
 		{
-			if (TIXML_SSCANF(value.c_str(), "%d", ival) == 1)
-				return TIXML_SUCCESS;
-			return TIXML_WRONG_TYPE;
+			if (CordisXml_SSCANF(value.c_str(), "%d", ival) == 1)
+				return CordisXml_SUCCESS;
+			return CordisXml_WRONG_TYPE;
 		}
 
-		int TiXmlAttribute::QueryDoubleValue(double* dval) const
+		int CordisXmlAttribute::QueryDoubleValue(double* dval) const
 		{
-			if (TIXML_SSCANF(value.c_str(), "%lf", dval) == 1)
-				return TIXML_SUCCESS;
-			return TIXML_WRONG_TYPE;
+			if (CordisXml_SSCANF(value.c_str(), "%lf", dval) == 1)
+				return CordisXml_SUCCESS;
+			return CordisXml_WRONG_TYPE;
 		}
 
-		void TiXmlAttribute::SetIntValue(int _value)
+		void CordisXmlAttribute::SetIntValue(int _value)
 		{
 			char buf[64];
-#if defined(TIXML_SNPRINTF)		
-			TIXML_SNPRINTF(buf, sizeof(buf), "%d", _value);
+#if defined(CordisXml_SNPRINTF)		
+			CordisXml_SNPRINTF(buf, sizeof(buf), "%d", _value);
 #else
 			sprintf(buf, "%d", _value);
 #endif
 			SetValue(buf);
 		}
 
-		void TiXmlAttribute::SetDoubleValue(double _value)
+		void CordisXmlAttribute::SetDoubleValue(double _value)
 		{
 			char buf[256];
-#if defined(TIXML_SNPRINTF)		
-			TIXML_SNPRINTF(buf, sizeof(buf), "%g", _value);
+#if defined(CordisXml_SNPRINTF)		
+			CordisXml_SNPRINTF(buf, sizeof(buf), "%g", _value);
 #else
 			sprintf(buf, "%g", _value);
 #endif
 			SetValue(buf);
 		}
 
-		int TiXmlAttribute::IntValue() const
+		int CordisXmlAttribute::IntValue() const
 		{
 			return atoi(value.c_str());
 		}
 
-		double  TiXmlAttribute::DoubleValue() const
+		double  CordisXmlAttribute::DoubleValue() const
 		{
 			return atof(value.c_str());
 		}
 
 
-		TiXmlComment::TiXmlComment(const TiXmlComment& copy) : TiXmlNode(TiXmlNode::TINYXML_COMMENT)
+		CordisXmlComment::CordisXmlComment(const CordisXmlComment& copy) : CordisXmlNode(CordisXmlNode::TINYXML_COMMENT)
 		{
 			copy.CopyTo(this);
 		}
 
 
-		TiXmlComment& TiXmlComment::operator=(const TiXmlComment& base)
+		CordisXmlComment& CordisXmlComment::operator=(const CordisXmlComment& base)
 		{
 			Clear();
 			base.CopyTo(this);
@@ -1299,7 +1300,7 @@ namespace Cordis
 		}
 
 
-		void TiXmlComment::Print(FILE* cfile, int depth) const
+		void CordisXmlComment::Print(FILE* cfile, int depth) const
 		{
 			assert(cfile);
 			for (int i = 0; i < depth; i++)
@@ -1310,21 +1311,21 @@ namespace Cordis
 		}
 
 
-		void TiXmlComment::CopyTo(TiXmlComment* target) const
+		void CordisXmlComment::CopyTo(CordisXmlComment* target) const
 		{
-			TiXmlNode::CopyTo(target);
+			CordisXmlNode::CopyTo(target);
 		}
 
 
-		bool TiXmlComment::Accept(TiXmlVisitor* visitor) const
+		bool CordisXmlComment::Accept(CordisXmlVisitor* visitor) const
 		{
 			return visitor->Visit(*this);
 		}
 
 
-		TiXmlNode* TiXmlComment::Clone() const
+		CordisXmlNode* CordisXmlComment::Clone() const
 		{
-			TiXmlComment* clone = new TiXmlComment();
+			CordisXmlComment* clone = new CordisXmlComment();
 
 			if (!clone)
 				return 0;
@@ -1334,7 +1335,7 @@ namespace Cordis
 		}
 
 
-		void TiXmlText::Print(FILE* cfile, int depth) const
+		void CordisXmlText::Print(FILE* cfile, int depth) const
 		{
 			assert(cfile);
 			if (cdata)
@@ -1348,30 +1349,30 @@ namespace Cordis
 			}
 			else
 			{
-				TIXML_STRING buffer;
+				CordisXml_STRING buffer;
 				EncodeString(value, &buffer);
 				fprintf(cfile, "%s", buffer.c_str());
 			}
 		}
 
 
-		void TiXmlText::CopyTo(TiXmlText* target) const
+		void CordisXmlText::CopyTo(CordisXmlText* target) const
 		{
-			TiXmlNode::CopyTo(target);
+			CordisXmlNode::CopyTo(target);
 			target->cdata = cdata;
 		}
 
 
-		bool TiXmlText::Accept(TiXmlVisitor* visitor) const
+		bool CordisXmlText::Accept(CordisXmlVisitor* visitor) const
 		{
 			return visitor->Visit(*this);
 		}
 
 
-		TiXmlNode* TiXmlText::Clone() const
+		CordisXmlNode* CordisXmlText::Clone() const
 		{
-			TiXmlText* clone = 0;
-			clone = new TiXmlText("");
+			CordisXmlText* clone = 0;
+			clone = new CordisXmlText("");
 
 			if (!clone)
 				return 0;
@@ -1381,10 +1382,10 @@ namespace Cordis
 		}
 
 
-		TiXmlDeclaration::TiXmlDeclaration(const char * _version,
+		CordisXmlDeclaration::CordisXmlDeclaration(const char * _version,
 			const char * _encoding,
 			const char * _standalone)
-			: TiXmlNode(TiXmlNode::TINYXML_DECLARATION)
+			: CordisXmlNode(CordisXmlNode::TINYXML_DECLARATION)
 		{
 			version = _version;
 			encoding = _encoding;
@@ -1392,11 +1393,11 @@ namespace Cordis
 		}
 
 
-#ifdef TIXML_USE_STL
-		TiXmlDeclaration::TiXmlDeclaration(const std::string& _version,
+#ifdef CordisXml_USE_STL
+		CordisXmlDeclaration::CordisXmlDeclaration(const std::string& _version,
 			const std::string& _encoding,
 			const std::string& _standalone)
-			: TiXmlNode(TiXmlNode::TINYXML_DECLARATION)
+			: CordisXmlNode(CordisXmlNode::TINYXML_DECLARATION)
 		{
 			version = _version;
 			encoding = _encoding;
@@ -1405,14 +1406,14 @@ namespace Cordis
 #endif
 
 
-		TiXmlDeclaration::TiXmlDeclaration(const TiXmlDeclaration& copy)
-			: TiXmlNode(TiXmlNode::TINYXML_DECLARATION)
+		CordisXmlDeclaration::CordisXmlDeclaration(const CordisXmlDeclaration& copy)
+			: CordisXmlNode(CordisXmlNode::TINYXML_DECLARATION)
 		{
 			copy.CopyTo(this);
 		}
 
 
-		TiXmlDeclaration& TiXmlDeclaration::operator=(const TiXmlDeclaration& copy)
+		CordisXmlDeclaration& CordisXmlDeclaration::operator=(const CordisXmlDeclaration& copy)
 		{
 			Clear();
 			copy.CopyTo(this);
@@ -1420,7 +1421,7 @@ namespace Cordis
 		}
 
 
-		void TiXmlDeclaration::Print(FILE* cfile, int /*depth*/, TIXML_STRING* str) const
+		void CordisXmlDeclaration::Print(FILE* cfile, int /*depth*/, CordisXml_STRING* str) const
 		{
 			if (cfile) fprintf(cfile, "<?xml ");
 			if (str)	 (*str) += "<?xml ";
@@ -1442,9 +1443,9 @@ namespace Cordis
 		}
 
 
-		void TiXmlDeclaration::CopyTo(TiXmlDeclaration* target) const
+		void CordisXmlDeclaration::CopyTo(CordisXmlDeclaration* target) const
 		{
-			TiXmlNode::CopyTo(target);
+			CordisXmlNode::CopyTo(target);
 
 			target->version = version;
 			target->encoding = encoding;
@@ -1452,15 +1453,15 @@ namespace Cordis
 		}
 
 
-		bool TiXmlDeclaration::Accept(TiXmlVisitor* visitor) const
+		bool CordisXmlDeclaration::Accept(CordisXmlVisitor* visitor) const
 		{
 			return visitor->Visit(*this);
 		}
 
 
-		TiXmlNode* TiXmlDeclaration::Clone() const
+		CordisXmlNode* CordisXmlDeclaration::Clone() const
 		{
-			TiXmlDeclaration* clone = new TiXmlDeclaration();
+			CordisXmlDeclaration* clone = new CordisXmlDeclaration();
 
 			if (!clone)
 				return 0;
@@ -1470,7 +1471,7 @@ namespace Cordis
 		}
 
 
-		void TiXmlUnknown::Print(FILE* cfile, int depth) const
+		void CordisXmlUnknown::Print(FILE* cfile, int depth) const
 		{
 			for (int i = 0; i < depth; i++)
 				fprintf(cfile, "    ");
@@ -1478,21 +1479,21 @@ namespace Cordis
 		}
 
 
-		void TiXmlUnknown::CopyTo(TiXmlUnknown* target) const
+		void CordisXmlUnknown::CopyTo(CordisXmlUnknown* target) const
 		{
-			TiXmlNode::CopyTo(target);
+			CordisXmlNode::CopyTo(target);
 		}
 
 
-		bool TiXmlUnknown::Accept(TiXmlVisitor* visitor) const
+		bool CordisXmlUnknown::Accept(CordisXmlVisitor* visitor) const
 		{
 			return visitor->Visit(*this);
 		}
 
 
-		TiXmlNode* TiXmlUnknown::Clone() const
+		CordisXmlNode* CordisXmlUnknown::Clone() const
 		{
-			TiXmlUnknown* clone = new TiXmlUnknown();
+			CordisXmlUnknown* clone = new CordisXmlUnknown();
 
 			if (!clone)
 				return 0;
@@ -1502,24 +1503,24 @@ namespace Cordis
 		}
 
 
-		TiXmlAttributeSet::TiXmlAttributeSet()
+		CordisXmlAttributeSet::CordisXmlAttributeSet()
 		{
 			sentinel.next = &sentinel;
 			sentinel.prev = &sentinel;
 		}
 
 
-		TiXmlAttributeSet::~TiXmlAttributeSet()
+		CordisXmlAttributeSet::~CordisXmlAttributeSet()
 		{
 			assert(sentinel.next == &sentinel);
 			assert(sentinel.prev == &sentinel);
 		}
 
 
-		void TiXmlAttributeSet::Add(TiXmlAttribute* addMe)
+		void CordisXmlAttributeSet::Add(CordisXmlAttribute* addMe)
 		{
-#ifdef TIXML_USE_STL
-			assert(!Find(TIXML_STRING(addMe->Name())));	// Shouldn't be multiply adding to the set.
+#ifdef CordisXml_USE_STL
+			assert(!Find(CordisXml_STRING(addMe->Name())));	// Shouldn't be multiply adding to the set.
 #else
 			assert(!Find(addMe->Name()));	// Shouldn't be multiply adding to the set.
 #endif
@@ -1531,9 +1532,9 @@ namespace Cordis
 			sentinel.prev = addMe;
 		}
 
-		void TiXmlAttributeSet::Remove(TiXmlAttribute* removeMe)
+		void CordisXmlAttributeSet::Remove(CordisXmlAttribute* removeMe)
 		{
-			TiXmlAttribute* node;
+			CordisXmlAttribute* node;
 
 			for (node = sentinel.next; node != &sentinel; node = node->next)
 			{
@@ -1550,10 +1551,10 @@ namespace Cordis
 		}
 
 
-#ifdef TIXML_USE_STL
-		TiXmlAttribute* TiXmlAttributeSet::Find(const std::string& name) const
+#ifdef CordisXml_USE_STL
+		CordisXmlAttribute* CordisXmlAttributeSet::Find(const std::string& name) const
 		{
-			for (TiXmlAttribute* node = sentinel.next; node != &sentinel; node = node->next)
+			for (CordisXmlAttribute* node = sentinel.next; node != &sentinel; node = node->next)
 			{
 				if (node->name == name)
 					return node;
@@ -1561,11 +1562,11 @@ namespace Cordis
 			return 0;
 		}
 
-		TiXmlAttribute* TiXmlAttributeSet::FindOrCreate(const std::string& _name)
+		CordisXmlAttribute* CordisXmlAttributeSet::FindOrCreate(const std::string& _name)
 		{
-			TiXmlAttribute* attrib = Find(_name);
+			CordisXmlAttribute* attrib = Find(_name);
 			if (!attrib) {
-				attrib = new TiXmlAttribute();
+				attrib = new CordisXmlAttribute();
 				Add(attrib);
 				attrib->SetName(_name);
 			}
@@ -1574,9 +1575,9 @@ namespace Cordis
 #endif
 
 
-		TiXmlAttribute* TiXmlAttributeSet::Find(const char* name) const
+		CordisXmlAttribute* CordisXmlAttributeSet::Find(const char* name) const
 		{
-			for (TiXmlAttribute* node = sentinel.next; node != &sentinel; node = node->next)
+			for (CordisXmlAttribute* node = sentinel.next; node != &sentinel; node = node->next)
 			{
 				if (strcmp(node->name.c_str(), name) == 0)
 					return node;
@@ -1585,11 +1586,11 @@ namespace Cordis
 		}
 
 
-		TiXmlAttribute* TiXmlAttributeSet::FindOrCreate(const char* _name)
+		CordisXmlAttribute* CordisXmlAttributeSet::FindOrCreate(const char* _name)
 		{
-			TiXmlAttribute* attrib = Find(_name);
+			CordisXmlAttribute* attrib = Find(_name);
 			if (!attrib) {
-				attrib = new TiXmlAttribute();
+				attrib = new CordisXmlAttribute();
 				Add(attrib);
 				attrib->SetName(_name);
 			}
@@ -1597,23 +1598,23 @@ namespace Cordis
 		}
 
 
-#ifdef TIXML_USE_STL	
-		std::istream& operator>> (std::istream & in, TiXmlNode & base)
+#ifdef CordisXml_USE_STL	
+		std::istream& operator>> (std::istream & in, CordisXmlNode & base)
 		{
-			TIXML_STRING tag;
+			CordisXml_STRING tag;
 			tag.reserve(8 * 1000);
 			base.StreamIn(&in, &tag);
 
-			base.Parse(tag.c_str(), 0, TIXML_DEFAULT_ENCODING);
+			base.Parse(tag.c_str(), 0, CordisXml_DEFAULT_ENCODING);
 			return in;
 		}
 #endif
 
 
-#ifdef TIXML_USE_STL	
-		std::ostream& operator<< (std::ostream & out, const TiXmlNode & base)
+#ifdef CordisXml_USE_STL	
+		std::ostream& operator<< (std::ostream & out, const CordisXmlNode & base)
 		{
-			TiXmlPrinter printer;
+			CordisXmlPrinter printer;
 			printer.SetStreamPrinting();
 			base.Accept(&printer);
 			out << printer.Str();
@@ -1622,9 +1623,9 @@ namespace Cordis
 		}
 
 
-		std::string& operator<< (std::string& out, const TiXmlNode& base)
+		std::string& operator<< (std::string& out, const CordisXmlNode& base)
 		{
-			TiXmlPrinter printer;
+			CordisXmlPrinter printer;
 			printer.SetStreamPrinting();
 			base.Accept(&printer);
 			out.append(printer.Str());
@@ -1634,60 +1635,60 @@ namespace Cordis
 #endif
 
 
-		TiXmlHandle TiXmlHandle::FirstChild() const
+		CordisXmlHandle CordisXmlHandle::FirstChild() const
 		{
 			if (node)
 			{
-				TiXmlNode* child = node->FirstChild();
+				CordisXmlNode* child = node->FirstChild();
 				if (child)
-					return TiXmlHandle(child);
+					return CordisXmlHandle(child);
 			}
-			return TiXmlHandle(0);
+			return CordisXmlHandle(0);
 		}
 
 
-		TiXmlHandle TiXmlHandle::FirstChild(const char * value) const
+		CordisXmlHandle CordisXmlHandle::FirstChild(const char * value) const
 		{
 			if (node)
 			{
-				TiXmlNode* child = node->FirstChild(value);
+				CordisXmlNode* child = node->FirstChild(value);
 				if (child)
-					return TiXmlHandle(child);
+					return CordisXmlHandle(child);
 			}
-			return TiXmlHandle(0);
+			return CordisXmlHandle(0);
 		}
 
 
-		TiXmlHandle TiXmlHandle::FirstChildElement() const
+		CordisXmlHandle CordisXmlHandle::FirstChildElement() const
 		{
 			if (node)
 			{
-				TiXmlElement* child = node->FirstChildElement();
+				CordisXmlElement* child = node->FirstChildElement();
 				if (child)
-					return TiXmlHandle(child);
+					return CordisXmlHandle(child);
 			}
-			return TiXmlHandle(0);
+			return CordisXmlHandle(0);
 		}
 
 
-		TiXmlHandle TiXmlHandle::FirstChildElement(const char * value) const
+		CordisXmlHandle CordisXmlHandle::FirstChildElement(const char * value) const
 		{
 			if (node)
 			{
-				TiXmlElement* child = node->FirstChildElement(value);
+				CordisXmlElement* child = node->FirstChildElement(value);
 				if (child)
-					return TiXmlHandle(child);
+					return CordisXmlHandle(child);
 			}
-			return TiXmlHandle(0);
+			return CordisXmlHandle(0);
 		}
 
 
-		TiXmlHandle TiXmlHandle::Child(int count) const
+		CordisXmlHandle CordisXmlHandle::Child(int count) const
 		{
 			if (node)
 			{
 				int i;
-				TiXmlNode* child = node->FirstChild();
+				CordisXmlNode* child = node->FirstChild();
 				for (i = 0;
 					child && i < count;
 					child = child->NextSibling(), ++i)
@@ -1695,18 +1696,18 @@ namespace Cordis
 					// nothing
 				}
 				if (child)
-					return TiXmlHandle(child);
+					return CordisXmlHandle(child);
 			}
-			return TiXmlHandle(0);
+			return CordisXmlHandle(0);
 		}
 
 
-		TiXmlHandle TiXmlHandle::Child(const char* value, int count) const
+		CordisXmlHandle CordisXmlHandle::Child(const char* value, int count) const
 		{
 			if (node)
 			{
 				int i;
-				TiXmlNode* child = node->FirstChild(value);
+				CordisXmlNode* child = node->FirstChild(value);
 				for (i = 0;
 					child && i < count;
 					child = child->NextSibling(value), ++i)
@@ -1714,18 +1715,18 @@ namespace Cordis
 					// nothing
 				}
 				if (child)
-					return TiXmlHandle(child);
+					return CordisXmlHandle(child);
 			}
-			return TiXmlHandle(0);
+			return CordisXmlHandle(0);
 		}
 
 
-		TiXmlHandle TiXmlHandle::ChildElement(int count) const
+		CordisXmlHandle CordisXmlHandle::ChildElement(int count) const
 		{
 			if (node)
 			{
 				int i;
-				TiXmlElement* child = node->FirstChildElement();
+				CordisXmlElement* child = node->FirstChildElement();
 				for (i = 0;
 					child && i < count;
 					child = child->NextSiblingElement(), ++i)
@@ -1733,18 +1734,18 @@ namespace Cordis
 					// nothing
 				}
 				if (child)
-					return TiXmlHandle(child);
+					return CordisXmlHandle(child);
 			}
-			return TiXmlHandle(0);
+			return CordisXmlHandle(0);
 		}
 
 
-		TiXmlHandle TiXmlHandle::ChildElement(const char* value, int count) const
+		CordisXmlHandle CordisXmlHandle::ChildElement(const char* value, int count) const
 		{
 			if (node)
 			{
 				int i;
-				TiXmlElement* child = node->FirstChildElement(value);
+				CordisXmlElement* child = node->FirstChildElement(value);
 				for (i = 0;
 					child && i < count;
 					child = child->NextSiblingElement(value), ++i)
@@ -1752,29 +1753,29 @@ namespace Cordis
 					// nothing
 				}
 				if (child)
-					return TiXmlHandle(child);
+					return CordisXmlHandle(child);
 			}
-			return TiXmlHandle(0);
+			return CordisXmlHandle(0);
 		}
 
 
-		bool TiXmlPrinter::VisitEnter(const TiXmlDocument&)
+		bool CordisXmlPrinter::VisitEnter(const CordisXmlDocument&)
 		{
 			return true;
 		}
 
-		bool TiXmlPrinter::VisitExit(const TiXmlDocument&)
+		bool CordisXmlPrinter::VisitExit(const CordisXmlDocument&)
 		{
 			return true;
 		}
 
-		bool TiXmlPrinter::VisitEnter(const TiXmlElement& element, const TiXmlAttribute* firstAttribute)
+		bool CordisXmlPrinter::VisitEnter(const CordisXmlElement& element, const CordisXmlAttribute* firstAttribute)
 		{
 			DoIndent();
 			buffer += "<";
 			buffer += element.Value();
 
-			for (const TiXmlAttribute* attrib = firstAttribute; attrib; attrib = attrib->Next())
+			for (const CordisXmlAttribute* attrib = firstAttribute; attrib; attrib = attrib->Next())
 			{
 				buffer += " ";
 				attrib->Print(0, 0, &buffer);
@@ -1805,7 +1806,7 @@ namespace Cordis
 		}
 
 
-		bool TiXmlPrinter::VisitExit(const TiXmlElement& element)
+		bool CordisXmlPrinter::VisitExit(const CordisXmlElement& element)
 		{
 			--depth;
 			if (!element.FirstChild())
@@ -1831,7 +1832,7 @@ namespace Cordis
 		}
 
 
-		bool TiXmlPrinter::Visit(const TiXmlText& text)
+		bool CordisXmlPrinter::Visit(const CordisXmlText& text)
 		{
 			if (text.CDATA())
 			{
@@ -1843,15 +1844,15 @@ namespace Cordis
 			}
 			else if (simpleTextPrint)
 			{
-				TIXML_STRING str;
-				TiXmlBase::EncodeString(text.ValueTStr(), &str);
+				CordisXml_STRING str;
+				CordisXmlBase::EncodeString(text.ValueTStr(), &str);
 				buffer += str;
 			}
 			else
 			{
 				DoIndent();
-				TIXML_STRING str;
-				TiXmlBase::EncodeString(text.ValueTStr(), &str);
+				CordisXml_STRING str;
+				CordisXmlBase::EncodeString(text.ValueTStr(), &str);
 				buffer += str;
 				DoLineBreak();
 			}
@@ -1859,7 +1860,7 @@ namespace Cordis
 		}
 
 
-		bool TiXmlPrinter::Visit(const TiXmlDeclaration& declaration)
+		bool CordisXmlPrinter::Visit(const CordisXmlDeclaration& declaration)
 		{
 			DoIndent();
 			declaration.Print(0, 0, &buffer);
@@ -1868,7 +1869,7 @@ namespace Cordis
 		}
 
 
-		bool TiXmlPrinter::Visit(const TiXmlComment& comment)
+		bool CordisXmlPrinter::Visit(const CordisXmlComment& comment)
 		{
 			DoIndent();
 			buffer += "<!--";
@@ -1879,7 +1880,7 @@ namespace Cordis
 		}
 
 
-		bool TiXmlPrinter::Visit(const TiXmlUnknown& unknown)
+		bool CordisXmlPrinter::Visit(const CordisXmlUnknown& unknown)
 		{
 			DoIndent();
 			buffer += "<";

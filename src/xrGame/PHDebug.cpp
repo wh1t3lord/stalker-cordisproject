@@ -15,8 +15,8 @@
 #include "debug_renderer.h"
 #include "PhysicsShellHolder.h"
 
-#include "Include/xrRender/Kinematics.h"
-#include "Include/xrRender/KinematicsAnimated.h"
+#include "Kinematics.h"
+#include "KinematicsAnimated.h"
 #include "xrCore/Animation/Bone.hpp"
 #include "xrEngine/IPHdebug.h"
 #include "xrCore/xr_token.h"

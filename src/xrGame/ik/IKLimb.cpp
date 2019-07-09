@@ -1,7 +1,7 @@
 #include "StdAfx.h"
 #include "IKLimb.h"
 #include "Common/Noncopyable.hpp"
-#include "Include/xrRender/Kinematics.h"
+#include "Kinematics.h"
 #include "GameObject.h"
 #include "game_object_space.h"
 #include "ik_anim_state.h"

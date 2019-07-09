@@ -23,8 +23,9 @@ distribution.
 */
 
 
-#ifndef TINYXML_INCLUDED
-#define TINYXML_INCLUDED
+#pragma once
+
+#include "Common/CommonImportExport.inl"
 
 #ifdef _MSC_VER
 #pragma warning( push )
@@ -38,72 +39,74 @@ distribution.
 #include <string.h>
 #include <assert.h>
 
+
 // Help out windows:
 #if defined( _DEBUG ) && !defined( DEBUG )
 #define DEBUG
 #endif
 
-#ifdef TIXML_USE_STL
+#ifdef CordisXml_USE_STL
 	#include <string>
  	#include <iostream>
 	#include <sstream>
-	#define TIXML_STRING		std::string
+	#define CordisXml_STRING		std::string
 #else
 	#include "cordis_str.h"
-	#define TIXML_STRING		TiXmlString
+	#define CordisXml_STRING		CordisXmlString
 #endif
 
 // Deprecated library function hell. Compilers want to use the
 // new safe versions. This probably doesn't fully address the problem,
 // but it gets closer. There are too many compilers for me to fully
-// test. If you get compilation troubles, undefine TIXML_SAFE
-#define TIXML_SAFE
+// test. If you get compilation troubles, undefine CordisXml_SAFE
+#define CordisXml_SAFE
 
-#ifdef TIXML_SAFE
+#ifdef CordisXml_SAFE
 	#if defined(_MSC_VER) && (_MSC_VER >= 1400 )
 		// Microsoft visual studio, version 2005 and higher.
-		#define TIXML_SNPRINTF _snprintf_s
-		#define TIXML_SSCANF   sscanf_s
+		#define CordisXml_SNPRINTF _snprintf_s
+		#define CordisXml_SSCANF   sscanf_s
 	#elif defined(_MSC_VER) && (_MSC_VER >= 1200 )
 		// Microsoft visual studio, version 6 and higher.
 		//#pragma message( "Using _sn* functions." )
-		#define TIXML_SNPRINTF _snprintf
-		#define TIXML_SSCANF   sscanf
+		#define CordisXml_SNPRINTF _snprintf
+		#define CordisXml_SSCANF   sscanf
 	#elif defined(__GNUC__) && (__GNUC__ >= 3 )
 		// GCC version 3 and higher.s
 		//#warning( "Using sn* functions." )
-		#define TIXML_SNPRINTF snprintf
-		#define TIXML_SSCANF   sscanf
+		#define CordisXml_SNPRINTF snprintf
+		#define CordisXml_SSCANF   sscanf
 	#else
-		#define TIXML_SNPRINTF snprintf
-		#define TIXML_SSCANF   sscanf
+		#define CordisXml_SNPRINTF snprintf
+		#define CordisXml_SSCANF   sscanf
 	#endif
 #endif	
+
+
 
 namespace Cordis
 {
 	namespace XML
 	{
+		const int CordisXml_MAJOR_VERSION = 2;
+		const int CordisXml_MINOR_VERSION = 6;
+		const int CordisXml_PATCH_VERSION = 2;
 
-		class TiXmlDocument;
-		class TiXmlElement;
-		class TiXmlComment;
-		class TiXmlUnknown;
-		class TiXmlAttribute;
-		class TiXmlText;
-		class TiXmlDeclaration;
-		class TiXmlParsingData;
-
-		const int TIXML_MAJOR_VERSION = 2;
-		const int TIXML_MINOR_VERSION = 6;
-		const int TIXML_PATCH_VERSION = 2;
+        class CordisXmlAttribute;
+        class CordisXmlDocument;
+        class CordisXmlElement;
+        class CordisXmlComment;
+        class CordisXmlUnknown;
+        class CordisXmlText;
+        class CordisXmlDeclaration;
+        class CordisXmlParsingData;
 
 		/*	Internal structure for tracking location of items
 			in the XML file.
 		*/
-		struct XRCORE_API TiXmlCursor
+		struct XRCORE_API CordisXmlCursor
 		{
-			TiXmlCursor() { Clear(); }
+			CordisXmlCursor() { Clear(); }
 			void Clear() { row = col = -1; }
 
 			int row;	// 0 based.
@@ -113,7 +116,7 @@ namespace Cordis
 
 		/**
 			Implements the interface to the "Visitor pattern" (see the Accept() method.)
-			If you call the Accept() method, it requires being passed a TiXmlVisitor
+			If you call the Accept() method, it requires being passed a CordisXmlVisitor
 			class to handle callbacks. For nodes that contain other nodes (Document, Element)
 			you will get called with a VisitEnter/VisitExit pair. Nodes that are always leaves
 			are simply called with Visit().
@@ -124,57 +127,57 @@ namespace Cordis
 			All flavors of Visit methods have a default implementation that returns 'true' (continue
 			visiting). You need to only override methods that are interesting to you.
 
-			Generally Accept() is called on the TiXmlDocument, although all nodes suppert Visiting.
+			Generally Accept() is called on the CordisXmlDocument, although all nodes suppert Visiting.
 
 			You should never change the document from a callback.
 
-			@sa TiXmlNode::Accept()
+			@sa CordisXmlNode::Accept()
 		*/
-		class XRCORE_API TiXmlVisitor
+		class XRCORE_API CordisXmlVisitor
 		{
 		public:
-			virtual ~TiXmlVisitor() {}
+			virtual ~CordisXmlVisitor() {}
 
 			/// Visit a document.
-			virtual bool VisitEnter(const TiXmlDocument& /*doc*/) { return true; }
+			virtual bool VisitEnter(const CordisXmlDocument& /*doc*/) { return true; }
 			/// Visit a document.
-			virtual bool VisitExit(const TiXmlDocument& /*doc*/) { return true; }
+			virtual bool VisitExit(const CordisXmlDocument& /*doc*/) { return true; }
 
 			/// Visit an element.
-			virtual bool VisitEnter(const TiXmlElement& /*element*/, const TiXmlAttribute* /*firstAttribute*/) { return true; }
+			virtual bool VisitEnter(const CordisXmlElement& /*element*/, const CordisXmlAttribute* /*firstAttribute*/) { return true; }
 			/// Visit an element.
-			virtual bool VisitExit(const TiXmlElement& /*element*/) { return true; }
+			virtual bool VisitExit(const CordisXmlElement& /*element*/) { return true; }
 
 			/// Visit a declaration
-			virtual bool Visit(const TiXmlDeclaration& /*declaration*/) { return true; }
+			virtual bool Visit(const CordisXmlDeclaration& /*declaration*/) { return true; }
 			/// Visit a text node
-			virtual bool Visit(const TiXmlText& /*text*/) { return true; }
+			virtual bool Visit(const CordisXmlText& /*text*/) { return true; }
 			/// Visit a comment node
-			virtual bool Visit(const TiXmlComment& /*comment*/) { return true; }
+			virtual bool Visit(const CordisXmlComment& /*comment*/) { return true; }
 			/// Visit an unknown node
-			virtual bool Visit(const TiXmlUnknown& /*unknown*/) { return true; }
+			virtual bool Visit(const CordisXmlUnknown& /*unknown*/) { return true; }
 		};
 
 		// Only used by Attribute::Query functions
 		enum
 		{
-			TIXML_SUCCESS,
-			TIXML_NO_ATTRIBUTE,
-			TIXML_WRONG_TYPE
+			CordisXml_SUCCESS,
+			CordisXml_NO_ATTRIBUTE,
+			CordisXml_WRONG_TYPE
 		};
 
 
 		// Used by the parsing routines.
-		enum TiXmlEncoding
+		enum CordisXmlEncoding
 		{
-			TIXML_ENCODING_UNKNOWN,
-			TIXML_ENCODING_UTF8,
-			TIXML_ENCODING_LEGACY
+			CordisXml_ENCODING_UNKNOWN,
+			CordisXml_ENCODING_UTF8,
+			CordisXml_ENCODING_LEGACY
 		};
 
-		const TiXmlEncoding TIXML_DEFAULT_ENCODING = TIXML_ENCODING_UNKNOWN;
+		const CordisXmlEncoding CordisXml_DEFAULT_ENCODING = CordisXml_ENCODING_UNKNOWN;
 
-		/** TiXmlBase is a base class for every class in TinyXml.
+		/** CordisXmlBase is a base class for every class in TinyXml.
 			It does little except to establish that TinyXml classes
 			can be printed and provide some utility functions.
 
@@ -196,18 +199,18 @@ namespace Cordis
 			A Decleration contains: Attributes (not on tree)
 			@endverbatim
 		*/
-		class XRCORE_API TiXmlBase
+		class XRCORE_API CordisXmlBase
 		{
-			friend class TiXmlNode;
-			friend class TiXmlElement;
-			friend class TiXmlDocument;
+			friend class CordisXmlNode;
+			friend class CordisXmlElement;
+			friend class CordisXmlDocument;
 
 		public:
-			TiXmlBase() : userData(0) {}
-			virtual ~TiXmlBase() {}
+			CordisXmlBase() : userData(0) {}
+			virtual ~CordisXmlBase() {}
 
 			/**	All TinyXml classes can print themselves to a filestream
-				or the string class (TiXmlString in non-STL mode, std::string
+				or the string class (CordisXmlString in non-STL mode, std::string
 				in STL mode.) Either or both cfile and str can be null.
 
 				This is a formatted print, and will insert
@@ -233,8 +236,8 @@ namespace Cordis
 				1,1). If the returns values are 0 or less, then the parser does not have
 				a row and column value.
 
-				Generally, the row and column value will be set when the TiXmlDocument::Load(),
-				TiXmlDocument::LoadFile(), or any TiXmlNode::Parse() is called. It will NOT be set
+				Generally, the row and column value will be set when the CordisXmlDocument::Load(),
+				CordisXmlDocument::LoadFile(), or any CordisXmlNode::Parse() is called. It will NOT be set
 				when the DOM was created from operator>>.
 
 				The values reflect the initial load. Once the DOM is modified programmatically
@@ -242,9 +245,9 @@ namespace Cordis
 				reflect changes in the document.
 
 				There is a minor performance cost to computing the row and column. Computation
-				can be disabled if TiXmlDocument::SetTabSize() is called with 0 as the value.
+				can be disabled if CordisXmlDocument::SetTabSize() is called with 0 as the value.
 
-				@sa TiXmlDocument::SetTabSize()
+				@sa CordisXmlDocument::SetTabSize()
 			*/
 			int Row() const { return location.row + 1; }
 			int Column() const { return location.col + 1; }	///< See Row()
@@ -258,39 +261,39 @@ namespace Cordis
 			static const int utf8ByteTable[256];
 
 			virtual const char* Parse(const char* p,
-				TiXmlParsingData* data,
-				TiXmlEncoding encoding /*= TIXML_ENCODING_UNKNOWN */) = 0;
+				CordisXmlParsingData* data,
+				CordisXmlEncoding encoding /*= CordisXml_ENCODING_UNKNOWN */) = 0;
 
 			/** Expands entities in a string. Note this should not contian the tag's '<', '>', etc,
 				or they will be transformed into entities!
 			*/
-			static void EncodeString(const TIXML_STRING& str, TIXML_STRING* out);
+			static void EncodeString(const CordisXml_STRING& str, CordisXml_STRING* out);
 
 			enum
 			{
-				TIXML_NO_ERROR = 0,
-				TIXML_ERROR,
-				TIXML_ERROR_OPENING_FILE,
-				TIXML_ERROR_PARSING_ELEMENT,
-				TIXML_ERROR_FAILED_TO_READ_ELEMENT_NAME,
-				TIXML_ERROR_READING_ELEMENT_VALUE,
-				TIXML_ERROR_READING_ATTRIBUTES,
-				TIXML_ERROR_PARSING_EMPTY,
-				TIXML_ERROR_READING_END_TAG,
-				TIXML_ERROR_PARSING_UNKNOWN,
-				TIXML_ERROR_PARSING_COMMENT,
-				TIXML_ERROR_PARSING_DECLARATION,
-				TIXML_ERROR_DOCUMENT_EMPTY,
-				TIXML_ERROR_EMBEDDED_NULL,
-				TIXML_ERROR_PARSING_CDATA,
-				TIXML_ERROR_DOCUMENT_TOP_ONLY,
+				CordisXml_NO_ERROR = 0,
+				CordisXml_ERROR,
+				CordisXml_ERROR_OPENING_FILE,
+				CordisXml_ERROR_PARSING_ELEMENT,
+				CordisXml_ERROR_FAILED_TO_READ_ELEMENT_NAME,
+				CordisXml_ERROR_READING_ELEMENT_VALUE,
+				CordisXml_ERROR_READING_ATTRIBUTES,
+				CordisXml_ERROR_PARSING_EMPTY,
+				CordisXml_ERROR_READING_END_TAG,
+				CordisXml_ERROR_PARSING_UNKNOWN,
+				CordisXml_ERROR_PARSING_COMMENT,
+				CordisXml_ERROR_PARSING_DECLARATION,
+				CordisXml_ERROR_DOCUMENT_EMPTY,
+				CordisXml_ERROR_EMBEDDED_NULL,
+				CordisXml_ERROR_PARSING_CDATA,
+				CordisXml_ERROR_DOCUMENT_TOP_ONLY,
 
-				TIXML_ERROR_STRING_COUNT
+				CordisXml_ERROR_STRING_COUNT
 			};
 
 		protected:
 
-			static const char* SkipWhiteSpace(const char*, TiXmlEncoding encoding);
+			static const char* SkipWhiteSpace(const char*, CordisXmlEncoding encoding);
 
 			inline static bool IsWhiteSpace(char c)
 			{
@@ -303,36 +306,36 @@ namespace Cordis
 				return false;	// Again, only truly correct for English/Latin...but usually works.
 			}
 
-#ifdef TIXML_USE_STL
-			static bool	StreamWhiteSpace(std::istream * in, TIXML_STRING * tag);
-			static bool StreamTo(std::istream * in, int character, TIXML_STRING * tag);
+#ifdef CordisXml_USE_STL
+			static bool	StreamWhiteSpace(std::istream * in, CordisXml_STRING * tag);
+			static bool StreamTo(std::istream * in, int character, CordisXml_STRING * tag);
 #endif
 
 			/*	Reads an XML name into the string provided. Returns
 				a pointer just past the last character of the name,
 				or 0 if the function has an error.
 			*/
-			static const char* ReadName(const char* p, TIXML_STRING* name, TiXmlEncoding encoding);
+			static const char* ReadName(const char* p, CordisXml_STRING* name, CordisXmlEncoding encoding);
 
 			/*	Reads text. Returns a pointer past the given end tag.
 				Wickedly complex options, but it keeps the (sensitive) code in one place.
 			*/
 			static const char* ReadText(const char* in,				// where to start
-				TIXML_STRING* text,			// the string read
+				CordisXml_STRING* text,			// the string read
 				bool ignoreWhiteSpace,		// whether to keep the white space
 				const char* endTag,			// what ends this text
 				bool ignoreCase,			// whether to ignore case in the end tag
-				TiXmlEncoding encoding);	// the current encoding
+				CordisXmlEncoding encoding);	// the current encoding
 
 // If an entity has been found, transform it into a character.
-			static const char* GetEntity(const char* in, char* value, int* length, TiXmlEncoding encoding);
+			static const char* GetEntity(const char* in, char* value, int* length, CordisXmlEncoding encoding);
 
 			// Get a character, while interpreting entities.
 			// The length can be from 0 to 4 bytes.
-			inline static const char* GetChar(const char* p, char* _value, int* length, TiXmlEncoding encoding)
+			inline static const char* GetChar(const char* p, char* _value, int* length, CordisXmlEncoding encoding)
 			{
 				assert(p);
-				if (encoding == TIXML_ENCODING_UTF8)
+				if (encoding == CordisXml_ENCODING_UTF8)
 				{
 					*length = utf8ByteTable[*((const unsigned char*)p)];
 					assert(*length >= 0 && *length < 5);
@@ -371,22 +374,22 @@ namespace Cordis
 			static bool StringEqual(const char* p,
 				const char* endTag,
 				bool ignoreCase,
-				TiXmlEncoding encoding);
+				CordisXmlEncoding encoding);
 
-			static const char* errorString[TIXML_ERROR_STRING_COUNT];
+			static const char* errorString[CordisXml_ERROR_STRING_COUNT];
 
-			TiXmlCursor location;
+			CordisXmlCursor location;
 
 			/// Field containing a generic user pointer
 			void*			userData;
 
 			// None of these methods are reliable for any language except English.
 			// Good for approximation, not great for accuracy.
-			static int IsAlpha(unsigned char anyByte, TiXmlEncoding encoding);
-			static int IsAlphaNum(unsigned char anyByte, TiXmlEncoding encoding);
-			inline static int ToLower(int v, TiXmlEncoding encoding)
+			static int IsAlpha(unsigned char anyByte, CordisXmlEncoding encoding);
+			static int IsAlphaNum(unsigned char anyByte, CordisXmlEncoding encoding);
+			inline static int ToLower(int v, CordisXmlEncoding encoding)
 			{
-				if (encoding == TIXML_ENCODING_UTF8)
+				if (encoding == CordisXml_ENCODING_UTF8)
 				{
 					if (v < 128) return tolower(v);
 					return v;
@@ -399,8 +402,8 @@ namespace Cordis
 			static void ConvertUTF32ToUTF8(unsigned long input, char* output, int* length);
 
 		private:
-			TiXmlBase(const TiXmlBase&);				// not implemented.
-			void operator=(const TiXmlBase& base);	// not allowed.
+			CordisXmlBase(const CordisXmlBase&);				// not implemented.
+			void operator=(const CordisXmlBase& base);	// not allowed.
 
 			struct Entity
 			{
@@ -422,21 +425,21 @@ namespace Cordis
 		/** The parent class for everything in the Document Object Model.
 			(Except for attributes).
 			Nodes have siblings, a parent, and children. A node can be
-			in a document, or stand on its own. The type of a TiXmlNode
+			in a document, or stand on its own. The type of a CordisXmlNode
 			can be queried, and it can be cast to its more defined type.
 		*/
-		class XRCORE_API TiXmlNode : public TiXmlBase
+		class XRCORE_API CordisXmlNode : public CordisXmlBase
 		{
-			friend class TiXmlDocument;
-			friend class TiXmlElement;
+			friend class CordisXmlDocument;
+			friend class CordisXmlElement;
 
 		public:
-#ifdef TIXML_USE_STL	
+#ifdef CordisXml_USE_STL	
 
 			/** An input stream operator, for every class. Tolerant of newlines and
 				formatting, but doesn't expect them.
 			*/
-			friend std::istream& operator >> (std::istream& in, TiXmlNode& base);
+			friend std::istream& operator >> (std::istream& in, CordisXmlNode& base);
 
 			/** An output stream operator, for every class. Note that this outputs
 				without any newlines or formatting, as opposed to Print(), which
@@ -447,17 +450,17 @@ namespace Cordis
 				of output, without any extra whitespace or newlines.
 
 				But reading is not as well defined. (As it always is.) If you create
-				a TiXmlElement (for example) and read that from an input stream,
+				a CordisXmlElement (for example) and read that from an input stream,
 				the text needs to define an element or junk will result. This is
 				true of all input streams, but it's worth keeping in mind.
 
-				A TiXmlDocument will read nodes until it reads a root element, and
+				A CordisXmlDocument will read nodes until it reads a root element, and
 				all the children of that root element.
 			*/
-			friend std::ostream& operator<< (std::ostream& out, const TiXmlNode& base);
+			friend std::ostream& operator<< (std::ostream& out, const CordisXmlNode& base);
 
 			/// Appends the XML node or attribute to a std::string.
-			friend std::string& operator<< (std::string& out, const TiXmlNode& base);
+			friend std::string& operator<< (std::string& out, const CordisXmlNode& base);
 
 #endif
 
@@ -475,10 +478,10 @@ namespace Cordis
 				TINYXML_TYPECOUNT
 			};
 
-			virtual ~TiXmlNode();
+			virtual ~CordisXmlNode();
 
 			/** The meaning of 'value' changes for the specific type of
-				TiXmlNode.
+				CordisXmlNode.
 				@verbatim
 				Document:	filename of the xml file
 				Element:	name of the element
@@ -491,7 +494,7 @@ namespace Cordis
 			*/
 			const char *Value() const { return value.c_str(); }
 
-#ifdef TIXML_USE_STL
+#ifdef CordisXml_USE_STL
 			/** Return Value() as a std::string. If you only use STL,
 				this is more efficient than calling Value().
 				Only available in STL mode.
@@ -499,7 +502,7 @@ namespace Cordis
 			const std::string& ValueStr() const { return value; }
 #endif
 
-			const TIXML_STRING& ValueTStr() const { return value; }
+			const CordisXml_STRING& ValueTStr() const { return value; }
 
 			/** Changes the value of the node. Defined as:
 				@verbatim
@@ -512,7 +515,7 @@ namespace Cordis
 			*/
 			void SetValue(const char * _value) { value = _value; }
 
-#ifdef TIXML_USE_STL
+#ifdef CordisXml_USE_STL
 			/// STL std::string form.
 			void SetValue(const std::string& _value) { value = _value; }
 #endif
@@ -521,31 +524,31 @@ namespace Cordis
 			void Clear();
 
 			/// One step up the DOM.
-			TiXmlNode* Parent() { return parent; }
-			const TiXmlNode* Parent() const { return parent; }
+			CordisXmlNode* Parent() { return parent; }
+			const CordisXmlNode* Parent() const { return parent; }
 
-			const TiXmlNode* FirstChild()	const { return firstChild; }	///< The first child of this node. Will be null if there are no children.
-			TiXmlNode* FirstChild() { return firstChild; }
-			const TiXmlNode* FirstChild(const char * value) const;			///< The first child of this node with the matching 'value'. Will be null if none found.
+			const CordisXmlNode* FirstChild()	const { return firstChild; }	///< The first child of this node. Will be null if there are no children.
+			CordisXmlNode* FirstChild() { return firstChild; }
+			const CordisXmlNode* FirstChild(const char * value) const;			///< The first child of this node with the matching 'value'. Will be null if none found.
 			/// The first child of this node with the matching 'value'. Will be null if none found.
-			TiXmlNode* FirstChild(const char * _value) {
+			CordisXmlNode* FirstChild(const char * _value) {
 				// Call through to the const version - safe since nothing is changed. Exiting syntax: cast this to a const (always safe)
 				// call the method, cast the return back to non-const.
-				return const_cast<TiXmlNode*> ((const_cast<const TiXmlNode*>(this))->FirstChild(_value));
+				return const_cast<CordisXmlNode*> ((const_cast<const CordisXmlNode*>(this))->FirstChild(_value));
 			}
-			const TiXmlNode* LastChild() const { return lastChild; }		/// The last child of this node. Will be null if there are no children.
-			TiXmlNode* LastChild() { return lastChild; }
+			const CordisXmlNode* LastChild() const { return lastChild; }		/// The last child of this node. Will be null if there are no children.
+			CordisXmlNode* LastChild() { return lastChild; }
 
-			const TiXmlNode* LastChild(const char * value) const;			/// The last child of this node matching 'value'. Will be null if there are no children.
-			TiXmlNode* LastChild(const char * _value) {
-				return const_cast<TiXmlNode*> ((const_cast<const TiXmlNode*>(this))->LastChild(_value));
+			const CordisXmlNode* LastChild(const char * value) const;			/// The last child of this node matching 'value'. Will be null if there are no children.
+			CordisXmlNode* LastChild(const char * _value) {
+				return const_cast<CordisXmlNode*> ((const_cast<const CordisXmlNode*>(this))->LastChild(_value));
 			}
 
-#ifdef TIXML_USE_STL
-			const TiXmlNode* FirstChild(const std::string& _value) const { return FirstChild(_value.c_str()); }	///< STL std::string form.
-			TiXmlNode* FirstChild(const std::string& _value) { return FirstChild(_value.c_str()); }	///< STL std::string form.
-			const TiXmlNode* LastChild(const std::string& _value) const { return LastChild(_value.c_str()); }	///< STL std::string form.
-			TiXmlNode* LastChild(const std::string& _value) { return LastChild(_value.c_str()); }	///< STL std::string form.
+#ifdef CordisXml_USE_STL
+			const CordisXmlNode* FirstChild(const std::string& _value) const { return FirstChild(_value.c_str()); }	///< STL std::string form.
+			CordisXmlNode* FirstChild(const std::string& _value) { return FirstChild(_value.c_str()); }	///< STL std::string form.
+			const CordisXmlNode* LastChild(const std::string& _value) const { return LastChild(_value.c_str()); }	///< STL std::string form.
+			CordisXmlNode* LastChild(const std::string& _value) { return LastChild(_value.c_str()); }	///< STL std::string form.
 #endif
 
 /** An alternate way to walk the children of a node.
@@ -564,26 +567,26 @@ namespace Cordis
 	the next one. If the previous child is null, it returns the
 	first. IterateChildren will return null when done.
 */
-			const TiXmlNode* IterateChildren(const TiXmlNode* previous) const;
-			TiXmlNode* IterateChildren(const TiXmlNode* previous) {
-				return const_cast<TiXmlNode*>((const_cast<const TiXmlNode*>(this))->IterateChildren(previous));
+			const CordisXmlNode* IterateChildren(const CordisXmlNode* previous) const;
+			CordisXmlNode* IterateChildren(const CordisXmlNode* previous) {
+				return const_cast<CordisXmlNode*>((const_cast<const CordisXmlNode*>(this))->IterateChildren(previous));
 			}
 
 			/// This flavor of IterateChildren searches for children with a particular 'value'
-			const TiXmlNode* IterateChildren(const char * value, const TiXmlNode* previous) const;
-			TiXmlNode* IterateChildren(const char * _value, const TiXmlNode* previous) {
-				return const_cast<TiXmlNode*>((const_cast<const TiXmlNode*>(this))->IterateChildren(_value, previous));
+			const CordisXmlNode* IterateChildren(const char * value, const CordisXmlNode* previous) const;
+			CordisXmlNode* IterateChildren(const char * _value, const CordisXmlNode* previous) {
+				return const_cast<CordisXmlNode*>((const_cast<const CordisXmlNode*>(this))->IterateChildren(_value, previous));
 			}
 
-#ifdef TIXML_USE_STL
-			const TiXmlNode* IterateChildren(const std::string& _value, const TiXmlNode* previous) const { return IterateChildren(_value.c_str(), previous); }	///< STL std::string form.
-			TiXmlNode* IterateChildren(const std::string& _value, const TiXmlNode* previous) { return IterateChildren(_value.c_str(), previous); }	///< STL std::string form.
+#ifdef CordisXml_USE_STL
+			const CordisXmlNode* IterateChildren(const std::string& _value, const CordisXmlNode* previous) const { return IterateChildren(_value.c_str(), previous); }	///< STL std::string form.
+			CordisXmlNode* IterateChildren(const std::string& _value, const CordisXmlNode* previous) { return IterateChildren(_value.c_str(), previous); }	///< STL std::string form.
 #endif
 
 /** Add a new node related to this. Adds a child past the LastChild.
 	Returns a pointer to the new object or NULL if an error occured.
 */
-			TiXmlNode* InsertEndChild(const TiXmlNode& addThis);
+			CordisXmlNode* InsertEndChild(const CordisXmlNode& addThis);
 
 
 			/** Add a new node related to this. Adds a child past the LastChild.
@@ -595,91 +598,91 @@ namespace Cordis
 
 				@sa InsertEndChild
 			*/
-			TiXmlNode* LinkEndChild(TiXmlNode* addThis);
+			CordisXmlNode* LinkEndChild(CordisXmlNode* addThis);
 
 			/** Add a new node related to this. Adds a child before the specified child.
 				Returns a pointer to the new object or NULL if an error occured.
 			*/
-			TiXmlNode* InsertBeforeChild(TiXmlNode* beforeThis, const TiXmlNode& addThis);
+			CordisXmlNode* InsertBeforeChild(CordisXmlNode* beforeThis, const CordisXmlNode& addThis);
 
 			/** Add a new node related to this. Adds a child after the specified child.
 				Returns a pointer to the new object or NULL if an error occured.
 			*/
-			TiXmlNode* InsertAfterChild(TiXmlNode* afterThis, const TiXmlNode& addThis);
+			CordisXmlNode* InsertAfterChild(CordisXmlNode* afterThis, const CordisXmlNode& addThis);
 
 			/** Replace a child of this node.
 				Returns a pointer to the new object or NULL if an error occured.
 			*/
-			TiXmlNode* ReplaceChild(TiXmlNode* replaceThis, const TiXmlNode& withThis);
+			CordisXmlNode* ReplaceChild(CordisXmlNode* replaceThis, const CordisXmlNode& withThis);
 
 			/// Delete a child of this node.
-			bool RemoveChild(TiXmlNode* removeThis);
+			bool RemoveChild(CordisXmlNode* removeThis);
 
 			/// Navigate to a sibling node.
-			const TiXmlNode* PreviousSibling() const { return prev; }
-			TiXmlNode* PreviousSibling() { return prev; }
+			const CordisXmlNode* PreviousSibling() const { return prev; }
+			CordisXmlNode* PreviousSibling() { return prev; }
 
 			/// Navigate to a sibling node.
-			const TiXmlNode* PreviousSibling(const char *) const;
-			TiXmlNode* PreviousSibling(const char *_prev) {
-				return const_cast<TiXmlNode*>((const_cast<const TiXmlNode*>(this))->PreviousSibling(_prev));
+			const CordisXmlNode* PreviousSibling(const char *) const;
+			CordisXmlNode* PreviousSibling(const char *_prev) {
+				return const_cast<CordisXmlNode*>((const_cast<const CordisXmlNode*>(this))->PreviousSibling(_prev));
 			}
 
-#ifdef TIXML_USE_STL
-			const TiXmlNode* PreviousSibling(const std::string& _value) const { return PreviousSibling(_value.c_str()); }	///< STL std::string form.
-			TiXmlNode* PreviousSibling(const std::string& _value) { return PreviousSibling(_value.c_str()); }	///< STL std::string form.
-			const TiXmlNode* NextSibling(const std::string& _value) const { return NextSibling(_value.c_str()); }	///< STL std::string form.
-			TiXmlNode* NextSibling(const std::string& _value) { return NextSibling(_value.c_str()); }	///< STL std::string form.
+#ifdef CordisXml_USE_STL
+			const CordisXmlNode* PreviousSibling(const std::string& _value) const { return PreviousSibling(_value.c_str()); }	///< STL std::string form.
+			CordisXmlNode* PreviousSibling(const std::string& _value) { return PreviousSibling(_value.c_str()); }	///< STL std::string form.
+			const CordisXmlNode* NextSibling(const std::string& _value) const { return NextSibling(_value.c_str()); }	///< STL std::string form.
+			CordisXmlNode* NextSibling(const std::string& _value) { return NextSibling(_value.c_str()); }	///< STL std::string form.
 #endif
 
 /// Navigate to a sibling node.
-			const TiXmlNode* NextSibling() const { return next; }
-			TiXmlNode* NextSibling() { return next; }
+			const CordisXmlNode* NextSibling() const { return next; }
+			CordisXmlNode* NextSibling() { return next; }
 
 			/// Navigate to a sibling node with the given 'value'.
-			const TiXmlNode* NextSibling(const char *) const;
-			TiXmlNode* NextSibling(const char* _next) {
-				return const_cast<TiXmlNode*>((const_cast<const TiXmlNode*>(this))->NextSibling(_next));
+			const CordisXmlNode* NextSibling(const char *) const;
+			CordisXmlNode* NextSibling(const char* _next) {
+				return const_cast<CordisXmlNode*>((const_cast<const CordisXmlNode*>(this))->NextSibling(_next));
 			}
 
 			/** Convenience function to get through elements.
 				Calls NextSibling and ToElement. Will skip all non-Element
 				nodes. Returns 0 if there is not another element.
 			*/
-			const TiXmlElement* NextSiblingElement() const;
-			TiXmlElement* NextSiblingElement() {
-				return const_cast<TiXmlElement*>((const_cast<const TiXmlNode*>(this))->NextSiblingElement());
+			const CordisXmlElement* NextSiblingElement() const;
+			CordisXmlElement* NextSiblingElement() {
+				return const_cast<CordisXmlElement*>((const_cast<const CordisXmlNode*>(this))->NextSiblingElement());
 			}
 
 			/** Convenience function to get through elements.
 				Calls NextSibling and ToElement. Will skip all non-Element
 				nodes. Returns 0 if there is not another element.
 			*/
-			const TiXmlElement* NextSiblingElement(const char *) const;
-			TiXmlElement* NextSiblingElement(const char *_next) {
-				return const_cast<TiXmlElement*>((const_cast<const TiXmlNode*>(this))->NextSiblingElement(_next));
+			const CordisXmlElement* NextSiblingElement(const char *) const;
+			CordisXmlElement* NextSiblingElement(const char *_next) {
+				return const_cast<CordisXmlElement*>((const_cast<const CordisXmlNode*>(this))->NextSiblingElement(_next));
 			}
 
-#ifdef TIXML_USE_STL
-			const TiXmlElement* NextSiblingElement(const std::string& _value) const { return NextSiblingElement(_value.c_str()); }	///< STL std::string form.
-			TiXmlElement* NextSiblingElement(const std::string& _value) { return NextSiblingElement(_value.c_str()); }	///< STL std::string form.
+#ifdef CordisXml_USE_STL
+			const CordisXmlElement* NextSiblingElement(const std::string& _value) const { return NextSiblingElement(_value.c_str()); }	///< STL std::string form.
+			CordisXmlElement* NextSiblingElement(const std::string& _value) { return NextSiblingElement(_value.c_str()); }	///< STL std::string form.
 #endif
 
 /// Convenience function to get through elements.
-			const TiXmlElement* FirstChildElement()	const;
-			TiXmlElement* FirstChildElement() {
-				return const_cast<TiXmlElement*>((const_cast<const TiXmlNode*>(this))->FirstChildElement());
+			const CordisXmlElement* FirstChildElement()	const;
+			CordisXmlElement* FirstChildElement() {
+				return const_cast<CordisXmlElement*>((const_cast<const CordisXmlNode*>(this))->FirstChildElement());
 		}
 
 			/// Convenience function to get through elements.
-			const TiXmlElement* FirstChildElement(const char * _value) const;
-			TiXmlElement* FirstChildElement(const char * _value) {
-				return const_cast<TiXmlElement*>((const_cast<const TiXmlNode*>(this))->FirstChildElement(_value));
+			const CordisXmlElement* FirstChildElement(const char * _value) const;
+			CordisXmlElement* FirstChildElement(const char * _value) {
+				return const_cast<CordisXmlElement*>((const_cast<const CordisXmlNode*>(this))->FirstChildElement(_value));
 			}
 
-#ifdef TIXML_USE_STL
-			const TiXmlElement* FirstChildElement(const std::string& _value) const { return FirstChildElement(_value.c_str()); }	///< STL std::string form.
-			TiXmlElement* FirstChildElement(const std::string& _value) { return FirstChildElement(_value.c_str()); }	///< STL std::string form.
+#ifdef CordisXml_USE_STL
+			const CordisXmlElement* FirstChildElement(const std::string& _value) const { return FirstChildElement(_value.c_str()); }	///< STL std::string form.
+			CordisXmlElement* FirstChildElement(const std::string& _value) { return FirstChildElement(_value.c_str()); }	///< STL std::string form.
 #endif
 
 /** Query the type (as an enumerated value, above) of this node.
@@ -691,36 +694,36 @@ namespace Cordis
 			/** Return a pointer to the Document this node lives in.
 				Returns null if not in a document.
 			*/
-			const TiXmlDocument* GetDocument() const;
-			TiXmlDocument* GetDocument() {
-				return const_cast<TiXmlDocument*>((const_cast<const TiXmlNode*>(this))->GetDocument());
+			const CordisXmlDocument* GetDocument() const;
+			CordisXmlDocument* GetDocument() {
+				return const_cast<CordisXmlDocument*>((const_cast<const CordisXmlNode*>(this))->GetDocument());
 			}
 
 			/// Returns true if this node has no children.
 			bool NoChildren() const { return !firstChild; }
 
-			virtual const TiXmlDocument*    ToDocument()    const { return 0; } ///< Cast to a more defined type. Will return null if not of the requested type.
-			virtual const TiXmlElement*     ToElement()     const { return 0; } ///< Cast to a more defined type. Will return null if not of the requested type.
-			virtual const TiXmlComment*     ToComment()     const { return 0; } ///< Cast to a more defined type. Will return null if not of the requested type.
-			virtual const TiXmlUnknown*     ToUnknown()     const { return 0; } ///< Cast to a more defined type. Will return null if not of the requested type.
-			virtual const TiXmlText*        ToText()        const { return 0; } ///< Cast to a more defined type. Will return null if not of the requested type.
-			virtual const TiXmlDeclaration* ToDeclaration() const { return 0; } ///< Cast to a more defined type. Will return null if not of the requested type.
+			virtual const CordisXmlDocument*    ToDocument()    const { return 0; } ///< Cast to a more defined type. Will return null if not of the requested type.
+			virtual const CordisXmlElement*     ToElement()     const { return 0; } ///< Cast to a more defined type. Will return null if not of the requested type.
+			virtual const CordisXmlComment*     ToComment()     const { return 0; } ///< Cast to a more defined type. Will return null if not of the requested type.
+			virtual const CordisXmlUnknown*     ToUnknown()     const { return 0; } ///< Cast to a more defined type. Will return null if not of the requested type.
+			virtual const CordisXmlText*        ToText()        const { return 0; } ///< Cast to a more defined type. Will return null if not of the requested type.
+			virtual const CordisXmlDeclaration* ToDeclaration() const { return 0; } ///< Cast to a more defined type. Will return null if not of the requested type.
 
-			virtual TiXmlDocument*          ToDocument() { return 0; } ///< Cast to a more defined type. Will return null if not of the requested type.
-			virtual TiXmlElement*           ToElement() { return 0; } ///< Cast to a more defined type. Will return null if not of the requested type.
-			virtual TiXmlComment*           ToComment() { return 0; } ///< Cast to a more defined type. Will return null if not of the requested type.
-			virtual TiXmlUnknown*           ToUnknown() { return 0; } ///< Cast to a more defined type. Will return null if not of the requested type.
-			virtual TiXmlText*	            ToText() { return 0; } ///< Cast to a more defined type. Will return null if not of the requested type.
-			virtual TiXmlDeclaration*       ToDeclaration() { return 0; } ///< Cast to a more defined type. Will return null if not of the requested type.
+			virtual CordisXmlDocument*          ToDocument() { return 0; } ///< Cast to a more defined type. Will return null if not of the requested type.
+			virtual CordisXmlElement*           ToElement() { return 0; } ///< Cast to a more defined type. Will return null if not of the requested type.
+			virtual CordisXmlComment*           ToComment() { return 0; } ///< Cast to a more defined type. Will return null if not of the requested type.
+			virtual CordisXmlUnknown*           ToUnknown() { return 0; } ///< Cast to a more defined type. Will return null if not of the requested type.
+			virtual CordisXmlText*	            ToText() { return 0; } ///< Cast to a more defined type. Will return null if not of the requested type.
+			virtual CordisXmlDeclaration*       ToDeclaration() { return 0; } ///< Cast to a more defined type. Will return null if not of the requested type.
 
 			/** Create an exact duplicate of this node and return it. The memory must be deleted
 				by the caller.
 			*/
-			virtual TiXmlNode* Clone() const = 0;
+			virtual CordisXmlNode* Clone() const = 0;
 
 			/** Accept a hierchical visit the nodes in the TinyXML DOM. Every node in the
 				XML tree will be conditionally visited and the host will be called back
-				via the TiXmlVisitor interface.
+				via the CordisXmlVisitor interface.
 
 				This is essentially a SAX interface for TinyXML. (Note however it doesn't re-parse
 				the XML for the callbacks, so the performance of TinyXML is unchanged by using this
@@ -735,67 +738,66 @@ namespace Cordis
 
 				An example of using Accept():
 				@verbatim
-				TiXmlPrinter printer;
+				CordisXmlPrinter printer;
 				tinyxmlDoc.Accept( &printer );
 				const char* xmlcstr = printer.CStr();
 				@endverbatim
 			*/
-			virtual bool Accept(TiXmlVisitor* visitor) const = 0;
+			virtual bool Accept(CordisXmlVisitor* visitor) const = 0;
 
 		protected:
-			TiXmlNode(NodeType _type);
+			CordisXmlNode(NodeType _type);
 
 			// Copy to the allocated object. Shared functionality between Clone, Copy constructor,
 			// and the assignment operator.
-			void CopyTo(TiXmlNode* target) const;
+			void CopyTo(CordisXmlNode* target) const;
 
-#ifdef TIXML_USE_STL
+#ifdef CordisXml_USE_STL
 			// The real work of the input operator.
-			virtual void StreamIn(std::istream* in, TIXML_STRING* tag) = 0;
+			virtual void StreamIn(std::istream* in, CordisXml_STRING* tag) = 0;
 #endif
 
 			// Figure out what is at *p, and parse it. Returns null if it is not an xml node.
-			TiXmlNode* Identify(const char* start, TiXmlEncoding encoding);
+			CordisXmlNode* Identify(const char* start, CordisXmlEncoding encoding);
 
-			TiXmlNode*		parent;
+			CordisXmlNode*		parent;
 			NodeType		type;
 
-			TiXmlNode*		firstChild;
-			TiXmlNode*		lastChild;
+			CordisXmlNode*		firstChild;
+			CordisXmlNode*		lastChild;
 
-			TIXML_STRING	value;
+			CordisXml_STRING	value;
 
-			TiXmlNode*		prev;
-			TiXmlNode*		next;
+			CordisXmlNode*		prev;
+			CordisXmlNode*		next;
 
 		private:
-			TiXmlNode(const TiXmlNode&);				// not implemented.
-			void operator=(const TiXmlNode& base);	// not allowed.
+			CordisXmlNode(const CordisXmlNode&);				// not implemented.
+			void operator=(const CordisXmlNode& base);	// not allowed.
 	};
-
 
 		/** An attribute is a name-value pair. Elements have an arbitrary
 			number of attributes, each with a unique name.
 
-			@note The attributes are not TiXmlNodes, since they are not
+			@note The attributes are not CordisXmlNodes, since they are not
 				  part of the tinyXML document object model. There are other
 				  suggested ways to look at this problem.
 		*/
-		class XRCORE_API TiXmlAttribute : public TiXmlBase
+		class XRCORE_API CordisXmlAttribute : public CordisXmlBase
 		{
-			friend class TiXmlAttributeSet;
+			friend class CordisXmlAttributeSet;
 
 		public:
 			/// Construct an empty attribute.
-			TiXmlAttribute() : TiXmlBase()
+			CordisXmlAttribute() : CordisXmlBase()
 			{
 				document = 0;
 				prev = next = 0;
 			}
 
-#ifdef TIXML_USE_STL
+#ifdef CordisXml_USE_STL
 			/// std::string constructor.
-			TiXmlAttribute(const std::string& _name, const std::string& _value)
+			CordisXmlAttribute(const std::string& _name, const std::string& _value)
 			{
 				name = _name;
 				value = _value;
@@ -805,7 +807,7 @@ namespace Cordis
 #endif
 
 			/// Construct an attribute with a name and value.
-			TiXmlAttribute(const char * _name, const char * _value)
+			CordisXmlAttribute(const char * _name, const char * _value)
 			{
 				name = _name;
 				value = _value;
@@ -815,20 +817,20 @@ namespace Cordis
 
 			const char*		Name()  const { return name.c_str(); }		///< Return the name of this attribute.
 			const char*		Value() const { return value.c_str(); }		///< Return the value of this attribute.
-#ifdef TIXML_USE_STL
+#ifdef CordisXml_USE_STL
 			const std::string& ValueStr() const { return value; }				///< Return the value of this attribute.
 #endif
 			int				IntValue() const;									///< Return the value of this attribute, converted to an integer.
 			double			DoubleValue() const;								///< Return the value of this attribute, converted to a double.
 
 			// Get the tinyxml string representation
-			const TIXML_STRING& NameTStr() const { return name; }
+			const CordisXml_STRING& NameTStr() const { return name; }
 
 			/** QueryIntValue examines the value string. It is an alternative to the
 				IntValue() method with richer error checking.
 				If the value is an integer, it is stored in 'value' and
-				the call returns TIXML_SUCCESS. If it is not
-				an integer, it returns TIXML_WRONG_TYPE.
+				the call returns CordisXml_SUCCESS. If it is not
+				an integer, it returns CordisXml_WRONG_TYPE.
 
 				A specialized but useful call. Note that for success it returns 0,
 				which is the opposite of almost all other TinyXml calls.
@@ -843,7 +845,7 @@ namespace Cordis
 			void SetIntValue(int _value);										///< Set the value from an integer.
 			void SetDoubleValue(double _value);								///< Set the value from a double.
 
-#ifdef TIXML_USE_STL
+#ifdef CordisXml_USE_STL
 /// STL std::string form.
 			void SetName(const std::string& _name) { name = _name; }
 			/// STL std::string form.	
@@ -851,113 +853,112 @@ namespace Cordis
 #endif
 
 			/// Get the next sibling attribute in the DOM. Returns null at end.
-			const TiXmlAttribute* Next() const;
-			TiXmlAttribute* Next() {
-				return const_cast<TiXmlAttribute*>((const_cast<const TiXmlAttribute*>(this))->Next());
+			const CordisXmlAttribute* Next() const;
+			CordisXmlAttribute* Next() {
+				return const_cast<CordisXmlAttribute*>((const_cast<const CordisXmlAttribute*>(this))->Next());
 		}
 
 			/// Get the previous sibling attribute in the DOM. Returns null at beginning.
-			const TiXmlAttribute* Previous() const;
-			TiXmlAttribute* Previous() {
-				return const_cast<TiXmlAttribute*>((const_cast<const TiXmlAttribute*>(this))->Previous());
+			const CordisXmlAttribute* Previous() const;
+			CordisXmlAttribute* Previous() {
+				return const_cast<CordisXmlAttribute*>((const_cast<const CordisXmlAttribute*>(this))->Previous());
 			}
 
-			bool operator==(const TiXmlAttribute& rhs) const { return rhs.name == name; }
-			bool operator<(const TiXmlAttribute& rhs)	 const { return name < rhs.name; }
-			bool operator>(const TiXmlAttribute& rhs)  const { return name > rhs.name; }
+			bool operator==(const CordisXmlAttribute& rhs) const { return rhs.name == name; }
+			bool operator<(const CordisXmlAttribute& rhs)	 const { return name < rhs.name; }
+			bool operator>(const CordisXmlAttribute& rhs)  const { return name > rhs.name; }
 
 			/*	Attribute parsing starts: first letter of the name
 								 returns: the next char after the value end quote
 			*/
-			virtual const char* Parse(const char* p, TiXmlParsingData* data, TiXmlEncoding encoding);
+			virtual const char* Parse(const char* p, CordisXmlParsingData* data, CordisXmlEncoding encoding);
 
 			// Prints this Attribute to a FILE stream.
 			virtual void Print(FILE* cfile, int depth) const {
 				Print(cfile, depth, 0);
 			}
-			void Print(FILE* cfile, int depth, TIXML_STRING* str) const;
+			void Print(FILE* cfile, int depth, CordisXml_STRING* str) const;
 
 			// [internal use]
 			// Set the document pointer so the attribute can report errors.
-			void SetDocument(TiXmlDocument* doc) { document = doc; }
+			void SetDocument(CordisXmlDocument* doc) { document = doc; }
 
 		private:
-			TiXmlAttribute(const TiXmlAttribute&);				// not implemented.
-			void operator=(const TiXmlAttribute& base);	// not allowed.
+			CordisXmlAttribute(const CordisXmlAttribute&);				// not implemented.
+			void operator=(const CordisXmlAttribute& base);	// not allowed.
 
-			TiXmlDocument*	document;	// A pointer back to a document, for error reporting.
-			TIXML_STRING name;
-			TIXML_STRING value;
-			TiXmlAttribute*	prev;
-			TiXmlAttribute*	next;
-};
+			CordisXmlDocument*	document;	// A pointer back to a document, for error reporting.
+			CordisXml_STRING name;
+			CordisXml_STRING value;
+			CordisXmlAttribute*	prev;
+			CordisXmlAttribute*	next;
+        };
 
+            		/*	A class used to manage a group of attributes.
+It is only used internally, both by the ELEMENT and the DECLARATION.
 
-		/*	A class used to manage a group of attributes.
-			It is only used internally, both by the ELEMENT and the DECLARATION.
+The set can be changed transparent to the Element and Declaration
+classes that use it, but NOT transparent to the Attribute
+which has to implement a next() and previous() method. Which makes
+it a bit problematic and prevents the use of STL.
 
-			The set can be changed transparent to the Element and Declaration
-			classes that use it, but NOT transparent to the Attribute
-			which has to implement a next() and previous() method. Which makes
-			it a bit problematic and prevents the use of STL.
+This version is implemented with circular lists because:
+- I like circular lists
+- it demonstrates some independence from the (typical) doubly linked list.
+*/
+        class XRCORE_API CordisXmlAttributeSet
+        {
+        public:
+            CordisXmlAttributeSet();
+            ~CordisXmlAttributeSet();
 
-			This version is implemented with circular lists because:
-				- I like circular lists
-				- it demonstrates some independence from the (typical) doubly linked list.
-		*/
-		class XRCORE_API TiXmlAttributeSet
-		{
-		public:
-			TiXmlAttributeSet();
-			~TiXmlAttributeSet();
+            void Add(CordisXmlAttribute* attribute);
+            void Remove(CordisXmlAttribute* attribute);
 
-			void Add(TiXmlAttribute* attribute);
-			void Remove(TiXmlAttribute* attribute);
+            const CordisXmlAttribute* First() const { return (sentinel.next == &sentinel) ? 0 : sentinel.next; }
+            CordisXmlAttribute* First() { return (sentinel.next == &sentinel) ? 0 : sentinel.next; }
+            const CordisXmlAttribute* Last() const { return (sentinel.prev == &sentinel) ? 0 : sentinel.prev; }
+            CordisXmlAttribute* Last() { return (sentinel.prev == &sentinel) ? 0 : sentinel.prev; }
 
-			const TiXmlAttribute* First()	const { return (sentinel.next == &sentinel) ? 0 : sentinel.next; }
-			TiXmlAttribute* First() { return (sentinel.next == &sentinel) ? 0 : sentinel.next; }
-			const TiXmlAttribute* Last() const { return (sentinel.prev == &sentinel) ? 0 : sentinel.prev; }
-			TiXmlAttribute* Last() { return (sentinel.prev == &sentinel) ? 0 : sentinel.prev; }
+            CordisXmlAttribute* Find(const char* _name) const;
+            CordisXmlAttribute* FindOrCreate(const char* _name);
 
-			TiXmlAttribute*	Find(const char* _name) const;
-			TiXmlAttribute* FindOrCreate(const char* _name);
+#ifdef CordisXml_USE_STL
+            CordisXmlAttribute* Find(const std::string& _name) const;
+            CordisXmlAttribute* FindOrCreate(const std::string& _name);
+#endif
 
-#	ifdef TIXML_USE_STL
-			TiXmlAttribute*	Find(const std::string& _name) const;
-			TiXmlAttribute* FindOrCreate(const std::string& _name);
-#	endif
+        private:
+            //*ME:	Because of hidden/disabled copy-construktor in CordisXmlAttribute (sentinel-element),
+            //*ME:	this class must be also use a hidden/disabled copy-constructor !!!
+            CordisXmlAttributeSet(const CordisXmlAttributeSet&); // not allowed
+            void operator=(const CordisXmlAttributeSet&); // not allowed (as CordisXmlAttribute)
 
+            CordisXmlAttribute sentinel;
+        };
 
-		private:
-			//*ME:	Because of hidden/disabled copy-construktor in TiXmlAttribute (sentinel-element),
-			//*ME:	this class must be also use a hidden/disabled copy-constructor !!!
-			TiXmlAttributeSet(const TiXmlAttributeSet&);	// not allowed
-			void operator=(const TiXmlAttributeSet&);	// not allowed (as TiXmlAttribute)
-
-			TiXmlAttribute sentinel;
-		};
 
 
 		/** The element is a container class. It has a value, the element name,
 			and can contain other elements, text, comments, and unknowns.
 			Elements also contain an arbitrary number of attributes.
 		*/
-		class XRCORE_API TiXmlElement : public TiXmlNode
+		class XRCORE_API CordisXmlElement : public CordisXmlNode
 		{
 		public:
 			/// Construct an element.
-			TiXmlElement(const char * in_value);
+			CordisXmlElement(const char * in_value);
 
-#ifdef TIXML_USE_STL
+#ifdef CordisXml_USE_STL
 			/// std::string constructor.
-			TiXmlElement(const std::string& _value);
+			CordisXmlElement(const std::string& _value);
 #endif
 
-			TiXmlElement(const TiXmlElement&);
+			CordisXmlElement(const CordisXmlElement&);
 
-			TiXmlElement& operator=(const TiXmlElement& base);
+			CordisXmlElement& operator=(const CordisXmlElement& base);
 
-			virtual ~TiXmlElement();
+			virtual ~CordisXmlElement();
 
 			/** Given an attribute name, Attribute() returns the value
 				for the attribute of that name, or null if none exists.
@@ -983,9 +984,9 @@ namespace Cordis
 			/** QueryIntAttribute examines the attribute - it is an alternative to the
 				Attribute() method with richer error checking.
 				If the attribute is an integer, it is stored in 'value' and
-				the call returns TIXML_SUCCESS. If it is not
-				an integer, it returns TIXML_WRONG_TYPE. If the attribute
-				does not exist, then TIXML_NO_ATTRIBUTE is returned.
+				the call returns CordisXml_SUCCESS. If it is not
+				an integer, it returns CordisXml_WRONG_TYPE. If the attribute
+				does not exist, then CordisXml_NO_ATTRIBUTE is returned.
 			*/
 			int QueryIntAttribute(const char* name, int* _value) const;
 			/// QueryUnsignedAttribute examines the attribute - see QueryIntAttribute().
@@ -1001,21 +1002,21 @@ namespace Cordis
 			int QueryFloatAttribute(const char* name, float* _value) const {
 				double d;
 				int result = QueryDoubleAttribute(name, &d);
-				if (result == TIXML_SUCCESS) {
+				if (result == CordisXml_SUCCESS) {
 					*_value = (float)d;
 				}
 				return result;
 			}
 
-#ifdef TIXML_USE_STL
+#ifdef CordisXml_USE_STL
 			/// QueryStringAttribute examines the attribute - see QueryIntAttribute().
 			int QueryStringAttribute(const char* name, std::string* _value) const {
 				const char* cstr = Attribute(name);
 				if (cstr) {
 					*_value = std::string(cstr);
-					return TIXML_SUCCESS;
+					return CordisXml_SUCCESS;
 				}
-				return TIXML_NO_ATTRIBUTE;
+				return CordisXml_NO_ATTRIBUTE;
 			}
 
 			/** Template form of the attribute query which will try to read the
@@ -1024,28 +1025,28 @@ namespace Cordis
 
 				NOTE: This method doesn't work correctly for 'string' types that contain spaces.
 
-				@return TIXML_SUCCESS, TIXML_WRONG_TYPE, or TIXML_NO_ATTRIBUTE
+				@return CordisXml_SUCCESS, CordisXml_WRONG_TYPE, or CordisXml_NO_ATTRIBUTE
 			*/
 			template< typename T > int QueryValueAttribute(const std::string& name, T* outValue) const
 			{
-				const TiXmlAttribute* node = attributeSet.Find(name);
+				const CordisXmlAttribute* node = attributeSet.Find(name);
 				if (!node)
-					return TIXML_NO_ATTRIBUTE;
+					return CordisXml_NO_ATTRIBUTE;
 
 				std::stringstream sstream(node->ValueStr());
 				sstream >> *outValue;
 				if (!sstream.fail())
-					return TIXML_SUCCESS;
-				return TIXML_WRONG_TYPE;
+					return CordisXml_SUCCESS;
+				return CordisXml_WRONG_TYPE;
 			}
 
 			int QueryValueAttribute(const std::string& name, std::string* outValue) const
 			{
-				const TiXmlAttribute* node = attributeSet.Find(name);
+				const CordisXmlAttribute* node = attributeSet.Find(name);
 				if (!node)
-					return TIXML_NO_ATTRIBUTE;
+					return CordisXml_NO_ATTRIBUTE;
 				*outValue = node->ValueStr();
-				return TIXML_SUCCESS;
+				return CordisXml_SUCCESS;
 			}
 #endif
 
@@ -1054,7 +1055,7 @@ namespace Cordis
 			*/
 			void SetAttribute(const char* name, const char * _value);
 
-#ifdef TIXML_USE_STL
+#ifdef CordisXml_USE_STL
 			const std::string* Attribute(const std::string& name) const;
 			const std::string* Attribute(const std::string& name, int* i) const;
 			const std::string* Attribute(const std::string& name, double* d) const;
@@ -1082,20 +1083,20 @@ namespace Cordis
 			/** Deletes an attribute with the given name.
 			*/
 			void RemoveAttribute(const char * name);
-#ifdef TIXML_USE_STL
+#ifdef CordisXml_USE_STL
 			void RemoveAttribute(const std::string& name) { RemoveAttribute(name.c_str()); }	///< STL std::string form.
 #endif
 
-			const TiXmlAttribute* FirstAttribute() const { return attributeSet.First(); }		///< Access the first attribute in this element.
-			TiXmlAttribute* FirstAttribute() { return attributeSet.First(); }
-			const TiXmlAttribute* LastAttribute()	const { return attributeSet.Last(); }		///< Access the last attribute in this element.
-			TiXmlAttribute* LastAttribute() { return attributeSet.Last(); }
+			const CordisXmlAttribute* FirstAttribute() const { return attributeSet.First(); }		///< Access the first attribute in this element.
+			CordisXmlAttribute* FirstAttribute() { return attributeSet.First(); }
+			const CordisXmlAttribute* LastAttribute()	const { return attributeSet.Last(); }		///< Access the last attribute in this element.
+			CordisXmlAttribute* LastAttribute() { return attributeSet.Last(); }
 
 			/** Convenience function for easy access to the text inside an element. Although easy
-				and concise, GetText() is limited compared to getting the TiXmlText child
+				and concise, GetText() is limited compared to getting the CordisXmlText child
 				and accessing it directly.
 
-				If the first child of 'this' is a TiXmlText, the GetText()
+				If the first child of 'this' is a CordisXmlText, the GetText()
 				returns the character string of the Text node, else null is returned.
 
 				This is a convenient method for getting the text of simple contained text:
@@ -1120,89 +1121,89 @@ namespace Cordis
 				GetText() will return "This is ".
 
 				WARNING: GetText() accesses a child node - don't become confused with the
-						 similarly named TiXmlHandle::Text() and TiXmlNode::ToText() which are
+						 similarly named CordisXmlHandle::Text() and CordisXmlNode::ToText() which are
 						 safe type casts on the referenced node.
 			*/
 			const char* GetText() const;
 
 			/// Creates a new Element and returns it - the returned element is a copy.
-			virtual TiXmlNode* Clone() const;
+			virtual CordisXmlNode* Clone() const;
 			// Print the Element to a FILE stream.
 			virtual void Print(FILE* cfile, int depth) const;
 
 			/*	Attribtue parsing starts: next char past '<'
 								 returns: next char past '>'
 			*/
-			virtual const char* Parse(const char* p, TiXmlParsingData* data, TiXmlEncoding encoding);
+			virtual const char* Parse(const char* p, CordisXmlParsingData* data, CordisXmlEncoding encoding);
 
-			virtual const TiXmlElement*     ToElement()     const { return this; } ///< Cast to a more defined type. Will return null not of the requested type.
-			virtual TiXmlElement*           ToElement() { return this; } ///< Cast to a more defined type. Will return null not of the requested type.
+			virtual const CordisXmlElement*     ToElement()     const { return this; } ///< Cast to a more defined type. Will return null not of the requested type.
+			virtual CordisXmlElement*           ToElement() { return this; } ///< Cast to a more defined type. Will return null not of the requested type.
 
 			/** Walk the XML tree visiting this node and all of its children.
 			*/
-			virtual bool Accept(TiXmlVisitor* visitor) const;
+			virtual bool Accept(CordisXmlVisitor* visitor) const;
 
 		protected:
 
-			void CopyTo(TiXmlElement* target) const;
+			void CopyTo(CordisXmlElement* target) const;
 			void ClearThis();	// like clear, but initializes 'this' object as well
 
 			// Used to be public [internal use]
-#ifdef TIXML_USE_STL
-			virtual void StreamIn(std::istream * in, TIXML_STRING * tag);
+#ifdef CordisXml_USE_STL
+			virtual void StreamIn(std::istream * in, CordisXml_STRING * tag);
 #endif
 			/*	[internal use]
 				Reads the "value" of the element -- another element, or text.
 				This should terminate with the current end tag.
 			*/
-			const char* ReadValue(const char* in, TiXmlParsingData* prevData, TiXmlEncoding encoding);
+			const char* ReadValue(const char* in, CordisXmlParsingData* prevData, CordisXmlEncoding encoding);
 
 		private:
-			TiXmlAttributeSet attributeSet;
+			CordisXmlAttributeSet attributeSet;
 			};
 
 
 		/**	An XML comment.
 		*/
-		class XRCORE_API TiXmlComment : public TiXmlNode
+		class XRCORE_API CordisXmlComment : public CordisXmlNode
 		{
 		public:
 			/// Constructs an empty comment.
-			TiXmlComment() : TiXmlNode(TiXmlNode::TINYXML_COMMENT) {}
+			CordisXmlComment() : CordisXmlNode(CordisXmlNode::TINYXML_COMMENT) {}
 			/// Construct a comment from text.
-			TiXmlComment(const char* _value) : TiXmlNode(TiXmlNode::TINYXML_COMMENT) {
+			CordisXmlComment(const char* _value) : CordisXmlNode(CordisXmlNode::TINYXML_COMMENT) {
 				SetValue(_value);
 			}
-			TiXmlComment(const TiXmlComment&);
-			TiXmlComment& operator=(const TiXmlComment& base);
+			CordisXmlComment(const CordisXmlComment&);
+			CordisXmlComment& operator=(const CordisXmlComment& base);
 
-			virtual ~TiXmlComment() {}
+			virtual ~CordisXmlComment() {}
 
 			/// Returns a copy of this Comment.
-			virtual TiXmlNode* Clone() const;
+			virtual CordisXmlNode* Clone() const;
 			// Write this Comment to a FILE stream.
 			virtual void Print(FILE* cfile, int depth) const;
 
 			/*	Attribtue parsing starts: at the ! of the !--
 								 returns: next char past '>'
 			*/
-			virtual const char* Parse(const char* p, TiXmlParsingData* data, TiXmlEncoding encoding);
+			virtual const char* Parse(const char* p, CordisXmlParsingData* data, CordisXmlEncoding encoding);
 
-			virtual const TiXmlComment*  ToComment() const { return this; } ///< Cast to a more defined type. Will return null not of the requested type.
-			virtual		  TiXmlComment*  ToComment() { return this; } ///< Cast to a more defined type. Will return null not of the requested type.
+			virtual const CordisXmlComment*  ToComment() const { return this; } ///< Cast to a more defined type. Will return null not of the requested type.
+			virtual		  CordisXmlComment*  ToComment() { return this; } ///< Cast to a more defined type. Will return null not of the requested type.
 
 			/** Walk the XML tree visiting this node and all of its children.
 			*/
-			virtual bool Accept(TiXmlVisitor* visitor) const;
+			virtual bool Accept(CordisXmlVisitor* visitor) const;
 
 		protected:
-			void CopyTo(TiXmlComment* target) const;
+			void CopyTo(CordisXmlComment* target) const;
 
 			// used to be public
-#ifdef TIXML_USE_STL
-			virtual void StreamIn(std::istream * in, TIXML_STRING * tag);
+#ifdef CordisXml_USE_STL
+			virtual void StreamIn(std::istream * in, CordisXml_STRING * tag);
 #endif
-			//	virtual void StreamOut( TIXML_OSTREAM * out ) const;
+			//	virtual void StreamOut( CordisXml_OSTREAM * out ) const;
 
 		private:
 
@@ -1214,32 +1215,32 @@ namespace Cordis
 			you generally want to leave it alone, but you can change the output mode with
 			SetCDATA() and query it with CDATA().
 		*/
-		class XRCORE_API TiXmlText : public TiXmlNode
+		class XRCORE_API CordisXmlText : public CordisXmlNode
 		{
-			friend class TiXmlElement;
+			friend class CordisXmlElement;
 		public:
 			/** Constructor for text element. By default, it is treated as
 				normal, encoded text. If you want it be output as a CDATA text
 				element, set the parameter _cdata to 'true'
 			*/
-			TiXmlText(const char * initValue) : TiXmlNode(TiXmlNode::TINYXML_TEXT)
+			CordisXmlText(const char * initValue) : CordisXmlNode(CordisXmlNode::TINYXML_TEXT)
 			{
 				SetValue(initValue);
 				cdata = false;
 			}
-			virtual ~TiXmlText() {}
+			virtual ~CordisXmlText() {}
 
-#ifdef TIXML_USE_STL
+#ifdef CordisXml_USE_STL
 			/// Constructor.
-			TiXmlText(const std::string& initValue) : TiXmlNode(TiXmlNode::TINYXML_TEXT)
+			CordisXmlText(const std::string& initValue) : CordisXmlNode(CordisXmlNode::TINYXML_TEXT)
 			{
 				SetValue(initValue);
 				cdata = false;
 			}
 #endif
 
-			TiXmlText(const TiXmlText& copy) : TiXmlNode(TiXmlNode::TINYXML_TEXT) { copy.CopyTo(this); }
-			TiXmlText& operator=(const TiXmlText& base) { base.CopyTo(this); return *this; }
+			CordisXmlText(const CordisXmlText& copy) : CordisXmlNode(CordisXmlNode::TINYXML_TEXT) { copy.CopyTo(this); }
+			CordisXmlText& operator=(const CordisXmlText& base) { base.CopyTo(this); return *this; }
 
 			// Write this text object to a FILE stream.
 			virtual void Print(FILE* cfile, int depth) const;
@@ -1249,24 +1250,24 @@ namespace Cordis
 			/// Turns on or off a CDATA representation of text.
 			void SetCDATA(bool _cdata) { cdata = _cdata; }
 
-			virtual const char* Parse(const char* p, TiXmlParsingData* data, TiXmlEncoding encoding);
+			virtual const char* Parse(const char* p, CordisXmlParsingData* data, CordisXmlEncoding encoding);
 
-			virtual const TiXmlText* ToText() const { return this; } ///< Cast to a more defined type. Will return null not of the requested type.
-			virtual TiXmlText*       ToText() { return this; } ///< Cast to a more defined type. Will return null not of the requested type.
+			virtual const CordisXmlText* ToText() const { return this; } ///< Cast to a more defined type. Will return null not of the requested type.
+			virtual CordisXmlText*       ToText() { return this; } ///< Cast to a more defined type. Will return null not of the requested type.
 
 			/** Walk the XML tree visiting this node and all of its children.
 			*/
-			virtual bool Accept(TiXmlVisitor* content) const;
+			virtual bool Accept(CordisXmlVisitor* content) const;
 
 		protected:
 			///  [internal use] Creates a new Element and returns it.
-			virtual TiXmlNode* Clone() const;
-			void CopyTo(TiXmlText* target) const;
+			virtual CordisXmlNode* Clone() const;
+			void CopyTo(CordisXmlText* target) const;
 
 			bool Blank() const;	// returns true if all white space and new lines
 			// [internal use]
-#ifdef TIXML_USE_STL
-			virtual void StreamIn(std::istream * in, TIXML_STRING * tag);
+#ifdef CordisXml_USE_STL
+			virtual void StreamIn(std::istream * in, CordisXml_STRING * tag);
 #endif
 
 		private:
@@ -1287,28 +1288,28 @@ namespace Cordis
 			handled as special cases, not generic attributes, simply
 			because there can only be at most 3 and they are always the same.
 		*/
-		class XRCORE_API TiXmlDeclaration : public TiXmlNode
+		class XRCORE_API CordisXmlDeclaration : public CordisXmlNode
 		{
 		public:
 			/// Construct an empty declaration.
-			TiXmlDeclaration() : TiXmlNode(TiXmlNode::TINYXML_DECLARATION) {}
+			CordisXmlDeclaration() : CordisXmlNode(CordisXmlNode::TINYXML_DECLARATION) {}
 
-#ifdef TIXML_USE_STL
+#ifdef CordisXml_USE_STL
 			/// Constructor.
-			TiXmlDeclaration(const std::string& _version,
+			CordisXmlDeclaration(const std::string& _version,
 				const std::string& _encoding,
 				const std::string& _standalone);
 #endif
 
 			/// Construct.
-			TiXmlDeclaration(const char* _version,
+			CordisXmlDeclaration(const char* _version,
 				const char* _encoding,
 				const char* _standalone);
 
-			TiXmlDeclaration(const TiXmlDeclaration& copy);
-			TiXmlDeclaration& operator=(const TiXmlDeclaration& copy);
+			CordisXmlDeclaration(const CordisXmlDeclaration& copy);
+			CordisXmlDeclaration& operator=(const CordisXmlDeclaration& copy);
 
-			virtual ~TiXmlDeclaration() {}
+			virtual ~CordisXmlDeclaration() {}
 
 			/// Version. Will return an empty string if none was found.
 			const char *Version() const { return version.c_str(); }
@@ -1318,34 +1319,34 @@ namespace Cordis
 			const char *Standalone() const { return standalone.c_str(); }
 
 			/// Creates a copy of this Declaration and returns it.
-			virtual TiXmlNode* Clone() const;
+			virtual CordisXmlNode* Clone() const;
 			// Print this declaration to a FILE stream.
-			virtual void Print(FILE* cfile, int depth, TIXML_STRING* str) const;
+			virtual void Print(FILE* cfile, int depth, CordisXml_STRING* str) const;
 			virtual void Print(FILE* cfile, int depth) const {
 				Print(cfile, depth, 0);
 			}
 
-			virtual const char* Parse(const char* p, TiXmlParsingData* data, TiXmlEncoding encoding);
+			virtual const char* Parse(const char* p, CordisXmlParsingData* data, CordisXmlEncoding encoding);
 
-			virtual const TiXmlDeclaration* ToDeclaration() const { return this; } ///< Cast to a more defined type. Will return null not of the requested type.
-			virtual TiXmlDeclaration*       ToDeclaration() { return this; } ///< Cast to a more defined type. Will return null not of the requested type.
+			virtual const CordisXmlDeclaration* ToDeclaration() const { return this; } ///< Cast to a more defined type. Will return null not of the requested type.
+			virtual CordisXmlDeclaration*       ToDeclaration() { return this; } ///< Cast to a more defined type. Will return null not of the requested type.
 
 			/** Walk the XML tree visiting this node and all of its children.
 			*/
-			virtual bool Accept(TiXmlVisitor* visitor) const;
+			virtual bool Accept(CordisXmlVisitor* visitor) const;
 
 		protected:
-			void CopyTo(TiXmlDeclaration* target) const;
+			void CopyTo(CordisXmlDeclaration* target) const;
 			// used to be public
-#ifdef TIXML_USE_STL
-			virtual void StreamIn(std::istream * in, TIXML_STRING * tag);
+#ifdef CordisXml_USE_STL
+			virtual void StreamIn(std::istream * in, CordisXml_STRING * tag);
 #endif
 
 		private:
 
-			TIXML_STRING version;
-			TIXML_STRING encoding;
-			TIXML_STRING standalone;
+			CordisXml_STRING version;
+			CordisXml_STRING encoding;
+			CordisXml_STRING standalone;
 		};
 
 
@@ -1354,36 +1355,36 @@ namespace Cordis
 			It will be written back to the XML, unchanged, when the file
 			is saved.
 
-			DTD tags get thrown into TiXmlUnknowns.
+			DTD tags get thrown into CordisXmlUnknowns.
 		*/
-		class XRCORE_API TiXmlUnknown : public TiXmlNode
+		class XRCORE_API CordisXmlUnknown : public CordisXmlNode
 		{
 		public:
-			TiXmlUnknown() : TiXmlNode(TiXmlNode::TINYXML_UNKNOWN) {}
-			virtual ~TiXmlUnknown() {}
+			CordisXmlUnknown() : CordisXmlNode(CordisXmlNode::TINYXML_UNKNOWN) {}
+			virtual ~CordisXmlUnknown() {}
 
-			TiXmlUnknown(const TiXmlUnknown& copy) : TiXmlNode(TiXmlNode::TINYXML_UNKNOWN) { copy.CopyTo(this); }
-			TiXmlUnknown& operator=(const TiXmlUnknown& copy) { copy.CopyTo(this); return *this; }
+			CordisXmlUnknown(const CordisXmlUnknown& copy) : CordisXmlNode(CordisXmlNode::TINYXML_UNKNOWN) { copy.CopyTo(this); }
+			CordisXmlUnknown& operator=(const CordisXmlUnknown& copy) { copy.CopyTo(this); return *this; }
 
 			/// Creates a copy of this Unknown and returns it.
-			virtual TiXmlNode* Clone() const;
+			virtual CordisXmlNode* Clone() const;
 			// Print this Unknown to a FILE stream.
 			virtual void Print(FILE* cfile, int depth) const;
 
-			virtual const char* Parse(const char* p, TiXmlParsingData* data, TiXmlEncoding encoding);
+			virtual const char* Parse(const char* p, CordisXmlParsingData* data, CordisXmlEncoding encoding);
 
-			virtual const TiXmlUnknown*     ToUnknown()     const { return this; } ///< Cast to a more defined type. Will return null not of the requested type.
-			virtual TiXmlUnknown*           ToUnknown() { return this; } ///< Cast to a more defined type. Will return null not of the requested type.
+			virtual const CordisXmlUnknown*     ToUnknown()     const { return this; } ///< Cast to a more defined type. Will return null not of the requested type.
+			virtual CordisXmlUnknown*           ToUnknown() { return this; } ///< Cast to a more defined type. Will return null not of the requested type.
 
 			/** Walk the XML tree visiting this node and all of its children.
 			*/
-			virtual bool Accept(TiXmlVisitor* content) const;
+			virtual bool Accept(CordisXmlVisitor* content) const;
 
 		protected:
-			void CopyTo(TiXmlUnknown* target) const;
+			void CopyTo(CordisXmlUnknown* target) const;
 
-#ifdef TIXML_USE_STL
-			virtual void StreamIn(std::istream * in, TIXML_STRING * tag);
+#ifdef CordisXml_USE_STL
+			virtual void StreamIn(std::istream * in, CordisXml_STRING * tag);
 #endif
 
 		private:
@@ -1395,33 +1396,33 @@ namespace Cordis
 			XML pieces. It can be saved, loaded, and printed to the screen.
 			The 'value' of a document node is the xml file name.
 		*/
-		class XRCORE_API TiXmlDocument : public TiXmlNode
+		class XRCORE_API CordisXmlDocument : public CordisXmlNode
 		{
 		public:
 			/// Create an empty document, that has no name.
-			TiXmlDocument();
+			CordisXmlDocument();
 			/// Create a document with a name. The name of the document is also the filename of the xml.
-			TiXmlDocument(const char * documentName);
+			CordisXmlDocument(const char * documentName);
 
-#ifdef TIXML_USE_STL
+#ifdef CordisXml_USE_STL
 			/// Constructor.
-			TiXmlDocument(const std::string& documentName);
+			CordisXmlDocument(const std::string& documentName);
 #endif
 
-			TiXmlDocument(const TiXmlDocument& copy);
-			TiXmlDocument& operator=(const TiXmlDocument& copy);
+			CordisXmlDocument(const CordisXmlDocument& copy);
+			CordisXmlDocument& operator=(const CordisXmlDocument& copy);
 
-			virtual ~TiXmlDocument() {}
+			virtual ~CordisXmlDocument() {}
 
 			/** Load a file using the current document value.
 				Returns true if successful. Will delete any existing
 				document data before loading.
 			*/
-			bool LoadFile(TiXmlEncoding encoding = TIXML_DEFAULT_ENCODING);
+			bool LoadFile(CordisXmlEncoding encoding = CordisXml_DEFAULT_ENCODING);
 			/// Save a file using the current document value. Returns true if successful.
 			bool SaveFile() const;
 			/// Load a file using the given filename. Returns true if successful.
-			bool LoadFile(const char * filename, TiXmlEncoding encoding = TIXML_DEFAULT_ENCODING);
+			bool LoadFile(const char * filename, CordisXmlEncoding encoding = CordisXml_DEFAULT_ENCODING);
 			/// Save a file using the given filename. Returns true if successful.
 			bool SaveFile(const char * filename) const;
 			/** Load a file using the given FILE*. Returns true if successful. Note that this method
@@ -1429,12 +1430,12 @@ namespace Cordis
 				will be interpreted as an XML file. TinyXML doesn't stream in XML from the current
 				file location. Streaming may be added in the future.
 			*/
-			bool LoadFile(FILE*, TiXmlEncoding encoding = TIXML_DEFAULT_ENCODING);
+			bool LoadFile(FILE*, CordisXmlEncoding encoding = CordisXml_DEFAULT_ENCODING);
 			/// Save a file using the given FILE*. Returns true if successful.
 			bool SaveFile(FILE*) const;
 
-#ifdef TIXML_USE_STL
-			bool LoadFile(const std::string& filename, TiXmlEncoding encoding = TIXML_DEFAULT_ENCODING)			///< STL std::string version.
+#ifdef CordisXml_USE_STL
+			bool LoadFile(const std::string& filename, CordisXmlEncoding encoding = CordisXml_DEFAULT_ENCODING)			///< STL std::string version.
 			{
 				return LoadFile(filename.c_str(), encoding);
 			}
@@ -1445,17 +1446,17 @@ namespace Cordis
 #endif
 
 			/** Parse the given null terminated block of xml data. Passing in an encoding to this
-				method (either TIXML_ENCODING_LEGACY or TIXML_ENCODING_UTF8 will force TinyXml
+				method (either CordisXml_ENCODING_LEGACY or CordisXml_ENCODING_UTF8 will force TinyXml
 				to use that encoding, regardless of what TinyXml might otherwise try to detect.
 			*/
-			virtual const char* Parse(const char* p, TiXmlParsingData* data = 0, TiXmlEncoding encoding = TIXML_DEFAULT_ENCODING);
+			virtual const char* Parse(const char* p, CordisXmlParsingData* data = 0, CordisXmlEncoding encoding = CordisXml_DEFAULT_ENCODING);
 
 			/** Get the root element -- the only top level element -- of the document.
 				In well formed XML, there should only be one. TinyXml is tolerant of
 				multiple elements at the document level.
 			*/
-			const TiXmlElement* RootElement() const { return FirstChildElement(); }
-			TiXmlElement* RootElement() { return FirstChildElement(); }
+			const CordisXmlElement* RootElement() const { return FirstChildElement(); }
+			CordisXmlElement* RootElement() { return FirstChildElement(); }
 
 			/** If an error occurs, Error will be set to true. Also,
 				- The ErrorId() will contain the integer identifier of the error (not generally useful)
@@ -1499,7 +1500,7 @@ namespace Cordis
 
 				The tab size needs to be enabled before the parse or load. Correct usage:
 				@verbatim
-				TiXmlDocument doc;
+				CordisXmlDocument doc;
 				doc.SetTabSize( 8 );
 				doc.Load( "myfile.xml" );
 				@endverbatim
@@ -1533,37 +1534,37 @@ namespace Cordis
 			/// Print this Document to a FILE stream.
 			virtual void Print(FILE* cfile, int depth = 0) const;
 			// [internal use]
-			void SetError(int err, const char* errorLocation, TiXmlParsingData* prevData, TiXmlEncoding encoding);
+			void SetError(int err, const char* errorLocation, CordisXmlParsingData* prevData, CordisXmlEncoding encoding);
 
-			virtual const TiXmlDocument*    ToDocument()    const { return this; } ///< Cast to a more defined type. Will return null not of the requested type.
-			virtual TiXmlDocument*          ToDocument() { return this; } ///< Cast to a more defined type. Will return null not of the requested type.
+			virtual const CordisXmlDocument*    ToDocument()    const { return this; } ///< Cast to a more defined type. Will return null not of the requested type.
+			virtual CordisXmlDocument*          ToDocument() { return this; } ///< Cast to a more defined type. Will return null not of the requested type.
 
 			/** Walk the XML tree visiting this node and all of its children.
 			*/
-			virtual bool Accept(TiXmlVisitor* content) const;
+			virtual bool Accept(CordisXmlVisitor* content) const;
 
 		protected:
 			// [internal use]
-			virtual TiXmlNode* Clone() const;
-#ifdef TIXML_USE_STL
-			virtual void StreamIn(std::istream * in, TIXML_STRING * tag);
+			virtual CordisXmlNode* Clone() const;
+#ifdef CordisXml_USE_STL
+			virtual void StreamIn(std::istream * in, CordisXml_STRING * tag);
 #endif
 
 		private:
-			void CopyTo(TiXmlDocument* target) const;
+			void CopyTo(CordisXmlDocument* target) const;
 
 			bool error;
 			int  errorId;
-			TIXML_STRING errorDesc;
+			CordisXml_STRING errorDesc;
 			int tabsize;
-			TiXmlCursor errorLocation;
+			CordisXmlCursor errorLocation;
 			bool useMicrosoftBOM;		// the UTF-8 BOM were found when read. Note this, and try to write.
 			};
 
 
 		/**
-			A TiXmlHandle is a class that wraps a node pointer with null checks; this is
-			an incredibly useful thing. Note that TiXmlHandle is not part of the TinyXml
+			A CordisXmlHandle is a class that wraps a node pointer with null checks; this is
+			an incredibly useful thing. Note that CordisXmlHandle is not part of the TinyXml
 			DOM structure. It is a separate utility class.
 
 			Take an example:
@@ -1580,28 +1581,28 @@ namespace Cordis
 			easy to write a *lot* of code that looks like:
 
 			@verbatim
-			TiXmlElement* root = document.FirstChildElement( "Document" );
+			CordisXmlElement* root = document.FirstChildElement( "Document" );
 			if ( root )
 			{
-				TiXmlElement* element = root->FirstChildElement( "Element" );
+				CordisXmlElement* element = root->FirstChildElement( "Element" );
 				if ( element )
 				{
-					TiXmlElement* child = element->FirstChildElement( "Child" );
+					CordisXmlElement* child = element->FirstChildElement( "Child" );
 					if ( child )
 					{
-						TiXmlElement* child2 = child->NextSiblingElement( "Child" );
+						CordisXmlElement* child2 = child->NextSiblingElement( "Child" );
 						if ( child2 )
 						{
 							// Finally do something useful.
 			@endverbatim
 
-			And that doesn't even cover "else" cases. TiXmlHandle addresses the verbosity
-			of such code. A TiXmlHandle checks for null	pointers so it is perfectly safe
+			And that doesn't even cover "else" cases. CordisXmlHandle addresses the verbosity
+			of such code. A CordisXmlHandle checks for null	pointers so it is perfectly safe
 			and correct to use:
 
 			@verbatim
-			TiXmlHandle docHandle( &document );
-			TiXmlElement* child2 = docHandle.FirstChild( "Document" ).FirstChild( "Element" ).Child( "Child", 1 ).ToElement();
+			CordisXmlHandle docHandle( &document );
+			CordisXmlElement* child2 = docHandle.FirstChild( "Document" ).FirstChild( "Element" ).Child( "Child", 1 ).ToElement();
 			if ( child2 )
 			{
 				// do something useful
@@ -1611,7 +1612,7 @@ namespace Cordis
 
 			It is also safe to copy handles - internally they are nothing more than node pointers.
 			@verbatim
-			TiXmlHandle handleCopy = handle;
+			CordisXmlHandle handleCopy = handle;
 			@endverbatim
 
 			What they should not be used for is iteration:
@@ -1620,7 +1621,7 @@ namespace Cordis
 			int i=0;
 			while ( true )
 			{
-				TiXmlElement* child = docHandle.FirstChild( "Document" ).FirstChild( "Element" ).Child( "Child", i ).ToElement();
+				CordisXmlElement* child = docHandle.FirstChild( "Document" ).FirstChild( "Element" ).Child( "Child", i ).ToElement();
 				if ( !child )
 					break;
 				// do something
@@ -1633,7 +1634,7 @@ namespace Cordis
 			to. Instead, prefer:
 
 			@verbatim
-			TiXmlElement* child = docHandle.FirstChild( "Document" ).FirstChild( "Element" ).FirstChild( "Child" ).ToElement();
+			CordisXmlElement* child = docHandle.FirstChild( "Document" ).FirstChild( "Element" ).FirstChild( "Child" ).ToElement();
 
 			for( child; child; child=child->NextSiblingElement() )
 			{
@@ -1641,121 +1642,121 @@ namespace Cordis
 			}
 			@endverbatim
 		*/
-		class XRCORE_API TiXmlHandle
+		class XRCORE_API CordisXmlHandle
 		{
 		public:
 			/// Create a handle from any node (at any depth of the tree.) This can be a null pointer.
-			TiXmlHandle(TiXmlNode* _node) { this->node = _node; }
+			CordisXmlHandle(CordisXmlNode* _node) { this->node = _node; }
 			/// Copy constructor
-			TiXmlHandle(const TiXmlHandle& ref) { this->node = ref.node; }
-			TiXmlHandle operator=(const TiXmlHandle& ref) { if (&ref != this) this->node = ref.node; return *this; }
+			CordisXmlHandle(const CordisXmlHandle& ref) { this->node = ref.node; }
+			CordisXmlHandle operator=(const CordisXmlHandle& ref) { if (&ref != this) this->node = ref.node; return *this; }
 
 			/// Return a handle to the first child node.
-			TiXmlHandle FirstChild() const;
+			CordisXmlHandle FirstChild() const;
 			/// Return a handle to the first child node with the given name.
-			TiXmlHandle FirstChild(const char * value) const;
+			CordisXmlHandle FirstChild(const char * value) const;
 			/// Return a handle to the first child element.
-			TiXmlHandle FirstChildElement() const;
+			CordisXmlHandle FirstChildElement() const;
 			/// Return a handle to the first child element with the given name.
-			TiXmlHandle FirstChildElement(const char * value) const;
+			CordisXmlHandle FirstChildElement(const char * value) const;
 
 			/** Return a handle to the "index" child with the given name.
 				The first child is 0, the second 1, etc.
 			*/
-			TiXmlHandle Child(const char* value, int index) const;
+			CordisXmlHandle Child(const char* value, int index) const;
 			/** Return a handle to the "index" child.
 				The first child is 0, the second 1, etc.
 			*/
-			TiXmlHandle Child(int index) const;
+			CordisXmlHandle Child(int index) const;
 			/** Return a handle to the "index" child element with the given name.
-				The first child element is 0, the second 1, etc. Note that only TiXmlElements
+				The first child element is 0, the second 1, etc. Note that only CordisXmlElements
 				are indexed: other types are not counted.
 			*/
-			TiXmlHandle ChildElement(const char* value, int index) const;
+			CordisXmlHandle ChildElement(const char* value, int index) const;
 			/** Return a handle to the "index" child element.
-				The first child element is 0, the second 1, etc. Note that only TiXmlElements
+				The first child element is 0, the second 1, etc. Note that only CordisXmlElements
 				are indexed: other types are not counted.
 			*/
-			TiXmlHandle ChildElement(int index) const;
+			CordisXmlHandle ChildElement(int index) const;
 
-#ifdef TIXML_USE_STL
-			TiXmlHandle FirstChild(const std::string& _value) const { return FirstChild(_value.c_str()); }
-			TiXmlHandle FirstChildElement(const std::string& _value) const { return FirstChildElement(_value.c_str()); }
+#ifdef CordisXml_USE_STL
+			CordisXmlHandle FirstChild(const std::string& _value) const { return FirstChild(_value.c_str()); }
+			CordisXmlHandle FirstChildElement(const std::string& _value) const { return FirstChildElement(_value.c_str()); }
 
-			TiXmlHandle Child(const std::string& _value, int index) const { return Child(_value.c_str(), index); }
-			TiXmlHandle ChildElement(const std::string& _value, int index) const { return ChildElement(_value.c_str(), index); }
+			CordisXmlHandle Child(const std::string& _value, int index) const { return Child(_value.c_str(), index); }
+			CordisXmlHandle ChildElement(const std::string& _value, int index) const { return ChildElement(_value.c_str(), index); }
 #endif
 
-			/** Return the handle as a TiXmlNode. This may return null.
+			/** Return the handle as a CordisXmlNode. This may return null.
 			*/
-			TiXmlNode* ToNode() const { return node; }
-			/** Return the handle as a TiXmlElement. This may return null.
+			CordisXmlNode* ToNode() const { return node; }
+			/** Return the handle as a CordisXmlElement. This may return null.
 			*/
-			TiXmlElement* ToElement() const { return ((node && node->ToElement()) ? node->ToElement() : 0); }
-			/**	Return the handle as a TiXmlText. This may return null.
+			CordisXmlElement* ToElement() const { return ((node && node->ToElement()) ? node->ToElement() : 0); }
+			/**	Return the handle as a CordisXmlText. This may return null.
 			*/
-			TiXmlText* ToText() const { return ((node && node->ToText()) ? node->ToText() : 0); }
-			/** Return the handle as a TiXmlUnknown. This may return null.
+			CordisXmlText* ToText() const { return ((node && node->ToText()) ? node->ToText() : 0); }
+			/** Return the handle as a CordisXmlUnknown. This may return null.
 			*/
-			TiXmlUnknown* ToUnknown() const { return ((node && node->ToUnknown()) ? node->ToUnknown() : 0); }
+			CordisXmlUnknown* ToUnknown() const { return ((node && node->ToUnknown()) ? node->ToUnknown() : 0); }
 
 			/** @deprecated use ToNode.
-				Return the handle as a TiXmlNode. This may return null.
+				Return the handle as a CordisXmlNode. This may return null.
 			*/
-			TiXmlNode* Node() const { return ToNode(); }
+			CordisXmlNode* Node() const { return ToNode(); }
 			/** @deprecated use ToElement.
-				Return the handle as a TiXmlElement. This may return null.
+				Return the handle as a CordisXmlElement. This may return null.
 			*/
-			TiXmlElement* Element() const { return ToElement(); }
+			CordisXmlElement* Element() const { return ToElement(); }
 			/**	@deprecated use ToText()
-				Return the handle as a TiXmlText. This may return null.
+				Return the handle as a CordisXmlText. This may return null.
 			*/
-			TiXmlText* Text() const { return ToText(); }
+			CordisXmlText* Text() const { return ToText(); }
 			/** @deprecated use ToUnknown()
-				Return the handle as a TiXmlUnknown. This may return null.
+				Return the handle as a CordisXmlUnknown. This may return null.
 			*/
-			TiXmlUnknown* Unknown() const { return ToUnknown(); }
+			CordisXmlUnknown* Unknown() const { return ToUnknown(); }
 
 		private:
-			TiXmlNode* node;
+			CordisXmlNode* node;
 		};
 
 
-		/** Print to memory functionality. The TiXmlPrinter is useful when you need to:
+		/** Print to memory functionality. The CordisXmlPrinter is useful when you need to:
 
 			-# Print to memory (especially in non-STL mode)
 			-# Control formatting (line endings, etc.)
 
-			When constructed, the TiXmlPrinter is in its default "pretty printing" mode.
+			When constructed, the CordisXmlPrinter is in its default "pretty printing" mode.
 			Before calling Accept() you can call methods to control the printing
-			of the XML document. After TiXmlNode::Accept() is called, the printed document can
+			of the XML document. After CordisXmlNode::Accept() is called, the printed document can
 			be accessed via the CStr(), Str(), and Size() methods.
 
-			TiXmlPrinter uses the Visitor API.
+			CordisXmlPrinter uses the Visitor API.
 			@verbatim
-			TiXmlPrinter printer;
+			CordisXmlPrinter printer;
 			printer.SetIndent( "\t" );
 
 			doc.Accept( &printer );
 			fprintf( stdout, "%s", printer.CStr() );
 			@endverbatim
 		*/
-		class XRCORE_API TiXmlPrinter : public TiXmlVisitor
+		class XRCORE_API CordisXmlPrinter : public CordisXmlVisitor
 		{
 		public:
-			TiXmlPrinter() : depth(0), simpleTextPrint(false),
+			CordisXmlPrinter() : depth(0), simpleTextPrint(false),
 				buffer(), indent("    "), lineBreak("\n") {}
 
-			virtual bool VisitEnter(const TiXmlDocument& doc);
-			virtual bool VisitExit(const TiXmlDocument& doc);
+			virtual bool VisitEnter(const CordisXmlDocument& doc);
+			virtual bool VisitExit(const CordisXmlDocument& doc);
 
-			virtual bool VisitEnter(const TiXmlElement& element, const TiXmlAttribute* firstAttribute);
-			virtual bool VisitExit(const TiXmlElement& element);
+			virtual bool VisitEnter(const CordisXmlElement& element, const CordisXmlAttribute* firstAttribute);
+			virtual bool VisitExit(const CordisXmlElement& element);
 
-			virtual bool Visit(const TiXmlDeclaration& declaration);
-			virtual bool Visit(const TiXmlText& text);
-			virtual bool Visit(const TiXmlComment& comment);
-			virtual bool Visit(const TiXmlUnknown& unknown);
+			virtual bool Visit(const CordisXmlDeclaration& declaration);
+			virtual bool Visit(const CordisXmlText& text);
+			virtual bool Visit(const CordisXmlComment& comment);
+			virtual bool Visit(const CordisXmlUnknown& unknown);
 
 			/** Set the indent characters for printing. By default 4 spaces
 				but tab (\t) is also useful, or null/empty string for no indentation.
@@ -1783,7 +1784,7 @@ namespace Cordis
 			/// Return the length of the result string.
 			size_t Size() { return buffer.size(); }
 
-#ifdef TIXML_USE_STL
+#ifdef CordisXml_USE_STL
 			/// Return the result.
 			const std::string& Str() { return buffer; }
 #endif
@@ -1799,9 +1800,9 @@ namespace Cordis
 
 			int depth;
 			bool simpleTextPrint;
-			TIXML_STRING buffer;
-			TIXML_STRING indent;
-			TIXML_STRING lineBreak;
+			CordisXml_STRING buffer;
+			CordisXml_STRING indent;
+			CordisXml_STRING lineBreak;
 		};
 	}
 }
@@ -1811,6 +1812,4 @@ namespace Cordis
 
 #ifdef _MSC_VER
 #pragma warning( pop )
-#endif
-
 #endif

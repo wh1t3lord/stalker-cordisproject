@@ -3,7 +3,7 @@
 #include "xrEngine/Feel_Touch.h"
 #include "xrEngine/Feel_Sound.h"
 #include "xrEngine/IInputReceiver.h"
-#include "Include/xrRender/KinematicsAnimated.h"
+#include "KinematicsAnimated.h"
 #include "Actor_Flags.h"
 #include "actor_defs.h"
 #include "fire_disp_controller.h"

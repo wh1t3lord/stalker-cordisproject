@@ -14,7 +14,7 @@
 #include "Actor.h"
 #include "ai_space.h"
 #include "xrScriptEngine/script_engine.hpp"
-#include "Include/xrRender/UIShader.h"
+#include "UIShader.h"
 
 #define BUY_MENU_TEXTURE "ui" DELIMITER "ui_mp_buy_menu"
 #define CHAR_ICONS "ui" DELIMITER "ui_icons_npc"

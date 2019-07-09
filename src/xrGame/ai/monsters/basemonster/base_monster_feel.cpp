@@ -11,7 +11,7 @@
 #include "Actor.h"
 #include "ActorEffector.h"
 #include "ai/monsters/ai_monster_effector.h"
-#include "Include/xrRender/KinematicsAnimated.h"
+#include "KinematicsAnimated.h"
 #include "sound_player.h"
 #include "Level.h"
 #include "xrScriptEngine/script_callback_ex.h"

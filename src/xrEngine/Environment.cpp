@@ -18,10 +18,10 @@
 
 #include "xrCore/xrCore.h"
 
-#include "Include/xrRender/EnvironmentRender.h"
-#include "Include/xrRender/LensFlareRender.h"
-#include "Include/xrRender/RainRender.h"
-#include "Include/xrRender/ThunderboltRender.h"
+#include "xrGame/Render/Kernel/EnvironmentRender.h"
+#include "xrGame/Render/Kernel/LensFlareRender.h"
+#include "xrGame/Render/Kernel/RainRender.h"
+#include "xrGame/Render/Kernel/ThunderboltRender.h"
 
 //////////////////////////////////////////////////////////////////////
 // Construction/Destruction

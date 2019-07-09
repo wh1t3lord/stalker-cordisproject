@@ -2248,19 +2248,796 @@
     <Filter Include="Core\Client\Ansel">
       <UniqueIdentifier>{5774e461-6abd-4bcb-888c-af7a7d5ab679}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Cordis">
+    <Filter Include="Render">
+      <UniqueIdentifier>{0a31d6aa-9c1d-4b29-b977-dd96dc3889bf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\3DFluid">
+      <UniqueIdentifier>{8a32e1e3-d979-48d8-af02-18aafbee41f2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\3DFluid\Private">
+      <UniqueIdentifier>{28d9c0a0-cadd-4c2e-a062-c037898e3ce6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\3DFluid\Public">
+      <UniqueIdentifier>{8212678b-fce7-46e2-9369-cec4137273d9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\R4">
+      <UniqueIdentifier>{22ac286d-1022-4ff6-840a-1186d8d0dfe5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\Kernel">
+      <UniqueIdentifier>{56e07ec1-9754-451a-b948-b9b1e9b25223}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\Kernel\Public">
+      <UniqueIdentifier>{5c9f339a-e8c2-4e76-b8d4-73309aa0fafa}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\Kernel\Private">
+      <UniqueIdentifier>{7be9fe8f-d729-4592-8c35-b983b814825f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\R4\Kernel">
+      <UniqueIdentifier>{910a3149-fdf1-4929-980e-11db7058a5f0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\R4\Kernel\Public">
+      <UniqueIdentifier>{d376670f-d84e-424f-9424-8c683fec6abc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\R4\Kernel\Private">
+      <UniqueIdentifier>{4811bbdb-7c3d-4fde-860a-411d16ec1b3e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\R4\Debug">
+      <UniqueIdentifier>{a27b0079-bdd9-41d9-bae7-f08abf50ea3a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\R4\Debug\Public">
+      <UniqueIdentifier>{f8afef9f-33aa-4a42-b6ea-dc21bbb7e098}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\R4\Debug\Private">
+      <UniqueIdentifier>{fdb0b31d-da02-4ca5-9065-e149450228ca}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\R4\Details">
+      <UniqueIdentifier>{65fdceb4-8ad1-433a-b1fd-1ea564247754}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\R4\Details\Public">
+      <UniqueIdentifier>{710244aa-4abb-4012-b16f-f34d9a547f44}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\R4\Details\Private">
+      <UniqueIdentifier>{8a4822ab-1a3c-49ea-b98f-61f4900a2460}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\R4\DirectX9 to DirectX10 Utils">
+      <UniqueIdentifier>{a7cdb6f4-d3af-4b6a-b9ec-0c3cdbed3ba6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\R4\DirectX9 to DirectX10 Utils\Public">
+      <UniqueIdentifier>{57d6aad0-f824-4957-a28d-642003f1bdba}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\R4\DirectX9 to DirectX10 Utils\Private">
+      <UniqueIdentifier>{d014ce9c-82da-4a5d-9aee-2a78cae59691}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\R4\Interfaces">
+      <UniqueIdentifier>{a5a6a25e-ac78-403e-9183-ffcd8050474a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\R4\Interfaces\Console Render">
+      <UniqueIdentifier>{4327d19a-6502-4feb-8e7b-673d8e1943e8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\R4\Interfaces\Console Render\Public">
+      <UniqueIdentifier>{e6638379-bc14-46bb-b6c7-b866365b602f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\R4\Interfaces\Console Render\Private">
+      <UniqueIdentifier>{e291c35b-56b7-433a-8668-a61f4520d948}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\R4\Interfaces\Debug">
+      <UniqueIdentifier>{7e1d642a-a43a-4b88-bf07-b89321272a22}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\R4\Interfaces\Debug\Public">
+      <UniqueIdentifier>{b2d580b1-877e-409a-85aa-fa3ca89986de}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\R4\Interfaces\Debug\Private">
+      <UniqueIdentifier>{4d41dc9a-4325-4d7f-83d9-e4d035a7a83c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\R4\Interfaces\Environment Render">
+      <UniqueIdentifier>{3b0974e0-0d33-45bd-831a-bc571a813c36}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\R4\Interfaces\Environment Render\Public">
+      <UniqueIdentifier>{dfdbe44d-fbb5-4e71-a58b-04344006ed22}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\R4\Interfaces\Environment Render\Private">
+      <UniqueIdentifier>{63795c96-6e61-4264-88e3-a4867b0b1cc0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\R4\Interfaces\Factory Pointer">
+      <UniqueIdentifier>{b2970944-7127-4869-9ba1-2c093c76a1b7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\R4\Interfaces\Factory Pointer\Public">
+      <UniqueIdentifier>{a5bc141d-3499-42fd-8a83-86bc190114c3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\R4\Interfaces\Font Render">
+      <UniqueIdentifier>{c620f6d1-9062-4063-92f6-7161258fe252}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\R4\Interfaces\Font Render\Public">
+      <UniqueIdentifier>{096da098-aafe-458d-9051-696811a8f5e5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\R4\Interfaces\Font Render\Private">
+      <UniqueIdentifier>{e23e2e68-a373-44d3-90ea-acbdc161a09e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\R4\Interfaces\Lens Flare">
+      <UniqueIdentifier>{19c787da-7147-486b-b40e-fde485777d20}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\R4\Interfaces\Lens Flare\Public">
+      <UniqueIdentifier>{ca5e01a2-2fda-4182-bf34-d4dc75fb5553}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\R4\Interfaces\Lens Flare\Private">
+      <UniqueIdentifier>{b0b01739-6a60-4c97-8ca4-6a3e83897f5f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\R4\Interfaces\MSAA Render">
+      <UniqueIdentifier>{30840878-46bf-4dc2-b24f-274a3071a4c6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\R4\Interfaces\MSAA Render\Public">
+      <UniqueIdentifier>{7767d5e7-e7f6-4100-b350-db2bde4929d2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\R4\Interfaces\MSAA Render\Private">
+      <UniqueIdentifier>{aa75e55e-64db-4278-9c69-373cced4590c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\R4\Interfaces\ObjectSpace Render">
+      <UniqueIdentifier>{6961da56-387e-43e4-9dae-8ca179fef9d3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\R4\Interfaces\ObjectSpace Render\Public">
+      <UniqueIdentifier>{5f9af7a8-b059-4c24-9049-df09d6d6dc40}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\R4\Interfaces\ObjectSpace Render\Private">
+      <UniqueIdentifier>{07929d35-a61e-4d77-8772-aec7f27f81dc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\R4\Interfaces\Rain Render">
+      <UniqueIdentifier>{d467e072-cfda-4e37-97fa-061336dd732e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\R4\Interfaces\Rain Render\Public">
+      <UniqueIdentifier>{51f458e4-3372-4453-8662-7fbf10f31ace}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\R4\Interfaces\Rain Render\Private">
+      <UniqueIdentifier>{eb807908-4ca3-49c5-8fa0-4a502af64435}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\R4\Interfaces\Render Factory">
+      <UniqueIdentifier>{3f57cae7-d457-44f6-a1f4-ca93038c55b8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\R4\Interfaces\Render Factory\Public">
+      <UniqueIdentifier>{b5ac2d08-3558-44c7-90b8-02bc76f22f3e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\R4\Interfaces\Render Factory\Private">
+      <UniqueIdentifier>{72deeb96-8bfa-48cf-bfc8-c865cac353ed}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\R4\Interfaces\StatGraph Render">
+      <UniqueIdentifier>{ea13712b-5555-44a1-af81-9fecce675b1a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\R4\Interfaces\StatGraph Render\Public">
+      <UniqueIdentifier>{82bbcdcc-457a-4759-8d20-89d803026160}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\R4\Interfaces\StatGraph Render\Private">
+      <UniqueIdentifier>{bb56625d-dda0-409e-b0d2-05198d263ca3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\R4\Interfaces\ThunderBoltDesc Render">
+      <UniqueIdentifier>{3fd4ccde-bc0a-4771-a744-020664a5eff2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\R4\Interfaces\ThunderBoltDesc Render\Public">
+      <UniqueIdentifier>{4e1c643e-4509-4511-b551-16c3bf383846}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\R4\Interfaces\ThunderBoltDesc Render\Private">
+      <UniqueIdentifier>{4745b539-0b1d-4063-b6ee-b436bfcc83c7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\R4\Interfaces\ThunderBolt Render">
+      <UniqueIdentifier>{a27ed3d8-696c-4c84-ab06-7126d397206c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\R4\Interfaces\ThunderBolt Render\Public">
+      <UniqueIdentifier>{242ee3fa-9221-4767-9e15-e0ab927c72a2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\R4\Interfaces\ThunderBolt Render\Private">
+      <UniqueIdentifier>{868dfaa5-6eb8-414e-985c-fc60fbf9f9bb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\R4\Interfaces\UI">
+      <UniqueIdentifier>{770fb0da-ed76-4968-a83a-f4beffb62e65}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\R4\Interfaces\UI\UIRender">
+      <UniqueIdentifier>{5a6af5cf-9765-4af3-a5b4-b18f91dfe190}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\R4\Interfaces\UI\UIRender\Public">
+      <UniqueIdentifier>{7775fcd5-fbdc-4ee7-9763-bf712c1d9fb0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\R4\Interfaces\UI\UIRender\Private">
+      <UniqueIdentifier>{24231ce5-5f65-4eba-8889-0653b1b23f8a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\R4\Interfaces\UI\UISequenceVideoItem">
+      <UniqueIdentifier>{8a0c93a4-2d1d-4a67-9554-5ab0598e3206}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\R4\Interfaces\UI\UISequenceVideoItem\Public">
+      <UniqueIdentifier>{956edf13-8b44-45d7-86bc-2f1bf71be4c9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\R4\Interfaces\UI\UISequenceVideoItem\Private">
+      <UniqueIdentifier>{51c9f67f-1802-4a13-8336-4bf8eaca521c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\R4\Interfaces\UI\UIShader">
+      <UniqueIdentifier>{43bb4640-c826-4e99-baa6-c12e136c405c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\R4\Interfaces\UI\UIShader\Public">
+      <UniqueIdentifier>{dd99a6c4-4d4f-45c4-9bc1-e0cee3c8a4d6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\R4\Interfaces\UI\UIShader\Private">
+      <UniqueIdentifier>{7b0c5acc-bb84-46c9-b4d2-b5a8c111d6b4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\R4\Interfaces\WallMarkArray">
+      <UniqueIdentifier>{ba02a6fb-9d9c-4e1a-9ae4-d3afb9f81825}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\R4\Interfaces\WallMarkArray\Public">
+      <UniqueIdentifier>{6295cc63-69f6-4d12-a73f-7d64fd32c70c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\R4\Interfaces\WallMarkArray\Private">
+      <UniqueIdentifier>{eea80806-9481-4d49-81b0-62ee49e77697}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\R4\Light">
+      <UniqueIdentifier>{c4487e70-ef3a-4402-b385-51f94430b842}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\R4\Light\Public">
+      <UniqueIdentifier>{d42f2fb6-e9ae-41b0-b2eb-3570ae4a49d7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\R4\Light\Private">
+      <UniqueIdentifier>{bfdc6191-3666-4ddc-8a04-478212c15482}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\R4\MeshMender 2003">
+      <UniqueIdentifier>{6e47f5bd-d94b-4ede-b9e6-be958d2cd013}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\R4\MeshMender 2003\Private">
+      <UniqueIdentifier>{2da46609-371b-4b4d-9220-7e9c6f9a52b3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\R4\MeshMender 2003\Public">
+      <UniqueIdentifier>{280e05c0-32ae-4a3d-b728-8b604ac46413}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\R4\Model">
+      <UniqueIdentifier>{97821404-24f0-4033-9c28-7d2f0cead3ce}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\R4\Model\Public">
+      <UniqueIdentifier>{c2bdc538-a35b-494e-b566-7e6355d6548d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\R4\Model\Private">
+      <UniqueIdentifier>{ef694127-69df-4f94-a303-cd24c727444c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\R4\Render Target">
+      <UniqueIdentifier>{1f83d4b0-6111-4487-af5a-881816a06a48}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\R4\Render Target\Public">
+      <UniqueIdentifier>{d12c8b0d-90e4-4c1a-b039-dbcdf85cdf03}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\R4\Render Target\Private">
+      <UniqueIdentifier>{85bb6986-720a-40c2-a4d5-ca74413b1434}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\R4\Render Target\ColorMap">
+      <UniqueIdentifier>{dc1738a7-cdec-441b-a065-3daa4aae74ef}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\R4\Render Target\ColorMap\Public">
+      <UniqueIdentifier>{34b224c8-2a3a-4181-9d41-fde4fdf4b57f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\R4\Render Target\ColorMap\Private">
+      <UniqueIdentifier>{e65ecf39-6e31-4f2c-8471-c0869b01a5e4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\R4\Refactored">
+      <UniqueIdentifier>{f681b8f7-ccc8-4d25-92d8-91f1f74d466a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\R4\Refactored\Backend">
+      <UniqueIdentifier>{273cdf74-ed7c-434b-ada2-d2d28fc3f9ce}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\R4\Refactored\Backend\Public">
+      <UniqueIdentifier>{5b28f66e-57d9-45f8-8ff1-b37dfc354622}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\R4\Refactored\Backend\Private">
+      <UniqueIdentifier>{9d8a9f93-895a-44f6-9b8b-9e4ea7456974}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\R4\Refactored\Execution &amp; 3D">
+      <UniqueIdentifier>{3b39d5cc-1b07-48a9-a62d-8320cb08fc68}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\R4\Refactored\Execution &amp; 3D\Debug Drawing">
+      <UniqueIdentifier>{7907bb3a-4dd4-4870-8039-c828a17085d1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\R4\Refactored\Execution &amp; 3D\Debug Drawing\Private">
+      <UniqueIdentifier>{fc407238-9e33-4297-bab0-69b982778d7d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\R4\Refactored\Execution &amp; 3D\Debug Drawing\Public">
+      <UniqueIdentifier>{715661d6-6db5-422a-8cfa-50c21a9e2710}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\R4\Refactored\Execution &amp; 3D\Gamma">
+      <UniqueIdentifier>{55048e2d-5a24-4487-9b1d-ff139e851878}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\R4\Refactored\Execution &amp; 3D\Gamma\Public">
+      <UniqueIdentifier>{ea1ab269-fe91-4e3c-923b-1b6859fa5ea3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\R4\Refactored\Execution &amp; 3D\Gamma\Private">
+      <UniqueIdentifier>{1d79d336-2ada-417e-b0d9-9e0e76e9f263}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\R4\Refactored\Execution &amp; 3D\Shaders">
+      <UniqueIdentifier>{b61c3052-4b29-4d8c-81e0-0759bbbce242}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\R4\Refactored\Execution &amp; 3D\Shaders\Blender">
+      <UniqueIdentifier>{7391fbf7-5ac7-490b-aa3d-36461159131a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\R4\Refactored\Execution &amp; 3D\Shaders\Blender\Public">
+      <UniqueIdentifier>{5a787415-56e7-4b2d-9664-f91975e8e4c4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\R4\Refactored\Execution &amp; 3D\Shaders\Blender\Private">
+      <UniqueIdentifier>{df0c3760-c066-4f86-a76e-fc9f98611ceb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\R4\Refactored\Execution &amp; 3D\Shaders\Resources">
+      <UniqueIdentifier>{172c51cc-d06c-4cd4-9716-b740032561ae}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\R4\Refactored\Execution &amp; 3D\Shaders\Resources\Public">
+      <UniqueIdentifier>{25eefd18-8994-4560-a34f-0c370ac314d8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\R4\Refactored\Execution &amp; 3D\Shaders\Resources\Private">
+      <UniqueIdentifier>{50c67aaf-e133-44ed-a84e-66ebffdd1c71}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\R4\Refactored\Execution &amp; 3D\Shaders\Shader Manager">
+      <UniqueIdentifier>{5e33ecd6-4bd9-4d37-850d-3704bce3b02f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\R4\Refactored\Execution &amp; 3D\Shaders\Shader Manager\Public">
+      <UniqueIdentifier>{7d4dad46-0219-4e51-9dde-89a8728c751c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\R4\Refactored\Execution &amp; 3D\Shaders\Shader Manager\Private">
+      <UniqueIdentifier>{3d40c44e-e107-4884-8c07-c876cc2c230e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\R4\Refactored\Execution &amp; 3D\Visuals">
+      <UniqueIdentifier>{e736394b-772e-4df4-b98a-e9b7479aab27}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\R4\Refactored\Execution &amp; 3D\Visuals\Public">
+      <UniqueIdentifier>{7e5ebf4f-9c1b-46a7-899c-2f7705d76b18}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\R4\Refactored\Execution &amp; 3D\Visuals\Private">
+      <UniqueIdentifier>{a4a471bf-a61d-45b7-991c-da25caed7abf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\R4\Refactored\HW">
+      <UniqueIdentifier>{64cd31a1-9832-4ea7-a073-c515b47bd858}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\R4\Refactored\HW\Public">
+      <UniqueIdentifier>{a8337b8c-e47d-4039-9560-09650be56b57}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\R4\Refactored\HW\Private">
+      <UniqueIdentifier>{e0058ca6-a74b-4f38-9a58-91be5c7ec7f3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\R4\Refactored\Interfaces">
+      <UniqueIdentifier>{62325f5c-5b96-4840-a560-b3a64d5ff780}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\R4\Refactored\Interfaces\Public">
+      <UniqueIdentifier>{34404e93-4d42-450c-806e-fa94d72cdb4f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\R4\Refactored\Statistic Manager">
+      <UniqueIdentifier>{549536c9-b4e9-42eb-b6fb-a0fbb9089921}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\R4\Refactored\Statistic Manager\Public">
+      <UniqueIdentifier>{ec2fc370-0008-493b-ad45-b974def08caa}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\R4\Refactored\Statistic Manager\Private">
+      <UniqueIdentifier>{c943df26-e9b3-4029-9566-0ff12ee10a37}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\R4\Shading Templates">
+      <UniqueIdentifier>{be37b67b-9ec7-4b29-9c87-27d4dcda5d9e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\R4\Shading Templates\Public">
+      <UniqueIdentifier>{e13cb693-ad67-474b-a5ba-64dc305a17c0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\R4\Shading Templates\Private">
+      <UniqueIdentifier>{90d4d643-66f2-4c68-9cc1-a3c25ad1b683}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\R4\State Manager">
+      <UniqueIdentifier>{37d8a72d-095a-431d-b4a9-e1bda6ce92c9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\R4\State Manager\Public">
+      <UniqueIdentifier>{0ff25211-7d25-4b78-bc56-511adf63b021}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\R4\State Manager\Private">
+      <UniqueIdentifier>{9481830c-5696-4911-8f6c-5a2686ad52e6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\R4\Stripifier">
+      <UniqueIdentifier>{6070a56a-2084-4e7a-8e8c-283142965028}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\R4\Stripifier\Public">
+      <UniqueIdentifier>{ea5078a0-2c78-4ba6-939f-e4d88aeb0991}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\R4\Stripifier\Private">
+      <UniqueIdentifier>{b46d89a5-d095-4ac5-bbe5-9884fee62789}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\R4\Utils">
+      <UniqueIdentifier>{94178c85-0557-44f8-a585-24b067954f55}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\R4\Utils\Public">
+      <UniqueIdentifier>{16f8b901-e805-470c-9a2f-74ab8088b07e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\R4\Utils\Private">
+      <UniqueIdentifier>{38a081b9-1855-43b6-bcaa-bfc239f4eef7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\R4\Wallmarks">
+      <UniqueIdentifier>{cdb54402-596f-4ec1-b95f-2fb062f5fbc0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\R4\Wallmarks\Public">
+      <UniqueIdentifier>{d87dc837-0d16-4b6c-b29e-8650d1db2dd8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\R4\Wallmarks\Private">
+      <UniqueIdentifier>{61e84f82-7f93-43bb-9ba5-831917dd741d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\R4\Visibility">
+      <UniqueIdentifier>{c2bb8850-0d4b-4c49-85ea-22b48122c877}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\R4\Visibility\Public">
+      <UniqueIdentifier>{0dbd9661-fed4-4ceb-a582-ccc2fed269a0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\R4\Visibility\Private">
+      <UniqueIdentifier>{5f223fb2-7875-4940-b5d6-ccfc48747acb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\R4\Cordis">
+      <UniqueIdentifier>{d86b8e6e-e77d-4e89-a110-16cbe488ca1c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\R4\Cordis\SDK">
+      <UniqueIdentifier>{d24eb964-ac5d-49ce-a546-3660e2ce8c47}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\R4\WildMagic">
+      <UniqueIdentifier>{27b183e4-f289-43c9-8984-e32af5cb55a5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\R4\WildMagic\Public">
+      <UniqueIdentifier>{0e353bc0-ef4e-4fe3-8235-6b0aa616d927}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\R4\WildMagic\Private">
+      <UniqueIdentifier>{bc036263-117c-46e2-ac4b-69e6bcb7b57c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\R4\Cordis\SDK\UI management">
+      <UniqueIdentifier>{555fa4f4-fc0c-4341-b75f-047aae6d2730}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\R4\Cordis\SDK\UI management\Helpers">
+      <UniqueIdentifier>{8ded5e66-ba01-4f1d-84d1-415ed383ce7c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\R4\Cordis\SDK\UI management\Helpers\Public">
+      <UniqueIdentifier>{3085d4ba-f115-4c77-9814-f901a36f4a64}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\R4\Cordis\SDK\UI management\Helpers\Private">
+      <UniqueIdentifier>{cf5b400c-318a-4195-9044-59db755be5ff}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\R4\Cordis\SDK\UI management\Icon Manager">
+      <UniqueIdentifier>{ed747bc7-44db-4e0a-ab74-06be7c2c5e90}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\R4\Cordis\SDK\UI management\Icon Manager\Public">
+      <UniqueIdentifier>{c592a949-c2cf-4cd1-a22e-2dde871f7612}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\R4\Cordis\SDK\UI management\Icon Manager\Private">
+      <UniqueIdentifier>{4acb4a4e-1af8-444d-b371-adbddbbf36e7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\R4\Cordis\SDK\UI management\Kernel">
+      <UniqueIdentifier>{117939b4-689d-4245-bad8-0c091b1badd6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\R4\Cordis\SDK\UI management\Kernel\Public">
+      <UniqueIdentifier>{9e51e9c1-a11b-4b8a-8be8-c81fbdb770da}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\R4\Cordis\SDK\UI management\Kernel\Private">
+      <UniqueIdentifier>{95cf528b-373c-4754-bd3b-0a1175262ba8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\R4\Cordis\SDK\UI management\Object List">
+      <UniqueIdentifier>{a3650784-46e7-4264-b51b-9d905d2b5033}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\R4\Cordis\SDK\UI management\Object List\Public">
+      <UniqueIdentifier>{e904c1f2-351c-40f9-aa42-142884dd87d0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\R4\Cordis\SDK\UI management\Object List\Private">
+      <UniqueIdentifier>{85435cf9-f2b8-4d70-916d-c322f866c695}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\R4\Cordis\SDK\UI management\Object Properties">
+      <UniqueIdentifier>{7168be75-1ba5-4cdd-9b4b-cac5766e48e1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\R4\Cordis\SDK\UI management\Object Properties\Public">
+      <UniqueIdentifier>{092e76a2-9aae-459a-8cb8-93623e2567ca}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\R4\Cordis\SDK\UI management\Object Properties\Private">
+      <UniqueIdentifier>{cc8e97ee-536a-48a8-afba-ba80610f794b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\R4\Cordis\SDK\UI management\Right Window">
+      <UniqueIdentifier>{5382265d-98d0-49c5-8af3-54422012684b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\R4\Cordis\SDK\UI management\Right Window\Public">
+      <UniqueIdentifier>{b457f87a-3fb5-4d13-b648-56b4f421ff8f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\R4\Cordis\SDK\UI management\Right Window\Private">
+      <UniqueIdentifier>{79182573-f076-46c9-9789-2c63131117ae}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\R4\Cordis\SDK\UI management\Settings">
+      <UniqueIdentifier>{6a980f72-c89f-4517-b3bc-010bec9c474e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\R4\Cordis\SDK\UI management\Settings\Public">
+      <UniqueIdentifier>{33a9930e-4045-4e0c-87dc-5a141be17e3b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\R4\Cordis\SDK\UI management\Settings\Private">
+      <UniqueIdentifier>{431b53b2-c931-4714-9149-4b670f3ef1d0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\R4\Cordis\SDK\UI management\ToolBar">
+      <UniqueIdentifier>{d8f69878-bbad-42dd-a7f0-2c1c0348a6ee}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\R4\Cordis\SDK\UI management\ToolBar\Public">
+      <UniqueIdentifier>{33f46a2d-6ec5-4836-b582-31276e7f33e1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\R4\Cordis\SDK\UI management\ToolBar\Private">
+      <UniqueIdentifier>{7e941dd3-a036-450b-ad30-829111721354}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\R4\Cordis\SDK\Scene management">
+      <UniqueIdentifier>{f28caea1-885d-4c23-b90d-2b4117af06f2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\R4\Cordis\SDK\Scene management\Own">
+      <UniqueIdentifier>{345b9d0e-d4d8-4daf-b9c1-9dfdcd937ec4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\R4\Cordis\SDK\Scene management\Own\Cache">
+      <UniqueIdentifier>{29c04497-d533-4f8d-89c3-1a601e571e77}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\R4\Cordis\SDK\Scene management\Own\Cache\Public">
+      <UniqueIdentifier>{94ab42ad-c7e7-4e6a-84f0-ee44003ddd35}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\R4\Cordis\SDK\Scene management\Own\Cache\Private">
+      <UniqueIdentifier>{5c32801f-d33b-4ea8-a018-cb29e9ad23dc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\R4\Cordis\SDK\Scene management\Own\Gizmos">
+      <UniqueIdentifier>{94fcf846-9d18-4ac1-846c-52bfaf399084}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\R4\Cordis\SDK\Scene management\Own\Gizmos\Manager">
+      <UniqueIdentifier>{ab7a20e4-bc1a-4cf5-bb23-322212cfd476}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\R4\Cordis\SDK\Scene management\Own\Gizmos\Manager\Public">
+      <UniqueIdentifier>{f4902dc8-9e01-4d0f-bce5-cc0510396880}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\R4\Cordis\SDK\Scene management\Own\Gizmos\Manager\Private">
+      <UniqueIdentifier>{f9d339c8-509e-4b88-bfef-affaf0c282db}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\R4\Cordis\SDK\Scene management\Own\Gizmos\Move">
+      <UniqueIdentifier>{adbd70b7-bcaa-4f0f-a9e0-e81c0c60f688}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\R4\Cordis\SDK\Scene management\Own\Gizmos\Move\Public">
+      <UniqueIdentifier>{a62bc90b-3cad-473a-874e-72d012d60897}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\R4\Cordis\SDK\Scene management\Own\Gizmos\Move\Private">
+      <UniqueIdentifier>{633ace25-0d95-4328-80f4-2a229907fefc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\R4\Cordis\SDK\Scene management\Own\Gizmos\Rotation">
+      <UniqueIdentifier>{7c5f9e84-ab7b-4d0a-8873-08d3ddd13d0a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\R4\Cordis\SDK\Scene management\Own\Gizmos\Rotation\Public">
+      <UniqueIdentifier>{c998f589-0032-41e6-8432-2108e89e0307}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\R4\Cordis\SDK\Scene management\Own\Gizmos\Rotation\Private">
+      <UniqueIdentifier>{4fdc8b00-9cb4-4d31-94bd-6256c74f7886}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\R4\Cordis\SDK\Scene management\Own\Gizmos\Scale">
+      <UniqueIdentifier>{2a5ed648-5438-4786-938a-7e3b39881ad0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\R4\Cordis\SDK\Scene management\Own\Gizmos\Scale\Public">
+      <UniqueIdentifier>{086e666f-f315-4309-ae70-0bc77e85a4c2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\R4\Cordis\SDK\Scene management\Own\Gizmos\Scale\Private">
+      <UniqueIdentifier>{602377e8-6ee7-456a-831d-b1dc7e04c910}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\R4\Cordis\SDK\Scene management\Own\Kernel">
+      <UniqueIdentifier>{12c65659-9cc8-4d2c-b575-ac23eadb0560}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\R4\Cordis\SDK\Scene management\Own\Kernel\Custom Object">
+      <UniqueIdentifier>{fc448a56-f1ae-4b70-8606-0865a5f45f8d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\R4\Cordis\SDK\Scene management\Own\Kernel\Scene manager">
+      <UniqueIdentifier>{a6bc1e50-be98-4bf7-884f-c3bd8ec12427}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\R4\Cordis\SDK\Scene management\Own\Kernel\Custom Object\Public">
+      <UniqueIdentifier>{b0c5513a-a667-4f0d-96d4-b6897491027c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\R4\Cordis\SDK\Scene management\Own\Kernel\Custom Object\Private">
+      <UniqueIdentifier>{bcd2a987-10b9-422a-b423-fce0d07b5c72}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\R4\Cordis\SDK\Scene management\Own\Kernel\Scene manager\Public">
+      <UniqueIdentifier>{0594f6a4-7518-40d5-ad88-19c6ed260ba8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\R4\Cordis\SDK\Scene management\Own\Kernel\Scene manager\Private">
+      <UniqueIdentifier>{b246611f-ec5d-472a-a436-312e7cd58a15}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\R4\Cordis\SDK\Scene management\Own\Objects">
+      <UniqueIdentifier>{f8179a62-b184-44ba-9613-8ca953cac01a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\R4\Cordis\SDK\Scene management\Own\Objects\Light">
+      <UniqueIdentifier>{7ca06e27-f0c7-460b-b197-75eeff422155}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\R4\Cordis\SDK\Scene management\Own\Objects\Sector">
+      <UniqueIdentifier>{f9947d01-0608-448b-b35d-130518c16560}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\R4\Cordis\SDK\Scene management\Own\Objects\Shape">
+      <UniqueIdentifier>{1c115faa-f535-44e1-86d1-663116d00426}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\R4\Cordis\SDK\Scene management\Own\Objects\Spawn Element">
+      <UniqueIdentifier>{5e1e71fc-12d0-426b-80f8-40d4799f124c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\R4\Cordis\SDK\Scene management\Own\Objects\Static Geometry">
+      <UniqueIdentifier>{72c3d871-b753-46d5-9992-48ddb93a86db}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\R4\Cordis\SDK\Scene management\Own\Objects\Way Point">
+      <UniqueIdentifier>{a7fef8ee-dcc3-4a76-a4de-3fb1f276cf0b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\R4\Cordis\SDK\Scene management\Own\Objects\Light\Public">
+      <UniqueIdentifier>{096fed36-4e8a-44df-afc3-01dde5a265a0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\R4\Cordis\SDK\Scene management\Own\Objects\Light\Private">
+      <UniqueIdentifier>{e42092e1-5605-4f95-b696-9366adc6d473}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\R4\Cordis\SDK\Scene management\Own\Objects\Way Point\Public">
+      <UniqueIdentifier>{cc9e53eb-c0e9-4cca-bcd4-8665a4d198ed}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\R4\Cordis\SDK\Scene management\Own\Objects\Way Point\Private">
+      <UniqueIdentifier>{afea6b80-de0b-432c-bf45-3e514cd68a28}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\R4\Cordis\SDK\Scene management\Own\Objects\Static Geometry\Public">
+      <UniqueIdentifier>{e87db492-63d8-4fe5-ac6d-53e6b1bc8fff}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\R4\Cordis\SDK\Scene management\Own\Objects\Static Geometry\Private">
+      <UniqueIdentifier>{6148db77-8868-4e44-9c27-e9af0fccae4a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\R4\Cordis\SDK\Scene management\Own\Objects\Spawn Element\Public">
+      <UniqueIdentifier>{434db212-b952-4beb-8783-4ac83fcc1c48}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\R4\Cordis\SDK\Scene management\Own\Objects\Spawn Element\Private">
+      <UniqueIdentifier>{c212db56-dca9-48ee-960d-4d898b414c00}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\R4\Cordis\SDK\Scene management\Own\Objects\Shape\Public">
+      <UniqueIdentifier>{1235c85d-8f28-4dd0-bea2-92b542141c80}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\R4\Cordis\SDK\Scene management\Own\Objects\Shape\Private">
+      <UniqueIdentifier>{11dcbf2c-2abd-43b0-aef3-2e1d847addfe}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\R4\Cordis\SDK\Scene management\Own\Objects\Sector\Public">
+      <UniqueIdentifier>{1589ffc0-655a-4cf5-b473-a8e08587bd87}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\R4\Cordis\SDK\Scene management\Own\Objects\Sector\Private">
+      <UniqueIdentifier>{9c86de39-d464-4ef2-af04-b75cdcfd7074}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\R4\Cordis\SDK\Scene management\GSC">
+      <UniqueIdentifier>{a836edec-1846-4060-9088-274474f0b2a7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\R4\Cordis\SDK\Scene management\GSC\Picking">
+      <UniqueIdentifier>{d3c0fca8-49aa-4133-9626-d8cbe1c23231}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\R4\Cordis\SDK\Scene management\GSC\Model">
+      <UniqueIdentifier>{3642f80a-c840-4efc-8b1d-04f1ad7b6474}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\R4\Cordis\SDK\Scene management\GSC\Other stuff">
+      <UniqueIdentifier>{1182030b-c850-417e-a55e-07226a97f263}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\R4\Cordis\SDK\Scene management\GSC\Physics">
+      <UniqueIdentifier>{fc00bb77-6741-4d8d-a7ac-78f0fb173d5d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\R4\Cordis\SDK\Scene management\GSC\Model\Editable Mesh">
+      <UniqueIdentifier>{1fdd1c96-784b-4938-b573-25caaec02e90}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\R4\Cordis\SDK\Scene management\GSC\Model\Editable Mesh\CSurface">
+      <UniqueIdentifier>{f55ec48a-3a7e-4863-be16-0952b93fbff5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\R4\Cordis\SDK\Scene management\GSC\Model\Editable Mesh\CSurface\Public">
+      <UniqueIdentifier>{064f44f2-d2cc-48be-bc82-b324e47d0d74}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\R4\Cordis\SDK\Scene management\GSC\Model\Editable Mesh\CSurface\Private">
+      <UniqueIdentifier>{861e083c-f093-43dc-be3f-61709eaeb878}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\R4\Cordis\SDK\Scene management\GSC\Model\Editable Mesh\Public">
+      <UniqueIdentifier>{206864ad-4222-4245-904b-0bb89b429be5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\R4\Cordis\SDK\Scene management\GSC\Model\Editable Mesh\Private">
+      <UniqueIdentifier>{5b3f428e-aa46-4233-b39d-3463aee403dd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\R4\Cordis\SDK\Scene management\GSC\Model\Editable Object">
+      <UniqueIdentifier>{c23e58eb-8f78-4acf-90e7-6bf556023f57}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\R4\Cordis\SDK\Scene management\GSC\Model\Editable Object\Public">
+      <UniqueIdentifier>{133febbe-2474-496d-a6c7-34230ce4ba3a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\R4\Cordis\SDK\Scene management\GSC\Model\Editable Object\Private">
+      <UniqueIdentifier>{57f47e4e-c664-4313-afa6-947959f4e082}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\R4\Cordis\SDK\Scene management\GSC\Model\Export Object OGF">
+      <UniqueIdentifier>{f3df4373-8fe1-4ee5-ba5a-5a72e63d1d93}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\R4\Cordis\SDK\Scene management\GSC\Model\Export Object OGF\Public">
+      <UniqueIdentifier>{8672d6d3-a500-4c70-827e-7d69e8b61dde}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\R4\Cordis\SDK\Scene management\GSC\Model\Export Object OGF\Private">
+      <UniqueIdentifier>{7123f9c8-1475-4eda-a793-054e06dc7379}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\R4\Cordis\SDK\Scene management\GSC\Model\Export Skeleton">
+      <UniqueIdentifier>{a25a25b9-cfc0-44cb-9325-6749816dd7be}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\R4\Cordis\SDK\Scene management\GSC\Model\Export Skeleton\Public">
+      <UniqueIdentifier>{01d96529-a7a7-4015-a7fe-25284186227a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\R4\Cordis\SDK\Scene management\GSC\Model\Export Skeleton\Private">
+      <UniqueIdentifier>{a9a4c841-a7be-402f-a040-35cb7de2ba26}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\R4\Cordis\SDK\Scene management\GSC\Physics\Public">
+      <UniqueIdentifier>{252854f5-36a7-4905-9cf9-92a2d8ff2387}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\R4\Cordis\SDK\Scene management\GSC\Physics\Private">
+      <UniqueIdentifier>{2bbe7144-d341-4e2a-9937-b444bd2632f4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\R4\Cordis\SDK\Scene management\GSC\Picking\Public">
+      <UniqueIdentifier>{3b3e1edc-b823-44dd-b8ad-7f3e76e85e0b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\R4\Cordis\SDK\Scene management\GSC\Other stuff\Public">
+      <UniqueIdentifier>{b709d249-38f8-4cfe-ad89-32698ff1584f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\R4\Cordis\SDK\Scene management\GSC\Other stuff\IniFileStream">
+      <UniqueIdentifier>{e1783ce7-af93-4798-8152-833f0e95f774}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\R4\Cordis\SDK\Scene management\GSC\Other stuff\IniFileStream\Public">
+      <UniqueIdentifier>{259d1564-bee5-4d6b-821c-8ea20a5467a3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\R4\Cordis\SDK\Scene management\GSC\Other stuff\IniFileStream\Private">
+      <UniqueIdentifier>{b0927cfc-b780-49d4-b18f-be8f66b876ca}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\R4\Cordis\SDK\Scene management\GSC\Other stuff\Image manager">
+      <UniqueIdentifier>{5dc0b55e-1b7f-4aac-8690-49e82af8a2fa}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\R4\Cordis\SDK\Scene management\GSC\Other stuff\Image manager\Public">
+      <UniqueIdentifier>{dc9215cc-76a2-4175-ba18-5a2160e6ac4c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\R4\Cordis\SDK\Scene management\GSC\Other stuff\Image manager\Private">
+      <UniqueIdentifier>{7c86d396-1ee0-4f83-801d-3fbd96253f4d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\R4\Cordis\SDK\Scene management\GSC\Other stuff\Image manager\Thumbnail">
+      <UniqueIdentifier>{0b677633-c980-4533-87a7-8dfc57473080}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\R4\Cordis\SDK\Scene management\GSC\Other stuff\Image manager\Thumbnail\Public">
+      <UniqueIdentifier>{2b11d438-db59-4a94-a057-ce80b258b35c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\R4\Cordis\SDK\Scene management\GSC\Other stuff\Image manager\Thumbnail\Private">
+      <UniqueIdentifier>{76c323b7-8651-440b-ae44-454b01987acb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\R4\Cordis\SDK\Scene management\GSC\Other stuff\Editor Preferences">
+      <UniqueIdentifier>{d985adc4-aed1-4c06-9464-5c79d437bf52}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\R4\Cordis\SDK\Scene management\GSC\Other stuff\Editor Preferences\Public">
+      <UniqueIdentifier>{d0e814d8-6ae2-49c7-9905-0f9f2db1cdf3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\R4\Cordis\SDK\Scene management\GSC\Other stuff\Editor Preferences\Private">
+      <UniqueIdentifier>{b425847b-e92b-4654-a656-530ca658c8aa}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\R4\Cordis\SDK\Render">
+      <UniqueIdentifier>{1ae70b2f-ee9a-4bc7-a7fc-236f4932fb19}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\R4\Cordis\SDK\Render\Public">
+      <UniqueIdentifier>{fda66568-bd8e-4d7c-ae9b-7df0f4f37def}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\R4\Cordis\SDK\Render\Private">
+      <UniqueIdentifier>{db1c6d52-8505-4c5f-ab9b-39044e6a8ac9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\R4\Cordis\SDK\Keybinding manager">
+      <UniqueIdentifier>{c5c39867-9bce-437c-b5e2-e22475be785e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\R4\Cordis\SDK\Keybinding manager\Public">
+      <UniqueIdentifier>{d5680362-00f4-418f-9cfd-acd6b65532e4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\R4\Cordis\SDK\Keybinding manager\Private">
+      <UniqueIdentifier>{e1338611-9cf4-43a2-858e-d2d6a133fedc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\R4\Cordis\SDK\File System State">
+      <UniqueIdentifier>{df1edd28-659d-4167-ada3-729218bd8722}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\R4\Cordis\SDK\File System State\Public">
+      <UniqueIdentifier>{164fb206-46ed-46c0-9838-a985326bf1af}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\R4\Cordis\SDK\File System State\Private">
+      <UniqueIdentifier>{e4650f97-6512-4fa4-aa75-563077e86d5b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\R4\Cordis\SDK\Application Settings">
+      <UniqueIdentifier>{3bd4331a-20b0-4b1a-8aed-99fd0eab257c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\R4\Cordis\SDK\Application Settings\Public">
+      <UniqueIdentifier>{7883a1ec-5c56-42ba-b41f-f1704a39d8e5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\R4\Cordis\SDK\Application Settings\Private">
+      <UniqueIdentifier>{6ebce5d5-a3f5-49cb-aebe-0acb17751b83}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\Cordis">
       <UniqueIdentifier>{c01e4869-f752-489d-ac5c-06ed9b837778}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Cordis\SDK">
+    <Filter Include="Render\Cordis\SDK">
       <UniqueIdentifier>{bcee4403-a1d7-4da1-8f92-fb52de2ccbc6}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Cordis\SDK\Rendering stuff">
+    <Filter Include="Render\Cordis\SDK\Rendering stuff">
       <UniqueIdentifier>{4dd6f744-90c3-4a2b-8d11-1b7b5a96d8a2}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Cordis\SDK\Rendering stuff\Public">
+    <Filter Include="Render\Cordis\SDK\Rendering stuff\Public">
       <UniqueIdentifier>{8e99d3d8-127e-4833-bf30-de507c083c7f}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Cordis\SDK\Rendering stuff\Private">
+    <Filter Include="Render\Cordis\SDK\Rendering stuff\Private">
       <UniqueIdentifier>{687eb1bb-7ce5-484d-9533-0119f19a8960}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
@@ -6486,7 +7263,739 @@
       <Filter>UI\Common\LoadingScreen</Filter>
     </ClInclude>
     <ClInclude Include="SDKRender_Connection.h">
-      <Filter>Cordis\SDK\Rendering stuff\Public</Filter>
+      <Filter>Render\Cordis\SDK\Rendering stuff\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Render\3DFluid\dx103DFluidBlenders.h">
+      <Filter>Render\3DFluid\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Render\3DFluid\dx103DFluidData.h">
+      <Filter>Render\3DFluid\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Render\3DFluid\dx103DFluidEmitters.h">
+      <Filter>Render\3DFluid\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Render\3DFluid\dx103DFluidGrid.h">
+      <Filter>Render\3DFluid\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Render\3DFluid\dx103DFluidManager.h">
+      <Filter>Render\3DFluid\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Render\3DFluid\dx103DFluidObstacles.h">
+      <Filter>Render\3DFluid\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Render\3DFluid\dx103DFluidRenderer.h">
+      <Filter>Render\3DFluid\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Render\3DFluid\dx103DFluidVolume.h">
+      <Filter>Render\3DFluid\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Render\R4\r2_types.h">
+      <Filter>Render\R4\Kernel\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Render\R4\r4.h">
+      <Filter>Render\R4\Kernel\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Render\R4\r4_R_sun_support.h">
+      <Filter>Render\R4\Kernel\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Render\Kernel\D3DXRenderBase.h">
+      <Filter>Render\Kernel\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Render\Kernel\PSLibrary.h">
+      <Filter>Render\Kernel\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Render\Kernel\QueryHelper.h">
+      <Filter>Render\Kernel\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Render\Kernel\r__dsgraph_types.h">
+      <Filter>Render\Kernel\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Render\Kernel\r__occlusion.h">
+      <Filter>Render\Kernel\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Render\Kernel\r__pixel_calculator.h">
+      <Filter>Render\Kernel\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Render\Kernel\r_sun_cascades.h">
+      <Filter>Render\Kernel\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Render\R4\r4_rendertarget.h">
+      <Filter>Render\R4\Render Target\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Render\R4\r4_rendertarget_wallmarks.h">
+      <Filter>Render\R4\Render Target\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Render\Kernel\ColorMapManager.h">
+      <Filter>Render\R4\Render Target\ColorMap\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Render\Kernel\dxPixEventWrapper.h">
+      <Filter>Render\R4\Debug\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Render\Kernel\DetailFormat.h">
+      <Filter>Render\R4\Details\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Render\Kernel\DetailManager.h">
+      <Filter>Render\R4\Details\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Render\Kernel\DetailModel.h">
+      <Filter>Render\R4\Details\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Render\Kernel\dx10BufferUtils.h">
+      <Filter>Render\R4\DirectX9 to DirectX10 Utils\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Render\Kernel\dx10StateUtils.h">
+      <Filter>Render\R4\DirectX9 to DirectX10 Utils\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Render\Kernel\dx10TextureUtils.h">
+      <Filter>Render\R4\DirectX9 to DirectX10 Utils\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Render\Kernel\dxConsoleRender.h">
+      <Filter>Render\R4\Interfaces\Console Render\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Render\Kernel\ConsoleRender.h">
+      <Filter>Render\R4\Interfaces\Console Render\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Render\Kernel\DebugShader.h">
+      <Filter>Render\R4\Interfaces\Debug\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Render\Kernel\dxDebugRender.h">
+      <Filter>Render\R4\Interfaces\Debug\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Render\Kernel\DebugRender.h">
+      <Filter>Render\R4\Interfaces\Debug\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Render\Kernel\EnvironmentRender.h">
+      <Filter>Render\R4\Interfaces\Environment Render\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Render\Kernel\dxEnvironmentRender.h">
+      <Filter>Render\R4\Interfaces\Environment Render\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Render\Kernel\FactoryPtr.h">
+      <Filter>Render\R4\Interfaces\Factory Pointer\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Render\Kernel\FontRender.h">
+      <Filter>Render\R4\Interfaces\Font Render\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Render\Kernel\dxFontRender.h">
+      <Filter>Render\R4\Interfaces\Font Render\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Render\Kernel\LensFlareRender.h">
+      <Filter>Render\R4\Interfaces\Lens Flare\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Render\Kernel\dxLensFlareRender.h">
+      <Filter>Render\R4\Interfaces\Lens Flare\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Render\Kernel\dx10MSAABlender.h">
+      <Filter>Render\R4\Interfaces\MSAA Render\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Render\Kernel\ObjectSpaceRender.h">
+      <Filter>Render\R4\Interfaces\ObjectSpace Render\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Render\Kernel\dxObjectSpaceRender.h">
+      <Filter>Render\R4\Interfaces\ObjectSpace Render\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Render\Kernel\RainRender.h">
+      <Filter>Render\R4\Interfaces\Rain Render\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Render\Kernel\dxRainRender.h">
+      <Filter>Render\R4\Interfaces\Rain Render\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Render\Kernel\RenderFactory.h">
+      <Filter>Render\R4\Interfaces\Render Factory\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Render\Kernel\dxRenderFactory.h">
+      <Filter>Render\R4\Interfaces\Render Factory\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Render\Kernel\StatGraphRender.h">
+      <Filter>Render\R4\Interfaces\StatGraph Render\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Render\Kernel\dxStatGraphRender.h">
+      <Filter>Render\R4\Interfaces\StatGraph Render\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Render\Kernel\dxThunderboltDescRender.h">
+      <Filter>Render\R4\Interfaces\ThunderBoltDesc Render\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Render\Kernel\ThunderboltDescRender.h">
+      <Filter>Render\R4\Interfaces\ThunderBoltDesc Render\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Render\Kernel\dxThunderboltRender.h">
+      <Filter>Render\R4\Interfaces\ThunderBolt Render\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Render\Kernel\ThunderboltRender.h">
+      <Filter>Render\R4\Interfaces\ThunderBolt Render\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Render\Kernel\dxUIRender.h">
+      <Filter>Render\R4\Interfaces\UI\UIRender\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Render\Kernel\UIRender.h">
+      <Filter>Render\R4\Interfaces\UI\UIRender\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Render\Kernel\dxUISequenceVideoItem.h">
+      <Filter>Render\R4\Interfaces\UI\UISequenceVideoItem\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Render\Kernel\UISequenceVideoItem.h">
+      <Filter>Render\R4\Interfaces\UI\UISequenceVideoItem\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Render\Kernel\dxUIShader.h">
+      <Filter>Render\R4\Interfaces\UI\UIShader\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Render\Kernel\UIShader.h">
+      <Filter>Render\R4\Interfaces\UI\UIShader\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Render\Kernel\dxWallMarkArray.h">
+      <Filter>Render\R4\Interfaces\WallMarkArray\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Render\Kernel\WallMarkArray.h">
+      <Filter>Render\R4\Interfaces\WallMarkArray\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Render\Kernel\DXCommonTypes.h">
+      <Filter>Render\Kernel\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Render\Kernel\xrD3DDefs.h">
+      <Filter>Render\Kernel\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Render\Kernel\xrRender_console.h">
+      <Filter>Render\Kernel\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Render\Kernel\light.h">
+      <Filter>Render\R4\Light\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Render\Kernel\Light_DB.h">
+      <Filter>Render\R4\Light\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Render\Kernel\light_gi.h">
+      <Filter>Render\R4\Light\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Render\Kernel\Light_Package.h">
+      <Filter>Render\R4\Light\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Render\Kernel\Light_Render_Direct.h">
+      <Filter>Render\R4\Light\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Render\Kernel\light_smapvis.h">
+      <Filter>Render\R4\Light\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Render\Kernel\LightTrack.h">
+      <Filter>Render\R4\Light\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Render\R4\SMAP_Allocator.h">
+      <Filter>Render\R4\Light\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Render\Kernel\convert.h">
+      <Filter>Render\R4\MeshMender 2003\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Render\Kernel\mender_input_output.h">
+      <Filter>Render\R4\MeshMender 2003\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Render\Kernel\NVMeshMender.h">
+      <Filter>Render\R4\MeshMender 2003\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Render\Kernel\remove_isolated_verts.h">
+      <Filter>Render\R4\MeshMender 2003\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Render\Kernel\ModelPool.h">
+      <Filter>Render\R4\Model\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Render\Kernel\ParticleEffect.h">
+      <Filter>Render\R4\Model\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Render\Kernel\ParticleEffectDef.h">
+      <Filter>Render\R4\Model\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Render\Kernel\ParticleGroup.h">
+      <Filter>Render\R4\Model\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Render\Kernel\FLOD.h">
+      <Filter>Render\R4\Model\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Render\Kernel\FProgressive.h">
+      <Filter>Render\R4\Model\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Render\Kernel\FSkinned.h">
+      <Filter>Render\R4\Model\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Render\Kernel\FTreeVisual.h">
+      <Filter>Render\R4\Model\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Render\Kernel\FVisual.h">
+      <Filter>Render\R4\Model\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Render\Kernel\R_Backend.h">
+      <Filter>Render\R4\Refactored\Backend\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Render\Kernel\R_Backend_hemi.h">
+      <Filter>Render\R4\Refactored\Backend\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Render\Kernel\R_Backend_LOD.h">
+      <Filter>Render\R4\Refactored\Backend\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Render\Kernel\R_Backend_Runtime.h">
+      <Filter>Render\R4\Refactored\Backend\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Render\Kernel\R_Backend_tree.h">
+      <Filter>Render\R4\Refactored\Backend\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Render\Kernel\R_Backend_xform.h">
+      <Filter>Render\R4\Refactored\Backend\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Render\Kernel\R_DStreams.h">
+      <Filter>Render\R4\Refactored\Backend\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Render\Kernel\FVF.h">
+      <Filter>Render\R4\Refactored\Backend\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Render\Kernel\dx10R_Backend_Runtime.h">
+      <Filter>Render\R4\Refactored\Backend\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Render\Kernel\du_box.h">
+      <Filter>Render\R4\Refactored\Execution &amp; 3D\Debug Drawing\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Render\Kernel\du_cone.h">
+      <Filter>Render\R4\Refactored\Execution &amp; 3D\Debug Drawing\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Render\Kernel\du_cylinder.h">
+      <Filter>Render\R4\Refactored\Execution &amp; 3D\Debug Drawing\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Render\Kernel\du_sphere.h">
+      <Filter>Render\R4\Refactored\Execution &amp; 3D\Debug Drawing\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Render\Kernel\du_sphere_part.h">
+      <Filter>Render\R4\Refactored\Execution &amp; 3D\Debug Drawing\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Render\Kernel\D3DUtils.h">
+      <Filter>Render\R4\Refactored\Execution &amp; 3D\Debug Drawing\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Render\Kernel\DrawUtils.h">
+      <Filter>Render\R4\Refactored\Execution &amp; 3D\Debug Drawing\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Render\Kernel\xr_effgamma.h">
+      <Filter>Render\R4\Refactored\Execution &amp; 3D\Gamma\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Render\Kernel\Blender.h">
+      <Filter>Render\R4\Refactored\Execution &amp; 3D\Shaders\Blender\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Render\Kernel\Blender_CLSID.h">
+      <Filter>Render\R4\Refactored\Execution &amp; 3D\Shaders\Blender\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Render\Kernel\Blender_Recorder.h">
+      <Filter>Render\R4\Refactored\Execution &amp; 3D\Shaders\Blender\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Render\Kernel\tss.h">
+      <Filter>Render\R4\Refactored\Execution &amp; 3D\Shaders\Blender\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Render\Kernel\tss_def.h">
+      <Filter>Render\R4\Refactored\Execution &amp; 3D\Shaders\Blender\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Render\Kernel\r_constants.h">
+      <Filter>Render\R4\Refactored\Execution &amp; 3D\Shaders\Resources\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Render\Kernel\SH_Atomic.h">
+      <Filter>Render\R4\Refactored\Execution &amp; 3D\Shaders\Resources\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Render\Kernel\SH_Constant.h">
+      <Filter>Render\R4\Refactored\Execution &amp; 3D\Shaders\Resources\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Render\Kernel\SH_Matrix.h">
+      <Filter>Render\R4\Refactored\Execution &amp; 3D\Shaders\Resources\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Render\Kernel\SH_RT.h">
+      <Filter>Render\R4\Refactored\Execution &amp; 3D\Shaders\Resources\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Render\Kernel\SH_Texture.h">
+      <Filter>Render\R4\Refactored\Execution &amp; 3D\Shaders\Resources\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Render\Kernel\Shader.h">
+      <Filter>Render\R4\Refactored\Execution &amp; 3D\Shaders\Resources\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Render\Kernel\dx10ConstantBuffer.h">
+      <Filter>Render\R4\Refactored\Execution &amp; 3D\Shaders\Resources\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Render\Kernel\dx10ConstantBuffer_impl.h">
+      <Filter>Render\R4\Refactored\Execution &amp; 3D\Shaders\Resources\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Render\Kernel\ComputeShader.h">
+      <Filter>Render\R4\Refactored\Execution &amp; 3D\Shaders\Resources\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Render\Kernel\CSCompiler.h">
+      <Filter>Render\R4\Refactored\Execution &amp; 3D\Shaders\Resources\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Render\Kernel\dx10r_constants_cache.h">
+      <Filter>Render\R4\Refactored\Execution &amp; 3D\Shaders\Resources\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Render\Kernel\r_constants_cache.h">
+      <Filter>Render\R4\Refactored\Execution &amp; 3D\Shaders\Resources\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Render\Kernel\ETextureParams.h">
+      <Filter>Render\R4\Refactored\Execution &amp; 3D\Shaders\Shader Manager\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Render\Kernel\ResourceManager.h">
+      <Filter>Render\R4\Refactored\Execution &amp; 3D\Shaders\Shader Manager\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Render\Kernel\ShaderResourceTraits.h">
+      <Filter>Render\R4\Refactored\Execution &amp; 3D\Shaders\Shader Manager\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Render\Kernel\TextureDescrManager.h">
+      <Filter>Render\R4\Refactored\Execution &amp; 3D\Shaders\Shader Manager\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Render\Kernel\SkeletonAnimated.h">
+      <Filter>Render\R4\Refactored\Execution &amp; 3D\Visuals\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Render\Kernel\SkeletonCustom.h">
+      <Filter>Render\R4\Refactored\Execution &amp; 3D\Visuals\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Render\Kernel\SkeletonX.h">
+      <Filter>Render\R4\Refactored\Execution &amp; 3D\Visuals\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Render\Kernel\Kinematics.h">
+      <Filter>Render\R4\Refactored\Execution &amp; 3D\Visuals\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Render\Kernel\KinematicsAnimated.h">
+      <Filter>Render\R4\Refactored\Execution &amp; 3D\Visuals\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Render\Kernel\KinematicsAddBoneTransform.hpp">
+      <Filter>Render\R4\Refactored\Execution &amp; 3D\Visuals\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Render\Kernel\Animation.h">
+      <Filter>Render\R4\Refactored\Execution &amp; 3D\Visuals\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Render\Kernel\dxParticleCustom.h">
+      <Filter>Render\R4\Refactored\Execution &amp; 3D\Visuals\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Render\Kernel\FBasicVisual.h">
+      <Filter>Render\R4\Refactored\Execution &amp; 3D\Visuals\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Render\Kernel\FHierrarhyVisual.h">
+      <Filter>Render\R4\Refactored\Execution &amp; 3D\Visuals\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Render\Kernel\ParticleCustom.h">
+      <Filter>Render\R4\Refactored\Execution &amp; 3D\Visuals\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Render\Kernel\RenderVisual.h">
+      <Filter>Render\R4\Refactored\Execution &amp; 3D\Visuals\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Render\Kernel\IRenderDetailModel.h">
+      <Filter>Render\R4\Refactored\Interfaces\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Render\Kernel\RenderDetailModel.h">
+      <Filter>Render\R4\Refactored\Interfaces\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Render\Kernel\HW.h">
+      <Filter>Render\R4\Refactored\HW\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Render\Kernel\HWCaps.h">
+      <Filter>Render\R4\Refactored\HW\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Render\Kernel\stats_manager.h">
+      <Filter>Render\R4\Refactored\Statistic Manager\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Render\Kernel\Blender_Editor_Selection.h">
+      <Filter>Render\R4\Shading Templates\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Render\Kernel\Blender_Editor_Wire.h">
+      <Filter>Render\R4\Shading Templates\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Render\Kernel\Blender_Particle.h">
+      <Filter>Render\R4\Shading Templates\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Render\Kernel\Blender_BmmD.h">
+      <Filter>Render\R4\Shading Templates\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Render\Kernel\blender_bloom_build.h">
+      <Filter>Render\R4\Shading Templates\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Render\Kernel\blender_combine.h">
+      <Filter>Render\R4\Shading Templates\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Render\Kernel\blender_deffer_aref.h">
+      <Filter>Render\R4\Shading Templates\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Render\Kernel\blender_deffer_flat.h">
+      <Filter>Render\R4\Shading Templates\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Render\Kernel\blender_deffer_model.h">
+      <Filter>Render\R4\Shading Templates\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Render\Kernel\blender_fxaa.h">
+      <Filter>Render\R4\Shading Templates\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Render\Kernel\blender_light_direct.h">
+      <Filter>Render\R4\Shading Templates\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Render\Kernel\blender_light_mask.h">
+      <Filter>Render\R4\Shading Templates\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Render\Kernel\blender_light_occq.h">
+      <Filter>Render\R4\Shading Templates\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Render\Kernel\blender_light_point.h">
+      <Filter>Render\R4\Shading Templates\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Render\Kernel\blender_light_reflected.h">
+      <Filter>Render\R4\Shading Templates\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Render\Kernel\blender_light_spot.h">
+      <Filter>Render\R4\Shading Templates\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Render\Kernel\blender_luminance.h">
+      <Filter>Render\R4\Shading Templates\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Render\Kernel\blender_ssao.h">
+      <Filter>Render\R4\Shading Templates\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Render\Kernel\dx11HDAOCSBlender.h">
+      <Filter>Render\R4\Shading Templates\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Render\Kernel\dx11MinMaxSMBlender.h">
+      <Filter>Render\R4\Shading Templates\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Render\Kernel\uber_deffer.h">
+      <Filter>Render\R4\Shading Templates\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Render\Kernel\dx10RainBlender.h">
+      <Filter>Render\R4\Shading Templates\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Render\Kernel\Blender_detail_still.h">
+      <Filter>Render\R4\Shading Templates\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Render\Kernel\Blender_Lm(EbB).h">
+      <Filter>Render\R4\Shading Templates\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Render\Kernel\Blender_Model_EbB.h">
+      <Filter>Render\R4\Shading Templates\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Render\Kernel\Blender_Screen_SET.h">
+      <Filter>Render\R4\Shading Templates\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Render\Kernel\Blender_tree.h">
+      <Filter>Render\R4\Shading Templates\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Render\R4\Blender_2D_UI.h">
+      <Filter>Render\R4\Shading Templates\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Render\R4\blender_editor_sdk.h">
+      <Filter>Render\R4\Shading Templates\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Render\R4\blender_sdk.h">
+      <Filter>Render\R4\Shading Templates\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Render\Kernel\dx10SamplerStateCache.h">
+      <Filter>Render\R4\State Manager\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Render\Kernel\dx10ShaderResourceStateCache.h">
+      <Filter>Render\R4\State Manager\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Render\Kernel\dx10State.h">
+      <Filter>Render\R4\State Manager\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Render\Kernel\dx10StateCache.h">
+      <Filter>Render\R4\State Manager\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Render\Kernel\dx10StateCacheImpl.h">
+      <Filter>Render\R4\State Manager\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Render\Kernel\dx10StateManager.h">
+      <Filter>Render\R4\State Manager\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Render\Kernel\NvTriStrip.h">
+      <Filter>Render\R4\Stripifier\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Render\Kernel\NvTriStripObjects.h">
+      <Filter>Render\R4\Stripifier\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Render\Kernel\VertexCache.h">
+      <Filter>Render\R4\Stripifier\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Render\Kernel\xrStripify.h">
+      <Filter>Render\R4\Stripifier\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Render\Kernel\dxHashHelper.h">
+      <Filter>Render\R4\Utils\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Render\Kernel\WallmarksEngine.h">
+      <Filter>Render\R4\Wallmarks\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Render\Kernel\r__sector.h">
+      <Filter>Render\R4\Visibility\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Render\Kernel\occRasterizer.h">
+      <Filter>Render\R4\Visibility\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Render\Kernel\HOM.h">
+      <Filter>Render\R4\Visibility\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Render\WildMagic\WmlApprGaussPointsFit3.h">
+      <Filter>Render\R4\WildMagic\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Render\WildMagic\WmlBox3.h">
+      <Filter>Render\R4\WildMagic\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Render\WildMagic\WmlContBox3.h">
+      <Filter>Render\R4\WildMagic\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Render\WildMagic\WmlContMinBox3.h">
+      <Filter>Render\R4\WildMagic\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Render\WildMagic\WmlEigen.h">
+      <Filter>Render\R4\WildMagic\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Render\WildMagic\WmlGMatrix.h">
+      <Filter>Render\R4\WildMagic\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Render\WildMagic\WmlGVector.h">
+      <Filter>Render\R4\WildMagic\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Render\WildMagic\WmlMath.h">
+      <Filter>Render\R4\WildMagic\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Render\WildMagic\WmlMatrix.h">
+      <Filter>Render\R4\WildMagic\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Render\WildMagic\WmlMatrix2.h">
+      <Filter>Render\R4\WildMagic\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Render\WildMagic\WmlMatrix3.h">
+      <Filter>Render\R4\WildMagic\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Render\WildMagic\WmlMatrix4.h">
+      <Filter>Render\R4\WildMagic\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Render\WildMagic\WmlMinimize1.h">
+      <Filter>Render\R4\WildMagic\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Render\WildMagic\WmlMinimizeN.h">
+      <Filter>Render\R4\WildMagic\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Render\WildMagic\WmlQuaternion.h">
+      <Filter>Render\R4\WildMagic\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Render\WildMagic\WmlSystem.h">
+      <Filter>Render\R4\WildMagic\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Render\WildMagic\WmlVector.h">
+      <Filter>Render\R4\WildMagic\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Render\WildMagic\WmlVector2.h">
+      <Filter>Render\R4\WildMagic\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Render\WildMagic\WmlVector3.h">
+      <Filter>Render\R4\WildMagic\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Render\WildMagic\WmlVector4.h">
+      <Filter>Render\R4\WildMagic\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Render\WildMagic\WmlWinSystem.h">
+      <Filter>Render\R4\WildMagic\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Render\R4\SDKUI_Helpers.h">
+      <Filter>Render\R4\Cordis\SDK\UI management\Helpers\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Render\R4\SDK_IconManager.h">
+      <Filter>Render\R4\Cordis\SDK\UI management\Icon Manager\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Render\R4\SDK_Names.h">
+      <Filter>Render\R4\Cordis\SDK\UI management\Kernel\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Render\R4\SDKUI.h">
+      <Filter>Render\R4\Cordis\SDK\UI management\Kernel\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Render\R4\SDKUI_ObjectList.h">
+      <Filter>Render\R4\Cordis\SDK\UI management\Object List\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Render\R4\SDKUI_ObjectInspector.h">
+      <Filter>Render\R4\Cordis\SDK\UI management\Object Properties\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Render\R4\SDKUI_RightWindow.h">
+      <Filter>Render\R4\Cordis\SDK\UI management\Right Window\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Render\R4\SDKUI_Settings.h">
+      <Filter>Render\R4\Cordis\SDK\UI management\Settings\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Render\R4\SDKUI_ToolBar.h">
+      <Filter>Render\R4\Cordis\SDK\UI management\ToolBar\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Render\R4\SDK_Cache.h">
+      <Filter>Render\R4\Cordis\SDK\Scene management\Own\Cache\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Render\R4\SDK_GizmoManager.h">
+      <Filter>Render\R4\Cordis\SDK\Scene management\Own\Gizmos\Manager\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Render\R4\SDK_GizmoMove.h">
+      <Filter>Render\R4\Cordis\SDK\Scene management\Own\Gizmos\Move\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Render\R4\SDK_GizmoRotation.h">
+      <Filter>Render\R4\Cordis\SDK\Scene management\Own\Gizmos\Rotation\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Render\R4\SDK_GizmoScale.h">
+      <Filter>Render\R4\Cordis\SDK\Scene management\Own\Gizmos\Scale\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Render\R4\SDK_CustomObject.h">
+      <Filter>Render\R4\Cordis\SDK\Scene management\Own\Kernel\Custom Object\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Render\R4\SDK_SceneManager.h">
+      <Filter>Render\R4\Cordis\SDK\Scene management\Own\Kernel\Scene manager\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Render\R4\SDK_ObjectLight.h">
+      <Filter>Render\R4\Cordis\SDK\Scene management\Own\Objects\Light\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Render\R4\SDK_ObjectWayPoint.h">
+      <Filter>Render\R4\Cordis\SDK\Scene management\Own\Objects\Way Point\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Render\R4\SDK_ObjectStaticGeometry.h">
+      <Filter>Render\R4\Cordis\SDK\Scene management\Own\Objects\Static Geometry\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Render\R4\SDK_ObjectSpawnElement.h">
+      <Filter>Render\R4\Cordis\SDK\Scene management\Own\Objects\Spawn Element\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Render\R4\SDK_ObjectShape.h">
+      <Filter>Render\R4\Cordis\SDK\Scene management\Own\Objects\Shape\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Render\R4\EditMesh.h">
+      <Filter>Render\R4\Cordis\SDK\Scene management\GSC\Model\Editable Mesh\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Render\R4\CSurface.h">
+      <Filter>Render\R4\Cordis\SDK\Scene management\GSC\Model\Editable Mesh\CSurface\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Render\R4\EditObject.h">
+      <Filter>Render\R4\Cordis\SDK\Scene management\GSC\Model\Editable Object\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Render\R4\ExportObjectOGF.h">
+      <Filter>Render\R4\Cordis\SDK\Scene management\GSC\Model\Export Object OGF\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Render\R4\ExportSkeleton.h">
+      <Filter>Render\R4\Cordis\SDK\Scene management\GSC\Model\Export Skeleton\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Render\R4\PhysicsShellHolderEditorBase.h">
+      <Filter>Render\R4\Cordis\SDK\Scene management\GSC\Physics\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Render\R4\pick_defs.h">
+      <Filter>Render\R4\Cordis\SDK\Scene management\GSC\Picking\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Render\R4\itterate_adjacents_dynamic.h">
+      <Filter>Render\R4\Cordis\SDK\Scene management\GSC\Other stuff\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Render\R4\SIniFileStream.h">
+      <Filter>Render\R4\Cordis\SDK\Scene management\GSC\Other stuff\IniFileStream\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Render\R4\ImageManager.h">
+      <Filter>Render\R4\Cordis\SDK\Scene management\GSC\Other stuff\Image manager\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Render\R4\EThumbnail.h">
+      <Filter>Render\R4\Cordis\SDK\Scene management\GSC\Other stuff\Image manager\Thumbnail\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Render\R4\EditorPref.h">
+      <Filter>Render\R4\Cordis\SDK\Scene management\GSC\Other stuff\Editor Preferences\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Render\R4\SDKUI_Render.h">
+      <Filter>Render\R4\Cordis\SDK\Render\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Render\R4\SDK_KeybindingManager.h">
+      <Filter>Render\R4\Cordis\SDK\Keybinding manager\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Render\R4\SDK_FileSystemState.h">
+      <Filter>Render\R4\Cordis\SDK\File System State\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Render\R4\SDK_Settings.h">
+      <Filter>Render\R4\Cordis\SDK\Application Settings\Public</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -9823,7 +11332,763 @@
       <Filter>Core\Client\Ansel</Filter>
     </ClCompile>
     <ClCompile Include="SDKRender_Connection.cpp">
-      <Filter>Cordis\SDK\Rendering stuff\Private</Filter>
+      <Filter>Render\Cordis\SDK\Rendering stuff\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Render\3DFluid\dx103DFluidBlenders.cpp">
+      <Filter>Render\3DFluid\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Render\3DFluid\dx103DFluidData.cpp">
+      <Filter>Render\3DFluid\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Render\3DFluid\dx103DFluidEmitters.cpp">
+      <Filter>Render\3DFluid\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Render\3DFluid\dx103DFluidGrid.cpp">
+      <Filter>Render\3DFluid\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Render\3DFluid\dx103DFluidManager.cpp">
+      <Filter>Render\3DFluid\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Render\3DFluid\dx103DFluidObstacles.cpp">
+      <Filter>Render\3DFluid\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Render\3DFluid\dx103DFluidRenderer.cpp">
+      <Filter>Render\3DFluid\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Render\3DFluid\dx103DFluidVolume.cpp">
+      <Filter>Render\3DFluid\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Render\R4\r2_blenders.cpp">
+      <Filter>Render\R4\Kernel\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Render\R4\r2_R_calculate.cpp">
+      <Filter>Render\R4\Kernel\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Render\R4\r2_R_lights.cpp">
+      <Filter>Render\R4\Kernel\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Render\R4\r2_sector_detect.cpp">
+      <Filter>Render\R4\Kernel\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Render\R4\r4.cpp">
+      <Filter>Render\R4\Kernel\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Render\R4\r4_loader.cpp">
+      <Filter>Render\R4\Kernel\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Render\R4\r4_R_rain.cpp">
+      <Filter>Render\R4\Kernel\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Render\R4\r4_R_render.cpp">
+      <Filter>Render\R4\Kernel\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Render\R4\r4_R_sun.cpp">
+      <Filter>Render\R4\Kernel\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Render\R4\r4_R_sun_support.cpp">
+      <Filter>Render\R4\Kernel\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Render\R4\r4_shaders.cpp">
+      <Filter>Render\R4\Kernel\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Render\Kernel\dx10Texture.cpp">
+      <Filter>Render\Kernel\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Render\Kernel\PSLibrary.cpp">
+      <Filter>Render\Kernel\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Render\Kernel\r__dsgraph_build.cpp">
+      <Filter>Render\Kernel\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Render\Kernel\r__dsgraph_render.cpp">
+      <Filter>Render\Kernel\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Render\Kernel\r__dsgraph_render_lods.cpp">
+      <Filter>Render\Kernel\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Render\Kernel\r__occlusion.cpp">
+      <Filter>Render\Kernel\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Render\Kernel\r__pixel_calculator.cpp">
+      <Filter>Render\Kernel\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Render\Kernel\r__screenshot.cpp">
+      <Filter>Render\Kernel\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Render\R4\r4_rendertarget.cpp">
+      <Filter>Render\R4\Render Target\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Render\R4\r4_rendertarget_accum_direct.cpp">
+      <Filter>Render\R4\Render Target\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Render\R4\r4_rendertarget_accum_omnipart_geom.cpp">
+      <Filter>Render\R4\Render Target\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Render\R4\r4_rendertarget_accum_point.cpp">
+      <Filter>Render\R4\Render Target\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Render\R4\r4_rendertarget_accum_point_geom.cpp">
+      <Filter>Render\R4\Render Target\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Render\R4\r4_rendertarget_accum_reflected.cpp">
+      <Filter>Render\R4\Render Target\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Render\R4\r4_rendertarget_accum_spot.cpp">
+      <Filter>Render\R4\Render Target\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Render\R4\r4_rendertarget_accum_spot_geom.cpp">
+      <Filter>Render\R4\Render Target\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Render\R4\r4_rendertarget_create_minmaxSM.cpp">
+      <Filter>Render\R4\Render Target\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Render\R4\r4_rendertarget_draw_rain.cpp">
+      <Filter>Render\R4\Render Target\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Render\R4\r4_rendertarget_draw_volume.cpp">
+      <Filter>Render\R4\Render Target\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Render\R4\r4_rendertarget_enable_scissor.cpp">
+      <Filter>Render\R4\Render Target\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Render\R4\r4_rendertarget_mark_msaa_edges.cpp">
+      <Filter>Render\R4\Render Target\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Render\R4\r4_rendertarget_phase_accumulator.cpp">
+      <Filter>Render\R4\Render Target\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Render\R4\r4_rendertarget_phase_bloom.cpp">
+      <Filter>Render\R4\Render Target\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Render\R4\r4_rendertarget_phase_combine.cpp">
+      <Filter>Render\R4\Render Target\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Render\R4\r4_rendertarget_phase_FXAA.cpp">
+      <Filter>Render\R4\Render Target\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Render\R4\r4_rendertarget_phase_hdao.cpp">
+      <Filter>Render\R4\Render Target\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Render\R4\r4_rendertarget_phase_luminance.cpp">
+      <Filter>Render\R4\Render Target\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Render\R4\r4_rendertarget_phase_occq.cpp">
+      <Filter>Render\R4\Render Target\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Render\R4\r4_rendertarget_phase_PP.cpp">
+      <Filter>Render\R4\Render Target\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Render\R4\r4_rendertarget_phase_rain.cpp">
+      <Filter>Render\R4\Render Target\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Render\R4\r4_rendertarget_phase_scene.cpp">
+      <Filter>Render\R4\Render Target\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Render\R4\r4_rendertarget_phase_smap_D.cpp">
+      <Filter>Render\R4\Render Target\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Render\R4\r4_rendertarget_phase_smap_S.cpp">
+      <Filter>Render\R4\Render Target\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Render\R4\r4_rendertarget_phase_ssao.cpp">
+      <Filter>Render\R4\Render Target\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Render\Kernel\ColorMapManager.cpp">
+      <Filter>Render\R4\Render Target\ColorMap\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Render\Kernel\dxPixEventWrapper.cpp">
+      <Filter>Render\R4\Debug\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Render\Kernel\DetailManager.cpp">
+      <Filter>Render\R4\Details\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Render\Kernel\DetailManager_CACHE.cpp">
+      <Filter>Render\R4\Details\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Render\Kernel\DetailManager_Decompress.cpp">
+      <Filter>Render\R4\Details\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Render\Kernel\DetailManager_VS.cpp">
+      <Filter>Render\R4\Details\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Render\Kernel\DetailModel.cpp">
+      <Filter>Render\R4\Details\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Render\Kernel\dx10DetailManager_VS.cpp">
+      <Filter>Render\R4\Details\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Render\Kernel\dx10BufferUtils.cpp">
+      <Filter>Render\R4\DirectX9 to DirectX10 Utils\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Render\Kernel\dx10StateUtils.cpp">
+      <Filter>Render\R4\DirectX9 to DirectX10 Utils\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Render\Kernel\dx10TextureUtils.cpp">
+      <Filter>Render\R4\DirectX9 to DirectX10 Utils\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Render\Kernel\dxConsoleRender.cpp">
+      <Filter>Render\R4\Interfaces\Console Render\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Render\Kernel\dxDebugRender.cpp">
+      <Filter>Render\R4\Interfaces\Debug\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Render\Kernel\dxEnvironmentRender.cpp">
+      <Filter>Render\R4\Interfaces\Environment Render\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Render\Kernel\dxFontRender.cpp">
+      <Filter>Render\R4\Interfaces\Font Render\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Render\Kernel\dxLensFlareRender.cpp">
+      <Filter>Render\R4\Interfaces\Lens Flare\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Render\Kernel\dx10MSAABlender.cpp">
+      <Filter>Render\R4\Interfaces\MSAA Render\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Render\Kernel\dxObjectSpaceRender.cpp">
+      <Filter>Render\R4\Interfaces\ObjectSpace Render\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Render\Kernel\dxRainRender.cpp">
+      <Filter>Render\R4\Interfaces\Rain Render\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Render\Kernel\dxRenderFactory.cpp">
+      <Filter>Render\R4\Interfaces\Render Factory\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Render\Kernel\dxStatGraphRender.cpp">
+      <Filter>Render\R4\Interfaces\StatGraph Render\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Render\Kernel\dxThunderboltDescRender.cpp">
+      <Filter>Render\R4\Interfaces\ThunderBoltDesc Render\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Render\Kernel\dxThunderboltRender.cpp">
+      <Filter>Render\R4\Interfaces\ThunderBolt Render\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Render\Kernel\dxUIRender.cpp">
+      <Filter>Render\R4\Interfaces\UI\UIRender\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Render\Kernel\dxUISequenceVideoItem.cpp">
+      <Filter>Render\R4\Interfaces\UI\UISequenceVideoItem\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Render\Kernel\dxUIShader.cpp">
+      <Filter>Render\R4\Interfaces\UI\UIShader\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Render\Kernel\dxWallMarkArray.cpp">
+      <Filter>Render\R4\Interfaces\WallMarkArray\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Render\Kernel\xrRender_console.cpp">
+      <Filter>Render\Kernel\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Render\Kernel\light.cpp">
+      <Filter>Render\R4\Light\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Render\Kernel\Light_DB.cpp">
+      <Filter>Render\R4\Light\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Render\Kernel\light_gi.cpp">
+      <Filter>Render\R4\Light\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Render\Kernel\Light_Package.cpp">
+      <Filter>Render\R4\Light\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Render\Kernel\Light_Render_Direct.cpp">
+      <Filter>Render\R4\Light\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Render\Kernel\Light_Render_Direct_ComputeXFS.cpp">
+      <Filter>Render\R4\Light\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Render\Kernel\light_smapvis.cpp">
+      <Filter>Render\R4\Light\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Render\Kernel\light_vis.cpp">
+      <Filter>Render\R4\Light\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Render\Kernel\LightTrack.cpp">
+      <Filter>Render\R4\Light\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Render\Kernel\NVMeshMender.cpp">
+      <Filter>Render\R4\MeshMender 2003\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Render\Kernel\ModelPool.cpp">
+      <Filter>Render\R4\Model\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Render\Kernel\ParticleEffect.cpp">
+      <Filter>Render\R4\Model\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Render\Kernel\ParticleEffectDef.cpp">
+      <Filter>Render\R4\Model\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Render\Kernel\ParticleGroup.cpp">
+      <Filter>Render\R4\Model\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Render\Kernel\FLOD.cpp">
+      <Filter>Render\R4\Model\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Render\Kernel\FProgressive.cpp">
+      <Filter>Render\R4\Model\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Render\Kernel\FSkinned.cpp">
+      <Filter>Render\R4\Model\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Render\Kernel\FTreeVisual.cpp">
+      <Filter>Render\R4\Model\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Render\Kernel\FVisual.cpp">
+      <Filter>Render\R4\Model\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Render\Kernel\R_Backend.cpp">
+      <Filter>Render\R4\Refactored\Backend\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Render\Kernel\R_Backend_DBG.cpp">
+      <Filter>Render\R4\Refactored\Backend\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Render\Kernel\R_Backend_hemi.cpp">
+      <Filter>Render\R4\Refactored\Backend\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Render\Kernel\R_Backend_LOD.cpp">
+      <Filter>Render\R4\Refactored\Backend\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Render\Kernel\R_Backend_Runtime.cpp">
+      <Filter>Render\R4\Refactored\Backend\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Render\Kernel\R_Backend_tree.cpp">
+      <Filter>Render\R4\Refactored\Backend\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Render\Kernel\R_Backend_xform.cpp">
+      <Filter>Render\R4\Refactored\Backend\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Render\Kernel\R_DStreams.cpp">
+      <Filter>Render\R4\Refactored\Backend\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Render\Kernel\du_box.cpp">
+      <Filter>Render\R4\Refactored\Execution &amp; 3D\Debug Drawing\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Render\Kernel\du_cone.cpp">
+      <Filter>Render\R4\Refactored\Execution &amp; 3D\Debug Drawing\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Render\Kernel\du_cylinder.cpp">
+      <Filter>Render\R4\Refactored\Execution &amp; 3D\Debug Drawing\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Render\Kernel\du_sphere.cpp">
+      <Filter>Render\R4\Refactored\Execution &amp; 3D\Debug Drawing\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Render\Kernel\du_sphere_part.cpp">
+      <Filter>Render\R4\Refactored\Execution &amp; 3D\Debug Drawing\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Render\Kernel\D3DUtils.cpp">
+      <Filter>Render\R4\Refactored\Execution &amp; 3D\Debug Drawing\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Render\Kernel\xr_effgamma.cpp">
+      <Filter>Render\R4\Refactored\Execution &amp; 3D\Gamma\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Render\Kernel\Blender.cpp">
+      <Filter>Render\R4\Refactored\Execution &amp; 3D\Shaders\Blender\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Render\Kernel\Blender_Palette.cpp">
+      <Filter>Render\R4\Refactored\Execution &amp; 3D\Shaders\Blender\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Render\Kernel\Blender_Recorder.cpp">
+      <Filter>Render\R4\Refactored\Execution &amp; 3D\Shaders\Blender\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Render\Kernel\Blender_Recorder_R2.cpp">
+      <Filter>Render\R4\Refactored\Execution &amp; 3D\Shaders\Blender\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Render\Kernel\Blender_Recorder_R3.cpp">
+      <Filter>Render\R4\Refactored\Execution &amp; 3D\Shaders\Blender\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Render\Kernel\Blender_Recorder_StandartBinding.cpp">
+      <Filter>Render\R4\Refactored\Execution &amp; 3D\Shaders\Blender\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Render\Kernel\tss_def.cpp">
+      <Filter>Render\R4\Refactored\Execution &amp; 3D\Shaders\Blender\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Render\Kernel\r_constants.cpp">
+      <Filter>Render\R4\Refactored\Execution &amp; 3D\Shaders\Resources\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Render\Kernel\SH_Atomic.cpp">
+      <Filter>Render\R4\Refactored\Execution &amp; 3D\Shaders\Resources\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Render\Kernel\SH_Constant.cpp">
+      <Filter>Render\R4\Refactored\Execution &amp; 3D\Shaders\Resources\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Render\Kernel\SH_Matrix.cpp">
+      <Filter>Render\R4\Refactored\Execution &amp; 3D\Shaders\Resources\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Render\Kernel\Shader.cpp">
+      <Filter>Render\R4\Refactored\Execution &amp; 3D\Shaders\Resources\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Render\Kernel\dx10ConstantBuffer.cpp">
+      <Filter>Render\R4\Refactored\Execution &amp; 3D\Shaders\Resources\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Render\Kernel\dx10r_constants.cpp">
+      <Filter>Render\R4\Refactored\Execution &amp; 3D\Shaders\Resources\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Render\Kernel\dx10SH_RT.cpp">
+      <Filter>Render\R4\Refactored\Execution &amp; 3D\Shaders\Resources\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Render\Kernel\dx10SH_Texture.cpp">
+      <Filter>Render\R4\Refactored\Execution &amp; 3D\Shaders\Resources\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Render\Kernel\ComputeShader.cpp">
+      <Filter>Render\R4\Refactored\Execution &amp; 3D\Shaders\Resources\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Render\Kernel\CSCompiler.cpp">
+      <Filter>Render\R4\Refactored\Execution &amp; 3D\Shaders\Resources\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Render\Kernel\dx10r_constants_cache.cpp">
+      <Filter>Render\R4\Refactored\Execution &amp; 3D\Shaders\Resources\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Render\Kernel\dx10ResourceManager_Resources.cpp">
+      <Filter>Render\R4\Refactored\Execution &amp; 3D\Shaders\Shader Manager\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Render\Kernel\dx10ResourceManager_Scripting.cpp">
+      <Filter>Render\R4\Refactored\Execution &amp; 3D\Shaders\Shader Manager\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Render\Kernel\ETextureParams.cpp">
+      <Filter>Render\R4\Refactored\Execution &amp; 3D\Shaders\Shader Manager\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Render\Kernel\ResourceManager.cpp">
+      <Filter>Render\R4\Refactored\Execution &amp; 3D\Shaders\Shader Manager\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Render\Kernel\ResourceManager_Loader.cpp">
+      <Filter>Render\R4\Refactored\Execution &amp; 3D\Shaders\Shader Manager\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Render\Kernel\ResourceManager_Reset.cpp">
+      <Filter>Render\R4\Refactored\Execution &amp; 3D\Shaders\Shader Manager\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Render\Kernel\TextureDescrManager.cpp">
+      <Filter>Render\R4\Refactored\Execution &amp; 3D\Shaders\Shader Manager\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Render\Kernel\SkeletonAnimated.cpp">
+      <Filter>Render\R4\Refactored\Execution &amp; 3D\Visuals\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Render\Kernel\SkeletonCustom.cpp">
+      <Filter>Render\R4\Refactored\Execution &amp; 3D\Visuals\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Render\Kernel\SkeletonRigid.cpp">
+      <Filter>Render\R4\Refactored\Execution &amp; 3D\Visuals\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Render\Kernel\SkeletonX.cpp">
+      <Filter>Render\R4\Refactored\Execution &amp; 3D\Visuals\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Render\Kernel\Animation.cpp">
+      <Filter>Render\R4\Refactored\Execution &amp; 3D\Visuals\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Render\Kernel\dxParticleCustom.cpp">
+      <Filter>Render\R4\Refactored\Execution &amp; 3D\Visuals\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Render\Kernel\FBasicVisual.cpp">
+      <Filter>Render\R4\Refactored\Execution &amp; 3D\Visuals\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Render\Kernel\FHierrarhyVisual.cpp">
+      <Filter>Render\R4\Refactored\Execution &amp; 3D\Visuals\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Render\Kernel\HWCaps.cpp">
+      <Filter>Render\R4\Refactored\HW\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Render\Kernel\dx10HW.cpp">
+      <Filter>Render\R4\Refactored\HW\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Render\Kernel\stats_manager.cpp">
+      <Filter>Render\R4\Refactored\Statistic Manager\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Render\Kernel\Blender_BmmD.cpp">
+      <Filter>Render\R4\Shading Templates\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Render\Kernel\Blender_Editor_Selection.cpp">
+      <Filter>Render\R4\Shading Templates\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Render\Kernel\Blender_Editor_Wire.cpp">
+      <Filter>Render\R4\Shading Templates\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Render\Kernel\Blender_Particle.cpp">
+      <Filter>Render\R4\Shading Templates\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Render\Kernel\blender_bloom_build.cpp">
+      <Filter>Render\R4\Shading Templates\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Render\Kernel\blender_combine.cpp">
+      <Filter>Render\R4\Shading Templates\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Render\Kernel\blender_deffer_aref.cpp">
+      <Filter>Render\R4\Shading Templates\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Render\Kernel\blender_deffer_flat.cpp">
+      <Filter>Render\R4\Shading Templates\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Render\Kernel\blender_deffer_model.cpp">
+      <Filter>Render\R4\Shading Templates\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Render\Kernel\blender_fxaa.cpp">
+      <Filter>Render\R4\Shading Templates\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Render\Kernel\blender_light_direct.cpp">
+      <Filter>Render\R4\Shading Templates\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Render\Kernel\blender_light_mask.cpp">
+      <Filter>Render\R4\Shading Templates\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Render\Kernel\blender_light_occq.cpp">
+      <Filter>Render\R4\Shading Templates\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Render\Kernel\blender_light_point.cpp">
+      <Filter>Render\R4\Shading Templates\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Render\Kernel\blender_light_reflected.cpp">
+      <Filter>Render\R4\Shading Templates\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Render\Kernel\blender_light_spot.cpp">
+      <Filter>Render\R4\Shading Templates\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Render\Kernel\blender_luminance.cpp">
+      <Filter>Render\R4\Shading Templates\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Render\Kernel\blender_ssao.cpp">
+      <Filter>Render\R4\Shading Templates\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Render\Kernel\dx11HDAOCSBlender.cpp">
+      <Filter>Render\R4\Shading Templates\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Render\Kernel\dx11MinMaxSMBlender.cpp">
+      <Filter>Render\R4\Shading Templates\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Render\Kernel\uber_deffer.cpp">
+      <Filter>Render\R4\Shading Templates\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Render\Kernel\dx10RainBlender.cpp">
+      <Filter>Render\R4\Shading Templates\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Render\Kernel\Blender_detail_still.cpp">
+      <Filter>Render\R4\Shading Templates\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Render\Kernel\Blender_Lm(EbB).cpp">
+      <Filter>Render\R4\Shading Templates\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Render\Kernel\Blender_Model_EbB.cpp">
+      <Filter>Render\R4\Shading Templates\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Render\Kernel\Blender_Screen_SET.cpp">
+      <Filter>Render\R4\Shading Templates\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Render\Kernel\Blender_tree.cpp">
+      <Filter>Render\R4\Shading Templates\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Render\R4\Blender_2D_UI.cpp">
+      <Filter>Render\R4\Shading Templates\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Render\R4\blender_editor_sdk.cpp">
+      <Filter>Render\R4\Shading Templates\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Render\R4\blender_sdk.cpp">
+      <Filter>Render\R4\Shading Templates\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Render\Kernel\dx10SamplerStateCache.cpp">
+      <Filter>Render\R4\State Manager\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Render\Kernel\dx10ShaderResourceStateCache.cpp">
+      <Filter>Render\R4\State Manager\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Render\Kernel\dx10State.cpp">
+      <Filter>Render\R4\State Manager\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Render\Kernel\dx10StateCache.cpp">
+      <Filter>Render\R4\State Manager\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Render\Kernel\dx10StateManager.cpp">
+      <Filter>Render\R4\State Manager\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Render\Kernel\NvTriStrip.cpp">
+      <Filter>Render\R4\Stripifier\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Render\Kernel\NvTriStripObjects.cpp">
+      <Filter>Render\R4\Stripifier\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Render\Kernel\VertexCache.cpp">
+      <Filter>Render\R4\Stripifier\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Render\Kernel\xrStripify.cpp">
+      <Filter>Render\R4\Stripifier\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Render\Kernel\dxHashHelper.cpp">
+      <Filter>Render\R4\Utils\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Render\Kernel\WallmarksEngine.cpp">
+      <Filter>Render\R4\Wallmarks\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Render\Kernel\r__sector_traversal.cpp">
+      <Filter>Render\R4\Visibility\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Render\Kernel\r__sector.cpp">
+      <Filter>Render\R4\Visibility\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Render\Kernel\occRasterizer_core.cpp">
+      <Filter>Render\R4\Visibility\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Render\Kernel\occRasterizer.cpp">
+      <Filter>Render\R4\Visibility\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Render\Kernel\HOM.cpp">
+      <Filter>Render\R4\Visibility\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Render\WildMagic\RAPIDMinBox.cpp">
+      <Filter>Render\R4\WildMagic\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Render\WildMagic\WmlApprGaussPointsFit3.cpp">
+      <Filter>Render\R4\WildMagic\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Render\WildMagic\WmlBox3.cpp">
+      <Filter>Render\R4\WildMagic\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Render\WildMagic\WmlContBox3.cpp">
+      <Filter>Render\R4\WildMagic\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Render\WildMagic\WmlContMinBox3.cpp">
+      <Filter>Render\R4\WildMagic\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Render\WildMagic\WmlEigen.cpp">
+      <Filter>Render\R4\WildMagic\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Render\WildMagic\WmlMath.cpp">
+      <Filter>Render\R4\WildMagic\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Render\WildMagic\WmlMatrix2.cpp">
+      <Filter>Render\R4\WildMagic\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Render\WildMagic\WmlMatrix3.cpp">
+      <Filter>Render\R4\WildMagic\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Render\WildMagic\WmlMatrix4.cpp">
+      <Filter>Render\R4\WildMagic\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Render\WildMagic\WmlMinimize1.cpp">
+      <Filter>Render\R4\WildMagic\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Render\WildMagic\WmlMinimizeN.cpp">
+      <Filter>Render\R4\WildMagic\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Render\WildMagic\WmlQuaternion.cpp">
+      <Filter>Render\R4\WildMagic\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Render\WildMagic\WmlSystem.cpp">
+      <Filter>Render\R4\WildMagic\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Render\WildMagic\WmlVector2.cpp">
+      <Filter>Render\R4\WildMagic\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Render\WildMagic\WmlVector3.cpp">
+      <Filter>Render\R4\WildMagic\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Render\WildMagic\WmlVector4.cpp">
+      <Filter>Render\R4\WildMagic\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Render\WildMagic\WmlWinSystem.cpp">
+      <Filter>Render\R4\WildMagic\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Render\R4\SDKUI_Helpers.cpp">
+      <Filter>Render\R4\Cordis\SDK\UI management\Helpers\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Render\R4\SDK_IconManager.cpp">
+      <Filter>Render\R4\Cordis\SDK\UI management\Icon Manager\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Render\R4\SDK_Names.cpp">
+      <Filter>Render\R4\Cordis\SDK\UI management\Kernel\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Render\R4\SDKUI.cpp">
+      <Filter>Render\R4\Cordis\SDK\UI management\Kernel\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Render\R4\SDKUI_ObjectList.cpp">
+      <Filter>Render\R4\Cordis\SDK\UI management\Object List\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Render\R4\SDKUI_ObjectInspector.cpp">
+      <Filter>Render\R4\Cordis\SDK\UI management\Object Properties\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Render\R4\SDKUI_RightWindow.cpp">
+      <Filter>Render\R4\Cordis\SDK\UI management\Right Window\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Render\R4\SDKUI_Settings.cpp">
+      <Filter>Render\R4\Cordis\SDK\UI management\Settings\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Render\R4\SDKUI_ToolBar.cpp">
+      <Filter>Render\R4\Cordis\SDK\UI management\ToolBar\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Render\R4\SDK_Cache.cpp">
+      <Filter>Render\R4\Cordis\SDK\Scene management\Own\Cache\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Render\R4\SDK_GizmoManager.cpp">
+      <Filter>Render\R4\Cordis\SDK\Scene management\Own\Gizmos\Manager\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Render\R4\SDK_GizmoMove.cpp">
+      <Filter>Render\R4\Cordis\SDK\Scene management\Own\Gizmos\Move\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Render\R4\SDK_GizmoRotation.cpp">
+      <Filter>Render\R4\Cordis\SDK\Scene management\Own\Gizmos\Rotation\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Render\R4\SDK_GizmoScale.cpp">
+      <Filter>Render\R4\Cordis\SDK\Scene management\Own\Gizmos\Scale\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Render\R4\SDK_CustomObject.cpp">
+      <Filter>Render\R4\Cordis\SDK\Scene management\Own\Kernel\Custom Object\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Render\R4\SDK_SceneManager.cpp">
+      <Filter>Render\R4\Cordis\SDK\Scene management\Own\Kernel\Scene manager\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Render\R4\SDK_ObjectLight.cpp">
+      <Filter>Render\R4\Cordis\SDK\Scene management\Own\Objects\Light\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Render\R4\SDK_ObjectWayPoint.cpp">
+      <Filter>Render\R4\Cordis\SDK\Scene management\Own\Objects\Way Point\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Render\R4\SDK_ObjectStaticGeometry.cpp">
+      <Filter>Render\R4\Cordis\SDK\Scene management\Own\Objects\Static Geometry\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Render\R4\SDK_ObjectSpawnElement.cpp">
+      <Filter>Render\R4\Cordis\SDK\Scene management\Own\Objects\Spawn Element\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Render\R4\SDK_ObjectShape.cpp">
+      <Filter>Render\R4\Cordis\SDK\Scene management\Own\Objects\Shape\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Render\R4\EditMesh.cpp">
+      <Filter>Render\R4\Cordis\SDK\Scene management\GSC\Model\Editable Mesh\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Render\R4\CSurface.cpp">
+      <Filter>Render\R4\Cordis\SDK\Scene management\GSC\Model\Editable Mesh\CSurface\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Render\R4\EditObject.cpp">
+      <Filter>Render\R4\Cordis\SDK\Scene management\GSC\Model\Editable Object\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Render\R4\ExportObjectOGF.cpp">
+      <Filter>Render\R4\Cordis\SDK\Scene management\GSC\Model\Export Object OGF\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Render\R4\ExportSkeleton.cpp">
+      <Filter>Render\R4\Cordis\SDK\Scene management\GSC\Model\Export Skeleton\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Render\R4\PhysicsShellHolderEditorBase.cpp">
+      <Filter>Render\R4\Cordis\SDK\Scene management\GSC\Physics\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Render\R4\SIniFileStream.cpp">
+      <Filter>Render\R4\Cordis\SDK\Scene management\GSC\Other stuff\IniFileStream\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Render\R4\ImageManager.cpp">
+      <Filter>Render\R4\Cordis\SDK\Scene management\GSC\Other stuff\Image manager\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Render\R4\EThumbnail.cpp">
+      <Filter>Render\R4\Cordis\SDK\Scene management\GSC\Other stuff\Image manager\Thumbnail\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Render\R4\EditorPref.cpp">
+      <Filter>Render\R4\Cordis\SDK\Scene management\GSC\Other stuff\Editor Preferences\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Render\R4\SDKUI_Render.cpp">
+      <Filter>Render\R4\Cordis\SDK\Render\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Render\R4\SDK_KeybindingManager.cpp">
+      <Filter>Render\R4\Cordis\SDK\Keybinding manager\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Render\R4\SDK_FileSystemState.cpp">
+      <Filter>Render\R4\Cordis\SDK\File System State\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Render\R4\SDK_Settings.cpp">
+      <Filter>Render\R4\Cordis\SDK\Application Settings\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Render\R4\r2_test_hw.cpp">
+      <Filter>Render\R4\Kernel</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -9842,5 +12107,44 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+    <None Include="Render\WildMagic\WmlGMatrix.inl">
+      <Filter>Render\R4\WildMagic\Public</Filter>
+    </None>
+    <None Include="Render\WildMagic\WmlGVector.inl">
+      <Filter>Render\R4\WildMagic\Public</Filter>
+    </None>
+    <None Include="Render\WildMagic\WmlMath.inl">
+      <Filter>Render\R4\WildMagic\Public</Filter>
+    </None>
+    <None Include="Render\WildMagic\WmlMatrix.inl">
+      <Filter>Render\R4\WildMagic\Public</Filter>
+    </None>
+    <None Include="Render\WildMagic\WmlMatrix2.inl">
+      <Filter>Render\R4\WildMagic\Public</Filter>
+    </None>
+    <None Include="Render\WildMagic\WmlMatrix3.inl">
+      <Filter>Render\R4\WildMagic\Public</Filter>
+    </None>
+    <None Include="Render\WildMagic\WmlMatrix4.inl">
+      <Filter>Render\R4\WildMagic\Public</Filter>
+    </None>
+    <None Include="Render\WildMagic\WmlQuaternion.inl">
+      <Filter>Render\R4\WildMagic\Public</Filter>
+    </None>
+    <None Include="Render\WildMagic\WmlSystem.inl">
+      <Filter>Render\R4\WildMagic\Public</Filter>
+    </None>
+    <None Include="Render\WildMagic\WmlVector.inl">
+      <Filter>Render\R4\WildMagic\Public</Filter>
+    </None>
+    <None Include="Render\WildMagic\WmlVector2.inl">
+      <Filter>Render\R4\WildMagic\Public</Filter>
+    </None>
+    <None Include="Render\WildMagic\WmlVector3.inl">
+      <Filter>Render\R4\WildMagic\Public</Filter>
+    </None>
+    <None Include="Render\WildMagic\WmlVector4.inl">
+      <Filter>Render\R4\WildMagic\Public</Filter>
+    </None>
   </ItemGroup>
 </Project>

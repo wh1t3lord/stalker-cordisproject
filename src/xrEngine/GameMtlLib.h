@@ -57,8 +57,8 @@ class IWriter;
 
 #ifndef GM_NON_GAME
 #include "xrSound/Sound.h"
-#include "Include/xrRender/WallMarkArray.h"
-#include "Include/xrRender/RenderFactory.h"
+#include "xrGame/Render/Kernel/WallMarkArray.h"
+#include "xrGame/Render/Kernel/RenderFactory.h"
 typedef xr_vector<ref_sound> SoundVec;
 typedef SoundVec::iterator SoundIt;
 typedef xr_vector<shared_str> PSVec;

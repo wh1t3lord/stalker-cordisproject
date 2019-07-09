@@ -3,7 +3,7 @@
 #include "xrEngine/LightAnimLibrary.h"
 #include "script_entity_action.h"
 #include "xrServer_Objects_ALife.h"
-#include "Include/xrRender/Kinematics.h"
+#include "Kinematics.h"
 #include "game_object_space.h"
 
 //////////////////////////////////////////////////////////////////////

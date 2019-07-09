@@ -4,7 +4,7 @@
 //////////////////////////////////////////////////////////////////////
 
 #include "StdAfx.h"
-#include "Include/xrRender/Kinematics.h"
+#include "Kinematics.h"
 #include "ExplosiveRocket.h"
 #include "PhysicsShellHolder.h"
 #include "xrPhysics/PhysicsShell.h"

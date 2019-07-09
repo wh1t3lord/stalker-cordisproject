@@ -1,7 +1,7 @@
 #include "pch_script.h"
 #include "GameObject.h"
 
-#include "Include/xrRender/RenderVisual.h"
+#include "RenderVisual.h"
 #include "xrPhysics/PhysicsShell.h"
 #include "ai_space.h"
 #include "CustomMonster.h"
@@ -16,7 +16,7 @@
 #include "xrServer_Objects_ALife_Items.h"
 #include "game_cl_base.h"
 #include "object_factory.h"
-#include "Include/xrRender/Kinematics.h"
+#include "Kinematics.h"
 #include "xrAICore/Navigation/ai_object_location.h"
 #include "xrAICore/Navigation/ai_object_location_impl.h"
 #include "xrAICore/Navigation/game_graph.h"

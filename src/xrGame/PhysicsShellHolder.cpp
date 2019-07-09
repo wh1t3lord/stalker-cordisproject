@@ -3,7 +3,7 @@
 #include "xrPhysics/PhysicsShell.h"
 #include "xrMessages.h"
 #include "ph_shell_interface.h"
-#include "Include/xrRender/Kinematics.h"
+#include "Kinematics.h"
 #include "xrScriptEngine/script_callback_ex.h"
 #include "Level.h"
 #include "PHCommander.h"

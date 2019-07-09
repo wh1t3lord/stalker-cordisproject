@@ -6,7 +6,7 @@
 #include "xrServerEntities/xrMessages.h"
 
 #include "xrEngine/xr_collide_form.h"
-#include "Include/xrRender/Kinematics.h"
+#include "Kinematics.h"
 
 //////////////////////////////////////////////////////////////////////
 // Construction/Destruction

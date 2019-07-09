@@ -10,7 +10,7 @@
 #include "SpaceUtils.h"
 #include "MathUtils.h"
 #include "IPhysicsShellHolder.h"
-#include "Include/xrRender/Kinematics.h"
+#include "xrGame/Render/Kernel/Kinematics.h"
 #include "PHCollideValidator.h"
 #include "xrCore/Animation/Bone.hpp"
 #include "xrEngine/GameMtlLib.h"

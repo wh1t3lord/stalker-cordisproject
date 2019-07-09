@@ -2,7 +2,7 @@
 
 #include "character_shell_control.h"
 
-#include "Include/xrRender/Kinematics.h"
+#include "Kinematics.h"
 #include "xrCore/Animation/Bone.hpp"
 
 #include "xrPhysics/ExtendedGeom.h"

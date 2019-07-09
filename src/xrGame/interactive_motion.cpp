@@ -5,7 +5,7 @@
 #include "xrPhysics/PhysicsShell.h"
 #include "PhysicsShellHolder.h"
 
-#include "Include/xrRender/Kinematics.h"
+#include "Kinematics.h"
 
 #include "game_object_space.h"
 

@@ -4,7 +4,7 @@
 #include "xrAICore/Navigation/game_level_cross_table.h"
 #include "xrAICore/Navigation/game_graph.h"
 #include "ai_rat_space.h"
-#include "Include/xrRender/KinematicsAnimated.h"
+#include "KinematicsAnimated.h"
 #include "detail_path_manager.h"
 #include "memory_manager.h"
 #include "enemy_manager.h"

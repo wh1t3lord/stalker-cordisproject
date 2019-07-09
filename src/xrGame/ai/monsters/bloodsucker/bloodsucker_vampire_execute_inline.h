@@ -1,5 +1,5 @@
 #pragma once
-#include "Include/xrRender/KinematicsAnimated.h"
+#include "KinematicsAnimated.h"
 #include "Actor.h"
 #include "xrEngine/CameraBase.h"
 #include "HUDManager.h"

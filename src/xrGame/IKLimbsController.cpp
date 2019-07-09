@@ -7,8 +7,8 @@
 
 #include "ik_anim_state.h"
 #include "xrPhysics/MathUtils.h"
-#include "Include/xrRender/RenderVisual.h"
-#include "Include/xrRender/Kinematics.h"
+#include "RenderVisual.h"
+#include "Kinematics.h"
 
 #include "CharacterPhysicsSupport.h"
 #include "xrCore/Animation/Motion.hpp"

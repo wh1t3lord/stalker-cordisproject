@@ -23,7 +23,7 @@
 #include "cover_evaluators.h"
 #include "xrServer.h"
 #include "xr_level_controller.h"
-#include "Include/xrRender/Kinematics.h"
+#include "Kinematics.h"
 #include "xrServerEntities/character_info.h"
 #include "Actor.h"
 #include "relation_registry.h"

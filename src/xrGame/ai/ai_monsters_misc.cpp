@@ -15,7 +15,7 @@
 #include "team_hierarchy_holder.h"
 #include "squad_hierarchy_holder.h"
 #include "group_hierarchy_holder.h"
-#include "Include/xrRender/KinematicsAnimated.h"
+#include "KinematicsAnimated.h"
 #include "ai_monsters_anims.h"
 #include "ef_pattern.h"
 #include "memory_manager.h"

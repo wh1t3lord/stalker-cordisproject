@@ -1,8 +1,8 @@
 #include "pch.hpp"
 #include "UIWindow.h"
 #include "Cursor/UICursor.h"
-#include "Include/xrRender/DebugRender.h"
-#include "Include/xrRender/UIRender.h"
+#include "xrGame/Render/Kernel/DebugRender.h"
+#include "xrGame/Render/Kernel/UIRender.h"
 #include "xrEngine/xr_input_xinput.h"
 
 xr_vector<Frect> g_wnds_rects;

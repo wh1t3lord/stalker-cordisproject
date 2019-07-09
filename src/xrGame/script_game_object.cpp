@@ -23,7 +23,7 @@
 #include "xrMessages.h"
 #include "Inventory.h"
 #include "script_ini_file.h"
-#include "Include/xrRender/Kinematics.h"
+#include "Kinematics.h"
 #include "HangingLamp.h"
 #include "patrol_path_manager.h"
 #include "xrAICore/Navigation/ai_object_location.h"

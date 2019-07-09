@@ -6,7 +6,7 @@
 #include "xrPhysics/ExtendedGeom.h"
 #include "xrPhysics/MathUtils.h"
 
-#include "Include/xrRender/KinematicsAnimated.h"
+#include "KinematicsAnimated.h"
 
 interactive_animation::interactive_animation(CPhysicsShellHolder* O, CBlend* b)
     : physics_shell_animated(O, false), blend(b)

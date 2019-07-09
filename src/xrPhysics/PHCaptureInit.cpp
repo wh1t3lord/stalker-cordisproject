@@ -5,7 +5,7 @@
 #include "ExtendedGeom.h"
 #include "PHCapture.h"
 
-#include "Include/xrRender/Kinematics.h"
+#include "xrGame/Render/Kernel/Kinematics.h"
 
 #include "IPhysicsShellHolder.h"
 #include "xrCore/Animation/Bone.hpp"

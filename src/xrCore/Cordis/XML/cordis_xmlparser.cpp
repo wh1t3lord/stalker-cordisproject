@@ -31,9 +31,9 @@ distribution.
 #if defined( DEBUG_PARSER )
 #	if defined( DEBUG ) && defined( _MSC_VER )
 #		include <windows.h>
-#		define TIXML_LOG OutputDebugString
+#		define CordisXml_LOG OutputDebugString
 #	else
-#		define TIXML_LOG printf
+#		define CordisXml_LOG printf
 #	endif
 #endif
 
@@ -45,7 +45,7 @@ namespace Cordis
 		// Note tha "PutString" hardcodes the same list. This
 		// is less flexible than it appears. Changing the entries
 		// or order will break putstring.	
-		TiXmlBase::Entity TiXmlBase::entity[TiXmlBase::NUM_ENTITY] =
+		CordisXmlBase::Entity CordisXmlBase::entity[CordisXmlBase::NUM_ENTITY] =
 		{
 			{ "&amp;",  5, '&' },
 			{ "&lt;",   4, '<' },
@@ -64,11 +64,11 @@ namespace Cordis
 		//				ef bf be
 		//				ef bf bf 
 
-		const unsigned char TIXML_UTF_LEAD_0 = 0xefU;
-		const unsigned char TIXML_UTF_LEAD_1 = 0xbbU;
-		const unsigned char TIXML_UTF_LEAD_2 = 0xbfU;
+		const unsigned char CordisXml_UTF_LEAD_0 = 0xefU;
+		const unsigned char CordisXml_UTF_LEAD_1 = 0xbbU;
+		const unsigned char CordisXml_UTF_LEAD_2 = 0xbfU;
 
-		const int TiXmlBase::utf8ByteTable[256] =
+		const int CordisXmlBase::utf8ByteTable[256] =
 		{
 			//	0	1	2	3	4	5	6	7	8	9	a	b	c	d	e	f
 				1,	1,	1,	1,	1,	1,	1,	1,	1,	1,	1,	1,	1,	1,	1,	1,	// 0x00
@@ -90,7 +90,7 @@ namespace Cordis
 		};
 
 
-		void TiXmlBase::ConvertUTF32ToUTF8(unsigned long input, char* output, int* length)
+		void CordisXmlBase::ConvertUTF32ToUTF8(unsigned long input, char* output, int* length)
 		{
 			const unsigned long BYTE_MASK = 0xBF;
 			const unsigned long BYTE_MARK = 0x80;
@@ -133,14 +133,14 @@ namespace Cordis
 		}
 
 
-		/*static*/ int TiXmlBase::IsAlpha(unsigned char anyByte, TiXmlEncoding /*encoding*/)
+		/*static*/ int CordisXmlBase::IsAlpha(unsigned char anyByte, CordisXmlEncoding /*encoding*/)
 		{
 			// This will only work for low-ascii, everything else is assumed to be a valid
 			// letter. I'm not sure this is the best approach, but it is quite tricky trying
 			// to figure out alhabetical vs. not across encoding. So take a very 
 			// conservative approach.
 
-		//	if ( encoding == TIXML_ENCODING_UTF8 )
+		//	if ( encoding == CordisXml_ENCODING_UTF8 )
 		//	{
 			if (anyByte < 127)
 				return isalpha(anyByte);
@@ -154,14 +154,14 @@ namespace Cordis
 		}
 
 
-		/*static*/ int TiXmlBase::IsAlphaNum(unsigned char anyByte, TiXmlEncoding /*encoding*/)
+		/*static*/ int CordisXmlBase::IsAlphaNum(unsigned char anyByte, CordisXmlEncoding /*encoding*/)
 		{
 			// This will only work for low-ascii, everything else is assumed to be a valid
 			// letter. I'm not sure this is the best approach, but it is quite tricky trying
 			// to figure out alhabetical vs. not across encoding. So take a very 
 			// conservative approach.
 
-		//	if ( encoding == TIXML_ENCODING_UTF8 )
+		//	if ( encoding == CordisXml_ENCODING_UTF8 )
 		//	{
 			if (anyByte < 127)
 				return isalnum(anyByte);
@@ -175,17 +175,17 @@ namespace Cordis
 		}
 
 
-		class TiXmlParsingData
+		class CordisXmlParsingData
 		{
-			friend class TiXmlDocument;
+			friend class CordisXmlDocument;
 		public:
-			void Stamp(const char* now, TiXmlEncoding encoding);
+			void Stamp(const char* now, CordisXmlEncoding encoding);
 
-			const TiXmlCursor& Cursor() const { return cursor; }
+			const CordisXmlCursor& Cursor() const { return cursor; }
 
 		private:
 			// Only used by the document!
-			TiXmlParsingData(const char* start, int _tabsize, int row, int col)
+			CordisXmlParsingData(const char* start, int _tabsize, int row, int col)
 			{
 				assert(start);
 				stamp = start;
@@ -194,13 +194,13 @@ namespace Cordis
 				cursor.col = col;
 			}
 
-			TiXmlCursor		cursor;
+			CordisXmlCursor		cursor;
 			const char*		stamp;
 			int				tabsize;
 		};
 
 
-		void TiXmlParsingData::Stamp(const char* now, TiXmlEncoding encoding)
+		void CordisXmlParsingData::Stamp(const char* now, CordisXmlEncoding encoding)
 		{
 			assert(now);
 
@@ -265,14 +265,14 @@ namespace Cordis
 					col = (col / tabsize + 1) * tabsize;
 					break;
 
-				case TIXML_UTF_LEAD_0:
-					if (encoding == TIXML_ENCODING_UTF8)
+				case CordisXml_UTF_LEAD_0:
+					if (encoding == CordisXml_ENCODING_UTF8)
 					{
 						if (*(p + 1) && *(p + 2))
 						{
 							// In these cases, don't advance the column. These are
 							// 0-width spaces.
-							if (*(pU + 1) == TIXML_UTF_LEAD_1 && *(pU + 2) == TIXML_UTF_LEAD_2)
+							if (*(pU + 1) == CordisXml_UTF_LEAD_1 && *(pU + 2) == CordisXml_UTF_LEAD_2)
 								p += 3;
 							else if (*(pU + 1) == 0xbfU && *(pU + 2) == 0xbeU)
 								p += 3;
@@ -292,10 +292,10 @@ namespace Cordis
 					break;
 
 				default:
-					if (encoding == TIXML_ENCODING_UTF8)
+					if (encoding == CordisXml_ENCODING_UTF8)
 					{
 						// Eat the 1 to 4 byte utf8 character.
-						int step = TiXmlBase::utf8ByteTable[*((const unsigned char*)p)];
+						int step = CordisXmlBase::utf8ByteTable[*((const unsigned char*)p)];
 						if (step == 0)
 							step = 1;		// Error case from bad encoding, but handle gracefully.
 						p += step;
@@ -320,34 +320,34 @@ namespace Cordis
 		}
 
 
-		const char* TiXmlBase::SkipWhiteSpace(const char* p, TiXmlEncoding encoding)
+		const char* CordisXmlBase::SkipWhiteSpace(const char* p, CordisXmlEncoding encoding)
 		{
 			if (!p || !*p)
 			{
 				return 0;
 			}
-			if (encoding == TIXML_ENCODING_UTF8)
+			if (encoding == CordisXml_ENCODING_UTF8)
 			{
 				while (*p)
 				{
 					const unsigned char* pU = (const unsigned char*)p;
 
 					// Skip the stupid Microsoft UTF-8 Byte order marks
-					if (*(pU + 0) == TIXML_UTF_LEAD_0
-						&& *(pU + 1) == TIXML_UTF_LEAD_1
-						&& *(pU + 2) == TIXML_UTF_LEAD_2)
+					if (*(pU + 0) == CordisXml_UTF_LEAD_0
+						&& *(pU + 1) == CordisXml_UTF_LEAD_1
+						&& *(pU + 2) == CordisXml_UTF_LEAD_2)
 					{
 						p += 3;
 						continue;
 					}
-					else if (*(pU + 0) == TIXML_UTF_LEAD_0
+					else if (*(pU + 0) == CordisXml_UTF_LEAD_0
 						&& *(pU + 1) == 0xbfU
 						&& *(pU + 2) == 0xbeU)
 					{
 						p += 3;
 						continue;
 					}
-					else if (*(pU + 0) == TIXML_UTF_LEAD_0
+					else if (*(pU + 0) == CordisXml_UTF_LEAD_0
 						&& *(pU + 1) == 0xbfU
 						&& *(pU + 2) == 0xbfU)
 					{
@@ -370,8 +370,8 @@ namespace Cordis
 			return p;
 		}
 
-#ifdef TIXML_USE_STL
-		/*static*/ bool TiXmlBase::StreamWhiteSpace(std::istream * in, TIXML_STRING * tag)
+#ifdef CordisXml_USE_STL
+		/*static*/ bool CordisXmlBase::StreamWhiteSpace(std::istream * in, CordisXml_STRING * tag)
 		{
 			for (;; )
 			{
@@ -386,7 +386,7 @@ namespace Cordis
 			}
 		}
 
-		/*static*/ bool TiXmlBase::StreamTo(std::istream * in, int character, TIXML_STRING * tag)
+		/*static*/ bool CordisXmlBase::StreamTo(std::istream * in, int character, CordisXml_STRING * tag)
 		{
 			//assert( character > 0 && character < 128 );	// else it won't work in utf-8
 			while (in->good())
@@ -407,7 +407,7 @@ namespace Cordis
 		// One of TinyXML's more performance demanding functions. Try to keep the memory overhead down. The
 		// "assign" optimization removes over 10% of the execution time.
 		//
-		const char* TiXmlBase::ReadName(const char* p, TIXML_STRING * name, TiXmlEncoding encoding)
+		const char* CordisXmlBase::ReadName(const char* p, CordisXml_STRING * name, CordisXmlEncoding encoding)
 		{
 			// Oddly, not supported on some comilers,
 			//name->clear();
@@ -444,10 +444,10 @@ namespace Cordis
 			return 0;
 		}
 
-		const char* TiXmlBase::GetEntity(const char* p, char* value, int* length, TiXmlEncoding encoding)
+		const char* CordisXmlBase::GetEntity(const char* p, char* value, int* length, CordisXmlEncoding encoding)
 		{
 			// Presume an entity, and pull it out.
-			TIXML_STRING ent;
+			CordisXml_STRING ent;
 			int i;
 			*length = 0;
 
@@ -507,7 +507,7 @@ namespace Cordis
 						--q;
 					}
 				}
-				if (encoding == TIXML_ENCODING_UTF8)
+				if (encoding == CordisXml_ENCODING_UTF8)
 				{
 					// convert the UCS to UTF-8
 					ConvertUTF32ToUTF8(ucs, value, length);
@@ -540,10 +540,10 @@ namespace Cordis
 		}
 
 
-		bool TiXmlBase::StringEqual(const char* p,
+		bool CordisXmlBase::StringEqual(const char* p,
 			const char* tag,
 			bool ignoreCase,
-			TiXmlEncoding encoding)
+			CordisXmlEncoding encoding)
 		{
 			assert(p);
 			assert(tag);
@@ -580,12 +580,12 @@ namespace Cordis
 			return false;
 		}
 
-		const char* TiXmlBase::ReadText(const char* p,
-			TIXML_STRING * text,
+		const char* CordisXmlBase::ReadText(const char* p,
+			CordisXml_STRING * text,
 			bool trimWhiteSpace,
 			const char* endTag,
 			bool caseInsensitive,
-			TiXmlEncoding encoding)
+			CordisXmlEncoding encoding)
 		{
 			*text = "";
 			if (!trimWhiteSpace			// certain tags always keep whitespace
@@ -645,9 +645,9 @@ namespace Cordis
 			return (p && *p) ? p : 0;
 		}
 
-#ifdef TIXML_USE_STL
+#ifdef CordisXml_USE_STL
 
-		void TiXmlDocument::StreamIn(std::istream * in, TIXML_STRING * tag)
+		void CordisXmlDocument::StreamIn(std::istream * in, CordisXml_STRING * tag)
 		{
 			// The basic issue with a document is that we don't know what we're
 			// streaming. Read something presumed to be a tag (and hope), then
@@ -658,7 +658,7 @@ namespace Cordis
 
 			if (!StreamTo(in, '<', tag))
 			{
-				SetError(TIXML_ERROR_PARSING_EMPTY, 0, 0, TIXML_ENCODING_UNKNOWN);
+				SetError(CordisXml_ERROR_PARSING_EMPTY, 0, 0, CordisXml_ENCODING_UNKNOWN);
 				return;
 			}
 
@@ -670,7 +670,7 @@ namespace Cordis
 					int c = in->get();
 					if (c <= 0)
 					{
-						SetError(TIXML_ERROR_EMBEDDED_NULL, 0, 0, TIXML_ENCODING_UNKNOWN);
+						SetError(CordisXml_ERROR_EMBEDDED_NULL, 0, 0, CordisXml_ENCODING_UNKNOWN);
 						break;
 					}
 					(*tag) += (char)c;
@@ -681,7 +681,7 @@ namespace Cordis
 					// We now have something we presume to be a node of 
 					// some sort. Identify it, and call the node to
 					// continue streaming.
-					TiXmlNode* node = Identify(tag->c_str() + tagIndex, TIXML_DEFAULT_ENCODING);
+					CordisXmlNode* node = Identify(tag->c_str() + tagIndex, CordisXml_DEFAULT_ENCODING);
 
 					if (node)
 					{
@@ -699,18 +699,18 @@ namespace Cordis
 					}
 					else
 					{
-						SetError(TIXML_ERROR, 0, 0, TIXML_ENCODING_UNKNOWN);
+						SetError(CordisXml_ERROR, 0, 0, CordisXml_ENCODING_UNKNOWN);
 						return;
 					}
 				}
 			}
 			// We should have returned sooner.
-			SetError(TIXML_ERROR, 0, 0, TIXML_ENCODING_UNKNOWN);
+			SetError(CordisXml_ERROR, 0, 0, CordisXml_ENCODING_UNKNOWN);
 		}
 
 #endif
 
-		const char* TiXmlDocument::Parse(const char* p, TiXmlParsingData* prevData, TiXmlEncoding encoding)
+		const char* CordisXmlDocument::Parse(const char* p, CordisXmlParsingData* prevData, CordisXmlEncoding encoding)
 		{
 			ClearError();
 
@@ -719,7 +719,7 @@ namespace Cordis
 			// here is skipping white space.
 			if (!p || !*p)
 			{
-				SetError(TIXML_ERROR_DOCUMENT_EMPTY, 0, 0, TIXML_ENCODING_UNKNOWN);
+				SetError(CordisXml_ERROR_DOCUMENT_EMPTY, 0, 0, CordisXml_ENCODING_UNKNOWN);
 				return 0;
 			}
 
@@ -737,18 +737,18 @@ namespace Cordis
 				location.row = 0;
 				location.col = 0;
 			}
-			TiXmlParsingData data(p, TabSize(), location.row, location.col);
+			CordisXmlParsingData data(p, TabSize(), location.row, location.col);
 			location = data.Cursor();
 
-			if (encoding == TIXML_ENCODING_UNKNOWN)
+			if (encoding == CordisXml_ENCODING_UNKNOWN)
 			{
 				// Check for the Microsoft UTF-8 lead bytes.
 				const unsigned char* pU = (const unsigned char*)p;
-				if (*(pU + 0) && *(pU + 0) == TIXML_UTF_LEAD_0
-					&& *(pU + 1) && *(pU + 1) == TIXML_UTF_LEAD_1
-					&& *(pU + 2) && *(pU + 2) == TIXML_UTF_LEAD_2)
+				if (*(pU + 0) && *(pU + 0) == CordisXml_UTF_LEAD_0
+					&& *(pU + 1) && *(pU + 1) == CordisXml_UTF_LEAD_1
+					&& *(pU + 2) && *(pU + 2) == CordisXml_UTF_LEAD_2)
 				{
-					encoding = TIXML_ENCODING_UTF8;
+					encoding = CordisXml_ENCODING_UTF8;
 					useMicrosoftBOM = true;
 				}
 			}
@@ -756,13 +756,13 @@ namespace Cordis
 			p = SkipWhiteSpace(p, encoding);
 			if (!p)
 			{
-				SetError(TIXML_ERROR_DOCUMENT_EMPTY, 0, 0, TIXML_ENCODING_UNKNOWN);
+				SetError(CordisXml_ERROR_DOCUMENT_EMPTY, 0, 0, CordisXml_ENCODING_UNKNOWN);
 				return 0;
 			}
 
 			while (p && *p)
 			{
-				TiXmlNode* node = Identify(p, encoding);
+				CordisXmlNode* node = Identify(p, encoding);
 				if (node)
 				{
 					p = node->Parse(p, &data, encoding);
@@ -774,21 +774,21 @@ namespace Cordis
 				}
 
 				// Did we get encoding info?
-				if (encoding == TIXML_ENCODING_UNKNOWN
+				if (encoding == CordisXml_ENCODING_UNKNOWN
 					&& node->ToDeclaration())
 				{
-					TiXmlDeclaration* dec = node->ToDeclaration();
+					CordisXmlDeclaration* dec = node->ToDeclaration();
 					const char* enc = dec->Encoding();
 					assert(enc);
 
 					if (*enc == 0)
-						encoding = TIXML_ENCODING_UTF8;
-					else if (StringEqual(enc, "UTF-8", true, TIXML_ENCODING_UNKNOWN))
-						encoding = TIXML_ENCODING_UTF8;
-					else if (StringEqual(enc, "UTF8", true, TIXML_ENCODING_UNKNOWN))
-						encoding = TIXML_ENCODING_UTF8;	// incorrect, but be nice
+						encoding = CordisXml_ENCODING_UTF8;
+					else if (StringEqual(enc, "UTF-8", true, CordisXml_ENCODING_UNKNOWN))
+						encoding = CordisXml_ENCODING_UTF8;
+					else if (StringEqual(enc, "UTF8", true, CordisXml_ENCODING_UNKNOWN))
+						encoding = CordisXml_ENCODING_UTF8;	// incorrect, but be nice
 					else
-						encoding = TIXML_ENCODING_LEGACY;
+						encoding = CordisXml_ENCODING_LEGACY;
 				}
 
 				p = SkipWhiteSpace(p, encoding);
@@ -796,7 +796,7 @@ namespace Cordis
 
 			// Was this empty?
 			if (!firstChild) {
-				SetError(TIXML_ERROR_DOCUMENT_EMPTY, 0, 0, encoding);
+				SetError(CordisXml_ERROR_DOCUMENT_EMPTY, 0, 0, encoding);
 				return 0;
 			}
 
@@ -804,13 +804,13 @@ namespace Cordis
 			return p;
 		}
 
-		void TiXmlDocument::SetError(int err, const char* pError, TiXmlParsingData* data, TiXmlEncoding encoding)
+		void CordisXmlDocument::SetError(int err, const char* pError, CordisXmlParsingData* data, CordisXmlEncoding encoding)
 		{
 			// The first error in a chain is more accurate - don't set again!
 			if (error)
 				return;
 
-			assert(err > 0 && err < TIXML_ERROR_STRING_COUNT);
+			assert(err > 0 && err < CordisXml_ERROR_STRING_COUNT);
 			error = true;
 			errorId = err;
 			errorDesc = errorString[errorId];
@@ -824,9 +824,9 @@ namespace Cordis
 		}
 
 
-		TiXmlNode* TiXmlNode::Identify(const char* p, TiXmlEncoding encoding)
+		CordisXmlNode* CordisXmlNode::Identify(const char* p, CordisXmlEncoding encoding)
 		{
-			TiXmlNode* returnNode = 0;
+			CordisXmlNode* returnNode = 0;
 
 			p = SkipWhiteSpace(p, encoding);
 			if (!p || !*p || *p != '<')
@@ -856,47 +856,47 @@ namespace Cordis
 			if (StringEqual(p, xmlHeader, true, encoding))
 			{
 #ifdef DEBUG_PARSER
-				TIXML_LOG("XML parsing Declaration\n");
+				CordisXml_LOG("XML parsing Declaration\n");
 #endif
-				returnNode = new TiXmlDeclaration();
+				returnNode = new CordisXmlDeclaration();
 			}
 			else if (StringEqual(p, commentHeader, false, encoding))
 			{
 #ifdef DEBUG_PARSER
-				TIXML_LOG("XML parsing Comment\n");
+				CordisXml_LOG("XML parsing Comment\n");
 #endif
-				returnNode = new TiXmlComment();
+				returnNode = new CordisXmlComment();
 			}
 			else if (StringEqual(p, cdataHeader, false, encoding))
 			{
 #ifdef DEBUG_PARSER
-				TIXML_LOG("XML parsing CDATA\n");
+				CordisXml_LOG("XML parsing CDATA\n");
 #endif
-				TiXmlText* text = new TiXmlText("");
+				CordisXmlText* text = new CordisXmlText("");
 				text->SetCDATA(true);
 				returnNode = text;
 			}
 			else if (StringEqual(p, dtdHeader, false, encoding))
 			{
 #ifdef DEBUG_PARSER
-				TIXML_LOG("XML parsing Unknown(1)\n");
+				CordisXml_LOG("XML parsing Unknown(1)\n");
 #endif
-				returnNode = new TiXmlUnknown();
+				returnNode = new CordisXmlUnknown();
 			}
 			else if (IsAlpha(*(p + 1), encoding)
 				|| *(p + 1) == '_')
 			{
 #ifdef DEBUG_PARSER
-				TIXML_LOG("XML parsing Element\n");
+				CordisXml_LOG("XML parsing Element\n");
 #endif
-				returnNode = new TiXmlElement("");
+				returnNode = new CordisXmlElement("");
 			}
 			else
 			{
 #ifdef DEBUG_PARSER
-				TIXML_LOG("XML parsing Unknown(2)\n");
+				CordisXml_LOG("XML parsing Unknown(2)\n");
 #endif
-				returnNode = new TiXmlUnknown();
+				returnNode = new CordisXmlUnknown();
 			}
 
 			if (returnNode)
@@ -907,9 +907,9 @@ namespace Cordis
 			return returnNode;
 		}
 
-#ifdef TIXML_USE_STL
+#ifdef CordisXml_USE_STL
 
-		void TiXmlElement::StreamIn(std::istream * in, TIXML_STRING * tag)
+		void CordisXmlElement::StreamIn(std::istream * in, CordisXml_STRING * tag)
 		{
 			// We're called with some amount of pre-parsing. That is, some of "this"
 			// element is in "tag". Go ahead and stream to the closing ">"
@@ -918,9 +918,9 @@ namespace Cordis
 				int c = in->get();
 				if (c <= 0)
 				{
-					TiXmlDocument* document = GetDocument();
+					CordisXmlDocument* document = GetDocument();
 					if (document)
-						document->SetError(TIXML_ERROR_EMBEDDED_NULL, 0, 0, TIXML_ENCODING_UNKNOWN);
+						document->SetError(CordisXml_ERROR_EMBEDDED_NULL, 0, 0, CordisXml_ENCODING_UNKNOWN);
 					return;
 				}
 				(*tag) += (char)c;
@@ -955,7 +955,7 @@ namespace Cordis
 					if (in->good() && in->peek() != '<')
 					{
 						// Yep, text.
-						TiXmlText text("");
+						CordisXmlText text("");
 						text.StreamIn(in, tag);
 
 						// What follows text is a closing tag or another node.
@@ -980,9 +980,9 @@ namespace Cordis
 						int c = in->peek();
 						if (c <= 0)
 						{
-							TiXmlDocument* document = GetDocument();
+							CordisXmlDocument* document = GetDocument();
 							if (document)
-								document->SetError(TIXML_ERROR_EMBEDDED_NULL, 0, 0, TIXML_ENCODING_UNKNOWN);
+								document->SetError(CordisXml_ERROR_EMBEDDED_NULL, 0, 0, CordisXml_ENCODING_UNKNOWN);
 							return;
 						}
 
@@ -1020,9 +1020,9 @@ namespace Cordis
 						int c = in->get();
 						if (c <= 0)
 						{
-							TiXmlDocument* document = GetDocument();
+							CordisXmlDocument* document = GetDocument();
 							if (document)
-								document->SetError(TIXML_ERROR_EMBEDDED_NULL, 0, 0, TIXML_ENCODING_UNKNOWN);
+								document->SetError(CordisXml_ERROR_EMBEDDED_NULL, 0, 0, CordisXml_ENCODING_UNKNOWN);
 							return;
 						}
 						assert(c == '>');
@@ -1035,7 +1035,7 @@ namespace Cordis
 					{
 						// If not a closing tag, id it, and stream.
 						const char* tagloc = tag->c_str() + tagIndex;
-						TiXmlNode* node = Identify(tagloc, TIXML_DEFAULT_ENCODING);
+						CordisXmlNode* node = Identify(tagloc, CordisXml_DEFAULT_ENCODING);
 						if (!node)
 							return;
 						node->StreamIn(in, tag);
@@ -1049,14 +1049,14 @@ namespace Cordis
 		}
 #endif
 
-		const char* TiXmlElement::Parse(const char* p, TiXmlParsingData* data, TiXmlEncoding encoding)
+		const char* CordisXmlElement::Parse(const char* p, CordisXmlParsingData* data, CordisXmlEncoding encoding)
 		{
 			p = SkipWhiteSpace(p, encoding);
-			TiXmlDocument* document = GetDocument();
+			CordisXmlDocument* document = GetDocument();
 
 			if (!p || !*p)
 			{
-				if (document) document->SetError(TIXML_ERROR_PARSING_ELEMENT, 0, 0, encoding);
+				if (document) document->SetError(CordisXml_ERROR_PARSING_ELEMENT, 0, 0, encoding);
 				return 0;
 			}
 
@@ -1068,7 +1068,7 @@ namespace Cordis
 
 			if (*p != '<')
 			{
-				if (document) document->SetError(TIXML_ERROR_PARSING_ELEMENT, p, data, encoding);
+				if (document) document->SetError(CordisXml_ERROR_PARSING_ELEMENT, p, data, encoding);
 				return 0;
 			}
 
@@ -1080,11 +1080,11 @@ namespace Cordis
 			p = ReadName(p, &value, encoding);
 			if (!p || !*p)
 			{
-				if (document)	document->SetError(TIXML_ERROR_FAILED_TO_READ_ELEMENT_NAME, pErr, data, encoding);
+				if (document)	document->SetError(CordisXml_ERROR_FAILED_TO_READ_ELEMENT_NAME, pErr, data, encoding);
 				return 0;
 			}
 
-			TIXML_STRING endTag("</");
+			CordisXml_STRING endTag("</");
 			endTag += value;
 
 			// Check for and read attributes. Also look for an empty
@@ -1095,7 +1095,7 @@ namespace Cordis
 				p = SkipWhiteSpace(p, encoding);
 				if (!p || !*p)
 				{
-					if (document) document->SetError(TIXML_ERROR_READING_ATTRIBUTES, pErr, data, encoding);
+					if (document) document->SetError(CordisXml_ERROR_READING_ATTRIBUTES, pErr, data, encoding);
 					return 0;
 				}
 				if (*p == '/')
@@ -1104,7 +1104,7 @@ namespace Cordis
 					// Empty tag.
 					if (*p != '>')
 					{
-						if (document) document->SetError(TIXML_ERROR_PARSING_EMPTY, p, data, encoding);
+						if (document) document->SetError(CordisXml_ERROR_PARSING_EMPTY, p, data, encoding);
 						return 0;
 					}
 					return (p + 1);
@@ -1119,7 +1119,7 @@ namespace Cordis
 					if (!p || !*p) {
 						// We were looking for the end tag, but found nothing.
 						// Fix for [ 1663758 ] Failure to report error on bad XML
-						if (document) document->SetError(TIXML_ERROR_READING_END_TAG, p, data, encoding);
+						if (document) document->SetError(CordisXml_ERROR_READING_END_TAG, p, data, encoding);
 						return 0;
 					}
 
@@ -1136,19 +1136,19 @@ namespace Cordis
 							++p;
 							return p;
 						}
-						if (document) document->SetError(TIXML_ERROR_READING_END_TAG, p, data, encoding);
+						if (document) document->SetError(CordisXml_ERROR_READING_END_TAG, p, data, encoding);
 						return 0;
 					}
 					else
 					{
-						if (document) document->SetError(TIXML_ERROR_READING_END_TAG, p, data, encoding);
+						if (document) document->SetError(CordisXml_ERROR_READING_END_TAG, p, data, encoding);
 						return 0;
 					}
 				}
 				else
 				{
 					// Try to read an attribute:
-					TiXmlAttribute* attrib = new TiXmlAttribute();
+					CordisXmlAttribute* attrib = new CordisXmlAttribute();
 					if (!attrib)
 					{
 						return 0;
@@ -1160,20 +1160,20 @@ namespace Cordis
 
 					if (!p || !*p)
 					{
-						if (document) document->SetError(TIXML_ERROR_PARSING_ELEMENT, pErr, data, encoding);
+						if (document) document->SetError(CordisXml_ERROR_PARSING_ELEMENT, pErr, data, encoding);
 						delete attrib;
 						return 0;
 					}
 
 					// Handle the strange case of double attributes:
-#ifdef TIXML_USE_STL
-					TiXmlAttribute* node = attributeSet.Find(attrib->NameTStr());
+#ifdef CordisXml_USE_STL
+					CordisXmlAttribute* node = attributeSet.Find(attrib->NameTStr());
 #else
-					TiXmlAttribute* node = attributeSet.Find(attrib->Name());
+					CordisXmlAttribute* node = attributeSet.Find(attrib->Name());
 #endif
 					if (node)
 					{
-						if (document) document->SetError(TIXML_ERROR_PARSING_ELEMENT, pErr, data, encoding);
+						if (document) document->SetError(CordisXml_ERROR_PARSING_ELEMENT, pErr, data, encoding);
 						delete attrib;
 						return 0;
 					}
@@ -1185,9 +1185,9 @@ namespace Cordis
 		}
 
 
-		const char* TiXmlElement::ReadValue(const char* p, TiXmlParsingData* data, TiXmlEncoding encoding)
+		const char* CordisXmlElement::ReadValue(const char* p, CordisXmlParsingData* data, CordisXmlEncoding encoding)
 		{
-			TiXmlDocument* document = GetDocument();
+			CordisXmlDocument* document = GetDocument();
 
 			// Read in text and elements in any order.
 			const char* pWithWhiteSpace = p;
@@ -1198,14 +1198,14 @@ namespace Cordis
 				if (*p != '<')
 				{
 					// Take what we have, make a text element.
-					TiXmlText* textNode = new TiXmlText("");
+					CordisXmlText* textNode = new CordisXmlText("");
 
 					if (!textNode)
 					{
 						return 0;
 					}
 
-					if (TiXmlBase::IsWhiteSpaceCondensed())
+					if (CordisXmlBase::IsWhiteSpaceCondensed())
 					{
 						p = textNode->Parse(p, data, encoding);
 					}
@@ -1225,14 +1225,14 @@ namespace Cordis
 				{
 					// We hit a '<'
 					// Have we hit a new element or an end tag? This could also be
-					// a TiXmlText in the "CDATA" style.
+					// a CordisXmlText in the "CDATA" style.
 					if (StringEqual(p, "</", false, encoding))
 					{
 						return p;
 					}
 					else
 					{
-						TiXmlNode* node = Identify(p, encoding);
+						CordisXmlNode* node = Identify(p, encoding);
 						if (node)
 						{
 							p = node->Parse(p, data, encoding);
@@ -1250,23 +1250,23 @@ namespace Cordis
 
 			if (!p)
 			{
-				if (document) document->SetError(TIXML_ERROR_READING_ELEMENT_VALUE, 0, 0, encoding);
+				if (document) document->SetError(CordisXml_ERROR_READING_ELEMENT_VALUE, 0, 0, encoding);
 			}
 			return p;
 		}
 
 
-#ifdef TIXML_USE_STL
-		void TiXmlUnknown::StreamIn(std::istream * in, TIXML_STRING * tag)
+#ifdef CordisXml_USE_STL
+		void CordisXmlUnknown::StreamIn(std::istream * in, CordisXml_STRING * tag)
 		{
 			while (in->good())
 			{
 				int c = in->get();
 				if (c <= 0)
 				{
-					TiXmlDocument* document = GetDocument();
+					CordisXmlDocument* document = GetDocument();
 					if (document)
-						document->SetError(TIXML_ERROR_EMBEDDED_NULL, 0, 0, TIXML_ENCODING_UNKNOWN);
+						document->SetError(CordisXml_ERROR_EMBEDDED_NULL, 0, 0, CordisXml_ENCODING_UNKNOWN);
 					return;
 				}
 				(*tag) += (char)c;
@@ -1281,9 +1281,9 @@ namespace Cordis
 #endif
 
 
-		const char* TiXmlUnknown::Parse(const char* p, TiXmlParsingData* data, TiXmlEncoding encoding)
+		const char* CordisXmlUnknown::Parse(const char* p, CordisXmlParsingData* data, CordisXmlEncoding encoding)
 		{
-			TiXmlDocument* document = GetDocument();
+			CordisXmlDocument* document = GetDocument();
 			p = SkipWhiteSpace(p, encoding);
 
 			if (data)
@@ -1293,7 +1293,7 @@ namespace Cordis
 			}
 			if (!p || !*p || *p != '<')
 			{
-				if (document) document->SetError(TIXML_ERROR_PARSING_UNKNOWN, p, data, encoding);
+				if (document) document->SetError(CordisXml_ERROR_PARSING_UNKNOWN, p, data, encoding);
 				return 0;
 			}
 			++p;
@@ -1308,24 +1308,24 @@ namespace Cordis
 			if (!p)
 			{
 				if (document)
-					document->SetError(TIXML_ERROR_PARSING_UNKNOWN, 0, 0, encoding);
+					document->SetError(CordisXml_ERROR_PARSING_UNKNOWN, 0, 0, encoding);
 			}
 			if (p && *p == '>')
 				return p + 1;
 			return p;
 		}
 
-#ifdef TIXML_USE_STL
-		void TiXmlComment::StreamIn(std::istream * in, TIXML_STRING * tag)
+#ifdef CordisXml_USE_STL
+		void CordisXmlComment::StreamIn(std::istream * in, CordisXml_STRING * tag)
 		{
 			while (in->good())
 			{
 				int c = in->get();
 				if (c <= 0)
 				{
-					TiXmlDocument* document = GetDocument();
+					CordisXmlDocument* document = GetDocument();
 					if (document)
-						document->SetError(TIXML_ERROR_EMBEDDED_NULL, 0, 0, TIXML_ENCODING_UNKNOWN);
+						document->SetError(CordisXml_ERROR_EMBEDDED_NULL, 0, 0, CordisXml_ENCODING_UNKNOWN);
 					return;
 				}
 
@@ -1343,9 +1343,9 @@ namespace Cordis
 #endif
 
 
-		const char* TiXmlComment::Parse(const char* p, TiXmlParsingData* data, TiXmlEncoding encoding)
+		const char* CordisXmlComment::Parse(const char* p, CordisXmlParsingData* data, CordisXmlEncoding encoding)
 		{
-			TiXmlDocument* document = GetDocument();
+			CordisXmlDocument* document = GetDocument();
 			value = "";
 
 			p = SkipWhiteSpace(p, encoding);
@@ -1361,7 +1361,7 @@ namespace Cordis
 			if (!StringEqual(p, startTag, false, encoding))
 			{
 				if (document)
-					document->SetError(TIXML_ERROR_PARSING_COMMENT, p, data, encoding);
+					document->SetError(CordisXml_ERROR_PARSING_COMMENT, p, data, encoding);
 				return 0;
 			}
 			p += strlen(startTag);
@@ -1398,7 +1398,7 @@ namespace Cordis
 		}
 
 
-		const char* TiXmlAttribute::Parse(const char* p, TiXmlParsingData* data, TiXmlEncoding encoding)
+		const char* CordisXmlAttribute::Parse(const char* p, CordisXmlParsingData* data, CordisXmlEncoding encoding)
 		{
 			p = SkipWhiteSpace(p, encoding);
 			if (!p || !*p) return 0;
@@ -1413,13 +1413,13 @@ namespace Cordis
 			p = ReadName(p, &name, encoding);
 			if (!p || !*p)
 			{
-				if (document) document->SetError(TIXML_ERROR_READING_ATTRIBUTES, pErr, data, encoding);
+				if (document) document->SetError(CordisXml_ERROR_READING_ATTRIBUTES, pErr, data, encoding);
 				return 0;
 			}
 			p = SkipWhiteSpace(p, encoding);
 			if (!p || !*p || *p != '=')
 			{
-				if (document) document->SetError(TIXML_ERROR_READING_ATTRIBUTES, p, data, encoding);
+				if (document) document->SetError(CordisXml_ERROR_READING_ATTRIBUTES, p, data, encoding);
 				return 0;
 			}
 
@@ -1427,7 +1427,7 @@ namespace Cordis
 			p = SkipWhiteSpace(p, encoding);
 			if (!p || !*p)
 			{
-				if (document) document->SetError(TIXML_ERROR_READING_ATTRIBUTES, p, data, encoding);
+				if (document) document->SetError(CordisXml_ERROR_READING_ATTRIBUTES, p, data, encoding);
 				return 0;
 			}
 
@@ -1461,7 +1461,7 @@ namespace Cordis
 						// [ 1451649 ] Attribute values with trailing quotes not handled correctly
 						// We did not have an opening quote but seem to have a 
 						// closing one. Give up and throw an error.
-						if (document) document->SetError(TIXML_ERROR_READING_ATTRIBUTES, p, data, encoding);
+						if (document) document->SetError(CordisXml_ERROR_READING_ATTRIBUTES, p, data, encoding);
 						return 0;
 					}
 					value += *p;
@@ -1471,8 +1471,8 @@ namespace Cordis
 			return p;
 		}
 
-#ifdef TIXML_USE_STL
-		void TiXmlText::StreamIn(std::istream * in, TIXML_STRING * tag)
+#ifdef CordisXml_USE_STL
+		void CordisXmlText::StreamIn(std::istream * in, CordisXml_STRING * tag)
 		{
 			while (in->good())
 			{
@@ -1483,9 +1483,9 @@ namespace Cordis
 				}
 				if (c <= 0)
 				{
-					TiXmlDocument* document = GetDocument();
+					CordisXmlDocument* document = GetDocument();
 					if (document)
-						document->SetError(TIXML_ERROR_EMBEDDED_NULL, 0, 0, TIXML_ENCODING_UNKNOWN);
+						document->SetError(CordisXml_ERROR_EMBEDDED_NULL, 0, 0, CordisXml_ENCODING_UNKNOWN);
 					return;
 				}
 
@@ -1503,10 +1503,10 @@ namespace Cordis
 		}
 #endif
 
-		const char* TiXmlText::Parse(const char* p, TiXmlParsingData* data, TiXmlEncoding encoding)
+		const char* CordisXmlText::Parse(const char* p, CordisXmlParsingData* data, CordisXmlEncoding encoding)
 		{
 			value = "";
-			TiXmlDocument* document = GetDocument();
+			CordisXmlDocument* document = GetDocument();
 
 			if (data)
 			{
@@ -1524,7 +1524,7 @@ namespace Cordis
 				if (!StringEqual(p, startTag, false, encoding))
 				{
 					if (document)
-						document->SetError(TIXML_ERROR_PARSING_CDATA, p, data, encoding);
+						document->SetError(CordisXml_ERROR_PARSING_CDATA, p, data, encoding);
 					return 0;
 				}
 				p += strlen(startTag);
@@ -1538,7 +1538,7 @@ namespace Cordis
 					++p;
 				}
 
-				TIXML_STRING dummy;
+				CordisXml_STRING dummy;
 				p = ReadText(p, &dummy, false, endTag, false, encoding);
 				return p;
 			}
@@ -1554,17 +1554,17 @@ namespace Cordis
 			}
 		}
 
-#ifdef TIXML_USE_STL
-		void TiXmlDeclaration::StreamIn(std::istream * in, TIXML_STRING * tag)
+#ifdef CordisXml_USE_STL
+		void CordisXmlDeclaration::StreamIn(std::istream * in, CordisXml_STRING * tag)
 		{
 			while (in->good())
 			{
 				int c = in->get();
 				if (c <= 0)
 				{
-					TiXmlDocument* document = GetDocument();
+					CordisXmlDocument* document = GetDocument();
 					if (document)
-						document->SetError(TIXML_ERROR_EMBEDDED_NULL, 0, 0, TIXML_ENCODING_UNKNOWN);
+						document->SetError(CordisXml_ERROR_EMBEDDED_NULL, 0, 0, CordisXml_ENCODING_UNKNOWN);
 					return;
 				}
 				(*tag) += (char)c;
@@ -1578,15 +1578,15 @@ namespace Cordis
 		}
 #endif
 
-		const char* TiXmlDeclaration::Parse(const char* p, TiXmlParsingData* data, TiXmlEncoding _encoding)
+		const char* CordisXmlDeclaration::Parse(const char* p, CordisXmlParsingData* data, CordisXmlEncoding _encoding)
 		{
 			p = SkipWhiteSpace(p, _encoding);
 			// Find the beginning, find the end, and look for
 			// the stuff in-between.
-			TiXmlDocument* document = GetDocument();
+			CordisXmlDocument* document = GetDocument();
 			if (!p || !*p || !StringEqual(p, "<?xml", true, _encoding))
 			{
-				if (document) document->SetError(TIXML_ERROR_PARSING_DECLARATION, 0, 0, _encoding);
+				if (document) document->SetError(CordisXml_ERROR_PARSING_DECLARATION, 0, 0, _encoding);
 				return 0;
 			}
 			if (data)
@@ -1611,19 +1611,19 @@ namespace Cordis
 				p = SkipWhiteSpace(p, _encoding);
 				if (StringEqual(p, "version", true, _encoding))
 				{
-					TiXmlAttribute attrib;
+					CordisXmlAttribute attrib;
 					p = attrib.Parse(p, data, _encoding);
 					version = attrib.Value();
 				}
 				else if (StringEqual(p, "encoding", true, _encoding))
 				{
-					TiXmlAttribute attrib;
+					CordisXmlAttribute attrib;
 					p = attrib.Parse(p, data, _encoding);
 					encoding = attrib.Value();
 				}
 				else if (StringEqual(p, "standalone", true, _encoding))
 				{
-					TiXmlAttribute attrib;
+					CordisXmlAttribute attrib;
 					p = attrib.Parse(p, data, _encoding);
 					standalone = attrib.Value();
 				}
@@ -1637,7 +1637,7 @@ namespace Cordis
 			return 0;
 		}
 
-		bool TiXmlText::Blank() const
+		bool CordisXmlText::Blank() const
 		{
 			for (unsigned i = 0; i < value.length(); i++)
 				if (!IsWhiteSpace(value[i]))

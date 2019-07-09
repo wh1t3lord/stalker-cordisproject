@@ -8,7 +8,7 @@
 
 // Instead of SkeletonCustom:
 #include "xrCore/Animation/Bone.hpp"
-#include "Include/xrRender/Kinematics.h"
+#include "xrGame/Render/Kernel/Kinematics.h"
 #include "xrCDB/Intersect.hpp"
 #include "Common/object_broker.h"
 

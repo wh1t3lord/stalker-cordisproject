@@ -5,7 +5,7 @@
 #include "ai/monsters/control_animation_base.h"
 #include "ai/monsters/control_movement_base.h"
 #include "date_time.h"
-#include "Include/xrRender/KinematicsAnimated.h"
+#include "KinematicsAnimated.h"
 #include "ai/monsters/monster_home.h"
 #include "ai/monsters/ai_monster_squad.h"
 #include "ai/monsters/ai_monster_squad_manager.h"

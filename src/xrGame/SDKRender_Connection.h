@@ -4,7 +4,7 @@
 */
 
 #pragma once
-#include "stdafx.h"
+#include "StdAfx.h"
 #include "../xrCore/Imgui/imgui.h"
 #include "../xrCore/Imgui/imgui_impl_sdl.h"
 class SDK_Connection : public pureRender

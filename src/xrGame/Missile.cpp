@@ -8,7 +8,7 @@
 #include "ActorEffector.h"
 #include "Level.h"
 #include "xr_level_controller.h"
-#include "Include/xrRender/Kinematics.h"
+#include "Kinematics.h"
 #include "xrAICore/Navigation/ai_object_location.h"
 #include "xrPhysics/ExtendedGeom.h"
 #include "xrPhysics/MathUtils.h"

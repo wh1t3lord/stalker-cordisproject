@@ -1,7 +1,7 @@
 #pragma once
 #include "xrPhysics/IPHCapture.h"
 #include "CaptureBoneCallback.h"
-#include "Include/xrRender/Kinematics.h"
+#include "Kinematics.h"
 #include "Common/Noncopyable.hpp"
 
 #define TEMPLATE_SPECIALIZATION \

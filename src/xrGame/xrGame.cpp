@@ -11,6 +11,10 @@
 #include "xrUICore/XML/xrUIXmlParser.h"
 #include "xr_level_controller.h"
 #include "xrEngine/profiler.h"
+#include "dxRenderFactory.h"
+#include "dxUIRender.h"
+#include "dxDebugRender.h"
+
 
 extern void FillUIStyleToken();
 extern void CleanupUIStyleToken();
@@ -61,6 +65,26 @@ __declspec(dllexport) CSE_Visual* __cdecl xrServer_GetVisual(CSE_Abstract* objec
     return object->visual();
 }
 };
+
+extern "C" {
+XR_EXPORT void SetupEnv()
+{
+    GEnv.Render = &RImplementation;
+    GEnv.RenderFactory = &RenderFactoryImpl;
+    GEnv.DU = &DUImpl;
+    GEnv.UIRender = &UIRenderImpl;
+#ifdef DEBUG
+    GEnv.DRender = &DebugRenderImpl;
+#endif
+    xrRender_initconsole();
+}
+
+XR_EXPORT pcstr GetModeName() { return "renderer_r4"; }
+
+XR_EXPORT bool CheckRendererSupport() { return xrRender_test_hw() ? true : false; }
+}
+
+
 
 void CCC_RegisterCommands();
 

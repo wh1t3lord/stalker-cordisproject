@@ -35,7 +35,7 @@ namespace Cordis
 {
 	namespace XML
 	{
-		const char* TiXmlBase::errorString[TiXmlBase::TIXML_ERROR_STRING_COUNT] =
+		const char* CordisXmlBase::errorString[CordisXmlBase::CordisXml_ERROR_STRING_COUNT] =
 		{
 			"No error",
 			"Error",
@@ -52,7 +52,7 @@ namespace Cordis
 			"Error document empty.",
 			"Error null (0) or unexpected EOF found in input stream.",
 			"Error parsing CDATA.",
-			"Error when TiXmlDocument added to document, because TiXmlDocument can only be at the root.",
+			"Error when CordisXmlDocument added to document, because CordisXmlDocument can only be at the root.",
 		};
 
 	}
