@@ -70,7 +70,7 @@ void CEngineAPI::SelectRenderer()
             if (hGame->IsLoaded())
             {
                 GEnv.CurrentRenderer = 4;
-                setupSelectedRenderer = (SetupEnv)hGame->GetProcAddress(setup_function);
+             //   setupSelectedRenderer = (SetupEnv)hGame->GetProcAddress(setup_function);
             }
             else // Selected is unavailable
             {
@@ -86,6 +86,7 @@ void CEngineAPI::InitializeRenderers()
 {
     SelectRenderer();
 
+/*
     if (setupSelectedRenderer == nullptr && VidQualityToken[0].id != -1)
     {
         // if engine failed to load renderer
@@ -97,11 +98,11 @@ void CEngineAPI::InitializeRenderers()
 
         // Second attempt
         SelectRenderer();
-    }
+    }*/
 
     // Ask current renderer to setup GEnv
-    R_ASSERT2(setupSelectedRenderer, "Can't setup renderer");
-    setupSelectedRenderer();
+//     R_ASSERT2(setupSelectedRenderer, "Can't setup renderer");
+//     setupSelectedRenderer();
 
     // Now unload unused renderers
     // XXX: Unloading disabled due to typeids invalidation

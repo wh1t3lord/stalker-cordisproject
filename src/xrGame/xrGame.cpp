@@ -68,16 +68,7 @@ __declspec(dllexport) CSE_Visual* __cdecl xrServer_GetVisual(CSE_Abstract* objec
 
 extern "C" {
 XR_EXPORT void SetupEnv()
-{
-    GEnv.Render = &RImplementation;
-    GEnv.RenderFactory = &RenderFactoryImpl;
-    GEnv.DU = &DUImpl;
-    GEnv.UIRender = &UIRenderImpl;
-#ifdef DEBUG
-    GEnv.DRender = &DebugRenderImpl;
-#endif
-    xrRender_initconsole();
-}
+{ return; }
 
 XR_EXPORT pcstr GetModeName() { return "renderer_r4"; }
 
@@ -125,7 +116,17 @@ BOOL APIENTRY DllMain(HANDLE hModule, u32 ul_reason_for_call, LPVOID lpReserved)
     {
     case DLL_PROCESS_ATTACH:
     {
+        GEnv.Render = &RImplementation;
+        GEnv.RenderFactory = &RenderFactoryImpl;
+        GEnv.DU = &DUImpl;
+        GEnv.UIRender = &UIRenderImpl;
+#ifdef DEBUG
+        GEnv.DRender = &DebugRenderImpl;
+#endif
+        xrRender_initconsole();
+
         load(0, nullptr, nullptr);
+        g_pGamePersistent = dynamic_cast<IGame_Persistent*>(xrFactory_Create((MK_CLSID('G', '_', 'P', 'E', 'R', 'S', 'I', 'S'))));
         break;
     }
 

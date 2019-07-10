@@ -25,6 +25,7 @@ protected:
 
         MAX_DEF_TEX
     };
+
     typedef struct
     {
         ui_shader sh;
@@ -33,5 +34,23 @@ protected:
 
     static void InitTexInfo();
     static void FreeTexInfo();
-    static TEX_INFO m_tex_info[MAX_DEF_TEX][2];
+
+    class CUIStatsIconMaterials
+    {
+    private:
+        CUIStatsIconMaterials(void) = default;
+
+    public:
+        ~CUIStatsIconMaterials(void) = default;
+
+        inline static CUIStatsIconMaterials& getInstance(void) noexcept
+        {
+            static CUIStatsIconMaterials instance;
+            return instance;
+        }
+
+        TEX_INFO m_tex_info[MAX_DEF_TEX][2];
+    };
+
+    // static TEX_INFO m_tex_info[MAX_DEF_TEX][2];
 };

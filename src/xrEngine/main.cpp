@@ -202,7 +202,6 @@ ENGINE_API void Startup()
     Device.Create();
     LALib.OnCreate();
     pApp = new CApplication();
-    g_pGamePersistent = dynamic_cast<IGame_Persistent*>(NEW_INSTANCE(CLSID_GAME_PERSISTANT));
     R_ASSERT(g_pGamePersistent);
     g_SpatialSpace = new ISpatial_DB("Spatial obj");
     g_SpatialSpacePhysic = new ISpatial_DB("Spatial phys");
@@ -263,12 +262,14 @@ ENGINE_API int RunApplication()
         xr_strcpy(Core.CompName, sizeof(Core.CompName), "Computer");
     }
 
+
+    InitInput();
+    InitConsole();
     Engine.External.CreateRendererList();
 
     FPU::m24r();
     InitEngine();
-    InitInput();
-    InitConsole();
+
 
     if (CheckBenchmark())
         return 0;
