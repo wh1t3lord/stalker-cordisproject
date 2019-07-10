@@ -155,7 +155,7 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Mixed|x64'">
     <ClCompile>
-      <AdditionalIncludeDirectories>D:\Cordis Project\Xray\Externals\FreeMagic\Source;D:\Cordis Project\Xray\Externals\FreeMagic\Source\Core3D;D:\Cordis Project\Xray\Externals\FreeMagic\Source\Core;$(SolutionDir)xrServerEntities;$(xrExternals)ode/include;$(xrExternals)OpenAutomate\inc;$(xrExternals)CxImage;$(xrExternals)pugixml\src;D:\Cordis Project\Xray\src\xrGame\Render\3DFluid;D:\Cordis Project\Xray\src\xrGame\Render\Kernel;D:\Cordis Project\Xray\src\xrGame\Render\R4;D:\Cordis Project\Xray\src\xrGame\Render\WildMagic;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\Externals\FreeMagic\Source;..\..\Externals\FreeMagic\Source\Core3D;..\..\Externals\FreeMagic\Source\Core;$(SolutionDir)xrServerEntities;$(xrExternals)ode/include;$(xrExternals)OpenAutomate\inc;$(xrExternals)CxImage;$(xrExternals)pugixml\src;Render\3DFluid;Render\Kernel;Render\R4;Render\WildMagic;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>_USRDLL;XRGAME_EXPORTS;USE_DX11;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <DisableSpecificWarnings>4237;4250;%(DisableSpecificWarnings)</DisableSpecificWarnings>
       <AdditionalOptions> %(AdditionalOptions)</AdditionalOptions>
@@ -1480,6 +1480,7 @@ $(xrLibDir);$(xrSdkDir)DXSDK/Lib/$(PlatformShortName);
     <ClInclude Include="script_binder_object.h" />
     <ClInclude Include="script_binder_object_wrapper.h" />
     <ClInclude Include="script_bind_macroses.h" />
+    <ClInclude Include="Script_ClassRegistrator.h" />
     <ClInclude Include="script_effector.h" />
     <ClInclude Include="script_effector_inline.h" />
     <ClInclude Include="script_effector_wrapper.h" />
@@ -1491,6 +1492,8 @@ $(xrLibDir);$(xrSdkDir)DXSDK/Lib/$(PlatformShortName);
     <ClInclude Include="script_entity_space.h" />
     <ClInclude Include="script_game_object.h" />
     <ClInclude Include="script_game_object_impl.h" />
+    <ClInclude Include="Script_GlobalHelper.h" />
+    <ClInclude Include="Script_Globals.h" />
     <ClInclude Include="script_hit.h" />
     <ClInclude Include="script_hit_inline.h" />
     <ClInclude Include="script_monster_action.h" />

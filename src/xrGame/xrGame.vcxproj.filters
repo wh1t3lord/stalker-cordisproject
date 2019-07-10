@@ -3040,6 +3040,45 @@
     <Filter Include="Render\Cordis\SDK\Rendering stuff\Private">
       <UniqueIdentifier>{687eb1bb-7ce5-484d-9533-0119f19a8960}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Cordis">
+      <UniqueIdentifier>{0eb104f9-4e1e-4278-82fa-707b5e546700}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts">
+      <UniqueIdentifier>{2f4b440f-045c-4864-86d5-e1795995d604}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\ClassRegistrator">
+      <UniqueIdentifier>{e0ae88a2-1a87-4e2a-9faa-038132ca73c3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\ClassRegistrator\Public">
+      <UniqueIdentifier>{a6b39d9b-c8cb-4c6a-9af4-c1e800fc4122}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\ClassRegistrator\Private">
+      <UniqueIdentifier>{3b3cd55d-ff9f-41e7-a92e-70d7c1528e69}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Global">
+      <UniqueIdentifier>{6a4bf533-642c-4777-8082-8b2bd770cfe4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Global\Public">
+      <UniqueIdentifier>{2dc7acb1-77df-4f17-a7ab-a1fa7086dba6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\BindStalker">
+      <UniqueIdentifier>{aa2f3887-04ce-435c-8b08-e1734179fe12}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\BindStalker\Public">
+      <UniqueIdentifier>{05410a32-ee57-4201-903a-3d946801103a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\BindStalker\Private">
+      <UniqueIdentifier>{47f7d278-3f3c-446a-96e0-80ef49eb97bf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Server Entities">
+      <UniqueIdentifier>{2a5270a9-c76f-4c10-83f0-5ca33b401903}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Global\Globals">
+      <UniqueIdentifier>{f23cf0ed-5dd9-46bd-8603-850308bd7326}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Global\Globals\Public">
+      <UniqueIdentifier>{6eeb2cc2-ba56-4aea-b082-d4f08cf7dc58}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="mt_config.h">
@@ -7996,6 +8035,15 @@
     </ClInclude>
     <ClInclude Include="Render\R4\SDK_Settings.h">
       <Filter>Render\R4\Cordis\SDK\Application Settings\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Script_ClassRegistrator.h">
+      <Filter>Cordis\Scripts\ClassRegistrator\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Script_GlobalHelper.h">
+      <Filter>Cordis\Scripts\Global\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Script_Globals.h">
+      <Filter>Cordis\Scripts\Global\Globals\Public</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

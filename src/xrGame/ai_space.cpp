@@ -47,7 +47,8 @@ void CAI_Space::init()
         m_moving_objects = xr_make_unique<::moving_objects>();
 
         VERIFY(!GEnv.ScriptEngine);
-        GEnv.ScriptEngine = new CScriptEngine();
+		// Lord: [Script] - здесь не используем 
+      // GEnv.ScriptEngine = new CScriptEngine();
         RestartScriptEngine();
     }
 
@@ -137,20 +138,22 @@ void CAI_Space::SetupScriptEngine()
 
 void CAI_Space::RestartScriptEngine()
 {
-    if (GEnv.ScriptEngine != nullptr)
-    {
+	// Lord - [Script]
+ //   if (GEnv.ScriptEngine != nullptr)
+ //   {
         m_events_notifier.FireEvent(EVENT_SCRIPT_ENGINE_RESET);
-    }
-
-    SetupScriptEngine();
+ //   }
+	// Lord - [Script] не использовать
+ //   SetupScriptEngine();
 #ifdef DEBUG
     get_moving_objects().clear();
 #endif // DEBUG
 
-    if (GEnv.ScriptEngine != nullptr)
-    {
+	// Lord - [Script]
+  //  if (GEnv.ScriptEngine != nullptr)
+ //   {
         m_events_notifier.FireEvent(EVENT_SCRIPT_ENGINE_STARTED);
-    }
+  //  }
 }
 
 void CAI_Space::load(LPCSTR level_name)
