@@ -198,8 +198,8 @@
     </CustomBuildStep>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\Layers\xrRender\ETextureParams.cpp" />
     <ClCompile Include="..\..\xrEngine\xrLoadSurface.cpp" />
+    <ClCompile Include="..\..\xrGame\Render\Kernel\ETextureParams.cpp" />
     <ClCompile Include="..\..\xrServerEntities\smart_cast.cpp" />
     <ClCompile Include="compiler.cpp" />
     <ClCompile Include="compiler_cover.cpp" />
@@ -224,7 +224,7 @@
     <ClCompile Include="xr_graph_merge.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\Layers\xrRender\ETextureParams.h" />
+    <ClInclude Include="..\..\xrGame\Render\Kernel\ETextureParams.h" />
     <ClInclude Include="..\..\xrServerEntities\clsid_game.h" />
     <ClInclude Include="..\..\xrServerEntities\restriction_space.h" />
     <ClInclude Include="..\..\xrServerEntities\smart_cast.h" />

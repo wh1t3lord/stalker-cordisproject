@@ -1,7 +1,7 @@
 #ifndef __RECALCULATION_PARAMS_H__
 #define __RECALCULATION_PARAMS_H__
 
-#include "Layers/xrRender/DetailFormat.h"
+#include "xrGame/Render/Kernel/DetailFormat.h"
 class INetReader;
 class CVirtualFileRW;
 class recalculation

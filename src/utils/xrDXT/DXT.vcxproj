@@ -139,7 +139,7 @@
     </ClCompile>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\Layers\xrRender\ETextureParams.h" />
+    <ClInclude Include="..\..\xrGame\Render\Kernel\ETextureParams.h" />
     <ClInclude Include="dds.h" />
     <ClInclude Include="dds\ConvertColor.h" />
     <ClInclude Include="dds\ddsTypes.h" />
@@ -153,7 +153,7 @@
     <ClInclude Include="StdAfx.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\Layers\xrRender\ETextureParams.cpp" />
+    <ClCompile Include="..\..\xrGame\Render\Kernel\ETextureParams.cpp" />
     <ClCompile Include="DXT.cpp" />
     <ClCompile Include="Image_DXTC.cpp" />
     <ClCompile Include="NormalMapGen.cpp" />

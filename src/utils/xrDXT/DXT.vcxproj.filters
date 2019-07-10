@@ -30,10 +30,10 @@
     <ClInclude Include="dds\nvErrorCodes.h" />
     <ClInclude Include="dds\tPixel.h" />
     <ClInclude Include="dds\tVector.h" />
-    <ClInclude Include="..\..\Layers\xrRender\ETextureParams.h">
+    <ClInclude Include="dds.h" />
+    <ClInclude Include="..\..\xrGame\Render\Kernel\ETextureParams.h">
       <Filter>Shared</Filter>
     </ClInclude>
-    <ClInclude Include="dds.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="DXT.cpp">
@@ -52,7 +52,7 @@
       <Filter>NormalMap</Filter>
     </ClCompile>
     <ClCompile Include="StdAfx.cpp" />
-    <ClCompile Include="..\..\Layers\xrRender\ETextureParams.cpp">
+    <ClCompile Include="..\..\xrGame\Render\Kernel\ETextureParams.cpp">
       <Filter>Shared</Filter>
     </ClCompile>
   </ItemGroup>

@@ -96,7 +96,7 @@
     <ClCompile Include="guid_generator.cpp">
       <Filter>ALife\guid_generator</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Layers\xrRender\ETextureParams.cpp">
+    <ClCompile Include="..\..\xrGame\Render\Kernel\ETextureParams.cpp">
       <Filter>Compiler</Filter>
     </ClCompile>
   </ItemGroup>
@@ -176,7 +176,7 @@
     <ClInclude Include="resource.h">
       <Filter>Resources</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Layers\xrRender\ETextureParams.h">
+    <ClInclude Include="..\..\xrGame\Render\Kernel\ETextureParams.h">
       <Filter>Compiler</Filter>
     </ClInclude>
   </ItemGroup>

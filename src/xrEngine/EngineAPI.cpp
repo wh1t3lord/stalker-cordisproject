@@ -64,32 +64,22 @@ void CEngineAPI::SelectRenderer()
 {
     GEnv.CurrentRenderer = -1;
 
-    const auto select = [&](pcstr library, u32 selected, int index, u32 fallback = 0) {
-        if (psDeviceFlags.test(selected))
+ 
+        if (psDeviceFlags.test(rsR4))
         {
-            if (renderers[library]->IsLoaded())
+            if (hGame->IsLoaded())
             {
-                GEnv.CurrentRenderer = index;
-                setupSelectedRenderer = (SetupEnv)renderers[library]->GetProcAddress(setup_function);
+                GEnv.CurrentRenderer = 4;
+                setupSelectedRenderer = (SetupEnv)hGame->GetProcAddress(setup_function);
             }
             else // Selected is unavailable
             {
-                psDeviceFlags.set(selected, false);
-                if (fallback > 0) // try to use another
-                    psDeviceFlags.set(fallback, true);
+                CHECK_OR_EXIT(false, "Can't use Game And REnder!");
             }
         }
-    };
+ 
 
-    select(gl_library, rsRGL, 5, rsR4);
-
-#if defined(WINDOWS)
-    select(r4_library, rsR4, 4, rsR3);
-    select(r3_library, rsR3, 3, rsR2);
-    select(r2_library, rsR2, 2, rsR1);
-#endif
-
-    select(r1_library, rsR1, 1);
+ 
 }
 
 void CEngineAPI::InitializeRenderers()
@@ -135,8 +125,7 @@ void CEngineAPI::Initialize(void)
 {
     InitializeRenderers();
 
-    hGame = XRay::LoadModule("xrGame");
-    R_ASSERT2(hGame->IsLoaded(), "Game DLL raised exception during loading or there is no game DLL at all");
+    //    R_ASSERT2(hGame->IsLoaded(), "Game DLL raised exception during loading or there is no game DLL at all");
 
     pCreate = (Factory_Create*)hGame->GetProcAddress("xrFactory_Create");
     R_ASSERT(pCreate);
@@ -193,10 +182,8 @@ void CEngineAPI::CreateRendererList()
     if (!VidQualityToken.empty())
         return;
 
-    renderers[gl_library] = XRay::LoadModule(gl_library);
-#if defined(WINDOWS)
-    renderers[r1_library] = XRay::LoadModule(r1_library);
-#endif
+    hGame = XRay::LoadModule("xrGame");
+    CHECK_OR_EXIT(hGame, "Can't Load xrGame!");
 
     if (GEnv.isDedicatedServer)
     {
@@ -216,30 +203,24 @@ void CEngineAPI::CreateRendererList()
 #if defined(WINDOWS)
     // Hide "d3d10.dll not found" message box for XP
     SetErrorMode(SEM_FAILCRITICALERRORS);
-
-    renderers[r2_library] = XRay::LoadModule(r2_library);
-    renderers[r3_library] = XRay::LoadModule(r3_library);
-    renderers[r4_library] = XRay::LoadModule(r4_library);
-
     // Restore error handling
     SetErrorMode(0);
 #endif
-
-    const auto checkRenderer = [&](pcstr library, pcstr mode, int index) {
-        if (renderers[library]->IsLoaded())
+        if (hGame->IsLoaded())
         {
             // Load SupportCheck, SetupEnv and GetModeName functions from DLL
-            const auto checkSupport = (SupportCheck)renderers[library]->GetProcAddress(check_function);
-            const auto getModeName = (GetModeName)renderers[library]->GetProcAddress(mode_function);
+            const auto checkSupport = (SupportCheck)hGame->GetProcAddress(check_function);
+            const auto getModeName = (GetModeName)hGame->GetProcAddress(mode_function);
 
             // Test availability
             if (checkSupport && checkSupport())
-                modes.emplace_back(getModeName ? getModeName() : mode, index);
+                modes.emplace_back(getModeName ? getModeName() : renderer_r4, 5);
             else // Close the handle if test is failed
-                renderers[library]->Close();
+                hGame->Close();
         }
-    };
+ 
 
+/*
 #if defined(WINDOWS)
     checkRenderer(r1_library, renderer_r1, 0);
     if (renderers[r2_library]->IsLoaded())
@@ -252,7 +233,7 @@ void CEngineAPI::CreateRendererList()
     checkRenderer(r4_library, renderer_r4, 5);
 #endif
 
-    checkRenderer(gl_library, renderer_gl, 6);
+    checkRenderer(gl_library, renderer_gl, 6);*/
 
     modes.emplace_back(nullptr, -1);
 
