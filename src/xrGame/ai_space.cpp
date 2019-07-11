@@ -47,7 +47,7 @@ void CAI_Space::init()
         m_moving_objects = xr_make_unique<::moving_objects>();
 
         VERIFY(!GEnv.ScriptEngine);
-		// Lord: [Script] - здесь не используем 
+		// Lord: [Script] - Р·РґРµСЃСЊ РЅРµ РёСЃРїРѕР»СЊР·СѓРµРј 
       // GEnv.ScriptEngine = new CScriptEngine();
         RestartScriptEngine();
     }
@@ -143,7 +143,7 @@ void CAI_Space::RestartScriptEngine()
  //   {
         m_events_notifier.FireEvent(EVENT_SCRIPT_ENGINE_RESET);
  //   }
-	// Lord - [Script] не использовать
+	// Lord - [Script] РЅРµ РёСЃРїРѕР»СЊР·РѕРІР°С‚СЊ
  //   SetupScriptEngine();
 #ifdef DEBUG
     get_moving_objects().clear();

@@ -202,6 +202,7 @@ ENGINE_API void Startup()
     Device.Create();
     LALib.OnCreate();
     pApp = new CApplication();
+    g_pGamePersistent = dynamic_cast<IGame_Persistent*>(NEW_INSTANCE((MK_CLSID('G', '_', 'P', 'E', 'R', 'S', 'I', 'S'))));
     R_ASSERT(g_pGamePersistent);
     g_SpatialSpace = new ISpatial_DB("Spatial obj");
     g_SpatialSpacePhysic = new ISpatial_DB("Spatial phys");

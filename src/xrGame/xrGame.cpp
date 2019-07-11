@@ -124,9 +124,7 @@ BOOL APIENTRY DllMain(HANDLE hModule, u32 ul_reason_for_call, LPVOID lpReserved)
         GEnv.DRender = &DebugRenderImpl;
 #endif
         xrRender_initconsole();
-
         load(0, nullptr, nullptr);
-        g_pGamePersistent = dynamic_cast<IGame_Persistent*>(xrFactory_Create((MK_CLSID('G', '_', 'P', 'E', 'R', 'S', 'I', 'S'))));
         break;
     }
 
