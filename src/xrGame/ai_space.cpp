@@ -184,7 +184,10 @@ void CAI_Space::unload(bool reload)
 {
     if (GEnv.isDedicatedServer)
         return;
-    GEnv.ScriptEngine->unload();
+
+	if (GEnv.ScriptEngine)
+		GEnv.ScriptEngine->unload();
+
     m_doors_manager.reset(nullptr);
     AISpaceBase::Unload(reload);
 }

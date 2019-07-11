@@ -178,6 +178,7 @@
 #include "actor_mp_server.h"
 #include "actor_mp_client.h"
 #include "smart_cover_object.h"
+#include "Script_UI_MainMenu.h"
 #endif // NO_XR_GAME
 
 #ifndef NO_XR_GAME
@@ -391,6 +392,14 @@ void CObjectFactory::register_classes()
 
     ADD(CInventoryBox, CSE_ALifeInventoryBox, CLSID_INVENTORY_BOX, "inventory_box");
     ADD(smart_cover::object, CSE_SmartCover, TEXT2CLSID("SMRTCOVR"), "smart_cover");
+
+#pragma region CordisScripts Registering
+	this->add<Cordis::Scripts::Script_UI_MainMenu>(TEXT2CLSID("MAIN_MNU"), "Script_UI_MainMenu");
+#pragma endregion
+
+
+
+
 
 #ifndef NO_XR_GAME
     // hack, for dedicated server only

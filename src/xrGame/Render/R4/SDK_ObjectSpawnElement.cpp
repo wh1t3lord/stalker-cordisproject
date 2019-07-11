@@ -253,25 +253,22 @@ namespace Cordis
 
 		void SDK_ObjectSpawnElement::SpawnData::Create(LPCSTR entity_reference)
 		{
-		//	this->m_data = sdk_createentity(entity_reference)->getServerObject(entity_reference);
-            CSE_Motion* data_motion = nullptr;
-            CSE_Visual* data_visual = nullptr;
-  
-			//this->m_data = object_factory().server_object(pSettings->r_clsid(entity_reference, "class"), entity_reference);
+			this->m_data = object_factory().server_object(pSettings->r_clsid(entity_reference, "class"), entity_reference);
+ 
 			if (this->m_data)
 			{
 				// Lord: здесь багует вызывает вместо set_name -> angle()
  
  
-				if (data_visual)
+				if (this->m_data->visual())
 				{
-                    this->m_visual = new CLE_Visual(data_visual);
+                    this->m_visual = new CLE_Visual(this->m_data->visual());
 					this->m_data->set_editor_flag(IServerEntity::flVisualChange | IServerEntity::flVisualAnimationChange);
 				}
 
-				if (data_motion)
+				if (this->m_data->motion())
 				{
-                    this->m_motion = new CLE_Motion(data_motion);
+                    this->m_motion = new CLE_Motion(this->m_data->motion());
 					this->m_data->set_editor_flag(IServerEntity::flMotionChange);
 				}
  

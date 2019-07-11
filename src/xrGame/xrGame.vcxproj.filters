@@ -2659,12 +2659,6 @@
     <Filter Include="Render\R4\Visibility\Private">
       <UniqueIdentifier>{5f223fb2-7875-4940-b5d6-ccfc48747acb}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Render\R4\Cordis">
-      <UniqueIdentifier>{d86b8e6e-e77d-4e89-a110-16cbe488ca1c}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Render\R4\Cordis\SDK">
-      <UniqueIdentifier>{d24eb964-ac5d-49ce-a546-3660e2ce8c47}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Render\R4\WildMagic">
       <UniqueIdentifier>{27b183e4-f289-43c9-8984-e32af5cb55a5}</UniqueIdentifier>
     </Filter>
@@ -2673,357 +2667,6 @@
     </Filter>
     <Filter Include="Render\R4\WildMagic\Private">
       <UniqueIdentifier>{bc036263-117c-46e2-ac4b-69e6bcb7b57c}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Render\R4\Cordis\SDK\UI management">
-      <UniqueIdentifier>{555fa4f4-fc0c-4341-b75f-047aae6d2730}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Render\R4\Cordis\SDK\UI management\Helpers">
-      <UniqueIdentifier>{8ded5e66-ba01-4f1d-84d1-415ed383ce7c}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Render\R4\Cordis\SDK\UI management\Helpers\Public">
-      <UniqueIdentifier>{3085d4ba-f115-4c77-9814-f901a36f4a64}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Render\R4\Cordis\SDK\UI management\Helpers\Private">
-      <UniqueIdentifier>{cf5b400c-318a-4195-9044-59db755be5ff}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Render\R4\Cordis\SDK\UI management\Icon Manager">
-      <UniqueIdentifier>{ed747bc7-44db-4e0a-ab74-06be7c2c5e90}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Render\R4\Cordis\SDK\UI management\Icon Manager\Public">
-      <UniqueIdentifier>{c592a949-c2cf-4cd1-a22e-2dde871f7612}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Render\R4\Cordis\SDK\UI management\Icon Manager\Private">
-      <UniqueIdentifier>{4acb4a4e-1af8-444d-b371-adbddbbf36e7}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Render\R4\Cordis\SDK\UI management\Kernel">
-      <UniqueIdentifier>{117939b4-689d-4245-bad8-0c091b1badd6}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Render\R4\Cordis\SDK\UI management\Kernel\Public">
-      <UniqueIdentifier>{9e51e9c1-a11b-4b8a-8be8-c81fbdb770da}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Render\R4\Cordis\SDK\UI management\Kernel\Private">
-      <UniqueIdentifier>{95cf528b-373c-4754-bd3b-0a1175262ba8}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Render\R4\Cordis\SDK\UI management\Object List">
-      <UniqueIdentifier>{a3650784-46e7-4264-b51b-9d905d2b5033}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Render\R4\Cordis\SDK\UI management\Object List\Public">
-      <UniqueIdentifier>{e904c1f2-351c-40f9-aa42-142884dd87d0}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Render\R4\Cordis\SDK\UI management\Object List\Private">
-      <UniqueIdentifier>{85435cf9-f2b8-4d70-916d-c322f866c695}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Render\R4\Cordis\SDK\UI management\Object Properties">
-      <UniqueIdentifier>{7168be75-1ba5-4cdd-9b4b-cac5766e48e1}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Render\R4\Cordis\SDK\UI management\Object Properties\Public">
-      <UniqueIdentifier>{092e76a2-9aae-459a-8cb8-93623e2567ca}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Render\R4\Cordis\SDK\UI management\Object Properties\Private">
-      <UniqueIdentifier>{cc8e97ee-536a-48a8-afba-ba80610f794b}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Render\R4\Cordis\SDK\UI management\Right Window">
-      <UniqueIdentifier>{5382265d-98d0-49c5-8af3-54422012684b}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Render\R4\Cordis\SDK\UI management\Right Window\Public">
-      <UniqueIdentifier>{b457f87a-3fb5-4d13-b648-56b4f421ff8f}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Render\R4\Cordis\SDK\UI management\Right Window\Private">
-      <UniqueIdentifier>{79182573-f076-46c9-9789-2c63131117ae}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Render\R4\Cordis\SDK\UI management\Settings">
-      <UniqueIdentifier>{6a980f72-c89f-4517-b3bc-010bec9c474e}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Render\R4\Cordis\SDK\UI management\Settings\Public">
-      <UniqueIdentifier>{33a9930e-4045-4e0c-87dc-5a141be17e3b}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Render\R4\Cordis\SDK\UI management\Settings\Private">
-      <UniqueIdentifier>{431b53b2-c931-4714-9149-4b670f3ef1d0}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Render\R4\Cordis\SDK\UI management\ToolBar">
-      <UniqueIdentifier>{d8f69878-bbad-42dd-a7f0-2c1c0348a6ee}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Render\R4\Cordis\SDK\UI management\ToolBar\Public">
-      <UniqueIdentifier>{33f46a2d-6ec5-4836-b582-31276e7f33e1}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Render\R4\Cordis\SDK\UI management\ToolBar\Private">
-      <UniqueIdentifier>{7e941dd3-a036-450b-ad30-829111721354}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Render\R4\Cordis\SDK\Scene management">
-      <UniqueIdentifier>{f28caea1-885d-4c23-b90d-2b4117af06f2}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Render\R4\Cordis\SDK\Scene management\Own">
-      <UniqueIdentifier>{345b9d0e-d4d8-4daf-b9c1-9dfdcd937ec4}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Render\R4\Cordis\SDK\Scene management\Own\Cache">
-      <UniqueIdentifier>{29c04497-d533-4f8d-89c3-1a601e571e77}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Render\R4\Cordis\SDK\Scene management\Own\Cache\Public">
-      <UniqueIdentifier>{94ab42ad-c7e7-4e6a-84f0-ee44003ddd35}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Render\R4\Cordis\SDK\Scene management\Own\Cache\Private">
-      <UniqueIdentifier>{5c32801f-d33b-4ea8-a018-cb29e9ad23dc}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Render\R4\Cordis\SDK\Scene management\Own\Gizmos">
-      <UniqueIdentifier>{94fcf846-9d18-4ac1-846c-52bfaf399084}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Render\R4\Cordis\SDK\Scene management\Own\Gizmos\Manager">
-      <UniqueIdentifier>{ab7a20e4-bc1a-4cf5-bb23-322212cfd476}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Render\R4\Cordis\SDK\Scene management\Own\Gizmos\Manager\Public">
-      <UniqueIdentifier>{f4902dc8-9e01-4d0f-bce5-cc0510396880}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Render\R4\Cordis\SDK\Scene management\Own\Gizmos\Manager\Private">
-      <UniqueIdentifier>{f9d339c8-509e-4b88-bfef-affaf0c282db}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Render\R4\Cordis\SDK\Scene management\Own\Gizmos\Move">
-      <UniqueIdentifier>{adbd70b7-bcaa-4f0f-a9e0-e81c0c60f688}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Render\R4\Cordis\SDK\Scene management\Own\Gizmos\Move\Public">
-      <UniqueIdentifier>{a62bc90b-3cad-473a-874e-72d012d60897}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Render\R4\Cordis\SDK\Scene management\Own\Gizmos\Move\Private">
-      <UniqueIdentifier>{633ace25-0d95-4328-80f4-2a229907fefc}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Render\R4\Cordis\SDK\Scene management\Own\Gizmos\Rotation">
-      <UniqueIdentifier>{7c5f9e84-ab7b-4d0a-8873-08d3ddd13d0a}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Render\R4\Cordis\SDK\Scene management\Own\Gizmos\Rotation\Public">
-      <UniqueIdentifier>{c998f589-0032-41e6-8432-2108e89e0307}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Render\R4\Cordis\SDK\Scene management\Own\Gizmos\Rotation\Private">
-      <UniqueIdentifier>{4fdc8b00-9cb4-4d31-94bd-6256c74f7886}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Render\R4\Cordis\SDK\Scene management\Own\Gizmos\Scale">
-      <UniqueIdentifier>{2a5ed648-5438-4786-938a-7e3b39881ad0}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Render\R4\Cordis\SDK\Scene management\Own\Gizmos\Scale\Public">
-      <UniqueIdentifier>{086e666f-f315-4309-ae70-0bc77e85a4c2}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Render\R4\Cordis\SDK\Scene management\Own\Gizmos\Scale\Private">
-      <UniqueIdentifier>{602377e8-6ee7-456a-831d-b1dc7e04c910}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Render\R4\Cordis\SDK\Scene management\Own\Kernel">
-      <UniqueIdentifier>{12c65659-9cc8-4d2c-b575-ac23eadb0560}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Render\R4\Cordis\SDK\Scene management\Own\Kernel\Custom Object">
-      <UniqueIdentifier>{fc448a56-f1ae-4b70-8606-0865a5f45f8d}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Render\R4\Cordis\SDK\Scene management\Own\Kernel\Scene manager">
-      <UniqueIdentifier>{a6bc1e50-be98-4bf7-884f-c3bd8ec12427}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Render\R4\Cordis\SDK\Scene management\Own\Kernel\Custom Object\Public">
-      <UniqueIdentifier>{b0c5513a-a667-4f0d-96d4-b6897491027c}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Render\R4\Cordis\SDK\Scene management\Own\Kernel\Custom Object\Private">
-      <UniqueIdentifier>{bcd2a987-10b9-422a-b423-fce0d07b5c72}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Render\R4\Cordis\SDK\Scene management\Own\Kernel\Scene manager\Public">
-      <UniqueIdentifier>{0594f6a4-7518-40d5-ad88-19c6ed260ba8}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Render\R4\Cordis\SDK\Scene management\Own\Kernel\Scene manager\Private">
-      <UniqueIdentifier>{b246611f-ec5d-472a-a436-312e7cd58a15}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Render\R4\Cordis\SDK\Scene management\Own\Objects">
-      <UniqueIdentifier>{f8179a62-b184-44ba-9613-8ca953cac01a}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Render\R4\Cordis\SDK\Scene management\Own\Objects\Light">
-      <UniqueIdentifier>{7ca06e27-f0c7-460b-b197-75eeff422155}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Render\R4\Cordis\SDK\Scene management\Own\Objects\Sector">
-      <UniqueIdentifier>{f9947d01-0608-448b-b35d-130518c16560}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Render\R4\Cordis\SDK\Scene management\Own\Objects\Shape">
-      <UniqueIdentifier>{1c115faa-f535-44e1-86d1-663116d00426}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Render\R4\Cordis\SDK\Scene management\Own\Objects\Spawn Element">
-      <UniqueIdentifier>{5e1e71fc-12d0-426b-80f8-40d4799f124c}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Render\R4\Cordis\SDK\Scene management\Own\Objects\Static Geometry">
-      <UniqueIdentifier>{72c3d871-b753-46d5-9992-48ddb93a86db}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Render\R4\Cordis\SDK\Scene management\Own\Objects\Way Point">
-      <UniqueIdentifier>{a7fef8ee-dcc3-4a76-a4de-3fb1f276cf0b}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Render\R4\Cordis\SDK\Scene management\Own\Objects\Light\Public">
-      <UniqueIdentifier>{096fed36-4e8a-44df-afc3-01dde5a265a0}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Render\R4\Cordis\SDK\Scene management\Own\Objects\Light\Private">
-      <UniqueIdentifier>{e42092e1-5605-4f95-b696-9366adc6d473}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Render\R4\Cordis\SDK\Scene management\Own\Objects\Way Point\Public">
-      <UniqueIdentifier>{cc9e53eb-c0e9-4cca-bcd4-8665a4d198ed}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Render\R4\Cordis\SDK\Scene management\Own\Objects\Way Point\Private">
-      <UniqueIdentifier>{afea6b80-de0b-432c-bf45-3e514cd68a28}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Render\R4\Cordis\SDK\Scene management\Own\Objects\Static Geometry\Public">
-      <UniqueIdentifier>{e87db492-63d8-4fe5-ac6d-53e6b1bc8fff}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Render\R4\Cordis\SDK\Scene management\Own\Objects\Static Geometry\Private">
-      <UniqueIdentifier>{6148db77-8868-4e44-9c27-e9af0fccae4a}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Render\R4\Cordis\SDK\Scene management\Own\Objects\Spawn Element\Public">
-      <UniqueIdentifier>{434db212-b952-4beb-8783-4ac83fcc1c48}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Render\R4\Cordis\SDK\Scene management\Own\Objects\Spawn Element\Private">
-      <UniqueIdentifier>{c212db56-dca9-48ee-960d-4d898b414c00}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Render\R4\Cordis\SDK\Scene management\Own\Objects\Shape\Public">
-      <UniqueIdentifier>{1235c85d-8f28-4dd0-bea2-92b542141c80}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Render\R4\Cordis\SDK\Scene management\Own\Objects\Shape\Private">
-      <UniqueIdentifier>{11dcbf2c-2abd-43b0-aef3-2e1d847addfe}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Render\R4\Cordis\SDK\Scene management\Own\Objects\Sector\Public">
-      <UniqueIdentifier>{1589ffc0-655a-4cf5-b473-a8e08587bd87}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Render\R4\Cordis\SDK\Scene management\Own\Objects\Sector\Private">
-      <UniqueIdentifier>{9c86de39-d464-4ef2-af04-b75cdcfd7074}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Render\R4\Cordis\SDK\Scene management\GSC">
-      <UniqueIdentifier>{a836edec-1846-4060-9088-274474f0b2a7}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Render\R4\Cordis\SDK\Scene management\GSC\Picking">
-      <UniqueIdentifier>{d3c0fca8-49aa-4133-9626-d8cbe1c23231}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Render\R4\Cordis\SDK\Scene management\GSC\Model">
-      <UniqueIdentifier>{3642f80a-c840-4efc-8b1d-04f1ad7b6474}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Render\R4\Cordis\SDK\Scene management\GSC\Other stuff">
-      <UniqueIdentifier>{1182030b-c850-417e-a55e-07226a97f263}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Render\R4\Cordis\SDK\Scene management\GSC\Physics">
-      <UniqueIdentifier>{fc00bb77-6741-4d8d-a7ac-78f0fb173d5d}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Render\R4\Cordis\SDK\Scene management\GSC\Model\Editable Mesh">
-      <UniqueIdentifier>{1fdd1c96-784b-4938-b573-25caaec02e90}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Render\R4\Cordis\SDK\Scene management\GSC\Model\Editable Mesh\CSurface">
-      <UniqueIdentifier>{f55ec48a-3a7e-4863-be16-0952b93fbff5}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Render\R4\Cordis\SDK\Scene management\GSC\Model\Editable Mesh\CSurface\Public">
-      <UniqueIdentifier>{064f44f2-d2cc-48be-bc82-b324e47d0d74}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Render\R4\Cordis\SDK\Scene management\GSC\Model\Editable Mesh\CSurface\Private">
-      <UniqueIdentifier>{861e083c-f093-43dc-be3f-61709eaeb878}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Render\R4\Cordis\SDK\Scene management\GSC\Model\Editable Mesh\Public">
-      <UniqueIdentifier>{206864ad-4222-4245-904b-0bb89b429be5}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Render\R4\Cordis\SDK\Scene management\GSC\Model\Editable Mesh\Private">
-      <UniqueIdentifier>{5b3f428e-aa46-4233-b39d-3463aee403dd}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Render\R4\Cordis\SDK\Scene management\GSC\Model\Editable Object">
-      <UniqueIdentifier>{c23e58eb-8f78-4acf-90e7-6bf556023f57}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Render\R4\Cordis\SDK\Scene management\GSC\Model\Editable Object\Public">
-      <UniqueIdentifier>{133febbe-2474-496d-a6c7-34230ce4ba3a}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Render\R4\Cordis\SDK\Scene management\GSC\Model\Editable Object\Private">
-      <UniqueIdentifier>{57f47e4e-c664-4313-afa6-947959f4e082}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Render\R4\Cordis\SDK\Scene management\GSC\Model\Export Object OGF">
-      <UniqueIdentifier>{f3df4373-8fe1-4ee5-ba5a-5a72e63d1d93}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Render\R4\Cordis\SDK\Scene management\GSC\Model\Export Object OGF\Public">
-      <UniqueIdentifier>{8672d6d3-a500-4c70-827e-7d69e8b61dde}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Render\R4\Cordis\SDK\Scene management\GSC\Model\Export Object OGF\Private">
-      <UniqueIdentifier>{7123f9c8-1475-4eda-a793-054e06dc7379}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Render\R4\Cordis\SDK\Scene management\GSC\Model\Export Skeleton">
-      <UniqueIdentifier>{a25a25b9-cfc0-44cb-9325-6749816dd7be}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Render\R4\Cordis\SDK\Scene management\GSC\Model\Export Skeleton\Public">
-      <UniqueIdentifier>{01d96529-a7a7-4015-a7fe-25284186227a}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Render\R4\Cordis\SDK\Scene management\GSC\Model\Export Skeleton\Private">
-      <UniqueIdentifier>{a9a4c841-a7be-402f-a040-35cb7de2ba26}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Render\R4\Cordis\SDK\Scene management\GSC\Physics\Public">
-      <UniqueIdentifier>{252854f5-36a7-4905-9cf9-92a2d8ff2387}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Render\R4\Cordis\SDK\Scene management\GSC\Physics\Private">
-      <UniqueIdentifier>{2bbe7144-d341-4e2a-9937-b444bd2632f4}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Render\R4\Cordis\SDK\Scene management\GSC\Picking\Public">
-      <UniqueIdentifier>{3b3e1edc-b823-44dd-b8ad-7f3e76e85e0b}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Render\R4\Cordis\SDK\Scene management\GSC\Other stuff\Public">
-      <UniqueIdentifier>{b709d249-38f8-4cfe-ad89-32698ff1584f}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Render\R4\Cordis\SDK\Scene management\GSC\Other stuff\IniFileStream">
-      <UniqueIdentifier>{e1783ce7-af93-4798-8152-833f0e95f774}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Render\R4\Cordis\SDK\Scene management\GSC\Other stuff\IniFileStream\Public">
-      <UniqueIdentifier>{259d1564-bee5-4d6b-821c-8ea20a5467a3}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Render\R4\Cordis\SDK\Scene management\GSC\Other stuff\IniFileStream\Private">
-      <UniqueIdentifier>{b0927cfc-b780-49d4-b18f-be8f66b876ca}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Render\R4\Cordis\SDK\Scene management\GSC\Other stuff\Image manager">
-      <UniqueIdentifier>{5dc0b55e-1b7f-4aac-8690-49e82af8a2fa}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Render\R4\Cordis\SDK\Scene management\GSC\Other stuff\Image manager\Public">
-      <UniqueIdentifier>{dc9215cc-76a2-4175-ba18-5a2160e6ac4c}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Render\R4\Cordis\SDK\Scene management\GSC\Other stuff\Image manager\Private">
-      <UniqueIdentifier>{7c86d396-1ee0-4f83-801d-3fbd96253f4d}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Render\R4\Cordis\SDK\Scene management\GSC\Other stuff\Image manager\Thumbnail">
-      <UniqueIdentifier>{0b677633-c980-4533-87a7-8dfc57473080}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Render\R4\Cordis\SDK\Scene management\GSC\Other stuff\Image manager\Thumbnail\Public">
-      <UniqueIdentifier>{2b11d438-db59-4a94-a057-ce80b258b35c}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Render\R4\Cordis\SDK\Scene management\GSC\Other stuff\Image manager\Thumbnail\Private">
-      <UniqueIdentifier>{76c323b7-8651-440b-ae44-454b01987acb}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Render\R4\Cordis\SDK\Scene management\GSC\Other stuff\Editor Preferences">
-      <UniqueIdentifier>{d985adc4-aed1-4c06-9464-5c79d437bf52}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Render\R4\Cordis\SDK\Scene management\GSC\Other stuff\Editor Preferences\Public">
-      <UniqueIdentifier>{d0e814d8-6ae2-49c7-9905-0f9f2db1cdf3}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Render\R4\Cordis\SDK\Scene management\GSC\Other stuff\Editor Preferences\Private">
-      <UniqueIdentifier>{b425847b-e92b-4654-a656-530ca658c8aa}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Render\R4\Cordis\SDK\Render">
-      <UniqueIdentifier>{1ae70b2f-ee9a-4bc7-a7fc-236f4932fb19}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Render\R4\Cordis\SDK\Render\Public">
-      <UniqueIdentifier>{fda66568-bd8e-4d7c-ae9b-7df0f4f37def}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Render\R4\Cordis\SDK\Render\Private">
-      <UniqueIdentifier>{db1c6d52-8505-4c5f-ab9b-39044e6a8ac9}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Render\R4\Cordis\SDK\Keybinding manager">
-      <UniqueIdentifier>{c5c39867-9bce-437c-b5e2-e22475be785e}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Render\R4\Cordis\SDK\Keybinding manager\Public">
-      <UniqueIdentifier>{d5680362-00f4-418f-9cfd-acd6b65532e4}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Render\R4\Cordis\SDK\Keybinding manager\Private">
-      <UniqueIdentifier>{e1338611-9cf4-43a2-858e-d2d6a133fedc}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Render\R4\Cordis\SDK\File System State">
-      <UniqueIdentifier>{df1edd28-659d-4167-ada3-729218bd8722}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Render\R4\Cordis\SDK\File System State\Public">
-      <UniqueIdentifier>{164fb206-46ed-46c0-9838-a985326bf1af}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Render\R4\Cordis\SDK\File System State\Private">
-      <UniqueIdentifier>{e4650f97-6512-4fa4-aa75-563077e86d5b}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Render\R4\Cordis\SDK\Application Settings">
-      <UniqueIdentifier>{3bd4331a-20b0-4b1a-8aed-99fd0eab257c}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Render\R4\Cordis\SDK\Application Settings\Public">
-      <UniqueIdentifier>{7883a1ec-5c56-42ba-b41f-f1704a39d8e5}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Render\R4\Cordis\SDK\Application Settings\Private">
-      <UniqueIdentifier>{6ebce5d5-a3f5-49cb-aebe-0acb17751b83}</UniqueIdentifier>
     </Filter>
     <Filter Include="Render\Cordis">
       <UniqueIdentifier>{c01e4869-f752-489d-ac5c-06ed9b837778}</UniqueIdentifier>
@@ -3045,15 +2688,6 @@
     </Filter>
     <Filter Include="Cordis\Scripts">
       <UniqueIdentifier>{2f4b440f-045c-4864-86d5-e1795995d604}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Cordis\Scripts\ClassRegistrator">
-      <UniqueIdentifier>{e0ae88a2-1a87-4e2a-9faa-038132ca73c3}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Cordis\Scripts\ClassRegistrator\Public">
-      <UniqueIdentifier>{a6b39d9b-c8cb-4c6a-9af4-c1e800fc4122}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Cordis\Scripts\ClassRegistrator\Private">
-      <UniqueIdentifier>{3b3cd55d-ff9f-41e7-a92e-70d7c1528e69}</UniqueIdentifier>
     </Filter>
     <Filter Include="Cordis\Scripts\Global">
       <UniqueIdentifier>{6a4bf533-642c-4777-8082-8b2bd770cfe4}</UniqueIdentifier>
@@ -3078,6 +2712,369 @@
     </Filter>
     <Filter Include="Cordis\Scripts\Global\Globals\Public">
       <UniqueIdentifier>{6eeb2cc2-ba56-4aea-b082-d4f08cf7dc58}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\UI">
+      <UniqueIdentifier>{0942a074-6ce6-4e0c-8915-9810158ee2a4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\UI\MainMenu">
+      <UniqueIdentifier>{4fbd724d-390f-4ef8-ace6-05bc68d3db71}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\UI\MainMenu\Public">
+      <UniqueIdentifier>{4bc4a12d-65e1-4f55-8c57-908b9800314f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\UI\MainMenu\Private">
+      <UniqueIdentifier>{8b16fba7-320a-4880-b6ce-95c34cc6a0ec}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\Cordis\SDK\Application Settings">
+      <UniqueIdentifier>{3bd4331a-20b0-4b1a-8aed-99fd0eab257c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\Cordis\SDK\Application Settings\Public">
+      <UniqueIdentifier>{7883a1ec-5c56-42ba-b41f-f1704a39d8e5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\Cordis\SDK\Application Settings\Private">
+      <UniqueIdentifier>{6ebce5d5-a3f5-49cb-aebe-0acb17751b83}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\Cordis\SDK\File System State">
+      <UniqueIdentifier>{df1edd28-659d-4167-ada3-729218bd8722}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\Cordis\SDK\File System State\Public">
+      <UniqueIdentifier>{164fb206-46ed-46c0-9838-a985326bf1af}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\Cordis\SDK\File System State\Private">
+      <UniqueIdentifier>{e4650f97-6512-4fa4-aa75-563077e86d5b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\Cordis\SDK\Keybinding manager">
+      <UniqueIdentifier>{c5c39867-9bce-437c-b5e2-e22475be785e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\Cordis\SDK\Keybinding manager\Public">
+      <UniqueIdentifier>{d5680362-00f4-418f-9cfd-acd6b65532e4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\Cordis\SDK\Keybinding manager\Private">
+      <UniqueIdentifier>{e1338611-9cf4-43a2-858e-d2d6a133fedc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\Cordis\SDK\Render">
+      <UniqueIdentifier>{1ae70b2f-ee9a-4bc7-a7fc-236f4932fb19}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\Cordis\SDK\Render\Public">
+      <UniqueIdentifier>{fda66568-bd8e-4d7c-ae9b-7df0f4f37def}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\Cordis\SDK\Render\Private">
+      <UniqueIdentifier>{db1c6d52-8505-4c5f-ab9b-39044e6a8ac9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\Cordis\SDK\Scene management">
+      <UniqueIdentifier>{f28caea1-885d-4c23-b90d-2b4117af06f2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\Cordis\SDK\Scene management\Own">
+      <UniqueIdentifier>{345b9d0e-d4d8-4daf-b9c1-9dfdcd937ec4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\Cordis\SDK\Scene management\Own\Cache">
+      <UniqueIdentifier>{29c04497-d533-4f8d-89c3-1a601e571e77}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\Cordis\SDK\Scene management\Own\Cache\Public">
+      <UniqueIdentifier>{94ab42ad-c7e7-4e6a-84f0-ee44003ddd35}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\Cordis\SDK\Scene management\Own\Cache\Private">
+      <UniqueIdentifier>{5c32801f-d33b-4ea8-a018-cb29e9ad23dc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\Cordis\SDK\Scene management\Own\Gizmos">
+      <UniqueIdentifier>{94fcf846-9d18-4ac1-846c-52bfaf399084}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\Cordis\SDK\Scene management\Own\Gizmos\Manager">
+      <UniqueIdentifier>{ab7a20e4-bc1a-4cf5-bb23-322212cfd476}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\Cordis\SDK\Scene management\Own\Gizmos\Manager\Public">
+      <UniqueIdentifier>{f4902dc8-9e01-4d0f-bce5-cc0510396880}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\Cordis\SDK\Scene management\Own\Gizmos\Manager\Private">
+      <UniqueIdentifier>{f9d339c8-509e-4b88-bfef-affaf0c282db}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\Cordis\SDK\Scene management\Own\Gizmos\Move">
+      <UniqueIdentifier>{adbd70b7-bcaa-4f0f-a9e0-e81c0c60f688}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\Cordis\SDK\Scene management\Own\Gizmos\Move\Public">
+      <UniqueIdentifier>{a62bc90b-3cad-473a-874e-72d012d60897}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\Cordis\SDK\Scene management\Own\Gizmos\Move\Private">
+      <UniqueIdentifier>{633ace25-0d95-4328-80f4-2a229907fefc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\Cordis\SDK\Scene management\Own\Gizmos\Rotation">
+      <UniqueIdentifier>{7c5f9e84-ab7b-4d0a-8873-08d3ddd13d0a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\Cordis\SDK\Scene management\Own\Gizmos\Rotation\Public">
+      <UniqueIdentifier>{c998f589-0032-41e6-8432-2108e89e0307}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\Cordis\SDK\Scene management\Own\Gizmos\Rotation\Private">
+      <UniqueIdentifier>{4fdc8b00-9cb4-4d31-94bd-6256c74f7886}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\Cordis\SDK\Scene management\Own\Gizmos\Scale">
+      <UniqueIdentifier>{2a5ed648-5438-4786-938a-7e3b39881ad0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\Cordis\SDK\Scene management\Own\Gizmos\Scale\Public">
+      <UniqueIdentifier>{086e666f-f315-4309-ae70-0bc77e85a4c2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\Cordis\SDK\Scene management\Own\Gizmos\Scale\Private">
+      <UniqueIdentifier>{602377e8-6ee7-456a-831d-b1dc7e04c910}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\Cordis\SDK\Scene management\Own\Kernel">
+      <UniqueIdentifier>{12c65659-9cc8-4d2c-b575-ac23eadb0560}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\Cordis\SDK\Scene management\Own\Kernel\Custom Object">
+      <UniqueIdentifier>{fc448a56-f1ae-4b70-8606-0865a5f45f8d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\Cordis\SDK\Scene management\Own\Kernel\Custom Object\Public">
+      <UniqueIdentifier>{b0c5513a-a667-4f0d-96d4-b6897491027c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\Cordis\SDK\Scene management\Own\Kernel\Custom Object\Private">
+      <UniqueIdentifier>{bcd2a987-10b9-422a-b423-fce0d07b5c72}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\Cordis\SDK\Scene management\Own\Kernel\Scene manager">
+      <UniqueIdentifier>{a6bc1e50-be98-4bf7-884f-c3bd8ec12427}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\Cordis\SDK\Scene management\Own\Kernel\Scene manager\Public">
+      <UniqueIdentifier>{0594f6a4-7518-40d5-ad88-19c6ed260ba8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\Cordis\SDK\Scene management\Own\Kernel\Scene manager\Private">
+      <UniqueIdentifier>{b246611f-ec5d-472a-a436-312e7cd58a15}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\Cordis\SDK\Scene management\Own\Objects">
+      <UniqueIdentifier>{f8179a62-b184-44ba-9613-8ca953cac01a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\Cordis\SDK\Scene management\Own\Objects\Light">
+      <UniqueIdentifier>{7ca06e27-f0c7-460b-b197-75eeff422155}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\Cordis\SDK\Scene management\Own\Objects\Light\Public">
+      <UniqueIdentifier>{096fed36-4e8a-44df-afc3-01dde5a265a0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\Cordis\SDK\Scene management\Own\Objects\Light\Private">
+      <UniqueIdentifier>{e42092e1-5605-4f95-b696-9366adc6d473}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\Cordis\SDK\Scene management\Own\Objects\Sector">
+      <UniqueIdentifier>{f9947d01-0608-448b-b35d-130518c16560}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\Cordis\SDK\Scene management\Own\Objects\Sector\Public">
+      <UniqueIdentifier>{1589ffc0-655a-4cf5-b473-a8e08587bd87}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\Cordis\SDK\Scene management\Own\Objects\Sector\Private">
+      <UniqueIdentifier>{9c86de39-d464-4ef2-af04-b75cdcfd7074}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\Cordis\SDK\Scene management\Own\Objects\Shape">
+      <UniqueIdentifier>{1c115faa-f535-44e1-86d1-663116d00426}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\Cordis\SDK\Scene management\Own\Objects\Shape\Public">
+      <UniqueIdentifier>{1235c85d-8f28-4dd0-bea2-92b542141c80}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\Cordis\SDK\Scene management\Own\Objects\Shape\Private">
+      <UniqueIdentifier>{11dcbf2c-2abd-43b0-aef3-2e1d847addfe}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\Cordis\SDK\Scene management\Own\Objects\Spawn Element">
+      <UniqueIdentifier>{5e1e71fc-12d0-426b-80f8-40d4799f124c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\Cordis\SDK\Scene management\Own\Objects\Spawn Element\Public">
+      <UniqueIdentifier>{434db212-b952-4beb-8783-4ac83fcc1c48}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\Cordis\SDK\Scene management\Own\Objects\Spawn Element\Private">
+      <UniqueIdentifier>{c212db56-dca9-48ee-960d-4d898b414c00}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\Cordis\SDK\Scene management\Own\Objects\Static Geometry">
+      <UniqueIdentifier>{72c3d871-b753-46d5-9992-48ddb93a86db}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\Cordis\SDK\Scene management\Own\Objects\Static Geometry\Public">
+      <UniqueIdentifier>{e87db492-63d8-4fe5-ac6d-53e6b1bc8fff}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\Cordis\SDK\Scene management\Own\Objects\Static Geometry\Private">
+      <UniqueIdentifier>{6148db77-8868-4e44-9c27-e9af0fccae4a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\Cordis\SDK\Scene management\Own\Objects\Way Point">
+      <UniqueIdentifier>{a7fef8ee-dcc3-4a76-a4de-3fb1f276cf0b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\Cordis\SDK\Scene management\Own\Objects\Way Point\Public">
+      <UniqueIdentifier>{cc9e53eb-c0e9-4cca-bcd4-8665a4d198ed}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\Cordis\SDK\Scene management\Own\Objects\Way Point\Private">
+      <UniqueIdentifier>{afea6b80-de0b-432c-bf45-3e514cd68a28}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\Cordis\SDK\Scene management\GSC">
+      <UniqueIdentifier>{a836edec-1846-4060-9088-274474f0b2a7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\Cordis\SDK\Scene management\GSC\Picking">
+      <UniqueIdentifier>{d3c0fca8-49aa-4133-9626-d8cbe1c23231}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\Cordis\SDK\Scene management\GSC\Picking\Public">
+      <UniqueIdentifier>{3b3e1edc-b823-44dd-b8ad-7f3e76e85e0b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\Cordis\SDK\Scene management\GSC\Model">
+      <UniqueIdentifier>{3642f80a-c840-4efc-8b1d-04f1ad7b6474}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\Cordis\SDK\Scene management\GSC\Model\Editable Mesh">
+      <UniqueIdentifier>{1fdd1c96-784b-4938-b573-25caaec02e90}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\Cordis\SDK\Scene management\GSC\Model\Editable Mesh\CSurface">
+      <UniqueIdentifier>{f55ec48a-3a7e-4863-be16-0952b93fbff5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\Cordis\SDK\Scene management\GSC\Model\Editable Mesh\CSurface\Public">
+      <UniqueIdentifier>{064f44f2-d2cc-48be-bc82-b324e47d0d74}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\Cordis\SDK\Scene management\GSC\Model\Editable Mesh\CSurface\Private">
+      <UniqueIdentifier>{861e083c-f093-43dc-be3f-61709eaeb878}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\Cordis\SDK\Scene management\GSC\Model\Editable Mesh\Public">
+      <UniqueIdentifier>{206864ad-4222-4245-904b-0bb89b429be5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\Cordis\SDK\Scene management\GSC\Model\Editable Mesh\Private">
+      <UniqueIdentifier>{5b3f428e-aa46-4233-b39d-3463aee403dd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\Cordis\SDK\Scene management\GSC\Model\Editable Object">
+      <UniqueIdentifier>{c23e58eb-8f78-4acf-90e7-6bf556023f57}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\Cordis\SDK\Scene management\GSC\Model\Editable Object\Public">
+      <UniqueIdentifier>{133febbe-2474-496d-a6c7-34230ce4ba3a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\Cordis\SDK\Scene management\GSC\Model\Editable Object\Private">
+      <UniqueIdentifier>{57f47e4e-c664-4313-afa6-947959f4e082}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\Cordis\SDK\Scene management\GSC\Model\Export Object OGF">
+      <UniqueIdentifier>{f3df4373-8fe1-4ee5-ba5a-5a72e63d1d93}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\Cordis\SDK\Scene management\GSC\Model\Export Object OGF\Public">
+      <UniqueIdentifier>{8672d6d3-a500-4c70-827e-7d69e8b61dde}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\Cordis\SDK\Scene management\GSC\Model\Export Object OGF\Private">
+      <UniqueIdentifier>{7123f9c8-1475-4eda-a793-054e06dc7379}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\Cordis\SDK\Scene management\GSC\Model\Export Skeleton">
+      <UniqueIdentifier>{a25a25b9-cfc0-44cb-9325-6749816dd7be}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\Cordis\SDK\Scene management\GSC\Model\Export Skeleton\Public">
+      <UniqueIdentifier>{01d96529-a7a7-4015-a7fe-25284186227a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\Cordis\SDK\Scene management\GSC\Model\Export Skeleton\Private">
+      <UniqueIdentifier>{a9a4c841-a7be-402f-a040-35cb7de2ba26}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\Cordis\SDK\Scene management\GSC\Other stuff">
+      <UniqueIdentifier>{1182030b-c850-417e-a55e-07226a97f263}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\Cordis\SDK\Scene management\GSC\Other stuff\Public">
+      <UniqueIdentifier>{b709d249-38f8-4cfe-ad89-32698ff1584f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\Cordis\SDK\Scene management\GSC\Other stuff\IniFileStream">
+      <UniqueIdentifier>{e1783ce7-af93-4798-8152-833f0e95f774}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\Cordis\SDK\Scene management\GSC\Other stuff\IniFileStream\Public">
+      <UniqueIdentifier>{259d1564-bee5-4d6b-821c-8ea20a5467a3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\Cordis\SDK\Scene management\GSC\Other stuff\IniFileStream\Private">
+      <UniqueIdentifier>{b0927cfc-b780-49d4-b18f-be8f66b876ca}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\Cordis\SDK\Scene management\GSC\Other stuff\Image manager">
+      <UniqueIdentifier>{5dc0b55e-1b7f-4aac-8690-49e82af8a2fa}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\Cordis\SDK\Scene management\GSC\Other stuff\Image manager\Public">
+      <UniqueIdentifier>{dc9215cc-76a2-4175-ba18-5a2160e6ac4c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\Cordis\SDK\Scene management\GSC\Other stuff\Image manager\Private">
+      <UniqueIdentifier>{7c86d396-1ee0-4f83-801d-3fbd96253f4d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\Cordis\SDK\Scene management\GSC\Other stuff\Image manager\Thumbnail">
+      <UniqueIdentifier>{0b677633-c980-4533-87a7-8dfc57473080}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\Cordis\SDK\Scene management\GSC\Other stuff\Image manager\Thumbnail\Public">
+      <UniqueIdentifier>{2b11d438-db59-4a94-a057-ce80b258b35c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\Cordis\SDK\Scene management\GSC\Other stuff\Image manager\Thumbnail\Private">
+      <UniqueIdentifier>{76c323b7-8651-440b-ae44-454b01987acb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\Cordis\SDK\Scene management\GSC\Other stuff\Editor Preferences">
+      <UniqueIdentifier>{d985adc4-aed1-4c06-9464-5c79d437bf52}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\Cordis\SDK\Scene management\GSC\Other stuff\Editor Preferences\Public">
+      <UniqueIdentifier>{d0e814d8-6ae2-49c7-9905-0f9f2db1cdf3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\Cordis\SDK\Scene management\GSC\Other stuff\Editor Preferences\Private">
+      <UniqueIdentifier>{b425847b-e92b-4654-a656-530ca658c8aa}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\Cordis\SDK\Scene management\GSC\Physics">
+      <UniqueIdentifier>{fc00bb77-6741-4d8d-a7ac-78f0fb173d5d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\Cordis\SDK\Scene management\GSC\Physics\Public">
+      <UniqueIdentifier>{252854f5-36a7-4905-9cf9-92a2d8ff2387}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\Cordis\SDK\Scene management\GSC\Physics\Private">
+      <UniqueIdentifier>{2bbe7144-d341-4e2a-9937-b444bd2632f4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\Cordis\SDK\UI management">
+      <UniqueIdentifier>{555fa4f4-fc0c-4341-b75f-047aae6d2730}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\Cordis\SDK\UI management\Helpers">
+      <UniqueIdentifier>{8ded5e66-ba01-4f1d-84d1-415ed383ce7c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\Cordis\SDK\UI management\Helpers\Public">
+      <UniqueIdentifier>{3085d4ba-f115-4c77-9814-f901a36f4a64}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\Cordis\SDK\UI management\Helpers\Private">
+      <UniqueIdentifier>{cf5b400c-318a-4195-9044-59db755be5ff}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\Cordis\SDK\UI management\Icon Manager">
+      <UniqueIdentifier>{ed747bc7-44db-4e0a-ab74-06be7c2c5e90}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\Cordis\SDK\UI management\Icon Manager\Public">
+      <UniqueIdentifier>{c592a949-c2cf-4cd1-a22e-2dde871f7612}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\Cordis\SDK\UI management\Icon Manager\Private">
+      <UniqueIdentifier>{4acb4a4e-1af8-444d-b371-adbddbbf36e7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\Cordis\SDK\UI management\Kernel">
+      <UniqueIdentifier>{117939b4-689d-4245-bad8-0c091b1badd6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\Cordis\SDK\UI management\Kernel\Public">
+      <UniqueIdentifier>{9e51e9c1-a11b-4b8a-8be8-c81fbdb770da}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\Cordis\SDK\UI management\Kernel\Private">
+      <UniqueIdentifier>{95cf528b-373c-4754-bd3b-0a1175262ba8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\Cordis\SDK\UI management\Object List">
+      <UniqueIdentifier>{a3650784-46e7-4264-b51b-9d905d2b5033}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\Cordis\SDK\UI management\Object List\Public">
+      <UniqueIdentifier>{e904c1f2-351c-40f9-aa42-142884dd87d0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\Cordis\SDK\UI management\Object List\Private">
+      <UniqueIdentifier>{85435cf9-f2b8-4d70-916d-c322f866c695}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\Cordis\SDK\UI management\Object Properties">
+      <UniqueIdentifier>{7168be75-1ba5-4cdd-9b4b-cac5766e48e1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\Cordis\SDK\UI management\Object Properties\Public">
+      <UniqueIdentifier>{092e76a2-9aae-459a-8cb8-93623e2567ca}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\Cordis\SDK\UI management\Object Properties\Private">
+      <UniqueIdentifier>{cc8e97ee-536a-48a8-afba-ba80610f794b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\Cordis\SDK\UI management\Right Window">
+      <UniqueIdentifier>{5382265d-98d0-49c5-8af3-54422012684b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\Cordis\SDK\UI management\Right Window\Public">
+      <UniqueIdentifier>{b457f87a-3fb5-4d13-b648-56b4f421ff8f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\Cordis\SDK\UI management\Right Window\Private">
+      <UniqueIdentifier>{79182573-f076-46c9-9789-2c63131117ae}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\Cordis\SDK\UI management\Settings">
+      <UniqueIdentifier>{6a980f72-c89f-4517-b3bc-010bec9c474e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\Cordis\SDK\UI management\Settings\Public">
+      <UniqueIdentifier>{33a9930e-4045-4e0c-87dc-5a141be17e3b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\Cordis\SDK\UI management\Settings\Private">
+      <UniqueIdentifier>{431b53b2-c931-4714-9149-4b670f3ef1d0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\Cordis\SDK\UI management\ToolBar">
+      <UniqueIdentifier>{d8f69878-bbad-42dd-a7f0-2c1c0348a6ee}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\Cordis\SDK\UI management\ToolBar\Public">
+      <UniqueIdentifier>{33f46a2d-6ec5-4836-b582-31276e7f33e1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\Cordis\SDK\UI management\ToolBar\Private">
+      <UniqueIdentifier>{7e941dd3-a036-450b-ad30-829111721354}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -7926,124 +7923,124 @@
       <Filter>Render\R4\WildMagic\Public</Filter>
     </ClInclude>
     <ClInclude Include="Render\R4\SDKUI_Helpers.h">
-      <Filter>Render\R4\Cordis\SDK\UI management\Helpers\Public</Filter>
+      <Filter>Render\Cordis\SDK\UI management\Helpers\Public</Filter>
     </ClInclude>
     <ClInclude Include="Render\R4\SDK_IconManager.h">
-      <Filter>Render\R4\Cordis\SDK\UI management\Icon Manager\Public</Filter>
+      <Filter>Render\Cordis\SDK\UI management\Icon Manager\Public</Filter>
     </ClInclude>
     <ClInclude Include="Render\R4\SDK_Names.h">
-      <Filter>Render\R4\Cordis\SDK\UI management\Kernel\Public</Filter>
+      <Filter>Render\Cordis\SDK\UI management\Kernel\Public</Filter>
     </ClInclude>
     <ClInclude Include="Render\R4\SDKUI.h">
-      <Filter>Render\R4\Cordis\SDK\UI management\Kernel\Public</Filter>
+      <Filter>Render\Cordis\SDK\UI management\Kernel\Public</Filter>
     </ClInclude>
     <ClInclude Include="Render\R4\SDKUI_ObjectList.h">
-      <Filter>Render\R4\Cordis\SDK\UI management\Object List\Public</Filter>
+      <Filter>Render\Cordis\SDK\UI management\Object List\Public</Filter>
     </ClInclude>
     <ClInclude Include="Render\R4\SDKUI_ObjectInspector.h">
-      <Filter>Render\R4\Cordis\SDK\UI management\Object Properties\Public</Filter>
+      <Filter>Render\Cordis\SDK\UI management\Object Properties\Public</Filter>
     </ClInclude>
     <ClInclude Include="Render\R4\SDKUI_RightWindow.h">
-      <Filter>Render\R4\Cordis\SDK\UI management\Right Window\Public</Filter>
+      <Filter>Render\Cordis\SDK\UI management\Right Window\Public</Filter>
     </ClInclude>
     <ClInclude Include="Render\R4\SDKUI_Settings.h">
-      <Filter>Render\R4\Cordis\SDK\UI management\Settings\Public</Filter>
+      <Filter>Render\Cordis\SDK\UI management\Settings\Public</Filter>
     </ClInclude>
     <ClInclude Include="Render\R4\SDKUI_ToolBar.h">
-      <Filter>Render\R4\Cordis\SDK\UI management\ToolBar\Public</Filter>
+      <Filter>Render\Cordis\SDK\UI management\ToolBar\Public</Filter>
     </ClInclude>
     <ClInclude Include="Render\R4\SDK_Cache.h">
-      <Filter>Render\R4\Cordis\SDK\Scene management\Own\Cache\Public</Filter>
+      <Filter>Render\Cordis\SDK\Scene management\Own\Cache\Public</Filter>
     </ClInclude>
     <ClInclude Include="Render\R4\SDK_GizmoManager.h">
-      <Filter>Render\R4\Cordis\SDK\Scene management\Own\Gizmos\Manager\Public</Filter>
+      <Filter>Render\Cordis\SDK\Scene management\Own\Gizmos\Manager\Public</Filter>
     </ClInclude>
     <ClInclude Include="Render\R4\SDK_GizmoMove.h">
-      <Filter>Render\R4\Cordis\SDK\Scene management\Own\Gizmos\Move\Public</Filter>
+      <Filter>Render\Cordis\SDK\Scene management\Own\Gizmos\Move\Public</Filter>
     </ClInclude>
     <ClInclude Include="Render\R4\SDK_GizmoRotation.h">
-      <Filter>Render\R4\Cordis\SDK\Scene management\Own\Gizmos\Rotation\Public</Filter>
+      <Filter>Render\Cordis\SDK\Scene management\Own\Gizmos\Rotation\Public</Filter>
     </ClInclude>
     <ClInclude Include="Render\R4\SDK_GizmoScale.h">
-      <Filter>Render\R4\Cordis\SDK\Scene management\Own\Gizmos\Scale\Public</Filter>
+      <Filter>Render\Cordis\SDK\Scene management\Own\Gizmos\Scale\Public</Filter>
     </ClInclude>
     <ClInclude Include="Render\R4\SDK_CustomObject.h">
-      <Filter>Render\R4\Cordis\SDK\Scene management\Own\Kernel\Custom Object\Public</Filter>
+      <Filter>Render\Cordis\SDK\Scene management\Own\Kernel\Custom Object\Public</Filter>
     </ClInclude>
     <ClInclude Include="Render\R4\SDK_SceneManager.h">
-      <Filter>Render\R4\Cordis\SDK\Scene management\Own\Kernel\Scene manager\Public</Filter>
+      <Filter>Render\Cordis\SDK\Scene management\Own\Kernel\Scene manager\Public</Filter>
     </ClInclude>
     <ClInclude Include="Render\R4\SDK_ObjectLight.h">
-      <Filter>Render\R4\Cordis\SDK\Scene management\Own\Objects\Light\Public</Filter>
+      <Filter>Render\Cordis\SDK\Scene management\Own\Objects\Light\Public</Filter>
     </ClInclude>
     <ClInclude Include="Render\R4\SDK_ObjectWayPoint.h">
-      <Filter>Render\R4\Cordis\SDK\Scene management\Own\Objects\Way Point\Public</Filter>
+      <Filter>Render\Cordis\SDK\Scene management\Own\Objects\Way Point\Public</Filter>
     </ClInclude>
     <ClInclude Include="Render\R4\SDK_ObjectStaticGeometry.h">
-      <Filter>Render\R4\Cordis\SDK\Scene management\Own\Objects\Static Geometry\Public</Filter>
+      <Filter>Render\Cordis\SDK\Scene management\Own\Objects\Static Geometry\Public</Filter>
     </ClInclude>
     <ClInclude Include="Render\R4\SDK_ObjectSpawnElement.h">
-      <Filter>Render\R4\Cordis\SDK\Scene management\Own\Objects\Spawn Element\Public</Filter>
+      <Filter>Render\Cordis\SDK\Scene management\Own\Objects\Spawn Element\Public</Filter>
     </ClInclude>
     <ClInclude Include="Render\R4\SDK_ObjectShape.h">
-      <Filter>Render\R4\Cordis\SDK\Scene management\Own\Objects\Shape\Public</Filter>
+      <Filter>Render\Cordis\SDK\Scene management\Own\Objects\Shape\Public</Filter>
     </ClInclude>
     <ClInclude Include="Render\R4\EditMesh.h">
-      <Filter>Render\R4\Cordis\SDK\Scene management\GSC\Model\Editable Mesh\Public</Filter>
+      <Filter>Render\Cordis\SDK\Scene management\GSC\Model\Editable Mesh\Public</Filter>
     </ClInclude>
     <ClInclude Include="Render\R4\CSurface.h">
-      <Filter>Render\R4\Cordis\SDK\Scene management\GSC\Model\Editable Mesh\CSurface\Public</Filter>
+      <Filter>Render\Cordis\SDK\Scene management\GSC\Model\Editable Mesh\CSurface\Public</Filter>
     </ClInclude>
     <ClInclude Include="Render\R4\EditObject.h">
-      <Filter>Render\R4\Cordis\SDK\Scene management\GSC\Model\Editable Object\Public</Filter>
+      <Filter>Render\Cordis\SDK\Scene management\GSC\Model\Editable Object\Public</Filter>
     </ClInclude>
     <ClInclude Include="Render\R4\ExportObjectOGF.h">
-      <Filter>Render\R4\Cordis\SDK\Scene management\GSC\Model\Export Object OGF\Public</Filter>
+      <Filter>Render\Cordis\SDK\Scene management\GSC\Model\Export Object OGF\Public</Filter>
     </ClInclude>
     <ClInclude Include="Render\R4\ExportSkeleton.h">
-      <Filter>Render\R4\Cordis\SDK\Scene management\GSC\Model\Export Skeleton\Public</Filter>
+      <Filter>Render\Cordis\SDK\Scene management\GSC\Model\Export Skeleton\Public</Filter>
     </ClInclude>
     <ClInclude Include="Render\R4\PhysicsShellHolderEditorBase.h">
-      <Filter>Render\R4\Cordis\SDK\Scene management\GSC\Physics\Public</Filter>
+      <Filter>Render\Cordis\SDK\Scene management\GSC\Physics\Public</Filter>
     </ClInclude>
     <ClInclude Include="Render\R4\pick_defs.h">
-      <Filter>Render\R4\Cordis\SDK\Scene management\GSC\Picking\Public</Filter>
+      <Filter>Render\Cordis\SDK\Scene management\GSC\Picking\Public</Filter>
     </ClInclude>
     <ClInclude Include="Render\R4\itterate_adjacents_dynamic.h">
-      <Filter>Render\R4\Cordis\SDK\Scene management\GSC\Other stuff\Public</Filter>
+      <Filter>Render\Cordis\SDK\Scene management\GSC\Other stuff\Public</Filter>
     </ClInclude>
     <ClInclude Include="Render\R4\SIniFileStream.h">
-      <Filter>Render\R4\Cordis\SDK\Scene management\GSC\Other stuff\IniFileStream\Public</Filter>
+      <Filter>Render\Cordis\SDK\Scene management\GSC\Other stuff\IniFileStream\Public</Filter>
     </ClInclude>
     <ClInclude Include="Render\R4\ImageManager.h">
-      <Filter>Render\R4\Cordis\SDK\Scene management\GSC\Other stuff\Image manager\Public</Filter>
+      <Filter>Render\Cordis\SDK\Scene management\GSC\Other stuff\Image manager\Public</Filter>
     </ClInclude>
     <ClInclude Include="Render\R4\EThumbnail.h">
-      <Filter>Render\R4\Cordis\SDK\Scene management\GSC\Other stuff\Image manager\Thumbnail\Public</Filter>
+      <Filter>Render\Cordis\SDK\Scene management\GSC\Other stuff\Image manager\Thumbnail\Public</Filter>
     </ClInclude>
     <ClInclude Include="Render\R4\EditorPref.h">
-      <Filter>Render\R4\Cordis\SDK\Scene management\GSC\Other stuff\Editor Preferences\Public</Filter>
+      <Filter>Render\Cordis\SDK\Scene management\GSC\Other stuff\Editor Preferences\Public</Filter>
     </ClInclude>
     <ClInclude Include="Render\R4\SDKUI_Render.h">
-      <Filter>Render\R4\Cordis\SDK\Render\Public</Filter>
+      <Filter>Render\Cordis\SDK\Render\Public</Filter>
     </ClInclude>
     <ClInclude Include="Render\R4\SDK_KeybindingManager.h">
-      <Filter>Render\R4\Cordis\SDK\Keybinding manager\Public</Filter>
+      <Filter>Render\Cordis\SDK\Keybinding manager\Public</Filter>
     </ClInclude>
     <ClInclude Include="Render\R4\SDK_FileSystemState.h">
-      <Filter>Render\R4\Cordis\SDK\File System State\Public</Filter>
+      <Filter>Render\Cordis\SDK\File System State\Public</Filter>
     </ClInclude>
     <ClInclude Include="Render\R4\SDK_Settings.h">
-      <Filter>Render\R4\Cordis\SDK\Application Settings\Public</Filter>
-    </ClInclude>
-    <ClInclude Include="Script_ClassRegistrator.h">
-      <Filter>Cordis\Scripts\ClassRegistrator\Public</Filter>
+      <Filter>Render\Cordis\SDK\Application Settings\Public</Filter>
     </ClInclude>
     <ClInclude Include="Script_GlobalHelper.h">
       <Filter>Cordis\Scripts\Global\Public</Filter>
     </ClInclude>
     <ClInclude Include="Script_Globals.h">
       <Filter>Cordis\Scripts\Global\Globals\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Script_UI_MainMenu.h">
+      <Filter>Cordis\Scripts\UI\MainMenu\Public</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -12031,112 +12028,115 @@
       <Filter>Render\R4\WildMagic\Private</Filter>
     </ClCompile>
     <ClCompile Include="Render\R4\SDKUI_Helpers.cpp">
-      <Filter>Render\R4\Cordis\SDK\UI management\Helpers\Private</Filter>
+      <Filter>Render\Cordis\SDK\UI management\Helpers\Private</Filter>
     </ClCompile>
     <ClCompile Include="Render\R4\SDK_IconManager.cpp">
-      <Filter>Render\R4\Cordis\SDK\UI management\Icon Manager\Private</Filter>
+      <Filter>Render\Cordis\SDK\UI management\Icon Manager\Private</Filter>
     </ClCompile>
     <ClCompile Include="Render\R4\SDK_Names.cpp">
-      <Filter>Render\R4\Cordis\SDK\UI management\Kernel\Private</Filter>
+      <Filter>Render\Cordis\SDK\UI management\Kernel\Private</Filter>
     </ClCompile>
     <ClCompile Include="Render\R4\SDKUI.cpp">
-      <Filter>Render\R4\Cordis\SDK\UI management\Kernel\Private</Filter>
+      <Filter>Render\Cordis\SDK\UI management\Kernel\Private</Filter>
     </ClCompile>
     <ClCompile Include="Render\R4\SDKUI_ObjectList.cpp">
-      <Filter>Render\R4\Cordis\SDK\UI management\Object List\Private</Filter>
+      <Filter>Render\Cordis\SDK\UI management\Object List\Private</Filter>
     </ClCompile>
     <ClCompile Include="Render\R4\SDKUI_ObjectInspector.cpp">
-      <Filter>Render\R4\Cordis\SDK\UI management\Object Properties\Private</Filter>
+      <Filter>Render\Cordis\SDK\UI management\Object Properties\Private</Filter>
     </ClCompile>
     <ClCompile Include="Render\R4\SDKUI_RightWindow.cpp">
-      <Filter>Render\R4\Cordis\SDK\UI management\Right Window\Private</Filter>
+      <Filter>Render\Cordis\SDK\UI management\Right Window\Private</Filter>
     </ClCompile>
     <ClCompile Include="Render\R4\SDKUI_Settings.cpp">
-      <Filter>Render\R4\Cordis\SDK\UI management\Settings\Private</Filter>
+      <Filter>Render\Cordis\SDK\UI management\Settings\Private</Filter>
     </ClCompile>
     <ClCompile Include="Render\R4\SDKUI_ToolBar.cpp">
-      <Filter>Render\R4\Cordis\SDK\UI management\ToolBar\Private</Filter>
+      <Filter>Render\Cordis\SDK\UI management\ToolBar\Private</Filter>
     </ClCompile>
     <ClCompile Include="Render\R4\SDK_Cache.cpp">
-      <Filter>Render\R4\Cordis\SDK\Scene management\Own\Cache\Private</Filter>
+      <Filter>Render\Cordis\SDK\Scene management\Own\Cache\Private</Filter>
     </ClCompile>
     <ClCompile Include="Render\R4\SDK_GizmoManager.cpp">
-      <Filter>Render\R4\Cordis\SDK\Scene management\Own\Gizmos\Manager\Private</Filter>
+      <Filter>Render\Cordis\SDK\Scene management\Own\Gizmos\Manager\Private</Filter>
     </ClCompile>
     <ClCompile Include="Render\R4\SDK_GizmoMove.cpp">
-      <Filter>Render\R4\Cordis\SDK\Scene management\Own\Gizmos\Move\Private</Filter>
+      <Filter>Render\Cordis\SDK\Scene management\Own\Gizmos\Move\Private</Filter>
     </ClCompile>
     <ClCompile Include="Render\R4\SDK_GizmoRotation.cpp">
-      <Filter>Render\R4\Cordis\SDK\Scene management\Own\Gizmos\Rotation\Private</Filter>
+      <Filter>Render\Cordis\SDK\Scene management\Own\Gizmos\Rotation\Private</Filter>
     </ClCompile>
     <ClCompile Include="Render\R4\SDK_GizmoScale.cpp">
-      <Filter>Render\R4\Cordis\SDK\Scene management\Own\Gizmos\Scale\Private</Filter>
+      <Filter>Render\Cordis\SDK\Scene management\Own\Gizmos\Scale\Private</Filter>
     </ClCompile>
     <ClCompile Include="Render\R4\SDK_CustomObject.cpp">
-      <Filter>Render\R4\Cordis\SDK\Scene management\Own\Kernel\Custom Object\Private</Filter>
+      <Filter>Render\Cordis\SDK\Scene management\Own\Kernel\Custom Object\Private</Filter>
     </ClCompile>
     <ClCompile Include="Render\R4\SDK_SceneManager.cpp">
-      <Filter>Render\R4\Cordis\SDK\Scene management\Own\Kernel\Scene manager\Private</Filter>
+      <Filter>Render\Cordis\SDK\Scene management\Own\Kernel\Scene manager\Private</Filter>
     </ClCompile>
     <ClCompile Include="Render\R4\SDK_ObjectLight.cpp">
-      <Filter>Render\R4\Cordis\SDK\Scene management\Own\Objects\Light\Private</Filter>
+      <Filter>Render\Cordis\SDK\Scene management\Own\Objects\Light\Private</Filter>
     </ClCompile>
     <ClCompile Include="Render\R4\SDK_ObjectWayPoint.cpp">
-      <Filter>Render\R4\Cordis\SDK\Scene management\Own\Objects\Way Point\Private</Filter>
+      <Filter>Render\Cordis\SDK\Scene management\Own\Objects\Way Point\Private</Filter>
     </ClCompile>
     <ClCompile Include="Render\R4\SDK_ObjectStaticGeometry.cpp">
-      <Filter>Render\R4\Cordis\SDK\Scene management\Own\Objects\Static Geometry\Private</Filter>
+      <Filter>Render\Cordis\SDK\Scene management\Own\Objects\Static Geometry\Private</Filter>
     </ClCompile>
     <ClCompile Include="Render\R4\SDK_ObjectSpawnElement.cpp">
-      <Filter>Render\R4\Cordis\SDK\Scene management\Own\Objects\Spawn Element\Private</Filter>
+      <Filter>Render\Cordis\SDK\Scene management\Own\Objects\Spawn Element\Private</Filter>
     </ClCompile>
     <ClCompile Include="Render\R4\SDK_ObjectShape.cpp">
-      <Filter>Render\R4\Cordis\SDK\Scene management\Own\Objects\Shape\Private</Filter>
+      <Filter>Render\Cordis\SDK\Scene management\Own\Objects\Shape\Private</Filter>
     </ClCompile>
     <ClCompile Include="Render\R4\EditMesh.cpp">
-      <Filter>Render\R4\Cordis\SDK\Scene management\GSC\Model\Editable Mesh\Private</Filter>
+      <Filter>Render\Cordis\SDK\Scene management\GSC\Model\Editable Mesh\Private</Filter>
     </ClCompile>
     <ClCompile Include="Render\R4\CSurface.cpp">
-      <Filter>Render\R4\Cordis\SDK\Scene management\GSC\Model\Editable Mesh\CSurface\Private</Filter>
+      <Filter>Render\Cordis\SDK\Scene management\GSC\Model\Editable Mesh\CSurface\Private</Filter>
     </ClCompile>
     <ClCompile Include="Render\R4\EditObject.cpp">
-      <Filter>Render\R4\Cordis\SDK\Scene management\GSC\Model\Editable Object\Private</Filter>
+      <Filter>Render\Cordis\SDK\Scene management\GSC\Model\Editable Object\Private</Filter>
     </ClCompile>
     <ClCompile Include="Render\R4\ExportObjectOGF.cpp">
-      <Filter>Render\R4\Cordis\SDK\Scene management\GSC\Model\Export Object OGF\Private</Filter>
+      <Filter>Render\Cordis\SDK\Scene management\GSC\Model\Export Object OGF\Private</Filter>
     </ClCompile>
     <ClCompile Include="Render\R4\ExportSkeleton.cpp">
-      <Filter>Render\R4\Cordis\SDK\Scene management\GSC\Model\Export Skeleton\Private</Filter>
+      <Filter>Render\Cordis\SDK\Scene management\GSC\Model\Export Skeleton\Private</Filter>
     </ClCompile>
     <ClCompile Include="Render\R4\PhysicsShellHolderEditorBase.cpp">
-      <Filter>Render\R4\Cordis\SDK\Scene management\GSC\Physics\Private</Filter>
+      <Filter>Render\Cordis\SDK\Scene management\GSC\Physics\Private</Filter>
     </ClCompile>
     <ClCompile Include="Render\R4\SIniFileStream.cpp">
-      <Filter>Render\R4\Cordis\SDK\Scene management\GSC\Other stuff\IniFileStream\Private</Filter>
+      <Filter>Render\Cordis\SDK\Scene management\GSC\Other stuff\IniFileStream\Private</Filter>
     </ClCompile>
     <ClCompile Include="Render\R4\ImageManager.cpp">
-      <Filter>Render\R4\Cordis\SDK\Scene management\GSC\Other stuff\Image manager\Private</Filter>
+      <Filter>Render\Cordis\SDK\Scene management\GSC\Other stuff\Image manager\Private</Filter>
     </ClCompile>
     <ClCompile Include="Render\R4\EThumbnail.cpp">
-      <Filter>Render\R4\Cordis\SDK\Scene management\GSC\Other stuff\Image manager\Thumbnail\Private</Filter>
+      <Filter>Render\Cordis\SDK\Scene management\GSC\Other stuff\Image manager\Thumbnail\Private</Filter>
     </ClCompile>
     <ClCompile Include="Render\R4\EditorPref.cpp">
-      <Filter>Render\R4\Cordis\SDK\Scene management\GSC\Other stuff\Editor Preferences\Private</Filter>
+      <Filter>Render\Cordis\SDK\Scene management\GSC\Other stuff\Editor Preferences\Private</Filter>
     </ClCompile>
     <ClCompile Include="Render\R4\SDKUI_Render.cpp">
-      <Filter>Render\R4\Cordis\SDK\Render\Private</Filter>
+      <Filter>Render\Cordis\SDK\Render\Private</Filter>
     </ClCompile>
     <ClCompile Include="Render\R4\SDK_KeybindingManager.cpp">
-      <Filter>Render\R4\Cordis\SDK\Keybinding manager\Private</Filter>
+      <Filter>Render\Cordis\SDK\Keybinding manager\Private</Filter>
     </ClCompile>
     <ClCompile Include="Render\R4\SDK_FileSystemState.cpp">
-      <Filter>Render\R4\Cordis\SDK\File System State\Private</Filter>
+      <Filter>Render\Cordis\SDK\File System State\Private</Filter>
     </ClCompile>
     <ClCompile Include="Render\R4\SDK_Settings.cpp">
-      <Filter>Render\R4\Cordis\SDK\Application Settings\Private</Filter>
+      <Filter>Render\Cordis\SDK\Application Settings\Private</Filter>
     </ClCompile>
     <ClCompile Include="Render\R4\r2_test_hw.cpp">
       <Filter>Render\R4\Kernel</Filter>
+    </ClCompile>
+    <ClCompile Include="Script_UI_MainMenu.cpp">
+      <Filter>Cordis\Scripts\UI\MainMenu\Private</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

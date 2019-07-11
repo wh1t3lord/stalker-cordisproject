@@ -6,9 +6,8 @@ namespace Cordis
 {
 	namespace Scripts
 	{
-		struct Globals
+		namespace Globals
 		{
-			xr_vector<xr_string> clsid;
-		};
+		}
 	}
 }
