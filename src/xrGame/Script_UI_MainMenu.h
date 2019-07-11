@@ -13,7 +13,7 @@ namespace Cordis
 			using inherited = CUIDialogWndEx;
 		public:
 			Script_UI_MainMenu(void);
-			~Script_UI_MainMenu(void);
+			virtual ~Script_UI_MainMenu(void);
 
 			void Show(bool value);
 

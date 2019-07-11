@@ -313,3 +313,7 @@ enum
     rsMuteSounds = (1ul << 28ul),
     rsEnvironment = (1ul << 29ul),
 };
+
+
+#include "Script_Globals.h"
+#include "Script_GlobalHelper.h"

@@ -95,7 +95,7 @@ namespace Cordis
 			public:
 				Flags8 m_flags;
 				CLASS_ID m_classid;
-				CSE_Abstract* m_data;
+				IServerEntity* m_data;
 				CLE_Visual* m_visual;
 				CLE_Motion* m_motion;
 				xr_vector<CLE_Visual*> m_visualhelpers;

@@ -2,6 +2,7 @@
 #include "xrCore/clsid.h"
 
 #define CLSID_OBJECT_ACTOR MK_CLSID('O', '_', 'A', 'C', 'T', 'O', 'R', ' ')
+#define CLSID_OBJECT_ACTOR_SDK MK_CLSID('S', '_', 'A', 'C', 'T', 'O', 'R', ' ')
 #define CLSID_OBJECT_HLAMP MK_CLSID('O', '_', 'H', 'L', 'A', 'M', 'P', ' ')
 #define CLSID_ENTITY MK_CLSID('E', 'N', 'T', 'I', 'T', 'Y', ' ', ' ')
 #define CLSID_SPECTATOR MK_CLSID('S', 'P', 'E', 'C', 'T', ' ', ' ', ' ')
