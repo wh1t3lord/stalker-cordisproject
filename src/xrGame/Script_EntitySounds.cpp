@@ -200,7 +200,16 @@ void Script_SoundNPC::callback(const std::uint16_t& npc_id)
     }
 }
 
-bool Script_SoundNPC::play(const std::uint16_t& npc_id, xr_string& faction, std::uint16_t point) { return false; }
+bool Script_SoundNPC::play(const std::uint16_t& npc_id, xr_string& faction, std::uint16_t point)
+{
+    if (!DataBase::Storage::getInstance().getStorage()[npc_id].m_object)
+    {
+        return false;
+    }
+
+
+    return false;
+}
 
 bool Script_SoundNPC::play(const std::uint16_t& obj_id) { return false; }
 
