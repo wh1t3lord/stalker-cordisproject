@@ -50,8 +50,9 @@ void CLevel::IR_OnMouseWheel(int x, int y)
 
 #ifdef INPUT_CALLBACKS
     /* avo: script callback */
-    if (g_actor)
-        g_actor->callback(GameObject::eMouseWheel)(x);
+    // Lord - [Script] Переписать
+   // if (g_actor)
+    //    g_actor->callback(GameObject::eMouseWheel)(x);
     /* avo: end */
 #endif
     if (CurrentGameUI()->IR_UIOnMouseWheel(x, y))
@@ -81,8 +82,9 @@ void CLevel::IR_OnMouseMove(int dx, int dy)
 
 #ifdef INPUT_CALLBACKS
     /* avo: script callback */
-    if (g_actor)
-        g_actor->callback(GameObject::eMouseMove)(dx, dy);
+    // Lord - [Script] Переписать!
+//     if (g_actor)
+//         g_actor->callback(GameObject::eMouseMove)(dx, dy);
     /* avo: end */
 #endif
 
@@ -126,8 +128,9 @@ void CLevel::IR_OnKeyboardPress(int key)
 
 #ifdef INPUT_CALLBACKS
     /* avo: script callback */
-    if (!g_bDisableAllInput && g_actor)
-        g_actor->callback(GameObject::eKeyPress)(key);
+    // Lord - [Script] Переписать
+//     if (!g_bDisableAllInput && g_actor)
+//         g_actor->callback(GameObject::eKeyPress)(key);
     /* avo: end */
 #endif
 
@@ -504,8 +507,9 @@ void CLevel::IR_OnKeyboardRelease(int key)
 
 #ifdef INPUT_CALLBACKS
     /* avo: script callback */
-    if (g_actor)
-        g_actor->callback(GameObject::eKeyRelease)(key);
+    // Lord - [Script] Переписать
+//     if (g_actor)
+//         g_actor->callback(GameObject::eKeyRelease)(key);
     /* avo: end */
 #endif
 
@@ -535,8 +539,9 @@ void CLevel::IR_OnKeyboardHold(int key)
 
 #ifdef INPUT_CALLBACKS
     /* avo: script callback */
-    if (g_actor)
-        g_actor->callback(GameObject::eKeyHold)(key);
+    // Lord - [Script] Переписать
+//     if (g_actor)
+//         g_actor->callback(GameObject::eKeyHold)(key);
     /* avo: end */
 #endif
 

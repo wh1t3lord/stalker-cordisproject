@@ -69,7 +69,8 @@ void CInventoryBox::OnEvent(NET_Packet& P, u16 type)
         if (m_in_use)
         {
             CGameObject* GO = smart_cast<CGameObject*>(itm);
-            Actor()->callback(GameObject::eInvBoxItemTake)(this->lua_game_object(), GO->lua_game_object());
+            // Lord - [Script] Re-write
+           // Actor()->callback(GameObject::eInvBoxItemTake)(this->lua_game_object(), GO->lua_game_object());
         }
     }
     break;

@@ -101,8 +101,9 @@ void SHeliMovementState::UpdatePatrolPath()
     if (AlreadyOnPoint())
     {
         float dist = GetDistanceToDestPosition();
-        parent->callback(GameObject::eHelicopterOnPoint)(
-            dist, currP, currPatrolVertex ? currPatrolVertex->vertex_id() : -1);
+        // Lord - [Script] Re-write
+      //  parent->callback(GameObject::eHelicopterOnPoint)(
+        //    dist, currP, currPatrolVertex ? currPatrolVertex->vertex_id() : -1);
         CPatrolPath::const_iterator b, e;
         currPatrolPath->begin(currPatrolVertex, b, e);
         if (b != e)
@@ -130,7 +131,8 @@ void SHeliMovementState::UpdateMovToPoint()
     if (AlreadyOnPoint())
     {
         float dist = GetDistanceToDestPosition();
-        parent->callback(GameObject::eHelicopterOnPoint)(dist, currP, -1);
+        // Lord - [Script] Re-write
+       // parent->callback(GameObject::eHelicopterOnPoint)(dist, currP, -1);
         type = eMovNone;
     }
 }

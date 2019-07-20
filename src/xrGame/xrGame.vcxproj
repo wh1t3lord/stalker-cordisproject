@@ -1480,6 +1480,7 @@ $(xrLibDir);$(xrSdkDir)DXSDK/Lib/$(PlatformShortName);
     <ClInclude Include="script_binder_object.h" />
     <ClInclude Include="script_binder_object_wrapper.h" />
     <ClInclude Include="script_bind_macroses.h" />
+    <ClInclude Include="Script_Database.h" />
     <ClInclude Include="script_effector.h" />
     <ClInclude Include="script_effector_inline.h" />
     <ClInclude Include="script_effector_wrapper.h" />
@@ -1509,14 +1510,23 @@ $(xrLibDir);$(xrSdkDir)DXSDK/Lib/$(PlatformShortName);
     <ClInclude Include="script_particle_action_inline.h" />
     <ClInclude Include="script_property_evaluator_wrapper.h" />
     <ClInclude Include="script_property_evaluator_wrapper_inline.h" />
+    <ClInclude Include="Script_SE_Actor.h" />
+    <ClInclude Include="Script_SimulationBoard.h" />
+    <ClInclude Include="Script_SimulationObjects.h" />
+    <ClInclude Include="Script_SimulationSquad.h" />
     <ClInclude Include="script_sound.h" />
+    <ClInclude Include="Script_SoundManager.h" />
+    <ClInclude Include="Script_EntitySounds.h" />
     <ClInclude Include="script_sound_action.h" />
     <ClInclude Include="script_sound_action_inline.h" />
     <ClInclude Include="script_sound_info.h" />
     <ClInclude Include="script_sound_inline.h" />
+    <ClInclude Include="Script_StoryObject.h" />
     <ClInclude Include="Script_UI_MainMenu.h" />
     <ClInclude Include="script_watch_action.h" />
     <ClInclude Include="script_watch_action_inline.h" />
+    <ClInclude Include="Script_XR_Logic.h" />
+    <ClInclude Include="Script_XR_Sound.h" />
     <ClInclude Include="script_zone.h" />
     <ClInclude Include="SDKRender_Connection.h" />
     <ClInclude Include="searchlight.h" />
@@ -3551,7 +3561,13 @@ $(xrLibDir);$(xrSdkDir)DXSDK/Lib/$(PlatformShortName);
       <PrecompiledHeaderFile>pch_script.h</PrecompiledHeaderFile>
       <PrecompiledHeaderOutputFile>$(IntDir)$(ProjectName)_script.pch</PrecompiledHeaderOutputFile>
     </ClCompile>
+    <ClCompile Include="Script_SE_Actor.cpp" />
+    <ClCompile Include="Script_SimulationBoard.cpp" />
+    <ClCompile Include="Script_SimulationObjects.cpp" />
+    <ClCompile Include="Script_SimulationSquad.cpp" />
     <ClCompile Include="script_sound.cpp" />
+    <ClCompile Include="Script_SoundManager.cpp" />
+    <ClCompile Include="Script_EntitySounds.cpp" />
     <ClCompile Include="script_sound_action.cpp" />
     <ClCompile Include="script_sound_action_script.cpp">
       <PrecompiledHeaderFile>pch_script.h</PrecompiledHeaderFile>
@@ -3565,6 +3581,7 @@ $(xrLibDir);$(xrSdkDir)DXSDK/Lib/$(PlatformShortName);
       <PrecompiledHeaderFile>pch_script.h</PrecompiledHeaderFile>
       <PrecompiledHeaderOutputFile>$(IntDir)$(ProjectName)_script.pch</PrecompiledHeaderOutputFile>
     </ClCompile>
+    <ClCompile Include="Script_StoryObject.cpp" />
     <ClCompile Include="Script_UI_MainMenu.cpp" />
     <ClCompile Include="script_watch_action.cpp" />
     <ClCompile Include="script_watch_action_script.cpp">

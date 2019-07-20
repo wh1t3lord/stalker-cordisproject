@@ -310,7 +310,8 @@ void CInventoryOwner::OnItemTake(CInventoryItem* inventory_item)
 {
     CGameObject* object = smart_cast<CGameObject*>(this);
     VERIFY(object);
-    object->callback(GameObject::eOnItemTake)(inventory_item->object().lua_game_object());
+    // Lord - [Script] Re-write
+/*    object->callback(GameObject::eOnItemTake)(inventory_item->object().lua_game_object());*/
 
     attach(inventory_item);
 
@@ -439,7 +440,8 @@ void CInventoryOwner::OnItemDrop(CInventoryItem* inventory_item, bool just_befor
 {
     CGameObject* object = smart_cast<CGameObject*>(this);
     VERIFY(object);
-    object->callback(GameObject::eOnItemDrop)(inventory_item->object().lua_game_object());
+    // Lord - [Script] Re-write
+   // object->callback(GameObject::eOnItemDrop)(inventory_item->object().lua_game_object());
 
     detach(inventory_item);
 }
@@ -452,7 +454,8 @@ void CInventoryOwner::OnItemBelt(CInventoryItem* inventory_item, const SInvItemP
 #ifdef EXTENDED_ITEM_CALLBACKS
     CGameObject	*object = smart_cast<CGameObject*>(this);
     VERIFY(object);
-    object->callback(GameObject::eItemToBelt)(inventory_item->object().lua_game_object());
+    // Lord - [Script] Re-write
+ //   object->callback(GameObject::eItemToBelt)(inventory_item->object().lua_game_object());
 #endif
     /* avo: end */
 }
@@ -463,7 +466,8 @@ void CInventoryOwner::OnItemRuck(CInventoryItem* inventory_item, const SInvItemP
 #ifdef EXTENDED_ITEM_CALLBACKS
     CGameObject	*object = smart_cast<CGameObject*>(this);
     VERIFY(object);
-    object->callback(GameObject::eItemToRuck)(inventory_item->object().lua_game_object());
+    // Lord - [Script] Re-write
+//    object->callback(GameObject::eItemToRuck)(inventory_item->object().lua_game_object());
 #endif
     /* avo: end */
 
@@ -476,7 +480,8 @@ void CInventoryOwner::OnItemSlot(CInventoryItem* inventory_item, const SInvItemP
 #ifdef EXTENDED_ITEM_CALLBACKS
     CGameObject	*object = smart_cast<CGameObject*>(this);
     VERIFY(object);
-    object->callback(GameObject::eItemToSlot)(inventory_item->object().lua_game_object());
+    // Lord - [Script] Re-write
+ //   object->callback(GameObject::eItemToSlot)(inventory_item->object().lua_game_object());
 #endif
     /* avo: end */
 

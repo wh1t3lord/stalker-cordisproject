@@ -86,7 +86,8 @@ IC CRestrictedObject& CPatrolPathManager::object() const
     return (*m_object);
 }
 
-IC CPatrolPathManager::CExtrapolateCallback& CPatrolPathManager::extrapolate_callback()
-{
-    return (m_extrapolate_callback);
-}
+// IC CPatrolPathManager::CExtrapolateCallback& CPatrolPathManager::extrapolate_callback()
+// {
+//     // Lord: [Script] - здесь переписать ибо используется из xr_motivator.script
+// //    return (m_extrapolate_callback);
+// }

@@ -165,6 +165,11 @@ public:
     void move_offline(bool value);
     bool visible_for_map() const;
     void visible_for_map(bool value);
+
+    // @ Script method
+    bool target_precondition(CSE_ALifeObject* squad);
+
+
     virtual u32 ef_equipment_type() const;
     virtual u32 ef_main_weapon_type() const;
     virtual u32 ef_weapon_type() const;

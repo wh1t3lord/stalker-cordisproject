@@ -55,10 +55,12 @@ CPatrolPathManager::~CPatrolPathManager() {}
 bool CPatrolPathManager::extrapolate_path()
 {
     VERIFY(m_path && m_path->vertex(m_curr_point_index));
-    if (!m_extrapolate_callback)
-        return (true);
-
-    return (m_extrapolate_callback(m_curr_point_index));
+    // Lord - [Script] Re-write
+//     if (!m_extrapolate_callback)
+//         return (true);
+// 
+//     return (m_extrapolate_callback(m_curr_point_index));
+    return false;
 }
 
 void CPatrolPathManager::reinit()
@@ -67,7 +69,7 @@ void CPatrolPathManager::reinit()
     m_actuality = true;
     m_failed = false;
     m_completed = true;
-    m_extrapolate_callback.clear();
+    //m_extrapolate_callback.clear();
 
     reset();
 }
@@ -198,8 +200,9 @@ void CPatrolPathManager::select_point(const Fvector& position, u32& dest_vertex_
     }
     VERIFY3(m_path->vertex(m_curr_point_index) || show_restrictions(m_object), *m_path_name, *m_game_object->cName());
 
-    m_game_object->callback(GameObject::ePatrolPathInPoint)(
-        m_game_object->lua_game_object(), u32(ScriptEntity::eActionTypeMovement), m_curr_point_index);
+    // Lord - [Script] Re-write
+//     m_game_object->callback(GameObject::ePatrolPathInPoint)(
+//         m_game_object->lua_game_object(), u32(ScriptEntity::eActionTypeMovement), m_curr_point_index);
 
     u32 count = 0; // количество разветвлений
     float sum = 0.f; // сумма весов разветвления

@@ -70,8 +70,9 @@ BOOL CDestroyablePhysicsObject::net_Spawn(CSE_Abstract* DC)
 void CDestroyablePhysicsObject::Hit(SHit* pHDS)
 {
     SHit HDS = *pHDS;
-    callback(GameObject::eHit)(
-        lua_game_object(), HDS.power, HDS.dir, smart_cast<const CGameObject*>(HDS.who)->lua_game_object(), HDS.bone());
+    // Lord - [Script] Re-write
+//     callback(GameObject::eHit)(
+//         lua_game_object(), HDS.power, HDS.dir, smart_cast<const CGameObject*>(HDS.who)->lua_game_object(), HDS.bone());
     HDS.power = CHitImmunity::AffectHit(HDS.power, HDS.hit_type);
     float hit_scale = 1.f, wound_scale = 1.f;
     CDamageManager::HitScale(HDS.bone(), hit_scale, wound_scale);
@@ -91,7 +92,8 @@ void CDestroyablePhysicsObject::Destroy()
 {
     VERIFY(!physics_world()->Processing());
     const CGameObject* who_object = smart_cast<const CGameObject*>(FatalHit().initiator());
-    callback(GameObject::eDeath)(lua_game_object(), who_object ? who_object->lua_game_object() : 0);
+    // Lord - [Script] Re-write
+   // callback(GameObject::eDeath)(lua_game_object(), who_object ? who_object->lua_game_object() : 0);
     CPHDestroyable::Destroy(ID(), "physic_destroyable_object");
     if (m_destroy_sound._handle())
     {

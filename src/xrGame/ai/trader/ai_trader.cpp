@@ -289,13 +289,15 @@ BOOL CAI_Trader::UsedAI_Locations() { return (TRUE); }
 void CAI_Trader::OnStartTrade()
 {
     m_busy_now = true;
-    callback(GameObject::eTradeStart)();
+    // Lord - [Script] Re-write
+ //   callback(GameObject::eTradeStart)();
 }
 
 void CAI_Trader::OnStopTrade()
 {
     m_busy_now = false;
-    callback(GameObject::eTradeStop)();
+    // Lord - [Script] Re-write
+  //  callback(GameObject::eTradeStop)();
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////

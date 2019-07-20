@@ -49,7 +49,8 @@ void CScriptZone::feel_touch_new(IGameObject* tpObject)
     if (!l_tpGameObject)
         return;
 
-    callback(GameObject::eZoneEnter)(lua_game_object(), l_tpGameObject->lua_game_object());
+    // Lord - [Script] Re-write
+/*    callback(GameObject::eZoneEnter)(lua_game_object(), l_tpGameObject->lua_game_object());*/
 }
 
 void CScriptZone::feel_touch_delete(IGameObject* tpObject)
@@ -59,7 +60,8 @@ void CScriptZone::feel_touch_delete(IGameObject* tpObject)
     if (!l_tpGameObject || l_tpGameObject->getDestroy())
         return;
 
-    callback(GameObject::eZoneExit)(lua_game_object(), l_tpGameObject->lua_game_object());
+    // Lord - [Script] Re-write
+   // callback(GameObject::eZoneExit)(lua_game_object(), l_tpGameObject->lua_game_object());
 }
 
 void CScriptZone::net_Relcase(IGameObject* O)
@@ -69,10 +71,11 @@ void CScriptZone::net_Relcase(IGameObject* O)
         return;
 
     xr_vector<IGameObject*>::iterator I = std::find(feel_touch.begin(), feel_touch.end(), O);
-    if (I != feel_touch.end())
-    {
-        callback(GameObject::eZoneExit)(lua_game_object(), l_tpGameObject->lua_game_object());
-    }
+    // Lord - [Script] Re-write
+//     if (I != feel_touch.end())
+//     {
+//         callback(GameObject::eZoneExit)(lua_game_object(), l_tpGameObject->lua_game_object());
+//     }
 }
 
 bool CScriptZone::feel_touch_contact(IGameObject* O) { return (((CCF_Shape*)GetCForm())->Contact(O)); }

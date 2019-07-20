@@ -30,7 +30,8 @@ private:
     mutable bool m_ready_to_save;
     u32 m_last_enemy_time;
     const CEntityAlive* m_last_enemy;
-    USEFULE_CALLBACK m_useful_callback;
+    // Lord: [Script] Наверное нужно переделать под m_cpp_callback
+  //  USEFULE_CALLBACK m_useful_callback;
     bool m_enable_enemy_change;
     CEntityAlive const* m_smart_cover_enemy;
 

@@ -281,8 +281,9 @@ void CBaseMonster::HitSignal(float amount, Fvector& vLocalDir, IGameObject* who,
 
     Morale.on_hit();
 
-    callback(GameObject::eHit)(
-        lua_game_object(), amount, vLocalDir, smart_cast<const CGameObject*>(who)->lua_game_object(), element);
+    // Lord - [Script] Re-write
+//     callback(GameObject::eHit)(
+//         lua_game_object(), amount, vLocalDir, smart_cast<const CGameObject*>(who)->lua_game_object(), element);
 
     // если нейтрал - добавить как врага
     CEntityAlive* obj = smart_cast<CEntityAlive*>(who);

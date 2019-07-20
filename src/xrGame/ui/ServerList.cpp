@@ -567,14 +567,14 @@ void CServerList::ConnectToSelected()
 
         if (!xr_strcmp(tmp_profile->unique_nick(), "@unregistered"))
         {
-            if (m_connect_cb)
-                m_connect_cb(ece_unique_nick_not_registred, "mp_gp_unique_nick_not_registred");
+//             if (m_connect_cb)
+//                 m_connect_cb(ece_unique_nick_not_registred, "mp_gp_unique_nick_not_registred");
             return;
         }
         if (!xr_strcmp(tmp_profile->unique_nick(), "@expired"))
         {
-            if (m_connect_cb)
-                m_connect_cb(ece_unique_nick_expired, "mp_gp_unique_nick_has_expired");
+//             if (m_connect_cb)
+//                 m_connect_cb(ece_unique_nick_expired, "mp_gp_unique_nick_has_expired");
             return;
         }
     }

@@ -86,7 +86,8 @@ CGameObject::CGameObject() : SpatialBase(g_SpatialSpace), scriptBinder(this)
     m_ai_location = !GEnv.isDedicatedServer ? new CAI_ObjectLocation() : 0;
     m_server_flags.one();
 
-    m_callbacks = new CALLBACK_MAP();
+    // Lord - [Script] Re-write
+  //  m_callbacks = new CALLBACK_MAP();
     m_anim_mov_ctrl = 0;
 }
 
@@ -97,7 +98,7 @@ CGameObject::~CGameObject()
     VERIFY(!m_lua_game_object);
     VERIFY(!m_spawned);
     xr_delete(m_ai_location);
-    xr_delete(m_callbacks);
+//    xr_delete(m_callbacks);
     xr_delete(m_ai_obstacle);
     cNameVisual_set(0);
     cName_set(0);
@@ -271,8 +272,9 @@ void CGameObject::reinit()
         ai_location().reinit();
 
     // clear callbacks
-    for (auto it = m_callbacks->begin(); it != m_callbacks->end(); ++it)
-        it->second.clear();
+    // Lord - [Script] Re-write
+//     for (auto it = m_callbacks->begin(); it != m_callbacks->end(); ++it)
+//         it->second.clear();
 }
 
 void CGameObject::reload(LPCSTR section) { m_script_clsid = object_factory().script_clsid(CLS_ID); }
@@ -1269,11 +1271,11 @@ void CGameObject::net_Relcase(IGameObject* O)
     if (!GEnv.isDedicatedServer)
         scriptBinder.net_Relcase(O);
 }
-
-CGameObject::CScriptCallbackExVoid& CGameObject::callback(GameObject::ECallbackType type) const
-{
-    return ((*m_callbacks)[type]);
-}
+// Lord - [Script] Re-write
+// CGameObject::CScriptCallbackExVoid& CGameObject::callback(GameObject::ECallbackType type) const
+// {
+//     return ((*m_callbacks)[type]);
+// }
 
 LPCSTR CGameObject::visual_name(CSE_Abstract* server_entity)
 {
@@ -1522,7 +1524,8 @@ bool CGameObject::use(IGameObject* obj)
         if (door->is_blocked(doors::door_state_open) || door->is_blocked(doors::door_state_closed))
             return false;
     }
-    callback(GameObject::eUseObject)(scriptObj, obj->lua_game_object());
+    // Lord - [Script] Re-write
+ //   callback(GameObject::eUseObject)(scriptObj, obj->lua_game_object());
     return true;
 }
 

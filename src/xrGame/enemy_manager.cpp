@@ -70,8 +70,9 @@ bool CEnemyManager::useful(const CEntityAlive* entity_alive) const
         (evaluate(entity_alive) >= m_ignore_monster_threshold) &&
         (m_object->Position().distance_to(entity_alive->Position()) >= m_max_ignore_distance))
         return (false);
-
-    return (m_useful_callback ? m_useful_callback(m_object->lua_game_object(), entity_alive->lua_game_object()) : true);
+    // Lord - [Script] Re-write!
+//    return (m_useful_callback ? m_useful_callback(m_object->lua_game_object(), entity_alive->lua_game_object()) : true);
+    return false;
 }
 
 float CEnemyManager::do_evaluate(const CEntityAlive* object) const { return (m_object->evaluate(this, object)); }
@@ -157,7 +158,7 @@ void CEnemyManager::reload(LPCSTR section)
     m_last_enemy_time = 0;
     m_last_enemy = 0;
     m_last_enemy_change = 0;
-    m_useful_callback.clear();
+   /// m_useful_callback.clear();
     VERIFY(m_ready_to_save);
 }
 

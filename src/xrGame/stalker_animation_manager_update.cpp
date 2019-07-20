@@ -19,7 +19,8 @@
     if (m_call_script_callback)
     {
         m_call_script_callback = false;
-        object().callback(GameObject::eScriptAnimation)();
+        // Lord - [Script] Re-write
+      //  object().callback(GameObject::eScriptAnimation)();
         return;
     }
 
@@ -36,8 +37,9 @@ IC bool CStalkerAnimationManager::script_callback() const
 {
     if (script_animations().empty())
         return (false);
-
-    return (object().callback(GameObject::eScriptAnimation));
+    // Lord - [Script] Re-write
+   // return (object().callback(GameObject::eScriptAnimation));
+    return false;
 }
 
 IC bool CStalkerAnimationManager::need_update() const

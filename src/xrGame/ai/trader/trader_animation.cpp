@@ -94,14 +94,16 @@ void CTraderAnimation::update_frame()
             m_sound->set_position(m_trader->Position());
         else
         {
-            m_trader->callback(GameObject::eTraderSoundEnd)();
+            // Lord - [Script] Re-write
+/*            m_trader->callback(GameObject::eTraderSoundEnd)();*/
             remove_sound();
         }
     }
 
     if (!m_motion_global)
     {
-        m_trader->callback(GameObject::eTraderGlobalAnimationRequest)();
+        // Lord - [Script] Re-write
+/*        m_trader->callback(GameObject::eTraderGlobalAnimationRequest)();*/
         if (m_anim_global)
             m_motion_head.invalidate();
     }
@@ -111,7 +113,8 @@ void CTraderAnimation::update_frame()
     {
         if (m_sound && m_sound->_feedback())
         {
-            m_trader->callback(GameObject::eTraderHeadAnimationRequest)();
+            // Lord - [Script] Re-write
+           // m_trader->callback(GameObject::eTraderHeadAnimationRequest)();
         }
     }
 }

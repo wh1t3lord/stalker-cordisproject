@@ -88,9 +88,12 @@ void anim_script_callback::update(CGameObject& O)
 {
     if (!is_set)
         return;
+
     if (!on_end && !on_begin)
         return;
-    O.callback(GameObject::eScriptAnimation)(on_end);
+
+    // Lord - [Script] Re-write
+    //O.callback(GameObject::eScriptAnimation)(on_end);
     on_end = false;
     on_begin = false;
 }

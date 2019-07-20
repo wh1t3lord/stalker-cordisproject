@@ -96,7 +96,7 @@ public:
     using visual_callback = void(__stdcall*)(IKinematics*);
     using CALLBACK_VECTOR = svector<visual_callback, 6>;
     using CALLBACK_VECTOR_IT = CALLBACK_VECTOR::iterator;
-    using CScriptCallbackExVoid = CScriptCallbackEx<void>;
+  //  using CScriptCallbackExVoid = CScriptCallbackEx<void>;
     // typedef xr_map<GameObject::ECallbackType, CScriptCallbackExVoid> CALLBACK_MAP;
     // typedef CALLBACK_MAP::iterator CALLBACK_MAP_IT;
 
@@ -341,7 +341,7 @@ public:
     virtual bool natural_detector() const = 0;
     virtual bool use_center_to_aim() const = 0;
     virtual void MoveTo(const Fvector& pos) = 0;
-    virtual CScriptCallbackExVoid& callback(GameObject::ECallbackType type) const = 0;
+   // virtual CScriptCallbackExVoid& callback(GameObject::ECallbackType type) const = 0;
     virtual LPCSTR visual_name(CSE_Abstract* entity) = 0;
     virtual void On_B_NotCurrentEntity() = 0;
     virtual bool is_ai_obstacle() const = 0;

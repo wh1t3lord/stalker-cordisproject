@@ -286,7 +286,8 @@ void CAI_Crow::Die(IGameObject* who)
     CreateSkeleton();
 
     const CGameObject* who_object = smart_cast<const CGameObject*>(who);
-    callback(GameObject::eDeath)(lua_game_object(), who_object ? who_object->lua_game_object() : 0);
+    // Lord - [Script] Re-write 
+  //  callback(GameObject::eDeath)(lua_game_object(), who_object ? who_object->lua_game_object() : 0);
 };
 void CAI_Crow::UpdateWorkload(float fdt)
 {
@@ -469,7 +470,8 @@ void CAI_Crow::Hit(SHit* pHDS)
     inherited::Hit(&HDS);
 
     const CGameObject* who_object = smart_cast<const CGameObject*>(pHDS->who);
-    callback(GameObject::eHit)(lua_game_object(), who_object ? who_object->lua_game_object() : 0);
+    // Lord - [Script] Re-write
+//    callback(GameObject::eHit)(lua_game_object(), who_object ? who_object->lua_game_object() : 0);
 }
 
 BOOL CAI_Crow::UsedAI_Locations() { return (FALSE); }

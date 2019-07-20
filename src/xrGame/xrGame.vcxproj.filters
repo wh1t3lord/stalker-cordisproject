@@ -2695,15 +2695,6 @@
     <Filter Include="Cordis\Scripts\Global\Public">
       <UniqueIdentifier>{2dc7acb1-77df-4f17-a7ab-a1fa7086dba6}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Cordis\Scripts\BindStalker">
-      <UniqueIdentifier>{aa2f3887-04ce-435c-8b08-e1734179fe12}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Cordis\Scripts\BindStalker\Public">
-      <UniqueIdentifier>{05410a32-ee57-4201-903a-3d946801103a}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Cordis\Scripts\BindStalker\Private">
-      <UniqueIdentifier>{47f7d278-3f3c-446a-96e0-80ef49eb97bf}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Cordis\Scripts\Server Entities">
       <UniqueIdentifier>{2a5270a9-c76f-4c10-83f0-5ca33b401903}</UniqueIdentifier>
     </Filter>
@@ -3075,6 +3066,87 @@
     </Filter>
     <Filter Include="Render\Cordis\SDK\UI management\ToolBar\Private">
       <UniqueIdentifier>{7e941dd3-a036-450b-ad30-829111721354}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Binds">
+      <UniqueIdentifier>{aa2f3887-04ce-435c-8b08-e1734179fe12}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Binds\Public">
+      <UniqueIdentifier>{05410a32-ee57-4201-903a-3d946801103a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Binds\Private">
+      <UniqueIdentifier>{47f7d278-3f3c-446a-96e0-80ef49eb97bf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\XR">
+      <UniqueIdentifier>{c928f17c-0711-4796-8adb-58fa7e9ba272}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\XR\Public">
+      <UniqueIdentifier>{40c93eb5-39cf-4bb3-8961-f0e2473091bb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Online Database">
+      <UniqueIdentifier>{d92835b8-5084-49c2-a13e-68c10d215849}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Online Database\Public">
+      <UniqueIdentifier>{0dd55311-76b0-451b-8488-09511b926c20}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Managers">
+      <UniqueIdentifier>{125cfdb7-399c-4fec-80f6-f12503eba613}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Managers\StoryObject">
+      <UniqueIdentifier>{d4235be9-15c1-4072-ae59-bb3429270aef}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Managers\StoryObject\Public">
+      <UniqueIdentifier>{28533111-8d9f-4c65-a7f0-0ed28c321488}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Managers\StoryObject\Private">
+      <UniqueIdentifier>{a26ff83d-10ee-4176-a533-277c9b8aff38}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Managers\SimulationObjects">
+      <UniqueIdentifier>{ccbf90cf-7812-4303-aa21-a8cdf47f848c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Managers\SimulationObjects\Public">
+      <UniqueIdentifier>{cdf12d9d-bb26-410d-82a3-daa4dec208a0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Managers\SimulationObjects\Private">
+      <UniqueIdentifier>{7a7bd32b-178f-4eab-815e-17a9599c7bc0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Managers\SimulationBoard">
+      <UniqueIdentifier>{9fc01770-20df-4d1a-bd43-fb2cb93d2146}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Managers\SimulationBoard\Public">
+      <UniqueIdentifier>{5f787b16-938a-4728-b855-ec9ea3159641}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Managers\SimulationBoard\Private">
+      <UniqueIdentifier>{8a4fa0dc-52a3-418a-b3fc-530ac0173446}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Entities">
+      <UniqueIdentifier>{95869faa-b206-40cc-abbd-106d9352929b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Entities\Simulation Squad">
+      <UniqueIdentifier>{48c087c9-c407-476f-9c3c-5fb3d37d2376}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Entities\Simulation Squad\Public">
+      <UniqueIdentifier>{d9083007-7462-4183-a06c-850d9caa7669}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Entities\Simulation Squad\Private">
+      <UniqueIdentifier>{6fe030a6-fa66-4555-af60-9df4288ae67c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Managers\Sound">
+      <UniqueIdentifier>{9e8d4fd6-f4ed-4185-a217-7c8ea245b024}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Managers\Sound\Public">
+      <UniqueIdentifier>{400dcb39-f7d5-4ad3-ab54-3dd5532dbf44}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Managers\Sound\Private">
+      <UniqueIdentifier>{db15f766-e672-4c3a-99e7-185a3d907bab}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Entities\Sound">
+      <UniqueIdentifier>{f88a8990-1e2b-43f6-abb8-d1f8082b417a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Entities\Sound\Public">
+      <UniqueIdentifier>{aa14874a-4d7f-4a6b-9be5-597141513409}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Entities\Sound\Private">
+      <UniqueIdentifier>{18bb6c06-351e-423e-8c76-f6e2a11a30f8}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -8042,6 +8114,36 @@
     <ClInclude Include="Script_UI_MainMenu.h">
       <Filter>Cordis\Scripts\UI\MainMenu\Public</Filter>
     </ClInclude>
+    <ClInclude Include="Script_SE_Actor.h">
+      <Filter>Cordis\Scripts\Server Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="Script_XR_Logic.h">
+      <Filter>Cordis\Scripts\XR\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Script_Database.h">
+      <Filter>Cordis\Scripts\Online Database\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Script_StoryObject.h">
+      <Filter>Cordis\Scripts\Managers\StoryObject\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Script_SimulationObjects.h">
+      <Filter>Cordis\Scripts\Managers\SimulationObjects\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Script_SimulationBoard.h">
+      <Filter>Cordis\Scripts\Managers\SimulationBoard\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Script_SimulationSquad.h">
+      <Filter>Cordis\Scripts\Entities\Simulation Squad\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Script_SoundManager.h">
+      <Filter>Cordis\Scripts\Managers\Sound\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Script_XR_Sound.h">
+      <Filter>Cordis\Scripts\XR\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Script_EntitySounds.h">
+      <Filter>Cordis\Scripts\Entities\Sound\Public</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="damage_manager.cpp">
@@ -12137,6 +12239,27 @@
     </ClCompile>
     <ClCompile Include="Script_UI_MainMenu.cpp">
       <Filter>Cordis\Scripts\UI\MainMenu\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Script_SE_Actor.cpp">
+      <Filter>Cordis\Scripts\Server Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="Script_StoryObject.cpp">
+      <Filter>Cordis\Scripts\Managers\StoryObject\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Script_SimulationObjects.cpp">
+      <Filter>Cordis\Scripts\Managers\SimulationObjects\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Script_SimulationBoard.cpp">
+      <Filter>Cordis\Scripts\Managers\SimulationBoard\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Script_SimulationSquad.cpp">
+      <Filter>Cordis\Scripts\Entities\Simulation Squad\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Script_SoundManager.cpp">
+      <Filter>Cordis\Scripts\Managers\Sound\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Script_EntitySounds.cpp">
+      <Filter>Cordis\Scripts\Entities\Sound\Private</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

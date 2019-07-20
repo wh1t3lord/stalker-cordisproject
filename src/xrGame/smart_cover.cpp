@@ -164,9 +164,8 @@ void cover::evaluate_loophole(Fvector const& position, smart_cover::loophole*& s
     float const distance_to_target = fov_position.distance_to(position);
     if (distance_to_target > source->range())
         return;
-
-    float const min_enemy_distance =
-        is_smart_cover_entered ? object().enter_min_enemy_distance() : object().exit_min_enemy_distance();
+    // Lord - [Script] Re-write
+    float const min_enemy_distance = 0.0f/*is_smart_cover_entered ? object().enter_min_enemy_distance() : object().exit_min_enemy_distance()*/;
     if (distance_to_target <= min_enemy_distance)
         return;
 

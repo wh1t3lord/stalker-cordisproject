@@ -102,8 +102,9 @@ void CHitMemoryManager::add(float amount, const Fvector& vLocalDir, const IGameO
         m_last_hit_time = Device.dwTimeGlobal;
     }
 
-    object().callback(GameObject::eHit)(m_object->lua_game_object(), amount, vLocalDir,
-        smart_cast<const CGameObject*>(who)->lua_game_object(), element);
+    // Lord - [Script] Re-write
+//     object().callback(GameObject::eHit)(m_object->lua_game_object(), amount, vLocalDir,
+//         smart_cast<const CGameObject*>(who)->lua_game_object(), element);
 
     Fvector direction;
     m_object->XFORM().transform_dir(direction, vLocalDir);

@@ -98,13 +98,13 @@ bool CPHScriptObjectCondition::obsolete() const { return false; }
 CPHScriptObjectActionN::CPHScriptObjectActionN(const luabind::object& object, const luabind::functor<void>& functor)
     : b_obsolete(false)
 {
-    m_callback.set(functor, object);
+  //  m_callback.set(functor, object);
 }
 
-CPHScriptObjectActionN::~CPHScriptObjectActionN() { m_callback.clear(); }
+CPHScriptObjectActionN::~CPHScriptObjectActionN() { /*m_callback.clear();*/ }
 void CPHScriptObjectActionN::run()
 {
-    m_callback();
+    //m_callback();
     b_obsolete = true;
 }
 
@@ -112,9 +112,9 @@ bool CPHScriptObjectActionN::obsolete() const { return b_obsolete; }
 CPHScriptObjectConditionN::CPHScriptObjectConditionN(
     const luabind::object& object, const luabind::functor<bool>& functor)
 {
-    m_callback.set(functor, object);
+ //   m_callback.set(functor, object);
 }
 
-CPHScriptObjectConditionN::~CPHScriptObjectConditionN() { m_callback.clear(); }
-bool CPHScriptObjectConditionN::is_true() { return m_callback(); }
+//CPHScriptObjectConditionN::~CPHScriptObjectConditionN() { m_callback.clear(); }
+//bool CPHScriptObjectConditionN::is_true() { return m_callback(); }
 bool CPHScriptObjectConditionN::obsolete() const { return false; }

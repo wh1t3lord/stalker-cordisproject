@@ -535,7 +535,8 @@ void CScriptGameObject::set_patrol_extrapolate_callback(const luabind::functor<b
             LuaMessageType::Error, "CCustomMonster : cannot access class member set_patrol_extrapolate_callback!");
         return;
     }
-    monster->movement().patrol().extrapolate_callback().set(functor);
+    // Lord - [Script] Re-write
+  //  monster->movement().patrol().extrapolate_callback().set(functor);
 }
 
 void CScriptGameObject::set_patrol_extrapolate_callback(
@@ -548,7 +549,8 @@ void CScriptGameObject::set_patrol_extrapolate_callback(
             LuaMessageType::Error, "CCustomMonster : cannot access class member set_patrol_extrapolate_callback!");
         return;
     }
-    monster->movement().patrol().extrapolate_callback().set(functor, object);
+    // Lord - [Script] Re-write
+ //   monster->movement().patrol().extrapolate_callback().set(functor, object);
 }
 
 void CScriptGameObject::set_patrol_extrapolate_callback()
@@ -560,7 +562,8 @@ void CScriptGameObject::set_patrol_extrapolate_callback()
             LuaMessageType::Error, "CCustomMonster : cannot access class member set_patrol_extrapolate_callback!");
         return;
     }
-    monster->movement().patrol().extrapolate_callback().clear();
+    // Lord - [Script] Re-write
+ //   monster->movement().patrol().extrapolate_callback().clear();
 }
 
 void CScriptGameObject::extrapolate_length(float extrapolate_length)

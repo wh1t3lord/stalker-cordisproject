@@ -183,8 +183,9 @@ void CWeaponMagazined::FireStart()
         //Alundaio
 #ifdef EXTENDED_WEAPON_CALLBACKS
         CGameObject *object = smart_cast<CGameObject*>(H_Parent());
-        if (object)
-            object->callback(GameObject::eOnWeaponJammed)(object->lua_game_object(), this->lua_game_object());
+        // Lord - [Script] Re-write
+//         if (object)
+//             object->callback(GameObject::eOnWeaponJammed)(object->lua_game_object(), this->lua_game_object());
 #endif
         //-Alundaio
 
@@ -218,7 +219,8 @@ bool CWeaponMagazined::TryReload()
         if (IsGameTypeSingle() && ParentIsActor())
         {
             int AC = GetSuitableAmmoTotal();
-            Actor()->callback(GameObject::eWeaponNoAmmoAvailable)(lua_game_object(), AC);
+            // Lord - [Script]
+/*            Actor()->callback(GameObject::eWeaponNoAmmoAvailable)(lua_game_object(), AC);*/
         }
 
         m_pCurrentAmmo = smart_cast<CWeaponAmmo*>(m_pInventory->GetAny(m_ammoTypes[m_ammoType].c_str()));
@@ -1180,8 +1182,9 @@ void CWeaponMagazined::OnZoomIn()
     //Alundaio: callback not sure why vs2013 gives error, it's fine
 #ifdef EXTENDED_WEAPON_CALLBACKS
     CGameObject *object = smart_cast<CGameObject*>(H_Parent());
-    if (object)
-        object->callback(GameObject::eOnWeaponZoomIn)(object->lua_game_object(),this->lua_game_object());
+    // Lord - [Script] Re-write
+//     if (object)
+//         object->callback(GameObject::eOnWeaponZoomIn)(object->lua_game_object(),this->lua_game_object());
 #endif
     //-Alundaio
 
@@ -1211,8 +1214,9 @@ void CWeaponMagazined::OnZoomOut()
     //Alundaio
 #ifdef EXTENDED_WEAPON_CALLBACKS
     CGameObject *object = smart_cast<CGameObject*>(H_Parent());
-    if (object)
-        object->callback(GameObject::eOnWeaponZoomOut)(object->lua_game_object(), this->lua_game_object());
+    // Lord - [Script] Re-write
+//     if (object)
+//         object->callback(GameObject::eOnWeaponZoomOut)(object->lua_game_object(), this->lua_game_object());
 #endif
     //-Alundaio
 

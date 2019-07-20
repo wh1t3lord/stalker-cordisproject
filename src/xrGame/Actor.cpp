@@ -582,13 +582,14 @@ void CActor::Hit(SHit* pHDS)
         if (g_Alive())
         {
             /* AVO: send script callback*/
-            callback(GameObject::eHit)(
-                this->lua_game_object(),
-                HDS.damage(),
-                HDS.direction(),
-                smart_cast<const CGameObject*>(HDS.who)->lua_game_object(),
-                HDS.boneID
-            );
+            // Lord - [Script] Re-write
+//             callback(GameObject::eHit)(
+//                 this->lua_game_object(),
+//                 HDS.damage(),
+//                 HDS.direction(),
+//                 smart_cast<const CGameObject*>(HDS.who)->lua_game_object(),
+//                 HDS.boneID
+//             );
         }
         inherited::Hit(&HDS);
     }
@@ -844,12 +845,14 @@ void CActor::SwitchOutBorder(bool new_border_state)
 {
     if (new_border_state)
     {
-        callback(GameObject::eExitLevelBorder)(lua_game_object());
+        // Lord - [Script] Re-write
+     //   callback(GameObject::eExitLevelBorder)(lua_game_object());
     }
     else
     {
         //.		Msg("enter level border");
-        callback(GameObject::eEnterLevelBorder)(lua_game_object());
+        // Lord - [Script] Re-write
+       // callback(GameObject::eEnterLevelBorder)(lua_game_object());
     }
     m_bOutBorder = new_border_state;
 }

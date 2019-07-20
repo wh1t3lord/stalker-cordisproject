@@ -19,7 +19,7 @@ void CClientSpawnManager::add(ALife::_OBJECT_ID requesting_id, ALife::_OBJECT_ID
     const luabind::functor<void>& functor, const luabind::object& object)
 {
     CSpawnCallback callback;
-    callback.m_callback.set(functor, object);
+  //  callback.m_callback.set(functor, object);
     add(requesting_id, requested_id, callback);
 }
 
@@ -27,7 +27,7 @@ void CClientSpawnManager::add(
     ALife::_OBJECT_ID requesting_id, ALife::_OBJECT_ID requested_id, const luabind::functor<void>& lua_function)
 {
     CSpawnCallback callback;
-    callback.m_callback.set(lua_function);
+ //   callback.m_callback.set(lua_function);
     add(requesting_id, requested_id, callback);
 }
 
@@ -126,7 +126,8 @@ void CClientSpawnManager::callback(CSpawnCallback& spawn_callback, IGameObject* 
 
     CGameObject* game_object = smart_cast<CGameObject*>(object);
     CScriptGameObject* script_game_object = !game_object ? 0 : game_object->lua_game_object();
-    (spawn_callback.m_callback)(object->ID(), script_game_object);
+    // Lord - [Script] Re-write
+//    (spawn_callback.m_callback)(object->ID(), script_game_object);
 }
 
 void CClientSpawnManager::callback(IGameObject* object)
@@ -147,7 +148,7 @@ void CClientSpawnManager::callback(IGameObject* object)
 void CClientSpawnManager::merge_spawn_callbacks(CSpawnCallback& new_callback, CSpawnCallback& old_callback)
 {
     old_callback.m_object_callback = new_callback.m_object_callback;
-    old_callback.m_callback = new_callback.m_callback;
+//    old_callback.m_callback = new_callback.m_callback;
 }
 
 const CClientSpawnManager::CSpawnCallback* CClientSpawnManager::callback(

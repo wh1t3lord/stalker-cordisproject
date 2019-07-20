@@ -22,7 +22,7 @@ public:
     struct CSpawnCallback
     {
         CALLBACK_TYPE m_object_callback;
-        CScriptCallbackEx<void> m_callback;
+    //    CScriptCallbackEx<void> m_callback;
     };
 
 public:

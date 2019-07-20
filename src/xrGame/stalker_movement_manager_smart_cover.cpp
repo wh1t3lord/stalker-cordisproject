@@ -453,7 +453,8 @@ void stalker_movement_manager_smart_cover::cleanup_after_animation_selector()
 void stalker_movement_manager_smart_cover::target_selector(CScriptCallbackEx<void> const& callback)
 {
     VERIFY(m_target_selector);
-    m_target_selector->callback(callback);
+    // Lord - [Script] Re-write
+/*    m_target_selector->callback(callback);*/
 }
 
 void stalker_movement_manager_smart_cover::target_idle()
@@ -542,8 +543,9 @@ bool stalker_movement_manager_smart_cover::default_behaviour() const
     VERIFY(m_current.cover_loophole());
 
     VERIFY(m_target_selector);
-    if (m_target_selector->callback())
-        return (m_default_behaviour);
+    // Lord - [Script] Re-write
+//     if (m_target_selector->callback())
+//         return (m_default_behaviour);
 
     if (m_current.cover_fire_object())
         return (true);

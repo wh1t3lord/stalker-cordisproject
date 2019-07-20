@@ -290,8 +290,9 @@ bool animation_planner::hit_callback(SHit const* hit)
     if (!object().g_Alive())
         return (false);
 
-    object().callback(GameObject::eHit)(m_object->lua_game_object(), hit->damage(), hit->direction(),
-        smart_cast<const CGameObject*>(hit->who)->lua_game_object(), hit->boneID);
+    // Lord - [Script] Re-write
+//     object().callback(GameObject::eHit)(m_object->lua_game_object(), hit->damage(), hit->direction(),
+//         smart_cast<const CGameObject*>(hit->who)->lua_game_object(), hit->boneID);
 
     return (false);
 }

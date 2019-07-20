@@ -312,7 +312,8 @@ void CEntityAlive::Die(IGameObject* who)
     inherited::Die(who);
 
     const CGameObject* who_object = smart_cast<const CGameObject*>(who);
-    callback(GameObject::eDeath)(lua_game_object(), who_object ? who_object->lua_game_object() : 0);
+    // Lord - [Script] Re-write
+    //callback(GameObject::eDeath)(lua_game_object(), who_object ? who_object->lua_game_object() : 0);
 
     if (!getDestroy() && (GameID() == eGameIDSingle))
     {

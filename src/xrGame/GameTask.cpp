@@ -133,7 +133,8 @@ void CGameTask::ChangeMapLocation(LPCSTR new_map_location, u16 new_map_object_id
     CreateMapLocation(false);
 }
 
-void CGameTask::ChangeStateCallback() { Actor()->callback(GameObject::eTaskStateChange)(this, GetTaskState()); }
+void CGameTask::ChangeStateCallback() { //Actor()->callback(GameObject::eTaskStateChange)(this, GetTaskState()); Lord - [Script] Re-write
+}
 ETaskState CGameTask::UpdateState()
 {
     if ((m_ReceiveTime != m_TimeToComplete))

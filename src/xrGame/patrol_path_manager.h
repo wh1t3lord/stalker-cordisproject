@@ -41,7 +41,7 @@ private:
     u32 m_prev_point_index;
     u32 m_start_point_index;
     Fvector m_dest_position;
-    CExtrapolateCallback m_extrapolate_callback;
+   // CExtrapolateCallback m_extrapolate_callback;
     CRestrictedObject* m_object;
     CGameObject* m_game_object;
 

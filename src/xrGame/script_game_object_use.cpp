@@ -133,7 +133,8 @@ void CScriptGameObject::set_enemy_callback(const luabind::functor<bool>& functor
             LuaMessageType::Error, "CCustomMonster : cannot access class member set_enemy_callback!");
         return;
     }
-    monster->memory().enemy().useful_callback().set(functor);
+    // Lord - [Script] Re-write
+ //   monster->memory().enemy().useful_callback().set(functor);
 }
 
 void CScriptGameObject::set_enemy_callback(const luabind::functor<bool>& functor, const luabind::object& object)
@@ -145,7 +146,8 @@ void CScriptGameObject::set_enemy_callback(const luabind::functor<bool>& functor
             LuaMessageType::Error, "CCustomMonster : cannot access class member set_enemy_callback!");
         return;
     }
-    monster->memory().enemy().useful_callback().set(functor, object);
+    // Lord - [Script] Re-write
+ //   monster->memory().enemy().useful_callback().set(functor, object);
 }
 
 void CScriptGameObject::set_enemy_callback()
@@ -157,21 +159,24 @@ void CScriptGameObject::set_enemy_callback()
             LuaMessageType::Error, "CCustomMonster : cannot access class member set_enemy_callback!");
         return;
     }
-    monster->memory().enemy().useful_callback().clear();
+    // Lord - [Script] Re-write
+  //  monster->memory().enemy().useful_callback().clear();
 }
 
 void CScriptGameObject::SetCallback(GameObject::ECallbackType type, const luabind::functor<void>& functor)
 {
-    object().callback(type).set(functor);
+    // Lord - [Script] Re-write
+  //  object().callback(type).set(functor);
 }
 
 void CScriptGameObject::SetCallback(
     GameObject::ECallbackType type, const luabind::functor<void>& functor, const luabind::object& object)
 {
-    this->object().callback(type).set(functor, object);
+    // Lord - [Script] Re-write
+  //  this->object().callback(type).set(functor, object);
 }
 
-void CScriptGameObject::SetCallback(GameObject::ECallbackType type) { object().callback(type).clear(); }
+void CScriptGameObject::SetCallback(GameObject::ECallbackType type) { /*object().callback(type).clear();*/ }
 void CScriptGameObject::set_fastcall(const luabind::functor<bool>& functor, const luabind::object& object)
 {
     CPHScriptGameObjectCondition* c = new CPHScriptGameObjectCondition(object, functor, m_game_object);
