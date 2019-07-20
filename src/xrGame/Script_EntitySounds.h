@@ -28,7 +28,7 @@ public:
     virtual void callback(const std::uint16_t& npc_id) = 0;
     virtual bool play(const std::uint16_t& npc_id, xr_string& faction, std::uint16_t point) = 0;
     virtual bool play(const std::uint16_t& obj_id) = 0;
-    virtual int select_next_sound(const xr_string& npc_id) = 0;
+    virtual int select_next_sound(const std::uint16_t& npc_id) = 0;
     virtual void stop(const std::uint16_t& obj_id) = 0;
     virtual void save(const NET_Packet& packet) = 0;
     virtual void load(const NET_Packet& packet) = 0;
@@ -49,7 +49,7 @@ public:
     void callback(const std::uint16_t& npc_id);
     bool play(const std::uint16_t& npc_id, xr_string& faction, std::uint16_t point);
     bool play(const std::uint16_t& obj_id);
-    int select_next_sound(const xr_string& npc_id);
+    int select_next_sound(const std::uint16_t& npc_id);
     void stop(const std::uint16_t& obj_id);
     void save(const NET_Packet& packet);
     void load(const NET_Packet& packet);

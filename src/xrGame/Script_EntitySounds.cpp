@@ -202,18 +202,115 @@ void Script_SoundNPC::callback(const std::uint16_t& npc_id)
 
 bool Script_SoundNPC::play(const std::uint16_t& npc_id, xr_string& faction, std::uint16_t point)
 {
-    if (!DataBase::Storage::getInstance().getStorage()[npc_id].m_object)
+    CScriptGameObject* npc = DataBase::Storage::getInstance().getStorage()[npc_id].m_object;
+    if (!npc)
     {
         return false;
     }
 
+    if (this->m_group_sound)
+    {
+        if (!this->m_can_play_group_sound)
+        {
+            return false;
+        }
+        else
+        {
+            if (!this->m_can_play_sound[npc_id])
+            {
+                return false;
+            }
+        }
+    }
+
+    if (!this->m_played_time && ((Device.dwTimeGlobal - this->m_played_time) < this->m_idle_time))
+    {
+        return false;
+    }
+
+    this->m_played_time = 0;
+
+    this->m_played_id = this->select_next_sound(npc_id);
+
+    if (this->m_played_id == -1)
+        return false;
+
+    if (npc)
+        npc->play_sound(this->m_npc[npc_id].first, this->m_delay_sound + 0.06f, this->m_delay_sound + 0.05f, 1, 0,
+            this->m_played_id);
+
+    std::uint32_t table_id = this->m_played_id + 1;
+    xr_string& sound = this->m_sound_path[npc_id][table_id];
+
+    if (sound.size())
+    {
+        sound.append("_pda.ogg");
+        if (FS.exist("$game_sounds$", sound.c_str()) && npc->Position().distance_to_sqr(DataBase::))
+        {
+            // Lord: доделать!
+        }
+    }
 
     return false;
 }
 
 bool Script_SoundNPC::play(const std::uint16_t& obj_id) { return false; }
 
-int Script_SoundNPC::select_next_sound(const xr_string& npc_id) { return 0; }
+int Script_SoundNPC::select_next_sound(const std::uint16_t& npc_id)
+{
+    if (this->m_shuffle != "rnd")
+    {
+        if (!this->m_npc[npc_id].second)
+        {
+            return 0;
+        }
+
+        std::random_device random_device1;
+        std::mt19937 range1(random_device1);
+        std::uniform_int_distribution<int> urandom1(0, this->m_npc[npc_id].second);
+        if (!this->m_played_id)
+        {
+            std::random_device random_device;
+            std::mt19937 range(random_device);
+            std::uniform_int_distribution<int> urandom(0, this->m_npc[npc_id].second - 1);
+            int played_id = urandom(range);
+
+            if (played_id >= this->m_played_id)
+            {
+                return played_id + 1;
+            }
+
+            return played_id;
+        }
+
+        return urandom1(range1);
+    }
+
+    if (this->m_shuffle == "seq")
+    {
+        if (this->m_played_id == -1)
+        {
+            return -1;
+        }
+
+        if (this->m_played_id < this->m_npc[npc_id].second)
+        {
+            return this->m_played_id + 1;
+        }
+
+        return -1;
+    }
+
+    if (this->m_shuffle == "loop")
+    {
+        if (this->m_played_id < this->m_npc[npc_id].second)
+        {
+            return this->m_played_id + 1;
+        }
+    }
+
+    return 0;
+}
 
 void Script_SoundNPC::stop(const std::uint16_t& obj_id) {}
 
