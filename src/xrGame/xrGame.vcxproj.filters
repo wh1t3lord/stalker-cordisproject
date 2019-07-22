@@ -3148,6 +3148,33 @@
     <Filter Include="Cordis\Scripts\Entities\Sound\Private">
       <UniqueIdentifier>{18bb6c06-351e-423e-8c76-f6e2a11a30f8}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Cordis\Scripts\Managers\News">
+      <UniqueIdentifier>{ec87883e-2403-46f8-85ac-a6cf78435617}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Managers\News\Public">
+      <UniqueIdentifier>{a37345f5-6b51-400b-8190-dcddb096f706}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Managers\News\Private">
+      <UniqueIdentifier>{dce376c1-aea7-42d4-ac46-953fa7278d31}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Managers\Surge">
+      <UniqueIdentifier>{7864f868-17b9-4a60-ae47-c5461963ac21}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Managers\Surge\Public">
+      <UniqueIdentifier>{025d6783-6130-4bd6-8800-96b7ad37543e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Managers\Surge\Private">
+      <UniqueIdentifier>{3bc2c281-af85-42cf-a0d7-c8c7a877fbae}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Managers\Travel">
+      <UniqueIdentifier>{2df9a8e5-7780-46c3-b02b-541a8d1d855a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Managers\Travel\Public">
+      <UniqueIdentifier>{deee48a5-069f-4aeb-abe2-6997db85b993}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Managers\Travel\Private">
+      <UniqueIdentifier>{993e66ab-9eb7-4880-a07b-238d16459a11}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="mt_config.h">
@@ -8144,6 +8171,18 @@
     <ClInclude Include="Script_EntitySounds.h">
       <Filter>Cordis\Scripts\Entities\Sound\Public</Filter>
     </ClInclude>
+    <ClInclude Include="Script_NewsManager.h">
+      <Filter>Cordis\Scripts\Managers\News\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Script_XR_Condition.h">
+      <Filter>Cordis\Scripts\XR\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Script_SurgeManager.h">
+      <Filter>Cordis\Scripts\Managers\Surge\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Script_TravelManager.h">
+      <Filter>Cordis\Scripts\Managers\Travel\Public</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="damage_manager.cpp">
@@ -12260,6 +12299,15 @@
     </ClCompile>
     <ClCompile Include="Script_EntitySounds.cpp">
       <Filter>Cordis\Scripts\Entities\Sound\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Script_NewsManager.cpp">
+      <Filter>Cordis\Scripts\Managers\News\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Script_SurgeManager.cpp">
+      <Filter>Cordis\Scripts\Managers\Surge\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Script_TravelManager.cpp">
+      <Filter>Cordis\Scripts\Managers\Travel\Private</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

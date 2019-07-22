@@ -1501,6 +1501,7 @@ $(xrLibDir);$(xrSdkDir)DXSDK/Lib/$(PlatformShortName);
     <ClInclude Include="script_monster_hit_info.h" />
     <ClInclude Include="script_movement_action.h" />
     <ClInclude Include="script_movement_action_inline.h" />
+    <ClInclude Include="Script_NewsManager.h" />
     <ClInclude Include="script_object.h" />
     <ClInclude Include="script_object_action.h" />
     <ClInclude Include="script_object_action_inline.h" />
@@ -1522,9 +1523,12 @@ $(xrLibDir);$(xrSdkDir)DXSDK/Lib/$(PlatformShortName);
     <ClInclude Include="script_sound_info.h" />
     <ClInclude Include="script_sound_inline.h" />
     <ClInclude Include="Script_StoryObject.h" />
+    <ClInclude Include="Script_SurgeManager.h" />
+    <ClInclude Include="Script_TravelManager.h" />
     <ClInclude Include="Script_UI_MainMenu.h" />
     <ClInclude Include="script_watch_action.h" />
     <ClInclude Include="script_watch_action_inline.h" />
+    <ClInclude Include="Script_XR_Condition.h" />
     <ClInclude Include="Script_XR_Logic.h" />
     <ClInclude Include="Script_XR_Sound.h" />
     <ClInclude Include="script_zone.h" />
@@ -3537,6 +3541,7 @@ $(xrLibDir);$(xrSdkDir)DXSDK/Lib/$(PlatformShortName);
       <PrecompiledHeaderFile>pch_script.h</PrecompiledHeaderFile>
       <PrecompiledHeaderOutputFile>$(IntDir)$(ProjectName)_script.pch</PrecompiledHeaderOutputFile>
     </ClCompile>
+    <ClCompile Include="Script_NewsManager.cpp" />
     <ClCompile Include="script_object.cpp" />
     <ClCompile Include="script_object_action.cpp" />
     <ClCompile Include="script_object_action_script.cpp">
@@ -3582,6 +3587,8 @@ $(xrLibDir);$(xrSdkDir)DXSDK/Lib/$(PlatformShortName);
       <PrecompiledHeaderOutputFile>$(IntDir)$(ProjectName)_script.pch</PrecompiledHeaderOutputFile>
     </ClCompile>
     <ClCompile Include="Script_StoryObject.cpp" />
+    <ClCompile Include="Script_SurgeManager.cpp" />
+    <ClCompile Include="Script_TravelManager.cpp" />
     <ClCompile Include="Script_UI_MainMenu.cpp" />
     <ClCompile Include="script_watch_action.cpp" />
     <ClCompile Include="script_watch_action_script.cpp">

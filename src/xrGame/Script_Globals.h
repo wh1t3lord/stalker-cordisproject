@@ -6,8 +6,16 @@
 #include "date_time.h"
 #include "alife_simulator_base.h"
 #include "alife_time_manager.h"
+#include "relation_registry.h"
 #include "Script_Database.h"
 #include "Script_SoundManager.h"
+#include "Script_NewsManager.h"
+#include "Script_SimulationBoard.h"
+#include "Script_SurgeManager.h"
+#include "Script_XR_Condition.h"
+#include "Script_XR_Logic.h"
+#include "Script_XR_Sound.h"
+
 namespace Cordis
 {
 namespace Scripts
@@ -134,6 +142,134 @@ inline float cfg_get_number(const CInifile* char_ini, const xr_string& section, 
 
 } // namespace Utils
 
+namespace Game
+{
+inline LPCSTR translate_string(LPCSTR str) { return *StringTable().translate(str); }
+} // namespace Game
+
+inline bool has_alife_info(LPCSTR info_id)
+{
+    const KNOWN_INFO_VECTOR& known_info = ai().alife().registry((CInfoPortionRegistry*)0).objects()[0];
+    if (!known_info.size())
+        return (false);
+
+    if (std::find_if(known_info.begin(), known_info.end(), CFindByIDPred(info_id)) == known_info.end())
+        return (false);
+
+    return (true);
+}
+
+inline int get_general_goodwill_between(const std::uint16_t& from, const std::uint16_t& to)
+{
+    CHARACTER_GOODWILL presonal_goodwill = RELATION_REGISTRY().GetGoodwill(from, to);
+    VERIFY(presonal_goodwill != NO_GOODWILL);
+
+    CSE_ALifeTraderAbstract* from_obj = smart_cast<CSE_ALifeTraderAbstract*>(ai().alife().objects().object(from));
+    CSE_ALifeTraderAbstract* to_obj = smart_cast<CSE_ALifeTraderAbstract*>(ai().alife().objects().object(to));
+
+    if (!from_obj || !to_obj)
+    {
+        //         GEnv.ScriptEngine->script_log(LuaMessageType::Error,
+        //             "RELATION_REGISTRY::get_general_goodwill_between  : cannot convert obj to
+        //             CSE_ALifeTraderAbstract!");
+        R_ASSERT2(false, "object is null!");
+        return (0);
+    }
+    CHARACTER_GOODWILL community_to_obj_goodwill = RELATION_REGISTRY().GetCommunityGoodwill(from_obj->Community(), to);
+    CHARACTER_GOODWILL community_to_community_goodwill =
+        RELATION_REGISTRY().GetCommunityRelation(from_obj->Community(), to_obj->Community());
+
+    return presonal_goodwill + community_to_obj_goodwill + community_to_community_goodwill;
+}
+
+inline bool check_squad_for_enemies(CSE_ALifeOnlineOfflineGroup* squad)
+{
+    if (!squad)
+    {
+        R_ASSERT2(false, "object is null!");
+        return false;
+    }
+
+    for (std::pair<std::uint16_t, CSE_ALifeMonsterAbstract*> it : squad->squad_members())
+    {
+        if (it.second)
+        {
+            if (get_general_goodwill_between(it.second->ID, ai().alife().graph().actor()->ID))
+                return true;
+        }
+    }
+
+    return false;
+}
+
+inline bool IsMonster(CScriptGameObject* object, int class_id = 0)
+{
+    if (!object)
+    {
+        R_ASSERT2(false, "object is null!");
+        return false;
+    }
+
+    int result = class_id ? class_id : object->clsid();
+
+    return (getMonsterClasses()[result] == true);
+}
+
+inline bool IsStalker(CScriptGameObject* object, int class_id = 0)
+{
+    if (!object)
+    {
+        R_ASSERT2(false, "object in null!");
+        return false;
+    }
+
+    int result = class_id ? class_id : object->clsid();
+
+    return (getStalkerClasses()[class_id] == true);
+}
+
+inline bool IsArtefact(CScriptGameObject* object, int class_id = 0)
+{
+    if (!object)
+    {
+        R_ASSERT2(false, "object in null!");
+        return false;
+    }
+
+    int result = class_id ? class_id : object->clsid();
+
+    return (getArtefactClasses()[class_id] == true);
+}
+
+inline bool IsWeapon(CScriptGameObject* object, int class_id = 0)
+{
+    if (!object)
+    {
+        R_ASSERT2(false, "object is null!");
+        return false;
+    }
+
+    int result = class_id ? class_id : object->clsid();
+
+    return (getWeaponClasses()[class_id] == true);
+}
+
+inline xr_string character_community(CScriptGameObject* object)
+{
+    if (!object)
+    {
+        R_ASSERT2(false, "object in null!");
+        return "monster";
+    }
+
+    if (IsStalker(object))
+    {
+        return object->CharacterCommunity();
+    }
+
+    return "monster";
+}
+
 constexpr const char* SAVE_MARKER_MODE_SAVE = "save";
 
 inline bool is_level_present(void) { return (!!g_pGameLevel); }
@@ -143,6 +279,31 @@ inline bool is_device_paused(void) { return !!Device.Paused(); }
 inline void set_device_paused(bool b) { Device.Pause(b, TRUE, FALSE, "set_device_paused_script"); }
 
 inline const CInifile* get_system_ini(void) { return (pSettings); }
+
+#pragma region Instances
+inline static xr_map<int, bool>& getMonsterClasses(void) noexcept
+{
+    static xr_map<int, bool> instance;
+    return instance;
+}
+
+inline static xr_map<int, bool>& getStalkerClasses(void) noexcept
+{
+    static xr_map<int, bool> instance;
+    return instance;
+}
+
+inline static xr_map<int, bool>& getWeaponClasses(void) noexcept
+{
+    static xr_map<int, bool> instance;
+    return instance;
+}
+
+inline static xr_map<int, bool>& getArtefactClasses(void) noexcept
+{
+    static xr_map<int, bool> instance;
+    return instance;
+}
 
 inline static xr_map<xr_string, unsigned int>& SaveMarkers(void) noexcept
 {
@@ -161,6 +322,8 @@ inline static xr_map<xr_string, unsigned int>& STypes(void) noexcept
     static xr_map<xr_string, unsigned int> stypes;
     return stypes;
 }
+
+#pragma endregion
 
 inline void load_scheme(const xr_string& filename, const xr_string& scheme, unsigned int stype)
 {

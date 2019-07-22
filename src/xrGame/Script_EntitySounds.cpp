@@ -205,6 +205,7 @@ bool Script_SoundNPC::play(const std::uint16_t& npc_id, xr_string& faction, std:
     CScriptGameObject* npc = DataBase::Storage::getInstance().getStorage()[npc_id].m_object;
     if (!npc)
     {
+        R_ASSERT2(false, "Object is null!");
         return false;
     }
 
@@ -240,14 +241,56 @@ bool Script_SoundNPC::play(const std::uint16_t& npc_id, xr_string& faction, std:
             this->m_played_id);
 
     std::uint32_t table_id = this->m_played_id + 1;
-    xr_string& sound = this->m_sound_path[npc_id][table_id];
+    xr_string& sound_name = this->m_sound_path[npc_id][table_id];
 
-    if (sound.size())
+    if (sound_name.size())
     {
-        sound.append("_pda.ogg");
-        if (FS.exist("$game_sounds$", sound.c_str()) && npc->Position().distance_to_sqr(DataBase::))
+        sound_name.append("_pda.ogg");
+        if (FS.exist("$game_sounds$", sound_name.c_str()) &&
+            (npc->Position().distance_to_sqr(DataBase::Storage::getInstance().getActor()->Position()) >= 100))
         {
-            // Lord: доделать!
+            if (this->m_pda_sound_object)
+            {
+                if (this->m_pda_sound_object->IsPlaying())
+                {
+                    this->m_pda_sound_object->Stop();
+                }
+            }
+
+            this->m_pda_sound_object = new CScriptSound(sound_name.c_str());
+            this->m_pda_sound_object->SetVolume(0.8f);
+            this->m_pda_sound_object->PlayAtPos(
+                DataBase::Storage::getInstance().getActor(), Fvector().set(0, 0, 0), this->m_delay_sound, sm_2D);
+        }
+    }
+
+    // Lord: проверить
+    xr_string& replaced_string = sound_name.replace(sound_name.begin(), sound_name.end(), '\\', '_');
+
+    if (this->m_group_sound)
+        this->m_can_play_group_sound = true;
+    else
+        this->m_can_play_sound[npc_id] = true;
+    xr_string translated_string = Globals::Game::translate_string(replaced_string.c_str());
+    if (translated_string != replaced_string)
+    {
+        if (!this->m_faction.size())
+        {
+            this->m_faction = Globals::character_community(npc);
+        }
+
+        if (!this->m_point.size())
+        {
+            this->m_point = npc->ProfileName();
+            this->m_point.append("_name");
+            xr_string translated = Globals::Game::translate_string(this->m_point.c_str());
+            if (translated.size())
+            {
+                if (translated == this->m_point)
+                {
+                    this->m_point = "";
+                }
+            }
         }
     }
 

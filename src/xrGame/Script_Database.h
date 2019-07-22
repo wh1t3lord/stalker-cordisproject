@@ -87,13 +87,24 @@ public:
     }
 
     inline xr_map<std::uint16_t, Storage_Data>& getStorage(void) noexcept { return this->m_storage; }
+    inline CScriptGameObject* getActor(void) { return this->m_actor; }
+    inline void setActor(CScriptGameObject* object)
+    {
+        if (!object)
+        {
+            R_ASSERT2(false, "Can't set actor because the object was null!");
+            return;
+        }
 
+        this->m_actor = object;
+    }
     Storage(const Storage&) = delete;
     Storage& operator=(const Storage&) = delete;
     Storage(Storage&&) = delete;
     Storage& operator=(Storage&&) = delete;
 
 private:
+    CScriptGameObject* m_actor;
     xr_map<std::uint16_t, Storage_Data> m_storage;
 };
 

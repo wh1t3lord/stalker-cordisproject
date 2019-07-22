@@ -8,7 +8,10 @@ namespace Cordis
 {
 namespace Scripts
 {
-    // Lord: доделать этот скрипт!
+// Lord: доделать этот скрипт!
+
+// Lord: подумать над названием константы правильно ли?
+constexpr int SIMBOARD_SIMULATION_DISTANCE = 150;
 
 struct SimulationActivitiesType
 {
@@ -38,28 +41,677 @@ struct SimulationActivitiesType
         lair
     };
 
-    xr_map<std::uint32_t, std::function<bool(CSE_ALifeObject*, CSE_ALifeObject*)>> m_squad;
-    xr_map<std::uint32_t, std::function<bool(CSE_ALifeObject*, CSE_ALifeObject*)>> m_smart;
-    std::function<bool(CSE_ALifeObject*, CSE_ALifeObject*)> m_actor;
+    xr_map<std::uint32_t, std::function<bool(CSE_ALifeOnlineOfflineGroup*, CSE_ALifeObject*)>> m_squad;
+    xr_map<std::uint32_t, std::function<bool(CSE_ALifeOnlineOfflineGroup*, CSE_ALifeObject*)>> m_smart;
+    std::function<bool(CSE_ALifeOnlineOfflineGroup*, CSE_ALifeObject*)> m_actor;
 };
 
+// @ WA - without arguments
 class Script_SimulationBoard
 {
 private:
     Script_SimulationBoard(void) : m_setting_ini("misc\\simulation.ltx")
     {
         this->m_squad_ltx = Globals::get_system_ini();
+        this->m_simulation_activities[SimulationActivitiesType::stalker].m_smart[SimulationActivitiesType::base] =
+            [](CSE_ALifeOnlineOfflineGroup* squad, CSE_ALifeObject* target) -> bool {
+            if (!squad || !target)
+            {
+                R_ASSERT2(false, "object is null!");
+                return false;
+            }
 
-        SimulationActivitiesType _stalker; // Lord: немного проебался там где используется аргумент squad заменить на Script_SimulationSquad*
-        _stalker.m_smart[SimulationActivitiesType::base] = [](CSE_ALifeObject* squad, CSE_ALifeObject* target) -> bool {
-
+            return ((Globals::in_time_interval(18, 8) && (!XR_CONDITION::is_surge_started())) &&
+                (Globals::check_squad_for_enemies(squad)) &&
+                (target->name() == "zat_stalker_base_smart" || target->name() == "jup_a6" ||
+                    target->name() == "pri_a16"));
         };
 
-        this->m_simulation_activities[SimulationActivitiesType::stalker];
+        // @ WA
+        this->m_simulation_activities[SimulationActivitiesType::stalker].m_smart[SimulationActivitiesType::surge] =
+            [](CSE_ALifeOnlineOfflineGroup* squad, CSE_ALifeObject* target) -> bool {
+            return XR_CONDITION::is_surge_started();
+        };
 
+        // @ WA
+        this->m_simulation_activities[SimulationActivitiesType::stalker].m_smart[SimulationActivitiesType::territory] =
+            [](CSE_ALifeOnlineOfflineGroup* squad, CSE_ALifeObject* target) -> bool {
+            return Globals::in_time_interval(8, 18) && (!XR_CONDITION::is_surge_started());
+        };
 
+        // @ WA
+        this->m_simulation_activities[SimulationActivitiesType::stalker].m_smart[SimulationActivitiesType::resource] =
+            [](CSE_ALifeOnlineOfflineGroup* squad, CSE_ALifeObject* target) -> bool {
+            return Globals::in_time_interval(8, 18) && (!XR_CONDITION::is_surge_started());
+        };
 
+        this->m_simulation_activities[SimulationActivitiesType::stalker].m_actor = nullptr;
 
+        this->m_simulation_activities[SimulationActivitiesType::bandit].m_squad[SimulationActivitiesType::stalker] =
+            [](CSE_ALifeOnlineOfflineGroup* squad, CSE_ALifeObject* target) -> bool {
+            if (!squad || !target)
+            {
+                R_ASSERT2(false, "Object is null!");
+                return false;
+            }
+
+            return Globals::in_time_interval(8, 21) &&
+                (!XR_CONDITION::is_surge_started() &&
+                    (Globals::sim_dist_to(squad, target) <= SIMBOARD_SIMULATION_DISTANCE));
+        };
+
+        this->m_simulation_activities[SimulationActivitiesType::bandit].m_smart[SimulationActivitiesType::base] =
+            [](CSE_ALifeOnlineOfflineGroup* squad, CSE_ALifeObject* target) -> bool {
+            if (!squad || !target)
+            {
+                R_ASSERT2(false, "Object is null!");
+                return false;
+            }
+
+            return Globals::in_time_interval(21, 8) &&
+                (!XR_CONDITION::is_surge_started() && (!Globals::check_squad_for_enemies(squad)) &&
+                    (target->name() == "zat_stalker_base_smart" || target->name() == "jup_a10_smart_terrain"));
+        };
+
+        // @ WA
+        this->m_simulation_activities[SimulationActivitiesType::bandit].m_smart[SimulationActivitiesType::territory] =
+            [](CSE_ALifeOnlineOfflineGroup* squad, CSE_ALifeObject* target) -> bool {
+            return Globals::in_time_interval(8, 21) && (!XR_CONDITION::is_surge_started());
+        };
+
+        // @ WA
+        this->m_simulation_activities[SimulationActivitiesType::bandit].m_smart[SimulationActivitiesType::surge] =
+            [](CSE_ALifeOnlineOfflineGroup* squad, CSE_ALifeObject* target) -> bool {
+            return XR_CONDITION::is_surge_started();
+        };
+
+        this->m_simulation_activities[SimulationActivitiesType::bandit].m_actor = [](CSE_ALifeOnlineOfflineGroup* squad,
+                                                                                      CSE_ALifeObject* target) -> bool {
+            if (!squad || !target)
+            {
+                R_ASSERT2(false, "Object is null!");
+                return false;
+            }
+
+            return Globals::has_alife_info("sim_bandit_attack_harder") &&
+                (Globals::sim_dist_to(squad, target) <= SIMBOARD_SIMULATION_DISTANCE);
+        };
+
+        this->m_simulation_activities[SimulationActivitiesType::dolg].m_squad[SimulationActivitiesType::freedom] =
+            [](CSE_ALifeOnlineOfflineGroup* squad, CSE_ALifeObject* target) -> bool {
+            if (!squad || !target)
+            {
+                R_ASSERT2(false, "Object is null!");
+                return false;
+            }
+
+            return Globals::in_time_interval(8, 19) && (!XR_CONDITION::is_surge_started()) &&
+                (Globals::sim_dist_to(squad, target) <= SIMBOARD_SIMULATION_DISTANCE);
+        };
+
+        this->m_simulation_activities[SimulationActivitiesType::dolg]
+            .m_squad[SimulationActivitiesType::monster_predatory_day] = [](CSE_ALifeOnlineOfflineGroup* squad,
+                                                                            CSE_ALifeObject* target) -> bool {
+            if (!squad || !target)
+            {
+                R_ASSERT2(false, "object is null!");
+                return false;
+            }
+
+            return Globals::in_time_interval(8, 19) && (!XR_CONDITION::is_surge_started()) &&
+                (Globals::sim_dist_to(squad, target) <= SIMBOARD_SIMULATION_DISTANCE);
+        };
+
+        this->m_simulation_activities[SimulationActivitiesType::dolg]
+            .m_squad[SimulationActivitiesType::monster_predatory_night] = [](CSE_ALifeOnlineOfflineGroup* squad,
+                                                                              CSE_ALifeObject* target) -> bool {
+            if (!squad || !target)
+            {
+                R_ASSERT2(false, "Object is null!");
+                return false;
+            }
+            return Globals::in_time_interval(8, 19) && (!XR_CONDITION::is_surge_started()) &&
+                (Globals::sim_dist_to(squad, target) <= SIMBOARD_SIMULATION_DISTANCE);
+        };
+
+        this->m_simulation_activities[SimulationActivitiesType::dolg]
+            .m_squad[SimulationActivitiesType::monster_vegetarian] = [](CSE_ALifeOnlineOfflineGroup* squad,
+                                                                         CSE_ALifeObject* target) -> bool {
+            if (!squad || !target)
+            {
+                R_ASSERT2(false, "Object is null!");
+                return false;
+            }
+            return Globals::in_time_interval(8, 19) && (!XR_CONDITION::is_surge_started()) &&
+                (Globals::sim_dist_to(squad, target) <= SIMBOARD_SIMULATION_DISTANCE);
+        };
+
+        this->m_simulation_activities[SimulationActivitiesType::dolg]
+            .m_squad[SimulationActivitiesType::monster_zombied_day] = [](CSE_ALifeOnlineOfflineGroup* squad,
+                                                                          CSE_ALifeObject* target) -> bool {
+            if (!squad || !target)
+            {
+                R_ASSERT2(false, "Object is null!");
+                return false;
+            }
+
+            return Globals::in_time_interval(8, 19) && (!XR_CONDITION::is_surge_started()) &&
+                (Globals::sim_dist_to(squad, target) <= SIMBOARD_SIMULATION_DISTANCE);
+        };
+
+        this->m_simulation_activities[SimulationActivitiesType::dolg]
+            .m_squad[SimulationActivitiesType::monster_special] = [](CSE_ALifeOnlineOfflineGroup* squad,
+                                                                      CSE_ALifeObject* target) -> bool {
+            if (!squad || !target)
+            {
+                R_ASSERT2(false, "Object is null!");
+                return false;
+            }
+
+            return Globals::in_time_interval(8, 19) && (!XR_CONDITION::is_surge_started()) &&
+                (Globals::sim_dist_to(squad, target) <= SIMBOARD_SIMULATION_DISTANCE);
+        };
+
+        this->m_simulation_activities[SimulationActivitiesType::dolg].m_smart[SimulationActivitiesType::base] =
+            [](CSE_ALifeOnlineOfflineGroup* squad, CSE_ALifeObject* target) -> bool {
+            if (!squad || !target)
+            {
+                R_ASSERT2(false, "Object is null!");
+                return false;
+            }
+
+            return Globals::in_time_interval(19, 8) && (!XR_CONDITION::is_surge_started()) &&
+                (!Globals::check_squad_for_enemies(squad)) &&
+                (target->name() == "zat_stalker_base_smart" || target->name() == "jup_a6" ||
+                    target->name() == "pri_a16");
+        };
+
+        // @ WA
+        this->m_simulation_activities[SimulationActivitiesType::dolg].m_smart[SimulationActivitiesType::territory] =
+            [](CSE_ALifeOnlineOfflineGroup* squad, CSE_ALifeObject* target) -> bool {
+            return Globals::in_time_interval(8, 19) && (!XR_CONDITION::is_surge_started());
+        };
+
+        // @ WA
+        this->m_simulation_activities[SimulationActivitiesType::dolg].m_smart[SimulationActivitiesType::surge] =
+            [](CSE_ALifeOnlineOfflineGroup* squad, CSE_ALifeObject* target) -> bool {
+            return XR_CONDITION::is_surge_started();
+        };
+
+        this->m_simulation_activities[SimulationActivitiesType::dolg].m_actor = nullptr;
+
+        this->m_simulation_activities[SimulationActivitiesType::freedom].m_squad[SimulationActivitiesType::dolg] =
+            [](CSE_ALifeOnlineOfflineGroup* squad, CSE_ALifeObject* target) -> bool {
+            if (!squad || !target)
+            {
+                R_ASSERT2(false, "object is null!");
+                return false;
+            }
+
+            return Globals::in_time_interval(8, 19) && (!XR_CONDITION::is_surge_started()) &&
+                (Globals::sim_dist_to(squad, target) <= SIMBOARD_SIMULATION_DISTANCE);
+        };
+
+        this->m_simulation_activities[SimulationActivitiesType::freedom].m_smart[SimulationActivitiesType::base] =
+            [](CSE_ALifeOnlineOfflineGroup* squad, CSE_ALifeObject* target) -> bool {
+            if (!squad || !target)
+            {
+                R_ASSERT2(false, "object is null!");
+                return false;
+            }
+
+            return Globals::in_time_interval(19, 8) && (!XR_CONDITION::is_surge_started()) &&
+                (!Globals::check_squad_for_enemies(squad)) &&
+                (target->name() == "zat_stalker_base_smart" || target->name() == "jup_a6" ||
+                    target->name() == "pri_a16");
+        };
+
+        // @ WA
+        this->m_simulation_activities[SimulationActivitiesType::freedom].m_smart[SimulationActivitiesType::territory] =
+            [](CSE_ALifeOnlineOfflineGroup* squad, CSE_ALifeObject* target) -> bool {
+            return Globals::in_time_interval(8, 19) && (!XR_CONDITION::is_surge_started());
+        };
+
+        // @ WA
+        this->m_simulation_activities[SimulationActivitiesType::freedom].m_smart[SimulationActivitiesType::surge] =
+            [](CSE_ALifeOnlineOfflineGroup* squad, CSE_ALifeObject* target) -> bool {
+            return XR_CONDITION::is_surge_started();
+        };
+
+        this->m_simulation_activities[SimulationActivitiesType::freedom].m_actor = nullptr;
+
+        // @ WA
+        this->m_simulation_activities[SimulationActivitiesType::killer].m_smart[SimulationActivitiesType::territory] =
+            [](CSE_ALifeOnlineOfflineGroup* squad, CSE_ALifeObject* target) -> bool {
+            return (!XR_CONDITION::is_surge_started());
+        };
+
+        // @ WA
+        this->m_simulation_activities[SimulationActivitiesType::killer].m_smart[SimulationActivitiesType::surge] =
+            [](CSE_ALifeOnlineOfflineGroup* squad, CSE_ALifeObject* target) -> bool {
+            return (XR_CONDITION::is_surge_started());
+        };
+
+        this->m_simulation_activities[SimulationActivitiesType::killer].m_actor = [](CSE_ALifeOnlineOfflineGroup* squad,
+                                                                                      CSE_ALifeObject* target) -> bool {
+            if (!squad || !target)
+            {
+                R_ASSERT2(false, "object is null!");
+                return false;
+            }
+
+            return Globals::sim_dist_to(squad, target) <= SIMBOARD_SIMULATION_DISTANCE;
+        };
+
+        // @ WA
+        this->m_simulation_activities[SimulationActivitiesType::zombied].m_smart[SimulationActivitiesType::territory] =
+            [](CSE_ALifeOnlineOfflineGroup* squad, CSE_ALifeObject* target) -> bool { return true; };
+
+        // @ WA
+        this->m_simulation_activities[SimulationActivitiesType::zombied].m_smart[SimulationActivitiesType::lair] =
+            [](CSE_ALifeOnlineOfflineGroup* squad, CSE_ALifeObject* target) -> bool { return true; };
+
+        this->m_simulation_activities[SimulationActivitiesType::zombied].m_actor = nullptr;
+
+        // @ WA
+        this->m_simulation_activities[SimulationActivitiesType::monster_predatory_day]
+            .m_squad[SimulationActivitiesType::monster_vegetarian] = [](CSE_ALifeOnlineOfflineGroup* squad,
+                                                                         CSE_ALifeObject* target) -> bool {
+            return Globals::in_time_interval(6, 19);
+        };
+
+        this->m_simulation_activities[SimulationActivitiesType::monster_predatory_day]
+            .m_squad[SimulationActivitiesType::stalker] = [](CSE_ALifeOnlineOfflineGroup* squad,
+                                                              CSE_ALifeObject* target) -> bool {
+            if (!squad || !target)
+            {
+                R_ASSERT2(false, "object is null!");
+                return false;
+            }
+
+            return Globals::in_time_interval(6, 19) &&
+                (Globals::sim_dist_to(squad, target) <= SIMBOARD_SIMULATION_DISTANCE);
+        };
+
+        this->m_simulation_activities[SimulationActivitiesType::monster_predatory_day]
+            .m_squad[SimulationActivitiesType::bandit] = [](CSE_ALifeOnlineOfflineGroup* squad,
+                                                             CSE_ALifeObject* target) -> bool {
+            if (!squad || !target)
+            {
+                R_ASSERT2(false, "object is null!");
+                return false;
+            }
+
+            return Globals::in_time_interval(6, 19) &&
+                (Globals::sim_dist_to(squad, target) <= SIMBOARD_SIMULATION_DISTANCE);
+        };
+
+        this->m_simulation_activities[SimulationActivitiesType::monster_predatory_day]
+            .m_squad[SimulationActivitiesType::dolg] = [](CSE_ALifeOnlineOfflineGroup* squad,
+                                                           CSE_ALifeObject* target) -> bool {
+            if (!squad || !target)
+            {
+                R_ASSERT2(false, "object is null!");
+                return false;
+            }
+
+            return Globals::in_time_interval(6, 19) &&
+                (Globals::sim_dist_to(squad, target) <= SIMBOARD_SIMULATION_DISTANCE);
+        };
+
+        this->m_simulation_activities[SimulationActivitiesType::monster_predatory_day]
+            .m_squad[SimulationActivitiesType::freedom] = [](CSE_ALifeOnlineOfflineGroup* squad,
+                                                              CSE_ALifeObject* target) -> bool {
+            if (!squad || !target)
+            {
+                R_ASSERT2(false, "object is null!");
+                return false;
+            }
+
+            return Globals::in_time_interval(6, 19) &&
+                (Globals::sim_dist_to(squad, target) <= SIMBOARD_SIMULATION_DISTANCE);
+        };
+
+        this->m_simulation_activities[SimulationActivitiesType::monster_predatory_day]
+            .m_squad[SimulationActivitiesType::killer] = [](CSE_ALifeOnlineOfflineGroup* squad,
+                                                             CSE_ALifeObject* target) -> bool {
+            if (!squad || !target)
+            {
+                R_ASSERT2(false, "object is null!");
+                return false;
+            }
+            return Globals::in_time_interval(6, 19) &&
+                (Globals::sim_dist_to(squad, target) <= SIMBOARD_SIMULATION_DISTANCE);
+        };
+
+        // @ WA
+        this->m_simulation_activities[SimulationActivitiesType::monster_predatory_day]
+            .m_smart[SimulationActivitiesType::territory] = [](CSE_ALifeOnlineOfflineGroup* squad,
+                                                                CSE_ALifeObject* target) -> bool {
+            return Globals::in_time_interval(6, 19);
+        };
+
+        // @ WA
+        this->m_simulation_activities[SimulationActivitiesType::monster_predatory_day]
+            .m_smart[SimulationActivitiesType::lair] = [](CSE_ALifeOnlineOfflineGroup* squad,
+                                                           CSE_ALifeObject* target) -> bool {
+            return Globals::in_time_interval(19, 6);
+        };
+
+        this->m_simulation_activities[SimulationActivitiesType::monster_predatory_day].m_actor =
+            [](CSE_ALifeOnlineOfflineGroup* squad, CSE_ALifeObject* target) -> bool {
+            if (!squad || !target)
+            {
+                R_ASSERT2(false, "object is null!");
+                return false;
+            }
+
+            return Globals::in_time_interval(19, 6) &&
+                (Globals::sim_dist_to(squad, target) <= SIMBOARD_SIMULATION_DISTANCE);
+        };
+
+        // @ WA
+        this->m_simulation_activities[SimulationActivitiesType::monster_predatory_night]
+            .m_squad[SimulationActivitiesType::monster_vegetarian] = [](CSE_ALifeOnlineOfflineGroup* squad,
+                                                                         CSE_ALifeObject* target) -> bool {
+            return Globals::in_time_interval(21, 6);
+        };
+
+        this->m_simulation_activities[SimulationActivitiesType::monster_predatory_night]
+            .m_squad[SimulationActivitiesType::stalker] = [](CSE_ALifeOnlineOfflineGroup* squad,
+                                                              CSE_ALifeObject* target) -> bool {
+            if (!squad || !target)
+            {
+                R_ASSERT2(false, "object is null!");
+                return false;
+            }
+
+            return Globals::in_time_interval(19, 6) &&
+                (Globals::sim_dist_to(squad, target) <= SIMBOARD_SIMULATION_DISTANCE);
+        };
+
+        this->m_simulation_activities[SimulationActivitiesType::monster_predatory_night]
+            .m_squad[SimulationActivitiesType::bandit] = [](CSE_ALifeOnlineOfflineGroup* squad,
+                                                             CSE_ALifeObject* target) -> bool {
+            if (!squad || !target)
+            {
+                R_ASSERT2(false, "object is null!");
+                return false;
+            }
+
+            return Globals::in_time_interval(19, 6) &&
+                (Globals::sim_dist_to(squad, target) <= SIMBOARD_SIMULATION_DISTANCE);
+        };
+
+        this->m_simulation_activities[SimulationActivitiesType::monster_predatory_night]
+            .m_squad[SimulationActivitiesType::dolg] = [](CSE_ALifeOnlineOfflineGroup* squad,
+                                                           CSE_ALifeObject* target) -> bool {
+            if (!squad || !target)
+            {
+                R_ASSERT2(false, "object is null!");
+                return false;
+            }
+
+            return Globals::in_time_interval(19, 6) &&
+                (Globals::sim_dist_to(squad, target) <= SIMBOARD_SIMULATION_DISTANCE);
+        };
+
+        this->m_simulation_activities[SimulationActivitiesType::monster_predatory_night]
+            .m_squad[SimulationActivitiesType::freedom] = [](CSE_ALifeOnlineOfflineGroup* squad,
+                                                              CSE_ALifeObject* target) -> bool {
+            if (!squad || !target)
+            {
+                R_ASSERT2(false, "object is null!");
+                return false;
+            }
+
+            return Globals::in_time_interval(19, 6) &&
+                (Globals::sim_dist_to(squad, target) <= SIMBOARD_SIMULATION_DISTANCE);
+        };
+
+        this->m_simulation_activities[SimulationActivitiesType::monster_predatory_night]
+            .m_squad[SimulationActivitiesType::killer] = [](CSE_ALifeOnlineOfflineGroup* squad,
+                                                             CSE_ALifeObject* target) -> bool {
+            if (!squad || !target)
+            {
+                R_ASSERT2(false, "object is null!");
+                return false;
+            }
+
+            return Globals::in_time_interval(19, 6) &&
+                (Globals::sim_dist_to(squad, target) <= SIMBOARD_SIMULATION_DISTANCE);
+        };
+
+        // @ WA
+        this->m_simulation_activities[SimulationActivitiesType::monster_predatory_night]
+            .m_smart[SimulationActivitiesType::territory] = [](CSE_ALifeOnlineOfflineGroup* squad,
+                                                                CSE_ALifeObject* target) -> bool {
+            return Globals::in_time_interval(19, 6);
+        };
+
+        // @ WA
+        this->m_simulation_activities[SimulationActivitiesType::monster_predatory_night]
+            .m_smart[SimulationActivitiesType::lair] = [](CSE_ALifeOnlineOfflineGroup* squad,
+                                                           CSE_ALifeObject* target) -> bool {
+            return Globals::in_time_interval(6, 19);
+        };
+
+        this->m_simulation_activities[SimulationActivitiesType::monster_predatory_night].m_actor =
+            [](CSE_ALifeOnlineOfflineGroup* squad, CSE_ALifeObject* target) -> bool {
+            if (!squad || !target)
+            {
+                R_ASSERT2(false, "object is null!");
+                return false;
+            }
+
+            return Globals::in_time_interval(19, 6) &&
+                (Globals::sim_dist_to(squad, target) <= SIMBOARD_SIMULATION_DISTANCE);
+        };
+
+        // @ WA
+        this->m_simulation_activities[SimulationActivitiesType::monster_vegetarian]
+            .m_smart[SimulationActivitiesType::lair] = [](CSE_ALifeOnlineOfflineGroup* squad,
+                                                           CSE_ALifeObject* target) -> bool { return true; };
+
+        this->m_simulation_activities[SimulationActivitiesType::monster_vegetarian].m_actor =
+            [](CSE_ALifeOnlineOfflineGroup* squad, CSE_ALifeObject* target) -> bool {
+            if (!squad || !target)
+            {
+                R_ASSERT2(false, "object is null!");
+                return false;
+            }
+
+            return Globals::in_time_interval(19, 6) &&
+                (Globals::sim_dist_to(squad, target) <= SIMBOARD_SIMULATION_DISTANCE);
+        };
+
+        this->m_simulation_activities[SimulationActivitiesType::monster_zombied_day]
+            .m_squad[SimulationActivitiesType::stalker] = [](CSE_ALifeOnlineOfflineGroup* squad,
+                                                              CSE_ALifeObject* target) -> bool {
+            if (!squad || !target)
+            {
+                R_ASSERT2(false, "object is null!");
+                return false;
+            }
+
+            return Globals::in_time_interval(6, 19) &&
+                (Globals::sim_dist_to(squad, target) <= SIMBOARD_SIMULATION_DISTANCE);
+        };
+
+        this->m_simulation_activities[SimulationActivitiesType::monster_zombied_day]
+            .m_squad[SimulationActivitiesType::bandit] = [](CSE_ALifeOnlineOfflineGroup* squad,
+                                                             CSE_ALifeObject* target) -> bool {
+            if (!squad || !target)
+            {
+                R_ASSERT2(false, "object is null!");
+                return false;
+            }
+
+            return Globals::in_time_interval(6, 19) &&
+                (Globals::sim_dist_to(squad, target) <= SIMBOARD_SIMULATION_DISTANCE);
+        };
+
+        this->m_simulation_activities[SimulationActivitiesType::monster_zombied_day]
+            .m_squad[SimulationActivitiesType::dolg] = [](CSE_ALifeOnlineOfflineGroup* squad,
+                                                           CSE_ALifeObject* target) -> bool {
+            if (!squad || !target)
+            {
+                R_ASSERT2(false, "object is null!");
+                return false;
+            }
+
+            return Globals::in_time_interval(6, 19) &&
+                (Globals::sim_dist_to(squad, target) <= SIMBOARD_SIMULATION_DISTANCE);
+        };
+
+        this->m_simulation_activities[SimulationActivitiesType::monster_zombied_day]
+            .m_squad[SimulationActivitiesType::freedom] = [](CSE_ALifeOnlineOfflineGroup* squad,
+                                                              CSE_ALifeObject* target) -> bool {
+            if (!squad || !target)
+            {
+                R_ASSERT2(false, "object is null!");
+                return false;
+            }
+
+            return Globals::in_time_interval(6, 19) &&
+                (Globals::sim_dist_to(squad, target) <= SIMBOARD_SIMULATION_DISTANCE);
+        };
+
+        this->m_simulation_activities[SimulationActivitiesType::monster_zombied_day]
+            .m_squad[SimulationActivitiesType::killer] = [](CSE_ALifeOnlineOfflineGroup* squad,
+                                                             CSE_ALifeObject* target) -> bool {
+            if (!squad || !target)
+            {
+                R_ASSERT2(false, "object is null!");
+                return false;
+            }
+
+            return Globals::in_time_interval(6, 19) &&
+                (Globals::sim_dist_to(squad, target) <= SIMBOARD_SIMULATION_DISTANCE);
+        };
+
+        // @ WA
+        this->m_simulation_activities[SimulationActivitiesType::monster_zombied_day]
+            .m_smart[SimulationActivitiesType::territory] = [](CSE_ALifeOnlineOfflineGroup* squad,
+                                                                CSE_ALifeObject* target) -> bool {
+            return (!XR_CONDITION::is_surge_started());
+        };
+
+        // @ WA
+        this->m_simulation_activities[SimulationActivitiesType::monster_zombied_day]
+            .m_smart[SimulationActivitiesType::lair] = [](CSE_ALifeOnlineOfflineGroup* squad,
+                                                           CSE_ALifeObject* target) -> bool {
+            return Globals::in_time_interval(19, 6);
+        };
+
+        this->m_simulation_activities[SimulationActivitiesType::monster_zombied_day].m_actor =
+            [](CSE_ALifeOnlineOfflineGroup* squad, CSE_ALifeObject* target) -> bool {
+            if (!squad || !target)
+            {
+                R_ASSERT2(false, "object is null!");
+                return false;
+            }
+
+            return Globals::in_time_interval(6, 19) &&
+                (Globals::sim_dist_to(squad, target) <= SIMBOARD_SIMULATION_DISTANCE);
+        };
+
+        this->m_simulation_activities[SimulationActivitiesType::monster_zombied_night]
+            .m_squad[SimulationActivitiesType::stalker] = [](CSE_ALifeOnlineOfflineGroup* squad,
+                                                              CSE_ALifeObject* target) -> bool {
+            if (!squad || !target)
+            {
+                R_ASSERT2(false, "object is null!");
+                return false;
+            }
+
+            return Globals::in_time_interval(19, 6) &&
+                (Globals::sim_dist_to(squad, target) <= SIMBOARD_SIMULATION_DISTANCE);
+        };
+
+        this->m_simulation_activities[SimulationActivitiesType::monster_zombied_night]
+            .m_squad[SimulationActivitiesType::bandit] = [](CSE_ALifeOnlineOfflineGroup* squad,
+                                                             CSE_ALifeObject* target) -> bool {
+            if (!squad || !target)
+            {
+                R_ASSERT2(false, "object is null!");
+                return false;
+            }
+
+            return Globals::in_time_interval(19, 6) &&
+                (Globals::sim_dist_to(squad, target) <= SIMBOARD_SIMULATION_DISTANCE);
+        };
+
+        this->m_simulation_activities[SimulationActivitiesType::monster_zombied_night]
+            .m_squad[SimulationActivitiesType::dolg] = [](CSE_ALifeOnlineOfflineGroup* squad,
+                                                           CSE_ALifeObject* target) -> bool {
+            if (!squad || !target)
+            {
+                R_ASSERT2(false, "object is null!");
+                return false;
+            }
+
+            return Globals::in_time_interval(19, 6) &&
+                (Globals::sim_dist_to(squad, target) <= SIMBOARD_SIMULATION_DISTANCE);
+        };
+
+        this->m_simulation_activities[SimulationActivitiesType::monster_zombied_night]
+            .m_squad[SimulationActivitiesType::freedom] = [](CSE_ALifeOnlineOfflineGroup* squad,
+                                                              CSE_ALifeObject* target) -> bool {
+            if (!squad || !target)
+            {
+                R_ASSERT2(false, "object is null!");
+                return false;
+            }
+
+            return Globals::in_time_interval(19, 6) &&
+                (Globals::sim_dist_to(squad, target) <= SIMBOARD_SIMULATION_DISTANCE);
+        };
+
+        this->m_simulation_activities[SimulationActivitiesType::monster_zombied_night]
+            .m_squad[SimulationActivitiesType::killer] = [](CSE_ALifeOnlineOfflineGroup* squad,
+                                                             CSE_ALifeObject* target) -> bool {
+            if (!squad || !target)
+            {
+                R_ASSERT2(false, "object is null!");
+                return false;
+            }
+
+            return Globals::in_time_interval(19, 6) &&
+                (Globals::sim_dist_to(squad, target) <= SIMBOARD_SIMULATION_DISTANCE);
+        };
+
+        // @ WA
+        this->m_simulation_activities[SimulationActivitiesType::monster_zombied_night]
+            .m_smart[SimulationActivitiesType::territory] = [](CSE_ALifeOnlineOfflineGroup* squad,
+                                                                CSE_ALifeObject* target) -> bool {
+            return Globals::in_time_interval(19, 6);
+        };
+
+        // @ WA
+        this->m_simulation_activities[SimulationActivitiesType::monster_zombied_night]
+            .m_smart[SimulationActivitiesType::lair] = [](CSE_ALifeOnlineOfflineGroup* squad,
+                                                           CSE_ALifeObject* target) -> bool {return Globals::in_time_interval((6, 19);
+        };
+
+        this->m_simulation_activities[SimulationActivitiesType::monster_zombied_night].m_actor =
+            [](CSE_ALifeOnlineOfflineGroup* squad, CSE_ALifeObject* target) -> bool {
+            if (!squad || !target)
+            {
+                R_ASSERT2(false, "object is null!");
+                return false;
+            }
+
+            return Globals::in_time_interval(19, 6) &&
+                (Globals::sim_dist_to(squad, target) <= SIMBOARD_SIMULATION_DISTANCE);
+        };
+
+        // @ WA
+        this->m_simulation_activities[SimulationActivitiesType::monster_special]
+            .m_smart[SimulationActivitiesType::lair] = [](CSE_ALifeOnlineOfflineGroup* squad,
+                                                           CSE_ALifeObject* target) -> bool {
+            return true;
+        };
     }
 
 public:

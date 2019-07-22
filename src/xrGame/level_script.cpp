@@ -506,27 +506,6 @@ void g_set_community_relation(LPCSTR comm_from, LPCSTR comm_to, int value)
     RELATION_REGISTRY().SetCommunityRelation(community_from.index(), community_to.index(), value);
 }
 
-int g_get_general_goodwill_between(u16 from, u16 to)
-{
-    CHARACTER_GOODWILL presonal_goodwill = RELATION_REGISTRY().GetGoodwill(from, to);
-    VERIFY(presonal_goodwill != NO_GOODWILL);
-
-    CSE_ALifeTraderAbstract* from_obj = smart_cast<CSE_ALifeTraderAbstract*>(ai().alife().objects().object(from));
-    CSE_ALifeTraderAbstract* to_obj = smart_cast<CSE_ALifeTraderAbstract*>(ai().alife().objects().object(to));
-
-    if (!from_obj || !to_obj)
-    {
-        GEnv.ScriptEngine->script_log(LuaMessageType::Error,
-            "RELATION_REGISTRY::get_general_goodwill_between  : cannot convert obj to CSE_ALifeTraderAbstract!");
-        return (0);
-    }
-    CHARACTER_GOODWILL community_to_obj_goodwill = RELATION_REGISTRY().GetCommunityGoodwill(from_obj->Community(), to);
-    CHARACTER_GOODWILL community_to_community_goodwill =
-        RELATION_REGISTRY().GetCommunityRelation(from_obj->Community(), to_obj->Community());
-
-    return presonal_goodwill + community_to_obj_goodwill + community_to_community_goodwill;
-}
-
 u32 vertex_id(Fvector position) { return (ai().level_graph().vertex_id(position)); }
 u32 render_get_dx_level() { return GEnv.Render->get_dx_level(); }
 CUISequencer* g_tutorial = NULL;
@@ -552,7 +531,7 @@ void stop_tutorial()
         g_tutorial->Stop();
 }
 
-LPCSTR translate_string(LPCSTR str) { return *StringTable().translate(str); }
+
 bool has_active_tutotial() { return (g_tutorial != NULL); }
 
 //Alundaio: namespace level exports extension
