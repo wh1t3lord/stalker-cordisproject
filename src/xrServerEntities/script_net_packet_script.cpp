@@ -31,6 +31,7 @@ ClientID r_clientID(NET_Packet* self)
 }
 
 //extern u16 script_server_object_version();
+/*
 #ifdef XRGAME_EXPORTS
 SCRIPT_EXPORT(ClientID, (), {
     module(luaState)[class_<ClientID>("ClientID")
@@ -101,3 +102,4 @@ SCRIPT_EXPORT(NET_Packet, (), {
             .def("r_eof", &r_eof)];
 });
 #endif
+*/

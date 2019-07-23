@@ -86,6 +86,12 @@ bool Script_SoundNPC::is_playing(const std::uint16_t& npc_id)
 
 void Script_SoundNPC::initialize_npc(CScriptGameObject* npc)
 {
+    if (!npc)
+    {
+        R_ASSERT2(false, "object in null!");
+        return;
+    }
+
     std::uint16_t npc_id = npc->ID();
 
     xr_string character_prefix;
@@ -292,9 +298,16 @@ bool Script_SoundNPC::play(const std::uint16_t& npc_id, xr_string& faction, std:
                 }
             }
         }
+        Script_NewsManager::getInstance().SendSound(
+            npc, this->m_faction, this->m_point, sound_name, replaced_string, this->m_delay_sound);
+    }
+    else
+    {
+        Script_NewsManager::getInstance().SendSound(
+            npc, this->m_faction, this->m_point, sound_name, "", this->m_delay_sound);
     }
 
-    return false;
+    return true;
 }
 
 bool Script_SoundNPC::play(const std::uint16_t& obj_id) { return false; }
@@ -355,17 +368,191 @@ int Script_SoundNPC::select_next_sound(const std::uint16_t& npc_id)
     return 0;
 }
 
-void Script_SoundNPC::stop(const std::uint16_t& obj_id) {}
+void Script_SoundNPC::stop(const std::uint16_t& obj_id)
+{
+    CScriptGameObject* npc = DataBase::Storage::getInstance().getStorage()[obj_id].m_object;
 
-void Script_SoundNPC::save(const NET_Packet& packet) {}
+    if (!npc)
+    {
+        R_ASSERT2(false, "object is null!");
+        return;
+    }
 
-void Script_SoundNPC::load(const NET_Packet& packet) {}
+    if (npc->Alive())
+    {
+        npc->set_sound_mask(-1);
+        npc->set_sound_mask(0);
+    }
 
-void Script_SoundNPC::save_npc(const NET_Packet& packet, const xr_string& npc_id) {}
+    if (this->m_pda_sound_object)
+    {
+        if (this->m_pda_sound_object->IsPlaying())
+        {
+            this->m_pda_sound_object->Stop();
+            delete this->m_pda_sound_object;
+            this->m_pda_sound_object = nullptr;
+        }
+    }
+}
 
-void Script_SoundNPC::load_npc(const NET_Packet& packet, const xr_string& npc_id) {}
+void Script_SoundNPC::save(NET_Packet& packet)
+{
+    packet.w_stringZ((std::to_string(this->m_played_id).c_str()));
 
-void Script_SoundNPC::init_npc(CScriptGameObject* npc) {}
+    if (this->m_group_sound)
+    {
+        packet.w_u8(1);
+    }
+}
+
+void Script_SoundNPC::load(NET_Packet& packet)
+{
+    shared_str id;
+    packet.r_stringZ(id);
+
+    // Lord: протестировать здесь!
+    if (id.size())
+        this->m_played_id = atoi(id.c_str());
+    else
+        this->m_played_id = 0;
+
+    if (this->m_group_sound)
+        this->m_can_play_group_sound = (!!packet.r_u8());
+}
+
+void Script_SoundNPC::save_npc(NET_Packet& packet, const std::uint16_t& npc_id)
+{
+    if (!this->m_group_sound)
+        packet.w_u8((this->m_can_play_sound[npc_id] == true) ? 1 : 0);
+}
+
+void Script_SoundNPC::load_npc(NET_Packet& packet, const std::uint16_t& npc_id)
+{
+    if (!this->m_group_sound)
+        this->m_can_play_sound[npc_id] = (!!packet.r_u8());
+}
+
+Script_SoundActor::Script_SoundActor(const CInifile& ini, const xr_string& section)
+    : m_is_stereo(Globals::Utils::cfg_get_bool(&ini, section, "actor_stereo", nullptr)),
+      m_is_prefix(Globals::Utils::cfg_get_bool(&ini, section, "npc_prefix", nullptr)),
+      m_path(Globals::Utils::cfg_get_string(&ini, section, "path")),
+      m_shuffle(Globals::Utils::cfg_get_string(&ini, section, "play_always")), m_section(section), m_played_id(0),
+      m_can_play_sound(true), m_sound_object(nullptr),
+      m_faction(Globals::Utils::cfg_get_string(&ini, section, "faction")),
+      m_point(Globals::Utils::cfg_get_string(&ini, section, "point")),
+      m_message(Globals::Utils::cfg_get_string(&ini, section, "message"))
+{
+    // Lord: Реализовать парсинг
+    xr_string iterval = Globals::Utils::cfg_get_string(&ini, section, "idle");
+
+    if (FS.exist("$game_sounds$", (this->m_path + ".ogg").c_str()))
+    {
+        this->m_sound[0] = this->m_path;
+    }
+    else
+    {
+        std::uint16_t id = 1;
+        while (FS.exist("$game_sounds$", ((this->m_path + std::to_string(id).c_str()) + ".ogg").c_str()))
+        {
+            this->m_sound[id - 1] = this->m_path + std::to_string(id).c_str();
+            ++id;
+        }
+    }
+
+    if (!this->m_sound.size())
+    {
+        R_ASSERT2(false, ("There are no sound collection with path: " + this->m_path).c_str());
+    }
+}
+
+Script_SoundActor::~Script_SoundActor(void)
+{
+    if (this->m_sound_object)
+    {
+        delete this->m_sound_object;
+        this->m_sound_object = nullptr;
+    }
+}
+
+void Script_SoundActor::reset(const std::uint16_t& npc_id) {}
+
+bool Script_SoundActor::is_playing(const std::uint16_t& npc_id)
+{
+    if (this->m_sound_object)
+        return this->m_sound_object->IsPlaying();
+
+    return false;
+}
+
+void Script_SoundActor::callback(const std::uint16_t& npc_id)
+{
+    this->m_played_time = Device.dwTimeGlobal;
+    std::random_device random_device;
+    std::mt19937 range(random_device);
+    std::uniform_int_distribution<int> urandom(this->m_min_idle, this->m_max_idle);
+
+    this->m_idle_time = urandom(range);
+    if (this->m_sound_object)
+    {
+        delete this->m_sound_object;
+        this->m_sound_object = nullptr;
+    }
+
+    this->m_can_play_sound = true;
+
+    CurrentGameUI()->RemoveCustomStatic("cs_subtitles_actor");
+
+    DataBase::Storage_Data& storage_data = DataBase::Storage::getInstance().getStorage()[npc_id];
+
+    if (!storage_data.m_active_scheme.size())
+        return;
+
+    if (!storage_data[storage_data.m_active_scheme].size())
+        return;
+
+    // Lord: проверить больше или всё же оно равно этому значению (про размер карты)
+    if (this->m_played_id == this->m_sound.size() && (this->m_shuffle != "rnd"))
+    {
+        Msg("[Script_SoundActor] -> [%s] signalled 'theme_end' in section [%s]", std::to_string(npc_id).c_str(),
+            storage_data.m_active_section.c_str());
+        storage_data[storage_data.m_active_scheme]["theme_end"] = true;
+        storage_data[storage_data.m_active_scheme]["sound_end"] = true;
+    }
+    else
+    {
+        Msg("[Script_SoundActor] -> [%s] signalled 'sound_end' in section [%s]", std::to_string(npc_id).c_str(),
+            storage_data.m_active_section.c_str());
+
+        storage_data[storage_data.m_active_scheme]["sound_end"] = true;
+    }
+}
+
+bool Script_SoundActor::play(const std::uint16_t& npc_id, xr_string& faction, std::uint16_t point)
+{
+    if (!this->m_can_play_sound)
+    {
+        Msg("[Script_SoundActor] -> this->m_can_play_sound == false!");
+        return false;
+    }
+
+    if (!this->m_played_time && (Device.dwTimeGlobal - this->m_played_time < this->m_idle_time))
+    {
+        return false;
+    }
+
+    this->m_played_time = 0;
+    this->m_played_id = this->select_next_sound();
+    // Lord: доделать
+    return true;
+}
+
+int Script_SoundActor::select_next_sound(const std::uint16_t& npc_id) { return 0; }
+
+void Script_SoundActor::stop(const std::uint16_t& obj_id) {}
+
+void Script_SoundActor::save(NET_Packet& packet) {}
+
+void Script_SoundActor::load(NET_Packet& packet) {}
 
 } // namespace Scripts
 } // namespace Cordis

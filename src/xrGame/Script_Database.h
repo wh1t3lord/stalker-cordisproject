@@ -38,6 +38,8 @@ struct Storage_Data
     xr_string m_time = "";
 
     inline void ResetSignals(void) { this->m_data.clear(); }
+
+    // @ Gets singnals xr_map<xr_string, bool>
     inline xr_map<xr_string, bool>& operator[](const xr_string& id) { return m_data[id]; }
 };
 
