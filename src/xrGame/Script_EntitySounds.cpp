@@ -542,7 +542,7 @@ bool Script_SoundActor::play(const std::uint16_t& npc_id, xr_string& faction, st
 
     this->m_played_time = 0;
     this->m_played_id = this->select_next_sound();
-    // Lord: доделать
+    // Lord: доделать 
     return true;
 }
 
