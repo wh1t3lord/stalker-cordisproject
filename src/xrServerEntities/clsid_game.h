@@ -228,7 +228,6 @@
 
 // @ Как-то так наверное захардкоржено, надо исправлять и уходить от этого
 #pragma region CordisRegistration
-
 #define CLSID_SE_STALKER MK_CLSID('A', 'I', '_', 'S', 'T', 'L', '_', 'S')
 #define CLSID_SE_AMMO MK_CLSID('A', 'M', 'M', 'O', '_', 'S', ' ', ' ')
 #define CLSID_SE_HELI MK_CLSID('C', '_', 'H', 'L', 'C', 'P', '_', 'S')
