@@ -36,6 +36,7 @@ public:
     virtual void save_npc(NET_Packet& packet, const std::uint16_t& npc_id) = 0;
     virtual void load_npc(NET_Packet& packet, const std::uint16_t& npc_id) = 0;
     virtual void set_volume(const float& value) = 0;
+    virtual xr_map<xr_string, bool>& getAvailCommunities(void) = 0;
     //   virtual void init_npc(CScriptGameObject* npc) = 0;
 };
 
@@ -71,6 +72,11 @@ public:
     {
         Msg("[Script_SoundNPC] -> set_volume(value) doesn't use!");
         return;
+    }
+
+    xr_map<xr_string, bool>& getAvailCommunities(void) override 
+    { 
+        return this->m_avail_communities;
     }
 
 private: // Lord: добавить карты
@@ -153,6 +159,13 @@ public:
         return;
     }
 
+    xr_map<xr_string, bool>& getAvailCommunities(void) override 
+    { 
+        Msg("[Script_SoundActor] -> getAvailCommunities doesn't use!");
+        xr_map<xr_string, bool> instance;
+        return instance;
+    }
+
 private:
     bool m_is_stereo;
     bool m_is_prefix;
@@ -229,6 +242,13 @@ public:
     {
         Msg("[Script_SoundObject] -> set_volume(value) doesn't use!");
         return;
+    }
+
+    xr_map<xr_string, bool>& getAvailCommunities(void) override
+    {
+        Msg("[Script_SoundObject] -> getAvailCommunities doesn't use!");
+        xr_map<xr_string, bool> instance;
+        return instance;
     }
 
 private:
@@ -326,6 +346,13 @@ public:
             this->m_sound_object->SetVolume(value);
     }
 
+    xr_map<xr_string, bool>& getAvailCommunities(void) override
+    {
+        Msg("[Script_SoundLooped] -> getAvailCommunities doesn't use!");
+        xr_map<xr_string, bool> instance;
+        return instance;
+    }
+
 private:
     CScriptSound* m_sound_object;
     xr_string m_section;
@@ -346,9 +373,7 @@ public:
         return instance;
     }
 
-    inline xr_map<xr_string, IScript_Sound*>& getTheme(void) 
-    { return this->m_sounds;
-    }
+    inline xr_map<xr_string, IScript_Sound*>& getTheme(void) { return this->m_sounds; }
 
     ~Script_SoundThemeDataBase(void)
     {

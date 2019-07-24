@@ -188,8 +188,9 @@ inline void load_sound(void)
     }
 }
 
-inline void init_npc_sound(CScriptGameObject* npc) {
-    // Lord: доделать
+inline void init_npc_sound(CScriptGameObject* npc)
+{
+    
 }
 
 inline bool has_alife_info(LPCSTR info_id)
