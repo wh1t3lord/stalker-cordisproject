@@ -18,7 +18,7 @@ Script_SoundNPC::Script_SoundNPC(const CInifile& sound_ini, const xr_string& sec
       m_can_play_group_sound(true), m_faction(Globals::Utils::cfg_get_string(&sound_ini, section, "faction")),
       m_point(Globals::Utils::cfg_get_string(&sound_ini, section, "point")),
       m_message(Globals::Utils::cfg_get_string(&sound_ini, section, "message")), m_min_idle(3), m_max_idle(5),
-      m_random(100), m_played_time(0), m_idle_time(0)
+      m_random(100), m_played_time(0), m_idle_time(0), m_class_id(SCRIPTSOUNDTYPE_NPC)
 {
     // Lord: не совсем доделано! Подебажить и спарсить!
     xr_string interval = Globals::Utils::cfg_get_string(&sound_ini, section, "idle");
@@ -440,7 +440,7 @@ Script_SoundActor::Script_SoundActor(const CInifile& ini, const xr_string& secti
       m_can_play_sound(true), m_sound_object(nullptr),
       m_faction(Globals::Utils::cfg_get_string(&ini, section, "faction")),
       m_point(Globals::Utils::cfg_get_string(&ini, section, "point")),
-      m_message(Globals::Utils::cfg_get_string(&ini, section, "message"))
+      m_message(Globals::Utils::cfg_get_string(&ini, section, "message")), m_class_id(SCRIPTSOUNDTYPE_ACTOR)
 {
     // Lord: Реализовать парсинг
     xr_string iterval = Globals::Utils::cfg_get_string(&ini, section, "idle");
@@ -647,7 +647,7 @@ void Script_SoundActor::load(NET_Packet& packet)
 }
 
 Script_SoundObject::Script_SoundObject(const CInifile& ini, const xr_string& section)
-    : m_class_id("object_sound"), m_path(Globals::Utils::cfg_get_string(&ini, section, "path")),
+    : m_class_id(SCRIPTSOUNDTYPE_OBJECT), m_path(Globals::Utils::cfg_get_string(&ini, section, "path")),
       m_shuffle(Globals::Utils::cfg_get_string(&ini, section, "shuffle")), m_can_play_sound(true), m_played_id(0),
       m_played_time(0), m_faction(Globals::Utils::cfg_get_string(&ini, section, "faction")),
       m_point(Globals::Utils::cfg_get_string(&ini, section, "point")),
@@ -884,7 +884,7 @@ void Script_SoundObject::load(NET_Packet& packet)
 
 Script_SoundLooped::Script_SoundLooped(const CInifile& ini, const xr_string& section)
     : m_section(section), m_path(Globals::Utils::cfg_get_string(&ini, section, "path")), m_sound_object(nullptr),
-      m_class_id("looped_sound"), m_sound("")
+      m_class_id(SCRIPTSOUNDTYPE_LOOPED), m_sound("")
 {
     if (FS.exist("$game_sounds$", (this->m_path + ".ogg").c_str()))
     {
@@ -941,7 +941,6 @@ void Script_SoundLooped::stop(const std::uint16_t& obj_id)
         this->m_sound_object->Stop();
 }
 
-} // namespace Scripts
 
 } // namespace Scripts
 } // namespace Cordis

@@ -9,7 +9,13 @@ namespace Cordis
 namespace Scripts
 {
 constexpr std::uint16_t NSTL = 64;
-std::uint32_t sounds_base = StalkerSpace::EStalkerSounds::eStalkerSoundScript + 10000;
+constexpr const char* SCRIPTSOUNDTYPE_NPC = "npc_sound";
+constexpr const char* SCRIPTSOUNDTYPE_ACTOR = "actor_sound";
+constexpr const char* SCRIPTSOUNDTYPE_OBJECT = "object_sound";
+constexpr const char* SCRIPTSOUNDTYPE_LOOPED = "looped_sound";
+
+std::uint32_t sounds_base =
+    StalkerSpace::EStalkerSounds::eStalkerSoundScript + 10000;
 
 std::uint32_t generate_id(void)
 {
@@ -37,6 +43,7 @@ public:
     virtual void load_npc(NET_Packet& packet, const std::uint16_t& npc_id) = 0;
     virtual void set_volume(const float& value) = 0;
     virtual xr_map<xr_string, bool>& getAvailCommunities(void) = 0;
+    virtual xr_string getSoundType(void) = 0;
     //   virtual void init_npc(CScriptGameObject* npc) = 0;
 };
 
@@ -74,10 +81,9 @@ public:
         return;
     }
 
-    xr_map<xr_string, bool>& getAvailCommunities(void) override 
-    { 
-        return this->m_avail_communities;
-    }
+    xr_map<xr_string, bool>& getAvailCommunities(void) override { return this->m_avail_communities; }
+
+    xr_string getSoundType(void) override { return this->m_class_id; }
 
 private: // Lord: добавить карты
     bool m_prefix;
@@ -159,12 +165,14 @@ public:
         return;
     }
 
-    xr_map<xr_string, bool>& getAvailCommunities(void) override 
-    { 
+    xr_map<xr_string, bool>& getAvailCommunities(void) override
+    {
         Msg("[Script_SoundActor] -> getAvailCommunities doesn't use!");
         xr_map<xr_string, bool> instance;
         return instance;
     }
+
+    xr_string getSoundType(void) override { return this->m_class_id; }
 
 private:
     bool m_is_stereo;
@@ -250,6 +258,8 @@ public:
         xr_map<xr_string, bool> instance;
         return instance;
     }
+
+    xr_string getSoundType(void) override { return this->m_class_id; }
 
 private:
     bool m_can_play_sound;
@@ -352,6 +362,8 @@ public:
         xr_map<xr_string, bool> instance;
         return instance;
     }
+
+    xr_string getSoundType(void) override { return this->m_class_id; }
 
 private:
     CScriptSound* m_sound_object;

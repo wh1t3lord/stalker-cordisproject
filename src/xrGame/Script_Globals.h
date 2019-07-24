@@ -190,7 +190,19 @@ inline void load_sound(void)
 
 inline void init_npc_sound(CScriptGameObject* npc)
 {
-    
+    for (std::pair<xr_string, IScript_Sound*> it : Script_SoundThemeDataBase::getInstance().getTheme())
+    {
+        if (it.second)
+        {
+            if (it.second->getSoundType() == SCRIPTSOUNDTYPE_NPC)
+            {
+                if (it.second->getAvailCommunities()[character_community(npc)])
+                {
+                    it.second->initialize_npc(npc);
+                }       
+            }
+        }
+    }
 }
 
 inline bool has_alife_info(LPCSTR info_id)
