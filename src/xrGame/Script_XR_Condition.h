@@ -1,4 +1,5 @@
 #pragma once
+#include "Script_SurgeManager.h"
 
 namespace Cordis
 {

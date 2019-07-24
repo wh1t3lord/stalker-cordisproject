@@ -16,8 +16,20 @@ float Script_SimulationObjects::evaluate_priority(CSE_ALifeObject* target, CSE_A
     }
 
     float priority = 0.0f;
-    
+
     // Lord: доделать!
+}
+
+void Script_SimulationObjects::get_properties(CSE_ALifeObject* object)
+{
+    if (!object)
+    {
+        R_ASSERT2(false, "object is null!");
+        return;
+    }
+
+    xr_string properties_section = object->name();
+ 
 }
 
 } // namespace Scripts

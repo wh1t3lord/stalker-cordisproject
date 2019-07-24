@@ -14,13 +14,13 @@ inline CInifile configure_schemes(CSE_ALifeObject* npc, const CInifile& ini, con
     if (!npc)
     {
         R_ASSERT2(false, "Object was null!");
-        return CInifile();
+        return CInifile("system.ltx");
     }
 
     std::uint16_t npc_id = npc->ID;
 
-
-    return CInifile();
+    // Lord: доделать!
+    return CInifile("а это убрать и написать нормальный аргумент.ltx");
 }
 
 } // namespace XR_LOGIC

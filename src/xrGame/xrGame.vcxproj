@@ -1494,6 +1494,7 @@ $(xrLibDir);$(xrSdkDir)DXSDK/Lib/$(PlatformShortName);
     <ClInclude Include="script_game_object_impl.h" />
     <ClInclude Include="Script_GlobalHelper.h" />
     <ClInclude Include="Script_Globals.h" />
+    <ClInclude Include="Script_Globalsinline.h" />
     <ClInclude Include="script_hit.h" />
     <ClInclude Include="script_hit_inline.h" />
     <ClInclude Include="script_monster_action.h" />

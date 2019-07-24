@@ -8183,6 +8183,9 @@
     <ClInclude Include="Script_TravelManager.h">
       <Filter>Cordis\Scripts\Managers\Travel\Public</Filter>
     </ClInclude>
+    <ClInclude Include="Script_Globalsinline.h">
+      <Filter>Cordis\Scripts\Global\Globals\Public</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="damage_manager.cpp">

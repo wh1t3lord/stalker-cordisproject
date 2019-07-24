@@ -3,6 +3,7 @@
 #include "xrCore/xrCore.h"
 #include "xrServer_Objects_Alife.h"
 #include "xrCore/xr_ini.h"
+#include "Script_Globals.h"
 
 namespace Cordis
 {
@@ -691,7 +692,7 @@ private:
         // @ WA
         this->m_simulation_activities[SimulationActivitiesType::monster_zombied_night]
             .m_smart[SimulationActivitiesType::lair] = [](CSE_ALifeOnlineOfflineGroup* squad,
-                                                           CSE_ALifeObject* target) -> bool {return Globals::in_time_interval((6, 19);
+                                                           CSE_ALifeObject* target) -> bool {return Globals::in_time_interval(6, 19);
         };
 
         this->m_simulation_activities[SimulationActivitiesType::monster_zombied_night].m_actor =

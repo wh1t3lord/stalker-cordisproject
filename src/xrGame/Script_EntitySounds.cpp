@@ -2,6 +2,8 @@
 #include "Script_EntitySounds.h"
 #include <random>
 
+/*std::uint32_t Cordis::Scripts::sounds_base = ;*/
+
 namespace Cordis
 {
 namespace Scripts
@@ -170,11 +172,11 @@ void Script_SoundNPC::callback(const std::uint16_t& npc_id)
 {
     this->m_played_time = Device.dwTimeGlobal;
     // LorD: нормально ли генерирует рандомное значение простетировать
-    std::random_device random_device;
-    std::mt19937 range(random_device);
-    std::uniform_int_distribution<int> urandom(this->m_min_idle, this->m_max_idle);
+//     std::random_device random_device;
+//     std::mt19937 range(random_device);
+//     std::uniform_int_distribution<int> urandom(this->m_min_idle, this->m_max_idle);
 
-    this->m_idle_time = urandom(range);
+    this->m_idle_time = Globals::Script_RandomInt::getInstance().Generate(this->m_min_idle, this->m_max_idle);
 
     if (this->m_group_sound)
         this->m_can_play_group_sound = true;
@@ -321,15 +323,15 @@ int Script_SoundNPC::select_next_sound(const std::uint16_t& npc_id)
             return 0;
         }
 
-        std::random_device random_device1;
-        std::mt19937 range1(random_device1);
-        std::uniform_int_distribution<int> urandom1(0, this->m_npc[npc_id].second);
+//         std::random_device random_device1;
+//         std::mt19937 range1(random_device1);
+//         std::uniform_int_distribution<int> urandom1(0, this->m_npc[npc_id].second);
         if (!this->m_played_id)
         {
-            std::random_device random_device;
-            std::mt19937 range(random_device);
-            std::uniform_int_distribution<int> urandom(0, this->m_npc[npc_id].second - 1);
-            int played_id = urandom(range);
+//             std::random_device random_device;
+//             std::mt19937 range(random_device);
+//             std::uniform_int_distribution<int> urandom(0, this->m_npc[npc_id].second - 1);
+            int played_id = Globals::Script_RandomInt::getInstance().Generate(static_cast<std::uint32_t>(0), this->m_npc[npc_id].second - 1);
 
             if (played_id >= this->m_played_id)
             {
@@ -339,7 +341,7 @@ int Script_SoundNPC::select_next_sound(const std::uint16_t& npc_id)
             return played_id;
         }
 
-        return urandom1(range1);
+        return Globals::Script_RandomInt::getInstance().Generate(static_cast<std::uint32_t>(0), this->m_npc[npc_id].second);
     }
 
     if (this->m_shuffle == "seq")
@@ -491,11 +493,11 @@ bool Script_SoundActor::is_playing(const std::uint16_t& npc_id)
 void Script_SoundActor::callback(const std::uint16_t& npc_id)
 {
     this->m_played_time = Device.dwTimeGlobal;
-    std::random_device random_device;
-    std::mt19937 range(random_device);
-    std::uniform_int_distribution<int> urandom(this->m_min_idle, this->m_max_idle);
+//     std::random_device random_device;
+//     std::mt19937 range(random_device);
+//     std::uniform_int_distribution<int> urandom(this->m_min_idle, this->m_max_idle);
 
-    this->m_idle_time = urandom(range);
+    this->m_idle_time = Globals::Script_RandomInt::getInstance().Generate(this->m_min_idle, this->m_max_idle);
     if (this->m_sound_object)
     {
         delete this->m_sound_object;
@@ -577,11 +579,11 @@ int Script_SoundActor::select_next_sound(const std::uint16_t& npc_id)
 
         if (this->m_played_id)
         {
-            std::random_device random_device;
-            std::mt19937 range(random_device);
-            std::uniform_int_distribution<size_t> urandom(1, sound_map_size - 1);
+//             std::random_device random_device;
+//             std::mt19937 range(random_device);
+//             std::uniform_int_distribution<size_t> urandom(1, sound_map_size - 1);
 
-            size_t generated_value = urandom(range);
+            size_t generated_value = Globals::Script_RandomInt::getInstance().Generate(1, sound_map_size - 1);
 
             if (generated_value >= this->m_played_id)
                 return generated_value + 1;
@@ -589,10 +591,10 @@ int Script_SoundActor::select_next_sound(const std::uint16_t& npc_id)
             return generated_value;
         }
 
-        std::random_device random_device;
-        std::mt19937 range(random_device);
-        std::uniform_int_distribution<size_t> urandom(1, sound_map_size);
-        size_t generated_value = urandom(range);
+//         std::random_device random_device;
+//         std::mt19937 range(random_device);
+//         std::uniform_int_distribution<size_t> urandom(1, sound_map_size);
+        size_t generated_value = Globals::Script_RandomInt::getInstance().Generate(1, sound_map_size);
 
         return generated_value;
     }
@@ -702,10 +704,10 @@ void Script_SoundObject::callback(const std::uint16_t& npc_id)
         delete this->m_sound_object;
         this->m_sound_object = nullptr;
     }
-    std::random_device random_device;
-    std::mt19937 range(random_device);
-    std::uniform_int_distribution<int> urandom(this->m_min_idle, this->m_max_idle);
-    this->m_idle_time = urandom(range) * 1000;
+//     std::random_device random_device;
+//     std::mt19937 range(random_device);
+//     std::uniform_int_distribution<int> urandom(this->m_min_idle, this->m_max_idle);
+    this->m_idle_time = Globals::Script_RandomInt::getInstance().Generate(this->m_min_idle, this->m_max_idle) * 1000;
     this->m_can_play_sound = true;
 
     CurrentGameUI()->RemoveCustomStatic("cs_subtitles_object");
@@ -801,11 +803,11 @@ int Script_SoundObject::select_next_sound(const std::uint16_t& npc_id)
 
         if (this->m_played_id)
         {
-            std::random_device random_device;
-            std::mt19937 range(random_device);
-            std::uniform_int_distribution<size_t> urandom(1, sound_map_size - 1);
+//             std::random_device random_device;
+//             std::mt19937 range(random_device);
+//             std::uniform_int_distribution<size_t> urandom(1, sound_map_size - 1);
 
-            size_t generated_value = urandom(range);
+            size_t generated_value = Globals::Script_RandomInt::getInstance().Generate(1, sound_map_size - 1);
 
             if (generated_value >= this->m_played_id)
                 return generated_value + 1;
@@ -813,10 +815,10 @@ int Script_SoundObject::select_next_sound(const std::uint16_t& npc_id)
             return generated_value;
         }
 
-        std::random_device random_device;
-        std::mt19937 range(random_device);
-        std::uniform_int_distribution<size_t> urandom(1, sound_map_size);
-        size_t generated_value = urandom(range);
+//         std::random_device random_device;
+//         std::mt19937 range(random_device);
+//         std::uniform_int_distribution<size_t> urandom(1, sound_map_size);
+        size_t generated_value = Globals::Script_RandomInt::getInstance().Generate(1, sound_map_size);
 
         return generated_value;
     }

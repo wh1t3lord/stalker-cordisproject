@@ -14,10 +14,9 @@ constexpr const char* SCRIPTSOUNDTYPE_ACTOR = "actor_sound";
 constexpr const char* SCRIPTSOUNDTYPE_OBJECT = "object_sound";
 constexpr const char* SCRIPTSOUNDTYPE_LOOPED = "looped_sound";
 
-std::uint32_t sounds_base =
-    StalkerSpace::EStalkerSounds::eStalkerSoundScript + 10000;
+static std::uint32_t sounds_base = StalkerSpace::EStalkerSounds::eStalkerSoundScript + 10000;
 
-std::uint32_t generate_id(void)
+inline std::uint32_t generate_id(void)
 {
     sounds_base += 1;
     return sounds_base - 1;
@@ -139,7 +138,7 @@ public:
     bool play(const std::uint16_t& obj_id)
     {
         Msg("[Script_SoundActor] -> play(obj_id) it doesn't use!");
-        return;
+        return false;
     }
 
     int select_next_sound(const std::uint16_t& npc_id = 0) override;
@@ -226,7 +225,7 @@ public:
     bool play(const std::uint16_t& obj_id)
     {
         Msg("[Script_SoundObject] -> play(obj_id) it doesn't use!");
-        return;
+        return false;
     }
 
     int select_next_sound(const std::uint16_t& npc_id = 0) override;
@@ -290,7 +289,7 @@ public:
     bool play(const std::uint16_t& npc_id, xr_string& faction, std::uint16_t point)
     {
         Msg("[Script_SoundLooped] -> play(npc_id, faction, point) it doesn't use!");
-        return;
+        return false;
     }
 
     bool play(xr_string& faction, std::uint16_t point)

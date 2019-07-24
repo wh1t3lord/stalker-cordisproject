@@ -8,7 +8,7 @@ namespace Scripts
 class Script_SurgeManager
 {
 private:
-    Script_SurgeManager(void) {}
+    Script_SurgeManager(void) : m_ini("misc\\surge_manager.ltx") {}
 
     // @ Where the surge manager is used
     enum

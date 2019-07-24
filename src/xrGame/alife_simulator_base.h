@@ -12,6 +12,7 @@
 #include "alife_space.h"
 #include "xrAICore/Navigation/game_graph_space.h"
 #include "Common/object_interfaces.h"
+#include "alife_registry_container.h"
 
 class IPureServer;
 class CALifeSimulatorHeader;
@@ -98,7 +99,10 @@ public:
     const CALifeTimeManager& time_manager() const;
     shared_str* server_command_line() const;
     template <typename T>
-    T& registry(T* t) const { return registry()(t); }
+    T& registry(T* t) const 
+    { 
+        return this->registry().operator()(t);
+    }
 protected:
     void unload();
     virtual void reload(LPCSTR section);

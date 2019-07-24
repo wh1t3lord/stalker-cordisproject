@@ -7,7 +7,7 @@ namespace Scripts
 class Script_SimulationObjects
 {
 private:
-    Script_SimulationObjects(void) {}
+    Script_SimulationObjects(void) : m_objects{} {}
 
 public:
     inline static Script_SimulationObjects& getInstance(void) noexcept
@@ -24,6 +24,8 @@ public:
 
     float evaluate_priority(CSE_ALifeObject* target, CSE_ALifeObject* squad);
 
+    void registrate(CSE_ALifeObject* object);
+
 private:
     inline float evaluate_priority_by_distance(CSE_ALifeObject* target, CSE_ALifeObject* squad)
     {
@@ -34,6 +36,11 @@ private:
 
         return (1.0f + 1.0f / distance);    
     }
+
+    void get_properties(CSE_ALifeObject* object);
+
+private:
+    xr_map<std::uint16_t, CSE_ALifeObject*> m_objects;
 };
 } // namespace Scripts
 } // namespace Cordis
