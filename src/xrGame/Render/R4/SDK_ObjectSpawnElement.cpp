@@ -254,7 +254,6 @@ namespace Cordis
 		void SDK_ObjectSpawnElement::SpawnData::Create(LPCSTR entity_reference)
 		{
 			this->m_data = object_factory().server_object(pSettings->r_clsid(entity_reference, "class"), entity_reference);
- 
 			if (this->m_data)
 			{
 				// Lord: здесь багует вызывает вместо set_name -> angle()
