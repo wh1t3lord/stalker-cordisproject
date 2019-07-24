@@ -29,7 +29,7 @@ void Script_SimulationObjects::get_properties(CSE_ALifeObject* object)
     }
 
     xr_string properties_section = object->name();
- 
+    
 }
 
 } // namespace Scripts

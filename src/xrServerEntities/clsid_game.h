@@ -226,3 +226,8 @@
 #define CLSID_GAME_UI_CAPTURETHEARTEFACT MK_CLSID('U', 'I', '_', 'C', 'T', 'A', ' ', ' ')
 
 #define CLSID_ONLINE_OFFLINE_GROUP MK_CLSID('O', 'N', '_', 'O', 'F', 'F', '_', 'G')
+
+#pragma region ClassRegistrator CLSIDS
+#define CLSID_ONLINE_OFFLINE_GROUP_S MK_CLSID('O', 'N', '_', 'O', 'F', 'F', '_', 'S')
+#pragma endregion
+
