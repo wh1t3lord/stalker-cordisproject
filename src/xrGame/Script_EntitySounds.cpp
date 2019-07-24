@@ -310,7 +310,7 @@ bool Script_SoundNPC::play(const std::uint16_t& npc_id, xr_string& faction, std:
     return true;
 }
 
-bool Script_SoundNPC::play(const std::uint16_t& obj_id) { return false; }
+// bool Script_SoundNPC::play(const std::uint16_t& obj_id) { return false; }
 
 int Script_SoundNPC::select_next_sound(const std::uint16_t& npc_id)
 {
@@ -474,7 +474,11 @@ Script_SoundActor::~Script_SoundActor(void)
     }
 }
 
-void Script_SoundActor::reset(const std::uint16_t& npc_id) {}
+void Script_SoundActor::reset(const std::uint16_t& npc_id)
+{
+    this->m_played_id = 0;
+    this->m_played_time = 0;
+}
 
 bool Script_SoundActor::is_playing(const std::uint16_t& npc_id)
 {
@@ -542,17 +546,402 @@ bool Script_SoundActor::play(const std::uint16_t& npc_id, xr_string& faction, st
 
     this->m_played_time = 0;
     this->m_played_id = this->select_next_sound();
-    // Lord: доделать  
+
+    if (this->m_played_id)
+        return false;
+
+    xr_string sound_name = this->m_sound[this->m_played_id];
+    this->m_sound_object = new CScriptSound(sound_name.c_str());
+    this->m_sound_object->SetVolume(0.8f);
+    this->m_sound_object->PlayAtPos(DataBase::Storage::getInstance().getActor(), Fvector().set(0, 0, 0), 0.0f, sm_2D);
+    this->m_sound_object->SetVolume(0.8f);
+    xr_string& replaced_string = sound_name.replace(sound_name.begin(), sound_name.end(), '\\', '_');
+    this->m_can_play_sound = false;
+
+    Script_NewsManager::getInstance().SendSound(nullptr, this->m_faction, this->m_point, sound_name);
+
+    // Lord: доделать
     return true;
 }
 
-int Script_SoundActor::select_next_sound(const std::uint16_t& npc_id) { return 0; }
+int Script_SoundActor::select_next_sound(const std::uint16_t& npc_id)
+{
+    size_t sound_map_size = this->m_sound.size();
 
-void Script_SoundActor::stop(const std::uint16_t& obj_id) {}
+    if (this->m_shuffle == "rnd")
+    {
+        if (sound_map_size == 1)
+        {
+            return 1;
+        }
 
-void Script_SoundActor::save(NET_Packet& packet) {}
+        if (this->m_played_id)
+        {
+            std::random_device random_device;
+            std::mt19937 range(random_device);
+            std::uniform_int_distribution<size_t> urandom(1, sound_map_size - 1);
 
-void Script_SoundActor::load(NET_Packet& packet) {}
+            size_t generated_value = urandom(range);
+
+            if (generated_value >= this->m_played_id)
+                return generated_value + 1;
+
+            return generated_value;
+        }
+
+        std::random_device random_device;
+        std::mt19937 range(random_device);
+        std::uniform_int_distribution<size_t> urandom(1, sound_map_size);
+        size_t generated_value = urandom(range);
+
+        return generated_value;
+    }
+
+    if (this->m_shuffle == "seq")
+    {
+        if (this->m_played_id == -1)
+            return -1;
+
+        if (!this->m_played_id)
+            return 1;
+
+        if (this->m_played_id < sound_map_size)
+            return this->m_played_id + 1;
+
+        return -1;
+    }
+
+    if (this->m_shuffle == "loop")
+    {
+        if (!this->m_played_id)
+            return 1;
+
+        if (this->m_played_id < sound_map_size)
+            return this->m_played_id + 1;
+
+        return 1;
+    }
+
+    // Lord: хз гарантировано он будет проходить все ифы но какое значение здесь должен возвращать по тестировать!!!
+    R_ASSERT(false);
+    return 0;
+}
+
+void Script_SoundActor::stop(const std::uint16_t& obj_id)
+{
+    if (this->m_sound_object)
+        this->m_sound_object->Stop();
+}
+
+void Script_SoundActor::save(NET_Packet& packet) { packet.w_stringZ(std::to_string(this->m_played_id).c_str()); }
+
+void Script_SoundActor::load(NET_Packet& packet)
+{
+    xr_string id;
+    packet.r_stringZ(id);
+
+    if (id != "nil")
+        this->m_played_id = atoi(id.c_str());
+    else
+        this->m_played_id = 0;
+}
+
+Script_SoundObject::Script_SoundObject(const CInifile& ini, const xr_string& section)
+    : m_class_id("object_sound"), m_path(Globals::Utils::cfg_get_string(&ini, section, "path")),
+      m_shuffle(Globals::Utils::cfg_get_string(&ini, section, "shuffle")), m_can_play_sound(true), m_played_id(0),
+      m_played_time(0), m_faction(Globals::Utils::cfg_get_string(&ini, section, "faction")),
+      m_point(Globals::Utils::cfg_get_string(&ini, section, "point")),
+      m_message(Globals::Utils::cfg_get_string(&ini, section, "message")), m_section(section), m_sound_object(nullptr),
+      m_idle_time(0), m_pda_sound_object(nullptr)
+{
+    // Lord: потестить и распарисить
+    xr_string to_parse_numbers = Globals::Utils::cfg_get_string(&ini, section, "idle");
+
+    if (FS.exist("$game_sounds$", (this->m_path + ".ogg").c_str()))
+    {
+        this->m_sound[0] = this->m_path;
+    }
+    else
+    {
+        size_t id = 0;
+        while (FS.exist("$game_sounds$", ((this->m_path + std::to_string(id).c_str()) + ".ogg").c_str()))
+        {
+            this->m_sound[id] = this->m_path + std::to_string(id).c_str();
+            ++id;
+        }
+    }
+
+    if (!this->m_sound.size())
+    {
+        R_ASSERT2(false, ("There are no sound collection with path: " + this->m_path).c_str());
+    }
+}
+
+Script_SoundObject::~Script_SoundObject(void)
+{
+    if (this->m_sound_object)
+    {
+        delete this->m_sound_object;
+        this->m_sound_object = nullptr;
+    }
+}
+
+bool Script_SoundObject::is_playing(const std::uint16_t& npc_id)
+{
+    if (this->m_sound_object)
+        return this->m_sound_object->IsPlaying();
+
+    return false;
+}
+
+void Script_SoundObject::callback(const std::uint16_t& npc_id)
+{
+    this->m_played_time = Device.dwTimeGlobal;
+    if (this->m_sound_object)
+    {
+        delete this->m_sound_object;
+        this->m_sound_object = nullptr;
+    }
+    std::random_device random_device;
+    std::mt19937 range(random_device);
+    std::uniform_int_distribution<int> urandom(this->m_min_idle, this->m_max_idle);
+    this->m_idle_time = urandom(range) * 1000;
+    this->m_can_play_sound = true;
+
+    CurrentGameUI()->RemoveCustomStatic("cs_subtitles_object");
+
+    DataBase::Storage_Data& storage_data = DataBase::Storage::getInstance().getStorage()[npc_id];
+    if (!storage_data.m_active_scheme.size())
+        return;
+
+    if (!storage_data[storage_data.m_active_scheme].size())
+        return;
+
+    if (this->m_played_id == this->m_sound.size() && this->m_shuffle != "rnd")
+    {
+        storage_data[storage_data.m_active_scheme]["theme_end"] = true;
+        storage_data[storage_data.m_active_scheme]["sound_end"] = true;
+    }
+    else
+    {
+        storage_data[storage_data.m_active_scheme]["sound_end"] = true;
+    }
+}
+
+bool Script_SoundObject::play(const std::uint16_t& npc_id, xr_string& faction, std::uint16_t point)
+{
+    CScriptGameObject* npc = DataBase::Storage::getInstance().getStorage()[npc_id].m_object;
+
+    if (!npc)
+    {
+        R_ASSERT2(false, "object is null!");
+        return false;
+    }
+
+    if (!this->m_can_play_sound)
+        return false;
+
+    if (this->m_played_time && (Device.dwTimeGlobal - this->m_played_time < this->m_idle_time))
+        return false;
+
+    this->m_played_time = 0;
+
+    this->m_played_id = this->select_next_sound();
+
+    if (this->m_played_id == -1)
+        return false;
+
+    xr_string sound_name = this->m_sound[this->m_played_id];
+
+    if (sound_name.size())
+    {
+        if (FS.exist("$game_sounds$", (sound_name + "_pda.ogg").c_str()) &&
+            (npc->Position().distance_to_sqr(DataBase::Storage::getInstance().getActor()->Position()) >= 5))
+        {
+            if (this->m_pda_sound_object)
+            {
+                delete this->m_pda_sound_object;
+                this->m_pda_sound_object = nullptr;
+            }
+
+            this->m_pda_sound_object = new CScriptSound((sound_name + "_pda").c_str());
+            this->m_pda_sound_object->SetVolume(0.8f);
+            this->m_pda_sound_object->PlayAtPos(
+                DataBase::Storage::getInstance().getActor(), Fvector().set(0, 0, 0), 0.0f, sm_2D);
+        }
+    }
+
+    if (this->m_sound_object)
+    {
+        delete this->m_sound_object;
+        this->m_sound_object = nullptr;
+    }
+
+    this->m_sound_object = new CScriptSound(sound_name.c_str());
+    this->m_sound_object->PlayAtPos(npc, npc->Position(), 0.0f, 0);
+
+    xr_string& replaced_string = sound_name.replace(sound_name.begin(), sound_name.end(), '\\', '_');
+    this->m_can_play_sound = false;
+
+    Script_NewsManager::getInstance().SendSound(nullptr, this->m_faction, this->m_point, this->m_message);
+
+    return true;
+}
+
+int Script_SoundObject::select_next_sound(const std::uint16_t& npc_id)
+{
+    size_t sound_map_size = this->m_sound.size();
+
+    if (this->m_shuffle == "rnd")
+    {
+        if (sound_map_size == 1)
+        {
+            return 1;
+        }
+
+        if (this->m_played_id)
+        {
+            std::random_device random_device;
+            std::mt19937 range(random_device);
+            std::uniform_int_distribution<size_t> urandom(1, sound_map_size - 1);
+
+            size_t generated_value = urandom(range);
+
+            if (generated_value >= this->m_played_id)
+                return generated_value + 1;
+
+            return generated_value;
+        }
+
+        std::random_device random_device;
+        std::mt19937 range(random_device);
+        std::uniform_int_distribution<size_t> urandom(1, sound_map_size);
+        size_t generated_value = urandom(range);
+
+        return generated_value;
+    }
+
+    if (this->m_shuffle == "seq")
+    {
+        if (this->m_played_id == -1)
+            return -1;
+
+        if (!this->m_played_id)
+            return 1;
+
+        if (this->m_played_id < sound_map_size)
+            return this->m_played_id + 1;
+
+        return -1;
+    }
+
+    if (this->m_shuffle == "loop")
+    {
+        if (!this->m_played_id)
+            return 1;
+
+        if (this->m_played_id < sound_map_size)
+            return this->m_played_id + 1;
+
+        return 1;
+    }
+
+    // Lord: хз гарантировано он будет проходить все ифы но какое значение здесь должен возвращать по тестировать!!!
+    R_ASSERT(false);
+    return 0;
+}
+
+void Script_SoundObject::stop(const std::uint16_t& obj_id)
+{
+    if (this->m_sound_object)
+    {
+        this->m_sound_object->Stop();
+    }
+
+    if (this->m_pda_sound_object)
+    {
+        if (this->m_pda_sound_object->IsPlaying())
+        {
+            this->m_pda_sound_object->Stop();
+            delete this->m_pda_sound_object;
+            this->m_pda_sound_object = nullptr;
+        }
+    }
+}
+
+void Script_SoundObject::save(NET_Packet& packet) { packet.w_stringZ(std::to_string(this->m_played_id).c_str()); }
+
+void Script_SoundObject::load(NET_Packet& packet)
+{
+    xr_string id;
+    packet.r_stringZ(id);
+
+    if (id != "nil")
+        this->m_played_id = atoi(id.c_str());
+    else
+        this->m_played_id = 0;
+}
+
+Script_SoundLooped::Script_SoundLooped(const CInifile& ini, const xr_string& section)
+    : m_section(section), m_path(Globals::Utils::cfg_get_string(&ini, section, "path")), m_sound_object(nullptr),
+      m_class_id("looped_sound"), m_sound("")
+{
+    if (FS.exist("$game_sounds$", (this->m_path + ".ogg").c_str()))
+    {
+        this->m_sound = this->m_path;
+    }
+
+    if (!this->m_sound.size())
+    {
+        R_ASSERT2(false, "Can't initialize path normally please check your initialization where FS!!!");
+    }
+}
+
+Script_SoundLooped::~Script_SoundLooped(void)
+{
+    if (this->m_sound_object)
+    {
+        delete this->m_sound_object;
+        this->m_sound_object = nullptr;
+    }
+}
+
+bool Script_SoundLooped::play(const std::uint16_t& obj_id)
+{
+    CScriptGameObject* object = DataBase::Storage::getInstance().getStorage()[obj_id].m_object;
+    if (!object)
+    {
+        R_ASSERT2(false, "object is null!");
+        return false;
+    }
+
+    if (this->m_sound_object)
+    {
+        delete this->m_sound_object;
+        this->m_sound_object = nullptr;
+    }
+
+    this->m_sound_object = new CScriptSound(this->m_sound.c_str());
+    this->m_sound_object->PlayAtPos(object, object->Position(), 0.0f, 0 + sm_Looped); // Lord: думаю всё же стоит убрать ноль)
+
+    return true; 
+}
+
+bool Script_SoundLooped::is_playing(const std::uint16_t& npc_id) 
+{
+    if (this->m_sound_object)
+        return this->m_sound_object->IsPlaying();
+
+    return false; 
+}
+
+void Script_SoundLooped::stop(const std::uint16_t& obj_id)
+{
+    if (this->m_sound_object)
+        this->m_sound_object->Stop();
+}
+
+} // namespace Scripts
 
 } // namespace Scripts
 } // namespace Cordis

@@ -23,7 +23,7 @@ public:
     Script_NewsManager& operator=(Script_NewsManager&&) = delete;
 
     void SendSound(CScriptGameObject* object, const xr_string& faction, const xr_string& point, const xr_string& str,
-        const xr_string& str1, const float& delay);
+        const xr_string& str1 = xr_string(""), const float& delay = 0.0f);
 
 };
 } // namespace Scripts

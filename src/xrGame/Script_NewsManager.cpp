@@ -10,15 +10,17 @@ Script_NewsManager::~Script_NewsManager(void) {}
 void Script_NewsManager::SendSound(CScriptGameObject* object, const xr_string& faction, const xr_string& point,
     const xr_string& str, const xr_string& str1, const float& delay)
 {
+    // @ может передаваться и nullptr, так уж не особой роли играет это
     if (!object)
-    {
-        R_ASSERT2(false, "object is null!");
-        return;
-    }
+        Msg("[Script_NewsManager] -> SendSound() object is nullptr!");
 
     if (faction.size())
     {
-        // Lord: доделать!
+        xr_string point_name = "";
+        if (point.size())
+        {
+            // Lord: доделать
+        }
     }
 }
 } // namespace Scripts

@@ -147,6 +147,51 @@ namespace Game
 inline LPCSTR translate_string(LPCSTR str) { return *StringTable().translate(str); }
 } // namespace Game
 
+inline void load_sound(void)
+{
+    CInifile sound_ini = CInifile("misc\\script_sound.ltx");
+
+    if (!sound_ini.section_exist("list"))
+    {
+        R_ASSERT2(false, "There is no list. Please check your config (misc\\script_sound.ltx)!");
+    }
+
+    std::uint32_t count_line = sound_ini.line_count("list");
+    xr_string id, value, category;
+
+    for (int i = 0; i < count_line; ++i)
+    {
+        xr_string section;
+        xr_string value;
+        pcstr s;
+        pcstr v;
+        bool result = !!sound_ini.r_line("list", i, &s, &v);
+        if (result)
+        {
+            section = s;
+            value = v;
+
+            xr_string sound_type_name = Globals::Utils::cfg_get_string(&sound_ini, section, "type");
+
+            if (sound_type_name == "npc")
+                Script_SoundThemeDataBase::getInstance().getTheme()[section] = new Script_SoundNPC(sound_ini, section);
+            else if (sound_type_name == "actor")
+                Script_SoundThemeDataBase::getInstance().getTheme()[section] =
+                    new Script_SoundActor(sound_ini, section);
+            else if (sound_type_name == "3d")
+                Script_SoundThemeDataBase::getInstance().getTheme()[section] =
+                    new Script_SoundObject(sound_ini, section);
+            else if (sound_type_name == "looped")
+                Script_SoundThemeDataBase::getInstance().getTheme()[section] =
+                    new Script_SoundLooped(sound_ini, section);
+        }
+    }
+}
+
+inline void init_npc_sound(CScriptGameObject* npc) {
+    // Lord: доделать
+}
+
 inline bool has_alife_info(LPCSTR info_id)
 {
     const KNOWN_INFO_VECTOR& known_info = ai().alife().registry((CInfoPortionRegistry*)0).objects()[0];
