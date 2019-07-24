@@ -222,11 +222,6 @@ void CObjectFactory::register_classes()
     {
         ADD_MP(CActor, CActorMP, CSE_ALifeCreatureActor, CSE_ActorMP, CLSID_OBJECT_ACTOR, "actor");
     }
-
-    if (FS.IsSDK())
-    {
-        this->add<CSE_ALifeCreatureActor>(CLSID_OBJECT_ACTOR_SDK, "actor");
-    }
 #else
     ADD(CActor, CSE_ALifeCreatureActor, CLSID_OBJECT_ACTOR, "actor");
 #endif // NO_XR_GAME
@@ -239,6 +234,7 @@ void CObjectFactory::register_classes()
     // client and server entities
     if (FS.IsSDK())
     {
+        this->add<CSE_ALifeCreatureActor>(CLSID_SE_ACTOR, "actor");
     }
     else
     {
@@ -407,7 +403,6 @@ void CObjectFactory::register_classes()
         ADD(CInventoryBox, CSE_ALifeInventoryBox, CLSID_INVENTORY_BOX, "inventory_box");
         ADD(smart_cover::object, CSE_SmartCover, TEXT2CLSID("SMRTCOVR"), "smart_cover");
     }
-
 
 #pragma region CordisScripts Registering
     if (!FS.IsSDK())
