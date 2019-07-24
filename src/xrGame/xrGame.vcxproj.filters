@@ -3088,6 +3088,27 @@
     <Filter Include="Cordis\Scripts\Online Database\Public">
       <UniqueIdentifier>{0dd55311-76b0-451b-8488-09511b926c20}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Cordis\Scripts\Entities">
+      <UniqueIdentifier>{95869faa-b206-40cc-abbd-106d9352929b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Entities\Simulation Squad">
+      <UniqueIdentifier>{48c087c9-c407-476f-9c3c-5fb3d37d2376}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Entities\Simulation Squad\Public">
+      <UniqueIdentifier>{d9083007-7462-4183-a06c-850d9caa7669}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Entities\Simulation Squad\Private">
+      <UniqueIdentifier>{6fe030a6-fa66-4555-af60-9df4288ae67c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Entities\Sound">
+      <UniqueIdentifier>{f88a8990-1e2b-43f6-abb8-d1f8082b417a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Entities\Sound\Public">
+      <UniqueIdentifier>{aa14874a-4d7f-4a6b-9be5-597141513409}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Entities\Sound\Private">
+      <UniqueIdentifier>{18bb6c06-351e-423e-8c76-f6e2a11a30f8}</UniqueIdentifier>
+    </Filter>
     <Filter Include="Cordis\Scripts\Managers">
       <UniqueIdentifier>{125cfdb7-399c-4fec-80f6-f12503eba613}</UniqueIdentifier>
     </Filter>
@@ -3118,18 +3139,6 @@
     <Filter Include="Cordis\Scripts\Managers\SimulationBoard\Private">
       <UniqueIdentifier>{8a4fa0dc-52a3-418a-b3fc-530ac0173446}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Cordis\Scripts\Entities">
-      <UniqueIdentifier>{95869faa-b206-40cc-abbd-106d9352929b}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Cordis\Scripts\Entities\Simulation Squad">
-      <UniqueIdentifier>{48c087c9-c407-476f-9c3c-5fb3d37d2376}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Cordis\Scripts\Entities\Simulation Squad\Public">
-      <UniqueIdentifier>{d9083007-7462-4183-a06c-850d9caa7669}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Cordis\Scripts\Entities\Simulation Squad\Private">
-      <UniqueIdentifier>{6fe030a6-fa66-4555-af60-9df4288ae67c}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Cordis\Scripts\Managers\Sound">
       <UniqueIdentifier>{9e8d4fd6-f4ed-4185-a217-7c8ea245b024}</UniqueIdentifier>
     </Filter>
@@ -3138,15 +3147,6 @@
     </Filter>
     <Filter Include="Cordis\Scripts\Managers\Sound\Private">
       <UniqueIdentifier>{db15f766-e672-4c3a-99e7-185a3d907bab}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Cordis\Scripts\Entities\Sound">
-      <UniqueIdentifier>{f88a8990-1e2b-43f6-abb8-d1f8082b417a}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Cordis\Scripts\Entities\Sound\Public">
-      <UniqueIdentifier>{aa14874a-4d7f-4a6b-9be5-597141513409}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Cordis\Scripts\Entities\Sound\Private">
-      <UniqueIdentifier>{18bb6c06-351e-423e-8c76-f6e2a11a30f8}</UniqueIdentifier>
     </Filter>
     <Filter Include="Cordis\Scripts\Managers\News">
       <UniqueIdentifier>{ec87883e-2403-46f8-85ac-a6cf78435617}</UniqueIdentifier>
