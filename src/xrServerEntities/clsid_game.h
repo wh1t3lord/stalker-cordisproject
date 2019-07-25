@@ -241,7 +241,7 @@
 #define CLSID_SE_GRENADE_RGD MK_CLSID('G', '_', 'R', 'G', 'D', '5', '_', 'S')
 #define CLSID_SE_LEVEL_CHANGER MK_CLSID('L', 'V', 'L', '_', 'C', 'H', 'N', 'G')
 #define CLSID_UI_MAIN_MENU MK_CLSID('M', 'A', 'I', 'N', '_', 'M', 'N', 'U')
-#define CLSID_SE_SIM_SQUAD_SCRIPTED MK_CLSID('O', 'N', '_', 'O', 'F', 'F', '_', 'S')
+#define CLSID_SE_ONLINE_OFFLINE_GROUP MK_CLSID('O', 'N', '_', 'O', 'F', 'F', '_', 'S')
 #define CLSID_SE_DESTROYABLE_PHYSICS_OBJECT MK_CLSID('O', '_', 'D', 'S', 'T', 'R', '_', 'S')
 #define CLSID_SE_PHYSICS_OBJECT MK_CLSID('O', '_', 'P', 'H', 'Y', 'S', '_', 'S')
 #define CLSID_SE_ARTEFACT MK_CLSID('S', 'C', 'R', 'P', 'T', 'A', 'R', 'T')

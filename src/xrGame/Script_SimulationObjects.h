@@ -7,7 +7,7 @@ namespace Scripts
 class Script_SimulationObjects
 {
 private:
-    Script_SimulationObjects(void) : m_objects{} {}
+    Script_SimulationObjects(void) : m_props_ini("misc\\simulation_objects_props.ltx") {}
 
 public:
     inline static Script_SimulationObjects& getInstance(void) noexcept
@@ -41,6 +41,7 @@ private:
 
 private:
     xr_map<std::uint16_t, CSE_ALifeObject*> m_objects;
+    CInifile m_props_ini;
 };
 } // namespace Scripts
 } // namespace Cordis

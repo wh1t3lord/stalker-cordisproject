@@ -23,6 +23,23 @@ inline CInifile configure_schemes(CSE_ALifeObject* npc, const CInifile& ini, con
     return CInifile("а это убрать и написать нормальный аргумент.ltx");
 }
 
+struct CondlistData
+{
+    xr_map<std::uint32_t, xr_map<xr_string, bool>> m_infop_check;
+    xr_map<std::uint32_t, xr_map<xr_string, bool>> m_infop_set;
+    xr_string m_section;
+};
+
+inline xr_map<std::uint32_t, CondlistData> parse_condlist(
+    CSE_ALifeObject* npc, const xr_string& section, const xr_string& field, const xr_string& source)
+{
+}
+
+inline xr_map<std::uint32_t, CondlistData> parse_condlist(
+    CScriptGameObject* npc, const xr_string& section, const xr_string& field, const xr_string& source)
+{
+}
+
 } // namespace XR_LOGIC
 } // namespace Scripts
 } // namespace Cordis
