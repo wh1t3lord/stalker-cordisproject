@@ -242,6 +242,8 @@ inline static xr_map<int, bool>& getArtefactClasses(void) noexcept;
 inline static xr_map<xr_string, unsigned int>& SaveMarkers(void) noexcept;
 inline static xr_map<xr_string, xr_string>& Schemes(void) noexcept;
 inline static xr_map<xr_string, unsigned int>& STypes(void) noexcept;
+// @ Uses when parsing condlists
+inline static xr_map<xr_string, Cordis::AnyCallable<void>>& getXREffects_Functions(void) noexcept;
 #pragma endregion
 
 inline void load_scheme(const xr_string& filename, const xr_string& scheme, unsigned int stype);

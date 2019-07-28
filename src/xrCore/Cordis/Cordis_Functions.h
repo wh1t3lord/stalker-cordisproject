@@ -2,6 +2,7 @@
 
 #include <any>
 #include <functional>
+#include "log.h"
 
 namespace Cordis
 {
@@ -24,25 +25,26 @@ struct AnyCallable
     template <typename... Args>
     ReturnType operator()(Args&&... arguments)
     {
-        std::function<ReturnType(Args...)> myfunction = std::any_cast<std::function<ReturnType(Args...)>>(this->m_any);
+        std::function<ReturnType(Args...)> myfunction;
+
+        try
+        {
+            myfunction = std::any_cast<std::function<ReturnType(Args...)>>(this->m_any);
+        }
+        catch (...)
+        {
+            Msg("[Scripts]: ERROR can't cast function!");
+            R_ASSERT(false);
+            return ReturnType();
+        }
+
         if (!myfunction)
         {
             R_ASSERT2(false, "Can't call your binded function, maybe it doesn't registered");
             return ReturnType();
         }
 
-        ReturnType result;
-        try
-        {
-            result = std::invoke(myfunction, std::forward<Args>(arguments)...);
-        }
-        catch (...)
-        {
-            R_ASSERT2(false, "Something goes wrong! Can't invoke binded function, please check your callable arguments, which are passed to operator ()...");
-            result = ReturnType();
-        }
-
-        return result;
+        return std::invoke(myfunction, std::forward<Args>(arguments)...);
     }
 
 private:

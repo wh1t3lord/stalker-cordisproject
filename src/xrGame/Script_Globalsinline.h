@@ -69,8 +69,8 @@ inline void init_npc_sound(CScriptGameObject* npc)
 inline bool has_alife_info(LPCSTR info_id)
 {
     const KNOWN_INFO_VECTOR* known_info =
-        ai().alife().registry < CALifeAbstractRegistry<u16, KNOWN_INFO_VECTOR>>(NULL).object(0, true);
-    
+        ai().alife().registry<CALifeAbstractRegistry<u16, KNOWN_INFO_VECTOR>>(NULL).object(0, true);
+
     if (!known_info)
     {
         R_ASSERT2(false, "object in null!");
@@ -245,6 +245,12 @@ inline static xr_map<xr_string, unsigned int>& STypes(void) noexcept
 {
     static xr_map<xr_string, unsigned int> stypes;
     return stypes;
+}
+
+inline static xr_map<xr_string, Cordis::AnyCallable<void>>& getXREffects_Functions(void) noexcept 
+{
+    static xr_map<xr_string, Cordis::AnyCallable<void>> functions;
+    return functions;
 }
 
 inline void load_scheme(const xr_string& filename, const xr_string& scheme, unsigned int stype)
