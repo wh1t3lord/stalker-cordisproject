@@ -395,8 +395,10 @@ if not exist "$(OutDir)tbbmalloc_proxy.dll" copy /y "$(xrSdkDir)binaries\$(Platf
     <ClInclude Include="Containers\AssociativeVector.hpp" />
     <ClInclude Include="Containers\AssociativeVectorComparer.hpp" />
     <ClInclude Include="Containers\FixedMap.h" />
+    <ClInclude Include="Cordis\Cordis_Functions.h" />
     <ClInclude Include="Cordis\XML\cordis_str.h" />
     <ClInclude Include="Cordis\XML\cordis_xml.h" />
+    <ClInclude Include="Cordis_ScriptDataStructures.h" />
     <ClInclude Include="cpuid.h" />
     <ClInclude Include="Crypto\xr_dsa.h" />
     <ClInclude Include="Crypto\xr_dsa_signer.h" />

@@ -62,8 +62,8 @@
 #include "xr_shared.h"
 #include "string_concatenations.h"
 #include "_flags.h"
- 
-
+#include "Cordis/Cordis_Functions.h"
+#include "Cordis_ScriptDataStructures.h"
 // stl ext
 struct XRCORE_API xr_rtoken
 {

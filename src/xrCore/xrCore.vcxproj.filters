@@ -175,6 +175,21 @@
     <Filter Include="Cordis\SDK\Data structures\Tree\Node\Private">
       <UniqueIdentifier>{3d43d80d-9fe7-4302-965b-e91076076049}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Cordis\Callbacks">
+      <UniqueIdentifier>{7a935f94-6994-410c-9704-23c2cde235c7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Callbacks\Public">
+      <UniqueIdentifier>{dc6ea920-1517-4df4-b4b2-336b1d1da17f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts">
+      <UniqueIdentifier>{6af0c7da-7d10-40c8-9e50-19635f7109d4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Data Structures">
+      <UniqueIdentifier>{5bb6c207-df56-4058-a091-2c6ae6e0ada4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Data Structures\Public">
+      <UniqueIdentifier>{108ffb4e-18f1-4262-a65c-29b59b1ca098}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="FTimer.cpp">
@@ -853,6 +868,12 @@
     </ClInclude>
     <ClInclude Include="SDK_NodeTreeFolder.h">
       <Filter>Cordis\SDK\Data structures\Tree\Node\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Cordis\Cordis_Functions.h">
+      <Filter>Cordis\Callbacks\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Cordis_ScriptDataStructures.h">
+      <Filter>Cordis\Scripts\Data Structures\Public</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

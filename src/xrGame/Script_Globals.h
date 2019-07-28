@@ -10,6 +10,7 @@
 #include "alife_time_manager.h"
 #include "relation_registry.h"
 #include "InfoPortionDefs.h"
+#include "xrServer_Objects_ALife_All.h"
 #include <random>
 
 namespace Cordis

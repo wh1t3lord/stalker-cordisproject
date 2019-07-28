@@ -5,9 +5,7 @@
 //  Author      : Oles Shyshkovtsov, Alexander Maksimchuk, Victor Reutskiy and Dmitriy Iassenev
 //  Description : Server objects for ALife simulator
 ////////////////////////////////////////////////////////////////////////////
-
-#ifndef xrServer_Objects_ALifeH
-#define xrServer_Objects_ALifeH
+#pragma once
 //#include "pch_script.h" - No, no NO!
 #include "xrServer_Objects.h"
 #include "alife_space.h"
@@ -15,8 +13,6 @@
 #ifdef XRGAME_EXPORTS
 #include "xrGame/alife_smart_terrain_task.h"
 #endif //#ifdef XRGAME_EXPORTS
-
-#include "xrGame/Script_XR_Logic.h"
 
 #pragma warning(push)
 #pragma warning(disable : 4005)
@@ -188,7 +184,7 @@ public:
     virtual void STATE_Write(NET_Packet& P);
     SERVER_ENTITY_EDITOR_METHODS
 
-    inline xr_map<std::uint32_t, Cordis::Scripts::XR_LOGIC::CondlistData>& getSimulationAvail(void) noexcept
+    inline xr_map<std::uint32_t, Cordis::Scripts::CondlistData>& getSimulationAvail(void) noexcept
     {
         return this->m_simulation_avail;
     }
@@ -199,7 +195,7 @@ public:
 
 private:
     xr_map<xr_string, xr_string> m_properties;
-    xr_map<std::uint32_t, Cordis::Scripts::XR_LOGIC::CondlistData> m_simulation_avail;
+    xr_map<std::uint32_t, Cordis::Scripts::CondlistData> m_simulation_avail;
 };
 
 class CSE_ALifeGroupAbstract
@@ -768,4 +764,3 @@ public:
 
 #pragma warning(pop)
 
-#endif
