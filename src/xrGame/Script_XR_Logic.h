@@ -38,6 +38,7 @@ inline xr_map<std::uint32_t, CondlistData> parse_condlist(
 inline xr_map<std::uint32_t, CondlistData> parse_condlist(
     CScriptGameObject* npc, const xr_string& section, const xr_string& field, const xr_string& source)
 {
+
 }
 
 } // namespace XR_LOGIC

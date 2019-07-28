@@ -16,6 +16,8 @@
 #include "xrGame/alife_smart_terrain_task.h"
 #endif //#ifdef XRGAME_EXPORTS
 
+#include "xrGame/Script_XR_Logic.h"
+
 #pragma warning(push)
 #pragma warning(disable : 4005)
 
@@ -32,7 +34,7 @@ class CALifeSmartTerrainTask;
 class CALifeMonsterAbstract;
 class CSE_ALifeInventoryItem;
 
-struct  SFillPropData
+struct SFillPropData
 {
     RTokenVec locations[4];
     RStringVec level_ids;
@@ -50,7 +52,7 @@ struct  SFillPropData
     void dec();
 };
 
-class  CSE_ALifeSchedulable : public IPureSchedulableObject
+class CSE_ALifeSchedulable : public IPureSchedulableObject
 {
     using inherited = IPureSchedulableObject;
 
@@ -111,7 +113,7 @@ public:
     SERVER_ENTITY_EDITOR_METHODS
 };
 
-class  CSE_ALifeObject : public CSE_Abstract, public CRandom
+class CSE_ALifeObject : public CSE_Abstract, public CRandom
 {
     using inherited1 = CSE_Abstract;
     using inherited2 = CRandom;
@@ -169,7 +171,6 @@ public:
     // @ Script method
     bool target_precondition(CSE_ALifeObject* squad);
 
-
     virtual u32 ef_equipment_type() const;
     virtual u32 ef_main_weapon_type() const;
     virtual u32 ef_weapon_type() const;
@@ -186,9 +187,18 @@ public:
     virtual void STATE_Read(NET_Packet& P, u16 size);
     virtual void STATE_Write(NET_Packet& P);
     SERVER_ENTITY_EDITOR_METHODS
+
+    inline xr_map<std::uint32_t, Cordis::Scripts::XR_LOGIC::CondlistData>& getSimulationAvail(void) noexcept
+    {
+        return this->m_simulation_avail;
+    }
+    
+private:
+    xr_map<xr_string, xr_string> m_properties;
+    xr_map<std::uint32_t, Cordis::Scripts::XR_LOGIC::CondlistData> m_simulation_avail;
 };
 
-class  CSE_ALifeGroupAbstract
+class CSE_ALifeGroupAbstract
 {
 public:
     ALife::OBJECT_VECTOR m_tpMembers;
@@ -322,7 +332,7 @@ public:
     SERVER_ENTITY_EDITOR_METHODS
 };
 
-class  CSE_ALifeDynamicObjectVisual : public CSE_ALifeDynamicObject, public CSE_Visual
+class CSE_ALifeDynamicObjectVisual : public CSE_ALifeDynamicObject, public CSE_Visual
 {
     using inherited1 = CSE_ALifeDynamicObject;
     using inherited2 = CSE_Visual;
@@ -350,6 +360,7 @@ public:
     virtual bool used_ai_locations() const /* noexcept */;
     virtual void load(NET_Packet& tNetPacket);
     virtual CSE_Abstract* cast_abstract() { return this; }
+
 public:
     virtual void UPDATE_Read(NET_Packet& P);
     virtual void UPDATE_Write(NET_Packet& P);
@@ -628,6 +639,7 @@ public:
     virtual void load(NET_Packet& tNetPacket);
     virtual bool can_save() const /* noexcept */;
     virtual CSE_Abstract* cast_abstract() { return this; }
+
 protected:
     virtual void data_load(NET_Packet& tNetPacket);
     virtual void data_save(NET_Packet& tNetPacket);
