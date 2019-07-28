@@ -25,9 +25,19 @@ inline CInifile configure_schemes(CSE_ALifeObject* npc, const CInifile& ini, con
 
 struct CondlistData
 {
+    struct CondlistValues
+    {
+        bool m_required;
+        bool m_expected;
+        xr_string m_section_name;
+        xr_string m_function_name;
+    };
+
+
     xr_map<std::uint32_t, xr_map<xr_string, bool>> m_infop_check;
     xr_map<std::uint32_t, xr_map<xr_string, bool>> m_infop_set;
-    xr_string m_section;
+
+
 };
 
 inline xr_map<std::uint32_t, CondlistData> parse_condlist(
@@ -38,7 +48,6 @@ inline xr_map<std::uint32_t, CondlistData> parse_condlist(
 inline xr_map<std::uint32_t, CondlistData> parse_condlist(
     CScriptGameObject* npc, const xr_string& section, const xr_string& field, const xr_string& source)
 {
-
 }
 
 } // namespace XR_LOGIC
