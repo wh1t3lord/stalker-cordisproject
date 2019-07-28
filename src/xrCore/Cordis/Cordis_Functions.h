@@ -21,7 +21,7 @@ struct AnyCallable
     {
     }
 
-    template<typename... Args>
+    template <typename... Args>
     ReturnType operator()(Args&&... arguments)
     {
         std::function<ReturnType(Args...)> myfunction = std::any_cast<std::function<ReturnType(Args...)>>(this->m_any);
@@ -31,7 +31,18 @@ struct AnyCallable
             return ReturnType();
         }
 
-        return std::invoke(myfunction, std::forward<Args>(arguments)...);
+        ReturnType result;
+        try
+        {
+            result = std::invoke(myfunction, std::forward<Args>(arguments)...);
+        }
+        catch (...)
+        {
+            R_ASSERT2(false, "Something goes wrong! Can't invoke binded function, please check your callable arguments, which are passed to operator ()...");
+            result = ReturnType();
+        }
+
+        return result;
     }
 
 private:
