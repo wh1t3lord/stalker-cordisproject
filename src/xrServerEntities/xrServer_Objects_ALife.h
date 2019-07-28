@@ -193,6 +193,10 @@ public:
         return this->m_simulation_avail;
     }
     
+    inline xr_map<xr_string, xr_string>& getProperties(void) noexcept 
+    { return this->m_properties;
+    }
+
 private:
     xr_map<xr_string, xr_string> m_properties;
     xr_map<std::uint32_t, Cordis::Scripts::XR_LOGIC::CondlistData> m_simulation_avail;
