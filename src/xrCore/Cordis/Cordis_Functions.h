@@ -72,4 +72,5 @@ struct Callback
 private:
     std::function<ReturnType(Args... arguments)> m_callback;
 };
+
 } // namespace Cordis

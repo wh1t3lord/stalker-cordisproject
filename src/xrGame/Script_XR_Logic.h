@@ -24,17 +24,23 @@ inline CInifile configure_schemes(CSE_ALifeObject* npc, const CInifile& ini, con
     return CInifile("а это убрать и написать нормальный аргумент.ltx");
 }
 
-/* Lord: раскомментировать потом и реализовать!
 inline xr_map<std::uint32_t, CondlistData> parse_condlist(
-    CSE_ALifeObject* npc, const xr_string& section, const xr_string& field, const xr_string& source)
+    CSE_ALifeObject* npc, const xr_string& section, const xr_string& field, xr_string& source)
 {
+    if (!npc)
+    {
+        R_ASSERT2(false, "object is null!");
+        return xr_map<std::uint32_t, CondlistData>();
+    }
+
+    
 
 }
 
 inline xr_map<std::uint32_t, CondlistData> parse_condlist(
-    CScriptGameObject* npc, const xr_string& section, const xr_string& field, const xr_string& source)
+    CScriptGameObject* npc, const xr_string& section, const xr_string& field, xr_string& source)
 {
-}*/
+}
 
 } // namespace XR_LOGIC
 } // namespace Scripts
