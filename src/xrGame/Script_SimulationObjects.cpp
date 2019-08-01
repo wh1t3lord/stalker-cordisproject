@@ -55,12 +55,12 @@ void Script_SimulationObjects::get_properties(CSE_ALifeObject* object)
         value = _v;
         // Lord: доделать
         if (section == "sim_avail")
-        {
-        }
+            object->getSimulationAvail() = XR_LOGIC::parse_condlist_by_server_object(nullptr, xr_string("simulation_object"), xr_string("sim_avail"), value);
         else
-        {
-            
-        }
+            object->getProperties()[section] = value;
+        
+        if (!object->getSimulationAvail().size())
+            object->getSimulationAvail() = XR_LOGIC::parse_condlist_by_server_object(nullptr, "simulation_object", "sim_avail", "true");
     }
 }
 

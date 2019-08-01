@@ -24,22 +24,27 @@ inline CInifile configure_schemes(CSE_ALifeObject* npc, const CInifile& ini, con
     return CInifile("а это убрать и написать нормальный аргумент.ltx");
 }
 
-inline xr_map<std::uint32_t, CondlistData> parse_condlist(
-    CSE_ALifeObject* npc, const xr_string& section, const xr_string& field, xr_string& source)
+// @ Lord: doesn't have any differences between parse_condlist_by_script_object, but first argument is script object :D 
+inline xr_map<std::uint32_t, CondlistData> parse_condlist_by_server_object(
+    CSE_ALifeObject* npc, const xr_string& section, const xr_string& field, const xr_string& source)
 {
+    // Lord: реализовать парсинг и доделать!
     if (!npc)
     {
-        R_ASSERT2(false, "object is null!");
-        return xr_map<std::uint32_t, CondlistData>();
+        //   R_ASSERT2(false, "object is null!");
+        // Lord: without any assertion cuz first argument may be nullptr
+        Msg("[Script/XR_LOGIC/parse_condlist]: Warning 'npc' was nullptr!");
+        /*        return xr_map<std::uint32_t, CondlistData>();*/
     }
 
-    
-
+    return xr_map<std::uint32_t, CondlistData>();
 }
 
-inline xr_map<std::uint32_t, CondlistData> parse_condlist(
-    CScriptGameObject* npc, const xr_string& section, const xr_string& field, xr_string& source)
+// @ Lord: doesn't have any differences between parse_condlist_by_server_object, but first argument is CSE object :D
+inline xr_map<std::uint32_t, CondlistData> parse_condlist_by_script_object(
+    CScriptGameObject* npc, const xr_string& section, const xr_string& field, const xr_string& source)
 {
+    return xr_map<std::uint32_t, CondlistData>();
 }
 
 } // namespace XR_LOGIC
