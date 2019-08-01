@@ -20,6 +20,32 @@ float Script_SimulationObjects::evaluate_priority(CSE_ALifeObject* target, CSE_A
     // Lord: доделать!
 }
 
+void Script_SimulationObjects::registrate(CSE_ALifeObject* object)
+{
+    if (!object)
+    {
+        R_ASSERT2(false, "object was null!");
+        return;
+    }
+
+    this->get_properties(object);
+    this->update_avaliability(object);
+}
+
+void Script_SimulationObjects::update_avaliability(CSE_ALifeObject* object)
+{
+    if (!object)
+    {
+        R_ASSERT2(false, "object was null!");
+        return;
+    }
+    // Lord: ПЫС также туда могут передавать ai().alife().graph().actor();!!!!!
+    if ((XR_LOGIC::pick_section_from_condlist(DataBase::Storage::getInstance().getActor(), object, object->getSimulationAvail()) == "true") && object->IsSimulationAvailable())
+    {
+
+    }
+}
+
 void Script_SimulationObjects::get_properties(CSE_ALifeObject* object)
 {
     if (!object)
@@ -55,12 +81,14 @@ void Script_SimulationObjects::get_properties(CSE_ALifeObject* object)
         value = _v;
         // Lord: доделать
         if (section == "sim_avail")
-            object->getSimulationAvail() = XR_LOGIC::parse_condlist_by_server_object(nullptr, xr_string("simulation_object"), xr_string("sim_avail"), value);
+            object->getSimulationAvail() = XR_LOGIC::parse_condlist_by_server_object(
+                nullptr, xr_string("simulation_object"), xr_string("sim_avail"), value);
         else
             object->getProperties()[section] = value;
-        
+
         if (!object->getSimulationAvail().size())
-            object->getSimulationAvail() = XR_LOGIC::parse_condlist_by_server_object(nullptr, "simulation_object", "sim_avail", "true");
+            object->getSimulationAvail() =
+                XR_LOGIC::parse_condlist_by_server_object(nullptr, "simulation_object", "sim_avail", "true");
     }
 }
 

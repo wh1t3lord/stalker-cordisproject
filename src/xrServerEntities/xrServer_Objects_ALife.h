@@ -183,6 +183,12 @@ public:
     virtual void STATE_Read(NET_Packet& P, u16 size);
     virtual void STATE_Write(NET_Packet& P);
     SERVER_ENTITY_EDITOR_METHODS
+    
+    virtual bool IsSimulationAvailable(void)
+    {
+        // Lord: прочекать это используется только для se_actor, наверное всё же true должно стоять
+        return true;
+    }
 
     inline xr_map<std::uint32_t, Cordis::Scripts::CondlistData>& getSimulationAvail(void) noexcept
     {

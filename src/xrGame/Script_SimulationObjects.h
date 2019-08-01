@@ -25,6 +25,7 @@ public:
     float evaluate_priority(CSE_ALifeObject* target, CSE_ALifeObject* squad);
 
     void registrate(CSE_ALifeObject* object);
+    void update_avaliability(CSE_ALifeObject* object);
 
 private:
     inline float evaluate_priority_by_distance(CSE_ALifeObject* target, CSE_ALifeObject* squad)

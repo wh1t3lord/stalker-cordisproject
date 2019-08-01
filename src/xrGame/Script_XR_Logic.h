@@ -24,7 +24,7 @@ inline CInifile configure_schemes(CSE_ALifeObject* npc, const CInifile& ini, con
     return CInifile("а это убрать и написать нормальный аргумент.ltx");
 }
 
-// @ Lord: doesn't have any differences between parse_condlist_by_script_object, but first argument is script object :D 
+// @ Lord: doesn't have any differences between parse_condlist_by_script_object, but first argument is script object :D
 inline xr_map<std::uint32_t, CondlistData> parse_condlist_by_server_object(
     CSE_ALifeObject* npc, const xr_string& section, const xr_string& field, const xr_string& source)
 {
@@ -45,6 +45,63 @@ inline xr_map<std::uint32_t, CondlistData> parse_condlist_by_script_object(
     CScriptGameObject* npc, const xr_string& section, const xr_string& field, const xr_string& source)
 {
     return xr_map<std::uint32_t, CondlistData>();
+}
+
+inline xr_string pick_section_from_condlist(
+    CScriptGameObject* actor, CSE_ALifeObject* npc, const xr_map<std::uint32_t, CondlistData>& condlist)
+{
+    // Lord: доделать
+    if (!actor)
+    {
+        R_ASSERT2(false, "object is null!");
+        return xr_string("");
+    }
+
+    if (!npc)
+    {
+        R_ASSERT2(false, "object is null!");
+        return xr_string("");
+    }
+
+    return xr_string("");
+}
+
+inline xr_string pick_section_from_condlist(
+    CSE_ALifeCreatureActor* actor, CSE_ALifeObject* npc, const xr_map<std::uint32_t, CondlistData>& condlist)
+{
+    // Lord: доделать
+    if (!actor)
+    {
+        R_ASSERT2(false, "object is null!");
+        return xr_string("");
+    }
+
+    if (!npc)
+    {
+        R_ASSERT2(false, "object is null!");
+        return xr_string("");
+    }
+
+    return xr_string("");
+}
+ 
+inline xr_string pick_section_from_condlist(
+    CScriptGameObject* actor, CScriptGameObject* npc, const xr_map<std::uint32_t, CondlistData>& condlist)
+{
+    // Lord: доделать!
+    if (!actor)
+    {
+        R_ASSERT2(false, "object is null!");
+        return xr_string("");
+    }
+
+    if (!npc)
+    {
+        R_ASSERT2(false, "object is null!");
+        return xr_string("");
+    }
+
+    return xr_string("");
 }
 
 } // namespace XR_LOGIC
