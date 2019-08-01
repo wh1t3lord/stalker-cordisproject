@@ -32,6 +32,18 @@ void Script_SimulationObjects::registrate(CSE_ALifeObject* object)
     this->update_avaliability(object);
 }
 
+void Script_SimulationObjects::unregistrate(CSE_ALifeObject* object)
+{
+    if (!object)
+    {
+        R_ASSERT2(false, "object is null!");
+        return;
+    }
+
+    // Lord: подумать нужно ли реальное удаление объекта (delete xr_delete), скорее всего нет
+    this->m_objects[object->ID] = nullptr;
+}
+
 void Script_SimulationObjects::update_avaliability(CSE_ALifeObject* object)
 {
     if (!object)
@@ -40,9 +52,15 @@ void Script_SimulationObjects::update_avaliability(CSE_ALifeObject* object)
         return;
     }
     // Lord: ПЫС также туда могут передавать ai().alife().graph().actor();!!!!!
-    if ((XR_LOGIC::pick_section_from_condlist(DataBase::Storage::getInstance().getActor(), object, object->getSimulationAvail()) == "true") && object->IsSimulationAvailable())
+    if ((XR_LOGIC::pick_section_from_condlist(
+             DataBase::Storage::getInstance().getActor(), object, object->getSimulationAvail()) == "true") &&
+        object->IsSimulationAvailable())
     {
-
+        this->m_objects[object->ID] = object;
+    }
+    else
+    {
+        this->m_objects[object->ID] = nullptr;
     }
 }
 

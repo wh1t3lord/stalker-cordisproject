@@ -25,6 +25,7 @@ public:
     float evaluate_priority(CSE_ALifeObject* target, CSE_ALifeObject* squad);
 
     void registrate(CSE_ALifeObject* object);
+    void unregistrate(CSE_ALifeObject* object);
     void update_avaliability(CSE_ALifeObject* object);
 
 private:
@@ -35,7 +36,7 @@ private:
         if (distance < 1.0f)
             distance = 1.0f;
 
-        return (1.0f + 1.0f / distance);    
+        return (1.0f + 1.0f / distance);
     }
 
     void get_properties(CSE_ALifeObject* object);
