@@ -37,6 +37,13 @@ inline xr_map<std::uint32_t, CondlistData> parse_condlist_by_server_object(
         /*        return xr_map<std::uint32_t, CondlistData>();*/
     }
 
+
+    xr_map<std::uint32_t, CondlistData> result;
+
+
+
+
+
     return xr_map<std::uint32_t, CondlistData>();
 }
 
