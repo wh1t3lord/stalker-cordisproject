@@ -58,6 +58,7 @@ public:
     // Lord: или переместить в другой метод! Потестить
     ~Storage(void)
     {
+        // @ Lord: подумать здесь нужно это удалять так или оно в другом месте? 
         for (xr_map<std::uint16_t, Storage_Data>::value_type& it : this->m_storage)
         {
             if (it.second.m_object)
