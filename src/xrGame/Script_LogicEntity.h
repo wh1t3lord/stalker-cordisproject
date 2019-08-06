@@ -41,6 +41,7 @@ public:
         Msg("[Scripts/Script_ILogicEntity/death_callback(victim, who)] The method not overridden!");
     }
 
+    virtual void net_destroy(void) { Msg("[Scripts/Script_ILogicEntity/net_destroy()] The method not overridden!"); }
     // @ Системное наименование
     static std::string m_logic_name;
 };
