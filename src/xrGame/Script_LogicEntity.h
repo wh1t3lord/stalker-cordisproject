@@ -17,7 +17,6 @@ public:
 
     virtual void load(void) { Msg("[Scripts/Script_ILogicEntity/load] The method not overridden!"); }
 
-
     virtual void extrapolate_callback(void)
     {
         Msg("[Scripts/Script_ILogicEntity/extrapolate_callback] The method not overridden!");
@@ -86,10 +85,8 @@ public:
     }
 
     // @ Системное наименование
-    static std::string m_logic_name;
+    static xr_string m_logic_name;
 };
-
-std::string Script_ILogicEntity::m_logic_name = LOGIC_ENTITY_EMPTY;
 
 } // namespace Scripts
 } // namespace Cordis
