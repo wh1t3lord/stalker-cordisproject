@@ -52,6 +52,17 @@ public:
 
         Msg("[Scripts/Script_ILogicEntity/waypoint_callback(object, action_type, index)] The method not overridden!");
     }
+
+    virtual void use_callback(CScriptGameObject* victim, CScriptGameObject* who)
+    {
+        if (!victim || !who)
+        {
+            R_ASSERT2(false, "object was null!");
+            return;
+        }
+
+        Msg("[Scripts/Script_ILogicEntity/use_callback(victim, who)] The method not overridden!");
+    }
     // @ Системное наименование
     static std::string m_logic_name;
 };
