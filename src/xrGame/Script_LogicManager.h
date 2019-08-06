@@ -57,6 +57,15 @@ public:
         }
     }
 
+    inline void all_save(void)
+    {
+        for (Script_ILogicEntity* it : this->m_data)
+        {
+            if (it)
+                it->save();
+        }
+    }
+
 private:
     xr_vector<Script_ILogicEntity*> m_data;
 };
