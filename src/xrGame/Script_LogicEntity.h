@@ -13,8 +13,12 @@ public:
 
     virtual void reset_scheme(void) { Msg("[Scripts/Script_ILogicEntity/reset_scheme] The method not overridden!"); }
 
-    virtual void extrapolate_callback(void) 
-    { 
+    virtual void save(void) { Msg("[Scripts/Script_ILogicEntity/save] The method not overridden!"); }
+
+    
+
+    virtual void extrapolate_callback(void)
+    {
         Msg("[Scripts/Script_ILogicEntity/extrapolate_callback] The method not overridden!");
     }
 
