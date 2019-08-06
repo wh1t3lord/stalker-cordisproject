@@ -193,9 +193,26 @@ public:
         for (Script_ILogicEntity* it : buffer)
         {
             if (it)
-                it->death_callback(victim, who); 
+                it->death_callback(victim, who);
         }
     }
+
+    inline void all_net_destroy(xr_vector<Script_ILogicEntity*> buffer)
+    {
+        if (!buffer.size())
+        {
+            Msg("[Scripts/Script_LogicManager/all_net_destroy] buffer was empty!");
+            return;
+        }
+
+        for (Script_ILogicEntity* it : buffer)
+        {
+            if (it)
+                it->net_destroy();
+        }
+    }
+
+    
 };
 } // namespace Scripts
 } // namespace Cordis
