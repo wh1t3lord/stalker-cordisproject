@@ -42,6 +42,16 @@ public:
     }
 
     virtual void net_destroy(void) { Msg("[Scripts/Script_ILogicEntity/net_destroy()] The method not overridden!"); }
+    virtual void waitpoint_callback(CScriptGameObject* object, const int& action_type, const int& index)
+    {
+        if (!object)
+        {
+            R_ASSERT2(false, "object was null!");
+            return;
+        }
+
+        Msg("[Scripts/Script_ILogicEntity/waypoint_callback(object, action_type, index)] The method not overridden!");
+    }
     // @ Системное наименование
     static std::string m_logic_name;
 };
