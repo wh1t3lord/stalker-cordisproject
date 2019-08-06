@@ -1,6 +1,7 @@
 #pragma once
 
 #include "xrCore/xrCore.h"
+#include "Script_LogicEntity.h"
 #include "xrEngine/IGame_Level.h"
 #include "ai_space.h"
 #include "date_time.h"

@@ -23,20 +23,35 @@ inline CInifile configure_schemes(CScriptGameObject* npc, const CInifile& ini, c
 
     if (storage.m_active_section.size())
     {
-        // @ Lord: в оригинале если не использовать issue_event оно просто может вылетать понять почему и смотреть issues на Gitlab, когда понят будет функционал раскомментировать и реализовать
-     //   issue_events();
+        // @ Lord: в оригинале если не использовать issue_event оно просто может вылетать понять почему и смотреть
+        // issues на Gitlab, когда понят будет функционал раскомментировать и реализовать
+        //   issue_events();
     }
 
+    if (!ini.section_exist(section_logic.c_str()))
+    {
+        if (!gulag_name.size())
+        {
+
+        }
+        else
+        {
+            Msg("[Scripts/XR_LOGIC/configure_schemes] ERROR: object '%s': unable to find section '%s' in '%s'", npc->Name(),
+                section_logic.c_str(), ini_filename.c_str());
+            R_ASSERT(false);
+
+            return CInifile("system.ltx");
+        }
+    }
 
     // Lord: доделать!
     return CInifile("а это убрать и написать нормальный аргумент.ltx");
 }
 
 // @ Нужно ли здесь template
-template<typename... Arguments>
+template <typename... Arguments>
 inline void issue_events(CScriptGameObject* npc, DataBase::Storage_Data& storage, Arguments... arguments)
 {
-     
     // @ Lord: реализовать!!!!!!!
     return;
 }

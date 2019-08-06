@@ -3175,6 +3175,24 @@
     <Filter Include="Cordis\Scripts\Managers\Travel\Private">
       <UniqueIdentifier>{993e66ab-9eb7-4880-a07b-238d16459a11}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Cordis\Scripts\Logic">
+      <UniqueIdentifier>{9db2d95c-cd24-4661-bfc6-77e9d9029162}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Logic\Interface">
+      <UniqueIdentifier>{7f9a0195-0d60-463d-a2b3-b1bc787bf232}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Logic\Interface\Public">
+      <UniqueIdentifier>{607f4705-3931-430e-bf9e-6e62b7974fb1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Logic\Mob">
+      <UniqueIdentifier>{1296103c-37da-4a11-a1ec-590020bb8aa8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Logic\Heli">
+      <UniqueIdentifier>{e44614b2-4d45-41cf-a604-4c960039ff8f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Logic\Physics">
+      <UniqueIdentifier>{c88b9b42-5c77-4cdd-aa1e-b217c58508bb}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="mt_config.h">
@@ -8185,6 +8203,9 @@
     </ClInclude>
     <ClInclude Include="Script_Globalsinline.h">
       <Filter>Cordis\Scripts\Global\Globals\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Script_LogicEntity.h">
+      <Filter>Cordis\Scripts\Logic\Interface\Public</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

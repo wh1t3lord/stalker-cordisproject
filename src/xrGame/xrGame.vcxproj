@@ -1497,6 +1497,7 @@ $(xrLibDir);$(xrSdkDir)DXSDK/Lib/$(PlatformShortName);
     <ClInclude Include="Script_Globalsinline.h" />
     <ClInclude Include="script_hit.h" />
     <ClInclude Include="script_hit_inline.h" />
+    <ClInclude Include="Script_LogicEntity.h" />
     <ClInclude Include="script_monster_action.h" />
     <ClInclude Include="script_monster_action_inline.h" />
     <ClInclude Include="script_monster_hit_info.h" />
