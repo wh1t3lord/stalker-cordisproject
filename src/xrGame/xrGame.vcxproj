@@ -3531,7 +3531,6 @@ $(xrLibDir);$(xrSdkDir)DXSDK/Lib/$(PlatformShortName);
       <PrecompiledHeaderFile>pch_script.h</PrecompiledHeaderFile>
       <PrecompiledHeaderOutputFile>$(IntDir)$(ProjectName)_script.pch</PrecompiledHeaderOutputFile>
     </ClCompile>
-    <ClCompile Include="Script_LogicManager.cpp" />
     <ClCompile Include="script_monster_action.cpp" />
     <ClCompile Include="script_monster_action_script.cpp">
       <PrecompiledHeaderFile>pch_script.h</PrecompiledHeaderFile>

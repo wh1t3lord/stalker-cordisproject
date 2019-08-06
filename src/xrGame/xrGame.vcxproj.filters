@@ -3202,9 +3202,6 @@
     <Filter Include="Cordis\Scripts\Managers\Logic\Public">
       <UniqueIdentifier>{6ad96603-f07b-4a4b-85a9-4db3552acccc}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Cordis\Scripts\Managers\Logic\Private">
-      <UniqueIdentifier>{0231998e-4f05-45a8-9379-c1c8d9db4320}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="mt_config.h">
@@ -12350,9 +12347,6 @@
     </ClCompile>
     <ClCompile Include="Script_LogicEntity.cpp">
       <Filter>Cordis\Scripts\Logic\Interface\Private</Filter>
-    </ClCompile>
-    <ClCompile Include="Script_LogicManager.cpp">
-      <Filter>Cordis\Scripts\Managers\Logic\Private</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
