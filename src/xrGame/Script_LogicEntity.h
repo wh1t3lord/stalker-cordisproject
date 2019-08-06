@@ -15,7 +15,8 @@ public:
 
     virtual void save(void) { Msg("[Scripts/Script_ILogicEntity/save] The method not overridden!"); }
 
-    
+    virtual void load(void) { Msg("[Scripts/Script_ILogicEntity/load] The method not overridden!"); }
+
 
     virtual void extrapolate_callback(void)
     {
