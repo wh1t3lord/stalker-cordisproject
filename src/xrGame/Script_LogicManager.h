@@ -174,6 +174,28 @@ public:
                 it->hit_callback(object, amount, local_direction, who, bone_index);
         }
     }
+
+    inline void all_death_callback(
+        xr_vector<Script_ILogicEntity*> buffer, CScriptGameObject* victim, CScriptGameObject* who)
+    {
+        if (!buffer.size())
+        {
+            Msg("[Script/Script_LogicManager/all_death_callback] buffer was empty!");
+            return;
+        }
+
+        if (!victim || !who)
+        {
+            R_ASSERT2(false, "object was null!");
+            return;
+        }
+
+        for (Script_ILogicEntity* it : buffer)
+        {
+            if (it)
+                it->death_callback(victim, who); 
+        }
+    }
 };
 } // namespace Scripts
 } // namespace Cordis
