@@ -117,9 +117,19 @@ public:
         }
     }
 
-    inline void all_cutscene_callback(void) 
+    inline void all_cutscene_callback(xr_vector<Script_ILogicEntity*> buffer)
     {
-        
+        if (!buffer.size())
+        {
+            Msg("[Scripts/Script_LogicManager/all_cutscene_callback] buffer was empty!");
+            return;
+        }
+
+        for (Script_ILogicEntity* it : buffer)
+        {
+            if (it)
+                it->cutscene_callback();
+        }
     }
 
     inline void all_update(const float& delta)
