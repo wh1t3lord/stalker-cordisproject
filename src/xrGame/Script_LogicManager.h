@@ -20,6 +20,7 @@ public:
 
     ~Script_LogicManager(void)
     {
+        // @ Lord: проверить нужно ли так удалять? 
         for (Script_ILogicEntity* it : this->m_data)
         {
             if (it)
