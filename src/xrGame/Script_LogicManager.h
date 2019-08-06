@@ -152,6 +152,28 @@ public:
                 it->update(delta);
         }
     }
+
+    inline void all_hit_callback(xr_vector<Script_ILogicEntity*> buffer, CScriptGameObject* object, const int& amount,
+        const Fvector& local_direction, CScriptGameObject* who, const int& bone_index)
+    {
+        if (!buffer.size())
+        {
+            Msg("[Scripts/Script_LogicManager/all_hit_callback] buffer was empty!");
+            return;
+        }
+
+        if (!object || !who)
+        {
+            R_ASSERT2(false, "object was null!");
+            return;
+        }
+
+        for (Script_ILogicEntity* it : buffer)
+        {
+            if (it)
+                it->hit_callback(object, amount, local_direction, who, bone_index);
+        }
+    }
 };
 } // namespace Scripts
 } // namespace Cordis
