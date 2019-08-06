@@ -57,14 +57,43 @@ public:
         }
     }
 
-    inline void all_save(void) 
+    inline void all_save(xr_vector<Script_ILogicEntity*> buffer)
     {
-    
+        if (!buffer.size())
+        {
+            Msg("[Scripts/Script_LogicManager/all_save] buffer was empty!");
+            return;
+        }
+
+        for (Script_ILogicEntity* it : buffer)
+        {
+            if (it)
+                it->save();
+        }
     }
 
-    inline void all_load(void) {}
+    inline void all_load(xr_vector<Script_ILogicEntity*> buffer)
+    {
+        if (!buffer.size())
+        {
+            Msg("[Scripts/Script_LogicManager/all_load] buffer was empty!");
+            return;
+        }
 
-    inline void all_extrapolate_callback(void) {}
+        for (Script_ILogicEntity* it : buffer)
+        {
+            if (it)
+                it->load();
+        }
+    }
+
+    inline void all_extrapolate_callback(xr_vector<Script_ILogicEntity*> buffer)
+    {
+        if (!buffer.size())
+        {
+            Msg("");
+        }
+    }
 
     inline void all_activate_scheme(void) {}
 
