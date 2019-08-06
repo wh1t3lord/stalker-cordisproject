@@ -17,6 +17,14 @@ inline void add_enemy(CSE_Abstract* object)
     }
 }
 
+struct SubStorage_Data
+{
+    SubStorage_Data(void) = default;
+    ~SubStorage_Data(void) = default;
+    xr_map<xr_string, bool> m_signals;
+    xr_vector<Script_ILogicEntity*> m_actions;
+};
+
 struct Storage_Data
 {
     bool m_invulnerable = false;
@@ -28,7 +36,7 @@ struct Storage_Data
     CSE_ALifeObject* m_server_object = nullptr;
     CScriptSound* m_sound_object = nullptr;
     CInifile* m_ini = nullptr;
-    xr_map<xr_string, xr_map<xr_string, bool>> m_data;
+    xr_map<xr_string, SubStorage_Data> m_data;
     xr_string m_active_scheme = "";
     xr_string m_active_section = "";
     xr_string m_sound = "";
@@ -40,7 +48,7 @@ struct Storage_Data
     inline void ResetSignals(void) { this->m_data.clear(); }
 
     // @ Gets singnals xr_map<xr_string, bool>
-    inline xr_map<xr_string, bool>& operator[](const xr_string& id) { return m_data[id]; }
+    inline SubStorage_Data& operator[](const xr_string& id) { return m_data[id]; }
 };
 
 class Storage
@@ -58,29 +66,54 @@ public:
     // Lord: или переместить в другой метод! Потестить
     ~Storage(void)
     {
-        // @ Lord: подумать здесь нужно это удалять так или оно в другом месте? 
+        // @ Lord: подумать здесь нужно это удалять так или оно в другом месте?
         for (xr_map<std::uint16_t, Storage_Data>::value_type& it : this->m_storage)
         {
+            for (xr_map<xr_string, SubStorage_Data>::value_type& object : it.second.m_data)
+            {
+                if (object.second.m_actions.size())
+                {
+                    for (Script_ILogicEntity* entity : object.second.m_actions)
+                    {
+                        if (entity)
+                        {
+                            Msg("[Scripts/DataBase/Storage/~dtor] Deleting Script_IEntity: %s",
+                                entity->m_logic_name.c_str());
+                            delete entity;
+                            entity = nullptr;
+                        }
+                    }
+
+                    object.second.m_actions.clear();
+                }
+
+                object.second.m_signals.clear();
+            }
+
             if (it.second.m_object)
             {
+                Msg("[Scripts/DataBase/Storage/~dtor] Deleting the m_object: %s", it.second.m_object->Name());
                 delete it.second.m_object;
                 it.second.m_object = nullptr;
             }
 
             if (it.second.m_server_object)
             {
+                Msg("[Scripts/DataBase/Storage/~dtor] Deleting the m_server_object: %s", it.second.m_server_object->name());
                 delete it.second.m_server_object;
                 it.second.m_server_object = nullptr;
             }
 
             if (it.second.m_ini)
             {
+                Msg("[Scripts/DataBase/Storage/~dtor] Delete the m_ini: %s", it.second.m_ini->fname());
                 delete it.second.m_ini;
                 it.second.m_ini = nullptr;
             }
 
             if (it.second.m_sound_object)
             {
+                Msg("[Scripts/DataBase/Storage/~dtor] Deleting the m_sound_object");
                 delete it.second.m_sound_object;
                 it.second.m_sound_object = nullptr;
             }

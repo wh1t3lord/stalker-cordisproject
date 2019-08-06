@@ -192,19 +192,19 @@ void Script_SoundNPC::callback(const std::uint16_t& npc_id)
         return;
     }
 
-    if (!storage_data[storage_data.m_active_scheme].size())
+    if (!storage_data[storage_data.m_active_scheme].m_signals.size())
     {
         return;
     }
 
     if (this->m_played_id == this->m_npc[npc_id].second && this->m_shuffle != "rnd")
     {
-        storage_data[storage_data.m_active_scheme]["theme_end"] = true;
-        storage_data[storage_data.m_active_scheme]["sound_end"] = true;
+        storage_data[storage_data.m_active_scheme].m_signals["theme_end"] = true;
+        storage_data[storage_data.m_active_scheme].m_signals["sound_end"] = true;
     }
     else
     {
-        storage_data[storage_data.m_active_scheme]["sound_end"] = true;
+        storage_data[storage_data.m_active_scheme].m_signals["sound_end"] = true;
     }
 }
 
@@ -513,7 +513,7 @@ void Script_SoundActor::callback(const std::uint16_t& npc_id)
     if (!storage_data.m_active_scheme.size())
         return;
 
-    if (!storage_data[storage_data.m_active_scheme].size())
+    if (!storage_data[storage_data.m_active_scheme].m_signals.size())
         return;
 
     // Lord: проверить больше или всё же оно равно этому значению (про размер карты)
@@ -521,15 +521,15 @@ void Script_SoundActor::callback(const std::uint16_t& npc_id)
     {
         Msg("[Script_SoundActor] -> [%s] signalled 'theme_end' in section [%s]", std::to_string(npc_id).c_str(),
             storage_data.m_active_section.c_str());
-        storage_data[storage_data.m_active_scheme]["theme_end"] = true;
-        storage_data[storage_data.m_active_scheme]["sound_end"] = true;
+        storage_data[storage_data.m_active_scheme].m_signals["theme_end"] = true;
+        storage_data[storage_data.m_active_scheme].m_signals["sound_end"] = true;
     }
     else
     {
         Msg("[Script_SoundActor] -> [%s] signalled 'sound_end' in section [%s]", std::to_string(npc_id).c_str(),
             storage_data.m_active_section.c_str());
 
-        storage_data[storage_data.m_active_scheme]["sound_end"] = true;
+        storage_data[storage_data.m_active_scheme].m_signals["sound_end"] = true;
     }
 }
 
@@ -716,17 +716,17 @@ void Script_SoundObject::callback(const std::uint16_t& npc_id)
     if (!storage_data.m_active_scheme.size())
         return;
 
-    if (!storage_data[storage_data.m_active_scheme].size())
+    if (!storage_data[storage_data.m_active_scheme].m_signals.size())
         return;
 
     if (this->m_played_id == this->m_sound.size() && this->m_shuffle != "rnd")
     {
-        storage_data[storage_data.m_active_scheme]["theme_end"] = true;
-        storage_data[storage_data.m_active_scheme]["sound_end"] = true;
+        storage_data[storage_data.m_active_scheme].m_signals["theme_end"] = true;
+        storage_data[storage_data.m_active_scheme].m_signals["sound_end"] = true;
     }
     else
     {
-        storage_data[storage_data.m_active_scheme]["sound_end"] = true;
+        storage_data[storage_data.m_active_scheme].m_signals["sound_end"] = true;
     }
 }
 

@@ -8219,7 +8219,9 @@
     <ClInclude Include="Script_LogicEntity.h">
       <Filter>Cordis\Scripts\Logic\Interface\Public</Filter>
     </ClInclude>
-    <ClInclude Include="Script_LogicManager.h" />
+    <ClInclude Include="Script_LogicManager.h">
+      <Filter>Cordis\Scripts\Managers\Logic\Public</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="damage_manager.cpp">
@@ -12349,7 +12351,9 @@
     <ClCompile Include="Script_LogicEntity.cpp">
       <Filter>Cordis\Scripts\Logic\Interface\Private</Filter>
     </ClCompile>
-    <ClCompile Include="Script_LogicManager.cpp" />
+    <ClCompile Include="Script_LogicManager.cpp">
+      <Filter>Cordis\Scripts\Managers\Logic\Private</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="ai\monsters\chimera\chimera_attack_state.h">
