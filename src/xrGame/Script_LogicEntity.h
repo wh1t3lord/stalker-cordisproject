@@ -13,12 +13,17 @@ public:
 
     virtual void reset_scheme(void) { Msg("[Scripts/Script_ILogicEntity/reset_scheme] The method not overridden!"); }
 
+    virtual void extrapolate_callback(void) 
+    { 
+        Msg("[Scripts/Script_ILogicEntity/extrapolate_callback] The method not overridden!");
+    }
+
     virtual void activate_scheme(void)
     {
         Msg("[Scripts/Script_ILogicEntity/activate_scheme] The method not overridden!");
     }
 
-    virtual void cutscene_callback(void) 
+    virtual void cutscene_callback(void)
     {
         Msg("[Scripts/Script_ILogicEntity/cutscene_callback] The method not overridden!");
     }
