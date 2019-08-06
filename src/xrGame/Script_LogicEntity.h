@@ -73,7 +73,7 @@ public:
     }
 
     virtual void net_destroy(void) { Msg("[Scripts/Script_ILogicEntity/net_destroy()] The method is not overridden!"); }
-    virtual void waitpoint_callback(CScriptGameObject* object, const int& action_type, const int& index)
+    virtual void waypoint_callback(CScriptGameObject* object, const int& action_type, const int& index)
     {
         if (!object)
         {

@@ -212,7 +212,27 @@ public:
         }
     }
 
-    
+    inline void all_waypoint_callback(
+        xr_vector<Script_ILogicEntity*> buffer, CScriptGameObject* object, const int& action_type, const int& index)
+    {
+        if (!buffer.size())
+        {
+            Msg("[Scripts/Script_LogicManager/all_waypoint_callback] buffer was empty!");
+            return;
+        }
+
+        if (!object)
+        {
+            R_ASSERT2(false, "object was null!");
+            return;
+        }
+
+        for (Script_ILogicEntity* it : buffer)
+        {
+            if (it)
+                it->waypoint_callback(object, action_type, index);
+        }
+    }
 };
 } // namespace Scripts
 } // namespace Cordis
