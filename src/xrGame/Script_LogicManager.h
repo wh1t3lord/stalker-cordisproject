@@ -47,7 +47,15 @@ public:
                 it->deactivate(npc);
         }
     }
- 
+
+    inline void all_reset_scheme(void)
+    {
+        for (Script_ILogicEntity* it : this->m_data)
+        {
+            if (it)
+                it->reset_scheme();
+        }
+    }
 
 private:
     xr_vector<Script_ILogicEntity*> m_data;
