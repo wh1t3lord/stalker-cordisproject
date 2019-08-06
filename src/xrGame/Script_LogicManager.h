@@ -66,6 +66,15 @@ public:
         }
     }
 
+    inline void all_load(void)
+    {
+        for (Script_ILogicEntity* it : this->m_data)
+        {
+            if (it)
+                it->load();
+        }
+    }
+
 private:
     xr_vector<Script_ILogicEntity*> m_data;
 };
