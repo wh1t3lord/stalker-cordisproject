@@ -93,6 +93,15 @@ public:
         }
     }
 
+    inline void all_cutscene_callback(void)
+    {
+        for (Script_ILogicEntity* it : this->m_data)
+        {
+            if (it)
+                it->cutscene_callback();
+        }
+    }
+
 private:
     xr_vector<Script_ILogicEntity*> m_data;
 };
