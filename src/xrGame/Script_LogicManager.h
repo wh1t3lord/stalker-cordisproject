@@ -36,7 +36,7 @@ public:
     {
         for (Script_ILogicEntity* it : this->m_data)
         {
-
+            
         }
     }
 
