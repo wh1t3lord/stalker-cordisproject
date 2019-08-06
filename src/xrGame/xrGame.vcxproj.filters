@@ -3193,6 +3193,18 @@
     <Filter Include="Cordis\Scripts\Logic\Physics">
       <UniqueIdentifier>{c88b9b42-5c77-4cdd-aa1e-b217c58508bb}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Cordis\Scripts\Logic\Interface\Private">
+      <UniqueIdentifier>{4d25be0e-3045-4d63-af03-0d46af772405}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Managers\Logic">
+      <UniqueIdentifier>{80637725-23fa-4ccd-97c1-f735bea6bbdc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Managers\Logic\Public">
+      <UniqueIdentifier>{6ad96603-f07b-4a4b-85a9-4db3552acccc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Managers\Logic\Private">
+      <UniqueIdentifier>{0231998e-4f05-45a8-9379-c1c8d9db4320}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="mt_config.h">
@@ -8207,6 +8219,7 @@
     <ClInclude Include="Script_LogicEntity.h">
       <Filter>Cordis\Scripts\Logic\Interface\Public</Filter>
     </ClInclude>
+    <ClInclude Include="Script_LogicManager.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="damage_manager.cpp">
@@ -12333,6 +12346,10 @@
     <ClCompile Include="Script_TravelManager.cpp">
       <Filter>Cordis\Scripts\Managers\Travel\Private</Filter>
     </ClCompile>
+    <ClCompile Include="Script_LogicEntity.cpp">
+      <Filter>Cordis\Scripts\Logic\Interface\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Script_LogicManager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="ai\monsters\chimera\chimera_attack_state.h">
