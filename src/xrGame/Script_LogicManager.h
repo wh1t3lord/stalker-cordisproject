@@ -84,6 +84,15 @@ public:
         }
     }
 
+    inline void all_activate_scheme(void)
+    {
+        for (Script_ILogicEntity* it : this->m_data)
+        {
+            if (it)
+                it->activate_scheme();
+        }
+    }
+
 private:
     xr_vector<Script_ILogicEntity*> m_data;
 };
