@@ -20,7 +20,7 @@ public:
 
     ~Script_LogicManager(void)
     {
-        // @ Lord: проверить нужно ли так удалять? 
+        // @ Lord: проверить нужно ли так удалять?
         for (Script_ILogicEntity* it : this->m_data)
         {
             if (it)
@@ -33,11 +33,18 @@ public:
         this->m_data.clear();
     }
 
-    inline void All_Deativate(void)
+    inline void All_Deativate(CScriptGameObject* npc)
     {
+        if (!npc)
+        {
+            R_ASSERT2(false, "object was null!");
+            return;
+        }
+
         for (Script_ILogicEntity* it : this->m_data)
         {
-            
+            if (it)
+                it->deactivate(npc);
         }
     }
 
