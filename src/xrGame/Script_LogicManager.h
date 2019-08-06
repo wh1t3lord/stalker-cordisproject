@@ -33,7 +33,7 @@ public:
         this->m_data.clear();
     }
 
-    inline void All_Deativate(CScriptGameObject* npc)
+    inline void all_deactivate(CScriptGameObject* npc)
     {
         if (!npc)
         {
@@ -47,6 +47,7 @@ public:
                 it->deactivate(npc);
         }
     }
+ 
 
 private:
     xr_vector<Script_ILogicEntity*> m_data;
