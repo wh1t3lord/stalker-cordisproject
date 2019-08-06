@@ -102,12 +102,25 @@ public:
         }
     }
 
-    inline void all_activate_scheme(void) 
+    inline void all_activate_scheme(xr_vector<Script_ILogicEntity*> buffer)
+    {
+        if (!buffer.size())
+        {
+            Msg("[Scripts/Script_LogicManager/all_activate_scheme] buffer was empty!");
+            return;
+        }
+
+        for (Script_ILogicEntity* it : buffer)
+        {
+            if (it)
+                it->activate_scheme();
+        }
+    }
+
+    inline void all_cutscene_callback(void) 
     {
         
     }
-
-    inline void all_cutscene_callback(void) {}
 
     inline void all_update(const float& delta)
     {
