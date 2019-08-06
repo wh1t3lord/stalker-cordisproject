@@ -91,11 +91,21 @@ public:
     {
         if (!buffer.size())
         {
-            Msg("");
+            Msg("[Scripts/Script_LogicManager/all_extrapolate_callback] buffer was empty!");
+            return;
+        }
+
+        for (Script_ILogicEntity* it : buffer)
+        {
+            if (it)
+                it->extrapolate_callback();
         }
     }
 
-    inline void all_activate_scheme(void) {}
+    inline void all_activate_scheme(void) 
+    {
+        
+    }
 
     inline void all_cutscene_callback(void) {}
 
