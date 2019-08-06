@@ -132,13 +132,25 @@ public:
         }
     }
 
-    inline void all_update(const float& delta)
+    inline void all_update(xr_vector<Script_ILogicEntity*> buffer, const float& delta)
     {
+        if (!buffer.size())
+        {
+            Msg("[Scripts/Script_LogicManager/all_update] buffer was empty!");
+            return;
+        }
+
         if (delta < 0.0f)
             Msg("[Scripts/Script_LogicManager/all_update] The delta under zero!");
 
         if (fis_zero(delta))
             Msg("[Scripts/Script_LogicManager/all_update] The delta is zero!");
+
+        for (Script_ILogicEntity* it : buffer)
+        {
+            if (it)
+                it->update(delta);
+        }
     }
 };
 } // namespace Scripts
