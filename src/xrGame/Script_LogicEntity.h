@@ -10,10 +10,17 @@ class Script_ILogicEntity
 {
 public:
     virtual ~Script_ILogicEntity(void) = default;
+
     virtual void reset_scheme(void) { Msg("[Scripts/Script_ILogicEntity/reset_scheme] The method not overridden!"); }
+
     virtual void activate_scheme(void)
     {
         Msg("[Scripts/Script_ILogicEntity/activate_scheme] The method not overridden!");
+    }
+
+    virtual void cutscene_callback(void) 
+    {
+        Msg("[Scripts/Script_ILogicEntity/cutscene_callback] The method not overridden!");
     }
 
     virtual void update(const float& delta)
