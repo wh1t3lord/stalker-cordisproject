@@ -11,6 +11,10 @@ class Script_ILogicEntity
 public:
     virtual ~Script_ILogicEntity(void) = default;
     virtual void reset_scheme(void) { Msg("[Scripts/Script_ILogicEntity/reset_scheme] The method not overridden!"); }
+    virtual void activate_scheme(void)
+    {
+        Msg("[Scripts/Script_ILogicEntity/activate_scheme] The method not overridden!");
+    }
 
     virtual void update(const float& delta)
     {
@@ -63,6 +67,7 @@ public:
 
         Msg("[Scripts/Script_ILogicEntity/use_callback(victim, who)] The method not overridden!");
     }
+
     // @ Системное наименование
     static std::string m_logic_name;
 };
