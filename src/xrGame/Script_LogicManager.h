@@ -23,6 +23,12 @@ public:
 
     inline void all_deactivate(xr_vector<Script_ILogicEntity*> buffer, CScriptGameObject* npc)
     {
+        if (!buffer.size())
+        {
+            Msg("[Scripts/Script_LogicManager/all_deactivate] buffer was empty!");
+            return;
+        }
+
         if (!npc)
         {
             R_ASSERT2(false, "object was null!");
@@ -36,9 +42,25 @@ public:
         }
     }
 
-    inline void all_reset_scheme(void) {}
+    inline void all_reset_scheme(xr_vector<Script_ILogicEntity*> buffer)
+    {
+        if (!buffer.size())
+        {
+            Msg("[Scripts/Script_LogicManager/all_reset_scheme] buffer was empty!");
+            return;
+        }
 
-    inline void all_save(void) {}
+        for (Script_ILogicEntity* it : buffer)
+        {
+            if (it)
+                it->reset_scheme();
+        }
+    }
+
+    inline void all_save(void) 
+    {
+    
+    }
 
     inline void all_load(void) {}
 
