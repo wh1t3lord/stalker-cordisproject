@@ -6,6 +6,7 @@ namespace Cordis
 {
 namespace Scripts
 {
+// @ Передаются m_actions, а не весь SubStorage_Data!!
 class Script_LogicManager
 {
 private:
@@ -18,12 +19,9 @@ public:
         return instance;
     }
 
-    ~Script_LogicManager(void)
-    {
- 
-    }
+    ~Script_LogicManager(void) {}
 
-    inline void all_deactivate(CScriptGameObject* npc)
+    inline void all_deactivate(xr_vector<Script_ILogicEntity*> buffer, CScriptGameObject* npc)
     {
         if (!npc)
         {
@@ -31,39 +29,24 @@ public:
             return;
         }
 
- 
- 
+        for (Script_ILogicEntity* it : buffer)
+        {
+            if (it)
+                it->deactivate(npc);
+        }
     }
 
-    inline void all_reset_scheme(void)
-    {
- 
-    }
+    inline void all_reset_scheme(void) {}
 
-    inline void all_save(void)
-    {
-  
-    }
+    inline void all_save(void) {}
 
-    inline void all_load(void)
-    {
- 
-    }
+    inline void all_load(void) {}
 
-    inline void all_extrapolate_callback(void)
-    {
- 
-    }
+    inline void all_extrapolate_callback(void) {}
 
-    inline void all_activate_scheme(void)
-    {
- 
-    }
+    inline void all_activate_scheme(void) {}
 
-    inline void all_cutscene_callback(void)
-    {
- 
-    }
+    inline void all_cutscene_callback(void) {}
 
     inline void all_update(const float& delta)
     {
@@ -72,8 +55,6 @@ public:
 
         if (fis_zero(delta))
             Msg("[Scripts/Script_LogicManager/all_update] The delta is zero!");
-
- 
     }
 };
 } // namespace Scripts
