@@ -23,24 +23,49 @@ inline CInifile configure_schemes(CScriptGameObject* npc, const CInifile& ini, c
 
     if (storage.m_active_section.size())
     {
-        // @ Lord: в оригинале если не использовать issue_event оно просто может вылетать понять почему и смотреть
-        // issues на Gitlab, когда понят будет функционал раскомментировать и реализовать
-        //   issue_events();
+        Script_LogicManager::getInstance().all_deactivate(storage[storage.m_active_scheme].m_actions, npc);
     }
+
+    CInifile actual_ini = ini;
+    xr_string actual_ini_filename;
 
     if (!ini.section_exist(section_logic.c_str()))
     {
         if (!gulag_name.size())
         {
-
+            actual_ini_filename = ini_filename;
         }
         else
         {
-            Msg("[Scripts/XR_LOGIC/configure_schemes] ERROR: object '%s': unable to find section '%s' in '%s'", npc->Name(),
-                section_logic.c_str(), ini_filename.c_str());
+            Msg("[Scripts/XR_LOGIC/configure_schemes] ERROR: object '%s': unable to find section '%s' in '%s'",
+                npc->Name(), section_logic.c_str(), ini_filename.c_str());
             R_ASSERT(false);
 
             return CInifile("system.ltx");
+        }
+    }
+    else
+    {
+        xr_string filename = Globals::Utils::cfg_get_string(&ini, section_logic, "cfg", npc, false);
+        if (filename.size())
+        {
+            actual_ini_filename = filename;
+            actual_ini = CInifile(filename.c_str());
+
+            if (!actual_ini.section_exist(section_logic.c_str()))
+            {
+                Msg("object: %s configuratuion file [%s] NOT FOUND or section [logic] isn't assigned ", npc->Name(),
+                    filename.c_str());
+                R_ASSERT(false);
+                return CInifile("system.ltx");
+            }
+        }
+        else
+        {
+            if (stype == Globals::STYPE_STALKER || stype == Globals::STYPE_MOBILE)
+            {
+                
+            }
         }
     }
 

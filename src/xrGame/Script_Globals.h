@@ -1,8 +1,6 @@
 #pragma once
 
 #include "xrCore/xrCore.h"
-#include "Script_LogicEntity.h"
-#include "Script_LogicManager.h"
 #include "xrEngine/IGame_Level.h"
 #include "ai_space.h"
 #include "date_time.h"
@@ -263,12 +261,15 @@ inline bool in_time_interval(const std::uint32_t& value1, const std::uint32_t& v
 } // namespace Scripts
 } // namespace Cordis
 
+#include "Script_LogicEntity.h"
+#include "Script_LogicManager.h"
 #include "Script_Database.h"
 #include "Script_SoundManager.h"
 #include "Script_NewsManager.h"
 #include "Script_XR_Condition.h"
 #include "Script_XR_Logic.h"
 #include "Script_XR_Sound.h"
+#include "Script_XR_Gulag.h"
 #include "Script_SimulationBoard.h"
 #include "Script_SimulationObjects.h"
 #include "Script_SurgeManager.h"
