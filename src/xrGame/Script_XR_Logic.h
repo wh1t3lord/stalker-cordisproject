@@ -2,6 +2,7 @@
 
 #include "xrCore/xr_ini.h"
 #include "xrServer_Objects_ALife.h"
+#include "Script_XR_Gulag.h"
 
 namespace Cordis
 {
@@ -9,6 +10,8 @@ namespace Scripts
 {
 namespace XR_LOGIC
 {
+constexpr const char* XR_LOGIC_CUSTOMDATA = "<customdata>";
+
 inline CInifile configure_schemes(CScriptGameObject* npc, const CInifile& ini, const xr_string& ini_filename,
     unsigned int stype, const xr_string& section_logic, const xr_string& gulag_name)
 {
@@ -64,13 +67,51 @@ inline CInifile configure_schemes(CScriptGameObject* npc, const CInifile& ini, c
         {
             if (stype == Globals::STYPE_STALKER || stype == Globals::STYPE_MOBILE)
             {
-                
             }
         }
     }
 
     // Lord: доделать!
     return CInifile("а это убрать и написать нормальный аргумент.ltx");
+}
+
+inline CInifile get_customdata_or_ini_file(CScriptGameObject* npc, const xr_string& filename)
+{
+    if (!npc)
+    {
+        R_ASSERT2(false, "object was null!");
+        return CInifile("system.ltx");
+    }
+
+    DataBase::Storage_Data& storage = DataBase::Storage::getInstance().getStorage()[npc->ID()];
+    if (filename == XR_LOGIC_CUSTOMDATA)
+    {
+        CScriptIniFile* file = npc->spawn_ini();
+        if (!file)
+        {
+            CInifile ini(file->fname());
+            return ini;
+        }
+        else
+            return CInifile("[[scripts\\dummy.ltx]]");
+    }
+    else if (!filename.find('*'))
+    {
+        if (storage.m_job_ini.size())
+            return CInifile(storage.m_job_ini.c_str());
+
+        return XR_GULAG::loadLtx(filename.substr(filename.find('*') + 1));
+    }
+}
+
+inline void intialize_job(CScriptGameObject* object, DataBase::Storage_Data& storage, const bool& loaded,
+    CScriptGameObject* actor, const std::uint16_t& stype)
+{
+    if (!loaded)
+    {
+        xr_string ini_filename = XR_LOGIC_CUSTOMDATA;
+        CInifile ini
+    }
 }
 
 // @ Нужно ли здесь template

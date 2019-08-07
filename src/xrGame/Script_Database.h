@@ -44,6 +44,7 @@ struct Storage_Data
     xr_string m_animation_head = "";
     xr_string m_tip = "";
     xr_string m_time = "";
+    xr_string m_job_ini = "";
 
     inline void ResetSignals(void) { this->m_data.clear(); }
 

@@ -155,6 +155,19 @@ inline bool IsStalker(CScriptGameObject* object, int class_id = 0)
     return (getStalkerClasses()[class_id] == true);
 }
 
+inline bool IsStalker(CSE_ALifeDynamicObject* server_object, int class_id = 0)
+{
+    if (!server_object)
+    {
+        R_ASSERT2(false, "object was null!");
+        return false;
+    }
+
+    int result = class_id ? class_id : server_object->m_script_clsid;
+
+    return (getStalkerClasses()[class_id] == true);
+}
+
 inline bool IsArtefact(CScriptGameObject* object, int class_id = 0)
 {
     if (!object)
@@ -247,7 +260,7 @@ inline static xr_map<xr_string, unsigned int>& STypes(void) noexcept
     return stypes;
 }
 
-inline static xr_map<xr_string, Cordis::AnyCallable<void>>& getXREffects_Functions(void) noexcept 
+inline static xr_map<xr_string, Cordis::AnyCallable<void>>& getXREffects_Functions(void) noexcept
 {
     static xr_map<xr_string, Cordis::AnyCallable<void>> functions;
     return functions;

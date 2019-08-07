@@ -31,6 +31,28 @@ inline CSE_ALifeDynamicObject* get_npc_smart(CScriptGameObject* object)
 
     return nullptr;
 }
+
+inline static xr_map<xr_string, CInifile>& getDynamicLtx(void) noexcept
+{
+    static xr_map<xr_string, CInifile> instance;
+    return instance;
+}
+
+// @ "*smart_name*type_gulag"
+inline CInifile loadLtx(const xr_string& name)
+{
+    xr_string header = "*";
+    header += name;
+    CInifile file = getDynamicLtx()[header];
+
+    if (file.fname())
+        return file;
+    else
+    {
+        xr_string _n;
+    }
+}
+
 } // namespace XR_GULAG
 } // namespace Script
 } // namespace Cordis

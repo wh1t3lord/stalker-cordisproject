@@ -1,6 +1,7 @@
 #pragma once
 
 #include "xrCore/xrCore.h"
+#include "script_ini_file.h"
 #include "xrEngine/IGame_Level.h"
 #include "ai_space.h"
 #include "date_time.h"
@@ -220,6 +221,7 @@ inline int get_general_goodwill_between(const std::uint16_t& from, const std::ui
 inline bool check_squad_for_enemies(CSE_ALifeOnlineOfflineGroup* squad);
 inline bool IsMonster(CScriptGameObject* object, int class_id);
 inline bool IsStalker(CScriptGameObject* object, int class_id);
+inline bool IsStalker(CSE_ALifeDynamicObject* server_object, int class_id);
 inline bool IsArtefact(CScriptGameObject* object, int class_id);
 inline bool IsWeapon(CScriptGameObject* object, int class_id);
 inline xr_string character_community(CScriptGameObject* object);
@@ -261,6 +263,9 @@ inline bool in_time_interval(const std::uint32_t& value1, const std::uint32_t& v
 } // namespace Scripts
 } // namespace Cordis
 
+
+#include "Script_SE_Actor.h"
+#include "Script_SE_SmartTerrain.h"
 #include "Script_LogicEntity.h"
 #include "Script_LogicManager.h"
 #include "Script_Database.h"
@@ -274,5 +279,5 @@ inline bool in_time_interval(const std::uint32_t& value1, const std::uint32_t& v
 #include "Script_SimulationObjects.h"
 #include "Script_SurgeManager.h"
 #include "Script_EntitySounds.h"
-
+#include "Script_GulagGenerator.h"
 #include "Script_Globalsinline.h"
