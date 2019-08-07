@@ -1495,6 +1495,7 @@ $(xrLibDir);$(xrSdkDir)DXSDK/Lib/$(PlatformShortName);
     <ClInclude Include="Script_GlobalHelper.h" />
     <ClInclude Include="Script_Globals.h" />
     <ClInclude Include="Script_Globalsinline.h" />
+    <ClInclude Include="Script_GulagGenerator.h" />
     <ClInclude Include="script_hit.h" />
     <ClInclude Include="script_hit_inline.h" />
     <ClInclude Include="Script_LogicEntity.h" />
@@ -1515,6 +1516,7 @@ $(xrLibDir);$(xrSdkDir)DXSDK/Lib/$(PlatformShortName);
     <ClInclude Include="script_property_evaluator_wrapper.h" />
     <ClInclude Include="script_property_evaluator_wrapper_inline.h" />
     <ClInclude Include="Script_SE_Actor.h" />
+    <ClInclude Include="Script_SE_SmartTerrain.h" />
     <ClInclude Include="Script_SimulationBoard.h" />
     <ClInclude Include="Script_SimulationObjects.h" />
     <ClInclude Include="Script_SimulationSquad.h" />
@@ -3572,6 +3574,7 @@ $(xrLibDir);$(xrSdkDir)DXSDK/Lib/$(PlatformShortName);
       <PrecompiledHeaderOutputFile>$(IntDir)$(ProjectName)_script.pch</PrecompiledHeaderOutputFile>
     </ClCompile>
     <ClCompile Include="Script_SE_Actor.cpp" />
+    <ClCompile Include="Script_SE_SmartTerrain.cpp" />
     <ClCompile Include="Script_SimulationBoard.cpp" />
     <ClCompile Include="Script_SimulationObjects.cpp" />
     <ClCompile Include="Script_SimulationSquad.cpp" />

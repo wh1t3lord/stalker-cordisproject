@@ -3202,6 +3202,12 @@
     <Filter Include="Cordis\Scripts\Managers\Logic\Public">
       <UniqueIdentifier>{6ad96603-f07b-4a4b-85a9-4db3552acccc}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Cordis\Scripts\Managers\Gulag Generator">
+      <UniqueIdentifier>{e7da3795-554b-4e13-b1c4-4c5ce030f3e7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Managers\Gulag Generator\Public">
+      <UniqueIdentifier>{85730a1e-2049-408b-8190-e25ede27506a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="mt_config.h">
@@ -8222,6 +8228,12 @@
     <ClInclude Include="Script_XR_Gulag.h">
       <Filter>Cordis\Scripts\XR\Public</Filter>
     </ClInclude>
+    <ClInclude Include="Script_SE_SmartTerrain.h">
+      <Filter>Cordis\Scripts\Server Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="Script_GulagGenerator.h">
+      <Filter>Cordis\Scripts\Managers\Gulag Generator\Public</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="damage_manager.cpp">
@@ -12350,6 +12362,9 @@
     </ClCompile>
     <ClCompile Include="Script_LogicEntity.cpp">
       <Filter>Cordis\Scripts\Logic\Interface\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Script_SE_SmartTerrain.cpp">
+      <Filter>Cordis\Scripts\Server Entities</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
