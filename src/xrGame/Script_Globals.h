@@ -266,6 +266,7 @@ inline bool in_time_interval(const std::uint32_t& value1, const std::uint32_t& v
 
 #include "Script_SE_Actor.h"
 #include "Script_SE_SmartTerrain.h"
+#include "Script_SmartTerrainControl.h"
 #include "Script_LogicEntity.h"
 #include "Script_LogicManager.h"
 #include "Script_Database.h"

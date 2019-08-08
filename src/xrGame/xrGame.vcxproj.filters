@@ -3208,6 +3208,15 @@
     <Filter Include="Cordis\Scripts\Managers\Gulag Generator\Public">
       <UniqueIdentifier>{85730a1e-2049-408b-8190-e25ede27506a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Cordis\Scripts\Entities\Smart Terrain">
+      <UniqueIdentifier>{7063dace-87e0-4eb9-9f9c-1b09656eb29c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Entities\Smart Terrain\Public">
+      <UniqueIdentifier>{732c3285-4540-4752-bfcb-f8360e8620d5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Entities\Smart Terrain\Private">
+      <UniqueIdentifier>{78778342-d48f-4af4-b221-4fe8fe66c7c8}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="mt_config.h">
@@ -8234,6 +8243,9 @@
     <ClInclude Include="Script_GulagGenerator.h">
       <Filter>Cordis\Scripts\Managers\Gulag Generator\Public</Filter>
     </ClInclude>
+    <ClInclude Include="Script_SmartTerrainControl.h">
+      <Filter>Cordis\Scripts\Entities\Smart Terrain\Public</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="damage_manager.cpp">
@@ -12365,6 +12377,9 @@
     </ClCompile>
     <ClCompile Include="Script_SE_SmartTerrain.cpp">
       <Filter>Cordis\Scripts\Server Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="Script_SmartTerrainControl.cpp">
+      <Filter>Cordis\Scripts\Entities\Smart Terrain\Private</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
