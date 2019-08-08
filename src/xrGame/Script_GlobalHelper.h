@@ -25,18 +25,24 @@ public:
     Script_GlobalHelper& operator=(Script_GlobalHelper&&) = delete;
 
     inline void InitializeAlifeSimulator(void) {}
-    inline void RegisterFunctionsFromAnotherFiles(void) 
+    inline void RegisterFunctionsFromAnotherFiles(void)
     {
-            // @ Lord реализовать 
-        #pragma region XR_CONDITION
+        // @ Lord реализовать
+#pragma region XR_CONDITION
 
-        #pragma endregion
+#pragma endregion
 
+#pragma region XR_EFFECTS
 
-        #pragma region XR_EFFECTS 
-
-        #pragma endregion
+#pragma endregion
     }
+
+    inline xr_map<xr_string, bool>& getMonsterClasses(void) noexcept { return this->m_monster_classes; }
+    inline xr_map<xr_string, bool>& getStalkerClasses(void) noexcept { return this->m_stalker_classes; }
+    inline xr_map<xr_string, bool>& getWeaponClasses(void) noexcept { return this->m_weapon_classes; }
+    inline xr_map<xr_string, bool>& getArtefactClasses(void) noexcept { return this->m_artefact_classes; }
+
+private:
     xr_map<xr_string, bool> m_monster_classes;
     xr_map<xr_string, bool> m_stalker_classes;
     xr_map<xr_string, bool> m_weapon_classes;
