@@ -48,7 +48,7 @@ public:
         return data;
     }
 
-    void read_params(void);
+
     inline void refresh_script_logic(const std::uint32_t& object_id)
     {
         CSE_ALifeDynamicObject* server_object = ai().alife().objects().object(object_id);
@@ -56,15 +56,28 @@ public:
 
         if (Globals::IsStalker(server_object))
             stype = Globals::STYPE_STALKER;
-
-        
     }
+
+    inline xr_string getDefenceRestirctor(void) noexcept { return this->m_defence_restictor; }
+    inline xr_string getAttackRestrictor(void) noexcept { return this->m_attack_restrictor; }
+    inline xr_string getSafeRestrictor(void) noexcept { return this->m_safe_restirctor; }
+    inline void setDefenceRestrictor(const xr_string& string) noexcept { this->m_defence_restictor = string; }
+    inline void setAttackRestrictor(const xr_string& string) noexcept { this->m_attack_restrictor = string; }
+    inline void setSafeRestrictor(const xr_string& string) noexcept { this->m_safe_restirctor = string; }
+
+
+
+    void read_params(void);
+
 
 private:
     bool m_is_initialized;
     bool m_is_registered;
     std::uint32_t m_population;
     xr_string m_smart_level;
+    xr_string m_defence_restictor;
+    xr_string m_attack_restrictor;
+    xr_string m_safe_restirctor;
 };
 } // namespace Scripts
 } // namespace Cordis
