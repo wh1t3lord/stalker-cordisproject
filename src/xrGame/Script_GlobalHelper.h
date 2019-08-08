@@ -41,6 +41,20 @@ public:
     inline xr_map<xr_string, bool>& getStalkerClasses(void) noexcept { return this->m_stalker_classes; }
     inline xr_map<xr_string, bool>& getWeaponClasses(void) noexcept { return this->m_weapon_classes; }
     inline xr_map<xr_string, bool>& getArtefactClasses(void) noexcept { return this->m_artefact_classes; }
+    inline xr_map<xr_string, bool>& getAmmoSection(void) noexcept { return this->m_ammo_section; }
+    inline xr_map<xr_string, bool>& getQuestSection(void) noexcept { return this->m_quest_section; }
+    inline xr_map<xr_string, xr_string>& getSquadCommunityByBehavior(void) noexcept
+    {
+        return this->m_squad_community_by_behavior;
+    }
+    inline xr_map<xr_string, AnyCallable<void>>& getRegisteredFunctionsXREffects(void) noexcept
+    {
+        return this->m_registered_functions_xr_effects;
+    }
+
+    inline xr_map<xr_string, AnyCallable<bool>>& getRegisteredFunctionsXRCondition(void) noexcept {
+        return this->m_registered_functions_xr_conditions;
+    }
 
 private:
     xr_map<xr_string, bool> m_monster_classes;
