@@ -27,7 +27,7 @@ public:
     inline void InitializeAlifeSimulator(void) {}
     inline void RegisterFunctionsFromAnotherFiles(void)
     {
-        // @ Lord реализовать
+        // @ Lord: реализовать
 #pragma region XR_CONDITION
 
 #pragma endregion

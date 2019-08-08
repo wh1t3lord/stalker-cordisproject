@@ -1535,6 +1535,7 @@ $(xrLibDir);$(xrSdkDir)DXSDK/Lib/$(PlatformShortName);
     <ClInclude Include="script_watch_action.h" />
     <ClInclude Include="script_watch_action_inline.h" />
     <ClInclude Include="Script_XR_Condition.h" />
+    <ClInclude Include="Script_XR_Effects.h" />
     <ClInclude Include="Script_XR_Gulag.h" />
     <ClInclude Include="Script_XR_Logic.h" />
     <ClInclude Include="Script_XR_Sound.h" />

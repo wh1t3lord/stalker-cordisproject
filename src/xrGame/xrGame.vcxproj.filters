@@ -8246,6 +8246,9 @@
     <ClInclude Include="Script_SmartTerrainControl.h">
       <Filter>Cordis\Scripts\Entities\Smart Terrain\Public</Filter>
     </ClInclude>
+    <ClInclude Include="Script_XR_Effects.h">
+      <Filter>Cordis\Scripts\XR\Public</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="damage_manager.cpp">

@@ -753,6 +753,8 @@ inline xr_string pick_section_from_condlist(
                     {
                         Msg("[Scripts/XR_LOGIC/pick_section_from_condlist(actor, npc, condlist)] Using function from "
                             "XR_CONDITION file and a function uses one argument.");
+
+
                     }
                 }
             }
