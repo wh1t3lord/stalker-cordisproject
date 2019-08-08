@@ -12,7 +12,9 @@
 #include "relation_registry.h"
 #include "InfoPortionDefs.h"
 #include "xrServer_Objects_ALife_All.h"
+#include "xr_time.h"
 #include <random>
+#include "Script_GlobalHelper.h"
 
 namespace Cordis
 {
@@ -46,25 +48,28 @@ public:
 
     inline int Generate(const int& minimum, const int& maximum)
     {
+        if (minimum > maximum)
+        {
+            R_ASSERT2(false, "It can't be! Rewrite values minimum and maximum!!!");
+        }
+
         std::uniform_int_distribution<int> distribution(minimum, maximum);
         return distribution(this->m_generator);
     }
 
     inline std::uint32_t Generate(const std::uint32_t& minimum, const std::uint32_t& maximum)
     {
-        std::uniform_int_distribution<std::uint32_t> distribution(minimum, maximum);
-        return distribution(this->m_generator);
-    }
+        if (minimum > maximum)
+        {
+            R_ASSERT2(false, "It can't be! Rewrite values minimum and maximum!!!");
+        }
 
-    inline std::uint16_t Generate(const std::uint16_t& minimum, const std::uint16_t& maximum)
-    {
-        std::uniform_int_distribution<std::uint16_t> distribution(minimum, maximum);
+        std::uniform_int_distribution<std::uint32_t> distribution(minimum, maximum);
         return distribution(this->m_generator);
     }
 
 private:
     std::mt19937 m_generator;
- 
 };
 
 class Script_RandomFloat
@@ -87,6 +92,11 @@ public:
 
     inline float Generate(const float& minimum, const float& maximum)
     {
+        if (minimum > maximum)
+        {
+            R_ASSERT2(false, "It can't be. Rewrite values minimum and maximum!");
+        }
+
         std::uniform_real_distribution<float> distribution(minimum, maximum);
         return distribution(this->m_generator);
     }
@@ -263,7 +273,6 @@ inline bool in_time_interval(const std::uint32_t& value1, const std::uint32_t& v
 } // namespace Scripts
 } // namespace Cordis
 
-
 #include "Script_SE_Actor.h"
 #include "Script_SE_SmartTerrain.h"
 #include "Script_SmartTerrainControl.h"
@@ -276,6 +285,7 @@ inline bool in_time_interval(const std::uint32_t& value1, const std::uint32_t& v
 #include "Script_XR_Logic.h"
 #include "Script_XR_Sound.h"
 #include "Script_XR_Gulag.h"
+#include "Script_XR_Effects.h"
 #include "Script_SimulationBoard.h"
 #include "Script_SimulationObjects.h"
 #include "Script_SurgeManager.h"

@@ -689,7 +689,7 @@ inline xr_map<std::uint32_t, CondlistData> parse_condlist_by_script_object(
 }
 
 inline xr_string pick_section_from_condlist(
-    CScriptGameObject* actor, CSE_ALifeObject* npc, const xr_map<std::uint32_t, CondlistData>& condlist)
+    CScriptGameObject* actor, CSE_ALifeDynamicObject* npc, const xr_map<std::uint32_t, CondlistData>& condlist)
 {
     // Lord: доделать
     if (!actor)
@@ -704,11 +704,65 @@ inline xr_string pick_section_from_condlist(
         return xr_string("");
     }
 
+    std::uint32_t value = 0; // idk what does it mean. Translate this to normal
+    bool is_infoportion_conditions_met = false;
+
+    for (const std::pair<std::uint32_t, CondlistData>& it : condlist)
+    {
+        // Изначально считаем, что все условия переключения удовлетворены
+        is_infoportion_conditions_met = true;
+        for (const std::pair<std::uint32_t, CondlistData::CondlistValues>& it_infoportion_check :
+            it.second.m_infop_check)
+        {
+            if (it_infoportion_check.second.m_prob)
+            {
+                if (!value)
+                {
+                    value = Globals::Script_RandomInt::getInstance().Generate(1, 100);
+                }
+
+                if (it_infoportion_check.second.m_prob < value)
+                {
+                    // Инфорпоршень есть, но он не должен присутствовать
+                    is_infoportion_conditions_met = false;
+                    break;
+                }
+            }
+            else if (it_infoportion_check.second.m_function_name.size())
+            {
+                if (Script_GlobalHelper::getInstance().m_registered_functions_xr_conditions.find(
+                        it_infoportion_check.second.m_function_name) ==
+                    Script_GlobalHelper::getInstance().m_registered_functions_xr_conditions.end())
+                {
+                    // @ Если мы ничего не нашли (Lord: проверить)
+                    Msg("Object: [%s] - Function: %s doesn't registered in Singleton Script_GlobalHelper in function "
+                        "Script_GlobalHelper::RegisterFunctionsFromAnotherFiles!!!! ",
+                        npc->s_name, it_infoportion_check.second.m_function_name.c_str());
+                    R_ASSERT(false);
+                }
+
+                if (it_infoportion_check.second.m_params.size())
+                {
+                    ///
+                    // Parsing params
+                    ///
+
+                    xr_string buffer = it_infoportion_check.second.m_params;
+
+                    if (buffer.find(':') == xr_string::npos)
+                    {
+                        
+                    }
+                }
+            }
+        }
+    }
+
     return xr_string("");
 }
 
 inline xr_string pick_section_from_condlist(
-    CSE_ALifeCreatureActor* actor, CSE_ALifeObject* npc, const xr_map<std::uint32_t, CondlistData>& condlist)
+    CSE_ALifeCreatureActor* actor, CSE_ALifeDynamicObject* npc, const xr_map<std::uint32_t, CondlistData>& condlist)
 {
     // Lord: доделать
     if (!actor)
