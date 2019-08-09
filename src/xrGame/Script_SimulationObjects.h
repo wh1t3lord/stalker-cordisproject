@@ -22,14 +22,14 @@ public:
     Script_SimulationObjects(Script_SimulationObjects&&) = delete;
     Script_SimulationObjects& operator=(Script_SimulationObjects&&) = delete;
 
-    float evaluate_priority(CSE_ALifeObject* target, CSE_ALifeObject* squad);
+    float evaluate_priority(CSE_ALifeDynamicObject* target, CSE_ALifeDynamicObject* squad);
 
-    void registrate(CSE_ALifeObject* object);
-    void unregistrate(CSE_ALifeObject* object);
-    void update_avaliability(CSE_ALifeObject* object);
+    void registrate(CSE_ALifeDynamicObject* object);
+    void unregistrate(CSE_ALifeDynamicObject* object);
+    void update_avaliability(CSE_ALifeDynamicObject* object);
 
 private:
-    inline float evaluate_priority_by_distance(CSE_ALifeObject* target, CSE_ALifeObject* squad)
+    inline float evaluate_priority_by_distance(CSE_ALifeDynamicObject* target, CSE_ALifeDynamicObject* squad)
     {
         float distance = Globals::sim_dist_to(target, squad);
 
@@ -39,10 +39,10 @@ private:
         return (1.0f + 1.0f / distance);
     }
 
-    void get_properties(CSE_ALifeObject* object);
+    void get_properties(CSE_ALifeDynamicObject* object);
 
 private:
-    xr_map<std::uint16_t, CSE_ALifeObject*> m_objects;
+    xr_map<std::uint16_t, CSE_ALifeDynamicObject*> m_objects;
     CInifile m_props_ini;
 };
 } // namespace Scripts

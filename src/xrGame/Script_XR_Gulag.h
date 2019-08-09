@@ -2,7 +2,7 @@
 
 namespace Cordis
 {
-namespace Script
+namespace Scripts
 {
 namespace XR_GULAG
 {
@@ -31,26 +31,30 @@ inline CSE_ALifeDynamicObject* get_npc_smart(CScriptGameObject* object)
 
     return nullptr;
 }
-
-inline static xr_map<xr_string, CInifile>& getDynamicLtx(void) noexcept
+// Lord: тогда прочекать за удаление то есть здесь уже Singlton 
+inline static xr_map<xr_string, CInifile*>& getDynamicLtx(void) noexcept
 {
-    static xr_map<xr_string, CInifile> instance;
+    static xr_map<xr_string, CInifile*> instance;
     return instance;
 }
 
 // @ "*smart_name*type_gulag"
 inline CInifile loadLtx(const xr_string& name)
 {
+    // Lord: доделать!
     xr_string header = "*";
     header += name;
-    CInifile file = getDynamicLtx()[header];
+    CInifile* file = getDynamicLtx()[header];
 
-    if (file.fname())
-        return file;
+    if (file->fname())
+        return *file;
     else
     {
         xr_string _n;
     }
+
+    // написать по нормальному!
+    return CInifile("system.ltx");
 }
 
 } // namespace XR_GULAG

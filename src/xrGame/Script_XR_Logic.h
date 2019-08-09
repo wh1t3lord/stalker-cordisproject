@@ -101,7 +101,7 @@ inline CInifile get_customdata_or_ini_file(CScriptGameObject* npc, const xr_stri
     {
         if (storage.m_job_ini.size())
             return CInifile(storage.m_job_ini.c_str());
-
+ 
         return XR_GULAG::loadLtx(filename.substr(filename.find('*') + 1));
     }
 }
@@ -109,10 +109,10 @@ inline CInifile get_customdata_or_ini_file(CScriptGameObject* npc, const xr_stri
 inline void intialize_job(CScriptGameObject* object, DataBase::Storage_Data& storage, const bool& loaded,
     CScriptGameObject* actor, const std::uint16_t& stype)
 {
+    // Lord: доделать!
     if (!loaded)
     {
         xr_string ini_filename = XR_LOGIC_CUSTOMDATA;
-        CInifile ini
     }
 }
 

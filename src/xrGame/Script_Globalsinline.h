@@ -51,7 +51,7 @@ inline void load_sound(void)
 
 inline void init_npc_sound(CScriptGameObject* npc)
 {
-    for (std::pair<xr_string, IScript_Sound*> it : Script_SoundThemeDataBase::getInstance().getTheme())
+    for (std::pair<xr_string, Script_ISoundEntity*> it : Script_SoundThemeDataBase::getInstance().getTheme())
     {
         if (it.second)
         {

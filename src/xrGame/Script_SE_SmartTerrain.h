@@ -33,7 +33,7 @@ public:
 
         NpcInfo data;
 
-        data.m_is_monster = Globals::IsStalker(server_object);
+        data.m_is_monster = Globals::IsStalker(server_object, 0);
         data.m_server_object = server_object;
         data.m_need_job = "nil";
         data.m_job_prioprity = -1;
@@ -54,7 +54,7 @@ public:
         CSE_ALifeDynamicObject* server_object = ai().alife().objects().object(object_id);
         std::uint16_t stype = Globals::STYPE_MOBILE;
 
-        if (Globals::IsStalker(server_object))
+        if (Globals::IsStalker(server_object, 0))
             stype = Globals::STYPE_STALKER;
     }
 

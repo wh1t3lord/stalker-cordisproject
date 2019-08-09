@@ -15,6 +15,7 @@
 #include "xr_time.h"
 #include <random>
 #include "Script_GlobalHelper.h"
+#include "Script_EntitySounds.h"
 
 namespace Cordis
 {
@@ -282,9 +283,9 @@ inline bool in_time_interval(const std::uint32_t& value1, const std::uint32_t& v
 #include "Script_SoundManager.h"
 #include "Script_NewsManager.h"
 #include "Script_XR_Condition.h"
+#include "Script_XR_Gulag.h"
 #include "Script_XR_Logic.h"
 #include "Script_XR_Sound.h"
-#include "Script_XR_Gulag.h"
 #include "Script_XR_Effects.h"
 #include "Script_SimulationBoard.h"
 #include "Script_SimulationObjects.h"

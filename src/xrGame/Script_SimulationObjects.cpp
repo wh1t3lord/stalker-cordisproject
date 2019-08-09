@@ -7,7 +7,7 @@ namespace Scripts
 {
 Script_SimulationObjects::~Script_SimulationObjects(void) {}
 
-float Script_SimulationObjects::evaluate_priority(CSE_ALifeObject* target, CSE_ALifeObject* squad)
+float Script_SimulationObjects::evaluate_priority(CSE_ALifeDynamicObject* target, CSE_ALifeDynamicObject* squad)
 {
     if (!target || !squad)
     {
@@ -20,7 +20,7 @@ float Script_SimulationObjects::evaluate_priority(CSE_ALifeObject* target, CSE_A
     // Lord: доделать!
 }
 
-void Script_SimulationObjects::registrate(CSE_ALifeObject* object)
+void Script_SimulationObjects::registrate(CSE_ALifeDynamicObject* object)
 {
     if (!object)
     {
@@ -32,7 +32,7 @@ void Script_SimulationObjects::registrate(CSE_ALifeObject* object)
     this->update_avaliability(object);
 }
 
-void Script_SimulationObjects::unregistrate(CSE_ALifeObject* object)
+void Script_SimulationObjects::unregistrate(CSE_ALifeDynamicObject* object)
 {
     if (!object)
     {
@@ -44,7 +44,7 @@ void Script_SimulationObjects::unregistrate(CSE_ALifeObject* object)
     this->m_objects[object->ID] = nullptr;
 }
 
-void Script_SimulationObjects::update_avaliability(CSE_ALifeObject* object)
+void Script_SimulationObjects::update_avaliability(CSE_ALifeDynamicObject* object)
 {
     if (!object)
     {
@@ -64,7 +64,7 @@ void Script_SimulationObjects::update_avaliability(CSE_ALifeObject* object)
     }
 }
 
-void Script_SimulationObjects::get_properties(CSE_ALifeObject* object)
+void Script_SimulationObjects::get_properties(CSE_ALifeDynamicObject* object)
 {
     if (!object)
     {

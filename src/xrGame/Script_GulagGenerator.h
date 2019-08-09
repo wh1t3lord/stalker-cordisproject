@@ -22,7 +22,7 @@ inline static xr_string& getLtx(void) noexcept
     return instance;
 }
 
-bool load_job(Script_SE_SmartTerrain* smart)
+inline bool load_job(Script_SE_SmartTerrain* smart)
 {
     if (!smart)
     {

@@ -6,13 +6,19 @@ namespace Scripts
 {
 namespace XR_SOUND
 {
-inline static xr_map<xr_string, Script_ISoundEntity*>& getSoundTable(void) noexcept
+inline static xr_map<std::uint16_t, Script_ISoundEntity*>& getSoundDatabase(void) noexcept
 {
-    static xr_map<xr_string, Script_ISoundEntity*> instance;
+    static xr_map<std::uint16_t, Script_ISoundEntity*> instance;
     return instance;
 }
 
-CScriptSound* set_sound_play(
+inline static xr_map<std::uint16_t, Script_ISoundEntity*>& getLoopedSoundDatabase(void) noexcept 
+{
+    static xr_map<std::uint16_t, Script_ISoundEntity*> instance;
+    return instance;
+}
+
+inline CScriptSound* set_sound_play(
     const std::uint16_t& npc_id, const xr_string& sound, xr_string& faction, const std::uint16_t& point)
 {
     if (!sound.size())
@@ -37,25 +43,38 @@ CScriptSound* set_sound_play(
         return nullptr;
     }
 
-    if (getSoundTable()[sound] == nullptr || sound_entity->IsPlayAlways())
+    if (getSoundDatabase()[npc_id] == nullptr || sound_entity->IsPlayAlways())
     {
-        if (getSoundTable()[sound])
+        if (getSoundDatabase()[npc_id])
         {
-            getSoundTable()[sound]->reset(npc_id);
+            getSoundDatabase()[npc_id]->reset(npc_id);
         }
 
         if (sound_entity->play(npc_id, faction, point))
         {
-            getSoundTable()[sound] = sound_entity;
+            getSoundDatabase()[npc_id] = sound_entity;
         }
     }
     else
     {
-        return getSoundTable()[sound]->getSoundObject();
+        return getSoundDatabase()[npc_id]->getSoundObject();
     }
 
-    return getSoundTable()[sound]->getSoundObject();
+    return getSoundDatabase()[npc_id]->getSoundObject();
 }
+
+inline void update(const std::uint16_t& npc_id)
+{
+    if (getSoundDatabase()[npc_id])
+    {
+        if (!getSoundDatabase()[npc_id]->is_playing(npc_id))
+        {
+            getSoundDatabase()[npc_id]->callback(npc_id);
+            getSoundDatabase()[npc_id] = nullptr;
+        }
+    }
+}
+
 } // namespace XR_SOUND
 } // namespace Scripts
 } // namespace Cordis
