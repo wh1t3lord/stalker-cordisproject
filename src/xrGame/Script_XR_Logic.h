@@ -11,8 +11,8 @@ namespace Scripts
 namespace XR_LOGIC
 {
 constexpr const char* XR_LOGIC_CUSTOMDATA = "<customdata>";
-constexpr const char* XR_LOGIC_CLIENT_SERVER_ARGUMENTS = "client_server";
-constexpr const char* XR_LOGIC_CLIENT_CLIENT_ARGUMENTS = "client_client";
+constexpr const char* XR_LOGIC_CLIENT_SERVER_ARGUMENTS = "_client_server";
+constexpr const char* XR_LOGIC_CLIENT_CLIENT_ARGUMENTS = "_client_client";
 
 inline CInifile configure_schemes(CScriptGameObject* npc, const CInifile& ini, const xr_string& ini_filename,
     unsigned int stype, const xr_string& section_logic, const xr_string& gulag_name)
@@ -732,9 +732,12 @@ inline xr_string pick_section_from_condlist(
             }
             else if (it_infoportion_check.second.m_function_name.size())
             {
-                if (Script_GlobalHelper::getInstance().m_registered_functions_xr_conditions.find(
-                        it_infoportion_check.second.m_function_name) ==
-                    Script_GlobalHelper::getInstance().m_registered_functions_xr_conditions.end())
+                xr_string calling_function_name = it_infoportion_check.second.m_function_name;
+                calling_function_name += XR_LOGIC_CLIENT_SERVER_ARGUMENTS;
+
+                if (Script_GlobalHelper::getInstance().getRegisteredFunctionsXRCondition().find(
+                        calling_function_name) ==
+                    Script_GlobalHelper::getInstance().getRegisteredFunctionsXRCondition().end())
                 {
                     // @ Если мы ничего не нашли (Lord: проверить)
                     Msg("Object: [%s] - Function: %s doesn't registered in Singleton Script_GlobalHelper in function "
@@ -748,7 +751,6 @@ inline xr_string pick_section_from_condlist(
                     ///
                     // Parsing params
                     ///
-
                     xr_string buffer = it_infoportion_check.second.m_params;
 
                     if (buffer.find(':') == xr_string::npos)
@@ -758,9 +760,134 @@ inline xr_string pick_section_from_condlist(
 
                         xr_string& argument = buffer;
 
-                        Script_GlobalHelper::getInstance().getRegisteredFunctionsXRCondition()[it_infoportion_check.second
-                                                                                     .m_function_name](actor, npc, argument);
+                        if (Script_GlobalHelper::getInstance()
+                                .getRegisteredFunctionsXRCondition()[calling_function_name](actor, npc, argument))
+                        {
+                            if (!it_infoportion_check.second.m_expected)
+                            {
+                                is_infoportion_conditions_met = false;
+                                break;
+                            }
+                        }
+                        else
+                        {
+                            if (it_infoportion_check.second.m_expected)
+                            {
+                                is_infoportion_conditions_met = false;
+                                break;
+                            }
+                        }
                     }
+                    else
+                    {
+                        xr_string argument2 = buffer.substr(buffer.rfind(':') + 1);
+                        xr_string argument1 = buffer.erase(buffer.find(':'));
+                        int argument2_number = atoi(argument2.c_str());
+                        if (!argument2_number)
+                        {
+                            if (Script_GlobalHelper::getInstance()
+                                    .getRegisteredFunctionsXRCondition()[calling_function_name](
+                                        actor, npc, argument1, argument2))
+                            {
+                                if (!it_infoportion_check.second.m_expected)
+                                {
+                                    is_infoportion_conditions_met = false;
+                                    break;
+                                }
+                            }
+                            else
+                            {
+                                if (it_infoportion_check.second.m_expected)
+                                {
+                                    is_infoportion_conditions_met = false;
+                                    break;
+                                }
+                            }
+                        }
+
+                        else
+                        {
+                            if (Script_GlobalHelper::getInstance()
+                                    .getRegisteredFunctionsXRCondition()[calling_function_name](
+                                        actor, npc, argument1, argument2_number))
+                            {
+                                if (!it_infoportion_check.second.m_expected)
+                                {
+                                    is_infoportion_conditions_met = false;
+                                    break;
+                                }
+                            }
+                            else
+                            {
+                                if (it_infoportion_check.second.m_expected)
+                                {
+                                    is_infoportion_conditions_met = false;
+                                    break;
+                                }
+                            }
+                        }
+                    }
+                }
+                else
+                { // no params
+                    if (Script_GlobalHelper::getInstance().getRegisteredFunctionsXRCondition()[calling_function_name](
+                            actor, npc))
+                    {
+                        if (!it_infoportion_check.second.m_expected)
+                        {
+                            is_infoportion_conditions_met = false;
+                            break;
+                        }
+                    }
+                    else
+                    {
+                        if (it_infoportion_check.second.m_expected)
+                        {
+                            is_infoportion_conditions_met = false;
+                            break;
+                        }
+                    }
+                }
+            }
+            else if (Globals::has_alife_info(it_infoportion_check.second.m_infopotion_name.c_str()))
+            {
+                if (!it_infoportion_check.second.m_required)
+                {
+                    Msg("[Scripts/XR_LOGIC/pick_section_from_condlist(actor, npc, condlist)] CANCELLED: actor has "
+                        "infoportion '%s', which is NOT needed [%s]",
+                        it_infoportion_check.second.m_infopotion_name,
+                        std::to_string(Globals::has_alife_info(it_infoportion_check.second.m_infopotion_name.c_str()))
+                            .c_str());
+                    is_infoportion_conditions_met = false;
+                    break;
+                }
+                else
+                {
+                    Msg("[Scripts/XR_LOGIC/pick_section_from_condlist(actor, npc, condlist)] PASSED: actor has "
+                        "infoportion '%s', which is needed [%s]",
+                        it_infoportion_check.second.m_infopotion_name,
+                        std::to_string(Globals::has_alife_info(it_infoportion_check.second.m_infopotion_name.c_str()))
+                            .c_str());
+                }
+            }
+            else if (!Globals::has_alife_info(it_infoportion_check.second.m_infopotion_name.c_str()))
+            {
+                if (it_infoportion_check.second.m_required)
+                {
+                    Msg("[Scripts/XR_LOGIC/pick_section_from_condlist(actor, npc, condlist)] CANCELLED: actor has NO "
+                        "infop '%s', which is needed [%s]",
+                        it_infoportion_check.second.m_infopotion_name,
+                        std::to_string(Globals::has_alife_info(it_infoportion_check.second.m_infopotion_name.c_str()))
+                            .c_str());
+                    is_infoportion_conditions_met = false;
+                    break;
+                }
+                else
+                {
+                    Msg("[Scripts/XR_LOGIC/pick_section_from_condlist(actor, npc, condlist)] PASSED: actor has NO infop '%s', which is not needed [%s]",
+                        it_infoportion_check.second.m_infopotion_name,
+                        std::to_string(Globals::has_alife_info(it_infoportion_check.second.m_infopotion_name.c_str()))
+                            .c_str());
                 }
             }
         }
@@ -768,7 +895,7 @@ inline xr_string pick_section_from_condlist(
 
     return xr_string("");
 }
-// Lord: doesn't uses delete this 
+// Lord: doesn't uses delete this
 // inline xr_string pick_section_from_condlist(
 //     CSE_ALifeCreatureActor* actor, CSE_ALifeDynamicObject* npc, const xr_map<std::uint32_t, CondlistData>& condlist)
 // {
@@ -778,13 +905,13 @@ inline xr_string pick_section_from_condlist(
 //         R_ASSERT2(false, "object is null!");
 //         return xr_string("");
 //     }
-// 
+//
 //     if (!npc)
 //     {
 //         R_ASSERT2(false, "object is null!");
 //         return xr_string("");
 //     }
-// 
+//
 //     return xr_string("");
 // }
 
