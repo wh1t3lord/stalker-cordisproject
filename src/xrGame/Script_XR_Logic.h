@@ -11,6 +11,8 @@ namespace Scripts
 namespace XR_LOGIC
 {
 constexpr const char* XR_LOGIC_CUSTOMDATA = "<customdata>";
+constexpr const char* XR_LOGIC_CLIENT_SERVER_ARGUMENTS = "client_server";
+constexpr const char* XR_LOGIC_CLIENT_CLIENT_ARGUMENTS = "client_client";
 
 inline CInifile configure_schemes(CScriptGameObject* npc, const CInifile& ini, const xr_string& ini_filename,
     unsigned int stype, const xr_string& section_logic, const xr_string& gulag_name)
@@ -754,7 +756,10 @@ inline xr_string pick_section_from_condlist(
                         Msg("[Scripts/XR_LOGIC/pick_section_from_condlist(actor, npc, condlist)] Using function from "
                             "XR_CONDITION file and a function uses one argument.");
 
+                        xr_string& argument = buffer;
 
+                        Script_GlobalHelper::getInstance().getRegisteredFunctionsXRCondition()[it_infoportion_check.second
+                                                                                     .m_function_name](actor, npc, argument);
                     }
                 }
             }
@@ -763,25 +768,25 @@ inline xr_string pick_section_from_condlist(
 
     return xr_string("");
 }
-
-inline xr_string pick_section_from_condlist(
-    CSE_ALifeCreatureActor* actor, CSE_ALifeDynamicObject* npc, const xr_map<std::uint32_t, CondlistData>& condlist)
-{
-    // Lord: доделать
-    if (!actor)
-    {
-        R_ASSERT2(false, "object is null!");
-        return xr_string("");
-    }
-
-    if (!npc)
-    {
-        R_ASSERT2(false, "object is null!");
-        return xr_string("");
-    }
-
-    return xr_string("");
-}
+// Lord: doesn't uses delete this 
+// inline xr_string pick_section_from_condlist(
+//     CSE_ALifeCreatureActor* actor, CSE_ALifeDynamicObject* npc, const xr_map<std::uint32_t, CondlistData>& condlist)
+// {
+//     // Lord: доделать
+//     if (!actor)
+//     {
+//         R_ASSERT2(false, "object is null!");
+//         return xr_string("");
+//     }
+// 
+//     if (!npc)
+//     {
+//         R_ASSERT2(false, "object is null!");
+//         return xr_string("");
+//     }
+// 
+//     return xr_string("");
+// }
 
 inline xr_string pick_section_from_condlist(
     CScriptGameObject* actor, CScriptGameObject* npc, const xr_map<std::uint32_t, CondlistData>& condlist)
