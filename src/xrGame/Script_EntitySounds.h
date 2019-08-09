@@ -22,10 +22,10 @@ inline std::uint32_t generate_id(void)
     return sounds_base - 1;
 }
 
-class IScript_Sound
+class Script_ISoundEntity
 {
 public:
-    virtual ~IScript_Sound(void) = default;
+    virtual ~Script_ISoundEntity(void) = default;
 
     virtual void reset(const std::uint16_t& npc_id) = 0;
     virtual bool is_playing(const std::uint16_t& npc_id) = 0;
@@ -43,50 +43,54 @@ public:
     virtual void set_volume(const float& value) = 0;
     virtual xr_map<xr_string, bool>& getAvailCommunities(void) = 0;
     virtual xr_string getSoundType(void) = 0;
+    virtual CScriptSound* getSoundObject(void) = 0;
+    virtual bool IsPlayAlways(void) = 0;
     //   virtual void init_npc(CScriptGameObject* npc) = 0;
 };
 
-class Script_SoundNPC : public IScript_Sound
+class Script_SoundNPC : public Script_ISoundEntity
 {
 public:
     Script_SoundNPC(const CInifile& sound_ini, const xr_string& section);
     virtual ~Script_SoundNPC(void);
 
-    void reset(const std::uint16_t& npc_id) override;
-    bool is_playing(const std::uint16_t& npc_id) override;
-    void initialize_npc(CScriptGameObject* npc) override;
-    void callback(const std::uint16_t& npc_id) override;
-    bool play(const std::uint16_t& npc_id, xr_string& faction, std::uint16_t point) override;
-    bool play(xr_string& faction, std::uint16_t point)
+    virtual void reset(const std::uint16_t& npc_id);
+    virtual bool is_playing(const std::uint16_t& npc_id);
+    virtual void initialize_npc(CScriptGameObject* npc);
+    virtual void callback(const std::uint16_t& npc_id);
+    virtual bool play(const std::uint16_t& npc_id, xr_string& faction, std::uint16_t point);
+    virtual bool play(xr_string& faction, std::uint16_t point)
     {
         Msg("[Script_SoundNPC] -> play(faction, point) doesn't use!");
         return false;
     }
-    bool play(const std::uint16_t& obj_id)
+    virtual bool play(const std::uint16_t& obj_id)
     {
         Msg("[Script_SoundNPC] -> play(obj_id) doesn't use!");
         return false;
     }
 
-    int select_next_sound(const std::uint16_t& npc_id) override;
-    void stop(const std::uint16_t& obj_id = 0) override;
-    void save(NET_Packet& packet) override;
-    void load(NET_Packet& packet) override;
-    void save_npc(NET_Packet& packet, const std::uint16_t& npc_id) override;
-    void load_npc(NET_Packet& packet, const std::uint16_t& npc_id) override;
-    void set_volume(const float& value)
+    virtual int select_next_sound(const std::uint16_t& npc_id);
+    virtual void stop(const std::uint16_t& obj_id = 0);
+    virtual void save(NET_Packet& packet);
+    virtual void load(NET_Packet& packet);
+    virtual void save_npc(NET_Packet& packet, const std::uint16_t& npc_id);
+    virtual void load_npc(NET_Packet& packet, const std::uint16_t& npc_id);
+    virtual void set_volume(const float& value)
     {
         Msg("[Script_SoundNPC] -> set_volume(value) doesn't use!");
         return;
     }
 
-    xr_map<xr_string, bool>& getAvailCommunities(void) override { return this->m_avail_communities; }
+    virtual xr_map<xr_string, bool>& getAvailCommunities(void) override { return this->m_avail_communities; }
 
-    xr_string getSoundType(void) override { return this->m_class_id; }
+    virtual xr_string getSoundType(void) override { return this->m_class_id; }
+    virtual CScriptSound* getSoundObject(void) { return this->m_sound_object; }
+    virtual bool IsPlayAlways(void) noexcept { return this->m_is_play_always; }
 
 private: // Lord: добавить карты
     bool m_prefix;
-    bool m_play_always;
+    bool m_is_play_always;
     bool m_is_combat_sound;
     bool m_can_play_group_sound;
     bool m_group_sound;
@@ -113,65 +117,67 @@ private: // Lord: добавить карты
     CScriptSound* m_pda_sound_object;
 };
 
-class Script_SoundActor : public IScript_Sound
+class Script_SoundActor : public Script_ISoundEntity
 {
 public:
     Script_SoundActor(const CInifile& ini, const xr_string& section);
     virtual ~Script_SoundActor(void);
 
-    void reset(const std::uint16_t& npc_id) override;
-    bool is_playing(const std::uint16_t& npc_id) override;
+    virtual void reset(const std::uint16_t& npc_id);
+    virtual bool is_playing(const std::uint16_t& npc_id);
 
-    void initialize_npc(CScriptGameObject* npc)
+    virtual void initialize_npc(CScriptGameObject* npc)
     {
         Msg("[Script_SoundActor] -> initialize_npc() it doesn't use!");
         return;
     }
 
-    void callback(const std::uint16_t& npc_id) override;
-    bool play(const std::uint16_t& npc_id, xr_string& faction, std::uint16_t point) override;
-    bool play(xr_string& faction, std::uint16_t point)
+    virtual void callback(const std::uint16_t& npc_id);
+    virtual bool play(const std::uint16_t& npc_id, xr_string& faction, std::uint16_t point);
+    virtual bool play(xr_string& faction, std::uint16_t point)
     {
         Msg("[Script_SoundActor] -> play(faction, point) it doesn't use!");
         return false;
     }
-    bool play(const std::uint16_t& obj_id)
+    virtual bool play(const std::uint16_t& obj_id)
     {
         Msg("[Script_SoundActor] -> play(obj_id) it doesn't use!");
         return false;
     }
 
-    int select_next_sound(const std::uint16_t& npc_id = 0) override;
-    void stop(const std::uint16_t& obj_id = 0) override;
-    void save(NET_Packet& packet) override;
-    void load(NET_Packet& packet) override;
+    virtual int select_next_sound(const std::uint16_t& npc_id = 0);
+    virtual void stop(const std::uint16_t& obj_id = 0);
+    virtual void save(NET_Packet& packet);
+    virtual void load(NET_Packet& packet);
 
-    void save_npc(NET_Packet& packet, const std::uint16_t& npc_id)
+    virtual void save_npc(NET_Packet& packet, const std::uint16_t& npc_id)
     {
         Msg("[Script_SoundActor] -> save_npc() it doesn't use!");
         return;
     }
 
-    void load_npc(NET_Packet& packet, const std::uint16_t& npc_id)
+    virtual void load_npc(NET_Packet& packet, const std::uint16_t& npc_id)
     {
         Msg("[Script_SoundActor] -> load_npc() it doesn't use!");
         return;
     }
 
-    void set_volume(const float& value)
+    virtual void set_volume(const float& value)
     {
         Msg("[Script_SoundActor] -> set_volume(value) doesn't use!");
         return;
     }
 
-    xr_map<xr_string, bool>& getAvailCommunities(void) override
+    virtual xr_map<xr_string, bool>& getAvailCommunities(void)
     {
         Msg("[Script_SoundActor] -> getAvailCommunities doesn't use!");
         xr_map<xr_string, bool> instance;
         return instance;
     }
 
-    xr_string getSoundType(void) override { return this->m_class_id; }
+    virtual xr_string getSoundType(void) { return this->m_class_id; }
+    virtual CScriptSound* getSoundObject(void) { return this->m_sound_object; }
+    virtual bool IsPlayAlways(void) noexcept { return this->m_is_play_always; }
 
 private:
     bool m_is_stereo;
@@ -195,70 +201,72 @@ private:
     xr_string m_message;
 };
 
-class Script_SoundObject : public IScript_Sound
+class Script_SoundObject : public Script_ISoundEntity
 {
 public:
     Script_SoundObject(const CInifile& ini, const xr_string& section);
     virtual ~Script_SoundObject(void);
 
-    void Script_SoundObject::reset(const std::uint16_t& npc_id)
+    virtual void Script_SoundObject::reset(const std::uint16_t& npc_id)
     {
         Msg("[Script_SoundObject] -> reset(npc_id) doesn't use!");
         return;
     }
 
-    bool is_playing(const std::uint16_t& npc_id) override;
+    virtual bool is_playing(const std::uint16_t& npc_id);
 
-    void initialize_npc(CScriptGameObject* npc)
+    virtual void initialize_npc(CScriptGameObject* npc)
     {
         Msg("[Script_SoundObject] -> initialize_npc() it doesn't use!");
         return;
     }
 
-    void callback(const std::uint16_t& npc_id) override;
-    bool play(const std::uint16_t& npc_id, xr_string& faction, std::uint16_t point) override;
-    bool play(xr_string& faction, std::uint16_t point)
+    virtual void callback(const std::uint16_t& npc_id);
+    virtual bool play(const std::uint16_t& npc_id, xr_string& faction, std::uint16_t point);
+    virtual bool play(xr_string& faction, std::uint16_t point)
     {
         Msg("[Script_SoundObject] -> play(faction, point) it doesn't use!");
         return false;
     }
-    bool play(const std::uint16_t& obj_id)
+    virtual bool play(const std::uint16_t& obj_id)
     {
         Msg("[Script_SoundObject] -> play(obj_id) it doesn't use!");
         return false;
     }
 
-    int select_next_sound(const std::uint16_t& npc_id = 0) override;
-    void stop(const std::uint16_t& obj_id = 0) override;
-    void save(NET_Packet& packet) override;
-    void load(NET_Packet& packet) override;
+    virtual int select_next_sound(const std::uint16_t& npc_id = 0);
+    virtual void stop(const std::uint16_t& obj_id = 0);
+    virtual void save(NET_Packet& packet);
+    virtual void load(NET_Packet& packet);
 
-    void save_npc(NET_Packet& packet, const std::uint16_t& npc_id)
+    virtual void save_npc(NET_Packet& packet, const std::uint16_t& npc_id)
     {
         Msg("[Script_SoundObject] -> save_npc() it doesn't use!");
         return;
     }
 
-    void load_npc(NET_Packet& packet, const std::uint16_t& npc_id)
+    virtual void load_npc(NET_Packet& packet, const std::uint16_t& npc_id)
     {
         Msg("[Script_SoundObject] -> load_npc() it doesn't use!");
         return;
     }
 
-    void set_volume(const float& value)
+    virtual void set_volume(const float& value)
     {
         Msg("[Script_SoundObject] -> set_volume(value) doesn't use!");
         return;
     }
 
-    xr_map<xr_string, bool>& getAvailCommunities(void) override
+    virtual xr_map<xr_string, bool>& getAvailCommunities(void)
     {
         Msg("[Script_SoundObject] -> getAvailCommunities doesn't use!");
         xr_map<xr_string, bool> instance;
         return instance;
     }
 
-    xr_string getSoundType(void) override { return this->m_class_id; }
+    virtual xr_string getSoundType(void) override { return this->m_class_id; }
+    virtual CScriptSound* getSoundObject(void) { return this->m_sound_object; }
+    virtual bool IsPlayAlways(void) noexcept { return false; } // @ Lord: вроде бы так проверить!
 
 private:
     bool m_can_play_sound;
@@ -280,89 +288,91 @@ private:
     xr_string m_shuffle;
 };
 
-class Script_SoundLooped : public IScript_Sound
+class Script_SoundLooped : public Script_ISoundEntity
 {
 public:
     Script_SoundLooped(const CInifile& ini, const xr_string& section);
     virtual ~Script_SoundLooped(void);
 
-    bool play(const std::uint16_t& npc_id, xr_string& faction, std::uint16_t point)
+    virtual bool play(const std::uint16_t& npc_id, xr_string& faction, std::uint16_t point)
     {
         Msg("[Script_SoundLooped] -> play(npc_id, faction, point) it doesn't use!");
         return false;
     }
 
-    bool play(xr_string& faction, std::uint16_t point)
+    virtual bool play(xr_string& faction, std::uint16_t point)
     {
         Msg("[Script_SoundLooped] -> play(faction, point) it doesn't use!");
         return false;
     }
 
-    bool play(const std::uint16_t& obj_id) override;
-    bool is_playing(const std::uint16_t& npc_id) override;
-    int select_next_sound(const std::uint16_t& npc_id)
+    virtual bool play(const std::uint16_t& obj_id);
+    virtual bool is_playing(const std::uint16_t& npc_id);
+    virtual int select_next_sound(const std::uint16_t& npc_id)
     {
         Msg("[Script_SoundLooped] -> select_next_sound(npc_id) it doesn't use!");
         return 0;
     }
-    void stop(const std::uint16_t& obj_id = 0) override;
+    virtual void stop(const std::uint16_t& obj_id = 0);
 
-    void save(NET_Packet& packet)
+    virtual void save(NET_Packet& packet)
     {
         Msg("[Script_SoundLooped] -> save() it doesn't use!");
         return;
     }
 
-    void load(NET_Packet& packet)
+    virtual void load(NET_Packet& packet)
     {
         Msg("[Script_SoundLooped] -> load() it doesn't use!");
         return;
     }
 
-    void save_npc(NET_Packet& packet, const std::uint16_t& npc_id)
+    virtual void save_npc(NET_Packet& packet, const std::uint16_t& npc_id)
     {
         Msg("[Script_SoundLooped] -> save_npc() it doesn't use!");
         return;
     }
 
-    void load_npc(NET_Packet& packet, const std::uint16_t& npc_id)
+    virtual void load_npc(NET_Packet& packet, const std::uint16_t& npc_id)
     {
         Msg("[Script_SoundLooped] -> load_npc() it doesn't use!");
         return;
     }
 
-    void reset(const std::uint16_t& npc_id)
+    virtual void reset(const std::uint16_t& npc_id)
     {
         Msg("[Script_SoundLooped] -> reset(npc_id) it doesn't use!");
         return;
     }
 
-    void callback(const std::uint16_t& npc_id)
+    virtual void callback(const std::uint16_t& npc_id)
     {
         Msg("[Script_SoundLooped] -> callback(npc_id) it doesn't use!");
         return;
     }
 
-    void initialize_npc(CScriptGameObject* npc)
+    virtual void initialize_npc(CScriptGameObject* npc)
     {
         Msg("[Script_SoundLooped] -> initialize_npc(npc) it doesn't use!");
         return;
     }
 
-    void set_volume(const float& value)
+    virtual void set_volume(const float& value)
     {
         if (this->m_sound_object)
             this->m_sound_object->SetVolume(value);
     }
 
-    xr_map<xr_string, bool>& getAvailCommunities(void) override
+    virtual xr_map<xr_string, bool>& getAvailCommunities(void)
     {
         Msg("[Script_SoundLooped] -> getAvailCommunities doesn't use!");
         xr_map<xr_string, bool> instance;
         return instance;
     }
 
-    xr_string getSoundType(void) override { return this->m_class_id; }
+    virtual xr_string getSoundType(void) { return this->m_class_id; }
+    virtual CScriptSound* getSoundObject(void) { return this->m_sound_object; }
+    virtual bool IsPlayAlways(void) noexcept { return false; }
 
 private:
     CScriptSound* m_sound_object;
@@ -384,13 +394,13 @@ public:
         return instance;
     }
 
-    inline xr_map<xr_string, IScript_Sound*>& getTheme(void) { return this->m_sounds; }
+    inline xr_map<xr_string, Script_ISoundEntity*>& getTheme(void) { return this->m_sounds; }
 
     ~Script_SoundThemeDataBase(void)
     {
-        if (m_sounds.size())
+        if (this->m_sounds.size())
         {
-            for (std::pair<xr_string, IScript_Sound*> it : this->m_sounds)
+            for (std::pair<xr_string, Script_ISoundEntity*> it : this->m_sounds)
             {
                 if (it.second)
                 {
@@ -402,14 +412,14 @@ public:
             this->m_sounds.clear();
         }
     }
-
+ 
     Script_SoundThemeDataBase(const Script_SoundThemeDataBase&) = delete;
     Script_SoundThemeDataBase& operator=(const Script_SoundThemeDataBase&) = delete;
     Script_SoundThemeDataBase(Script_SoundThemeDataBase&&) = delete;
     Script_SoundThemeDataBase& operator=(Script_SoundThemeDataBase&&) = delete;
 
 private:
-    xr_map<xr_string, IScript_Sound*> m_sounds;
+    xr_map<xr_string, Script_ISoundEntity*> m_sounds;
 };
 
 } // namespace Scripts

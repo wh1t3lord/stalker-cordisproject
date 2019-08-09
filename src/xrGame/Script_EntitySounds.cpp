@@ -13,7 +13,7 @@ Script_SoundNPC::Script_SoundNPC(const CInifile& sound_ini, const xr_string& sec
       m_path(Globals::Utils::cfg_get_string(&sound_ini, section, "path")),
       m_shuffle(Globals::Utils::cfg_get_string(&sound_ini, section, "shuffle")),
       m_group_sound(Globals::Utils::cfg_get_bool(&sound_ini, section, "group_snd", nullptr)),
-      m_play_always(Globals::Utils::cfg_get_bool(&sound_ini, section, "play_always", nullptr)),
+      m_is_play_always(Globals::Utils::cfg_get_bool(&sound_ini, section, "play_always", nullptr)),
       m_is_combat_sound(Globals::Utils::cfg_get_bool(&sound_ini, section, "is_combat_sound", nullptr)),
       m_section(section), m_played_id(0),
       m_delay_sound(Globals::Utils::cfg_get_number(&sound_ini, section, "delay_sound", nullptr)),
