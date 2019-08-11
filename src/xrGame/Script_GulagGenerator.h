@@ -7,13 +7,25 @@ namespace Scripts
 namespace GulagGenerator
 {
 constexpr const char* GULAG_POINT_JOB = "point_job";
+constexpr const char* GULAG_PATH_JOB = "path_job";
 
 struct JobData
 {
+    struct SubData
+    {
+        std::uint32_t m_priority;
+        // @ Section | Job type
+        std::pair<xr_string, xr_string> m_job_id;
+        std::pair<xr_string, xr_map<std::uint32_t, CondlistData>> m_function_params;
+        std::function<bool(CSE_ALifeDynamicObject*, Script_SE_SmartTerrain*,
+            const std::pair<xr_string, xr_map<std::uint32_t, CondlistData>>& params, const NpcInfo&)>
+            m_function;
+    };
+
     bool m_precondition_is_monster;
     std::uint32_t m_priority;
     // std::pair<m_prior, std::pair<m_prior, std::pair<m_section, m_job_type>>>
-    std::pair<std::uint32_t, xr_vector<std::pair<std::uint32_t, std::pair<xr_string, xr_string>>>> m_jobs;
+    xr_vector<std::pair<std::uint32_t, xr_vector<SubData>>> m_jobs;
 };
 
 inline static xr_string& getLtx(void) noexcept
@@ -90,8 +102,7 @@ inline bool load_job(Script_SE_SmartTerrain* smart)
     stalker_jobs.m_precondition_is_monster = false;
     stalker_jobs.m_priority = 60;
 
-    std::pair<std::uint32_t, xr_vector<std::pair<std::uint32_t, std::pair<xr_string, xr_string>>>>
-        stalker_generic_point;
+    std::pair<std::uint32_t, xr_vector<JobData::SubData>> stalker_generic_point;
     stalker_generic_point.first = 3; // prior
 
     for (std::uint8_t i = 0; i < 20; ++i)
@@ -101,11 +112,15 @@ inline bool load_job(Script_SE_SmartTerrain* smart)
         name += "_point_";
         name += std::to_string(i).c_str();
 
-        std::pair<std::uint32_t, std::pair<xr_string, xr_string>> data;
-        data.first = 3; // prior
-        data.second.first = "logic@"; // section
-        data.second.first += name;
-        data.second.second = GULAG_POINT_JOB;
+        JobData::SubData data;
+        //         data.first = 3; // prior
+        //         data.second.first = "logic@"; // section
+        //         data.second.first += name;
+        //         data.second.second = GULAG_POINT_JOB;
+        data.m_priority = 3;
+        data.m_job_id.first = "logic@";
+        data.m_job_id.first += name;
+        data.m_job_id.second += GULAG_POINT_JOB;
 
         stalker_generic_point.second.push_back(data);
 
@@ -133,7 +148,96 @@ inline bool load_job(Script_SE_SmartTerrain* smart)
             job_ltx_data += smart->getDefenceRestirctor();
             job_ltx_data += "\n";
         }
+
+        if (smart->getBaseOnActorControl().getIgnoreZoneName().size())
+        {
+            job_ltx_data += "combat_ignore_cond = {=npc_in_zone(smart.base_on_actor_control.ignore_zone)} true \n";
+            job_ltx_data += "combat_ignore_keep_when_attacked = true \n";
+        }
+
+        getLtx() += job_ltx_data;
     }
+
+    stalker_jobs.m_jobs.push_back(stalker_generic_point);
+
+    std::pair<std::uint32_t, xr_vector<JobData::SubData>> stalker_surge;
+    stalker_surge.first = 50;
+
+    std::uint8_t it = 1;
+    xr_string patrol_path_name = global_name;
+    patrol_path_name += "_surge_";
+    patrol_path_name += std::to_string(it).c_str();
+    patrol_path_name += "_walk";
+    while (Globals::patrol_path_exists(patrol_path_name.c_str()))
+    {
+        JobData::SubData data;
+        xr_string waypoint_name = global_name;
+        waypoint_name += "_surge_";
+        waypoint_name += std::to_string(it).c_str();
+        waypoint_name += "_walk";
+
+        data.m_priority = 50;
+        data.m_job_id.first = "logic@";
+        data.m_job_id.first += waypoint_name;
+        data.m_job_id.second += GULAG_PATH_JOB;
+        data.m_function = [](CSE_ALifeDynamicObject* server_object, Script_SE_SmartTerrain* smart, const std::pair<xr_string, xr_map<std::uint32_t, CondlistData>>& params, const NpcInfo& npc_info) -> bool { return XR_CONDITION::is_surge_started(); };
+
+        stalker_surge.second.push_back(data);
+
+        xr_string job_ltx_data = "[logic@";
+        job_ltx_data += waypoint_name;
+        job_ltx_data += "]\n";
+        job_ltx_data += "active = walker@";
+        job_ltx_data += waypoint_name;
+        job_ltx_data += "\n";
+        job_ltx_data += "[walker@";
+        job_ltx_data += waypoint_name;
+        job_ltx_data += "]\n";
+        job_ltx_data += "sound_idle = state\n";
+        job_ltx_data += "use_camp = true\n";
+        job_ltx_data += "meet = meet@generic_larger\n";
+        job_ltx_data += "path_walk = surge_";
+        job_ltx_data += std::to_string(it).c_str();
+        job_ltx_data += "_walk\n";
+        job_ltx_data += "def_state_standing = guard\n";
+        job_ltx_data += "def_state_moving = patrol\n";
+
+        xr_string some_point_name = global_name;
+        some_point_name += "_surge_";
+        some_point_name += std::to_string(it).c_str();
+        some_point_name += "_look";
+        if (Globals::patrol_path_exists(some_point_name.c_str()))
+        {
+            job_ltx_data += "path_look = surge_";
+            job_ltx_data += std::to_string(it).c_str();
+            job_ltx_data += "_look\n";
+        }
+
+        if (smart->getDefenceRestirctor().size())
+        {
+            job_ltx_data += "out_restr = ";
+            job_ltx_data += smart->getDefenceRestirctor();
+            job_ltx_data += "\n";
+        }
+
+        // Lord: XR_GULAG::job_in_restrictor реализовать!!!
+        if (smart->getBaseOnActorControl().getIgnoreZoneName().size() /*&& XR_GULAG::job_in_restrictor()*/)
+        {
+            job_ltx_data += "combat_ignore_cond = {=npc_in_zone(";
+            job_ltx_data += smart->getBaseOnActorControl().getIgnoreZoneName();
+            job_ltx_data += ")} true \n";
+            job_ltx_data += "combat_ignore_keep_when_attacked = true \n";
+        }
+
+        getLtx() += job_ltx_data;
+        ++it;
+    }
+    
+    if (it > 1)
+        stalker_jobs.m_jobs.push_back(stalker_surge);
+
+
+    
 }
 
 } // namespace GulagGenerator

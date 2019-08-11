@@ -8,6 +8,8 @@ namespace Scripts
 {
 namespace Globals
 {
+inline bool patrol_path_exists(LPCSTR patrol_path) { return (!!ai().patrol_paths().path(patrol_path, true)); }
+
 inline void load_sound(void)
 {
     CInifile sound_ini = CInifile("misc\\script_sound.ltx");
