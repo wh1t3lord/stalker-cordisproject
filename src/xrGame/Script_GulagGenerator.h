@@ -160,6 +160,7 @@ inline bool load_job(Script_SE_SmartTerrain* smart)
 
     stalker_jobs.m_jobs.push_back(stalker_generic_point);
 
+    #pragma region SURGE MANAGMENT
     std::pair<std::uint32_t, xr_vector<JobData::SubData>> stalker_surge;
     stalker_surge.first = 50;
 
@@ -236,7 +237,13 @@ inline bool load_job(Script_SE_SmartTerrain* smart)
     if (it > 1)
         stalker_jobs.m_jobs.push_back(stalker_surge);
 
+    #pragma endregion
 
+
+    #pragma region SLEEP MANAGMENT
+
+
+    #pragma endregion
     
 }
 
