@@ -16,7 +16,8 @@
 #include <random>
 #include "Script_GlobalHelper.h"
 #include "Script_EntitySounds.h"
-
+#include "xrAICore/AISpaceBase.hpp"
+#include "xrAICore/Navigation/PatrolPath/patrol_path_storage.h"
 namespace Cordis
 {
 namespace Scripts
@@ -225,6 +226,7 @@ namespace Game
 inline LPCSTR translate_string(LPCSTR str) { return *StringTable().translate(str); }
 } // namespace Game
 
+inline bool patrol_path_exists(LPCSTR patrol_path);
 inline void load_sound(void);
 inline void init_npc_sound(CScriptGameObject* npc);
 inline bool has_alife_info(LPCSTR info_id);
@@ -275,8 +277,8 @@ inline bool in_time_interval(const std::uint32_t& value1, const std::uint32_t& v
 } // namespace Cordis
 
 #include "Script_SE_Actor.h"
-#include "Script_SE_SmartTerrain.h"
 #include "Script_SmartTerrainControl.h"
+#include "Script_SE_SmartTerrain.h"
 #include "Script_LogicEntity.h"
 #include "Script_LogicManager.h"
 #include "Script_Database.h"

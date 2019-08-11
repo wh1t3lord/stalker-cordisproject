@@ -12,7 +12,8 @@ Script_SE_SmartTerrain::Script_SE_SmartTerrain(LPCSTR section) : inherited(secti
 
 Script_SE_SmartTerrain::~Script_SE_SmartTerrain(void)
 {
-
+    if (this->m_base_on_actor_control)
+        delete this->m_base_on_actor_control;
 }
 void Script_SE_SmartTerrain::read_params(void) {}
 } // namespace Scripts

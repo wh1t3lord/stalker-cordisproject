@@ -149,7 +149,7 @@ inline bool load_job(Script_SE_SmartTerrain* smart)
             job_ltx_data += "\n";
         }
 
-        if (smart->getBaseOnActorControl().getIgnoreZoneName().size())
+        if (smart->getBaseOnActorControl()->getIgnoreZoneName().size())
         {
             job_ltx_data += "combat_ignore_cond = {=npc_in_zone(smart.base_on_actor_control.ignore_zone)} true \n";
             job_ltx_data += "combat_ignore_keep_when_attacked = true \n";
@@ -159,7 +159,6 @@ inline bool load_job(Script_SE_SmartTerrain* smart)
     }
 
     stalker_jobs.m_jobs.push_back(stalker_generic_point);
-
     #pragma region SURGE MANAGMENT
     std::pair<std::uint32_t, xr_vector<JobData::SubData>> stalker_surge;
     stalker_surge.first = 50;
@@ -222,16 +221,21 @@ inline bool load_job(Script_SE_SmartTerrain* smart)
         }
 
         // Lord: XR_GULAG::job_in_restrictor реализовать!!!
-        if (smart->getBaseOnActorControl().getIgnoreZoneName().size() /*&& XR_GULAG::job_in_restrictor()*/)
+        if (smart->getBaseOnActorControl()->getIgnoreZoneName().size() /*&& XR_GULAG::job_in_restrictor()*/)
         {
             job_ltx_data += "combat_ignore_cond = {=npc_in_zone(";
-            job_ltx_data += smart->getBaseOnActorControl().getIgnoreZoneName();
+            job_ltx_data += smart->getBaseOnActorControl()->getIgnoreZoneName();
             job_ltx_data += ")} true \n";
             job_ltx_data += "combat_ignore_keep_when_attacked = true \n";
         }
 
         getLtx() += job_ltx_data;
         ++it;
+        patrol_path_name.clear();
+        patrol_path_name = global_name;
+        patrol_path_name += "_surge_";
+        patrol_path_name += std::to_string(it).c_str();
+        patrol_path_name += "_walk";
     }
     
     if (it > 1)
@@ -241,7 +245,12 @@ inline bool load_job(Script_SE_SmartTerrain* smart)
 
 
     #pragma region SLEEP MANAGMENT
+    std::pair<std::uint32_t, xr_vector<JobData::SubData>> stalker_sleep;
+    stalker_sleep.first = 10;
+    it = 1;
 
+ 
+ /*   while (Globals::patrol_path_exists())*/
 
     #pragma endregion
     

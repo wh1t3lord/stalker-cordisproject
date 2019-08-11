@@ -4,6 +4,9 @@ namespace Cordis
 {
 namespace Scripts
 {
+
+class Script_SE_SmartTerrain;
+
 constexpr float SMARTTERRAINCONTROL_ALARM_TIME = 2.0f * 60.0f * 60.0f;
 
 enum Script_SmartTerrainControl_States
