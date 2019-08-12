@@ -12,7 +12,7 @@ constexpr const char* XR_PATROL_FORMATION_INDEX_LINE = "line";
 constexpr const char* XR_PATROL_FORMATION_INDEX_AROUND = "around";
 
 // @ pair::first = direction | pair::second = distance
-inline static xr_map<xr_string, xr_vector<std::pair<Fvector, float>>> &getFormations(void) noexcept
+inline static xr_map<xr_string, xr_vector<std::pair<Fvector, float>>>& getFormations(void) noexcept
 {
     xr_map<xr_string, xr_vector<std::pair<Fvector, float>>> instance;
     return instance;
@@ -20,6 +20,8 @@ inline static xr_map<xr_string, xr_vector<std::pair<Fvector, float>>> &getFormat
 
 struct PatrolNpcData
 {
+    bool m_accepted = false;
+    int m_vertex_id = 0;
     float m_distance = 0.0f;
     CScriptGameObject* m_soldier = nullptr;
     Fvector m_direction = Fvector().set(1.0f, 0.0f, 0.0f);
@@ -80,9 +82,31 @@ public:
 
         Msg("[Scripts/XR_PATROL/Script_PatrolEntity/add_npc(npc, is_leader)] NPC %s added to patrol manager %s",
             npc->Name(), this->m_waypoint_name);
+
+        this->reset_positions();
     }
 
-    void reset_positions(void) {}
+    void reset_positions(void)
+    {
+        xr_vector<std::pair<Fvector, float>>& formation_buffer = getFormations()[this->m_formation_name];
+        std::uint16_t it = 0;
+
+        for (std::pair<const std::uint32_t, PatrolNpcData>& pr : this->m_npc_list)
+        {
+            if (this->m_commander_id == -1 && it == 0)
+                this->m_commander_id = pr.second.m_soldier->ID();
+
+            if (this->m_commander_id != pr.second.m_soldier->ID())
+            {
+                pr.second.m_direction = formation_buffer[it].first;
+                pr.second.m_distance = formation_buffer[it].second;
+                pr.second.m_vertex_id = -1;
+                pr.second.m_accepted = true;
+
+                ++it;
+            }
+        }
+    }
 
 private:
     std::uint32_t m_npc_count;

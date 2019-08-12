@@ -1538,6 +1538,7 @@ $(xrLibDir);$(xrSdkDir)DXSDK/Lib/$(PlatformShortName);
     <ClInclude Include="Script_XR_Effects.h" />
     <ClInclude Include="Script_XR_Gulag.h" />
     <ClInclude Include="Script_XR_Logic.h" />
+    <ClInclude Include="Script_XR_Patrol.h" />
     <ClInclude Include="Script_XR_Sound.h" />
     <ClInclude Include="script_zone.h" />
     <ClInclude Include="SDKRender_Connection.h" />
