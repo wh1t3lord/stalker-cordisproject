@@ -81,9 +81,35 @@ public:
         }
 
         Msg("[Scripts/XR_PATROL/Script_PatrolEntity/add_npc(npc, is_leader)] NPC %s added to patrol manager %s",
-            npc->Name(), this->m_waypoint_name);
+            npc->Name(), this->m_waypoint_name.c_str());
 
         this->reset_positions();
+    }
+
+    void remove_npc(CScriptGameObject* npc)
+    {
+        if (!npc)
+        {
+            R_ASSERT2(false, "object was null!");
+            return;
+        }
+
+        if (!this->m_npc_list[npc->ID()].m_soldier)
+        {
+            R_ASSERT2(false, "Your object had unregistered!");
+            return;
+        }
+
+        Msg("[Scripts/XR_PATROL/Script_PatrolEntity/remove_npc(npc)] NPC [%s] removed from patrol manager %s",
+            npc->Name(), this->m_waypoint_name.c_str());
+        this->m_npc_list[npc->ID()] = PatrolNpcData();
+        --(this->m_npc_count);
+
+        if (npc->ID() == this->m_commander_id)
+        {
+            this->m_commander_id = -1;
+            this->reset_positions();
+        }
     }
 
     void reset_positions(void)
