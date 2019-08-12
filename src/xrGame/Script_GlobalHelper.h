@@ -1,7 +1,7 @@
 #pragma once
 
 #include "object_factory.h"
-
+#include "Script_XR_Patrol.h"
 namespace Cordis
 {
 namespace Scripts
