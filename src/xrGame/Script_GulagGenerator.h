@@ -182,7 +182,15 @@ inline bool load_job(Script_SE_SmartTerrain* smart)
         data.m_job_id.second += GULAG_PATH_JOB;
         data.m_function = [](CSE_ALifeDynamicObject* server_object, Script_SE_SmartTerrain* smart,
                               const std::pair<xr_string, xr_map<std::uint32_t, CondlistData>>& params,
-                              const NpcInfo& npc_info) -> bool { return XR_CONDITION::is_surge_started(); };
+                              const NpcInfo& npc_info) -> bool {
+            if (!server_object)
+                Msg("[Scripts/GulagGenerator/load_job(smart)] WARNING: server_object was null!");
+
+            if (!smart)
+                Msg("[Scripts/GulagGenerator/load_job(smart)] WARNING: smart was null!");
+
+            return XR_CONDITION::is_surge_started();
+        };
 
         stalker_surge.second.push_back(data);
 
@@ -355,6 +363,141 @@ inline bool load_job(Script_SE_SmartTerrain* smart)
 
     if (it_sleep > 1)
         stalker_jobs.m_jobs.push_back(stalker_sleep);
+#pragma endregion
+
+#pragma region COLLECTOR HANDLING
+    std::pair<std::uint32_t, xr_vector<JobData::SubData>> stalker_collector;
+    stalker_collector.first = 25;
+    std::uint32_t it_collector = 1;
+    xr_string patrol_collector_point_name = global_name;
+    patrol_collector_point_name += "_collector_";
+    patrol_collector_point_name += std::to_string(it_collector).c_str();
+    patrol_collector_point_name += "_walk";
+
+    while (Globals::patrol_path_exists(patrol_collector_point_name.c_str()))
+    {
+        xr_string waypoint_name = global_name;
+        waypoint_name += "_collector_";
+        waypoint_name += std::to_string(it_collector).c_str();
+        waypoint_name += "_walk";
+
+        JobData::SubData data;
+        data.m_priority = 25;
+        data.m_job_id.first = "logic@";
+        data.m_job_id.first += waypoint_name;
+        data.m_job_id.second = GULAG_PATH_JOB;
+        data.m_function = [](CSE_ALifeDynamicObject* server_object, Script_SE_SmartTerrain* smart,
+                              const std::pair<xr_string, xr_map<std::uint32_t, CondlistData>>& params,
+                              const NpcInfo& npc_info) -> bool {
+            if (!server_object)
+            {
+                R_ASSERT2(false, "object was null!");
+                return false;
+            }
+
+            if (!smart)
+            {
+                R_ASSERT2(false, "object was null!");
+                return false;
+            }
+
+            CSE_ALifeHumanAbstract* server_object_human = server_object->cast_human_abstract();
+            if (!server_object_human)
+            {
+                R_ASSERT2(false, "Unsuccessful cast!");
+                return false;
+            }
+
+            if (server_object_human->CommunityName() == "zombied")
+                return false;
+
+            DataBase::Storage_Data& storage = DataBase::Storage::getInstance().getStorage()[server_object->ID];
+
+            if (!storage.m_object)
+                return false;
+
+            CScriptGameObject* npc = storage.m_object;
+
+            // @ Lord: проверить данный ли метод используется????
+            if (npc->GetObjectByName("detector_simple"))
+                return true;
+
+            if (npc->GetObjectByName("detector_advanced"))
+                return true;
+
+            if (npc->GetObjectByName("detector_elite"))
+                return true;
+
+            if (npc->GetObjectByName("detector_scientific"))
+                return true;
+
+            return false;
+        };
+
+        stalker_collector.second.push_back(data);
+
+        xr_string job_ltx_data = "[logic@";
+        job_ltx_data += waypoint_name;
+        job_ltx_data += "]\n";
+        job_ltx_data += "active = walker@";
+        job_ltx_data += waypoint_name;
+        job_ltx_data += "\n";
+        job_ltx_data += "[walker@";
+        job_ltx_data += waypoint_name;
+        job_ltx_data += "]\n";
+        job_ltx_data += "sound_idle = state\n";
+        job_ltx_data += "meet = meet@generic_lager\n";
+        job_ltx_data += "path_walk = collector_";
+        job_ltx_data += std::to_string(it_collector).c_str();
+        job_ltx_data += "_walk\n";
+        job_ltx_data += "def_state_standing = guard\n";
+        job_ltx_data += "def_state_moving = patrol\n";
+
+        xr_string sub_point_name = global_name;
+        sub_point_name += "_collector_";
+        sub_point_name += std::to_string(it_collector).c_str();
+        sub_point_name += "_look";
+        if (Globals::patrol_path_exists(sub_point_name.c_str()))
+        {
+            job_ltx_data += "path_look = collector_";
+            job_ltx_data += std::to_string(it_collector).c_str();
+            job_ltx_data += "_look\n";
+        }
+
+        // @ Lord: Implement XR_GULAG::job_in_restrictor();
+        if (smart->getSafeRestrictor().size() /*&& XR_GULAG::job_in_restrictor()*/)
+        {
+            job_ltx_data += "invulnerable = {=npc_in_zone(";
+            job_ltx_data += smart->getSafeRestrictor();
+            job_ltx_data += ")} true \n";
+        }
+
+        if (smart->getDefenceRestirctor().size())
+        {
+            job_ltx_data += "out_restr = ";
+            job_ltx_data += smart->getDefenceRestirctor();
+            job_ltx_data += "\n";
+        }
+
+        // @ Lord: Implement XR_GULAG::job_in_restrictor();
+        if (smart->getBaseOnActorControl()->getIgnoreZoneName().size() /*&& XR_GULAG::job_in_restrictor()*/)
+        {
+            job_ltx_data += "combat_ignore_cond = {=npc_in_zone(";
+            job_ltx_data += smart->getBaseOnActorControl()->getIgnoreZoneName();
+            job_ltx_data += ")} true \n";
+            job_ltx_data += "combat_ignore_keep_when_attacked = true \n";
+        }
+
+        getLtx() += job_ltx_data;
+        ++it_collector;
+        patrol_collector_point_name = global_name;
+        patrol_collector_point_name += "_collector_";
+        patrol_collector_point_name += std::to_string(it_collector).c_str();
+        patrol_collector_point_name += "_walk";
+    }
+
+    if (it_collector > 1)
+        stalker_jobs.m_jobs.push_back(stalker_collector);
 #pragma endregion
 }
 
