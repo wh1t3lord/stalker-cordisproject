@@ -499,6 +499,11 @@ inline bool load_job(Script_SE_SmartTerrain* smart)
     if (it_collector > 1)
         stalker_jobs.m_jobs.push_back(stalker_collector);
 #pragma endregion
+
+#pragma region WALKER HANDLING
+
+
+#pragma endregion
 }
 
 } // namespace GulagGenerator
