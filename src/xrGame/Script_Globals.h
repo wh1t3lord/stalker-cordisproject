@@ -289,6 +289,7 @@ inline bool in_time_interval(const std::uint32_t& value1, const std::uint32_t& v
 #include "Script_XR_Logic.h"
 #include "Script_XR_Sound.h"
 #include "Script_XR_Effects.h"
+#include "Script_XR_Patrol.h"
 #include "Script_SimulationBoard.h"
 #include "Script_SimulationObjects.h"
 #include "Script_SurgeManager.h"
