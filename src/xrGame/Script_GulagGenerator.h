@@ -629,8 +629,22 @@ inline bool load_job(Script_SE_SmartTerrain* smart)
 #pragma endregion
 
 #pragma region PATROL HANDLING
+    std::pair<std::uint32_t, xr_vector<JobData::SubData>> stalker_patrol;
+    stalker_patrol.first = 20;
+    std::uint32_t it_patrol = 1;
+    xr_string patrol_patrol_point_name = global_name;
+    patrol_patrol_point_name += "_patrol_";
+    patrol_patrol_point_name += std::to_string(it_patrol).c_str();
+    patrol_patrol_point_name += "_walk";
 
-
+    while (Globals::patrol_path_exists(patrol_patrol_point_name.c_str()))
+    {
+        xr_string waypoint_name = global_name;
+        waypoint_name += "_patrol_";
+        waypoint_name += std::to_string(it_patrol);
+        waypoint_name += "_walk";
+        // @ Lord: дописать
+    }
 #pragma endregion
 }
 
