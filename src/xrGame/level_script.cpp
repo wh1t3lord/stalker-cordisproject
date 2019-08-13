@@ -184,7 +184,7 @@ u32 vertex_in_direction(u32 level_vertex_id, Fvector direction, float max_distan
     return (ai().level_graph().valid_vertex_id(result) ? result : level_vertex_id);
 }
 
-Fvector vertex_position(u32 level_vertex_id) { return (ai().level_graph().vertex_position(level_vertex_id)); }
+
 void map_add_object_spot(u16 id, LPCSTR spot_type, LPCSTR text)
 {
     CMapLocation* ml = Level().MapManager().AddMapLocation(spot_type, id);

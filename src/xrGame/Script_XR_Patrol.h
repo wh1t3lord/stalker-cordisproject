@@ -11,6 +11,22 @@ constexpr const char* XR_PATROL_FORMATION_INDEX_BACK = "back";
 constexpr const char* XR_PATROL_FORMATION_INDEX_LINE = "line";
 constexpr const char* XR_PATROL_FORMATION_INDEX_AROUND = "around";
 
+struct NpcCommandData
+{
+    std::uint32_t m_vertex_id;
+    Fvector m_direction;
+    xr_string m_current_state_name;
+};
+
+enum PatrolStates
+{
+    kPatrolMove,
+    kPatrolHide,
+    kPatrolSprint,
+    kPatrolRun,
+    kPatrolStop
+};
+
 // @ pair::first = direction | pair::second = distance
 inline static xr_map<xr_string, xr_vector<std::pair<Fvector, float>>>& getFormations(void) noexcept
 {
@@ -132,6 +148,110 @@ public:
                 ++it;
             }
         }
+    }
+
+    void set_formation(const char* formation_name)
+    {
+        if (!formation_name)
+        {
+            R_ASSERT2(false, "Invalid string!");
+            return;
+        }
+
+        if (strcmp(formation_name, XR_PATROL_FORMATION_INDEX_BACK) ||
+            strcmp(formation_name, XR_PATROL_FORMATION_INDEX_AROUND) ||
+            strcmp(formation_name, XR_PATROL_FORMATION_INDEX_LINE))
+        {
+            Msg("[Scripts/XR_PATROL/Script_PatrolEntity/set_formation(formation_name)] Invalid formation (%s) for "
+                "PatrolManager [%s]",
+                formation_name, this->m_waypoint_name.c_str());
+            R_ASSERT(false);
+        }
+
+        this->m_formation_name = formation_name;
+        this->reset_positions();
+    }
+
+    CScriptGameObject* get_commander(CScriptGameObject* npc)
+    {
+        if (!npc)
+        {
+            R_ASSERT2(false, "object was null!");
+            return nullptr;
+        }
+
+        const std::uint16_t& npc_id = npc->ID();
+
+        if (!this->m_npc_list[npc_id].m_soldier)
+        {
+            R_ASSERT2(false, "Your npc doesn't registered");
+            return nullptr;
+        }
+
+        if (npc_id == this->m_commander_id)
+        {
+            R_ASSERT2(false, "Patrol commander called function get_commander!");
+            return nullptr;
+        }
+
+        CScriptGameObject* commander = this->m_npc_list[this->m_commander_id].m_soldier;
+
+        if (!commander)
+        {
+            R_ASSERT2(false, "Commander doesn't registered in npc_list!");
+            return nullptr;
+        }
+
+        return commander;
+    }
+
+    NpcCommandData get_npc_command(CScriptGameObject* npc)
+    {
+        if (!npc)
+        {
+            R_ASSERT2(false, "object was null!");
+            return NpcCommandData();
+        }
+
+        const std::uint16_t& npc_id = npc->ID();
+
+        if (!this->m_npc_list[npc_id].m_soldier)
+        {
+            R_ASSERT2(false, "Your NPC doesn't registered in list!");
+            return NpcCommandData();
+        }
+
+        if (npc_id == this->m_commander_id)
+        {
+            R_ASSERT2(false, "Patrol commander called function!");
+            return NpcCommandData();
+        }
+
+        CScriptGameObject* commander = this->m_npc_list[this->m_commander_id].m_soldier;
+
+        Fvector direction_commander = commander->Direction();
+        Fvector position = Fvector().set(0.0f, 0.0f, 0.0f);
+        std::uint32_t vertex_id = commander->location_on_path(5, &position);
+        if (Globals::vertex_position(vertex_id).distance_to(
+                this->m_npc_list[this->m_commander_id].m_soldier->Position()) > 5.0f)
+            vertex_id = commander->level_vertex_id();
+
+        direction_commander.y = 0.0f;
+        direction_commander.normalize();
+
+        Fvector direction_soldier = this->m_npc_list[npc_id].m_direction;
+        float distance_soldier = this->m_npc_list[npc_id].m_distance;
+
+        float angle = Globals::yaw_degree(direction_soldier, (Fvector().set(0.0f, 0.0f, 1.0f)));
+        Fvector result = Globals::vector_cross(direction_soldier, Fvector().set(0.0f, 0.0f, 1.0f));
+
+        if (result.y < 0.0f)
+            angle = -angle;
+        
+        direction_soldier = Globals::vector_rotate_y(direction_soldier, angle);
+
+        std::uint32_t d = 2;
+
     }
 
 private:

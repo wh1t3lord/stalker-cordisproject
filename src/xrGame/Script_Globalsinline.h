@@ -8,6 +8,39 @@ namespace Scripts
 {
 namespace Globals
 {
+inline float yaw(const Fvector& vector1, const Fvector& vector2)
+{
+    return (acos((vector1.x * vector2.x) + (vector1.z * vector2.z)) /
+        (sqrt((vector1.x * vector1.x) + (vector1.z * vector1.z)) *
+            sqrt((vector2.x * vector2.x) + (vector2.z * vector2.z))));
+}
+
+inline float yaw_degree(const Fvector& vector1, const Fvector& vector2)
+{
+    return (acos((vector1.x * vector2.x) + (vector1.z * vector2.z)) /
+               (sqrt((vector1.x * vector1.x) + (vector2.z * vector2.z)) *
+                   sqrt((vector2.x * vector2.x) + (vector2.z * vector2.z)))) *
+        57.2957f;
+}
+
+// @ 2D
+inline Fvector vector_cross(const Fvector& vector1, const Fvector& vector2)
+{
+    return Fvector().set(vector1.y * vector2.z - vector1.z * vector2.y, vector1.z * vector2.x - vector1.x * vector2.z,
+        vector1.x * vector2.y - vector1.y * vector2.x);
+}
+
+inline Fvector vector_rotate_y(Fvector& vector, float& angle) 
+{ 
+    // Lord: если это константа то определить что это
+    angle *= 0.017453292519943295769236907684886f;
+    float cos_result = cos(angle);
+    float sin_result = sin(angle);
+
+    return Fvector().set(vector.x * cos_result - vector.z * sin_result, vector.y, vector.x * sin_result + vector.z * cos_result);
+}
+
+inline Fvector vertex_position(u32 level_vertex_id) { return (ai().level_graph().vertex_position(level_vertex_id)); }
 inline bool patrol_path_exists(LPCSTR patrol_path) { return (!!ai().patrol_paths().path(patrol_path, true)); }
 
 inline void load_sound(void)
