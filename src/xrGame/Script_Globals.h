@@ -78,6 +78,7 @@ constexpr std::uint32_t kSidorActPtr = kSidorActions + 120;
 constexpr std::uint32_t kSidorActYantar = kSidorActions + 200;
 constexpr std::uint32_t kSidorActSecretLab = kSidorActions + 220;
 constexpr std::uint32_t kSidorAttendantAct = kSidorActions + 230;
+
 constexpr std::uint32_t kChugaiActions = kSidorActions + 1024;
 constexpr std::uint32_t kChugaiActTutorial = kChugaiActions + 10;
 constexpr std::uint32_t kChugaiCommanderBase = kChugaiActions + 20;
@@ -93,7 +94,43 @@ constexpr std::uint32_t kChugaiZombiedBase = kChugaiActions + 110;
 constexpr std::uint32_t kChugaiMonolithBase = kChugaiActions + 120;
 constexpr std::uint32_t kChugaiCamperBase = kChugaiActions + 130;
 
+constexpr std::uint32_t kZmeyActions = kChugaiActions + 1024;
+constexpr std::uint32_t kZmeyActionGuardActivity = kZmeyActions + 100;
+constexpr std::uint32_t kZmeyGuardBase = kZmeyActions + 200;
+constexpr std::uint32_t kZmeyRobberBase = kZmeyActions + 230;
+constexpr std::uint32_t kZmeyCamperBase = kZmeyActions + 260;
+constexpr std::uint32_t kZmeySleeperBase = kZmeyActions + 290;
+constexpr std::uint32_t kZmeyTalkerBase = kZmeyActions + 320;
+constexpr std::uint32_t kZmeyBodyGuardBase = kZmeyActions + 350;
+constexpr std::uint32_t kZmeyPunchBase = kZmeyActions + 380;
+constexpr std::uint32_t kZmeyGuideBase = kZmeyActions + 410;
+constexpr std::uint32_t kZmeyRobberGuardBase = kZmeyActions + 440;
+constexpr std::uint32_t kZmeyWalkerBase = kZmeyActions + 480;
+constexpr std::uint32_t kZmeyAssassinBase = kZmeyActions + 510;
+constexpr std::uint32_t kZmeyScaredBase = kZmeyActions + 540;
+constexpr std::uint32_t kZmeyZoneGuardBase = kZmeyActions + 570;
+constexpr std::uint32_t kZmeyTestBase = kZmeyActions + 600;
+constexpr std::uint32_t kZmeyRemarkBase = kZmeyActions + 630;
+constexpr std::uint32_t kZmeyCompanionBase = kZmeyActions + 660;
 
+constexpr std::uint32_t kJonActions = kZmeyActions + 1024;
+constexpr std::uint32_t kJonStalkerZombie = kJonActions + 0; // @ ???
+constexpr std::uint32_t kJonStalkerNovice = kJonActions + 1;
+constexpr std::uint32_t kJonStalkerNovice2 = kJonActions + 2;
+constexpr std::uint32_t kJonStalkerNovice3 = kJonActions + 3;
+constexpr std::uint32_t kJonStalkerAttack = kJonActions + 4;
+constexpr std::uint32_t kJonScientist = kJonActions + 5;
+constexpr std::uint32_t kJonSecurity = kJonActions + 6;
+constexpr std::uint32_t kJonSniperEnabled = kJonActions + 10;
+constexpr std::uint32_t kJonSniperSeeMonster = kJonActions + 11;
+constexpr std::uint32_t kJonSniperSeeEnemy = kJonActions + 12;
+constexpr std::uint32_t kJonSniperCamper = kJonActions + 13;
+constexpr std::uint32_t kJonOutcast = kJonActions + 20;
+constexpr std::uint32_t kJonOutcastReplics = kJonActions + 21;
+
+constexpr std::uint32_t kNarratorActions = kJonActions + 1024;
+constexpr std::uint32_t kPeacemakerActions = kNarratorActions + 1024;
+constexpr std::uint32_t kPeacemakerShBase = kPeacemakerActions + 10;
 } // namespace XR_ACTIONS_ID
 
 #pragma endregion
