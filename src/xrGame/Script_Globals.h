@@ -33,17 +33,67 @@ constexpr unsigned int kSTYPE_RESTRICTOR = 4;
 #pragma region XR_ACTIONS_ID
 namespace XR_ACTIONS_ID
 {
-constexpr std::uint32_t kGLOBAL_ACTIONS = StalkerDecisionSpace::eWorldOperatorScript;
-constexpr std::uint32_t kACTION_SCRIPT = StalkerDecisionSpace::eWorldOperatorScript + 1;
-constexpr std::uint32_t kALIFE = StalkerDecisionSpace::eWorldOperatorALifePlanner;
-constexpr std::uint32_t kSCRIPT_COMBAT_PLANNER = StalkerDecisionSpace::eWorldOperatorScript + 3;
-constexpr std::uint32_t kREACH_TASK_LOCATION = StalkerDecisionSpace::eWorldOperatorScript + 4;
-constexpr std::uint32_t kCORPSE_EXIST = StalkerDecisionSpace::eWorldOperatorScript + 50;
-constexpr std::uint32_t kWOUNDED_EXIST = StalkerDecisionSpace::eWorldOperatorScript + 55;
-constexpr std::uint32_t kSTATE_MANAGER = StalkerDecisionSpace::eWorldOperatorScript + 100;
-constexpr std::uint32_t kSMARTCOVER_ACTION = StalkerDecisionSpace::eWorldOperatorScript + 215;
-constexpr std::uint32_t kTEST_REACTION = StalkerDecisionSpace::eWorldOperatorScript + 218;
-constexpr std::uint32_t kSTOHE_ACTIONS = StalkerDecisionSpace::eWorldOperatorScript + 220;
+constexpr std::uint32_t kGlobalActions = StalkerDecisionSpace::eWorldOperatorScript;
+constexpr std::uint32_t kActionScript = StalkerDecisionSpace::eWorldOperatorScript + 1;
+constexpr std::uint32_t kAlife = StalkerDecisionSpace::eWorldOperatorALifePlanner;
+constexpr std::uint32_t kScriptCombatPlanner = StalkerDecisionSpace::eWorldOperatorScript + 3;
+constexpr std::uint32_t kReachTaskLocation = StalkerDecisionSpace::eWorldOperatorScript + 4;
+constexpr std::uint32_t kCorpseExist = StalkerDecisionSpace::eWorldOperatorScript + 50;
+constexpr std::uint32_t kWoundedExist = StalkerDecisionSpace::eWorldOperatorScript + 55;
+constexpr std::uint32_t kStateManager = StalkerDecisionSpace::eWorldOperatorScript + 100;
+constexpr std::uint32_t kSmartcoverAction = StalkerDecisionSpace::eWorldOperatorScript + 215;
+constexpr std::uint32_t kTestReaction = StalkerDecisionSpace::eWorldOperatorScript + 218;
+
+constexpr std::uint32_t kStoheActions = StalkerDecisionSpace::eWorldOperatorScript + 220;
+constexpr std::uint32_t kStoheTradesellerInit = kStoheActions + 1;
+constexpr std::uint32_t kStoheTradesellerBase = kStoheActions + 10;
+constexpr std::uint32_t kStoheKampBase = kStoheActions + 20;
+constexpr std::uint32_t kStoheMeetBase = kStoheActions + 30;
+constexpr std::uint32_t kStoheReactionsBase = kStoheActions + 40;
+constexpr std::uint32_t kStoheStateBase = kStoheActions + 50;
+constexpr std::uint32_t kStohePosition = kStoheActions + 60;
+constexpr std::uint32_t kStoheGulagBase = kStoheActions + 70;
+constexpr std::uint32_t kStoheCoverBase = kStoheActions + 80;
+constexpr std::uint32_t kStoheCamperBase = kStoheActions + 90;
+constexpr std::uint32_t kAssistance = kStoheActions + 100;
+constexpr std::uint32_t kDeath = kStoheActions + 110;
+constexpr std::uint32_t kAbuseBase = kStoheActions + 120;
+constexpr std::uint32_t kPostCombat = kStoheActions + 130;
+constexpr std::uint32_t kAnimationPointAction = kStoheActions + 140;
+constexpr std::uint32_t kSidorActions = kStoheActions + 1024;
+constexpr std::uint32_t kSidorActCommander = kSidorActions + 0; // @ ???
+constexpr std::uint32_t kSidorActSoldier = kSidorActions + 5;
+constexpr std::uint32_t kSidorActPatrol = kSidorActions + 0; // @ ???
+constexpr std::uint32_t kSidorActWoundedBase = kSidorActions + 10;
+constexpr std::uint32_t kSidorActBanditsBase = kSidorActions + 20;
+constexpr std::uint32_t kSidorActSwatBase = kSidorActions + 40;
+constexpr std::uint32_t kSidorActFollowerBase = kSidorActions + 50;
+constexpr std::uint32_t kSidorActReportLeader = kSidorActions + 60;
+constexpr std::uint32_t kSidorActReportSoldier = kSidorActions + 70;
+constexpr std::uint32_t kSidorActRest = kSidorActions + 80;
+constexpr std::uint32_t kSidorActBar = kSidorActions + 90;
+constexpr std::uint32_t kSidorActChaser = kSidorActions + 100;
+constexpr std::uint32_t kSidorActSos = kSidorActions + 110;
+constexpr std::uint32_t kSidorActPtr = kSidorActions + 120;
+constexpr std::uint32_t kSidorActYantar = kSidorActions + 200;
+constexpr std::uint32_t kSidorActSecretLab = kSidorActions + 220;
+constexpr std::uint32_t kSidorAttendantAct = kSidorActions + 230;
+constexpr std::uint32_t kChugaiActions = kSidorActions + 1024;
+constexpr std::uint32_t kChugaiActTutorial = kChugaiActions + 10;
+constexpr std::uint32_t kChugaiCommanderBase = kChugaiActions + 20;
+constexpr std::uint32_t kChugaiScoutBase = kChugaiActions + 30;
+constexpr std::uint32_t kChugaiMilitaryCommanderBase = kChugaiActions + 40;
+constexpr std::uint32_t kChugaiEscapeFactoryBanditsBase = kChugaiActions + 50;
+constexpr std::uint32_t kChugaiBarmanBase = kChugaiActions + 60;
+constexpr std::uint32_t kChugaiAmbushBase = kChugaiActions + 70;
+constexpr std::uint32_t kChugaiFormationBase = kChugaiActions + 80;
+constexpr std::uint32_t kChugaiReplicsBase = kChugaiActions + 90;
+constexpr std::uint32_t kChugaiHelicopterHunterBase = kChugaiActions + 100;
+constexpr std::uint32_t kChugaiZombiedBase = kChugaiActions + 110;
+constexpr std::uint32_t kChugaiMonolithBase = kChugaiActions + 120;
+constexpr std::uint32_t kChugaiCamperBase = kChugaiActions + 130;
+
+
 } // namespace XR_ACTIONS_ID
 
 #pragma endregion
