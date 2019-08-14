@@ -8,7 +8,7 @@ namespace Scripts
 {
 namespace Globals
 {
-inline std::uint32_t vertex_in_direction(const std::uint32_t& level_vertex_id, const Fvector& direction, const float& max_distance)
+inline std::uint32_t vertex_in_direction(const std::uint32_t& level_vertex_id, Fvector& direction, const float& max_distance)
 {
     direction.normalize_safe();
     direction.mul(max_distance);
@@ -323,69 +323,69 @@ inline void StartGameCallback(void)
     // Loads schemes Lord: переименовать соответвующие наименования скриптов, но если _G[schemes[scheme]] -> нужно
     // расписывать через case, потому что строка будет указывать на namespace или getInstance() самого класса То есть
     // switch (scheme_name) { case "Script_StoryObject": Script_StoryObject::getInstance().DoSomething(); etc... };
-    load_scheme("xr_danger", "danger", STYPE_STALKER);
-    load_scheme("xr_gather_items", "gather_items", STYPE_STALKER);
-    load_scheme("xr_abuse", "abuse", STYPE_STALKER);
-    load_scheme("xr_walker", "walker", STYPE_STALKER);
-    load_scheme("xr_remark", "remark", STYPE_STALKER);
-    load_scheme("xr_cover", "cover", STYPE_STALKER);
-    load_scheme("xr_sleeper", "sleeper", STYPE_STALKER);
-    load_scheme("xr_kamp", "kamp", STYPE_STALKER);
-    load_scheme("xr_camper", "camper", STYPE_STALKER);
-    load_scheme("xr_meet", "meet", STYPE_STALKER);
-    load_scheme("xr_help_wounded", "help_wounded", STYPE_STALKER);
-    load_scheme("xr_corpse_detection", "corpse_detection", STYPE_STALKER);
-    load_scheme("xr_combat", "combat", STYPE_STALKER);
-    load_scheme("xr_death", "death", STYPE_STALKER);
-    load_scheme("xr_hit", "hit", STYPE_STALKER);
-    load_scheme("xr_wounded", "wounded", STYPE_STALKER);
-    load_scheme("xr_meet", "actor_dialogs", STYPE_STALKER);
-    load_scheme("xr_combat_ignore", "combat_ignore", STYPE_STALKER);
-    load_scheme("xr_combat_zombied", "combat_zombied", STYPE_STALKER);
-    load_scheme("xr_patrol", "patrol", STYPE_STALKER);
-    load_scheme("xr_smartcover", "smartcover", STYPE_STALKER);
-    load_scheme("xr_companion", "companion", STYPE_STALKER);
-    load_scheme("xr_animpoint", "animpoint", STYPE_STALKER);
-    load_scheme("xr_reach_task", "reach_task", STYPE_STALKER);
+    load_scheme("xr_danger", "danger", kSTypeStalker);
+    load_scheme("xr_gather_items", "gather_items", kSTypeStalker);
+    load_scheme("xr_abuse", "abuse", kSTypeStalker);
+    load_scheme("xr_walker", "walker", kSTypeStalker);
+    load_scheme("xr_remark", "remark", kSTypeStalker);
+    load_scheme("xr_cover", "cover", kSTypeStalker);
+    load_scheme("xr_sleeper", "sleeper", kSTypeStalker);
+    load_scheme("xr_kamp", "kamp", kSTypeStalker);
+    load_scheme("xr_camper", "camper", kSTypeStalker);
+    load_scheme("xr_meet", "meet", kSTypeStalker);
+    load_scheme("xr_help_wounded", "help_wounded", kSTypeStalker);
+    load_scheme("xr_corpse_detection", "corpse_detection", kSTypeStalker);
+    load_scheme("xr_combat", "combat", kSTypeStalker);
+    load_scheme("xr_death", "death", kSTypeStalker);
+    load_scheme("xr_hit", "hit", kSTypeStalker);
+    load_scheme("xr_wounded", "wounded", kSTypeStalker);
+    load_scheme("xr_meet", "actor_dialogs", kSTypeStalker);
+    load_scheme("xr_combat_ignore", "combat_ignore", kSTypeStalker);
+    load_scheme("xr_combat_zombied", "combat_zombied", kSTypeStalker);
+    load_scheme("xr_patrol", "patrol", kSTypeStalker);
+    load_scheme("xr_smartcover", "smartcover", kSTypeStalker);
+    load_scheme("xr_companion", "companion", kSTypeStalker);
+    load_scheme("xr_animpoint", "animpoint", kSTypeStalker);
+    load_scheme("xr_reach_task", "reach_task", kSTypeStalker);
 
-    load_scheme("mob_remark", "mob_remark", STYPE_MOBILE);
-    load_scheme("mob_walker", "mob_walker", STYPE_MOBILE);
-    load_scheme("mob_combat", "mob_combat", STYPE_MOBILE);
-    load_scheme("mob_death", "mob_death", STYPE_MOBILE);
-    load_scheme("mob_jump", "mob_jump", STYPE_MOBILE);
-    load_scheme("mob_home", "mob_home", STYPE_MOBILE);
+    load_scheme("mob_remark", "mob_remark", kSTypeMobile);
+    load_scheme("mob_walker", "mob_walker", kSTypeMobile);
+    load_scheme("mob_combat", "mob_combat", kSTypeMobile);
+    load_scheme("mob_death", "mob_death", kSTypeMobile);
+    load_scheme("mob_jump", "mob_jump", kSTypeMobile);
+    load_scheme("mob_home", "mob_home", kSTypeMobile);
 
-    load_scheme("ph_door", "ph_door", STYPE_ITEM);
-    load_scheme("ph_idle", "ph_idle", STYPE_ITEM);
-    load_scheme("ph_hit", "ph_hit", STYPE_ITEM);
-    load_scheme("ph_on_hit", "ph_on_hit", STYPE_ITEM);
-    load_scheme("ph_button", "ph_button", STYPE_ITEM);
-    load_scheme("ph_code", "ph_code", STYPE_ITEM);
-    load_scheme("ph_death", "ph_on_death", STYPE_ITEM);
-    load_scheme("ph_minigun", "ph_minigun", STYPE_ITEM);
-    // load_scheme("ph_target","ph_target",STYPE_ITEM);
-    load_scheme("ph_oscillate", "ph_oscillate", STYPE_ITEM);
+    load_scheme("ph_door", "ph_door", kSTypeItem);
+    load_scheme("ph_idle", "ph_idle", kSTypeItem);
+    load_scheme("ph_hit", "ph_hit", kSTypeItem);
+    load_scheme("ph_on_hit", "ph_on_hit", kSTypeItem);
+    load_scheme("ph_button", "ph_button", kSTypeItem);
+    load_scheme("ph_code", "ph_code", kSTypeItem);
+    load_scheme("ph_death", "ph_on_death", kSTypeItem);
+    load_scheme("ph_minigun", "ph_minigun", kSTypeItem);
+    // load_scheme("ph_target","ph_target",kSTypeItem);
+    load_scheme("ph_oscillate", "ph_oscillate", kSTypeItem);
 
-    load_scheme("heli_move", "heli_move", STYPE_HELI);
+    load_scheme("heli_move", "heli_move", kSTypeHelicopter);
 
-    load_scheme("sr_no_weapon", "sr_no_weapon", STYPE_RESTRICTOR);
-    load_scheme("sr_teleport", "sr_teleport", STYPE_RESTRICTOR);
-    load_scheme("sr_idle", "sr_idle", STYPE_RESTRICTOR);
-    load_scheme("sr_light", "sr_light", STYPE_RESTRICTOR);
-    load_scheme("sr_timer", "sr_timer", STYPE_RESTRICTOR);
-    load_scheme("sr_psy_antenna", "sr_psy_antenna", STYPE_RESTRICTOR);
-    load_scheme("sr_postprocess", "sr_postprocess", STYPE_RESTRICTOR);
-    load_scheme("sr_particle", "sr_particle", STYPE_RESTRICTOR);
-    load_scheme("sr_cutscene", "sr_cutscene", STYPE_RESTRICTOR);
-    // load_scheme("sr_bloodsucker","sr_bloodsucker",STYPE_RESTRICTOR);
-    load_scheme("sr_monster", "sr_monster", STYPE_RESTRICTOR);
-    // load_scheme("sr_robbery","sr_robbery",STYPE_RESTRICTOR);
-    // load_scheme("sr_survival","sr_survival",STYPE_RESTRICTOR);
-    load_scheme("sr_crow_spawner", "sr_crow_spawner", STYPE_RESTRICTOR);
-    // load_scheme("sr_shooting","sr_shooting",STYPE_RESTRICTOR);
-    // load_scheme("sr_recoveritem","sr_recoveritem",STYPE_RESTRICTOR);
-    load_scheme("sr_silence", "sr_silence", STYPE_RESTRICTOR);
-    load_scheme("sr_deimos", "sr_deimos", STYPE_RESTRICTOR);
+    load_scheme("sr_no_weapon", "sr_no_weapon", kSTypeRestrictor);
+    load_scheme("sr_teleport", "sr_teleport", kSTypeRestrictor);
+    load_scheme("sr_idle", "sr_idle", kSTypeRestrictor);
+    load_scheme("sr_light", "sr_light", kSTypeRestrictor);
+    load_scheme("sr_timer", "sr_timer", kSTypeRestrictor);
+    load_scheme("sr_psy_antenna", "sr_psy_antenna", kSTypeRestrictor);
+    load_scheme("sr_postprocess", "sr_postprocess", kSTypeRestrictor);
+    load_scheme("sr_particle", "sr_particle", kSTypeRestrictor);
+    load_scheme("sr_cutscene", "sr_cutscene", kSTypeRestrictor);
+    // load_scheme("sr_bloodsucker","sr_bloodsucker",kSTypeRestrictor);
+    load_scheme("sr_monster", "sr_monster", kSTypeRestrictor);
+    // load_scheme("sr_robbery","sr_robbery",kSTypeRestrictor);
+    // load_scheme("sr_survival","sr_survival",kSTypeRestrictor);
+    load_scheme("sr_crow_spawner", "sr_crow_spawner", kSTypeRestrictor);
+    // load_scheme("sr_shooting","sr_shooting",kSTypeRestrictor);
+    // load_scheme("sr_recoveritem","sr_recoveritem",kSTypeRestrictor);
+    load_scheme("sr_silence", "sr_silence", kSTypeRestrictor);
+    load_scheme("sr_deimos", "sr_deimos", kSTypeRestrictor);
 }
 
 inline void set_save_marker(NET_Packet& packet, const xr_string& mode, bool check, const xr_string& prefix)

@@ -1,5 +1,7 @@
 #pragma once
 
+#include "Script_XR_Meet.h"
+
 namespace Cordis
 {
 namespace Scripts
@@ -61,7 +63,7 @@ public:
     }
     ~Script_PatrolEntity(void) {}
 
-    void add_npc(CScriptGameObject* npc, const bool& is_leader)
+    inline void add_npc(CScriptGameObject* npc, const bool& is_leader)
     {
         if (!npc)
         {
@@ -109,7 +111,7 @@ public:
         this->reset_positions();
     }
 
-    void remove_npc(CScriptGameObject* npc)
+    inline void remove_npc(CScriptGameObject* npc)
     {
         if (!npc)
         {
@@ -135,7 +137,7 @@ public:
         }
     }
 
-    void reset_positions(void)
+    inline void reset_positions(void)
     {
         xr_vector<std::pair<Fvector, float>>& formation_buffer = getFormations()[this->m_formation_name];
         std::uint16_t it = 0;
@@ -157,7 +159,7 @@ public:
         }
     }
 
-    void set_formation(const char* formation_name)
+    inline void set_formation(const char* formation_name)
     {
         if (!formation_name)
         {
@@ -289,7 +291,7 @@ public:
         return data;
     }
 
-    void set_command(CScriptGameObject* npc, const xr_string& state, const xr_string& formation)
+    inline void set_command(CScriptGameObject* npc, const xr_string& state, const xr_string& formation)
     {
         if (!npc)
         {
@@ -337,9 +339,7 @@ public:
         }
 
         if (npc->Alive())
-        {
-            
-        }
+            return XR_MEET::is_meet(npc);
 
         return false;
     }
@@ -359,6 +359,7 @@ private:
     xr_string m_formation_name;
     xr_string m_waypoint_name;
 };
+
 } // namespace XR_PATROL
 } // namespace Scripts
 } // namespace Cordis

@@ -67,7 +67,7 @@ inline CInifile configure_schemes(CScriptGameObject* npc, const CInifile& ini, c
         }
         else
         {
-            if (stype == Globals::STYPE_STALKER || stype == Globals::STYPE_MOBILE)
+            if (stype == Globals::kSTypeStalker || stype == Globals::kSTypeMobile)
             {
             }
         }

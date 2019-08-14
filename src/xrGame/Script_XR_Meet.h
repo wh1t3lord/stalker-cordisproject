@@ -1,5 +1,6 @@
 #pragma once
 
+ 
 namespace Cordis
 {
 namespace Scripts
@@ -25,8 +26,11 @@ inline bool is_meet(CScriptGameObject* npc)
     {
         std::uint32_t id = manager->current_action_id();
 
- 
+        if (id == Globals::XR_ACTIONS_ID::kStoheMeetBase + 1)
+            return true;
     }
+
+    return false;
 }
 } // namespace XR_MEET
 } // namespace Scripts

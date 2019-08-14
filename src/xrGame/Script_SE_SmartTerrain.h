@@ -43,9 +43,9 @@ public:
         data.m_begin_job = false;
 
         if (data.m_is_monster)
-            data.m_stype = Globals::STYPE_MOBILE;
+            data.m_stype = Globals::kSTypeMobile;
         else
-            data.m_stype = Globals::STYPE_STALKER;
+            data.m_stype = Globals::kSTypeStalker;
 
         return data;
     }
@@ -53,10 +53,10 @@ public:
     inline void refresh_script_logic(const std::uint32_t& object_id)
     {
         CSE_ALifeDynamicObject* server_object = ai().alife().objects().object(object_id);
-        std::uint16_t stype = Globals::STYPE_MOBILE;
+        std::uint16_t stype = Globals::kSTypeMobile;
 
         if (Globals::IsStalker(server_object, 0))
-            stype = Globals::STYPE_STALKER;
+            stype = Globals::kSTypeStalker;
     }
 
     inline xr_string getDefenceRestirctor(void) noexcept { return this->m_defence_restictor; }

@@ -14,23 +14,22 @@
 #include "xrServer_Objects_ALife_All.h"
 #include "xr_time.h"
 #include <random>
-#include "Script_GlobalHelper.h"
-#include "Script_EntitySounds.h"
 #include "xrAICore/AISpaceBase.hpp"
 #include "xrAICore/Navigation/PatrolPath/patrol_path_storage.h"
+
 namespace Cordis
 {
 namespace Scripts
 {
 namespace Globals
 {
-constexpr unsigned int kSTYPE_STALKER = 0;
-constexpr unsigned int kSTYPE_MOBILE = 1;
-constexpr unsigned int kSTYPE_ITEM = 2;
-constexpr unsigned int kSTYPE_HELI = 3;
-constexpr unsigned int kSTYPE_RESTRICTOR = 4;
+constexpr unsigned int kSTypeStalker = 0;
+constexpr unsigned int kSTypeMobile = 1;
+constexpr unsigned int kSTypeItem = 2;
+constexpr unsigned int kSTypeHelicopter = 3;
+constexpr unsigned int kSTypeRestrictor = 4;
 
-#pragma region XR_ACTIONS_ID
+
 namespace XR_ACTIONS_ID
 {
 constexpr std::uint32_t kGlobalActions = StalkerDecisionSpace::eWorldOperatorScript;
@@ -133,8 +132,7 @@ constexpr std::uint32_t kPeacemakerActions = kNarratorActions + 1024;
 constexpr std::uint32_t kPeacemakerShBase = kPeacemakerActions + 10;
 } // namespace XR_ACTIONS_ID
 
-#pragma endregion
-
+#pragma region RandomImplementation
 class Script_RandomInt
 {
 private:
@@ -211,6 +209,7 @@ public:
 private:
     std::mt19937 m_generator;
 };
+#pragma endregion
 
 namespace Utils
 {
@@ -331,6 +330,13 @@ namespace Game
 inline LPCSTR translate_string(LPCSTR str) { return *StringTable().translate(str); }
 } // namespace Game
 
+inline Fvector vertex_position(u32 level_vertex_id);
+inline std::uint32_t vertex_in_direction(const std::uint32_t& level_vertex_id, const Fvector& direction, const float& max_distance);
+inline float yaw(const Fvector& vector1, const Fvector& vector2);
+inline float yaw_degree(const Fvector& vector1, const Fvector& vector2);
+// @ 2D
+inline Fvector vector_cross(const Fvector& vector1, const Fvector& vector2);
+inline Fvector vector_rotate_y(Fvector& vector, float& angle);
 inline bool patrol_path_exists(LPCSTR patrol_path);
 inline void load_sound(void);
 inline void init_npc_sound(CScriptGameObject* npc);
@@ -381,6 +387,8 @@ inline bool in_time_interval(const std::uint32_t& value1, const std::uint32_t& v
 } // namespace Scripts
 } // namespace Cordis
 
+#include "Script_GlobalHelper.h"
+#include "Script_EntitySounds.h"
 #include "Script_SE_Actor.h"
 #include "Script_SmartTerrainControl.h"
 #include "Script_SE_SmartTerrain.h"
@@ -402,3 +410,4 @@ inline bool in_time_interval(const std::uint32_t& value1, const std::uint32_t& v
 #include "Script_EntitySounds.h"
 #include "Script_GulagGenerator.h"
 #include "Script_Globalsinline.h"
+
