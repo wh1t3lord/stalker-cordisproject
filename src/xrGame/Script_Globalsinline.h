@@ -8,6 +8,17 @@ namespace Scripts
 {
 namespace Globals
 {
+inline std::uint32_t vertex_in_direction(const std::uint32_t& level_vertex_id, const Fvector& direction, const float& max_distance)
+{
+    direction.normalize_safe();
+    direction.mul(max_distance);
+    Fvector start_position = ai().level_graph().vertex_position(level_vertex_id);
+    Fvector finish_position = Fvector(start_position).add(direction);
+    u32 result = u32(-1);
+    ai().level_graph().farthest_vertex_in_direction(level_vertex_id, start_position, finish_position, result, 0);
+    return (ai().level_graph().valid_vertex_id(result) ? result : level_vertex_id);
+}
+
 inline float yaw(const Fvector& vector1, const Fvector& vector2)
 {
     return (acos((vector1.x * vector2.x) + (vector1.z * vector2.z)) /

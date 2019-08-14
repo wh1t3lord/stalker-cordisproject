@@ -27,6 +27,13 @@ enum PatrolStates
     kPatrolStop
 };
 
+inline static xr_map<xr_string, xr_string>& getAccelByCurrentType(void) noexcept
+{
+    static xr_map<xr_string, xr_string> instance = {
+        {"walk", "run"}, {"patrol", "rush"}, {"raid", "assault"}, {"sneak", "sneak_run"}, {"sneak_run", "assault"}};
+    return instance;
+}
+
 // @ pair::first = direction | pair::second = distance
 inline static xr_map<xr_string, xr_vector<std::pair<Fvector, float>>>& getFormations(void) noexcept
 {
@@ -172,6 +179,8 @@ public:
         this->reset_positions();
     }
 
+    inline void set_formation(const xr_string& data) { this->set_formation(data.c_str()); }
+
     CScriptGameObject* get_commander(CScriptGameObject* npc)
     {
         if (!npc)
@@ -247,12 +256,98 @@ public:
 
         if (result.y < 0.0f)
             angle = -angle;
-        
+
         direction_soldier = Globals::vector_rotate_y(direction_soldier, angle);
 
-        std::uint32_t d = 2;
+        float max_distance = 2.0f;
+        std::uint32_t vertex_id_to =
+            Globals::vertex_in_direction(Globals::vertex_in_direction(vertex_id, direction_soldier, distance_soldier),
+                direction_commander, max_distance);
+        this->m_npc_list[npc_id].m_vertex_id = vertex_id_to;
 
+        float distance = commander->Position().distance_to(this->m_npc_list[npc_id].m_soldier->Position());
+
+        if (distance > distance_soldier + 2.0f)
+        {
+            xr_string new_state = getAccelByCurrentType()[this->m_current_state_name];
+
+            if (new_state.size())
+            {
+                NpcCommandData data;
+                data.m_current_state_name = new_state;
+                data.m_vertex_id = vertex_id_to;
+                data.m_direction = direction_commander;
+                return data;
+            }
+        }
+
+        NpcCommandData data;
+        data.m_current_state_name = this->m_current_state_name;
+        data.m_direction = direction_commander;
+        data.m_vertex_id = vertex_id_to;
+
+        return data;
     }
+
+    void set_command(CScriptGameObject* npc, const xr_string& state, const xr_string& formation)
+    {
+        if (!npc)
+        {
+            R_ASSERT2(false, "Object was null!");
+            return;
+        }
+
+        if (!npc->Alive())
+        {
+            this->remove_npc(npc);
+            return;
+        }
+
+        if (npc->ID() == this->m_commander_id)
+            return;
+
+        this->m_current_state_name = state;
+        if (this->m_formation_name != formation)
+        {
+            this->m_formation_name = formation;
+            this->set_formation(formation);
+        }
+
+        this->m_commander_leader = npc->level_vertex_id();
+        this->m_commander_direction = npc->Direction();
+
+        // Lord : подумать используется здесь данный метод ибо не понятно где вообще self.tm и оно используется(
+        // основаная догадка что нет)
+        //   this->update();
+    }
+
+    inline bool is_commander(const std::uint16_t& npc_id) { return npc_id == this->m_commander_id; }
+
+    inline bool is_commander_in_meet(void)
+    {
+        if (this->m_commander_id == -1)
+            return false;
+
+        CScriptGameObject* npc = this->m_npc_list[this->m_commander_id].m_soldier;
+
+        if (!npc)
+        {
+            R_ASSERT2(false, "object was null!");
+            return false;
+        }
+
+        if (npc->Alive())
+        {
+            
+        }
+
+        return false;
+    }
+    /*
+void update(void)
+{
+
+}*/
 
 private:
     std::uint32_t m_npc_count;
