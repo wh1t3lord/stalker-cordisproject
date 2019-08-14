@@ -24,11 +24,29 @@ namespace Scripts
 {
 namespace Globals
 {
-constexpr unsigned int STYPE_STALKER = 0;
-constexpr unsigned int STYPE_MOBILE = 1;
-constexpr unsigned int STYPE_ITEM = 2;
-constexpr unsigned int STYPE_HELI = 3;
-constexpr unsigned int STYPE_RESTRICTOR = 4;
+constexpr unsigned int kSTYPE_STALKER = 0;
+constexpr unsigned int kSTYPE_MOBILE = 1;
+constexpr unsigned int kSTYPE_ITEM = 2;
+constexpr unsigned int kSTYPE_HELI = 3;
+constexpr unsigned int kSTYPE_RESTRICTOR = 4;
+
+#pragma region XR_ACTIONS_ID
+namespace XR_ACTIONS_ID
+{
+constexpr std::uint32_t kGLOBAL_ACTIONS = StalkerDecisionSpace::eWorldOperatorScript;
+constexpr std::uint32_t kACTION_SCRIPT = StalkerDecisionSpace::eWorldOperatorScript + 1;
+constexpr std::uint32_t kALIFE = StalkerDecisionSpace::eWorldOperatorALifePlanner;
+constexpr std::uint32_t kSCRIPT_COMBAT_PLANNER = StalkerDecisionSpace::eWorldOperatorScript + 3;
+constexpr std::uint32_t kREACH_TASK_LOCATION = StalkerDecisionSpace::eWorldOperatorScript + 4;
+constexpr std::uint32_t kCORPSE_EXIST = StalkerDecisionSpace::eWorldOperatorScript + 50;
+constexpr std::uint32_t kWOUNDED_EXIST = StalkerDecisionSpace::eWorldOperatorScript + 55;
+constexpr std::uint32_t kSTATE_MANAGER = StalkerDecisionSpace::eWorldOperatorScript + 100;
+constexpr std::uint32_t kSMARTCOVER_ACTION = StalkerDecisionSpace::eWorldOperatorScript + 215;
+constexpr std::uint32_t kTEST_REACTION = StalkerDecisionSpace::eWorldOperatorScript + 218;
+constexpr std::uint32_t kSTOHE_ACTIONS = StalkerDecisionSpace::eWorldOperatorScript + 220;
+} // namespace XR_ACTIONS_ID
+
+#pragma endregion
 
 class Script_RandomInt
 {
@@ -289,6 +307,7 @@ inline bool in_time_interval(const std::uint32_t& value1, const std::uint32_t& v
 #include "Script_XR_Logic.h"
 #include "Script_XR_Sound.h"
 #include "Script_XR_Effects.h"
+#include "Script_XR_Meet.h"
 #include "Script_XR_Patrol.h"
 #include "Script_SimulationBoard.h"
 #include "Script_SimulationObjects.h"
