@@ -643,7 +643,8 @@ inline bool load_job(Script_SE_SmartTerrain* smart)
         waypoint_name += "_patrol_";
         waypoint_name += std::to_string(it_patrol);
         waypoint_name += "_walk";
-        // @ Lord: дописать
+        CPatrolPathParams patrol = CPatrolPathParams(waypoint_name.c_str());
+
     }
 #pragma endregion
 }

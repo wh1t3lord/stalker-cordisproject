@@ -48,7 +48,7 @@ struct PatrolNpcData
     bool m_accepted = false;
     int m_vertex_id = 0;
     float m_distance = 0.0f;
-    CScriptGameObject* m_soldier = nullptr;
+    CScriptGameObject* m_soldier = nullptr; // Lord: наверное здесь не нужно следить за удалением
     Fvector m_direction = Fvector().set(1.0f, 0.0f, 0.0f);
 };
 

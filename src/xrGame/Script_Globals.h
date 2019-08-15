@@ -16,6 +16,7 @@
 #include <random>
 #include "xrAICore/AISpaceBase.hpp"
 #include "xrAICore/Navigation/PatrolPath/patrol_path_storage.h"
+#include "xrAICore/Navigation/PatrolPath/patrol_path_params.h"
 
 namespace Cordis
 {
@@ -28,7 +29,6 @@ constexpr unsigned int kSTypeMobile = 1;
 constexpr unsigned int kSTypeItem = 2;
 constexpr unsigned int kSTypeHelicopter = 3;
 constexpr unsigned int kSTypeRestrictor = 4;
-
 
 namespace XR_ACTIONS_ID
 {
@@ -331,7 +331,8 @@ inline LPCSTR translate_string(LPCSTR str) { return *StringTable().translate(str
 } // namespace Game
 
 inline Fvector vertex_position(u32 level_vertex_id);
-inline std::uint32_t vertex_in_direction(const std::uint32_t& level_vertex_id, const Fvector& direction, const float& max_distance);
+inline std::uint32_t vertex_in_direction(
+    const std::uint32_t& level_vertex_id, const Fvector& direction, const float& max_distance);
 inline float yaw(const Fvector& vector1, const Fvector& vector2);
 inline float yaw_degree(const Fvector& vector1, const Fvector& vector2);
 // @ 2D
@@ -350,7 +351,9 @@ inline bool IsArtefact(CScriptGameObject* object, int class_id);
 inline bool IsWeapon(CScriptGameObject* object, int class_id);
 inline xr_string character_community(CScriptGameObject* object);
 
-constexpr const char* SAVE_MARKER_MODE_SAVE = "save";
+constexpr const char* kSaveMarkerMode_Save = "save";
+constexpr const char* kSaveMarkerMode_Load = "load";
+
 
 inline bool is_level_present(void);
 
@@ -410,4 +413,3 @@ inline bool in_time_interval(const std::uint32_t& value1, const std::uint32_t& v
 #include "Script_EntitySounds.h"
 #include "Script_GulagGenerator.h"
 #include "Script_Globalsinline.h"
-

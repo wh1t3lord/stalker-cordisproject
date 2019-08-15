@@ -73,7 +73,7 @@ void Script_StoryObject::unregistrate_by_story_id(const xr_string& story_id)
 
 void Script_StoryObject::save(NET_Packet& packet)
 {
-    Globals::set_save_marker(packet, Globals::SAVE_MARKER_MODE_SAVE, false, "story_objects");
+    Globals::set_save_marker(packet, Globals::kSaveMarkerMode_Save, false, "story_objects");
     std::uint16_t count = 0;
 
     for (const xr_map<xr_string, std::uint16_t>::value_type& it : this->m_id_by_story_id)
@@ -92,7 +92,7 @@ void Script_StoryObject::save(NET_Packet& packet)
         packet.w_stringZ(it.first.c_str());
         packet.w_u16(it.second);
     }
-    Globals::set_save_marker(packet, Globals::SAVE_MARKER_MODE_SAVE, true, "story_objects");
+    Globals::set_save_marker(packet, Globals::kSaveMarkerMode_Save, true, "story_objects");
 }
 
 void Script_StoryObject::load(NET_Packet& packet)

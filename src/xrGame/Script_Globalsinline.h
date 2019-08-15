@@ -400,7 +400,7 @@ inline void set_save_marker(NET_Packet& packet, const xr_string& mode, bool chec
             R_ASSERT3(false, "Trying to check without marker ", result.c_str());
         }
 
-        if (mode == SAVE_MARKER_MODE_SAVE)
+        if (mode == kSaveMarkerMode_Save)
         {
             unsigned int delta = packet.w_tell() - SaveMarkers()[result];
             // Lord: переделать в In-Game логгирование
@@ -443,7 +443,7 @@ inline void set_save_marker(NET_Packet& packet, const xr_string& mode, bool chec
         return;
     }
 
-    if (mode == SAVE_MARKER_MODE_SAVE)
+    if (mode == kSaveMarkerMode_Save)
     {
         xr_string info = "";
         info.append(result);
