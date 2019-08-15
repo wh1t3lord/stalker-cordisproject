@@ -104,6 +104,9 @@ using RTokenVec = xr_vector<xr_rtoken>;
 
 #include "net_utils.h"
 
+#pragma region CORDIS_BOOSTINCLUDES 
+#include <boost/regex.h>
+#pragma endregion
 // destructor
 template <class T>
 class destructor
@@ -122,7 +125,6 @@ class XRCORE_API xrCore
     const char* buildDate = "";
     u32 buildId = 0;
     bool UseSDK = false;
-
 
 public:
     string64 ApplicationName;
@@ -145,7 +147,7 @@ public:
         if (!this->UseSDK)
             this->UseSDK = true;
     }
-    
+
     inline bool CanUseSDK(void) noexcept { return this->UseSDK; }
 
 private:
