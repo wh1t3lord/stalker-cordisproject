@@ -1,6 +1,6 @@
 #include "stdafx.h"
 #include "Script_SE_SmartCover.h"
-
+#include "Script_StoryObject.h"
 namespace Cordis
 {
 namespace Scripts
@@ -92,7 +92,10 @@ void Script_SE_SmartCover::on_before_register(void)
 
 void Script_SE_SmartCover::on_register(void) 
 {
-    
+    inherited::on_register();
+    Script_StoryObject::getInstance().check_spawn_ini_for_story_id(this);
+    const std::uint8_t& level_id = GEnv.AISpace->game_graph().vertex(this->m_tGraphID)->level_id();
+
 }
 
 void Script_SE_SmartCover::on_unregister(void) {}

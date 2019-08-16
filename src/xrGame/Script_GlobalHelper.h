@@ -133,7 +133,7 @@ public:
     }
 
     // @ In-Game
-    inline xr_map<std::uint32_t, Script_SE_SmartCover*>& getGameRegisteredServerSmartCoversByLevelID(void) noexcept
+    inline xr_map<std::uint8_t, xr_map<std::uint32_t, Script_SE_SmartCover*>>& getGameRegisteredServerSmartCoversByLevelID(void) noexcept
     {
         return this->m_game_registered_smartcovers_by_level_id;
     }
@@ -155,7 +155,7 @@ private:
     xr_map<xr_string, AnyCallable<void>> m_registered_functions_xr_effects;
     xr_map<xr_string, AnyCallable<bool>> m_registered_functions_xr_conditions;
     xr_map<xr_string, Script_SE_SmartCover*> m_game_registered_smartcovers;
-    xr_map<std::uint32_t, Script_SE_SmartCover*> m_game_registered_smartcovers_by_level_id;
+    xr_map<std::uint8_t, xr_map<std::uint32_t, Script_SE_SmartCover*>> m_game_registered_smartcovers_by_level_id;
     xr_map<xr_string, SmartCoverData> m_registered_smartcovers;
 };
 
