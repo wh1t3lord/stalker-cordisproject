@@ -8255,6 +8255,9 @@
     <ClInclude Include="Script_XR_Meet.h">
       <Filter>Cordis\Scripts\XR\Public</Filter>
     </ClInclude>
+    <ClInclude Include="Script_SE_SmartCover.h">
+      <Filter>Cordis\Scripts\Server Entities</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="damage_manager.cpp">
@@ -12389,6 +12392,9 @@
     </ClCompile>
     <ClCompile Include="Script_SmartTerrainControl.cpp">
       <Filter>Cordis\Scripts\Entities\Smart Terrain\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Script_SE_SmartCover.cpp">
+      <Filter>Cordis\Scripts\Server Entities</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

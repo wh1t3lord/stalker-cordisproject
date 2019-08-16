@@ -12,6 +12,7 @@
 #include "relation_registry.h"
 #include "InfoPortionDefs.h"
 #include "xrServer_Objects_ALife_All.h"
+#include "xrServer_Objects_Alife_Smartcovers.h"
 #include "xr_time.h"
 #include <random>
 #include "xrAICore/AISpaceBase.hpp"
@@ -393,6 +394,7 @@ inline bool in_time_interval(const std::uint32_t& value1, const std::uint32_t& v
 #include "Script_GlobalHelper.h"
 #include "Script_EntitySounds.h"
 #include "Script_SE_Actor.h"
+#include "Script_SE_SmartCover.h"
 #include "Script_SmartTerrainControl.h"
 #include "Script_SE_SmartTerrain.h"
 #include "Script_LogicEntity.h"
