@@ -18,8 +18,12 @@ public:
     virtual void on_register(void);
     virtual void on_unregister(void);
 
+    inline xr_map<xr_string, bool>& getLoopholes(void) noexcept { return this->m_loopholes; }
+    inline xr_string& getLastDescriptionName(void) noexcept { return this->m_lastdescription_name; }
+
 private:
     xr_map<xr_string, bool> m_loopholes;
+    xr_string m_lastdescription_name;
 };
 } // namespace Scripts
 } // namespace Cordis
