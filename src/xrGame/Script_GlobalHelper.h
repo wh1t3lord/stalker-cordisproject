@@ -13,7 +13,7 @@ private:
     {
         // @ Здесь инициализация всех "локальных" карт которые находятся в каждом скрипте, проверить что оно реально
         // раньше всех инициализирует
-#pragma region XR_PATROL
+#pragma region Cordis XR_PATROL Initializing
         std::pair<Fvector, float> xr_patrol_formations_data;
         xr_patrol_formations_data.first = Fvector().set(0.3f, 0.0f, -1.0f);
         xr_patrol_formations_data.second = 1.2f;
@@ -72,6 +72,12 @@ private:
         xr_patrol_formations_data.second = 2.2360680f;
         XR_PATROL::getFormations()[XR_PATROL::XR_PATROL_FORMATION_INDEX_AROUND].push_back(xr_patrol_formations_data);
 #pragma endregion
+
+
+#pragma region Cordis SmartCovers Initialzing
+
+
+#pragma endregion
     }
 
 public:
@@ -120,14 +126,22 @@ public:
         return this->m_registered_functions_xr_conditions;
     }
 
-    inline xr_map<xr_string, Script_SE_SmartCover*>& getRegisteredServerSmartCovers(void) noexcept
+    // @ In-Game
+    inline xr_map<xr_string, Script_SE_SmartCover*>& getGameRegisteredServerSmartCovers(void) noexcept
     {
-        return this->m_registered_smartcovers;
+        return this->m_game_registered_smartcovers;
     }
 
-    inline xr_map<std::uint32_t, Script_SE_SmartCover*>& getRegisteredServerSmartCoversByLevelID(void) noexcept 
+    // @ In-Game
+    inline xr_map<std::uint32_t, Script_SE_SmartCover*>& getGameRegisteredServerSmartCoversByLevelID(void) noexcept
     {
-        return this->m_registered_smartcovers_by_level_id;
+        return this->m_game_registered_smartcovers_by_level_id;
+    }
+
+    // @ It uses in Level Editor as list of smartcovers as spawnelement and it's using in-game
+    inline xr_map<xr_string, SmartCoverData>& getRegisteredSmartCovers(void) noexcept
+    {
+        return this->m_registered_smartcovers;
     }
 
 private:
@@ -140,8 +154,9 @@ private:
     xr_map<xr_string, xr_string> m_squad_community_by_behavior;
     xr_map<xr_string, AnyCallable<void>> m_registered_functions_xr_effects;
     xr_map<xr_string, AnyCallable<bool>> m_registered_functions_xr_conditions;
-    xr_map<xr_string, Script_SE_SmartCover*> m_registered_smartcovers;
-    xr_map<std::uint32_t, Script_SE_SmartCover*> m_registered_smartcovers_by_level_id;
+    xr_map<xr_string, Script_SE_SmartCover*> m_game_registered_smartcovers;
+    xr_map<std::uint32_t, Script_SE_SmartCover*> m_game_registered_smartcovers_by_level_id;
+    xr_map<xr_string, SmartCoverData> m_registered_smartcovers;
 };
 
 } // namespace Scripts
