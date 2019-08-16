@@ -31,7 +31,7 @@ public:
     void unregistrate_by_story_id(const xr_string& story_id);
     void save(NET_Packet& packet);
     void load(NET_Packet& packet);
-    void check_spawn_ini_for_story_id(CSE_ALifeObject* item);
+    void check_spawn_ini_for_story_id(CSE_ALifeDynamicObject* item);
     //  void register(std::uint16_t id, CLASS_ID story_id);
     
 private:

@@ -114,7 +114,7 @@ void Script_StoryObject::load(NET_Packet& packet)
     Globals::set_save_marker(packet, "load", false, "story_objects");
 }
 
-void Script_StoryObject::check_spawn_ini_for_story_id(CSE_ALifeObject* item)
+void Script_StoryObject::check_spawn_ini_for_story_id(CSE_ALifeDynamicObject* item)
 {
     if (!item)
     {
