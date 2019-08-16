@@ -6,8 +6,8 @@ namespace Scripts
 {
 namespace GulagGenerator
 {
-constexpr const char* GULAG_POINT_JOB = "point_job";
-constexpr const char* GULAG_PATH_JOB = "path_job";
+constexpr const char* kGulagJobPoint = "point_job";
+constexpr const char* kGulagJobPath = "path_job";
 
 struct JobData
 {
@@ -120,7 +120,7 @@ inline bool load_job(Script_SE_SmartTerrain* smart)
         data.m_priority = 3;
         data.m_job_id.first = "logic@";
         data.m_job_id.first += name;
-        data.m_job_id.second += GULAG_POINT_JOB;
+        data.m_job_id.second += kGulagJobPoint;
 
         stalker_generic_point.second.push_back(data);
 
@@ -182,7 +182,7 @@ inline bool load_job(Script_SE_SmartTerrain* smart)
         data.m_priority = 50;
         data.m_job_id.first = "logic@";
         data.m_job_id.first += waypoint_name;
-        data.m_job_id.second += GULAG_PATH_JOB;
+        data.m_job_id.second += kGulagJobPath;
         data.m_function = [](CSE_ALifeDynamicObject* server_object, Script_SE_SmartTerrain* smart,
                               const std::pair<xr_string, xr_map<std::uint32_t, CondlistData>>& params,
                               const NpcInfo& npc_info) -> bool {
@@ -277,7 +277,7 @@ inline bool load_job(Script_SE_SmartTerrain* smart)
         data.m_priority = 10;
         data.m_job_id.first = "logic@";
         data.m_job_id.first += waypoint_name;
-        data.m_job_id.second += GULAG_PATH_JOB;
+        data.m_job_id.second += kGulagJobPath;
         data.m_function = [](CSE_ALifeDynamicObject* server_object, Script_SE_SmartTerrain* smart,
                               const std::pair<xr_string, xr_map<std::uint32_t, CondlistData>>& params,
                               const NpcInfo& npc_info) -> bool {
@@ -394,7 +394,7 @@ inline bool load_job(Script_SE_SmartTerrain* smart)
         data.m_priority = 25;
         data.m_job_id.first = "logic@";
         data.m_job_id.first += waypoint_name;
-        data.m_job_id.second = GULAG_PATH_JOB;
+        data.m_job_id.second = kGulagJobPath;
         data.m_function = [](CSE_ALifeDynamicObject* server_object, Script_SE_SmartTerrain* smart,
                               const std::pair<xr_string, xr_map<std::uint32_t, CondlistData>>& params,
                               const NpcInfo& npc_info) -> bool {
@@ -643,9 +643,104 @@ inline bool load_job(Script_SE_SmartTerrain* smart)
         waypoint_name += "_patrol_";
         waypoint_name += std::to_string(it_patrol);
         waypoint_name += "_walk";
-        CPatrolPathParams patrol = CPatrolPathParams(waypoint_name.c_str());
+        std::uint8_t job_count = 3;
 
+        for (std::uint8_t i = 0; i < job_count; ++i)
+        {
+            JobData::SubData data;
+            data.m_priority = 20;
+            data.m_job_id.first = "logic@";
+            data.m_job_id.first += waypoint_name.c_str();
+            data.m_job_id.second = kGulagJobPath;
+            data.m_function = [](CSE_ALifeDynamicObject* server_object, Script_SE_SmartTerrain* smart,
+                                  const std::pair<xr_string, xr_map<std::uint32_t, CondlistData>>& params,
+                                  const NpcInfo& npc_info) -> bool {
+                if (!server_object)
+                {
+                    R_ASSERT2(false, "object was null!");
+                    return false;
+                }
+
+                if (!smart)
+                {
+                    R_ASSERT2(false, "object was null!");
+                    return false;
+                }
+
+                if (!strcmp(server_object->cast_human_abstract()->CommunityName(), "zombied"))
+                    return false;
+
+                if (smart->getSmartAlarmTime() == 0)
+                    return true;
+
+                if (!smart->getSafeRestrictor().size())
+                    return true;
+
+                // @ Lord: реализовать XR_GULAG::job_in_restirctor!!
+                // return XR_GULAG::job_in_restrictor
+                return false;
+            };
+
+            stalker_patrol.second.push_back(data);
+        }
+
+        xr_string job_ltx_data = "[logic@";
+        job_ltx_data += waypoint_name.c_str();
+        job_ltx_data += "]\n";
+        job_ltx_data += "active = patrol@";
+        job_ltx_data += waypoint_name.c_str();
+        job_ltx_data += "]\n";
+        job_ltx_data += "[patrol@";
+        job_ltx_data += waypoint_name.c_str();
+        job_ltx_data += "]\n";
+        job_ltx_data += "meet = meet@generic_lager\n";
+        job_ltx_data += "formation = back\n";
+        job_ltx_data += "path_walk = patrol_";
+        job_ltx_data += std::to_string(it_patrol).c_str();
+        job_ltx_data += "_walk\n";
+        job_ltx_data += "on_signal = end| %=search_gulag_job%\n";
+
+        xr_string sub_point_name = global_name;
+        sub_point_name += "_patrol_";
+        sub_point_name += std::to_string(it_patrol).c_str();
+        sub_point_name += "_look\n";
+        if (Globals::patrol_path_exists(sub_point_name.c_str()))
+        {
+            job_ltx_data += "path_look = patrol_";
+            job_ltx_data += std::to_string(it_patrol).c_str();
+            job_ltx_data += "_look\n";
+        }
+
+        // @ Lord: реализовать что закомментировано!
+        if (smart->getSafeRestrictor().size() /*&& XR_GULAG::job_in_restrictor*/)
+        {
+            job_ltx_data += "invulnerable = {=npc_in_zone(";
+            job_ltx_data += smart->getSafeRestrictor().c_str();
+            job_ltx_data += ")} true \n";
+        }
+
+        if (smart->getDefenceRestirctor().size())
+        {
+            job_ltx_data += "out_restr = ";
+            job_ltx_data += smart->getDefenceRestirctor().c_str();
+            job_ltx_data += "\n";
+        }
+
+        getLtx() += job_ltx_data;
+        ++it_patrol;
+        patrol_patrol_point_name = global_name;
+        patrol_patrol_point_name += "_patrol_";
+        patrol_patrol_point_name += std::to_string(it_patrol).c_str();
+        patrol_patrol_point_name += "_walk";
     }
+
+    if (it_patrol > 1)
+        stalker_jobs.m_jobs.push_back(stalker_patrol);
+#pragma endregion
+
+#pragma region XR_ANIMPOINT HANDLING
+
+
 #pragma endregion
 }
 
