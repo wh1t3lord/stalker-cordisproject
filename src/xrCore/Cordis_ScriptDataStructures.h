@@ -60,7 +60,7 @@ struct SmartCoverLoopholeData
     Fvector m_enter_direction;
     xr_vector<SmartCoverActionsData> m_actions;
     xr_vector<SmartCoverTransitionsData> m_transitions;
-    xr_string m_id;
+    xr_string m_id = "";
 };
 
 struct SmartCoverData
