@@ -739,7 +739,9 @@ inline bool load_job(Script_SE_SmartTerrain* smart)
 #pragma endregion
 
 #pragma region XR_ANIMPOINT HANDLING
+    std::uint32_t it_animpoint = 1;
 
+ //   while 
 
 #pragma endregion
 }
