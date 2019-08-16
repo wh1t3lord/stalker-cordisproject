@@ -20,7 +20,16 @@ void Script_SE_SmartCover::STATE_Write(NET_Packet& Packet)
     }
 }
 
-void Script_SE_SmartCover::STATE_Read(NET_Packet& Packet, std::uint16_t size) { inherited::STATE_Read(Packet, size); }
+void Script_SE_SmartCover::STATE_Read(NET_Packet& Packet, std::uint16_t size)
+{
+    inherited::STATE_Read(Packet, size);
+
+    // Lord: подумать зачем скрипт вержин и сделать по красивее и грамотнее
+    if (this->m_script_version >= 9)
+    {
+        Packet.r_stringZ(this->m_lastdescription_name);
+    }
+}
 
 void Script_SE_SmartCover::on_before_register(void) {}
 

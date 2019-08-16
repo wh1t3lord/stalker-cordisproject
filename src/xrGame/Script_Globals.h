@@ -13,6 +13,7 @@
 #include "InfoPortionDefs.h"
 #include "xrServer_Objects_ALife_All.h"
 #include "xrServer_Objects_Alife_Smartcovers.h"
+#include "script_movement_action.h"
 #include "xr_time.h"
 #include <random>
 #include "xrAICore/AISpaceBase.hpp"
