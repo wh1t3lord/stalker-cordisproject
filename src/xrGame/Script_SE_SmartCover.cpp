@@ -90,12 +90,14 @@ void Script_SE_SmartCover::on_before_register(void)
     Script_GlobalHelper::getInstance().getGameRegisteredServerSmartCovers()[this->name()] = this;
 }
 
-void Script_SE_SmartCover::on_register(void) 
+void Script_SE_SmartCover::on_register(void)
 {
     inherited::on_register();
     Script_StoryObject::getInstance().check_spawn_ini_for_story_id(this);
     const std::uint8_t& level_id = GEnv.AISpace->game_graph().vertex(this->m_tGraphID)->level_id();
 
+    Msg("[Scripts/Script_SE_SmartCover/on_register()] Registering Script_SE_SmartCover [%s] entity to GameRegisteredServerSmartCoversByLevelID", this->name());
+    Script_GlobalHelper::getInstance().getGameRegisteredServerSmartCoversByLevelID()[level_id][this->m_tNodeID] = this;
 }
 
 void Script_SE_SmartCover::on_unregister(void) {}
