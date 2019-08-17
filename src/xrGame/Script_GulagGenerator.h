@@ -1107,7 +1107,7 @@ inline bool load_job(Script_SE_SmartTerrain* smart)
             job_ltx_data += "out_restr = ";
             job_ltx_data += smart->getDefenceRestirctor();
             job_ltx_data += ", ";
-            
+            job_ltx_data += Globals::get_job_restrictor(waypoint_name);
         }
 
 
