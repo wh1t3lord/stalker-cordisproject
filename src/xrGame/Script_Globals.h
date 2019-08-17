@@ -392,7 +392,6 @@ inline bool in_time_interval(const std::uint32_t& value1, const std::uint32_t& v
 } // namespace Scripts
 } // namespace Cordis
 
-#include "Script_GlobalHelper.h"
 #include "Script_EntitySounds.h"
 #include "Script_SE_Actor.h"
 #include "Script_SE_SmartCover.h"
@@ -416,3 +415,4 @@ inline bool in_time_interval(const std::uint32_t& value1, const std::uint32_t& v
 #include "Script_EntitySounds.h"
 #include "Script_GulagGenerator.h"
 #include "Script_Globalsinline.h"
+#include "Script_GlobalHelper.h"
