@@ -73,9 +73,7 @@ private:
         XR_PATROL::getFormations()[XR_PATROL::XR_PATROL_FORMATION_INDEX_AROUND].push_back(xr_patrol_formations_data);
 #pragma endregion
 
-
 #pragma region Cordis SmartCovers Initialzing
-
 
 #pragma endregion
     }
@@ -133,7 +131,8 @@ public:
     }
 
     // @ In-Game
-    inline xr_map<std::uint8_t, xr_map<std::uint32_t, Script_SE_SmartCover*>>& getGameRegisteredServerSmartCoversByLevelID(void) noexcept
+    inline xr_map<std::uint8_t, xr_map<std::uint32_t, Script_SE_SmartCover*>>&
+    getGameRegisteredServerSmartCoversByLevelID(void) noexcept
     {
         return this->m_game_registered_smartcovers_by_level_id;
     }
@@ -143,6 +142,8 @@ public:
     {
         return this->m_registered_smartcovers;
     }
+
+
 
 private:
     xr_map<xr_string, bool> m_monster_classes;
@@ -157,6 +158,7 @@ private:
     xr_map<xr_string, Script_SE_SmartCover*> m_game_registered_smartcovers;
     xr_map<std::uint8_t, xr_map<std::uint32_t, Script_SE_SmartCover*>> m_game_registered_smartcovers_by_level_id;
     xr_map<xr_string, SmartCoverData> m_registered_smartcovers;
+    xr_map<xr_string, CScriptGameObject*> m_game_registered_combat_spacerestrictors;
 };
 
 } // namespace Scripts

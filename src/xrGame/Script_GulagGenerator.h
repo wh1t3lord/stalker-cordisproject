@@ -1092,6 +1092,26 @@ inline bool load_job(Script_SE_SmartTerrain* smart)
         job_ltx_data += waypoint_name;
         job_ltx_data += "]\n";
         job_ltx_data += "meet = meet@generic_lager\n";
+        job_ltx_data += "path_walk = sniper_";
+        job_ltx_data += std::to_string(it_sniper).c_str();
+        job_ltx_data += "_walk\n";
+        job_ltx_data += "path_look = sniper_";
+        job_ltx_data += std::to_string(it_sniper).c_str();
+        job_ltx_data += "_look\n";
+        job_ltx_data += "sniper = true\n";
+        job_ltx_data += "def_state_cmapering = hide\n";
+        job_ltx_data += "def_state_campering_fire = hide_fire\n";
+
+        if (smart->getDefenceRestirctor().size())
+        {
+            job_ltx_data += "out_restr = ";
+            job_ltx_data += smart->getDefenceRestirctor();
+            job_ltx_data += ", ";
+            
+        }
+
+
+        
     }
 #pragma endregion
 }

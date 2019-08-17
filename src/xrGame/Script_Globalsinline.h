@@ -185,7 +185,7 @@ inline bool IsMonster(CScriptGameObject* object, int class_id = 0)
 
     int result = class_id ? class_id : object->clsid();
 
-    return (getMonsterClasses()[result] == true);
+    return (Script_GlobalHelper::getInstance().getMonsterClasses()[result] == true);
 }
 
 inline bool IsStalker(CScriptGameObject* object, int class_id = 0)
@@ -198,7 +198,7 @@ inline bool IsStalker(CScriptGameObject* object, int class_id = 0)
 
     int result = class_id ? class_id : object->clsid();
 
-    return (getStalkerClasses()[class_id] == true);
+    return (Script_GlobalHelper::getInstance().getStalkerClasses()[class_id] == true);
 }
 
 inline bool IsStalker(CSE_ALifeDynamicObject* server_object, int class_id = 0)
@@ -211,7 +211,7 @@ inline bool IsStalker(CSE_ALifeDynamicObject* server_object, int class_id = 0)
 
     int result = class_id ? class_id : server_object->m_script_clsid;
 
-    return (getStalkerClasses()[class_id] == true);
+    return (Script_GlobalHelper::getInstance().getStalkerClasses()[class_id] == true);
 }
 
 inline bool IsArtefact(CScriptGameObject* object, int class_id = 0)
@@ -224,7 +224,7 @@ inline bool IsArtefact(CScriptGameObject* object, int class_id = 0)
 
     int result = class_id ? class_id : object->clsid();
 
-    return (getArtefactClasses()[class_id] == true);
+    return (Script_GlobalHelper::getInstance().getArtefactClasses()[class_id] == true);
 }
 
 inline bool IsWeapon(CScriptGameObject* object, int class_id = 0)
@@ -237,7 +237,7 @@ inline bool IsWeapon(CScriptGameObject* object, int class_id = 0)
 
     int result = class_id ? class_id : object->clsid();
 
-    return (getWeaponClasses()[class_id] == true);
+    return (Script_GlobalHelper::getInstance().getWeaponClasses()[class_id] == true);
 }
 
 inline xr_string character_community(CScriptGameObject* object)
@@ -263,30 +263,6 @@ inline bool is_device_paused(void) { return !!Device.Paused(); }
 inline void set_device_paused(bool b) { Device.Pause(b, TRUE, FALSE, "set_device_paused_script"); }
 
 inline const CInifile* get_system_ini(void) { return (pSettings); }
-
-inline static xr_map<int, bool>& getMonsterClasses(void) noexcept
-{
-    static xr_map<int, bool> instance;
-    return instance;
-}
-
-inline static xr_map<int, bool>& getStalkerClasses(void) noexcept
-{
-    static xr_map<int, bool> instance;
-    return instance;
-}
-
-inline static xr_map<int, bool>& getWeaponClasses(void) noexcept
-{
-    static xr_map<int, bool> instance;
-    return instance;
-}
-
-inline static xr_map<int, bool>& getArtefactClasses(void) noexcept
-{
-    static xr_map<int, bool> instance;
-    return instance;
-}
 
 inline static xr_map<xr_string, unsigned int>& SaveMarkers(void) noexcept
 {
