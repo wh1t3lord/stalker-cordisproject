@@ -22,7 +22,8 @@ constexpr const char* kGulagJobNameMobHome = "mob_home";
 constexpr const char* kGulagJobNameMobJump = "mob_jump";
 constexpr const char* kGulagJobNameCompanion = "companion";
 
-enum {
+enum
+{
     kJobsStalker,
     kJobsMonster
 };
@@ -1287,6 +1288,11 @@ inline xr_vector<JobData> load_job(Script_SE_SmartTerrain* smart)
     all_jobs.push_back(monster_jobs);
 
     return all_jobs;
+}
+
+inline void add_exclusive_job(const xr_string& section_name, const xr_string& work_field_name, const CInifile& smart_ini, xr_vector<JobData>& all_jobs)
+{
+
 }
 
 } // namespace GulagGenerator
