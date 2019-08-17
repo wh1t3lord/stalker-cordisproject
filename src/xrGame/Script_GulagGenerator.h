@@ -762,6 +762,12 @@ inline bool load_job(Script_SE_SmartTerrain* smart)
         data.m_function = [](CSE_ALifeDynamicObject* server_object, Script_SE_SmartTerrain* smart,
                               const std::pair<xr_string, xr_map<std::uint32_t, CondlistData>>& params,
                               const NpcInfo& npc_info) -> bool {
+            if (!server_object)
+            {
+                R_ASSERT2(false, "object was null!");
+                return false;
+            }
+
             CSE_ALifeHumanAbstract* server_human = server_object->cast_human_abstract();
             if (!server_human)
             {
@@ -854,6 +860,12 @@ inline bool load_job(Script_SE_SmartTerrain* smart)
         data.m_function = [](CSE_ALifeDynamicObject* server_object, Script_SE_SmartTerrain* smart,
                               const std::pair<xr_string, xr_map<std::uint32_t, CondlistData>>& params,
                               const NpcInfo& npc_info) -> bool {
+            if (!smart)
+            {
+                R_ASSERT2(false, "object was null!");
+                return false;
+            }
+
             if (smart->getSmartAlarmTime() == 0)
                 return true;
 
@@ -1022,9 +1034,52 @@ inline bool load_job(Script_SE_SmartTerrain* smart)
         stalker_jobs.m_jobs.push_back(stalker_guard);
 #pragma endregion
 
+#pragma region SNIPER handling
+    std::pair<std::uint32_t, xr_vector<JobData::SubData>> stalker_sniper;
+    stalker_sniper.first = 30;
+    std::uint32_t it_sniper = 1;
+    xr_string patrol_sniper_point_name = global_name;
+    patrol_sniper_point_name += "_sniper_";
+    patrol_sniper_point_name += std::to_string(it_sniper).c_str();
+    patrol_sniper_point_name += "_walk";
 
-#pragma region SNIPER handling 
+    while (Globals::patrol_path_exists(patrol_sniper_point_name.c_str()))
+    {
+        xr_string waypoint_name = global_name;
+        waypoint_name += "_sniper_";
+        waypoint_name += std::to_string(it_sniper).c_str();
+        waypoint_name += "_walk";
 
+        JobData::SubData data;
+        data.m_priority = 30;
+        data.m_job_id.first = "logic@";
+        data.m_job_id.first += waypoint_name;
+        data.m_job_id.second = kGulagJobPath;
+        data.m_function = [&](CSE_ALifeDynamicObject* server_object, Script_SE_SmartTerrain* smart,
+                              const std::pair<xr_string, xr_map<std::uint32_t, CondlistData>>& params,
+                              const NpcInfo& npc_info) -> bool {
+            if (!server_object)
+            {
+                R_ASSERT2(false, "object was null!");
+                return false;
+            }
+
+            CSE_ALifeHumanAbstract* server_human = server_object->cast_human_abstract();
+
+            if (!server_human)
+            {
+                R_ASSERT2(false, "object was null!");
+                return false;
+            }
+
+            if (!strcmp(server_human->CommunityName(), "zombied"))
+                return false;
+
+            // @ Lord: реализовать
+            // return combat_restrictor.accessible_job(server_object, waypoint_name);
+            return false;
+        };
+    }
 #pragma endregion
 }
 

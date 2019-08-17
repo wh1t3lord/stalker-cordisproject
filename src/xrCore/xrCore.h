@@ -63,7 +63,7 @@
 #include "string_concatenations.h"
 #include "_flags.h"
 #include "Cordis/Cordis_Functions.h"
-#include "Cordis_ScriptDataStructures.h"
+
 // stl ext
 struct XRCORE_API xr_rtoken
 {
@@ -104,9 +104,16 @@ using RTokenVec = xr_vector<xr_rtoken>;
 
 #include "net_utils.h"
 
-#pragma region CORDIS_BOOSTINCLUDES 
+#pragma region Cordis BOOST Includes 
 #include <boost/regex.h>
 #pragma endregion
+
+#pragma region Cordis Includes
+#include "Cordis_ScriptDataStructures.h"
+#pragma endregion
+
+
+
 // destructor
 template <class T>
 class destructor
