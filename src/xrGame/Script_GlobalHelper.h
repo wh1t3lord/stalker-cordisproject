@@ -143,7 +143,10 @@ public:
         return this->m_registered_smartcovers;
     }
 
-
+    inline xr_map<xr_string, CScriptGameObject*>& getGameRegisteredCombatSpaceRestrictors(void) noexcept 
+    {
+        return this->m_game_registered_combat_spacerestrictors;
+    }
 
 private:
     xr_map<xr_string, bool> m_monster_classes;

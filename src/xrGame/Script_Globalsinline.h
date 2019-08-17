@@ -8,7 +8,8 @@ namespace Scripts
 {
 namespace Globals
 {
-inline std::uint32_t vertex_in_direction(const std::uint32_t& level_vertex_id, Fvector& direction, const float& max_distance)
+inline std::uint32_t vertex_in_direction(
+    const std::uint32_t& level_vertex_id, Fvector& direction, const float& max_distance)
 {
     direction.normalize_safe();
     direction.mul(max_distance);
@@ -41,14 +42,15 @@ inline Fvector vector_cross(const Fvector& vector1, const Fvector& vector2)
         vector1.x * vector2.y - vector1.y * vector2.x);
 }
 
-inline Fvector vector_rotate_y(Fvector& vector, float& angle) 
-{ 
+inline Fvector vector_rotate_y(Fvector& vector, float& angle)
+{
     // Lord: если это константа то определить что это
     angle *= 0.017453292519943295769236907684886f;
     float cos_result = cos(angle);
     float sin_result = sin(angle);
 
-    return Fvector().set(vector.x * cos_result - vector.z * sin_result, vector.y, vector.x * sin_result + vector.z * cos_result);
+    return Fvector().set(
+        vector.x * cos_result - vector.z * sin_result, vector.y, vector.x * sin_result + vector.z * cos_result);
 }
 
 inline Fvector vertex_position(u32 level_vertex_id) { return (ai().level_graph().vertex_position(level_vertex_id)); }
@@ -509,6 +511,32 @@ inline bool in_time_interval(const std::uint32_t& value1, const std::uint32_t& v
 
     return false;
 }
+
+inline xr_string get_job_restrictor(const xr_string& waypoint_name)
+{
+    if (!waypoint_name.size())
+    {
+        R_ASSERT2(false, "string can't be empty!");
+        return xr_string("");
+    }
+
+    const Fvector& position = CPatrolPathParams(waypoint_name.c_str()).point(std::uint32_t(0));
+
+    for (const std::pair<xr_string, CScriptGameObject*>& it :
+        Script_GlobalHelper::getInstance().getGameRegisteredCombatSpaceRestrictors())
+    {
+        if (it.second)
+        {
+            if (it.second->inside(position))
+            {
+                return it.first;
+            }
+        }
+    }
+
+    return xr_string("");
+}
+
 } // namespace Globals
 } // namespace Scripts
 } // namespace Cordis
