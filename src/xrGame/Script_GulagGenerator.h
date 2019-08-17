@@ -1106,7 +1106,7 @@ inline bool load_job(Script_SE_SmartTerrain* smart)
         {
             job_ltx_data += "out_restr = ";
             job_ltx_data += smart->getDefenceRestirctor();
-            job_ltx_data += ", ";
+            job_ltx_data += ",";
             job_ltx_data += Globals::get_job_restrictor(waypoint_name);
         }
 
@@ -1146,9 +1146,65 @@ inline bool load_job(Script_SE_SmartTerrain* smart)
         data.m_function = [&](CSE_ALifeDynamicObject* server_object, Script_SE_SmartTerrain* smart,
                               const std::pair<xr_string, xr_map<std::uint32_t, CondlistData>>& params,
                               const NpcInfo& npc_info) -> bool {
-                            
+            if (!server_object)
+            {
+                R_ASSERT2(false, "object was null!");
+                return false;
+            }
+
+            return Globals::is_accessible_job(server_object, waypoint_name);
         };
+
+        stalker_camper.second.push_back(data);
+
+        xr_string job_ltx_data = "[logic@";
+        job_ltx_data += waypoint_name;
+        job_ltx_data += "]\n";
+        job_ltx_data += "active = camper@";
+        job_ltx_data += waypoint_name;
+        job_ltx_data += "\n";
+        job_ltx_data += "[camper@";
+        job_ltx_data += waypoint_name;
+        job_ltx_data += "]\n";
+        job_ltx_data += "meet = meet@generic_lager\n";
+        job_ltx_data += "radius = 0";
+        job_ltx_data += "path_walk = camper_";
+        job_ltx_data += std::to_string(it_camper).c_str();
+        job_ltx_data += "_walk\n";
+        job_ltx_data += "def_state_moving = rush\n";
+        job_ltx_data += "def_state_campering = hide\n";
+        job_ltx_data += "def_state_campering_fire = hide_fire\n";
+
+        xr_string sub_point_name = global_name;
+        sub_point_name += "_camper_";
+        sub_point_name += std::to_string(it_camper).c_str();
+        sub_point_name += "_look";
+        if (Globals::patrol_path_exists(sub_point_name.c_str()))
+        {
+            job_ltx_data += "path_look = camper_";
+            job_ltx_data += std::to_string(it_camper).c_str();
+            job_ltx_data += "_look\n";
+        }
+
+        if (smart->getDefenceRestirctor().size())
+        {
+            job_ltx_data += "out_restr = ";
+            job_ltx_data += smart->getDefenceRestirctor();
+            job_ltx_data += ",";
+            job_ltx_data += Globals::get_job_restrictor(waypoint_name);
+            job_ltx_data += "\n";
+        }
+
+        getLtx() += job_ltx_data;
+        ++it_camper;
+        patrol_camper_point_name = global_name;
+        patrol_camper_point_name += "_camper_";
+        patrol_camper_point_name += std::to_string(it_camper).c_str();
+        patrol_camper_point_name += "_walk";
     }
+
+    if (it_camper > 1)
+        stalker_jobs.m_jobs.push_back(stalker_camper);
 #pragma endregion
 }
 
