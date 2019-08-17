@@ -209,7 +209,7 @@ inline bool load_job(Script_SE_SmartTerrain* smart)
         job_ltx_data += "]\n";
         job_ltx_data += "sound_idle = state\n";
         job_ltx_data += "use_camp = true\n";
-        job_ltx_data += "meet = meet@generic_larger\n";
+        job_ltx_data += "meet = meet@generic_lager\n";
         job_ltx_data += "path_walk = surge_";
         job_ltx_data += std::to_string(it).c_str();
         job_ltx_data += "_walk\n";
@@ -1079,6 +1079,19 @@ inline bool load_job(Script_SE_SmartTerrain* smart)
             // return combat_restrictor.accessible_job(server_object, waypoint_name);
             return false;
         };
+
+        stalker_sniper.second.push_back(data);
+
+        xr_string job_ltx_data = "[logic@";
+        job_ltx_data += waypoint_name;
+        job_ltx_data += "]\n";
+        job_ltx_data += "active = camper@";
+        job_ltx_data += waypoint_name;
+        job_ltx_data += "\n";
+        job_ltx_data += "[camper@";
+        job_ltx_data += waypoint_name;
+        job_ltx_data += "]\n";
+        job_ltx_data += "meet = meet@generic_lager\n";
     }
 #pragma endregion
 }
