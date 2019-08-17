@@ -567,7 +567,33 @@ inline bool is_accessible_job(CSE_ALifeDynamicObject* server_object, const char*
         return false;
     }
 
+    CScriptGameObject* object = DataBase::Storage::getInstance().getStorage()[server_object->ID].m_object;
 
+    if (!object)
+    {
+        R_ASSERT2(false, "object is null!");
+        return false;
+    }
+
+    const Fvector& npc_position = object->Position();
+    const Fvector& job_position = CPatrolPathParams(waypoint_name).point(std::uint32_t(0));
+    bool is_npc_inside = false;
+
+    for (const std::pair<xr_string, CScriptGameObject*>& it :
+        Script_GlobalHelper::getInstance().getGameRegisteredCombatSpaceRestrictors())
+    {
+        if (it.second)
+        {
+            if (it.second->inside(npc_position))
+            {
+                is_npc_inside = true;
+                if (it.second->inside(job_position))
+                    return true;
+            }
+        }
+    }
+
+    return (!is_npc_inside);
 }
 
 } // namespace Globals
