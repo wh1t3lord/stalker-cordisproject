@@ -366,10 +366,6 @@ inline void set_device_paused(bool b);
 inline const CInifile* get_system_ini(void);
 
 #pragma region Instances
-inline static xr_map<int, bool>& getMonsterClasses(void) noexcept;
-inline static xr_map<int, bool>& getStalkerClasses(void) noexcept;
-inline static xr_map<int, bool>& getWeaponClasses(void) noexcept;
-inline static xr_map<int, bool>& getArtefactClasses(void) noexcept;
 inline static xr_map<xr_string, unsigned int>& SaveMarkers(void) noexcept;
 inline static xr_map<xr_string, xr_string>& Schemes(void) noexcept;
 inline static xr_map<xr_string, unsigned int>& STypes(void) noexcept;
