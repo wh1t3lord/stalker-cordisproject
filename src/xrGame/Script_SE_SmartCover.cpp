@@ -87,6 +87,7 @@ void Script_SE_SmartCover::STATE_Read(NET_Packet& Packet, std::uint16_t size)
 void Script_SE_SmartCover::on_before_register(void)
 {
     inherited::on_before_register();
+    Msg("[Scripts/Script_SE_SmartCover/on_before_register()] Registering Script_SE_SmartCover [%s] entity to GameRegisteredServerSmartCovers", this->name());
     Script_GlobalHelper::getInstance().getGameRegisteredServerSmartCovers()[this->name()] = this;
 }
 
