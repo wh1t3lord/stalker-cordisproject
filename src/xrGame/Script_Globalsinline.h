@@ -513,9 +513,17 @@ inline bool in_time_interval(const std::uint32_t& value1, const std::uint32_t& v
 }
 
 inline xr_string get_job_restrictor(const xr_string& waypoint_name)
-{ get_job_restrictor(waypoint_name.c_str()); }
+{
+    if (!waypoint_name.size())
+    {
+        R_ASSERT2(false, "string can't be empty!");
+        return false;
+    }
 
-inline xr_string get_job_restrictor(const char* waypoint_name) 
+    get_job_restrictor(waypoint_name.c_str());
+}
+
+inline xr_string get_job_restrictor(const char* waypoint_name)
 {
     if (!waypoint_name)
     {
@@ -540,7 +548,27 @@ inline xr_string get_job_restrictor(const char* waypoint_name)
     return xr_string("");
 }
 
+inline bool is_accessible_job(CSE_ALifeDynamicObject* server_object, const xr_string& waypoint_name)
+{
+    if (!waypoint_name.size())
+    {
+        R_ASSERT2(false, "the string can't be empty!");
+        return false;
+    }
 
+    return is_accessible_job(server_object, waypoint_name.c_str());
+}
+
+inline bool is_accessible_job(CSE_ALifeDynamicObject* server_object, const char* waypoint_name)
+{
+    if (!waypoint_name)
+    {
+        R_ASSERT2(false, "string can't be empty!");
+        return false;
+    }
+
+
+}
 
 } // namespace Globals
 } // namespace Scripts
