@@ -1121,6 +1121,35 @@ inline bool load_job(Script_SE_SmartTerrain* smart)
     if (it_sniper > 1)
         stalker_jobs.m_jobs.push_back(stalker_sniper);
 #pragma endregion
+
+#pragma region CAMPER Handling
+    std::pair<std::uint32_t, xr_vector<JobData::SubData>> stalker_camper;
+    stalker_camper.first = 45;
+    std::uint32_t it_camper = 1;
+    xr_string patrol_camper_point_name = global_name;
+    patrol_camper_point_name += "_camper_";
+    patrol_camper_point_name += std::to_string(it_camper).c_str();
+    patrol_camper_point_name += "_walk";
+
+    while (Globals::patrol_path_exists(patrol_camper_point_name.c_str()))
+    {
+        xr_string waypoint_name = global_name;
+        waypoint_name += "_camper_";
+        waypoint_name += std::to_string(it_camper).c_str();
+        waypoint_name += "_walk";
+
+        JobData::SubData data;
+        data.m_priority = 45;
+        data.m_job_id.first = "logic@";
+        data.m_job_id.first += waypoint_name;
+        data.m_job_id.second = kGulagJobPath;
+        data.m_function = [&](CSE_ALifeDynamicObject* server_object, Script_SE_SmartTerrain* smart,
+                              const std::pair<xr_string, xr_map<std::uint32_t, CondlistData>>& params,
+                              const NpcInfo& npc_info) -> bool {
+                            
+        };
+    }
+#pragma endregion
 }
 
 } // namespace GulagGenerator

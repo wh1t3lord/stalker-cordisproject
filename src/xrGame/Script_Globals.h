@@ -386,6 +386,8 @@ inline std::uint32_t get_time_minutes();
 inline bool in_time_interval(const std::uint32_t& value1, const std::uint32_t& value2);
 inline xr_string get_job_restrictor(const xr_string& waypoint_name);
 inline xr_string get_job_restrictor(const char* waypoint_name);
+inline bool is_accessible_job(CSE_ALifeDynamicObject* server_object, const xr_string& waypoint_name);
+inline bool is_accessible_job(CSE_ALifeDynamicObject* server_object, const char* waypoint_name);
 } // namespace Globals
 } // namespace Scripts
 } // namespace Cordis

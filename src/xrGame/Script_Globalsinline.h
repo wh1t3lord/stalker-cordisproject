@@ -540,6 +540,8 @@ inline xr_string get_job_restrictor(const char* waypoint_name)
     return xr_string("");
 }
 
+
+
 } // namespace Globals
 } // namespace Scripts
 } // namespace Cordis
