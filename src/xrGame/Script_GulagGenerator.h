@@ -1110,9 +1110,16 @@ inline bool load_job(Script_SE_SmartTerrain* smart)
             job_ltx_data += Globals::get_job_restrictor(waypoint_name);
         }
 
-
-        
+        getLtx() += job_ltx_data;
+        ++it_sniper;
+        patrol_sniper_point_name = global_name;
+        patrol_sniper_point_name += "_sniper_";
+        patrol_sniper_point_name += std::to_string(it_sniper).c_str();
+        patrol_sniper_point_name += "_walk";
     }
+
+    if (it_sniper > 1)
+        stalker_jobs.m_jobs.push_back(stalker_sniper);
 #pragma endregion
 }
 
