@@ -76,6 +76,21 @@ private:
 #pragma region Cordis SmartCovers Initialzing
 
 #pragma endregion
+
+#pragma region Cordis Job's Types Initializing
+        this->m_job_type_by_scheme[GulagGenerator::kGulagJobNameWalker] = GulagGenerator::kGulagJobPath;
+        this->m_job_type_by_scheme[GulagGenerator::kGulagJobNameCamper] = GulagGenerator::kGulagJobPath;
+        this->m_job_type_by_scheme[GulagGenerator::kGulagJobNamePatrol] = GulagGenerator::kGulagJobPath;
+        this->m_job_type_by_scheme[GulagGenerator::kGulagJobNameAnimpoint] = GulagGenerator::kGulagJobSmartCover;
+        this->m_job_type_by_scheme[GulagGenerator::kGulagJobNameSmartCover] = GulagGenerator::kGulagJobSmartCover;
+        this->m_job_type_by_scheme[GulagGenerator::kGulagJobNameRemark] = GulagGenerator::kGulagJobPoint;
+        this->m_job_type_by_scheme[GulagGenerator::kGulagJobNameCover] = GulagGenerator::kGulagJobPoint;
+        this->m_job_type_by_scheme[GulagGenerator::kGulagJobNameSleeper] = GulagGenerator::kGulagJobPath;
+        this->m_job_type_by_scheme[GulagGenerator::kGulagJobNameMobWalker] = GulagGenerator::kGulagJobPath;
+        this->m_job_type_by_scheme[GulagGenerator::kGulagJobNameMobHome] = GulagGenerator::kGulagJobPath;
+        this->m_job_type_by_scheme[GulagGenerator::kGulagJobNameMobJump] = GulagGenerator::kGulagJobPoint;
+        this->m_job_type_by_scheme[GulagGenerator::kGulagJobNameCompanion] = GulagGenerator::kGulagJobPoint;
+#pragma endregion
     }
 
 public:
@@ -143,9 +158,14 @@ public:
         return this->m_registered_smartcovers;
     }
 
-    inline xr_map<xr_string, CScriptGameObject*>& getGameRegisteredCombatSpaceRestrictors(void) noexcept 
+    inline xr_map<xr_string, CScriptGameObject*>& getGameRegisteredCombatSpaceRestrictors(void) noexcept
     {
         return this->m_game_registered_combat_spacerestrictors;
+    }
+
+    inline xr_map<xr_string, xr_string>& getJobTypesByScheme(void) noexcept 
+    { 
+        return this->m_job_type_by_scheme;
     }
 
 private:
@@ -162,6 +182,7 @@ private:
     xr_map<std::uint8_t, xr_map<std::uint32_t, Script_SE_SmartCover*>> m_game_registered_smartcovers_by_level_id;
     xr_map<xr_string, SmartCoverData> m_registered_smartcovers;
     xr_map<xr_string, CScriptGameObject*> m_game_registered_combat_spacerestrictors;
+    xr_map<xr_string, xr_string> m_job_type_by_scheme;
 };
 
 } // namespace Scripts

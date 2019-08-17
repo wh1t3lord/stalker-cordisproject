@@ -9,10 +9,21 @@ namespace GulagGenerator
 constexpr const char* kGulagJobPoint = "point_job";
 constexpr const char* kGulagJobPath = "path_job";
 constexpr const char* kGulagJobSmartCover = "smartcover_job";
+constexpr const char* kGulagJobNameWalker = "walker";
+constexpr const char* kGulagJobNameCamper = "camper";
+constexpr const char* kGulagJobNamePatrol = "patrol";
+constexpr const char* kGulagJobNameAnimpoint = "animpoint";
+constexpr const char* kGulagJobNameSmartCover = "smartcover";
+constexpr const char* kGulagJobNameRemark = "remark";
+constexpr const char* kGulagJobNameCover = "cover";
+constexpr const char* kGulagJobNameSleeper = "sleeper";
+constexpr const char* kGulagJobNameMobWalker = "mob_walker";
+constexpr const char* kGulagJobNameMobHome = "mob_home";
+constexpr const char* kGulagJobNameMobJump = "mob_jump";
+constexpr const char* kGulagJobNameCompanion = "companion";
 
-enum JobsIndex
-{
-    kJobsStalker, 
+enum {
+    kJobsStalker,
     kJobsMonster
 };
 
@@ -1217,9 +1228,63 @@ inline xr_vector<JobData> load_job(Script_SE_SmartTerrain* smart)
     all_jobs.push_back(stalker_jobs);
 
 #pragma region MOB HOME
+    JobData monster_jobs;
+    monster_jobs.m_precondition_is_monster = true;
+    monster_jobs.m_priority = 50;
 
+    std::pair<std::uint32_t, xr_vector<JobData::SubData>> monster_mob_home;
+    monster_mob_home.first = 50; // Lord: какой приоритет?
+    for (std::uint8_t i = 1; i < 21; ++i)
+    {
+        xr_string patrol_mob_home_point_name = global_name;
+        patrol_mob_home_point_name += "_home_";
+        patrol_mob_home_point_name += std::to_string(i).c_str();
+        std::uint32_t home_min_radius = 10;
+        std::uint32_t home_middle_radius = 20;
+        std::uint32_t home_max_radius = 70;
 
+        JobData::SubData data;
+        data.m_priority = 40;
+        data.m_job_id.first = "logic@";
+        data.m_job_id.first += patrol_mob_home_point_name;
+        data.m_job_id.second = kGulagJobPoint;
+
+        monster_mob_home.second.push_back(data);
+
+        xr_string job_ltx_data = "[logic@";
+        job_ltx_data += patrol_mob_home_point_name;
+        job_ltx_data += "]\n";
+        job_ltx_data += "active = mob_home@";
+        job_ltx_data += patrol_mob_home_point_name;
+        job_ltx_data += "\n";
+        job_ltx_data += "[mob_home@";
+        job_ltx_data += patrol_mob_home_point_name;
+        job_ltx_data += "]\n";
+        job_ltx_data += "gulag_point = true\n";
+        job_ltx_data += "home_min_radius = ";
+        job_ltx_data += std::to_string(home_min_radius).c_str();
+        job_ltx_data += "\n";
+        job_ltx_data += "home_mid_radius = ";
+        job_ltx_data += std::to_string(home_middle_radius).c_str();
+        job_ltx_data += "\n";
+        job_ltx_data += "home_max_radius = ";
+        job_ltx_data += std::to_string(home_max_radius).c_str();
+        job_ltx_data += "\n";
+
+        if (smart->getDefenceRestirctor().size())
+        {
+            job_ltx_data += "out_restr = ";
+            job_ltx_data += smart->getDefenceRestirctor();
+            job_ltx_data += "\n";
+        }
+
+        getLtx() += job_ltx_data;
+    }
+
+    monster_jobs.m_jobs.push_back(monster_mob_home);
 #pragma endregion
+
+    all_jobs.push_back(monster_jobs);
 
     return all_jobs;
 }

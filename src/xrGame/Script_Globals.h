@@ -324,9 +324,24 @@ inline float cfg_get_number(const CInifile* char_ini, const xr_string& section, 
 //
 //     return "";
 // }
+inline xr_string get_scheme_by_section(xr_string& data)
+{
+    if (!data.size())
+    {
+        R_ASSERT2(false, "string can't be empty!");
+        return xr_string("sr_idle");
+    }
 
+    xr_string result = data;
+    if (result.find('@') == xr_string::npos)
+    {
+        R_ASSERT2(false, "invalid string!");
+        return xr_string("");
+    } 
+
+    return result.erase(result.find('@'));
+}
 } // namespace Utils
-
 namespace Game
 {
 inline LPCSTR translate_string(LPCSTR str) { return *StringTable().translate(str); }
@@ -355,7 +370,6 @@ inline xr_string character_community(CScriptGameObject* object);
 
 constexpr const char* kSaveMarkerMode_Save = "save";
 constexpr const char* kSaveMarkerMode_Load = "load";
-
 
 inline bool is_level_present(void);
 
