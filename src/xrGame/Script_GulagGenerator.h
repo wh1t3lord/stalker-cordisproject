@@ -741,7 +741,8 @@ inline bool load_job(Script_SE_SmartTerrain* smart)
 
 #pragma region XR_ANIMPOINT HANDLING
     std::uint32_t it_xranimpoint = 1;
-    std::pair<std::uint32_t, xr_vector<JobData::SubData>> stalker_xranimpoint;
+    std::pair<std::uint32_t, xr_vector<JobData::SubData>> stalker_xranimpoint; // @ Lord: как приоритет??
+    stalker_xranimpoint.first = 50;
     xr_string patrol_xranimpoint_point_name = global_name;
     patrol_xranimpoint_point_name += "_animpoint_";
     patrol_xranimpoint_point_name += std::to_string(it_xranimpoint).c_str();
@@ -827,6 +828,198 @@ inline bool load_job(Script_SE_SmartTerrain* smart)
     if (it_xranimpoint > 1)
         stalker_jobs.m_jobs.push_back(stalker_xranimpoint);
 
+#pragma endregion
+
+#pragma region GUARD Handling
+    std::pair<std::uint32_t, xr_vector<JobData::SubData>> stalker_guard;
+    stalker_guard.first = 25;
+    std::uint32_t it_guard = 1;
+    xr_string patrol_guard_point_name = global_name;
+    patrol_guard_point_name += "_guard_";
+    patrol_guard_point_name += std::to_string(it_guard);
+    patrol_guard_point_name += "_walk";
+
+    while (Globals::patrol_path_exists(patrol_guard_point_name.c_str()))
+    {
+        xr_string waypoint_name = global_name;
+        waypoint_name += "_guard_";
+        waypoint_name += std::to_string(it_guard).c_str();
+        waypoint_name += "_walk";
+
+        JobData::SubData data;
+        data.m_priority = 25;
+        data.m_job_id.first = "logic@";
+        data.m_job_id.first += waypoint_name;
+        data.m_job_id.second = kGulagJobPath;
+        data.m_function = [](CSE_ALifeDynamicObject* server_object, Script_SE_SmartTerrain* smart,
+                              const std::pair<xr_string, xr_map<std::uint32_t, CondlistData>>& params,
+                              const NpcInfo& npc_info) -> bool {
+            if (smart->getSmartAlarmTime() == 0)
+                return true;
+
+            if (!smart->getSafeRestrictor().size())
+                return true;
+
+            // Lord: реализовать!
+            // return XR_GULAG::job_in_restirctor;
+            return false;
+        };
+
+        stalker_guard.second.push_back(data);
+
+        xr_string job_ltx_data = "[logic@";
+        job_ltx_data += waypoint_name;
+        job_ltx_data += "]\n";
+        job_ltx_data += "active = walker@";
+        job_ltx_data += waypoint_name;
+        job_ltx_data += "\n";
+        job_ltx_data += "[walker@";
+        job_ltx_data += waypoint_name;
+        job_ltx_data += "]\n";
+        job_ltx_data += "meet = meet@generic_lager\n";
+        job_ltx_data += "path_walk = guard_";
+        job_ltx_data += std::to_string(it_guard).c_str();
+        job_ltx_data += "_walk\n";
+        job_ltx_data += "path_look = guard_";
+        job_ltx_data += std::to_string(it_guard).c_str();
+        job_ltx_data += "_look\n";
+
+        // Lord: реализовать!
+        if (smart->getSafeRestrictor().size() /*&& XR_GULAG::job_in_restirctor()*/)
+        {
+            job_ltx_data += "invulnerable = {=npc_in_zone(";
+            job_ltx_data += smart->getSafeRestrictor();
+            job_ltx_data += ")} true \n";
+        }
+
+        if (smart->getDefenceRestirctor().size())
+        {
+            job_ltx_data += "out_restr = ";
+            job_ltx_data += smart->getDefenceRestirctor();
+            job_ltx_data += "\n";
+        }
+
+        xr_string job1_ltx_data = "[walker1@";
+        job1_ltx_data += waypoint_name;
+        job1_ltx_data += "]\n";
+        job1_ltx_data += "meet = meet@generic_lager\n";
+        job1_ltx_data += "path_walk = guard_";
+        job1_ltx_data += std::to_string(it_guard).c_str();
+        job1_ltx_data += "_walk\n";
+        job1_ltx_data += "path_look = guard_";
+        job1_ltx_data += std::to_string(it_guard).c_str();
+        job1_ltx_data += "_look\n";
+        job1_ltx_data += "def_state_standing = wait_na\n";
+        job1_ltx_data += "on_info = {!is_obj_on_job(logic@follower_";
+        job1_ltx_data += waypoint_name;
+        job1_ltx_data += ":3)} walker@";
+        job1_ltx_data += waypoint_name;
+        job1_ltx_data += "\n";
+        job1_ltx_data += "on_info2 = {=distance_to_obj_on_job_le(logic@follower_";
+        job1_ltx_data += waypoint_name;
+        job1_ltx_data += ":3)} remark@";
+        job1_ltx_data += waypoint_name;
+        job1_ltx_data += "\n";
+
+        // Lord: реализовать!
+        if (smart->getSafeRestrictor().size() /*&& XR_GULAG::job_in_restrictor()*/)
+        {
+            job1_ltx_data += "invulnerable = {=npc_in_zone(";
+            job1_ltx_data += smart->getSafeRestrictor();
+            job1_ltx_data += ")} true \n";
+        }
+
+        if (smart->getDefenceRestirctor().size())
+        {
+            job1_ltx_data += "out_restr = ";
+            job1_ltx_data += smart->getDefenceRestirctor();
+            job1_ltx_data += "\n";
+        }
+
+        job1_ltx_data += "[remark@";
+        job1_ltx_data += smart->getDefenceRestirctor();
+        job1_ltx_data += "]\n";
+        job1_ltx_data += "anim = wait_na\n";
+        job1_ltx_data += "target = logic@follower_";
+        job1_ltx_data += waypoint_name;
+        job1_ltx_data += "\n";
+
+        if (smart->getDefenceRestirctor().size())
+        {
+            job1_ltx_data += "out_restr = ";
+            job1_ltx_data += smart->getDefenceRestirctor();
+            job1_ltx_data += "\n";
+        }
+
+        data.m_priority = 24;
+        data.m_job_id.first = "logic@follower_";
+        data.m_job_id.first += waypoint_name;
+        data.m_job_id.second = kGulagJobPath;
+        data.m_function = [&](CSE_ALifeDynamicObject* server_object, Script_SE_SmartTerrain* smart,
+                              const std::pair<xr_string, xr_map<std::uint32_t, CondlistData>>& params,
+                              const NpcInfo& npc_info) -> bool {
+            return npc_info.m_need_job == (xr_string("logic@").append(waypoint_name.c_str()));
+        };
+
+        stalker_guard.second.push_back(data);
+
+        xr_string follower_ltx = "[logic@follower_";
+        follower_ltx += waypoint_name;
+        follower_ltx += "]\n";
+        follower_ltx += "active = walker@follow_";
+        follower_ltx += waypoint_name;
+        follower_ltx += "\n";
+        follower_ltx += "[walker@follow_";
+        follower_ltx += waypoint_name;
+        follower_ltx += "]\n";
+        follower_ltx += "meet = meet@generic_lager\n";
+        follower_ltx += "path_walk = guard_";
+        follower_ltx += std::to_string(it_guard).c_str();
+        follower_ltx += "_walk\n";
+        follower_ltx += "path_look = guard_";
+        follower_ltx += std::to_string(it_guard).c_str();
+        follower_ltx += "_look\n";
+        follower_ltx += "on_info = {=distance_to_obj_on_job_le(logic@";
+        follower_ltx += waypoint_name;
+        follower_ltx += ":3)} remark@follower_";
+        follower_ltx += waypoint_name;
+        follower_ltx += "\n";
+
+        if (smart->getDefenceRestirctor().size())
+        {
+            follower_ltx += "out_restr = ";
+            follower_ltx += smart->getDefenceRestirctor();
+            follower_ltx += "\n";
+        }
+
+        follower_ltx += "[remark@follower_";
+        follower_ltx += waypoint_name;
+        follower_ltx += "]\n";
+        follower_ltx += "anim = wait_na\n";
+        follower_ltx += "target = logic@";
+        follower_ltx += waypoint_name;
+        follower_ltx += "\n";
+        follower_ltx += "on_timer = 2000 | %=switch_to_desired_job%\n";
+
+        if (smart->getDefenceRestirctor().size())
+        {
+            follower_ltx += "out_restr = ";
+            follower_ltx += smart->getDefenceRestirctor();
+            follower_ltx += "\n";
+        }
+
+        getLtx() += job_ltx_data;
+        getLtx() += job1_ltx_data;
+        getLtx() += follower_ltx;
+        ++it_guard;
+        patrol_guard_point_name = global_name;
+        patrol_guard_point_name += "_guard_";
+        patrol_guard_point_name += std::to_string(it_guard);
+        patrol_guard_point_name += "_walk";
+    }
+
+    if (it_guard > 1)
+        stalker_jobs.m_jobs.push_back(stalker_guard);
 #pragma endregion
 }
 
