@@ -10,6 +10,12 @@ constexpr const char* kGulagJobPoint = "point_job";
 constexpr const char* kGulagJobPath = "path_job";
 constexpr const char* kGulagJobSmartCover = "smartcover_job";
 
+enum JobsIndex
+{
+    kJobsStalker, 
+    kJobsMonster
+};
+
 struct JobData
 {
     struct SubData
@@ -35,12 +41,12 @@ inline static xr_string& getLtx(void) noexcept
     return instance;
 }
 
-inline bool load_job(Script_SE_SmartTerrain* smart)
+inline xr_vector<JobData> load_job(Script_SE_SmartTerrain* smart)
 {
     if (!smart)
     {
         R_ASSERT2(false, "object was null!");
-        return false;
+        return xr_vector<JobData>();
     }
 
     Msg("[Scripts/GulagGenerator/load_job(smart)] LOAD JOB %s", smart->name());
@@ -99,6 +105,7 @@ inline bool load_job(Script_SE_SmartTerrain* smart)
     getLtx() += "meet_on_talking 		= false\n";
     getLtx() += "use_text				= nil\n";
 
+    xr_vector<JobData> all_jobs;
     JobData stalker_jobs;
     stalker_jobs.m_precondition_is_monster = false;
     stalker_jobs.m_priority = 60;
@@ -1206,6 +1213,15 @@ inline bool load_job(Script_SE_SmartTerrain* smart)
     if (it_camper > 1)
         stalker_jobs.m_jobs.push_back(stalker_camper);
 #pragma endregion
+
+    all_jobs.push_back(stalker_jobs);
+
+#pragma region MOB HOME
+
+
+#pragma endregion
+
+    return all_jobs;
 }
 
 } // namespace GulagGenerator
