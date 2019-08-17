@@ -513,14 +513,17 @@ inline bool in_time_interval(const std::uint32_t& value1, const std::uint32_t& v
 }
 
 inline xr_string get_job_restrictor(const xr_string& waypoint_name)
+{ get_job_restrictor(waypoint_name.c_str()); }
+
+inline xr_string get_job_restrictor(const char* waypoint_name) 
 {
-    if (!waypoint_name.size())
+    if (!waypoint_name)
     {
         R_ASSERT2(false, "string can't be empty!");
         return xr_string("");
     }
 
-    const Fvector& position = CPatrolPathParams(waypoint_name.c_str()).point(std::uint32_t(0));
+    const Fvector& position = CPatrolPathParams(waypoint_name).point(std::uint32_t(0));
 
     for (const std::pair<xr_string, CScriptGameObject*>& it :
         Script_GlobalHelper::getInstance().getGameRegisteredCombatSpaceRestrictors())
