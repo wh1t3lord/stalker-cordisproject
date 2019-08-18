@@ -47,18 +47,36 @@ struct JobData
     xr_vector<std::pair<std::uint32_t, xr_vector<SubData>>> m_jobs;
 };
 
+struct JobDataExclusive
+{
+    struct SubData
+    {
+        xr_string m_section_name;
+        xr_string m_online_name;
+        xr_string m_job_type;
+        xr_string m_ini_path_name;
+        CInifile m_ini_file;
+    };
+
+    bool m_is_precondition_monster;
+    std::uint32_t m_priority;
+    std::pair<xr_string, xr_map<std::uint32_t, CondlistData>> m_function_params;
+    std::function<bool(CSE_ALifeDynamicObject*, Script_SE_SmartTerrain*,
+        const std::pair<xr_string, xr_map<std::uint32_t, CondlistData>>& params)>
+};
+
 inline static xr_string& getLtx(void) noexcept
 {
     static xr_string instance;
     return instance;
 }
 
-inline xr_vector<JobData> load_job(Script_SE_SmartTerrain* smart)
+inline std::pair<xr_vector<JobData>, xr_vector<JobDataExclusive>> load_job(Script_SE_SmartTerrain* smart)
 {
     if (!smart)
     {
         R_ASSERT2(false, "object was null!");
-        return xr_vector<JobData>();
+        return std::pair<xr_vector<JobData>, xr_vector<JobDataExclusive>>();
     }
 
     Msg("[Scripts/GulagGenerator/load_job(smart)] LOAD JOB %s", smart->name());
@@ -117,7 +135,7 @@ inline xr_vector<JobData> load_job(Script_SE_SmartTerrain* smart)
     getLtx() += "meet_on_talking 		= false\n";
     getLtx() += "use_text				= nil\n";
 
-    xr_vector<JobData> all_jobs;
+    std::pair<xr_vector<JobData>, xr_vector<JobDataExclusive>> all_jobs;
     JobData stalker_jobs;
     stalker_jobs.m_precondition_is_monster = false;
     stalker_jobs.m_priority = 60;
@@ -1226,7 +1244,7 @@ inline xr_vector<JobData> load_job(Script_SE_SmartTerrain* smart)
         stalker_jobs.m_jobs.push_back(stalker_camper);
 #pragma endregion
 
-    all_jobs.push_back(stalker_jobs);
+    all_jobs.first.push_back(stalker_jobs);
 
 #pragma region MOB HOME
     JobData monster_jobs;
@@ -1285,13 +1303,13 @@ inline xr_vector<JobData> load_job(Script_SE_SmartTerrain* smart)
     monster_jobs.m_jobs.push_back(monster_mob_home);
 #pragma endregion
 
-    all_jobs.push_back(monster_jobs);
+    all_jobs.first.push_back(monster_jobs);
 
     return all_jobs;
 }
 
 inline void add_exclusive_job(const xr_string& section_name, const xr_string& work_field_name,
-    const CInifile& smart_ini, xr_vector<JobData>& all_jobs)
+    const CInifile& smart_ini, std::pair<xr_vector<JobData>, xr_vector<JobDataExclusive>>& all_jobs)
 {
     if (!section_name.size())
     {
@@ -1305,7 +1323,45 @@ inline void add_exclusive_job(const xr_string& section_name, const xr_string& wo
         return;
     }
 
+    xr_string work_name = Globals::Utils::cfg_get_string(&smart_ini, section_name, work_field_name);
 
+    if (!work_name.size())
+    {
+        R_ASSERT2(false, "a string can't be empty!");
+        return;
+    }
+
+    xr_string ini_path_name = "scripts\\";
+    ini_path_name += work_name;
+
+    if (!FS.exist("$game_config$", ini_path_name.c_str()))
+    {
+        Msg("There is no configuration file [%s]", ini_path_name.c_str());
+        R_ASSERT(false);
+        return;
+    }
+
+    CInifile& job_ini_file = CInifile(ini_path_name.c_str());
+    xr_string job_online_name =
+        Globals::Utils::cfg_get_string(&job_ini_file, (xr_string("logic@").append(work_field_name)), "job_online");
+    xr_string active_section_name =
+        Globals::Utils::cfg_get_string(&job_ini_file, (xr_string("logic@").append(work_field_name)), "active");
+    xr_string job_suitable_name =
+        Globals::Utils::cfg_get_string(&job_ini_file, (xr_string("logic@").append(work_field_name)), "suitable");
+    xr_string scheme_name = Globals::Utils::get_scheme_by_section(active_section_name);
+    xr_string job_type_name = Script_GlobalHelper::getInstance().getJobTypesByScheme()[scheme_name];
+    std::uint32_t new_priority = static_cast<std::uint32_t>(
+        Globals::Utils::cfg_get_number(&job_ini_file, (xr_string("logic@").append(work_field_name)), "prior", nullptr));
+    bool is_monster = Globals::Utils::cfg_get_bool(
+        &job_ini_file, (xr_string("logic@").append(work_field_name)), "monster_job", nullptr);
+
+    if (scheme_name == kGulagJobNameMobHome)
+        if (Globals::Utils::cfg_get_bool(&job_ini_file, active_section_name, "gulag_point", nullptr))
+            job_type_name = kGulagJobPoint;
+
+    if (!job_suitable_name.size())
+    {
+    }
 }
 
 } // namespace GulagGenerator
