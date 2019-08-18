@@ -14,6 +14,7 @@ struct JobData
     struct SubData
     {
         std::uint32_t m_priority;
+        std::uint32_t m_job_index = std::uint32_t(-1); // @ Lord: делаем так специально, потом пересмотреть архитектуру Script_SE_SmartTerrain и GulagGenerator
         // @ Section | Job type
         std::pair<xr_string, xr_string> m_job_id;
         std::pair<xr_string, xr_map<std::uint32_t, CondlistData>> m_function_params;

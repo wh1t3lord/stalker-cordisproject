@@ -11,10 +11,18 @@ struct NpcInfo
     bool m_is_monster;
     bool m_begin_job;
     std::uint32_t m_stype;
-    int m_job_prioprity;
-    int m_job_id;
+    std::uint32_t m_job_prioprity;
+    std::uint32_t m_job_id;
     CSE_ALifeDynamicObject* m_server_object; // @ Lord: определить где оно именно удаляется в итоге
     xr_string m_need_job;
+};
+
+struct JobDataSmartTerrain
+{
+    std::uint32_t m_priority;
+    CALifeSmartTerrainTask* m_alife_task = nullptr;
+    // @ First - section | Second - job_type (that taking from gulag_general as JobData::SubData::m_job_id respectively)
+    std::pair<xr_string, xr_string> m_job_id;
 };
 
 class Script_SE_SmartTerrain : public CSE_ALifeSmartZone
@@ -64,8 +72,12 @@ public:
     inline xr_string getSafeRestrictor(void) noexcept { return this->m_safe_restirctor; }
     inline Script_SmartTerrainControl* getBaseOnActorControl(void) noexcept { return this->m_base_on_actor_control; }
     inline xrTime& getSmartAlarmTime(void) noexcept { return this->m_smart_alarm_time; }
-
-    inline void setDefenceRestrictor(const xr_string& string) noexcept { this->m_defence_restictor = string; }
+    inline xr_map<std::uint32_t, xrTime>& getDeadTime(void) noexcept { return this->m_dead_time; }
+    inline void setDefenceRestrictor(
+        const xr_string& string) noexcept
+    {
+        this->m_defence_restictor = string;
+    }
     inline void setAttackRestrictor(const xr_string& string) noexcept { this->m_attack_restrictor = string; }
     inline void setSafeRestrictor(const xr_string& string) noexcept { this->m_safe_restirctor = string; }
 

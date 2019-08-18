@@ -7,8 +7,8 @@ namespace Cordis
 {
 namespace Scripts
 {
-bool is_job_available_to_npc(
-    const NpcInfo& npc_info, const GulagGenerator::JobData::SubData& job_info, Script_SE_SmartTerrain* smart)
+bool is_job_available_to_npc(const NpcInfo& npc_info, const GulagGenerator::JobData::SubData& job_info,
+    const bool& is_monster, Script_SE_SmartTerrain* smart)
 {
     if (!smart)
     {
@@ -16,13 +16,24 @@ bool is_job_available_to_npc(
         return false;
     }
 
-    
+    // @ Lord: убедить что будет выполняться оригинальное условие что объект вообще был инициализирован после default
+    // инициализации, то есть xrTime() -> xrTime().setSomeValue();
+    if (smart->getDeadTime()[job_info.m_job_index] > 0)
+        return false;
 
+    if (is_monster != npc_info.m_is_monster)
+        return false;
+
+    if (job_info.m_function)
+    {
+        if (job_info.m_function(npc_info.m_server_object, smart, job_info.m_function_params, npc_info))
+            return false;
+    }
 
     return false;
 }
 
-}
+} // namespace Scripts
 } // namespace Cordis
 
 namespace Cordis
