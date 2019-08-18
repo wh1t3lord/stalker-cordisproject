@@ -44,6 +44,10 @@ constexpr const char* kSmartTerrainTerritoryBase = "base";
 constexpr const char* kSmartTerrainTerritoryResource = "resource";
 constexpr const char* kSmartTerrainTerritoryTerritory = "territory";
 constexpr const char* kSmartTerrainSMRTSection = "smart_terrain";
+constexpr const char* kSmartTerrainPathFieldPathWalk = "path_walk";
+constexpr const char* kSmartTerrainPathFieldPathMain = "path_main";
+constexpr const char* kSmartTerrainPathFieldPathHome = "path_home";
+constexpr const char* kSmartTerrainPathFieldCenterPoint = "center_point";
 #pragma endregion
 
 
