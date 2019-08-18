@@ -1,5 +1,7 @@
 #include "stdafx.h"
-#include "Script_SE_SmartTerrain.h"
+#include "Script_SE_SmartTerrain.h" 
+
+CInifile ini_file_locations = CInifile("misc\\smart_terrain_masks.ltx");
 
 namespace Cordis
 {
