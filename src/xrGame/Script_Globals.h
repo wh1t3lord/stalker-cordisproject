@@ -28,18 +28,29 @@ namespace Scripts
 {
 namespace Globals
 {
-#pragma region Constants
+#pragma region Cordis Constants
 constexpr unsigned int kSTypeStalker = 0;
 constexpr unsigned int kSTypeMobile = 1;
 constexpr unsigned int kSTypeItem = 2;
 constexpr unsigned int kSTypeHelicopter = 3;
 constexpr unsigned int kSTypeRestrictor = 4;
+
+#pragma region Cordis SmartTerrain
 constexpr std::uint32_t kSmartTerrainDeathIdleTime = 600;
 constexpr std::uint32_t kSmartTerrainRespawnIdle = 1000;
 constexpr std::uint32_t kSmartTerrainRespawnRadius = 150;
+constexpr const char* kSmartTerrainTerritoryDefault = "default";
+constexpr const char* kSmartTerrainTerritoryBase = "base";
+constexpr const char* kSmartTerrainTerritoryResource = "resource";
+constexpr const char* kSmartTerrainTerritoryTerritory = "territory";
 constexpr const char* kSmartTerrainSMRTSection = "smart_terrain";
+#pragma endregion
 
 
+
+#pragma region Cordis SYSTEM
+constexpr std::uint32_t kUnsignedIntUndefined = std::uint32_t(-1);
+#pragma endregion
 
 
 

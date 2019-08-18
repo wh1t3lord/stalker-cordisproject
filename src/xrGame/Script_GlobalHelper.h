@@ -104,6 +104,12 @@ private:
         this->m_job_type_by_scheme[Globals::GulagGenerator::kGulagJobNameCompanion] =
             Globals::GulagGenerator::kGulagJobPoint;
 #pragma endregion
+
+#pragma region SmartTerrain Initiializing
+        this->m_game_server_nearest_to_actor_smart_terrain.first = std::uint32_t(-1);
+        this->m_game_server_nearest_to_actor_smart_terrain.second = std::uint32_t(-1);
+
+#pragma endregion
     }
 
 public:
@@ -178,9 +184,20 @@ public:
 
     inline xr_map<xr_string, xr_string>& getJobTypesByScheme(void) noexcept { return this->m_job_type_by_scheme; }
 
-    inline xr_map<xr_string, Script_SE_SmartTerrain*>& getGameRegisteredServerSmartTerrainsByName(void) noexcept 
+    inline xr_map<xr_string, Script_SE_SmartTerrain*>& getGameRegisteredServerSmartTerrainsByName(void) noexcept
     {
         return this->m_game_registered_server_smartterrains_by_name;
+    }
+
+    // @ First - id | Second - distance
+    inline std::pair<std::uint32_t, std::uint32_t>& getGameNearestToActorServerSmartTerrain(void) noexcept
+    {
+        return this->m_game_server_nearest_to_actor_smart_terrain;
+    }
+
+    inline xr_map<xr_string, bool>& getRegisteredSmartTerrainTerritoryType(void) noexcept 
+    {
+        return this->m_registered_smart_terrain_territory_type;    
     }
 
 private:
@@ -199,6 +216,9 @@ private:
     xr_map<xr_string, CScriptGameObject*> m_game_registered_combat_spacerestrictors;
     xr_map<xr_string, Script_SE_SmartTerrain*> m_game_registered_server_smartterrains_by_name;
     xr_map<xr_string, xr_string> m_job_type_by_scheme;
+    xr_map<xr_string, bool> m_registered_smart_terrain_territory_type;
+    // @ First - id | Second - distance
+    std::pair<std::uint32_t, std::uint32_t> m_game_server_nearest_to_actor_smart_terrain;
 };
 
 } // namespace Scripts
