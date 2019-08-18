@@ -77,6 +77,7 @@ private:
     std::uint32_t m_population;
     xrTime m_smart_alarm_time;
     Script_SmartTerrainControl* m_base_on_actor_control;
+    xr_map<std::uint32_t, xrTime> m_dead_time;
     xr_string m_smart_level;
     xr_string m_defence_restictor;
     xr_string m_attack_restrictor;
