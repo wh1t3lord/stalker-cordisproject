@@ -316,4 +316,4 @@ enum
 
 
 #include "Script_Globals.h"
-#include "Script_GlobalHelper.h"
+

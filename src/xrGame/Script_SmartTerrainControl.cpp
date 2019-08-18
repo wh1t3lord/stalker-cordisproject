@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "Script_SE_SmartTerrain.h"
 #include "Script_SmartTerrainControl.h"
+#include "Script_XR_Logic.h"
 
 namespace Cordis
 {

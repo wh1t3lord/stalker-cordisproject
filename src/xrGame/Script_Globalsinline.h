@@ -1,5 +1,6 @@
-#pragma once
+#pragma once 
 
+#include "Script_GlobalHelper.h"
 #include "alife_registry_container_composition.h"
 
 namespace Cordis

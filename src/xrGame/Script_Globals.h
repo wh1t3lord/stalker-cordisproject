@@ -20,6 +20,8 @@
 #include "xrAICore/Navigation/PatrolPath/patrol_path_storage.h"
 #include "xrAICore/Navigation/PatrolPath/patrol_path_params.h"
 
+
+
 namespace Cordis
 {
 namespace Scripts
@@ -133,6 +135,33 @@ constexpr std::uint32_t kNarratorActions = kJonActions + 1024;
 constexpr std::uint32_t kPeacemakerActions = kNarratorActions + 1024;
 constexpr std::uint32_t kPeacemakerShBase = kPeacemakerActions + 10;
 } // namespace XR_ACTIONS_ID
+
+
+namespace GulagGenerator
+{
+constexpr const char* kGulagJobPoint = "point_job";
+constexpr const char* kGulagJobPath = "path_job";
+constexpr const char* kGulagJobSmartCover = "smartcover_job";
+constexpr const char* kGulagJobNameWalker = "walker";
+constexpr const char* kGulagJobNameCamper = "camper";
+constexpr const char* kGulagJobNamePatrol = "patrol";
+constexpr const char* kGulagJobNameAnimpoint = "animpoint";
+constexpr const char* kGulagJobNameSmartCover = "smartcover";
+constexpr const char* kGulagJobNameRemark = "remark";
+constexpr const char* kGulagJobNameCover = "cover";
+constexpr const char* kGulagJobNameSleeper = "sleeper";
+constexpr const char* kGulagJobNameMobWalker = "mob_walker";
+constexpr const char* kGulagJobNameMobHome = "mob_home";
+constexpr const char* kGulagJobNameMobJump = "mob_jump";
+constexpr const char* kGulagJobNameCompanion = "companion";
+
+enum
+{
+    kJobsStalker,
+    kJobsMonster
+};
+}
+
 
 #pragma region RandomImplementation
 class Script_RandomInt
@@ -337,7 +366,7 @@ inline xr_string get_scheme_by_section(xr_string& data)
     {
         R_ASSERT2(false, "invalid string!");
         return xr_string("");
-    } 
+    }
 
     return result.erase(result.find('@'));
 }
@@ -418,7 +447,8 @@ inline bool is_accessible_job(CSE_ALifeDynamicObject* server_object, const char*
 #include "Script_NewsManager.h"
 #include "Script_XR_Condition.h"
 #include "Script_XR_Gulag.h"
-#include "Script_XR_Logic.h"
+#include "Script_GulagGenerator.h"
+/*#include "Script_XR_Logic.h"*/
 #include "Script_XR_Sound.h"
 #include "Script_XR_Effects.h"
 #include "Script_XR_Meet.h"
@@ -427,6 +457,4 @@ inline bool is_accessible_job(CSE_ALifeDynamicObject* server_object, const char*
 #include "Script_SimulationObjects.h"
 #include "Script_SurgeManager.h"
 #include "Script_EntitySounds.h"
-#include "Script_GulagGenerator.h"
 #include "Script_Globalsinline.h"
-#include "Script_GlobalHelper.h"
