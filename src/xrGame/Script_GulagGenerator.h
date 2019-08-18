@@ -14,7 +14,8 @@ struct JobData
     struct SubData
     {
         std::uint32_t m_priority;
-        std::uint32_t m_job_index = std::uint32_t(-1); // @ Lord: делаем так специально, потом пересмотреть архитектуру Script_SE_SmartTerrain и GulagGenerator
+        std::uint32_t m_job_index = std::uint32_t(-1); // @ Lord: делаем так специально, потом пересмотреть архитектуру
+                                                       // Script_SE_SmartTerrain и GulagGenerator
         // @ Section | Job type
         std::pair<xr_string, xr_string> m_job_id;
         std::pair<xr_string, xr_map<std::uint32_t, CondlistData>> m_function_params;
@@ -257,7 +258,9 @@ inline std::pair<xr_vector<JobData>, xr_vector<JobDataExclusive>> load_job(Scrip
 
         if (smart->getBaseOnActorControl())
         {
-            if (smart->getBaseOnActorControl()->getIgnoreZoneName().size() && XR_GULAG::is_job_in_restrictor(smart, smart->getBaseOnActorControl()->getIgnoreZoneName(), waypoint_name))
+            if (smart->getBaseOnActorControl()->getIgnoreZoneName().size() &&
+                XR_GULAG::is_job_in_restrictor(
+                    smart, smart->getBaseOnActorControl()->getIgnoreZoneName(), waypoint_name))
             {
                 job_ltx_data += "combat_ignore_cond = {=npc_in_zone(";
                 job_ltx_data += smart->getBaseOnActorControl()->getIgnoreZoneName();
@@ -299,9 +302,10 @@ inline std::pair<xr_vector<JobData>, xr_vector<JobDataExclusive>> load_job(Scrip
         data.m_job_id.first = "logic@";
         data.m_job_id.first += waypoint_name;
         data.m_job_id.second += Globals::GulagGenerator::kGulagJobPath;
-        data.m_function = [&](CSE_ALifeDynamicObject* server_object, Script_SE_SmartTerrain* smart,
-                              const std::pair<xr_string, xr_map<std::uint32_t, CondlistData>>& params,
-                              const NpcInfo& npc_info) -> bool {
+        data.m_function_params.first = waypoint_name;
+        data.m_function = [](CSE_ALifeDynamicObject* server_object, Script_SE_SmartTerrain* smart,
+                                const std::pair<xr_string, xr_map<std::uint32_t, CondlistData>>& params,
+                                const NpcInfo& npc_info) -> bool {
             if (!server_object)
             {
                 R_ASSERT2(false, "object was null!");
@@ -337,8 +341,7 @@ inline std::pair<xr_vector<JobData>, xr_vector<JobDataExclusive>> load_job(Scrip
                 return true;
             }
 
-   
-            return XR_GULAG::is_job_in_restrictor(smart, smart->getSafeRestrictor(), waypoint_name);
+            return XR_GULAG::is_job_in_restrictor(smart, smart->getSafeRestrictor(), params.first);
         };
 
         stalker_sleep.second.push_back(data);
@@ -356,7 +359,8 @@ inline std::pair<xr_vector<JobData>, xr_vector<JobDataExclusive>> load_job(Scrip
         job_ltx_data += std::to_string(it_sleep).c_str();
         job_ltx_data += "\n";
 
-        if (smart->getSafeRestrictor().size() && XR_GULAG::is_job_in_restrictor(smart, smart->getSafeRestrictor(), waypoint_name))
+        if (smart->getSafeRestrictor().size() &&
+            XR_GULAG::is_job_in_restrictor(smart, smart->getSafeRestrictor(), waypoint_name))
         {
             job_ltx_data += "invulnerable = {=npc_in_zone(";
             job_ltx_data += smart->getSafeRestrictor();
@@ -372,7 +376,9 @@ inline std::pair<xr_vector<JobData>, xr_vector<JobDataExclusive>> load_job(Scrip
 
         if (smart->getBaseOnActorControl())
         {
-            if (smart->getBaseOnActorControl()->getIgnoreZoneName().size() && XR_GULAG::is_job_in_restrictor(smart, smart->getBaseOnActorControl()->getIgnoreZoneName(), waypoint_name))
+            if (smart->getBaseOnActorControl()->getIgnoreZoneName().size() &&
+                XR_GULAG::is_job_in_restrictor(
+                    smart, smart->getBaseOnActorControl()->getIgnoreZoneName(), waypoint_name))
             {
                 job_ltx_data += "combat_ignore_cond = {=npc_in_zone(";
                 job_ltx_data += smart->getBaseOnActorControl()->getIgnoreZoneName();
@@ -491,7 +497,8 @@ inline std::pair<xr_vector<JobData>, xr_vector<JobDataExclusive>> load_job(Scrip
             job_ltx_data += "_look\n";
         }
 
-        if (smart->getSafeRestrictor().size() && XR_GULAG::is_job_in_restrictor(smart, smart->getSafeRestrictor(), waypoint_name))
+        if (smart->getSafeRestrictor().size() &&
+            XR_GULAG::is_job_in_restrictor(smart, smart->getSafeRestrictor(), waypoint_name))
         {
             job_ltx_data += "invulnerable = {=npc_in_zone(";
             job_ltx_data += smart->getSafeRestrictor();
@@ -507,7 +514,9 @@ inline std::pair<xr_vector<JobData>, xr_vector<JobDataExclusive>> load_job(Scrip
 
         if (smart->getBaseOnActorControl())
         {
-            if (smart->getBaseOnActorControl()->getIgnoreZoneName().size() && XR_GULAG::is_job_in_restrictor(smart, smart->getBaseOnActorControl()->getIgnoreZoneName(), waypoint_name))
+            if (smart->getBaseOnActorControl()->getIgnoreZoneName().size() &&
+                XR_GULAG::is_job_in_restrictor(
+                    smart, smart->getBaseOnActorControl()->getIgnoreZoneName(), waypoint_name))
             {
                 job_ltx_data += "combat_ignore_cond = {=npc_in_zone(";
                 job_ltx_data += smart->getBaseOnActorControl()->getIgnoreZoneName();
@@ -547,7 +556,8 @@ inline std::pair<xr_vector<JobData>, xr_vector<JobDataExclusive>> load_job(Scrip
         data.m_priority = 15;
         data.m_job_id.first = "logic@";
         data.m_job_id.first += waypoint_name;
-        data.m_function = [&](CSE_ALifeDynamicObject* server_object, Script_SE_SmartTerrain* smart,
+        data.m_function_params.first = waypoint_name;
+        data.m_function = [](CSE_ALifeDynamicObject* server_object, Script_SE_SmartTerrain* smart,
                               const std::pair<xr_string, xr_map<std::uint32_t, CondlistData>>& params,
                               const NpcInfo& npc_info) -> bool {
             if (!server_object)
@@ -569,8 +579,7 @@ inline std::pair<xr_vector<JobData>, xr_vector<JobDataExclusive>> load_job(Scrip
             if (!smart->getSafeRestrictor().size())
                 return true;
 
-
-            return XR_GULAG::is_job_in_restrictor(smart, smart->getSafeRestrictor(), waypoint_name);
+            return XR_GULAG::is_job_in_restrictor(smart, smart->getSafeRestrictor(), params.first);
         };
 
         stalker_walker.second.push_back(data);
@@ -604,7 +613,8 @@ inline std::pair<xr_vector<JobData>, xr_vector<JobDataExclusive>> load_job(Scrip
             job_ltx_data += "_look\n";
         }
 
-        if (smart->getSafeRestrictor().size() && XR_GULAG::is_job_in_restrictor(smart, smart->getSafeRestrictor(), waypoint_name))
+        if (smart->getSafeRestrictor().size() &&
+            XR_GULAG::is_job_in_restrictor(smart, smart->getSafeRestrictor(), waypoint_name))
         {
             job_ltx_data += "invulnerable = {=npc_in_zone(";
             job_ltx_data += smart->getSafeRestrictor();
@@ -620,7 +630,9 @@ inline std::pair<xr_vector<JobData>, xr_vector<JobDataExclusive>> load_job(Scrip
 
         if (smart->getBaseOnActorControl())
         {
-            if (smart->getBaseOnActorControl()->getIgnoreZoneName().size() && XR_GULAG::is_job_in_restrictor(smart, smart->getBaseOnActorControl()->getIgnoreZoneName(), waypoint_name))
+            if (smart->getBaseOnActorControl()->getIgnoreZoneName().size() &&
+                XR_GULAG::is_job_in_restrictor(
+                    smart, smart->getBaseOnActorControl()->getIgnoreZoneName(), waypoint_name))
             {
                 job_ltx_data += "combat_ignore_cond = {=npc_in_zone(";
                 job_ltx_data += smart->getBaseOnActorControl()->getIgnoreZoneName();
@@ -665,7 +677,8 @@ inline std::pair<xr_vector<JobData>, xr_vector<JobDataExclusive>> load_job(Scrip
             data.m_job_id.first = "logic@";
             data.m_job_id.first += waypoint_name.c_str();
             data.m_job_id.second = Globals::GulagGenerator::kGulagJobPath;
-            data.m_function = [&](CSE_ALifeDynamicObject* server_object, Script_SE_SmartTerrain* smart,
+            data.m_function_params.first = waypoint_name;
+            data.m_function = [](CSE_ALifeDynamicObject* server_object, Script_SE_SmartTerrain* smart,
                                   const std::pair<xr_string, xr_map<std::uint32_t, CondlistData>>& params,
                                   const NpcInfo& npc_info) -> bool {
                 if (!server_object)
@@ -689,7 +702,7 @@ inline std::pair<xr_vector<JobData>, xr_vector<JobDataExclusive>> load_job(Scrip
                 if (!smart->getSafeRestrictor().size())
                     return true;
 
-                return XR_GULAG::is_job_in_restrictor(smart, smart->getSafeRestrictor(), waypoint_name);
+                return XR_GULAG::is_job_in_restrictor(smart, smart->getSafeRestrictor(), params.first);
             };
 
             stalker_patrol.second.push_back(data);
@@ -722,7 +735,8 @@ inline std::pair<xr_vector<JobData>, xr_vector<JobDataExclusive>> load_job(Scrip
             job_ltx_data += "_look\n";
         }
 
-        if (smart->getSafeRestrictor().size() && XR_GULAG::is_job_in_restrictor(smart, smart->getSafeRestrictor(), waypoint_name))
+        if (smart->getSafeRestrictor().size() &&
+            XR_GULAG::is_job_in_restrictor(smart, smart->getSafeRestrictor(), waypoint_name))
         {
             job_ltx_data += "invulnerable = {=npc_in_zone(";
             job_ltx_data += smart->getSafeRestrictor().c_str();
@@ -814,7 +828,8 @@ inline std::pair<xr_vector<JobData>, xr_vector<JobDataExclusive>> load_job(Scrip
             job_ltx_data += "\n";
         }
 
-        if (smart->getSafeRestrictor().size() && XR_GULAG::is_job_in_restrictor(smart, smart->getSafeRestrictor(), waypoint_name))
+        if (smart->getSafeRestrictor().size() &&
+            XR_GULAG::is_job_in_restrictor(smart, smart->getSafeRestrictor(), waypoint_name))
         {
             job_ltx_data += "invulnerable = {=npc_in_zone(";
             job_ltx_data += smart->getSafeRestrictor();
@@ -865,7 +880,8 @@ inline std::pair<xr_vector<JobData>, xr_vector<JobDataExclusive>> load_job(Scrip
         data.m_job_id.first = "logic@";
         data.m_job_id.first += waypoint_name;
         data.m_job_id.second = Globals::GulagGenerator::kGulagJobPath;
-        data.m_function = [&](CSE_ALifeDynamicObject* server_object, Script_SE_SmartTerrain* smart,
+        data.m_function_params.first = waypoint_name;
+        data.m_function = [](CSE_ALifeDynamicObject* server_object, Script_SE_SmartTerrain* smart,
                               const std::pair<xr_string, xr_map<std::uint32_t, CondlistData>>& params,
                               const NpcInfo& npc_info) -> bool {
             if (!smart)
@@ -880,7 +896,7 @@ inline std::pair<xr_vector<JobData>, xr_vector<JobDataExclusive>> load_job(Scrip
             if (!smart->getSafeRestrictor().size())
                 return true;
 
-            return XR_GULAG::is_job_in_restrictor(smart, smart->getSafeRestrictor(), waypoint_name);
+            return XR_GULAG::is_job_in_restrictor(smart, smart->getSafeRestrictor(), params.first);
         };
 
         stalker_guard.second.push_back(data);
@@ -902,8 +918,8 @@ inline std::pair<xr_vector<JobData>, xr_vector<JobDataExclusive>> load_job(Scrip
         job_ltx_data += std::to_string(it_guard).c_str();
         job_ltx_data += "_look\n";
 
-
-        if (smart->getSafeRestrictor().size() && XR_GULAG::is_job_in_restrictor(smart, smart->getSafeRestrictor(), waypoint_name))
+        if (smart->getSafeRestrictor().size() &&
+            XR_GULAG::is_job_in_restrictor(smart, smart->getSafeRestrictor(), waypoint_name))
         {
             job_ltx_data += "invulnerable = {=npc_in_zone(";
             job_ltx_data += smart->getSafeRestrictor();
@@ -939,8 +955,8 @@ inline std::pair<xr_vector<JobData>, xr_vector<JobDataExclusive>> load_job(Scrip
         job1_ltx_data += waypoint_name;
         job1_ltx_data += "\n";
 
-
-        if (smart->getSafeRestrictor().size() && XR_GULAG::is_job_in_restrictor(smart, smart->getSafeRestrictor(), waypoint_name))
+        if (smart->getSafeRestrictor().size() &&
+            XR_GULAG::is_job_in_restrictor(smart, smart->getSafeRestrictor(), waypoint_name))
         {
             job1_ltx_data += "invulnerable = {=npc_in_zone(";
             job1_ltx_data += smart->getSafeRestrictor();
@@ -973,10 +989,11 @@ inline std::pair<xr_vector<JobData>, xr_vector<JobDataExclusive>> load_job(Scrip
         data.m_job_id.first = "logic@follower_";
         data.m_job_id.first += waypoint_name;
         data.m_job_id.second = Globals::GulagGenerator::kGulagJobPath;
-        data.m_function = [&](CSE_ALifeDynamicObject* server_object, Script_SE_SmartTerrain* smart,
+        data.m_function_params.first = waypoint_name;
+        data.m_function = [](CSE_ALifeDynamicObject* server_object, Script_SE_SmartTerrain* smart,
                               const std::pair<xr_string, xr_map<std::uint32_t, CondlistData>>& params,
                               const NpcInfo& npc_info) -> bool {
-            return npc_info.m_need_job == (xr_string("logic@").append(waypoint_name.c_str()));
+            return npc_info.m_need_job == (xr_string("logic@").append(params.first.c_str()));
         };
 
         stalker_guard.second.push_back(data);
@@ -1061,7 +1078,8 @@ inline std::pair<xr_vector<JobData>, xr_vector<JobDataExclusive>> load_job(Scrip
         data.m_job_id.first = "logic@";
         data.m_job_id.first += waypoint_name;
         data.m_job_id.second = Globals::GulagGenerator::kGulagJobPath;
-        data.m_function = [&](CSE_ALifeDynamicObject* server_object, Script_SE_SmartTerrain* smart,
+        data.m_function_params.first = waypoint_name;
+        data.m_function = [](CSE_ALifeDynamicObject* server_object, Script_SE_SmartTerrain* smart,
                               const std::pair<xr_string, xr_map<std::uint32_t, CondlistData>>& params,
                               const NpcInfo& npc_info) -> bool {
             if (!server_object)
@@ -1081,9 +1099,7 @@ inline std::pair<xr_vector<JobData>, xr_vector<JobDataExclusive>> load_job(Scrip
             if (!strcmp(server_human->CommunityName(), "zombied"))
                 return false;
 
-            // @ Lord: реализовать
-            // return combat_restrictor.accessible_job(server_object, waypoint_name);
-            return false;
+             return Globals::is_accessible_job(server_object, params.first);
         };
 
         stalker_sniper.second.push_back(data);
@@ -1149,7 +1165,8 @@ inline std::pair<xr_vector<JobData>, xr_vector<JobDataExclusive>> load_job(Scrip
         data.m_job_id.first = "logic@";
         data.m_job_id.first += waypoint_name;
         data.m_job_id.second = Globals::GulagGenerator::kGulagJobPath;
-        data.m_function = [&](CSE_ALifeDynamicObject* server_object, Script_SE_SmartTerrain* smart,
+        data.m_function_params.first = waypoint_name;
+        data.m_function = [](CSE_ALifeDynamicObject* server_object, Script_SE_SmartTerrain* smart,
                               const std::pair<xr_string, xr_map<std::uint32_t, CondlistData>>& params,
                               const NpcInfo& npc_info) -> bool {
             if (!server_object)
@@ -1158,7 +1175,7 @@ inline std::pair<xr_vector<JobData>, xr_vector<JobDataExclusive>> load_job(Scrip
                 return false;
             }
 
-            return Globals::is_accessible_job(server_object, waypoint_name);
+            return Globals::is_accessible_job(server_object, params.first);
         };
 
         stalker_camper.second.push_back(data);
@@ -1354,10 +1371,11 @@ inline void add_exclusive_job(const xr_string& section_name, const xr_string& wo
     data.m_job_id.m_job_type = job_type_name;
     data.m_job_id.m_online_name = job_online_name;
     data.m_job_id.m_ini_file = job_ini_file;
-    data.m_function = [&](CSE_ALifeDynamicObject* server_object, Script_SE_SmartTerrain* smart,
+    data.m_function_params.second = condlist_data;
+    data.m_function = [](CSE_ALifeDynamicObject* server_object, Script_SE_SmartTerrain* smart,
                           const std::pair<xr_string, xr_map<std::uint32_t, CondlistData>>& params) -> bool {
         xr_string result = XR_LOGIC::pick_section_from_condlist(
-            DataBase::Storage::getInstance().getActor(), server_object, condlist_data);
+            DataBase::Storage::getInstance().getActor(), server_object, params.second);
 
         if (result == "false" || !result.size())
             return false;
