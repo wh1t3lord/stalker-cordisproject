@@ -30,7 +30,7 @@ bool is_job_available_to_npc(const NpcInfo& npc_info, const GulagGenerator::JobD
             return false;
     }
 
-    return false;
+    return true;
 }
 
 } // namespace Scripts
