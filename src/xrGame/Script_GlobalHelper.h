@@ -2,7 +2,6 @@
 
 #include "object_factory.h"
 #include "Script_XR_Patrol.h"
- 
 
 namespace Cordis
 {
@@ -80,18 +79,30 @@ private:
 #pragma endregion
 
 #pragma region Cordis Jobs Types Initializing
-        this->m_job_type_by_scheme[Globals::GulagGenerator::kGulagJobNameWalker] = Globals::GulagGenerator::kGulagJobPath;
-        this->m_job_type_by_scheme[Globals::GulagGenerator::kGulagJobNameCamper] = Globals::GulagGenerator::kGulagJobPath;
-        this->m_job_type_by_scheme[Globals::GulagGenerator::kGulagJobNamePatrol] = Globals::GulagGenerator::kGulagJobPath;
-        this->m_job_type_by_scheme[Globals::GulagGenerator::kGulagJobNameAnimpoint] = Globals::GulagGenerator::kGulagJobSmartCover;
-        this->m_job_type_by_scheme[Globals::GulagGenerator::kGulagJobNameSmartCover] = Globals::GulagGenerator::kGulagJobSmartCover;
-        this->m_job_type_by_scheme[Globals::GulagGenerator::kGulagJobNameRemark] = Globals::GulagGenerator::kGulagJobPoint;
-        this->m_job_type_by_scheme[Globals::GulagGenerator::kGulagJobNameCover] = Globals::GulagGenerator::kGulagJobPoint;
-        this->m_job_type_by_scheme[Globals::GulagGenerator::kGulagJobNameSleeper] = Globals::GulagGenerator::kGulagJobPath;
-        this->m_job_type_by_scheme[Globals::GulagGenerator::kGulagJobNameMobWalker] = Globals::GulagGenerator::kGulagJobPath;
-        this->m_job_type_by_scheme[Globals::GulagGenerator::kGulagJobNameMobHome] = Globals::GulagGenerator::kGulagJobPath;
-        this->m_job_type_by_scheme[Globals::GulagGenerator::kGulagJobNameMobJump] = Globals::GulagGenerator::kGulagJobPoint;
-        this->m_job_type_by_scheme[Globals::GulagGenerator::kGulagJobNameCompanion] = Globals::GulagGenerator::kGulagJobPoint;
+        this->m_job_type_by_scheme[Globals::GulagGenerator::kGulagJobNameWalker] =
+            Globals::GulagGenerator::kGulagJobPath;
+        this->m_job_type_by_scheme[Globals::GulagGenerator::kGulagJobNameCamper] =
+            Globals::GulagGenerator::kGulagJobPath;
+        this->m_job_type_by_scheme[Globals::GulagGenerator::kGulagJobNamePatrol] =
+            Globals::GulagGenerator::kGulagJobPath;
+        this->m_job_type_by_scheme[Globals::GulagGenerator::kGulagJobNameAnimpoint] =
+            Globals::GulagGenerator::kGulagJobSmartCover;
+        this->m_job_type_by_scheme[Globals::GulagGenerator::kGulagJobNameSmartCover] =
+            Globals::GulagGenerator::kGulagJobSmartCover;
+        this->m_job_type_by_scheme[Globals::GulagGenerator::kGulagJobNameRemark] =
+            Globals::GulagGenerator::kGulagJobPoint;
+        this->m_job_type_by_scheme[Globals::GulagGenerator::kGulagJobNameCover] =
+            Globals::GulagGenerator::kGulagJobPoint;
+        this->m_job_type_by_scheme[Globals::GulagGenerator::kGulagJobNameSleeper] =
+            Globals::GulagGenerator::kGulagJobPath;
+        this->m_job_type_by_scheme[Globals::GulagGenerator::kGulagJobNameMobWalker] =
+            Globals::GulagGenerator::kGulagJobPath;
+        this->m_job_type_by_scheme[Globals::GulagGenerator::kGulagJobNameMobHome] =
+            Globals::GulagGenerator::kGulagJobPath;
+        this->m_job_type_by_scheme[Globals::GulagGenerator::kGulagJobNameMobJump] =
+            Globals::GulagGenerator::kGulagJobPoint;
+        this->m_job_type_by_scheme[Globals::GulagGenerator::kGulagJobNameCompanion] =
+            Globals::GulagGenerator::kGulagJobPoint;
 #pragma endregion
     }
 
@@ -165,9 +176,11 @@ public:
         return this->m_game_registered_combat_spacerestrictors;
     }
 
-    inline xr_map<xr_string, xr_string>& getJobTypesByScheme(void) noexcept 
-    { 
-        return this->m_job_type_by_scheme;
+    inline xr_map<xr_string, xr_string>& getJobTypesByScheme(void) noexcept { return this->m_job_type_by_scheme; }
+
+    inline xr_map<xr_string, Script_SE_SmartTerrain*>& getGameRegisteredServerSmartTerrainsByName(void) noexcept 
+    {
+        return this->m_game_registered_server_smartterrains_by_name;
     }
 
 private:
@@ -184,6 +197,7 @@ private:
     xr_map<std::uint8_t, xr_map<std::uint32_t, Script_SE_SmartCover*>> m_game_registered_smartcovers_by_level_id;
     xr_map<xr_string, SmartCoverData> m_registered_smartcovers;
     xr_map<xr_string, CScriptGameObject*> m_game_registered_combat_spacerestrictors;
+    xr_map<xr_string, Script_SE_SmartTerrain*> m_game_registered_server_smartterrains_by_name;
     xr_map<xr_string, xr_string> m_job_type_by_scheme;
 };
 
