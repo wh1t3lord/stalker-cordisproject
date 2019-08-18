@@ -20,8 +20,6 @@
 #include "xrAICore/Navigation/PatrolPath/patrol_path_storage.h"
 #include "xrAICore/Navigation/PatrolPath/patrol_path_params.h"
 
-
-
 namespace Cordis
 {
 namespace Scripts
@@ -50,13 +48,9 @@ constexpr const char* kSmartTerrainPathFieldPathHome = "path_home";
 constexpr const char* kSmartTerrainPathFieldCenterPoint = "center_point";
 #pragma endregion
 
-
-
 #pragma region Cordis SYSTEM
 constexpr std::uint32_t kUnsignedIntUndefined = std::uint32_t(-1);
 #pragma endregion
-
-
 
 namespace XR_ACTIONS_ID
 {
@@ -186,8 +180,6 @@ enum
 } // namespace GulagGenerator
 
 #pragma endregion
-
-
 
 #pragma region RandomImplementation
 class Script_RandomInt
@@ -400,6 +392,7 @@ inline xr_string get_scheme_by_section(xr_string& data)
 namespace Game
 {
 inline LPCSTR translate_string(LPCSTR str) { return *StringTable().translate(str); }
+inline xrTime get_game_time(void) noexcept { return get_time_struct(); }
 } // namespace Game
 
 inline Fvector vertex_position(u32 level_vertex_id);
