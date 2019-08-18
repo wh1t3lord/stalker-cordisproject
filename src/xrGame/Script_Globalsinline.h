@@ -1,7 +1,8 @@
-#pragma once 
+#pragma once
 
 #include "Script_GlobalHelper.h"
 #include "alife_registry_container_composition.h"
+#include "Script_GulagGenerator.h"
 
 namespace Cordis
 {
@@ -596,6 +597,7 @@ inline bool is_accessible_job(CSE_ALifeDynamicObject* server_object, const char*
 
     return (!is_npc_inside);
 }
+ 
 
 } // namespace Globals
 } // namespace Scripts
