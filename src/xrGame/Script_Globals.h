@@ -34,6 +34,14 @@ constexpr unsigned int kSTypeMobile = 1;
 constexpr unsigned int kSTypeItem = 2;
 constexpr unsigned int kSTypeHelicopter = 3;
 constexpr unsigned int kSTypeRestrictor = 4;
+constexpr std::uint32_t kSmartTerrainDeathIdleTime = 600;
+constexpr std::uint32_t kSmartTerrainRespawnIdle = 1000;
+constexpr std::uint32_t kSmartTerrainRespawnRadius = 150;
+constexpr const char* kSmartTerrainSMRTSection = "smart_terrain";
+
+
+
+
 
 namespace XR_ACTIONS_ID
 {
