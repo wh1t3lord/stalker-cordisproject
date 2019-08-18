@@ -105,7 +105,7 @@ private:
             Globals::GulagGenerator::kGulagJobPoint;
 #pragma endregion
 
-#pragma region SmartTerrain Initiializing
+#pragma region SmartTerrain Initializing
         this->m_game_server_nearest_to_actor_smart_terrain.first = std::uint32_t(-1);
         this->m_game_server_nearest_to_actor_smart_terrain.second = std::uint32_t(-1);
         this->m_registered_smart_terrain_territory_type[Globals::kSmartTerrainTerritoryBase] = true;
