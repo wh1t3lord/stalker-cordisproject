@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Script_GlobalHelper.h"
+#include "Script_XR_Logic.h"
 
 namespace Cordis
 {
@@ -1380,6 +1381,7 @@ inline void add_exclusive_job(const xr_string& section_name, const xr_string& wo
 
     all_jobs.second.push_back(data);
 
+    // Затычка для оффлайна, когда невозможно проверить прекондишн
     JobDataExclusive data1;
     data1.m_priority = -1;
     data1.m_is_precondition_monster = is_monster;
