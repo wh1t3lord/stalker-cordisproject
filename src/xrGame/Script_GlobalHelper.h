@@ -108,7 +108,10 @@ private:
 #pragma region SmartTerrain Initiializing
         this->m_game_server_nearest_to_actor_smart_terrain.first = std::uint32_t(-1);
         this->m_game_server_nearest_to_actor_smart_terrain.second = std::uint32_t(-1);
-
+        this->m_registered_smart_terrain_territory_type[Globals::kSmartTerrainTerritoryBase] = true;
+        this->m_registered_smart_terrain_territory_type[Globals::kSmartTerrainTerritoryDefault] = true;
+        this->m_registered_smart_terrain_territory_type[Globals::kSmartTerrainTerritoryResource] = true;
+        this->m_registered_smart_terrain_territory_type[Globals::kSmartTerrainTerritoryTerritory] = true;
 #pragma endregion
     }
 
@@ -195,9 +198,14 @@ public:
         return this->m_game_server_nearest_to_actor_smart_terrain;
     }
 
-    inline xr_map<xr_string, bool>& getRegisteredSmartTerrainTerritoryType(void) noexcept 
+    inline xr_map<xr_string, bool>& getRegisteredSmartTerrainTerritoryType(void) noexcept
     {
-        return this->m_registered_smart_terrain_territory_type;    
+        return this->m_registered_smart_terrain_territory_type;
+    }
+
+    inline xr_vector<xr_string>& getRegisteredSmartTerrainPathFileds(void) noexcept 
+    {
+        return this->m_registered_smart_terrain_path_fields;
     }
 
 private:
@@ -219,6 +227,7 @@ private:
     xr_map<xr_string, bool> m_registered_smart_terrain_territory_type;
     // @ First - id | Second - distance
     std::pair<std::uint32_t, std::uint32_t> m_game_server_nearest_to_actor_smart_terrain;
+    xr_vector<xr_string> m_registered_smart_terrain_path_fields;
 };
 
 } // namespace Scripts
