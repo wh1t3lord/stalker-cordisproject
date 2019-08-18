@@ -125,6 +125,8 @@ public:
 
     inline xr_map<std::uint16_t, Storage_Data>& getStorage(void) noexcept { return this->m_storage; }
     inline CScriptGameObject* getActor(void) { return this->m_actor; }
+    inline xr_map<xr_string, CScriptGameObject*>& getZoneByName(void) noexcept { return this->m_zone_by_name; }
+
     inline void setActor(CScriptGameObject* object)
     {
         if (!object)
@@ -143,6 +145,7 @@ public:
 private:
     CScriptGameObject* m_actor;
     xr_map<std::uint16_t, Storage_Data> m_storage;
+    xr_map<xr_string, CScriptGameObject*> m_zone_by_name;
 };
 
 } // namespace DataBase
