@@ -1,5 +1,6 @@
 #pragma once
 
+#include "Script_Globals.h"
  
 namespace Cordis
 {

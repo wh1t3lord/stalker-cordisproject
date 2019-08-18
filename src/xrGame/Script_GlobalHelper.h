@@ -2,6 +2,8 @@
 
 #include "object_factory.h"
 #include "Script_XR_Patrol.h"
+ 
+
 namespace Cordis
 {
 namespace Scripts
@@ -77,19 +79,19 @@ private:
 
 #pragma endregion
 
-#pragma region Cordis Job's Types Initializing
-        this->m_job_type_by_scheme[GulagGenerator::kGulagJobNameWalker] = GulagGenerator::kGulagJobPath;
-        this->m_job_type_by_scheme[GulagGenerator::kGulagJobNameCamper] = GulagGenerator::kGulagJobPath;
-        this->m_job_type_by_scheme[GulagGenerator::kGulagJobNamePatrol] = GulagGenerator::kGulagJobPath;
-        this->m_job_type_by_scheme[GulagGenerator::kGulagJobNameAnimpoint] = GulagGenerator::kGulagJobSmartCover;
-        this->m_job_type_by_scheme[GulagGenerator::kGulagJobNameSmartCover] = GulagGenerator::kGulagJobSmartCover;
-        this->m_job_type_by_scheme[GulagGenerator::kGulagJobNameRemark] = GulagGenerator::kGulagJobPoint;
-        this->m_job_type_by_scheme[GulagGenerator::kGulagJobNameCover] = GulagGenerator::kGulagJobPoint;
-        this->m_job_type_by_scheme[GulagGenerator::kGulagJobNameSleeper] = GulagGenerator::kGulagJobPath;
-        this->m_job_type_by_scheme[GulagGenerator::kGulagJobNameMobWalker] = GulagGenerator::kGulagJobPath;
-        this->m_job_type_by_scheme[GulagGenerator::kGulagJobNameMobHome] = GulagGenerator::kGulagJobPath;
-        this->m_job_type_by_scheme[GulagGenerator::kGulagJobNameMobJump] = GulagGenerator::kGulagJobPoint;
-        this->m_job_type_by_scheme[GulagGenerator::kGulagJobNameCompanion] = GulagGenerator::kGulagJobPoint;
+#pragma region Cordis Jobs Types Initializing
+        this->m_job_type_by_scheme[Globals::GulagGenerator::kGulagJobNameWalker] = Globals::GulagGenerator::kGulagJobPath;
+        this->m_job_type_by_scheme[Globals::GulagGenerator::kGulagJobNameCamper] = Globals::GulagGenerator::kGulagJobPath;
+        this->m_job_type_by_scheme[Globals::GulagGenerator::kGulagJobNamePatrol] = Globals::GulagGenerator::kGulagJobPath;
+        this->m_job_type_by_scheme[Globals::GulagGenerator::kGulagJobNameAnimpoint] = Globals::GulagGenerator::kGulagJobSmartCover;
+        this->m_job_type_by_scheme[Globals::GulagGenerator::kGulagJobNameSmartCover] = Globals::GulagGenerator::kGulagJobSmartCover;
+        this->m_job_type_by_scheme[Globals::GulagGenerator::kGulagJobNameRemark] = Globals::GulagGenerator::kGulagJobPoint;
+        this->m_job_type_by_scheme[Globals::GulagGenerator::kGulagJobNameCover] = Globals::GulagGenerator::kGulagJobPoint;
+        this->m_job_type_by_scheme[Globals::GulagGenerator::kGulagJobNameSleeper] = Globals::GulagGenerator::kGulagJobPath;
+        this->m_job_type_by_scheme[Globals::GulagGenerator::kGulagJobNameMobWalker] = Globals::GulagGenerator::kGulagJobPath;
+        this->m_job_type_by_scheme[Globals::GulagGenerator::kGulagJobNameMobHome] = Globals::GulagGenerator::kGulagJobPath;
+        this->m_job_type_by_scheme[Globals::GulagGenerator::kGulagJobNameMobJump] = Globals::GulagGenerator::kGulagJobPoint;
+        this->m_job_type_by_scheme[Globals::GulagGenerator::kGulagJobNameCompanion] = Globals::GulagGenerator::kGulagJobPoint;
 #pragma endregion
     }
 
@@ -119,11 +121,11 @@ public:
 #pragma endregion
     }
 
-    inline xr_map<xr_string, bool>& getMonsterClasses(void) noexcept { return this->m_monster_classes; }
-    inline xr_map<xr_string, bool>& getStalkerClasses(void) noexcept { return this->m_stalker_classes; }
-    inline xr_map<xr_string, bool>& getWeaponClasses(void) noexcept { return this->m_weapon_classes; }
-    inline xr_map<xr_string, bool>& getArtefactClasses(void) noexcept { return this->m_artefact_classes; }
-    inline xr_map<xr_string, bool>& getAmmoSection(void) noexcept { return this->m_ammo_section; }
+    inline xr_map<std::uint32_t, bool>& getMonsterClasses(void) noexcept { return this->m_monster_classes; }
+    inline xr_map<std::uint32_t, bool>& getStalkerClasses(void) noexcept { return this->m_stalker_classes; }
+    inline xr_map<std::uint32_t, bool>& getWeaponClasses(void) noexcept { return this->m_weapon_classes; }
+    inline xr_map<std::uint32_t, bool>& getArtefactClasses(void) noexcept { return this->m_artefact_classes; }
+    inline xr_map<std::uint32_t, bool>& getAmmoSection(void) noexcept { return this->m_ammo_section; }
     inline xr_map<xr_string, bool>& getQuestSection(void) noexcept { return this->m_quest_section; }
     inline xr_map<xr_string, xr_string>& getSquadCommunityByBehavior(void) noexcept
     {
@@ -169,11 +171,11 @@ public:
     }
 
 private:
-    xr_map<xr_string, bool> m_monster_classes;
-    xr_map<xr_string, bool> m_stalker_classes;
-    xr_map<xr_string, bool> m_weapon_classes;
-    xr_map<xr_string, bool> m_artefact_classes;
-    xr_map<xr_string, bool> m_ammo_section;
+    xr_map<std::uint32_t, bool> m_monster_classes;
+    xr_map<std::uint32_t, bool> m_stalker_classes;
+    xr_map<std::uint32_t, bool> m_weapon_classes;
+    xr_map<std::uint32_t, bool> m_artefact_classes;
+    xr_map<std::uint32_t, bool> m_ammo_section;
     xr_map<xr_string, bool> m_quest_section;
     xr_map<xr_string, xr_string> m_squad_community_by_behavior;
     xr_map<xr_string, AnyCallable<void>> m_registered_functions_xr_effects;

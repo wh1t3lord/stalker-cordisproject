@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include "Script_SimulationObjects.h"
+#include "Script_XR_Logic.h"
 
 namespace Cordis
 {

@@ -1,33 +1,13 @@
 #pragma once
 
+#include "Script_GlobalHelper.h"
+
 namespace Cordis
 {
 namespace Scripts
 {
 namespace GulagGenerator
 {
-constexpr const char* kGulagJobPoint = "point_job";
-constexpr const char* kGulagJobPath = "path_job";
-constexpr const char* kGulagJobSmartCover = "smartcover_job";
-constexpr const char* kGulagJobNameWalker = "walker";
-constexpr const char* kGulagJobNameCamper = "camper";
-constexpr const char* kGulagJobNamePatrol = "patrol";
-constexpr const char* kGulagJobNameAnimpoint = "animpoint";
-constexpr const char* kGulagJobNameSmartCover = "smartcover";
-constexpr const char* kGulagJobNameRemark = "remark";
-constexpr const char* kGulagJobNameCover = "cover";
-constexpr const char* kGulagJobNameSleeper = "sleeper";
-constexpr const char* kGulagJobNameMobWalker = "mob_walker";
-constexpr const char* kGulagJobNameMobHome = "mob_home";
-constexpr const char* kGulagJobNameMobJump = "mob_jump";
-constexpr const char* kGulagJobNameCompanion = "companion";
-
-enum
-{
-    kJobsStalker,
-    kJobsMonster
-};
-
 struct JobData
 {
     struct SubData
@@ -63,6 +43,7 @@ struct JobDataExclusive
     std::pair<xr_string, xr_map<std::uint32_t, CondlistData>> m_function_params;
     std::function<bool(CSE_ALifeDynamicObject*, Script_SE_SmartTerrain*,
         const std::pair<xr_string, xr_map<std::uint32_t, CondlistData>>& params)>
+        m_function;
 };
 
 inline static xr_string& getLtx(void) noexcept
@@ -158,7 +139,7 @@ inline std::pair<xr_vector<JobData>, xr_vector<JobDataExclusive>> load_job(Scrip
         data.m_priority = 3;
         data.m_job_id.first = "logic@";
         data.m_job_id.first += name;
-        data.m_job_id.second += kGulagJobPoint;
+        data.m_job_id.second += Globals::GulagGenerator::kGulagJobPoint;
 
         stalker_generic_point.second.push_back(data);
 
@@ -220,7 +201,7 @@ inline std::pair<xr_vector<JobData>, xr_vector<JobDataExclusive>> load_job(Scrip
         data.m_priority = 50;
         data.m_job_id.first = "logic@";
         data.m_job_id.first += waypoint_name;
-        data.m_job_id.second += kGulagJobPath;
+        data.m_job_id.second += Globals::GulagGenerator::kGulagJobPath;
         data.m_function = [](CSE_ALifeDynamicObject* server_object, Script_SE_SmartTerrain* smart,
                               const std::pair<xr_string, xr_map<std::uint32_t, CondlistData>>& params,
                               const NpcInfo& npc_info) -> bool {
@@ -315,7 +296,7 @@ inline std::pair<xr_vector<JobData>, xr_vector<JobDataExclusive>> load_job(Scrip
         data.m_priority = 10;
         data.m_job_id.first = "logic@";
         data.m_job_id.first += waypoint_name;
-        data.m_job_id.second += kGulagJobPath;
+        data.m_job_id.second += Globals::GulagGenerator::kGulagJobPath;
         data.m_function = [](CSE_ALifeDynamicObject* server_object, Script_SE_SmartTerrain* smart,
                               const std::pair<xr_string, xr_map<std::uint32_t, CondlistData>>& params,
                               const NpcInfo& npc_info) -> bool {
@@ -432,7 +413,7 @@ inline std::pair<xr_vector<JobData>, xr_vector<JobDataExclusive>> load_job(Scrip
         data.m_priority = 25;
         data.m_job_id.first = "logic@";
         data.m_job_id.first += waypoint_name;
-        data.m_job_id.second = kGulagJobPath;
+        data.m_job_id.second = Globals::GulagGenerator::kGulagJobPath;
         data.m_function = [](CSE_ALifeDynamicObject* server_object, Script_SE_SmartTerrain* smart,
                               const std::pair<xr_string, xr_map<std::uint32_t, CondlistData>>& params,
                               const NpcInfo& npc_info) -> bool {
@@ -689,7 +670,7 @@ inline std::pair<xr_vector<JobData>, xr_vector<JobDataExclusive>> load_job(Scrip
             data.m_priority = 20;
             data.m_job_id.first = "logic@";
             data.m_job_id.first += waypoint_name.c_str();
-            data.m_job_id.second = kGulagJobPath;
+            data.m_job_id.second = Globals::GulagGenerator::kGulagJobPath;
             data.m_function = [](CSE_ALifeDynamicObject* server_object, Script_SE_SmartTerrain* smart,
                                   const std::pair<xr_string, xr_map<std::uint32_t, CondlistData>>& params,
                                   const NpcInfo& npc_info) -> bool {
@@ -795,7 +776,7 @@ inline std::pair<xr_vector<JobData>, xr_vector<JobDataExclusive>> load_job(Scrip
         data.m_priority = 15;
         data.m_job_id.first = "logic@";
         data.m_job_id.first += waypoint_name;
-        data.m_job_id.second = kGulagJobSmartCover;
+        data.m_job_id.second = Globals::GulagGenerator::kGulagJobSmartCover;
         data.m_function = [](CSE_ALifeDynamicObject* server_object, Script_SE_SmartTerrain* smart,
                               const std::pair<xr_string, xr_map<std::uint32_t, CondlistData>>& params,
                               const NpcInfo& npc_info) -> bool {
@@ -893,7 +874,7 @@ inline std::pair<xr_vector<JobData>, xr_vector<JobDataExclusive>> load_job(Scrip
         data.m_priority = 25;
         data.m_job_id.first = "logic@";
         data.m_job_id.first += waypoint_name;
-        data.m_job_id.second = kGulagJobPath;
+        data.m_job_id.second = Globals::GulagGenerator::kGulagJobPath;
         data.m_function = [](CSE_ALifeDynamicObject* server_object, Script_SE_SmartTerrain* smart,
                               const std::pair<xr_string, xr_map<std::uint32_t, CondlistData>>& params,
                               const NpcInfo& npc_info) -> bool {
@@ -1003,7 +984,7 @@ inline std::pair<xr_vector<JobData>, xr_vector<JobDataExclusive>> load_job(Scrip
         data.m_priority = 24;
         data.m_job_id.first = "logic@follower_";
         data.m_job_id.first += waypoint_name;
-        data.m_job_id.second = kGulagJobPath;
+        data.m_job_id.second = Globals::GulagGenerator::kGulagJobPath;
         data.m_function = [&](CSE_ALifeDynamicObject* server_object, Script_SE_SmartTerrain* smart,
                               const std::pair<xr_string, xr_map<std::uint32_t, CondlistData>>& params,
                               const NpcInfo& npc_info) -> bool {
@@ -1091,7 +1072,7 @@ inline std::pair<xr_vector<JobData>, xr_vector<JobDataExclusive>> load_job(Scrip
         data.m_priority = 30;
         data.m_job_id.first = "logic@";
         data.m_job_id.first += waypoint_name;
-        data.m_job_id.second = kGulagJobPath;
+        data.m_job_id.second = Globals::GulagGenerator::kGulagJobPath;
         data.m_function = [&](CSE_ALifeDynamicObject* server_object, Script_SE_SmartTerrain* smart,
                               const std::pair<xr_string, xr_map<std::uint32_t, CondlistData>>& params,
                               const NpcInfo& npc_info) -> bool {
@@ -1179,7 +1160,7 @@ inline std::pair<xr_vector<JobData>, xr_vector<JobDataExclusive>> load_job(Scrip
         data.m_priority = 45;
         data.m_job_id.first = "logic@";
         data.m_job_id.first += waypoint_name;
-        data.m_job_id.second = kGulagJobPath;
+        data.m_job_id.second = Globals::GulagGenerator::kGulagJobPath;
         data.m_function = [&](CSE_ALifeDynamicObject* server_object, Script_SE_SmartTerrain* smart,
                               const std::pair<xr_string, xr_map<std::uint32_t, CondlistData>>& params,
                               const NpcInfo& npc_info) -> bool {
@@ -1266,7 +1247,7 @@ inline std::pair<xr_vector<JobData>, xr_vector<JobDataExclusive>> load_job(Scrip
         data.m_priority = 40;
         data.m_job_id.first = "logic@";
         data.m_job_id.first += patrol_mob_home_point_name;
-        data.m_job_id.second = kGulagJobPoint;
+        data.m_job_id.second = Globals::GulagGenerator::kGulagJobPoint;
 
         monster_mob_home.second.push_back(data);
 
@@ -1355,9 +1336,9 @@ inline void add_exclusive_job(const xr_string& section_name, const xr_string& wo
     bool is_monster = Globals::Utils::cfg_get_bool(
         &job_ini_file, (xr_string("logic@").append(work_field_name)), "monster_job", nullptr);
 
-    if (scheme_name == kGulagJobNameMobHome)
+    if (scheme_name == Globals::GulagGenerator::kGulagJobNameMobHome)
         if (Globals::Utils::cfg_get_bool(&job_ini_file, active_section_name, "gulag_point", nullptr))
-            job_type_name = kGulagJobPoint;
+            job_type_name = Globals::GulagGenerator::kGulagJobPoint;
 
     if (!job_suitable_name.size())
     {
