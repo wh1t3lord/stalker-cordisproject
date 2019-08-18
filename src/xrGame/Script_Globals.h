@@ -28,6 +28,7 @@ namespace Scripts
 {
 namespace Globals
 {
+#pragma region Constants
 constexpr unsigned int kSTypeStalker = 0;
 constexpr unsigned int kSTypeMobile = 1;
 constexpr unsigned int kSTypeItem = 2;
@@ -136,7 +137,6 @@ constexpr std::uint32_t kPeacemakerActions = kNarratorActions + 1024;
 constexpr std::uint32_t kPeacemakerShBase = kPeacemakerActions + 10;
 } // namespace XR_ACTIONS_ID
 
-
 namespace GulagGenerator
 {
 constexpr const char* kGulagJobPoint = "point_job";
@@ -160,7 +160,10 @@ enum
     kJobsStalker,
     kJobsMonster
 };
-}
+} // namespace GulagGenerator
+
+#pragma endregion
+
 
 
 #pragma region RandomImplementation
