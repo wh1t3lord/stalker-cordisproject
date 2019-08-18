@@ -1379,6 +1379,15 @@ inline void add_exclusive_job(const xr_string& section_name, const xr_string& wo
     };
 
     all_jobs.second.push_back(data);
+
+    JobDataExclusive data1;
+    data1.m_priority = -1;
+    data1.m_is_precondition_monster = is_monster;
+    data1.m_job_id.m_section_name = xr_string("logic@").append(work_field_name);
+    data1.m_job_id.m_job_type = job_type_name;
+    data1.m_job_id.m_ini_file = job_ini_file;
+
+    all_jobs.second.push_back(data1);
 }
 
 } // namespace GulagGenerator
