@@ -31,11 +31,11 @@ struct JobDataExclusive
 {
     struct SubData
     {
+        CInifile m_ini_file = CInifile("system.ltx");
         xr_string m_section_name;
         xr_string m_online_name;
         xr_string m_job_type;
         xr_string m_ini_path_name;
-        CInifile m_ini_file;
     };
 
     bool m_is_precondition_monster;
@@ -44,6 +44,7 @@ struct JobDataExclusive
     std::function<bool(CSE_ALifeDynamicObject*, Script_SE_SmartTerrain*,
         const std::pair<xr_string, xr_map<std::uint32_t, CondlistData>>& params)>
         m_function;
+    SubData m_job_id;
 };
 
 inline static xr_string& getLtx(void) noexcept
@@ -1342,7 +1343,42 @@ inline void add_exclusive_job(const xr_string& section_name, const xr_string& wo
 
     if (!job_suitable_name.size())
     {
+        JobDataExclusive data;
+        data.m_priority = new_priority;
+        data.m_is_precondition_monster = is_monster;
+        data.m_job_id.m_section_name = xr_string("logic@").append(work_field_name);
+        data.m_job_id.m_ini_path_name = ini_path_name;
+        data.m_job_id.m_job_type = job_type_name;
+        data.m_job_id.m_online_name = job_online_name;
+        data.m_job_id.m_ini_file = job_ini_file;
+
+        all_jobs.second.push_back(data);
+        return;
     }
+
+    xr_map<std::uint32_t, CondlistData> condlist_data = XR_LOGIC::parse_condlist_by_server_object(
+        (xr_string("logic@").append(work_field_name)), "suitable", job_suitable_name);
+
+    JobDataExclusive data;
+    data.m_priority = new_priority;
+    data.m_is_precondition_monster = is_monster;
+    data.m_job_id.m_section_name = xr_string("logic@").append(work_field_name);
+    data.m_job_id.m_ini_path_name = ini_path_name;
+    data.m_job_id.m_job_type = job_type_name;
+    data.m_job_id.m_online_name = job_online_name;
+    data.m_job_id.m_ini_file = job_ini_file;
+    data.m_function = [&](CSE_ALifeDynamicObject* server_object, Script_SE_SmartTerrain* smart,
+                          const std::pair<xr_string, xr_map<std::uint32_t, CondlistData>>& params) -> bool {
+        xr_string result = XR_LOGIC::pick_section_from_condlist(
+            DataBase::Storage::getInstance().getActor(), server_object, condlist_data);
+
+        if (result == "false" || !result.size())
+            return false;
+
+        return true;
+    };
+
+    all_jobs.second.push_back(data);
 }
 
 } // namespace GulagGenerator
