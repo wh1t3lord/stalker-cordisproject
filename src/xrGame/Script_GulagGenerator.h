@@ -1290,8 +1290,21 @@ inline xr_vector<JobData> load_job(Script_SE_SmartTerrain* smart)
     return all_jobs;
 }
 
-inline void add_exclusive_job(const xr_string& section_name, const xr_string& work_field_name, const CInifile& smart_ini, xr_vector<JobData>& all_jobs)
+inline void add_exclusive_job(const xr_string& section_name, const xr_string& work_field_name,
+    const CInifile& smart_ini, xr_vector<JobData>& all_jobs)
 {
+    if (!section_name.size())
+    {
+        R_ASSERT2(false, "string can't be null!");
+        return;
+    }
+
+    if (!work_field_name.size())
+    {
+        R_ASSERT2(false, "string can't be empty!");
+        return;
+    }
+
 
 }
 
