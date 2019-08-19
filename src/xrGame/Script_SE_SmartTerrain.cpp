@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include "Script_SE_SmartTerrain.h"
+#include "Script_GulagGenerator.h"
 
 CInifile ini_file_locations = CInifile("misc\\smart_terrain_masks.ltx");
 
@@ -14,6 +15,13 @@ bool is_job_available_to_npc(const NpcInfo& npc_info, const GulagGenerator::JobD
     {
         R_ASSERT2(false, "object was null!");
         return false;
+    }
+
+    if (job_info.m_job_id.first.size())
+    {
+        R_ASSERT2(false,
+            "You had lost your SubData, because it's m_job_id must be set to this->m_job_data and clear in that "
+            "structure!");
     }
 
     // @ Lord: убедить что будет выполняться оригинальное условие что объект вообще был инициализирован после default
@@ -31,6 +39,16 @@ bool is_job_available_to_npc(const NpcInfo& npc_info, const GulagGenerator::JobD
     }
 
     return true;
+}
+
+inline void job_iterator(GulagGenerator::JobData& jobs, NpcInfo& npc_data, std::uint32_t selected_job_priority,
+    Script_SE_SmartTerrain* smart)
+{
+    if (!smart)
+    {
+        R_ASSERT2(false, "object was null!");
+        return;
+    }
 }
 
 } // namespace Scripts
