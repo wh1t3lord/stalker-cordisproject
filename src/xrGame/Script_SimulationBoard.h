@@ -50,8 +50,8 @@ struct SimulationActivitiesType
 struct SmartDataSimulationBoard
 {
     std::uint32_t m_stayed_squad_quan = 0;
-    Script_SE_SmartTerrain* m_smart;
-    xr_map<std::uint32_t, Script_SimulationSquad*> m_squads;
+    Script_SE_SmartTerrain* m_smart = nullptr;
+    xr_map<std::uint32_t, Script_SE_SimulationSquad*> m_squads;
 };
 
 // @ WA - without arguments
@@ -734,7 +734,16 @@ public:
     Script_SimulationBoard(Script_SimulationBoard&&) = delete;
     Script_SimulationBoard& operator=(Script_SimulationBoard&&) = delete;
 
-    void setActorCommunity();
+    inline void set_actor_community(LPCSTR buffer)
+    {
+        if (!buffer)
+        {
+            R_ASSERT2(false, "string can't empty!");
+            return;
+        }
+
+        DataBase::Storage::getInstance().getActor()->SetCharacterCommunity();
+    }
     void register_smart(Script_SE_SmartTerrain* object);
 
 private:
