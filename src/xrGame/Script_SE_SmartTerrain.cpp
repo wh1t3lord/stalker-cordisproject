@@ -8,7 +8,7 @@ namespace Cordis
 {
 namespace Scripts
 {
-bool is_job_available_to_npc(const NpcInfo& npc_info, const GulagGenerator::JobData::SubData& job_info,
+bool is_job_available_to_npc(const NpcInfo& npc_info, const JobData_SubData& job_info,
     const bool& is_monster, Script_SE_SmartTerrain* smart)
 {
     if (!smart)
@@ -34,7 +34,7 @@ bool is_job_available_to_npc(const NpcInfo& npc_info, const GulagGenerator::JobD
     return true;
 }
 
-inline void job_iterator(GulagGenerator::JobData& jobs, NpcInfo& npc_data, std::uint32_t selected_job_priority,
+inline void job_iterator(JobData& jobs, NpcInfo& npc_data, std::uint32_t selected_job_priority,
     Script_SE_SmartTerrain* smart)
 {
     if (!smart)

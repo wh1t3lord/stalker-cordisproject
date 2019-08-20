@@ -3,8 +3,8 @@
 #include "xrCore/xrCore.h"
 #include "xrServer_Objects_Alife.h"
 #include "xrCore/xr_ini.h"
-#include "Script_Globals.h"
-
+/*#include "Script_Globals.h"*/
+#include "Script_SE_SimulationSquad.h"
 namespace Cordis
 {
 namespace Scripts
@@ -12,7 +12,7 @@ namespace Scripts
 // Lord: доделать этот скрипт!
 
 // Lord: подумать над названием константы правильно ли?
-constexpr int SIMBOARD_SIMULATION_DISTANCE = 150;
+constexpr int kSimulationBoardSimulationDistance = 150;
 
 struct SimulationActivitiesType
 {
@@ -105,7 +105,7 @@ private:
 
             return Globals::in_time_interval(8, 21) &&
                 (!XR_CONDITION::is_surge_started() &&
-                    (Globals::sim_dist_to(squad, target) <= SIMBOARD_SIMULATION_DISTANCE));
+                    (Globals::sim_dist_to(squad, target) <= kSimulationBoardSimulationDistance));
         };
 
         this->m_simulation_activities[SimulationActivitiesType::bandit].m_smart[SimulationActivitiesType::base] =
@@ -142,7 +142,7 @@ private:
             }
 
             return Globals::has_alife_info("sim_bandit_attack_harder") &&
-                (Globals::sim_dist_to(squad, target) <= SIMBOARD_SIMULATION_DISTANCE);
+                (Globals::sim_dist_to(squad, target) <= kSimulationBoardSimulationDistance);
         };
 
         this->m_simulation_activities[SimulationActivitiesType::dolg].m_squad[SimulationActivitiesType::freedom] =
@@ -154,7 +154,7 @@ private:
             }
 
             return Globals::in_time_interval(8, 19) && (!XR_CONDITION::is_surge_started()) &&
-                (Globals::sim_dist_to(squad, target) <= SIMBOARD_SIMULATION_DISTANCE);
+                (Globals::sim_dist_to(squad, target) <= kSimulationBoardSimulationDistance);
         };
 
         this->m_simulation_activities[SimulationActivitiesType::dolg]
@@ -167,7 +167,7 @@ private:
             }
 
             return Globals::in_time_interval(8, 19) && (!XR_CONDITION::is_surge_started()) &&
-                (Globals::sim_dist_to(squad, target) <= SIMBOARD_SIMULATION_DISTANCE);
+                (Globals::sim_dist_to(squad, target) <= kSimulationBoardSimulationDistance);
         };
 
         this->m_simulation_activities[SimulationActivitiesType::dolg]
@@ -179,7 +179,7 @@ private:
                 return false;
             }
             return Globals::in_time_interval(8, 19) && (!XR_CONDITION::is_surge_started()) &&
-                (Globals::sim_dist_to(squad, target) <= SIMBOARD_SIMULATION_DISTANCE);
+                (Globals::sim_dist_to(squad, target) <= kSimulationBoardSimulationDistance);
         };
 
         this->m_simulation_activities[SimulationActivitiesType::dolg]
@@ -191,7 +191,7 @@ private:
                 return false;
             }
             return Globals::in_time_interval(8, 19) && (!XR_CONDITION::is_surge_started()) &&
-                (Globals::sim_dist_to(squad, target) <= SIMBOARD_SIMULATION_DISTANCE);
+                (Globals::sim_dist_to(squad, target) <= kSimulationBoardSimulationDistance);
         };
 
         this->m_simulation_activities[SimulationActivitiesType::dolg]
@@ -204,7 +204,7 @@ private:
             }
 
             return Globals::in_time_interval(8, 19) && (!XR_CONDITION::is_surge_started()) &&
-                (Globals::sim_dist_to(squad, target) <= SIMBOARD_SIMULATION_DISTANCE);
+                (Globals::sim_dist_to(squad, target) <= kSimulationBoardSimulationDistance);
         };
 
         this->m_simulation_activities[SimulationActivitiesType::dolg]
@@ -217,7 +217,7 @@ private:
             }
 
             return Globals::in_time_interval(8, 19) && (!XR_CONDITION::is_surge_started()) &&
-                (Globals::sim_dist_to(squad, target) <= SIMBOARD_SIMULATION_DISTANCE);
+                (Globals::sim_dist_to(squad, target) <= kSimulationBoardSimulationDistance);
         };
 
         this->m_simulation_activities[SimulationActivitiesType::dolg].m_smart[SimulationActivitiesType::base] =
@@ -257,7 +257,7 @@ private:
             }
 
             return Globals::in_time_interval(8, 19) && (!XR_CONDITION::is_surge_started()) &&
-                (Globals::sim_dist_to(squad, target) <= SIMBOARD_SIMULATION_DISTANCE);
+                (Globals::sim_dist_to(squad, target) <= kSimulationBoardSimulationDistance);
         };
 
         this->m_simulation_activities[SimulationActivitiesType::freedom].m_smart[SimulationActivitiesType::base] =
@@ -308,7 +308,7 @@ private:
                 return false;
             }
 
-            return Globals::sim_dist_to(squad, target) <= SIMBOARD_SIMULATION_DISTANCE;
+            return Globals::sim_dist_to(squad, target) <= kSimulationBoardSimulationDistance;
         };
 
         // @ WA
@@ -338,7 +338,7 @@ private:
             }
 
             return Globals::in_time_interval(6, 19) &&
-                (Globals::sim_dist_to(squad, target) <= SIMBOARD_SIMULATION_DISTANCE);
+                (Globals::sim_dist_to(squad, target) <= kSimulationBoardSimulationDistance);
         };
 
         this->m_simulation_activities[SimulationActivitiesType::monster_predatory_day]
@@ -351,7 +351,7 @@ private:
             }
 
             return Globals::in_time_interval(6, 19) &&
-                (Globals::sim_dist_to(squad, target) <= SIMBOARD_SIMULATION_DISTANCE);
+                (Globals::sim_dist_to(squad, target) <= kSimulationBoardSimulationDistance);
         };
 
         this->m_simulation_activities[SimulationActivitiesType::monster_predatory_day]
@@ -364,7 +364,7 @@ private:
             }
 
             return Globals::in_time_interval(6, 19) &&
-                (Globals::sim_dist_to(squad, target) <= SIMBOARD_SIMULATION_DISTANCE);
+                (Globals::sim_dist_to(squad, target) <= kSimulationBoardSimulationDistance);
         };
 
         this->m_simulation_activities[SimulationActivitiesType::monster_predatory_day]
@@ -377,7 +377,7 @@ private:
             }
 
             return Globals::in_time_interval(6, 19) &&
-                (Globals::sim_dist_to(squad, target) <= SIMBOARD_SIMULATION_DISTANCE);
+                (Globals::sim_dist_to(squad, target) <= kSimulationBoardSimulationDistance);
         };
 
         this->m_simulation_activities[SimulationActivitiesType::monster_predatory_day]
@@ -389,7 +389,7 @@ private:
                 return false;
             }
             return Globals::in_time_interval(6, 19) &&
-                (Globals::sim_dist_to(squad, target) <= SIMBOARD_SIMULATION_DISTANCE);
+                (Globals::sim_dist_to(squad, target) <= kSimulationBoardSimulationDistance);
         };
 
         // @ WA
@@ -415,7 +415,7 @@ private:
             }
 
             return Globals::in_time_interval(19, 6) &&
-                (Globals::sim_dist_to(squad, target) <= SIMBOARD_SIMULATION_DISTANCE);
+                (Globals::sim_dist_to(squad, target) <= kSimulationBoardSimulationDistance);
         };
 
         // @ WA
@@ -435,7 +435,7 @@ private:
             }
 
             return Globals::in_time_interval(19, 6) &&
-                (Globals::sim_dist_to(squad, target) <= SIMBOARD_SIMULATION_DISTANCE);
+                (Globals::sim_dist_to(squad, target) <= kSimulationBoardSimulationDistance);
         };
 
         this->m_simulation_activities[SimulationActivitiesType::monster_predatory_night]
@@ -448,7 +448,7 @@ private:
             }
 
             return Globals::in_time_interval(19, 6) &&
-                (Globals::sim_dist_to(squad, target) <= SIMBOARD_SIMULATION_DISTANCE);
+                (Globals::sim_dist_to(squad, target) <= kSimulationBoardSimulationDistance);
         };
 
         this->m_simulation_activities[SimulationActivitiesType::monster_predatory_night]
@@ -461,7 +461,7 @@ private:
             }
 
             return Globals::in_time_interval(19, 6) &&
-                (Globals::sim_dist_to(squad, target) <= SIMBOARD_SIMULATION_DISTANCE);
+                (Globals::sim_dist_to(squad, target) <= kSimulationBoardSimulationDistance);
         };
 
         this->m_simulation_activities[SimulationActivitiesType::monster_predatory_night]
@@ -474,7 +474,7 @@ private:
             }
 
             return Globals::in_time_interval(19, 6) &&
-                (Globals::sim_dist_to(squad, target) <= SIMBOARD_SIMULATION_DISTANCE);
+                (Globals::sim_dist_to(squad, target) <= kSimulationBoardSimulationDistance);
         };
 
         this->m_simulation_activities[SimulationActivitiesType::monster_predatory_night]
@@ -487,7 +487,7 @@ private:
             }
 
             return Globals::in_time_interval(19, 6) &&
-                (Globals::sim_dist_to(squad, target) <= SIMBOARD_SIMULATION_DISTANCE);
+                (Globals::sim_dist_to(squad, target) <= kSimulationBoardSimulationDistance);
         };
 
         // @ WA
@@ -513,7 +513,7 @@ private:
             }
 
             return Globals::in_time_interval(19, 6) &&
-                (Globals::sim_dist_to(squad, target) <= SIMBOARD_SIMULATION_DISTANCE);
+                (Globals::sim_dist_to(squad, target) <= kSimulationBoardSimulationDistance);
         };
 
         // @ WA
@@ -530,7 +530,7 @@ private:
             }
 
             return Globals::in_time_interval(19, 6) &&
-                (Globals::sim_dist_to(squad, target) <= SIMBOARD_SIMULATION_DISTANCE);
+                (Globals::sim_dist_to(squad, target) <= kSimulationBoardSimulationDistance);
         };
 
         this->m_simulation_activities[SimulationActivitiesType::monster_zombied_day]
@@ -543,7 +543,7 @@ private:
             }
 
             return Globals::in_time_interval(6, 19) &&
-                (Globals::sim_dist_to(squad, target) <= SIMBOARD_SIMULATION_DISTANCE);
+                (Globals::sim_dist_to(squad, target) <= kSimulationBoardSimulationDistance);
         };
 
         this->m_simulation_activities[SimulationActivitiesType::monster_zombied_day]
@@ -556,7 +556,7 @@ private:
             }
 
             return Globals::in_time_interval(6, 19) &&
-                (Globals::sim_dist_to(squad, target) <= SIMBOARD_SIMULATION_DISTANCE);
+                (Globals::sim_dist_to(squad, target) <= kSimulationBoardSimulationDistance);
         };
 
         this->m_simulation_activities[SimulationActivitiesType::monster_zombied_day]
@@ -569,7 +569,7 @@ private:
             }
 
             return Globals::in_time_interval(6, 19) &&
-                (Globals::sim_dist_to(squad, target) <= SIMBOARD_SIMULATION_DISTANCE);
+                (Globals::sim_dist_to(squad, target) <= kSimulationBoardSimulationDistance);
         };
 
         this->m_simulation_activities[SimulationActivitiesType::monster_zombied_day]
@@ -582,7 +582,7 @@ private:
             }
 
             return Globals::in_time_interval(6, 19) &&
-                (Globals::sim_dist_to(squad, target) <= SIMBOARD_SIMULATION_DISTANCE);
+                (Globals::sim_dist_to(squad, target) <= kSimulationBoardSimulationDistance);
         };
 
         this->m_simulation_activities[SimulationActivitiesType::monster_zombied_day]
@@ -595,7 +595,7 @@ private:
             }
 
             return Globals::in_time_interval(6, 19) &&
-                (Globals::sim_dist_to(squad, target) <= SIMBOARD_SIMULATION_DISTANCE);
+                (Globals::sim_dist_to(squad, target) <= kSimulationBoardSimulationDistance);
         };
 
         // @ WA
@@ -621,7 +621,7 @@ private:
             }
 
             return Globals::in_time_interval(6, 19) &&
-                (Globals::sim_dist_to(squad, target) <= SIMBOARD_SIMULATION_DISTANCE);
+                (Globals::sim_dist_to(squad, target) <= kSimulationBoardSimulationDistance);
         };
 
         this->m_simulation_activities[SimulationActivitiesType::monster_zombied_night]
@@ -634,7 +634,7 @@ private:
             }
 
             return Globals::in_time_interval(19, 6) &&
-                (Globals::sim_dist_to(squad, target) <= SIMBOARD_SIMULATION_DISTANCE);
+                (Globals::sim_dist_to(squad, target) <= kSimulationBoardSimulationDistance);
         };
 
         this->m_simulation_activities[SimulationActivitiesType::monster_zombied_night]
@@ -647,7 +647,7 @@ private:
             }
 
             return Globals::in_time_interval(19, 6) &&
-                (Globals::sim_dist_to(squad, target) <= SIMBOARD_SIMULATION_DISTANCE);
+                (Globals::sim_dist_to(squad, target) <= kSimulationBoardSimulationDistance);
         };
 
         this->m_simulation_activities[SimulationActivitiesType::monster_zombied_night]
@@ -660,7 +660,7 @@ private:
             }
 
             return Globals::in_time_interval(19, 6) &&
-                (Globals::sim_dist_to(squad, target) <= SIMBOARD_SIMULATION_DISTANCE);
+                (Globals::sim_dist_to(squad, target) <= kSimulationBoardSimulationDistance);
         };
 
         this->m_simulation_activities[SimulationActivitiesType::monster_zombied_night]
@@ -673,7 +673,7 @@ private:
             }
 
             return Globals::in_time_interval(19, 6) &&
-                (Globals::sim_dist_to(squad, target) <= SIMBOARD_SIMULATION_DISTANCE);
+                (Globals::sim_dist_to(squad, target) <= kSimulationBoardSimulationDistance);
         };
 
         this->m_simulation_activities[SimulationActivitiesType::monster_zombied_night]
@@ -686,7 +686,7 @@ private:
             }
 
             return Globals::in_time_interval(19, 6) &&
-                (Globals::sim_dist_to(squad, target) <= SIMBOARD_SIMULATION_DISTANCE);
+                (Globals::sim_dist_to(squad, target) <= kSimulationBoardSimulationDistance);
         };
 
         // @ WA
@@ -712,7 +712,7 @@ private:
             }
 
             return Globals::in_time_interval(19, 6) &&
-                (Globals::sim_dist_to(squad, target) <= SIMBOARD_SIMULATION_DISTANCE);
+                (Globals::sim_dist_to(squad, target) <= kSimulationBoardSimulationDistance);
         };
 
         // @ WA

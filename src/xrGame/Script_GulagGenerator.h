@@ -2,54 +2,18 @@
 
 #include "Script_GlobalHelper.h"
 #include "Script_XR_Logic.h"
+#include "Script_XR_Gulag.h"
+#include "Script_XR_Condition.h"
+#include "Script_SE_SmartTerrain.h"
 
 namespace Cordis
 {
 namespace Scripts
 {
+class Script_SE_SmartTerrain;
+
 namespace GulagGenerator
 {
-struct JobData
-{
-    struct SubData
-    {
-        std::uint32_t m_priority;
-        std::uint32_t m_job_index = std::uint32_t(-1); // @ Lord: делаем так специально, потом пересмотреть архитектуру
-                                                       // Script_SE_SmartTerrain и GulagGenerator
-        // @ Section | Job type
-        std::pair<xr_string, xr_string> m_job_id;
-        std::pair<xr_string, xr_map<std::uint32_t, CondlistData>> m_function_params;
-        std::function<bool(CSE_ALifeDynamicObject*, Script_SE_SmartTerrain*,
-            const std::pair<xr_string, xr_map<std::uint32_t, CondlistData>>& params, const NpcInfo&)>
-            m_function;
-    };
-
-    bool m_precondition_is_monster;
-    std::uint32_t m_priority;
-    // std::pair<m_prior, std::pair<m_prior, std::pair<m_section, m_job_type>>>
-    xr_vector<std::pair<std::uint32_t, xr_vector<SubData>>> m_jobs;
-};
-
-struct JobDataExclusive
-{
-    struct SubData
-    {
-        CInifile m_ini_file = CInifile("system.ltx");
-        xr_string m_section_name;
-        xr_string m_online_name;
-        xr_string m_job_type;
-        xr_string m_ini_path_name;
-    };
-
-    bool m_is_precondition_monster;
-    std::uint32_t m_priority;
-    std::pair<xr_string, xr_map<std::uint32_t, CondlistData>> m_function_params;
-    std::function<bool(CSE_ALifeDynamicObject*, Script_SE_SmartTerrain*,
-        const std::pair<xr_string, xr_map<std::uint32_t, CondlistData>>& params)>
-        m_function;
-    SubData m_job_id;
-};
-
 inline static xr_string& getLtx(void) noexcept
 {
     static xr_string instance;
@@ -125,7 +89,7 @@ inline std::pair<xr_vector<JobData>, xr_vector<JobDataExclusive>> load_job(Scrip
     stalker_jobs.m_precondition_is_monster = false;
     stalker_jobs.m_priority = 60;
 
-    std::pair<std::uint32_t, xr_vector<JobData::SubData>> stalker_generic_point;
+    std::pair<std::uint32_t, xr_vector<JobData_SubData>> stalker_generic_point;
     stalker_generic_point.first = 3; // prior
 
     for (std::uint8_t i = 0; i < 20; ++i)
@@ -135,7 +99,7 @@ inline std::pair<xr_vector<JobData>, xr_vector<JobDataExclusive>> load_job(Scrip
         name += "_point_";
         name += std::to_string(i).c_str();
 
-        JobData::SubData data;
+        JobData_SubData data;
         //         data.first = 3; // prior
         //         data.second.first = "logic@"; // section
         //         data.second.first += name;
@@ -186,7 +150,7 @@ inline std::pair<xr_vector<JobData>, xr_vector<JobDataExclusive>> load_job(Scrip
 
     stalker_jobs.m_jobs.push_back(stalker_generic_point);
 #pragma region SURGE MANAGMENT
-    std::pair<std::uint32_t, xr_vector<JobData::SubData>> stalker_surge;
+    std::pair<std::uint32_t, xr_vector<JobData_SubData>> stalker_surge;
     stalker_surge.first = 50;
 
     std::uint8_t it = 1;
@@ -196,7 +160,7 @@ inline std::pair<xr_vector<JobData>, xr_vector<JobDataExclusive>> load_job(Scrip
     patrol_path_name += "_walk";
     while (Globals::patrol_path_exists(patrol_path_name.c_str()))
     {
-        JobData::SubData data;
+        JobData_SubData data;
         xr_string waypoint_name = global_name;
         waypoint_name += "_surge_";
         waypoint_name += std::to_string(it).c_str();
@@ -284,7 +248,7 @@ inline std::pair<xr_vector<JobData>, xr_vector<JobDataExclusive>> load_job(Scrip
 #pragma endregion
 
 #pragma region SLEEP MANAGMENT
-    std::pair<std::uint32_t, xr_vector<JobData::SubData>> stalker_sleep;
+    std::pair<std::uint32_t, xr_vector<JobData_SubData>> stalker_sleep;
     stalker_sleep.first = 10;
     std::uint32_t it_sleep = 1;
 
@@ -297,15 +261,15 @@ inline std::pair<xr_vector<JobData>, xr_vector<JobDataExclusive>> load_job(Scrip
         waypoint_name += "_sleep_";
         waypoint_name += std::to_string(it).c_str();
 
-        JobData::SubData data;
+        JobData_SubData data;
         data.m_priority = 10;
         data.m_job_id.first = "logic@";
         data.m_job_id.first += waypoint_name;
         data.m_job_id.second += Globals::GulagGenerator::kGulagJobPath;
         data.m_function_params.first = waypoint_name;
         data.m_function = [](CSE_ALifeDynamicObject* server_object, Script_SE_SmartTerrain* smart,
-                                const std::pair<xr_string, xr_map<std::uint32_t, CondlistData>>& params,
-                                const NpcInfo& npc_info) -> bool {
+                              const std::pair<xr_string, xr_map<std::uint32_t, CondlistData>>& params,
+                              const NpcInfo& npc_info) -> bool {
             if (!server_object)
             {
                 R_ASSERT2(false, "object was null!");
@@ -399,7 +363,7 @@ inline std::pair<xr_vector<JobData>, xr_vector<JobDataExclusive>> load_job(Scrip
 #pragma endregion
 
 #pragma region COLLECTOR HANDLING
-    std::pair<std::uint32_t, xr_vector<JobData::SubData>> stalker_collector;
+    std::pair<std::uint32_t, xr_vector<JobData_SubData>> stalker_collector;
     stalker_collector.first = 25;
     std::uint32_t it_collector = 1;
     xr_string patrol_collector_point_name = global_name;
@@ -414,7 +378,7 @@ inline std::pair<xr_vector<JobData>, xr_vector<JobDataExclusive>> load_job(Scrip
         waypoint_name += std::to_string(it_collector).c_str();
         waypoint_name += "_walk";
 
-        JobData::SubData data;
+        JobData_SubData data;
         data.m_priority = 25;
         data.m_job_id.first = "logic@";
         data.m_job_id.first += waypoint_name;
@@ -538,7 +502,7 @@ inline std::pair<xr_vector<JobData>, xr_vector<JobDataExclusive>> load_job(Scrip
 #pragma endregion
 
 #pragma region WALKER HANDLING
-    std::pair<std::uint32_t, xr_vector<JobData::SubData>> stalker_walker;
+    std::pair<std::uint32_t, xr_vector<JobData_SubData>> stalker_walker;
     stalker_walker.first = 15;
     std::uint32_t it_walker = 1;
     xr_string patrol_walker_point_name = global_name;
@@ -552,7 +516,7 @@ inline std::pair<xr_vector<JobData>, xr_vector<JobDataExclusive>> load_job(Scrip
         waypoint_name += std::to_string(it_walker).c_str();
         waypoint_name += "_walk";
 
-        JobData::SubData data;
+        JobData_SubData data;
         data.m_priority = 15;
         data.m_job_id.first = "logic@";
         data.m_job_id.first += waypoint_name;
@@ -654,7 +618,7 @@ inline std::pair<xr_vector<JobData>, xr_vector<JobDataExclusive>> load_job(Scrip
 #pragma endregion
 
 #pragma region PATROL HANDLING
-    std::pair<std::uint32_t, xr_vector<JobData::SubData>> stalker_patrol;
+    std::pair<std::uint32_t, xr_vector<JobData_SubData>> stalker_patrol;
     stalker_patrol.first = 20;
     std::uint32_t it_patrol = 1;
     xr_string patrol_patrol_point_name = global_name;
@@ -672,7 +636,7 @@ inline std::pair<xr_vector<JobData>, xr_vector<JobDataExclusive>> load_job(Scrip
 
         for (std::uint8_t i = 0; i < job_count; ++i)
         {
-            JobData::SubData data;
+            JobData_SubData data;
             data.m_priority = 20;
             data.m_job_id.first = "logic@";
             data.m_job_id.first += waypoint_name.c_str();
@@ -764,7 +728,7 @@ inline std::pair<xr_vector<JobData>, xr_vector<JobDataExclusive>> load_job(Scrip
 
 #pragma region XR_ANIMPOINT HANDLING
     std::uint32_t it_xranimpoint = 1;
-    std::pair<std::uint32_t, xr_vector<JobData::SubData>> stalker_xranimpoint; // @ Lord: как приоритет??
+    std::pair<std::uint32_t, xr_vector<JobData_SubData>> stalker_xranimpoint; // @ Lord: как приоритет??
     stalker_xranimpoint.first = 50;
     xr_string patrol_xranimpoint_point_name = global_name;
     patrol_xranimpoint_point_name += "_animpoint_";
@@ -776,7 +740,7 @@ inline std::pair<xr_vector<JobData>, xr_vector<JobDataExclusive>> load_job(Scrip
         waypoint_name += "_animpoint_";
         waypoint_name += std::to_string(it_xranimpoint).c_str();
 
-        JobData::SubData data;
+        JobData_SubData data;
 
         data.m_priority = 15;
         data.m_job_id.first = "logic@";
@@ -860,7 +824,7 @@ inline std::pair<xr_vector<JobData>, xr_vector<JobDataExclusive>> load_job(Scrip
 #pragma endregion
 
 #pragma region GUARD Handling
-    std::pair<std::uint32_t, xr_vector<JobData::SubData>> stalker_guard;
+    std::pair<std::uint32_t, xr_vector<JobData_SubData>> stalker_guard;
     stalker_guard.first = 25;
     std::uint32_t it_guard = 1;
     xr_string patrol_guard_point_name = global_name;
@@ -875,7 +839,7 @@ inline std::pair<xr_vector<JobData>, xr_vector<JobDataExclusive>> load_job(Scrip
         waypoint_name += std::to_string(it_guard).c_str();
         waypoint_name += "_walk";
 
-        JobData::SubData data;
+        JobData_SubData data;
         data.m_priority = 25;
         data.m_job_id.first = "logic@";
         data.m_job_id.first += waypoint_name;
@@ -1058,7 +1022,7 @@ inline std::pair<xr_vector<JobData>, xr_vector<JobDataExclusive>> load_job(Scrip
 #pragma endregion
 
 #pragma region SNIPER handling
-    std::pair<std::uint32_t, xr_vector<JobData::SubData>> stalker_sniper;
+    std::pair<std::uint32_t, xr_vector<JobData_SubData>> stalker_sniper;
     stalker_sniper.first = 30;
     std::uint32_t it_sniper = 1;
     xr_string patrol_sniper_point_name = global_name;
@@ -1073,7 +1037,7 @@ inline std::pair<xr_vector<JobData>, xr_vector<JobDataExclusive>> load_job(Scrip
         waypoint_name += std::to_string(it_sniper).c_str();
         waypoint_name += "_walk";
 
-        JobData::SubData data;
+        JobData_SubData data;
         data.m_priority = 30;
         data.m_job_id.first = "logic@";
         data.m_job_id.first += waypoint_name;
@@ -1099,7 +1063,7 @@ inline std::pair<xr_vector<JobData>, xr_vector<JobDataExclusive>> load_job(Scrip
             if (!strcmp(server_human->CommunityName(), "zombied"))
                 return false;
 
-             return Globals::is_accessible_job(server_object, params.first);
+            return Globals::is_accessible_job(server_object, params.first);
         };
 
         stalker_sniper.second.push_back(data);
@@ -1145,7 +1109,7 @@ inline std::pair<xr_vector<JobData>, xr_vector<JobDataExclusive>> load_job(Scrip
 #pragma endregion
 
 #pragma region CAMPER Handling
-    std::pair<std::uint32_t, xr_vector<JobData::SubData>> stalker_camper;
+    std::pair<std::uint32_t, xr_vector<JobData_SubData>> stalker_camper;
     stalker_camper.first = 45;
     std::uint32_t it_camper = 1;
     xr_string patrol_camper_point_name = global_name;
@@ -1160,7 +1124,7 @@ inline std::pair<xr_vector<JobData>, xr_vector<JobDataExclusive>> load_job(Scrip
         waypoint_name += std::to_string(it_camper).c_str();
         waypoint_name += "_walk";
 
-        JobData::SubData data;
+        JobData_SubData data;
         data.m_priority = 45;
         data.m_job_id.first = "logic@";
         data.m_job_id.first += waypoint_name;
@@ -1237,7 +1201,7 @@ inline std::pair<xr_vector<JobData>, xr_vector<JobDataExclusive>> load_job(Scrip
     monster_jobs.m_precondition_is_monster = true;
     monster_jobs.m_priority = 50;
 
-    std::pair<std::uint32_t, xr_vector<JobData::SubData>> monster_mob_home;
+    std::pair<std::uint32_t, xr_vector<JobData_SubData>> monster_mob_home;
     monster_mob_home.first = 50; // Lord: какой приоритет?
     for (std::uint8_t i = 1; i < 21; ++i)
     {
@@ -1248,7 +1212,7 @@ inline std::pair<xr_vector<JobData>, xr_vector<JobDataExclusive>> load_job(Scrip
         std::uint32_t home_middle_radius = 20;
         std::uint32_t home_max_radius = 70;
 
-        JobData::SubData data;
+        JobData_SubData data;
         data.m_priority = 40;
         data.m_job_id.first = "logic@";
         data.m_job_id.first += patrol_mob_home_point_name;
@@ -1399,3 +1363,5 @@ inline void add_exclusive_job(const xr_string& section_name, const xr_string& wo
 } // namespace GulagGenerator
 } // namespace Scripts
 } // namespace Cordis
+
+#include "Script_SE_SmartTerrain.h"
