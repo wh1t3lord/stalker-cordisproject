@@ -29,6 +29,8 @@ Script_SE_SimulationSquad::Script_SE_SimulationSquad(LPCSTR section)
       m_is_always_walk(
           Globals::Utils::cfg_get_bool(Globals::get_system_ini(), this->m_settings_id, "always_walk", this))
 {
+    this->set_location_types_section("stalker_terrain");
+    this->set_squad_sympathy();
 }
 
 Script_SE_SimulationSquad::~Script_SE_SimulationSquad(void) {}
@@ -47,7 +49,6 @@ void Script_SE_SimulationSquad::set_location_types_section(const xr_string& sect
 
 void Script_SE_SimulationSquad::set_squad_sympathy(const float& sympathy)
 {
-
     float _sympathy = !(fis_zero(sympathy)) ? sympathy : this->m_sympathy;
 
     if (_sympathy)
@@ -63,6 +64,31 @@ void Script_SE_SimulationSquad::set_squad_sympathy(const float& sympathy)
             else
                 DataBase::Storage::getInstance().getGoodwill_Sympathy()[(*it).second->ID] = _sympathy;
         }
+    }
+}
+
+void Script_SE_SimulationSquad::set_squad_behaviour(void)
+{
+    xr_string behaviour_section_name =
+        Globals::Utils::cfg_get_string(Globals::get_system_ini(), this->m_settings_id, "behaviour");
+
+    if (!squad_behavior_ini.section_exist(behaviour_section_name.c_str()))
+    {
+        Msg("[Scripts/Script_SE_SimulationSquad/set_squad_behaviour()] There is no section [%s] in "
+            "misc\\squad_behaviours.ltx",
+            behaviour_section_name.c_str());
+        R_ASSERT(false);
+        return;
+    }
+
+    std::uint32_t count = squad_behavior_ini.line_count(behaviour_section_name.c_str());
+
+    for (std::uint32_t i = 0; i < count; ++i)
+    {
+        const char* Field = nullptr;
+        const char* Value = nullptr;
+        if (squad_behavior_ini.r_line(behaviour_section_name.c_str(), i, &Field, &Value))
+            this->m_behaviour[Field] = Value;   
     }
 }
 
