@@ -48,7 +48,6 @@ public:
         data.m_server_object = server_object;
         data.m_need_job = "nil";
         data.m_job_prioprity = -1;
-        data.m_job_id = -1;
         data.m_begin_job = false;
 
         if (data.m_is_monster)
@@ -95,6 +94,7 @@ private:
     xr_map<xr_string, std::uint32_t> m_npc_by_job_section;
     xr_map<std::uint32_t, CSE_ALifeDynamicObject*> m_arriving_npc;
     xr_map<std::uint32_t, NpcInfo> m_npc_info;
+    xr_map<std::uint32_t, JobDataSmartTerrain> m_job_data;
     xr_vector<CSE_ALifeDynamicObject*> m_npc_to_register;
     xr_string m_smart_level;
     xr_string m_defence_restictor;
