@@ -1,5 +1,7 @@
 #pragma once
 
+#include "Script_Database.h"
+
 namespace Cordis
 {
 namespace Scripts

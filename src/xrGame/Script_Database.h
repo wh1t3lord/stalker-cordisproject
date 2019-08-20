@@ -1,6 +1,7 @@
 #pragma once
 
 #include "script_sound.h"
+#include "Script_LogicEntity.h"
 
 namespace Cordis
 {

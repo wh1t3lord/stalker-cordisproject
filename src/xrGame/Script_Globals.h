@@ -458,6 +458,7 @@ inline bool is_accessible_job(CSE_ALifeDynamicObject* server_object, const char*
 #include "Script_SE_Actor.h"
 #include "Script_SE_SmartCover.h"
 #include "Script_SmartTerrainControl.h"
+/*#include "Script_GulagGenerator.h"*/
 #include "Script_SE_SmartTerrain.h"
 #include "Script_LogicEntity.h"
 #include "Script_LogicManager.h"
@@ -466,7 +467,6 @@ inline bool is_accessible_job(CSE_ALifeDynamicObject* server_object, const char*
 #include "Script_NewsManager.h"
 #include "Script_XR_Condition.h"
 #include "Script_XR_Gulag.h"
-#include "Script_GulagGenerator.h"
 /*#include "Script_XR_Logic.h"*/
 #include "Script_XR_Sound.h"
 #include "Script_XR_Effects.h"
