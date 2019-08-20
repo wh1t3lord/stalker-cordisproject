@@ -750,7 +750,26 @@ public:
 
     void register_smart(Script_SE_SmartTerrain* object);
     void init_smart(Script_SE_SmartTerrain* object);
-    inline void assigned_squad_to_smart(Script_SE_SimulationSquad* squad, const std::uint32_t& smart_id) {}
+
+    inline void assigned_squad_to_smart(Script_SE_SimulationSquad* squad, const std::uint32_t& smart_id)
+    {
+        if (!squad)
+        {
+            R_ASSERT2(false, "object was null!");
+            return;
+        }
+
+        if (!smart_id)
+        {
+            R_ASSERT2(false, "invalid ID!");
+            return;
+        }
+
+        if (!this->m_smarts[smart_id].m_smart)
+        {
+            this->m_temporary_assigned_squad[smart_id] = squad;
+        }
+    }
 
 private:
     enum group_id_by_levels
