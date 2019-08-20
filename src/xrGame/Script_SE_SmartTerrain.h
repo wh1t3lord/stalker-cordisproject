@@ -73,11 +73,11 @@ public:
     inline Script_SmartTerrainControl* getBaseOnActorControl(void) noexcept { return this->m_base_on_actor_control; }
     inline xrTime& getSmartAlarmTime(void) noexcept { return this->m_smart_alarm_time; }
     inline xr_map<std::uint32_t, xrTime>& getDeadTime(void) noexcept { return this->m_dead_time; }
-    inline void setDefenceRestrictor(
-        const xr_string& string) noexcept
+    inline std::uint32_t getIDNPCOnJob(const xr_string& job_name) noexcept
     {
-        this->m_defence_restictor = string;
+        return this->m_npc_by_job_section[job_name];
     }
+    inline void setDefenceRestrictor(const xr_string& string) noexcept { this->m_defence_restictor = string; }
     inline void setAttackRestrictor(const xr_string& string) noexcept { this->m_attack_restrictor = string; }
     inline void setSafeRestrictor(const xr_string& string) noexcept { this->m_safe_restirctor = string; }
 
@@ -87,9 +87,12 @@ private:
     bool m_is_initialized;
     bool m_is_registered;
     std::uint32_t m_population;
+    int a = sizeof(xrTime);
     xrTime m_smart_alarm_time;
     Script_SmartTerrainControl* m_base_on_actor_control;
     xr_map<std::uint32_t, xrTime> m_dead_time;
+    xr_map<xr_string, std::uint32_t> m_npc_by_job_section;
+    xr_vector<CScriptGameObject*> m_npc_to_register;
     xr_string m_smart_level;
     xr_string m_defence_restictor;
     xr_string m_attack_restrictor;

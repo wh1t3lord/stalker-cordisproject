@@ -51,7 +51,10 @@ namespace Cordis
 {
 namespace Scripts
 {
-Script_SE_SmartTerrain::Script_SE_SmartTerrain(LPCSTR section) : inherited(section) {}
+Script_SE_SmartTerrain::Script_SE_SmartTerrain(LPCSTR section) : inherited(section), m_is_initialized(false), m_is_registered(false), m_population(0)
+{
+
+}
 
 Script_SE_SmartTerrain::~Script_SE_SmartTerrain(void)
 {
