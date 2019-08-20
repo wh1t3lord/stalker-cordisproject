@@ -17,13 +17,6 @@ bool is_job_available_to_npc(const NpcInfo& npc_info, const GulagGenerator::JobD
         return false;
     }
 
-    if (job_info.m_job_id.first.size())
-    {
-        R_ASSERT2(false,
-            "You had lost your SubData, because it's m_job_id must be set to this->m_job_data and clear in that "
-            "structure!");
-    }
-
     // @ Lord: убедить что будет выполняться оригинальное условие что объект вообще был инициализирован после default
     // инициализации, то есть xrTime() -> xrTime().setSomeValue();
     if (smart->getDeadTime()[job_info.m_job_index] > 0)
