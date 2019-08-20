@@ -15,10 +15,14 @@ public:
     virtual ~Script_SE_SimulationSquad(void);
 
     inline std::uint32_t getSmartTerrainID(void) noexcept { return this->m_smart_terrain_id; }
+    inline std::uint32_t getCurrentSpotID(void) noexcept { return this->m_current_spot_id; }
+
     inline void setSmartTerrainID(const std::uint32_t& value) noexcept { this->m_smart_terrain_id = value; }
+    inline void setCurrentSpotID(const std::uint32_t& value) noexcept { this->m_current_spot_id = value; }
 
 private:
     std::uint32_t m_smart_terrain_id;
+    std::uint32_t m_current_spot_id;
 };
 
 } // namespace Scripts
