@@ -92,7 +92,8 @@ private:
     Script_SmartTerrainControl* m_base_on_actor_control;
     xr_map<std::uint32_t, xrTime> m_dead_time;
     xr_map<xr_string, std::uint32_t> m_npc_by_job_section;
-    xr_vector<CScriptGameObject*> m_npc_to_register;
+    xr_map<std::uint32_t, CSE_ALifeDynamicObject*> m_arriving_npc;
+    xr_vector<CSE_ALifeDynamicObject*> m_npc_to_register;
     xr_string m_smart_level;
     xr_string m_defence_restictor;
     xr_string m_attack_restrictor;
