@@ -31,7 +31,7 @@ public:
 
 private:
     void set_location_types_section(const xr_string& section);
-    void set_squad_sympathy(const std::uint32_t& sympathy);
+    void set_squad_sympathy(const float& sympathy);
 
 private:
     bool m_is_always_walk;
