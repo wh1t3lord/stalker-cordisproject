@@ -734,6 +734,9 @@ public:
     Script_SimulationBoard(Script_SimulationBoard&&) = delete;
     Script_SimulationBoard& operator=(Script_SimulationBoard&&) = delete;
 
+    inline void start_simulation(void) noexcept { this->m_is_simulation_started = true; }
+    inline void stop_simulation(void) noexcept { this->m_is_simulation_started = false; }
+
     inline void set_actor_community(LPCSTR buffer)
     {
         if (!buffer)
@@ -742,9 +745,11 @@ public:
             return;
         }
 
-        DataBase::Storage::getInstance().getActor()->SetCharacterCommunity();
+        DataBase::Storage::getInstance().getActor()->SetCharacterCommunity(buffer, 0, 0);
     }
+
     void register_smart(Script_SE_SmartTerrain* object);
+    void init_smart(Script_SE_SmartTerrain* object);
 
 private:
     enum group_id_by_levels
@@ -755,10 +760,15 @@ private:
         labx8,
         jupiter_underground
     };
+
+    bool m_is_simulation_started;
+
     const CInifile* m_squad_ltx;
     xr_map<std::uint32_t, SimulationActivitiesType> m_simulation_activities;
     xr_map<std::uint32_t, SmartDataSimulationBoard> m_smarts;
     xr_map<xr_string, Script_SE_SmartTerrain*> m_smarts_by_name;
+    xr_map<std::uint32_t, Script_SE_SimulationSquad*> m_temporary_entered_squad;
+    xr_map<std::uint32_t, Script_SE_SimulationSquad*> m_temporary_assigned_squad;
     CInifile m_setting_ini;
 };
 } // namespace Scripts
