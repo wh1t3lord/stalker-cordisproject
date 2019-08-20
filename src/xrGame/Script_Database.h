@@ -131,7 +131,10 @@ public:
     inline xr_map<xr_string, CScriptGameObject*>& getZoneByName(void) noexcept { return this->m_zone_by_name; }
     inline xr_map<std::uint16_t, std::uint32_t>& getGoodwill_Sympathy(void) noexcept { return this->m_goodwill.first; }
     inline xr_map<std::uint16_t, xr_string>& getGoodwill_Relations(void) noexcept { return this->m_goodwill.second; }
-
+    inline std::pair<xr_map<std::uint16_t, std::uint32_t>, xr_map<std::uint16_t, xr_string>>& getGoodwill(void) noexcept
+    {
+        return this->m_goodwill;
+    }
 #pragma endregion
 
 #pragma region Setters
