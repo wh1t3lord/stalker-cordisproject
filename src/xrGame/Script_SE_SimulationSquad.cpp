@@ -2,6 +2,8 @@
 #include "Script_SE_SimulationSquad.h"
 #include "Script_XR_Logic.h"
 
+CInifile squad_behavior_ini = CInifile("misc\\squad_behaviours.ltx");
+CInifile locations_ini = CInifile("misc\\smart_terrain_masks.ltx");
 
 namespace Cordis
 {
@@ -28,6 +30,18 @@ Script_SE_SimulationSquad::Script_SE_SimulationSquad(LPCSTR section) : inherited
 Script_SE_SimulationSquad::~Script_SE_SimulationSquad(void) 
 {
 
+}
+
+void Script_SE_SimulationSquad::set_location_types_section(const xr_string& section)
+{ 
+    if (locations_ini.section_exist(section.c_str()))
+    {
+        pcstr N;
+        pcstr V;
+
+        if (locations_ini.r_line(section.c_str(), 0, &N, &V))
+            this->add_location_type(N);
+    }
 }
 
 

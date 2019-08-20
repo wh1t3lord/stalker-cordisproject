@@ -14,13 +14,6 @@ public:
     Script_SE_SimulationSquad(LPCSTR section);
     virtual ~Script_SE_SimulationSquad(void);
 
-
-
-
-
-
-
-
 #pragma region Cordis Getters
     inline std::uint32_t getSmartTerrainID(void) noexcept { return this->m_smart_terrain_id; }
     inline std::uint32_t getCurrentSpotID(void) noexcept { return this->m_current_spot_id; }
@@ -29,7 +22,6 @@ public:
     inline xr_string& getSettingsID(void) noexcept { return this->m_settings_id; }
 #pragma endregion
 
-
 #pragma region Cordis Setters
     inline void setSmartTerrainID(const std::uint32_t& value) noexcept { this->m_smart_terrain_id = value; }
     inline void setCurrentSpotID(const std::uint32_t& value) noexcept { this->m_current_spot_id = value; }
@@ -37,9 +29,8 @@ public:
     inline void setAssignedTargetID(const std::uint32_t& value) noexcept { this->m_assigned_target_id = value; }
 #pragma endregion
 
-
-    
-
+private:
+    void set_location_types_section(const xr_string& section);
 
 private:
     bool m_is_always_walk;
