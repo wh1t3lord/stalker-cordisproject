@@ -7,6 +7,7 @@ namespace Cordis
 {
 namespace Scripts
 {
+Script_SimulationBoard::~Script_SimulationBoard(void) {}
 void Script_SimulationBoard::register_smart(Script_SE_SmartTerrain* object)
 {
     if (!object)
@@ -44,7 +45,7 @@ void Script_SimulationBoard::init_smart(Script_SE_SmartTerrain* object)
         {
             if (it.second)
             {
-            
+               
             }
         }
     }

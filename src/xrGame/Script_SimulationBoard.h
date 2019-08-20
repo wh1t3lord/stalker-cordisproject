@@ -750,6 +750,7 @@ public:
 
     void register_smart(Script_SE_SmartTerrain* object);
     void init_smart(Script_SE_SmartTerrain* object);
+    inline void assigned_squad_to_smart(Script_SE_SimulationSquad* squad, const std::uint32_t& smart_id) {}
 
 private:
     enum group_id_by_levels
