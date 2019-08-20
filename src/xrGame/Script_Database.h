@@ -124,10 +124,14 @@ public:
         this->m_storage.clear();
     }
 
+    #pragma region Getters
     inline xr_map<std::uint16_t, Storage_Data>& getStorage(void) noexcept { return this->m_storage; }
     inline CScriptGameObject* getActor(void) { return this->m_actor; }
     inline xr_map<xr_string, CScriptGameObject*>& getZoneByName(void) noexcept { return this->m_zone_by_name; }
+    #pragma endregion
 
+
+    #pragma region Setters
     inline void setActor(CScriptGameObject* object)
     {
         if (!object)
@@ -138,6 +142,8 @@ public:
 
         this->m_actor = object;
     }
+    #pragma endregion
+
     Storage(const Storage&) = delete;
     Storage& operator=(const Storage&) = delete;
     Storage(Storage&&) = delete;
@@ -147,6 +153,8 @@ private:
     CScriptGameObject* m_actor;
     xr_map<std::uint16_t, Storage_Data> m_storage;
     xr_map<xr_string, CScriptGameObject*> m_zone_by_name;
+    // first -> sympathy[ID] = std::uint32_t; | second -> relations[ID] = std::string;
+    std::pair<xr_map<std::uint16_t, std::uint32_t>, xr_map<std::uint16_t, xr_string>> m_goodwill;
 };
 
 } // namespace DataBase
