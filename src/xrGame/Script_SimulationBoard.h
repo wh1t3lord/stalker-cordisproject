@@ -768,6 +768,17 @@ public:
         if (!this->m_smarts[smart_id].m_smart)
         {
             this->m_temporary_assigned_squad[smart_id] = squad;
+            return;
+        }
+
+        
+    }
+
+    inline void enter_squad_to_smart(Script_SE_SimulationSquad* squad, const std::uint32_t& smart_id)
+    {
+        if (!this->m_smarts[smart_id].m_smart)
+        {
+            return;
         }
     }
 
