@@ -131,7 +131,7 @@ public:
     inline xr_map<xr_string, CScriptGameObject*>& getZoneByName(void) noexcept { return this->m_zone_by_name; }
     inline xr_map<std::uint16_t, std::uint32_t>& getGoodwill_Sympathy(void) noexcept { return this->m_goodwill.first; }
     inline xr_map<std::uint16_t, xr_string>& getGoodwill_Relations(void) noexcept { return this->m_goodwill.second; }
-    inline std::pair<xr_map<std::uint16_t, std::uint32_t>, xr_map<std::uint16_t, xr_string>>& getGoodwill(void) noexcept
+    inline std::pair<xr_map<std::uint16_t, float>, xr_map<std::uint16_t, xr_string>>& getGoodwill(void) noexcept
     {
         return this->m_goodwill;
     }
@@ -160,7 +160,7 @@ private:
     xr_map<std::uint16_t, Storage_Data> m_storage;
     xr_map<xr_string, CScriptGameObject*> m_zone_by_name;
     // first -> sympathy[ID] = std::uint32_t; | second -> relations[ID] = std::string;
-    std::pair<xr_map<std::uint16_t, std::uint32_t>, xr_map<std::uint16_t, xr_string>> m_goodwill;
+    std::pair < xr_map < std::uint16_t, float>, xr_map<std::uint16_t, xr_string>> m_goodwill;
 };
 
 } // namespace DataBase

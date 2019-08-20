@@ -362,7 +362,6 @@ inline bool cfg_get_bool(const CInifile* char_ini, const xr_string& section, con
     return false;
 }
 
-
 inline float cfg_get_number(const CInifile* char_ini, const xr_string& section, const xr_string& field,
     CScriptGameObject* object, bool mandatory = false)
 {
@@ -446,6 +445,25 @@ namespace Game
 inline LPCSTR translate_string(LPCSTR str) { return *StringTable().translate(str); }
 inline xrTime get_game_time(void) noexcept { return get_time_struct(); }
 } // namespace Game
+namespace GameRelations
+{
+inline void set_npc_sympathy(CScriptGameObject* npc, float new_sympathy)
+{
+    if (!npc)
+    {
+        R_ASSERT2(false, "object was null!");
+        return;
+    }
+
+    if (new_sympathy < 0.0f)
+        new_sympathy = 0.0f;
+
+    if (new_sympathy > 1.0f)
+        new_sympathy = 1.0f;
+
+    npc->SetSympathy(new_sympathy);
+}
+} // namespace GameRelations
 
 inline Fvector vertex_position(u32 level_vertex_id);
 inline std::uint32_t vertex_in_direction(
