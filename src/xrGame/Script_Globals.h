@@ -329,8 +329,60 @@ inline bool cfg_get_bool(const CInifile* char_ini, const xr_string& section, con
     return false;
 }
 
+inline bool cfg_get_bool(const CInifile* char_ini, const xr_string& section, const xr_string& field,
+    CSE_ALifeDynamicObject* object, bool mandatory = false)
+{
+    xr_string object_name;
+
+    if (!section.size() || !field.size())
+    {
+        R_ASSERT2(false, "string can't be null");
+        return false;
+    }
+
+    if (!object)
+        object_name = "Unknown Object";
+    else
+        object_name = object->Name();
+
+    if (char_ini->section_exist(section.c_str()) && char_ini->line_exist(section.c_str(), field.c_str()))
+    {
+        bool result = char_ini->r_bool(section.c_str(), field.c_str());
+        return result;
+    }
+
+    if (!mandatory)
+    {
+        return false;
+    }
+
+    Msg("[Script]: ERROR object %s attempt to read a non-existant boolean field %s in section %s", object_name.c_str(),
+        field.c_str(), section.c_str());
+    R_ASSERT(false);
+    return false;
+}
+
+
 inline float cfg_get_number(const CInifile* char_ini, const xr_string& section, const xr_string& field,
     CScriptGameObject* object, bool mandatory = false)
+{
+    xr_string object_name;
+
+    if (!section.size() || !field.size())
+    {
+        R_ASSERT2(false, "string can't be null!");
+        return 0.0f;
+    }
+
+    if (char_ini->section_exist(section.c_str()) && char_ini->line_exist(section.c_str(), field.c_str()))
+        return char_ini->r_float(section.c_str(), field.c_str());
+
+    Msg("[Script] cfg_get_number has returned a default value");
+    return 0.0f;
+}
+
+inline float cfg_get_number(const CInifile* char_ini, const xr_string& section, const xr_string& field,
+    CSE_ALifeDynamicObject* object, bool mandatory = false)
 {
     xr_string object_name;
 
