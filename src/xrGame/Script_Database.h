@@ -101,7 +101,8 @@ public:
 
             if (it.second.m_server_object)
             {
-                Msg("[Scripts/DataBase/Storage/~dtor] Deleting the m_server_object: %s", it.second.m_server_object->name());
+                Msg("[Scripts/DataBase/Storage/~dtor] Deleting the m_server_object: %s",
+                    it.second.m_server_object->name());
                 delete it.second.m_server_object;
                 it.second.m_server_object = nullptr;
             }
@@ -124,14 +125,16 @@ public:
         this->m_storage.clear();
     }
 
-    #pragma region Getters
+#pragma region Getters
     inline xr_map<std::uint16_t, Storage_Data>& getStorage(void) noexcept { return this->m_storage; }
     inline CScriptGameObject* getActor(void) { return this->m_actor; }
     inline xr_map<xr_string, CScriptGameObject*>& getZoneByName(void) noexcept { return this->m_zone_by_name; }
-    #pragma endregion
+    inline xr_map<std::uint16_t, std::uint32_t>& getGoodwill_Sympathy(void) noexcept { return this->m_goodwill.first; }
+    inline xr_map<std::uint16_t, xr_string>& getGoodwill_Relations(void) noexcept { return this->m_goodwill.second; }
 
+#pragma endregion
 
-    #pragma region Setters
+#pragma region Setters
     inline void setActor(CScriptGameObject* object)
     {
         if (!object)
@@ -142,7 +145,7 @@ public:
 
         this->m_actor = object;
     }
-    #pragma endregion
+#pragma endregion
 
     Storage(const Storage&) = delete;
     Storage& operator=(const Storage&) = delete;
