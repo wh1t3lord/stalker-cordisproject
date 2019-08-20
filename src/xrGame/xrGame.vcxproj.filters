@@ -3088,27 +3088,6 @@
     <Filter Include="Cordis\Scripts\Online Database\Public">
       <UniqueIdentifier>{0dd55311-76b0-451b-8488-09511b926c20}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Cordis\Scripts\Entities">
-      <UniqueIdentifier>{95869faa-b206-40cc-abbd-106d9352929b}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Cordis\Scripts\Entities\Simulation Squad">
-      <UniqueIdentifier>{48c087c9-c407-476f-9c3c-5fb3d37d2376}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Cordis\Scripts\Entities\Simulation Squad\Public">
-      <UniqueIdentifier>{d9083007-7462-4183-a06c-850d9caa7669}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Cordis\Scripts\Entities\Simulation Squad\Private">
-      <UniqueIdentifier>{6fe030a6-fa66-4555-af60-9df4288ae67c}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Cordis\Scripts\Entities\Sound">
-      <UniqueIdentifier>{f88a8990-1e2b-43f6-abb8-d1f8082b417a}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Cordis\Scripts\Entities\Sound\Public">
-      <UniqueIdentifier>{aa14874a-4d7f-4a6b-9be5-597141513409}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Cordis\Scripts\Entities\Sound\Private">
-      <UniqueIdentifier>{18bb6c06-351e-423e-8c76-f6e2a11a30f8}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Cordis\Scripts\Managers">
       <UniqueIdentifier>{125cfdb7-399c-4fec-80f6-f12503eba613}</UniqueIdentifier>
     </Filter>
@@ -3208,13 +3187,25 @@
     <Filter Include="Cordis\Scripts\Managers\Gulag Generator\Public">
       <UniqueIdentifier>{85730a1e-2049-408b-8190-e25ede27506a}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Cordis\Scripts\Entities\Smart Terrain">
+    <Filter Include="Cordis\Scripts\Entities %28not server entities!%29">
+      <UniqueIdentifier>{95869faa-b206-40cc-abbd-106d9352929b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Entities %28not server entities!%29\Sound">
+      <UniqueIdentifier>{f88a8990-1e2b-43f6-abb8-d1f8082b417a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Entities %28not server entities!%29\Sound\Public">
+      <UniqueIdentifier>{aa14874a-4d7f-4a6b-9be5-597141513409}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Entities %28not server entities!%29\Sound\Private">
+      <UniqueIdentifier>{18bb6c06-351e-423e-8c76-f6e2a11a30f8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Entities %28not server entities!%29\Smart Terrain">
       <UniqueIdentifier>{7063dace-87e0-4eb9-9f9c-1b09656eb29c}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Cordis\Scripts\Entities\Smart Terrain\Public">
+    <Filter Include="Cordis\Scripts\Entities %28not server entities!%29\Smart Terrain\Public">
       <UniqueIdentifier>{732c3285-4540-4752-bfcb-f8360e8620d5}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Cordis\Scripts\Entities\Smart Terrain\Private">
+    <Filter Include="Cordis\Scripts\Entities %28not server entities!%29\Smart Terrain\Private">
       <UniqueIdentifier>{78778342-d48f-4af4-b221-4fe8fe66c7c8}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
@@ -8201,9 +8192,6 @@
     <ClInclude Include="Script_SimulationBoard.h">
       <Filter>Cordis\Scripts\Managers\SimulationBoard\Public</Filter>
     </ClInclude>
-    <ClInclude Include="Script_SimulationSquad.h">
-      <Filter>Cordis\Scripts\Entities\Simulation Squad\Public</Filter>
-    </ClInclude>
     <ClInclude Include="Script_SoundManager.h">
       <Filter>Cordis\Scripts\Managers\Sound\Public</Filter>
     </ClInclude>
@@ -8211,7 +8199,7 @@
       <Filter>Cordis\Scripts\XR\Public</Filter>
     </ClInclude>
     <ClInclude Include="Script_EntitySounds.h">
-      <Filter>Cordis\Scripts\Entities\Sound\Public</Filter>
+      <Filter>Cordis\Scripts\Entities %28not server entities!%29\Sound\Public</Filter>
     </ClInclude>
     <ClInclude Include="Script_NewsManager.h">
       <Filter>Cordis\Scripts\Managers\News\Public</Filter>
@@ -8244,7 +8232,7 @@
       <Filter>Cordis\Scripts\Managers\Gulag Generator\Public</Filter>
     </ClInclude>
     <ClInclude Include="Script_SmartTerrainControl.h">
-      <Filter>Cordis\Scripts\Entities\Smart Terrain\Public</Filter>
+      <Filter>Cordis\Scripts\Entities %28not server entities!%29\Smart Terrain\Public</Filter>
     </ClInclude>
     <ClInclude Include="Script_XR_Effects.h">
       <Filter>Cordis\Scripts\XR\Public</Filter>
@@ -8256,6 +8244,9 @@
       <Filter>Cordis\Scripts\XR\Public</Filter>
     </ClInclude>
     <ClInclude Include="Script_SE_SmartCover.h">
+      <Filter>Cordis\Scripts\Server Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="Script_SE_SimulationSquad.h">
       <Filter>Cordis\Scripts\Server Entities</Filter>
     </ClInclude>
   </ItemGroup>
@@ -12366,14 +12357,11 @@
     <ClCompile Include="Script_SimulationBoard.cpp">
       <Filter>Cordis\Scripts\Managers\SimulationBoard\Private</Filter>
     </ClCompile>
-    <ClCompile Include="Script_SimulationSquad.cpp">
-      <Filter>Cordis\Scripts\Entities\Simulation Squad\Private</Filter>
-    </ClCompile>
     <ClCompile Include="Script_SoundManager.cpp">
       <Filter>Cordis\Scripts\Managers\Sound\Private</Filter>
     </ClCompile>
     <ClCompile Include="Script_EntitySounds.cpp">
-      <Filter>Cordis\Scripts\Entities\Sound\Private</Filter>
+      <Filter>Cordis\Scripts\Entities %28not server entities!%29\Sound\Private</Filter>
     </ClCompile>
     <ClCompile Include="Script_NewsManager.cpp">
       <Filter>Cordis\Scripts\Managers\News\Private</Filter>
@@ -12391,9 +12379,12 @@
       <Filter>Cordis\Scripts\Server Entities</Filter>
     </ClCompile>
     <ClCompile Include="Script_SmartTerrainControl.cpp">
-      <Filter>Cordis\Scripts\Entities\Smart Terrain\Private</Filter>
+      <Filter>Cordis\Scripts\Entities %28not server entities!%29\Smart Terrain\Private</Filter>
     </ClCompile>
     <ClCompile Include="Script_SE_SmartCover.cpp">
+      <Filter>Cordis\Scripts\Server Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="Script_SE_SimulationSquad.cpp">
       <Filter>Cordis\Scripts\Server Entities</Filter>
     </ClCompile>
   </ItemGroup>

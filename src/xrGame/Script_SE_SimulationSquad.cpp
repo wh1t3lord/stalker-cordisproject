@@ -1,5 +1,5 @@
 #include "stdafx.h"
-#include "Script_SimulationSquad.h"
+#include "Script_SE_SimulationSquad.h"
 
 namespace Cordis
 {
