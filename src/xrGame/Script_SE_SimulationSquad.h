@@ -31,7 +31,7 @@ public:
 
 private:
     void set_location_types_section(const xr_string& section);
-    void set_squad_sympathy(const float& sympathy);
+    void set_squad_sympathy(const float& sympathy = 0.0f);
 
 private:
     bool m_is_always_walk;
@@ -40,7 +40,7 @@ private:
     std::uint32_t m_current_spot_id;
     std::uint32_t m_current_target_id;
     std::uint32_t m_assigned_target_id;
-    std::uint32_t m_sympathy;
+    float m_sympathy;
     xr_map<std::uint32_t, CondlistData> m_condlist_action;
     xr_map<std::uint32_t, CondlistData> m_condlist_death;
     xr_map<std::uint32_t, CondlistData> m_condlist_invulnerability;
