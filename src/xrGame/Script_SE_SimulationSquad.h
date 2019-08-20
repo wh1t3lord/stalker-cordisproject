@@ -7,12 +7,12 @@ namespace Cordis
 {
 namespace Scripts
 {
-class Script_SimulationSquad : public CSE_ALifeOnlineOfflineGroup
+class Script_SE_SimulationSquad : public CSE_ALifeOnlineOfflineGroup
 {
     using inherited = CSE_ALifeOnlineOfflineGroup;
 public:
-    Script_SimulationSquad(LPCSTR section);
-    virtual ~Script_SimulationSquad(void);
+    Script_SE_SimulationSquad(LPCSTR section);
+    virtual ~Script_SE_SimulationSquad(void);
 };
 
 }
