@@ -12,9 +12,10 @@ struct NpcInfo
     bool m_begin_job;
     std::uint32_t m_stype;
     std::uint32_t m_job_prioprity;
-    std::uint32_t m_job_id;
+//    std::uint32_t m_job_index = Globals::kUnsignedIntUndefined;
     CSE_ALifeDynamicObject* m_server_object; // @ Lord: определить где оно именно удаляется в итоге
     xr_string m_need_job;
+    GulagGenerator::JobData::SubData m_job_link;
 };
 
 struct JobDataSmartTerrain
@@ -93,6 +94,7 @@ private:
     xr_map<std::uint32_t, xrTime> m_dead_time;
     xr_map<xr_string, std::uint32_t> m_npc_by_job_section;
     xr_map<std::uint32_t, CSE_ALifeDynamicObject*> m_arriving_npc;
+    xr_map<std::uint32_t, NpcInfo> m_npc_info;
     xr_vector<CSE_ALifeDynamicObject*> m_npc_to_register;
     xr_string m_smart_level;
     xr_string m_defence_restictor;
