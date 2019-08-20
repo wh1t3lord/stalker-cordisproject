@@ -47,7 +47,8 @@ void Script_SE_SimulationSquad::set_location_types_section(const xr_string& sect
 
 void Script_SE_SimulationSquad::set_squad_sympathy(const float& sympathy)
 {
-    std::uint32_t _sympathy = sympathy ? sympathy : this->m_sympathy;
+
+    float _sympathy = !(fis_zero(sympathy)) ? sympathy : this->m_sympathy;
 
     if (_sympathy)
     {
@@ -58,13 +59,9 @@ void Script_SE_SimulationSquad::set_squad_sympathy(const float& sympathy)
             CScriptGameObject* npc = DataBase::Storage::getInstance().getStorage()[(*it).second->ID].m_object;
 
             if (npc)
-            {
-
-            }
+                Globals::GameRelations::set_npc_sympathy(npc, _sympathy);
             else
-            {
-            
-            }
+                DataBase::Storage::getInstance().getGoodwill_Sympathy()[(*it).second->ID] = _sympathy;
         }
     }
 }
