@@ -7,6 +7,8 @@ namespace Cordis
 {
 namespace Scripts
 {
+
+
 void Script_SimulationBoard::register_smart(Script_SE_SmartTerrain* object)
 {
     if (!object)
@@ -25,6 +27,9 @@ void Script_SimulationBoard::register_smart(Script_SE_SmartTerrain* object)
 
     SmartDataSimulationBoard data;
     data.m_smart = object;
+
+    this->m_smarts[object->ID] = data;
+    this->m_smarts_by_name[object->name()] = object;
 }
 
 } // namespace Scripts
