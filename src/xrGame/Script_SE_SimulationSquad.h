@@ -32,6 +32,7 @@ public:
 private:
     void set_location_types_section(const xr_string& section);
     void set_squad_sympathy(const float& sympathy = 0.0f);
+    void set_squad_behaviour(void);
 
 private:
     bool m_is_always_walk;
@@ -45,6 +46,7 @@ private:
     xr_map<std::uint32_t, CondlistData> m_condlist_death;
     xr_map<std::uint32_t, CondlistData> m_condlist_invulnerability;
     xr_map<std::uint32_t, CondlistData> m_condlist_show_spot;
+    xr_map<xr_string, xr_string> m_behaviour;
     xr_string m_relationship;
     xr_string m_player_id;
     xr_string m_settings_id;
