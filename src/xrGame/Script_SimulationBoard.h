@@ -748,7 +748,7 @@ private:
     };
     const CInifile* m_squad_ltx;
     xr_map<std::uint32_t, SimulationActivitiesType> m_simulation_activities;
-    
+    xr_map<std::uint32_t, SmartDataSimulationBoard> m_smarts;
     xr_map<xr_string, Script_SE_SmartTerrain*> m_smarts_by_name;
     CInifile m_setting_ini;
 };
