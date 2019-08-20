@@ -47,6 +47,13 @@ struct SimulationActivitiesType
     std::function<bool(CSE_ALifeOnlineOfflineGroup*, CSE_ALifeObject*)> m_actor;
 };
 
+struct SmartDataSimulationBoard
+{
+    std::uint32_t m_stayed_squad_quan = 0;
+    Script_SE_SmartTerrain* m_smart;
+    xr_map<std::uint32_t, Script_SimulationSquad*> m_squads;
+};
+
 // @ WA - without arguments
 class Script_SimulationBoard
 {
@@ -692,7 +699,8 @@ private:
         // @ WA
         this->m_simulation_activities[SimulationActivitiesType::monster_zombied_night]
             .m_smart[SimulationActivitiesType::lair] = [](CSE_ALifeOnlineOfflineGroup* squad,
-                                                           CSE_ALifeObject* target) -> bool {return Globals::in_time_interval(6, 19);
+                                                           CSE_ALifeObject* target) -> bool {
+            return Globals::in_time_interval(6, 19);
         };
 
         this->m_simulation_activities[SimulationActivitiesType::monster_zombied_night].m_actor =
@@ -710,9 +718,7 @@ private:
         // @ WA
         this->m_simulation_activities[SimulationActivitiesType::monster_special]
             .m_smart[SimulationActivitiesType::lair] = [](CSE_ALifeOnlineOfflineGroup* squad,
-                                                           CSE_ALifeObject* target) -> bool {
-            return true;
-        };
+                                                           CSE_ALifeObject* target) -> bool { return true; };
     }
 
 public:
@@ -729,6 +735,7 @@ public:
     Script_SimulationBoard& operator=(Script_SimulationBoard&&) = delete;
 
     void setActorCommunity();
+    void register_smart(Script_SE_SmartTerrain* object);
 
 private:
     enum group_id_by_levels
@@ -741,6 +748,8 @@ private:
     };
     const CInifile* m_squad_ltx;
     xr_map<std::uint32_t, SimulationActivitiesType> m_simulation_activities;
+    
+    xr_map<xr_string, Script_SE_SmartTerrain*> m_smarts_by_name;
     CInifile m_setting_ini;
 };
 } // namespace Scripts

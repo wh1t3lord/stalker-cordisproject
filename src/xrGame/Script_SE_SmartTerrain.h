@@ -29,10 +29,14 @@ struct JobDataSmartTerrain
 class Script_SE_SmartTerrain : public CSE_ALifeSmartZone
 {
     using inherited = CSE_ALifeSmartZone;
-
 public:
     Script_SE_SmartTerrain(LPCSTR section);
     virtual ~Script_SE_SmartTerrain(void);
+
+    virtual void on_before_register(void);
+
+
+
 
     inline NpcInfo fill_npc_info(CSE_ALifeDynamicObject* server_object)
     {

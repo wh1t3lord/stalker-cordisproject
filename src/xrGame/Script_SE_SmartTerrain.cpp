@@ -61,6 +61,13 @@ Script_SE_SmartTerrain::~Script_SE_SmartTerrain(void)
     if (this->m_base_on_actor_control)
         delete this->m_base_on_actor_control;
 }
+
+void Script_SE_SmartTerrain::on_before_register(void) 
+{
+    inherited::on_before_register();
+
+}
+
 void Script_SE_SmartTerrain::read_params(void) {}
 } // namespace Scripts
 } // namespace Cordis
