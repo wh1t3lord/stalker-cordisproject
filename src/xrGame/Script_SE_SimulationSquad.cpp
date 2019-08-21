@@ -27,7 +27,8 @@ Script_SE_SimulationSquad::Script_SE_SimulationSquad(LPCSTR section)
       m_is_always_arrived(
           Globals::Utils::cfg_get_bool(Globals::get_system_ini(), this->m_settings_id, "always_arrived", this)),
       m_is_always_walk(
-          Globals::Utils::cfg_get_bool(Globals::get_system_ini(), this->m_settings_id, "always_walk", this))
+          Globals::Utils::cfg_get_bool(Globals::get_system_ini(), this->m_settings_id, "always_walk", this)),
+      m_is_need_to_reset_location_masks(false)
 {
     this->set_location_types_section("stalker_terrain");
     this->set_squad_sympathy();
@@ -39,8 +40,8 @@ void Script_SE_SimulationSquad::set_location_types_section(const xr_string& sect
 {
     if (locations_ini.section_exist(section.c_str()))
     {
-        pcstr N;
-        pcstr V;
+        const char* N;
+        const char* V;
 
         if (locations_ini.r_line(section.c_str(), 0, &N, &V))
             this->add_location_type(N);
@@ -88,8 +89,22 @@ void Script_SE_SimulationSquad::set_squad_behaviour(void)
         const char* Field = nullptr;
         const char* Value = nullptr;
         if (squad_behavior_ini.r_line(behaviour_section_name.c_str(), i, &Field, &Value))
-            this->m_behaviour[Field] = Value;   
+            this->m_behaviour[Field] = Value;
     }
+}
+
+void Script_SE_SimulationSquad::init_squad_on_load(void)
+{
+    Msg("[Scripts/Script_SE_SimulationSquad/init_squad_on_load()] Init squad %s on load",
+        std::to_string(this->ID).c_str());
+
+    this->set_squad_sympathy();
+    Script_SimulationBoard::getInstance().assigned_squad_to_smart(this, this->m_smart_terrain_id);
+
+    if (this->m_smart_terrain_id)
+        Script_SimulationBoard::getInstance().enter_squad_to_smart(this, this->m_smart_terrain_id);
+    
+    this->m_is_need_to_reset_location_masks = true;
 }
 
 } // namespace Scripts

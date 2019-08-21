@@ -33,10 +33,11 @@ private:
     void set_location_types_section(const xr_string& section);
     void set_squad_sympathy(const float& sympathy = 0.0f);
     void set_squad_behaviour(void);
-
+    void init_squad_on_load(void);
 private:
     bool m_is_always_walk;
     bool m_is_always_arrived;
+    bool m_is_need_to_reset_location_masks;
     std::uint32_t m_smart_terrain_id;
     std::uint32_t m_current_spot_id;
     std::uint32_t m_current_target_id;
