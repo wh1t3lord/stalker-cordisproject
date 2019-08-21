@@ -73,7 +73,8 @@ inline std::uint16_t Script_SE_SimulationSquad::getScriptTarget(void)
 
     if (!smart)
     {
-        Msg("[Scripts/Script_SE_SimulationSquad/getScriptTarget()] Incorrect next point [%s] for squad [%s]", _new_target.c_str(), std::to_string(this->ID).c_str());
+        Msg("[Scripts/Script_SE_SimulationSquad/getScriptTarget()] Incorrect next point [%s] for squad [%s]",
+            _new_target.c_str(), std::to_string(this->ID).c_str());
         R_ASSERT(false);
         return std::uint16_t(0);
     }
@@ -150,6 +151,26 @@ void Script_SE_SimulationSquad::init_squad_on_load(void)
         Script_SimulationBoard::getInstance().enter_squad_to_smart(this, this->m_smart_terrain_id);
 
     this->m_is_need_to_reset_location_masks = true;
+}
+
+bool Script_SE_SimulationSquad::check_squad_come_to_point(void)
+{
+    if (!this->m_parsed_targets.size())
+        return true;
+
+    // @ If we already to come
+    std::uint32_t next_target_index = this->m_next_target_index ? this->m_next_target_index : 0;
+
+    if (this->m_assigned_target_id && this->m_smart_terrain_id == this->m_assigned_target_id)
+    {
+        if (this->m_parsed_targets[next_target_index].size())
+        {
+            this->m_next_target_index = next_target_index + 1;
+            return true;
+        }
+    }
+
+    return false;
 }
 
 } // namespace Scripts
