@@ -300,11 +300,22 @@ struct ReachTarget
         this->m_name.clear();
     }
 
-    inline bool update(const bool& value) 
+    inline bool update(const bool& is_under_simulation)
     {
         // Lord: нужно ли делать метод cast_to_script_se_simulationsquad в CSE_ALifeDynamicObject
         Script_SE_SimulationSquad* squad = (Script_SE_SimulationSquad*)ai().alife().objects().object(this->m_squad_id);
-        
+        CSE_ALifeDynamicObject* squad_target =
+            Script_SimulationObjects::getInstance().getObjects()[squad->getAssignedTargetID()];
+
+        if (!squad_target)
+        {
+           // R_ASSERT2(false, "object was null");
+            
+            return true;
+        }
+
+        if (!is_under_simulation)
+            squad_target = ai().alife().objects().object(squad->getAssignedTargetID());
     }
 };
 
