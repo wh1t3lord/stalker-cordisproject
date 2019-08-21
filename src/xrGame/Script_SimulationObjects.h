@@ -22,6 +22,11 @@ public:
     Script_SimulationObjects(Script_SimulationObjects&&) = delete;
     Script_SimulationObjects& operator=(Script_SimulationObjects&&) = delete;
 
+
+    #pragma region Getters
+    
+    #pragma endregion
+
     float evaluate_priority(CSE_ALifeDynamicObject* target, CSE_ALifeDynamicObject* squad);
 
     void registrate(CSE_ALifeDynamicObject* object);

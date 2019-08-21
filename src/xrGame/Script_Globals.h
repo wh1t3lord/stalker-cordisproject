@@ -269,18 +269,43 @@ struct StayOnTarget
     float m_idle_time = Globals::Script_RandomFloat::getInstance().Generate(
         kSimulationSquadActionsStayPointIdleMin, kSimulationSquadActionsStayPointIdleMax);
     xrTime m_start_time = 0;
-    xr_string m_name = "";
+    xr_string m_name = "stay_point";
 
     inline bool update(const bool& value)
     {
         if (!value)
             return true;
-        
 
         return get_time_struct().diffSec(this->m_start_time) > this->m_idle_time;
     }
 
     inline void make(const bool& value) { this->m_start_time = get_time_struct(); }
+
+    inline void Clear(void) noexcept
+    {
+        this->m_name.clear();
+        this->m_idle_time = 0.0f;
+        this->m_start_time = 0;
+    }
+};
+
+struct ReachTarget
+{
+    std::uint16_t m_squad_id = kUnsignedIntUndefined;
+    xr_string m_name = "reach_target";
+
+    inline void Clear(void) noexcept
+    {
+        this->m_squad_id = kUnsignedIntUndefined;
+        this->m_name.clear();
+    }
+
+    inline bool update(const bool& value) 
+    {
+        // Lord: нужно ли делать метод cast_to_script_se_simulationsquad в CSE_ALifeDynamicObject
+        Script_SE_SimulationSquad* squad = (Script_SE_SimulationSquad*)ai().alife().objects().object(this->m_squad_id);
+        
+    }
 };
 
 #pragma endregion
