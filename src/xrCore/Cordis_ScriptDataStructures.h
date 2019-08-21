@@ -81,7 +81,7 @@ struct SmartCoverData
                 Fvector m_position;
                 xr_string m_animation;
             };
-            Actions m_action; 
+            Actions m_action;
         };
         float m_weight;
         xr_string m_vertex0;
@@ -91,8 +91,6 @@ struct SmartCoverData
 
     xr_vector<SmartCoverTransitionsData> m_transitions;
 };
-
-
 
 } // namespace Scripts
 } // namespace Cordis
