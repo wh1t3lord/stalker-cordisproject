@@ -22,10 +22,9 @@ public:
     Script_SimulationObjects(Script_SimulationObjects&&) = delete;
     Script_SimulationObjects& operator=(Script_SimulationObjects&&) = delete;
 
-
-    #pragma region Getters
-    
-    #pragma endregion
+#pragma region Getters
+    inline xr_map<std::uint16_t, CSE_ALifeDynamicObject*>& getObjects(void) { return this->m_objects; }
+#pragma endregion
 
     float evaluate_priority(CSE_ALifeDynamicObject* target, CSE_ALifeDynamicObject* squad);
 
