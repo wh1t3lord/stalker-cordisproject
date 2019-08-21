@@ -105,7 +105,9 @@ using RTokenVec = xr_vector<xr_rtoken>;
 #include "net_utils.h"
 
 #pragma region Cordis BOOST Includes 
-#include <boost/regex.h>
+#include <boost/regex.hpp>
+#include <boost/algorithm/algorithm.hpp>
+#include <boost/algorithm/string.hpp>
 #pragma endregion
 
 #pragma region Cordis Includes

@@ -19,7 +19,8 @@ public:
     inline std::uint32_t getCurrentSpotID(void) noexcept { return this->m_current_spot_id; }
     inline std::uint32_t getCurrentTargetID(void) noexcept { return this->m_current_target_id; }
     inline std::uint32_t getAssignedTargetID(void) noexcept { return this->m_assigned_target_id; }
-    inline xr_string& getSettingsID(void) noexcept { return this->m_settings_id; }
+    inline xr_string& getSettingsID(void) noexcept { return this->m_settings_id_name; }
+    inline std::uint16_t getScriptTarget(void);
 #pragma endregion
 
 #pragma region Cordis Setters
@@ -34,23 +35,29 @@ private:
     void set_squad_sympathy(const float& sympathy = 0.0f);
     void set_squad_behaviour(void);
     void init_squad_on_load(void);
+    inline xr_string& pick_next_target(void) { return this->m_parsed_targets[this->m_next_target_index]; }
+
 private:
     bool m_is_always_walk;
     bool m_is_always_arrived;
     bool m_is_need_to_reset_location_masks;
+    bool m_is_need_free_update;
     std::uint32_t m_smart_terrain_id;
     std::uint32_t m_current_spot_id;
     std::uint32_t m_current_target_id;
     std::uint32_t m_assigned_target_id;
+    std::uint32_t m_next_target_index;
     float m_sympathy;
     xr_map<std::uint32_t, CondlistData> m_condlist_action;
     xr_map<std::uint32_t, CondlistData> m_condlist_death;
     xr_map<std::uint32_t, CondlistData> m_condlist_invulnerability;
     xr_map<std::uint32_t, CondlistData> m_condlist_show_spot;
     xr_map<xr_string, xr_string> m_behaviour;
-    xr_string m_relationship;
-    xr_string m_player_id;
-    xr_string m_settings_id;
+    xr_vector<xr_string> m_parsed_targets;
+    xr_string m_relationship_name;
+    xr_string m_player_id_name;
+    xr_string m_settings_id_name;
+    xr_string m_last_target_name;
     Script_SoundManager m_sound_manager;
 };
 

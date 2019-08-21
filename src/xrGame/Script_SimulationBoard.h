@@ -734,6 +734,12 @@ public:
     Script_SimulationBoard(Script_SimulationBoard&&) = delete;
     Script_SimulationBoard& operator=(Script_SimulationBoard&&) = delete;
 
+    #pragma region Getters
+    inline xr_map<xr_string, Script_SE_SmartTerrain*>& getSmartTerrainsByName(void) { return this->m_smarts_by_name; }
+    #pragma endregion
+
+
+
     inline void start_simulation(void) noexcept { this->m_is_simulation_started = true; }
     inline void stop_simulation(void) noexcept { this->m_is_simulation_started = false; }
 
@@ -748,10 +754,7 @@ public:
         DataBase::Storage::getInstance().getActor()->SetCharacterCommunity(buffer, 0, 0);
     }
 
-    void register_smart(Script_SE_SmartTerrain* object);
-    void init_smart(Script_SE_SmartTerrain* object);
-
-    inline void assigned_squad_to_smart(Script_SE_SimulationSquad* squad, const std::uint32_t& smart_id)
+        inline void assigned_squad_to_smart(Script_SE_SimulationSquad* squad, const std::uint32_t& smart_id)
     {
         if (!squad)
         {
@@ -770,8 +773,6 @@ public:
             this->m_temporary_assigned_squad[smart_id] = squad;
             return;
         }
-
-        
     }
 
     inline void enter_squad_to_smart(Script_SE_SimulationSquad* squad, const std::uint32_t& smart_id)
@@ -781,6 +782,11 @@ public:
             return;
         }
     }
+
+    void register_smart(Script_SE_SmartTerrain* object);
+    void init_smart(Script_SE_SmartTerrain* object);
+
+
 
 private:
     enum group_id_by_levels

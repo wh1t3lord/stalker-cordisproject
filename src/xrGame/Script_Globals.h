@@ -439,6 +439,33 @@ inline xr_string get_scheme_by_section(xr_string& data)
 
     return result.erase(result.find('@'));
 }
+
+inline xr_vector<xr_string> parse_names(const xr_string& buffer)
+{
+    xr_vector<xr_string> result;
+    if (!buffer.size())
+    {
+        R_ASSERT2(false, "You are trying to parse an empty string!");
+        return result;
+    }
+
+    const char* pattern = "[^,]+";
+    boost::regex regex(pattern);
+
+    boost::sregex_iterator it(buffer.begin(), buffer.end(), regex);
+    boost::sregex_iterator end;
+
+    for (; it != end; ++it)
+    {
+        xr_string value_name = it->str().c_str();
+        boost::algorithm::trim(value_name);
+
+        result.push_back(value_name);
+    }
+
+    return result;
+}
+
 } // namespace Utils
 namespace Game
 {
