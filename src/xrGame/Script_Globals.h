@@ -33,6 +33,9 @@ constexpr unsigned int kSTypeItem = 2;
 constexpr unsigned int kSTypeHelicopter = 3;
 constexpr unsigned int kSTypeRestrictor = 4;
 
+constexpr float kSimulationSquadActionsStayPointIdleMin = 180.0f * 60.0f;
+constexpr float kSimulationSquadActionsStayPointIdleMax = 300.0f * 60.0f;
+
 #pragma region Cordis SmartTerrain
 constexpr std::uint32_t kSmartTerrainDeathIdleTime = 600;
 constexpr std::uint32_t kSmartTerrainRespawnIdle = 1000;
@@ -258,6 +261,28 @@ public:
 private:
     std::mt19937 m_generator;
 };
+#pragma endregion
+
+#pragma region Cordis Custom Datas
+struct StayOnTarget
+{
+    float m_idle_time = Globals::Script_RandomFloat::getInstance().Generate(
+        kSimulationSquadActionsStayPointIdleMin, kSimulationSquadActionsStayPointIdleMax);
+    xrTime m_start_time = 0;
+    xr_string m_name = "";
+
+    inline bool update(const bool& value)
+    {
+        if (!value)
+            return true;
+        
+
+        return get_time_struct().diffSec(this->m_start_time) > this->m_idle_time;
+    }
+
+    inline void make(const bool& value) { this->m_start_time = get_time_struct(); }
+};
+
 #pragma endregion
 
 namespace Utils
