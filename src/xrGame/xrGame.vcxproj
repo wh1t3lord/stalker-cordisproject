@@ -1492,6 +1492,7 @@ $(xrLibDir);$(xrSdkDir)DXSDK/Lib/$(PlatformShortName);
     <ClInclude Include="script_entity_space.h" />
     <ClInclude Include="script_game_object.h" />
     <ClInclude Include="script_game_object_impl.h" />
+    <ClInclude Include="Script_GlobalDefinitions.h" />
     <ClInclude Include="Script_GlobalHelper.h" />
     <ClInclude Include="Script_Globals.h" />
     <ClInclude Include="Script_Globalsinline.h" />

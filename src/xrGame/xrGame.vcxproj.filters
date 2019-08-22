@@ -8249,6 +8249,9 @@
     <ClInclude Include="Script_SE_SimulationSquad.h">
       <Filter>Cordis\Scripts\Server Entities</Filter>
     </ClInclude>
+    <ClInclude Include="Script_GlobalDefinitions.h">
+      <Filter>Cordis\Scripts\Global\Globals\Public</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="damage_manager.cpp">
