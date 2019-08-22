@@ -51,6 +51,7 @@ private:
     bool check_squad_come_to_point(void);
     inline xr_string& pick_next_target(void) { return this->m_parsed_targets[this->m_next_target_index]; }
 
+
 private:
     bool m_is_always_walk;
     bool m_is_always_arrived;
