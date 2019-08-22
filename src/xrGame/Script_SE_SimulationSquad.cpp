@@ -2,7 +2,6 @@
 #include "Script_SE_SimulationSquad.h"
 #include "Script_XR_Logic.h"
 
-
 CInifile squad_behavior_ini = CInifile("misc\\squad_behaviours.ltx");
 CInifile locations_ini = CInifile("misc\\smart_terrain_masks.ltx");
 
@@ -92,6 +91,67 @@ void Script_SE_SimulationSquad::set_location_types_section(const xr_string& sect
 
         if (locations_ini.r_line(section.c_str(), 0, &N, &V))
             this->add_location_type(N);
+    }
+}
+
+void Script_SE_SimulationSquad::set_location_types(const xr_string& new_smart_name)
+{
+    if (!new_smart_name.size())
+    {
+        R_ASSERT2(false, "string can't be empty!");
+        return;
+    }
+
+    xr_string default_location_name = "stalker_terrain";
+    this->clear_location_types();
+
+    if (ai().alife().objects().object(this->m_assigned_target_id)->script_clsid() == CLSID_SE_SMART_TERRAIN)
+    {
+        this->set_location_types_section(default_location_name);
+        xr_string old_smart_name = "";
+
+        if (this->m_smart_terrain_id)
+        {
+            CSE_ALifeDynamicObject* server_object = ai().alife().objects().object(this->m_smart_terrain_id);
+            if (server_object)
+            {
+                old_smart_name = server_object->name_replace();
+            }
+        }
+
+        Msg("[Scripts/Script_SE_SmartTerrain/set_location_types(new_smart_name)] Old smart terrain name [%s]",
+            old_smart_name.c_str());
+
+        if (old_smart_name.size())
+            this->set_location_types_section(old_smart_name);
+
+        Msg("[Scripts/Script_SE_SmartTerrain/set_location_types(new_smart_name)] New smart terrain name [%s]",
+            new_smart_name.c_str());
+
+        if (new_smart_name.c_str())
+            this->set_location_types_section(new_smart_name);
+    }
+    else
+    {
+        Msg("[Scripts/Script_SE_SmartTerrain/set_location_types(new_smart_name)] The target is squad or actor setting "
+            "[squad_terrain]!");
+
+        this->set_location_types_section("squad_terrain");
+
+        for (std::pair<const std::uint16_t, CSE_ALifeDynamicObject*>& it :
+            Script_SimulationObjects::getInstance().getObjects())
+        {
+            CSE_ALifeDynamicObject* server_object = ai().alife().objects().object(it.first);
+            if (server_object)
+            {
+                if (server_object->script_clsid() == CLSID_SE_SMART_TERRAIN)
+                {
+                    xr_string properties_base = server_object->getProperties()["base"];
+                    if (properties_base.size())
+                        this->set_location_types_section(server_object->name_replace());
+                }
+            }
+        }
     }
 }
 
