@@ -313,6 +313,7 @@ void teleport_object(CALifeSimulator* alife, ALife::_OBJECT_ID id, GameGraph::_G
 }
 //-Alundaio
 
+/*
 SCRIPT_EXPORT(CALifeSimulator, (),
 {
     module(luaState)
@@ -400,6 +401,7 @@ SCRIPT_EXPORT(CALifeSimulator, (),
         luabind::module(luaState)[instance];
     }
 });
+*/
 
 #if 0 // def DEBUG
 struct dummy {
