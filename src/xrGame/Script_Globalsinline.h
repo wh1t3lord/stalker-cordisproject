@@ -260,9 +260,35 @@ inline xr_string character_community(CScriptGameObject* object)
     return "monster";
 }
 
-inline void change_team_squad_group(CSE_ALifeDynamicObject* server_object, const std::uint8_t& team, const std::uint8_t& group, const std::uint8_t& squad) 
+inline void change_team_squad_group(CSE_ALifeDynamicObject* server_object, const std::uint8_t& team,
+    const std::uint8_t& group, const std::uint8_t& squad)
 {
- 
+    if (!server_object)
+    {
+        R_ASSERT2(false, "object was null!");
+        return;
+    }
+
+    CSE_ALifeCreatureAbstract* server_creature = server_object->cast_creature_abstract();
+
+    if (!server_creature)
+    {
+        R_ASSERT2(false, "bad casting check your server_object!!!");
+        return;
+    }
+
+    CScriptGameObject* client_object = DataBase::Storage::getInstance().getStorage()[server_object->ID].m_object;
+
+    if (!client_object)
+    {
+        server_creature->s_team = team;
+        server_creature->s_squad = squad;
+        server_creature->s_group = group;
+    }
+    else
+    {
+        client_object->ChangeTeam(team, squad, group);
+    }
 }
 
 inline bool is_level_present(void) { return (!!g_pGameLevel); }
