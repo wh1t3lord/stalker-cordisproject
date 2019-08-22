@@ -387,7 +387,7 @@ inline float graph_distance(const std::uint16_t& gamevertexid_1, const std::uint
 }
 
 inline bool cfg_get_bool(const CInifile* char_ini, const xr_string& section, const xr_string& field,
-    CScriptGameObject* object, bool mandatory = false)
+    CScriptGameObject* object = nullptr, bool mandatory = false)
 {
     xr_string object_name;
 
@@ -453,7 +453,7 @@ inline bool cfg_get_bool(const CInifile* char_ini, const xr_string& section, con
 }
 
 inline float cfg_get_number(const CInifile* char_ini, const xr_string& section, const xr_string& field,
-    CScriptGameObject* object, bool mandatory = false)
+    CScriptGameObject* object = nullptr, bool mandatory = false)
 {
     xr_string object_name;
 
@@ -564,7 +564,7 @@ inline xrTime get_game_time(void) noexcept { return get_time_struct(); }
 
 namespace level
 {
-LPCSTR get_name(void) { return (*Level().name()); }
+inline LPCSTR get_name(void) { return (*Level().name()); }
 } // namespace level
 
 } // namespace Game
@@ -655,6 +655,7 @@ inline bool is_accessible_job(CSE_ALifeDynamicObject* server_object, const char*
 #include "Script_SmartTerrainControl.h"
 /*#include "Script_GulagGenerator.h"*/
 #include "Script_SE_SmartTerrain.h"
+#include "Script_SE_SimulationSquad.h"
 #include "Script_LogicEntity.h"
 #include "Script_LogicManager.h"
 #include "Script_Database.h"

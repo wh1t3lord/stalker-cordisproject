@@ -7,6 +7,14 @@ namespace Cordis
 {
 namespace Scripts
 {
+class Script_SE_SimulationSquad;
+}
+} // namespace Cordis
+
+namespace Cordis
+{
+namespace Scripts
+{
 struct NpcInfo;
 
 struct JobData_SubData

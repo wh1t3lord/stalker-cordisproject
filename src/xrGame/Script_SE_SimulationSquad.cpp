@@ -2,6 +2,7 @@
 #include "Script_SE_SimulationSquad.h"
 #include "Script_XR_Logic.h"
 
+
 CInifile squad_behavior_ini = CInifile("misc\\squad_behaviours.ltx");
 CInifile locations_ini = CInifile("misc\\smart_terrain_masks.ltx");
 
