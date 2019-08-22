@@ -79,9 +79,29 @@ void Script_SimulationBoard::setup_squad_and_group(CSE_ALifeDynamicObject* objec
         return;
     }
 
-    if (server_squad->getCurrentAction().m_name.size() && server_squad->getCurrentAction().m_name == "reach_target")
+    Script_SE_SmartTerrain* smart = nullptr;
+    if (server_squad->getCurrentAction().m_name.size() &&
+        server_squad->getCurrentAction().m_name == Globals::kSimulationSquadCurrentActionIDReachTarget)
     {
-    
+        smart = ai().alife().objects().object(server_squad->getAssignedTargetID())->cast_script_se_smartterrain();
+    }
+    else if (server_squad->getSmartTerrainID())
+    {
+        smart = ai().alife().objects().object(server_squad->getSmartTerrainID())->cast_script_se_smartterrain();
+    }
+
+    if (!smart)
+    {
+        Msg("[Scripts/Script_SimulationBoard/setup_squad_and_group(object)] WARNING: bad casting!");
+        Globals::change_team_squad_group(object, server_monster->s_team, server_monster->s_group, 0);
+        return;
+    }
+
+    std::uint16_t object_squad_id = 0;
+
+    if (smart->clsid() == CLSID_SE_SMART_TERRAIN)
+    {
+        object_squad_id = smart->getSquadID();
     }
 }
 

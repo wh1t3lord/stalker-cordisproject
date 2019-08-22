@@ -268,25 +268,43 @@ private:
 #pragma endregion
 
 #pragma region Cordis Custom Datas
-struct StayOnTarget
+struct StayReachOnTarget
 {
     float m_idle_time = Globals::Script_RandomFloat::getInstance().Generate(
         kSimulationSquadActionsStayPointIdleMin, kSimulationSquadActionsStayPointIdleMax);
     std::uint16_t m_squad_id = kUnsignedInt16Undefined;
     xrTime m_start_time = 0;
-    xr_string m_name = "stay_point";
+    xr_string m_name = "";
 
     inline bool update(const bool& value)
     {
-        if (this->m_squad_id && this->m_name == )
+        if (!this->m_name.size())
         {
+            R_ASSERT2(false, "You must indentifying your class's ID!");
+            return false;
+        }
 
+        if (this->m_squad_id && this->m_name == kSimulationSquadCurrentActionIDReachTarget)
+        {
+        }
+        else
+        {
+            R_ASSERT2(false, "Something bad!");
         }
 
         if (this->m_squad_id == kUnsignedInt16Undefined)
         {
-           
+            if (!value)
+                return true;
+
+            return get_time_struct().diffSec(this->m_start_time) > this->m_idle_time;
         }
+        else
+        {
+            R_ASSERT2(false, "Something bad!");
+        }
+
+        return false;
     }
 
     inline void make(const bool& value) { this->m_start_time = get_time_struct(); }

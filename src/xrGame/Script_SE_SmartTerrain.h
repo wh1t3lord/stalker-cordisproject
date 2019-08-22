@@ -114,6 +114,7 @@ public:
             stype = Globals::kSTypeStalker;
     }
 
+#pragma region Cordis Getters
     inline xr_string getDefenceRestirctor(void) noexcept { return this->m_defence_restictor; }
     inline xr_string getAttackRestrictor(void) noexcept { return this->m_attack_restrictor; }
     inline xr_string getSafeRestrictor(void) noexcept { return this->m_safe_restirctor; }
@@ -124,9 +125,15 @@ public:
     {
         return this->m_npc_by_job_section[job_name];
     }
+    inline std::uint16_t getSquadID(void) noexcept { return this->m_squad_id; }
+
+#pragma endregion
+
+#pragma region Cordis Setters
     inline void setDefenceRestrictor(const xr_string& string) noexcept { this->m_defence_restictor = string; }
     inline void setAttackRestrictor(const xr_string& string) noexcept { this->m_attack_restrictor = string; }
     inline void setSafeRestrictor(const xr_string& string) noexcept { this->m_safe_restirctor = string; }
+#pragma endregion
 
     void read_params(void);
     void on_after_reach(Script_SE_SimulationSquad* squad);
@@ -134,6 +141,7 @@ public:
 private:
     bool m_is_initialized;
     bool m_is_registered;
+    std::uint16_t m_squad_id;
     std::uint32_t m_population;
     int a = sizeof(xrTime);
     xrTime m_smart_alarm_time;

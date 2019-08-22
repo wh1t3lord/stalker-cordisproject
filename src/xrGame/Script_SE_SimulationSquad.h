@@ -23,7 +23,7 @@ public:
     inline std::uint32_t getAssignedTargetID(void) noexcept { return this->m_assigned_target_id; }
     inline xr_string& getSettingsID(void) noexcept { return this->m_settings_id_name; }
     inline std::uint16_t getScriptTarget(void);
-    inline Globals::StayOnTarget& getCurrentAction(void) noexcept { return this->m_current_action; }
+    inline Globals::StayReachOnTarget& getCurrentAction(void) noexcept { return this->m_current_action; }
 #pragma endregion
 
 #pragma region Cordis Setters
@@ -62,7 +62,7 @@ private:
     xr_string m_player_id_name;
     xr_string m_settings_id_name;
     xr_string m_last_target_name;
-    Globals::StayOnTarget m_current_action;
+    Globals::StayReachOnTarget m_current_action;
     Script_SoundManager m_sound_manager;
 };
 
