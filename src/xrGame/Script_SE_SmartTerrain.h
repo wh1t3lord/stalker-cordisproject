@@ -145,7 +145,7 @@ public:
 
     void read_params(void);
     void on_after_reach(Script_SE_SimulationSquad* squad);
-    void on_reach_target();
+    void on_reach_target(Script_SE_SimulationSquad* squad);
 
 private:
     bool m_is_initialized;
