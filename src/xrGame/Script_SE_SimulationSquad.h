@@ -8,6 +8,73 @@ namespace Cordis
 {
 namespace Scripts
 {
+namespace Globals
+{
+class Script_RandomFloat;
+}
+} // namespace Scripts
+} // namespace Cordis
+
+namespace Cordis
+{
+namespace Scripts
+{
+
+struct StayReachOnTarget
+{
+    float m_idle_time = Globals::Script_RandomFloat::getInstance().Generate(
+        Globals::kSimulationSquadActionsStayPointIdleMin, Globals::kSimulationSquadActionsStayPointIdleMax);
+    std::uint16_t m_squad_id = Globals::kUnsignedInt16Undefined;
+    xrTime m_start_time = 0;
+    xr_string m_name = "";
+
+    inline bool update(const bool& value)
+    {
+        if (!this->m_name.size())
+        {
+            R_ASSERT2(false, "You must indentifying your class's ID!");
+            return false;
+        }
+
+        if (this->m_squad_id && this->m_name == Globals::kSimulationSquadCurrentActionIDReachTarget)
+        {
+        }
+        else
+        {
+            R_ASSERT2(false, "Something bad!");
+        }
+
+        if (this->m_squad_id == Globals::kUnsignedInt16Undefined)
+        {
+            if (!value)
+                return true;
+
+            return get_time_struct().diffSec(this->m_start_time) > this->m_idle_time;
+        }
+        else
+        {
+            R_ASSERT2(false, "Something bad!");
+        }
+
+        return false;
+    }
+
+    inline void make(const bool& value) { this->m_start_time = get_time_struct(); }
+
+    inline void Clear(void) noexcept
+    {
+        this->m_name.clear();
+        this->m_idle_time = 0.0f;
+        this->m_start_time = 0;
+    }
+};
+} // namespace Scripts
+} // namespace Cordis
+
+namespace Cordis
+{
+namespace Scripts
+{
 class Script_SE_SimulationSquad : public CSE_ALifeOnlineOfflineGroup
 {
     using inherited = CSE_ALifeOnlineOfflineGroup;
@@ -25,7 +92,7 @@ public:
     inline std::uint32_t getAssignedTargetID(void) noexcept { return this->m_assigned_target_id; }
     inline xr_string& getSettingsID(void) noexcept { return this->m_settings_id_name; }
     inline std::uint16_t getScriptTarget(void);
-    inline Globals::StayReachOnTarget& getCurrentAction(void) noexcept { return this->m_current_action; }
+    inline StayReachOnTarget& getCurrentAction(void) noexcept { return this->m_current_action; }
 #pragma endregion
 
 #pragma region Cordis Setters
@@ -37,8 +104,8 @@ public:
 
     void set_location_types(const xr_string& new_smart_name);
     void create_npc(Script_SE_SmartTerrain* spawn_smart);
-    std::uint16_t add_squad_member(const xr_string& spawn_section_name, const Fvector& spawn_position, const std::uint32_t& level_vertex_id, const std::uint16_t& game_vertex_id);
- 
+    std::uint16_t add_squad_member(const xr_string& spawn_section_name, const Fvector& spawn_position,
+        const std::uint32_t& level_vertex_id, const std::uint16_t& game_vertex_id);
 
 private:
     void set_location_types_section(const xr_string& section);
@@ -50,7 +117,6 @@ private:
     void hide(void);
     bool check_squad_come_to_point(void);
     inline xr_string& pick_next_target(void) { return this->m_parsed_targets[this->m_next_target_index]; }
-
 
 private:
     bool m_is_always_walk;
@@ -75,7 +141,7 @@ private:
     xr_string m_settings_id_name;
     xr_string m_last_target_name;
     xr_string m_spot_section_name;
-    Globals::StayReachOnTarget m_current_action;
+    StayReachOnTarget m_current_action;
     Script_SoundManager m_sound_manager;
 };
 
