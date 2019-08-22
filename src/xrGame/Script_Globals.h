@@ -33,10 +33,13 @@ constexpr unsigned int kSTypeItem = 2;
 constexpr unsigned int kSTypeHelicopter = 3;
 constexpr unsigned int kSTypeRestrictor = 4;
 
+#pragma region Cordis SimulationSquad
 constexpr float kSimulationSquadActionsStayPointIdleMin = 180.0f * 60.0f;
 constexpr float kSimulationSquadActionsStayPointIdleMax = 300.0f * 60.0f;
 constexpr const char* kSimulationSquadCurrentActionIDStayOnTarget = "stay_target";
 constexpr const char* kSimulationSquadCurrentActionIDReachTarget = "reach_target";
+#pragma endregion
+
 #pragma region Cordis SmartTerrain
 constexpr std::uint32_t kSmartTerrainDeathIdleTime = 600;
 constexpr std::uint32_t kSmartTerrainRespawnIdle = 1000;
