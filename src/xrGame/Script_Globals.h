@@ -34,11 +34,11 @@ constexpr unsigned int kSTypeHelicopter = 3;
 constexpr unsigned int kSTypeRestrictor = 4;
 constexpr const char* kRelationsTypeEnemy = "enemy";
 constexpr const char* kRelationsTypeFriends = "friends";
-constexpr const char* kRelationTypeNeutral = "neutral";
+constexpr const char* kRelationsTypeNeutral = "neutral";
 constexpr int kRelationKoeffEnemy = -1000;
 constexpr int kRelationKoeffNeutral = 0;
 constexpr int kRelationKoeffFriend = 1000;
-constexpr float kRealtionDefaultSympathy = 0.1f;
+constexpr float kRelationDefaultSympathy = 0.1f;
 
 #pragma region Cordis SimulationSquad
 constexpr float kSimulationSquadActionsStayPointIdleMin = 180.0f * 60.0f;
@@ -641,11 +641,6 @@ inline CSE_Abstract* alife_create(const xr_string& section, const Fvector& posit
     return (alife->server().Process_spawn(packet, clientID));
 }
 
-inline void map_remove_object_spot(const std::uint16_t& id, LPCSTR spot_type)
-{
-    Level().MapManager().RemoveMapLocation(spot_type, id);
-}
-
 inline xr_string get_squad_relation_to_actor_by_id(const std::uint16_t& squad_id)
 {
     Script_SE_SimulationSquad* squad = ai().alife().objects().object(squad_id)->cast_script_se_simulationsquad();
@@ -687,7 +682,7 @@ inline xr_string get_squad_relation_to_actor_by_id(const std::uint16_t& squad_id
             return kRelationsTypeFriends;
 
         if (delta < kRelationKoeffFriend && delta > kRelationKoeffEnemy)
-            return kRelationTypeNeutral;
+            return kRelationsTypeNeutral;
     }
 
     return kRelationsTypeEnemy;
@@ -696,6 +691,10 @@ inline xr_string get_squad_relation_to_actor_by_id(const std::uint16_t& squad_id
 namespace level
 {
 inline LPCSTR get_name(void) { return (*Level().name()); }
+inline void map_remove_object_spot(const std::uint16_t& id, LPCSTR spot_type)
+{
+    Level().MapManager().RemoveMapLocation(spot_type, id);
+}
 } // namespace level
 
 } // namespace Game

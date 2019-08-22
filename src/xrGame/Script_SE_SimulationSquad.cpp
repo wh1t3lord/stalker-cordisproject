@@ -226,7 +226,7 @@ void Script_SE_SimulationSquad::create_npc(Script_SE_SmartTerrain* spawn_smart)
         for (std::uint32_t i = 0; i < result_value; ++i)
         {
             // @ Lord: нормально ли будет работать??? Не проверять если count_names > result_value ???
-            std::uint32_t id = Globals::Script_RandomInt::getInstance().Generate(0, count_names);
+            std::uint32_t id = Globals::Script_RandomInt::getInstance().Generate(std::uint32_t(0), count_names);
             this->add_squad_member(
                 random_spawn_names[id], base_spawn_position, base_level_vertex_id, base_game_vertex_id);
         }
@@ -371,7 +371,21 @@ void Script_SE_SimulationSquad::show(void)
 
     if (!Script_GlobalHelper::getInstance().getSimulationSquadIsSquadMonster()[this->m_player_id_name])
     {
-    
+        xr_string relation_name = Globals::Game::get_squad_relation_to_actor_by_id(this->ID);
+
+        if (relation_name == Globals::kRelationsTypeFriends)
+            spot_name = "alife_presentation_squad_friend";
+
+        if (relation_name == Globals::kRelationsTypeNeutral)
+            spot_name = "alife_presentation_squad_neutral";
+    }
+
+    if (spot_name.size())
+    {
+        if (spot_name == this->m_spot_section_name)
+        {
+            
+        }
     }
 }
 
@@ -380,7 +394,7 @@ void Script_SE_SimulationSquad::hide(void)
     if (!this->m_current_spot_id || !this->m_spot_section_name.size())
         return;
 
-    Globals::Game::map_remove_object_spot(this->m_current_spot_id, this->m_spot_section_name.c_str());
+    Globals::Game::level::map_remove_object_spot(this->m_current_spot_id, this->m_spot_section_name.c_str());
 
     this->m_current_spot_id = 0;
     this->m_spot_section_name = "";
