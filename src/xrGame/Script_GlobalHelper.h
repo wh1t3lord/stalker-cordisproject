@@ -118,7 +118,6 @@ private:
         this->m_registered_smart_terrain_path_fields.push_back(Globals::kSmartTerrainPathFieldPathWalk);
 #pragma endregion
 
-
 #pragma region Cordis SimulationBoard Initializing
         // @ Lord: реализовать автоматическое считываение и сделать нумерацию от 0
         this->m_simulationboard_group_id_by_levels_name["zaton"] = 1;
@@ -222,9 +221,14 @@ public:
         return this->m_registered_smart_terrain_path_fields;
     }
 
-    inline xr_map<xr_string, std::uint32_t>& getSimulationBoardGroupIDLevelsByName(void) noexcept 
+    inline xr_map<xr_string, std::uint32_t>& getSimulationBoardGroupIDLevelsByName(void) noexcept
     {
         return this->m_simulationboard_group_id_by_levels_name;
+    }
+
+    inline xr_map<xr_string, bool>& getSimulationSquadIsSquadMonster(void) noexcept 
+    {
+        return this->m_simulationsquad_is_squad_monster_by_type;
     }
 
 private:
@@ -245,6 +249,7 @@ private:
     xr_map<xr_string, xr_string> m_job_type_by_scheme;
     xr_map<xr_string, std::uint32_t> m_simulationboard_group_id_by_levels_name;
     xr_map<xr_string, bool> m_registered_smart_terrain_territory_type;
+    xr_map<xr_string, bool> m_simulationsquad_is_squad_monster_by_type;
     // @ First - id | Second - distance
     std::pair<std::uint32_t, std::uint32_t> m_game_server_nearest_to_actor_smart_terrain;
     xr_vector<xr_string> m_registered_smart_terrain_path_fields;

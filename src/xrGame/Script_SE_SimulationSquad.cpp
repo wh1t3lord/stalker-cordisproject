@@ -351,7 +351,27 @@ void Script_SE_SimulationSquad::refresh(void)
     }
 }
 
-void Script_SE_SimulationSquad::show(void) {}
+void Script_SE_SimulationSquad::show(void)
+{
+    if (this->m_is_show_disabled)
+    {
+        this->hide();
+        return;
+    }
+
+    if (this->m_current_spot_id != this->commander_id())
+    {
+        this->hide();
+        this->m_current_spot_id = this->commander_id();
+        this->show();
+        return;
+    }
+
+    xr_string spot_name = "";
+
+
+
+}
 
 void Script_SE_SimulationSquad::hide(void)
 {
@@ -362,7 +382,6 @@ void Script_SE_SimulationSquad::hide(void)
 
     this->m_current_spot_id = 0;
     this->m_spot_section_name = "";
-    
 }
 
 bool Script_SE_SimulationSquad::check_squad_come_to_point(void)

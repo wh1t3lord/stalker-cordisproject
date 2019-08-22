@@ -56,6 +56,7 @@ private:
     bool m_is_always_arrived;
     bool m_is_need_to_reset_location_masks;
     bool m_is_need_free_update;
+    bool m_is_show_disabled;
     std::uint32_t m_smart_terrain_id;
     std::uint32_t m_current_spot_id;
     std::uint32_t m_current_target_id;
