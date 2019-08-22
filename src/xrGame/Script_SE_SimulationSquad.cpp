@@ -384,7 +384,28 @@ void Script_SE_SimulationSquad::show(void)
     {
         if (spot_name == this->m_spot_section_name)
         {
-            
+            Globals::Game::level::map_change_spot_hint(this->m_current_spot_id, this->m_spot_section_name.c_str(), "");
+            return;
+        }
+
+        if (!this->m_spot_section_name.size())
+        {
+            Globals::Game::level::map_add_object_spot(this->m_current_spot_id, spot_name.c_str(), "");
+        }
+        else
+        {
+            Globals::Game::level::map_remove_object_spot(this->m_current_spot_id, this->m_spot_section_name.c_str());
+            Globals::Game::level::map_add_object_spot(this->m_current_spot_id, spot_name.c_str(), "");
+        }
+
+        this->m_spot_section_name = spot_name;
+    }
+    else
+    {
+        if (this->m_spot_section_name.size())
+        {
+            Globals::Game::level::map_remove_object_spot(this->m_current_spot_id, this->m_spot_section_name.c_str());
+            this->m_spot_section_name.clear();
         }
     }
 }
