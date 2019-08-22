@@ -52,7 +52,10 @@ constexpr const char* kSmartTerrainPathFieldCenterPoint = "center_point";
 #pragma endregion
 
 #pragma region Cordis SYSTEM
-constexpr std::uint32_t kUnsignedIntUndefined = std::uint32_t(-1);
+constexpr std::uint64_t kUnsignedInt64Undefined = std::uint64_t(-1);
+constexpr std::uint32_t kUnsignedInt32Undefined = std::uint32_t(-1);
+constexpr std::uint16_t kUnsignedInt16Undefined = std::uint16_t(-1);
+constexpr std::uint8_t kUnsignedInt8Undefined = std::uint8_t(-1);
 #pragma endregion
 
 namespace XR_ACTIONS_ID
@@ -268,6 +271,7 @@ struct StayOnTarget
 {
     float m_idle_time = Globals::Script_RandomFloat::getInstance().Generate(
         kSimulationSquadActionsStayPointIdleMin, kSimulationSquadActionsStayPointIdleMax);
+    std::uint16_t m_squad_id = kUnsignedInt32Undefined;
     xrTime m_start_time = 0;
     xr_string m_name = "stay_point";
 
