@@ -98,7 +98,15 @@ void Script_SE_SmartTerrain::on_reach_target(Script_SE_SimulationSquad* squad)
 
     Script_SimulationBoard::getInstance().assigned_squad_to_smart(squad, this->ID);
 
-    
+    for (AssociativeVector<std::uint16_t, CSE_ALifeMonsterAbstract*>::const_iterator it =
+             squad->squad_members().begin(); it != squad->squad_members().end(); ++it)
+    {
+        if (DataBase::Storage::getInstance().getOfflineObjects()[(*it).first].second.size())
+        {
+            DataBase::Storage::getInstance().getOfflineObjects()[(*it).first].first = Globals::kUnsignedInt16Undefined;
+            DataBase::Storage::getInstance().getOfflineObjects()[(*it).first].second = "";
+        }
+    }
 }
 
 } // namespace Scripts
