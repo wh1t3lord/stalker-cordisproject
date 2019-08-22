@@ -561,6 +561,51 @@ namespace Game
 {
 inline LPCSTR translate_string(LPCSTR str) { return *StringTable().translate(str); }
 inline xrTime get_game_time(void) noexcept { return get_time_struct(); }
+inline CSE_Abstract* alife_create(
+    const xr_string& section, const Fvector& position, std::uint32_t level_vertex_id, std::uint16_t game_vertex_id)
+{
+    CALifeSimulator* alife = const_cast<CALifeSimulator*>(ai().get_alife());
+
+    VERIFY(alife);
+
+    return alife->spawn_item(section.c_str(), position, level_vertex_id, game_vertex_id, std::uint16_t(-1));
+}
+
+inline CSE_Abstract* alife_create(const xr_string& section, const Fvector& position,
+    const std::uint32_t& level_vertex_id, const std::uint16_t& game_vertex_id, const std::uint16_t& parent_id)
+{
+    if (parent_id == kUnsignedInt16Undefined)
+        return alife_create(section, position, level_vertex_id, game_vertex_id);
+
+        CSE_ALifeDynamicObject* object = ai().alife().objects().object(id_parent, true);
+    if (!object)
+    {
+        Msg("! invalid parent id [%d] specified", id_parent);
+        return (0);
+    }
+
+    CALifeSimulator* alife = const_cast<CALifeSimulator*>(ai().get_alife());
+
+    if (!object->m_bOnline)
+        return (alife->spawn_item(section.c_str(), position, level_vertex_id, game_vertex_id, id_parent));
+
+    NET_Packet packet;
+    packet.w_begin(M_SPAWN);
+    packet.w_stringZ(section.c_str());
+
+    CSE_Abstract* item = alife->spawn_item(section.c_str(), position, level_vertex_id, game_vertex_id, id_parent, false);
+    item->Spawn_Write(packet, FALSE);
+    alife->server().FreeID(item->ID, 0);
+    F_entity_Destroy(item);
+
+    ClientID clientID;
+    clientID.set(0xffff);
+
+    u16 dummy;
+    packet.r_begin(dummy);
+    VERIFY(dummy == M_SPAWN);
+    return (alife->server().Process_spawn(packet, clientID));
+}
 
 namespace level
 {

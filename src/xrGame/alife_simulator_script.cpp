@@ -31,7 +31,7 @@ LPCSTR _INVALID_SPAWN_STORY_ID = "INVALID_SPAWN_STORY_ID";
 STORY_PAIRS story_ids;
 SPAWN_STORY_PAIRS spawn_story_ids;
 
-CALifeSimulator* alife() { return (const_cast<CALifeSimulator*>(ai().get_alife())); }
+CALifeSimulator* alife() { return (const_cast<CALifeSimulator*>(ai().get_alife())); } // @ Lord: исправить и не использовать const_cast!!!
 CSE_ALifeDynamicObject* alife_object(const CALifeSimulator* self, ALife::_OBJECT_ID object_id)
 {
     VERIFY(self);
@@ -154,6 +154,7 @@ CSE_Abstract* CALifeSimulator__spawn_item(CALifeSimulator* self, LPCSTR section,
     return (self->spawn_item(section, position, level_vertex_id, game_vertex_id, ALife::_OBJECT_ID(-1)));
 }
 
+/*
 CSE_Abstract* CALifeSimulator__spawn_item2(CALifeSimulator* self, LPCSTR section, const Fvector& position,
     u32 level_vertex_id, GameGraph::_GRAPH_ID game_vertex_id, ALife::_OBJECT_ID id_parent)
 {
@@ -186,7 +187,7 @@ CSE_Abstract* CALifeSimulator__spawn_item2(CALifeSimulator* self, LPCSTR section
     packet.r_begin(dummy);
     VERIFY(dummy == M_SPAWN);
     return (self->server().Process_spawn(packet, clientID));
-}
+}*/
 
 CSE_Abstract* CALifeSimulator__spawn_ammo(CALifeSimulator* self, LPCSTR section, const Fvector& position,
     u32 level_vertex_id, GameGraph::_GRAPH_ID game_vertex_id, ALife::_OBJECT_ID id_parent, int ammo_to_spawn)
