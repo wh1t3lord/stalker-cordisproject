@@ -32,6 +32,13 @@ constexpr unsigned int kSTypeMobile = 1;
 constexpr unsigned int kSTypeItem = 2;
 constexpr unsigned int kSTypeHelicopter = 3;
 constexpr unsigned int kSTypeRestrictor = 4;
+constexpr const char* kRelationsTypeEnemy = "enemy";
+constexpr const char* kRelationsTypeFriends = "friends";
+constexpr const char* kRelationTypeNeutral = "neutral";
+constexpr int kRelationKoeffEnemy = -1000;
+constexpr int kRelationKoeffNeutral = 0;
+constexpr int kRelationKoeffFriend = 1000;
+constexpr float kRealtionDefaultSympathy = 0.1f;
 
 #pragma region Cordis SimulationSquad
 constexpr float kSimulationSquadActionsStayPointIdleMin = 180.0f * 60.0f;
@@ -634,7 +641,57 @@ inline CSE_Abstract* alife_create(const xr_string& section, const Fvector& posit
     return (alife->server().Process_spawn(packet, clientID));
 }
 
-inline void map_remove_object_spot(const std::uint16_t& id, LPCSTR spot_type) { Level().MapManager().RemoveMapLocation(spot_type, id); }
+inline void map_remove_object_spot(const std::uint16_t& id, LPCSTR spot_type)
+{
+    Level().MapManager().RemoveMapLocation(spot_type, id);
+}
+
+inline xr_string get_squad_relation_to_actor_by_id(const std::uint16_t& squad_id)
+{
+    Script_SE_SimulationSquad* squad = ai().alife().objects().object(squad_id)->cast_script_se_simulationsquad();
+
+    if (!squad)
+    {
+        Msg("[Scripts/Globals/Game/get_squad_relation_to_actor_by_id(squad_id)] No scuh squad %s in board",
+            std::to_string(squad_id).c_str());
+        R_ASSERT(false);
+        return "";
+    }
+
+    int goodwill = 0;
+    int npc_count = 0;
+
+    CScriptGameObject* actor = DataBase::Storage::getInstance().getActor();
+
+    for (AssociativeVector<std::uint16_t, CSE_ALifeMonsterAbstract*>::const_iterator it =
+             squad->squad_members().begin();
+         it != squad->squad_members().end(); ++it)
+    {
+        CScriptGameObject* client_object = DataBase::Storage::getInstance().getStorage()[(*it).second->ID].m_object;
+
+        if (client_object && actor)
+        {
+            goodwill += client_object->GetAttitude(actor);
+            npc_count += 1;
+        }
+    }
+
+    if (npc_count)
+    {
+        int delta = goodwill / npc_count;
+
+        if (delta <= kRelationKoeffEnemy)
+            return kRelationsTypeEnemy;
+
+        if (delta >= kRelationKoeffFriend)
+            return kRelationsTypeFriends;
+
+        if (delta < kRelationKoeffFriend && delta > kRelationKoeffEnemy)
+            return kRelationTypeNeutral;
+    }
+
+    return kRelationsTypeEnemy;
+}
 
 namespace level
 {

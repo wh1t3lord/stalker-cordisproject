@@ -369,8 +369,10 @@ void Script_SE_SimulationSquad::show(void)
 
     xr_string spot_name = "";
 
-
-
+    if (!Script_GlobalHelper::getInstance().getSimulationSquadIsSquadMonster()[this->m_player_id_name])
+    {
+    
+    }
 }
 
 void Script_SE_SimulationSquad::hide(void)
