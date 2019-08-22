@@ -126,6 +126,17 @@ private:
         this->m_simulationboard_group_id_by_levels_name["labx8"] = 4;
         this->m_simulationboard_group_id_by_levels_name["jupiter_underground"] = 5;
 #pragma endregion
+
+
+#pragma region Cordis SimulationSquad Initializing
+        this->m_simulationsquad_is_squad_monster_by_type["monster_predatory_day"] = true;
+        this->m_simulationsquad_is_squad_monster_by_type["monster_predatory_night"] = true;
+        this->m_simulationsquad_is_squad_monster_by_type["monster_vegetarian"] = true;
+        this->m_simulationsquad_is_squad_monster_by_type["monster_zombied_day"] = true;
+        this->m_simulationsquad_is_squad_monster_by_type["monster_zombied_night"] = true;
+        this->m_simulationsquad_is_squad_monster_by_type["monster_special"] = true;
+        this->m_simulationsquad_is_squad_monster_by_type["monster"] = true;
+#pragma endregion
     }
 
 public:
