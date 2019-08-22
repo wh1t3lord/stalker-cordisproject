@@ -96,12 +96,6 @@ void Script_SE_SimulationSquad::set_location_types_section(const xr_string& sect
 
 void Script_SE_SimulationSquad::set_location_types(const xr_string& new_smart_name)
 {
-    if (!new_smart_name.size())
-    {
-        R_ASSERT2(false, "string can't be empty!");
-        return;
-    }
-
     xr_string default_location_name = "stalker_terrain";
     this->clear_location_types();
 
