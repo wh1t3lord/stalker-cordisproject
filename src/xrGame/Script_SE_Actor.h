@@ -13,6 +13,7 @@ public:
     Script_SE_Actor(LPCSTR section);
     virtual ~Script_SE_Actor(void);
 
+    virtual Script_SE_Actor* cast_script_se_actor(void) { return this; }
     void on_register(void);
 private:
     bool m_registred;

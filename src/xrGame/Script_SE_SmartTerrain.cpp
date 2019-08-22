@@ -8,8 +8,8 @@ namespace Cordis
 {
 namespace Scripts
 {
-bool is_job_available_to_npc(const NpcInfo& npc_info, const JobData_SubData& job_info,
-    const bool& is_monster, Script_SE_SmartTerrain* smart)
+bool is_job_available_to_npc(
+    const NpcInfo& npc_info, const JobData_SubData& job_info, const bool& is_monster, Script_SE_SmartTerrain* smart)
 {
     if (!smart)
     {
@@ -34,8 +34,8 @@ bool is_job_available_to_npc(const NpcInfo& npc_info, const JobData_SubData& job
     return true;
 }
 
-inline void job_iterator(JobData& jobs, NpcInfo& npc_data, std::uint32_t selected_job_priority,
-    Script_SE_SmartTerrain* smart)
+inline void job_iterator(
+    JobData& jobs, NpcInfo& npc_data, std::uint32_t selected_job_priority, Script_SE_SmartTerrain* smart)
 {
     if (!smart)
     {
@@ -51,9 +51,9 @@ namespace Cordis
 {
 namespace Scripts
 {
-Script_SE_SmartTerrain::Script_SE_SmartTerrain(LPCSTR section) : inherited(section), m_is_initialized(false), m_is_registered(false), m_population(0)
+Script_SE_SmartTerrain::Script_SE_SmartTerrain(LPCSTR section)
+    : inherited(section), m_is_initialized(false), m_is_registered(false), m_population(0)
 {
-
 }
 
 Script_SE_SmartTerrain::~Script_SE_SmartTerrain(void)
@@ -62,12 +62,27 @@ Script_SE_SmartTerrain::~Script_SE_SmartTerrain(void)
         delete this->m_base_on_actor_control;
 }
 
-void Script_SE_SmartTerrain::on_before_register(void) 
-{
-    inherited::on_before_register();
-
-}
+void Script_SE_SmartTerrain::on_before_register(void) { inherited::on_before_register(); }
 
 void Script_SE_SmartTerrain::read_params(void) {}
+void Script_SE_SmartTerrain::on_after_reach(Script_SE_SimulationSquad* squad)
+{
+    if (!squad)
+    {
+        R_ASSERT2(false, "object was null!");
+        return;
+    }
+
+    for (AssociativeVector<std::uint16_t, CSE_ALifeMonsterAbstract*>::const_iterator it =
+             squad->squad_members().begin();
+         it != squad->squad_members().end(); ++it)
+    {
+        if ((*it).second)
+        {
+            
+        }
+    }
+}
+
 } // namespace Scripts
 } // namespace Cordis

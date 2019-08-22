@@ -205,7 +205,7 @@ void map_change_spot_hint(u16 id, LPCSTR spot_type, LPCSTR text)
 void map_remove_object_spot(u16 id, LPCSTR spot_type) { Level().MapManager().RemoveMapLocation(spot_type, id); }
 u16 map_has_object_spot(u16 id, LPCSTR spot_type) { return Level().MapManager().HasMapLocation(spot_type, id); }
 
-LPCSTR get_name() { return (*Level().name()); }
+
 void prefetch_sound(LPCSTR name) { Level().PrefetchSound(name); }
 CClientSpawnManager& get_client_spawn_manager() { return (Level().client_spawn_manager()); }
 

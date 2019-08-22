@@ -78,6 +78,7 @@ public:
     Script_SE_SmartTerrain(LPCSTR section);
     virtual ~Script_SE_SmartTerrain(void);
 
+    virtual Script_SE_SmartTerrain* cast_script_se_smartterrain(void) { return this; }
     virtual void on_before_register(void);
 
     inline NpcInfo fill_npc_info(CSE_ALifeDynamicObject* server_object)
@@ -128,6 +129,7 @@ public:
     inline void setSafeRestrictor(const xr_string& string) noexcept { this->m_safe_restirctor = string; }
 
     void read_params(void);
+    void on_after_reach(Script_SE_SimulationSquad* squad);
 
 private:
     bool m_is_initialized;

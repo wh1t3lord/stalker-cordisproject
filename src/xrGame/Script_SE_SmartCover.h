@@ -12,6 +12,7 @@ public:
     Script_SE_SmartCover(LPCSTR section_name);
     virtual ~Script_SE_SmartCover(void);
 
+    virtual Script_SE_SmartCover* cast_script_se_smartcover(void) { return this; }
     virtual void STATE_Write(NET_Packet& Packet);
     virtual void STATE_Read(NET_Packet& Packet, std::uint16_t size);
     virtual void on_before_register(void);
