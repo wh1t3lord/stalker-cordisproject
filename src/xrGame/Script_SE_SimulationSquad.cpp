@@ -149,8 +149,8 @@ void Script_SE_SimulationSquad::set_location_types(const xr_string& new_smart_na
     }
 }
 
-std::uint16_t Script_SE_SimulationSquad::add_squad_member(const xr_string& spawn_section_name, const Fvector& spawn_position,
-    const std::uint32_t& level_vertex_id, const std::uint16_t& game_vertex_id)
+std::uint16_t Script_SE_SimulationSquad::add_squad_member(const xr_string& spawn_section_name,
+    const Fvector& spawn_position, const std::uint32_t& level_vertex_id, const std::uint16_t& game_vertex_id)
 {
     if (!spawn_section_name.size())
     {
@@ -177,10 +177,15 @@ std::uint16_t Script_SE_SimulationSquad::add_squad_member(const xr_string& spawn
 
     this->register_member(server_object->ID);
 
-    this->m_sound_manager.register_npc(server_object->ID);  
+    this->m_sound_manager.register_npc(server_object->ID);
 
+    CALifeSimulator* alife = const_cast<CALifeSimulator*>(ai().get_alife());
 
+    if (Globals::is_on_the_same_level(server_object->cast_alife_object(), ai().alife().graph().actor()) && spawn_position.distance_to_sqr(alife->graph().actor()->Position()) <= (ai().alife().switch_distance() * ai().alife().switch_distance()))
+        DataBase::Storage::getInstance().getSpawnedVertexByID()[server_object->ID] = level_vertex_id;
+    
 
+    return server_object->ID;
 }
 
 void Script_SE_SimulationSquad::set_squad_sympathy(const float& sympathy)
