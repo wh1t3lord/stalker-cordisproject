@@ -36,6 +36,8 @@ public:
 #pragma endregion
 
     void set_location_types(const xr_string& new_smart_name);
+    void add_squad_member(const xr_string& spawn_section_name, const Fvector& spawn_position);
+ 
 
 private:
     void set_location_types_section(const xr_string& section);
