@@ -99,7 +99,7 @@ void Script_SimulationBoard::setup_squad_and_group(CSE_ALifeDynamicObject* objec
 
     std::uint16_t object_squad_id = 0;
 
-    if (smart->clsid() == CLSID_SE_SMART_TERRAIN)
+    if (smart->m_script_clsid == CLSID_SE_SMART_TERRAIN)
         object_squad_id = smart->getSquadID();
     
     Globals::change_team_squad_group(object, server_monster->s_team, server_monster->s_group, object_squad_id);

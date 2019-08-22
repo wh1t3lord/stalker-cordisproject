@@ -2,6 +2,8 @@
 
 #include "xrServer_Objects_ALife_Monsters.h"
 
+#include "Script_SoundManager.h"
+
 namespace Cordis
 {
 namespace Scripts

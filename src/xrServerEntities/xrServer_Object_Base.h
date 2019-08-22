@@ -14,12 +14,17 @@
 #include "alife_space.h"
 #include "xrCore/client_id.h"
 #include "xrCore/clsid.h"
-#include "Script_SE_SimulationSquad.h"
-#include "Script_SE_SmartCover.h"
-#include "Script_SE_SmartTerrain.h"
-#include "Script_SE_Actor.h"
 
-
+namespace Cordis
+{
+namespace Scripts
+{
+class Script_SE_Actor;
+class Script_SE_SimulationSquad;
+class Script_SE_SmartCover;
+class Script_SE_SmartTerrain;
+} // namespace Scripts
+} // namespace Cordis
 
 class NET_Packet;
 class xrClientData;
@@ -28,7 +33,7 @@ class CSE_ALifeSchedulable;
 class CSE_ALifeInventoryItem;
 class CSE_ALifeTraderAbstract;
 class CSE_ALifeObject;
-class CSE_ALifeDynamicObject;
+/*class CSE_ALifeDynamicObject;*/
 class CSE_ALifeItemAmmo;
 class CSE_ALifeItemWeapon;
 class CSE_ALifeItemDetector;
@@ -55,8 +60,7 @@ public:
     virtual void load(NET_Packet& tNetPacket);
     virtual void save(NET_Packet& tNetPacket);
 };
-// Lord: подумать из-за чего сбивается содержимое класса ибо не доступен set_name и прч наверное методы, но
-// действительным оказывается Spawn_Read Этот трабл нужно разрешить иначе не получится сделать spawn_elements!!!!!!
+
 class CSE_Abstract : public IServerEntity, public CPureServerObject, public CScriptValueContainer
 {
     using inherited1 = IServerEntity;
@@ -136,7 +140,7 @@ public:
     virtual Cordis::Scripts::Script_SE_Actor* cast_script_se_actor(void) { return nullptr; }
 #pragma endregion
 
-        inline int script_clsid(void) const
+    inline int script_clsid(void) const
     {
         VERIFY(m_script_clsid >= 0);
         return (m_script_clsid);

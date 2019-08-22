@@ -13,7 +13,7 @@
 #pragma warning(push)
 #pragma warning(disable : 4005)
 
-class CSE_ALifeDynamicObject;
+/*class CSE_ALifeDynamicObject;*/
 
 class CSE_SmartCover : public CSE_ALifeDynamicObject, public CSE_Shape
 {

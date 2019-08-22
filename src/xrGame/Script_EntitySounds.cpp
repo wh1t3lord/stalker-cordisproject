@@ -9,14 +9,14 @@ namespace Cordis
 namespace Scripts
 {
 Script_SoundNPC::Script_SoundNPC(const CInifile& sound_ini, const xr_string& section)
-    : m_prefix(Globals::Utils::cfg_get_bool(&sound_ini, section, "npc_prefix", nullptr)),
+    : m_prefix(Globals::Utils::cfg_get_bool(&sound_ini, section, "npc_prefix")),
       m_path(Globals::Utils::cfg_get_string(&sound_ini, section, "path")),
       m_shuffle(Globals::Utils::cfg_get_string(&sound_ini, section, "shuffle")),
-      m_group_sound(Globals::Utils::cfg_get_bool(&sound_ini, section, "group_snd", nullptr)),
-      m_is_play_always(Globals::Utils::cfg_get_bool(&sound_ini, section, "play_always", nullptr)),
-      m_is_combat_sound(Globals::Utils::cfg_get_bool(&sound_ini, section, "is_combat_sound", nullptr)),
+      m_group_sound(Globals::Utils::cfg_get_bool(&sound_ini, section, "group_snd")),
+      m_is_play_always(Globals::Utils::cfg_get_bool(&sound_ini, section, "play_always")),
+      m_is_combat_sound(Globals::Utils::cfg_get_bool(&sound_ini, section, "is_combat_sound")),
       m_section(section), m_played_id(0),
-      m_delay_sound(Globals::Utils::cfg_get_number(&sound_ini, section, "delay_sound", nullptr)),
+      m_delay_sound(Globals::Utils::cfg_get_number(&sound_ini, section, "delay_sound")),
       m_can_play_group_sound(true), m_faction(Globals::Utils::cfg_get_string(&sound_ini, section, "faction")),
       m_point(Globals::Utils::cfg_get_string(&sound_ini, section, "point")),
       m_message(Globals::Utils::cfg_get_string(&sound_ini, section, "message")), m_min_idle(3), m_max_idle(5),
@@ -435,8 +435,8 @@ void Script_SoundNPC::load_npc(NET_Packet& packet, const std::uint16_t& npc_id)
 }
 
 Script_SoundActor::Script_SoundActor(const CInifile& ini, const xr_string& section)
-    : m_is_stereo(Globals::Utils::cfg_get_bool(&ini, section, "actor_stereo", nullptr)),
-      m_is_prefix(Globals::Utils::cfg_get_bool(&ini, section, "npc_prefix", nullptr)),
+    : m_is_stereo(Globals::Utils::cfg_get_bool(&ini, section, "actor_stereo")),
+      m_is_prefix(Globals::Utils::cfg_get_bool(&ini, section, "npc_prefix")),
       m_path(Globals::Utils::cfg_get_string(&ini, section, "path")),
       m_shuffle(Globals::Utils::cfg_get_string(&ini, section, "play_always")), m_section(section), m_played_id(0),
       m_can_play_sound(true), m_sound_object(nullptr),

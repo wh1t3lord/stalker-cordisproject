@@ -1301,12 +1301,12 @@ inline void add_exclusive_job(const xr_string& section_name, const xr_string& wo
     xr_string scheme_name = Globals::Utils::get_scheme_by_section(active_section_name);
     xr_string job_type_name = Script_GlobalHelper::getInstance().getJobTypesByScheme()[scheme_name];
     std::uint32_t new_priority = static_cast<std::uint32_t>(
-        Globals::Utils::cfg_get_number(&job_ini_file, (xr_string("logic@").append(work_field_name)), "prior", nullptr));
+        Globals::Utils::cfg_get_number(&job_ini_file, (xr_string("logic@").append(work_field_name)), "prior"));
     bool is_monster = Globals::Utils::cfg_get_bool(
-        &job_ini_file, (xr_string("logic@").append(work_field_name)), "monster_job", nullptr);
+        &job_ini_file, (xr_string("logic@").append(work_field_name)), "monster_job");
 
     if (scheme_name == Globals::GulagGenerator::kGulagJobNameMobHome)
-        if (Globals::Utils::cfg_get_bool(&job_ini_file, active_section_name, "gulag_point", nullptr))
+        if (Globals::Utils::cfg_get_bool(&job_ini_file, active_section_name, "gulag_point"))
             job_type_name = Globals::GulagGenerator::kGulagJobPoint;
 
     if (!job_suitable_name.size())

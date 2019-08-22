@@ -13,6 +13,11 @@
 #include "script_value_container_impl.h"
 #include "clsid_game.h"
 #include "xrCore/xr_token.h"
+/*
+#include "xrGame/Script_SE_SimulationSquad.h"
+#include "xrGame/Script_SE_SmartCover.h"
+#include "xrGame/Script_SE_SmartTerrain.h"
+#include "xrGame/Script_SE_Actor.h"*/
 
 #pragma warning(push)
 #pragma warning(disable : 4995)
@@ -155,6 +160,7 @@ CSE_Abstract::~CSE_Abstract()
 CSE_Visual* CSE_Abstract::visual() { return (nullptr); }
 IServerEntityShape* CSE_Abstract::shape() { return (nullptr); }
 CSE_Motion* CSE_Abstract::motion() { return (nullptr); }
+ 
 CInifile& CSE_Abstract::spawn_ini()
 {
     if (!m_ini_file) {

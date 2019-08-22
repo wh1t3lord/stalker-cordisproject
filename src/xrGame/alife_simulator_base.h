@@ -28,7 +28,7 @@ class CALifeRegistryContainer;
 
 class CSE_Abstract;
 class CSE_ALifeObject;
-class CSE_ALifeDynamicObject;
+/*class CSE_ALifeDynamicObject;*/
 class CSE_ALifeGroupAbstract;
 class CSE_ALifeCreatureAbstract;
 
