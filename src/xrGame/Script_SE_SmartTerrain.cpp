@@ -86,5 +86,16 @@ void Script_SE_SmartTerrain::on_after_reach(Script_SE_SimulationSquad* squad)
     squad->setCurrentTargetID(this->ID);
 }
 
+void Script_SE_SmartTerrain::on_reach_target(Script_SE_SimulationSquad* squad)
+{
+    if (!squad)
+    {
+        R_ASSERT2(false, "object was null!");
+        return;
+    }
+
+ 
+}
+
 } // namespace Scripts
 } // namespace Cordis
