@@ -131,6 +131,10 @@ public:
     inline xr_map<xr_string, CScriptGameObject*>& getZoneByName(void) noexcept { return this->m_zone_by_name; }
     inline xr_map<std::uint16_t, float>& getGoodwill_Sympathy(void) noexcept { return this->m_goodwill.first; }
     inline xr_map<std::uint16_t, xr_string>& getGoodwill_Relations(void) noexcept { return this->m_goodwill.second; }
+    inline xr_map<std::uint16_t, std::pair<std::uint16_t, xr_string>>& getOfflineObjects(void) noexcept
+    {
+        return this->m_offline_objects;
+    }
     inline std::pair<xr_map<std::uint16_t, float>, xr_map<std::uint16_t, xr_string>>& getGoodwill(void) noexcept
     {
         return this->m_goodwill;
@@ -158,6 +162,7 @@ public:
 private:
     CScriptGameObject* m_actor;
     xr_map<std::uint16_t, Storage_Data> m_storage;
+    xr_map<std::uint16_t, std::pair<std::uint16_t, xr_string>> m_offline_objects;
     xr_map<xr_string, CScriptGameObject*> m_zone_by_name;
     // first -> sympathy[ID] = std::uint32_t; | second -> relations[ID] = std::string;
     std::pair < xr_map < std::uint16_t, float>, xr_map<std::uint16_t, xr_string>> m_goodwill;

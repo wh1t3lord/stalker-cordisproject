@@ -94,7 +94,11 @@ void Script_SE_SmartTerrain::on_reach_target(Script_SE_SimulationSquad* squad)
         return;
     }
 
- 
+    squad->set_location_types(this->name_replace());
+
+    Script_SimulationBoard::getInstance().assigned_squad_to_smart(squad, this->ID);
+
+    
 }
 
 } // namespace Scripts
