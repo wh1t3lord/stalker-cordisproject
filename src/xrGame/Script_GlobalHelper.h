@@ -117,6 +117,16 @@ private:
         this->m_registered_smart_terrain_path_fields.push_back(Globals::kSmartTerrainPathFieldPathMain);
         this->m_registered_smart_terrain_path_fields.push_back(Globals::kSmartTerrainPathFieldPathWalk);
 #pragma endregion
+
+
+#pragma region Cordis SimulationBoard Initializing
+        // @ Lord: реализовать автоматическое считываение и сделать нумерацию от 0
+        this->m_simulationboard_group_id_by_levels_name["zaton"] = 1;
+        this->m_simulationboard_group_id_by_levels_name["pripyat"] = 2;
+        this->m_simulationboard_group_id_by_levels_name["jupiter"] = 3;
+        this->m_simulationboard_group_id_by_levels_name["labx8"] = 4;
+        this->m_simulationboard_group_id_by_levels_name["jupiter_underground"] = 5;
+#pragma endregion
     }
 
 public:
@@ -207,9 +217,14 @@ public:
         return this->m_registered_smart_terrain_territory_type;
     }
 
-    inline xr_vector<xr_string>& getRegisteredSmartTerrainPathFileds(void) noexcept 
+    inline xr_vector<xr_string>& getRegisteredSmartTerrainPathFileds(void) noexcept
     {
         return this->m_registered_smart_terrain_path_fields;
+    }
+
+    inline xr_map<xr_string, std::uint32_t>& getSimulationBoardGroupIDLevelsByName(void) noexcept 
+    {
+        return this->m_simulationboard_group_id_by_levels_name;
     }
 
 private:
@@ -228,6 +243,7 @@ private:
     xr_map<xr_string, CScriptGameObject*> m_game_registered_combat_spacerestrictors;
     xr_map<xr_string, Script_SE_SmartTerrain*> m_game_registered_server_smartterrains_by_name;
     xr_map<xr_string, xr_string> m_job_type_by_scheme;
+    xr_map<xr_string, std::uint32_t> m_simulationboard_group_id_by_levels_name;
     xr_map<xr_string, bool> m_registered_smart_terrain_territory_type;
     // @ First - id | Second - distance
     std::pair<std::uint32_t, std::uint32_t> m_game_server_nearest_to_actor_smart_terrain;

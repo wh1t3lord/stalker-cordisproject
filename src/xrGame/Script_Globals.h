@@ -304,18 +304,17 @@ struct ReachTarget
     {
         // Lord: нужно ли делать метод cast_to_script_se_simulationsquad в CSE_ALifeDynamicObject
         Script_SE_SimulationSquad* squad = (Script_SE_SimulationSquad*)ai().alife().objects().object(this->m_squad_id);
-        CSE_ALifeDynamicObject* squad_target =
-            Script_SimulationObjects::getInstance().getObjects()[squad->getAssignedTargetID()];
+        Script_SE_SmartTerrain* squad_target = Script_SimulationObjects::getInstance().getObjects()[squad->getAssignedTargetID()]->cast_script_se_smartterrain();
 
         if (!squad_target)
         {
-           // R_ASSERT2(false, "object was null");
-            
+            // R_ASSERT2(false, "object was null");
+            squad->setAssignedTargetID(0);
             return true;
         }
 
         if (!is_under_simulation)
-            squad_target = ai().alife().objects().object(squad->getAssignedTargetID());
+            squad_target = ai().alife().objects().object(squad->getAssignedTargetID())->cast_script_se_smartterrain();
     }
 };
 
@@ -404,7 +403,7 @@ inline bool cfg_get_bool(const CInifile* char_ini, const xr_string& section, con
     if (!object)
         object_name = "Unknown Object";
     else
-        object_name = object->Name();
+        object_name = object->name();
 
     if (char_ini->section_exist(section.c_str()) && char_ini->line_exist(section.c_str(), field.c_str()))
     {
@@ -532,6 +531,12 @@ namespace Game
 {
 inline LPCSTR translate_string(LPCSTR str) { return *StringTable().translate(str); }
 inline xrTime get_game_time(void) noexcept { return get_time_struct(); }
+
+namespace level
+{
+LPCSTR get_name(void) { return (*Level().name()); }
+}
+
 } // namespace Game
 namespace GameRelations
 {

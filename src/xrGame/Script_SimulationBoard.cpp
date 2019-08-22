@@ -51,5 +51,13 @@ void Script_SimulationBoard::init_smart(Script_SE_SmartTerrain* object)
     }
 }
 
+void Script_SimulationBoard::setup_squad_and_group(CSE_ALifeDynamicObject* object) 
+{
+    xr_string level_name = Globals::Game::level::get_name();
+    CSE_ALifeDynamicObject* server_object = ai().alife().objects().object(object->ID);
+
+    
+}
+
 } // namespace Scripts
 } // namespace Cordis

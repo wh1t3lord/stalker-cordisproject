@@ -14,6 +14,12 @@
 #include "alife_space.h"
 #include "xrCore/client_id.h"
 #include "xrCore/clsid.h"
+#include "Script_SE_SimulationSquad.h"
+#include "Script_SE_SmartCover.h"
+#include "Script_SE_SmartTerrain.h"
+#include "Script_SE_Actor.h"
+
+
 
 class NET_Packet;
 class xrClientData;
@@ -49,8 +55,8 @@ public:
     virtual void load(NET_Packet& tNetPacket);
     virtual void save(NET_Packet& tNetPacket);
 };
-// Lord: подумать из-за чего сбивается содержимое класса ибо не доступен set_name и прч наверное методы, но действительным оказывается Spawn_Read
-// Этот трабл нужно разрешить иначе не получится сделать spawn_elements!!!!!!
+// Lord: подумать из-за чего сбивается содержимое класса ибо не доступен set_name и прч наверное методы, но
+// действительным оказывается Spawn_Read Этот трабл нужно разрешить иначе не получится сделать spawn_elements!!!!!!
 class CSE_Abstract : public IServerEntity, public CPureServerObject, public CScriptValueContainer
 {
     using inherited1 = IServerEntity;
@@ -62,18 +68,18 @@ public:
 
     CSE_Abstract(LPCSTR caSection);
     virtual ~CSE_Abstract(void);
-    virtual void OnEvent(NET_Packet& /*tNetPacket*/, u16 /*type*/, u32 /*time*/, ClientID /*sender*/){}
+    virtual void OnEvent(NET_Packet& /*tNetPacket*/, u16 /*type*/, u32 /*time*/, ClientID /*sender*/) {}
     virtual void load(NET_Packet& tNetPacket);
 #ifndef XRGAME_EXPORTS
-//     virtual void FillProps(LPCSTR pref, PropItemVec& items);
-//     virtual void __cdecl FillProp(LPCSTR pref, PropItemVec& items);
+    //     virtual void FillProps(LPCSTR pref, PropItemVec& items);
+    //     virtual void __cdecl FillProp(LPCSTR pref, PropItemVec& items);
     virtual void __cdecl on_render(CDUInterface* /*du*/, IServerEntityLEOwner* /*owner*/, bool /*bSelected*/,
         const Fmatrix& /*parent*/, int /*priority*/, bool /*strictB2F*/)
     {
     }
     virtual visual_data* __cdecl visual_collection() const { return nullptr; }
     virtual u32 __cdecl visual_collection_size() const { return 0; }
-    virtual void __cdecl set_additional_info(void* /*info*/) {};
+    virtual void __cdecl set_additional_info(void* /*info*/){};
 #endif // #ifndef XRGAME_EXPORTS
     virtual BOOL Net_Relevant() { return FALSE; } // !!!! WARNING!!!
     //
@@ -88,7 +94,7 @@ public:
         s_name_replace = xr_strdup(s);
     };
     virtual Fvector& __cdecl position();
-    
+
     virtual Flags16& __cdecl flags();
     virtual CSE_Visual* __cdecl visual();
     virtual IServerEntityShape* __cdecl shape();
@@ -96,7 +102,6 @@ public:
     virtual bool __cdecl validate();
     virtual Fvector& angle();
     //
-
 
     // we need this to prevent virtual inheritance :-(
     virtual CSE_Abstract* base();
@@ -122,7 +127,16 @@ public:
     virtual CSE_ALifeSmartZone* cast_smart_zone() { return nullptr; }
     virtual CSE_ALifeOnlineOfflineGroup* cast_online_offline_group() { return nullptr; }
     virtual CSE_ALifeItemPDA* cast_item_pda() { return nullptr; }
-    inline int script_clsid(void) const
+
+#pragma region Cordis
+    // @ Lord: наверное лучше делать через методы, чем приведение типов, дополнятЬ!!
+    virtual Cordis::Scripts::Script_SE_SimulationSquad* cast_script_se_simulationsquad(void) { return nullptr; }
+    virtual Cordis::Scripts::Script_SE_SmartTerrain* cast_script_se_smartterrain(void) { return nullptr; }
+    virtual Cordis::Scripts::Script_SE_SmartCover* cast_script_se_smartcover(void) { return nullptr; }
+    virtual Cordis::Scripts::Script_SE_Actor* cast_script_se_actor(void) { return nullptr; }
+#pragma endregion
+
+        inline int script_clsid(void) const
     {
         VERIFY(m_script_clsid >= 0);
         return (m_script_clsid);
@@ -164,7 +178,7 @@ public:
     shared_str m_ini_string;
     CLASS_ID m_tClassID;
     CInifile* m_ini_file;
- 
+
     //. u8                              s_gameid;
     Fvector o_Position;
     Fvector o_Angle;

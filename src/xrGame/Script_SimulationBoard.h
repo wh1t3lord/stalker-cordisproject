@@ -785,10 +785,11 @@ public:
 
     void register_smart(Script_SE_SmartTerrain* object);
     void init_smart(Script_SE_SmartTerrain* object);
-
+    void setup_squad_and_group(CSE_ALifeDynamicObject* object);
 
 
 private:
+/*
     enum group_id_by_levels
     {
         zaton = 1,
@@ -796,7 +797,7 @@ private:
         jupiter,
         labx8,
         jupiter_underground
-    };
+    };*/
 
     bool m_is_simulation_started;
 

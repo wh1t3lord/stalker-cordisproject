@@ -14,6 +14,8 @@ public:
     Script_SE_SimulationSquad(LPCSTR section);
     virtual ~Script_SE_SimulationSquad(void);
 
+    virtual Script_SE_SimulationSquad* cast_script_se_simulationsquad(void) { return this; }
+
 #pragma region Cordis Getters
     inline std::uint32_t getSmartTerrainID(void) noexcept { return this->m_smart_terrain_id; }
     inline std::uint32_t getCurrentSpotID(void) noexcept { return this->m_current_spot_id; }
