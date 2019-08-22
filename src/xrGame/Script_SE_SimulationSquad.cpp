@@ -249,7 +249,7 @@ std::uint16_t Script_SE_SimulationSquad::add_squad_member(const xr_string& spawn
     if (!spawn_section_name.size())
     {
         R_ASSERT2(false, "It can't empty!");
-        return;
+        return Globals::kUnsignedInt16Undefined;
     }
 
     xr_string custom_data_name =
@@ -266,7 +266,7 @@ std::uint16_t Script_SE_SimulationSquad::add_squad_member(const xr_string& spawn
     if (!server_object)
     {
         R_ASSERT2(false, "DEFAUQ! It can't be ...");
-        return;
+        return Globals::kUnsignedInt16Undefined;
     }
 
     this->register_member(server_object->ID);
