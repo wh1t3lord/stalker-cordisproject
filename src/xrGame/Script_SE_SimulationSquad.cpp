@@ -149,6 +149,15 @@ void Script_SE_SimulationSquad::set_location_types(const xr_string& new_smart_na
     }
 }
 
+void Script_SE_SimulationSquad::create_npc(Script_SE_SmartTerrain* spawn_smart)
+{
+    if (!spawn_smart)
+    {
+        R_ASSERT2(false, "object was null!");
+        return;
+    }
+}
+
 std::uint16_t Script_SE_SimulationSquad::add_squad_member(const xr_string& spawn_section_name,
     const Fvector& spawn_position, const std::uint32_t& level_vertex_id, const std::uint16_t& game_vertex_id)
 {
