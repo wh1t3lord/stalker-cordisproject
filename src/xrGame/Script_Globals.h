@@ -559,6 +559,29 @@ inline xr_vector<xr_string> parse_names(const xr_string& buffer)
     return result;
 }
 
+inline void r_2nums(const CInifile& spawn_ini, const xr_string& section_name, const xr_string& line_name,
+    std::uint32_t& number_min, std::uint32_t& number_max)
+{
+    if (spawn_ini.line_exist(section_name.c_str(), line_name.c_str()))
+    {
+        xr_vector<xr_string> buffer = parse_names(spawn_ini.r_string(section_name.c_str(), line_name.c_str()));
+        std::uint32_t count = buffer.size();
+
+        if (count == 0)
+            return;
+
+        if (count == 1)
+        {
+            number_min = atoi(buffer[0].c_str());
+        }
+        else if (count > 1)
+        {
+            number_min = atoi(buffer[0].c_str());
+            number_max = atoi(buffer[1].c_str());
+        }
+    }
+}
+
 } // namespace Utils
 namespace Game
 {
@@ -580,7 +603,7 @@ inline CSE_Abstract* alife_create(const xr_string& section, const Fvector& posit
     if (parent_id == kUnsignedInt16Undefined)
         return alife_create(section, position, level_vertex_id, game_vertex_id);
 
-        CSE_ALifeDynamicObject* object = ai().alife().objects().object(id_parent, true);
+    CSE_ALifeDynamicObject* object = ai().alife().objects().object(id_parent, true);
     if (!object)
     {
         Msg("! invalid parent id [%d] specified", id_parent);
@@ -596,7 +619,8 @@ inline CSE_Abstract* alife_create(const xr_string& section, const Fvector& posit
     packet.w_begin(M_SPAWN);
     packet.w_stringZ(section.c_str());
 
-    CSE_Abstract* item = alife->spawn_item(section.c_str(), position, level_vertex_id, game_vertex_id, id_parent, false);
+    CSE_Abstract* item =
+        alife->spawn_item(section.c_str(), position, level_vertex_id, game_vertex_id, id_parent, false);
     item->Spawn_Write(packet, FALSE);
     alife->server().FreeID(item->ID, 0);
     F_entity_Destroy(item);
@@ -609,6 +633,8 @@ inline CSE_Abstract* alife_create(const xr_string& section, const Fvector& posit
     VERIFY(dummy == M_SPAWN);
     return (alife->server().Process_spawn(packet, clientID));
 }
+
+inline void map_remove_object_spot(const std::uint16_t& id, LPCSTR spot_type) { Level().MapManager().RemoveMapLocation(spot_type, id); }
 
 namespace level
 {

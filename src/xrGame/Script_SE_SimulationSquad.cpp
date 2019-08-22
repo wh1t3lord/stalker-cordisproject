@@ -171,9 +171,6 @@ void Script_SE_SimulationSquad::create_npc(Script_SE_SmartTerrain* spawn_smart)
     xr_string spawn_point_section_name =
         XR_LOGIC::pick_section_from_condlist(DataBase::Storage::getInstance().getActor(), this, spawn_point_condlist);
 
-    if (!spawn_point_section_name.size())
-        spawn_point_section_name = "self";
-
     Msg("[Scripts/Script_SE_SimulationSquad/create_npc(spawn_smart)] Spawn smart terrain [%s]",
         spawn_smart->name_replace());
 
@@ -190,6 +187,60 @@ void Script_SE_SimulationSquad::create_npc(Script_SE_SmartTerrain* spawn_smart)
             base_game_vertex_id = CPatrolPathParams(spawn_point_section_name.c_str()).game_vertex_id(0);
         }
     }
+    else if (spawn_smart->getSpawnPointName().size())
+    {
+        base_spawn_position = CPatrolPathParams(spawn_smart->getSpawnPointName().c_str()).point(std::uint32_t(0));
+        base_level_vertex_id = CPatrolPathParams(spawn_smart->getSpawnPointName().c_str()).level_vertex_id(0);
+        base_game_vertex_id = CPatrolPathParams(spawn_smart->getSpawnPointName().c_str()).game_vertex_id(0);
+    }
+
+    if (!spawn_sections.size())
+    {
+        for (xr_string& it : spawn_sections)
+        {
+            this->add_squad_member(it, base_spawn_position, base_level_vertex_id, base_game_vertex_id);
+        }
+    }
+
+    xr_string random_spawn_name =
+        Globals::Utils::cfg_get_string(Globals::get_system_ini(), this->m_settings_id_name, "npc_random");
+
+    if (random_spawn_name.size())
+    {
+        xr_vector<xr_string> random_spawn_names = Globals::Utils::parse_names(random_spawn_name);
+        std::uint32_t count_names = random_spawn_names.size();
+        std::uint32_t min_value = 1;
+        std::uint32_t max_value = 2;
+
+        Globals::Utils::r_2nums(*const_cast<CInifile*>(Globals::get_system_ini()), this->m_settings_id_name,
+            "npc_in_squad", min_value, max_value);
+
+        if (min_value > max_value)
+        {
+            R_ASSERT2(false, "It can't be!!!!");
+            return;
+        }
+
+        std::uint32_t result_value = Globals::Script_RandomInt::getInstance().Generate(min_value, max_value);
+
+        for (std::uint32_t i = 0; i < result_value; ++i)
+        {
+            // @ Lord: нормально ли будет работать??? Не проверять если count_names > result_value ???
+            std::uint32_t id = Globals::Script_RandomInt::getInstance().Generate(0, count_names);
+            this->add_squad_member(
+                random_spawn_names[id], base_spawn_position, base_level_vertex_id, base_game_vertex_id);
+        }
+    }
+
+    if (!spawn_sections.size())
+    {
+        Msg("You are trying to spawn an empty squad [%s] ", this->m_settings_id_name.c_str());
+        R_ASSERT(false);
+        return;
+    }
+
+    this->m_smart_terrain_id = spawn_smart->ID;
+    this->refresh();
 }
 
 std::uint16_t Script_SE_SimulationSquad::add_squad_member(const xr_string& spawn_section_name,
@@ -289,6 +340,29 @@ void Script_SE_SimulationSquad::init_squad_on_load(void)
         Script_SimulationBoard::getInstance().enter_squad_to_smart(this, this->m_smart_terrain_id);
 
     this->m_is_need_to_reset_location_masks = true;
+}
+
+void Script_SE_SimulationSquad::refresh(void)
+{
+    if (!this->commander_id())
+    {
+        this->hide();
+        return;
+    }
+}
+
+void Script_SE_SimulationSquad::show(void) {}
+
+void Script_SE_SimulationSquad::hide(void)
+{
+    if (!this->m_current_spot_id || !this->m_spot_section_name.size())
+        return;
+
+    Globals::Game::map_remove_object_spot(this->m_current_spot_id, this->m_spot_section_name.c_str());
+
+    this->m_current_spot_id = 0;
+    this->m_spot_section_name = "";
+    
 }
 
 bool Script_SE_SimulationSquad::check_squad_come_to_point(void)
