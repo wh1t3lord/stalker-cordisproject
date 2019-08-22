@@ -56,7 +56,11 @@ void Script_SimulationBoard::setup_squad_and_group(CSE_ALifeDynamicObject* objec
     xr_string level_name = Globals::Game::level::get_name();
     CSE_ALifeDynamicObject* server_object = ai().alife().objects().object(object->ID);
 
-    
+    std::uint32_t group_id = Script_GlobalHelper::getInstance().getSimulationBoardGroupIDLevelsByName()[level_name] ?
+        Script_GlobalHelper::getInstance().getSimulationBoardGroupIDLevelsByName()[level_name] :
+        0;
+
+
 }
 
 } // namespace Scripts

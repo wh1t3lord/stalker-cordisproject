@@ -578,6 +578,8 @@ inline bool IsStalker(CSE_ALifeDynamicObject* server_object, int class_id);
 inline bool IsArtefact(CScriptGameObject* object, int class_id);
 inline bool IsWeapon(CScriptGameObject* object, int class_id);
 inline xr_string character_community(CScriptGameObject* object);
+inline void change_team_squad_group(CSE_ALifeDynamicObject* server_object, const std::uint8_t& team,
+    const std::uint8_t& group, const std::uint8_t& squad);
 
 constexpr const char* kSaveMarkerMode_Save = "save";
 constexpr const char* kSaveMarkerMode_Load = "load";

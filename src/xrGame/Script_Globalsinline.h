@@ -260,6 +260,11 @@ inline xr_string character_community(CScriptGameObject* object)
     return "monster";
 }
 
+inline void change_team_squad_group(CSE_ALifeDynamicObject* server_object, const std::uint8_t& team, const std::uint8_t& group, const std::uint8_t& squad) 
+{
+ 
+}
+
 inline bool is_level_present(void) { return (!!g_pGameLevel); }
 
 inline bool is_device_paused(void) { return !!Device.Paused(); }
@@ -597,7 +602,6 @@ inline bool is_accessible_job(CSE_ALifeDynamicObject* server_object, const char*
 
     return (!is_npc_inside);
 }
- 
 
 } // namespace Globals
 } // namespace Scripts
