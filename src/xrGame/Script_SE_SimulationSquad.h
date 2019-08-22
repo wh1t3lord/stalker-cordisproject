@@ -36,7 +36,7 @@ public:
 #pragma endregion
 
     void set_location_types(const xr_string& new_smart_name);
-    void add_squad_member(const xr_string& spawn_section_name, const Fvector& spawn_position);
+    std::uint16_t add_squad_member(const xr_string& spawn_section_name, const Fvector& spawn_position, const std::uint32_t& level_vertex_id, const std::uint16_t& game_vertex_id);
  
 
 private:

@@ -149,6 +149,40 @@ void Script_SE_SimulationSquad::set_location_types(const xr_string& new_smart_na
     }
 }
 
+std::uint16_t Script_SE_SimulationSquad::add_squad_member(const xr_string& spawn_section_name, const Fvector& spawn_position,
+    const std::uint32_t& level_vertex_id, const std::uint16_t& game_vertex_id)
+{
+    if (!spawn_section_name.size())
+    {
+        R_ASSERT2(false, "It can't empty!");
+        return;
+    }
+
+    xr_string custom_data_name =
+        Globals::Utils::cfg_get_string(Globals::get_system_ini(), spawn_section_name, "custom_data");
+
+    if (!custom_data_name.size())
+        Msg("[Scripts/Script_SE_SimulationSquad/add_squad_member(spawn_section_name, spawn_position, level_vertex_id, "
+            "game_vertex_id)] INCORRECT npc_spawn_section USED [%s]. You cannot use npc with custom_data in squads",
+            spawn_section_name.c_str());
+
+    CSE_Abstract* server_object =
+        Globals::Game::alife_create(spawn_section_name, spawn_position, level_vertex_id, game_vertex_id);
+
+    if (!server_object)
+    {
+        R_ASSERT2(false, "DEFAUQ! It can't be ...");
+        return;
+    }
+
+    this->register_member(server_object->ID);
+
+    this->m_sound_manager.register_npc(server_object->ID);  
+
+
+
+}
+
 void Script_SE_SimulationSquad::set_squad_sympathy(const float& sympathy)
 {
     float _sympathy = !(fis_zero(sympathy)) ? sympathy : this->m_sympathy;
