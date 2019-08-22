@@ -696,7 +696,16 @@ inline void map_remove_object_spot(const std::uint16_t& id, LPCSTR spot_type)
     Level().MapManager().RemoveMapLocation(spot_type, id);
 }
 
-inline void map_change_spot_hint(u16 id, LPCSTR spot_type, LPCSTR text)
+inline void map_add_object_spot(u16 id, LPCSTR spot_type, LPCSTR text)
+{
+    CMapLocation* ml = Level().MapManager().AddMapLocation(spot_type, id);
+    if (xr_strlen(text))
+    {
+        ml->SetHint(text);
+    }
+}
+
+inline void map_change_spot_hint(const std::uint16_t& id, LPCSTR spot_type, LPCSTR text)
 {
     CMapLocation* ml = Level().MapManager().GetMapLocation(spot_type, id);
     if (!ml)
