@@ -289,6 +289,7 @@ struct StayOnTarget
     }
 };
 
+/*
 struct ReachTarget
 {
     std::uint16_t m_squad_id = kUnsignedIntUndefined;
@@ -316,7 +317,7 @@ struct ReachTarget
         if (!is_under_simulation)
             squad_target = ai().alife().objects().object(squad->getAssignedTargetID())->cast_script_se_smartterrain();
     }
-};
+};*/
 
 #pragma endregion
 

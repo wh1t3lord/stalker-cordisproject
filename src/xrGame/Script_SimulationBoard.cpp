@@ -45,13 +45,12 @@ void Script_SimulationBoard::init_smart(Script_SE_SmartTerrain* object)
         {
             if (it.second)
             {
-               
             }
         }
     }
 }
 
-void Script_SimulationBoard::setup_squad_and_group(CSE_ALifeDynamicObject* object) 
+void Script_SimulationBoard::setup_squad_and_group(CSE_ALifeDynamicObject* object)
 {
     xr_string level_name = Globals::Game::level::get_name();
     CSE_ALifeDynamicObject* server_object = ai().alife().objects().object(object->ID);
@@ -60,7 +59,30 @@ void Script_SimulationBoard::setup_squad_and_group(CSE_ALifeDynamicObject* objec
         Script_GlobalHelper::getInstance().getSimulationBoardGroupIDLevelsByName()[level_name] :
         0;
 
+    CSE_ALifeMonsterAbstract* server_monster = object->cast_monster_abstract();
+    if (!server_monster)
+    {
+        R_ASSERT2(false, "Bad casting! Check your class");
+        return;
+    }
 
+    Globals::change_team_squad_group(object, server_monster->s_team, group_id, server_monster->s_squad);
+
+    Script_SE_SimulationSquad* server_squad =
+        ai().alife().objects().object(server_monster->m_group_id)->cast_script_se_simulationsquad();
+
+    if (!server_object)
+    {
+        Msg("[Scripts/Script_SimulationBoard/setup_squad_and_group(object)] WARNING: bad casting!");
+
+        Globals::change_team_squad_group(object, server_monster->s_team, server_monster->s_group, 0);
+        return;
+    }
+
+    if (server_squad->getCurrentAction().m_name.size() && server_squad->getCurrentAction().m_name == "reach_target")
+    {
+    
+    }
 }
 
 } // namespace Scripts
