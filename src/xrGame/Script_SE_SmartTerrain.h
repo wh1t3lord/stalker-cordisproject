@@ -134,7 +134,7 @@ public:
         return this->m_npc_by_job_section[job_name];
     }
     inline std::uint16_t getSquadID(void) noexcept { return this->m_squad_id; }
-
+    inline CInifile& getIni(void) noexcept { return this->spawn_ini(); }
 #pragma endregion
 
 #pragma region Cordis Setters
