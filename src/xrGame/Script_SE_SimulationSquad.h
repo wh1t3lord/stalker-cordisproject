@@ -45,6 +45,9 @@ private:
     void set_squad_sympathy(const float& sympathy = 0.0f);
     void set_squad_behaviour(void);
     void init_squad_on_load(void);
+    void refresh(void);
+    void show(void);
+    void hide(void);
     bool check_squad_come_to_point(void);
     inline xr_string& pick_next_target(void) { return this->m_parsed_targets[this->m_next_target_index]; }
 
@@ -69,6 +72,7 @@ private:
     xr_string m_player_id_name;
     xr_string m_settings_id_name;
     xr_string m_last_target_name;
+    xr_string m_spot_section_name;
     Globals::StayReachOnTarget m_current_action;
     Script_SoundManager m_sound_manager;
 };
