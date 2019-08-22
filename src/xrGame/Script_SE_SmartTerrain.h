@@ -135,6 +135,7 @@ public:
     }
     inline std::uint16_t getSquadID(void) noexcept { return this->m_squad_id; }
     inline CInifile& getIni(void) noexcept { return this->spawn_ini(); }
+    inline xr_string getSpawnPointName(void) noexcept { return this->m_spawn_point_name; }
 #pragma endregion
 
 #pragma region Cordis Setters
@@ -165,6 +166,7 @@ private:
     xr_string m_defence_restictor;
     xr_string m_attack_restrictor;
     xr_string m_safe_restirctor;
+    xr_string m_spawn_point_name;
 };
 } // namespace Scripts
 } // namespace Cordis

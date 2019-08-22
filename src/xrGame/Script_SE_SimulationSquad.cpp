@@ -156,6 +156,40 @@ void Script_SE_SimulationSquad::create_npc(Script_SE_SmartTerrain* spawn_smart)
         R_ASSERT2(false, "object was null!");
         return;
     }
+
+    xr_vector<xr_string> spawn_sections = Globals::Utils::parse_names(
+        Globals::Utils::cfg_get_string(Globals::get_system_ini(), this->m_settings_id_name, "npc"));
+
+    xr_string spawn_point_name =
+        Globals::Utils::cfg_get_string(Globals::get_system_ini(), this->m_settings_id_name, "spawn_point").size() ?
+        Globals::Utils::cfg_get_string(Globals::get_system_ini(), this->m_settings_id_name, "spawn_point") :
+        Globals::Utils::cfg_get_string(Globals::get_system_ini(), Globals::kSmartTerrainSMRTSection, "spawn_point");
+
+    xr_map<std::uint32_t, CondlistData> spawn_point_condlist =
+        XR_LOGIC::parse_condlist_by_server_object("spawn_point", "spawn_point", spawn_point_name);
+
+    xr_string spawn_point_section_name =
+        XR_LOGIC::pick_section_from_condlist(DataBase::Storage::getInstance().getActor(), this, spawn_point_condlist);
+
+    if (!spawn_point_section_name.size())
+        spawn_point_section_name = "self";
+
+    Msg("[Scripts/Script_SE_SimulationSquad/create_npc(spawn_smart)] Spawn smart terrain [%s]",
+        spawn_smart->name_replace());
+
+    Fvector base_spawn_position = spawn_smart->Position();
+    std::uint32_t base_level_vertex_id = spawn_smart->m_tNodeID;
+    std::uint16_t base_game_vertex_id = spawn_smart->m_tGraphID;
+
+    if (spawn_point_section_name.size())
+    {
+        if (spawn_point_section_name != "self")
+        {
+            base_spawn_position = CPatrolPathParams(spawn_point_section_name.c_str()).point(std::uint32_t(0));
+            base_level_vertex_id = CPatrolPathParams(spawn_point_section_name.c_str()).level_vertex_id(0);
+            base_game_vertex_id = CPatrolPathParams(spawn_point_section_name.c_str()).game_vertex_id(0);
+        }
+    }
 }
 
 std::uint16_t Script_SE_SimulationSquad::add_squad_member(const xr_string& spawn_section_name,
@@ -190,9 +224,10 @@ std::uint16_t Script_SE_SimulationSquad::add_squad_member(const xr_string& spawn
 
     CALifeSimulator* alife = const_cast<CALifeSimulator*>(ai().get_alife());
 
-    if (Globals::is_on_the_same_level(server_object->cast_alife_object(), ai().alife().graph().actor()) && spawn_position.distance_to_sqr(alife->graph().actor()->Position()) <= (ai().alife().switch_distance() * ai().alife().switch_distance()))
+    if (Globals::is_on_the_same_level(server_object->cast_alife_object(), ai().alife().graph().actor()) &&
+        spawn_position.distance_to_sqr(alife->graph().actor()->Position()) <=
+            (ai().alife().switch_distance() * ai().alife().switch_distance()))
         DataBase::Storage::getInstance().getSpawnedVertexByID()[server_object->ID] = level_vertex_id;
-    
 
     return server_object->ID;
 }
