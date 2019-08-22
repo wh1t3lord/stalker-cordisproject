@@ -194,13 +194,7 @@ void map_add_object_spot_ser(u16 id, LPCSTR spot_type, LPCSTR text)
     ml->SetSerializable(true);
 }
 
-void map_change_spot_hint(u16 id, LPCSTR spot_type, LPCSTR text)
-{
-    CMapLocation* ml = Level().MapManager().GetMapLocation(spot_type, id);
-    if (!ml)
-        return;
-    ml->SetHint(text);
-}
+
 
 
 u16 map_has_object_spot(u16 id, LPCSTR spot_type) { return Level().MapManager().HasMapLocation(spot_type, id); }
