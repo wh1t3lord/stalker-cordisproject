@@ -37,6 +37,7 @@ public:
 
 private:
     void set_location_types_section(const xr_string& section);
+    void set_location_types(const xr_string& new_smart_name);
     void set_squad_sympathy(const float& sympathy = 0.0f);
     void set_squad_behaviour(void);
     void init_squad_on_load(void);
