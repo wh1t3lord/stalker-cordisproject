@@ -13,6 +13,7 @@
 
 using namespace luabind;
 
+/*
 #ifdef XRGAME_EXPORTS
 SCRIPT_EXPORT(CSE_ALifeSchedulable, (), {
     module(luaState)[class_<IPureSchedulableObject>("ipure_schedulable_object"),
@@ -78,3 +79,4 @@ SCRIPT_EXPORT(CSE_ALifeInventoryBox, (CSE_ALifeDynamicObjectVisual), {
         CSE_ALifeInventoryBox, "cse_alife_inventory_box", CSE_ALifeDynamicObjectVisual)];
 });
 #endif
+*/
