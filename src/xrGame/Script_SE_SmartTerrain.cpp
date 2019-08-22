@@ -79,9 +79,11 @@ void Script_SE_SmartTerrain::on_after_reach(Script_SE_SimulationSquad* squad)
     {
         if ((*it).second)
         {
-            
+            Script_SimulationBoard::getInstance().setup_squad_and_group((*it).second->cast_alife_dynamic_object());
         }
     }
+
+    squad->setCurrentTargetID(this->ID);
 }
 
 } // namespace Scripts
