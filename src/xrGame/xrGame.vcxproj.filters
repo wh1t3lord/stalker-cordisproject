@@ -8252,6 +8252,15 @@
     <ClInclude Include="Script_GlobalDefinitions.h">
       <Filter>Cordis\Scripts\Global\Globals\Public</Filter>
     </ClInclude>
+    <ClInclude Include="Script_SE_Artefact.h">
+      <Filter>Cordis\Scripts\Server Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="Script_SE_Helicopter.h">
+      <Filter>Cordis\Scripts\Server Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="Script_SE_Outfit.h">
+      <Filter>Cordis\Scripts\Server Entities</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="damage_manager.cpp">
@@ -12388,6 +12397,15 @@
       <Filter>Cordis\Scripts\Server Entities</Filter>
     </ClCompile>
     <ClCompile Include="Script_SE_SimulationSquad.cpp">
+      <Filter>Cordis\Scripts\Server Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="Script_SE_Artefact.cpp">
+      <Filter>Cordis\Scripts\Server Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="Script_SE_Helicopter.cpp">
+      <Filter>Cordis\Scripts\Server Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="Script_SE_Outfit.cpp">
       <Filter>Cordis\Scripts\Server Entities</Filter>
     </ClCompile>
   </ItemGroup>
