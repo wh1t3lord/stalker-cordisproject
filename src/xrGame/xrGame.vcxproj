@@ -1536,6 +1536,7 @@ $(xrLibDir);$(xrSdkDir)DXSDK/Lib/$(PlatformShortName);
     <ClInclude Include="Script_StoryObject.h" />
     <ClInclude Include="Script_SurgeManager.h" />
     <ClInclude Include="Script_TravelManager.h" />
+    <ClInclude Include="Script_TreasureManager.h" />
     <ClInclude Include="Script_UI_MainMenu.h" />
     <ClInclude Include="script_watch_action.h" />
     <ClInclude Include="script_watch_action_inline.h" />
@@ -3611,6 +3612,7 @@ $(xrLibDir);$(xrSdkDir)DXSDK/Lib/$(PlatformShortName);
     <ClCompile Include="Script_StoryObject.cpp" />
     <ClCompile Include="Script_SurgeManager.cpp" />
     <ClCompile Include="Script_TravelManager.cpp" />
+    <ClCompile Include="Script_TreasureManager.cpp" />
     <ClCompile Include="Script_UI_MainMenu.cpp" />
     <ClCompile Include="script_watch_action.cpp" />
     <ClCompile Include="script_watch_action_script.cpp">

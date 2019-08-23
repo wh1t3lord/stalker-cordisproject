@@ -3208,6 +3208,9 @@
     <Filter Include="Cordis\Scripts\Entities %28not server entities!%29\Smart Terrain\Private">
       <UniqueIdentifier>{78778342-d48f-4af4-b221-4fe8fe66c7c8}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Cordis\Scripts\Managers\Treasure">
+      <UniqueIdentifier>{bc058de9-3949-49e3-927f-b1ddba3bc9fa}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="mt_config.h">
@@ -8261,6 +8264,9 @@
     <ClInclude Include="Script_SE_Outfit.h">
       <Filter>Cordis\Scripts\Server Entities</Filter>
     </ClInclude>
+    <ClInclude Include="Script_TreasureManager.h">
+      <Filter>Cordis\Scripts\Managers\Treasure</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="damage_manager.cpp">
@@ -12407,6 +12413,9 @@
     </ClCompile>
     <ClCompile Include="Script_SE_Outfit.cpp">
       <Filter>Cordis\Scripts\Server Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="Script_TreasureManager.cpp">
+      <Filter>Cordis\Scripts\Managers\Treasure</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
