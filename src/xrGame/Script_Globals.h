@@ -295,9 +295,9 @@ inline void r_2nums(const CInifile& spawn_ini, const xr_string& section_name, co
 }
 
 // first -> section | second -> prob
-inline xr_vector<std::pair<xr_string, std::uint32_t>> parse_spawns(const xr_string& buffer)
+inline xr_vector<std::pair<xr_string, float>> parse_spawns(const xr_string& buffer)
 {
-    xr_vector<std::pair<xr_string, std::uint32_t>> result;
+    xr_vector<std::pair<xr_string, float>> result;
 
     if (!buffer.size())
     {
@@ -328,13 +328,13 @@ inline xr_vector<std::pair<xr_string, std::uint32_t>> parse_spawns(const xr_stri
             }
             else
             {
-                data.second = 1;
+                data.second = 1.0f;
                 it += 1;
             }
         }
         else
         {
-            data.second = 1;
+            data.second = 1.0f;
             it += 1;
         }
 

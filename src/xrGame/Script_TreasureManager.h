@@ -43,7 +43,7 @@ private:
                             }
                             else
                             {
-                                xr_vector<std::pair<xr_string, std::uint32_t>> buffer =
+                                xr_vector<std::pair<xr_string, float>> buffer =
                                     Globals::Utils::parse_spawns(V1);
 
                                 if (!buffer.size())
@@ -54,11 +54,11 @@ private:
                                     R_ASSERT(false);
                                 }
 
-                                for (std::pair<xr_string, std::uint32_t>& it : buffer)
+                                for (std::pair<xr_string, float>& it : buffer)
                                 {
                                     std::pair<std::pair<std::uint32_t, std::uint32_t>, xr_vector<std::uint16_t>> data;
                                     data.first.first = atoi(it.first.c_str());
-                                    data.first.second = it.second ? it.second : 1;
+                                    data.first.second = it.second ? it.second : 1.0f;
                                     this->m_secrets[N].m_items[V1].push_back(data);
                                 }
                             }
@@ -85,7 +85,7 @@ public:
         xr_map<std::uint32_t, CondlistData> m_condlist_empty;
 
         // first -> count | second -> prob
-        xr_map<xr_string, xr_vector<std::pair<std::pair<std::uint32_t, std::uint32_t>, xr_vector<std::uint16_t>>>> m_items;
+        xr_map<xr_string, xr_vector<std::pair<std::pair<std::uint32_t, float>, xr_vector<std::uint16_t>>>> m_items;
     };
 
     inline static Script_TreasureManager& getInstance(void) noexcept
@@ -103,6 +103,8 @@ public:
     bool fill(CSE_ALifeDynamicObject* server_object, const xr_string& treasure_id_name);
     bool register_item(CSE_ALifeDynamicObject* server_object);
     void register_restrictor(CSE_ALifeDynamicObject* server_object);
+    void update(void);
+    void spawn_treasure(const xr_string& treasure_id_name);
 
 private:
     bool m_is_items_spawned;
