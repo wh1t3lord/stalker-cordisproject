@@ -7,7 +7,7 @@ namespace Scripts
 class Script_TreasureManager
 {
 private:
-    Script_TreasureManager(void)
+    Script_TreasureManager(void) : m_check_time(Globals::kUnsignedInt32Undefined)
     {
         CInifile ini = CInifile("misc\\secrets.ltx");
         std::uint32_t count_lines = ini.line_count("list");
@@ -108,6 +108,7 @@ public:
 
 private:
     bool m_is_items_spawned;
+    std::uint32_t m_check_time;
     xr_map<xr_string, std::uint16_t> m_secret_restrictors;
     xr_map<std::uint16_t, xr_string> m_items_from_secrects;
     xr_map<xr_string, DataSecret> m_secrets;
