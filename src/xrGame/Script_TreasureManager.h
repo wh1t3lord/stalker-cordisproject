@@ -101,6 +101,8 @@ public:
     Script_TreasureManager& operator=(Script_TreasureManager&&) = delete;
 
     bool fill(CSE_ALifeDynamicObject* server_object, const xr_string& treasure_id_name);
+    bool register_item(CSE_ALifeDynamicObject* server_object);
+    void register_restrictor(CSE_ALifeDynamicObject* server_object);
 
 private:
     bool m_is_items_spawned;
