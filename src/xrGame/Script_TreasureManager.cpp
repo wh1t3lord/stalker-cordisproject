@@ -81,7 +81,8 @@ bool Script_TreasureManager::register_item(CSE_ALifeDynamicObject* server_object
 
             if (!strlen(Value))
             {
-                Msg("[Scripts/Scripts_TreasureManager/register_item(server_object)] Field 'name' in [secret] section got no value for object [%s]",
+                Msg("[Scripts/Scripts_TreasureManager/register_item(server_object)] Field 'name' in [secret] section "
+                    "got no value for object [%s]",
                     server_object->name_replace());
                 R_ASSERT(false);
             }
@@ -91,6 +92,18 @@ bool Script_TreasureManager::register_item(CSE_ALifeDynamicObject* server_object
     }
 
     return false;
+}
+
+void Script_TreasureManager::register_restrictor(CSE_ALifeDynamicObject* server_object)
+{
+    if (!server_object)
+    {
+        R_ASSERT2(false, "object was null!");
+        return;
+    }
+
+    if (server_object->spawn_ini().section_exist("secret"))
+        this->m_secret_restrictors[server_object->name_replace()] = server_object->ID;
 }
 
 } // namespace Scripts
