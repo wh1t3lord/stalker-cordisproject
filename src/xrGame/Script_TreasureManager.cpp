@@ -112,6 +112,53 @@ void Script_TreasureManager::update(void)
     {
         for (std::pair<const xr_string, DataSecret>& it : this->m_secrets)
         {
+            this->spawn_treasure(it.first);
+        }
+
+        this->m_is_items_spawned = true;
+    }
+
+    std::uint32_t global_time = Globals::Game::time_global();
+
+    if (this->m_check_time != Globals::kUnsignedInt32Undefined && global_time - this->m_check_time <= 500)
+        return;
+
+    this->m_check_time = global_time;
+
+    for (std::pair<const xr_string, DataSecret>& it : this->m_secrets)
+    {
+        if (it.second.m_is_given)
+        {
+            if (it.second.m_condlist_empty.size())
+            {
+                xr_string section_name =
+                    XR_LOGIC::pick_section_from_condlist(DataBase::Storage::getInstance().getActor(),
+                        (CScriptGameObject*)(nullptr), it.second.m_condlist_empty);
+
+                if (section_name == "true" && !it.second.m_is_checked)
+                {
+                    Globals::Game::level::map_remove_object_spot(this->m_secret_restrictors[it.first], "treasure");
+                    // Lord: добавить xr_statistic.inc_founded_secrets_counter();
+                    it.second.m_condlist_empty.clear();
+                    it.second.m_is_checked = true;
+
+                    Msg("[Scripts/Script_TreasureManager/update()] Empty secret [%s] remove map spot!",
+                        it.first.c_str());
+                }
+            }
+        }
+        else if (it.second.m_condlist_refreshing.size() && it.second.m_is_checked)
+        {
+            xr_string section_name = XR_LOGIC::pick_section_from_condlist(DataBase::Storage::getInstance().getActor(),
+                (CScriptGameObject*)(nullptr), it.second.m_condlist_refreshing);
+
+            if (section_name == "true")
+            {
+                it.second.m_is_given = false;
+                it.second.m_is_checked = false;
+
+                Msg("[Scripts/Script_TreasureManager/update()] [%s] now is avaliable!", it.first.c_str());
+            }
         }
     }
 }

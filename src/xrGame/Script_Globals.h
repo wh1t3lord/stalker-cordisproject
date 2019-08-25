@@ -443,6 +443,8 @@ inline xr_string get_squad_relation_to_actor_by_id(const std::uint16_t& squad_id
     return kRelationsTypeEnemy;
 }
 
+inline std::uint32_t time_global(void) noexcept { return Device.dwTimeGlobal; }
+
 namespace level
 {
 inline LPCSTR get_name(void) { return (*Level().name()); }
