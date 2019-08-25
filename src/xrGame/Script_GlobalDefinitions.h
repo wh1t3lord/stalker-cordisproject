@@ -241,7 +241,7 @@ public:
     Script_RandomFloat(Script_RandomFloat&&) = delete;
     Script_RandomFloat& operator=(Script_RandomFloat&&) = delete;
 
-    inline float Generate(const float& minimum, const float& maximum)
+    inline float Generate(const float& minimum = 0.0f, const float& maximum = 1.0f)
     {
         if (minimum > maximum)
         {

@@ -23,7 +23,7 @@ bool Script_TreasureManager::fill(CSE_ALifeDynamicObject* server_object, const x
 
     if (this->m_secrets[treasure_id_name].m_items[server_object->name()].size())
     {
-        xr_vector<std::pair<std::pair<std::uint32_t, std::uint32_t>, xr_vector<std::uint16_t>>>& data =
+        xr_vector<std::pair<std::pair<std::uint32_t, float>, xr_vector<std::uint16_t>>>& data =
             this->m_secrets[treasure_id_name].m_items[server_object->name()];
 
         if (data.size())
@@ -104,6 +104,81 @@ void Script_TreasureManager::register_restrictor(CSE_ALifeDynamicObject* server_
 
     if (server_object->spawn_ini().section_exist("secret"))
         this->m_secret_restrictors[server_object->name_replace()] = server_object->ID;
+}
+
+void Script_TreasureManager::update(void)
+{
+    if (!this->m_is_items_spawned)
+    {
+        for (std::pair<const xr_string, DataSecret>& it : this->m_secrets)
+        {
+        }
+    }
+}
+
+void Script_TreasureManager::spawn_treasure(const xr_string& treasure_id_name)
+{
+    if (!treasure_id_name.c_str())
+    {
+        R_ASSERT2(false, "string can't be empty!");
+        return;
+    }
+
+    if (!this->m_secrets[treasure_id_name].m_items.size())
+    {
+        R_ASSERT2(false, "There is no stored secret!!!");
+        return;
+    }
+
+    if (this->m_secrets[treasure_id_name].m_is_given)
+    {
+        Msg("Secret [%s] already given!", treasure_id_name.c_str());
+        return;
+    }
+
+    for (xr_map<xr_string, xr_vector<std::pair<std::pair<std::uint32_t, float>, xr_vector<std::uint16_t>>>>::value_type&
+             it : this->m_secrets[treasure_id_name].m_items)
+    {
+        for (std::pair<std::pair<std::uint32_t, float>, xr_vector<std::uint16_t>>& it_vec : it.second)
+        {
+            for (std::uint32_t i = 0; i < it_vec.first.first; ++i)
+            {
+                float chance = Globals::Script_RandomFloat::getInstance().Generate();
+
+                if (chance < it_vec.first.second)
+                {
+                    if (it_vec.second[i])
+                    {
+                        CSE_ALifeDynamicObject* server_object = ai().alife().objects().object(it_vec.second[i]);
+
+                        if (!server_object)
+                        {
+                            R_ASSERT2(false, "Something went wrong!");
+                            return;
+                        }
+
+                        CSE_Abstract* created_server_object = Globals::Game::alife_create(
+                            it.first, server_object->Position(), server_object->m_tNodeID, server_object->m_tGraphID);
+
+                        if (!created_server_object)
+                        {
+                            R_ASSERT2(false, "Something went wrong!");
+                            return;
+                        }
+
+                        created_server_object->o_Angle = server_object->o_Angle;
+                        created_server_object->cast_alife_object()->use_ai_locations(
+                            server_object->used_ai_locations());
+
+                        this->m_items_from_secrects[created_server_object->ID] =
+                            this->m_secret_restrictors[treasure_id_name];
+
+                        this->m_secrets[treasure_id_name].m_to_find += 1;
+                    }
+                }
+            }
+        }
+    }
 }
 
 } // namespace Scripts
