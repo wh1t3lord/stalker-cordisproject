@@ -462,7 +462,7 @@ inline void map_add_object_spot(const std::uint16_t& id, LPCSTR spot_type, LPCST
     }
 }
 
-void map_add_object_spot_ser(u16 id, LPCSTR spot_type, LPCSTR text)
+inline void map_add_object_spot_ser(const std::uint16_t& id, LPCSTR spot_type, LPCSTR text)
 {
     CMapLocation* ml = Level().MapManager().AddMapLocation(spot_type, id);
     if (xr_strlen(text))

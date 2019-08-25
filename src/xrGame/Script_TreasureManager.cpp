@@ -263,7 +263,12 @@ void Script_TreasureManager::give_treasure(const xr_string& treasure_id_name, co
         this->spawn_treasure(treasure_id_name);
     }
 
-   
+    Globals::Game::level::map_add_object_spot_ser(this->m_secret_restrictors[treasure_id_name], "treasure", "");
+
+    this->m_secrets[treasure_id_name].m_is_given = true;
+
+    // Lord: добавить news_manager.send_treasure(0);
+    Msg("[Scripts/Script_TreasureManager/give_treasure(treasure_id_name, is_spawn)] Give secret [%s]", treasure_id_name.c_str());
 }
 
 } // namespace Scripts
