@@ -31,8 +31,6 @@ namespace Scripts
 {
 namespace Globals
 {
-
-
 #pragma region Cordis Custom Datas
 /*
 struct ReachTarget
@@ -296,6 +294,56 @@ inline void r_2nums(const CInifile& spawn_ini, const xr_string& section_name, co
     }
 }
 
+// first -> section | second -> prob
+inline xr_vector<std::pair<xr_string, std::uint32_t>> parse_spawns(const xr_string& buffer)
+{
+    xr_vector<std::pair<xr_string, std::uint32_t>> result;
+
+    if (!buffer.size())
+    {
+        R_ASSERT2(false, "string can't be empty!");
+        return result;
+    }
+
+    xr_vector<xr_string> buffer_names = parse_names(buffer);
+
+    std::uint32_t count = buffer_names.size();
+
+    std::uint32_t it = 0;
+
+    while (it <= count)
+    {
+        std::pair<xr_string, std::uint32_t> data;
+        data.first = buffer_names[it];
+
+        // Lord: наверное лучше сделать через try
+        if (buffer_names[it + 1].size())
+        {
+            std::uint32_t value = atoi(buffer_names[it + 1].c_str());
+
+            if (value)
+            {
+                data.second = value;
+                it += 2;
+            }
+            else
+            {
+                data.second = 1;
+                it += 1;
+            }
+        }
+        else
+        {
+            data.second = 1;
+            it += 1;
+        }
+
+        result.push_back(data);
+    }
+
+    return result;
+}
+
 } // namespace Utils
 namespace Game
 {
@@ -516,7 +564,7 @@ inline bool is_accessible_job(CSE_ALifeDynamicObject* server_object, const char*
 
 #include "Script_LogicEntity.h"
 #include "Script_LogicManager.h"
-
+#include "Script_TreasureManager.h"
 #include "Script_SoundManager.h"
 #include "Script_NewsManager.h"
 #include "Script_XR_Condition.h"
