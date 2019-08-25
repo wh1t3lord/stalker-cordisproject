@@ -178,14 +178,6 @@ float rain_factor() { return (g_pGamePersistent->Environment().CurrentEnv->rain_
 
 
 
-void map_add_object_spot_ser(u16 id, LPCSTR spot_type, LPCSTR text)
-{
-    CMapLocation* ml = Level().MapManager().AddMapLocation(spot_type, id);
-    if (xr_strlen(text))
-        ml->SetHint(text);
-
-    ml->SetSerializable(true);
-}
 
 
 

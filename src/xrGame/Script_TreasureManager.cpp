@@ -228,5 +228,43 @@ void Script_TreasureManager::spawn_treasure(const xr_string& treasure_id_name)
     }
 }
 
+void Script_TreasureManager::give_treasure(const xr_string& treasure_id_name, const bool& is_spawn)
+{
+    if (!treasure_id_name.size())
+    {
+        R_ASSERT2(false, "string can't empty!");
+        return;
+    }
+
+    if (!this->m_secrets[treasure_id_name].m_items.size())
+    {
+        R_ASSERT2(false, "There is no secret!!!");
+        return;
+    }
+
+    if (this->m_secrets[treasure_id_name].m_is_given)
+    {
+        Msg("[Scripts/Script_TreasureManager/give_treasure(treasure_id_name, is_spawn)] Secret [%s] already given!",
+            treasure_id_name.c_str());
+        return;
+    }
+
+    if (!this->m_secrets[treasure_id_name].m_to_find && !(this->m_secrets[treasure_id_name].m_condlist_empty.size()))
+    {
+        // Lord: добавить news_manager.send_treasure(2);
+        Msg("[Scripts/Script_TreasureManager/give_treasure(treasure_id_name, is_spawn)] Secret [%s] already empty",
+            treasure_id_name.c_str());
+        return;
+    }
+
+    if (is_spawn)
+    {
+        Msg("[Scripts/Script_TreasureManager/give_treasure(treasure_id_name, is_spawn)] is_spawn = true!");
+        this->spawn_treasure(treasure_id_name);
+    }
+
+   
+}
+
 } // namespace Scripts
 } // namespace Cordis

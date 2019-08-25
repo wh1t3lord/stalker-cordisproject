@@ -105,6 +105,7 @@ public:
     void register_restrictor(CSE_ALifeDynamicObject* server_object);
     void update(void);
     void spawn_treasure(const xr_string& treasure_id_name);
+    void give_treasure(const xr_string& treasure_id_name, const bool& is_spawn = false);
 
 private:
     bool m_is_items_spawned;
