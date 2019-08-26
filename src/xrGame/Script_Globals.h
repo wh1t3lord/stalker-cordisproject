@@ -573,6 +573,7 @@ inline bool is_accessible_job(CSE_ALifeDynamicObject* server_object, const char*
 #include "Script_SE_Helicopter.h"
 #include "Script_SE_Weapon.h"
 #include "Script_SE_WeaponShotgun.h"
+#include "Script_SE_WeaponAutomaticShotgun.h"
 #include "Script_SmartTerrainControl.h"
 /*#include "Script_GulagGenerator.h"*/
 #include "Script_SE_SmartTerrain.h"
