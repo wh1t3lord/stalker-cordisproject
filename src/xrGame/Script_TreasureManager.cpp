@@ -332,7 +332,52 @@ void Script_TreasureManager::save(NET_Packet& packet)
     Globals::set_save_marker(packet, Globals::kSaveMarkerMode_Save, true, "CTreasureManager");
 }
 
-void Script_TreasureManager::load(NET_Packet& packet) {}
+void Script_TreasureManager::load(NET_Packet& packet)
+{
+    Globals::set_save_marker(packet, Globals::kSaveMarkerMode_Load, false, "CTreasureManager");
+
+    this->m_is_items_spawned = !!packet.r_u8();
+
+    std::uint16_t total_size = packet.r_u16();
+
+    for (std::uint16_t i = 0; i < total_size; ++i)
+    {
+        std::uint16_t key = packet.r_u16();
+        std::uint16_t value = packet.r_u16();
+
+        this->m_items_from_secrects[key] = value;
+    }
+
+    total_size = packet.r_u16();
+    std::uint16_t id = packet.r_u16();
+    xr_string founded_id_name;
+    for (std::uint16_t i = 0; i < total_size; ++i)
+    {
+        founded_id_name = "";
+        for (std::pair<const xr_string, std::uint16_t>& it : this->m_secret_restrictors)
+        {
+            if (it.second == id)
+            {
+                founded_id_name = it.first;
+                break;
+            }
+        }
+
+        bool is_given = !!packet.r_u8();
+        bool is_checked = !!packet.r_u8();
+        std::uint8_t to_find = packet.r_u8();
+
+        // Lord: может быть не убедительная проверка со стороны this->m_secrets, пока без неё (смотреть оригинал)
+        if (id != 65535 /*&& this->m_secrets[founded_id_name].m_items.size()*/)
+        {
+            this->m_secrets[founded_id_name].m_is_checked = is_checked;
+            this->m_secrets[founded_id_name].m_is_given = is_given;
+            this->m_secrets[founded_id_name].m_to_find = to_find;
+        }
+    }
+
+    Globals::set_save_marker(packet, Globals::kSaveMarkerMode_Load, true, "CTreasureManager");
+}
 
 } // namespace Scripts
 } // namespace Cordis
