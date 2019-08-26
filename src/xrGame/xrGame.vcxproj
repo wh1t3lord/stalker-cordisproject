@@ -1525,6 +1525,7 @@ $(xrLibDir);$(xrSdkDir)DXSDK/Lib/$(PlatformShortName);
     <ClInclude Include="Script_SE_SmartTerrain.h" />
     <ClInclude Include="Script_SE_Weapon.h" />
     <ClInclude Include="Script_SE_WeaponAutomaticShotgun.h" />
+    <ClInclude Include="Script_SE_WeaponMagazined.h" />
     <ClInclude Include="Script_SE_WeaponShotgun.h" />
     <ClInclude Include="Script_SimulationBoard.h" />
     <ClInclude Include="Script_SimulationObjects.h" />
@@ -3596,6 +3597,7 @@ $(xrLibDir);$(xrSdkDir)DXSDK/Lib/$(PlatformShortName);
     <ClCompile Include="Script_SE_SmartTerrain.cpp" />
     <ClCompile Include="Script_SE_Weapon.cpp" />
     <ClCompile Include="Script_SE_WeaponAutomaticShotgun.cpp" />
+    <ClCompile Include="Script_SE_WeaponMagazined.cpp" />
     <ClCompile Include="Script_SE_WeaponShotgun.cpp" />
     <ClCompile Include="Script_SimulationBoard.cpp" />
     <ClCompile Include="Script_SimulationObjects.cpp" />
