@@ -8270,6 +8270,9 @@
     <ClInclude Include="Script_SE_Helmet.h">
       <Filter>Cordis\Scripts\Server Entities</Filter>
     </ClInclude>
+    <ClInclude Include="Script_SE_Weapon.h">
+      <Filter>Cordis\Scripts\Server Entities</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="damage_manager.cpp">
@@ -12421,6 +12424,9 @@
       <Filter>Cordis\Scripts\Managers\Treasure</Filter>
     </ClCompile>
     <ClCompile Include="Script_SE_Helmet.cpp">
+      <Filter>Cordis\Scripts\Server Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="Script_SE_Weapon.cpp">
       <Filter>Cordis\Scripts\Server Entities</Filter>
     </ClCompile>
   </ItemGroup>

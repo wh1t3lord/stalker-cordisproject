@@ -6,7 +6,7 @@ namespace Cordis
 {
 namespace Scripts
 {
-Script_SE_Helmet::Script_SE_Helmet(LPCSTR section_name) : inherited(section_name) {}
+Script_SE_Helmet::Script_SE_Helmet(LPCSTR section_name) : inherited(section_name), m_is_secret_item(false) {}
 
 Script_SE_Helmet::~Script_SE_Helmet(void) {}
 
