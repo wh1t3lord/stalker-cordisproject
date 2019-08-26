@@ -268,7 +268,38 @@ void Script_TreasureManager::give_treasure(const xr_string& treasure_id_name, co
     this->m_secrets[treasure_id_name].m_is_given = true;
 
     // Lord: добавить news_manager.send_treasure(0);
-    Msg("[Scripts/Script_TreasureManager/give_treasure(treasure_id_name, is_spawn)] Give secret [%s]", treasure_id_name.c_str());
+    Msg("[Scripts/Script_TreasureManager/give_treasure(treasure_id_name, is_spawn)] Give secret [%s]",
+        treasure_id_name.c_str());
+}
+
+void Script_TreasureManager::on_item_take(const std::uint16_t& object_id)
+{
+    std::uint16_t restirctor_id = this->m_items_from_secrects[object_id];
+    xr_string treasure_id_name = "";
+
+    for (std::pair<const xr_string, std::uint16_t>& it : this->m_secret_restrictors)
+    {
+        if (restirctor_id == it.second)
+        {
+            treasure_id_name = it.first;
+        }
+    }
+
+    if (treasure_id_name.size())
+    {
+        DataSecret& current_secret = this->m_secrets[treasure_id_name];
+        current_secret.m_to_find -= 1;
+        if (!current_secret.m_to_find)
+        {
+            Globals::Game::level::map_remove_object_spot(this->m_secret_restrictors[treasure_id_name], "treasure");
+            // Lord: добавить xr_statistics.inc_founded_secrets_counter();
+            Msg("[Scripts/Script_TreasureManager/on_item_take()] Secret [%s] now is empty!", treasure_id_name.c_str());
+            current_secret.m_is_checked = true;
+            // Lord: добавить news_manager.send_treasure(1);
+        }
+
+        this->m_items_from_secrects[object_id] = 0;
+    }
 }
 
 } // namespace Scripts

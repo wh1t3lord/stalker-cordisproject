@@ -106,12 +106,13 @@ public:
     void update(void);
     void spawn_treasure(const xr_string& treasure_id_name);
     void give_treasure(const xr_string& treasure_id_name, const bool& is_spawn = false);
+    void on_item_take(const std::uint16_t& object_id);
 
 private:
     bool m_is_items_spawned;
     std::uint32_t m_check_time;
     xr_map<xr_string, std::uint16_t> m_secret_restrictors;
-    xr_map<std::uint16_t, xr_string> m_items_from_secrects;
+    xr_map<std::uint16_t, std::uint16_t> m_items_from_secrects;
     xr_map<xr_string, DataSecret> m_secrets;
 };
 
