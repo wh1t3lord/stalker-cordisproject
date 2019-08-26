@@ -302,5 +302,37 @@ void Script_TreasureManager::on_item_take(const std::uint16_t& object_id)
     }
 }
 
+void Script_TreasureManager::save(NET_Packet& packet)
+{
+    Globals::set_save_marker(packet, Globals::kSaveMarkerMode_Save, false, "CTreasureManager");
+
+    packet.w_u8(this->m_is_items_spawned ? 1 : 0);
+    packet.w_u16(this->m_items_from_secrects.size());
+
+    for (std::pair<const std::uint16_t, std::uint16_t>& it : this->m_items_from_secrects)
+    {
+        packet.w_u16(it.first);
+        packet.w_u16(it.second);
+    }
+
+    packet.w_u16(this->m_secrets.size());
+
+    for (std::pair<const xr_string, DataSecret>& it : this->m_secrets)
+    {
+        if (!this->m_secret_restrictors[it.first])
+            packet.w_u16(Globals::kUnsignedInt16Undefined);
+        else
+            packet.w_u16(this->m_secret_restrictors[it.first]);
+
+        packet.w_u8(it.second.m_is_given ? 1 : 0);
+        packet.w_u8(it.second.m_is_checked ? 1 : 0);
+        packet.w_u8(it.second.m_to_find);
+    }
+
+    Globals::set_save_marker(packet, Globals::kSaveMarkerMode_Save, true, "CTreasureManager");
+}
+
+void Script_TreasureManager::load(NET_Packet& packet) {}
+
 } // namespace Scripts
 } // namespace Cordis
