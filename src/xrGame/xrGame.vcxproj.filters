@@ -8294,6 +8294,7 @@
     <ClInclude Include="Script_SE_Physic.h">
       <Filter>Cordis\Scripts\Server Entities</Filter>
     </ClInclude>
+    <ClInclude Include="Script_SE_Lamp.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="damage_manager.cpp">
@@ -12471,6 +12472,7 @@
     <ClCompile Include="Script_SE_Physic.cpp">
       <Filter>Cordis\Scripts\Server Entities</Filter>
     </ClCompile>
+    <ClCompile Include="Script_SE_Lamp.cpp" />
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="ai\monsters\chimera\chimera_attack_state.h">
