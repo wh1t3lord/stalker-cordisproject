@@ -107,6 +107,8 @@ public:
     void spawn_treasure(const xr_string& treasure_id_name);
     void give_treasure(const xr_string& treasure_id_name, const bool& is_spawn = false);
     void on_item_take(const std::uint16_t& object_id);
+    void save(NET_Packet& packet);
+    void load(NET_Packet& packet);
 
 private:
     bool m_is_items_spawned;
