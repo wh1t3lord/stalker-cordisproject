@@ -8300,6 +8300,9 @@
     <ClInclude Include="Script_SE_Ammo.h">
       <Filter>Cordis\Scripts\Server Entities</Filter>
     </ClInclude>
+    <ClInclude Include="Script_SE_Grenade.h">
+      <Filter>Cordis\Scripts\Server Entities</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="damage_manager.cpp">
@@ -12481,6 +12484,9 @@
       <Filter>Cordis\Scripts\Server Entities</Filter>
     </ClCompile>
     <ClCompile Include="Script_SE_Ammo.cpp">
+      <Filter>Cordis\Scripts\Server Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="Script_SE_Grenade.cpp">
       <Filter>Cordis\Scripts\Server Entities</Filter>
     </ClCompile>
   </ItemGroup>
