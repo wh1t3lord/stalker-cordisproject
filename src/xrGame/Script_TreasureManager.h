@@ -1,5 +1,7 @@
 #pragma once
 
+#include "Script_XR_Logic.h"
+
 namespace Cordis
 {
 namespace Scripts
