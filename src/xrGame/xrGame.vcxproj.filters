@@ -8303,6 +8303,15 @@
     <ClInclude Include="Script_SE_Grenade.h">
       <Filter>Cordis\Scripts\Server Entities</Filter>
     </ClInclude>
+    <ClInclude Include="Script_SE_Eatable.h">
+      <Filter>Cordis\Scripts\Server Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="Script_SE_InventoryBox.h">
+      <Filter>Cordis\Scripts\Server Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="Script_SE_Explosive.h">
+      <Filter>Cordis\Scripts\Server Entities</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="damage_manager.cpp">
@@ -12487,6 +12496,15 @@
       <Filter>Cordis\Scripts\Server Entities</Filter>
     </ClCompile>
     <ClCompile Include="Script_SE_Grenade.cpp">
+      <Filter>Cordis\Scripts\Server Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="Script_SE_Eatable.cpp">
+      <Filter>Cordis\Scripts\Server Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="Script_SE_InventoryBox.cpp">
+      <Filter>Cordis\Scripts\Server Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="Script_SE_Explosive.cpp">
       <Filter>Cordis\Scripts\Server Entities</Filter>
     </ClCompile>
   </ItemGroup>

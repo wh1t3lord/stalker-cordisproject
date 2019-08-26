@@ -1519,9 +1519,12 @@ $(xrLibDir);$(xrSdkDir)DXSDK/Lib/$(PlatformShortName);
     <ClInclude Include="Script_SE_Actor.h" />
     <ClInclude Include="Script_SE_Ammo.h" />
     <ClInclude Include="Script_SE_Artefact.h" />
+    <ClInclude Include="Script_SE_Eatable.h" />
+    <ClInclude Include="Script_SE_Explosive.h" />
     <ClInclude Include="Script_SE_Grenade.h" />
     <ClInclude Include="Script_SE_Helicopter.h" />
     <ClInclude Include="Script_SE_Helmet.h" />
+    <ClInclude Include="Script_SE_InventoryBox.h" />
     <ClInclude Include="Script_SE_Item.h" />
     <ClInclude Include="Script_SE_ItemTorch.h" />
     <ClInclude Include="Script_SE_Lamp.h" />
@@ -3598,9 +3601,12 @@ $(xrLibDir);$(xrSdkDir)DXSDK/Lib/$(PlatformShortName);
     <ClCompile Include="Script_SE_Actor.cpp" />
     <ClCompile Include="Script_SE_Ammo.cpp" />
     <ClCompile Include="Script_SE_Artefact.cpp" />
+    <ClCompile Include="Script_SE_Eatable.cpp" />
+    <ClCompile Include="Script_SE_Explosive.cpp" />
     <ClCompile Include="Script_SE_Grenade.cpp" />
     <ClCompile Include="Script_SE_Helicopter.cpp" />
     <ClCompile Include="Script_SE_Helmet.cpp" />
+    <ClCompile Include="Script_SE_InventoryBox.cpp" />
     <ClCompile Include="Script_SE_Item.cpp" />
     <ClCompile Include="Script_SE_ItemTorch.cpp" />
     <ClCompile Include="Script_SE_Lamp.cpp" />
