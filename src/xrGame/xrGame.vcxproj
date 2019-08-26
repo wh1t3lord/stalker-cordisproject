@@ -1520,6 +1520,7 @@ $(xrLibDir);$(xrSdkDir)DXSDK/Lib/$(PlatformShortName);
     <ClInclude Include="Script_SE_Artefact.h" />
     <ClInclude Include="Script_SE_Helicopter.h" />
     <ClInclude Include="Script_SE_Helmet.h" />
+    <ClInclude Include="Script_SE_Item.h" />
     <ClInclude Include="Script_SE_Outfit.h" />
     <ClInclude Include="Script_SE_SmartCover.h" />
     <ClInclude Include="Script_SE_SmartTerrain.h" />
@@ -3593,6 +3594,7 @@ $(xrLibDir);$(xrSdkDir)DXSDK/Lib/$(PlatformShortName);
     <ClCompile Include="Script_SE_Artefact.cpp" />
     <ClCompile Include="Script_SE_Helicopter.cpp" />
     <ClCompile Include="Script_SE_Helmet.cpp" />
+    <ClCompile Include="Script_SE_Item.cpp" />
     <ClCompile Include="Script_SE_Outfit.cpp" />
     <ClCompile Include="Script_SE_SmartCover.cpp" />
     <ClCompile Include="Script_SE_SmartTerrain.cpp" />
