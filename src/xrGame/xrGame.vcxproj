@@ -1517,6 +1517,7 @@ $(xrLibDir);$(xrSdkDir)DXSDK/Lib/$(PlatformShortName);
     <ClInclude Include="script_property_evaluator_wrapper.h" />
     <ClInclude Include="script_property_evaluator_wrapper_inline.h" />
     <ClInclude Include="Script_SE_Actor.h" />
+    <ClInclude Include="Script_SE_Ammo.h" />
     <ClInclude Include="Script_SE_Artefact.h" />
     <ClInclude Include="Script_SE_Helicopter.h" />
     <ClInclude Include="Script_SE_Helmet.h" />
@@ -3594,6 +3595,7 @@ $(xrLibDir);$(xrSdkDir)DXSDK/Lib/$(PlatformShortName);
       <PrecompiledHeaderOutputFile>$(IntDir)$(ProjectName)_script.pch</PrecompiledHeaderOutputFile>
     </ClCompile>
     <ClCompile Include="Script_SE_Actor.cpp" />
+    <ClCompile Include="Script_SE_Ammo.cpp" />
     <ClCompile Include="Script_SE_Artefact.cpp" />
     <ClCompile Include="Script_SE_Helicopter.cpp" />
     <ClCompile Include="Script_SE_Helmet.cpp" />
