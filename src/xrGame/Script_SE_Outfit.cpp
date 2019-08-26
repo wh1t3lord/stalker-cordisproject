@@ -1,6 +1,8 @@
 #include "stdafx.h"
 #include "Script_SE_Outfit.h"
 #include "Script_StoryObject.h"
+#include "Script_TreasureManager.h"
+
 
 namespace Cordis
 {
@@ -15,7 +17,7 @@ void Script_SE_Outfit::on_register(void)
     inherited::on_register();
     Script_StoryObject::getInstance().check_spawn_ini_for_story_id(this);
 
-  //  this->m_is_secret_item = 
+    this->m_is_secret_item = Script_TreasureManager::getInstance().register_item(this);
 }
 
 void Script_SE_Outfit::on_unregister(void) {}

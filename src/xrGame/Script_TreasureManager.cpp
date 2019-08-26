@@ -12,13 +12,13 @@ bool Script_TreasureManager::fill(CSE_ALifeDynamicObject* server_object, const x
     if (!server_object)
     {
         R_ASSERT2(false, "object was null!");
-        return;
+        return false;
     }
 
     if (!treasure_id_name.size())
     {
         R_ASSERT2(false, "string can't be null!");
-        return;
+        return false;
     }
 
     if (this->m_secrets[treasure_id_name].m_items[server_object->name()].size())
@@ -61,7 +61,7 @@ bool Script_TreasureManager::register_item(CSE_ALifeDynamicObject* server_object
     if (!server_object)
     {
         R_ASSERT2(false, "object was null!");
-        return;
+        return false;
     }
 
     if (server_object->spawn_ini().section_exist("secret"))

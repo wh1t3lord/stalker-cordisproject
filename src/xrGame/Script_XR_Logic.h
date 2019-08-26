@@ -3,7 +3,7 @@
 #include "xrCore/xr_ini.h"
 #include "xrServer_Objects_ALife.h"
 #include "Script_XR_Gulag.h"
-/*#include "Script_GlobalHelper.h"*/
+#include "Script_GlobalHelper.h"
 #include "Script_LogicManager.h"
 namespace Cordis
 {
