@@ -20,9 +20,21 @@ void Script_SE_Outfit::on_register(void)
     this->m_is_secret_item = Script_TreasureManager::getInstance().register_item(this);
 }
 
-void Script_SE_Outfit::on_unregister(void) {}
+void Script_SE_Outfit::on_unregister(void) 
+{
+    Script_StoryObject::getInstance().unregistrate_by_id(this->ID);
+    inherited::on_unregister();
+}
 
-bool Script_SE_Outfit::can_switch_online() const { return false; }
+bool Script_SE_Outfit::can_switch_online() const 
+{
+    if (this->m_is_secret_item)
+    {
+        return false;
+    }
+    
+    return inherited::can_switch_online();
+}
 
 } // namespace Scripts
 } // namespace Cordis
