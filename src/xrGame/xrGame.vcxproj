@@ -1529,6 +1529,7 @@ $(xrLibDir);$(xrSdkDir)DXSDK/Lib/$(PlatformShortName);
     <ClInclude Include="Script_SE_ItemTorch.h" />
     <ClInclude Include="Script_SE_Lamp.h" />
     <ClInclude Include="Script_SE_Outfit.h" />
+    <ClInclude Include="Script_SE_PDA.h" />
     <ClInclude Include="Script_SE_Physic.h" />
     <ClInclude Include="Script_SE_SmartCover.h" />
     <ClInclude Include="Script_SE_SmartTerrain.h" />
@@ -3611,6 +3612,7 @@ $(xrLibDir);$(xrSdkDir)DXSDK/Lib/$(PlatformShortName);
     <ClCompile Include="Script_SE_ItemTorch.cpp" />
     <ClCompile Include="Script_SE_Lamp.cpp" />
     <ClCompile Include="Script_SE_Outfit.cpp" />
+    <ClCompile Include="Script_SE_PDA.cpp" />
     <ClCompile Include="Script_SE_Physic.cpp" />
     <ClCompile Include="Script_SE_SmartCover.cpp" />
     <ClCompile Include="Script_SE_SmartTerrain.cpp" />
