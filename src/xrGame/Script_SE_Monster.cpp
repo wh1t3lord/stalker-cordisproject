@@ -130,7 +130,7 @@ void Script_SE_Monster::STATE_Write(NET_Packet& packet)
     }
     else
     {
-        if (DataBase::Storage::getInstance().getOfflineObjects()[this->ID].second.size())
+        if (DataBase::Storage::getInstance().getOfflineObjects()[this->ID].second.size()) // Lord: нужно ли писать альтернативу?
             packet.w_stringZ(std::to_string(DataBase::Storage::getInstance().getOfflineObjects()[this->ID].first).c_str());
     }
 }
