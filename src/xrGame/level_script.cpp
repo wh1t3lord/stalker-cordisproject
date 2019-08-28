@@ -92,14 +92,7 @@ CScriptGameObject* get_object_by_name(LPCSTR caObjectName)
 }
 #endif
 
-CScriptGameObject* get_object_by_id(u16 id)
-{
-    CGameObject* pGameObject = smart_cast<CGameObject*>(Level().Objects.net_Find(id));
-    if (!pGameObject)
-        return NULL;
 
-    return pGameObject->lua_game_object();
-}
 
 LPCSTR get_weather() { return *g_pGamePersistent->Environment().GetWeather(); }
 void set_weather(pcstr const weather_name, const bool forced)

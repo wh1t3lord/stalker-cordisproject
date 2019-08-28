@@ -1519,6 +1519,7 @@ $(xrLibDir);$(xrSdkDir)DXSDK/Lib/$(PlatformShortName);
     <ClInclude Include="Script_SE_Actor.h" />
     <ClInclude Include="Script_SE_Ammo.h" />
     <ClInclude Include="Script_SE_Artefact.h" />
+    <ClInclude Include="Script_SE_Detector.h" />
     <ClInclude Include="Script_SE_Eatable.h" />
     <ClInclude Include="Script_SE_Explosive.h" />
     <ClInclude Include="Script_SE_Grenade.h" />
@@ -1528,6 +1529,8 @@ $(xrLibDir);$(xrSdkDir)DXSDK/Lib/$(PlatformShortName);
     <ClInclude Include="Script_SE_Item.h" />
     <ClInclude Include="Script_SE_ItemTorch.h" />
     <ClInclude Include="Script_SE_Lamp.h" />
+    <ClInclude Include="Script_SE_LevelChanger.h" />
+    <ClInclude Include="Script_SE_Monster.h" />
     <ClInclude Include="Script_SE_Outfit.h" />
     <ClInclude Include="Script_SE_PDA.h" />
     <ClInclude Include="Script_SE_Physic.h" />
@@ -3602,6 +3605,7 @@ $(xrLibDir);$(xrSdkDir)DXSDK/Lib/$(PlatformShortName);
     <ClCompile Include="Script_SE_Actor.cpp" />
     <ClCompile Include="Script_SE_Ammo.cpp" />
     <ClCompile Include="Script_SE_Artefact.cpp" />
+    <ClCompile Include="Script_SE_Detector.cpp" />
     <ClCompile Include="Script_SE_Eatable.cpp" />
     <ClCompile Include="Script_SE_Explosive.cpp" />
     <ClCompile Include="Script_SE_Grenade.cpp" />
@@ -3611,6 +3615,8 @@ $(xrLibDir);$(xrSdkDir)DXSDK/Lib/$(PlatformShortName);
     <ClCompile Include="Script_SE_Item.cpp" />
     <ClCompile Include="Script_SE_ItemTorch.cpp" />
     <ClCompile Include="Script_SE_Lamp.cpp" />
+    <ClCompile Include="Script_SE_LevelChanger.cpp" />
+    <ClCompile Include="Script_SE_Monster.cpp" />
     <ClCompile Include="Script_SE_Outfit.cpp" />
     <ClCompile Include="Script_SE_PDA.cpp" />
     <ClCompile Include="Script_SE_Physic.cpp" />

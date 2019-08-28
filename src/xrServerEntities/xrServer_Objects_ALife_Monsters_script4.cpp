@@ -74,7 +74,7 @@ void ForceSetGoodwill(CSE_ALifeMonsterAbstract* self, int goodwill, ALife::_OBJE
 //                          .def("smart_terrain_id", &smart_terrain_id)
 //                          .def_readonly("group_id", &CSE_ALifeMonsterAbstract::m_group_id)
 //                          .def_readwrite("m_smart_terrain_id", &CSE_ALifeMonsterAbstract::m_smart_terrain_id)
-//                          .def("clear_smart_terrain", &clear_smart_terrain)
+ //                         .def("clear_smart_terrain", &clear_smart_terrain)
 //                          .def("brain", &monster_brain)
 //                          .def("rank", &CSE_ALifeMonsterAbstract::Rank)
 //                          .def("smart_terrain_task_activate", &smart_terrain_task_activate)

@@ -19,7 +19,6 @@ namespace Cordis
 {
 namespace Scripts
 {
-
 struct StayReachOnTarget
 {
     float m_idle_time = Globals::Script_RandomFloat::getInstance().Generate(
@@ -90,6 +89,7 @@ public:
     inline std::uint32_t getCurrentSpotID(void) noexcept { return this->m_current_spot_id; }
     inline std::uint32_t getCurrentTargetID(void) noexcept { return this->m_current_target_id; }
     inline std::uint32_t getAssignedTargetID(void) noexcept { return this->m_assigned_target_id; }
+    inline std::uint32_t getEnteredSmartID(void) noexcept { return this->m_entered_smart_id; }
     inline xr_string& getSettingsID(void) noexcept { return this->m_settings_id_name; }
     inline std::uint16_t getScriptTarget(void);
     inline StayReachOnTarget& getCurrentAction(void) noexcept { return this->m_current_action; }
@@ -100,12 +100,15 @@ public:
     inline void setCurrentSpotID(const std::uint32_t& value) noexcept { this->m_current_spot_id = value; }
     inline void setCurrentTargetID(const std::uint32_t& value) noexcept { this->m_current_target_id = value; }
     inline void setAssignedTargetID(const std::uint32_t& value) noexcept { this->m_assigned_target_id = value; }
+    inline void setEnteredSmartID(const std::uint32_t& value) noexcept { this->m_entered_smart_id = value; }
 #pragma endregion
 
     void set_location_types(const xr_string& new_smart_name);
     void create_npc(Script_SE_SmartTerrain* spawn_smart);
     std::uint16_t add_squad_member(const xr_string& spawn_section_name, const Fvector& spawn_position,
         const std::uint32_t& level_vertex_id, const std::uint16_t& game_vertex_id);
+    void on_npc_death(CSE_ALifeDynamicObject* server_object);
+    void remove_squad(void);
 
 private:
     void set_location_types_section(const xr_string& section);
@@ -129,6 +132,7 @@ private:
     std::uint32_t m_current_target_id;
     std::uint32_t m_assigned_target_id;
     std::uint32_t m_next_target_index;
+    std::uint32_t m_entered_smart_id;
     float m_sympathy;
     xr_map<std::uint32_t, CondlistData> m_condlist_action;
     xr_map<std::uint32_t, CondlistData> m_condlist_death;
