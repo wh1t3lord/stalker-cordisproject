@@ -20,14 +20,25 @@ struct NpcInfo;
 struct JobData_SubData
 {
     std::uint32_t m_priority;
-    std::uint32_t m_job_index = std::uint32_t(-1); // @ Lord: делаем так специально, потом пересмотреть архитектуру
-                                                   // Script_SE_SmartTerrain и GulagGenerator
+    std::uint32_t m_job_index = Globals::kUnsignedInt32Undefined; // @ Lord: делаем так специально, потом пересмотреть
+                                                                  // архитектуру Script_SE_SmartTerrain и GulagGenerator
     // @ Section | Job type
     std::pair<xr_string, xr_string> m_job_id;
     std::pair<xr_string, xr_map<std::uint32_t, CondlistData>> m_function_params;
     std::function<bool(CSE_ALifeDynamicObject*, Script_SE_SmartTerrain*,
         const std::pair<xr_string, xr_map<std::uint32_t, CondlistData>>& params, const NpcInfo&)>
         m_function;
+
+    inline void clear(void)
+    {
+        this->m_priority = Globals::kUnsignedInt32Undefined;
+        this->m_job_index = Globals::kUnsignedInt32Undefined;
+        this->m_job_id.first.clear();
+        this->m_job_id.second.clear();
+        this->m_function_params.first.clear();
+        this->m_function_params.second.clear();
+        this->m_function = nullptr;
+    }
 };
 
 struct NpcInfo
@@ -36,10 +47,20 @@ struct NpcInfo
     bool m_begin_job;
     std::uint32_t m_stype;
     std::uint32_t m_job_prioprity;
-    //    std::uint32_t m_job_index = Globals::kUnsignedIntUndefined;
     CSE_ALifeDynamicObject* m_server_object; // @ Lord: определить где оно именно удаляется в итоге
     xr_string m_need_job;
     JobData_SubData m_job_link;
+
+    inline void clear(void)
+    {
+        this->m_is_monster = false;
+        this->m_begin_job = false;
+        this->m_stype = Globals::kUnsignedInt32Undefined;
+        this->m_job_prioprity = Globals::kUnsignedInt32Undefined;
+        this->m_server_object = nullptr;
+        this->m_need_job.clear();
+        this->m_job_link.clear();
+    }
 };
 
 struct JobData
@@ -136,23 +157,27 @@ public:
     inline std::uint16_t getSquadID(void) noexcept { return this->m_squad_id; }
     inline CInifile& getIni(void) noexcept { return this->spawn_ini(); }
     inline xr_string getSpawnPointName(void) noexcept { return this->m_spawn_point_name; }
+    inline std::uint32_t getStaydSquadQuan(void) noexcept { return this->m_stayed_squad_quan; }
 #pragma endregion
 
 #pragma region Cordis Setters
     inline void setDefenceRestrictor(const xr_string& string) noexcept { this->m_defence_restictor = string; }
     inline void setAttackRestrictor(const xr_string& string) noexcept { this->m_attack_restrictor = string; }
     inline void setSafeRestrictor(const xr_string& string) noexcept { this->m_safe_restirctor = string; }
+    inline void setStaydSquadQuan(const std::uint32_t& value) noexcept { this->m_stayed_squad_quan = value; }
 #pragma endregion
 
     void read_params(void);
     void on_after_reach(Script_SE_SimulationSquad* squad);
     void on_reach_target(Script_SE_SimulationSquad* squad);
+    void clear_dead(CSE_ALifeDynamicObject* server_object);
 
 private:
     bool m_is_initialized;
     bool m_is_registered;
     std::uint16_t m_squad_id;
     std::uint32_t m_population;
+    std::uint32_t m_stayed_squad_quan;
     int a = sizeof(xrTime);
     xrTime m_smart_alarm_time;
     Script_SmartTerrainControl* m_base_on_actor_control;

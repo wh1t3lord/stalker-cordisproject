@@ -99,13 +99,59 @@ void Script_SE_SmartTerrain::on_reach_target(Script_SE_SimulationSquad* squad)
     Script_SimulationBoard::getInstance().assigned_squad_to_smart(squad, this->ID);
 
     for (AssociativeVector<std::uint16_t, CSE_ALifeMonsterAbstract*>::const_iterator it =
-             squad->squad_members().begin(); it != squad->squad_members().end(); ++it)
+             squad->squad_members().begin();
+         it != squad->squad_members().end(); ++it)
     {
         if (DataBase::Storage::getInstance().getOfflineObjects()[(*it).first].second.size())
         {
             DataBase::Storage::getInstance().getOfflineObjects()[(*it).first].first = Globals::kUnsignedInt16Undefined;
             DataBase::Storage::getInstance().getOfflineObjects()[(*it).first].second = "";
         }
+    }
+}
+
+void Script_SE_SmartTerrain::clear_dead(CSE_ALifeDynamicObject* server_object)
+{
+    if (!server_object)
+    {
+        R_ASSERT2(false, "object was nullptr!");
+        return;
+    }
+
+    if (this->m_npc_info[server_object->ID].m_job_link.m_job_index != Globals::kUnsignedInt32Undefined)
+    {
+        this->m_dead_time[this->m_npc_info[server_object->ID].m_job_link.m_job_index] = Globals::Game::get_game_time();
+        this->m_npc_info[server_object->ID].clear();
+        CSE_ALifeMonsterAbstract* object = server_object->cast_monster_abstract();
+
+        if (!object)
+        {
+            R_ASSERT2(false, "bad cast!");
+            return;
+        }
+
+        object->m_smart_terrain_id = 0xffff;
+        return;
+    }
+    else
+    {
+        R_ASSERT2(false, "something went wrong! Can't be here that this->m_npc_info = unInitialize");
+        return;
+    }
+
+    if (this->m_arriving_npc[server_object->ID])
+    {
+        this->m_arriving_npc[server_object->ID] = nullptr;
+        CSE_ALifeMonsterAbstract* object = server_object->cast_monster_abstract();
+
+        if (!object)
+        {
+            R_ASSERT2(false, "bad cast!");
+            return;
+        }
+
+        object->m_smart_terrain_id = 0xffff;
+        //   return;
     }
 }
 

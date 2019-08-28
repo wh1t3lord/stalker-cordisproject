@@ -283,6 +283,50 @@ std::uint16_t Script_SE_SimulationSquad::add_squad_member(const xr_string& spawn
     return server_object->ID;
 }
 
+void Script_SE_SimulationSquad::on_npc_death(CSE_ALifeDynamicObject* server_object)
+{
+    if (!server_object)
+    {
+        R_ASSERT2(false, "object was null!");
+        return;
+    }
+
+    Msg("[Scripts/Script_SE_SimulationSquad/on_npc_death(server_object)] Squad %d killed member is %d", this->ID,
+        server_object->ID);
+
+    this->m_sound_manager.unregister_npc(server_object->ID);
+    this->unregister_member(server_object->ID);
+
+    if (!this->npc_count())
+    {
+        Msg("[Scripts/Script_SE_SimulationSquad/on_npc_death(server_object)] REMOVING DEAD SQUAD %d", this->ID);
+
+        if (this->m_current_action.m_name.size())
+        {
+            this->m_current_action.Clear();
+        }
+
+        Script_SimulationBoard::getInstance().remove_squad(this);
+    }
+}
+
+void Script_SE_SimulationSquad::remove_squad(void)
+{
+    for (AssociativeVector<std::uint16_t, CSE_ALifeMonsterAbstract*>::const_iterator it = this->squad_members().begin();
+         it != this->squad_members().end(); ++it)
+    {
+        CSE_ALifeDynamicObject* server_object = ai().alife().objects().object(it->second->ID);
+
+        if (server_object)
+        {
+            this->unregister_member(server_object->ID);
+            const_cast<CALifeSimulator*>(ai().get_alife())->release(server_object);
+        }
+    }
+
+    this->hide();
+}
+
 void Script_SE_SimulationSquad::set_squad_sympathy(const float& sympathy)
 {
     float _sympathy = !(fis_zero(sympathy)) ? sympathy : this->m_sympathy;

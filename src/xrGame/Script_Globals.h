@@ -447,6 +447,16 @@ inline std::uint32_t time_global(void) noexcept { return Device.dwTimeGlobal; }
 
 namespace level
 {
+
+inline CScriptGameObject* get_object_by_id(u16 id)
+{
+    CGameObject* pGameObject = smart_cast<CGameObject*>(Level().Objects.net_Find(id));
+    if (!pGameObject)
+        return nullptr;
+
+    return pGameObject->lua_game_object();
+}
+
 inline LPCSTR get_name(void) { return (*Level().name()); }
 inline void map_remove_object_spot(const std::uint16_t& id, LPCSTR spot_type)
 {

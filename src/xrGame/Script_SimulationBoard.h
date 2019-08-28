@@ -786,10 +786,11 @@ public:
     void register_smart(Script_SE_SmartTerrain* object);
     void init_smart(Script_SE_SmartTerrain* object);
     void setup_squad_and_group(CSE_ALifeDynamicObject* object);
-
+    void remove_squad(Script_SE_SimulationSquad* server_squad);
+    void exit_smart(Script_SE_SimulationSquad* server_squad, const std::uint32_t& smart_terrain_id);
 
 private:
-/*
+    /*
     enum group_id_by_levels
     {
         zaton = 1,
