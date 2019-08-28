@@ -8,6 +8,7 @@
 #include "alife_simulator_base.h"
 #include "alife_object_registry.h"
 #include "alife_graph_registry.h"
+#include "alife_human_brain.h"
 #include "alife_time_manager.h"
 #include "relation_registry.h"
 #include "InfoPortionDefs.h"
@@ -600,6 +601,7 @@ inline bool is_accessible_job(CSE_ALifeDynamicObject* server_object, const char*
 #include "Script_SE_Detector.h"
 #include "Script_SE_LevelChanger.h"
 #include "Script_SE_NewAttachableItem.h"
+#include "Script_SE_Stalker.h"
 #include "Script_SmartTerrainControl.h"
 /*#include "Script_GulagGenerator.h"*/
 #include "Script_SE_SmartTerrain.h"

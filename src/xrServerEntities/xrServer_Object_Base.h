@@ -23,6 +23,7 @@ class Script_SE_Actor;
 class Script_SE_SimulationSquad;
 class Script_SE_SmartCover;
 class Script_SE_SmartTerrain;
+class Script_SE_Stalker;
 } // namespace Scripts
 } // namespace Cordis
 
@@ -138,6 +139,7 @@ public:
     virtual Cordis::Scripts::Script_SE_SmartTerrain* cast_script_se_smartterrain(void) { return nullptr; }
     virtual Cordis::Scripts::Script_SE_SmartCover* cast_script_se_smartcover(void) { return nullptr; }
     virtual Cordis::Scripts::Script_SE_Actor* cast_script_se_actor(void) { return nullptr; }
+    virtual Cordis::Scripts::Script_SE_Stalker* cast_script_se_stalker(void) { return nullptr; }
 #pragma endregion
 
     inline int script_clsid(void) const
