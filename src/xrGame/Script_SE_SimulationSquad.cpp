@@ -315,7 +315,7 @@ void Script_SE_SimulationSquad::remove_squad(void)
     for (AssociativeVector<std::uint16_t, CSE_ALifeMonsterAbstract*>::const_iterator it = this->squad_members().begin();
          it != this->squad_members().end(); ++it)
     {
-        CSE_ALifeDynamicObject* server_object = ai().alife().objects().object(it->second->ID);
+        CSE_ALifeDynamicObject* server_object = ai().alife().objects().object(it->first);
 
         if (server_object)
         {
@@ -337,14 +337,14 @@ void Script_SE_SimulationSquad::set_squad_relation(const xr_string& relation_nam
                  this->squad_members().begin();
              it != this->squad_members().end(); ++it)
         {
-            CScriptGameObject* npc = DataBase::Storage::getInstance().getStorage()[it->second->ID].m_object;
+            CScriptGameObject* npc = DataBase::Storage::getInstance().getStorage()[it->first].m_object;
 
             if (npc)
                 Globals::GameRelations::set_npcs_relation(
                     npc, DataBase::Storage::getInstance().getActor(), new_relation_name);
             else
                 Globals::GameRelations::set_npcs_relation(
-                    ai().alife().objects().object(it->second->ID)->cast_monster_abstract(),
+                    ai().alife().objects().object(it->first)->cast_monster_abstract(),
                     ai().alife().graph().actor()->cast_monster_abstract(), new_relation_name);
         }
     }
@@ -360,12 +360,12 @@ void Script_SE_SimulationSquad::set_squad_sympathy(const float& sympathy)
                  this->squad_members().begin();
              it != this->squad_members().end(); ++it)
         {
-            CScriptGameObject* npc = DataBase::Storage::getInstance().getStorage()[(*it).second->ID].m_object;
+            CScriptGameObject* npc = DataBase::Storage::getInstance().getStorage()[it->first].m_object;
 
             if (npc)
                 Globals::GameRelations::set_npc_sympathy(npc, _sympathy);
             else
-                DataBase::Storage::getInstance().getGoodwill_Sympathy()[(*it).second->ID] = _sympathy;
+                DataBase::Storage::getInstance().getGoodwill_Sympathy()[it->first] = _sympathy;
         }
     }
 }

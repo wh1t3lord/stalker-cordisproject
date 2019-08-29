@@ -171,7 +171,7 @@ inline bool check_squad_for_enemies(CSE_ALifeOnlineOfflineGroup* squad)
     {
         if (it.second)
         {
-            if (get_general_goodwill_between(it.second->ID, ai().alife().graph().actor()->ID))
+            if (get_general_goodwill_between(it.first, ai().alife().graph().actor()->ID))
                 return true;
         }
     }

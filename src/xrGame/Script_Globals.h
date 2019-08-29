@@ -420,7 +420,7 @@ inline xr_string get_squad_relation_to_actor_by_id(const std::uint16_t& squad_id
              squad->squad_members().begin();
          it != squad->squad_members().end(); ++it)
     {
-        CScriptGameObject* client_object = DataBase::Storage::getInstance().getStorage()[(*it).second->ID].m_object;
+        CScriptGameObject* client_object = DataBase::Storage::getInstance().getStorage()[it->first].m_object;
 
         if (client_object && actor)
         {
