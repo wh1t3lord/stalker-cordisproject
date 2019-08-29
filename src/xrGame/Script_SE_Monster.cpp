@@ -94,7 +94,7 @@ void Script_SE_Monster::on_death(CSE_Abstract* killer)
     }
 }
 
-void Script_SE_Monster::STATE_Read(NET_Packet& packet, const std::uint16_t& size)
+void Script_SE_Monster::STATE_Read(NET_Packet& packet, std::uint16_t size)
 {
     inherited::STATE_Read(packet, size);
 

@@ -15,7 +15,7 @@ public:
     virtual void on_register(void);
     virtual void on_unregister(void);
     virtual void on_death(CSE_Abstract* killer);
-    virtual void STATE_Read(NET_Packet& packet, const std::uint16_t& size);
+    virtual void STATE_Read(NET_Packet& packet, std::uint16_t size);
     virtual void STATE_Write(NET_Packet& packet);
     virtual bool can_switch_offline(void) const;
     virtual bool can_switch_online(void) const;
