@@ -327,6 +327,29 @@ void Script_SE_SimulationSquad::remove_squad(void)
     this->hide();
 }
 
+void Script_SE_SimulationSquad::set_squad_relation(const xr_string& relation_name)
+{
+    xr_string new_relation_name = relation_name.size() ? relation_name : this->m_relationship_name;
+
+    if (new_relation_name.size())
+    {
+        for (AssociativeVector<std::uint16_t, CSE_ALifeMonsterAbstract*>::const_iterator it =
+                 this->squad_members().begin();
+             it != this->squad_members().end(); ++it)
+        {
+            CScriptGameObject* npc = DataBase::Storage::getInstance().getStorage()[it->second->ID].m_object;
+
+            if (npc)
+                Globals::GameRelations::set_npcs_relation(
+                    npc, DataBase::Storage::getInstance().getActor(), new_relation_name);
+            else
+                Globals::GameRelations::set_npcs_relation(
+                    ai().alife().objects().object(it->second->ID)->cast_monster_abstract(),
+                    ai().alife().graph().actor()->cast_monster_abstract(), new_relation_name);
+        }
+    }
+}
+
 void Script_SE_SimulationSquad::set_squad_sympathy(const float& sympathy)
 {
     float _sympathy = !(fis_zero(sympathy)) ? sympathy : this->m_sympathy;

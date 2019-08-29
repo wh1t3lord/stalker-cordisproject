@@ -2,6 +2,9 @@
 #include "Script_SimulationBoard.h"
 #include "Script_SE_SmartTerrain.h"
 #include "Script_SE_SimulationSquad.h"
+#include "xrAICore/Navigation/game_graph_space.h"
+
+CInifile settings_ini = CInifile("misc\\simulation.ltx");
 
 namespace Cordis
 {
@@ -146,10 +149,77 @@ void Script_SimulationBoard::exit_smart(Script_SE_SimulationSquad* server_squad,
         return;
     }
     std::uint32_t quan_value = smart.m_smart->getStaydSquadQuan();
-    Msg("[Scripts/Script_SimulationBoard/exit_smart(server_squad, smart_terrain_id)] Squad %d exit smart %s. Quan = %d", server_squad->ID, smart.m_smart->name_replace(), quan_value);
+    Msg("[Scripts/Script_SimulationBoard/exit_smart(server_squad, smart_terrain_id)] Squad %d exit smart %s. Quan = %d",
+        server_squad->ID, smart.m_smart->name_replace(), quan_value);
     --quan_value;
     smart.m_smart->setStaydSquadQuan(quan_value);
     smart.m_squads[server_squad->ID] = nullptr;
+}
+
+void Script_SimulationBoard::fill_start_position(void)
+{
+    if (this->m_is_start_position_filled)
+        return;
+
+    this->m_is_start_position_filled = true;
+
+    const GameGraph::LEVEL_MAP& levels = Globals::Game::get_game_graph()->header().levels();
+    for (GameGraph::LEVEL_MAP::const_iterator it = levels.begin(); it != levels.end(); ++it)
+    {
+        xr_string section_name = "start_position_";
+        section_name += ai().game_graph().header().level(it->first).name().c_str();
+
+        if (!settings_ini.section_exist(section_name.c_str()))
+            return;
+
+        std::uint32_t count = settings_ini.line_count(section_name.c_str());
+
+        for (std::uint32_t i = 0; i < count; ++i)
+        {
+            const char* ID;
+            const char* Value;
+            if (settings_ini.r_line(section_name.c_str(), i, &ID, &Value))
+            {
+                xr_vector<xr_string> buffer_names = Globals::Utils::parse_names(Value);
+
+                for (xr_string& it : buffer_names)
+                {
+                    Script_SE_SmartTerrain* smart = this->m_smarts_by_name[it];
+
+                    if (!smart)
+                    {
+                        R_ASSERT2(false, "Wrong smart name in start position!");
+                        return;
+                    }
+
+                    Script_SE_SimulationSquad* squad = this->create_squad(smart, atoi(ID));
+
+                    this->enter_squad_to_smart();
+                }
+            }
+        }
+    }
+}
+
+Script_SE_SimulationSquad* Script_SimulationBoard::create_squad(
+    Script_SE_SmartTerrain* smart, const xr_string& squad_id)
+{
+    Script_SE_SimulationSquad* server_object =
+        Globals::Game::alife_create(squad_id, smart->Position(), smart->m_tNodeID, smart->m_tGraphID)
+            ->cast_script_se_simulationsquad();
+
+    if (!server_object)
+    {
+        R_ASSERT2(false, "Bad casting. It can't be!!!!");
+        return nullptr;
+    }
+
+    Msg("[Scripts/Script_SimulationBoard/create_squad(smart, squad_id_name)] Creating squad[%s] in smart[%s]",
+        squad_id.c_str(), smart->name_replace());
+
+    server_object->create_npc(smart);
+
+    return server_object;
 }
 
 } // namespace Scripts

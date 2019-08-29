@@ -58,7 +58,7 @@ struct SmartDataSimulationBoard
 class Script_SimulationBoard
 {
 private:
-    Script_SimulationBoard(void) : m_setting_ini("misc\\simulation.ltx")
+    Script_SimulationBoard(void) : m_setting_ini("misc\\simulation.ltx"), m_is_simulation_started(true)
     {
         this->m_squad_ltx = Globals::get_system_ini();
         this->m_simulation_activities[SimulationActivitiesType::stalker].m_smart[SimulationActivitiesType::base] =
@@ -734,11 +734,9 @@ public:
     Script_SimulationBoard(Script_SimulationBoard&&) = delete;
     Script_SimulationBoard& operator=(Script_SimulationBoard&&) = delete;
 
-    #pragma region Getters
+#pragma region Getters
     inline xr_map<xr_string, Script_SE_SmartTerrain*>& getSmartTerrainsByName(void) { return this->m_smarts_by_name; }
-    #pragma endregion
-
-
+#pragma endregion
 
     inline void start_simulation(void) noexcept { this->m_is_simulation_started = true; }
     inline void stop_simulation(void) noexcept { this->m_is_simulation_started = false; }
@@ -754,7 +752,7 @@ public:
         DataBase::Storage::getInstance().getActor()->SetCharacterCommunity(buffer, 0, 0);
     }
 
-        inline void assigned_squad_to_smart(Script_SE_SimulationSquad* squad, const std::uint32_t& smart_id)
+    inline void assigned_squad_to_smart(Script_SE_SimulationSquad* squad, const std::uint32_t& smart_id)
     {
         if (!squad)
         {
@@ -788,20 +786,24 @@ public:
     void setup_squad_and_group(CSE_ALifeDynamicObject* object);
     void remove_squad(Script_SE_SimulationSquad* server_squad);
     void exit_smart(Script_SE_SimulationSquad* server_squad, const std::uint32_t& smart_terrain_id);
+    void fill_start_position(void);
 
 private:
-    /*
-    enum group_id_by_levels
-    {
-        zaton = 1,
-        pripyat,
-        jupiter,
-        labx8,
-        jupiter_underground
-    };*/
+    Script_SE_SimulationSquad* create_squad(Script_SE_SmartTerrain* smart, const xr_string& squad_id);
+
+private:
+        /*
+        enum group_id_by_levels
+        {
+            zaton = 1,
+            pripyat,
+            jupiter,
+            labx8,
+            jupiter_underground
+        };*/
 
     bool m_is_simulation_started;
-
+    bool m_is_start_position_filled;
     const CInifile* m_squad_ltx;
     xr_map<std::uint32_t, SimulationActivitiesType> m_simulation_activities;
     xr_map<std::uint32_t, SmartDataSimulationBoard> m_smarts;
