@@ -1,25 +1,24 @@
 #include "stdafx.h"
-#include "Script_SE_TorridZone.h"
+#include "Script_SE_ZoneAnomaly.h"
 #include "Script_StoryObject.h"
 
 namespace Cordis
 {
 namespace Scripts
 {
-Script_SE_TorridZone::Script_SE_TorridZone(LPCSTR section_name) : inherited(section_name), m_is_registered(false) {}
+Script_SE_ZoneAnomaly::Script_SE_ZoneAnomaly(LPCSTR section_name) : inherited(section_name), m_is_registered(false) {}
 
-Script_SE_TorridZone::~Script_SE_TorridZone(void) {}
+Script_SE_ZoneAnomaly::~Script_SE_ZoneAnomaly(void) {}
 
-void Script_SE_TorridZone::on_register(void)
+void Script_SE_ZoneAnomaly::on_register(void)
 {
     inherited::on_register();
-
     Script_StoryObject::getInstance().check_spawn_ini_for_story_id(this);
 
     this->m_is_registered = true;
 }
 
-void Script_SE_TorridZone::STATE_Read(NET_Packet& packet, std::uint16_t size)
+void Script_SE_ZoneAnomaly::STATE_Read(NET_Packet& packet, std::uint16_t size)
 {
     inherited::STATE_Read(packet, size);
 

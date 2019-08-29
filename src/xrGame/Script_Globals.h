@@ -448,7 +448,6 @@ inline std::uint32_t time_global(void) noexcept { return Device.dwTimeGlobal; }
 
 namespace level
 {
-
 inline CScriptGameObject* get_object_by_id(u16 id)
 {
     CGameObject* pGameObject = smart_cast<CGameObject*>(Level().Objects.net_Find(id));
@@ -481,7 +480,6 @@ inline void map_add_object_spot_ser(const std::uint16_t& id, LPCSTR spot_type, L
 
     ml->SetSerializable(true);
 }
-
 
 inline void map_change_spot_hint(const std::uint16_t& id, LPCSTR spot_type, LPCSTR text)
 {
@@ -604,7 +602,8 @@ inline bool is_accessible_job(CSE_ALifeDynamicObject* server_object, const char*
 #include "Script_SE_Stalker.h
 #include "Script_SE_Restrictor.h"
 #include "Script_SE_ZoneVisual.h"
-#include "Script_SE_TorridZone.h"
+#include "Script_SE_ZoneTorrid.h"
+#include "Script_SE_ZoneAnomaly.h"
 #include "Script_SmartTerrainControl.h"
 /*#include "Script_GulagGenerator.h"*/
 #include "Script_SE_SmartTerrain.h"
