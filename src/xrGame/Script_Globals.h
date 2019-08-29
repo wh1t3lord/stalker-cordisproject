@@ -23,6 +23,7 @@
 #include "xrAICore/Navigation/PatrolPath/patrol_path_params.h"
 #include "Level.h"
 #include "map_manager.h"
+#include "xrAICore/Navigation/game_graph.h"
 #include "Script_Database.h"
 #include "Script_SE_SimulationSquad.h"
 
@@ -350,6 +351,7 @@ namespace Game
 {
 inline LPCSTR translate_string(LPCSTR str) { return *StringTable().translate(str); }
 inline xrTime get_game_time(void) noexcept { return get_time_struct(); }
+inline const CGameGraph* get_game_graph() { return &GEnv.AISpace->game_graph(); }
 inline CSE_Abstract* alife_create(
     const xr_string& section, const Fvector& position, std::uint32_t level_vertex_id, std::uint16_t game_vertex_id)
 {
@@ -510,6 +512,73 @@ inline void set_npc_sympathy(CScriptGameObject* npc, float new_sympathy)
 
     npc->SetSympathy(new_sympathy);
 }
+
+inline void set_npcs_relation(
+    CScriptGameObject* client_from_object1, CScriptGameObject* client_to_object2, xr_string& new_relation_name)
+{
+    if (!client_from_object1)
+    {
+        R_ASSERT2(false, "object was null!");
+        return;
+    }
+
+    if (!client_to_object2)
+    {
+        R_ASSERT2(false, "object was null!");
+        return;
+    }
+
+    if (!new_relation_name.c_str())
+    {
+        Msg("[Scripts/Globals/GameRelations/set_npcs_relation(server_object, client_object, new_relation_name)] "
+            "WARNING: new_relation_name was an empty string! Set default value => [%s]",
+            kRelationsTypeNeutral);
+        new_relation_name = kRelationsTypeNeutral;
+    }
+
+    int goodwill = 0;
+
+    if (new_relation_name == kRelationsTypeEnemy)
+        goodwill = -1000;
+    else if (new_relation_name == kRelationsTypeFriends)
+        goodwill = 1000;
+
+    RELATION_REGISTRY().ForceSetGoodwill(client_from_object1->ID, client_to_object2->ID(), goodwill);
+}
+
+inline void set_npcs_relation(CSE_ALifeMonsterAbstract* server_from_object, CSE_ALifeMonsterAbstract* server_to_object,
+    xr_string& new_relation_name)
+{
+    if (!server_from_object)
+    {
+        R_ASSERT2(false, "object was null!");
+        return;
+    }
+
+    if (!server_to_object)
+    {
+        R_ASSERT2(false, "object was null!");
+        return;
+    }
+
+    if (!new_relation_name.c_str())
+    {
+        Msg("[Scripts/Globals/GameRelations/set_npcs_relation(server_object, client_object, new_relation_name)] "
+            "WARNING: new_relation_name was an empty string! Set default value => [%s]",
+            kRelationsTypeNeutral);
+        new_relation_name = kRelationsTypeNeutral;
+    }
+
+    int goodwill = 0;
+
+    if (new_relation_name == kRelationsTypeEnemy)
+        goodwill = -1000;
+    else if (new_relation_name == kRelationsTypeFriends)
+        goodwill = 1000;
+
+    RELATION_REGISTRY().ForceSetGoodwill(server_from_object->ID, server_to_object->ID, goodwill);
+}
+
 } // namespace GameRelations
 
 inline Fvector vertex_position(u32 level_vertex_id);

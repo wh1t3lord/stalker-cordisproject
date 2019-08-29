@@ -16,8 +16,8 @@ public:
     virtual Script_SE_Actor* cast_script_se_actor(void) { return this; }
     void on_register(void);
 private:
-    bool m_registred;
-    bool m_start_position_filled;
+    bool m_is_registered;
+    bool m_is_start_position_filled;
 };
 
 }

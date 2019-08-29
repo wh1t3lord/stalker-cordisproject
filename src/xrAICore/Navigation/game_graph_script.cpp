@@ -15,7 +15,7 @@
 using namespace luabind;
 using namespace luabind::policy;
 
-const CGameGraph* get_game_graph() { return &GEnv.AISpace->game_graph(); }
+
 const CGameGraph::CHeader* get_header(const CGameGraph* self_) { return (&self_->header()); }
 bool get_accessible1(const CGameGraph* self_, const u32& vertex_id) { return (self_->accessible(vertex_id)); }
 void get_accessible2(const CGameGraph* self_, const u32& vertex_id, bool value) { self_->accessible(vertex_id, value); }
