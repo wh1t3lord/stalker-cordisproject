@@ -604,6 +604,7 @@ inline bool is_accessible_job(CSE_ALifeDynamicObject* server_object, const char*
 #include "Script_SE_Stalker.h
 #include "Script_SE_Restrictor.h"
 #include "Script_SE_ZoneVisual.h"
+#include "Script_SE_TorridZone.h"
 #include "Script_SmartTerrainControl.h"
 /*#include "Script_GulagGenerator.h"*/
 #include "Script_SE_SmartTerrain.h"
