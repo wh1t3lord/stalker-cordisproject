@@ -192,9 +192,9 @@ void Script_SimulationBoard::fill_start_position(void)
                         return;
                     }
 
-                    Script_SE_SimulationSquad* squad = this->create_squad(smart, atoi(ID));
+                    Script_SE_SimulationSquad* squad = this->create_squad(smart, ID);
 
-                    this->enter_squad_to_smart();
+                    this->enter_squad_to_smart(squad, smart->ID);
                 }
             }
         }
