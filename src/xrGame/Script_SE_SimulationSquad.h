@@ -109,7 +109,7 @@ public:
         const std::uint32_t& level_vertex_id, const std::uint16_t& game_vertex_id);
     void on_npc_death(CSE_ALifeDynamicObject* server_object);
     void remove_squad(void);
-    void set_squad_relation(const xr_string& relation_name);
+    void set_squad_relation(const xr_string& relation_name = "");
 
 private:
     void set_location_types_section(const xr_string& section);

@@ -218,6 +218,16 @@ Script_SE_SimulationSquad* Script_SimulationBoard::create_squad(
         squad_id.c_str(), smart->name_replace());
 
     server_object->create_npc(smart);
+    server_object->set_squad_relation();
+
+    this->assigned_squad_to_smart(server_object, smart->ID);
+
+    for (AssociativeVector<std::uint16_t, CSE_ALifeMonsterAbstract*>::const_iterator it =
+             server_object->squad_members().begin();
+         it != server_object->squad_members().end(); ++it)
+    {
+        this->setup_squad_and_group(it->second);
+    }
 
     return server_object;
 }
