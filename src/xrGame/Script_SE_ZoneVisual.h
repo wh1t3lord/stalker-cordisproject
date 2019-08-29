@@ -14,10 +14,6 @@ public:
 
     virtual void on_register(void);
     virtual void STATE_Read(NET_Packet& packet, std::uint16_t size);
-
-private:
-    float m_artefact_spawn_idle;
-    float m_artefact_spawn_random;
 };
 } // namespace Scripts
 } // namespace Cordis
