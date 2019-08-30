@@ -143,8 +143,13 @@ public:
             stype = Globals::kSTypeStalker;
     }
 
+    inline void refresh(void) { this->show(); }
+
 #pragma region Cordis Getters
-    inline xr_string getDefenceRestirctor(void) noexcept { return this->m_defence_restictor; }
+        inline xr_string getDefenceRestirctor(void) noexcept
+    {
+        return this->m_defence_restictor;
+    }
     inline xr_string getAttackRestrictor(void) noexcept { return this->m_attack_restrictor; }
     inline xr_string getSafeRestrictor(void) noexcept { return this->m_safe_restirctor; }
     inline Script_SmartTerrainControl* getBaseOnActorControl(void) noexcept { return this->m_base_on_actor_control; }
@@ -171,13 +176,19 @@ public:
     void on_after_reach(Script_SE_SimulationSquad* squad);
     void on_reach_target(Script_SE_SimulationSquad* squad);
     void clear_dead(CSE_ALifeDynamicObject* server_object);
+    void hide(void);
+
+private:
+    void show(void);
 
 private:
     bool m_is_initialized;
     bool m_is_registered;
+    bool m_is_smart_showed_spot;
     std::uint16_t m_squad_id;
     std::uint32_t m_population;
     std::uint32_t m_stayed_squad_quan;
+    std::uint32_t m_show_time;
     int a = sizeof(xrTime);
     xrTime m_smart_alarm_time;
     Script_SmartTerrainControl* m_base_on_actor_control;
@@ -192,6 +203,9 @@ private:
     xr_string m_attack_restrictor;
     xr_string m_safe_restirctor;
     xr_string m_spawn_point_name;
+    xr_string m_smart_showed_spot_name;
+    xr_string m_simulation_type_name;
+    xr_string m_player_name;
 };
 } // namespace Scripts
 } // namespace Cordis

@@ -52,7 +52,7 @@ namespace Cordis
 namespace Scripts
 {
 Script_SE_SmartTerrain::Script_SE_SmartTerrain(LPCSTR section)
-    : inherited(section), m_is_initialized(false), m_is_registered(false), m_population(0)
+    : inherited(section), m_is_initialized(false), m_is_registered(false), m_population(0), m_smart_showed_spot_name("")
 {
 }
 
@@ -152,6 +152,61 @@ void Script_SE_SmartTerrain::clear_dead(CSE_ALifeDynamicObject* server_object)
 
         object->m_smart_terrain_id = 0xffff;
         //   return;
+    }
+}
+
+void Script_SE_SmartTerrain::hide(void)
+{
+    if (!this->m_smart_showed_spot_name.size())
+        return;
+
+    xr_string spot_type_name = "alife_presentation_smart_";
+    spot_type_name += this->m_simulation_type_name;
+    spot_type_name += "_";
+    spot_type_name += this->m_smart_showed_spot_name;
+
+    Globals::Game::level::map_remove_object_spot(this->ID, spot_type_name.c_str());
+}
+
+void Script_SE_SmartTerrain::show(void)
+{
+    std::uint32_t time = Device.dwTimeGlobal;
+
+    if (this->m_show_time && this->m_show_time + 200 >= time)
+        return;
+
+    xr_string player = this->m_player_name;
+    xr_string spot_name = Globals::kRelationsTypeNeutral;
+
+    if (!this->IsSimulationAvailable() &&
+        XR_LOGIC::pick_section_from_condlist(
+            DataBase::Storage::getInstance().getActor(), this, this->getSimulationAvail()) == XR_LOGIC::kXRLogicReturnTypeSuccessfulName)
+        spot_name = "friend";
+    else
+        spot_name = "enemy";
+    
+
+    if (this->m_smart_showed_spot_name == spot_name)
+    {
+        xr_string spot_type_name = "alife_presentation_smart_";
+        spot_type_name += this->m_simulation_type_name;
+        spot_type_name += "_";
+        spot_type_name += this->m_smart_showed_spot_name;
+        Globals::Game::level::map_change_spot_hint(this->ID, spot_type_name.c_str(), "");
+        return;
+    }
+
+    xr_string spot_type_name = "alife_presentation_smart_";
+    spot_type_name += this->m_simulation_type_name;
+    spot_type_name += "_";
+    spot_type_name += this->m_smart_showed_spot_name;
+
+
+    if (this->m_smart_showed_spot_name.size() && Globals::Game::level::map_has_object_spot(this->ID, spot_type_name.c_str()))
+    {
+        xr_string spot_type_name2 = "alife_presentation_smart_base_";
+        spot_type_name2 += this->m_smart_showed_spot_name;
+        Globals::Game::level::map_remove_object_spot(this->ID, spot_type_name2.c_str());
     }
 }
 

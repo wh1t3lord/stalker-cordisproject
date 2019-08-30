@@ -47,9 +47,21 @@ void Script_SimulationBoard::init_smart(Script_SE_SmartTerrain* object)
         for (std::pair<const std::uint32_t, Script_SE_SimulationSquad*>& it : this->m_temporary_assigned_squad)
         {
             if (it.second)
-            {
-            }
+                this->assigned_squad_to_smart(it.second, object->ID);
         }
+
+        this->m_temporary_assigned_squad[object->ID] = nullptr;
+    }
+
+    if (this->m_temporary_entered_squad[object->ID])
+    {
+        for (std::pair<const std::uint32_t, Script_SE_SimulationSquad*>& it : this->m_temporary_entered_squad)
+        {
+            if (it.second)
+                this->enter_squad_to_smart(it.second, object->ID);
+        }
+
+        this->m_temporary_entered_squad[object->ID] = nullptr;
     }
 }
 
