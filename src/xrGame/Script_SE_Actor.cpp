@@ -132,10 +132,24 @@ bool Script_SE_Actor::IsSimulationAvailable(void)
     if (smart)
     {
         if (smart->getBaseOnActorControl() &&
-            (smart->getBaseOnActorControl()->getState() == Script_SmartTerrainControl_States::kNormal) && (DataBase::Storage::getInstance().getZoneByName()[smart->getBaseOnActorControl()->getNoweaponZoneName()]->inside(this->Position())))
+            (smart->getBaseOnActorControl()->getState() == Script_SmartTerrainControl_States::kNormal) &&
+            (DataBase::Storage::getInstance()
+                    .getZoneByName()[smart->getBaseOnActorControl()->getNoweaponZoneName()]
+                    ->inside(this->Position())))
             return false;
     }
 
+    return true;
+}
+
+bool Script_SE_Actor::target_precondition(Script_SE_SimulationSquad* squad)
+{
+    SimulationActivitiesType& simulation_params =
+        Script_SimulationBoard::getInstance().getSimulationActivities()[squad->getPlayerID()];
+
+    if (simulation_params.m_actor && !simulation_params.m_actor(squad, this))
+        return false;
+   
     return true;
 }
 

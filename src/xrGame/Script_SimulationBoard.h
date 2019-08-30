@@ -737,6 +737,10 @@ public:
 #pragma region Getters
     inline xr_map<xr_string, Script_SE_SmartTerrain*>& getSmartTerrainsByName(void) { return this->m_smarts_by_name; }
     inline xr_map<std::uint32_t, SmartDataSimulationBoard>& getSmarts(void) { return this->m_smarts; }
+    inline xr_map<std::uint32_t, SimulationActivitiesType>& getSimulationActivities(void)
+    {
+        return this->m_simulation_activities;
+    }
 #pragma endregion
 
     inline void start_simulation(void) noexcept { this->m_is_simulation_started = true; }

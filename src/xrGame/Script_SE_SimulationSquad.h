@@ -93,6 +93,7 @@ public:
     inline xr_string& getSettingsID(void) noexcept { return this->m_settings_id_name; }
     inline std::uint16_t getScriptTarget(void);
     inline StayReachOnTarget& getCurrentAction(void) noexcept { return this->m_current_action; }
+    inline std::uint32_t getPlayerID(void) noexcept { return this->m_player_id; } // Lord: сделать под simulationActivities in Script_SimulationBoard как айдишник на который ссылаться
 #pragma endregion
 
 #pragma region Cordis Setters
@@ -138,6 +139,7 @@ private:
     std::uint32_t m_assigned_target_id;
     std::uint32_t m_next_target_index;
     std::uint32_t m_entered_smart_id;
+    std::uint32_t m_player_id;
     float m_sympathy;
     xr_map<std::uint32_t, CondlistData> m_condlist_action;
     xr_map<std::uint32_t, CondlistData> m_condlist_death;
