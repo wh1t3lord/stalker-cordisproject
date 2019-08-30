@@ -375,15 +375,12 @@ void Script_SE_SimulationSquad::set_squad_relation(const xr_string& relation_nam
 
 void Script_SE_SimulationSquad::assign_smart(Script_SE_SmartTerrain* smart)
 {
-    if (!smart)
-    {
-        R_ASSERT2(false, "object was null!");
-        return;
-    }
+ 
 
     std::uint16_t old_smart_terrain_id = this->m_smart_terrain_id;
 
-    this->m_smart_terrain_id = smart->ID;
+    if (smart)
+        this->m_smart_terrain_id = smart->ID;
 
     for (AssociativeVector<std::uint16_t, CSE_ALifeMonsterAbstract*>::const_iterator it = this->squad_members().begin();
          it != this->squad_members().end(); ++it)
