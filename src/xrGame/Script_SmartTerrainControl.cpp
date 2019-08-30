@@ -60,7 +60,7 @@ bool Script_SmartTerrainControl::IsActorTreat(void)
         getCurrentSmartTerrainID() = this->m_smart->ID;
     }
 
-    if (Globals::IsWeapon(DataBase::Storage::getInstance().getActor->GetActiveItem()))
+    if (Globals::IsWeapon(DataBase::Storage::getInstance().getActor()->GetActiveItem()))
     {
         return true;
     }

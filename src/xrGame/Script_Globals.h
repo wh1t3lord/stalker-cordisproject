@@ -545,7 +545,7 @@ inline void set_npcs_relation(
     else if (new_relation_name == kRelationsTypeFriends)
         goodwill = 1000;
 
-    RELATION_REGISTRY().ForceSetGoodwill(client_from_object1->ID, client_to_object2->ID(), goodwill);
+    RELATION_REGISTRY().ForceSetGoodwill(client_from_object1->ID(), client_to_object2->ID(), goodwill);
 }
 
 inline void set_npcs_relation(CSE_ALifeMonsterAbstract* server_from_object, CSE_ALifeMonsterAbstract* server_to_object,
@@ -644,8 +644,10 @@ inline bool is_accessible_job(CSE_ALifeDynamicObject* server_object, const char*
 } // namespace Scripts
 } // namespace Cordis
 
+#include "Script_SimulationObjects.h"
 #include "Script_EntitySounds.h"
 #include "Script_SE_Actor.h"
+#include "Script_SE_Monster.h"
 #include "Script_SE_SmartCover.h"
 #include "Script_SE_Outfit.h"
 #include "Script_SE_Artefact.h"
@@ -670,7 +672,8 @@ inline bool is_accessible_job(CSE_ALifeDynamicObject* server_object, const char*
 #include "Script_SE_Detector.h"
 #include "Script_SE_LevelChanger.h"
 #include "Script_SE_NewAttachableItem.h"
-#include "Script_SE_Stalker.h
+#include "Script_SE_Stalker.h"
+#include "Script_SE_WeaponAutomaticShotgun.h"
 #include "Script_SE_Restrictor.h"
 #include "Script_SE_ZoneVisual.h"
 #include "Script_SE_ZoneTorrid.h"
@@ -692,7 +695,6 @@ inline bool is_accessible_job(CSE_ALifeDynamicObject* server_object, const char*
 #include "Script_XR_Meet.h"
 #include "Script_XR_Patrol.h"
 #include "Script_SimulationBoard.h"
-#include "Script_SimulationObjects.h"
 #include "Script_SurgeManager.h"
 #include "Script_EntitySounds.h"
 #include "Script_Globalsinline.h"

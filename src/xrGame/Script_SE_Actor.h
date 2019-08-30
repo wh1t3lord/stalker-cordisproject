@@ -1,7 +1,5 @@
 #pragma once
 
-#include "xrServer_Objects_ALife_Monsters.h"
-
 namespace Cordis
 {
 namespace Scripts

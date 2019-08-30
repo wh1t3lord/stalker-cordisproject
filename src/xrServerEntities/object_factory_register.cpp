@@ -49,7 +49,7 @@
 #include "ai/trader/ai_trader.h"
 
 #include "ai/crow/ai_crow.h"
-
+#include "WeaponAutomaticShotgun.h"
 #ifdef DEBUG
 #include "xrEngine/StatGraph.h"
 #include "PHDebug.h"
@@ -404,10 +404,116 @@ void CObjectFactory::register_classes()
         ADD(smart_cover::object, CSE_SmartCover, TEXT2CLSID("SMRTCOVR"), "smart_cover");
     }
 
-#pragma region CordisScripts Registering
+#pragma region Cordis Scripts Registering
     if (!FS.IsSDK())
     {
         this->add<Cordis::Scripts::Script_UI_MainMenu>(TEXT2CLSID("MAIN_MNU"), "Script_UI_MainMenu");
+        this->add<CSmartZone, Cordis::Scripts::Script_SE_SmartTerrain>(
+            CLSID_SE_SMART_TERRAIN, "Script_SE_SmartTerrain");
+        this->add<CLevelChanger, Cordis::Scripts::Script_SE_LevelChanger>(
+            CLSID_SE_LEVEL_CHANGER, "Script_SE_LevelChanger");
+        this->add<CActor, Cordis::Scripts::Script_SE_Actor>(CLSID_SE_ACTOR, "Script_SE_Actor");
+        this->add<CAI_Stalker, Cordis::Scripts::Script_SE_Stalker>(CLSID_SE_STALKER, "Script_SE_Stalker");
+        this->add<CHelicopter, Cordis::Scripts::Script_SE_Stalker>(CLSID_SE_HELI, "Script_SE_Helicopter");
+        this->add<CSmartZone, Cordis::Scripts::Script_SE_Restrictor>(CLSID_SE_RESTRICTOR, "Script_SE_Resctrictor");
+        this->add<CPhysicObject, Cordis::Scripts::Script_SE_Physic>(CLSID_SE_PHYSICS_OBJECT, "Script_SE_Physic");
+        this->add<smart_cover::object, Cordis::Scripts::Script_SE_SmartCover>(
+            CLSID_SE_SMART_COVER, "Script_SE_SmartCover");
+        this->add<CDestroyablePhysicsObject, Cordis::Scripts::Script_SE_Physic>(
+            CLSID_SE_DESTROYABLE_PHYSICS_OBJECT, "Script_SE_DestroyablePhysic");
+        this->add<CHangingLamp, Cordis::Scripts::Script_SE_Lamp>(CLSID_SE_LAMP, "Script_SE_Lamp");
+        this->add<CElectricBall, Cordis::Scripts::Script_SE_Artefact>(CLSID_SE_ARTEFACT, "Script_SE_Artefact");
+        this->add<CAI_Bloodsucker, Cordis::Scripts::Script_SE_Monster>(
+            CLSID_SE_MONSTER_BLOODSUCKER, "Script_SE_Bloodsucker");
+        this->add<CAI_Boar, Cordis::Scripts::Script_SE_Monster>(CLSID_SE_MONSTER_BOAR, "Script_SE_Boar");
+        this->add<CAI_Dog, Cordis::Scripts::Script_SE_Monster>(CLSID_SE_MONSTER_DOG, "Script_SE_Dog");
+        this->add<CAI_Flesh, Cordis::Scripts::Script_SE_Monster>(CLSID_SE_MONSTER_FLESH, "Script_SE_Flesh");
+        this->add<CAI_PseudoDog, Cordis::Scripts::Script_SE_Monster>(
+            CLSID_SE_MONSTER_DOG_PSEUDO, "Script_SE_PseudoDog");
+        this->add<CBurer, Cordis::Scripts::Script_SE_Monster>(CLSID_SE_MONSTER_BURER, "Script_SE_Burer");
+        this->add<CCat, Cordis::Scripts::Script_SE_Monster>(CLSID_SE_MONSTER_CAT, "Script_SE_Cat");
+        this->add<CChimera, Cordis::Scripts::Script_SE_Monster>(CLSID_SE_MONSTER_CHIMERA, "Script_SE_Chimera");
+        this->add<CController, Cordis::Scripts::Script_SE_Monster>(CLSID_SE_MONSTER_CONTROLLER, "Script_SE_Controller");
+        this->add<CFracture, Cordis::Scripts::Script_SE_Monster>(CLSID_SE_MONSTER_IZLOM, "Script_SE_Izlom");
+        this->add<CPoltergeist, Cordis::Scripts::Script_SE_Monster>(
+            CLSID_SE_MONSTER_POLTERGEIST, "Script_SE_Poltergeist");
+        this->add<CZombie, Cordis::Scripts::Script_SE_Monster>(CLSID_SE_MONSTER_ZOMBI, "Script_SE_Zombie");
+        this->add<CSnork, Cordis::Scripts::Script_SE_Monster>(CLSID_SE_MONSTER_SNORK, "Script_SE_Snork");
+        this->add<CPsyDog, Cordis::Scripts::Script_SE_Monster>(CLSID_SE_MONSTER_DOG_PSY, "Script_SE_PsyDog");
+        this->add<CPsyDogPhantom, Cordis::Scripts::Script_SE_Monster>(
+            CLSID_SE_MONSTER_DOG_PSY_PHANTOM, "Script_SE_PsyDogPhantom");
+        this->add<CTorch, Cordis::Scripts::Script_SE_ItemTorch>(CLSID_SE_TORCH, "Script_SE_Torch");
+        this->add<CScientificDetector, Cordis::Scripts::Script_SE_Detector>(
+            CLSID_SE_SCIENTIFICDETECTOR, "Script_SE_ScientificDetector");
+        this->add<CEliteDetector, Cordis::Scripts::Script_SE_Detector>(
+            CLSID_SE_ELITEDETECTOR, "Script_SE_EliteDetector");
+        this->add<CAdvancedDetector, Cordis::Scripts::Script_SE_Detector>(
+            CLSID_SE_ADVANCEDDETECTOR, "Script_SE_AdvancedDetector");
+        this->add<CSimpleDetector, Cordis::Scripts::Script_SE_Detector>(
+            CLSID_SE_SIMPLEDETECTOR, "Script_SE_SimpleDetector");
+        this->add<CScope, Cordis::Scripts::Script_SE_Item>(CLSID_SE_WEAPON_SCOPE, "Script_SE_WeaponScope");
+        this->add<CSilencer, Cordis::Scripts::Script_SE_Item>(CLSID_SE_WEAPON_SILENCER, "Script_SE_WeaponSilencer");
+        this->add<CGrenadeLauncher, Cordis::Scripts::Script_SE_Item>(
+            CLSID_SE_WEAPON_GRENADE_LAUNCHER, "Script_SE_WeaponGrenadeLauncher");
+        this->add<CStalkerOutfit, Cordis::Scripts::Script_SE_Outfit>(CLSID_SE_OUTFIT, "Script_SE_OutfitStalker");
+        this->add<CHelmet, Cordis::Scripts::Script_SE_Helmet>(CLSID_SE_HELMET, "Script_SE_Helmet");
+        this->add<CWeaponBinoculars, Cordis::Scripts::Script_SE_WeaponMagazined>(
+            CLSID_SE_WEAPON_BINOCULAR, "Script_SE_WeaponBinocular");
+        this->add<CWeaponKnife, Cordis::Scripts::Script_SE_Weapon>(CLSID_SE_WEAPON_KNIFE, "Script_SE_WeaponKnife");
+        this->add<CWeaponBM16, Cordis::Scripts::Script_SE_WeaponShotgun>(CLSID_SE_WEAPON_BM16, "Script_SE_WeaponBM16");
+        this->add<CWeaponGroza, Cordis::Scripts::Script_SE_WeaponMagazinedWGL>(
+            CLSID_SE_WEAPON_GROZA, "Script_SE_WeaponGroza");
+        this->add<CWeaponSVD, Cordis::Scripts::Script_SE_WeaponMagazined>(CLSID_SE_WEAPON_SVD, "Script_SE_WeaponSVD");
+        this->add<CWeaponAK74, Cordis::Scripts::Script_SE_WeaponMagazinedWGL>(
+            CLSID_SE_WEAPON_AK74, "Script_SE_WeaponAK74");
+        this->add<CWeaponLR300, Cordis::Scripts::Script_SE_WeaponMagazined>(
+            CLSID_SE_WEAPON_LR300, "Script_SE_WeaponLR300");
+        this->add<CWeaponHPSA, Cordis::Scripts::Script_SE_WeaponMagazined>(
+            CLSID_SE_WEAPON_HPSA, "Script_SE_WeaponHPSA");
+        this->add<CWeaponPM, Cordis::Scripts::Script_SE_WeaponMagazined>(CLSID_SE_WEAPON_PM, "Script_SE_WeaponPM");
+        this->add<CWeaponRG6, Cordis::Scripts::Script_SE_WeaponShotgun>(CLSID_SE_WEAPON_RG6, "Script_SE_WeaponRG6");
+        this->add<CWeaponRPG7, Cordis::Scripts::Script_SE_WeaponMagazined>(
+            CLSID_SE_WEAPON_RPG7, "Script_SE_WeaponRPG7");
+        this->add<CWeaponShotgun, Cordis::Scripts::Script_SE_WeaponShotgun>(
+            CLSID_SE_WEAPON_SHOTGUN, "Script_SE_WeaponShotgun");
+        this->add<CWeaponAutomaticShotgun, Cordis::Scripts::Script_SE_WeaponAutomaticShotgun>(
+            CLSID_SE_WEAPON_SHOTGUN_AUTOMATIC, "Script_SE_WeaponShotgunAutomatic");
+        this->add<CWeaponSVU, Cordis::Scripts::Script_SE_WeaponMagazined>(CLSID_SE_WEAPON_SVU, "Script_SE_WeaponSVU");
+        this->add<CWeaponUSP45, Cordis::Scripts::Script_SE_WeaponMagazined>(
+            CLSID_SE_WEAPON_USP45, "Script_SE_WeaponUSP45");
+        this->add<CWeaponVal, Cordis::Scripts::Script_SE_WeaponMagazined>(CLSID_SE_WEAPON_VAL, "Script_SE_WeaponVal");
+        this->add<CWeaponVintorez, Cordis::Scripts::Script_SE_WeaponMagazined>(
+            CLSID_SE_WEAPON_VINTOREZ, "Script_SE_WeaponVintorez");
+        this->add<CHairsZone, Cordis::Scripts::Script_SE_ZoneVisual>(CLSID_SE_ZONE_HAIRS, "Script_SE_ZoneHairs");
+        this->add<CMosquitoBald, Cordis::Scripts::Script_SE_ZoneAnomaly>(
+            CLSID_SE_ZONE_MOSQUITOBALD, "Script_SE_ZoneMosquitoBald");
+        this->add<CMincer, Cordis::Scripts::Script_SE_ZoneAnomaly>(CLSID_SE_ZONE_GALANT, "Script_SE_ZoneGalant");
+        this->add<CMincer, Cordis::Scripts::Script_SE_ZoneAnomaly>(CLSID_SE_ZONE_MINCE, "Script_SE_ZoneMince");
+        this->add<CRadioactiveZone, Cordis::Scripts::Script_SE_ZoneAnomaly>(
+            CLSID_SE_ZONE_RADIOACTIVE, "Script_SE_ZoneRadioactive");
+        this->add<CTorridZone, Cordis::Scripts::Script_SE_TorridZone>(CLSID_SE_ZONE_TORRID, "Script_SE_ZoneTorrid");
+        this->add<CWeaponAmmo, Cordis::Scripts::Script_SE_Ammo>(CLSID_SE_AMMO, "Script_SE_Ammo");
+        this->add<CWeaponAmmo, Cordis::Scripts::Script_SE_Ammo>(CLSID_SE_VOG25, "Script_SE_AmmoVog25");
+        this->add<CWeaponAmmo, Cordis::Scripts::Script_SE_Ammo>(CLSID_SE_OG78B, "Script_SE_AmmoOg78b");
+        this->add<CWeaponAmmo, Cordis::Scripts::Script_SE_Ammo>(CLSID_SE_M209, "Script_SE_AmmoM209");
+
+        this->add<CF1, Cordis::Scripts::Script_SE_Grenade>(CLSID_SE_GRENADE_F1, "Script_SE_GrenadeF1");
+        this->add<CRGD5, Cordis::Scripts::Script_SE_Grenade>(CLSID_SE_GRENADE_RGD, "Script_SE_GrenadeRGD5");
+
+        this->add<CMedkit, Cordis::Scripts::Script_SE_Eatable>(CLSID_SE_MEDKIT, "Script_SE_EatableMedit");
+        this->add<CMedkit, Cordis::Scripts::Script_SE_Eatable>(CLSID_SE_BANDAGE, "Script_SE_EatableBandge");
+        this->add<CAntirad, Cordis::Scripts::Script_SE_Eatable>(CLSID_SE_ANTIRAD, "Script_SE_EatableAntirad");
+        this->add<CFoodItem, Cordis::Scripts::Script_SE_Eatable>(CLSID_SE_FOOD, "Script_SE_Food");
+        this->add<CBottleItem, Cordis::Scripts::Script_SE_Eatable>(CLSID_SE_BOTTLE, "Script_SE_Drinking");
+
+        this->add<CInventoryBox, Cordis::Scripts::Script_SE_InventoryBox>(
+            CLSID_SE_INVENTORY_BOX, "Script_SE_InventoryBox");
+        this->add<CExplosiveItem, Cordis::Scripts::Script_SE_Explosive>(CLSID_SE_EXPLOSION, "Script_SE_Explosive");
+
+        this->add<CPda, Cordis::Scripts::Script_SE_PDA>(CLSID_SE_PDA, "Script_SE_Pda");
+
+        this->add<Cordis::Scripts::Script_SE_SimulationSquad>(
+            CLSID_SE_ONLINE_OFFLINE_GROUP, "Script_SE_OnlineOfflineGroup");
     }
 
 #pragma endregion

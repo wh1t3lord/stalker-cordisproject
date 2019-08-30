@@ -37,6 +37,7 @@ GameGraph::LEVEL_MAP const& get_levels(CGameGraph const* graph)
     return graph->header().levels();
 }
 
+/*
 SCRIPT_EXPORT(CGameGraph, (), {
     typedef CGameGraph::CVertex CVertex;
     module(luaState)[class_<GameGraph::LEVEL_MAP::value_type>("GameGraph__LEVEL_MAP__value_type")
@@ -59,3 +60,4 @@ SCRIPT_EXPORT(CGameGraph, (), {
             .def("level_id", &CVertex::level_id)
             .def("level_vertex_id", &CVertex::level_vertex_id)];
 });
+*/
