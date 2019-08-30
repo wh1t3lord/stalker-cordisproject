@@ -62,5 +62,31 @@ void Script_SE_Actor::STATE_Read(NET_Packet& packet, std::uint16_t size)
     }
 }
 
+void Script_SE_Actor::on_reach_target(Script_SE_SimulationSquad* squad)
+{
+    if (!squad)
+    {
+        R_ASSERT2(false, "object was null!");
+        return;
+    }
+
+    squad->set_location_types("");
+
+    for (AssociativeVector<std::uint16_t, CSE_ALifeMonsterAbstract*>::const_iterator it =
+             squad->squad_members().begin();
+         it != squad->squad_members().end(); ++it)
+    {
+        if (DataBase::Storage::getInstance().getOfflineObjects()[it->first].second.size())
+        {
+            DataBase::Storage::getInstance().getOfflineObjects()[it->first].second.clear();
+            DataBase::Storage::getInstance().getOfflineObjects()[it->first].first = Globals::kUnsignedInt16Undefined;
+        }
+    }
+
+    Script_SimulationBoard::getInstance().assigned_squad_to_smart(squad, )
+}
+
+bool Script_SE_Actor::IsSimulationAvailable(void) { return false; }
+
 } // namespace Scripts
 } // namespace Cordis

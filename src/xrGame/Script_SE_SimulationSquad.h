@@ -112,6 +112,9 @@ public:
     void set_squad_relation(const xr_string& relation_name = "");
 
 private:
+    inline xr_string& pick_next_target(void) { return this->m_parsed_targets[this->m_next_target_index]; }
+    void assign_squad_member_to_smart(
+        const std::uint16_t& object_id, Script_SE_SmartTerrain* smart, const std::uint16_t& old_smart_terrain_id);
     void set_location_types_section(const xr_string& section);
     void set_squad_sympathy(const float& sympathy = 0.0f);
     void set_squad_behaviour(void);
@@ -120,7 +123,7 @@ private:
     void show(void);
     void hide(void);
     bool check_squad_come_to_point(void);
-    inline xr_string& pick_next_target(void) { return this->m_parsed_targets[this->m_next_target_index]; }
+
 
 private:
     bool m_is_always_walk;

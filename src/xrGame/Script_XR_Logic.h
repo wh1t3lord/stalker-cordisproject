@@ -15,6 +15,9 @@ constexpr const char* XR_LOGIC_CUSTOMDATA = "<customdata>";
 constexpr const char* XR_LOGIC_CLIENT_SERVER_ARGUMENTS = "_client_server";
 constexpr const char* XR_LOGIC_CLIENT_CLIENT_ARGUMENTS = "_client_client";
 constexpr const char* XR_LOGIC_TEXT_NEVER = "never";
+constexpr const char* kXRLogicReturnTypeSuccessfulName = "true";
+constexpr const char* kXRLogicReturnTypeBadName = "false";
+
 inline CInifile configure_schemes(CScriptGameObject* npc, const CInifile& ini, const xr_string& ini_filename,
     unsigned int stype, const xr_string& section_logic, const xr_string& gulag_name)
 {

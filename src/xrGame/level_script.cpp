@@ -175,7 +175,7 @@ float rain_factor() { return (g_pGamePersistent->Environment().CurrentEnv->rain_
 
 
 
-u16 map_has_object_spot(u16 id, LPCSTR spot_type) { return Level().MapManager().HasMapLocation(spot_type, id); }
+
 
 
 void prefetch_sound(LPCSTR name) { Level().PrefetchSound(name); }

@@ -82,6 +82,31 @@ inline std::uint16_t Script_SE_SimulationSquad::getScriptTarget(void)
     return smart->ID;
 }
 
+void Script_SE_SimulationSquad::assign_squad_member_to_smart(
+    const std::uint16_t& object_id, Script_SE_SmartTerrain* smart, const std::uint16_t& old_smart_terrain_id)
+{
+    CSE_ALifeMonsterAbstract* server_monster = ai().alife().objects().object(object_id)->cast_monster_abstract();
+
+    if (!server_monster)
+    {
+        R_ASSERT2(false, "object was null!");
+        return;
+    }
+
+    if (server_monster->m_smart_terrain_id == this->m_smart_terrain_id)
+        return;
+
+    if (server_monster->m_smart_terrain_id != Globals::kUnsignedInt16Undefined && old_smart_terrain_id &&
+        (server_monster->m_smart_terrain_id == old_smart_terrain_id) &&
+        (Script_SimulationBoard::getInstance().getSmarts()[old_smart_terrain_id].m_smart))
+        Script_SimulationBoard::getInstance().getSmarts()[old_smart_terrain_id].m_smart->unregister_npc(server_monster);
+    
+
+    if (smart)
+        smart->register_npc(server_monster);
+    
+}
+
 void Script_SE_SimulationSquad::set_location_types_section(const xr_string& section)
 {
     if (locations_ini.section_exist(section.c_str()))

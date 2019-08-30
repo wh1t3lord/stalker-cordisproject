@@ -736,6 +736,7 @@ public:
 
 #pragma region Getters
     inline xr_map<xr_string, Script_SE_SmartTerrain*>& getSmartTerrainsByName(void) { return this->m_smarts_by_name; }
+    inline xr_map<std::uint16_t, SmartDataSimulationBoard>& getSmarts(void) { return this->m_smarts; }
 #pragma endregion
 
     inline void start_simulation(void) noexcept { this->m_is_simulation_started = true; }
@@ -762,14 +763,34 @@ public:
 
         if (!smart_id)
         {
-            R_ASSERT2(false, "invalid ID!");
-            return;
+            Msg("[Scripts/Script_SimulationBoard/assing_squad_to_smart(squad, smart_id)] WARNING: smart_id was null!");
+            // R_ASSERT2(false, "invalid ID!");
+            // return;
         }
 
-        if (!this->m_smarts[smart_id].m_smart)
+        if (smart_id)
         {
-            this->m_temporary_assigned_squad[smart_id] = squad;
-            return;
+            if (!this->m_smarts[smart_id].m_smart)
+            {
+                this->m_temporary_assigned_squad[smart_id] = squad;
+                return;
+            }
+        }
+
+        std::uint16_t old_smart_id = Globals::kUnsignedInt16Undefined;
+
+        if (squad->getSmartTerrainID())
+            old_smart_id = squad->getSmartTerrainID();
+
+        if (old_smart_id && this->m_smarts[old_smart_id].m_smart)
+        {
+            this->m_smarts[old_smart_id].m_squads[squad->ID] = nullptr;
+            this->m_smarts[old_smart_id].m_smart->refresh();
+        }
+
+        if (!smart_id)
+        {
+            
         }
     }
 
@@ -792,15 +813,15 @@ private:
     Script_SE_SimulationSquad* create_squad(Script_SE_SmartTerrain* smart, const xr_string& squad_id);
 
 private:
-        /*
-        enum group_id_by_levels
-        {
-            zaton = 1,
-            pripyat,
-            jupiter,
-            labx8,
-            jupiter_underground
-        };*/
+    /*
+    enum group_id_by_levels
+    {
+        zaton = 1,
+        pripyat,
+        jupiter,
+        labx8,
+        jupiter_underground
+    };*/
 
     bool m_is_simulation_started;
     bool m_is_start_position_filled;
