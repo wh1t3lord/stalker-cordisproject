@@ -36,6 +36,7 @@ public:
 
     void on_reach_target(Script_SE_SimulationSquad* squad);
     bool IsSimulationAvailable(void);
+    bool target_precondition(Script_SE_SimulationSquad* squad);
 
 private:
     bool m_is_registered;
