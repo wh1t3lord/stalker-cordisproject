@@ -110,7 +110,7 @@ public:
     void on_npc_death(CSE_ALifeDynamicObject* server_object);
     void remove_squad(void);
     void set_squad_relation(const xr_string& relation_name = "");
-    void assign_smart(Script_SE_SmartTerrain* smart);
+    void assign_smart(Script_SE_SmartTerrain* smart = nullptr);
 
 private:
     inline xr_string& pick_next_target(void) { return this->m_parsed_targets[this->m_next_target_index]; }
