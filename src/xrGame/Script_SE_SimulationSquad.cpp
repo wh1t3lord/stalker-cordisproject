@@ -100,11 +100,9 @@ void Script_SE_SimulationSquad::assign_squad_member_to_smart(
         (server_monster->m_smart_terrain_id == old_smart_terrain_id) &&
         (Script_SimulationBoard::getInstance().getSmarts()[old_smart_terrain_id].m_smart))
         Script_SimulationBoard::getInstance().getSmarts()[old_smart_terrain_id].m_smart->unregister_npc(server_monster);
-    
 
     if (smart)
         smart->register_npc(server_monster);
-    
 }
 
 void Script_SE_SimulationSquad::set_location_types_section(const xr_string& section)
@@ -372,6 +370,25 @@ void Script_SE_SimulationSquad::set_squad_relation(const xr_string& relation_nam
                     ai().alife().objects().object(it->first)->cast_monster_abstract(),
                     ai().alife().graph().actor()->cast_monster_abstract(), new_relation_name);
         }
+    }
+}
+
+void Script_SE_SimulationSquad::assign_smart(Script_SE_SmartTerrain* smart)
+{
+    if (!smart)
+    {
+        R_ASSERT2(false, "object was null!");
+        return;
+    }
+
+    std::uint16_t old_smart_terrain_id = this->m_smart_terrain_id;
+
+    this->m_smart_terrain_id = smart->ID;
+
+    for (AssociativeVector<std::uint16_t, CSE_ALifeMonsterAbstract*>::const_iterator it = this->squad_members().begin();
+         it != this->squad_members().end(); ++it)
+    {
+        this->assign_squad_member_to_smart(it->first, smart, old_smart_terrain_id);
     }
 }
 
