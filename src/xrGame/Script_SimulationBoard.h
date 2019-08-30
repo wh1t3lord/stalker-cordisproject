@@ -790,8 +790,13 @@ public:
 
         if (!smart_id)
         {
-            
+            squad->assign_smart();
         }
+
+        squad->assign_smart(this->m_smarts[smart_id].m_smart);
+
+        this->m_smarts[smart_id].m_squads[squad->ID] = squad;
+        this->m_smarts[smart_id].m_smart->refresh();
     }
 
     inline void enter_squad_to_smart(Script_SE_SimulationSquad* squad, const std::uint32_t& smart_id)
