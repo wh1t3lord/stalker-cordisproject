@@ -31,12 +31,41 @@ void Script_SmartTerrainControl::update(void)
     {
         if (get_time_struct().diffSec(this->m_alarm_time) < SMARTTERRAINCONTROL_ALARM_TIME)
         {
-            Msg("[Scripts/Script_SmartTerrainControl/update] Time was less than SMARTTERRAINCONTROL_ALARM_TIME. The value is: %s", std::to_string(get_time_struct().diffSec(this->m_alarm_time)).c_str());
+            Msg("[Scripts/Script_SmartTerrainControl/update] Time was less than SMARTTERRAINCONTROL_ALARM_TIME. The "
+                "value is: %s",
+                std::to_string(get_time_struct().diffSec(this->m_alarm_time)).c_str());
             return;
         }
-
-
     }
+}
+
+bool Script_SmartTerrainControl::IsActorTreat(void)
+{
+    CScriptGameObject* client_zone = DataBase::Storage::getInstance().getZoneByName()[this->m_noweapon_zone];
+
+    if (!client_zone)
+        return false;
+
+    if (!client_zone->inside(DataBase::Storage::getInstance().getActor()->Position()))
+    {
+        if (getCurrentSmartTerrainID() == this->m_smart->ID)
+        {
+            getCurrentSmartTerrainID() = 0;
+        }
+
+        return false;
+    }
+    else
+    {
+        getCurrentSmartTerrainID() = this->m_smart->ID;
+    }
+
+    if (Globals::IsWeapon(DataBase::Storage::getInstance().getActor->GetActiveItem()))
+    {
+        return true;
+    }
+
+    return false;
 }
 
 } // namespace Scripts
