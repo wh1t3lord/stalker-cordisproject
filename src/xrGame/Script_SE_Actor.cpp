@@ -83,7 +83,7 @@ void Script_SE_Actor::on_reach_target(Script_SE_SimulationSquad* squad)
         }
     }
 
-    Script_SimulationBoard::getInstance().assigned_squad_to_smart(squad, )
+    Script_SimulationBoard::getInstance().assigned_squad_to_smart(squad);
 }
 
 bool Script_SE_Actor::IsSimulationAvailable(void) { return false; }

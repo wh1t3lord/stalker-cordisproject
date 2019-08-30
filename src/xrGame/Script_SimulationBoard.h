@@ -736,7 +736,7 @@ public:
 
 #pragma region Getters
     inline xr_map<xr_string, Script_SE_SmartTerrain*>& getSmartTerrainsByName(void) { return this->m_smarts_by_name; }
-    inline xr_map<std::uint16_t, SmartDataSimulationBoard>& getSmarts(void) { return this->m_smarts; }
+    inline xr_map<std::uint32_t, SmartDataSimulationBoard>& getSmarts(void) { return this->m_smarts; }
 #pragma endregion
 
     inline void start_simulation(void) noexcept { this->m_is_simulation_started = true; }
@@ -753,7 +753,7 @@ public:
         DataBase::Storage::getInstance().getActor()->SetCharacterCommunity(buffer, 0, 0);
     }
 
-    inline void assigned_squad_to_smart(Script_SE_SimulationSquad* squad, const std::uint32_t& smart_id)
+    inline void assigned_squad_to_smart(Script_SE_SimulationSquad* squad, const std::uint32_t& smart_id = 0)
     {
         if (!squad)
         {
@@ -762,11 +762,7 @@ public:
         }
 
         if (!smart_id)
-        {
             Msg("[Scripts/Script_SimulationBoard/assing_squad_to_smart(squad, smart_id)] WARNING: smart_id was null!");
-            // R_ASSERT2(false, "invalid ID!");
-            // return;
-        }
 
         if (smart_id)
         {
