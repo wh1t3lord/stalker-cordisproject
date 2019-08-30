@@ -287,7 +287,7 @@
 #define CLSID_SE_WEAPON_GROZA MK_CLSID('W', 'P', '_', 'G', 'R', 'O', 'Z', 'A')
 #define CLSID_SE_WEAPON_HPSA MK_CLSID('W', 'P', '_', 'H', 'P', 'S', 'A', ' ')
 #define CLSID_SE_WEAPON_KNIFE MK_CLSID('W', 'P', '_', 'K', 'N', 'I', 'F', 'E')
-#define CLSID_SE_WEAPON_LP300 MK_CLSID('W', 'P', '_', 'L', 'R', '3', '0', '0')
+#define CLSID_SE_WEAPON_LR300 MK_CLSID('W', 'P', '_', 'L', 'R', '3', '0', '0')
 #define CLSID_SE_WEAPON_PM MK_CLSID('W', 'P', '_', 'P', 'M', ' ', ' ', ' ')
 #define CLSID_SE_WEAPON_RG6 MK_CLSID('W', 'P', '_', 'R', 'G', '6', ' ', ' ')
 #define CLSID_SE_WEAPON_RPG7 MK_CLSID('W', 'P', '_', 'R', 'P', 'G', '7', ' ')
