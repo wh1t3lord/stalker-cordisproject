@@ -86,7 +86,39 @@ void Script_SE_Actor::on_reach_target(Script_SE_SimulationSquad* squad)
     Script_SimulationBoard::getInstance().assigned_squad_to_smart(squad);
 }
 
-bool Script_SE_Actor::IsSimulationAvailable(void) { return false; }
+bool Script_SE_Actor::IsSimulationAvailable(void)
+{
+    if ((Script_GlobalHelper::getInstance().getGameNearestToActorServerSmartTerrain().second < 50) &&
+        (!Script_SimulationObjects::getInstance()
+                .getObjects()[Script_GlobalHelper::getInstance().getGameNearestToActorServerSmartTerrain().first]))
+        return false;
+
+    for (std::pair<const xr_string, xr_string>& it : Script_GlobalHelper::getInstance().getGameSmartsByAssaultZones())
+    {
+        CScriptGameObject* client_zone = DataBase::Storage::getInstance().getZoneByName()[it.first];
+
+        if (client_zone)
+        {
+            if (client_zone->inside(this->Position()))
+            {
+                Script_SE_SmartTerrain* smart =
+                    Script_SimulationBoard::getInstance().getSmartTerrainsByName()[it.second];
+
+                if (smart)
+                {
+                    if (smart->getBaseOnActorControl() &&
+                        smart->getBaseOnActorControl()->getState() != Script_SmartTerrainControl_States::kAlarm)
+                        return false;
+                    
+                }
+            }
+        }
+    }
+
+    if ()
+
+    return true;
+}
 
 } // namespace Scripts
 } // namespace Cordis

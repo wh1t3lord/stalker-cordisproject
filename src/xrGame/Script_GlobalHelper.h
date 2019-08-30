@@ -137,6 +137,13 @@ private:
         this->m_simulationsquad_is_squad_monster_by_type["monster_special"] = true;
         this->m_simulationsquad_is_squad_monster_by_type["monster"] = true;
 #pragma endregion
+
+#pragma region Cordis SE_Actor initializing 
+        this->m_game_smarts_by_no_assault_zone["zat_a2_sr_no_assault"] = "zat_stalker_base_smart";
+        this->m_game_smarts_by_no_assault_zone["jup_a6_sr_no_assault"] = "jup_a6";
+        this->m_game_smarts_by_no_assault_zone["jup_b41_sr_no_assault"] = "jup_b41";
+#pragma endregion
+
     }
 
 public:
@@ -211,6 +218,7 @@ public:
 
     inline xr_map<xr_string, xr_string>& getJobTypesByScheme(void) noexcept { return this->m_job_type_by_scheme; }
 
+    #pragma region Cordis InGame
     inline xr_map<xr_string, Script_SE_SmartTerrain*>& getGameRegisteredServerSmartTerrainsByName(void) noexcept
     {
         return this->m_game_registered_server_smartterrains_by_name;
@@ -222,6 +230,13 @@ public:
         return this->m_game_server_nearest_to_actor_smart_terrain;
     }
 
+    inline xr_map<xr_string, xr_string>& getGameSmartsByAssaultZones(void) noexcept
+    {
+        return this->m_game_smarts_by_no_assault_zone;
+    }
+    #pragma endregion
+
+    #pragma region Cordis System
     inline xr_map<xr_string, bool>& getRegisteredSmartTerrainTerritoryType(void) noexcept
     {
         return this->m_registered_smart_terrain_territory_type;
@@ -237,10 +252,12 @@ public:
         return this->m_simulationboard_group_id_by_levels_name;
     }
 
-    inline xr_map<xr_string, bool>& getSimulationSquadIsSquadMonster(void) noexcept 
+    inline xr_map<xr_string, bool>& getSimulationSquadIsSquadMonster(void) noexcept
     {
         return this->m_simulationsquad_is_squad_monster_by_type;
     }
+    #pragma endregion
+
 
 private:
     xr_map<std::uint32_t, bool> m_monster_classes;
@@ -258,6 +275,7 @@ private:
     xr_map<xr_string, CScriptGameObject*> m_game_registered_combat_spacerestrictors;
     xr_map<xr_string, Script_SE_SmartTerrain*> m_game_registered_server_smartterrains_by_name;
     xr_map<xr_string, xr_string> m_job_type_by_scheme;
+    xr_map<xr_string, xr_string> m_game_smarts_by_no_assault_zone;
     xr_map<xr_string, std::uint32_t> m_simulationboard_group_id_by_levels_name;
     xr_map<xr_string, bool> m_registered_smart_terrain_territory_type;
     xr_map<xr_string, bool> m_simulationsquad_is_squad_monster_by_type;
