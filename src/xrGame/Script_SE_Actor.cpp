@@ -109,13 +109,32 @@ bool Script_SE_Actor::IsSimulationAvailable(void)
                     if (smart->getBaseOnActorControl() &&
                         smart->getBaseOnActorControl()->getState() != Script_SmartTerrainControl_States::kAlarm)
                         return false;
-                    
                 }
             }
         }
     }
 
-    if ()
+    if (!getCurrentSmartTerrainID())
+    {
+        return true;
+    }
+
+    Script_SE_SmartTerrain* smart =
+        ai().alife().objects().object(getCurrentSmartTerrainID())->cast_script_se_smartterrain();
+
+#ifdef DEBUG
+    if (!smart)
+    {
+        R_ASSERT2(false, "object was null!");
+    }
+#endif
+
+    if (smart)
+    {
+        if (smart->getBaseOnActorControl() &&
+            (smart->getBaseOnActorControl()->getState() == Script_SmartTerrainControl_States::kNormal) && (DataBase::Storage::getInstance().getZoneByName()[smart->getBaseOnActorControl()->getNoweaponZoneName()]->inside(this->Position())))
+            return false;
+    }
 
     return true;
 }
