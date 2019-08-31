@@ -39,7 +39,7 @@ inline static xr_map<xr_string, xr_string>& getAccelByCurrentType(void) noexcept
 // @ pair::first = direction | pair::second = distance
 inline static xr_map<xr_string, xr_vector<std::pair<Fvector, float>>>& getFormations(void) noexcept
 {
-    xr_map<xr_string, xr_vector<std::pair<Fvector, float>>> instance;
+    static xr_map<xr_string, xr_vector<std::pair<Fvector, float>>> instance;
     return instance;
 }
 

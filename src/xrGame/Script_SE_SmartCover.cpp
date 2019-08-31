@@ -43,7 +43,7 @@ void Script_SE_SmartCover::STATE_Read(NET_Packet& Packet, std::uint16_t size)
                 smart_cover_description_name.c_str());
 
             xr_vector<SmartCoverLoopholeData>& loopholes =
-                Script_GlobalHelper::getInstance().getRegisteredSmartCovers()[smart_cover_description_name].m_loopholes;
+                Script_GlobalHelper::getInstance().getRegisteredSmartCovers()[smart_cover_description_name].getLoopholes();
             if (loopholes[0].m_id.size())
             {
                 for (SmartCoverLoopholeData& it : loopholes)
@@ -75,7 +75,7 @@ void Script_SE_SmartCover::STATE_Read(NET_Packet& Packet, std::uint16_t size)
         if (smart_cover_description_name.size())
         {
             xr_vector<SmartCoverLoopholeData>& loopholes =
-                Script_GlobalHelper::getInstance().getRegisteredSmartCovers()[smart_cover_description_name].m_loopholes;
+                Script_GlobalHelper::getInstance().getRegisteredSmartCovers()[smart_cover_description_name].getLoopholes();
             for (SmartCoverLoopholeData& it : loopholes)
                 this->m_loopholes[it.m_id] = true;
 

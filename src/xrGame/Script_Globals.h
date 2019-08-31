@@ -626,7 +626,7 @@ inline static xr_map<xr_string, Cordis::AnyCallable<void>>& getXREffects_Functio
 #pragma endregion
 
 inline void load_scheme(const xr_string& filename, const xr_string& scheme, unsigned int stype);
-inline void StartGameCallback(void);
+inline void start_game_callback(void);
 inline void set_save_marker(NET_Packet& packet, const xr_string& mode, bool check, const xr_string& prefix);
 // @ from simulation_objects
 inline bool is_on_the_same_level(CSE_ALifeObject* object1, CSE_ALifeObject* object2);
