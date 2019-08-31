@@ -33,9 +33,10 @@ void Property::construct(shared_str const& property_id, Manager& manager_r)
     LPCSTR functor_str = pSettings->r_string(id(), "functor");
     m_desc.parameter = "";
     m_desc.parameter2 = id_str();
+/*  Lord: перевести потом это!!! precondition_functor | precondition_parameter смотреть w_weaponname.ltx!!!
     R_ASSERT2(GEnv.ScriptEngine->functor(functor_str, m_desc.functr),
-        make_string("Failed to get upgrade property functor in section[%s], functor[%s]", id_str(), functor_str));
-    m_desc(); // test
+        make_string("Failed to get upgrade property functor in section[%s], functor[%s]", id_str(), functor_str));*/
+  //  m_desc(); // test
 
     LPCSTR funct_params_str = pSettings->r_string(id(), "params");
     u32 const buffer_size = (xr_strlen(funct_params_str) + 1) * sizeof(char);

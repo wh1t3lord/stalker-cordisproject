@@ -232,7 +232,7 @@
 #define CLSID_SE_AMMO MK_CLSID('A', 'M', 'M', 'O', '_', 'S', ' ', ' ')
 #define CLSID_SE_HELI MK_CLSID('C', '_', 'H', 'L', 'C', 'P', '_', 'S')
 #define CLSID_SE_ADVANCEDDETECTOR MK_CLSID('D', 'E', 'T', '_', 'A', 'D', 'V', 'A')
-#define CLSID_SE_ELITEDETECTOR MK_CLSID('D', 'E', 'T', '_', 'S', 'C', 'I', 'E')
+#define CLSID_SE_ELITEDETECTOR MK_CLSID('D', 'E', 'T', '_', 'E', 'L', 'I', 'T')
 #define CLSID_SE_SCIENTIFICDETECTOR MK_CLSID('D', 'E', 'T', '_', 'S', 'C', 'I', 'E')
 #define CLSID_SE_SIMPLEDETECTOR MK_CLSID('D', 'E', 'T', '_', 'S', 'I', 'M', 'P')
 #define CLSID_SE_HELMET MK_CLSID('E', '_', 'H', 'L', 'M', 'E', 'T', ' ')

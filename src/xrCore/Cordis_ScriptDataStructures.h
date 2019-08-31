@@ -39,8 +39,36 @@ struct SmartCoverLoopholeData
 {
     struct SmartCoverActionsData
     {
-        xr_string m_id; // idle, lookout, fire, fire_no_lookout, reload, etc
+        inline void register_animation(const xr_string& type_name, const xr_string& animation_name) noexcept
+        {
+            if (this->m_animations[type_name].size())
+            {
+                for (xr_string& it : this->m_animations[type_name])
+                {
+                    if (it == animation_name)
+                    {
+                        Msg("[Scripts/SmartCoverLoopholeData/SmartCoverActionsData/register_animation(type_name, "
+                            "animation_name)] You are trying to register an existing animation! [%s]",
+                            animation_name.c_str());
+
+                        Msg("[Scripts/SmartCoverLoopholeData/SmartCoverActionsData/register_animation(type_name, "
+                            "animation_name)] Ignored!");
+
+                        return;
+                    }
+                }
+            }
+
+            this->m_animations[type_name].push_back(animation_name);
+        }
+
+        inline const xr_map<xr_string, xr_vector<xr_string>>& getAnimations(void) noexcept { return this->m_animations; }
+
+    private:
         xr_map<xr_string, xr_vector<xr_string>> m_animations;
+
+    public:
+        xr_string m_id; // idle, lookout, fire, fire_no_lookout, reload, etc
     };
 
     struct SmartCoverTransitionsData
@@ -52,22 +80,35 @@ struct SmartCoverLoopholeData
     };
 
     bool m_is_usable;
+    bool m_is_exitable;
+    bool m_is_enterable;
     float m_fieldofview;
     float m_fieldofview_danger;
     float m_range;
     Fvector m_fieldofview_position;
     Fvector m_fieldofview_direction;
     Fvector m_enter_direction;
+    Fvector m_danger_fieldofview_direction;
+
+private:
     xr_vector<SmartCoverActionsData> m_actions;
     xr_vector<SmartCoverTransitionsData> m_transitions;
+
+public:
     xr_string m_id = "";
+
+    void register_action(const SmartCoverActionsData& data) noexcept { this->m_actions.push_back(data); }
+    void register_transition(const SmartCoverTransitionsData& data) noexcept { this->m_transitions.push_back(data); }
 };
 
 struct SmartCoverData
 {
     bool m_is_need_weapon;
+
+private:
     xr_vector<SmartCoverLoopholeData> m_loopholes;
 
+public:
     struct SmartCoverTransitionsData
     {
         struct SmartCoverActionsData
@@ -89,7 +130,18 @@ struct SmartCoverData
         xr_vector<SmartCoverActionsData> m_actions;
     };
 
+private:
     xr_vector<SmartCoverTransitionsData> m_transitions;
+
+public:
+    inline void register_loophole(const SmartCoverLoopholeData& data) noexcept { this->m_loopholes.push_back(data); }
+    inline void register_transition(const SmartCoverTransitionsData& data) noexcept
+    {
+        this->m_transitions.push_back(data);
+    }
+
+    inline xr_vector<SmartCoverLoopholeData>& getLoopholes(void) noexcept { return this->m_loopholes; }
+    inline xr_vector<SmartCoverTransitionsData>& getTransitions(void) noexcept { return this->m_transitions; }
 };
 
 } // namespace Scripts

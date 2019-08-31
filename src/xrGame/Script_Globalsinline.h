@@ -329,7 +329,7 @@ inline void load_scheme(const xr_string& filename, const xr_string& scheme, unsi
     STypes()[scheme] = stype;
 }
 
-inline void StartGameCallback(void)
+inline void start_game_callback(void)
 {
     // Loads schemes Lord: переименовать соответвующие наименования скриптов, но если _G[schemes[scheme]] -> нужно
     // расписывать через case, потому что строка будет указывать на namespace или getInstance() самого класса То есть
@@ -397,6 +397,10 @@ inline void StartGameCallback(void)
     // load_scheme("sr_recoveritem","sr_recoveritem",kSTypeRestrictor);
     load_scheme("sr_silence", "sr_silence", kSTypeRestrictor);
     load_scheme("sr_deimos", "sr_deimos", kSTypeRestrictor);
+
+    Script_GlobalHelper::getInstance();
+
+    Msg("[Scripts/Globals/start_game_callback()] was called!");
 }
 
 inline void set_save_marker(NET_Packet& packet, const xr_string& mode, bool check, const xr_string& prefix)
