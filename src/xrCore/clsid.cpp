@@ -10,6 +10,20 @@ XRCORE_API void __stdcall CLSID2TEXT(CLASS_ID id, LPSTR text)
         id >>= 8;
     }
 }
+
+XRCORE_API LPCSTR CLSIDTEXT(CLASS_ID id) 
+{
+    char text[128];
+    text[8] = 0;
+    for (int i = 7; i >= 0; i--)
+    {
+        text[i] = char(id & 0xff);
+        id >>= 8;
+    }
+
+    return text;
+}
+
 XRCORE_API CLASS_ID __stdcall TEXT2CLSID(LPCSTR text)
 {
     VERIFY3(xr_strlen(text) <= 8, "Beer from creator CLASS_ID:", text);

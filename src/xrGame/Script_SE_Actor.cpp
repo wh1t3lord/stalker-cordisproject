@@ -18,7 +18,6 @@ void Script_SE_Actor::on_register(void)
     inherited::on_register();
     Script_StoryObject::getInstance().registrate(this->ID, "actor");
     Script_SimulationObjects::getInstance().registrate(this);
-
     this->m_is_registered = true;
 
     if (!this->m_is_start_position_filled)
@@ -44,7 +43,7 @@ void Script_SE_Actor::STATE_Write(NET_Packet& packet)
 
     packet.w_u8(this->m_is_start_position_filled ? 1 : 0);
 
-    Globals::set_save_marker(packet, Globals::kSaveMarkerMode_Save, true, "Scritp_SE_Actor");
+    Globals::set_save_marker(packet, Globals::kSaveMarkerMode_Save, true, "Script_SE_Actor");
 }
 
 void Script_SE_Actor::STATE_Read(NET_Packet& packet, std::uint16_t size)

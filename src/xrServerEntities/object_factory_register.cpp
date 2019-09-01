@@ -414,7 +414,7 @@ void CObjectFactory::register_classes()
             CLSID_SE_LEVEL_CHANGER, "Script_SE_LevelChanger");
         this->add<CActor, Cordis::Scripts::Script_SE_Actor>(CLSID_SE_ACTOR, "Script_SE_Actor");
         this->add<CAI_Stalker, Cordis::Scripts::Script_SE_Stalker>(CLSID_SE_STALKER, "Script_SE_Stalker");
-        this->add<CHelicopter, Cordis::Scripts::Script_SE_Stalker>(CLSID_SE_HELI, "Script_SE_Helicopter");
+        this->add<CHelicopter, Cordis::Scripts::Script_SE_Helicopter>(CLSID_SE_HELI, "Script_SE_Helicopter");
         this->add<CSmartZone, Cordis::Scripts::Script_SE_Restrictor>(CLSID_SE_RESTRICTOR, "Script_SE_Resctrictor");
         this->add<CPhysicObject, Cordis::Scripts::Script_SE_Physic>(CLSID_SE_PHYSICS_OBJECT, "Script_SE_Physic");
         this->add<smart_cover::object, Cordis::Scripts::Script_SE_SmartCover>(

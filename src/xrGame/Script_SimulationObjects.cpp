@@ -75,7 +75,7 @@ void Script_SimulationObjects::get_properties(CSE_ALifeDynamicObject* object)
 
     xr_string properties_section = object->name();
 
-    if (object->script_clsid() == CLSID_SE_ONLINE_OFFLINE_GROUP)
+    if (object->script_clsid() == Globals::get_script_clsid(CLSID_SE_ONLINE_OFFLINE_GROUP))
         properties_section = object->name_replace();
 
     if (!this->m_props_ini.section_exist(properties_section.c_str()))
@@ -83,10 +83,10 @@ void Script_SimulationObjects::get_properties(CSE_ALifeDynamicObject* object)
         Msg("[Script_SimulationObjects] -> object [%s] has no simulation properties section!", object->name());
         properties_section = "default";
 
-        if (object->script_clsid() == CLSID_SE_ONLINE_OFFLINE_GROUP)
+        if (object->script_clsid() == Globals::get_script_clsid(CLSID_SE_ONLINE_OFFLINE_GROUP))
             properties_section = "default_squad";
 
-        if (object->script_clsid() == CLSID_SE_ACTOR)
+        if (object->script_clsid() == Globals::get_script_clsid(CLSID_SE_ACTOR))
             properties_section = "actor";
     }
 

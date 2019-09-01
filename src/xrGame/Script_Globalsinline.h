@@ -55,12 +55,16 @@ inline Fvector vector_rotate_y(Fvector& vector, float& angle)
         vector.x * cos_result - vector.z * sin_result, vector.y, vector.x * sin_result + vector.z * cos_result);
 }
 
+inline int get_script_clsid(const CLASS_ID& clsid) 
+{ 
+    return object_factory().script_clsid(clsid); }
+
 inline Fvector vertex_position(u32 level_vertex_id) { return (ai().level_graph().vertex_position(level_vertex_id)); }
 inline bool patrol_path_exists(LPCSTR patrol_path) { return (!!ai().patrol_paths().path(patrol_path, true)); }
 
 inline void load_sound(void)
 {
-    CInifile sound_ini = CInifile("misc\\script_sound.ltx");
+    CScriptIniFile sound_ini = CScriptIniFile("misc\\script_sound.ltx");
 
     if (!sound_ini.section_exist("list"))
     {

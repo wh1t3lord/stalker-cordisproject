@@ -306,5 +306,6 @@
 #define CLSID_SE_ZONE_MINCE MK_CLSID('Z', 'S', '_', 'M', 'I', 'N', 'C', 'E')
 #define CLSID_SE_ZONE_RADIOACTIVE MK_CLSID('Z', 'S', '_', 'R', 'A', 'D', 'I', 'O')
 #define CLSID_SE_ZONE_TORRID MK_CLSID('Z', 'S', '_', 'T', 'O', 'R', 'R', 'D')
+
 #pragma endregion
 

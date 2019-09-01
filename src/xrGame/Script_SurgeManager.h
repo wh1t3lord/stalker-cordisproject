@@ -47,7 +47,7 @@ private:
     const std::uint32_t m_surge_time = 190;
     int m_count;
     xr_map<std::uint32_t, bool> m_levels_respawn;
-    CInifile m_ini;
+    CScriptIniFile m_ini;
 };
 } // namespace Scripts
 } // namespace Cordis

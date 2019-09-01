@@ -73,7 +73,7 @@ struct JobData
 
 struct JobDataExclusive_SubData
 {
-    CInifile m_ini_file = CInifile("system.ltx");
+    CScriptIniFile m_ini_file = CScriptIniFile("system.ltx");
     xr_string m_section_name;
     xr_string m_online_name;
     xr_string m_job_type;

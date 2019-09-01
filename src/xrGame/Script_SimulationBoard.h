@@ -836,7 +836,7 @@ private:
     xr_map<xr_string, Script_SE_SmartTerrain*> m_smarts_by_name;
     xr_map<std::uint32_t, Script_SE_SimulationSquad*> m_temporary_entered_squad;
     xr_map<std::uint32_t, Script_SE_SimulationSquad*> m_temporary_assigned_squad;
-    CInifile m_setting_ini;
+    CScriptIniFile m_setting_ini;
 };
 } // namespace Scripts
 } // namespace Cordis

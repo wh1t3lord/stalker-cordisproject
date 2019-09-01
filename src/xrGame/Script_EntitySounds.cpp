@@ -8,7 +8,7 @@ namespace Cordis
 {
 namespace Scripts
 {
-Script_SoundNPC::Script_SoundNPC(const CInifile& sound_ini, const xr_string& section)
+Script_SoundNPC::Script_SoundNPC(CScriptIniFile& sound_ini, const xr_string& section)
     : m_prefix(Globals::Utils::cfg_get_bool(&sound_ini, section, "npc_prefix")),
       m_path(Globals::Utils::cfg_get_string(&sound_ini, section, "path")),
       m_shuffle(Globals::Utils::cfg_get_string(&sound_ini, section, "shuffle")),
@@ -434,7 +434,7 @@ void Script_SoundNPC::load_npc(NET_Packet& packet, const std::uint16_t& npc_id)
         this->m_can_play_sound[npc_id] = (!!packet.r_u8());
 }
 
-Script_SoundActor::Script_SoundActor(const CInifile& ini, const xr_string& section)
+Script_SoundActor::Script_SoundActor(CScriptIniFile& ini, const xr_string& section)
     : m_is_stereo(Globals::Utils::cfg_get_bool(&ini, section, "actor_stereo")),
       m_is_prefix(Globals::Utils::cfg_get_bool(&ini, section, "npc_prefix")),
       m_path(Globals::Utils::cfg_get_string(&ini, section, "path")),
@@ -648,7 +648,7 @@ void Script_SoundActor::load(NET_Packet& packet)
         this->m_played_id = 0;
 }
 
-Script_SoundObject::Script_SoundObject(const CInifile& ini, const xr_string& section)
+Script_SoundObject::Script_SoundObject(CScriptIniFile& ini, const xr_string& section)
     : m_class_id(SCRIPTSOUNDTYPE_OBJECT), m_path(Globals::Utils::cfg_get_string(&ini, section, "path")),
       m_shuffle(Globals::Utils::cfg_get_string(&ini, section, "shuffle")), m_can_play_sound(true), m_played_id(0),
       m_played_time(0), m_faction(Globals::Utils::cfg_get_string(&ini, section, "faction")),
@@ -884,7 +884,7 @@ void Script_SoundObject::load(NET_Packet& packet)
         this->m_played_id = 0;
 }
 
-Script_SoundLooped::Script_SoundLooped(const CInifile& ini, const xr_string& section)
+Script_SoundLooped::Script_SoundLooped(CScriptIniFile& ini, const xr_string& section)
     : m_section(section), m_path(Globals::Utils::cfg_get_string(&ini, section, "path")), m_sound_object(nullptr),
       m_class_id(SCRIPTSOUNDTYPE_LOOPED), m_sound("")
 {

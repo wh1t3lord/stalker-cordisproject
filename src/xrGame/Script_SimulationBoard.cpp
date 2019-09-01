@@ -4,7 +4,7 @@
 #include "Script_SE_SimulationSquad.h"
 #include "xrAICore/Navigation/game_graph_space.h"
 
-CInifile settings_ini = CInifile("misc\\simulation.ltx");
+CScriptIniFile settings_ini = CScriptIniFile("misc\\simulation.ltx");
 
 namespace Cordis
 {

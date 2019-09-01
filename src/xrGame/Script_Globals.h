@@ -24,6 +24,7 @@
 #include "Level.h"
 #include "map_manager.h"
 #include "xrAICore/Navigation/game_graph.h"
+#include "script_ini_file.h"
 #include "Script_Database.h"
 #include "Script_SE_SimulationSquad.h"
 
@@ -69,7 +70,7 @@ Script_SimulationObjects::getInstance().getObjects()[squad->getAssignedTargetID(
 
 namespace Utils
 {
-inline xr_string cfg_get_string(const CInifile* char_ini, const xr_string& section, const xr_string& field,
+inline xr_string cfg_get_string(CScriptIniFile* char_ini, const xr_string& section, const xr_string& field,
     bool mandatory = false, const xr_string& gulag_name = "")
 {
     if (section.size() &&
@@ -103,7 +104,7 @@ inline float graph_distance(const std::uint16_t& gamevertexid_1, const std::uint
         .distance_to(ai().game_graph().vertex(gamevertexid_2)->game_point());
 }
 
-inline bool cfg_get_bool(const CInifile* char_ini, const xr_string& section, const xr_string& field,
+inline bool cfg_get_bool(CScriptIniFile* char_ini, const xr_string& section, const xr_string& field,
     CScriptGameObject* object = nullptr, bool mandatory = false)
 {
     xr_string object_name;
@@ -136,7 +137,7 @@ inline bool cfg_get_bool(const CInifile* char_ini, const xr_string& section, con
     return false;
 }
 
-inline bool cfg_get_bool(const CInifile* char_ini, const xr_string& section, const xr_string& field,
+inline bool cfg_get_bool(CScriptIniFile* char_ini, const xr_string& section, const xr_string& field,
     CSE_ALifeDynamicObject* object, bool mandatory = false)
 {
     xr_string object_name;
@@ -169,7 +170,7 @@ inline bool cfg_get_bool(const CInifile* char_ini, const xr_string& section, con
     return false;
 }
 
-inline float cfg_get_number(const CInifile* char_ini, const xr_string& section, const xr_string& field,
+inline float cfg_get_number(CScriptIniFile* char_ini, const xr_string& section, const xr_string& field,
     CScriptGameObject* object = nullptr, bool mandatory = false)
 {
     xr_string object_name;
@@ -187,7 +188,7 @@ inline float cfg_get_number(const CInifile* char_ini, const xr_string& section, 
     return 0.0f;
 }
 
-inline float cfg_get_number(const CInifile* char_ini, const xr_string& section, const xr_string& field,
+inline float cfg_get_number(CScriptIniFile* char_ini, const xr_string& section, const xr_string& field,
     CSE_ALifeDynamicObject* object, bool mandatory = false)
 {
     xr_string object_name;
@@ -474,7 +475,10 @@ inline void map_add_object_spot(const std::uint16_t& id, LPCSTR spot_type, LPCST
     }
 }
 
-inline std::uint16_t map_has_object_spot(const std::uint16_t& id, LPCSTR spot_type) { return Level().MapManager().HasMapLocation(spot_type, id); }
+inline std::uint16_t map_has_object_spot(const std::uint16_t& id, LPCSTR spot_type)
+{
+    return Level().MapManager().HasMapLocation(spot_type, id);
+}
 
 inline void map_add_object_spot_ser(const std::uint16_t& id, LPCSTR spot_type, LPCSTR text)
 {
@@ -583,6 +587,7 @@ inline void set_npcs_relation(CSE_ALifeMonsterAbstract* server_from_object, CSE_
 
 } // namespace GameRelations
 
+inline int get_script_clsid(const CLASS_ID& clsid);
 inline Fvector vertex_position(u32 level_vertex_id);
 inline std::uint32_t vertex_in_direction(
     const std::uint32_t& level_vertex_id, const Fvector& direction, const float& max_distance);

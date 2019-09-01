@@ -42,17 +42,30 @@ void Script_SE_SmartCover::STATE_Read(NET_Packet& Packet, std::uint16_t size)
             Msg("[Scripts/Script_SE_SmartCover/STATE_Read(Packet, size)] name %s descirption %s", this->name(),
                 smart_cover_description_name.c_str());
 
-            xr_vector<SmartCoverLoopholeData>& loopholes =
-                Script_GlobalHelper::getInstance().getRegisteredSmartCovers()[smart_cover_description_name].getLoopholes();
-            if (loopholes[0].m_id.size())
+            xr_vector<SmartCoverLoopholeData>& loopholes = Script_GlobalHelper::getInstance()
+                                                               .getRegisteredSmartCovers()[smart_cover_description_name]
+                                                               .getLoopholes();
+
+            if (loopholes.size())
             {
-                for (SmartCoverLoopholeData& it : loopholes)
-                    existing_loopholes[it.m_id] = true;
+                if (loopholes[0].m_id.size())
+                {
+                    for (SmartCoverLoopholeData& it : loopholes)
+                        existing_loopholes[it.m_id] = true;
+                }
+                else
+                {
+                    // @ Lord: попробовать сделать warning уведомление чем выводить полноценный Assertion
+                    R_ASSERT2(false, "You are not registered a new smart cover!!!!!!");
+                    return;
+                }
             }
             else
             {
-                // @ Lord: попробовать сделать warning уведомление чем выводить полноценный Assertion
-                R_ASSERT2(false, "You are not registered a new smart cover!!!!!!");
+                Msg("[Scripts/Script_SE_SmartCover/STATE_Read(packet, size)] WARNING: you are not initialize in "
+                    "Script_GlobalHelper your smart_cover! [%s]",
+                    smart_cover_description_name.c_str());
+                
                 return;
             }
         }
@@ -74,8 +87,9 @@ void Script_SE_SmartCover::STATE_Read(NET_Packet& Packet, std::uint16_t size)
 
         if (smart_cover_description_name.size())
         {
-            xr_vector<SmartCoverLoopholeData>& loopholes =
-                Script_GlobalHelper::getInstance().getRegisteredSmartCovers()[smart_cover_description_name].getLoopholes();
+            xr_vector<SmartCoverLoopholeData>& loopholes = Script_GlobalHelper::getInstance()
+                                                               .getRegisteredSmartCovers()[smart_cover_description_name]
+                                                               .getLoopholes();
             for (SmartCoverLoopholeData& it : loopholes)
                 this->m_loopholes[it.m_id] = true;
 
@@ -87,7 +101,9 @@ void Script_SE_SmartCover::STATE_Read(NET_Packet& Packet, std::uint16_t size)
 void Script_SE_SmartCover::on_before_register(void)
 {
     inherited::on_before_register();
-    Msg("[Scripts/Script_SE_SmartCover/on_before_register()] Registering Script_SE_SmartCover [%s] entity to GameRegisteredServerSmartCovers", this->name());
+    Msg("[Scripts/Script_SE_SmartCover/on_before_register()] Registering Script_SE_SmartCover [%s] entity to "
+        "GameRegisteredServerSmartCovers",
+        this->name());
     Script_GlobalHelper::getInstance().getGameRegisteredServerSmartCovers()[this->name()] = this;
 }
 
@@ -97,20 +113,22 @@ void Script_SE_SmartCover::on_register(void)
     Script_StoryObject::getInstance().check_spawn_ini_for_story_id(this);
     const std::uint8_t& level_id = GEnv.AISpace->game_graph().vertex(this->m_tGraphID)->level_id();
 
-    Msg("[Scripts/Script_SE_SmartCover/on_register()] Registering Script_SE_SmartCover [%s] entity to GameRegisteredServerSmartCoversByLevelID", this->name());
+    Msg("[Scripts/Script_SE_SmartCover/on_register()] Registering Script_SE_SmartCover [%s] entity to "
+        "GameRegisteredServerSmartCoversByLevelID",
+        this->name());
     Script_GlobalHelper::getInstance().getGameRegisteredServerSmartCoversByLevelID()[level_id][this->m_tNodeID] = this;
 }
 
-void Script_SE_SmartCover::on_unregister(void) 
+void Script_SE_SmartCover::on_unregister(void)
 {
     Msg("[Scripts/Script_SE_SmartCover/on_unregister()] Unregistering Script_SE_SmartCover [%s] entity!", this->name());
-    Script_StoryObject::getInstance().unregistrate_by_id(this->ID); 
+    Script_StoryObject::getInstance().unregistrate_by_id(this->ID);
     const std::uint8_t& level_id = GEnv.AISpace->game_graph().vertex(this->m_tGraphID)->level_id();
     // @ Lord: здесь наверное просто зануление а не удаление сущности из памяти!
-    Script_GlobalHelper::getInstance().getGameRegisteredServerSmartCoversByLevelID()[level_id][this->m_tNodeID] = nullptr;
+    Script_GlobalHelper::getInstance().getGameRegisteredServerSmartCoversByLevelID()[level_id][this->m_tNodeID] =
+        nullptr;
     inherited::on_unregister();
 }
-
 
 } // namespace Scripts
 } // namespace Cordis

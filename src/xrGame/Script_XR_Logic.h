@@ -18,13 +18,13 @@ constexpr const char* XR_LOGIC_TEXT_NEVER = "never";
 constexpr const char* kXRLogicReturnTypeSuccessfulName = "true";
 constexpr const char* kXRLogicReturnTypeBadName = "false";
 
-inline CInifile configure_schemes(CScriptGameObject* npc, const CInifile& ini, const xr_string& ini_filename,
+inline CScriptIniFile configure_schemes(CScriptGameObject* npc, CScriptIniFile& ini, const xr_string& ini_filename,
     unsigned int stype, const xr_string& section_logic, const xr_string& gulag_name)
 {
     if (!npc)
     {
         R_ASSERT2(false, "Object was null!");
-        return CInifile("system.ltx");
+        return CScriptIniFile("system.ltx");
     }
 
     std::uint16_t npc_id = npc->ID();
@@ -35,7 +35,7 @@ inline CInifile configure_schemes(CScriptGameObject* npc, const CInifile& ini, c
         Script_LogicManager::getInstance().all_deactivate(storage[storage.m_active_scheme].m_actions, npc);
     }
 
-    CInifile actual_ini = ini;
+    CScriptIniFile actual_ini = ini;
     xr_string actual_ini_filename;
 
     if (!ini.section_exist(section_logic.c_str()))
@@ -50,7 +50,7 @@ inline CInifile configure_schemes(CScriptGameObject* npc, const CInifile& ini, c
                 npc->Name(), section_logic.c_str(), ini_filename.c_str());
             R_ASSERT(false);
 
-            return CInifile("system.ltx");
+            return CScriptIniFile("system.ltx");
         }
     }
     else
@@ -59,14 +59,14 @@ inline CInifile configure_schemes(CScriptGameObject* npc, const CInifile& ini, c
         if (filename.size())
         {
             actual_ini_filename = filename;
-            actual_ini = CInifile(filename.c_str());
+            actual_ini = CScriptIniFile(filename.c_str());
 
             if (!actual_ini.section_exist(section_logic.c_str()))
             {
                 Msg("object: %s configuratuion file [%s] NOT FOUND or section [logic] isn't assigned ", npc->Name(),
                     filename.c_str());
                 R_ASSERT(false);
-                return CInifile("system.ltx");
+                return CScriptIniFile("system.ltx");
             }
         }
         else
@@ -78,15 +78,15 @@ inline CInifile configure_schemes(CScriptGameObject* npc, const CInifile& ini, c
     }
 
     // Lord: доделать!
-    return CInifile("а это убрать и написать нормальный аргумент.ltx");
+    return CScriptIniFile("а это убрать и написать нормальный аргумент.ltx");
 }
 
-inline CInifile get_customdata_or_ini_file(CScriptGameObject* npc, const xr_string& filename)
+inline CScriptIniFile get_customdata_or_ini_file(CScriptGameObject* npc, const xr_string& filename)
 {
     if (!npc)
     {
         R_ASSERT2(false, "object was null!");
-        return CInifile("system.ltx");
+        return CScriptIniFile("system.ltx");
     }
 
     DataBase::Storage_Data& storage = DataBase::Storage::getInstance().getStorage()[npc->ID()];
@@ -95,17 +95,17 @@ inline CInifile get_customdata_or_ini_file(CScriptGameObject* npc, const xr_stri
         CScriptIniFile* file = npc->spawn_ini();
         if (!file)
         {
-            CInifile ini(file->fname());
+            CScriptIniFile ini(file->fname());
             return ini;
         }
         else
-            return CInifile("[[scripts\\dummy.ltx]]");
+            return CScriptIniFile("[[scripts\\dummy.ltx]]");
     }
     else if (!filename.find('*'))
     {
         if (storage.m_job_ini.size())
-            return CInifile(storage.m_job_ini.c_str());
- 
+            return CScriptIniFile(storage.m_job_ini.c_str());
+
         return XR_GULAG::loadLtx(filename.substr(filename.find('*') + 1));
     }
 }
@@ -330,9 +330,20 @@ inline xr_map<std::uint32_t, CondlistData> parse_condlist_by_server_object(
         {
             if (!was_found_section)
                 sub_data.m_text_name = "nil";
-
+            else
+            {
+                if (current_section.size())
+                    sub_data.m_text_name = current_section;
+                else
+                {
+                    R_ASSERT2(false, "it can't be!");
+                    sub_data.m_text_name = "nil";
+                }
+            }
+            was_found_section = false;
             buffer.push_back(sub_data);
             sub_data.Clear();
+            current_section.clear();
             continue;
         }
 
@@ -470,6 +481,7 @@ inline xr_map<std::uint32_t, CondlistData> parse_condlist_by_server_object(
             }
             }
 
+            was_found_section = true;
             current_section += it;
             continue;
         }
@@ -484,6 +496,9 @@ inline xr_map<std::uint32_t, CondlistData> parse_condlist_by_server_object(
     }
 
     // @ Added last sub_data, cuz in loop we can't add at last it : source!
+    if (current_section.size())
+        sub_data.m_text_name = current_section;
+
     buffer.push_back(sub_data);
     sub_data.Clear();
 

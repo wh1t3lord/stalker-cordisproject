@@ -12,9 +12,9 @@ class StoryLtx
     friend class Script_SoundManager;
 
 private:
-    inline static CInifile& getLtx(void) noexcept
+    inline static CScriptIniFile& getLtx(void) noexcept
     {
-        static CInifile ini("misc\\sound_stories.ltx");
+        static CScriptIniFile ini("misc\\sound_stories.ltx");
         return ini;
     }
 };
