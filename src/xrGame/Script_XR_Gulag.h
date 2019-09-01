@@ -34,19 +34,19 @@ inline CSE_ALifeDynamicObject* get_npc_smart(CScriptGameObject* object)
     return nullptr;
 }
 // Lord: тогда прочекать за удаление то есть здесь уже Singlton
-inline static xr_map<xr_string, CInifile*>& getDynamicLtx(void) noexcept
+inline static xr_map<xr_string, CScriptIniFile*>& getDynamicLtx(void) noexcept
 {
-    static xr_map<xr_string, CInifile*> instance;
+    static xr_map<xr_string, CScriptIniFile*> instance;
     return instance;
 }
 
 // @ "*smart_name*type_gulag"
-inline CInifile loadLtx(const xr_string& name)
+inline CScriptIniFile loadLtx(const xr_string& name)
 {
     // Lord: доделать!
     xr_string header = "*";
     header += name;
-    CInifile* file = getDynamicLtx()[header];
+    CScriptIniFile* file = getDynamicLtx()[header];
 
     if (file->fname())
         return *file;
@@ -56,7 +56,7 @@ inline CInifile loadLtx(const xr_string& name)
     }
 
     // написать по нормальному!
-    return CInifile("system.ltx");
+    return CScriptIniFile("system.ltx");
 }
 
 inline bool is_job_in_restrictor(

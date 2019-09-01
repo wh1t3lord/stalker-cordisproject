@@ -11,7 +11,7 @@ class Script_TreasureManager
 private:
     Script_TreasureManager(void) : m_check_time(Globals::kUnsignedInt32Undefined)
     {
-        CInifile ini = CInifile("misc\\secrets.ltx");
+        CScriptIniFile ini = CScriptIniFile("misc\\secrets.ltx");
         std::uint32_t count_lines = ini.line_count("list");
 
         for (std::uint32_t i = 0; i < count_lines; ++i)

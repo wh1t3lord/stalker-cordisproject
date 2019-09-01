@@ -1258,8 +1258,7 @@ inline std::pair<xr_vector<JobData>, xr_vector<JobDataExclusive>> load_job(Scrip
     return all_jobs;
 }
 
-inline void add_exclusive_job(const xr_string& section_name, const xr_string& work_field_name,
-    const CInifile& smart_ini, std::pair<xr_vector<JobData>, xr_vector<JobDataExclusive>>& all_jobs)
+inline void add_exclusive_job(const xr_string& section_name, const xr_string& work_field_name, CScriptIniFile& smart_ini, std::pair<xr_vector<JobData>, xr_vector<JobDataExclusive>>& all_jobs)
 {
     if (!section_name.size())
     {
@@ -1291,7 +1290,7 @@ inline void add_exclusive_job(const xr_string& section_name, const xr_string& wo
         return;
     }
 
-    CInifile& job_ini_file = CInifile(ini_path_name.c_str());
+    CScriptIniFile& job_ini_file = CScriptIniFile(ini_path_name.c_str());
     xr_string job_online_name =
         Globals::Utils::cfg_get_string(&job_ini_file, (xr_string("logic@").append(work_field_name)), "job_online");
     xr_string active_section_name =

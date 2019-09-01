@@ -2,7 +2,7 @@
 #include "Script_SE_SmartTerrain.h"
 #include "Script_GulagGenerator.h"
 
-CInifile ini_file_locations = CInifile("misc\\smart_terrain_masks.ltx");
+CScriptIniFile ini_file_locations = CScriptIniFile("misc\\smart_terrain_masks.ltx");
 
 namespace Cordis
 {

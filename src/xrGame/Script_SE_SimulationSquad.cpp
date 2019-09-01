@@ -2,8 +2,8 @@
 #include "Script_SE_SimulationSquad.h"
 #include "Script_XR_Logic.h"
 
-CInifile squad_behavior_ini = CInifile("misc\\squad_behaviours.ltx");
-CInifile locations_ini = CInifile("misc\\smart_terrain_masks.ltx");
+CScriptIniFile squad_behavior_ini = CScriptIniFile("misc\\squad_behaviours.ltx");
+CScriptIniFile locations_ini = CScriptIniFile("misc\\smart_terrain_masks.ltx");
 
 namespace Cordis
 {
@@ -13,24 +13,22 @@ Script_SE_SimulationSquad::Script_SE_SimulationSquad(LPCSTR section)
     : inherited(section), m_assigned_target_id(0), m_current_spot_id(0), m_current_target_id(0), m_smart_terrain_id(0),
       m_settings_id_name(this->name()),
       m_sound_manager(Script_SoundManager::getSoundManager((xr_string("squad_").append(this->name())))),
-      m_player_id_name(Globals::Utils::cfg_get_string(Globals::get_system_ini(), this->m_settings_id_name, "faction")),
-      m_condlist_action(XR_LOGIC::parse_condlist_by_server_object("assign_action", "target_smart",
-          Globals::Utils::cfg_get_string(Globals::get_system_ini(), this->m_settings_id_name, "target_smart"))),
-      m_condlist_death(XR_LOGIC::parse_condlist_by_server_object("death_condlist", "on_death",
-          Globals::Utils::cfg_get_string(Globals::get_system_ini(), this->m_settings_id_name, "target_smart"))),
-      m_condlist_invulnerability(XR_LOGIC::parse_condlist_by_server_object("invulnerability", "invulnerability",
-          Globals::Utils::cfg_get_string(Globals::get_system_ini(), this->m_settings_id_name, "invulnerability"))),
-      m_relationship_name(
-          Globals::Utils::cfg_get_string(Globals::get_system_ini(), this->m_settings_id_name, "relationship")),
-      m_sympathy(Globals::Utils::cfg_get_number(Globals::get_system_ini(), this->m_settings_id_name, "sympathy", this)),
-      m_condlist_show_spot(XR_LOGIC::parse_condlist_by_server_object("show_spot", "show_spot",
-          Globals::Utils::cfg_get_string(Globals::get_system_ini(), this->m_settings_id_name, "show_spot"))),
-      m_is_always_arrived(
-          Globals::Utils::cfg_get_bool(Globals::get_system_ini(), this->m_settings_id_name, "always_arrived", this)),
-      m_is_always_walk(
-          Globals::Utils::cfg_get_bool(Globals::get_system_ini(), this->m_settings_id_name, "always_walk", this)),
       m_is_need_to_reset_location_masks(false), m_is_need_free_update(false)
 {
+    CScriptIniFile _ini = CScriptIniFile(Globals::get_system_ini()->fname());
+    m_player_id_name = Globals::Utils::cfg_get_string(&_ini, this->m_settings_id_name, "faction");
+    m_condlist_action = XR_LOGIC::parse_condlist_by_server_object("assign_action", "target_smart",
+        Globals::Utils::cfg_get_string(&_ini, this->m_settings_id_name, "target_smart"));
+    m_condlist_death = XR_LOGIC::parse_condlist_by_server_object(
+        "death_condlist", "on_death", Globals::Utils::cfg_get_string(&_ini, this->m_settings_id_name, "target_smart"));
+    m_condlist_invulnerability = XR_LOGIC::parse_condlist_by_server_object("invulnerability", "invulnerability",
+        Globals::Utils::cfg_get_string(&_ini, this->m_settings_id_name, "invulnerability"));
+    m_relationship_name = Globals::Utils::cfg_get_string(&_ini, this->m_settings_id_name, "relationship");
+    m_sympathy = Globals::Utils::cfg_get_number(&_ini, this->m_settings_id_name, "sympathy", this);
+    m_condlist_show_spot = XR_LOGIC::parse_condlist_by_server_object(
+        "show_spot", "show_spot", Globals::Utils::cfg_get_string(&_ini, this->m_settings_id_name, "show_spot"));
+    m_is_always_arrived = Globals::Utils::cfg_get_bool(&_ini, this->m_settings_id_name, "always_arrived", this);
+    m_is_always_walk = Globals::Utils::cfg_get_bool(&_ini, this->m_settings_id_name, "always_walk", this);
     this->set_location_types_section("stalker_terrain");
     this->set_squad_sympathy();
 }
@@ -122,7 +120,7 @@ void Script_SE_SimulationSquad::set_location_types(const xr_string& new_smart_na
     xr_string default_location_name = "stalker_terrain";
     this->clear_location_types();
 
-    if (ai().alife().objects().object(this->m_assigned_target_id)->script_clsid() == CLSID_SE_SMART_TERRAIN)
+    if (ai().alife().objects().object(this->m_assigned_target_id)->script_clsid() == Globals::get_script_clsid(CLSID_SE_SMART_TERRAIN))
     {
         this->set_location_types_section(default_location_name);
         xr_string old_smart_name = "";
@@ -161,7 +159,7 @@ void Script_SE_SimulationSquad::set_location_types(const xr_string& new_smart_na
             CSE_ALifeDynamicObject* server_object = ai().alife().objects().object(it.first);
             if (server_object)
             {
-                if (server_object->script_clsid() == CLSID_SE_SMART_TERRAIN)
+                if (server_object->script_clsid() == Globals::get_script_clsid(CLSID_SE_SMART_TERRAIN))
                 {
                     xr_string properties_base = server_object->getProperties()["base"];
                     if (properties_base.size())
@@ -180,13 +178,16 @@ void Script_SE_SimulationSquad::create_npc(Script_SE_SmartTerrain* spawn_smart)
         return;
     }
 
-    xr_vector<xr_string> spawn_sections = Globals::Utils::parse_names(
-        Globals::Utils::cfg_get_string(Globals::get_system_ini(), this->m_settings_id_name, "npc"));
+    xr_vector<xr_string> spawn_sections = Globals::Utils::parse_names(Globals::Utils::cfg_get_string(
+        &CScriptIniFile(Globals::get_system_ini()->fname()), this->m_settings_id_name, "npc"));
 
-    xr_string spawn_point_name =
-        Globals::Utils::cfg_get_string(Globals::get_system_ini(), this->m_settings_id_name, "spawn_point").size() ?
-        Globals::Utils::cfg_get_string(Globals::get_system_ini(), this->m_settings_id_name, "spawn_point") :
-        Globals::Utils::cfg_get_string(Globals::get_system_ini(), Globals::kSmartTerrainSMRTSection, "spawn_point");
+    xr_string spawn_point_name = Globals::Utils::cfg_get_string(&CScriptIniFile(Globals::get_system_ini()->fname()),
+                                     this->m_settings_id_name, "spawn_point")
+                                     .size() ?
+        Globals::Utils::cfg_get_string(
+            &CScriptIniFile(Globals::get_system_ini()->fname()), this->m_settings_id_name, "spawn_point") :
+        Globals::Utils::cfg_get_string(
+            &CScriptIniFile(Globals::get_system_ini()->fname()), Globals::kSmartTerrainSMRTSection, "spawn_point");
 
     xr_map<std::uint32_t, CondlistData> spawn_point_condlist =
         XR_LOGIC::parse_condlist_by_server_object("spawn_point", "spawn_point", spawn_point_name);
@@ -225,8 +226,8 @@ void Script_SE_SimulationSquad::create_npc(Script_SE_SmartTerrain* spawn_smart)
         }
     }
 
-    xr_string random_spawn_name =
-        Globals::Utils::cfg_get_string(Globals::get_system_ini(), this->m_settings_id_name, "npc_random");
+    xr_string random_spawn_name = Globals::Utils::cfg_get_string(
+        &CScriptIniFile(Globals::get_system_ini()->fname()), this->m_settings_id_name, "npc_random");
 
     if (random_spawn_name.size())
     {
@@ -275,8 +276,8 @@ std::uint16_t Script_SE_SimulationSquad::add_squad_member(const xr_string& spawn
         return Globals::kUnsignedInt16Undefined;
     }
 
-    xr_string custom_data_name =
-        Globals::Utils::cfg_get_string(Globals::get_system_ini(), spawn_section_name, "custom_data");
+    xr_string custom_data_name = Globals::Utils::cfg_get_string(
+        &CScriptIniFile(Globals::get_system_ini()->fname()), spawn_section_name, "custom_data");
 
     if (!custom_data_name.size())
         Msg("[Scripts/Script_SE_SimulationSquad/add_squad_member(spawn_section_name, spawn_position, level_vertex_id, "
@@ -411,8 +412,8 @@ void Script_SE_SimulationSquad::set_squad_sympathy(const float& sympathy)
 
 void Script_SE_SimulationSquad::set_squad_behaviour(void)
 {
-    xr_string behaviour_section_name =
-        Globals::Utils::cfg_get_string(Globals::get_system_ini(), this->m_settings_id_name, "behaviour");
+    xr_string behaviour_section_name = Globals::Utils::cfg_get_string(
+        &CScriptIniFile(Globals::get_system_ini()->fname()), this->m_settings_id_name, "behaviour");
 
     if (!squad_behavior_ini.section_exist(behaviour_section_name.c_str()))
     {

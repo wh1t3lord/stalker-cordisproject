@@ -51,7 +51,7 @@ public:
 class Script_SoundNPC : public Script_ISoundEntity
 {
 public:
-    Script_SoundNPC(const CInifile& sound_ini, const xr_string& section);
+    Script_SoundNPC(CScriptIniFile& sound_ini, const xr_string& section);
     virtual ~Script_SoundNPC(void);
 
     virtual void reset(const std::uint16_t& npc_id);
@@ -120,7 +120,7 @@ private: // Lord: добавить карты
 class Script_SoundActor : public Script_ISoundEntity
 {
 public:
-    Script_SoundActor(const CInifile& ini, const xr_string& section);
+    Script_SoundActor(CScriptIniFile& ini, const xr_string& section);
     virtual ~Script_SoundActor(void);
 
     virtual void reset(const std::uint16_t& npc_id);
@@ -204,7 +204,7 @@ private:
 class Script_SoundObject : public Script_ISoundEntity
 {
 public:
-    Script_SoundObject(const CInifile& ini, const xr_string& section);
+    Script_SoundObject(CScriptIniFile& ini, const xr_string& section);
     virtual ~Script_SoundObject(void);
 
     virtual void Script_SoundObject::reset(const std::uint16_t& npc_id)
@@ -291,7 +291,7 @@ private:
 class Script_SoundLooped : public Script_ISoundEntity
 {
 public:
-    Script_SoundLooped(const CInifile& ini, const xr_string& section);
+    Script_SoundLooped(CScriptIniFile& ini, const xr_string& section);
     virtual ~Script_SoundLooped(void);
 
     virtual bool play(const std::uint16_t& npc_id, xr_string& faction, std::uint16_t point)

@@ -47,7 +47,7 @@ private:
 
 private:
     xr_map<std::uint16_t, CSE_ALifeDynamicObject*> m_objects;
-    CInifile m_props_ini;
+    CScriptIniFile m_props_ini;
 };
 } // namespace Scripts
 } // namespace Cordis

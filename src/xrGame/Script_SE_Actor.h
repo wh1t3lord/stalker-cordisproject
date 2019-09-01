@@ -17,6 +17,7 @@ public:
     virtual void on_unregister(void);
     virtual void STATE_Write(NET_Packet& packet);
     virtual void STATE_Read(NET_Packet& packet, std::uint16_t size);
+    virtual bool IsSimulationAvailable(void);
 
     inline bool am_i_reached(void) { return Globals::Game::level::get_object_by_id(this->ID)->Alive(); }
     inline CALifeSmartTerrainTask& get_alife_task(void)
@@ -33,7 +34,7 @@ public:
     }
 
     void on_reach_target(Script_SE_SimulationSquad* squad);
-    bool IsSimulationAvailable(void);
+
     bool target_precondition(Script_SE_SimulationSquad* squad);
 
 private:

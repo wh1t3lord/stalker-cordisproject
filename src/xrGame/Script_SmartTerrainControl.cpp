@@ -8,7 +8,7 @@ namespace Cordis
 namespace Scripts
 {
 Script_SmartTerrainControl::Script_SmartTerrainControl(
-    Script_SE_SmartTerrain* smart, const CInifile& ini, const xr_string& section)
+    Script_SE_SmartTerrain* smart, CScriptIniFile& ini, const xr_string& section)
     : m_smart(smart), m_state(Script_SmartTerrainControl_States::kNormal),
       m_noweapon_zone(Globals::Utils::cfg_get_string(&ini, section, "noweap_zone", true)),
       m_ignore_zone(Globals::Utils::cfg_get_string(&ini, section, "ignore_zone")),
