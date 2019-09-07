@@ -347,6 +347,40 @@ inline xr_vector<std::pair<xr_string, float>> parse_spawns(const xr_string& buff
     return result;
 }
 
+inline bool is_npc_in_zone(CScriptGameObject* npc, CScriptGameObject* zone)
+{
+    if (!npc)
+    {
+        R_ASSERT2(false, "object was null!");
+        return false;
+    }
+
+    if (!zone)
+    {
+        R_ASSERT2(false, "object was null!");
+        return false;
+    }
+
+    return zone->inside(npc->Position());
+}
+
+inline bool is_npc_in_zone(CSE_ALifeDynamicObject* server_object, CScriptGameObject* zone)
+{
+    if (!server_object)
+    {
+        R_ASSERT2(false, "object was null!");
+        return false;
+    }
+
+    if (!zone)
+    {
+        R_ASSERT2(false, "object was null!");
+        return false;
+    }
+
+    return zone->inside(server_object->Position());
+}
+
 } // namespace Utils
 namespace Game
 {
