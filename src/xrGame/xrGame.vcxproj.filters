@@ -8345,6 +8345,9 @@
     <ClInclude Include="Script_SE_ZoneAnomaly.h">
       <Filter>Cordis\Scripts\Server Entities</Filter>
     </ClInclude>
+    <ClInclude Include="Script_XR_Wounded.h">
+      <Filter>Cordis\Scripts\XR\Public</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="damage_manager.cpp">
