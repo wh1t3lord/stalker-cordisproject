@@ -301,9 +301,70 @@ inline bool is_npc_in_actor_frustrum(CScriptGameObject* actor, CScriptGameObject
     return Globals::is_npc_in_actor_frustrum(npc);
 }
 
-inline bool is_wounded(CScriptGameObject* actor, CScriptGameObject* npc) 
-{ 
-    return XR_WOUNDED::is_wounded(npc);
+inline bool is_wounded(CScriptGameObject* actor, CScriptGameObject* npc) { return XR_WOUNDED::is_wounded(npc); }
+
+inline bool is_dist_to_actor_ge(CScriptGameObject* actor, CScriptGameObject* npc, const float& distance)
+{
+    if (!actor)
+    {
+        R_ASSERT2(false, "object was null!");
+        return false;
+    }
+
+    if (!npc)
+    {
+        R_ASSERT2(false, "object was null!");
+        return false;
+    }
+
+    if (fis_zero(distance))
+    {
+        Msg("[Scripts/XR_CONDITION/is_dist_to_actor_ge(actor, npc, distance)] WARNING: distance is ZERO -> %f",
+            distance);
+        return false;
+    }
+
+    if (distance < 0.0f)
+    {
+        Msg("[Scripts/XR_CONDITION/is_dist_to_actor_ge(actor, npc, distance)] WARNING: distance is a negative value -> "
+            "%f",
+            distance);
+        return false;
+    }
+
+    return (npc->Position().distance_to_sqr(actor->Position()) >= (distance * distance));
+}
+
+inline bool is_dist_to_actor_ge(
+    CSE_ALifeDynamicObject* server_actor, CSE_ALifeDynamicObject* server_npc, const float& distance)
+{
+    if (!server_actor)
+    {
+        R_ASSERT2(false, "object was null!");
+        return false;
+    }
+
+    if (!server_npc)
+    {
+        R_ASSERT2(false, "object was null!");
+        return false;
+    }
+
+    if (fis_zero(distance))
+    {
+        Msg("[Scripts/XR_CONDITION/is_dist_to_actor_ge(server_actor, server_npc, distance)] WARNING: distnace is ZERO "
+            "-> %f",
+            distance);
+        return false;
+    }
+
+    if (distance < 0.0f)
+    {
+        Msg("[Scripts/XR_CONDITION/is_dist_to_actor_ge(server_actor, server_npc, distance)] WARNING: distance is a negative value -> %f", distance);
+        return false;
+    }
+
+    return (server_npc->Position().distance_to_sqr(server_actor->Position()) >= (distance * distance));
 }
 
 } // namespace XR_CONDITION
