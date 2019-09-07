@@ -222,7 +222,72 @@ inline bool check_npc_name(
     return (server_npc->name_replace() == npc_name);
 }
 
+inline bool check_enemy_name(CScriptGameObject* actor, CScriptGameObject* npc, const xr_string& npc_name)
+{
+    if (!npc)
+    {
+        R_ASSERT2(false, "object was null!");
+        return false;
+    }
 
+    if (!npc_name.size())
+    {
+        R_ASSERT2(false, "Name can't be empty!");
+        return false;
+    }
+
+    const std::uint16_t& enemy_id = DataBase::Storage::getInstance().getStorage()[npc->ID()].m_enemy_id;
+    CScriptGameObject* enemy = DataBase::Storage::getInstance().getStorage()[enemy_id].m_object;
+
+    if (!enemy)
+    {
+        R_ASSERT2(false, "object was null!");
+        return false;
+    }
+
+    if (enemy->Alive())
+    {
+        xr_string name = enemy->Name();
+        return (name == npc_name);
+    }
+
+    return false;
+}
+
+inline bool is_playing_sound(CScriptGameObject* actor, CScriptGameObject* npc)
+{
+    if (!npc)
+    {
+        R_ASSERT2(false, "object was null!");
+        return false;
+    }
+
+    return XR_SOUND::getSoundDatabase()[npc->ID()];
+}
+
+inline bool is_see_npc(CScriptGameObject* actor, CScriptGameObject* npc, const xr_string& npc_name)
+{
+    if (!npc)
+    {
+        Msg("[Scripts/XR_CONDITION/is_see_npc(actor, npc, npc_name)] WARNING: npc = nullptr! Returned value = false.");
+        return false;
+    }
+
+    CScriptGameObject* npc1 = Globals::get_story_object(npc_name);
+
+    if (!npc1)
+    {
+        Msg("[Scripts/XR_CONDITION/is_see_npc(actor, npc, npc_name)] WARNING: npc1 = nullptr! Returned value = false.");
+        return false;
+    }
+
+    return npc->CheckObjectVisibility(npc1);
+}
+
+inline bool is_actor_see_npc(CScriptGameObject* actor, CScriptGameObject* npc) 
+{
+    return DataBase::Storage::getInstance().getActor()->CheckObjectVisibility(npc);
+}
 
 } // namespace XR_CONDITION
 } // namespace Scripts
