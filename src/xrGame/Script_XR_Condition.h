@@ -284,9 +284,13 @@ inline bool is_see_npc(CScriptGameObject* actor, CScriptGameObject* npc, const x
     return npc->CheckObjectVisibility(npc1);
 }
 
-inline bool is_actor_see_npc(CScriptGameObject* actor, CScriptGameObject* npc) 
+inline bool is_actor_see_npc(CScriptGameObject* actor, CScriptGameObject* npc)
 {
     return DataBase::Storage::getInstance().getActor()->CheckObjectVisibility(npc);
+}
+
+inline bool is_npc_in_actor_frustrum(CScriptGameObject* actor, CScriptGameObject* npc) {
+
 }
 
 } // namespace XR_CONDITION

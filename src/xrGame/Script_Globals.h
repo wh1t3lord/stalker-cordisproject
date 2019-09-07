@@ -621,6 +621,9 @@ inline void set_npcs_relation(CSE_ALifeMonsterAbstract* server_from_object, CSE_
 
 } // namespace GameRelations
 
+inline bool is_npc_in_actor_frustrum(CScriptGameObject* npc);
+inline bool is_npc_in_actor_frustrum(CSE_ALifeDynamicObject* server_npc);
+
 inline CScriptGameObject* get_story_object(const xr_string& object_id);
 inline int get_script_clsid(const CLASS_ID& clsid);
 inline Fvector vertex_position(u32 level_vertex_id);
