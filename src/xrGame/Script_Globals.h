@@ -621,6 +621,7 @@ inline void set_npcs_relation(CSE_ALifeMonsterAbstract* server_from_object, CSE_
 
 } // namespace GameRelations
 
+inline CScriptGameObject* get_story_object(const xr_string& object_id);
 inline int get_script_clsid(const CLASS_ID& clsid);
 inline Fvector vertex_position(u32 level_vertex_id);
 inline std::uint32_t vertex_in_direction(

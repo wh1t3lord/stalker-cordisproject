@@ -33,6 +33,7 @@ struct Storage_Data
     bool m_mute = false;
     bool m_enabled = false;
     bool m_anim_movement = false;
+    std::uint16_t m_enemy_id = Globals::kUnsignedInt16Undefined;
     CScriptGameObject* m_object = nullptr;
     CSE_ALifeObject* m_server_object = nullptr;
     CScriptSound* m_sound_object = nullptr;
@@ -170,7 +171,7 @@ private:
     xr_map<xr_string, CScriptGameObject*> m_zone_by_name;
     xr_map<std::uint16_t, std::uint32_t> m_spawned_vertex_by_id;
     // first -> sympathy[ID] = std::uint32_t; | second -> relations[ID] = std::string;
-    std::pair < xr_map < std::uint16_t, float>, xr_map<std::uint16_t, xr_string>> m_goodwill;
+    std::pair<xr_map<std::uint16_t, float>, xr_map<std::uint16_t, xr_string>> m_goodwill;
 };
 
 } // namespace DataBase

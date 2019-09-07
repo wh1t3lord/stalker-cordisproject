@@ -55,9 +55,41 @@ inline Fvector vector_rotate_y(Fvector& vector, float& angle)
         vector.x * cos_result - vector.z * sin_result, vector.y, vector.x * sin_result + vector.z * cos_result);
 }
 
-inline int get_script_clsid(const CLASS_ID& clsid) 
-{ 
-    return object_factory().script_clsid(clsid); }
+CScriptGameObject* get_story_object(const xr_string& object_id)
+{
+    CScriptGameObject* result = nullptr;
+    if (!object_id.size())
+    {
+        R_ASSERT2(false, "can't be empty!");
+        return result;
+    }
+
+    const std::uint16_t& obj_id = Script_StoryObject::getInstance().get(object_id);
+
+    if (!obj_id)
+        return result;
+
+    result = DataBase::Storage::getInstance().getStorage()[obj_id].m_object;
+
+    if (result)
+    {
+        Msg("[Scripts/Globals/get_story_object(object_id_name)] returned by DataBase!");
+        return result;
+    }
+    else
+    {
+        result = Game::level::get_object_by_id(obj_id);
+        if (result)
+        {
+            Msg("[Scripts/Globals/get_story_object(object_id_name)] returned by Game::level::get_object_by_id(obj_id)!");
+            return result;
+        }
+    }
+
+    return nullptr;
+}
+
+inline int get_script_clsid(const CLASS_ID& clsid) { return object_factory().script_clsid(clsid); }
 
 inline Fvector vertex_position(u32 level_vertex_id) { return (ai().level_graph().vertex_position(level_vertex_id)); }
 inline bool patrol_path_exists(LPCSTR patrol_path) { return (!!ai().patrol_paths().path(patrol_path, true)); }
