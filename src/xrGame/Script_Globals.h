@@ -730,6 +730,7 @@ inline bool is_accessible_job(CSE_ALifeDynamicObject* server_object, const char*
 #include "Script_TreasureManager.h"
 #include "Script_SoundManager.h"
 #include "Script_NewsManager.h"
+#include "Script_XR_Wounded.h"
 #include "Script_XR_Condition.h"
 #include "Script_XR_Gulag.h"
 /*#include "Script_XR_Logic.h"*/

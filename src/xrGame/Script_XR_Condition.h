@@ -1,5 +1,6 @@
 #pragma once
 #include "Script_SurgeManager.h"
+#include "Script_XR_Sound.h"
 
 namespace Cordis
 {
@@ -48,13 +49,13 @@ inline bool is_fighting_dist_ge(CSE_ALifeDynamicObject* enemy, CSE_ALifeDynamicO
     if (!enemy)
     {
         R_ASSERT2(false, "object was null!");
-        return;
+        return false;
     }
 
     if (!npc)
     {
         R_ASSERT2(false, "object was null!");
-        return;
+        return false;
     }
 
     return (enemy->Position().distance_to_sqr(npc->Position()) >= (distance * distance));
@@ -289,8 +290,20 @@ inline bool is_actor_see_npc(CScriptGameObject* actor, CScriptGameObject* npc)
     return DataBase::Storage::getInstance().getActor()->CheckObjectVisibility(npc);
 }
 
-inline bool is_npc_in_actor_frustrum(CScriptGameObject* actor, CScriptGameObject* npc) {
+inline bool is_npc_in_actor_frustrum(CScriptGameObject* actor, CScriptGameObject* npc)
+{
+    if (!npc)
+    {
+        R_ASSERT2(false, "object was null!");
+        return false;
+    }
 
+    return Globals::is_npc_in_actor_frustrum(npc);
+}
+
+inline bool is_wounded(CScriptGameObject* actor, CScriptGameObject* npc) 
+{ 
+    return XR_WOUNDED::is_wounded(npc);
 }
 
 } // namespace XR_CONDITION

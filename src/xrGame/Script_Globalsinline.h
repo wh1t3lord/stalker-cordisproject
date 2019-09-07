@@ -3,6 +3,7 @@
 #include "Script_GlobalHelper.h"
 #include "alife_registry_container_composition.h"
 #include "Script_GulagGenerator.h"
+#include "Script_StoryObject.h"
 
 namespace Cordis
 {
