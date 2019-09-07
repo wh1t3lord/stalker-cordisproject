@@ -55,7 +55,53 @@ inline Fvector vector_rotate_y(Fvector& vector, float& angle)
         vector.x * cos_result - vector.z * sin_result, vector.y, vector.x * sin_result + vector.z * cos_result);
 }
 
-CScriptGameObject* get_story_object(const xr_string& object_id)
+inline bool is_npc_in_actor_frustrum(CScriptGameObject* npc)
+{
+    if (!npc)
+    {
+        R_ASSERT2(false, "object was null!");
+        return false;
+    }
+
+    if (!DataBase::Storage::getInstance().getActor())
+    {
+        Msg("[Scripts/Globals/is_npc_in_actor_frustrum(npc)] DataBase's actor is null! Early calling!!!");
+        return false;
+    }
+
+    Fvector& actor_direction = Device.vCameraDirection;
+
+    Fvector npc_direction = npc->Position();
+    npc_direction.sub(DataBase::Storage::getInstance().getActor()->Position());
+    float yaw = yaw_degree(actor_direction, npc_direction);
+
+    return yaw < 35.0f;
+}
+
+inline bool is_npc_in_actor_frustrum(CSE_ALifeDynamicObject* server_npc)
+{
+    if (!server_npc)
+    {
+        R_ASSERT2(false, "object was null!");
+        return false;
+    }
+
+    if (!DataBase::Storage::getInstance().getActor())
+    {
+        Msg("[Scripts/Globals/is_npc_in_actor_frustrum(server_npc)] DataBase's actor is null! Early calling!!!");
+        return false;
+    }
+
+    Fvector& actor_direciton = Device.vCameraDirection;
+
+    Fvector npc_direction = server_npc->Position();
+    npc_direction.sub(DataBase::Storage::getInstance().getActor()->Position());
+    float yaw = yaw_degree(actor_direciton, npc_direction);
+
+    return yaw < 35.0f;
+}
+
+inline CScriptGameObject* get_story_object(const xr_string& object_id)
 {
     CScriptGameObject* result = nullptr;
     if (!object_id.size())
@@ -81,7 +127,8 @@ CScriptGameObject* get_story_object(const xr_string& object_id)
         result = Game::level::get_object_by_id(obj_id);
         if (result)
         {
-            Msg("[Scripts/Globals/get_story_object(object_id_name)] returned by Game::level::get_object_by_id(obj_id)!");
+            Msg("[Scripts/Globals/get_story_object(object_id_name)] returned by "
+                "Game::level::get_object_by_id(obj_id)!");
             return result;
         }
     }
