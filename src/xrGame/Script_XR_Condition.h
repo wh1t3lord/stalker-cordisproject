@@ -128,7 +128,8 @@ inline bool is_enemy_in_zone(CScriptGameObject* enemy, CScriptGameObject* npc, c
     return Globals::Utils::is_npc_in_zone(enemy, zone);
 }
 
-inline bool is_npc_in_zone(CSE_ALifeDynamicObject* server_enemy, CScriptGameObject* npc, const xr_string& zone_name)
+inline bool is_enemy_in_zone(
+    CSE_ALifeDynamicObject* server_enemy, CSE_ALifeDynamicObject* server_npc, const xr_string& zone_name)
 {
     if (!server_enemy)
     {
@@ -136,7 +137,7 @@ inline bool is_npc_in_zone(CSE_ALifeDynamicObject* server_enemy, CScriptGameObje
         return false;
     }
 
-    if (!npc)
+    if (!server_npc)
     {
         R_ASSERT2(false, "object was null!");
         return false;
@@ -529,8 +530,145 @@ inline bool is_story_obj_in_zone_by_name(CSE_ALifeDynamicObject* actor, CSE_ALif
 
 inline bool is_actor_in_zone(CScriptGameObject* actor, CScriptGameObject* npc, const xr_string& zone_name)
 {
+    if (!zone_name.size())
+    {
+        R_ASSERT2(false, "can't be empty!");
+        return false;
+    }
+
+    CScriptGameObject* zone = DataBase::Storage::getInstance().getZoneByName()[zone_name];
+
+    if (!zone)
+    {
+        R_ASSERT2(false, "something goes wrong!");
+        return false;
+    }
+
+    return Globals::Utils::is_npc_in_zone(DataBase::Storage::getInstance().getActor(), zone);
+}
+
+inline bool is_actor_in_zone(
+    CSE_ALifeDynamicObject* server_actor, CSE_ALifeDynamicObject* server_npc, const xr_string& zone_name)
+{
+    if (!zone_name.size())
+    {
+        R_ASSERT2(false, "can't be empty!");
+        return false;
+    }
+
+    if (!DataBase::Storage::getInstance().getActor())
+    {
+        Msg("[Scripts/XR_CONDITION/is_actor_in_zone(server_actor, server_npc, zone_name)] WARNING: Client still not "
+            "initialize! Early calling!!! DataBase::Storage::Actor = nullptr! Return false.");
+        return false;
+    }
+
+    CScriptGameObject* zone = DataBase::Storage::getInstance().getZoneByName()[zone_name];
+
+    if (!zone)
+    {
+        R_ASSERT2(false, "something goes wrong!");
+        return false;
+    }
+
+    return Globals::Utils::is_npc_in_zone(DataBase::Storage::getInstance().getActor(), zone);
+}
+
+inline bool is_npc_in_zone(CScriptGameObject* actor, CScriptGameObject* npc, const xr_string& zone_name)
+{
+    if (!zone_name.size())
+    {
+        R_ASSERT2(false, "can't be empty!");
+        return false;
+    }
+
+    if (!npc)
+    {
+        R_ASSERT2(false, "object was null!");
+        return false;
+    }
+
+    CScriptGameObject* zone = DataBase::Storage::getInstance().getZoneByName()[zone_name];
+
+    if (!zone)
+    {
+        R_ASSERT2(false, "object was null!");
+        return false;
+    }
+
+    return Globals::Utils::is_npc_in_zone(npc, zone);
+}
+
+inline bool is_npc_in_zone(
+    CSE_ALifeDynamicObject* server_actor, CSE_ALifeDynamicObject* server_npc, const xr_string& zone_name)
+{
+    if (!zone_name.size())
+    {
+        R_ASSERT2(false, "can't be empty!");
+        return false;
+    }
+
+    if (!server_npc)
+    {
+        R_ASSERT2(false, "object was null!");
+        return false;
+    }
+
+    CScriptGameObject* zone = DataBase::Storage::getInstance().getZoneByName()[zone_name];
+
+    if (!zone)
+    {
+        Msg("[Scripts/XR_CONDITION/is_npc_in_zone(server_actor, server_npc, zone_name)] NOTIFY: zone = nullptr! "
+            "Returns true.");
+        return true;
+    }
+
+    CScriptGameObject* npc = DataBase::Storage::getInstance().getStorage()[server_npc->ID].m_object;
+
+    if (!npc)
+    {
+        Msg("[Scripts/XR_CONDITION/is_npc_in_zone(server_actor, server_npc, zone_name)] NOTIFY: npc = nullptr! Returns "
+            "zone->inside(server_npc->Position())");
+        return zone->inside(server_npc->Position());
+    }
+
+    return Globals::Utils::is_npc_in_zone(npc, zone);
+}
+
+inline bool is_health_le(CScriptGameObject* actor, CScriptGameObject* npc, const float& value)
+{
+    if (!npc)
+    {
+        R_ASSERT2(false, "object was null!");
+        return false;
+    }
+
+    if (value)
+        return (npc->GetHealth() < value);
+    
+    Msg("[Scripts/XR_CONDITION/is_health_le(actor, npc, value)] WARNING: value is less than 0 or equals 0! Return false.");
+
     return false;
 }
+
+inline bool is_actor_health_le(CScriptGameObject* actor, CScriptGameObject* npc, const float& value)
+{
+    if (!actor)
+    {
+        R_ASSERT2(false, "object was null!");
+        return false;
+    }
+
+    if (value)
+        return (actor->GetHealth() < value);
+    
+        Msg("[Scripts/XR_CONDITION/is_actor_health_le(actor, npc, value)] WARNING: value is less than 0 or equals 0! Return "
+        "false.");
+
+    return false;
+}
+
+
 
 } // namespace XR_CONDITION
 } // namespace Scripts
