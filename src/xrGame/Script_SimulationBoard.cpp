@@ -3,6 +3,7 @@
 #include "Script_SE_SmartTerrain.h"
 #include "Script_SE_SimulationSquad.h"
 #include "xrAICore/Navigation/game_graph_space.h"
+#include "Script_XR_Condition.h"
 
 CScriptIniFile settings_ini = CScriptIniFile("misc\\simulation.ltx");
 
