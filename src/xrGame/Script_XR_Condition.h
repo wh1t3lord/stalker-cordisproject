@@ -645,8 +645,9 @@ inline bool is_health_le(CScriptGameObject* actor, CScriptGameObject* npc, const
 
     if (value)
         return (npc->GetHealth() < value);
-    
-    Msg("[Scripts/XR_CONDITION/is_health_le(actor, npc, value)] WARNING: value is less than 0 or equals 0! Return false.");
+
+    Msg("[Scripts/XR_CONDITION/is_health_le(actor, npc, value)] WARNING: value is less than 0 or equals 0! Return "
+        "false.");
 
     return false;
 }
@@ -661,14 +662,68 @@ inline bool is_actor_health_le(CScriptGameObject* actor, CScriptGameObject* npc,
 
     if (value)
         return (actor->GetHealth() < value);
-    
-        Msg("[Scripts/XR_CONDITION/is_actor_health_le(actor, npc, value)] WARNING: value is less than 0 or equals 0! Return "
+
+    Msg("[Scripts/XR_CONDITION/is_actor_health_le(actor, npc, value)] WARNING: value is less than 0 or equals 0! "
+        "Return "
         "false.");
 
     return false;
 }
 
+inline bool is_npc_community(CScriptGameObject* actor, CScriptGameObject* npc, const xr_string& community_name)
+{
+    if (!community_name.size())
+    {
+        R_ASSERT2(false, "can't be empty!");
+        return false;
+    }
 
+    if (!npc)
+    {
+        R_ASSERT2(false, "object was null!");
+        return false;
+    }
+
+    if (Globals::character_community(npc) == community_name)
+        return true;
+
+    return false;
+}
+
+inline bool is_npc_community(
+    CSE_ALifeDynamicObject* server_actor, CSE_ALifeDynamicObject* server_npc, const xr_string& community_name)
+{
+    if (!community_name.size())
+    {
+        R_ASSERT2(false, "can't be empty!");
+        return false;
+    }
+
+    if (!server_npc)
+    {
+        R_ASSERT2(false, "object was null!");
+        return false;
+    }
+
+    CScriptGameObject* npc = DataBase::Storage::getInstance().getStorage()[server_npc->ID].m_object;
+
+    if (!npc)
+    {
+        CSE_ALifeTraderAbstract* server_trader = server_npc->cast_trader_abstract();
+        if (!server_trader)
+        {
+            R_ASSERT2(false, "can't be check class!!!");
+            return false;
+        }
+
+        return (server_trader->CommunityName() == community_name);
+    }
+
+    if (Globals::character_community(npc) == community_name)
+        return true;
+
+    return false;
+}
 
 } // namespace XR_CONDITION
 } // namespace Scripts
