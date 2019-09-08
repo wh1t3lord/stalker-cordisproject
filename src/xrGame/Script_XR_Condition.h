@@ -360,11 +360,69 @@ inline bool is_dist_to_actor_ge(
 
     if (distance < 0.0f)
     {
-        Msg("[Scripts/XR_CONDITION/is_dist_to_actor_ge(server_actor, server_npc, distance)] WARNING: distance is a negative value -> %f", distance);
+        Msg("[Scripts/XR_CONDITION/is_dist_to_actor_ge(server_actor, server_npc, distance)] WARNING: distance is a "
+            "negative value -> %f",
+            distance);
         return false;
     }
 
     return (server_npc->Position().distance_to_sqr(server_actor->Position()) >= (distance * distance));
+}
+
+inline bool is_obj_on_job(
+    CScriptGameObject* actor, CScriptGameObject* npc, const xr_string& logic_name, const xr_string& smart_terrain_name)
+{
+    if (!npc)
+    {
+        R_ASSERT2(false, "object was null!");
+        return false;
+    }
+
+    if (!logic_name.size())
+    {
+        R_ASSERT2(false, "string can't be empty!");
+        return false;
+    }
+
+    Script_SE_SmartTerrain* server_smart = nullptr;
+    if (!smart_terrain_name.size())
+    {
+        Msg("[Scripts/XR_CONDITION/is_obj_on_job(actor, npc, logic_name, smart_terrain_name)] WARNING: "
+            "smart_terrain_name is empty string!");
+        server_smart = XR_GULAG::get_npc_smart(npc)->cast_script_se_smartterrain();
+
+        if (!server_smart)
+        {
+            Msg("[Scripts/XR_CONDITION/is_obj_on_job(actor, npc, logic_name, smart_terrain_name)] WARNING: "
+                "server_smart_terrain was nullptr! Return false.");
+            return false;
+        }
+    }
+    else
+    {
+        Msg("[Scripts/XR_CONDITION/is_obj_on_job(actor, npc, logic_name, smart_terrain_name)] getting smart terrain by argument -> smart_terrain_name = %s", smart_terrain_name.c_str());
+        server_smart = Script_SimulationBoard::getInstance().getSmartTerrainsByName()[smart_terrain_name];
+
+        if (!server_smart)
+        {
+            Msg("[Scripts/XR_CONDITION/is_obj_on_job(actor, npc, logic_name, smart_terrain_name)] WARNING: "
+                "server_smart_terrain was nullptr! Return false.");
+            return false;
+        }
+    }
+
+    for (std::pair<const std::uint32_t, NpcInfo>& it : server_smart->getNpcInfo())
+    {
+        JobDataSmartTerrain& job_data = server_smart->getJobData()[it.first];
+
+        Msg("[Scripts/XR_CONDITION/is_obj_on_job(actor, npc, logic_name, smart_terrain_name)] section %s",
+            job_data.m_job_id.first.c_str());
+
+        if (job_data.m_job_id.first == logic_name)
+            return true;
+    }
+
+    return false;
 }
 
 } // namespace XR_CONDITION
