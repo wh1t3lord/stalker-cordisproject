@@ -621,6 +621,7 @@ inline void set_npcs_relation(CSE_ALifeMonsterAbstract* server_from_object, CSE_
 
 } // namespace GameRelations
 
+inline std::uint16_t get_story_object_id(const xr_string& object_id_name);
 inline bool is_npc_in_actor_frustrum(CScriptGameObject* npc);
 inline bool is_npc_in_actor_frustrum(CSE_ALifeDynamicObject* server_npc);
 
@@ -724,7 +725,7 @@ inline bool is_accessible_job(CSE_ALifeDynamicObject* server_object, const char*
 #include "Script_SmartTerrainControl.h"
 /*#include "Script_GulagGenerator.h"*/
 #include "Script_SE_SmartTerrain.h"
-
+#include "Script_SimulationBoard.h"
 #include "Script_LogicEntity.h"
 #include "Script_LogicManager.h"
 #include "Script_TreasureManager.h"
@@ -738,7 +739,7 @@ inline bool is_accessible_job(CSE_ALifeDynamicObject* server_object, const char*
 #include "Script_XR_Effects.h"
 #include "Script_XR_Meet.h"
 #include "Script_XR_Patrol.h"
-#include "Script_SimulationBoard.h"
+
 #include "Script_SurgeManager.h"
 #include "Script_EntitySounds.h"
 #include "Script_Globalsinline.h"

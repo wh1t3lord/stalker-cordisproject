@@ -4,6 +4,17 @@ namespace Cordis
 {
 namespace Scripts
 {
+namespace XR_CONDITION
+{
+inline bool is_surge_started(void);
+}
+} // namespace Scripts
+} // namespace Cordis
+
+namespace Cordis
+{
+namespace Scripts
+{
 namespace Globals
 {
 #pragma region Cordis Constants
@@ -256,6 +267,6 @@ private:
     std::mt19937 m_generator;
 };
 #pragma endregion
-}
+} // namespace Globals
 } // namespace Scripts
 } // namespace Cordis

@@ -56,6 +56,17 @@ inline Fvector vector_rotate_y(Fvector& vector, float& angle)
         vector.x * cos_result - vector.z * sin_result, vector.y, vector.x * sin_result + vector.z * cos_result);
 }
 
+inline std::uint16_t get_story_object_id(const xr_string& object_id_name)
+{
+    if (!object_id_name.size())
+    {
+        R_ASSERT2(false, "can't be empty!");
+        return Globals::kUnsignedInt16Undefined;
+    }
+
+    return Script_StoryObject::getInstance().get(object_id_name);
+}
+
 inline bool is_npc_in_actor_frustrum(CScriptGameObject* npc)
 {
     if (!npc)

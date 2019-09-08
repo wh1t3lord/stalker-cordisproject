@@ -1,10 +1,10 @@
 #pragma once
-
 #include "xrCore/xrCore.h"
 #include "xrServer_Objects_Alife.h"
 #include "xrCore/xr_ini.h"
 /*#include "Script_Globals.h"*/
 #include "Script_SE_SimulationSquad.h"
+
 namespace Cordis
 {
 namespace Scripts
