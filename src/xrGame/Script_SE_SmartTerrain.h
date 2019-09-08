@@ -163,6 +163,8 @@ public:
     inline CInifile& getIni(void) noexcept { return this->spawn_ini(); }
     inline xr_string getSpawnPointName(void) noexcept { return this->m_spawn_point_name; }
     inline std::uint32_t getStaydSquadQuan(void) noexcept { return this->m_stayed_squad_quan; }
+    inline xr_map<std::uint32_t, NpcInfo>& getNpcInfo(void) noexcept { return this->m_npc_info; }
+    inline xr_map<std::uint32_t, JobDataSmartTerrain>& getJobData(void) noexcept { return this->m_job_data; }
 #pragma endregion
 
 #pragma region Cordis Setters
