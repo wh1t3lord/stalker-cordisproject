@@ -29,7 +29,7 @@ inline bool is_enemy_actor(CScriptGameObject* enemy, CScriptGameObject* object)
     return (enemy->ID() == object->ID());
 }
 
-inline bool is_fighting_dist_ge(CScriptGameObject* enemy, CScriptGameObject* npc, const float& distance)
+inline bool is_fighting_dist_ge(CScriptGameObject* enemy, CScriptGameObject* npc, const xr_vector<xr_string>& buffer)
 {
     if (!enemy)
     {
@@ -42,11 +42,20 @@ inline bool is_fighting_dist_ge(CScriptGameObject* enemy, CScriptGameObject* npc
         R_ASSERT2(false, "object was null!");
         return false;
     }
+
+    if (!buffer.size())
+    {
+        R_ASSERT2(false, "Argument list can't be empty!");
+        return false;
+    }
+
+    float distance = atof(buffer[0].c_str());
 
     return (enemy->Position().distance_to_sqr(npc->Position()) >= (distance * distance));
 }
 
-inline bool is_fighting_dist_ge(CSE_ALifeDynamicObject* enemy, CSE_ALifeDynamicObject* npc, const float& distance)
+inline bool is_fighting_dist_ge(
+    CSE_ALifeDynamicObject* enemy, CSE_ALifeDynamicObject* npc, const xr_vector<xr_string>& buffer)
 {
     if (!enemy)
     {
@@ -59,11 +68,19 @@ inline bool is_fighting_dist_ge(CSE_ALifeDynamicObject* enemy, CSE_ALifeDynamicO
         R_ASSERT2(false, "object was null!");
         return false;
     }
+
+    if (!buffer.size())
+    {
+        R_ASSERT2(false, "Argument list can't be empty!");
+        return false;
+    }
+
+    float distance = atof(buffer[0].c_str());
 
     return (enemy->Position().distance_to_sqr(npc->Position()) >= (distance * distance));
 }
 
-inline bool is_fighting_dist_le(CScriptGameObject* enemy, CScriptGameObject* npc, const float& distance)
+inline bool is_fighting_dist_le(CScriptGameObject* enemy, CScriptGameObject* npc, const xr_vector<xr_string>& buffer)
 {
     if (!enemy)
     {
@@ -76,11 +93,20 @@ inline bool is_fighting_dist_le(CScriptGameObject* enemy, CScriptGameObject* npc
         R_ASSERT2(false, "object was null!");
         return false;
     }
+
+    if (!buffer.size())
+    {
+        R_ASSERT2(false, "Argument list can't be empty!");
+        return false;
+    }
+
+    float distance = atof(buffer[0].c_str());
 
     return (enemy->Position().distance_to_sqr(npc->Position()) <= distance * distance);
 }
 
-inline bool is_fighting_dist_le(CSE_ALifeDynamicObject* enemy, CSE_ALifeDynamicObject* npc, const float& distance)
+inline bool is_fighting_dist_le(
+    CSE_ALifeDynamicObject* enemy, CSE_ALifeDynamicObject* npc, const xr_vector<xr_string>& buffer)
 {
     if (!enemy)
     {
@@ -93,11 +119,19 @@ inline bool is_fighting_dist_le(CSE_ALifeDynamicObject* enemy, CSE_ALifeDynamicO
         R_ASSERT2(false, "object was null!");
         return false;
     }
+
+    if (!buffer.size())
+    {
+        R_ASSERT2(false, "Argument list can't be empty!");
+        return false;
+    }
+
+    float distance = atof(buffer[0].c_str());
 
     return (enemy->Position().distance_to_sqr(npc->Position()) <= distance * distance);
 }
 
-inline bool is_enemy_in_zone(CScriptGameObject* enemy, CScriptGameObject* npc, const xr_string& zone_name)
+inline bool is_enemy_in_zone(CScriptGameObject* enemy, CScriptGameObject* npc, const xr_vector<xr_string>& buffer)
 {
     if (!enemy)
     {
@@ -111,11 +145,13 @@ inline bool is_enemy_in_zone(CScriptGameObject* enemy, CScriptGameObject* npc, c
         return false;
     }
 
-    if (!zone_name.size())
+    if (!buffer.size())
     {
-        R_ASSERT2(false, "Zone name can't be empty!");
+        R_ASSERT2(false, "Argument list can't be empty!");
         return false;
     }
+
+    const xr_string& zone_name = buffer[0];
 
     CScriptGameObject* zone = DataBase::Storage::getInstance().getZoneByName()[zone_name];
 
@@ -129,7 +165,7 @@ inline bool is_enemy_in_zone(CScriptGameObject* enemy, CScriptGameObject* npc, c
 }
 
 inline bool is_enemy_in_zone(
-    CSE_ALifeDynamicObject* server_enemy, CSE_ALifeDynamicObject* server_npc, const xr_string& zone_name)
+    CSE_ALifeDynamicObject* server_enemy, CSE_ALifeDynamicObject* server_npc, const xr_vector<xr_string>& buffer)
 {
     if (!server_enemy)
     {
@@ -143,11 +179,13 @@ inline bool is_enemy_in_zone(
         return false;
     }
 
-    if (!zone_name.size())
+    if (!buffer.size())
     {
-        R_ASSERT2(false, "Zone name can't be empty!");
+        R_ASSERT2(false, "Argument list can't be empty!");
         return false;
     }
+
+    const xr_string& zone_name = buffer[0];
 
     CScriptGameObject* zone = DataBase::Storage::getInstance().getZoneByName()[zone_name];
 
@@ -167,8 +205,14 @@ inline bool is_black_screen(CSE_ALifeDynamicObject* server_actor, CSE_ALifeDynam
     return Device.dwPrecacheFrame > 1;
 }
 
-inline bool check_npc_name(CScriptGameObject* actor, CScriptGameObject* npc, const xr_string& npc_name)
+inline bool check_npc_name(CScriptGameObject* actor, CScriptGameObject* npc, const xr_vector<xr_string>& buffer)
 {
+    if (!buffer.size())
+    {
+        R_ASSERT2(false, "Argument list can't be empty!");
+        return false;
+    }
+
     if (!actor)
     {
         R_ASSERT2(false, "actor is null!");
@@ -187,6 +231,8 @@ inline bool check_npc_name(CScriptGameObject* actor, CScriptGameObject* npc, con
         return false;
     }
 
+    const xr_string& npc_name = buffer[0];
+
     if (!npc_name.size())
     {
         R_ASSERT2(false, "String can't be empty!");
@@ -197,8 +243,14 @@ inline bool check_npc_name(CScriptGameObject* actor, CScriptGameObject* npc, con
 }
 
 inline bool check_npc_name(
-    CSE_ALifeDynamicObject* server_actor, CSE_ALifeDynamicObject* server_npc, const xr_string& npc_name)
+    CSE_ALifeDynamicObject* server_actor, CSE_ALifeDynamicObject* server_npc, const xr_vector<xr_string>& buffer)
 {
+    if (!buffer.size())
+    {
+        R_ASSERT2(false, "Argument list can't be empty!");
+        return false;
+    }
+
     if (!server_actor)
     {
         R_ASSERT2(false, "object was null!");
@@ -217,6 +269,8 @@ inline bool check_npc_name(
         return false;
     }
 
+    const xr_string& npc_name = buffer[0];
+
     if (!npc_name.size())
     {
         R_ASSERT2(false, "Name can't be empty!");
@@ -226,13 +280,21 @@ inline bool check_npc_name(
     return (server_npc->name_replace() == npc_name);
 }
 
-inline bool check_enemy_name(CScriptGameObject* actor, CScriptGameObject* npc, const xr_string& npc_name)
+inline bool check_enemy_name(CScriptGameObject* actor, CScriptGameObject* npc, const xr_vector<xr_string>& buffer)
 {
+    if (!buffer.size())
+    {
+        R_ASSERT2(false, "Argument list can't be empty!");
+        return false;
+    }
+
     if (!npc)
     {
         R_ASSERT2(false, "object was null!");
         return false;
     }
+
+    const xr_string& npc_name = buffer[0];
 
     if (!npc_name.size())
     {
@@ -269,13 +331,21 @@ inline bool is_playing_sound(CScriptGameObject* actor, CScriptGameObject* npc)
     return XR_SOUND::getSoundDatabase()[npc->ID()];
 }
 
-inline bool is_see_npc(CScriptGameObject* actor, CScriptGameObject* npc, const xr_string& npc_name)
+inline bool is_see_npc(CScriptGameObject* actor, CScriptGameObject* npc, const xr_vector<xr_string>& buffer)
 {
+    if (!buffer.size())
+    {
+        R_ASSERT2(false, "Argument list can't be empty!");
+        return false;
+    }
+
     if (!npc)
     {
         Msg("[Scripts/XR_CONDITION/is_see_npc(actor, npc, npc_name)] WARNING: npc = nullptr! Returned value = false.");
         return false;
     }
+
+    const xr_string& npc_name = buffer[0];
 
     CScriptGameObject* npc1 = Globals::get_story_object(npc_name);
 
@@ -306,8 +376,14 @@ inline bool is_npc_in_actor_frustrum(CScriptGameObject* actor, CScriptGameObject
 
 inline bool is_wounded(CScriptGameObject* actor, CScriptGameObject* npc) { return XR_WOUNDED::is_wounded(npc); }
 
-inline bool is_dist_to_actor_ge(CScriptGameObject* actor, CScriptGameObject* npc, const float& distance)
+inline bool is_dist_to_actor_ge(CScriptGameObject* actor, CScriptGameObject* npc, const xr_vector<xr_string>& buffer)
 {
+    if (!buffer.size())
+    {
+        R_ASSERT2(false, "Argument list can't be empty!");
+        return false;
+    }
+
     if (!actor)
     {
         R_ASSERT2(false, "object was null!");
@@ -319,6 +395,8 @@ inline bool is_dist_to_actor_ge(CScriptGameObject* actor, CScriptGameObject* npc
         R_ASSERT2(false, "object was null!");
         return false;
     }
+
+    float distance = atof(buffer[0].c_str());
 
     if (fis_zero(distance))
     {
@@ -339,8 +417,14 @@ inline bool is_dist_to_actor_ge(CScriptGameObject* actor, CScriptGameObject* npc
 }
 
 inline bool is_dist_to_actor_ge(
-    CSE_ALifeDynamicObject* server_actor, CSE_ALifeDynamicObject* server_npc, const float& distance)
+    CSE_ALifeDynamicObject* server_actor, CSE_ALifeDynamicObject* server_npc, const xr_vector<xr_string>& buffer)
 {
+    if (!buffer.size())
+    {
+        R_ASSERT2(false, "Argument list can't be empty!");
+        return false;
+    }
+
     if (!server_actor)
     {
         R_ASSERT2(false, "object was null!");
@@ -352,6 +436,8 @@ inline bool is_dist_to_actor_ge(
         R_ASSERT2(false, "object was null!");
         return false;
     }
+
+    float distance = atof(buffer[0].c_str());
 
     if (fis_zero(distance))
     {
@@ -372,14 +458,21 @@ inline bool is_dist_to_actor_ge(
     return (server_npc->Position().distance_to_sqr(server_actor->Position()) >= (distance * distance));
 }
 
-inline bool is_obj_on_job(
-    CScriptGameObject* actor, CScriptGameObject* npc, const xr_string& logic_name, const xr_string& smart_terrain_name)
+inline bool is_obj_on_job(CScriptGameObject* actor, CScriptGameObject* npc, const xr_vector<xr_string>& buffer)
 {
+    if (!buffer.size())
+    {
+        R_ASSERT2(false, "Argument list can't be empty!");
+        return false;
+    }
+
     if (!npc)
     {
         R_ASSERT2(false, "object was null!");
         return false;
     }
+
+    const xr_string& logic_name = buffer[0];
 
     if (!logic_name.size())
     {
@@ -388,6 +481,9 @@ inline bool is_obj_on_job(
     }
 
     Script_SE_SmartTerrain* server_smart = nullptr;
+
+    const xr_string& smart_terrain_name = buffer[1];
+
     if (!smart_terrain_name.size())
     {
         Msg("[Scripts/XR_CONDITION/is_obj_on_job(actor, npc, logic_name, smart_terrain_name)] WARNING: "
@@ -431,8 +527,17 @@ inline bool is_obj_on_job(
 }
 
 inline bool is_distance_to_obj_on_job_le(
-    CScriptGameObject* actor, CScriptGameObject* npc, const xr_string& logic_name, const float& distance)
+    CScriptGameObject* actor, CScriptGameObject* npc, const xr_vector<xr_string>& buffer)
 {
+    if (!buffer.size())
+    {
+        R_ASSERT2(false, "Argument list can't be empty!");
+        return false;
+    }
+
+    const xr_string& logic_name = buffer[0];
+    float distance = atof(buffer[1].c_str());
+
     if (!logic_name.size())
     {
         R_ASSERT2(false, "string can't be empty!");
@@ -461,8 +566,17 @@ inline bool is_distance_to_obj_on_job_le(
 }
 
 inline bool is_story_obj_in_zone_by_name(
-    CScriptGameObject* actor, CScriptGameObject* npc, const xr_string& object_id_name, const xr_string& zone_name)
+    CScriptGameObject* actor, CScriptGameObject* npc, const xr_vector<xr_string>& buffer)
 {
+    if (!buffer.size())
+    {
+        R_ASSERT2(false, "Argument list can't be empty!");
+        return false;
+    }
+
+    const xr_string& object_id_name = buffer[0];
+    const xr_string& zone_name = buffer[1];
+
     if (!object_id_name.size())
     {
         R_ASSERT2(false, "can't be empty!");
@@ -494,9 +608,18 @@ inline bool is_story_obj_in_zone_by_name(
     return false;
 }
 
-inline bool is_story_obj_in_zone_by_name(CSE_ALifeDynamicObject* actor, CSE_ALifeDynamicObject* npc,
-    const xr_string& object_id_name, const xr_string& zone_name)
+inline bool is_story_obj_in_zone_by_name(
+    CSE_ALifeDynamicObject* actor, CSE_ALifeDynamicObject* npc, const xr_vector<xr_string>& buffer)
 {
+    if (!buffer.size())
+    {
+        R_ASSERT2(false, "Argument list can't be empty!");
+        return false;
+    }
+
+    const xr_string& object_id_name = buffer[0];
+    const xr_string& zone_name = buffer[1];
+
     if (!object_id_name.size())
     {
         R_ASSERT2(false, "can't be empty!");
@@ -528,8 +651,16 @@ inline bool is_story_obj_in_zone_by_name(CSE_ALifeDynamicObject* actor, CSE_ALif
     return false;
 }
 
-inline bool is_actor_in_zone(CScriptGameObject* actor, CScriptGameObject* npc, const xr_string& zone_name)
+inline bool is_actor_in_zone(CScriptGameObject* actor, CScriptGameObject* npc, const xr_vector<xr_string>& buffer)
 {
+    if (!buffer.size())
+    {
+        R_ASSERT2(false, "Argument list can't be empty!");
+        return false;
+    }
+
+    const xr_string& zone_name = buffer[0];
+
     if (!zone_name.size())
     {
         R_ASSERT2(false, "can't be empty!");
@@ -548,8 +679,16 @@ inline bool is_actor_in_zone(CScriptGameObject* actor, CScriptGameObject* npc, c
 }
 
 inline bool is_actor_in_zone(
-    CSE_ALifeDynamicObject* server_actor, CSE_ALifeDynamicObject* server_npc, const xr_string& zone_name)
+    CSE_ALifeDynamicObject* server_actor, CSE_ALifeDynamicObject* server_npc, const xr_vector<xr_string>& buffer)
 {
+    if (!buffer.size())
+    {
+        R_ASSERT2(false, "Argument list can't be empty!");
+        return false;
+    }
+
+    const xr_string& zone_name = buffer[0];
+
     if (!zone_name.size())
     {
         R_ASSERT2(false, "can't be empty!");
@@ -574,8 +713,16 @@ inline bool is_actor_in_zone(
     return Globals::Utils::is_npc_in_zone(DataBase::Storage::getInstance().getActor(), zone);
 }
 
-inline bool is_npc_in_zone(CScriptGameObject* actor, CScriptGameObject* npc, const xr_string& zone_name)
+inline bool is_npc_in_zone(CScriptGameObject* actor, CScriptGameObject* npc, const xr_vector<xr_string>& buffer)
 {
+    if (!buffer.size())
+    {
+        R_ASSERT2(false, "Argument list can't be empty!");
+        return false;
+    }
+
+    const xr_string& zone_name = buffer[0];
+
     if (!zone_name.size())
     {
         R_ASSERT2(false, "can't be empty!");
@@ -600,8 +747,16 @@ inline bool is_npc_in_zone(CScriptGameObject* actor, CScriptGameObject* npc, con
 }
 
 inline bool is_npc_in_zone(
-    CSE_ALifeDynamicObject* server_actor, CSE_ALifeDynamicObject* server_npc, const xr_string& zone_name)
+    CSE_ALifeDynamicObject* server_actor, CSE_ALifeDynamicObject* server_npc, const xr_vector<xr_string>& buffer)
 {
+    if (!buffer.size())
+    {
+        R_ASSERT2(false, "Argument list can't be empty!");
+        return false;
+    }
+
+    const xr_string& zone_name = buffer[0];
+
     if (!zone_name.size())
     {
         R_ASSERT2(false, "can't be empty!");
@@ -635,13 +790,21 @@ inline bool is_npc_in_zone(
     return Globals::Utils::is_npc_in_zone(npc, zone);
 }
 
-inline bool is_health_le(CScriptGameObject* actor, CScriptGameObject* npc, const float& value)
+inline bool is_health_le(CScriptGameObject* actor, CScriptGameObject* npc, const xr_vector<xr_string>& buffer)
 {
+    if (!buffer.size())
+    {
+        R_ASSERT2(false, "Argument list can't be empty!");
+        return false;
+    }
+
     if (!npc)
     {
         R_ASSERT2(false, "object was null!");
         return false;
     }
+
+    float value = atof(buffer[0].c_str());
 
     if (value)
         return (npc->GetHealth() < value);
@@ -652,13 +815,21 @@ inline bool is_health_le(CScriptGameObject* actor, CScriptGameObject* npc, const
     return false;
 }
 
-inline bool is_actor_health_le(CScriptGameObject* actor, CScriptGameObject* npc, const float& value)
+inline bool is_actor_health_le(CScriptGameObject* actor, CScriptGameObject* npc, const xr_vector<xr_string>& buffer)
 {
+    if (!buffer.size())
+    {
+        R_ASSERT2(false, "Argument list can't be empty!");
+        return false;
+    }
+
     if (!actor)
     {
         R_ASSERT2(false, "object was null!");
         return false;
     }
+
+    float value = atof(buffer[0].c_str());
 
     if (value)
         return (actor->GetHealth() < value);
@@ -670,8 +841,16 @@ inline bool is_actor_health_le(CScriptGameObject* actor, CScriptGameObject* npc,
     return false;
 }
 
-inline bool is_npc_community(CScriptGameObject* actor, CScriptGameObject* npc, const xr_string& community_name)
+inline bool is_npc_community(CScriptGameObject* actor, CScriptGameObject* npc, const xr_vector<xr_string>& buffer)
 {
+    if (!buffer.size())
+    {
+        R_ASSERT2(false, "Argument list can't be empty!");
+        return false;
+    }
+
+    const xr_string& community_name = buffer[0];
+
     if (!community_name.size())
     {
         R_ASSERT2(false, "can't be empty!");
@@ -691,8 +870,16 @@ inline bool is_npc_community(CScriptGameObject* actor, CScriptGameObject* npc, c
 }
 
 inline bool is_npc_community(
-    CSE_ALifeDynamicObject* server_actor, CSE_ALifeDynamicObject* server_npc, const xr_string& community_name)
+    CSE_ALifeDynamicObject* server_actor, CSE_ALifeDynamicObject* server_npc, const xr_vector<xr_string>& buffer)
 {
+    if (!buffer.size())
+    {
+        R_ASSERT2(false, "Argument list can't be empty!");
+        return false;
+    }
+
+    const xr_string& community_name = buffer[0];
+
     if (!community_name.size())
     {
         R_ASSERT2(false, "can't be empty!");
@@ -724,6 +911,8 @@ inline bool is_npc_community(
 
     return false;
 }
+
+inline bool is_hitted_by(CScriptGameObject* actor, CScriptGameObject* npc)
 
 } // namespace XR_CONDITION
 } // namespace Scripts
