@@ -772,82 +772,95 @@ inline xr_string pick_section_from_condlist(
                     // Parsing params
                     ///
                     xr_string buffer = it_infoportion_check.second.m_params;
+                    xr_vector<xr_string> argument_buffer;
+                    boost::regex expr{"\\w+"};
+                    boost::regex_token_iterator<std::string::iterator> it{buffer.begin(), buffer.end(), expr};
+                    boost::regex_token_iterator<std::string::iterator> end;
 
-                    if (buffer.find(':') == xr_string::npos)
+                    std::uint8_t argument_counter = 0;
+                    while (it != end)
                     {
-                        Msg("[Scripts/XR_LOGIC/pick_section_from_condlist(actor, npc, condlist)] Using function from "
-                            "XR_CONDITION file and a function uses one argument.");
+                        ++argument_counter;
+                        Msg("[Scripts/XR_LOGIC/pick_section_from_condlist(actor, npc, condlist)] Argument #%d: %s", argument_counter, it->str().c_str());
+                        argument_buffer.push_back(it->str().c_str());
+                        ++it;
+                    }
 
-                        xr_string& argument = buffer;
+                    //                     if (buffer.find(':') == xr_string::npos)
+                    //                     {
+                    Msg("[Scripts/XR_LOGIC/pick_section_from_condlist(actor, npc, condlist)] Total arguments count: %d", argument_buffer.size());
 
-                        if (Script_GlobalHelper::getInstance()
-                                .getRegisteredFunctionsXRCondition()[calling_function_name](actor, npc, argument))
+/*                    xr_string& argument = buffer;*/
+
+                    if (Script_GlobalHelper::getInstance().getRegisteredFunctionsXRCondition()[calling_function_name](
+                            actor, npc, argument_buffer))
+                    {
+                        if (!it_infoportion_check.second.m_expected)
                         {
-                            if (!it_infoportion_check.second.m_expected)
-                            {
-                                is_infoportion_conditions_met = false;
-                                break;
-                            }
-                        }
-                        else
-                        {
-                            if (it_infoportion_check.second.m_expected)
-                            {
-                                is_infoportion_conditions_met = false;
-                                break;
-                            }
+                            is_infoportion_conditions_met = false;
+                            break;
                         }
                     }
                     else
                     {
-                        // Lord: убедиться что сам аргумент не может быть нулём!!!!
-                        xr_string argument2 = buffer.substr(buffer.rfind(':') + 1);
-                        xr_string argument1 = buffer.erase(buffer.find(':'));
-                        int argument2_number = atoi(argument2.c_str());
-                        if (!argument2_number)
+                        if (it_infoportion_check.second.m_expected)
                         {
-                            if (Script_GlobalHelper::getInstance()
-                                    .getRegisteredFunctionsXRCondition()[calling_function_name](
-                                        actor, npc, argument1, argument2))
-                            {
-                                if (!it_infoportion_check.second.m_expected)
-                                {
-                                    is_infoportion_conditions_met = false;
-                                    break;
-                                }
-                            }
-                            else
-                            {
-                                if (it_infoportion_check.second.m_expected)
-                                {
-                                    is_infoportion_conditions_met = false;
-                                    break;
-                                }
-                            }
-                        }
-
-                        else
-                        {
-                            if (Script_GlobalHelper::getInstance()
-                                    .getRegisteredFunctionsXRCondition()[calling_function_name](
-                                        actor, npc, argument1, argument2_number))
-                            {
-                                if (!it_infoportion_check.second.m_expected)
-                                {
-                                    is_infoportion_conditions_met = false;
-                                    break;
-                                }
-                            }
-                            else
-                            {
-                                if (it_infoportion_check.second.m_expected)
-                                {
-                                    is_infoportion_conditions_met = false;
-                                    break;
-                                }
-                            }
+                            is_infoportion_conditions_met = false;
+                            break;
                         }
                     }
+                    /*                    }*/
+                    /*
+                                        else
+                                        {
+                                            // Lord: убедиться что сам аргумент не может быть нулём!!!!
+                                            xr_string argument2 = buffer.substr(buffer.rfind(':') + 1);
+                                            xr_string argument1 = buffer.erase(buffer.find(':'));
+                                            int argument2_number = atoi(argument2.c_str());
+                                            if (!argument2_number)
+                                            {
+                                                if (Script_GlobalHelper::getInstance()
+                                                        .getRegisteredFunctionsXRCondition()[calling_function_name](
+                                                            actor, npc, argument1, argument2))
+                                                {
+                                                    if (!it_infoportion_check.second.m_expected)
+                                                    {
+                                                        is_infoportion_conditions_met = false;
+                                                        break;
+                                                    }
+                                                }
+                                                else
+                                                {
+                                                    if (it_infoportion_check.second.m_expected)
+                                                    {
+                                                        is_infoportion_conditions_met = false;
+                                                        break;
+                                                    }
+                                                }
+                                            }
+
+                                            else
+                                            {
+                                                if (Script_GlobalHelper::getInstance()
+                                                        .getRegisteredFunctionsXRCondition()[calling_function_name](
+                                                            actor, npc, argument1, argument2_number))
+                                                {
+                                                    if (!it_infoportion_check.second.m_expected)
+                                                    {
+                                                        is_infoportion_conditions_met = false;
+                                                        break;
+                                                    }
+                                                }
+                                                else
+                                                {
+                                                    if (it_infoportion_check.second.m_expected)
+                                                    {
+                                                        is_infoportion_conditions_met = false;
+                                                        break;
+                                                    }
+                                                }
+                                            }
+                                        }*/
                 }
                 else
                 { // no params
