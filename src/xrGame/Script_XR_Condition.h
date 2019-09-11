@@ -500,7 +500,6 @@ inline bool is_dist_to_actor_ge(
     return (server_npc->Position().distance_to_sqr(server_actor->Position()) >= (distance * distance));
 }
 
-
 inline bool is_obj_on_job(CScriptGameObject* actor, CScriptGameObject* npc, const xr_vector<xr_string>& buffer)
 {
     if (!buffer.size())
@@ -791,7 +790,6 @@ inline bool is_actor_in_zone(
     return Globals::Utils::is_npc_in_zone(DataBase::Storage::getInstance().getActor(), zone);
 }
 
-
 inline bool is_npc_in_zone(CScriptGameObject* actor, CScriptGameObject* npc, const xr_vector<xr_string>& buffer)
 {
     if (!buffer.size())
@@ -912,7 +910,6 @@ inline bool is_npc_in_zone(
 
     return Globals::Utils::is_npc_in_zone(npc, zone);
 }
-
 
 inline bool is_health_le(CScriptGameObject* actor, CScriptGameObject* npc, const xr_vector<xr_string>& buffer)
 {
@@ -1263,7 +1260,7 @@ inline bool is_alive(CScriptGameObject* actor, CScriptGameObject* npc, const xr_
 {
     if (!buffer.size())
     {
-        Msg("[Scripts/XR_CONDITION/is_alive(server_actor, server_npc, buffer)] buffer.size() = 0!");
+        Msg("[Scripts/XR_CONDITION/is_alive(actor, npc, buffer)] buffer.size() = 0!");
         return false;
     }
 
@@ -1298,14 +1295,150 @@ inline bool is_alive(CScriptGameObject* actor, CScriptGameObject* npc, const xr_
     return false;
 }
 
+inline bool is_alive(CScriptGameObject* actor, CSE_ALifeDynamicObject* server_npc, const xr_vector<xr_string>& buffer)
+{
+    if (!buffer.size())
+    {
+        Msg("[Scripts/XR_CONDITION/is_alive(actor, server_npc, buffer)] buffer.size() = 0!");
+        return false;
+    }
+
+    CSE_ALifeCreatureAbstract* server_object = nullptr;
+    if (!server_npc)
+    {
+        server_object =
+            ai().alife().objects().object(Globals::get_story_object_id(buffer[0]))->cast_creature_abstract();
+
+        if (!server_object)
+        {
+            Msg("[Scripts/XR_CONDITION/is_alive(actor, server_npc, buffer)] WARNING: server_object = nullptr. Maybe "
+                "bad cast "
+                "or object not found!");
+            return false;
+        }
+    }
+    else
+    {
+        server_object = ai().alife().objects().object(server_npc->ID)->cast_creature_abstract();
+
+        if (!server_object)
+        {
+            Msg("[Scripts/XR_CONDITION/is_alive(actor, server_npc, buffer)] WARNING: server_object = nullptr. Maybe "
+                "bad cast "
+                "or object not found!");
+            return false;
+        }
+    }
+
+    if (server_object->g_Alive() && Globals::IsStalker(server_object, 0))
+        return true;
+
+    return false;
+}
+
 inline bool is_alive(
-    CScriptGameObject* actor, CSE_ALifeDynamicObject* server_npc, const xr_vector<xr_string>& buffer)
+    CSE_ALifeDynamicObject* server_actor, CSE_ALifeDynamicObject* server_npc, const xr_vector<xr_string>& buffer)
 {
     if (!buffer.size())
     {
         Msg("[Scripts/XR_CONDITION/is_alive(server_actor, server_npc, buffer)] buffer.size() = 0!");
         return false;
     }
+
+    CSE_ALifeCreatureAbstract* server_object = nullptr;
+    if (!server_npc)
+    {
+        server_object =
+            ai().alife().objects().object(Globals::get_story_object_id(buffer[0]))->cast_creature_abstract();
+
+        if (!server_object)
+        {
+            Msg("[Scripts/XR_CONDITION/is_alive(server_actor, server_npc, buffer)] WARNING: server_object = nullptr. "
+                "Maybe bad cast "
+                "or object not found!");
+            return false;
+        }
+    }
+    else
+    {
+        server_object = ai().alife().objects().object(server_npc->ID)->cast_creature_abstract();
+
+        if (!server_object)
+        {
+            Msg("[Scripts/XR_CONDITION/is_alive(server_actor, server_npc, buffer)] WARNING: server_object = nullptr. "
+                "Maybe bad cast "
+                "or object not found!");
+            return false;
+        }
+    }
+
+    if (server_object->g_Alive() && Globals::IsStalker(server_object, 0))
+        return true;
+
+    return false;
+}
+
+inline bool is_dead(CScriptGameObject* actor, CScriptGameObject* npc, const xr_vector<xr_string>& buffer)
+{
+    if (!buffer.size())
+    {
+        R_ASSERT2(false, "Argument list can't be empty!");
+        return false;
+    }
+
+    CScriptGameObject* npc1 = Globals::get_story_object(buffer[0]);
+
+    if (npc1)
+    {
+        if (!npc1->Alive())
+            return true;
+        else
+            return false;
+    }
+
+    return false;
+}
+
+inline bool is_dead(CScriptGameObject* actor, CSE_ALifeDynamicObject* server_npc, const xr_vector<xr_string>& buffer)
+{
+    if (!buffer.size())
+    {
+        R_ASSERT2(false, "Argument list can't be empty!");
+        return false;
+    }
+
+    CScriptGameObject* npc1 = Globals::get_story_object(buffer[0]);
+
+    if (npc1)
+    {
+        if (!npc1->Alive())
+            return true;
+        else
+            return false;
+    }
+
+    return false;
+}
+
+inline bool is_dead(CSE_ALifeDynamicObject* server_actor, CSE_ALifeDynamicObject* server_npc, const xr_vector<xr_string>& buffer)
+{
+    if (!buffer.size())
+    {
+        R_ASSERT2(false, "Argument list can't be empty!");
+        return false;
+    }
+
+    CScriptGameObject* npc1 = Globals::get_story_object(buffer[0]);
+
+    if (npc1)
+    {
+        if (!npc1->Alive())
+            return true;
+        else
+            return false;
+    }
+
+    return false;
 }
 
 } // namespace XR_CONDITION
