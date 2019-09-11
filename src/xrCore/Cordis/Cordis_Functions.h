@@ -18,7 +18,7 @@ struct AnyCallable
     }
 
     template <typename... Args>
-    AnyCallable(std::function<ReturnType(Args...)> func) : m_any(func)
+    AnyCallable(std::function<ReturnType(Args...)> func) : m_any(func), m_argument_count(sizeof...(Args))
     {
     }
 
@@ -47,8 +47,11 @@ struct AnyCallable
         return std::invoke(myfunction, std::forward<Args>(arguments)...);
     }
 
+    inline std::uint16_t getArgumentsCount(void) noexcept { return this->m_argument_count; }
+
 private:
     std::any m_any;
+    std::uint16_t m_argument_count;
 };
 
 template <typename ReturnType, typename... Args>
