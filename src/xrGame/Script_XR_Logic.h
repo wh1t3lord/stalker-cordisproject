@@ -781,16 +781,18 @@ inline xr_string pick_section_from_condlist(
                     while (it != end)
                     {
                         ++argument_counter;
-                        Msg("[Scripts/XR_LOGIC/pick_section_from_condlist(actor, npc, condlist)] Argument #%d: %s", argument_counter, it->str().c_str());
+                        Msg("[Scripts/XR_LOGIC/pick_section_from_condlist(actor, npc, condlist)] Argument #%d: %s",
+                            argument_counter, it->str().c_str());
                         argument_buffer.push_back(it->str().c_str());
                         ++it;
                     }
 
                     //                     if (buffer.find(':') == xr_string::npos)
                     //                     {
-                    Msg("[Scripts/XR_LOGIC/pick_section_from_condlist(actor, npc, condlist)] Total arguments count: %d", argument_buffer.size());
+                    Msg("[Scripts/XR_LOGIC/pick_section_from_condlist(actor, npc, condlist)] Total arguments count: %d",
+                        argument_buffer.size());
 
-/*                    xr_string& argument = buffer;*/
+                    /*                    xr_string& argument = buffer;*/
 
                     if (Script_GlobalHelper::getInstance().getRegisteredFunctionsXRCondition()[calling_function_name](
                             actor, npc, argument_buffer))
@@ -864,21 +866,50 @@ inline xr_string pick_section_from_condlist(
                 }
                 else
                 { // no params
-                    if (Script_GlobalHelper::getInstance().getRegisteredFunctionsXRCondition()[calling_function_name](
-                            actor, npc))
+
+                    if (Script_GlobalHelper::getInstance()
+                            .getRegisteredFunctionsXRCondition()[calling_function_name]
+                            .getArgumentsCount() == 3)
                     {
-                        if (!it_infoportion_check.second.m_expected)
+                        // no params, but overloaded third argument can not used
+                        xr_vector<xr_string> argument_buffer;
+
+                        if (Script_GlobalHelper::getInstance().getRegisteredFunctionsXRCondition()[calling_function_name](actor, npc, argument_buffer))
                         {
-                            is_infoportion_conditions_met = false;
-                            break;
+                            if (!it_infoportion_check.second.m_expected)
+                            {
+                                is_infoportion_conditions_met = false;
+                                break;
+                            }
                         }
+                        else
+                        {
+                            if (it_infoportion_check.second.m_expected)
+                            {
+                                is_infoportion_conditions_met = false;
+                                break;
+                            }
+                        }
+
                     }
                     else
-                    {
-                        if (it_infoportion_check.second.m_expected)
+                    { // no params, but 2 arguments
+                        if (Script_GlobalHelper::getInstance()
+                                .getRegisteredFunctionsXRCondition()[calling_function_name](actor, npc))
                         {
-                            is_infoportion_conditions_met = false;
-                            break;
+                            if (!it_infoportion_check.second.m_expected)
+                            {
+                                is_infoportion_conditions_met = false;
+                                break;
+                            }
+                        }
+                        else
+                        {
+                            if (it_infoportion_check.second.m_expected)
+                            {
+                                is_infoportion_conditions_met = false;
+                                break;
+                            }
                         }
                     }
                 }
