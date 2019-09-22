@@ -1609,7 +1609,86 @@ inline bool is_signal(CSE_ALifeDynamicObject* server_actor, CScriptGameObject* n
     return storage_data[storage_data.m_active_scheme].m_signals[buffer[0]];
 }
 
- 
+inline bool is_counter_greater(CScriptGameObject* actor, CScriptGameObject* npc, const xr_vector<xr_string>& buffer)
+{
+    if (!actor)
+    {
+        R_ASSERT2(false, "object was null!");
+        return false;
+    }
+
+    if (!buffer.size())
+    {
+        R_ASSERT2(false, "argument list can't be empty!");
+        return false;
+    }
+
+    std::uint8_t argument_number = atoi(buffer[1].c_str());
+    std::uint8_t pstor_number = XR_LOGIC::pstor_retrieve_number(actor, buffer[0]);
+
+    return (pstor_number > argument_number);
+}
+
+inline bool is_counter_greater(
+    CScriptGameObject* actor, CSE_ALifeDynamicObject* server_npc, const xr_vector<xr_string>& buffer)
+{
+    if (!actor)
+    {
+        R_ASSERT2(false, "object was null!");
+        return false;
+    }
+
+    if (!buffer.size())
+    {
+        R_ASSERT2(false, "argument list can't be empty!");
+        return false;
+    }
+
+    std::uint8_t argument_number = atoi(buffer[1].c_str());
+    std::uint8_t pstor_number = XR_LOGIC::pstor_retrieve_number(actor, buffer[0]);
+
+    return (pstor_number > argument_number);
+}
+
+inline bool is_counter_equal(CScriptGameObject* actor, CScriptGameObject* npc, const xr_vector<xr_string>& buffer)
+{
+    if (!actor)
+    {
+        R_ASSERT2(false, "object was null!");
+        return false;
+    }
+
+    if (!buffer.size())
+    {
+        R_ASSERT2(false, "argument list can't be empty!");
+        return false;
+    }
+
+    std::uint8_t argument_number = atoi(buffer[1].c_str());
+    std::uint8_t pstor_number = XR_LOGIC::pstor_retrieve_number(actor, buffer[0]);
+
+    return (pstor_number == argument_number);
+}
+
+inline bool is_counter_equal(CScriptGameObject* actor, CSE_ALifeDynamicObject* server_npc, const xr_vector<xr_string>& buffer)
+{
+    if (!actor)
+    {
+        R_ASSERT2(false, "object was null!");
+        return false;
+    }
+
+    if (!buffer.size())
+    {
+        R_ASSERT2(false, "argument list can't be empty!");
+        return false;
+    }
+
+    std::uint8_t argument_number = atoi(buffer[1].c_str());
+    std::uint8_t pstor_number = XR_LOGIC::pstor_retrieve_number(actor, buffer[0]);
+
+    return (pstor_number == argument_number);
+}
 
 } // namespace XR_CONDITION
 } // namespace Scripts
