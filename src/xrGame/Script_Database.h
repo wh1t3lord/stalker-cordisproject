@@ -18,6 +18,92 @@ inline void add_enemy(CSE_Abstract* object)
     }
 }
 
+class PStor_Data
+{
+    char m_boolean =
+        Globals::kPstorBooleanUndefined; // Globals::kPstorBooleanFalse -> False, Globals::kPstorBooleanUndefined -> Not
+                                         // initialized, Globals::kPstorBooleanTrue -> True
+    std::uint8_t m_number = Globals::kUnsignedInt8Undefined;
+    xr_string m_string = Globals::kStringUndefined;
+
+public:
+    inline bool getBool(void) noexcept
+    {
+        switch (this->m_boolean)
+        {
+        case '-':
+        {
+            Msg("[Scripts/DataBase/PStor_Data/getBool()] Returns an initialized value -> False");
+            break;
+        }
+        case '0':
+        {
+            Msg("[Scritps/DataBase/PStor_Data/getBool()] the m_boolean doesn't initialized!");
+            break;
+        }
+        case '+':
+        {
+            Msg("[Scripts/DataBase/PStor_Data/getBool()] Returns an initialized value -> True");
+            return true;
+            break;
+        }
+        };
+
+        return false;
+    }
+
+    inline std::uint8_t getNumber(void) noexcept
+    {
+        if (this->m_number == Globals::kUnsignedInt8Undefined)
+        {
+            Msg("[Scripts/DataBase/PStor_Data/getNumber()] the m_number doesn't initialized. Returns 0.");
+            return std::uint8_t(0);
+        }
+
+        Msg("[Scripts/DataBase/PStor_Data/getNumber()] Returns value [%d], because it was initialized!",
+            this->m_number);
+        return this->m_number;
+    }
+
+    inline xr_string getString(void) noexcept
+    {
+        if (this->m_string == Globals::kStringUndefined)
+        {
+            Msg("[Scripts/DataBase/PStor_Data/getString()] the m_string doesn't initialized. Returns an empty string.");
+            return xr_string();
+        }
+
+        Msg("[Scripts/DataBase/PStor_Data/getString()] Returns value [%s], it's initialized!", this->m_string.c_str());
+        return this->m_string;
+    }
+
+    inline void setBool(const bool& value) noexcept
+    {
+        if (value)
+        {
+            Msg("[Scripts/DataBase/PStor_Data/setBool(value)] -> True");
+            this->m_boolean = Globals::kPstorBooleanTrue;
+        }
+        else
+        {
+            Msg("[Scripts/DataBase/PStor_Data/setBool(value)] -> False");
+            this->m_boolean = Globals::kPstorBooleanFalse;
+        }
+    }
+
+    inline void setNumber(const std::uint8_t& value) noexcept
+    {
+        Msg("[Scripts/DataBase/PStor_Data/setNumber(value)] -> %d", value);
+        this->m_number = value;
+    }
+
+    inline void setString(const xr_string& string) noexcept
+    {
+        Msg("[Scripts/DataBase/PStor_Data/setString(string)] -> %s", string.c_str());
+        this->m_string = string;
+    }
+};
+
 struct SubStorage_Data
 {
     SubStorage_Data(void) = default;

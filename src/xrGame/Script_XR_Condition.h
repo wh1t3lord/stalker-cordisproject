@@ -1420,7 +1420,8 @@ inline bool is_dead(CScriptGameObject* actor, CSE_ALifeDynamicObject* server_npc
     return false;
 }
 
-inline bool is_dead(CSE_ALifeDynamicObject* server_actor, CSE_ALifeDynamicObject* server_npc, const xr_vector<xr_string>& buffer)
+inline bool is_dead(
+    CSE_ALifeDynamicObject* server_actor, CSE_ALifeDynamicObject* server_npc, const xr_vector<xr_string>& buffer)
 {
     if (!buffer.size())
     {
@@ -1440,6 +1441,175 @@ inline bool is_dead(CSE_ALifeDynamicObject* server_actor, CSE_ALifeDynamicObject
 
     return false;
 }
+
+inline bool is_story_object_exist(CScriptGameObject* actor, CScriptGameObject* npc, const xr_vector<xr_string>& buffer)
+{
+    if (!buffer.size())
+    {
+        R_ASSERT2(false, "Argument list can't be empty!");
+        return false;
+    }
+
+    CScriptGameObject* npc1 = Globals::get_story_object(buffer[0]);
+
+    return (!!npc1);
+}
+
+inline bool is_story_object_exist(
+    CScriptGameObject* actor, CSE_ALifeDynamicObject* server_npc, const xr_vector<xr_string>& buffer)
+{
+    if (!buffer.size())
+    {
+        R_ASSERT2(false, "Argument list can't be empty!");
+        return false;
+    }
+
+    CScriptGameObject* npc1 = Globals::get_story_object(buffer[0]);
+
+    return (!!npc1);
+}
+
+inline bool is_story_object_exist(
+    CSE_ALifeDynamicObject* server_actor, CSE_ALifeDynamicObject* server_npc, const xr_vector<xr_string>& buffer)
+{
+    if (!buffer.size())
+    {
+        R_ASSERT2(false, "Argument list can't be empty!");
+        return false;
+    }
+
+    CScriptGameObject* npc1 = Globals::get_story_object(buffer[0]);
+
+    return (!!npc1);
+}
+
+inline bool is_actor_has_item(CScriptGameObject* actor, CScriptGameObject* npc, const xr_vector<xr_string>& buffer)
+{
+    if (!buffer.size())
+    {
+        Msg("[Scripts/XR_CONDITION/is_actor_has_item(actor, npc, buffer)] WARNING: buffer.size() = 0! Returning "
+            "false.");
+        return false;
+    }
+
+    CScriptGameObject* story_actor = Globals::get_story_object("actor");
+
+    if (story_actor)
+        if (story_actor->GetObjectByName(buffer[0].c_str()))
+            return true;
+
+    return false;
+}
+
+inline bool is_actor_has_item(
+    CScriptGameObject* actor, CSE_ALifeDynamicObject* server_npc, const xr_vector<xr_string>& buffer)
+{
+    if (!buffer.size())
+    {
+        Msg("[Scripts/XR_CONDITION/is_actor_has_item(actor, server_npc, buffer)] WARNING: buffer.size() = 0! Returning "
+            "false.");
+        return false;
+    }
+
+    CScriptGameObject* story_actor = Globals::get_story_object("actor");
+
+    if (story_actor)
+        if (story_actor->GetObjectByName(buffer[0].c_str()))
+            return true;
+
+    return false;
+}
+
+inline bool is_actor_has_item(
+    CSE_ALifeDynamicObject* server_actor, CSE_ALifeDynamicObject* server_npc, const xr_vector<xr_string>& buffer)
+{
+    if (!buffer.size())
+    {
+        Msg("[Scripts/XR_CONDITION/is_actor_has_item(server_actor, server_npc, buffer)] WARNING: buffer.size() = 0! "
+            "Returning "
+            "false.");
+        return false;
+    }
+
+    CScriptGameObject* story_actor = Globals::get_story_object("actor");
+
+    if (story_actor)
+        if (story_actor->GetObjectByName(buffer[0].c_str()))
+            return true;
+
+    return false;
+}
+
+inline bool is_npc_has_item(CScriptGameObject* actor, CScriptGameObject* npc, const xr_vector<xr_string>& buffer)
+{
+    if (!buffer.size())
+    {
+        Msg("[Scripts/XR_CONDITION/is_actor_has_item(actor, npc, buffer)] buffer.size() = 0! Returning false.");
+        return false;
+    }
+
+    if (npc)
+        if (npc->GetObjectByName(buffer[0].c_str()))
+            return true;
+
+    return false;
+}
+
+inline bool is_npc_has_item(
+    CSE_ALifeDynamicObject* server_actor, CScriptGameObject* npc, const xr_vector<xr_string>& buffer)
+{
+    if (!buffer.size())
+    {
+        Msg("[Scripts/XR_CONDITION/is_actor_has_item(server_actor, npc, buffer)] buffer.size() = 0! Returning false.");
+        return false;
+    }
+
+    if (npc)
+        if (npc->GetObjectByName(buffer[0].c_str()))
+            return true;
+
+    return false;
+}
+
+inline bool is_signal(CScriptGameObject* actor, CScriptGameObject* npc, const xr_vector<xr_string>& buffer)
+{
+    if (!buffer.size())
+    {
+        Msg("[Scripts/XR_CONDITION/is_signal(actor, npc, buffer)] WARNING: buffer.size() = 0! Returning false.");
+        return false;
+    }
+
+    if (!npc)
+    {
+        R_ASSERT2(false, "object was null!");
+        return false;
+    }
+
+    DataBase::Storage_Data& storage_data = DataBase::Storage::getInstance().getStorage()[npc->ID()];
+
+    return storage_data[storage_data.m_active_scheme].m_signals[buffer[0]];
+}
+
+inline bool is_signal(CSE_ALifeDynamicObject* server_actor, CScriptGameObject* npc, const xr_vector<xr_string>& buffer)
+{
+    if (!buffer.size())
+    {
+        Msg("[Scripts/XR_CONDITION/is_signal(server_actor, npc, buffer)] WARNING: buffer.size() = 0! Returning false.");
+        return false;
+    }
+
+    if (!npc)
+    {
+        R_ASSERT2(false, "object was null!");
+        return false;
+    }
+
+    DataBase::Storage_Data& storage_data = DataBase::Storage::getInstance().getStorage()[npc->ID()];
+
+    return storage_data[storage_data.m_active_scheme].m_signals[buffer[0]];
+}
+
+ 
 
 } // namespace XR_CONDITION
 } // namespace Scripts
