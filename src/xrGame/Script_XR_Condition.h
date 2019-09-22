@@ -1670,7 +1670,8 @@ inline bool is_counter_equal(CScriptGameObject* actor, CScriptGameObject* npc, c
     return (pstor_number == argument_number);
 }
 
-inline bool is_counter_equal(CScriptGameObject* actor, CSE_ALifeDynamicObject* server_npc, const xr_vector<xr_string>& buffer)
+inline bool is_counter_equal(
+    CScriptGameObject* actor, CSE_ALifeDynamicObject* server_npc, const xr_vector<xr_string>& buffer)
 {
     if (!actor)
     {
@@ -1688,6 +1689,51 @@ inline bool is_counter_equal(CScriptGameObject* actor, CSE_ALifeDynamicObject* s
     std::uint8_t pstor_number = XR_LOGIC::pstor_retrieve_number(actor, buffer[0]);
 
     return (pstor_number == argument_number);
+}
+
+// Lord: реализовать _kamp_talker(actor, npc) когда будет xr_kamp
+inline bool is_kamp_talk(CScriptGameObject* actor, CScriptGameObject* npc)
+{
+    if (!npc)
+    {
+        R_ASSERT2(false, "object was null!");
+        return false;
+    }
+
+    return false;
+}
+
+inline bool is_kamp_talk(CSE_ALifeDynamicObject* server_actor, CScriptGameObject* npc)
+{
+    if (!npc)
+    {
+        R_ASSERT2(false, "object was null!");
+        return false;
+    }
+
+    return false;
+}
+
+inline bool is_used(CScriptGameObject* actor, CScriptGameObject* npc)
+{
+    if (!npc)
+    {
+        R_ASSERT2(false, "object was null!");
+        return false;
+    }
+
+    return npc->IsTalking();
+}
+
+inline bool is_used(CSE_ALifeDynamicObject* server_actor, CScriptGameObject* npc)
+{
+    if (!npc)
+    {
+        R_ASSERT2(false, "object was null!");
+        return false;
+    }
+
+    return npc->IsTalking();
 }
 
 } // namespace XR_CONDITION
