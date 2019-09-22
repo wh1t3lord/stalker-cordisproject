@@ -27,6 +27,10 @@ class PStor_Data
     xr_string m_string = Globals::kStringUndefined;
 
 public:
+    inline bool IsInitializedBool(void) noexcept { return (this->m_boolean != Globals::kPstorBooleanUndefined); }
+    inline bool IsInitializedNumber(void) noexcept { return (this->m_number != Globals::kUnsignedInt8Undefined); }
+    inline bool IsInitializedString(void) noexcept { return (this->m_string != Globals::kStringUndefined); }
+    inline bool IsInitializedSomething(void) noexcept { return (this->IsInitializedBool() || this->IsInitializedNumber() || this->IsInitializedString()); }
     inline bool getBool(void) noexcept
     {
         switch (this->m_boolean)
@@ -79,6 +83,13 @@ public:
 
     inline void setBool(const bool& value) noexcept
     {
+        if (this->m_number != Globals::kUnsignedInt8Undefined || this->m_string != Globals::kStringUndefined)
+        {
+            Msg("[Scripts/DataBase/PStor_Data/setNumber(value)] You can't assigned a value to m_boolean, because some "
+                "member of structure was initialized!");
+            return;
+        }
+
         if (value)
         {
             Msg("[Scripts/DataBase/PStor_Data/setBool(value)] -> True");
@@ -93,12 +104,26 @@ public:
 
     inline void setNumber(const std::uint8_t& value) noexcept
     {
+        if (this->m_boolean != Globals::kPstorBooleanUndefined || this->m_string != Globals::kStringUndefined)
+        {
+            Msg("[Scripts/DataBase/PStor_Data/setNumber(value)] You can't assigned a value to m_number, because some "
+                "member of structure was initialized!");
+            return;
+        }
+
         Msg("[Scripts/DataBase/PStor_Data/setNumber(value)] -> %d", value);
         this->m_number = value;
     }
 
     inline void setString(const xr_string& string) noexcept
     {
+        if (this->m_boolean != Globals::kPstorBooleanUndefined || this->m_number != Globals::kUnsignedInt8Undefined)
+        {
+            Msg("[Scripts/DataBase/PStor_Data/setNumber(value)] You can't assigned a value to m_string, because some "
+                "member of structure was initialized!");
+            return;
+        }
+
         Msg("[Scripts/DataBase/PStor_Data/setString(string)] -> %s", string.c_str());
         this->m_string = string;
     }
@@ -125,6 +150,7 @@ struct Storage_Data
     CScriptSound* m_sound_object = nullptr;
     CInifile* m_ini = nullptr;
     xr_map<xr_string, SubStorage_Data> m_data;
+    xr_map<xr_string, PStor_Data> m_pstor;
     xr_string m_active_scheme = "";
     xr_string m_active_section = "";
     xr_string m_sound = "";

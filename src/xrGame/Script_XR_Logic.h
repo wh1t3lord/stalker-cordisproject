@@ -874,7 +874,9 @@ inline xr_string pick_section_from_condlist(
                         // no params, but overloaded third argument can not used
                         xr_vector<xr_string> argument_buffer;
 
-                        if (Script_GlobalHelper::getInstance().getRegisteredFunctionsXRCondition()[calling_function_name](actor, npc, argument_buffer))
+                        if (Script_GlobalHelper::getInstance()
+                                .getRegisteredFunctionsXRCondition()[calling_function_name](
+                                    actor, npc, argument_buffer))
                         {
                             if (!it_infoportion_check.second.m_expected)
                             {
@@ -890,7 +892,6 @@ inline xr_string pick_section_from_condlist(
                                 break;
                             }
                         }
-
                     }
                     else
                     { // no params, but 2 arguments
@@ -1346,14 +1347,14 @@ inline xr_string pick_section_from_condlist(
                     {
                         if (!Globals::has_alife_info(it_infoportion_set.second.m_infopotion_name.c_str()))
                         {
-                          //  actor->GiveInfoPortion(it_infoportion_set.second.m_infopotion_name.c_str());
+                            //  actor->GiveInfoPortion(it_infoportion_set.second.m_infopotion_name.c_str());
                         }
                     }
                     else if (!it_infoportion_set.second.m_required)
                     {
                         if (Globals::has_alife_info(it_infoportion_set.second.m_infopotion_name.c_str()))
                         {
-                          //  actor->DisableInfoPortion(it_infoportion_set.second.m_infopotion_name.c_str());
+                            //  actor->DisableInfoPortion(it_infoportion_set.second.m_infopotion_name.c_str());
                         }
                     }
                 }
@@ -1703,6 +1704,82 @@ inline xr_string pick_section_from_condlist(
     }
 
     return xr_string("");
+}
+
+inline bool pstor_retrieve_bool(CScriptGameObject* object, const xr_string& varname)
+{
+    if (!object)
+    {
+        R_ASSERT2(false, "object was null!");
+        return false;
+    }
+
+    if (!varname.size())
+    {
+        R_ASSERT2(false, "can't be an empty string!");
+        return false;
+    }
+
+    if (DataBase::Storage::getInstance().getStorage()[object->ID()].m_pstor[varname].IsInitializedBool())
+    {
+        return DataBase::Storage::getInstance().getStorage()[object->ID()].m_pstor[varname].getBool();
+    }
+
+    Msg("[Scripts/XR_LOGIC/pstor_retrieve_bool(object, varname)] WARNING: returns a default value, becasue can't find "
+        "a value by string index -> [%s]",
+        varname.c_str());
+
+    return false;
+}
+
+inline std::uint8_t pstor_retrieve_number(CScriptGameObject* object, const xr_string& varname)
+{
+    if (!object)
+    {
+        R_ASSERT2(false, "object was null!");
+        return std::uint8_t(0);
+    }
+
+    if (!varname.size())
+    {
+        R_ASSERT2(false, "can't be an empty string!");
+        return std::uint8_t(0);
+    }
+
+    if (DataBase::Storage::getInstance().getStorage()[object->ID()].m_pstor[varname].IsInitializedNumber())
+    {
+        return DataBase::Storage::getInstance().getStorage()[object->ID()].m_pstor[varname].getNumber();
+    }
+
+    Msg("[Scripts/XR_LOGIC/pstor_retrieve_number(object, varname)] WARNING: returning a default value, because can't "
+        "find current value by string index -> [%s]",
+        varname.c_str());
+
+    return std::uint8_t(0);
+}
+
+inline xr_string pstor_retrieve_string(CScriptGameObject* object, const xr_string& varname)
+{
+    if (!object)
+    {
+        R_ASSERT2(false, "object was null!");
+        return xr_string();
+    }
+
+    if (!varname.size())
+    {
+        R_ASSERT2(false, "can't be an empty string!");
+        return xr_string();
+    }
+
+    if (DataBase::Storage::getInstance().getStorage()[object->ID()].m_pstor[varname].IsInitializedString())
+    {
+        return DataBase::Storage::getInstance().getStorage()[object->ID()].m_pstor[varname].getString();
+    }
+
+    Msg("[Scripts/XR_LOGIC/pstor_retrieve_string(object, varname)] WARNING: return a default value, because can't find a value by string index -> [%s]", varname.c_str());
+
+    return xr_string();
 }
 
 } // namespace XR_LOGIC
