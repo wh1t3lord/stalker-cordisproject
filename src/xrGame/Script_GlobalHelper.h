@@ -728,7 +728,8 @@ private:
             combat_front_loophole_stand_front_left_transition.m_action_from = "fire";
             combat_front_loophole_stand_front_left_transition.m_action_to = "idle";
             combat_front_loophole_stand_front_left_transition.m_weight = 1.2f;
-            combat_front_loophole_stand_front_left_transition.m_animations.push_back("loophole_stand_back_attack_out_0");
+            combat_front_loophole_stand_front_left_transition.m_animations.push_back(
+                "loophole_stand_back_attack_out_0");
 
             combat_front_loophole_stand_front_left.register_transition(
                 combat_front_loophole_stand_front_left_transition);
@@ -750,14 +751,15 @@ private:
             combat_front_loophole_stand_front_left_transition.m_action_from = "fire_no_lookout";
             combat_front_loophole_stand_front_left_transition.m_action_to = "idle";
             combat_front_loophole_stand_front_left_transition.m_weight = 1.2f;
-            combat_front_loophole_stand_front_left_transition.m_animations.push_back("loophole_stand_back_attack_out_0");
+            combat_front_loophole_stand_front_left_transition.m_animations.push_back(
+                "loophole_stand_back_attack_out_0");
 
             combat_front_loophole_stand_front_left.register_transition(
                 combat_front_loophole_stand_front_left_transition);
         } // 16
 #pragma endregion Cordis Loophole
 
-#pragma region Cordis Loophole 
+#pragma region Cordis Loophole
         SmartCoverLoopholeData combat_front_loophole_stand_front_right;
         combat_front_loophole_stand_front_right.m_id = "stand_front_right";
         combat_front_loophole_stand_front_right.m_is_usable = true;
@@ -803,7 +805,8 @@ private:
         {
             SmartCoverLoopholeData::SmartCoverActionsData combat_front_loophole_stand_front_right_action;
             combat_front_loophole_stand_front_right_action.m_id = "fire_no_lookout";
-            combat_front_loophole_stand_front_right_action.register_animation("idle", "loophole_stand_back_attack_idle_0");
+            combat_front_loophole_stand_front_right_action.register_animation(
+                "idle", "loophole_stand_back_attack_idle_0");
             combat_front_loophole_stand_front_right_action.register_animation(
                 "shoot", "loophole_stand_back_attack_shoot_0");
             combat_front_loophole_stand_front_right_action.register_animation(
@@ -847,7 +850,8 @@ private:
             combat_front_loophole_stand_front_right_transition.m_action_from = "idle";
             combat_front_loophole_stand_front_right_transition.m_action_to = "fire";
             combat_front_loophole_stand_front_right_transition.m_weight = 1.2f;
-            combat_front_loophole_stand_front_right_transition.m_animations.push_back("loophole_stand_back_attack_in_0");
+            combat_front_loophole_stand_front_right_transition.m_animations.push_back(
+                "loophole_stand_back_attack_in_0");
 
             combat_front_loophole_stand_front_right.register_transition(
                 combat_front_loophole_stand_front_right_transition);
@@ -870,7 +874,8 @@ private:
             combat_front_loophole_stand_front_right_transition.m_action_from = "idle";
             combat_front_loophole_stand_front_right_transition.m_action_to = "fire_no_lookout";
             combat_front_loophole_stand_front_right_transition.m_weight = 1.2f;
-            combat_front_loophole_stand_front_right_transition.m_animations.push_back("loophole_stand_back_attack_in_0");
+            combat_front_loophole_stand_front_right_transition.m_animations.push_back(
+                "loophole_stand_back_attack_in_0");
 
             combat_front_loophole_stand_front_right.register_transition(
                 combat_front_loophole_stand_front_right_transition);
@@ -938,6 +943,10 @@ private:
         this->m_registered_smart_terrain_path_fields.push_back(Globals::kSmartTerrainPathFieldPathHome);
         this->m_registered_smart_terrain_path_fields.push_back(Globals::kSmartTerrainPathFieldPathMain);
         this->m_registered_smart_terrain_path_fields.push_back(Globals::kSmartTerrainPathFieldPathWalk);
+
+        this->m_registered_smart_terrain_control_script_states["normal"] = Script_SmartTerrainControl_States::kNormal;
+        this->m_registered_smart_terrain_control_script_states["danger"] = Script_SmartTerrainControl_States::kDanger;
+        this->m_registered_smart_terrain_control_script_states["alarm"] = Script_SmartTerrainControl_States::kAlarm;
 #pragma endregion
 
 #pragma region Cordis SimulationBoard Initializing
@@ -1076,6 +1085,12 @@ public:
     {
         return this->m_simulationsquad_is_squad_monster_by_type;
     }
+
+    inline xr_map<xr_string, Script_SmartTerrainControl_States>& getRegisteredSmartTerrainControlScriptStates(
+        void) noexcept
+    {
+        return this->m_registered_smart_terrain_control_script_states;
+    }
 #pragma endregion
 
 private:
@@ -1085,6 +1100,7 @@ private:
     xr_map<std::uint32_t, bool> m_artefact_classes;
     xr_map<std::uint32_t, bool> m_ammo_section;
     xr_map<xr_string, bool> m_quest_section;
+    xr_map<xr_string, Script_SmartTerrainControl_States> m_registered_smart_terrain_control_script_states;
     xr_map<xr_string, xr_string> m_squad_community_by_behavior;
     xr_map<xr_string, AnyCallable<void>> m_registered_functions_xr_effects;
     xr_map<xr_string, AnyCallable<bool>> m_registered_functions_xr_conditions;
