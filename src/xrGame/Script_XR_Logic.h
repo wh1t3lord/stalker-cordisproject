@@ -1777,10 +1777,64 @@ inline xr_string pstor_retrieve_string(CScriptGameObject* object, const xr_strin
         return DataBase::Storage::getInstance().getStorage()[object->ID()].m_pstor[varname].getString();
     }
 
-    Msg("[Scripts/XR_LOGIC/pstor_retrieve_string(object, varname)] WARNING: return a default value, because can't find a value by string index -> [%s]", varname.c_str());
+    Msg("[Scripts/XR_LOGIC/pstor_retrieve_string(object, varname)] WARNING: return a default value, because can't find "
+        "a value by string index -> [%s]",
+        varname.c_str());
 
     return xr_string();
 }
+
+inline void pstor_store(CScriptGameObject* object, const xr_string& varname, const bool& value)
+{
+    if (!object)
+    {
+        R_ASSERT2(false, "object was null!");
+        return;
+    }
+
+    if (!varname.size())
+    {
+        R_ASSERT2(false, "can't be an empty!");
+        return;
+    }
+
+    DataBase::Storage::getInstance().getStorage()[object->ID()].m_pstor[varname].setBool(value);
+}
+
+inline void pstor_store(CScriptGameObject* object, const xr_string& varname, const std::uint8_t& value)
+{
+    if (!object)
+    {
+        R_ASSERT2(false, "object was null!");
+        return;
+    }
+
+    if (!varname.size())
+    {
+        R_ASSERT2(false, "can't be an empty string!");
+        return;
+    }
+
+    DataBase::Storage::getInstance().getStorage()[object->ID()].m_pstor[varname].setNumber(value);
+}
+
+inline void pstor_store(CScriptGameObject* object, const xr_string& varname, const xr_string& value)
+{
+    if (!object)
+    {
+        R_ASSERT2(false, "object was null!");
+        return;
+    }
+
+    if (!varname.size())
+    {
+        R_ASSERT2(false, "can't be an empty string!");
+        return;
+    }
+
+    DataBase::Storage::getInstance().getStorage()[object->ID()].m_pstor[varname].setString(value);
+}
+
 
 } // namespace XR_LOGIC
 } // namespace Scripts
