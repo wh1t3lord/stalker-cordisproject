@@ -536,6 +536,37 @@ inline void map_change_spot_hint(const std::uint16_t& id, LPCSTR spot_type, LPCS
 } // namespace Game
 namespace GameRelations
 {
+
+inline int community_goodwill(LPCSTR community_name, int entity_id)
+{
+    CHARACTER_COMMUNITY community;
+    community.set(community_name);
+
+    return RELATION_REGISTRY().GetCommunityGoodwill(community.index(), std::uint16_t(entity_id));
+}
+
+inline int get_community_relation(const xr_string& faction, const xr_string& faction_to)
+{
+    if (!faction.size())
+    {
+        R_ASSERT2(false, "can't be an empty string!");
+        return 0;
+    }
+
+    if (!faction_to.size())
+    {
+        R_ASSERT2(false, "can't be an empty string!");
+        return 0;
+    }
+
+    CHARACTER_COMMUNITY community_from;
+    community_from.set(faction.c_str());
+    CHARACTER_COMMUNITY community_to;
+    community_to.set(faction_to.c_str());
+
+    return RELATION_REGISTRY().GetCommunityRelation(community_from.index(), community_to.index());
+}
+
 inline void set_npc_sympathy(CScriptGameObject* npc, float new_sympathy)
 {
     if (!npc)
@@ -617,6 +648,50 @@ inline void set_npcs_relation(CSE_ALifeMonsterAbstract* server_from_object, CSE_
         goodwill = 1000;
 
     RELATION_REGISTRY().ForceSetGoodwill(server_from_object->ID, server_to_object->ID, goodwill);
+}
+
+inline bool is_factions_enemies(const xr_string& faction, const xr_string& faction_to)
+{
+    if (!faction.size())
+    {
+        R_ASSERT2(false, "can't be an empty string!");
+        return false;
+    }
+
+    if (!faction_to.size())
+    {
+        R_ASSERT2(false, "can't be an empty string!");
+        return false;
+    }
+
+    if (faction != "none" && faction_to != "none")
+    {
+        return get_community_relation(faction, faction_to) <= kRelationKoeffEnemy;
+    }
+
+    return false;
+}
+
+inline bool is_factions_friends(const xr_string& faction, const xr_string& faction_to)
+{
+    if (!faction.size())
+    {
+        R_ASSERT2(false, "can't be an empty string!");
+        return false;
+    }
+
+    if (!faction_to.size())
+    {
+        R_ASSERT2(false, "can't be an empty string!");
+        return false;
+    }
+
+    if (faction != "none" && faction_to != "none")
+    {
+        return get_community_relation(faction, faction_to) >= kRelationKoeffFriend;
+    }
+
+    return false;
 }
 
 } // namespace GameRelations

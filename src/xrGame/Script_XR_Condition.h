@@ -1555,21 +1555,6 @@ inline bool is_npc_has_item(CScriptGameObject* actor, CScriptGameObject* npc, co
     return false;
 }
 
-inline bool is_npc_has_item(
-    CSE_ALifeDynamicObject* server_actor, CScriptGameObject* npc, const xr_vector<xr_string>& buffer)
-{
-    if (!buffer.size())
-    {
-        Msg("[Scripts/XR_CONDITION/is_actor_has_item(server_actor, npc, buffer)] buffer.size() = 0! Returning false.");
-        return false;
-    }
-
-    if (npc)
-        if (npc->GetObjectByName(buffer[0].c_str()))
-            return true;
-
-    return false;
-}
 
 inline bool is_signal(CScriptGameObject* actor, CScriptGameObject* npc, const xr_vector<xr_string>& buffer)
 {
@@ -1590,6 +1575,7 @@ inline bool is_signal(CScriptGameObject* actor, CScriptGameObject* npc, const xr
     return storage_data[storage_data.m_active_scheme].m_signals[buffer[0]];
 }
 
+/* Lord наверное не используется ибо такой перегрузки вообще нет
 inline bool is_signal(CSE_ALifeDynamicObject* server_actor, CScriptGameObject* npc, const xr_vector<xr_string>& buffer)
 {
     if (!buffer.size())
@@ -1607,7 +1593,7 @@ inline bool is_signal(CSE_ALifeDynamicObject* server_actor, CScriptGameObject* n
     DataBase::Storage_Data& storage_data = DataBase::Storage::getInstance().getStorage()[npc->ID()];
 
     return storage_data[storage_data.m_active_scheme].m_signals[buffer[0]];
-}
+}*/
 
 inline bool is_counter_greater(CScriptGameObject* actor, CScriptGameObject* npc, const xr_vector<xr_string>& buffer)
 {
@@ -1703,8 +1689,191 @@ inline bool is_kamp_talk(CScriptGameObject* actor, CScriptGameObject* npc)
     return false;
 }
 
-inline bool is_kamp_talk(CSE_ALifeDynamicObject* server_actor, CScriptGameObject* npc)
+inline bool check_smart_alarm_status(
+    CScriptGameObject* actor, CScriptGameObject* npc, const xr_vector<xr_string>& buffer)
 {
+    if (!buffer.size())
+    {
+        R_ASSERT2(false, "argument list can't be empty!");
+        return false;
+    }
+
+    const xr_string& smart_name = buffer[0];
+    Script_SmartTerrainControl_States state =
+        Script_GlobalHelper::getInstance().getRegisteredSmartTerrainControlScriptStates()[buffer[1]];
+
+    Script_SE_SmartTerrain* smart = Script_SimulationBoard::getInstance().getSmartTerrainsByName()[smart_name];
+    Script_SmartTerrainControl* smart_control = smart->getBaseOnActorControl();
+
+    if (!smart_control)
+    {
+        R_ASSERT2(false, "Cannot calculate 'check_smart_alarm_status' for smart %s", smart_name.c_str());
+        return false;
+    }
+
+    return (smart_control->getState() == state);
+}
+
+inline bool check_smart_alarm_status(
+    CScriptGameObject* actor, CSE_ALifeDynamicObject* server_npc, const xr_vector<xr_string>& buffer)
+{
+    if (!buffer.size())
+    {
+        R_ASSERT2(false, "argument list can't be empty!");
+        return false;
+    }
+
+    const xr_string& smart_name = buffer[0];
+    Script_SmartTerrainControl_States state =
+        Script_GlobalHelper::getInstance().getRegisteredSmartTerrainControlScriptStates()[buffer[1]];
+
+    Script_SE_SmartTerrain* smart = Script_SimulationBoard::getInstance().getSmartTerrainsByName()[smart_name];
+    Script_SmartTerrainControl* smart_control = smart->getBaseOnActorControl();
+
+    if (!smart_control)
+    {
+        R_ASSERT2(false, "Cannot calculate 'check_smart_alarm_status' for smart %s", smart_name.c_str());
+        return false;
+    }
+
+    return (smart_control->getState() == state);
+}
+
+inline bool check_smart_alarm_status(
+    CSE_ALifeDynamicObject* server_actor, CSE_ALifeDynamicObject* server_npc, const xr_vector<xr_string>& buffer)
+{
+    if (!buffer.size())
+    {
+        R_ASSERT2(false, "argument list can't be empty!");
+        return false;
+    }
+
+    const xr_string& smart_name = buffer[0];
+    Script_SmartTerrainControl_States state =
+        Script_GlobalHelper::getInstance().getRegisteredSmartTerrainControlScriptStates()[buffer[1]];
+
+    Script_SE_SmartTerrain* smart = Script_SimulationBoard::getInstance().getSmartTerrainsByName()[smart_name];
+    Script_SmartTerrainControl* smart_control = smart->getBaseOnActorControl();
+
+    if (!smart_control)
+    {
+        R_ASSERT2(false, "Cannot calculate 'check_smart_alarm_status' for smart %s", smart_name.c_str());
+        return false;
+    }
+
+    return (smart_control->getState() == state);
+}
+
+inline bool is_has_enemy(CScriptGameObject* actor, CScriptGameObject* npc)
+{
+    if (!npc)
+    {
+        R_ASSERT2(false, "object was null!");
+        return false;
+    }
+
+    return (!!npc->GetBestEnemy());
+}
+
+inline bool is_has_actor_enemy(CScriptGameObject* actor, CScriptGameObject* npc)
+{
+    if (!npc)
+    {
+        R_ASSERT2(false, "object was null!");
+        return false;
+    }
+    CScriptGameObject* best_enemy = npc->GetBestEnemy();
+
+    if (best_enemy)
+    {
+        return (best_enemy->ID() == DataBase::Storage::getInstance().getActor()->ID());
+    }
+
+    return false;
+}
+
+inline bool is_see_enemy(CScriptGameObject* actor, CScriptGameObject* npc)
+{
+    if (!npc)
+    {
+        R_ASSERT2(false, "object was null!");
+        return false;
+    }
+
+    CScriptGameObject* best_enemy = npc->GetBestEnemy();
+
+    if (best_enemy)
+    {
+        return npc->CheckObjectVisibility(best_enemy);
+    }
+
+    return false;
+}
+
+inline bool is_has_enemy_in_current_loopholes_fov(CScriptGameObject* actor, CScriptGameObject* npc)
+{
+    if (!npc)
+    {
+        R_ASSERT2(false, "object was null!");
+        return false;
+    }
+
+    if (npc->GetBestEnemy() && npc->in_smart_cover())
+    {
+        if (npc->in_current_loophole_fov(npc->GetBestEnemy()->Position()))
+            return true;
+    }
+
+    return false;
+}
+
+inline bool is_talking(CScriptGameObject* actor, CScriptGameObject* npc)
+{
+    if (!actor)
+    {
+        R_ASSERT2(false, "object was null!");
+    }
+
+    return actor->IsTalking();
+}
+
+inline bool is_npc_talking(CScriptGameObject* actor, CScriptGameObject* npc)
+{
+    if (!npc)
+    {
+        R_ASSERT2(false, "object was null!");
+        return false;
+    }
+
+    return npc->IsTalking();
+}
+
+inline bool is_see_actor(CScriptGameObject* actor, CScriptGameObject* npc)
+{
+    if (!actor)
+    {
+        R_ASSERT2(false, "object was null!");
+        return false;
+    }
+
+    if (!npc)
+    {
+        R_ASSERT2(false, "object was null!");
+        return false;
+    }
+
+    return (npc->Alive() && npc->CheckObjectVisibility(actor));
+}
+
+// Lord: реализовать когда будет xr_death или что-то
+inline bool is_actor_enemy(CScriptGameObject* actor, CScriptGameObject* npc)
+{
+    if (!actor)
+    {
+        R_ASSERT2(false, "object was null!");
+        return false;
+    }
+
     if (!npc)
     {
         R_ASSERT2(false, "object was null!");
@@ -1714,27 +1883,130 @@ inline bool is_kamp_talk(CSE_ALifeDynamicObject* server_actor, CScriptGameObject
     return false;
 }
 
-inline bool is_used(CScriptGameObject* actor, CScriptGameObject* npc)
+inline bool is_actor_friend(CScriptGameObject* actor, CScriptGameObject* npc)
 {
+    if (!actor)
+    {
+        R_ASSERT2(false, "object was null!");
+        return false;
+    }
+
     if (!npc)
     {
         R_ASSERT2(false, "object was null!");
         return false;
     }
 
-    return npc->IsTalking();
+    return npc->GetRelationType(actor) == ALife::ERelationType::eRelationTypeFriend;
 }
 
-inline bool is_used(CSE_ALifeDynamicObject* server_actor, CScriptGameObject* npc)
+inline bool is_actor_neutral(CScriptGameObject* actor, CScriptGameObject* npc)
 {
+    if (!actor)
+    {
+        R_ASSERT2(false, "object was null!");
+        return false;
+    }
+
     if (!npc)
     {
         R_ASSERT2(false, "object was null!");
         return false;
     }
 
-    return npc->IsTalking();
+    return npc->GetRelationType(actor) == ALife::ERelationType::eRelationTypeNeutral;
 }
+
+inline bool is_factions_enemies(CScriptGameObject* actor, CScriptGameObject* npc, const xr_vector<xr_string>& buffer)
+{
+    if (!actor)
+    {
+        R_ASSERT2(false, "object was null!");
+        return false;
+    }
+
+    if (!buffer.size())
+    {
+        R_ASSERT2(false, "argument list can't be empty!");
+        return false;
+    }
+
+    return Globals::GameRelations::is_factions_enemies(Globals::character_community(actor), buffer[0]);
+}
+
+inline bool is_factions_friends(CScriptGameObject* actor, CScriptGameObject* npc, const xr_vector<xr_string>& buffer)
+{
+    if (!actor)
+    {
+        R_ASSERT2(false, "object was null!");
+        return false;
+    }
+
+    if (!buffer.size())
+    {
+        R_ASSERT2(false, "argument list can't be empty!");
+        return false;
+    }
+
+    return Globals::GameRelations::is_factions_friends(Globals::character_community(actor), buffer[0]);
+}
+
+inline bool is_factions_neutrals(CScriptGameObject* actor, CScriptGameObject* npc, const xr_vector<xr_string>& buffer)
+{
+    if (!actor)
+    {
+        R_ASSERT2(false, "object was null!");
+        return false;
+    }
+
+    if (!buffer.size())
+    {
+        R_ASSERT2(false, "argument list can't be empty!");
+        return false;
+    }
+
+    return !(is_factions_enemies(actor, npc, buffer) || is_factions_friends(actor, npc, buffer));
+}
+
+inline bool is_faction_enemy_to_actor(
+    CScriptGameObject* actor, CScriptGameObject* npc, const xr_vector<xr_string>& buffer)
+{
+    if (!buffer.size())
+    {
+        R_ASSERT2(false, "argument list can't be empty!");
+        return false;
+    }
+
+    return Globals::GameRelations::community_goodwill(
+               buffer[0].c_str(), DataBase::Storage::getInstance().getActor()->ID()) <= Globals::kRelationKoeffEnemy;
+}
+
+inline bool is_faction_enemy_to_actor(
+    CSE_ALifeDynamicObject* server_actor, CSE_ALifeDynamicObject* server_npc, const xr_vector<xr_string>& buffer)
+{
+    if (!buffer.size())
+    {
+        R_ASSERT2(false, "argument list can't be empty!");
+        return false;
+    }
+
+    return Globals::GameRelations::community_goodwill(
+               buffer[0].c_str(), DataBase::Storage::getInstance().getActor()->ID()) <= Globals::kRelationKoeffEnemy;
+}
+
+inline bool is_faction_enemy_to_actor(
+    CScriptGameObject* actor, CSE_ALifeDynamicObject* npc, const xr_vector<xr_string>& buffer)
+{
+    if (!buffer.size())
+    {
+        R_ASSERT2(false, "argument list can't be empty!");
+        return false;
+    }
+
+    return Globals::GameRelations::community_goodwill(
+               buffer[0].c_str(), DataBase::Storage::getInstance().getActor()->ID()) <= Globals::kRelationKoeffEnemy;
+}
+
 
 } // namespace XR_CONDITION
 } // namespace Scripts
