@@ -58,6 +58,10 @@ constexpr std::uint64_t kUnsignedInt64Undefined = std::uint64_t(-1);
 constexpr std::uint32_t kUnsignedInt32Undefined = std::uint32_t(-1);
 constexpr std::uint16_t kUnsignedInt16Undefined = std::uint16_t(-1);
 constexpr std::uint8_t kUnsignedInt8Undefined = std::uint8_t(-1);
+constexpr const char* kStringUndefined = "Undefined";
+constexpr char kPstorBooleanTrue = '+';
+constexpr char kPstorBooleanUndefined = '0';
+constexpr char kPstorBooleanFalse = '-';
 #pragma endregion
 
 namespace XR_ACTIONS_ID
