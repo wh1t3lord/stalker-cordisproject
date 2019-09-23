@@ -1555,7 +1555,6 @@ inline bool is_npc_has_item(CScriptGameObject* actor, CScriptGameObject* npc, co
     return false;
 }
 
-
 inline bool is_signal(CScriptGameObject* actor, CScriptGameObject* npc, const xr_vector<xr_string>& buffer)
 {
     if (!buffer.size())
@@ -2007,6 +2006,175 @@ inline bool is_faction_enemy_to_actor(
                buffer[0].c_str(), DataBase::Storage::getInstance().getActor()->ID()) <= Globals::kRelationKoeffEnemy;
 }
 
+inline bool is_faction_friend_to_actor(
+    CScriptGameObject* actor, CScriptGameObject* npc, const xr_vector<xr_string>& buffer)
+{
+    if (!buffer.size())
+    {
+        R_ASSERT2(false, "argument list can't be empty!");
+        return false;
+    }
+
+    return Globals::GameRelations::community_goodwill(
+               buffer[0].c_str(), DataBase::Storage::getInstance().getActor()->ID()) >= Globals::kRelationKoeffFriend;
+}
+
+inline bool is_faction_friend_to_actor(
+    CSE_ALifeDynamicObject* server_actor, CSE_ALifeDynamicObject* server_npc, const xr_vector<xr_string>& buffer)
+{
+    if (!buffer.size())
+    {
+        R_ASSERT2(false, "argument list can't be empty!");
+        return false;
+    }
+
+    return Globals::GameRelations::community_goodwill(
+               buffer[0].c_str(), DataBase::Storage::getInstance().getActor()->ID()) >= Globals::kRelationKoeffFriend;
+}
+
+inline bool is_faction_friend_to_actor(
+    CScriptGameObject* actor, CSE_ALifeDynamicObject* npc, const xr_vector<xr_string>& buffer)
+{
+    if (!buffer.size())
+    {
+        R_ASSERT2(false, "argument list can't be empty!");
+        return false;
+    }
+
+    return Globals::GameRelations::community_goodwill(
+               buffer[0].c_str(), DataBase::Storage::getInstance().getActor()->ID()) >= Globals::kRelationKoeffFriend;
+}
+
+inline bool is_faction_neutral_to_actor(
+    CScriptGameObject* actor, CScriptGameObject* npc, const xr_vector<xr_string>& buffer)
+{
+    if (!buffer.size())
+    {
+        R_ASSERT2(false, "argument list can't be empty!");
+        return false;
+    }
+
+    return !(is_faction_friend_to_actor(actor, npc, buffer) || is_faction_enemy_to_actor(actor, npc, buffer));
+}
+
+inline bool is_faction_neutral_to_actor(
+    CSE_ALifeDynamicObject* server_actor, CSE_ALifeDynamicObject* server_npc, const xr_vector<xr_string>& buffer)
+{
+    if (!buffer.size())
+    {
+        R_ASSERT2(false, "argument list can't be empty!");
+        return false;
+    }
+
+    return !(is_faction_friend_to_actor(server_actor, server_npc, buffer) ||
+        is_faction_enemy_to_actor(server_actor, server_npc, buffer));
+}
+
+inline bool is_faction_neutral_to_actor(
+    CScriptGameObject* actor, CSE_ALifeDynamicObject* server_npc, const xr_vector<xr_string>& buffer)
+{
+    if (!buffer.size())
+    {
+        R_ASSERT2(false, "argument list can't be empty!");
+        return false;
+    }
+
+    return !(
+        is_faction_friend_to_actor(actor, server_npc, buffer) || is_faction_enemy_to_actor(actor, server_npc, buffer));
+}
+
+inline bool is_squad_friend_to_actor(
+    CScriptGameObject* actor, CScriptGameObject* npc, const xr_vector<xr_string>& buffer)
+{
+    if (!buffer.size())
+    {
+        Msg("[Scripts/XR_CONDITION/is_squad_friend_to_actor(actor, npc, buffer)] WARNING: argument list is empty! "
+            "Returns False.");
+        return false;
+    }
+
+    return Globals::GameRelations::check_all_squad_members(buffer[0], Globals::kRelationsTypeFriends);
+}
+
+inline bool is_squad_friend_to_actor(
+    CSE_ALifeDynamicObject* server_actor, CSE_ALifeDynamicObject* server_npc, const xr_vector<xr_string>& buffer)
+{
+    if (!buffer.size())
+    {
+        Msg("[Scripts/XR_CONDITION/is_squad_friend_to_actor(actor, npc, buffer)] WARNING: argument list is empty! "
+            "Returns False.");
+        return false;
+    }
+
+    return Globals::GameRelations::check_all_squad_members(buffer[0], Globals::kRelationsTypeFriends);
+}
+
+inline bool is_squad_friend_to_actor(
+    CScriptGameObject* actor, CSE_ALifeDynamicObject* server_npc, const xr_vector<xr_string>& buffer)
+{
+    if (!buffer.size())
+    {
+        Msg("[Scripts/XR_CONDITION/is_squad_friend_to_actor(actor, npc, buffer)] WARNING: argument list is empty! "
+            "Returns False.");
+        return false;
+    }
+
+    return Globals::GameRelations::check_all_squad_members(buffer[0], Globals::kRelationsTypeFriends);
+}
+
+inline bool is_squad_enemy_to_actor(
+    CScriptGameObject* actor, CScriptGameObject* npc, const xr_vector<xr_string>& buffer)
+{
+    if (!buffer.size())
+    {
+        R_ASSERT2(false, "argument list is empty!");
+        return false;
+    }
+
+    for (const xr_string& it : buffer)
+    {
+        if (Globals::GameRelations::check_all_squad_members(it, Globals::kRelationsTypeEnemy))
+            return true;
+    }
+
+    return false;
+}
+
+inline bool is_squad_enemy_to_actor(
+    CSE_ALifeDynamicObject* server_actor, CSE_ALifeDynamicObject* server_npc, const xr_vector<xr_string>& buffer)
+{
+    if (!buffer.size())
+    {
+        R_ASSERT2(false, "argument list is empty!");
+        return false;
+    }
+
+    for (const xr_string& it : buffer)
+    {
+        if (Globals::GameRelations::check_all_squad_members(it, Globals::kRelationsTypeEnemy))
+            return true;
+    }
+
+    return false;
+}
+
+inline bool is_squad_enemy_to_actor(
+    CScriptGameObject* actor, CSE_ALifeDynamicObject* server_npc, const xr_vector<xr_string>& buffer)
+{
+    if (!buffer.size())
+    {
+        R_ASSERT2(false, "argument list is empty!");
+        return false;
+    }
+
+    for (const xr_string& it : buffer)
+    {
+        if (Globals::GameRelations::check_all_squad_members(it, Globals::kRelationsTypeEnemy))
+            return true;
+    }
+
+    return false;
+}
 
 } // namespace XR_CONDITION
 } // namespace Scripts
