@@ -2176,6 +2176,45 @@ inline bool is_squad_enemy_to_actor(
     return false;
 }
 
+inline bool is_squad_neutral_to_actor(
+    CScriptGameObject* actor, CScriptGameObject* npc, const xr_vector<xr_string>& buffer)
+{
+    if (!buffer.size())
+    {
+        R_ASSERT2(false, "argument list is empty!");
+        return false;
+    }
+
+    return !(is_squad_friend_to_actor(actor, npc, buffer) || is_squad_enemy_to_actor(actor, npc, buffer));
+}
+
+inline bool is_squad_neutral_to_actor(
+    CSE_ALifeDynamicObject* server_actor, CSE_ALifeDynamicObject* server_npc, const xr_vector<xr_string>& buffer)
+{
+    if (!buffer.size())
+    {
+        R_ASSERT2(false, "argument list is empty!");
+        return false;
+    }
+
+    return !(is_squad_friend_to_actor(server_actor, server_npc, buffer) ||
+        is_squad_enemy_to_actor(server_actor, server_npc, buffer));
+}
+
+inline bool is_squad_neutral_to_actor(
+    CScriptGameObject* actor, CSE_ALifeDynamicObject* server_npc, const xr_vector<xr_string>& buffer)
+{
+    if (!buffer.size())
+    {
+        R_ASSERT2(false, "argument list is empty!");
+        return false;
+    }
+
+    return !(is_squad_friend_to_actor(actor, server_npc, buffer) ||
+        is_squad_enemy_to_actor(actor, server_npc, buffer));
+}
+
+
 } // namespace XR_CONDITION
 } // namespace Scripts
 } // namespace Cordis
