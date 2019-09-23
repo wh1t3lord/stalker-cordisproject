@@ -2354,6 +2354,17 @@ inline bool is_actor_active_detector(
 
     return (active_detector->Section() == buffer[0]);
 }
+// Lord: реализоват когда будет сделан xr_wounded
+inline bool is_heavy_wounded(CScriptGameObject* actor, CScriptGameObject* npc)
+{
+    if (!npc)
+    {
+        R_ASSERT2(false, "object was null!");
+        return false;
+    }
+
+    return false;
+}
 
 } // namespace XR_CONDITION
 } // namespace Scripts
