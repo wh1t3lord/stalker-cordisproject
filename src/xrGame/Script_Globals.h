@@ -536,6 +536,7 @@ inline void map_change_spot_hint(const std::uint16_t& id, LPCSTR spot_type, LPCS
 } // namespace Game
 namespace GameRelations
 {
+inline bool check_all_squad_members(const xr_string& squad_name, const xr_string& goodwill_name);
 
 inline int community_goodwill(LPCSTR community_name, int entity_id)
 {
