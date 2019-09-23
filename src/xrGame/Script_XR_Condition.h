@@ -2210,10 +2210,150 @@ inline bool is_squad_neutral_to_actor(
         return false;
     }
 
-    return !(is_squad_friend_to_actor(actor, server_npc, buffer) ||
-        is_squad_enemy_to_actor(actor, server_npc, buffer));
+    return !(is_squad_friend_to_actor(actor, server_npc, buffer) || is_squad_enemy_to_actor(actor, server_npc, buffer));
 }
 
+inline bool is_fighting_actor(CScriptGameObject* actor, CScriptGameObject* npc)
+{
+    if (!actor)
+    {
+        R_ASSERT2(false, "object was null!");
+        return false;
+    }
+
+    if (!npc)
+    {
+        R_ASSERT2(false, "object was null!");
+        return false;
+    }
+
+    std::uint16_t& enemy_id = DataBase::Storage::getInstance().getStorage()[npc->ID()].m_enemy_id;
+    CScriptGameObject* enemy = DataBase::Storage::getInstance().getStorage()[enemy_id].m_object;
+
+    if (!enemy)
+        return false;
+
+    return (enemy->ID() == actor->ID());
+}
+
+// Lord: когда будет реализовать hit в DataBase реализовать данную функцию
+inline bool is_hit_by_actor(CScriptGameObject* actor, CScriptGameObject* npc)
+{
+    if (!actor)
+    {
+        R_ASSERT2(false, "object was null!");
+        return false;
+    }
+
+    if (!npc)
+    {
+        R_ASSERT2(false, "object was null!");
+        return false;
+    }
+
+    return false;
+}
+
+// Lord: когда будет реализован death в DataBase реализовать данную фунцию
+inline bool is_killed_by_actor(CScriptGameObject* actor, CScriptGameObject* npc)
+{
+    if (!actor)
+    {
+        R_ASSERT2(false, "object was null!");
+        return false;
+    }
+
+    if (!npc)
+    {
+        R_ASSERT2(false, "object was null!");
+        return false;
+    }
+
+    return false;
+}
+
+inline bool is_actor_has_weapon(CScriptGameObject* actor, CScriptGameObject* npc)
+{
+    if (!actor)
+    {
+        R_ASSERT2(false, "object was null!");
+        return false;
+    }
+
+    CScriptGameObject* active_item = actor->GetActiveItem();
+
+    if (!active_item)
+        return false;
+
+    return Globals::IsWeapon(active_item);
+}
+
+inline bool is_actor_has_weapon(CScriptGameObject* actor, CSE_ALifeDynamicObject* server_npc)
+{
+    if (!actor)
+    {
+        R_ASSERT2(false, "object was null!");
+        return false;
+    }
+
+    CScriptGameObject* active_item = actor->GetActiveItem();
+
+    if (!active_item)
+        return false;
+
+    return Globals::IsWeapon(active_item);
+}
+
+inline bool is_actor_active_detector(
+    CScriptGameObject* actor, CScriptGameObject* npc, const xr_vector<xr_string>& buffer)
+{
+    if (!buffer.size())
+    {
+        R_ASSERT2(false, "argument list is empty!");
+        return false;
+    }
+
+    CScriptGameObject* active_detector = DataBase::Storage::getInstance().getActor()->active_detector();
+
+    if (!active_detector)
+        return false;
+
+    return (active_detector->Section() == buffer[0]);
+}
+
+inline bool is_actor_active_detector(
+    CSE_ALifeDynamicObject* server_actor, CSE_ALifeDynamicObject* server_npc, const xr_vector<xr_string>& buffer)
+{
+    if (!buffer.size())
+    {
+        R_ASSERT2(false, "argument list is empty!");
+        return false;
+    }
+
+    CScriptGameObject* active_detector = DataBase::Storage::getInstance().getActor()->active_detector();
+
+    if (!active_detector)
+        return false;
+
+    return (active_detector->Section() == buffer[0]);
+}
+
+inline bool is_actor_active_detector(
+    CScriptGameObject* actor, CSE_ALifeDynamicObject* server_npc, const xr_vector<xr_string>& buffer)
+{
+    if (!buffer.size())
+    {
+        R_ASSERT2(false, "argument list is empty!");
+        return false;
+    }
+
+    CScriptGameObject* active_detector = DataBase::Storage::getInstance().getActor()->active_detector();
+
+    if (!active_detector)
+        return false;
+
+    return (active_detector->Section() == buffer[0]);
+}
 
 } // namespace XR_CONDITION
 } // namespace Scripts
