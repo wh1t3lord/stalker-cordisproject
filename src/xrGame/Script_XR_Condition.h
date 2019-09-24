@@ -2366,6 +2366,311 @@ inline bool is_heavy_wounded(CScriptGameObject* actor, CScriptGameObject* npc)
     return false;
 }
 
+inline bool is_rain(CScriptGameObject* actor, CScriptGameObject* npc)
+{
+    return (DataBase::Storage::getInstance().getActor() && (Globals::Game::level::rain_factor() > 0.0f));
+}
+
+inline bool is_rain(CSE_ALifeDynamicObject* server_actor, CSE_ALifeDynamicObject* server_npc)
+{
+    return (DataBase::Storage::getInstance().getActor() && (Globals::Game::level::rain_factor() > 0.0f));
+}
+
+inline bool is_rain(CScriptGameObject* actor, CSE_ALifeDynamicObject* server_npc)
+{
+    return (DataBase::Storage::getInstance().getActor() && (Globals::Game::level::rain_factor() > 0.0f));
+}
+
+inline bool is_heavy_rain(CScriptGameObject* actor, CScriptGameObject* npc)
+{
+    return (DataBase::Storage::getInstance().getActor() && (Globals::Game::level::rain_factor() > 0.5f));
+}
+
+inline bool is_heavy_rain(CSE_ALifeDynamicObject* server_actor, CSE_ALifeDynamicObject* server_npc)
+{
+    return (DataBase::Storage::getInstance().getActor() && (Globals::Game::level::rain_factor() > 0.5f));
+}
+
+inline bool is_heavy_rain(CScriptGameObject* actor, CSE_ALifeDynamicObject* server_npc)
+{
+    return (DataBase::Storage::getInstance().getActor() && (Globals::Game::level::rain_factor() > 0.5f));
+}
+
+inline bool is_day(CScriptGameObject* actor, CScriptGameObject* npc)
+{
+    return (DataBase::Storage::getInstance().getActor() && (Globals::get_time_hours() >= 6) &&
+        (Globals::get_time_hours() < 21));
+}
+
+inline bool is_day(CSE_ALifeDynamicObject* server_actor, CSE_ALifeDynamicObject* server_npc)
+{
+    return (DataBase::Storage::getInstance().getActor() && (Globals::get_time_hours() >= 6) &&
+        (Globals::get_time_hours() < 21));
+}
+
+inline bool is_day(CScriptGameObject* actor, CSE_ALifeDynamicObject* server_npc)
+{
+    return (DataBase::Storage::getInstance().getActor() && (Globals::get_time_hours() >= 6) &&
+        (Globals::get_time_hours() < 21));
+}
+
+inline bool is_dark_night(CScriptGameObject* actor, CScriptGameObject* npc)
+{
+    return (DataBase::Storage::getInstance().getActor() && (Globals::get_time_hours() < 3) &&
+        (Globals::get_time_hours() > 22));
+}
+
+inline bool is_dark_night(CSE_ALifeDynamicObject* server_actor, CSE_ALifeDynamicObject* server_npc)
+{
+    return (DataBase::Storage::getInstance().getActor() && (Globals::get_time_hours() < 3) &&
+        (Globals::get_time_hours() > 22));
+}
+
+inline bool is_dark_night(CScriptGameObject* actor, CSE_ALifeDynamicObject* server_npc)
+{
+    return (DataBase::Storage::getInstance().getActor() && (Globals::get_time_hours() < 3) &&
+        (Globals::get_time_hours() > 22));
+}
+
+inline bool is_jup_a12_mercs_time(CScriptGameObject* actor, CScriptGameObject* npc)
+{
+    return (DataBase::Storage::getInstance().getActor() && (Globals::get_time_hours() >= 1) &&
+        (Globals::get_time_hours() < 5));
+}
+
+inline bool is_jup_a12_mercs_time(CSE_ALifeDynamicObject* server_actor, CSE_ALifeDynamicObject* server_npc)
+{
+    return (DataBase::Storage::getInstance().getActor() && (Globals::get_time_hours() >= 1) &&
+        (Globals::get_time_hours() < 5));
+}
+
+inline bool is_jup_a12_mercs_time(CScriptGameObject* actor, CSE_ALifeDynamicObject* server_npc)
+{
+    return (DataBase::Storage::getInstance().getActor() && (Globals::get_time_hours() >= 1) &&
+        (Globals::get_time_hours() < 5));
+}
+
+inline bool is_zat_b7_is_night(CScriptGameObject* actor, CScriptGameObject* npc)
+{
+    return (DataBase::Storage::getInstance().getActor() && (Globals::get_time_hours() >= 23) &&
+        (Globals::get_time_hours() < 5));
+}
+
+inline bool is_zat_b7_is_night(CSE_ALifeDynamicObject* server_actor, CSE_ALifeDynamicObject* server_npc)
+{
+    return (DataBase::Storage::getInstance().getActor() && (Globals::get_time_hours() >= 23) &&
+        (Globals::get_time_hours() < 5));
+}
+
+inline bool is_zat_b7_is_night(CScriptGameObject* actor, CSE_ALifeDynamicObject* server_npc)
+{
+    return (DataBase::Storage::getInstance().getActor() && (Globals::get_time_hours() >= 23) &&
+        (Globals::get_time_hours() < 5));
+}
+
+inline bool is_zat_b7_is_late_attack_time(CScriptGameObject* actor, CScriptGameObject* npc)
+{
+    return (DataBase::Storage::getInstance().getActor() && (Globals::get_time_hours() >= 23) &&
+        (Globals::get_time_hours() < 9));
+}
+
+inline bool is_zat_b7_is_late_attack_time(CSE_ALifeDynamicObject* server_actor, CSE_ALifeDynamicObject* server_npc)
+{
+    return (DataBase::Storage::getInstance().getActor() && (Globals::get_time_hours() >= 23) &&
+        (Globals::get_time_hours() < 9));
+}
+
+inline bool is_zat_b7_is_late_attack_time(CScriptGameObject* actor, CSE_ALifeDynamicObject* server_npc)
+{
+    return (DataBase::Storage::getInstance().getActor() && (Globals::get_time_hours() >= 23) &&
+        (Globals::get_time_hours() < 9));
+}
+
+inline bool is_mob_has_enemy(CScriptGameObject* actor, CScriptGameObject* npc)
+{
+    if (!npc)
+    {
+        Msg("[Scripts/XR_CONDITION/is_mob_has_enemy(actor, npc)] WARNING: npc = nullptr! Returns False");
+        return false;
+    }
+
+    return !!(npc->GetEnemy());
+}
+
+inline bool is_mob_was_hit(CScriptGameObject* actor, CScriptGameObject* npc)
+{
+    if (!npc)
+    {
+        Msg("[Scripts/XR_CONDITION/is_mob_was_hit(actor, npc)] WARNING: npc = nullptr! Returns False");
+        return false;
+    }
+
+    CScriptMonsterHitInfo hit_info = npc->GetMonsterHitInfo();
+    if (hit_info.who && hit_info.time)
+    {
+        Msg("[Scripts/XR_CONDITION/is_mob_was_hit(actor, npc)] who [%s] time [%d]", hit_info.who->Name(),
+            hit_info.time);
+        return true;
+    }
+
+    return false;
+}
+
+inline bool is_actor_on_level(CScriptGameObject* actor, CScriptGameObject* npc, const xr_vector<xr_string>& buffer)
+{
+    if (!buffer.size())
+    {
+        R_ASSERT2(false, "argument list can't empty!");
+        return false;
+    }
+
+    for (const xr_string& it : buffer)
+    {
+        if (Globals::Game::level::get_name() == it)
+            return true;
+    }
+
+    return false;
+}
+
+inline bool is_actor_on_level(
+    CSE_ALifeDynamicObject* server_actor, CSE_ALifeDynamicObject* server_npc, const xr_vector<xr_string>& buffer)
+{
+    if (!buffer.size())
+    {
+        R_ASSERT2(false, "argument list can't empty!");
+        return false;
+    }
+
+    for (const xr_string& it : buffer)
+    {
+        if (Globals::Game::level::get_name() == it)
+            return true;
+    }
+
+    return false;
+}
+
+inline bool is_actor_on_level(
+    CScriptGameObject* actor, CSE_ALifeDynamicObject* server_npc, const xr_vector<xr_string>& buffer)
+{
+    if (!buffer.size())
+    {
+        R_ASSERT2(false, "argument list can't empty!");
+        return false;
+    }
+
+    for (const xr_string& it : buffer)
+    {
+        if (Globals::Game::level::get_name() == it)
+            return true;
+    }
+
+    return false;
+}
+
+inline bool is_squad_in_zone(CScriptGameObject* actor, CScriptGameObject* npc, const xr_vector<xr_string>& buffer)
+{
+    if (!buffer.size())
+    {
+        R_ASSERT2(false, "argument list can't be empty!");
+        return false;
+    }
+
+    if (!npc)
+    {
+        R_ASSERT2(false, "object was null!");
+        return false;
+    }
+
+    const xr_string& story_id_name = buffer[0];
+    xr_string zone_name = (buffer.size() >= 2 ? buffer[2] : npc->Name());
+    Script_SE_SimulationSquad* server_squad = Globals::get_story_squad(story_id_name);
+
+    if (!server_squad)
+    {
+        Msg("[Scripts/XR_CONDITION/is_squad_in_zone(actor, npc, buffer)] WARNING: server_squad = nullptr! Returns "
+            "False");
+        return false;
+    }
+
+    CScriptGameObject* client_zone = DataBase::Storage::getInstance().getZoneByName()[zone_name];
+    if (!client_zone)
+    {
+        Msg("[Scripts/XR_CONDITION/is_squad_in_zone(actor, npc, buffer)] WARNING: client_zone = nullptr! Returns "
+            "False");
+        return false;
+    }
+
+    for (AssociativeVector<std::uint16_t, CSE_ALifeMonsterAbstract*>::const_iterator it =
+             server_squad->squad_members().begin();
+         it != server_squad->squad_members().end(); ++it)
+    {
+        Fvector position = (DataBase::Storage::getInstance().getStorage()[it->first].m_object ?
+                DataBase::Storage::getInstance().getStorage()[it->first].m_object->Position() :
+                it->second->Position());
+
+        if (client_zone->inside(position))
+            return true;
+    }
+
+    return false;
+}
+
+inline bool is_squad_in_zone(
+    CScriptGameObject* actor, CSE_ALifeDynamicObject* server_npc, const xr_vector<xr_string>& buffer)
+{
+    if (!buffer.size())
+    {
+        R_ASSERT2(false, "argument list can't be empty!");
+        return false;
+    }
+
+    if (!server_npc)
+    {
+        R_ASSERT2(false, "object was null!");
+        return false;
+    }
+
+    const xr_string& story_id_name = buffer[0];
+    xr_string zone_name = (buffer.size() >= 2 ? buffer[2] : server_npc->name_replace());
+    Script_SE_SimulationSquad* server_squad = Globals::get_story_squad(story_id_name);
+
+    if (!server_squad)
+    {
+        Msg("[Scripts/XR_CONDITION/is_squad_in_zone(actor, npc, buffer)] WARNING: server_squad = nullptr! Returns "
+            "False");
+        return false;
+    }
+
+    CScriptGameObject* client_zone = DataBase::Storage::getInstance().getZoneByName()[zone_name];
+    if (!client_zone)
+    {
+        Msg("[Scripts/XR_CONDITION/is_squad_in_zone(actor, npc, buffer)] WARNING: client_zone = nullptr! Returns "
+            "False");
+        return false;
+    }
+
+    for (AssociativeVector<std::uint16_t, CSE_ALifeMonsterAbstract*>::const_iterator it =
+             server_squad->squad_members().begin();
+         it != server_squad->squad_members().end(); ++it)
+    {
+        Fvector position = (DataBase::Storage::getInstance().getStorage()[it->first].m_object ?
+                DataBase::Storage::getInstance().getStorage()[it->first].m_object->Position() :
+                it->second->Position());
+
+        if (client_zone->inside(position))
+            return true;
+    }
+
+    return false;
+}
+
+// Lord: доделать!!!!!!!!
+inline bool is_squad_has_enemy(CScriptGameObject* actor, CScriptGameObject* npc, const xr_vector<xr_string>& buffer) {
+    return false;
+}
+
 } // namespace XR_CONDITION
 } // namespace Scripts
 } // namespace Cordis

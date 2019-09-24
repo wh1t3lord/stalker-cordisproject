@@ -15,6 +15,7 @@
 #include "xrServer_Objects_ALife_All.h"
 #include "xrServer_Objects_Alife_Smartcovers.h"
 #include "script_movement_action.h"
+#include "script_monster_hit_info.h"
 #include "xr_time.h"
 #include <random>
 #include "Script_GlobalDefinitions.h"
@@ -485,6 +486,8 @@ inline std::uint32_t time_global(void) noexcept { return Device.dwTimeGlobal; }
 
 namespace level
 {
+inline float rain_factor(void) { return (g_pGamePersistent->Environment().CurrentEnv->rain_density); }
+
 inline CScriptGameObject* get_object_by_id(u16 id)
 {
     CGameObject* pGameObject = smart_cast<CGameObject*>(Level().Objects.net_Find(id));
@@ -698,6 +701,7 @@ inline bool is_factions_friends(const xr_string& faction, const xr_string& facti
 } // namespace GameRelations
 
 inline std::uint16_t get_story_object_id(const xr_string& object_id_name);
+inline Script_SE_SimulationSquad* get_story_squad(const xr_string& object_id_name);
 inline bool is_npc_in_actor_frustrum(CScriptGameObject* npc);
 inline bool is_npc_in_actor_frustrum(CSE_ALifeDynamicObject* server_npc);
 
@@ -721,7 +725,7 @@ inline bool IsMonster(CScriptGameObject* object, int class_id);
 inline bool IsStalker(CScriptGameObject* object, int class_id);
 inline bool IsStalker(CSE_ALifeDynamicObject* server_object, int class_id);
 inline bool IsArtefact(CScriptGameObject* object, int class_id);
-inline bool IsWeapon(CScriptGameObject* object, int class_id);
+inline bool IsWeapon(CScriptGameObject* object, int class_id = 0);
 inline xr_string character_community(CScriptGameObject* object);
 inline void change_team_squad_group(CSE_ALifeDynamicObject* server_object, const std::uint8_t& team,
     const std::uint8_t& group, const std::uint8_t& squad);
