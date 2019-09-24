@@ -165,7 +165,7 @@ float low_cover_in_direction(u32 level_vertex_id, const Fvector& direction)
     return (ai().level_graph().low_cover_in_direction(y, level_vertex_id));
 }
 
-float rain_factor() { return (g_pGamePersistent->Environment().CurrentEnv->rain_density); }
+
 
 
 

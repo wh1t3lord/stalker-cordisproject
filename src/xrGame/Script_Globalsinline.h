@@ -13,57 +13,60 @@ namespace Globals
 {
 namespace GameRelations
 {
-    inline bool check_all_squad_members(const xr_string& squad_name, const xr_string& goodwill_name) {
-        if (!squad_name.size())
-        {
-            R_ASSERT2(false, "string can't be empty!");
-            return false;
-        }
-
-        if (!goodwill_name.size())
-        {
-            R_ASSERT2(false, "string can't be empty!");
-            return false;
-        }
-
-        Script_SE_SimulationSquad* squad =
-            ai().alife().objects().object(get_story_object_id(squad_name))->cast_script_se_simulationsquad();
-        if (squad && DataBase::Storage::getInstance().getActor())
-        {
-            for (AssociativeVector<std::uint16_t, CSE_ALifeMonsterAbstract*>::const_iterator it =
-                     squad->squad_members().begin();
-                 it != squad->squad_members().end(); ++it)
-            {
-                bool is_goodwill = false;
-                CScriptGameObject* object = DataBase::Storage::getInstance().getStorage()[it->first].m_object;
-                if (goodwill_name == Globals::kRelationsTypeEnemy)
-                {
-                    if (object)
-                    {
-                        Msg("[Scripts/Globals/GameRelations/check_all_squad_members(squad_name, goodwill_name)] a "
-                            "member [%d] is an enemy",
-                            it->first);
-                        is_goodwill = (object->GetAttitude(DataBase::Storage::getInstance().getActor()) <= Globals::kRelationKoeffEnemy);
-                    }
-                }
-                else
-                {
-                    if (object)
-                    {
-                        Msg("[Scripts/Globals/GameRelations/check_all_squad_members(squad_name, goodwill_name)] a "
-                            "member [%d] is a friend",
-                            it->first);
-                        is_goodwill = (object->GetAttitude(DataBase::Storage::getInstance().getActor()) >= Globals::kRelationKoeffFriend);
-                    }
-                }
-
-                if (is_goodwill)
-                    return true;
-            }
-        }
-
+inline bool check_all_squad_members(const xr_string& squad_name, const xr_string& goodwill_name)
+{
+    if (!squad_name.size())
+    {
+        R_ASSERT2(false, "string can't be empty!");
         return false;
     }
+
+    if (!goodwill_name.size())
+    {
+        R_ASSERT2(false, "string can't be empty!");
+        return false;
+    }
+
+    Script_SE_SimulationSquad* squad =
+        ai().alife().objects().object(get_story_object_id(squad_name))->cast_script_se_simulationsquad();
+    if (squad && DataBase::Storage::getInstance().getActor())
+    {
+        for (AssociativeVector<std::uint16_t, CSE_ALifeMonsterAbstract*>::const_iterator it =
+                 squad->squad_members().begin();
+             it != squad->squad_members().end(); ++it)
+        {
+            bool is_goodwill = false;
+            CScriptGameObject* object = DataBase::Storage::getInstance().getStorage()[it->first].m_object;
+            if (goodwill_name == Globals::kRelationsTypeEnemy)
+            {
+                if (object)
+                {
+                    Msg("[Scripts/Globals/GameRelations/check_all_squad_members(squad_name, goodwill_name)] a "
+                        "member [%d] is an enemy",
+                        it->first);
+                    is_goodwill = (object->GetAttitude(DataBase::Storage::getInstance().getActor()) <=
+                        Globals::kRelationKoeffEnemy);
+                }
+            }
+            else
+            {
+                if (object)
+                {
+                    Msg("[Scripts/Globals/GameRelations/check_all_squad_members(squad_name, goodwill_name)] a "
+                        "member [%d] is a friend",
+                        it->first);
+                    is_goodwill = (object->GetAttitude(DataBase::Storage::getInstance().getActor()) >=
+                        Globals::kRelationKoeffFriend);
+                }
+            }
+
+            if (is_goodwill)
+                return true;
+        }
+    }
+
+    return false;
+}
 } // namespace GameRelations
 
 inline std::uint32_t vertex_in_direction(
@@ -120,6 +123,23 @@ inline std::uint16_t get_story_object_id(const xr_string& object_id_name)
     }
 
     return Script_StoryObject::getInstance().get(object_id_name);
+}
+
+Script_SE_SimulationSquad* get_story_squad(const xr_string& object_id_name)
+{
+    if (!object_id_name.size())
+    {
+        R_ASSERT2(false, "string can't be empty!");
+        return nullptr;
+    }
+
+    Script_SE_SimulationSquad* server_object = nullptr;
+
+    const std::uint16_t& squad_id = get_story_object_id(object_id_name);
+
+    server_object = ai().alife().objects().object(squad_id)->cast_script_se_simulationsquad();
+
+    return server_object;
 }
 
 inline bool is_npc_in_actor_frustrum(CScriptGameObject* npc)
@@ -381,7 +401,7 @@ inline bool IsArtefact(CScriptGameObject* object, int class_id = 0)
     return (Script_GlobalHelper::getInstance().getArtefactClasses()[class_id] == true);
 }
 
-inline bool IsWeapon(CScriptGameObject* object, int class_id = 0)
+inline bool IsWeapon(CScriptGameObject* object, int class_id)
 {
     if (!object)
     {
