@@ -125,7 +125,7 @@ inline std::uint16_t get_story_object_id(const xr_string& object_id_name)
     return Script_StoryObject::getInstance().get(object_id_name);
 }
 
-Script_SE_SimulationSquad* get_story_squad(const xr_string& object_id_name)
+inline Script_SE_SimulationSquad* get_story_squad(const xr_string& object_id_name)
 {
     if (!object_id_name.size())
     {
@@ -140,6 +140,23 @@ Script_SE_SimulationSquad* get_story_squad(const xr_string& object_id_name)
     server_object = ai().alife().objects().object(squad_id)->cast_script_se_simulationsquad();
 
     return server_object;
+}
+
+inline Script_SE_SimulationSquad* get_object_squad(const std::uint16_t& object_id)
+{
+    CSE_ALifeDynamicObject* server_object = ai().alife().objects().object(object_id);
+
+    if (server_object)
+    {
+        if (server_object->cast_monster_abstract()->m_group_id != Globals::kUnsignedInt16Undefined)
+            return ai()
+                .alife()
+                .objects()
+                .object(server_object->cast_monster_abstract()->m_group_id)
+                ->cast_script_se_simulationsquad();
+    }
+
+    return nullptr;
 }
 
 inline bool is_npc_in_actor_frustrum(CScriptGameObject* npc)
@@ -362,7 +379,7 @@ inline bool IsMonster(CScriptGameObject* object, int class_id = 0)
     return (Script_GlobalHelper::getInstance().getMonsterClasses()[result] == true);
 }
 
-bool IsMonster(CSE_ALifeDynamicObject* server_object, int class_id)
+inline bool IsMonster(CSE_ALifeDynamicObject* server_object, int class_id = 0)
 {
     if (!server_object)
     {
