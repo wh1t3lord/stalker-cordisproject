@@ -2962,21 +2962,24 @@ inline bool is_squads_in_zone_b41(CScriptGameObject* actor, CScriptGameObject* n
     return true;
 }
 
-inline bool is_squads_in_zone_b41(CSE_ALifeDynamicObject* server_actor, CSE_ALifeDynamicObject* server_npc, const xr_vector<xr_string>& buffer)
+inline bool is_squads_in_zone_b41(
+    CSE_ALifeDynamicObject* server_actor, CSE_ALifeDynamicObject* server_npc, const xr_vector<xr_string>& buffer)
 {
     Script_SE_SmartTerrain* server_smart = Script_SimulationBoard::getInstance().getSmartTerrainsByName()["jup_b41"];
     CScriptGameObject* client_zone = DataBase::Storage::getInstance().getZoneByName()["jup_b41_sr_light"];
 
     if (!client_zone)
     {
-        Msg("[Scripts/XR_CONDITION/is_squads_in_zone_b41(server_actor, server_npc, buffer)] WARNING: client_zone = nullptr! Returns "
+        Msg("[Scripts/XR_CONDITION/is_squads_in_zone_b41(server_actor, server_npc, buffer)] WARNING: client_zone = "
+            "nullptr! Returns "
             "False");
         return false;
     }
 
     if (!server_smart)
     {
-        Msg("[Scripts/XR_CONDITION/is_squads_in_zone_b41(server_actor, server_npc, buffer)] WARNING: server_smart = nullptr! Returns "
+        Msg("[Scripts/XR_CONDITION/is_squads_in_zone_b41(server_actor, server_npc, buffer)] WARNING: server_smart = "
+            "nullptr! Returns "
             "False");
         return false;
     }
@@ -3002,21 +3005,24 @@ inline bool is_squads_in_zone_b41(CSE_ALifeDynamicObject* server_actor, CSE_ALif
     return true;
 }
 
-inline bool is_squads_in_zone_b41(CScriptGameObject* actor, CSE_ALifeDynamicObject* server_npc, const xr_vector<xr_string>& buffer)
+inline bool is_squads_in_zone_b41(
+    CScriptGameObject* actor, CSE_ALifeDynamicObject* server_npc, const xr_vector<xr_string>& buffer)
 {
     Script_SE_SmartTerrain* server_smart = Script_SimulationBoard::getInstance().getSmartTerrainsByName()["jup_b41"];
     CScriptGameObject* client_zone = DataBase::Storage::getInstance().getZoneByName()["jup_b41_sr_light"];
 
     if (!client_zone)
     {
-        Msg("[Scripts/XR_CONDITION/is_squads_in_zone_b41(server_actor, server_npc, buffer)] WARNING: client_zone = nullptr! Returns "
+        Msg("[Scripts/XR_CONDITION/is_squads_in_zone_b41(server_actor, server_npc, buffer)] WARNING: client_zone = "
+            "nullptr! Returns "
             "False");
         return false;
     }
 
     if (!server_smart)
     {
-        Msg("[Scripts/XR_CONDITION/is_squads_in_zone_b41(server_actor, server_npc, buffer)] WARNING: server_smart = nullptr! Returns "
+        Msg("[Scripts/XR_CONDITION/is_squads_in_zone_b41(server_actor, server_npc, buffer)] WARNING: server_smart = "
+            "nullptr! Returns "
             "False");
         return false;
     }
@@ -3042,6 +3048,26 @@ inline bool is_squads_in_zone_b41(CScriptGameObject* actor, CSE_ALifeDynamicObje
     return true;
 }
 
+inline bool is_target_squad_name(
+    CScriptGameObject* actor, CSE_ALifeDynamicObject* server_npc, const xr_vector<xr_string>& buffer)
+{
+    if (!buffer.size())
+    {
+        R_ASSERT2(false, "argument list can't be empty!");
+        return false;
+    }
+
+    if (!server_npc)
+    {
+        R_ASSERT2(false, "object was null!");
+        return false;
+    }
+
+    if (Globals::IsStalker(server_npc) || Globals::IsMonster(server_npc))
+    {
+    
+    }
+}
 
 } // namespace XR_CONDITION
 } // namespace Scripts

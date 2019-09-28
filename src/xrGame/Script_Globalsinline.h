@@ -362,6 +362,19 @@ inline bool IsMonster(CScriptGameObject* object, int class_id = 0)
     return (Script_GlobalHelper::getInstance().getMonsterClasses()[result] == true);
 }
 
+bool IsMonster(CSE_ALifeDynamicObject* server_object, int class_id)
+{
+    if (!server_object)
+    {
+        R_ASSERT2(false, "object was null!");
+        return false;
+    }
+
+    int result = class_id ? class_id : server_object->m_script_clsid;
+
+    return (Script_GlobalHelper::getInstance().getMonsterClasses()[result] == true);
+}
+
 inline bool IsStalker(CScriptGameObject* object, int class_id = 0)
 {
     if (!object)
@@ -372,7 +385,7 @@ inline bool IsStalker(CScriptGameObject* object, int class_id = 0)
 
     int result = class_id ? class_id : object->clsid();
 
-    return (Script_GlobalHelper::getInstance().getStalkerClasses()[class_id] == true);
+    return (Script_GlobalHelper::getInstance().getStalkerClasses()[result] == true);
 }
 
 inline bool IsStalker(CSE_ALifeDynamicObject* server_object, int class_id = 0)
@@ -385,7 +398,7 @@ inline bool IsStalker(CSE_ALifeDynamicObject* server_object, int class_id = 0)
 
     int result = class_id ? class_id : server_object->m_script_clsid;
 
-    return (Script_GlobalHelper::getInstance().getStalkerClasses()[class_id] == true);
+    return (Script_GlobalHelper::getInstance().getStalkerClasses()[result] == true);
 }
 
 inline bool IsArtefact(CScriptGameObject* object, int class_id = 0)
@@ -398,7 +411,7 @@ inline bool IsArtefact(CScriptGameObject* object, int class_id = 0)
 
     int result = class_id ? class_id : object->clsid();
 
-    return (Script_GlobalHelper::getInstance().getArtefactClasses()[class_id] == true);
+    return (Script_GlobalHelper::getInstance().getArtefactClasses()[result] == true);
 }
 
 inline bool IsWeapon(CScriptGameObject* object, int class_id)
@@ -411,7 +424,7 @@ inline bool IsWeapon(CScriptGameObject* object, int class_id)
 
     int result = class_id ? class_id : object->clsid();
 
-    return (Script_GlobalHelper::getInstance().getWeaponClasses()[class_id] == true);
+    return (Script_GlobalHelper::getInstance().getWeaponClasses()[result] == true);
 }
 
 inline xr_string character_community(CScriptGameObject* object)

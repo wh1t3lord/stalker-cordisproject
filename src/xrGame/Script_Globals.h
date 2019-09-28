@@ -722,6 +722,7 @@ inline bool has_alife_info(LPCSTR info_id);
 inline int get_general_goodwill_between(const std::uint16_t& from, const std::uint16_t& to);
 inline bool check_squad_for_enemies(CSE_ALifeOnlineOfflineGroup* squad);
 inline bool IsMonster(CScriptGameObject* object, int class_id);
+inline bool IsMonster(CSE_ALifeDynamicObject* server_object, int class_id);
 inline bool IsStalker(CScriptGameObject* object, int class_id);
 inline bool IsStalker(CSE_ALifeDynamicObject* server_object, int class_id);
 inline bool IsArtefact(CScriptGameObject* object, int class_id);
