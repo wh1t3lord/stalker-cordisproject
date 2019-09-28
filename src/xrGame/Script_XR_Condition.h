@@ -3063,10 +3063,124 @@ inline bool is_target_squad_name(
         return false;
     }
 
-    if (Globals::IsStalker(server_npc) || Globals::IsMonster(server_npc))
+    if (Globals::IsStalker(server_npc, 0) || Globals::IsMonster(server_npc, 0))
     {
-    
+        if (!ai().alife().objects().object(server_npc->cast_monster_abstract()->m_group_id))
+            return false;
+
+        if (buffer[0].find(ai().alife().objects().object(server_npc->cast_monster_abstract()->m_group_id)->name()))
+            return true;
     }
+
+    return (buffer[0] == server_npc->name());
+}
+
+inline bool is_target_squad_name(
+    CSE_ALifeDynamicObject* server_actor, CSE_ALifeDynamicObject* server_npc, const xr_vector<xr_string>& buffer)
+{
+    if (!buffer.size())
+    {
+        R_ASSERT2(false, "argument list can't be empty!");
+        return false;
+    }
+
+    if (!server_npc)
+    {
+        R_ASSERT2(false, "object was null!");
+        return false;
+    }
+
+    if (Globals::IsStalker(server_npc, 0) || Globals::IsMonster(server_npc, 0))
+    {
+        if (!ai().alife().objects().object(server_npc->cast_monster_abstract()->m_group_id))
+            return false;
+
+        if (buffer[0].find(ai().alife().objects().object(server_npc->cast_monster_abstract()->m_group_id)->name()))
+            return true;
+    }
+
+    return (buffer[0] == server_npc->name());
+}
+
+inline bool is_target_smart_name(CScriptGameObject* actor, CScriptGameObject* smart, const xr_vector<xr_string>& buffer)
+{
+    if (!buffer.size())
+    {
+        R_ASSERT2(false, "argument list can't be empty!");
+        return false;
+    }
+
+    if (!smart)
+    {
+        R_ASSERT2(false, "object was null!");
+        return false;
+    }
+
+    return (buffer[0] == smart->Name());
+}
+
+inline bool is_squad_exist(CScriptGameObject* actor, CScriptGameObject* npc, const xr_vector<xr_string>& buffer)
+{
+    if (!buffer.size())
+    {
+        R_ASSERT2(false, "argument list can't be empty!");
+        return false;
+    }
+
+    const xr_string& story_id_name = buffer[0];
+
+    Script_SE_SimulationSquad* squad = Globals::get_story_squad(story_id_name);
+
+    return (!!squad);
+}
+
+inline bool is_squad_exist(
+    CSE_ALifeDynamicObject* server_actor, CSE_ALifeDynamicObject* server_npc, const xr_vector<xr_string>& buffer)
+{
+    if (!buffer.size())
+    {
+        R_ASSERT2(false, "argument list can't be empty!");
+        return false;
+    }
+
+    const xr_string& story_id_name = buffer[0];
+
+    Script_SE_SimulationSquad* squad = Globals::get_story_squad(story_id_name);
+
+    return (!!squad);
+}
+
+inline bool is_squad_exist(
+    CScriptGameObject* actor, CSE_ALifeDynamicObject* server_npc, const xr_vector<xr_string>& buffer)
+{
+    if (!buffer.size())
+    {
+        R_ASSERT2(false, "argument list can't be empty!");
+        return false;
+    }
+
+    const xr_string& story_id_name = buffer[0];
+
+    Script_SE_SimulationSquad* squad = Globals::get_story_squad(story_id_name);
+
+    return (!!squad);
+}
+
+inline bool is_squad_commander(CScriptGameObject* actor, CScriptGameObject* npc)
+{
+    if (!npc)
+    {
+        R_ASSERT2(false, "object was null!");
+        return false;
+    }
+
+    Script_SE_SimulationSquad* squad = Globals::get_object_squad(npc->ID());
+
+    if (squad)
+        if (squad->commander_id() == npc->ID())
+            return true;
+
+    return false;
 }
 
 } // namespace XR_CONDITION
