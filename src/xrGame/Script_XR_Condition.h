@@ -3183,6 +3183,40 @@ inline bool is_squad_commander(CScriptGameObject* actor, CScriptGameObject* npc)
     return false;
 }
 
+inline bool is_squad_commander(CSE_ALifeDynamicObject* server_actor, CSE_ALifeDynamicObject* server_npc)
+{
+    if (!server_npc)
+    {
+        R_ASSERT2(false, "object was null!");
+        return false;
+    }
+
+    Script_SE_SimulationSquad* squad = Globals::get_object_squad(server_npc->ID);
+
+    if (squad)
+        if (squad->commander_id() == server_npc->ID)
+            return true;
+
+    return false;
+}
+
+inline bool is_squad_commander(CScriptGameObject* actor, CSE_ALifeDynamicObject* server_npc)
+{
+    if (!server_npc)
+    {
+        R_ASSERT2(false, "object was null!");
+        return false;
+    }
+
+    Script_SE_SimulationSquad* squad = Globals::get_object_squad(server_npc->ID);
+
+    if (squad)
+        if (squad->commander_id() == server_npc->ID)
+            return true;
+
+    return false;
+}
+
 } // namespace XR_CONDITION
 } // namespace Scripts
 } // namespace Cordis
