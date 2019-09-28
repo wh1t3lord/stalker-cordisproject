@@ -2667,7 +2667,120 @@ inline bool is_squad_in_zone(
 }
 
 // Lord: доделать!!!!!!!!
-inline bool is_squad_has_enemy(CScriptGameObject* actor, CScriptGameObject* npc, const xr_vector<xr_string>& buffer) {
+inline bool is_squad_has_enemy(CScriptGameObject* actor, CScriptGameObject* npc, const xr_vector<xr_string>& buffer)
+{
+    if (!buffer.size())
+    {
+        R_ASSERT2(false, "argument list can't empty!");
+        return false;
+    }
+
+    const xr_string& story_id_name = buffer[0];
+
+    Script_SE_SimulationSquad* server_squad = Globals::get_story_squad(story_id_name);
+
+    if (!server_squad)
+    {
+        Msg("[Scripts/XR_CONDITION/is_squad_has_enemy(actor, npc, buffer)] WARNING: server_squad = nullptr! Returns "
+            "False.");
+        return false;
+    }
+
+    for (AssociativeVector<std::uint16_t, CSE_ALifeMonsterAbstract*>::const_iterator it =
+             server_squad->squad_members().begin();
+         it != server_squad->squad_members().end(); ++it)
+    {
+        CScriptGameObject* client_object = Globals::Game::level::get_object_by_id(it->second->ID);
+
+        if (!client_object)
+        {
+            Msg("[Scripts/XR_CONDITION/is_squad_has_enemy(actor, npc, buffer)] WARNING: client_object = nullptr! "
+                "Returns False");
+            return false;
+        }
+
+        if (client_object->GetBestEnemy())
+            return true;
+    }
+
+    return false;
+}
+
+inline bool is_squad_has_enemy(CSE_ALifeDynamicObject* server_actor, CSE_ALifeDynamicObject* server_npc, const xr_vector<xr_string>& buffer)
+{
+    if (!buffer.size())
+    {
+        R_ASSERT2(false, "argument list can't empty!");
+        return false;
+    }
+
+    const xr_string& story_id_name = buffer[0];
+
+    Script_SE_SimulationSquad* server_squad = Globals::get_story_squad(story_id_name);
+
+    if (!server_squad)
+    {
+        Msg("[Scripts/XR_CONDITION/is_squad_has_enemy(server_actor, server_npc, buffer)] WARNING: server_squad = nullptr! Returns "
+            "False.");
+        return false;
+    }
+
+    for (AssociativeVector<std::uint16_t, CSE_ALifeMonsterAbstract*>::const_iterator it =
+             server_squad->squad_members().begin();
+         it != server_squad->squad_members().end(); ++it)
+    {
+        CScriptGameObject* client_object = Globals::Game::level::get_object_by_id(it->second->ID);
+
+        if (!client_object)
+        {
+            Msg("[Scripts/XR_CONDITION/is_squad_has_enemy(server_actor, server_npc, buffer)] WARNING: client_object = nullptr! "
+                "Returns False");
+            return false;
+        }
+
+        if (client_object->GetBestEnemy())
+            return true;
+    }
+
+    return false;
+}
+
+inline bool is_squad_has_enemy(CScriptGameObject* actor, CSE_ALifeDynamicObject* server_npc, const xr_vector<xr_string>& buffer)
+{
+    if (!buffer.size())
+    {
+        R_ASSERT2(false, "argument list can't empty!");
+        return false;
+    }
+
+    const xr_string& story_id_name = buffer[0];
+
+    Script_SE_SimulationSquad* server_squad = Globals::get_story_squad(story_id_name);
+
+    if (!server_squad)
+    {
+        Msg("[Scripts/XR_CONDITION/is_squad_has_enemy(actor, server_npc, buffer)] WARNING: server_squad = nullptr! Returns "
+            "False.");
+        return false;
+    }
+
+    for (AssociativeVector<std::uint16_t, CSE_ALifeMonsterAbstract*>::const_iterator it =
+             server_squad->squad_members().begin();
+         it != server_squad->squad_members().end(); ++it)
+    {
+        CScriptGameObject* client_object = Globals::Game::level::get_object_by_id(it->second->ID);
+
+        if (!client_object)
+        {
+            Msg("[Scripts/XR_CONDITION/is_squad_has_enemy(actor, server_npc, buffer)] WARNING: client_object = nullptr! "
+                "Returns False");
+            return false;
+        }
+
+        if (client_object->GetBestEnemy())
+            return true;
+    }
+
     return false;
 }
 
