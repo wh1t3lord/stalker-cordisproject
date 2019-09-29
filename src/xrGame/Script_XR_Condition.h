@@ -12,6 +12,10 @@ namespace XR_CONDITION
 {
 inline bool is_surge_started(void) { return Script_SurgeManager::getInstance().IsStarted(); }
 
+inline bool is_surge_complete(void) { return Script_SurgeManager::getInstance().IsFinished(); }
+
+inline bool is_surge_kill_all(void) { return Script_SurgeManager::getInstance().IsKillingAll(); }
+
 inline bool is_enemy_actor(CScriptGameObject* enemy, CScriptGameObject* object)
 {
     if (!enemy)
@@ -3213,6 +3217,173 @@ inline bool is_squad_commander(CScriptGameObject* actor, CSE_ALifeDynamicObject*
     if (squad)
         if (squad->commander_id() == server_npc->ID)
             return true;
+
+    return false;
+}
+
+inline bool is_squad_npc_count_ge(CScriptGameObject* actor, CScriptGameObject* npc, const xr_vector<xr_string>& buffer)
+{
+    if (!buffer.size())
+    {
+        R_ASSERT2(false, "argument list can't empty!");
+        return false;
+    }
+
+    const xr_string& story_id_name = buffer[0];
+    int argument_value = atoi(buffer[1].c_str());
+
+    Script_SE_SimulationSquad* squad = Globals::get_story_squad(story_id_name);
+
+    if (squad)
+    {
+        return (squad->npc_count() > argument_value);
+    }
+
+    return false;
+}
+
+inline bool is_squad_npc_count_ge(
+    CSE_ALifeDynamicObject* server_actor, CSE_ALifeDynamicObject* server_npc, const xr_vector<xr_string>& buffer)
+{
+    if (!buffer.size())
+    {
+        R_ASSERT2(false, "argument list can't empty!");
+        return false;
+    }
+
+    const xr_string& story_id_name = buffer[0];
+    int argument_value = atoi(buffer[1].c_str());
+
+    Script_SE_SimulationSquad* squad = Globals::get_story_squad(story_id_name);
+
+    if (squad)
+    {
+        return (squad->npc_count() > argument_value);
+    }
+
+    return false;
+}
+
+inline bool is_squad_npc_count_ge(
+    CScriptGameObject* actor, CSE_ALifeDynamicObject* server_npc, const xr_vector<xr_string>& buffer)
+{
+    if (!buffer.size())
+    {
+        R_ASSERT2(false, "argument list can't empty!");
+        return false;
+    }
+
+    const xr_string& story_id_name = buffer[0];
+    int argument_value = atoi(buffer[1].c_str());
+
+    Script_SE_SimulationSquad* squad = Globals::get_story_squad(story_id_name);
+
+    if (squad)
+    {
+        return (squad->npc_count() > argument_value);
+    }
+
+    return false;
+}
+
+inline bool is_quest_npc_enemy_actor(
+    CScriptGameObject* actor, CScriptGameObject* npc, const xr_vector<xr_string>& buffer)
+{
+    if (!buffer.size())
+    {
+        R_ASSERT2(false, "object was null!");
+        return false;
+    }
+
+    const xr_string& story_id_name = buffer[0];
+    CScriptGameObject* object = Globals::get_story_object(story_id_name);
+
+    if (!object)
+    {
+        Msg("[Scripts/XR_CONDITION/is_quest_npc_enemy_actor(actor, npc, buffer)] WARNING: object = nullptr! Returns "
+            "False");
+    }
+    else
+    {
+        if (Globals::IsStalker(object, 0))
+        {
+            if (DataBase::Storage::getInstance().getActor())
+            {
+                if (object->GetAttitude(DataBase::Storage::getInstance().getActor()) <= Globals::kRelationKoeffEnemy)
+                {
+                    return true;
+                }
+            }
+        }
+    }
+
+    return false;
+}
+
+inline bool is_quest_npc_enemy_actor(
+    CSE_ALifeDynamicObject* server_actor, CSE_ALifeDynamicObject* server_npc, const xr_vector<xr_string>& buffer)
+{
+    if (!buffer.size())
+    {
+        R_ASSERT2(false, "object was null!");
+        return false;
+    }
+
+    const xr_string& story_id_name = buffer[0];
+    CScriptGameObject* object = Globals::get_story_object(story_id_name);
+
+    if (!object)
+    {
+        Msg("[Scripts/XR_CONDITION/is_quest_npc_enemy_actor(server_actor, server_npc, buffer)] WARNING: object = nullptr! Returns "
+            "False");
+    }
+    else
+    {
+        if (Globals::IsStalker(object, 0))
+        {
+            if (DataBase::Storage::getInstance().getActor())
+            {
+                if (object->GetAttitude(DataBase::Storage::getInstance().getActor()) <= Globals::kRelationKoeffEnemy)
+                {
+                    return true;
+                }
+            }
+        }
+    }
+
+    return false;
+}
+
+inline bool is_quest_npc_enemy_actor(
+    CScriptGameObject* actor, CSE_ALifeDynamicObject* server_npc, const xr_vector<xr_string>& buffer)
+{
+    if (!buffer.size())
+    {
+        R_ASSERT2(false, "object was null!");
+        return false;
+    }
+
+    const xr_string& story_id_name = buffer[0];
+    CScriptGameObject* object = Globals::get_story_object(story_id_name);
+
+    if (!object)
+    {
+        Msg("[Scripts/XR_CONDITION/is_quest_npc_enemy_actor(actor, server_npc, buffer)] WARNING: object = nullptr! Returns "
+            "False");
+    }
+    else
+    {
+        if (Globals::IsStalker(object, 0))
+        {
+            if (DataBase::Storage::getInstance().getActor())
+            {
+                if (object->GetAttitude(DataBase::Storage::getInstance().getActor()) <= Globals::kRelationKoeffEnemy)
+                {
+                    return true;
+                }
+            }
+        }
+    }
 
     return false;
 }

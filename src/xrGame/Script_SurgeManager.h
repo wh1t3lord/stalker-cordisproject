@@ -4,7 +4,7 @@ namespace Cordis
 {
 namespace Scripts
 {
-    // Lord: доделать данный manager
+    // Lord: доделать данный manager, и переписать некторые значения под code style!
 class Script_SurgeManager
 {
 private:
@@ -33,6 +33,7 @@ public:
 
     inline bool IsStarted(void) const noexcept { return this->m_started; }
     inline bool IsFinished(void) const noexcept { return this->m_finished; }
+    inline bool IsKillingAll(void) const noexcept { return (this->m_ui_disabled && this->m_started); }
 
 private:
     bool m_started;
