@@ -1475,6 +1475,7 @@ $(xrLibDir);$(xrSdkDir)DXSDK/Lib/$(PlatformShortName);
     <ClInclude Include="script_action_wrapper_inline.h" />
     <ClInclude Include="script_animation_action.h" />
     <ClInclude Include="script_animation_action_inline.h" />
+    <ClInclude Include="Script_Animpoint.h" />
     <ClInclude Include="script_binder.h" />
     <ClInclude Include="script_binder_inline.h" />
     <ClInclude Include="script_binder_object.h" />
@@ -3478,6 +3479,7 @@ $(xrLibDir);$(xrSdkDir)DXSDK/Lib/$(PlatformShortName);
       <PrecompiledHeaderFile>pch_script.h</PrecompiledHeaderFile>
       <PrecompiledHeaderOutputFile>$(IntDir)$(ProjectName)_script.pch</PrecompiledHeaderOutputFile>
     </ClCompile>
+    <ClCompile Include="Script_Animpoint.cpp" />
     <ClCompile Include="script_binder.cpp">
       <PrecompiledHeaderFile>pch_script.h</PrecompiledHeaderFile>
       <PrecompiledHeaderOutputFile>$(IntDir)$(ProjectName)_script.pch</PrecompiledHeaderOutputFile>

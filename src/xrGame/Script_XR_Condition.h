@@ -3334,7 +3334,8 @@ inline bool is_quest_npc_enemy_actor(
 
     if (!object)
     {
-        Msg("[Scripts/XR_CONDITION/is_quest_npc_enemy_actor(server_actor, server_npc, buffer)] WARNING: object = nullptr! Returns "
+        Msg("[Scripts/XR_CONDITION/is_quest_npc_enemy_actor(server_actor, server_npc, buffer)] WARNING: object = "
+            "nullptr! Returns "
             "False");
     }
     else
@@ -3368,7 +3369,8 @@ inline bool is_quest_npc_enemy_actor(
 
     if (!object)
     {
-        Msg("[Scripts/XR_CONDITION/is_quest_npc_enemy_actor(actor, server_npc, buffer)] WARNING: object = nullptr! Returns "
+        Msg("[Scripts/XR_CONDITION/is_quest_npc_enemy_actor(actor, server_npc, buffer)] WARNING: object = nullptr! "
+            "Returns "
             "False");
     }
     else
@@ -3386,6 +3388,20 @@ inline bool is_quest_npc_enemy_actor(
     }
 
     return false;
+}
+
+inline bool is_animpoint_reached(CScriptGameObject* actor, CScriptGameObject* npc)
+{
+    DataBase::StorageAnimpoint_Data& animpoint_storage = DataBase::Storage::getInstance().getStorage()[npc->ID()].m_storage_animpoint;
+    Script_Animpoint* animpoint = animpoint_storage.m_animpoint;
+    if (!animpoint)
+    {
+        Msg("[Scripts/XR_CONDITION/is_animpoint_reached(actor, npc)] WARNING: animpoint = nullptr! Returns False");
+        return false;
+    }
+
+   
+
 }
 
 } // namespace XR_CONDITION
