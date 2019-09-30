@@ -30,7 +30,10 @@ public:
     inline bool IsInitializedBool(void) noexcept { return (this->m_boolean != Globals::kPstorBooleanUndefined); }
     inline bool IsInitializedNumber(void) noexcept { return (this->m_number != Globals::kUnsignedInt8Undefined); }
     inline bool IsInitializedString(void) noexcept { return (this->m_string != Globals::kStringUndefined); }
-    inline bool IsInitializedSomething(void) noexcept { return (this->IsInitializedBool() || this->IsInitializedNumber() || this->IsInitializedString()); }
+    inline bool IsInitializedSomething(void) noexcept
+    {
+        return (this->IsInitializedBool() || this->IsInitializedNumber() || this->IsInitializedString());
+    }
     inline bool getBool(void) noexcept
     {
         switch (this->m_boolean)
@@ -128,19 +131,62 @@ public:
         this->m_string = string;
     }
 };
-
+// сделать private, public!
 struct SubStorage_Data
 {
     SubStorage_Data(void) = default;
     ~SubStorage_Data(void) = default;
+
+    inline void setSignal(const xr_string& id, const bool& value) noexcept { this->m_signals[id] = value; }
+    inline void setAction(Script_ILogicEntity* entity)
+    {
+        if (!entity)
+        {
+            R_ASSERT2(false, "object was null!");
+            return;
+        }
+
+        this->m_actions.push_back(entity);
+    }
+
+    inline xr_map<xr_string, bool>& getSignals(void) const noexcept { return this->m_signals; }
+    inline xr_vector<Script_ILogicEntity*>& getActions(void) const noexcept { return this->m_actions; }
+
+private:
     xr_map<xr_string, bool> m_signals;
     xr_vector<Script_ILogicEntity*> m_actions;
 };
-
+// сделать private, public!
 struct StorageAnimpoint_Data
 {
+    inline void setCoverName(const xr_string& string) { this->m_cover_name = string; }
+    inline bool setUseCamp(const bool& value) { this->m_is_use_camp = value; }
+    inline void setAnimpoint(Script_Animpoint* object)
+    {
+        if (!object)
+        {
+            R_ASSERT2(false, "object was null!");
+            return;
+        }
+
+        this->m_animpoint = object;
+    }
+    inline void setReachedDistance(const float& value) { this->m_reached_distance = value; }
+
+    inline float getReachedDistance(void) const noexcept { return this->m_reached_distance; }
+    inline xr_string getCoverName(void) const noexcept { return this->m_cover_name; }
+    inline xr_string getDescriptionName(void) const noexcept { return this->m_description_name; }
+    inline Script_Animpoint* getAnimpoint(void) const noexcept { return this->m_animpoint; }
+
+    inline bool IsUseCamp(void) const noexcept { return this->m_is_use_camp; }
+
+private:
+    bool m_is_use_camp;
+    float m_reached_distance;
     xr_string m_cover_name;
-    Script_Animpoint* m_animpoint = nullptr; // Lord: узнать где выделяется и удаляется данный класс (xr_animpoint.script)
+    xr_string m_description_name;
+    Script_Animpoint* m_animpoint =
+        nullptr; // Lord: узнать где выделяется и удаляется данный класс (xr_animpoint.script)
 };
 
 struct Storage_Data
@@ -191,6 +237,13 @@ public:
         // @ Lord: подумать здесь нужно это удалять так или оно в другом месте?
         for (xr_map<std::uint16_t, Storage_Data>::value_type& it : this->m_storage)
         {
+            if (it.second.m_storage_animpoint.m_animpoint)
+            {
+                Msg("[Scripts/DataBase/Storage/~dtor] Deleting: Animpoint -> [%s]", it.second.m_storage_animpoint.m_cover_name.c_str());
+                delete it.second.m_storage_animpoint.m_animpoint;
+                it.second.m_storage_animpoint.m_animpoint = nullptr;
+            }
+
             for (xr_map<xr_string, SubStorage_Data>::value_type& object : it.second.m_data)
             {
                 if (object.second.m_actions.size())
