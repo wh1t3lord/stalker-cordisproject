@@ -3199,17 +3199,26 @@
     <Filter Include="Cordis\Scripts\Entities %28not server entities!%29\Sound\Private">
       <UniqueIdentifier>{18bb6c06-351e-423e-8c76-f6e2a11a30f8}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Cordis\Scripts\Entities %28not server entities!%29\Smart Terrain">
-      <UniqueIdentifier>{7063dace-87e0-4eb9-9f9c-1b09656eb29c}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Cordis\Scripts\Entities %28not server entities!%29\Smart Terrain\Public">
-      <UniqueIdentifier>{732c3285-4540-4752-bfcb-f8360e8620d5}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Cordis\Scripts\Entities %28not server entities!%29\Smart Terrain\Private">
-      <UniqueIdentifier>{78778342-d48f-4af4-b221-4fe8fe66c7c8}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Cordis\Scripts\Managers\Treasure">
       <UniqueIdentifier>{bc058de9-3949-49e3-927f-b1ddba3bc9fa}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Entities %28not server entities!%29\Animpoint">
+      <UniqueIdentifier>{24c04be3-30d0-4195-b6af-374404164558}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Entities %28not server entities!%29\Animpoint\Private">
+      <UniqueIdentifier>{d0cba1c5-f9c9-4d6a-afe5-f8163437f3d9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Entities %28not server entities!%29\Animpoint\Public">
+      <UniqueIdentifier>{1fb0bd16-bc89-4e1a-b74f-43acebdb191a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Entities %28not server entities!%29\Smart Terrain control">
+      <UniqueIdentifier>{7063dace-87e0-4eb9-9f9c-1b09656eb29c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Entities %28not server entities!%29\Smart Terrain control\Public">
+      <UniqueIdentifier>{732c3285-4540-4752-bfcb-f8360e8620d5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Entities %28not server entities!%29\Smart Terrain control\Private">
+      <UniqueIdentifier>{78778342-d48f-4af4-b221-4fe8fe66c7c8}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -8235,7 +8244,7 @@
       <Filter>Cordis\Scripts\Managers\Gulag Generator\Public</Filter>
     </ClInclude>
     <ClInclude Include="Script_SmartTerrainControl.h">
-      <Filter>Cordis\Scripts\Entities %28not server entities!%29\Smart Terrain\Public</Filter>
+      <Filter>Cordis\Scripts\Entities %28not server entities!%29\Smart Terrain control\Public</Filter>
     </ClInclude>
     <ClInclude Include="Script_XR_Effects.h">
       <Filter>Cordis\Scripts\XR\Public</Filter>
@@ -8347,6 +8356,9 @@
     </ClInclude>
     <ClInclude Include="Script_XR_Wounded.h">
       <Filter>Cordis\Scripts\XR\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Script_Animpoint.h">
+      <Filter>Cordis\Scripts\Entities %28not server entities!%29\Animpoint\Public</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -12478,7 +12490,7 @@
       <Filter>Cordis\Scripts\Server Entities</Filter>
     </ClCompile>
     <ClCompile Include="Script_SmartTerrainControl.cpp">
-      <Filter>Cordis\Scripts\Entities %28not server entities!%29\Smart Terrain\Private</Filter>
+      <Filter>Cordis\Scripts\Entities %28not server entities!%29\Smart Terrain control\Private</Filter>
     </ClCompile>
     <ClCompile Include="Script_SE_SmartCover.cpp">
       <Filter>Cordis\Scripts\Server Entities</Filter>
@@ -12575,6 +12587,9 @@
     </ClCompile>
     <ClCompile Include="Script_SE_ZoneAnomaly.cpp">
       <Filter>Cordis\Scripts\Server Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="Script_Animpoint.cpp">
+      <Filter>Cordis\Scripts\Entities %28not server entities!%29\Animpoint\Private</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

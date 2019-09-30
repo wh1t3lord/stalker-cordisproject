@@ -137,6 +137,12 @@ struct SubStorage_Data
     xr_vector<Script_ILogicEntity*> m_actions;
 };
 
+struct StorageAnimpoint_Data
+{
+    xr_string m_cover_name;
+    Script_Animpoint* m_animpoint = nullptr; // Lord: узнать где выделяется и удаляется данный класс (xr_animpoint.script)
+};
+
 struct Storage_Data
 {
     bool m_invulnerable = false;
@@ -146,6 +152,7 @@ struct Storage_Data
     bool m_anim_movement = false;
     std::uint16_t m_enemy_id = Globals::kUnsignedInt16Undefined;
     CScriptGameObject* m_object = nullptr;
+    StorageAnimpoint_Data m_storage_animpoint;
     CSE_ALifeObject* m_server_object = nullptr;
     CScriptSound* m_sound_object = nullptr;
     CInifile* m_ini = nullptr;
