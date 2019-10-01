@@ -7,16 +7,13 @@ namespace Cordis
 {
 namespace Scripts
 {
-Script_Animpoint::Script_Animpoint(CScriptGameObject* npc, DataBase::StorageAnimpoint_Data& storage) 
+Script_Animpoint::Script_Animpoint(CScriptGameObject* npc, DataBase::StorageAnimpoint_Data& storage)
+    : m_npc_id(npc->ID()), m_storage(&storage)
 {
-    if (!npc)
-    {
-        R_ASSERT2(false, "object was null!");
-    }
-
 }
 
-Script_Animpoint::~Script_Animpoint(void) {}
+Script_Animpoint::~Script_Animpoint(void) 
+{ Msg("[Scripts/Script_Animpoint/~dtor] Deleting: [%s]", this->m_cover_name.c_str()); }
 
 void Script_Animpoint::calculate_position(void) 
 {
