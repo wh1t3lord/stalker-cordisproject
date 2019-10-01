@@ -32,7 +32,7 @@ inline CScriptIniFile configure_schemes(CScriptGameObject* npc, CScriptIniFile& 
 
     if (storage.m_active_section.size())
     {
-        Script_LogicManager::getInstance().all_deactivate(storage[storage.m_active_scheme].m_actions, npc);
+        Script_LogicManager::getInstance().all_deactivate(storage[storage.m_active_scheme].getActions(), npc);
     }
 
     CScriptIniFile actual_ini = ini;

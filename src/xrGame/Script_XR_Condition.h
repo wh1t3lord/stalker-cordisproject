@@ -1575,7 +1575,7 @@ inline bool is_signal(CScriptGameObject* actor, CScriptGameObject* npc, const xr
 
     DataBase::Storage_Data& storage_data = DataBase::Storage::getInstance().getStorage()[npc->ID()];
 
-    return storage_data[storage_data.m_active_scheme].m_signals[buffer[0]];
+    return storage_data[storage_data.m_active_scheme].getSignals()[buffer[0]];
 }
 
 /* Lord наверное не используется ибо такой перегрузки вообще нет
@@ -3393,7 +3393,7 @@ inline bool is_quest_npc_enemy_actor(
 inline bool is_animpoint_reached(CScriptGameObject* actor, CScriptGameObject* npc)
 {
     DataBase::StorageAnimpoint_Data& animpoint_storage = DataBase::Storage::getInstance().getStorage()[npc->ID()].m_storage_animpoint;
-    Script_Animpoint* animpoint = animpoint_storage.m_animpoint;
+    Script_Animpoint* animpoint = animpoint_storage.getAnimpoint();
     if (!animpoint)
     {
         Msg("[Scripts/XR_CONDITION/is_animpoint_reached(actor, npc)] WARNING: animpoint = nullptr! Returns False");

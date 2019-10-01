@@ -149,8 +149,8 @@ struct SubStorage_Data
         this->m_actions.push_back(entity);
     }
 
-    inline xr_map<xr_string, bool>& getSignals(void) const noexcept { return this->m_signals; }
-    inline xr_vector<Script_ILogicEntity*>& getActions(void) const noexcept { return this->m_actions; }
+    inline xr_map<xr_string, bool>& getSignals(void)  noexcept { return this->m_signals; }
+    inline xr_vector<Script_ILogicEntity*>& getActions(void) noexcept { return this->m_actions; }
 
 private:
     xr_map<xr_string, bool> m_signals;
@@ -237,18 +237,20 @@ public:
         // @ Lord: подумать здесь нужно это удалять так или оно в другом месте?
         for (xr_map<std::uint16_t, Storage_Data>::value_type& it : this->m_storage)
         {
-            if (it.second.m_storage_animpoint.m_animpoint)
+            if (it.second.m_storage_animpoint.getAnimpoint())
             {
-                Msg("[Scripts/DataBase/Storage/~dtor] Deleting: Animpoint -> [%s]", it.second.m_storage_animpoint.m_cover_name.c_str());
-                delete it.second.m_storage_animpoint.m_animpoint;
-                it.second.m_storage_animpoint.m_animpoint = nullptr;
+                Msg("[Scripts/DataBase/Storage/~dtor] Deleting: Animpoint -> [%s]",
+                    it.second.m_storage_animpoint.getCoverName().c_str());
+                Script_Animpoint* instance = it.second.m_storage_animpoint.getAnimpoint();
+                delete instance;
+                instance = nullptr;
             }
 
             for (xr_map<xr_string, SubStorage_Data>::value_type& object : it.second.m_data)
             {
-                if (object.second.m_actions.size())
+                if (object.second.getActions().size())
                 {
-                    for (Script_ILogicEntity* entity : object.second.m_actions)
+                    for (Script_ILogicEntity* entity : object.second.getActions())
                     {
                         if (entity)
                         {
@@ -259,10 +261,10 @@ public:
                         }
                     }
 
-                    object.second.m_actions.clear();
+                    object.second.getActions().clear();
                 }
 
-                object.second.m_signals.clear();
+                object.second.getSignals().clear();
             }
 
             if (it.second.m_object)

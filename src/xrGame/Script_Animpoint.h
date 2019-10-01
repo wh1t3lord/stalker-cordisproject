@@ -4,6 +4,18 @@ namespace Cordis
 {
 namespace Scripts
 {
+
+namespace DataBase
+{
+struct StorageAnimpoint_Data;
+}
+} // namespace Scripts
+} // namespace Cordis
+
+namespace Cordis
+{
+namespace Scripts
+{
 class Script_Animpoint
 {
 public:
@@ -29,8 +41,10 @@ public:
 private:
     void fill_approved_actions(void);
     void calculate_position(void);
+
 private:
     bool m_is_started;
+    std::uint16_t m_npc_id;
     Fvector m_position;
     Fvector m_look_position;
     Fvector m_smart_direction;
