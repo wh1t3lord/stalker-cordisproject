@@ -905,6 +905,10 @@ private:
 
 #pragma endregion
 
+#pragma region Cordis Animpoint System Table initialization
+        this->m_animpoint_table["animpoint_stay_wall"] = {Globals::predicate_const_true, "animpoint_stay_wall"};
+#pragma endregion
+
 #pragma region Cordis Jobs Types Initializing
         this->m_job_type_by_scheme[Globals::GulagGenerator::kGulagJobNameWalker] =
             Globals::GulagGenerator::kGulagJobPath;
@@ -1054,42 +1058,369 @@ public:
     }
 
     // @ First - id | Second - distance
-    inline std::pair<std::uint32_t, std::uint32_t>& getGameNearestToActorServerSmartTerrain(void) noexcept
+    inline const std::pair<std::uint32_t, std::uint32_t>& getGameNearestToActorServerSmartTerrain(void) const noexcept
     {
         return this->m_game_server_nearest_to_actor_smart_terrain;
     }
 
-    inline xr_map<xr_string, xr_string>& getGameSmartsByAssaultZones(void) noexcept
+    inline void setGameNearestToActorServerSmartTerrain(const std::pair<std::uint32_t, std::uint32_t>& pair) noexcept
+    {
+        if (pair.first == Globals::kUnsignedInt32Undefined || pair.second == Globals::kUnsignedInt32Undefined)
+        {
+            Msg("[Script_GlobalHelper/setGameNearestToActorServerSmartTerrain(id, distance)] WARNING: pair.first || "
+                "pair.second = "
+                "std::uint32_t(-1)!!! Values id or distance are not initialized at all or equals minus one!");
+        }
+
+        this->m_game_server_nearest_to_actor_smart_terrain = pair;
+    }
+
+    inline void setGameNearestToActorServerSmartTerrain(const std::uint32_t& id, const std::uint32_t& distance) noexcept
+    {
+        if (id == Globals::kUnsignedInt32Undefined || distance == Globals::kUnsignedInt32Undefined)
+        {
+            Msg("[Script_GlobalHelper/setGameNearestToActorServerSmartTerrain(id, distance)] WARNING: id || distance = "
+                "std::uint32_t(-1)!!! Values id or distance are undefined at all or equals minus one!");
+        }
+
+        this->m_game_server_nearest_to_actor_smart_terrain.first = id;
+        this->m_game_server_nearest_to_actor_smart_terrain.second = distance;
+    }
+
+    inline const xr_map<xr_string, xr_string>& getGameSmartsByAssaultZones(void) const noexcept
     {
         return this->m_game_smarts_by_no_assault_zone;
     }
+
+    inline void setGameSmartsByAssaultZones(const xr_map<xr_string, xr_string>& map) noexcept
+    {
+        if (!map.size())
+        {
+            Msg("[Script_GlobalHelper/setGameSmartsByAssaultZones(map)] WARNING: map.size() = 0! You are trying to set an empty map!");
+        }
+
+        this->m_game_smarts_by_no_assault_zone = map;
+    }
+
+    inline void setGameSmartsByAssaultZones(const std::pair<xr_string, xr_string>& pair) noexcept
+    {
+        xr_string new_id;
+        if (!new_id.size())
+        {
+            new_id = Globals::kGeneratedIdForBadValue;
+            new_id += std::to_string(Globals::Script_RandomInt::getInstance().Generate(0, 1000));
+            Msg("[Script_GlobalHelper/setGameSmartsByAssaultZones(pair)] WARNING: pair.first.size() = 0! You are "
+                "trying to set an empty string!");
+
+            this->m_game_smarts_by_no_assault_zone[new_id] = pair.second;
+            return;
+        }
+
+        this->m_game_smarts_by_no_assault_zone.insert(pair);
+    }
+
+    inline void setGameSmartsByAssaultZones(const xr_string& smart_name, const xr_string& zone_name) noexcept
+    {
+        xr_string new_id;
+        if (!smart_name.size())
+        {
+            new_id = Globals::kGeneratedIdForBadValue;
+            new_id += std::to_string(Globals::Script_RandomInt::getInstance().Generate(0, 1000));
+            Msg("[Script_GlobalHelper/setGameSmartsByAssaultZones(smart_name, zone_name)] WARNING: smart_name.size() = "
+                "0! You are trying to set an empty string!");
+            this->m_game_smarts_by_no_assault_zone[new_id] = zone_name;
+            return;
+        }
+
+        this->m_game_smarts_by_no_assault_zone[smart_name] = zone_name;
+    }
 #pragma endregion
 
-#pragma region Cordis System
-    inline xr_map<xr_string, bool>& getRegisteredSmartTerrainTerritoryType(void) noexcept
+#pragma region Cordis System variables
+    inline const xr_map<xr_string, bool>& getRegisteredSmartTerrainTerritoryType(void) const noexcept
     {
         return this->m_registered_smart_terrain_territory_type;
     }
 
-    inline xr_vector<xr_string>& getRegisteredSmartTerrainPathFileds(void) noexcept
+    inline void setRegisteredSmartTerrainTerritoryType(const xr_map<xr_string, bool>& map) noexcept
+    {
+        if (!map.size())
+        {
+            Msg("[Script_GlobalHelper/setRegisteredSmartTerrainTerritoryType(map)] WARNING: map.size() = 0! You are "
+                "trying to set an empty map!");
+        }
+
+        this->m_registered_smart_terrain_territory_type = map;
+    }
+
+    inline void setRegisteredSmartTerrainTerritoryType(const std::pair<xr_string, bool>& pair) noexcept
+    {
+        xr_string new_id;
+        if (!pair.first.size())
+        {
+            new_id = Globals::kGeneratedIdForBadValue;
+            new_id += std::to_string(Globals::Script_RandomInt::getInstance().Generate(0, 1000));
+            Msg("[Script_GlobalHelper/setRegisteredSmartTerrainTerritoryType(pair)] WARNING: pair.first.size() = 0! "
+                "You are trying to set an empty pair!");
+
+            this->m_registered_smart_terrain_territory_type[new_id] = pair.second;
+            return;
+        }
+
+        this->m_registered_smart_terrain_territory_type.insert(pair);
+    }
+
+    inline void setRegisteredSmartTerrainTerritoryType(const xr_string& name, const bool& value) noexcept
+    {
+        xr_string new_id;
+        if (!name.size())
+        {
+            new_id = Globals::kGeneratedIdForBadValue;
+            new_id += std::to_string(Globals::Script_RandomInt::getInstance().Generate(0, 1000));
+            Msg("[Script_GlobalHelper/setRegisteredSmartTerrainTerritoryType(name, value)] WARNING: name.size() = 0! "
+                "You are trying to set an empty string!");
+            this->m_registered_smart_terrain_territory_type[new_id] = value;
+            return;
+        }
+
+        this->m_registered_smart_terrain_territory_type[name] = value;
+    }
+
+    inline const xr_vector<xr_string>& getRegisteredSmartTerrainPathFileds(void) const noexcept
     {
         return this->m_registered_smart_terrain_path_fields;
     }
 
-    inline xr_map<xr_string, std::uint32_t>& getSimulationBoardGroupIDLevelsByName(void) noexcept
+    inline void setRegisteredSmartTerrainPathFields(const xr_vector<xr_string>& vector) noexcept
+    {
+        if (!vector.size())
+        {
+            Msg("[Script_GlobalHelper/setRegisteredSmartTerrainPathFields(vector)] WARNING: vector.size() = 0! You are "
+                "trying to set an empty vector! No assigment!");
+            return;
+        }
+
+        this->m_registered_smart_terrain_path_fields = vector;
+    }
+
+    inline void setRegisteredSmartTerrainPathFields(const xr_string& name) noexcept
+    {
+        if (!name.size())
+        {
+            Msg("[Script_GlobalHelper/setRegisteredSmartTerrainFields(name)] WARNING: name.size() = 0! You are trying "
+                "to set an empty string! No assigment!");
+            return;
+        }
+
+        this->m_registered_smart_terrain_path_fields.push_back(name);
+    }
+
+    inline const xr_map<xr_string, std::uint32_t>& getSimulationBoardGroupIDLevelsByName(void) const noexcept
     {
         return this->m_simulationboard_group_id_by_levels_name;
     }
 
-    inline xr_map<xr_string, bool>& getSimulationSquadIsSquadMonster(void) noexcept
+    inline void setSimulationBoardGroupIDLevelsByName(const xr_map<xr_string, std::uint32_t>& map) noexcept
+    {
+        if (!map.size())
+        {
+            Msg("[Script_GlobalHelper/setSimulationBoardGroupIDLevelsByName(map)] WARNING: map.size() = 0! You are "
+                "trying to set an empty map!");
+        }
+
+        this->m_simulationboard_group_id_by_levels_name = map;
+    }
+
+    inline void setSimulationBoardGroupIDLevelsByName(const std::pair<xr_string, std::uint32_t>& pair) noexcept
+    {
+        xr_string new_id;
+        if (!pair.first.size())
+        {
+            new_id = Globals::kGeneratedIdForBadValue;
+            new_id += std::to_string(Globals::Script_RandomInt::getInstance().Generate(0, 1000));
+            Msg("[Script_GlobalHelper/setSimulationBoardGroupIDLevelsByName(pair)] WARNING: pair.first.size() = 0! you "
+                "are trying to set an empty string!");
+
+            this->m_simulationboard_group_id_by_levels_name[new_id] = pair.second;
+            return;
+        }
+
+        this->m_simulationboard_group_id_by_levels_name.insert(pair);
+    }
+
+    inline void setSimulationBoardGroupIDLevelsByName(const xr_string& name, const std::uint32_t& id) noexcept
+    {
+        xr_string new_id;
+        if (!name.size())
+        {
+            new_id = Globals::kGeneratedIdForBadValue;
+            new_id += std::to_string(Globals::Script_RandomInt::getInstance().Generate(0, 1000));
+            Msg("[Script_GlobalHelper/setSimulationBoardGropIDLevelsByName(name, id)] WARNING: name.size() = 0! you "
+                "are trying to set an empty string!");
+
+            this->m_simulationboard_group_id_by_levels_name[new_id] = id;
+            return;
+        }
+
+        this->m_simulationboard_group_id_by_levels_name[name] = id;
+    }
+
+    inline const xr_map<xr_string, bool>& getSimulationSquadIsSquadMonster(void) const noexcept
     {
         return this->m_simulationsquad_is_squad_monster_by_type;
     }
 
-    inline xr_map<xr_string, Script_SmartTerrainControl_States>& getRegisteredSmartTerrainControlScriptStates(
-        void) noexcept
+    inline void setSimulationSquadIsSquadMonster(const xr_map<xr_string, bool>& map) noexcept
+    {
+        if (!map.size())
+        {
+            Msg("[Script_GlobalHelper/setSimulationSquadIsSquadMonster(map)] map.size() = 0! you are trying to set an "
+                "empty map!");
+        }
+
+        this->m_simulationsquad_is_squad_monster_by_type = map;
+    }
+
+    inline void setSimulationSquadIsSquadMonster(const std::pair<xr_string, bool>& pair) noexcept
+    {
+        xr_string new_id;
+        if (!pair.first.size())
+        {
+            new_id = Globals::kGeneratedIdForBadValue;
+            new_id += std::to_string(Globals::Script_RandomInt::getInstance().Generate(0, 1000));
+            Msg("[Script_GlobalHelper/setSimulationSquadIsSquadMonster(pair)] WARNING: pair.first.size() = 0! you are "
+                "trying to set an empty string, generated id -> [%s]",
+                new_id.c_str());
+
+            this->m_simulationsquad_is_squad_monster_by_type[new_id] = pair.second;
+            return;
+        }
+
+        this->m_simulationsquad_is_squad_monster_by_type.insert(pair);
+    }
+
+    inline void setSimulationSquadIsSquadMonster(const xr_string& name, const bool& value) noexcept
+    {
+        xr_string new_id;
+        if (!name.size())
+        {
+            new_id = Globals::kGeneratedIdForBadValue;
+            new_id += std::to_string(Globals::Script_RandomInt::getInstance().Generate(0, 1000));
+            Msg("[Script_GlobalHelper/setSimulationSquadIsSquadMonster(name, value)] WARNING: name.size() = 0! you are "
+                "trying to set an empty value, generated id -> [%s]",
+                new_id.c_str());
+
+            this->m_simulationsquad_is_squad_monster_by_type[new_id] = value;
+            return;
+        }
+
+        this->m_simulationsquad_is_squad_monster_by_type[name] = value;
+    }
+
+    inline const xr_map<xr_string, Script_SmartTerrainControl_States>& getRegisteredSmartTerrainControlScriptStates(
+        void) const noexcept
     {
         return this->m_registered_smart_terrain_control_script_states;
+    }
+
+    inline void setRegisteredSmartTerrainControlScriptStates(
+        const xr_map<xr_string, Script_SmartTerrainControl_States>& map)
+    {
+        if (!map.size())
+        {
+            Msg("[Script_GlobalHelper/setRegisteredSmartTerrainControlScriptStates(map)] WARNING: map.size() = 0! you "
+                "are trying to set an empty map!");
+        }
+
+        this->m_registered_smart_terrain_control_script_states = map;
+    }
+
+    inline void setRegisteredSmartTerrainControlScriptStates(
+        const std::pair<xr_string, Script_SmartTerrainControl_States>& pair)
+    {
+        xr_string new_id;
+        if (!pair.first.size())
+        {
+            new_id = Globals::kGeneratedIdForBadValue;
+            new_id += std::to_string(Globals::Script_RandomInt::getInstance().Generate(0, 1000));
+            Msg("[Script_GlobalHelper/setRegisteredSmartTerrainControlScriptStates(pair)] WARNING: pair.first is empty "
+                "string! You are trying to set an empty string, generated id -> [%s]",
+                new_id.c_str());
+
+            this->m_registered_smart_terrain_control_script_states[new_id] = pair.second;
+            return;
+        }
+
+        this->m_registered_smart_terrain_control_script_states.insert(pair);
+    }
+
+    inline void setRegisteredSmartTerrainControlScriptStates(
+        const xr_string& name, const Script_SmartTerrainControl_States& state) noexcept
+    {
+        xr_string new_id;
+        if (!name.size())
+        {
+            new_id = Globals::kGeneratedIdForBadValue;
+            new_id += std::to_string(Globals::Script_RandomInt::getInstance().Generate(0, 1000));
+            Msg("[Script_GlobalHelper/setRegisteredSmartTerrainControlScriptStates(name, state)] WARNING: you are "
+                "trying to set an empty string, generated id -> [%s]",
+                new_id.c_str());
+
+            this->m_registered_smart_terrain_control_script_states[new_id] = state;
+            return;
+        }
+
+        this->m_registered_smart_terrain_control_script_states[name] = state;
+    }
+
+    inline const xr_map<xr_string, bool>& getRegisteredEatableVisuals(void) const noexcept
+    {
+        return this->m_registered_eatable_visuals;
+    }
+
+    inline void setRegisteredEatableVisuals(const xr_map<xr_string, bool>& map) noexcept
+    {
+        if (!map.size())
+        {
+            Msg("[Script_GlobalHelper/setRegisteredEatableVisuals(map)] WARNING: you're set an empty map!");
+        }
+
+        this->m_registered_eatable_visuals = map;
+    }
+
+    inline void setRegisteredEatableVisuals(const std::pair<xr_string, bool>& pair)
+    {
+        xr_string new_id;
+        if (!pair.first.size())
+        {
+            new_id = Globals::kGeneratedIdForBadValue;
+            new_id += std::to_string(Globals::Script_RandomInt::getInstance().Generate(0, 1000));
+            Msg("[Script_GlobalHelper/setRegisteredEatableVisuals(pair)] WARNING: you're trying to set an empty pair "
+                "to map! Generated id -> [%s]",
+                new_id.c_str());
+
+            this->m_registered_eatable_visuals[new_id] = pair.second;
+            return;
+        }
+
+        this->m_registered_eatable_visuals.insert(pair);
+    }
+
+    inline void setRegisteredEatableVisuals(const xr_string& name, const bool& is_used) noexcept
+    {
+        xr_string new_id;
+        if (!name.size())
+        {
+            new_id = Globals::kGeneratedIdForBadValue;
+            new_id += std::to_string(Globals::Script_RandomInt::getInstance().Generate(0, 1000));
+            Msg("[Script_GlobalHelper/setRegisteredEatableVisuals(name, is_used)] WARNING: name.size() = 0! (string is "
+                "null!) Generated id -> [%s]",
+                new_id.c_str());
+            this->m_registered_eatable_visuals[new_id] = is_used;
+            return;
+        }
+
+        this->m_registered_eatable_visuals[name] = is_used;
     }
 #pragma endregion
 
@@ -1099,9 +1430,11 @@ private:
     xr_map<std::uint32_t, bool> m_weapon_classes;
     xr_map<std::uint32_t, bool> m_artefact_classes;
     xr_map<std::uint32_t, bool> m_ammo_section;
+    xr_map<xr_string, bool> m_registered_eatable_visuals;
     xr_map<xr_string, bool> m_quest_section;
     xr_map<xr_string, Script_SmartTerrainControl_States> m_registered_smart_terrain_control_script_states;
     xr_map<xr_string, xr_string> m_squad_community_by_behavior;
+    xr_map<xr_string, std::pair<std::function<bool(std::uint16_t, bool)>, xr_string>> m_animpoint_table;
     xr_map<xr_string, AnyCallable<void>> m_registered_functions_xr_effects;
     xr_map<xr_string, AnyCallable<bool>> m_registered_functions_xr_conditions;
     xr_map<xr_string, Script_SE_SmartCover*> m_game_registered_smartcovers;
