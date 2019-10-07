@@ -30,6 +30,20 @@ constexpr int kRelationKoeffEnemy = -1000;
 constexpr int kRelationKoeffNeutral = 0;
 constexpr int kRelationKoeffFriend = 1000;
 constexpr float kRelationDefaultSympathy = 0.1f;
+constexpr const char* kGeneratedIdForBadValue = "EmptyNameItWasEmptyValue";
+#pragma region Cordis Animpoint prediction functions
+inline bool predicate_const_true(std::uint16_t, bool) { return true; }
+
+inline bool predicate_animpoint_bread(std::uint16_t npc_id, bool)
+{
+    if (DataBase::Storage::getInstance().getStorage()[npc_id].m_object)
+    {
+        /*if (DataBase::Storage::getInstance().getStorage()[npc_id].m_object->get_visual_name())*/
+    }
+
+    return false;
+}
+#pragma endregion
 
 #pragma region Cordis SimulationSquad
 constexpr float kSimulationSquadActionsStayPointIdleMin = 180.0f * 60.0f;

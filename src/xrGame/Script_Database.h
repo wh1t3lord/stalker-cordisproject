@@ -149,7 +149,7 @@ struct SubStorage_Data
         this->m_actions.push_back(entity);
     }
 
-    inline xr_map<xr_string, bool>& getSignals(void)  noexcept { return this->m_signals; }
+    inline xr_map<xr_string, bool>& getSignals(void) noexcept { return this->m_signals; }
     inline xr_vector<Script_ILogicEntity*>& getActions(void) noexcept { return this->m_actions; }
 
 private:
@@ -172,17 +172,54 @@ struct StorageAnimpoint_Data
         this->m_animpoint = object;
     }
     inline void setReachedDistance(const float& value) { this->m_reached_distance = value; }
+    inline void setAvailAnimation(const xr_string& animation_name)
+    {
+        if (!animation_name.size())
+        {
+            R_ASSERT2(false, "can't be empty!");
+            return;
+        }
+
+        this->m_avail_animations.push_back(animation_name);
+    }
+    inline void setApprovedAction(const std::function<bool(std::uint16_t, bool)> function, const xr_string& action_name)
+    {
+        if (!action_name.size())
+        {
+            R_ASSERT2(false, "can't be empty!");
+            return;
+        }
+
+        if (!function)
+        {
+            R_ASSERT2(false, "object is null!");
+            return;
+        }
+
+        std::pair<std::function<bool(std::uint16_t, bool)>, xr_string> insert_pair;
+
+        insert_pair.first = function;
+        insert_pair.second = action_name;
+        this->m_approved_actions.push_back(insert_pair);
+    }
 
     inline float getReachedDistance(void) const noexcept { return this->m_reached_distance; }
     inline xr_string getCoverName(void) const noexcept { return this->m_cover_name; }
     inline xr_string getDescriptionName(void) const noexcept { return this->m_description_name; }
     inline Script_Animpoint* getAnimpoint(void) const noexcept { return this->m_animpoint; }
-
+    inline const xr_vector<xr_string>& getAvailAnimations(void) const noexcept { return this->m_avail_animations; }
+    inline const xr_vector<std::pair<std::function<bool(std::uint16_t, bool)>, xr_string>>& getApprovedActions(
+        void) const noexcept
+    {
+        return this->m_approved_actions;
+    }
     inline bool IsUseCamp(void) const noexcept { return this->m_is_use_camp; }
 
 private:
     bool m_is_use_camp;
     float m_reached_distance;
+    xr_vector<xr_string> m_avail_animations;
+    xr_vector<std::pair<std::function<bool(std::uint16_t, bool)>, xr_string>> m_approved_actions;
     xr_string m_cover_name;
     xr_string m_description_name;
     Script_Animpoint* m_animpoint =
