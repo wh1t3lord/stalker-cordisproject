@@ -1032,16 +1032,59 @@ public:
     }
 
     // @ In-Game
-    inline xr_map<std::uint8_t, xr_map<std::uint32_t, Script_SE_SmartCover*>>&
-    getGameRegisteredServerSmartCoversByLevelID(void) noexcept
+    inline const xr_map<std::uint8_t, xr_map<std::uint32_t, Script_SE_SmartCover*>>& getGameRegisteredServerSmartCoversByLevelID(void) const noexcept
     {
         return this->m_game_registered_smartcovers_by_level_id;
     }
 
     // @ It uses in Level Editor as list of smartcovers as spawnelement and it's using in-game
-    inline xr_map<xr_string, SmartCoverData>& getRegisteredSmartCovers(void) noexcept
+    inline const xr_map<xr_string, SmartCoverData>& getRegisteredSmartCovers(void) const noexcept
     {
         return this->m_registered_smartcovers;
+    }
+
+    inline void setRegisteredSmartCovers(const xr_map<xr_string, SmartCoverData>& map) noexcept
+    {
+        if (!map.size())
+        {
+            Msg("[Script_GlobalHelper/setRegisteredSmartCovers(map)] WARNING: map.size() = 0! You are trying to set an empty map!");
+        }
+
+        this->m_registered_smartcovers = map;
+    }
+
+    inline void setRegisteredSmartCovers(const std::pair<xr_string, SmartCoverData>& pair) noexcept
+    {
+        xr_string new_id;
+        if (!pair.first.size())
+        {
+            new_id = Globals::kGeneratedIdForBadValue;
+            new_id += std::to_string(Globals::Script_RandomInt::getInstance().Generate(0, 1000));
+            Msg("[Script_GlobalHelper/setRegisteredSmartCovers(smart_name, data)] WARNING: pair.first.size() = 0! You "
+                "are trying to set an empty string, generated id -> [%s]",
+                new_id.c_str());
+
+            this->m_registered_smartcovers[new_id] = pair.second;
+        }
+
+        this->m_registered_smartcovers.insert(pair);
+    }
+
+    inline void setRegisteredSmartCovers(const xr_string& smart_name, const SmartCoverData& data) noexcept
+    {
+        xr_string new_id;
+        if (!smart_name.size())
+        {
+            new_id = Globals::kGeneratedIdForBadValue;
+            new_id += std::to_string(Globals::Script_RandomInt::getInstance().Generate(0, 1000));
+            Msg("[Script_GlobalHelper/setRegisteredSmartCovers(smart_name, data)] WARNING: smart_name.size() = 0! You "
+                "are trying to set an empty string, generated id -> [%s]",
+                new_id.c_str());
+
+            this->m_registered_smartcovers[new_id] = data;
+        }
+
+        this->m_registered_smartcovers[smart_name] = data;
     }
 
     inline const xr_map<xr_string, CScriptGameObject*>& getGameRegisteredCombatSpaceRestrictors(void) const noexcept
@@ -1053,7 +1096,8 @@ public:
     {
         if (!map.size())
         {
-            Msg("[Script_GlobalHelper/setGameRegisteredCombatSpaceRestrictors(space_name, client_zone)] WARNING: map.size() = 0! You are trying to set an empty map! No assignment!");
+            Msg("[Script_GlobalHelper/setGameRegisteredCombatSpaceRestrictors(space_name, client_zone)] WARNING: "
+                "map.size() = 0! You are trying to set an empty map! No assignment!");
             return;
         }
 
