@@ -1026,9 +1026,58 @@ public:
     }
 
     // @ In-Game
-    inline xr_map<xr_string, Script_SE_SmartCover*>& getGameRegisteredServerSmartCovers(void) noexcept
+    inline const xr_map<xr_string, Script_SE_SmartCover*>& getGameRegisteredServerSmartCovers(void) const noexcept
     {
         return this->m_game_registered_smartcovers;
+    }
+
+    inline void setGameRegisteredServerSmartCovers(const xr_map<xr_string, Script_SE_SmartCover*>& map)
+    {
+        if (!map.size())
+        {
+            Msg("[Script_GlobalHelper/setGameRegisteredServerSmartCovers(map)] WARNING: map.size() = 0! You are trying to set an empty map! No assignment!");
+            return;
+        }
+
+        this->m_game_registered_smartcovers = map;
+    }
+
+    inline void setGameRegisteredServerSmartCovers(const std::pair<xr_string, Script_SE_SmartCover*>& pair)
+    {
+        if (!pair.first.size())
+        {
+            Msg("[Script_GlobalHelper/setGameRegisteredServerSmartCovers(name, server_smartcover)] WARNING: "
+                "pair.first.size() = 0! You are trying to set an empty string! No assignment!");
+            return;
+        }
+
+        if (!pair.second)
+        {
+            Msg("[Script_GlobalHelper/setGameRegisteredServerSmartCovers(name, server_smartcover)] WARNING: "
+                "pair.second = null! You are trying to set an empty object! No assignment!");
+            return;
+        }
+
+        this->m_game_registered_smartcovers.insert(pair);
+    }
+
+    inline void setGameRegisteredServerSmartCovers(const xr_string& name, Script_SE_SmartCover* server_smartcover)
+    {
+        if (!name.size())
+        {
+            Msg("[Script_GlobalHelper/setGameRegisteredServerSmartCovers(name, server_smartcover)] WARNING: "
+                "name.size() = 0! You are trying to set an empty string! No assignment!");
+            return;
+        }
+
+        if (!server_smartcover)
+        {
+            Msg("[Script_GlobalHelper/setGameRegisteredServerSmartCovers(name, server_smartcover)] WARNING: "
+                "server_smartcover = null! You are trying to set an empty object! No assignment!");
+            return;
+        }
+
+        this->m_game_registered_smartcovers[name] = server_smartcover;
     }
 
     // @ In-Game
@@ -1044,7 +1093,8 @@ public:
     {
         if (!map.size())
         {
-            Msg("[Script_GlobalHelper/setGameRegisteredServerSmartCoversByLevelID(map)] WARNING: map.size() = 0! You are trying to set an empty map! No assignment!");
+            Msg("[Script_GlobalHelper/setGameRegisteredServerSmartCoversByLevelID(map)] WARNING: map.size() = 0! You "
+                "are trying to set an empty map! No assignment!");
             return;
         }
 
