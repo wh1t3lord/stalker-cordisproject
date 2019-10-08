@@ -1032,9 +1032,103 @@ public:
     }
 
     // @ In-Game
-    inline const xr_map<std::uint8_t, xr_map<std::uint32_t, Script_SE_SmartCover*>>& getGameRegisteredServerSmartCoversByLevelID(void) const noexcept
+    inline const xr_map<std::uint8_t, xr_map<std::uint32_t, Script_SE_SmartCover*>>&
+    getGameRegisteredServerSmartCoversByLevelID(void) const noexcept
     {
         return this->m_game_registered_smartcovers_by_level_id;
+    }
+
+    // Lord: Проверить данные сеттеры на правильность наименования аргументов!
+    inline void setGameRegisteredServerSmartCoversByLevelID(
+        const xr_map<std::uint8_t, xr_map<std::uint32_t, Script_SE_SmartCover*>>& map)
+    {
+        if (!map.size())
+        {
+            Msg("[Script_GlobalHelper/setGameRegisteredServerSmartCoversByLevelID(map)] WARNING: map.size() = 0! You are trying to set an empty map! No assignment!");
+            return;
+        }
+
+        this->m_game_registered_smartcovers_by_level_id = map;
+    }
+
+    inline void setGameRegisteredServerSmartCoversByLevelID(
+        const std::uint8_t& level_id, const xr_map<std::uint32_t, Script_SE_SmartCover*>& map)
+    {
+        if (level_id == Globals::kUnsignedInt8Undefined)
+        {
+            Msg("[Script_GlobalHelper/setGameRegisteredServerSmartCoversByLevelID(level_id, map)] "
+                "WARNING: level_id = std::uint8_t(-1)! You are trying to set an undefined number of unsigned int! No "
+                "assignment");
+            return;
+        }
+
+        if (!map.size())
+        {
+            Msg("[Script_GlobalHelper/setGameRegisteredServerSmartCoversByLevelID(level_id, map)] WARNING: map.size() "
+                "= 0! You are trying to set an empty map! No assigment!");
+            return;
+        }
+
+        this->m_game_registered_smartcovers_by_level_id[level_id] = map;
+    }
+
+    inline void setGameRegisteredServerSmartCoversByLevelID(
+        const std::uint8_t& level_id, const std::pair<std::uint32_t, Script_SE_SmartCover*>& pair)
+    {
+        if (level_id == Globals::kUnsignedInt8Undefined)
+        {
+            Msg("[Script_GlobalHelper/setGameRegisteredServerSmartCoversByLevelID(level_id, pair)] "
+                "WARNING: level_id = std::uint8_t(-1)! You are trying to set an undefined number of unsigned int! No "
+                "assignment");
+            return;
+        }
+
+        if (pair.first == Globals::kUnsignedInt32Undefined)
+        {
+            Msg("[Script_GlobalHelper/setGameRegisteredServerSmartCoversByLevelID(level_id, pair)] "
+                "WARNING: pair.first = std::uint32_t(-1)! You are trying to set an undefined number of unsigned int! "
+                "No "
+                "assignment!");
+            return;
+        }
+
+        if (!pair.second)
+        {
+            Msg("[Script_GlobalHelper/setGameRegisteredServerSmartCoversByLevelID(level_id, pair)] "
+                "WARNING: pair.second = null! You are trying to set an empty object! No assignment!");
+            return;
+        }
+
+        this->m_game_registered_smartcovers_by_level_id[level_id].insert(pair);
+    }
+
+    inline void setGameRegisteredServerSmartCoversByLevelID(
+        const std::uint8_t& level_id, const std::uint32_t& id, Script_SE_SmartCover* server_smartcover)
+    {
+        if (level_id == Globals::kUnsignedInt8Undefined)
+        {
+            Msg("[Script_GlobalHelper/setGameRegisteredServerSmartCoversByLevelID(level_id, id, server_smartcover)] "
+                "WARNING: level_id = std::uint8_t(-1)! You are trying to set an undefined number of unsigned int! No "
+                "assignment");
+            return;
+        }
+
+        if (id == Globals::kUnsignedInt32Undefined)
+        {
+            Msg("[Script_GlobalHelper/setGameRegisteredServerSmartCoversByLevelID(level_id, id, server_smartcover)] "
+                "WARNING: id = std::uint32_t(-1)! You are trying to set an undefined number of unsigned int! No "
+                "assignment!");
+            return;
+        }
+
+        if (!server_smartcover)
+        {
+            Msg("[Script_GlobalHelper/setGameRegisteredServerSmartCoversByLevelID(level_id, id, server_smartcover)] "
+                "WARNING: server_smartcover = null! You are trying to set an empty object! No assignment!");
+            return;
+        }
+
+        this->m_game_registered_smartcovers_by_level_id[level_id][id] = server_smartcover;
     }
 
     // @ It uses in Level Editor as list of smartcovers as spawnelement and it's using in-game
@@ -1047,7 +1141,8 @@ public:
     {
         if (!map.size())
         {
-            Msg("[Script_GlobalHelper/setRegisteredSmartCovers(map)] WARNING: map.size() = 0! You are trying to set an empty map!");
+            Msg("[Script_GlobalHelper/setRegisteredSmartCovers(map)] WARNING: map.size() = 0! You are trying to set an "
+                "empty map!");
         }
 
         this->m_registered_smartcovers = map;
