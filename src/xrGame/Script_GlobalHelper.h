@@ -1044,17 +1044,165 @@ public:
         return this->m_registered_smartcovers;
     }
 
-    inline xr_map<xr_string, CScriptGameObject*>& getGameRegisteredCombatSpaceRestrictors(void) noexcept
+    inline const xr_map<xr_string, CScriptGameObject*>& getGameRegisteredCombatSpaceRestrictors(void) const noexcept
     {
         return this->m_game_registered_combat_spacerestrictors;
     }
 
-    inline xr_map<xr_string, xr_string>& getJobTypesByScheme(void) noexcept { return this->m_job_type_by_scheme; }
+    inline void setGameRegisteredCombatSpaceRestrictors(const xr_map<xr_string, CScriptGameObject*>& map)
+    {
+        if (!map.size())
+        {
+            Msg("[Script_GlobalHelper/setGameRegisteredCombatSpaceRestrictors(space_name, client_zone)] WARNING: map.size() = 0! You are trying to set an empty map! No assignment!");
+            return;
+        }
+
+        this->m_game_registered_combat_spacerestrictors = map;
+    }
+
+    inline void setGameRegisteredCombatSpaceRestrictors(const std::pair<xr_string, CScriptGameObject*>& pair)
+    {
+        if (!pair.first.size())
+        {
+            Msg("[Script_GlobalHelper/setGameRegisteredCombatSpaceRestrictors(space_name, client_zone)] WARNING: "
+                "pair.first.size() = 0! You are trying to set an empty string! No assignemnt!");
+            return;
+        }
+
+        if (!pair.second)
+        {
+            Msg("[Script_GlobalHelper/setGameRegisteredCombatSpaceRestrictors(space_name, client_zone)] WARNING: "
+                "pair.second = null! You are trying to set an empty object! No assignment!");
+            return;
+        }
+
+        this->m_game_registered_combat_spacerestrictors.insert(pair);
+    }
+
+    inline void setGameRegisteredCombatSpaceRestrictors(const xr_string& space_name, CScriptGameObject* client_zone)
+    {
+        if (!space_name.size())
+        {
+            Msg("[Script_GlobalHelper/setGameRegisteredCombatSpaceRestrictors(space_name, client_zone)] WARNING: "
+                "space_name.size() = 0! You are trying to set an empty string! No assignemnt!");
+            return;
+        }
+
+        if (!client_zone)
+        {
+            Msg("[Script_GlobalHelper/setGameRegisteredCombatSpaceRestrictors(space_name, client_zone)] WARNING: "
+                "client_zone = null! You are trying to set an empty object! No assignment!");
+            return;
+        }
+
+        this->m_game_registered_combat_spacerestrictors[space_name] = client_zone;
+    }
+
+    inline const xr_map<xr_string, xr_string>& getJobTypesByScheme(void) const noexcept
+    {
+        return this->m_job_type_by_scheme;
+    }
+
+    inline void setJobTypesByScheme(const xr_map<xr_string, xr_string>& map) noexcept
+    {
+        if (!map.size())
+        {
+            Msg("[Script_GlobalHelper/setJobTypesByScheme(map)] WARNING: map.size() = 0! You are trying to set an "
+                "empty map!");
+        }
+
+        this->m_job_type_by_scheme = map;
+    }
+
+    inline void setJobTypesByScheme(const std::pair<xr_string, xr_string>& pair) noexcept
+    {
+        xr_string new_id;
+        if (!pair.first.size())
+        {
+            new_id = Globals::kGeneratedIdForBadValue;
+            new_id += std::to_string(Globals::Script_RandomInt::getInstance().Generate(0, 1000));
+            Msg("[Script_GlobalHelper/setJobTypesByScheme(type_name, scheme_name)] WARNING: pair.first.size() = 0! You "
+                "are trying to set an empty string, generated id -> [%s]",
+                new_id.c_str());
+
+            this->m_job_type_by_scheme[new_id] = pair.second;
+        }
+
+        this->m_job_type_by_scheme.insert(pair);
+    }
+
+    inline void setJobTypesByScheme(const xr_string& type_name, const xr_string& scheme_name) noexcept
+    {
+        xr_string new_id;
+        if (!type_name.size())
+        {
+            new_id = Globals::kGeneratedIdForBadValue;
+            new_id += std::to_string(Globals::Script_RandomInt::getInstance().Generate(0, 1000));
+            Msg("[Script_GlobalHelper/setJobTypesByScheme(type_name, scheme_name)] WARNING: type_name.size() = 0! You "
+                "are trying to set an empty string, generated id -> [%s]",
+                new_id.c_str());
+
+            this->m_job_type_by_scheme[new_id] = scheme_name;
+        }
+
+        this->m_job_type_by_scheme[type_name] = scheme_name;
+    }
 
 #pragma region Cordis InGame
-    inline xr_map<xr_string, Script_SE_SmartTerrain*>& getGameRegisteredServerSmartTerrainsByName(void) noexcept
+    inline const xr_map<xr_string, Script_SE_SmartTerrain*>& getGameRegisteredServerSmartTerrainsByName(void) const
+        noexcept
     {
         return this->m_game_registered_server_smartterrains_by_name;
+    }
+
+    inline void setGameRegisteredServerSmartTerrainsByName(const xr_map<xr_string, Script_SE_SmartTerrain*>& map)
+    {
+        if (!map.size())
+        {
+            Msg("[Script_GlobalHelper/setGameRegisteredServerSmartTerrainsByName(map)] WARNING: map.size() = 0! You "
+                "are trying to set an empty map! No assignment!");
+            return;
+        }
+
+        this->m_game_registered_server_smartterrains_by_name = map;
+    }
+
+    inline void setGameRegisteredServerSmartTerrainsByName(const std::pair<xr_string, Script_SE_SmartTerrain*>& pair)
+    {
+        if (!pair.first.size())
+        {
+            Msg("[Script_GlobalHelper/setGameRegisteredServerSmartTerrainsByName(name, server_smart)] WARNING: "
+                "pair.first.size() = 0! You are trying to set an empty string! No assignment!");
+            return;
+        }
+
+        if (!pair.second)
+        {
+            Msg("[Script_GlobalHelper/setGameRegisteredServerSmartTerrainsByName(name, server_smart)] WARNING: "
+                "pair.second = null! You are trying to set an empty object! No assignment!");
+            return;
+        }
+
+        this->m_game_registered_server_smartterrains_by_name.insert(pair);
+    }
+
+    inline void setGameRegisteredServerSmartTerrainsByName(const xr_string& name, Script_SE_SmartTerrain* server_smart)
+    {
+        if (!name.size())
+        {
+            Msg("[Script_GlobalHelper/setGameRegisteredServerSmartTerrainsByName(name, server_smart)] WARNING: "
+                "name.size() = 0! You are trying to set an empty string! No assignment!");
+            return;
+        }
+
+        if (!server_smart)
+        {
+            Msg("[Script_GlobalHelper/setGameRegisteredServerSmartTerrainsByName(name, server_smart)] WARNING: "
+                "server_smart = null! You are trying to set an empty object! No assignment!");
+            return;
+        }
+
+        this->m_game_registered_server_smartterrains_by_name[name] = server_smart;
     }
 
     // @ First - id | Second - distance
@@ -1096,7 +1244,8 @@ public:
     {
         if (!map.size())
         {
-            Msg("[Script_GlobalHelper/setGameSmartsByAssaultZones(map)] WARNING: map.size() = 0! You are trying to set an empty map!");
+            Msg("[Script_GlobalHelper/setGameSmartsByAssaultZones(map)] WARNING: map.size() = 0! You are trying to set "
+                "an empty map!");
         }
 
         this->m_game_smarts_by_no_assault_zone = map;
