@@ -1005,9 +1005,80 @@ public:
 #pragma endregion
     }
 
-    inline xr_map<std::uint32_t, bool>& getMonsterClasses(void) noexcept { return this->m_monster_classes; }
+    inline const xr_map<std::uint32_t, bool>& getMonsterClasses(void) const noexcept { return this->m_monster_classes; }
 
-    inline xr_map<std::uint32_t, bool>& getStalkerClasses(void) noexcept { return this->m_stalker_classes; }
+    inline void setMonsterClasses(const xr_map<std::uint32_t, bool>& map) noexcept
+    {
+        if (!map.size())
+        {
+            Msg("[Script_GlobalHelper/setMonsterClasses(map)] WARNING: map.size() = 0! You are trying to set an empty map! No assignment!");
+            return;
+        }
+
+        this->m_monster_classes = map;
+    }
+
+    inline void setMonsterClasses(const std::pair<std::uint32_t, bool>& pair) noexcept
+    {
+        if (pair.first == Globals::kUnsignedInt32Undefined)
+        {
+            Msg("[Script_GlobalHelper/setMonsterClasses(pair)] WARNING: pair.first = std::uint32_t(-1)! Your value is "
+                "undefined! No assignment!");
+            return;
+        }
+
+        this->m_monster_classes.insert(pair);
+    }
+
+    inline void setMonsterClasses(const std::uint32_t& monster_id, const bool& value) noexcept
+    {
+        if (monster_id == Globals::kUnsignedInt32Undefined)
+        {
+            Msg("[Script_GlobalHelper/setMonsterClasses(monster_id, value)] WARNING: monster_id = std::uint32_t(-1)! "
+                "Your value is undefined! No assignment!");
+            return;
+        }
+
+        this->m_monster_classes[monster_id] = value;
+    }
+
+    inline const xr_map<std::uint32_t, bool>& getStalkerClasses(void) const noexcept { return this->m_stalker_classes; }
+
+    inline void setStalkerClasses(const xr_map<std::uint32_t, bool>& map) noexcept
+    {
+        if (!map.size())
+        {
+            Msg("[Script_GlobalHelper/setStalkerClasses(map)] WARNING: map.size() = 0! You are trying to set an empty "
+                "map! No assignment!");
+            return;
+        }
+
+        this->m_stalker_classes = map;
+    }
+
+    inline void setStalkerClasses(const std::pair<std::uint32_t, bool>& pair) noexcept
+    {
+        if (pair.first == Globals::kUnsignedInt32Undefined)
+        {
+            Msg("[Script_GlobalHelper/setStalkerClasses(pair)] WARNING: pair.first = std::uint32_t(-1)! Your value is "
+                "undefined! No assignment!");
+            return;
+        }
+
+        this->m_stalker_classes.insert(pair);
+    }
+
+    inline void setStalkerClasses(const std::uint32_t& stalker_id, const bool& value) noexcept
+    {
+        if (stalker_id == Globals::kUnsignedInt32Undefined)
+        {
+            Msg("[Script_GlobalHelper/setStalkerClasses(stalker_id, value)] WARNING: stalker_id = std::uint32_t(-1)! "
+                "Your value is undefined! No assignment!");
+            return;
+        }
+
+        this->m_stalker_classes[stalker_id] = value;
+    }
 
     inline const xr_map<std::uint32_t, bool>& getWeaponClasses(void) const noexcept { return this->m_weapon_classes; }
 
@@ -1015,7 +1086,8 @@ public:
     {
         if (!map.size())
         {
-            Msg("[Script_GlobalHelper/setWeaponClasses(map)] WARNING: map.size() = 0! You are trying to set an empty map! No assignment!");
+            Msg("[Script_GlobalHelper/setWeaponClasses(map)] WARNING: map.size() = 0! You are trying to set an empty "
+                "map! No assignment!");
             return;
         }
 
