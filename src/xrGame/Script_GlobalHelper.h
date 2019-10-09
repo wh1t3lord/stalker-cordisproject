@@ -1022,6 +1022,29 @@ public:
     {
         if (!map.size())
         {
+            Msg("[Script_GlobalHelper/setSquadCommunityByBehavior(map)] WARNING: map.size() = 0! You are trying to set an empty map! No assignment!");
+            return;
+        }
+
+        this->m_squad_community_by_behavior = map;
+    }
+
+    inline void setSquadCommunityByBehavior(const std::pair<xr_string, xr_string>& pair) noexcept
+    {
+        if (!pair.first.size())
+        {
+            Msg("[Script_GlobalHelper/setSquadCommunityByBehavior(pair)] WARNING: pair.first.size() = 0! You are "
+                "trying to set an empty pair! No assignment!");
+            return;
+        }
+
+        this->m_squad_community_by_behavior.insert(pair);
+    }
+
+    inline void setSquadCommunityByBehavior(const xr_map<xr_string, xr_string>& map) noexcept
+    {
+        if (!map.size())
+        {
             Msg("[Script_GlobalHelper/setSquadCommunityByBehavior(map)] WARNING: map.size() = 0! You are trying to set "
                 "an empty map! No assignment!");
             return;
