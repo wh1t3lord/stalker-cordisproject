@@ -960,7 +960,7 @@ private:
         this->setRegisteredEatableVisuals("stalker_zombied_3", true);
         this->setRegisteredEatableVisuals("stalker_neutral_nauchniy_face_2", true);
 
-        // @ Harmonica 
+        // @ Harmonica
         this->setRegisteredHarmonicaVisuals("stalker_hero_1", true);
         this->setRegisteredHarmonicaVisuals("stalker_hero_novice_1", true);
         this->setRegisteredHarmonicaVisuals("stalker_hero_stalker_1", true);
@@ -1022,7 +1022,17 @@ private:
         this->setRegisteredHarmonicaVisuals("stalker_zombied_4", true);
         this->setRegisteredHarmonicaVisuals("stalker_neutral_nauchniy_face_2", true);
 
-        this->m_animpoint_table["animpoint_stay_wall"] = {Globals::predicate_const_true, "animpoint_stay_wall"};
+        /*
+                this->m_animpoint_table["animpoint_stay_wall"] = {Globals::predicate_const_true, "animpoint_stay_wall"};
+                this->m_animpoint_table["animpoint_stay_wall"] = {Globals::predicate_animpoint_bread,
+           "animpoint_stay_wall_eat_bread"}; this->m_animpoint_table["animpoint_stay_wall"] =
+           {Globals::predicate_animpoint_kolbasa, "animpoint_stay_wall_eat_kolbasa"};
+                this->m_animpoint_table["animpoint_stay_wall"] = {Globals::predicate_animpoint_vodka,
+           "animpoint_stay_wall_drink_vodka"}; this->m_animpoint_table["animpoint_stay_wall"] =
+           {Globals::predicate_animpoint_energy, "animpoint_stay_wall_drink_energy"};
+                this->m_animpoint_table["animpoint_stay_wall"] = {Globals::predicate_animpoint_weapon,
+           "animpoint_stay_wall_weapon"};*/
+
 #pragma endregion
 
 #pragma region Cordis Jobs Types Initializing
@@ -2147,7 +2157,8 @@ public:
     {
         if (!map.size())
         {
-            Msg("[Script_GlobalHelper/setRegisteredHarmonicaVisuals(map)] WARNING: map.size() = 0! You are trying to set an empty map! No assignment!");
+            Msg("[Script_GlobalHelper/setRegisteredHarmonicaVisuals(map)] WARNING: map.size() = 0! You are trying to "
+                "set an empty map! No assignment!");
             return;
         }
 
@@ -2176,6 +2187,107 @@ public:
         }
 
         this->m_registered_harmonica_visuals[visual_name] = is_used;
+    }
+
+    inline const xr_map<xr_string, std::pair<std::function<bool(std::uint16_t, bool)>, xr_string>>& getAnimpointTable(
+        void) noexcept
+    {
+        return this->m_animpoint_table;
+    }
+
+    inline void setAnimpointTable(
+        const xr_map<xr_string, std::pair<std::function<bool(std::uint16_t, bool)>, xr_string>>& map)
+    {
+        if (!map.size())
+        {
+            Msg("[Script_GlobalHelper/setAnimpointTable(pair)] WARNING: "
+                "map.size() = 0! You are trying to set an empty string! No assignment!");
+            return;
+        }
+
+        this->m_animpoint_table = map;
+    }
+
+    inline void setAnimpointTable(
+        const std::pair<xr_string, std::pair<std::function<bool(std::uint16_t, bool)>, xr_string>>& pair)
+    {
+        if (!pair.first.size())
+        {
+            Msg("[Script_GlobalHelper/setAnimpointTable(pair)] WARNING: "
+                "pair.first.size() = 0! You are trying to set an empty string! No assignment!");
+            return;
+        }
+
+        if (!pair.second.first)
+        {
+            Msg("[Script_GlobalHelper/setAnimpointTable(pair)] WARNING: "
+                "pair.second.first = null! You are trying to set an empty function! No assignment!");
+            return;
+        }
+
+        if (!pair.second.second.size())
+        {
+            Msg("[Script_GlobalHelper/setAnimpointTable(pair)] WARNING: "
+                "pair.second.second.size() = 0! You are trying to set an empty string! No assignment!");
+            return;
+        }
+
+        this->m_animpoint_table.insert(pair);
+    }
+
+    inline void setAnimpointTable(
+        const xr_string& animpoint_name, const std::pair<std::function<bool(std::uint16_t, bool)>, xr_string>& pair)
+    {
+        if (!animpoint_name.size())
+        {
+            Msg("[Script_GlobalHelper/setAnimpointTable(animpoint_name, function, animpoint_animation_name)] WARNING: "
+                "animation_name.size() = 0! You are trying to set an empty string! No assignment!");
+            return;
+        }
+
+        if (!pair.first)
+        {
+            Msg("[Script_GlobalHelper/setAnimpointTable(animpoint_name, function, animpoint_animation_name)] WARNING: "
+                "pair.first = null! You are trying to set an empty function! No assignment!");
+            return;
+        }
+
+        if (!pair.second.size())
+        {
+            Msg("[Script_GlobalHelper/setAnimpointTable(animpoint_name, function, animpoint_animation_name)] WARNING: "
+                "pair.second.size() = 0! You are trying to set an empty string! No assignment!");
+            return;
+        }
+
+        this->m_animpoint_table[animpoint_name] = pair;
+    }
+
+    inline void setAnimpointTable(const xr_string& animpoint_name,
+        const std::function<bool(std::uint16_t, bool)> function, const xr_string& animpoint_animation_name)
+    {
+        if (!animpoint_name.size())
+        {
+            Msg("[Script_GlobalHelper/setAnimpointTable(animpoint_name, function, animpoint_animation_name)] WARNING: "
+                "animation_name.size() = 0! You are trying to set an empty string! No assignment!");
+            return;
+        }
+
+        if (!function)
+        {
+            Msg("[Script_GlobalHelper/setAnimpointTable(animpoint_name, function, animpoint_animation_name)] WARNING: "
+                "function = null! You are trying to set an empty function! No assignment!");
+            return;
+        }
+
+        if (!animpoint_animation_name.size())
+        {
+            Msg("[Script_GlobalHelper/setAnimpointTable(animpoint_name, function, animpoint_animation_name)] WARNING: "
+                "animpoint_animation_name.size() = 0! You are trying to set an empty string! No assignment!");
+            return;
+        }
+
+        this->m_animpoint_table[animpoint_name].first = function;
+        this->m_animpoint_table[animpoint_name].second = animpoint_animation_name;
     }
 #pragma endregion
 
