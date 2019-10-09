@@ -1008,8 +1008,84 @@ public:
     inline xr_map<std::uint32_t, bool>& getMonsterClasses(void) noexcept { return this->m_monster_classes; }
     inline xr_map<std::uint32_t, bool>& getStalkerClasses(void) noexcept { return this->m_stalker_classes; }
     inline xr_map<std::uint32_t, bool>& getWeaponClasses(void) noexcept { return this->m_weapon_classes; }
-    inline xr_map<std::uint32_t, bool>& getArtefactClasses(void) noexcept { return this->m_artefact_classes; }
-    inline xr_map<std::uint32_t, bool>& getAmmoSection(void) noexcept { return this->m_ammo_section; }
+
+    inline const xr_map<std::uint32_t, bool>& getArtefactClasses(void) const noexcept
+    {
+        return this->m_artefact_classes;
+    }
+
+    inline void setArtefactClasses(const xr_map<std::uint32_t, bool>& map) noexcept
+    {
+        if (!map.size())
+        {
+            Msg("[Script_GlobalHelper/setArtefactClasses(map)] WARNING: map.size() = 0! You are trying to set an empty map! No assignment!");
+            return;
+        }
+
+        this->m_artefact_classes = map;
+    }
+
+    inline void setArtefactClasses(const std::pair<std::uint32_t, bool>& pair) noexcept
+    {
+        if (pair.first == Globals::kUnsignedInt32Undefined)
+        {
+            Msg("[Script_GlobalHelper/setArtefactClasses(pair)] WARNING: pair.first == std::uint32_t(-1)! You are "
+                "trying to set an undefined value! No assignment!");
+            return;
+        }
+
+        this->m_artefact_classes.insert(pair);
+    }
+
+    inline void setArtefactClasses(const std::uint32_t& artefact_id, const bool& value) noexcept
+    {
+        if (artefact_id == Globals::kUnsignedInt32Undefined)
+        {
+            Msg("[Script_GlobalHelper/setArtefactClasses(artefact_id, value)] WARNING: artefact_id = "
+                "std::uint32_t(-1)! Your value is undefined! No assignment!");
+            return;
+        }
+
+        this->m_artefact_classes[artefact_id] = value;
+    }
+
+    inline const xr_map<std::uint32_t, bool>& getAmmoSection(void) const noexcept { return this->m_ammo_section; }
+
+    inline void setAmmoSection(const xr_map<std::uint32_t, bool>& map) noexcept
+    {
+        if (!map.size())
+        {
+            Msg("[Script_GlobalHelper/setAmmoSection(map)] WARNING: map.size() = 0! You are trying to set an empty "
+                "map! No assignment!");
+            return;
+        }
+
+        this->m_ammo_section = map;
+    }
+
+    inline void setAmmoSection(const std::pair<std::uint32_t, bool>& pair) noexcept
+    {
+        if (!pair.first == Globals::kUnsignedInt32Undefined)
+        {
+            Msg("[Script_GlobalHelper/setAmmoSection(pair)] WARNING: pair.first = std::uint32_t(-1)! "
+                "Your value is undefined!!! No assignment!");
+            return;
+        }
+
+        this->m_ammo_section.insert(pair);
+    }
+
+    inline void setAmmoSection(const std::uint32_t& ammo_section, const bool& value) noexcept
+    {
+        if (ammo_section == Globals::kUnsignedInt32Undefined)
+        {
+            Msg("[Script_GlobalHelper/setAmmoSection(ammo_section, value)] WARNING: ammo_section = std::uint32_t(-1)! "
+                "Your value is undefined!!! No assignment!");
+            return;
+        }
+
+        this->m_ammo_section[ammo_section] = value;
+    }
 
     inline const xr_map<xr_string, bool>& getQuestSection(void) const noexcept { return this->m_quest_section; }
 
@@ -1017,7 +1093,8 @@ public:
     {
         if (!map.size())
         {
-            Msg("[Script_GlobalHelper/setQuestSection(map)] WARNING: map.size() = 0! You are trying to set an empty map! No assignment!");
+            Msg("[Script_GlobalHelper/setQuestSection(map)] WARNING: map.size() = 0! You are trying to set an empty "
+                "map! No assignment!");
             return;
         }
 
