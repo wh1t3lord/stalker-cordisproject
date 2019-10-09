@@ -1006,8 +1006,45 @@ public:
     }
 
     inline xr_map<std::uint32_t, bool>& getMonsterClasses(void) noexcept { return this->m_monster_classes; }
+
     inline xr_map<std::uint32_t, bool>& getStalkerClasses(void) noexcept { return this->m_stalker_classes; }
-    inline xr_map<std::uint32_t, bool>& getWeaponClasses(void) noexcept { return this->m_weapon_classes; }
+
+    inline const xr_map<std::uint32_t, bool>& getWeaponClasses(void) const noexcept { return this->m_weapon_classes; }
+
+    inline void setWeaponClasses(const xr_map<std::uint32_t, bool>& map) noexcept
+    {
+        if (!map.size())
+        {
+            Msg("[Script_GlobalHelper/setWeaponClasses(map)] WARNING: map.size() = 0! You are trying to set an empty map! No assignment!");
+            return;
+        }
+
+        this->m_weapon_classes = map;
+    }
+
+    inline void setWeaponClasses(const std::pair<std::uint32_t, bool>& pair) noexcept
+    {
+        if (pair.first == Globals::kUnsignedInt32Undefined)
+        {
+            Msg("[Script_GlobalHelper/setWeaponClasses(pair)] WARNING: pair.first = std::uint32_t(-1)! You value is "
+                "undefined! No assignment!");
+            return;
+        }
+
+        this->m_weapon_classes.insert(pair);
+    }
+
+    inline void setWeaponClasses(const std::uint32_t& weapon_id, const bool& value) noexcept
+    {
+        if (weapon_id == Globals::kUnsignedInt32Undefined)
+        {
+            Msg("[Script_GlobalHelper/setWeaponClasses(weapon_id, value)] WARNING: weapon_id = std::uint32_t(-1)! Your "
+                "value is undefined! No assignment!");
+            return;
+        }
+
+        this->m_weapon_classes[weapon_id] = value;
+    }
 
     inline const xr_map<std::uint32_t, bool>& getArtefactClasses(void) const noexcept
     {
@@ -1018,7 +1055,8 @@ public:
     {
         if (!map.size())
         {
-            Msg("[Script_GlobalHelper/setArtefactClasses(map)] WARNING: map.size() = 0! You are trying to set an empty map! No assignment!");
+            Msg("[Script_GlobalHelper/setArtefactClasses(map)] WARNING: map.size() = 0! You are trying to set an empty "
+                "map! No assignment!");
             return;
         }
 
