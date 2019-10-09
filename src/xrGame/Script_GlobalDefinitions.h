@@ -34,6 +34,12 @@ constexpr const char* kGeneratedIdForBadValue = "EmptyNameItWasEmptyValue";
 #pragma region Cordis Animpoint prediction functions
 inline bool predicate_const_true(std::uint16_t, bool);
 inline bool predicate_animpoint_bread(std::uint16_t npc_id, bool);
+inline bool predicate_animpoint_kolbasa(std::uint16_t npc_id, bool);
+inline bool predicate_animpoint_vodka(std::uint16_t npc_id, bool);
+inline bool predicate_animpoint_energy(std::uint16_t npc_id, bool);
+inline bool predicate_animpoint_guitar(std::uint16_t npc_id, bool is_in_camp);
+inline bool predicate_animpoint_harmonica(std::uint16_t npc_id, bool is_in_camp);
+inline bool predicate_animpoint_weapon(std::uint16_t npc_id, bool);
 #pragma endregion
 
 #pragma region Cordis SimulationSquad
