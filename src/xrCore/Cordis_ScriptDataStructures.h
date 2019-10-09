@@ -62,7 +62,10 @@ struct SmartCoverLoopholeData
             this->m_animations[type_name].push_back(animation_name);
         }
 
-        inline const xr_map<xr_string, xr_vector<xr_string>>& getAnimations(void) noexcept { return this->m_animations; }
+        inline const xr_map<xr_string, xr_vector<xr_string>>& getAnimations(void) noexcept
+        {
+            return this->m_animations;
+        }
 
     private:
         xr_map<xr_string, xr_vector<xr_string>> m_animations;
@@ -140,8 +143,37 @@ public:
         this->m_transitions.push_back(data);
     }
 
-    inline xr_vector<SmartCoverLoopholeData>& getLoopholes(void) noexcept { return this->m_loopholes; }
-    inline xr_vector<SmartCoverTransitionsData>& getTransitions(void) noexcept { return this->m_transitions; }
+    inline const xr_vector<SmartCoverLoopholeData>& getLoopholes(void) const noexcept { return this->m_loopholes; }
+    inline void setLoopholes(const xr_vector<SmartCoverLoopholeData>& vector) noexcept
+    {
+        if (!vector.size())
+        {
+            Msg("[SmartCoverData/setLoopholes(vector)] WARNING: vector.size() = 0! You are trying to set an empty "
+                "vector! No assignment!");
+            return;
+        }
+
+        this->m_loopholes = vector;
+    }
+    inline void setLoopholes(const SmartCoverLoopholeData& data) noexcept { this->m_loopholes.push_back(data); }
+    inline const xr_vector<SmartCoverTransitionsData>& getTransitions(void) const noexcept
+    {
+        return this->m_transitions;
+    }
+
+    inline void setTransitions(const xr_vector<SmartCoverTransitionsData>& vector) noexcept
+    {
+        if (!vector.size())
+        {
+            Msg("[SmartCoverData/setTransitions(vector)] WARNING: vector.size() = 0! You are trying to set an empty "
+                "vector! No assignment!");
+            return;
+        }
+
+        this->m_transitions = vector;
+    }
+
+    inline void setTransitions(const SmartCoverTransitionsData& data) noexcept { this->m_transitions.push_back(data);}
 };
 
 } // namespace Scripts

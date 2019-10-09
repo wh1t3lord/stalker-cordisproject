@@ -39,18 +39,19 @@ void Script_SE_SmartCover::STATE_Read(NET_Packet& Packet, std::uint16_t size)
 
         if (smart_cover_description_name.size())
         {
-            Msg("[Scripts/Script_SE_SmartCover/STATE_Read(Packet, size)] name %s descirption %s", this->name(),
+            Msg("[Scripts/Script_SE_SmartCover/STATE_Read(Packet, size)] name %s description %s", this->name(),
                 smart_cover_description_name.c_str());
 
-            xr_vector<SmartCoverLoopholeData>& loopholes = Script_GlobalHelper::getInstance()
-                                                               .getRegisteredSmartCovers()[smart_cover_description_name]
+            const xr_vector<SmartCoverLoopholeData>& loopholes = Script_GlobalHelper::getInstance()
+                                                               .getRegisteredSmartCovers()
+                                                               .at(smart_cover_description_name)
                                                                .getLoopholes();
 
             if (loopholes.size())
             {
                 if (loopholes[0].m_id.size())
                 {
-                    for (SmartCoverLoopholeData& it : loopholes)
+                    for (const SmartCoverLoopholeData& it : loopholes)
                         existing_loopholes[it.m_id] = true;
                 }
                 else
@@ -87,10 +88,12 @@ void Script_SE_SmartCover::STATE_Read(NET_Packet& Packet, std::uint16_t size)
 
         if (smart_cover_description_name.size())
         {
-            xr_vector<SmartCoverLoopholeData>& loopholes = Script_GlobalHelper::getInstance()
-                                                               .getRegisteredSmartCovers()[smart_cover_description_name]
+
+            const xr_vector<SmartCoverLoopholeData>& loopholes = Script_GlobalHelper::getInstance()
+                                                               .getRegisteredSmartCovers()
+                                                               .at(smart_cover_description_name)
                                                                .getLoopholes();
-            for (SmartCoverLoopholeData& it : loopholes)
+            for (const SmartCoverLoopholeData& it : loopholes)
                 this->m_loopholes[it.m_id] = true;
 
             this->m_lastdescription_name = smart_cover_description_name;
@@ -104,7 +107,7 @@ void Script_SE_SmartCover::on_before_register(void)
     Msg("[Scripts/Script_SE_SmartCover/on_before_register()] Registering Script_SE_SmartCover [%s] entity to "
         "GameRegisteredServerSmartCovers",
         this->name());
-    Script_GlobalHelper::getInstance().getGameRegisteredServerSmartCovers()[this->name()] = this;
+    Script_GlobalHelper::getInstance().setGameRegisteredServerSmartCovers(this->name(), this);
 }
 
 void Script_SE_SmartCover::on_register(void)
@@ -116,7 +119,7 @@ void Script_SE_SmartCover::on_register(void)
     Msg("[Scripts/Script_SE_SmartCover/on_register()] Registering Script_SE_SmartCover [%s] entity to "
         "GameRegisteredServerSmartCoversByLevelID",
         this->name());
-    Script_GlobalHelper::getInstance().getGameRegisteredServerSmartCoversByLevelID()[level_id][this->m_tNodeID] = this;
+    Script_GlobalHelper::getInstance().setGameRegisteredServerSmartCoversByLevelID(level_id, this->m_tNodeID, this);
 }
 
 void Script_SE_SmartCover::on_unregister(void)
@@ -125,8 +128,7 @@ void Script_SE_SmartCover::on_unregister(void)
     Script_StoryObject::getInstance().unregistrate_by_id(this->ID);
     const std::uint8_t& level_id = GEnv.AISpace->game_graph().vertex(this->m_tGraphID)->level_id();
     // @ Lord: здесь наверное просто зануление а не удаление сущности из памяти!
-    Script_GlobalHelper::getInstance().getGameRegisteredServerSmartCoversByLevelID()[level_id][this->m_tNodeID] =
-        nullptr;
+    Script_GlobalHelper::getInstance().setGameRegisteredServerSmartCoversByLevelID(level_id, this->m_tNodeID, nullptr);
     inherited::on_unregister();
 }
 

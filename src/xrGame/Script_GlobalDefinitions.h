@@ -32,17 +32,8 @@ constexpr int kRelationKoeffFriend = 1000;
 constexpr float kRelationDefaultSympathy = 0.1f;
 constexpr const char* kGeneratedIdForBadValue = "EmptyNameItWasEmptyValue";
 #pragma region Cordis Animpoint prediction functions
-inline bool predicate_const_true(std::uint16_t, bool) { return true; }
-
-inline bool predicate_animpoint_bread(std::uint16_t npc_id, bool)
-{
-    if (DataBase::Storage::getInstance().getStorage()[npc_id].m_object)
-    {
-        /*if (DataBase::Storage::getInstance().getStorage()[npc_id].m_object->get_visual_name())*/
-    }
-
-    return false;
-}
+inline bool predicate_const_true(std::uint16_t, bool);
+inline bool predicate_animpoint_bread(std::uint16_t npc_id, bool);
 #pragma endregion
 
 #pragma region Cordis SimulationSquad
