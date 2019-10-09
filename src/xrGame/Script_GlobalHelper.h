@@ -1010,11 +1010,49 @@ public:
     inline xr_map<std::uint32_t, bool>& getWeaponClasses(void) noexcept { return this->m_weapon_classes; }
     inline xr_map<std::uint32_t, bool>& getArtefactClasses(void) noexcept { return this->m_artefact_classes; }
     inline xr_map<std::uint32_t, bool>& getAmmoSection(void) noexcept { return this->m_ammo_section; }
-    inline xr_map<xr_string, bool>& getQuestSection(void) noexcept { return this->m_quest_section; }
-    inline xr_map<xr_string, xr_string>& getSquadCommunityByBehavior(void) noexcept
+
+    inline const xr_map<xr_string, bool>& getQuestSection(void) const noexcept { return this->m_quest_section; }
+
+    inline const xr_map<xr_string, xr_string>& getSquadCommunityByBehavior(void) const noexcept
     {
         return this->m_squad_community_by_behavior;
     }
+
+    inline void setSquadCommunityByBehavior(const xr_map<xr_string, xr_string>& map) noexcept
+    {
+        if (!map.size())
+        {
+            Msg("[Script_GlobalHelper/setSquadCommunityByBehavior(map)] WARNING: map.size() = 0! You are trying to set an empty map! No assignment!");
+            return;
+        }
+
+        this->m_squad_community_by_behavior = map;
+    }
+
+    inline void setSquadCommunityByBehavior(const std::pair<xr_string, xr_string>& pair) noexcept
+    {
+        if (!pair.first.size())
+        {
+            Msg("[Script_GlobalHelper/setSquadCommunityByBehavior(pair)] WARNING: "
+                "pair.first.size() = 0! You are trying to set an empty pair! No assignment!");
+            return;
+        }
+
+        this->m_squad_community_by_behavior.insert(pair);
+    }
+
+    inline void setSquadCommunityByBehavior(const xr_string& community_name, const xr_string& behavior_name) noexcept
+    {
+        if (!community_name.size())
+        {
+            Msg("[Script_GlobalHelper/setSquadCommunityByBehavior(community_name, behavior_name)] WARNING: "
+                "community_name.size() = 0! You are trying to set an empty string! No assignment!");
+            return;
+        }
+
+        this->m_squad_community_by_behavior[community_name] = behavior_name;
+    }
+
     inline const xr_map<xr_string, AnyCallable<void>>& getRegisteredFunctionsXREffects(void) const noexcept
     {
         return this->m_registered_functions_xr_effects;
@@ -1024,7 +1062,8 @@ public:
     {
         if (!map.size())
         {
-            Msg("[Script_GlobalHelper/setRegisteredFunctionsXREffects(map)] WARNING: map.size() = 0! You are trying to set an empty map! No assignment!");
+            Msg("[Script_GlobalHelper/setRegisteredFunctionsXREffects(map)] WARNING: map.size() = 0! You are trying to "
+                "set an empty map! No assignment!");
             return;
         }
 
