@@ -906,6 +906,122 @@ private:
 #pragma endregion
 
 #pragma region Cordis Animpoint System Table initialization
+        // @ Eatable
+        this->setRegisteredEatableVisuals("stalker_hero_1", true);
+        this->setRegisteredEatableVisuals("stalker_hero_novice_1", true);
+        this->setRegisteredEatableVisuals("stalker_hero_stalker_1", true);
+        this->setRegisteredEatableVisuals("stalker_hero_dolg_1", true);
+        this->setRegisteredEatableVisuals("stalker_hero_dolg_2", true);
+        this->setRegisteredEatableVisuals("stalker_hero_freedom_1", true);
+        this->setRegisteredEatableVisuals("stalker_hero_freedom_2", true);
+        this->setRegisteredEatableVisuals("stalker_hero_specops", true);
+        this->setRegisteredEatableVisuals("stalker_hero_military", true);
+        this->setRegisteredEatableVisuals("stalker_hero_neutral_nauchniy", true);
+        this->setRegisteredEatableVisuals("stalker_hero_cs_heavy", true);
+        this->setRegisteredEatableVisuals("stalker_hero_exo", true);
+        this->setRegisteredEatableVisuals("stalker_bandit_3", true);
+        this->setRegisteredEatableVisuals("stalker_bandit_3_face_1", true);
+        this->setRegisteredEatableVisuals("stalker_bandit_3_mask", true);
+        this->setRegisteredEatableVisuals("stalker_bandit_4", true);
+        this->setRegisteredEatableVisuals("stalker_dolg_2_face_1", true);
+        this->setRegisteredEatableVisuals("stalker_dolg_1_face_1", true);
+        this->setRegisteredEatableVisuals("stalker_dolg_3_face_1", true);
+        this->setRegisteredEatableVisuals("stalker_freedom_1_face_1", true);
+        this->setRegisteredEatableVisuals("stalker_freedom_2_face_1", true);
+        this->setRegisteredEatableVisuals("stalker_freedom_2_face_2", true);
+        this->setRegisteredEatableVisuals("stalker_freedom_3", true);
+        this->setRegisteredEatableVisuals("stalker_freedom_3_face_1", true);
+        this->setRegisteredEatableVisuals("stalker_monolith_1_face_1", true);
+        this->setRegisteredEatableVisuals("stalker_nebo_2_face_1", true);
+        this->setRegisteredEatableVisuals("stalker_neutral_1_face_1", true);
+        this->setRegisteredEatableVisuals("stalker_neutral_1_face_2", true);
+        this->setRegisteredEatableVisuals("stalker_neutral_1_face_3", true);
+        this->setRegisteredEatableVisuals("stalker_bandit_3_face_3", true);
+        this->setRegisteredEatableVisuals("stalker_neutral_2_face_1", true);
+        this->setRegisteredEatableVisuals("stalker_neutral_2_face_2", true);
+        this->setRegisteredEatableVisuals("stalker_neutral_2_face_3", true);
+        this->setRegisteredEatableVisuals("stalker_neutral_2_face_4", true);
+        this->setRegisteredEatableVisuals("stalker_neutral_2_face_5", true);
+        this->setRegisteredEatableVisuals("stalker_neutral_2_face_6", true);
+        this->setRegisteredEatableVisuals("stalker_neutral_2_face_7", true);
+        this->setRegisteredEatableVisuals("stalker_bandit_3_face_2", true);
+        this->setRegisteredEatableVisuals("stalker_neutral_3_face_1", true);
+        this->setRegisteredEatableVisuals("stalker_neutral_nauchniy_face_1", true);
+        this->setRegisteredEatableVisuals("stalker_neutral_nauchniy_face_3", true);
+        this->setRegisteredEatableVisuals("stalker_soldier_1", true);
+        this->setRegisteredEatableVisuals("stalker_soldier_1_face_1", true);
+        this->setRegisteredEatableVisuals("stalker_solider_2", true);
+        this->setRegisteredEatableVisuals("stalker_solider_2_face_1", true);
+        this->setRegisteredEatableVisuals("stalker_solider_3_face_1", true);
+        this->setRegisteredEatableVisuals("stalker_solider_ecolog_face_1", true);
+        this->setRegisteredEatableVisuals("stalker_ucheniy_1_face_1", true);
+        this->setRegisteredEatableVisuals("stalker_ucheniy_1_face_2", true);
+        this->setRegisteredEatableVisuals("stalker_zombied_1", true);
+        this->setRegisteredEatableVisuals("stalker_zombied_3", true);
+        this->setRegisteredEatableVisuals("stalker_neutral_nauchniy_face_2", true);
+
+        // @ Harmonica 
+        this->setRegisteredHarmonicaVisuals("stalker_hero_1", true);
+        this->setRegisteredHarmonicaVisuals("stalker_hero_novice_1", true);
+        this->setRegisteredHarmonicaVisuals("stalker_hero_stalker_1", true);
+        this->setRegisteredHarmonicaVisuals("stalker_hero_dolg_1", true);
+        this->setRegisteredHarmonicaVisuals("stalker_hero_dolg_2", true);
+        this->setRegisteredHarmonicaVisuals("stalker_hero_freedom_1", true);
+        this->setRegisteredHarmonicaVisuals("stalker_hero_freedom_2", true);
+        this->setRegisteredHarmonicaVisuals("stalker_hero_specops", true);
+        this->setRegisteredHarmonicaVisuals("stalker_hero_military", true);
+        this->setRegisteredHarmonicaVisuals("stalker_hero_neutral_nauchniy", true);
+        this->setRegisteredHarmonicaVisuals("stalker_hero_cs_heavy", true);
+        this->setRegisteredHarmonicaVisuals("stalker_hero_exo", true);
+        this->setRegisteredHarmonicaVisuals("stalker_bandit_1", true);
+        this->setRegisteredHarmonicaVisuals("stalker_bandit_2", true);
+        this->setRegisteredHarmonicaVisuals("stalker_bandit_3", true);
+        this->setRegisteredHarmonicaVisuals("stalker_bandit_3_face_1", true);
+        this->setRegisteredHarmonicaVisuals("stalker_bandit_3_mask", true);
+        this->setRegisteredHarmonicaVisuals("stalker_bandit_4", true);
+        this->setRegisteredHarmonicaVisuals("stalker_dolg_2_face_1", true);
+        this->setRegisteredHarmonicaVisuals("stalker_dolg_1_face_1", true);
+        this->setRegisteredHarmonicaVisuals("stalker_dolg_2_mask", true);
+        this->setRegisteredHarmonicaVisuals("stalker_dolg_3_face_1", true);
+        this->setRegisteredHarmonicaVisuals("stalker_freedom_1_face_1", true);
+        this->setRegisteredHarmonicaVisuals("stalker_freedom_2_face_1", true);
+        this->setRegisteredHarmonicaVisuals("stalker_freedom_2_face_2", true);
+        this->setRegisteredHarmonicaVisuals("stalker_freedom_2_mask", true);
+        this->setRegisteredHarmonicaVisuals("stalker_freedom_3", true);
+        this->setRegisteredHarmonicaVisuals("stalker_freedom_3_face_1", true);
+        this->setRegisteredHarmonicaVisuals("stalker_monolith_1_face_1", true);
+        this->setRegisteredHarmonicaVisuals("stalker_nebo_2_face_1", true);
+        this->setRegisteredHarmonicaVisuals("stalker_neutral_1", true);
+        this->setRegisteredHarmonicaVisuals("stalker_neutral_1_face_1", true);
+        this->setRegisteredHarmonicaVisuals("stalker_neutral_1_face_2", true);
+        this->setRegisteredHarmonicaVisuals("stalker_neutral_1_face_3", true);
+        this->setRegisteredHarmonicaVisuals("stalker_bandit_3_face_3", true);
+        this->setRegisteredHarmonicaVisuals("stalker_neutral_2_face_1", true);
+        this->setRegisteredHarmonicaVisuals("stalker_neutral_2_face_2", true);
+        this->setRegisteredHarmonicaVisuals("stalker_neutral_2_face_3", true);
+        this->setRegisteredHarmonicaVisuals("stalker_neutral_2_face_4", true);
+        this->setRegisteredHarmonicaVisuals("stalker_neutral_2_face_5", true);
+        this->setRegisteredHarmonicaVisuals("stalker_neutral_2_face_6", true);
+        this->setRegisteredHarmonicaVisuals("stalker_neutral_2_face_7", true);
+        this->setRegisteredHarmonicaVisuals("stalker_bandit_3_face_2", true);
+        this->setRegisteredHarmonicaVisuals("stalker_neutral_2_mask", true);
+        this->setRegisteredHarmonicaVisuals("stalker_neutral_3_face_1", true);
+        this->setRegisteredHarmonicaVisuals("stalker_neutral_nauchniy_face_1", true);
+        this->setRegisteredHarmonicaVisuals("stalker_neutral_nauchniy_face_3", true);
+        this->setRegisteredHarmonicaVisuals("stalker_soldier_1", true);
+        this->setRegisteredHarmonicaVisuals("stalker_soldier_1_face_1", true);
+        this->setRegisteredHarmonicaVisuals("stalker_solider_2", true);
+        this->setRegisteredHarmonicaVisuals("stalker_solider_2_face_1", true);
+        this->setRegisteredHarmonicaVisuals("stalker_solider_3_face_1", true);
+        this->setRegisteredHarmonicaVisuals("stalker_solider_ecolog_face_1", true);
+        this->setRegisteredHarmonicaVisuals("stalker_ucheniy_1_face_1", true);
+        this->setRegisteredHarmonicaVisuals("stalker_ucheniy_1_face_2", true);
+        this->setRegisteredHarmonicaVisuals("stalker_zombied_1", true);
+        this->setRegisteredHarmonicaVisuals("stalker_zombied_2", true);
+        this->setRegisteredHarmonicaVisuals("stalker_zombied_3", true);
+        this->setRegisteredHarmonicaVisuals("stalker_zombied_4", true);
+        this->setRegisteredHarmonicaVisuals("stalker_neutral_nauchniy_face_2", true);
+
         this->m_animpoint_table["animpoint_stay_wall"] = {Globals::predicate_const_true, "animpoint_stay_wall"};
 #pragma endregion
 
@@ -1011,7 +1127,8 @@ public:
     {
         if (!map.size())
         {
-            Msg("[Script_GlobalHelper/setMonsterClasses(map)] WARNING: map.size() = 0! You are trying to set an empty map! No assignment!");
+            Msg("[Script_GlobalHelper/setMonsterClasses(map)] WARNING: map.size() = 0! You are trying to set an empty "
+                "map! No assignment!");
             return;
         }
 
@@ -2020,6 +2137,46 @@ public:
 
         this->m_registered_eatable_visuals[name] = is_used;
     }
+
+    inline const xr_map<xr_string, bool>& getRegisteredHarmonicaVisuals(void) const noexcept
+    {
+        return this->m_registered_harmonica_visuals;
+    }
+
+    inline void setRegisteredHarmonicaVisuals(const xr_map<xr_string, bool>& map) noexcept
+    {
+        if (!map.size())
+        {
+            Msg("[Script_GlobalHelper/setRegisteredHarmonicaVisuals(map)] WARNING: map.size() = 0! You are trying to set an empty map! No assignment!");
+            return;
+        }
+
+        this->m_registered_harmonica_visuals = map;
+    }
+
+    inline void setRegisteredHarmonicaVisuals(const std::pair<xr_string, bool>& pair) noexcept
+    {
+        if (!pair.first.size())
+        {
+            Msg("[Script_GlobalHelper/setRegisteredHarmonicaVisuals(pair)] WARNING: pair.first.size() = 0! You are "
+                "trying to set an empty pair! No assignment!");
+            return;
+        }
+
+        this->m_registered_harmonica_visuals.insert(pair);
+    }
+
+    inline void setRegisteredHarmonicaVisuals(const xr_string& visual_name, const bool& is_used) noexcept
+    {
+        if (!visual_name.size())
+        {
+            Msg("[Script_GlobalHelper/setRegisteredHarmonicaVisuals(visual_name, value)] WARNING: visual_name.size() = "
+                "0! You are trying to set an empty string! No assignment!");
+            return;
+        }
+
+        this->m_registered_harmonica_visuals[visual_name] = is_used;
+    }
 #pragma endregion
 
 private:
@@ -2029,6 +2186,7 @@ private:
     xr_map<std::uint32_t, bool> m_artefact_classes;
     xr_map<std::uint32_t, bool> m_ammo_section;
     xr_map<xr_string, bool> m_registered_eatable_visuals;
+    xr_map<xr_string, bool> m_registered_harmonica_visuals;
     xr_map<xr_string, bool> m_quest_section;
     xr_map<xr_string, Script_SmartTerrainControl_States> m_registered_smart_terrain_control_script_states;
     xr_map<xr_string, xr_string> m_squad_community_by_behavior;

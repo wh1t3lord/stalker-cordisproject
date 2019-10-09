@@ -70,15 +70,100 @@ inline bool check_all_squad_members(const xr_string& squad_name, const xr_string
 } // namespace GameRelations
 
 inline bool predicate_const_true(std::uint16_t, bool) { return true; }
-inline bool predicate_animpoint_bread(std::uint16_t npc_id, bool) 
+inline bool predicate_animpoint_bread(std::uint16_t npc_id, bool)
 {
-    if (DataBase::Storage::getInstance().getStorage()[npc_id].m_object)
+    if (DataBase::Storage::getInstance().getStorage().at(npc_id).m_object)
     {
-        /*if (DataBase::Storage::getInstance().getStorage()[npc_id].m_object->get_visual_name())*/
+        if (DataBase::Storage::getInstance().getStorage().at(npc_id).m_object->get_visual_name())
+        {
+            if (Script_GlobalHelper::getInstance().getRegisteredEatableVisuals().at(
+                    DataBase::Storage::getInstance().getStorage().at(npc_id).m_object->get_visual_name()) &&
+                DataBase::Storage::getInstance().getStorage().at(npc_id).m_object->GetObjectByName("bread"))
+                return true;
+        }
     }
 
     return false;
 }
+
+inline bool predicate_animpoint_kolbasa(std::uint16_t npc_id, bool)
+{
+    if (DataBase::Storage::getInstance().getStorage().at(npc_id).m_object)
+    {
+        if (DataBase::Storage::getInstance().getStorage().at(npc_id).m_object->get_visual_name())
+        {
+            if (Script_GlobalHelper::getInstance().getRegisteredEatableVisuals().at(
+                    DataBase::Storage::getInstance().getStorage().at(npc_id).m_object->get_visual_name()) &&
+                DataBase::Storage::getInstance().getStorage().at(npc_id).m_object->GetObjectByName("kolbasa"))
+                return true;
+        }
+    }
+
+    return false;
+}
+
+inline bool predicate_animpoint_vodka(std::uint16_t npc_id, bool)
+{
+    if (DataBase::Storage::getInstance().getStorage().at(npc_id).m_object)
+    {
+        if (DataBase::Storage::getInstance().getStorage().at(npc_id).m_object->get_visual_name())
+        {
+            if (Script_GlobalHelper::getInstance().getRegisteredEatableVisuals().at(
+                    DataBase::Storage::getInstance().getStorage().at(npc_id).m_object->get_visual_name()) &&
+                DataBase::Storage::getInstance().getStorage().at(npc_id).m_object->GetObjectByName("vodka"))
+                return true;
+        }
+    }
+
+    return false;
+}
+
+inline bool predicate_animpoint_energy(std::uint16_t npc_id, bool)
+{
+    if (DataBase::Storage::getInstance().getStorage().at(npc_id).m_object)
+    {
+        if (DataBase::Storage::getInstance().getStorage().at(npc_id).m_object->get_visual_name())
+        {
+            if (Script_GlobalHelper::getInstance().getRegisteredEatableVisuals().at(
+                    DataBase::Storage::getInstance().getStorage().at(npc_id).m_object->get_visual_name()) &&
+                DataBase::Storage::getInstance().getStorage().at(npc_id).m_object->GetObjectByName("energy_drink"))
+                return true;
+        }
+    }
+
+    return false;
+}
+
+inline bool predicate_animpoint_guitar(std::uint16_t npc_id, bool is_in_camp)
+{
+    if (DataBase::Storage::getInstance().getStorage().at(npc_id).m_object && is_in_camp)
+    {
+        if (DataBase::Storage::getInstance().getStorage().at(npc_id).m_object->GetObjectByName("guitar_a"))
+            return true;
+    }
+
+    return false;
+}
+
+inline bool predicate_animpoint_harmonica(std::uint16_t npc_id, bool is_in_camp)
+{
+    if (DataBase::Storage::getInstance().getStorage().at(npc_id).m_object && is_in_camp)
+    {
+        if (DataBase::Storage::getInstance().getStorage().at(npc_id).m_object->get_visual_name())
+        {
+            if (Script_GlobalHelper::getInstance().getRegisteredEatableVisuals().at(
+                    DataBase::Storage::getInstance().getStorage().at(npc_id).m_object->get_visual_name()) &&
+                DataBase::Storage::getInstance().getStorage().at(npc_id).m_object->GetObjectByName("harmonica_a"))
+                return true;
+        }
+    }
+
+    return false;
+}
+
+// Lord: Реализовать когда будет XR_GULAG
+inline bool predicate_animpoint_weapon(std::uint16_t npc_id, bool) 
+{ return false; }
 
 inline std::uint32_t vertex_in_direction(
     const std::uint32_t& level_vertex_id, Fvector& direction, const float& max_distance)

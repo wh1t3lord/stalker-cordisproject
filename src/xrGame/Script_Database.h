@@ -338,7 +338,41 @@ public:
     }
 
 #pragma region Getters
-    inline xr_map<std::uint16_t, Storage_Data>& getStorage(void) noexcept { return this->m_storage; }
+    inline const xr_map<std::uint16_t, Storage_Data>& getStorage(void) const noexcept { return this->m_storage; }
+
+    inline void setStorage(const xr_map<std::uint16_t, Storage_Data>& map) noexcept
+    {
+        if (!map.size())
+        {
+            Msg("[DataBase/Storage/setStorage(map)] WARNING: map.size() = 0! You are trying to set an empty map! No assignment!");
+            return;
+        }
+
+        this->m_storage = map;
+    }
+
+    inline void setStorage(const std::pair<std::uint16_t, Storage_Data>& pair) noexcept
+    {
+        if (pair.first == Globals::kUnsignedInt16Undefined)
+        {
+            Msg("[DataBase/Storage/setStorage(pair)] WARNING: pair.first = std::uint16_t(-1)! You are trying to set an "
+                "undefined variable! No assignment!");
+            return;
+        }
+
+        this->m_storage.insert(pair);
+    }
+    inline void setStorage(const std::uint16_t& id, const Storage_Data& data) noexcept
+    {
+        if (id == Globals::kUnsignedInt16Undefined)
+        {
+            Msg("[DataBase/Storage/setStorage(id, data)] WARNING: id = std::uint16_t(-1)! You are trying to set an "
+                "undefined variable! No assignment!");
+            return;
+        }
+
+        this->m_storage[id] = data;
+    }
     inline CScriptGameObject* getActor(void) { return this->m_actor; }
     inline xr_map<xr_string, CScriptGameObject*>& getZoneByName(void) noexcept { return this->m_zone_by_name; }
     inline xr_map<std::uint16_t, float>& getGoodwill_Sympathy(void) noexcept { return this->m_goodwill.first; }
