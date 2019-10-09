@@ -1022,7 +1022,8 @@ public:
     {
         if (!map.size())
         {
-            Msg("[Script_GlobalHelper/setSquadCommunityByBehavior(map)] WARNING: map.size() = 0! You are trying to set an empty map! No assignment!");
+            Msg("[Script_GlobalHelper/setSquadCommunityByBehavior(map)] WARNING: map.size() = 0! You are trying to set "
+                "an empty map! No assignment!");
             return;
         }
 
@@ -1226,7 +1227,7 @@ public:
         if (!map.size())
         {
             Msg("[Script_GlobalHelper/setGameRegisteredServerSmartCoversByLevelID(level_id, map)] WARNING: map.size() "
-                "= 0! You are trying to set an empty map! No assigment!");
+                "= 0! You are trying to set an empty map! No assignment!");
             return;
         }
 
@@ -1303,7 +1304,8 @@ public:
         if (!map.size())
         {
             Msg("[Script_GlobalHelper/setRegisteredSmartCovers(map)] WARNING: map.size() = 0! You are trying to set an "
-                "empty map!");
+                "empty map! No assignment!");
+            return;
         }
 
         this->m_registered_smartcovers = map;
@@ -1311,16 +1313,11 @@ public:
 
     inline void setRegisteredSmartCovers(const std::pair<xr_string, SmartCoverData>& pair) noexcept
     {
-        xr_string new_id;
         if (!pair.first.size())
         {
-            new_id = Globals::kGeneratedIdForBadValue;
-            new_id += std::to_string(Globals::Script_RandomInt::getInstance().Generate(0, 1000));
             Msg("[Script_GlobalHelper/setRegisteredSmartCovers(smart_name, data)] WARNING: pair.first.size() = 0! You "
-                "are trying to set an empty string, generated id -> [%s]",
-                new_id.c_str());
-
-            this->m_registered_smartcovers[new_id] = pair.second;
+                "are trying to set an empty string, No assignment!");
+            return;
         }
 
         this->m_registered_smartcovers.insert(pair);
@@ -1328,16 +1325,11 @@ public:
 
     inline void setRegisteredSmartCovers(const xr_string& smart_name, const SmartCoverData& data) noexcept
     {
-        xr_string new_id;
         if (!smart_name.size())
         {
-            new_id = Globals::kGeneratedIdForBadValue;
-            new_id += std::to_string(Globals::Script_RandomInt::getInstance().Generate(0, 1000));
             Msg("[Script_GlobalHelper/setRegisteredSmartCovers(smart_name, data)] WARNING: smart_name.size() = 0! You "
-                "are trying to set an empty string, generated id -> [%s]",
-                new_id.c_str());
-
-            this->m_registered_smartcovers[new_id] = data;
+                "are trying to set an empty string, No assignment");
+            return;
         }
 
         this->m_registered_smartcovers[smart_name] = data;
@@ -1408,7 +1400,8 @@ public:
         if (!map.size())
         {
             Msg("[Script_GlobalHelper/setJobTypesByScheme(map)] WARNING: map.size() = 0! You are trying to set an "
-                "empty map!");
+                "empty map! No assignment!");
+            return;
         }
 
         this->m_job_type_by_scheme = map;
@@ -1416,16 +1409,11 @@ public:
 
     inline void setJobTypesByScheme(const std::pair<xr_string, xr_string>& pair) noexcept
     {
-        xr_string new_id;
         if (!pair.first.size())
         {
-            new_id = Globals::kGeneratedIdForBadValue;
-            new_id += std::to_string(Globals::Script_RandomInt::getInstance().Generate(0, 1000));
             Msg("[Script_GlobalHelper/setJobTypesByScheme(type_name, scheme_name)] WARNING: pair.first.size() = 0! You "
-                "are trying to set an empty string, generated id -> [%s]",
-                new_id.c_str());
-
-            this->m_job_type_by_scheme[new_id] = pair.second;
+                "are trying to set an empty string, No assignment");
+            return;
         }
 
         this->m_job_type_by_scheme.insert(pair);
@@ -1433,16 +1421,11 @@ public:
 
     inline void setJobTypesByScheme(const xr_string& type_name, const xr_string& scheme_name) noexcept
     {
-        xr_string new_id;
         if (!type_name.size())
         {
-            new_id = Globals::kGeneratedIdForBadValue;
-            new_id += std::to_string(Globals::Script_RandomInt::getInstance().Generate(0, 1000));
             Msg("[Script_GlobalHelper/setJobTypesByScheme(type_name, scheme_name)] WARNING: type_name.size() = 0! You "
-                "are trying to set an empty string, generated id -> [%s]",
-                new_id.c_str());
-
-            this->m_job_type_by_scheme[new_id] = scheme_name;
+                "are trying to set an empty string, No assignment!");
+            return;
         }
 
         this->m_job_type_by_scheme[type_name] = scheme_name;
@@ -1545,7 +1528,8 @@ public:
         if (!map.size())
         {
             Msg("[Script_GlobalHelper/setGameSmartsByAssaultZones(map)] WARNING: map.size() = 0! You are trying to set "
-                "an empty map!");
+                "an empty map! No assignment!");
+            return;
         }
 
         this->m_game_smarts_by_no_assault_zone = map;
@@ -1553,15 +1537,10 @@ public:
 
     inline void setGameSmartsByAssaultZones(const std::pair<xr_string, xr_string>& pair) noexcept
     {
-        xr_string new_id;
         if (!new_id.size())
         {
-            new_id = Globals::kGeneratedIdForBadValue;
-            new_id += std::to_string(Globals::Script_RandomInt::getInstance().Generate(0, 1000));
             Msg("[Script_GlobalHelper/setGameSmartsByAssaultZones(pair)] WARNING: pair.first.size() = 0! You are "
-                "trying to set an empty string!");
-
-            this->m_game_smarts_by_no_assault_zone[new_id] = pair.second;
+                "trying to set an empty string! No assignment!");
             return;
         }
 
@@ -1570,14 +1549,10 @@ public:
 
     inline void setGameSmartsByAssaultZones(const xr_string& smart_name, const xr_string& zone_name) noexcept
     {
-        xr_string new_id;
         if (!smart_name.size())
         {
-            new_id = Globals::kGeneratedIdForBadValue;
-            new_id += std::to_string(Globals::Script_RandomInt::getInstance().Generate(0, 1000));
             Msg("[Script_GlobalHelper/setGameSmartsByAssaultZones(smart_name, zone_name)] WARNING: smart_name.size() = "
-                "0! You are trying to set an empty string!");
-            this->m_game_smarts_by_no_assault_zone[new_id] = zone_name;
+                "0! You are trying to set an empty string! No assignment!");
             return;
         }
 
@@ -1596,7 +1571,8 @@ public:
         if (!map.size())
         {
             Msg("[Script_GlobalHelper/setRegisteredSmartTerrainTerritoryType(map)] WARNING: map.size() = 0! You are "
-                "trying to set an empty map!");
+                "trying to set an empty map! No assignment!");
+            return;
         }
 
         this->m_registered_smart_terrain_territory_type = map;
@@ -1604,15 +1580,10 @@ public:
 
     inline void setRegisteredSmartTerrainTerritoryType(const std::pair<xr_string, bool>& pair) noexcept
     {
-        xr_string new_id;
         if (!pair.first.size())
         {
-            new_id = Globals::kGeneratedIdForBadValue;
-            new_id += std::to_string(Globals::Script_RandomInt::getInstance().Generate(0, 1000));
             Msg("[Script_GlobalHelper/setRegisteredSmartTerrainTerritoryType(pair)] WARNING: pair.first.size() = 0! "
-                "You are trying to set an empty pair!");
-
-            this->m_registered_smart_terrain_territory_type[new_id] = pair.second;
+                "You are trying to set an empty pair! No assignment!");
             return;
         }
 
@@ -1621,14 +1592,10 @@ public:
 
     inline void setRegisteredSmartTerrainTerritoryType(const xr_string& name, const bool& value) noexcept
     {
-        xr_string new_id;
         if (!name.size())
         {
-            new_id = Globals::kGeneratedIdForBadValue;
-            new_id += std::to_string(Globals::Script_RandomInt::getInstance().Generate(0, 1000));
             Msg("[Script_GlobalHelper/setRegisteredSmartTerrainTerritoryType(name, value)] WARNING: name.size() = 0! "
-                "You are trying to set an empty string!");
-            this->m_registered_smart_terrain_territory_type[new_id] = value;
+                "You are trying to set an empty string! No assignment!");
             return;
         }
 
@@ -1674,7 +1641,8 @@ public:
         if (!map.size())
         {
             Msg("[Script_GlobalHelper/setSimulationBoardGroupIDLevelsByName(map)] WARNING: map.size() = 0! You are "
-                "trying to set an empty map!");
+                "trying to set an empty map! No assignment!");
+            return;
         }
 
         this->m_simulationboard_group_id_by_levels_name = map;
@@ -1682,15 +1650,10 @@ public:
 
     inline void setSimulationBoardGroupIDLevelsByName(const std::pair<xr_string, std::uint32_t>& pair) noexcept
     {
-        xr_string new_id;
         if (!pair.first.size())
         {
-            new_id = Globals::kGeneratedIdForBadValue;
-            new_id += std::to_string(Globals::Script_RandomInt::getInstance().Generate(0, 1000));
             Msg("[Script_GlobalHelper/setSimulationBoardGroupIDLevelsByName(pair)] WARNING: pair.first.size() = 0! you "
-                "are trying to set an empty string!");
-
-            this->m_simulationboard_group_id_by_levels_name[new_id] = pair.second;
+                "are trying to set an empty string! No assignment!");
             return;
         }
 
@@ -1699,15 +1662,10 @@ public:
 
     inline void setSimulationBoardGroupIDLevelsByName(const xr_string& name, const std::uint32_t& id) noexcept
     {
-        xr_string new_id;
         if (!name.size())
         {
-            new_id = Globals::kGeneratedIdForBadValue;
-            new_id += std::to_string(Globals::Script_RandomInt::getInstance().Generate(0, 1000));
             Msg("[Script_GlobalHelper/setSimulationBoardGropIDLevelsByName(name, id)] WARNING: name.size() = 0! you "
-                "are trying to set an empty string!");
-
-            this->m_simulationboard_group_id_by_levels_name[new_id] = id;
+                "are trying to set an empty string! No assignment!");
             return;
         }
 
@@ -1724,7 +1682,8 @@ public:
         if (!map.size())
         {
             Msg("[Script_GlobalHelper/setSimulationSquadIsSquadMonster(map)] map.size() = 0! you are trying to set an "
-                "empty map!");
+                "empty map! No assignment!");
+            return;
         }
 
         this->m_simulationsquad_is_squad_monster_by_type = map;
@@ -1732,16 +1691,10 @@ public:
 
     inline void setSimulationSquadIsSquadMonster(const std::pair<xr_string, bool>& pair) noexcept
     {
-        xr_string new_id;
         if (!pair.first.size())
         {
-            new_id = Globals::kGeneratedIdForBadValue;
-            new_id += std::to_string(Globals::Script_RandomInt::getInstance().Generate(0, 1000));
             Msg("[Script_GlobalHelper/setSimulationSquadIsSquadMonster(pair)] WARNING: pair.first.size() = 0! you are "
-                "trying to set an empty string, generated id -> [%s]",
-                new_id.c_str());
-
-            this->m_simulationsquad_is_squad_monster_by_type[new_id] = pair.second;
+                "trying to set an empty string, No assignment");
             return;
         }
 
@@ -1750,16 +1703,10 @@ public:
 
     inline void setSimulationSquadIsSquadMonster(const xr_string& name, const bool& value) noexcept
     {
-        xr_string new_id;
         if (!name.size())
         {
-            new_id = Globals::kGeneratedIdForBadValue;
-            new_id += std::to_string(Globals::Script_RandomInt::getInstance().Generate(0, 1000));
             Msg("[Script_GlobalHelper/setSimulationSquadIsSquadMonster(name, value)] WARNING: name.size() = 0! you are "
-                "trying to set an empty value, generated id -> [%s]",
-                new_id.c_str());
-
-            this->m_simulationsquad_is_squad_monster_by_type[new_id] = value;
+                "trying to set an empty value, No assignment");
             return;
         }
 
@@ -1778,7 +1725,8 @@ public:
         if (!map.size())
         {
             Msg("[Script_GlobalHelper/setRegisteredSmartTerrainControlScriptStates(map)] WARNING: map.size() = 0! you "
-                "are trying to set an empty map!");
+                "are trying to set an empty map! No assignment!");
+            return;
         }
 
         this->m_registered_smart_terrain_control_script_states = map;
@@ -1787,16 +1735,10 @@ public:
     inline void setRegisteredSmartTerrainControlScriptStates(
         const std::pair<xr_string, Script_SmartTerrainControl_States>& pair)
     {
-        xr_string new_id;
         if (!pair.first.size())
         {
-            new_id = Globals::kGeneratedIdForBadValue;
-            new_id += std::to_string(Globals::Script_RandomInt::getInstance().Generate(0, 1000));
             Msg("[Script_GlobalHelper/setRegisteredSmartTerrainControlScriptStates(pair)] WARNING: pair.first is empty "
-                "string! You are trying to set an empty string, generated id -> [%s]",
-                new_id.c_str());
-
-            this->m_registered_smart_terrain_control_script_states[new_id] = pair.second;
+                "string! You are trying to set an empty string, No assignment");
             return;
         }
 
@@ -1806,16 +1748,10 @@ public:
     inline void setRegisteredSmartTerrainControlScriptStates(
         const xr_string& name, const Script_SmartTerrainControl_States& state) noexcept
     {
-        xr_string new_id;
         if (!name.size())
         {
-            new_id = Globals::kGeneratedIdForBadValue;
-            new_id += std::to_string(Globals::Script_RandomInt::getInstance().Generate(0, 1000));
             Msg("[Script_GlobalHelper/setRegisteredSmartTerrainControlScriptStates(name, state)] WARNING: you are "
-                "trying to set an empty string, generated id -> [%s]",
-                new_id.c_str());
-
-            this->m_registered_smart_terrain_control_script_states[new_id] = state;
+                "trying to set an empty string, No assignment");
             return;
         }
 
@@ -1831,7 +1767,9 @@ public:
     {
         if (!map.size())
         {
-            Msg("[Script_GlobalHelper/setRegisteredEatableVisuals(map)] WARNING: you're set an empty map!");
+            Msg("[Script_GlobalHelper/setRegisteredEatableVisuals(map)] WARNING: you're set an empty map! No "
+                "assignment!");
+            return;
         }
 
         this->m_registered_eatable_visuals = map;
@@ -1839,16 +1777,10 @@ public:
 
     inline void setRegisteredEatableVisuals(const std::pair<xr_string, bool>& pair)
     {
-        xr_string new_id;
         if (!pair.first.size())
         {
-            new_id = Globals::kGeneratedIdForBadValue;
-            new_id += std::to_string(Globals::Script_RandomInt::getInstance().Generate(0, 1000));
             Msg("[Script_GlobalHelper/setRegisteredEatableVisuals(pair)] WARNING: you're trying to set an empty pair "
-                "to map! Generated id -> [%s]",
-                new_id.c_str());
-
-            this->m_registered_eatable_visuals[new_id] = pair.second;
+                "to map! No assignment!");
             return;
         }
 
@@ -1857,15 +1789,10 @@ public:
 
     inline void setRegisteredEatableVisuals(const xr_string& name, const bool& is_used) noexcept
     {
-        xr_string new_id;
         if (!name.size())
         {
-            new_id = Globals::kGeneratedIdForBadValue;
-            new_id += std::to_string(Globals::Script_RandomInt::getInstance().Generate(0, 1000));
             Msg("[Script_GlobalHelper/setRegisteredEatableVisuals(name, is_used)] WARNING: name.size() = 0! (string is "
-                "null!) Generated id -> [%s]",
-                new_id.c_str());
-            this->m_registered_eatable_visuals[new_id] = is_used;
+                "null!) No assignment!");
             return;
         }
 
