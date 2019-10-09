@@ -1020,9 +1020,44 @@ public:
         return this->m_registered_functions_xr_effects;
     }
 
-    inline xr_map<xr_string, AnyCallable<bool>>& getRegisteredFunctionsXRCondition(void) noexcept
+    inline const xr_map<xr_string, AnyCallable<bool>>& getRegisteredFunctionsXRCondition(void) const noexcept
     {
         return this->m_registered_functions_xr_conditions;
+    }
+
+    inline void setRegisteredFunctionsXRCondition(const xr_map<xr_string, AnyCallable<bool>>& map)
+    {
+        if (!map.size())
+        {
+            Msg("[Script_GlobalHelper/setRegisteredFunctionsXRCondition(map)] WARNING: map.size() = 0! You are trying to set an empty map! No assignment!");
+            return;
+        }
+
+        this->m_registered_functions_xr_conditions = map;
+    }
+
+    inline void setRegisteredFunctionsXRCondition(const std::pair<xr_string, AnyCallable<bool>>& pair)
+    {
+        if (!pair.first.size())
+        {
+            Msg("[Script_GlobalHelper/setRegisteredFunctionsXRCondition(pair)] WARNING: "
+                "pair.first.size() = 0! You are trying to set an empty string! No assignment!");
+            return;
+        }
+
+        this->m_registered_functions_xr_conditions.insert(pair);
+    }
+
+    inline void setRegisteredFunctionsXRCondition(const xr_string& function_name, const AnyCallable<bool>& function)
+    {
+        if (!function_name.size())
+        {
+            Msg("[Script_GlobalHelper/setRegisteredFunctionsXRCondition(function_name, function)] WARNING: "
+                "function_name.size() = 0! You are trying to set an empty string! No assignment!");
+            return;
+        }
+
+        this->m_registered_functions_xr_conditions[function_name] = function;
     }
 
     // @ In-Game
@@ -1035,7 +1070,8 @@ public:
     {
         if (!map.size())
         {
-            Msg("[Script_GlobalHelper/setGameRegisteredServerSmartCovers(map)] WARNING: map.size() = 0! You are trying to set an empty map! No assignment!");
+            Msg("[Script_GlobalHelper/setGameRegisteredServerSmartCovers(map)] WARNING: map.size() = 0! You are trying "
+                "to set an empty map! No assignment!");
             return;
         }
 
