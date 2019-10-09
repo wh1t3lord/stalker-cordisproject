@@ -1013,6 +1013,41 @@ public:
 
     inline const xr_map<xr_string, bool>& getQuestSection(void) const noexcept { return this->m_quest_section; }
 
+    inline void setQuestSection(const xr_map<xr_string, bool>& map) noexcept
+    {
+        if (!map.size())
+        {
+            Msg("[Script_GlobalHelper/setQuestSection(map)] WARNING: map.size() = 0! You are trying to set an empty map! No assignment!");
+            return;
+        }
+
+        this->m_quest_section = map;
+    }
+
+    inline void setQuestSection(const std::pair<xr_string, bool>& pair) noexcept
+    {
+        if (!pair.first.size())
+        {
+            Msg("[Script_GlobalHelper/setQuestSection] WARNING: pair.first.size() = 0! You are trying to set an "
+                "empty pair! No assignment!");
+            return;
+        }
+
+        this->m_quest_section.insert(pair);
+    }
+
+    inline void setQuestSection(const xr_string& section_name, const bool& value) noexcept
+    {
+        if (!section_name.size())
+        {
+            Msg("[Script_GlobalHelper/setQuestSection] WARNING: section_name.size() = 0! You are trying to set an "
+                "empty string! No assignment!");
+            return;
+        }
+
+        this->m_quest_section[section_name] = value;
+    }
+
     inline const xr_map<xr_string, xr_string>& getSquadCommunityByBehavior(void) const noexcept
     {
         return this->m_squad_community_by_behavior;
@@ -1022,7 +1057,8 @@ public:
     {
         if (!map.size())
         {
-            Msg("[Script_GlobalHelper/setSquadCommunityByBehavior(map)] WARNING: map.size() = 0! You are trying to set an empty map! No assignment!");
+            Msg("[Script_GlobalHelper/setSquadCommunityByBehavior(map)] WARNING: map.size() = 0! You are trying to set "
+                "an empty map! No assignment!");
             return;
         }
 
