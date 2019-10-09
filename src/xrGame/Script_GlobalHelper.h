@@ -1015,9 +1015,44 @@ public:
     {
         return this->m_squad_community_by_behavior;
     }
-    inline xr_map<xr_string, AnyCallable<void>>& getRegisteredFunctionsXREffects(void) noexcept
+    inline const xr_map<xr_string, AnyCallable<void>>& getRegisteredFunctionsXREffects(void) const noexcept
     {
         return this->m_registered_functions_xr_effects;
+    }
+
+    inline void setRegisteredFunctionsXREffects(const xr_map<xr_string, AnyCallable<void>>& map)
+    {
+        if (!map.size())
+        {
+            Msg("[Script_GlobalHelper/setRegisteredFunctionsXREffects(map)] WARNING: map.size() = 0! You are trying to set an empty map! No assignment!");
+            return;
+        }
+
+        this->m_registered_functions_xr_effects = map;
+    }
+
+    inline void setRegisteredFunctionsXREffects(const std::pair<xr_string, AnyCallable<void>>& pair)
+    {
+        if (!pair.first.size())
+        {
+            Msg("[Script_GlobalHelper/setRegisteredFunctionsXREffects(pair)] WARNING: "
+                "pair.first.size() = 0! You are trying to set an empty pair! No assignment!");
+            return;
+        }
+
+        this->m_registered_functions_xr_effects.insert(pair);
+    }
+
+    inline void setRegisteredFunctionsXREffects(const xr_string& function_name, const AnyCallable<void>& function)
+    {
+        if (!function_name.size())
+        {
+            Msg("[Script_GlobalHelper/setRegisteredFunctionsXREffects(function_name, function)] WARNING: "
+                "function_name.size() = 0! You are trying to set an empty string! No assignment!");
+            return;
+        }
+
+        this->m_registered_functions_xr_effects[function_name] = function;
     }
 
     inline const xr_map<xr_string, AnyCallable<bool>>& getRegisteredFunctionsXRCondition(void) const noexcept
@@ -1029,7 +1064,8 @@ public:
     {
         if (!map.size())
         {
-            Msg("[Script_GlobalHelper/setRegisteredFunctionsXRCondition(map)] WARNING: map.size() = 0! You are trying to set an empty map! No assignment!");
+            Msg("[Script_GlobalHelper/setRegisteredFunctionsXRCondition(map)] WARNING: map.size() = 0! You are trying "
+                "to set an empty map! No assignment!");
             return;
         }
 
@@ -1041,7 +1077,7 @@ public:
         if (!pair.first.size())
         {
             Msg("[Script_GlobalHelper/setRegisteredFunctionsXRCondition(pair)] WARNING: "
-                "pair.first.size() = 0! You are trying to set an empty string! No assignment!");
+                "pair.first.size() = 0! You are trying to set an empty pair! No assignment!");
             return;
         }
 
