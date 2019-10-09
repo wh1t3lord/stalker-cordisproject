@@ -1256,30 +1256,6 @@ public:
     {
         if (!pair.first.size())
         {
-            Msg("[Script_GlobalHelper/setSquadCommunityByBehavior(pair)] WARNING: pair.first.size() = 0! You are "
-                "trying to set an empty pair! No assignment!");
-            return;
-        }
-
-        this->m_squad_community_by_behavior.insert(pair);
-    }
-
-    inline void setSquadCommunityByBehavior(const xr_map<xr_string, xr_string>& map) noexcept
-    {
-        if (!map.size())
-        {
-            Msg("[Script_GlobalHelper/setSquadCommunityByBehavior(map)] WARNING: map.size() = 0! You are trying to set "
-                "an empty map! No assignment!");
-            return;
-        }
-
-        this->m_squad_community_by_behavior = map;
-    }
-
-    inline void setSquadCommunityByBehavior(const std::pair<xr_string, xr_string>& pair) noexcept
-    {
-        if (!pair.first.size())
-        {
             Msg("[Script_GlobalHelper/setSquadCommunityByBehavior(pair)] WARNING: "
                 "pair.first.size() = 0! You are trying to set an empty pair! No assignment!");
             return;
@@ -1300,7 +1276,7 @@ public:
         this->m_squad_community_by_behavior[community_name] = behavior_name;
     }
 
-    inline const xr_map<xr_string, AnyCallable<void>>& getRegisteredFunctionsXREffects(void) const noexcept
+    inline xr_map<xr_string, AnyCallable<void>>& getRegisteredFunctionsXREffects(void) noexcept
     {
         return this->m_registered_functions_xr_effects;
     }
@@ -1341,7 +1317,7 @@ public:
         this->m_registered_functions_xr_effects[function_name] = function;
     }
 
-    inline const xr_map<xr_string, AnyCallable<bool>>& getRegisteredFunctionsXRCondition(void) const noexcept
+    inline xr_map<xr_string, AnyCallable<bool>>& getRegisteredFunctionsXRCondition(void) noexcept
     {
         return this->m_registered_functions_xr_conditions;
     }
@@ -1783,7 +1759,7 @@ public:
 
     inline void setGameSmartsByAssaultZones(const std::pair<xr_string, xr_string>& pair) noexcept
     {
-        if (!new_id.size())
+        if (!pair.first.size())
         {
             Msg("[Script_GlobalHelper/setGameSmartsByAssaultZones(pair)] WARNING: pair.first.size() = 0! You are "
                 "trying to set an empty string! No assignment!");

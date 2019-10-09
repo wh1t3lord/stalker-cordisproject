@@ -92,7 +92,7 @@ bool Script_SE_Actor::IsSimulationAvailable(void)
                 .getObjects()[Script_GlobalHelper::getInstance().getGameNearestToActorServerSmartTerrain().first]))
         return false;
 
-    for (std::pair<const xr_string, xr_string>& it : Script_GlobalHelper::getInstance().getGameSmartsByAssaultZones())
+    for (const std::pair<xr_string, xr_string>& it : Script_GlobalHelper::getInstance().getGameSmartsByAssaultZones())
     {
         CScriptGameObject* client_zone = DataBase::Storage::getInstance().getZoneByName()[it.first];
 

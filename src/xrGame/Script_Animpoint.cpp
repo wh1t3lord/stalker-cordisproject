@@ -46,7 +46,7 @@ void Script_Animpoint::fill_approved_actions(void)
     {
         for (const xr_string& it : this->m_storage->getAvailAnimations())
         {
-            this->m_storage->setApprovedAction(it);
+        //    this->m_storage->setApprovedAction(it);
         }
     }
     else
@@ -56,8 +56,7 @@ void Script_Animpoint::fill_approved_actions(void)
 
 void Script_Animpoint::calculate_position(void)
 {
-    Script_SE_SmartCover* server_smartcover =
-        Script_GlobalHelper::getInstance().getGameRegisteredServerSmartCovers()[this->m_cover_name];
+    Script_SE_SmartCover* server_smartcover = Script_GlobalHelper::getInstance().getGameRegisteredServerSmartCovers().at(this->m_cover_name);
 }
 
 } // namespace Scripts

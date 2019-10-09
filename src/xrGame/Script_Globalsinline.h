@@ -69,6 +69,17 @@ inline bool check_all_squad_members(const xr_string& squad_name, const xr_string
 }
 } // namespace GameRelations
 
+inline bool predicate_const_true(std::uint16_t, bool) { return true; }
+inline bool predicate_animpoint_bread(std::uint16_t npc_id, bool) 
+{
+    if (DataBase::Storage::getInstance().getStorage()[npc_id].m_object)
+    {
+        /*if (DataBase::Storage::getInstance().getStorage()[npc_id].m_object->get_visual_name())*/
+    }
+
+    return false;
+}
+
 inline std::uint32_t vertex_in_direction(
     const std::uint32_t& level_vertex_id, Fvector& direction, const float& max_distance)
 {
@@ -376,7 +387,7 @@ inline bool IsMonster(CScriptGameObject* object, int class_id = 0)
 
     int result = class_id ? class_id : object->clsid();
 
-    return (Script_GlobalHelper::getInstance().getMonsterClasses()[result] == true);
+    return (Script_GlobalHelper::getInstance().getMonsterClasses().at(result) == true);
 }
 
 inline bool IsMonster(CSE_ALifeDynamicObject* server_object, int class_id = 0)
@@ -389,7 +400,7 @@ inline bool IsMonster(CSE_ALifeDynamicObject* server_object, int class_id = 0)
 
     int result = class_id ? class_id : server_object->m_script_clsid;
 
-    return (Script_GlobalHelper::getInstance().getMonsterClasses()[result] == true);
+    return (Script_GlobalHelper::getInstance().getMonsterClasses().at(result) == true);
 }
 
 inline bool IsStalker(CScriptGameObject* object, int class_id = 0)
@@ -402,7 +413,7 @@ inline bool IsStalker(CScriptGameObject* object, int class_id = 0)
 
     int result = class_id ? class_id : object->clsid();
 
-    return (Script_GlobalHelper::getInstance().getStalkerClasses()[result] == true);
+    return (Script_GlobalHelper::getInstance().getStalkerClasses().at(result) == true);
 }
 
 inline bool IsStalker(CSE_ALifeDynamicObject* server_object, int class_id = 0)
@@ -415,7 +426,7 @@ inline bool IsStalker(CSE_ALifeDynamicObject* server_object, int class_id = 0)
 
     int result = class_id ? class_id : server_object->m_script_clsid;
 
-    return (Script_GlobalHelper::getInstance().getStalkerClasses()[result] == true);
+    return (Script_GlobalHelper::getInstance().getStalkerClasses().at(result) == true);
 }
 
 inline bool IsArtefact(CScriptGameObject* object, int class_id = 0)
@@ -428,7 +439,7 @@ inline bool IsArtefact(CScriptGameObject* object, int class_id = 0)
 
     int result = class_id ? class_id : object->clsid();
 
-    return (Script_GlobalHelper::getInstance().getArtefactClasses()[result] == true);
+    return (Script_GlobalHelper::getInstance().getArtefactClasses().at(result) == true);
 }
 
 inline bool IsWeapon(CScriptGameObject* object, int class_id)
@@ -441,7 +452,7 @@ inline bool IsWeapon(CScriptGameObject* object, int class_id)
 
     int result = class_id ? class_id : object->clsid();
 
-    return (Script_GlobalHelper::getInstance().getWeaponClasses()[result] == true);
+    return (Script_GlobalHelper::getInstance().getWeaponClasses().at(result) == true);
 }
 
 inline xr_string character_community(CScriptGameObject* object)

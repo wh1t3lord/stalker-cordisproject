@@ -734,7 +734,7 @@ inline std::pair<xr_vector<JobData>, xr_vector<JobDataExclusive>> load_job(Scrip
     patrol_xranimpoint_point_name += "_animpoint_";
     patrol_xranimpoint_point_name += std::to_string(it_xranimpoint).c_str();
 
-    while (Script_GlobalHelper::getInstance().getGameRegisteredServerSmartCovers()[patrol_xranimpoint_point_name])
+    while (Script_GlobalHelper::getInstance().getGameRegisteredServerSmartCovers().at(patrol_xranimpoint_point_name))
     {
         xr_string waypoint_name = global_name;
         waypoint_name += "_animpoint_";
@@ -1298,7 +1298,7 @@ inline void add_exclusive_job(const xr_string& section_name, const xr_string& wo
     xr_string job_suitable_name =
         Globals::Utils::cfg_get_string(&job_ini_file, (xr_string("logic@").append(work_field_name)), "suitable");
     xr_string scheme_name = Globals::Utils::get_scheme_by_section(active_section_name);
-    xr_string job_type_name = Script_GlobalHelper::getInstance().getJobTypesByScheme()[scheme_name];
+    xr_string job_type_name = Script_GlobalHelper::getInstance().getJobTypesByScheme().at(scheme_name);
     std::uint32_t new_priority = static_cast<std::uint32_t>(
         Globals::Utils::cfg_get_number(&job_ini_file, (xr_string("logic@").append(work_field_name)), "prior"));
     bool is_monster = Globals::Utils::cfg_get_bool(
