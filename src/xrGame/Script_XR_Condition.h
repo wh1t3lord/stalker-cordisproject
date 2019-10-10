@@ -859,7 +859,7 @@ inline bool is_npc_in_zone(
         return true;
     }
 
-    CScriptGameObject* npc = DataBase::Storage::getInstance().getStorage()[server_npc->ID].m_object;
+    CScriptGameObject* npc = DataBase::Storage::getInstance().getStorage().at(server_npc->ID).m_object;
 
     if (!npc)
     {
@@ -903,7 +903,7 @@ inline bool is_npc_in_zone(
         return true;
     }
 
-    CScriptGameObject* npc = DataBase::Storage::getInstance().getStorage()[server_npc->ID].m_object;
+    CScriptGameObject* npc = DataBase::Storage::getInstance().getStorage().at(server_npc->ID).m_object;
 
     if (!npc)
     {
@@ -1017,7 +1017,7 @@ inline bool is_npc_community(
         return false;
     }
 
-    CScriptGameObject* npc = DataBase::Storage::getInstance().getStorage()[server_npc->ID].m_object;
+    CScriptGameObject* npc = DataBase::Storage::getInstance().getStorage().at(server_npc->ID).m_object;
 
     if (!npc)
     {
@@ -1060,7 +1060,7 @@ inline bool is_npc_community(
         return false;
     }
 
-    CScriptGameObject* npc = DataBase::Storage::getInstance().getStorage()[server_npc->ID].m_object;
+    CScriptGameObject* npc = DataBase::Storage::getInstance().getStorage().at(server_npc->ID).m_object;
 
     if (!npc)
     {
@@ -1573,7 +1573,7 @@ inline bool is_signal(CScriptGameObject* actor, CScriptGameObject* npc, const xr
         return false;
     }
 
-    DataBase::Storage_Data& storage_data = DataBase::Storage::getInstance().getStorage()[npc->ID()];
+    const DataBase::Storage_Data& storage_data = DataBase::Storage::getInstance().getStorage().at(npc->ID());
 
     return storage_data[storage_data.m_active_scheme].getSignals()[buffer[0]];
 }
@@ -2231,8 +2231,8 @@ inline bool is_fighting_actor(CScriptGameObject* actor, CScriptGameObject* npc)
         return false;
     }
 
-    std::uint16_t& enemy_id = DataBase::Storage::getInstance().getStorage()[npc->ID()].m_enemy_id;
-    CScriptGameObject* enemy = DataBase::Storage::getInstance().getStorage()[enemy_id].m_object;
+    const std::uint16_t& enemy_id = DataBase::Storage::getInstance().getStorage().at(npc->ID()).m_enemy_id;
+    CScriptGameObject* enemy = DataBase::Storage::getInstance().getStorage().at(enemy_id).m_object;
 
     if (!enemy)
         return false;
@@ -2610,8 +2610,8 @@ inline bool is_squad_in_zone(CScriptGameObject* actor, CScriptGameObject* npc, c
              server_squad->squad_members().begin();
          it != server_squad->squad_members().end(); ++it)
     {
-        Fvector position = (DataBase::Storage::getInstance().getStorage()[it->first].m_object ?
-                DataBase::Storage::getInstance().getStorage()[it->first].m_object->Position() :
+        Fvector position = (DataBase::Storage::getInstance().getStorage().at(it->first).m_object ?
+                DataBase::Storage::getInstance().getStorage().at(it->first).m_object->Position() :
                 it->second->Position());
 
         if (client_zone->inside(position))
@@ -2659,8 +2659,8 @@ inline bool is_squad_in_zone(
              server_squad->squad_members().begin();
          it != server_squad->squad_members().end(); ++it)
     {
-        Fvector position = (DataBase::Storage::getInstance().getStorage()[it->first].m_object ?
-                DataBase::Storage::getInstance().getStorage()[it->first].m_object->Position() :
+        Fvector position = (DataBase::Storage::getInstance().getStorage().at(it->first).m_object ?
+                DataBase::Storage::getInstance().getStorage().at(it->first).m_object->Position() :
                 it->second->Position());
 
         if (client_zone->inside(position))
@@ -2825,8 +2825,9 @@ inline bool is_squad_in_zone_all(CScriptGameObject* actor, CScriptGameObject* np
              server_squad->squad_members().begin();
          it != server_squad->squad_members().end(); ++it)
     {
-        const Fvector& position = (!!DataBase::Storage::getInstance().getStorage()[it->first].m_object) ?
-            DataBase::Storage::getInstance().getStorage()[it->first].m_object->Position() :
+        const Fvector& position = (!!DataBase::Storage::getInstance().getStorage().at(it->first).m_object) ?
+            DataBase::Storage::getInstance().getStorage().at(it->first).m_object->Position()
+                :
             it->second->Position();
 
         if (!client_zone->inside(position))
@@ -2870,8 +2871,9 @@ inline bool is_squad_in_zone_all(
              server_squad->squad_members().begin();
          it != server_squad->squad_members().end(); ++it)
     {
-        const Fvector& position = (!!DataBase::Storage::getInstance().getStorage()[it->first].m_object) ?
-            DataBase::Storage::getInstance().getStorage()[it->first].m_object->Position() :
+        const Fvector& position = (!!DataBase::Storage::getInstance().getStorage().at(it->first).m_object) ?
+            DataBase::Storage::getInstance().getStorage().at(it->first).m_object->Position()
+                :
             it->second->Position();
 
         if (!client_zone->inside(position))
@@ -2915,8 +2917,9 @@ inline bool is_squad_in_zone_all(
              server_squad->squad_members().begin();
          it != server_squad->squad_members().end(); ++it)
     {
-        const Fvector& position = (!!DataBase::Storage::getInstance().getStorage()[it->first].m_object) ?
-            DataBase::Storage::getInstance().getStorage()[it->first].m_object->Position() :
+        const Fvector& position = (!!DataBase::Storage::getInstance().getStorage().at(it->first).m_object) ?
+            DataBase::Storage::getInstance().getStorage().at(it->first).m_object->Position()
+                :
             it->second->Position();
 
         if (!client_zone->inside(position))
@@ -3392,7 +3395,7 @@ inline bool is_quest_npc_enemy_actor(
 
 inline bool is_animpoint_reached(CScriptGameObject* actor, CScriptGameObject* npc)
 {
-    DataBase::StorageAnimpoint_Data& animpoint_storage = DataBase::Storage::getInstance().getStorage()[npc->ID()].m_storage_animpoint;
+    const DataBase::StorageAnimpoint_Data& animpoint_storage = DataBase::Storage::getInstance().getStorage().at(npc->ID()).m_storage_animpoint;
     Script_Animpoint* animpoint = animpoint_storage.getAnimpoint();
     if (!animpoint)
     {

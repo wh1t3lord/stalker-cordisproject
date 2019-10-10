@@ -408,7 +408,7 @@ inline std::pair<xr_vector<JobData>, xr_vector<JobDataExclusive>> load_job(Scrip
             if (server_object_human->CommunityName() == "zombied")
                 return false;
 
-            DataBase::Storage_Data& storage = DataBase::Storage::getInstance().getStorage()[server_object->ID];
+            const DataBase::Storage_Data& storage = DataBase::Storage::getInstance().getStorage().at(server_object->ID);
 
             if (!storage.m_object)
                 return false;

@@ -36,7 +36,7 @@ inline bool check_all_squad_members(const xr_string& squad_name, const xr_string
              it != squad->squad_members().end(); ++it)
         {
             bool is_goodwill = false;
-            CScriptGameObject* object = DataBase::Storage::getInstance().getStorage()[it->first].m_object;
+            CScriptGameObject* object = DataBase::Storage::getInstance().getStorage().at(it->first).m_object;
             if (goodwill_name == Globals::kRelationsTypeEnemy)
             {
                 if (object)
@@ -315,7 +315,7 @@ inline CScriptGameObject* get_story_object(const xr_string& object_id)
     if (!obj_id)
         return result;
 
-    result = DataBase::Storage::getInstance().getStorage()[obj_id].m_object;
+    result = DataBase::Storage::getInstance().getStorage().at(obj_id).m_object;
 
     if (result)
     {
@@ -573,7 +573,7 @@ inline void change_team_squad_group(CSE_ALifeDynamicObject* server_object, const
         return;
     }
 
-    CScriptGameObject* client_object = DataBase::Storage::getInstance().getStorage()[server_object->ID].m_object;
+    CScriptGameObject* client_object = DataBase::Storage::getInstance().getStorage().at(server_object->ID).m_object;
 
     if (!client_object)
     {
@@ -900,7 +900,7 @@ inline bool is_accessible_job(CSE_ALifeDynamicObject* server_object, const char*
         return false;
     }
 
-    CScriptGameObject* object = DataBase::Storage::getInstance().getStorage()[server_object->ID].m_object;
+    CScriptGameObject* object = DataBase::Storage::getInstance().getStorage().at(server_object->ID).m_object;
 
     if (!object)
     {
