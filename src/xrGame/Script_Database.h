@@ -344,7 +344,8 @@ public:
     {
         if (!map.size())
         {
-            Msg("[DataBase/Storage/setStorage(map)] WARNING: map.size() = 0! You are trying to set an empty map! No assignment!");
+            Msg("[DataBase/Storage/setStorage(map)] WARNING: map.size() = 0! You are trying to set an empty map! No "
+                "assignment!");
             return;
         }
 
@@ -373,21 +374,186 @@ public:
 
         this->m_storage[id] = data;
     }
-    inline CScriptGameObject* getActor(void) { return this->m_actor; }
-    inline xr_map<xr_string, CScriptGameObject*>& getZoneByName(void) noexcept { return this->m_zone_by_name; }
-    inline xr_map<std::uint16_t, float>& getGoodwill_Sympathy(void) noexcept { return this->m_goodwill.first; }
-    inline xr_map<std::uint16_t, xr_string>& getGoodwill_Relations(void) noexcept { return this->m_goodwill.second; }
-    inline xr_map<std::uint16_t, std::uint32_t>& getSpawnedVertexByID(void) noexcept
+
+    inline CScriptGameObject* getActor(void) const { return this->m_actor; }
+
+    inline const xr_map<xr_string, CScriptGameObject*>& getZoneByName(void) const noexcept
+    {
+        return this->m_zone_by_name;
+    }
+
+    inline const xr_map<std::uint16_t, float>& getGoodwill_Sympathy(void) const noexcept
+    {
+        return this->m_goodwill.first;
+    }
+
+    inline const xr_map<std::uint16_t, xr_string>& getGoodwill_Relations(void) const noexcept
+    {
+        return this->m_goodwill.second;
+    }
+
+    inline const xr_map<std::uint16_t, std::uint32_t>& getSpawnedVertexByID(void) const noexcept
     {
         return this->m_spawned_vertex_by_id;
     }
-    inline xr_map<std::uint16_t, std::pair<std::uint16_t, xr_string>>& getOfflineObjects(void) noexcept
+
+    inline const xr_map<std::uint16_t, std::pair<std::uint16_t, xr_string>>& getOfflineObjects(void) const noexcept
     {
         return this->m_offline_objects;
     }
-    inline std::pair<xr_map<std::uint16_t, float>, xr_map<std::uint16_t, xr_string>>& getGoodwill(void) noexcept
+
+    inline void setOfflineObjects(const xr_map<std::uint16_t, std::pair<std::uint16_t, xr_string>>& map) noexcept
+    {
+        if (!map.size())
+        {
+            Msg("[DataBase/Storage/setOfflineObjects(map)] WARNING: map.size() = 0! You are trying to set an empty map! No assignment!");
+            return;
+        }
+
+        this->m_offline_objects = map;
+    }
+
+    inline void setOfflineObjects(const std::pair<std::uint16_t, std::pair<std::uint16_t, xr_string>>& pair) noexcept
+    {
+        if (pair.first == Globals::kUnsignedInt16Undefined)
+        {
+            Msg("[DataBase/Storage/setOfflineObjects(pair)] WARNING: pair.first = std::uint16_t(-1)! You are trying to "
+                "set "
+                "an empty pair! No assignment!");
+            return;
+        }
+
+        this->m_offline_objects.insert(pair);
+    }
+
+    inline void setOfflineObjects(const std::uint16_t& id, const std::pair<std::uint16_t, xr_string>& pair) noexcept
+    {
+        if (id == Globals::kUnsignedInt16Undefined)
+        {
+            Msg("[DataBase/Storage/setOfflineObjects(id, pair)] WARNING: id = std::uint16_t(-1)! You are trying to set "
+                "an undefined value! No assignment!");
+            return;
+        }
+
+        this->m_offline_objects[id] = pair;
+    }
+
+    // @ Lord: наименовать нормально аргументы
+    inline void setOfflineObjects(const std::uint16_t& id, const std::uint16_t& _id, const xr_string& string) noexcept
+    {
+        if (id == Globals::kUnsignedInt16Undefined)
+        {
+            Msg("[DataBase/Storage/setOfflineObjects(id, _id, string)] WARNING: id = std::uint16_t(-1)! You are trying "
+                "to set an undefined value! No assignment!");
+            return;
+        }
+
+        this->m_offline_objects[id] = {_id, string};
+    }
+
+    inline const std::pair<xr_map<std::uint16_t, float>, xr_map<std::uint16_t, xr_string>>& getGoodwill(void) const
+        noexcept
     {
         return this->m_goodwill;
+    }
+
+    // @ Second
+    inline void setGoodwill(const xr_map<std::uint16_t, xr_string>& second) noexcept
+    {
+        if (!second.size())
+        {
+            Msg("[DataBase/Storage/setGoodwill(first, second] WARNING: second.size() = 0! You are trying to set an "
+                "empty map! No assignment!");
+            return;
+        }
+
+        this->m_goodwill.second = second;
+    }
+
+    // @ Second
+    inline void setGoodwill(const std::pair<std::uint16_t, xr_string>& pair_second) noexcept
+    {
+        if (pair_second.first == Globals::kUnsignedInt16Undefined)
+        {
+            Msg("[DataBase/Storage/setGoodwill(pair_second)] WARNING: pair_second.first = std::uint16_t(-1)! You are "
+                "trying to set an undefined value! No assignment!");
+            return;
+        }
+
+        this->m_goodwill.second.insert(pair_second);
+    }
+
+    // @ Second
+    inline void setGoodwill(const std::uint16_t& id, const xr_string& string) noexcept
+    {
+        if (id == Globals::kUnsignedInt16Undefined)
+        {
+            Msg("[DataBase/Storage/setGoodwill(id, string)] WARNING: id = std::uint16_t(-1)! You are trying to set an "
+                "undefined value! No assignment!");
+            return;
+        }
+
+        this->m_goodwill.second[id] = string;
+    }
+
+    // @ First
+    inline void setGoodwill(const xr_map<std::uint16_t, float>& first) noexcept
+    {
+        if (!first.size())
+        {
+            Msg("DataBase/Storage/setGoodwill(first, second)] WARNING: first.size() = 0! You are trying to set an "
+                "empty map! No assignment!");
+            return;
+        }
+
+        this->m_goodwill.first = first;
+    }
+
+    // @ First
+    inline void setGoodwill(const std::pair<std::uint16_t, float>& pair_first) noexcept
+    {
+        if (!pair_first.first == Globals::kUnsignedInt16Undefined)
+        {
+            Msg("[DataBase/Storage/setGoodwill(pair_first)] WARNING: pair_first.first = std::uint16_t(-1)! You are "
+                "trying to set an undefined value! No assignment!");
+            return;
+        }
+
+        this->m_goodwill.first.insert(pair_first);
+    }
+
+    // @ First
+    inline void setGoodwill(const std::uint16_t& id, const float& value) noexcept
+    {
+        if (id == Globals::kUnsignedInt16Undefined)
+        {
+            Msg("[DataBase/Storage/setGoodwill(id, value)] WARNING: id = std::uint16_t(-1)! You are trying to set an "
+                "undefined value! No assignment!");
+            return;
+        }
+
+        this->m_goodwill.first[id] = value;
+    }
+
+    inline void setGoodwill(
+        const xr_map<std::uint16_t, float>& first, const xr_map<std::uint16_t, xr_string>& second) noexcept
+    {
+        if (!first.size())
+        {
+            Msg("DataBase/Storage/setGoodwill(first, second)] WARNING: first.size() = 0! You are trying to set an "
+                "empty map! No assignment!");
+            return;
+        }
+
+        if (!second.size())
+        {
+            Msg("[DataBase/Storage/setGoodwill(first, second] WARNING: second.size() = 0! You are trying to set an "
+                "empty map! No assignment!");
+            return;
+        }
+
+        this->m_goodwill.first = first;
+        this->m_goodwill.second = second;
     }
 #pragma endregion
 
