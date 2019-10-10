@@ -228,32 +228,214 @@ private:
 
 struct Storage_Data
 {
-    bool m_invulnerable = false;
-    bool m_immortal = false;
-    bool m_mute = false;
-    bool m_enabled = false;
-    bool m_anim_movement = false;
-    std::uint16_t m_enemy_id = Globals::kUnsignedInt16Undefined;
-    CScriptGameObject* m_object = nullptr;
-    StorageAnimpoint_Data m_storage_animpoint;
-    CSE_ALifeObject* m_server_object = nullptr;
-    CScriptSound* m_sound_object = nullptr;
-    CInifile* m_ini = nullptr;
-    xr_map<xr_string, SubStorage_Data> m_data;
-    xr_map<xr_string, PStor_Data> m_pstor;
-    xr_string m_active_scheme = "";
-    xr_string m_active_section = "";
-    xr_string m_sound = "";
-    xr_string m_animation = "";
-    xr_string m_animation_head = "";
-    xr_string m_tip = "";
-    xr_string m_time = "";
-    xr_string m_job_ini = "";
+    inline bool IsInvulnerable(void) const noexcept { return this->m_is_invulnerable; }
+    inline void setInvulnerable(const bool& value) noexcept { this->m_is_invulnerable = value; }
+    inline bool IsImmortal(void) const noexcept { return this->m_is_immortal; }
+    inline void setImmortal(const bool& value) noexcept { this->m_is_immortal = value; }
+    inline bool IsMute(void) const noexcept { return this->m_is_mute; }
+    inline void setMute(const bool& value) noexcept { this->m_is_mute = value; }
+    inline bool IsAnimMovement(void) const noexcept { return this->m_is_anim_movement; }
+    inline void setAnimMovement(const bool& value) noexcept { this->m_is_anim_movement = value; }
+
+    inline std::uint16_t getEnemyID(void) const noexcept { return this->m_enemy_id; }
+    inline void setEnemyID(const std::uint16_t& value) noexcept
+    {
+        if (value == Globals::kUnsignedInt16Undefined)
+        {
+            Msg("[DataBase/Storage_Data/setEnemyID(value)] WARNING: value = std::uint16_t(-1)! You are trying to set "
+                "an undefined value! No assignment!");
+            return;
+        }
+
+        this->m_enemy_id = value;
+    }
+
+    inline CScriptGameObject* getClientObject(void) const { return this->m_p_client_object; }
+    inline void setClientObject(CScriptGameObject* p_client_object)
+    {
+        if (!p_client_object)
+        {
+            Msg("[DataBase/Storage_Data/setObjet(p_client_object)] WARNING: p_client_object = null! You are trying to "
+                "set an empty object! No assignment!");
+            return;
+        }
+
+        this->m_p_client_object = p_client_object;
+    }
+
+    inline const StorageAnimpoint_Data& getStorageAnimpoint(void) const noexcept { return this->m_storage_animpoint; }
+    inline void setStorageAnimpoint(const StorageAnimpoint_Data& data) noexcept { this->m_storage_animpoint = data; }
+
+    inline CSE_ALifeObject* getServerObject(void) const { return this->m_p_server_object; }
+    inline void setServerObject(CSE_ALifeObject* p_server_object)
+    {
+        if (!p_server_object)
+        {
+            Msg("[DataBase/Storage_Data/setServerObject(p_server_object)] WARNING: p_server_object = null! You are "
+                "trying to set an empty object! No assignment!");
+            return;
+        }
+
+        this->m_p_server_object = p_server_object;
+    }
+
+    inline CScriptSound* getSoundObject(void) const { return this->m_p_sound_object; }
+    inline void setSoundObject(CScriptSound* p_sound_object)
+    {
+        if (!p_sound_object)
+        {
+            Msg("[DataBase/Storage_Data/setSoundObject(p_sound_object)] WARNING: p_sound_object = null! You are trying "
+                "to set an empty object! No assignment!");
+            return;
+        }
+
+        this->m_p_sound_object = p_sound_object;
+    }
+
+    inline CInifile* getIniObject(void) const { return this->m_p_ini; }
+    inline void setIniObject(CInifile* p_ini)
+    {
+        if (!p_ini)
+        {
+            Msg("[DataBase/Storage_Data/setIniObject(p_ini)] WARNING: p_ini = null! You are trying to set an empty "
+                "object! No assignment!");
+            return;
+        }
+
+        this->m_p_ini = p_ini;
+    }
 
     inline void ResetSignals(void) { this->m_data.clear(); }
 
-    // @ Gets singnals xr_map<xr_string, bool>
-    inline SubStorage_Data& operator[](const xr_string& id) { return m_data[id]; }
+    // @ Gets signals xr_map<xr_string, bool>
+    inline const SubStorage_Data& operator[](const xr_string& id) { return m_data[id]; }
+
+    inline void setData(const xr_map<xr_string, SubStorage_Data>& map)
+    {
+        if (!map.size())
+        {
+            Msg("[DataBase/Storage_Data/setData(map)] WARNING: map.size() = 0! You are trying to set an empty map! No "
+                "assignment!");
+            return;
+        }
+
+        this->m_data = map;
+    }
+
+    inline void setData(const std::pair<xr_string, SubStorage_Data>& pair)
+    {
+        if (!pair.first.size())
+        {
+            Msg("[DataBase/Storage_Data/setData(pair)] WARNING: pair.first.size() = 0! You are trying to set an empty "
+                "string! No assignment!");
+            return;
+        }
+
+        this->m_data.insert(pair);
+    }
+
+    inline void setData(const xr_string& id_name, const SubStorage_Data& data)
+    {
+        if (!id_name.size())
+        {
+            Msg("[DataBase/Storage_Data/setData(id_name, data)] WARNING: id_name.size() = 0! You are trying to set an "
+                "empty string! No assignment!");
+            return;
+        }
+
+        this->m_data[id_name] = data;
+    }
+
+    inline const xr_map<xr_string, PStor_Data>& getPStor(void) const noexcept { return this->m_pstor; }
+
+    inline void setPStor(const xr_map<xr_string, PStor_Data>& map) noexcept
+    {
+        if (!map.size())
+        {
+            Msg("[DataBase/Storage_Data/setPStor(map)] WARNING: map.size() = 0! You are trying to set an empty map! No "
+                "assignment!");
+            return;
+        }
+
+        this->m_pstor = map;
+    }
+
+    inline void setPStor(const std::pair<xr_string, PStor_Data>& pair) noexcept
+    {
+        if (!pair.first.size())
+        {
+            Msg("[DataBase/Storage_Data/setPStor(pair)] WARNING: pair.first.size() = 0! You are trying to set an empty "
+                "pair! No assignment!");
+            return;
+        }
+
+        this->m_pstor.insert(pair);
+    }
+
+    inline void setPStor(const xr_string& id_name, const PStor_Data& data) noexcept
+    {
+        if (!id_name.size())
+        {
+            Msg("[DataBase/Storage_Data/setPStor(id_name, data)] WARNING: id_name.size() = 0! You are trying to set an "
+                "empty string! No assignment!");
+            return;
+        }
+
+        this->m_pstor[id_name] = data;
+    }
+
+    inline xr_string getActiveSchemeName(void) const noexcept { return this->m_active_scheme_name; }
+    inline void setActiveSchemeName(const xr_string& scheme_name) noexcept { this->m_active_scheme_name = scheme_name; }
+
+    inline xr_string getActiveSectionName(void) const noexcept { return this->m_active_section_name; }
+    inline void setActiveSectionName(const xr_string& section_name) noexcept
+    {
+        this->m_active_section_name = section_name;
+    }
+
+    inline xr_string getSoundName(void) const noexcept { return this->m_sound_name; }
+    inline void setSoundName(const xr_string& sound_name) noexcept { this->m_sound_name = sound_name; }
+
+    inline xr_string getAnimationName(void) const noexcept { return this->m_animation_name; }
+    inline void setAnimationName(const xr_string& animation_name) noexcept { this->m_animation_name = animation_name; }
+
+    inline xr_string getAnimationHeadName(void) const noexcept { return this->m_animation_head_name; }
+    inline void setAnimationHeadName(const xr_string& animation_head_name) noexcept
+    {
+        this->m_animation_head_name = animation_head_name;
+    }
+
+    inline xr_string getTipName(void) const noexcept { return this->m_tip_name; }
+    inline void setTipName(const xr_string& tip_name) noexcept { this->m_tip_name = tip_name; }
+
+    inline xr_string getTimeName(void) const noexcept { return this->m_time_name; }
+    inline void setTimeName(const xr_string& time_name) noexcept { this->m_time_name = time_name; }
+
+    inline xr_string getJobIniName(void) const noexcept { return this->m_job_ini_name; }
+    inline void setJobIniName(const xr_string& job_ini_name) noexcept { this->m_job_ini_name = job_ini_name; }
+
+private:
+    bool m_is_invulnerable = false;
+    bool m_is_immortal = false;
+    bool m_is_mute = false;
+    bool m_is_enabled = false;
+    bool m_is_anim_movement = false;
+    std::uint16_t m_enemy_id = Globals::kUnsignedInt16Undefined;
+    CScriptGameObject* m_p_client_object = nullptr;
+    StorageAnimpoint_Data m_storage_animpoint;
+    CSE_ALifeObject* m_p_server_object = nullptr;
+    CScriptSound* m_p_sound_object = nullptr;
+    CInifile* m_p_ini = nullptr;
+    xr_map<xr_string, SubStorage_Data> m_data;
+    xr_map<xr_string, PStor_Data> m_pstor;
+    xr_string m_active_scheme_name = "";
+    xr_string m_active_section_name = "";
+    xr_string m_sound_name = "";
+    xr_string m_animation_name = "";
+    xr_string m_animation_head_name = "";
+    xr_string m_tip_name = "";
+    xr_string m_time_name = "";
+    xr_string m_job_ini_name = "";
 };
 
 class Storage
@@ -386,7 +568,8 @@ public:
     {
         if (!map.size())
         {
-            Msg("[DataBase/Storage/setZoneByName(map)] WARNING: map.size() = 0! You are trying to set an empty map! No assignment!");
+            Msg("[DataBase/Storage/setZoneByName(map)] WARNING: map.size() = 0! You are trying to set an empty map! No "
+                "assignment!");
             return;
         }
 
