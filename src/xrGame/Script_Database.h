@@ -137,20 +137,63 @@ struct SubStorage_Data
     SubStorage_Data(void) = default;
     ~SubStorage_Data(void) = default;
 
-    inline void setSignal(const xr_string& id, const bool& value) noexcept { this->m_signals[id] = value; }
+    inline void setSignal(const xr_map<xr_string, bool>& map) noexcept
+    {
+        if (!map.size())
+        {
+            Msg("[DataBase/SubStorage_Data/setSignal(map)] WARNING: map.size() = 0! You are trying to set an empty map! No assignment!");
+            return;
+        }
+
+        this->m_signals = map;
+    }
+
+    inline void setSignal(const std::pair<xr_string, bool>& pair) noexcept
+    {
+        if (!pair.first.size())
+        {
+            Msg("");
+            return;
+        }
+    }
+    inline void setSignal(const xr_string& id_name, const bool& value) noexcept
+    {
+        if (!id_name.size())
+        {
+            Msg("[DataBase/SubStorage_Data/setSignal(id_name, value)] WARNING: id_name.size() = 0! You are trying to "
+                "set an empty string! No assignment!");
+            return;
+        }
+
+        this->m_signals[id_name] = value;
+    }
+
+    inline void setAction(const xr_vector<Script_ILogicEntity*>& vector)
+    {
+        if (!vector.size())
+        {
+            Msg("[DataBase/SubStorage_Data/setAction(vector)] WARNING: vector.size() = 0! You are trying to set an "
+                "empty vector! No assignment!");
+            return;
+        }
+
+        this->m_actions = vector;
+    }
+
     inline void setAction(Script_ILogicEntity* entity)
     {
         if (!entity)
         {
-            R_ASSERT2(false, "object was null!");
+            Msg("[DataBase/SubStorage_Data/setAction(p_entity)] WARNING: p_entity = null! You are trying to set an "
+                "empty object! No assignment!");
             return;
         }
 
         this->m_actions.push_back(entity);
     }
 
-    inline xr_map<xr_string, bool>& getSignals(void) noexcept { return this->m_signals; }
-    inline xr_vector<Script_ILogicEntity*>& getActions(void) noexcept { return this->m_actions; }
+    inline const xr_map<xr_string, bool>& getSignals(void) const noexcept { return this->m_signals; }
+    inline const xr_vector<Script_ILogicEntity*>& getActions(void) const noexcept { return this->m_actions; }
 
 private:
     xr_map<xr_string, bool> m_signals;
