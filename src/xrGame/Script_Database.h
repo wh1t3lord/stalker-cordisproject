@@ -382,6 +382,15 @@ public:
         return this->m_zone_by_name;
     }
 
+    inline void setZoneByName(const xr_string& zone_name, CScriptGameObject* p_client_zone)
+    {
+        if (!zone_name.size())
+        {
+            Msg("[DataBase/Storage/");
+            return;
+        }
+    }
+
     inline const xr_map<std::uint16_t, float>& getGoodwill_Sympathy(void) const noexcept
     {
         return this->m_goodwill.first;
@@ -391,7 +400,7 @@ public:
     {
         if (!first.size())
         {
-            Msg("DataBase/Storage/setGoodwill(first, second)] WARNING: first.size() = 0! You are trying to set an "
+            Msg("DataBase/Storage/setGoodwill_Sympathy(first, second)] WARNING: first.size() = 0! You are trying to set an "
                 "empty map! No assignment!");
             return;
         }
@@ -403,7 +412,7 @@ public:
     {
         if (!pair_first.first == Globals::kUnsignedInt16Undefined)
         {
-            Msg("[DataBase/Storage/setGoodwill(pair_first)] WARNING: pair_first.first = std::uint16_t(-1)! You are "
+            Msg("[DataBase/Storage/setGoodwill_Sympathy(pair_first)] WARNING: pair_first.first = std::uint16_t(-1)! You are "
                 "trying to set an undefined value! No assignment!");
             return;
         }
@@ -415,7 +424,7 @@ public:
     {
         if (id == Globals::kUnsignedInt16Undefined)
         {
-            Msg("[DataBase/Storage/setGoodwill(id, value)] WARNING: id = std::uint16_t(-1)! You are trying to set an "
+            Msg("[DataBase/Storage/setGoodwill_Sympathy(id, value)] WARNING: id = std::uint16_t(-1)! You are trying to set an "
                 "undefined value! No assignment!");
             return;
         }
@@ -432,7 +441,7 @@ public:
     {
         if (!second.size())
         {
-            Msg("[DataBase/Storage/setGoodwill(first, second] WARNING: second.size() = 0! You are trying to set an "
+            Msg("[DataBase/Storage/setGoodwill_Relations(first, second] WARNING: second.size() = 0! You are trying to set an "
                 "empty map! No assignment!");
             return;
         }
@@ -444,7 +453,7 @@ public:
     {
         if (pair_second.first == Globals::kUnsignedInt16Undefined)
         {
-            Msg("[DataBase/Storage/setGoodwill(pair_second)] WARNING: pair_second.first = std::uint16_t(-1)! You are "
+            Msg("[DataBase/Storage/setGoodwill_Relations(pair_second)] WARNING: pair_second.first = std::uint16_t(-1)! You are "
                 "trying to set an undefined value! No assignment!");
             return;
         }
@@ -456,7 +465,7 @@ public:
     {
         if (id == Globals::kUnsignedInt16Undefined)
         {
-            Msg("[DataBase/Storage/setGoodwill(id, string)] WARNING: id = std::uint16_t(-1)! You are trying to set an "
+            Msg("[DataBase/Storage/setGoodwill_Relations(id, string)] WARNING: id = std::uint16_t(-1)! You are trying to set an "
                 "undefined value! No assignment!");
             return;
         }
