@@ -735,11 +735,139 @@ public:
     Script_SimulationBoard& operator=(Script_SimulationBoard&&) = delete;
 
 #pragma region Getters
-    inline xr_map<xr_string, Script_SE_SmartTerrain*>& getSmartTerrainsByName(void) { return this->m_smarts_by_name; }
-    inline xr_map<std::uint32_t, SmartDataSimulationBoard>& getSmarts(void) { return this->m_smarts; }
-    inline xr_map<std::uint32_t, SimulationActivitiesType>& getSimulationActivities(void)
+    inline const xr_map<xr_string, Script_SE_SmartTerrain*>& getSmartTerrainsByName(void) const
+    {
+        return this->m_smarts_by_name;
+    }
+
+    inline void setSmartTerrainsByName(const xr_map<xr_string, Script_SE_SmartTerrain*>& map)
+    {
+        if (!map.size())
+        {
+            Msg("[Script_SimulationBoard/setSmartTerrainsByName(map)] WARNING: map.size() = 0! You are trying to set an empty map! No assignment!");
+            return;
+        }
+
+        this->m_smarts_by_name = map;
+    }
+
+    inline void setSmartTerrainsByName(const std::pair<xr_string, Script_SE_SmartTerrain*>& pair)
+    {
+        if (!pair.first.size())
+        {
+            Msg("[Script_SimulationBoard/setSmartTerrainsByName(pair)] WARNING: pair.first.size() = 0! You are trying "
+                "to set an empty pair! No assignment!");
+            return;
+        }
+
+        if (pair.second)
+        {
+            Msg("[Script_SimulationBoard/setSmartTerrainsByName(pair)] WARNING: pair.second = null! You are trying to "
+                "set an empty pair! No assignment!");
+            return;
+        }
+
+        this->m_smarts_by_name.insert(pair);
+    }
+
+    inline void setSmartTerrainsByName(const xr_string& smart_terrain_name, Script_SE_SmartTerrain* p_server_object)
+    {
+        if (!smart_terrain_name.size())
+        {
+            Msg("[Script_SimulationBoard/setSmartTerrainsByName(smart_terrain_name, p_server_object)] WARNING: "
+                "smart_terrain_name.size() = 0! You are trying to set an empty string! No assignment!");
+            return;
+        }
+
+        if (!p_server_object)
+        {
+            Msg("[Script_SimulationBoard/setSmartTerrainsByName(smart_terrain_name, p_server_object)] WARNING: "
+                "p_server_object = null! You are trying to set an empty object! No assignment!");
+            return;
+        }
+
+        this->m_smarts_by_name[smart_terrain_name] = p_server_object;
+    }
+
+    inline const xr_map<std::uint32_t, SmartDataSimulationBoard>& getSmarts(void) const noexcept
+    {
+        return this->m_smarts;
+    }
+
+    inline void setSmarts(const xr_map<std::uint32_t, SmartDataSimulationBoard>& map) noexcept
+    {
+        if (!map.size())
+        {
+            Msg("[Script_SimulationBoard/setSmarts(map)] WARNING: map.size() = 0! You are trying to set an empty map! "
+                "No assignment!");
+            return;
+        }
+
+        this->m_smarts = map;
+    }
+
+    inline void setSmarts(const std::pair<std::uint32_t, SmartDataSimulationBoard>& pair) noexcept
+    {
+        if (pair.first == Globals::kUnsignedInt32Undefined)
+        {
+            Msg("[Script_SimulationBoard/setSmarts(pair)] WARNING: pair.first = std::uint32_t(-1)! You are trying to "
+                "set an empty pair! No assignment!");
+            return;
+        }
+
+        this->m_smarts.insert(pair);
+    }
+
+    inline void setSmarts(const std::uint32_t& id, const SmartDataSimulationBoard& data) noexcept
+    {
+        if (id == Globals::kUnsignedInt32Undefined)
+        {
+            Msg("[Script_SimulationBoard/setSmarts(id, data)] WARNING: id = std::uint32_t(-1)! You are trying to set "
+                "an undefined value! No assignment!");
+            return;
+        }
+
+        this->m_smarts[id] = data;
+    }
+
+    inline const xr_map<std::uint32_t, SimulationActivitiesType>& getSimulationActivities(void) const noexcept
     {
         return this->m_simulation_activities;
+    }
+
+    inline void setSimulationActivities(const xr_map<std::uint32_t, SimulationActivitiesType>& map) noexcept
+    {
+        if (!map.size())
+        {
+            Msg("[Script_SimulationBoard] WARNING: map.size() = 0! You are trying to set an empty map! No assignment!");
+            return;
+        }
+
+        this->m_simulation_activities = map;
+    }
+
+    inline void setSimulationActivities(const std::pair<std::uint32_t, SimulationActivitiesType>& pair) noexcept
+    {
+        if (pair.first == Globals::kUnsignedInt32Undefined)
+        {
+            Msg("[Script_SimulationBoard/setSimulationActivities(pair)] WARNING: pair.first = std::uint32_t(-1)! You "
+                "are trying to set an empty pair! No assignment!");
+            return;
+        }
+
+        this->m_simulation_activities.insert(pair);
+    }
+
+    inline void setSimulationActivities(const std::uint32_t& id, const SimulationActivitiesType& data) noexcept
+    {
+        if (id == Globals::kUnsignedInt32Undefined)
+        {
+            Msg("[Script_SimulationBoard/setSimulationActivities(id, data)] WARNING: id = std::uint32_t(-1)! You are "
+                "trying to set an undefined value! No assignment!");
+            return;
+        }
+
+        this->m_simulation_activities[id] = data;
     }
 #pragma endregion
 

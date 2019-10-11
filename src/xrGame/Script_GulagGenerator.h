@@ -410,10 +410,10 @@ inline std::pair<xr_vector<JobData>, xr_vector<JobDataExclusive>> load_job(Scrip
 
             const DataBase::Storage_Data& storage = DataBase::Storage::getInstance().getStorage().at(server_object->ID);
 
-            if (!storage.m_object)
+            if (!storage.getClientObject())
                 return false;
 
-            CScriptGameObject* npc = storage.m_object;
+            CScriptGameObject* npc = storage.getClientObject();
 
             // @ Lord: проверить данный ли метод используется????
             if (npc->GetObjectByName("detector_simple"))
