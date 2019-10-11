@@ -3016,7 +3016,7 @@ inline bool is_squads_in_zone_b41(
     CScriptGameObject* actor, CSE_ALifeDynamicObject* server_npc, const xr_vector<xr_string>& buffer)
 {
     Script_SE_SmartTerrain* server_smart = Script_SimulationBoard::getInstance().getSmartTerrainsByName()["jup_b41"];
-    CScriptGameObject* client_zone = DataBase::Storage::getInstance().getZoneByName()["jup_b41_sr_light"];
+    CScriptGameObject* client_zone = DataBase::Storage::getInstance().getZoneByName().at("jup_b41_sr_light");
 
     if (!client_zone)
     {
@@ -3395,7 +3395,7 @@ inline bool is_quest_npc_enemy_actor(
 
 inline bool is_animpoint_reached(CScriptGameObject* actor, CScriptGameObject* npc)
 {
-    const DataBase::StorageAnimpoint_Data& animpoint_storage = DataBase::Storage::getInstance().getStorage().at(npc->ID()).m_storage_animpoint;
+    const DataBase::StorageAnimpoint_Data& animpoint_storage = DataBase::Storage::getInstance().getStorage().at(npc->ID()).getStorageAnimpoint();
     Script_Animpoint* animpoint = animpoint_storage.getAnimpoint();
     if (!animpoint)
     {

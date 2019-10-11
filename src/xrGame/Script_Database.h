@@ -141,7 +141,8 @@ struct SubStorage_Data
     {
         if (!map.size())
         {
-            Msg("[DataBase/SubStorage_Data/setSignal(map)] WARNING: map.size() = 0! You are trying to set an empty map! No assignment!");
+            Msg("[DataBase/SubStorage_Data/setSignal(map)] WARNING: map.size() = 0! You are trying to set an empty "
+                "map! No assignment!");
             return;
         }
 
@@ -194,6 +195,16 @@ struct SubStorage_Data
 
     inline const xr_map<xr_string, bool>& getSignals(void) const noexcept { return this->m_signals; }
     inline const xr_vector<Script_ILogicEntity*>& getActions(void) const noexcept { return this->m_actions; }
+    inline void ClearActions(void)
+    {
+        Msg("[DataBase/SubStorage_Data/ClearActions()] this->m_actions.clear() is called!");
+        this->m_actions.clear();
+    }
+    inline void ClearSignals(void)
+    {
+        Msg("[DataBase/SubStorage_Data/ClearSignals()] this->m_signals");
+        this->m_signals.clear();
+    }
 
 private:
     xr_map<xr_string, bool> m_signals;
@@ -335,8 +346,8 @@ struct Storage_Data
         this->m_p_sound_object = p_sound_object;
     }
 
-    inline CInifile* getIniObject(void) const { return this->m_p_ini; }
-    inline void setIniObject(CInifile* p_ini)
+    inline CInifile* getIni(void) const { return this->m_p_ini; }
+    inline void setIni(CInifile* p_ini)
     {
         if (!p_ini)
         {
@@ -352,6 +363,8 @@ struct Storage_Data
 
     // @ Gets signals xr_map<xr_string, bool>
     inline const SubStorage_Data& operator[](const xr_string& id) { return m_data[id]; }
+
+    inline const xr_map<xr_string, SubStorage_Data>& getData(void) const noexcept { return this->m_data; }
 
     inline void setData(const xr_map<xr_string, SubStorage_Data>& map)
     {
@@ -499,16 +512,16 @@ public:
         // @ Lord: подумать здесь нужно это удалять так или оно в другом месте?
         for (xr_map<std::uint16_t, Storage_Data>::value_type& it : this->m_storage)
         {
-            if (it.second.m_storage_animpoint.getAnimpoint())
+            if (it.second.getStorageAnimpoint().getAnimpoint())
             {
                 Msg("[Scripts/DataBase/Storage/~dtor] Deleting: Animpoint -> [%s]",
-                    it.second.m_storage_animpoint.getCoverName().c_str());
-                Script_Animpoint* instance = it.second.m_storage_animpoint.getAnimpoint();
+                    it.second.getStorageAnimpoint().getCoverName().c_str());
+                Script_Animpoint* instance = it.second.getStorageAnimpoint().getAnimpoint();
                 delete instance;
                 instance = nullptr;
             }
 
-            for (xr_map<xr_string, SubStorage_Data>::value_type& object : it.second.m_data)
+            for (const xr_map<xr_string, SubStorage_Data>::value_type& object : it.second.getData())
             {
                 if (object.second.getActions().size())
                 {
@@ -522,40 +535,39 @@ public:
                             entity = nullptr;
                         }
                     }
-
-                    object.second.getActions().clear();
                 }
-
-                object.second.getSignals().clear();
             }
 
-            if (it.second.m_object)
+            if (it.second.getClientObject())
             {
-                Msg("[Scripts/DataBase/Storage/~dtor] Deleting the m_object: %s", it.second.m_object->Name());
-                delete it.second.m_object;
-                it.second.m_object = nullptr;
+                CScriptGameObject* p_client_object = it.second.getClientObject();
+                Msg("[Scripts/DataBase/Storage/~dtor] Deleting the m_object: %s", p_client_object->Name());
+                delete p_client_object;
+                p_client_object = nullptr;
             }
 
-            if (it.second.m_server_object)
+            if (it.second.getServerObject())
             {
-                Msg("[Scripts/DataBase/Storage/~dtor] Deleting the m_server_object: %s",
-                    it.second.m_server_object->name());
-                delete it.second.m_server_object;
-                it.second.m_server_object = nullptr;
+                CSE_ALifeObject* p_server_object = it.second.getServerObject();
+                Msg("[Scripts/DataBase/Storage/~dtor] Deleting the m_server_object: %s", p_server_object->name());
+                delete p_server_object;
+                p_server_object = nullptr;
             }
 
-            if (it.second.m_ini)
+            if (it.second.getIni())
             {
-                Msg("[Scripts/DataBase/Storage/~dtor] Delete the m_ini: %s", it.second.m_ini->fname());
-                delete it.second.m_ini;
-                it.second.m_ini = nullptr;
+                CInifile* p_ini = it.second.getIni();
+                Msg("[Scripts/DataBase/Storage/~dtor] Delete the m_ini: %s", p_ini->fname());
+                delete p_ini;
+                p_ini = nullptr;
             }
 
-            if (it.second.m_sound_object)
+            if (it.second.getSoundObject())
             {
+                CScriptSound* p_sound = it.second.getSoundObject();
                 Msg("[Scripts/DataBase/Storage/~dtor] Deleting the m_sound_object");
-                delete it.second.m_sound_object;
-                it.second.m_sound_object = nullptr;
+                delete p_sound;
+                p_sound = nullptr;
             }
         }
 

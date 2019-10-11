@@ -36,7 +36,7 @@ inline bool check_all_squad_members(const xr_string& squad_name, const xr_string
              it != squad->squad_members().end(); ++it)
         {
             bool is_goodwill = false;
-            CScriptGameObject* object = DataBase::Storage::getInstance().getStorage().at(it->first).m_object;
+            CScriptGameObject* object = DataBase::Storage::getInstance().getStorage().at(it->first).getClientObject();
             if (goodwill_name == Globals::kRelationsTypeEnemy)
             {
                 if (object)
@@ -72,13 +72,13 @@ inline bool check_all_squad_members(const xr_string& squad_name, const xr_string
 inline bool predicate_const_true(std::uint16_t, bool) { return true; }
 inline bool predicate_animpoint_bread(std::uint16_t npc_id, bool)
 {
-    if (DataBase::Storage::getInstance().getStorage().at(npc_id).m_object)
+    if (DataBase::Storage::getInstance().getStorage().at(npc_id).getClientObject())
     {
-        if (DataBase::Storage::getInstance().getStorage().at(npc_id).m_object->get_visual_name())
+        if (DataBase::Storage::getInstance().getStorage().at(npc_id).getClientObject()->get_visual_name())
         {
             if (Script_GlobalHelper::getInstance().getRegisteredEatableVisuals().at(
-                    DataBase::Storage::getInstance().getStorage().at(npc_id).m_object->get_visual_name()) &&
-                DataBase::Storage::getInstance().getStorage().at(npc_id).m_object->GetObjectByName("bread"))
+                    DataBase::Storage::getInstance().getStorage().at(npc_id).getClientObject()->get_visual_name()) &&
+                DataBase::Storage::getInstance().getStorage().at(npc_id).getClientObject()->GetObjectByName("bread"))
                 return true;
         }
     }
@@ -88,13 +88,13 @@ inline bool predicate_animpoint_bread(std::uint16_t npc_id, bool)
 
 inline bool predicate_animpoint_kolbasa(std::uint16_t npc_id, bool)
 {
-    if (DataBase::Storage::getInstance().getStorage().at(npc_id).m_object)
+    if (DataBase::Storage::getInstance().getStorage().at(npc_id).getClientObject())
     {
-        if (DataBase::Storage::getInstance().getStorage().at(npc_id).m_object->get_visual_name())
+        if (DataBase::Storage::getInstance().getStorage().at(npc_id).getClientObject()->get_visual_name())
         {
             if (Script_GlobalHelper::getInstance().getRegisteredEatableVisuals().at(
-                    DataBase::Storage::getInstance().getStorage().at(npc_id).m_object->get_visual_name()) &&
-                DataBase::Storage::getInstance().getStorage().at(npc_id).m_object->GetObjectByName("kolbasa"))
+                    DataBase::Storage::getInstance().getStorage().at(npc_id).getClientObject()->get_visual_name()) &&
+                DataBase::Storage::getInstance().getStorage().at(npc_id).getClientObject()->GetObjectByName("kolbasa"))
                 return true;
         }
     }
@@ -104,13 +104,13 @@ inline bool predicate_animpoint_kolbasa(std::uint16_t npc_id, bool)
 
 inline bool predicate_animpoint_vodka(std::uint16_t npc_id, bool)
 {
-    if (DataBase::Storage::getInstance().getStorage().at(npc_id).m_object)
+    if (DataBase::Storage::getInstance().getStorage().at(npc_id).getClientObject())
     {
-        if (DataBase::Storage::getInstance().getStorage().at(npc_id).m_object->get_visual_name())
+        if (DataBase::Storage::getInstance().getStorage().at(npc_id).getClientObject()->get_visual_name())
         {
             if (Script_GlobalHelper::getInstance().getRegisteredEatableVisuals().at(
-                    DataBase::Storage::getInstance().getStorage().at(npc_id).m_object->get_visual_name()) &&
-                DataBase::Storage::getInstance().getStorage().at(npc_id).m_object->GetObjectByName("vodka"))
+                    DataBase::Storage::getInstance().getStorage().at(npc_id).getClientObject()->get_visual_name()) &&
+                DataBase::Storage::getInstance().getStorage().at(npc_id).getClientObject()->GetObjectByName("vodka"))
                 return true;
         }
     }
@@ -120,13 +120,13 @@ inline bool predicate_animpoint_vodka(std::uint16_t npc_id, bool)
 
 inline bool predicate_animpoint_energy(std::uint16_t npc_id, bool)
 {
-    if (DataBase::Storage::getInstance().getStorage().at(npc_id).m_object)
+    if (DataBase::Storage::getInstance().getStorage().at(npc_id).getClientObject())
     {
-        if (DataBase::Storage::getInstance().getStorage().at(npc_id).m_object->get_visual_name())
+        if (DataBase::Storage::getInstance().getStorage().at(npc_id).getClientObject()->get_visual_name())
         {
             if (Script_GlobalHelper::getInstance().getRegisteredEatableVisuals().at(
-                    DataBase::Storage::getInstance().getStorage().at(npc_id).m_object->get_visual_name()) &&
-                DataBase::Storage::getInstance().getStorage().at(npc_id).m_object->GetObjectByName("energy_drink"))
+                    DataBase::Storage::getInstance().getStorage().at(npc_id).getClientObject()->get_visual_name()) &&
+                DataBase::Storage::getInstance().getStorage().at(npc_id).getClientObject()->GetObjectByName("energy_drink"))
                 return true;
         }
     }
@@ -136,9 +136,9 @@ inline bool predicate_animpoint_energy(std::uint16_t npc_id, bool)
 
 inline bool predicate_animpoint_guitar(std::uint16_t npc_id, bool is_in_camp)
 {
-    if (DataBase::Storage::getInstance().getStorage().at(npc_id).m_object && is_in_camp)
+    if (DataBase::Storage::getInstance().getStorage().at(npc_id).getClientObject() && is_in_camp)
     {
-        if (DataBase::Storage::getInstance().getStorage().at(npc_id).m_object->GetObjectByName("guitar_a"))
+        if (DataBase::Storage::getInstance().getStorage().at(npc_id).getClientObject()->GetObjectByName("guitar_a"))
             return true;
     }
 
@@ -147,13 +147,13 @@ inline bool predicate_animpoint_guitar(std::uint16_t npc_id, bool is_in_camp)
 
 inline bool predicate_animpoint_harmonica(std::uint16_t npc_id, bool is_in_camp)
 {
-    if (DataBase::Storage::getInstance().getStorage().at(npc_id).m_object && is_in_camp)
+    if (DataBase::Storage::getInstance().getStorage().at(npc_id).getClientObject() && is_in_camp)
     {
-        if (DataBase::Storage::getInstance().getStorage().at(npc_id).m_object->get_visual_name())
+        if (DataBase::Storage::getInstance().getStorage().at(npc_id).getClientObject()->get_visual_name())
         {
             if (Script_GlobalHelper::getInstance().getRegisteredEatableVisuals().at(
-                    DataBase::Storage::getInstance().getStorage().at(npc_id).m_object->get_visual_name()) &&
-                DataBase::Storage::getInstance().getStorage().at(npc_id).m_object->GetObjectByName("harmonica_a"))
+                    DataBase::Storage::getInstance().getStorage().at(npc_id).getClientObject()->get_visual_name()) &&
+                DataBase::Storage::getInstance().getStorage().at(npc_id).getClientObject()->GetObjectByName("harmonica_a"))
                 return true;
         }
     }
@@ -315,7 +315,7 @@ inline CScriptGameObject* get_story_object(const xr_string& object_id)
     if (!obj_id)
         return result;
 
-    result = DataBase::Storage::getInstance().getStorage().at(obj_id).m_object;
+    result = DataBase::Storage::getInstance().getStorage().at(obj_id).getClientObject();
 
     if (result)
     {
@@ -573,7 +573,7 @@ inline void change_team_squad_group(CSE_ALifeDynamicObject* server_object, const
         return;
     }
 
-    CScriptGameObject* client_object = DataBase::Storage::getInstance().getStorage().at(server_object->ID).m_object;
+    CScriptGameObject* client_object = DataBase::Storage::getInstance().getStorage().at(server_object->ID).getClientObject();
 
     if (!client_object)
     {
@@ -900,7 +900,7 @@ inline bool is_accessible_job(CSE_ALifeDynamicObject* server_object, const char*
         return false;
     }
 
-    CScriptGameObject* object = DataBase::Storage::getInstance().getStorage().at(server_object->ID).m_object;
+    CScriptGameObject* object = DataBase::Storage::getInstance().getStorage().at(server_object->ID).getClientObject();
 
     if (!object)
     {
