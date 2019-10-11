@@ -13,7 +13,7 @@ namespace Scripts
 
 // Lord: подумать над названием константы правильно ли?
 constexpr int kSimulationBoardSimulationDistance = 150;
-
+// @ Exceptional data structure without any get/set method
 struct SimulationActivitiesType
 {
     // @ Это же относится для m_squad
@@ -49,8 +49,65 @@ struct SimulationActivitiesType
 
 struct SmartDataSimulationBoard
 {
+    inline const xr_map<std::uint32_t, Script_SE_SimulationSquad*>& getSquads(void) const noexcept
+    {
+        return this->m_squads;
+    }
+
+    inline void setSquads(const xr_map<std::uint32_t, Script_SE_SimulationSquad*>& map)
+    {
+        if (!map.size())
+        {
+            Msg("[SmartDataSimulationBoard/setSquads(map)] WARNING: map.size() = 0! You are trying to set an empty "
+                "map! No assignment!");
+            return;
+        }
+
+        this->m_squads = map;
+    }
+
+    inline void setSquads(const std::pair<std::uint32_t, Script_SE_SimulationSquad*>& pair)
+    {
+        if (pair.first == Globals::kUnsignedInt32Undefined)
+        {
+            Msg("[SmartDataSimulationBoard/setSquads(pair)] WARNING: pair.first = std::uint32_t(-1)! You are trying to "
+                "set an undefined value! No assignment!");
+            return;
+        }
+
+        if (!pair.second)
+        {
+            Msg("[SmartDataSimulationBoard/setSquads(pair)] WARNING: pair.second = null! You are trying to set an "
+                "empty pair! No assignment!");
+            return;
+        }
+    }
+
+    inline void setSquads(const std::uint32_t& id, Script_SE_SimulationSquad* p_server_object)
+    {
+        if (id == Globals::kUnsignedInt32Undefined)
+        {
+            Msg("[SmartDataSimulationBoard/setSquads(id, p_server_object)] WARNING: id = std::uint32_t(-1)! You are trying to set an "
+                "undefined value! No assignment!");
+            return;
+        }
+
+        if (!p_server_object)
+        {
+            Msg("[SmartDataSimulationBoard/setSquads(id, p_server_object)] p_server_object = null!");
+      //      return;
+        }
+
+        this->m_squads[id] = p_server_object;
+    }
+
+    inline const std::uint32_t& getStayedSquadQuan(void) const noexcept { return this->m_stayed_squad_quan; }
+    inline void setStayedSquadQuan(const std::uint32_t& value) noexcept { this->m_stayed_squad_quan = value; }
+    inline Script_SE_SmartTerrain* getServerSmartTerrain(void) const { return this->m_p_server_smart; }
+
+private:
     std::uint32_t m_stayed_squad_quan = 0;
-    Script_SE_SmartTerrain* m_smart = nullptr;
+    Script_SE_SmartTerrain* m_p_server_smart = nullptr;
     xr_map<std::uint32_t, Script_SE_SimulationSquad*> m_squads;
 };
 
@@ -744,7 +801,8 @@ public:
     {
         if (!map.size())
         {
-            Msg("[Script_SimulationBoard/setSmartTerrainsByName(map)] WARNING: map.size() = 0! You are trying to set an empty map! No assignment!");
+            Msg("[Script_SimulationBoard/setSmartTerrainsByName(map)] WARNING: map.size() = 0! You are trying to "
+                "set an empty map! No assignment!");
             return;
         }
 
@@ -755,14 +813,16 @@ public:
     {
         if (!pair.first.size())
         {
-            Msg("[Script_SimulationBoard/setSmartTerrainsByName(pair)] WARNING: pair.first.size() = 0! You are trying "
+            Msg("[Script_SimulationBoard/setSmartTerrainsByName(pair)] WARNING: pair.first.size() = 0! You are "
+                "trying "
                 "to set an empty pair! No assignment!");
             return;
         }
 
         if (pair.second)
         {
-            Msg("[Script_SimulationBoard/setSmartTerrainsByName(pair)] WARNING: pair.second = null! You are trying to "
+            Msg("[Script_SimulationBoard/setSmartTerrainsByName(pair)] WARNING: pair.second = null! You are trying "
+                "to "
                 "set an empty pair! No assignment!");
             return;
         }
@@ -798,7 +858,8 @@ public:
     {
         if (!map.size())
         {
-            Msg("[Script_SimulationBoard/setSmarts(map)] WARNING: map.size() = 0! You are trying to set an empty map! "
+            Msg("[Script_SimulationBoard/setSmarts(map)] WARNING: map.size() = 0! You are trying to set an empty "
+                "map! "
                 "No assignment!");
             return;
         }
@@ -810,7 +871,8 @@ public:
     {
         if (pair.first == Globals::kUnsignedInt32Undefined)
         {
-            Msg("[Script_SimulationBoard/setSmarts(pair)] WARNING: pair.first = std::uint32_t(-1)! You are trying to "
+            Msg("[Script_SimulationBoard/setSmarts(pair)] WARNING: pair.first = std::uint32_t(-1)! You are trying "
+                "to "
                 "set an empty pair! No assignment!");
             return;
         }
@@ -822,7 +884,8 @@ public:
     {
         if (id == Globals::kUnsignedInt32Undefined)
         {
-            Msg("[Script_SimulationBoard/setSmarts(id, data)] WARNING: id = std::uint32_t(-1)! You are trying to set "
+            Msg("[Script_SimulationBoard/setSmarts(id, data)] WARNING: id = std::uint32_t(-1)! You are trying to "
+                "set "
                 "an undefined value! No assignment!");
             return;
         }
@@ -839,7 +902,8 @@ public:
     {
         if (!map.size())
         {
-            Msg("[Script_SimulationBoard] WARNING: map.size() = 0! You are trying to set an empty map! No assignment!");
+            Msg("[Script_SimulationBoard] WARNING: map.size() = 0! You are trying to set an empty map! No "
+                "assignment!");
             return;
         }
 
@@ -850,7 +914,8 @@ public:
     {
         if (pair.first == Globals::kUnsignedInt32Undefined)
         {
-            Msg("[Script_SimulationBoard/setSimulationActivities(pair)] WARNING: pair.first = std::uint32_t(-1)! You "
+            Msg("[Script_SimulationBoard/setSimulationActivities(pair)] WARNING: pair.first = std::uint32_t(-1)! "
+                "You "
                 "are trying to set an empty pair! No assignment!");
             return;
         }
@@ -862,7 +927,8 @@ public:
     {
         if (id == Globals::kUnsignedInt32Undefined)
         {
-            Msg("[Script_SimulationBoard/setSimulationActivities(id, data)] WARNING: id = std::uint32_t(-1)! You are "
+            Msg("[Script_SimulationBoard/setSimulationActivities(id, data)] WARNING: id = std::uint32_t(-1)! You "
+                "are "
                 "trying to set an undefined value! No assignment!");
             return;
         }
@@ -894,11 +960,12 @@ public:
         }
 
         if (!smart_id)
-            Msg("[Scripts/Script_SimulationBoard/assing_squad_to_smart(squad, smart_id)] WARNING: smart_id was null!");
+            Msg("[Scripts/Script_SimulationBoard/assing_squad_to_smart(squad, smart_id)] WARNING: smart_id was "
+                "null!");
 
         if (smart_id)
         {
-            if (!this->m_smarts[smart_id].m_smart)
+            if (!this->m_smarts[smart_id].getServerSmartTerrain())
             {
                 this->m_temporary_assigned_squad[smart_id] = squad;
                 return;
@@ -910,10 +977,11 @@ public:
         if (squad->getSmartTerrainID())
             old_smart_id = squad->getSmartTerrainID();
 
-        if (old_smart_id && this->m_smarts[old_smart_id].m_smart)
+        if (old_smart_id && this->m_smarts[old_smart_id].getServerSmartTerrain())
         {
-            this->m_smarts[old_smart_id].m_squads[squad->ID] = nullptr;
-            this->m_smarts[old_smart_id].m_smart->refresh();
+            this->m_smarts[old_smart_id].setSquads(squad->ID, nullptr); 
+         //   this->m_smarts[old_smart_id].m_squads[squad->ID] = nullptr;
+            this->m_smarts[old_smart_id].getServerSmartTerrain()->refresh();
         }
 
         if (!smart_id)
@@ -921,15 +989,16 @@ public:
             squad->assign_smart();
         }
 
-        squad->assign_smart(this->m_smarts[smart_id].m_smart);
+        squad->assign_smart(this->m_smarts[smart_id].getServerSmartTerrain());
 
-        this->m_smarts[smart_id].m_squads[squad->ID] = squad;
-        this->m_smarts[smart_id].m_smart->refresh();
+       // this->m_smarts[smart_id].m_squads[squad->ID] = squad;
+        this->m_smarts[smart_id].setSquads(squad->ID, squad);
+        this->m_smarts[smart_id].getServerSmartTerrain()->refresh();
     }
 
     inline void enter_squad_to_smart(Script_SE_SimulationSquad* squad, const std::uint32_t& smart_id)
     {
-        if (!this->m_smarts[smart_id].m_smart)
+        if (!this->m_smarts[smart_id].getServerSmartTerrain())
         {
             return;
         }
