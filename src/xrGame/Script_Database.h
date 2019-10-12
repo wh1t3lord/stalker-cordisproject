@@ -20,6 +20,7 @@ inline void add_enemy(CSE_Abstract* object)
 
 class PStor_Data
 {
+    friend class Storage;
     char m_boolean =
         Globals::kPstorBooleanUndefined; // Globals::kPstorBooleanFalse -> False, Globals::kPstorBooleanUndefined -> Not
                                          // initialized, Globals::kPstorBooleanTrue -> True
@@ -27,14 +28,14 @@ class PStor_Data
     xr_string m_string = Globals::kStringUndefined;
 
 public:
-    inline bool IsInitializedBool(void) noexcept { return (this->m_boolean != Globals::kPstorBooleanUndefined); }
-    inline bool IsInitializedNumber(void) noexcept { return (this->m_number != Globals::kUnsignedInt8Undefined); }
-    inline bool IsInitializedString(void) noexcept { return (this->m_string != Globals::kStringUndefined); }
-    inline bool IsInitializedSomething(void) noexcept
+    inline bool IsInitializedBool(void) const noexcept { return (this->m_boolean != Globals::kPstorBooleanUndefined); }
+    inline bool IsInitializedNumber(void) const noexcept { return (this->m_number != Globals::kUnsignedInt8Undefined); }
+    inline bool IsInitializedString(void) const noexcept { return (this->m_string != Globals::kStringUndefined); }
+    inline bool IsInitializedSomething(void) const noexcept
     {
         return (this->IsInitializedBool() || this->IsInitializedNumber() || this->IsInitializedString());
     }
-    inline bool getBool(void) noexcept
+    inline bool getBool(void) const noexcept
     {
         switch (this->m_boolean)
         {
@@ -59,7 +60,7 @@ public:
         return false;
     }
 
-    inline std::uint8_t getNumber(void) noexcept
+    inline std::uint8_t getNumber(void) const noexcept
     {
         if (this->m_number == Globals::kUnsignedInt8Undefined)
         {
@@ -72,7 +73,7 @@ public:
         return this->m_number;
     }
 
-    inline xr_string getString(void) noexcept
+    inline xr_string getString(void) const noexcept
     {
         if (this->m_string == Globals::kStringUndefined)
         {
@@ -134,6 +135,10 @@ public:
 // сделать private, public!
 struct SubStorage_Data
 {
+private:
+    friend class Storage;
+
+public:
     SubStorage_Data(void) = default;
     ~SubStorage_Data(void) = default;
 
@@ -213,6 +218,10 @@ private:
 // сделать private, public!
 struct StorageAnimpoint_Data
 {
+private:
+    friend class Storage;
+
+public:
     inline void setCoverName(const xr_string& string) { this->m_cover_name = string; }
     inline bool setUseCamp(const bool& value) { this->m_is_use_camp = value; }
     inline void setAnimpoint(Script_Animpoint* object)
@@ -282,6 +291,10 @@ private:
 
 struct Storage_Data
 {
+private:
+    friend class Storage;
+
+public:
     inline bool IsInvulnerable(void) const noexcept { return this->m_is_invulnerable; }
     inline void setInvulnerable(const bool& value) noexcept { this->m_is_invulnerable = value; }
     inline bool IsImmortal(void) const noexcept { return this->m_is_immortal; }
@@ -803,6 +816,18 @@ public:
         return this->m_offline_objects;
     }
 
+    /*
+        inline void ClearOfflineObjects_Second(const std::uint16_t& id) noexcept
+        {
+            if (id == Globals::kUnsignedInt16Undefined)
+            {
+                Msg("[DataBase/Storage/ClearOfflineObjects_Second(id)] WARNING: id = std::uint16_t(-1)! You are trying
+       to get access through an undefined value! NO assignment!"); return;
+            }
+
+            this->m_offline_objects[id].second.clear();
+        }*/
+
     inline void setOfflineObjects(const xr_map<std::uint16_t, std::pair<std::uint16_t, xr_string>>& map) noexcept
     {
         if (!map.size())
@@ -853,6 +878,30 @@ public:
         this->m_offline_objects[id] = {_id, string};
     }
 
+    inline void setOfflineObjects(const std::uint16_t& id, const std::uint16_t& _id) noexcept
+    {
+        if (id == Globals::kUnsignedInt16Undefined)
+        {
+            Msg("[DataBase/Storage/setOfflineObjects(id, _id, string)] WARNING: id = std::uint16_t(-1)! You are trying "
+                "to set an undefined value! No assignment!");
+            return;
+        }
+
+        this->m_offline_objects[id].first = _id;
+    }
+
+    inline void setOfflineObjects(const std::uint16_t& id, const xr_string& string) noexcept 
+    {
+        if (id == Globals::kUnsignedInt16Undefined)
+        {
+            Msg("[DataBase/Storage/setOfflineObjects(id, _id, string)] WARNING: id = std::uint16_t(-1)! You are trying "
+                "to set an undefined value! No assignment!");
+            return;
+        }
+
+        this->m_offline_objects[id].second = string;
+    }
+
     inline const std::pair<xr_map<std::uint16_t, float>, xr_map<std::uint16_t, xr_string>>& getGoodwill(void) const
         noexcept
     {
@@ -891,6 +940,63 @@ public:
         }
 
         this->m_actor = object;
+    }
+
+    inline void setPStorBool(const std::uint16_t& id, const xr_string& varname, const bool& value) noexcept
+    {
+        if (id == Globals::kUnsignedInt16Undefined)
+        {
+            Msg("[DataBase/Storage/setPStorNumber(id, varname, value)] WARNING: id = std::uint16_t(-1)! You are trying "
+                "to get access through an undefined value! No assignment!");
+            return;
+        }
+
+        if (!varname.size())
+        {
+            Msg("[DataBase/Storage/setPStorNumber(id, varname, value)] WARNING: varname.size() = 0! You are trying to "
+                "get an access through an empty string! No assignment!");
+            return;
+        }
+
+        this->m_storage[id].m_pstor[varname].setBool(value);
+    }
+
+    inline void setPStorNumber(const std::uint16_t& id, const xr_string& varname, const std::uint8_t& value)
+    {
+        if (id == Globals::kUnsignedInt16Undefined)
+        {
+            Msg("[DataBase/Storage/setPStorNumber(id, varname, value)] WARNING: id = std::uint16_t(-1)! You are trying "
+                "to get access through an undefined value! No assignment!");
+            return;
+        }
+
+        if (!varname.size())
+        {
+            Msg("[DataBase/Storage/setPStorNumber(id, varname, value)] WARNING: varname.size() = 0! You are trying to "
+                "get an access through an empty string! No assignment!");
+            return;
+        }
+
+        this->m_storage[id].m_pstor[varname].setNumber(value);
+    }
+
+    inline void setPStorString(const std::uint16_t& id, const xr_string& varname, const xr_string& value)
+    {
+        if (id == Globals::kUnsignedInt16Undefined)
+        {
+            Msg("[DataBase/Storage/setPStorString(id, varname, value)] WARNING: id = std::uint16_t(-1)! You are trying "
+                "to get an access through an undefined value! No assignment!");
+            return;
+        }
+
+        if (!varname.size())
+        {
+            Msg("[DataBase/Storage/setPStorString(id, varname, value)] WARNING: id = std::uint16_t(-1)! You are trying "
+                "to get an access through an undefined value! No assignment!");
+            return;
+        }
+
+        this->m_storage[id].m_pstor[varname].setString(value);
     }
 #pragma endregion
 

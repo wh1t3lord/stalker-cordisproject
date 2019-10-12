@@ -157,7 +157,7 @@ inline bool is_enemy_in_zone(CScriptGameObject* enemy, CScriptGameObject* npc, c
 
     const xr_string& zone_name = buffer[0];
 
-    CScriptGameObject* zone = DataBase::Storage::getInstance().getZoneByName()[zone_name];
+    CScriptGameObject* zone = DataBase::Storage::getInstance().getZoneByName().at(zone_name);
 
     if (!zone)
     {
@@ -191,7 +191,7 @@ inline bool is_enemy_in_zone(
 
     const xr_string& zone_name = buffer[0];
 
-    CScriptGameObject* zone = DataBase::Storage::getInstance().getZoneByName()[zone_name];
+    CScriptGameObject* zone = DataBase::Storage::getInstance().getZoneByName().at(zone_name);
 
     if (!zone)
     {
@@ -548,7 +548,7 @@ inline bool is_obj_on_job(CScriptGameObject* actor, CScriptGameObject* npc, cons
         Msg("[Scripts/XR_CONDITION/is_obj_on_job(actor, npc, logic_name, smart_terrain_name)] getting smart terrain by "
             "argument -> smart_terrain_name = %s",
             smart_terrain_name.c_str());
-        server_smart = Script_SimulationBoard::getInstance().getSmartTerrainsByName()[smart_terrain_name];
+        server_smart = Script_SimulationBoard::getInstance().getSmartTerrainsByName().at(smart_terrain_name);
 
         if (!server_smart)
         {
@@ -1017,7 +1017,7 @@ inline bool is_npc_community(
         return false;
     }
 
-    CScriptGameObject* npc = DataBase::Storage::getInstance().getStorage().at(server_npc->ID).m_object;
+    CScriptGameObject* npc = DataBase::Storage::getInstance().getStorage().at(server_npc->ID).getClientObject();
 
     if (!npc)
     {
@@ -1060,7 +1060,7 @@ inline bool is_npc_community(
         return false;
     }
 
-    CScriptGameObject* npc = DataBase::Storage::getInstance().getStorage().at(server_npc->ID).m_object;
+    CScriptGameObject* npc = DataBase::Storage::getInstance().getStorage().at(server_npc->ID).getClientObject();
 
     if (!npc)
     {
@@ -1575,7 +1575,7 @@ inline bool is_signal(CScriptGameObject* actor, CScriptGameObject* npc, const xr
 
     const DataBase::Storage_Data& storage_data = DataBase::Storage::getInstance().getStorage().at(npc->ID());
 
-    return storage_data[storage_data.getActiveSchemeName()].getSignals()[buffer[0]];
+    return storage_data.getData().at(storage_data.getActiveSchemeName()).getSignals().at(buffer[0]);
 }
 
 /* Lord наверное не используется ибо такой перегрузки вообще нет
@@ -2598,7 +2598,7 @@ inline bool is_squad_in_zone(CScriptGameObject* actor, CScriptGameObject* npc, c
         return false;
     }
 
-    CScriptGameObject* client_zone = DataBase::Storage::getInstance().getZoneByName()[zone_name];
+    CScriptGameObject* client_zone = DataBase::Storage::getInstance().getZoneByName().at(zone_name);
     if (!client_zone)
     {
         Msg("[Scripts/XR_CONDITION/is_squad_in_zone(actor, npc, buffer)] WARNING: client_zone = nullptr! Returns "
@@ -2647,7 +2647,7 @@ inline bool is_squad_in_zone(
         return false;
     }
 
-    CScriptGameObject* client_zone = DataBase::Storage::getInstance().getZoneByName()[zone_name];
+    CScriptGameObject* client_zone = DataBase::Storage::getInstance().getZoneByName().at(zone_name);
     if (!client_zone)
     {
         Msg("[Scripts/XR_CONDITION/is_squad_in_zone(actor, npc, buffer)] WARNING: client_zone = nullptr! Returns "
@@ -2951,7 +2951,7 @@ inline bool is_squads_in_zone_b41(CScriptGameObject* actor, CScriptGameObject* n
     if (Script_SimulationBoard::getInstance().getSmarts().at(server_smart->ID).getSquads().size())
     {
         for (std::pair<std::uint32_t, Script_SE_SimulationSquad*> it :
-            Script_SimulationBoard::getInstance().getSmarts()[server_smart->ID].m_squads)
+            Script_SimulationBoard::getInstance().getSmarts().at(server_smart->ID).getSquads())
         {
             if (it.second)
             {
@@ -2991,7 +2991,7 @@ inline bool is_squads_in_zone_b41(
         return false;
     }
 
-    if (Script_SimulationBoard::getInstance().getSmarts().at(server_smart->ID).getSquads.size())
+    if (Script_SimulationBoard::getInstance().getSmarts().at(server_smart->ID).getSquads().size())
     {
         for (std::pair<std::uint32_t, Script_SE_SimulationSquad*> it :
             Script_SimulationBoard::getInstance().getSmarts().at(server_smart->ID).getSquads())
@@ -3037,7 +3037,7 @@ inline bool is_squads_in_zone_b41(
     if (Script_SimulationBoard::getInstance().getSmarts().at(server_smart->ID).getSquads().size())
     {
         for (std::pair<std::uint32_t, Script_SE_SimulationSquad*> it :
-            Script_SimulationBoard::getInstance().getSmarts()[server_smart->ID].m_squads)
+            Script_SimulationBoard::getInstance().getSmarts().at(server_smart->ID).getSquads())
         {
             if (it.second)
             {

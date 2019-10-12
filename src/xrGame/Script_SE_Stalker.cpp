@@ -68,8 +68,9 @@ void Script_SE_Stalker::STATE_Read(NET_Packet& packet, std::uint16_t size)
 
         if (old_level_vertex_id_name != "nil")
         {
-            DataBase::Storage::getInstance().getOfflineObjects()[this->ID].first =
-                atoi(old_level_vertex_id_name.c_str());
+           // DataBase::Storage::getInstance().getOfflineObjects().at(this->ID).first =
+           //     atoi(old_level_vertex_id_name.c_str());
+            DataBase::Storage::getInstance().setOfflineObjects(this->ID, atoi(old_level_vertex_id_name.c_str()));
         }
 
         this->m_is_dropped_death = packet.r_u8() ? true : false;
@@ -90,7 +91,7 @@ void Script_SE_Stalker::on_register(void)
     brain->can_choose_alife_tasks(false);
 
     xr_string smart_name = Globals::Utils::cfg_get_string(&CScriptIniFile(this->spawn_ini().fname()), "logic", "smart_terrain");
-    Script_SE_SmartTerrain* server_smart = Script_SimulationBoard::getInstance().getSmartTerrainsByName()[smart_name];
+    Script_SE_SmartTerrain* server_smart = Script_SimulationBoard::getInstance().getSmartTerrainsByName().at(smart_name);
 
     if (!server_smart)
         return;
@@ -109,9 +110,7 @@ void Script_SE_Stalker::on_unregister(void)
         if (smart)
             smart->unregister_npc(this);
     }
-    DataBase::Storage::getInstance().getOfflineObjects()[this->ID].first = Globals::kUnsignedInt16Undefined;
-    DataBase::Storage::getInstance().getOfflineObjects()[this->ID].second.clear();
-
+    DataBase::Storage::getInstance().setOfflineObjects(this->ID, Globals::kUnsignedInt16Undefined, "");
     Script_StoryObject::getInstance().unregistrate_by_id(this->ID);
 
     inherited::on_unregister();
