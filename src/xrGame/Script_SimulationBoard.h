@@ -87,7 +87,8 @@ struct SmartDataSimulationBoard
     {
         if (id == Globals::kUnsignedInt32Undefined)
         {
-            Msg("[SmartDataSimulationBoard/setSquads(id, p_server_object)] WARNING: id = std::uint32_t(-1)! You are trying to set an "
+            Msg("[SmartDataSimulationBoard/setSquads(id, p_server_object)] WARNING: id = std::uint32_t(-1)! You are "
+                "trying to set an "
                 "undefined value! No assignment!");
             return;
         }
@@ -95,7 +96,7 @@ struct SmartDataSimulationBoard
         if (!p_server_object)
         {
             Msg("[SmartDataSimulationBoard/setSquads(id, p_server_object)] p_server_object = null!");
-      //      return;
+            //      return;
         }
 
         this->m_squads[id] = p_server_object;
@@ -104,6 +105,16 @@ struct SmartDataSimulationBoard
     inline const std::uint32_t& getStayedSquadQuan(void) const noexcept { return this->m_stayed_squad_quan; }
     inline void setStayedSquadQuan(const std::uint32_t& value) noexcept { this->m_stayed_squad_quan = value; }
     inline Script_SE_SmartTerrain* getServerSmartTerrain(void) const { return this->m_p_server_smart; }
+    inline void setServerSmartTerrain(Script_SE_SmartTerrain* p_server_object)
+    {
+        if (!p_server_object)
+        {
+            Msg("[SmartDataSimulationBoard/setServerSmartTerrain(p_server_smart)] WARNING: p_server_smart = null! You are trying to set an empty object! No assignment!");
+            return;
+        }
+
+        this->m_p_server_smart = p_server_object;
+    }
 
 private:
     std::uint32_t m_stayed_squad_quan = 0;
@@ -979,8 +990,8 @@ public:
 
         if (old_smart_id && this->m_smarts[old_smart_id].getServerSmartTerrain())
         {
-            this->m_smarts[old_smart_id].setSquads(squad->ID, nullptr); 
-         //   this->m_smarts[old_smart_id].m_squads[squad->ID] = nullptr;
+            this->m_smarts[old_smart_id].setSquads(squad->ID, nullptr);
+            //   this->m_smarts[old_smart_id].m_squads[squad->ID] = nullptr;
             this->m_smarts[old_smart_id].getServerSmartTerrain()->refresh();
         }
 
@@ -991,7 +1002,7 @@ public:
 
         squad->assign_smart(this->m_smarts[smart_id].getServerSmartTerrain());
 
-       // this->m_smarts[smart_id].m_squads[squad->ID] = squad;
+        // this->m_smarts[smart_id].m_squads[squad->ID] = squad;
         this->m_smarts[smart_id].setSquads(squad->ID, squad);
         this->m_smarts[smart_id].getServerSmartTerrain()->refresh();
     }

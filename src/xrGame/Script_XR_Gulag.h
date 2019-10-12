@@ -80,7 +80,7 @@ inline bool is_job_in_restrictor(
         return false;
     }
 
-    CScriptGameObject* restrictor_object = DataBase::Storage::getInstance().getZoneByName()[restrictor_name];
+    CScriptGameObject* restrictor_object = DataBase::Storage::getInstance().getZoneByName().at(restrictor_name);
 
     if (!restrictor_object)
     {

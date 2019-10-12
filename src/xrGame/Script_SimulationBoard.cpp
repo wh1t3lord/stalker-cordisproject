@@ -22,15 +22,15 @@ void Script_SimulationBoard::register_smart(Script_SE_SmartTerrain* object)
 
     Msg("[Scripts/Script_SimulationBoard/register_smart(object)] register smart -> %s", object->name());
 
-    if (this->m_smarts[object->ID].m_smart)
+    if (this->m_smarts[object->ID].getServerSmartTerrain())
     {
         R_ASSERT2(false, "You are trying to register smart, which it is already registered!");
         return;
     }
 
     SmartDataSimulationBoard data;
-    data.m_smart = object;
-
+/*    data.getServerSmartTerrain() = object;*/
+    data.setServerSmartTerrain(object);
     this->m_smarts[object->ID] = data;
     this->m_smarts_by_name[object->name()] = object;
 }
@@ -156,17 +156,17 @@ void Script_SimulationBoard::exit_smart(Script_SE_SimulationSquad* server_squad,
 
     SmartDataSimulationBoard& smart = this->m_smarts[smart_terrain_id];
 
-    if (!smart.m_smart)
+    if (!smart.getServerSmartTerrain())
     {
         R_ASSERT2(false, "Smart nullptr while smart_terrain_id is a valid value! So it can't be!!");
         return;
     }
-    std::uint32_t quan_value = smart.m_smart->getStaydSquadQuan();
+    std::uint32_t quan_value = smart.getServerSmartTerrain()->getStaydSquadQuan();
     Msg("[Scripts/Script_SimulationBoard/exit_smart(server_squad, smart_terrain_id)] Squad %d exit smart %s. Quan = %d",
-        server_squad->ID, smart.m_smart->name_replace(), quan_value);
+        server_squad->ID, smart.getServerSmartTerrain()->name_replace(), quan_value);
     --quan_value;
-    smart.m_smart->setStaydSquadQuan(quan_value);
-    smart.m_squads[server_squad->ID] = nullptr;
+    smart.getServerSmartTerrain()->setStaydSquadQuan(quan_value);
+    smart.setSquads(server_squad->ID, nullptr);
 }
 
 void Script_SimulationBoard::fill_start_position(void)

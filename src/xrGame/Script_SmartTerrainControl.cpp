@@ -41,7 +41,7 @@ void Script_SmartTerrainControl::update(void)
 
 bool Script_SmartTerrainControl::IsActorTreat(void)
 {
-    CScriptGameObject* client_zone = DataBase::Storage::getInstance().getZoneByName()[this->m_noweapon_zone];
+    CScriptGameObject* client_zone = DataBase::Storage::getInstance().getZoneByName().at(this->m_noweapon_zone);
 
     if (!client_zone)
         return false;

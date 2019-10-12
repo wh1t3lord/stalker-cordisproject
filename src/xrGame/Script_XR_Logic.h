@@ -28,11 +28,11 @@ inline CScriptIniFile configure_schemes(CScriptGameObject* npc, CScriptIniFile& 
     }
 
     std::uint16_t npc_id = npc->ID();
-    DataBase::Storage_Data& storage = DataBase::Storage::getInstance().getStorage()[npc_id];
+    const DataBase::Storage_Data& storage = DataBase::Storage::getInstance().getStorage().at(npc_id);
 
-    if (storage.m_active_section.size())
+    if (storage.getActiveSchemeName().size())
     {
-        Script_LogicManager::getInstance().all_deactivate(storage[storage.m_active_scheme].getActions(), npc);
+        Script_LogicManager::getInstance().all_deactivate(storage.getData().at(storage.getActiveSchemeName()).getActions(), npc);
     }
 
     CScriptIniFile actual_ini = ini;
@@ -89,7 +89,7 @@ inline CScriptIniFile get_customdata_or_ini_file(CScriptGameObject* npc, const x
         return CScriptIniFile("system.ltx");
     }
 
-    DataBase::Storage_Data& storage = DataBase::Storage::getInstance().getStorage()[npc->ID()];
+    const DataBase::Storage_Data& storage = DataBase::Storage::getInstance().getStorage().at(npc->ID());
     if (filename == XR_LOGIC_CUSTOMDATA)
     {
         CScriptIniFile* file = npc->spawn_ini();
@@ -103,8 +103,8 @@ inline CScriptIniFile get_customdata_or_ini_file(CScriptGameObject* npc, const x
     }
     else if (!filename.find('*'))
     {
-        if (storage.m_job_ini.size())
-            return CScriptIniFile(storage.m_job_ini.c_str());
+        if (storage.getJobIniName().size())
+            return CScriptIniFile(storage.getJobIniName().c_str());
 
         return XR_GULAG::loadLtx(filename.substr(filename.find('*') + 1));
     }
@@ -1720,9 +1720,9 @@ inline bool pstor_retrieve_bool(CScriptGameObject* object, const xr_string& varn
         return false;
     }
 
-    if (DataBase::Storage::getInstance().getStorage()[object->ID()].m_pstor[varname].IsInitializedBool())
+    if (DataBase::Storage::getInstance().getStorage().at(object->ID()).getPStor().at(varname).IsInitializedBool())
     {
-        return DataBase::Storage::getInstance().getStorage()[object->ID()].m_pstor[varname].getBool();
+        return DataBase::Storage::getInstance().getStorage().at(object->ID()).getPStor().at(varname).getBool();
     }
 
     Msg("[Scripts/XR_LOGIC/pstor_retrieve_bool(object, varname)] WARNING: returns a default value, becasue can't find "
@@ -1746,9 +1746,9 @@ inline std::uint8_t pstor_retrieve_number(CScriptGameObject* object, const xr_st
         return std::uint8_t(0);
     }
 
-    if (DataBase::Storage::getInstance().getStorage()[object->ID()].m_pstor[varname].IsInitializedNumber())
+    if (DataBase::Storage::getInstance().getStorage().at(object->ID()).getPStor().at(varname).IsInitializedNumber())
     {
-        return DataBase::Storage::getInstance().getStorage()[object->ID()].m_pstor[varname].getNumber();
+        return DataBase::Storage::getInstance().getStorage().at(object->ID()).getPStor().at(varname).getNumber();
     }
 
     Msg("[Scripts/XR_LOGIC/pstor_retrieve_number(object, varname)] WARNING: returning a default value, because can't "
@@ -1772,9 +1772,9 @@ inline xr_string pstor_retrieve_string(CScriptGameObject* object, const xr_strin
         return xr_string();
     }
 
-    if (DataBase::Storage::getInstance().getStorage()[object->ID()].m_pstor[varname].IsInitializedString())
+    if (DataBase::Storage::getInstance().getStorage().at(object->ID()).getPStor().at(varname).IsInitializedString())
     {
-        return DataBase::Storage::getInstance().getStorage()[object->ID()].m_pstor[varname].getString();
+        return DataBase::Storage::getInstance().getStorage().at(object->ID()).getPStor().at(varname).getString();
     }
 
     Msg("[Scripts/XR_LOGIC/pstor_retrieve_string(object, varname)] WARNING: return a default value, because can't find "
@@ -1798,7 +1798,7 @@ inline void pstor_store(CScriptGameObject* object, const xr_string& varname, con
         return;
     }
 
-    DataBase::Storage::getInstance().getStorage()[object->ID()].m_pstor[varname].setBool(value);
+    DataBase::Storage::getInstance().setPStorBool(object->ID(), varname, value);
 }
 
 inline void pstor_store(CScriptGameObject* object, const xr_string& varname, const std::uint8_t& value)
@@ -1815,7 +1815,7 @@ inline void pstor_store(CScriptGameObject* object, const xr_string& varname, con
         return;
     }
 
-    DataBase::Storage::getInstance().getStorage()[object->ID()].m_pstor[varname].setNumber(value);
+    DataBase::Storage::getInstance().setPStorNumber(object->ID(), varname, value);
 }
 
 inline void pstor_store(CScriptGameObject* object, const xr_string& varname, const xr_string& value)
@@ -1832,7 +1832,7 @@ inline void pstor_store(CScriptGameObject* object, const xr_string& varname, con
         return;
     }
 
-    DataBase::Storage::getInstance().getStorage()[object->ID()].m_pstor[varname].setString(value);
+    DataBase::Storage::getInstance().setPStorString(object->ID(), varname, value);
 }
 
 
