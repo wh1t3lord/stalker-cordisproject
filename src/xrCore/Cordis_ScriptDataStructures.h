@@ -173,7 +173,7 @@ public:
         this->m_transitions = vector;
     }
 
-    inline void setTransitions(const SmartCoverTransitionsData& data) noexcept { this->m_transitions.push_back(data);}
+    inline void setTransitions(const SmartCoverTransitionsData& data) noexcept { this->m_transitions.push_back(data); }
 };
 
 } // namespace Scripts

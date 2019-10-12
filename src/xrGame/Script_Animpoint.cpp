@@ -34,6 +34,13 @@ void Script_Animpoint::activate_scheme(void)
         if (!this->m_storage->IsUseCamp() && this->m_cover_name == this->m_storage->getCoverName())
         {
             this->fill_approved_actions();
+
+            const xr_string& target_action_name = this->m_storage->getApprovedActions()
+                                                      .at(Globals::Script_RandomInt::getInstance().Generate(
+                                                          0, this->m_storage->getApprovedActions().size()))
+                                                      .second;
+
+
         }
     }
 }
@@ -46,7 +53,6 @@ void Script_Animpoint::fill_approved_actions(void)
     {
         for (const xr_string& it : this->m_storage->getAvailAnimations())
         {
-            //    this->m_storage->setApprovedAction(it);
             this->m_storage->setApprovedAction(Globals::predicate_const_true, it);
         }
     }
@@ -58,7 +64,7 @@ void Script_Animpoint::fill_approved_actions(void)
             {
                 if (it.first(this->m_npc_id, is_in_camp))
                 {
-                    this->m_storage->setApprovedAction(nullptr, it.second);
+                    this->m_storage->setApprovedAction(nullptr, it.second); // Lord: проследить где вызывается метод если он в итоге вызывается, а то может вылететь из-за nullptr, хотя так и должны устаналивать!
                 }
             }
         }

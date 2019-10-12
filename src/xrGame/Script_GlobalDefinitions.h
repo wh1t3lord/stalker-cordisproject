@@ -15,6 +15,19 @@ namespace Cordis
 {
 namespace Scripts
 {
+struct StateLibData
+{
+private:
+    std::uint32_t m_movement_type; // MonsterSpace::Enum*
+    std::uint32_t m_mental_type; // MonsterSpace::Enum*
+    std::uint32_t m_bodystate_type; // MonsterSpace::Enum*
+    std::uint32_t m_direction; // SightManager::ESightType
+    xr_string m_weapon_name;
+    xr_string m_animstate_name;
+    xr_string m_animation_name;
+
+};
+
 namespace Globals
 {
 #pragma region Cordis Constants
