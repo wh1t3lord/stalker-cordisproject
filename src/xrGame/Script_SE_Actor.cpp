@@ -75,10 +75,12 @@ void Script_SE_Actor::on_reach_target(Script_SE_SimulationSquad* squad)
              squad->squad_members().begin();
          it != squad->squad_members().end(); ++it)
     {
-        if (DataBase::Storage::getInstance().getOfflineObjects()[it->first].second.size())
+        if (DataBase::Storage::getInstance().getOfflineObjects().at(it->first).second.size())
         {
-            DataBase::Storage::getInstance().getOfflineObjects()[it->first].second.clear();
-            DataBase::Storage::getInstance().getOfflineObjects()[it->first].first = Globals::kUnsignedInt16Undefined;
+            DataBase::Storage::getInstance().setOfflineObjects(it->first, "");
+            DataBase::Storage::getInstance().setOfflineObjects(it->first, Globals::kUnsignedInt16Undefined);
+            //             DataBase::Storage::getInstance().getOfflineObjects()[it->first].second.clear();
+//             DataBase::Storage::getInstance().getOfflineObjects()[it->first].first = Globals::kUnsignedInt16Undefined;
         }
     }
 

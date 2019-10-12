@@ -103,16 +103,18 @@ void Script_SE_Monster::STATE_Read(NET_Packet& packet, std::uint16_t size)
         xr_string old_level_vertex_id_name = "";
         packet.r_stringZ(old_level_vertex_id_name);
 
-        std::pair<std::uint16_t, xr_string>& offline_objects_data =
+        const std::pair<std::uint16_t, xr_string>& offline_objects_data =
             DataBase::Storage::getInstance().getOfflineObjects().at(this->ID);
 
-        packet.r_stringZ(offline_objects_data.second);
+        packet.r_stringZ(xr_string(offline_objects_data.second.c_str()));
 
         if (offline_objects_data.second == "nil")
-            offline_objects_data.second.clear();
+            DataBase::Storage::getInstance().setOfflineObjects(this->ID, "");
+        //    offline_objects_data.second.clear();
 
         if (old_level_vertex_id_name != "nil")
-            offline_objects_data.first = atoi(old_level_vertex_id_name.c_str());
+            DataBase::Storage::getInstance().setOfflineObjects(this->ID, atoi(old_level_vertex_id_name.c_str()));
+        //    offline_objects_data.first = atoi(old_level_vertex_id_name.c_str());
     }
 }
 

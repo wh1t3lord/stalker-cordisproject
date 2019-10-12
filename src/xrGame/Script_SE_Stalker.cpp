@@ -58,8 +58,8 @@ void Script_SE_Stalker::STATE_Read(NET_Packet& packet, std::uint16_t size)
     {
         xr_string old_level_vertex_id_name = "";
         packet.r_stringZ(old_level_vertex_id_name);
-
-        packet.r_stringZ(DataBase::Storage::getInstance().getOfflineObjects().at(this->ID).second);
+        
+        packet.r_stringZ(shared_str(DataBase::Storage::getInstance().getOfflineObjects().at(this->ID).second.c_str()));
         if (DataBase::Storage::getInstance().getOfflineObjects().at(this->ID).second == "nil")
         {
             DataBase::Storage::getInstance().setOfflineObjects(this->ID, "");
