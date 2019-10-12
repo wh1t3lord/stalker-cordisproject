@@ -67,7 +67,7 @@ inline std::uint16_t Script_SE_SimulationSquad::getScriptTarget(void)
         _new_target = this->pick_next_target();
     }
 
-    Script_SE_SmartTerrain* smart = Script_SimulationBoard::getInstance().getSmartTerrainsByName()[_new_target];
+    Script_SE_SmartTerrain* smart = Script_SimulationBoard::getInstance().getSmartTerrainsByName().at(_new_target);
 
     if (!smart)
     {
@@ -96,8 +96,8 @@ void Script_SE_SimulationSquad::assign_squad_member_to_smart(
 
     if (server_monster->m_smart_terrain_id != Globals::kUnsignedInt16Undefined && old_smart_terrain_id &&
         (server_monster->m_smart_terrain_id == old_smart_terrain_id) &&
-        (Script_SimulationBoard::getInstance().getSmarts()[old_smart_terrain_id].m_smart))
-        Script_SimulationBoard::getInstance().getSmarts()[old_smart_terrain_id].m_smart->unregister_npc(server_monster);
+        (Script_SimulationBoard::getInstance().getSmarts().at(old_smart_terrain_id).getServerSmartTerrain()))
+        Script_SimulationBoard::getInstance().getSmarts().at(old_smart_terrain_id).getServerSmartTerrain()->unregister_npc(server_monster);
 
     if (smart)
         smart->register_npc(server_monster);
@@ -302,7 +302,7 @@ std::uint16_t Script_SE_SimulationSquad::add_squad_member(const xr_string& spawn
     if (Globals::is_on_the_same_level(server_object->cast_alife_object(), ai().alife().graph().actor()) &&
         spawn_position.distance_to_sqr(alife->graph().actor()->Position()) <=
             (ai().alife().switch_distance() * ai().alife().switch_distance()))
-        DataBase::Storage::getInstance().getSpawnedVertexByID()[server_object->ID] = level_vertex_id;
+        DataBase::Storage::getInstance().setSpawnedVertexByID(server_object->ID, level_vertex_id);
 
     return server_object->ID;
 }
@@ -361,7 +361,7 @@ void Script_SE_SimulationSquad::set_squad_relation(const xr_string& relation_nam
                  this->squad_members().begin();
              it != this->squad_members().end(); ++it)
         {
-            CScriptGameObject* npc = DataBase::Storage::getInstance().getStorage()[it->first].m_object;
+            CScriptGameObject* npc = DataBase::Storage::getInstance().getStorage().at(it->first).getClientObject();
 
             if (npc)
                 Globals::GameRelations::set_npcs_relation(
@@ -400,12 +400,12 @@ void Script_SE_SimulationSquad::set_squad_sympathy(const float& sympathy)
                  this->squad_members().begin();
              it != this->squad_members().end(); ++it)
         {
-            CScriptGameObject* npc = DataBase::Storage::getInstance().getStorage()[it->first].m_object;
+            CScriptGameObject* npc = DataBase::Storage::getInstance().getStorage().at(it->first).getClientObject();
 
             if (npc)
                 Globals::GameRelations::set_npc_sympathy(npc, _sympathy);
             else
-                DataBase::Storage::getInstance().getGoodwill_Sympathy()[it->first] = _sympathy;
+                DataBase::Storage::getInstance().setGoodwill_Sympathy(it->first, _sympathy);
         }
     }
 }
