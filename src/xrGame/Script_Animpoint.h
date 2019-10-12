@@ -49,7 +49,7 @@ private:
     Fvector m_position;
     Fvector m_look_position;
     Fvector m_smart_direction;
-    xr_vector<xr_string> m_avail_actions;
+    xr_vector<std::pair<std::function<bool(std::uint16_t, bool)>, xr_string>> m_avail_actions;
     DataBase::StorageAnimpoint_Data* m_storage;
     xr_string m_current_action;
     xr_string m_cover_name;

@@ -1092,7 +1092,7 @@ private:
 #pragma endregion
 
 #pragma region Cordis Jobs Types Initializing
-            this->m_job_type_by_scheme[Globals::GulagGenerator::kGulagJobNameWalker] =
+        this->m_job_type_by_scheme[Globals::GulagGenerator::kGulagJobNameWalker] =
             Globals::GulagGenerator::kGulagJobPath;
         this->m_job_type_by_scheme[Globals::GulagGenerator::kGulagJobNameCamper] =
             Globals::GulagGenerator::kGulagJobPath;
@@ -2252,7 +2252,7 @@ public:
     }
 
     inline void setAnimpointTable(
-        const xr_map<xr_string, std::pair<std::function<bool(std::uint16_t, bool)>, xr_string>>& map)
+        const xr_map<xr_string, xr_vector<std::pair<std::function<bool(std::uint16_t, bool)>, xr_string>>>& map)
     {
         if (!map.size())
         {
@@ -2264,6 +2264,7 @@ public:
         this->m_animpoint_table = map;
     }
 
+/*
     inline void setAnimpointTable(
         const std::pair<xr_string, std::pair<std::function<bool(std::uint16_t, bool)>, xr_string>>& pair)
     {
@@ -2289,7 +2290,7 @@ public:
         }
 
         this->m_animpoint_table.insert(pair);
-    }
+    }*/
 
     inline void setAnimpointTable(
         const xr_string& animpoint_name, const std::pair<std::function<bool(std::uint16_t, bool)>, xr_string>& pair)
@@ -2315,7 +2316,7 @@ public:
             return;
         }
 
-        this->m_animpoint_table[animpoint_name] = pair;
+        this->m_animpoint_table[animpoint_name].push_back(pair);
     }
 
     inline void setAnimpointTable(const xr_string& animpoint_name,
@@ -2342,8 +2343,7 @@ public:
             return;
         }
 
-        this->m_animpoint_table[animpoint_name].first = function;
-        this->m_animpoint_table[animpoint_name].second = animpoint_animation_name;
+        this->m_animpoint_table[animpoint_name].push_back({function, animpoint_animation_name});
     }
 #pragma endregion
 
