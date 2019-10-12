@@ -1089,23 +1089,6 @@ private:
 
         this->m_animpoint_table["walker_camp"].push_back({Globals::predicate_animpoint_guitar, "play_guitar"});
         this->m_animpoint_table["walker_camp"].push_back({Globals::predicate_animpoint_harmonica, "play_harmonica"});
-/*
-        this->m_animpoint_table["animpoint_sit_low"] = {Globals::predicate_const_true, "animpoint_sit_low"};
-        this->m_animpoint_table["animpoint_sit_low"] = {
-            Globals::predicate_animpoint_bread, "animpoint_sit_low_eat_bread"};
-        this->m_animpoint_table["animpoint_sit_low"] = {
-            Globals::predicate_animpoint_kolbasa, "animpoint_sit_low_eat_kolbasa"};
-        this->m_animpoint_table["animpoint_sit_low"] = {
-            Globals::predicate_animpoint_vodka, "animpoint_sit_low_drink_vodka"};
-        this->m_animpoint_table["animpoint_sit_low"] = {
-            Globals::predicate_animpoint_energy, "animpoint_sit_low_drink_energy"};
-        this->m_animpoint_table["animpoint_sit_low"] = {
-            Globals::predicate_animpoint_guitar, "animpoint_sit_low_guitar"};
-        this->m_animpoint_table["animpoint_sit_low"] = {
-            Globals::predicate_animpoint_harmonica, "animpoint_sit_low_harmonica"};
-
-        this->m_animpoint_table["walker_camp"] = {Globals::predicate_animpoint_guitar, "play_guitar"};
-        this->m_animpoint_table["play_harmonica"] = {Globals::predicate_animpoint_harmonica, "play_harmonica"};*/
 #pragma endregion
 
 #pragma region Cordis Jobs Types Initializing
