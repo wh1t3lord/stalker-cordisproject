@@ -46,8 +46,8 @@ Script_SoundNPC::~Script_SoundNPC(void)
 
 void Script_SoundNPC::reset(const std::uint16_t& npc_id)
 {
-    DataBase::Storage_Data& storage_data = DataBase::Storage::getInstance().getStorage()[npc_id];
-    if (!storage_data.m_object)
+    const DataBase::Storage_Data& storage_data = DataBase::Storage::getInstance().getStorage().at(npc_id);
+    if (!storage_data.getClientObject())
     {
         R_ASSERT2(false, "object was null!");
         return;
@@ -57,8 +57,8 @@ void Script_SoundNPC::reset(const std::uint16_t& npc_id)
     this->m_played_time = 0;
     this->m_can_play_group_sound = true;
     this->m_can_play_sound[npc_id] = true;
-    storage_data.m_object->set_sound_mask(-1);
-    storage_data.m_object->set_sound_mask(0);
+    storage_data.getClientObject()->set_sound_mask(-1);
+    storage_data.getClientObject()->set_sound_mask(0);
 
     if (this->m_pda_sound_object)
     {
@@ -70,14 +70,14 @@ void Script_SoundNPC::reset(const std::uint16_t& npc_id)
 
 bool Script_SoundNPC::is_playing(const std::uint16_t& npc_id)
 {
-    DataBase::Storage_Data& storage_data = DataBase::Storage::getInstance().getStorage()[npc_id];
-    if (!storage_data.m_object)
+    const DataBase::Storage_Data& storage_data = DataBase::Storage::getInstance().getStorage().at(npc_id);
+    if (!storage_data.getClientObject())
     {
         R_ASSERT2(false, "object was null!");
         return false;
     }
 
-    if (storage_data.m_object->active_sound_count() != 0)
+    if (storage_data.getClientObject()->active_sound_count() != 0)
         return true;
 
     if (this->m_pda_sound_object)
@@ -185,32 +185,35 @@ void Script_SoundNPC::callback(const std::uint16_t& npc_id)
 
     CurrentGameUI()->RemoveCustomStatic("cs_subtitles_npc");
 
-    DataBase::Storage_Data& storage_data = DataBase::Storage::getInstance().getStorage()[npc_id];
+    const DataBase::Storage_Data& storage_data = DataBase::Storage::getInstance().getStorage().at(npc_id);
 
-    if (!storage_data.m_active_scheme.size())
+    if (!storage_data.getActiveSchemeName().size())
     {
         return;
     }
 
-    if (!storage_data[storage_data.m_active_scheme].getSignals().size())
+    if (!storage_data.getData().at(storage_data.getActiveSchemeName()).getSignals().size())
     {
         return;
     }
 
     if (this->m_played_id == this->m_npc[npc_id].second && this->m_shuffle != "rnd")
     {
-        storage_data[storage_data.m_active_scheme].getSignals()["theme_end"] = true;
-        storage_data[storage_data.m_active_scheme].getSignals()["sound_end"] = true;
+     //   storage_data[storage_data.m_active_scheme].getSignals()["theme_end"] = true;
+     //   storage_data[storage_data.m_active_scheme].getSignals()["sound_end"] = true;
+        DataBase::Storage::getInstance().setSignal(npc_id, "theme_end", true);
+        DataBase::Storage::getInstance().setSignal(npc_id, "sound_end", true);
     }
     else
     {
-        storage_data[storage_data.m_active_scheme].getSignals()["sound_end"] = true;
+     //   storage_data[storage_data.m_active_scheme].getSignals()["sound_end"] = true;
+        DataBase::Storage::getInstance().setSignal(npc_id, "sound_end", true);
     }
 }
 
 bool Script_SoundNPC::play(const std::uint16_t& npc_id, xr_string& faction, std::uint16_t point)
 {
-    CScriptGameObject* npc = DataBase::Storage::getInstance().getStorage()[npc_id].m_object;
+    CScriptGameObject* npc = DataBase::Storage::getInstance().getStorage().at(npc_id).getClientObject();
     if (!npc)
     {
         R_ASSERT2(false, "Object is null!");
@@ -372,7 +375,7 @@ int Script_SoundNPC::select_next_sound(const std::uint16_t& npc_id)
 
 void Script_SoundNPC::stop(const std::uint16_t& obj_id)
 {
-    CScriptGameObject* npc = DataBase::Storage::getInstance().getStorage()[obj_id].m_object;
+    CScriptGameObject* npc = DataBase::Storage::getInstance().getStorage().at(obj_id).getClientObject();
 
     if (!npc)
     {
@@ -508,28 +511,32 @@ void Script_SoundActor::callback(const std::uint16_t& npc_id)
 
     CurrentGameUI()->RemoveCustomStatic("cs_subtitles_actor");
 
-    DataBase::Storage_Data& storage_data = DataBase::Storage::getInstance().getStorage()[npc_id];
+    const DataBase::Storage_Data& storage_data = DataBase::Storage::getInstance().getStorage().at(npc_id);
 
-    if (!storage_data.m_active_scheme.size())
+    if (!storage_data.getActiveSchemeName().size())
         return;
 
-    if (!storage_data[storage_data.m_active_scheme].getSignals().size())
+    if (!storage_data.getData().at(storage_data.getActiveSchemeName()).getSignals().size())
         return;
 
     // Lord: проверить больше или всё же оно равно этому значению (про размер карты)
     if (this->m_played_id == this->m_sound.size() && (this->m_shuffle != "rnd"))
     {
         Msg("[Script_SoundActor] -> [%s] signalled 'theme_end' in section [%s]", std::to_string(npc_id).c_str(),
-            storage_data.m_active_section.c_str());
-        storage_data[storage_data.m_active_scheme].getSignals()["theme_end"] = true;
-        storage_data[storage_data.m_active_scheme].getSignals()["sound_end"] = true;
+            storage_data.getActiveSectionName().c_str());
+    //    storage_data[storage_data.m_active_scheme].getSignals()["theme_end"] = true;
+    //    storage_data[storage_data.m_active_scheme].getSignals()["sound_end"] = true;
+        DataBase::Storage::getInstance().setSignal(npc_id, "theme_end", true);
+        DataBase::Storage::getInstance().setSignal(npc_id, "sound_end", true);
+
     }
     else
     {
         Msg("[Script_SoundActor] -> [%s] signalled 'sound_end' in section [%s]", std::to_string(npc_id).c_str(),
-            storage_data.m_active_section.c_str());
+            storage_data.getActiveSectionName().c_str());
 
-        storage_data[storage_data.m_active_scheme].getSignals()["sound_end"] = true;
+      //  storage_data[storage_data.m_active_scheme].getSignals()["sound_end"] = true;
+        DataBase::Storage::getInstance().setSignal(npc_id, "sound_end", true);
     }
 }
 
