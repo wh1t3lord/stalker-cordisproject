@@ -46,17 +46,35 @@ void Script_Animpoint::fill_approved_actions(void)
     {
         for (const xr_string& it : this->m_storage->getAvailAnimations())
         {
-        //    this->m_storage->setApprovedAction(it);
+            //    this->m_storage->setApprovedAction(it);
+            this->m_storage->setApprovedAction(Globals::predicate_const_true, it);
         }
     }
     else
     {
+        if (this->m_avail_actions.size())
+        {
+            for (std::pair<std::function<bool(std::uint16_t, bool)>, xr_string>& it : this->m_avail_actions)
+            {
+                if (it.first(this->m_npc_id, is_in_camp))
+                {
+                    this->m_storage->setApprovedAction(nullptr, it.second);
+                }
+            }
+        }
+    }
+
+    if (!this->m_storage->getApprovedActions().size())
+    {
+        Msg("[Script_Animpoint/fill_approved_actions()] ERROR: There is no approved actions for stalker[%s] in animpoint[%s]", DataBase::Storage::getInstance().getStorage().at(this->m_npc_id).getClientObject()->Name()); 
+        R_ASSERT(false);
     }
 }
 
 void Script_Animpoint::calculate_position(void)
 {
-    Script_SE_SmartCover* server_smartcover = Script_GlobalHelper::getInstance().getGameRegisteredServerSmartCovers().at(this->m_cover_name);
+    Script_SE_SmartCover* server_smartcover =
+        Script_GlobalHelper::getInstance().getGameRegisteredServerSmartCovers().at(this->m_cover_name);
 }
 
 } // namespace Scripts
