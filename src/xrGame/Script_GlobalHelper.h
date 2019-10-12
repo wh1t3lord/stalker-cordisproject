@@ -2264,33 +2264,70 @@ public:
         this->m_animpoint_table = map;
     }
 
-/*
-    inline void setAnimpointTable(
-        const std::pair<xr_string, std::pair<std::function<bool(std::uint16_t, bool)>, xr_string>>& pair)
+    inline const xr_map<xr_string, StateLibData>& getStateLibrary(void) const noexcept { return this->m_state_library; }
+    inline void setStateLibrary(const xr_map<xr_string, StateLibData>& map) noexcept
+    {
+        if (!map.size())
+        {
+            Msg("[DataBase/Storage/setStateLibrary(map)] WARNING: map.size() = 0! You are trying to set an empty map! "
+                "No assignment!");
+            return;
+        }
+
+        this->m_state_library = map;
+    }
+
+    inline void setStateLibrary(const std::pair<xr_string, StateLibData>& pair) noexcept
     {
         if (!pair.first.size())
         {
-            Msg("[Script_GlobalHelper/setAnimpointTable(pair)] WARNING: "
-                "pair.first.size() = 0! You are trying to set an empty string! No assignment!");
+            Msg("[DataBase/Storage/setStateLibrary(pair)] WARNING: pair.first.size() = 0! You are trying to set an "
+                "empty pair! No assignment!");
             return;
         }
 
-        if (!pair.second.first)
+        this->m_state_library.insert(pair);
+    }
+
+    inline void setStateLibrary(const xr_string& animation_name, const StateLibData& data) noexcept
+    {
+        if (!animation_name.size())
         {
-            Msg("[Script_GlobalHelper/setAnimpointTable(pair)] WARNING: "
-                "pair.second.first = null! You are trying to set an empty function! No assignment!");
+            Msg("[DataBase/Storage/setStateLibrary(animation_name, data)] WARNING: animation_name.size() = 0! You are "
+                "trying to set an empty string! No assignment!");
             return;
         }
 
-        if (!pair.second.second.size())
+        this->m_state_library[animation_name] = data;
+    }
+
+    /*
+        inline void setAnimpointTable(
+            const std::pair<xr_string, std::pair<std::function<bool(std::uint16_t, bool)>, xr_string>>& pair)
         {
-            Msg("[Script_GlobalHelper/setAnimpointTable(pair)] WARNING: "
-                "pair.second.second.size() = 0! You are trying to set an empty string! No assignment!");
-            return;
-        }
+            if (!pair.first.size())
+            {
+                Msg("[Script_GlobalHelper/setAnimpointTable(pair)] WARNING: "
+                    "pair.first.size() = 0! You are trying to set an empty string! No assignment!");
+                return;
+            }
 
-        this->m_animpoint_table.insert(pair);
-    }*/
+            if (!pair.second.first)
+            {
+                Msg("[Script_GlobalHelper/setAnimpointTable(pair)] WARNING: "
+                    "pair.second.first = null! You are trying to set an empty function! No assignment!");
+                return;
+            }
+
+            if (!pair.second.second.size())
+            {
+                Msg("[Script_GlobalHelper/setAnimpointTable(pair)] WARNING: "
+                    "pair.second.second.size() = 0! You are trying to set an empty string! No assignment!");
+                return;
+            }
+
+            this->m_animpoint_table.insert(pair);
+        }*/
 
     inline void setAnimpointTable(
         const xr_string& animpoint_name, const std::pair<std::function<bool(std::uint16_t, bool)>, xr_string>& pair)
@@ -2363,6 +2400,7 @@ private:
     xr_map<xr_string, AnyCallable<bool>> m_registered_functions_xr_conditions;
     xr_map<xr_string, Script_SE_SmartCover*> m_game_registered_smartcovers;
     xr_map<std::uint8_t, xr_map<std::uint32_t, Script_SE_SmartCover*>> m_game_registered_smartcovers_by_level_id;
+    xr_map<xr_string, StateLibData> m_state_library;
     xr_map<xr_string, SmartCoverData> m_registered_smartcovers;
     xr_map<xr_string, CScriptGameObject*> m_game_registered_combat_spacerestrictors;
     xr_map<xr_string, Script_SE_SmartTerrain*> m_game_registered_server_smartterrains_by_name;
