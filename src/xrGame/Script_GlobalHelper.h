@@ -1118,14 +1118,112 @@ private:
             Globals::GulagGenerator::kGulagJobPoint;
 #pragma endregion
 
-        #pragma region Cordis State Library initialization
+#pragma region Cordis State Library initialization
         xr_map<xr_string, StateLibData> state_library;
-        StateLibData state_lib_data_idle;
-        state_library["idle"] = ;
-        #pragma endregion
+        StateLibData state_lib_data = StateLibData(Globals::kUnsignedInt32Undefined,
+            Globals::kUnsignedInt32Undefined, Globals::kUnsignedInt32Undefined, Globals::kUnsignedInt32Undefined,
+            Globals::kStringUndefined, Globals::kStringUndefined, Globals::kStringUndefined);
+        state_library["idle"] = state_lib_data;
+        state_lib_data = StateLibData(Globals::kUnsignedInt32Undefined,
+            Globals::kUnsignedInt32Undefined, Globals::kUnsignedInt32Undefined,
+            SightManager::eSightTypeAnimationDirection, "unstrapped", Globals::kStringUndefined, Globals::kStringUndefined);
+        state_library["smartcover"] = state_lib_data;
+        state_lib_data =
+            StateLibData(MonsterSpace::eMovementTypeWalk, MonsterSpace::eMentalStateFree, MonsterSpace::eBodyStateStand,
+                Globals::kUnsignedInt32Undefined, "none", Globals::kStringUndefined, Globals::kStringUndefined);
+        state_library["walk"] = state_lib_data;
+        state_lib_data =
+            StateLibData(MonsterSpace::eMovementTypeWalk, MonsterSpace::eMentalStateFree, MonsterSpace::eBodyStateStand,
+                Globals::kUnsignedInt32Undefined, "none", Globals::kStringUndefined, Globals::kStringUndefined);
+        state_library["walk_noweap"] = state_lib_data;
+        state_lib_data =
+            StateLibData(MonsterSpace::eMovementTypeRun, MonsterSpace::eMentalStateFree, MonsterSpace::eBodyStateStand,
+                Globals::kUnsignedInt32Undefined, "strapped", Globals::kStringUndefined, Globals::kStringUndefined);
+        state_library["run"] = state_lib_data;
+        state_lib_data =
+            StateLibData(
+            MonsterSpace::eMovementTypeRun, MonsterSpace::eMentalStatePanic, MonsterSpace::eBodyStateStand,
+                Globals::kUnsignedInt32Undefined, "strapped", Globals::kStringUndefined, Globals::kStringUndefined);
+        state_library["sprint"] = state_lib_data;
+        state_lib_data =
+            StateLibData(MonsterSpace::eMovementTypeWalk, MonsterSpace::eMentalStateFree, MonsterSpace::eBodyStateStand,
+                Globals::kUnsignedInt32Undefined, "unstrapped", Globals::kStringUndefined, Globals::kStringUndefined);
+        state_library["patrol"] = state_lib_data;
+        state_lib_data =
+            StateLibData(MonsterSpace::eMovementTypeWalk, MonsterSpace::eMentalStateFree, MonsterSpace::eBodyStateStand,
+                Globals::kUnsignedInt32Undefined, "fire", Globals::kStringUndefined, Globals::kStringUndefined);
+        state_library["patrol_fire"] = state_lib_data;
+        state_lib_data =
+            StateLibData(MonsterSpace::eMovementTypeWalk, MonsterSpace::eMentalStateDanger, MonsterSpace::eBodyStateStand,
+                Globals::kUnsignedInt32Undefined, "unstrapped", Globals::kStringUndefined, Globals::kStringUndefined, true);
+        state_library["raid"] = state_lib_data;
+        state_lib_data =
+            StateLibData(MonsterSpace::eMovementTypeWalk, MonsterSpace::eMentalStateDanger, MonsterSpace::eBodyStateStand,
+                Globals::kUnsignedInt32Undefined, "fire", Globals::kStringUndefined, Globals::kStringUndefined);
+        state_library["raid_fire"] = state_lib_data;
+        state_lib_data =
+            StateLibData(MonsterSpace::eMovementTypeWalk, MonsterSpace::eMentalStateDanger, MonsterSpace::eBodyStateCrouch,
+                Globals::kUnsignedInt32Undefined, "unstrapped", Globals::kStringUndefined, Globals::kStringUndefined);
+        state_library["sneak"] = state_lib_data;
+        state_lib_data = StateLibData(MonsterSpace::eMovementTypeRun, MonsterSpace::eMentalStateDanger,
+            MonsterSpace::eBodyStateCrouch, Globals::kUnsignedInt32Undefined, "unstrapped", Globals::kStringUndefined,
+            Globals::kStringUndefined);
+        state_library["sneak_run"] = state_lib_data;
+        state_lib_data = StateLibData(MonsterSpace::eMovementTypeWalk, MonsterSpace::eMentalStateDanger,
+            MonsterSpace::eBodyStateCrouch, Globals::kUnsignedInt32Undefined, "strapped", Globals::kStringUndefined,
+            Globals::kStringUndefined);
+        state_library["sneak_no_wpn"] = state_lib_data;
+        state_lib_data = StateLibData(MonsterSpace::eMovementTypeRun, MonsterSpace::eMentalStateDanger,
+            MonsterSpace::eBodyStateStand, Globals::kUnsignedInt32Undefined, "unstrapped", Globals::kStringUndefined,
+            Globals::kStringUndefined);
+        state_library["assault"] = state_lib_data;
+        state_lib_data = StateLibData(MonsterSpace::eMovementTypeRun, MonsterSpace::eMentalStateFree,
+            MonsterSpace::eBodyStateStand, Globals::kUnsignedInt32Undefined, "fire", Globals::kStringUndefined,
+            Globals::kStringUndefined);
+        state_library["assault_fire"] = state_lib_data;
+        state_lib_data =
+            StateLibData(MonsterSpace::eMovementTypeRun, MonsterSpace::eMentalStateFree, MonsterSpace::eBodyStateStand,
+                Globals::kUnsignedInt32Undefined, "unstrapped", Globals::kStringUndefined, Globals::kStringUndefined);
+        state_library["rush"] = state_lib_data;
+        state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
+            MonsterSpace::eBodyStateStand, Globals::kUnsignedInt32Undefined, "strapped", Globals::kStringUndefined,
+            "idle");
+        state_library["wait"] = state_lib_data;
+        state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
+            MonsterSpace::eBodyStateStand, Globals::kUnsignedInt32Undefined, "none", Globals::kStringUndefined,
+            "idle");
+        state_library["wait_trade"] = state_lib_data;
+        state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
+            MonsterSpace::eBodyStateStand, Globals::kUnsignedInt32Undefined, "strapped", Globals::kStringUndefined,
+            Globals::kStringUndefined);
+        state_library["wait_na"] = state_lib_data;
+        state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
+            MonsterSpace::eBodyStateStand, Globals::kUnsignedInt32Undefined, "unstrapped", Globals::kStringUndefined,
+            "idle");
+        state_library["guard"] = state_lib_data;
+        state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
+            MonsterSpace::eBodyStateStand, Globals::kUnsignedInt32Undefined, "unstrapped", Globals::kStringUndefined,
+            Globals::kStringUndefined);
+        state_library["guard_chasovoy"] = state_lib_data;
+        state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
+            MonsterSpace::eBodyStateStand, Globals::kUnsignedInt32Undefined, "unstrapped", Globals::kStringUndefined,
+            Globals::kStringUndefined);
+        state_library["guard_na"] = state_lib_data;
+        state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
+            MonsterSpace::eBodyStateStand, Globals::kUnsignedInt32Undefined, "fire", Globals::kStringUndefined,
+            Globals::kStringUndefined);
+        state_library["guard_fire"] = state_lib_data;
+        state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateDanger,
+            MonsterSpace::eBodyStateStand, Globals::kUnsignedInt32Undefined, "unstrapped", Globals::kStringUndefined,
+            "bloodsucker_search");
+        state_library["threat"] = state_lib_data;
+        state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateDanger,
+            MonsterSpace::eBodyStateStand, Globals::kUnsignedInt32Undefined, "unstrapped", Globals::kStringUndefined,
+            "bloodsucker_search");
+#pragma endregion
 
 #pragma region SmartTerrain Initializing
-        this->m_game_server_nearest_to_actor_smart_terrain.first = std::uint32_t(-1);
+                                      this->m_game_server_nearest_to_actor_smart_terrain.first = std::uint32_t(-1);
         this->m_game_server_nearest_to_actor_smart_terrain.second = std::uint32_t(-1);
         this->m_registered_smart_terrain_territory_type[Globals::kSmartTerrainTerritoryBase] = true;
         this->m_registered_smart_terrain_territory_type[Globals::kSmartTerrainTerritoryDefault] = true;

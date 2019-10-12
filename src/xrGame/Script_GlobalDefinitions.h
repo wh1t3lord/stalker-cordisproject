@@ -20,12 +20,15 @@ struct StateLibData
     StateLibData(void) = default;
     StateLibData(const std::uint32_t& movement_type, const std::uint32_t& mental_type,
         const std::uint32_t& bodystate_type, const std::uint32_t& direction_type, const xr_string& weapon_name,
-        const xr_string& animstate_name, const xr_string& animation_name)
+        const xr_string& animstate_name, const xr_string& animation_name, bool is_special_danger_move = false)
         : m_movement_type(movement_type), m_mental_type(mental_type), m_bodystate_type(bodystate_type),
           m_direction_type(direction_type), m_weapon_name(weapon_name), m_animstate_name(animstate_name),
-          m_animation_name(animation_name)
+          m_animation_name(animation_name), m_is_special_danger_move(is_special_danger_move)
     {
     }
+
+    inline bool IsSpecialDangerMove(void) const noexcept { return this->m_is_special_danger_move; }
+    inline void setSpecialDangerMove(const bool& value) noexcept { this->m_is_special_danger_move = value; }
 
     inline std::uint32_t getMovementType(void) const noexcept { return this->m_movement_type; }
     inline void setMovementType(const std::uint32_t& value) noexcept
@@ -99,6 +102,7 @@ struct StateLibData
     }
 
 private:
+    bool m_is_special_danger_move;
     std::uint32_t m_movement_type; // MonsterSpace::Enum*
     std::uint32_t m_mental_type; // MonsterSpace::Enum*
     std::uint32_t m_bodystate_type; // MonsterSpace::Enum*
