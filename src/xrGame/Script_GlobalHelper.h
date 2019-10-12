@@ -1118,6 +1118,12 @@ private:
             Globals::GulagGenerator::kGulagJobPoint;
 #pragma endregion
 
+        #pragma region Cordis State Library initialization
+        xr_map<xr_string, StateLibData> state_library;
+        StateLibData state_lib_data_idle;
+        state_library["idle"] = ;
+        #pragma endregion
+
 #pragma region SmartTerrain Initializing
         this->m_game_server_nearest_to_actor_smart_terrain.first = std::uint32_t(-1);
         this->m_game_server_nearest_to_actor_smart_terrain.second = std::uint32_t(-1);
