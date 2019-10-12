@@ -23,7 +23,7 @@ void Script_SE_Monster::on_register(void)
     xr_string smart_name =
         Globals::Utils::cfg_get_string(&CScriptIniFile(this->spawn_ini().fname()), "logic", "smart_terrain");
     Script_SE_SmartTerrain* server_smart_object =
-        Script_SimulationBoard::getInstance().getSmartTerrainsByName()[smart_name];
+        Script_SimulationBoard::getInstance().getSmartTerrainsByName().at(smart_name);
 
     if (!server_smart_object)
         return;
@@ -44,8 +44,7 @@ void Script_SE_Monster::on_unregister(void)
             server_smart_object->unregister_npc(this);
     }
 
-    DataBase::Storage::getInstance().getOfflineObjects()[this->ID].first = Globals::kUnsignedInt16Undefined;
-    DataBase::Storage::getInstance().getOfflineObjects()[this->ID].second.clear();
+    DataBase::Storage::getInstance().setOfflineObjects(this->ID, Globals::kUnsignedInt16Undefined, "");
 
     Script_StoryObject::getInstance().unregistrate_by_id(this->ID);
     inherited::on_unregister();
@@ -105,7 +104,7 @@ void Script_SE_Monster::STATE_Read(NET_Packet& packet, std::uint16_t size)
         packet.r_stringZ(old_level_vertex_id_name);
 
         std::pair<std::uint16_t, xr_string>& offline_objects_data =
-            DataBase::Storage::getInstance().getOfflineObjects()[this->ID];
+            DataBase::Storage::getInstance().getOfflineObjects().at(this->ID);
 
         packet.r_stringZ(offline_objects_data.second);
 
@@ -131,8 +130,8 @@ void Script_SE_Monster::STATE_Write(NET_Packet& packet)
     }
     else
     {
-        if (DataBase::Storage::getInstance().getOfflineObjects()[this->ID].second.size()) // Lord: нужно ли писать альтернативу?
-            packet.w_stringZ(std::to_string(DataBase::Storage::getInstance().getOfflineObjects()[this->ID].first).c_str());
+        if (DataBase::Storage::getInstance().getOfflineObjects().at(this->ID).second.size()) // Lord: нужно ли писать альтернативу?
+            packet.w_stringZ(std::to_string(DataBase::Storage::getInstance().getOfflineObjects().at(this->ID).first).c_str());
     }
 }
 

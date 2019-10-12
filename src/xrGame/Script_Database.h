@@ -890,7 +890,7 @@ public:
         this->m_offline_objects[id].first = _id;
     }
 
-    inline void setOfflineObjects(const std::uint16_t& id, const xr_string& string) noexcept 
+    inline void setOfflineObjects(const std::uint16_t& id, const xr_string& string) noexcept
     {
         if (id == Globals::kUnsignedInt16Undefined)
         {
@@ -997,6 +997,17 @@ public:
         }
 
         this->m_storage[id].m_pstor[varname].setString(value);
+    }
+
+    inline void setSignal(const std::uint16_t& id, const xr_string& signal_name, const bool& value) noexcept
+    {
+        if (id == Globals::kUnsignedInt16Undefined)
+        {
+            Msg("[DataBase/Storage/setSignal(id, signal_name, value)] WARNING: id = std::uint16_t(-1)! You are trying to get access through an undefined value! No assignment!");
+            return;
+        }
+
+        this->m_storage[id].m_data[this->m_storage[id].getActiveSchemeName()].setSignal(signal_name, value);
     }
 #pragma endregion
 

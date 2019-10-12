@@ -94,14 +94,14 @@ bool Script_SE_Actor::IsSimulationAvailable(void)
 
     for (const std::pair<xr_string, xr_string>& it : Script_GlobalHelper::getInstance().getGameSmartsByAssaultZones())
     {
-        CScriptGameObject* client_zone = DataBase::Storage::getInstance().getZoneByName()[it.first];
+        CScriptGameObject* client_zone = DataBase::Storage::getInstance().getZoneByName().at(it.first);
 
         if (client_zone)
         {
             if (client_zone->inside(this->Position()))
             {
                 Script_SE_SmartTerrain* smart =
-                    Script_SimulationBoard::getInstance().getSmartTerrainsByName()[it.second];
+                    Script_SimulationBoard::getInstance().getSmartTerrainsByName().at(it.second);
 
                 if (smart)
                 {
@@ -133,7 +133,8 @@ bool Script_SE_Actor::IsSimulationAvailable(void)
         if (smart->getBaseOnActorControl() &&
             (smart->getBaseOnActorControl()->getState() == Script_SmartTerrainControl_States::kNormal) &&
             (DataBase::Storage::getInstance()
-                    .getZoneByName()[smart->getBaseOnActorControl()->getNoweaponZoneName()]
+                    .getZoneByName()
+                    .at(smart->getBaseOnActorControl()->getNoweaponZoneName())
                     ->inside(this->Position())))
             return false;
     }
@@ -143,8 +144,8 @@ bool Script_SE_Actor::IsSimulationAvailable(void)
 
 bool Script_SE_Actor::target_precondition(Script_SE_SimulationSquad* squad)
 {
-    SimulationActivitiesType& simulation_params =
-        Script_SimulationBoard::getInstance().getSimulationActivities()[squad->getPlayerID()];
+    const SimulationActivitiesType& simulation_params =
+        Script_SimulationBoard::getInstance().getSimulationActivities().at(squad->getPlayerID());
 
     if (simulation_params.m_actor && !simulation_params.m_actor(squad, this))
         return false;
