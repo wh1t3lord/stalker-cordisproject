@@ -17,15 +17,85 @@ namespace Scripts
 {
 struct StateLibData
 {
+    inline std::uint32_t getMovementType(void) const noexcept { return this->m_movement_type; }
+    inline void setMovementType(const std::uint32_t& value) noexcept
+    {
+        if (value == Globals::kUnsignedInt32Undefined)
+        {
+            Msg("[StateLibData/setMovementType(value)] WARNING: value = std::uint32_t(-1)!");
+        }
+
+        this->m_movement_type = value;
+    }
+    inline std::uint32_t getMentalType(void) const noexcept { return this->m_mental_type; }
+    inline void setMentalType(const std::uint32_t& value) noexcept
+    {
+        if (value == Globals::kUnsignedInt32Undefined)
+        {
+            Msg("[StateLibData/setMentalType(value)] WARNING: value = std::uint32_t(-1)!");
+        }
+
+        this->m_mental_type = value;
+    }
+    inline std::uint32_t getBodyStateType(void) const noexcept { return this->m_bodystate_type; }
+    inline void setBodyStateType(const std::uint32_t& value) noexcept
+    {
+        if (value == Globals::kUnsignedInt32Undefined)
+        {
+            Msg("[StateLibData/setBodyStateType(value)] WARNING: value = std::uint32_t(-1)!");
+        }
+
+        this->m_bodystate_type = value;
+    }
+    inline std::uint32_t getDirectionType(void) const noexcept { return this->m_direction_type; }
+    inline void setDirectionType(const std::uint32_t& value) noexcept
+    {
+        if (value == Globals::kUnsignedInt32Undefined)
+        {
+            Msg("[StateLibData/setDirectionType(value)] WARNING: value = std::uint32_t(-1)!");
+        }
+
+        this->m_direction_type = value;
+    }
+    inline const xr_string& getWeaponTypeName(void) const noexcept { return this->m_weapon_name; }
+    inline void setWeaponTypeName(const xr_string& string) noexcept
+    {
+        if (!string.size())
+        {
+            Msg("[StateLibData/setWeaponTypeName(string)] WARNING: string.size() = 0!");
+        }
+
+        this->m_weapon_name = string;
+    }
+    inline const xr_string& getAnimStateTypeName(void) const noexcept { return this->m_animstate_name; }
+    inline void setAnimStateTypeName(const xr_string& string) noexcept
+    {
+        if (!string.size())
+        {
+            Msg("[StateLibData/setAnimStateTypeName(string)] WARNING: string.size() = 0!");
+        }
+
+        this->m_animstate_name = string;
+    }
+    inline const xr_string& getAnimationName(void) const noexcept { return this->m_animation_name; }
+    inline void setAnimationName(const xr_string& string) noexcept
+    {
+        if (!string.size())
+        {
+            Msg("[StateLibData/setAnimationName(string)] WARNING: string.size() = 0!");
+        }
+
+        this->m_animation_name = string;
+    }
+
 private:
     std::uint32_t m_movement_type; // MonsterSpace::Enum*
     std::uint32_t m_mental_type; // MonsterSpace::Enum*
     std::uint32_t m_bodystate_type; // MonsterSpace::Enum*
-    std::uint32_t m_direction; // SightManager::ESightType
+    std::uint32_t m_direction_type; // SightManager::ESightType
     xr_string m_weapon_name;
     xr_string m_animstate_name;
     xr_string m_animation_name;
-
 };
 
 namespace Globals
