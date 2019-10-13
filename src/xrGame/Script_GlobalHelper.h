@@ -216,7 +216,7 @@ private:
 
 #pragma endregion Cordis Transition
 
-        combat_prone_smartcover.m_is_need_weapon = true;
+        combat_prone_smartcover.setNeedWeapon(true);
         combat_prone_smartcover.register_loophole(combat_prone_loophole);
         combat_prone_smartcover.register_transition(combat_prone_smartcover_transition1);
         combat_prone_smartcover.register_transition(combat_prone_smartcover_transition2);
@@ -895,12 +895,465 @@ private:
 
 #pragma endregion Cordis Loophole
 
-        combat_front_smartcover.m_is_need_weapon = true;
+        #pragma region Cordis Transition
+        SmartCoverData::SmartCoverTransitionsData combat_front_transition1;
+        combat_front_transition1.m_vertex0 = "";
+        combat_front_transition1.m_vertex1 = "crouch_front_left";
+        combat_front_transition1.m_weight = 1.0f;
+        SmartCoverData::SmartCoverTransitionsData::SmartCoverActionsData combat_front_transition1_action1;
+        combat_front_transition1_action1.m_action.m_animation = "loophole_crouch_in_front_left_0";
+        combat_front_transition1_action1.m_action.m_position = Fvector().set(0.0f, 0.0f, 0.0f);
+        combat_front_transition1_action1.m_action.m_body_state = MonsterSpace::eBodyStateCrouch;
+        combat_front_transition1_action1.m_action.m_movement_type = MonsterSpace::eMovementTypeRun;
+        combat_front_transition1_action1.m_precondition_functor = "true";
+        combat_front_transition1_action1.m_preconditions_params = "";
+        
+        combat_front_transition1.m_actions.push_back(combat_front_transition1_action1); 
+
+        SmartCoverData::SmartCoverTransitionsData combat_front_transition2;
+        combat_front_transition2.m_vertex0 = "";
+        combat_front_transition2.m_vertex1 = "crouch_front";
+        combat_front_transition2.m_weight = 1.0f;
+        SmartCoverData::SmartCoverTransitionsData::SmartCoverActionsData combat_front_transition2_action1;
+        combat_front_transition2_action1.m_action.m_animation = "loophole_crouch_in_front_0";
+        combat_front_transition2_action1.m_action.m_position = Fvector().set(0.0f, 0.0f, 0.0f);
+        combat_front_transition2_action1.m_action.m_body_state = MonsterSpace::eBodyStateCrouch;
+        combat_front_transition2_action1.m_action.m_movement_type = MonsterSpace::eMovementTypeRun;
+        combat_front_transition2_action1.m_precondition_functor = "true";
+        combat_front_transition2_action1.m_preconditions_params = "";
+
+        combat_front_transition2.m_actions.push_back(combat_front_transition2_action1); 
+
+        SmartCoverData::SmartCoverTransitionsData combat_front_transition3;
+        combat_front_transition3.m_vertex0 = "";
+        combat_front_transition3.m_vertex1 = "crouch_front_right";
+        combat_front_transition3.m_weight = 1.0f;
+        SmartCoverData::SmartCoverTransitionsData::SmartCoverActionsData combat_front_transition3_action1;
+        combat_front_transition3_action1.m_action.m_animation = "loophole_crouch_in_front_right_0";
+        combat_front_transition3_action1.m_action.m_position = Fvector().set(0.0f, 0.0f, 0.0f);
+        combat_front_transition3_action1.m_action.m_body_state = MonsterSpace::eBodyStateCrouch;
+        combat_front_transition3_action1.m_action.m_movement_type = MonsterSpace::eMovementTypeRun;
+        combat_front_transition3_action1.m_precondition_functor = "true";
+        combat_front_transition3_action1.m_preconditions_params = "";
+
+        combat_front_transition3.m_actions.push_back(combat_front_transition3_action1); 
+
+        SmartCoverData::SmartCoverTransitionsData combat_front_transition4;
+        combat_front_transition4.m_vertex0 = "";
+        combat_front_transition4.m_vertex1 = "stand_front_left";
+        combat_front_transition4.m_weight = 1.0f;
+        SmartCoverData::SmartCoverTransitionsData::SmartCoverActionsData combat_front_transition4_action1;
+        combat_front_transition4_action1.m_action.m_animation = "loophole_stand_in_front_left_0";
+        combat_front_transition4_action1.m_action.m_position = Fvector().set(0.0f, 0.0f, 0.0f);
+        combat_front_transition4_action1.m_action.m_body_state = MonsterSpace::eBodyStateCrouch;
+        combat_front_transition4_action1.m_action.m_movement_type = MonsterSpace::eMovementTypeRun;
+        combat_front_transition4_action1.m_precondition_functor = "true";
+        combat_front_transition4_action1.m_preconditions_params = "";
+
+        combat_front_transition4.m_actions.push_back(combat_front_transition4_action1);
+
+        SmartCoverData::SmartCoverTransitionsData combat_front_transition5;
+        combat_front_transition5.m_vertex0 = "";
+        combat_front_transition5.m_vertex1 = "stand_front_right";
+        combat_front_transition5.m_weight = 1.0f;
+        SmartCoverData::SmartCoverTransitionsData::SmartCoverActionsData combat_front_transition5_action1;
+        combat_front_transition5_action1.m_action.m_animation = "loophole_stand_in_front_right_0";
+        combat_front_transition5_action1.m_action.m_position = Fvector().set(0.0f, 0.0f, 0.0f);
+        combat_front_transition5_action1.m_action.m_body_state = MonsterSpace::eBodyStateCrouch;
+        combat_front_transition5_action1.m_action.m_movement_type = MonsterSpace::eMovementTypeRun;
+        combat_front_transition5_action1.m_precondition_functor = "true";
+        combat_front_transition5_action1.m_preconditions_params = "";
+
+        combat_front_transition5.m_actions.push_back(combat_front_transition5_action1);
+
+        SmartCoverData::SmartCoverTransitionsData combat_front_transition6;
+        combat_front_transition6.m_vertex0 = "crouch_front";
+        combat_front_transition6.m_vertex1 = "crouch_front_left";
+        combat_front_transition6.m_weight = 1.1f;
+        SmartCoverData::SmartCoverTransitionsData::SmartCoverActionsData combat_front_transition6_action1;
+        combat_front_transition6_action1.m_action.m_animation = "crouch_front_to_crouch_front_left";
+        combat_front_transition6_action1.m_action.m_position = Fvector().set(0.0f, 0.0f, 0.0f);
+        combat_front_transition6_action1.m_action.m_body_state = MonsterSpace::eBodyStateCrouch;
+        combat_front_transition6_action1.m_action.m_movement_type = MonsterSpace::eMovementTypeRun;
+        combat_front_transition6_action1.m_precondition_functor = "true";
+        combat_front_transition6_action1.m_preconditions_params = "";
+
+        combat_front_transition6.m_actions.push_back(combat_front_transition6_action1);
+
+        SmartCoverData::SmartCoverTransitionsData combat_front_transition7;
+        combat_front_transition7.m_vertex0 = "crouch_front";
+        combat_front_transition7.m_vertex1 = "crouch_front_right";
+        combat_front_transition7.m_weight = 1.1f;
+        SmartCoverData::SmartCoverTransitionsData::SmartCoverActionsData combat_front_transition7_action1;
+        combat_front_transition7_action1.m_action.m_animation = "crouch_front_to_crouch_front_right";
+        combat_front_transition7_action1.m_action.m_position = Fvector().set(0.0f, 0.0f, 0.0f);
+        combat_front_transition7_action1.m_action.m_body_state = MonsterSpace::eBodyStateCrouch;
+        combat_front_transition7_action1.m_action.m_movement_type = MonsterSpace::eMovementTypeRun;
+        combat_front_transition7_action1.m_precondition_functor = "true";
+        combat_front_transition7_action1.m_preconditions_params = "";
+
+        combat_front_transition7.m_actions.push_back(combat_front_transition7_action1);
+
+        SmartCoverData::SmartCoverTransitionsData combat_front_transition8;
+        combat_front_transition8.m_vertex0 = "crouch_front";
+        combat_front_transition8.m_vertex1 = "stand_front_left";
+        combat_front_transition8.m_weight = 1.1f;
+        SmartCoverData::SmartCoverTransitionsData::SmartCoverActionsData combat_front_transition8_action1;
+        combat_front_transition8_action1.m_action.m_animation = "crouch_front_to_stand_front_left";
+        combat_front_transition8_action1.m_action.m_position = Fvector().set(0.0f, 0.0f, 0.0f);
+        combat_front_transition8_action1.m_action.m_body_state = MonsterSpace::eBodyStateCrouch;
+        combat_front_transition8_action1.m_action.m_movement_type = MonsterSpace::eMovementTypeRun;
+        combat_front_transition8_action1.m_precondition_functor = "true";
+        combat_front_transition8_action1.m_preconditions_params = "";
+
+        combat_front_transition8.m_actions.push_back(combat_front_transition8_action1);
+
+        SmartCoverData::SmartCoverTransitionsData combat_front_transition9;
+        combat_front_transition9.m_vertex0 = "crouch_front";
+        combat_front_transition9.m_vertex1 = "stand_front_right";
+        combat_front_transition9.m_weight = 1.1f;
+        SmartCoverData::SmartCoverTransitionsData::SmartCoverActionsData combat_front_transition9_action1;
+        combat_front_transition9_action1.m_action.m_animation = "crouch_front_to_stand_front_right";
+        combat_front_transition9_action1.m_action.m_position = Fvector().set(0.0f, 0.0f, 0.0f);
+        combat_front_transition9_action1.m_action.m_body_state = MonsterSpace::eBodyStateCrouch;
+        combat_front_transition9_action1.m_action.m_movement_type = MonsterSpace::eMovementTypeRun;
+        combat_front_transition9_action1.m_precondition_functor = "true";
+        combat_front_transition9_action1.m_preconditions_params = "";
+
+        combat_front_transition9.m_actions.push_back(combat_front_transition9_action1);
+
+        SmartCoverData::SmartCoverTransitionsData combat_front_transition10;
+        combat_front_transition10.m_vertex0 = "crouch_front_right";
+        combat_front_transition10.m_vertex1 = "crouch_front";
+        combat_front_transition10.m_weight = 1.1f;
+        SmartCoverData::SmartCoverTransitionsData::SmartCoverActionsData combat_front_transition10_action1;
+        combat_front_transition10_action1.m_action.m_animation = "crouch_front_right_to_crouch_front";
+        combat_front_transition10_action1.m_action.m_position = Fvector().set(0.0f, 0.0f, 0.0f);
+        combat_front_transition10_action1.m_action.m_body_state = MonsterSpace::eBodyStateCrouch;
+        combat_front_transition10_action1.m_action.m_movement_type = MonsterSpace::eMovementTypeRun;
+        combat_front_transition10_action1.m_precondition_functor = "true";
+        combat_front_transition10_action1.m_preconditions_params = "";
+
+        combat_front_transition10.m_actions.push_back(combat_front_transition10_action1);
+
+        SmartCoverData::SmartCoverTransitionsData combat_front_transition11;
+        combat_front_transition11.m_vertex0 = "crouch_front_right";
+        combat_front_transition11.m_vertex1 = "crouch_front_left";
+        combat_front_transition11.m_weight = 1.1f;
+        SmartCoverData::SmartCoverTransitionsData::SmartCoverActionsData combat_front_transition11_action1;
+        combat_front_transition11_action1.m_action.m_animation = "crouch_front_right_to_crouch_front_left";
+        combat_front_transition11_action1.m_action.m_position = Fvector().set(0.0f, 0.0f, 0.0f);
+        combat_front_transition11_action1.m_action.m_body_state = MonsterSpace::eBodyStateCrouch;
+        combat_front_transition11_action1.m_action.m_movement_type = MonsterSpace::eMovementTypeRun;
+        combat_front_transition11_action1.m_precondition_functor = "true";
+        combat_front_transition11_action1.m_preconditions_params = "";
+
+        combat_front_transition11.m_actions.push_back(combat_front_transition11_action1);
+
+        SmartCoverData::SmartCoverTransitionsData combat_front_transition12;
+        combat_front_transition12.m_vertex0 = "crouch_front_right";
+        combat_front_transition12.m_vertex1 = "stand_front_left";
+        combat_front_transition12.m_weight = 1.1f;
+        SmartCoverData::SmartCoverTransitionsData::SmartCoverActionsData combat_front_transition12_action1;
+        combat_front_transition12_action1.m_action.m_animation = "crouch_front_right_to_stand_front_left";
+        combat_front_transition12_action1.m_action.m_position = Fvector().set(0.0f, 0.0f, 0.0f);
+        combat_front_transition12_action1.m_action.m_body_state = MonsterSpace::eBodyStateCrouch;
+        combat_front_transition12_action1.m_action.m_movement_type = MonsterSpace::eMovementTypeRun;
+        combat_front_transition12_action1.m_precondition_functor = "true";
+        combat_front_transition12_action1.m_preconditions_params = "";
+
+        combat_front_transition12.m_actions.push_back(combat_front_transition12_action1);
+
+        SmartCoverData::SmartCoverTransitionsData combat_front_transition13;
+        combat_front_transition13.m_vertex0 = "crouch_front_right";
+        combat_front_transition13.m_vertex1 = "stand_front_right";
+        combat_front_transition13.m_weight = 1.1f;
+        SmartCoverData::SmartCoverTransitionsData::SmartCoverActionsData combat_front_transition13_action1;
+        combat_front_transition13_action1.m_action.m_animation = "crouch_front_right_to_stand_front_right";
+        combat_front_transition13_action1.m_action.m_position = Fvector().set(0.0f, 0.0f, 0.0f);
+        combat_front_transition13_action1.m_action.m_body_state = MonsterSpace::eBodyStateCrouch;
+        combat_front_transition13_action1.m_action.m_movement_type = MonsterSpace::eMovementTypeRun;
+        combat_front_transition13_action1.m_precondition_functor = "true";
+        combat_front_transition13_action1.m_preconditions_params = "";
+
+        combat_front_transition13.m_actions.push_back(combat_front_transition13_action1);
+
+        SmartCoverData::SmartCoverTransitionsData combat_front_transition14;
+        combat_front_transition14.m_vertex0 = "crouch_front_left";
+        combat_front_transition14.m_vertex1 = "crouch_front";
+        combat_front_transition14.m_weight = 1.1f;
+        SmartCoverData::SmartCoverTransitionsData::SmartCoverActionsData combat_front_transition14_action1;
+        combat_front_transition14_action1.m_action.m_animation = "crouch_front_left_to_crouch_front";
+        combat_front_transition14_action1.m_action.m_position = Fvector().set(0.0f, 0.0f, 0.0f);
+        combat_front_transition14_action1.m_action.m_body_state = MonsterSpace::eBodyStateCrouch;
+        combat_front_transition14_action1.m_action.m_movement_type = MonsterSpace::eMovementTypeRun;
+        combat_front_transition14_action1.m_precondition_functor = "true";
+        combat_front_transition14_action1.m_preconditions_params = "";
+
+        combat_front_transition14.m_actions.push_back(combat_front_transition14_action1);
+
+        SmartCoverData::SmartCoverTransitionsData combat_front_transition15;
+        combat_front_transition15.m_vertex0 = "crouch_front_left";
+        combat_front_transition15.m_vertex1 = "crouch_front_right";
+        combat_front_transition15.m_weight = 1.1f;
+        SmartCoverData::SmartCoverTransitionsData::SmartCoverActionsData combat_front_transition15_action1;
+        combat_front_transition15_action1.m_action.m_animation = "crouch_front_left_to_crouch_front_right";
+        combat_front_transition15_action1.m_action.m_position = Fvector().set(0.0f, 0.0f, 0.0f);
+        combat_front_transition15_action1.m_action.m_body_state = MonsterSpace::eBodyStateCrouch;
+        combat_front_transition15_action1.m_action.m_movement_type = MonsterSpace::eMovementTypeRun;
+        combat_front_transition15_action1.m_precondition_functor = "true";
+        combat_front_transition15_action1.m_preconditions_params = "";
+
+        combat_front_transition15.m_actions.push_back(combat_front_transition15_action1);
+
+        SmartCoverData::SmartCoverTransitionsData combat_front_transition16;
+        combat_front_transition16.m_vertex0 = "crouch_front_left";
+        combat_front_transition16.m_vertex1 = "stand_front_left";
+        combat_front_transition16.m_weight = 1.1f;
+        SmartCoverData::SmartCoverTransitionsData::SmartCoverActionsData combat_front_transition16_action1;
+        combat_front_transition16_action1.m_action.m_animation = "crouch_front_left_to_stand_front_left";
+        combat_front_transition16_action1.m_action.m_position = Fvector().set(0.0f, 0.0f, 0.0f);
+        combat_front_transition16_action1.m_action.m_body_state = MonsterSpace::eBodyStateCrouch;
+        combat_front_transition16_action1.m_action.m_movement_type = MonsterSpace::eMovementTypeRun;
+        combat_front_transition16_action1.m_precondition_functor = "true";
+        combat_front_transition16_action1.m_preconditions_params = "";
+
+        combat_front_transition16.m_actions.push_back(combat_front_transition16_action1);
+
+        SmartCoverData::SmartCoverTransitionsData combat_front_transition17;
+        combat_front_transition17.m_vertex0 = "crouch_front_left";
+        combat_front_transition17.m_vertex1 = "stand_front_right";
+        combat_front_transition17.m_weight = 1.1f;
+        SmartCoverData::SmartCoverTransitionsData::SmartCoverActionsData combat_front_transition17_action1;
+        combat_front_transition17_action1.m_action.m_animation = "crouch_front_left_to_stand_front_right";
+        combat_front_transition17_action1.m_action.m_position = Fvector().set(0.0f, 0.0f, 0.0f);
+        combat_front_transition17_action1.m_action.m_body_state = MonsterSpace::eBodyStateCrouch;
+        combat_front_transition17_action1.m_action.m_movement_type = MonsterSpace::eMovementTypeRun;
+        combat_front_transition17_action1.m_precondition_functor = "true";
+        combat_front_transition17_action1.m_preconditions_params = "";
+
+        combat_front_transition17.m_actions.push_back(combat_front_transition17_action1);
+
+        SmartCoverData::SmartCoverTransitionsData combat_front_transition18;
+        combat_front_transition18.m_vertex0 = "stand_front_left";
+        combat_front_transition18.m_vertex1 = "crouch_front";
+        combat_front_transition18.m_weight = 1.1f;
+        SmartCoverData::SmartCoverTransitionsData::SmartCoverActionsData combat_front_transition18_action1;
+        combat_front_transition18_action1.m_action.m_animation = "stand_front_left_to_crouch_front";
+        combat_front_transition18_action1.m_action.m_position = Fvector().set(0.0f, 0.0f, 0.0f);
+        combat_front_transition18_action1.m_action.m_body_state = MonsterSpace::eBodyStateCrouch;
+        combat_front_transition18_action1.m_action.m_movement_type = MonsterSpace::eMovementTypeRun;
+        combat_front_transition18_action1.m_precondition_functor = "true";
+        combat_front_transition18_action1.m_preconditions_params = "";
+
+        combat_front_transition18.m_actions.push_back(combat_front_transition18_action1);
+
+        SmartCoverData::SmartCoverTransitionsData combat_front_transition19;
+        combat_front_transition19.m_vertex0 = "stand_front_left";
+        combat_front_transition19.m_vertex1 = "crouch_front_left";
+        combat_front_transition19.m_weight = 1.1f;
+        SmartCoverData::SmartCoverTransitionsData::SmartCoverActionsData combat_front_transition19_action1;
+        combat_front_transition19_action1.m_action.m_animation = "stand_front_left_to_crouch_front_left";
+        combat_front_transition19_action1.m_action.m_position = Fvector().set(0.0f, 0.0f, 0.0f);
+        combat_front_transition19_action1.m_action.m_body_state = MonsterSpace::eBodyStateCrouch;
+        combat_front_transition19_action1.m_action.m_movement_type = MonsterSpace::eMovementTypeRun;
+        combat_front_transition19_action1.m_precondition_functor = "true";
+        combat_front_transition19_action1.m_preconditions_params = "";
+
+        combat_front_transition19.m_actions.push_back(combat_front_transition19_action1);
+
+        SmartCoverData::SmartCoverTransitionsData combat_front_transition20;
+        combat_front_transition20.m_vertex0 = "stand_front_left";
+        combat_front_transition20.m_vertex1 = "crouch_front_right";
+        combat_front_transition20.m_weight = 1.1f;
+        SmartCoverData::SmartCoverTransitionsData::SmartCoverActionsData combat_front_transition20_action1;
+        combat_front_transition20_action1.m_action.m_animation = "stand_front_left_to_crouch_front_right";
+        combat_front_transition20_action1.m_action.m_position = Fvector().set(0.0f, 0.0f, 0.0f);
+        combat_front_transition20_action1.m_action.m_body_state = MonsterSpace::eBodyStateCrouch;
+        combat_front_transition20_action1.m_action.m_movement_type = MonsterSpace::eMovementTypeRun;
+        combat_front_transition20_action1.m_precondition_functor = "true";
+        combat_front_transition20_action1.m_preconditions_params = "";
+
+        combat_front_transition20.m_actions.push_back(combat_front_transition20_action1);
+
+        SmartCoverData::SmartCoverTransitionsData combat_front_transition21;
+        combat_front_transition21.m_vertex0 = "stand_front_left";
+        combat_front_transition21.m_vertex1 = "stand_front_right";
+        combat_front_transition21.m_weight = 1.1f;
+        SmartCoverData::SmartCoverTransitionsData::SmartCoverActionsData combat_front_transition21_action1;
+        combat_front_transition21_action1.m_action.m_animation = "stand_front_left_to_stand_front_right";
+        combat_front_transition21_action1.m_action.m_position = Fvector().set(0.0f, 0.0f, 0.0f);
+        combat_front_transition21_action1.m_action.m_body_state = MonsterSpace::eBodyStateCrouch;
+        combat_front_transition21_action1.m_action.m_movement_type = MonsterSpace::eMovementTypeRun;
+        combat_front_transition21_action1.m_precondition_functor = "true";
+        combat_front_transition21_action1.m_preconditions_params = "";
+
+        combat_front_transition21.m_actions.push_back(combat_front_transition21_action1);
+
+        SmartCoverData::SmartCoverTransitionsData combat_front_transition22;
+        combat_front_transition22.m_vertex0 = "stand_front_right";
+        combat_front_transition22.m_vertex1 = "crouch_front";
+        combat_front_transition22.m_weight = 1.1f;
+        SmartCoverData::SmartCoverTransitionsData::SmartCoverActionsData combat_front_transition22_action1;
+        combat_front_transition22_action1.m_action.m_animation = "stand_front_right_to_crouch_front";
+        combat_front_transition22_action1.m_action.m_position = Fvector().set(0.0f, 0.0f, 0.0f);
+        combat_front_transition22_action1.m_action.m_body_state = MonsterSpace::eBodyStateCrouch;
+        combat_front_transition22_action1.m_action.m_movement_type = MonsterSpace::eMovementTypeRun;
+        combat_front_transition22_action1.m_precondition_functor = "true";
+        combat_front_transition22_action1.m_preconditions_params = "";
+
+        combat_front_transition22.m_actions.push_back(combat_front_transition22_action1);
+
+        SmartCoverData::SmartCoverTransitionsData combat_front_transition23;
+        combat_front_transition23.m_vertex0 = "stand_front_right";
+        combat_front_transition23.m_vertex1 = "crouch_front_left";
+        combat_front_transition23.m_weight = 1.1f;
+        SmartCoverData::SmartCoverTransitionsData::SmartCoverActionsData combat_front_transition23_action1;
+        combat_front_transition23_action1.m_action.m_animation = "stand_front_right_to_crouch_front_left";
+        combat_front_transition23_action1.m_action.m_position = Fvector().set(0.0f, 0.0f, 0.0f);
+        combat_front_transition23_action1.m_action.m_body_state = MonsterSpace::eBodyStateCrouch;
+        combat_front_transition23_action1.m_action.m_movement_type = MonsterSpace::eMovementTypeRun;
+        combat_front_transition23_action1.m_precondition_functor = "true";
+        combat_front_transition23_action1.m_preconditions_params = "";
+
+        combat_front_transition23.m_actions.push_back(combat_front_transition23_action1);
+
+        SmartCoverData::SmartCoverTransitionsData combat_front_transition24;
+        combat_front_transition24.m_vertex0 = "stand_front_right";
+        combat_front_transition24.m_vertex1 = "crouch_front_right";
+        combat_front_transition24.m_weight = 1.1f;
+        SmartCoverData::SmartCoverTransitionsData::SmartCoverActionsData combat_front_transition24_action1;
+        combat_front_transition24_action1.m_action.m_animation = "stand_front_right_to_crouch_front_right";
+        combat_front_transition24_action1.m_action.m_position = Fvector().set(0.0f, 0.0f, 0.0f);
+        combat_front_transition24_action1.m_action.m_body_state = MonsterSpace::eBodyStateCrouch;
+        combat_front_transition24_action1.m_action.m_movement_type = MonsterSpace::eMovementTypeRun;
+        combat_front_transition24_action1.m_precondition_functor = "true";
+        combat_front_transition24_action1.m_preconditions_params = "";
+
+        combat_front_transition24.m_actions.push_back(combat_front_transition24_action1);
+
+        SmartCoverData::SmartCoverTransitionsData combat_front_transition25;
+        combat_front_transition25.m_vertex0 = "stand_front_right";
+        combat_front_transition25.m_vertex1 = "stand_front_left";
+        combat_front_transition25.m_weight = 1.1f;
+        SmartCoverData::SmartCoverTransitionsData::SmartCoverActionsData combat_front_transition25_action1;
+        combat_front_transition25_action1.m_action.m_animation = "stand_front_right_to_stand_front_left";
+        combat_front_transition25_action1.m_action.m_position = Fvector().set(0.0f, 0.0f, 0.0f);
+        combat_front_transition25_action1.m_action.m_body_state = MonsterSpace::eBodyStateCrouch;
+        combat_front_transition25_action1.m_action.m_movement_type = MonsterSpace::eMovementTypeRun;
+        combat_front_transition25_action1.m_precondition_functor = "true";
+        combat_front_transition25_action1.m_preconditions_params = "";
+
+        combat_front_transition25.m_actions.push_back(combat_front_transition25_action1);
+
+        SmartCoverData::SmartCoverTransitionsData combat_front_transition26;
+        combat_front_transition26.m_vertex0 = "crouch_front_left";
+        combat_front_transition26.m_vertex1 = "";
+        combat_front_transition26.m_weight = 1.1f;
+        SmartCoverData::SmartCoverTransitionsData::SmartCoverActionsData combat_front_transition26_action1;
+        combat_front_transition26_action1.m_action.m_animation = "";
+        combat_front_transition26_action1.m_action.m_position = Fvector().set(0.0f, 0.0f, 0.0f);
+        combat_front_transition26_action1.m_action.m_body_state = MonsterSpace::eBodyStateCrouch;
+        combat_front_transition26_action1.m_action.m_movement_type = MonsterSpace::eMovementTypeRun;
+        combat_front_transition26_action1.m_precondition_functor = "true";
+        combat_front_transition26_action1.m_preconditions_params = "";
+
+        combat_front_transition26.m_actions.push_back(combat_front_transition26_action1);
+
+        SmartCoverData::SmartCoverTransitionsData combat_front_transition27;
+        combat_front_transition27.m_vertex0 = "crouch_front";
+        combat_front_transition27.m_vertex1 = "";
+        combat_front_transition27.m_weight = 1.1f;
+        SmartCoverData::SmartCoverTransitionsData::SmartCoverActionsData combat_front_transition27_action1;
+        combat_front_transition27_action1.m_action.m_animation = "";
+        combat_front_transition27_action1.m_action.m_position = Fvector().set(0.0f, 0.0f, 0.0f);
+        combat_front_transition27_action1.m_action.m_body_state = MonsterSpace::eBodyStateCrouch;
+        combat_front_transition27_action1.m_action.m_movement_type = MonsterSpace::eMovementTypeRun;
+        combat_front_transition27_action1.m_precondition_functor = "true";
+        combat_front_transition27_action1.m_preconditions_params = "";
+
+        combat_front_transition27.m_actions.push_back(combat_front_transition27_action1);
+
+        SmartCoverData::SmartCoverTransitionsData combat_front_transition28;
+        combat_front_transition28.m_vertex0 = "crouch_front_right";
+        combat_front_transition28.m_vertex1 = "";
+        combat_front_transition28.m_weight = 1.1f;
+        SmartCoverData::SmartCoverTransitionsData::SmartCoverActionsData combat_front_transition28_action1;
+        combat_front_transition28_action1.m_action.m_animation = "";
+        combat_front_transition28_action1.m_action.m_position = Fvector().set(0.0f, 0.0f, 0.0f);
+        combat_front_transition28_action1.m_action.m_body_state = MonsterSpace::eBodyStateCrouch;
+        combat_front_transition28_action1.m_action.m_movement_type = MonsterSpace::eMovementTypeRun;
+        combat_front_transition28_action1.m_precondition_functor = "true";
+        combat_front_transition28_action1.m_preconditions_params = "";
+
+        combat_front_transition28.m_actions.push_back(combat_front_transition28_action1);
+
+        SmartCoverData::SmartCoverTransitionsData combat_front_transition29;
+        combat_front_transition29.m_vertex0 = "stand_front_left";
+        combat_front_transition29.m_vertex1 = "";
+        combat_front_transition29.m_weight = 1.1f;
+        SmartCoverData::SmartCoverTransitionsData::SmartCoverActionsData combat_front_transition29_action1;
+        combat_front_transition29_action1.m_action.m_animation = "";
+        combat_front_transition29_action1.m_action.m_position = Fvector().set(0.0f, 0.0f, 0.0f);
+        combat_front_transition29_action1.m_action.m_body_state = MonsterSpace::eBodyStateCrouch;
+        combat_front_transition29_action1.m_action.m_movement_type = MonsterSpace::eMovementTypeRun;
+        combat_front_transition29_action1.m_precondition_functor = "true";
+        combat_front_transition29_action1.m_preconditions_params = "";
+
+        combat_front_transition29.m_actions.push_back(combat_front_transition29_action1);
+
+        SmartCoverData::SmartCoverTransitionsData combat_front_transition30;
+        combat_front_transition30.m_vertex0 = "stand_front_right";
+        combat_front_transition30.m_vertex1 = "";
+        combat_front_transition30.m_weight = 1.1f;
+        SmartCoverData::SmartCoverTransitionsData::SmartCoverActionsData combat_front_transition30_action1;
+        combat_front_transition30_action1.m_action.m_animation = "";
+        combat_front_transition30_action1.m_action.m_position = Fvector().set(0.0f, 0.0f, 0.0f);
+        combat_front_transition30_action1.m_action.m_body_state = MonsterSpace::eBodyStateCrouch;
+        combat_front_transition30_action1.m_action.m_movement_type = MonsterSpace::eMovementTypeRun;
+        combat_front_transition30_action1.m_precondition_functor = "true";
+        combat_front_transition30_action1.m_preconditions_params = "";
+
+        combat_front_transition30.m_actions.push_back(combat_front_transition30_action1);
+        #pragma endregion
+
+        combat_front_smartcover.setNeedWeapon(true);
         combat_front_smartcover.register_loophole(combat_front_loophole_crouch_front_left);
         combat_front_smartcover.register_loophole(combat_front_loophole_crouch_front);
         combat_front_smartcover.register_loophole(combat_front_loophole_crouch_front_right);
         combat_front_smartcover.register_loophole(combat_front_loophole_stand_front_left);
         combat_front_smartcover.register_loophole(combat_front_loophole_stand_front_right);
+        combat_front_smartcover.register_transition(combat_front_transition1);
+        combat_front_smartcover.register_transition(combat_front_transition2);
+        combat_front_smartcover.register_transition(combat_front_transition3);
+        combat_front_smartcover.register_transition(combat_front_transition4);
+        combat_front_smartcover.register_transition(combat_front_transition5);
+        combat_front_smartcover.register_transition(combat_front_transition6);
+        combat_front_smartcover.register_transition(combat_front_transition7);
+        combat_front_smartcover.register_transition(combat_front_transition8);
+        combat_front_smartcover.register_transition(combat_front_transition9);
+        combat_front_smartcover.register_transition(combat_front_transition10);
+        combat_front_smartcover.register_transition(combat_front_transition11);
+        combat_front_smartcover.register_transition(combat_front_transition12);
+        combat_front_smartcover.register_transition(combat_front_transition13);
+        combat_front_smartcover.register_transition(combat_front_transition14);
+        combat_front_smartcover.register_transition(combat_front_transition15);
+        combat_front_smartcover.register_transition(combat_front_transition16);
+        combat_front_smartcover.register_transition(combat_front_transition17);
+        combat_front_smartcover.register_transition(combat_front_transition18);
+        combat_front_smartcover.register_transition(combat_front_transition19);
+        combat_front_smartcover.register_transition(combat_front_transition20);
+        combat_front_smartcover.register_transition(combat_front_transition21);
+        combat_front_smartcover.register_transition(combat_front_transition22);
+        combat_front_smartcover.register_transition(combat_front_transition23);
+        combat_front_smartcover.register_transition(combat_front_transition24);
+        combat_front_smartcover.register_transition(combat_front_transition25);
+        combat_front_smartcover.register_transition(combat_front_transition26);
+        combat_front_smartcover.register_transition(combat_front_transition27);
+        combat_front_smartcover.register_transition(combat_front_transition28);
+        combat_front_smartcover.register_transition(combat_front_transition29);
+        combat_front_smartcover.register_transition(combat_front_transition30);
+        this->m_registered_smartcovers["combat_front"] = combat_front_smartcover;
 #pragma endregion Cordis Combat Front Smart Cover
 
 #pragma endregion
@@ -1450,28 +1903,28 @@ private:
             "hands_up");
         state_library["hands_up"] = state_lib_data;
         state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateDanger,
-            MonsterSpace::eBodyStateCrouch, SightManager::eSightTypeCurrentDirection, "strapped", Globals::kStringUndefined,
-            "wounded");
+            MonsterSpace::eBodyStateCrouch, SightManager::eSightTypeCurrentDirection, "strapped",
+            Globals::kStringUndefined, "wounded");
         state_library["wounded"] = state_lib_data;
         state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateDanger,
-            MonsterSpace::eBodyStateCrouch, SightManager::eSightTypeCurrentDirection, "drop",
-            Globals::kStringUndefined, "wounded_heavy_1");
+            MonsterSpace::eBodyStateCrouch, SightManager::eSightTypeCurrentDirection, "drop", Globals::kStringUndefined,
+            "wounded_heavy_1");
         state_library["wounded_heavy"] = state_lib_data;
         state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateDanger,
-            MonsterSpace::eBodyStateCrouch, SightManager::eSightTypeCurrentDirection, "drop",
-            Globals::kStringUndefined, "wounded_heavy_2");
+            MonsterSpace::eBodyStateCrouch, SightManager::eSightTypeCurrentDirection, "drop", Globals::kStringUndefined,
+            "wounded_heavy_2");
         state_library["wounded_heavy_2"] = state_lib_data;
         state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateDanger,
-            MonsterSpace::eBodyStateCrouch, SightManager::eSightTypeCurrentDirection, "drop",
-            Globals::kStringUndefined, "wounded_heavy_3");
+            MonsterSpace::eBodyStateCrouch, SightManager::eSightTypeCurrentDirection, "drop", Globals::kStringUndefined,
+            "wounded_heavy_3");
         state_library["wounded_heavy_3"] = state_lib_data;
         state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateDanger,
-            MonsterSpace::eBodyStateCrouch, SightManager::eSightTypeCurrentDirection, "drop",
-            Globals::kStringUndefined, "wounded_zombie");
+            MonsterSpace::eBodyStateCrouch, SightManager::eSightTypeCurrentDirection, "drop", Globals::kStringUndefined,
+            "wounded_zombie");
         state_library["wounded_zombie"] = state_lib_data;
         state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
-            MonsterSpace::eBodyStateCrouch, Globals::kUnsignedInt32Undefined, "strapped",
-            Globals::kStringUndefined, "trans_0");
+            MonsterSpace::eBodyStateCrouch, Globals::kUnsignedInt32Undefined, "strapped", Globals::kStringUndefined,
+            "trans_0");
         state_library["trans_0"] = state_lib_data;
         state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
             MonsterSpace::eBodyStateCrouch, Globals::kUnsignedInt32Undefined, "strapped", Globals::kStringUndefined,
