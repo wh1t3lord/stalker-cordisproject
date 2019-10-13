@@ -106,9 +106,8 @@ public:
 
 struct SmartCoverData
 {
-    bool m_is_need_weapon;
-
 private:
+    bool m_is_need_weapon;
     xr_vector<SmartCoverLoopholeData> m_loopholes;
 
 public:
@@ -137,6 +136,9 @@ private:
     xr_vector<SmartCoverTransitionsData> m_transitions;
 
 public:
+    inline bool IsNeedWeapon(void) const noexcept { return this->m_is_need_weapon; }
+    inline void setNeedWeapon(const bool& value) noexcept { this->m_is_need_weapon = value; }
+
     inline void register_loophole(const SmartCoverLoopholeData& data) noexcept { this->m_loopholes.push_back(data); }
     inline void register_transition(const SmartCoverTransitionsData& data) noexcept
     {
