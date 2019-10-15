@@ -39,7 +39,7 @@ void Script_SE_SmartCover::STATE_Read(NET_Packet& Packet, std::uint16_t size)
 
         if (smart_cover_description_name.size())
         {
-            Msg("[Scripts/Script_SE_SmartCover/STATE_Read(Packet, size)] name %s description %s", this->name(),
+            Msg("[Scripts/Script_SE_SmartCover/STATE_Read(Packet, size)] name %s description %s", this->name_replace(),
                 smart_cover_description_name.c_str());
 
             const xr_vector<SmartCoverLoopholeData>& loopholes = Script_GlobalHelper::getInstance()
@@ -104,8 +104,8 @@ void Script_SE_SmartCover::on_before_register(void)
     inherited::on_before_register();
     Msg("[Scripts/Script_SE_SmartCover/on_before_register()] Registering Script_SE_SmartCover [%s] entity to "
         "GameRegisteredServerSmartCovers",
-        this->name());
-    Script_GlobalHelper::getInstance().setGameRegisteredServerSmartCovers(this->name(), this);
+        this->name_replace());
+    Script_GlobalHelper::getInstance().setGameRegisteredServerSmartCovers(this->name_replace(), this);
 }
 
 void Script_SE_SmartCover::on_register(void)
