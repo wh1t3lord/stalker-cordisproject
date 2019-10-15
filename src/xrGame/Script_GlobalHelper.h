@@ -1643,6 +1643,143 @@ private:
         this->m_registered_smartcovers["animpoint_stay_table"] = animpoint_stay_table_smartcover;
 #pragma endregion
 
+#pragma region Cordis Animpoint Sit High Smart Cover
+        SmartCoverData animpoint_sit_high_smartcover;
+        SmartCoverLoopholeData animpoint_sit_high_loophole;
+
+#pragma region Cordis Loophole
+        animpoint_sit_high_loophole.m_id = "animpoint_sit_high";
+        animpoint_sit_high_loophole.m_is_usable = true;
+        animpoint_sit_high_loophole.m_is_exitable = false;
+        animpoint_sit_high_loophole.m_is_enterable = false;
+        animpoint_sit_high_loophole.m_fieldofview = 45.0f;
+        animpoint_sit_high_loophole.m_fieldofview_danger = 45.0f;
+        animpoint_sit_high_loophole.m_range = 70.0f;
+        animpoint_sit_high_loophole.m_fieldofview_direction = Fvector().set(0.0f, 0.0f, -1.0f);
+        animpoint_sit_high_loophole.m_fieldofview_position = Fvector().set(0.0f, 0.0f, 0.0f);
+        animpoint_sit_high_loophole.m_danger_fieldofview_direction = Fvector().set(-1.0f, 0.0f, 0.0f);
+        animpoint_sit_high_loophole.m_enter_direction = Fvector().set(0.0f, 0.0f, -1.0f);
+
+        SmartCoverLoopholeData::SmartCoverActionsData animpoint_sit_high_loophole_action1;
+        animpoint_sit_high_loophole_action1.m_id = "idle";
+        animpoint_sit_high_loophole_action1.register_animation("idle", "animpoint_sit_high_idle_1");
+
+        animpoint_sit_high_loophole.register_action(animpoint_sit_high_loophole_action1);
+
+        SmartCoverLoopholeData::SmartCoverActionsData animpoint_sit_high_loophole_action2;
+        animpoint_sit_high_loophole_action2.m_id = "lookout";
+        animpoint_sit_high_loophole_action2.register_animation("idle", "animpoint_sit_high_idle_1");
+
+        animpoint_sit_high_loophole.register_action(animpoint_sit_high_loophole_action2);
+
+        SmartCoverLoopholeData::SmartCoverActionsData animpoint_sit_high_loophole_action3;
+        animpoint_sit_high_loophole_action3.m_id = "fire";
+        animpoint_sit_high_loophole_action3.register_animation("idle", "animpoint_sit_high_idle_1");
+        animpoint_sit_high_loophole_action3.register_animation("shoot", "animpoint_sit_high_idle_1");
+
+        animpoint_sit_high_loophole.register_action(animpoint_sit_high_loophole_action3);
+
+        SmartCoverLoopholeData::SmartCoverActionsData animpoint_sit_high_loophole_action4;
+        animpoint_sit_high_loophole_action4.m_id = "fire_no_lookout";
+        animpoint_sit_high_loophole_action4.register_animation("idle", "animpoint_sit_high_idle_1");
+        animpoint_sit_high_loophole_action4.register_animation("shoot", "animpoint_sit_high_idle_1");
+
+        animpoint_sit_high_loophole.register_action(animpoint_sit_high_loophole_action4);
+
+        SmartCoverLoopholeData::SmartCoverActionsData animpoint_sit_high_loophole_action5;
+        animpoint_sit_high_loophole_action5.m_id = "reload";
+        animpoint_sit_high_loophole_action5.register_animation("idle", "animpoint_sit_high_idle_1");
+
+        animpoint_sit_high_loophole.register_action(animpoint_sit_high_loophole_action5);
+
+        SmartCoverLoopholeData::SmartCoverTransitionsData animpoint_sit_high_loophole_transition1;
+        animpoint_sit_high_loophole_transition1.m_action_from = "idle";
+        animpoint_sit_high_loophole_transition1.m_action_to = "lookout";
+        animpoint_sit_high_loophole_transition1.m_animations.push_back("animpoint_sit_high_in_1");
+        animpoint_sit_high_loophole_transition1.m_weight = 1.2f;
+
+        animpoint_sit_high_loophole.register_transition(animpoint_sit_high_loophole_transition1);
+
+        SmartCoverLoopholeData::SmartCoverTransitionsData animpoint_sit_high_loophole_transition2;
+        animpoint_sit_high_loophole_transition2.m_action_from = "lookout";
+        animpoint_sit_high_loophole_transition2.m_action_to = "idle";
+        animpoint_sit_high_loophole_transition2.m_animations.push_back("animpoint_sit_high_in_1");
+        animpoint_sit_high_loophole_transition2.m_weight = 1.2f;
+
+        animpoint_sit_high_loophole.register_transition(animpoint_sit_high_loophole_transition2);
+
+        SmartCoverLoopholeData::SmartCoverTransitionsData animpoint_sit_high_loophole_transition3;
+        animpoint_sit_high_loophole_transition3.m_action_from = "idle";
+        animpoint_sit_high_loophole_transition3.m_action_to = "fire";
+        animpoint_sit_high_loophole_transition3.m_animations.push_back("animpoint_sit_high_in_1");
+        animpoint_sit_high_loophole_transition3.m_weight = 1.2f;
+
+        animpoint_sit_high_loophole.register_transition(animpoint_sit_high_loophole_transition3);
+
+        SmartCoverLoopholeData::SmartCoverTransitionsData animpoint_sit_high_loophole_transition4;
+        animpoint_sit_high_loophole_transition4.m_action_from = "fire";
+        animpoint_sit_high_loophole_transition4.m_action_to = "idle";
+        animpoint_sit_high_loophole_transition4.m_animations.push_back("animpoint_sit_high_in_1");
+        animpoint_sit_high_loophole_transition4.m_weight = 1.2f;
+
+        animpoint_sit_high_loophole.register_transition(animpoint_sit_high_loophole_transition4);
+
+        SmartCoverLoopholeData::SmartCoverTransitionsData animpoint_sit_high_loophole_transition5;
+        animpoint_sit_high_loophole_transition5.m_action_from = "idle";
+        animpoint_sit_high_loophole_transition5.m_action_to = "fire_no_lookout";
+        animpoint_sit_high_loophole_transition5.m_animations.push_back("animpoint_sit_high_in_1");
+        animpoint_sit_high_loophole_transition5.m_weight = 1.2f;
+
+        animpoint_sit_high_loophole.register_transition(animpoint_sit_high_loophole_transition5);
+
+        SmartCoverLoopholeData::SmartCoverTransitionsData animpoint_sit_high_loophole_transition6;
+        animpoint_sit_high_loophole_transition6.m_action_from = "fire_no_lookout";
+        animpoint_sit_high_loophole_transition6.m_action_to = "idle";
+        animpoint_sit_high_loophole_transition6.m_animations.push_back("animpoint_sit_high_in_1");
+        animpoint_sit_high_loophole_transition6.m_weight = 1.2f;
+
+        animpoint_sit_high_loophole.register_transition(animpoint_sit_high_loophole_transition6);
+#pragma endregion
+
+#pragma region Cordis Transition
+        SmartCoverData::SmartCoverTransitionsData animpoint_sit_high_transition;
+        animpoint_sit_high_transition.m_vertex0 = "";
+        animpoint_sit_high_transition.m_vertex1 = "animpoint_sit_high";
+        animpoint_sit_high_transition.m_weight = 1.0f;
+
+        SmartCoverData::SmartCoverTransitionsData::SmartCoverActionsData animpoint_sit_high_transition_action1;
+        animpoint_sit_high_transition_action1.m_action.m_animation = "animpoint_sit_high_in_1";
+        animpoint_sit_high_transition_action1.m_action.m_position = Fvector().set(0.0f, 0.0f, 0.0f);
+        animpoint_sit_high_transition_action1.m_action.m_body_state = MonsterSpace::eBodyStateCrouch;
+        animpoint_sit_high_transition_action1.m_action.m_movement_type = MonsterSpace::eMovementTypeRun;
+        animpoint_sit_high_transition_action1.m_precondition_functor = "true";
+        animpoint_sit_high_transition_action1.m_preconditions_params = "";
+
+        animpoint_sit_high_transition.m_actions.push_back(animpoint_sit_high_transition_action1);
+
+        SmartCoverData::SmartCoverTransitionsData animpoint_sit_high_transition1;
+        animpoint_sit_high_transition1.m_vertex0 = "animpoint_sit_high";
+        animpoint_sit_high_transition1.m_vertex1 = "";
+        animpoint_sit_high_transition1.m_weight = 1.1f;
+
+        SmartCoverData::SmartCoverTransitionsData::SmartCoverActionsData animpoint_sit_high_transition1_action1;
+        animpoint_sit_high_transition1_action1.m_action.m_animation = "animpoint_sit_high_out_1";
+        animpoint_sit_high_transition1_action1.m_action.m_position = Fvector().set(0.0f, 0.0f, 0.0f);
+        animpoint_sit_high_transition1_action1.m_action.m_body_state = MonsterSpace::eBodyStateStand;
+        animpoint_sit_high_transition1_action1.m_action.m_movement_type = MonsterSpace::eMovementTypeRun;
+        animpoint_sit_high_transition1_action1.m_precondition_functor = "true";
+        animpoint_sit_high_transition1_action1.m_preconditions_params = "";
+
+        animpoint_sit_high_transition1.m_actions.push_back(animpoint_sit_high_transition1_action1);
+#pragma endregion
+
+        animpoint_sit_high_smartcover.setNeedWeapon(false);
+        animpoint_sit_high_smartcover.register_loophole(animpoint_sit_high_loophole);
+        animpoint_sit_high_smartcover.register_transition(animpoint_sit_high_transition);
+        animpoint_sit_high_smartcover.register_transition(animpoint_sit_high_transition1);
+        this->m_registered_smartcovers["animpoint_sit_high"] = animpoint_sit_high_smartcover;
+#pragma endregion
+
 #pragma endregion
 
 #pragma region Cordis Animpoint System Table initialization
