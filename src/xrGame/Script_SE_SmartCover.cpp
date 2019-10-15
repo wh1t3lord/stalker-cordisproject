@@ -43,22 +43,21 @@ void Script_SE_SmartCover::STATE_Read(NET_Packet& Packet, std::uint16_t size)
                 smart_cover_description_name.c_str());
 
             const xr_vector<SmartCoverLoopholeData>& loopholes = Script_GlobalHelper::getInstance()
-                                                               .getRegisteredSmartCovers()
-                                                               .at(smart_cover_description_name)
-                                                               .getLoopholes();
+                                                                     .getRegisteredSmartCovers()
+                                                                     .at(smart_cover_description_name)
+                                                                     .getLoopholes();
 
             if (loopholes.size())
             {
-                if (loopholes[0].m_id.size())
+                for (const SmartCoverLoopholeData& it : loopholes)
                 {
-                    for (const SmartCoverLoopholeData& it : loopholes)
-                        existing_loopholes[it.m_id] = true;
-                }
-                else
-                {
-                    // @ Lord: попробовать сделать warning уведомление чем выводить полноценный Assertion
-                    R_ASSERT2(false, "You are not registered a new smart cover!!!!!!");
-                    return;
+                    if (!it.m_id.size())
+                    {
+                        R_ASSERT2(false, "You are not registered a new smart cover!!!!!!");
+                        return;
+                    }
+
+                    existing_loopholes[it.m_id] = true;
                 }
             }
             else
@@ -66,7 +65,7 @@ void Script_SE_SmartCover::STATE_Read(NET_Packet& Packet, std::uint16_t size)
                 Msg("[Scripts/Script_SE_SmartCover/STATE_Read(packet, size)] WARNING: you are not initialize in "
                     "Script_GlobalHelper your smart_cover! [%s]",
                     smart_cover_description_name.c_str());
-                
+
                 return;
             }
         }
@@ -88,11 +87,10 @@ void Script_SE_SmartCover::STATE_Read(NET_Packet& Packet, std::uint16_t size)
 
         if (smart_cover_description_name.size())
         {
-
             const xr_vector<SmartCoverLoopholeData>& loopholes = Script_GlobalHelper::getInstance()
-                                                               .getRegisteredSmartCovers()
-                                                               .at(smart_cover_description_name)
-                                                               .getLoopholes();
+                                                                     .getRegisteredSmartCovers()
+                                                                     .at(smart_cover_description_name)
+                                                                     .getLoopholes();
             for (const SmartCoverLoopholeData& it : loopholes)
                 this->m_loopholes[it.m_id] = true;
 

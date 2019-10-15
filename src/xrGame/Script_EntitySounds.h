@@ -362,7 +362,7 @@ public:
         if (this->m_sound_object)
             this->m_sound_object->SetVolume(value);
     }
-
+    // Lord: заменить у getAvailCommunities в интерфейсе на const xr_map без &!!!
     virtual xr_map<xr_string, bool>& getAvailCommunities(void)
     {
         Msg("[Script_SoundLooped] -> getAvailCommunities doesn't use!");
