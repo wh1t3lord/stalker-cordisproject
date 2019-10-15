@@ -2191,6 +2191,143 @@ private:
         this->m_registered_smartcovers["animpoint_pri_a15"] = animpoint_pri_a15_smartcover;
 #pragma endregion
 
+#pragma region Cordis Anim Pri a15
+        SmartCoverData anim_pri_a15_smartcover;
+        SmartCoverLoopholeData anim_pri_a15_loophole;
+
+#pragma region Cordis Loophole
+        anim_pri_a15_loophole.m_id = "anim_pri_a15";
+        anim_pri_a15_loophole.m_is_usable = true;
+        anim_pri_a15_loophole.m_is_exitable = false;
+        anim_pri_a15_loophole.m_is_enterable = false;
+        anim_pri_a15_loophole.m_fieldofview = 45.0f;
+        anim_pri_a15_loophole.m_fieldofview_danger = 45.0f;
+        anim_pri_a15_loophole.m_range = 70.0f;
+        anim_pri_a15_loophole.m_fieldofview_direction = Fvector().set(0.0f, 0.0f, -1.0f);
+        anim_pri_a15_loophole.m_fieldofview_position = Fvector().set(0.0f, 0.0f, 0.0f);
+        anim_pri_a15_loophole.m_danger_fieldofview_direction = Fvector().set(-1.0f, 0.0f, 0.0f);
+        anim_pri_a15_loophole.m_enter_direction = Fvector().set(0.0f, 0.0f, -1.0f);
+
+        SmartCoverLoopholeData::SmartCoverActionsData anim_pri_a15_loophole_action1;
+        anim_pri_a15_loophole_action1.m_id = "idle";
+        anim_pri_a15_loophole_action1.register_animation("idle", "pri_a22_colonel_lean_on_tabl_in");
+
+        anim_pri_a15_loophole.register_action(anim_pri_a15_loophole_action1);
+
+        SmartCoverLoopholeData::SmartCoverActionsData anim_pri_a15_loophole_action2;
+        anim_pri_a15_loophole_action2.m_id = "lookout";
+        anim_pri_a15_loophole_action2.register_animation("idle", "pri_a22_colonel_lean_on_tabl_in");
+
+        anim_pri_a15_loophole.register_action(anim_pri_a15_loophole_action2);
+
+        SmartCoverLoopholeData::SmartCoverActionsData anim_pri_a15_loophole_action3;
+        anim_pri_a15_loophole_action3.m_id = "fire";
+        anim_pri_a15_loophole_action3.register_animation("idle", "pri_a22_colonel_lean_on_tabl_in");
+        anim_pri_a15_loophole_action3.register_animation("shoot", "pri_a22_colonel_lean_on_tabl_in");
+
+        anim_pri_a15_loophole.register_action(anim_pri_a15_loophole_action3);
+
+        SmartCoverLoopholeData::SmartCoverActionsData anim_pri_a15_loophole_action4;
+        anim_pri_a15_loophole_action4.m_id = "fire_no_lookout";
+        anim_pri_a15_loophole_action4.register_animation("idle", "pri_a22_colonel_lean_on_tabl_in");
+        anim_pri_a15_loophole_action4.register_animation("shoot", "pri_a22_colonel_lean_on_tabl_in");
+
+        anim_pri_a15_loophole.register_action(anim_pri_a15_loophole_action4);
+
+        SmartCoverLoopholeData::SmartCoverActionsData anim_pri_a15_loophole_action5;
+        anim_pri_a15_loophole_action5.m_id = "reload";
+        anim_pri_a15_loophole_action5.register_animation("idle", "pri_a22_colonel_lean_on_tabl_in");
+
+        anim_pri_a15_loophole.register_action(anim_pri_a15_loophole_action5);
+
+        SmartCoverLoopholeData::SmartCoverTransitionsData anim_pri_a15_loophole_transition1;
+        anim_pri_a15_loophole_transition1.m_action_from = "idle";
+        anim_pri_a15_loophole_transition1.m_action_to = "lookout";
+        anim_pri_a15_loophole_transition1.m_animations.push_back("pri_a22_colonel_lean_on_tabl_in");
+        anim_pri_a15_loophole_transition1.m_weight = 1.2f;
+
+        anim_pri_a15_loophole.register_transition(anim_pri_a15_loophole_transition1);
+
+        SmartCoverLoopholeData::SmartCoverTransitionsData anim_pri_a15_loophole_transition2;
+        anim_pri_a15_loophole_transition2.m_action_from = "lookout";
+        anim_pri_a15_loophole_transition2.m_action_to = "idle";
+        anim_pri_a15_loophole_transition2.m_animations.push_back("pri_a22_colonel_lean_on_tabl_in");
+        anim_pri_a15_loophole_transition2.m_weight = 1.2f;
+
+        anim_pri_a15_loophole.register_transition(anim_pri_a15_loophole_transition2);
+
+        SmartCoverLoopholeData::SmartCoverTransitionsData anim_pri_a15_loophole_transition3;
+        anim_pri_a15_loophole_transition3.m_action_from = "idle";
+        anim_pri_a15_loophole_transition3.m_action_to = "fire";
+        anim_pri_a15_loophole_transition3.m_animations.push_back("pri_a22_colonel_lean_on_tabl_in");
+        anim_pri_a15_loophole_transition3.m_weight = 1.2f;
+
+        anim_pri_a15_loophole.register_transition(anim_pri_a15_loophole_transition3);
+
+        SmartCoverLoopholeData::SmartCoverTransitionsData anim_pri_a15_loophole_transition4;
+        anim_pri_a15_loophole_transition4.m_action_from = "fire";
+        anim_pri_a15_loophole_transition4.m_action_to = "idle";
+        anim_pri_a15_loophole_transition4.m_animations.push_back("pri_a22_colonel_lean_on_tabl_in");
+        anim_pri_a15_loophole_transition4.m_weight = 1.2f;
+
+        anim_pri_a15_loophole.register_transition(anim_pri_a15_loophole_transition4);
+
+        SmartCoverLoopholeData::SmartCoverTransitionsData anim_pri_a15_loophole_transition5;
+        anim_pri_a15_loophole_transition5.m_action_from = "idle";
+        anim_pri_a15_loophole_transition5.m_action_to = "fire_no_lookout";
+        anim_pri_a15_loophole_transition5.m_animations.push_back("pri_a22_colonel_lean_on_tabl_in");
+        anim_pri_a15_loophole_transition5.m_weight = 1.2f;
+
+        anim_pri_a15_loophole.register_transition(anim_pri_a15_loophole_transition5);
+
+        SmartCoverLoopholeData::SmartCoverTransitionsData anim_pri_a15_loophole_transition6;
+        anim_pri_a15_loophole_transition6.m_action_from = "fire_no_lookout";
+        anim_pri_a15_loophole_transition6.m_action_to = "idle";
+        anim_pri_a15_loophole_transition6.m_animations.push_back("pri_a22_colonel_lean_on_tabl_in");
+        anim_pri_a15_loophole_transition6.m_weight = 1.2f;
+
+        anim_pri_a15_loophole.register_transition(anim_pri_a15_loophole_transition6);
+#pragma endregion
+
+#pragma region Cordis Transition
+        SmartCoverData::SmartCoverTransitionsData anim_pri_a15_transition;
+        anim_pri_a15_transition.m_vertex0 = "";
+        anim_pri_a15_transition.m_vertex1 = "anim_pri_a15";
+        anim_pri_a15_transition.m_weight = 1.0f;
+
+        SmartCoverData::SmartCoverTransitionsData::SmartCoverActionsData anim_pri_a15_transition_action1;
+        anim_pri_a15_transition_action1.m_action.m_animation = "pri_a22_colonel_lean_on_tabl_in";
+        anim_pri_a15_transition_action1.m_action.m_position = Fvector().set(0.0f, 0.0f, 0.0f);
+        anim_pri_a15_transition_action1.m_action.m_body_state = MonsterSpace::eBodyStateCrouch;
+        anim_pri_a15_transition_action1.m_action.m_movement_type = MonsterSpace::eMovementTypeRun;
+        anim_pri_a15_transition_action1.m_precondition_functor = "true";
+        anim_pri_a15_transition_action1.m_preconditions_params = "";
+
+        anim_pri_a15_transition.m_actions.push_back(anim_pri_a15_transition_action1);
+
+        SmartCoverData::SmartCoverTransitionsData anim_pri_a15_transition1;
+        anim_pri_a15_transition1.m_vertex0 = "anim_pri_a15";
+        anim_pri_a15_transition1.m_vertex1 = "";
+        anim_pri_a15_transition1.m_weight = 1.1f;
+
+        SmartCoverData::SmartCoverTransitionsData::SmartCoverActionsData anim_pri_a15_transition1_action1;
+        anim_pri_a15_transition1_action1.m_action.m_animation = "pri_a22_colonel_lean_on_tabl_in";
+        anim_pri_a15_transition1_action1.m_action.m_position = Fvector().set(0.0f, 0.0f, 0.0f);
+        anim_pri_a15_transition1_action1.m_action.m_body_state = MonsterSpace::eBodyStateStand;
+        anim_pri_a15_transition1_action1.m_action.m_movement_type = MonsterSpace::eMovementTypeRun;
+        anim_pri_a15_transition1_action1.m_precondition_functor = "true";
+        anim_pri_a15_transition1_action1.m_preconditions_params = "";
+
+        anim_pri_a15_transition1.m_actions.push_back(anim_pri_a15_transition1_action1);
+#pragma endregion
+
+        anim_pri_a15_smartcover.setNeedWeapon(false);
+        anim_pri_a15_smartcover.register_loophole(anim_pri_a15_loophole);
+        anim_pri_a15_smartcover.register_transition(anim_pri_a15_transition);
+        anim_pri_a15_smartcover.register_transition(anim_pri_a15_transition1);
+        this->m_registered_smartcovers["anim_pri_a15"] = anim_pri_a15_smartcover;
+#pragma endregion
+
 #pragma endregion
 
 #pragma region Cordis Animpoint System Table initialization
