@@ -708,7 +708,10 @@ inline xr_map<std::uint32_t, CondlistData> parse_condlist_by_script_object(
 
     return result;
 }
-
+// Lord: исправить pick_section_from_condlist!!!!
+// Не правильно считывает {} false, true <- вот это вообще почему-то не учитывается 
+// Сделать полноценную проверку в {} и аналогично %%, чтобы не первая попавшаяся сущность анализировалось а целый блок, то есть {-info_portion =my_function}, в данном случае =my_function тоже
+// анализируется!!!!!!!!
 inline xr_string pick_section_from_condlist(
     CScriptGameObject* actor, CSE_ALifeDynamicObject* npc, const xr_map<std::uint32_t, CondlistData>& condlist)
 {
@@ -1284,7 +1287,7 @@ inline xr_string pick_section_from_condlist(
                 {
                     Msg("[Scripts/XR_LOGIC/pick_section_from_condlist(actor, npc, condlist)] PASSED: actor has NO "
                         "infop '%s', which is not needed [%s]",
-                        it_infoportion_check.second.m_infopotion_name,
+                        it_infoportion_check.second.m_infopotion_name.c_str(),
                         std::to_string(Globals::has_alife_info(it_infoportion_check.second.m_infopotion_name.c_str()))
                             .c_str());
                 }
