@@ -702,7 +702,7 @@ public:
 
     inline void setGoodwill_Sympathy(const std::pair<std::uint16_t, float>& pair_first) noexcept
     {
-        if (!pair_first.first == Globals::kUnsignedInt16Undefined)
+        if (pair_first.first == Globals::kUnsignedInt16Undefined)
         {
             Msg("[DataBase/Storage/setGoodwill_Sympathy(pair_first)] WARNING: pair_first.first = std::uint16_t(-1)! "
                 "You are "
@@ -789,7 +789,7 @@ public:
 
     inline void setSpawnedVertexByID(const std::pair<std::uint16_t, std::uint32_t>& pair) noexcept
     {
-        if (!pair.first == Globals::kUnsignedInt16Undefined)
+        if (pair.first == Globals::kUnsignedInt16Undefined)
         {
             Msg("[DataBase/Storage/setSpawnedVertexByID(pair)] WARNING: pair.first = std::uint16_t(-1)! You are trying "
                 "to set an undefined value! No assignment!");

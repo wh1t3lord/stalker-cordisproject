@@ -895,7 +895,7 @@ private:
 
 #pragma endregion Cordis Loophole
 
-        #pragma region Cordis Transition
+#pragma region Cordis Transition
         SmartCoverData::SmartCoverTransitionsData combat_front_transition1;
         combat_front_transition1.m_vertex0 = "";
         combat_front_transition1.m_vertex1 = "crouch_front_left";
@@ -907,8 +907,8 @@ private:
         combat_front_transition1_action1.m_action.m_movement_type = MonsterSpace::eMovementTypeRun;
         combat_front_transition1_action1.m_precondition_functor = "true";
         combat_front_transition1_action1.m_preconditions_params = "";
-        
-        combat_front_transition1.m_actions.push_back(combat_front_transition1_action1); 
+
+        combat_front_transition1.m_actions.push_back(combat_front_transition1_action1);
 
         SmartCoverData::SmartCoverTransitionsData combat_front_transition2;
         combat_front_transition2.m_vertex0 = "";
@@ -922,7 +922,7 @@ private:
         combat_front_transition2_action1.m_precondition_functor = "true";
         combat_front_transition2_action1.m_preconditions_params = "";
 
-        combat_front_transition2.m_actions.push_back(combat_front_transition2_action1); 
+        combat_front_transition2.m_actions.push_back(combat_front_transition2_action1);
 
         SmartCoverData::SmartCoverTransitionsData combat_front_transition3;
         combat_front_transition3.m_vertex0 = "";
@@ -936,7 +936,7 @@ private:
         combat_front_transition3_action1.m_precondition_functor = "true";
         combat_front_transition3_action1.m_preconditions_params = "";
 
-        combat_front_transition3.m_actions.push_back(combat_front_transition3_action1); 
+        combat_front_transition3.m_actions.push_back(combat_front_transition3_action1);
 
         SmartCoverData::SmartCoverTransitionsData combat_front_transition4;
         combat_front_transition4.m_vertex0 = "";
@@ -1315,7 +1315,7 @@ private:
         combat_front_transition30_action1.m_preconditions_params = "";
 
         combat_front_transition30.m_actions.push_back(combat_front_transition30_action1);
-        #pragma endregion
+#pragma endregion
 
         combat_front_smartcover.setNeedWeapon(true);
         combat_front_smartcover.register_loophole(combat_front_loophole_crouch_front_left);
@@ -1356,11 +1356,165 @@ private:
         this->m_registered_smartcovers["combat_front"] = combat_front_smartcover;
 #pragma endregion Cordis Combat Front Smart Cover
 
+#pragma region Cordis Animpoint Stay Wall Smart Cover Initialization
+        SmartCoverData animpoint_stay_wall_smartcover;
+        SmartCoverLoopholeData animpoint_stay_wall_loophole;
+
+#pragma region Cordis Loophole
+        animpoint_stay_wall_loophole.m_id = "animpoint_stay_wall";
+        animpoint_stay_wall_loophole.m_is_usable = true;
+        animpoint_stay_wall_loophole.m_is_exitable = false;
+        animpoint_stay_wall_loophole.m_is_enterable = false;
+        animpoint_stay_wall_loophole.m_fieldofview = 45.0f;
+        animpoint_stay_wall_loophole.m_fieldofview_danger = 45.0f;
+        animpoint_stay_wall_loophole.m_range = 70.0f;
+        animpoint_stay_wall_loophole.m_fieldofview_direction = Fvector().set(0.0f, 0.0f, -1.0f);
+        animpoint_stay_wall_loophole.m_fieldofview_position = Fvector().set(0.0f, 0.0f, 0.0f);
+        animpoint_stay_wall_loophole.m_danger_fieldofview_direction = Fvector().set(-1.0f, 0.0f, 0.0f);
+        animpoint_stay_wall_loophole.m_enter_direction = Fvector().set(0.0f, 0.0f, -1.0f);
+
+        SmartCoverLoopholeData::SmartCoverActionsData animpoint_stay_wall_loophole_action1;
+        animpoint_stay_wall_loophole_action1.m_id = "idle";
+        animpoint_stay_wall_loophole_action1.register_animation("idle", "animpoint_stay_wall_idle_1");
+
+        animpoint_stay_wall_loophole.register_action(animpoint_stay_wall_loophole_action1);
+
+        SmartCoverLoopholeData::SmartCoverActionsData animpoint_stay_wall_loophole_action2;
+        animpoint_stay_wall_loophole_action2.m_id = "lookout";
+        animpoint_stay_wall_loophole_action2.register_animation("idle", "animpoint_stay_wall_idle_1");
+
+        animpoint_stay_wall_loophole.register_action(animpoint_stay_wall_loophole_action2);
+
+        SmartCoverLoopholeData::SmartCoverActionsData animpoint_stay_wall_loophole_action3;
+        animpoint_stay_wall_loophole_action3.m_id = "fire";
+        animpoint_stay_wall_loophole_action3.register_animation("idle", "animpoint_stay_wall_idle_1");
+        animpoint_stay_wall_loophole_action3.register_animation("shoot", "animpoint_stay_wall_idle_1");
+
+        animpoint_stay_wall_loophole.register_action(animpoint_stay_wall_loophole_action3);
+
+        SmartCoverLoopholeData::SmartCoverActionsData animpoint_stay_wall_loophole_action4;
+        animpoint_stay_wall_loophole_action4.m_id = "fire_no_lookout";
+        animpoint_stay_wall_loophole_action4.register_animation("idle", "animpoint_stay_wall_idle_1");
+        animpoint_stay_wall_loophole_action4.register_animation("shoot", "animpoint_stay_wall_idle_1");
+
+        animpoint_stay_wall_loophole.register_action(animpoint_stay_wall_loophole_action4);
+
+        SmartCoverLoopholeData::SmartCoverActionsData animpoint_stay_wall_loophole_action5;
+        animpoint_stay_wall_loophole_action5.m_id = "reload";
+        animpoint_stay_wall_loophole_action5.register_animation("idle", "animpoint_stay_wall_idle_1");
+
+        animpoint_stay_wall_loophole.register_action(animpoint_stay_wall_loophole_action5);
+
+        SmartCoverLoopholeData::SmartCoverTransitionsData animpoint_stay_wall_loophole_transition1;
+        animpoint_stay_wall_loophole_transition1.m_action_from = "idle";
+        animpoint_stay_wall_loophole_transition1.m_action_to = "lookout";
+        animpoint_stay_wall_loophole_transition1.m_animations.push_back("animpoint_stay_wall_in_1");
+        animpoint_stay_wall_loophole_transition1.m_weight = 1.2f;
+
+        combat_prone_loophole.register_transition(animpoint_stay_wall_loophole_transition1);
+
+        SmartCoverLoopholeData::SmartCoverTransitionsData animpoint_stay_wall_loophole_transition2;
+        animpoint_stay_wall_loophole_transition2.m_action_from = "lookout";
+        animpoint_stay_wall_loophole_transition2.m_action_to = "idle";
+        animpoint_stay_wall_loophole_transition2.m_animations.push_back("animpoint_stay_wall_in_1");
+        animpoint_stay_wall_loophole_transition2.m_weight = 1.2f;
+
+        combat_prone_loophole.register_transition(animpoint_stay_wall_loophole_transition2);
+
+        SmartCoverLoopholeData::SmartCoverTransitionsData animpoint_stay_wall_loophole_transition3;
+        animpoint_stay_wall_loophole_transition3.m_action_from = "idle";
+        animpoint_stay_wall_loophole_transition3.m_action_to = "fire";
+        animpoint_stay_wall_loophole_transition3.m_animations.push_back("animpoint_stay_wall_in_1");
+        animpoint_stay_wall_loophole_transition3.m_weight = 1.2f;
+
+        combat_prone_loophole.register_transition(animpoint_stay_wall_loophole_transition3);
+
+        SmartCoverLoopholeData::SmartCoverTransitionsData animpoint_stay_wall_loophole_transition4;
+        animpoint_stay_wall_loophole_transition4.m_action_from = "fire";
+        animpoint_stay_wall_loophole_transition4.m_action_to = "idle";
+        animpoint_stay_wall_loophole_transition4.m_animations.push_back("animpoint_stay_wall_in_1");
+        animpoint_stay_wall_loophole_transition4.m_weight = 1.2f;
+
+        combat_prone_loophole.register_transition(animpoint_stay_wall_loophole_transition4);
+
+        SmartCoverLoopholeData::SmartCoverTransitionsData animpoint_stay_wall_loophole_transition5;
+        animpoint_stay_wall_loophole_transition5.m_action_from = "idle";
+        animpoint_stay_wall_loophole_transition5.m_action_to = "fire_no_lookout";
+        animpoint_stay_wall_loophole_transition5.m_animations.push_back("animpoint_stay_wall_in_1");
+        animpoint_stay_wall_loophole_transition5.m_weight = 1.2f;
+
+        combat_prone_loophole.register_transition(animpoint_stay_wall_loophole_transition5);
+
+        SmartCoverLoopholeData::SmartCoverTransitionsData animpoint_stay_wall_loophole_transition6;
+        animpoint_stay_wall_loophole_transition6.m_action_from = "fire_no_lookout";
+        animpoint_stay_wall_loophole_transition6.m_action_to = "idle";
+        animpoint_stay_wall_loophole_transition6.m_animations.push_back("animpoint_stay_wall_in_1");
+        animpoint_stay_wall_loophole_transition6.m_weight = 1.2f;
+
+        combat_prone_loophole.register_transition(animpoint_stay_wall_loophole_transition6);
+
+#pragma endregion
+
+#pragma region Cordis Transition
+        SmartCoverData::SmartCoverTransitionsData animpoint_stay_wall_transition;
+        animpoint_stay_wall_transition.m_vertex0 = "";
+        animpoint_stay_wall_transition.m_vertex1 = "animpoint_stay_wall";
+        animpoint_stay_wall_transition.m_weight = 1.0f;
+
+        SmartCoverData::SmartCoverTransitionsData::SmartCoverActionsData animpoint_stay_wall_transition_action1;
+        animpoint_stay_wall_transition_action1.m_action.m_animation = "animpoint_stay_wall_in_1";
+        animpoint_stay_wall_transition_action1.m_action.m_position = Fvector().set(0.0f, 0.0f, 0.0f);
+        animpoint_stay_wall_transition_action1.m_action.m_body_state = MonsterSpace::eBodyStateCrouch;
+        animpoint_stay_wall_transition_action1.m_action.m_movement_type = MonsterSpace::eMovementTypeRun;
+        animpoint_stay_wall_transition_action1.m_precondition_functor = "true";
+        animpoint_stay_wall_transition_action1.m_preconditions_params = "";
+
+        animpoint_stay_wall_transition.m_actions.push_back(animpoint_stay_wall_transition_action1);
+
+/*
+        SmartCoverData::SmartCoverTransitionsData::SmartCoverActionsData animpoint_stay_wall_transition_action2;
+        animpoint_stay_wall_transition_action2.m_action.m_animation = "animpoint_stay_wall_out_1";
+        animpoint_stay_wall_transition_action2.m_action.m_position = Fvector().set(0.0f, 0.0f, 0.0f);
+        animpoint_stay_wall_transition_action2.m_action.m_body_state = MonsterSpace::eBodyStateStand;
+        animpoint_stay_wall_transition_action2.m_action.m_movement_type = MonsterSpace::eMovementTypeRun;
+        animpoint_stay_wall_transition_action2.m_precondition_functor = "true";
+        animpoint_stay_wall_transition_action2.m_preconditions_params = "";
+
+        animpoint_stay_wall_transition.m_actions.push_back(animpoint_stay_wall_transition_action2);
+        */
+
+        SmartCoverData::SmartCoverTransitionsData animpoint_stay_wall_transition1;
+        animpoint_stay_wall_transition1.m_vertex0 = "";
+        animpoint_stay_wall_transition1.m_vertex1 = "animpoint_stay_wall";
+        animpoint_stay_wall_transition1.m_weight = 1.0f;
+
+        SmartCoverData::SmartCoverTransitionsData::SmartCoverActionsData animpoint_stay_wall_transition1_action1;
+        animpoint_stay_wall_transition1_action1.m_action.m_animation = "animpoint_stay_wall_out_1";
+        animpoint_stay_wall_transition1_action1.m_action.m_position = Fvector().set(0.0f, 0.0f, 0.0f);
+        animpoint_stay_wall_transition1_action1.m_action.m_body_state = MonsterSpace::eBodyStateStand;
+        animpoint_stay_wall_transition1_action1.m_action.m_movement_type = MonsterSpace::eMovementTypeRun;
+        animpoint_stay_wall_transition1_action1.m_precondition_functor = "true";
+        animpoint_stay_wall_transition1_action1.m_preconditions_params = "";
+
+        animpoint_stay_wall_transition1.m_actions.push_back(animpoint_stay_wall_transition1_action1);
+#pragma endregion
+
+        animpoint_stay_wall_smartcover.setNeedWeapon(false);
+        animpoint_stay_wall_smartcover.register_loophole(animpoint_stay_wall_loophole);
+        animpoint_stay_wall_smartcover.register_transition(animpoint_stay_wall_transition);
+        animpoint_stay_wall_smartcover.register_transition(animpoint_stay_wall_transition1);
+        this->m_registered_smartcovers["animpoint_stay_wall"] = animpoint_stay_wall_smartcover;
+#pragma endregion
+
+#pragma region Cordis Animpoint Stay Table Smart Cover
+
+#pragma endregion
+
 #pragma endregion
 
 #pragma region Cordis Animpoint System Table initialization
-        // @ Eatable
-        this->setRegisteredEatableVisuals("stalker_hero_1", true);
+            // @ Eatable
+            this->setRegisteredEatableVisuals("stalker_hero_1", true);
         this->setRegisteredEatableVisuals("stalker_hero_novice_1", true);
         this->setRegisteredEatableVisuals("stalker_hero_stalker_1", true);
         this->setRegisteredEatableVisuals("stalker_hero_dolg_1", true);
@@ -1857,7 +2011,7 @@ private:
         state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
             MonsterSpace::eBodyStateStand, Globals::kUnsignedInt32Undefined, "strapped", Globals::kStringUndefined,
             "probe_stand_detector_advanced");
-        state_lib_data["probe_stand_detector_advanced"] = state_lib_data;
+        state_library["probe_stand_detector_advanced"] = state_lib_data;
         state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
             MonsterSpace::eBodyStateStand, Globals::kUnsignedInt32Undefined, "strapped", Globals::kStringUndefined,
             "probe_stand_detector_elite");
@@ -2196,7 +2350,7 @@ public:
 
     inline void setAmmoSection(const std::pair<std::uint32_t, bool>& pair) noexcept
     {
-        if (!pair.first == Globals::kUnsignedInt32Undefined)
+        if (pair.first == Globals::kUnsignedInt32Undefined)
         {
             Msg("[Script_GlobalHelper/setAmmoSection(pair)] WARNING: pair.first = std::uint32_t(-1)! "
                 "Your value is undefined!!! No assignment!");
@@ -3083,7 +3237,8 @@ public:
         this->m_registered_harmonica_visuals[visual_name] = is_used;
     }
 
-    inline const xr_map<xr_string, std::pair<std::function<bool(std::uint16_t, bool)>, xr_string>>& getAnimpointTable(
+    inline const xr_map<xr_string, xr_vector<std::pair<std::function<bool(std::uint16_t, bool)>, xr_string>>>&
+    getAnimpointTable(
         void) noexcept
     {
         return this->m_animpoint_table;

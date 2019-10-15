@@ -15,122 +15,6 @@ namespace Cordis
 {
 namespace Scripts
 {
-struct StateLibData
-{
-    StateLibData(void) = default;
-    StateLibData(const std::uint32_t& movement_type, const std::uint32_t& mental_type,
-        const std::uint32_t& bodystate_type, const std::uint32_t& direction_type, const xr_string& weapon_name,
-        const xr_string& animstate_name, const xr_string& animation_name, bool is_fast_set = false,
-        const std::uint16_t& weapon_slot = 0, bool is_special_danger_move = false)
-        : m_movement_type(movement_type), m_mental_type(mental_type), m_bodystate_type(bodystate_type),
-          m_direction_type(direction_type), m_weapon_name(weapon_name), m_animstate_name(animstate_name),
-          m_animation_name(animation_name), m_is_special_danger_move(is_special_danger_move),
-          m_is_fast_set(is_fast_set), m_weapon_slot(weapon_slot)
-    {
-    }
-
-    inline bool IsFastSet(void) const noexcept { return this->m_is_fast_set; }
-    inline void setFastSet(const bool& value) noexcept { this->m_is_fast_set = value; }
-
-    inline bool IsSpecialDangerMove(void) const noexcept { return this->m_is_special_danger_move; }
-    inline void setSpecialDangerMove(const bool& value) noexcept { this->m_is_special_danger_move = value; }
-
-    inline std::uint16_t getWeaponSlot(void) const noexcept { return this->m_weapon_slot; }
-    inline void setWeaponSlot(const std::uint16_t& value) noexcept
-    {
-        if (value == Globals::kUnsignedInt16Undefined)
-        {
-            Msg("[StateLibData/setWeaponSlot(value)] WARNING: value = std::uint16_t(-1)! You are trying to set an undefined value! No assignment!");
-            return;
-        }
-
-        this->m_weapon_slot = value;
-    }
-
-    inline std::uint32_t getMovementType(void) const noexcept { return this->m_movement_type; }
-    inline void setMovementType(const std::uint32_t& value) noexcept
-    {
-        if (value == Globals::kUnsignedInt32Undefined)
-        {
-            Msg("[StateLibData/setMovementType(value)] WARNING: value = std::uint32_t(-1)!");
-        }
-
-        this->m_movement_type = value;
-    }
-    inline std::uint32_t getMentalType(void) const noexcept { return this->m_mental_type; }
-    inline void setMentalType(const std::uint32_t& value) noexcept
-    {
-        if (value == Globals::kUnsignedInt32Undefined)
-        {
-            Msg("[StateLibData/setMentalType(value)] WARNING: value = std::uint32_t(-1)!");
-        }
-
-        this->m_mental_type = value;
-    }
-    inline std::uint32_t getBodyStateType(void) const noexcept { return this->m_bodystate_type; }
-    inline void setBodyStateType(const std::uint32_t& value) noexcept
-    {
-        if (value == Globals::kUnsignedInt32Undefined)
-        {
-            Msg("[StateLibData/setBodyStateType(value)] WARNING: value = std::uint32_t(-1)!");
-        }
-
-        this->m_bodystate_type = value;
-    }
-    inline std::uint32_t getDirectionType(void) const noexcept { return this->m_direction_type; }
-    inline void setDirectionType(const std::uint32_t& value) noexcept
-    {
-        if (value == Globals::kUnsignedInt32Undefined)
-        {
-            Msg("[StateLibData/setDirectionType(value)] WARNING: value = std::uint32_t(-1)!");
-        }
-
-        this->m_direction_type = value;
-    }
-    inline const xr_string& getWeaponTypeName(void) const noexcept { return this->m_weapon_name; }
-    inline void setWeaponTypeName(const xr_string& string) noexcept
-    {
-        if (!string.size())
-        {
-            Msg("[StateLibData/setWeaponTypeName(string)] WARNING: string.size() = 0!");
-        }
-
-        this->m_weapon_name = string;
-    }
-    inline const xr_string& getAnimStateTypeName(void) const noexcept { return this->m_animstate_name; }
-    inline void setAnimStateTypeName(const xr_string& string) noexcept
-    {
-        if (!string.size())
-        {
-            Msg("[StateLibData/setAnimStateTypeName(string)] WARNING: string.size() = 0!");
-        }
-
-        this->m_animstate_name = string;
-    }
-    inline const xr_string& getAnimationName(void) const noexcept { return this->m_animation_name; }
-    inline void setAnimationName(const xr_string& string) noexcept
-    {
-        if (!string.size())
-        {
-            Msg("[StateLibData/setAnimationName(string)] WARNING: string.size() = 0!");
-        }
-
-        this->m_animation_name = string;
-    }
-
-private:
-    bool m_is_special_danger_move;
-    bool m_is_fast_set;
-    std::uint16_t m_weapon_slot;
-    std::uint32_t m_movement_type; // MonsterSpace::Enum*
-    std::uint32_t m_mental_type; // MonsterSpace::Enum*
-    std::uint32_t m_bodystate_type; // MonsterSpace::Enum*
-    std::uint32_t m_direction_type; // SightManager::ESightType
-    xr_string m_weapon_name;
-    xr_string m_animstate_name;
-    xr_string m_animation_name;
-};
-
 namespace Globals
 {
 #pragma region Cordis Constants
@@ -399,5 +283,124 @@ private:
 };
 #pragma endregion
 } // namespace Globals
+
+
+struct StateLibData
+{
+    StateLibData(void) = default;
+    StateLibData(const std::uint32_t& movement_type, const std::uint32_t& mental_type,
+        const std::uint32_t& bodystate_type, const std::uint32_t& direction_type, const xr_string& weapon_name,
+        const xr_string& animstate_name, const xr_string& animation_name, bool is_fast_set = false,
+        const std::uint16_t& weapon_slot = 0, bool is_special_danger_move = false)
+        : m_movement_type(movement_type), m_mental_type(mental_type), m_bodystate_type(bodystate_type),
+          m_direction_type(direction_type), m_weapon_name(weapon_name), m_animstate_name(animstate_name),
+          m_animation_name(animation_name), m_is_special_danger_move(is_special_danger_move),
+          m_is_fast_set(is_fast_set), m_weapon_slot(weapon_slot)
+    {
+    }
+
+    inline bool IsFastSet(void) const noexcept { return this->m_is_fast_set; }
+    inline void setFastSet(const bool& value) noexcept { this->m_is_fast_set = value; }
+
+    inline bool IsSpecialDangerMove(void) const noexcept { return this->m_is_special_danger_move; }
+    inline void setSpecialDangerMove(const bool& value) noexcept { this->m_is_special_danger_move = value; }
+
+    inline std::uint16_t getWeaponSlot(void) const noexcept { return this->m_weapon_slot; }
+    inline void setWeaponSlot(const std::uint16_t& value) noexcept
+    {
+        if (value == Globals::kUnsignedInt16Undefined)
+        {
+            Msg("[StateLibData/setWeaponSlot(value)] WARNING: value = std::uint16_t(-1)! You are trying to set an "
+                "undefined value! No assignment!");
+            return;
+        }
+
+        this->m_weapon_slot = value;
+    }
+
+    inline std::uint32_t getMovementType(void) const noexcept { return this->m_movement_type; }
+    inline void setMovementType(const std::uint32_t& value) noexcept
+    {
+        if (value == Globals::kUnsignedInt32Undefined)
+        {
+            Msg("[StateLibData/setMovementType(value)] WARNING: value = std::uint32_t(-1)!");
+        }
+
+        this->m_movement_type = value;
+    }
+    inline std::uint32_t getMentalType(void) const noexcept { return this->m_mental_type; }
+    inline void setMentalType(const std::uint32_t& value) noexcept
+    {
+        if (value == Globals::kUnsignedInt32Undefined)
+        {
+            Msg("[StateLibData/setMentalType(value)] WARNING: value = std::uint32_t(-1)!");
+        }
+
+        this->m_mental_type = value;
+    }
+    inline std::uint32_t getBodyStateType(void) const noexcept { return this->m_bodystate_type; }
+    inline void setBodyStateType(const std::uint32_t& value) noexcept
+    {
+        if (value == Globals::kUnsignedInt32Undefined)
+        {
+            Msg("[StateLibData/setBodyStateType(value)] WARNING: value = std::uint32_t(-1)!");
+        }
+
+        this->m_bodystate_type = value;
+    }
+    inline std::uint32_t getDirectionType(void) const noexcept { return this->m_direction_type; }
+    inline void setDirectionType(const std::uint32_t& value) noexcept
+    {
+        if (value == Globals::kUnsignedInt32Undefined)
+        {
+            Msg("[StateLibData/setDirectionType(value)] WARNING: value = std::uint32_t(-1)!");
+        }
+
+        this->m_direction_type = value;
+    }
+    inline const xr_string& getWeaponTypeName(void) const noexcept { return this->m_weapon_name; }
+    inline void setWeaponTypeName(const xr_string& string) noexcept
+    {
+        if (!string.size())
+        {
+            Msg("[StateLibData/setWeaponTypeName(string)] WARNING: string.size() = 0!");
+        }
+
+        this->m_weapon_name = string;
+    }
+    inline const xr_string& getAnimStateTypeName(void) const noexcept { return this->m_animstate_name; }
+    inline void setAnimStateTypeName(const xr_string& string) noexcept
+    {
+        if (!string.size())
+        {
+            Msg("[StateLibData/setAnimStateTypeName(string)] WARNING: string.size() = 0!");
+        }
+
+        this->m_animstate_name = string;
+    }
+    inline const xr_string& getAnimationName(void) const noexcept { return this->m_animation_name; }
+    inline void setAnimationName(const xr_string& string) noexcept
+    {
+        if (!string.size())
+        {
+            Msg("[StateLibData/setAnimationName(string)] WARNING: string.size() = 0!");
+        }
+
+        this->m_animation_name = string;
+    }
+
+private:
+    bool m_is_special_danger_move;
+    bool m_is_fast_set;
+    std::uint16_t m_weapon_slot;
+    std::uint32_t m_movement_type; // MonsterSpace::Enum*
+    std::uint32_t m_mental_type; // MonsterSpace::Enum*
+    std::uint32_t m_bodystate_type; // MonsterSpace::Enum*
+    std::uint32_t m_direction_type; // SightManager::ESightType
+    xr_string m_weapon_name;
+    xr_string m_animstate_name;
+    xr_string m_animation_name;
+};
+
 } // namespace Scripts
 } // namespace Cordis
