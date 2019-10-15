@@ -116,13 +116,13 @@ void Script_SE_SmartCover::on_register(void)
 
     Msg("[Scripts/Script_SE_SmartCover/on_register()] Registering Script_SE_SmartCover [%s] entity to "
         "GameRegisteredServerSmartCoversByLevelID",
-        this->name());
+        this->name_replace());
     Script_GlobalHelper::getInstance().setGameRegisteredServerSmartCoversByLevelID(level_id, this->m_tNodeID, this);
 }
 
 void Script_SE_SmartCover::on_unregister(void)
 {
-    Msg("[Scripts/Script_SE_SmartCover/on_unregister()] Unregistering Script_SE_SmartCover [%s] entity!", this->name());
+    Msg("[Scripts/Script_SE_SmartCover/on_unregister()] Unregistering Script_SE_SmartCover [%s] entity!", this->name_replace());
     Script_StoryObject::getInstance().unregistrate_by_id(this->ID);
     const std::uint8_t& level_id = GEnv.AISpace->game_graph().vertex(this->m_tGraphID)->level_id();
     // @ Lord: здесь наверное просто зануление а не удаление сущности из памяти!

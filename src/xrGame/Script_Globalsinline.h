@@ -126,7 +126,8 @@ inline bool predicate_animpoint_energy(std::uint16_t npc_id, bool)
         {
             if (Script_GlobalHelper::getInstance().getRegisteredEatableVisuals().at(
                     DataBase::Storage::getInstance().getStorage().at(npc_id).getClientObject()->get_visual_name()) &&
-                DataBase::Storage::getInstance().getStorage().at(npc_id).getClientObject()->GetObjectByName("energy_drink"))
+                DataBase::Storage::getInstance().getStorage().at(npc_id).getClientObject()->GetObjectByName(
+                    "energy_drink"))
                 return true;
         }
     }
@@ -153,7 +154,8 @@ inline bool predicate_animpoint_harmonica(std::uint16_t npc_id, bool is_in_camp)
         {
             if (Script_GlobalHelper::getInstance().getRegisteredEatableVisuals().at(
                     DataBase::Storage::getInstance().getStorage().at(npc_id).getClientObject()->get_visual_name()) &&
-                DataBase::Storage::getInstance().getStorage().at(npc_id).getClientObject()->GetObjectByName("harmonica_a"))
+                DataBase::Storage::getInstance().getStorage().at(npc_id).getClientObject()->GetObjectByName(
+                    "harmonica_a"))
                 return true;
         }
     }
@@ -162,8 +164,7 @@ inline bool predicate_animpoint_harmonica(std::uint16_t npc_id, bool is_in_camp)
 }
 
 // Lord: Реализовать когда будет XR_GULAG
-inline bool predicate_animpoint_weapon(std::uint16_t npc_id, bool) 
-{ return false; }
+inline bool predicate_animpoint_weapon(std::uint16_t npc_id, bool) { return false; }
 
 inline std::uint32_t vertex_in_direction(
     const std::uint32_t& level_vertex_id, Fvector& direction, const float& max_distance)
@@ -406,7 +407,8 @@ inline bool has_alife_info(LPCSTR info_id)
 
     if (!known_info)
     {
-        R_ASSERT2(false, "object in null!");
+        //   R_ASSERT2(false, "object in null!");
+        Msg("[Scripts/Globals/has_alife_info(info_id_name)] known_info = nullptr! Return false!");
         return false;
     }
 
@@ -573,7 +575,8 @@ inline void change_team_squad_group(CSE_ALifeDynamicObject* server_object, const
         return;
     }
 
-    CScriptGameObject* client_object = DataBase::Storage::getInstance().getStorage().at(server_object->ID).getClientObject();
+    CScriptGameObject* client_object =
+        DataBase::Storage::getInstance().getStorage().at(server_object->ID).getClientObject();
 
     if (!client_object)
     {
