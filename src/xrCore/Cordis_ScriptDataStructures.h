@@ -14,6 +14,16 @@ struct CondlistData
         xr_string m_function_name = "";
         xr_string m_infopotion_name = "";
         xr_string m_params = "";
+
+        inline void clear(void) noexcept 
+        { 
+            this->m_required = false;
+            this->m_expected = false;
+            this->m_prob = 0;
+            this->m_function_name.clear();
+            this->m_infopotion_name.clear();
+            this->m_params.clear();
+        }
     };
 
     xr_map<std::uint32_t, CondlistValues> m_infop_check;
