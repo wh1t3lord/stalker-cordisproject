@@ -1367,7 +1367,6 @@ inline xr_string pick_section_from_condlist(
                                 "Can not set an infoportion [%s] for actor, because "
                                 "DataBase::Storage::getInstane().getActor() == nullptr!",
                                 it_infoportion_set.second.m_infopotion_name.c_str());
-                       // actor->GiveInfoPortion(it_infoportion_set.second.m_infopotion_name.c_str());
                     }
                 }
                 else if (!it_infoportion_set.second.m_required)
@@ -1382,7 +1381,6 @@ inline xr_string pick_section_from_condlist(
                                 "Can not set an infoportion [%s] for actor, because "
                                 "DataBase::Storage::getInstane().getActor() == nullptr!",
                                 it_infoportion_set.second.m_infopotion_name.c_str());
-                       // actor->DisableInfoPortion(it_infoportion_set.second.m_infopotion_name.c_str());
                     }
                 }
             }
