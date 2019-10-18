@@ -3456,6 +3456,473 @@ private:
             Globals::kStringUndefined, "pri_a25_psy_medic_out");
         state_library["pri_a25_psy_medic_out"] = state_lib_data;
         #pragma endregion
+        
+        #pragma region Cordis State Library PriA15
+        state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
+            MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "none",
+            Globals::kStringUndefined, "pri_a15_idle_none");
+        state_library["pri_a15_idle_none"] = state_lib_data;
+        state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
+            MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "strapped",
+            Globals::kStringUndefined, "pri_a15_idle_none");
+        state_library["pri_a15_idle_strap"] = state_lib_data;
+        state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
+            MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "unstrapped",
+            Globals::kStringUndefined, "pri_a15_idle_unstrap");
+        state_library["pri_a15_idle_unstrap"] = state_lib_data;
+        state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
+            MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "none",
+            Globals::kStringUndefined, "pri_a15_vano_all");
+        state_library["pri_a15_vano_all"] = state_lib_data;
+        state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
+            MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "none",
+            Globals::kStringUndefined, "pri_a15_vano_1_sokolov");
+        state_library["pri_a15_vano_1_sokolov"] = state_lib_data;
+        state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
+            MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "none",
+            Globals::kStringUndefined, "pri_a15_vano_1_zulus");
+        state_library["pri_a15_vano_1_zulus"] = state_lib_data;
+        state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
+            MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "none",
+            Globals::kStringUndefined, "pri_a15_vano_1_wanderer");
+        state_library["pri_a15_vano_1_wanderer"] = state_lib_data;
+        state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
+            MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "none",
+            Globals::kStringUndefined, "pri_a15_vano_2_sokolov_zulus");
+        state_library["pri_a15_vano_2_sokolov_zulus"] = state_lib_data;
+        state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
+            MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "none",
+            Globals::kStringUndefined, "pri_a15_vano_2_sokolov_wanderer");
+        state_library["pri_a15_vano_2_sokolov_wanderer"] = state_lib_data;
+        state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
+            MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "none",
+            Globals::kStringUndefined, "pri_a15_vano_2_zulus_wanderer");
+        state_library["pri_a15_vano_2_zulus_wanderer"] = state_lib_data;
+        state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
+            MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "none",
+            Globals::kStringUndefined, "pri_a15_vano_3_vano_alive");
+        state_library["pri_a15_vano_3_vano_alive"] = state_lib_data;
+        state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
+            MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "none",
+            Globals::kStringUndefined, "pri_a15_sokolov_all");
+        state_library["pri_a15_sokolov_all"] = state_lib_data;
+        state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
+            MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "none",
+            Globals::kStringUndefined, "pri_a15_sokolov_1_vano");
+        state_library["pri_a15_sokolov_1_vano"] = state_lib_data;
+        state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
+            MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "none",
+            Globals::kStringUndefined, "pri_a15_sokolov_1_zulus");
+        state_library["pri_a15_sokolov_1_zulus"] = state_lib_data;
+        state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
+            MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "none",
+            Globals::kStringUndefined, "pri_a15_sokolov_1_wanderer");
+        state_library["pri_a15_sokolov_1_wanderer"] = state_lib_data;
+        state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
+            MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "none",
+            Globals::kStringUndefined, "pri_a15_sokolov_2_vano_zulus");
+        state_library["pri_a15_sokolov_2_vano_zulus"] = state_lib_data;
+        state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
+            MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "none",
+            Globals::kStringUndefined, "pri_a15_sokolov_2_vano_wanderer");
+        state_library["pri_a15_sokolov_2_vano_wanderer"] = state_lib_data;
+        state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
+            MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "none",
+            Globals::kStringUndefined, "pri_a15_sokolov_2_zulus_wanderer");
+        state_library["pri_a15_sokolov_2_zulus_wanderer"] = state_lib_data;
+        state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
+            MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "none",
+            Globals::kStringUndefined, "pri_a15_sokolov_3_sokolov_alive");
+        state_library["pri_a15_sokolov_3_sokolov_alive"] = state_lib_data;
+        state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
+            MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "unstrapped",
+            Globals::kStringUndefined, "pri_a15_zulus_all");
+        state_library["pri_a15_zulus_all"] = state_lib_data;
+        state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
+            MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "unstrapped",
+            Globals::kStringUndefined, "pri_a15_zulus_1_vano");
+        state_library["pri_a15_zulus_1_vano"] = state_lib_data;
+        state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
+            MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "unstrapped",
+            Globals::kStringUndefined, "pri_a15_zulus_1_sokolov");
+        state_library["pri_a15_zulus_1_sokolov"] = state_lib_data;
+        state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
+            MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "unstrapped",
+            Globals::kStringUndefined, "pri_a15_zulus_1_wanderer");
+        state_library["pri_a15_zulus_1_wanderer"] = state_lib_data;
+        state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
+            MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "unstrapped",
+            Globals::kStringUndefined, "pri_a15_zulus_2_vano_sokolov");
+        state_library["pri_a15_zulus_2_vano_sokolov"] = state_lib_data;
+        state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
+            MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "unstrapped",
+            Globals::kStringUndefined, "pri_a15_zulus_2_vano_wanderer");
+        state_library["pri_a15_zulus_2_vano_wanderer"] = state_lib_data;
+        state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
+            MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "unstrapped",
+            Globals::kStringUndefined, "pri_a15_zulus_2_sokolov_wanderer");
+        state_library["pri_a15_zulus_2_sokolov_wanderer"] = state_lib_data;
+        state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
+            MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "unstrapped",
+            Globals::kStringUndefined, "pri_a15_zulus_3_zulus_alive");
+        state_library["pri_a15_zulus_3_zulus_alive"] = state_lib_data;
+        state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
+            MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "unstrapped",
+            Globals::kStringUndefined, "pri_a15_wanderer_all");
+        state_library["pri_a15_wanderer_all"] = state_lib_data;
+        state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
+            MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "none",
+            Globals::kStringUndefined, "pri_a15_wanderer_1_vano");
+        state_library["pri_a15_wanderer_1_vano"] = state_lib_data;
+        state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
+            MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "none",
+            Globals::kStringUndefined, "pri_a15_wanderer_1_sokolov");
+        state_library["pri_a15_wanderer_1_sokolov"] = state_lib_data;
+        state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
+            MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "none",
+            Globals::kStringUndefined, "pri_a15_wanderer_1_zulus");
+        state_library["pri_a15_wanderer_1_zulus"] = state_lib_data;
+        state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
+            MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "none",
+            Globals::kStringUndefined, "pri_a15_wanderer_2_vano_sokolov");
+        state_library["pri_a15_wanderer_2_vano_sokolov"] = state_lib_data;
+        state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
+            MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "none",
+            Globals::kStringUndefined, "pri_a15_wanderer_2_vano_zulus");
+        state_library["pri_a15_wanderer_2_vano_zulus"] = state_lib_data;
+        state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
+            MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "none",
+            Globals::kStringUndefined, "pri_a15_wanderer_2_sokolov_zulus");
+        state_library["pri_a15_wanderer_2_sokolov_zulus"] = state_lib_data;
+        state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
+            MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "none",
+            Globals::kStringUndefined, "pri_a15_wanderer_3_wanderer_alive");
+        state_library["pri_a15_wanderer_3_wanderer_alive"] = state_lib_data;
+        state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
+            MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "none",
+            Globals::kStringUndefined, "pri_a15_actor_all");
+        state_library["pri_a15_actor_all"] = state_lib_data;
+        state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
+            MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "none",
+            Globals::kStringUndefined, "pri_a15_actor_1_vano");
+        state_library["pri_a15_actor_1_vano"] = state_lib_data;
+        state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
+            MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "none",
+            Globals::kStringUndefined, "pri_a15_actor_1_sokolov");
+        state_library["pri_a15_actor_1_sokolov"] = state_lib_data;
+        state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
+            MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "none",
+            Globals::kStringUndefined, "pri_a15_actor_1_zulus");
+        state_library["pri_a15_actor_1_zulus"] = state_lib_data;
+        state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
+            MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "none",
+            Globals::kStringUndefined, "pri_a15_actor_1_wanderer");
+        state_library["pri_a15_actor_1_wanderer"] = state_lib_data;
+        state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
+            MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "none",
+            Globals::kStringUndefined, "pri_a15_actor_2_vano_sokolov");
+        state_library["pri_a15_actor_2_vano_sokolov"] = state_lib_data;
+        state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
+            MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "none",
+            Globals::kStringUndefined, "pri_a15_actor_2_vano_zulus");
+        state_library["pri_a15_actor_2_vano_zulus"] = state_lib_data;
+        state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
+            MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "none",
+            Globals::kStringUndefined, "pri_a15_actor_2_vano_wanderer");
+        state_library["pri_a15_actor_2_vano_wanderer"] = state_lib_data;
+        state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
+            MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "none",
+            Globals::kStringUndefined, "pri_a15_actor_2_sokolov_zulus");
+        state_library["pri_a15_actor_2_sokolov_zulus"] = state_lib_data;
+        state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
+            MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "none",
+            Globals::kStringUndefined, "pri_a15_actor_2_sokolov_wanderer");
+        state_library["pri_a15_actor_2_sokolov_wanderer"] = state_lib_data;
+        state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
+            MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "none",
+            Globals::kStringUndefined, "pri_a15_actor_2_zulus_wanderer");
+        state_library["pri_a15_actor_2_zulus_wanderer"] = state_lib_data;
+        state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
+            MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "none",
+            Globals::kStringUndefined, "pri_a15_actor_3_vano_alive");
+        state_library["pri_a15_actor_3_vano_alive"] = state_lib_data;
+        state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
+            MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "none",
+            Globals::kStringUndefined, "pri_a15_actor_3_sokolov_alive");
+        state_library["pri_a15_actor_3_sokolov_alive"] = state_lib_data;
+        state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
+            MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "none",
+            Globals::kStringUndefined, "pri_a15_actor_3_zulus_alive");
+        state_library["pri_a15_actor_3_zulus_alive"] = state_lib_data;
+        state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
+            MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "none",
+            Globals::kStringUndefined, "pri_a15_actor_3_wanderer_alive");
+        state_library["pri_a15_actor_3_wanderer_alive"] = state_lib_data;
+        state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
+            MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "none",
+            Globals::kStringUndefined, "pri_a15_actor_all_dead");
+        state_library["pri_a15_actor_all_dead"] = state_lib_data;
+        state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
+            MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "unstrapped",
+            Globals::kStringUndefined, "pri_a15_military_tarasov_all");
+        state_library["pri_a15_military_tarasov_all"] = state_lib_data;
+        state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
+            MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "unstrapped",
+            Globals::kStringUndefined, "pri_a15_military_tarasov_1_vano");
+        state_library["pri_a15_military_tarasov_1_vano"] = state_lib_data;
+        state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
+            MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "unstrapped",
+            Globals::kStringUndefined, "pri_a15_military_tarasov_1_sokolov");
+        state_library["pri_a15_military_tarasov_1_sokolov"] = state_lib_data;
+        state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
+            MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "unstrapped",
+            Globals::kStringUndefined, "pri_a15_military_tarasov_1_zulus");
+        state_library["pri_a15_military_tarasov_1_zulus"] = state_lib_data;
+        state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
+            MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "unstrapped",
+            Globals::kStringUndefined, "pri_a15_military_tarasov_1_wanderer");
+        state_library["pri_a15_military_tarasov_1_wanderer"] = state_lib_data;
+        state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
+            MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "unstrapped",
+            Globals::kStringUndefined, "pri_a15_military_tarasov_2_vano_sokolov");
+        state_library["pri_a15_military_tarasov_2_vano_sokolov"] = state_lib_data;
+        state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
+            MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "unstrapped",
+            Globals::kStringUndefined, "pri_a15_military_tarasov_2_vano_zulus");
+        state_library["pri_a15_military_tarasov_2_vano_zulus"] = state_lib_data;
+        state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
+            MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "unstrapped",
+            Globals::kStringUndefined, "pri_a15_military_tarasov_2_vano_wanderer");
+        state_library["pri_a15_military_tarasov_2_vano_wanderer"] = state_lib_data;
+        state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
+            MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "unstrapped",
+            Globals::kStringUndefined, "pri_a15_military_tarasov_2_sokolov_zulus");
+        state_library["pri_a15_military_tarasov_2_sokolov_zulus"] = state_lib_data;
+        state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
+            MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "unstrapped",
+            Globals::kStringUndefined, "pri_a15_military_tarasov_2_sokolov_wanderer");
+        state_library["pri_a15_military_tarasov_2_sokolov_wanderer"] = state_lib_data;
+        state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
+            MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "unstrapped",
+            Globals::kStringUndefined, "pri_a15_military_tarasov_2_zulus_wanderer");
+        state_library["pri_a15_military_tarasov_2_zulus_wanderer"] = state_lib_data;
+        state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
+            MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "unstrapped",
+            Globals::kStringUndefined, "pri_a15_military_tarasov_3_vano_alive");
+        state_library["pri_a15_military_tarasov_3_vano_alive"] = state_lib_data;
+        state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
+            MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "unstrapped",
+            Globals::kStringUndefined, "pri_a15_military_tarasov_3_sokolov_alive");
+        state_library["pri_a15_military_tarasov_3_sokolov_alive"] = state_lib_data;
+        state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
+            MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "unstrapped",
+            Globals::kStringUndefined, "pri_a15_military_tarasov_3_zulus_alive");
+        state_library["pri_a15_military_tarasov_3_zulus_alive"] = state_lib_data;
+        state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
+            MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "unstrapped",
+            Globals::kStringUndefined, "pri_a15_military_tarasov_3_wanderer_alive");
+        state_library["pri_a15_military_tarasov_3_wanderer_alive"] = state_lib_data;
+        state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
+            MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "unstrapped",
+            Globals::kStringUndefined, "pri_a15_military_tarasov_all_dead");
+        state_library["pri_a15_military_tarasov_all_dead"] = state_lib_data;
+        state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
+            MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "unstrapped",
+            Globals::kStringUndefined, "pri_a15_military_2_all");
+        state_library["pri_a15_military_2_all"] = state_lib_data;
+        state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
+            MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "unstrapped",
+            Globals::kStringUndefined, "pri_a15_military_2_1_vano");
+        state_library["pri_a15_military_2_1_vano"] = state_lib_data;
+        state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
+            MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "unstrapped",
+            Globals::kStringUndefined, "pri_a15_military_2_1_sokolov");
+        state_library["pri_a15_military_2_1_sokolov"] = state_lib_data;
+        state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
+            MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "unstrapped",
+            Globals::kStringUndefined, "pri_a15_military_2_1_zulus");
+        state_library["pri_a15_military_2_1_zulus"] = state_lib_data;
+        state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
+            MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "unstrapped",
+            Globals::kStringUndefined, "pri_a15_military_2_1_wanderer");
+        state_library["pri_a15_military_2_1_wanderer"] = state_lib_data;
+        state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
+            MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "unstrapped",
+            Globals::kStringUndefined, "pri_a15_military_2_2_vano_sokolov");
+        state_library["pri_a15_military_2_2_vano_sokolov"] = state_lib_data;
+        state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
+            MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "unstrapped",
+            Globals::kStringUndefined, "pri_a15_military_2_2_vano_zulus");
+        state_library["pri_a15_military_2_2_vano_zulus"] = state_lib_data;
+        state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
+            MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "unstrapped",
+            Globals::kStringUndefined, "pri_a15_military_2_2_vano_wanderer");
+        state_library["pri_a15_military_2_2_vano_wanderer"] = state_lib_data;
+        state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
+            MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "unstrapped",
+            Globals::kStringUndefined, "pri_a15_military_2_2_sokolov_zulus");
+        state_library["pri_a15_military_2_2_sokolov_zulus"] = state_lib_data;
+        state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
+            MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "unstrapped",
+            Globals::kStringUndefined, "pri_a15_military_2_2_sokolov_wanderer");
+        state_library["pri_a15_military_2_2_sokolov_wanderer"] = state_lib_data;
+        state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
+            MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "unstrapped",
+            Globals::kStringUndefined, "pri_a15_military_2_2_zulus_wanderer");
+        state_library["pri_a15_military_2_2_zulus_wanderer"] = state_lib_data;
+        state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
+            MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "unstrapped",
+            Globals::kStringUndefined, "pri_a15_military_2_3_vano_alive");
+        state_library["pri_a15_military_2_3_vano_alive"] = state_lib_data;
+        state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
+            MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "unstrapped",
+            Globals::kStringUndefined, "pri_a15_military_2_3_sokolov_alive");
+        state_library["pri_a15_military_2_3_sokolov_alive"] = state_lib_data;
+        state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
+            MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "unstrapped",
+            Globals::kStringUndefined, "pri_a15_military_2_3_zulus_alive");
+        state_library["pri_a15_military_2_3_zulus_alive"] = state_lib_data;
+        state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
+            MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "unstrapped",
+            Globals::kStringUndefined, "pri_a15_military_2_3_wanderer_alive");
+        state_library["pri_a15_military_2_3_wanderer_alive"] = state_lib_data;
+        state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
+            MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "unstrapped",
+            Globals::kStringUndefined, "pri_a15_military_2_all_dead");
+        state_library["pri_a15_military_2_all_dead"] = state_lib_data;
+        state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
+            MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "unstrapped",
+            Globals::kStringUndefined, "pri_a15_military_3_all");
+        state_library["pri_a15_military_3_all"] = state_lib_data;
+        state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
+            MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "unstrapped",
+            Globals::kStringUndefined, "pri_a15_military_3_1_vano");
+        state_library["pri_a15_military_3_1_vano"] = state_lib_data;
+        state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
+            MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "unstrapped",
+            Globals::kStringUndefined, "pri_a15_military_3_1_sokolov");
+        state_library["pri_a15_military_3_1_sokolov"] = state_lib_data;
+        state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
+            MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "unstrapped",
+            Globals::kStringUndefined, "pri_a15_military_3_1_zulus");
+        state_library["pri_a15_military_3_1_zulus"] = state_lib_data;
+        state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
+            MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "unstrapped",
+            Globals::kStringUndefined, "pri_a15_military_3_1_wanderer");
+        state_library["pri_a15_military_3_1_wanderer"] = state_lib_data;
+        state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
+            MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "unstrapped",
+            Globals::kStringUndefined, "pri_a15_military_3_2_vano_sokolov");
+        state_library["pri_a15_military_3_2_vano_sokolov"] = state_lib_data;
+        state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
+            MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "unstrapped",
+            Globals::kStringUndefined, "pri_a15_military_3_2_vano_zulus");
+        state_library["pri_a15_military_3_2_vano_zulus"] = state_lib_data;
+        state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
+            MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "unstrapped",
+            Globals::kStringUndefined, "pri_a15_military_3_2_vano_wanderer");
+        state_library["pri_a15_military_3_2_vano_wanderer"] = state_lib_data;
+        state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
+            MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "unstrapped",
+            Globals::kStringUndefined, "pri_a15_military_3_2_sokolov_zulus");
+        state_library["pri_a15_military_3_2_sokolov_zulus"] = state_lib_data;
+        state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
+            MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "unstrapped",
+            Globals::kStringUndefined, "pri_a15_military_3_2_sokolov_wanderer");
+        state_library["pri_a15_military_3_2_sokolov_wanderer"] = state_lib_data;
+        state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
+            MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "unstrapped",
+            Globals::kStringUndefined, "pri_a15_military_3_2_zulus_wanderer");
+        state_library["pri_a15_military_3_2_zulus_wanderer"] = state_lib_data;
+        state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
+            MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "unstrapped",
+            Globals::kStringUndefined, "pri_a15_military_3_3_vano_alive");
+        state_library["pri_a15_military_3_3_vano_alive"] = state_lib_data;
+        state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
+            MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "unstrapped",
+            Globals::kStringUndefined, "pri_a15_military_3_3_sokolov_alive");
+        state_library["pri_a15_military_3_3_sokolov_alive"] = state_lib_data;
+        state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
+            MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "unstrapped",
+            Globals::kStringUndefined, "pri_a15_military_3_3_zulus_alive");
+        state_library["pri_a15_military_3_3_zulus_alive"] = state_lib_data;
+        state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
+            MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "unstrapped",
+            Globals::kStringUndefined, "pri_a15_military_3_3_wanderer_alive");
+        state_library["pri_a15_military_3_3_wanderer_alive"] = state_lib_data;
+        state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
+            MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "unstrapped",
+            Globals::kStringUndefined, "pri_a15_military_3_all_dead");
+        state_library["pri_a15_military_3_all_dead"] = state_lib_data;
+        state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
+            MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "unstrapped",
+            Globals::kStringUndefined, "pri_a15_military_4_all");
+        state_library["pri_a15_military_4_all"] = state_lib_data;
+        state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
+            MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "unstrapped",
+            Globals::kStringUndefined, "pri_a15_military_4_1_vano");
+        state_library["pri_a15_military_4_1_vano"] = state_lib_data;
+        state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
+            MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "unstrapped",
+            Globals::kStringUndefined, "pri_a15_military_4_1_vano");
+        state_library["pri_a15_military_4_1_vano"] = state_lib_data;
+        state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
+            MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "unstrapped",
+            Globals::kStringUndefined, "pri_a15_military_4_1_sokolov");
+        state_library["pri_a15_military_4_1_sokolov"] = state_lib_data;
+        state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
+            MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "unstrapped",
+            Globals::kStringUndefined, "pri_a15_military_4_1_zulus");
+        state_library["pri_a15_military_4_1_zulus"] = state_lib_data;
+        state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
+            MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "unstrapped",
+            Globals::kStringUndefined, "pri_a15_military_4_1_wanderer");
+        state_library["pri_a15_military_4_1_wanderer"] = state_lib_data;
+        state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
+            MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "unstrapped",
+            Globals::kStringUndefined, "pri_a15_military_4_2_vano_sokolov");
+        state_library["pri_a15_military_4_2_vano_sokolov"] = state_lib_data;
+        state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
+            MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "unstrapped",
+            Globals::kStringUndefined, "pri_a15_military_4_2_vano_zulus");
+        state_library["pri_a15_military_4_2_vano_zulus"] = state_lib_data;
+        state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
+            MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "unstrapped",
+            Globals::kStringUndefined, "pri_a15_military_4_2_vano_wanderer");
+        state_library["pri_a15_military_4_2_vano_wanderer"] = state_lib_data;
+        state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
+            MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "unstrapped",
+            Globals::kStringUndefined, "pri_a15_military_4_2_sokolov_zulus");
+        state_library["pri_a15_military_4_2_sokolov_zulus"] = state_lib_data;
+        state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
+            MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "unstrapped",
+            Globals::kStringUndefined, "pri_a15_military_4_2_sokolov_wanderer");
+        state_library["pri_a15_military_4_2_sokolov_wanderer"] = state_lib_data;
+        state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
+            MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "unstrapped",
+            Globals::kStringUndefined, "pri_a15_military_4_2_zulus_wanderer");
+        state_library["pri_a15_military_4_2_zulus_wanderer"] = state_lib_data;
+        state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
+            MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "unstrapped",
+            Globals::kStringUndefined, "pri_a15_military_4_3_vano_alive");
+        state_library["pri_a15_military_4_3_vano_alive"] = state_lib_data;
+        state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
+            MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "unstrapped",
+            Globals::kStringUndefined, "pri_a15_military_4_3_sokolov_alive");
+        state_library["pri_a15_military_4_3_sokolov_alive"] = state_lib_data;
+        state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
+            MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "unstrapped",
+            Globals::kStringUndefined, "pri_a15_military_4_3_zulus_alive");
+        state_library["pri_a15_military_4_3_zulus_alive"] = state_lib_data;
+        state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
+            MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "unstrapped",
+            Globals::kStringUndefined, "pri_a15_military_4_3_wanderer_alive");
+        state_library["pri_a15_military_4_3_wanderer_alive"] = state_lib_data;
+        state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
+            MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "unstrapped",
+            Globals::kStringUndefined, "pri_a15_military_4_all_dead");
+        state_library["pri_a15_military_4_all_dead"] = state_lib_data;
+        #pragma endregion
 #pragma endregion
 
 #pragma region SmartTerrain Initializing
