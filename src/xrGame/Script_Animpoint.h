@@ -30,7 +30,7 @@ public:
         smart_direction = this->m_smart_direction;
     }
 
-    inline xr_string getAction(void) const noexcept { return this->m_current_action; }
+    inline xr_string getActionName(void) const noexcept { return this->m_current_action_name; }
 #pragma endregion
 
     bool is_position_riched(void);
@@ -51,7 +51,7 @@ private:
     Fvector m_smart_direction;
     xr_vector<std::pair<std::function<bool(std::uint16_t, bool)>, xr_string>> m_avail_actions;
     DataBase::StorageAnimpoint_Data* m_storage;
-    xr_string m_current_action;
+    xr_string m_current_action_name;
     xr_string m_cover_name;
 };
 } // namespace Scripts
