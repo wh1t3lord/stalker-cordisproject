@@ -40,7 +40,25 @@ void Script_Animpoint::activate_scheme(void)
                                                           0, this->m_storage->getApprovedActions().size()))
                                                       .second;
 
+            const xr_string& current_state_animstate_name =
+                Script_GlobalHelper::getInstance().getStateLibrary().at(target_action_name).getAnimStateTypeName();
+            const xr_string& target_state_animstate_name = Script_GlobalHelper::getInstance()
+                                                               .getStateLibrary()
+                                                               .at(this->m_current_action_name)
+                                                               .getAnimStateTypeName();
 
+            if (current_state_animstate_name == target_state_animstate_name)
+            {
+                Msg("[Script_Animpoint/activate_scheme()] No animpoint stop");
+
+                if (target_action_name != this->m_current_action_name)
+                {
+                    this->m_current_action_name = this->m_storage->getApprovedActions().at(Globals::Script_RandomInt::getInstance().Generate(0, this->m_storage->getApprovedActions().size())).second;
+                    return;
+                }
+            }
+
+            this->stop();
         }
     }
 }
@@ -64,7 +82,9 @@ void Script_Animpoint::fill_approved_actions(void)
             {
                 if (it.first(this->m_npc_id, is_in_camp))
                 {
-                    this->m_storage->setApprovedAction(nullptr, it.second); // Lord: проследить где вызывается метод если он в итоге вызывается, а то может вылететь из-за nullptr, хотя так и должны устаналивать!
+                    this->m_storage->setApprovedAction(
+                        nullptr, it.second); // Lord: проследить где вызывается метод если он в итоге вызывается, а то
+                                             // может вылететь из-за nullptr, хотя так и должны устаналивать!
                 }
             }
         }
@@ -72,7 +92,9 @@ void Script_Animpoint::fill_approved_actions(void)
 
     if (!this->m_storage->getApprovedActions().size())
     {
-        Msg("[Script_Animpoint/fill_approved_actions()] ERROR: There is no approved actions for stalker[%s] in animpoint[%s]", DataBase::Storage::getInstance().getStorage().at(this->m_npc_id).getClientObject()->Name()); 
+        Msg("[Script_Animpoint/fill_approved_actions()] ERROR: There is no approved actions for stalker[%s] in "
+            "animpoint[%s]",
+            DataBase::Storage::getInstance().getStorage().at(this->m_npc_id).getClientObject()->Name());
         R_ASSERT(false);
     }
 }

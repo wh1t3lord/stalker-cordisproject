@@ -44,5 +44,4 @@ void XRCORE_API FlushLog();
 
 extern XRCORE_API xr_vector<xr_string> LogFile;
 extern XRCORE_API BOOL LogExecCB;
-
 #endif
