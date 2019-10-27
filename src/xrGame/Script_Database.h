@@ -266,6 +266,16 @@ public:
         this->m_approved_actions.push_back(insert_pair);
     }
 
+    inline void setDescriptionName(const xr_string& description_name) noexcept
+    {
+        if (!description_name.size())
+        {
+            Msg("[Scripts/DataBase/StorageAnimpoint_Data/setDescriptionName(description_name)] WARNING: you are trying to set an empty string!");
+        }
+
+        this->m_description_name = description_name;
+    }
+
     inline float getReachedDistance(void) const noexcept { return this->m_reached_distance; }
     inline xr_string getCoverName(void) const noexcept { return this->m_cover_name; }
     inline xr_string getDescriptionName(void) const noexcept { return this->m_description_name; }
@@ -1003,7 +1013,8 @@ public:
     {
         if (id == Globals::kUnsignedInt16Undefined)
         {
-            Msg("[DataBase/Storage/setSignal(id, signal_name, value)] WARNING: id = std::uint16_t(-1)! You are trying to get access through an undefined value! No assignment!");
+            Msg("[DataBase/Storage/setSignal(id, signal_name, value)] WARNING: id = std::uint16_t(-1)! You are trying "
+                "to get access through an undefined value! No assignment!");
             return;
         }
 
