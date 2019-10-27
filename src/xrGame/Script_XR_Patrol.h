@@ -243,7 +243,7 @@ public:
         Fvector direction_commander = commander->Direction();
         Fvector position = Fvector().set(0.0f, 0.0f, 0.0f);
         std::uint32_t vertex_id = commander->location_on_path(5, &position);
-        if (Globals::vertex_position(vertex_id).distance_to(
+        if (Globals::Game::level::vertex_position(vertex_id).distance_to(
                 this->m_npc_list[this->m_commander_id].m_soldier->Position()) > 5.0f)
             vertex_id = commander->level_vertex_id();
 

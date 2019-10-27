@@ -1754,7 +1754,8 @@ inline bool check_smart_alarm_status(
     }
 
     const xr_string& smart_name = buffer[0];
-    Script_SmartTerrainControl_States state = Script_GlobalHelper::getInstance().getRegisteredSmartTerrainControlScriptStates().at(buffer[1]);
+    Script_SmartTerrainControl_States state =
+        Script_GlobalHelper::getInstance().getRegisteredSmartTerrainControlScriptStates().at(buffer[1]);
 
     Script_SE_SmartTerrain* smart = Script_SimulationBoard::getInstance().getSmartTerrainsByName().at(smart_name);
     Script_SmartTerrainControl* smart_control = smart->getBaseOnActorControl();
@@ -2827,8 +2828,7 @@ inline bool is_squad_in_zone_all(CScriptGameObject* actor, CScriptGameObject* np
          it != server_squad->squad_members().end(); ++it)
     {
         const Fvector& position = (!!DataBase::Storage::getInstance().getStorage().at(it->first).getClientObject()) ?
-            DataBase::Storage::getInstance().getStorage().at(it->first).getClientObject()->Position()
-                :
+            DataBase::Storage::getInstance().getStorage().at(it->first).getClientObject()->Position() :
             it->second->Position();
 
         if (!client_zone->inside(position))
@@ -2873,8 +2873,7 @@ inline bool is_squad_in_zone_all(
          it != server_squad->squad_members().end(); ++it)
     {
         const Fvector& position = (!!DataBase::Storage::getInstance().getStorage().at(it->first).getClientObject()) ?
-            DataBase::Storage::getInstance().getStorage().at(it->first).getClientObject()->Position()
-                :
+            DataBase::Storage::getInstance().getStorage().at(it->first).getClientObject()->Position() :
             it->second->Position();
 
         if (!client_zone->inside(position))
@@ -2919,8 +2918,7 @@ inline bool is_squad_in_zone_all(
          it != server_squad->squad_members().end(); ++it)
     {
         const Fvector& position = (!!DataBase::Storage::getInstance().getStorage().at(it->first).getClientObject()) ?
-            DataBase::Storage::getInstance().getStorage().at(it->first).getClientObject()->Position()
-                :
+            DataBase::Storage::getInstance().getStorage().at(it->first).getClientObject()->Position() :
             it->second->Position();
 
         if (!client_zone->inside(position))
@@ -3396,7 +3394,8 @@ inline bool is_quest_npc_enemy_actor(
 
 inline bool is_animpoint_reached(CScriptGameObject* actor, CScriptGameObject* npc)
 {
-    const DataBase::StorageAnimpoint_Data& animpoint_storage = DataBase::Storage::getInstance().getStorage().at(npc->ID()).getStorageAnimpoint();
+    const DataBase::StorageAnimpoint_Data& animpoint_storage =
+        DataBase::Storage::getInstance().getStorage().at(npc->ID()).getStorageAnimpoint();
     Script_Animpoint* animpoint = animpoint_storage.getAnimpoint();
     if (!animpoint)
     {
@@ -3404,9 +3403,80 @@ inline bool is_animpoint_reached(CScriptGameObject* actor, CScriptGameObject* np
         return false;
     }
 
-   
-
+    return animpoint->is_position_riched();
 }
+
+inline bool is_distance_to_obj_ge(CScriptGameObject* actor, CScriptGameObject* npc, const xr_vector<xr_string>& buffer)
+{
+    if (!buffer.size())
+    {
+        R_ASSERT2(false, "arguemnt buffer can't be empty!");
+        return false;
+    }
+    float comparator = atof(buffer[1].c_str());
+    const std::uint16_t& npc_id = Globals::get_story_object_id(buffer[0]);
+    if (npc_id)
+    {
+        CSE_ALifeDynamicObject* server_npc = ai().alife().objects().object(npc_id);
+
+        if (server_npc)
+        {
+            return DataBase::Storage::getInstance().getActor()->Position().distance_to_sqr(server_npc->Position()) <
+                comparator * comparator;
+        }
+    }
+
+    return false;
+}
+
+inline bool is_distance_to_obj_ge(CScriptGameObject* actor, CSE_ALifeDynamicObject* server_npc, const xr_vector<xr_string>& buffer)
+{
+    if (!buffer.size())
+    {
+        R_ASSERT2(false, "arguemnt buffer can't be empty!");
+        return false;
+    }
+    float comparator = atof(buffer[1].c_str());
+    const std::uint16_t& npc_id = Globals::get_story_object_id(buffer[0]);
+    if (npc_id)
+    {
+        CSE_ALifeDynamicObject* server_npc = ai().alife().objects().object(npc_id);
+
+        if (server_npc)
+        {
+            return DataBase::Storage::getInstance().getActor()->Position().distance_to_sqr(server_npc->Position()) <
+                comparator * comparator;
+        }
+    }
+
+    return false;
+}
+
+inline bool is_distance_to_obj_ge(
+    CSE_ALifeDynamicObject* server_actor, CSE_ALifeDynamicObject* server_npc, const xr_vector<xr_string>& buffer)
+{
+    if (!buffer.size())
+    {
+        R_ASSERT2(false, "arguemnt buffer can't be empty!");
+        return false;
+    }
+    float comparator = atof(buffer[1].c_str());
+    const std::uint16_t& npc_id = Globals::get_story_object_id(buffer[0]);
+    if (npc_id)
+    {
+        CSE_ALifeDynamicObject* server_npc = ai().alife().objects().object(npc_id);
+
+        if (server_npc)
+        {
+            return DataBase::Storage::getInstance().getActor()->Position().distance_to_sqr(server_npc->Position()) <
+                comparator * comparator;
+        }
+    }
+
+    return false;
+}
+
+
 
 } // namespace XR_CONDITION
 } // namespace Scripts
