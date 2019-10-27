@@ -11,15 +11,13 @@ namespace Scripts
 {
 namespace Globals
 {
-
 namespace Game
 {
 namespace level
 {
 inline Fvector vertex_position(u32 level_vertex_id) { return (ai().level_graph().vertex_position(level_vertex_id)); }
-}
-}
-
+} // namespace level
+} // namespace Game
 
 namespace GameRelations
 {
@@ -219,6 +217,74 @@ inline Fvector vector_rotate_y(Fvector& vector, float& angle)
 
     return Fvector().set(
         vector.x * cos_result - vector.z * sin_result, vector.y, vector.x * sin_result + vector.z * cos_result);
+}
+
+inline float distance_between(CScriptGameObject* object1, CScriptGameObject* object2)
+{
+    if (!object1)
+    {
+        R_ASSERT2(false, "object is null!");
+        return 0.0f;
+    }
+
+    if (!object2)
+    {
+        R_ASSERT2(false, "object is null!");
+        return 0.0f;
+    }
+
+    return object1->Position().distance_to(object2->Position());
+}
+
+inline float distance_between(CScriptGameObject* object1, CSE_ALifeDynamicObject* server_object2)
+{
+    if (!object1)
+    {
+        R_ASSERT2(false, "object is null!");
+        return 0.0f;
+    }
+
+    if (!server_object2)
+    {
+        R_ASSERT2(false, "object is null!");
+        return 0.0f;
+    }
+
+    return object1->Position().distance_to(server_object2->Position());
+}
+
+inline float distance_between(CSE_ALifeDynamicObject* server_object1, CSE_ALifeDynamicObject* server_object2)
+{
+    if (!server_object1)
+    {
+        R_ASSERT2(false, "object is null!");
+        return 0.0f;
+    }
+
+    if (!server_object2)
+    {
+        R_ASSERT2(false, "object is null!");
+        return 0.0f;
+    }
+
+    return server_object1->Position().distance_to(server_object2->Position());
+}
+
+inline float distance_between(CSE_ALifeDynamicObject* server_object1, CScriptGameObject* object2)
+{
+    if (!server_object1)
+    {
+        R_ASSERT2(false, "object is null!");
+        return 0.0f;
+    }
+
+    if (!object2)
+    {
+        R_ASSERT2(false, "object is null!");
+        return 0.0f;
+    }
+
+    return server_object1->Position().distance_to(object2->Position());
 }
 
 inline std::uint16_t get_story_object_id(const xr_string& object_id_name)
