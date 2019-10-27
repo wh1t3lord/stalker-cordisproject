@@ -21,11 +21,46 @@ namespace Scripts
 {
 struct StayReachOnTarget
 {
+private:
     float m_idle_time = Globals::Script_RandomFloat::getInstance().Generate(
         Globals::kSimulationSquadActionsStayPointIdleMin, Globals::kSimulationSquadActionsStayPointIdleMax);
     std::uint16_t m_squad_id = Globals::kUnsignedInt16Undefined;
     xrTime m_start_time = 0;
     xr_string m_name = "";
+
+public:
+    inline const xr_string& getName(void) const noexcept { return this->m_name; }
+    inline const xrTime& getStartTime(void) const noexcept { return this->m_start_time; }
+    inline const std::uint16_t& getSquadID(void) const noexcept { return this->m_squad_id; }
+    inline const float& getIdleTime(void) const noexcept { return this->m_idle_time; }
+
+    inline void setName(const xr_string& name) noexcept
+    {
+        if (!name.size())
+        {
+            Msg("[Scripts/StayReachOnTarget/setName(name)] WARNING: name.size() = 0! You are trying to set an empty "
+                "string!");
+        }
+
+        this->m_name = name;
+    }
+
+    inline void setStartTime(const xrTime& time) noexcept { this->m_start_time = time; }
+
+    inline void setSquadID(const std::uint16_t id) noexcept
+    {
+        if (id == Globals::kUnsignedInt16Undefined)
+        {
+            Msg("[Scripts/StayReachOnTarget/setSquadID(id)] WARNING: id is undefined! You are trying to set it!");
+        }
+
+        this->m_squad_id = id;
+    }
+
+    inline void setIdleTime(const float value) noexcept 
+    {
+        this->m_idle_time = value;
+    }
 
     inline bool update(const bool& value)
     {
@@ -92,8 +127,11 @@ public:
     inline std::uint32_t getEnteredSmartID(void) noexcept { return this->m_entered_smart_id; }
     inline xr_string& getSettingsID(void) noexcept { return this->m_settings_id_name; }
     inline std::uint16_t getScriptTarget(void);
-    inline StayReachOnTarget& getCurrentAction(void) noexcept { return this->m_current_action; }
-    inline std::uint32_t getPlayerID(void) noexcept { return this->m_player_id; } // Lord: сделать под simulationActivities in Script_SimulationBoard как айдишник на который ссылаться
+    inline const StayReachOnTarget& getCurrentAction(void) noexcept { return this->m_current_action; }
+    inline std::uint32_t getPlayerID(void) noexcept
+    {
+        return this->m_player_id;
+    } // Lord: сделать под simulationActivities in Script_SimulationBoard как айдишник на который ссылаться
 #pragma endregion
 
 #pragma region Cordis Setters
@@ -125,7 +163,6 @@ private:
     void show(void);
     void hide(void);
     bool check_squad_come_to_point(void);
-
 
 private:
     bool m_is_always_walk;
