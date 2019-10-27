@@ -270,7 +270,8 @@ public:
     {
         if (!description_name.size())
         {
-            Msg("[Scripts/DataBase/StorageAnimpoint_Data/setDescriptionName(description_name)] WARNING: you are trying to set an empty string!");
+            Msg("[Scripts/DataBase/StorageAnimpoint_Data/setDescriptionName(description_name)] WARNING: you are trying "
+                "to set an empty string!");
         }
 
         this->m_description_name = description_name;
@@ -636,6 +637,61 @@ public:
     }
 
     inline CScriptGameObject* getActor(void) const { return this->m_actor; }
+    // Lord: переделать сюда идёт bind_anomaly_zone
+    inline const xr_map<xr_string, CScriptGameObject*>& getAnomalyByName(void) const noexcept
+    {
+        return this->m_anomaly_by_name;
+    }
+
+    inline void setAnomalyByName(const xr_map<xr_string, CScriptGameObject*>& map)
+    {
+        if (!map.size())
+        {
+            Msg("[Scripts/DataBase/Storage/setAnomalyByName(map)] WARNING: map.size() = 0! You are trying to set empty "
+                "map! Return!");
+            return;
+        }
+
+        this->m_anomaly_by_name = map;
+    }
+
+    inline void setAnomalyByName(const std::pair<xr_string, CScriptGameObject*>& pair)
+    {
+        if (!pair.first.size())
+        {
+            Msg("[Scripts/DataBase/Storage/setAnomalyByName(pair)] WARNING: pair.first.size() = 0! You are trying to "
+                "set an empty string! Return");
+            return;
+        }
+
+        if (!pair.second)
+        {
+            Msg("[Scripts/DataBase/Storage/setAnomalyByName(pair)] WARNING: pair.second = nullptr! You are trying to "
+                "set an empty object! Return!");
+            return;
+        }
+
+        this->m_anomaly_by_name.insert(pair);
+    }
+
+    inline void setAnomalyByName(const xr_string& anomaly_name, CScriptGameObject* object)
+    {
+        if (!anomaly_name.size())
+        {
+            Msg("[Scripts/DataBase/Storage/setAnomalyByName(anomaly_name, object)] WARNING: anomaly_name.size() = 0! "
+                "You are trying to set an empty string! Return;");
+            return;
+        }
+
+        if (!object)
+        {
+            Msg("[Scripts/DataBase/Storage/setAnomalyByName(anomaly_name, object)] WARNING: object = nullptr! You are "
+                "trying to set an empty object!");
+            return;
+        }
+
+        this->m_anomaly_by_name[anomaly_name] = object;
+    }
 
     inline const xr_map<xr_string, CScriptGameObject*>& getZoneByName(void) const noexcept
     {
@@ -1032,6 +1088,7 @@ private:
     xr_map<std::uint16_t, Storage_Data> m_storage;
     xr_map<std::uint16_t, std::pair<std::uint16_t, xr_string>> m_offline_objects;
     xr_map<xr_string, CScriptGameObject*> m_zone_by_name;
+    xr_map<xr_string, CScriptGameObject*> m_anomaly_by_name;
     xr_map<std::uint16_t, std::uint32_t> m_spawned_vertex_by_id;
     // first -> sympathy[ID] = std::uint32_t; | second -> relations[ID] = std::string;
     std::pair<xr_map<std::uint16_t, float>, xr_map<std::uint16_t, xr_string>> m_goodwill;

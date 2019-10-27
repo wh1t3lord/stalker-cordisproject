@@ -3564,7 +3564,7 @@ inline bool is_active_item(CScriptGameObject* actor, CScriptGameObject* npc, con
 {
     if (buffer.size())
     {
-        
+        
     }
 }*/
 
@@ -4024,7 +4024,8 @@ inline bool is_jup_b47_npc_online(CScriptGameObject* actor, CScriptGameObject* n
     return !!server_object;
 }
 
-inline bool is_jup_b47_npc_online(CScriptGameObject* actor, CSE_ALifeDynamicObject* server_npc, const xr_vector<xr_string>& buffer)
+inline bool is_jup_b47_npc_online(
+    CScriptGameObject* actor, CSE_ALifeDynamicObject* server_npc, const xr_vector<xr_string>& buffer)
 {
     if (!buffer.size())
     {
@@ -4063,6 +4064,78 @@ inline bool is_jup_b47_npc_online(
     CSE_ALifeDynamicObject* server_object = ai().alife().objects().object(story_object->ID());
 
     return !!server_object;
+}
+
+inline bool is_zat_b29_anomaly_has_af(
+    CScriptGameObject* actor, CScriptGameObject* npc, const xr_vector<xr_string>& buffer)
+
+{
+    if (!buffer.size())
+    {
+        R_ASSERT2(false, "argument buffer is empty!");
+        return false;
+    }
+
+    const xr_string& anomaly_zone_name = buffer[0];
+    // Lord: доделать когда будет сделан bind_anomaly_zone
+    CScriptGameObject* anomaly_zone = DataBase::Storage::getInstance().getAnomalyByName().at(anomaly_zone_name);
+
+    if (!anomaly_zone)
+    {
+        Msg("[Scripts/XR_CONDITION/is_zat_b29_anomaly_has_af(actor, npc, buffer)] anomaly_zone = nullptr! Return false");
+        return false;
+    }
+    
+    return false;
+}
+
+inline bool is_zat_b29_anomaly_has_af(
+    CScriptGameObject* actor, CSE_ALifeDynamicObject* server_npc, const xr_vector<xr_string>& buffer)
+
+{
+    if (!buffer.size())
+    {
+        R_ASSERT2(false, "argument buffer is empty!");
+        return false;
+    }
+
+    const xr_string& anomaly_zone_name = buffer[0];
+    // Lord: доделать когда будет сделан bind_anomaly_zone
+    CScriptGameObject* anomaly_zone = DataBase::Storage::getInstance().getAnomalyByName().at(anomaly_zone_name);
+
+    if (!anomaly_zone)
+    {
+        Msg("[Scripts/XR_CONDITION/is_zat_b29_anomaly_has_af(actor, server_npc, buffer)] anomaly_zone = nullptr! Return "
+            "false");
+        return false;
+    }
+
+    return false;
+}
+
+inline bool is_zat_b29_anomaly_has_af(
+    CSE_ALifeDynamicObject* server_actor, CSE_ALifeDynamicObject* server_npc, const xr_vector<xr_string>& buffer)
+
+{
+    if (!buffer.size())
+    {
+        R_ASSERT2(false, "argument buffer is empty!");
+        return false;
+    }
+
+    const xr_string& anomaly_zone_name = buffer[0];
+    // Lord: доделать когда будет сделан bind_anomaly_zone
+    CScriptGameObject* anomaly_zone = DataBase::Storage::getInstance().getAnomalyByName().at(anomaly_zone_name);
+
+    if (!anomaly_zone)
+    {
+        Msg("[Scripts/XR_CONDITION/is_zat_b29_anomaly_has_af(server_actor, server_npc, buffer)] anomaly_zone = nullptr! "
+            "Return "
+            "false");
+        return false;
+    }
+
+    return false;
 }
 
 } // namespace XR_CONDITION
