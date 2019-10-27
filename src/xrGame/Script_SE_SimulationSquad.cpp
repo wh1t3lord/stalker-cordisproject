@@ -325,7 +325,7 @@ void Script_SE_SimulationSquad::on_npc_death(CSE_ALifeDynamicObject* server_obje
     {
         Msg("[Scripts/Script_SE_SimulationSquad/on_npc_death(server_object)] REMOVING DEAD SQUAD %d", this->ID);
 
-        if (this->m_current_action.m_name.size())
+        if (this->m_current_action.getName().size())
         {
             this->m_current_action.Clear();
         }

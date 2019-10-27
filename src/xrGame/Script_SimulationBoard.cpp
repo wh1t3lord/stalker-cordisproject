@@ -96,8 +96,8 @@ void Script_SimulationBoard::setup_squad_and_group(CSE_ALifeDynamicObject* objec
     }
 
     Script_SE_SmartTerrain* smart = nullptr;
-    if (server_squad->getCurrentAction().m_name.size() &&
-        server_squad->getCurrentAction().m_name == Globals::kSimulationSquadCurrentActionIDReachTarget)
+    if (server_squad->getCurrentAction().getName().size() &&
+        server_squad->getCurrentAction().getName() == Globals::kSimulationSquadCurrentActionIDReachTarget)
     {
         smart = ai().alife().objects().object(server_squad->getAssignedTargetID())->cast_script_se_smartterrain();
     }
@@ -131,7 +131,7 @@ void Script_SimulationBoard::remove_squad(Script_SE_SimulationSquad* server_squa
 
     Msg("[Scripts/Script_SimulationBoard/remove_squad(server_squad)] Removing squad %d", server_squad->ID);
 
-    if (!server_squad->getCurrentAction().m_name.size())
+    if (!server_squad->getCurrentAction().getName().size())
     {
         this->exit_smart(server_squad, server_squad->getSmartTerrainID());
     }

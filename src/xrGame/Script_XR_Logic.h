@@ -19,8 +19,6 @@ constexpr const char* XR_LOGIC_TEXT_NEVER = "never";
 constexpr const char* kXRLogicReturnTypeSuccessfulName = "true";
 constexpr const char* kXRLogicReturnTypeBadName = "false";
 
-
-
 inline CScriptIniFile configure_schemes(CScriptGameObject* npc, CScriptIniFile& ini, const xr_string& ini_filename,
     unsigned int stype, const xr_string& section_logic, const xr_string& gulag_name)
 {
@@ -35,7 +33,8 @@ inline CScriptIniFile configure_schemes(CScriptGameObject* npc, CScriptIniFile& 
 
     if (storage.getActiveSchemeName().size())
     {
-        Script_LogicManager::getInstance().all_deactivate(storage.getData().at(storage.getActiveSchemeName()).getActions(), npc);
+        Script_LogicManager::getInstance().all_deactivate(
+            storage.getData().at(storage.getActiveSchemeName()).getActions(), npc);
     }
 
     CScriptIniFile actual_ini = ini;
@@ -716,9 +715,9 @@ inline xr_map<std::uint32_t, CondlistData> parse_condlist_by_script_object(
     return result;
 }
 // Lord: исправить pick_section_from_condlist!!!!
-// Не правильно считывает {} false, true <- вот это вообще почему-то не учитывается 
-// Сделать полноценную проверку в {} и аналогично %%, чтобы не первая попавшаяся сущность анализировалось а целый блок, то есть {-info_portion =my_function}, в данном случае =my_function тоже
-// анализируется!!!!!!!!
+// Не правильно считывает {} false, true <- вот это вообще почему-то не учитывается
+// Сделать полноценную проверку в {} и аналогично %%, чтобы не первая попавшаяся сущность анализировалось а целый блок,
+// то есть {-info_portion =my_function}, в данном случае =my_function тоже анализируется!!!!!!!!
 inline xr_string pick_section_from_condlist(
     CScriptGameObject* actor, CSE_ALifeDynamicObject* npc, const xr_map<std::uint32_t, CondlistData>& condlist)
 {
@@ -762,7 +761,7 @@ inline xr_string pick_section_from_condlist(
             else if (it_infoportion_check.second.m_function_name.size())
             {
                 xr_string calling_function_name = it_infoportion_check.second.m_function_name;
-                calling_function_name += XR_LOGIC_CLIENT_SERVER_ARGUMENTS;
+                calling_function_name += XR_LOGIC_SERVER_SERVER_ARGUMENTS;
 
                 if (Script_GlobalHelper::getInstance().getRegisteredFunctionsXRCondition().find(
                         calling_function_name) ==
@@ -804,7 +803,8 @@ inline xr_string pick_section_from_condlist(
 
                     /*                    xr_string& argument = buffer;*/
 
-                    if (Script_GlobalHelper::getInstance().getRegisteredFunctionsXRCondition()[calling_function_name](
+                    if (Script_GlobalHelper::getInstance().getRegisteredFunctionsXRCondition()[calling_function_name].
+                        operator()<CScriptGameObject*, CSE_ALifeDynamicObject*, const xr_vector<xr_string>&>(
                             actor, npc, argument_buffer))
                     {
                         if (!it_infoportion_check.second.m_expected)
@@ -885,8 +885,10 @@ inline xr_string pick_section_from_condlist(
                         xr_vector<xr_string> argument_buffer;
 
                         if (Script_GlobalHelper::getInstance()
-                                .getRegisteredFunctionsXRCondition()[calling_function_name](
-                                    actor, npc, argument_buffer))
+                                .getRegisteredFunctionsXRCondition()[calling_function_name]
+                                .
+                                operator()<CScriptGameObject*, CSE_ALifeDynamicObject*,
+                                    const xr_vector<xr_string>&>(actor, npc, argument_buffer))
                         {
                             if (!it_infoportion_check.second.m_expected)
                             {
@@ -903,10 +905,36 @@ inline xr_string pick_section_from_condlist(
                             }
                         }
                     }
-                    else
+                    else if (Script_GlobalHelper::getInstance()
+                                 .getRegisteredFunctionsXRCondition()[calling_function_name]
+                                 .getArgumentsCount() == 2)
                     { // no params, but 2 arguments
                         if (Script_GlobalHelper::getInstance()
-                                .getRegisteredFunctionsXRCondition()[calling_function_name](actor, npc))
+                                .getRegisteredFunctionsXRCondition()[calling_function_name]
+                                .
+                                operator()<CScriptGameObject*, CSE_ALifeDynamicObject*>(actor, npc))
+                        {
+                            if (!it_infoportion_check.second.m_expected)
+                            {
+                                is_infoportion_conditions_met = false;
+                                break;
+                            }
+                        }
+                        else
+                        {
+                            if (it_infoportion_check.second.m_expected)
+                            {
+                                is_infoportion_conditions_met = false;
+                                break;
+                            }
+                        }
+                    }
+                    else if (Script_GlobalHelper::getInstance()
+                                 .getRegisteredFunctionsXRCondition()[calling_function_name]
+                                 .getArgumentsCount() == 0)
+                    {
+                        if (Script_GlobalHelper::getInstance()
+                                .getRegisteredFunctionsXRCondition()[calling_function_name]())
                         {
                             if (!it_infoportion_check.second.m_expected)
                             {
@@ -967,8 +995,6 @@ inline xr_string pick_section_from_condlist(
                             .c_str());
                 }
             }
-
-            // Lord: проверить что при данной перегрузке заходит или нет?
         }
 
         if (is_infoportion_conditions_met)
@@ -1027,14 +1053,28 @@ inline xr_string pick_section_from_condlist(
                 {
                     if (!Globals::has_alife_info(it_infoportion_set.second.m_infopotion_name.c_str()))
                     {
-                        actor->GiveInfoPortion(it_infoportion_set.second.m_infopotion_name.c_str());
+                        CScriptGameObject* client_actor = DataBase::Storage::getInstance().getActor();
+                        if (client_actor)
+                            client_actor->GiveInfoPortion(it_infoportion_set.second.m_infopotion_name.c_str());
+                        else
+                            Msg("[XR_LOGIC/pick_section_from_condlist(server_actor, server_npc, condlist)] WARNING: "
+                                "Can not set an infoportion [%s] for actor, because "
+                                "DataBase::Storage::getInstane().getActor() == nullptr!",
+                                it_infoportion_set.second.m_infopotion_name.c_str());
                     }
                 }
                 else if (!it_infoportion_set.second.m_required)
                 {
                     if (Globals::has_alife_info(it_infoportion_set.second.m_infopotion_name.c_str()))
                     {
-                        actor->DisableInfoPortion(it_infoportion_set.second.m_infopotion_name.c_str());
+                        CScriptGameObject* client_actor = DataBase::Storage::getInstance().getActor();
+                        if (client_actor)
+                            client_actor->DisableInfoPortion(it_infoportion_set.second.m_infopotion_name.c_str());
+                        else
+                            Msg("[XR_LOGIC/pick_section_from_condlist(server_actor, server_npc, condlist)] WARNING: "
+                                "Can not set an infoportion [%s] for actor, because "
+                                "DataBase::Storage::getInstane().getActor() == nullptr!",
+                                it_infoportion_set.second.m_infopotion_name.c_str());
                     }
                 }
             }
@@ -1138,7 +1178,8 @@ inline xr_string pick_section_from_condlist(
 
                     /*                    xr_string& argument = buffer;*/
 
-                    if (Script_GlobalHelper::getInstance().getRegisteredFunctionsXRCondition()[calling_function_name](
+                    if (Script_GlobalHelper::getInstance().getRegisteredFunctionsXRCondition()[calling_function_name].
+                        operator()<CSE_ALifeDynamicObject*, CSE_ALifeDynamicObject*, const xr_vector<xr_string>&>(
                             actor, npc, argument_buffer))
                     {
                         if (!it_infoportion_check.second.m_expected)
@@ -1219,8 +1260,10 @@ inline xr_string pick_section_from_condlist(
                         xr_vector<xr_string> argument_buffer;
 
                         if (Script_GlobalHelper::getInstance()
-                                .getRegisteredFunctionsXRCondition()[calling_function_name](
-                                    actor, npc, argument_buffer))
+                                .getRegisteredFunctionsXRCondition()[calling_function_name]
+                                .
+                                operator()<CSE_ALifeDynamicObject*, CSE_ALifeDynamicObject*,
+                                    const xr_vector<xr_string>&>(actor, npc, argument_buffer))
                         {
                             if (!it_infoportion_check.second.m_expected)
                             {
@@ -1237,10 +1280,34 @@ inline xr_string pick_section_from_condlist(
                             }
                         }
                     }
-                    else
+                    else if (Script_GlobalHelper::getInstance()
+                                 .getRegisteredFunctionsXRCondition()[calling_function_name]
+                                 .getArgumentsCount() == 2)
                     { // no params, but 2 arguments
                         if (Script_GlobalHelper::getInstance()
-                                .getRegisteredFunctionsXRCondition()[calling_function_name](actor, npc))
+                                .getRegisteredFunctionsXRCondition()[calling_function_name].operator()<CSE_ALifeDynamicObject*, CSE_ALifeDynamicObject*>(actor, npc))
+                        {
+                            if (!it_infoportion_check.second.m_expected)
+                            {
+                                is_infoportion_conditions_met = false;
+                                break;
+                            }
+                        }
+                        else
+                        {
+                            if (it_infoportion_check.second.m_expected)
+                            {
+                                is_infoportion_conditions_met = false;
+                                break;
+                            }
+                        }
+                    }
+                    else if (Script_GlobalHelper::getInstance()
+                                 .getRegisteredFunctionsXRCondition()[calling_function_name]
+                                 .getArgumentsCount() == 0)
+                    {
+                        if (Script_GlobalHelper::getInstance()
+                                .getRegisteredFunctionsXRCondition()[calling_function_name]())
                         {
                             if (!it_infoportion_check.second.m_expected)
                             {
@@ -1402,7 +1469,7 @@ inline xr_string pick_section_from_condlist(
 inline xr_string pick_section_from_condlist(
     CScriptGameObject* actor, CScriptGameObject* npc, const xr_map<std::uint32_t, CondlistData>& condlist)
 {
-    // Lord: доделать!
+    // Lord: доделать
     if (!actor)
     {
         R_ASSERT2(false, "object is null!");
@@ -1452,7 +1519,7 @@ inline xr_string pick_section_from_condlist(
                     Msg("[Scripts/XR_LOGIC/pick_section_from_condlist(actor, npc, condlist)] Object: [%s] - Function: "
                         "%s doesn't registered in Singleton Script_GlobalHelper in function "
                         "Script_GlobalHelper::RegisterFunctionsFromAnotherFiles!!!! ",
-                        npc->Name(), it_infoportion_check.second.m_function_name.c_str());
+                        npc->s_name, it_infoportion_check.second.m_function_name.c_str());
                     R_ASSERT(false);
                 }
 
@@ -1484,7 +1551,8 @@ inline xr_string pick_section_from_condlist(
 
                     /*                    xr_string& argument = buffer;*/
 
-                    if (Script_GlobalHelper::getInstance().getRegisteredFunctionsXRCondition()[calling_function_name](
+                    if (Script_GlobalHelper::getInstance().getRegisteredFunctionsXRCondition()[calling_function_name].
+                        operator()<CScriptGameObject*, CScriptGameObject*, const xr_vector<xr_string>&>(
                             actor, npc, argument_buffer))
                     {
                         if (!it_infoportion_check.second.m_expected)
@@ -1565,8 +1633,10 @@ inline xr_string pick_section_from_condlist(
                         xr_vector<xr_string> argument_buffer;
 
                         if (Script_GlobalHelper::getInstance()
-                                .getRegisteredFunctionsXRCondition()[calling_function_name](
-                                    actor, npc, argument_buffer))
+                                .getRegisteredFunctionsXRCondition()[calling_function_name]
+                                .
+                                operator()<CScriptGameObject*, CScriptGameObject*,
+                                    const xr_vector<xr_string>&>(actor, npc, argument_buffer))
                         {
                             if (!it_infoportion_check.second.m_expected)
                             {
@@ -1583,10 +1653,36 @@ inline xr_string pick_section_from_condlist(
                             }
                         }
                     }
-                    else
+                    else if (Script_GlobalHelper::getInstance()
+                                 .getRegisteredFunctionsXRCondition()[calling_function_name]
+                                 .getArgumentsCount() == 2)
                     { // no params, but 2 arguments
                         if (Script_GlobalHelper::getInstance()
-                                .getRegisteredFunctionsXRCondition()[calling_function_name](actor, npc))
+                                .getRegisteredFunctionsXRCondition()[calling_function_name]
+                                .
+                                operator()<CScriptGameObject*, CScriptGameObject*>(actor, npc))
+                        {
+                            if (!it_infoportion_check.second.m_expected)
+                            {
+                                is_infoportion_conditions_met = false;
+                                break;
+                            }
+                        }
+                        else
+                        {
+                            if (it_infoportion_check.second.m_expected)
+                            {
+                                is_infoportion_conditions_met = false;
+                                break;
+                            }
+                        }
+                    }
+                    else if (Script_GlobalHelper::getInstance()
+                                 .getRegisteredFunctionsXRCondition()[calling_function_name]
+                                 .getArgumentsCount() == 0)
+                    {
+                        if (Script_GlobalHelper::getInstance()
+                                .getRegisteredFunctionsXRCondition()[calling_function_name]())
                         {
                             if (!it_infoportion_check.second.m_expected)
                             {
@@ -1670,7 +1766,7 @@ inline xr_string pick_section_from_condlist(
                         Msg("[Scripts/XR_LOGIC/pick_section_from_condlist(actor, npc, condlist)] object '%s': "
                             "pick_section_from_condlist: function '%s' is "
                             "not defined in xr_effects",
-                            npc->Name(), it_infoportion_set.second.m_function_name.c_str());
+                            npc->s_name, it_infoportion_set.second.m_function_name.c_str());
                         R_ASSERT(false);
                     }
 
@@ -1705,14 +1801,28 @@ inline xr_string pick_section_from_condlist(
                 {
                     if (!Globals::has_alife_info(it_infoportion_set.second.m_infopotion_name.c_str()))
                     {
-                        actor->GiveInfoPortion(it_infoportion_set.second.m_infopotion_name.c_str());
+                        CScriptGameObject* client_actor = DataBase::Storage::getInstance().getActor();
+                        if (client_actor)
+                            client_actor->GiveInfoPortion(it_infoportion_set.second.m_infopotion_name.c_str());
+                        else
+                            Msg("[XR_LOGIC/pick_section_from_condlist(server_actor, server_npc, condlist)] WARNING: "
+                                "Can not set an infoportion [%s] for actor, because "
+                                "DataBase::Storage::getInstane().getActor() == nullptr!",
+                                it_infoportion_set.second.m_infopotion_name.c_str());
                     }
                 }
                 else if (!it_infoportion_set.second.m_required)
                 {
                     if (Globals::has_alife_info(it_infoportion_set.second.m_infopotion_name.c_str()))
                     {
-                        actor->DisableInfoPortion(it_infoportion_set.second.m_infopotion_name.c_str());
+                        CScriptGameObject* client_actor = DataBase::Storage::getInstance().getActor();
+                        if (client_actor)
+                            client_actor->DisableInfoPortion(it_infoportion_set.second.m_infopotion_name.c_str());
+                        else
+                            Msg("[XR_LOGIC/pick_section_from_condlist(server_actor, server_npc, condlist)] WARNING: "
+                                "Can not set an infoportion [%s] for actor, because "
+                                "DataBase::Storage::getInstane().getActor() == nullptr!",
+                                it_infoportion_set.second.m_infopotion_name.c_str());
                     }
                 }
             }
@@ -1859,7 +1969,6 @@ inline void pstor_store(CScriptGameObject* object, const xr_string& varname, con
 
     DataBase::Storage::getInstance().setPStorString(object->ID(), varname, value);
 }
-
 
 } // namespace XR_LOGIC
 } // namespace Scripts

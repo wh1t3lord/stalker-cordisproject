@@ -13,6 +13,8 @@ namespace Globals
 {
 namespace Game
 {
+inline bool has_active_tutotial(void) { return (!!Script_GlobalHelper::getInstance().getGlobalTutorial()); }
+
 namespace level
 {
 inline Fvector vertex_position(u32 level_vertex_id) { return (ai().level_graph().vertex_position(level_vertex_id)); }
