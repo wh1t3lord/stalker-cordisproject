@@ -3564,7 +3564,7 @@ inline bool is_active_item(CScriptGameObject* actor, CScriptGameObject* npc, con
 {
     if (buffer.size())
     {
-        
+        
     }
 }*/
 
@@ -4082,10 +4082,11 @@ inline bool is_zat_b29_anomaly_has_af(
 
     if (!anomaly_zone)
     {
-        Msg("[Scripts/XR_CONDITION/is_zat_b29_anomaly_has_af(actor, npc, buffer)] anomaly_zone = nullptr! Return false");
+        Msg("[Scripts/XR_CONDITION/is_zat_b29_anomaly_has_af(actor, npc, buffer)] anomaly_zone = nullptr! Return "
+            "false");
         return false;
     }
-    
+
     return false;
 }
 
@@ -4105,7 +4106,8 @@ inline bool is_zat_b29_anomaly_has_af(
 
     if (!anomaly_zone)
     {
-        Msg("[Scripts/XR_CONDITION/is_zat_b29_anomaly_has_af(actor, server_npc, buffer)] anomaly_zone = nullptr! Return "
+        Msg("[Scripts/XR_CONDITION/is_zat_b29_anomaly_has_af(actor, server_npc, buffer)] anomaly_zone = nullptr! "
+            "Return "
             "false");
         return false;
     }
@@ -4129,13 +4131,603 @@ inline bool is_zat_b29_anomaly_has_af(
 
     if (!anomaly_zone)
     {
-        Msg("[Scripts/XR_CONDITION/is_zat_b29_anomaly_has_af(server_actor, server_npc, buffer)] anomaly_zone = nullptr! "
+        Msg("[Scripts/XR_CONDITION/is_zat_b29_anomaly_has_af(server_actor, server_npc, buffer)] anomaly_zone = "
+            "nullptr! "
             "Return "
             "false");
         return false;
     }
 
     return false;
+}
+
+inline bool is_jup_b221_who_will_start(
+    CScriptGameObject* actor, CScriptGameObject* npc, const xr_vector<xr_string>& buffer)
+{
+    if (!buffer.size())
+    {
+        R_ASSERT2(false, "argument list is empty!");
+        return false;
+    }
+
+    xr_vector<std::uint16_t> reachable_theme_list;
+    std::pair<xr_string, std::uint8_t> faction_pair;
+
+    xr_vector<xr_string> info_list = {"jup_b25_freedom_flint_gone", "jup_b25_flint_blame_done_to_duty",
+        "jup_b4_monolith_squad_in_duty", "jup_a6_duty_leader_bunker_guards_work", "jup_a6_duty_leader_employ_work",
+        "jup_b207_duty_wins",
+        // freedom
+        "jup_b207_freedom_know_about_depot", "jup_b46_duty_founder_pda_to_freedom", "jup_b4_monolith_squad_in_freedom",
+        "jup_a6_freedom_leader_bunker_guards_work", "jup_a6_freedom_leader_employ_work", "jup_b207_freedom_wins"};
+
+    for (std::uint16_t i = 0; i < info_list.size(); ++i)
+    {
+        if (i <= 5)
+        {
+            faction_pair.first = "duty";
+            faction_pair.second = 0;
+        }
+        else
+        {
+            faction_pair.first = "freedom";
+            faction_pair.second = 6;
+        }
+
+        xr_string formed_string = "jup_b221_";
+        formed_string += faction_pair.first;
+        formed_string += "_main_";
+        formed_string += std::to_string(i - faction_pair.second);
+        formed_string += "_played";
+        if (Globals::has_alife_info(info_list[i].c_str()) && (!Globals::has_alife_info(formed_string.c_str())))
+        {
+            reachable_theme_list.push_back(i);
+            Msg("[Scripts/XR_CONDITION/is_jup_b221_who_will_start(actor, npc, buffer)] jup_b221_who_will_start: "
+                "reachable_theme %d",
+                i);
+        }
+    }
+
+    if (buffer[0] == "ability")
+        return !!reachable_theme_list.size(); // если массив пуст значит нет доступных тем и ненадо играть сцену
+    else if (buffer[0] == "choose")
+        return reachable_theme_list[Globals::Script_RandomInt::getInstance().Generate(
+                   0, reachable_theme_list.size())] <= 6;
+    else
+        R_ASSERT2(false, "Something goes wrong and it can't be!");
+}
+
+inline bool is_jup_b221_who_will_start(
+    CScriptGameObject* actor, CSE_ALifeDynamicObject* server_npc, const xr_vector<xr_string>& buffer)
+{
+    if (!buffer.size())
+    {
+        R_ASSERT2(false, "argument list is empty!");
+        return false;
+    }
+
+    xr_vector<std::uint16_t> reachable_theme_list;
+    std::pair<xr_string, std::uint8_t> faction_pair;
+
+    xr_vector<xr_string> info_list = {"jup_b25_freedom_flint_gone", "jup_b25_flint_blame_done_to_duty",
+        "jup_b4_monolith_squad_in_duty", "jup_a6_duty_leader_bunker_guards_work", "jup_a6_duty_leader_employ_work",
+        "jup_b207_duty_wins",
+        // freedom
+        "jup_b207_freedom_know_about_depot", "jup_b46_duty_founder_pda_to_freedom", "jup_b4_monolith_squad_in_freedom",
+        "jup_a6_freedom_leader_bunker_guards_work", "jup_a6_freedom_leader_employ_work", "jup_b207_freedom_wins"};
+
+    for (std::uint16_t i = 0; i < info_list.size(); ++i)
+    {
+        if (i <= 5)
+        {
+            faction_pair.first = "duty";
+            faction_pair.second = 0;
+        }
+        else
+        {
+            faction_pair.first = "freedom";
+            faction_pair.second = 6;
+        }
+
+        xr_string formed_string = "jup_b221_";
+        formed_string += faction_pair.first;
+        formed_string += "_main_";
+        formed_string += std::to_string(i - faction_pair.second);
+        formed_string += "_played";
+        if (Globals::has_alife_info(info_list[i].c_str()) && (!Globals::has_alife_info(formed_string.c_str())))
+        {
+            reachable_theme_list.push_back(i);
+            Msg("[Scripts/XR_CONDITION/is_jup_b221_who_will_start(actor, server_npc, buffer)] jup_b221_who_will_start: "
+                "reachable_theme %d",
+                i);
+        }
+    }
+
+    if (buffer[0] == "ability")
+        return !!reachable_theme_list.size(); // если массив пуст значит нет доступных тем и ненадо играть сцену
+    else if (buffer[0] == "choose")
+        return reachable_theme_list[Globals::Script_RandomInt::getInstance().Generate(
+                   0, reachable_theme_list.size())] <= 6;
+    else
+        R_ASSERT2(false, "Something goes wrong and it can't be!");
+}
+
+inline bool is_jup_b221_who_will_start(
+    CSE_ALifeDynamicObject* server_actor, CSE_ALifeDynamicObject* server_npc, const xr_vector<xr_string>& buffer)
+{
+    if (!buffer.size())
+    {
+        R_ASSERT2(false, "argument list is empty!");
+        return false;
+    }
+
+    xr_vector<std::uint16_t> reachable_theme_list;
+    std::pair<xr_string, std::uint8_t> faction_pair;
+
+    xr_vector<xr_string> info_list = {"jup_b25_freedom_flint_gone", "jup_b25_flint_blame_done_to_duty",
+        "jup_b4_monolith_squad_in_duty", "jup_a6_duty_leader_bunker_guards_work", "jup_a6_duty_leader_employ_work",
+        "jup_b207_duty_wins",
+        // freedom
+        "jup_b207_freedom_know_about_depot", "jup_b46_duty_founder_pda_to_freedom", "jup_b4_monolith_squad_in_freedom",
+        "jup_a6_freedom_leader_bunker_guards_work", "jup_a6_freedom_leader_employ_work", "jup_b207_freedom_wins"};
+
+    for (std::uint16_t i = 0; i < info_list.size(); ++i)
+    {
+        if (i <= 5)
+        {
+            faction_pair.first = "duty";
+            faction_pair.second = 0;
+        }
+        else
+        {
+            faction_pair.first = "freedom";
+            faction_pair.second = 6;
+        }
+
+        xr_string formed_string = "jup_b221_";
+        formed_string += faction_pair.first;
+        formed_string += "_main_";
+        formed_string += std::to_string(i - faction_pair.second);
+        formed_string += "_played";
+        if (Globals::has_alife_info(info_list[i].c_str()) && (!Globals::has_alife_info(formed_string.c_str())))
+        {
+            reachable_theme_list.push_back(i);
+            Msg("[Scripts/XR_CONDITION/is_jup_b221_who_will_start(server_actor, server_npc, buffer)] "
+                "jup_b221_who_will_start: "
+                "reachable_theme %d",
+                i);
+        }
+    }
+
+    if (buffer[0] == "ability")
+        return !!reachable_theme_list.size(); // если массив пуст значит нет доступных тем и ненадо играть сцену
+    else if (buffer[0] == "choose")
+        return reachable_theme_list[Globals::Script_RandomInt::getInstance().Generate(
+                   0, reachable_theme_list.size())] <= 6;
+    else
+        R_ASSERT2(false, "Something goes wrong and it can't be!");
+}
+
+inline bool is_pas_b400_actor_far_forward(CScriptGameObject* actor, CScriptGameObject* npc)
+{
+    if (!actor)
+    {
+        R_ASSERT2(false, "object is null!");
+        return false;
+    }
+
+    if (!npc)
+    {
+        R_ASSERT2(false, "object is null!");
+        return false;
+    }
+
+    CScriptGameObject* forward_object = Globals::get_story_object("pas_b400_fwd");
+
+    if (forward_object)
+    {
+        if (Globals::distance_between(forward_object, DataBase::Storage::getInstance().getActor()) >
+            Globals::distance_between(forward_object, npc))
+            return false;
+    }
+    else
+    {
+        Msg("[Scripts/XR_CONDITION/is_pas_b400_actor_far_forward(actor, npc)] WARNING: forward_object = nullptr! "
+            "Return false");
+        return false;
+    }
+
+    float distance = 70.0f * 70.0f;
+    float self_distance = npc->Position().distance_to_sqr(actor->Position());
+
+    if (self_distance < distance)
+    {
+        Msg("[Scripts/XR_CONDITION/is_pas_b400_actor_far_forward(actor, npc)] self_distance < distance. Return false");
+        return false;
+    }
+
+    Script_SE_SimulationSquad* server_squad =
+        ai().alife()
+            .objects()
+            .object(ai().alife().objects().object(npc->ID())->cast_monster_abstract()->m_group_id)
+            ->cast_script_se_simulationsquad();
+
+    if (!server_squad)
+    {
+        Msg("[Scripts/XR_CONDITION/is_pas_b400_actor_far_forward(actor, npc)] WARNING: server_squad = nullptr! Return "
+            "false");
+        return false;
+    }
+
+    for (AssociativeVector<ALife::_OBJECT_ID, CSE_ALifeMonsterAbstract*>::const_iterator it =
+             server_squad->squad_members().begin();
+         it != server_squad->squad_members().end(); ++it)
+    {
+        float other_distance = it->second->Position().distance_to_sqr(actor->Position());
+
+        if (other_distance < distance)
+        {
+            Msg("[Scripts/XR_CONDITION/is_pas_b400_actor_far_forward(actor, npc)] other_distance < distance. Return "
+                "false");
+            return false;
+        }
+    }
+
+    return true;
+}
+
+inline bool is_pas_b400_actor_far_forward(CScriptGameObject* actor, CSE_ALifeDynamicObject* server_npc)
+{
+    if (!actor)
+    {
+        R_ASSERT2(false, "object is null!");
+        return false;
+    }
+
+    if (!server_npc)
+    {
+        R_ASSERT2(false, "object is null!");
+        return false;
+    }
+
+    CScriptGameObject* forward_object = Globals::get_story_object("pas_b400_fwd");
+
+    if (forward_object)
+    {
+        if (Globals::distance_between(forward_object, DataBase::Storage::getInstance().getActor()) >
+            Globals::distance_between(forward_object, server_npc))
+            return false;
+    }
+    else
+    {
+        Msg("[Scripts/XR_CONDITION/is_pas_b400_actor_far_forward(actor, server_npc)] WARNING: forward_object = nullptr! "
+            "Return false");
+        return false;
+    }
+
+    float distance = 70.0f * 70.0f;
+    float self_distance = server_npc->Position().distance_to_sqr(actor->Position());
+
+    if (self_distance < distance)
+    {
+        Msg("[Scripts/XR_CONDITION/is_pas_b400_actor_far_forward(actor, server_npc)] self_distance < distance. Return false");
+        return false;
+    }
+
+    Script_SE_SimulationSquad* server_squad =
+        ai().alife()
+            .objects()
+            .object(ai().alife().objects().object(server_npc->ID)->cast_monster_abstract()->m_group_id)
+            ->cast_script_se_simulationsquad();
+
+    if (!server_squad)
+    {
+        Msg("[Scripts/XR_CONDITION/is_pas_b400_actor_far_forward(actor, server_npc)] WARNING: server_squad = nullptr! Return "
+            "false");
+        return false;
+    }
+
+    for (AssociativeVector<ALife::_OBJECT_ID, CSE_ALifeMonsterAbstract*>::const_iterator it =
+             server_squad->squad_members().begin();
+         it != server_squad->squad_members().end(); ++it)
+    {
+        float other_distance = it->second->Position().distance_to_sqr(actor->Position());
+
+        if (other_distance < distance)
+        {
+            Msg("[Scripts/XR_CONDITION/is_pas_b400_actor_far_forward(actor, server_npc)] other_distance < distance. Return "
+                "false");
+            return false;
+        }
+    }
+
+    return true;
+}
+
+inline bool is_pas_b400_actor_far_forward(CSE_ALifeDynamicObject* server_actor, CSE_ALifeDynamicObject* server_npc)
+{
+    if (!server_actor)
+    {
+        R_ASSERT2(false, "object is null!");
+        return false;
+    }
+
+    if (!server_npc)
+    {
+        R_ASSERT2(false, "object is null!");
+        return false;
+    }
+
+    CScriptGameObject* forward_object = Globals::get_story_object("pas_b400_fwd");
+
+    if (forward_object)
+    {
+        if (Globals::distance_between(forward_object, DataBase::Storage::getInstance().getActor()) >
+            Globals::distance_between(forward_object, server_npc))
+            return false;
+    }
+    else
+    {
+        Msg("[Scripts/XR_CONDITION/is_pas_b400_actor_far_forward(server_actor, server_npc)] WARNING: forward_object = "
+            "nullptr! "
+            "Return false");
+        return false;
+    }
+
+    float distance = 70.0f * 70.0f;
+    float self_distance = server_npc->Position().distance_to_sqr(server_actor->Position());
+
+    if (self_distance < distance)
+    {
+        Msg("[Scripts/XR_CONDITION/is_pas_b400_actor_far_forward(server_actor, server_npc)] self_distance < distance. Return "
+            "false");
+        return false;
+    }
+
+    Script_SE_SimulationSquad* server_squad =
+        ai().alife()
+            .objects()
+            .object(ai().alife().objects().object(server_npc->ID)->cast_monster_abstract()->m_group_id)
+            ->cast_script_se_simulationsquad();
+
+    if (!server_squad)
+    {
+        Msg("[Scripts/XR_CONDITION/is_pas_b400_actor_far_forward(server_actor, server_npc)] WARNING: server_squad = nullptr! "
+            "Return "
+            "false");
+        return false;
+    }
+
+    for (AssociativeVector<ALife::_OBJECT_ID, CSE_ALifeMonsterAbstract*>::const_iterator it =
+             server_squad->squad_members().begin();
+         it != server_squad->squad_members().end(); ++it)
+    {
+        float other_distance = it->second->Position().distance_to_sqr(server_actor->Position());
+
+        if (other_distance < distance)
+        {
+            Msg("[Scripts/XR_CONDITION/is_pas_b400_actor_far_forward(server_actor, server_npc)] other_distance < distance. "
+                "Return "
+                "false");
+            return false;
+        }
+    }
+
+    return true;
+}
+
+inline bool is_pas_b400_actor_far_backward(CScriptGameObject* actor, CScriptGameObject* npc)
+{
+    if (!actor)
+    {
+        R_ASSERT2(false, "object is null!");
+        return false;
+    }
+
+    if (!npc)
+    {
+        R_ASSERT2(false, "object is null!");
+        return false;
+    }
+
+    CScriptGameObject* forward_object = Globals::get_story_object("pas_b400_bwd");
+
+    if (forward_object)
+    {
+        if (Globals::distance_between(forward_object, DataBase::Storage::getInstance().getActor()) >
+            Globals::distance_between(forward_object, npc))
+            return false;
+    }
+    else
+    {
+        Msg("[Scripts/XR_CONDITION/is_pas_b400_actor_far_forward(actor, npc)] WARNING: forward_object = nullptr! "
+            "Return false");
+        return false;
+    }
+
+    float distance = 70.0f * 70.0f;
+    float self_distance = npc->Position().distance_to_sqr(actor->Position());
+
+    if (self_distance < distance)
+    {
+        Msg("[Scripts/XR_CONDITION/is_pas_b400_actor_far_forward(actor, npc)] self_distance < distance. Return false");
+        return false;
+    }
+
+    Script_SE_SimulationSquad* server_squad =
+        ai().alife()
+            .objects()
+            .object(ai().alife().objects().object(npc->ID())->cast_monster_abstract()->m_group_id)
+            ->cast_script_se_simulationsquad();
+
+    if (!server_squad)
+    {
+        Msg("[Scripts/XR_CONDITION/is_pas_b400_actor_far_forward(actor, npc)] WARNING: server_squad = nullptr! Return "
+            "false");
+        return false;
+    }
+
+    for (AssociativeVector<ALife::_OBJECT_ID, CSE_ALifeMonsterAbstract*>::const_iterator it =
+             server_squad->squad_members().begin();
+         it != server_squad->squad_members().end(); ++it)
+    {
+        float other_distance = it->second->Position().distance_to_sqr(actor->Position());
+
+        if (other_distance < distance)
+        {
+            Msg("[Scripts/XR_CONDITION/is_pas_b400_actor_far_forward(actor, npc)] other_distance < distance. Return "
+                "false");
+            return false;
+        }
+    }
+
+    return true;
+}
+
+inline bool is_pas_b400_actor_far_backward(CScriptGameObject* actor, CSE_ALifeDynamicObject* server_npc)
+{
+    if (!actor)
+    {
+        R_ASSERT2(false, "object is null!");
+        return false;
+    }
+
+    if (!server_npc)
+    {
+        R_ASSERT2(false, "object is null!");
+        return false;
+    }
+
+    CScriptGameObject* forward_object = Globals::get_story_object("pas_b400_bwd");
+
+    if (forward_object)
+    {
+        if (Globals::distance_between(forward_object, DataBase::Storage::getInstance().getActor()) >
+            Globals::distance_between(forward_object, server_npc))
+            return false;
+    }
+    else
+    {
+        Msg("[Scripts/XR_CONDITION/is_pas_b400_actor_far_forward(actor, server_npc)] WARNING: forward_object = "
+            "nullptr! "
+            "Return false");
+        return false;
+    }
+
+    float distance = 70.0f * 70.0f;
+    float self_distance = server_npc->Position().distance_to_sqr(actor->Position());
+
+    if (self_distance < distance)
+    {
+        Msg("[Scripts/XR_CONDITION/is_pas_b400_actor_far_forward(actor, server_npc)] self_distance < distance. Return "
+            "false");
+        return false;
+    }
+
+    Script_SE_SimulationSquad* server_squad =
+        ai().alife()
+            .objects()
+            .object(ai().alife().objects().object(server_npc->ID)->cast_monster_abstract()->m_group_id)
+            ->cast_script_se_simulationsquad();
+
+    if (!server_squad)
+    {
+        Msg("[Scripts/XR_CONDITION/is_pas_b400_actor_far_forward(actor, server_npc)] WARNING: server_squad = nullptr! "
+            "Return "
+            "false");
+        return false;
+    }
+
+    for (AssociativeVector<ALife::_OBJECT_ID, CSE_ALifeMonsterAbstract*>::const_iterator it =
+             server_squad->squad_members().begin();
+         it != server_squad->squad_members().end(); ++it)
+    {
+        float other_distance = it->second->Position().distance_to_sqr(actor->Position());
+
+        if (other_distance < distance)
+        {
+            Msg("[Scripts/XR_CONDITION/is_pas_b400_actor_far_forward(actor, server_npc)] other_distance < distance. "
+                "Return "
+                "false");
+            return false;
+        }
+    }
+
+    return true;
+}
+
+inline bool is_pas_b400_actor_far_backward(CSE_ALifeDynamicObject* server_actor, CSE_ALifeDynamicObject* server_npc)
+{
+    if (!server_actor)
+    {
+        R_ASSERT2(false, "object is null!");
+        return false;
+    }
+
+    if (!server_npc)
+    {
+        R_ASSERT2(false, "object is null!");
+        return false;
+    }
+
+    CScriptGameObject* forward_object = Globals::get_story_object("pas_b400_bwd");
+
+    if (forward_object)
+    {
+        if (Globals::distance_between(forward_object, DataBase::Storage::getInstance().getActor()) >
+            Globals::distance_between(forward_object, server_npc))
+            return false;
+    }
+    else
+    {
+        Msg("[Scripts/XR_CONDITION/is_pas_b400_actor_far_forward(server_actor, server_npc)] WARNING: forward_object = "
+            "nullptr! "
+            "Return false");
+        return false;
+    }
+
+    float distance = 70.0f * 70.0f;
+    float self_distance = server_npc->Position().distance_to_sqr(server_actor->Position());
+
+    if (self_distance < distance)
+    {
+        Msg("[Scripts/XR_CONDITION/is_pas_b400_actor_far_forward(server_actor, server_npc)] self_distance < distance. "
+            "Return "
+            "false");
+        return false;
+    }
+
+    Script_SE_SimulationSquad* server_squad =
+        ai().alife()
+            .objects()
+            .object(ai().alife().objects().object(server_npc->ID)->cast_monster_abstract()->m_group_id)
+            ->cast_script_se_simulationsquad();
+
+    if (!server_squad)
+    {
+        Msg("[Scripts/XR_CONDITION/is_pas_b400_actor_far_forward(server_actor, server_npc)] WARNING: server_squad = "
+            "nullptr! "
+            "Return "
+            "false");
+        return false;
+    }
+
+    for (AssociativeVector<ALife::_OBJECT_ID, CSE_ALifeMonsterAbstract*>::const_iterator it =
+             server_squad->squad_members().begin();
+         it != server_squad->squad_members().end(); ++it)
+    {
+        float other_distance = it->second->Position().distance_to_sqr(server_actor->Position());
+
+        if (other_distance < distance)
+        {
+            Msg("[Scripts/XR_CONDITION/is_pas_b400_actor_far_forward(server_actor, server_npc)] other_distance < "
+                "distance. "
+                "Return "
+                "false");
+            return false;
+        }
+    }
+
+    return true;
 }
 
 } // namespace XR_CONDITION

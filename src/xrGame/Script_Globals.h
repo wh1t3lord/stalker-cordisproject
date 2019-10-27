@@ -702,6 +702,10 @@ inline bool is_factions_friends(const xr_string& faction, const xr_string& facti
 
 } // namespace GameRelations
 
+inline float distance_between(CScriptGameObject* object1, CScriptGameObject* object2);
+inline float distance_between(CScriptGameObject* object1, CSE_ALifeDynamicObject* server_object2);
+inline float distance_between(CSE_ALifeDynamicObject* server_object1, CSE_ALifeDynamicObject* server_object2);
+inline float distance_between(CSE_ALifeDynamicObject* server_object1, CScriptGameObject* object2);
 inline std::uint16_t get_story_object_id(const xr_string& object_id_name);
 inline Script_SE_SimulationSquad* get_story_squad(const xr_string& object_id_name);
 inline Script_SE_SimulationSquad* get_object_squad(const std::uint16_t& object_id);
