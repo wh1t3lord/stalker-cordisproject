@@ -3421,7 +3421,7 @@ inline bool is_distance_to_obj_ge(CScriptGameObject* actor, CScriptGameObject* n
 
         if (server_npc)
         {
-            return DataBase::Storage::getInstance().getActor()->Position().distance_to_sqr(server_npc->Position()) <
+            return DataBase::Storage::getInstance().getActor()->Position().distance_to_sqr(server_npc->Position()) >=
                 comparator * comparator;
         }
     }
@@ -3444,7 +3444,7 @@ inline bool is_distance_to_obj_ge(CScriptGameObject* actor, CSE_ALifeDynamicObje
 
         if (server_npc)
         {
-            return DataBase::Storage::getInstance().getActor()->Position().distance_to_sqr(server_npc->Position()) <
+            return DataBase::Storage::getInstance().getActor()->Position().distance_to_sqr(server_npc->Position()) >=
                 comparator * comparator;
         }
     }
@@ -3468,13 +3468,85 @@ inline bool is_distance_to_obj_ge(
 
         if (server_npc)
         {
-            return DataBase::Storage::getInstance().getActor()->Position().distance_to_sqr(server_npc->Position()) <
+            return DataBase::Storage::getInstance().getActor()->Position().distance_to_sqr(server_npc->Position()) >=
                 comparator * comparator;
         }
     }
 
     return false;
 }
+
+inline bool is_distance_to_obj_le(CScriptGameObject* actor, CScriptGameObject* npc, const xr_vector<xr_string>& buffer)
+{
+    if (!buffer.size())
+    {
+        R_ASSERT2(false, "arguemnt buffer can't be empty!");
+        return false;
+    }
+    float comparator = atof(buffer[1].c_str());
+    const std::uint16_t& npc_id = Globals::get_story_object_id(buffer[0]);
+    if (npc_id)
+    {
+        CSE_ALifeDynamicObject* server_npc = ai().alife().objects().object(npc_id);
+
+        if (server_npc)
+        {
+            return DataBase::Storage::getInstance().getActor()->Position().distance_to_sqr(server_npc->Position()) >=
+                comparator * comparator;
+        }
+    }
+
+    return false;
+}
+
+inline bool is_distance_to_obj_le(
+    CScriptGameObject* actor, CSE_ALifeDynamicObject* server_npc, const xr_vector<xr_string>& buffer)
+{
+    if (!buffer.size())
+    {
+        R_ASSERT2(false, "arguemnt buffer can't be empty!");
+        return false;
+    }
+    float comparator = atof(buffer[1].c_str());
+    const std::uint16_t& npc_id = Globals::get_story_object_id(buffer[0]);
+    if (npc_id)
+    {
+        CSE_ALifeDynamicObject* server_npc = ai().alife().objects().object(npc_id);
+
+        if (server_npc)
+        {
+            return DataBase::Storage::getInstance().getActor()->Position().distance_to_sqr(server_npc->Position()) >=
+                comparator * comparator;
+        }
+    }
+
+    return false;
+}
+
+inline bool is_distance_to_obj_le(
+    CSE_ALifeDynamicObject* server_actor, CSE_ALifeDynamicObject* server_npc, const xr_vector<xr_string>& buffer)
+{
+    if (!buffer.size())
+    {
+        R_ASSERT2(false, "arguemnt buffer can't be empty!");
+        return false;
+    }
+    float comparator = atof(buffer[1].c_str());
+    const std::uint16_t& npc_id = Globals::get_story_object_id(buffer[0]);
+    if (npc_id)
+    {
+        CSE_ALifeDynamicObject* server_npc = ai().alife().objects().object(npc_id);
+
+        if (server_npc)
+        {
+            return DataBase::Storage::getInstance().getActor()->Position().distance_to_sqr(server_npc->Position()) >=
+                comparator * comparator;
+        }
+    }
+
+    return false;
+}
+ 
 
 
 
