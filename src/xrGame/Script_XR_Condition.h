@@ -3429,7 +3429,8 @@ inline bool is_distance_to_obj_ge(CScriptGameObject* actor, CScriptGameObject* n
     return false;
 }
 
-inline bool is_distance_to_obj_ge(CScriptGameObject* actor, CSE_ALifeDynamicObject* server_npc, const xr_vector<xr_string>& buffer)
+inline bool is_distance_to_obj_ge(
+    CScriptGameObject* actor, CSE_ALifeDynamicObject* server_npc, const xr_vector<xr_string>& buffer)
 {
     if (!buffer.size())
     {
@@ -3546,9 +3547,523 @@ inline bool is_distance_to_obj_le(
 
     return false;
 }
- 
 
+inline bool is_in_dest_smart_cover(CScriptGameObject* actor, CScriptGameObject* npc)
+{
+    if (!npc)
+    {
+        R_ASSERT2(false, "object is null!");
+        return false;
+    }
 
+    return npc->in_smart_cover();
+}
+
+/* Lord: NOT USED (check it in game that fact)
+inline bool is_active_item(CScriptGameObject* actor, CScriptGameObject* npc, const xr_vector<xr_string>& buffer)
+{
+    if (buffer.size())
+    {
+        
+    }
+}*/
+
+// Lord: наверное лучше всё таки написать под стандарт или всё таки есть перегрузка и под войд?
+inline bool is_actor_nomove_nowpn(void)
+{
+    if (!Globals::IsWeapon(DataBase::Storage::getInstance().getActor()->GetActiveItem()) ||
+        DataBase::Storage::getInstance().getActor()->IsTalking())
+    {
+        return true;
+    }
+
+    return false;
+}
+
+inline bool is_jup_b16_is_zone_active(CScriptGameObject* actor, CScriptGameObject* npc)
+{
+    return Globals::has_alife_info(npc->Name());
+}
+
+inline bool is_dist_to_story_obj_ge(
+    CScriptGameObject* actor, CScriptGameObject* npc, const xr_vector<xr_string>& buffer)
+{
+    if (!buffer.size())
+    {
+        R_ASSERT2(false, "Argument buffer can't be empty!");
+        return false;
+    }
+
+    const xr_string& story_id_name = buffer[0];
+    const std::uint16_t& story_obj_id = Globals::get_story_object_id(story_id_name);
+
+    if (!story_obj_id)
+        return true;
+
+    CSE_ALifeDynamicObject* server_object = ai().alife().objects().object(story_obj_id);
+
+    if (!server_object)
+    {
+        Msg("[Scripts/XR_CONDITION/is_dist_to_story_obj_ge(actor, npc, buffer)] WARNING: server_object = nullptr! "
+            "Returning false!");
+        return false;
+    }
+
+    return server_object->Position().distance_to(DataBase::Storage::getInstance().getActor()->Position()) >
+        atof(buffer[1].c_str());
+}
+
+inline bool is_dist_to_story_obj_ge(
+    CScriptGameObject* actor, CSE_ALifeDynamicObject* server_npc, const xr_vector<xr_string>& buffer)
+{
+    if (!buffer.size())
+    {
+        R_ASSERT2(false, "Argument buffer can't be empty!");
+        return false;
+    }
+
+    const xr_string& story_id_name = buffer[0];
+    const std::uint16_t& story_obj_id = Globals::get_story_object_id(story_id_name);
+
+    if (!story_obj_id)
+        return true;
+
+    CSE_ALifeDynamicObject* server_object = ai().alife().objects().object(story_obj_id);
+
+    if (!server_object)
+    {
+        Msg("[Scripts/XR_CONDITION/is_dist_to_story_obj_ge(actor, server_npc, buffer)] WARNING: server_object = "
+            "nullptr! "
+            "Returning false!");
+        return false;
+    }
+
+    return server_object->Position().distance_to(DataBase::Storage::getInstance().getActor()->Position()) >
+        atof(buffer[1].c_str());
+}
+
+inline bool is_dist_to_story_obj_ge(
+    CSE_ALifeDynamicObject* server_actor, CSE_ALifeDynamicObject* server_npc, const xr_vector<xr_string>& buffer)
+{
+    if (!buffer.size())
+    {
+        R_ASSERT2(false, "Argument buffer can't be empty!");
+        return false;
+    }
+
+    const xr_string& story_id_name = buffer[0];
+    const std::uint16_t& story_obj_id = Globals::get_story_object_id(story_id_name);
+
+    if (!story_obj_id)
+        return true;
+
+    CSE_ALifeDynamicObject* server_object = ai().alife().objects().object(story_obj_id);
+
+    if (!server_object)
+    {
+        Msg("[Scripts/XR_CONDITION/is_dist_to_story_obj_ge(server_actor, server_npc, buffer)] WARNING: server_object = "
+            "nullptr! "
+            "Returning false!");
+        return false;
+    }
+
+    return server_object->Position().distance_to(DataBase::Storage::getInstance().getActor()->Position()) >
+        atof(buffer[1].c_str());
+}
+
+inline bool is_actor_has_nimble_weapon(CScriptGameObject* actor, CScriptGameObject* npc)
+{
+    if (!actor)
+    {
+        R_ASSERT2(false, "object is null!");
+        return false;
+    }
+
+    xr_vector<xr_string> weapon_list = {"wpn_groza_nimble", "wpn_desert_eagle_nimble", "wpn_fn2000_nimble",
+        "wpn_g36_nimble", "wpn_protecta_nimble", "wpn_mp5_nimble", "wpn_sig220_nimble", "wpn_spas12_nimble",
+        "wpn_usp_nimble", "wpn_vintorez_nimble", "wpn_svu_nimble", "wpn_svd_nimble"};
+
+    for (const xr_string& it : weapon_list)
+    {
+        if (actor->GetObjectByName(it.c_str()))
+            return true;
+    }
+
+    return false;
+}
+
+inline bool is_actor_has_nimble_weapon(CScriptGameObject* actor, CSE_ALifeDynamicObject* server_npc)
+{
+    if (!actor)
+    {
+        R_ASSERT2(false, "object is null!");
+        return false;
+    }
+
+    xr_vector<xr_string> weapon_list = {"wpn_groza_nimble", "wpn_desert_eagle_nimble", "wpn_fn2000_nimble",
+        "wpn_g36_nimble", "wpn_protecta_nimble", "wpn_mp5_nimble", "wpn_sig220_nimble", "wpn_spas12_nimble",
+        "wpn_usp_nimble", "wpn_vintorez_nimble", "wpn_svu_nimble", "wpn_svd_nimble"};
+
+    for (const xr_string& it : weapon_list)
+    {
+        if (actor->GetObjectByName(it.c_str()))
+            return true;
+    }
+
+    return false;
+}
+
+// Lord: потестировать std::find правда ли находит?
+inline bool is_actor_has_active_nimble_weapon(CScriptGameObject* actor, CScriptGameObject* npc)
+{
+    if (!actor)
+    {
+        R_ASSERT2(false, "object is null!");
+        return false;
+    }
+
+    xr_vector<xr_string> weapon_list = {"wpn_groza_nimble", "wpn_desert_eagle_nimble", "wpn_fn2000_nimble",
+        "wpn_g36_nimble", "wpn_protecta_nimble", "wpn_mp5_nimble", "wpn_sig220_nimble", "wpn_spas12_nimble",
+        "wpn_usp_nimble", "wpn_vintorez_nimble", "wpn_svu_nimble", "wpn_svd_nimble"};
+
+    if (actor->item_in_slot(2) &&
+        std::find(weapon_list.begin(), weapon_list.end(), actor->item_in_slot(2)->Section()) != weapon_list.end())
+    {
+        return true;
+    }
+
+    if (actor->item_in_slot(3) &&
+        std::find(weapon_list.begin(), weapon_list.end(), actor->item_in_slot(3)->Section()) != weapon_list.end())
+    {
+        return true;
+    }
+
+    return false;
+}
+
+inline bool is_actor_has_active_nimble_weapon(CScriptGameObject* actor, CSE_ALifeDynamicObject* server_npc)
+{
+    if (!actor)
+    {
+        R_ASSERT2(false, "object is null!");
+        return false;
+    }
+
+    xr_vector<xr_string> weapon_list = {"wpn_groza_nimble", "wpn_desert_eagle_nimble", "wpn_fn2000_nimble",
+        "wpn_g36_nimble", "wpn_protecta_nimble", "wpn_mp5_nimble", "wpn_sig220_nimble", "wpn_spas12_nimble",
+        "wpn_usp_nimble", "wpn_vintorez_nimble", "wpn_svu_nimble", "wpn_svd_nimble"};
+
+    if (actor->item_in_slot(2) &&
+        std::find(weapon_list.begin(), weapon_list.end(), actor->item_in_slot(2)->Section()) != weapon_list.end())
+    {
+        return true;
+    }
+
+    if (actor->item_in_slot(3) &&
+        std::find(weapon_list.begin(), weapon_list.end(), actor->item_in_slot(3)->Section()) != weapon_list.end())
+    {
+        return true;
+    }
+
+    return false;
+}
+
+inline bool is_jup_b202_inventory_box_empty(CScriptGameObject* actor, CScriptGameObject* npc)
+{
+    CScriptGameObject* inventory_box = Globals::get_story_object("jup_b202_actor_treasure");
+    return inventory_box->IsInvBoxEmpty();
+}
+
+inline bool is_jup_b202_inventory_box_empty(CScriptGameObject* actor, CSE_ALifeDynamicObject* server_npc)
+{
+    CScriptGameObject* inventory_box = Globals::get_story_object("jup_b202_actor_treasure");
+    return inventory_box->IsInvBoxEmpty();
+}
+
+inline bool is_jup_b202_inventory_box_empty(CSE_ALifeDynamicObject* server_actor, CSE_ALifeDynamicObject* server_npc)
+{
+    CScriptGameObject* inventory_box = Globals::get_story_object("jup_b202_actor_treasure");
+    return inventory_box->IsInvBoxEmpty();
+}
+
+inline bool is_object_exist(CScriptGameObject* actor, CScriptGameObject* npc, const xr_vector<xr_string>& buffer)
+{
+    if (!buffer.size())
+    {
+        R_ASSERT2(false, "argument buffer can't be empty!");
+        return false;
+    }
+
+    return !!Globals::get_story_object(buffer[0]);
+}
+
+inline bool is_object_exist(
+    CScriptGameObject* actor, CSE_ALifeDynamicObject* server_npc, const xr_vector<xr_string>& buffer)
+{
+    if (!buffer.size())
+    {
+        R_ASSERT2(false, "argument buffer can't be empty!");
+        return false;
+    }
+
+    return !!Globals::get_story_object(buffer[0]);
+}
+
+inline bool is_object_exist(
+    CSE_ALifeDynamicObject* server_actor, CSE_ALifeDynamicObject* server_npc, const xr_vector<xr_string>& buffer)
+{
+    if (!buffer.size())
+    {
+        R_ASSERT2(false, "argument buffer can't be empty!");
+        return false;
+    }
+
+    return !!Globals::get_story_object(buffer[0]);
+}
+
+inline bool is_squad_curr_action(CScriptGameObject* actor, CScriptGameObject* npc, const xr_vector<xr_string>& buffer)
+{
+    if (!buffer.size())
+    {
+        R_ASSERT2(false, "argument buffer can't be empty!");
+        return false;
+    }
+
+    if (!npc)
+    {
+        R_ASSERT2(false, "object is null!");
+        return false;
+    }
+
+    Script_SE_SimulationSquad* server_squad = Globals::get_object_squad(npc->ID());
+
+    if (!server_squad)
+    {
+        Msg("[Scripts/XR_CONDITION/is_squad_curr_action(actor, npc, buffer)] WARNING: server_squad = nullptr! "
+            "Returning false!");
+        return false;
+    }
+
+    return server_squad->getCurrentAction().getName().size() ? server_squad->getCurrentAction().getName() == buffer[0] :
+                                                               false;
+}
+
+inline bool is_squad_curr_action(
+    CScriptGameObject* actor, CSE_ALifeDynamicObject* server_npc, const xr_vector<xr_string>& buffer)
+{
+    if (!buffer.size())
+    {
+        R_ASSERT2(false, "argument buffer can't be empty!");
+        return false;
+    }
+
+    if (!server_npc)
+    {
+        R_ASSERT2(false, "object is null!");
+        return false;
+    }
+
+    Script_SE_SimulationSquad* server_squad = Globals::get_object_squad(server_npc->ID);
+
+    if (!server_squad)
+    {
+        Msg("[Scripts/XR_CONDITION/is_squad_curr_action(actor, server_npc, buffer)] WARNING: server_squad = nullptr! "
+            "Returning false!");
+        return false;
+    }
+
+    return server_squad->getCurrentAction().getName().size() ? server_squad->getCurrentAction().getName() == buffer[0] :
+                                                               false;
+}
+
+inline bool is_squad_curr_action(
+    CSE_ALifeDynamicObject* server_actor, CSE_ALifeDynamicObject* server_npc, const xr_vector<xr_string>& buffer)
+{
+    if (!buffer.size())
+    {
+        R_ASSERT2(false, "argument buffer can't be empty!");
+        return false;
+    }
+
+    if (!server_npc)
+    {
+        R_ASSERT2(false, "object is null!");
+        return false;
+    }
+
+    Script_SE_SimulationSquad* server_squad = Globals::get_object_squad(server_npc->ID);
+
+    if (!server_squad)
+    {
+        Msg("[Scripts/XR_CONDITION/is_squad_curr_action(server_actor, server_npc, buffer)] WARNING: server_squad = "
+            "nullptr! "
+            "Returning false!");
+        return false;
+    }
+
+    return server_squad->getCurrentAction().getName().size() ? server_squad->getCurrentAction().getName() == buffer[0] :
+                                                               false;
+}
+
+inline bool is_monster_snork(CScriptGameObject* actor, CScriptGameObject* npc)
+{
+    if (!npc)
+    {
+        R_ASSERT2(false, "object is null!");
+        return false;
+    }
+
+    return npc->clsid() == CLSID_SE_MONSTER_SNORK;
+}
+
+inline bool is_monster_dog(CScriptGameObject* actor, CScriptGameObject* npc)
+{
+    if (!npc)
+    {
+        R_ASSERT2(false, "object is null!");
+        return false;
+    }
+
+    return npc->clsid() == CLSID_SE_MONSTER_DOG;
+}
+
+inline bool is_monster_psy_dog(CScriptGameObject* actor, CScriptGameObject* npc)
+{
+    if (!npc)
+    {
+        R_ASSERT2(false, "object is null!");
+        return false;
+    }
+
+    return npc->clsid() == CLSID_SE_MONSTER_DOG_PSY;
+}
+
+inline bool is_monster_polter(CScriptGameObject* actor, CScriptGameObject* npc)
+{
+    if (!npc)
+    {
+        R_ASSERT2(false, "object is null!");
+        return false;
+    }
+
+    return npc->clsid() == CLSID_SE_MONSTER_POLTERGEIST;
+}
+
+inline bool is_monster_tushkano(CScriptGameObject* actor, CScriptGameObject* npc)
+{
+    if (!npc)
+    {
+        R_ASSERT2(false, "object is null!");
+        return false;
+    }
+
+    return npc->clsid() == CLSID_SE_MONSTER_TUSHKANO;
+}
+
+inline bool is_monster_burer(CScriptGameObject* actor, CScriptGameObject* npc)
+{
+    if (!npc)
+    {
+        R_ASSERT2(false, "object is null!");
+        return false;
+    }
+
+    return npc->clsid() == CLSID_SE_MONSTER_BURER;
+}
+
+inline bool is_monster_controller(CScriptGameObject* actor, CScriptGameObject* npc)
+{
+    if (!npc)
+    {
+        R_ASSERT2(false, "object is null!");
+        return false;
+    }
+
+    return npc->clsid() == CLSID_SE_MONSTER_CONTROLLER;
+}
+
+inline bool is_monster_flesh(CScriptGameObject* actor, CScriptGameObject* npc)
+{
+    if (!npc)
+    {
+        R_ASSERT2(false, "object is null!");
+        return false;
+    }
+
+    return npc->clsid() == CLSID_SE_MONSTER_FLESH;
+}
+
+inline bool is_monster_boar(CScriptGameObject* actor, CScriptGameObject* npc)
+{
+    if (!npc)
+    {
+        R_ASSERT2(false, "object is null!");
+        return false;
+    }
+
+    return npc->clsid() == CLSID_SE_MONSTER_BOAR;
+}
+
+inline bool is_jup_b47_npc_online(CScriptGameObject* actor, CScriptGameObject* npc, const xr_vector<xr_string>& buffer)
+{
+    if (!buffer.size())
+    {
+        R_ASSERT2(false, "argument buffer can't be empty!");
+        return false;
+    }
+
+    CScriptGameObject* story_object = Globals::get_story_object(buffer[0]);
+
+    if (!story_object)
+    {
+        return false;
+    }
+
+    CSE_ALifeDynamicObject* server_object = ai().alife().objects().object(story_object->ID());
+
+    return !!server_object;
+}
+
+inline bool is_jup_b47_npc_online(CScriptGameObject* actor, CSE_ALifeDynamicObject* server_npc, const xr_vector<xr_string>& buffer)
+{
+    if (!buffer.size())
+    {
+        R_ASSERT2(false, "argument buffer can't be empty!");
+        return false;
+    }
+
+    CScriptGameObject* story_object = Globals::get_story_object(buffer[0]);
+
+    if (!story_object)
+    {
+        return false;
+    }
+
+    CSE_ALifeDynamicObject* server_object = ai().alife().objects().object(story_object->ID());
+
+    return !!server_object;
+}
+
+inline bool is_jup_b47_npc_online(
+    CSE_ALifeDynamicObject* server_actor, CSE_ALifeDynamicObject* server_npc, const xr_vector<xr_string>& buffer)
+{
+    if (!buffer.size())
+    {
+        R_ASSERT2(false, "argument buffer can't be empty!");
+        return false;
+    }
+
+    CScriptGameObject* story_object = Globals::get_story_object(buffer[0]);
+
+    if (!story_object)
+    {
+        return false;
+    }
+
+    CSE_ALifeDynamicObject* server_object = ai().alife().objects().object(story_object->ID());
+
+    return !!server_object;
+}
 
 } // namespace XR_CONDITION
 } // namespace Scripts
