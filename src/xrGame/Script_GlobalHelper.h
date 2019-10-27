@@ -3,6 +3,11 @@
 #include "object_factory.h"
 #include "Script_XR_Patrol.h"
 
+#define _REGISTER_FULL_FUNCTION_XR_CONDITION(function_name, function)                                                 \
+    this->m_registered_functions_xr_conditions[#function_name "_client"] = function##_client;               \
+    this->m_registered_functions_xr_conditions[#function_name "_client_server"] = function##_client_server; \
+    this->m_registered_functions_xr_conditions[#function_name "_server"] = function##_server;
+
 namespace Cordis
 {
 namespace Scripts
@@ -12,6 +17,7 @@ struct Script_GlobalHelper
 private:
     Script_GlobalHelper(void)
     {
+        
         // @ Здесь инициализация всех "локальных" карт которые находятся в каждом скрипте, проверить что оно реально
         // раньше всех инициализирует
 #pragma region Cordis XR_PATROL Initializing
@@ -3965,6 +3971,10 @@ private:
         this->m_game_smarts_by_no_assault_zone["zat_a2_sr_no_assault"] = "zat_stalker_base_smart";
         this->m_game_smarts_by_no_assault_zone["jup_a6_sr_no_assault"] = "jup_a6";
         this->m_game_smarts_by_no_assault_zone["jup_b41_sr_no_assault"] = "jup_b41";
+#pragma endregion
+
+#pragma region Cordis Registering XR_CONDITINO Functions
+        _REGISTER_FULL_FUNCTION_XR_CONDITION(actor_on_level, XR_CONDITION::is_actor_on_level)
 #pragma endregion
     }
 

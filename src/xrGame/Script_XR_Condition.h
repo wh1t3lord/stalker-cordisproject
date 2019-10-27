@@ -3,6 +3,7 @@
 #include "Script_XR_Sound.h"
 #include "Script_XR_Gulag.h"
 #include "Script_XR_Wounded.h"
+#include "Script_GlobalDefinitions.h"
 
 namespace Cordis
 {
@@ -33,7 +34,7 @@ inline bool is_enemy_actor(CScriptGameObject* enemy, CScriptGameObject* object)
     return (enemy->ID() == object->ID());
 }
 
-inline bool is_fighting_dist_ge(CScriptGameObject* enemy, CScriptGameObject* npc, const xr_vector<xr_string>& buffer)
+inline bool is_fighting_dist_ge_client(CScriptGameObject* enemy, CScriptGameObject* npc, const xr_vector<xr_string>& buffer)
 {
     if (!enemy)
     {
@@ -58,7 +59,7 @@ inline bool is_fighting_dist_ge(CScriptGameObject* enemy, CScriptGameObject* npc
     return (enemy->Position().distance_to_sqr(npc->Position()) >= (distance * distance));
 }
 
-inline bool is_fighting_dist_ge(
+inline bool is_fighting_dist_ge_server(
     CSE_ALifeDynamicObject* enemy, CSE_ALifeDynamicObject* npc, const xr_vector<xr_string>& buffer)
 {
     if (!enemy)
@@ -84,7 +85,7 @@ inline bool is_fighting_dist_ge(
     return (enemy->Position().distance_to_sqr(npc->Position()) >= (distance * distance));
 }
 
-inline bool is_fighting_dist_le(CScriptGameObject* enemy, CScriptGameObject* npc, const xr_vector<xr_string>& buffer)
+inline bool is_fighting_dist_le_client(CScriptGameObject* enemy, CScriptGameObject* npc, const xr_vector<xr_string>& buffer)
 {
     if (!enemy)
     {
@@ -109,7 +110,7 @@ inline bool is_fighting_dist_le(CScriptGameObject* enemy, CScriptGameObject* npc
     return (enemy->Position().distance_to_sqr(npc->Position()) <= distance * distance);
 }
 
-inline bool is_fighting_dist_le(
+inline bool is_fighting_dist_le_server(
     CSE_ALifeDynamicObject* enemy, CSE_ALifeDynamicObject* npc, const xr_vector<xr_string>& buffer)
 {
     if (!enemy)
@@ -135,7 +136,7 @@ inline bool is_fighting_dist_le(
     return (enemy->Position().distance_to_sqr(npc->Position()) <= distance * distance);
 }
 
-inline bool is_enemy_in_zone(CScriptGameObject* enemy, CScriptGameObject* npc, const xr_vector<xr_string>& buffer)
+inline bool is_enemy_in_zone_client(CScriptGameObject* enemy, CScriptGameObject* npc, const xr_vector<xr_string>& buffer)
 {
     if (!enemy)
     {
@@ -168,7 +169,7 @@ inline bool is_enemy_in_zone(CScriptGameObject* enemy, CScriptGameObject* npc, c
     return Globals::Utils::is_npc_in_zone(enemy, zone);
 }
 
-inline bool is_enemy_in_zone(
+inline bool is_enemy_in_zone_server(
     CSE_ALifeDynamicObject* server_enemy, CSE_ALifeDynamicObject* server_npc, const xr_vector<xr_string>& buffer)
 {
     if (!server_enemy)
@@ -202,14 +203,14 @@ inline bool is_enemy_in_zone(
     return Globals::Utils::is_npc_in_zone(server_enemy, zone);
 }
 
-inline bool is_black_screen(CScriptGameObject* actor, CScriptGameObject* npc) { return Device.dwPrecacheFrame > 1; }
+inline bool is_black_screen_client(CScriptGameObject* actor, CScriptGameObject* npc) { return Device.dwPrecacheFrame > 1; }
 
-inline bool is_black_screen(CScriptGameObject* actor, CSE_ALifeDynamicObject* server_npc)
+inline bool is_black_screen_client_server(CScriptGameObject* actor, CSE_ALifeDynamicObject* server_npc)
 {
     return Device.dwPrecacheFrame > 1;
 }
 
-inline bool check_npc_name(CScriptGameObject* actor, CScriptGameObject* npc, const xr_vector<xr_string>& buffer)
+inline bool check_npc_name_client(CScriptGameObject* actor, CScriptGameObject* npc, const xr_vector<xr_string>& buffer)
 {
     if (!buffer.size())
     {
@@ -246,7 +247,7 @@ inline bool check_npc_name(CScriptGameObject* actor, CScriptGameObject* npc, con
     return (npc->Name() == npc_name);
 }
 
-inline bool check_npc_name(
+inline bool check_npc_name_client_server(
     CScriptGameObject* actor, CSE_ALifeDynamicObject* server_npc, const xr_vector<xr_string>& buffer)
 {
     if (!buffer.size())
@@ -284,7 +285,7 @@ inline bool check_npc_name(
     return (server_npc->name_replace() == npc_name);
 }
 
-inline bool check_enemy_name(CScriptGameObject* actor, CScriptGameObject* npc, const xr_vector<xr_string>& buffer)
+inline bool check_enemy_name_client(CScriptGameObject* actor, CScriptGameObject* npc, const xr_vector<xr_string>& buffer)
 {
     if (!buffer.size())
     {
@@ -380,7 +381,7 @@ inline bool is_npc_in_actor_frustrum(CScriptGameObject* actor, CScriptGameObject
 
 inline bool is_wounded(CScriptGameObject* actor, CScriptGameObject* npc) { return XR_WOUNDED::is_wounded(npc); }
 
-inline bool is_dist_to_actor_ge(CScriptGameObject* actor, CScriptGameObject* npc, const xr_vector<xr_string>& buffer)
+inline bool is_dist_to_actor_ge_client(CScriptGameObject* actor, CScriptGameObject* npc, const xr_vector<xr_string>& buffer)
 {
     if (!buffer.size())
     {
@@ -420,7 +421,7 @@ inline bool is_dist_to_actor_ge(CScriptGameObject* actor, CScriptGameObject* npc
     return (npc->Position().distance_to_sqr(actor->Position()) >= (distance * distance));
 }
 
-inline bool is_dist_to_actor_ge(
+inline bool is_dist_to_actor_ge_client_server(
     CScriptGameObject* actor, CSE_ALifeDynamicObject* server_npc, const xr_vector<xr_string>& buffer)
 {
     if (!buffer.size())
@@ -462,7 +463,7 @@ inline bool is_dist_to_actor_ge(
     return (server_npc->Position().distance_to_sqr(actor->Position()) >= (distance * distance));
 }
 
-inline bool is_dist_to_actor_ge(
+inline bool is_dist_to_actor_ge_server(
     CSE_ALifeDynamicObject* server_actor, CSE_ALifeDynamicObject* server_npc, const xr_vector<xr_string>& buffer)
 {
     if (!buffer.size())
@@ -611,7 +612,7 @@ inline bool is_distance_to_obj_on_job_le(
     return false;
 }
 
-inline bool is_story_obj_in_zone_by_name(
+inline bool is_story_obj_in_zone_by_name_client(
     CScriptGameObject* actor, CScriptGameObject* npc, const xr_vector<xr_string>& buffer)
 {
     if (!buffer.size())
@@ -654,7 +655,7 @@ inline bool is_story_obj_in_zone_by_name(
     return false;
 }
 
-inline bool is_story_obj_in_zone_by_name(
+inline bool is_story_obj_in_zone_by_name_server(
     CSE_ALifeDynamicObject* actor, CSE_ALifeDynamicObject* npc, const xr_vector<xr_string>& buffer)
 {
     if (!buffer.size())
@@ -697,7 +698,7 @@ inline bool is_story_obj_in_zone_by_name(
     return false;
 }
 
-inline bool is_actor_in_zone(CScriptGameObject* actor, CScriptGameObject* npc, const xr_vector<xr_string>& buffer)
+inline bool is_actor_in_zone_client(CScriptGameObject* actor, CScriptGameObject* npc, const xr_vector<xr_string>& buffer)
 {
     if (!buffer.size())
     {
@@ -724,7 +725,7 @@ inline bool is_actor_in_zone(CScriptGameObject* actor, CScriptGameObject* npc, c
     return Globals::Utils::is_npc_in_zone(DataBase::Storage::getInstance().getActor(), zone);
 }
 
-inline bool is_actor_in_zone(
+inline bool is_actor_in_zone_client_server(
     CScriptGameObject* actor, CSE_ALifeDynamicObject* server_npc, const xr_vector<xr_string>& buffer)
 {
     if (!buffer.size())
@@ -759,7 +760,7 @@ inline bool is_actor_in_zone(
     return Globals::Utils::is_npc_in_zone(DataBase::Storage::getInstance().getActor(), zone);
 }
 
-inline bool is_actor_in_zone(
+inline bool is_actor_in_zone_server(
     CSE_ALifeDynamicObject* server_actor, CSE_ALifeDynamicObject* server_npc, const xr_vector<xr_string>& buffer)
 {
     if (!buffer.size())
@@ -794,7 +795,7 @@ inline bool is_actor_in_zone(
     return Globals::Utils::is_npc_in_zone(DataBase::Storage::getInstance().getActor(), zone);
 }
 
-inline bool is_npc_in_zone(CScriptGameObject* actor, CScriptGameObject* npc, const xr_vector<xr_string>& buffer)
+inline bool is_npc_in_zone_client(CScriptGameObject* actor, CScriptGameObject* npc, const xr_vector<xr_string>& buffer)
 {
     if (!buffer.size())
     {
@@ -827,7 +828,7 @@ inline bool is_npc_in_zone(CScriptGameObject* actor, CScriptGameObject* npc, con
     return Globals::Utils::is_npc_in_zone(npc, zone);
 }
 
-inline bool is_npc_in_zone(
+inline bool is_npc_in_zone_client_server(
     CScriptGameObject* actor, CSE_ALifeDynamicObject* server_npc, const xr_vector<xr_string>& buffer)
 {
     if (!buffer.size())
@@ -871,7 +872,7 @@ inline bool is_npc_in_zone(
     return Globals::Utils::is_npc_in_zone(npc, zone);
 }
 
-inline bool is_npc_in_zone(
+inline bool is_npc_in_zone_server(
     CSE_ALifeDynamicObject* server_actor, CSE_ALifeDynamicObject* server_npc, const xr_vector<xr_string>& buffer)
 {
     if (!buffer.size())
@@ -966,7 +967,7 @@ inline bool is_actor_health_le(CScriptGameObject* actor, CScriptGameObject* npc,
     return false;
 }
 
-inline bool is_npc_community(CScriptGameObject* actor, CScriptGameObject* npc, const xr_vector<xr_string>& buffer)
+inline bool is_npc_community_client(CScriptGameObject* actor, CScriptGameObject* npc, const xr_vector<xr_string>& buffer)
 {
     if (!buffer.size())
     {
@@ -994,7 +995,7 @@ inline bool is_npc_community(CScriptGameObject* actor, CScriptGameObject* npc, c
     return false;
 }
 
-inline bool is_npc_community(
+inline bool is_npc_community_client_server(
     CScriptGameObject* actor, CSE_ALifeDynamicObject* server_npc, const xr_vector<xr_string>& buffer)
 {
     if (!buffer.size())
@@ -1037,7 +1038,7 @@ inline bool is_npc_community(
     return false;
 }
 
-inline bool is_npc_community(
+inline bool is_npc_community_server(
     CSE_ALifeDynamicObject* server_actor, CSE_ALifeDynamicObject* server_npc, const xr_vector<xr_string>& buffer)
 {
     if (!buffer.size())
@@ -1147,7 +1148,7 @@ inline bool is_killed_by(CScriptGameObject* actor, CScriptGameObject* npc, const
     return false;
 }
 
-inline bool is_alive_one(CScriptGameObject* actor, CScriptGameObject* npc, const xr_vector<xr_string>& buffer)
+inline bool is_alive_one_client(CScriptGameObject* actor, CScriptGameObject* npc, const xr_vector<xr_string>& buffer)
 {
     if (!buffer.size())
     {
@@ -1184,7 +1185,7 @@ inline bool is_alive_one(CScriptGameObject* actor, CScriptGameObject* npc, const
     return false;
 }
 
-inline bool is_alive_one(
+inline bool is_alive_one_client_server(
     CScriptGameObject* actor, CSE_ALifeDynamicObject* server_npc, const xr_vector<xr_string>& buffer)
 {
     if (!buffer.size())
@@ -1222,7 +1223,7 @@ inline bool is_alive_one(
     return false;
 }
 
-inline bool is_alive_one(
+inline bool is_alive_one_server(
     CSE_ALifeDynamicObject* server_actor, CSE_ALifeDynamicObject* server_npc, const xr_vector<xr_string>& buffer)
 {
     if (!buffer.size())
@@ -1260,7 +1261,7 @@ inline bool is_alive_one(
     return false;
 }
 
-inline bool is_alive(CScriptGameObject* actor, CScriptGameObject* npc, const xr_vector<xr_string>& buffer)
+inline bool is_alive_client(CScriptGameObject* actor, CScriptGameObject* npc, const xr_vector<xr_string>& buffer)
 {
     if (!buffer.size())
     {
@@ -1299,7 +1300,7 @@ inline bool is_alive(CScriptGameObject* actor, CScriptGameObject* npc, const xr_
     return false;
 }
 
-inline bool is_alive(CScriptGameObject* actor, CSE_ALifeDynamicObject* server_npc, const xr_vector<xr_string>& buffer)
+inline bool is_alive_client_server(CScriptGameObject* actor, CSE_ALifeDynamicObject* server_npc, const xr_vector<xr_string>& buffer)
 {
     if (!buffer.size())
     {
@@ -1340,7 +1341,7 @@ inline bool is_alive(CScriptGameObject* actor, CSE_ALifeDynamicObject* server_np
     return false;
 }
 
-inline bool is_alive(
+inline bool is_alive_server(
     CSE_ALifeDynamicObject* server_actor, CSE_ALifeDynamicObject* server_npc, const xr_vector<xr_string>& buffer)
 {
     if (!buffer.size())
@@ -1382,7 +1383,7 @@ inline bool is_alive(
     return false;
 }
 
-inline bool is_dead(CScriptGameObject* actor, CScriptGameObject* npc, const xr_vector<xr_string>& buffer)
+inline bool is_dead_client(CScriptGameObject* actor, CScriptGameObject* npc, const xr_vector<xr_string>& buffer)
 {
     if (!buffer.size())
     {
@@ -1403,7 +1404,7 @@ inline bool is_dead(CScriptGameObject* actor, CScriptGameObject* npc, const xr_v
     return false;
 }
 
-inline bool is_dead(CScriptGameObject* actor, CSE_ALifeDynamicObject* server_npc, const xr_vector<xr_string>& buffer)
+inline bool is_dead_client_server(CScriptGameObject* actor, CSE_ALifeDynamicObject* server_npc, const xr_vector<xr_string>& buffer)
 {
     if (!buffer.size())
     {
@@ -1424,7 +1425,7 @@ inline bool is_dead(CScriptGameObject* actor, CSE_ALifeDynamicObject* server_npc
     return false;
 }
 
-inline bool is_dead(
+inline bool is_dead_server(
     CSE_ALifeDynamicObject* server_actor, CSE_ALifeDynamicObject* server_npc, const xr_vector<xr_string>& buffer)
 {
     if (!buffer.size())
@@ -1446,7 +1447,7 @@ inline bool is_dead(
     return false;
 }
 
-inline bool is_story_object_exist(CScriptGameObject* actor, CScriptGameObject* npc, const xr_vector<xr_string>& buffer)
+inline bool is_story_object_exist_client(CScriptGameObject* actor, CScriptGameObject* npc, const xr_vector<xr_string>& buffer)
 {
     if (!buffer.size())
     {
@@ -1459,7 +1460,7 @@ inline bool is_story_object_exist(CScriptGameObject* actor, CScriptGameObject* n
     return (!!npc1);
 }
 
-inline bool is_story_object_exist(
+inline bool is_story_object_exist_client_server(
     CScriptGameObject* actor, CSE_ALifeDynamicObject* server_npc, const xr_vector<xr_string>& buffer)
 {
     if (!buffer.size())
@@ -1473,7 +1474,7 @@ inline bool is_story_object_exist(
     return (!!npc1);
 }
 
-inline bool is_story_object_exist(
+inline bool is_story_object_exist_server(
     CSE_ALifeDynamicObject* server_actor, CSE_ALifeDynamicObject* server_npc, const xr_vector<xr_string>& buffer)
 {
     if (!buffer.size())
@@ -1487,7 +1488,7 @@ inline bool is_story_object_exist(
     return (!!npc1);
 }
 
-inline bool is_actor_has_item(CScriptGameObject* actor, CScriptGameObject* npc, const xr_vector<xr_string>& buffer)
+inline bool is_actor_has_item_client(CScriptGameObject* actor, CScriptGameObject* npc, const xr_vector<xr_string>& buffer)
 {
     if (!buffer.size())
     {
@@ -1505,7 +1506,7 @@ inline bool is_actor_has_item(CScriptGameObject* actor, CScriptGameObject* npc, 
     return false;
 }
 
-inline bool is_actor_has_item(
+inline bool is_actor_has_item_client_server(
     CScriptGameObject* actor, CSE_ALifeDynamicObject* server_npc, const xr_vector<xr_string>& buffer)
 {
     if (!buffer.size())
@@ -1524,7 +1525,7 @@ inline bool is_actor_has_item(
     return false;
 }
 
-inline bool is_actor_has_item(
+inline bool is_actor_has_item_server(
     CSE_ALifeDynamicObject* server_actor, CSE_ALifeDynamicObject* server_npc, const xr_vector<xr_string>& buffer)
 {
     if (!buffer.size())
@@ -1598,7 +1599,7 @@ inline bool is_signal(CSE_ALifeDynamicObject* server_actor, CScriptGameObject* n
     return storage_data[storage_data.m_active_scheme].m_signals[buffer[0]];
 }*/
 
-inline bool is_counter_greater(CScriptGameObject* actor, CScriptGameObject* npc, const xr_vector<xr_string>& buffer)
+inline bool is_counter_greater_client(CScriptGameObject* actor, CScriptGameObject* npc, const xr_vector<xr_string>& buffer)
 {
     if (!actor)
     {
@@ -1618,7 +1619,7 @@ inline bool is_counter_greater(CScriptGameObject* actor, CScriptGameObject* npc,
     return (pstor_number > argument_number);
 }
 
-inline bool is_counter_greater(
+inline bool is_counter_greater_client_server(
     CScriptGameObject* actor, CSE_ALifeDynamicObject* server_npc, const xr_vector<xr_string>& buffer)
 {
     if (!actor)
@@ -1639,7 +1640,7 @@ inline bool is_counter_greater(
     return (pstor_number > argument_number);
 }
 
-inline bool is_counter_equal(CScriptGameObject* actor, CScriptGameObject* npc, const xr_vector<xr_string>& buffer)
+inline bool is_counter_equal_client(CScriptGameObject* actor, CScriptGameObject* npc, const xr_vector<xr_string>& buffer)
 {
     if (!actor)
     {
@@ -1659,7 +1660,7 @@ inline bool is_counter_equal(CScriptGameObject* actor, CScriptGameObject* npc, c
     return (pstor_number == argument_number);
 }
 
-inline bool is_counter_equal(
+inline bool is_counter_equal_client_server(
     CScriptGameObject* actor, CSE_ALifeDynamicObject* server_npc, const xr_vector<xr_string>& buffer)
 {
     if (!actor)
@@ -1692,7 +1693,7 @@ inline bool is_kamp_talk(CScriptGameObject* actor, CScriptGameObject* npc)
     return false;
 }
 
-inline bool check_smart_alarm_status(
+inline bool check_smart_alarm_status_client(
     CScriptGameObject* actor, CScriptGameObject* npc, const xr_vector<xr_string>& buffer)
 {
     if (!buffer.size())
@@ -1718,7 +1719,7 @@ inline bool check_smart_alarm_status(
     return (smart_control->getState() == state);
 }
 
-inline bool check_smart_alarm_status(
+inline bool check_smart_alarm_status_client_server(
     CScriptGameObject* actor, CSE_ALifeDynamicObject* server_npc, const xr_vector<xr_string>& buffer)
 {
     if (!buffer.size())
@@ -1744,7 +1745,7 @@ inline bool check_smart_alarm_status(
     return (smart_control->getState() == state);
 }
 
-inline bool check_smart_alarm_status(
+inline bool check_smart_alarm_status_server(
     CSE_ALifeDynamicObject* server_actor, CSE_ALifeDynamicObject* server_npc, const xr_vector<xr_string>& buffer)
 {
     if (!buffer.size())
@@ -1973,7 +1974,7 @@ inline bool is_factions_neutrals(CScriptGameObject* actor, CScriptGameObject* np
     return !(is_factions_enemies(actor, npc, buffer) || is_factions_friends(actor, npc, buffer));
 }
 
-inline bool is_faction_enemy_to_actor(
+inline bool is_faction_enemy_to_actor_client(
     CScriptGameObject* actor, CScriptGameObject* npc, const xr_vector<xr_string>& buffer)
 {
     if (!buffer.size())
@@ -1986,7 +1987,7 @@ inline bool is_faction_enemy_to_actor(
                buffer[0].c_str(), DataBase::Storage::getInstance().getActor()->ID()) <= Globals::kRelationKoeffEnemy;
 }
 
-inline bool is_faction_enemy_to_actor(
+inline bool is_faction_enemy_to_actor_server(
     CSE_ALifeDynamicObject* server_actor, CSE_ALifeDynamicObject* server_npc, const xr_vector<xr_string>& buffer)
 {
     if (!buffer.size())
@@ -1999,7 +2000,7 @@ inline bool is_faction_enemy_to_actor(
                buffer[0].c_str(), DataBase::Storage::getInstance().getActor()->ID()) <= Globals::kRelationKoeffEnemy;
 }
 
-inline bool is_faction_enemy_to_actor(
+inline bool is_faction_enemy_to_actor_client_server(
     CScriptGameObject* actor, CSE_ALifeDynamicObject* npc, const xr_vector<xr_string>& buffer)
 {
     if (!buffer.size())
@@ -2012,7 +2013,7 @@ inline bool is_faction_enemy_to_actor(
                buffer[0].c_str(), DataBase::Storage::getInstance().getActor()->ID()) <= Globals::kRelationKoeffEnemy;
 }
 
-inline bool is_faction_friend_to_actor(
+inline bool is_faction_friend_to_actor_client(
     CScriptGameObject* actor, CScriptGameObject* npc, const xr_vector<xr_string>& buffer)
 {
     if (!buffer.size())
@@ -2025,7 +2026,7 @@ inline bool is_faction_friend_to_actor(
                buffer[0].c_str(), DataBase::Storage::getInstance().getActor()->ID()) >= Globals::kRelationKoeffFriend;
 }
 
-inline bool is_faction_friend_to_actor(
+inline bool is_faction_friend_to_actor_server(
     CSE_ALifeDynamicObject* server_actor, CSE_ALifeDynamicObject* server_npc, const xr_vector<xr_string>& buffer)
 {
     if (!buffer.size())
@@ -2038,7 +2039,7 @@ inline bool is_faction_friend_to_actor(
                buffer[0].c_str(), DataBase::Storage::getInstance().getActor()->ID()) >= Globals::kRelationKoeffFriend;
 }
 
-inline bool is_faction_friend_to_actor(
+inline bool is_faction_friend_to_actor_client_server(
     CScriptGameObject* actor, CSE_ALifeDynamicObject* npc, const xr_vector<xr_string>& buffer)
 {
     if (!buffer.size())
@@ -2051,7 +2052,7 @@ inline bool is_faction_friend_to_actor(
                buffer[0].c_str(), DataBase::Storage::getInstance().getActor()->ID()) >= Globals::kRelationKoeffFriend;
 }
 
-inline bool is_faction_neutral_to_actor(
+inline bool is_faction_neutral_to_actor_client(
     CScriptGameObject* actor, CScriptGameObject* npc, const xr_vector<xr_string>& buffer)
 {
     if (!buffer.size())
@@ -2060,10 +2061,10 @@ inline bool is_faction_neutral_to_actor(
         return false;
     }
 
-    return !(is_faction_friend_to_actor(actor, npc, buffer) || is_faction_enemy_to_actor(actor, npc, buffer));
+    return !(is_faction_friend_to_actor_client(actor, npc, buffer) || is_faction_enemy_to_actor_client(actor, npc, buffer));
 }
 
-inline bool is_faction_neutral_to_actor(
+inline bool is_faction_neutral_to_actor_server(
     CSE_ALifeDynamicObject* server_actor, CSE_ALifeDynamicObject* server_npc, const xr_vector<xr_string>& buffer)
 {
     if (!buffer.size())
@@ -2072,11 +2073,11 @@ inline bool is_faction_neutral_to_actor(
         return false;
     }
 
-    return !(is_faction_friend_to_actor(server_actor, server_npc, buffer) ||
-        is_faction_enemy_to_actor(server_actor, server_npc, buffer));
+    return !(is_faction_friend_to_actor_server(server_actor, server_npc, buffer) ||
+        is_faction_enemy_to_actor_server(server_actor, server_npc, buffer));
 }
 
-inline bool is_faction_neutral_to_actor(
+inline bool is_faction_neutral_to_actor_client_server(
     CScriptGameObject* actor, CSE_ALifeDynamicObject* server_npc, const xr_vector<xr_string>& buffer)
 {
     if (!buffer.size())
@@ -2086,10 +2087,10 @@ inline bool is_faction_neutral_to_actor(
     }
 
     return !(
-        is_faction_friend_to_actor(actor, server_npc, buffer) || is_faction_enemy_to_actor(actor, server_npc, buffer));
+        is_faction_friend_to_actor_client_server(actor, server_npc, buffer) || is_faction_enemy_to_actor_client_server(actor, server_npc, buffer));
 }
 
-inline bool is_squad_friend_to_actor(
+inline bool is_squad_friend_to_actor_client(
     CScriptGameObject* actor, CScriptGameObject* npc, const xr_vector<xr_string>& buffer)
 {
     if (!buffer.size())
@@ -2102,7 +2103,7 @@ inline bool is_squad_friend_to_actor(
     return Globals::GameRelations::check_all_squad_members(buffer[0], Globals::kRelationsTypeFriends);
 }
 
-inline bool is_squad_friend_to_actor(
+inline bool is_squad_friend_to_actor_server(
     CSE_ALifeDynamicObject* server_actor, CSE_ALifeDynamicObject* server_npc, const xr_vector<xr_string>& buffer)
 {
     if (!buffer.size())
@@ -2115,7 +2116,7 @@ inline bool is_squad_friend_to_actor(
     return Globals::GameRelations::check_all_squad_members(buffer[0], Globals::kRelationsTypeFriends);
 }
 
-inline bool is_squad_friend_to_actor(
+inline bool is_squad_friend_to_actor_client_server(
     CScriptGameObject* actor, CSE_ALifeDynamicObject* server_npc, const xr_vector<xr_string>& buffer)
 {
     if (!buffer.size())
@@ -2128,7 +2129,7 @@ inline bool is_squad_friend_to_actor(
     return Globals::GameRelations::check_all_squad_members(buffer[0], Globals::kRelationsTypeFriends);
 }
 
-inline bool is_squad_enemy_to_actor(
+inline bool is_squad_enemy_to_actor_client(
     CScriptGameObject* actor, CScriptGameObject* npc, const xr_vector<xr_string>& buffer)
 {
     if (!buffer.size())
@@ -2146,7 +2147,7 @@ inline bool is_squad_enemy_to_actor(
     return false;
 }
 
-inline bool is_squad_enemy_to_actor(
+inline bool is_squad_enemy_to_actor_server(
     CSE_ALifeDynamicObject* server_actor, CSE_ALifeDynamicObject* server_npc, const xr_vector<xr_string>& buffer)
 {
     if (!buffer.size())
@@ -2164,7 +2165,7 @@ inline bool is_squad_enemy_to_actor(
     return false;
 }
 
-inline bool is_squad_enemy_to_actor(
+inline bool is_squad_enemy_to_actor_client_server(
     CScriptGameObject* actor, CSE_ALifeDynamicObject* server_npc, const xr_vector<xr_string>& buffer)
 {
     if (!buffer.size())
@@ -2182,7 +2183,7 @@ inline bool is_squad_enemy_to_actor(
     return false;
 }
 
-inline bool is_squad_neutral_to_actor(
+inline bool is_squad_neutral_to_actor_client(
     CScriptGameObject* actor, CScriptGameObject* npc, const xr_vector<xr_string>& buffer)
 {
     if (!buffer.size())
@@ -2191,10 +2192,10 @@ inline bool is_squad_neutral_to_actor(
         return false;
     }
 
-    return !(is_squad_friend_to_actor(actor, npc, buffer) || is_squad_enemy_to_actor(actor, npc, buffer));
+    return !(is_squad_friend_to_actor_client(actor, npc, buffer) || is_squad_enemy_to_actor_client(actor, npc, buffer));
 }
 
-inline bool is_squad_neutral_to_actor(
+inline bool is_squad_neutral_to_actor_server(
     CSE_ALifeDynamicObject* server_actor, CSE_ALifeDynamicObject* server_npc, const xr_vector<xr_string>& buffer)
 {
     if (!buffer.size())
@@ -2203,11 +2204,11 @@ inline bool is_squad_neutral_to_actor(
         return false;
     }
 
-    return !(is_squad_friend_to_actor(server_actor, server_npc, buffer) ||
-        is_squad_enemy_to_actor(server_actor, server_npc, buffer));
+    return !(is_squad_friend_to_actor_server(server_actor, server_npc, buffer) ||
+        is_squad_enemy_to_actor_server(server_actor, server_npc, buffer));
 }
 
-inline bool is_squad_neutral_to_actor(
+inline bool is_squad_neutral_to_actor_client_server(
     CScriptGameObject* actor, CSE_ALifeDynamicObject* server_npc, const xr_vector<xr_string>& buffer)
 {
     if (!buffer.size())
@@ -2216,7 +2217,7 @@ inline bool is_squad_neutral_to_actor(
         return false;
     }
 
-    return !(is_squad_friend_to_actor(actor, server_npc, buffer) || is_squad_enemy_to_actor(actor, server_npc, buffer));
+    return !(is_squad_friend_to_actor_client_server(actor, server_npc, buffer) || is_squad_enemy_to_actor_client_server(actor, server_npc, buffer));
 }
 
 inline bool is_fighting_actor(CScriptGameObject* actor, CScriptGameObject* npc)
@@ -2278,7 +2279,7 @@ inline bool is_killed_by_actor(CScriptGameObject* actor, CScriptGameObject* npc)
     return false;
 }
 
-inline bool is_actor_has_weapon(CScriptGameObject* actor, CScriptGameObject* npc)
+inline bool is_actor_has_weapon_client(CScriptGameObject* actor, CScriptGameObject* npc)
 {
     if (!actor)
     {
@@ -2294,7 +2295,7 @@ inline bool is_actor_has_weapon(CScriptGameObject* actor, CScriptGameObject* npc
     return Globals::IsWeapon(active_item);
 }
 
-inline bool is_actor_has_weapon(CScriptGameObject* actor, CSE_ALifeDynamicObject* server_npc)
+inline bool is_actor_has_weapon_client_server(CScriptGameObject* actor, CSE_ALifeDynamicObject* server_npc)
 {
     if (!actor)
     {
@@ -2310,7 +2311,7 @@ inline bool is_actor_has_weapon(CScriptGameObject* actor, CSE_ALifeDynamicObject
     return Globals::IsWeapon(active_item);
 }
 
-inline bool is_actor_active_detector(
+inline bool is_actor_active_detector_client(
     CScriptGameObject* actor, CScriptGameObject* npc, const xr_vector<xr_string>& buffer)
 {
     if (!buffer.size())
@@ -2327,7 +2328,7 @@ inline bool is_actor_active_detector(
     return (active_detector->Section() == buffer[0]);
 }
 
-inline bool is_actor_active_detector(
+inline bool is_actor_active_detector_server(
     CSE_ALifeDynamicObject* server_actor, CSE_ALifeDynamicObject* server_npc, const xr_vector<xr_string>& buffer)
 {
     if (!buffer.size())
@@ -2344,7 +2345,7 @@ inline bool is_actor_active_detector(
     return (active_detector->Section() == buffer[0]);
 }
 
-inline bool is_actor_active_detector(
+inline bool is_actor_active_detector_client_server(
     CScriptGameObject* actor, CSE_ALifeDynamicObject* server_npc, const xr_vector<xr_string>& buffer)
 {
     if (!buffer.size())
@@ -2372,121 +2373,121 @@ inline bool is_heavy_wounded(CScriptGameObject* actor, CScriptGameObject* npc)
     return false;
 }
 
-inline bool is_rain(CScriptGameObject* actor, CScriptGameObject* npc)
+inline bool is_rain_client(CScriptGameObject* actor, CScriptGameObject* npc)
 {
     return (DataBase::Storage::getInstance().getActor() && (Globals::Game::level::rain_factor() > 0.0f));
 }
 
-inline bool is_rain(CSE_ALifeDynamicObject* server_actor, CSE_ALifeDynamicObject* server_npc)
+inline bool is_rain_server(CSE_ALifeDynamicObject* server_actor, CSE_ALifeDynamicObject* server_npc)
 {
     return (DataBase::Storage::getInstance().getActor() && (Globals::Game::level::rain_factor() > 0.0f));
 }
 
-inline bool is_rain(CScriptGameObject* actor, CSE_ALifeDynamicObject* server_npc)
+inline bool is_rain_client_server(CScriptGameObject* actor, CSE_ALifeDynamicObject* server_npc)
 {
     return (DataBase::Storage::getInstance().getActor() && (Globals::Game::level::rain_factor() > 0.0f));
 }
 
-inline bool is_heavy_rain(CScriptGameObject* actor, CScriptGameObject* npc)
+inline bool is_heavy_rain_client(CScriptGameObject* actor, CScriptGameObject* npc)
 {
     return (DataBase::Storage::getInstance().getActor() && (Globals::Game::level::rain_factor() > 0.5f));
 }
 
-inline bool is_heavy_rain(CSE_ALifeDynamicObject* server_actor, CSE_ALifeDynamicObject* server_npc)
+inline bool is_heavy_rain_server(CSE_ALifeDynamicObject* server_actor, CSE_ALifeDynamicObject* server_npc)
 {
     return (DataBase::Storage::getInstance().getActor() && (Globals::Game::level::rain_factor() > 0.5f));
 }
 
-inline bool is_heavy_rain(CScriptGameObject* actor, CSE_ALifeDynamicObject* server_npc)
+inline bool is_heavy_rain_client_server(CScriptGameObject* actor, CSE_ALifeDynamicObject* server_npc)
 {
     return (DataBase::Storage::getInstance().getActor() && (Globals::Game::level::rain_factor() > 0.5f));
 }
 
-inline bool is_day(CScriptGameObject* actor, CScriptGameObject* npc)
+inline bool is_day_client(CScriptGameObject* actor, CScriptGameObject* npc)
 {
     return (DataBase::Storage::getInstance().getActor() && (Globals::get_time_hours() >= 6) &&
         (Globals::get_time_hours() < 21));
 }
 
-inline bool is_day(CSE_ALifeDynamicObject* server_actor, CSE_ALifeDynamicObject* server_npc)
+inline bool is_day_server(CSE_ALifeDynamicObject* server_actor, CSE_ALifeDynamicObject* server_npc)
 {
     return (DataBase::Storage::getInstance().getActor() && (Globals::get_time_hours() >= 6) &&
         (Globals::get_time_hours() < 21));
 }
 
-inline bool is_day(CScriptGameObject* actor, CSE_ALifeDynamicObject* server_npc)
+inline bool is_day_client_server(CScriptGameObject* actor, CSE_ALifeDynamicObject* server_npc)
 {
     return (DataBase::Storage::getInstance().getActor() && (Globals::get_time_hours() >= 6) &&
         (Globals::get_time_hours() < 21));
 }
 
-inline bool is_dark_night(CScriptGameObject* actor, CScriptGameObject* npc)
+inline bool is_dark_night_client(CScriptGameObject* actor, CScriptGameObject* npc)
 {
     return (DataBase::Storage::getInstance().getActor() && (Globals::get_time_hours() < 3) &&
         (Globals::get_time_hours() > 22));
 }
 
-inline bool is_dark_night(CSE_ALifeDynamicObject* server_actor, CSE_ALifeDynamicObject* server_npc)
+inline bool is_dark_night_server(CSE_ALifeDynamicObject* server_actor, CSE_ALifeDynamicObject* server_npc)
 {
     return (DataBase::Storage::getInstance().getActor() && (Globals::get_time_hours() < 3) &&
         (Globals::get_time_hours() > 22));
 }
 
-inline bool is_dark_night(CScriptGameObject* actor, CSE_ALifeDynamicObject* server_npc)
+inline bool is_dark_night_client_server(CScriptGameObject* actor, CSE_ALifeDynamicObject* server_npc)
 {
     return (DataBase::Storage::getInstance().getActor() && (Globals::get_time_hours() < 3) &&
         (Globals::get_time_hours() > 22));
 }
 
-inline bool is_jup_a12_mercs_time(CScriptGameObject* actor, CScriptGameObject* npc)
+inline bool is_jup_a12_mercs_time_client(CScriptGameObject* actor, CScriptGameObject* npc)
 {
     return (DataBase::Storage::getInstance().getActor() && (Globals::get_time_hours() >= 1) &&
         (Globals::get_time_hours() < 5));
 }
 
-inline bool is_jup_a12_mercs_time(CSE_ALifeDynamicObject* server_actor, CSE_ALifeDynamicObject* server_npc)
+inline bool is_jup_a12_mercs_time_server(CSE_ALifeDynamicObject* server_actor, CSE_ALifeDynamicObject* server_npc)
 {
     return (DataBase::Storage::getInstance().getActor() && (Globals::get_time_hours() >= 1) &&
         (Globals::get_time_hours() < 5));
 }
 
-inline bool is_jup_a12_mercs_time(CScriptGameObject* actor, CSE_ALifeDynamicObject* server_npc)
+inline bool is_jup_a12_mercs_time_client_server(CScriptGameObject* actor, CSE_ALifeDynamicObject* server_npc)
 {
     return (DataBase::Storage::getInstance().getActor() && (Globals::get_time_hours() >= 1) &&
         (Globals::get_time_hours() < 5));
 }
 
-inline bool is_zat_b7_is_night(CScriptGameObject* actor, CScriptGameObject* npc)
+inline bool is_zat_b7_is_night_client(CScriptGameObject* actor, CScriptGameObject* npc)
 {
     return (DataBase::Storage::getInstance().getActor() && (Globals::get_time_hours() >= 23) &&
         (Globals::get_time_hours() < 5));
 }
 
-inline bool is_zat_b7_is_night(CSE_ALifeDynamicObject* server_actor, CSE_ALifeDynamicObject* server_npc)
+inline bool is_zat_b7_is_night_server(CSE_ALifeDynamicObject* server_actor, CSE_ALifeDynamicObject* server_npc)
 {
     return (DataBase::Storage::getInstance().getActor() && (Globals::get_time_hours() >= 23) &&
         (Globals::get_time_hours() < 5));
 }
 
-inline bool is_zat_b7_is_night(CScriptGameObject* actor, CSE_ALifeDynamicObject* server_npc)
+inline bool is_zat_b7_is_night_client_server(CScriptGameObject* actor, CSE_ALifeDynamicObject* server_npc)
 {
     return (DataBase::Storage::getInstance().getActor() && (Globals::get_time_hours() >= 23) &&
         (Globals::get_time_hours() < 5));
 }
 
-inline bool is_zat_b7_is_late_attack_time(CScriptGameObject* actor, CScriptGameObject* npc)
+inline bool is_zat_b7_is_late_attack_time_client(CScriptGameObject* actor, CScriptGameObject* npc)
 {
     return (DataBase::Storage::getInstance().getActor() && (Globals::get_time_hours() >= 23) &&
         (Globals::get_time_hours() < 9));
 }
 
-inline bool is_zat_b7_is_late_attack_time(CSE_ALifeDynamicObject* server_actor, CSE_ALifeDynamicObject* server_npc)
+inline bool is_zat_b7_is_late_attack_time_server(CSE_ALifeDynamicObject* server_actor, CSE_ALifeDynamicObject* server_npc)
 {
     return (DataBase::Storage::getInstance().getActor() && (Globals::get_time_hours() >= 23) &&
         (Globals::get_time_hours() < 9));
 }
 
-inline bool is_zat_b7_is_late_attack_time(CScriptGameObject* actor, CSE_ALifeDynamicObject* server_npc)
+inline bool is_zat_b7_is_late_attack_time_client_server(CScriptGameObject* actor, CSE_ALifeDynamicObject* server_npc)
 {
     return (DataBase::Storage::getInstance().getActor() && (Globals::get_time_hours() >= 23) &&
         (Globals::get_time_hours() < 9));
@@ -2522,7 +2523,7 @@ inline bool is_mob_was_hit(CScriptGameObject* actor, CScriptGameObject* npc)
     return false;
 }
 
-inline bool is_actor_on_level(CScriptGameObject* actor, CScriptGameObject* npc, const xr_vector<xr_string>& buffer)
+inline bool is_actor_on_level_client(CScriptGameObject* actor, CScriptGameObject* npc, const xr_vector<xr_string>& buffer)
 {
     if (!buffer.size())
     {
@@ -2539,7 +2540,7 @@ inline bool is_actor_on_level(CScriptGameObject* actor, CScriptGameObject* npc, 
     return false;
 }
 
-inline bool is_actor_on_level(
+inline bool is_actor_on_level_server(
     CSE_ALifeDynamicObject* server_actor, CSE_ALifeDynamicObject* server_npc, const xr_vector<xr_string>& buffer)
 {
     if (!buffer.size())
@@ -2557,7 +2558,7 @@ inline bool is_actor_on_level(
     return false;
 }
 
-inline bool is_actor_on_level(
+inline bool is_actor_on_level_client_server(
     CScriptGameObject* actor, CSE_ALifeDynamicObject* server_npc, const xr_vector<xr_string>& buffer)
 {
     if (!buffer.size())
@@ -2575,7 +2576,7 @@ inline bool is_actor_on_level(
     return false;
 }
 
-inline bool is_squad_in_zone(CScriptGameObject* actor, CScriptGameObject* npc, const xr_vector<xr_string>& buffer)
+inline bool is_squad_in_zone_client(CScriptGameObject* actor, CScriptGameObject* npc, const xr_vector<xr_string>& buffer)
 {
     if (!buffer.size())
     {
@@ -2623,7 +2624,7 @@ inline bool is_squad_in_zone(CScriptGameObject* actor, CScriptGameObject* npc, c
     return false;
 }
 
-inline bool is_squad_in_zone(
+inline bool is_squad_in_zone_client_server(
     CScriptGameObject* actor, CSE_ALifeDynamicObject* server_npc, const xr_vector<xr_string>& buffer)
 {
     if (!buffer.size())
@@ -2673,7 +2674,7 @@ inline bool is_squad_in_zone(
 }
 
 // Lord: доделать!!!!!!!!
-inline bool is_squad_has_enemy(CScriptGameObject* actor, CScriptGameObject* npc, const xr_vector<xr_string>& buffer)
+inline bool is_squad_has_enemy_client(CScriptGameObject* actor, CScriptGameObject* npc, const xr_vector<xr_string>& buffer)
 {
     if (!buffer.size())
     {
@@ -2712,7 +2713,7 @@ inline bool is_squad_has_enemy(CScriptGameObject* actor, CScriptGameObject* npc,
     return false;
 }
 
-inline bool is_squad_has_enemy(
+inline bool is_squad_has_enemy_server(
     CSE_ALifeDynamicObject* server_actor, CSE_ALifeDynamicObject* server_npc, const xr_vector<xr_string>& buffer)
 {
     if (!buffer.size())
@@ -2754,7 +2755,7 @@ inline bool is_squad_has_enemy(
     return false;
 }
 
-inline bool is_squad_has_enemy(
+inline bool is_squad_has_enemy_client_server(
     CScriptGameObject* actor, CSE_ALifeDynamicObject* server_npc, const xr_vector<xr_string>& buffer)
 {
     if (!buffer.size())
@@ -2796,7 +2797,7 @@ inline bool is_squad_has_enemy(
     return false;
 }
 
-inline bool is_squad_in_zone_all(CScriptGameObject* actor, CScriptGameObject* npc, const xr_vector<xr_string>& buffer)
+inline bool is_squad_in_zone_all_client(CScriptGameObject* actor, CScriptGameObject* npc, const xr_vector<xr_string>& buffer)
 {
     if (!buffer.size())
     {
@@ -2838,7 +2839,7 @@ inline bool is_squad_in_zone_all(CScriptGameObject* actor, CScriptGameObject* np
     return true;
 }
 
-inline bool is_squad_in_zone_all(
+inline bool is_squad_in_zone_all_server(
     CSE_ALifeDynamicObject* server_actor, CSE_ALifeDynamicObject* server_npc, const xr_vector<xr_string>& buffer)
 {
     if (!buffer.size())
@@ -2883,7 +2884,7 @@ inline bool is_squad_in_zone_all(
     return true;
 }
 
-inline bool is_squad_in_zone_all(
+inline bool is_squad_in_zone_all_client_server(
     CScriptGameObject* actor, CSE_ALifeDynamicObject* server_npc, const xr_vector<xr_string>& buffer)
 {
     if (!buffer.size())
@@ -2928,7 +2929,7 @@ inline bool is_squad_in_zone_all(
     return true;
 }
 
-inline bool is_squads_in_zone_b41(CScriptGameObject* actor, CScriptGameObject* npc, const xr_vector<xr_string>& buffer)
+inline bool is_squads_in_zone_b41_client(CScriptGameObject* actor, CScriptGameObject* npc, const xr_vector<xr_string>& buffer)
 {
     Script_SE_SmartTerrain* server_smart = Script_SimulationBoard::getInstance().getSmartTerrainsByName().at("jup_b41");
     CScriptGameObject* client_zone = DataBase::Storage::getInstance().getZoneByName().at("jup_b41_sr_light");
@@ -2968,7 +2969,7 @@ inline bool is_squads_in_zone_b41(CScriptGameObject* actor, CScriptGameObject* n
     return true;
 }
 
-inline bool is_squads_in_zone_b41(
+inline bool is_squads_in_zone_b41_server(
     CSE_ALifeDynamicObject* server_actor, CSE_ALifeDynamicObject* server_npc, const xr_vector<xr_string>& buffer)
 {
     Script_SE_SmartTerrain* server_smart = Script_SimulationBoard::getInstance().getSmartTerrainsByName().at("jup_b41");
@@ -3011,7 +3012,7 @@ inline bool is_squads_in_zone_b41(
     return true;
 }
 
-inline bool is_squads_in_zone_b41(
+inline bool is_squads_in_zone_b41_client_server(
     CScriptGameObject* actor, CSE_ALifeDynamicObject* server_npc, const xr_vector<xr_string>& buffer)
 {
     Script_SE_SmartTerrain* server_smart = Script_SimulationBoard::getInstance().getSmartTerrainsByName().at("jup_b41");
@@ -3054,7 +3055,7 @@ inline bool is_squads_in_zone_b41(
     return true;
 }
 
-inline bool is_target_squad_name(
+inline bool is_target_squad_name_client_server(
     CScriptGameObject* actor, CSE_ALifeDynamicObject* server_npc, const xr_vector<xr_string>& buffer)
 {
     if (!buffer.size())
@@ -3081,7 +3082,7 @@ inline bool is_target_squad_name(
     return (buffer[0] == server_npc->name());
 }
 
-inline bool is_target_squad_name(
+inline bool is_target_squad_name_server(
     CSE_ALifeDynamicObject* server_actor, CSE_ALifeDynamicObject* server_npc, const xr_vector<xr_string>& buffer)
 {
     if (!buffer.size())
@@ -3108,7 +3109,7 @@ inline bool is_target_squad_name(
     return (buffer[0] == server_npc->name());
 }
 
-inline bool is_target_smart_name(CScriptGameObject* actor, CScriptGameObject* smart, const xr_vector<xr_string>& buffer)
+inline bool is_target_smart_name_client(CScriptGameObject* actor, CScriptGameObject* smart, const xr_vector<xr_string>& buffer)
 {
     if (!buffer.size())
     {
@@ -3125,7 +3126,7 @@ inline bool is_target_smart_name(CScriptGameObject* actor, CScriptGameObject* sm
     return (buffer[0] == smart->Name());
 }
 
-inline bool is_squad_exist(CScriptGameObject* actor, CScriptGameObject* npc, const xr_vector<xr_string>& buffer)
+inline bool is_squad_exist_client(CScriptGameObject* actor, CScriptGameObject* npc, const xr_vector<xr_string>& buffer)
 {
     if (!buffer.size())
     {
@@ -3140,7 +3141,7 @@ inline bool is_squad_exist(CScriptGameObject* actor, CScriptGameObject* npc, con
     return (!!squad);
 }
 
-inline bool is_squad_exist(
+inline bool is_squad_exist_server(
     CSE_ALifeDynamicObject* server_actor, CSE_ALifeDynamicObject* server_npc, const xr_vector<xr_string>& buffer)
 {
     if (!buffer.size())
@@ -3156,7 +3157,7 @@ inline bool is_squad_exist(
     return (!!squad);
 }
 
-inline bool is_squad_exist(
+inline bool is_squad_exist_client_server(
     CScriptGameObject* actor, CSE_ALifeDynamicObject* server_npc, const xr_vector<xr_string>& buffer)
 {
     if (!buffer.size())
@@ -3172,7 +3173,7 @@ inline bool is_squad_exist(
     return (!!squad);
 }
 
-inline bool is_squad_commander(CScriptGameObject* actor, CScriptGameObject* npc)
+inline bool is_squad_commander_client(CScriptGameObject* actor, CScriptGameObject* npc)
 {
     if (!npc)
     {
@@ -3189,7 +3190,7 @@ inline bool is_squad_commander(CScriptGameObject* actor, CScriptGameObject* npc)
     return false;
 }
 
-inline bool is_squad_commander(CSE_ALifeDynamicObject* server_actor, CSE_ALifeDynamicObject* server_npc)
+inline bool is_squad_commander_server(CSE_ALifeDynamicObject* server_actor, CSE_ALifeDynamicObject* server_npc)
 {
     if (!server_npc)
     {
@@ -3206,7 +3207,7 @@ inline bool is_squad_commander(CSE_ALifeDynamicObject* server_actor, CSE_ALifeDy
     return false;
 }
 
-inline bool is_squad_commander(CScriptGameObject* actor, CSE_ALifeDynamicObject* server_npc)
+inline bool is_squad_commander_client_server(CScriptGameObject* actor, CSE_ALifeDynamicObject* server_npc)
 {
     if (!server_npc)
     {
@@ -3223,7 +3224,7 @@ inline bool is_squad_commander(CScriptGameObject* actor, CSE_ALifeDynamicObject*
     return false;
 }
 
-inline bool is_squad_npc_count_ge(CScriptGameObject* actor, CScriptGameObject* npc, const xr_vector<xr_string>& buffer)
+inline bool is_squad_npc_count_ge_client(CScriptGameObject* actor, CScriptGameObject* npc, const xr_vector<xr_string>& buffer)
 {
     if (!buffer.size())
     {
@@ -3244,7 +3245,7 @@ inline bool is_squad_npc_count_ge(CScriptGameObject* actor, CScriptGameObject* n
     return false;
 }
 
-inline bool is_squad_npc_count_ge(
+inline bool is_squad_npc_count_ge_server(
     CSE_ALifeDynamicObject* server_actor, CSE_ALifeDynamicObject* server_npc, const xr_vector<xr_string>& buffer)
 {
     if (!buffer.size())
@@ -3266,7 +3267,7 @@ inline bool is_squad_npc_count_ge(
     return false;
 }
 
-inline bool is_squad_npc_count_ge(
+inline bool is_squad_npc_count_ge_client_server(
     CScriptGameObject* actor, CSE_ALifeDynamicObject* server_npc, const xr_vector<xr_string>& buffer)
 {
     if (!buffer.size())
@@ -3288,7 +3289,7 @@ inline bool is_squad_npc_count_ge(
     return false;
 }
 
-inline bool is_quest_npc_enemy_actor(
+inline bool is_quest_npc_enemy_actor_client(
     CScriptGameObject* actor, CScriptGameObject* npc, const xr_vector<xr_string>& buffer)
 {
     if (!buffer.size())
@@ -3322,7 +3323,7 @@ inline bool is_quest_npc_enemy_actor(
     return false;
 }
 
-inline bool is_quest_npc_enemy_actor(
+inline bool is_quest_npc_enemy_actor_server(
     CSE_ALifeDynamicObject* server_actor, CSE_ALifeDynamicObject* server_npc, const xr_vector<xr_string>& buffer)
 {
     if (!buffer.size())
@@ -3357,7 +3358,7 @@ inline bool is_quest_npc_enemy_actor(
     return false;
 }
 
-inline bool is_quest_npc_enemy_actor(
+inline bool is_quest_npc_enemy_actor_client_server(
     CScriptGameObject* actor, CSE_ALifeDynamicObject* server_npc, const xr_vector<xr_string>& buffer)
 {
     if (!buffer.size())
@@ -3406,7 +3407,7 @@ inline bool is_animpoint_reached(CScriptGameObject* actor, CScriptGameObject* np
     return animpoint->is_position_riched();
 }
 
-inline bool is_distance_to_obj_ge(CScriptGameObject* actor, CScriptGameObject* npc, const xr_vector<xr_string>& buffer)
+inline bool is_distance_to_obj_ge_client(CScriptGameObject* actor, CScriptGameObject* npc, const xr_vector<xr_string>& buffer)
 {
     if (!buffer.size())
     {
@@ -3429,7 +3430,7 @@ inline bool is_distance_to_obj_ge(CScriptGameObject* actor, CScriptGameObject* n
     return false;
 }
 
-inline bool is_distance_to_obj_ge(
+inline bool is_distance_to_obj_ge_client_server(
     CScriptGameObject* actor, CSE_ALifeDynamicObject* server_npc, const xr_vector<xr_string>& buffer)
 {
     if (!buffer.size())
@@ -3453,7 +3454,7 @@ inline bool is_distance_to_obj_ge(
     return false;
 }
 
-inline bool is_distance_to_obj_ge(
+inline bool is_distance_to_obj_ge_server(
     CSE_ALifeDynamicObject* server_actor, CSE_ALifeDynamicObject* server_npc, const xr_vector<xr_string>& buffer)
 {
     if (!buffer.size())
@@ -3477,7 +3478,7 @@ inline bool is_distance_to_obj_ge(
     return false;
 }
 
-inline bool is_distance_to_obj_le(CScriptGameObject* actor, CScriptGameObject* npc, const xr_vector<xr_string>& buffer)
+inline bool is_distance_to_obj_le_client(CScriptGameObject* actor, CScriptGameObject* npc, const xr_vector<xr_string>& buffer)
 {
     if (!buffer.size())
     {
@@ -3500,7 +3501,7 @@ inline bool is_distance_to_obj_le(CScriptGameObject* actor, CScriptGameObject* n
     return false;
 }
 
-inline bool is_distance_to_obj_le(
+inline bool is_distance_to_obj_le_client_server(
     CScriptGameObject* actor, CSE_ALifeDynamicObject* server_npc, const xr_vector<xr_string>& buffer)
 {
     if (!buffer.size())
@@ -3524,7 +3525,7 @@ inline bool is_distance_to_obj_le(
     return false;
 }
 
-inline bool is_distance_to_obj_le(
+inline bool is_distance_to_obj_le_server(
     CSE_ALifeDynamicObject* server_actor, CSE_ALifeDynamicObject* server_npc, const xr_vector<xr_string>& buffer)
 {
     if (!buffer.size())
@@ -3562,10 +3563,7 @@ inline bool is_in_dest_smart_cover(CScriptGameObject* actor, CScriptGameObject* 
 /* Lord: NOT USED (check it in game that fact)
 inline bool is_active_item(CScriptGameObject* actor, CScriptGameObject* npc, const xr_vector<xr_string>& buffer)
 {
-    if (buffer.size())
-    {
-        
-    }
+
 }*/
 
 // Lord: наверное лучше всё таки написать под стандарт или всё таки есть перегрузка и под войд?
@@ -3585,7 +3583,7 @@ inline bool is_jup_b16_is_zone_active(CScriptGameObject* actor, CScriptGameObjec
     return Globals::has_alife_info(npc->Name());
 }
 
-inline bool is_dist_to_story_obj_ge(
+inline bool is_dist_to_story_obj_ge_client(
     CScriptGameObject* actor, CScriptGameObject* npc, const xr_vector<xr_string>& buffer)
 {
     if (!buffer.size())
@@ -3613,7 +3611,7 @@ inline bool is_dist_to_story_obj_ge(
         atof(buffer[1].c_str());
 }
 
-inline bool is_dist_to_story_obj_ge(
+inline bool is_dist_to_story_obj_ge_client_server(
     CScriptGameObject* actor, CSE_ALifeDynamicObject* server_npc, const xr_vector<xr_string>& buffer)
 {
     if (!buffer.size())
@@ -3642,7 +3640,7 @@ inline bool is_dist_to_story_obj_ge(
         atof(buffer[1].c_str());
 }
 
-inline bool is_dist_to_story_obj_ge(
+inline bool is_dist_to_story_obj_ge_server(
     CSE_ALifeDynamicObject* server_actor, CSE_ALifeDynamicObject* server_npc, const xr_vector<xr_string>& buffer)
 {
     if (!buffer.size())
@@ -3671,7 +3669,7 @@ inline bool is_dist_to_story_obj_ge(
         atof(buffer[1].c_str());
 }
 
-inline bool is_actor_has_nimble_weapon(CScriptGameObject* actor, CScriptGameObject* npc)
+inline bool is_actor_has_nimble_weapon_client(CScriptGameObject* actor, CScriptGameObject* npc)
 {
     if (!actor)
     {
@@ -3692,7 +3690,7 @@ inline bool is_actor_has_nimble_weapon(CScriptGameObject* actor, CScriptGameObje
     return false;
 }
 
-inline bool is_actor_has_nimble_weapon(CScriptGameObject* actor, CSE_ALifeDynamicObject* server_npc)
+inline bool is_actor_has_nimble_weapon_client_server(CScriptGameObject* actor, CSE_ALifeDynamicObject* server_npc)
 {
     if (!actor)
     {
@@ -3714,7 +3712,7 @@ inline bool is_actor_has_nimble_weapon(CScriptGameObject* actor, CSE_ALifeDynami
 }
 
 // Lord: потестировать std::find правда ли находит?
-inline bool is_actor_has_active_nimble_weapon(CScriptGameObject* actor, CScriptGameObject* npc)
+inline bool is_actor_has_active_nimble_weapon_client(CScriptGameObject* actor, CScriptGameObject* npc)
 {
     if (!actor)
     {
@@ -3741,7 +3739,7 @@ inline bool is_actor_has_active_nimble_weapon(CScriptGameObject* actor, CScriptG
     return false;
 }
 
-inline bool is_actor_has_active_nimble_weapon(CScriptGameObject* actor, CSE_ALifeDynamicObject* server_npc)
+inline bool is_actor_has_active_nimble_weapon_client_server(CScriptGameObject* actor, CSE_ALifeDynamicObject* server_npc)
 {
     if (!actor)
     {
@@ -3768,25 +3766,25 @@ inline bool is_actor_has_active_nimble_weapon(CScriptGameObject* actor, CSE_ALif
     return false;
 }
 
-inline bool is_jup_b202_inventory_box_empty(CScriptGameObject* actor, CScriptGameObject* npc)
+inline bool is_jup_b202_inventory_box_empty_client(CScriptGameObject* actor, CScriptGameObject* npc)
 {
     CScriptGameObject* inventory_box = Globals::get_story_object("jup_b202_actor_treasure");
     return inventory_box->IsInvBoxEmpty();
 }
 
-inline bool is_jup_b202_inventory_box_empty(CScriptGameObject* actor, CSE_ALifeDynamicObject* server_npc)
+inline bool is_jup_b202_inventory_box_empty_client_server(CScriptGameObject* actor, CSE_ALifeDynamicObject* server_npc)
 {
     CScriptGameObject* inventory_box = Globals::get_story_object("jup_b202_actor_treasure");
     return inventory_box->IsInvBoxEmpty();
 }
 
-inline bool is_jup_b202_inventory_box_empty(CSE_ALifeDynamicObject* server_actor, CSE_ALifeDynamicObject* server_npc)
+inline bool is_jup_b202_inventory_box_empty_server(CSE_ALifeDynamicObject* server_actor, CSE_ALifeDynamicObject* server_npc)
 {
     CScriptGameObject* inventory_box = Globals::get_story_object("jup_b202_actor_treasure");
     return inventory_box->IsInvBoxEmpty();
 }
 
-inline bool is_object_exist(CScriptGameObject* actor, CScriptGameObject* npc, const xr_vector<xr_string>& buffer)
+inline bool is_object_exist_client(CScriptGameObject* actor, CScriptGameObject* npc, const xr_vector<xr_string>& buffer)
 {
     if (!buffer.size())
     {
@@ -3797,7 +3795,7 @@ inline bool is_object_exist(CScriptGameObject* actor, CScriptGameObject* npc, co
     return !!Globals::get_story_object(buffer[0]);
 }
 
-inline bool is_object_exist(
+inline bool is_object_exist_client_server(
     CScriptGameObject* actor, CSE_ALifeDynamicObject* server_npc, const xr_vector<xr_string>& buffer)
 {
     if (!buffer.size())
@@ -3809,7 +3807,7 @@ inline bool is_object_exist(
     return !!Globals::get_story_object(buffer[0]);
 }
 
-inline bool is_object_exist(
+inline bool is_object_exist_server(
     CSE_ALifeDynamicObject* server_actor, CSE_ALifeDynamicObject* server_npc, const xr_vector<xr_string>& buffer)
 {
     if (!buffer.size())
@@ -3821,7 +3819,7 @@ inline bool is_object_exist(
     return !!Globals::get_story_object(buffer[0]);
 }
 
-inline bool is_squad_curr_action(CScriptGameObject* actor, CScriptGameObject* npc, const xr_vector<xr_string>& buffer)
+inline bool is_squad_curr_action_client(CScriptGameObject* actor, CScriptGameObject* npc, const xr_vector<xr_string>& buffer)
 {
     if (!buffer.size())
     {
@@ -3848,7 +3846,7 @@ inline bool is_squad_curr_action(CScriptGameObject* actor, CScriptGameObject* np
                                                                false;
 }
 
-inline bool is_squad_curr_action(
+inline bool is_squad_curr_action_client_server(
     CScriptGameObject* actor, CSE_ALifeDynamicObject* server_npc, const xr_vector<xr_string>& buffer)
 {
     if (!buffer.size())
@@ -3876,7 +3874,7 @@ inline bool is_squad_curr_action(
                                                                false;
 }
 
-inline bool is_squad_curr_action(
+inline bool is_squad_curr_action_server(
     CSE_ALifeDynamicObject* server_actor, CSE_ALifeDynamicObject* server_npc, const xr_vector<xr_string>& buffer)
 {
     if (!buffer.size())
@@ -4004,7 +4002,7 @@ inline bool is_monster_boar(CScriptGameObject* actor, CScriptGameObject* npc)
     return npc->clsid() == CLSID_SE_MONSTER_BOAR;
 }
 
-inline bool is_jup_b47_npc_online(CScriptGameObject* actor, CScriptGameObject* npc, const xr_vector<xr_string>& buffer)
+inline bool is_jup_b47_npc_online_client(CScriptGameObject* actor, CScriptGameObject* npc, const xr_vector<xr_string>& buffer)
 {
     if (!buffer.size())
     {
@@ -4024,7 +4022,7 @@ inline bool is_jup_b47_npc_online(CScriptGameObject* actor, CScriptGameObject* n
     return !!server_object;
 }
 
-inline bool is_jup_b47_npc_online(
+inline bool is_jup_b47_npc_online_client_server(
     CScriptGameObject* actor, CSE_ALifeDynamicObject* server_npc, const xr_vector<xr_string>& buffer)
 {
     if (!buffer.size())
@@ -4045,7 +4043,7 @@ inline bool is_jup_b47_npc_online(
     return !!server_object;
 }
 
-inline bool is_jup_b47_npc_online(
+inline bool is_jup_b47_npc_online_server(
     CSE_ALifeDynamicObject* server_actor, CSE_ALifeDynamicObject* server_npc, const xr_vector<xr_string>& buffer)
 {
     if (!buffer.size())
@@ -4066,7 +4064,7 @@ inline bool is_jup_b47_npc_online(
     return !!server_object;
 }
 
-inline bool is_zat_b29_anomaly_has_af(
+inline bool is_zat_b29_anomaly_has_af_client(
     CScriptGameObject* actor, CScriptGameObject* npc, const xr_vector<xr_string>& buffer)
 
 {
@@ -4090,7 +4088,7 @@ inline bool is_zat_b29_anomaly_has_af(
     return false;
 }
 
-inline bool is_zat_b29_anomaly_has_af(
+inline bool is_zat_b29_anomaly_has_af_client_server(
     CScriptGameObject* actor, CSE_ALifeDynamicObject* server_npc, const xr_vector<xr_string>& buffer)
 
 {
@@ -4115,7 +4113,7 @@ inline bool is_zat_b29_anomaly_has_af(
     return false;
 }
 
-inline bool is_zat_b29_anomaly_has_af(
+inline bool is_zat_b29_anomaly_has_af_server(
     CSE_ALifeDynamicObject* server_actor, CSE_ALifeDynamicObject* server_npc, const xr_vector<xr_string>& buffer)
 
 {
@@ -4141,7 +4139,7 @@ inline bool is_zat_b29_anomaly_has_af(
     return false;
 }
 
-inline bool is_jup_b221_who_will_start(
+inline bool is_jup_b221_who_will_start_client(
     CScriptGameObject* actor, CScriptGameObject* npc, const xr_vector<xr_string>& buffer)
 {
     if (!buffer.size())
@@ -4196,7 +4194,7 @@ inline bool is_jup_b221_who_will_start(
         R_ASSERT2(false, "Something goes wrong and it can't be!");
 }
 
-inline bool is_jup_b221_who_will_start(
+inline bool is_jup_b221_who_will_start_client_server(
     CScriptGameObject* actor, CSE_ALifeDynamicObject* server_npc, const xr_vector<xr_string>& buffer)
 {
     if (!buffer.size())
@@ -4251,7 +4249,7 @@ inline bool is_jup_b221_who_will_start(
         R_ASSERT2(false, "Something goes wrong and it can't be!");
 }
 
-inline bool is_jup_b221_who_will_start(
+inline bool is_jup_b221_who_will_start_server(
     CSE_ALifeDynamicObject* server_actor, CSE_ALifeDynamicObject* server_npc, const xr_vector<xr_string>& buffer)
 {
     if (!buffer.size())
@@ -4553,7 +4551,7 @@ inline bool is_zat_b29_rivals_dialog_precond(CScriptGameObject* actor, CScriptGa
     return false;
 }
 
-inline bool is_jup_b202_actor_treasure_not_in_steal(CScriptGameObject* actor, CScriptGameObject* npc)
+inline bool is_jup_b202_actor_treasure_not_in_steal_client(CScriptGameObject* actor, CScriptGameObject* npc)
 {
     bool before_state = (!Globals::has_alife_info("jup_b52_actor_items_can_be_stolen")) &&
         (!Globals::has_alife_info("jup_b202_actor_items_returned"));
@@ -4563,7 +4561,8 @@ inline bool is_jup_b202_actor_treasure_not_in_steal(CScriptGameObject* actor, CS
     return after_state || before_state;
 }
 
-inline bool is_jup_b202_actor_treasure_not_in_steal(CScriptGameObject* actor, CSE_ALifeDynamicObject* server_npc)
+inline bool is_jup_b202_actor_treasure_not_in_steal_client_server(
+    CScriptGameObject* actor, CSE_ALifeDynamicObject* server_npc)
 {
     bool before_state = (!Globals::has_alife_info("jup_b52_actor_items_can_be_stolen")) &&
         (!Globals::has_alife_info("jup_b202_actor_items_returned"));
@@ -4573,7 +4572,7 @@ inline bool is_jup_b202_actor_treasure_not_in_steal(CScriptGameObject* actor, CS
     return after_state || before_state;
 }
 
-inline bool is_jup_b202_actor_treasure_not_in_steal(
+inline bool is_jup_b202_actor_treasure_not_in_steal_server(
     CSE_ALifeDynamicObject* server_actor, CSE_ALifeDynamicObject* server_npc)
 {
     bool before_state = (!Globals::has_alife_info("jup_b52_actor_items_can_be_stolen")) &&
@@ -4584,7 +4583,7 @@ inline bool is_jup_b202_actor_treasure_not_in_steal(
     return after_state || before_state;
 }
 
-inline bool is_jup_b25_senya_spawn_condition(CScriptGameObject* actor, CScriptGameObject* npc)
+inline bool is_jup_b25_senya_spawn_condition_client(CScriptGameObject* actor, CScriptGameObject* npc)
 {
     return (Globals::has_alife_info("jup_b16_oasis_found") ||
                Globals::has_alife_info("zat_b57_bloodsucker_lair_clear") ||
@@ -4592,7 +4591,7 @@ inline bool is_jup_b25_senya_spawn_condition(CScriptGameObject* actor, CScriptGa
         Globals::has_alife_info("zat_b106_search_soroka");
 }
 
-inline bool is_jup_b25_senya_spawn_condition(CScriptGameObject* actor, CSE_ALifeDynamicObject* server_npc)
+inline bool is_jup_b25_senya_spawn_condition_client_server(CScriptGameObject* actor, CSE_ALifeDynamicObject* server_npc)
 {
     return (Globals::has_alife_info("jup_b16_oasis_found") ||
                Globals::has_alife_info("zat_b57_bloodsucker_lair_clear") ||
@@ -4600,7 +4599,7 @@ inline bool is_jup_b25_senya_spawn_condition(CScriptGameObject* actor, CSE_ALife
         Globals::has_alife_info("zat_b106_search_soroka");
 }
 
-inline bool is_jup_b25_senya_spawn_condition(CSE_ALifeDynamicObject* server_actor, CSE_ALifeDynamicObject* server_npc)
+inline bool is_jup_b25_senya_spawn_condition_server(CSE_ALifeDynamicObject* server_actor, CSE_ALifeDynamicObject* server_npc)
 {
     return (Globals::has_alife_info("jup_b16_oasis_found") ||
                Globals::has_alife_info("zat_b57_bloodsucker_lair_clear") ||
@@ -4608,21 +4607,21 @@ inline bool is_jup_b25_senya_spawn_condition(CSE_ALifeDynamicObject* server_acto
         Globals::has_alife_info("zat_b106_search_soroka");
 }
 
-inline bool is_jup_b25_flint_gone_condition(CScriptGameObject* actor, CScriptGameObject* npc)
+inline bool is_jup_b25_flint_gone_condition_client(CScriptGameObject* actor, CScriptGameObject* npc)
 {
     return Globals::has_alife_info("jup_b25_flint_blame_done_to_duty") ||
         Globals::has_alife_info("jup_b25_flint_blame_done_to_freedom") ||
         Globals::has_alife_info("zat_b106_found_soroka_done");
 }
 
-inline bool is_jup_b25_flint_gone_condition(CScriptGameObject* actor, CSE_ALifeDynamicObject* server_npc)
+inline bool is_jup_b25_flint_gone_condition_client_server(CScriptGameObject* actor, CSE_ALifeDynamicObject* server_npc)
 {
     return Globals::has_alife_info("jup_b25_flint_blame_done_to_duty") ||
         Globals::has_alife_info("jup_b25_flint_blame_done_to_freedom") ||
         Globals::has_alife_info("zat_b106_found_soroka_done");
 }
 
-inline bool is_jup_b25_flint_gone_condition(CSE_ALifeDynamicObject* server_actor, CSE_ALifeDynamicObject* server_npc)
+inline bool is_jup_b25_flint_gone_condition_server(CSE_ALifeDynamicObject* server_actor, CSE_ALifeDynamicObject* server_npc)
 {
     return Globals::has_alife_info("jup_b25_flint_blame_done_to_duty") ||
         Globals::has_alife_info("jup_b25_flint_blame_done_to_freedom") ||
@@ -4672,7 +4671,7 @@ inline bool is_door_blocked_by_npc(CScriptGameObject* actor, CScriptGameObject* 
 inline bool is_has_active_tutorial(void) { return Globals::Game::has_active_tutotial(); }
 
 // Lord: доделать когда будет inventory_upgrades
-inline bool is_upgrade_hint_kardan(CScriptGameObject* actor, CScriptGameObject* npc, const xr_vector<xr_string>& buffer)
+inline bool is_upgrade_hint_kardan_client(CScriptGameObject* actor, CScriptGameObject* npc, const xr_vector<xr_string>& buffer)
 {
     xr_vector<xr_string> hint_list;
     int can_upgrade = 0;
@@ -4726,7 +4725,8 @@ inline bool is_upgrade_hint_kardan(CScriptGameObject* actor, CScriptGameObject* 
 }
 
 // Lord: доделать когда будет inventory_upgrades
-inline bool is_upgrade_hint_kardan(CScriptGameObject* actor, CSE_ALifeDynamicObject* server_npc, const xr_vector<xr_string>& buffer)
+inline bool is_upgrade_hint_kardan_client_server(
+    CScriptGameObject* actor, CSE_ALifeDynamicObject* server_npc, const xr_vector<xr_string>& buffer)
 {
     xr_vector<xr_string> hint_list;
     int can_upgrade = 0;
@@ -4779,7 +4779,7 @@ inline bool is_upgrade_hint_kardan(CScriptGameObject* actor, CSE_ALifeDynamicObj
     return can_upgrade >= 2;
 }
 // Lord: доделать когда будет inventory_upgrades
-inline bool is_upgrade_hint_kardan(CSE_ALifeDynamicObject* server_actor, CSE_ALifeDynamicObject* server_npc, const xr_vector<xr_string>& buffer)
+inline bool is_upgrade_hint_kardan_server(CSE_ALifeDynamicObject* server_actor, CSE_ALifeDynamicObject* server_npc, const xr_vector<xr_string>& buffer)
 {
     xr_vector<xr_string> hint_list;
     int can_upgrade = 0;
