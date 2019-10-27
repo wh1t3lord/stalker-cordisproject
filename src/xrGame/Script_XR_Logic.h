@@ -1519,7 +1519,7 @@ inline xr_string pick_section_from_condlist(
                     Msg("[Scripts/XR_LOGIC/pick_section_from_condlist(actor, npc, condlist)] Object: [%s] - Function: "
                         "%s doesn't registered in Singleton Script_GlobalHelper in function "
                         "Script_GlobalHelper::RegisterFunctionsFromAnotherFiles!!!! ",
-                        npc->s_name, it_infoportion_check.second.m_function_name.c_str());
+                        npc->Name(), it_infoportion_check.second.m_function_name.c_str());
                     R_ASSERT(false);
                 }
 
@@ -1766,7 +1766,7 @@ inline xr_string pick_section_from_condlist(
                         Msg("[Scripts/XR_LOGIC/pick_section_from_condlist(actor, npc, condlist)] object '%s': "
                             "pick_section_from_condlist: function '%s' is "
                             "not defined in xr_effects",
-                            npc->s_name, it_infoportion_set.second.m_function_name.c_str());
+                            npc->Name(), it_infoportion_set.second.m_function_name.c_str());
                         R_ASSERT(false);
                     }
 
