@@ -46,11 +46,14 @@ private:
     bool m_is_started;
     bool m_is_camp;
     std::uint16_t m_npc_id;
+    std::uint32_t m_vertex_id;
     Fvector m_position;
     Fvector m_look_position;
     Fvector m_smart_direction;
+    Fvector m_position_vertex;
     xr_vector<std::pair<std::function<bool(std::uint16_t, bool)>, xr_string>> m_avail_actions;
     DataBase::StorageAnimpoint_Data* m_storage;
+    // Lord: добавить объект m_camp;!
     xr_string m_current_action_name;
     xr_string m_cover_name;
 };

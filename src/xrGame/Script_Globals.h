@@ -487,8 +487,9 @@ inline std::uint32_t time_global(void) noexcept { return Device.dwTimeGlobal; }
 
 namespace level
 {
+inline u32 vertex_id(Fvector position) { return (ai().level_graph().vertex_id(position)); }
+inline Fvector vertex_position(u32 level_vertex_id);
 inline float rain_factor(void) { return (g_pGamePersistent->Environment().CurrentEnv->rain_density); }
-
 inline CScriptGameObject* get_object_by_id(u16 id)
 {
     CGameObject* pGameObject = smart_cast<CGameObject*>(Level().Objects.net_Find(id));
@@ -708,7 +709,6 @@ inline bool is_npc_in_actor_frustrum(CScriptGameObject* npc);
 inline bool is_npc_in_actor_frustrum(CSE_ALifeDynamicObject* server_npc);
 inline CScriptGameObject* get_story_object(const xr_string& object_id);
 inline int get_script_clsid(const CLASS_ID& clsid);
-inline Fvector vertex_position(u32 level_vertex_id);
 inline std::uint32_t vertex_in_direction(
     const std::uint32_t& level_vertex_id, const Fvector& direction, const float& max_distance);
 inline float yaw(const Fvector& vector1, const Fvector& vector2);

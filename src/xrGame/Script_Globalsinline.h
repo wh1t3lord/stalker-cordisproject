@@ -11,6 +11,16 @@ namespace Scripts
 {
 namespace Globals
 {
+
+namespace Game
+{
+namespace level
+{
+inline Fvector vertex_position(u32 level_vertex_id) { return (ai().level_graph().vertex_position(level_vertex_id)); }
+}
+}
+
+
 namespace GameRelations
 {
 inline bool check_all_squad_members(const xr_string& squad_name, const xr_string& goodwill_name)
@@ -338,8 +348,6 @@ inline CScriptGameObject* get_story_object(const xr_string& object_id)
 }
 
 inline int get_script_clsid(const CLASS_ID& clsid) { return object_factory().script_clsid(clsid); }
-
-inline Fvector vertex_position(u32 level_vertex_id) { return (ai().level_graph().vertex_position(level_vertex_id)); }
 inline bool patrol_path_exists(LPCSTR patrol_path) { return (!!ai().patrol_paths().path(patrol_path, true)); }
 
 inline void load_sound(void)

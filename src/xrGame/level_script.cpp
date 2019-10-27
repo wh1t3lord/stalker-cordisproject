@@ -469,7 +469,7 @@ void g_set_community_relation(LPCSTR comm_from, LPCSTR comm_to, int value)
     RELATION_REGISTRY().SetCommunityRelation(community_from.index(), community_to.index(), value);
 }
 
-u32 vertex_id(Fvector position) { return (ai().level_graph().vertex_id(position)); }
+
 u32 render_get_dx_level() { return GEnv.Render->get_dx_level(); }
 CUISequencer* g_tutorial = NULL;
 CUISequencer* g_tutorial2 = NULL;
