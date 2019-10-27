@@ -23,7 +23,7 @@ struct AnyCallable
     }
 
     template <typename... Args>
-    ReturnType operator()(Args&&... arguments)
+    ReturnType operator()(Args... arguments)
     {
         std::function<ReturnType(Args...)> myfunction;
 

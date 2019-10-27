@@ -2331,8 +2331,8 @@ private:
 #pragma endregion
 
 #pragma region Cordis Animpoint System Table initialization
-            // @ Eatable
-            this->setRegisteredEatableVisuals("stalker_hero_1", true);
+        // @ Eatable
+        this->setRegisteredEatableVisuals("stalker_hero_1", true);
         this->setRegisteredEatableVisuals("stalker_hero_novice_1", true);
         this->setRegisteredEatableVisuals("stalker_hero_stalker_1", true);
         this->setRegisteredEatableVisuals("stalker_hero_dolg_1", true);
@@ -2927,29 +2927,30 @@ private:
             "wounded_heavy_1");
         state_library["lay_on_bed"] = state_lib_data;
 
-        #pragma region Cordis State Library Animpoint stuff
+#pragma region Cordis State Library Animpoint stuff
         state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
-            MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "strapped", "animpoint_stay_wall", "animpoint_stay_wall");
+            MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "strapped",
+            "animpoint_stay_wall", "animpoint_stay_wall");
         state_library["animpoint_stay_wall"] = state_lib_data;
         state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
             MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "strapped",
             "animpoint_stay_table", "animpoint_stay_table");
         state_library["animpoint_stay_table"] = state_lib_data;
         state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
-            MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "strapped",
-            "animpoint_sit_high", "animpoint_sit_high");
+            MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "strapped", "animpoint_sit_high",
+            "animpoint_sit_high");
         state_library["animpoint_sit_high"] = state_lib_data;
         state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
-            MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "strapped", "animpoint_sit_normal",
-            "animpoint_sit_normal");
+            MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "strapped",
+            "animpoint_sit_normal", "animpoint_sit_normal");
         state_library["animpoint_sit_normal"] = state_lib_data;
         state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
-            MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "strapped",
-            "animpoint_sit_low", "animpoint_sit_low");
+            MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "strapped", "animpoint_sit_low",
+            "animpoint_sit_low");
         state_library["animpoint_sit_low"] = state_lib_data;
         state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
-            MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "strapped", "animpoint_stay_wall",
-            "animpoint_stay_wall_eat_bread");
+            MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "strapped",
+            "animpoint_stay_wall", "animpoint_stay_wall_eat_bread");
         state_library["animpoint_stay_wall_eat_bread"] = state_lib_data;
         state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
             MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "strapped",
@@ -2964,32 +2965,32 @@ private:
             "animpoint_stay_table", "animpoint_stay_table_eat_kolbasa");
         state_library["animpoint_stay_table_eat_kolbasa"] = state_lib_data;
         state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
-            MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "strapped",
-            "animpoint_sit_high", "animpoint_sit_high_eat_bread");
+            MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "strapped", "animpoint_sit_high",
+            "animpoint_sit_high_eat_bread");
         state_library["animpoint_sit_high_eat_bread"] = state_lib_data;
         state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
             MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "strapped", "animpoint_sit_high",
             "animpoint_sit_high_eat_kolbasa");
         state_library["animpoint_sit_high_eat_kolbasa"] = state_lib_data;
         state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
-            MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "strapped", "animpoint_sit_normal",
-            "animpoint_sit_normal_eat_bread");
+            MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "strapped",
+            "animpoint_sit_normal", "animpoint_sit_normal_eat_bread");
         state_library["animpoint_sit_normal_eat_bread"] = state_lib_data;
         state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
             MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "strapped",
             "animpoint_sit_normal", "animpoint_sit_normal_eat_kolbasa");
         state_library["animpoint_sit_normal_eat_kolbasa"] = state_lib_data;
         state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
-            MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "strapped",
-            "animpoint_sit_low", "animpoint_sit_low_eat_bread");
+            MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "strapped", "animpoint_sit_low",
+            "animpoint_sit_low_eat_bread");
         state_library["animpoint_sit_low_eat_bread"] = state_lib_data;
         state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
             MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "strapped", "animpoint_sit_low",
             "animpoint_sit_low_eat_kolbasa");
         state_library["animpoint_sit_low_eat_kolbasa"] = state_lib_data;
         state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
-            MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "strapped", "animpoint_stay_wall",
-            "animpoint_stay_wall_drink_vodka");
+            MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "strapped",
+            "animpoint_stay_wall", "animpoint_stay_wall_drink_vodka");
         state_library["animpoint_stay_wall_drink_vodka"] = state_lib_data;
         state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
             MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "strapped",
@@ -3004,68 +3005,68 @@ private:
             "animpoint_stay_table", "animpoint_stay_table_drink_energy");
         state_library["animpoint_stay_table_drink_energy"] = state_lib_data;
         state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
-            MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "strapped",
-            "animpoint_sit_high", "animpoint_sit_high_drink_vodka");
+            MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "strapped", "animpoint_sit_high",
+            "animpoint_sit_high_drink_vodka");
         state_library["animpoint_sit_high_drink_vodka"] = state_lib_data;
         state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
             MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "strapped", "animpoint_sit_high",
             "animpoint_sit_high_drink_energy");
         state_library["animpoint_sit_high_drink_energy"] = state_lib_data;
         state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
-            MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "strapped", "animpoint_sit_normal",
-            "animpoint_sit_normal_drink_vodka");
+            MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "strapped",
+            "animpoint_sit_normal", "animpoint_sit_normal_drink_vodka");
         state_library["animpoint_sit_normal_drink_vodka"] = state_lib_data;
         state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
-            MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "strapped",
-            "animpoint_sit_low", "animpoint_sit_low_drink_vodka");
+            MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "strapped", "animpoint_sit_low",
+            "animpoint_sit_low_drink_vodka");
         state_library["animpoint_sit_low_drink_vodka"] = state_lib_data;
         state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
             MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "strapped", "animpoint_sit_low",
             "animpoint_sit_low_drink_energy");
         state_library["animpoint_sit_low_drink_energy"] = state_lib_data;
         state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
-            MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "strapped", "animpoint_stay_wall",
-            "animpoint_stay_wall_guitar");
+            MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "strapped",
+            "animpoint_stay_wall", "animpoint_stay_wall_guitar");
         state_library["animpoint_stay_wall_guitar"] = state_lib_data;
         state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
             MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "strapped",
             "animpoint_stay_table", "animpoint_stay_table_guitar");
         state_library["animpoint_stay_table_guitar"] = state_lib_data;
         state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
-            MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "strapped",
-            "animpoint_sit_high", "animpoint_sit_high_guitar");
+            MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "strapped", "animpoint_sit_high",
+            "animpoint_sit_high_guitar");
         state_library["animpoint_sit_high_guitar"] = state_lib_data;
         state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
-            MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "strapped", "animpoint_sit_normal",
-            "animpoint_sit_normal_guitar");
+            MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "strapped",
+            "animpoint_sit_normal", "animpoint_sit_normal_guitar");
         state_library["animpoint_sit_normal_guitar"] = state_lib_data;
         state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
-            MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "strapped",
-            "animpoint_sit_low", "animpoint_sit_low_guitar");
+            MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "strapped", "animpoint_sit_low",
+            "animpoint_sit_low_guitar");
         state_library["animpoint_sit_low_guitar"] = state_lib_data;
         state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
-            MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "strapped", "animpoint_stay_wall",
-            "animpoint_stay_wall_harmonica");
+            MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "strapped",
+            "animpoint_stay_wall", "animpoint_stay_wall_harmonica");
         state_library["animpoint_stay_wall_harmonica"] = state_lib_data;
         state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
             MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "strapped",
             "animpoint_stay_table", "animpoint_stay_table_harmonica");
         state_library["animpoint_stay_table_harmonica"] = state_lib_data;
         state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
-            MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "strapped",
-            "animpoint_sit_high", "animpoint_sit_high_harmonica");
+            MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "strapped", "animpoint_sit_high",
+            "animpoint_sit_high_harmonica");
         state_library["animpoint_sit_high_harmonica"] = state_lib_data;
         state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
-            MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "strapped", "animpoint_sit_normal",
-            "animpoint_sit_normal_harmonica");
+            MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "strapped",
+            "animpoint_sit_normal", "animpoint_sit_normal_harmonica");
         state_library["animpoint_sit_normal_harmonica"] = state_lib_data;
         state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
-            MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "strapped",
-            "animpoint_sit_low", "animpoint_sit_low_harmonica");
+            MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "strapped", "animpoint_sit_low",
+            "animpoint_sit_low_harmonica");
         state_library["animpoint_sit_low_harmonica"] = state_lib_data;
         state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
-            MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "unstrapped", "animpoint_stay_wall_weapon",
-            Globals::kStringUndefined);
+            MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "unstrapped",
+            "animpoint_stay_wall_weapon", Globals::kStringUndefined);
         state_library["animpoint_stay_wall_weapon"] = state_lib_data;
         state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
             MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "unstrapped",
@@ -3092,21 +3093,20 @@ private:
             "animpoint_stay_table", Globals::kStringUndefined);
         state_library["animpoint_stay_table_no_rnd"] = state_lib_data;
         state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
-            MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "strapped",
-            "animpoint_sit_high", Globals::kStringUndefined);
+            MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "strapped", "animpoint_sit_high",
+            Globals::kStringUndefined);
         state_library["animpoint_sit_high_no_rnd"] = state_lib_data;
         state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
-            MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "strapped", "animpoint_sit_normal",
-            Globals::kStringUndefined);
+            MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "strapped",
+            "animpoint_sit_normal", Globals::kStringUndefined);
         state_library["animpoint_sit_normal_no_rnd"] = state_lib_data;
         state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
-            MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "strapped",
-            "animpoint_sit_low", Globals::kStringUndefined);
+            MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "strapped", "animpoint_sit_low",
+            Globals::kStringUndefined);
         state_library["animpoint_sit_low_no_rnd"] = state_lib_data;
-        #pragma endregion
+#pragma endregion
 
-
-        #pragma region Cordis State Library Manager Scenario
+#pragma region Cordis State Library Manager Scenario
         state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
             MonsterSpace::eBodyStateStand, Globals::kUnsignedInt32Undefined, "strapped", Globals::kStringUndefined,
             "zat_b14_give_artefact_idle");
@@ -3116,8 +3116,8 @@ private:
             "zat_b14_give_artefact_act");
         state_library["zat_b14_give_artefact_act"] = state_lib_data;
         state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
-            MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "none", Globals::kStringUndefined,
-            "zat_b14_stay_wall");
+            MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "none",
+            Globals::kStringUndefined, "zat_b14_stay_wall");
         state_library["zat_b14_stay_wall"] = state_lib_data;
         state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
             MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "strapped",
@@ -3168,8 +3168,8 @@ private:
             Globals::kStringUndefined, "zat_b22_medic_suicide");
         state_library["zat_b22_medic_suicide"] = state_lib_data;
         state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
-            MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "none",
-            "zat_b3_tech_idle", "zat_b3_tech_drunk");
+            MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "none", "zat_b3_tech_idle",
+            "zat_b3_tech_drunk");
         state_library["zat_b3_tech_drunk"] = state_lib_data;
         state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
             MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "none", "zat_b3_tech_idle",
@@ -3188,8 +3188,8 @@ private:
             "zat_b3_tech_surprise");
         state_library["zat_b3_tech_surprise"] = state_lib_data;
         state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateDanger,
-            MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "unstrapped", Globals::kStringUndefined,
-            "give_orders");
+            MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "unstrapped",
+            Globals::kStringUndefined, "give_orders");
         state_library["give_orders"] = state_lib_data;
         state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateDanger,
             MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "unstrapped",
@@ -3212,24 +3212,24 @@ private:
             Globals::kStringUndefined, "pas_b400_vano_probe");
         state_library["pas_b400_vano_probe"] = state_lib_data;
         state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
-            MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "strapped",
-            "animpoint_sit_high", "pri_a28_kirillov_sit_high_radio");
+            MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "strapped", "animpoint_sit_high",
+            "pri_a28_kirillov_sit_high_radio");
         state_library["pri_a28_kirillov_sit_high_radio"] = state_lib_data;
         state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
-            MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "none", Globals::kStringUndefined,
-            "pri_a18_inspert_monolit_actor");
+            MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "none",
+            Globals::kStringUndefined, "pri_a18_inspert_monolit_actor");
         state_library["pri_a18_inspert_monolit_actor"] = state_lib_data;
         state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
-                                      MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "strapped",
-                                      "pri_a20_colonel_radio", Globals::kStringUndefined);
+            MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "strapped",
+            "pri_a20_colonel_radio", Globals::kStringUndefined);
         state_library["pri_a20_colonel_radio"] = state_lib_data;
         state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
-            MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "fire",
-            "pri_a21_sentry_madness", Globals::kStringUndefined);
+            MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "fire", "pri_a21_sentry_madness",
+            Globals::kStringUndefined);
         state_library["pri_a21_sentry_madness"] = state_lib_data;
         state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
-            MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "fire", "pri_a21_sentry_madness_idle",
-            "pri_a21_sentry_madness_suicide");
+            MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "fire",
+            "pri_a21_sentry_madness_idle", "pri_a21_sentry_madness_suicide");
         state_library["pri_a21_sentry_madness_suicide"] = state_lib_data;
         state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
             MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "none",
@@ -3455,9 +3455,9 @@ private:
             MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "strapped",
             Globals::kStringUndefined, "pri_a25_psy_medic_out");
         state_library["pri_a25_psy_medic_out"] = state_lib_data;
-        #pragma endregion
-        
-        #pragma region Cordis State Library PriA15
+#pragma endregion
+
+#pragma region Cordis State Library PriA15
         state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
             MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "none",
             Globals::kStringUndefined, "pri_a15_idle_none");
@@ -3922,7 +3922,7 @@ private:
             MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "unstrapped",
             Globals::kStringUndefined, "pri_a15_military_4_all_dead");
         state_library["pri_a15_military_4_all_dead"] = state_lib_data;
-        #pragma endregion
+#pragma endregion
 #pragma endregion
 
 #pragma region SmartTerrain Initializing
@@ -3975,7 +3975,15 @@ public:
         return instance;
     }
 
-    ~Script_GlobalHelper(void) {}
+    ~Script_GlobalHelper(void)
+    {
+        if (this->m_tutorial)
+        {
+            Msg("[Scripts/Script_GlobalHelper/dtor()] Deleting GlobalTutorial!");
+            delete this->m_tutorial;
+            this->m_tutorial = nullptr;
+        }
+    }
     Script_GlobalHelper(const Script_GlobalHelper&) = delete;
     Script_GlobalHelper& operator=(const Script_GlobalHelper&) = delete;
     Script_GlobalHelper(Script_GlobalHelper&&) = delete;
@@ -4773,6 +4781,19 @@ public:
 #pragma endregion
 
 #pragma region Cordis System variables
+    inline CUISequencer* getGlobalTutorial(void) const { return this->m_tutorial; }
+    inline void setGlobalTutorial(CUISequencer* sequence)
+    {
+        if (!sequence)
+        {
+            Msg("[Scripts/Script_GlobalHelper/setGlobalTutorial(sequence)] WARNING: sequence = nullptr! Can't assign! "
+                "Return");
+            return;
+        }
+
+        this->m_tutorial = sequence;
+    }
+
     inline const xr_map<xr_string, bool>& getRegisteredSmartTerrainTerritoryType(void) const noexcept
     {
         return this->m_registered_smart_terrain_territory_type;
@@ -5192,6 +5213,7 @@ public:
 #pragma endregion
 
 private:
+    CUISequencer* m_tutorial;
     xr_map<std::uint32_t, bool> m_monster_classes;
     xr_map<std::uint32_t, bool> m_stalker_classes;
     xr_map<std::uint32_t, bool> m_weapon_classes;
