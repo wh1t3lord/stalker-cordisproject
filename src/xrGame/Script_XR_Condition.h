@@ -3564,7 +3564,7 @@ inline bool is_active_item(CScriptGameObject* actor, CScriptGameObject* npc, con
 {
     if (buffer.size())
     {
-        
+        
     }
 }*/
 
@@ -4399,7 +4399,8 @@ inline bool is_pas_b400_actor_far_forward(CScriptGameObject* actor, CSE_ALifeDyn
     }
     else
     {
-        Msg("[Scripts/XR_CONDITION/is_pas_b400_actor_far_forward(actor, server_npc)] WARNING: forward_object = nullptr! "
+        Msg("[Scripts/XR_CONDITION/is_pas_b400_actor_far_forward(actor, server_npc)] WARNING: forward_object = "
+            "nullptr! "
             "Return false");
         return false;
     }
@@ -4409,7 +4410,8 @@ inline bool is_pas_b400_actor_far_forward(CScriptGameObject* actor, CSE_ALifeDyn
 
     if (self_distance < distance)
     {
-        Msg("[Scripts/XR_CONDITION/is_pas_b400_actor_far_forward(actor, server_npc)] self_distance < distance. Return false");
+        Msg("[Scripts/XR_CONDITION/is_pas_b400_actor_far_forward(actor, server_npc)] self_distance < distance. Return "
+            "false");
         return false;
     }
 
@@ -4421,7 +4423,8 @@ inline bool is_pas_b400_actor_far_forward(CScriptGameObject* actor, CSE_ALifeDyn
 
     if (!server_squad)
     {
-        Msg("[Scripts/XR_CONDITION/is_pas_b400_actor_far_forward(actor, server_npc)] WARNING: server_squad = nullptr! Return "
+        Msg("[Scripts/XR_CONDITION/is_pas_b400_actor_far_forward(actor, server_npc)] WARNING: server_squad = nullptr! "
+            "Return "
             "false");
         return false;
     }
@@ -4434,7 +4437,8 @@ inline bool is_pas_b400_actor_far_forward(CScriptGameObject* actor, CSE_ALifeDyn
 
         if (other_distance < distance)
         {
-            Msg("[Scripts/XR_CONDITION/is_pas_b400_actor_far_forward(actor, server_npc)] other_distance < distance. Return "
+            Msg("[Scripts/XR_CONDITION/is_pas_b400_actor_far_forward(actor, server_npc)] other_distance < distance. "
+                "Return "
                 "false");
             return false;
         }
@@ -4478,7 +4482,8 @@ inline bool is_pas_b400_actor_far_forward(CSE_ALifeDynamicObject* server_actor, 
 
     if (self_distance < distance)
     {
-        Msg("[Scripts/XR_CONDITION/is_pas_b400_actor_far_forward(server_actor, server_npc)] self_distance < distance. Return "
+        Msg("[Scripts/XR_CONDITION/is_pas_b400_actor_far_forward(server_actor, server_npc)] self_distance < distance. "
+            "Return "
             "false");
         return false;
     }
@@ -4491,7 +4496,8 @@ inline bool is_pas_b400_actor_far_forward(CSE_ALifeDynamicObject* server_actor, 
 
     if (!server_squad)
     {
-        Msg("[Scripts/XR_CONDITION/is_pas_b400_actor_far_forward(server_actor, server_npc)] WARNING: server_squad = nullptr! "
+        Msg("[Scripts/XR_CONDITION/is_pas_b400_actor_far_forward(server_actor, server_npc)] WARNING: server_squad = "
+            "nullptr! "
             "Return "
             "false");
         return false;
@@ -4505,7 +4511,8 @@ inline bool is_pas_b400_actor_far_forward(CSE_ALifeDynamicObject* server_actor, 
 
         if (other_distance < distance)
         {
-            Msg("[Scripts/XR_CONDITION/is_pas_b400_actor_far_forward(server_actor, server_npc)] other_distance < distance. "
+            Msg("[Scripts/XR_CONDITION/is_pas_b400_actor_far_forward(server_actor, server_npc)] other_distance < "
+                "distance. "
                 "Return "
                 "false");
             return false;
@@ -4725,6 +4732,96 @@ inline bool is_pas_b400_actor_far_backward(CSE_ALifeDynamicObject* server_actor,
                 "false");
             return false;
         }
+    }
+
+    return true;
+}
+
+inline bool is_pri_a28_actor_is_far(CScriptGameObject* actor, CScriptGameObject* npc)
+{
+    if (!actor)
+    {
+        R_ASSERT2(false, "object is null!");
+        return false;
+    }
+
+    float distance = 150.0f * 150.0f;
+    Script_SE_SimulationSquad* server_squad = Globals::get_story_squad("pri_a16_military_squad");
+
+    if (!server_squad)
+    {
+        Msg("[Scripts/XR_CONDITION/is_pri_a28_actor_is_far(actor, npc)] WARNING: server_squad = nullptr! Return false");
+        return false;
+    }
+
+    for (AssociativeVector<ALife::_OBJECT_ID, CSE_ALifeMonsterAbstract*>::const_iterator it =
+             server_squad->squad_members().begin();
+         it != server_squad->squad_members().end(); ++it)
+    {
+        float npc_distance = it->second->Position().distance_to_sqr(actor->Position());
+
+        if (npc_distance < distance)
+            return false;
+    }
+
+    return true;
+}
+
+inline bool is_pri_a28_actor_is_far(CScriptGameObject* actor, CSE_ALifeDynamicObject* server_npc)
+{
+    if (!actor)
+    {
+        R_ASSERT2(false, "object is null!");
+        return false;
+    }
+
+    float distance = 150.0f * 150.0f;
+    Script_SE_SimulationSquad* server_squad = Globals::get_story_squad("pri_a16_military_squad");
+
+    if (!server_squad)
+    {
+        Msg("[Scripts/XR_CONDITION/is_pri_a28_actor_is_far(actor, server_npc)] WARNING: server_squad = nullptr! Return false");
+        return false;
+    }
+
+    for (AssociativeVector<ALife::_OBJECT_ID, CSE_ALifeMonsterAbstract*>::const_iterator it =
+             server_squad->squad_members().begin();
+         it != server_squad->squad_members().end(); ++it)
+    {
+        float npc_distance = it->second->Position().distance_to_sqr(actor->Position());
+
+        if (npc_distance < distance)
+            return false;
+    }
+
+    return true;
+}
+
+inline bool is_pri_a28_actor_is_far(CSE_ALifeDynamicObject* server_actor, CSE_ALifeDynamicObject* server_npc)
+{
+    if (!server_actor)
+    {
+        R_ASSERT2(false, "object is null!");
+        return false;
+    }
+
+    float distance = 150.0f * 150.0f;
+    Script_SE_SimulationSquad* server_squad = Globals::get_story_squad("pri_a16_military_squad");
+
+    if (!server_squad)
+    {
+        Msg("[Scripts/XR_CONDITION/is_pri_a28_actor_is_far(server_actor, server_npc)] WARNING: server_squad = nullptr! Return false");
+        return false;
+    }
+
+    for (AssociativeVector<ALife::_OBJECT_ID, CSE_ALifeMonsterAbstract*>::const_iterator it =
+             server_squad->squad_members().begin();
+         it != server_squad->squad_members().end(); ++it)
+    {
+        float npc_distance = it->second->Position().distance_to_sqr(server_actor->Position());
+
+        if (npc_distance < distance)
+            return false;
     }
 
     return true;
