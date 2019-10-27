@@ -2533,7 +2533,8 @@ inline bool is_actor_on_level_client(CScriptGameObject* actor, CScriptGameObject
 
     for (const xr_string& it : buffer)
     {
-        if (Globals::Game::level::get_name() == it)
+        xr_string level_name = Globals::Game::level::get_name();
+        if (level_name == it)
             return true;
     }
 
@@ -2551,7 +2552,8 @@ inline bool is_actor_on_level_server(
 
     for (const xr_string& it : buffer)
     {
-        if (Globals::Game::level::get_name() == it)
+        xr_string level_name = Globals::Game::level::get_name();
+        if (level_name == it)
             return true;
     }
 
@@ -2569,7 +2571,8 @@ inline bool is_actor_on_level_client_server(
 
     for (const xr_string& it : buffer)
     {
-        if (Globals::Game::level::get_name() == it)
+        xr_string level_name = Globals::Game::level::get_name();
+        if (level_name == it)
             return true;
     }
 
