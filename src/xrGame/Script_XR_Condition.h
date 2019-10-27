@@ -3564,7 +3564,7 @@ inline bool is_active_item(CScriptGameObject* actor, CScriptGameObject* npc, con
 {
     if (buffer.size())
     {
-        
+        
     }
 }*/
 
@@ -4509,7 +4509,49 @@ inline bool is_zat_b103_actor_has_needed_food(CScriptGameObject* actor, CScriptG
     return false;
 }
 
+inline bool is_zat_b29_rivals_dialog_precond(CScriptGameObject* actor, CScriptGameObject* npc)
+{
+    if (!npc)
+    {
+        R_ASSERT2(false, "object is null!");
+        return false;
+    }
 
+    xr_vector<xr_string> squads_list = {"zat_b29_stalker_rival_default_1_squad",
+        "zat_b29_stalker_rival_default_2_squad", "zat_b29_stalker_rival_1_squad", "zat_b29_stalker_rival_2_squad"};
+
+    xr_vector<xr_string> zones_list = {"zat_b29_sr_1", "zat_b29_sr_2", "zat_b29_sr_3", "zat_b29_sr_4", "zat_b29_sr_5"};
+
+    bool is_found_squad = false;
+
+    for (const xr_string& it : squads_list)
+    {
+        if (ai().alife()
+                .objects()
+                .object(ai().alife().objects().object(npc->ID())->cast_monster_abstract()->m_group_id)
+                ->name() == it)
+        {
+            is_found_squad = true;
+            break;
+        }
+    }
+
+    if (!is_found_squad)
+    {
+        Msg("[Scripts/XR_CONDITION/is_zat_b29_rivals_dialog_precond(actor, npc)] A squad doesn't found. Return false");
+        return false;
+    }
+
+    for (const xr_string& it : zones_list)
+    {
+        if (Globals::Utils::is_npc_in_zone(npc, DataBase::Storage::getInstance().getZoneByName().at(it)))
+        {
+            return true;
+        }
+    }
+    
+    return false;
+}
 
 } // namespace XR_CONDITION
 } // namespace Scripts
