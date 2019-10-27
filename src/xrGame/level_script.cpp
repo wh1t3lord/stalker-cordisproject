@@ -494,9 +494,6 @@ void stop_tutorial()
         g_tutorial->Stop();
 }
 
-
-bool has_active_tutotial() { return (g_tutorial != NULL); }
-
 //Alundaio: namespace level exports extension
 #ifdef NAMESPACE_LEVEL_EXPORTS
 //ability to update level netpacket

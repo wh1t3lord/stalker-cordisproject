@@ -386,6 +386,7 @@ inline bool is_npc_in_zone(CSE_ALifeDynamicObject* server_object, CScriptGameObj
 } // namespace Utils
 namespace Game
 {
+inline bool has_active_tutotial(void) { return (!!g_tutorial); }
 inline LPCSTR translate_string(LPCSTR str) { return *StringTable().translate(str); }
 inline xrTime get_game_time(void) noexcept { return get_time_struct(); }
 inline const CGameGraph* get_game_graph() { return &GEnv.AISpace->game_graph(); }

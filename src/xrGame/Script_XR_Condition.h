@@ -3564,7 +3564,7 @@ inline bool is_active_item(CScriptGameObject* actor, CScriptGameObject* npc, con
 {
     if (buffer.size())
     {
-        
+        
     }
 }*/
 
@@ -4549,8 +4549,287 @@ inline bool is_zat_b29_rivals_dialog_precond(CScriptGameObject* actor, CScriptGa
             return true;
         }
     }
-    
+
     return false;
+}
+
+inline bool is_jup_b202_actor_treasure_not_in_steal(CScriptGameObject* actor, CScriptGameObject* npc)
+{
+    bool before_state = (!Globals::has_alife_info("jup_b52_actor_items_can_be_stolen")) &&
+        (!Globals::has_alife_info("jup_b202_actor_items_returned"));
+    bool after_state = (Globals::has_alife_info("jup_b52_actor_items_can_be_stolen")) &&
+        (Globals::has_alife_info("jup_b202_actor_items_returned"));
+
+    return after_state || before_state;
+}
+
+inline bool is_jup_b202_actor_treasure_not_in_steal(CScriptGameObject* actor, CSE_ALifeDynamicObject* server_npc)
+{
+    bool before_state = (!Globals::has_alife_info("jup_b52_actor_items_can_be_stolen")) &&
+        (!Globals::has_alife_info("jup_b202_actor_items_returned"));
+    bool after_state = (Globals::has_alife_info("jup_b52_actor_items_can_be_stolen")) &&
+        (Globals::has_alife_info("jup_b202_actor_items_returned"));
+
+    return after_state || before_state;
+}
+
+inline bool is_jup_b202_actor_treasure_not_in_steal(
+    CSE_ALifeDynamicObject* server_actor, CSE_ALifeDynamicObject* server_npc)
+{
+    bool before_state = (!Globals::has_alife_info("jup_b52_actor_items_can_be_stolen")) &&
+        (!Globals::has_alife_info("jup_b202_actor_items_returned"));
+    bool after_state = (Globals::has_alife_info("jup_b52_actor_items_can_be_stolen")) &&
+        (Globals::has_alife_info("jup_b202_actor_items_returned"));
+
+    return after_state || before_state;
+}
+
+inline bool is_jup_b25_senya_spawn_condition(CScriptGameObject* actor, CScriptGameObject* npc)
+{
+    return (Globals::has_alife_info("jup_b16_oasis_found") ||
+               Globals::has_alife_info("zat_b57_bloodsucker_lair_clear") ||
+               Globals::has_alife_info("jup_b6_complete_end") || Globals::has_alife_info("zat_b215_gave_maps")) &&
+        Globals::has_alife_info("zat_b106_search_soroka");
+}
+
+inline bool is_jup_b25_senya_spawn_condition(CScriptGameObject* actor, CSE_ALifeDynamicObject* server_npc)
+{
+    return (Globals::has_alife_info("jup_b16_oasis_found") ||
+               Globals::has_alife_info("zat_b57_bloodsucker_lair_clear") ||
+               Globals::has_alife_info("jup_b6_complete_end") || Globals::has_alife_info("zat_b215_gave_maps")) &&
+        Globals::has_alife_info("zat_b106_search_soroka");
+}
+
+inline bool is_jup_b25_senya_spawn_condition(CSE_ALifeDynamicObject* server_actor, CSE_ALifeDynamicObject* server_npc)
+{
+    return (Globals::has_alife_info("jup_b16_oasis_found") ||
+               Globals::has_alife_info("zat_b57_bloodsucker_lair_clear") ||
+               Globals::has_alife_info("jup_b6_complete_end") || Globals::has_alife_info("zat_b215_gave_maps")) &&
+        Globals::has_alife_info("zat_b106_search_soroka");
+}
+
+inline bool is_jup_b25_flint_gone_condition(CScriptGameObject* actor, CScriptGameObject* npc)
+{
+    return Globals::has_alife_info("jup_b25_flint_blame_done_to_duty") ||
+        Globals::has_alife_info("jup_b25_flint_blame_done_to_freedom") ||
+        Globals::has_alife_info("zat_b106_found_soroka_done");
+}
+
+inline bool is_jup_b25_flint_gone_condition(CScriptGameObject* actor, CSE_ALifeDynamicObject* server_npc)
+{
+    return Globals::has_alife_info("jup_b25_flint_blame_done_to_duty") ||
+        Globals::has_alife_info("jup_b25_flint_blame_done_to_freedom") ||
+        Globals::has_alife_info("zat_b106_found_soroka_done");
+}
+
+inline bool is_jup_b25_flint_gone_condition(CSE_ALifeDynamicObject* server_actor, CSE_ALifeDynamicObject* server_npc)
+{
+    return Globals::has_alife_info("jup_b25_flint_blame_done_to_duty") ||
+        Globals::has_alife_info("jup_b25_flint_blame_done_to_freedom") ||
+        Globals::has_alife_info("zat_b106_found_soroka_done");
+}
+
+// Lord: доделать когда будет sr_deimos, единственная перегрузка
+inline bool is_check_deimos_phase(CScriptGameObject* actor, CScriptGameObject* npc, const xr_vector<xr_string>& buffer)
+{
+    if (!buffer.size())
+    {
+        Msg("[Scripts/XR_CONDITION/is_check_deimos_phase(actor, npc, buffer)] WARNING: buffer.size() = 0! Return "
+            "false");
+        return false;
+    }
+
+    if (!npc)
+    {
+        R_ASSERT2(false, "object is null!");
+        return false;
+    }
+
+    if (!buffer[1].size())
+    {
+        Msg("[Scripts/XR_CONDITION/is_check_deimos_phase(actor, npc, buffer)] WARNING: buffer[1].size() = 0! Return "
+            "false");
+        return false;
+    }
+
+    return false;
+}
+
+// Lord: доделать когда будет доделан Script_SurgeManager
+inline bool is_actor_in_surge_cover(void) { return false; }
+
+inline bool is_door_blocked_by_npc(CScriptGameObject* actor, CScriptGameObject* npc)
+{
+    if (!npc)
+    {
+        R_ASSERT2(false, "object is null!");
+        return false;
+    }
+
+    return npc->is_door_blocked_by_npc();
+}
+
+inline bool is_has_active_tutorial(void) { return Globals::Game::has_active_tutotial(); }
+
+// Lord: доделать когда будет inventory_upgrades
+inline bool is_upgrade_hint_kardan(CScriptGameObject* actor, CScriptGameObject* npc, const xr_vector<xr_string>& buffer)
+{
+    xr_vector<xr_string> hint_list;
+    int can_upgrade = 0;
+    int tools = atoi(buffer[0].c_str()) ? atoi(buffer[0].c_str()) : 0;
+
+    if (!Globals::has_alife_info("zat_b3_all_instruments_brought"))
+    {
+        if (!Globals::has_alife_info("zat_b3_tech_instrument_1_brought") && (tools == 0 || tools == 1))
+        {
+            hint_list.push_back("st_upgr_toolkit_1");
+        }
+        else if (tools == 1)
+            can_upgrade += 1;
+
+        if (!Globals::has_alife_info("zat_b3_tech_instrument_2_brought") && (tools == 0 || tools == 2))
+        {
+            hint_list.push_back("st_upgr_toolkit_2");
+        }
+        else if (tools == 2)
+            can_upgrade += 1;
+
+        if (!Globals::has_alife_info("zat_b3_tech_instrument_3_brought") && (tools == 0 || tools == 3))
+        {
+            hint_list.push_back("st_upgr_toolkit_3");
+        }
+        else if (tools == 3)
+            can_upgrade += 1;
+    }
+    else
+    {
+        can_upgrade += 1;
+    }
+
+    if (!Globals::has_alife_info("zat_b3_tech_see_produce_62"))
+    {
+        if (tools == 1 && !Globals::has_alife_info("zat_b3_tech_have_one_dose"))
+        {
+            hint_list.push_back("st_upgr_vodka");
+        }
+        else if (tools != 1 && !Globals::has_alife_info("zat_b3_tech_have_couple_dose"))
+            hint_list.push_back("st_upgr_vodka");
+        else
+            can_upgrade += 1;
+    }
+    else
+        can_upgrade += 1;
+
+    // inventory_upgrades.cur_hint = hint_table
+
+    return can_upgrade >= 2;
+}
+
+// Lord: доделать когда будет inventory_upgrades
+inline bool is_upgrade_hint_kardan(CScriptGameObject* actor, CSE_ALifeDynamicObject* server_npc, const xr_vector<xr_string>& buffer)
+{
+    xr_vector<xr_string> hint_list;
+    int can_upgrade = 0;
+    int tools = atoi(buffer[0].c_str()) ? atoi(buffer[0].c_str()) : 0;
+
+    if (!Globals::has_alife_info("zat_b3_all_instruments_brought"))
+    {
+        if (!Globals::has_alife_info("zat_b3_tech_instrument_1_brought") && (tools == 0 || tools == 1))
+        {
+            hint_list.push_back("st_upgr_toolkit_1");
+        }
+        else if (tools == 1)
+            can_upgrade += 1;
+
+        if (!Globals::has_alife_info("zat_b3_tech_instrument_2_brought") && (tools == 0 || tools == 2))
+        {
+            hint_list.push_back("st_upgr_toolkit_2");
+        }
+        else if (tools == 2)
+            can_upgrade += 1;
+
+        if (!Globals::has_alife_info("zat_b3_tech_instrument_3_brought") && (tools == 0 || tools == 3))
+        {
+            hint_list.push_back("st_upgr_toolkit_3");
+        }
+        else if (tools == 3)
+            can_upgrade += 1;
+    }
+    else
+    {
+        can_upgrade += 1;
+    }
+
+    if (!Globals::has_alife_info("zat_b3_tech_see_produce_62"))
+    {
+        if (tools == 1 && !Globals::has_alife_info("zat_b3_tech_have_one_dose"))
+        {
+            hint_list.push_back("st_upgr_vodka");
+        }
+        else if (tools != 1 && !Globals::has_alife_info("zat_b3_tech_have_couple_dose"))
+            hint_list.push_back("st_upgr_vodka");
+        else
+            can_upgrade += 1;
+    }
+    else
+        can_upgrade += 1;
+
+    // inventory_upgrades.cur_hint = hint_table
+
+    return can_upgrade >= 2;
+}
+// Lord: доделать когда будет inventory_upgrades
+inline bool is_upgrade_hint_kardan(CSE_ALifeDynamicObject* server_actor, CSE_ALifeDynamicObject* server_npc, const xr_vector<xr_string>& buffer)
+{
+    xr_vector<xr_string> hint_list;
+    int can_upgrade = 0;
+    int tools = atoi(buffer[0].c_str()) ? atoi(buffer[0].c_str()) : 0;
+
+    if (!Globals::has_alife_info("zat_b3_all_instruments_brought"))
+    {
+        if (!Globals::has_alife_info("zat_b3_tech_instrument_1_brought") && (tools == 0 || tools == 1))
+        {
+            hint_list.push_back("st_upgr_toolkit_1");
+        }
+        else if (tools == 1)
+            can_upgrade += 1;
+
+        if (!Globals::has_alife_info("zat_b3_tech_instrument_2_brought") && (tools == 0 || tools == 2))
+        {
+            hint_list.push_back("st_upgr_toolkit_2");
+        }
+        else if (tools == 2)
+            can_upgrade += 1;
+
+        if (!Globals::has_alife_info("zat_b3_tech_instrument_3_brought") && (tools == 0 || tools == 3))
+        {
+            hint_list.push_back("st_upgr_toolkit_3");
+        }
+        else if (tools == 3)
+            can_upgrade += 1;
+    }
+    else
+    {
+        can_upgrade += 1;
+    }
+
+    if (!Globals::has_alife_info("zat_b3_tech_see_produce_62"))
+    {
+        if (tools == 1 && !Globals::has_alife_info("zat_b3_tech_have_one_dose"))
+        {
+            hint_list.push_back("st_upgr_vodka");
+        }
+        else if (tools != 1 && !Globals::has_alife_info("zat_b3_tech_have_couple_dose"))
+            hint_list.push_back("st_upgr_vodka");
+        else
+            can_upgrade += 1;
+    }
+    else
+        can_upgrade += 1;
+
+    // inventory_upgrades.cur_hint = hint_table
+
+    return can_upgrade >= 2;
 }
 
 } // namespace XR_CONDITION
