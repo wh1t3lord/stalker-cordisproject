@@ -7,6 +7,353 @@ namespace Scripts
 namespace XR_CONDITION
 {
 inline bool is_surge_started(void);
+inline bool is_surge_complete(void);
+inline bool is_surge_kill_all(void);
+inline bool is_enemy_actor(CScriptGameObject* enemy, CScriptGameObject* object);
+inline bool is_fighting_dist_ge_client(
+    CScriptGameObject* enemy, CScriptGameObject* npc, const xr_vector<xr_string>& buffer);
+inline bool is_fighting_dist_ge_server(
+    CSE_ALifeDynamicObject* enemy, CSE_ALifeDynamicObject* npc, const xr_vector<xr_string>& buffer);
+inline bool is_fighting_dist_le_client(
+    CScriptGameObject* enemy, CScriptGameObject* npc, const xr_vector<xr_string>& buffer);
+inline bool is_fighting_dist_le_server(
+    CSE_ALifeDynamicObject* enemy, CSE_ALifeDynamicObject* npc, const xr_vector<xr_string>& buffer);
+inline bool is_enemy_in_zone_client(
+    CScriptGameObject* enemy, CScriptGameObject* npc, const xr_vector<xr_string>& buffer);
+inline bool is_enemy_in_zone_server(
+    CSE_ALifeDynamicObject* server_enemy, CSE_ALifeDynamicObject* server_npc, const xr_vector<xr_string>& buffer);
+inline bool is_black_screen_client(CScriptGameObject* actor, CScriptGameObject* npc);
+inline bool is_black_screen_client_server(CScriptGameObject* actor, CSE_ALifeDynamicObject* server_npc);
+inline bool check_npc_name_client(CScriptGameObject* actor, CScriptGameObject* npc, const xr_vector<xr_string>& buffer);
+inline bool check_npc_name_client_server(
+    CScriptGameObject* actor, CSE_ALifeDynamicObject* server_npc, const xr_vector<xr_string>& buffer);
+inline bool check_enemy_name_client(
+    CScriptGameObject* actor, CScriptGameObject* npc, const xr_vector<xr_string>& buffer);
+inline bool is_playing_sound(CScriptGameObject* actor, CScriptGameObject* npc);
+inline bool is_see_npc(CScriptGameObject* actor, CScriptGameObject* npc, const xr_vector<xr_string>& buffer);
+inline bool is_actor_see_npc(CScriptGameObject* actor, CScriptGameObject* npc);
+inline bool is_npc_in_actor_frustrum(CScriptGameObject* actor, CScriptGameObject* npc);
+inline bool is_wounded(CScriptGameObject* actor, CScriptGameObject* npc);
+inline bool is_dist_to_actor_ge_client(
+    CScriptGameObject* actor, CScriptGameObject* npc, const xr_vector<xr_string>& buffer);
+inline bool is_dist_to_actor_ge_client_server(
+    CScriptGameObject* actor, CSE_ALifeDynamicObject* server_npc, const xr_vector<xr_string>& buffer);
+inline bool is_dist_to_actor_ge_server(
+    CSE_ALifeDynamicObject* server_actor, CSE_ALifeDynamicObject* server_npc, const xr_vector<xr_string>& buffer);
+inline bool is_obj_on_job(CScriptGameObject* actor, CScriptGameObject* npc, const xr_vector<xr_string>& buffer);
+inline bool is_distance_to_obj_on_job_le(
+    CScriptGameObject* actor, CScriptGameObject* npc, const xr_vector<xr_string>& buffer);
+inline bool is_story_obj_in_zone_by_name_client(
+    CScriptGameObject* actor, CScriptGameObject* npc, const xr_vector<xr_string>& buffer);
+inline bool is_story_obj_in_zone_by_name_server(
+    CSE_ALifeDynamicObject* actor, CSE_ALifeDynamicObject* npc, const xr_vector<xr_string>& buffer);
+inline bool is_actor_in_zone_client(
+    CScriptGameObject* actor, CScriptGameObject* npc, const xr_vector<xr_string>& buffer);
+inline bool is_actor_in_zone_client_server(
+    CScriptGameObject* actor, CSE_ALifeDynamicObject* server_npc, const xr_vector<xr_string>& buffer);
+inline bool is_actor_in_zone_server(
+    CSE_ALifeDynamicObject* server_actor, CSE_ALifeDynamicObject* server_npc, const xr_vector<xr_string>& buffer);
+inline bool is_npc_in_zone_client(CScriptGameObject* actor, CScriptGameObject* npc, const xr_vector<xr_string>& buffer);
+inline bool is_npc_in_zone_client_server(
+    CScriptGameObject* actor, CSE_ALifeDynamicObject* server_npc, const xr_vector<xr_string>& buffer);
+inline bool is_npc_in_zone_server(
+    CSE_ALifeDynamicObject* server_actor, CSE_ALifeDynamicObject* server_npc, const xr_vector<xr_string>& buffer);
+inline bool is_health_le(CScriptGameObject* actor, CScriptGameObject* npc, const xr_vector<xr_string>& buffer);
+inline bool is_actor_health_le(CScriptGameObject* actor, CScriptGameObject* npc, const xr_vector<xr_string>& buffer);
+inline bool is_npc_community_client(
+    CScriptGameObject* actor, CScriptGameObject* npc, const xr_vector<xr_string>& buffer);
+inline bool is_npc_community_client_server(
+    CScriptGameObject* actor, CSE_ALifeDynamicObject* server_npc, const xr_vector<xr_string>& buffer);
+inline bool is_npc_community_server(
+    CSE_ALifeDynamicObject* server_actor, CSE_ALifeDynamicObject* server_npc, const xr_vector<xr_string>& buffer);
+inline bool is_hitted_by(CScriptGameObject* actor, CScriptGameObject* npc, const xr_vector<xr_string>& buffer);
+inline bool is_hitted_on_bone(CScriptGameObject* actor, CScriptGameObject* npc, const xr_vector<xr_string>& buffer);
+inline bool is_best_pistol(CScriptGameObject* actor, CScriptGameObject* npc);
+inline bool is_deadly_hit(CScriptGameObject* actor, CScriptGameObject* npc);
+inline bool is_killed_by(CScriptGameObject* actor, CScriptGameObject* npc, const xr_vector<xr_string>& buffer);
+inline bool is_alive_one_client(CScriptGameObject* actor, CScriptGameObject* npc, const xr_vector<xr_string>& buffer);
+inline bool is_alive_one_client_server(
+    CScriptGameObject* actor, CSE_ALifeDynamicObject* server_npc, const xr_vector<xr_string>& buffer);
+inline bool is_alive_one_server(
+    CSE_ALifeDynamicObject* server_actor, CSE_ALifeDynamicObject* server_npc, const xr_vector<xr_string>& buffer);
+inline bool is_alive_client(CScriptGameObject* actor, CScriptGameObject* npc, const xr_vector<xr_string>& buffer);
+inline bool is_alive_client_server(
+    CScriptGameObject* actor, CSE_ALifeDynamicObject* server_npc, const xr_vector<xr_string>& buffer);
+inline bool is_alive_server(
+    CSE_ALifeDynamicObject* server_actor, CSE_ALifeDynamicObject* server_npc, const xr_vector<xr_string>& buffer);
+inline bool is_dead_client(CScriptGameObject* actor, CScriptGameObject* npc, const xr_vector<xr_string>& buffer);
+inline bool is_dead_client_server(
+    CScriptGameObject* actor, CSE_ALifeDynamicObject* server_npc, const xr_vector<xr_string>& buffer);
+inline bool is_dead_server(
+    CSE_ALifeDynamicObject* server_actor, CSE_ALifeDynamicObject* server_npc, const xr_vector<xr_string>& buffer);
+inline bool is_story_object_exist_client(
+    CScriptGameObject* actor, CScriptGameObject* npc, const xr_vector<xr_string>& buffer);
+inline bool is_story_object_exist_client_server(
+    CScriptGameObject* actor, CSE_ALifeDynamicObject* server_npc, const xr_vector<xr_string>& buffer);
+inline bool is_story_object_exist_server(
+    CSE_ALifeDynamicObject* server_actor, CSE_ALifeDynamicObject* server_npc, const xr_vector<xr_string>& buffer);
+inline bool is_actor_has_item_client(
+    CScriptGameObject* actor, CScriptGameObject* npc, const xr_vector<xr_string>& buffer);
+inline bool is_actor_has_item_client_server(
+    CScriptGameObject* actor, CSE_ALifeDynamicObject* server_npc, const xr_vector<xr_string>& buffer);
+inline bool is_actor_has_item_server(
+    CSE_ALifeDynamicObject* server_actor, CSE_ALifeDynamicObject* server_npc, const xr_vector<xr_string>& buffer);
+inline bool is_npc_has_item(CScriptGameObject* actor, CScriptGameObject* npc, const xr_vector<xr_string>& buffer);
+inline bool is_signal(CScriptGameObject* actor, CScriptGameObject* npc, const xr_vector<xr_string>& buffer);
+inline bool is_counter_greater_client(
+    CScriptGameObject* actor, CScriptGameObject* npc, const xr_vector<xr_string>& buffer);
+inline bool is_counter_greater_client_server(
+    CScriptGameObject* actor, CSE_ALifeDynamicObject* server_npc, const xr_vector<xr_string>& buffer);
+inline bool is_counter_equal_client(
+    CScriptGameObject* actor, CScriptGameObject* npc, const xr_vector<xr_string>& buffer);
+inline bool is_counter_equal_client_server(
+    CScriptGameObject* actor, CSE_ALifeDynamicObject* server_npc, const xr_vector<xr_string>& buffer);
+inline bool is_kamp_talk(CScriptGameObject* actor, CScriptGameObject* npc);
+inline bool check_smart_alarm_status_client(
+    CScriptGameObject* actor, CScriptGameObject* npc, const xr_vector<xr_string>& buffer);
+inline bool check_smart_alarm_status_client_server(
+    CScriptGameObject* actor, CSE_ALifeDynamicObject* server_npc, const xr_vector<xr_string>& buffer);
+inline bool check_smart_alarm_status_server(
+    CSE_ALifeDynamicObject* server_actor, CSE_ALifeDynamicObject* server_npc, const xr_vector<xr_string>& buffer);
+inline bool is_has_enemy(CScriptGameObject* actor, CScriptGameObject* npc);
+inline bool is_has_actor_enemy(CScriptGameObject* actor, CScriptGameObject* npc);
+inline bool is_see_enemy(CScriptGameObject* actor, CScriptGameObject* npc);
+inline bool is_has_enemy_in_current_loopholes_fov(CScriptGameObject* actor, CScriptGameObject* npc);
+inline bool is_talking(CScriptGameObject* actor, CScriptGameObject* npc);
+inline bool is_npc_talking(CScriptGameObject* actor, CScriptGameObject* npc);
+inline bool is_see_actor(CScriptGameObject* actor, CScriptGameObject* npc);
+inline bool is_actor_enemy(CScriptGameObject* actor, CScriptGameObject* npc);
+inline bool is_actor_friend(CScriptGameObject* actor, CScriptGameObject* npc);
+inline bool is_actor_neutral(CScriptGameObject* actor, CScriptGameObject* npc);
+inline bool is_factions_enemies(CScriptGameObject* actor, CScriptGameObject* npc, const xr_vector<xr_string>& buffer);
+inline bool is_factions_friends(CScriptGameObject* actor, CScriptGameObject* npc, const xr_vector<xr_string>& buffer);
+inline bool is_factions_neutrals(CScriptGameObject* actor, CScriptGameObject* npc, const xr_vector<xr_string>& buffer);
+inline bool is_faction_enemy_to_actor_client(
+    CScriptGameObject* actor, CScriptGameObject* npc, const xr_vector<xr_string>& buffer);
+inline bool is_faction_enemy_to_actor_server(
+    CSE_ALifeDynamicObject* server_actor, CSE_ALifeDynamicObject* server_npc, const xr_vector<xr_string>& buffer);
+inline bool is_faction_enemy_to_actor_client_server(
+    CScriptGameObject* actor, CSE_ALifeDynamicObject* npc, const xr_vector<xr_string>& buffer);
+inline bool is_faction_friend_to_actor_client(
+    CScriptGameObject* actor, CScriptGameObject* npc, const xr_vector<xr_string>& buffer);
+inline bool is_faction_friend_to_actor_server(
+    CSE_ALifeDynamicObject* server_actor, CSE_ALifeDynamicObject* server_npc, const xr_vector<xr_string>& buffer);
+inline bool is_faction_friend_to_actor_client_server(
+    CScriptGameObject* actor, CSE_ALifeDynamicObject* npc, const xr_vector<xr_string>& buffer);
+inline bool is_faction_neutral_to_actor_client(
+    CScriptGameObject* actor, CScriptGameObject* npc, const xr_vector<xr_string>& buffer);
+inline bool is_faction_neutral_to_actor_server(
+    CSE_ALifeDynamicObject* server_actor, CSE_ALifeDynamicObject* server_npc, const xr_vector<xr_string>& buffer);
+inline bool is_faction_neutral_to_actor_client_server(
+    CScriptGameObject* actor, CSE_ALifeDynamicObject* server_npc, const xr_vector<xr_string>& buffer);
+inline bool is_squad_friend_to_actor_client(
+    CScriptGameObject* actor, CScriptGameObject* npc, const xr_vector<xr_string>& buffer);
+inline bool is_squad_friend_to_actor_server(
+    CSE_ALifeDynamicObject* server_actor, CSE_ALifeDynamicObject* server_npc, const xr_vector<xr_string>& buffer);
+inline bool is_squad_friend_to_actor_client_server(
+    CScriptGameObject* actor, CSE_ALifeDynamicObject* server_npc, const xr_vector<xr_string>& buffer);
+inline bool is_squad_enemy_to_actor_client(
+    CScriptGameObject* actor, CScriptGameObject* npc, const xr_vector<xr_string>& buffer);
+inline bool is_squad_enemy_to_actor_server(
+    CSE_ALifeDynamicObject* server_actor, CSE_ALifeDynamicObject* server_npc, const xr_vector<xr_string>& buffer);
+inline bool is_squad_enemy_to_actor_client_server(
+    CScriptGameObject* actor, CSE_ALifeDynamicObject* server_npc, const xr_vector<xr_string>& buffer);
+inline bool is_squad_neutral_to_actor_client(
+    CScriptGameObject* actor, CScriptGameObject* npc, const xr_vector<xr_string>& buffer);
+inline bool is_squad_neutral_to_actor_server(
+    CSE_ALifeDynamicObject* server_actor, CSE_ALifeDynamicObject* server_npc, const xr_vector<xr_string>& buffer);
+inline bool is_squad_neutral_to_actor_client_server(
+    CScriptGameObject* actor, CSE_ALifeDynamicObject* server_npc, const xr_vector<xr_string>& buffer);
+inline bool is_fighting_actor(CScriptGameObject* actor, CScriptGameObject* npc);
+inline bool is_hit_by_actor(CScriptGameObject* actor, CScriptGameObject* npc);
+inline bool is_killed_by_actor(CScriptGameObject* actor, CScriptGameObject* npc);
+inline bool is_actor_has_weapon_client(CScriptGameObject* actor, CScriptGameObject* npc);
+inline bool is_actor_has_weapon_client_server(CScriptGameObject* actor, CSE_ALifeDynamicObject* server_npc);
+inline bool is_actor_active_detector_client(
+    CScriptGameObject* actor, CScriptGameObject* npc, const xr_vector<xr_string>& buffer);
+inline bool is_actor_active_detector_server(
+    CSE_ALifeDynamicObject* server_actor, CSE_ALifeDynamicObject* server_npc, const xr_vector<xr_string>& buffer);
+inline bool is_actor_active_detector_client_server(
+    CScriptGameObject* actor, CSE_ALifeDynamicObject* server_npc, const xr_vector<xr_string>& buffer);
+inline bool is_heavy_wounded(CScriptGameObject* actor, CScriptGameObject* npc);
+inline bool is_rain_client(CScriptGameObject* actor, CScriptGameObject* npc);
+inline bool is_rain_server(CSE_ALifeDynamicObject* server_actor, CSE_ALifeDynamicObject* server_npc);
+inline bool is_rain_client_server(CScriptGameObject* actor, CSE_ALifeDynamicObject* server_npc);
+inline bool is_heavy_rain_client(CScriptGameObject* actor, CScriptGameObject* npc);
+inline bool is_heavy_rain_server(CSE_ALifeDynamicObject* server_actor, CSE_ALifeDynamicObject* server_npc);
+inline bool is_heavy_rain_client_server(CScriptGameObject* actor, CSE_ALifeDynamicObject* server_npc);
+inline bool is_day_client(CScriptGameObject* actor, CScriptGameObject* npc);
+inline bool is_day_server(CSE_ALifeDynamicObject* server_actor, CSE_ALifeDynamicObject* server_npc);
+inline bool is_day_client_server(CScriptGameObject* actor, CSE_ALifeDynamicObject* server_npc);
+inline bool is_dark_night_client(CScriptGameObject* actor, CScriptGameObject* npc);
+inline bool is_dark_night_server(CSE_ALifeDynamicObject* server_actor, CSE_ALifeDynamicObject* server_npc);
+inline bool is_dark_night_client_server(CScriptGameObject* actor, CSE_ALifeDynamicObject* server_npc);
+inline bool is_jup_a12_mercs_time_client(CScriptGameObject* actor, CScriptGameObject* npc);
+inline bool is_jup_a12_mercs_time_server(CSE_ALifeDynamicObject* server_actor, CSE_ALifeDynamicObject* server_npc);
+inline bool is_jup_a12_mercs_time_client_server(CScriptGameObject* actor, CSE_ALifeDynamicObject* server_npc);
+inline bool is_zat_b7_is_night_client(CScriptGameObject* actor, CScriptGameObject* npc);
+inline bool is_zat_b7_is_night_server(CSE_ALifeDynamicObject* server_actor, CSE_ALifeDynamicObject* server_npc);
+inline bool is_zat_b7_is_night_client_server(CScriptGameObject* actor, CSE_ALifeDynamicObject* server_npc);
+inline bool is_zat_b7_is_late_attack_time_client(CScriptGameObject* actor, CScriptGameObject* npc);
+inline bool is_zat_b7_is_late_attack_time_server(
+    CSE_ALifeDynamicObject* server_actor, CSE_ALifeDynamicObject* server_npc);
+inline bool is_zat_b7_is_late_attack_time_client_server(CScriptGameObject* actor, CSE_ALifeDynamicObject* server_npc);
+inline bool is_mob_has_enemy(CScriptGameObject* actor, CScriptGameObject* npc);
+inline bool is_mob_was_hit(CScriptGameObject* actor, CScriptGameObject* npc);
+inline bool is_actor_on_level_client(
+    CScriptGameObject* actor, CScriptGameObject* npc, const xr_vector<xr_string>& buffer);
+inline bool is_actor_on_level_server(
+    CSE_ALifeDynamicObject* server_actor, CSE_ALifeDynamicObject* server_npc, const xr_vector<xr_string>& buffer);
+inline bool is_actor_on_level_client_server(
+    CScriptGameObject* actor, CSE_ALifeDynamicObject* server_npc, const xr_vector<xr_string>& buffer);
+inline bool is_squad_in_zone_client(
+    CScriptGameObject* actor, CScriptGameObject* npc, const xr_vector<xr_string>& buffer);
+inline bool is_squad_in_zone_client_server(
+    CScriptGameObject* actor, CSE_ALifeDynamicObject* server_npc, const xr_vector<xr_string>& buffer);
+inline bool is_squad_has_enemy_client(
+    CScriptGameObject* actor, CScriptGameObject* npc, const xr_vector<xr_string>& buffer);
+inline bool is_squad_has_enemy_server(
+    CSE_ALifeDynamicObject* server_actor, CSE_ALifeDynamicObject* server_npc, const xr_vector<xr_string>& buffer);
+inline bool is_squad_has_enemy_client_server(
+    CScriptGameObject* actor, CSE_ALifeDynamicObject* server_npc, const xr_vector<xr_string>& buffer);
+inline bool is_squad_in_zone_all_client(
+    CScriptGameObject* actor, CScriptGameObject* npc, const xr_vector<xr_string>& buffer);
+inline bool is_squad_in_zone_all_server(
+    CSE_ALifeDynamicObject* server_actor, CSE_ALifeDynamicObject* server_npc, const xr_vector<xr_string>& buffer);
+inline bool is_squad_in_zone_all_client_server(
+    CScriptGameObject* actor, CSE_ALifeDynamicObject* server_npc, const xr_vector<xr_string>& buffer);
+inline bool is_squads_in_zone_b41_client(
+    CScriptGameObject* actor, CScriptGameObject* npc, const xr_vector<xr_string>& buffer);
+inline bool is_squads_in_zone_b41_server(
+    CSE_ALifeDynamicObject* server_actor, CSE_ALifeDynamicObject* server_npc, const xr_vector<xr_string>& buffer);
+inline bool is_squads_in_zone_b41_client_server(
+    CScriptGameObject* actor, CSE_ALifeDynamicObject* server_npc, const xr_vector<xr_string>& buffer);
+inline bool is_target_squad_name_client_server(
+    CScriptGameObject* actor, CSE_ALifeDynamicObject* server_npc, const xr_vector<xr_string>& buffer);
+inline bool is_target_squad_name_server(
+    CSE_ALifeDynamicObject* server_actor, CSE_ALifeDynamicObject* server_npc, const xr_vector<xr_string>& buffer);
+inline bool is_target_smart_name_client(
+    CScriptGameObject* actor, CScriptGameObject* smart, const xr_vector<xr_string>& buffer);
+inline bool is_squad_exist_client(CScriptGameObject* actor, CScriptGameObject* npc, const xr_vector<xr_string>& buffer);
+inline bool is_squad_exist_server(
+    CSE_ALifeDynamicObject* server_actor, CSE_ALifeDynamicObject* server_npc, const xr_vector<xr_string>& buffer);
+inline bool is_squad_exist_client_server(
+    CScriptGameObject* actor, CSE_ALifeDynamicObject* server_npc, const xr_vector<xr_string>& buffer);
+inline bool is_squad_commander_client(CScriptGameObject* actor, CScriptGameObject* npc);
+inline bool is_squad_commander_server(CSE_ALifeDynamicObject* server_actor, CSE_ALifeDynamicObject* server_npc);
+inline bool is_squad_commander_client_server(CScriptGameObject* actor, CSE_ALifeDynamicObject* server_npc);
+inline bool is_squad_npc_count_ge_client(
+    CScriptGameObject* actor, CScriptGameObject* npc, const xr_vector<xr_string>& buffer);
+inline bool is_squad_npc_count_ge_server(
+    CSE_ALifeDynamicObject* server_actor, CSE_ALifeDynamicObject* server_npc, const xr_vector<xr_string>& buffer);
+inline bool is_squad_npc_count_ge_client_server(
+    CScriptGameObject* actor, CSE_ALifeDynamicObject* server_npc, const xr_vector<xr_string>& buffer);
+inline bool is_quest_npc_enemy_actor_client(
+    CScriptGameObject* actor, CScriptGameObject* npc, const xr_vector<xr_string>& buffer);
+inline bool is_quest_npc_enemy_actor_server(
+    CSE_ALifeDynamicObject* server_actor, CSE_ALifeDynamicObject* server_npc, const xr_vector<xr_string>& buffer);
+inline bool is_quest_npc_enemy_actor_client_server(
+    CScriptGameObject* actor, CSE_ALifeDynamicObject* server_npc, const xr_vector<xr_string>& buffer);
+inline bool is_animpoint_reached(CScriptGameObject* actor, CScriptGameObject* npc);
+inline bool is_distance_to_obj_ge_client(
+    CScriptGameObject* actor, CScriptGameObject* npc, const xr_vector<xr_string>& buffer);
+inline bool is_distance_to_obj_ge_client_server(
+    CScriptGameObject* actor, CSE_ALifeDynamicObject* server_npc, const xr_vector<xr_string>& buffer);
+inline bool is_distance_to_obj_ge_server(
+    CSE_ALifeDynamicObject* server_actor, CSE_ALifeDynamicObject* server_npc, const xr_vector<xr_string>& buffer);
+inline bool is_distance_to_obj_le_client(
+    CScriptGameObject* actor, CScriptGameObject* npc, const xr_vector<xr_string>& buffer);
+inline bool is_distance_to_obj_le_client_server(
+    CScriptGameObject* actor, CSE_ALifeDynamicObject* server_npc, const xr_vector<xr_string>& buffer);
+inline bool is_distance_to_obj_le_server(
+    CSE_ALifeDynamicObject* server_actor, CSE_ALifeDynamicObject* server_npc, const xr_vector<xr_string>& buffer);
+inline bool is_in_dest_smart_cover(CScriptGameObject* actor, CScriptGameObject* npc);
+inline bool is_actor_nomove_nowpn(void);
+inline bool is_jup_b16_is_zone_active(CScriptGameObject* actor, CScriptGameObject* npc);
+inline bool is_dist_to_story_obj_ge_client(
+    CScriptGameObject* actor, CScriptGameObject* npc, const xr_vector<xr_string>& buffer);
+inline bool is_dist_to_story_obj_ge_client_server(
+    CScriptGameObject* actor, CSE_ALifeDynamicObject* server_npc, const xr_vector<xr_string>& buffer);
+inline bool is_dist_to_story_obj_ge_server(
+    CSE_ALifeDynamicObject* server_actor, CSE_ALifeDynamicObject* server_npc, const xr_vector<xr_string>& buffer);
+inline bool is_actor_has_nimble_weapon_client(CScriptGameObject* actor, CScriptGameObject* npc);
+inline bool is_actor_has_nimble_weapon_client_server(CScriptGameObject* actor, CSE_ALifeDynamicObject* server_npc);
+inline bool is_actor_has_active_nimble_weapon_client(CScriptGameObject* actor, CScriptGameObject* npc);
+inline bool is_actor_has_active_nimble_weapon_client_server(
+    CScriptGameObject* actor, CSE_ALifeDynamicObject* server_npc);
+inline bool is_jup_b202_inventory_box_empty_client(CScriptGameObject* actor, CScriptGameObject* npc);
+inline bool is_jup_b202_inventory_box_empty_client_server(CScriptGameObject* actor, CSE_ALifeDynamicObject* server_npc);
+inline bool is_jup_b202_inventory_box_empty_server(
+    CSE_ALifeDynamicObject* server_actor, CSE_ALifeDynamicObject* server_npc);
+inline bool is_object_exist_client(
+    CScriptGameObject* actor, CScriptGameObject* npc, const xr_vector<xr_string>& buffer);
+inline bool is_object_exist_client_server(
+    CScriptGameObject* actor, CSE_ALifeDynamicObject* server_npc, const xr_vector<xr_string>& buffer);
+inline bool is_object_exist_server(
+    CSE_ALifeDynamicObject* server_actor, CSE_ALifeDynamicObject* server_npc, const xr_vector<xr_string>& buffer);
+inline bool is_squad_curr_action_client(
+    CScriptGameObject* actor, CScriptGameObject* npc, const xr_vector<xr_string>& buffer);
+inline bool is_squad_curr_action_client_server(
+    CScriptGameObject* actor, CSE_ALifeDynamicObject* server_npc, const xr_vector<xr_string>& buffer);
+inline bool is_squad_curr_action_server(
+    CSE_ALifeDynamicObject* server_actor, CSE_ALifeDynamicObject* server_npc, const xr_vector<xr_string>& buffer);
+inline bool is_monster_snork(CScriptGameObject* actor, CScriptGameObject* npc);
+inline bool is_monster_dog(CScriptGameObject* actor, CScriptGameObject* npc);
+inline bool is_monster_psy_dog(CScriptGameObject* actor, CScriptGameObject* npc);
+inline bool is_monster_polter(CScriptGameObject* actor, CScriptGameObject* npc);
+inline bool is_monster_tushkano(CScriptGameObject* actor, CScriptGameObject* npc);
+inline bool is_monster_burer(CScriptGameObject* actor, CScriptGameObject* npc);
+inline bool is_monster_controller(CScriptGameObject* actor, CScriptGameObject* npc);
+inline bool is_monster_flesh(CScriptGameObject* actor, CScriptGameObject* npc);
+inline bool is_monster_boar(CScriptGameObject* actor, CScriptGameObject* npc);
+inline bool is_jup_b47_npc_online_client(
+    CScriptGameObject* actor, CScriptGameObject* npc, const xr_vector<xr_string>& buffer);
+inline bool is_jup_b47_npc_online_client_server(
+    CScriptGameObject* actor, CSE_ALifeDynamicObject* server_npc, const xr_vector<xr_string>& buffer);
+inline bool is_jup_b47_npc_online_server(
+    CSE_ALifeDynamicObject* server_actor, CSE_ALifeDynamicObject* server_npc, const xr_vector<xr_string>& buffer);
+inline bool is_zat_b29_anomaly_has_af_client(
+    CScriptGameObject* actor, CScriptGameObject* npc, const xr_vector<xr_string>& buffer);
+inline bool is_zat_b29_anomaly_has_af_client_server(
+    CScriptGameObject* actor, CSE_ALifeDynamicObject* server_npc, const xr_vector<xr_string>& buffer);
+inline bool is_zat_b29_anomaly_has_af_server(
+    CSE_ALifeDynamicObject* server_actor, CSE_ALifeDynamicObject* server_npc, const xr_vector<xr_string>& buffer);
+inline bool is_jup_b221_who_will_start_client(
+    CScriptGameObject* actor, CScriptGameObject* npc, const xr_vector<xr_string>& buffer);
+inline bool is_jup_b221_who_will_start_client_server(
+    CScriptGameObject* actor, CSE_ALifeDynamicObject* server_npc, const xr_vector<xr_string>& buffer);
+inline bool is_jup_b221_who_will_start_server(
+    CSE_ALifeDynamicObject* server_actor, CSE_ALifeDynamicObject* server_npc, const xr_vector<xr_string>& buffer);
+inline bool is_pas_b400_actor_far_forward(CScriptGameObject* actor, CScriptGameObject* npc);
+inline bool is_pas_b400_actor_far_backward(CScriptGameObject* actor, CScriptGameObject* npc);
+inline bool is_pri_a28_actor_is_far(CScriptGameObject* actor, CScriptGameObject* npc);
+inline bool is_check_enemy_smart(CScriptGameObject* actor, CScriptGameObject* npc, const xr_vector<xr_string>& buffer);
+inline bool is_zat_b103_actor_has_needed_food(CScriptGameObject* actor, CScriptGameObject* npc);
+inline bool is_zat_b29_rivals_dialog_precond(CScriptGameObject* actor, CScriptGameObject* npc);
+inline bool is_jup_b202_actor_treasure_not_in_steal_client(CScriptGameObject* actor, CScriptGameObject* npc);
+inline bool is_jup_b202_actor_treasure_not_in_steal_client_server(
+    CScriptGameObject* actor, CSE_ALifeDynamicObject* server_npc);
+inline bool is_jup_b202_actor_treasure_not_in_steal_server(
+    CSE_ALifeDynamicObject* server_actor, CSE_ALifeDynamicObject* server_npc);
+inline bool is_jup_b25_senya_spawn_condition_client(CScriptGameObject* actor, CScriptGameObject* npc);
+inline bool is_jup_b25_senya_spawn_condition_client_server(
+    CScriptGameObject* actor, CSE_ALifeDynamicObject* server_npc);
+inline bool is_jup_b25_senya_spawn_condition_server(
+    CSE_ALifeDynamicObject* server_actor, CSE_ALifeDynamicObject* server_npc);
+inline bool is_jup_b25_flint_gone_condition_client(CScriptGameObject* actor, CScriptGameObject* npc);
+inline bool is_jup_b25_flint_gone_condition_client_server(CScriptGameObject* actor, CSE_ALifeDynamicObject* server_npc);
+inline bool is_jup_b25_flint_gone_condition_server(
+    CSE_ALifeDynamicObject* server_actor, CSE_ALifeDynamicObject* server_npc);
+inline bool is_check_deimos_phase(CScriptGameObject* actor, CScriptGameObject* npc, const xr_vector<xr_string>& buffer);
+inline bool is_actor_in_surge_cover(void);
+inline bool is_door_blocked_by_npc(CScriptGameObject* actor, CScriptGameObject* npc);
+inline bool is_has_active_tutorial(void);
+inline bool is_upgrade_hint_kardan_client(
+    CScriptGameObject* actor, CScriptGameObject* npc, const xr_vector<xr_string>& buffer);
+inline bool is_upgrade_hint_kardan_client_server(
+    CScriptGameObject* actor, CSE_ALifeDynamicObject* server_npc, const xr_vector<xr_string>& buffer);
+inline bool is_upgrade_hint_kardan_server(
+    CSE_ALifeDynamicObject* server_actor, CSE_ALifeDynamicObject* server_npc, const xr_vector<xr_string>& buffer);
 }
 } // namespace Scripts
 } // namespace Cordis
