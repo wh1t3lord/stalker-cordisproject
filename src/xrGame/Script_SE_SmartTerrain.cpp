@@ -54,6 +54,7 @@ namespace Scripts
 Script_SE_SmartTerrain::Script_SE_SmartTerrain(LPCSTR section)
     : inherited(section), m_is_initialized(false), m_is_registered(false), m_population(0), m_smart_showed_spot_name("")
 {
+    Msg("[Scripts/Script_SE_SmartTerrain/ctor(section)] %s", section);
 }
 
 Script_SE_SmartTerrain::~Script_SE_SmartTerrain(void)
@@ -62,7 +63,12 @@ Script_SE_SmartTerrain::~Script_SE_SmartTerrain(void)
         delete this->m_base_on_actor_control;
 }
 
-void Script_SE_SmartTerrain::on_before_register(void) { inherited::on_before_register(); }
+void Script_SE_SmartTerrain::on_before_register(void)
+{
+    inherited::on_before_register();
+    Script_SimulationBoard::getInstance().register_smart(this);
+    this->m_smart_level = ai().game_graph().header().level(ai().game_graph().vertex(this->m_game_vertex_id)->level_id()).name();
+}
 
 void Script_SE_SmartTerrain::read_params(void) {}
 void Script_SE_SmartTerrain::on_after_reach(Script_SE_SimulationSquad* squad)
@@ -178,12 +184,11 @@ void Script_SE_SmartTerrain::show(void)
     xr_string spot_name = Globals::kRelationsTypeNeutral;
 
     if (!this->IsSimulationAvailable() &&
-        XR_LOGIC::pick_section_from_condlist(
-            DataBase::Storage::getInstance().getActor(), this, this->getSimulationAvail()) == XR_LOGIC::kXRLogicReturnTypeSuccessfulName)
+        XR_LOGIC::pick_section_from_condlist(DataBase::Storage::getInstance().getActor(), this,
+            this->getSimulationAvail()) == XR_LOGIC::kXRLogicReturnTypeSuccessfulName)
         spot_name = "friend";
     else
         spot_name = "enemy";
-    
 
     if (this->m_smart_showed_spot_name == spot_name)
     {
@@ -200,8 +205,8 @@ void Script_SE_SmartTerrain::show(void)
     spot_type_name += "_";
     spot_type_name += this->m_smart_showed_spot_name;
 
-
-    if (this->m_smart_showed_spot_name.size() && Globals::Game::level::map_has_object_spot(this->ID, spot_type_name.c_str()))
+    if (this->m_smart_showed_spot_name.size() &&
+        Globals::Game::level::map_has_object_spot(this->ID, spot_type_name.c_str()))
     {
         xr_string spot_type_name2 = "alife_presentation_smart_base_";
         spot_type_name2 += this->m_smart_showed_spot_name;

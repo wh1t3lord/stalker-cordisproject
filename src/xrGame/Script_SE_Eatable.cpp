@@ -6,7 +6,8 @@ namespace Cordis
 {
 namespace Scripts
 {
-Script_SE_Eatable::Script_SE_Eatable(LPCSTR section_name) : inherited(section_name), m_is_secret_item(false) {}
+Script_SE_Eatable::Script_SE_Eatable(LPCSTR section_name) : inherited(section_name), m_is_secret_item(false) 
+{ Msg("[Scripts/Script_SE_Eatable/ctor(section_name)] %s", section_name); }
 
 Script_SE_Eatable::~Script_SE_Eatable(void) {}
 

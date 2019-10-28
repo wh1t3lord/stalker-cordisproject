@@ -9,6 +9,7 @@ namespace Scripts
 Script_SE_Actor::Script_SE_Actor(LPCSTR section)
     : inherited(section), m_is_registered(false), m_is_start_position_filled(false)
 {
+    Msg("[Scripts/Script_SE_Actor/ctor()]");
 }
 
 Script_SE_Actor::~Script_SE_Actor(void) {}
@@ -80,7 +81,8 @@ void Script_SE_Actor::on_reach_target(Script_SE_SimulationSquad* squad)
             DataBase::Storage::getInstance().setOfflineObjects(it->first, "");
             DataBase::Storage::getInstance().setOfflineObjects(it->first, Globals::kUnsignedInt16Undefined);
             //             DataBase::Storage::getInstance().getOfflineObjects()[it->first].second.clear();
-//             DataBase::Storage::getInstance().getOfflineObjects()[it->first].first = Globals::kUnsignedInt16Undefined;
+            //             DataBase::Storage::getInstance().getOfflineObjects()[it->first].first =
+            //             Globals::kUnsignedInt16Undefined;
         }
     }
 
@@ -94,26 +96,31 @@ bool Script_SE_Actor::IsSimulationAvailable(void)
                 .getObjects()[Script_GlobalHelper::getInstance().getGameNearestToActorServerSmartTerrain().first]))
         return false;
 
-    for (const std::pair<xr_string, xr_string>& it : Script_GlobalHelper::getInstance().getGameSmartsByAssaultZones())
+    if (DataBase::Storage::getInstance().getZoneByName().size())
     {
-        CScriptGameObject* client_zone = DataBase::Storage::getInstance().getZoneByName().at(it.first);
-
-        if (client_zone)
+        for (const std::pair<xr_string, xr_string>& it :
+            Script_GlobalHelper::getInstance().getGameSmartsByAssaultZones())
         {
-            if (client_zone->inside(this->Position()))
-            {
-                Script_SE_SmartTerrain* smart =
-                    Script_SimulationBoard::getInstance().getSmartTerrainsByName().at(it.second);
+            CScriptGameObject* client_zone = DataBase::Storage::getInstance().getZoneByName().at(it.first);
 
-                if (smart)
+            if (client_zone)
+            {
+                if (client_zone->inside(this->Position()))
                 {
-                    if (smart->getBaseOnActorControl() &&
-                        smart->getBaseOnActorControl()->getState() != Script_SmartTerrainControl_States::kAlarm)
-                        return false;
+                    Script_SE_SmartTerrain* smart =
+                        Script_SimulationBoard::getInstance().getSmartTerrainsByName().at(it.second);
+
+                    if (smart)
+                    {
+                        if (smart->getBaseOnActorControl() &&
+                            smart->getBaseOnActorControl()->getState() != Script_SmartTerrainControl_States::kAlarm)
+                            return false;
+                    }
                 }
             }
         }
     }
+
 
     if (!getCurrentSmartTerrainID())
     {
@@ -151,7 +158,7 @@ bool Script_SE_Actor::target_precondition(Script_SE_SimulationSquad* squad)
 
     if (simulation_params.m_actor && !simulation_params.m_actor(squad, this))
         return false;
-   
+
     return true;
 }
 

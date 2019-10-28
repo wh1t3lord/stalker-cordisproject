@@ -6,7 +6,10 @@ namespace Cordis
 {
 namespace Scripts
 {
-Script_SE_TorridZone::Script_SE_TorridZone(LPCSTR section_name) : inherited(section_name), m_is_registered(false) {}
+Script_SE_TorridZone::Script_SE_TorridZone(LPCSTR section_name) : inherited(section_name), m_is_registered(false)
+{
+    Msg("[Scripts/Script_SE_TorridZone/ctor(section_name)] %s", section_name);
+}
 
 Script_SE_TorridZone::~Script_SE_TorridZone(void) {}
 

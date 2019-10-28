@@ -6,7 +6,8 @@ namespace Cordis
 {
 namespace Scripts
 {
-Script_SE_ZoneVisual::Script_SE_ZoneVisual(LPCSTR section_name) : inherited(section_name) {}
+Script_SE_ZoneVisual::Script_SE_ZoneVisual(LPCSTR section_name) : inherited(section_name) 
+{ Msg("[Scripts/Script_SE_ZoneVisual/ctor(section_name)] %s", section_name); }
 
 Script_SE_ZoneVisual::~Script_SE_ZoneVisual(void) {}
 

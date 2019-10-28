@@ -6,7 +6,8 @@ namespace Cordis
 {
 namespace Scripts
 {
-Script_SE_Squad::Script_SE_Squad(LPCSTR section_name) : inherited(section_name) {}
+Script_SE_Squad::Script_SE_Squad(LPCSTR section_name) : inherited(section_name) 
+{ Msg("[Scripts/Script_SE_Squad/ctor(section_name)] %s", section_name); }
 
 Script_SE_Squad::~Script_SE_Squad(void) {}
 

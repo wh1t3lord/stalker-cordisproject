@@ -6,7 +6,10 @@ namespace Cordis
 {
 namespace Scripts
 {
-Script_SE_Restrictor::Script_SE_Restrictor(LPCSTR section_name) : inherited(section_name) {}
+Script_SE_Restrictor::Script_SE_Restrictor(LPCSTR section_name) : inherited(section_name) 
+{
+    Msg("[Scripts/Script_SE_Restrictor/ctor(section_name)] %s", section_name); 
+}
 
 Script_SE_Restrictor::~Script_SE_Restrictor(void) {}
 

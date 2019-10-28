@@ -9,6 +9,7 @@ namespace Scripts
 Script_SE_LevelChanger::Script_SE_LevelChanger(LPCSTR section_name)
     : inherited(section_name), m_hint_name("level_changer_invitation"), m_is_enabled(false)
 {
+    Msg("[Scripts/Script_SE_LevelChanger/ctor(section_name)] %s", section_name);
 }
 
 Script_SE_LevelChanger::~Script_SE_LevelChanger(void) {}
