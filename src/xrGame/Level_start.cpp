@@ -146,6 +146,7 @@ bool CLevel::net_start2()
     if (net_start_result_total && m_caServerOptions.size())
     {
         GameDescriptionData game_descr;
+
         if ((m_connect_server_err = Server->Connect(m_caServerOptions, game_descr)) != xrServer::ErrNoError)
         {
             net_start_result_total = false;

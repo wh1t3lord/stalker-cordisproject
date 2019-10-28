@@ -187,6 +187,7 @@ private:
     bool m_is_initialized;
     bool m_is_registered;
     bool m_is_smart_showed_spot;
+    std::uint8_t m_game_vertex_id;
     std::uint16_t m_squad_id;
     std::uint32_t m_population;
     std::uint32_t m_stayed_squad_quan;

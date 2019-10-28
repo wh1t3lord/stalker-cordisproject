@@ -7,9 +7,7 @@ namespace Cordis
 namespace Scripts
 {
 Script_SE_Artefact::Script_SE_Artefact(LPCSTR section_name) : inherited(section_name) 
-{
-
-}
+{ Msg("[Scripts/Script_SE_Artefact/ctor(section_name)] %s", section_name); }
 
 Script_SE_Artefact::~Script_SE_Artefact(void)
 {

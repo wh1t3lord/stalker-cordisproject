@@ -5,7 +5,11 @@ namespace Cordis
 {
 namespace Scripts
 {
-Script_SE_SmartCover::Script_SE_SmartCover(LPCSTR section_name) : inherited(section_name), m_lastdescription_name("") {}
+Script_SE_SmartCover::Script_SE_SmartCover(LPCSTR section_name) : inherited(section_name), m_lastdescription_name("") 
+{
+    Msg("[Scripts/Script_SE_SmartCover/ctor(section_name)] %s", section_name);
+}
+
 Script_SE_SmartCover::~Script_SE_SmartCover(void) {}
 void Script_SE_SmartCover::STATE_Write(NET_Packet& Packet)
 {

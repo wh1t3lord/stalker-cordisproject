@@ -6,7 +6,7 @@ namespace Cordis
 {
 namespace Scripts
 {
-Script_SE_Monster::Script_SE_Monster(LPCSTR section_name) : inherited(section_name), m_is_registered(false) {}
+Script_SE_Monster::Script_SE_Monster(LPCSTR section_name) : inherited(section_name), m_is_registered(false) { Msg("[Scripts/Script_SE_Monster/ctor(section_name)] %s", section_name); }
 
 Script_SE_Monster::~Script_SE_Monster(void) {}
 

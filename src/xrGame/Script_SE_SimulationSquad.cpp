@@ -15,6 +15,7 @@ Script_SE_SimulationSquad::Script_SE_SimulationSquad(LPCSTR section)
       m_sound_manager(Script_SoundManager::getSoundManager((xr_string("squad_").append(this->name())))),
       m_is_need_to_reset_location_masks(false), m_is_need_free_update(false)
 {
+    Msg("[Scripts/Script_SE_SimulationSquad/ctor(section)] %s", section);
     CScriptIniFile _ini = CScriptIniFile(Globals::get_system_ini()->fname());
     m_player_id_name = Globals::Utils::cfg_get_string(&_ini, this->m_settings_id_name, "faction");
     m_condlist_action = XR_LOGIC::parse_condlist_by_server_object("assign_action", "target_smart",
