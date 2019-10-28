@@ -67,7 +67,7 @@ void Script_SE_SmartTerrain::on_before_register(void)
 {
     inherited::on_before_register();
     Script_SimulationBoard::getInstance().register_smart(this);
-    this->m_smart_level = ai().game_graph().header().level(ai().game_graph().vertex(this->m_game_vertex_id)->level_id()).name();
+    this->m_smart_level = *(ai().game_graph().header().level(ai().game_graph().vertex(this->m_game_vertex_id)->level_id()).name());
 }
 
 void Script_SE_SmartTerrain::read_params(void) {}
