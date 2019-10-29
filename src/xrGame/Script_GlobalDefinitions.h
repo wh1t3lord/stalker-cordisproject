@@ -354,7 +354,7 @@ inline bool is_upgrade_hint_kardan_client_server(
     CScriptGameObject* actor, CSE_ALifeDynamicObject* server_npc, const xr_vector<xr_string>& buffer);
 inline bool is_upgrade_hint_kardan_server(
     CSE_ALifeDynamicObject* server_actor, CSE_ALifeDynamicObject* server_npc, const xr_vector<xr_string>& buffer);
-}
+} // namespace XR_CONDITION
 } // namespace Scripts
 } // namespace Cordis
 
@@ -378,8 +378,10 @@ constexpr int kRelationKoeffNeutral = 0;
 constexpr int kRelationKoeffFriend = 1000;
 constexpr float kRelationDefaultSympathy = 0.1f;
 constexpr const char* kGeneratedIdForBadValue = "EmptyNameItWasEmptyValue";
+constexpr const char* kSystemLtxFileName = "system.ltx"; // For CScriptIniFile (Don't use Globals::get_system_ini()->fname() for initialization ctor of CScriptIniFile)
 #pragma region Cordis Animpoint prediction functions
-inline bool predicate_const_true(std::uint16_t, bool);
+    inline bool
+    predicate_const_true(std::uint16_t, bool);
 inline bool predicate_animpoint_bread(std::uint16_t npc_id, bool);
 inline bool predicate_animpoint_kolbasa(std::uint16_t npc_id, bool);
 inline bool predicate_animpoint_vodka(std::uint16_t npc_id, bool);
@@ -630,7 +632,6 @@ private:
 };
 #pragma endregion
 } // namespace Globals
-
 
 struct StateLibData
 {

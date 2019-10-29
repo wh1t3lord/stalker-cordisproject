@@ -146,8 +146,7 @@ void Script_StoryObject::check_spawn_ini_for_story_id(CSE_ALifeDynamicObject* it
         return;
     }
 
-    const CInifile* ini = Globals::get_system_ini();
-    CScriptIniFile _ini(ini->fname());
+    CScriptIniFile _ini(Globals::kSystemLtxFileName);
     xr_string spawn_section = item->name();  
     xr_string story_id = Globals::Utils::cfg_get_string(&_ini, spawn_section, "story_id");
 

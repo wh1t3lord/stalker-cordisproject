@@ -724,14 +724,16 @@ inline xr_string pick_section_from_condlist(
     // Lord: доделать
     if (!actor)
     {
-        R_ASSERT2(false, "object is null!");
-        return xr_string("");
+        //  R_ASSERT2(false, "object is null!");
+        //  return xr_string("");
+        Msg("[Scripts/XR_LOGIC/pick_section_from_condlist(client_actor, server_npc, condlist)] WARNING: client_actor = nullptr! client_actor is null!");
     }
 
     if (!npc)
     {
-        R_ASSERT2(false, "object is null!");
-        return xr_string("");
+        //   R_ASSERT2(false, "object is null!");
+        //   return xr_string("");
+        Msg("[Scripts/XR_LOGIC/pick_section_from_condlist(client_actor, server_npc, condlist)] WARNING: server_npc = nullptr! server_npc is null!");
     }
 
     std::uint32_t value = 0; // idk what does it mean. Translate this to normal
@@ -887,8 +889,8 @@ inline xr_string pick_section_from_condlist(
                         if (Script_GlobalHelper::getInstance()
                                 .getRegisteredFunctionsXRCondition()[calling_function_name]
                                 .
-                                operator()<CScriptGameObject*, CSE_ALifeDynamicObject*,
-                                    const xr_vector<xr_string>&>(actor, npc, argument_buffer))
+                                operator()<CScriptGameObject*, CSE_ALifeDynamicObject*, const xr_vector<xr_string>&>(
+                                    actor, npc, argument_buffer))
                         {
                             if (!it_infoportion_check.second.m_expected)
                             {
@@ -1003,7 +1005,7 @@ inline xr_string pick_section_from_condlist(
             {
                 if (!DataBase::Storage::getInstance().getActor())
                 {
-                    R_ASSERT2(false, "TRYING TO SET INFOPORTION SET WHEN ACTOR IS NULL!");
+                    R_ASSERT2(false, "TRYING TO SET INFOPORTION SET WHEN ACTOR IS NULL! IT CAN'T BE YOU ARE TRYING TO USE WHEN ACTOR IS NOT INITIALIZE, LATER USE IT");
                 }
 
                 if (it_infoportion_set.second.m_function_name.size())
@@ -1099,14 +1101,16 @@ inline xr_string pick_section_from_condlist(
     // Lord: доделать
     if (!actor)
     {
-        R_ASSERT2(false, "object is null!");
-        return xr_string("");
+//         R_ASSERT2(false, "object is null!");
+//         return xr_string("");
+        Msg("[Scripts/XR_LOGIC/pick_section_from_condlist(server_actor, server_npc, condlist)] WARNING: server_actor = nullptr! server_actor is null!");
     }
 
     if (!npc)
     {
-        R_ASSERT2(false, "object is null!");
-        return xr_string("");
+//         R_ASSERT2(false, "object is null!");
+//         return xr_string("");
+        Msg("[Scripts/XR_LOGIC/pick_section_from_condlist(server_actor, server_npc, condlist)] WARNING: server_npc = nullptr! server_npc is null!");
     }
 
     std::uint32_t value = 0; // idk what does it mean. Translate this to normal
@@ -1285,7 +1289,9 @@ inline xr_string pick_section_from_condlist(
                                  .getArgumentsCount() == 2)
                     { // no params, but 2 arguments
                         if (Script_GlobalHelper::getInstance()
-                                .getRegisteredFunctionsXRCondition()[calling_function_name].operator()<CSE_ALifeDynamicObject*, CSE_ALifeDynamicObject*>(actor, npc))
+                                .getRegisteredFunctionsXRCondition()[calling_function_name]
+                                .
+                                operator()<CSE_ALifeDynamicObject*, CSE_ALifeDynamicObject*>(actor, npc))
                         {
                             if (!it_infoportion_check.second.m_expected)
                             {
@@ -1472,14 +1478,16 @@ inline xr_string pick_section_from_condlist(
     // Lord: доделать
     if (!actor)
     {
-        R_ASSERT2(false, "object is null!");
-        return xr_string("");
+        Msg("[Scripts/XR_LOGIC/pick_section_from_condlist(client_actor, client_npc, condlist)] WARNING: client_actor = nullptr! client_actor is null!");
+        //         R_ASSERT2(false, "object is null!");
+//         return xr_string("");
     }
 
     if (!npc)
     {
-        R_ASSERT2(false, "object is null!");
-        return xr_string("");
+//         R_ASSERT2(false, "object is null!");
+//         return xr_string("");
+        Msg("[Scripts/XR_LOGIC/pick_section_from_condlist(client_actor, client_npc, condlist)] WARNING: client_npc = nullptr! client_npc is null!");
     }
 
     std::uint32_t value = 0; // idk what does it mean. Translate this to normal
@@ -1635,8 +1643,8 @@ inline xr_string pick_section_from_condlist(
                         if (Script_GlobalHelper::getInstance()
                                 .getRegisteredFunctionsXRCondition()[calling_function_name]
                                 .
-                                operator()<CScriptGameObject*, CScriptGameObject*,
-                                    const xr_vector<xr_string>&>(actor, npc, argument_buffer))
+                                operator()<CScriptGameObject*, CScriptGameObject*, const xr_vector<xr_string>&>(
+                                    actor, npc, argument_buffer))
                         {
                             if (!it_infoportion_check.second.m_expected)
                             {

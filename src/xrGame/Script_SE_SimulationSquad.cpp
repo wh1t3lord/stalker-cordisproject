@@ -16,7 +16,7 @@ Script_SE_SimulationSquad::Script_SE_SimulationSquad(LPCSTR section)
       m_is_need_to_reset_location_masks(false), m_is_need_free_update(false)
 {
     Msg("[Scripts/Script_SE_SimulationSquad/ctor(section)] %s", section);
-    CScriptIniFile _ini = CScriptIniFile(Globals::get_system_ini()->fname());
+    CScriptIniFile _ini = CScriptIniFile(Globals::kSystemLtxFileName);
     m_player_id_name = Globals::Utils::cfg_get_string(&_ini, this->m_settings_id_name, "faction");
     m_condlist_action = XR_LOGIC::parse_condlist_by_server_object("assign_action", "target_smart",
         Globals::Utils::cfg_get_string(&_ini, this->m_settings_id_name, "target_smart"));
@@ -98,7 +98,11 @@ void Script_SE_SimulationSquad::assign_squad_member_to_smart(
     if (server_monster->m_smart_terrain_id != Globals::kUnsignedInt16Undefined && old_smart_terrain_id &&
         (server_monster->m_smart_terrain_id == old_smart_terrain_id) &&
         (Script_SimulationBoard::getInstance().getSmarts().at(old_smart_terrain_id).getServerSmartTerrain()))
-        Script_SimulationBoard::getInstance().getSmarts().at(old_smart_terrain_id).getServerSmartTerrain()->unregister_npc(server_monster);
+        Script_SimulationBoard::getInstance()
+            .getSmarts()
+            .at(old_smart_terrain_id)
+            .getServerSmartTerrain()
+            ->unregister_npc(server_monster);
 
     if (smart)
         smart->register_npc(server_monster);
@@ -121,7 +125,8 @@ void Script_SE_SimulationSquad::set_location_types(const xr_string& new_smart_na
     xr_string default_location_name = "stalker_terrain";
     this->clear_location_types();
 
-    if (ai().alife().objects().object(this->m_assigned_target_id)->script_clsid() == Globals::get_script_clsid(CLSID_SE_SMART_TERRAIN))
+    if (ai().alife().objects().object(this->m_assigned_target_id)->script_clsid() ==
+        Globals::get_script_clsid(CLSID_SE_SMART_TERRAIN))
     {
         this->set_location_types_section(default_location_name);
         xr_string old_smart_name = "";
@@ -179,16 +184,14 @@ void Script_SE_SimulationSquad::create_npc(Script_SE_SmartTerrain* spawn_smart)
         return;
     }
 
-    xr_vector<xr_string> spawn_sections = Globals::Utils::parse_names(Globals::Utils::cfg_get_string(
-        &CScriptIniFile(Globals::get_system_ini()->fname()), this->m_settings_id_name, "npc"));
+    CScriptIniFile _ini = CScriptIniFile(Globals::kSystemLtxFileName);
 
-    xr_string spawn_point_name = Globals::Utils::cfg_get_string(&CScriptIniFile(Globals::get_system_ini()->fname()),
-                                     this->m_settings_id_name, "spawn_point")
-                                     .size() ?
-        Globals::Utils::cfg_get_string(
-            &CScriptIniFile(Globals::get_system_ini()->fname()), this->m_settings_id_name, "spawn_point") :
-        Globals::Utils::cfg_get_string(
-            &CScriptIniFile(Globals::get_system_ini()->fname()), Globals::kSmartTerrainSMRTSection, "spawn_point");
+    xr_vector<xr_string> spawn_sections =
+        Globals::Utils::parse_names(Globals::Utils::cfg_get_string(&_ini, this->m_settings_id_name, "npc"));
+
+    xr_string spawn_point_name = Globals::Utils::cfg_get_string(&_ini, this->m_settings_id_name, "spawn_point").size() ?
+        Globals::Utils::cfg_get_string(&_ini, this->m_settings_id_name, "spawn_point") :
+        Globals::Utils::cfg_get_string(&_ini, Globals::kSmartTerrainSMRTSection, "spawn_point");
 
     xr_map<std::uint32_t, CondlistData> spawn_point_condlist =
         XR_LOGIC::parse_condlist_by_server_object("spawn_point", "spawn_point", spawn_point_name);
@@ -219,7 +222,7 @@ void Script_SE_SimulationSquad::create_npc(Script_SE_SmartTerrain* spawn_smart)
         base_game_vertex_id = CPatrolPathParams(spawn_smart->getSpawnPointName().c_str()).game_vertex_id(0);
     }
 
-    if (!spawn_sections.size())
+    if (spawn_sections.size())
     {
         for (xr_string& it : spawn_sections)
         {
@@ -227,18 +230,29 @@ void Script_SE_SimulationSquad::create_npc(Script_SE_SmartTerrain* spawn_smart)
         }
     }
 
-    xr_string random_spawn_name = Globals::Utils::cfg_get_string(
-        &CScriptIniFile(Globals::get_system_ini()->fname()), this->m_settings_id_name, "npc_random");
+    xr_string random_spawn_name = Globals::Utils::cfg_get_string(&_ini, this->m_settings_id_name, "npc_random");
 
     if (random_spawn_name.size())
     {
         xr_vector<xr_string> random_spawn_names = Globals::Utils::parse_names(random_spawn_name);
         std::uint32_t count_names = random_spawn_names.size();
-        std::uint32_t min_value = 1;
-        std::uint32_t max_value = 2;
+        std::uint32_t min_value = Globals::kUnsignedInt32Undefined;
+        std::uint32_t max_value = Globals::kUnsignedInt32Undefined;
 
         Globals::Utils::r_2nums(*const_cast<CInifile*>(Globals::get_system_ini()), this->m_settings_id_name,
             "npc_in_squad", min_value, max_value);
+
+        if (min_value == Globals::kUnsignedInt32Undefined)
+        {
+            Msg("[Scripts/Script_SE_SimulationSquad/create_npc(spawn_smart)] WARNING: can't parse min_value set to 0");
+            min_value = 0;
+        }
+
+        if (max_value == Globals::kUnsignedInt32Undefined)
+        {
+            Msg("[Scripts/Script_SE_SimulationSquad/create_npc(spawn_smart)] WARNING: can't parse max_value! set to 1");
+            max_value = 1;
+        }
 
         if (min_value > max_value)
         {
@@ -246,18 +260,16 @@ void Script_SE_SimulationSquad::create_npc(Script_SE_SmartTerrain* spawn_smart)
             return;
         }
 
-        std::uint32_t result_value = Globals::Script_RandomInt::getInstance().Generate(min_value, max_value);
+        std::uint32_t result_value = Globals::Script_RandomInt::getInstance().Generate(min_value, max_value-1);
 
         for (std::uint32_t i = 0; i < result_value; ++i)
         {
             // @ Lord: нормально ли будет работать??? Не проверять если count_names > result_value ???
-            std::uint32_t id = Globals::Script_RandomInt::getInstance().Generate(std::uint32_t(0), count_names);
-            this->add_squad_member(
-                random_spawn_names[id], base_spawn_position, base_level_vertex_id, base_game_vertex_id);
+            std::uint32_t id = Globals::Script_RandomInt::getInstance().Generate(std::uint32_t(0), count_names-1);
+            this->add_squad_member(random_spawn_names[id], base_spawn_position, base_level_vertex_id, base_game_vertex_id);
         }
     }
-
-    if (!spawn_sections.size())
+    else if (!spawn_sections.size())
     {
         Msg("You are trying to spawn an empty squad [%s] ", this->m_settings_id_name.c_str());
         R_ASSERT(false);
@@ -277,8 +289,9 @@ std::uint16_t Script_SE_SimulationSquad::add_squad_member(const xr_string& spawn
         return Globals::kUnsignedInt16Undefined;
     }
 
-    xr_string custom_data_name = Globals::Utils::cfg_get_string(
-        &CScriptIniFile(Globals::get_system_ini()->fname()), spawn_section_name, "custom_data");
+    CScriptIniFile _ini = CScriptIniFile(Globals::kSystemLtxFileName);
+
+    xr_string custom_data_name = Globals::Utils::cfg_get_string(&_ini, spawn_section_name, "custom_data");
 
     if (!custom_data_name.size())
         Msg("[Scripts/Script_SE_SimulationSquad/add_squad_member(spawn_section_name, spawn_position, level_vertex_id, "
@@ -377,8 +390,6 @@ void Script_SE_SimulationSquad::set_squad_relation(const xr_string& relation_nam
 
 void Script_SE_SimulationSquad::assign_smart(Script_SE_SmartTerrain* smart)
 {
- 
-
     std::uint16_t old_smart_terrain_id = this->m_smart_terrain_id;
 
     if (smart)
@@ -413,8 +424,8 @@ void Script_SE_SimulationSquad::set_squad_sympathy(const float& sympathy)
 
 void Script_SE_SimulationSquad::set_squad_behaviour(void)
 {
-    xr_string behaviour_section_name = Globals::Utils::cfg_get_string(
-        &CScriptIniFile(Globals::get_system_ini()->fname()), this->m_settings_id_name, "behaviour");
+    CScriptIniFile _ini = CScriptIniFile(Globals::kSystemLtxFileName);
+    xr_string behaviour_section_name = Globals::Utils::cfg_get_string(&_ini, this->m_settings_id_name, "behaviour");
 
     if (!squad_behavior_ini.section_exist(behaviour_section_name.c_str()))
     {

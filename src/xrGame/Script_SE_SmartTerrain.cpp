@@ -67,8 +67,43 @@ void Script_SE_SmartTerrain::on_before_register(void)
 {
     inherited::on_before_register();
     Script_SimulationBoard::getInstance().register_smart(this);
-    this->m_smart_level = *(ai().game_graph().header().level(ai().game_graph().vertex(this->m_game_vertex_id)->level_id()).name());
+    this->m_smart_level =
+        *(ai().game_graph().header().level(ai().game_graph().vertex(this->m_tGraphID)->level_id()).name());
 }
+
+void Script_SE_SmartTerrain::on_register(void)
+{
+    inherited::on_register();
+
+    Script_StoryObject::getInstance().check_spawn_ini_for_story_id(this);
+    Script_SimulationObjects::getInstance().registrate(this);
+
+    Msg("[Scripts/Script_SE_SmartTerrain/on_register()] register smart %s", this->name_replace());
+
+    Msg("[Scripts/Script_SE_SmartTerrain/on_register()] Returning alife task for object [%d] game_vertex [%d] "
+        "level_vertex [%d] position %f %f %f",
+        this->ID, this->m_tGraphID, this->m_tNodeID, this->o_Position.x, this->o_Position.y,
+        this->o_Position.z);
+
+    this->m_smart_alife_task =
+        std::make_unique<CALifeSmartTerrainTask>(this->m_tGraphID, this->m_tNodeID);
+
+    Script_GlobalHelper::getInstance().setGameRegisteredServerSmartTerrainsByName(this->name_replace(), this);
+    this->m_is_registered = true;
+
+    this->load_jobs();
+
+    Script_SimulationBoard::getInstance().init_smart(this);
+
+    if (this->m_is_need_init_npc)
+    {
+        this->m_is_need_init_npc = false;
+        // Lord: реализовать метод
+        // this->init_npc_after_load();
+    }
+}
+
+void Script_SE_SmartTerrain::on_unregister(void) {}
 
 void Script_SE_SmartTerrain::read_params(void) {}
 void Script_SE_SmartTerrain::on_after_reach(Script_SE_SimulationSquad* squad)
@@ -212,6 +247,11 @@ void Script_SE_SmartTerrain::show(void)
         spot_type_name2 += this->m_smart_showed_spot_name;
         Globals::Game::level::map_remove_object_spot(this->ID, spot_type_name2.c_str());
     }
+}
+
+void Script_SE_SmartTerrain::load_jobs(void)
+{
+    std::pair<xr_vector<JobData>, xr_vector<JobDataExclusive>> jobs = GulagGenerator::load_job(this);
 }
 
 } // namespace Scripts
