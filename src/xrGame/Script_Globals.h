@@ -98,6 +98,31 @@ inline xr_string cfg_get_string(CScriptIniFile* char_ini, const xr_string& secti
     return "";
 }
 
+inline xr_string cfg_get_string(const CInifile* char_ini, const xr_string& section, const xr_string& field,
+    bool mandatory = false, const xr_string& gulag_name = "")
+{
+    if (section.size() &&
+        (char_ini->section_exist(section.c_str()) && char_ini->line_exist(section.c_str(), field.c_str())))
+    {
+        xr_string result = "";
+        result.append(gulag_name);
+        result.append("_");
+        result.append(char_ini->r_string(section.c_str(), field.c_str()));
+        if (gulag_name.size())
+            return result;
+        else
+            return char_ini->r_string(section.c_str(), field.c_str());
+    }
+
+    if (!mandatory)
+        return "";
+
+    Msg("Attempt to read a non-existant string field %s in section %s", field.c_str(), section.c_str());
+    R_ASSERT(false);
+
+    return "";
+}
+
 inline xr_string cfg_get_string(CInifile& char_ini, const xr_string& section, const xr_string& field,
     bool mandatory = false, const xr_string& gulag_name = "")
 {
@@ -130,6 +155,72 @@ inline float graph_distance(const std::uint16_t& gamevertexid_1, const std::uint
         .vertex(gamevertexid_1)
         ->game_point()
         .distance_to(ai().game_graph().vertex(gamevertexid_2)->game_point());
+}
+
+inline bool cfg_get_bool(const CInifile* char_ini, const xr_string& section, const xr_string& field,
+    CScriptGameObject* object = nullptr, bool mandatory = false)
+{
+    xr_string object_name;
+
+    if (!section.size() || !field.size())
+    {
+        R_ASSERT2(false, "string can't be null");
+        return false;
+    }
+
+    if (!object)
+        object_name = "Unknown Object";
+    else
+        object_name = object->Name();
+
+    if (char_ini->section_exist(section.c_str()) && char_ini->line_exist(section.c_str(), field.c_str()))
+    {
+        bool result = char_ini->r_bool(section.c_str(), field.c_str());
+        return result;
+    }
+
+    if (!mandatory)
+    {
+        return false;
+    }
+
+    Msg("[Script]: ERROR object %s attempt to read a non-existant boolean field %s in section %s", object_name.c_str(),
+        field.c_str(), section.c_str());
+    R_ASSERT(false);
+    return false;
+}
+
+inline bool cfg_get_bool(const CInifile* char_ini, const xr_string& section, const xr_string& field,
+    CSE_ALifeDynamicObject* object, bool mandatory = false)
+{
+    xr_string object_name;
+
+    if (!section.size() || !field.size())
+    {
+        R_ASSERT2(false, "string can't be null");
+        return false;
+    }
+
+    if (!object)
+        object_name = "Unknown Object";
+    else
+        object_name = object->name();
+
+    if (char_ini->section_exist(section.c_str()) && char_ini->line_exist(section.c_str(), field.c_str()))
+    {
+        bool result = char_ini->r_bool(section.c_str(), field.c_str());
+        return result;
+    }
+
+    if (!mandatory)
+    {
+        return false;
+    }
+
+    Msg("[Script]: ERROR object %s attempt to read a non-existant boolean field %s in section %s", object_name.c_str(),
+        field.c_str(), section.c_str());
+    R_ASSERT(false);
+    return false;
 }
 
 inline bool cfg_get_bool(CScriptIniFile* char_ini, const xr_string& section, const xr_string& field,
@@ -196,6 +287,42 @@ inline bool cfg_get_bool(CScriptIniFile* char_ini, const xr_string& section, con
         field.c_str(), section.c_str());
     R_ASSERT(false);
     return false;
+}
+
+inline float cfg_get_number(const CInifile* char_ini, const xr_string& section, const xr_string& field,
+    CScriptGameObject* object = nullptr, bool mandatory = false)
+{
+    xr_string object_name;
+
+    if (!section.size() || !field.size())
+    {
+        R_ASSERT2(false, "string can't be null!");
+        return 0.0f;
+    }
+
+    if (char_ini->section_exist(section.c_str()) && char_ini->line_exist(section.c_str(), field.c_str()))
+        return char_ini->r_float(section.c_str(), field.c_str());
+
+    Msg("[Script] cfg_get_number has returned a default value");
+    return 0.0f;
+}
+
+inline float cfg_get_number(const CInifile* char_ini, const xr_string& section, const xr_string& field,
+    CSE_ALifeDynamicObject* object, bool mandatory = false)
+{
+    xr_string object_name;
+
+    if (!section.size() || !field.size())
+    {
+        R_ASSERT2(false, "string can't be null!");
+        return 0.0f;
+    }
+
+    if (char_ini->section_exist(section.c_str()) && char_ini->line_exist(section.c_str(), field.c_str()))
+        return char_ini->r_float(section.c_str(), field.c_str());
+
+    Msg("[Script] cfg_get_number has returned a default value");
+    return 0.0f;
 }
 
 inline float cfg_get_number(CScriptIniFile* char_ini, const xr_string& section, const xr_string& field,
@@ -339,7 +466,7 @@ inline xr_vector<std::pair<xr_string, float>> parse_spawns(const xr_string& buff
 
     xr_vector<xr_string> buffer_names = parse_names(buffer);
 
-    std::uint32_t count = buffer_names.size();
+    std::uint32_t count = buffer_names.size() - 1;
 
     std::uint32_t it = 0;
 
@@ -349,7 +476,7 @@ inline xr_vector<std::pair<xr_string, float>> parse_spawns(const xr_string& buff
         data.first = buffer_names[it];
 
         // Lord: наверное лучше сделать через try
-        if (buffer_names[it + 1].size())
+        if (buffer_names[it + 1].size() && it + 1 <= count)
         {
             std::uint32_t value = atoi(buffer_names[it + 1].c_str());
 
@@ -428,8 +555,11 @@ inline CSE_Abstract* alife_create(
         alife->spawn_item(section.c_str(), position, level_vertex_id, game_vertex_id, std::uint16_t(-1));
 
     if (server_instance)
-        Msg("[Scripts/Globals/Game/alife_create(section_name, position, level_vertex_id, game_vertex_id)] server_instance is created name -> [%s]\n section_name -> [%s]\n x -> [%f] y -> [%f] z -> [%f] level_vertex_id -> [%d] game_vertex_id [%d]",
-        server_instance->name_replace(), server_instance->name(), position.x, position.y, position.z, level_vertex_id, game_vertex_id);
+        Msg("[Scripts/Globals/Game/alife_create(section_name, position, level_vertex_id, game_vertex_id)] "
+            "server_instance is created name -> [%s]\n section_name -> [%s]\n x -> [%f] y -> [%f] z -> [%f] "
+            "level_vertex_id -> [%d] game_vertex_id [%d]",
+            server_instance->name_replace(), server_instance->name(), position.x, position.y, position.z,
+            level_vertex_id, game_vertex_id);
 
     return server_instance;
 }
@@ -492,8 +622,9 @@ inline xr_string get_squad_relation_to_actor_by_id(const std::uint16_t& squad_id
              squad->squad_members().begin();
          it != squad->squad_members().end(); ++it)
     {
-        CScriptGameObject* client_object =
-            DataBase::Storage::getInstance().getStorage().at(it->first).getClientObject();
+        CScriptGameObject* client_object = nullptr;
+        if (DataBase::Storage::getInstance().getStorage().find(it->first) != DataBase::Storage::getInstance().getStorage().end())
+            client_object = DataBase::Storage::getInstance().getStorage().at(it->first).getClientObject();
 
         if (client_object && actor)
         {
@@ -657,6 +788,27 @@ inline void set_npcs_relation(
         goodwill = 1000;
 
     RELATION_REGISTRY().ForceSetGoodwill(client_from_object1->ID(), client_to_object2->ID(), goodwill);
+}
+
+inline void set_npcs_relation(
+    const std::uint16_t& server_from_object_id, const std::uint16_t& server_to_object_id, xr_string& new_relation_name)
+{
+    if (!new_relation_name.c_str())
+    {
+        Msg("[Scripts/Globals/GameRelations/set_npcs_relation(server_object, client_object, new_relation_name)] "
+            "WARNING: new_relation_name was an empty string! Set default value => [%s]",
+            kRelationsTypeNeutral);
+        new_relation_name = kRelationsTypeNeutral;
+    }
+
+    int goodwill = 0;
+
+    if (new_relation_name == kRelationsTypeEnemy)
+        goodwill = -1000;
+    else if (new_relation_name == kRelationsTypeFriends)
+        goodwill = 1000;
+
+    RELATION_REGISTRY().ForceSetGoodwill(server_from_object_id, server_to_object_id, goodwill);
 }
 
 inline void set_npcs_relation(CSE_ALifeMonsterAbstract* server_from_object, CSE_ALifeMonsterAbstract* server_to_object,

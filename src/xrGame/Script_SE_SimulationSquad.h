@@ -165,8 +165,8 @@ private:
     bool check_squad_come_to_point(void);
 
 private:
-    bool m_is_always_walk;
-    bool m_is_always_arrived;
+    bool m_is_always_walk; // @ Init by utils
+    bool m_is_always_arrived; // @ Init by utils
     bool m_is_need_to_reset_location_masks;
     bool m_is_need_free_update;
     bool m_is_show_disabled;
@@ -177,15 +177,15 @@ private:
     std::uint32_t m_next_target_index;
     std::uint32_t m_entered_smart_id;
     std::uint32_t m_player_id;
-    float m_sympathy;
-    xr_map<std::uint32_t, CondlistData> m_condlist_action;
-    xr_map<std::uint32_t, CondlistData> m_condlist_death;
-    xr_map<std::uint32_t, CondlistData> m_condlist_invulnerability;
-    xr_map<std::uint32_t, CondlistData> m_condlist_show_spot;
+    float m_sympathy; // @ Init by utils
+    xr_map<std::uint32_t, CondlistData> m_condlist_action; // @ Init by Utils
+    xr_map<std::uint32_t, CondlistData> m_condlist_death; // @ Init by Utils
+    xr_map<std::uint32_t, CondlistData> m_condlist_invulnerability; // @ Init by Utils
+    xr_map<std::uint32_t, CondlistData> m_condlist_show_spot; // @ Init by Utils
     xr_map<xr_string, xr_string> m_behaviour;
     xr_vector<xr_string> m_parsed_targets;
-    xr_string m_relationship_name;
-    xr_string m_player_id_name;
+    xr_string m_relationship_name; // @ Init by utils
+    xr_string m_player_id_name; // @ Init by utils
     xr_string m_settings_id_name;
     xr_string m_last_target_name;
     xr_string m_spot_section_name;

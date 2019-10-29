@@ -126,14 +126,14 @@ void Script_StoryObject::check_spawn_ini_for_story_id(CSE_ALifeDynamicObject* it
 
     if (spawn_ini.section_exist("story_object"))
     {
-        pcstr* N;
-        pcstr* V;
+        LPCSTR N;
+        LPCSTR V;
         shared_str section = "story_object";
-        spawn_ini.r_line(section.c_str(), 0, N, V);
-        xr_string id = *N;
-        xr_string value = *V;
+        spawn_ini.r_line(section.c_str(), 0, &N, &V);
+        xr_string id = N;
+        xr_string value = V;
 
-        if (id != "story_object")
+        if (id != "story_id")
         {
             R_ASSERT3(false, "There is no 'story_id' field in [story_object] section: object -> ", item->name_replace());
         }
@@ -146,9 +146,9 @@ void Script_StoryObject::check_spawn_ini_for_story_id(CSE_ALifeDynamicObject* it
         return;
     }
 
-    CScriptIniFile _ini(Globals::kSystemLtxFileName);
+    //CScriptIniFile _ini(Globals::kSystemLtxFileName);
     xr_string spawn_section = item->name();  
-    xr_string story_id = Globals::Utils::cfg_get_string(&_ini, spawn_section, "story_id");
+    xr_string story_id = Globals::Utils::cfg_get_string(Globals::get_system_ini(), spawn_section, "story_id");
 
     if (story_id.size())
         this->registrate(item->ID, story_id);

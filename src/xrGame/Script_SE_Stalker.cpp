@@ -88,8 +88,10 @@ void Script_SE_Stalker::on_register(void)
     CALifeHumanBrain* brain = &this->brain();
     brain->can_choose_alife_tasks(false);
 
-    xr_string smart_name = Globals::Utils::cfg_get_string(&CScriptIniFile(this->spawn_ini().fname()), "logic", "smart_terrain");
-    Script_SE_SmartTerrain* server_smart = Script_SimulationBoard::getInstance().getSmartTerrainsByName().at(smart_name);
+    xr_string smart_name = Globals::Utils::cfg_get_string(this->spawn_ini(), "logic", "smart_terrain");
+    Script_SE_SmartTerrain* server_smart = nullptr;
+    if (smart_name.size())
+        server_smart = Script_SimulationBoard::getInstance().getSmartTerrainsByName().at(smart_name);
 
     if (!server_smart)
         return;
