@@ -11,25 +11,24 @@ namespace Scripts
 {
 Script_SE_SimulationSquad::Script_SE_SimulationSquad(LPCSTR section)
     : inherited(section), m_assigned_target_id(0), m_current_spot_id(0), m_current_target_id(0), m_smart_terrain_id(0),
-      m_settings_id_name(this->name()),
-      m_sound_manager(Script_SoundManager::getSoundManager((xr_string("squad_").append(this->name())))),
-      m_is_need_to_reset_location_masks(false), m_is_need_free_update(false)
+      m_settings_id_name(this->name()), m_entered_smart_id(0), m_is_need_free_update(false), m_player_id(0),
+      m_next_target_index(0), 
+      m_is_need_to_reset_location_masks(false), m_sound_manager(Script_SoundManager::getSoundManager((xr_string("squad_").append(this->name()))))
 {
     Msg("[Scripts/Script_SE_SimulationSquad/ctor(section)] %s", section);
-    CScriptIniFile _ini = CScriptIniFile(Globals::kSystemLtxFileName);
-    m_player_id_name = Globals::Utils::cfg_get_string(&_ini, this->m_settings_id_name, "faction");
-    m_condlist_action = XR_LOGIC::parse_condlist_by_server_object("assign_action", "target_smart",
-        Globals::Utils::cfg_get_string(&_ini, this->m_settings_id_name, "target_smart"));
-    m_condlist_death = XR_LOGIC::parse_condlist_by_server_object(
-        "death_condlist", "on_death", Globals::Utils::cfg_get_string(&_ini, this->m_settings_id_name, "target_smart"));
-    m_condlist_invulnerability = XR_LOGIC::parse_condlist_by_server_object("invulnerability", "invulnerability",
-        Globals::Utils::cfg_get_string(&_ini, this->m_settings_id_name, "invulnerability"));
-    m_relationship_name = Globals::Utils::cfg_get_string(&_ini, this->m_settings_id_name, "relationship");
-    m_sympathy = Globals::Utils::cfg_get_number(&_ini, this->m_settings_id_name, "sympathy", this);
-    m_condlist_show_spot = XR_LOGIC::parse_condlist_by_server_object(
-        "show_spot", "show_spot", Globals::Utils::cfg_get_string(&_ini, this->m_settings_id_name, "show_spot"));
-    m_is_always_arrived = Globals::Utils::cfg_get_bool(&_ini, this->m_settings_id_name, "always_arrived", this);
-    m_is_always_walk = Globals::Utils::cfg_get_bool(&_ini, this->m_settings_id_name, "always_walk", this);
+    this->m_player_id_name = Globals::Utils::cfg_get_string(Globals::get_system_ini(), this->m_settings_id_name, "faction");
+    this->m_condlist_action = XR_LOGIC::parse_condlist_by_server_object("assign_action", "target_smart",
+        Globals::Utils::cfg_get_string(Globals::get_system_ini(), this->m_settings_id_name, "target_smart"));
+    this->m_condlist_death = XR_LOGIC::parse_condlist_by_server_object(
+        "death_condlist", "on_death", Globals::Utils::cfg_get_string(Globals::get_system_ini(), this->m_settings_id_name, "target_smart"));
+    this->m_condlist_invulnerability = XR_LOGIC::parse_condlist_by_server_object("invulnerability", "invulnerability",
+        Globals::Utils::cfg_get_string(Globals::get_system_ini(), this->m_settings_id_name, "invulnerability"));
+    this->m_relationship_name = Globals::Utils::cfg_get_string(Globals::get_system_ini(), this->m_settings_id_name, "relationship");
+    this->m_sympathy = Globals::Utils::cfg_get_number(Globals::get_system_ini(), this->m_settings_id_name, "sympathy", this);
+    this->m_condlist_show_spot = XR_LOGIC::parse_condlist_by_server_object(
+        "show_spot", "show_spot", Globals::Utils::cfg_get_string(Globals::get_system_ini(), this->m_settings_id_name, "show_spot"));
+    this->m_is_always_arrived = Globals::Utils::cfg_get_bool(Globals::get_system_ini(), this->m_settings_id_name, "always_arrived", this);
+    this->m_is_always_walk = Globals::Utils::cfg_get_bool(Globals::get_system_ini(), this->m_settings_id_name, "always_walk", this);
     this->set_location_types_section("stalker_terrain");
     this->set_squad_sympathy();
 }
@@ -184,14 +183,12 @@ void Script_SE_SimulationSquad::create_npc(Script_SE_SmartTerrain* spawn_smart)
         return;
     }
 
-    CScriptIniFile _ini = CScriptIniFile(Globals::kSystemLtxFileName);
-
     xr_vector<xr_string> spawn_sections =
-        Globals::Utils::parse_names(Globals::Utils::cfg_get_string(&_ini, this->m_settings_id_name, "npc"));
+        Globals::Utils::parse_names(Globals::Utils::cfg_get_string(Globals::get_system_ini(), this->m_settings_id_name, "npc"));
 
-    xr_string spawn_point_name = Globals::Utils::cfg_get_string(&_ini, this->m_settings_id_name, "spawn_point").size() ?
-        Globals::Utils::cfg_get_string(&_ini, this->m_settings_id_name, "spawn_point") :
-        Globals::Utils::cfg_get_string(&_ini, Globals::kSmartTerrainSMRTSection, "spawn_point");
+    xr_string spawn_point_name = Globals::Utils::cfg_get_string(Globals::get_system_ini(), this->m_settings_id_name, "spawn_point").size() ?
+        Globals::Utils::cfg_get_string(Globals::get_system_ini(), this->m_settings_id_name, "spawn_point") :
+        Globals::Utils::cfg_get_string(Globals::get_system_ini(), Globals::kSmartTerrainSMRTSection, "spawn_point");
 
     xr_map<std::uint32_t, CondlistData> spawn_point_condlist =
         XR_LOGIC::parse_condlist_by_server_object("spawn_point", "spawn_point", spawn_point_name);
@@ -230,7 +227,7 @@ void Script_SE_SimulationSquad::create_npc(Script_SE_SmartTerrain* spawn_smart)
         }
     }
 
-    xr_string random_spawn_name = Globals::Utils::cfg_get_string(&_ini, this->m_settings_id_name, "npc_random");
+    xr_string random_spawn_name = Globals::Utils::cfg_get_string(Globals::get_system_ini(), this->m_settings_id_name, "npc_random");
 
     if (random_spawn_name.size())
     {
@@ -260,13 +257,14 @@ void Script_SE_SimulationSquad::create_npc(Script_SE_SmartTerrain* spawn_smart)
             return;
         }
 
-        std::uint32_t result_value = Globals::Script_RandomInt::getInstance().Generate(min_value, max_value-1);
+        std::uint32_t result_value = Globals::Script_RandomInt::getInstance().Generate(min_value, max_value - 1);
 
         for (std::uint32_t i = 0; i < result_value; ++i)
         {
             // @ Lord: нормально ли будет работать??? Не проверять если count_names > result_value ???
-            std::uint32_t id = Globals::Script_RandomInt::getInstance().Generate(std::uint32_t(0), count_names-1);
-            this->add_squad_member(random_spawn_names[id], base_spawn_position, base_level_vertex_id, base_game_vertex_id);
+            std::uint32_t id = Globals::Script_RandomInt::getInstance().Generate(std::uint32_t(0), count_names - 1);
+            this->add_squad_member(
+                random_spawn_names[id], base_spawn_position, base_level_vertex_id, base_game_vertex_id);
         }
     }
     else if (!spawn_sections.size())
@@ -289,9 +287,7 @@ std::uint16_t Script_SE_SimulationSquad::add_squad_member(const xr_string& spawn
         return Globals::kUnsignedInt16Undefined;
     }
 
-    CScriptIniFile _ini = CScriptIniFile(Globals::kSystemLtxFileName);
-
-    xr_string custom_data_name = Globals::Utils::cfg_get_string(&_ini, spawn_section_name, "custom_data");
+    xr_string custom_data_name = Globals::Utils::cfg_get_string(Globals::get_system_ini(), spawn_section_name, "custom_data");
 
     if (!custom_data_name.size())
         Msg("[Scripts/Script_SE_SimulationSquad/add_squad_member(spawn_section_name, spawn_position, level_vertex_id, "
@@ -375,15 +371,17 @@ void Script_SE_SimulationSquad::set_squad_relation(const xr_string& relation_nam
                  this->squad_members().begin();
              it != this->squad_members().end(); ++it)
         {
-            CScriptGameObject* npc = DataBase::Storage::getInstance().getStorage().at(it->first).getClientObject();
+            CScriptGameObject* npc = nullptr;
+            if (DataBase::Storage::getInstance().getStorage().find(it->first) != DataBase::Storage::getInstance().getStorage().end())
+                npc = DataBase::Storage::getInstance().getStorage().at(it->first).getClientObject();
 
             if (npc)
                 Globals::GameRelations::set_npcs_relation(
                     npc, DataBase::Storage::getInstance().getActor(), new_relation_name);
             else
                 Globals::GameRelations::set_npcs_relation(
-                    ai().alife().objects().object(it->first)->cast_monster_abstract(),
-                    ai().alife().graph().actor()->cast_monster_abstract(), new_relation_name);
+                    ai().alife().objects().object(it->first)->ID,
+                    ai().alife().graph().actor()->ID, new_relation_name);
         }
     }
 }
@@ -424,8 +422,7 @@ void Script_SE_SimulationSquad::set_squad_sympathy(const float& sympathy)
 
 void Script_SE_SimulationSquad::set_squad_behaviour(void)
 {
-    CScriptIniFile _ini = CScriptIniFile(Globals::kSystemLtxFileName);
-    xr_string behaviour_section_name = Globals::Utils::cfg_get_string(&_ini, this->m_settings_id_name, "behaviour");
+    xr_string behaviour_section_name = Globals::Utils::cfg_get_string(Globals::get_system_ini(), this->m_settings_id_name, "behaviour");
 
     if (!squad_behavior_ini.section_exist(behaviour_section_name.c_str()))
     {
@@ -468,6 +465,8 @@ void Script_SE_SimulationSquad::refresh(void)
         this->hide();
         return;
     }
+
+    this->show();
 }
 
 void Script_SE_SimulationSquad::show(void)
@@ -488,7 +487,7 @@ void Script_SE_SimulationSquad::show(void)
 
     xr_string spot_name = "";
 
-    if (!Script_GlobalHelper::getInstance().getSimulationSquadIsSquadMonster().at(this->m_player_id_name))
+    if (Script_GlobalHelper::getInstance().getSimulationSquadIsSquadMonster().find(this->m_player_id_name) == Script_GlobalHelper::getInstance().getSimulationSquadIsSquadMonster().end())
     {
         xr_string relation_name = Globals::Game::get_squad_relation_to_actor_by_id(this->ID);
 

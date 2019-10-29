@@ -999,6 +999,7 @@ public:
         if (!smart_id)
         {
             squad->assign_smart();
+            return;
         }
 
         squad->assign_smart(this->m_smarts[smart_id].getServerSmartTerrain());
