@@ -20,7 +20,7 @@ void Script_SimulationBoard::register_smart(Script_SE_SmartTerrain* object)
         return;
     }
 
-    Msg("[Scripts/Script_SimulationBoard/register_smart(object)] register smart -> %s", object->name());
+    Msg("[Scripts/Script_SimulationBoard/register_smart(object)] register smart -> %s", object->name_replace());
 
     if (this->m_smarts[object->ID].getServerSmartTerrain())
     {
@@ -32,7 +32,7 @@ void Script_SimulationBoard::register_smart(Script_SE_SmartTerrain* object)
 /*    data.getServerSmartTerrain() = object;*/
     data.setServerSmartTerrain(object);
     this->m_smarts[object->ID] = data;
-    this->m_smarts_by_name[object->name()] = object;
+    this->m_smarts_by_name[object->name_replace()] = object;
 }
 
 void Script_SimulationBoard::init_smart(Script_SE_SmartTerrain* object)
@@ -68,11 +68,13 @@ void Script_SimulationBoard::init_smart(Script_SE_SmartTerrain* object)
 
 void Script_SimulationBoard::setup_squad_and_group(CSE_ALifeDynamicObject* object)
 {
-    xr_string level_name = Globals::Game::level::get_name();
+    xr_string level_name = Globals::Game::level::get_name() ? Globals::Game::level::get_name() : "";
     CSE_ALifeDynamicObject* server_object = ai().alife().objects().object(object->ID);
 
-    std::uint32_t group_id = Script_GlobalHelper::getInstance().getSimulationBoardGroupIDLevelsByName().at(level_name) ?
-        Script_GlobalHelper::getInstance().getSimulationBoardGroupIDLevelsByName().at(level_name) :
+    std::uint32_t group_id = level_name.size() ?
+        (Script_GlobalHelper::getInstance().getSimulationBoardGroupIDLevelsByName().at(level_name) ?
+                Script_GlobalHelper::getInstance().getSimulationBoardGroupIDLevelsByName().at(level_name) :
+                0) :
         0;
 
     CSE_ALifeMonsterAbstract* server_monster = object->cast_monster_abstract();
@@ -115,7 +117,7 @@ void Script_SimulationBoard::setup_squad_and_group(CSE_ALifeDynamicObject* objec
 
     std::uint16_t object_squad_id = 0;
 
-    if (smart->m_script_clsid == CLSID_SE_SMART_TERRAIN)
+    if (smart->m_script_clsid == Globals::get_script_clsid(CLSID_SE_SMART_TERRAIN))
         object_squad_id = smart->getSquadID();
 
     Globals::change_team_squad_group(object, server_monster->s_team, server_monster->s_group, object_squad_id);

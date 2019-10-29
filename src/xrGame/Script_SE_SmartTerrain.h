@@ -109,7 +109,8 @@ public:
 
     virtual Script_SE_SmartTerrain* cast_script_se_smartterrain(void) { return this; }
     virtual void on_before_register(void);
-
+    virtual void on_register(void);
+    virtual void on_unregister(void);
     inline NpcInfo fill_npc_info(CSE_ALifeDynamicObject* server_object)
     {
         if (!server_object)
@@ -182,18 +183,19 @@ public:
 
 private:
     void show(void);
+    void load_jobs(void);
 
 private:
     bool m_is_initialized;
     bool m_is_registered;
     bool m_is_smart_showed_spot;
-    std::uint8_t m_game_vertex_id;
+    bool m_is_need_init_npc;
     std::uint16_t m_squad_id;
     std::uint32_t m_population;
     std::uint32_t m_stayed_squad_quan;
     std::uint32_t m_show_time;
-    int a = sizeof(xrTime);
     xrTime m_smart_alarm_time;
+    std::unique_ptr<CALifeSmartTerrainTask> m_smart_alife_task;
     Script_SmartTerrainControl* m_base_on_actor_control;
     xr_map<std::uint32_t, xrTime> m_dead_time;
     xr_map<xr_string, std::uint32_t> m_npc_by_job_section;
@@ -209,6 +211,7 @@ private:
     xr_string m_smart_showed_spot_name;
     xr_string m_simulation_type_name;
     xr_string m_player_name;
+ 
 };
 } // namespace Scripts
 } // namespace Cordis

@@ -650,9 +650,9 @@ inline void change_team_squad_group(CSE_ALifeDynamicObject* server_object, const
         R_ASSERT2(false, "bad casting check your server_object!!!");
         return;
     }
-
-    CScriptGameObject* client_object =
-        DataBase::Storage::getInstance().getStorage().at(server_object->ID).getClientObject();
+    CScriptGameObject* client_object = nullptr;
+    if (DataBase::Storage::getInstance().getStorage().size())
+        client_object = DataBase::Storage::getInstance().getStorage().at(server_object->ID).getClientObject();
 
     if (!client_object)
     {

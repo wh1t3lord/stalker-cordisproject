@@ -109,7 +109,8 @@ struct SmartDataSimulationBoard
     {
         if (!p_server_object)
         {
-            Msg("[SmartDataSimulationBoard/setServerSmartTerrain(p_server_smart)] WARNING: p_server_smart = null! You are trying to set an empty object! No assignment!");
+            Msg("[SmartDataSimulationBoard/setServerSmartTerrain(p_server_smart)] WARNING: p_server_smart = null! You "
+                "are trying to set an empty object! No assignment!");
             return;
         }
 
@@ -1011,8 +1012,24 @@ public:
     {
         if (!this->m_smarts[smart_id].getServerSmartTerrain())
         {
+            Msg("[Scripts/Script_SimulationBoard/enter_squad_to_smart(squad, smart_id)] set to temporary");
+            this->m_temporary_entered_squad[smart_id] = squad;
             return;
         }
+
+        Script_SE_SmartTerrain* smart = this->m_smarts[smart_id].getServerSmartTerrain();
+
+        if (squad->getEnteredSmartID())
+        {
+            R_ASSERT2(false, "Can't enter to smart, because I am not leave old one.");
+        }
+
+        squad->setEnteredSmartID(smart_id);
+        Msg("[Scripts/Script_SimulationBoard/enter_squad_to_smart(squad, smart_id)] squad %d enter smart %s. Quan = %d", squad->ID, smart->name_replace(), smart->getStaydSquadQuan());
+
+        std::uint32_t quan = smart->getStaydSquadQuan();
+        quan++;
+        smart->setStaydSquadQuan(quan);
     }
 
     void register_smart(Script_SE_SmartTerrain* object);

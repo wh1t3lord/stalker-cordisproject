@@ -98,6 +98,31 @@ inline xr_string cfg_get_string(CScriptIniFile* char_ini, const xr_string& secti
     return "";
 }
 
+inline xr_string cfg_get_string(CInifile& char_ini, const xr_string& section, const xr_string& field,
+    bool mandatory = false, const xr_string& gulag_name = "")
+{
+    if (section.size() &&
+        (char_ini.section_exist(section.c_str()) && char_ini.line_exist(section.c_str(), field.c_str())))
+    {
+        xr_string result = "";
+        result.append(gulag_name);
+        result.append("_");
+        result.append(char_ini.r_string(section.c_str(), field.c_str()));
+        if (gulag_name.size())
+            return result;
+        else
+            return char_ini.r_string(section.c_str(), field.c_str());
+    }
+
+    if (!mandatory)
+        return "";
+
+    Msg("Attempt to read a non-existant string field %s in section %s", field.c_str(), section.c_str());
+    R_ASSERT(false);
+
+    return "";
+}
+
 inline float graph_distance(const std::uint16_t& gamevertexid_1, const std::uint16_t& gamevertexid_2)
 {
     return ai()
@@ -256,7 +281,8 @@ inline xr_vector<xr_string> parse_names(const xr_string& buffer)
     xr_vector<xr_string> result;
     if (!buffer.size())
     {
-        R_ASSERT2(false, "You are trying to parse an empty string!");
+        Msg("[Scripts/Globals/Utils/parse_names(buffer)] WARNING: buffer.size() = 0! You are trying to parse an empty "
+            "string! Return empty vector");
         return result;
     }
 
@@ -398,7 +424,14 @@ inline CSE_Abstract* alife_create(
 
     VERIFY(alife);
 
-    return alife->spawn_item(section.c_str(), position, level_vertex_id, game_vertex_id, std::uint16_t(-1));
+    CSE_Abstract* server_instance =
+        alife->spawn_item(section.c_str(), position, level_vertex_id, game_vertex_id, std::uint16_t(-1));
+
+    if (server_instance)
+        Msg("[Scripts/Globals/Game/alife_create(section_name, position, level_vertex_id, game_vertex_id)] server_instance is created name -> [%s]\n section_name -> [%s]\n x -> [%f] y -> [%f] z -> [%f] level_vertex_id -> [%d] game_vertex_id [%d]",
+        server_instance->name_replace(), server_instance->name(), position.x, position.y, position.z, level_vertex_id, game_vertex_id);
+
+    return server_instance;
 }
 
 inline CSE_Abstract* alife_create(const xr_string& section, const Fvector& position,
@@ -459,7 +492,8 @@ inline xr_string get_squad_relation_to_actor_by_id(const std::uint16_t& squad_id
              squad->squad_members().begin();
          it != squad->squad_members().end(); ++it)
     {
-        CScriptGameObject* client_object = DataBase::Storage::getInstance().getStorage().at(it->first).getClientObject();
+        CScriptGameObject* client_object =
+            DataBase::Storage::getInstance().getStorage().at(it->first).getClientObject();
 
         if (client_object && actor)
         {

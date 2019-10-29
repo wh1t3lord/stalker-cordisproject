@@ -38,13 +38,13 @@ public:
     inline void register_npc(const std::uint16_t& npc_id)
     {
         // Lord: In-Game logging make it
-        Msg("[Script] Register sm npc [%s]:[%s]", this->m_id.c_str(), std::to_string(npc_id).c_str());
+        Msg("[Scripts/Script_SoundManager/register_npc(npc_id)] Register sm npc [%s]:[%s]", this->m_id.c_str(), std::to_string(npc_id).c_str());
         this->m_npc.push_back(npc_id);
     }
 
     inline void unregister_npc(const std::uint16_t& npc_id)
     {
-        Msg("[Script] UnRegister sm npc [%s]:[%s]", this->m_id.c_str(), std::to_string(npc_id).c_str());
+        Msg("[Scripts/Script_SoundManager/register_npc(npc_id)] UnRegister sm npc [%s]:[%s]", this->m_id.c_str(), std::to_string(npc_id).c_str());
 
         if (this->m_last_playing_npc == npc_id)
         {
