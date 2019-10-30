@@ -132,9 +132,15 @@ void Script_SE_Monster::STATE_Write(NET_Packet& packet)
     }
     else
     {
-        if (DataBase::Storage::getInstance().getOfflineObjects().at(this->ID).second.size()) // Lord: нужно ли писать альтернативу?
-            packet.w_stringZ(std::to_string(DataBase::Storage::getInstance().getOfflineObjects().at(this->ID).first).c_str());
+        if (DataBase::Storage::getInstance().getOfflineObjects().find(this->ID) != DataBase::Storage::getInstance().getOfflineObjects().end()) 
+            packet.w_stringZ(std::to_string((DataBase::Storage::getInstance().getOfflineObjects().at(this->ID).first ? DataBase::Storage::getInstance().getOfflineObjects().at(this->ID).first : 0)).c_str());
     }
+
+    if (DataBase::Storage::getInstance().getOfflineObjects().find(this->ID) !=
+        DataBase::Storage::getInstance().getOfflineObjects().end())
+        packet.w_stringZ(DataBase::Storage::getInstance().getOfflineObjects().at(this->ID).second.size() ?
+                DataBase::Storage::getInstance().getOfflineObjects().at(this->ID).second.c_str() :
+                "nil");
 }
 
 bool Script_SE_Monster::can_switch_offline(void) const 

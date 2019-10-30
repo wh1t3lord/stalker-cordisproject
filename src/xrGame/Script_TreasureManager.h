@@ -37,11 +37,13 @@ private:
                             {
                                 data.m_condlist_empty =
                                     XR_LOGIC::parse_condlist_by_server_object("treasure_manager", "empty_cond", V1);
+                                this->m_secrets[N] = data;
                             }
                             else if (!strcmp(N1, "refreshing"))
                             {
                                 data.m_condlist_refreshing = XR_LOGIC::parse_condlist_by_server_object(
                                     "treasure_manager", "refreshing_cond", V1);
+                                this->m_secrets[N] = data;
                             }
                             else
                             {
@@ -61,7 +63,7 @@ private:
                                     std::pair<std::pair<std::uint32_t, std::uint32_t>, xr_vector<std::uint16_t>> data;
                                     data.first.first = atoi(it.first.c_str());
                                     data.first.second = it.second ? it.second : 1.0f;
-                                    this->m_secrets[N].m_items[V1].push_back(data);
+                                    this->m_secrets[N].m_items[N1].push_back(data);
                                 }
                             }
                         }
