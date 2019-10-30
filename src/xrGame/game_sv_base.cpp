@@ -618,12 +618,13 @@ void game_sv_GameState::Update()
 
     if (!GEnv.isDedicatedServer)
     {
+/* Lord: имеет ли это значение?
         if (Level().game)
         {
             CScriptProcess* script_process = GEnv.ScriptEngine->script_process(ScriptProcessor::Game);
             if (script_process)
                 script_process->update();
-        }
+        }*/
     }
 }
 

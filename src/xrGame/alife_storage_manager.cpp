@@ -98,10 +98,12 @@ void CALifeStorageManager::save(LPCSTR save_name_no_check, bool update_name)
 
     //Alundaio: To get the savegame fname to make our own custom save states
 #ifdef ENGINE_LUA_ALIFE_STORAGE_MANAGER_CALLBACKS
+/* Lord: вот это я хз зачем пускай пока что так будет
+Lord: Если нужно будет можно также сделать callback для людей
     luabind::functor<void> funct;
     GEnv.ScriptEngine->functor("alife_storage_manager.CALifeStorageManager_save", funct);
     if (funct)
-        funct(static_cast<pcstr>(m_save_name));
+        funct(static_cast<pcstr>(m_save_name));*/
 #endif
     //-Alundaio
 
@@ -113,10 +115,11 @@ void CALifeStorageManager::load(void* buffer, const u32& buffer_size, LPCSTR fil
 {
     //Alundaio: So we can get the fname to make our own custom save states
 #ifdef ENGINE_LUA_ALIFE_STORAGE_MANAGER_CALLBACKS
+/* Lord: Если нужно будет можно также сделать callback для людей
     luabind::functor<void> funct;
     GEnv.ScriptEngine->functor("alife_storage_manager.CALifeStorageManager_load", funct);
     if (funct)
-        funct(file_name);
+        funct(file_name);*/
 #endif // _DEBUG
     //-Alundaio
 

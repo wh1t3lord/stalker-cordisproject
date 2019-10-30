@@ -893,18 +893,20 @@ void CGamePersistent::start_logo_intro()
         if (change_tip)
         {
             string512 buff;
-            u8 tip_num;
+            u8 tip_num = 0;
             luabind::functor<u8> m_functor;
             bool is_single = !xr_strcmp(m_game_params.m_game_type, "single");
             if (is_single)
             {
+/* Lord: переделать
                 R_ASSERT(GEnv.ScriptEngine->functor("loadscreen.get_tip_number", m_functor));
-                tip_num = m_functor(map_name.c_str());
+                tip_num = m_functor(map_name.c_str());*/
             }
             else
             {
+/* Lord: переделать
                 R_ASSERT(GEnv.ScriptEngine->functor("loadscreen.get_mp_tip_number", m_functor));
-                tip_num = m_functor(map_name.c_str());
+                tip_num = m_functor(map_name.c_str());*/
             }
             //		tip_num = 83;
             xr_sprintf(buff, "%s%d:", StringTable().translate("ls_tip_number").c_str(), tip_num);

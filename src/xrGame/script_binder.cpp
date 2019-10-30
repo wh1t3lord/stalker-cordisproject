@@ -57,47 +57,54 @@ void CScriptBinder::reinit()
 
 void CScriptBinder::reload(LPCSTR section)
 {
-#ifndef DBG_DISABLE_SCRIPTS
     VERIFY(!m_object);
-    if (!pSettings->line_exist(section, "script_binding"))
-        return;
+    Msg("[CScriptBinder/reload(section_name)] TO LORD IMPLEMENT BINDING FOR INSTANCES. Think about architectural stuff...");
 
-    luabind::functor<void> lua_function;
-    if (!GEnv.ScriptEngine->functor(pSettings->r_string(section, "script_binding"), lua_function))
-    {
-        GEnv.ScriptEngine->script_log(
-            LuaMessageType::Error, "function %s is not loaded!", pSettings->r_string(section, "script_binding"));
-        return;
-    }
+    /*
+    #ifndef DBG_DISABLE_SCRIPTS
 
-    try
-    {
-        lua_function(owner->lua_game_object());
-    }
-    catch (...)
-    {
-        clear();
-        return;
-    }
 
-    if (m_object)
-    {
+    / *
+        if (!pSettings->line_exist(section, "script_binding"))
+            return;
+
+        luabind::functor<void> lua_function;
+        if (!GEnv.ScriptEngine->functor(pSettings->r_string(section, "script_binding"), lua_function))
+        {
+            GEnv.ScriptEngine->script_log(
+                LuaMessageType::Error, "function %s is not loaded!", pSettings->r_string(section, "script_binding"));
+            return;
+        }
+
         try
         {
-            m_object->reload(section);
+            lua_function(owner->lua_game_object());
         }
         catch (...)
         {
             clear();
+            return;
         }
-    }
-#endif
+
+        if (m_object)
+        {
+            try
+            {
+                m_object->reload(section);
+            }
+            catch (...)
+            {
+                clear();
+            }
+        }* /
+    #endif*/
 }
 
 BOOL CScriptBinder::net_Spawn(CSE_Abstract* DC)
 {
     CSE_Abstract* abstract = (CSE_Abstract*)DC;
     CSE_ALifeObject* object = smart_cast<CSE_ALifeObject*>(abstract);
+/*
     if (object && m_object)
     {
         try
@@ -108,7 +115,7 @@ BOOL CScriptBinder::net_Spawn(CSE_Abstract* DC)
         {
             clear();
         }
-    }
+    }*/
 
     return (TRUE);
 }

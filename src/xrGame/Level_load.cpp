@@ -141,6 +141,7 @@ bool CLevel::Load_GameSpecific_After()
     if (!GEnv.isDedicatedServer)
     {
         // loading scripts
+/* Lord: подумать было ли это важно?
         auto& scriptEngine = *GEnv.ScriptEngine;
         scriptEngine.remove_script_process(ScriptProcessor::Level);
         shared_str scripts;
@@ -148,7 +149,7 @@ bool CLevel::Load_GameSpecific_After()
             scripts = pLevel->r_string("level_scripts", "script");
         else
             scripts = "";
-        scriptEngine.add_script_process(ScriptProcessor::Level, scriptEngine.CreateScriptProcess("level", scripts));
+        scriptEngine.add_script_process(ScriptProcessor::Level, scriptEngine.CreateScriptProcess("level", scripts));*/
     }
 
     BlockCheatLoad();

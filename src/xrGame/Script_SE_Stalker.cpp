@@ -39,16 +39,19 @@ void Script_SE_Stalker::STATE_Write(NET_Packet& packet)
     }
     else
     {
-        if (DataBase::Storage::getInstance().getOfflineObjects().at(this->ID)
-                .second.size()) // Lord: нужно ли писать альтернативу?
-        {
-            packet.w_stringZ(
-                std::to_string(DataBase::Storage::getInstance().getOfflineObjects().at(this->ID).first).c_str());
-            packet.w_stringZ(DataBase::Storage::getInstance().getOfflineObjects().at(this->ID).second.c_str());
-        }
-
-        packet.w_u8(this->m_is_dropped_death ? 1 : 0);
+        if (DataBase::Storage::getInstance().getOfflineObjects().find(this->ID) !=
+            DataBase::Storage::getInstance().getOfflineObjects().end())
+                packet.w_stringZ(
+                    std::to_string((DataBase::Storage::getInstance().getOfflineObjects().at(this->ID).first ?
+                                           DataBase::Storage::getInstance().getOfflineObjects().at(this->ID).first :
+                                           0))
+                        .c_str());
+        
     }
+    if (DataBase::Storage::getInstance().getOfflineObjects().find(this->ID) != DataBase::Storage::getInstance().getOfflineObjects().end())
+        packet.w_stringZ(DataBase::Storage::getInstance().getOfflineObjects().at(this->ID).second.size() ? DataBase::Storage::getInstance().getOfflineObjects().at(this->ID).second.c_str() : "nil");
+
+    packet.w_u8(this->m_is_dropped_death ? 1 : 0);
 }
 
 void Script_SE_Stalker::STATE_Read(NET_Packet& packet, std::uint16_t size)
