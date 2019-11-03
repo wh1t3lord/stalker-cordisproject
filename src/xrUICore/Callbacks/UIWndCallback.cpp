@@ -26,6 +26,7 @@ void CUIWndCallback::OnEvent(CUIWindow* pWnd, s16 msg, void* pData)
     if (it == m_callbacks.end())
         return;
 
+    // Lord: потестить и определить нужно оно или нет (по моему замыслу нет)
  //   (*it)->m_callback();
 
     if ((*it)->m_cpp_callback)
