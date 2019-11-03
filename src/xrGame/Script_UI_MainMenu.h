@@ -53,7 +53,7 @@ public:
 
     inline static void OnButton_save_clicked(void) {}
 
-    inline static void OnButton_quit_clicked(void) 
+    inline static void OnButton_quit_clicked(void)
     {
         getMessageBox().InitMessageBox("message_box_quit_windows");
         getMessageBox().ShowDialog(true);
@@ -102,9 +102,12 @@ public:
 
     inline static void OnMsgNo(void) { m_boxmode = false; }
 
-    inline static void OnMessageQuitGame(void) {}
+    inline static void OnMessageQuitGame(void) 
+    { 
+        Console->Execute("disconnect");
+    }
 
-    inline static void OnMessageQuitWin(void) {}
+    inline static void OnMessageQuitWin(void) { Console->Execute("quit"); }
 
     static void StartGame(void);
     static void LoadLastSave(void);
@@ -119,7 +122,6 @@ private:
 private:
     static bool m_boxmode;
     CUIMMShniaga* m_shniaga;
-
 };
 } // namespace Scripts
 } // namespace Cordis
