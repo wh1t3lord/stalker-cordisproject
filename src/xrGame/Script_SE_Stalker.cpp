@@ -38,20 +38,22 @@ void Script_SE_Stalker::STATE_Write(NET_Packet& packet)
 
     if (this->m_bOnline)
     {
-        if (Globals::Game::level::get_object_by_id(this->ID) &&
-            Globals::Game::level::get_object_by_id(this->ID)->level_vertex_id())
+        if (Globals::Game::level::get_object_by_id(this->ID))
             packet.w_stringZ(
                 std::to_string(Globals::Game::level::get_object_by_id(this->ID)->level_vertex_id()).c_str());
+        else
+            packet.w_stringZ("nil");
     }
     else
     {
-       packet.w_stringZ(DataBase::Storage::getInstance().getOfflineObjects().at(this->ID).first ?
-                    std::to_string(DataBase::Storage::getInstance().getOfflineObjects().at(this->ID).first).c_str() : "nil");
+        packet.w_stringZ(DataBase::Storage::getInstance().getOfflineObjects().at(this->ID).first ?
+                std::to_string(DataBase::Storage::getInstance().getOfflineObjects().at(this->ID).first).c_str() :
+                "nil");
     }
 
-    packet.w_stringZ(DataBase::Storage::getInstance().getOfflineObjects().at(this->ID).second.size() ?
-                DataBase::Storage::getInstance().getOfflineObjects().at(this->ID).second.c_str() :
-                "nil");
+    packet.w_stringZ(DataBase::Storage::getInstance().getOfflineObjects().at(this->ID).second.empty() ?
+            "nil" :
+            DataBase::Storage::getInstance().getOfflineObjects().at(this->ID).second.c_str());
 
     packet.w_u8(this->m_is_dropped_death ? 1 : 0);
 }
@@ -65,14 +67,13 @@ void Script_SE_Stalker::STATE_Read(NET_Packet& packet, std::uint16_t size)
         xr_string old_level_vertex_id_name;
         packet.r_stringZ(old_level_vertex_id_name);
 
-            xr_string section_name = DataBase::Storage::getInstance().getOfflineObjects().at(this->ID).second.c_str();
-            packet.r_stringZ(section_name);
+        xr_string section_name = DataBase::Storage::getInstance().getOfflineObjects().at(this->ID).second.c_str();
+        packet.r_stringZ(section_name);
 
-            if (DataBase::Storage::getInstance().getOfflineObjects().at(this->ID).second == "nil")
-            {
-                DataBase::Storage::getInstance().setOfflineObjects(this->ID, "");
-            }
-
+        if (DataBase::Storage::getInstance().getOfflineObjects().at(this->ID).second == "nil")
+        {
+            DataBase::Storage::getInstance().setOfflineObjects(this->ID, "");
+        }
 
         if (old_level_vertex_id_name != "nil")
         {

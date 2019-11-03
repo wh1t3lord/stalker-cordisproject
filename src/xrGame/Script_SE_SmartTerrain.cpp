@@ -59,8 +59,8 @@ Script_SE_SmartTerrain::Script_SE_SmartTerrain(LPCSTR section)
 
 Script_SE_SmartTerrain::~Script_SE_SmartTerrain(void)
 {
-    if (this->m_base_on_actor_control)
-        delete this->m_base_on_actor_control;
+ //   if (this->m_base_on_actor_control) Lord: точно не должно удаляться?
+  //      delete this->m_base_on_actor_control;
 }
 
 void Script_SE_SmartTerrain::on_before_register(void)

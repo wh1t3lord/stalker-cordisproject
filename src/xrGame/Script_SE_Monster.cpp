@@ -121,26 +121,27 @@ void Script_SE_Monster::STATE_Read(NET_Packet& packet, std::uint16_t size)
 void Script_SE_Monster::STATE_Write(NET_Packet& packet)
 {
     inherited::STATE_Write(packet);
+    if (DataBase::Storage::getInstance().getOfflineObjects().find(this->ID) ==
+        DataBase::Storage::getInstance().getOfflineObjects().end())
+        DataBase::Storage::getInstance().setOfflineObjects(this->ID, 0, "");
 
     if (this->m_bOnline)
     {
-        if (Globals::Game::level::get_object_by_id(this->ID) &&
-            Globals::Game::level::get_object_by_id(this->ID)->level_vertex_id())
+        if (Globals::Game::level::get_object_by_id(this->ID))
             packet.w_stringZ(
                 std::to_string(Globals::Game::level::get_object_by_id(this->ID)->level_vertex_id()).c_str());
+        else
+            packet.w_stringZ("nil");
         //packet.w_stringZ()
     }
     else
     {
-        if (DataBase::Storage::getInstance().getOfflineObjects().find(this->ID) != DataBase::Storage::getInstance().getOfflineObjects().end()) 
-            packet.w_stringZ(std::to_string((DataBase::Storage::getInstance().getOfflineObjects().at(this->ID).first ? DataBase::Storage::getInstance().getOfflineObjects().at(this->ID).first : 0)).c_str());
+        packet.w_stringZ(DataBase::Storage::getInstance().getOfflineObjects().at(this->ID).first ? std::to_string(DataBase::Storage::getInstance().getOfflineObjects().at(this->ID).first).c_str() : "nil");
     }
 
-    if (DataBase::Storage::getInstance().getOfflineObjects().find(this->ID) !=
-        DataBase::Storage::getInstance().getOfflineObjects().end())
-        packet.w_stringZ(DataBase::Storage::getInstance().getOfflineObjects().at(this->ID).second.size() ?
-                DataBase::Storage::getInstance().getOfflineObjects().at(this->ID).second.c_str() :
-                "nil");
+    packet.w_stringZ(DataBase::Storage::getInstance().getOfflineObjects().at(this->ID).second.empty() ?
+                "nil" :
+            DataBase::Storage::getInstance().getOfflineObjects().at(this->ID).second.c_str());
 }
 
 bool Script_SE_Monster::can_switch_offline(void) const 

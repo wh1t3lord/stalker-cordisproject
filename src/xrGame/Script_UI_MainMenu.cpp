@@ -25,7 +25,7 @@ Script_UI_MainMenu::Script_UI_MainMenu(void) : inherited(), m_boxmode(false), m_
     this->AddCallback("btn_stalker", BUTTON_CLICKED, OnButton_new_stalker_game);
     this->AddCallback("btn_veteran", BUTTON_CLICKED, OnButton_new_veteran_game);
     this->AddCallback("btn_master", BUTTON_CLICKED, OnButton_new_master_game);
-    // xr_s.on_main_menu_on() Dobavit!!!!!
+    // Lord: xr_s.on_main_menu_on() Dobavit!!!!! 
 }
 
 Script_UI_MainMenu::~Script_UI_MainMenu(void) {}

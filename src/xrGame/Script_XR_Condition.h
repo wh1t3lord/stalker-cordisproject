@@ -1779,7 +1779,8 @@ inline bool check_smart_alarm_status_server(
 
     if (!smart_control)
     {
-        R_ASSERT2(false, "Cannot calculate 'check_smart_alarm_status' for smart %s", smart_name.c_str());
+        Msg("[Scripts/XR_CONDITION/check_smart_alarm_status_server(server_actor, server_npc, buffer)] ERROR: Cannot calculate 'check_smart_alarm_status' for smart %s", smart_name.c_str());
+        R_ASSERT(false);
         return false;
     }
 

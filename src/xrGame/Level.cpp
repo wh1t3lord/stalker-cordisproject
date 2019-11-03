@@ -149,8 +149,9 @@ CLevel::~CLevel()
     xr_delete(levelGraphDebugRender);
     xr_delete(m_debug_renderer);
 #endif
+/* Lord: удалить
     if (!GEnv.isDedicatedServer)
-        GEnv.ScriptEngine->remove_script_process(ScriptProcessor::Level);
+        GEnv.ScriptEngine->remove_script_process(ScriptProcessor::Level);*/
     xr_delete(game);
     xr_delete(game_events);
     xr_delete(m_pBulletManager);

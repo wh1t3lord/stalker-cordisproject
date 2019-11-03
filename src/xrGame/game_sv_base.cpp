@@ -647,8 +647,9 @@ game_sv_GameState::game_sv_GameState()
 
 game_sv_GameState::~game_sv_GameState()
 {
+/* Lord: удалить
     if (!GEnv.isDedicatedServer)
-        GEnv.ScriptEngine->remove_script_process(ScriptProcessor::Game);
+        GEnv.ScriptEngine->remove_script_process(ScriptProcessor::Game);*/
     xr_delete(m_event_queue);
 
     SaveMapList();
