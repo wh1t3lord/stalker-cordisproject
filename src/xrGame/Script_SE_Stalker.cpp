@@ -6,8 +6,10 @@ namespace Cordis
 {
 namespace Scripts
 {
-Script_SE_Stalker::Script_SE_Stalker(LPCSTR section_name) : inherited(section_name) 
-{ Msg("[Scripts/Script_SE_Stalker/ctor(section_name)] %s", section_name); }
+Script_SE_Stalker::Script_SE_Stalker(LPCSTR section_name) : inherited(section_name)
+{
+    Msg("[Scripts/Script_SE_Stalker/ctor(section_name)] %s", section_name);
+}
 
 Script_SE_Stalker::~Script_SE_Stalker(void) {}
 
@@ -30,6 +32,10 @@ bool Script_SE_Stalker::can_switch_offline(void) const
 void Script_SE_Stalker::STATE_Write(NET_Packet& packet)
 {
     inherited::STATE_Write(packet);
+    if (DataBase::Storage::getInstance().getOfflineObjects().find(this->ID) ==
+        DataBase::Storage::getInstance().getOfflineObjects().end())
+        DataBase::Storage::getInstance().setOfflineObjects(this->ID, 0, "");
+
     if (this->m_bOnline)
     {
         if (Globals::Game::level::get_object_by_id(this->ID) &&
@@ -39,17 +45,13 @@ void Script_SE_Stalker::STATE_Write(NET_Packet& packet)
     }
     else
     {
-        if (DataBase::Storage::getInstance().getOfflineObjects().find(this->ID) !=
-            DataBase::Storage::getInstance().getOfflineObjects().end())
-                packet.w_stringZ(
-                    std::to_string((DataBase::Storage::getInstance().getOfflineObjects().at(this->ID).first ?
-                                           DataBase::Storage::getInstance().getOfflineObjects().at(this->ID).first :
-                                           0))
-                        .c_str());
-        
+       packet.w_stringZ(DataBase::Storage::getInstance().getOfflineObjects().at(this->ID).first ?
+                    std::to_string(DataBase::Storage::getInstance().getOfflineObjects().at(this->ID).first).c_str() : "nil");
     }
-    if (DataBase::Storage::getInstance().getOfflineObjects().find(this->ID) != DataBase::Storage::getInstance().getOfflineObjects().end())
-        packet.w_stringZ(DataBase::Storage::getInstance().getOfflineObjects().at(this->ID).second.size() ? DataBase::Storage::getInstance().getOfflineObjects().at(this->ID).second.c_str() : "nil");
+
+    packet.w_stringZ(DataBase::Storage::getInstance().getOfflineObjects().at(this->ID).second.size() ?
+                DataBase::Storage::getInstance().getOfflineObjects().at(this->ID).second.c_str() :
+                "nil");
 
     packet.w_u8(this->m_is_dropped_death ? 1 : 0);
 }
@@ -60,14 +62,17 @@ void Script_SE_Stalker::STATE_Read(NET_Packet& packet, std::uint16_t size)
 
     if (this->m_script_version > 10)
     {
-        xr_string old_level_vertex_id_name = "";
+        xr_string old_level_vertex_id_name;
         packet.r_stringZ(old_level_vertex_id_name);
-        
-        packet.r_stringZ(shared_str(DataBase::Storage::getInstance().getOfflineObjects().at(this->ID).second.c_str()));
-        if (DataBase::Storage::getInstance().getOfflineObjects().at(this->ID).second == "nil")
-        {
-            DataBase::Storage::getInstance().setOfflineObjects(this->ID, "");
-        }
+
+            xr_string section_name = DataBase::Storage::getInstance().getOfflineObjects().at(this->ID).second.c_str();
+            packet.r_stringZ(section_name);
+
+            if (DataBase::Storage::getInstance().getOfflineObjects().at(this->ID).second == "nil")
+            {
+                DataBase::Storage::getInstance().setOfflineObjects(this->ID, "");
+            }
+
 
         if (old_level_vertex_id_name != "nil")
         {

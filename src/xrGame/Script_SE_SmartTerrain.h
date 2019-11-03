@@ -147,10 +147,7 @@ public:
     inline void refresh(void) { this->show(); }
 
 #pragma region Cordis Getters
-        inline xr_string getDefenceRestirctor(void) noexcept
-    {
-        return this->m_defence_restictor;
-    }
+    inline xr_string getDefenceRestirctor(void) noexcept { return this->m_defence_restictor; }
     inline xr_string getAttackRestrictor(void) noexcept { return this->m_attack_restrictor; }
     inline xr_string getSafeRestrictor(void) noexcept { return this->m_safe_restirctor; }
     inline Script_SmartTerrainControl* getBaseOnActorControl(void) noexcept { return this->m_base_on_actor_control; }
@@ -166,6 +163,8 @@ public:
     inline std::uint32_t getStaydSquadQuan(void) noexcept { return this->m_stayed_squad_quan; }
     inline xr_map<std::uint32_t, NpcInfo>& getNpcInfo(void) noexcept { return this->m_npc_info; }
     inline xr_map<std::uint32_t, JobDataSmartTerrain>& getJobData(void) noexcept { return this->m_job_data; }
+    inline CALifeSmartTerrainTask* getAlifeSmartTerrainTask(void) { return this->m_smart_alife_task.get();
+    }
 #pragma endregion
 
 #pragma region Cordis Setters
@@ -211,7 +210,6 @@ private:
     xr_string m_smart_showed_spot_name;
     xr_string m_simulation_type_name;
     xr_string m_player_name;
- 
 };
 } // namespace Scripts
 } // namespace Cordis

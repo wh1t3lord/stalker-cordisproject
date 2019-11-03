@@ -20,15 +20,21 @@ public:
     virtual bool IsSimulationAvailable(void);
 
     inline bool am_i_reached(void) { return Globals::Game::level::get_object_by_id(this->ID)->Alive(); }
-    inline CALifeSmartTerrainTask& get_alife_task(void)
+    inline CALifeSmartTerrainTask* getAlifeSmartTerrainTask(void)
     {
         Msg("[Scripts/Script_SE_Actor/get_alife_task()] Returning alife task for object [%d] game_vertex [%d] "
             "level_vertex [%d] position: %d,%d,%d",
             this->ID, this->m_tGraphID, this->m_tNodeID, this->Position().x, this->Position().y, this->Position().z);
-        return CALifeSmartTerrainTask(this->m_tNodeID, this->m_tGraphID);
+
+        if (!this->m_alife_smart_terrain_task.get())
+        {
+            this->m_alife_smart_terrain_task = std::make_unique<CALifeSmartTerrainTask>(this->m_tGraphID, this->m_tNodeID);
+        }
+
+        return this->m_alife_smart_terrain_task.get();
     }
 
-    inline float evaluate_priority(Script_SE_SimulationSquad* squad) 
+    inline float evaluate_priority(Script_SE_SimulationSquad* squad)
     {
         return Script_SimulationObjects::getInstance().evaluate_priority(this, squad);
     }
@@ -40,6 +46,7 @@ public:
 private:
     bool m_is_registered;
     bool m_is_start_position_filled;
+    std::unique_ptr<CALifeSmartTerrainTask> m_alife_smart_terrain_task;
 };
 
 } // namespace Scripts

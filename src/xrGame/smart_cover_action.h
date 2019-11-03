@@ -36,14 +36,15 @@ private:
     Fvector m_target_position;
 
 public:
-    action(luabind::adl::object const& description);
+    action(const xr_map<xr_string, xr_vector<xr_string>>& data);
     ~action();
     IC bool const& movement() const;
     IC Fvector const& target_position() const;
     IC Animations const& animations(shared_str const& cover_id, shared_str const& id) const;
 
+/*
 private:
-    void add_animation(LPCSTR animation_type, luabind::adl::object const& table);
+    void add_animation(LPCSTR animation_type, luabind::adl::object const& table);*/
 };
 
 } // namespace smart_cover

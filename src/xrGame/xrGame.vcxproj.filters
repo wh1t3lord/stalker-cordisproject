@@ -8336,9 +8336,6 @@
     <ClInclude Include="Script_SE_NewAttachableItem.h">
       <Filter>Cordis\Scripts\Server Entities</Filter>
     </ClInclude>
-    <ClInclude Include="Script_SE_Squad.h">
-      <Filter>Cordis\Scripts\Server Entities</Filter>
-    </ClInclude>
     <ClInclude Include="Script_SE_Stalker.h">
       <Filter>Cordis\Scripts\Server Entities</Filter>
     </ClInclude>
@@ -12568,9 +12565,6 @@
       <Filter>Cordis\Scripts\Server Entities</Filter>
     </ClCompile>
     <ClCompile Include="Script_SE_NewAttachableItem.cpp">
-      <Filter>Cordis\Scripts\Server Entities</Filter>
-    </ClCompile>
-    <ClCompile Include="Script_SE_Squad.cpp">
       <Filter>Cordis\Scripts\Server Entities</Filter>
     </ClCompile>
     <ClCompile Include="Script_SE_Stalker.cpp">

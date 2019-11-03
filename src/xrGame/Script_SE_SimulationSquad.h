@@ -57,10 +57,7 @@ public:
         this->m_squad_id = id;
     }
 
-    inline void setIdleTime(const float value) noexcept 
-    {
-        this->m_idle_time = value;
-    }
+    inline void setIdleTime(const float value) noexcept { this->m_idle_time = value; }
 
     inline bool update(const bool& value)
     {
@@ -118,7 +115,7 @@ public:
     virtual ~Script_SE_SimulationSquad(void);
 
     virtual Script_SE_SimulationSquad* cast_script_se_simulationsquad(void) { return this; }
-
+    virtual CALifeSmartTerrainTask* get_current_task(void);
 #pragma region Cordis Getters
     inline std::uint32_t getSmartTerrainID(void) noexcept { return this->m_smart_terrain_id; }
     inline std::uint32_t getCurrentSpotID(void) noexcept { return this->m_current_spot_id; }
@@ -132,6 +129,18 @@ public:
     {
         return this->m_player_id;
     } // Lord: сделать под simulationActivities in Script_SimulationBoard как айдишник на который ссылаться
+
+    inline CALifeSmartTerrainTask* getAlifeSmartTerrainTask(void)
+    {
+        if (!this->m_alife_smart_terrain_task.get())
+        {
+            this->m_alife_smart_terrain_task =
+                std::make_unique<CALifeSmartTerrainTask>(this->m_tGraphID, this->m_tNodeID);
+        }
+
+        return this->m_alife_smart_terrain_task.get();
+    }
+
 #pragma endregion
 
 #pragma region Cordis Setters
@@ -189,6 +198,7 @@ private:
     xr_string m_settings_id_name;
     xr_string m_last_target_name;
     xr_string m_spot_section_name;
+    std::unique_ptr<CALifeSmartTerrainTask> m_alife_smart_terrain_task;
     StayReachOnTarget m_current_action;
     Script_SoundManager m_sound_manager;
 };

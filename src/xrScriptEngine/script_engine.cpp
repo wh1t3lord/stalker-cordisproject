@@ -1271,8 +1271,9 @@ void CScriptEngine::add_no_file(LPCSTR file_name, u32 string_length)
 
 void CScriptEngine::collect_all_garbage()
 {
+/* Lord: удалить потом весь класс
     lua_gc(lua(), LUA_GCCOLLECT, 0);
-    lua_gc(lua(), LUA_GCCOLLECT, 0);
+    lua_gc(lua(), LUA_GCCOLLECT, 0);*/
 }
 
 void CScriptEngine::on_error(lua_State* state)

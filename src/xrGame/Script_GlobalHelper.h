@@ -252,7 +252,7 @@ private:
             combat_front_loophole_crouch_front_left_action.register_animation(
                 "idle", "loophole_crouch_front_left_idle_0");
 
-            combat_prone_loophole.register_action(combat_front_loophole_crouch_front_left_action);
+            combat_front_loophole_crouch_front_left.register_action(combat_front_loophole_crouch_front_left_action);
         } // 1
 
         {
@@ -261,7 +261,7 @@ private:
             combat_front_loophole_crouch_front_left_action.register_animation(
                 "idle", "loophole_crouch_front_left_look_idle_0");
 
-            combat_prone_loophole.register_action(combat_front_loophole_crouch_front_left_action);
+            combat_front_loophole_crouch_front_left.register_action(combat_front_loophole_crouch_front_left_action);
         } // 2
 
         {
@@ -274,7 +274,7 @@ private:
             combat_front_loophole_crouch_front_left_action.register_animation(
                 "shoot", "loophole_crouch_front_left_attack_shoot_1");
 
-            combat_prone_loophole.register_action(combat_front_loophole_crouch_front_left_action);
+            combat_front_loophole_crouch_front_left.register_action(combat_front_loophole_crouch_front_left_action);
         } // 3
 
         {
@@ -285,7 +285,7 @@ private:
             combat_front_loophole_crouch_front_left_action.register_animation(
                 "shoot", "loophole_crouch_front_left_attack_idle_0");
 
-            combat_prone_loophole.register_action(combat_front_loophole_crouch_front_left_action);
+            combat_front_loophole_crouch_front_left.register_action(combat_front_loophole_crouch_front_left_action);
         } // 4
 
         {
@@ -294,7 +294,7 @@ private:
             combat_front_loophole_crouch_front_left_action.register_animation(
                 "idle", "loophole_crouch_front_left_reload_0");
 
-            combat_prone_loophole.register_action(combat_front_loophole_crouch_front_left_action);
+            combat_front_loophole_crouch_front_left.register_action(combat_front_loophole_crouch_front_left_action);
         } // 5
 
         {

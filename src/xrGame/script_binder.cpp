@@ -58,7 +58,7 @@ void CScriptBinder::reinit()
 void CScriptBinder::reload(LPCSTR section)
 {
     VERIFY(!m_object);
-    Msg("[CScriptBinder/reload(section_name)] TO LORD IMPLEMENT BINDING FOR INSTANCES. Think about architectural stuff...");
+    Msg("[CScriptBinder/reload(section_name)] TO LORD IMPLEMENT BINDING FOR INSTANCES. %s", this->owner->Name());
 
     /*
     #ifndef DBG_DISABLE_SCRIPTS

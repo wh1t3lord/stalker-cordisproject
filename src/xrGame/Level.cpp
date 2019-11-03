@@ -540,8 +540,10 @@ void CLevel::OnFrame()
     g_pGamePersistent->Environment().m_paused = m_bEnvPaused;
 #endif
     g_pGamePersistent->Environment().SetGameTime(GetEnvironmentGameDayTimeSec(), game->GetEnvironmentGameTimeFactor());
-    if (!GEnv.isDedicatedServer)
-        GEnv.ScriptEngine->script_process(ScriptProcessor::Level)->update();
+    // Lord: нужно ли это интерпретировать?
+//    if (!GEnv.isDedicatedServer)
+//        GEnv.ScriptEngine->script_process(ScriptProcessor::Level)->update();
+
     m_ph_commander->update();
     m_ph_commander_scripts->UpdateDeferred();
     m_ph_commander_scripts->update();
@@ -561,13 +563,15 @@ void CLevel::OnFrame()
             m_level_sound_manager->Update();
     }
     // defer LUA-GC-STEP
+/*
     if (!GEnv.isDedicatedServer)
     {
         if (g_mt_config.test(mtLUA_GC))
             Device.seqParallel.push_back(fastdelegate::FastDelegate0<>(this, &CLevel::script_gc));
         else
             script_gc();
-    }
+    }*/
+
     if (pStatGraphR)
     {
         static float fRPC_Mult = 10.0f;

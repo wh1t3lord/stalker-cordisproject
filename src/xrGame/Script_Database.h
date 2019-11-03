@@ -899,8 +899,8 @@ public:
         if (!map.size())
         {
             Msg("[DataBase/Storage/setOfflineObjects(map)] WARNING: map.size() = 0! You are trying to set an empty "
-                "map! No assignment!");
-            return;
+                "map!");
+          //  return;
         }
 
         this->m_offline_objects = map;
@@ -912,8 +912,8 @@ public:
         {
             Msg("[DataBase/Storage/setOfflineObjects(pair)] WARNING: pair.first = std::uint16_t(-1)! You are trying to "
                 "set "
-                "an empty pair! No assignment!");
-            return;
+                "an empty pair!");
+         //   return;
         }
 
         this->m_offline_objects.insert(pair);
@@ -924,8 +924,8 @@ public:
         if (id == Globals::kUnsignedInt16Undefined)
         {
             Msg("[DataBase/Storage/setOfflineObjects(id, pair)] WARNING: id = std::uint16_t(-1)! You are trying to set "
-                "an undefined value! No assignment!");
-            return;
+                "an undefined value!");
+         //   return;
         }
 
         this->m_offline_objects[id] = pair;
@@ -937,8 +937,8 @@ public:
         if (id == Globals::kUnsignedInt16Undefined)
         {
             Msg("[DataBase/Storage/setOfflineObjects(id, _id, string)] WARNING: id = std::uint16_t(-1)! You are trying "
-                "to set an undefined value! No assignment!");
-            return;
+                "to set an undefined value!");
+        //    return;
         }
 
         this->m_offline_objects[id] = {_id, string};
@@ -949,8 +949,8 @@ public:
         if (id == Globals::kUnsignedInt16Undefined)
         {
             Msg("[DataBase/Storage/setOfflineObjects(id, _id, string)] WARNING: id = std::uint16_t(-1)! You are trying "
-                "to set an undefined value! No assignment!");
-            return;
+                "to set an undefined value!");
+          //  return;
         }
 
         this->m_offline_objects[id].first = _id;
@@ -961,8 +961,8 @@ public:
         if (id == Globals::kUnsignedInt16Undefined)
         {
             Msg("[DataBase/Storage/setOfflineObjects(id, _id, string)] WARNING: id = std::uint16_t(-1)! You are trying "
-                "to set an undefined value! No assignment!");
-            return;
+                "to set an undefined value!");
+          //  return;
         }
 
         this->m_offline_objects[id].second = string;
