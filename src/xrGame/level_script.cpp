@@ -231,7 +231,7 @@ void show_indicators()
 }
 
 void show_weapon(bool b) { psHUD_Flags.set(HUD_WEAPON_RT2, b); }
-bool is_level_present() { return (!!g_pGameLevel); }
+
 void add_call(const luabind::functor<bool>& condition, const luabind::functor<void>& action)
 {
     luabind::functor<bool> _condition = condition;
