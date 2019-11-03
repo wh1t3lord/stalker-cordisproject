@@ -3220,6 +3220,15 @@
     <Filter Include="Cordis\Scripts\Entities %28not server entities!%29\Smart Terrain control\Private">
       <UniqueIdentifier>{78778342-d48f-4af4-b221-4fe8fe66c7c8}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Cordis\Scripts\Managers\Dialog">
+      <UniqueIdentifier>{67593225-6fa7-486c-91e9-aff8ec1df183}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Managers\Dialog\Public">
+      <UniqueIdentifier>{fab4a698-a067-4d1c-948e-a6b22fca5043}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Managers\Dialog\Private">
+      <UniqueIdentifier>{54106664-3774-4d3a-a83c-e152c21b7706}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="mt_config.h">
@@ -8356,6 +8365,9 @@
     </ClInclude>
     <ClInclude Include="Script_Animpoint.h">
       <Filter>Cordis\Scripts\Entities %28not server entities!%29\Animpoint\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Script_DialogManager.h">
+      <Filter>Cordis\Scripts\Managers\Dialog\Public</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
