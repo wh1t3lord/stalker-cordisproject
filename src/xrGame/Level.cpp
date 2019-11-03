@@ -172,10 +172,16 @@ CLevel::~CLevel()
     // and I didn't find better place to put this code in
     // XXX nitrocaster: find better place for this clean()
     CTradeParameters::clean();
+
+    if (Cordis::Scripts::Script_GlobalHelper::getInstance().getGlobalTutorial())
+        if (Cordis::Scripts::Script_GlobalHelper::getInstance().getGlobalTutorial()->m_pStoredInputReceiver == this)
+            Cordis::Scripts::Script_GlobalHelper::getInstance().getGlobalTutorial()->m_pStoredInputReceiver = nullptr;
+
+        /*
     if (g_tutorial && g_tutorial->m_pStoredInputReceiver == this)
         g_tutorial->m_pStoredInputReceiver = nullptr;
     if (g_tutorial2 && g_tutorial2->m_pStoredInputReceiver == this)
-        g_tutorial2->m_pStoredInputReceiver = nullptr;
+        g_tutorial2->m_pStoredInputReceiver = nullptr;*/
     if (IsDemoPlay())
     {
         StopPlayDemo();

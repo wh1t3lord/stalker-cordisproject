@@ -223,11 +223,12 @@ void CPhraseDialog::load_shared(LPCSTR)
     if (NULL == phrase_list_node)
     {
         LPCSTR func = pXML->Read(dialog_node, "init_func", 0, "");
-
+        // Lord: [UI_CEF]
+/* Lord: переписать
         luabind::functor<void> lua_function;
         bool functor_exists = GEnv.ScriptEngine->functor(func, lua_function);
         THROW3(functor_exists, "Cannot find precondition", func);
-        lua_function(this);
+        lua_function(this);*/
         return;
     }
 

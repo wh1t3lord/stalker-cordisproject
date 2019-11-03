@@ -18,13 +18,13 @@ extern ENGINE_API BOOL bShowPauseString;
 
 void CallFunction(shared_str const& func)
 {
-/* Lord: интерпретировать, аргумент передаётся строка содержащая наименование функции (скриптовой) тобишь -> xr_effects.something_like_that
-    luabind::functor<void> functor_to_call;
-    bool functor_exists = GEnv.ScriptEngine->functor(func.c_str(), functor_to_call);
-    THROW3(functor_exists, "Cannot find script function described in tutorial item ", func.c_str());
-    if (functor_to_call.is_valid())
-        functor_to_call();*/
-    Msg("[UIGameTutorial.cpp/CallFunction(func_name)] WARNING: NOT IMPLEMENTED FUNCTIONS FOR UIGameTutorial.cpp for method CUISequenceItem::Stop. {%s}", func.c_str());
+    /* Lord: интерпретировать, аргумент передаётся строка содержащая наименование функции (скриптовой) тобишь ->
+       xr_effects.something_like_that luabind::functor<void> functor_to_call; bool functor_exists =
+       GEnv.ScriptEngine->functor(func.c_str(), functor_to_call); THROW3(functor_exists, "Cannot find script function
+       described in tutorial item ", func.c_str()); if (functor_to_call.is_valid()) functor_to_call();*/
+    Msg("[UIGameTutorial.cpp/CallFunction(func_name)] WARNING: NOT IMPLEMENTED FUNCTIONS FOR UIGameTutorial.cpp for "
+        "method CUISequenceItem::Stop. {%s}",
+        func.c_str());
 }
 
 void CallFunctions(xr_vector<shared_str>& v)
@@ -244,6 +244,13 @@ void CUISequencer::Destroy()
     if (!m_on_destroy_event.empty())
         m_on_destroy_event();
 
+    if (Cordis::Scripts::Script_GlobalHelper::getInstance().getGlobalTutorial() == this)
+    {
+        CUISequencer* instance = Cordis::Scripts::Script_GlobalHelper::getInstance().getGlobalTutorial();
+        xr_delete(instance);
+        Cordis::Scripts::Script_GlobalHelper::getInstance().setGlobalTutorial(nullptr);
+    }
+    /*
     if (g_tutorial == this)
     {
         g_tutorial = NULL;
@@ -251,7 +258,7 @@ void CUISequencer::Destroy()
     if (g_tutorial2 == this)
     {
         g_tutorial2 = NULL;
-    }
+    }*/
 }
 
 void CUISequencer::Stop()
