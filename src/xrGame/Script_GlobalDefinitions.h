@@ -4,6 +4,12 @@ namespace Cordis
 {
 namespace Scripts
 {
+namespace CRD_DialogManager
+{
+inline void init_start_dialogs(CPhraseDialog* dialog, const xr_string& dialog_type_name);
+inline void init_hello_dialogs(CPhraseDialog* dialog);
+}
+
 namespace XR_CONDITION
 {
 inline bool is_surge_started(void);
@@ -378,10 +384,11 @@ constexpr int kRelationKoeffNeutral = 0;
 constexpr int kRelationKoeffFriend = 1000;
 constexpr float kRelationDefaultSympathy = 0.1f;
 constexpr const char* kGeneratedIdForBadValue = "EmptyNameItWasEmptyValue";
-constexpr const char* kSystemLtxFileName = "system.ltx"; // For CScriptIniFile (Don't use Globals::get_system_ini()->fname() for initialization ctor of CScriptIniFile)
+constexpr const char* kSystemLtxFileName =
+    "system.ltx"; // For CScriptIniFile (Don't use Globals::get_system_ini()->fname() for initialization ctor of
+                  // CScriptIniFile)
 #pragma region Cordis Animpoint prediction functions
-    inline bool
-    predicate_const_true(std::uint16_t, bool);
+inline bool predicate_const_true(std::uint16_t, bool);
 inline bool predicate_animpoint_bread(std::uint16_t npc_id, bool);
 inline bool predicate_animpoint_kolbasa(std::uint16_t npc_id, bool);
 inline bool predicate_animpoint_vodka(std::uint16_t npc_id, bool);

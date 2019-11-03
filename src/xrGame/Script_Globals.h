@@ -30,6 +30,7 @@
 #include "Script_Animpoint.h"
 #include "Script_Database.h"
 #include "Script_SE_SimulationSquad.h"
+#include "PhraseDialog.h"
 
 namespace Cordis
 {
@@ -966,6 +967,7 @@ inline bool is_accessible_job(CSE_ALifeDynamicObject* server_object, const char*
 } // namespace Scripts
 } // namespace Cordis
 
+#include "Script_DialogManager.h"
 #include "Script_SimulationObjects.h"
 #include "Script_EntitySounds.h"
 #include "Script_SE_Actor.h"
