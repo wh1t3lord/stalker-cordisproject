@@ -7,7 +7,6 @@ namespace Cordis
 namespace Scripts
 {
 bool Script_UI_MainMenu::m_boxmode = false;
- 
 
 Script_UI_MainMenu::Script_UI_MainMenu(void) : inherited()
 {
@@ -42,7 +41,7 @@ Script_UI_MainMenu::Script_UI_MainMenu(void) : inherited()
     this->AddCallback("msg_box", MESSAGE_BOX_NO_CLICKED, OnMsgNo);
     this->AddCallback("msg_box", MESSAGE_BOX_QUIT_GAME_CLICKED, OnMessageQuitGame);
     this->AddCallback("msg_box", MESSAGE_BOX_QUIT_WIN_CLICKED, OnMessageQuitWin);
-    // Lord: xr_s.on_main_menu_on() Dobavit!!!!! 
+    // Lord: xr_s.on_main_menu_on() Dobavit!!!!!
 }
 
 Script_UI_MainMenu::~Script_UI_MainMenu(void) {}
@@ -51,6 +50,32 @@ void Script_UI_MainMenu::Show(bool value)
 {
     inherited::Show(value);
     this->m_shniaga->SetVisibleMagnifier(value);
+}
+
+bool Script_UI_MainMenu::OnKeyboardAction(int dik, EUIMessages keyboard_action)
+{
+    inherited::OnKeyboardAction(dik, keyboard_action);
+
+    if (keyboard_action == WINDOW_KEY_PRESSED)
+    {
+        if (dik == SDL_SCANCODE_ESCAPE)
+        {
+            if (Globals::Game::level::is_level_present())
+            {
+                if (DataBase::Storage::getInstance().getActor() &&
+                        DataBase::Storage::getInstance().getActor()->Alive() ||
+                    !IsGameTypeSingle())
+                {
+                    OnButton_return_to_game_clicked();
+                }
+            }
+        }
+
+        if (dik == SDL_SCANCODE_Q)
+            OnMessageQuitWin();
+    }
+
+    return true;
 }
 
 void Script_UI_MainMenu::StartGame(void)
@@ -65,7 +90,7 @@ void Script_UI_MainMenu::StartGame(void)
     Console->Execute("main_menu off");
 }
 
-void Script_UI_MainMenu::LoadLastSave(void) 
+void Script_UI_MainMenu::LoadLastSave(void)
 {
     Console->Execute("main_menu off");
     Console->Execute("load_last_save");

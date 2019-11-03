@@ -657,6 +657,7 @@ inline std::uint32_t time_global(void) noexcept { return Device.dwTimeGlobal; }
 
 namespace level
 {
+inline bool is_level_present(void) { return (!!g_pGameLevel); }
 inline u32 vertex_id(Fvector position) { return (ai().level_graph().vertex_id(position)); }
 inline Fvector vertex_position(u32 level_vertex_id);
 inline float rain_factor(void) { return (g_pGamePersistent->Environment().CurrentEnv->rain_density); }

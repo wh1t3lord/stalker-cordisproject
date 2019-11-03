@@ -17,7 +17,7 @@ public:
     virtual ~Script_UI_MainMenu(void);
 
     void Show(bool value);
-
+    virtual bool OnKeyboardAction(int dik, EUIMessages keyboard_action);
     inline bool getBoxMode(void) const noexcept { return this->m_boxmode; }
     inline void setBoxMode(bool value) noexcept { this->m_boxmode = value; }
     inline CUIMMShniaga* getShniaga(void) { return this->m_shniaga; }
