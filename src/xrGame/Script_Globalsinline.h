@@ -15,6 +15,27 @@ namespace Game
 {
 inline bool has_active_tutotial(void) { return (!!Script_GlobalHelper::getInstance().getGlobalTutorial()); }
 
+void start_tutorial(LPCSTR tutorial_name)
+{
+    if (!tutorial_name)
+    {
+        R_ASSERT2(false, "string can't be empty!!");
+    }
+
+    if (!Script_GlobalHelper::getInstance().getGlobalTutorial())
+    {
+        CUISequencer* instance = new CUISequencer();
+        Script_GlobalHelper::getInstance().setGlobalTutorial(instance);
+        Script_GlobalHelper::getInstance().getGlobalTutorial()->Start(tutorial_name);
+    }
+}
+
+void stop_tutorial(void) 
+{
+    if (Script_GlobalHelper::getInstance().getGlobalTutorial())
+        Script_GlobalHelper::getInstance().getGlobalTutorial()->Stop();
+}
+
 namespace level
 {
 inline Fvector vertex_position(u32 level_vertex_id) { return (ai().level_graph().vertex_position(level_vertex_id)); }

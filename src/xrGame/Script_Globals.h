@@ -541,6 +541,8 @@ inline bool is_npc_in_zone(CSE_ALifeDynamicObject* server_object, CScriptGameObj
 namespace Game
 {
 inline bool has_active_tutotial(void);
+inline void start_tutorial(LPCSTR tutorial_name);
+inline void stop_tutorial(void);
 inline LPCSTR translate_string(LPCSTR str) { return *StringTable().translate(str); }
 inline xrTime get_game_time(void) noexcept { return get_time_struct(); }
 inline const CGameGraph* get_game_graph() { return &GEnv.AISpace->game_graph(); }
@@ -623,7 +625,8 @@ inline xr_string get_squad_relation_to_actor_by_id(const std::uint16_t& squad_id
          it != squad->squad_members().end(); ++it)
     {
         CScriptGameObject* client_object = nullptr;
-        if (DataBase::Storage::getInstance().getStorage().find(it->first) != DataBase::Storage::getInstance().getStorage().end())
+        if (DataBase::Storage::getInstance().getStorage().find(it->first) !=
+            DataBase::Storage::getInstance().getStorage().end())
             client_object = DataBase::Storage::getInstance().getStorage().at(it->first).getClientObject();
 
         if (client_object && actor)

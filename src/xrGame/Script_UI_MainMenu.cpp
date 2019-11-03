@@ -6,14 +6,17 @@ namespace Cordis
 {
 namespace Scripts
 {
-Script_UI_MainMenu::Script_UI_MainMenu(void) : inherited(), m_boxmode(false), m_message_box()
+bool Script_UI_MainMenu::m_boxmode = false;
+ 
+
+Script_UI_MainMenu::Script_UI_MainMenu(void) : inherited()
 {
     this->SetWndRect(Frect().set(0, 0, 1024, 768));
     CScriptXmlInit xml = CScriptXmlInit();
     xml.ParseFile("ui_mm_main.xml");
     xml.InitStatic("background", this);
     this->m_shniaga = xml.InitMMShniaga("shniaga_wnd", this);
-    this->Register(&this->m_message_box, "msg_box");
+    this->Register(&getMessageBox(), "msg_box");
 
     CUIStatic* _version = xml.InitStatic("static_version", this);
     CMainMenu* mm = MainMenu();
@@ -25,6 +28,20 @@ Script_UI_MainMenu::Script_UI_MainMenu(void) : inherited(), m_boxmode(false), m_
     this->AddCallback("btn_stalker", BUTTON_CLICKED, OnButton_new_stalker_game);
     this->AddCallback("btn_veteran", BUTTON_CLICKED, OnButton_new_veteran_game);
     this->AddCallback("btn_master", BUTTON_CLICKED, OnButton_new_master_game);
+    this->AddCallback("btn_options", BUTTON_CLICKED, OnButton_options_clicked);
+    this->AddCallback("btn_load", BUTTON_CLICKED, OnButton_load_clicked);
+    this->AddCallback("btn_save", BUTTON_CLICKED, OnButton_save_clicked);
+    this->AddCallback("btn_quit", BUTTON_CLICKED, OnButton_quit_clicked);
+    this->AddCallback("btn_quit_to_mm", BUTTON_CLICKED, OnButton_disconnect_clicked);
+    this->AddCallback("btn_ret", BUTTON_CLICKED, OnButton_return_to_game_clicked);
+    this->AddCallback("btn_lastsave", BUTTON_CLICKED, OnButton_last_save_clicked);
+    this->AddCallback("btn_credits", BUTTON_CLICKED, OnButton_credits_clicked);
+    this->AddCallback("msg_box", MESSAGE_BOX_OK_CLICKED, OnMsgOk);
+    this->AddCallback("msg_box", MESSAGE_BOX_CANCEL_CLICKED, OnMsgCancel);
+    this->AddCallback("msg_box", MESSAGE_BOX_YES_CLICKED, OnMsgYes);
+    this->AddCallback("msg_box", MESSAGE_BOX_NO_CLICKED, OnMsgNo);
+    this->AddCallback("msg_box", MESSAGE_BOX_QUIT_GAME_CLICKED, OnMessageQuitGame);
+    this->AddCallback("msg_box", MESSAGE_BOX_QUIT_WIN_CLICKED, OnMessageQuitWin);
     // Lord: xr_s.on_main_menu_on() Dobavit!!!!! 
 }
 
@@ -46,6 +63,12 @@ void Script_UI_MainMenu::StartGame(void)
     Globals::set_device_paused(false);
     Console->Execute("start server(all/single/alife/new) client(localhost)");
     Console->Execute("main_menu off");
+}
+
+void Script_UI_MainMenu::LoadLastSave(void) 
+{
+    Console->Execute("main_menu off");
+    Console->Execute("load_last_save");
 }
 
 } // namespace Scripts
