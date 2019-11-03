@@ -12,6 +12,7 @@ namespace Cordis
 {
 namespace Scripts
 {
+    // Lord: удалить все '// return;'
 struct Script_GlobalHelper
 {
 private:
@@ -4019,8 +4020,8 @@ public:
         if (!map.size())
         {
             Msg("[Script_GlobalHelper/setMonsterClasses(map)] WARNING: map.size() = 0! You are trying to set an empty "
-                "map! No assignment!");
-            return;
+                "map!");
+         //   return;
         }
 
         this->m_monster_classes = map;
@@ -4031,8 +4032,8 @@ public:
         if (pair.first == Globals::kUnsignedInt32Undefined)
         {
             Msg("[Script_GlobalHelper/setMonsterClasses(pair)] WARNING: pair.first = std::uint32_t(-1)! Your value is "
-                "undefined! No assignment!");
-            return;
+                "undefined!");
+       //     return;
         }
 
         this->m_monster_classes.insert(pair);
@@ -4043,8 +4044,8 @@ public:
         if (monster_id == Globals::kUnsignedInt32Undefined)
         {
             Msg("[Script_GlobalHelper/setMonsterClasses(monster_id, value)] WARNING: monster_id = std::uint32_t(-1)! "
-                "Your value is undefined! No assignment!");
-            return;
+                "Your value is undefined!");
+       //     return;
         }
 
         this->m_monster_classes[monster_id] = value;
@@ -4057,8 +4058,8 @@ public:
         if (!map.size())
         {
             Msg("[Script_GlobalHelper/setStalkerClasses(map)] WARNING: map.size() = 0! You are trying to set an empty "
-                "map! No assignment!");
-            return;
+                "map!");
+         //   return;
         }
 
         this->m_stalker_classes = map;
@@ -4069,8 +4070,8 @@ public:
         if (pair.first == Globals::kUnsignedInt32Undefined)
         {
             Msg("[Script_GlobalHelper/setStalkerClasses(pair)] WARNING: pair.first = std::uint32_t(-1)! Your value is "
-                "undefined! No assignment!");
-            return;
+                "undefined!");
+          //  return;
         }
 
         this->m_stalker_classes.insert(pair);
@@ -4081,8 +4082,8 @@ public:
         if (stalker_id == Globals::kUnsignedInt32Undefined)
         {
             Msg("[Script_GlobalHelper/setStalkerClasses(stalker_id, value)] WARNING: stalker_id = std::uint32_t(-1)! "
-                "Your value is undefined! No assignment!");
-            return;
+                "Your value is undefined!");
+        //    return;
         }
 
         this->m_stalker_classes[stalker_id] = value;
@@ -4095,8 +4096,8 @@ public:
         if (!map.size())
         {
             Msg("[Script_GlobalHelper/setWeaponClasses(map)] WARNING: map.size() = 0! You are trying to set an empty "
-                "map! No assignment!");
-            return;
+                "map!");
+         //   return;
         }
 
         this->m_weapon_classes = map;
@@ -4107,8 +4108,8 @@ public:
         if (pair.first == Globals::kUnsignedInt32Undefined)
         {
             Msg("[Script_GlobalHelper/setWeaponClasses(pair)] WARNING: pair.first = std::uint32_t(-1)! You value is "
-                "undefined! No assignment!");
-            return;
+                "undefined!");
+           // return;
         }
 
         this->m_weapon_classes.insert(pair);
@@ -4119,8 +4120,8 @@ public:
         if (weapon_id == Globals::kUnsignedInt32Undefined)
         {
             Msg("[Script_GlobalHelper/setWeaponClasses(weapon_id, value)] WARNING: weapon_id = std::uint32_t(-1)! Your "
-                "value is undefined! No assignment!");
-            return;
+                "value is undefined!");
+        //    return;
         }
 
         this->m_weapon_classes[weapon_id] = value;
@@ -4136,8 +4137,8 @@ public:
         if (!map.size())
         {
             Msg("[Script_GlobalHelper/setArtefactClasses(map)] WARNING: map.size() = 0! You are trying to set an empty "
-                "map! No assignment!");
-            return;
+                "map!");
+         //   return;
         }
 
         this->m_artefact_classes = map;
@@ -4148,8 +4149,8 @@ public:
         if (pair.first == Globals::kUnsignedInt32Undefined)
         {
             Msg("[Script_GlobalHelper/setArtefactClasses(pair)] WARNING: pair.first == std::uint32_t(-1)! You are "
-                "trying to set an undefined value! No assignment!");
-            return;
+                "trying to set an undefined value!");
+          //  return;
         }
 
         this->m_artefact_classes.insert(pair);
@@ -4160,8 +4161,8 @@ public:
         if (artefact_id == Globals::kUnsignedInt32Undefined)
         {
             Msg("[Script_GlobalHelper/setArtefactClasses(artefact_id, value)] WARNING: artefact_id = "
-                "std::uint32_t(-1)! Your value is undefined! No assignment!");
-            return;
+                "std::uint32_t(-1)! Your value is undefined!");
+        //    return;
         }
 
         this->m_artefact_classes[artefact_id] = value;
@@ -4174,8 +4175,8 @@ public:
         if (!map.size())
         {
             Msg("[Script_GlobalHelper/setAmmoSection(map)] WARNING: map.size() = 0! You are trying to set an empty "
-                "map! No assignment!");
-            return;
+                "map!");
+         //   return;
         }
 
         this->m_ammo_section = map;
@@ -4186,8 +4187,8 @@ public:
         if (pair.first == Globals::kUnsignedInt32Undefined)
         {
             Msg("[Script_GlobalHelper/setAmmoSection(pair)] WARNING: pair.first = std::uint32_t(-1)! "
-                "Your value is undefined!!! No assignment!");
-            return;
+                "Your value is undefined!!!");
+          //  return;
         }
 
         this->m_ammo_section.insert(pair);
@@ -4198,8 +4199,8 @@ public:
         if (ammo_section == Globals::kUnsignedInt32Undefined)
         {
             Msg("[Script_GlobalHelper/setAmmoSection(ammo_section, value)] WARNING: ammo_section = std::uint32_t(-1)! "
-                "Your value is undefined!!! No assignment!");
-            return;
+                "Your value is undefined!!!");
+          //  return;
         }
 
         this->m_ammo_section[ammo_section] = value;
@@ -4212,8 +4213,8 @@ public:
         if (!map.size())
         {
             Msg("[Script_GlobalHelper/setQuestSection(map)] WARNING: map.size() = 0! You are trying to set an empty "
-                "map! No assignment!");
-            return;
+                "map!");
+           // return;
         }
 
         this->m_quest_section = map;
@@ -4224,8 +4225,8 @@ public:
         if (!pair.first.size())
         {
             Msg("[Script_GlobalHelper/setQuestSection] WARNING: pair.first.size() = 0! You are trying to set an "
-                "empty pair! No assignment!");
-            return;
+                "empty pair!");
+         //   return;
         }
 
         this->m_quest_section.insert(pair);
@@ -4236,8 +4237,8 @@ public:
         if (!section_name.size())
         {
             Msg("[Script_GlobalHelper/setQuestSection] WARNING: section_name.size() = 0! You are trying to set an "
-                "empty string! No assignment!");
-            return;
+                "empty string!");
+        //    return;
         }
 
         this->m_quest_section[section_name] = value;
@@ -4253,8 +4254,8 @@ public:
         if (!map.size())
         {
             Msg("[Script_GlobalHelper/setSquadCommunityByBehavior(map)] WARNING: map.size() = 0! You are trying to set "
-                "an empty map! No assignment!");
-            return;
+                "an empty map!");
+          //  return;
         }
 
         this->m_squad_community_by_behavior = map;
@@ -4265,8 +4266,8 @@ public:
         if (!pair.first.size())
         {
             Msg("[Script_GlobalHelper/setSquadCommunityByBehavior(pair)] WARNING: "
-                "pair.first.size() = 0! You are trying to set an empty pair! No assignment!");
-            return;
+                "pair.first.size() = 0! You are trying to set an empty pair!");
+          //  return;
         }
 
         this->m_squad_community_by_behavior.insert(pair);
@@ -4277,8 +4278,8 @@ public:
         if (!community_name.size())
         {
             Msg("[Script_GlobalHelper/setSquadCommunityByBehavior(community_name, behavior_name)] WARNING: "
-                "community_name.size() = 0! You are trying to set an empty string! No assignment!");
-            return;
+                "community_name.size() = 0! You are trying to set an empty string!");
+            //return;
         }
 
         this->m_squad_community_by_behavior[community_name] = behavior_name;
@@ -4294,8 +4295,8 @@ public:
         if (!map.size())
         {
             Msg("[Script_GlobalHelper/setRegisteredFunctionsXREffects(map)] WARNING: map.size() = 0! You are trying to "
-                "set an empty map! No assignment!");
-            return;
+                "set an empty map!");
+         //   return;
         }
 
         this->m_registered_functions_xr_effects = map;
@@ -4306,8 +4307,8 @@ public:
         if (!pair.first.size())
         {
             Msg("[Script_GlobalHelper/setRegisteredFunctionsXREffects(pair)] WARNING: "
-                "pair.first.size() = 0! You are trying to set an empty pair! No assignment!");
-            return;
+                "pair.first.size() = 0! You are trying to set an empty pair!");
+           // return;
         }
 
         this->m_registered_functions_xr_effects.insert(pair);
@@ -4318,8 +4319,8 @@ public:
         if (!function_name.size())
         {
             Msg("[Script_GlobalHelper/setRegisteredFunctionsXREffects(function_name, function)] WARNING: "
-                "function_name.size() = 0! You are trying to set an empty string! No assignment!");
-            return;
+                "function_name.size() = 0! You are trying to set an empty string!");
+           // return;
         }
 
         this->m_registered_functions_xr_effects[function_name] = function;
@@ -4335,8 +4336,8 @@ public:
         if (!map.size())
         {
             Msg("[Script_GlobalHelper/setRegisteredFunctionsXRCondition(map)] WARNING: map.size() = 0! You are trying "
-                "to set an empty map! No assignment!");
-            return;
+                "to set an empty map!");
+          //  return;
         }
 
         this->m_registered_functions_xr_conditions = map;
@@ -4347,8 +4348,8 @@ public:
         if (!pair.first.size())
         {
             Msg("[Script_GlobalHelper/setRegisteredFunctionsXRCondition(pair)] WARNING: "
-                "pair.first.size() = 0! You are trying to set an empty pair! No assignment!");
-            return;
+                "pair.first.size() = 0! You are trying to set an empty pair!");
+          //  return;
         }
 
         this->m_registered_functions_xr_conditions.insert(pair);
@@ -4359,8 +4360,8 @@ public:
         if (!function_name.size())
         {
             Msg("[Script_GlobalHelper/setRegisteredFunctionsXRCondition(function_name, function)] WARNING: "
-                "function_name.size() = 0! You are trying to set an empty string! No assignment!");
-            return;
+                "function_name.size() = 0! You are trying to set an empty string!");
+        //    return;
         }
 
         this->m_registered_functions_xr_conditions[function_name] = function;
@@ -4377,8 +4378,8 @@ public:
         if (!map.size())
         {
             Msg("[Script_GlobalHelper/setGameRegisteredServerSmartCovers(map)] WARNING: map.size() = 0! You are trying "
-                "to set an empty map! No assignment!");
-            return;
+                "to set an empty map!");
+          //  return;
         }
 
         this->m_game_registered_smartcovers = map;
@@ -4389,15 +4390,15 @@ public:
         if (!pair.first.size())
         {
             Msg("[Script_GlobalHelper/setGameRegisteredServerSmartCovers(name, server_smartcover)] WARNING: "
-                "pair.first.size() = 0! You are trying to set an empty string! No assignment!");
-            return;
+                "pair.first.size() = 0! You are trying to set an empty string!");
+          //  return;
         }
 
         if (!pair.second)
         {
             Msg("[Script_GlobalHelper/setGameRegisteredServerSmartCovers(name, server_smartcover)] WARNING: "
-                "pair.second = null! You are trying to set an empty object! No assignment!");
-            return;
+                "pair.second = null! You are trying to set an empty object!");
+        //    return;
         }
 
         this->m_game_registered_smartcovers.insert(pair);
@@ -4408,15 +4409,15 @@ public:
         if (!name.size())
         {
             Msg("[Script_GlobalHelper/setGameRegisteredServerSmartCovers(name, server_smartcover)] WARNING: "
-                "name.size() = 0! You are trying to set an empty string! No assignment!");
-            return;
+                "name.size() = 0! You are trying to set an empty string!");
+         //   return;
         }
 
         if (!server_smartcover)
         {
             Msg("[Script_GlobalHelper/setGameRegisteredServerSmartCovers(name, server_smartcover)] WARNING: "
-                "server_smartcover = null! You are trying to set an empty object! No assignment!");
-            return;
+                "server_smartcover = null! You are trying to set an empty object!");
+           // return;
         }
 
         this->m_game_registered_smartcovers[name] = server_smartcover;
@@ -4436,8 +4437,8 @@ public:
         if (!map.size())
         {
             Msg("[Script_GlobalHelper/setGameRegisteredServerSmartCoversByLevelID(map)] WARNING: map.size() = 0! You "
-                "are trying to set an empty map! No assignment!");
-            return;
+                "are trying to set an empty map!");
+          //  return;
         }
 
         this->m_game_registered_smartcovers_by_level_id = map;
@@ -4449,16 +4450,15 @@ public:
         if (level_id == Globals::kUnsignedInt8Undefined)
         {
             Msg("[Script_GlobalHelper/setGameRegisteredServerSmartCoversByLevelID(level_id, map)] "
-                "WARNING: level_id = std::uint8_t(-1)! You are trying to set an undefined number of unsigned int! No "
-                "assignment");
-            return;
+                "WARNING: level_id = std::uint8_t(-1)! You are trying to set an undefined number of unsigned int!");
+          //  return;
         }
 
         if (!map.size())
         {
             Msg("[Script_GlobalHelper/setGameRegisteredServerSmartCoversByLevelID(level_id, map)] WARNING: map.size() "
-                "= 0! You are trying to set an empty map! No assignment!");
-            return;
+                "= 0! You are trying to set an empty map!");
+          //  return;
         }
 
         this->m_game_registered_smartcovers_by_level_id[level_id] = map;
@@ -4470,25 +4470,22 @@ public:
         if (level_id == Globals::kUnsignedInt8Undefined)
         {
             Msg("[Script_GlobalHelper/setGameRegisteredServerSmartCoversByLevelID(level_id, pair)] "
-                "WARNING: level_id = std::uint8_t(-1)! You are trying to set an undefined number of unsigned int! No "
-                "assignment");
-            return;
+                "WARNING: level_id = std::uint8_t(-1)! You are trying to set an undefined number of unsigned int!");
+          //  return;
         }
 
         if (pair.first == Globals::kUnsignedInt32Undefined)
         {
             Msg("[Script_GlobalHelper/setGameRegisteredServerSmartCoversByLevelID(level_id, pair)] "
-                "WARNING: pair.first = std::uint32_t(-1)! You are trying to set an undefined number of unsigned int! "
-                "No "
-                "assignment!");
-            return;
+                "WARNING: pair.first = std::uint32_t(-1)! You are trying to set an undefined number of unsigned int! ");
+         //   return;
         }
 
         if (!pair.second)
         {
             Msg("[Script_GlobalHelper/setGameRegisteredServerSmartCoversByLevelID(level_id, pair)] "
-                "WARNING: pair.second = null! You are trying to set an empty object! No assignment!");
-            return;
+                "WARNING: pair.second = null! You are trying to set an empty object!");
+          //  return;
         }
 
         this->m_game_registered_smartcovers_by_level_id[level_id].insert(pair);
@@ -4500,24 +4497,22 @@ public:
         if (level_id == Globals::kUnsignedInt8Undefined)
         {
             Msg("[Script_GlobalHelper/setGameRegisteredServerSmartCoversByLevelID(level_id, id, server_smartcover)] "
-                "WARNING: level_id = std::uint8_t(-1)! You are trying to set an undefined number of unsigned int! No "
-                "assignment");
-            return;
+                "WARNING: level_id = std::uint8_t(-1)! You are trying to set an undefined number of unsigned int!");
+          //  return;
         }
 
         if (id == Globals::kUnsignedInt32Undefined)
         {
             Msg("[Script_GlobalHelper/setGameRegisteredServerSmartCoversByLevelID(level_id, id, server_smartcover)] "
-                "WARNING: id = std::uint32_t(-1)! You are trying to set an undefined number of unsigned int! No "
-                "assignment!");
-            return;
+                "WARNING: id = std::uint32_t(-1)! You are trying to set an undefined number of unsigned int!");
+        //    return;
         }
 
         if (!server_smartcover)
         {
             Msg("[Script_GlobalHelper/setGameRegisteredServerSmartCoversByLevelID(level_id, id, server_smartcover)] "
-                "WARNING: server_smartcover = null! You are trying to set an empty object! No assignment!");
-            return;
+                "WARNING: server_smartcover = null! You are trying to set an empty object!");
+         //   return;
         }
 
         this->m_game_registered_smartcovers_by_level_id[level_id][id] = server_smartcover;
@@ -4534,8 +4529,8 @@ public:
         if (!map.size())
         {
             Msg("[Script_GlobalHelper/setRegisteredSmartCovers(map)] WARNING: map.size() = 0! You are trying to set an "
-                "empty map! No assignment!");
-            return;
+                "empty map!");
+       //     return;
         }
 
         this->m_registered_smartcovers = map;
@@ -4546,8 +4541,8 @@ public:
         if (!pair.first.size())
         {
             Msg("[Script_GlobalHelper/setRegisteredSmartCovers(smart_name, data)] WARNING: pair.first.size() = 0! You "
-                "are trying to set an empty string, No assignment!");
-            return;
+                "are trying to set an empty string,");
+         //   return;
         }
 
         this->m_registered_smartcovers.insert(pair);
@@ -4558,8 +4553,8 @@ public:
         if (!smart_name.size())
         {
             Msg("[Script_GlobalHelper/setRegisteredSmartCovers(smart_name, data)] WARNING: smart_name.size() = 0! You "
-                "are trying to set an empty string, No assignment");
-            return;
+                "are trying to set an empty string.");
+         //   return;
         }
 
         this->m_registered_smartcovers[smart_name] = data;
@@ -4575,8 +4570,8 @@ public:
         if (!map.size())
         {
             Msg("[Script_GlobalHelper/setGameRegisteredCombatSpaceRestrictors(space_name, client_zone)] WARNING: "
-                "map.size() = 0! You are trying to set an empty map! No assignment!");
-            return;
+                "map.size() = 0! You are trying to set an empty map!");
+        //    return;
         }
 
         this->m_game_registered_combat_spacerestrictors = map;
@@ -4587,15 +4582,15 @@ public:
         if (!pair.first.size())
         {
             Msg("[Script_GlobalHelper/setGameRegisteredCombatSpaceRestrictors(space_name, client_zone)] WARNING: "
-                "pair.first.size() = 0! You are trying to set an empty string! No assignemnt!");
-            return;
+                "pair.first.size() = 0! You are trying to set an empty string!");
+         //   return;
         }
 
         if (!pair.second)
         {
             Msg("[Script_GlobalHelper/setGameRegisteredCombatSpaceRestrictors(space_name, client_zone)] WARNING: "
-                "pair.second = null! You are trying to set an empty object! No assignment!");
-            return;
+                "pair.second = null! You are trying to set an empty object!");
+          //  return;
         }
 
         this->m_game_registered_combat_spacerestrictors.insert(pair);
@@ -4606,15 +4601,15 @@ public:
         if (!space_name.size())
         {
             Msg("[Script_GlobalHelper/setGameRegisteredCombatSpaceRestrictors(space_name, client_zone)] WARNING: "
-                "space_name.size() = 0! You are trying to set an empty string! No assignemnt!");
-            return;
+                "space_name.size() = 0! You are trying to set an empty string!");
+        //    return;
         }
 
         if (!client_zone)
         {
             Msg("[Script_GlobalHelper/setGameRegisteredCombatSpaceRestrictors(space_name, client_zone)] WARNING: "
-                "client_zone = null! You are trying to set an empty object! No assignment!");
-            return;
+                "client_zone = null! You are trying to set an empty object!");
+        //    return;
         }
 
         this->m_game_registered_combat_spacerestrictors[space_name] = client_zone;
@@ -4630,8 +4625,8 @@ public:
         if (!map.size())
         {
             Msg("[Script_GlobalHelper/setJobTypesByScheme(map)] WARNING: map.size() = 0! You are trying to set an "
-                "empty map! No assignment!");
-            return;
+                "empty map!");
+         //   return;
         }
 
         this->m_job_type_by_scheme = map;
@@ -4642,8 +4637,8 @@ public:
         if (!pair.first.size())
         {
             Msg("[Script_GlobalHelper/setJobTypesByScheme(type_name, scheme_name)] WARNING: pair.first.size() = 0! You "
-                "are trying to set an empty string, No assignment");
-            return;
+                "are trying to set an empty string");
+           // return;
         }
 
         this->m_job_type_by_scheme.insert(pair);
@@ -4654,8 +4649,8 @@ public:
         if (!type_name.size())
         {
             Msg("[Script_GlobalHelper/setJobTypesByScheme(type_name, scheme_name)] WARNING: type_name.size() = 0! You "
-                "are trying to set an empty string, No assignment!");
-            return;
+                "are trying to set an empty string,");
+         //   return;
         }
 
         this->m_job_type_by_scheme[type_name] = scheme_name;
@@ -4673,8 +4668,8 @@ public:
         if (!map.size())
         {
             Msg("[Script_GlobalHelper/setGameRegisteredServerSmartTerrainsByName(map)] WARNING: map.size() = 0! You "
-                "are trying to set an empty map! No assignment!");
-            return;
+                "are trying to set an empty map!");
+          //  return;
         }
 
         this->m_game_registered_server_smartterrains_by_name = map;
@@ -4685,15 +4680,15 @@ public:
         if (!pair.first.size())
         {
             Msg("[Script_GlobalHelper/setGameRegisteredServerSmartTerrainsByName(name, server_smart)] WARNING: "
-                "pair.first.size() = 0! You are trying to set an empty string! No assignment!");
-            return;
+                "pair.first.size() = 0! You are trying to set an empty string!");
+          //  return;
         }
 
         if (!pair.second)
         {
             Msg("[Script_GlobalHelper/setGameRegisteredServerSmartTerrainsByName(name, server_smart)] WARNING: "
-                "pair.second = null! You are trying to set an empty object! No assignment!");
-            return;
+                "pair.second = null! You are trying to set an empty object!");
+           // return;
         }
 
         this->m_game_registered_server_smartterrains_by_name.insert(pair);
@@ -4704,15 +4699,15 @@ public:
         if (!name.size())
         {
             Msg("[Script_GlobalHelper/setGameRegisteredServerSmartTerrainsByName(name, server_smart)] WARNING: "
-                "name.size() = 0! You are trying to set an empty string! No assignment!");
-            return;
+                "name.size() = 0! You are trying to set an empty string!");
+          //  return;
         }
 
         if (!server_smart)
         {
             Msg("[Script_GlobalHelper/setGameRegisteredServerSmartTerrainsByName(name, server_smart)] WARNING: "
-                "server_smart = null! You are trying to set an empty object! No assignment!");
-            return;
+                "server_smart = null! You are trying to set an empty object!");
+        //    return;
         }
 
         this->m_game_registered_server_smartterrains_by_name[name] = server_smart;
@@ -4758,8 +4753,8 @@ public:
         if (!map.size())
         {
             Msg("[Script_GlobalHelper/setGameSmartsByAssaultZones(map)] WARNING: map.size() = 0! You are trying to set "
-                "an empty map! No assignment!");
-            return;
+                "an empty map!");
+          //  return;
         }
 
         this->m_game_smarts_by_no_assault_zone = map;
@@ -4770,8 +4765,8 @@ public:
         if (!pair.first.size())
         {
             Msg("[Script_GlobalHelper/setGameSmartsByAssaultZones(pair)] WARNING: pair.first.size() = 0! You are "
-                "trying to set an empty string! No assignment!");
-            return;
+                "trying to set an empty string!");
+          //  return;
         }
 
         this->m_game_smarts_by_no_assault_zone.insert(pair);
@@ -4782,8 +4777,8 @@ public:
         if (!smart_name.size())
         {
             Msg("[Script_GlobalHelper/setGameSmartsByAssaultZones(smart_name, zone_name)] WARNING: smart_name.size() = "
-                "0! You are trying to set an empty string! No assignment!");
-            return;
+                "0! You are trying to set an empty string!");
+        //    return;
         }
 
         this->m_game_smarts_by_no_assault_zone[smart_name] = zone_name;
@@ -4796,9 +4791,8 @@ public:
     {
         if (!sequence)
         {
-            Msg("[Scripts/Script_GlobalHelper/setGlobalTutorial(sequence)] WARNING: sequence = nullptr! Can't assign! "
-                "Return");
-            return;
+            Msg("[Scripts/Script_GlobalHelper/setGlobalTutorial(sequence)] WARNING: sequence = nullptr!");
+          //  return;
         }
 
         this->m_tutorial = sequence;
@@ -4814,8 +4808,8 @@ public:
         if (!map.size())
         {
             Msg("[Script_GlobalHelper/setRegisteredSmartTerrainTerritoryType(map)] WARNING: map.size() = 0! You are "
-                "trying to set an empty map! No assignment!");
-            return;
+                "trying to set an empty map!");
+          //  return;
         }
 
         this->m_registered_smart_terrain_territory_type = map;
@@ -4826,8 +4820,8 @@ public:
         if (!pair.first.size())
         {
             Msg("[Script_GlobalHelper/setRegisteredSmartTerrainTerritoryType(pair)] WARNING: pair.first.size() = 0! "
-                "You are trying to set an empty pair! No assignment!");
-            return;
+                "You are trying to set an empty pair!");
+         //   return;
         }
 
         this->m_registered_smart_terrain_territory_type.insert(pair);
@@ -4838,8 +4832,8 @@ public:
         if (!name.size())
         {
             Msg("[Script_GlobalHelper/setRegisteredSmartTerrainTerritoryType(name, value)] WARNING: name.size() = 0! "
-                "You are trying to set an empty string! No assignment!");
-            return;
+                "You are trying to set an empty string!");
+        //    return;
         }
 
         this->m_registered_smart_terrain_territory_type[name] = value;
@@ -4855,8 +4849,8 @@ public:
         if (!vector.size())
         {
             Msg("[Script_GlobalHelper/setRegisteredSmartTerrainPathFields(vector)] WARNING: vector.size() = 0! You are "
-                "trying to set an empty vector! No assigment!");
-            return;
+                "trying to set an empty vector!");
+        //    return;
         }
 
         this->m_registered_smart_terrain_path_fields = vector;
@@ -4867,8 +4861,8 @@ public:
         if (!name.size())
         {
             Msg("[Script_GlobalHelper/setRegisteredSmartTerrainFields(name)] WARNING: name.size() = 0! You are trying "
-                "to set an empty string! No assigment!");
-            return;
+                "to set an empty string!");
+         //   return;
         }
 
         this->m_registered_smart_terrain_path_fields.push_back(name);
@@ -4884,8 +4878,8 @@ public:
         if (!map.size())
         {
             Msg("[Script_GlobalHelper/setSimulationBoardGroupIDLevelsByName(map)] WARNING: map.size() = 0! You are "
-                "trying to set an empty map! No assignment!");
-            return;
+                "trying to set an empty map!");
+         //   return;
         }
 
         this->m_simulationboard_group_id_by_levels_name = map;
@@ -4896,8 +4890,8 @@ public:
         if (!pair.first.size())
         {
             Msg("[Script_GlobalHelper/setSimulationBoardGroupIDLevelsByName(pair)] WARNING: pair.first.size() = 0! you "
-                "are trying to set an empty string! No assignment!");
-            return;
+                "are trying to set an empty string!");
+         //   return;
         }
 
         this->m_simulationboard_group_id_by_levels_name.insert(pair);
@@ -4908,8 +4902,8 @@ public:
         if (!name.size())
         {
             Msg("[Script_GlobalHelper/setSimulationBoardGropIDLevelsByName(name, id)] WARNING: name.size() = 0! you "
-                "are trying to set an empty string! No assignment!");
-            return;
+                "are trying to set an empty string!");
+        //    return;
         }
 
         this->m_simulationboard_group_id_by_levels_name[name] = id;
@@ -4925,8 +4919,8 @@ public:
         if (!map.size())
         {
             Msg("[Script_GlobalHelper/setSimulationSquadIsSquadMonster(map)] map.size() = 0! you are trying to set an "
-                "empty map! No assignment!");
-            return;
+                "empty map!");
+           // return;
         }
 
         this->m_simulationsquad_is_squad_monster_by_type = map;
@@ -4937,8 +4931,8 @@ public:
         if (!pair.first.size())
         {
             Msg("[Script_GlobalHelper/setSimulationSquadIsSquadMonster(pair)] WARNING: pair.first.size() = 0! you are "
-                "trying to set an empty string, No assignment");
-            return;
+                "trying to set an empty string");
+          //  return;
         }
 
         this->m_simulationsquad_is_squad_monster_by_type.insert(pair);
@@ -4949,8 +4943,8 @@ public:
         if (!name.size())
         {
             Msg("[Script_GlobalHelper/setSimulationSquadIsSquadMonster(name, value)] WARNING: name.size() = 0! you are "
-                "trying to set an empty value, No assignment");
-            return;
+                "trying to set an empty value");
+           // return;
         }
 
         this->m_simulationsquad_is_squad_monster_by_type[name] = value;
@@ -4968,8 +4962,8 @@ public:
         if (!map.size())
         {
             Msg("[Script_GlobalHelper/setRegisteredSmartTerrainControlScriptStates(map)] WARNING: map.size() = 0! you "
-                "are trying to set an empty map! No assignment!");
-            return;
+                "are trying to set an empty map!");
+         //   return;
         }
 
         this->m_registered_smart_terrain_control_script_states = map;
@@ -4981,8 +4975,8 @@ public:
         if (!pair.first.size())
         {
             Msg("[Script_GlobalHelper/setRegisteredSmartTerrainControlScriptStates(pair)] WARNING: pair.first is empty "
-                "string! You are trying to set an empty string, No assignment");
-            return;
+                "string! You are trying to set an empty string,");
+         //   return;
         }
 
         this->m_registered_smart_terrain_control_script_states.insert(pair);
@@ -4994,8 +4988,8 @@ public:
         if (!name.size())
         {
             Msg("[Script_GlobalHelper/setRegisteredSmartTerrainControlScriptStates(name, state)] WARNING: you are "
-                "trying to set an empty string, No assignment");
-            return;
+                "trying to set an empty string");
+        //    return;
         }
 
         this->m_registered_smart_terrain_control_script_states[name] = state;
@@ -5010,9 +5004,8 @@ public:
     {
         if (!map.size())
         {
-            Msg("[Script_GlobalHelper/setRegisteredEatableVisuals(map)] WARNING: you're set an empty map! No "
-                "assignment!");
-            return;
+            Msg("[Script_GlobalHelper/setRegisteredEatableVisuals(map)] WARNING: you're set an empty map!");
+          //  return;
         }
 
         this->m_registered_eatable_visuals = map;
@@ -5023,8 +5016,8 @@ public:
         if (!pair.first.size())
         {
             Msg("[Script_GlobalHelper/setRegisteredEatableVisuals(pair)] WARNING: you're trying to set an empty pair "
-                "to map! No assignment!");
-            return;
+                "to map!");
+        //    return;
         }
 
         this->m_registered_eatable_visuals.insert(pair);
@@ -5035,8 +5028,8 @@ public:
         if (!name.size())
         {
             Msg("[Script_GlobalHelper/setRegisteredEatableVisuals(name, is_used)] WARNING: name.size() = 0! (string is "
-                "null!) No assignment!");
-            return;
+                "null!)");
+         //   return;
         }
 
         this->m_registered_eatable_visuals[name] = is_used;
@@ -5064,8 +5057,8 @@ public:
         if (!pair.first.size())
         {
             Msg("[Script_GlobalHelper/setRegisteredHarmonicaVisuals(pair)] WARNING: pair.first.size() = 0! You are "
-                "trying to set an empty pair! No assignment!");
-            return;
+                "trying to set an empty pair!");
+          //  return;
         }
 
         this->m_registered_harmonica_visuals.insert(pair);
@@ -5076,8 +5069,8 @@ public:
         if (!visual_name.size())
         {
             Msg("[Script_GlobalHelper/setRegisteredHarmonicaVisuals(visual_name, value)] WARNING: visual_name.size() = "
-                "0! You are trying to set an empty string! No assignment!");
-            return;
+                "0! You are trying to set an empty string!");
+         //   return;
         }
 
         this->m_registered_harmonica_visuals[visual_name] = is_used;
@@ -5095,8 +5088,8 @@ public:
         if (!map.size())
         {
             Msg("[Script_GlobalHelper/setAnimpointTable(pair)] WARNING: "
-                "map.size() = 0! You are trying to set an empty string! No assignment!");
-            return;
+                "map.size() = 0! You are trying to set an empty string!");
+          //  return;
         }
 
         this->m_animpoint_table = map;
@@ -5107,9 +5100,8 @@ public:
     {
         if (!map.size())
         {
-            Msg("[DataBase/Storage/setStateLibrary(map)] WARNING: map.size() = 0! You are trying to set an empty map! "
-                "No assignment!");
-            return;
+            Msg("[DataBase/Storage/setStateLibrary(map)] WARNING: map.size() = 0! You are trying to set an empty map! ");
+        //    return;
         }
 
         this->m_state_library = map;
@@ -5120,8 +5112,8 @@ public:
         if (!pair.first.size())
         {
             Msg("[DataBase/Storage/setStateLibrary(pair)] WARNING: pair.first.size() = 0! You are trying to set an "
-                "empty pair! No assignment!");
-            return;
+                "empty pair!");
+        //    return;
         }
 
         this->m_state_library.insert(pair);
@@ -5132,8 +5124,8 @@ public:
         if (!animation_name.size())
         {
             Msg("[DataBase/Storage/setStateLibrary(animation_name, data)] WARNING: animation_name.size() = 0! You are "
-                "trying to set an empty string! No assignment!");
-            return;
+                "trying to set an empty string!");
+         //   return;
         }
 
         this->m_state_library[animation_name] = data;
@@ -5174,21 +5166,21 @@ public:
         {
             Msg("[Script_GlobalHelper/setAnimpointTable(animpoint_name, function, animpoint_animation_name)] WARNING: "
                 "animation_name.size() = 0! You are trying to set an empty string! No assignment!");
-            return;
+          //  return;
         }
 
         if (!pair.first)
         {
             Msg("[Script_GlobalHelper/setAnimpointTable(animpoint_name, function, animpoint_animation_name)] WARNING: "
-                "pair.first = null! You are trying to set an empty function! No assignment!");
-            return;
+                "pair.first = null! You are trying to set an empty function!");
+           // return;
         }
 
         if (!pair.second.size())
         {
             Msg("[Script_GlobalHelper/setAnimpointTable(animpoint_name, function, animpoint_animation_name)] WARNING: "
-                "pair.second.size() = 0! You are trying to set an empty string! No assignment!");
-            return;
+                "pair.second.size() = 0! You are trying to set an empty string!");
+         //   return;
         }
 
         this->m_animpoint_table[animpoint_name].push_back(pair);
@@ -5200,22 +5192,22 @@ public:
         if (!animpoint_name.size())
         {
             Msg("[Script_GlobalHelper/setAnimpointTable(animpoint_name, function, animpoint_animation_name)] WARNING: "
-                "animation_name.size() = 0! You are trying to set an empty string! No assignment!");
-            return;
+                "animation_name.size() = 0! You are trying to set an empty string!");
+          //  return;
         }
 
         if (!function)
         {
             Msg("[Script_GlobalHelper/setAnimpointTable(animpoint_name, function, animpoint_animation_name)] WARNING: "
-                "function = null! You are trying to set an empty function! No assignment!");
-            return;
+                "function = null! You are trying to set an empty function!");
+          //  return;
         }
 
         if (!animpoint_animation_name.size())
         {
             Msg("[Script_GlobalHelper/setAnimpointTable(animpoint_name, function, animpoint_animation_name)] WARNING: "
-                "animpoint_animation_name.size() = 0! You are trying to set an empty string! No assignment!");
-            return;
+                "animpoint_animation_name.size() = 0! You are trying to set an empty string!");
+           // return;
         }
 
         this->m_animpoint_table[animpoint_name].push_back({function, animpoint_animation_name});
