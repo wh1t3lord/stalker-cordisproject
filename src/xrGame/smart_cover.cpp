@@ -35,12 +35,13 @@ using smart_cover::description;
 using smart_cover::transform_vertex;
 
 cover::cover(smart_cover::object const& object, DescriptionPtr description, bool const is_combat_cover,
-    bool const can_fire, luabind::object const& loopholes_availability)
+    bool const can_fire/*, luabind::object const& loopholes_availability*/)
     : inherited(object.Position(), object.ai_location().level_vertex_id()), m_object(object),
       m_description(description), m_id(m_object.cName()), m_is_combat_cover(is_combat_cover), m_can_fire(can_fire)
 {
     m_is_smart_cover = 1;
 
+/* Lord: разобраться с этим блоком и переписать!!!
     if (loopholes_availability)
     {
         m_loopholes.reserve(m_description->loopholes().size());
@@ -61,12 +62,12 @@ cover::cover(smart_cover::object const& object, DescriptionPtr description, bool
         }
     }
     else
-    {
+    {*/
         m_loopholes.reserve(m_description->loopholes().size());
 
         for (const auto& it : m_description->loopholes())
             m_loopholes.push_back(it);
-    }
+/*    }*/
 
     CLevelGraph const& graph = ai().level_graph();
     m_vertices.resize(loopholes().size());

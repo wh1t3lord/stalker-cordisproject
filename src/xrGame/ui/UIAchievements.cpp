@@ -33,8 +33,10 @@ void CUIAchievements::Update()
     if (ParentHasMe() && !m_repeat)
         return;
 
+/*
+  Lord: наверное стоит интерпретировать
     luabind::functor<bool> f;
-    R_ASSERT(GEnv.ScriptEngine->functor(m_functor_str, f));
+    R_ASSERT(GEnv.ScriptEngine->functor(m_functor_str, f)); 
     if (f())
     {
         if (!ParentHasMe())
@@ -44,13 +46,13 @@ void CUIAchievements::Update()
         }
     }
     else
-    {
+    {*/
         if (ParentHasMe())
         {
             m_parent->RemoveWindow(this);
             Show(false);
         }
-    }
+  //  }
 }
 bool CUIAchievements::ParentHasMe()
 {

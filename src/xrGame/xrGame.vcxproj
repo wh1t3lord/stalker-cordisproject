@@ -1539,7 +1539,6 @@ $(xrLibDir);$(xrSdkDir)DXSDK/Lib/$(PlatformShortName);
     <ClInclude Include="Script_SE_Restrictor.h" />
     <ClInclude Include="Script_SE_SmartCover.h" />
     <ClInclude Include="Script_SE_SmartTerrain.h" />
-    <ClInclude Include="Script_SE_Squad.h" />
     <ClInclude Include="Script_SE_Stalker.h" />
     <ClInclude Include="Script_SE_ZoneTorrid.h" />
     <ClInclude Include="Script_SE_Weapon.h" />
@@ -3634,7 +3633,6 @@ $(xrLibDir);$(xrSdkDir)DXSDK/Lib/$(PlatformShortName);
     <ClCompile Include="Script_SE_Restrictor.cpp" />
     <ClCompile Include="Script_SE_SmartCover.cpp" />
     <ClCompile Include="Script_SE_SmartTerrain.cpp" />
-    <ClCompile Include="Script_SE_Squad.cpp" />
     <ClCompile Include="Script_SE_Stalker.cpp" />
     <ClCompile Include="Script_SE_ZoneTorrid.cpp" />
     <ClCompile Include="Script_SE_Weapon.cpp" />

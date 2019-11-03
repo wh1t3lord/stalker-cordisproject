@@ -68,8 +68,8 @@ BOOL object::net_Spawn(CSE_Abstract* server_entity)
 
     if (ai().get_alife() && smart_cover->m_description.size())
         m_cover = ai().cover_manager().add_smart_cover(smart_cover->m_description.c_str(), *this,
-            smart_cover->m_is_combat_cover ? true : false, smart_cover->m_can_fire ? true : false,
-            smart_cover->m_available_loopholes);
+            smart_cover->m_is_combat_cover ? true : false, smart_cover->m_can_fire ? true : false/*,
+            smart_cover->m_available_loopholes*/);
     else
         m_cover = 0;
 

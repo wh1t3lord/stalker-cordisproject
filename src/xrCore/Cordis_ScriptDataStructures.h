@@ -15,8 +15,8 @@ struct CondlistData
         xr_string m_infopotion_name = "";
         xr_string m_params = "";
 
-        inline void clear(void) noexcept 
-        { 
+        inline void clear(void) noexcept
+        {
             this->m_required = false;
             this->m_expected = false;
             this->m_prob = 0;
@@ -72,7 +72,7 @@ struct SmartCoverLoopholeData
             this->m_animations[type_name].push_back(animation_name);
         }
 
-        inline const xr_map<xr_string, xr_vector<xr_string>>& getAnimations(void) noexcept
+        inline const xr_map<xr_string, xr_vector<xr_string>>& getAnimations(void) const noexcept
         {
             return this->m_animations;
         }
@@ -110,8 +110,10 @@ private:
 public:
     xr_string m_id = "";
 
-    void register_action(const SmartCoverActionsData& data) noexcept { this->m_actions.push_back(data); }
-    void register_transition(const SmartCoverTransitionsData& data) noexcept { this->m_transitions.push_back(data); }
+    inline void register_action(const SmartCoverActionsData& data) noexcept { this->m_actions.push_back(data); }
+    inline void register_transition(const SmartCoverTransitionsData& data) noexcept { this->m_transitions.push_back(data); }
+    inline const xr_vector<SmartCoverActionsData>& getActions(void) const noexcept { return this->m_actions; }
+    inline const xr_vector<SmartCoverTransitionsData>& getTransitions(void) const noexcept { return this->m_transitions; }
 };
 
 struct SmartCoverData

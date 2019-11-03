@@ -954,7 +954,7 @@ void CSE_ALifeCreatureAbstract::UPDATE_Read(NET_Packet& tNetPacket)
 
     tNetPacket.r_u32(timestamp);
     tNetPacket.r_u8(flags);
-    tNetPacket.r_vec3(o_Position);
+   // tNetPacket.r_vec3(o_Position);
     tNetPacket.r_float /*r_angle8*/ (o_model);
     tNetPacket.r_float /*r_angle8*/ (o_torso.yaw);
     tNetPacket.r_float /*r_angle8*/ (o_torso.pitch);
