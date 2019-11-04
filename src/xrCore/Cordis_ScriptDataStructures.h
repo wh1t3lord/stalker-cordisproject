@@ -4,6 +4,54 @@ namespace Cordis
 {
 namespace Scripts
 {
+class DialogData
+{
+public:
+    DialogData(void) = default;
+    ~DialogData(void) = default;
+
+    inline const xr_string& getName(void) const noexcept { return this->m_name; }
+    inline const xr_string& getWounded(void) const noexcept { return this->m_wounded_type; }
+    inline std::uint16_t getID(void) const noexcept { return this->m_id; }
+
+    inline void setName(const xr_string& name) noexcept
+    {
+        if (name.empty())
+        {
+            Msg("[Scripts/DialogData/setName(name)] WARNING: name.empty() == true! You are trying to set an empty "
+                "string");
+        }
+
+        this->m_name = name;
+    }
+
+    inline void setWounded(const xr_string& wounded_name) noexcept
+    {
+        if (wounded_name.empty())
+        {
+            Msg("[Scripts/DialogData/setWounded(wounded_name)] WARNING: wounded_name.empty() == true! You are trying "
+                "to set an empty string");
+        }
+
+        this->m_wounded_type = wounded_name;
+    }
+
+    inline void setID(const std::uint16_t id) noexcept
+    {
+        if (id == std::uint16_t(-1))
+        {
+            Msg("[Scripts/DialogData/setID(id)] WARNING: id == std::uint16_t(-1)! You are trying to set an undefined value"):
+        }
+
+        this->m_id = id;
+    }
+
+private:
+    std::uint16_t m_id;
+    xr_string m_name;
+    xr_string m_wounded_type;
+};
+
 struct CondlistData
 {
     struct CondlistValues
@@ -111,9 +159,15 @@ public:
     xr_string m_id = "";
 
     inline void register_action(const SmartCoverActionsData& data) noexcept { this->m_actions.push_back(data); }
-    inline void register_transition(const SmartCoverTransitionsData& data) noexcept { this->m_transitions.push_back(data); }
+    inline void register_transition(const SmartCoverTransitionsData& data) noexcept
+    {
+        this->m_transitions.push_back(data);
+    }
     inline const xr_vector<SmartCoverActionsData>& getActions(void) const noexcept { return this->m_actions; }
-    inline const xr_vector<SmartCoverTransitionsData>& getTransitions(void) const noexcept { return this->m_transitions; }
+    inline const xr_vector<SmartCoverTransitionsData>& getTransitions(void) const noexcept
+    {
+        return this->m_transitions;
+    }
 };
 
 struct SmartCoverData
