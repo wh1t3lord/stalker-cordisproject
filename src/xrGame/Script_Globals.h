@@ -966,8 +966,6 @@ inline bool is_accessible_job(CSE_ALifeDynamicObject* server_object, const char*
 } // namespace Globals
 } // namespace Scripts
 } // namespace Cordis
-
-#include "Script_DialogManager.h"
 #include "Script_SimulationObjects.h"
 #include "Script_EntitySounds.h"
 #include "Script_SE_Actor.h"

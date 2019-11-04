@@ -12,7 +12,12 @@ public:
 
     inline const xr_string& getName(void) const noexcept { return this->m_name; }
     inline const xr_string& getWounded(void) const noexcept { return this->m_wounded_type; }
-    inline std::uint16_t getID(void) const noexcept { return this->m_id; }
+    inline const xr_string& getNpcCommunityName(void) const noexcept { return this->m_npc_community_name; }
+    inline const xr_string& getLevelName(void) const noexcept { return this->m_level_name; }
+    inline const xr_string& getOnceStateName(void) const noexcept { return this->m_once_state_name; }
+    inline const xr_string& getSmartTerrainName(void) const noexcept { return this->m_smart_terrain_name; }
+    inline const xr_string& getActorCommunityName(void) const noexcept { return this->m_actor_community_name; }
+    inline std::uint32_t getID(void) const noexcept { return this->m_id; }
 
     inline void setName(const xr_string& name) noexcept
     {
@@ -24,7 +29,6 @@ public:
 
         this->m_name = name;
     }
-
     inline void setWounded(const xr_string& wounded_name) noexcept
     {
         if (wounded_name.empty())
@@ -35,20 +39,74 @@ public:
 
         this->m_wounded_type = wounded_name;
     }
-
-    inline void setID(const std::uint16_t id) noexcept
+    inline void setID(const std::uint32_t id) noexcept
     {
         if (id == std::uint16_t(-1))
         {
-            Msg("[Scripts/DialogData/setID(id)] WARNING: id == std::uint16_t(-1)! You are trying to set an undefined value"):
+            Msg("[Scripts/DialogData/setID(id)] WARNING: id == std::uint16_t(-1)! You are trying to set an undefined "
+                "value");
         }
 
         this->m_id = id;
     }
+    inline void setSmartTerrainName(const xr_string& smart_terrain_name) noexcept
+    {
+        if (smart_terrain_name.empty())
+        {
+            Msg("[Scripts/DialogData/setSmartTerrainName(smart_terrain_name)] WARNING: smart_terrain_name.empty() == "
+                "true! Empty string to assign");
+        }
+
+        this->m_smart_terrain_name = smart_terrain_name;
+    }
+    inline void setActorCommunityName(const xr_string& actor_community_name) noexcept
+    {
+        if (actor_community_name.empty())
+        {
+            Msg("[Scripts/DialogData/setActorCommunityName(actor_community_name)] WARNING: "
+                "actor_community_name.empty() == true! Empty string to assign");
+        }
+
+        this->m_actor_community_name = actor_community_name;
+    }
+    inline void setLevelName(const xr_string& level_name) noexcept
+    {
+        if (level_name.empty())
+        {
+            Msg("[Scripts/DialogData/setLevelName(level_name)] WARNING: level_name.empty() == true! Empty string to "
+                "assign");
+        }
+
+        this->m_level_name = level_name;
+    }
+    inline void setOnceStateName(const xr_string& once_name) noexcept
+    {
+        if (once_name.empty())
+        {
+            Msg("[Scripts/DialogData/setOnceStateName(once_name)] WARNING: once_name.empty() == true! Empty string to "
+                "assign");
+        }
+
+        this->m_once_state_name = once_name;
+    }
+    inline void setNpcCommunityName(const xr_string& community_name) noexcept
+    {
+        if (community_name.empty())
+        {
+            Msg("[Scripts/DialogData/setNpcCommunityName(community_name)] WARNING: community_name.empty() == true! Empty string to assign");
+        }
+
+        this->m_npc_community_name = community_name;
+    }
 
 private:
-    std::uint16_t m_id;
+    std::uint32_t m_id;
     xr_string m_name;
+    xr_string m_npc_community_name;
+    xr_string m_level_name;
+    xr_string m_actor_community_name;
+    xr_string m_once_state_name;
+    xr_string m_smart_terrain_name;
     xr_string m_wounded_type;
 };
 
