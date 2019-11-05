@@ -132,7 +132,7 @@ public:
 
     inline CALifeSmartTerrainTask* getAlifeSmartTerrainTask(void)
     { // Lord: проверить не изменяются ли this->m_tGraphID, this->m_tNodeID!!!
-        Msg("[Scripts/Script_SE_SimulationSquad/getAlifeSmartTerrainTask()] game_vertex_id -> [%d] | level_vertex_id -> [%d]", this->m_tGraphID, this->m_tNodeID);
+        Msg("[Scripts/Script_SE_SimulationSquad/getAlifeSmartTerrainTask()] game_vertex_id -> [%d] | level_vertex_id -> [%d], %s", this->m_tGraphID, this->m_tNodeID, this->name_replace());
         if (!this->m_alife_smart_terrain_task.get())
         {
             this->m_alife_smart_terrain_task =
