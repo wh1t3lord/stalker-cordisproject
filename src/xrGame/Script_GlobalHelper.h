@@ -4002,6 +4002,89 @@ private:
                 {
                     R_ASSERT2(false, "Not categoried section");
                 }
+
+                if (category_name != "default")
+                {
+                    DialogData data;
+                    data.setName(id);
+
+                    if (ini.line_exist(id, "npc_community"))
+                    {
+                        const char* result = ini.r_string(id, "npc_community");
+                        data.setNpcCommunities(Globals::Utils::parse_names(result));
+                    }
+                    else
+                    {
+                        data.setNpcCommunities(xr_vector<xr_string>{"not_set"});
+                    }
+
+                    if (ini.line_exist(id, "level"))
+                    {
+                        const char* result = ini.r_string(id, "level");
+                        data.setLevels(Globals::Utils::parse_names(result));
+                    }
+                    else
+                    {
+                        data.setLevels(xr_vector<xr_string>{"not_set"});
+                    }
+
+                    if (ini.line_exist(id, "actor_community"))
+                    {
+                        const char* result = ini.r_string(id, "actor_community");
+                        data.setActorCommunities(Globals::Utils::parse_names(result));
+                    }
+                    else
+                    {
+                        data.setActorCommunities(xr_vector<xr_string>{"not_set"});
+                    }
+
+                    if (ini.line_exist(id, "wounded"))
+                    {
+                        data.setWounded(ini.r_string(id, "wounded"));
+                    }
+                    else
+                    {
+                        data.setWounded(Globals::kStringFalse);
+                    }
+
+                    if (ini.line_exist(id, "once"))
+                    {
+                        data.setOnceStateName(ini.r_string(id, "once"));
+                    }
+                    else
+                    {
+                        data.setOnceStateName("always");
+                    }
+
+                    if (ini.line_exist(id, "info"))
+                    {
+                        if (strcmp(ini.r_string(id, "info"), "") != 0)
+                        {
+                            xr_map<std::uint32_t, CondlistData::CondlistValues> result;
+                            xr_string buffer = ini.r_string(id, "info");
+                            XR_LOGIC::parse_infopotions(result, buffer);
+                            if (!result.empty())
+                            {
+                                data.setInfo(result);
+                            }
+                            else
+                            {
+                                Msg("[Scripts/Script_GlobalHelper/ctor()] WARNING: can't parse infoportions!!!!!!");
+                            }
+                        }
+                    }
+
+                    if (category_name == "anomalies" || category_name == "place")
+                    {
+                        if (ini.line_exist(id, "smart"))
+                        {
+                            data.setSmartTerrainName(ini.r_string(id, "smart"));
+                        }
+                    }
+
+                    data.setID(CRD_DialogManager::generate_id());
+                    this->m_phrase_table[category_name][data.getID()] = data;
+                }
             }
         }
 #pragma endregion
@@ -5345,7 +5428,8 @@ public:
         return this->m_phrase_table;
     }
 
-    inline void setPhraseTable(const xr_string& phrase_category_name, const std::uint32_t id, const DialogData& data) noexcept
+    inline void setPhraseTable(
+        const xr_string& phrase_category_name, const std::uint32_t id, const DialogData& data) noexcept
     {
         if (phrase_category_name.empty())
         {
@@ -5358,19 +5442,19 @@ public:
         this->m_phrase_table[phrase_category_name][id] = data;
     }
 
-/*
-    inline void setPhraseTable(const std::pair<xr_string, std::pair<std::uint32_t, DialogData>>& pair) noexcept
-    {
-        if (pair.first.empty())
+    /*
+        inline void setPhraseTable(const std::pair<xr_string, std::pair<std::uint32_t, DialogData>>& pair) noexcept
         {
-            Msg("[Scripts/Script_GlobalHelper/setPhraseTable(pair)] WARNING: "
-                "pair.first.empty() == true! Can't assign "
-                "return...");
-            return;
-        }
+            if (pair.first.empty())
+            {
+                Msg("[Scripts/Script_GlobalHelper/setPhraseTable(pair)] WARNING: "
+                    "pair.first.empty() == true! Can't assign "
+                    "return...");
+                return;
+            }
 
-        this->m_phrase_table.insert(pair);
-    }*/
+            this->m_phrase_table.insert(pair);
+        }*/
 
     inline void setPhraseTable(const xr_map<xr_string, xr_map<std::uint32_t, DialogData>>& map) noexcept
     {

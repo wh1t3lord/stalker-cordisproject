@@ -4,11 +4,24 @@ namespace Cordis
 {
 namespace Scripts
 {
+namespace XR_LOGIC
+{
+inline void parse_infopotions(xr_map<std::uint32_t, CondlistData::CondlistValues>& data, xr_string& buffer);
+}
+
 namespace CRD_DialogManager
 {
+// @ Private
+// @ don't call it in other fields of code and that file!!!!!!!!!
+inline static std::uint32_t generate_id(void) noexcept
+{
+    static std::uint32_t id = 5;
+    return (++id);
+}
+
 inline void init_start_dialogs(CPhraseDialog* dialog, const xr_string& dialog_type_name);
 inline void init_hello_dialogs(CPhraseDialog* dialog);
-}
+} // namespace CRD_DialogManager
 
 namespace XR_CONDITION
 {
