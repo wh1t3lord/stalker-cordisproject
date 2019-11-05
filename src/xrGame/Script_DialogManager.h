@@ -8,14 +8,8 @@ namespace Scripts
 {
 namespace CRD_DialogManager
 {
-// @ Private
-// @ don't call it in other fields of code and that file!!!!!!!!!
-inline static std::uint32_t generate_id(void) noexcept
-{
-    static std::uint32_t id = 5;
-    return (++id);
-}
 
+// @ Private
 inline void init_start_dialogs(CPhraseDialog* p_dialog, const xr_string& dialog_type_name)
 {
     if (!p_dialog)
