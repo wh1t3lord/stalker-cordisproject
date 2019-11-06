@@ -2,11 +2,16 @@
 
 #include "object_factory.h"
 #include "Script_XR_Patrol.h"
-
+#include "Script_SmartTerrainControl.h"
+// @ PRIVATE PREPROCESSOR!
 #define _REGISTER_FULL_FUNCTION_XR_CONDITION(function_name, function)                                       \
     this->m_registered_functions_xr_conditions[#function_name "_client"] = function##_client;               \
     this->m_registered_functions_xr_conditions[#function_name "_client_server"] = function##_client_server; \
     this->m_registered_functions_xr_conditions[#function_name "_server"] = function##_server;
+
+// @ PRIVATE PREPROCESSOR!
+#define _REGISTER_FUNCTION_DIALOG_MANAGER(function_name, function) \
+    this->m_registered_functions_dialog_manager[#function_name] = function;
 
 namespace Cordis
 {
@@ -3994,8 +3999,8 @@ private:
                 {
                     category_name = ini.r_string(id, "category");
 
-                    if (category_name != "hello" || category_name != "anomalies" || category_name != "place" ||
-                        category_name != "job" || category_name != "information")
+                    if (!(category_name == "hello" || category_name == "anomalies" || category_name == "place" ||
+                            category_name == "job" || category_name == "information"))
                         category_name = "default";
                 }
                 else
@@ -4084,9 +4089,16 @@ private:
 
                     data.setID(CRD_DialogManager::generate_id());
                     this->m_phrase_table[category_name][data.getID()] = data;
+                    this->m_phrase_priority_table[category_name];
                 }
             }
         }
+
+#pragma region Cordis Registering Dialog Manager functions
+        {
+            _REGISTER_FUNCTION_DIALOG_MANAGER(init_hello_dialogs, CRD_DialogManager::init_hello_dialogs)
+        }
+#pragma endregion
 #pragma endregion
     }
 
@@ -5468,6 +5480,61 @@ public:
 
         this->m_phrase_table = map;
     }
+
+    inline xr_map<xr_string, AnyCallable<void>>& getRegisteredFunctionsDialogManager(void)
+    {
+        return this->m_registered_functions_dialog_manager;
+    }
+
+    inline xr_map<xr_string, AnyCallable<bool>>& getRegisteredFunctionsBoolDialogManager(void)
+    {
+        return this->m_registered_functions_bool_dialog_manager;
+    }
+
+    inline const xr_map<xr_string, xr_map<std::uint16_t, xr_map<std::uint32_t, int>>>& getPhrasePriorityTable(
+        void) const noexcept
+    {
+        return this->m_phrase_priority_table;
+    }
+
+    inline void setPhrasePriorityTable(
+        const xr_map<xr_string, xr_map<std::uint16_t, xr_map<std::uint32_t, int>>>& map) noexcept
+    {
+        if (map.empty())
+        {
+            Msg("[Scripts/Script_GlobalHelper/setPhrasePriorityTable(map)] WARNING: map.empty() == true! You are "
+                "trying to set an empty map");
+        }
+
+        this->m_phrase_priority_table = map;
+    }
+
+    inline void setPhrasePriorityTable(const xr_string& dialog_type_name, const std::uint16_t npc_id,
+        const std::uint32_t phrase_id, const int priority) noexcept
+    {
+        if (dialog_type_name.empty())
+        {
+            Msg("[Scripts/Script_GlobalHelper/setPhrasePriorityTable(dialog_type_name, npc_id, phrase_id, priority)] "
+                "WARNING: dialog_type_name.empty() == true! You are trying to set an empty string no assigment!");
+            return;
+        }
+
+        if (npc_id == Globals::kUnsignedInt16Undefined)
+        {
+            Msg("[Scripts/Script_GlobalHelper/setPhrasePriorityTable(dialog_type_name, npc_id, phrase_id, priority)] "
+                "WARNING: npc_id is "
+                "undefined! std::uint16_t(-1)!");
+        }
+
+        if (phrase_id == Globals::kUnsignedInt32Undefined)
+        {
+            Msg("[Scripts/Script_GlobalHelper/setPhrasePriorityTable(dialog_type_name, npc_id, phrase_id, priority)] "
+                "WARNING: phrase_id "
+                "is undefined! std::uint32_t(-1)!");
+        }
+
+        this->m_phrase_priority_table[dialog_type_name][npc_id][phrase_id] = priority;
+    }
 #pragma endregion
 
 private:
@@ -5485,7 +5552,10 @@ private:
     xr_map<xr_string, xr_vector<std::pair<std::function<bool(std::uint16_t, bool)>, xr_string>>> m_animpoint_table;
     xr_map<xr_string, AnyCallable<void>> m_registered_functions_xr_effects;
     xr_map<xr_string, AnyCallable<bool>> m_registered_functions_xr_conditions;
+    xr_map<xr_string, AnyCallable<void>> m_registered_functions_dialog_manager;
+    xr_map<xr_string, AnyCallable<bool>> m_registered_functions_bool_dialog_manager;
     xr_map<xr_string, xr_map<std::uint32_t, DialogData>> m_phrase_table;
+    xr_map<xr_string, xr_map<std::uint16_t, xr_map<std::uint32_t, int>>> m_phrase_priority_table;
     xr_map<xr_string, Script_SE_SmartCover*> m_game_registered_smartcovers;
     xr_map<std::uint8_t, xr_map<std::uint32_t, Script_SE_SmartCover*>> m_game_registered_smartcovers_by_level_id;
     xr_map<xr_string, StateLibData> m_state_library;
