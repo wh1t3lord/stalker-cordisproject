@@ -3067,15 +3067,6 @@
     <Filter Include="Render\Cordis\SDK\UI management\ToolBar\Private">
       <UniqueIdentifier>{7e941dd3-a036-450b-ad30-829111721354}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Cordis\Scripts\Binds">
-      <UniqueIdentifier>{aa2f3887-04ce-435c-8b08-e1734179fe12}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Cordis\Scripts\Binds\Public">
-      <UniqueIdentifier>{05410a32-ee57-4201-903a-3d946801103a}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Cordis\Scripts\Binds\Private">
-      <UniqueIdentifier>{47f7d278-3f3c-446a-96e0-80ef49eb97bf}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Cordis\Scripts\XR">
       <UniqueIdentifier>{c928f17c-0711-4796-8adb-58fa7e9ba272}</UniqueIdentifier>
     </Filter>
@@ -3228,6 +3219,90 @@
     </Filter>
     <Filter Include="Cordis\Scripts\Managers\Dialog\Private">
       <UniqueIdentifier>{54106664-3774-4d3a-a83c-e152c21b7706}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Binders">
+      <UniqueIdentifier>{aa2f3887-04ce-435c-8b08-e1734179fe12}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Binders\Actor">
+      <UniqueIdentifier>{11e7c4e7-6e1f-4274-83dc-f7d214d83866}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Binders\Actor\Public">
+      <UniqueIdentifier>{93d7557b-c3da-414a-abeb-2642358917fa}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Binders\Actor\Private">
+      <UniqueIdentifier>{329f0421-8a6e-4c39-a17c-7310fd4933d0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Binders\Stalker">
+      <UniqueIdentifier>{c963c59e-d689-4693-9f3d-ae032e473a79}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Binders\Stalker\Public">
+      <UniqueIdentifier>{341a87ae-7413-4fd0-a9d8-56a4893e481b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Binders\Stalker\Private">
+      <UniqueIdentifier>{16e6b9ff-12f8-40fe-a604-b2d340c4ddbf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Binders\Helicopter">
+      <UniqueIdentifier>{638d2e2a-33d2-4122-8cb4-ac8ec3d70201}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Binders\Helicopter\Private">
+      <UniqueIdentifier>{0912adb1-f402-4065-8def-a3e361f47ea0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Binders\Helicopter\Public">
+      <UniqueIdentifier>{fccda5f0-885d-44f6-b6e2-54fa52daaf70}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Binders\Anomalies">
+      <UniqueIdentifier>{d7ddb4bf-8e2e-4169-b70e-c6f13403680b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Binders\Anomalies\Private">
+      <UniqueIdentifier>{0127127e-7b6b-46e8-9bcb-bc797e40a3ee}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Binders\Anomalies\Public">
+      <UniqueIdentifier>{9c19faa1-f7d0-4d89-9a6b-c5f1ec0156b1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Binders\Physic object">
+      <UniqueIdentifier>{d6aee2e7-82e5-4034-a7cc-386bc7663f70}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Binders\Physic object\Private">
+      <UniqueIdentifier>{6af2e133-dfd7-4ad5-901b-72f728382818}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Binders\Physic object\Public">
+      <UniqueIdentifier>{91079cc6-8057-42e1-bbc4-91052e8b3e89}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Binders\Crow">
+      <UniqueIdentifier>{739c1b44-10ad-43d6-9ed0-305c6271ca8f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Binders\Crow\Private">
+      <UniqueIdentifier>{136e8d39-7f84-4c6b-8fd3-1141ec69038c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Binders\Crow\Public">
+      <UniqueIdentifier>{f3ea1c03-c3b4-4a34-ad9a-3fcc38c96efa}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Binders\Campfire">
+      <UniqueIdentifier>{82abb5da-c99c-4488-abcf-e7c5f14653ae}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Binders\Campfire\Private">
+      <UniqueIdentifier>{c1d9a457-27ed-404e-9e1b-a4db09f2c38d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Binders\Campfire\Public">
+      <UniqueIdentifier>{7be2aa4f-29a1-473e-bbd9-56b3aea280f2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Binders\Camp">
+      <UniqueIdentifier>{5fc05857-7ae8-49f2-9b1c-c8e4c0ffccc5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Binders\Camp\Private">
+      <UniqueIdentifier>{58a71938-5933-4b9a-b15e-7f7ddf5ff7b4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Binders\Camp\Public">
+      <UniqueIdentifier>{230a7350-210e-4abb-8021-5cb803b09c36}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Binders\Artefact">
+      <UniqueIdentifier>{2c00e238-b8c3-4751-a446-97962ac8d2f9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Binders\Artefact\Private">
+      <UniqueIdentifier>{7f6d3cbd-08be-4b1f-b904-0cd71966191b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Binders\Artefact\Public">
+      <UniqueIdentifier>{e10e3cec-e9a8-4277-b681-18a8a33d1c29}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -8369,6 +8444,31 @@
     <ClInclude Include="Script_DialogManager.h">
       <Filter>Cordis\Scripts\Managers\Dialog\Public</Filter>
     </ClInclude>
+    <ClInclude Include="Script_Binder_Actor.h">
+      <Filter>Cordis\Scripts\Binders\Actor\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Script_Binder_Stalker.h">
+      <Filter>Cordis\Scripts\Binders\Stalker\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Script_Binder_Helicopter.h">
+      <Filter>Cordis\Scripts\Binders\Helicopter\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Script_Binder_Anomaly.h">
+      <Filter>Cordis\Scripts\Binders\Anomalies\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Script_Binder_PhysicObject.h">
+      <Filter>Cordis\Scripts\Binders\Physic object\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Script_Binder_Crow.h">
+      <Filter>Cordis\Scripts\Binders\Crow\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Script_Binder_Campfire.h">
+      <Filter>Cordis\Scripts\Binders\Campfire\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Script_Binder_Camp.h">
+      <Filter>Cordis\Scripts\Binders\Camp\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Script_Binder_Artefact.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="damage_manager.cpp">
@@ -12597,6 +12697,31 @@
     <ClCompile Include="Script_Animpoint.cpp">
       <Filter>Cordis\Scripts\Entities %28not server entities!%29\Animpoint\Private</Filter>
     </ClCompile>
+    <ClCompile Include="Script_Binder_Actor.cpp">
+      <Filter>Cordis\Scripts\Binders\Actor\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Script_Binder_Stalker.cpp">
+      <Filter>Cordis\Scripts\Binders\Stalker\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Script_Binder_Helicopter.cpp">
+      <Filter>Cordis\Scripts\Binders\Helicopter\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Script_Binder_Anomaly.cpp">
+      <Filter>Cordis\Scripts\Binders\Anomalies\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Script_Binder_PhysicObject.cpp">
+      <Filter>Cordis\Scripts\Binders\Physic object\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Script_Binder_Crow.cpp">
+      <Filter>Cordis\Scripts\Binders\Crow\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Script_Binder_Campfire.cpp">
+      <Filter>Cordis\Scripts\Binders\Campfire\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Script_Binder_Camp.cpp">
+      <Filter>Cordis\Scripts\Binders\Camp\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Script_Binder_Artefact.cpp" />
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="ai\monsters\chimera\chimera_attack_state.h">

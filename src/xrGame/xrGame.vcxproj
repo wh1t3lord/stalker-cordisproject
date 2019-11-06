@@ -1479,9 +1479,18 @@ $(xrLibDir);$(xrSdkDir)DXSDK/Lib/$(PlatformShortName);
     <ClInclude Include="script_animation_action_inline.h" />
     <ClInclude Include="Script_Animpoint.h" />
     <ClInclude Include="script_binder.h" />
+    <ClInclude Include="Script_Binder_Actor.h" />
+    <ClInclude Include="Script_Binder_Anomaly.h" />
+    <ClInclude Include="Script_Binder_Artefact.h" />
+    <ClInclude Include="Script_Binder_Camp.h" />
+    <ClInclude Include="Script_Binder_Campfire.h" />
+    <ClInclude Include="Script_Binder_Crow.h" />
+    <ClInclude Include="Script_Binder_Helicopter.h" />
     <ClInclude Include="script_binder_inline.h" />
     <ClInclude Include="script_binder_object.h" />
     <ClInclude Include="script_binder_object_wrapper.h" />
+    <ClInclude Include="Script_Binder_PhysicObject.h" />
+    <ClInclude Include="Script_Binder_Stalker.h" />
     <ClInclude Include="script_bind_macroses.h" />
     <ClInclude Include="Script_Database.h" />
     <ClInclude Include="Script_DialogManager.h" />
@@ -3486,6 +3495,13 @@ $(xrLibDir);$(xrSdkDir)DXSDK/Lib/$(PlatformShortName);
       <PrecompiledHeaderFile>pch_script.h</PrecompiledHeaderFile>
       <PrecompiledHeaderOutputFile>$(IntDir)$(ProjectName)_script.pch</PrecompiledHeaderOutputFile>
     </ClCompile>
+    <ClCompile Include="Script_Binder_Actor.cpp" />
+    <ClCompile Include="Script_Binder_Anomaly.cpp" />
+    <ClCompile Include="Script_Binder_Artefact.cpp" />
+    <ClCompile Include="Script_Binder_Camp.cpp" />
+    <ClCompile Include="Script_Binder_Campfire.cpp" />
+    <ClCompile Include="Script_Binder_Crow.cpp" />
+    <ClCompile Include="Script_Binder_Helicopter.cpp" />
     <ClCompile Include="script_binder_object.cpp" />
     <ClCompile Include="script_binder_object_script.cpp">
       <PrecompiledHeaderFile>pch_script.h</PrecompiledHeaderFile>
@@ -3495,6 +3511,8 @@ $(xrLibDir);$(xrSdkDir)DXSDK/Lib/$(PlatformShortName);
       <PrecompiledHeaderFile>pch_script.h</PrecompiledHeaderFile>
       <PrecompiledHeaderOutputFile>$(IntDir)$(ProjectName)_script.pch</PrecompiledHeaderOutputFile>
     </ClCompile>
+    <ClCompile Include="Script_Binder_PhysicObject.cpp" />
+    <ClCompile Include="Script_Binder_Stalker.cpp" />
     <ClCompile Include="script_effector.cpp" />
     <ClCompile Include="script_effector_script.cpp">
       <PrecompiledHeaderFile>pch_script.h</PrecompiledHeaderFile>
