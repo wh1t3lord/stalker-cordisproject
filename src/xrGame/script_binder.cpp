@@ -60,6 +60,251 @@ void CScriptBinder::reload(LPCSTR section)
     VERIFY(!m_object);
     Msg("[CScriptBinder/reload(section_name)] TO LORD IMPLEMENT BINDING FOR INSTANCES. %s", this->owner->Name());
 
+    int owner_clsid = this->owner->clsid();
+
+    if (owner_clsid == Cordis::Scripts::Globals::get_script_clsid(CLSID_SE_ACTOR))
+    {
+        Msg("[CScriptBinder/reload(section_name)] %s binding actor the instance {%s}", section, this->owner->Name());
+    }
+    else if (owner_clsid == Cordis::Scripts::Globals::get_script_clsid(CLSID_SE_STALKER))
+    {
+        Msg("[CScriptBinder/reload(section_name)] %s binding stalker the instance {%s}", section, this->owner->Name());
+    }
+    else if (owner_clsid == Cordis::Scripts::Globals::get_script_clsid(CLSID_SE_AMMO))
+    {
+        Msg("[CScriptBinder/reload(section_name)] %s binding ammo the instance {%s}", section, this->owner->Name());
+    }
+    else if (owner_clsid == Cordis::Scripts::Globals::get_script_clsid(CLSID_SE_HELI))
+    {
+        Msg("[CScriptBinder/reload(section_name)] %s binding helicopter the instance {%s}", section, this->owner->Name());
+    }
+    else if (owner_clsid == Cordis::Scripts::Globals::get_script_clsid(CLSID_SE_ADVANCEDDETECTOR))
+    {
+    }
+    else if (owner_clsid == Cordis::Scripts::Globals::get_script_clsid(CLSID_SE_ELITEDETECTOR))
+    {
+    }
+    else if (owner_clsid == Cordis::Scripts::Globals::get_script_clsid(CLSID_SE_SCIENTIFICDETECTOR))
+    {
+    }
+    else if (owner_clsid == Cordis::Scripts::Globals::get_script_clsid(CLSID_SE_SIMPLEDETECTOR))
+    {
+    }
+    else if (owner_clsid == Cordis::Scripts::Globals::get_script_clsid(CLSID_SE_HELMET))
+    {
+    }
+    else if (owner_clsid == Cordis::Scripts::Globals::get_script_clsid(CLSID_SE_OUTFIT))
+    {
+    }
+    else if (owner_clsid == Cordis::Scripts::Globals::get_script_clsid(CLSID_SE_GRENADE_F1))
+    {
+    }
+    else if (owner_clsid == Cordis::Scripts::Globals::get_script_clsid(CLSID_SE_GRENADE_RGD))
+    {
+    }
+    else if (owner_clsid == Cordis::Scripts::Globals::get_script_clsid(CLSID_SE_LEVEL_CHANGER))
+    {
+    }
+    else if (owner_clsid == Cordis::Scripts::Globals::get_script_clsid(CLSID_UI_MAIN_MENU))
+    {
+    }
+    else if (owner_clsid == Cordis::Scripts::Globals::get_script_clsid(CLSID_SE_ONLINE_OFFLINE_GROUP))
+    {
+    }
+    else if (owner_clsid == Cordis::Scripts::Globals::get_script_clsid(CLSID_SE_DESTROYABLE_PHYSICS_OBJECT))
+    {
+    }
+    else if (owner_clsid == Cordis::Scripts::Globals::get_script_clsid(CLSID_SE_PHYSICS_OBJECT))
+    {
+    }
+    else if (owner_clsid == Cordis::Scripts::Globals::get_script_clsid(CLSID_SE_ARTEFACT))
+    {
+    }
+    else if (owner_clsid == Cordis::Scripts::Globals::get_script_clsid(CLSID_SE_SMART_TERRAIN))
+    {
+    }
+    else if (owner_clsid == Cordis::Scripts::Globals::get_script_clsid(CLSID_SE_SMART_COVER))
+    {
+    }
+    else if (owner_clsid == Cordis::Scripts::Globals::get_script_clsid(CLSID_SE_MONSTER_BLOODSUCKER))
+    {
+    }
+    else if (owner_clsid == Cordis::Scripts::Globals::get_script_clsid(CLSID_SE_MONSTER_BOAR))
+    {
+    }
+    else if (owner_clsid == Cordis::Scripts::Globals::get_script_clsid(CLSID_SE_MONSTER_BURER))
+    {
+    }
+    else if (owner_clsid == Cordis::Scripts::Globals::get_script_clsid(CLSID_SE_MONSTER_CAT))
+    {
+    }
+    else if (owner_clsid == Cordis::Scripts::Globals::get_script_clsid(CLSID_SE_MONSTER_CHIMERA))
+    {
+    }
+    else if (owner_clsid == Cordis::Scripts::Globals::get_script_clsid(CLSID_SE_MONSTER_CONTROLLER))
+    {
+    }
+    else if (owner_clsid == Cordis::Scripts::Globals::get_script_clsid(CLSID_SE_MONSTER_DOG_PSY_PHANTOM))
+    {
+    }
+    else if (owner_clsid == Cordis::Scripts::Globals::get_script_clsid(CLSID_SE_MONSTER_DOG_PSY))
+    {
+    }
+    else if (owner_clsid == Cordis::Scripts::Globals::get_script_clsid(CLSID_SE_MONSTER_DOG))
+    {
+    }
+    else if (owner_clsid == Cordis::Scripts::Globals::get_script_clsid(CLSID_SE_MONSTER_FLESH))
+    {
+    }
+    else if (owner_clsid == Cordis::Scripts::Globals::get_script_clsid(CLSID_SE_MONSTER_PSEUDO_GIGANT))
+    {
+    }
+    else if (owner_clsid == Cordis::Scripts::Globals::get_script_clsid(CLSID_SE_MONSTER_IZLOM))
+    {
+    }
+    else if (owner_clsid == Cordis::Scripts::Globals::get_script_clsid(CLSID_SE_MONSTER_POLTERGEIST))
+    {
+    }
+    else if (owner_clsid == Cordis::Scripts::Globals::get_script_clsid(CLSID_SE_MONSTER_DOG_PSEUDO))
+    {
+    }
+    else if (owner_clsid == Cordis::Scripts::Globals::get_script_clsid(CLSID_SE_MONSTER_SNORK))
+    {
+    }
+    else if (owner_clsid == Cordis::Scripts::Globals::get_script_clsid(CLSID_SE_MONSTER_TUSHKANO))
+    {
+    }
+    else if (owner_clsid == Cordis::Scripts::Globals::get_script_clsid(CLSID_SE_MONSTER_ZOMBI))
+    {
+    }
+    else if (owner_clsid == Cordis::Scripts::Globals::get_script_clsid(CLSID_SE_LAMP))
+    {
+    }
+    else if (owner_clsid == Cordis::Scripts::Globals::get_script_clsid(CLSID_SE_RESTRICTOR))
+    {
+    }
+    else if (owner_clsid == Cordis::Scripts::Globals::get_script_clsid(CLSID_SE_ANTIRAD))
+    {
+    }
+    else if (owner_clsid == Cordis::Scripts::Globals::get_script_clsid(CLSID_SE_BANDAGE))
+    {
+    }
+    else if (owner_clsid == Cordis::Scripts::Globals::get_script_clsid(CLSID_SE_BOTTLE))
+    {
+    }
+    else if (owner_clsid == Cordis::Scripts::Globals::get_script_clsid(CLSID_SE_EXPLOSION))
+    {
+    }
+    else if (owner_clsid == Cordis::Scripts::Globals::get_script_clsid(CLSID_SE_FOOD))
+    {
+    }
+    else if (owner_clsid == Cordis::Scripts::Globals::get_script_clsid(CLSID_SE_INVENTORY_BOX))
+    {
+    }
+    else if (owner_clsid == Cordis::Scripts::Globals::get_script_clsid(CLSID_SE_M209))
+    {
+    }
+    else if (owner_clsid == Cordis::Scripts::Globals::get_script_clsid(CLSID_SE_MEDKIT))
+    {
+    }
+    else if (owner_clsid == Cordis::Scripts::Globals::get_script_clsid(CLSID_SE_OG78B))
+    {
+    }
+    else if (owner_clsid == Cordis::Scripts::Globals::get_script_clsid(CLSID_SE_PDA))
+    {
+    }
+    else if (owner_clsid == Cordis::Scripts::Globals::get_script_clsid(CLSID_SE_VOG25))
+    {
+    }
+    else if (owner_clsid == Cordis::Scripts::Globals::get_script_clsid(CLSID_SE_TORCH))
+    {
+    }
+    else if (owner_clsid == Cordis::Scripts::Globals::get_script_clsid(CLSID_SE_WEAPON_AK74))
+    {
+    }
+    else if (owner_clsid == Cordis::Scripts::Globals::get_script_clsid(CLSID_SE_WEAPON_SHOTGUN_AUTOMATIC))
+    {
+    }
+    else if (owner_clsid == Cordis::Scripts::Globals::get_script_clsid(CLSID_SE_WEAPON_BINOCULAR))
+    {
+    }
+    else if (owner_clsid == Cordis::Scripts::Globals::get_script_clsid(CLSID_SE_WEAPON_BM16))
+    {
+    }
+    else if (owner_clsid == Cordis::Scripts::Globals::get_script_clsid(CLSID_SE_WEAPON_GRENADE_LAUNCHER))
+    {
+    }
+    else if (owner_clsid == Cordis::Scripts::Globals::get_script_clsid(CLSID_SE_WEAPON_GROZA))
+    {
+    }
+    else if (owner_clsid == Cordis::Scripts::Globals::get_script_clsid(CLSID_SE_WEAPON_HPSA))
+    {
+    }
+    else if (owner_clsid == Cordis::Scripts::Globals::get_script_clsid(CLSID_SE_WEAPON_KNIFE))
+    {
+    }
+    else if (owner_clsid == Cordis::Scripts::Globals::get_script_clsid(CLSID_SE_WEAPON_LR300))
+    {
+    }
+    else if (owner_clsid == Cordis::Scripts::Globals::get_script_clsid(CLSID_SE_WEAPON_PM))
+    {
+    }
+    else if (owner_clsid == Cordis::Scripts::Globals::get_script_clsid(CLSID_SE_WEAPON_RG6))
+    {
+    }
+    else if (owner_clsid == Cordis::Scripts::Globals::get_script_clsid(CLSID_SE_WEAPON_RPG7))
+    {
+    }
+    else if (owner_clsid == Cordis::Scripts::Globals::get_script_clsid(CLSID_SE_WEAPON_SCOPE))
+    {
+    }
+    else if (owner_clsid == Cordis::Scripts::Globals::get_script_clsid(CLSID_SE_WEAPON_SHOTGUN))
+    {
+    }
+    else if (owner_clsid == Cordis::Scripts::Globals::get_script_clsid(CLSID_SE_WEAPON_SILENCER))
+    {
+    }
+    else if (owner_clsid == Cordis::Scripts::Globals::get_script_clsid(CLSID_SE_WEAPON_SVD))
+    {
+    }
+    else if (owner_clsid == Cordis::Scripts::Globals::get_script_clsid(CLSID_SE_WEAPON_SVU))
+    {
+    }
+    else if (owner_clsid == Cordis::Scripts::Globals::get_script_clsid(CLSID_SE_WEAPON_USP45))
+    {
+    }
+    else if (owner_clsid == Cordis::Scripts::Globals::get_script_clsid(CLSID_SE_WEAPON_VAL))
+    {
+    }
+    else if (owner_clsid == Cordis::Scripts::Globals::get_script_clsid(CLSID_SE_WEAPON_VINTOREZ))
+    {
+    }
+    else if (owner_clsid == Cordis::Scripts::Globals::get_script_clsid(CLSID_SE_WEAPON_WALTHER))
+    {
+    }
+    else if (owner_clsid == Cordis::Scripts::Globals::get_script_clsid(CLSID_SE_ZONE_HAIRS))
+    {
+    }
+    else if (owner_clsid == Cordis::Scripts::Globals::get_script_clsid(CLSID_SE_ZONE_GALANT))
+    {
+    }
+    else if (owner_clsid == Cordis::Scripts::Globals::get_script_clsid(CLSID_SE_ZONE_MOSQUITOBALD))
+    {
+    }
+    else if (owner_clsid == Cordis::Scripts::Globals::get_script_clsid(CLSID_SE_ZONE_MINCE))
+    {
+    }
+    else if (owner_clsid == Cordis::Scripts::Globals::get_script_clsid(CLSID_SE_ZONE_RADIOACTIVE))
+    {
+    }
+    else if (owner_clsid == Cordis::Scripts::Globals::get_script_clsid(CLSID_SE_ZONE_TORRID))
+    {
+    }
+    else
+    {
+        Msg("[CScriptBinder/reload(section_name)] WARNING: YOU ARE NOT REGISTER (HANDLE) THE CLSID OF INSTANCE {name:%s | clsid: %d}. YOU MUST TO FIX IT...", section, this->owner->clsid());
+    }
+
     /*
     #ifndef DBG_DISABLE_SCRIPTS
 
@@ -104,18 +349,18 @@ BOOL CScriptBinder::net_Spawn(CSE_Abstract* DC)
 {
     CSE_Abstract* abstract = (CSE_Abstract*)DC;
     CSE_ALifeObject* object = smart_cast<CSE_ALifeObject*>(abstract);
-/*
-    if (object && m_object)
-    {
-        try
+    /*
+        if (object && m_object)
         {
-            return ((BOOL)m_object->net_Spawn(object));
-        }
-        catch (...)
-        {
-            clear();
-        }
-    }*/
+            try
+            {
+                return ((BOOL)m_object->net_Spawn(object));
+            }
+            catch (...)
+            {
+                clear();
+            }
+        }*/
 
     return (TRUE);
 }
