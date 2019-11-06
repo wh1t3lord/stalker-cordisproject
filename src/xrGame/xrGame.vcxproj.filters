@@ -3250,15 +3250,6 @@
     <Filter Include="Cordis\Scripts\Binders\Helicopter\Public">
       <UniqueIdentifier>{fccda5f0-885d-44f6-b6e2-54fa52daaf70}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Cordis\Scripts\Binders\Anomalies">
-      <UniqueIdentifier>{d7ddb4bf-8e2e-4169-b70e-c6f13403680b}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Cordis\Scripts\Binders\Anomalies\Private">
-      <UniqueIdentifier>{0127127e-7b6b-46e8-9bcb-bc797e40a3ee}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Cordis\Scripts\Binders\Anomalies\Public">
-      <UniqueIdentifier>{9c19faa1-f7d0-4d89-9a6b-c5f1ec0156b1}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Cordis\Scripts\Binders\Physic object">
       <UniqueIdentifier>{d6aee2e7-82e5-4034-a7cc-386bc7663f70}</UniqueIdentifier>
     </Filter>
@@ -3303,6 +3294,96 @@
     </Filter>
     <Filter Include="Cordis\Scripts\Binders\Artefact\Public">
       <UniqueIdentifier>{e10e3cec-e9a8-4277-b681-18a8a33d1c29}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Binders\Anomaly Field">
+      <UniqueIdentifier>{705f7395-9a3b-4192-b7fe-328b6b31c227}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Binders\Anomaly Zone">
+      <UniqueIdentifier>{d7ddb4bf-8e2e-4169-b70e-c6f13403680b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Binders\Anomaly Zone\Private">
+      <UniqueIdentifier>{0127127e-7b6b-46e8-9bcb-bc797e40a3ee}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Binders\Anomaly Zone\Public">
+      <UniqueIdentifier>{9c19faa1-f7d0-4d89-9a6b-c5f1ec0156b1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Binders\Anomaly Field\Private">
+      <UniqueIdentifier>{b52fad5a-dde7-428c-b354-0346b3db7314}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Binders\Anomaly Field\Public">
+      <UniqueIdentifier>{687ff6e1-6ca1-4713-b3d4-d1aa52bbb1a2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Binders\Door labx8">
+      <UniqueIdentifier>{32b1b6c9-e8c2-4431-8540-eec0b879c85d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Binders\Door labx8\Public">
+      <UniqueIdentifier>{e8519717-8eb5-44b9-8505-1e5272a27f88}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Binders\Door labx8\Private">
+      <UniqueIdentifier>{570f3079-f6ba-45e2-9470-c29b29fe8921}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Binders\Faction">
+      <UniqueIdentifier>{1231f348-dbd0-4d67-bd53-e1d23f9cd0e4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Binders\Faction\Private">
+      <UniqueIdentifier>{f5661948-c41c-4dfe-97f9-5903cac6d31f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Binders\Faction\Public">
+      <UniqueIdentifier>{daf892ce-63bf-4ca3-b3c9-471a3594a1f6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Binders\Level Changer">
+      <UniqueIdentifier>{4f2cb541-a6be-4f96-8213-1612c9b2d7ed}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Binders\Level Changer\Public">
+      <UniqueIdentifier>{c2e38db5-aaa9-40b6-9886-a314fd4b4425}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Binders\Level Changer\Private">
+      <UniqueIdentifier>{23619001-25ed-423c-8cc3-21fa0b3ca17b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Binders\Monster">
+      <UniqueIdentifier>{0666b521-9ffd-4310-9392-99e152e65a6a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Binders\Monster\Private">
+      <UniqueIdentifier>{4f1f898d-17fe-4080-89dc-ed750c0e44c0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Binders\Monster\Public">
+      <UniqueIdentifier>{68a8260a-c784-47a1-8e14-83757617bbf8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Binders\Signal light">
+      <UniqueIdentifier>{d6a5223c-19cf-4f5a-b078-30759490e8d9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Binders\Signal light\Public">
+      <UniqueIdentifier>{e0c2d602-9daf-4321-b02e-c34eeb86c662}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Binders\Signal light\Private">
+      <UniqueIdentifier>{e0ab6a62-8f27-454f-ba82-4ae24ea97e4f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Binders\Smart cover">
+      <UniqueIdentifier>{065edc39-60a0-4303-92f7-3fbf8540ca48}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Binders\Smart cover\Public">
+      <UniqueIdentifier>{0595212e-63aa-4ed9-b870-0d81cfca8e20}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Binders\Smart cover\Private">
+      <UniqueIdentifier>{1394c252-f86a-4319-acf3-9f605ffdbae1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Binders\Smart terrain">
+      <UniqueIdentifier>{04417795-cf6b-43f1-b853-8a037738669e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Binders\Smart terrain\Public">
+      <UniqueIdentifier>{67e36acd-8682-44cc-adbb-6558eecccf58}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Binders\Smart terrain\Private">
+      <UniqueIdentifier>{88a5b794-da31-4940-a028-d3daedc276ff}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Binders\Restrictor">
+      <UniqueIdentifier>{f1900a00-fb14-418c-809f-b53c185ca55c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Binders\Restrictor\Public">
+      <UniqueIdentifier>{352805b7-5e14-4a89-be93-0b67ba5f8e9e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Binders\Restrictor\Private">
+      <UniqueIdentifier>{69770f70-9f2f-4039-ae3d-034c3d2b0e1b}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -8453,9 +8534,6 @@
     <ClInclude Include="Script_Binder_Helicopter.h">
       <Filter>Cordis\Scripts\Binders\Helicopter\Public</Filter>
     </ClInclude>
-    <ClInclude Include="Script_Binder_Anomaly.h">
-      <Filter>Cordis\Scripts\Binders\Anomalies\Public</Filter>
-    </ClInclude>
     <ClInclude Include="Script_Binder_PhysicObject.h">
       <Filter>Cordis\Scripts\Binders\Physic object\Public</Filter>
     </ClInclude>
@@ -8468,7 +8546,37 @@
     <ClInclude Include="Script_Binder_Camp.h">
       <Filter>Cordis\Scripts\Binders\Camp\Public</Filter>
     </ClInclude>
-    <ClInclude Include="Script_Binder_Artefact.h" />
+    <ClInclude Include="Script_Binder_Artefact.h">
+      <Filter>Cordis\Scripts\Binders\Artefact\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Script_Binder_AnomalZone.h">
+      <Filter>Cordis\Scripts\Binders\Anomaly Zone\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Script_Binder_AnomalField.h">
+      <Filter>Cordis\Scripts\Binders\Anomaly Field\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Script_Binder_DoorLabx8.h">
+      <Filter>Cordis\Scripts\Binders\Door labx8\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Script_Binder_Faction.h">
+      <Filter>Cordis\Scripts\Binders\Faction\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Script_Binder_LevelChanger.h">
+      <Filter>Cordis\Scripts\Binders\Level Changer\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Script_Binder_Monster.h">
+      <Filter>Cordis\Scripts\Binders\Monster\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Script_Binder_SignalLight.h">
+      <Filter>Cordis\Scripts\Binders\Signal light\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Script_Binder_SmartCover.h">
+      <Filter>Cordis\Scripts\Binders\Smart cover\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Script_Binder_SmartTerrain.h">
+      <Filter>Cordis\Scripts\Binders\Smart terrain\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Script_Binder_Restrictor.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="damage_manager.cpp">
@@ -12706,9 +12814,6 @@
     <ClCompile Include="Script_Binder_Helicopter.cpp">
       <Filter>Cordis\Scripts\Binders\Helicopter\Private</Filter>
     </ClCompile>
-    <ClCompile Include="Script_Binder_Anomaly.cpp">
-      <Filter>Cordis\Scripts\Binders\Anomalies\Private</Filter>
-    </ClCompile>
     <ClCompile Include="Script_Binder_PhysicObject.cpp">
       <Filter>Cordis\Scripts\Binders\Physic object\Private</Filter>
     </ClCompile>
@@ -12721,7 +12826,37 @@
     <ClCompile Include="Script_Binder_Camp.cpp">
       <Filter>Cordis\Scripts\Binders\Camp\Private</Filter>
     </ClCompile>
-    <ClCompile Include="Script_Binder_Artefact.cpp" />
+    <ClCompile Include="Script_Binder_Artefact.cpp">
+      <Filter>Cordis\Scripts\Binders\Artefact\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Script_Binder_AnomalZone.cpp">
+      <Filter>Cordis\Scripts\Binders\Anomaly Zone\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Script_Binder_AnomalField.cpp">
+      <Filter>Cordis\Scripts\Binders\Anomaly Field\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Script_Binder_DoorLabx8.cpp">
+      <Filter>Cordis\Scripts\Binders\Door labx8\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Script_Binder_Faction.cpp">
+      <Filter>Cordis\Scripts\Binders\Faction\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Script_Binder_LevelChanger.cpp">
+      <Filter>Cordis\Scripts\Binders\Level Changer\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Script_Binder_Monster.cpp">
+      <Filter>Cordis\Scripts\Binders\Monster\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Script_Binder_SignalLight.cpp">
+      <Filter>Cordis\Scripts\Binders\Signal light\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Script_Binder_SmartCover.cpp">
+      <Filter>Cordis\Scripts\Binders\Smart cover\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Script_Binder_SmartTerrain.cpp">
+      <Filter>Cordis\Scripts\Binders\Smart terrain\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Script_Binder_Restrictor.cpp" />
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="ai\monsters\chimera\chimera_attack_state.h">
