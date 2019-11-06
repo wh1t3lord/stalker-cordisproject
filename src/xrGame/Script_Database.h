@@ -333,12 +333,17 @@ public:
     {
         if (!p_client_object)
         {
-            Msg("[DataBase/Storage_Data/setObjet(p_client_object)] WARNING: p_client_object = null! You are trying to "
-                "set an empty object! No assignment!");
-            return;
+            Msg("[Scripts/DataBase/Storage_Data/setClientObject(p_client_object)] 'deleting' object from database -> "
+                "%s",
+                this->m_p_client_object ? this->m_p_client_object->Name() :
+                                          "using undefined object, you must add to database at first!");
+            //    return;
         }
 
         this->m_p_client_object = p_client_object;
+
+        Msg("[Scripts/DataBase/Storage/setClientObject(p_client_object)] adding object to database -> %s",
+            p_client_object->Name());
     }
 
     inline const StorageAnimpoint_Data& getStorageAnimpoint(void) const noexcept { return this->m_storage_animpoint; }
@@ -900,7 +905,7 @@ public:
         {
             Msg("[DataBase/Storage/setOfflineObjects(map)] WARNING: map.size() = 0! You are trying to set an empty "
                 "map!");
-          //  return;
+            //  return;
         }
 
         this->m_offline_objects = map;
@@ -913,7 +918,7 @@ public:
             Msg("[DataBase/Storage/setOfflineObjects(pair)] WARNING: pair.first = std::uint16_t(-1)! You are trying to "
                 "set "
                 "an empty pair!");
-         //   return;
+            //   return;
         }
 
         this->m_offline_objects.insert(pair);
@@ -925,7 +930,7 @@ public:
         {
             Msg("[DataBase/Storage/setOfflineObjects(id, pair)] WARNING: id = std::uint16_t(-1)! You are trying to set "
                 "an undefined value!");
-         //   return;
+            //   return;
         }
 
         this->m_offline_objects[id] = pair;
@@ -938,7 +943,7 @@ public:
         {
             Msg("[DataBase/Storage/setOfflineObjects(id, _id, string)] WARNING: id = std::uint16_t(-1)! You are trying "
                 "to set an undefined value!");
-        //    return;
+            //    return;
         }
 
         this->m_offline_objects[id] = {_id, string};
@@ -950,7 +955,7 @@ public:
         {
             Msg("[DataBase/Storage/setOfflineObjects(id, _id, string)] WARNING: id = std::uint16_t(-1)! You are trying "
                 "to set an undefined value!");
-          //  return;
+            //  return;
         }
 
         this->m_offline_objects[id].first = _id;
@@ -962,7 +967,7 @@ public:
         {
             Msg("[DataBase/Storage/setOfflineObjects(id, _id, string)] WARNING: id = std::uint16_t(-1)! You are trying "
                 "to set an undefined value!");
-          //  return;
+            //  return;
         }
 
         this->m_offline_objects[id].second = string;
@@ -997,6 +1002,80 @@ public:
 #pragma endregion
 
 #pragma region Setters
+    inline void addObject(CScriptGameObject* object)
+    {
+        if (!object)
+        {
+            R_ASSERT2(false, "object is null!");
+            return;
+        }
+
+        this->m_storage[object->ID()].setClientObject(object);
+    }
+
+    inline void deleteObject(CScriptGameObject* object)
+    {
+        if (!object)
+        {
+            R_ASSERT2(false, "object is null!");
+            return;
+        }
+
+        this->m_storage[object->ID()].setClientObject(nullptr);
+    }
+
+    inline void addZone(CScriptGameObject* zone)
+    {
+        if (!zone)
+        {
+            R_ASSERT2(false, "object is null!");
+            return;
+        }
+
+        this->m_zone_by_name[zone->Name()] = zone;
+
+        Msg("[Scripts/DataBase/Storage/addZone(zone)] adding to database %s", zone->Name());
+    }
+
+    inline void deleteZone(CScriptGameObject* zone)
+    {
+        if (!zone)
+        {
+            R_ASSERT2(false, "object is null!");
+            return;
+        }
+
+        this->m_zone_by_name[zone->Name()] = nullptr;
+
+        Msg("[Scripts/DataBase/Storage/deleteZone(zone)] 'deleting' from database %s", zone->Name());
+    }
+
+    inline void addAnomaly(CScriptGameObject* anomaly)
+    {
+        if (!anomaly)
+        {
+            R_ASSERT2(false, "object is null!");
+            return;
+        }
+
+        this->m_anomaly_by_name[anomaly->Name()] = anomaly;
+
+        Msg("[Scripts/DataBase/Storage/addAnomaly(anomaly)] adding object to database %s", anomaly->Name());
+    }
+
+    inline void deleteAnomaly(CScriptGameObject* anomaly)
+    {
+        if (!anomaly)
+        {
+            R_ASSERT2(false, "object is null!");
+            return;
+        }
+
+        this->m_anomaly_by_name[anomaly->Name()] = nullptr;
+
+        Msg("[Scripts/DataBase/Storage/deleteAnomaly(anomaly)] 'deleting' object from database %s", anomaly->Name());
+    }
+
     inline void setActor(CScriptGameObject* object)
     {
         if (!object)
@@ -1006,6 +1085,16 @@ public:
         }
 
         this->m_actor = object;
+        this->addObject(object);
+        Msg("[Scripts/DataBase/Storage/setActor(object)] registering actor to database!");
+    }
+
+    inline void deleteActor(CScriptGameObject* object) 
+    { 
+        this->m_actor = nullptr;
+        this->deleteObject(object);
+
+        Msg("[Scripts/DataBase/Storage/deleteActor(object)] 'deleting' actor from database!");
     }
 
     inline void setPStorBool(const std::uint16_t& id, const xr_string& varname, const bool& value) noexcept

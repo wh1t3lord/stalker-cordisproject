@@ -8576,7 +8576,9 @@
     <ClInclude Include="Script_Binder_SmartTerrain.h">
       <Filter>Cordis\Scripts\Binders\Smart terrain\Public</Filter>
     </ClInclude>
-    <ClInclude Include="Script_Binder_Restrictor.h" />
+    <ClInclude Include="Script_Binder_Restrictor.h">
+      <Filter>Cordis\Scripts\Binders\Restrictor\Public</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="damage_manager.cpp">
@@ -12856,7 +12858,9 @@
     <ClCompile Include="Script_Binder_SmartTerrain.cpp">
       <Filter>Cordis\Scripts\Binders\Smart terrain\Private</Filter>
     </ClCompile>
-    <ClCompile Include="Script_Binder_Restrictor.cpp" />
+    <ClCompile Include="Script_Binder_Restrictor.cpp">
+      <Filter>Cordis\Scripts\Binders\Restrictor\Private</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="ai\monsters\chimera\chimera_attack_state.h">

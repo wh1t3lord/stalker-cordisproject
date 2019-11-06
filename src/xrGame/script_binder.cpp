@@ -64,7 +64,7 @@ void CScriptBinder::reload(LPCSTR section)
 
     if (owner_clsid == Cordis::Scripts::Globals::get_script_clsid(CLSID_SE_ACTOR))
     {
-        Msg("[CScriptBinder/reload(section_name)] %s binding actor the instance {%s}", section, this->owner->Name());
+        Msg("[CScriptBinder/reload(section_name)] binding %s the instance {%s}", section, this->owner->Name());
     }
     else if (owner_clsid == Cordis::Scripts::Globals::get_script_clsid(CLSID_SE_STALKER))
     {
