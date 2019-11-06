@@ -224,6 +224,21 @@ void CPhraseDialog::load_shared(LPCSTR)
     {
         LPCSTR func = pXML->Read(dialog_node, "init_func", 0, "");
         Msg("[CPhraseDialog/load_shared] function: %s", func);
+        xr_string parse_function_name = func;
+        parse_function_name = parse_function_name.substr(parse_function_name.find('.') + 1);
+        if (Cordis::Scripts::Script_GlobalHelper::getInstance().getRegisteredFunctionsDialogManager().find(
+                parse_function_name) !=
+            Cordis::Scripts::Script_GlobalHelper::getInstance().getRegisteredFunctionsDialogManager().end())
+        {
+            Cordis::Scripts::Script_GlobalHelper::getInstance()
+                .getRegisteredFunctionsDialogManager()[parse_function_name]
+                .
+                operator()<CPhraseDialog*>(this);
+        }
+        else
+        {
+            R_ASSERT2(false, "can't find registered function, check your Script_GlobalHelper!");
+        }
         // Lord: [UI_CEF]
         /* Lord: переписать
                 luabind::functor<void> lua_function;

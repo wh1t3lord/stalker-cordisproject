@@ -176,8 +176,9 @@ void CDialogScriptHelper::Action(
 
     for (u32 i = 0; i < Actions().size(); ++i)
     {
-        luabind::functor<void> lua_function;
+ //       luabind::functor<void> lua_function;
         THROW(*Actions()[i]);
+/*
         bool functor_exists = GEnv.ScriptEngine->functor(*Actions()[i], lua_function);
         THROW3(functor_exists, "Cannot find phrase dialog script function", *Actions()[i]);
         try
@@ -186,6 +187,6 @@ void CDialogScriptHelper::Action(
         }
         catch (...)
         {
-        }
+        }*/
     }
 }

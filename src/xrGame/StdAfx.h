@@ -347,6 +347,7 @@ enum
 #include "Script_Database.h"
 #include "Script_SE_SimulationSquad.h"
 #include "PhraseDialog.h"
+#include "Script_DialogManager.h"
 #include "Script_SimulationObjects.h"
 #include "Script_EntitySounds.h"
 #include "Script_SE_Actor.h"

@@ -8,7 +8,6 @@ namespace Scripts
 {
 namespace CRD_DialogManager
 {
-
 // @ Private
 inline void init_start_dialogs(CPhraseDialog* p_dialog, const xr_string& dialog_type_name)
 {
@@ -47,7 +46,8 @@ inline void init_start_dialogs(CPhraseDialog* p_dialog, const xr_string& dialog_
         xr_string("dialog_manager.fill_priority_").append(dialog_type_name).append("_table").c_str());
     bool is_ph = false;
 
-    for (const std::pair<std::uint32_t, DialogData>& pair : Script_GlobalHelper::getInstance().getPhraseTable().at(dialog_type_name))
+    for (const std::pair<std::uint32_t, DialogData>& pair :
+        Script_GlobalHelper::getInstance().getPhraseTable().at(dialog_type_name))
     {
         is_ph = true;
         const std::uint32_t& key = pair.first;
@@ -93,8 +93,21 @@ inline void init_start_dialogs(CPhraseDialog* p_dialog, const xr_string& dialog_
     if (!is_ph)
     {
         // Lord: что брать-то в итоге писать ибо там nil...
-        Msg("[Scripts/CRD_DialogManager/init_start_dialogs(p_dialog, dialog_type_name)] WARNING: !is_ph == true! DELETE THIS AFTER TESTING IS REALLY NEEDED CODE HERE!!!");
+        Msg("[Scripts/CRD_DialogManager/init_start_dialogs(p_dialog, dialog_type_name)] WARNING: !is_ph == true! "
+            "DELETE THIS AFTER TESTING IS REALLY NEEDED CODE HERE!!!");
     }
+}
+
+// @ PRIVATE
+inline void _fill_priority_table(
+    CScriptGameObject* npc, const xr_map<std::uint32_t, DialogData>& phrase_by_category_table, const xr_string& category_priority_table_name)
+{
+    const std::uint16_t& npc_id = npc->ID();
+}
+
+inline int _calculate_priority(const DialogData& data, CScriptGameObject* npc, const std::uint32_t phrase_id, const xr_string& category_name) 
+{
+
 }
 
 inline void init_hello_dialogs(CPhraseDialog* p_dialog)
@@ -106,6 +119,12 @@ inline void init_hello_dialogs(CPhraseDialog* p_dialog)
     }
 
     init_start_dialogs(p_dialog, "hello");
+}
+
+inline void fill_priority_hello_table(
+    CScriptGameObject* actor, CScriptGameObject* npc, const xr_string& dialog_name, const xr_string& phrase_id_name)
+{
+    _fill_priority_table(npc, Script_GlobalHelper::getInstance().getPhraseTable().at("hello"), "hello");
 }
 
 } // namespace CRD_DialogManager

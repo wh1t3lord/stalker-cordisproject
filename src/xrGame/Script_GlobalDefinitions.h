@@ -20,7 +20,7 @@ inline static std::uint32_t generate_id(void) noexcept
 }
 
 inline void init_start_dialogs(CPhraseDialog* dialog, const xr_string& dialog_type_name);
-inline void init_hello_dialogs(CPhraseDialog* dialog);
+inline void init_hello_dialogs(CPhraseDialog* p_dialog);
 } // namespace CRD_DialogManager
 
 namespace XR_CONDITION
