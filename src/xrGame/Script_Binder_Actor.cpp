@@ -1,5 +1,4 @@
 #include "stdafx.h"
-#include "script_binder_object.h"
 #include "Script_Binder_Actor.h"
 
 namespace Cordis

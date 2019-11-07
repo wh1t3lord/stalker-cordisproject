@@ -287,7 +287,6 @@ IC void jitter(CBlender_Compile& C)
     C.r_dx10Sampler("smp_jitter");
 }
 
-
 using AStringVec = xr_vector<xr_string>;
 using AStringIt = AStringVec::iterator;
 
@@ -313,8 +312,6 @@ enum
     rsMuteSounds = (1ul << 28ul),
     rsEnvironment = (1ul << 29ul),
 };
-
-
 
 #include "script_ini_file.h"
 #include "xrEngine/IGame_Level.h"
@@ -400,6 +397,23 @@ enum
 #include "Script_XR_Patrol.h"
 #include "Script_SurgeManager.h"
 #include "Script_EntitySounds.h"
-
+#include "script_binder_object.h"
+#include "Script_Binder_Actor.h"
+#include "Script_Binder_AnomalField.h"
+#include "Script_Binder_AnomalZone.h"
+#include "Script_Binder_Artefact.h"
+#include "Script_Binder_Camp.h"
+#include "Script_Binder_Campfire.h"
+#include "Script_Binder_Crow.h"
+#include "Script_Binder_DoorLabx8.h"
+#include "Script_Binder_Faction.h"
+#include "Script_Binder_Helicopter.h"
+#include "Script_Binder_LevelChanger.h"
+#include "Script_Binder_Monster.h"
+#include "Script_Binder_PhysicObject.h"
+#include "Script_Binder_Restrictor.h"
+#include "Script_Binder_SignalLight.h"
+#include "Script_Binder_SmartCover.h"
+#include "Script_Binder_SmartTerrain.h"
+#include "Script_Binder_Stalker.h"
 #include "Script_Globalsinline.h"
-

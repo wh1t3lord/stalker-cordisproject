@@ -29,6 +29,12 @@ CScriptBinder::~CScriptBinder() { VERIFY(!m_object); }
 void CScriptBinder::init() { m_object = 0; }
 void CScriptBinder::clear()
 {
+    if (this->m_object)
+    {
+        xr_delete(this->m_object);
+        this->m_object = nullptr;
+    }
+        /*
     try
     {
         xr_delete(m_object);
@@ -36,22 +42,24 @@ void CScriptBinder::clear()
     catch (...)
     {
         m_object = 0;
-    }
+    }*/
     init();
 }
 
 void CScriptBinder::reinit()
 {
-    if (m_object)
+    if (this->m_object)
     {
+/*
         try
-        {
-            m_object->reinit();
+        {*/
+        this->m_object->reinit();
+/*
         }
         catch (...)
         {
             clear();
-        }
+        }*/
     }
 }
 
@@ -64,6 +72,7 @@ void CScriptBinder::reload(LPCSTR section)
 
     if (owner_clsid == Cordis::Scripts::Globals::get_script_clsid(CLSID_SE_ACTOR))
     {
+        this->m_object = new Cordis::Scripts::Script_Binder_Actor(this->owner->lua_game_object());
         Msg("[CScriptBinder/reload(section_name)] binding %s the instance {%s}", section, this->owner->Name());
     }
     else if (owner_clsid == Cordis::Scripts::Globals::get_script_clsid(CLSID_SE_STALKER))
@@ -349,6 +358,12 @@ BOOL CScriptBinder::net_Spawn(CSE_Abstract* DC)
 {
     CSE_Abstract* abstract = (CSE_Abstract*)DC;
     CSE_ALifeObject* object = smart_cast<CSE_ALifeObject*>(abstract);
+
+    if (object && this->m_object)
+    {
+        return static_cast<BOOL>(this->m_object->net_Spawn(object)); // Lord: уйти от каста переписать наверное стоит
+    }
+
     /*
         if (object && m_object)
         {
@@ -367,21 +382,24 @@ BOOL CScriptBinder::net_Spawn(CSE_Abstract* DC)
 
 void CScriptBinder::net_Destroy()
 {
-    if (m_object)
+    if (this->m_object)
     {
 #ifdef _DEBUG
         Msg("* Core object %s is UNbinded from the script object", owner->cName());
 #endif // _DEBUG
+/*
         try
-        {
-            m_object->net_Destroy();
+        {*/
+        this->m_object->net_Destroy();
+/*
         }
         catch (...)
         {
             clear();
-        }
+        }*/
     }
-    xr_delete(m_object);
+    xr_delete(this->m_object);
+    this->m_object = nullptr;
 }
 
 void CScriptBinder::set_object(CScriptBinderObject* object)
@@ -434,14 +452,16 @@ void CScriptBinder::load(IReader& input_packet)
 {
     if (m_object)
     {
+/*
         try
-        {
+        {*/
             m_object->load(&input_packet);
+/*
         }
         catch (...)
         {
             clear();
-        }
+        }*/
     }
 }
 
@@ -449,14 +469,16 @@ BOOL CScriptBinder::net_SaveRelevant()
 {
     if (m_object)
     {
+/*
         try
-        {
+        {*/
             return (m_object->net_SaveRelevant());
+/*
         }
         catch (...)
         {
             clear();
-        }
+        }*/
     }
     return (FALSE);
 }
@@ -466,13 +488,15 @@ void CScriptBinder::net_Relcase(IGameObject* object)
     CGameObject* game_object = smart_cast<CGameObject*>(object);
     if (m_object && game_object)
     {
+/*
         try
-        {
+        {*/
             m_object->net_Relcase(game_object->lua_game_object());
+/*
         }
         catch (...)
         {
             clear();
-        }
+        }*/
     }
 }
