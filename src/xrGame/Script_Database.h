@@ -342,8 +342,9 @@ public:
 
         this->m_p_client_object = p_client_object;
 
-        Msg("[Scripts/DataBase/Storage/setClientObject(p_client_object)] adding object to database -> %s",
-            p_client_object->Name());
+        if (p_client_object)
+            Msg("[Scripts/DataBase/Storage/setClientObject(p_client_object)] adding object to database -> %s",
+                p_client_object->Name());
     }
 
     inline const StorageAnimpoint_Data& getStorageAnimpoint(void) const noexcept { return this->m_storage_animpoint; }
