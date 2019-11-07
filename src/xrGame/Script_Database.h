@@ -337,14 +337,13 @@ public:
                 "%s",
                 this->m_p_client_object ? this->m_p_client_object->Name() :
                                           "using undefined object, you must add to database at first!");
-            //    return;
         }
-
-        this->m_p_client_object = p_client_object;
-
-        if (p_client_object)
+        else
+        {
+            this->m_p_client_object = p_client_object;
             Msg("[Scripts/DataBase/Storage/setClientObject(p_client_object)] adding object to database -> %s",
                 p_client_object->Name());
+        }
     }
 
     inline const StorageAnimpoint_Data& getStorageAnimpoint(void) const noexcept { return this->m_storage_animpoint; }
@@ -1090,8 +1089,8 @@ public:
         Msg("[Scripts/DataBase/Storage/setActor(object)] registering actor to database!");
     }
 
-    inline void deleteActor(CScriptGameObject* object) 
-    { 
+    inline void deleteActor(CScriptGameObject* object)
+    {
         this->m_actor = nullptr;
         this->deleteObject(object);
 
