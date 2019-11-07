@@ -61,7 +61,11 @@ public:
 
     inline static void OnButton_disconnect_clicked(void) {}
 
-    inline static void OnButton_return_to_game_clicked(void) {}
+    inline static void OnButton_return_to_game_clicked(void) 
+    {
+        Console->Execute("main_menu off");
+        // Lord: добавить xr_s.on_main_menu_off();
+    }
 
     inline static void OnButton_last_save_clicked(void)
     {
