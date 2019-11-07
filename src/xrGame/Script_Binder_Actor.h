@@ -1,7 +1,5 @@
 #pragma once
 
-class CScriptBinderObject;
-
 namespace Cordis
 {
 namespace Scripts
