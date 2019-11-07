@@ -1501,6 +1501,7 @@ $(xrLibDir);$(xrSdkDir)DXSDK/Lib/$(PlatformShortName);
     <ClInclude Include="Script_Binder_SmartTerrain.h" />
     <ClInclude Include="Script_Binder_Stalker.h" />
     <ClInclude Include="script_bind_macroses.h" />
+    <ClInclude Include="Script_CRD_Wounded.h" />
     <ClInclude Include="Script_Database.h" />
     <ClInclude Include="Script_DialogManager.h" />
     <ClInclude Include="script_effector.h" />
@@ -1594,7 +1595,6 @@ $(xrLibDir);$(xrSdkDir)DXSDK/Lib/$(PlatformShortName);
     <ClInclude Include="Script_XR_Meet.h" />
     <ClInclude Include="Script_XR_Patrol.h" />
     <ClInclude Include="Script_XR_Sound.h" />
-    <ClInclude Include="Script_XR_Wounded.h" />
     <ClInclude Include="script_zone.h" />
     <ClInclude Include="SDKRender_Connection.h" />
     <ClInclude Include="searchlight.h" />

@@ -2,7 +2,6 @@
 #include "Script_SurgeManager.h"
 #include "Script_XR_Sound.h"
 #include "Script_XR_Gulag.h"
-#include "Script_XR_Wounded.h"
 #include "Script_GlobalDefinitions.h"
 
 namespace Cordis
@@ -386,7 +385,7 @@ inline bool is_npc_in_actor_frustrum(CScriptGameObject* actor, CScriptGameObject
     return Globals::is_npc_in_actor_frustrum(npc);
 }
 
-inline bool is_wounded(CScriptGameObject* actor, CScriptGameObject* npc) { return XR_WOUNDED::is_wounded(npc); }
+inline bool is_wounded(CScriptGameObject* actor, CScriptGameObject* npc) { return CRD_Wounded::is_wounded(npc); }
 
 inline bool is_dist_to_actor_ge_client(
     CScriptGameObject* actor, CScriptGameObject* npc, const xr_vector<xr_string>& buffer)
