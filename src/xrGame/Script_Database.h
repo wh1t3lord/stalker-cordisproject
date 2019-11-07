@@ -567,6 +567,7 @@ public:
                 }
             }
 
+/* Lord: удалить данный комментарий!
             if (it.second.getClientObject())
             {
                 CScriptGameObject* p_client_object = it.second.getClientObject();
@@ -581,7 +582,7 @@ public:
                 Msg("[Scripts/DataBase/Storage/~dtor] Deleting the m_server_object: %s", p_server_object->name());
                 delete p_server_object;
                 p_server_object = nullptr;
-            }
+            }*/
 
             if (it.second.getIni())
             {
