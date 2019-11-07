@@ -3385,6 +3385,12 @@
     <Filter Include="Cordis\Scripts\Entities %28not server entities!%29\Smart Terrain control\Private">
       <UniqueIdentifier>{78778342-d48f-4af4-b221-4fe8fe66c7c8}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Cordis\Scripts\CRD">
+      <UniqueIdentifier>{851d8a92-f8a6-4e01-a18c-5480d6ab96bd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\CRD\Public">
+      <UniqueIdentifier>{99c9c461-4936-459f-91a1-cb13e1cd39b7}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="mt_config.h">
@@ -8516,9 +8522,6 @@
     <ClInclude Include="Script_SE_ZoneAnomaly.h">
       <Filter>Cordis\Scripts\Server Entities</Filter>
     </ClInclude>
-    <ClInclude Include="Script_XR_Wounded.h">
-      <Filter>Cordis\Scripts\XR\Public</Filter>
-    </ClInclude>
     <ClInclude Include="Script_Animpoint.h">
       <Filter>Cordis\Scripts\Entities %28not server entities!%29\Animpoint\Public</Filter>
     </ClInclude>
@@ -8578,6 +8581,9 @@
     </ClInclude>
     <ClInclude Include="Script_Binder_Restrictor.h">
       <Filter>Cordis\Scripts\Binders\Restrictor\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Script_CRD_Wounded.h">
+      <Filter>Cordis\Scripts\CRD\Public</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

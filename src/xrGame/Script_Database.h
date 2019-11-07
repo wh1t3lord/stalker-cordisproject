@@ -9,6 +9,7 @@ namespace Scripts
 {
 namespace DataBase
 {
+// Lord: зачем оно и что это в итоге?
 inline void add_enemy(CSE_Abstract* object)
 {
     if (!object)
@@ -17,6 +18,156 @@ inline void add_enemy(CSE_Abstract* object)
         return;
     }
 }
+
+// Lord: не забудь что здесь ещё MANAGER для WOUNDED!!!!!!
+class Data_Wounded
+{
+public:
+    Data_Wounded(void) = default;
+    ~Data_Wounded(void) = default;
+
+    inline bool IsAutoHeal(void) const noexcept { return this->m_is_autoheal; }
+    inline void setAutoHeal(const bool value) noexcept { this->m_is_autoheal = value; }
+
+    inline bool IsUseMedkit(void) const noexcept { return this->m_is_use_medkit; }
+    inline void setUseMedkit(const bool value) noexcept { this->m_is_use_medkit = value; }
+
+    inline bool IsEnableTalk(void) const noexcept { return this->m_is_enable_talk; }
+    inline void setEnableTalk(const bool value) noexcept { this->m_is_enable_talk = value; }
+
+    inline bool IsForHelp(void) const noexcept { return this->m_is_not_for_help; }
+    inline void setForHelp(const bool value) noexcept { this->m_is_not_for_help = value; }
+
+    inline bool IsWoundedInitialized(void) const noexcept { return this->m_is_wounded_initialized; }
+    inline void setWoundedInitialized(const bool value) noexcept { this->m_is_wounded_initialized = value; }
+
+    inline const xr_string& getHPStateName(void) const noexcept { return this->m_hp_state_name; }
+    inline void setHPStateName(const xr_string& state_name) noexcept
+    {
+        if (state_name.empty())
+        {
+            Msg("[Scripts/DataBase/Data_Wounded/setHPStateName(state_name)] WARNING: state_name.empty() == true! "
+                "Trying to set an empty string!");
+        }
+
+        this->m_hp_state_name = state_name;
+    }
+
+    inline const xr_string& getHPStateSeeName(void) const noexcept { return this->m_hp_state_see_name; }
+    inline void setHPStateSeeName(const xr_string& state_see_name) noexcept
+    {
+        if (state_see_name.empty())
+        {
+            Msg("[Scripts/DataBase/Data_Wounded/setHPStateSeeName(state_see_name)] WARNING: state_see_name.empty() == "
+                "true! Trying to set an empty string!");
+        }
+
+        this->m_hp_state_see_name = state_see_name;
+    }
+
+    inline const xr_string& getHPVictimName(void) const noexcept { return this->m_hp_victim_name; }
+    inline void setHPVictimName(const xr_string& victim_name) noexcept { this->m_hp_victim_name = victim_name; }
+
+    inline const xr_string& getHPCoverName(void) const noexcept { return this->m_hp_cover_name; }
+    inline void setHPCoverName(const xr_string& cover_name) noexcept
+    {
+        if (cover_name.empty())
+        {
+            Msg("[Scripts/DataBase/Data_Wounded/setHPCoverName(cover_name)] WARNING: cover_name.empty() == true! "
+                "Trying to set an empty string!");
+        }
+
+        this->m_hp_cover_name = cover_name;
+    }
+
+    inline const xr_string& getHPFightName(void) const noexcept { return this->m_hp_fight_name; }
+    inline void setHPFightName(const xr_string& fight_name) noexcept
+    {
+        if (fight_name.empty())
+        {
+            Msg("[Scripts/DataBase/Data_Wounded/setHPFightName(fight_name)] WARNING: fight_name.empty() == true! "
+                "Trying to set an empty string!");
+        }
+
+        this->m_hp_fight_name = fight_name;
+    }
+
+    inline const xr_string& getPsyStateName(void) const noexcept { return this->m_psy_state_name; }
+    inline void setPsyStateName(const xr_string& psy_state_name) noexcept
+    {
+        if (psy_state_name.empty())
+        {
+            Msg("[Scripts/DataBase/Data_Wounded/setPsyStateName(psy_state_name)] WARNING: psy_state_name.empty() == "
+                "true! Trying to set an empty string!");
+        }
+
+        this->m_psy_state_name = psy_state_name;
+    }
+
+    inline const xr_string& getSynDataName(void) const noexcept { return this->m_syndata_name; }
+    inline void setSynDataName(const xr_string& syndata_name) noexcept
+    {
+        if (syndata_name.empty())
+        {
+            Msg("[Scripts/DataBase/Data_Wounded/setSynDataName(syndata_name)] WARNING: syndata_name.empty() == true! "
+                "Trying to set an empty string!");
+        }
+
+        this->m_syndata_name = syndata_name;
+    }
+
+    inline const xr_string& getHelpDialogName(void) const noexcept { return this->m_help_dialog_name; }
+    inline void setHelpDialogName(const xr_string& dialog_name) noexcept
+    {
+        if (dialog_name.empty())
+        {
+            Msg("[Scripts/DataBase/Data_Wounded/setHelpDialogName(dialog_name)] WARNING: dialog_name.empty() == true! "
+                "Trying to set an empty string!");
+        }
+
+        this->m_help_dialog_name = dialog_name;
+    }
+
+    inline const xr_string& getHelpStartDialogName(void) const noexcept { return this->m_help_start_dialog_name; }
+    inline void setHelpStartDialogName(const xr_string& dialog_name) noexcept
+    {
+        if (dialog_name.empty())
+        {
+            Msg("[Scripts/DataBase/Data_Wounded/setHelpStartDialogName(dialog_name)] WARNING: dialog_name.empty() == "
+                "true! Trying to set an empty string!");
+        }
+
+        this->m_help_start_dialog_name = dialog_name;
+    }
+
+    inline const xr_string& getWoundedSectionName(void) const noexcept { return this->m_wounded_section_name; }
+    inline void setWoundedSectionName(const xr_string& section_name) noexcept
+    {
+        if (section_name.empty())
+        {
+            Msg("[Scripts/DataBase/Data_Wounded/setWoundedSectionName(section_name)] WARNING: section_name.empty() == true! Trying to set an empty string!");
+        }
+
+        this->m_wounded_section_name = section_name;
+    }
+
+private:
+    bool m_is_autoheal;
+    bool m_is_use_medkit;
+    bool m_is_enable_talk;
+    bool m_is_not_for_help;
+    bool m_is_wounded_initialized;
+    xr_string m_hp_state_name;
+    xr_string m_hp_state_see_name;
+    xr_string m_hp_victim_name;
+    xr_string m_hp_cover_name;
+    xr_string m_hp_fight_name;
+    xr_string m_psy_state_name;
+    xr_string m_syndata_name;
+    xr_string m_help_dialog_name;
+    xr_string m_help_start_dialog_name;
+    xr_string m_wounded_section_name;
+};
 
 class PStor_Data
 {
@@ -567,22 +718,21 @@ public:
                 }
             }
 
-/* Lord: удалить данный комментарий!
-            if (it.second.getClientObject())
-            {
-                CScriptGameObject* p_client_object = it.second.getClientObject();
-                Msg("[Scripts/DataBase/Storage/~dtor] Deleting the m_object: %s", p_client_object->Name());
-                delete p_client_object;
-                p_client_object = nullptr;
-            }
+            /* Lord: удалить данный комментарий!
+                        if (it.second.getClientObject())
+                        {
+                            CScriptGameObject* p_client_object = it.second.getClientObject();
+                            Msg("[Scripts/DataBase/Storage/~dtor] Deleting the m_object: %s", p_client_object->Name());
+                            delete p_client_object;
+                            p_client_object = nullptr;
+                        }
 
-            if (it.second.getServerObject())
-            {
-                CSE_ALifeObject* p_server_object = it.second.getServerObject();
-                Msg("[Scripts/DataBase/Storage/~dtor] Deleting the m_server_object: %s", p_server_object->name());
-                delete p_server_object;
-                p_server_object = nullptr;
-            }*/
+                        if (it.second.getServerObject())
+                        {
+                            CSE_ALifeObject* p_server_object = it.second.getServerObject();
+                            Msg("[Scripts/DataBase/Storage/~dtor] Deleting the m_server_object: %s",
+               p_server_object->name()); delete p_server_object; p_server_object = nullptr;
+                        }*/
 
             if (it.second.getIni())
             {

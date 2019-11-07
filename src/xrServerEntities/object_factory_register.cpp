@@ -321,7 +321,7 @@ void CObjectFactory::register_classes()
         ADD(CScope, CSE_ALifeItem, CLSID_OBJECT_W_SCOPE, "wpn_scope");
         ADD(CSilencer, CSE_ALifeItem, CLSID_OBJECT_W_SILENCER, "wpn_silencer");
         ADD(CGrenadeLauncher, CSE_ALifeItem, CLSID_OBJECT_W_GLAUNCHER, "wpn_grenade_launcher");
-
+  
         // Inventory
         ADD(CBolt, CSE_ALifeItemBolt, CLSID_IITEM_BOLT, "obj_bolt");
         ADD(CMedkit, CSE_ALifeItem, CLSID_IITEM_MEDKIT, "obj_medkit");
@@ -434,9 +434,12 @@ void CObjectFactory::register_classes()
         this->add<CCat, Cordis::Scripts::Script_SE_Monster>(CLSID_SE_MONSTER_CAT, "Script_SE_Cat");
         this->add<CChimera, Cordis::Scripts::Script_SE_Monster>(CLSID_SE_MONSTER_CHIMERA, "Script_SE_Chimera");
         this->add<CController, Cordis::Scripts::Script_SE_Monster>(CLSID_SE_MONSTER_CONTROLLER, "Script_SE_Controller");
+        this->add<CTushkano, Cordis::Scripts::Script_SE_Monster>(CLSID_SE_MONSTER_TUSHKANO, "Script_SE_Tushkano");
         this->add<CFracture, Cordis::Scripts::Script_SE_Monster>(CLSID_SE_MONSTER_IZLOM, "Script_SE_Izlom");
         this->add<CPoltergeist, Cordis::Scripts::Script_SE_Monster>(
             CLSID_SE_MONSTER_POLTERGEIST, "Script_SE_Poltergeist");
+        this->add<CPseudoGigant, Cordis::Scripts::Script_SE_Monster>(
+            CLSID_SE_MONSTER_PSEUDO_GIGANT, "Script_SE_PseudoGigant");
         this->add<CZombie, Cordis::Scripts::Script_SE_Monster>(CLSID_SE_MONSTER_ZOMBI, "Script_SE_Zombie");
         this->add<CSnork, Cordis::Scripts::Script_SE_Monster>(CLSID_SE_MONSTER_SNORK, "Script_SE_Snork");
         this->add<CPsyDog, Cordis::Scripts::Script_SE_Monster>(CLSID_SE_MONSTER_DOG_PSY, "Script_SE_PsyDog");
@@ -484,6 +487,7 @@ void CObjectFactory::register_classes()
         this->add<CWeaponVal, Cordis::Scripts::Script_SE_WeaponMagazined>(CLSID_SE_WEAPON_VAL, "Script_SE_WeaponVal");
         this->add<CWeaponVintorez, Cordis::Scripts::Script_SE_WeaponMagazined>(
             CLSID_SE_WEAPON_VINTOREZ, "Script_SE_WeaponVintorez");
+        this->add<CWeaponWalther, Cordis::Scripts::Script_SE_WeaponMagazined>(CLSID_SE_WEAPON_WALTHER, "Script_SE_WeaponWalther");
         this->add<CHairsZone, Cordis::Scripts::Script_SE_ZoneVisual>(CLSID_SE_ZONE_HAIRS, "Script_SE_ZoneHairs");
         this->add<CMosquitoBald, Cordis::Scripts::Script_SE_ZoneAnomaly>(
             CLSID_SE_ZONE_MOSQUITOBALD, "Script_SE_ZoneMosquitoBald");
