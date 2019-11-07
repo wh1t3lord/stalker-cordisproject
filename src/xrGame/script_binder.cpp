@@ -86,7 +86,7 @@ void CScriptBinder::reload(LPCSTR section)
     }
     else if (owner_clsid == Cordis::Scripts::Globals::get_script_clsid(CLSID_SE_HELI))
     {
-        Msg("[CScriptBinder/reload(section_name)] %s binding helicopter the instance {%s}", section, this->owner->Name());
+        Msg("[CScriptBinder/reload(section_name)] binding %s the instance {%s}", section, this->owner->Name());
     }
     else if (owner_clsid == Cordis::Scripts::Globals::get_script_clsid(CLSID_SE_ADVANCEDDETECTOR))
     {
@@ -138,54 +138,88 @@ void CScriptBinder::reload(LPCSTR section)
     }
     else if (owner_clsid == Cordis::Scripts::Globals::get_script_clsid(CLSID_SE_MONSTER_BLOODSUCKER))
     {
+        Msg("[CScriptBinder/reload(section_name)] binding %s the instance {%s}", section, this->owner->Name());
+        this->m_object = new Cordis::Scripts::Script_Binder_Monster(this->owner->lua_game_object());
     }
     else if (owner_clsid == Cordis::Scripts::Globals::get_script_clsid(CLSID_SE_MONSTER_BOAR))
     {
+        Msg("[CScriptBinder/reload(section_name)] binding %s the instance {%s}", section, this->owner->Name());
+        this->m_object = new Cordis::Scripts::Script_Binder_Monster(this->owner->lua_game_object());
     }
     else if (owner_clsid == Cordis::Scripts::Globals::get_script_clsid(CLSID_SE_MONSTER_BURER))
     {
+        Msg("[CScriptBinder/reload(section_name)] binding %s the instance {%s}", section, this->owner->Name());
+        this->m_object = new Cordis::Scripts::Script_Binder_Monster(this->owner->lua_game_object());
     }
     else if (owner_clsid == Cordis::Scripts::Globals::get_script_clsid(CLSID_SE_MONSTER_CAT))
     {
+        Msg("[CScriptBinder/reload(section_name)] binding %s the instance {%s}", section, this->owner->Name());
+        this->m_object = new Cordis::Scripts::Script_Binder_Monster(this->owner->lua_game_object());
     }
     else if (owner_clsid == Cordis::Scripts::Globals::get_script_clsid(CLSID_SE_MONSTER_CHIMERA))
     {
+        Msg("[CScriptBinder/reload(section_name)] binding %s the instance {%s}", section, this->owner->Name());
+        this->m_object = new Cordis::Scripts::Script_Binder_Monster(this->owner->lua_game_object());
     }
     else if (owner_clsid == Cordis::Scripts::Globals::get_script_clsid(CLSID_SE_MONSTER_CONTROLLER))
     {
+        Msg("[CScriptBinder/reload(section_name)] binding %s the instance {%s}", section, this->owner->Name());
+        this->m_object = new Cordis::Scripts::Script_Binder_Monster(this->owner->lua_game_object());
     }
     else if (owner_clsid == Cordis::Scripts::Globals::get_script_clsid(CLSID_SE_MONSTER_DOG_PSY_PHANTOM))
     {
+        Msg("[CScriptBinder/reload(section_name)] binding %s the instance {%s}", section, this->owner->Name());
+        this->m_object = new Cordis::Scripts::Script_Binder_Monster(this->owner->lua_game_object());
     }
     else if (owner_clsid == Cordis::Scripts::Globals::get_script_clsid(CLSID_SE_MONSTER_DOG_PSY))
     {
+        Msg("[CScriptBinder/reload(section_name)] binding %s the instance {%s}", section, this->owner->Name());
+        this->m_object = new Cordis::Scripts::Script_Binder_Monster(this->owner->lua_game_object());
     }
     else if (owner_clsid == Cordis::Scripts::Globals::get_script_clsid(CLSID_SE_MONSTER_DOG))
     {
+        Msg("[CScriptBinder/reload(section_name)] binding %s the instance {%s}", section, this->owner->Name());
+        this->m_object = new Cordis::Scripts::Script_Binder_Monster(this->owner->lua_game_object());
     }
     else if (owner_clsid == Cordis::Scripts::Globals::get_script_clsid(CLSID_SE_MONSTER_FLESH))
     {
+        Msg("[CScriptBinder/reload(section_name)] binding %s the instance {%s}", section, this->owner->Name());
+        this->m_object = new Cordis::Scripts::Script_Binder_Monster(this->owner->lua_game_object());
     }
     else if (owner_clsid == Cordis::Scripts::Globals::get_script_clsid(CLSID_SE_MONSTER_PSEUDO_GIGANT))
     {
+        Msg("[CScriptBinder/reload(section_name)] binding %s the instance {%s}", section, this->owner->Name());
+        this->m_object = new Cordis::Scripts::Script_Binder_Monster(this->owner->lua_game_object());
     }
     else if (owner_clsid == Cordis::Scripts::Globals::get_script_clsid(CLSID_SE_MONSTER_IZLOM))
     {
+        Msg("[CScriptBinder/reload(section_name)] binding %s the instance {%s}", section, this->owner->Name());
+        this->m_object = new Cordis::Scripts::Script_Binder_Monster(this->owner->lua_game_object());
     }
     else if (owner_clsid == Cordis::Scripts::Globals::get_script_clsid(CLSID_SE_MONSTER_POLTERGEIST))
     {
+        Msg("[CScriptBinder/reload(section_name)] binding %s the instance {%s}", section, this->owner->Name());
+        this->m_object = new Cordis::Scripts::Script_Binder_Monster(this->owner->lua_game_object());
     }
     else if (owner_clsid == Cordis::Scripts::Globals::get_script_clsid(CLSID_SE_MONSTER_DOG_PSEUDO))
     {
+        Msg("[CScriptBinder/reload(section_name)] binding %s the instance {%s}", section, this->owner->Name());
+        this->m_object = new Cordis::Scripts::Script_Binder_Monster(this->owner->lua_game_object());
     }
     else if (owner_clsid == Cordis::Scripts::Globals::get_script_clsid(CLSID_SE_MONSTER_SNORK))
     {
+        Msg("[CScriptBinder/reload(section_name)] binding %s the instance {%s}", section, this->owner->Name());
+        this->m_object = new Cordis::Scripts::Script_Binder_Monster(this->owner->lua_game_object());
     }
     else if (owner_clsid == Cordis::Scripts::Globals::get_script_clsid(CLSID_SE_MONSTER_TUSHKANO))
     {
+        Msg("[CScriptBinder/reload(section_name)] binding %s the instance {%s}", section, this->owner->Name());
+        this->m_object = new Cordis::Scripts::Script_Binder_Monster(this->owner->lua_game_object());
     }
     else if (owner_clsid == Cordis::Scripts::Globals::get_script_clsid(CLSID_SE_MONSTER_ZOMBI))
     {
+        Msg("[CScriptBinder/reload(section_name)] binding %s the instance {%s}", section, this->owner->Name());
+        this->m_object = new Cordis::Scripts::Script_Binder_Monster(this->owner->lua_game_object());
     }
     else if (owner_clsid == Cordis::Scripts::Globals::get_script_clsid(CLSID_SE_LAMP))
     {

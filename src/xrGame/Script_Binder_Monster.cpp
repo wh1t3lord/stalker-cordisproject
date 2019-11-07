@@ -16,7 +16,7 @@ void Script_Binder_Monster::reload(LPCSTR section_name) {}
 bool Script_Binder_Monster::net_Spawn(SpawnType DC) 
 {
     Msg("[Scripts/Script_Binder_Monster/net_Spawn(DC)] adding to database %s", this->m_object->Name());
-    DataBase::Storage::getInstance().deleteObject(this->m_object);
+    DataBase::Storage::getInstance().addObject(this->m_object);
     return true; 
 }
 
