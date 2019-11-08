@@ -3073,12 +3073,6 @@
     <Filter Include="Cordis\Scripts\XR\Public">
       <UniqueIdentifier>{40c93eb5-39cf-4bb3-8961-f0e2473091bb}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Cordis\Scripts\Online Database">
-      <UniqueIdentifier>{d92835b8-5084-49c2-a13e-68c10d215849}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Cordis\Scripts\Online Database\Public">
-      <UniqueIdentifier>{0dd55311-76b0-451b-8488-09511b926c20}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Cordis\Scripts\Managers">
       <UniqueIdentifier>{125cfdb7-399c-4fec-80f6-f12503eba613}</UniqueIdentifier>
     </Filter>
@@ -3390,6 +3384,300 @@
     </Filter>
     <Filter Include="Cordis\Scripts\CRD\Public">
       <UniqueIdentifier>{99c9c461-4936-459f-91a1-cb13e1cd39b7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Client Database">
+      <UniqueIdentifier>{d92835b8-5084-49c2-a13e-68c10d215849}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Client Database\Public">
+      <UniqueIdentifier>{0dd55311-76b0-451b-8488-09511b926c20}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Server Entities\Actor">
+      <UniqueIdentifier>{d93df583-5fbd-436f-a852-c92477bf8b77}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Server Entities\Actor\Public">
+      <UniqueIdentifier>{69f6fc86-ff6b-4d90-b14c-b62071b805b2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Server Entities\Actor\Private">
+      <UniqueIdentifier>{c01f320a-a892-41c0-a464-4dbd4f0b9a45}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Server Entities\Ammo">
+      <UniqueIdentifier>{44232bfb-71ec-4ff8-b5cf-5a65906c003d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Server Entities\Ammo\Public">
+      <UniqueIdentifier>{a275a043-8f1f-425b-a022-10057889a9f3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Server Entities\Ammo\Private">
+      <UniqueIdentifier>{59143d44-63c6-439d-a042-773e4df2ddc2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Server Entities\Artefact">
+      <UniqueIdentifier>{e6b7a828-dc43-4602-b42d-0297235d5581}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Server Entities\Artefact\Public">
+      <UniqueIdentifier>{f31207a9-e31d-4bc8-91d6-076a4894856a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Server Entities\Artefact\Private">
+      <UniqueIdentifier>{14a979e7-a882-4fc9-837c-1fe6b62e3c49}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Server Entities\Detector">
+      <UniqueIdentifier>{79fcb933-e89a-4e79-8696-6f6beec9fac7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Server Entities\Detector\Public">
+      <UniqueIdentifier>{1a9f6e0e-42b5-41c4-8a76-9787c9a322f1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Server Entities\Detector\Private">
+      <UniqueIdentifier>{7085906a-bd42-4cce-a3ec-e9708f0bd227}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Server Entities\Eatable">
+      <UniqueIdentifier>{a8bf7902-d900-47aa-8c2c-8fa196c00372}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Server Entities\Eatable\Public">
+      <UniqueIdentifier>{a925d518-5434-4776-8e04-92b0b1c0643c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Server Entities\Eatable\Private">
+      <UniqueIdentifier>{5180cb48-6e0d-482f-ad20-6a3d5b06e941}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Server Entities\Explosive">
+      <UniqueIdentifier>{4da2d9f8-d330-4368-988f-719fa5c58c90}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Server Entities\Explosive\Public">
+      <UniqueIdentifier>{74b40a30-7ee4-4806-8418-447d80ec8308}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Server Entities\Explosive\Private">
+      <UniqueIdentifier>{af5155a6-2197-4cc6-ad10-d73f8920f723}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Server Entities\Grenade">
+      <UniqueIdentifier>{349ffa0e-089a-411e-9bc7-8f1a2df1595c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Server Entities\Grenade\Public">
+      <UniqueIdentifier>{3c81c5a7-759b-44e6-becc-49e1facd774d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Server Entities\Grenade\Private">
+      <UniqueIdentifier>{3012628b-c7a8-4ee2-820d-1e80cf31e5f1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Server Entities\Helicopter">
+      <UniqueIdentifier>{92dbc1f5-042a-43ed-bd7f-004f3c55a1da}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Server Entities\Helicopter\Public">
+      <UniqueIdentifier>{9c80a814-2967-40d8-9030-eed4ead31799}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Server Entities\Helicopter\Private">
+      <UniqueIdentifier>{98b2b7cc-a53a-4428-84fe-20be4eb77d34}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Server Entities\Helmet">
+      <UniqueIdentifier>{72bb7d03-b686-4a91-a807-2744b88aca72}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Server Entities\Helmet\Public">
+      <UniqueIdentifier>{eb2b504b-cd95-4d6a-8968-8853216425b9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Server Entities\Helmet\Private">
+      <UniqueIdentifier>{439130f7-20e4-423f-b5fa-fd89318cae2f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Server Entities\InventoryBox">
+      <UniqueIdentifier>{e0c5c247-5be4-4622-8c8e-7d11a5b5de15}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Server Entities\InventoryBox\Public">
+      <UniqueIdentifier>{490ba3e6-2d79-499d-ae60-8d01587e2f62}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Server Entities\InventoryBox\Private">
+      <UniqueIdentifier>{4a5c22a0-13d4-4b06-8807-e9cb71c1bc96}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Server Entities\Item">
+      <UniqueIdentifier>{883d7f62-a26f-4cf0-afea-8736745d6aad}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Server Entities\Item\Public">
+      <UniqueIdentifier>{81f62c2a-2c7e-452a-b662-7137af6bf1cb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Server Entities\Item\Private">
+      <UniqueIdentifier>{2377ff1b-147f-49fb-9272-02e26f1932d2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Server Entities\Lamp">
+      <UniqueIdentifier>{0e735572-75aa-4017-8713-ae6ba1eba89d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Server Entities\Lamp\Public">
+      <UniqueIdentifier>{e93decb3-4e3b-4720-b52d-39439ad116b1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Server Entities\Lamp\Private">
+      <UniqueIdentifier>{390db4b3-59df-4a7b-b666-d03e7559d163}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Server Entities\Monster">
+      <UniqueIdentifier>{f8cd8fbd-4286-42f7-aeed-1e00c38beea1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Server Entities\Monster\Private">
+      <UniqueIdentifier>{8a68fda2-73cd-451a-8aaf-bf121558e02e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Server Entities\Monster\Public">
+      <UniqueIdentifier>{1075a8f2-3ad5-4728-8ac1-5f746c5969bf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Server Entities\Outfit">
+      <UniqueIdentifier>{55bdb857-0599-478b-a46d-0cb63c254d27}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Server Entities\Outfit\Private">
+      <UniqueIdentifier>{6e41a28b-8e46-4499-a6a7-7ed2f808738e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Server Entities\Outfit\Public">
+      <UniqueIdentifier>{0ff19c98-6a23-4237-8f39-b2d01474ffca}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Server Entities\PDA">
+      <UniqueIdentifier>{9eab741d-d38d-4524-972d-525bd4c185a6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Server Entities\PDA\Private">
+      <UniqueIdentifier>{c2df647a-c3d7-4f20-a932-a1df80c65941}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Server Entities\PDA\Public">
+      <UniqueIdentifier>{4c0a4540-a860-4b8f-a64f-0fc7fe9e3cc4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Server Entities\Physic">
+      <UniqueIdentifier>{de0fc42f-770d-42cc-8155-af5b571d9beb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Server Entities\Physic\Private">
+      <UniqueIdentifier>{8becb51b-fc60-4fca-a170-25de1d11c2a0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Server Entities\Physic\Public">
+      <UniqueIdentifier>{3122f55e-a83e-4520-8319-8eca8381bba3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Server Entities\Restrictor">
+      <UniqueIdentifier>{3c1bdf4c-08b9-42c6-a148-3535689c5624}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Server Entities\Restrictor\Public">
+      <UniqueIdentifier>{6f4b38eb-a016-4e01-935a-e7188119530d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Server Entities\Restrictor\Private">
+      <UniqueIdentifier>{cd904db2-5ad6-41a9-abaf-5ee09fe4dd9d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Server Entities\Simulation Squad">
+      <UniqueIdentifier>{9b75d2a4-9af2-4a7e-8017-74a5d57a3ea9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Server Entities\Simulation Squad\Private">
+      <UniqueIdentifier>{c3c7ed0d-ad3c-432b-b522-655506eb63ff}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Server Entities\Simulation Squad\Public">
+      <UniqueIdentifier>{9ac6652e-849b-4907-aa01-3d82323cfd5f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Server Entities\Level Changer">
+      <UniqueIdentifier>{5742629d-103d-482f-8753-9e2dcd985ba0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Server Entities\Level Changer\Public">
+      <UniqueIdentifier>{729d5954-1e81-466b-a25b-988dfdf6066c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Server Entities\Level Changer\Private">
+      <UniqueIdentifier>{89a01aac-07b1-46d9-80e7-0c6b4f45bf8c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Server Entities\Item Torch">
+      <UniqueIdentifier>{74836574-7411-4ab4-a6a8-76004ae6e10b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Server Entities\Item Torch\Private">
+      <UniqueIdentifier>{250a5d9d-7c43-42f2-bb8d-e9d0eb406c79}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Server Entities\Item Torch\Public">
+      <UniqueIdentifier>{1e9d4697-6caa-479a-8ca9-79b5fe249fcd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Server Entities\New Attachable Item">
+      <UniqueIdentifier>{251b7f5f-0597-44d1-8310-da06e62020fc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Server Entities\New Attachable Item\Public">
+      <UniqueIdentifier>{c913a79f-4383-4f9d-9c57-dd68efecab73}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Server Entities\New Attachable Item\Private">
+      <UniqueIdentifier>{852a8c71-6381-45c9-9077-40ff3f09b705}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Server Entities\Smart cover">
+      <UniqueIdentifier>{f64e6284-f6b0-42c6-9ba3-a4ed3efa4aef}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Server Entities\Smart cover\Public">
+      <UniqueIdentifier>{75d31827-9bbc-445f-9673-551e0b39cedd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Server Entities\Smart cover\Private">
+      <UniqueIdentifier>{b96234fb-a190-40aa-896e-b0a9bed8bac7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Server Entities\Smart terrain">
+      <UniqueIdentifier>{0d180c77-8cb1-4264-8915-c0203c18ba5b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Server Entities\Smart terrain\Public">
+      <UniqueIdentifier>{7ade1c9c-bab2-4e19-b49b-230c26312c40}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Server Entities\Smart terrain\Private">
+      <UniqueIdentifier>{1541b754-b2f9-48c2-8de4-f07a6607e089}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Server Entities\Stalker">
+      <UniqueIdentifier>{698ef52b-70ff-420d-bed4-cc37144e3eb1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Server Entities\Stalker\Private">
+      <UniqueIdentifier>{c082fbb1-5f9d-4960-b3cd-e3569aaeff73}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Server Entities\Stalker\Public">
+      <UniqueIdentifier>{7c8e9e1c-a04b-4c6d-a9d4-cc98c4640ced}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Server Entities\Weapon">
+      <UniqueIdentifier>{591ca1bd-907f-4b84-88a5-6d39171f6392}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Server Entities\Weapon\Private">
+      <UniqueIdentifier>{fc65c55e-ef47-47bb-9738-913ab10a1c43}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Server Entities\Weapon\Public">
+      <UniqueIdentifier>{e837ba56-bb35-4680-bbcb-3dfb5f4a8a72}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Server Entities\Weapon automatic shotgun">
+      <UniqueIdentifier>{a818deb0-46e7-4c49-a20d-8b54af1c307d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Server Entities\Weapon automatic shotgun\Private">
+      <UniqueIdentifier>{86445b87-4d30-47b5-b515-970004805599}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Server Entities\Weapon automatic shotgun\Public">
+      <UniqueIdentifier>{06d1b039-6a2a-483d-909d-53add7bed544}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Server Entities\Weapon magazined">
+      <UniqueIdentifier>{9935323f-f061-4bfe-9d71-212b05e1aee6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Server Entities\Weapon magazined\Private">
+      <UniqueIdentifier>{aeab6930-6793-40fb-8445-fd808154aead}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Server Entities\Weapon magazined\Public">
+      <UniqueIdentifier>{0ced876c-be06-466a-80bd-d58f66e85019}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Server Entities\Weapon magazined WGL">
+      <UniqueIdentifier>{4f2925e3-5f36-44ce-8b2e-b7923f1d7896}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Server Entities\Weapon magazined WGL\Private">
+      <UniqueIdentifier>{147c7095-64d2-4145-9eb9-6dce09efd3de}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Server Entities\Weapon magazined WGL\Public">
+      <UniqueIdentifier>{f08a08b1-5e2d-4254-b70c-ac563054216f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Server Entities\Weapon shotgun">
+      <UniqueIdentifier>{0efe0566-3342-41e9-a2ff-4dc23cf3b215}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Server Entities\Weapon shotgun\Private">
+      <UniqueIdentifier>{284d83d4-c09f-482f-b437-1109afffbc9c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Server Entities\Weapon shotgun\Public">
+      <UniqueIdentifier>{26b2a321-e1f7-40d8-bb62-01e240b4d8da}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Server Entities\Zone anomaly">
+      <UniqueIdentifier>{e9c30b0e-3afe-4f27-874f-e953451d0b9d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Server Entities\Zone anomaly\Private">
+      <UniqueIdentifier>{37edbec7-6c6a-4841-b6bc-76279d43d9cc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Server Entities\Zone anomaly\Public">
+      <UniqueIdentifier>{dff1c2c6-c1ae-4c03-b59d-fe1eb497cbbc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Server Entities\Zone torrid">
+      <UniqueIdentifier>{e3f16b6e-427d-4d3f-9371-92c07f0d5493}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Server Entities\Zone torrid\Private">
+      <UniqueIdentifier>{fff451ca-c23b-401f-8dc1-4aa8f6585d62}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Server Entities\Zone torrid\Public">
+      <UniqueIdentifier>{533d69e0-7b7a-40d0-b49c-d6829e3959e6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Server Entities\Zone visual">
+      <UniqueIdentifier>{0074bac1-44f8-4ee2-a758-324ac606334e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Server Entities\Zone visual\Private">
+      <UniqueIdentifier>{866e00a0-5925-447a-8d8b-8c7c5147c3c8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Server Entities\Zone visual\Public">
+      <UniqueIdentifier>{f9930423-b7bc-490d-8a7b-15cdf7eddb20}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -8357,14 +8645,11 @@
     <ClInclude Include="Script_UI_MainMenu.h">
       <Filter>Cordis\Scripts\UI\MainMenu\Public</Filter>
     </ClInclude>
-    <ClInclude Include="Script_SE_Actor.h">
-      <Filter>Cordis\Scripts\Server Entities</Filter>
-    </ClInclude>
     <ClInclude Include="Script_XR_Logic.h">
       <Filter>Cordis\Scripts\XR\Public</Filter>
     </ClInclude>
     <ClInclude Include="Script_Database.h">
-      <Filter>Cordis\Scripts\Online Database\Public</Filter>
+      <Filter>Cordis\Scripts\Client Database\Public</Filter>
     </ClInclude>
     <ClInclude Include="Script_StoryObject.h">
       <Filter>Cordis\Scripts\Managers\StoryObject\Public</Filter>
@@ -8408,9 +8693,6 @@
     <ClInclude Include="Script_XR_Gulag.h">
       <Filter>Cordis\Scripts\XR\Public</Filter>
     </ClInclude>
-    <ClInclude Include="Script_SE_SmartTerrain.h">
-      <Filter>Cordis\Scripts\Server Entities</Filter>
-    </ClInclude>
     <ClInclude Include="Script_GulagGenerator.h">
       <Filter>Cordis\Scripts\Managers\Gulag Generator\Public</Filter>
     </ClInclude>
@@ -8426,101 +8708,11 @@
     <ClInclude Include="Script_XR_Meet.h">
       <Filter>Cordis\Scripts\XR\Public</Filter>
     </ClInclude>
-    <ClInclude Include="Script_SE_SmartCover.h">
-      <Filter>Cordis\Scripts\Server Entities</Filter>
-    </ClInclude>
-    <ClInclude Include="Script_SE_SimulationSquad.h">
-      <Filter>Cordis\Scripts\Server Entities</Filter>
-    </ClInclude>
     <ClInclude Include="Script_GlobalDefinitions.h">
       <Filter>Cordis\Scripts\Global\Globals\Public</Filter>
     </ClInclude>
-    <ClInclude Include="Script_SE_Artefact.h">
-      <Filter>Cordis\Scripts\Server Entities</Filter>
-    </ClInclude>
-    <ClInclude Include="Script_SE_Helicopter.h">
-      <Filter>Cordis\Scripts\Server Entities</Filter>
-    </ClInclude>
-    <ClInclude Include="Script_SE_Outfit.h">
-      <Filter>Cordis\Scripts\Server Entities</Filter>
-    </ClInclude>
     <ClInclude Include="Script_TreasureManager.h">
       <Filter>Cordis\Scripts\Managers\Treasure</Filter>
-    </ClInclude>
-    <ClInclude Include="Script_SE_Helmet.h">
-      <Filter>Cordis\Scripts\Server Entities</Filter>
-    </ClInclude>
-    <ClInclude Include="Script_SE_Weapon.h">
-      <Filter>Cordis\Scripts\Server Entities</Filter>
-    </ClInclude>
-    <ClInclude Include="Script_SE_WeaponShotgun.h">
-      <Filter>Cordis\Scripts\Server Entities</Filter>
-    </ClInclude>
-    <ClInclude Include="Script_SE_WeaponAutomaticShotgun.h">
-      <Filter>Cordis\Scripts\Server Entities</Filter>
-    </ClInclude>
-    <ClInclude Include="Script_SE_WeaponMagazined.h">
-      <Filter>Cordis\Scripts\Server Entities</Filter>
-    </ClInclude>
-    <ClInclude Include="Script_SE_WeaponMagazinedWGL.h">
-      <Filter>Cordis\Scripts\Server Entities</Filter>
-    </ClInclude>
-    <ClInclude Include="Script_SE_Item.h">
-      <Filter>Cordis\Scripts\Server Entities</Filter>
-    </ClInclude>
-    <ClInclude Include="Script_SE_ItemTorch.h">
-      <Filter>Cordis\Scripts\Server Entities</Filter>
-    </ClInclude>
-    <ClInclude Include="Script_SE_Physic.h">
-      <Filter>Cordis\Scripts\Server Entities</Filter>
-    </ClInclude>
-    <ClInclude Include="Script_SE_Lamp.h">
-      <Filter>Cordis\Scripts\Server Entities</Filter>
-    </ClInclude>
-    <ClInclude Include="Script_SE_Ammo.h">
-      <Filter>Cordis\Scripts\Server Entities</Filter>
-    </ClInclude>
-    <ClInclude Include="Script_SE_Grenade.h">
-      <Filter>Cordis\Scripts\Server Entities</Filter>
-    </ClInclude>
-    <ClInclude Include="Script_SE_Eatable.h">
-      <Filter>Cordis\Scripts\Server Entities</Filter>
-    </ClInclude>
-    <ClInclude Include="Script_SE_InventoryBox.h">
-      <Filter>Cordis\Scripts\Server Entities</Filter>
-    </ClInclude>
-    <ClInclude Include="Script_SE_Explosive.h">
-      <Filter>Cordis\Scripts\Server Entities</Filter>
-    </ClInclude>
-    <ClInclude Include="Script_SE_PDA.h">
-      <Filter>Cordis\Scripts\Server Entities</Filter>
-    </ClInclude>
-    <ClInclude Include="Script_SE_Detector.h">
-      <Filter>Cordis\Scripts\Server Entities</Filter>
-    </ClInclude>
-    <ClInclude Include="Script_SE_LevelChanger.h">
-      <Filter>Cordis\Scripts\Server Entities</Filter>
-    </ClInclude>
-    <ClInclude Include="Script_SE_Monster.h">
-      <Filter>Cordis\Scripts\Server Entities</Filter>
-    </ClInclude>
-    <ClInclude Include="Script_SE_NewAttachableItem.h">
-      <Filter>Cordis\Scripts\Server Entities</Filter>
-    </ClInclude>
-    <ClInclude Include="Script_SE_Stalker.h">
-      <Filter>Cordis\Scripts\Server Entities</Filter>
-    </ClInclude>
-    <ClInclude Include="Script_SE_Restrictor.h">
-      <Filter>Cordis\Scripts\Server Entities</Filter>
-    </ClInclude>
-    <ClInclude Include="Script_SE_ZoneVisual.h">
-      <Filter>Cordis\Scripts\Server Entities</Filter>
-    </ClInclude>
-    <ClInclude Include="Script_SE_ZoneTorrid.h">
-      <Filter>Cordis\Scripts\Server Entities</Filter>
-    </ClInclude>
-    <ClInclude Include="Script_SE_ZoneAnomaly.h">
-      <Filter>Cordis\Scripts\Server Entities</Filter>
     </ClInclude>
     <ClInclude Include="Script_Animpoint.h">
       <Filter>Cordis\Scripts\Entities %28not server entities!%29\Animpoint\Public</Filter>
@@ -8584,6 +8776,102 @@
     </ClInclude>
     <ClInclude Include="Script_CRD_Wounded.h">
       <Filter>Cordis\Scripts\CRD\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Script_SE_Actor.h">
+      <Filter>Cordis\Scripts\Server Entities\Actor\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Script_SE_Ammo.h">
+      <Filter>Cordis\Scripts\Server Entities\Ammo\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Script_SE_Artefact.h">
+      <Filter>Cordis\Scripts\Server Entities\Artefact\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Script_SE_Detector.h">
+      <Filter>Cordis\Scripts\Server Entities\Detector\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Script_SE_Eatable.h">
+      <Filter>Cordis\Scripts\Server Entities\Eatable\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Script_SE_Explosive.h">
+      <Filter>Cordis\Scripts\Server Entities\Explosive\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Script_SE_Grenade.h">
+      <Filter>Cordis\Scripts\Server Entities\Grenade\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Script_SE_Helicopter.h">
+      <Filter>Cordis\Scripts\Server Entities\Helicopter\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Script_SE_Helmet.h">
+      <Filter>Cordis\Scripts\Server Entities\Helmet\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Script_SE_InventoryBox.h">
+      <Filter>Cordis\Scripts\Server Entities\InventoryBox\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Script_SE_Item.h">
+      <Filter>Cordis\Scripts\Server Entities\Item\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Script_SE_ItemTorch.h">
+      <Filter>Cordis\Scripts\Server Entities\Item Torch\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Script_SE_Lamp.h">
+      <Filter>Cordis\Scripts\Server Entities\Lamp\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Script_SE_LevelChanger.h">
+      <Filter>Cordis\Scripts\Server Entities\Level Changer\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Script_SE_Monster.h">
+      <Filter>Cordis\Scripts\Server Entities\Monster\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Script_SE_NewAttachableItem.h">
+      <Filter>Cordis\Scripts\Server Entities\New Attachable Item\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Script_SE_Outfit.h">
+      <Filter>Cordis\Scripts\Server Entities\Outfit\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Script_SE_PDA.h">
+      <Filter>Cordis\Scripts\Server Entities\PDA\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Script_SE_Physic.h">
+      <Filter>Cordis\Scripts\Server Entities\Physic\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Script_SE_Restrictor.h">
+      <Filter>Cordis\Scripts\Server Entities\Restrictor\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Script_SE_SimulationSquad.h">
+      <Filter>Cordis\Scripts\Server Entities\Simulation Squad\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Script_SE_SmartCover.h">
+      <Filter>Cordis\Scripts\Server Entities\Smart cover\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Script_SE_SmartTerrain.h">
+      <Filter>Cordis\Scripts\Server Entities\Smart terrain\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Script_SE_Stalker.h">
+      <Filter>Cordis\Scripts\Server Entities\Stalker\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Script_SE_Weapon.h">
+      <Filter>Cordis\Scripts\Server Entities\Weapon\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Script_SE_WeaponAutomaticShotgun.h">
+      <Filter>Cordis\Scripts\Server Entities\Weapon automatic shotgun\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Script_SE_WeaponMagazined.h">
+      <Filter>Cordis\Scripts\Server Entities\Weapon magazined\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Script_SE_WeaponMagazinedWGL.h">
+      <Filter>Cordis\Scripts\Server Entities\Weapon magazined WGL\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Script_SE_WeaponShotgun.h">
+      <Filter>Cordis\Scripts\Server Entities\Weapon shotgun\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Script_SE_ZoneAnomaly.h">
+      <Filter>Cordis\Scripts\Server Entities\Zone anomaly\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Script_SE_ZoneTorrid.h">
+      <Filter>Cordis\Scripts\Server Entities\Zone torrid\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Script_SE_ZoneVisual.h">
+      <Filter>Cordis\Scripts\Server Entities\Zone visual\Public</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -12681,9 +12969,6 @@
     <ClCompile Include="Script_UI_MainMenu.cpp">
       <Filter>Cordis\Scripts\UI\MainMenu\Private</Filter>
     </ClCompile>
-    <ClCompile Include="Script_SE_Actor.cpp">
-      <Filter>Cordis\Scripts\Server Entities</Filter>
-    </ClCompile>
     <ClCompile Include="Script_StoryObject.cpp">
       <Filter>Cordis\Scripts\Managers\StoryObject\Private</Filter>
     </ClCompile>
@@ -12711,104 +12996,11 @@
     <ClCompile Include="Script_LogicEntity.cpp">
       <Filter>Cordis\Scripts\Logic\Interface\Private</Filter>
     </ClCompile>
-    <ClCompile Include="Script_SE_SmartTerrain.cpp">
-      <Filter>Cordis\Scripts\Server Entities</Filter>
-    </ClCompile>
     <ClCompile Include="Script_SmartTerrainControl.cpp">
       <Filter>Cordis\Scripts\Entities %28not server entities!%29\Smart Terrain control\Private</Filter>
     </ClCompile>
-    <ClCompile Include="Script_SE_SmartCover.cpp">
-      <Filter>Cordis\Scripts\Server Entities</Filter>
-    </ClCompile>
-    <ClCompile Include="Script_SE_SimulationSquad.cpp">
-      <Filter>Cordis\Scripts\Server Entities</Filter>
-    </ClCompile>
-    <ClCompile Include="Script_SE_Artefact.cpp">
-      <Filter>Cordis\Scripts\Server Entities</Filter>
-    </ClCompile>
-    <ClCompile Include="Script_SE_Helicopter.cpp">
-      <Filter>Cordis\Scripts\Server Entities</Filter>
-    </ClCompile>
-    <ClCompile Include="Script_SE_Outfit.cpp">
-      <Filter>Cordis\Scripts\Server Entities</Filter>
-    </ClCompile>
     <ClCompile Include="Script_TreasureManager.cpp">
       <Filter>Cordis\Scripts\Managers\Treasure</Filter>
-    </ClCompile>
-    <ClCompile Include="Script_SE_Helmet.cpp">
-      <Filter>Cordis\Scripts\Server Entities</Filter>
-    </ClCompile>
-    <ClCompile Include="Script_SE_Weapon.cpp">
-      <Filter>Cordis\Scripts\Server Entities</Filter>
-    </ClCompile>
-    <ClCompile Include="Script_SE_WeaponShotgun.cpp">
-      <Filter>Cordis\Scripts\Server Entities</Filter>
-    </ClCompile>
-    <ClCompile Include="Script_SE_WeaponAutomaticShotgun.cpp">
-      <Filter>Cordis\Scripts\Server Entities</Filter>
-    </ClCompile>
-    <ClCompile Include="Script_SE_WeaponMagazined.cpp">
-      <Filter>Cordis\Scripts\Server Entities</Filter>
-    </ClCompile>
-    <ClCompile Include="Script_SE_WeaponMagazinedWGL.cpp">
-      <Filter>Cordis\Scripts\Server Entities</Filter>
-    </ClCompile>
-    <ClCompile Include="Script_SE_Item.cpp">
-      <Filter>Cordis\Scripts\Server Entities</Filter>
-    </ClCompile>
-    <ClCompile Include="Script_SE_ItemTorch.cpp">
-      <Filter>Cordis\Scripts\Server Entities</Filter>
-    </ClCompile>
-    <ClCompile Include="Script_SE_Physic.cpp">
-      <Filter>Cordis\Scripts\Server Entities</Filter>
-    </ClCompile>
-    <ClCompile Include="Script_SE_Lamp.cpp">
-      <Filter>Cordis\Scripts\Server Entities</Filter>
-    </ClCompile>
-    <ClCompile Include="Script_SE_Ammo.cpp">
-      <Filter>Cordis\Scripts\Server Entities</Filter>
-    </ClCompile>
-    <ClCompile Include="Script_SE_Grenade.cpp">
-      <Filter>Cordis\Scripts\Server Entities</Filter>
-    </ClCompile>
-    <ClCompile Include="Script_SE_Eatable.cpp">
-      <Filter>Cordis\Scripts\Server Entities</Filter>
-    </ClCompile>
-    <ClCompile Include="Script_SE_InventoryBox.cpp">
-      <Filter>Cordis\Scripts\Server Entities</Filter>
-    </ClCompile>
-    <ClCompile Include="Script_SE_Explosive.cpp">
-      <Filter>Cordis\Scripts\Server Entities</Filter>
-    </ClCompile>
-    <ClCompile Include="Script_SE_PDA.cpp">
-      <Filter>Cordis\Scripts\Server Entities</Filter>
-    </ClCompile>
-    <ClCompile Include="Script_SE_Detector.cpp">
-      <Filter>Cordis\Scripts\Server Entities</Filter>
-    </ClCompile>
-    <ClCompile Include="Script_SE_LevelChanger.cpp">
-      <Filter>Cordis\Scripts\Server Entities</Filter>
-    </ClCompile>
-    <ClCompile Include="Script_SE_Monster.cpp">
-      <Filter>Cordis\Scripts\Server Entities</Filter>
-    </ClCompile>
-    <ClCompile Include="Script_SE_NewAttachableItem.cpp">
-      <Filter>Cordis\Scripts\Server Entities</Filter>
-    </ClCompile>
-    <ClCompile Include="Script_SE_Stalker.cpp">
-      <Filter>Cordis\Scripts\Server Entities</Filter>
-    </ClCompile>
-    <ClCompile Include="Script_SE_Restrictor.cpp">
-      <Filter>Cordis\Scripts\Server Entities</Filter>
-    </ClCompile>
-    <ClCompile Include="Script_SE_ZoneVisual.cpp">
-      <Filter>Cordis\Scripts\Server Entities</Filter>
-    </ClCompile>
-    <ClCompile Include="Script_SE_ZoneTorrid.cpp">
-      <Filter>Cordis\Scripts\Server Entities</Filter>
-    </ClCompile>
-    <ClCompile Include="Script_SE_ZoneAnomaly.cpp">
-      <Filter>Cordis\Scripts\Server Entities</Filter>
     </ClCompile>
     <ClCompile Include="Script_Animpoint.cpp">
       <Filter>Cordis\Scripts\Entities %28not server entities!%29\Animpoint\Private</Filter>
@@ -12866,6 +13058,102 @@
     </ClCompile>
     <ClCompile Include="Script_Binder_Restrictor.cpp">
       <Filter>Cordis\Scripts\Binders\Restrictor\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Script_SE_Actor.cpp">
+      <Filter>Cordis\Scripts\Server Entities\Actor\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Script_SE_Ammo.cpp">
+      <Filter>Cordis\Scripts\Server Entities\Ammo\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Script_SE_Artefact.cpp">
+      <Filter>Cordis\Scripts\Server Entities\Artefact\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Script_SE_Detector.cpp">
+      <Filter>Cordis\Scripts\Server Entities\Detector\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Script_SE_Eatable.cpp">
+      <Filter>Cordis\Scripts\Server Entities\Eatable\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Script_SE_Explosive.cpp">
+      <Filter>Cordis\Scripts\Server Entities\Explosive\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Script_SE_Grenade.cpp">
+      <Filter>Cordis\Scripts\Server Entities\Grenade\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Script_SE_Helicopter.cpp">
+      <Filter>Cordis\Scripts\Server Entities\Helicopter\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Script_SE_Helmet.cpp">
+      <Filter>Cordis\Scripts\Server Entities\Helmet\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Script_SE_InventoryBox.cpp">
+      <Filter>Cordis\Scripts\Server Entities\InventoryBox\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Script_SE_Item.cpp">
+      <Filter>Cordis\Scripts\Server Entities\Item\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Script_SE_ItemTorch.cpp">
+      <Filter>Cordis\Scripts\Server Entities\Item Torch\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Script_SE_Lamp.cpp">
+      <Filter>Cordis\Scripts\Server Entities\Lamp\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Script_SE_LevelChanger.cpp">
+      <Filter>Cordis\Scripts\Server Entities\Level Changer\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Script_SE_Monster.cpp">
+      <Filter>Cordis\Scripts\Server Entities\Monster\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Script_SE_NewAttachableItem.cpp">
+      <Filter>Cordis\Scripts\Server Entities\New Attachable Item\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Script_SE_Outfit.cpp">
+      <Filter>Cordis\Scripts\Server Entities\Outfit\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Script_SE_PDA.cpp">
+      <Filter>Cordis\Scripts\Server Entities\PDA\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Script_SE_Physic.cpp">
+      <Filter>Cordis\Scripts\Server Entities\Physic\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Script_SE_Restrictor.cpp">
+      <Filter>Cordis\Scripts\Server Entities\Restrictor\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Script_SE_SimulationSquad.cpp">
+      <Filter>Cordis\Scripts\Server Entities\Simulation Squad\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Script_SE_SmartCover.cpp">
+      <Filter>Cordis\Scripts\Server Entities\Smart cover\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Script_SE_SmartTerrain.cpp">
+      <Filter>Cordis\Scripts\Server Entities\Smart terrain\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Script_SE_Stalker.cpp">
+      <Filter>Cordis\Scripts\Server Entities\Stalker\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Script_SE_Weapon.cpp">
+      <Filter>Cordis\Scripts\Server Entities\Weapon\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Script_SE_WeaponAutomaticShotgun.cpp">
+      <Filter>Cordis\Scripts\Server Entities\Weapon automatic shotgun\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Script_SE_WeaponMagazined.cpp">
+      <Filter>Cordis\Scripts\Server Entities\Weapon magazined\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Script_SE_WeaponMagazinedWGL.cpp">
+      <Filter>Cordis\Scripts\Server Entities\Weapon magazined WGL\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Script_SE_WeaponShotgun.cpp">
+      <Filter>Cordis\Scripts\Server Entities\Weapon shotgun\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Script_SE_ZoneAnomaly.cpp">
+      <Filter>Cordis\Scripts\Server Entities\Zone anomaly\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Script_SE_ZoneTorrid.cpp">
+      <Filter>Cordis\Scripts\Server Entities\Zone torrid\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Script_SE_ZoneVisual.cpp">
+      <Filter>Cordis\Scripts\Server Entities\Zone visual\Private</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
