@@ -191,6 +191,8 @@ inline xr_string get_job_restrictor(const xr_string& waypoint_name);
 inline xr_string get_job_restrictor(const char* waypoint_name);
 inline bool is_accessible_job(CSE_ALifeDynamicObject* server_object, const xr_string& waypoint_name);
 inline bool is_accessible_job(CSE_ALifeDynamicObject* server_object, const char* waypoint_name);
+inline CScriptIniFile* create_ini_file(LPCSTR ini_string);
+
 } // namespace Globals
 } // namespace Scripts
 } // namespace Cordis

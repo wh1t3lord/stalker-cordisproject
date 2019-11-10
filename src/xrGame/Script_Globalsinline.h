@@ -1835,6 +1835,12 @@ inline bool is_accessible_job(CSE_ALifeDynamicObject* server_object, const char*
     return (!is_npc_inside);
 }
 
+CScriptIniFile* create_ini_file(LPCSTR ini_string)
+{
+    IReader reader((void*)ini_string, xr_strlen(ini_string));
+    return ((CScriptIniFile*)new CInifile(&reader, FS.get_path("$game_config$")->m_Path));
+}
+
 } // namespace Globals
 } // namespace Scripts
 } // namespace Cordis

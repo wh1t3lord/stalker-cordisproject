@@ -4,6 +4,15 @@ namespace Cordis
 {
 namespace Scripts
 {
+namespace GulagGenerator
+{
+inline static xr_string& getLtx(void) noexcept
+{
+    static xr_string instance;
+    return instance;
+}
+}
+
 namespace XR_LOGIC
 {
 inline void parse_infopotions(xr_map<std::uint32_t, CondlistData::CondlistValues>& data, xr_string& buffer);

@@ -97,8 +97,7 @@ inline CScriptIniFile get_customdata_or_ini_file(CScriptGameObject* npc, const x
         CScriptIniFile* file = npc->spawn_ini();
         if (!file)
         {
-            CScriptIniFile ini(file->fname());
-            return ini;
+            return *file;
         }
         else
             return CScriptIniFile("[[scripts\\dummy.ltx]]");
@@ -108,8 +107,10 @@ inline CScriptIniFile get_customdata_or_ini_file(CScriptGameObject* npc, const x
         if (storage.getJobIniName().size())
             return CScriptIniFile(storage.getJobIniName().c_str());
 
-        return XR_GULAG::loadLtx(filename.substr(filename.find('*') + 1));
+        return *XR_GULAG::loadLtx(filename.substr(filename.find('*') + 1));
     }
+
+    return CScriptIniFile(filename.c_str());
 }
 
 inline void intialize_job(CScriptGameObject* object, DataBase::Storage_Data& storage, const bool& loaded,
