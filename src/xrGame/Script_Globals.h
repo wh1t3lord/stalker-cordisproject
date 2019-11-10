@@ -1,7 +1,5 @@
 #pragma once
 
-
-
 namespace Cordis
 {
 namespace Scripts
@@ -48,7 +46,8 @@ inline xr_string cfg_get_string(CScriptIniFile* char_ini, const xr_string& secti
     bool mandatory = false, const xr_string& gulag_name = "");
 inline xr_string cfg_get_string(const CInifile* char_ini, const xr_string& section, const xr_string& field,
     bool mandatory = false, const xr_string& gulag_name = "");
-inline xr_string cfg_get_string(CInifile& char_ini, const xr_string& section, const xr_string& field, bool mandatory = false, const xr_string& gulag_name = "");
+inline xr_string cfg_get_string(CInifile& char_ini, const xr_string& section, const xr_string& field,
+    bool mandatory = false, const xr_string& gulag_name = "");
 inline float graph_distance(const std::uint16_t& gamevertexid_1, const std::uint16_t& gamevertexid_2);
 inline bool cfg_get_bool(const CInifile* char_ini, const xr_string& section, const xr_string& field,
     CScriptGameObject* object = nullptr, bool mandatory = false);
@@ -73,6 +72,8 @@ inline void r_2nums(const CInifile& spawn_ini, const xr_string& section_name, co
 inline xr_vector<std::pair<xr_string, float>> parse_spawns(const xr_string& buffer);
 inline bool is_npc_in_zone(CScriptGameObject* npc, CScriptGameObject* zone);
 inline bool is_npc_in_zone(CSE_ALifeDynamicObject* server_object, CScriptGameObject* zone);
+inline xrTime r_CTime(NET_Packet& packet);
+inline void w_CTime(NET_Packet& packet, xrTime& time);
 } // namespace Utils
 
 namespace Game
@@ -196,5 +197,3 @@ inline CScriptIniFile* create_ini_file(LPCSTR ini_string);
 } // namespace Globals
 } // namespace Scripts
 } // namespace Cordis
-
-

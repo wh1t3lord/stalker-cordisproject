@@ -14,12 +14,17 @@ class Script_SE_SmartTerrain;
 
 namespace GulagGenerator
 {
-inline std::pair<xr_vector<JobData>, xr_vector<JobDataExclusive>> load_job(Script_SE_SmartTerrain* smart)
+inline void add_exclusive_job(const xr_string& section_name, const xr_string& work_field_name,
+    CScriptIniFile* smart_ini, std::pair<xr_vector<JobData>, xr_vector<JobDataExclusive*>>& all_jobs);
+inline void add_exclusive_job(const xr_string& section_name, const xr_string& work_field_name,
+    CInifile& smart_ini, std::pair<xr_vector<JobData>, xr_vector<JobDataExclusive*>>& all_jobs);
+
+inline std::pair<xr_vector<JobData>, xr_vector<JobDataExclusive*>> load_job(Script_SE_SmartTerrain* smart)
 {
     if (!smart)
     {
         R_ASSERT2(false, "object was null!");
-        return std::pair<xr_vector<JobData>, xr_vector<JobDataExclusive>>();
+        return std::pair<xr_vector<JobData>, xr_vector<JobDataExclusive*>>();
     }
 
     Msg("[Scripts/GulagGenerator/load_job(smart)] LOAD JOB %s", smart->name_replace());
@@ -78,7 +83,7 @@ inline std::pair<xr_vector<JobData>, xr_vector<JobDataExclusive>> load_job(Scrip
     getLtx() += "meet_on_talking 		= false\n";
     getLtx() += "use_text				= nil\n";
 
-    std::pair<xr_vector<JobData>, xr_vector<JobDataExclusive>> all_jobs;
+    std::pair<xr_vector<JobData>, xr_vector<JobDataExclusive*>> all_jobs;
     JobData stalker_jobs;
     stalker_jobs.m_precondition_is_monster = false;
     stalker_jobs.m_priority = 60;
@@ -728,92 +733,91 @@ inline std::pair<xr_vector<JobData>, xr_vector<JobDataExclusive>> load_job(Scrip
     patrol_xranimpoint_point_name += "_animpoint_";
     patrol_xranimpoint_point_name += std::to_string(it_xranimpoint).c_str();
 
-        while (Script_GlobalHelper::getInstance().getGameRegisteredServerSmartCovers().find(
-                   patrol_xranimpoint_point_name) !=
-            Script_GlobalHelper::getInstance().getGameRegisteredServerSmartCovers().end())
+    while (
+        Script_GlobalHelper::getInstance().getGameRegisteredServerSmartCovers().find(patrol_xranimpoint_point_name) !=
+        Script_GlobalHelper::getInstance().getGameRegisteredServerSmartCovers().end())
+    {
+        xr_string waypoint_name = global_name;
+        waypoint_name += "_animpoint_";
+        waypoint_name += std::to_string(it_xranimpoint).c_str();
+
+        JobData_SubData data;
+
+        data.m_priority = 15;
+        data.m_job_id.first = "logic@";
+        data.m_job_id.first += waypoint_name;
+        data.m_job_id.second = Globals::GulagGenerator::kGulagJobSmartCover;
+        data.m_function = [](CSE_ALifeDynamicObject* server_object, Script_SE_SmartTerrain* smart,
+                              const std::pair<xr_string, xr_map<std::uint32_t, CondlistData>>& params,
+                              const NpcInfo& npc_info) -> bool {
+            if (!server_object)
+            {
+                R_ASSERT2(false, "object was null!");
+                return false;
+            }
+
+            CSE_ALifeHumanAbstract* server_human = server_object->cast_human_abstract();
+            if (!server_human)
+            {
+                R_ASSERT2(false, "object was null!");
+                return false;
+            }
+
+            if (!strcmp(server_human->CommunityName(), "zombied"))
+                return false;
+
+            return true;
+        };
+
+        // @ Lord: в оригинале пушиться сразу же в stalker_jobs, проверить этот момент!
+        stalker_xranimpoint.second.push_back(data);
+
+        xr_string job_ltx_data = "[logic@";
+        job_ltx_data += waypoint_name;
+        job_ltx_data += "]\n";
+        job_ltx_data += "active = animpoint@";
+        job_ltx_data += waypoint_name;
+        job_ltx_data += "]\n";
+        job_ltx_data += "[animpoint@";
+        job_ltx_data += waypoint_name;
+        job_ltx_data += "]\n";
+        job_ltx_data += "meet = meet@generic_animpoint\n";
+        job_ltx_data += "cover_name = ";
+        job_ltx_data += waypoint_name;
+        job_ltx_data += "\n";
+
+        if (smart->getDefenceRestirctor().size())
         {
-            xr_string waypoint_name = global_name;
-            waypoint_name += "_animpoint_";
-            waypoint_name += std::to_string(it_xranimpoint).c_str();
-
-            JobData_SubData data;
-
-            data.m_priority = 15;
-            data.m_job_id.first = "logic@";
-            data.m_job_id.first += waypoint_name;
-            data.m_job_id.second = Globals::GulagGenerator::kGulagJobSmartCover;
-            data.m_function = [](CSE_ALifeDynamicObject* server_object, Script_SE_SmartTerrain* smart,
-                                  const std::pair<xr_string, xr_map<std::uint32_t, CondlistData>>& params,
-                                  const NpcInfo& npc_info) -> bool {
-                if (!server_object)
-                {
-                    R_ASSERT2(false, "object was null!");
-                    return false;
-                }
-
-                CSE_ALifeHumanAbstract* server_human = server_object->cast_human_abstract();
-                if (!server_human)
-                {
-                    R_ASSERT2(false, "object was null!");
-                    return false;
-                }
-
-                if (!strcmp(server_human->CommunityName(), "zombied"))
-                    return false;
-
-                return true;
-            };
-
-            // @ Lord: в оригинале пушиться сразу же в stalker_jobs, проверить этот момент!
-            stalker_xranimpoint.second.push_back(data);
-
-            xr_string job_ltx_data = "[logic@";
-            job_ltx_data += waypoint_name;
-            job_ltx_data += "]\n";
-            job_ltx_data += "active = animpoint@";
-            job_ltx_data += waypoint_name;
-            job_ltx_data += "]\n";
-            job_ltx_data += "[animpoint@";
-            job_ltx_data += waypoint_name;
-            job_ltx_data += "]\n";
-            job_ltx_data += "meet = meet@generic_animpoint\n";
-            job_ltx_data += "cover_name = ";
-            job_ltx_data += waypoint_name;
+            job_ltx_data += "out_restr = ";
+            job_ltx_data += smart->getDefenceRestirctor();
             job_ltx_data += "\n";
-
-            if (smart->getDefenceRestirctor().size())
-            {
-                job_ltx_data += "out_restr = ";
-                job_ltx_data += smart->getDefenceRestirctor();
-                job_ltx_data += "\n";
-            }
-
-            if (smart->getSafeRestrictor().size() &&
-                XR_GULAG::is_job_in_restrictor(smart, smart->getSafeRestrictor(), waypoint_name))
-            {
-                job_ltx_data += "invulnerable = {=npc_in_zone(";
-                job_ltx_data += smart->getSafeRestrictor();
-                job_ltx_data += ")} true \n";
-            }
-
-            if (smart->getBaseOnActorControl())
-            {
-                if (smart->getBaseOnActorControl()->getIgnoreZoneName().size())
-                {
-                    job_ltx_data += "combat_ignore_cond = {=npc_in_zone(";
-                    job_ltx_data += smart->getBaseOnActorControl()->getIgnoreZoneName();
-                    job_ltx_data += ")} true \n";
-                    job_ltx_data += "combat_ignore_keep_when_attacked = true \n";
-                }
-            }
-
-            getLtx() += job_ltx_data;
-            ++it_xranimpoint;
-            patrol_xranimpoint_point_name = global_name;
-            patrol_xranimpoint_point_name += "_animpoint_";
-            patrol_xranimpoint_point_name += std::to_string(it_xranimpoint).c_str();
         }
-    
+
+        if (smart->getSafeRestrictor().size() &&
+            XR_GULAG::is_job_in_restrictor(smart, smart->getSafeRestrictor(), waypoint_name))
+        {
+            job_ltx_data += "invulnerable = {=npc_in_zone(";
+            job_ltx_data += smart->getSafeRestrictor();
+            job_ltx_data += ")} true \n";
+        }
+
+        if (smart->getBaseOnActorControl())
+        {
+            if (smart->getBaseOnActorControl()->getIgnoreZoneName().size())
+            {
+                job_ltx_data += "combat_ignore_cond = {=npc_in_zone(";
+                job_ltx_data += smart->getBaseOnActorControl()->getIgnoreZoneName();
+                job_ltx_data += ")} true \n";
+                job_ltx_data += "combat_ignore_keep_when_attacked = true \n";
+            }
+        }
+
+        getLtx() += job_ltx_data;
+        ++it_xranimpoint;
+        patrol_xranimpoint_point_name = global_name;
+        patrol_xranimpoint_point_name += "_animpoint_";
+        patrol_xranimpoint_point_name += std::to_string(it_xranimpoint).c_str();
+    }
 
     if (it_xranimpoint >= 1)
         stalker_jobs.m_jobs.push_back(stalker_xranimpoint);
@@ -1252,12 +1256,88 @@ inline std::pair<xr_vector<JobData>, xr_vector<JobDataExclusive>> load_job(Scrip
 
     all_jobs.first.push_back(monster_jobs);
 
+#pragma region Cordis Exclusive jobs handler gulag
+
+    CScriptIniFile* ini = smart->getIni();
+
+    if (ini)
+    {
+        if (ini->section_exist("smart_terrain"))
+        {
+            if (ini->section_exist("exclusive"))
+            {
+                std::uint32_t n = ini->line_count("exclusive");
+                const char* id;
+                const char* value;
+                for (std::uint32_t i = 0; i < n; ++i)
+                {
+                    bool status = ini->r_line("exclusive", i, &id, &value);
+                    if (status)
+                        add_exclusive_job("exclusive", id, ini, all_jobs);
+                }
+            }
+            else
+            {
+                int n = 1;
+                xr_string it = "work";
+                it += std::to_string(n);
+                while (ini->line_exist("smart_terrain", it.c_str()))
+                {
+                    add_exclusive_job("smart_terrain", it, ini, all_jobs);
+                    ++n;
+                    it = "work";
+                    it += n;
+                }
+            }
+        }
+    }
+    else
+    {
+        CInifile& ltx_ini = smart->spawn_ini();
+        if (ltx_ini.section_exist("smart_terrain"))
+        {
+            if (ltx_ini.section_exist("exclusive"))
+            {
+                std::uint32_t n = ltx_ini.line_count("exclusive");
+                const char* id;
+                const char* value;
+                for (std::uint32_t i = 0; i < n; ++i)
+                {
+                    bool status = ltx_ini.r_line("exclusive", i, &id, &value);
+                    if (status)
+                        add_exclusive_job("exclusive", id, ltx_ini, all_jobs);
+                }
+            }
+            else
+            {
+                int n = 1;
+                xr_string it = "work";
+                it += std::to_string(n);
+                while (ltx_ini.line_exist("smart_terrain", it.c_str()))
+                {
+                    add_exclusive_job("smart_terrain", it, ltx_ini, all_jobs);
+                    ++n;
+                    it = "work";
+                    it += n;
+                }
+            }
+        }
+    }
+
+#pragma endregion
+
     return all_jobs;
 }
 
 inline void add_exclusive_job(const xr_string& section_name, const xr_string& work_field_name,
-    CScriptIniFile& smart_ini, std::pair<xr_vector<JobData>, xr_vector<JobDataExclusive>>& all_jobs)
+    CScriptIniFile* smart_ini, std::pair<xr_vector<JobData>, xr_vector<JobDataExclusive*>>& all_jobs)
 {
+    if (!smart_ini)
+    {
+        R_ASSERT2(false, "object is null!");
+        return;
+    }
+
     if (!section_name.size())
     {
         R_ASSERT2(false, "string can't be null!");
@@ -1270,7 +1350,7 @@ inline void add_exclusive_job(const xr_string& section_name, const xr_string& wo
         return;
     }
 
-    xr_string work_name = Globals::Utils::cfg_get_string(&smart_ini, section_name, work_field_name);
+    xr_string work_name = Globals::Utils::cfg_get_string(smart_ini, section_name, work_field_name);
 
     if (!work_name.size())
     {
@@ -1288,52 +1368,63 @@ inline void add_exclusive_job(const xr_string& section_name, const xr_string& wo
         return;
     }
 
-    CScriptIniFile& job_ini_file = CScriptIniFile(ini_path_name.c_str());
-    xr_string job_online_name =
-        Globals::Utils::cfg_get_string(&job_ini_file, (xr_string("logic@").append(work_field_name)), "job_online");
-    xr_string active_section_name =
-        Globals::Utils::cfg_get_string(&job_ini_file, (xr_string("logic@").append(work_field_name)), "active");
-    xr_string job_suitable_name =
-        Globals::Utils::cfg_get_string(&job_ini_file, (xr_string("logic@").append(work_field_name)), "suitable");
+    CScriptIniFile* ini_current_npc = new CScriptIniFile(ini_path_name.c_str());
+
+    xr_string logic_name = "logic@";
+    logic_name += work_field_name;
+
+    xr_string job_online_name = Globals::Utils::cfg_get_string(ini_current_npc, logic_name, "job_online");
+    xr_string active_section_name = Globals::Utils::cfg_get_string(ini_current_npc, logic_name, "active");
+    xr_string job_suitable_name = Globals::Utils::cfg_get_string(ini_current_npc, logic_name, "suitable");
     xr_string scheme_name = Globals::Utils::get_scheme_by_section(active_section_name);
-    xr_string job_type_name = Script_GlobalHelper::getInstance().getJobTypesByScheme().at(scheme_name);
-    std::uint32_t new_priority = static_cast<std::uint32_t>(
-        Globals::Utils::cfg_get_number(&job_ini_file, (xr_string("logic@").append(work_field_name)), "prior"));
-    bool is_monster =
-        Globals::Utils::cfg_get_bool(&job_ini_file, (xr_string("logic@").append(work_field_name)), "monster_job");
+    xr_string job_type_name;
+    if (Script_GlobalHelper::getInstance().getJobTypesByScheme().find(scheme_name) !=
+        Script_GlobalHelper::getInstance().getJobTypesByScheme().end())
+        job_type_name = Script_GlobalHelper::getInstance().getJobTypesByScheme().at(scheme_name);
+    else
+    {
+        Msg("[Scripts/GulagGenerator/add_exclusive_job(section_name, work_field_name, smart_ini, all_jobs)] WARNIG: "
+            "can't detect unregistered job type by scheme %s",
+            scheme_name.c_str());
+        job_type_name = Script_GlobalHelper::getInstance().getJobTypesByScheme().at(0);
+    }
+
+    std::uint32_t new_priority =
+        static_cast<std::uint32_t>(Globals::Utils::cfg_get_number(ini_current_npc, logic_name, "prior"));
+    bool is_monster = Globals::Utils::cfg_get_bool(ini_current_npc, logic_name, "monster_job");
 
     if (scheme_name == Globals::GulagGenerator::kGulagJobNameMobHome)
-        if (Globals::Utils::cfg_get_bool(&job_ini_file, active_section_name, "gulag_point"))
+        if (Globals::Utils::cfg_get_bool(ini_current_npc, active_section_name, "gulag_point"))
             job_type_name = Globals::GulagGenerator::kGulagJobPoint;
 
     if (!job_suitable_name.size())
     {
-        JobDataExclusive data;
-        data.m_priority = new_priority;
-        data.m_is_precondition_monster = is_monster;
-        data.m_job_id.m_section_name = xr_string("logic@").append(work_field_name);
-        data.m_job_id.m_ini_path_name = ini_path_name;
-        data.m_job_id.m_job_type = job_type_name;
-        data.m_job_id.m_online_name = job_online_name;
-        data.m_job_id.m_ini_file = job_ini_file;
+        JobDataExclusive* data = new JobDataExclusive();
+        data->m_priority = new_priority;
+        data->m_is_precondition_monster = is_monster;
+        data->m_job_id.m_section_name = logic_name;
+        data->m_job_id.m_ini_path_name = ini_path_name;
+        data->m_job_id.m_job_type = job_type_name;
+        data->m_job_id.m_online_name = job_online_name;
+        data->m_job_id.m_ini_file = ini_current_npc;
 
         all_jobs.second.push_back(data);
         return;
     }
 
-    xr_map<std::uint32_t, CondlistData> condlist_data = XR_LOGIC::parse_condlist_by_server_object(
-        (xr_string("logic@").append(work_field_name)), "suitable", job_suitable_name);
+    xr_map<std::uint32_t, CondlistData> condlist_data =
+        XR_LOGIC::parse_condlist_by_server_object(logic_name, "suitable", job_suitable_name);
 
-    JobDataExclusive data;
-    data.m_priority = new_priority;
-    data.m_is_precondition_monster = is_monster;
-    data.m_job_id.m_section_name = xr_string("logic@").append(work_field_name);
-    data.m_job_id.m_ini_path_name = ini_path_name;
-    data.m_job_id.m_job_type = job_type_name;
-    data.m_job_id.m_online_name = job_online_name;
-    data.m_job_id.m_ini_file = job_ini_file;
-    data.m_function_params.second = condlist_data;
-    data.m_function = [](CSE_ALifeDynamicObject* server_object, Script_SE_SmartTerrain* smart,
+    JobDataExclusive* data = new JobDataExclusive();
+    data->m_priority = new_priority;
+    data->m_is_precondition_monster = is_monster;
+    data->m_job_id.m_section_name = logic_name;
+    data->m_job_id.m_ini_path_name = ini_path_name;
+    data->m_job_id.m_job_type = job_type_name;
+    data->m_job_id.m_online_name = job_online_name;
+    data->m_job_id.m_ini_file = ini_current_npc;
+    data->m_function_params.second = condlist_data;
+    data->m_function = [](CSE_ALifeDynamicObject* server_object, Script_SE_SmartTerrain* smart,
                           const std::pair<xr_string, xr_map<std::uint32_t, CondlistData>>& params) -> bool {
         xr_string result = XR_LOGIC::pick_section_from_condlist(
             DataBase::Storage::getInstance().getActor(), server_object, params.second);
@@ -1347,15 +1438,130 @@ inline void add_exclusive_job(const xr_string& section_name, const xr_string& wo
     all_jobs.second.push_back(data);
 
     // Затычка для оффлайна, когда невозможно проверить прекондишн
-    JobDataExclusive data1;
-    data1.m_priority = -1;
-    data1.m_is_precondition_monster = is_monster;
-    data1.m_job_id.m_section_name = xr_string("logic@").append(work_field_name);
-    data1.m_job_id.m_job_type = job_type_name;
-    data1.m_job_id.m_ini_file = job_ini_file;
+    JobDataExclusive* data1 = new JobDataExclusive();
+    data1->m_priority = -1;
+    data1->m_is_precondition_monster = is_monster;
+    data1->m_job_id.m_section_name = logic_name;
+    data1->m_job_id.m_job_type = job_type_name;
+    data1->m_job_id.m_ini_file = ini_current_npc;
 
     all_jobs.second.push_back(data1);
 }
+
+inline void add_exclusive_job(const xr_string& section_name, const xr_string& work_field_name,
+    CInifile& smart_ini, std::pair<xr_vector<JobData>, xr_vector<JobDataExclusive*>>& all_jobs)
+{
+    if (!section_name.size())
+    {
+        R_ASSERT2(false, "string can't be null!");
+        return;
+    }
+
+    if (!work_field_name.size())
+    {
+        R_ASSERT2(false, "string can't be empty!");
+        return;
+    }
+
+    xr_string work_name = Globals::Utils::cfg_get_string(smart_ini, section_name, work_field_name);
+
+    if (!work_name.size())
+    {
+        R_ASSERT2(false, "a string can't be empty!");
+        return;
+    }
+
+    xr_string ini_path_name = "scripts\\";
+    ini_path_name += work_name;
+
+    if (!FS.exist("$game_config$", ini_path_name.c_str()))
+    {
+        Msg("There is no configuration file [%s]", ini_path_name.c_str());
+        R_ASSERT(false);
+        return;
+    }
+
+    CScriptIniFile* ini_current_npc = new CScriptIniFile(ini_path_name.c_str());
+
+    xr_string logic_name = "logic@";
+    logic_name += work_field_name;
+
+    xr_string job_online_name = Globals::Utils::cfg_get_string(ini_current_npc, logic_name, "job_online");
+    xr_string active_section_name = Globals::Utils::cfg_get_string(ini_current_npc, logic_name, "active");
+    xr_string job_suitable_name = Globals::Utils::cfg_get_string(ini_current_npc, logic_name, "suitable");
+    xr_string scheme_name = Globals::Utils::get_scheme_by_section(active_section_name);
+    xr_string job_type_name;
+    if (Script_GlobalHelper::getInstance().getJobTypesByScheme().find(scheme_name) !=
+        Script_GlobalHelper::getInstance().getJobTypesByScheme().end())
+        job_type_name = Script_GlobalHelper::getInstance().getJobTypesByScheme().at(scheme_name);
+    else
+    {
+        Msg("[Scripts/GulagGenerator/add_exclusive_job(section_name, work_field_name, smart_ini, all_jobs)] WARNIG: "
+            "can't detect unregistered job type by scheme %s",
+            scheme_name.c_str());
+        job_type_name = Script_GlobalHelper::getInstance().getJobTypesByScheme().at(0);
+    }
+
+    std::uint32_t new_priority =
+        static_cast<std::uint32_t>(Globals::Utils::cfg_get_number(ini_current_npc, logic_name, "prior"));
+    bool is_monster = Globals::Utils::cfg_get_bool(ini_current_npc, logic_name, "monster_job");
+
+    if (scheme_name == Globals::GulagGenerator::kGulagJobNameMobHome)
+        if (Globals::Utils::cfg_get_bool(ini_current_npc, active_section_name, "gulag_point"))
+            job_type_name = Globals::GulagGenerator::kGulagJobPoint;
+
+    if (!job_suitable_name.size())
+    {
+        JobDataExclusive* data = new JobDataExclusive();
+        data->m_priority = new_priority;
+        data->m_is_precondition_monster = is_monster;
+        data->m_job_id.m_section_name = logic_name;
+        data->m_job_id.m_ini_path_name = ini_path_name;
+        data->m_job_id.m_job_type = job_type_name;
+        data->m_job_id.m_online_name = job_online_name;
+        data->m_job_id.m_ini_file = ini_current_npc;
+
+        all_jobs.second.push_back(data);
+        return;
+    }
+
+    xr_map<std::uint32_t, CondlistData> condlist_data =
+        XR_LOGIC::parse_condlist_by_server_object(logic_name, "suitable", job_suitable_name);
+
+    JobDataExclusive* data = new JobDataExclusive();
+    data->m_priority = new_priority;
+    data->m_is_precondition_monster = is_monster;
+    data->m_job_id.m_section_name = logic_name;
+    data->m_job_id.m_ini_path_name = ini_path_name;
+    data->m_job_id.m_job_type = job_type_name;
+    data->m_job_id.m_online_name = job_online_name;
+    data->m_job_id.m_ini_file = ini_current_npc;
+    data->m_function_params.second = condlist_data;
+    data->m_function = [](CSE_ALifeDynamicObject* server_object, Script_SE_SmartTerrain* smart,
+                           const std::pair<xr_string, xr_map<std::uint32_t, CondlistData>>& params) -> bool {
+        xr_string result = XR_LOGIC::pick_section_from_condlist(
+            DataBase::Storage::getInstance().getActor(), server_object, params.second);
+
+        if (result == "false" || !result.size())
+            return false;
+
+        return true;
+    };
+
+    all_jobs.second.push_back(data);
+
+    // Затычка для оффлайна, когда невозможно проверить прекондишн
+    JobDataExclusive* data1 = new JobDataExclusive();
+    data1->m_priority = -1;
+    data1->m_is_precondition_monster = is_monster;
+    data1->m_job_id.m_section_name = logic_name;
+    data1->m_job_id.m_job_type = job_type_name;
+    data1->m_job_id.m_ini_file = ini_current_npc;
+
+    all_jobs.second.push_back(data1);
+}
+
+
 
 } // namespace GulagGenerator
 } // namespace Scripts

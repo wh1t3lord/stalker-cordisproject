@@ -25,11 +25,14 @@ class Script_SmartTerrainControl
 {
 public:
     Script_SmartTerrainControl(Script_SE_SmartTerrain* smart, CScriptIniFile& ini, const xr_string& section);
+    Script_SmartTerrainControl(Script_SE_SmartTerrain* smart, CInifile& ini, const xr_string& section_name);
     ~Script_SmartTerrainControl(void);
 
     void update(void);
     bool IsActorTreat(void);
-
+    // Lord: сделать метод actor_attack(), когда будет xr_sound!
+    void load(NET_Packet& packet);
+    void save(NET_Packet& packet);
     inline Script_SmartTerrainControl_States& getState(void) noexcept { return this->m_state; }
     inline xr_string& getIgnoreZoneName(void) noexcept { return this->m_ignore_zone; }
     inline xr_string& getNoweaponZoneName(void) noexcept { return this->m_noweapon_zone; }

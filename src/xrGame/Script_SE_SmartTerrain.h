@@ -17,6 +17,7 @@ namespace Scripts
 {
 struct NpcInfo;
 
+// @ For smart terrain stuff
 struct JobData_SubData
 {
     std::uint32_t m_priority;
@@ -45,8 +46,9 @@ struct NpcInfo
 { // @ Lord: пока что не вся заполнена!
     bool m_is_monster;
     bool m_begin_job;
-    std::uint32_t m_stype;
-    std::uint32_t m_job_prioprity;
+    int m_job_prioprity;
+    int m_job_id;
+    int m_stype;
     CSE_ALifeDynamicObject* m_server_object; // @ Lord: определить где оно именно удаляется в итоге
     xr_string m_need_job;
     JobData_SubData m_job_link;
@@ -71,17 +73,33 @@ struct JobData
     xr_vector<std::pair<std::uint32_t, xr_vector<JobData_SubData>>> m_jobs;
 };
 
+// WARNING!
+// Don't use it directly! using JobDataExclusive* data structure!
 struct JobDataExclusive_SubData
 {
-    CScriptIniFile m_ini_file = CScriptIniFile("system.ltx");
+    ~JobDataExclusive_SubData(void)
+    {
+        if (!m_has_previous)
+            if (this->m_ini_file)
+                xr_delete(this->m_ini_file);
+    }
+
+    inline void setDeallocationChecker(const xr_string& comparator) noexcept { this->m_has_previous = (this->m_section_name == comparator); }
+
+    CScriptIniFile* m_ini_file;
     xr_string m_section_name;
     xr_string m_online_name;
     xr_string m_job_type;
     xr_string m_ini_path_name;
+
+private:
+    bool m_has_previous = false; // @ system value for deallocation, don't touch it
 };
 
 struct JobDataExclusive
 {
+    ~JobDataExclusive(void) {}
+
     bool m_is_precondition_monster;
     std::uint32_t m_priority;
     std::pair<xr_string, xr_map<std::uint32_t, CondlistData>> m_function_params;
@@ -98,7 +116,7 @@ struct JobDataSmartTerrain
     // @ First - section | Second - job_type (that taking from gulag_general as JobData_SubData::m_job_id respectively)
     std::pair<xr_string, xr_string> m_job_id;
 };
-
+// Lord: проверить выравнивание!!!!!!
 class Script_SE_SmartTerrain : public CSE_ALifeSmartZone
 {
     using inherited = CSE_ALifeSmartZone;
@@ -111,6 +129,9 @@ public:
     virtual void on_before_register(void);
     virtual void on_register(void);
     virtual void on_unregister(void);
+    virtual void STATE_Read(NET_Packet& packet, u16 size);
+    virtual void STATE_Write(NET_Packet& packet);
+
     inline NpcInfo fill_npc_info(CSE_ALifeDynamicObject* server_object)
     {
         if (!server_object)
@@ -147,10 +168,15 @@ public:
     inline void refresh(void) { this->show(); }
 
 #pragma region Cordis Getters
+    inline bool IsDisabled(void) const noexcept { return this->m_is_disabled; }
+
     inline xr_string getDefenceRestirctor(void) noexcept { return this->m_defence_restictor; }
     inline xr_string getAttackRestrictor(void) noexcept { return this->m_attack_restrictor; }
     inline xr_string getSafeRestrictor(void) noexcept { return this->m_safe_restirctor; }
-    inline Script_SmartTerrainControl* getBaseOnActorControl(void) noexcept { return this->m_base_on_actor_control; }
+    inline Script_SmartTerrainControl* getBaseOnActorControl(void) noexcept
+    {
+        return this->m_base_on_actor_control.get();
+    }
     inline xrTime& getSmartAlarmTime(void) noexcept { return this->m_smart_alarm_time; }
     inline xr_map<std::uint32_t, xrTime>& getDeadTime(void) noexcept { return this->m_dead_time; }
     inline std::uint32_t getIDNPCOnJob(const xr_string& job_name) noexcept
@@ -158,13 +184,12 @@ public:
         return this->m_npc_by_job_section[job_name];
     }
     inline std::uint16_t getSquadID(void) noexcept { return this->m_squad_id; }
-    inline CInifile& getIni(void) noexcept { return this->spawn_ini(); }
     inline xr_string getSpawnPointName(void) noexcept { return this->m_spawn_point_name; }
     inline std::uint32_t getStaydSquadQuan(void) noexcept { return this->m_stayed_squad_quan; }
     inline xr_map<std::uint32_t, NpcInfo>& getNpcInfo(void) noexcept { return this->m_npc_info; }
     inline xr_map<std::uint32_t, JobDataSmartTerrain>& getJobData(void) noexcept { return this->m_job_data; }
-    inline CALifeSmartTerrainTask* getAlifeSmartTerrainTask(void) { return this->m_smart_alife_task.get();
-    }
+    inline CALifeSmartTerrainTask* getAlifeSmartTerrainTask(void) { return this->m_smart_alife_task.get(); }
+    inline CScriptIniFile* getIni(void) const noexcept { return this->m_ini.get(); }
 #pragma endregion
 
 #pragma region Cordis Setters
@@ -179,6 +204,7 @@ public:
     void on_reach_target(Script_SE_SimulationSquad* squad);
     void clear_dead(CSE_ALifeDynamicObject* server_object);
     void hide(void);
+    void check_respawn_params(xr_string& params);
 
 private:
     void show(void);
@@ -189,19 +215,33 @@ private:
     bool m_is_registered;
     bool m_is_smart_showed_spot;
     bool m_is_need_init_npc;
+    bool m_is_disabled;
+    bool m_is_respawn_point;
+    bool m_is_mutant_lair;
+    bool m_is_no_mutant;
+    bool m_is_respawn_only_smart;
     std::uint16_t m_squad_id;
+    std::uint16_t m_respawn_radius;
+    std::uint32_t m_max_population;
+    std::uint32_t m_arrive_distance;
     std::uint32_t m_population;
     std::uint32_t m_stayed_squad_quan;
     std::uint32_t m_show_time;
     xrTime m_smart_alarm_time;
+    std::pair<xr_vector<JobData>, xr_vector<JobDataExclusive*>> m_jobs;
     std::unique_ptr<CALifeSmartTerrainTask> m_smart_alife_task;
-    Script_SmartTerrainControl* m_base_on_actor_control;
+    //  Script_SmartTerrainControl* m_base_on_actor_control;
+    std::unique_ptr<Script_SmartTerrainControl> m_base_on_actor_control;
     xr_map<std::uint32_t, xrTime> m_dead_time;
     xr_map<xr_string, std::uint32_t> m_npc_by_job_section;
+    // pair<vector_spawn_squads_name, condlist_spawn_num>!
+    xr_map<xr_string, std::pair<xr_vector<xr_string>, xr_map<std::uint32_t, CondlistData>>> m_respawn_params;
+    xr_map<xr_string, std::uint8_t> m_already_spawned;
     xr_map<std::uint32_t, CSE_ALifeDynamicObject*> m_arriving_npc;
     xr_map<std::uint32_t, NpcInfo> m_npc_info;
     xr_map<std::uint32_t, JobDataSmartTerrain> m_job_data;
     xr_vector<CSE_ALifeDynamicObject*> m_npc_to_register;
+    xrTime m_last_respawn_update;
     xr_string m_smart_level;
     xr_string m_defence_restictor;
     xr_string m_attack_restrictor;
@@ -210,6 +250,11 @@ private:
     xr_string m_smart_showed_spot_name;
     xr_string m_simulation_type_name;
     xr_string m_player_name;
+    xr_string m_fobidden_point_name;
+    xr_string m_traveller_actor_path_name;
+    xr_string m_traveller_squad_path_name;
+    xr_map<std::uint32_t, CondlistData> m_respawn_sector_condlist;
+    std::unique_ptr<CScriptIniFile> m_ini;
 };
 } // namespace Scripts
 } // namespace Cordis

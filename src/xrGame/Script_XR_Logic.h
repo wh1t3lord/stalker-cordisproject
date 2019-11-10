@@ -162,6 +162,7 @@ inline void parse_infopotions(xr_map<std::uint32_t, CondlistData::CondlistValues
             values.m_infopotion_name = maked_string;
             values.m_required = true;
             data[total_it] = values;
+            values.clear();
             ++total_it;
             --z;
             it = z;
