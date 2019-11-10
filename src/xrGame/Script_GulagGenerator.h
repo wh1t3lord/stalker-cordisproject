@@ -14,12 +14,6 @@ class Script_SE_SmartTerrain;
 
 namespace GulagGenerator
 {
-inline static xr_string& getLtx(void) noexcept
-{
-    static xr_string instance;
-    return instance;
-}
-
 inline std::pair<xr_vector<JobData>, xr_vector<JobDataExclusive>> load_job(Script_SE_SmartTerrain* smart)
 {
     if (!smart)

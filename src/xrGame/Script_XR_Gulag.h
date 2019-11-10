@@ -41,22 +41,26 @@ inline static xr_map<xr_string, CScriptIniFile*>& getDynamicLtx(void) noexcept
 }
 
 // @ "*smart_name*type_gulag"
-inline CScriptIniFile loadLtx(const xr_string& name)
+inline CScriptIniFile* loadLtx(const xr_string& name/*, xr_string& result*/)
 {
     // Lord: доделать!
     xr_string header = "*";
     header += name;
     CScriptIniFile* file = getDynamicLtx()[header];
-
-    if (file->fname())
-        return *file;
+   // result = header; Lord: если что аргумент result="" сделать default
+    if (file)
+        return file;
     else
     {
-        xr_string _n;
+        xr_string& data = GulagGenerator::getLtx();
+        if (!data.empty())
+        {
+            return Globals::create_ini_file(data.c_str());
+        }
     }
 
     // написать по нормальному!
-    return CScriptIniFile("system.ltx");
+    return nullptr;
 }
 
 inline bool is_job_in_restrictor(
@@ -98,7 +102,7 @@ inline bool is_job_in_restrictor(
         if (!restrictor_object->inside(patrol.point(i)))
             return false;
     }
-    
+
     return true;
 }
 
