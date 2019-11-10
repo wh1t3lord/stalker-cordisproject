@@ -336,8 +336,9 @@ inline xr_string get_scheme_by_section(xr_string& data)
     xr_string result = data;
     if (result.find('@') == xr_string::npos)
     {
-        R_ASSERT2(false, "invalid string!");
-        return xr_string("");
+    //    R_ASSERT2(false, "invalid string!");
+        Msg("[Scripts/Globals/Utils/get_scheme_by_section(data)] Does it right logic section name %s ?", data.c_str());
+        return result;
     }
 
     return result.erase(result.find('@'));
@@ -476,7 +477,74 @@ inline bool is_npc_in_zone(CSE_ALifeDynamicObject* server_object, CScriptGameObj
 
     return zone->inside(server_object->Position());
 }
-} 
+
+inline xrTime r_CTime(NET_Packet& packet)
+{
+    int Y = packet.r_u8();
+    if (Y == Globals::kUnsignedInt8Undefined)
+    {
+        Msg("[Scripts/Globals/Utils/r_CTime(packet)] WARNING: bad initialize time from net_packet!");
+        return xrTime();
+    }
+
+    if (Y != 0)
+    {
+        xrTime time = xrTime();
+        std::uint8_t mounth = packet.r_u8();
+        std::uint8_t day = packet.r_u8();
+        std::uint8_t hour = packet.r_u8();
+        std::uint8_t minute = packet.r_u8();
+        std::uint8_t second = packet.r_u8();
+        std::uint16_t milisecond = packet.r_u16();
+        time.set(Y + 2000, mounth, day, hour, minute, second, milisecond);
+
+        return time;
+    }
+    else
+    {
+        Msg("[Scripts/Globals/Utils/r_CTime(packet)] WARNING: can't initialize time from net_packet!");
+        return xrTime();
+    }
+}
+
+inline void w_CTime(NET_Packet& packet, xrTime& time)
+{
+    if (time == 0)
+    {
+        Msg("[Scripts/Globals/Utils/w_CTime(packet, time)] WARNING: invalid xrTime structure, writing "
+            "std::uint8_t(-1). Return...");
+        packet.w_u8(Globals::kUnsignedInt8Undefined);
+        return;
+    }
+
+    if (!(time == xrTime()))
+    {
+        std::uint32_t year = 0;
+        std::uint32_t mounth = 0;
+        std::uint32_t day = 0;
+        std::uint32_t hour = 0;
+        std::uint32_t minute = 0;
+        std::uint32_t second = 0;
+        std::uint32_t milisecond = 0;
+
+        time.get(year, mounth, day, hour, minute, second, milisecond);
+
+        packet.w_u8(year - 2000);
+        packet.w_u8(mounth);
+        packet.w_u8(day);
+        packet.w_u8(hour);
+        packet.w_u8(minute);
+        packet.w_u8(second);
+        packet.w_u16(milisecond);
+    }
+    else
+    {
+        Msg("[Scripts/Globals/Utils/w_CTime(packet, time)] WARNING: time equals default constructor xrTime()!");
+        packet.w_u8(0);
+    }
+}
+
+} // namespace Utils
 
 namespace Game
 {

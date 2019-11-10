@@ -23,6 +23,22 @@ Script_SmartTerrainControl::Script_SmartTerrainControl(
     }
 }
 
+Script_SmartTerrainControl::Script_SmartTerrainControl(
+    Script_SE_SmartTerrain* smart, CInifile& ini, const xr_string& section_name)
+    : m_smart(smart), m_state(Script_SmartTerrainControl_States::kNormal),
+      m_noweapon_zone(Globals::Utils::cfg_get_string(&ini, section_name, "noweap_zone", true)),
+      m_ignore_zone(Globals::Utils::cfg_get_string(&ini, section_name, "ignore_zone")),
+      m_alarm_start_sound(XR_LOGIC::parse_condlist_by_server_object(
+          section_name, "alarm_start_sound", Globals::Utils::cfg_get_string(&ini, section_name, "alarm_start_sound"))),
+      m_alarm_stop_sound(XR_LOGIC::parse_condlist_by_server_object(
+          section_name, "alarm_stop_sound", Globals::Utils::cfg_get_string(&ini, section_name, "alarm_stop_sound")))
+{
+    if (!this->m_smart)
+    {
+        R_ASSERT2(false, "object was null!");
+    }
+}
+
 Script_SmartTerrainControl::~Script_SmartTerrainControl(void) {}
 
 void Script_SmartTerrainControl::update(void)
@@ -66,6 +82,26 @@ bool Script_SmartTerrainControl::IsActorTreat(void)
     }
 
     return false;
+}
+
+void Script_SmartTerrainControl::load(NET_Packet& packet) 
+{
+    Globals::set_save_marker(packet, Globals::kSaveMarkerMode_Load, false, "Script_SmartTerrainControl");
+
+    this->m_state = static_cast<Script_SmartTerrainControl_States>(packet.r_u8());
+    this->m_alarm_time = Globals::Utils::r_CTime(packet);
+
+    Globals::set_save_marker(packet, Globals::kSaveMarkerMode_Load, true, "Script_SmartTerrainControl");
+}
+
+void Script_SmartTerrainControl::save(NET_Packet& packet)
+{
+    Globals::set_save_marker(packet, Globals::kSaveMarkerMode_Save, false, "Script_SmartTerrainControl");
+
+    packet.w_u8(this->m_state);
+    Globals::Utils::w_CTime(packet, this->m_alarm_time);
+
+    Globals::set_save_marker(packet, Globals::kSaveMarkerMode_Save, true, "Script_SmartTerrainControl");
 }
 
 } // namespace Scripts
