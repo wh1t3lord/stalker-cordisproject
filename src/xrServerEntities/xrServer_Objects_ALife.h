@@ -446,7 +446,7 @@ public:
     virtual float suitable(CSE_ALifeMonsterAbstract* object) const { return 0.f; };
     virtual void register_npc(CSE_ALifeMonsterAbstract* object){};
     virtual void unregister_npc(CSE_ALifeMonsterAbstract* object){};
-    virtual CALifeSmartTerrainTask* task(CSE_ALifeMonsterAbstract* object) { return 0; };
+    virtual CALifeSmartTerrainTask* task(CSE_ALifeMonsterAbstract* object) { return nullptr; };
 #endif
     virtual void UPDATE_Read(NET_Packet& P);
     virtual void UPDATE_Write(NET_Packet& P);
