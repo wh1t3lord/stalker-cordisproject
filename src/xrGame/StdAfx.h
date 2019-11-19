@@ -341,6 +341,9 @@ enum
 #include "xrAICore/Navigation/game_graph.h"
 #include "script_ini_file.h"
 #include "Script_Animpoint.h"
+#include "Script_ISchemeEntity.h"
+#include "Script_ISchemeMonster.h"
+#include "Script_ISchemeStalker.h"
 #include "Script_Database.h"
 #include "Script_SE_SimulationSquad.h"
 #include "PhraseDialog.h"
@@ -382,7 +385,6 @@ enum
 /*#include "Script_GulagGenerator.h"*/
 #include "Script_SE_SmartTerrain.h"
 #include "Script_SimulationBoard.h"
-#include "Script_LogicEntity.h"
 #include "Script_LogicManager.h"
 #include "Script_TreasureManager.h"
 #include "Script_SoundManager.h"

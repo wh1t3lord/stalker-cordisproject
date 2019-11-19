@@ -1,7 +1,6 @@
 #pragma once
 
 #include "script_sound.h"
-#include "Script_LogicEntity.h"
 
 namespace Cordis
 {
@@ -22,12 +21,101 @@ inline void add_enemy(CSE_Abstract* object)
 class Storage_Scheme
 {
 public:
-    ~Storage_Scheme(void) { this->m_npc = nullptr; }
+    ~Storage_Scheme(void)
+    {
+        this->m_npc = nullptr;
+        if (this->m_action)
+        {
+            Msg("[Scripts/DataBase/Storage_Scheme/~dtor()] deleting local m_action %s!",
+                this->m_action->getSchemeName().c_str());
+            xr_delete(this->m_action);
+        }
+
+        if (!this->m_actions.empty())
+        {
+            for (Script_ISchemeEntity* it : this->m_actions)
+            {
+                if (it)
+                {
+                    Msg("[Scripts/DataBase/Storage_Scheme/~dtor()] deleting scheme %s from actions",
+                        it->getSchemeName().c_str());
+                    xr_delete(it);
+                }
+            }
+        }
+    }
+
+    inline const xr_vector<Script_ISchemeEntity*>& getActions(void) const noexcept { return this->m_actions; }
+
+    inline void setActions(Script_ISchemeEntity* p_scheme)
+    {
+        if (!p_scheme)
+        {
+            Msg("[Scripts/DataBase/Storage_Scheme/setActions(p_scheme)] WARNING: you can't assign nullptr object "
+                "return ...!");
+            return;
+        }
+
+        this->m_actions.push_back(p_scheme);
+    }
+
+    inline void setAction(Script_ISchemeEntity* p_scheme)
+    {
+        if (!p_scheme)
+        {
+            Msg("[Scripts/DataBase/Storage_Scheme/setAction(p_scheme)] WARNING: you can't assign nullptr object return "
+                "...!");
+            return;
+        }
+
+        this->m_action = p_scheme;
+    }
+
+    inline const xr_map<xr_string, bool>& getSignals(void) const noexcept { return this->m_signals; }
+
+    inline void setSignals(const xr_map<xr_string, bool>& map) noexcept
+    {
+        if (map.empty())
+        {
+            Msg("[Scripts/DataBase/Storage_Scheme/setSignals(map)] WARNING: map.empty() == true! Can't assign an empty "
+                "map "
+                "return ...");
+            return;
+        }
+
+        this->m_signals = map;
+    }
+
+    inline void setSignals(const std::pair<xr_string, bool>& pair) noexcept
+    {
+        if (pair.first.empty())
+        {
+            Msg("[Scripts/DataBase/Storage_Scheme/setSignals(pair)] WARNING: pair.first.empty() == true! Can't assign "
+                "an empty string return ...");
+            return;
+        }
+
+        this->m_signals.insert(pair);
+    }
+
+    inline void setSignals(const xr_string& signal_name, const bool value) noexcept
+    {
+        if (signal_name.empty())
+        {
+            Msg("[Scripts/DataBase/Storage_Scheme/setSignals(signal_name, value)] WARNING: signal_name.empty() == true! Can't assign an empty string return ...");
+            return;
+        }
+        
+        this->m_signals[signal_name] = value;
+    }
 
 private:
     // @ Не понятно зачем в итоге но так у ПЫС, если в итоге оно находится в самом сторадже где уже зарегистрирован сам
     // НПС
     CScriptGameObject* m_npc = nullptr;
+    Script_ISchemeEntity* m_action = nullptr; // @ для XR_LOGIC::unsubscrive_action, используется в очень редких схемах!
+    xr_map<xr_string, bool> m_signals;
+    xr_vector<Script_ISchemeEntity*> m_actions;
 };
 
 // Lord: не забудь что здесь ещё MANAGER для WOUNDED!!!!!!
@@ -295,7 +383,8 @@ public:
         this->m_string = string;
     }
 };
-// сделать private, public!
+// Lord: удалить SubStorage
+/*
 struct SubStorage_Data
 {
 private:
@@ -337,6 +426,7 @@ public:
         this->m_signals[id_name] = value;
     }
 
+/ *
     inline void setAction(const xr_vector<Script_ILogicEntity*>& vector)
     {
         if (!vector.size())
@@ -359,10 +449,10 @@ public:
         }
 
         this->m_actions.push_back(entity);
-    }
+    }* /
 
     inline const xr_map<xr_string, bool>& getSignals(void) const noexcept { return this->m_signals; }
-    inline const xr_vector<Script_ILogicEntity*>& getActions(void) const noexcept { return this->m_actions; }
+/ *    inline const xr_vector<Script_ILogicEntity*>& getActions(void) const noexcept { return this->m_actions; }* /
     inline void ClearActions(void)
     {
         Msg("[DataBase/SubStorage_Data/ClearActions()] this->m_actions.clear() is called!");
@@ -376,8 +466,8 @@ public:
 
 private:
     xr_map<xr_string, bool> m_signals;
-    xr_vector<Script_ILogicEntity*> m_actions;
-};
+/ *    xr_vector<Script_ILogicEntity*> m_actions;* /
+};*/
 // сделать private, public!
 struct StorageAnimpoint_Data
 {
@@ -559,48 +649,46 @@ public:
         this->m_p_ini = p_ini;
     }
 
-    inline void ResetSignals(void) { this->m_data.clear(); }
+    /*    inline void ResetSignals(void) { this->m_data.clear(); }*/
 
     // @ Gets signals xr_map<xr_string, bool>
-    inline const SubStorage_Data& operator[](const xr_string& id) { return m_data[id]; }
+    /*
+        inline const SubStorage_Data& operator[](const xr_string& id) { return m_data[id]; }
 
-    inline const xr_map<xr_string, SubStorage_Data>& getData(void) const noexcept { return this->m_data; }
+        inline const xr_map<xr_string, SubStorage_Data>& getData(void) const noexcept { return this->m_data; }
 
-    inline void setData(const xr_map<xr_string, SubStorage_Data>& map)
-    {
-        if (!map.size())
+        inline void setData(const xr_map<xr_string, SubStorage_Data>& map)
         {
-            Msg("[DataBase/Storage_Data/setData(map)] WARNING: map.size() = 0! You are trying to set an empty map! No "
-                "assignment!");
-            return;
+            if (!map.size())
+            {
+                Msg("[DataBase/Storage_Data/setData(map)] WARNING: map.size() = 0! You are trying to set an empty map!
+       No " "assignment!"); return;
+            }
+
+            this->m_data = map;
         }
 
-        this->m_data = map;
-    }
-
-    inline void setData(const std::pair<xr_string, SubStorage_Data>& pair)
-    {
-        if (!pair.first.size())
+        inline void setData(const std::pair<xr_string, SubStorage_Data>& pair)
         {
-            Msg("[DataBase/Storage_Data/setData(pair)] WARNING: pair.first.size() = 0! You are trying to set an empty "
-                "string! No assignment!");
-            return;
+            if (!pair.first.size())
+            {
+                Msg("[DataBase/Storage_Data/setData(pair)] WARNING: pair.first.size() = 0! You are trying to set an
+       empty " "string! No assignment!"); return;
+            }
+
+            this->m_data.insert(pair);
         }
 
-        this->m_data.insert(pair);
-    }
-
-    inline void setData(const xr_string& id_name, const SubStorage_Data& data)
-    {
-        if (!id_name.size())
+        inline void setData(const xr_string& id_name, const SubStorage_Data& data)
         {
-            Msg("[DataBase/Storage_Data/setData(id_name, data)] WARNING: id_name.size() = 0! You are trying to set an "
-                "empty string! No assignment!");
-            return;
-        }
+            if (!id_name.size())
+            {
+                Msg("[DataBase/Storage_Data/setData(id_name, data)] WARNING: id_name.size() = 0! You are trying to set
+       an " "empty string! No assignment!"); return;
+            }
 
-        this->m_data[id_name] = data;
-    }
+            this->m_data[id_name] = data;
+        }*/
 
     inline const xr_map<xr_string, PStor_Data>& getPStor(void) const noexcept { return this->m_pstor; }
 
@@ -762,7 +850,7 @@ private:
     CScriptSound* m_p_sound_object = nullptr;
     CInifile* m_p_ini = nullptr;
     xrTime m_activation_game_time;
-    xr_map<xr_string, SubStorage_Data> m_data;
+    /*    xr_map<xr_string, SubStorage_Data> m_data;*/
     xr_map<xr_string, PStor_Data> m_pstor;
     xr_map<xr_string, Storage_Scheme> m_schemes;
     xr_string m_active_scheme_name;
@@ -809,22 +897,23 @@ public:
                 instance = nullptr;
             }
 
-            for (const xr_map<xr_string, SubStorage_Data>::value_type& object : it.second.getData())
-            {
-                if (object.second.getActions().size())
-                {
-                    for (Script_ILogicEntity* entity : object.second.getActions())
-                    {
-                        if (entity)
+            /*
+                        for (const xr_map<xr_string, SubStorage_Data>::value_type& object : it.second.getData())
                         {
-                            Msg("[Scripts/DataBase/Storage/~dtor] Deleting Script_IEntity: %s",
-                                entity->m_logic_name.c_str());
-                            delete entity;
-                            entity = nullptr;
-                        }
-                    }
-                }
-            }
+                            if (object.second.getActions().size())
+                            {
+                                for (Script_ILogicEntity* entity : object.second.getActions())
+                                {
+                                    if (entity)
+                                    {
+                                        Msg("[Scripts/DataBase/Storage/~dtor] Deleting Script_IEntity: %s",
+                                            entity->m_logic_name.c_str());
+                                        delete entity;
+                                        entity = nullptr;
+                                    }
+                                }
+                            }
+                        }*/
 
             /* Lord: удалить данный комментарий!
                         if (it.second.getClientObject())
@@ -1313,7 +1402,7 @@ public:
         this->m_storage[npc_id].setIni(ini);
     }
 
-    inline void setStorageSignal(const std::uint16_t& id, const xr_string& signal_name, const bool& value) noexcept
+    inline void setStorageSignal(const std::uint16_t id, const xr_string& signal_name, const bool value) noexcept
     {
         if (id == Globals::kUnsignedInt16Undefined)
         {
@@ -1322,7 +1411,7 @@ public:
             return;
         }
 
-        this->m_storage[id].m_data[this->m_storage[id].getActiveSchemeName()].setSignal(signal_name, value);
+        this->m_storage[id].m_schemes[this->m_storage[id].getActiveSchemeName()].setSignals(signal_name, value);
     }
 
     inline void setStorageActiveSchemeName(const std::uint16_t npc_id, const xr_string& active_scheme_name) noexcept
@@ -1434,7 +1523,8 @@ public:
         this->m_storage[npc_id].setScheme(pair);
     }
 
-    inline void setStorageScheme(const std::uint16_t npc_id, const xr_string& scheme_name, const Storage_Scheme& data) noexcept
+    inline void setStorageScheme(
+        const std::uint16_t npc_id, const xr_string& scheme_name, const Storage_Scheme& data) noexcept
     {
         if (scheme_name.empty())
         {

@@ -3145,9 +3145,6 @@
     <Filter Include="Cordis\Scripts\Logic\Interface">
       <UniqueIdentifier>{7f9a0195-0d60-463d-a2b3-b1bc787bf232}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Cordis\Scripts\Logic\Interface\Public">
-      <UniqueIdentifier>{607f4705-3931-430e-bf9e-6e62b7974fb1}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Cordis\Scripts\Logic\Mob">
       <UniqueIdentifier>{1296103c-37da-4a11-a1ec-590020bb8aa8}</UniqueIdentifier>
     </Filter>
@@ -3156,9 +3153,6 @@
     </Filter>
     <Filter Include="Cordis\Scripts\Logic\Physics">
       <UniqueIdentifier>{c88b9b42-5c77-4cdd-aa1e-b217c58508bb}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Cordis\Scripts\Logic\Interface\Private">
-      <UniqueIdentifier>{4d25be0e-3045-4d63-af03-0d46af772405}</UniqueIdentifier>
     </Filter>
     <Filter Include="Cordis\Scripts\Managers\Logic">
       <UniqueIdentifier>{80637725-23fa-4ccd-97c1-f735bea6bbdc}</UniqueIdentifier>
@@ -3678,6 +3672,51 @@
     </Filter>
     <Filter Include="Cordis\Scripts\Database\Public">
       <UniqueIdentifier>{0dd55311-76b0-451b-8488-09511b926c20}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Logic\Interface\Monster">
+      <UniqueIdentifier>{8ad4898c-e8e0-4355-a538-1e80def41462}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Logic\Interface\Monster\Public">
+      <UniqueIdentifier>{68323f89-607e-4909-ad0a-18717bbae31f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Logic\Interface\Monster\Private">
+      <UniqueIdentifier>{240bcb9d-38fa-4fd2-a09b-1e693e7c5cb1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Logic\Interface\Stalker">
+      <UniqueIdentifier>{f0fd5623-8548-4885-86a5-8c68f74f386e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Logic\Interface\Stalker\Public">
+      <UniqueIdentifier>{153c05b8-997b-4d55-b660-9e90e396b576}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Logic\Interface\Stalker\Private">
+      <UniqueIdentifier>{62854fc1-249b-46d6-afdb-b9a9e3953f04}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Logic\Interface\Kernel">
+      <UniqueIdentifier>{005dd920-4b8b-4d91-a381-9e57ffbdc3a6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Logic\Interface\Kernel\Public">
+      <UniqueIdentifier>{0da1a8a1-c346-4519-8966-6543a391ebba}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Logic\Mob\Walker">
+      <UniqueIdentifier>{71db8cef-d124-449d-a889-798e13649de5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Logic\Mob\Remark">
+      <UniqueIdentifier>{d3597d04-836a-4539-bea7-7004c34cf628}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Logic\Mob\Jump">
+      <UniqueIdentifier>{62034917-6358-49f1-9688-a7e17c69157e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Logic\Mob\Home">
+      <UniqueIdentifier>{747b5b38-24fe-4fdd-8f54-772110e23275}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Logic\Mob\Death">
+      <UniqueIdentifier>{a37dc20c-2361-46f1-9696-de93e9c66b96}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Logic\Mob\Combat">
+      <UniqueIdentifier>{a5d0b543-624e-4460-a9e5-3bec3f095397}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Logic\Mob\Camp">
+      <UniqueIdentifier>{f71c27d4-212c-4c25-8ab7-1c104f0fc5a0}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -8684,9 +8723,6 @@
     <ClInclude Include="Script_Globalsinline.h">
       <Filter>Cordis\Scripts\Global\Globals\Public</Filter>
     </ClInclude>
-    <ClInclude Include="Script_LogicEntity.h">
-      <Filter>Cordis\Scripts\Logic\Interface\Public</Filter>
-    </ClInclude>
     <ClInclude Include="Script_LogicManager.h">
       <Filter>Cordis\Scripts\Managers\Logic\Public</Filter>
     </ClInclude>
@@ -8872,6 +8908,15 @@
     </ClInclude>
     <ClInclude Include="Script_SE_ZoneVisual.h">
       <Filter>Cordis\Scripts\Server Entities\Zone visual\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Script_ISchemeMonster.h">
+      <Filter>Cordis\Scripts\Logic\Interface\Monster\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Script_ISchemeStalker.h">
+      <Filter>Cordis\Scripts\Logic\Interface\Stalker\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Script_ISchemeEntity.h">
+      <Filter>Cordis\Scripts\Logic\Interface\Kernel\Public</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -12993,9 +13038,6 @@
     <ClCompile Include="Script_TravelManager.cpp">
       <Filter>Cordis\Scripts\Managers\Travel\Private</Filter>
     </ClCompile>
-    <ClCompile Include="Script_LogicEntity.cpp">
-      <Filter>Cordis\Scripts\Logic\Interface\Private</Filter>
-    </ClCompile>
     <ClCompile Include="Script_SmartTerrainControl.cpp">
       <Filter>Cordis\Scripts\Entities %28not server entities!%29\Smart Terrain control\Private</Filter>
     </ClCompile>
@@ -13154,6 +13196,12 @@
     </ClCompile>
     <ClCompile Include="Script_SE_ZoneVisual.cpp">
       <Filter>Cordis\Scripts\Server Entities\Zone visual\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Script_ISchemeMonster.cpp">
+      <Filter>Cordis\Scripts\Logic\Interface\Monster\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Script_ISchemeStalker.cpp">
+      <Filter>Cordis\Scripts\Logic\Interface\Stalker\Private</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

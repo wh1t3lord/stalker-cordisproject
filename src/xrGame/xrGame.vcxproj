@@ -1522,7 +1522,9 @@ $(xrLibDir);$(xrSdkDir)DXSDK/Lib/$(PlatformShortName);
     <ClInclude Include="Script_GulagGenerator.h" />
     <ClInclude Include="script_hit.h" />
     <ClInclude Include="script_hit_inline.h" />
-    <ClInclude Include="Script_LogicEntity.h" />
+    <ClInclude Include="Script_ISchemeEntity.h" />
+    <ClInclude Include="Script_ISchemeMonster.h" />
+    <ClInclude Include="Script_ISchemeStalker.h" />
     <ClInclude Include="Script_LogicManager.h" />
     <ClInclude Include="script_monster_action.h" />
     <ClInclude Include="script_monster_action_inline.h" />
@@ -3606,7 +3608,8 @@ $(xrLibDir);$(xrSdkDir)DXSDK/Lib/$(PlatformShortName);
       <PrecompiledHeaderFile>pch_script.h</PrecompiledHeaderFile>
       <PrecompiledHeaderOutputFile>$(IntDir)$(ProjectName)_script.pch</PrecompiledHeaderOutputFile>
     </ClCompile>
-    <ClCompile Include="Script_LogicEntity.cpp" />
+    <ClCompile Include="Script_ISchemeMonster.cpp" />
+    <ClCompile Include="Script_ISchemeStalker.cpp" />
     <ClCompile Include="script_lanim.cpp">
       <PrecompiledHeaderFile>pch_script.h</PrecompiledHeaderFile>
       <PrecompiledHeaderOutputFile>$(IntDir)$(ProjectName)_script.pch</PrecompiledHeaderOutputFile>

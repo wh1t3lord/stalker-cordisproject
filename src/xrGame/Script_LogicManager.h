@@ -1,4 +1,5 @@
 #pragma once
+/*
 
 #include "Script_LogicEntity.h"
 
@@ -255,6 +256,8 @@ public:
                 it->use_callback(victim, who);
         }
     }
-};
+};*/
+/*
 } // namespace Scripts
 } // namespace Cordis
+*/

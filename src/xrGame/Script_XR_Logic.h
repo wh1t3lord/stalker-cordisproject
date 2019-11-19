@@ -33,8 +33,9 @@ inline CScriptIniFile configure_schemes(CScriptGameObject* npc, CScriptIniFile& 
 
     if (storage.getActiveSchemeName().size())
     {
+/* Когда дойдёшь до данной реализации функции удали этот комментарий
         Script_LogicManager::getInstance().all_deactivate(
-            storage.getData().at(storage.getActiveSchemeName()).getActions(), npc);
+            storage.getData().at(storage.getActiveSchemeName()).getActions(), npc);*/
     }
 
     CScriptIniFile actual_ini = ini;
