@@ -170,6 +170,9 @@ public:
     virtual void STATE_Write(NET_Packet& packet);
     virtual void register_npc(CSE_ALifeMonsterAbstract* object);
     virtual void unregister_npc(CSE_ALifeMonsterAbstract* object);
+    virtual CALifeSmartTerrainTask* task(CSE_ALifeMonsterAbstract* object);
+
+
     inline NpcInfo fill_npc_info(CSE_ALifeDynamicObject* server_object)
     {
         if (!server_object)

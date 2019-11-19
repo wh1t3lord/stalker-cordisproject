@@ -563,6 +563,20 @@ void Script_SE_SmartTerrain::unregister_npc(CSE_ALifeMonsterAbstract* object)
     R_ASSERT2(false, "not reached!");
 }
 
+CALifeSmartTerrainTask* Script_SE_SmartTerrain::task(CSE_ALifeMonsterAbstract* object)
+{
+    if (!object)
+    {
+        R_ASSERT2(false, "something goes wrong, can't be!");
+        return nullptr;
+    }
+
+    if (this->m_arriving_npc[object->ID])
+        return this->m_smart_alife_task.get();
+
+    return this->m_job_data[this->m_npc_info[object->ID].m_job_id]->m_alife_task;
+}
+
 void Script_SE_SmartTerrain::read_params(void)
 {
     CInifile& ini = this->spawn_ini();
@@ -796,7 +810,6 @@ void Script_SE_SmartTerrain::clear_dead(CSE_ALifeDynamicObject* server_object)
         return;
     }
 
-    
     if (this->m_npc_info[server_object->ID].m_job_link1 ? this->m_npc_info[server_object->ID].m_job_link1->m_job_index :
                                                           this->m_npc_info[server_object->ID].m_job_link2->m_job_index)
     {
