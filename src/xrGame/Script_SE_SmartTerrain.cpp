@@ -8,8 +8,113 @@ namespace Cordis
 {
 namespace Scripts
 {
-bool is_job_available_to_npc(
-    const NpcInfo& npc_info, const JobData_SubData& job_info, const bool& is_monster, Script_SE_SmartTerrain* smart)
+bool arrived_to_smart(CSE_ALifeMonsterAbstract* object, Script_SE_SmartTerrain* smart)
+{
+    if (!object)
+    {
+        R_ASSERT2(false, "can't use an empty object!");
+        return false;
+    }
+
+    if (!smart)
+    {
+        R_ASSERT2(false, "can't use an empty object!");
+        return false;
+    }
+
+    const CGameGraph::CVertex* object_vertex = nullptr;
+    Fvector object_position;
+
+    if (DataBase::Storage::getInstance().getStorage().find(object->ID) ==
+        DataBase::Storage::getInstance().getStorage().end())
+    {
+        object_vertex = Globals::Game::get_game_graph()->vertex(object->m_tGraphID);
+        object_position = object->position();
+    }
+    else
+    {
+        const DataBase::Storage_Data& storage = DataBase::Storage::getInstance().getStorage().at(object->ID);
+        CScriptGameObject* client_object = storage.getClientObject();
+        if (!client_object)
+        {
+            R_ASSERT2(false, "it can't be, something goes wrong!");
+            return false;
+        }
+
+        object_vertex = Globals::Game::get_game_graph()->vertex(client_object->game_vertex_id());
+        object_position = client_object->Position();
+    }
+
+    const CGameGraph::CVertex* smart_vertex = Globals::Game::get_game_graph()->vertex(smart->m_tGraphID);
+
+    if (object->m_group_id)
+    {
+        Script_SE_SimulationSquad* squad = nullptr;
+
+        if (Script_SimulationBoard::getInstance().getSquads().find(object->m_group_id) !=
+            Script_SimulationBoard::getInstance().getSquads().end())
+            squad = Script_SimulationBoard::getInstance().getSquads().at(object->m_group_id);
+
+        if (squad && !squad->getCurrentAction().getName().empty())
+        {
+            if (squad->getCurrentAction().getName() == Globals::kSimulationSquadCurrentActionIDReachTarget)
+            {
+                CSE_ALifeDynamicObject* squad_target = nullptr;
+                if (Script_SimulationObjects::getInstance().getObjects().find(squad->getAssignedTargetID()) !=
+                    Script_SimulationObjects::getInstance().getObjects().end())
+                    squad_target =
+                        Script_SimulationObjects::getInstance().getObjects().at(squad->getAssignedTargetID());
+
+                if (squad_target)
+                {
+                    if (squad_target->cast_script_se_simulationsquad())
+                        return squad_target->cast_script_se_simulationsquad()->am_i_reached();
+
+                    if (squad_target->cast_script_se_actor())
+                        return squad_target->cast_script_se_actor()->am_i_reached();
+
+                    if (squad_target->cast_script_se_smartterrain())
+                        return squad_target->cast_script_se_smartterrain()->am_i_reached(squad);
+
+                    R_ASSERT2(false, "not reached!");
+                    return false;
+                }
+                else
+                {
+                    CSE_ALifeDynamicObject* server_object = ai().alife().objects().object(squad->getAssignedTargetID());
+                    if (server_object->cast_script_se_simulationsquad())
+                        return server_object->cast_script_se_simulationsquad()->am_i_reached();
+
+                    if (server_object->cast_script_se_actor())
+                        return server_object->cast_script_se_actor()->am_i_reached();
+
+                    if (server_object->cast_script_se_smartterrain())
+                        return server_object->cast_script_se_smartterrain()->am_i_reached(squad);
+
+                    R_ASSERT2(false, "not reached!");
+                    return false;
+                }
+            }
+            else if (squad->getCurrentAction().getName() == "stay_point")
+            {
+                return true;
+            }
+        }
+    }
+
+    if (object_vertex->level_id() == smart_vertex->level_id())
+    {
+        return object_position.distance_to_sqr(smart->position()) <= 10000;
+    }
+    else
+    {
+        return false;
+    }
+
+    return false;
+}
+
+bool is_job_available_to_npc(const NpcInfo& npc_info, const JobData_SubData& job_info, Script_SE_SmartTerrain* smart)
 {
     if (!smart)
     {
@@ -17,31 +122,126 @@ bool is_job_available_to_npc(
         return false;
     }
 
-    // @ Lord: убедить что будет выполняться оригинальное условие что объект вообще был инициализирован после default
-    // инициализации, то есть xrTime() -> xrTime().setSomeValue();
+    // @ Lord: убедить что будет выполняться оригинальное условие что объект вообще был инициализирован после
+    // default инициализации, то есть xrTime() -> xrTime().setSomeValue();
     if (smart->getDeadTime()[job_info.m_job_index] > 0)
-        return false;
-
-    if (is_monster != npc_info.m_is_monster)
         return false;
 
     if (job_info.m_function)
     {
-        if (job_info.m_function(npc_info.m_server_object, smart, job_info.m_function_params, npc_info))
+        if (!job_info.m_function(npc_info.m_server_object, smart, job_info.m_function_params, npc_info))
             return false;
     }
 
     return true;
 }
 
-inline void job_iterator(
-    JobData& jobs, NpcInfo& npc_data, std::uint32_t selected_job_priority, Script_SE_SmartTerrain* smart)
+bool is_job_available_to_npc(const NpcInfo& npc_info, JobDataExclusive* job_info, Script_SE_SmartTerrain* smart)
+{
+    if (!smart)
+    {
+        R_ASSERT2(false, "object was null!");
+        return false;
+    }
+
+    if (smart->getDeadTime()[job_info->m_job_index] > 0)
+        return false;
+
+    if (job_info->m_function)
+    {
+        if (job_info->m_function(npc_info.m_server_object, smart, job_info->m_function_params))
+            return false;
+    }
+
+    return true;
+}
+
+inline void job_iterator(std::pair<xr_vector<JobData>, xr_vector<JobDataExclusive*>>& jobs, NpcInfo& npc_info,
+    std::uint32_t selected_job_priority, Script_SE_SmartTerrain* smart, std::uint32_t& result_id,
+    JobData_SubData* result_link, JobDataExclusive* result_exclusive, std::uint32_t& result_priority)
 {
     if (!smart)
     {
         R_ASSERT2(false, "object was null!");
         return;
     }
+
+    result_priority = selected_job_priority;
+    result_link = nullptr;
+    result_exclusive = nullptr;
+    result_id = 0;
+
+    for (JobData& it : jobs.first)
+    {
+        for (std::pair<std::uint32_t, xr_vector<JobData_SubData>>& it_sub : it.m_jobs)
+        {
+            for (JobData_SubData& it_job : it_sub.second)
+            {
+                if (result_priority > it_job.m_priority)
+                    return;
+
+                if (is_job_available_to_npc(npc_info, it_job, smart))
+                {
+                    if (!it_job.m_npc_id)
+                    {
+                        result_priority = it_job.m_priority;
+                        result_link = &it_job;
+                        result_id = it_job.m_job_index;
+                        return;
+                    }
+                    else if (it_job.m_job_index == npc_info.m_job_id)
+                    {
+                        result_priority = it_job.m_priority;
+                        result_link = &it_job;
+                        result_id = it_job.m_job_index;
+                        return;
+                    }
+                }
+            }
+        }
+        // @ Потому что следующая работа отведена под монстров но мы их не учитываем потому что is_job_available_to_npc
+        // всегда false
+        break;
+    }
+
+    for (JobDataExclusive* it : jobs.second)
+    {
+        if (result_priority > it->m_priority)
+            return;
+
+        if (is_job_available_to_npc(npc_info, it, smart))
+        {
+            if (!it->m_npc_id)
+            {
+                if (result_link)
+                {
+                    R_ASSERT2(false, "it can't be!");
+                    return;
+                }
+
+                result_priority = it->m_priority;
+                result_exclusive = it;
+                result_id = it->m_job_index;
+                return;
+            }
+            else if (it->m_job_index == npc_info.m_job_id)
+            {
+                if (result_link)
+                {
+                    R_ASSERT2(false, "it can't be!");
+                    return;
+                }
+
+                result_priority = it->m_priority;
+                result_exclusive = it;
+                result_id = it->m_job_index;
+                return;
+            }
+        }
+    }
+
+    R_ASSERT2(false, "can't be reached!");
+    return;
 }
 
 } // namespace Scripts
@@ -53,14 +253,14 @@ namespace Scripts
 {
 Script_SE_SmartTerrain::Script_SE_SmartTerrain(LPCSTR section)
     : inherited(section), m_is_initialized(false), m_is_registered(false), m_population(0),
-      m_smart_showed_spot_name(""), m_is_disabled(false), m_is_respawn_point(true), m_base_on_actor_control(nullptr)
+      m_smart_showed_spot_name(""), m_is_disabled(false), m_is_respawn_point(true), m_base_on_actor_control(nullptr),
+      m_ltx(nullptr)
 {
     Msg("[Scripts/Script_SE_SmartTerrain/ctor(section)] %s", section);
 }
 
 Script_SE_SmartTerrain::~Script_SE_SmartTerrain(void)
 {
-    // Lord: реализовать удаление ini в JobDataExclusive_SubData из gulaggenerator, смотри в this->m_jobs
     {
         xr_string previous_section_name;
         for (JobDataExclusive* it : this->m_jobs.second)
@@ -74,6 +274,15 @@ Script_SE_SmartTerrain::~Script_SE_SmartTerrain(void)
                     it->m_job_id.m_section_name.c_str());
                 xr_delete(it);
             }
+        }
+    }
+
+    {
+        for (std::pair<const std::uint32_t, JobDataSmartTerrain*>& it : this->m_job_data)
+        {
+            Msg("[Scripts/Script_SE_SmartTerrain/~dtor()] deleting JobDataSmartTerrain from this->m_job_data! %s",
+                it.second->m_job_id.first);
+            xr_delete(it.second);
         }
     }
 }
@@ -101,7 +310,8 @@ void Script_SE_SmartTerrain::on_register(void)
 
     this->m_smart_alife_task = std::make_unique<CALifeSmartTerrainTask>(this->m_tGraphID, this->m_tNodeID);
 
-    Script_GlobalHelper::getInstance().setGameRegisteredServerSmartTerrainsByName(this->name_replace(), this);
+    // Script_GlobalHelper::getInstance().setGameRegisteredServerSmartTerrainsByName(this->name_replace(), this);
+    DataBase::Storage::getInstance().setGameRegisteredServerSmartTerrainsByName(this->name_replace(), this);
     this->m_is_registered = true;
 
     this->load_jobs();
@@ -291,6 +501,66 @@ void Script_SE_SmartTerrain::STATE_Write(NET_Packet& packet)
     packet.w_u8(this->m_population);
 
     Globals::set_save_marker(packet, Globals::kSaveMarkerMode_Save, true, "Script_SE_SmartTerrain");
+}
+
+void Script_SE_SmartTerrain::register_npc(CSE_ALifeMonsterAbstract* object)
+{
+    if (!object)
+    {
+        R_ASSERT2(false, "can't register nullptr!");
+        return;
+    }
+
+    Msg("[Scripts/Script_SE_SmartTerrain/register_npc(object)] register object %s", object->name_replace());
+
+    ++(this->m_population);
+
+    if (!this->m_is_registered)
+    {
+        this->m_npc_to_register.push_back(object);
+    }
+
+    if (!Globals::IsStalker(object))
+    {
+        object->m_task_reached = true;
+    }
+
+    object->m_smart_terrain_id = this->ID;
+
+    if (arrived_to_smart(object, this))
+    {
+        this->m_npc_info[object->ID] = this->fill_npc_info(object);
+    }
+    else
+    {
+        this->m_arriving_npc[object->ID] = object;
+    }
+}
+
+void Script_SE_SmartTerrain::unregister_npc(CSE_ALifeMonsterAbstract* object)
+{
+    if (!object)
+    {
+        R_ASSERT2(false, "can't use an empty object!");
+        return;
+    }
+
+    --(this->m_population);
+
+    if (this->m_npc_info[object->ID].m_server_object)
+    {
+        object->m_smart_terrain_id = Globals::kUnsignedInt16Undefined;
+        return;
+    }
+
+    if (this->m_arriving_npc[object->ID])
+    {
+        this->m_arriving_npc[object->ID] = nullptr;
+        object->m_smart_terrain_id = Globals::kUnsignedInt16Undefined;
+        return;
+    }
+
+    R_ASSERT2(false, "not reached!");
 }
 
 void Script_SE_SmartTerrain::read_params(void)
@@ -520,9 +790,20 @@ void Script_SE_SmartTerrain::clear_dead(CSE_ALifeDynamicObject* server_object)
         return;
     }
 
-    if (this->m_npc_info[server_object->ID].m_job_link.m_job_index != Globals::kUnsignedInt32Undefined)
+    if (this->m_npc_info[server_object->ID].m_job_link1 && this->m_npc_info[server_object->ID].m_job_link2)
     {
-        this->m_dead_time[this->m_npc_info[server_object->ID].m_job_link.m_job_index] = Globals::Game::get_game_time();
+        R_ASSERT2(false, "CANNOT BE SOMETHING WRONG!");
+        return;
+    }
+
+    
+    if (this->m_npc_info[server_object->ID].m_job_link1 ? this->m_npc_info[server_object->ID].m_job_link1->m_job_index :
+                                                          this->m_npc_info[server_object->ID].m_job_link2->m_job_index)
+    {
+        std::uint32_t m_job_index = this->m_npc_info[server_object->ID].m_job_link1 ?
+            this->m_npc_info[server_object->ID].m_job_link1->m_job_index :
+            this->m_npc_info[server_object->ID].m_job_link2->m_job_index;
+        this->m_dead_time[m_job_index] = Globals::Game::get_game_time();
         this->m_npc_info[server_object->ID].clear();
         CSE_ALifeMonsterAbstract* object = server_object->cast_monster_abstract();
 
@@ -656,6 +937,82 @@ void Script_SE_SmartTerrain::check_respawn_params(xr_string& params)
     }
 }
 
+void Script_SE_SmartTerrain::select_npc_job(NpcInfo& npc_info)
+{
+    JobData_SubData* selected_job_link = nullptr;
+    JobDataExclusive* selected_job_link_exclusive = nullptr;
+    std::uint32_t selected_priority = 0;
+    std::uint32_t selected_job_index = 0;
+
+    job_iterator(this->m_jobs, npc_info, 0, this, selected_job_index, selected_job_link, selected_job_link_exclusive,
+        selected_priority);
+
+    if (!selected_job_index)
+    {
+        R_ASSERT2(false, "it can't be!");
+        return;
+    }
+
+    if (selected_job_link && selected_job_link_exclusive)
+    {
+        R_ASSERT2(false, "it can't be!");
+        return;
+    }
+
+    // Назначаем работу!
+    if (selected_job_index != npc_info.m_job_id && (selected_job_link || selected_job_link_exclusive))
+    {
+        if (npc_info.m_job_link1 || npc_info.m_job_link2)
+        {
+            this->m_npc_by_job_section[this->m_job_data[npc_info.m_job_link1 ? npc_info.m_job_link1->m_job_index :
+                                                                               npc_info.m_job_link2->m_job_index]
+                                           ->m_job_id.first] = 0;
+            if (npc_info.m_job_link1)
+            {
+                npc_info.m_job_link1 = nullptr;
+                if (npc_info.m_job_link2)
+                {
+                    R_ASSERT2(false, "can't be!");
+                    return;
+                }
+            }
+            else
+            {
+                if (!npc_info.m_job_link2)
+                {
+                    R_ASSERT2(false, "it can't be!");
+                    return;
+                }
+
+                npc_info.m_job_link2 = nullptr;
+            }
+        }
+
+        if (selected_job_link)
+            selected_job_link->m_npc_id = npc_info.m_server_object->ID;
+
+        if (selected_job_link_exclusive)
+            selected_job_link_exclusive->m_npc_id = npc_info.m_server_object->ID;
+
+        this->m_npc_by_job_section[this->m_job_data[npc_info.m_job_link1 ? npc_info.m_job_link1->m_job_index :
+                                                                           npc_info.m_job_link2->m_job_index]
+                                       ->m_job_id.first] =
+            selected_job_link ? selected_job_link->m_npc_id : selected_job_link_exclusive->m_npc_id;
+
+        npc_info.m_job_id =
+            selected_job_link ? selected_job_link->m_job_index : selected_job_link_exclusive->m_job_index;
+        npc_info.m_job_prioprity =
+            selected_job_link ? selected_job_link->m_priority : selected_job_link_exclusive->m_priority;
+        npc_info.m_begin_job = false;
+
+        if (selected_job_link)
+            npc_info.m_job_link1 = selected_job_link;
+
+        if (selected_job_link_exclusive)
+            npc_info.m_job_link2 = selected_job_link_exclusive;
+    }
+}
+
 void Script_SE_SmartTerrain::show(void)
 {
     std::uint32_t time = Device.dwTimeGlobal;
@@ -700,10 +1057,65 @@ void Script_SE_SmartTerrain::show(void)
 void Script_SE_SmartTerrain::load_jobs(void)
 {
     this->m_jobs = GulagGenerator::load_job(this);
-
+    this->m_ltx = XR_GULAG::loadLtx(this->name_replace());
     auto sort_function = [](const std::pair<std::uint32_t, xr_vector<JobData_SubData>>& a,
                              const std::pair<std::uint32_t, xr_vector<JobData_SubData>>& b) -> bool {
+        for (const JobData_SubData& it : a.second)
+        {
+            if (it.m_job_id.second.empty())
+            {
+                R_ASSERT2(false, "job_type can't be empty check Script_GulagGenerator!");
+                return false;
+            }
+
+            if (it.m_job_id.first.empty())
+            {
+                R_ASSERT2(false, "section_name can't be empty check Script_GulagGenerator!");
+                return false;
+            }
+        }
+
         return (a.first > b.first);
+    };
+
+    auto sort_exclusive_function = [](JobDataExclusive* a, JobDataExclusive* b) -> bool {
+        if (!a)
+        {
+            R_ASSERT2(false, "something goes wrong!");
+            return false;
+        }
+
+        if (!b)
+        {
+            R_ASSERT2(false, "something goes wrong!");
+            return false;
+        }
+
+        if (a->m_job_id.m_section_name.empty())
+        {
+            R_ASSERT2(false, "section_name can't be empty! Bad initialization check Script_GulagGenerator!");
+            return false;
+        }
+
+        if (b->m_job_id.m_section_name.empty())
+        {
+            R_ASSERT2(false, "section_name can't be empty! Bad initialization check Script_GulagGenerator!");
+            return false;
+        }
+
+        if (a->m_job_id.m_job_type.empty())
+        {
+            R_ASSERT2(false, "job_type can't be empty! Bad initialization check Script_GulagGenerator!");
+            return false;
+        }
+
+        if (b->m_job_id.m_job_type.empty())
+        {
+            R_ASSERT2(false, "job_type can't be empty! Bad initialization check Script_GulagGenerator!");
+            return false;
+        }
+
+        return (a->m_priority > b->m_priority);
     };
 
     // @ Sorting
@@ -716,6 +1128,145 @@ void Script_SE_SmartTerrain::load_jobs(void)
                             std::sort(it_sub.second.begin(), it_sub.second.end(), sort_function);
                         }*/
             std::sort(it.m_jobs.begin(), it.m_jobs.end(), sort_function);
+        }
+
+        std::sort(this->m_jobs.second.begin(), this->m_jobs.second.end(), sort_exclusive_function);
+    }
+
+    // @ Initializing m_job_data
+    {
+        std::uint32_t id = 0;
+        for (JobData& it : this->m_jobs.first)
+        {
+            for (std::pair<std::uint32_t, xr_vector<JobData_SubData>>& it_sub : it.m_jobs)
+            {
+                for (JobData_SubData& it_data_sub : it_sub.second)
+                {
+                    JobDataSmartTerrain* data = new JobDataSmartTerrain();
+                    data->m_job_id = it_data_sub.m_job_id;
+                    data->m_priority = it_data_sub.m_priority;
+                    it_data_sub.clear();
+                    it_data_sub.m_job_index = id;
+                    this->m_job_data[id] = data;
+                    ++id;
+                }
+            }
+        }
+
+        for (JobDataExclusive* it : this->m_jobs.second)
+        {
+            if (!it)
+            {
+                R_ASSERT2(false, "something goes VERY WRONG!!!!");
+                return;
+            }
+
+            JobDataSmartTerrain* data = new JobDataSmartTerrain();
+            data->m_job_id = std::pair<xr_string, xr_string>(it->m_job_id.m_section_name, it->m_job_id.m_job_type);
+            data->m_priority = it->m_priority;
+            data->m_ini_path_name = it->m_job_id.m_ini_path_name;
+            data->m_ini_file = it->m_job_id.m_ini_file;
+            it->m_job_id.clear();
+            it->m_job_index = id;
+            this->m_job_data[id] = data;
+            ++id;
+        }
+    }
+
+    // @ Computing CAlifeSmartTerrainTask!
+    {
+        for (std::pair<const std::uint32_t, JobDataSmartTerrain*>& it : this->m_job_data)
+        {
+            const xr_string& section_name = it.second->m_job_id.first;
+            CScriptIniFile* current_ini = it.second->m_ini_file ? it.second->m_ini_file : this->m_ltx;
+
+            if (!current_ini->line_exist(section_name.c_str(), "active"))
+            {
+                Msg("[Scripts/Script_SE_SmartTerrain/load_jobs()] ERROR: %s", section_name.c_str());
+                R_ASSERT2(false, "no 'active' in section");
+            }
+
+            xr_string active_section_name = current_ini->r_string(section_name.c_str(), "active");
+
+            Msg("[Scripts/Script_SE_SmartTerrain/load_jobs()] parsed active section name %s",
+                active_section_name.c_str());
+
+            const xr_string& job_type_name = it.second->m_job_id.second;
+
+            if (job_type_name == Globals::GulagGenerator::kGulagJobPath)
+            {
+                xr_string path_field_name;
+
+                for (const xr_string& it : Script_GlobalHelper::getInstance().getRegisteredSmartTerrainPathFileds())
+                {
+                    if (current_ini->line_exist(active_section_name.c_str(), it.c_str()))
+                    {
+                        path_field_name = it;
+                        break;
+                    }
+                }
+
+                Msg("[Scripts/Script_SE_SmartTerrain/load_jobs()] parsed path_field_name %s", path_field_name.c_str());
+
+                xr_string _path_name = current_ini->r_string(active_section_name.c_str(), path_field_name.c_str());
+                Msg("[Scripts/Script_SE_SmartTerrain/load_jobs()] parsed path_name %s", _path_name.c_str());
+
+                xr_string path_name = this->name_replace();
+                path_name += "_";
+                path_name += _path_name;
+
+                Msg("[Scripts/Script_SE_SmartTerrain/load_jobs()] generated path_name %s", path_name.c_str());
+
+                if (path_field_name == Globals::kSmartTerrainPathFieldCenterPoint)
+                {
+                    xr_string patrol_path_name = path_name;
+                    patrol_path_name += "_task";
+                    if (Globals::patrol_path_exists(patrol_path_name.c_str()))
+                    {
+                        path_name = patrol_path_name;
+                        Msg("[Scripts/Script_SE_SmartTerrain/load_jobs()] current path_name %s", path_name.c_str());
+                    }
+                }
+
+                Msg("[Scripts/Script_SE_SmartTerrain/load_jobs()] creating (allocating) alife smart terrain task by "
+                    "patrol path");
+                it.second->m_alife_task = new CALifeSmartTerrainTask(path_name.c_str());
+            }
+            else if (job_type_name == Globals::GulagGenerator::kGulagJobSmartCover)
+            {
+                xr_string smart_cover_name = current_ini->r_string(active_section_name.c_str(), "cover_name");
+
+                Script_SE_SmartCover* smart_cover = nullptr;
+                if (DataBase::Storage::getInstance().getGameRegisteredServerSmartCovers().find(smart_cover_name) !=
+                    DataBase::Storage::getInstance().getGameRegisteredServerSmartCovers().end())
+                    smart_cover =
+                        DataBase::Storage::getInstance().getGameRegisteredServerSmartCovers().at(smart_cover_name);
+
+                if (!smart_cover)
+                {
+                    R_ASSERT2(false, "There is an exclusive job with wrong smart cover name!");
+                }
+
+                Msg("[Scripts/Script_SE_SmartTerrain/load_jobs()] creating alife smart terrain task by smart cover "
+                    "level_vertex_id [%d] game_vertex_id [%d]",
+                    smart_cover->m_tNodeID, smart_cover->m_tGraphID);
+                it.second->m_alife_task = new CALifeSmartTerrainTask(smart_cover->m_tGraphID, smart_cover->m_tNodeID);
+            }
+            else if (job_type_name == Globals::GulagGenerator::kGulagJobPoint)
+            {
+                Msg("[Scripts/Script_SE_SmartTerrain/load_jobs()] creating alife smart terrain task by smart terrain "
+                    "level_vertex_id game_vertex_id");
+                it.second->m_alife_task = new CALifeSmartTerrainTask(this->m_tGraphID, this->m_tNodeID);
+            }
+
+            if (!it.second->m_alife_task)
+            {
+                R_ASSERT2(false, "it can't be m_alife_task must be allocated!");
+            }
+
+            it.second->m_game_vertex_id = it.second->m_alife_task->game_vertex_id();
+            it.second->m_level_id = Globals::Game::get_game_graph()->vertex(it.second->m_game_vertex_id)->level_id();
+            it.second->m_position = it.second->m_alife_task->position();
         }
     }
 }

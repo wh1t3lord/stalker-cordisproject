@@ -18,15 +18,91 @@ namespace Cordis
 namespace Scripts
 {
 // Lord: удалить все '// return;'
+// @ Сюда не добавлять сущности которые могут относится к CScriptGameObject, CSE_ALife, ибо всё это должно находится в
+// DataBase
+// @ Не захломлять Deallocate методы!!!!!!! И соответственно минимизировать количество сущностей которые будут это
+// контролировать!
 struct Script_GlobalHelper
 {
 private:
     Script_GlobalHelper(void)
     {
-        // @ Здесь инициализация всех "локальных" карт которые находятся в каждом скрипте, проверить что оно реально
-        // раньше всех инициализирует
+// @ Здесь инициализация всех "локальных" карт которые находятся в каждом скрипте
+// @ Инициаилизируется на запуске самого интро
+#pragma region Cordis Usable Clsid
+        this->m_stalker_classes[Globals::get_script_clsid(CLSID_SE_ACTOR)] = true;
+        this->m_stalker_classes[Globals::get_script_clsid(CLSID_SE_STALKER)] = true;
+
+        Msg("[Scripts/Script_GlobalHelper/ctor()] registered stalker clsid classes!");
+
+        this->m_monster_classes[Globals::get_script_clsid(CLSID_SE_MONSTER_BLOODSUCKER)] = true;
+        this->m_monster_classes[Globals::get_script_clsid(CLSID_SE_MONSTER_BOAR)] = true;
+        this->m_monster_classes[Globals::get_script_clsid(CLSID_SE_MONSTER_DOG)] = true;
+        this->m_monster_classes[Globals::get_script_clsid(CLSID_SE_MONSTER_FLESH)] = true;
+        this->m_monster_classes[Globals::get_script_clsid(CLSID_SE_MONSTER_DOG_PSEUDO)] = true;
+        this->m_monster_classes[Globals::get_script_clsid(CLSID_SE_MONSTER_DOG_PSY)] = true;
+        this->m_monster_classes[Globals::get_script_clsid(CLSID_SE_MONSTER_DOG_PSY_PHANTOM)] = true;
+        this->m_monster_classes[Globals::get_script_clsid(CLSID_SE_MONSTER_DOG)] = true;
+        this->m_monster_classes[Globals::get_script_clsid(CLSID_SE_MONSTER_BURER)] = true;
+        this->m_monster_classes[Globals::get_script_clsid(CLSID_SE_MONSTER_CHIMERA)] = true;
+        this->m_monster_classes[Globals::get_script_clsid(CLSID_SE_MONSTER_CAT)] = true;
+        this->m_monster_classes[Globals::get_script_clsid(CLSID_SE_MONSTER_CONTROLLER)] = true;
+        this->m_monster_classes[Globals::get_script_clsid(CLSID_SE_MONSTER_IZLOM)] = true;
+        this->m_monster_classes[Globals::get_script_clsid(CLSID_SE_MONSTER_POLTERGEIST)] = true;
+        this->m_monster_classes[Globals::get_script_clsid(CLSID_SE_MONSTER_PSEUDO_GIGANT)] = true;
+        this->m_monster_classes[Globals::get_script_clsid(CLSID_SE_MONSTER_ZOMBI)] = true;
+        this->m_monster_classes[Globals::get_script_clsid(CLSID_SE_MONSTER_SNORK)] = true;
+        this->m_monster_classes[Globals::get_script_clsid(CLSID_SE_MONSTER_TUSHKANO)] = true;
+
+        Msg("[Scripts/Script_GlobalHelper/ctor()] registered monster clsid classes!");
+
+        this->m_weapon_classes[Globals::get_script_clsid(CLSID_SE_WEAPON_VINTOREZ)] = true;
+        this->m_weapon_classes[Globals::get_script_clsid(CLSID_SE_WEAPON_AK74)] = true;
+        this->m_weapon_classes[Globals::get_script_clsid(CLSID_SE_WEAPON_LR300)] = true;
+        this->m_weapon_classes[Globals::get_script_clsid(CLSID_SE_WEAPON_HPSA)] = true;
+        this->m_weapon_classes[Globals::get_script_clsid(CLSID_SE_WEAPON_PM)] = true;
+        this->m_weapon_classes[Globals::get_script_clsid(CLSID_SE_WEAPON_SHOTGUN)] = true;
+        this->m_weapon_classes[Globals::get_script_clsid(CLSID_SE_WEAPON_SHOTGUN_AUTOMATIC)] = true;
+        this->m_weapon_classes[Globals::get_script_clsid(CLSID_SE_WEAPON_BM16)] = true;
+        this->m_weapon_classes[Globals::get_script_clsid(CLSID_SE_WEAPON_SVD)] = true;
+        this->m_weapon_classes[Globals::get_script_clsid(CLSID_SE_WEAPON_SVU)] = true;
+        this->m_weapon_classes[Globals::get_script_clsid(CLSID_SE_WEAPON_RG6)] = true;
+        this->m_weapon_classes[Globals::get_script_clsid(CLSID_SE_WEAPON_RPG7)] = true;
+        this->m_weapon_classes[Globals::get_script_clsid(CLSID_SE_WEAPON_VAL)] = true;
+        this->m_weapon_classes[Globals::get_script_clsid(CLSID_SE_WEAPON_WALTHER)] = true;
+        this->m_weapon_classes[Globals::get_script_clsid(CLSID_SE_WEAPON_USP45)] = true;
+        this->m_weapon_classes[Globals::get_script_clsid(CLSID_SE_WEAPON_GROZA)] = true;
+        this->m_weapon_classes[Globals::get_script_clsid(CLSID_SE_WEAPON_KNIFE)] = true;
+        this->m_weapon_classes[Globals::get_script_clsid(CLSID_SE_WEAPON_GRENADE_LAUNCHER)] = true;
+        this->m_weapon_classes[Globals::get_script_clsid(CLSID_SE_GRENADE_F1)] = true;
+        this->m_weapon_classes[Globals::get_script_clsid(CLSID_SE_GRENADE_RGD)] = true;
+        this->m_weapon_classes[Globals::get_script_clsid(CLSID_OBJECT_G_FAKE)] = true;
+
+        Msg("[Scripts/Script_GlobalHelper/ctor()] registered weapon clsid classes!");
+
+        this->m_artefact_classes[Globals::get_script_clsid(CLSID_SE_ARTEFACT)] = true;
+        this->m_artefact_classes[Globals::get_script_clsid(CLSID_AF_BAST)] = true;
+        this->m_artefact_classes[Globals::get_script_clsid(CLSID_AF_BLACK_GRAVI)] = true;
+        this->m_artefact_classes[Globals::get_script_clsid(CLSID_AF_BLACKDROPS)] = true;
+        this->m_artefact_classes[Globals::get_script_clsid(CLSID_AF_ELECTRIC_BALL)] = true;
+        this->m_artefact_classes[Globals::get_script_clsid(CLSID_AF_DUMMY)] = true;
+        this->m_artefact_classes[Globals::get_script_clsid(CLSID_AF_FADED_BALL)] = true;
+        this->m_artefact_classes[Globals::get_script_clsid(CLSID_AF_GALANTINE)] = true;
+        this->m_artefact_classes[Globals::get_script_clsid(CLSID_AF_GRAVI)] = true;
+        this->m_artefact_classes[Globals::get_script_clsid(CLSID_AF_MERCURY_BALL)] = true;
+        this->m_artefact_classes[Globals::get_script_clsid(CLSID_AF_NEEDLES)] = true;
+        this->m_artefact_classes[Globals::get_script_clsid(CLSID_AF_RUSTY_HAIR)] = true;
+        this->m_artefact_classes[Globals::get_script_clsid(CLSID_AF_THORN)] = true;
+        this->m_artefact_classes[Globals::get_script_clsid(CLSID_AF_ZUDA)] = true;
+        this->m_artefact_classes[Globals::get_script_clsid(CLSID_ARTEFACT)] = true;
+
+        Msg("[Scripts/Script_GlobalHelper/ctor()] registered artefact clsid classes!");
+
+#pragma endregion
+
 #pragma region Cordis XR_PATROL Initializing
-        std::pair<Fvector, float> xr_patrol_formations_data;
+            std::pair<Fvector, float>
+                xr_patrol_formations_data;
         xr_patrol_formations_data.first = Fvector().set(0.3f, 0.0f, -1.0f);
         xr_patrol_formations_data.second = 1.2f;
         /*        XR_PATROL::getFormations()[XR_PATROL::XR_PATROL_FORMATION_INDEX_BACK] = xr_vector<std::pair<Fvector,
@@ -4136,9 +4212,9 @@ public:
 #pragma endregion
     }
 
-    inline const xr_map<std::uint32_t, bool>& getMonsterClasses(void) const noexcept { return this->m_monster_classes; }
+    inline const xr_map<int, bool>& getMonsterClasses(void) const noexcept { return this->m_monster_classes; }
 
-    inline void setMonsterClasses(const xr_map<std::uint32_t, bool>& map) noexcept
+    inline void setMonsterClasses(const xr_map<int, bool>& map) noexcept
     {
         if (!map.size())
         {
@@ -4151,7 +4227,7 @@ public:
         this->m_monster_classes = map;
     }
 
-    inline void setMonsterClasses(const std::pair<std::uint32_t, bool>& pair) noexcept
+    inline void setMonsterClasses(const std::pair<int, bool>& pair) noexcept
     {
         if (pair.first == Globals::kUnsignedInt32Undefined)
         {
@@ -4164,7 +4240,7 @@ public:
         this->m_monster_classes.insert(pair);
     }
 
-    inline void setMonsterClasses(const std::uint32_t& monster_id, const bool& value) noexcept
+    inline void setMonsterClasses(const int monster_id, const bool& value) noexcept
     {
         if (monster_id == Globals::kUnsignedInt32Undefined)
         {
@@ -4177,9 +4253,9 @@ public:
         this->m_monster_classes[monster_id] = value;
     }
 
-    inline const xr_map<std::uint32_t, bool>& getStalkerClasses(void) const noexcept { return this->m_stalker_classes; }
+    inline const xr_map<int, bool>& getStalkerClasses(void) const noexcept { return this->m_stalker_classes; }
 
-    inline void setStalkerClasses(const xr_map<std::uint32_t, bool>& map) noexcept
+    inline void setStalkerClasses(const xr_map<int, bool>& map) noexcept
     {
         if (!map.size())
         {
@@ -4192,7 +4268,7 @@ public:
         this->m_stalker_classes = map;
     }
 
-    inline void setStalkerClasses(const std::pair<std::uint32_t, bool>& pair) noexcept
+    inline void setStalkerClasses(const std::pair<int, bool>& pair) noexcept
     {
         if (pair.first == Globals::kUnsignedInt32Undefined)
         {
@@ -4205,7 +4281,7 @@ public:
         this->m_stalker_classes.insert(pair);
     }
 
-    inline void setStalkerClasses(const std::uint32_t& stalker_id, const bool& value) noexcept
+    inline void setStalkerClasses(const int stalker_id, const bool& value) noexcept
     {
         if (stalker_id == Globals::kUnsignedInt32Undefined)
         {
@@ -4218,9 +4294,9 @@ public:
         this->m_stalker_classes[stalker_id] = value;
     }
 
-    inline const xr_map<std::uint32_t, bool>& getWeaponClasses(void) const noexcept { return this->m_weapon_classes; }
+    inline const xr_map<int, bool>& getWeaponClasses(void) const noexcept { return this->m_weapon_classes; }
 
-    inline void setWeaponClasses(const xr_map<std::uint32_t, bool>& map) noexcept
+    inline void setWeaponClasses(const xr_map<int, bool>& map) noexcept
     {
         if (!map.size())
         {
@@ -4233,7 +4309,7 @@ public:
         this->m_weapon_classes = map;
     }
 
-    inline void setWeaponClasses(const std::pair<std::uint32_t, bool>& pair) noexcept
+    inline void setWeaponClasses(const std::pair<int, bool>& pair) noexcept
     {
         if (pair.first == Globals::kUnsignedInt32Undefined)
         {
@@ -4246,7 +4322,7 @@ public:
         this->m_weapon_classes.insert(pair);
     }
 
-    inline void setWeaponClasses(const std::uint32_t& weapon_id, const bool& value) noexcept
+    inline void setWeaponClasses(const int weapon_id, const bool& value) noexcept
     {
         if (weapon_id == Globals::kUnsignedInt32Undefined)
         {
@@ -4259,12 +4335,12 @@ public:
         this->m_weapon_classes[weapon_id] = value;
     }
 
-    inline const xr_map<std::uint32_t, bool>& getArtefactClasses(void) const noexcept
+    inline const xr_map<int, bool>& getArtefactClasses(void) const noexcept
     {
         return this->m_artefact_classes;
     }
 
-    inline void setArtefactClasses(const xr_map<std::uint32_t, bool>& map) noexcept
+    inline void setArtefactClasses(const xr_map<int, bool>& map) noexcept
     {
         if (!map.size())
         {
@@ -4277,7 +4353,7 @@ public:
         this->m_artefact_classes = map;
     }
 
-    inline void setArtefactClasses(const std::pair<std::uint32_t, bool>& pair) noexcept
+    inline void setArtefactClasses(const std::pair<int, bool>& pair) noexcept
     {
         if (pair.first == Globals::kUnsignedInt32Undefined)
         {
@@ -4290,7 +4366,7 @@ public:
         this->m_artefact_classes.insert(pair);
     }
 
-    inline void setArtefactClasses(const std::uint32_t& artefact_id, const bool& value) noexcept
+    inline void setArtefactClasses(const int artefact_id, const bool& value) noexcept
     {
         if (artefact_id == Globals::kUnsignedInt32Undefined)
         {
@@ -4514,176 +4590,6 @@ public:
         this->m_registered_functions_xr_conditions[function_name] = function;
     }
 
-    // @ In-Game
-    inline const xr_map<xr_string, Script_SE_SmartCover*>& getGameRegisteredServerSmartCovers(void) const noexcept
-    {
-        return this->m_game_registered_smartcovers;
-    }
-
-    inline void setGameRegisteredServerSmartCovers(const xr_map<xr_string, Script_SE_SmartCover*>& map)
-    {
-        if (!map.size())
-        {
-            Msg("[Script_GlobalHelper/setGameRegisteredServerSmartCovers(map)] WARNING: "
-                "map.size() = 0! You are trying "
-                "to set an empty map!");
-            //  return;
-        }
-
-        this->m_game_registered_smartcovers = map;
-    }
-
-    inline void setGameRegisteredServerSmartCovers(const std::pair<xr_string, Script_SE_SmartCover*>& pair)
-    {
-        if (!pair.first.size())
-        {
-            Msg("[Script_GlobalHelper/setGameRegisteredServerSmartCovers(name, "
-                "server_smartcover)] WARNING: "
-                "pair.first.size() = 0! You are trying to set an empty string!");
-            //  return;
-        }
-
-        if (!pair.second)
-        {
-            Msg("[Script_GlobalHelper/setGameRegisteredServerSmartCovers(name, "
-                "server_smartcover)] WARNING: "
-                "pair.second = null! You are trying to set an empty object!");
-            //    return;
-        }
-
-        this->m_game_registered_smartcovers.insert(pair);
-    }
-
-    inline void setGameRegisteredServerSmartCovers(const xr_string& name, Script_SE_SmartCover* server_smartcover)
-    {
-        if (!name.size())
-        {
-            Msg("[Script_GlobalHelper/setGameRegisteredServerSmartCovers(name, "
-                "server_smartcover)] WARNING: "
-                "name.size() = 0! You are trying to set an empty string!");
-            //   return;
-        }
-
-        if (!server_smartcover)
-        {
-            Msg("[Script_GlobalHelper/setGameRegisteredServerSmartCovers(name, "
-                "server_smartcover)] WARNING: "
-                "server_smartcover = null! You are trying to set an empty object!");
-            // return;
-        }
-
-        this->m_game_registered_smartcovers[name] = server_smartcover;
-    }
-
-    // @ In-Game
-    inline const xr_map<std::uint8_t, xr_map<std::uint32_t, Script_SE_SmartCover*>>&
-    getGameRegisteredServerSmartCoversByLevelID(void) const noexcept
-    {
-        return this->m_game_registered_smartcovers_by_level_id;
-    }
-
-    // Lord: Проверить данные сеттеры на правильность наименования аргументов!
-    inline void setGameRegisteredServerSmartCoversByLevelID(
-        const xr_map<std::uint8_t, xr_map<std::uint32_t, Script_SE_SmartCover*>>& map)
-    {
-        if (!map.size())
-        {
-            Msg("[Script_GlobalHelper/setGameRegisteredServerSmartCoversByLevelID(map)] "
-                "WARNING: map.size() = 0! You "
-                "are trying to set an empty map!");
-            //  return;
-        }
-
-        this->m_game_registered_smartcovers_by_level_id = map;
-    }
-
-    inline void setGameRegisteredServerSmartCoversByLevelID(
-        const std::uint8_t& level_id, const xr_map<std::uint32_t, Script_SE_SmartCover*>& map)
-    {
-        if (level_id == Globals::kUnsignedInt8Undefined)
-        {
-            Msg("[Script_GlobalHelper/setGameRegisteredServerSmartCoversByLevelID(level_id, "
-                "map)] "
-                "WARNING: level_id = std::uint8_t(-1)! You are trying to set an undefined "
-                "number of unsigned int!");
-            //  return;
-        }
-
-        if (!map.size())
-        {
-            Msg("[Script_GlobalHelper/setGameRegisteredServerSmartCoversByLevelID(level_id, "
-                "map)] WARNING: map.size() "
-                "= 0! You are trying to set an empty map!");
-            //  return;
-        }
-
-        this->m_game_registered_smartcovers_by_level_id[level_id] = map;
-    }
-
-    inline void setGameRegisteredServerSmartCoversByLevelID(
-        const std::uint8_t& level_id, const std::pair<std::uint32_t, Script_SE_SmartCover*>& pair)
-    {
-        if (level_id == Globals::kUnsignedInt8Undefined)
-        {
-            Msg("[Script_GlobalHelper/setGameRegisteredServerSmartCoversByLevelID(level_id, "
-                "pair)] "
-                "WARNING: level_id = std::uint8_t(-1)! You are trying to set an undefined "
-                "number of unsigned int!");
-            //  return;
-        }
-
-        if (pair.first == Globals::kUnsignedInt32Undefined)
-        {
-            Msg("[Script_GlobalHelper/setGameRegisteredServerSmartCoversByLevelID(level_id, "
-                "pair)] "
-                "WARNING: pair.first = std::uint32_t(-1)! You are trying to set an undefined "
-                "number of unsigned int! ");
-            //   return;
-        }
-
-        if (!pair.second)
-        {
-            Msg("[Script_GlobalHelper/setGameRegisteredServerSmartCoversByLevelID(level_id, "
-                "pair)] "
-                "WARNING: pair.second = null! You are trying to set an empty object!");
-            //  return;
-        }
-
-        this->m_game_registered_smartcovers_by_level_id[level_id].insert(pair);
-    }
-
-    inline void setGameRegisteredServerSmartCoversByLevelID(
-        const std::uint8_t& level_id, const std::uint32_t& id, Script_SE_SmartCover* server_smartcover)
-    {
-        if (level_id == Globals::kUnsignedInt8Undefined)
-        {
-            Msg("[Script_GlobalHelper/setGameRegisteredServerSmartCoversByLevelID(level_id, "
-                "id, server_smartcover)] "
-                "WARNING: level_id = std::uint8_t(-1)! You are trying to set an undefined "
-                "number of unsigned int!");
-            //  return;
-        }
-
-        if (id == Globals::kUnsignedInt32Undefined)
-        {
-            Msg("[Script_GlobalHelper/setGameRegisteredServerSmartCoversByLevelID(level_id, "
-                "id, server_smartcover)] "
-                "WARNING: id = std::uint32_t(-1)! You are trying to set an undefined number of "
-                "unsigned int!");
-            //    return;
-        }
-
-        if (!server_smartcover)
-        {
-            Msg("[Script_GlobalHelper/setGameRegisteredServerSmartCoversByLevelID(level_id, "
-                "id, server_smartcover)] "
-                "WARNING: server_smartcover = null! You are trying to set an empty object!");
-            //   return;
-        }
-
-        this->m_game_registered_smartcovers_by_level_id[level_id][id] = server_smartcover;
-    }
-
     // @ It uses in Level Editor as list of smartcovers as spawnelement and it's using in-game
     inline const xr_map<xr_string, SmartCoverData>& getRegisteredSmartCovers(void) const noexcept
     {
@@ -4727,66 +4633,6 @@ public:
         }
 
         this->m_registered_smartcovers[smart_name] = data;
-    }
-
-    inline const xr_map<xr_string, CScriptGameObject*>& getGameRegisteredCombatSpaceRestrictors(void) const noexcept
-    {
-        return this->m_game_registered_combat_spacerestrictors;
-    }
-
-    inline void setGameRegisteredCombatSpaceRestrictors(const xr_map<xr_string, CScriptGameObject*>& map)
-    {
-        if (!map.size())
-        {
-            Msg("[Script_GlobalHelper/setGameRegisteredCombatSpaceRestrictors(space_name, "
-                "client_zone)] WARNING: "
-                "map.size() = 0! You are trying to set an empty map!");
-            //    return;
-        }
-
-        this->m_game_registered_combat_spacerestrictors = map;
-    }
-
-    inline void setGameRegisteredCombatSpaceRestrictors(const std::pair<xr_string, CScriptGameObject*>& pair)
-    {
-        if (!pair.first.size())
-        {
-            Msg("[Script_GlobalHelper/setGameRegisteredCombatSpaceRestrictors(space_name, "
-                "client_zone)] WARNING: "
-                "pair.first.size() = 0! You are trying to set an empty string!");
-            //   return;
-        }
-
-        if (!pair.second)
-        {
-            Msg("[Script_GlobalHelper/setGameRegisteredCombatSpaceRestrictors(space_name, "
-                "client_zone)] WARNING: "
-                "pair.second = null! You are trying to set an empty object!");
-            //  return;
-        }
-
-        this->m_game_registered_combat_spacerestrictors.insert(pair);
-    }
-
-    inline void setGameRegisteredCombatSpaceRestrictors(const xr_string& space_name, CScriptGameObject* client_zone)
-    {
-        if (!space_name.size())
-        {
-            Msg("[Script_GlobalHelper/setGameRegisteredCombatSpaceRestrictors(space_name, "
-                "client_zone)] WARNING: "
-                "space_name.size() = 0! You are trying to set an empty string!");
-            //    return;
-        }
-
-        if (!client_zone)
-        {
-            Msg("[Script_GlobalHelper/setGameRegisteredCombatSpaceRestrictors(space_name, "
-                "client_zone)] WARNING: "
-                "client_zone = null! You are trying to set an empty object!");
-            //    return;
-        }
-
-        this->m_game_registered_combat_spacerestrictors[space_name] = client_zone;
     }
 
     inline const xr_map<xr_string, xr_string>& getJobTypesByScheme(void) const noexcept
@@ -4834,67 +4680,6 @@ public:
     }
 
 #pragma region Cordis InGame
-    inline const xr_map<xr_string, Script_SE_SmartTerrain*>& getGameRegisteredServerSmartTerrainsByName(void) const
-        noexcept
-    {
-        return this->m_game_registered_server_smartterrains_by_name;
-    }
-
-    inline void setGameRegisteredServerSmartTerrainsByName(const xr_map<xr_string, Script_SE_SmartTerrain*>& map)
-    {
-        if (!map.size())
-        {
-            Msg("[Script_GlobalHelper/setGameRegisteredServerSmartTerrainsByName(map)] "
-                "WARNING: map.size() = 0! You "
-                "are trying to set an empty map!");
-            //  return;
-        }
-
-        this->m_game_registered_server_smartterrains_by_name = map;
-    }
-
-    inline void setGameRegisteredServerSmartTerrainsByName(const std::pair<xr_string, Script_SE_SmartTerrain*>& pair)
-    {
-        if (!pair.first.size())
-        {
-            Msg("[Script_GlobalHelper/setGameRegisteredServerSmartTerrainsByName(name, "
-                "server_smart)] WARNING: "
-                "pair.first.size() = 0! You are trying to set an empty string!");
-            //  return;
-        }
-
-        if (!pair.second)
-        {
-            Msg("[Script_GlobalHelper/setGameRegisteredServerSmartTerrainsByName(name, "
-                "server_smart)] WARNING: "
-                "pair.second = null! You are trying to set an empty object!");
-            // return;
-        }
-
-        this->m_game_registered_server_smartterrains_by_name.insert(pair);
-    }
-
-    inline void setGameRegisteredServerSmartTerrainsByName(const xr_string& name, Script_SE_SmartTerrain* server_smart)
-    {
-        if (!name.size())
-        {
-            Msg("[Script_GlobalHelper/setGameRegisteredServerSmartTerrainsByName(name, "
-                "server_smart)] WARNING: "
-                "name.size() = 0! You are trying to set an empty string!");
-            //  return;
-        }
-
-        if (!server_smart)
-        {
-            Msg("[Script_GlobalHelper/setGameRegisteredServerSmartTerrainsByName(name, "
-                "server_smart)] WARNING: "
-                "server_smart = null! You are trying to set an empty object!");
-            //    return;
-        }
-
-        this->m_game_registered_server_smartterrains_by_name[name] = server_smart;
-    }
-
     // @ First - id | Second - distance
     inline const std::pair<std::uint32_t, std::uint32_t>& getGameNearestToActorServerSmartTerrain(void) const noexcept
     {
@@ -5535,14 +5320,86 @@ public:
 
         this->m_phrase_priority_table[dialog_type_name][npc_id][phrase_id] = priority;
     }
+
+    // Lord: здесь переименовать комметарий под уже изменившийся файл когда используется CRD
+    // @ Private, using in Script_XR_Gulag
+    inline const xr_map<xr_string, CScriptIniFile*>& getDynamicLtx(void) const noexcept
+    {
+        return this->m_registered_generated_gulag_inis;
+    }
+
+    inline void setDynamicLtx(const xr_string& name, CScriptIniFile* file)
+    {
+        if (name.empty())
+        {
+            Msg("[Scripts/Script_GlobalHelper/setDynamicLtx(name, file)] WARNING: name.empty() == true! Can't assign "
+                "return");
+            return;
+        }
+
+        if (!file)
+        {
+            Msg("[Scripts/Script_GlobalHelper/setDynamicLtx(name, file)] WARNING: file == nullptr! Can't assign "
+                "return");
+            return;
+        }
+
+        this->m_registered_generated_gulag_inis[name] = file;
+    }
+
+    inline void setDynamicLtx(const std::pair<xr_string, CScriptIniFile*>& pair)
+    {
+        if (pair.first.empty())
+        {
+            Msg("[Scripts/Script_GlobalHelper/setDynamicLtx(pair)] WARNING: pair.first.empty() == true! Can't assign "
+                "return");
+            return;
+        }
+
+        if (!pair.second)
+        {
+            Msg("[Scripts/Script_GlobalHelper/setDynamicLtx(pair)] WARNING: pair.second == nullptr! Can't assign "
+                "return");
+            return;
+        }
+
+        this->m_registered_generated_gulag_inis.insert(pair);
+    }
+
+    inline void setDynamicLtx(const xr_map<xr_string, CScriptIniFile*> map)
+    {
+        if (map.empty())
+        {
+            Msg("[Scripts/Script_GlobalHelper/setDynamicLtx(map)] WARNING: map.empty() == true! Can't assign return");
+            return;
+        }
+
+        this->m_registered_generated_gulag_inis = map;
+    }
+
+    // @ Private, don't call it personally!
+    inline void DeallocateDynamicLtx(void)
+    {
+        if (!this->m_registered_generated_gulag_inis.empty())
+        {
+            for (std::pair<const xr_string, CScriptIniFile*>& it : this->m_registered_generated_gulag_inis)
+            {
+                Msg("[Scripts/Script_GlobalHelper/DeallocateDynamicLtx()] deleting generated CScriptIniFile logic "
+                    "stuff from "
+                    "GulagGenerator! %s",
+                    it.second->fname());
+                xr_delete(it.second);
+            }
+        }
+    }
 #pragma endregion
 
 private:
     CUISequencer* m_tutorial;
-    xr_map<std::uint32_t, bool> m_monster_classes;
-    xr_map<std::uint32_t, bool> m_stalker_classes;
-    xr_map<std::uint32_t, bool> m_weapon_classes;
-    xr_map<std::uint32_t, bool> m_artefact_classes;
+    xr_map<int, bool> m_monster_classes;
+    xr_map<int, bool> m_stalker_classes;
+    xr_map<int, bool> m_weapon_classes;
+    xr_map<int, bool> m_artefact_classes;
     xr_map<std::uint32_t, bool> m_ammo_section;
     xr_map<xr_string, bool> m_registered_eatable_visuals;
     xr_map<xr_string, bool> m_registered_harmonica_visuals;
@@ -5556,12 +5413,9 @@ private:
     xr_map<xr_string, AnyCallable<bool>> m_registered_functions_bool_dialog_manager;
     xr_map<xr_string, xr_map<std::uint32_t, DialogData>> m_phrase_table;
     xr_map<xr_string, xr_map<std::uint16_t, xr_map<std::uint32_t, int>>> m_phrase_priority_table;
-    xr_map<xr_string, Script_SE_SmartCover*> m_game_registered_smartcovers;
-    xr_map<std::uint8_t, xr_map<std::uint32_t, Script_SE_SmartCover*>> m_game_registered_smartcovers_by_level_id;
+    xr_map<xr_string, CScriptIniFile*> m_registered_generated_gulag_inis;
     xr_map<xr_string, StateLibData> m_state_library;
     xr_map<xr_string, SmartCoverData> m_registered_smartcovers;
-    xr_map<xr_string, CScriptGameObject*> m_game_registered_combat_spacerestrictors;
-    xr_map<xr_string, Script_SE_SmartTerrain*> m_game_registered_server_smartterrains_by_name;
     xr_map<xr_string, xr_string> m_job_type_by_scheme;
     xr_map<xr_string, xr_string> m_game_smarts_by_no_assault_zone;
     xr_map<xr_string, std::uint32_t> m_simulationboard_group_id_by_levels_name;

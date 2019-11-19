@@ -102,9 +102,10 @@ float CIKLimbsController::StaticObjectShift(const SCalculateData cd[max_size])
     const float current_shift = _object_shift.shift();
 
     u16 cnt = 0;
-    float shift_up = 0;
-    const u16 sz = (u16)_bone_chains.size();
+    float shift_up = 0.f;
+    const u16 sz = _bone_chains.size();
     for (u16 j = 0; sz > j; ++j)
+    {
         if (cd[j].state.foot_step)
         {
             float s_up = cd[j].cl_shift.y + current_shift;
@@ -114,18 +115,24 @@ float CIKLimbsController::StaticObjectShift(const SCalculateData cd[max_size])
                 ++cnt;
             }
         }
+    }
+
     if (0 < cnt)
-        shift_up /= cnt;
+        shift_up /= static_cast<float>(cnt);
+
     float shift_down = LegLengthShiftLimit(current_shift, cd);
-    float shift = 0;
+    float shift = 0.f;
     if (shift_down > 0.f)
         shift = -shift_down;
     else if (-shift_down < shift_up)
         shift = -shift_down;
     else
         shift = shift_up;
+
     VERIFY(_valid(shift));
+
     _object_shift.set_taget(shift, _abs(current_shift - shift) / static_shift_object_speed);
+
     return shift;
 }
 static float doun_shift_to_correct = 0.3f;

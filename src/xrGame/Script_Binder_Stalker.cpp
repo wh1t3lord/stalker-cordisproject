@@ -5,7 +5,7 @@ namespace Cordis
 {
 namespace Scripts
 {
-Script_Binder_Stalker::Script_Binder_Stalker(CScriptGameObject* object) : inherited(object) {}
+Script_Binder_Stalker::Script_Binder_Stalker(CScriptGameObject* object) : inherited(object), m_is_loaded(false) {}
 
 Script_Binder_Stalker::~Script_Binder_Stalker(void) {}
 
@@ -32,7 +32,14 @@ void Script_Binder_Stalker::net_Export(NET_Packet* packet) {}
 
 void Script_Binder_Stalker::shedule_Update(std::uint32_t time_delta) {}
 
-void Script_Binder_Stalker::save(NET_Packet* output_packet) {}
+void Script_Binder_Stalker::save(NET_Packet* output_packet)
+{
+    this->m_is_loaded = true;
+    Globals::set_save_marker(*output_packet, Globals::kSaveMarkerMode_Save, false, "Script_Binder_Stalker");
+    inherited::save(output_packet);
+    
+    Globals::set_save_marker(*output_packet, Globals::kSaveMarkerMode_Save, true, "Script_Binder_Stalker");
+}
 
 void Script_Binder_Stalker::load(IReader* input_packet) {}
 

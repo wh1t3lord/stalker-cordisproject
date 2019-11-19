@@ -46,9 +46,8 @@ bool Script_Animpoint::is_position_riched(void)
 void Script_Animpoint::start(void)
 {
     // Lord: реализовать когда будет сделан sr_camp.get_current_camp
-//     if (this->m_storage->IsUseCamp())
-//         this->m_is_camp = 
-    
+    //     if (this->m_storage->IsUseCamp())
+    //         this->m_is_camp =
 }
 
 void Script_Animpoint::stop(void)
@@ -56,10 +55,7 @@ void Script_Animpoint::stop(void)
     // Lord: реализовать когда будет сделан camp
 }
 
-void Script_Animpoint::update(void) 
-{
-   
-}
+void Script_Animpoint::update(void) {}
 
 void Script_Animpoint::activate_scheme(void)
 {
@@ -140,14 +136,20 @@ void Script_Animpoint::fill_approved_actions(void)
 
 void Script_Animpoint::calculate_position(void)
 {
-    Script_SE_SmartCover* server_smartcover =
-        Script_GlobalHelper::getInstance().getGameRegisteredServerSmartCovers().at(this->m_cover_name);
+    Script_SE_SmartCover* server_smartcover = nullptr;
 
-    if (!server_smartcover)
-    {
-        R_ASSERT2(false, "object is null!");
-        return;
-    }
+    if (DataBase::Storage::getInstance().getGameRegisteredServerSmartCovers().find(this->m_cover_name) !=
+        DataBase::Storage::getInstance().getGameRegisteredServerSmartCovers().end())
+        server_smartcover =
+            DataBase::Storage::getInstance().getGameRegisteredServerSmartCovers().at(this->m_cover_name);
+
+        /*        Script_GlobalHelper::getInstance().getGameRegisteredServerSmartCovers().at(this->m_cover_name);*/
+
+        if (!server_smartcover)
+        {
+            R_ASSERT2(false, "object is null!");
+            return;
+        }
 
     this->m_position = server_smartcover->Position();
     this->m_vertex_id = Globals::Game::level::vertex_id(this->m_position);

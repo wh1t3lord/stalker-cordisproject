@@ -73,6 +73,9 @@ CALifeSimulator::~CALifeSimulator()
     configs_type::iterator const e = m_configs_lru.end();
     for (; i != e; ++i)
         FS.r_close((*i).second);
+
+    // @ Тут мы удаляем stuff связанный только со скриптами 
+    Cordis::Scripts::Globals::system_deallocation();
 }
 
 void CALifeSimulator::destroy()

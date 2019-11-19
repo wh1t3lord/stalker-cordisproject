@@ -16,8 +16,8 @@ namespace GulagGenerator
 {
 inline void add_exclusive_job(const xr_string& section_name, const xr_string& work_field_name,
     CScriptIniFile* smart_ini, std::pair<xr_vector<JobData>, xr_vector<JobDataExclusive*>>& all_jobs);
-inline void add_exclusive_job(const xr_string& section_name, const xr_string& work_field_name,
-    CInifile& smart_ini, std::pair<xr_vector<JobData>, xr_vector<JobDataExclusive*>>& all_jobs);
+inline void add_exclusive_job(const xr_string& section_name, const xr_string& work_field_name, CInifile& smart_ini,
+    std::pair<xr_vector<JobData>, xr_vector<JobDataExclusive*>>& all_jobs);
 
 inline std::pair<xr_vector<JobData>, xr_vector<JobDataExclusive*>> load_job(Script_SE_SmartTerrain* smart)
 {
@@ -168,7 +168,7 @@ inline std::pair<xr_vector<JobData>, xr_vector<JobDataExclusive*>> load_job(Scri
         data.m_priority = 50;
         data.m_job_id.first = "logic@";
         data.m_job_id.first += waypoint_name;
-        data.m_job_id.second += Globals::GulagGenerator::kGulagJobPath;
+        data.m_job_id.second = Globals::GulagGenerator::kGulagJobPath;
         data.m_function = [](CSE_ALifeDynamicObject* server_object, Script_SE_SmartTerrain* smart,
                               const std::pair<xr_string, xr_map<std::uint32_t, CondlistData>>& params,
                               const NpcInfo& npc_info) -> bool {
@@ -258,13 +258,13 @@ inline std::pair<xr_vector<JobData>, xr_vector<JobDataExclusive*>> load_job(Scri
     {
         xr_string waypoint_name = global_name;
         waypoint_name += "_sleep_";
-        waypoint_name += std::to_string(it).c_str();
+        waypoint_name += std::to_string(it_sleep).c_str();
 
         JobData_SubData data;
         data.m_priority = 10;
         data.m_job_id.first = "logic@";
         data.m_job_id.first += waypoint_name;
-        data.m_job_id.second += Globals::GulagGenerator::kGulagJobPath;
+        data.m_job_id.second = Globals::GulagGenerator::kGulagJobPath;
         data.m_function_params.first = waypoint_name;
         data.m_function = [](CSE_ALifeDynamicObject* server_object, Script_SE_SmartTerrain* smart,
                               const std::pair<xr_string, xr_map<std::uint32_t, CondlistData>>& params,
@@ -519,6 +519,7 @@ inline std::pair<xr_vector<JobData>, xr_vector<JobDataExclusive*>> load_job(Scri
         data.m_priority = 15;
         data.m_job_id.first = "logic@";
         data.m_job_id.first += waypoint_name;
+        data.m_job_id.second = Globals::GulagGenerator::kGulagJobPath;
         data.m_function_params.first = waypoint_name;
         data.m_function = [](CSE_ALifeDynamicObject* server_object, Script_SE_SmartTerrain* smart,
                               const std::pair<xr_string, xr_map<std::uint32_t, CondlistData>>& params,
@@ -676,7 +677,7 @@ inline std::pair<xr_vector<JobData>, xr_vector<JobDataExclusive*>> load_job(Scri
         job_ltx_data += "]\n";
         job_ltx_data += "active = patrol@";
         job_ltx_data += waypoint_name.c_str();
-        job_ltx_data += "]\n";
+        job_ltx_data += "\n";
         job_ltx_data += "[patrol@";
         job_ltx_data += waypoint_name.c_str();
         job_ltx_data += "]\n";
@@ -733,9 +734,8 @@ inline std::pair<xr_vector<JobData>, xr_vector<JobDataExclusive*>> load_job(Scri
     patrol_xranimpoint_point_name += "_animpoint_";
     patrol_xranimpoint_point_name += std::to_string(it_xranimpoint).c_str();
 
-    while (
-        Script_GlobalHelper::getInstance().getGameRegisteredServerSmartCovers().find(patrol_xranimpoint_point_name) !=
-        Script_GlobalHelper::getInstance().getGameRegisteredServerSmartCovers().end())
+    while (DataBase::Storage::getInstance().getGameRegisteredServerSmartCovers().find(patrol_xranimpoint_point_name) !=
+               DataBase::Storage::getInstance().getGameRegisteredServerSmartCovers().end())
     {
         xr_string waypoint_name = global_name;
         waypoint_name += "_animpoint_";
@@ -777,7 +777,7 @@ inline std::pair<xr_vector<JobData>, xr_vector<JobDataExclusive*>> load_job(Scri
         job_ltx_data += "]\n";
         job_ltx_data += "active = animpoint@";
         job_ltx_data += waypoint_name;
-        job_ltx_data += "]\n";
+        job_ltx_data += "\n";
         job_ltx_data += "[animpoint@";
         job_ltx_data += waypoint_name;
         job_ltx_data += "]\n";
@@ -928,7 +928,7 @@ inline std::pair<xr_vector<JobData>, xr_vector<JobDataExclusive*>> load_job(Scri
             job1_ltx_data += ")} true \n";
         }
 
-        if (smart->getDefenceRestirctor().size())
+        if (!smart->getDefenceRestirctor().empty())
         {
             job1_ltx_data += "out_restr = ";
             job1_ltx_data += smart->getDefenceRestirctor();
@@ -936,7 +936,7 @@ inline std::pair<xr_vector<JobData>, xr_vector<JobDataExclusive*>> load_job(Scri
         }
 
         job1_ltx_data += "[remark@";
-        job1_ltx_data += smart->getDefenceRestirctor();
+        job1_ltx_data += waypoint_name;
         job1_ltx_data += "]\n";
         job1_ltx_data += "anim = wait_na\n";
         job1_ltx_data += "target = logic@follower_";
@@ -1425,7 +1425,7 @@ inline void add_exclusive_job(const xr_string& section_name, const xr_string& wo
     data->m_job_id.m_ini_file = ini_current_npc;
     data->m_function_params.second = condlist_data;
     data->m_function = [](CSE_ALifeDynamicObject* server_object, Script_SE_SmartTerrain* smart,
-                          const std::pair<xr_string, xr_map<std::uint32_t, CondlistData>>& params) -> bool {
+                           const std::pair<xr_string, xr_map<std::uint32_t, CondlistData>>& params) -> bool {
         xr_string result = XR_LOGIC::pick_section_from_condlist(
             DataBase::Storage::getInstance().getActor(), server_object, params.second);
 
@@ -1448,8 +1448,8 @@ inline void add_exclusive_job(const xr_string& section_name, const xr_string& wo
     all_jobs.second.push_back(data1);
 }
 
-inline void add_exclusive_job(const xr_string& section_name, const xr_string& work_field_name,
-    CInifile& smart_ini, std::pair<xr_vector<JobData>, xr_vector<JobDataExclusive*>>& all_jobs)
+inline void add_exclusive_job(const xr_string& section_name, const xr_string& work_field_name, CInifile& smart_ini,
+    std::pair<xr_vector<JobData>, xr_vector<JobDataExclusive*>>& all_jobs)
 {
     if (!section_name.size())
     {
@@ -1560,8 +1560,6 @@ inline void add_exclusive_job(const xr_string& section_name, const xr_string& wo
 
     all_jobs.second.push_back(data1);
 }
-
-
 
 } // namespace GulagGenerator
 } // namespace Scripts

@@ -23,6 +23,9 @@ public:
     virtual void load(IReader* input_packet);
     virtual bool net_SaveRelevant(void);
     virtual void net_Relcase(CScriptGameObject* object);
+
+private:
+    bool m_is_loaded;
 };
 }
 } // namespace Cordis

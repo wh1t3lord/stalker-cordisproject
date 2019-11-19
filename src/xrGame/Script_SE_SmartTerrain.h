@@ -16,10 +16,13 @@ namespace Cordis
 namespace Scripts
 {
 struct NpcInfo;
+struct JobData_SubData;
+struct JobDataExclusive;
 
 // @ For smart terrain stuff
 struct JobData_SubData
 {
+    std::uint16_t m_npc_id = 0; // @ Используется для выдачи работы НПС если 0 то работа свободна!
     std::uint32_t m_priority;
     std::uint32_t m_job_index = Globals::kUnsignedInt32Undefined; // @ Lord: делаем так специально, потом пересмотреть
                                                                   // архитектуру Script_SE_SmartTerrain и GulagGenerator
@@ -32,13 +35,15 @@ struct JobData_SubData
 
     inline void clear(void)
     {
-        this->m_priority = Globals::kUnsignedInt32Undefined;
-        this->m_job_index = Globals::kUnsignedInt32Undefined;
+        /*
+                this->m_priority = Globals::kUnsignedInt32Undefined;
+                this->m_job_index = Globals::kUnsignedInt32Undefined;*/
         this->m_job_id.first.clear();
         this->m_job_id.second.clear();
-        this->m_function_params.first.clear();
-        this->m_function_params.second.clear();
-        this->m_function = nullptr;
+        /*
+                this->m_function_params.first.clear();
+                this->m_function_params.second.clear();
+                this->m_function = nullptr;*/
     }
 };
 
@@ -47,11 +52,15 @@ struct NpcInfo
     bool m_is_monster;
     bool m_begin_job;
     int m_job_prioprity;
-    int m_job_id;
+    std::uint32_t m_job_id;
     int m_stype;
     CSE_ALifeDynamicObject* m_server_object; // @ Lord: определить где оно именно удаляется в итоге
     xr_string m_need_job;
-    JobData_SubData m_job_link;
+    // Как бы у нас может быть только одна работа, и учитываем это всегда то есть одно из m_job_link будет отлично от
+    // nullptr
+
+    JobData_SubData* m_job_link1 = nullptr;
+    JobDataExclusive* m_job_link2 = nullptr;
 
     inline void clear(void)
     {
@@ -61,7 +70,8 @@ struct NpcInfo
         this->m_job_prioprity = Globals::kUnsignedInt32Undefined;
         this->m_server_object = nullptr;
         this->m_need_job.clear();
-        this->m_job_link.clear();
+        this->m_job_link1 = nullptr;
+        this->m_job_link2 = nullptr;
     }
 };
 
@@ -84,7 +94,16 @@ struct JobDataExclusive_SubData
                 xr_delete(this->m_ini_file);
     }
 
-    inline void setDeallocationChecker(const xr_string& comparator) noexcept { this->m_has_previous = (this->m_section_name == comparator); }
+    inline void setDeallocationChecker(const xr_string& comparator) noexcept
+    {
+        this->m_has_previous = (this->m_section_name == comparator);
+    }
+
+    inline void clear(void) noexcept
+    {
+        this->m_section_name.clear();
+        this->m_job_type.clear();
+    }
 
     CScriptIniFile* m_ini_file;
     xr_string m_section_name;
@@ -101,7 +120,9 @@ struct JobDataExclusive
     ~JobDataExclusive(void) {}
 
     bool m_is_precondition_monster;
+    std::uint16_t m_npc_id; // @ Используется для выдачи работы если 0 работа свободна!
     std::uint32_t m_priority;
+    std::uint32_t m_job_index = Globals::kUnsignedInt32Undefined;
     std::pair<xr_string, xr_map<std::uint32_t, CondlistData>> m_function_params;
     std::function<bool(CSE_ALifeDynamicObject*, Script_SE_SmartTerrain*,
         const std::pair<xr_string, xr_map<std::uint32_t, CondlistData>>& params)>
@@ -111,11 +132,27 @@ struct JobDataExclusive
 
 struct JobDataSmartTerrain
 {
+    ~JobDataSmartTerrain(void)
+    {
+        if (this->m_alife_task)
+        {
+            Msg("[Scripts/Script_SE_SmartTerrain/JobDataSmartTerrain/~dtor()] deleting alife task for %s",
+                this->m_job_id.first.c_str());
+            xr_delete(this->m_alife_task);
+        }
+    }
+
+    std::uint8_t m_level_id;
     std::uint32_t m_priority;
+    std::uint32_t m_game_vertex_id;
     CALifeSmartTerrainTask* m_alife_task = nullptr;
+    CScriptIniFile* m_ini_file = nullptr; // @ Мы его не удаляем, оно удаляется само в JobDataExclusive!
     // @ First - section | Second - job_type (that taking from gulag_general as JobData_SubData::m_job_id respectively)
+    Fvector m_position;
     std::pair<xr_string, xr_string> m_job_id;
+    xr_string m_ini_path_name;
 };
+
 // Lord: проверить выравнивание!!!!!!
 class Script_SE_SmartTerrain : public CSE_ALifeSmartZone
 {
@@ -131,7 +168,8 @@ public:
     virtual void on_unregister(void);
     virtual void STATE_Read(NET_Packet& packet, u16 size);
     virtual void STATE_Write(NET_Packet& packet);
-
+    virtual void register_npc(CSE_ALifeMonsterAbstract* object);
+    virtual void unregister_npc(CSE_ALifeMonsterAbstract* object);
     inline NpcInfo fill_npc_info(CSE_ALifeDynamicObject* server_object)
     {
         if (!server_object)
@@ -186,10 +224,29 @@ public:
     inline std::uint16_t getSquadID(void) noexcept { return this->m_squad_id; }
     inline xr_string getSpawnPointName(void) noexcept { return this->m_spawn_point_name; }
     inline std::uint32_t getStaydSquadQuan(void) noexcept { return this->m_stayed_squad_quan; }
-    inline xr_map<std::uint32_t, NpcInfo>& getNpcInfo(void) noexcept { return this->m_npc_info; }
-    inline xr_map<std::uint32_t, JobDataSmartTerrain>& getJobData(void) noexcept { return this->m_job_data; }
+    inline xr_map<std::uint32_t, NpcInfo>& getNpcInfo(void) noexcept
+    {
+        return this->m_npc_info;
+    } // @ Lord: const return!!!
+    inline xr_map<std::uint32_t, JobDataSmartTerrain*>& getJobData(void) noexcept { return this->m_job_data; }
     inline CALifeSmartTerrainTask* getAlifeSmartTerrainTask(void) { return this->m_smart_alife_task.get(); }
     inline CScriptIniFile* getIni(void) const noexcept { return this->m_ini.get(); }
+    inline const xr_map<xr_string, std::uint8_t>& getAlreadySpawned(void) const noexcept
+    {
+        return this->m_already_spawned;
+    }
+
+    inline void setAlreadySpawned(const xr_string& section_name, const std::uint8_t value) noexcept
+    {
+        if (section_name.empty())
+        {
+            Msg("[Scripts/Script_SE_SmartTerrain/setAlreadySpawned(section_name, value)] WARNING: section_name.empty() "
+                "== true! Can't assign!");
+            return;
+        }
+
+        this->m_already_spawned[section_name] = value;
+    }
 #pragma endregion
 
 #pragma region Cordis Setters
@@ -199,12 +256,45 @@ public:
     inline void setStaydSquadQuan(const std::uint32_t& value) noexcept { this->m_stayed_squad_quan = value; }
 #pragma endregion
 
+    inline bool am_i_reached(Script_SE_SimulationSquad* squad) noexcept
+    {
+        if (!squad)
+        {
+            R_ASSERT2(false, "can't use an empty object!");
+            return false;
+        }
+
+        Fvector squad_position = squad->position();
+        std::uint32_t squad_level_vertex_id = squad->m_tNodeID;
+        std::uint16_t squad_game_vertex_Id = squad->m_tGraphID;
+
+        Fvector target_position = this->position();
+        std::uint32_t target_level_vertex_id = this->m_tNodeID;
+        std::uint16_t target_game_vertex_id = this->m_tGraphID;
+
+        if (Globals::Game::get_game_graph()->vertex(squad_game_vertex_Id)->level_id() !=
+            Globals::Game::get_game_graph()->vertex(target_game_vertex_id)->level_id())
+        {
+            return false;
+        }
+
+        if (Globals::IsMonster(ai().alife().objects().object(squad->commander_id()), 0) &&
+            squad->getScriptTarget() == 0)
+        {
+            return (squad_position.distance_to_sqr(target_position) <= 25.0f);
+        }
+
+        return squad->IsAlwaysArrived() ||
+            (squad_position.distance_to_sqr(target_position) <= (this->m_arrive_distance * this->m_arrive_distance));
+    }
+
     void read_params(void);
     void on_after_reach(Script_SE_SimulationSquad* squad);
     void on_reach_target(Script_SE_SimulationSquad* squad);
     void clear_dead(CSE_ALifeDynamicObject* server_object);
     void hide(void);
     void check_respawn_params(xr_string& params);
+    void select_npc_job(NpcInfo& npc_info);
 
 private:
     void show(void);
@@ -227,19 +317,22 @@ private:
     std::uint32_t m_population;
     std::uint32_t m_stayed_squad_quan;
     std::uint32_t m_show_time;
+    CScriptIniFile* m_ltx;
     xrTime m_smart_alarm_time;
-    std::pair<xr_vector<JobData>, xr_vector<JobDataExclusive*>> m_jobs;
+    std::pair<xr_vector<JobData>, xr_vector<JobDataExclusive*>>
+        m_jobs; // @ Состоит из двух векторов впервый заносятся stalker_jobs, и monster_jobs, во второй вектор заносятся
+                // exclusive работы
     std::unique_ptr<CALifeSmartTerrainTask> m_smart_alife_task;
     //  Script_SmartTerrainControl* m_base_on_actor_control;
     std::unique_ptr<Script_SmartTerrainControl> m_base_on_actor_control;
     xr_map<std::uint32_t, xrTime> m_dead_time;
-    xr_map<xr_string, std::uint32_t> m_npc_by_job_section;
+    xr_map<xr_string, std::uint16_t> m_npc_by_job_section;
     // pair<vector_spawn_squads_name, condlist_spawn_num>!
     xr_map<xr_string, std::pair<xr_vector<xr_string>, xr_map<std::uint32_t, CondlistData>>> m_respawn_params;
     xr_map<xr_string, std::uint8_t> m_already_spawned;
     xr_map<std::uint32_t, CSE_ALifeDynamicObject*> m_arriving_npc;
     xr_map<std::uint32_t, NpcInfo> m_npc_info;
-    xr_map<std::uint32_t, JobDataSmartTerrain> m_job_data;
+    xr_map<std::uint32_t, JobDataSmartTerrain*> m_job_data;
     xr_vector<CSE_ALifeDynamicObject*> m_npc_to_register;
     xrTime m_last_respawn_update;
     xr_string m_smart_level;

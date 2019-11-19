@@ -49,6 +49,21 @@ struct SimulationActivitiesType
 
 struct SmartDataSimulationBoard
 {
+    ~SmartDataSimulationBoard(void)
+    {
+        this->m_p_server_smart = nullptr;
+
+        if (!this->m_squads.empty())
+        {
+            for (std::pair<const std::uint32_t, Script_SE_SimulationSquad*>& it : this->m_squads)
+            {
+                it.second = nullptr;
+            }
+
+            this->m_squads.clear();
+        }
+    }
+
     inline const xr_map<std::uint32_t, Script_SE_SimulationSquad*>& getSquads(void) const noexcept
     {
         return this->m_squads;
@@ -804,6 +819,49 @@ public:
     Script_SimulationBoard& operator=(Script_SimulationBoard&&) = delete;
 
 #pragma region Getters
+    inline const xr_map<std::uint16_t, Script_SE_SimulationSquad*>& getSquads(void) const noexcept
+    {
+        return this->m_squads;
+    }
+
+    inline void setSquads(const xr_map<std::uint16_t, Script_SE_SimulationSquad*>& map) noexcept
+    {
+        if (map.empty())
+        {
+            Msg("[Scripts/Script_SimulationBoard/setSquads(map)] WARNING: can't assign empty map! Return");
+            return;
+        }
+
+        this->m_squads = map;
+    }
+
+    inline void setSquads(const std::pair<std::uint16_t, Script_SE_SimulationSquad*>& pair)
+    {
+        if (!pair.second)
+        {
+            Msg("[Scripts/Script_SimulationBoard/setSquads(pair)] WARNING: you are trying to set an empty squad object "
+                "= nullptr!");
+        }
+
+        this->m_squads.insert(pair);
+    }
+
+    inline void setSquads(const std::uint16_t id, Script_SE_SimulationSquad* squad)
+    {
+        if (id == Globals::kUnsignedInt16Undefined)
+        {
+            Msg("[Scripts/Script_SimulationBoard/setSquads(id, squad)] WARNING: id is undefined! You are trying to set "
+                "an undefined value!!!");
+        }
+
+        if (!squad)
+        {
+            Msg("[Scripts/Script_SE_SimulationBoard/setSquads(id, squad)] WARNING: squad = nullptr!");
+        }
+
+        this->m_squads[id] = squad;
+    }
+
     inline const xr_map<xr_string, Script_SE_SmartTerrain*>& getSmartTerrainsByName(void) const
     {
         return this->m_smarts_by_name;
@@ -1026,11 +1084,64 @@ public:
         }
 
         squad->setEnteredSmartID(smart_id);
-        Msg("[Scripts/Script_SimulationBoard/enter_squad_to_smart(squad, smart_id)] squad %d enter smart %s. Quan = %d", squad->ID, smart->name_replace(), smart->getStaydSquadQuan());
+        Msg("[Scripts/Script_SimulationBoard/enter_squad_to_smart(squad, smart_id)] squad %d enter smart %s. Quan = %d",
+            squad->ID, smart->name_replace(), smart->getStaydSquadQuan());
 
         std::uint32_t quan = smart->getStaydSquadQuan();
         quan++;
         smart->setStaydSquadQuan(quan);
+    }
+
+    // @ It calls only in system_deallocation() function
+    // @ Be carefgul!
+    inline void Deallocate(void) noexcept
+    {
+        if (!this->m_smarts_by_name.empty())
+        {
+            for (std::pair<const xr_string, Script_SE_SmartTerrain*>& pair : this->m_smarts_by_name)
+            {
+                pair.second = nullptr;
+            }
+
+            this->m_smarts_by_name.clear();
+        }
+
+        if (!this->m_smarts.empty())
+        {
+            this->m_smarts.clear();
+        }
+
+        if (!this->m_temporary_assigned_squad.empty())
+        {
+            for (std::pair<const std::uint32_t, Script_SE_SimulationSquad*>& it : this->m_temporary_assigned_squad)
+            {
+                it.second = nullptr;
+            }
+
+            this->m_temporary_assigned_squad.clear();
+        }
+
+        if (!this->m_temporary_entered_squad.empty())
+        {
+            for (std::pair<const std::uint32_t, Script_SE_SimulationSquad*>& it : this->m_temporary_entered_squad)
+            {
+                it.second = nullptr;
+            }
+
+            this->m_temporary_entered_squad.clear();
+        }
+
+        if (!this->m_squads.empty())
+        {
+            for (std::pair<const std::uint16_t, Script_SE_SimulationSquad*>& it : this->m_squads)
+            {
+                it.second = nullptr;
+            }
+
+            this->m_squads.clear();
+        }
+
+        this->m_is_start_position_filled = false;
     }
 
     void register_smart(Script_SE_SmartTerrain* object);
@@ -1062,6 +1173,7 @@ private:
     xr_map<xr_string, Script_SE_SmartTerrain*> m_smarts_by_name;
     xr_map<std::uint32_t, Script_SE_SimulationSquad*> m_temporary_entered_squad;
     xr_map<std::uint32_t, Script_SE_SimulationSquad*> m_temporary_assigned_squad;
+    xr_map<std::uint16_t, Script_SE_SimulationSquad*> m_squads;
     CScriptIniFile m_setting_ini;
 };
 } // namespace Scripts

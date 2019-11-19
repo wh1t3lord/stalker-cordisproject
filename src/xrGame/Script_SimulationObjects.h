@@ -31,6 +31,18 @@ public:
     void registrate(CSE_ALifeDynamicObject* object);
     void unregistrate(CSE_ALifeDynamicObject* object);
     void update_avaliability(CSE_ALifeDynamicObject* object);
+    inline void Deallocate(void)
+    {
+        if (!this->m_objects.empty())
+        {
+            for (std::pair<const std::uint16_t, CSE_ALifeDynamicObject*>& it : this->m_objects)
+            {
+                it.second = nullptr;
+            }
+
+            this->m_objects.clear();
+        }
+    }
 
 private:
     inline float evaluate_priority_by_distance(CSE_ALifeDynamicObject* target, CSE_ALifeDynamicObject* squad)

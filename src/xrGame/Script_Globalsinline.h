@@ -9,6 +9,14 @@ namespace Cordis
 {
 namespace Scripts
 {
+class Script_SimulationBoard;
+}
+} // namespace Cordis
+
+namespace Cordis
+{
+namespace Scripts
+{
 namespace Globals
 {
 namespace Utils
@@ -336,7 +344,7 @@ inline xr_string get_scheme_by_section(xr_string& data)
     xr_string result = data;
     if (result.find('@') == xr_string::npos)
     {
-    //    R_ASSERT2(false, "invalid string!");
+        //    R_ASSERT2(false, "invalid string!");
         Msg("[Scripts/Globals/Utils/get_scheme_by_section(data)] Does it right logic section name %s ?", data.c_str());
         return result;
     }
@@ -1471,7 +1479,7 @@ inline bool IsStalker(CScriptGameObject* object, int class_id = 0)
 
     int result = class_id ? class_id : object->clsid();
 
-    return (Script_GlobalHelper::getInstance().getStalkerClasses().at(result) == true);
+    return ((Script_GlobalHelper::getInstance().getStalkerClasses().find(result) == Script_GlobalHelper::getInstance().getStalkerClasses().end()) ? false : true);
 }
 
 inline bool IsStalker(CSE_ALifeDynamicObject* server_object, int class_id = 0)
@@ -1484,7 +1492,10 @@ inline bool IsStalker(CSE_ALifeDynamicObject* server_object, int class_id = 0)
 
     int result = class_id ? class_id : server_object->m_script_clsid;
 
-    return (Script_GlobalHelper::getInstance().getStalkerClasses().at(result) == true);
+    return ((Script_GlobalHelper::getInstance().getStalkerClasses().find(result) ==
+                Script_GlobalHelper::getInstance().getStalkerClasses().end()) ?
+            false :
+            true);
 }
 
 inline bool IsArtefact(CScriptGameObject* object, int class_id = 0)
@@ -1497,7 +1508,10 @@ inline bool IsArtefact(CScriptGameObject* object, int class_id = 0)
 
     int result = class_id ? class_id : object->clsid();
 
-    return (Script_GlobalHelper::getInstance().getArtefactClasses().at(result) == true);
+    return ((Script_GlobalHelper::getInstance().getArtefactClasses().find(result) ==
+                Script_GlobalHelper::getInstance().getArtefactClasses().end()) ?
+            false :
+            true);
 }
 
 inline bool IsWeapon(CScriptGameObject* object, int class_id)
@@ -1510,7 +1524,7 @@ inline bool IsWeapon(CScriptGameObject* object, int class_id)
 
     int result = class_id ? class_id : object->clsid();
 
-    return (Script_GlobalHelper::getInstance().getWeaponClasses().at(result) == true);
+    return ((Script_GlobalHelper::getInstance().getWeaponClasses().find(result) == Script_GlobalHelper::getInstance().getWeaponClasses().end()) ? false : true);
 }
 
 inline xr_string character_community(CScriptGameObject* object)
@@ -1671,6 +1685,16 @@ inline void start_game_callback(void)
     Script_GlobalHelper::getInstance();
 
     Msg("[Scripts/Globals/start_game_callback()] was called!");
+}
+
+void system_deallocation(void)
+{
+    Msg("[Scripts/Globals/system_deallocation()] disconnect from server!");
+    Script_GlobalHelper::getInstance().DeallocateDynamicLtx();
+    Script_SimulationBoard::getInstance().Deallocate();
+    DataBase::Storage::getInstance().Deallocate();
+    Script_StoryObject::getInstance().Deallocate();
+    Script_SimulationObjects::getInstance().Deallocate();
 }
 
 inline void set_save_marker(NET_Packet& packet, const xr_string& mode, bool check, const xr_string& prefix)
@@ -1841,7 +1865,7 @@ inline xr_string get_job_restrictor(const char* waypoint_name)
     const Fvector& position = CPatrolPathParams(waypoint_name).point(std::uint32_t(0));
 
     for (const std::pair<xr_string, CScriptGameObject*>& it :
-        Script_GlobalHelper::getInstance().getGameRegisteredCombatSpaceRestrictors())
+        DataBase::Storage::getInstance().getGameRegisteredCombatSpaceRestrictors())
     {
         if (it.second)
         {
@@ -1887,7 +1911,7 @@ inline bool is_accessible_job(CSE_ALifeDynamicObject* server_object, const char*
     bool is_npc_inside = false;
 
     for (const std::pair<xr_string, CScriptGameObject*>& it :
-        Script_GlobalHelper::getInstance().getGameRegisteredCombatSpaceRestrictors())
+        DataBase::Storage::getInstance().getGameRegisteredCombatSpaceRestrictors())
     {
         if (it.second)
         {
@@ -1903,11 +1927,14 @@ inline bool is_accessible_job(CSE_ALifeDynamicObject* server_object, const char*
     return (!is_npc_inside);
 }
 
-CScriptIniFile* create_ini_file(LPCSTR ini_string)
+inline CScriptIniFile* create_ini_file(LPCSTR ini_string)
 {
     IReader reader((void*)ini_string, xr_strlen(ini_string));
-    return ((CScriptIniFile*)new CInifile(&reader, FS.get_path("$game_config$")->m_Path));
+    //    return ((CScriptIniFile*)new CInifile(&reader, FS.get_path("$game_config$")->m_Path));
+    return new CScriptIniFile(&reader, FS.get_path("$game_config$")->m_Path);
 }
+
+std::uint32_t get_time_global(void) { return Device.dwTimeGlobal; }
 
 } // namespace Globals
 } // namespace Scripts

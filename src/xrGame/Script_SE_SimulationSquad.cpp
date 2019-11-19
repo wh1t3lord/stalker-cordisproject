@@ -58,7 +58,91 @@ CALifeSmartTerrainTask* Script_SE_SimulationSquad::get_current_task(void)
     return this->getAlifeSmartTerrainTask();
 }
 
-inline std::uint16_t Script_SE_SimulationSquad::getScriptTarget(void)
+void Script_SE_SimulationSquad::STATE_Read(NET_Packet& packet, u16 size)
+{
+    inherited::STATE_Read(packet, size);
+
+    Globals::set_save_marker(packet, Globals::kSaveMarkerMode_Load, false, "Script_SE_SimulationSquad");
+
+    xr_string current_target_id_data;
+    packet.r_stringZ(current_target_id_data);
+
+    if (current_target_id_data == "nil")
+        this->m_current_target_id = 0;
+    else
+        this->m_current_target_id = atoi(current_target_id_data.c_str());
+
+    xr_string respawn_point_id_data;
+    packet.r_stringZ(respawn_point_id_data);
+
+    if (respawn_point_id_data == "nil")
+        this->m_respawn_point_id = 0;
+    else
+        this->m_respawn_point_id = atoi(respawn_point_id_data.c_str());
+
+    packet.r_stringZ(this->m_respawn_point_prop_section_name);
+    if (this->m_respawn_point_prop_section_name == "nil")
+        this->m_respawn_point_prop_section_name.clear();
+
+    xr_string smart_terrain_id_data;
+    packet.r_stringZ(smart_terrain_id_data);
+
+    if (smart_terrain_id_data == "nil")
+        this->m_smart_terrain_id = 0;
+    else
+        this->m_smart_terrain_id = atoi(smart_terrain_id_data.c_str());
+
+    this->init_squad_on_load();
+
+    Globals::set_save_marker(packet, Globals::kSaveMarkerMode_Load, true, "Script_SE_SimulationSquad");
+}
+
+void Script_SE_SimulationSquad::STATE_Write(NET_Packet& packet)
+{
+    inherited::STATE_Write(packet);
+
+    Globals::set_save_marker(packet, Globals::kSaveMarkerMode_Save, false, "Script_SE_SimulationSquad");
+
+    packet.w_stringZ(std::to_string(this->m_current_target_id).c_str());
+    packet.w_stringZ(std::to_string(this->m_respawn_point_id).c_str());
+    packet.w_stringZ(this->m_respawn_point_prop_section_name.c_str());
+    packet.w_stringZ(std::to_string(this->m_smart_terrain_id).c_str());
+
+    Globals::set_save_marker(packet, Globals::kSaveMarkerMode_Save, true, "Script_SE_SimulationSquad");
+}
+
+void Script_SE_SimulationSquad::on_register(void)
+{
+    inherited::on_register();
+    Script_SimulationBoard::getInstance().setSquads(this->ID, this);
+    Script_StoryObject::getInstance().check_spawn_ini_for_story_id(this);
+    Script_SimulationObjects::getInstance().registrate(this);
+}
+
+void Script_SE_SimulationSquad::on_unregister(void)
+{
+    Script_StoryObject::getInstance().unregistrate_by_id(this->ID);
+    Script_SimulationBoard::getInstance().setSquads(this->ID, nullptr);
+    Script_SimulationBoard::getInstance().assigned_squad_to_smart(this);
+    inherited::on_unregister();
+    Script_SimulationObjects::getInstance().unregistrate(this);
+
+    if (this->m_respawn_point_id)
+    {
+        Script_SE_SmartTerrain* smart = ai().alife().objects().object(this->m_respawn_point_id)->cast_script_se_smartterrain();
+
+        // smart_terrain удаляются раньше чем squadss
+        if (!smart)
+            return;
+
+        
+        std::uint8_t value = smart->getAlreadySpawned().at(this->m_respawn_point_prop_section_name);
+        --value;
+        smart->setAlreadySpawned(this->m_respawn_point_prop_section_name, value);
+    }
+}
+
+std::uint16_t Script_SE_SimulationSquad::getScriptTarget(void)
 {
     xr_string new_target_name = XR_LOGIC::pick_section_from_condlist(
         DataBase::Storage::getInstance().getActor(), this, this->m_condlist_action);
@@ -102,6 +186,8 @@ inline std::uint16_t Script_SE_SimulationSquad::getScriptTarget(void)
 
     return smart->ID;
 }
+
+ 
 
 void Script_SE_SimulationSquad::assign_squad_member_to_smart(
     const std::uint16_t& object_id, Script_SE_SmartTerrain* smart, const std::uint16_t& old_smart_terrain_id)

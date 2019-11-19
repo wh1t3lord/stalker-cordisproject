@@ -201,13 +201,13 @@ void Script_SoundNPC::callback(const std::uint16_t& npc_id)
     {
      //   storage_data[storage_data.m_active_scheme].getSignals()["theme_end"] = true;
      //   storage_data[storage_data.m_active_scheme].getSignals()["sound_end"] = true;
-        DataBase::Storage::getInstance().setSignal(npc_id, "theme_end", true);
-        DataBase::Storage::getInstance().setSignal(npc_id, "sound_end", true);
+        DataBase::Storage::getInstance().setStorageSignal(npc_id, "theme_end", true);
+     DataBase::Storage::getInstance().setStorageSignal(npc_id, "sound_end", true);
     }
     else
     {
      //   storage_data[storage_data.m_active_scheme].getSignals()["sound_end"] = true;
-        DataBase::Storage::getInstance().setSignal(npc_id, "sound_end", true);
+        DataBase::Storage::getInstance().setStorageSignal(npc_id, "sound_end", true);
     }
 }
 
@@ -526,8 +526,8 @@ void Script_SoundActor::callback(const std::uint16_t& npc_id)
             storage_data.getActiveSectionName().c_str());
     //    storage_data[storage_data.m_active_scheme].getSignals()["theme_end"] = true;
     //    storage_data[storage_data.m_active_scheme].getSignals()["sound_end"] = true;
-        DataBase::Storage::getInstance().setSignal(npc_id, "theme_end", true);
-        DataBase::Storage::getInstance().setSignal(npc_id, "sound_end", true);
+        DataBase::Storage::getInstance().setStorageSignal(npc_id, "theme_end", true);
+        DataBase::Storage::getInstance().setStorageSignal(npc_id, "sound_end", true);
 
     }
     else
@@ -536,7 +536,7 @@ void Script_SoundActor::callback(const std::uint16_t& npc_id)
             storage_data.getActiveSectionName().c_str());
 
       //  storage_data[storage_data.m_active_scheme].getSignals()["sound_end"] = true;
-        DataBase::Storage::getInstance().setSignal(npc_id, "sound_end", true);
+        DataBase::Storage::getInstance().setStorageSignal(npc_id, "sound_end", true);
     }
 }
 
@@ -728,12 +728,12 @@ void Script_SoundObject::callback(const std::uint16_t& npc_id)
 
     if (this->m_played_id == this->m_sound.size() && this->m_shuffle != "rnd")
     {
-        DataBase::Storage::getInstance().setSignal(npc_id, "theme_end", true);
-        DataBase::Storage::getInstance().setSignal(npc_id, "sound_end", true);
+        DataBase::Storage::getInstance().setStorageSignal(npc_id, "theme_end", true);
+        DataBase::Storage::getInstance().setStorageSignal(npc_id, "sound_end", true);
     }
     else
     {
-        DataBase::Storage::getInstance().setSignal(npc_id, "sound_end", true);
+        DataBase::Storage::getInstance().setStorageSignal(npc_id, "sound_end", true);
     }
 }
 

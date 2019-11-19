@@ -453,6 +453,9 @@ constexpr const char* kStringFalse = "false";
 constexpr char kPstorBooleanTrue = '+';
 constexpr char kPstorBooleanUndefined = '0';
 constexpr char kPstorBooleanFalse = '-';
+constexpr std::uint8_t kPstorTypeNumber = 0;
+constexpr std::uint8_t kPstorTypeString = 1;
+constexpr std::uint8_t kPstorTypeBoolean = 2;
 #pragma endregion
 
 namespace XR_ACTIONS_ID
