@@ -153,8 +153,9 @@ inline void parse_infopotions(xr_map<std::uint32_t, CondlistData::CondlistValues
         case '+':
         {
             std::uint32_t z = it;
+
             z += 1;
-            while (mask_rejection.find(buffer[z]) == std::string::npos)
+            while (buffer[z] && (mask_rejection.find(buffer[z]) == std::string::npos))
             {
                 maked_string += buffer[z];
                 ++z;
@@ -173,7 +174,7 @@ inline void parse_infopotions(xr_map<std::uint32_t, CondlistData::CondlistValues
         {
             std::uint32_t z = it;
             z += 1;
-            while (mask_rejection.find(buffer[z]) == std::string::npos)
+            while (buffer[z] && (mask_rejection.find(buffer[z]) == std::string::npos))
             {
                 maked_string += buffer[z];
                 ++z;
@@ -193,7 +194,7 @@ inline void parse_infopotions(xr_map<std::uint32_t, CondlistData::CondlistValues
             std::uint32_t z = it;
             std::string params = "";
             z += 1;
-            while (mask_rejection.find(buffer[z]) == std::string::npos)
+            while (buffer[z] && (mask_rejection.find(buffer[z]) == std::string::npos))
             {
                 if (buffer[z] == '(')
                 {
@@ -225,7 +226,7 @@ inline void parse_infopotions(xr_map<std::uint32_t, CondlistData::CondlistValues
         {
             std::uint32_t z = it;
             z += 1;
-            while (mask_rejection.find(buffer[z]) == std::string::npos)
+            while (buffer[z] && (mask_rejection.find(buffer[z]) == std::string::npos))
             {
                 maked_string += buffer[z];
                 ++z;
@@ -244,7 +245,7 @@ inline void parse_infopotions(xr_map<std::uint32_t, CondlistData::CondlistValues
             std::uint32_t z = it;
             std::string params = "";
             z += 1;
-            while (mask_rejection.find(buffer[z]) == std::string::npos)
+            while (buffer[z] && (mask_rejection.find(buffer[z]) == std::string::npos))
             {
                 if (buffer[z] == '(')
                 {
@@ -728,14 +729,16 @@ inline xr_string pick_section_from_condlist(
     {
         //  R_ASSERT2(false, "object is null!");
         //  return xr_string("");
-        Msg("[Scripts/XR_LOGIC/pick_section_from_condlist(client_actor, server_npc, condlist)] WARNING: client_actor = nullptr! client_actor is null!");
+        Msg("[Scripts/XR_LOGIC/pick_section_from_condlist(client_actor, server_npc, condlist)] WARNING: client_actor = "
+            "nullptr! client_actor is null!");
     }
 
     if (!npc)
     {
         //   R_ASSERT2(false, "object is null!");
         //   return xr_string("");
-        Msg("[Scripts/XR_LOGIC/pick_section_from_condlist(client_actor, server_npc, condlist)] WARNING: server_npc = nullptr! server_npc is null!");
+        Msg("[Scripts/XR_LOGIC/pick_section_from_condlist(client_actor, server_npc, condlist)] WARNING: server_npc = "
+            "nullptr! server_npc is null!");
     }
 
     std::uint32_t value = 0; // idk what does it mean. Translate this to normal
@@ -1007,7 +1010,9 @@ inline xr_string pick_section_from_condlist(
             {
                 if (!DataBase::Storage::getInstance().getActor())
                 {
-                    R_ASSERT2(false, "TRYING TO SET INFOPORTION SET WHEN ACTOR IS NULL! IT CAN'T BE YOU ARE TRYING TO USE WHEN ACTOR IS NOT INITIALIZE, LATER USE IT");
+                    R_ASSERT2(false,
+                        "TRYING TO SET INFOPORTION SET WHEN ACTOR IS NULL! IT CAN'T BE YOU ARE TRYING TO USE WHEN "
+                        "ACTOR IS NOT INITIALIZE, LATER USE IT");
                 }
 
                 if (it_infoportion_set.second.m_function_name.size())
@@ -1103,16 +1108,18 @@ inline xr_string pick_section_from_condlist(
     // Lord: доделать
     if (!actor)
     {
-//         R_ASSERT2(false, "object is null!");
-//         return xr_string("");
-        Msg("[Scripts/XR_LOGIC/pick_section_from_condlist(server_actor, server_npc, condlist)] WARNING: server_actor = nullptr! server_actor is null!");
+        //         R_ASSERT2(false, "object is null!");
+        //         return xr_string("");
+        Msg("[Scripts/XR_LOGIC/pick_section_from_condlist(server_actor, server_npc, condlist)] WARNING: server_actor = "
+            "nullptr! server_actor is null!");
     }
 
     if (!npc)
     {
-//         R_ASSERT2(false, "object is null!");
-//         return xr_string("");
-        Msg("[Scripts/XR_LOGIC/pick_section_from_condlist(server_actor, server_npc, condlist)] WARNING: server_npc = nullptr! server_npc is null!");
+        //         R_ASSERT2(false, "object is null!");
+        //         return xr_string("");
+        Msg("[Scripts/XR_LOGIC/pick_section_from_condlist(server_actor, server_npc, condlist)] WARNING: server_npc = "
+            "nullptr! server_npc is null!");
     }
 
     std::uint32_t value = 0; // idk what does it mean. Translate this to normal
@@ -1480,16 +1487,18 @@ inline xr_string pick_section_from_condlist(
     // Lord: доделать
     if (!actor)
     {
-        Msg("[Scripts/XR_LOGIC/pick_section_from_condlist(client_actor, client_npc, condlist)] WARNING: client_actor = nullptr! client_actor is null!");
+        Msg("[Scripts/XR_LOGIC/pick_section_from_condlist(client_actor, client_npc, condlist)] WARNING: client_actor = "
+            "nullptr! client_actor is null!");
         //         R_ASSERT2(false, "object is null!");
-//         return xr_string("");
+        //         return xr_string("");
     }
 
     if (!npc)
     {
-//         R_ASSERT2(false, "object is null!");
-//         return xr_string("");
-        Msg("[Scripts/XR_LOGIC/pick_section_from_condlist(client_actor, client_npc, condlist)] WARNING: client_npc = nullptr! client_npc is null!");
+        //         R_ASSERT2(false, "object is null!");
+        //         return xr_string("");
+        Msg("[Scripts/XR_LOGIC/pick_section_from_condlist(client_actor, client_npc, condlist)] WARNING: client_npc = "
+            "nullptr! client_npc is null!");
     }
 
     std::uint32_t value = 0; // idk what does it mean. Translate this to normal
@@ -1851,6 +1860,40 @@ inline xr_string pick_section_from_condlist(
     return xr_string("");
 }
 
+inline void pstor_load_all(CScriptGameObject* client_object, NET_Packet& packet)
+{
+    const std::uint16_t& npc_id = client_object->ID();
+    std::uint32_t total_count = packet.r_u32();
+
+    for (std::uint32_t i = 0; i < total_count; ++i)
+    {
+        xr_string varname;
+        packet.r_stringZ(varname);
+
+        std::uint8_t pstor_type = packet.r_u8();
+        if (pstor_type == Globals::kPstorTypeNumber)
+        {
+            DataBase::Storage::getInstance().setPStorNumber(
+                npc_id, varname, static_cast<std::uint8_t>(packet.r_float()));
+        }
+        else if (pstor_type == Globals::kPstorTypeString)
+        {
+            xr_string result;
+            packet.r_stringZ(result);
+            DataBase::Storage::getInstance().setPStorString(npc_id, varname, result);
+        }
+        else if (pstor_type == Globals::kPstorTypeBoolean)
+        {
+            DataBase::Storage::getInstance().setPStorBool(npc_id, varname, packet.r_u8() ? true : false);
+        }
+        else
+        {
+            R_ASSERT2(false, "can't reached!");
+            return;
+        }
+    }
+}
+
 inline bool pstor_retrieve_bool(CScriptGameObject* object, const xr_string& varname)
 {
     if (!object)
@@ -1978,6 +2021,87 @@ inline void pstor_store(CScriptGameObject* object, const xr_string& varname, con
     }
 
     DataBase::Storage::getInstance().setPStorString(object->ID(), varname, value);
+}
+
+inline void load_object(CScriptGameObject* client_object, NET_Packet& packet)
+{
+    if (!client_object)
+    {
+        R_ASSERT2(false, "can't load an empty object!");
+        return;
+    }
+    const std::uint16_t& npc_id = client_object->ID();
+    xr_string load_marker_name = "object";
+    load_marker_name += client_object->Name();
+    Globals::set_save_marker(packet, Globals::kSaveMarkerMode_Load, false, load_marker_name.c_str());
+
+    xr_string job_ini_name;
+    packet.r_stringZ(job_ini_name);
+
+    xr_string ini_filename;
+    packet.r_stringZ(ini_filename);
+
+    xr_string section_logic_name;
+    packet.r_stringZ(section_logic_name);
+
+    xr_string active_section_name;
+    packet.r_stringZ(active_section_name);
+
+    if (active_section_name.empty() || active_section_name == "")
+        active_section_name = "nil";
+
+    xr_string gulag_name;
+    packet.r_stringZ(gulag_name);
+
+    DataBase::Storage::getInstance().setStorageJobIniName(npc_id, job_ini_name);
+    DataBase::Storage::getInstance().setStorageLoadedInifilename(npc_id, ini_filename);
+    DataBase::Storage::getInstance().setStorageLoadedSectionLogicName(npc_id, section_logic_name);
+    DataBase::Storage::getInstance().setStorageLoadedActiveSectionName(npc_id, active_section_name);
+    DataBase::Storage::getInstance().setStorageLoadedGulagName(npc_id, gulag_name);
+
+    DataBase::Storage::getInstance().setStorageActivationTime(npc_id, packet.r_s32() + Globals::get_time_global());
+    DataBase::Storage::getInstance().setStorageActivationGameTime(npc_id, Globals::Utils::r_CTime(packet));
+
+    pstor_load_all(client_object, packet);
+
+    Globals::set_save_marker(packet, Globals::kSaveMarkerMode_Load, true, load_marker_name.c_str());
+}
+
+inline void save_object(CScriptGameObject* client_object, NET_Packet& packet)
+{
+    if (!client_object)
+    {
+        R_ASSERT2(false, "can't use an empty object here!");
+        return;
+    }
+
+    xr_string save_marker_name = "object";
+    save_marker_name += client_object->Name();
+    Globals::set_save_marker(packet, Globals::kSaveMarkerMode_Save, false, save_marker_name.c_str());
+
+    const DataBase::Storage_Data& storage = DataBase::Storage::getInstance().getStorage().at(client_object->ID());
+
+    packet.w_stringZ(storage.getJobIniName().c_str());
+    packet.w_stringZ(storage.getInifilename().c_str());
+    packet.w_stringZ(storage.getSectionLogicName().c_str());
+    packet.w_stringZ(storage.getActiveSectionName().c_str());
+    packet.w_stringZ(storage.getGulagName().c_str());
+
+    std::int32_t activation_time = storage.getActivationTime();
+
+    if (!activation_time)
+        activation_time = 0;
+
+    packet.w_s32(activation_time - Globals::get_time_global());
+
+    Globals::Utils::w_CTime(packet, const_cast<xrTime&>(storage.getActivationGameTime()));
+
+    if (!storage.getActiveSchemeName().empty())
+    {
+    
+    }
+
+    Globals::set_save_marker(packet, Globals::kSaveMarkerMode_Save, true, save_marker_name.c_str());
 }
 
 } // namespace XR_LOGIC

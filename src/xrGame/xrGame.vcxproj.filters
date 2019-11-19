@@ -3385,12 +3385,6 @@
     <Filter Include="Cordis\Scripts\CRD\Public">
       <UniqueIdentifier>{99c9c461-4936-459f-91a1-cb13e1cd39b7}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Cordis\Scripts\Client Database">
-      <UniqueIdentifier>{d92835b8-5084-49c2-a13e-68c10d215849}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Cordis\Scripts\Client Database\Public">
-      <UniqueIdentifier>{0dd55311-76b0-451b-8488-09511b926c20}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Cordis\Scripts\Server Entities\Actor">
       <UniqueIdentifier>{d93df583-5fbd-436f-a852-c92477bf8b77}</UniqueIdentifier>
     </Filter>
@@ -3678,6 +3672,12 @@
     </Filter>
     <Filter Include="Cordis\Scripts\Server Entities\Zone visual\Public">
       <UniqueIdentifier>{f9930423-b7bc-490d-8a7b-15cdf7eddb20}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Database">
+      <UniqueIdentifier>{d92835b8-5084-49c2-a13e-68c10d215849}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Database\Public">
+      <UniqueIdentifier>{0dd55311-76b0-451b-8488-09511b926c20}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -8649,7 +8649,7 @@
       <Filter>Cordis\Scripts\XR\Public</Filter>
     </ClInclude>
     <ClInclude Include="Script_Database.h">
-      <Filter>Cordis\Scripts\Client Database\Public</Filter>
+      <Filter>Cordis\Scripts\Database\Public</Filter>
     </ClInclude>
     <ClInclude Include="Script_StoryObject.h">
       <Filter>Cordis\Scripts\Managers\StoryObject\Public</Filter>

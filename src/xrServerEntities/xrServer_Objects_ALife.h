@@ -134,11 +134,11 @@ public:
 
 public:
     using inherited = CSE_Abstract;
-    GameGraph::_GRAPH_ID m_tGraphID;
+    GameGraph::_GRAPH_ID m_tGraphID; // m_game_vertex_id
     float m_fDistance;
     bool m_bOnline;
     bool m_bDirectControl;
-    u32 m_tNodeID;
+    u32 m_tNodeID; // m_level_vertex_id
     flags32 m_flags;
     ALife::_STORY_ID m_story_id;
     ALife::_SPAWN_STORY_ID m_spawn_story_id;

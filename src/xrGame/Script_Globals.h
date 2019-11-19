@@ -179,7 +179,13 @@ inline static xr_map<xr_string, Cordis::AnyCallable<void>>& getXREffects_Functio
 
 inline void load_scheme(const xr_string& filename, const xr_string& scheme, unsigned int stype);
 inline void start_game_callback(void);
-inline void set_save_marker(NET_Packet& packet, const xr_string& mode, bool check, const xr_string& prefix);
+// @ Для тех сущностей, которые мы должны удалить уже после созданной игры
+// @ Но при этом они либо в singleton сузностях либо где-то ещё
+// @ PRIVATE FUNCTION, DON'T CALL IT AS YOU WISH!!!!
+inline void system_deallocation(void); 
+
+inline void set_save_marker(
+    NET_Packet& packet, const xr_string& mode, bool check, const xr_string& prefix);
 // @ from simulation_objects
 inline bool is_on_the_same_level(CSE_ALifeObject* object1, CSE_ALifeObject* object2);
 inline float sim_dist_to(CSE_ALifeObject* object1, CSE_ALifeObject* object2);
@@ -193,7 +199,7 @@ inline xr_string get_job_restrictor(const char* waypoint_name);
 inline bool is_accessible_job(CSE_ALifeDynamicObject* server_object, const xr_string& waypoint_name);
 inline bool is_accessible_job(CSE_ALifeDynamicObject* server_object, const char* waypoint_name);
 inline CScriptIniFile* create_ini_file(LPCSTR ini_string);
-
+inline std::uint32_t get_time_global(void);
 } // namespace Globals
 } // namespace Scripts
 } // namespace Cordis

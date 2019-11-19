@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Script_Database.h"
+#include "Script_GlobalHelper.h"
 
 namespace Cordis
 {
@@ -33,21 +34,26 @@ inline CSE_ALifeDynamicObject* get_npc_smart(CScriptGameObject* object)
 
     return nullptr;
 }
-// Lord: тогда прочекать за удаление то есть здесь уже Singlton
-inline static xr_map<xr_string, CScriptIniFile*>& getDynamicLtx(void) noexcept
+// @ Удаляется в Script_GlobalHelper!
+/*
+inline static xr_map<xr_string, std::unique_ptr<CScriptIniFile>>& getDynamicLtx(void)
 {
-    static xr_map<xr_string, CScriptIniFile*> instance;
+    static xr_map<xr_string, std::unique_ptr<CScriptIniFile>> instance;
     return instance;
-}
+}*/
 
 // @ "*smart_name*type_gulag"
-inline CScriptIniFile* loadLtx(const xr_string& name/*, xr_string& result*/)
+inline CScriptIniFile* loadLtx(const xr_string& name /*, xr_string& result*/)
 {
     // Lord: доделать!
     xr_string header = "*";
     header += name;
-    CScriptIniFile* file = getDynamicLtx()[header];
-   // result = header; Lord: если что аргумент result="" сделать default
+    CScriptIniFile* file = nullptr;
+    if (Script_GlobalHelper::getInstance().getDynamicLtx().find(header) !=
+        Script_GlobalHelper::getInstance().getDynamicLtx().end())
+        file = Script_GlobalHelper::getInstance().getDynamicLtx().at(header);
+
+    // result = header; Lord: если что аргумент result="" сделать default
     if (file)
         return file;
     else
@@ -55,7 +61,9 @@ inline CScriptIniFile* loadLtx(const xr_string& name/*, xr_string& result*/)
         xr_string& data = GulagGenerator::getLtx();
         if (!data.empty())
         {
-            return Globals::create_ini_file(data.c_str());
+            CScriptIniFile* result = Globals::create_ini_file(data.c_str());
+            Script_GlobalHelper::getInstance().setDynamicLtx(header, result);
+            return result;
         }
     }
 

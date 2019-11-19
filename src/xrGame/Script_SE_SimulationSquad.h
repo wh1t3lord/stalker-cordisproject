@@ -1,13 +1,15 @@
 #pragma once
+/*
 
-#include "xrServer_Objects_ALife_Monsters.h"
-
+#include "xrServer_Objects_ALife_Monsters.h"*/
+#include "Script_XR_Logic.h"
 #include "Script_SoundManager.h"
 
 namespace Cordis
 {
 namespace Scripts
 {
+class Script_SE_SmartTerrain;
 namespace Globals
 {
 class Script_RandomFloat;
@@ -116,14 +118,21 @@ public:
 
     virtual Script_SE_SimulationSquad* cast_script_se_simulationsquad(void) { return this; }
     virtual CALifeSmartTerrainTask* get_current_task(void);
+    virtual void STATE_Read(NET_Packet& packet, u16 size);
+    virtual void STATE_Write(NET_Packet& packet);
+    virtual void on_register(void);
+    virtual void on_unregister(void);
+
 #pragma region Cordis Getters
+    inline bool IsAlwaysArrived(void) const noexcept { return this->m_is_always_arrived; }
     inline std::uint32_t getSmartTerrainID(void) noexcept { return this->m_smart_terrain_id; }
     inline std::uint32_t getCurrentSpotID(void) noexcept { return this->m_current_spot_id; }
     inline std::uint32_t getCurrentTargetID(void) noexcept { return this->m_current_target_id; }
     inline std::uint32_t getAssignedTargetID(void) noexcept { return this->m_assigned_target_id; }
     inline std::uint32_t getEnteredSmartID(void) noexcept { return this->m_entered_smart_id; }
     inline xr_string& getSettingsID(void) noexcept { return this->m_settings_id_name; }
-    inline std::uint16_t getScriptTarget(void);
+    std::uint16_t getScriptTarget(void);
+
     inline const StayReachOnTarget& getCurrentAction(void) noexcept { return this->m_current_action; }
     inline std::uint32_t getPlayerID(void) noexcept
     {
@@ -132,7 +141,9 @@ public:
 
     inline CALifeSmartTerrainTask* getAlifeSmartTerrainTask(void)
     { // Lord: проверить не изменяются ли this->m_tGraphID, this->m_tNodeID!!!
-        Msg("[Scripts/Script_SE_SimulationSquad/getAlifeSmartTerrainTask()] game_vertex_id -> [%d] | level_vertex_id -> [%d], %s", this->m_tGraphID, this->m_tNodeID, this->name_replace());
+        Msg("[Scripts/Script_SE_SimulationSquad/getAlifeSmartTerrainTask()] game_vertex_id -> [%d] | level_vertex_id "
+            "-> [%d], %s",
+            this->m_tGraphID, this->m_tNodeID, this->name_replace());
         if (!this->m_alife_smart_terrain_task.get())
         {
             this->m_alife_smart_terrain_task =
@@ -151,6 +162,8 @@ public:
     inline void setAssignedTargetID(const std::uint32_t& value) noexcept { this->m_assigned_target_id = value; }
     inline void setEnteredSmartID(const std::uint32_t& value) noexcept { this->m_entered_smart_id = value; }
 #pragma endregion
+
+    inline bool am_i_reached(void) noexcept { return (this->npc_count() == 0); }
 
     void set_location_types(const xr_string& new_smart_name);
     void create_npc(Script_SE_SmartTerrain* spawn_smart);
@@ -180,8 +193,9 @@ private:
     bool m_is_need_to_reset_location_masks;
     bool m_is_need_free_update;
     bool m_is_show_disabled;
-    std::uint32_t m_smart_terrain_id;
+    std::uint16_t m_smart_terrain_id;
     std::uint32_t m_current_spot_id;
+    std::uint32_t m_respawn_point_id;
     std::uint32_t m_current_target_id;
     std::uint32_t m_assigned_target_id;
     std::uint32_t m_next_target_index;
@@ -199,6 +213,7 @@ private:
     xr_string m_settings_id_name;
     xr_string m_last_target_name;
     xr_string m_spot_section_name;
+    xr_string m_respawn_point_prop_section_name;
     std::unique_ptr<CALifeSmartTerrainTask> m_alife_smart_terrain_task;
     StayReachOnTarget m_current_action;
     Script_SoundManager m_sound_manager;

@@ -5,7 +5,7 @@ namespace Cordis
 {
 namespace Scripts
 {
-Script_SE_SmartCover::Script_SE_SmartCover(LPCSTR section_name) : inherited(section_name), m_lastdescription_name("") 
+Script_SE_SmartCover::Script_SE_SmartCover(LPCSTR section_name) : inherited(section_name), m_lastdescription_name("")
 {
     Msg("[Scripts/Script_SE_SmartCover/ctor(section_name)] %s", section_name);
 }
@@ -109,7 +109,8 @@ void Script_SE_SmartCover::on_before_register(void)
     Msg("[Scripts/Script_SE_SmartCover/on_before_register()] Registering Script_SE_SmartCover [%s] entity to "
         "GameRegisteredServerSmartCovers",
         this->name_replace());
-    Script_GlobalHelper::getInstance().setGameRegisteredServerSmartCovers(this->name_replace(), this);
+    /*    Script_GlobalHelper::getInstance().setGameRegisteredServerSmartCovers(this->name_replace(), this);*/
+    DataBase::Storage::getInstance().setGameRegisteredServerSmartCovers(this->name_replace(), this);
 }
 
 void Script_SE_SmartCover::on_register(void)
@@ -121,16 +122,19 @@ void Script_SE_SmartCover::on_register(void)
     Msg("[Scripts/Script_SE_SmartCover/on_register()] Registering Script_SE_SmartCover [%s] entity to "
         "GameRegisteredServerSmartCoversByLevelID",
         this->name_replace());
-    Script_GlobalHelper::getInstance().setGameRegisteredServerSmartCoversByLevelID(level_id, this->m_tNodeID, this);
+/*    Script_GlobalHelper::getInstance().setGameRegisteredServerSmartCoversByLevelID(level_id, this->m_tNodeID, this);*/
+    DataBase::Storage::getInstance().setGameRegisteredServerSmartCoversByLevelID(level_id, this->m_tNodeID, this);
 }
 
 void Script_SE_SmartCover::on_unregister(void)
 {
-    Msg("[Scripts/Script_SE_SmartCover/on_unregister()] Unregistering Script_SE_SmartCover [%s] entity!", this->name_replace());
+    Msg("[Scripts/Script_SE_SmartCover/on_unregister()] Unregistering Script_SE_SmartCover [%s] entity!",
+        this->name_replace());
     Script_StoryObject::getInstance().unregistrate_by_id(this->ID);
     const std::uint8_t& level_id = GEnv.AISpace->game_graph().vertex(this->m_tGraphID)->level_id();
     // @ Lord: здесь наверное просто зануление а не удаление сущности из памяти!
-    Script_GlobalHelper::getInstance().setGameRegisteredServerSmartCoversByLevelID(level_id, this->m_tNodeID, nullptr);
+   /* Script_GlobalHelper::getInstance().setGameRegisteredServerSmartCoversByLevelID(level_id, this->m_tNodeID, nullptr);*/
+    DataBase::Storage::getInstance().setGameRegisteredServerSmartCoversByLevelID(level_id, this->m_tNodeID, nullptr);
     inherited::on_unregister();
 }
 

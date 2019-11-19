@@ -568,12 +568,28 @@ inline bool is_obj_on_job(CScriptGameObject* actor, CScriptGameObject* npc, cons
 
     for (std::pair<const std::uint32_t, NpcInfo>& it : server_smart->getNpcInfo())
     {
-        JobDataSmartTerrain& job_data = server_smart->getJobData()[it.second.m_job_link.m_job_index];
+        JobDataSmartTerrain* job_data = nullptr;
+
+        if (it.second.m_job_link1)
+        {
+            job_data = server_smart->getJobData()[it.second.m_job_link1->m_job_index];
+        }
+
+        if (it.second.m_job_link2)
+        {
+            if (it.second.m_job_link1)
+            {
+                R_ASSERT2(false, "IT CANNOT BE A NPC CAN HAVE ONLY AN ONE JOB!");
+                return false;
+            }
+
+            job_data = server_smart->getJobData()[it.second.m_job_link2->m_job_index];
+        }
 
         Msg("[Scripts/XR_CONDITION/is_obj_on_job(actor, npc, logic_name, smart_terrain_name)] section %s",
-            job_data.m_job_id.first.c_str());
+            job_data->m_job_id.first.c_str());
 
-        if (job_data.m_job_id.first == logic_name)
+        if (job_data->m_job_id.first == logic_name)
             return true;
     }
 
@@ -608,9 +624,25 @@ inline bool is_distance_to_obj_on_job_le(
 
     for (std::pair<const std::uint32_t, NpcInfo>& it : server_smart->getNpcInfo())
     {
-        JobDataSmartTerrain& job_data = server_smart->getJobData()[it.second.m_job_link.m_job_index];
+        JobDataSmartTerrain* job_data = nullptr;
 
-        if (job_data.m_job_id.first == logic_name)
+        if (it.second.m_job_link1)
+        {
+            job_data = server_smart->getJobData()[it.second.m_job_link1->m_job_index];
+        }
+
+        if (it.second.m_job_link2)
+        {
+            if (it.second.m_job_link1)
+            {
+                R_ASSERT2(false, "IT CANNOT BE A NPC CAN HAVE ONLY ONE JOB!");
+                return false;
+            }
+
+            job_data = server_smart->getJobData()[it.second.m_job_link2->m_job_index];
+        }
+
+        if (job_data->m_job_id.first == logic_name)
         {
             return (npc->Position().distance_to_sqr(it.second.m_server_object->Position()) <= (distance * distance));
         }
@@ -1778,7 +1810,9 @@ inline bool check_smart_alarm_status_server(
 
     if (!smart_control)
     {
-        Msg("[Scripts/XR_CONDITION/check_smart_alarm_status_server(server_actor, server_npc, buffer)] ERROR: Cannot calculate 'check_smart_alarm_status' for smart %s", smart_name.c_str());
+        Msg("[Scripts/XR_CONDITION/check_smart_alarm_status_server(server_actor, server_npc, buffer)] ERROR: Cannot "
+            "calculate 'check_smart_alarm_status' for smart %s",
+            smart_name.c_str());
         R_ASSERT(false);
         return false;
     }

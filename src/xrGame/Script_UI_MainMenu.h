@@ -59,9 +59,15 @@ public:
         getMessageBox().ShowDialog(true);
     }
 
-    inline static void OnButton_disconnect_clicked(void) {}
+    inline static void OnButton_disconnect_clicked(void)
+    {
+        getMessageBox().InitMessageBox("message_box_quit_game");
+        // @ Multiplayer не обработан здесь
+        getMessageBox().SetText("ui_mm_quit_game_message");
+        getMessageBox().ShowDialog(true);
+    }
 
-    inline static void OnButton_return_to_game_clicked(void) 
+    inline static void OnButton_return_to_game_clicked(void)
     {
         Console->Execute("main_menu off");
         // Lord: добавить xr_s.on_main_menu_off();
@@ -106,10 +112,7 @@ public:
 
     inline static void OnMsgNo(void) { m_boxmode = false; }
 
-    inline static void OnMessageQuitGame(void) 
-    { 
-        Console->Execute("disconnect");
-    }
+    inline static void OnMessageQuitGame(void) { Console->Execute("disconnect"); }
 
     inline static void OnMessageQuitWin(void) { Console->Execute("quit"); }
 

@@ -19,6 +19,17 @@ inline void add_enemy(CSE_Abstract* object)
     }
 }
 
+class Storage_Scheme
+{
+public:
+    ~Storage_Scheme(void) { this->m_npc = nullptr; }
+
+private:
+    // @ Не понятно зачем в итоге но так у ПЫС, если в итоге оно находится в самом сторадже где уже зарегистрирован сам
+    // НПС
+    CScriptGameObject* m_npc = nullptr;
+};
+
 // Lord: не забудь что здесь ещё MANAGER для WOUNDED!!!!!!
 class Data_Wounded
 {
@@ -145,7 +156,8 @@ public:
     {
         if (section_name.empty())
         {
-            Msg("[Scripts/DataBase/Data_Wounded/setWoundedSectionName(section_name)] WARNING: section_name.empty() == true! Trying to set an empty string!");
+            Msg("[Scripts/DataBase/Data_Wounded/setWoundedSectionName(section_name)] WARNING: section_name.empty() == "
+                "true! Trying to set an empty string!");
         }
 
         this->m_wounded_section_name = section_name;
@@ -457,14 +469,22 @@ private:
     friend class Storage;
 
 public:
+    ~Storage_Data(void)
+    {
+        this->m_p_client_object = nullptr;
+        this->m_p_server_object = nullptr;
+        this->m_p_sound_object = nullptr; // @ Lord: нужно ли удалять?
+    }
     inline bool IsInvulnerable(void) const noexcept { return this->m_is_invulnerable; }
-    inline void setInvulnerable(const bool& value) noexcept { this->m_is_invulnerable = value; }
+    inline void setInvulnerable(const bool value) noexcept { this->m_is_invulnerable = value; }
     inline bool IsImmortal(void) const noexcept { return this->m_is_immortal; }
-    inline void setImmortal(const bool& value) noexcept { this->m_is_immortal = value; }
+    inline void setImmortal(const bool value) noexcept { this->m_is_immortal = value; }
     inline bool IsMute(void) const noexcept { return this->m_is_mute; }
-    inline void setMute(const bool& value) noexcept { this->m_is_mute = value; }
+    inline void setMute(const bool value) noexcept { this->m_is_mute = value; }
     inline bool IsAnimMovement(void) const noexcept { return this->m_is_anim_movement; }
-    inline void setAnimMovement(const bool& value) noexcept { this->m_is_anim_movement = value; }
+    inline void setAnimMovement(const bool value) noexcept { this->m_is_anim_movement = value; }
+    inline bool IsEnabled(void) const noexcept { return this->m_is_enabled; }
+    inline void setEnabled(const bool value) noexcept { this->m_is_enabled = value; }
 
     inline std::uint16_t getEnemyID(void) const noexcept { return this->m_enemy_id; }
     inline void setEnemyID(const std::uint16_t& value) noexcept
@@ -620,35 +640,113 @@ public:
         this->m_pstor[id_name] = data;
     }
 
-    inline xr_string getActiveSchemeName(void) const noexcept { return this->m_active_scheme_name; }
+    inline const xr_string& getActiveSchemeName(void) const noexcept { return this->m_active_scheme_name; }
     inline void setActiveSchemeName(const xr_string& scheme_name) noexcept { this->m_active_scheme_name = scheme_name; }
 
-    inline xr_string getActiveSectionName(void) const noexcept { return this->m_active_section_name; }
+    inline const xr_string& getActiveSectionName(void) const noexcept { return this->m_active_section_name; }
     inline void setActiveSectionName(const xr_string& section_name) noexcept
     {
         this->m_active_section_name = section_name;
     }
 
-    inline xr_string getSoundName(void) const noexcept { return this->m_sound_name; }
+    inline const xr_string& getSoundName(void) const noexcept { return this->m_sound_name; }
     inline void setSoundName(const xr_string& sound_name) noexcept { this->m_sound_name = sound_name; }
 
-    inline xr_string getAnimationName(void) const noexcept { return this->m_animation_name; }
+    inline const xr_string& getAnimationName(void) const noexcept { return this->m_animation_name; }
     inline void setAnimationName(const xr_string& animation_name) noexcept { this->m_animation_name = animation_name; }
 
-    inline xr_string getAnimationHeadName(void) const noexcept { return this->m_animation_head_name; }
+    inline const xr_string& getAnimationHeadName(void) const noexcept { return this->m_animation_head_name; }
     inline void setAnimationHeadName(const xr_string& animation_head_name) noexcept
     {
         this->m_animation_head_name = animation_head_name;
     }
 
-    inline xr_string getTipName(void) const noexcept { return this->m_tip_name; }
+    inline const xr_string& getTipName(void) const noexcept { return this->m_tip_name; }
     inline void setTipName(const xr_string& tip_name) noexcept { this->m_tip_name = tip_name; }
 
-    inline xr_string getTimeName(void) const noexcept { return this->m_time_name; }
+    inline const xr_string& getTimeName(void) const noexcept { return this->m_time_name; }
     inline void setTimeName(const xr_string& time_name) noexcept { this->m_time_name = time_name; }
 
-    inline xr_string getJobIniName(void) const noexcept { return this->m_job_ini_name; }
+    inline const xr_string& getJobIniName(void) const noexcept { return this->m_job_ini_name; }
     inline void setJobIniName(const xr_string& job_ini_name) noexcept { this->m_job_ini_name = job_ini_name; }
+
+    inline const xr_string& getLoadedInifilename(void) const noexcept { return this->m_loaded_ini_filename; }
+    inline void setLoadedInifilename(const xr_string& filename) noexcept { this->m_loaded_ini_filename = filename; }
+
+    inline const xr_string& getLoadedSectionLogicName(void) const noexcept { return this->m_loaded_section_logic_name; }
+    inline void setLoadedSectionLogicName(const xr_string& logic_name) noexcept
+    {
+        this->m_loaded_section_logic_name = logic_name;
+    }
+
+    inline const xr_string& getLoadedActiveSectionName(void) const noexcept
+    {
+        return this->m_loaded_active_section_name;
+    }
+    inline void setLoadedActiveSectionName(const xr_string& section_name) noexcept
+    {
+        this->m_loaded_active_section_name = section_name;
+    }
+
+    inline const xr_string& getLoadedGulagName(void) const noexcept { return this->m_loaded_gulag_name; }
+    inline void setLoadedGulagName(const xr_string& gulag_name) noexcept { this->m_loaded_gulag_name = gulag_name; }
+
+    inline const xr_string& getInifilename(void) const noexcept { return this->m_ini_filename; }
+    inline void setInifilename(const xr_string& filename) noexcept { this->m_ini_filename = filename; }
+
+    inline const xr_string& getSectionLogicName(void) const noexcept { return this->m_section_logic_name; }
+    inline void setSectionLogicName(const xr_string& section_logic_name) noexcept
+    {
+        this->m_section_logic_name = section_logic_name;
+    }
+
+    inline const xr_string& getGulagName(void) const noexcept { return this->m_gulag_name; }
+    inline void setGulagName(const xr_string& gulag_name) noexcept { this->m_gulag_name = gulag_name; }
+
+    inline const xrTime& getActivationGameTime(void) const noexcept { return this->m_activation_game_time; }
+    inline void setActivationGameTime(const xrTime& time) noexcept { this->m_activation_game_time = time; }
+
+    inline const std::int32_t getActivationTime(void) const noexcept { return this->m_activation_time; }
+    inline void setActivationTime(const std::int32_t value) noexcept { this->m_activation_time = value; }
+
+    inline const xr_map<xr_string, Storage_Scheme>& getSchemes(void) const noexcept { return this->m_schemes; }
+
+    inline void setScheme(const xr_map<xr_string, Storage_Scheme>& map) noexcept
+    {
+        if (map.empty())
+        {
+            Msg("[Scripts/DataBase/Storage_Data/setScheme(map)] WARNING: map.empty() == true! Can't assign an empty "
+                "map!");
+            return;
+        }
+
+        this->m_schemes = map;
+    }
+
+    inline void setScheme(const std::pair<xr_string, Storage_Scheme>& pair) noexcept
+    {
+        if (pair.first.empty())
+        {
+            Msg("[Scripts/DataBase/Storage_Data/setScheme(pair)] WARNING: pair.first.empty() == true! Can't assign an "
+                "empty string return ...");
+            return;
+        }
+
+        this->m_schemes.insert(pair);
+    }
+
+    inline void setScheme(const xr_string& scheme_name, const Storage_Scheme& data) noexcept
+    {
+        if (scheme_name.empty())
+        {
+            Msg("[Scripts/DataBase/Storage_Data/setScheme(scheme_name, data)] WARNING: scheme_name.empty() == true! "
+                "Can't "
+                "assign return ...");
+            return;
+        }
+
+        this->m_schemes[scheme_name] = data;
+    }
 
 private:
     bool m_is_invulnerable = false;
@@ -657,21 +755,31 @@ private:
     bool m_is_enabled = false;
     bool m_is_anim_movement = false;
     std::uint16_t m_enemy_id = Globals::kUnsignedInt16Undefined;
+    std::int32_t m_activation_time;
     CScriptGameObject* m_p_client_object = nullptr;
     StorageAnimpoint_Data m_storage_animpoint;
     CSE_ALifeObject* m_p_server_object = nullptr;
     CScriptSound* m_p_sound_object = nullptr;
     CInifile* m_p_ini = nullptr;
+    xrTime m_activation_game_time;
     xr_map<xr_string, SubStorage_Data> m_data;
     xr_map<xr_string, PStor_Data> m_pstor;
-    xr_string m_active_scheme_name = "";
-    xr_string m_active_section_name = "";
-    xr_string m_sound_name = "";
-    xr_string m_animation_name = "";
-    xr_string m_animation_head_name = "";
-    xr_string m_tip_name = "";
-    xr_string m_time_name = "";
-    xr_string m_job_ini_name = "";
+    xr_map<xr_string, Storage_Scheme> m_schemes;
+    xr_string m_active_scheme_name;
+    xr_string m_active_section_name;
+    xr_string m_sound_name;
+    xr_string m_animation_name;
+    xr_string m_animation_head_name;
+    xr_string m_tip_name;
+    xr_string m_time_name;
+    xr_string m_job_ini_name;
+    xr_string m_loaded_ini_filename; // @ Idk but this doesn't use well as planned, CUZ IT'S GSC
+    xr_string m_loaded_section_logic_name; // @ Idk but this doesn't use well as planned, CUZ IT'S GSC
+    xr_string m_loaded_active_section_name; // @ Idk but this doesn't use well as planned, CUZ IT'S GSC
+    xr_string m_loaded_gulag_name;
+    xr_string m_ini_filename;
+    xr_string m_section_logic_name;
+    xr_string m_gulag_name;
 };
 
 class Storage
@@ -1152,7 +1260,195 @@ public:
     }
 #pragma endregion
 
-#pragma region Setters
+#pragma region Cordis Setters
+#pragma region Cordis DataBase Storage_Data setters
+    // Lord: обновлять сеттеры покуда обновляется сам Storage_Data
+    inline void setStorageInvulnerable(const std::uint16_t npc_id, const bool value) noexcept
+    {
+        this->m_storage[npc_id].setInvulnerable(value);
+    }
+
+    inline void setStorageImmortal(const std::uint16_t npc_id, const bool value) noexcept
+    {
+        this->m_storage[npc_id].setImmortal(value);
+    }
+
+    inline void setStorageMute(const std::uint16_t npc_id, const bool value) noexcept
+    {
+        this->m_storage[npc_id].setMute(value);
+    }
+
+    inline void setStorageEnabled(const std::uint16_t npc_id, const bool value) noexcept
+    {
+        this->m_storage[npc_id].setEnabled(value);
+    }
+
+    inline void setStorageAnimMovement(const std::uint16_t npc_id, const bool value) noexcept
+    {
+        this->m_storage[npc_id].setAnimMovement(value);
+    }
+
+    inline void setStorageEnemyID(const std::uint16_t npc_id, const std::uint16_t enemy_id) noexcept
+    {
+        this->m_storage[npc_id].setEnemyID(enemy_id);
+    }
+
+    inline void setStorageAnimpointStorage(const std::uint16_t npc_id, const StorageAnimpoint_Data& data) noexcept
+    {
+        this->m_storage[npc_id].setStorageAnimpoint(data);
+    }
+
+    inline void setStorageServerObject(const std::uint16_t npc_id, CSE_ALifeObject* server_object) noexcept
+    {
+        this->m_storage[npc_id].setServerObject(server_object);
+    }
+
+    inline void setStorageSoundObject(const std::uint16_t npc_id, CScriptSound* p_sound_object) noexcept
+    {
+        this->m_storage[npc_id].setSoundObject(p_sound_object);
+    }
+
+    inline void setStorageIniFile(const std::uint16_t npc_id, CInifile* ini) noexcept
+    {
+        this->m_storage[npc_id].setIni(ini);
+    }
+
+    inline void setStorageSignal(const std::uint16_t& id, const xr_string& signal_name, const bool& value) noexcept
+    {
+        if (id == Globals::kUnsignedInt16Undefined)
+        {
+            Msg("[DataBase/Storage/setSignal(id, signal_name, value)] WARNING: id = std::uint16_t(-1)! You are trying "
+                "to get access through an undefined value! No assignment!");
+            return;
+        }
+
+        this->m_storage[id].m_data[this->m_storage[id].getActiveSchemeName()].setSignal(signal_name, value);
+    }
+
+    inline void setStorageActiveSchemeName(const std::uint16_t npc_id, const xr_string& active_scheme_name) noexcept
+    {
+        this->m_storage[npc_id].setActiveSchemeName(active_scheme_name);
+    }
+
+    inline void setStorageActiveSectionName(const std::uint16_t npc_id, const xr_string& active_section_name) noexcept
+    {
+        this->m_storage[npc_id].setActiveSectionName(active_section_name);
+    }
+
+    inline void setStorageSoundName(const std::uint16_t npc_id, const xr_string& sound_name) noexcept
+    {
+        this->m_storage[npc_id].setSoundName(sound_name);
+    }
+
+    inline void setStorageAnimationName(const std::uint16_t npc_id, const xr_string& animation_name) noexcept
+    {
+        this->m_storage[npc_id].setAnimationName(animation_name);
+    }
+
+    inline void setStorageAnimationHeadName(const std::uint16_t npc_id, const xr_string& animation_head_name) noexcept
+    {
+        this->m_storage[npc_id].setAnimationHeadName(animation_head_name);
+    }
+
+    inline void setStorageTipName(const std::uint16_t npc_id, const xr_string& tip_name) noexcept
+    {
+        this->m_storage[npc_id].setTipName(tip_name);
+    }
+
+    inline void setStorageTimeName(const std::uint16_t npc_id, const xr_string& time_name) noexcept
+    {
+        this->m_storage[npc_id].setTimeName(time_name);
+    }
+
+    inline void setStorageJobIniName(const std::uint16_t npc_id, const xr_string& job_ini_name) noexcept
+    {
+        this->m_storage[npc_id].setJobIniName(job_ini_name);
+    }
+
+    inline void setStorageLoadedInifilename(const std::uint16_t npc_id, const xr_string& filename) noexcept
+    {
+        this->m_storage[npc_id].setLoadedInifilename(filename);
+    }
+
+    inline void setStorageLoadedSectionLogicName(const std::uint16_t npc_id, const xr_string& logic_name) noexcept
+    {
+        this->m_storage[npc_id].setLoadedSectionLogicName(logic_name);
+    }
+
+    inline void setStorageLoadedActiveSectionName(
+        const std::uint16_t npc_id, const xr_string& active_section_name) noexcept
+    {
+        this->m_storage[npc_id].setLoadedActiveSectionName(active_section_name);
+    }
+
+    inline void setStorageLoadedGulagName(const std::uint16_t npc_id, const xr_string& gulag_name) noexcept
+    {
+        this->m_storage[npc_id].setLoadedGulagName(gulag_name);
+    }
+
+    inline void setStorageActivationGameTime(const std::uint16_t npc_id, const xrTime& time) noexcept
+    {
+        this->m_storage[npc_id].setActivationGameTime(time);
+    }
+
+    inline void setStorageActivationTime(const std::uint16_t npc_id, const std::int32_t value) noexcept
+    {
+        this->m_storage[npc_id].setActivationTime(value);
+    }
+
+    inline void setStorageInifilename(const std::uint16_t npc_id, const xr_string& filename) noexcept
+    {
+        this->m_storage[npc_id].setInifilename(filename);
+    }
+
+    inline void setStorageSectionLogicName(const std::uint16_t npc_id, const xr_string& section_logic_name) noexcept
+    {
+        this->m_storage[npc_id].setSectionLogicName(section_logic_name);
+    }
+
+    inline void setStorageGulagName(const std::uint16_t npc_id, const xr_string& gulag_name) noexcept
+    {
+        this->m_storage[npc_id].setGulagName(gulag_name);
+    }
+
+    inline void setStorageSchemes(const std::uint16_t npc_id, const xr_map<xr_string, Storage_Scheme>& map) noexcept
+    {
+        if (map.empty())
+        {
+            Msg("[Scripts/DataBase/Storage/setSchemes(map)] WARNING: can't assign an empty map! Return");
+            return;
+        }
+
+        this->m_storage[npc_id].setScheme(map);
+    }
+
+    inline void setStorageScheme(const std::uint16_t npc_id, const std::pair<xr_string, Storage_Scheme>& pair) noexcept
+    {
+        if (pair.first.empty())
+        {
+            Msg("[Scripts/DataBase/Storage/setScheme(pair)] WARNING: pair.first.empty() == true! Can't assign return "
+                "...");
+            return;
+        }
+
+        this->m_storage[npc_id].setScheme(pair);
+    }
+
+    inline void setStorageScheme(const std::uint16_t npc_id, const xr_string& scheme_name, const Storage_Scheme& data) noexcept
+    {
+        if (scheme_name.empty())
+        {
+            Msg("[Scripts/DataBase/Storage/setScheme(scheme_name, data)] WARNING: scheme_name.empty() == true! Can't "
+                "assign return ...");
+            return;
+        }
+
+        Msg("[Scripts/DataBase/Storage/setScheme(scheme_name, data)] Registered scheme %s", scheme_name);
+
+        this->m_storage[npc_id].setScheme(scheme_name, data);
+    }
+#pragma endregion
+
     inline void addObject(CScriptGameObject* object)
     {
         if (!object)
@@ -1305,17 +1601,360 @@ public:
         this->m_storage[id].m_pstor[varname].setString(value);
     }
 
-    inline void setSignal(const std::uint16_t& id, const xr_string& signal_name, const bool& value) noexcept
+    inline const xr_map<xr_string, Script_SE_SmartTerrain*>& getGameRegisteredServerSmartTerrainsByName(void) const
+        noexcept
     {
-        if (id == Globals::kUnsignedInt16Undefined)
+        return this->m_game_registered_server_smartterrains_by_name;
+    }
+
+    inline void setGameRegisteredServerSmartTerrainsByName(const xr_map<xr_string, Script_SE_SmartTerrain*>& map)
+    {
+        if (!map.size())
         {
-            Msg("[DataBase/Storage/setSignal(id, signal_name, value)] WARNING: id = std::uint16_t(-1)! You are trying "
-                "to get access through an undefined value! No assignment!");
-            return;
+            Msg("[Scripts/DataBase/Storage/setGameRegisteredServerSmartTerrainsByName(map)] "
+                "WARNING: map.size() = 0! You "
+                "are trying to set an empty map!");
+            //  return;
         }
 
-        this->m_storage[id].m_data[this->m_storage[id].getActiveSchemeName()].setSignal(signal_name, value);
+        this->m_game_registered_server_smartterrains_by_name = map;
     }
+
+    inline void setGameRegisteredServerSmartTerrainsByName(const std::pair<xr_string, Script_SE_SmartTerrain*>& pair)
+    {
+        if (!pair.first.size())
+        {
+            Msg("[Scripts/DataBase/Storage/setGameRegisteredServerSmartTerrainsByName(name, "
+                "server_smart)] WARNING: "
+                "pair.first.size() = 0! You are trying to set an empty string!");
+            //  return;
+        }
+
+        if (!pair.second)
+        {
+            Msg("[Scripts/DataBase/Storage/setGameRegisteredServerSmartTerrainsByName(name, "
+                "server_smart)] WARNING: "
+                "pair.second = null! You are trying to set an empty object!");
+            // return;
+        }
+
+        this->m_game_registered_server_smartterrains_by_name.insert(pair);
+    }
+
+    inline void setGameRegisteredServerSmartTerrainsByName(const xr_string& name, Script_SE_SmartTerrain* server_smart)
+    {
+        if (!name.size())
+        {
+            Msg("[Scripts/DataBase/Storage/setGameRegisteredServerSmartTerrainsByName(name, "
+                "server_smart)] WARNING: "
+                "name.size() = 0! You are trying to set an empty string!");
+            //  return;
+        }
+
+        if (!server_smart)
+        {
+            Msg("[Scripts/DataBase/Storage/setGameRegisteredServerSmartTerrainsByName(name, "
+                "server_smart)] WARNING: "
+                "server_smart = null! You are trying to set an empty object!");
+            //    return;
+        }
+
+        this->m_game_registered_server_smartterrains_by_name[name] = server_smart;
+    }
+
+    // @ In-Game
+    inline const xr_map<xr_string, Script_SE_SmartCover*>& getGameRegisteredServerSmartCovers(void) const noexcept
+    {
+        return this->m_game_registered_smartcovers;
+    }
+
+    inline void setGameRegisteredServerSmartCovers(const xr_map<xr_string, Script_SE_SmartCover*>& map)
+    {
+        if (!map.size())
+        {
+            Msg("[Script_GlobalHelper/setGameRegisteredServerSmartCovers(map)] WARNING: "
+                "map.size() = 0! You are trying "
+                "to set an empty map!");
+            //  return;
+        }
+
+        this->m_game_registered_smartcovers = map;
+    }
+
+    inline void setGameRegisteredServerSmartCovers(const std::pair<xr_string, Script_SE_SmartCover*>& pair)
+    {
+        if (!pair.first.size())
+        {
+            Msg("[Script_GlobalHelper/setGameRegisteredServerSmartCovers(name, "
+                "server_smartcover)] WARNING: "
+                "pair.first.size() = 0! You are trying to set an empty string!");
+            //  return;
+        }
+
+        if (!pair.second)
+        {
+            Msg("[Script_GlobalHelper/setGameRegisteredServerSmartCovers(name, "
+                "server_smartcover)] WARNING: "
+                "pair.second = null! You are trying to set an empty object!");
+            //    return;
+        }
+
+        this->m_game_registered_smartcovers.insert(pair);
+    }
+
+    inline void setGameRegisteredServerSmartCovers(const xr_string& name, Script_SE_SmartCover* server_smartcover)
+    {
+        if (!name.size())
+        {
+            Msg("[Script_GlobalHelper/setGameRegisteredServerSmartCovers(name, "
+                "server_smartcover)] WARNING: "
+                "name.size() = 0! You are trying to set an empty string!");
+            //   return;
+        }
+
+        if (!server_smartcover)
+        {
+            Msg("[Script_GlobalHelper/setGameRegisteredServerSmartCovers(name, "
+                "server_smartcover)] WARNING: "
+                "server_smartcover = null! You are trying to set an empty object!");
+            // return;
+        }
+
+        this->m_game_registered_smartcovers[name] = server_smartcover;
+    }
+
+    inline const xr_map<xr_string, CScriptGameObject*>& getGameRegisteredCombatSpaceRestrictors(void) const noexcept
+    {
+        return this->m_game_registered_combat_spacerestrictors;
+    }
+
+    inline void setGameRegisteredCombatSpaceRestrictors(const xr_map<xr_string, CScriptGameObject*>& map)
+    {
+        if (!map.size())
+        {
+            Msg("[Script_GlobalHelper/setGameRegisteredCombatSpaceRestrictors(space_name, "
+                "client_zone)] WARNING: "
+                "map.size() = 0! You are trying to set an empty map!");
+            //    return;
+        }
+
+        this->m_game_registered_combat_spacerestrictors = map;
+    }
+
+    inline void setGameRegisteredCombatSpaceRestrictors(const std::pair<xr_string, CScriptGameObject*>& pair)
+    {
+        if (!pair.first.size())
+        {
+            Msg("[Script_GlobalHelper/setGameRegisteredCombatSpaceRestrictors(space_name, "
+                "client_zone)] WARNING: "
+                "pair.first.size() = 0! You are trying to set an empty string!");
+            //   return;
+        }
+
+        if (!pair.second)
+        {
+            Msg("[Script_GlobalHelper/setGameRegisteredCombatSpaceRestrictors(space_name, "
+                "client_zone)] WARNING: "
+                "pair.second = null! You are trying to set an empty object!");
+            //  return;
+        }
+
+        this->m_game_registered_combat_spacerestrictors.insert(pair);
+    }
+
+    inline void setGameRegisteredCombatSpaceRestrictors(const xr_string& space_name, CScriptGameObject* client_zone)
+    {
+        if (!space_name.size())
+        {
+            Msg("[Script_GlobalHelper/setGameRegisteredCombatSpaceRestrictors(space_name, "
+                "client_zone)] WARNING: "
+                "space_name.size() = 0! You are trying to set an empty string!");
+            //    return;
+        }
+
+        if (!client_zone)
+        {
+            Msg("[Script_GlobalHelper/setGameRegisteredCombatSpaceRestrictors(space_name, "
+                "client_zone)] WARNING: "
+                "client_zone = null! You are trying to set an empty object!");
+            //    return;
+        }
+
+        this->m_game_registered_combat_spacerestrictors[space_name] = client_zone;
+    }
+
+    // @ In-Game
+    inline const xr_map<std::uint8_t, xr_map<std::uint32_t, Script_SE_SmartCover*>>&
+    getGameRegisteredServerSmartCoversByLevelID(void) const noexcept
+    {
+        return this->m_game_registered_smartcovers_by_level_id;
+    }
+
+    // Lord: Проверить данные сеттеры на правильность наименования аргументов!
+    inline void setGameRegisteredServerSmartCoversByLevelID(
+        const xr_map<std::uint8_t, xr_map<std::uint32_t, Script_SE_SmartCover*>>& map)
+    {
+        if (!map.size())
+        {
+            Msg("[Script_GlobalHelper/setGameRegisteredServerSmartCoversByLevelID(map)] "
+                "WARNING: map.size() = 0! You "
+                "are trying to set an empty map!");
+            //  return;
+        }
+
+        this->m_game_registered_smartcovers_by_level_id = map;
+    }
+
+    inline void setGameRegisteredServerSmartCoversByLevelID(
+        const std::uint8_t& level_id, const xr_map<std::uint32_t, Script_SE_SmartCover*>& map)
+    {
+        if (level_id == Globals::kUnsignedInt8Undefined)
+        {
+            Msg("[Script_GlobalHelper/setGameRegisteredServerSmartCoversByLevelID(level_id, "
+                "map)] "
+                "WARNING: level_id = std::uint8_t(-1)! You are trying to set an undefined "
+                "number of unsigned int!");
+            //  return;
+        }
+
+        if (!map.size())
+        {
+            Msg("[Script_GlobalHelper/setGameRegisteredServerSmartCoversByLevelID(level_id, "
+                "map)] WARNING: map.size() "
+                "= 0! You are trying to set an empty map!");
+            //  return;
+        }
+
+        this->m_game_registered_smartcovers_by_level_id[level_id] = map;
+    }
+
+    inline void setGameRegisteredServerSmartCoversByLevelID(
+        const std::uint8_t& level_id, const std::pair<std::uint32_t, Script_SE_SmartCover*>& pair)
+    {
+        if (level_id == Globals::kUnsignedInt8Undefined)
+        {
+            Msg("[Script_GlobalHelper/setGameRegisteredServerSmartCoversByLevelID(level_id, "
+                "pair)] "
+                "WARNING: level_id = std::uint8_t(-1)! You are trying to set an undefined "
+                "number of unsigned int!");
+            //  return;
+        }
+
+        if (pair.first == Globals::kUnsignedInt32Undefined)
+        {
+            Msg("[Script_GlobalHelper/setGameRegisteredServerSmartCoversByLevelID(level_id, "
+                "pair)] "
+                "WARNING: pair.first = std::uint32_t(-1)! You are trying to set an undefined "
+                "number of unsigned int! ");
+            //   return;
+        }
+
+        if (!pair.second)
+        {
+            Msg("[Script_GlobalHelper/setGameRegisteredServerSmartCoversByLevelID(level_id, "
+                "pair)] "
+                "WARNING: pair.second = null! You are trying to set an empty object!");
+            //  return;
+        }
+
+        this->m_game_registered_smartcovers_by_level_id[level_id].insert(pair);
+    }
+
+    inline void setGameRegisteredServerSmartCoversByLevelID(
+        const std::uint8_t& level_id, const std::uint32_t& id, Script_SE_SmartCover* server_smartcover)
+    {
+        if (level_id == Globals::kUnsignedInt8Undefined)
+        {
+            Msg("[Script_GlobalHelper/setGameRegisteredServerSmartCoversByLevelID(level_id, "
+                "id, server_smartcover)] "
+                "WARNING: level_id = std::uint8_t(-1)! You are trying to set an undefined "
+                "number of unsigned int!");
+            //  return;
+        }
+
+        if (id == Globals::kUnsignedInt32Undefined)
+        {
+            Msg("[Script_GlobalHelper/setGameRegisteredServerSmartCoversByLevelID(level_id, "
+                "id, server_smartcover)] "
+                "WARNING: id = std::uint32_t(-1)! You are trying to set an undefined number of "
+                "unsigned int!");
+            //    return;
+        }
+
+        if (!server_smartcover)
+        {
+            Msg("[Script_GlobalHelper/setGameRegisteredServerSmartCoversByLevelID(level_id, "
+                "id, server_smartcover)] "
+                "WARNING: server_smartcover = null! You are trying to set an empty object!");
+            //   return;
+        }
+
+        this->m_game_registered_smartcovers_by_level_id[level_id][id] = server_smartcover;
+    }
+
+    inline void Deallocate(void)
+    {
+        this->m_actor = nullptr;
+        this->m_storage.clear();
+        if (!this->m_zone_by_name.empty())
+        {
+            for (std::pair<const xr_string, CScriptGameObject*>& it : this->m_zone_by_name)
+                it.second = nullptr;
+
+            this->m_zone_by_name.clear();
+        }
+
+        if (!this->m_anomaly_by_name.empty())
+        {
+            for (std::pair<const xr_string, CScriptGameObject*>& it : this->m_anomaly_by_name)
+                it.second = nullptr;
+
+            this->m_anomaly_by_name.clear();
+        }
+
+        if (!this->m_game_registered_combat_spacerestrictors.empty())
+        {
+            for (std::pair<const xr_string, CScriptGameObject*>& it : this->m_game_registered_combat_spacerestrictors)
+                it.second = nullptr;
+
+            this->m_game_registered_combat_spacerestrictors.clear();
+        }
+
+        if (!this->m_game_registered_server_smartterrains_by_name.empty())
+        {
+            for (std::pair<const xr_string, Script_SE_SmartTerrain*>& it :
+                this->m_game_registered_server_smartterrains_by_name)
+                it.second = nullptr;
+
+            this->m_game_registered_server_smartterrains_by_name.clear();
+        }
+
+        if (!this->m_game_registered_smartcovers.empty())
+        {
+            for (std::pair<const xr_string, Script_SE_SmartCover*>& it : this->m_game_registered_smartcovers)
+                it.second = nullptr;
+
+            this->m_game_registered_smartcovers.clear();
+        }
+
+        if (!this->m_game_registered_smartcovers_by_level_id.empty())
+        {
+            for (std::pair<const std::uint8_t, xr_map<std::uint32_t, Script_SE_SmartCover*>>& it :
+                this->m_game_registered_smartcovers_by_level_id)
+            {
+                for (std::pair<const std::uint32_t, Script_SE_SmartCover*>& it_sub : it.second)
+                    it_sub.second = nullptr;
+            }
+
+            this->m_game_registered_smartcovers_by_level_id.clear();
+        }
+
+        this->m_offline_objects.clear();
+        this->m_spawned_vertex_by_id.clear();
+        this->m_goodwill.first.clear();
+        this->m_goodwill.second.clear();
+    }
+
 #pragma endregion
 
     Storage(const Storage&) = delete;
@@ -1329,6 +1968,10 @@ private:
     xr_map<std::uint16_t, std::pair<std::uint16_t, xr_string>> m_offline_objects;
     xr_map<xr_string, CScriptGameObject*> m_zone_by_name;
     xr_map<xr_string, CScriptGameObject*> m_anomaly_by_name;
+    xr_map<xr_string, CScriptGameObject*> m_game_registered_combat_spacerestrictors;
+    xr_map<xr_string, Script_SE_SmartTerrain*> m_game_registered_server_smartterrains_by_name;
+    xr_map<std::uint8_t, xr_map<std::uint32_t, Script_SE_SmartCover*>> m_game_registered_smartcovers_by_level_id;
+    xr_map<xr_string, Script_SE_SmartCover*> m_game_registered_smartcovers;
     xr_map<std::uint16_t, std::uint32_t> m_spawned_vertex_by_id;
     // first -> sympathy[ID] = std::uint32_t; | second -> relations[ID] = std::string;
     std::pair<xr_map<std::uint16_t, float>, xr_map<std::uint16_t, xr_string>> m_goodwill;
