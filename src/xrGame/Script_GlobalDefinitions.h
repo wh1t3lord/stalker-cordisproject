@@ -4,6 +4,12 @@ namespace Cordis
 {
 namespace Scripts
 {
+namespace DataBase
+{
+class Storage_Scheme;
+class Storage;
+}
+
 namespace GulagGenerator
 {
 inline static xr_string& getLtx(void) noexcept
@@ -11,7 +17,7 @@ inline static xr_string& getLtx(void) noexcept
     static xr_string instance;
     return instance;
 }
-}
+} // namespace GulagGenerator
 
 namespace XR_LOGIC
 {

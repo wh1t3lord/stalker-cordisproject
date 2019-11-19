@@ -30,7 +30,7 @@ public:
     virtual void reset(const std::uint16_t& npc_id) = 0;
     virtual bool is_playing(const std::uint16_t& npc_id) = 0;
     virtual void initialize_npc(CScriptGameObject* npc) = 0;
-    virtual void callback(const std::uint16_t& npc_id) = 0;
+    virtual void callback(const std::uint16_t npc_id) = 0;
     virtual bool play(const std::uint16_t& npc_id, xr_string& faction, std::uint16_t point) = 0;
     virtual bool play(xr_string& faction, std::uint16_t point) = 0;
     virtual bool play(const std::uint16_t& obj_id) = 0;
@@ -57,7 +57,7 @@ public:
     virtual void reset(const std::uint16_t& npc_id);
     virtual bool is_playing(const std::uint16_t& npc_id);
     virtual void initialize_npc(CScriptGameObject* npc);
-    virtual void callback(const std::uint16_t& npc_id);
+    virtual void callback(const std::uint16_t npc_id);
     virtual bool play(const std::uint16_t& npc_id, xr_string& faction, std::uint16_t point);
     virtual bool play(xr_string& faction, std::uint16_t point)
     {
@@ -132,7 +132,7 @@ public:
         return;
     }
 
-    virtual void callback(const std::uint16_t& npc_id);
+    virtual void callback(const std::uint16_t npc_id);
     virtual bool play(const std::uint16_t& npc_id, xr_string& faction, std::uint16_t point);
     virtual bool play(xr_string& faction, std::uint16_t point)
     {
@@ -221,7 +221,7 @@ public:
         return;
     }
 
-    virtual void callback(const std::uint16_t& npc_id);
+    virtual void callback(const std::uint16_t npc_id);
     virtual bool play(const std::uint16_t& npc_id, xr_string& faction, std::uint16_t point);
     virtual bool play(xr_string& faction, std::uint16_t point)
     {
@@ -345,7 +345,7 @@ public:
         return;
     }
 
-    virtual void callback(const std::uint16_t& npc_id)
+    virtual void callback(const std::uint16_t npc_id)
     {
         Msg("[Script_SoundLooped] -> callback(npc_id) it doesn't use!");
         return;

@@ -14,9 +14,8 @@ Script_SoundNPC::Script_SoundNPC(CScriptIniFile& sound_ini, const xr_string& sec
       m_shuffle(Globals::Utils::cfg_get_string(&sound_ini, section, "shuffle")),
       m_group_sound(Globals::Utils::cfg_get_bool(&sound_ini, section, "group_snd")),
       m_is_play_always(Globals::Utils::cfg_get_bool(&sound_ini, section, "play_always")),
-      m_is_combat_sound(Globals::Utils::cfg_get_bool(&sound_ini, section, "is_combat_sound")),
-      m_section(section), m_played_id(0),
-      m_delay_sound(Globals::Utils::cfg_get_number(&sound_ini, section, "delay_sound")),
+      m_is_combat_sound(Globals::Utils::cfg_get_bool(&sound_ini, section, "is_combat_sound")), m_section(section),
+      m_played_id(0), m_delay_sound(Globals::Utils::cfg_get_number(&sound_ini, section, "delay_sound")),
       m_can_play_group_sound(true), m_faction(Globals::Utils::cfg_get_string(&sound_ini, section, "faction")),
       m_point(Globals::Utils::cfg_get_string(&sound_ini, section, "point")),
       m_message(Globals::Utils::cfg_get_string(&sound_ini, section, "message")), m_min_idle(3), m_max_idle(5),
@@ -168,13 +167,13 @@ void Script_SoundNPC::initialize_npc(CScriptGameObject* npc)
     }
 }
 
-void Script_SoundNPC::callback(const std::uint16_t& npc_id)
+void Script_SoundNPC::callback(const std::uint16_t npc_id)
 {
     this->m_played_time = Device.dwTimeGlobal;
     // LorD: нормально ли генерирует рандомное значение простетировать
-//     std::random_device random_device;
-//     std::mt19937 range(random_device);
-//     std::uniform_int_distribution<int> urandom(this->m_min_idle, this->m_max_idle);
+    //     std::random_device random_device;
+    //     std::mt19937 range(random_device);
+    //     std::uniform_int_distribution<int> urandom(this->m_min_idle, this->m_max_idle);
 
     this->m_idle_time = Globals::Script_RandomInt::getInstance().Generate(this->m_min_idle, this->m_max_idle);
 
@@ -187,26 +186,28 @@ void Script_SoundNPC::callback(const std::uint16_t& npc_id)
 
     const DataBase::Storage_Data& storage_data = DataBase::Storage::getInstance().getStorage().at(npc_id);
 
-    if (!storage_data.getActiveSchemeName().size())
+    if (storage_data.getActiveSchemeName().empty())
     {
+        Msg("[Scripts/Script_SoundNPC/callback(npc_id)] ActiveScheme is empty return ...");
         return;
     }
 
-    if (!storage_data.getData().at(storage_data.getActiveSchemeName()).getSignals().size())
+    if (storage_data.getSchemes().at(storage_data.getActiveSchemeName()).getSignals().empty())
     {
+        Msg("[Scripts/Script_SoundNPC/callback(npc_id)] Signals is empty return ...");
         return;
     }
 
     if (this->m_played_id == this->m_npc[npc_id].second && this->m_shuffle != "rnd")
     {
-     //   storage_data[storage_data.m_active_scheme].getSignals()["theme_end"] = true;
-     //   storage_data[storage_data.m_active_scheme].getSignals()["sound_end"] = true;
+        //   storage_data[storage_data.m_active_scheme].getSignals()["theme_end"] = true;
+        //   storage_data[storage_data.m_active_scheme].getSignals()["sound_end"] = true;
         DataBase::Storage::getInstance().setStorageSignal(npc_id, "theme_end", true);
-     DataBase::Storage::getInstance().setStorageSignal(npc_id, "sound_end", true);
+        DataBase::Storage::getInstance().setStorageSignal(npc_id, "sound_end", true);
     }
     else
     {
-     //   storage_data[storage_data.m_active_scheme].getSignals()["sound_end"] = true;
+        //   storage_data[storage_data.m_active_scheme].getSignals()["sound_end"] = true;
         DataBase::Storage::getInstance().setStorageSignal(npc_id, "sound_end", true);
     }
 }
@@ -326,15 +327,16 @@ int Script_SoundNPC::select_next_sound(const std::uint16_t& npc_id)
             return 0;
         }
 
-//         std::random_device random_device1;
-//         std::mt19937 range1(random_device1);
-//         std::uniform_int_distribution<int> urandom1(0, this->m_npc[npc_id].second);
+        //         std::random_device random_device1;
+        //         std::mt19937 range1(random_device1);
+        //         std::uniform_int_distribution<int> urandom1(0, this->m_npc[npc_id].second);
         if (!this->m_played_id)
         {
-//             std::random_device random_device;
-//             std::mt19937 range(random_device);
-//             std::uniform_int_distribution<int> urandom(0, this->m_npc[npc_id].second - 1);
-            int played_id = Globals::Script_RandomInt::getInstance().Generate(static_cast<std::uint32_t>(0), this->m_npc[npc_id].second - 1);
+            //             std::random_device random_device;
+            //             std::mt19937 range(random_device);
+            //             std::uniform_int_distribution<int> urandom(0, this->m_npc[npc_id].second - 1);
+            int played_id = Globals::Script_RandomInt::getInstance().Generate(
+                static_cast<std::uint32_t>(0), this->m_npc[npc_id].second - 1);
 
             if (played_id >= this->m_played_id)
             {
@@ -344,7 +346,8 @@ int Script_SoundNPC::select_next_sound(const std::uint16_t& npc_id)
             return played_id;
         }
 
-        return Globals::Script_RandomInt::getInstance().Generate(static_cast<std::uint32_t>(0), this->m_npc[npc_id].second);
+        return Globals::Script_RandomInt::getInstance().Generate(
+            static_cast<std::uint32_t>(0), this->m_npc[npc_id].second);
     }
 
     if (this->m_shuffle == "seq")
@@ -493,12 +496,12 @@ bool Script_SoundActor::is_playing(const std::uint16_t& npc_id)
     return false;
 }
 
-void Script_SoundActor::callback(const std::uint16_t& npc_id)
+void Script_SoundActor::callback(const std::uint16_t npc_id)
 {
     this->m_played_time = Device.dwTimeGlobal;
-//     std::random_device random_device;
-//     std::mt19937 range(random_device);
-//     std::uniform_int_distribution<int> urandom(this->m_min_idle, this->m_max_idle);
+    //     std::random_device random_device;
+    //     std::mt19937 range(random_device);
+    //     std::uniform_int_distribution<int> urandom(this->m_min_idle, this->m_max_idle);
 
     this->m_idle_time = Globals::Script_RandomInt::getInstance().Generate(this->m_min_idle, this->m_max_idle);
     if (this->m_sound_object)
@@ -513,29 +516,35 @@ void Script_SoundActor::callback(const std::uint16_t& npc_id)
 
     const DataBase::Storage_Data& storage_data = DataBase::Storage::getInstance().getStorage().at(npc_id);
 
-    if (!storage_data.getActiveSchemeName().size())
+    if (storage_data.getActiveSchemeName().empty())
+    {
+        Msg("[Scripts/Script_SoundActor/callback(npc_id)] active scheme is empty return ...");
         return;
+    }
 
-    if (!storage_data.getData().at(storage_data.getActiveSchemeName()).getSignals().size())
+
+    if (storage_data.getSchemes().at(storage_data.getActiveSchemeName()).getSignals().empty())
+    {
+        Msg("[Scripts/Script_SoundActor/callback(npc_id)] signals is empty return ...");
         return;
+    }
 
     // Lord: проверить больше или всё же оно равно этому значению (про размер карты)
     if (this->m_played_id == this->m_sound.size() && (this->m_shuffle != "rnd"))
     {
         Msg("[Script_SoundActor] -> [%s] signalled 'theme_end' in section [%s]", std::to_string(npc_id).c_str(),
             storage_data.getActiveSectionName().c_str());
-    //    storage_data[storage_data.m_active_scheme].getSignals()["theme_end"] = true;
-    //    storage_data[storage_data.m_active_scheme].getSignals()["sound_end"] = true;
+        //    storage_data[storage_data.m_active_scheme].getSignals()["theme_end"] = true;
+        //    storage_data[storage_data.m_active_scheme].getSignals()["sound_end"] = true;
         DataBase::Storage::getInstance().setStorageSignal(npc_id, "theme_end", true);
         DataBase::Storage::getInstance().setStorageSignal(npc_id, "sound_end", true);
-
     }
     else
     {
         Msg("[Script_SoundActor] -> [%s] signalled 'sound_end' in section [%s]", std::to_string(npc_id).c_str(),
             storage_data.getActiveSectionName().c_str());
 
-      //  storage_data[storage_data.m_active_scheme].getSignals()["sound_end"] = true;
+        //  storage_data[storage_data.m_active_scheme].getSignals()["sound_end"] = true;
         DataBase::Storage::getInstance().setStorageSignal(npc_id, "sound_end", true);
     }
 }
@@ -586,9 +595,9 @@ int Script_SoundActor::select_next_sound(const std::uint16_t& npc_id)
 
         if (this->m_played_id)
         {
-//             std::random_device random_device;
-//             std::mt19937 range(random_device);
-//             std::uniform_int_distribution<size_t> urandom(1, sound_map_size - 1);
+            //             std::random_device random_device;
+            //             std::mt19937 range(random_device);
+            //             std::uniform_int_distribution<size_t> urandom(1, sound_map_size - 1);
 
             size_t generated_value = Globals::Script_RandomInt::getInstance().Generate(1, sound_map_size - 1);
 
@@ -598,9 +607,9 @@ int Script_SoundActor::select_next_sound(const std::uint16_t& npc_id)
             return generated_value;
         }
 
-//         std::random_device random_device;
-//         std::mt19937 range(random_device);
-//         std::uniform_int_distribution<size_t> urandom(1, sound_map_size);
+        //         std::random_device random_device;
+        //         std::mt19937 range(random_device);
+        //         std::uniform_int_distribution<size_t> urandom(1, sound_map_size);
         size_t generated_value = Globals::Script_RandomInt::getInstance().Generate(1, sound_map_size);
 
         return generated_value;
@@ -703,7 +712,7 @@ bool Script_SoundObject::is_playing(const std::uint16_t& npc_id)
     return false;
 }
 
-void Script_SoundObject::callback(const std::uint16_t& npc_id)
+void Script_SoundObject::callback(const std::uint16_t npc_id)
 {
     this->m_played_time = Device.dwTimeGlobal;
     if (this->m_sound_object)
@@ -711,20 +720,26 @@ void Script_SoundObject::callback(const std::uint16_t& npc_id)
         delete this->m_sound_object;
         this->m_sound_object = nullptr;
     }
-//     std::random_device random_device;
-//     std::mt19937 range(random_device);
-//     std::uniform_int_distribution<int> urandom(this->m_min_idle, this->m_max_idle);
+    //     std::random_device random_device;
+    //     std::mt19937 range(random_device);
+    //     std::uniform_int_distribution<int> urandom(this->m_min_idle, this->m_max_idle);
     this->m_idle_time = Globals::Script_RandomInt::getInstance().Generate(this->m_min_idle, this->m_max_idle) * 1000;
     this->m_can_play_sound = true;
 
     CurrentGameUI()->RemoveCustomStatic("cs_subtitles_object");
 
     const DataBase::Storage_Data& storage_data = DataBase::Storage::getInstance().getStorage().at(npc_id);
-    if (!storage_data.getActiveSchemeName().size())
+    if (storage_data.getActiveSchemeName().empty())
+    {
+        Msg("[Scripts/Script_SoundObject/callback(npc_id)] active scheme is empty return ...");
         return;
+    }
 
-    if (!storage_data.getData().at(storage_data.getActiveSchemeName()).getSignals().size())
+    if (storage_data.getSchemes().at(storage_data.getActiveSchemeName()).getSignals().empty())
+    {
+        Msg("[Scripts/Script_SoundObject/callback(npc_id)] signals is empty return ...");
         return;
+    }
 
     if (this->m_played_id == this->m_sound.size() && this->m_shuffle != "rnd")
     {
@@ -810,9 +825,9 @@ int Script_SoundObject::select_next_sound(const std::uint16_t& npc_id)
 
         if (this->m_played_id)
         {
-//             std::random_device random_device;
-//             std::mt19937 range(random_device);
-//             std::uniform_int_distribution<size_t> urandom(1, sound_map_size - 1);
+            //             std::random_device random_device;
+            //             std::mt19937 range(random_device);
+            //             std::uniform_int_distribution<size_t> urandom(1, sound_map_size - 1);
 
             size_t generated_value = Globals::Script_RandomInt::getInstance().Generate(1, sound_map_size - 1);
 
@@ -822,9 +837,9 @@ int Script_SoundObject::select_next_sound(const std::uint16_t& npc_id)
             return generated_value;
         }
 
-//         std::random_device random_device;
-//         std::mt19937 range(random_device);
-//         std::uniform_int_distribution<size_t> urandom(1, sound_map_size);
+        //         std::random_device random_device;
+        //         std::mt19937 range(random_device);
+        //         std::uniform_int_distribution<size_t> urandom(1, sound_map_size);
         size_t generated_value = Globals::Script_RandomInt::getInstance().Generate(1, sound_map_size);
 
         return generated_value;
@@ -931,17 +946,18 @@ bool Script_SoundLooped::play(const std::uint16_t& obj_id)
     }
 
     this->m_sound_object = new CScriptSound(this->m_sound.c_str());
-    this->m_sound_object->PlayAtPos(object, object->Position(), 0.0f, 0 + sm_Looped); // Lord: думаю всё же стоит убрать ноль)
+    this->m_sound_object->PlayAtPos(
+        object, object->Position(), 0.0f, 0 + sm_Looped); // Lord: думаю всё же стоит убрать ноль)
 
-    return true; 
+    return true;
 }
 
-bool Script_SoundLooped::is_playing(const std::uint16_t& npc_id) 
+bool Script_SoundLooped::is_playing(const std::uint16_t& npc_id)
 {
     if (this->m_sound_object)
         return this->m_sound_object->IsPlaying();
 
-    return false; 
+    return false;
 }
 
 void Script_SoundLooped::stop(const std::uint16_t& obj_id)
@@ -949,7 +965,6 @@ void Script_SoundLooped::stop(const std::uint16_t& obj_id)
     if (this->m_sound_object)
         this->m_sound_object->Stop();
 }
-
 
 } // namespace Scripts
 } // namespace Cordis
