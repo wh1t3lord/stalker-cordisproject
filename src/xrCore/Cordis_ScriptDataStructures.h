@@ -346,23 +346,11 @@ public:
                 return;
             }
 
-            this->m_data[field_name].first = value_name;
-        }
-
-        inline void setData(const xr_string& field_name, const xr_map<std::uint32_t, CondlistData>& condlist) noexcept
-        {
-            if (field_name.empty())
-            {
-                Msg("[Scripts/CondlistWaypointsData/setData(field_name, condlist)] WARNING: field_name.empty() == "
-                    "true! You are trying to set an empty string return ...");
-                return;
-            }
-
-            this->m_data[field_name].second = condlist;
+            this->m_data[field_name] = value_name;
         }
 
     private:
-        xr_map<xr_string, std::pair<xr_string, xr_map<std::uint32_t, CondlistData>>> m_data;
+        xr_map<xr_string, xr_string> m_data;
         Flags32 m_flags;
     };
 
