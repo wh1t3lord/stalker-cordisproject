@@ -344,6 +344,8 @@ enum
 #include "Script_ISchemeEntity.h"
 #include "Script_ISchemeMonster.h"
 #include "Script_ISchemeStalker.h"
+#include "Script_MobStateManager.h"
+#include "Script_SchemeMobWalker.h"
 #include "Script_Database.h"
 #include "Script_SE_SimulationSquad.h"
 #include "PhraseDialog.h"

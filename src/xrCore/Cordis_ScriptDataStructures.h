@@ -321,5 +321,48 @@ private:
     xr_map<std::uint32_t, CondlistData::CondlistValues> m_info;
 };
 
+// @ Используется в логике монстров
+class CondlistWaypoints
+{
+    CondlistWaypoints(void) = default;
+    ~CondlistWaypoints(void) = default;
+    inline const xr_vector<xr_map<xr_string, std::pair<xr_string, xr_map<std::uint32_t, CondlistData>>>>& getData(
+        void) const noexcept
+    {
+        return this->m_data;
+    }
+
+    inline void setData(const xr_string& field_name, const xr_string& value_name) noexcept
+    {
+        xr_map<xr_string, std::pair<xr_string, xr_map<std::uint32_t, CondlistData>>> data;
+        data[field_name].first = value_name;
+
+        this->m_data.push_back(data);
+    }
+
+    inline void setData(const xr_string& field_name, const xr_map<std::uint32_t, CondlistData>& condlist)
+    {
+        xr_map<xr_string, std::pair<xr_string, xr_map<std::uint32_t, CondlistData>>> data;
+        data[field_name].second = condlist;
+
+        this->m_data.push_back(data);
+    }
+
+    inline const xr_string& getParams(void) const noexcept { return this->m_params; }
+    inline void setParams(const xr_string& params_name) noexcept
+    {
+        if (params_name.empty())
+        {
+            Msg("[Scripts/CondlistWaypoints/setParams(params_name)] WARNING: params_name.empty() == true! You set an empty string");
+        }
+
+        this->m_params = params_name;
+    }
+
+private:
+    xr_vector<xr_map<xr_string, std::pair<xr_string, xr_map<std::uint32_t, CondlistData>>>> m_data;
+    xr_string m_params;
+};
+
 } // namespace Scripts
 } // namespace Cordis
