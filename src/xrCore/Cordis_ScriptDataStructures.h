@@ -324,44 +324,57 @@ private:
 // @ Используется в логике монстров
 class CondlistWaypoints
 {
-    CondlistWaypoints(void) = default;
-    ~CondlistWaypoints(void) = default;
-    inline const xr_vector<xr_map<xr_string, std::pair<xr_string, xr_map<std::uint32_t, CondlistData>>>>& getData(
-        void) const noexcept
+public:
+    class CondlistWayPointsData
     {
-        return this->m_data;
-    }
+    public:
+        CondlistWayPointsData(void) = default;
+        ~CondlistWayPointsData(void) = default;
 
-    inline void setData(const xr_string& field_name, const xr_string& value_name) noexcept
-    {
-        xr_map<xr_string, std::pair<xr_string, xr_map<std::uint32_t, CondlistData>>> data;
-        data[field_name].first = value_name;
-
-        this->m_data.push_back(data);
-    }
-
-    inline void setData(const xr_string& field_name, const xr_map<std::uint32_t, CondlistData>& condlist)
-    {
-        xr_map<xr_string, std::pair<xr_string, xr_map<std::uint32_t, CondlistData>>> data;
-        data[field_name].second = condlist;
-
-        this->m_data.push_back(data);
-    }
-
-    inline const xr_string& getParams(void) const noexcept { return this->m_params; }
-    inline void setParams(const xr_string& params_name) noexcept
-    {
-        if (params_name.empty())
+        inline const Flags32& getFlags(void) const noexcept { return this->m_flags; }
+        inline void setFlags(const Flags32& flags) noexcept
         {
-            Msg("[Scripts/CondlistWaypoints/setParams(params_name)] WARNING: params_name.empty() == true! You set an empty string");
+            this->m_flags = flags;
         }
 
-        this->m_params = params_name;
+        inline void setData(const xr_string& field_name, const xr_string& value_name) noexcept
+        {
+            if (field_name.empty())
+            {
+                Msg("[Scripts/CondlistWaypointsData/setData(field_name, value_name)] WARNING: field_name.empty() == "
+                    "true! Can't assign an empty string! return ...");
+                return;
+            }
+
+            this->m_data[field_name].first = value_name;
+        }
+
+        inline void setData(const xr_string& field_name, const xr_map<std::uint32_t, CondlistData>& condlist) noexcept
+        {
+            if (field_name.empty())
+            {
+                Msg("[Scripts/CondlistWaypointsData/setData(field_name, condlist)] WARNING: field_name.empty() == "
+                    "true! You are trying to set an empty string return ...");
+                return;
+            }
+
+            this->m_data[field_name].second = condlist;
+        }
+
+    private:
+        xr_map<xr_string, std::pair<xr_string, xr_map<std::uint32_t, CondlistData>>> m_data;
+        Flags32 m_flags;
+    };
+
+    CondlistWaypoints(void) = default;
+    ~CondlistWaypoints(void) = default;
+    inline const xr_vector<CondlistWayPointsData>& getData(void) const noexcept { return this->m_data; }
+
+    inline void setData(const CondlistWayPointsData& data) noexcept { this->m_data.push_back(data);
     }
 
 private:
-    xr_vector<xr_map<xr_string, std::pair<xr_string, xr_map<std::uint32_t, CondlistData>>>> m_data;
-    xr_string m_params;
+    xr_vector<CondlistWayPointsData> m_data;
 };
 
 } // namespace Scripts

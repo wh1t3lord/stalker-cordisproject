@@ -74,6 +74,8 @@ inline bool is_npc_in_zone(CScriptGameObject* npc, CScriptGameObject* zone);
 inline bool is_npc_in_zone(CSE_ALifeDynamicObject* server_object, CScriptGameObject* zone);
 inline xrTime r_CTime(NET_Packet& packet);
 inline void w_CTime(NET_Packet& packet, xrTime& time);
+inline CondlistWaypoints::CondlistWayPointsData parse_waypoint_data(const xr_string& name, const Flags32& waypoint_flags, const xr_string& waypoint_name );
+inline CondlistWaypoints path_parse_waypoints(const xr_string& path_name);
 } // namespace Utils
 
 namespace Game
