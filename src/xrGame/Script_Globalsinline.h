@@ -552,6 +552,73 @@ inline void w_CTime(NET_Packet& packet, xrTime& time)
     }
 }
 
+inline CondlistWaypoints::CondlistWayPointsData parse_waypoint_data(
+    const xr_string& name, const Flags32& waypoint_flags, const xr_string& waypoint_name)
+{
+    CondlistWaypoints::CondlistWayPointsData result;
+
+    result.setFlags(waypoint_flags);
+
+    if (waypoint_name.find('|') == xr_string::npos)
+    {
+        return result;
+    }
+
+    boost::regex regex("\\w+=\\w+");
+    boost::sregex_iterator i(waypoint_name.begin(), waypoint_name.end(), regex);
+    boost::sregex_iterator j;
+
+    // Строгая проверка, ибо в последующем в move_mgr и mob_walker не будет вылета
+    // а понять трудно почему при a="название_анимации" не будет ничего работать
+    for (; i != j; ++i)
+    {
+        xr_string data = i->str().c_str();
+        xr_string field_name = data;
+        field_name.erase(field_name.find('='));
+
+
+        if (field_name.empty())
+        {
+            R_ASSERT2(false, "Incorrect data before '=', check your waypoint description!");
+            return result;
+        }
+
+        xr_string value = data.substr(data.rfind('=') + 1);
+        if (value.empty())
+        {
+            R_ASSERT2(false, "Incorrect data after '=', check your waypoint description!");
+            return result;
+        }
+
+        result.setData(field_name, value);
+    }
+
+    return result;
+}
+
+inline CondlistWaypoints path_parse_waypoints(const xr_string& path_name)
+{
+    if (path_name.empty())
+    {
+        Msg("[Scripts/Globals/Utils/path_parse_waypoints(path_name)] WARNING: path_name.empty() == true! Return empty "
+            "object ...");
+        return CondlistWaypoints();
+    }
+
+    CondlistWaypoints result;
+
+    CPatrolPathParams patrol = CPatrolPathParams(path_name.c_str());
+    std::uint32_t count = patrol.count();
+
+    // Lord: проверить правильно ли был составлен цикл на итерации
+    for (std::uint32_t i = 0; i < count; ++i)
+    {
+        result.setData(parse_waypoint_data(path_name, patrol.flags(i), patrol.name(i)));
+    }
+
+    return result;
+}
+
 } // namespace Utils
 
 namespace Game
@@ -1479,7 +1546,10 @@ inline bool IsStalker(CScriptGameObject* object, int class_id = 0)
 
     int result = class_id ? class_id : object->clsid();
 
-    return ((Script_GlobalHelper::getInstance().getStalkerClasses().find(result) == Script_GlobalHelper::getInstance().getStalkerClasses().end()) ? false : true);
+    return ((Script_GlobalHelper::getInstance().getStalkerClasses().find(result) ==
+                Script_GlobalHelper::getInstance().getStalkerClasses().end()) ?
+            false :
+            true);
 }
 
 inline bool IsStalker(CSE_ALifeDynamicObject* server_object, int class_id = 0)
@@ -1524,7 +1594,10 @@ inline bool IsWeapon(CScriptGameObject* object, int class_id)
 
     int result = class_id ? class_id : object->clsid();
 
-    return ((Script_GlobalHelper::getInstance().getWeaponClasses().find(result) == Script_GlobalHelper::getInstance().getWeaponClasses().end()) ? false : true);
+    return ((Script_GlobalHelper::getInstance().getWeaponClasses().find(result) ==
+                Script_GlobalHelper::getInstance().getWeaponClasses().end()) ?
+            false :
+            true);
 }
 
 inline xr_string character_community(CScriptGameObject* object)
