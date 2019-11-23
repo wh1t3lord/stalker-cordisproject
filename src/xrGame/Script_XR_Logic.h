@@ -124,14 +124,6 @@ inline void intialize_job(CScriptGameObject* object, DataBase::Storage_Data& sto
     }
 }
 
-// @ Нужно ли здесь template
-template <typename... Arguments>
-inline void issue_events(CScriptGameObject* npc, DataBase::Storage_Data& storage, Arguments... arguments)
-{
-    // @ Lord: реализовать!!!!!!!
-    return;
-}
-
 inline void parse_infopotions(xr_map<std::uint32_t, CondlistData::CondlistValues>& data, xr_string& buffer)
 {
     if (!buffer.size())

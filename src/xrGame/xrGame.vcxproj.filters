@@ -3718,6 +3718,21 @@
     <Filter Include="Cordis\Scripts\Logic\Mob\Camp">
       <UniqueIdentifier>{f71c27d4-212c-4c25-8ab7-1c104f0fc5a0}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Cordis\Scripts\Logic\Mob\Walker\Public">
+      <UniqueIdentifier>{fc602563-6c2e-4ff9-9707-49f498b4c983}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Logic\Mob\Walker\Private">
+      <UniqueIdentifier>{bada1869-f0fc-45de-8295-e3b5051959b2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Managers\Logic\Scheme">
+      <UniqueIdentifier>{53f9a998-d240-4e47-bb37-359f94886f3e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Managers\Logic\Scheme\Mob state">
+      <UniqueIdentifier>{2714c428-fb73-4386-9d05-36a77b062dfe}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Managers\Logic\Scheme\Mob state\Public">
+      <UniqueIdentifier>{0b7ad0f9-4a40-4d9a-b07b-1ec226d553fb}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="mt_config.h">
@@ -8918,6 +8933,12 @@
     <ClInclude Include="Script_ISchemeEntity.h">
       <Filter>Cordis\Scripts\Logic\Interface\Kernel\Public</Filter>
     </ClInclude>
+    <ClInclude Include="Script_SchemeMobWalker.h">
+      <Filter>Cordis\Scripts\Logic\Mob\Walker\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Script_MobStateManager.h">
+      <Filter>Cordis\Scripts\Managers\Logic\Scheme\Mob state\Public</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="damage_manager.cpp">
@@ -13202,6 +13223,9 @@
     </ClCompile>
     <ClCompile Include="Script_ISchemeStalker.cpp">
       <Filter>Cordis\Scripts\Logic\Interface\Stalker\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Script_SchemeMobWalker.cpp">
+      <Filter>Cordis\Scripts\Logic\Mob\Walker\Private</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

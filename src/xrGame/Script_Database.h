@@ -102,20 +102,55 @@ public:
     {
         if (signal_name.empty())
         {
-            Msg("[Scripts/DataBase/Storage_Scheme/setSignals(signal_name, value)] WARNING: signal_name.empty() == true! Can't assign an empty string return ...");
+            Msg("[Scripts/DataBase/Storage_Scheme/setSignals(signal_name, value)] WARNING: signal_name.empty() == "
+                "true! Can't assign an empty string return ...");
             return;
         }
-        
+
         this->m_signals[signal_name] = value;
     }
 
+    inline const xr_string& getPathWalkName(void) const noexcept { return this->m_path_walk_name; }
+    inline void setPathWalkName(const xr_string& path_walk_name) noexcept
+    {
+        if (path_walk_name.empty())
+        {
+            Msg("[Scripts/DataBase/Storage_Scheme/setPathWalkName(path_walk_name)] WARNING: path_walk_name.empty() == "
+                "true! You are assign an empty string");
+        }
+
+        this->m_path_walk_name = path_walk_name;
+    }
+
+    inline const xr_string& getPathLookName(void) const noexcept { return this->m_path_look_name; }
+    inline void setPathLookName(const xr_string& path_look_name) noexcept
+    {
+        if (path_look_name.empty())
+        {
+            Msg("[Scripts/DataBase/Script_Scheme/setPathLookName(path_look_name)] WARNING: path_look_name.empty() == "
+                "true! You set an empty string");
+        }
+
+        this->m_path_look_name = path_look_name;
+    }
+
+    inline const CondlistWaypoints& getPathWalkInfo(void) const noexcept { return this->m_path_walk_info; }
+    inline void setPathWalkInfo(const CondlistWaypoints& data) noexcept { this->m_path_walk_info = data; }
+
+    inline const CondlistWaypoints& getPathLookInfo(void) const noexcept { return this->m_path_look_info; }
+    inline void setPathLookInfo(const CondlistWaypoints& data) noexcept { this->m_path_look_info = data; }
+
 private:
-    // @ Не понятно зачем в итоге но так у ПЫС, если в итоге оно находится в самом сторадже где уже зарегистрирован сам
-    // НПС
+    // @ Не понятно зачем в итоге но так у ПЫС, если в итоге оно находится в самом сторадже где уже зарегистрирован
+    // сам НПС
     CScriptGameObject* m_npc = nullptr;
     Script_ISchemeEntity* m_action = nullptr; // @ для XR_LOGIC::unsubscrive_action, используется в очень редких схемах!
     xr_map<xr_string, bool> m_signals;
     xr_vector<Script_ISchemeEntity*> m_actions;
+    xr_string m_path_walk_name;
+    xr_string m_path_look_name;
+    CondlistWaypoints m_path_walk_info;
+    CondlistWaypoints m_path_look_info;
 };
 
 // Lord: не забудь что здесь ещё MANAGER для WOUNDED!!!!!!
@@ -843,7 +878,7 @@ private:
     bool m_is_enabled = false;
     bool m_is_anim_movement = false;
     std::uint16_t m_enemy_id = Globals::kUnsignedInt16Undefined;
-    std::int32_t m_activation_time;
+    std::int32_t m_activation_time = 0;
     CScriptGameObject* m_p_client_object = nullptr;
     StorageAnimpoint_Data m_storage_animpoint;
     CSE_ALifeObject* m_p_server_object = nullptr;
