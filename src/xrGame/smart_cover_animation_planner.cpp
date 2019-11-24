@@ -112,12 +112,15 @@ void animation_planner::add_evaluators()
     add_evaluator(eWorldPropertyLoopholeFire, new CStalkerPropertyEvaluatorConst(false, "loophole fire"));
     add_evaluator(
         eWorldPropertyLoopholeFireNoLookout, new CStalkerPropertyEvaluatorConst(false, "loophole fire no lookout"));
-    add_evaluator(eWorldPropertyReadyToIdle, new CStalkerPropertyEvaluatorMember((CPropertyStorage*)0,
-                                                 eWorldPropertyReadyToIdle, true, true, "ready to idle"));
-    add_evaluator(eWorldPropertyReadyToLookout, new CStalkerPropertyEvaluatorMember((CPropertyStorage*)0,
-                                                    eWorldPropertyReadyToLookout, true, true, "ready to lookout"));
-    add_evaluator(eWorldPropertyReadyToFire, new CStalkerPropertyEvaluatorMember((CPropertyStorage*)0,
-                                                 eWorldPropertyReadyToFire, true, true, "ready to fire"));
+    add_evaluator(eWorldPropertyReadyToIdle,
+        new CStalkerPropertyEvaluatorMember(
+            (CPropertyStorage*)0, eWorldPropertyReadyToIdle, true, true, "ready to idle"));
+    add_evaluator(eWorldPropertyReadyToLookout,
+        new CStalkerPropertyEvaluatorMember(
+            (CPropertyStorage*)0, eWorldPropertyReadyToLookout, true, true, "ready to lookout"));
+    add_evaluator(eWorldPropertyReadyToFire,
+        new CStalkerPropertyEvaluatorMember(
+            (CPropertyStorage*)0, eWorldPropertyReadyToFire, true, true, "ready to fire"));
     add_evaluator(eWorldPropertyReadyToFireNoLookout,
         new CStalkerPropertyEvaluatorMember(
             (CPropertyStorage*)0, eWorldPropertyReadyToFireNoLookout, true, true, "ready to fire_no_lookout"));
@@ -291,8 +294,10 @@ bool animation_planner::hit_callback(SHit const* hit)
         return (false);
 
     // Lord - [Script] Re-write
-//     object().callback(GameObject::eHit)(m_object->lua_game_object(), hit->damage(), hit->direction(),
-//         smart_cast<const CGameObject*>(hit->who)->lua_game_object(), hit->boneID);
+    //     object().callback(GameObject::eHit)(m_object->lua_game_object(), hit->damage(), hit->direction(),
+    //         smart_cast<const CGameObject*>(hit->who)->lua_game_object(), hit->boneID);
+    object().GetScriptBinderObject()->hit_callback(m_object->lua_game_object(), hit->damage(), hit->direction(),
+        (smart_cast<const CGameObject*>(hit->who))->lua_game_object(), hit->boneID);
 
     return (false);
 }

@@ -101,8 +101,7 @@ private:
 #pragma endregion
 
 #pragma region Cordis XR_PATROL Initializing
-            std::pair<Fvector, float>
-                xr_patrol_formations_data;
+        std::pair<Fvector, float> xr_patrol_formations_data;
         xr_patrol_formations_data.first = Fvector().set(0.3f, 0.0f, -1.0f);
         xr_patrol_formations_data.second = 1.2f;
         /*        XR_PATROL::getFormations()[XR_PATROL::XR_PATROL_FORMATION_INDEX_BACK] = xr_vector<std::pair<Fvector,
@@ -4012,8 +4011,24 @@ private:
 #pragma endregion
 #pragma endregion
 
+#pragma region Cordis Initializing animation for monsters by actions(uses in state manager for monster)
+        this->m_monster_animation_to_action["free"] = MonsterSpace::eMentalStateFree;
+        this->m_monster_animation_to_action["danger"] = MonsterSpace::eMentalStateDanger;
+        this->m_monster_animation_to_action["panic"] = MonsterSpace::eMentalStatePanic;
+        this->m_monster_animation_to_action["stand_idle"] = MonsterSpace::eAA_StandIdle;
+        this->m_monster_animation_to_action["capture_prepare"] = MonsterSpace::eAA_CapturePrepare;
+        this->m_monster_animation_to_action["sit_idle"] = MonsterSpace::eAA_SitIdle;
+        this->m_monster_animation_to_action["lie_idle"] = MonsterSpace::eAA_LieIdle;
+        this->m_monster_animation_to_action["eat"] = MonsterSpace::eAA_Eat;
+        this->m_monster_animation_to_action["sleep"] = MonsterSpace::eAA_Sleep;
+        this->m_monster_animation_to_action["rest"] = MonsterSpace::eAA_Rest;
+        this->m_monster_animation_to_action["attack"] = MonsterSpace::eAA_Attack;
+        this->m_monster_animation_to_action["look_around"] = MonsterSpace::eAA_LookAround;
+        this->m_monster_animation_to_action["turn"] = MonsterSpace::eAA_Turn;
+#pragma endregion
+
 #pragma region SmartTerrain Initializing
-        this->m_game_server_nearest_to_actor_smart_terrain.first = std::uint32_t(-1);
+            this->m_game_server_nearest_to_actor_smart_terrain.first = std::uint32_t(-1);
         this->m_game_server_nearest_to_actor_smart_terrain.second = std::uint32_t(-1);
         this->m_registered_smart_terrain_territory_type[Globals::kSmartTerrainTerritoryBase] = true;
         this->m_registered_smart_terrain_territory_type[Globals::kSmartTerrainTerritoryDefault] = true;
@@ -4335,10 +4350,7 @@ public:
         this->m_weapon_classes[weapon_id] = value;
     }
 
-    inline const xr_map<int, bool>& getArtefactClasses(void) const noexcept
-    {
-        return this->m_artefact_classes;
-    }
+    inline const xr_map<int, bool>& getArtefactClasses(void) const noexcept { return this->m_artefact_classes; }
 
     inline void setArtefactClasses(const xr_map<int, bool>& map) noexcept
     {
@@ -5392,6 +5404,20 @@ public:
             }
         }
     }
+
+    inline std::uint32_t getMonsterAnimationToAction(const xr_string& animation_name)
+    {
+        if (this->m_monster_animation_to_action.empty())
+        {
+            R_ASSERT2(false, "user this structure must initialized!");
+            return MonsterSpace::eAA_StandIdle;
+        }
+
+        if (this->m_monster_animation_to_action.find(animation_name) == this->m_monster_animation_to_action.end())
+            return MonsterSpace::eAA_StandIdle;
+
+        return this->m_monster_animation_to_action[animation_name];
+    }
 #pragma endregion
 
 private:
@@ -5419,6 +5445,7 @@ private:
     xr_map<xr_string, xr_string> m_job_type_by_scheme;
     xr_map<xr_string, xr_string> m_game_smarts_by_no_assault_zone;
     xr_map<xr_string, std::uint32_t> m_simulationboard_group_id_by_levels_name;
+    xr_map<xr_string, std::uint32_t> m_monster_animation_to_action;
     xr_map<xr_string, bool> m_registered_smart_terrain_territory_type;
     xr_map<xr_string, bool> m_simulationsquad_is_squad_monster_by_type;
     // @ First - id | Second - distance

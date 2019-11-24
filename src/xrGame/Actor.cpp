@@ -590,6 +590,8 @@ void CActor::Hit(SHit* pHDS)
 //                 smart_cast<const CGameObject*>(HDS.who)->lua_game_object(),
 //                 HDS.boneID
 //             );
+            this->GetScriptBinderObject()->hit_callback(this->lua_game_object(), HDS.damage(), HDS.direction(),
+                (smart_cast<const CGameObject*>(HDS.who))->lua_game_object(), HDS.boneID);
         }
         inherited::Hit(&HDS);
     }

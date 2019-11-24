@@ -203,6 +203,8 @@ void CPatrolPathManager::select_point(const Fvector& position, u32& dest_vertex_
     // Lord - [Script] Re-write
 //     m_game_object->callback(GameObject::ePatrolPathInPoint)(
 //         m_game_object->lua_game_object(), u32(ScriptEntity::eActionTypeMovement), m_curr_point_index);
+    m_game_object->GetScriptBinderObject()->waypoint_callback(m_game_object->lua_game_object(), ScriptEntity::eActionTypeMovement, m_curr_point_index);
+
 
     u32 count = 0; // количество разветвлений
     float sum = 0.f; // сумма весов разветвления

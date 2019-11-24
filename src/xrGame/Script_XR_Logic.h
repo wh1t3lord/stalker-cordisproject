@@ -33,9 +33,9 @@ inline CScriptIniFile configure_schemes(CScriptGameObject* npc, CScriptIniFile& 
 
     if (storage.getActiveSchemeName().size())
     {
-/* Когда дойдёшь до данной реализации функции удали этот комментарий
-        Script_LogicManager::getInstance().all_deactivate(
-            storage.getData().at(storage.getActiveSchemeName()).getActions(), npc);*/
+        /* Когда дойдёшь до данной реализации функции удали этот комментарий
+                Script_LogicManager::getInstance().all_deactivate(
+                    storage.getData().at(storage.getActiveSchemeName()).getActions(), npc);*/
     }
 
     CScriptIniFile actual_ini = ini;
@@ -2091,10 +2091,42 @@ inline void save_object(CScriptGameObject* client_object, NET_Packet& packet)
 
     if (!storage.getActiveSchemeName().empty())
     {
-    
+        // Lord: доделать
     }
 
     Globals::set_save_marker(packet, Globals::kSaveMarkerMode_Save, true, save_marker_name.c_str());
+}
+
+inline void mob_capture(CScriptGameObject* client_mob, const bool is_reset_actions, const xr_string& scheme_name)
+{
+    if (!client_mob)
+    {
+        R_ASSERT2(false, "object is null!");
+        return;
+    }
+
+    if (is_reset_actions)
+    {
+        Globals::reset_action(client_mob, scheme_name);
+    }
+    else
+    {
+        if (!client_mob->GetScriptControl())
+        {
+            client_mob->SetScriptControl(true, scheme_name.c_str());
+        }
+    }
+}
+
+inline bool is_mob_captured(CScriptGameObject* p_client_object)
+{
+    if (!p_client_object)
+    {
+        R_ASSERT2(false, "object is null!");
+        return false;
+    }
+
+    return p_client_object->GetScriptControl();
 }
 
 } // namespace XR_LOGIC

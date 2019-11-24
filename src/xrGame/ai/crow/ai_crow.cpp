@@ -288,7 +288,10 @@ void CAI_Crow::Die(IGameObject* who)
     const CGameObject* who_object = smart_cast<const CGameObject*>(who);
     // Lord - [Script] Re-write 
   //  callback(GameObject::eDeath)(lua_game_object(), who_object ? who_object->lua_game_object() : 0);
-};
+    this->GetScriptBinderObject()->death_callback(
+        this->lua_game_object(), who_object ? who_object->lua_game_object() : nullptr);
+}
+
 void CAI_Crow::UpdateWorkload(float fdt)
 {
     if (o_workload_frame == Device.dwFrame)
@@ -472,6 +475,8 @@ void CAI_Crow::Hit(SHit* pHDS)
     const CGameObject* who_object = smart_cast<const CGameObject*>(pHDS->who);
     // Lord - [Script] Re-write
 //    callback(GameObject::eHit)(lua_game_object(), who_object ? who_object->lua_game_object() : 0);
+    this->GetScriptBinderObject()->hit_callback(this->lua_game_object(), HDS.power, HDS.direction(),
+        who_object ? who_object->lua_game_object() : nullptr, HDS.boneID);
 }
 
 BOOL CAI_Crow::UsedAI_Locations() { return (FALSE); }

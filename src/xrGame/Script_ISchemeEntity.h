@@ -71,6 +71,8 @@ public:
         return false;
     }
 
+    virtual inline 
+
     // @ Возвращаем действительное наименование схема которую реализует текущий класс
     inline const xr_string& getSchemeName(void) const noexcept
     {

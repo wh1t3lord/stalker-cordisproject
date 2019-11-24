@@ -312,7 +312,7 @@ void CInventoryOwner::OnItemTake(CInventoryItem* inventory_item)
     VERIFY(object);
     // Lord - [Script] Re-write
 /*    object->callback(GameObject::eOnItemTake)(inventory_item->object().lua_game_object());*/
-
+    object->GetScriptBinderObject()->on_item_take(inventory_item->object().lua_game_object());
     attach(inventory_item);
 
     if (m_tmp_active_slot_num != NO_ACTIVE_SLOT && inventory_item->CurrPlace() == eItemPlaceSlot &&
@@ -442,6 +442,7 @@ void CInventoryOwner::OnItemDrop(CInventoryItem* inventory_item, bool just_befor
     VERIFY(object);
     // Lord - [Script] Re-write
    // object->callback(GameObject::eOnItemDrop)(inventory_item->object().lua_game_object());
+    object->GetScriptBinderObject()->on_item_drop(inventory_item->object().lua_game_object());
 
     detach(inventory_item);
 }
