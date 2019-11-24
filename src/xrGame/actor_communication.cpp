@@ -52,6 +52,7 @@ bool CActor::OnReceiveInfo(shared_str info_id) const
 
     // Lord - [Script] Re-write
    // callback(GameObject::eInventoryInfo)(lua_game_object(), *info_id);
+    this->scriptBinder.object()->info_callback(info_id.c_str());
 
     if (!CurrentGameUI())
         return false;

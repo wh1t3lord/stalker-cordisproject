@@ -8,4 +8,4 @@
 
 #pragma once
 
-IC CScriptBinderObject* CScriptBinder::object() { return (m_object); }
+IC CScriptBinderObject* CScriptBinder::object() const { return (m_object); }

@@ -74,8 +74,10 @@ inline bool is_npc_in_zone(CScriptGameObject* npc, CScriptGameObject* zone);
 inline bool is_npc_in_zone(CSE_ALifeDynamicObject* server_object, CScriptGameObject* zone);
 inline xrTime r_CTime(NET_Packet& packet);
 inline void w_CTime(NET_Packet& packet, xrTime& time);
-inline CondlistWaypoints::CondlistWayPointsData parse_waypoint_data(const xr_string& name, const Flags32& waypoint_flags, const xr_string& waypoint_name );
+inline CondlistWaypoints::CondlistWayPointsData parse_waypoint_data(
+    const xr_string& name, const Flags32& waypoint_flags, const xr_string& waypoint_name);
 inline CondlistWaypoints path_parse_waypoints(const xr_string& path_name);
+inline bool is_stalker_at_waypoint(CScriptGameObject* p_client_object, CPatrolPathParams& patrol_path, const std::uint32_t path_point);
 } // namespace Utils
 
 namespace Game
@@ -184,10 +186,9 @@ inline void start_game_callback(void);
 // @ Для тех сущностей, которые мы должны удалить уже после созданной игры
 // @ Но при этом они либо в singleton сузностях либо где-то ещё
 // @ PRIVATE FUNCTION, DON'T CALL IT AS YOU WISH!!!!
-inline void system_deallocation(void); 
+inline void system_deallocation(void);
 
-inline void set_save_marker(
-    NET_Packet& packet, const xr_string& mode, bool check, const xr_string& prefix);
+inline void set_save_marker(NET_Packet& packet, const xr_string& mode, bool check, const xr_string& prefix);
 // @ from simulation_objects
 inline bool is_on_the_same_level(CSE_ALifeObject* object1, CSE_ALifeObject* object2);
 inline float sim_dist_to(CSE_ALifeObject* object1, CSE_ALifeObject* object2);
@@ -202,6 +203,17 @@ inline bool is_accessible_job(CSE_ALifeDynamicObject* server_object, const xr_st
 inline bool is_accessible_job(CSE_ALifeDynamicObject* server_object, const char* waypoint_name);
 inline CScriptIniFile* create_ini_file(LPCSTR ini_string);
 inline std::uint32_t get_time_global(void);
+inline void reset_action(CScriptGameObject* client_object, const xr_string& scheme_name);
+inline void action(CScriptGameObject* client_object,  CScriptMovementAction& move_action,
+     CScriptActionCondition& condition_action);
+inline void action(CScriptGameObject* client_object,  CScriptAnimationAction& animation_actoion,
+     CScriptSoundAction& sound_action,  CScriptActionCondition& condition_action);
+inline void action(CScriptGameObject* client_object,  CScriptMovementAction& move_action,  CScriptAnimationAction& animation_action,  CScriptSoundAction& sound_action,  CScriptActionCondition& condition_action);
+inline void action(CScriptGameObject* client_object,  CScriptAnimationAction& animation_action,
+     CScriptActionCondition& condition_action);
+inline void action(
+    CScriptGameObject* client_object,  CScriptMovementAction& move_action,  CScriptSoundAction& sound_action);
+ 
 } // namespace Globals
 } // namespace Scripts
 } // namespace Cordis

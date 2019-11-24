@@ -313,6 +313,12 @@ enum
     rsEnvironment = (1ul << 29ul),
 };
 
+#include "script_object_action.h"
+#include "script_entity_action.h"
+#include "script_animation_action.h"
+#include "script_movement_action.h"
+#include "script_action_condition.h"
+#include "script_sound_action.h"
 #include "script_ini_file.h"
 #include "xrEngine/IGame_Level.h"
 #include "ai_space.h"

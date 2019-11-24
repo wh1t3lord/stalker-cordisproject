@@ -122,7 +122,8 @@ void CTrade::TransferItem(CInventoryItem* pItem, bool bBuying, bool bFree)
     {
         bool bDir = (pThis.type != TT_ACTOR) && bBuying;
         // Lord - [Script] Re-write
-       // Actor()->callback(GameObject::eTradeSellBuyItem)(pItem->object().lua_game_object(), bDir, dwTransferMoney);
+        // Actor()->callback(GameObject::eTradeSellBuyItem)(pItem->object().lua_game_object(), bDir, dwTransferMoney);
+        Actor()->GetScriptBinderObject()->on_trade(pItem->object().lua_game_object(), bDir, dwTransferMoney);
     }
 }
 

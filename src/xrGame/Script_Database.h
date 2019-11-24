@@ -134,6 +134,17 @@ public:
         this->m_path_look_name = path_look_name;
     }
 
+    inline const xr_string& getStateName(void) const noexcept { return this->m_state_name; }
+    inline void setStateName(const xr_string& state_name) noexcept
+    {
+        if (state_name.empty())
+        {
+            Msg("[Scripts/DataBase/Storage_Scheme/setStateName(state_name)] WARNING: state_name.empty() == true! You set an empty string");
+        }
+
+        this->m_state_name = state_name;
+    }
+
     inline const CondlistWaypoints& getPathWalkInfo(void) const noexcept { return this->m_path_walk_info; }
     inline void setPathWalkInfo(const CondlistWaypoints& data) noexcept { this->m_path_walk_info = data; }
 
@@ -149,6 +160,7 @@ private:
     xr_vector<Script_ISchemeEntity*> m_actions;
     xr_string m_path_walk_name;
     xr_string m_path_look_name;
+    xr_string m_state_name;
     CondlistWaypoints m_path_walk_info;
     CondlistWaypoints m_path_look_info;
 };

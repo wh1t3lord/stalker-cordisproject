@@ -133,7 +133,10 @@ void CGameTask::ChangeMapLocation(LPCSTR new_map_location, u16 new_map_object_id
     CreateMapLocation(false);
 }
 
-void CGameTask::ChangeStateCallback() { //Actor()->callback(GameObject::eTaskStateChange)(this, GetTaskState()); Lord - [Script] Re-write
+void CGameTask::ChangeStateCallback()
+{
+    // Actor()->callback(GameObject::eTaskStateChange)(this, GetTaskState()); Lord - [Script] Re-write
+    Actor()->GetScriptBinderObject()->task_callback(this, GetTaskState());
 }
 ETaskState CGameTask::UpdateState()
 {

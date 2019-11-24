@@ -285,6 +285,8 @@ void CBaseMonster::HitSignal(float amount, Fvector& vLocalDir, IGameObject* who,
 //     callback(GameObject::eHit)(
 //         lua_game_object(), amount, vLocalDir, smart_cast<const CGameObject*>(who)->lua_game_object(), element);
 
+    this->GetScriptBinderObject()->hit_callback(this->lua_game_object(), amount, vLocalDir, (smart_cast<const CGameObject*>(who))->lua_game_object(), element);
+
     // если нейтрал - добавить как врага
     CEntityAlive* obj = smart_cast<CEntityAlive*>(who);
     if (obj && (tfGetRelationType(obj) == ALife::eRelationTypeNeutral))

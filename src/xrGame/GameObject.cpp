@@ -1526,6 +1526,7 @@ bool CGameObject::use(IGameObject* obj)
     }
     // Lord - [Script] Re-write
  //   callback(GameObject::eUseObject)(scriptObj, obj->lua_game_object());
+    this->GetScriptBinderObject()->use_callback(scriptObj, obj->lua_game_object());
     return true;
 }
 

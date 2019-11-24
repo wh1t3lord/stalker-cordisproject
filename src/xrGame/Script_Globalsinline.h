@@ -576,7 +576,6 @@ inline CondlistWaypoints::CondlistWayPointsData parse_waypoint_data(
         xr_string field_name = data;
         field_name.erase(field_name.find('='));
 
-
         if (field_name.empty())
         {
             R_ASSERT2(false, "Incorrect data before '=', check your waypoint description!");
@@ -617,6 +616,24 @@ inline CondlistWaypoints path_parse_waypoints(const xr_string& path_name)
     }
 
     return result;
+}
+
+bool is_stalker_at_waypoint(
+    CScriptGameObject* p_client_object, CPatrolPathParams& patrol_path, const std::uint32_t path_point)
+{
+    if (!p_client_object)
+    {
+        R_ASSERT2(false, "object is null!");
+        return false;
+    }
+
+    const Fvector& entity_position = p_client_object->Position();
+
+    float distance = entity_position.distance_to_sqr(patrol_path.point(path_point));
+    if (distance <= 0.13f)
+        return true;
+
+    return false;
 }
 
 } // namespace Utils
@@ -2007,7 +2024,80 @@ inline CScriptIniFile* create_ini_file(LPCSTR ini_string)
     return new CScriptIniFile(&reader, FS.get_path("$game_config$")->m_Path);
 }
 
-std::uint32_t get_time_global(void) { return Device.dwTimeGlobal; }
+inline std::uint32_t get_time_global(void) { return Device.dwTimeGlobal; }
+
+inline void reset_action(CScriptGameObject* client_object, const xr_string& scheme_name)
+{
+    if (!client_object)
+    {
+        R_ASSERT2(false, "object is null!");
+        return;
+    }
+
+    if (client_object->GetScriptControl())
+        client_object->SetScriptControl(false, scheme_name.c_str());
+
+    client_object->SetScriptControl(true, scheme_name.c_str());
+}
+
+inline void action(
+    CScriptGameObject* client_object, CScriptMovementAction& move_action, CScriptActionCondition& condition_action)
+{
+    CScriptEntityAction action;
+    action.SetAction(move_action);
+    action.SetAction(condition_action);
+
+    if (client_object)
+        client_object->AddAction(&action);
+}
+
+inline void action(CScriptGameObject* client_object, CScriptAnimationAction& animation_actoion,
+    CScriptSoundAction& sound_action, CScriptActionCondition& condition_action)
+{
+    CScriptEntityAction action;
+    action.SetAction(animation_actoion);
+    action.SetAction(sound_action);
+    action.SetAction(condition_action);
+
+    if (client_object)
+        client_object->AddAction(&action);
+}
+
+inline void action(CScriptGameObject* client_object, CScriptMovementAction& move_action,
+    CScriptAnimationAction& animation_action, CScriptSoundAction& sound_action,
+    CScriptActionCondition& condition_action)
+{
+    CScriptEntityAction action;
+    action.SetAction(move_action);
+    action.SetAction(animation_action);
+    action.SetAction(sound_action);
+    action.SetAction(condition_action);
+
+    if (client_object)
+        client_object->AddAction(&action);
+}
+
+inline void action(CScriptGameObject* client_object, CScriptAnimationAction& animation_action,
+    CScriptActionCondition& condition_action)
+{
+    CScriptEntityAction action;
+    action.SetAction(animation_action);
+    action.SetAction(condition_action);
+
+    if (client_object)
+        client_object->AddAction(&action);
+}
+
+inline void action(
+    CScriptGameObject* client_object, CScriptMovementAction& move_action, CScriptSoundAction& sound_action)
+{
+    CScriptEntityAction action;
+    action.SetAction(move_action);
+    action.SetAction(sound_action);
+
+    if (client_object)
+        client_object->AddAction(&action);
+}
 
 } // namespace Globals
 } // namespace Scripts

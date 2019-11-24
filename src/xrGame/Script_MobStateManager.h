@@ -45,7 +45,7 @@ public:
             return;
         }
 
-        if (!Globals::IsMonster(p_client_object))
+        if (!Globals::IsMonster(p_client_object, 0))
         {
             return;
         }

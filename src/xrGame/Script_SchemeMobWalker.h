@@ -23,10 +23,19 @@ public:
     }
 
 private:
-    CPatrolPathParams m_path_walk;
-    CPatrolPathParams m_path_look;
+    bool m_state;
+    bool m_is_crouch;
+    bool m_is_running;
+    std::uint16_t m_patrol_wait_time;
+    std::uint32_t m_current_animation_set;
+    std::uint32_t m_last_look_index;
+    std::uint32_t m_last_index;
     CondlistWaypoints m_path_walk_info;
     CondlistWaypoints m_path_look_info;
+    xr_string m_sheduled_sound_name;
+    CPatrolPathParams* m_patrol_walk;
+    CPatrolPathParams* m_patrol_look;
+    
 };
 } // namespace Scripts
 } // namespace Cordis
