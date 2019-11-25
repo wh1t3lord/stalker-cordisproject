@@ -4025,10 +4025,20 @@ private:
         this->m_monster_animation_to_action["attack"] = MonsterSpace::eAA_Attack;
         this->m_monster_animation_to_action["look_around"] = MonsterSpace::eAA_LookAround;
         this->m_monster_animation_to_action["turn"] = MonsterSpace::eAA_Turn;
+
+        this->m_monster_sound_name_to_type_action["idle"] = MonsterSound::EType::eMonsterSoundIdle;
+        this->m_monster_sound_name_to_type_action["eat"] = MonsterSound::EType::eMonsterSoundEat;
+        this->m_monster_sound_name_to_type_action["attack"] = MonsterSound::EType::eMonsterSoundAggressive;
+        this->m_monster_sound_name_to_type_action["attack_hit"] = MonsterSound::EType::eMonsterSoundAttackHit;
+        this->m_monster_sound_name_to_type_action["take_damage"] = MonsterSound::EType::eMonsterSoundTakeDamage;
+        this->m_monster_sound_name_to_type_action["die"] = MonsterSound::EType::eMonsterSoundDie;
+        this->m_monster_sound_name_to_type_action["threaten"] = MonsterSound::EType::eMonsterSoundThreaten;
+        this->m_monster_sound_name_to_type_action["steal"] = MonsterSound::EType::eMonsterSoundSteal;
+        this->m_monster_sound_name_to_type_action["panic"] = MonsterSound::EType::eMonsterSoundPanic;
 #pragma endregion
 
 #pragma region SmartTerrain Initializing
-            this->m_game_server_nearest_to_actor_smart_terrain.first = std::uint32_t(-1);
+        this->m_game_server_nearest_to_actor_smart_terrain.first = std::uint32_t(-1);
         this->m_game_server_nearest_to_actor_smart_terrain.second = std::uint32_t(-1);
         this->m_registered_smart_terrain_territory_type[Globals::kSmartTerrainTerritoryBase] = true;
         this->m_registered_smart_terrain_territory_type[Globals::kSmartTerrainTerritoryDefault] = true;
@@ -5418,6 +5428,11 @@ public:
 
         return this->m_monster_animation_to_action[animation_name];
     }
+
+    inline const xr_map<xr_string, MonsterSound::EType>& getSoundNameToAction(void) const noexcept
+    {
+        return this->m_monster_sound_name_to_type_action;
+    }
 #pragma endregion
 
 private:
@@ -5446,6 +5461,7 @@ private:
     xr_map<xr_string, xr_string> m_game_smarts_by_no_assault_zone;
     xr_map<xr_string, std::uint32_t> m_simulationboard_group_id_by_levels_name;
     xr_map<xr_string, std::uint32_t> m_monster_animation_to_action;
+    xr_map<xr_string, MonsterSound::EType> m_monster_sound_name_to_type_action;
     xr_map<xr_string, bool> m_registered_smart_terrain_territory_type;
     xr_map<xr_string, bool> m_simulationsquad_is_squad_monster_by_type;
     // @ First - id | Second - distance

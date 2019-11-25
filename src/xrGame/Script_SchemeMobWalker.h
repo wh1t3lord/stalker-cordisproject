@@ -17,18 +17,15 @@ public:
     virtual void update(const float delta);
     virtual void waypoint_callback(
         CScriptGameObject* p_client_object, const std::uint32_t action_movement_type, const std::uint32_t index);
-
-    virtual inline bool is_arrived_to_first_waypoint(void)
-    {
-        // Lord: доделать!
-        return false;
-    }
+    virtual void update_movement_state(void);
+    virtual void update_standing_state(void);
+    virtual void deactivate(void);
 
 private:
     bool m_state;
     bool m_is_crouch;
     bool m_is_running;
-    std::uint16_t m_point_wait_time;
+    std::uint32_t m_point_wait_time;
     std::uint32_t m_current_animation_set;
     std::uint32_t m_last_look_index;
     std::uint32_t m_last_index;
