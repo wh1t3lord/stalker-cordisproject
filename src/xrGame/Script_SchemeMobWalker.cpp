@@ -69,7 +69,7 @@ void Script_SchemeMobWalker::reset_scheme(void)
     this->m_is_crouch = false;
     this->m_is_running = false;
     this->m_current_animation_set = default_anim_standing;
-    this->m_patrol_wait_time = default_wait_time;
+    this->m_point_wait_time = default_wait_time;
     this->m_sheduled_sound_name.clear();
 
     this->m_last_index = 0;
@@ -99,6 +99,13 @@ void Script_SchemeMobWalker::update(const float delta)
             if (patrol_walk_count == 1 && Globals::Utils::is_stalker_at_waypoint(this->m_npc, *this->m_patrol_walk, 0))
             {
                 this->m_state = state_moving;
+                this->waypoint_callback(this->m_npc, 0, this->m_last_index);
+            }
+            else
+            {
+                this->m_last_look_index = 0;
+                this->m_state = state_moving;
+                this->update_movement_state();
             }
         }
     }
@@ -230,6 +237,68 @@ void Script_SchemeMobWalker::waypoint_callback(
             R_ASSERT2(false, "can't find a point!");
         }
     }
+}
+
+void Script_SchemeMobWalker::update_movement_state(void)
+{
+    Msg("[Scripts/Script_SchemeMobWalker/update_movement_state()] called!");
+    XR_LOGIC::mob_capture(this->m_npc, true, this->m_scheme_name);
+    std::uint32_t monster_move_action = 0;
+
+    if (this->m_is_running)
+        monster_move_action = MonsterSpace::eMA_Run;
+    else if (this->m_is_crouch)
+        monster_move_action = MonsterSpace::eMA_Steal;
+    else
+        monster_move_action = MonsterSpace::eMA_WalkFwd;
+
+    if (!this->m_sheduled_sound_name.empty())
+    {
+        Msg("[Scripts/Script_SchemeMobWalker/update_movement_state()] playing scheduled sound %s",
+            this->m_scheme_name.c_str());
+        Globals::action(this->m_npc,
+            CScriptMovementAction(static_cast<MonsterSpace::EScriptMonsterMoveAction>(monster_move_action),
+                new CPatrolPathParams(
+                    this->m_storage->getPathWalkName().c_str(), ePatrolStartTypeNext, ePatrolRouteTypeContinue)),
+            CScriptSoundAction(
+                Script_GlobalHelper::getInstance().getSoundNameToAction().at(this->m_sheduled_sound_name)));
+        this->m_sheduled_sound_name.clear();
+    }
+    else
+    {
+        Globals::action(this->m_npc,
+            CScriptMovementAction(static_cast<MonsterSpace::EScriptMonsterMoveAction>(monster_move_action),
+                new CPatrolPathParams(
+                    this->m_storage->getPathWalkName().c_str(), ePatrolStartTypeNext, ePatrolRouteTypeContinue)),
+            CScriptActionCondition(CScriptActionCondition::MOVEMENT_FLAG));
+    }
+}
+
+void Script_SchemeMobWalker::update_standing_state(void)
+{
+    Msg("[Scripts/Script_SchemeMobWalker/update_standing_state()] called!");
+    XR_LOGIC::mob_capture(this->m_npc, true, this->m_scheme_name);
+
+    if (!this->m_sheduled_sound_name.empty())
+    {
+        Msg("[Scripts/Script_SchemeMobWalker/update_stading_state()] playing sheduled sound %s ",
+            this->m_sheduled_sound_name.c_str());
+
+        Globals::action(this->m_npc, CScriptAnimationAction(static_cast<MonsterSpace::EScriptMonsterAnimAction>(this->m_current_animation_set), 0), CScriptSoundAction(Script_GlobalHelper::getInstance().getSoundNameToAction().at(this->m_sheduled_sound_name)), CScriptActionCondition(CScriptActionCondition::TIME_FLAG, static_cast<double>(this->m_point_wait_time)));
+    }
+    else
+    {
+        Globals::action(this->m_npc,
+            CScriptAnimationAction(
+                static_cast<MonsterSpace::EScriptMonsterAnimAction>(this->m_current_animation_set), 0),
+            CScriptActionCondition(CScriptActionCondition::TIME_FLAG, static_cast<double>(this->m_point_wait_time)));
+    }
+}
+
+void Script_SchemeMobWalker::deactivate(void) 
+{
+     XR_LOGIC::mob_capture(this->m_npc, true, this->m_scheme_name);
+    Globals::action(this->m_npc, CScriptMovementAction(MonsterSpace::eMA_Steal, this->m_patrol_walk->point(0)), CScriptActionCondition(CScriptActionCondition::MOVEMENT_FLAG));
 }
 
 } // namespace Scripts
