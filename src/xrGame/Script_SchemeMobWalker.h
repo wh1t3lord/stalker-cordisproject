@@ -20,6 +20,7 @@ public:
     virtual void update_movement_state(void);
     virtual void update_standing_state(void);
     virtual void deactivate(void);
+    virtual void look_at_waypoint(const std::uint32_t point_index);
 
 private:
     bool m_state;
@@ -36,5 +37,16 @@ private:
     CPatrolPathParams* m_patrol_look;
     
 };
+
+// Lord: если не будет работать при const CScriptIniFile то убрать его, но у нас это в любом случае поинтер!
+inline void add_to_binder(CScriptGameObject* p_client_object, const CScriptIniFile* ini, const xr_string& scheme_name,
+    const xr_string& section_name, const DataBase::Storage_Scheme& storage)
+{
+    // Lord: доделать 
+    // Lord: проследить за корректным удалением схем!!!
+    Script_ISchemeEntity* action = new Script_SchemeMobWalker(p_client_object, storage);
+    
+}
+
 } // namespace Scripts
 } // namespace Cordis

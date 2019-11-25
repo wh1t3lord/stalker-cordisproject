@@ -284,7 +284,12 @@ void Script_SchemeMobWalker::update_standing_state(void)
         Msg("[Scripts/Script_SchemeMobWalker/update_stading_state()] playing sheduled sound %s ",
             this->m_sheduled_sound_name.c_str());
 
-        Globals::action(this->m_npc, CScriptAnimationAction(static_cast<MonsterSpace::EScriptMonsterAnimAction>(this->m_current_animation_set), 0), CScriptSoundAction(Script_GlobalHelper::getInstance().getSoundNameToAction().at(this->m_sheduled_sound_name)), CScriptActionCondition(CScriptActionCondition::TIME_FLAG, static_cast<double>(this->m_point_wait_time)));
+        Globals::action(this->m_npc,
+            CScriptAnimationAction(
+                static_cast<MonsterSpace::EScriptMonsterAnimAction>(this->m_current_animation_set), 0),
+            CScriptSoundAction(
+                Script_GlobalHelper::getInstance().getSoundNameToAction().at(this->m_sheduled_sound_name)),
+            CScriptActionCondition(CScriptActionCondition::TIME_FLAG, static_cast<double>(this->m_point_wait_time)));
     }
     else
     {
@@ -295,10 +300,26 @@ void Script_SchemeMobWalker::update_standing_state(void)
     }
 }
 
-void Script_SchemeMobWalker::deactivate(void) 
+void Script_SchemeMobWalker::deactivate(void)
 {
-     XR_LOGIC::mob_capture(this->m_npc, true, this->m_scheme_name);
-    Globals::action(this->m_npc, CScriptMovementAction(MonsterSpace::eMA_Steal, this->m_patrol_walk->point(0)), CScriptActionCondition(CScriptActionCondition::MOVEMENT_FLAG));
+    XR_LOGIC::mob_capture(this->m_npc, true, this->m_scheme_name);
+    Globals::action(this->m_npc, CScriptMovementAction(MonsterSpace::eMA_Steal, this->m_patrol_walk->point(0)),
+        CScriptActionCondition(CScriptActionCondition::MOVEMENT_FLAG));
+}
+
+void Script_SchemeMobWalker::look_at_waypoint(const std::uint32_t point_index)
+{
+    if (!this->m_patrol_look)
+        return;
+
+    Fvector look_point = this->m_patrol_look->point(point_index);
+    look_point.sub(this->m_npc->Position());
+    look_point.normalize();
+
+    XR_LOGIC::mob_capture(this->m_npc, true, this->m_scheme_name);
+    Globals::action(this->m_npc, CScriptWatchAction(SightManager::eSightTypeDirection, look_point), CScriptActionCondition(CScriptActionCondition::WATCH_FLAG));
+
+    this->m_last_look_index = point_index;
 }
 
 } // namespace Scripts

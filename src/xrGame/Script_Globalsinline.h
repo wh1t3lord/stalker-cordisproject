@@ -2043,60 +2043,83 @@ inline void reset_action(CScriptGameObject* client_object, const xr_string& sche
 inline void action(
     CScriptGameObject* client_object, CScriptMovementAction& move_action, CScriptActionCondition& condition_action)
 {
+    if (!client_object)
+        return;
+
     CScriptEntityAction action;
     action.SetAction(move_action);
     action.SetAction(condition_action);
 
-    if (client_object)
-        client_object->AddAction(&action);
+    client_object->AddAction(&action);
 }
 
 inline void action(CScriptGameObject* client_object, CScriptAnimationAction& animation_actoion,
     CScriptSoundAction& sound_action, CScriptActionCondition& condition_action)
 {
+    if (!client_object)
+        return;
+
     CScriptEntityAction action;
     action.SetAction(animation_actoion);
     action.SetAction(sound_action);
     action.SetAction(condition_action);
 
-    if (client_object)
-        client_object->AddAction(&action);
+    client_object->AddAction(&action);
 }
 
 inline void action(CScriptGameObject* client_object, CScriptMovementAction& move_action,
     CScriptAnimationAction& animation_action, CScriptSoundAction& sound_action,
     CScriptActionCondition& condition_action)
 {
+    if (!client_object)
+        return;
+
     CScriptEntityAction action;
     action.SetAction(move_action);
     action.SetAction(animation_action);
     action.SetAction(sound_action);
     action.SetAction(condition_action);
 
-    if (client_object)
-        client_object->AddAction(&action);
+    client_object->AddAction(&action);
 }
 
 inline void action(CScriptGameObject* client_object, CScriptAnimationAction& animation_action,
     CScriptActionCondition& condition_action)
 {
+    if (!client_object)
+        return;
+
     CScriptEntityAction action;
     action.SetAction(animation_action);
     action.SetAction(condition_action);
 
-    if (client_object)
-        client_object->AddAction(&action);
+    client_object->AddAction(&action);
 }
 
 inline void action(
     CScriptGameObject* client_object, CScriptMovementAction& move_action, CScriptSoundAction& sound_action)
 {
+    if (!client_object)
+        return;
+
     CScriptEntityAction action;
     action.SetAction(move_action);
     action.SetAction(sound_action);
 
-    if (client_object)
-        client_object->AddAction(&action);
+    client_object->AddAction(&action);
+}
+
+inline void action(
+    CScriptGameObject* p_client_object, CScriptWatchAction& look_action, CScriptActionCondition& condition_action)
+{
+    if (!p_client_object)
+        return;
+
+    CScriptEntityAction action;
+    action.SetAction(look_action);
+    action.SetAction(condition_action);
+
+    p_client_object->AddAction(&action);
 }
 
 inline std::uint32_t choose_look_point(
