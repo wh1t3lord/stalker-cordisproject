@@ -77,7 +77,8 @@ inline void w_CTime(NET_Packet& packet, xrTime& time);
 inline CondlistWaypoints::CondlistWayPointsData parse_waypoint_data(
     const xr_string& name, const Flags32& waypoint_flags, const xr_string& waypoint_name);
 inline CondlistWaypoints path_parse_waypoints(const xr_string& path_name);
-inline bool is_stalker_at_waypoint(CScriptGameObject* p_client_object, CPatrolPathParams& patrol_path, const std::uint32_t path_point);
+inline bool is_stalker_at_waypoint(
+    CScriptGameObject* p_client_object, CPatrolPathParams& patrol_path, const std::uint32_t path_point);
 } // namespace Utils
 
 namespace Game
@@ -204,16 +205,21 @@ inline bool is_accessible_job(CSE_ALifeDynamicObject* server_object, const char*
 inline CScriptIniFile* create_ini_file(LPCSTR ini_string);
 inline std::uint32_t get_time_global(void);
 inline void reset_action(CScriptGameObject* client_object, const xr_string& scheme_name);
-inline void action(CScriptGameObject* client_object,  CScriptMovementAction& move_action,
-     CScriptActionCondition& condition_action);
-inline void action(CScriptGameObject* client_object,  CScriptAnimationAction& animation_actoion,
-     CScriptSoundAction& sound_action,  CScriptActionCondition& condition_action);
-inline void action(CScriptGameObject* client_object,  CScriptMovementAction& move_action,  CScriptAnimationAction& animation_action,  CScriptSoundAction& sound_action,  CScriptActionCondition& condition_action);
-inline void action(CScriptGameObject* client_object,  CScriptAnimationAction& animation_action,
-     CScriptActionCondition& condition_action);
 inline void action(
-    CScriptGameObject* client_object,  CScriptMovementAction& move_action,  CScriptSoundAction& sound_action);
-inline std::uint32_t choose_look_point(CPatrolPathParams* patrol_look, const xr_vector<CondlistWaypoints>& path_look_info, const Flags32& search_for);
+    CScriptGameObject* client_object, CScriptMovementAction& move_action, CScriptActionCondition& condition_action);
+inline void action(CScriptGameObject* client_object, CScriptAnimationAction& animation_actoion,
+    CScriptSoundAction& sound_action, CScriptActionCondition& condition_action);
+inline void action(CScriptGameObject* client_object, CScriptMovementAction& move_action,
+    CScriptAnimationAction& animation_action, CScriptSoundAction& sound_action,
+    CScriptActionCondition& condition_action);
+inline void action(CScriptGameObject* client_object, CScriptAnimationAction& animation_action,
+    CScriptActionCondition& condition_action);
+inline void action(
+    CScriptGameObject* client_object, CScriptMovementAction& move_action, CScriptSoundAction& sound_action);
+inline void action(
+    CScriptGameObject* p_client_object, CScriptWatchAction& look_action, CScriptActionCondition& condition_action);
+inline std::uint32_t choose_look_point(
+    CPatrolPathParams* patrol_look, const CondlistWaypoints& path_look_info, const Flags32& search_for);
 } // namespace Globals
 } // namespace Scripts
 } // namespace Cordis
