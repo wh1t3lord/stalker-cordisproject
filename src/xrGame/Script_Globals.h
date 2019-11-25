@@ -213,7 +213,7 @@ inline void action(CScriptGameObject* client_object,  CScriptAnimationAction& an
      CScriptActionCondition& condition_action);
 inline void action(
     CScriptGameObject* client_object,  CScriptMovementAction& move_action,  CScriptSoundAction& sound_action);
- 
+inline std::uint32_t choose_look_point(CPatrolPathParams* patrol_look, const xr_vector<CondlistWaypoints>& path_look_info, const Flags32& search_for);
 } // namespace Globals
 } // namespace Scripts
 } // namespace Cordis

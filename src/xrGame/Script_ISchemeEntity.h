@@ -28,7 +28,8 @@ public:
         Msg("[Scripts/Script_ISchemeEntity/update(delta)] WARNING: NOT OVERLOADED FUNCTION!");
     }
 
-    virtual void waypoint_callback(CScriptGameObject* p_client_object, const std::uint32_t index)
+    virtual void waypoint_callback(
+        CScriptGameObject* p_client_object, const std::uint32_t action_movement_type, const std::uint32_t index)
     {
         Msg("[Scripts/Script_ISchemeEntity/waypoint_callback(p_client_object, index)] WARNING: NOT OVERLOADED "
             "FUNCTION!");
@@ -59,9 +60,15 @@ public:
         return;
     }
 
-    virtual void look_at_waypoint(const Fvector& point) 
+    virtual void look_at_waypoint(const Fvector& point)
     {
         Msg("[Scripts/Script_ISchemeEntity/look_at_waypoint(point)] WARNING: NOT OVERLOADED FUNCTION!");
+        return;
+    }
+
+    virtual void look_at_waypoint(const std::uint32_t choosen_point) 
+    { 
+        Msg("[Scripts/Script_ISchemeEntity/look_at_waypoint(choosen_point)] WARNING: NOT OVERLOADED FUNCTION!");
         return;
     }
 
@@ -71,10 +78,11 @@ public:
         return false;
     }
 
-    virtual inline 
+    virtual inline
 
-    // @ Возвращаем действительное наименование схема которую реализует текущий класс
-    inline const xr_string& getSchemeName(void) const noexcept
+        // @ Возвращаем действительное наименование схема которую реализует текущий класс
+        inline const xr_string&
+        getSchemeName(void) const noexcept
     {
         if (this->m_scheme_name.empty())
         {
