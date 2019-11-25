@@ -332,9 +332,25 @@ public:
         ~CondlistWayPointsData(void) = default;
 
         inline const Flags32& getFlags(void) const noexcept { return this->m_flags; }
-        inline void setFlags(const Flags32& flags) noexcept
+        inline void setFlags(const Flags32& flags) noexcept { this->m_flags = flags; }
+
+        inline const xr_string& getValue(const xr_string& key_name) const noexcept
         {
-            this->m_flags = flags;
+            if (key_name.empty())
+            {
+                Msg("[Scripts/CondlistWaypointsData/getValue(key_name)] WARNING: key_name.empty() == true! Can't find with empty string key! Return ...");
+                return xr_string();
+            }
+
+            if (this->m_data.find(key_name) == this->m_data.end())
+            {
+                Msg("[Scripts/CondlistWaypointsData/getValue(key_name)] WARNING: can't find key_name %s in map! Return "
+                    "an empty string ...",
+                    key_name.c_str());
+                return xr_string();
+            }
+
+            return this->m_data.at(key_name);
         }
 
         inline void setData(const xr_string& field_name, const xr_string& value_name) noexcept
@@ -358,8 +374,7 @@ public:
     ~CondlistWaypoints(void) = default;
     inline const xr_vector<CondlistWayPointsData>& getData(void) const noexcept { return this->m_data; }
 
-    inline void setData(const CondlistWayPointsData& data) noexcept { this->m_data.push_back(data);
-    }
+    inline void setData(const CondlistWayPointsData& data) noexcept { this->m_data.push_back(data); }
 
 private:
     xr_vector<CondlistWayPointsData> m_data;

@@ -415,6 +415,7 @@ constexpr const char* kGeneratedIdForBadValue = "EmptyNameItWasEmptyValue";
 constexpr const char* kSystemLtxFileName =
     "system.ltx"; // For CScriptIniFile (Don't use Globals::get_system_ini()->fname() for initialization ctor of
                   // CScriptIniFile)
+constexpr std::uint32_t kTimeInfinite = 100000000;
 #pragma region Cordis Animpoint prediction functions
 inline bool predicate_const_true(std::uint16_t, bool);
 inline bool predicate_animpoint_bread(std::uint16_t npc_id, bool);

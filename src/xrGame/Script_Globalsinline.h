@@ -2099,6 +2099,44 @@ inline void action(
         client_object->AddAction(&action);
 }
 
+inline std::uint32_t choose_look_point(
+    CPatrolPathParams* patrol_look, const CondlistWaypoints& path_look_info, const Flags32& search_for)
+{
+    if (!patrol_look)
+    {
+        R_ASSERT2(false, "object is null!");
+        return std::uint32_t();
+    }
+
+    std::uint32_t points_found_total_weight = 0;
+    std::uint32_t founded_point_index = Globals::kUnsignedInt32Undefined;
+    std::uint32_t r = 0; // @ ??? how to name this variable, idk but GSC code
+    std::uint32_t number_equal_points = 0;
+    std::uint32_t point_look_weight = 0;
+    for (std::uint32_t look_index = 0; look_index < patrol_look->count(); ++look_index)
+    {
+        Flags32 this_val = path_look_info.getData().at(look_index).getFlags();
+        if (this_val.equal(search_for))
+        {
+            ++number_equal_points;
+
+            xr_string point_look_weight_name = path_look_info.getData().at(look_index).getValue("p");
+            if (!point_look_weight_name.empty())
+                point_look_weight = atoi(point_look_weight_name.c_str());
+            else
+                point_look_weight = 100;
+
+            points_found_total_weight += point_look_weight;
+            r = Globals::Script_RandomInt::getInstance().Generate(1, points_found_total_weight);
+
+            if (r <= point_look_weight)
+                founded_point_index = look_index;
+        }
+    }
+
+    return founded_point_index;
+}
+
 } // namespace Globals
 } // namespace Scripts
 } // namespace Cordis

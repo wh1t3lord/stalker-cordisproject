@@ -32,6 +32,8 @@ public:
     virtual void load(IReader* input_packet);
     virtual bool net_SaveRelevant();
     virtual void net_Relcase(CScriptGameObject* object);
+
+#pragma region Cordis Additional callbacks
     virtual void waypoint_callback(CScriptGameObject* p_client_object, const std::uint32_t action_type_movement,
         const std::uint32_t m_current_point_index);
     virtual void hit_callback(CScriptGameObject* p_client_object, const float amount, const Fvector& local_direction,
@@ -40,6 +42,8 @@ public:
     virtual void hear_callback(CScriptGameObject* p_client_object, const std::uint16_t who_id, const int sound_type,
         const Fvector& sound_position, const float sound_power);
     virtual void use_callback(CScriptGameObject* p_client_object, CScriptGameObject* p_client_who);
+#pragma endregion 
+
 #pragma region Cordis Actor binder callbacks
     virtual void use_invertory_item(CScriptGameObject* p_client_object);
     virtual void take_item_from_box(CScriptGameObject* p_client_box, CScriptGameObject* p_client_item);
