@@ -46,6 +46,13 @@ public:
                 }
             }
         }
+
+        if (this->m_p_jump_path)
+        {
+            Msg("[Scripts/DataBase/Storage_Scheme/~dtor()] deleting CPatrolPathParams m_p_jump_path %s",
+                this->m_p_jump_path->m_path_name);
+            xr_delete(this->m_p_jump_path);
+        }
     }
 
     inline const xr_vector<Script_ISchemeEntity*>& getActions(void) const noexcept { return this->m_actions; }
@@ -239,6 +246,18 @@ public:
         this->m_animation_head_name = animation_head_name;
     }
 
+    inline const xr_string& getPathJumpName(void) const noexcept { return this->m_path_jump_name; }
+    inline void setPathJumpName(const xr_string& path_name) noexcept
+    {
+        if (path_name.empty())
+        {
+            Msg("[Scripts/DataBase/Storage_Scheme/setPathJumpName(path_name)] WARNING: path_name.empty() == true! You "
+                "set an empty string");
+        }
+
+        this->m_path_jump_name = path_name;
+    }
+
     inline const CondlistWaypoints& getPathWalkInfo(void) const noexcept { return this->m_path_walk_info; }
     inline void setPathWalkInfo(const CondlistWaypoints& data) noexcept { this->m_path_walk_info = data; }
 
@@ -250,6 +269,19 @@ public:
 
     inline CScriptGameObject* const getClientObject(void) const { return this->m_p_npc; }
     inline void setClientObject(CScriptGameObject* const p_client_object) { this->m_p_npc = p_client_object; }
+
+    inline CPatrolPathParams* const getJumpPath(void) const { return this->m_p_jump_path; }
+    inline void setJumpPath(CPatrolPathParams* const p_path)
+    {
+        if (!p_path)
+        {
+            Msg("[Scripts/DataBase/Storage_Scheme/setJumpPath(p_path)] WARNING: p_path == nullptr! Can't set because "
+                "deleting is in dtor()!");
+            return;
+        }
+
+        this->m_p_jump_path = p_path;
+    }
 
     inline bool IsAnimationMovement(void) const noexcept { return this->m_is_animation_movement; }
     inline void setAnimationMovement(const bool value) noexcept { this->m_is_animation_movement = value; }
@@ -267,20 +299,30 @@ public:
         this->m_dialog_condlist = condlist;
     }
 
+    inline const Fvector& getOffset(void) const noexcept { return this->m_offset; }
+    inline void setOffset(const Fvector& data) noexcept { this->m_offset = data; }
+
+    inline float getPHJumpFactor(void) const noexcept { return this->m_ph_jump_factor; }
+    inline void setPHJumpFactor(const float value) noexcept { this->m_ph_jump_factor = value; }
+
 private:
     // @ Не понятно зачем в итоге но так у ПЫС, если в итоге оно находится в самом сторадже где уже зарегистрирован
     // сам НПС
     bool m_is_animation_movement = false;
     bool m_is_no_reset = false;
+    float m_ph_jump_factor;
     CScriptGameObject* m_p_npc = nullptr;
     Script_ISchemeEntity* m_p_action =
         nullptr; // @ для XR_LOGIC::unsubscrive_action, используется в очень редких схемах!
     CScriptIniFile* m_p_ini = nullptr;
+    CPatrolPathParams* m_p_jump_path = nullptr;
+    Fvector m_offset;
     xr_map<xr_string, bool> m_signals;
     xr_map<std::uint32_t, CondlistData> m_dialog_condlist;
     xr_vector<Script_ISchemeEntity*> m_actions;
     xr_string m_path_walk_name;
     xr_string m_path_look_name;
+    xr_string m_path_jump_name;
     xr_string m_state_name;
     xr_string m_scheme_name;
     xr_string m_section_name;
