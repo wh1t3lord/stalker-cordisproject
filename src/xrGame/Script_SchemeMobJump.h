@@ -4,10 +4,10 @@ namespace Cordis
 {
 namespace Scripts
 {
-
 class Script_SchemeMobJump : public Script_ISchemeMonster
 {
     using inherited_scheme = Script_ISchemeMonster;
+
 public:
     Script_SchemeMobJump(void) = delete;
     Script_SchemeMobJump(CScriptGameObject* const p_client_object, DataBase::Storage_Scheme& storage);
@@ -49,8 +49,18 @@ public:
         const xr_string& scheme_name, const xr_string& section_name, const DataBase::Storage_Scheme& storage)
     {
     }
+
+    enum : std::uint32_t
+    {
+        STATE_START_LOOK = 1,
+        STATE_WAIT_LOOK_END,
+        STATE_JUMP
+    };
+
+private:
+    Fvector m_point;
+    std::uint32_t m_current_state = STATE_START_LOOK;
 };
 
-}
+} // namespace Scripts
 } // namespace Cordis
-

@@ -2139,8 +2139,26 @@ inline void assign_storage_and_bind(CScriptGameObject* const p_client_object, CS
     {
         storage.setClientObject(p_client_object);
         DataBase::Storage::getInstance().setStorageScheme(p_client_object->ID(), scheme_name, storage);
+    }
+}
 
+inline void mob_release(CScriptGameObject* const p_client_object, const xr_string& scheme_name)
+{
+    if (!p_client_object)
+    {
+        R_ASSERT2(false, "object is null!");
+        return;
+    }
 
+    if (scheme_name.empty())
+    {
+        R_ASSERT2(false, "string can't be empty here");
+        return;
+    }
+
+    if (p_client_object->GetScriptControl())
+    {
+        p_client_object->SetScriptControl(false, scheme_name.c_str());
     }
 }
 
