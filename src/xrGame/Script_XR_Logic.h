@@ -2129,6 +2129,21 @@ inline bool is_mob_captured(CScriptGameObject* p_client_object)
     return p_client_object->GetScriptControl();
 }
 
+inline void assign_storage_and_bind(CScriptGameObject* const p_client_object, CScriptIniFile* const p_ini,
+    const xr_string& scheme_name, const xr_string& section_name, const xr_string& gulag_name)
+{
+    DataBase::Storage_Scheme storage;
+    if (DataBase::Storage::getInstance().getStorage().at(p_client_object->ID()).getSchemes().find(scheme_name) ==
+        DataBase::Storage::getInstance().getStorage().at(p_client_object->ID()).getSchemes().end())
+
+    {
+        storage.setClientObject(p_client_object);
+        DataBase::Storage::getInstance().setStorageScheme(p_client_object->ID(), scheme_name, storage);
+
+
+    }
+}
+
 } // namespace XR_LOGIC
 } // namespace Scripts
 } // namespace Cordis

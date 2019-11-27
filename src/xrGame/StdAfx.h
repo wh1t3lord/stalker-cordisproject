@@ -352,6 +352,8 @@ enum
 #include "Script_ISchemeStalker.h"
 #include "Script_MobStateManager.h"
 #include "Script_SchemeMobWalker.h"
+#include "Script_SchemeMobRemark.h"
+#include "Script_SchemeMobJump.h"
 #include "Script_Database.h"
 #include "Script_SE_SimulationSquad.h"
 #include "PhraseDialog.h"
