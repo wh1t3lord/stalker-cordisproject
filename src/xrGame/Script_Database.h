@@ -258,6 +258,17 @@ public:
         this->m_path_jump_name = path_name;
     }
 
+    inline const xr_string& getHomeName(void) const noexcept { return this->m_home_name; }
+    inline void setHomeName(const xr_string& home_name) noexcept
+    {
+        if (home_name.empty())
+        {
+            Msg("[Scripts/DataBase/Storage_Scheme/setHomeNmae(home_name)] WARNING: home_name.empty() == true! You set an empty string");
+        }
+
+        this->m_home_name = home_name;
+    }
+
     inline const CondlistWaypoints& getPathWalkInfo(void) const noexcept { return this->m_path_walk_info; }
     inline void setPathWalkInfo(const CondlistWaypoints& data) noexcept { this->m_path_walk_info = data; }
 
@@ -305,11 +316,31 @@ public:
     inline float getPHJumpFactor(void) const noexcept { return this->m_ph_jump_factor; }
     inline void setPHJumpFactor(const float value) noexcept { this->m_ph_jump_factor = value; }
 
+    inline std::uint32_t getHomeMinRadius(void) const noexcept { return this->m_home_min_radius; }
+    inline void setHomeMinRadius(const std::uint32_t value) noexcept { this->m_home_min_radius = value; }
+
+    inline std::uint32_t getHomeMidRadius(void) const noexcept { return this->m_home_mid_radius; }
+    inline void setHomeMidRadius(const std::uint32_t value) noexcept { this->m_home_mid_radius = value; }
+
+    inline std::uint32_t getHomeMaxRadius(void) const noexcept { return this->m_home_max_radius; }
+    inline void setHomeMaxRadius(const std::uint32_t value) noexcept { this->m_home_max_radius = value; }
+
+    inline bool IsAggresive(void) const noexcept { return this->m_is_aggresive; }
+    inline void setAggresive(const bool value) noexcept { this->m_is_aggresive = value; }
+
+    inline bool IsGulagPoint(void) const noexcept { return this->m_is_gulag_point; }
+    inline void setGulagPoint(const bool value) noexcept { this->m_is_gulag_point = value; }
+
 private:
     // @ Не понятно зачем в итоге но так у ПЫС, если в итоге оно находится в самом сторадже где уже зарегистрирован
     // сам НПС
     bool m_is_animation_movement = false;
     bool m_is_no_reset = false;
+    bool m_is_aggresive;
+    bool m_is_gulag_point;
+    std::uint32_t m_home_min_radius;
+    std::uint32_t m_home_mid_radius;
+    std::uint32_t m_home_max_radius;
     float m_ph_jump_factor;
     CScriptGameObject* m_p_npc = nullptr;
     Script_ISchemeEntity* m_p_action =
@@ -331,6 +362,7 @@ private:
     xr_string m_time_name;
     xr_string m_animation_name;
     xr_string m_animation_head_name;
+    xr_string m_home_name;
     CondlistWaypoints m_path_walk_info;
     CondlistWaypoints m_path_look_info;
 };
