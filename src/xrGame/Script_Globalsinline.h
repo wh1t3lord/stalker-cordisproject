@@ -2150,7 +2150,7 @@ inline std::uint32_t choose_look_point(
                 point_look_weight = 100;
 
             points_found_total_weight += point_look_weight;
-            r = Globals::Script_RandomInt::getInstance().Generate(1, points_found_total_weight);
+            r = Globals::Script_RandomInt::getInstance().Generate(std::uint32_t(1), points_found_total_weight);
 
             if (r <= point_look_weight)
                 founded_point_index = look_index;

@@ -92,6 +92,12 @@ public:
         return this->m_scheme_name;
     }
 
+    virtual void death_callback(CScriptGameObject* const p_client_victim, CScriptGameObject* const p_client_who) 
+    {
+        Msg("[Scripts/SCript_ISchemeEntity/death_callback(p_client_victim, p_client_who)] WARNING: NOT OVERLOADED FUNCTION!");
+        return;
+    }
+
     // inline void setSchemeName(const xr_string& scheme_name) noexcept { this->m_scheme_name = scheme_name; }
 
     // @ using for unsubscribing that stuff

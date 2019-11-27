@@ -4,18 +4,16 @@ namespace Cordis
 {
 namespace Scripts
 {
-class Script_SchemeMobJump : public Script_ISchemeMonster
+class Script_SchemeMobDeath : public Script_ISchemeMonster
 {
     using inherited_scheme = Script_ISchemeMonster;
 
 public:
-    Script_SchemeMobJump(void) = delete;
-    Script_SchemeMobJump(CScriptGameObject* const p_client_object, DataBase::Storage_Scheme& storage);
-    ~Script_SchemeMobJump(void);
+    Script_SchemeMobDeath(void) = delete;
+    Script_SchemeMobDeath(CScriptGameObject* const p_client_object, DataBase::Storage_Scheme& storage);
+    ~Script_SchemeMobDeath(void);
 
-    virtual void reset_scheme(void);
-    virtual void update(const float delta);
-
+    virtual void death_callback(CScriptGameObject* const p_client_victim, CScriptGameObject* const p_client_who);
     // Lord: доделать и set_scheme тоже!
     // @ PRIVATE uses, in XR_LOGIC
     static inline void add_to_binder(CScriptGameObject* const p_client_object, CScriptIniFile* const p_ini,
@@ -49,18 +47,6 @@ public:
         const xr_string& scheme_name, const xr_string& section_name, const DataBase::Storage_Scheme& storage)
     {
     }
-
-    enum : std::uint32_t
-    {
-        STATE_START_LOOK = 1,
-        STATE_WAIT_LOOK_END,
-        STATE_JUMP
-    };
-
-private:
-    Fvector m_point;
-    std::uint32_t m_current_state = STATE_START_LOOK;
 };
-
 } // namespace Scripts
-} // namespace Cordis
+} // namespace Scripts

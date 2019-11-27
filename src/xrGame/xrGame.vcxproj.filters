@@ -3733,6 +3733,30 @@
     <Filter Include="Cordis\Scripts\Managers\Logic\Scheme\Mob state\Public">
       <UniqueIdentifier>{0b7ad0f9-4a40-4d9a-b07b-1ec226d553fb}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Cordis\Scripts\Logic\Mob\Remark\Public">
+      <UniqueIdentifier>{8753e3ad-a00a-41e0-b429-72eb9a5d41d0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Logic\Mob\Remark\Private">
+      <UniqueIdentifier>{b2791514-e9ae-4414-b0b8-7da4e9aeca7e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Logic\Mob\Jump\Public">
+      <UniqueIdentifier>{ea1f2a6c-2320-4f55-a318-d8521675096f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Logic\Mob\Jump\Private">
+      <UniqueIdentifier>{288e57a4-b01c-47cf-88cd-61012a5f2cea}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Logic\Mob\Home\Public">
+      <UniqueIdentifier>{b679e7e7-8383-4cbf-9dec-2b1fac2a9d16}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Logic\Mob\Home\Private">
+      <UniqueIdentifier>{055750c1-bde7-487b-9ec4-d6f615b15c6f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Logic\Mob\Death\Public">
+      <UniqueIdentifier>{adb5b4ee-0962-4a46-a6f7-aeb4e80e13b4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Logic\Mob\Death\Private">
+      <UniqueIdentifier>{11644f7c-d10d-4ec5-9b7d-e289c09ece9d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="mt_config.h">
@@ -8939,6 +8963,18 @@
     <ClInclude Include="Script_MobStateManager.h">
       <Filter>Cordis\Scripts\Managers\Logic\Scheme\Mob state\Public</Filter>
     </ClInclude>
+    <ClInclude Include="Script_SchemeMobRemark.h">
+      <Filter>Cordis\Scripts\Logic\Mob\Remark\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Script_SchemeMobJump.h">
+      <Filter>Cordis\Scripts\Logic\Mob\Jump\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Script_SchemeMobHome.h">
+      <Filter>Cordis\Scripts\Logic\Mob\Home\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Script_SchemeMobDeath.h">
+      <Filter>Cordis\Scripts\Logic\Mob\Death\Public</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="damage_manager.cpp">
@@ -13226,6 +13262,18 @@
     </ClCompile>
     <ClCompile Include="Script_SchemeMobWalker.cpp">
       <Filter>Cordis\Scripts\Logic\Mob\Walker\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Script_SchemeMobRemark.cpp">
+      <Filter>Cordis\Scripts\Logic\Mob\Remark\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Script_SchemeMobJump.cpp">
+      <Filter>Cordis\Scripts\Logic\Mob\Jump\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Script_SchemeMobHome.cpp">
+      <Filter>Cordis\Scripts\Logic\Mob\Home\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Script_SchemeMobDeath.cpp">
+      <Filter>Cordis\Scripts\Logic\Mob\Death\Private</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

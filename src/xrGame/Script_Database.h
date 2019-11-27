@@ -1,6 +1,7 @@
 #pragma once
 
 #include "script_sound.h"
+#include "Script_ISchemeEntity.h"
 
 namespace Cordis
 {
@@ -30,7 +31,7 @@ public:
         if (this->m_p_action)
         {
             Msg("[Scripts/DataBase/Storage_Scheme/~dtor()] deleting local m_action %s!",
-                this->m_action->getSchemeName().c_str());
+                this->m_p_action->getSchemeName().c_str());
             xr_delete(this->m_p_action);
         }
 
@@ -263,7 +264,8 @@ public:
     {
         if (home_name.empty())
         {
-            Msg("[Scripts/DataBase/Storage_Scheme/setHomeNmae(home_name)] WARNING: home_name.empty() == true! You set an empty string");
+            Msg("[Scripts/DataBase/Storage_Scheme/setHomeNmae(home_name)] WARNING: home_name.empty() == true! You set "
+                "an empty string");
         }
 
         this->m_home_name = home_name;
@@ -808,6 +810,32 @@ private:
     friend class Storage;
 
 public:
+    class DeathData
+    {
+    public:
+        DeathData(void) = default;
+        ~DeathData(void) = default;
+
+        inline const xr_string& getKillerName(void) const noexcept { return this->m_killer_name; }
+        inline void setKillerName(const xr_string& name) noexcept
+        {
+            if (name.empty())
+            {
+                Msg("[Scripts/DataBase/Storage_Data/setKillerName(name)] WARNING: name.empty() == true! You set an "
+                    "empty string");
+            }
+
+            this->m_killer_name = name;
+        }
+
+        inline std::uint16_t getKillerID(void) const noexcept { return this->m_killer_id; }
+        inline void setKillerID(const std::uint16_t ID) noexcept { this->m_killer_id = ID; }
+
+    private:
+        std::uint16_t m_killer_id;
+        xr_string m_killer_name;
+    };
+
     ~Storage_Data(void)
     {
         this->m_p_client_object = nullptr;
@@ -1109,6 +1137,11 @@ public:
         this->m_schemes[scheme_name].setSectionName(section_name);
     }
 
+    inline const DeathData& getDeathData(void) const noexcept { return this->m_death; }
+    inline void setDeathData(const DeathData& data) noexcept { this->m_death = data; }
+    inline void setDeathDataKillerName(const xr_string& name) noexcept { this->m_death.setKillerName(name); }
+    inline void setDeathDataKillerID(const std::uint16_t npc_id) noexcept { this->m_death.setKillerID(npc_id); }
+
 private:
     bool m_is_invulnerable = false;
     bool m_is_immortal = false;
@@ -1141,6 +1174,7 @@ private:
     xr_string m_ini_filename;
     xr_string m_section_logic_name;
     xr_string m_gulag_name;
+    DeathData m_death;
 };
 
 class Storage
@@ -1835,6 +1869,23 @@ public:
         }
 
         this->m_storage[npc_id].setSchemesSectionName(scheme_name, section_name);
+    }
+
+    inline void setStorageDeathData(const std::uint16_t npc_id, const Storage_Data::DeathData& data) noexcept
+    {
+        this->m_storage[npc_id].setDeathData(data);
+    }
+
+    // @ sets killer's name
+    inline void setStorageDeathData(const std::uint16_t npc_id, const xr_string& name) noexcept
+    {
+        this->m_storage[npc_id].setDeathDataKillerName(name);
+    }
+
+    // @ sets killer's id
+    inline void setStorageDeathData(const std::uint16_t npc_id, const std::uint16_t id) noexcept 
+    {
+        this->m_storage[npc_id].setDeathDataKillerID(id);
     }
 #pragma endregion
 
