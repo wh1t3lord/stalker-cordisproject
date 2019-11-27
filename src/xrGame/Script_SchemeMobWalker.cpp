@@ -30,6 +30,8 @@ void Script_SchemeMobWalker::reset_scheme(void)
 {
     Msg("[Scripts/Script_SchemeMobWalker/reset_scheme()] %s", this->m_npc->Name());
 
+    this->m_storage->ClearSignals();
+
     Script_MobStateManager::getInstance().set_state(this->m_npc, this->m_storage->getStateName());
 
     if (this->m_patrol_walk)

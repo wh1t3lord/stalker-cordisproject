@@ -23,12 +23,15 @@ class Storage_Scheme
 public:
     ~Storage_Scheme(void)
     {
-        this->m_npc = nullptr;
-        if (this->m_action)
+        this->m_p_npc = nullptr;
+        this->m_p_ini =
+            nullptr; // @ Контролиться в Script_SE_SmartTerrain, либо от this->m_ltx, либо от this->m_job_data
+
+        if (this->m_p_action)
         {
             Msg("[Scripts/DataBase/Storage_Scheme/~dtor()] deleting local m_action %s!",
                 this->m_action->getSchemeName().c_str());
-            xr_delete(this->m_action);
+            xr_delete(this->m_p_action);
         }
 
         if (!this->m_actions.empty())
@@ -68,7 +71,7 @@ public:
             return;
         }
 
-        this->m_action = p_scheme;
+        this->m_p_action = p_scheme;
     }
 
     inline const xr_map<xr_string, bool>& getSignals(void) const noexcept { return this->m_signals; }
@@ -110,6 +113,12 @@ public:
         this->m_signals[signal_name] = value;
     }
 
+    inline void ClearSignals(void) noexcept
+    {
+        Msg("[Scripts/DataBase/Storage_Scheme/ClearSignals(void)] signals are cleared!");
+        this->m_signals.clear();
+    }
+
     inline const xr_string& getPathWalkName(void) const noexcept { return this->m_path_walk_name; }
     inline void setPathWalkName(const xr_string& path_walk_name) noexcept
     {
@@ -139,10 +148,95 @@ public:
     {
         if (state_name.empty())
         {
-            Msg("[Scripts/DataBase/Storage_Scheme/setStateName(state_name)] WARNING: state_name.empty() == true! You set an empty string");
+            Msg("[Scripts/DataBase/Storage_Scheme/setStateName(state_name)] WARNING: state_name.empty() == true! You "
+                "set an empty string");
         }
 
         this->m_state_name = state_name;
+    }
+
+    inline const xr_string& getSchemeName(void) const noexcept { return this->m_scheme_name; }
+    inline void setSchemeName(const xr_string& scheme_name) noexcept
+    {
+        if (scheme_name.empty())
+        {
+            Msg("[Scripts/DataBase/Storage_Scheme/setSchemeName(scheme_name)] WARNING: scheme_name.empty() == true! "
+                "You set an empty string!");
+        }
+
+        this->m_scheme_name = scheme_name;
+    }
+
+    inline const xr_string& getSectionName(void) const noexcept { return this->m_scheme_name; }
+    inline void setSectionName(const xr_string& section_name) noexcept
+    {
+        if (section_name.empty())
+        {
+            Msg("[Scripts/DataBase/Storage_Scheme/setSectionScheme(section_name)] WARNING: section_name.empty() == "
+                "true! You set an empty string.");
+        }
+
+        this->m_section_name = section_name;
+    }
+
+    inline const xr_string& getSoundName(void) const noexcept { return this->m_sound_name; }
+    inline void setSoundName(const xr_string& data_name) noexcept
+    {
+        if (data_name.empty())
+        {
+            Msg("[Scripts/DataBase/Storage_Scheme/setSoundName(data_name)] WARNING: data_name.empty() == true! You set "
+                "an empty string.");
+        }
+
+        this->m_sound_name = data_name;
+    }
+
+    inline const xr_string& getTipName(void) const noexcept { return this->m_tip_name; }
+    inline void setTipName(const xr_string& message_name) noexcept
+    {
+        if (message_name.empty())
+        {
+            Msg("[Scripts/DataBase/Storage_Scheme/setTipName(message_name)] WARNING: message_name.empty() == true! You "
+                "set an empty string");
+        }
+
+        this->m_tip_name = message_name;
+    }
+
+    inline const xr_string& getTimeName(void) const noexcept { return this->m_time_name; }
+    inline void setTimeName(const xr_string& data_name) noexcept
+    {
+        if (data_name.empty())
+        {
+            Msg("[Scripts/DataBase/Storage_Scheme/setTimeName(data_name)] WARNING: data_name.empty() == true! You set "
+                "an empty string");
+        }
+
+        this->m_time_name = data_name;
+    }
+
+    inline const xr_string& getAnimationName(void) const noexcept { return this->m_animation_name; }
+    inline void setAnimationName(const xr_string& animation_name) noexcept
+    {
+        if (animation_name.empty())
+        {
+            Msg("[Scripts/DataBase/Storage_Scheme/setAnimationName(animation_name)] WARNING: animation_name.empty() == "
+                "true! You set an empty string");
+        }
+
+        this->m_animation_name = animation_name;
+    }
+
+    inline const xr_string& getAnimationHeadName(void) const noexcept { return this->m_animation_head_name; }
+    inline void setAnimationHeadName(const xr_string& animation_head_name) noexcept
+    {
+        if (animation_head_name.empty())
+        {
+            Msg("[Scripts/DataBase/Storage_Scheme/setAnimationHeadName(animation_head_name)] WARNING: "
+                "animation_head_name.empty() == true! You set an empty string");
+        }
+
+        this->m_animation_head_name = animation_head_name;
     }
 
     inline const CondlistWaypoints& getPathWalkInfo(void) const noexcept { return this->m_path_walk_info; }
@@ -151,16 +245,50 @@ public:
     inline const CondlistWaypoints& getPathLookInfo(void) const noexcept { return this->m_path_look_info; }
     inline void setPathLookInfo(const CondlistWaypoints& data) noexcept { this->m_path_look_info = data; }
 
+    inline CScriptIniFile* const getIni(void) const { return this->m_p_ini; }
+    inline void setIni(CScriptIniFile* const p_ini) { this->m_p_ini = p_ini; }
+
+    inline CScriptGameObject* const getClientObject(void) const { return this->m_p_npc; }
+    inline void setClientObject(CScriptGameObject* const p_client_object) { this->m_p_npc = p_client_object; }
+
+    inline bool IsAnimationMovement(void) const noexcept { return this->m_is_animation_movement; }
+    inline void setAnimationMovement(const bool value) noexcept { this->m_is_animation_movement = value; }
+
+    inline bool IsNoReset(void) const noexcept { return this->m_is_no_reset; }
+    inline void setNoReset(const bool value) noexcept { this->m_is_no_reset = value; }
+
+    inline const xr_map<std::uint32_t, CondlistData>& getDialogCondlist(void) const noexcept
+    {
+        return this->m_dialog_condlist;
+    }
+
+    inline void setDialogCondlist(const xr_map<std::uint32_t, CondlistData>& condlist) noexcept
+    {
+        this->m_dialog_condlist = condlist;
+    }
+
 private:
     // @ Не понятно зачем в итоге но так у ПЫС, если в итоге оно находится в самом сторадже где уже зарегистрирован
     // сам НПС
-    CScriptGameObject* m_npc = nullptr;
-    Script_ISchemeEntity* m_action = nullptr; // @ для XR_LOGIC::unsubscrive_action, используется в очень редких схемах!
+    bool m_is_animation_movement = false;
+    bool m_is_no_reset = false;
+    CScriptGameObject* m_p_npc = nullptr;
+    Script_ISchemeEntity* m_p_action =
+        nullptr; // @ для XR_LOGIC::unsubscrive_action, используется в очень редких схемах!
+    CScriptIniFile* m_p_ini = nullptr;
     xr_map<xr_string, bool> m_signals;
+    xr_map<std::uint32_t, CondlistData> m_dialog_condlist;
     xr_vector<Script_ISchemeEntity*> m_actions;
     xr_string m_path_walk_name;
     xr_string m_path_look_name;
     xr_string m_state_name;
+    xr_string m_scheme_name;
+    xr_string m_section_name;
+    xr_string m_tip_name;
+    xr_string m_sound_name;
+    xr_string m_time_name;
+    xr_string m_animation_name;
+    xr_string m_animation_head_name;
     CondlistWaypoints m_path_walk_info;
     CondlistWaypoints m_path_look_info;
 };
@@ -883,6 +1011,30 @@ public:
         this->m_schemes[scheme_name] = data;
     }
 
+    inline void setSchemesActions(const xr_string& scheme_name, Script_ISchemeEntity* p_scheme)
+    {
+        if (scheme_name.empty())
+        {
+            Msg("[Scripts/DataBase/Storage_Data/setSchemeActions(scheme_name, p_scheme)] WARNING: scheme_name.empty() "
+                "== true! Can't assign return ...");
+            return;
+        }
+
+        this->m_schemes[scheme_name].setActions(p_scheme);
+    }
+
+    inline void setSchemesSectionName(const xr_string& scheme_name, const xr_string& section_name) noexcept
+    {
+        if (scheme_name.empty())
+        {
+            Msg("[Scripts/DataBase/Storage_Data/setSchemesSectionName(scheme_name, section_name)] WARNING: "
+                "scheme_name.empty() == true! Can't assign return ...");
+            return;
+        }
+
+        this->m_schemes[scheme_name].setSectionName(section_name);
+    }
+
 private:
     bool m_is_invulnerable = false;
     bool m_is_immortal = false;
@@ -1583,6 +1735,32 @@ public:
         Msg("[Scripts/DataBase/Storage/setScheme(scheme_name, data)] Registered scheme %s", scheme_name);
 
         this->m_storage[npc_id].setScheme(scheme_name, data);
+    }
+
+    inline void setStorageSchemesActions(
+        const std::uint16_t npc_id, const xr_string& scheme_name, Script_ISchemeEntity* p_scheme)
+    {
+        if (scheme_name.empty())
+        {
+            Msg("[Scripts/DataBase/Storage/setStorageSchemesActions(npc_id, scheme_name, p_scheme)] WARNING: "
+                "scheme_name.empty() == true! Can't assign return ...");
+            return;
+        }
+
+        this->m_storage[npc_id].setSchemesActions(scheme_name, p_scheme);
+    }
+
+    inline void setStorageSchemesSectionName(
+        const std::uint16_t npc_id, const xr_string& scheme_name, const xr_string& section_name) noexcept
+    {
+        if (scheme_name.empty())
+        {
+            Msg("[Scripts/DataBase/Storage/setStorageSchemesSectionName(npc_id, scheme_name, section_name)] WARNING: "
+                "scheme_name.empty() == true! Can't assign return ...");
+            return;
+        }
+
+        this->m_storage[npc_id].setSchemesSectionName(scheme_name, section_name);
     }
 #pragma endregion
 
