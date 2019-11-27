@@ -1542,6 +1542,10 @@ $(xrLibDir);$(xrSdkDir)DXSDK/Lib/$(PlatformShortName);
     <ClInclude Include="script_particle_action_inline.h" />
     <ClInclude Include="script_property_evaluator_wrapper.h" />
     <ClInclude Include="script_property_evaluator_wrapper_inline.h" />
+    <ClInclude Include="Script_SchemeMobDeath.h" />
+    <ClInclude Include="Script_SchemeMobHome.h" />
+    <ClInclude Include="Script_SchemeMobJump.h" />
+    <ClInclude Include="Script_SchemeMobRemark.h" />
     <ClInclude Include="Script_SchemeMobWalker.h" />
     <ClInclude Include="Script_SE_Actor.h" />
     <ClInclude Include="Script_SE_Ammo.h" />
@@ -3655,6 +3659,10 @@ $(xrLibDir);$(xrSdkDir)DXSDK/Lib/$(PlatformShortName);
       <PrecompiledHeaderFile>pch_script.h</PrecompiledHeaderFile>
       <PrecompiledHeaderOutputFile>$(IntDir)$(ProjectName)_script.pch</PrecompiledHeaderOutputFile>
     </ClCompile>
+    <ClCompile Include="Script_SchemeMobDeath.cpp" />
+    <ClCompile Include="Script_SchemeMobHome.cpp" />
+    <ClCompile Include="Script_SchemeMobJump.cpp" />
+    <ClCompile Include="Script_SchemeMobRemark.cpp" />
     <ClCompile Include="Script_SchemeMobWalker.cpp" />
     <ClCompile Include="Script_SE_Actor.cpp" />
     <ClCompile Include="Script_SE_Ammo.cpp" />

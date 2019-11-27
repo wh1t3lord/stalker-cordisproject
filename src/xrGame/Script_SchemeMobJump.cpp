@@ -32,7 +32,7 @@ void Script_SchemeMobJump::reset_scheme(void)
     }
 
     this->m_point =
-        Fvector().set(0.0f, 0.0f, 0.0f).add(this->m_storage->getJumpPath()->point(0), this->m_storage->getOffset());
+        Fvector().set(0.0f, 0.0f, 0.0f).add(this->m_storage->getJumpPath()->point(std::uint32_t(0)), this->m_storage->getOffset());
     this->m_current_state = STATE_START_LOOK;
 }
 

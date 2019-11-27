@@ -18,7 +18,7 @@ public:
     // Lord: доделать и set_scheme тоже!
     // @ PRIVATE uses, in XR_LOGIC
     static inline void add_to_binder(CScriptGameObject* const p_client_object, CScriptIniFile* const p_ini,
-        const xr_string& scheme_name, const xr_string& section_name, const DataBase::Storage_Scheme& storage)
+        const xr_string& scheme_name, const xr_string& section_name, DataBase::Storage_Scheme& storage)
     {
         if (!p_client_object)
         {

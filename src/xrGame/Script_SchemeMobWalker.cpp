@@ -305,7 +305,7 @@ void Script_SchemeMobWalker::update_standing_state(void)
 void Script_SchemeMobWalker::deactivate(void)
 {
     XR_LOGIC::mob_capture(this->m_npc, true, this->m_scheme_name);
-    Globals::action(this->m_npc, CScriptMovementAction(MonsterSpace::eMA_Steal, this->m_patrol_walk->point(0)),
+    Globals::action(this->m_npc, CScriptMovementAction(MonsterSpace::eMA_Steal, const_cast<Fvector*>(&this->m_patrol_walk->point(std::uint32_t(0)))),
         CScriptActionCondition(CScriptActionCondition::MOVEMENT_FLAG));
 }
 
