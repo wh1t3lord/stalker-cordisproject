@@ -350,6 +350,7 @@ enum
 #include "Script_Database.h"
 #include "Script_SE_SimulationSquad.h"
 #include "PhraseDialog.h"
+#include "Helicopter.h"
 #include "Script_DialogManager.h"
 #include "Script_SimulationObjects.h"
 #include "Script_EntitySounds.h"
@@ -432,4 +433,5 @@ enum
 #include "Script_SchemeMobDeath.h"
 #include "Script_SchemeMobCombat.h"
 #include "Script_SchemeMobCamp.h"
+#include "Script_HelicopterLook.h"
 #include "Script_Globalsinline.h"
