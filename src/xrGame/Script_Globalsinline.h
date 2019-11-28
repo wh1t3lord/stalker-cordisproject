@@ -2096,6 +2096,20 @@ inline void action(CScriptGameObject* client_object, CScriptAnimationAction& ani
     client_object->AddAction(&action);
 }
 
+inline void action(CScriptGameObject* p_client_object, CScriptAnimationAction& animation_action,
+    CScriptWatchAction& look_action, CScriptActionCondition& condition_action)
+{
+    if (!p_client_object)
+        return;
+
+    CScriptEntityAction action;
+    action.SetAction(animation_action);
+    action.SetAction(look_action);
+    action.SetAction(condition_action);
+
+    p_client_object->AddAction(&action);
+}
+
 inline void action(
     CScriptGameObject* client_object, CScriptMovementAction& move_action, CScriptSoundAction& sound_action)
 {

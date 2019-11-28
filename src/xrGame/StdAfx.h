@@ -430,4 +430,6 @@ enum
 #include "Script_SchemeMobJump.h"
 #include "Script_SchemeMobHome.h"
 #include "Script_SchemeMobDeath.h"
+#include "Script_SchemeMobCombat.h"
+#include "Script_SchemeMobCamp.h"
 #include "Script_Globalsinline.h"

@@ -333,17 +333,53 @@ public:
     inline bool IsGulagPoint(void) const noexcept { return this->m_is_gulag_point; }
     inline void setGulagPoint(const bool value) noexcept { this->m_is_gulag_point = value; }
 
+    inline bool IsEnabled(void) const noexcept { return this->m_is_enabled; }
+    inline void setEnabled(const bool value) noexcept { this->m_is_enabled = value; }
+
+    inline const xr_string& getLookPointName(void) const noexcept { return this->m_look_point_name; }
+    inline void setLookPointName(const xr_string& point_name) noexcept
+    {
+        if (point_name.empty())
+        {
+            Msg("[Scripts/DataBase/Storage_Scheme/setLookPointName(point_name)] WARNING: point_name.empty() == true! "
+                "You set an empty string");
+        }
+
+        this->m_look_point_name = point_name;
+    }
+
+    inline const xr_string& getHomePointName(void) const noexcept { return this->m_home_point_name; }
+    inline void setHomePointName(const xr_string& home_name) noexcept
+    {
+        if (home_name.empty())
+        {
+            Msg("[Scripts/DataBase/Storage_Scheme/setHomePointName(home_name)] WARNING: home_name.empty() == true! You "
+                "set an empty string");
+        }
+
+        this->m_home_point_name = home_name;
+    }
+
+    inline std::uint32_t getTimeChangePoint(void) const noexcept { return this->m_time_change_point; }
+    inline void setTimeChangePoint(const std::uint32_t value) noexcept { this->m_time_change_point = value; }
+
+    inline bool IsSkipTransferEnemy(void) const noexcept { return this->m_is_skip_transfer_enemy; }
+    inline void setSkipTransferEnemy(const bool value) noexcept { this->m_is_skip_transfer_enemy = value; }
+
 private:
     // @ Не понятно зачем в итоге но так у ПЫС, если в итоге оно находится в самом сторадже где уже зарегистрирован
     // сам НПС
+    bool m_is_enabled = false;
     bool m_is_animation_movement = false;
     bool m_is_no_reset = false;
-    bool m_is_aggresive;
-    bool m_is_gulag_point;
-    std::uint32_t m_home_min_radius;
-    std::uint32_t m_home_mid_radius;
-    std::uint32_t m_home_max_radius;
-    float m_ph_jump_factor;
+    bool m_is_aggresive = false;
+    bool m_is_gulag_point = false;
+    bool m_is_skip_transfer_enemy = false;
+    std::uint32_t m_home_min_radius = 0;
+    std::uint32_t m_home_mid_radius = 0;
+    std::uint32_t m_home_max_radius = 0;
+    std::uint32_t m_time_change_point = 0;
+    float m_ph_jump_factor = 0.0f;
     CScriptGameObject* m_p_npc = nullptr;
     Script_ISchemeEntity* m_p_action =
         nullptr; // @ для XR_LOGIC::unsubscrive_action, используется в очень редких схемах!
@@ -365,6 +401,8 @@ private:
     xr_string m_animation_name;
     xr_string m_animation_head_name;
     xr_string m_home_name;
+    xr_string m_look_point_name;
+    xr_string m_home_point_name;
     CondlistWaypoints m_path_walk_info;
     CondlistWaypoints m_path_look_info;
 };
@@ -1137,6 +1175,18 @@ public:
         this->m_schemes[scheme_name].setSectionName(section_name);
     }
 
+    inline void setSchemesEnabled(const xr_string& scheme_name, const bool value) noexcept
+    {
+        if (scheme_name.empty())
+        {
+            Msg("[Scripts/DataBase/Storage_Data/setSchemesEnabled(scheme_name, value)] WARNING: scheme_name.empty() == "
+                "true! Can't assign return ...");
+            return;
+        }
+
+        this->m_schemes[scheme_name].setEnabled(value);
+    }
+
     inline const DeathData& getDeathData(void) const noexcept { return this->m_death; }
     inline void setDeathData(const DeathData& data) noexcept { this->m_death = data; }
     inline void setDeathDataKillerName(const xr_string& name) noexcept { this->m_death.setKillerName(name); }
@@ -1871,19 +1921,32 @@ public:
         this->m_storage[npc_id].setSchemesSectionName(scheme_name, section_name);
     }
 
+    inline void setStorageSchemesEnabled(
+        const std::uint16_t npc_id, const xr_string& scheme_name, const bool value) noexcept
+    {
+        if (scheme_name.empty())
+        {
+            Msg("[Scripts/DataBase/Storage/setStorageSchemesEnabled(npc_id, scheme_name, value)] WARNING: "
+                "scheme_name.empty() == true! Can't assign return ...");
+            return;
+        }
+
+        this->m_storage[npc_id].setSchemesEnabled(scheme_name, value);
+    }
+
     inline void setStorageDeathData(const std::uint16_t npc_id, const Storage_Data::DeathData& data) noexcept
     {
         this->m_storage[npc_id].setDeathData(data);
     }
 
     // @ sets killer's name
-    inline void setStorageDeathData(const std::uint16_t npc_id, const xr_string& name) noexcept
+    inline void setStorageDeathDataKillerName(const std::uint16_t npc_id, const xr_string& name) noexcept
     {
         this->m_storage[npc_id].setDeathDataKillerName(name);
     }
 
     // @ sets killer's id
-    inline void setStorageDeathData(const std::uint16_t npc_id, const std::uint16_t id) noexcept 
+    inline void setStorageDeathDataKillerID(const std::uint16_t npc_id, const std::uint16_t id) noexcept
     {
         this->m_storage[npc_id].setDeathDataKillerID(id);
     }
@@ -2393,6 +2456,17 @@ public:
         this->m_spawned_vertex_by_id.clear();
         this->m_goodwill.first.clear();
         this->m_goodwill.second.clear();
+        this->m_camp_storage.clear();
+    }
+
+    inline const xr_map<xr_string, xr_map<std::uint32_t, bool>>& getCampStorage(void) const noexcept
+    {
+        return this->m_camp_storage;
+    }
+
+    inline void setCampStorage(const xr_string& point_name, const std::uint32_t index, const bool value) noexcept
+    {
+        this->m_camp_storage[point_name][index] = value;
     }
 
 #pragma endregion
@@ -2405,6 +2479,7 @@ public:
 private:
     CScriptGameObject* m_actor;
     xr_map<std::uint16_t, Storage_Data> m_storage;
+    xr_map<xr_string, xr_map<std::uint32_t, bool>> m_camp_storage; // @ Uses in mob_camp only
     xr_map<std::uint16_t, std::pair<std::uint16_t, xr_string>> m_offline_objects;
     xr_map<xr_string, CScriptGameObject*> m_zone_by_name;
     xr_map<xr_string, CScriptGameObject*> m_anomaly_by_name;

@@ -214,6 +214,8 @@ inline void action(CScriptGameObject* client_object, CScriptMovementAction& move
     CScriptActionCondition& condition_action);
 inline void action(CScriptGameObject* client_object, CScriptAnimationAction& animation_action,
     CScriptActionCondition& condition_action);
+inline void action(CScriptGameObject* p_client_object, CScriptAnimationAction& animation_action,
+    CScriptWatchAction& look_action, CScriptActionCondition& condition_action);
 inline void action(
     CScriptGameObject* client_object, CScriptMovementAction& move_action, CScriptSoundAction& sound_action);
 inline void action(
