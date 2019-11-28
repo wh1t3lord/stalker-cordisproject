@@ -109,7 +109,6 @@ public:
     inline Script_HelicopterLook* AllocateLooker(CScriptGameObject* p_client_object)
     {
         Script_HelicopterLook* result = nullptr;
-        std::uint16_t entity_id = p_client_object->ID();
 
         if (!p_client_object)
         {
@@ -117,6 +116,7 @@ public:
             return result;
         }
 
+        std::uint16_t entity_id = p_client_object->ID();
         if (this->m_helicopter_lookers_storage[entity_id] == nullptr)
         {
             result = new Script_HelicopterLook(p_client_object);
