@@ -434,4 +434,5 @@ enum
 #include "Script_SchemeMobCombat.h"
 #include "Script_SchemeMobCamp.h"
 #include "Script_HelicopterLook.h"
+#include "Script_HelicopterFly.h"
 #include "Script_Globalsinline.h"
