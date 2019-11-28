@@ -366,6 +366,105 @@ public:
     inline bool IsSkipTransferEnemy(void) const noexcept { return this->m_is_skip_transfer_enemy; }
     inline void setSkipTransferEnemy(const bool value) noexcept { this->m_is_skip_transfer_enemy = value; }
 
+    inline const xr_string& getHelicopterPathMoveName(void) const noexcept { return this->m_helicopter_path_move_name; }
+    inline void setHelicopterPathMoveName(const xr_string& path_name) noexcept
+    {
+        if (path_name.empty())
+        {
+            Msg("[Scripts/DataBase/Storage_Scheme/setHelicopterPathMoveName(path_name)] WARNING: path_name.empty() == "
+                "true! You set an empty string");
+        }
+
+        this->m_helicopter_path_move_name = path_name;
+    }
+
+    inline const xr_string& getHelicopterPathLookName(void) const noexcept { return this->m_helicopter_path_look_name; }
+    inline void setHelicopterPathLookName(const xr_string& path_name) noexcept
+    {
+        if (path_name.empty())
+        {
+            Msg("[Scripts/DataBase/Storage_Scheme/setHelicopterPathLookName(path_name)] WARNING: path_name.empty() == "
+                "true! You set an empty string");
+        }
+
+        this->m_helicopter_path_look_name = path_name;
+    }
+
+    inline const xr_string& getHelicopterEnemyName(void) const noexcept { return this->m_helicopter_enemy_name; }
+    inline void setHelicopterEnemyName(const xr_string& enemy_name) noexcept
+    {
+        if (enemy_name.empty())
+        {
+            Msg("[Scripts/DataBase/Storage_Scheme/setHelicopterEnemyName(enemy_name)] WARNING: enemy_name.empty() == "
+                "true! You set an empty string");
+        }
+
+        this->m_helicopter_enemy_name = enemy_name;
+    }
+
+    inline const xr_string& getHelicopterFirePointName(void) const noexcept
+    {
+        return this->m_helicopter_fire_point_name;
+    }
+    inline void setHelicopterFirePointName(const xr_string& fire_point_name) noexcept
+    {
+        if (fire_point_name.empty())
+        {
+            Msg("[scripts/DataBase/Storage_Scheme/setHelicopterFirePointName(fire_point_name)] WARNING: "
+                "fire_point_name.empty() == true! You set an empty string");
+        }
+
+        this->m_helicopter_fire_point_name = fire_point_name;
+    }
+
+    inline bool IsHelicopterUseRocket(void) const noexcept { return this->m_is_helicopter_use_rocket; }
+    inline void setHelicopterUseRocket(const bool value) noexcept { this->m_is_helicopter_use_rocket = value; }
+
+    inline bool IsHelicopterUseMinigun(void) const noexcept { return this->m_is_helicopter_use_minigun; }
+    inline void setHelicopterUseMinigun(const bool value) noexcept { this->m_is_helicopter_use_minigun = value; }
+
+    inline bool IsHelicopterFireTrail(void) const noexcept { return this->m_is_helicopter_fire_trail; }
+    inline void setHelicopterFireTrail(const bool value) noexcept { this->m_is_helicopter_fire_trail = value; }
+
+    inline bool IsHelicopterEngineSound(void) const noexcept { return this->m_is_helicopter_engine_sound; }
+    inline void setHelicopterEngineSound(const bool value) noexcept { this->m_is_helicopter_engine_sound = value; }
+
+    inline bool IsHelicopterShowHealth(void) const noexcept { return this->m_is_helicopter_show_health; }
+    inline void setHelicopterShowHealth(const bool value) noexcept { this->m_is_helicopter_show_health = value; }
+
+    inline std::uint32_t getHelicopterUpdVis(void) const noexcept { return this->m_helicopter_upd_vis; }
+    inline void setHelicopterUpdVis(const std::uint32_t value) noexcept { this->m_helicopter_upd_vis = value; }
+
+    inline float getHelicopterMaxRocketDistance(void) const noexcept { return this->m_helicopter_max_rocket_distance; }
+    inline void setHelicopterMaxRocketDistance(const float value) noexcept
+    {
+        this->m_helicopter_max_rocket_distance = value
+    }
+
+    inline float getHelicopterMaxMinigunDistance(void) const noexcept
+    {
+        return this->m_helicopter_max_minigun_distance;
+    }
+    inline void setHelicopterMaxMinigunDistance(const float value) noexcept
+    {
+        this->m_helicopter_max_minigun_distance = value;
+    }
+
+    inline float getHelicopterMinRocketDistance(void) const noexcept { return this->m_helicopter_min_rocket_distance; }
+    inline void setHelicopterMinRocketDistance(const float value) noexcept
+    {
+        this->m_helicopter_min_rocket_distance = value;
+    }
+
+    inline float getHelicopterMinMinigunDistance(void) const noexcept
+    {
+        return this->m_helicopter_min_minigun_distance;
+    }
+    inline void setHelicopterMinMinigunDistance(const float value) noexcept { this->m_helicopter_min_minigun_distance = value;}
+
+    inline float getHelicopterVelocity(void) const noexcept { return this->m_helicopter_velocity; }
+    inline void setHelicopterVelocity(const float value) noexcept { this->m_helicopter_velocity = value; }
+
 private:
     // @ Не понятно зачем в итоге но так у ПЫС, если в итоге оно находится в самом сторадже где уже зарегистрирован
     // сам НПС
@@ -375,11 +474,22 @@ private:
     bool m_is_aggresive = false;
     bool m_is_gulag_point = false;
     bool m_is_skip_transfer_enemy = false;
+    bool m_is_helicopter_use_rocket = false;
+    bool m_is_helicopter_show_health = false;
+    bool m_is_helicopter_fire_trail = false;
+    bool m_is_helicopter_engine_sound = false;
+    bool m_is_helicopter_use_minigun = false;
     std::uint32_t m_home_min_radius = 0;
     std::uint32_t m_home_mid_radius = 0;
     std::uint32_t m_home_max_radius = 0;
     std::uint32_t m_time_change_point = 0;
+    std::uint32_t m_helicopter_upd_vis = 0;
     float m_ph_jump_factor = 0.0f;
+    float m_helicopter_min_rocket_distance = 0.0f;
+    float m_helicopter_min_minigun_distance = 0.0f;
+    float m_helicopter_max_rocket_distance = 0.0f;
+    float m_helicopter_max_minigun_distance = 0.0f;
+    float m_helicopter_velocity = 0.0f;
     CScriptGameObject* m_p_npc = nullptr;
     Script_ISchemeEntity* m_p_action =
         nullptr; // @ для XR_LOGIC::unsubscrive_action, используется в очень редких схемах!
@@ -403,6 +513,10 @@ private:
     xr_string m_home_name;
     xr_string m_look_point_name;
     xr_string m_home_point_name;
+    xr_string m_helicopter_path_move_name;
+    xr_string m_helicopter_path_look_name;
+    xr_string m_helicopter_enemy_name;
+    xr_string m_helicopter_fire_point_name;
     CondlistWaypoints m_path_walk_info;
     CondlistWaypoints m_path_look_info;
 };

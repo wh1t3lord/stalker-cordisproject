@@ -3757,6 +3757,48 @@
     <Filter Include="Cordis\Scripts\Logic\Mob\Death\Private">
       <UniqueIdentifier>{11644f7c-d10d-4ec5-9b7d-e289c09ece9d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Cordis\Scripts\Logic\Mob\Combat\Public">
+      <UniqueIdentifier>{d2701a41-9eae-46d2-99fe-dcf75db6a16f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Logic\Mob\Combat\Private">
+      <UniqueIdentifier>{6617ee02-74fe-413c-833a-186e9a441563}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Logic\Mob\Camp\Public">
+      <UniqueIdentifier>{247a0b6e-ce55-4663-a04b-d1e966438a78}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Logic\Mob\Camp\Private">
+      <UniqueIdentifier>{c3d097a2-a3d0-47c1-ae31-b74c4417fd60}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Logic\Heli\Move">
+      <UniqueIdentifier>{d67a3d81-497f-49ca-b091-7491e1645554}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Logic\Heli\Move\Public">
+      <UniqueIdentifier>{ae6a96e2-8048-4499-b597-8365513a5e8d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Logic\Heli\Move\Private">
+      <UniqueIdentifier>{59e009cb-a844-4a29-8f57-b371e1c5aeb0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Logic\Heli\Move\Handlers">
+      <UniqueIdentifier>{6b3fd88c-14f2-4709-8c77-68ff2e715983}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Logic\Heli\Move\Handlers\Look">
+      <UniqueIdentifier>{5977c7f5-4e08-47aa-96e8-00d3d0b2cd38}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Logic\Heli\Move\Handlers\Fly">
+      <UniqueIdentifier>{ad0e8c65-af24-4c73-bba2-96f1c292bf16}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Logic\Heli\Move\Handlers\Fire">
+      <UniqueIdentifier>{cf654db4-4623-464f-8317-0985c5a56692}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Logic\Heli\Move\Handlers\Fire\Public">
+      <UniqueIdentifier>{4c140098-507b-431a-ac91-f7f2a261513d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Logic\Heli\Move\Handlers\Fly\Public">
+      <UniqueIdentifier>{65a583ac-f24e-4462-9c16-d6596a618ddf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Logic\Heli\Move\Handlers\Look\Public">
+      <UniqueIdentifier>{63f74793-f936-43c5-94d4-9c3380e49967}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="mt_config.h">
@@ -8975,6 +9017,15 @@
     <ClInclude Include="Script_SchemeMobDeath.h">
       <Filter>Cordis\Scripts\Logic\Mob\Death\Public</Filter>
     </ClInclude>
+    <ClInclude Include="Script_SchemeMobCombat.h">
+      <Filter>Cordis\Scripts\Logic\Mob\Combat\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Script_SchemeMobCamp.h">
+      <Filter>Cordis\Scripts\Logic\Mob\Camp\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Script_HelicopterLook.h">
+      <Filter>Cordis\Scripts\Logic\Heli\Move\Handlers\Look\Public</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="damage_manager.cpp">
@@ -13274,6 +13325,12 @@
     </ClCompile>
     <ClCompile Include="Script_SchemeMobDeath.cpp">
       <Filter>Cordis\Scripts\Logic\Mob\Death\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Script_SchemeMobCombat.cpp">
+      <Filter>Cordis\Scripts\Logic\Mob\Combat\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Script_SchemeMobCamp.cpp">
+      <Filter>Cordis\Scripts\Logic\Mob\Camp\Private</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
