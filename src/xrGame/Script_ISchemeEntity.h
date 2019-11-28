@@ -98,6 +98,18 @@ public:
         return;
     }
 
+    virtual void combat_callback(void) 
+    {
+        Msg("[Scripts/Script_ISchemeEntity/combat_callback()] WARNING: NOT OVERLOADED FUNCTION!");
+        return;
+    }
+
+    virtual void net_destroy(CScriptGameObject* const p_client_object)
+    {
+        Msg("[Scripts/Script_ISchemeEntity/net_destroy(p_client_object)] WARNING: NOT OVERLOADED FUNCTION!");
+        return;
+    }
+
     // inline void setSchemeName(const xr_string& scheme_name) noexcept { this->m_scheme_name = scheme_name; }
 
     // @ using for unsubscribing that stuff
