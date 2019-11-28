@@ -97,7 +97,7 @@ public:
                 if (it.second)
                 {
                     R_ASSERT2(
-                        false, "can't bad deallocation. YOU MUST DELETE IT IN DTOR of Script_SchemeHelicopterMove!!!");
+                        false, "bad deallocation. YOU MUST DELETE IT IN ~DTOR of Script_SchemeHelicopterMove!!!");
                     xr_delete(it.second);
                 }
             }
