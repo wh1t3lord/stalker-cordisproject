@@ -6,6 +6,8 @@ namespace Scripts
 {
 class Script_HelicopterFire
 {
+    friend class Script_HelicopterFireStorage;
+
 public:
     Script_HelicopterFire(void) = delete;
     Script_HelicopterFire(CScriptGameObject* p_client_object)
@@ -333,5 +335,73 @@ private:
     Fvector m_fire_point;
     xr_string m_enemy_type_name; // @ idk what is it
 };
+
+class Script_HelicopterFireStorage
+{
+private:
+    Script_HelicopterFireStorage(void) = default;
+
+public:
+    static inline Script_HelicopterFireStorage& getInstance(void) noexcept
+    {
+        static Script_HelicopterFireStorage instance;
+        return instance;
+    }
+
+    Script_HelicopterFireStorage(const Script_HelicopterFireStorage&) = delete;
+    Script_HelicopterFireStorage& operator=(const Script_HelicopterFireStorage&) = delete;
+    Script_HelicopterFireStorage(Script_HelicopterFireStorage&&) = delete;
+    Script_HelicopterFireStorage& operator=(Script_HelicopterFireStorage&&) = delete;
+    ~Script_HelicopterFireStorage(void)
+    {
+        if (!this->m_fires_storage.empty())
+        {
+            for (std::pair<const std::uint16_t, Script_HelicopterFire*>& it : this->m_fires_storage)
+            {
+                if (it.second)
+                {
+                    R_ASSERT2(false, "bad deallocation! THIS MUST BE DELETED FROM ~DTOR() Script_SchemeHelicopterMove");
+                    xr_delete(it.second);
+                }
+            }
+
+            this->m_fires_storage.clear();
+        }
+    }
+
+    inline Script_HelicopterFire* AllocateFirer(CScriptGameObject* const p_client_object)
+    {
+        Script_HelicopterFire* result = nullptr;
+
+        if (!p_client_object)
+        {
+            R_ASSERT2(false, "object is null!");
+            return result;
+        }
+
+        std::uint16_t entity_id = p_client_object->ID();
+
+        if (this->m_fires_storage[entity_id] == nullptr)
+        {
+            result = new Script_HelicopterFire(p_client_object);
+            this->m_fires_storage[entity_id] = result;
+        }
+
+        return result;
+    }
+
+    inline void DeallocateFirer(const std::uint16_t entity_id)
+    {
+        if (this->m_fires_storage[entity_id])
+        {
+            Msg("[Scripts/Script_HelicopterFireStorage/DeallocateFirer(entity_id)] deleting %s %d", this->m_fires_storage[entity_id]->m_p_npc->Name(), this->m_fires_storage[entity_id]->m_p_npc->ID());
+            xr_delete(this->m_fires_storage[entity_id]);
+        }
+    }
+
+private:
+    xr_map<std::uint16_t, Script_HelicopterFire*> m_fires_storage;
+};
+
 } // namespace Scripts
 } // namespace Cordis
