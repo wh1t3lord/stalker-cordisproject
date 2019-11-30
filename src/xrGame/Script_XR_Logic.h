@@ -2162,6 +2162,58 @@ inline void mob_release(CScriptGameObject* const p_client_object, const xr_strin
     }
 }
 
+inline LogicData cfg_get_npc_and_zone(CScriptIniFile* const p_ini, const xr_string& section_name,
+    const xr_string& field_name, CScriptGameObject* const p_npc)
+{
+    LogicData result = cfg_get_two_strings_and_condlist(p_ini, section_name, field_name, p_npc);
+
+    if (!result.IsEmpty())
+    {
+        CSE_ALifeDynamicObject* p_server_object =
+            ai().alife().objects().object(Globals::get_story_object_id(result.getFirstValueName()));
+        if (p_server_object)
+        {
+            result.setNpcID(p_server_object->ID);
+        }
+        else
+        {
+            result.setNpcID(Globals::kUnsignedInt16Undefined);
+            R_ASSERT2(false, "there is no story_id");
+        }
+    }
+
+    return result;
+}
+
+inline LogicData cfg_get_two_strings_and_condlist(CScriptIniFile* const p_ini, const xr_string& section_name,
+    const xr_string& field_name, CScriptGameObject* const p_npc)
+{
+    LogicData result;
+    if (!p_ini)
+    {
+        R_ASSERT2(false, "object is null!");
+        return result;
+    }
+
+    xr_string data_name = Globals::Utils::cfg_get_string(p_ini, section_name, field_name);
+    if (data_name.empty())
+        return result;
+
+    xr_vector<xr_string> params = Globals::Utils::parse_params(data_name);
+    if (params.empty() || params.size() < 3)
+    {
+        R_ASSERT2(false, "can't be!");
+        return result;
+    }
+
+    result.setFieldName(field_name);
+    result.setFirstValueName(params[0]);
+    result.setSecondValue1Name(params[1]);
+    result.setCondlist(parse_condlist_by_script_object(section_name, field_name, params[2]));
+
+    return result;
+}
+
 inline LogicData cfg_get_string_and_condlist(CScriptIniFile* const p_ini, const xr_string& section_name,
     const xr_string& field_name, CScriptGameObject* const p_npc)
 {
@@ -2185,7 +2237,6 @@ inline LogicData cfg_get_string_and_condlist(CScriptIniFile* const p_ini, const 
 
     result.setFieldName(field_name);
     result.setFirstValueName(params[0]);
-    result.setSecondValue1Name(params[1]);
     result.setCondlist(parse_condlist_by_script_object(section_name, field_name, params[1]));
 
     return result;
@@ -2218,6 +2269,62 @@ inline LogicData cfg_get_condlist(CScriptIniFile* const p_ini, const xr_string& 
     return result;
 }
 
+inline xr_vector<LogicData> cfg_get_switch_conditions(
+    CScriptIniFile* p_ini, const xr_string& section_name, CScriptGameObject* const p_client_object)
+{
+    xr_vector<LogicData> result;
+    if (!p_ini)
+    {
+        R_ASSERT2(false, "object is null");
+        return result;
+    }
+
+    if (!p_ini->section_exist(section_name.c_str()))
+    {
+        return result;
+    }
+
+    std::uint32_t line_count = p_ini->line_count(section_name.c_str());
+    auto add_condition = [&](std::function<LogicData(
+                                 CScriptIniFile* const, const xr_string&, const xr_string&, CScriptGameObject* const)>
+                                 function,
+                             const xr_string& condition_name) -> void {
+        for (int line_number = 0; line_number < line_count; ++line_number)
+        {
+            const char* N;
+            const char* V;
+            bool _result = p_ini->r_line(section_name.c_str(), line_number, &N, &V);
+            if (_result)
+            {
+                xr_string data_name = N;
+                if (data_name.find(condition_name) != xr_string::npos)
+                {
+                    LogicData logic_data = function(p_ini, section_name, N, p_client_object);
+                    if (!logic_data.IsEmpty())
+                        result.push_back(logic_data);
+                }
+            }
+        }
+    };
+
+    add_condition(cfg_get_string_and_condlist, "on_actor_dist_le");
+    add_condition(cfg_get_string_and_condlist, "on_actor_dist_le_nvis");
+    add_condition(cfg_get_string_and_condlist, "on_actor_dist_ge");
+    add_condition(cfg_get_string_and_condlist, "on_actor_dist_ge_nvis");
+    add_condition(cfg_get_string_and_condlist, "on_signal");
+    add_condition(cfg_get_condlist, "on_info");
+    add_condition(cfg_get_string_and_condlist, "on_timer");
+    add_condition(cfg_get_string_and_condlist, "on_game_timer");
+    add_condition(cfg_get_string_and_condlist, "on_actor_in_zone");
+    add_condition(cfg_get_string_and_condlist, "on_actor_not_in_zone");
+    add_condition(cfg_get_condlist, "on_actor_inside");
+    add_condition(cfg_get_condlist, "on_actor_outside");
+    add_condition(cfg_get_npc_and_zone, "on_npc_in_zone");
+    add_condition(cfg_get_npc_and_zone, "on_npc_not_in_zone");
+
+    return result;
+}
+
 inline void try_switch_to_another_section(
     CScriptGameObject* p_client_object, DataBase::Storage_Scheme& storage, CScriptGameObject* p_client_actor)
 {
@@ -2233,14 +2340,16 @@ inline void try_switch_to_another_section(
         return;
     }
 
-    const xr_string& logic_name = storage.getLogicName();
+    const xr_vector<LogicData>& logic = storage.getLogic();
     std::uint16_t npc_id = p_client_object->ID();
 
-    if (logic_name.empty())
+    if (logic.empty())
     {
-        R_ASSERT2(false, "can't find script swtiching information in storage");
+        R_ASSERT2(false, "can't be see set_scheme!");
         return;
     }
+
+
 
     bool is_switched = false;
 }

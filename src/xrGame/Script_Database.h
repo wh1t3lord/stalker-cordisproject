@@ -471,7 +471,10 @@ public:
     inline bool IsHelicopterStopFire(void) const noexcept { return this->m_is_helicopter_stop_fire; }
     inline void setHelicopterStopFire(const bool value) noexcept { this->m_is_helicopter_stop_fire = value; }
 
-private:
+    inline const xr_vector<LogicData>& getLogic(void) const noexcept { return this->m_logic; }
+    inline void setLogic(const xr_vector<LogicData>& data) noexcept { this->m_logic = data; }
+
+ private:
     // @ Не понятно зачем в итоге но так у ПЫС, если в итоге оно находится в самом сторадже где уже зарегистрирован
     // сам НПС
     bool m_is_enabled = false;
@@ -506,6 +509,7 @@ private:
     xr_map<xr_string, bool> m_signals;
     xr_map<std::uint32_t, CondlistData> m_dialog_condlist;
     xr_vector<Script_ISchemeEntity*> m_actions;
+    xr_vector<LogicData> m_logic;
     xr_string m_path_walk_name;
     xr_string m_path_look_name;
     xr_string m_path_jump_name;
