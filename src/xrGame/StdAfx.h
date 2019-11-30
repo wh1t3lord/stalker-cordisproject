@@ -318,6 +318,7 @@ enum
 #include "script_animation_action.h"
 #include "script_movement_action.h"
 #include "script_action_condition.h"
+#include "ScriptXMLInit.h"
 #include "script_sound_action.h"
 #include "script_ini_file.h"
 #include "xrEngine/IGame_Level.h"
@@ -435,4 +436,5 @@ enum
 #include "Script_SchemeMobCamp.h"
 #include "Script_HelicopterLook.h"
 #include "Script_HelicopterFly.h"
+#include "Script_HelicopterFire.h"
 #include "Script_Globalsinline.h"

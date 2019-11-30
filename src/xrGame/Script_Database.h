@@ -460,7 +460,10 @@ public:
     {
         return this->m_helicopter_min_minigun_distance;
     }
-    inline void setHelicopterMinMinigunDistance(const float value) noexcept { this->m_helicopter_min_minigun_distance = value;}
+    inline void setHelicopterMinMinigunDistance(const float value) noexcept
+    {
+        this->m_helicopter_min_minigun_distance = value;
+    }
 
     inline float getHelicopterVelocity(void) const noexcept { return this->m_helicopter_velocity; }
     inline void setHelicopterVelocity(const float value) noexcept { this->m_helicopter_velocity = value; }
@@ -2066,6 +2069,20 @@ public:
     }
 #pragma endregion
 
+    // @ For helicopters only
+    inline void addEnemy(CScriptGameObject* p_object)
+    {
+        this->m_helicopter_enemies[this->m_helicopter_count] = p_object;
+        ++this->m_helicopter_count;
+    }
+
+    // @ For helicopters only
+    inline void deleteEnemy(const std::uint32_t index) 
+    { 
+        this->m_helicopter_enemies[index] = nullptr;
+        // Lord: I guess it will be much better if I minus this->m_helicopter_count, cuz the scripts doesn't handle it. It means that the value this->m_helicopter_count only grows up!
+    }
+
     inline void addObject(CScriptGameObject* object)
     {
         if (!object)
@@ -2583,6 +2600,18 @@ public:
         this->m_camp_storage[point_name][index] = value;
     }
 
+    inline std::uint32_t getHelicopterCount(void) const noexcept { return this->m_helicopter_count; }
+
+    // @ ++value;
+    inline void AddHelicopterCount(void) noexcept { ++this->m_helicopter_count; }
+
+    // @ --value;
+    inline void DeleteHelicopterCount(void) noexcept { --this->m_helicopter_count; }
+
+    inline const xr_map<std::uint32_t, CScriptGameObject* const>& getHelicopterEnemies(void) const noexcept
+    {
+        return this->m_helicopter_enemies;
+    }
 #pragma endregion
 
     Storage(const Storage&) = delete;
@@ -2591,10 +2620,12 @@ public:
     Storage& operator=(Storage&&) = delete;
 
 private:
-    CScriptGameObject* m_actor;
+    std::uint32_t m_helicopter_count = 0;
+    CScriptGameObject* m_actor = nullptr;
     xr_map<std::uint16_t, Storage_Data> m_storage;
     xr_map<xr_string, xr_map<std::uint32_t, bool>> m_camp_storage; // @ Uses in mob_camp only
     xr_map<std::uint16_t, std::pair<std::uint16_t, xr_string>> m_offline_objects;
+    xr_map<std::uint32_t, CScriptGameObject*> m_helicopter_enemies;
     xr_map<xr_string, CScriptGameObject*> m_zone_by_name;
     xr_map<xr_string, CScriptGameObject*> m_anomaly_by_name;
     xr_map<xr_string, CScriptGameObject*> m_game_registered_combat_spacerestrictors;
