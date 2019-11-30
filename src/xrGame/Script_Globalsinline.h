@@ -2174,6 +2174,11 @@ inline std::uint32_t choose_look_point(
     return founded_point_index;
 }
 
+inline bool is_vector_nil(const Fvector& data) 
+{
+    return (fis_zero(data.x) && fis_zero(data.y) && fis_zero(data.z)); 
+}
+
 } // namespace Globals
 } // namespace Scripts
 } // namespace Cordis

@@ -12,7 +12,7 @@ Script_SchemeMobJump::Script_SchemeMobJump(CScriptGameObject* const p_client_obj
 }
 Script_SchemeMobJump::~Script_SchemeMobJump(void) {}
 
-void Script_SchemeMobJump::reset_scheme(void)
+void Script_SchemeMobJump::reset_scheme(const bool)
 {
     Msg("[Scripts/Script_SchemeMobJump/reset_scheme()] %s", this->m_npc->Name());
     this->m_storage->ClearSignals();

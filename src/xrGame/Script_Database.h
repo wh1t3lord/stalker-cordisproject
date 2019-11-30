@@ -468,6 +468,9 @@ public:
     inline float getHelicopterVelocity(void) const noexcept { return this->m_helicopter_velocity; }
     inline void setHelicopterVelocity(const float value) noexcept { this->m_helicopter_velocity = value; }
 
+    inline bool IsHelicopterStopFire(void) const noexcept { return this->m_is_helicopter_stop_fire; }
+    inline void setHelicopterStopFire(const bool value) noexcept { this->m_is_helicopter_stop_fire = value; }
+
 private:
     // @ Не понятно зачем в итоге но так у ПЫС, если в итоге оно находится в самом сторадже где уже зарегистрирован
     // сам НПС
@@ -482,6 +485,7 @@ private:
     bool m_is_helicopter_fire_trail = false;
     bool m_is_helicopter_engine_sound = false;
     bool m_is_helicopter_use_minigun = false;
+    bool m_is_helicopter_stop_fire = false;
     std::uint32_t m_home_min_radius = 0;
     std::uint32_t m_home_mid_radius = 0;
     std::uint32_t m_home_max_radius = 0;
@@ -2077,10 +2081,11 @@ public:
     }
 
     // @ For helicopters only
-    inline void deleteEnemy(const std::uint32_t index) 
-    { 
+    inline void deleteEnemy(const std::uint32_t index)
+    {
         this->m_helicopter_enemies[index] = nullptr;
-        // Lord: I guess it will be much better if I minus this->m_helicopter_count, cuz the scripts doesn't handle it. It means that the value this->m_helicopter_count only grows up!
+        // Lord: I guess it will be much better if I minus this->m_helicopter_count, cuz the scripts doesn't handle it.
+        // It means that the value this->m_helicopter_count only grows up!
     }
 
     inline void addObject(CScriptGameObject* object)

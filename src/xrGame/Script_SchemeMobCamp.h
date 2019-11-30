@@ -14,7 +14,7 @@ public:
     Script_SchemeMobCamp(CScriptGameObject* const p_client_object, DataBase::Storage_Scheme& storage);
     ~Script_SchemeMobCamp(void);
 
-    virtual void reset_scheme(void);
+    virtual void reset_scheme(const bool);
     virtual void update(const float delta);
     virtual void deactivate(void);
     virtual void net_destroy(CScriptGameObject* const p_client_object);

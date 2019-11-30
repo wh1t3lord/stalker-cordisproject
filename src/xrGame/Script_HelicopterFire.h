@@ -240,6 +240,8 @@ public:
         }
     }
 
+    inline void setShowHealth(const bool state) noexcept { this->m_is_show_health = state; }
+
 private:
     inline float distance_2d(const Fvector& a, const Fvector& b) noexcept
     {

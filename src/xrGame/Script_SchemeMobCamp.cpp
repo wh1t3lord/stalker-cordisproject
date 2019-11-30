@@ -26,7 +26,7 @@ Script_SchemeMobCamp::~Script_SchemeMobCamp(void)
     }
 }
 
-void Script_SchemeMobCamp::reset_scheme(void)
+void Script_SchemeMobCamp::reset_scheme(const bool)
 {
     Msg("[Scripts/Script_SchemeMobCamp/reset_scheme()] %s", this->m_npc->Name());
 

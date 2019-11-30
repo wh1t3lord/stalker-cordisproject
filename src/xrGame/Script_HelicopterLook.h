@@ -65,29 +65,31 @@ public:
         }
     }
 
+    inline bool getLookState(void) const noexcept { return this->m_is_look_state; }
+
 private:
     bool m_is_look_state;
     CScriptGameObject* m_npc;
     Fvector m_look_point;
 };
 
-class Script_HelicopterLookerStorage
+class Script_HelicopterLookStorage
 {
 private:
-    Script_HelicopterLookerStorage(void) = default;
+    Script_HelicopterLookStorage(void) = default;
 
 public:
-    static inline Script_HelicopterLookerStorage& getInstance(void) noexcept
+    static inline Script_HelicopterLookStorage& getInstance(void) noexcept
     {
-        static Script_HelicopterLookerStorage instance;
+        static Script_HelicopterLookStorage instance;
         return instance;
     }
 
-    Script_HelicopterLookerStorage(const Script_HelicopterLookerStorage&) = delete;
-    Script_HelicopterLookerStorage& operator(const Script_HelicopterLookerStorage&) = delete;
-    Script_HelicopterLookerStorage(Script_HelicopterLookerStorage&&) = delete;
-    Script_HelicopterLookerStorage& operator=(Script_HelicopterLookerStorage&&) = delete;
-    ~Script_HelicopterLookerStorage(void)
+    Script_HelicopterLookStorage(const Script_HelicopterLookStorage&) = delete;
+    Script_HelicopterLookStorage& operator(const Script_HelicopterLookStorage&) = delete;
+    Script_HelicopterLookStorage(Script_HelicopterLookStorage&&) = delete;
+    Script_HelicopterLookStorage& operator=(Script_HelicopterLookStorage&&) = delete;
+    ~Script_HelicopterLookStorage(void)
     {
         if (!this->m_helicopter_lookers_storage.empty())
         {

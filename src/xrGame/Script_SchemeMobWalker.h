@@ -13,7 +13,7 @@ public:
     Script_SchemeMobWalker(CScriptGameObject* p_client_object, DataBase::Storage_Scheme& storage);
     ~Script_SchemeMobWalker(void);
 
-    virtual void reset_scheme(void);
+    virtual void reset_scheme(const bool);
     virtual void update(const float delta);
     virtual void waypoint_callback(
         CScriptGameObject* p_client_object, const std::uint32_t action_movement_type, const std::uint32_t index);
