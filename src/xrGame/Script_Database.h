@@ -175,8 +175,8 @@ public:
         this->m_scheme_name = scheme_name;
     }
 
-    inline const xr_string& getSectionName(void) const noexcept { return this->m_scheme_name; }
-    inline void setSectionName(const xr_string& section_name) noexcept
+    inline const xr_string& getLogicName(void) const noexcept { return this->m_logic_name; }
+    inline void setLogicName(const xr_string& section_name) noexcept
     {
         if (section_name.empty())
         {
@@ -184,7 +184,7 @@ public:
                 "true! You set an empty string.");
         }
 
-        this->m_section_name = section_name;
+        this->m_logic_name = section_name;
     }
 
     inline const xr_string& getSoundName(void) const noexcept { return this->m_sound_name; }
@@ -511,7 +511,7 @@ private:
     xr_string m_path_jump_name;
     xr_string m_state_name;
     xr_string m_scheme_name;
-    xr_string m_section_name;
+    xr_string m_logic_name;
     xr_string m_tip_name;
     xr_string m_sound_name;
     xr_string m_time_name;

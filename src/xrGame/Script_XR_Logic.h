@@ -2162,6 +2162,60 @@ inline void mob_release(CScriptGameObject* const p_client_object, const xr_strin
     }
 }
 
+inline LogicData cfg_get_condlist(CScriptIniFile* const p_ini, const xr_string& section_name,
+    const xr_string& field_name, CScriptGameObject* const p_npc)
+{
+    LogicData result;
+    if (!p_ini)
+    {
+        R_ASSERT2(false, "object is null!");
+        return result;
+    }
+
+    xr_string data_name = Globals::Utils::cfg_get_string(p_ini, section_name, field_name);
+    if (data_name.empty())
+        return result;
+
+    xr_vector<xr_string> params = Globals::Utils::parse_params(data_name);
+    if (params.empty())
+    {
+        R_ASSERT2(false, "can't be mepty!");
+        return result;
+    }
+    
+    result.setFieldName(field_name);
+    result.setCondlist(parse_condlist_by_script_object(section_name, field_name, params[0]));
+
+    return result;
+}
+
+inline void try_switch_to_another_section(
+    CScriptGameObject* p_client_object, DataBase::Storage_Scheme& storage, CScriptGameObject* p_client_actor)
+{
+    if (!p_client_actor)
+    {
+        R_ASSERT2(false, "object is null!");
+        return;
+    }
+
+    if (!p_client_object)
+    {
+        R_ASSERT2(false, "object is null!");
+        return;
+    }
+
+    const xr_string& logic_name = storage.getLogicName();
+    std::uint16_t npc_id = p_client_object->ID();
+
+    if (logic_name.empty())
+    {
+        R_ASSERT2(false, "can't find script swtiching information in storage");
+        return;
+    }
+
+    bool is_switched = false;
+}
+
 } // namespace XR_LOGIC
 } // namespace Scripts
 } // namespace Cordis
