@@ -2162,6 +2162,35 @@ inline void mob_release(CScriptGameObject* const p_client_object, const xr_strin
     }
 }
 
+inline LogicData cfg_get_string_and_condlist(CScriptIniFile* const p_ini, const xr_string& section_name,
+    const xr_string& field_name, CScriptGameObject* const p_npc)
+{
+    LogicData result;
+    if (!p_ini)
+    {
+        R_ASSERT2(false, "object is null!");
+        return result;
+    }
+
+    xr_string data_name = Globals::Utils::cfg_get_string(p_ini, section_name, field_name);
+    if (data_name.empty())
+        return result;
+
+    xr_vector<xr_string> params = Globals::Utils::parse_params(data_name);
+    if (params.empty() || params.size() < 2)
+    {
+        R_ASSERT2(false, "can't be empty!");
+        return result;
+    }
+
+    result.setFieldName(field_name);
+    result.setFirstValueName(params[0]);
+    result.setSecondValue1Name(params[1]);
+    result.setCondlist(parse_condlist_by_script_object(section_name, field_name, params[1]));
+
+    return result;
+}
+
 inline LogicData cfg_get_condlist(CScriptIniFile* const p_ini, const xr_string& section_name,
     const xr_string& field_name, CScriptGameObject* const p_npc)
 {
@@ -2182,7 +2211,7 @@ inline LogicData cfg_get_condlist(CScriptIniFile* const p_ini, const xr_string& 
         R_ASSERT2(false, "can't be mepty!");
         return result;
     }
-    
+
     result.setFieldName(field_name);
     result.setCondlist(parse_condlist_by_script_object(section_name, field_name, params[0]));
 
