@@ -1965,7 +1965,7 @@ inline xr_string pstor_retrieve_string(CScriptGameObject* object, const xr_strin
     return xr_string();
 }
 
-inline void pstor_store(CScriptGameObject* object, const xr_string& varname, const bool& value)
+inline void pstor_store(CScriptGameObject* object, const xr_string& varname, const bool value)
 {
     if (!object)
     {
@@ -1982,7 +1982,7 @@ inline void pstor_store(CScriptGameObject* object, const xr_string& varname, con
     DataBase::Storage::getInstance().setPStorBool(object->ID(), varname, value);
 }
 
-inline void pstor_store(CScriptGameObject* object, const xr_string& varname, const std::uint8_t& value)
+inline void pstor_store(CScriptGameObject* object, const xr_string& varname, const std::uint8_t value)
 {
     if (!object)
     {

@@ -110,6 +110,13 @@ public:
     inline void set_block_flook(const bool state) noexcept { this->m_is_block_flook = state; }
     inline void set_look_point(const Fvector& point) noexcept { this->m_point_by_look = point; }
     inline bool IsBlockFlook(void) const noexcept { return this->m_is_block_flook; }
+    inline void setMaxVelocity(const float value) noexcept { this->m_max_velocity = value; }
+    inline void setAccFW(const float value) noexcept { this->m_helicopter_acc_fw = value; }
+    inline float getAccFW(void) const noexcept { return this->m_helicopter_acc_fw; }
+    inline void setAccBW(const float value) noexcept { this->m_helicopter_acc_bw = value; }
+    inline float getAccBW(void) const noexcept { return this->m_helicopter_acc_bw; }
+
+    inline const Fvector& getDestinationPoint(void) const noexcept { return this->m_destination_point; }
 
 private:
     inline Fvector calculate_point(void)
@@ -272,7 +279,8 @@ public:
     {
         if (this->m_fliers_storage[entity_id])
         {
-            Msg("[Scripts/Script_HelicopterFlyStorage/DeallocateFlyer(entity_id)] deleting %s %d", this->m_fliers_storage[entity_id]->m_npc->Name(), this->m_fliers_storage[entity_id]->m_npc->ID());
+            Msg("[Scripts/Script_HelicopterFlyStorage/DeallocateFlyer(entity_id)] deleting %s %d",
+                this->m_fliers_storage[entity_id]->m_npc->Name(), this->m_fliers_storage[entity_id]->m_npc->ID());
             xr_delete(this->m_fliers_storage[entity_id]);
         }
     }

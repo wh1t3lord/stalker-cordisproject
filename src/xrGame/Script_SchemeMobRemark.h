@@ -12,7 +12,7 @@ public:
     Script_SchemeMobRemark(CScriptGameObject* p_client_object, DataBase::Storage_Scheme& storage);
     ~Script_SchemeMobRemark(void);
 
-    virtual void reset_scheme(void);
+    virtual void reset_scheme(const bool);
     virtual void update(const float delta);
 
     // Lord: доделать и set_scheme тоже!

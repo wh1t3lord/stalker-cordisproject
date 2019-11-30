@@ -26,7 +26,7 @@ Script_SchemeMobWalker::~Script_SchemeMobWalker(void)
         xr_delete(this->m_patrol_look);
 }
 
-void Script_SchemeMobWalker::reset_scheme(void)
+void Script_SchemeMobWalker::reset_scheme(const bool)
 {
     Msg("[Scripts/Script_SchemeMobWalker/reset_scheme()] %s", this->m_npc->Name());
 

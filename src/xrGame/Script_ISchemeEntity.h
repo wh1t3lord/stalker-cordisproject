@@ -18,9 +18,9 @@ public:
 
     virtual ~Script_ISchemeEntity(void) { this->m_npc = nullptr; }
 
-    virtual void reset_scheme(void)
+    virtual void reset_scheme(const bool value)
     {
-        Msg("[Scripts/Script_ISchemeEntity/reset_scheme()] WARNING: NOT OVERLOADED FUNCTION!");
+        Msg("[Scripts/Script_ISchemeEntity/reset_scheme(value)] WARNING: NOT OVERLOADED FUNCTION!");
     }
 
     virtual void update(const float delta)
@@ -107,6 +107,12 @@ public:
     virtual void net_destroy(CScriptGameObject* const p_client_object)
     {
         Msg("[Scripts/Script_ISchemeEntity/net_destroy(p_client_object)] WARNING: NOT OVERLOADED FUNCTION!");
+        return;
+    }
+
+    virtual void save(void) 
+    { 
+        Msg("[Scripts/Script_ISchemeEntity/save()] WARNING: NOT OVERLOADED FUNCTION!");
         return;
     }
 

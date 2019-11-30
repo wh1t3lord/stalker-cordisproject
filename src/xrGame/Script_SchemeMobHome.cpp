@@ -16,7 +16,7 @@ Script_SchemeMobHome::Script_SchemeMobHome(CScriptGameObject* const p_client_obj
 
 Script_SchemeMobHome::~Script_SchemeMobHome(void) {}
 
-void Script_SchemeMobHome::reset_scheme(void)
+void Script_SchemeMobHome::reset_scheme(const bool)
 {
     Msg("[Scripts/Script_SchemeMobHome/reset_scheme()] %s ", this->m_npc->Name());
 

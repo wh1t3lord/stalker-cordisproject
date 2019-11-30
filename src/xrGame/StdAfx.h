@@ -437,4 +437,5 @@ enum
 #include "Script_HelicopterLook.h"
 #include "Script_HelicopterFly.h"
 #include "Script_HelicopterFire.h"
+#include "Script_SchemeHelicopterMove.h"
 #include "Script_Globalsinline.h"
