@@ -1520,6 +1520,8 @@ $(xrLibDir);$(xrSdkDir)DXSDK/Lib/$(PlatformShortName);
     <ClInclude Include="Script_Globals.h" />
     <ClInclude Include="Script_Globalsinline.h" />
     <ClInclude Include="Script_GulagGenerator.h" />
+    <ClInclude Include="Script_HelicopterFire.h" />
+    <ClInclude Include="Script_HelicopterFly.h" />
     <ClInclude Include="Script_HelicopterLook.h" />
     <ClInclude Include="script_hit.h" />
     <ClInclude Include="script_hit_inline.h" />
@@ -1543,6 +1545,7 @@ $(xrLibDir);$(xrSdkDir)DXSDK/Lib/$(PlatformShortName);
     <ClInclude Include="script_particle_action_inline.h" />
     <ClInclude Include="script_property_evaluator_wrapper.h" />
     <ClInclude Include="script_property_evaluator_wrapper_inline.h" />
+    <ClInclude Include="Script_SchemeHelicopterMove.h" />
     <ClInclude Include="Script_SchemeMobCamp.h" />
     <ClInclude Include="Script_SchemeMobCombat.h" />
     <ClInclude Include="Script_SchemeMobDeath.h" />
@@ -3662,6 +3665,7 @@ $(xrLibDir);$(xrSdkDir)DXSDK/Lib/$(PlatformShortName);
       <PrecompiledHeaderFile>pch_script.h</PrecompiledHeaderFile>
       <PrecompiledHeaderOutputFile>$(IntDir)$(ProjectName)_script.pch</PrecompiledHeaderOutputFile>
     </ClCompile>
+    <ClCompile Include="Script_SchemeHelicopterMove.cpp" />
     <ClCompile Include="Script_SchemeMobCamp.cpp" />
     <ClCompile Include="Script_SchemeMobCombat.cpp" />
     <ClCompile Include="Script_SchemeMobDeath.cpp" />

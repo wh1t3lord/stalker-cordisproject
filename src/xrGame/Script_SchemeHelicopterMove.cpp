@@ -16,6 +16,7 @@ Script_SchemeHelicopterMove::Script_SchemeHelicopterMove(
       m_p_patrol_move(nullptr), m_p_patrol_look(nullptr), m_last_index(0), m_state(0), m_next_index(0),
       m_is_callback(false), m_is_by_stop_fire_fly(false), m_flag_to_wp_callback(false)
 {
+    this->m_scheme_name = "heli_move";
 }
 
 Script_SchemeHelicopterMove::~Script_SchemeHelicopterMove(void)
