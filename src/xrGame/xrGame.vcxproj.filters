@@ -9026,6 +9026,15 @@
     <ClInclude Include="Script_HelicopterLook.h">
       <Filter>Cordis\Scripts\Logic\Heli\Move\Handlers\Look\Public</Filter>
     </ClInclude>
+    <ClInclude Include="Script_HelicopterFly.h">
+      <Filter>Cordis\Scripts\Logic\Heli\Move\Handlers\Fly\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Script_HelicopterFire.h">
+      <Filter>Cordis\Scripts\Logic\Heli\Move\Handlers\Fire\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Script_SchemeHelicopterMove.h">
+      <Filter>Cordis\Scripts\Logic\Heli\Move\Public</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="damage_manager.cpp">
@@ -13331,6 +13340,9 @@
     </ClCompile>
     <ClCompile Include="Script_SchemeMobCamp.cpp">
       <Filter>Cordis\Scripts\Logic\Mob\Camp\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Script_SchemeHelicopterMove.cpp">
+      <Filter>Cordis\Scripts\Logic\Heli\Move\Private</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
