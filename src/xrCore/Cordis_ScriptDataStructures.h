@@ -338,7 +338,8 @@ public:
         {
             if (key_name.empty())
             {
-                Msg("[Scripts/CondlistWaypointsData/getValue(key_name)] WARNING: key_name.empty() == true! Can't find with empty string key! Return ...");
+                Msg("[Scripts/CondlistWaypointsData/getValue(key_name)] WARNING: key_name.empty() == true! Can't find "
+                    "with empty string key! Return ...");
                 return xr_string();
             }
 
@@ -378,6 +379,67 @@ public:
 
 private:
     xr_vector<CondlistWayPointsData> m_data;
+};
+
+class LogicData
+{
+public:
+    LogicData(void) = default;
+    ~LogicData(void) {}
+
+    inline std::uint16_t getNpcID(void) const noexcept { return this->m_npc_id; }
+    inline void setNpcID(const std::uint16_t npc_id) noexcept { this->m_npc_id = npc_id; }
+    inline const xr_string& getFieldName(void) const noexcept { return this->m_field_name; }
+    inline void setFieldName(const xr_string& field_name) noexcept
+    {
+        if (field_name.empty())
+        {
+            Msg("[Scripts/LogicData/setFieldName(field_name)] WARNING: field_name.empty() == true! You set an empty "
+                "string");
+        }
+
+        this->m_field_name = field_name;
+    }
+
+    inline const xr_string& getFirstValueName(void) const noexcept { return this->m_value_name; }
+    inline void setFirstValueName(const xr_string& value_name) noexcept
+    {
+        if (value_name.empty())
+        {
+            Msg("[Scripts/LogicData/setFirstValueName(value_name)] WARNING: value_name.empty() == true! You set an "
+                "empty "
+                "string");
+        }
+
+        this->m_value_name = value_name;
+    }
+
+    inline const xr_string& getSecondValue1Name(void) const noexcept { return this->m_value1_name; }
+    inline void setSecondValue1Name(const xr_string& value_name) noexcept
+    {
+        if (value_name.empty())
+        {
+            Msg("[Scripts/LogicData/setSecondValueName(value_name)] WARNING: value_name.empty() == true! You set an "
+                "empty string");
+        }
+
+        this->m_value1_name = value_name;
+    }
+
+    inline const xr_map<std::uint16_t, CondlistData>& getCondlist(void) const noexcept { return this->m_condlist; }
+    inline void setCondlist(const xr_map<std::uint32_t, CondlistData>& condlist) noexcept
+    {
+        this->m_condlist = condlist;
+    }
+
+    inline bool IsEmpty(void) const noexcept { return (this->m_npc_id == 0) && (this->m_field_name.empty()) && (this->m_value1_name.empty()) && (this->m_value_name.empty()) && (this->m_condlist.empty()); }
+
+private:
+    std::uint16_t m_npc_id = 0;
+    xr_string m_field_name; // @ .name
+    xr_string m_value_name;
+    xr_string m_value1_name;
+    xr_map<std::uint32_t, CondlistData> m_condlist;
 };
 
 } // namespace Scripts

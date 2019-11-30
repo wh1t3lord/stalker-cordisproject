@@ -636,6 +636,30 @@ bool is_stalker_at_waypoint(
     return false;
 }
 
+inline xr_vector<xr_string> parse_params(const xr_string& params)
+{
+    xr_vector<xr_string> result;
+    if (params.empty())
+    {
+        Msg("[Scripts/Globals/Utils/parse_params(params)] params.empty() == true! Return empty vector");
+        return result;
+    }
+
+    boost::regex rgx("\\w+|[^\\|\\[\\]]+");
+    boost::sregex_token_iterator iter(params.begin(), params.end(), rgx);
+    boost::sregex_token_iterator end;
+    for (; iter != end; ++iter)
+    {
+        xr_string temporary = iter->str().c_str();
+        boost::algorithm::trim(temporary);
+
+        if (!temporary.empty())
+            result.push_back(temporary);
+    }
+
+    return result;
+}
+
 } // namespace Utils
 
 namespace Game
@@ -2174,10 +2198,7 @@ inline std::uint32_t choose_look_point(
     return founded_point_index;
 }
 
-inline bool is_vector_nil(const Fvector& data) 
-{
-    return (fis_zero(data.x) && fis_zero(data.y) && fis_zero(data.z)); 
-}
+inline bool is_vector_nil(const Fvector& data) { return (fis_zero(data.x) && fis_zero(data.y) && fis_zero(data.z)); }
 
 } // namespace Globals
 } // namespace Scripts

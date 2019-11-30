@@ -75,7 +75,7 @@ void Script_SchemeHelicopterMove::reset_scheme(const bool is_loading)
         else
         {
             this->m_p_patrol_look = new CPatrolPathParams(this->m_storage->getHelicopterPathLookName().c_str());
-            this->m_p_manager_fly->set_look_point(this->m_p_patrol_look->point(0));
+            this->m_p_manager_fly->set_look_point(this->m_p_patrol_look->point(std::uint32_t(0)));
             this->update_look_state();
 
             if (!this->m_p_patrol_look->m_path)

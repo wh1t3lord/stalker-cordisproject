@@ -79,6 +79,7 @@ inline CondlistWaypoints::CondlistWayPointsData parse_waypoint_data(
 inline CondlistWaypoints path_parse_waypoints(const xr_string& path_name);
 inline bool is_stalker_at_waypoint(
     CScriptGameObject* p_client_object, CPatrolPathParams& patrol_path, const std::uint32_t path_point);
+inline xr_vector<xr_string> parse_params(const xr_string& params);
 } // namespace Utils
 
 namespace Game
