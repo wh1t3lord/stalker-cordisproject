@@ -19,6 +19,78 @@ inline void add_enemy(CSE_Abstract* object)
     }
 }
 
+class Data_Overrides
+{
+public:
+    Data_Overrides(void) = default;
+    ~Data_Overrides(void) {}
+
+    inline std::uint32_t getMinPostCombatTime(void) const noexcept { return this->m_min_post_combat_time; }
+    inline void setMinPostCombatTime(const std::uint32_t value) noexcept { this->m_min_post_combat_time = value; }
+
+    inline std::uint32_t getMaxPostCombatTime(void) const noexcept { return this->m_max_post_combat_time; }
+    inline void setMaxPostCombatTime(const std::uint32_t value) noexcept { this->m_max_post_combat_time = value; }
+
+    inline const xr_map<std::uint32_t, CondlistData>& getOnOfflineCondlist(void) const noexcept
+    {
+        return this->m_on_offline_condlist;
+    }
+    inline void setOnOfflineCondlist(const xr_map<std::uint32_t, CondlistData>& condlist) noexcept
+    {
+        this->m_on_offline_condlist = condlist;
+    }
+
+    inline const LogicData& getCombatIgnore(void) const noexcept { return this->m_combat_ignore; }
+    inline void setCombatIgnore(const LogicData& data) noexcept { this->m_combat_ignore = data; }
+
+    inline bool getCombatIgnoreKeepWhenAttacked(void) const noexcept
+    {
+        return this->m_combat_ignore_keep_when_attacked;
+    }
+    inline void setCombatIgnoreKeepWhenAttacked(const bool value) noexcept
+    {
+        this->m_combat_ignore_keep_when_attacked = value;
+    }
+
+    inline const LogicData& getCombatType(void) const noexcept { return this->m_combat_type; }
+    inline void setCombatType(const LogicData& data) noexcept { this->m_combat_type = data; }
+
+    inline const LogicData& getOnCombat(void) const noexcept { return this->m_on_combat; }
+    inline void setOnCombat(const LogicData& data) noexcept { this->m_on_combat = data; }
+
+    inline const xr_map<std::uint32_t, CondlistData>& getHelicopterHunterCondlist(void) const noexcept
+    {
+        return this->m_helicopter_hunter_condlist;
+    }
+
+    inline void setHelicopterHunterCondlist(const xr_map<std::uint32_t, CondlistData>& condlist) noexcept
+    {
+        this->m_helicopter_hunter_condlist = condlist;
+    }
+
+    inline const xr_string& getSoundGroupName(void) const noexcept { return this->m_sound_group_name; }
+    inline void setSoundGroupName(const xr_string& sound_group_name) noexcept
+    {
+        if (sound_group_name.empty())
+        {
+            Msg("[Scripts/Data_Overrides/setSoundGroupName(sound_group_name)] WARNING: sound_group_name.empty() == true! You set an empty string!");
+        }
+
+        this->m_sound_group_name = sound_group_name;
+    }
+
+private:
+    bool m_combat_ignore_keep_when_attacked = false;
+    std::uint32_t m_min_post_combat_time = 0;
+    std::uint32_t m_max_post_combat_time = 0;
+    xr_map<std::uint32_t, CondlistData> m_helicopter_hunter_condlist;
+    xr_map<std::uint32_t, CondlistData> m_on_offline_condlist;
+    xr_string m_sound_group_name;
+    LogicData m_combat_ignore;
+    LogicData m_combat_type;
+    LogicData m_on_combat;
+};
+
 class Storage_Scheme
 {
 public:
@@ -474,7 +546,7 @@ public:
     inline const xr_vector<LogicData>& getLogic(void) const noexcept { return this->m_logic; }
     inline void setLogic(const xr_vector<LogicData>& data) noexcept { this->m_logic = data; }
 
- private:
+private:
     // @ Не понятно зачем в итоге но так у ПЫС, если в итоге оно находится в самом сторадже где уже зарегистрирован
     // сам НПС
     bool m_is_enabled = false;
@@ -1317,12 +1389,19 @@ public:
     inline void setDeathDataKillerName(const xr_string& name) noexcept { this->m_death.setKillerName(name); }
     inline void setDeathDataKillerID(const std::uint16_t npc_id) noexcept { this->m_death.setKillerID(npc_id); }
 
+    inline const Data_Overrides& getOverrides(void) const noexcept { return this->m_overrides; }
+    inline void setOverrides(const Data_Overrides& data) noexcept { this->m_overrides = data; }
+
+    inline std::uint8_t getSchemeType(void) const noexcept { return this->m_scheme_type; }
+    inline void setSchemeType(const std::uint8_t stype) noexcept { this->m_scheme_type = stype; }
+
 private:
     bool m_is_invulnerable = false;
     bool m_is_immortal = false;
     bool m_is_mute = false;
     bool m_is_enabled = false;
     bool m_is_anim_movement = false;
+    std::uint8_t m_scheme_type;
     std::uint16_t m_enemy_id = Globals::kUnsignedInt16Undefined;
     std::int32_t m_activation_time = 0;
     CScriptGameObject* m_p_client_object = nullptr;
@@ -1350,6 +1429,7 @@ private:
     xr_string m_section_logic_name;
     xr_string m_gulag_name;
     DeathData m_death;
+    Data_Overrides m_overrides;
 };
 
 class Storage
@@ -2075,6 +2155,16 @@ public:
     {
         this->m_storage[npc_id].setDeathDataKillerID(id);
     }
+
+    inline void setStorageOverrides(const std::uint16_t npc_id, const Data_Overrides& data) noexcept
+    {
+        this->m_storage[npc_id].setOverrides(data);
+    }
+
+    inline vodi setStorageSType(const std::uint16_t npc_id, const std::uint8_t stype) noexcept
+    {
+        this->m_storage[npc_id].setSchemeType(stype);
+    }
 #pragma endregion
 
     // @ For helicopters only
@@ -2617,7 +2707,7 @@ public:
     // @ --value;
     inline void DeleteHelicopterCount(void) noexcept { --this->m_helicopter_count; }
 
-    inline const xr_map<std::uint32_t, CScriptGameObject* const>& getHelicopterEnemies(void) const noexcept
+    inline const xr_map<std::uint32_t, CScriptGameObject*>& getHelicopterEnemies(void) const noexcept
     {
         return this->m_helicopter_enemies;
     }

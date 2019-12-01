@@ -426,7 +426,7 @@ public:
         this->m_value1_name = value_name;
     }
 
-    inline const xr_map<std::uint16_t, CondlistData>& getCondlist(void) const noexcept { return this->m_condlist; }
+    inline const xr_map<std::uint32_t, CondlistData>& getCondlist(void) const noexcept { return this->m_condlist; }
     inline void setCondlist(const xr_map<std::uint32_t, CondlistData>& condlist) noexcept
     {
         this->m_condlist = condlist;

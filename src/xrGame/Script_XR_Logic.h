@@ -2325,7 +2325,19 @@ inline xr_vector<LogicData> cfg_get_switch_conditions(
     return result;
 }
 
-inline void try_switch_to_another_section(
+inline bool is_see_actor(CScriptGameObject* const p_client_object)
+{
+    if (!p_client_object)
+    {
+        R_ASSERT2(false, "object is null!");
+        return false;
+    }
+
+    return (p_client_object->Alive() &&
+        p_client_object->CheckObjectVisibility(DataBase::Storage::getInstance().getActor()));
+}
+
+inline bool try_switch_to_another_section(
     CScriptGameObject* p_client_object, DataBase::Storage_Scheme& storage, CScriptGameObject* p_client_actor)
 {
     if (!p_client_actor)
@@ -2349,9 +2361,430 @@ inline void try_switch_to_another_section(
         return;
     }
 
-
-
     bool is_switched = false;
+
+    for (const LogicData& it : logic)
+    {
+        const xr_string& field_name = it.getFieldName();
+        if (field_name.find("on_actor_dist_le") != xr_string::npos)
+        {
+            if (is_see_actor(p_client_object) &&
+                Globals::distance_between(p_client_actor, p_client_object) <= atof(it.getFirstValueName().c_str()))
+            {
+                is_switched = switch_to_section(p_client_object, storage.getIni(),
+                    pick_section_from_condlist(p_client_actor, p_client_object, it.getCondlist()));
+            }
+        }
+        else if (field_name.find("on_actor_dist_le_nvis") != xr_string::npos)
+        {
+            if (Globals::distance_between(p_client_actor, p_client_object) <= atof(it.getFirstValueName().c_str()))
+            {
+                is_switched = switch_to_section(p_client_object, storage.getIni(),
+                    pick_section_from_condlist(p_client_actor, p_client_object, it.getCondlist()));
+            }
+        }
+        else if (field_name.find("on_actor_dist_ge") != xr_string::npos)
+        {
+            if (is_see_actor(p_client_object) &&
+                Globals::distance_between(p_client_actor, p_client_object) > atof(it.getFirstValueName().c_str()))
+            {
+                is_switched = switch_to_section(p_client_object, storage.getIni(),
+                    pick_section_from_condlist(p_client_actor, p_client_object, it.getCondlist()));
+            }
+        }
+        else if (field_name.find("on_actor_dist_ge_nvis") != xr_string::npos)
+        {
+            if (Globals::distance_between(p_client_actor, p_client_object) > atof(field_name.c_str()))
+            {
+                is_switched = switch_to_section(p_client_object, storage.getIni(),
+                    pick_section_from_condlist(p_client_actor, p_client_object, it.getCondlist()));
+            }
+        }
+        else if (field_name.find("on_signal") != xr_string::npos)
+        {
+            if (!storage.getSignals(it.getFirstValueName()).empty())
+            {
+                is_switched = switch_to_section(p_client_object, storage.getIni(),
+                    pick_section_from_condlist(p_client_actor, p_client_object, it.getCondlist()));
+            }
+        }
+        else if (field_name.find("on_info") != xr_string::npos)
+        {
+            is_switched = switch_to_section(p_client_object, storage.getIni(),
+                pick_section_from_condlist(p_client_actor, p_client_object, it.getCondlist()));
+        }
+        else if (field_name.find("on_timer") != xr_string::npos)
+        {
+            if (Globals::get_time_global() >=
+                DataBase::Storage::getInstance().getStorage().at(npc_id).getActivationTime() +
+                    atoi(it.getFirstValueName().c_str()))
+            {
+                is_switched = switch_to_section(p_client_object, storage.getIni(),
+                    pick_section_from_condlist(p_client_actor, p_client_object, it.getCondlist()));
+            }
+        }
+        else if (field_name.find("on_game_timer") != xr_string::npos)
+        {
+            if (Globals::Game::get_game_time().diffSec(
+                    DataBase::Storage::getInstance().getStorage().at(npc_id).getActivationGameTime()) >=
+                atof(it.getFirstValueName().c_str()))
+            {
+                is_switched = switch_to_section(p_client_object, storage.getIni(),
+                    pick_section_from_condlist(p_client_actor, p_client_object, it.getCondlist()));
+            }
+        }
+        else if (field_name.find("on_actor_in_zone") != xr_string::npos)
+        {
+            if (Globals::Utils::is_npc_in_zone(
+                    p_client_actor, DataBase::Storage::getInstance().getZoneByName().at(it.getFirstValueName())))
+            {
+                is_switched = switch_to_section(p_client_object, storage.getIni(),
+                    pick_section_from_condlist(p_client_actor, p_client_object, it.getCondlist()));
+            }
+        }
+        else if (field_name.find("on_actor_not_in_zone") != xr_string::npos)
+        {
+            if (!Globals::Utils::is_npc_in_zone(
+                    p_client_actor, DataBase::Storage::getInstance().getZoneByName().at(it.getFirstValueName())))
+            {
+                is_switched = switch_to_section(p_client_object, storage.getIni(),
+                    pick_section_from_condlist(p_client_actor, p_client_object, it.getCondlist()));
+            }
+        }
+        else if (field_name.find("on_npc_in_zone") != xr_string::npos)
+        {
+            if (Globals::Utils::is_npc_in_zone(Globals::Game::level::get_object_by_id(it.getNpcID()),
+                    DataBase::Storage::getInstance().getZoneByName().at(it.getSecondValue1Name())))
+            {
+                is_switched = switch_to_section(p_client_object, storage.getIni(),
+                    pick_section_from_condlist(p_client_actor, p_client_object, it.getCondlist()));
+            }
+        }
+        else if (field_name.find("on_npc_not_in_zone") != xr_string::npos)
+        {
+            if (!Globals::Utils::is_npc_in_zone(Globals::Game::level::get_object_by_id(it.getNpcID()),
+                    DataBase::Storage::getInstance().getZoneByName().at(it.getSecondValue1Name())))
+            {
+                is_switched = switch_to_section(p_client_object, storage.getIni(),
+                    pick_section_from_condlist(p_client_actor, p_client_object, it.getCondlist()));
+            }
+        }
+        else if (field_name.find("on_actor_inside") != xr_string::npos)
+        {
+            if (Globals::Utils::is_npc_in_zone(p_client_actor, p_client_object))
+            {
+                is_switched = switch_to_section(p_client_object, storage.getIni(),
+                    pick_section_from_condlist(p_client_actor, p_client_object, it.getCondlist()));
+            }
+        }
+        else if (field_name.find("on_actor_outside") != xr_string::npos)
+        {
+            if (!Globals::Utils::is_npc_in_zone(p_client_actor, p_client_object))
+            {
+                is_switched = switch_to_section(p_client_object, storage.getIni(),
+                    pick_section_from_condlist(p_client_actor, p_client_object, it.getCondlist()));
+            }
+        }
+        else
+        {
+            R_ASSERT2(false, "can't detect condition check your configuration file for logic!");
+        }
+
+        if (is_switched)
+        {
+            break;
+        }
+    }
+
+    return is_switched;
+}
+
+inline bool switch_to_section(
+    CScriptGameObject* const p_client_object, CScriptIniFile* const p_ini, const xr_string& section_name)
+{
+    if (!p_ini)
+    {
+        R_ASSERT2(false, "object is null!");
+        return false;
+    }
+
+    if (section_name.empty())
+    {
+        R_ASSERT2(false, "can't be empty!");
+        return false;
+    }
+
+    std::uint16_t npc_id = p_client_object->ID();
+    const xr_string& active_section_name =
+        DataBase::Storage::getInstance().getStorage().at(npc_id).getActiveSectionName();
+
+    if (active_section_name == section_name)
+    {
+        return false;
+    }
+
+    if (!active_section_name.empty())
+    {
+        for (Script_ISchemeEntity* const it :
+            DataBase::Storage::getInstance()
+                .getStorage()
+                .at(npc_id)
+                .getSchemes()
+                .at(DataBase::Storage::getInstance().getStorage().at(npc_id).getActiveSchemeName())
+                .getActions())
+        {
+            it->deactivate(p_client_object);
+        }
+    }
+
+    DataBase::Storage::getInstance().setStorageActiveSectionName(npc_id, "");
+    DataBase::Storage::getInstance().setStorageActiveSchemeName(npc_id, "");
+    activate_by_section(p_client_object, p_ini, section_name,
+        DataBase::Storage::getInstance().getStorage().at(npc_id).getGulagName(), false);
+    return true;
+}
+
+inline void activate_by_section(CScriptGameObject* const p_client_object, CScriptIniFile* const p_ini,
+    const xr_string& section_name, const xr_string& gulag_name, const bool is_loading)
+{
+    xr_string _section_name; // @ if argument is empty string for section_name
+    if (!p_ini)
+    {
+        R_ASSERT2(false, "object is null!");
+        return;
+    }
+
+    if (!p_client_object)
+    {
+        R_ASSERT2(false, "object is null!");
+        return;
+    }
+
+    const std::uint16_t npc_id = p_client_object->ID();
+
+    if (!is_loading)
+    {
+        DataBase::Storage::getInstance().setStorageActivationTime(npc_id, Globals::get_time_global());
+        DataBase::Storage::getInstance().setStorageActivationGameTime(npc_id, Globals::Game::get_game_time());
+    }
+
+    if (section_name == "nil")
+    {
+        DataBase::Storage::getInstance().setStorageOverrides(npc_id, DataBase::Data_Overrides());
+        reset_generic_schemes_on_scheme_switch(p_client_object, "nil", "nil"); // имеет ли смысл?
+        DataBase::Storage::getInstance().setStorageActiveSectionName(npc_id, "");
+        DataBase::Storage::getInstance().setStorageActiveSchemeName(npc_id, "");
+        return;
+    }
+
+    if (section_name.empty())
+    {
+        CSE_ALifeDynamicObject* p_server_smart = XR_GULAG::get_npc_smart(p_client_object);
+        if (!p_server_smart)
+        {
+            R_ASSERT2(false, "section is NIL and NPC not in smart_terrain!");
+        }
+
+        const xr_map<std::uint32_t, JobDataSmartTerrain*>& job =
+            p_server_smart->cast_script_se_smartterrain()->getJobData();
+
+        if (job.at(p_client_object->ID()))
+        {
+            _section_name = job.at(p_client_object->ID())->m_job_id.first;
+        }
+    }
+
+    if (section_name.empty())
+    {
+        if (!p_ini->section_exist(_section_name.c_str()))
+        {
+            R_ASSERT2(false, "doesnt exist!");
+        }
+    }
+    else
+    {
+        if (!p_ini->section_exist(section_name.c_str()))
+        {
+            R_ASSERT2(false, "doesnt exist!");
+        }
+    }
+
+    xr_string _scheme_name = section_name.empty() ? Globals::Utils::get_scheme_by_section(_section_name) :
+                                                    Globals::Utils::get_scheme_by_section(xr_string(section_name));
+    if (_scheme_name.empty())
+    {
+        R_ASSERT2(false, "can't detect scheme name");
+    }
+
+    DataBase::Storage::getInstance().setStorageOverrides(
+        npc_id, cfg_get_overrides(p_ini, section_name.empty() ? _section_name : section_name, p_client_object));
+
+    reset_generic_schemes_on_scheme_switch(
+        p_client_object, _scheme_name, section_name.empty() ? _section_name : section_name);
+
+    if (!Script_GlobalHelper::getInstance().getSchemesSetSchemeCallbacks()[_scheme_name])
+    {
+        R_ASSERT2(false, "doesn't exist function for _scheme_name! Check Script_GlobalHelper::ctor()");
+        return;
+    }
+
+    Script_GlobalHelper::getInstance().getSchemesSetSchemeCallbacks()[_scheme_name](
+        p_client_object, p_ini, _scheme_name, section_name.empty() ? _section_name : section_name, gulag_name);
+
+    DataBase::Storage::getInstance().setStorageActiveSectionName(
+        npc_id, section_name.empty() ? _section_name : section_name);
+    DataBase::Storage::getInstance().setStorageActiveSchemeName(npc_id, _scheme_name);
+
+    if (DataBase::Storage::getInstance().getStorage().at(npc_id).getSchemeType() == Globals::kSTypeStalker)
+    {
+        Globals::Utils::send_to_nearest_accessible_vertex(p_client_object, p_client_object->level_vertex_id());
+        // LorD: доделать когда будет activate_scheme
+    }
+    else
+    {
+        for (Script_ISchemeEntity* it :
+            DataBase::Storage::getInstance().getStorage().at(npc_id).getSchemes().at(_scheme_name).getActions())
+        {
+            it->reset_scheme(is_loading, p_client_object);
+        }
+    }
+}
+
+inline void reset_generic_schemes_on_scheme_switch(
+    CScriptGameObject* const p_client_object, const xr_string& scheme_name, const xr_string& section_name)
+{
+    if (!p_client_object)
+    {
+        R_ASSERT2(false, "object is null!");
+        return;
+    }
+
+    const DataBase::Storage_Data& storage = DataBase::Storage::getInstance().getStorage().at(p_client_object->ID());
+
+    switch (storage.getSchemeType())
+    {
+    case Globals::kSTypeStalker:
+    {
+        // Lord: доделать когда будешь уже сделаны схемы сталкеров xr_meet
+        //         xr_help_wounded xr_corpse_detection xr_abuse xr_wounded xr_death xr_danger xr_gather_items
+        //             xr_combat_ignore stalker_generic restrictor_manager xr_hear
+        break;
+    }
+    case Globals::kSTypeMobile:
+    {
+        mob_release(p_client_object, scheme_name);
+        if (Globals::get_script_clsid(CLSID_SE_MONSTER_BLOODSUCKER))
+        {
+            if (scheme_name == "nil")
+            {
+                p_client_object->set_manual_invisibility(false);
+            }
+            else
+            {
+                p_client_object->set_manual_invisibility(true);
+            }
+        }
+
+        // Lord: доделать когда будут сделаны следующие xr_hear, restrictor_manager, stalker_generic, xr_combat_ignore
+
+        break;
+    }
+    case Globals::kSTypeItem:
+    {
+        p_client_object->SetNonscriptUsable(true);
+        if (Globals::get_script_clsid(CLSID_CAR))
+        {
+            //  p_client_object->car, Lord: наверное ph_minigun, но как сделать если там простой класс
+            mob_release(p_client_object, scheme_name);
+        }
+
+        break;
+    }
+    case Globals::kSTypeHelicopter:
+    {
+        break;
+    }
+    case Globals::kSTypeRestrictor:
+    {
+        break;
+    }
+    }
+}
+
+inline DataBase::Data_Overrides cfg_get_overrides(
+    CScriptIniFile* const p_ini, const xr_string& section_name, CScriptGameObject* const p_client_object)
+{
+    DataBase::Data_Overrides result;
+    if (!p_ini)
+    {
+        R_ASSERT2(false, "object is null!");
+        return;
+    }
+
+    if (!p_client_object)
+    {
+        R_ASSERT2(false, "object is null!");
+        return;
+    }
+
+    xr_string parsing_data = Globals::Utils::cfg_get_string(p_ini, section_name, "heli_hunter");
+    if (!parsing_data.empty())
+    {
+        result.setHelicopterHunterCondlist(parse_condlist_by_script_object(section_name, "heli_hunter", parsing_data));
+    }
+
+    result.setCombatIgnore(cfg_get_condlist(p_ini, section_name, "combat_ignore_cond", p_client_object));
+    result.setCombatIgnoreKeepWhenAttacked(
+        Globals::Utils::cfg_get_bool(p_ini, section_name, "combat_ignore_keep_when_attacked"));
+    result.setCombatType(cfg_get_condlist(p_ini, section_name, "combat_type", p_client_object));
+    result.setOnCombat(cfg_get_condlist(p_ini, section_name, "on_combat", p_client_object));
+
+    std::uint32_t min_value = 10;
+    std::uint32_t max_value = 15;
+
+    if (p_ini->line_exist(
+            DataBase::Storage::getInstance().getStorage().at(p_client_object->ID()).getSectionLogicName().c_str(),
+            "post_combat_time"))
+    {
+        Globals::Utils::r_2nums(*p_ini,
+            DataBase::Storage::getInstance().getStorage().at(p_client_object->ID()).getSectionLogicName(),
+            "post_combat_time", min_value, max_value);
+    }
+    else
+    {
+        Globals::Utils::r_2nums(*p_ini, section_name, "post_combat_time", min_value, max_value);
+    }
+
+    result.setMinPostCombatTime(min_value);
+    result.setMaxPostCombatTime(max_value);
+
+    if (p_ini->line_exist(section_name.c_str(), "on_offline"))
+    {
+        result.setOnOfflineCondlist(parse_condlist_by_script_object(section_name, "on_offline",
+            Globals::Utils::cfg_get_string(p_ini, section_name, "on_offline").empty() ?
+                "nil" :
+                Globals::Utils::cfg_get_string(p_ini, section_name, "on_offline")));
+    }
+    else
+    {
+        const xr_string& section_logic_name =
+            DataBase::Storage::getInstance().getStorage().at(p_client_object->ID()).getSectionLogicName();
+        result.setOnOfflineCondlist(parse_condlist_by_script_object(section_logic_name, "on_offline",
+            Globals::Utils::cfg_get_string(p_ini, section_name, "on_offline").empty() ?
+                "nil" :
+                Globals::Utils::cfg_get_string(p_ini, section_name, "on_offline")));
+    }
+
+    if (section_name.find("kamp") != xr_string::npos)
+    {
+        result.setSoundGroupName(Globals::Utils::cfg_get_string(p_ini, section_name, "center_point"));
+    }
+    else
+    {
+        result.setSoundGroupName(Globals::Utils::cfg_get_string(p_ini, section_name, "soundgroup"));
+    }
+
+    return result;
 }
 
 } // namespace XR_LOGIC

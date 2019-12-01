@@ -16,6 +16,7 @@ namespace Cordis
 {
 namespace Scripts
 {
+    // Lord: переделать под Script_ISchemeEntity
 class Script_Animpoint
 {
 public:

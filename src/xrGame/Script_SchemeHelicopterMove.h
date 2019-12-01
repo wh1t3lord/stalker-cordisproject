@@ -13,7 +13,7 @@ public:
     Script_SchemeHelicopterMove(CScriptGameObject* const p_client_object, DataBase::Storage_Scheme& storage);
     ~Script_SchemeHelicopterMove(void);
 
-    virtual void reset_scheme(const bool is_loading);
+    virtual void reset_scheme(const bool is_loading, CScriptGameObject* const p_client_object);
     virtual void save(void);
     virtual void update(const float delta);
     virtual void waypoint_callback(
@@ -49,7 +49,7 @@ public:
 
     // @ PRIVATE, uses in XR_LOGIC
     static inline void set_scheme(CScriptGameObject* const p_client_object, CScriptIniFile* const p_ini,
-        const xr_string& scheme_name, const xr_string& section_name, const DataBase::Storage_Scheme& storage)
+        const xr_string& scheme_name, const xr_string& section_name, const xr_string& gulag_name)
     {
     }
 

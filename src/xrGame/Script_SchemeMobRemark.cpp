@@ -13,7 +13,7 @@ Script_SchemeMobRemark::Script_SchemeMobRemark(CScriptGameObject* p_client_objec
 
 Script_SchemeMobRemark::~Script_SchemeMobRemark(void) {}
 
-void Script_SchemeMobRemark::reset_scheme(const bool)
+void Script_SchemeMobRemark::reset_scheme(const bool, CScriptGameObject* const p_client_object)
 {
     Msg("[Scripts/Script_SchemeMobRemark/reset_scheme()] called for %s", this->m_npc->Name());
 

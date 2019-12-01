@@ -26,7 +26,7 @@ Script_SchemeMobCamp::~Script_SchemeMobCamp(void)
     }
 }
 
-void Script_SchemeMobCamp::reset_scheme(const bool)
+void Script_SchemeMobCamp::reset_scheme(const bool, CScriptGameObject* const p_client_object)
 {
     Msg("[Scripts/Script_SchemeMobCamp/reset_scheme()] %s", this->m_npc->Name());
 
@@ -95,7 +95,7 @@ void Script_SchemeMobCamp::update(const float delta)
     this->execute_state();
 }
 
-void Script_SchemeMobCamp::deactivate(void)
+void Script_SchemeMobCamp::deactivate(CScriptGameObject* const p_client_object)
 {
     if (this->m_path_home)
     {

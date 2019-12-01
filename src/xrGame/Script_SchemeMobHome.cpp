@@ -16,7 +16,7 @@ Script_SchemeMobHome::Script_SchemeMobHome(CScriptGameObject* const p_client_obj
 
 Script_SchemeMobHome::~Script_SchemeMobHome(void) {}
 
-void Script_SchemeMobHome::reset_scheme(const bool)
+void Script_SchemeMobHome::reset_scheme(const bool, CScriptGameObject* const p_client_object)
 {
     Msg("[Scripts/Script_SchemeMobHome/reset_scheme()] %s ", this->m_npc->Name());
 
@@ -110,7 +110,7 @@ void Script_SchemeMobHome::reset_scheme(const bool)
     }
 }
 
-void Script_SchemeMobHome::deactivate(void) 
+void Script_SchemeMobHome::deactivate(CScriptGameObject* const p_client_object) 
 {
     this->m_npc->remove_home(); 
 }

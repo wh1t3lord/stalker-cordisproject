@@ -660,6 +660,28 @@ inline xr_vector<xr_string> parse_params(const xr_string& params)
     return result;
 }
 
+inline std::uint32_t send_to_nearest_accessible_vertex(
+    CScriptGameObject* const p_client_object, const std::uint32_t vertex_id)
+{
+    if (!p_client_object)
+    {
+        R_ASSERT2(false, "object is null!");
+        return 0;
+    }
+
+    std::uint32_t _detected_vertex = Globals::kUnsignedInt32Undefined;
+    if (!p_client_object->accessible_vertex_id(vertex_id))
+    {
+        Fvector result;
+        _detected_vertex = p_client_object->accessible_nearest(Game::level::vertex_position(vertex_id), result);
+    }
+
+    p_client_object->set_dest_level_vertex_id(
+        (_detected_vertex == Globals::kUnsignedInt32Undefined) ? vertex_id : _detected_vertex);
+
+    return (_detected_vertex == Globals::kUnsignedInt32Undefined) ? vertex_id : _detected_vertex;
+}
+
 } // namespace Utils
 
 namespace Game

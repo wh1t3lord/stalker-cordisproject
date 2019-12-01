@@ -17,17 +17,15 @@ inline CSE_ALifeDynamicObject* get_npc_smart(CScriptGameObject* object)
         return nullptr;
     }
 
-    // Lord: как избежать каста!!!!!
-    CSE_ALifeMonsterAbstract* server_object = (CSE_ALifeMonsterAbstract*)ai().alife().objects().object(object->ID());
+    CSE_ALifeMonsterAbstract* server_object = ai().alife().objects().object(object->ID())->cast_monster_abstract();
 
     if (!server_object)
     {
         Msg("[Scripts/XR_GULAG/get_npc_smart(object)] server_object is null!");
-        R_ASSERT(false); // @ Lord: нужен ли здесь assertion?
         return nullptr;
     }
 
-    if (server_object->m_smart_terrain_id != 65535)
+    if (server_object->m_smart_terrain_id != Globals::kUnsignedInt16Undefined)
     {
         return ai().alife().objects().object(server_object->m_smart_terrain_id);
     }

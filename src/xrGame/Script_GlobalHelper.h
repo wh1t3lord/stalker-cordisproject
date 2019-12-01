@@ -4201,6 +4201,59 @@ private:
         }
 #pragma endregion
 #pragma endregion
+
+#pragma region Cordis Registering Schemes set_scheme callbacks
+        {
+            // Lord: обновлять!
+            // @ Мы должны явным образом создать объект и к нему обратиться с получением название схемы которую мы же и
+            // указали!
+            // @ Во-первых для проверки самих себя
+            // @ Во-вторых для проверки самого объекта и возвращаемого члена
+            // @ В-третьих даём понять юзверю что мы явным образом регистрируем схему
+            // @ В-четрветых понимаем сколько вообще схем используется в игре, да наверное не удобно прописывать так, зато гарантия точности и надёжности
+            // @ В-пятых это обусловлено луа у пыс можно было mob_walker.something_like_this(), но у нас так нельзя делать потому что C++ и потому что интерфейсы
+            // @ В-шестых луа ловушка джокера никогда не используйте lua в таком сложном backend
+
+            Script_SchemeMobCamp mob_camp = Script_SchemeMobCamp(nullptr, DataBase::Storage_Scheme());
+            Script_SchemeMobCombat mob_combat = Script_SchemeMobCombat(nullptr, DataBase::Storage_Scheme());
+            Script_SchemeMobDeath mob_death = Script_SchemeMobDeath(nullptr, DataBase::Storage_Scheme());
+            Script_SchemeMobHome mob_home = Script_SchemeMobHome(nullptr, DataBase::Storage_Scheme());
+            Script_SchemeMobJump mob_jump = Script_SchemeMobJump(nullptr, DataBase::Storage_Scheme());
+            Script_SchemeMobRemark mob_remark = Script_SchemeMobRemark(nullptr, DataBase::Storage_Scheme());
+            Script_SchemeMobWalker mob_walker = Script_SchemeMobWalker(nullptr, DataBase::Storage_Scheme());
+            Script_SchemeHelicopterMove heli_move = Script_SchemeHelicopterMove(nullptr, DataBase::Storage_Scheme());
+
+            this->m_registered_schemes_set_scheme_callbacks[mob_camp.getSchemeName()] =
+                Script_SchemeMobCamp::set_scheme;
+            this->m_registered_schemes_set_scheme_callbacks[mob_combat.getSchemeName()] =
+                Script_SchemeMobCombat::set_scheme;
+            this->m_registered_schemes_set_scheme_callbacks[mob_home.getSchemeName()] =
+                Script_SchemeMobDeath::set_scheme;
+            this->m_registered_schemes_set_scheme_callbacks[mob_jump.getSchemeName()] =
+                Script_SchemeMobJump::set_scheme;
+            this->m_registered_schemes_set_scheme_callbacks[mob_remark.getSchemeName()] =
+                Script_SchemeMobRemark::set_scheme;
+            this->m_registered_schemes_set_scheme_callbacks[mob_walker.getSchemeName()] =
+                Script_SchemeMobWalker::set_scheme;
+            this->m_registered_schemes_set_scheme_callbacks[heli_move.getSchemeName()] =
+                Script_SchemeHelicopterMove::set_scheme;
+
+            this->m_registered_schemes_add_to_binder_callbacks[mob_camp.getSchemeName()] =
+                Script_SchemeMobCamp::add_to_binder;
+            this->m_registered_schemes_add_to_binder_callbacks[mob_combat.getSchemeName()] =
+                Script_SchemeMobCombat::set_scheme;
+            this->m_registered_schemes_add_to_binder_callbacks[mob_home.getSchemeName()] =
+                Script_SchemeMobHome::add_to_binder;
+            this->m_registered_schemes_add_to_binder_callbacks[mob_jump.getSchemeName()] =
+                Script_SchemeMobJump::add_to_binder;
+            this->m_registered_schemes_add_to_binder_callbacks[mob_remark.getSchemeName()] =
+                Script_SchemeMobRemark::add_to_binder;
+            this->m_registered_schemes_add_to_binder_callbacks[mob_walker.getSchemeName()] =
+                Script_SchemeMobWalker::add_to_binder;
+            this->m_registered_schemes_add_to_binder_callbacks[heli_move.getSchemeName()] =
+                Script_SchemeHelicopterMove::add_to_binder;
+        }
+#pragma endregion
     }
 
 public:
@@ -5433,6 +5486,22 @@ public:
     {
         return this->m_monster_sound_name_to_type_action;
     }
+
+    inline xr_map<xr_string,
+        std::function<void(CScriptGameObject* const, CScriptIniFile* const, const xr_string&, const xr_string&,
+            const xr_string&)>>&
+    getSchemesSetSchemeCallbacks(void) noexcept
+    {
+        return this->m_registered_schemes_set_scheme_callbacks;
+    }
+
+    inline xr_map<xr_string,
+        std::function<void(CScriptGameObject* const, CScriptIniFile* const, const xr_string&, const xr_string&,
+            DataBase::Storage_Scheme&)>>
+    getSchemesAddToBinderCallbacks(void) noexcept
+    {
+        return this->m_registered_schemes_add_to_binder_callbacks;
+    }
 #pragma endregion
 
 private:
@@ -5445,6 +5514,14 @@ private:
     xr_map<xr_string, bool> m_registered_eatable_visuals;
     xr_map<xr_string, bool> m_registered_harmonica_visuals;
     xr_map<xr_string, bool> m_quest_section;
+    xr_map<xr_string,
+        std::function<void(CScriptGameObject* const, CScriptIniFile* const, const xr_string&, const xr_string&,
+            const xr_string&)>>
+        m_registered_schemes_set_scheme_callbacks;
+    xr_map<xr_string,
+        std::function<void(CScriptGameObject* const, CScriptIniFile* const, const xr_string&, const xr_string&,
+            DataBase::Storage_Scheme&)>>
+        m_registered_schemes_add_to_binder_callbacks;
     xr_map<xr_string, Script_SmartTerrainControl_States> m_registered_smart_terrain_control_script_states;
     xr_map<xr_string, xr_string> m_squad_community_by_behavior;
     xr_map<xr_string, xr_vector<std::pair<std::function<bool(std::uint16_t, bool)>, xr_string>>> m_animpoint_table;
