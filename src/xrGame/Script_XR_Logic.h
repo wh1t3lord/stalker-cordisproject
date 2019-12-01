@@ -5,6 +5,7 @@
 #include "Script_XR_Gulag.h"
 #include "Script_GlobalHelper.h"
 #include "Script_LogicManager.h"
+
 namespace Cordis
 {
 namespace Scripts
@@ -19,70 +20,37 @@ constexpr const char* XR_LOGIC_TEXT_NEVER = "never";
 constexpr const char* kXRLogicReturnTypeSuccessfulName = "true";
 constexpr const char* kXRLogicReturnTypeBadName = "false";
 
-inline CScriptIniFile configure_schemes(CScriptGameObject* npc, CScriptIniFile& ini, const xr_string& ini_filename,
-    unsigned int stype, const xr_string& section_logic, const xr_string& gulag_name)
+inline void disable_generic_schemes(CScriptGameObject* const p_client_object, const std::uint32_t stype)
 {
-    if (!npc)
+    if (!p_client_object)
     {
-        R_ASSERT2(false, "Object was null!");
-        return CScriptIniFile("system.ltx");
+        R_ASSERT2(false, "object is null!");
+        return;
     }
 
-    std::uint16_t npc_id = npc->ID();
-    const DataBase::Storage_Data& storage = DataBase::Storage::getInstance().getStorage().at(npc_id);
-
-    if (storage.getActiveSchemeName().size())
-    {
-        /* Когда дойдёшь до данной реализации функции удали этот комментарий
-                Script_LogicManager::getInstance().all_deactivate(
-                    storage.getData().at(storage.getActiveSchemeName()).getActions(), npc);*/
-    }
-
-    CScriptIniFile actual_ini = ini;
-    xr_string actual_ini_filename;
-
-    if (!ini.section_exist(section_logic.c_str()))
-    {
-        if (!gulag_name.size())
-        {
-            actual_ini_filename = ini_filename;
-        }
-        else
-        {
-            Msg("[Scripts/XR_LOGIC/configure_schemes] ERROR: object '%s': unable to find section '%s' in '%s'",
-                npc->Name(), section_logic.c_str(), ini_filename.c_str());
-            R_ASSERT(false);
-
-            return CScriptIniFile("system.ltx");
-        }
-    }
-    else
-    {
-        xr_string filename = Globals::Utils::cfg_get_string(&ini, section_logic, "cfg", npc, false);
-        if (filename.size())
-        {
-            actual_ini_filename = filename;
-            actual_ini = CScriptIniFile(filename.c_str());
-
-            if (!actual_ini.section_exist(section_logic.c_str()))
-            {
-                Msg("object: %s configuratuion file [%s] NOT FOUND or section [logic] isn't assigned ", npc->Name(),
-                    filename.c_str());
-                R_ASSERT(false);
-                return CScriptIniFile("system.ltx");
-            }
-        }
-        else
-        {
-            if (stype == Globals::kSTypeStalker || stype == Globals::kSTypeMobile)
-            {
-            }
-        }
-    }
-
-    // Lord: доделать!
-    return CScriptIniFile("а это убрать и написать нормальный аргумент.ltx");
+    // Lord: доделать когда будут сделаны все схемы
 }
+
+inline void enable_generic_schemes(CScriptIniFile* const p_ini, CScriptGameObject* const p_client_object,
+    const std::uint32_t stype, const xr_string& section_logic_name)
+{
+    // Lord: доделать когда будут сделаны все схемы
+    if (!p_client_object)
+    {
+        R_ASSERT2(false, "object is null!");
+        return;
+    }
+
+    if (!p_ini)
+    {
+        R_ASSERT2(false, "object is null!");
+        return;
+    }
+}
+
+
+
+
 
 inline CScriptIniFile get_customdata_or_ini_file(CScriptGameObject* npc, const xr_string& filename)
 {
@@ -1866,8 +1834,7 @@ inline void pstor_load_all(CScriptGameObject* client_object, NET_Packet& packet)
         std::uint8_t pstor_type = packet.r_u8();
         if (pstor_type == Globals::kPstorTypeNumber)
         {
-            DataBase::Storage::getInstance().setPStorNumber(
-                npc_id, varname, static_cast<std::uint8_t>(packet.r_float()));
+            DataBase::Storage::getInstance().setPStorNumber(npc_id, varname, packet.r_float());
         }
         else if (pstor_type == Globals::kPstorTypeString)
         {
@@ -1883,6 +1850,37 @@ inline void pstor_load_all(CScriptGameObject* client_object, NET_Packet& packet)
         {
             R_ASSERT2(false, "can't reached!");
             return;
+        }
+    }
+}
+inline void pstor_save_all(CScriptGameObject* const p_client_object, NET_Packet& packet)
+{
+    std::uint32_t size_pstors =
+        DataBase::Storage::getInstance().getStorage().at(p_client_object->ID()).getPStor().size();
+    packet.w_u32(size_pstors);
+
+    for (const std::pair<xr_string, DataBase::PStor_Data>& it :
+        DataBase::Storage::getInstance().getStorage().at(p_client_object->ID()).getPStor())
+    {
+        packet.w_stringZ(it.first.c_str());
+        if (it.second.IsInitializedBool())
+        {
+            packet.w_u8(Globals::kPstorTypeBoolean);
+            packet.w_u8(it.second.getBool());
+        }
+        else if (it.second.IsInitializedString())
+        {
+            packet.w_u8(Globals::kPstorTypeString);
+            packet.w_stringZ(it.second.getString().c_str());
+        }
+        else if (it.second.IsInitializedNumber())
+        {
+            packet.w_u8(Globals::kPstorTypeNumber);
+            packet.w_float(static_cast<float>(it.second.getNumber()));
+        }
+        else
+        {
+            R_ASSERT2(false, "wrong type of pstor");
         }
     }
 }
@@ -2056,7 +2054,6 @@ inline void load_object(CScriptGameObject* client_object, NET_Packet& packet)
     DataBase::Storage::getInstance().setStorageActivationGameTime(npc_id, Globals::Utils::r_CTime(packet));
 
     pstor_load_all(client_object, packet);
-
     Globals::set_save_marker(packet, Globals::kSaveMarkerMode_Load, true, load_marker_name.c_str());
 }
 
@@ -2091,9 +2088,19 @@ inline void save_object(CScriptGameObject* client_object, NET_Packet& packet)
 
     if (!storage.getActiveSchemeName().empty())
     {
-        // Lord: доделать
+        for (Script_ISchemeEntity* it :
+            DataBase::Storage::getInstance()
+                .getStorage()
+                .at(client_object->ID())
+                .getSchemes()
+                .at(DataBase::Storage::getInstance().getStorage().at(client_object->ID()).getActiveSchemeName())
+                .getActions())
+        {
+            it->save();
+        }
     }
 
+    pstor_save_all(client_object, packet);
     Globals::set_save_marker(packet, Globals::kSaveMarkerMode_Save, true, save_marker_name.c_str());
 }
 
@@ -2162,29 +2169,6 @@ inline void mob_release(CScriptGameObject* const p_client_object, const xr_strin
     }
 }
 
-inline LogicData cfg_get_npc_and_zone(CScriptIniFile* const p_ini, const xr_string& section_name,
-    const xr_string& field_name, CScriptGameObject* const p_npc)
-{
-    LogicData result = cfg_get_two_strings_and_condlist(p_ini, section_name, field_name, p_npc);
-
-    if (!result.IsEmpty())
-    {
-        CSE_ALifeDynamicObject* p_server_object =
-            ai().alife().objects().object(Globals::get_story_object_id(result.getFirstValueName()));
-        if (p_server_object)
-        {
-            result.setNpcID(p_server_object->ID);
-        }
-        else
-        {
-            result.setNpcID(Globals::kUnsignedInt16Undefined);
-            R_ASSERT2(false, "there is no story_id");
-        }
-    }
-
-    return result;
-}
-
 inline LogicData cfg_get_two_strings_and_condlist(CScriptIniFile* const p_ini, const xr_string& section_name,
     const xr_string& field_name, CScriptGameObject* const p_npc)
 {
@@ -2210,6 +2194,29 @@ inline LogicData cfg_get_two_strings_and_condlist(CScriptIniFile* const p_ini, c
     result.setFirstValueName(params[0]);
     result.setSecondValue1Name(params[1]);
     result.setCondlist(parse_condlist_by_script_object(section_name, field_name, params[2]));
+
+    return result;
+}
+
+inline LogicData cfg_get_npc_and_zone(CScriptIniFile* const p_ini, const xr_string& section_name,
+    const xr_string& field_name, CScriptGameObject* const p_npc)
+{
+    LogicData result = cfg_get_two_strings_and_condlist(p_ini, section_name, field_name, p_npc);
+
+    if (!result.IsEmpty())
+    {
+        CSE_ALifeDynamicObject* p_server_object =
+            ai().alife().objects().object(Globals::get_story_object_id(result.getFirstValueName()));
+        if (p_server_object)
+        {
+            result.setNpcID(p_server_object->ID);
+        }
+        else
+        {
+            result.setNpcID(Globals::kUnsignedInt16Undefined);
+            R_ASSERT2(false, "there is no story_id");
+        }
+    }
 
     return result;
 }
@@ -2343,13 +2350,13 @@ inline bool try_switch_to_another_section(
     if (!p_client_actor)
     {
         R_ASSERT2(false, "object is null!");
-        return;
+        return false;
     }
 
     if (!p_client_object)
     {
         R_ASSERT2(false, "object is null!");
-        return;
+        return false;
     }
 
     const xr_vector<LogicData>& logic = storage.getLogic();
@@ -2358,7 +2365,7 @@ inline bool try_switch_to_another_section(
     if (logic.empty())
     {
         R_ASSERT2(false, "can't be see set_scheme!");
-        return;
+        return false;
     }
 
     bool is_switched = false;
@@ -2402,7 +2409,7 @@ inline bool try_switch_to_another_section(
         }
         else if (field_name.find("on_signal") != xr_string::npos)
         {
-            if (!storage.getSignals(it.getFirstValueName()).empty())
+            if (!storage.getSignals().at(it.getFirstValueName()))
             {
                 is_switched = switch_to_section(p_client_object, storage.getIni(),
                     pick_section_from_condlist(p_client_actor, p_client_object, it.getCondlist()));
@@ -2544,112 +2551,6 @@ inline bool switch_to_section(
     return true;
 }
 
-inline void activate_by_section(CScriptGameObject* const p_client_object, CScriptIniFile* const p_ini,
-    const xr_string& section_name, const xr_string& gulag_name, const bool is_loading)
-{
-    xr_string _section_name; // @ if argument is empty string for section_name
-    if (!p_ini)
-    {
-        R_ASSERT2(false, "object is null!");
-        return;
-    }
-
-    if (!p_client_object)
-    {
-        R_ASSERT2(false, "object is null!");
-        return;
-    }
-
-    const std::uint16_t npc_id = p_client_object->ID();
-
-    if (!is_loading)
-    {
-        DataBase::Storage::getInstance().setStorageActivationTime(npc_id, Globals::get_time_global());
-        DataBase::Storage::getInstance().setStorageActivationGameTime(npc_id, Globals::Game::get_game_time());
-    }
-
-    if (section_name == "nil")
-    {
-        DataBase::Storage::getInstance().setStorageOverrides(npc_id, DataBase::Data_Overrides());
-        reset_generic_schemes_on_scheme_switch(p_client_object, "nil", "nil"); // имеет ли смысл?
-        DataBase::Storage::getInstance().setStorageActiveSectionName(npc_id, "");
-        DataBase::Storage::getInstance().setStorageActiveSchemeName(npc_id, "");
-        return;
-    }
-
-    if (section_name.empty())
-    {
-        CSE_ALifeDynamicObject* p_server_smart = XR_GULAG::get_npc_smart(p_client_object);
-        if (!p_server_smart)
-        {
-            R_ASSERT2(false, "section is NIL and NPC not in smart_terrain!");
-        }
-
-        const xr_map<std::uint32_t, JobDataSmartTerrain*>& job =
-            p_server_smart->cast_script_se_smartterrain()->getJobData();
-
-        if (job.at(p_client_object->ID()))
-        {
-            _section_name = job.at(p_client_object->ID())->m_job_id.first;
-        }
-    }
-
-    if (section_name.empty())
-    {
-        if (!p_ini->section_exist(_section_name.c_str()))
-        {
-            R_ASSERT2(false, "doesnt exist!");
-        }
-    }
-    else
-    {
-        if (!p_ini->section_exist(section_name.c_str()))
-        {
-            R_ASSERT2(false, "doesnt exist!");
-        }
-    }
-
-    xr_string _scheme_name = section_name.empty() ? Globals::Utils::get_scheme_by_section(_section_name) :
-                                                    Globals::Utils::get_scheme_by_section(xr_string(section_name));
-    if (_scheme_name.empty())
-    {
-        R_ASSERT2(false, "can't detect scheme name");
-    }
-
-    DataBase::Storage::getInstance().setStorageOverrides(
-        npc_id, cfg_get_overrides(p_ini, section_name.empty() ? _section_name : section_name, p_client_object));
-
-    reset_generic_schemes_on_scheme_switch(
-        p_client_object, _scheme_name, section_name.empty() ? _section_name : section_name);
-
-    if (!Script_GlobalHelper::getInstance().getSchemesSetSchemeCallbacks()[_scheme_name])
-    {
-        R_ASSERT2(false, "doesn't exist function for _scheme_name! Check Script_GlobalHelper::ctor()");
-        return;
-    }
-
-    Script_GlobalHelper::getInstance().getSchemesSetSchemeCallbacks()[_scheme_name](
-        p_client_object, p_ini, _scheme_name, section_name.empty() ? _section_name : section_name, gulag_name);
-
-    DataBase::Storage::getInstance().setStorageActiveSectionName(
-        npc_id, section_name.empty() ? _section_name : section_name);
-    DataBase::Storage::getInstance().setStorageActiveSchemeName(npc_id, _scheme_name);
-
-    if (DataBase::Storage::getInstance().getStorage().at(npc_id).getSchemeType() == Globals::kSTypeStalker)
-    {
-        Globals::Utils::send_to_nearest_accessible_vertex(p_client_object, p_client_object->level_vertex_id());
-        // LorD: доделать когда будет activate_scheme
-    }
-    else
-    {
-        for (Script_ISchemeEntity* it :
-            DataBase::Storage::getInstance().getStorage().at(npc_id).getSchemes().at(_scheme_name).getActions())
-        {
-            it->reset_scheme(is_loading, p_client_object);
-        }
-    }
-}
-
 inline void reset_generic_schemes_on_scheme_switch(
     CScriptGameObject* const p_client_object, const xr_string& scheme_name, const xr_string& section_name)
 {
@@ -2718,13 +2619,13 @@ inline DataBase::Data_Overrides cfg_get_overrides(
     if (!p_ini)
     {
         R_ASSERT2(false, "object is null!");
-        return;
+        return result;
     }
 
     if (!p_client_object)
     {
         R_ASSERT2(false, "object is null!");
-        return;
+        return result;
     }
 
     xr_string parsing_data = Globals::Utils::cfg_get_string(p_ini, section_name, "heli_hunter");

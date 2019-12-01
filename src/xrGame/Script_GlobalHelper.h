@@ -3,6 +3,23 @@
 #include "object_factory.h"
 #include "Script_XR_Patrol.h"
 #include "Script_SmartTerrainControl.h"
+#include "Script_ISchemeEntity.h"
+#include "Script_ISchemeMonster.h"
+#include "Script_ISchemeStalker.h"
+#include "Script_MobStateManager.h"
+#include "Script_SchemeMobWalker.h"
+#include "Script_SchemeMobRemark.h"
+#include "Script_SchemeMobJump.h"
+#include "Script_SchemeMobHome.h"
+#include "Script_SchemeMobDeath.h"
+#include "Script_SchemeMobCombat.h"
+#include "Script_SchemeMobCamp.h"
+#include "Script_HelicopterLook.h"
+#include "Script_HelicopterFly.h"
+#include "Script_HelicopterFire.h"
+#include "Script_SchemeHelicopterMove.h"
+
+
 // @ PRIVATE PREPROCESSOR!
 #define _REGISTER_FULL_FUNCTION_XR_CONDITION(function_name, function)                                       \
     this->m_registered_functions_xr_conditions[#function_name "_client"] = function##_client;               \
@@ -4241,7 +4258,7 @@ private:
             this->m_registered_schemes_add_to_binder_callbacks[mob_camp.getSchemeName()] =
                 Script_SchemeMobCamp::add_to_binder;
             this->m_registered_schemes_add_to_binder_callbacks[mob_combat.getSchemeName()] =
-                Script_SchemeMobCombat::set_scheme;
+                Script_SchemeMobCombat::add_to_binder;
             this->m_registered_schemes_add_to_binder_callbacks[mob_home.getSchemeName()] =
                 Script_SchemeMobHome::add_to_binder;
             this->m_registered_schemes_add_to_binder_callbacks[mob_jump.getSchemeName()] =
