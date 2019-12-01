@@ -579,7 +579,8 @@ public:
     {
         if (value_name.empty())
         {
-            Msg("[Scripts/DataBase/Storage_Scheme/setPHButtonToolTipName(value_name)] WARNING: value_name.empty() == true! You set an empty string");
+            Msg("[Scripts/DataBase/Storage_Scheme/setPHButtonToolTipName(value_name)] WARNING: value_name.empty() == "
+                "true! You set an empty string");
         }
 
         this->m_ph_button_tooptip_name = value_name;
@@ -597,6 +598,32 @@ public:
         this->m_ph_button_on_press_condlist = condlist;
     }
 
+#pragma endregion
+
+#pragma region Cordis Scheme PH Code
+    inline const xr_string& getPHCodeTipName(void) const noexcept { return this->m_ph_code_tip_name; }
+    inline void setPHCodeTipName(const xr_string& text_name) noexcept { this->m_ph_code_tip_name = text_name; }
+
+    inline std::uint32_t getPHCodeCode(void) const noexcept { return this->m_ph_code_code; }
+    inline void setPHCodeCode(const std::uint32_t value) noexcept { this->m_ph_code_code = value; }
+
+    inline const xr_map<std::uint32_t, CondlistData>& getPHCodeOnCodeCondlist(void) const noexcept
+    {
+        return this->m_ph_code_on_code_condlist;
+    }
+    inline void setPHCodeOnCodeCondlist(const xr_map<std::uint32_t, CondlistData>& condlist) noexcept
+    {
+        this->m_ph_code_on_code_condlist = condlist;
+    }
+
+    inline const xr_map<xr_string, xr_map<std::uint32_t, CondlistData>>& getPHCodeOnCheckCode(void) const noexcept
+    {
+        return this->m_ph_code_on_check_code;
+    }
+    inline void setPHCodeOnCheckCode(const xr_map<xr_string, xr_map<std::uint32_t, CondlistData>>& data) noexcept
+    {
+        this->m_ph_code_on_check_code = data;
+    }
 #pragma endregion
 
 private:
@@ -622,6 +649,7 @@ private:
     std::uint32_t m_helicopter_upd_vis = 0;
     std::uint32_t m_ph_force_time = 0;
     std::uint32_t m_ph_force_delay = 0;
+    std::uint32_t m_ph_code_code = 0;
     float m_ph_jump_factor = 0.0f;
     float m_helicopter_min_rocket_distance = 0.0f;
     float m_helicopter_min_minigun_distance = 0.0f;
@@ -639,6 +667,8 @@ private:
     xr_map<xr_string, bool> m_signals;
     xr_map<std::uint32_t, CondlistData> m_dialog_condlist;
     xr_map<std::uint32_t, CondlistData> m_ph_button_on_press_condlist;
+    xr_map<std::uint32_t, CondlistData> m_ph_code_on_code_condlist;
+    xr_map<xr_string, xr_map<std::uint32_t, CondlistData>> m_ph_code_on_check_code;
     xr_vector<Script_ISchemeEntity*> m_actions;
     xr_vector<LogicData> m_logic;
     xr_string m_path_walk_name;
@@ -661,6 +691,7 @@ private:
     xr_string m_helicopter_fire_point_name;
     xr_string m_ph_button_animation_name;
     xr_string m_ph_button_tooptip_name;
+    xr_string m_ph_code_tip_name;
     CondlistWaypoints m_path_walk_info;
     CondlistWaypoints m_path_look_info;
 };
