@@ -92,6 +92,7 @@ private:
     LogicData m_on_combat;
 };
 
+// Lord: сгруппировать всё по pragma region!!!
 class Storage_Scheme
 {
 public:
@@ -351,10 +352,7 @@ public:
     inline void setPathLookInfo(const CondlistWaypoints& data) noexcept { this->m_path_look_info = data; }
 
     inline CScriptIniFile* const getIni(void) const { return this->m_p_ini; }
-    inline void setIni(CScriptIniFile* const p_ini)
-    {
-        this->m_p_ini = p_ini;
-    }
+    inline void setIni(CScriptIniFile* const p_ini) { this->m_p_ini = p_ini; }
 
     inline CScriptGameObject* const getClientObject(void) const { return this->m_p_npc; }
     inline void setClientObject(CScriptGameObject* const p_client_object) { this->m_p_npc = p_client_object; }
@@ -550,6 +548,24 @@ public:
     inline const xr_vector<LogicData>& getLogic(void) const noexcept { return this->m_logic; }
     inline void setLogic(const xr_vector<LogicData>& data) noexcept { this->m_logic = data; }
 
+#pragma region Cordis Scheme PH FORCE
+    inline std::uint32_t getPHForceTime(void) const noexcept { return this->m_ph_force_time; }
+    inline void setPHForceTime(const std::uint32_t value) noexcept { this->m_ph_force_time = value; }
+
+    inline std::uint32_t getPHForceDelay(void) const noexcept { return this->m_ph_force_delay; }
+    inline void setPHForceDelay(const std::uint32_t value) noexcept { this->m_ph_force_delay = value; }
+
+    inline float getPHForceForce(void) const noexcept { return this->m_ph_force_force; }
+    inline void setPHForceForce(const float value) noexcept { this->m_ph_force_force = value; }
+
+    inline const Fvector& getPHForcePoint(void) const noexcept { return this->m_ph_force_point; }
+    inline void setPHForcePoint(const Fvector& point) noexcept { this->m_ph_force_point = point; }
+#pragma endregion
+
+#pragma region Cordis Scheme
+
+#pragma endregion
+
 private:
     // @ Не понятно зачем в итоге но так у ПЫС, если в итоге оно находится в самом сторадже где уже зарегистрирован
     // сам НПС
@@ -570,18 +586,22 @@ private:
     std::uint32_t m_home_max_radius = 0;
     std::uint32_t m_time_change_point = 0;
     std::uint32_t m_helicopter_upd_vis = 0;
+    std::uint32_t m_ph_force_time = 0;
+    std::uint32_t m_ph_force_delay = 0;
     float m_ph_jump_factor = 0.0f;
     float m_helicopter_min_rocket_distance = 0.0f;
     float m_helicopter_min_minigun_distance = 0.0f;
     float m_helicopter_max_rocket_distance = 0.0f;
     float m_helicopter_max_minigun_distance = 0.0f;
     float m_helicopter_velocity = 0.0f;
+    float m_ph_force_force = 0.0f;
     CScriptGameObject* m_p_npc = nullptr;
     Script_ISchemeEntity* m_p_action =
         nullptr; // @ для XR_LOGIC::unsubscrive_action, используется в очень редких схемах!
     CScriptIniFile* m_p_ini = nullptr;
     CPatrolPathParams* m_p_jump_path = nullptr;
     Fvector m_offset;
+    Fvector m_ph_force_point;
     xr_map<xr_string, bool> m_signals;
     xr_map<std::uint32_t, CondlistData> m_dialog_condlist;
     xr_vector<Script_ISchemeEntity*> m_actions;
