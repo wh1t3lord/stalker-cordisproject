@@ -12,8 +12,8 @@ public:
     Script_SchemeMobHome(CScriptGameObject* const p_client_object, DataBase::Storage_Scheme& storage);
     ~Script_SchemeMobHome(void);
 
-    virtual void reset_scheme(const bool);
-    virtual void deactivate(void);
+    virtual void reset_scheme(const bool, CScriptGameObject* const p_client_object);
+    virtual void deactivate(CScriptGameObject* const p_client_object);
     
     // Lord: доделать и set_scheme тоже!
     // @ PRIVATE uses, in XR_LOGIC

@@ -49,7 +49,7 @@ Script_SchemeHelicopterMove::~Script_SchemeHelicopterMove(void)
     }
 }
 
-void Script_SchemeHelicopterMove::reset_scheme(const bool is_loading)
+void Script_SchemeHelicopterMove::reset_scheme(const bool is_loading, CScriptGameObject* const p_client_object)
 {
     Msg("[Scripts/Scripts_SchemeHelicopterMove/reset_scheme(is_loading)] %s", this->m_npc->Name());
     this->m_storage->ClearSignals();

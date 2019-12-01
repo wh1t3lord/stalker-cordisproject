@@ -13,13 +13,13 @@ public:
     Script_SchemeMobWalker(CScriptGameObject* p_client_object, DataBase::Storage_Scheme& storage);
     ~Script_SchemeMobWalker(void);
 
-    virtual void reset_scheme(const bool);
+    virtual void reset_scheme(const bool, CScriptGameObject* const p_client_object);
     virtual void update(const float delta);
     virtual void waypoint_callback(
         CScriptGameObject* p_client_object, const std::uint32_t action_movement_type, const std::uint32_t index);
     virtual void update_movement_state(void);
     virtual void update_standing_state(void);
-    virtual void deactivate(void);
+    virtual void deactivate(CScriptGameObject* const p_client_object);
     virtual void look_at_waypoint(const std::uint32_t point_index);
 
     // Lord: если не будет работать при const CScriptIniFile то убрать его, но у нас это в любом случае поинтер!
@@ -52,7 +52,7 @@ public:
 
     // @ PRIVATE, uses in XR_LOGIC
     static inline void set_scheme(CScriptGameObject* const p_client_object, CScriptIniFile* const p_ini,
-        const xr_string& scheme_name, const xr_string& section_name, const DataBase::Storage_Scheme& storage)
+        const xr_string& scheme_name, const xr_string& section_name, const xr_string& gulag_name)
     {
     }
 
