@@ -1,5 +1,7 @@
 #pragma once
 
+class CHelicopter;
+
 namespace Cordis
 {
 namespace Scripts
@@ -25,7 +27,7 @@ public:
         if (!p_helicopter)
         {
             R_ASSERT2(false, "object is null!");
-            return;
+            return false;
         }
 
         bool result = false;
@@ -236,7 +238,7 @@ public:
     Script_HelicopterFlyStorage(const Script_HelicopterFlyStorage&) = delete;
     Script_HelicopterFlyStorage& operator=(const Script_HelicopterFlyStorage&) = delete;
     Script_HelicopterFlyStorage(Script_HelicopterFlyStorage&&) = delete;
-    Script_HelicopterFlyStorage& operator=(const Script_HelicopterFlyStorage&) = delete;
+    Script_HelicopterFlyStorage& operator=(Script_HelicopterFlyStorage&&) = delete;
     ~Script_HelicopterFlyStorage(void)
     {
         if (!this->m_fliers_storage.empty())

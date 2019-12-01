@@ -130,29 +130,6 @@ struct JobDataExclusive
     JobDataExclusive_SubData m_job_id;
 };
 
-struct JobDataSmartTerrain
-{
-    ~JobDataSmartTerrain(void)
-    {
-        if (this->m_alife_task)
-        {
-            Msg("[Scripts/Script_SE_SmartTerrain/JobDataSmartTerrain/~dtor()] deleting alife task for %s",
-                this->m_job_id.first.c_str());
-            xr_delete(this->m_alife_task);
-        }
-    }
-
-    std::uint8_t m_level_id;
-    std::uint32_t m_priority;
-    std::uint32_t m_game_vertex_id;
-    CALifeSmartTerrainTask* m_alife_task = nullptr;
-    CScriptIniFile* m_ini_file = nullptr; // @ Мы его не удаляем, оно удаляется само в JobDataExclusive!
-    // @ First - section | Second - job_type (that taking from gulag_general as JobData_SubData::m_job_id respectively)
-    Fvector m_position;
-    std::pair<xr_string, xr_string> m_job_id;
-    xr_string m_ini_path_name;
-};
-
 // Lord: проверить выравнивание!!!!!!
 class Script_SE_SmartTerrain : public CSE_ALifeSmartZone
 {

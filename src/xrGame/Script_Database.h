@@ -73,7 +73,8 @@ public:
     {
         if (sound_group_name.empty())
         {
-            Msg("[Scripts/Data_Overrides/setSoundGroupName(sound_group_name)] WARNING: sound_group_name.empty() == true! You set an empty string!");
+            Msg("[Scripts/Data_Overrides/setSoundGroupName(sound_group_name)] WARNING: sound_group_name.empty() == "
+                "true! You set an empty string!");
         }
 
         this->m_sound_group_name = sound_group_name;
@@ -350,7 +351,10 @@ public:
     inline void setPathLookInfo(const CondlistWaypoints& data) noexcept { this->m_path_look_info = data; }
 
     inline CScriptIniFile* const getIni(void) const { return this->m_p_ini; }
-    inline void setIni(CScriptIniFile* const p_ini) { this->m_p_ini = p_ini; }
+    inline void setIni(CScriptIniFile* const p_ini)
+    {
+        this->m_p_ini = p_ini;
+    }
 
     inline CScriptGameObject* const getClientObject(void) const { return this->m_p_npc; }
     inline void setClientObject(CScriptGameObject* const p_client_object) { this->m_p_npc = p_client_object; }
@@ -510,7 +514,7 @@ public:
     inline float getHelicopterMaxRocketDistance(void) const noexcept { return this->m_helicopter_max_rocket_distance; }
     inline void setHelicopterMaxRocketDistance(const float value) noexcept
     {
-        this->m_helicopter_max_rocket_distance = value
+        this->m_helicopter_max_rocket_distance = value;
     }
 
     inline float getHelicopterMaxMinigunDistance(void) const noexcept
@@ -761,12 +765,12 @@ class PStor_Data
     char m_boolean =
         Globals::kPstorBooleanUndefined; // Globals::kPstorBooleanFalse -> False, Globals::kPstorBooleanUndefined -> Not
                                          // initialized, Globals::kPstorBooleanTrue -> True
-    std::uint8_t m_number = Globals::kUnsignedInt8Undefined;
+    float m_number = 0.0f;
     xr_string m_string = Globals::kStringUndefined;
 
 public:
     inline bool IsInitializedBool(void) const noexcept { return (this->m_boolean != Globals::kPstorBooleanUndefined); }
-    inline bool IsInitializedNumber(void) const noexcept { return (this->m_number != Globals::kUnsignedInt8Undefined); }
+    inline bool IsInitializedNumber(void) const noexcept { return (!fis_zero(this->m_number)); }
     inline bool IsInitializedString(void) const noexcept { return (this->m_string != Globals::kStringUndefined); }
     inline bool IsInitializedSomething(void) const noexcept
     {
@@ -797,14 +801,8 @@ public:
         return false;
     }
 
-    inline std::uint8_t getNumber(void) const noexcept
+    inline float getNumber(void) const noexcept
     {
-        if (this->m_number == Globals::kUnsignedInt8Undefined)
-        {
-            Msg("[Scripts/DataBase/PStor_Data/getNumber()] the m_number doesn't initialized. Returns 0.");
-            return std::uint8_t(0);
-        }
-
         Msg("[Scripts/DataBase/PStor_Data/getNumber()] Returns value [%d], because it was initialized!",
             this->m_number);
         return this->m_number;
@@ -822,7 +820,7 @@ public:
         return this->m_string;
     }
 
-    inline void setBool(const bool& value) noexcept
+    inline void setBool(const bool value) noexcept
     {
         if (this->m_number != Globals::kUnsignedInt8Undefined || this->m_string != Globals::kStringUndefined)
         {
@@ -843,7 +841,7 @@ public:
         }
     }
 
-    inline void setNumber(const std::uint8_t& value) noexcept
+    inline void setNumber(const float value) noexcept
     {
         if (this->m_boolean != Globals::kPstorBooleanUndefined || this->m_string != Globals::kStringUndefined)
         {
@@ -852,7 +850,7 @@ public:
             return;
         }
 
-        Msg("[Scripts/DataBase/PStor_Data/setNumber(value)] -> %d", value);
+        Msg("[Scripts/DataBase/PStor_Data/setNumber(value)] -> %f", value);
         this->m_number = value;
     }
 
@@ -1076,6 +1074,14 @@ public:
         this->m_p_client_object = nullptr;
         this->m_p_server_object = nullptr;
         this->m_p_sound_object = nullptr; // @ Lord: нужно ли удалять?
+        if (this->m_p_ini)
+        {
+            Msg("[Scripts/DataBase/Storage_Data/~dtor()] deleting CScriptIniFile");
+            if (this->m_is_allocated_ini)
+                xr_delete(this->m_p_ini);
+            else
+                this->m_p_ini = nullptr;
+        }
     }
     inline bool IsInvulnerable(void) const noexcept { return this->m_is_invulnerable; }
     inline void setInvulnerable(const bool value) noexcept { this->m_is_invulnerable = value; }
@@ -1148,8 +1154,8 @@ public:
         this->m_p_sound_object = p_sound_object;
     }
 
-    inline CInifile* getIni(void) const { return this->m_p_ini; }
-    inline void setIni(CInifile* p_ini)
+    inline CScriptIniFile* getIni(void) const { return this->m_p_ini; }
+    inline void setIni(CScriptIniFile* p_ini, const bool is_allocated)
     {
         if (!p_ini)
         {
@@ -1157,7 +1163,7 @@ public:
                 "object! No assignment!");
             return;
         }
-
+        this->m_is_allocated_ini = is_allocated;
         this->m_p_ini = p_ini;
     }
 
@@ -1369,7 +1375,7 @@ public:
             return;
         }
 
-        this->m_schemes[scheme_name].setSectionName(section_name);
+        this->m_schemes[scheme_name].setLogicName(section_name);
     }
 
     inline void setSchemesEnabled(const xr_string& scheme_name, const bool value) noexcept
@@ -1401,6 +1407,7 @@ private:
     bool m_is_mute = false;
     bool m_is_enabled = false;
     bool m_is_anim_movement = false;
+    bool m_is_allocated_ini = false;
     std::uint8_t m_scheme_type;
     std::uint16_t m_enemy_id = Globals::kUnsignedInt16Undefined;
     std::int32_t m_activation_time = 0;
@@ -1408,7 +1415,7 @@ private:
     StorageAnimpoint_Data m_storage_animpoint;
     CSE_ALifeObject* m_p_server_object = nullptr;
     CScriptSound* m_p_sound_object = nullptr;
-    CInifile* m_p_ini = nullptr;
+    CScriptIniFile* m_p_ini = nullptr;
     xrTime m_activation_game_time;
     /*    xr_map<xr_string, SubStorage_Data> m_data;*/
     xr_map<xr_string, PStor_Data> m_pstor;
@@ -1959,9 +1966,9 @@ public:
         this->m_storage[npc_id].setSoundObject(p_sound_object);
     }
 
-    inline void setStorageIniFile(const std::uint16_t npc_id, CInifile* ini) noexcept
+    inline void setStorageIniFile(const std::uint16_t npc_id, CScriptIniFile* ini, const bool is_allocated) noexcept
     {
-        this->m_storage[npc_id].setIni(ini);
+        this->m_storage[npc_id].setIni(ini, is_allocated);
     }
 
     inline void setStorageSignal(const std::uint16_t id, const xr_string& signal_name, const bool value) noexcept
@@ -2161,7 +2168,7 @@ public:
         this->m_storage[npc_id].setOverrides(data);
     }
 
-    inline vodi setStorageSType(const std::uint16_t npc_id, const std::uint8_t stype) noexcept
+    inline void setStorageSType(const std::uint16_t npc_id, const std::uint8_t stype) noexcept
     {
         this->m_storage[npc_id].setSchemeType(stype);
     }

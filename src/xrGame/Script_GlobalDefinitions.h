@@ -4,10 +4,36 @@ namespace Cordis
 {
 namespace Scripts
 {
+struct JobDataSmartTerrain
+{
+    ~JobDataSmartTerrain(void)
+    {
+        if (this->m_alife_task)
+        {
+            Msg("[Scripts/Script_SE_SmartTerrain/JobDataSmartTerrain/~dtor()] deleting alife task for %s",
+                this->m_job_id.first.c_str());
+            xr_delete(this->m_alife_task);
+        }
+    }
+
+    std::uint8_t m_level_id;
+    std::uint32_t m_priority;
+    std::uint32_t m_game_vertex_id;
+    CALifeSmartTerrainTask* m_alife_task = nullptr;
+    CScriptIniFile* m_ini_file = nullptr; // @ Мы его не удаляем, оно удаляется само в JobDataExclusive!
+    // @ First - section | Second - job_type (that taking from gulag_general as JobData_SubData::m_job_id respectively)
+    Fvector m_position;
+    std::pair<xr_string, xr_string> m_job_id;
+    xr_string m_ini_path_name;
+};
+
+class Script_SE_SmartTerrain;
+
 namespace DataBase
 {
 class Storage_Scheme;
 class Storage;
+class Data_Overrides;
 }
 
 namespace GulagGenerator
@@ -22,6 +48,19 @@ inline static xr_string& getLtx(void) noexcept
 namespace XR_LOGIC
 {
 inline void parse_infopotions(xr_map<std::uint32_t, CondlistData::CondlistValues>& data, xr_string& buffer);
+inline bool switch_to_section(
+    CScriptGameObject* const p_client_object, CScriptIniFile* const p_ini, const xr_string& section_name);
+inline void activate_by_section(CScriptGameObject* const p_client_object, CScriptIniFile* const p_ini,
+    const xr_string& section_name, const xr_string& gulag_name, const bool is_loading);
+inline void reset_generic_schemes_on_scheme_switch(
+    CScriptGameObject* const p_client_object, const xr_string& scheme_name, const xr_string& section_name);
+inline DataBase::Data_Overrides cfg_get_overrides(
+    CScriptIniFile* const p_ini, const xr_string& section_name, CScriptGameObject* const p_client_object);
+void activate_by_section(CScriptGameObject* const p_client_object, CScriptIniFile* const p_ini,
+    const xr_string& section_name, const xr_string& gulag_name, const bool is_loading);
+CScriptIniFile* configure_schemes(CScriptGameObject* const p_client_object, CScriptIniFile* const p_ini,
+    const xr_string& ini_filename, std::uint32_t stype, const xr_string& section_logic_name,
+    const xr_string& gulag_name);
 }
 
 namespace CRD_DialogManager

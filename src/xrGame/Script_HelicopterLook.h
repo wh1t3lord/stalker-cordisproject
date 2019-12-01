@@ -1,12 +1,14 @@
 #pragma once
 
+#include "helicopter.h"
+
 namespace Cordis
 {
 namespace Scripts
 {
 class Script_HelicopterLook
 {
-    friend class Script_HelicopterLookerStorage;
+    friend class Script_HelicopterLookStorage;
 
 public:
     Script_HelicopterLook(void) = delete;
@@ -86,7 +88,7 @@ public:
     }
 
     Script_HelicopterLookStorage(const Script_HelicopterLookStorage&) = delete;
-    Script_HelicopterLookStorage& operator(const Script_HelicopterLookStorage&) = delete;
+    Script_HelicopterLookStorage& operator=(const Script_HelicopterLookStorage&) = delete;
     Script_HelicopterLookStorage(Script_HelicopterLookStorage&&) = delete;
     Script_HelicopterLookStorage& operator=(Script_HelicopterLookStorage&&) = delete;
     ~Script_HelicopterLookStorage(void)

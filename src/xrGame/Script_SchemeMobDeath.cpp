@@ -22,8 +22,8 @@ void Script_SchemeMobDeath::death_callback(CScriptGameObject* const p_client_vic
         Msg("[Scripts/Script_SchemeMobDeath/death_callback()] %s killed by %s", p_client_victim->Name(),
             p_client_who->Name());
 
-        DataBase::Storage::getInstance().setStorageDeathData(p_client_victim->ID(), p_client_who->ID());
-        DataBase::Storage::getInstance().setStorageDeathData(p_client_victim->ID(), p_client_who->Name());
+        DataBase::Storage::getInstance().setStorageDeathDataKillerID(p_client_victim->ID(), p_client_who->ID());
+        DataBase::Storage::getInstance().setStorageDeathDataKillerName(p_client_victim->ID(), p_client_who->Name());
     }
     else
     {

@@ -1,5 +1,7 @@
 #pragma once
 
+#include "alife_story_registry.h"
+
 namespace Cordis
 {
 namespace Scripts

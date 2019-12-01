@@ -26,7 +26,7 @@ Script_SchemeMobWalker::~Script_SchemeMobWalker(void)
         xr_delete(this->m_patrol_look);
 }
 
-void Script_SchemeMobWalker::reset_scheme(const bool)
+void Script_SchemeMobWalker::reset_scheme(const bool, CScriptGameObject* const p_client_object)
 {
     Msg("[Scripts/Script_SchemeMobWalker/reset_scheme()] %s", this->m_npc->Name());
 
@@ -88,7 +88,7 @@ void Script_SchemeMobWalker::update(const float delta)
 {
     if (!XR_LOGIC::is_mob_captured(this->m_npc))
     {
-        this->reset_scheme();
+        this->reset_scheme(false, nullptr);
         return;
     }
 
