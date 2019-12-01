@@ -440,4 +440,5 @@ enum
 #include "Script_SchemeHelicopterMove.h"
 #include "Script_SchemePHForce.h"
 #include "Script_SchemePHButton.h"
+#include "Script_SchemePHDeath.h"
 #include "Script_Globalsinline.h"
