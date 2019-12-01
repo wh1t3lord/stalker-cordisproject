@@ -562,7 +562,40 @@ public:
     inline void setPHForcePoint(const Fvector& point) noexcept { this->m_ph_force_point = point; }
 #pragma endregion
 
-#pragma region Cordis Scheme
+#pragma region Cordis Scheme PH Button
+    inline const xr_string& getPHButtonAnimationName(void) const noexcept { return this->m_ph_button_animation_name; }
+    inline void setPHButtonAnimationName(const xr_string& animation_name) noexcept
+    {
+        if (animation_name.empty())
+        {
+            Msg("[Scripts/DataBase/Storage_Scheme/setPHButtonAnimationName(animation_name)] WARNING: "
+                "animation_name.empty() == true! You set an empty string");
+        }
+        this->m_ph_button_animation_name = animation_name;
+    }
+
+    inline const xr_string& getPHButtonToolTipName(void) const noexcept { return this->m_ph_button_tooptip_name; }
+    inline void setPHButtonToolTipName(const xr_string& value_name) noexcept
+    {
+        if (value_name.empty())
+        {
+            Msg("[Scripts/DataBase/Storage_Scheme/setPHButtonToolTipName(value_name)] WARNING: value_name.empty() == true! You set an empty string");
+        }
+
+        this->m_ph_button_tooptip_name = value_name;
+    }
+
+    inline bool IsPHButtonBlending(void) const noexcept { return this->m_is_ph_button_blending; }
+    inline void setPHButtonBlending(const bool value) noexcept { this->m_is_ph_button_blending = value; }
+
+    inline const xr_map<std::uint32_t, CondlistData>& getPHButtonOnPressCondlist(void) const noexcept
+    {
+        return this->m_ph_button_on_press_condlist;
+    }
+    inline void setPHButtonOnPressCondlist(const xr_map<std::uint32_t, CondlistData>& condlist) noexcept
+    {
+        this->m_ph_button_on_press_condlist = condlist;
+    }
 
 #pragma endregion
 
@@ -581,6 +614,7 @@ private:
     bool m_is_helicopter_engine_sound = false;
     bool m_is_helicopter_use_minigun = false;
     bool m_is_helicopter_stop_fire = false;
+    bool m_is_ph_button_blending = false;
     std::uint32_t m_home_min_radius = 0;
     std::uint32_t m_home_mid_radius = 0;
     std::uint32_t m_home_max_radius = 0;
@@ -604,6 +638,7 @@ private:
     Fvector m_ph_force_point;
     xr_map<xr_string, bool> m_signals;
     xr_map<std::uint32_t, CondlistData> m_dialog_condlist;
+    xr_map<std::uint32_t, CondlistData> m_ph_button_on_press_condlist;
     xr_vector<Script_ISchemeEntity*> m_actions;
     xr_vector<LogicData> m_logic;
     xr_string m_path_walk_name;
@@ -624,6 +659,8 @@ private:
     xr_string m_helicopter_path_look_name;
     xr_string m_helicopter_enemy_name;
     xr_string m_helicopter_fire_point_name;
+    xr_string m_ph_button_animation_name;
+    xr_string m_ph_button_tooptip_name;
     CondlistWaypoints m_path_walk_info;
     CondlistWaypoints m_path_look_info;
 };

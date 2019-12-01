@@ -118,6 +118,20 @@ public:
         return;
     }
 
+    virtual void use_callback(CScriptGameObject* const p_client_object, CScriptGameObject* const p_client_who)
+    {
+        Msg("[Scripts/Script_ISchemeEntity/use_callback(p_client_object, p_client_who)] WARNING: NOT OVERLOADED "
+            "FUNCTION!");
+        return;
+    }
+
+    virtual void hit_callback(CScriptGameObject* const p_client_object, const float amount, const Fvector& local_direction,
+        CScriptGameObject* const p_client_who, const std::int16_t bone_index) 
+    {
+        Msg("[Scripts/Script_ISchemeEntity/hit_callback(p_client_object, amount, local_direction, p_client_who, bone_index)] WARNING: NOT OVERLOADED FUNCTION!");
+        return;
+    }
+
     // inline void setSchemeName(const xr_string& scheme_name) noexcept { this->m_scheme_name = scheme_name; }
 
     // @ using for unsubscribing that stuff
