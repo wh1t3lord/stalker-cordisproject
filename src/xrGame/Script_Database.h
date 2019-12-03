@@ -564,15 +564,18 @@ public:
     {
         this->m_on_use_condlist = condlist;
     }
+
+    inline float getForce(void) const noexcept { return this->m_force; }
+    inline void setForce(const float value) noexcept { this->m_force = value; }
+
+    inline float getAngle(void) const noexcept { return this->m_angle; }
+    inline void setAngle(const float value) noexcept { this->m_angle = value; }
 #pragma region Cordis Scheme PH FORCE
     inline std::uint32_t getPHForceTime(void) const noexcept { return this->m_ph_force_time; }
     inline void setPHForceTime(const std::uint32_t value) noexcept { this->m_ph_force_time = value; }
 
     inline std::uint32_t getPHForceDelay(void) const noexcept { return this->m_ph_force_delay; }
     inline void setPHForceDelay(const std::uint32_t value) noexcept { this->m_ph_force_delay = value; }
-
-    inline float getPHForceForce(void) const noexcept { return this->m_ph_force_force; }
-    inline void setPHForceForce(const float value) noexcept { this->m_ph_force_force = value; }
 
     inline const Fvector& getPHForcePoint(void) const noexcept { return this->m_ph_force_point; }
     inline void setPHForcePoint(const Fvector& point) noexcept { this->m_ph_force_point = point; }
@@ -797,6 +800,24 @@ public:
     inline void setPHIdleNonScriptUsable(const bool value) noexcept { this->m_is_ph_idle_nonscript_usable = value; }
 #pragma endregion
 
+#pragma region Cordis Scheme PH Oscillate
+    inline const xr_string& getPHOscillateJointName(void) const noexcept { return this->m_ph_oscillate_joint_name; }
+    inline void setPHOscillateJointName(const xr_string& joint_name) noexcept
+    {
+        if (joint_name.empty())
+        {
+            Msg("[Scripts/DataBase/Storage_Scheme/setPHOscillateJointName(joint_name)] WARNING: joint_name.empty() == "
+                "true! You set an empty string!");
+        }
+
+        this->m_ph_oscillate_joint_name = joint_name;
+    }
+
+    inline std::uint32_t getPHOscillatePeriod(void) const noexcept { return this->m_ph_oscillate_period; }
+    inline void setPHOscillatePeriod(const std::uint32_t value) noexcept { this->m_ph_oscillate_period = value; }
+
+#pragma endregion
+
 private:
     // @ Не понятно зачем в итоге но так у ПЫС, если в итоге оно находится в самом сторадже где уже зарегистрирован
     // сам НПС
@@ -829,13 +850,15 @@ private:
     std::uint32_t m_ph_force_time = 0;
     std::uint32_t m_ph_force_delay = 0;
     std::uint32_t m_ph_code_code = 0;
+    std::uint32_t m_ph_oscillate_period = 0;
     float m_ph_jump_factor = 0.0f;
     float m_helicopter_min_rocket_distance = 0.0f;
     float m_helicopter_min_minigun_distance = 0.0f;
     float m_helicopter_max_rocket_distance = 0.0f;
     float m_helicopter_max_minigun_distance = 0.0f;
     float m_helicopter_velocity = 0.0f;
-    float m_ph_force_force = 0.0f;
+    float m_force = 0.0f;
+    float m_angle = 0.0f;
     float m_ph_hit_power = 0.0f;
     float m_ph_hit_impulse = 0.0f;
     CScriptGameObject* m_p_npc = nullptr;
@@ -886,6 +909,7 @@ private:
     xr_string m_ph_door_sound_close_stop_name;
     xr_string m_ph_hit_bone_name;
     xr_string m_ph_hit_direction_path_name;
+    xr_string m_ph_oscillate_joint_name;
     CondlistWaypoints m_path_walk_info;
     CondlistWaypoints m_path_look_info;
 };

@@ -40,7 +40,7 @@ void Script_SchemePHForce::update(const float delta)
 
     Fvector direction = Fvector(this->m_storage->getPHForcePoint()).sub(this->m_npc->Position());
     direction.normalize();
-    this->m_npc->set_const_force(direction, this->m_storage->getPHForceForce(), this->m_storage->getPHForceTime());
+    this->m_npc->set_const_force(direction, this->m_storage->getForce(), this->m_storage->getPHForceTime());
     this->m_is_process = true;
 }
 
