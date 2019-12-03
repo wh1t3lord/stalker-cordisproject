@@ -105,6 +105,9 @@ void Script_SchemePHDoor::hit_callback(CScriptGameObject* const p_client_object,
     }
 }
 
+void Script_SchemePHDoor::deactivate(CScriptGameObject* const p_client_object) 
+{ this->m_npc->SetTipText(""); }
+
 void Script_SchemePHDoor::close_door(const bool is_disable_sound)
 {
     if (!is_disable_sound)
