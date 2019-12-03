@@ -114,6 +114,7 @@ inline void map_add_object_spot(const std::uint16_t& id, LPCSTR spot_type, LPCST
 inline std::uint16_t map_has_object_spot(const std::uint16_t& id, LPCSTR spot_type);
 inline void map_add_object_spot_ser(const std::uint16_t& id, LPCSTR spot_type, LPCSTR text);
 inline void map_change_spot_hint(const std::uint16_t& id, LPCSTR spot_type, LPCSTR text);
+inline void add_pp_effector(LPCSTR fn, int id, bool cyclic);
 } // namespace level
 
 } // namespace Game
