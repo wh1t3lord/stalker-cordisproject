@@ -3799,6 +3799,105 @@
     <Filter Include="Cordis\Scripts\Logic\Heli\Move\Handlers\Look\Public">
       <UniqueIdentifier>{63f74793-f936-43c5-94d4-9c3380e49967}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Cordis\Scripts\Logic\Physics\Force">
+      <UniqueIdentifier>{2e9e3b0a-d9a7-45dd-863d-652cd8c1b136}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Logic\Physics\Button">
+      <UniqueIdentifier>{f2013cb5-9b17-493a-aab5-4a89d5c994e5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Logic\Physics\Death">
+      <UniqueIdentifier>{782bd389-c5c2-459b-bbd4-bba73ae3e24e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Logic\Physics\Door">
+      <UniqueIdentifier>{685ff0ce-2a5c-4c6e-9045-bdf71a5bafb6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Logic\Physics\Hit">
+      <UniqueIdentifier>{dc5502ac-5935-4d03-bfb1-a30d0beff620}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Logic\Physics\Idle">
+      <UniqueIdentifier>{dee1f4a9-ef94-42d5-84f2-215f8888f297}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Logic\Physics\Minigun">
+      <UniqueIdentifier>{b542833c-9356-4871-9b08-1c6d4499ad4a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Logic\Physics\OnHit">
+      <UniqueIdentifier>{8221fa7b-70c1-4300-a15e-fc1392693e0e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Logic\Physics\Oscillate">
+      <UniqueIdentifier>{9a926d7e-cb6b-4093-b172-8ecb3a749c3a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Logic\Physics\Sound">
+      <UniqueIdentifier>{2bc9ce28-8090-403a-a0d3-c0c1fc4b20d6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Logic\Physics\Force\Public">
+      <UniqueIdentifier>{afb02f18-c541-485f-944b-3ed7b71c8e87}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Logic\Physics\Force\Private">
+      <UniqueIdentifier>{383a437f-6034-462f-af97-1b75a14bc69b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Logic\Physics\Button\Public">
+      <UniqueIdentifier>{63aa92ff-2ff2-4bd0-bc72-0a65e0a6fe47}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Logic\Physics\Button\Private">
+      <UniqueIdentifier>{6c34f230-6b8b-4d92-b1be-fddde4d7345e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Logic\Physics\Death\Public">
+      <UniqueIdentifier>{cbeb08f6-988f-4b5e-b890-1f9c3f73ebf5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Logic\Physics\Death\Private">
+      <UniqueIdentifier>{a9d31374-3921-4a5a-8a1b-a8112d822568}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Logic\Physics\Door\Public">
+      <UniqueIdentifier>{04193161-ea03-4a59-aa8c-db53f263f086}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Logic\Physics\Door\Private">
+      <UniqueIdentifier>{1a4c869b-82e7-4ed4-b771-788b77f09d6d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Logic\Physics\Hit\Public">
+      <UniqueIdentifier>{6f9ecb3c-80de-4196-aa5c-3849a8be6a8e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Logic\Physics\Hit\Private">
+      <UniqueIdentifier>{e739724d-e047-4d39-ba28-8ac874ad8eaa}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Logic\Physics\Idle\Public">
+      <UniqueIdentifier>{14f96d74-df59-410f-bf98-55c77ee86ac9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Logic\Physics\Idle\Private">
+      <UniqueIdentifier>{f4ac83ee-ed55-49a0-9315-f30f8c88587a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Logic\Physics\Minigun\Private">
+      <UniqueIdentifier>{01ad4d6f-8d61-43ae-b08a-ff7c59732fe1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Logic\Physics\Minigun\Public">
+      <UniqueIdentifier>{a1e6f26f-b791-4b18-b4b0-7de692c8066e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Logic\Physics\Sound\Public">
+      <UniqueIdentifier>{a56fd826-a957-4577-90d1-7264f50be0da}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Logic\Physics\Sound\Private">
+      <UniqueIdentifier>{c5c83c80-584f-410f-9d8f-1f5a2917c411}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Logic\Physics\Oscillate\Public">
+      <UniqueIdentifier>{8d2c4fd5-a756-4ab4-bf7c-6db0dd41399a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Logic\Physics\Oscillate\Private">
+      <UniqueIdentifier>{8b5f7939-5ade-4d34-8c1e-327a279ce25a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Logic\Physics\OnHit\Public">
+      <UniqueIdentifier>{db362407-03db-4525-82d2-0cbb55895a5e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Logic\Physics\OnHit\Private">
+      <UniqueIdentifier>{c4bfdfaf-30ca-4995-aefa-e050daf4f5cd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Logic\Physics\Code">
+      <UniqueIdentifier>{f18b5623-384a-4823-b344-d4b0a9049dca}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Logic\Physics\Code\Public">
+      <UniqueIdentifier>{81edb743-a7cc-4cb2-90ee-0ab03113998a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Logic\Physics\Code\Private">
+      <UniqueIdentifier>{75bd539b-92ba-48a1-9196-1871c237c2b3}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="mt_config.h">
@@ -9035,6 +9134,21 @@
     <ClInclude Include="Script_SchemeHelicopterMove.h">
       <Filter>Cordis\Scripts\Logic\Heli\Move\Public</Filter>
     </ClInclude>
+    <ClInclude Include="Script_SchemePHForce.h">
+      <Filter>Cordis\Scripts\Logic\Physics\Force\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Script_SchemePHButton.h">
+      <Filter>Cordis\Scripts\Logic\Physics\Button\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Script_SchemePHDeath.h">
+      <Filter>Cordis\Scripts\Logic\Physics\Death\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Script_SchemePHCode.h">
+      <Filter>Cordis\Scripts\Logic\Physics\Code\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Script_SchemePHDoor.h">
+      <Filter>Cordis\Scripts\Logic\Physics\Door\Public</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="damage_manager.cpp">
@@ -13343,6 +13457,21 @@
     </ClCompile>
     <ClCompile Include="Script_SchemeHelicopterMove.cpp">
       <Filter>Cordis\Scripts\Logic\Heli\Move\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Script_SchemePHForce.cpp">
+      <Filter>Cordis\Scripts\Logic\Physics\Force\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Script_SchemePHButton.cpp">
+      <Filter>Cordis\Scripts\Logic\Physics\Button\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Script_SchemePHDeath.cpp">
+      <Filter>Cordis\Scripts\Logic\Physics\Death\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Script_SchemePHCode.cpp">
+      <Filter>Cordis\Scripts\Logic\Physics\Code\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Script_SchemePHDoor.cpp">
+      <Filter>Cordis\Scripts\Logic\Physics\Door\Private</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

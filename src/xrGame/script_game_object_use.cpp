@@ -186,6 +186,16 @@ void CScriptGameObject::set_fastcall(const luabind::functor<bool>& functor, cons
     Level().ph_commander_scripts().RemoveCallsDeferred(&cmpr);
     Level().ph_commander_scripts().AddCallDeferred(c, a);
 }
+
+void CScriptGameObject::set_fastcall(std::function<bool(void)> func) 
+{
+    CPHScriptGameObjectCondition* c = new CPHScriptGameObjectCondition(func, m_game_object);
+    CPHDummiAction* a = new CPHDummiAction();
+    CPHSriptReqGObjComparer cmpr(m_game_object);
+    Level().ph_commander_scripts().RemoveCallsDeferred(&cmpr);
+    Level().ph_commander_scripts().AddCallDeferred(c, a);
+}
+
 void CScriptGameObject::set_const_force(const Fvector& dir, float value, u32 time_interval)
 {
     CPhysicsShell* shell = object().cast_physics_shell_holder()->PPhysicsShell();

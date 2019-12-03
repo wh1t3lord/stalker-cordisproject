@@ -682,6 +682,49 @@ inline std::uint32_t send_to_nearest_accessible_vertex(
     return (_detected_vertex == Globals::kUnsignedInt32Undefined) ? vertex_id : _detected_vertex;
 }
 
+inline xr_map<std::uint32_t, xr_map<std::uint32_t, CondlistData>> parse_data_1v(
+    CScriptGameObject* const p_client_object, const xr_string& buffer_name)
+{
+    xr_map<std::uint32_t, xr_map<std::uint32_t, CondlistData>> result;
+
+    if (buffer_name.empty())
+    {
+        Msg("[Scripts/Globals/Utils/parse_data_1v(p_client_object, buffer_name)] WARNING: buffer_name.empty() == true! "
+            "Can't parse an empty string return ...");
+        return result;
+    }
+
+    boost::regex rgx("\\w+|[^\\|\\[\\]]+");
+    boost::sregex_token_iterator iter(buffer_name.begin(), buffer_name.end(), rgx);
+    boost::sregex_token_iterator end;
+    bool is_condlist_found = false;
+    xr_string previous_data;
+    for (; iter != end; ++iter)
+    {
+        xr_string temporary = iter->str().c_str();
+        boost::algorithm::trim(temporary);
+        if (temporary.empty())
+            continue;
+
+        if (!is_condlist_found)
+        {
+            previous_data = temporary;
+            is_condlist_found = true;
+            continue;
+        }
+
+        if (atoi(temporary.c_str()) != 0)
+        {
+            R_ASSERT2(false, "can't be it must be a string or condlist!!!");
+        }
+
+        result[atoi(previous_data.c_str())] = XR_LOGIC::parse_condlist_by_script_object(previous_data, temporary, temporary);
+        is_condlist_found = false;
+    }
+
+    return result;
+}
+
 } // namespace Utils
 
 namespace Game

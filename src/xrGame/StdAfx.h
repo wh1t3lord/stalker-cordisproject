@@ -442,4 +442,5 @@ enum
 #include "Script_SchemePHButton.h"
 #include "Script_SchemePHDeath.h"
 #include "Script_SchemePHCode.h"
+#include "Script_SchemePHDoor.h"
 #include "Script_Globalsinline.h"

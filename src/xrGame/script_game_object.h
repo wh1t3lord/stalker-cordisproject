@@ -444,6 +444,7 @@ public:
     void SetNonscriptUsable(bool nonscript_usable);
     ///////////////////////////////////////////////////////////////////////////////////////////
     void set_fastcall(const luabind::functor<bool>& functor, const luabind::adl::object& object);
+    void set_fastcall(std::function<bool(void)> func);
     void set_const_force(const Fvector& dir, float value, u32 time_interval);
     //////////////////////////////////////////////////////////////////////////
 
