@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "Script_SchemePHHit.h"
 #include "script_hit.h"
+#include "Script_XR_Logic.h"
 
 namespace Cordis
 {

@@ -312,7 +312,8 @@ enum
     rsMuteSounds = (1ul << 28ul),
     rsEnvironment = (1ul << 29ul),
 };
-
+#include "physics_shell_scripted.h"
+#include "physics_joint_scripted.h"
 #include "script_object_action.h"
 #include "script_entity_action.h"
 #include "script_animation_action.h"
@@ -448,4 +449,5 @@ enum
 #include "Script_SchemePHMinigun.h"
 #include "Script_SchemePHOnHit.h"
 #include "Script_SchemePHOscillate.h"
+#include "Script_SchemePHSound.h"
 #include "Script_Globalsinline.h"

@@ -178,6 +178,7 @@ void CScriptGameObject::SetCallback(
 }
 
 void CScriptGameObject::SetCallback(GameObject::ECallbackType type) { /*object().callback(type).clear();*/ }
+/*
 void CScriptGameObject::set_fastcall(const luabind::functor<bool>& functor, const luabind::object& object)
 {
     CPHScriptGameObjectCondition* c = new CPHScriptGameObjectCondition(object, functor, m_game_object);
@@ -185,7 +186,7 @@ void CScriptGameObject::set_fastcall(const luabind::functor<bool>& functor, cons
     CPHSriptReqGObjComparer cmpr(m_game_object);
     Level().ph_commander_scripts().RemoveCallsDeferred(&cmpr);
     Level().ph_commander_scripts().AddCallDeferred(c, a);
-}
+}*/
 
 void CScriptGameObject::set_fastcall(std::function<bool(void)> func) 
 {

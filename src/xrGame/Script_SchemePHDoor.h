@@ -1,6 +1,7 @@
 #pragma once
 
-class cphysics_joint_scripted;
+
+class cphysics_shell_scripted;
 
 namespace Cordis
 {
@@ -57,67 +58,12 @@ private:
     void close_door(const bool is_disable_sound);
     void open_door(const bool is_disable_sound);
     void close_action(void);
-    inline bool try_switch(void) 
-    {
-        if (!this->m_storage->getPHDoorOnUseCondlist().empty())
-        {
-            if (XR_LOGIC::switch_to_section(this->m_npc, this->m_storage->getIni(),
-                    XR_LOGIC::pick_section_from_condlist(DataBase::Storage::getInstance().getActor(), this->m_npc,
-                        this->m_storage->getPHDoorOnUseCondlist())))
-            {
-                return true;
-            }
-        }
+    bool try_switch(void);
 
-        return false;
-    }
-    inline bool is_closed(void) noexcept
-    {
-        if (!this->m_p_joint)
-        {
-            Msg("[Scripts/Script_SchemePHDoor/is_closed()] WARNING: this->m_p_joint == nullptr! Return ...");
-            return false;
-        }
+    bool is_closed(void) noexcept;
 
-        float angle;
-        if (this->m_storage->IsPHDoorSlider())
-        {
-            angle = -this->m_p_joint->GetAxisAngle(0);
-        }
-        else
-        {
-            angle = this->m_p_joint->GetAxisAngle(90);
-        }
 
-        if (angle <= this->m_low_limits + 0.02f)
-            return true;
-
-        return false;
-    }
-
-    inline bool is_open(void) noexcept
-    {
-        if (!this->m_p_joint)
-        {
-            Msg("[Scripts/Script_SchemePHDoor/is_open()] WARNING: this->m_p_joint == nullptr! Return ...");
-            return false;
-        }
-
-        float angle;
-        if (this->m_storage->IsPHDoorSlider())
-        {
-            angle = -this->m_p_joint->GetAxisAngle(0);
-        }
-        else
-        {
-            angle = this->m_p_joint->GetAxisAngle(90);
-        }
-
-        if (angle >= this->m_high_limits - 0.02f)
-            return true;
-
-        return false;
-    }
+    bool is_open(void) noexcept;
 
 private:
     bool m_is_initialized;
