@@ -17,6 +17,7 @@ namespace Scripts
 Script_SchemeSRTimer::Script_SchemeSRTimer(CScriptGameObject* const p_client_object, DataBase::Storage_Scheme& storage)
     : inherited_scheme(p_client_object, storage)
 {
+    this->m_scheme_name = "sr_timer";
 }
 
 Script_SchemeSRTimer::~Script_SchemeSRTimer(void) {}

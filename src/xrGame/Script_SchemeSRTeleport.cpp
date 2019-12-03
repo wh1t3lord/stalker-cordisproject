@@ -12,6 +12,7 @@ Script_SchemeSRTeleport::Script_SchemeSRTeleport(
     CScriptGameObject* const p_client_object, DataBase::Storage_Scheme& storage)
     : inherited_scheme(p_client_object, storage), m_state(false), m_timer(0)
 {
+    this->m_scheme_name = "sr_teleport";
 }
 
 Script_SchemeSRTeleport::~Script_SchemeSRTeleport(void) {}
