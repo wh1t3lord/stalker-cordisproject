@@ -9149,6 +9149,21 @@
     <ClInclude Include="Script_SchemePHDoor.h">
       <Filter>Cordis\Scripts\Logic\Physics\Door\Public</Filter>
     </ClInclude>
+    <ClInclude Include="Script_SchemePHHit.h">
+      <Filter>Cordis\Scripts\Logic\Physics\Hit\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Script_SchemePHIdle.h">
+      <Filter>Cordis\Scripts\Logic\Physics\Idle\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Script_SchemePHMinigun.h">
+      <Filter>Cordis\Scripts\Logic\Physics\Minigun\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Script_SchemePHOnHit.h">
+      <Filter>Cordis\Scripts\Logic\Physics\OnHit\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Script_SchemePHOscillate.h">
+      <Filter>Cordis\Scripts\Logic\Physics\Oscillate\Public</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="damage_manager.cpp">
@@ -13472,6 +13487,21 @@
     </ClCompile>
     <ClCompile Include="Script_SchemePHDoor.cpp">
       <Filter>Cordis\Scripts\Logic\Physics\Door\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Script_SchemePHHit.cpp">
+      <Filter>Cordis\Scripts\Logic\Physics\Hit\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Script_SchemePHIdle.cpp">
+      <Filter>Cordis\Scripts\Logic\Physics\Idle\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Script_SchemePHMinigun.cpp">
+      <Filter>Cordis\Scripts\Logic\Physics\Minigun\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Script_SchemePHOnHit.cpp">
+      <Filter>Cordis\Scripts\Logic\Physics\OnHit\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Script_SchemePHOscillate.cpp">
+      <Filter>Cordis\Scripts\Logic\Physics\Oscillate\Private</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
