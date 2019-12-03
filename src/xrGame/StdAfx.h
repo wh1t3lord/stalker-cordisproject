@@ -450,4 +450,5 @@ enum
 #include "Script_SchemePHOnHit.h"
 #include "Script_SchemePHOscillate.h"
 #include "Script_SchemePHSound.h"
+#include "Script_SchemeSRTimer.h"
 #include "Script_Globalsinline.h"

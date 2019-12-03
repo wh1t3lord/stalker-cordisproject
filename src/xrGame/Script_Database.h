@@ -8,10 +8,8 @@ namespace DataBase
 {
 class Storage_Scheme;
 }
-}
-}
-
-
+} // namespace Scripts
+} // namespace Cordis
 
 #include "script_sound.h"
 #include "Script_ISchemeEntity.h"
@@ -860,6 +858,79 @@ public:
     inline void setPHSoundPauseMax(const std::uint32_t value) noexcept { this->m_ph_sound_pause_max = value; }
 #pragma endregion
 
+#pragma region Cordis Scheme SR Timer
+    inline const xr_string& getSRTimerTypeName(void) const noexcept { return this->m_sr_timer_type_name; }
+    inline void setSRTimerTypeName(const xr_string& timer_type_name) noexcept
+    {
+        if (timer_type_name.empty())
+        {
+            Msg("[Scripts/DataBase/Storage_Scheme/setSRTimerTypeName(timer_type_name)] WARNING: "
+                "timer_type_name.empty() == true! You set an empty string");
+        }
+
+        this->m_sr_timer_type_name = timer_type_name;
+    }
+
+    inline const xr_string& getSRTimerTimerIDName(void) const noexcept { return this->m_sr_timer_timer_id_name; }
+    inline void setSRTimerTimerIDName(const xr_string& timer_id_name) noexcept
+    {
+        if (timer_id_name.empty())
+        {
+            Msg("[Scripts/DataBase/Storage_Scheme/setSRTimerTimerIDName(timer_id_name)] WARNING: timer_id_name.empty() "
+                "== true! You set an empty string");
+        }
+
+        this->m_sr_timer_timer_id_name = timer_id_name;
+    }
+
+    inline const xr_string& getSRTimerStringName(void) const noexcept { return this->m_sr_timer_string_name; }
+    inline void setSRTimerStringName(const xr_string& string_name) noexcept
+    {
+        if (string_name.empty())
+        {
+            Msg("[Scripts/DataBase/Storage_Scheme/setSRTimerStringName(string_name)] WARNING: string_name.empty() == "
+                "true! You set an empty string");
+        }
+
+        this->m_sr_timer_string_name = string_name;
+    }
+
+    inline std::uint32_t getSRTimerStartValue(void) const noexcept { return this->m_sr_timer_start_value; }
+    inline void setSRTimerStartValue(const std::uint32_t value) noexcept { this->m_sr_timer_start_value = value; }
+
+    inline CUIGameCustom* const getSRTimerUI(void) const { return this->m_p_sr_timer_ui; }
+    inline void setSRTimerUI(CUIGameCustom* const p_ui)
+    {
+        if (!p_ui)
+        {
+            Msg("[Scripts/DataBase/Storage_Scheme/setSRTimerUI(p_ui)] WARNING: p_ui == nullptr! You set an empty "
+                "object");
+        }
+
+        this->m_p_sr_timer_ui = p_ui;
+    }
+
+    inline CUIStatic* const getSRTimerTimer(void) const { return this->m_p_sr_timer_timer; }
+    inline void setSRTimerTimer(CUIStatic* const p_static)
+    {
+        if (!p_static)
+        {
+            Msg("[Scripts/DataBase/Storage_Scheme/setSRTimerTimer(p_static)] WARNING: p_static == nullptr! You set an "
+                "empty object");
+        }
+
+        this->m_p_sr_timer_timer = p_static;
+    }
+
+    inline const xr_map<std::uint32_t, xr_map<std::uint32_t, CondlistData>>& getSRTimerOnValue(void) const noexcept
+    {
+        return this->m_sr_timer_on_value;
+    }
+    inline void setSRTimerOnValue(const xr_map<std::uint32_t, xr_map<std::uint32_t, CondlistData>>& data) noexcept
+    {
+        this->m_sr_timer_on_value = data;
+    }
+#pragma endregion
 private:
     // @ Не понятно зачем в итоге но так у ПЫС, если в итоге оно находится в самом сторадже где уже зарегистрирован
     // сам НПС
@@ -898,6 +969,7 @@ private:
     std::uint32_t m_ph_oscillate_period = 0;
     std::uint32_t m_ph_sound_pause_min = 0;
     std::uint32_t m_ph_sound_pause_max = 0;
+    std::uint32_t m_sr_timer_start_value = 0;
     float m_ph_jump_factor = 0.0f;
     float m_helicopter_min_rocket_distance = 0.0f;
     float m_helicopter_min_minigun_distance = 0.0f;
@@ -916,6 +988,8 @@ private:
     Script_SchemePHDoor* m_p_ph_door_door_action =
         nullptr; // @ Используется исключительно когда у нас схема -> ph_door, удаляется как обычный зарегистрированный
                  // action, но сам pointer зануляется в деструкторе схемы!
+    CUIGameCustom* m_p_sr_timer_ui = nullptr;
+    CUIStatic* m_p_sr_timer_timer = nullptr;
     Fvector m_offset;
     Fvector m_ph_force_point;
     xr_map<xr_string, bool> m_signals;
@@ -924,6 +998,7 @@ private:
     xr_map<std::uint32_t, CondlistData> m_ph_code_on_code_condlist;
     xr_map<std::uint32_t, CondlistData> m_on_use_condlist;
     xr_map<std::uint32_t, xr_map<std::uint32_t, CondlistData>> m_hit_on_bone;
+    xr_map<std::uint32_t, xr_map<std::uint32_t, CondlistData>> m_sr_timer_on_value;
     xr_map<xr_string, xr_map<std::uint32_t, CondlistData>> m_ph_code_on_check_code;
     xr_vector<Script_ISchemeEntity*> m_actions;
     xr_vector<LogicData> m_logic;
@@ -958,6 +1033,9 @@ private:
     xr_string m_ph_hit_direction_path_name;
     xr_string m_ph_oscillate_joint_name;
     xr_string m_ph_sound_theme_name;
+    xr_string m_sr_timer_type_name;
+    xr_string m_sr_timer_timer_id_name;
+    xr_string m_sr_timer_string_name;
     CondlistWaypoints m_path_walk_info;
     CondlistWaypoints m_path_look_info;
 };
