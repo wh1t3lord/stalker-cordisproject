@@ -5,6 +5,7 @@ namespace Cordis
 namespace Scripts
 {
 // @ Можете завершить
+    // Lord: не используется
 class Script_SchemePHMinigun : public Script_ISchemeEntity
 {
     using inherited_scheme = Script_ISchemeEntity;

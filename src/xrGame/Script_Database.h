@@ -1,8 +1,21 @@
 #pragma once
 
+namespace Cordis
+{
+namespace Scripts
+{
+namespace DataBase
+{
+class Storage_Scheme;
+}
+}
+}
+
+
+
 #include "script_sound.h"
 #include "Script_ISchemeEntity.h"
-
+#include "Script_SchemePHDoor.h"
 namespace Cordis
 {
 namespace Scripts
@@ -818,6 +831,35 @@ public:
 
 #pragma endregion
 
+#pragma region Cordis Scheme PH Sound
+    inline bool IsPHSoundLooped(void) const noexcept { return this->m_is_ph_sound_looped; }
+    inline void setPHSoundLooped(const bool value) noexcept { this->m_is_ph_sound_looped = value; }
+
+    inline bool IsPHSoundRandom(void) const noexcept { return this->m_is_ph_sound_random; }
+    inline void setPHSoundRandom(const bool value) noexcept { this->m_is_ph_sound_random = value; }
+
+    inline bool IsPHSoundNoHit(void) const noexcept { return this->m_is_ph_sound_no_hit; }
+    inline void setPHSoundNoHit(const bool value) noexcept { this->m_is_ph_sound_no_hit = value; }
+
+    inline const xr_string& getPHSoundThemeName(void) const noexcept { return this->m_ph_sound_theme_name; }
+    inline void setPHSoundThemeName(const xr_string& theme_name) noexcept
+    {
+        if (theme_name.empty())
+        {
+            Msg("[Scripts/DataBase/Storage_Scheme/setPHSoundThemeName(theme_name)] WARNING: theme_name.empty() == "
+                "true! You set an empty string");
+        }
+
+        this->m_ph_sound_theme_name = theme_name;
+    }
+
+    inline std::uint32_t getPHSoundPauseMin(void) const noexcept { return this->m_ph_sound_pause_min; }
+    inline void setPHSoundPauseMin(const std::uint32_t value) noexcept { this->m_ph_sound_pause_min = value; }
+
+    inline std::uint32_t getPHSoundPauseMax(void) const noexcept { return this->m_ph_sound_pause_max; }
+    inline void setPHSoundPauseMax(const std::uint32_t value) noexcept { this->m_ph_sound_pause_max = value; }
+#pragma endregion
+
 private:
     // @ Не понятно зачем в итоге но так у ПЫС, если в итоге оно находится в самом сторадже где уже зарегистрирован
     // сам НПС
@@ -842,6 +884,9 @@ private:
     bool m_is_ph_door_slider = false;
     bool m_is_ph_door_script_used_more_than_once = false;
     bool m_is_ph_idle_nonscript_usable = false;
+    bool m_is_ph_sound_no_hit = false;
+    bool m_is_ph_sound_looped = false;
+    bool m_is_ph_sound_random = false;
     std::uint32_t m_home_min_radius = 0;
     std::uint32_t m_home_mid_radius = 0;
     std::uint32_t m_home_max_radius = 0;
@@ -851,6 +896,8 @@ private:
     std::uint32_t m_ph_force_delay = 0;
     std::uint32_t m_ph_code_code = 0;
     std::uint32_t m_ph_oscillate_period = 0;
+    std::uint32_t m_ph_sound_pause_min = 0;
+    std::uint32_t m_ph_sound_pause_max = 0;
     float m_ph_jump_factor = 0.0f;
     float m_helicopter_min_rocket_distance = 0.0f;
     float m_helicopter_min_minigun_distance = 0.0f;
@@ -910,6 +957,7 @@ private:
     xr_string m_ph_hit_bone_name;
     xr_string m_ph_hit_direction_path_name;
     xr_string m_ph_oscillate_joint_name;
+    xr_string m_ph_sound_theme_name;
     CondlistWaypoints m_path_walk_info;
     CondlistWaypoints m_path_look_info;
 };

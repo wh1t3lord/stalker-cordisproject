@@ -86,7 +86,7 @@ class CPHScriptObjectConditionN : public CPHCondition, public CPHReqComparerV
     std::function<bool(void)> m_callback;
 
 public:
-    CPHScriptObjectConditionN(const luabind::object& object, const luabind::functor<bool>& functor);
+/*    CPHScriptObjectConditionN(const luabind::object& object, const luabind::functor<bool>& functor);*/
     CPHScriptObjectConditionN(std::function<bool(void)> func);
     virtual ~CPHScriptObjectConditionN() {} // Lord - [Script] Re-write, UPD: re-written but test it!
     virtual bool is_true(); // Lord - [Script] Re-write, UPD: re-written but test it!
@@ -103,7 +103,7 @@ class CPHScriptObjectActionN : public CPHAction, public CPHReqComparerV
     std::function<void(void)> m_callback;
 
 public:
-    CPHScriptObjectActionN(const luabind::object& object, const luabind::functor<void>& functor);
+  //  CPHScriptObjectActionN(const luabind::object& object, const luabind::functor<void>& functor);
     CPHScriptObjectActionN(std::function<bool(void)> func);
     virtual ~CPHScriptObjectActionN();
     virtual void run();
@@ -119,13 +119,14 @@ class CPHScriptGameObjectCondition : public CPHScriptObjectConditionN
     bool b_obsolete;
 
 public:
+/*
     CPHScriptGameObjectCondition(
         const luabind::object& object, const luabind::functor<bool>& functor, IGameObject* gobj)
         : CPHScriptObjectConditionN(object, functor)
     {
         m_obj = gobj;
         b_obsolete = false;
-    }
+    }*/
     CPHScriptGameObjectCondition(std::function<bool(void)> func, IGameObject* p_game_object)
         : CPHScriptObjectConditionN(func) 
     {
@@ -147,11 +148,13 @@ class CPHScriptGameObjectAction : public CPHScriptObjectActionN
     IGameObject* m_obj;
 
 public:
+/*
     CPHScriptGameObjectAction(const luabind::object& object, const luabind::functor<void>& functor, IGameObject* gobj)
         : CPHScriptObjectActionN(object, functor)
     {
         m_obj = gobj;
-    }
+    }*/
+    CPHScriptGameObjectAction(void) = default;
     virtual bool compare(const CPHReqComparerV* v) const { return v->compare(this); }
     virtual bool compare(const IGameObject* v) const { return m_obj->ID() == v->ID(); }
 };

@@ -1,8 +1,9 @@
 #include "stdafx.h"
 #include "Script_SchemePHDoor.h"
+#include "PhysicObject.h"
 #include "physics_joint_scripted.h"
 #include "physics_element_scripted.h"
-#include "PhysicObject.h"
+#include "script_game_object.h"
 
 namespace Cordis
 {
@@ -184,7 +185,7 @@ void Script_SchemePHDoor::open_door(const bool is_disable_sound)
 
     if (this->m_storage->IsPHDoorNoForce())
     {
-        this->m_p_joint->SetForceAndVelocity(0.0f, 0.0, f 0);
+        this->m_p_joint->SetForceAndVelocity(0.0f, 0.0, 0);
     }
     else
     {
@@ -231,6 +232,69 @@ void Script_SchemePHDoor::close_action(void)
         xr_string faction_name;
         XR_SOUND::set_sound_play(this->m_id, this->m_storage->getPHDoorSoundCloseStopName(), faction_name, 0);
     }
+}
+
+bool Script_SchemePHDoor::try_switch(void)
+{
+    if (!this->m_storage->getOnUseCondlist().empty())
+    {
+        if (XR_LOGIC::switch_to_section(this->m_npc, this->m_storage->getIni(),
+                XR_LOGIC::pick_section_from_condlist(
+                    DataBase::Storage::getInstance().getActor(), this->m_npc, this->m_storage->getOnUseCondlist())))
+        {
+            return true;
+        }
+    }
+
+    return false;
+}
+
+bool Script_SchemePHDoor::is_closed(void) noexcept
+{
+    if (!this->m_p_joint)
+    {
+        Msg("[Scripts/Script_SchemePHDoor/is_closed()] WARNING: this->m_p_joint == nullptr! Return ...");
+        return false;
+    }
+
+    float angle;
+    if (this->m_storage->IsPHDoorSlider())
+    {
+        angle = -this->m_p_joint->GetAxisAngle(0);
+    }
+    else
+    {
+        angle = this->m_p_joint->GetAxisAngle(90);
+    }
+
+    if (angle <= this->m_low_limits + 0.02f)
+        return true;
+
+    return false;
+}
+
+bool Script_SchemePHDoor::is_open(void) noexcept
+{
+    if (!this->m_p_joint)
+    {
+        Msg("[Scripts/Script_SchemePHDoor/is_open()] WARNING: this->m_p_joint == nullptr! Return ...");
+        return false;
+    }
+
+    float angle;
+    if (this->m_storage->IsPHDoorSlider())
+    {
+        angle = -this->m_p_joint->GetAxisAngle(0);
+    }
+    else
+    {
+        angle = this->m_p_joint->GetAxisAngle(90);
+    }
+
+    if (angle >= this->m_high_limits - 0.02f)
+        return true;
+
+    return false;
 }
 
 bool Script_SchemePHDoor::open_fastcall(void)

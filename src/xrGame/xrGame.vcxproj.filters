@@ -3898,6 +3898,18 @@
     <Filter Include="Cordis\Scripts\Logic\Physics\Code\Private">
       <UniqueIdentifier>{75bd539b-92ba-48a1-9196-1871c237c2b3}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Cordis\Scripts\Logic\SR">
+      <UniqueIdentifier>{49f1bbe1-0812-4203-acc7-72b9d29c7469}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Logic\SR\Timer">
+      <UniqueIdentifier>{392b738b-910a-4105-8f1f-ce7d074f13fd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Logic\SR\Timer\Public">
+      <UniqueIdentifier>{9f41cd61-373c-4781-aa83-3c0b77669ee3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Logic\SR\Timer\Private">
+      <UniqueIdentifier>{e2ab5bbc-613f-47ce-9d7d-80e3265b4577}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="mt_config.h">
@@ -9164,6 +9176,9 @@
     <ClInclude Include="Script_SchemePHOscillate.h">
       <Filter>Cordis\Scripts\Logic\Physics\Oscillate\Public</Filter>
     </ClInclude>
+    <ClInclude Include="Script_SchemePHSound.h">
+      <Filter>Cordis\Scripts\Logic\Physics\Sound\Public</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="damage_manager.cpp">
@@ -13502,6 +13517,9 @@
     </ClCompile>
     <ClCompile Include="Script_SchemePHOscillate.cpp">
       <Filter>Cordis\Scripts\Logic\Physics\Oscillate\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Script_SchemePHSound.cpp">
+      <Filter>Cordis\Scripts\Logic\Physics\Sound\Private</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

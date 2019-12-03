@@ -1,5 +1,7 @@
 #pragma once
 
+class cphysics_joint_scripted;
+
 namespace Cordis
 {
 namespace Scripts

@@ -50,8 +50,9 @@ namespace XR_LOGIC
 inline void parse_infopotions(xr_map<std::uint32_t, CondlistData::CondlistValues>& data, xr_string& buffer);
 inline bool switch_to_section(
     CScriptGameObject* const p_client_object, CScriptIniFile* const p_ini, const xr_string& section_name);
+/*
 inline void activate_by_section(CScriptGameObject* const p_client_object, CScriptIniFile* const p_ini,
-    const xr_string& section_name, const xr_string& gulag_name, const bool is_loading);
+    const xr_string& section_name, const xr_string& gulag_name, const bool is_loading);*/
 inline void reset_generic_schemes_on_scheme_switch(
     CScriptGameObject* const p_client_object, const xr_string& scheme_name, const xr_string& section_name);
 inline DataBase::Data_Overrides cfg_get_overrides(

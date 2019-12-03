@@ -232,6 +232,7 @@ void show_indicators()
 
 void show_weapon(bool b) { psHUD_Flags.set(HUD_WEAPON_RT2, b); }
 
+/*
 void add_call(const luabind::functor<bool>& condition, const luabind::functor<void>& action)
 {
     luabind::functor<bool> _condition = condition;
@@ -246,8 +247,9 @@ void remove_call(const luabind::functor<bool>& condition, const luabind::functor
     CPHScriptCondition c(condition);
     CPHScriptAction a(action);
     Level().ph_commander_scripts().remove_call(&c, &a);
-}
+}*/
 
+/*
 void add_call(const luabind::object& lua_object, LPCSTR condition, LPCSTR action)
 {
     luabind::functor<bool> _condition = object_cast<luabind::functor<bool>>(lua_object[condition]);
@@ -278,7 +280,7 @@ void remove_call(
     CPHScriptObjectConditionN c(lua_object, condition);
     CPHScriptObjectActionN a(lua_object, action);
     Level().ph_commander_scripts().remove_call(&c, &a);
-}
+}*/
 
 void remove_calls_for_object(const luabind::object& lua_object)
 {
