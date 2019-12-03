@@ -548,6 +548,22 @@ public:
     inline const xr_vector<LogicData>& getLogic(void) const noexcept { return this->m_logic; }
     inline void setLogic(const xr_vector<LogicData>& data) noexcept { this->m_logic = data; }
 
+    inline const xr_map<std::uint32_t, xr_map<std::uint32_t, CondlistData>>& getHitOnBone(void) const noexcept
+    {
+        return this->m_hit_on_bone;
+    }
+    inline void setHitOnBone(const xr_map<std::uint32_t, xr_map<std::uint32_t, CondlistData>>& data) noexcept
+    {
+        this->m_hit_on_bone = data;
+    }
+    inline const xr_map<std::uint32_t, CondlistData>& getOnUseCondlist(void) const noexcept
+    {
+        return this->m_on_use_condlist;
+    }
+    inline void setOnUseCondlist(const xr_map<std::uint32_t, CondlistData>& condlist) noexcept
+    {
+        this->m_on_use_condlist = condlist;
+    }
 #pragma region Cordis Scheme PH FORCE
     inline std::uint32_t getPHForceTime(void) const noexcept { return this->m_ph_force_time; }
     inline void setPHForceTime(const std::uint32_t value) noexcept { this->m_ph_force_time = value; }
@@ -730,15 +746,6 @@ public:
         this->m_ph_door_sound_close_stop_name = sound_name;
     }
 
-    inline const xr_map<std::uint32_t, CondlistData>& getPHDoorOnUseCondlist(void) const noexcept
-    {
-        return this->m_ph_door_on_use_condlist;
-    }
-    inline void setPHDoorOnUseCondlist(const xr_map<std::uint32_t, CondlistData>& condlist) noexcept
-    {
-        this->m_ph_door_on_use_condlist = condlist;
-    }
-
     inline bool IsPHDoorScriptUsedMoreThanOnce(void) const noexcept
     {
         return this->m_is_ph_door_script_used_more_than_once;
@@ -746,15 +753,6 @@ public:
     inline void setPHDoorScriptUsedMoreThanOnce(const bool value) noexcept
     {
         this->m_is_ph_door_script_used_more_than_once = value;
-    }
-
-    inline const xr_map<std::uint32_t, xr_map<std::uint32_t, CondlistData>>& getPHDoorHitOnBone(void) const noexcept
-    {
-        return this->m_ph_door_hit_on_bone;
-    }
-    inline void setPHDoorHitOnBone(const xr_map<std::uint32_t, xr_map<std::uint32_t, CondlistData>>& data) noexcept
-    {
-        this->m_ph_door_hit_on_bone = data;
     }
 #pragma endregion
 
@@ -786,11 +784,17 @@ public:
     {
         if (path_name.empty())
         {
-            Msg("[Scripts/DataBase/Storaeg_Scheme/setPHHitDirectionPathName(path_name)] WARNING: path_name.empty() == true! You set an empty string!");
+            Msg("[Scripts/DataBase/Storaeg_Scheme/setPHHitDirectionPathName(path_name)] WARNING: path_name.empty() == "
+                "true! You set an empty string!");
         }
 
         this->m_ph_hit_direction_path_name = path_name;
     }
+#pragma endregion
+
+#pragma region Cordis Scheme PH Idle
+    inline bool IsPHIdleNonScriptUsable(void) const noexcept { return this->m_is_ph_idle_nonscript_usable; }
+    inline void setPHIdleNonScriptUsable(const bool value) noexcept { this->m_is_ph_idle_nonscript_usable = value; }
 #pragma endregion
 
 private:
@@ -816,6 +820,7 @@ private:
     bool m_is_ph_door_show_tips = false;
     bool m_is_ph_door_slider = false;
     bool m_is_ph_door_script_used_more_than_once = false;
+    bool m_is_ph_idle_nonscript_usable = false;
     std::uint32_t m_home_min_radius = 0;
     std::uint32_t m_home_mid_radius = 0;
     std::uint32_t m_home_max_radius = 0;
@@ -847,8 +852,8 @@ private:
     xr_map<std::uint32_t, CondlistData> m_dialog_condlist;
     xr_map<std::uint32_t, CondlistData> m_ph_button_on_press_condlist;
     xr_map<std::uint32_t, CondlistData> m_ph_code_on_code_condlist;
-    xr_map<std::uint32_t, CondlistData> m_ph_door_on_use_condlist;
-    xr_map<std::uint32_t, xr_map<std::uint32_t, CondlistData>> m_ph_door_hit_on_bone;
+    xr_map<std::uint32_t, CondlistData> m_on_use_condlist;
+    xr_map<std::uint32_t, xr_map<std::uint32_t, CondlistData>> m_hit_on_bone;
     xr_map<xr_string, xr_map<std::uint32_t, CondlistData>> m_ph_code_on_check_code;
     xr_vector<Script_ISchemeEntity*> m_actions;
     xr_vector<LogicData> m_logic;

@@ -96,11 +96,11 @@ void Script_SchemePHDoor::use_callback(CScriptGameObject* const p_client_object,
 void Script_SchemePHDoor::hit_callback(CScriptGameObject* const p_client_object, const float amount,
     const Fvector& local_direction, CScriptGameObject* const p_client_who, const std::int16_t bone_index)
 {
-    if (!this->m_storage->getPHDoorHitOnBone().at(bone_index).empty())
+    if (!this->m_storage->getHitOnBone().at(bone_index).empty())
     {
         XR_LOGIC::switch_to_section(p_client_object, this->m_storage->getIni(),
             XR_LOGIC::pick_section_from_condlist(DataBase::Storage::getInstance().getActor(), this->m_npc,
-                this->m_storage->getPHDoorHitOnBone().at(bone_index)));
+                this->m_storage->getHitOnBone().at(bone_index)));
         return;
     }
 }

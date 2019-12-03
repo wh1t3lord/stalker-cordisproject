@@ -444,4 +444,7 @@ enum
 #include "Script_SchemePHCode.h"
 #include "Script_SchemePHDoor.h"
 #include "Script_SchemePHHit.h"
+#include "Script_SchemePHIdle.h"
+#include "Script_SchemePHMinigun.h"
+#include "Script_SchemePHOnHit.h"
 #include "Script_Globalsinline.h"
