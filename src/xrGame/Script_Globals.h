@@ -82,6 +82,8 @@ inline bool is_stalker_at_waypoint(
 inline xr_vector<xr_string> parse_params(const xr_string& params);
 inline std::uint32_t send_to_nearest_accessible_vertex(
     CScriptGameObject* const p_client_object, const std::uint32_t vertex_id);
+inline xr_map<std::uint32_t, xr_map<std::uint32_t, CondlistData>> parse_data_1v(
+    CScriptGameObject* const p_client_object, const xr_string& buffer_name);
 } // namespace Utils
 
 namespace Game

@@ -626,6 +626,138 @@ public:
     }
 #pragma endregion
 
+#pragma region Cordis Scheme PH Door
+    inline Script_SchemePHDoor* getDoorAction(void) { return this->m_p_ph_door_door_action; }
+    inline void setPHDoorDoorAction(Script_SchemePHDoor* p_action) { this->m_p_ph_door_door_action = p_action; }
+
+    inline bool IsPHDoorClosed(void) const noexcept { return this->m_is_ph_door_closed; }
+    inline void setPHDoorClosed(const bool value) noexcept { this->m_is_ph_door_closed = value; }
+
+    inline bool IsPHDoorLocked(void) const noexcept { return this->m_is_ph_door_locked; }
+    inline void setPHDoorLocked(const bool value) noexcept { this->m_is_ph_door_locked = value; }
+
+    inline bool IsPHDoorNoForce(void) const noexcept { return this->m_is_ph_door_no_force; }
+    inline void setPHDoorNoForce(const bool value) noexcept { this->m_is_ph_door_no_force = value; }
+
+    inline bool IsPHDoorNotForNpc(void) const noexcept { return this->m_is_ph_door_not_for_npc; }
+    inline void setPHDoorNotForNpc(const bool value) noexcept { this->m_is_ph_door_not_for_npc = value; }
+
+    inline bool IsPHDoorShowTips(void) const noexcept { return this->m_is_ph_door_show_tips; }
+    inline void setPHDoorShowTips(const bool value) noexcept { this->m_is_ph_door_show_tips = value; }
+
+    inline const xr_string& getPHDoorTipOpenName(void) const noexcept { return this->m_ph_door_tip_open_name; }
+    inline void setPHDoorTipOpenName(const xr_string& tip_name) noexcept
+    {
+        if (tip_name.empty())
+        {
+            Msg("[Scripts/DataBase/Storage_Scheme/setPHDoorTipOpenName(tip_name)] WARNING: tip_name.empty() == true! "
+                "You set an "
+                "empty string!");
+        }
+
+        this->m_ph_door_tip_open_name = tip_name;
+    }
+
+    inline const xr_string& getPHDoorTipUnlockName(void) const noexcept { return this->m_ph_door_tip_unlock_name; }
+    inline void setPHDoorTipUnlockName(const xr_string& tip_name) noexcept
+    {
+        if (tip_name.empty())
+        {
+            Msg("[Scripts/DataBase/Storage_Scheme/setPHDoorTipUnlockName(tip_name)] WARNING: tip_name.empty() == true! "
+                "You set an empty string!");
+        }
+
+        this->m_ph_door_tip_unlock_name = tip_name;
+    }
+
+    inline const xr_string& getPHDoorTipCloseName(void) const noexcept { return this->m_ph_door_tip_close_name; }
+    inline void setPHDoorTipCloseName(const xr_string& tip_name) noexcept
+    {
+        if (tip_name.empty())
+        {
+            Msg("[Scripts/DataBase/Storage_Scheme/setPHDoorTipCloseName(tip_name)] WARNING: tip_name.empty() == true! "
+                "You set an empty string!");
+        }
+
+        this->m_ph_door_tip_close_name = tip_name;
+    }
+
+    inline bool IsPHDoorSlider(void) const noexcept { return this->m_is_ph_door_slider; }
+    inline void setPHDoorSlider(const bool value) noexcept { this->m_is_ph_door_slider = value; }
+
+    inline const xr_string& getPHDoorSoundOpenStartName(void) const noexcept
+    {
+        return this->m_ph_door_sound_open_start_name;
+    }
+    inline void setPHDoorSoundOpenStartName(const xr_string& sound_name) noexcept
+    {
+        if (sound_name.empty())
+        {
+            Msg("[Scripts/DataBase/Storage_Scheme/setPHDoorSoundOpenStartName(sound_name)] WARNING: sound_name.empty() "
+                "== true! You set an empty string!");
+        }
+
+        this->m_ph_door_sound_open_start_name = sound_name;
+    }
+
+    inline const xr_string& getPHDoorSoundCloseStartName(void) const noexcept
+    {
+        return this->m_ph_door_sound_close_start_name;
+    }
+    inline void setPHDoorSoundCloseStartName(const xr_string& sound_name) noexcept
+    {
+        if (sound_name.empty())
+        {
+            Msg("[Scripts/DataBase/Storage_Scheme/setPHDoorSoundCloseStartName(sound_name)] WARNING: "
+                "sound_name.empty() == true! You set an empty string!");
+        }
+
+        this->m_ph_door_sound_close_start_name = sound_name;
+    }
+
+    inline const xr_string& getPHDoorSoundCloseStopName(void) const noexcept
+    {
+        return this->m_ph_door_sound_close_stop_name;
+    }
+    inline void setPHDoorSoundCloseStopName(const xr_string& sound_name) noexcept
+    {
+        if (sound_name.empty())
+        {
+            Msg("[Scripts/DataBase/Storage_Scheme/setPHDoorSoundCloseStopName(sound_name)] WARNING: sound_name.empty() "
+                "== true! You set an empty string!");
+        }
+
+        this->m_ph_door_sound_close_stop_name = sound_name;
+    }
+
+    inline const xr_map<std::uint32_t, CondlistData>& getPHDoorOnUseCondlist(void) const noexcept
+    {
+        return this->m_ph_door_on_use_condlist;
+    }
+    inline void setPHDoorOnUseCondlist(const xr_map<std::uint32_t, CondlistData>& condlist) noexcept
+    {
+        this->m_ph_door_on_use_condlist = condlist;
+    }
+
+    inline bool IsPHDoorScriptUsedMoreThanOnce(void) const noexcept
+    {
+        return this->m_is_ph_door_script_used_more_than_once;
+    }
+    inline void setPHDoorScriptUsedMoreThanOnce(const bool value) noexcept
+    {
+        this->m_is_ph_door_script_used_more_than_once = value;
+    }
+
+    inline const xr_map<std::uint32_t, xr_map<std::uint32_t, CondlistData>>& getPHDoorHitOnBone(void) const noexcept
+    {
+        return this->m_ph_door_hit_on_bone;
+    }
+    inline void setPHDoorHitOnBone(const xr_map<std::uint32_t, xr_map<std::uint32_t, CondlistData>>& data) noexcept
+    {
+        this->m_ph_door_hit_on_bone = data;
+    }
+#pragma endregion
+
 private:
     // @ Не понятно зачем в итоге но так у ПЫС, если в итоге оно находится в самом сторадже где уже зарегистрирован
     // сам НПС
@@ -642,6 +774,13 @@ private:
     bool m_is_helicopter_use_minigun = false;
     bool m_is_helicopter_stop_fire = false;
     bool m_is_ph_button_blending = false;
+    bool m_is_ph_door_closed = false;
+    bool m_is_ph_door_locked = false;
+    bool m_is_ph_door_no_force = false;
+    bool m_is_ph_door_not_for_npc = false;
+    bool m_is_ph_door_show_tips = false;
+    bool m_is_ph_door_slider = false;
+    bool m_is_ph_door_script_used_more_than_once = false;
     std::uint32_t m_home_min_radius = 0;
     std::uint32_t m_home_mid_radius = 0;
     std::uint32_t m_home_max_radius = 0;
@@ -662,12 +801,17 @@ private:
         nullptr; // @ для XR_LOGIC::unsubscrive_action, используется в очень редких схемах!
     CScriptIniFile* m_p_ini = nullptr;
     CPatrolPathParams* m_p_jump_path = nullptr;
+    Script_SchemePHDoor* m_p_ph_door_door_action =
+        nullptr; // @ Используется исключительно когда у нас схема -> ph_door, удаляется как обычный зарегистрированный
+                 // action, но сам pointer зануляется в деструкторе схемы!
     Fvector m_offset;
     Fvector m_ph_force_point;
     xr_map<xr_string, bool> m_signals;
     xr_map<std::uint32_t, CondlistData> m_dialog_condlist;
     xr_map<std::uint32_t, CondlistData> m_ph_button_on_press_condlist;
     xr_map<std::uint32_t, CondlistData> m_ph_code_on_code_condlist;
+    xr_map<std::uint32_t, CondlistData> m_ph_door_on_use_condlist;
+    xr_map<std::uint32_t, xr_map<std::uint32_t, CondlistData>> m_ph_door_hit_on_bone;
     xr_map<xr_string, xr_map<std::uint32_t, CondlistData>> m_ph_code_on_check_code;
     xr_vector<Script_ISchemeEntity*> m_actions;
     xr_vector<LogicData> m_logic;
@@ -692,6 +836,12 @@ private:
     xr_string m_ph_button_animation_name;
     xr_string m_ph_button_tooptip_name;
     xr_string m_ph_code_tip_name;
+    xr_string m_ph_door_tip_open_name;
+    xr_string m_ph_door_tip_unlock_name;
+    xr_string m_ph_door_tip_close_name;
+    xr_string m_ph_door_sound_open_start_name;
+    xr_string m_ph_door_sound_close_start_name;
+    xr_string m_ph_door_sound_close_stop_name;
     CondlistWaypoints m_path_walk_info;
     CondlistWaypoints m_path_look_info;
 };

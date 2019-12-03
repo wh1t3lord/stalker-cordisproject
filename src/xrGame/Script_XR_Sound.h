@@ -19,7 +19,7 @@ inline static xr_map<std::uint16_t, Script_ISoundEntity*>& getLoopedSoundDatabas
 }
 
 inline CScriptSound* set_sound_play(
-    const std::uint16_t& npc_id, const xr_string& sound, xr_string& faction, const std::uint16_t& point)
+    const std::uint16_t& npc_id, const xr_string& sound, xr_string& faction, const std::uint16_t point)
 {
     if (!sound.size())
     {

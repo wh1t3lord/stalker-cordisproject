@@ -83,11 +83,13 @@ public:
 class CPHScriptObjectConditionN : public CPHCondition, public CPHReqComparerV
 {
     //  CScriptCallbackEx<bool> m_callback;
+    std::function<bool(void)> m_callback;
 
 public:
     CPHScriptObjectConditionN(const luabind::object& object, const luabind::functor<bool>& functor);
-    virtual ~CPHScriptObjectConditionN() {} // Lord - [Script] Re-write
-    virtual bool is_true() { return false; } // Lord - [Script] Re-write
+    CPHScriptObjectConditionN(std::function<bool(void)> func);
+    virtual ~CPHScriptObjectConditionN() {} // Lord - [Script] Re-write, UPD: re-written but test it!
+    virtual bool is_true(); // Lord - [Script] Re-write, UPD: re-written but test it!
     virtual bool obsolete() const;
     //   virtual bool compare(const luabind::object* v) const { return m_callback == (*v); }
     virtual bool compare(const CPHReqComparerV* v) const { return v->compare(this); }
@@ -98,9 +100,11 @@ class CPHScriptObjectActionN : public CPHAction, public CPHReqComparerV
 {
     bool b_obsolete;
     //   CScriptCallbackEx<void> m_callback;
+    std::function<void(void)> m_callback;
 
 public:
     CPHScriptObjectActionN(const luabind::object& object, const luabind::functor<void>& functor);
+    CPHScriptObjectActionN(std::function<bool(void)> func);
     virtual ~CPHScriptObjectActionN();
     virtual void run();
     virtual bool obsolete() const;
@@ -121,6 +125,12 @@ public:
     {
         m_obj = gobj;
         b_obsolete = false;
+    }
+    CPHScriptGameObjectCondition(std::function<bool(void)> func, IGameObject* p_game_object)
+        : CPHScriptObjectConditionN(func) 
+    {
+        this->m_obj = p_game_object;
+        this->b_obsolete = false;
     }
     virtual bool is_true()
     {
