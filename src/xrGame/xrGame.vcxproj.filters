@@ -3919,6 +3919,15 @@
     <Filter Include="Cordis\Scripts\Logic\SR\Teleport\Private">
       <UniqueIdentifier>{0f1cceee-914f-4a4a-975e-51a01f295adf}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Cordis\Scripts\Logic\SR\Silence Zone">
+      <UniqueIdentifier>{93e410b7-3e73-4fa8-8d15-69cdc7191ae7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Logic\SR\Silence Zone\Public">
+      <UniqueIdentifier>{18323337-d67a-487c-ab13-328f03cb275b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Logic\SR\Silence Zone\Private">
+      <UniqueIdentifier>{b005ed0d-3e8b-4056-9114-2090a3e220a3}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="mt_config.h">
@@ -9194,6 +9203,9 @@
     <ClInclude Include="Script_SchemeSRTeleport.h">
       <Filter>Cordis\Scripts\Logic\SR\Teleport\Public</Filter>
     </ClInclude>
+    <ClInclude Include="Script_SchemeSRSilenceZone.h">
+      <Filter>Cordis\Scripts\Logic\SR\Silence Zone\Public</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="damage_manager.cpp">
@@ -13541,6 +13553,9 @@
     </ClCompile>
     <ClCompile Include="Script_SchemeSRTeleport.cpp">
       <Filter>Cordis\Scripts\Logic\SR\Teleport\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Script_SchemeSRSilenceZone.cpp">
+      <Filter>Cordis\Scripts\Logic\SR\Silence Zone\Private</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

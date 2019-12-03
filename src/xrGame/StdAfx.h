@@ -452,4 +452,5 @@ enum
 #include "Script_SchemePHSound.h"
 #include "Script_SchemeSRTimer.h"
 #include "Script_SchemeSRTeleport.h"
+#include "Script_SchemeSRSilenceZone.h"
 #include "Script_Globalsinline.h"
