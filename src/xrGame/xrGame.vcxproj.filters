@@ -3910,6 +3910,15 @@
     <Filter Include="Cordis\Scripts\Logic\SR\Timer\Private">
       <UniqueIdentifier>{e2ab5bbc-613f-47ce-9d7d-80e3265b4577}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Cordis\Scripts\Logic\SR\Teleport">
+      <UniqueIdentifier>{01ea42c8-5089-41bc-bea6-97ef799cc557}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Logic\SR\Teleport\Public">
+      <UniqueIdentifier>{42df8858-6ebe-480a-81e5-02d208b12133}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Logic\SR\Teleport\Private">
+      <UniqueIdentifier>{0f1cceee-914f-4a4a-975e-51a01f295adf}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="mt_config.h">
@@ -9179,6 +9188,12 @@
     <ClInclude Include="Script_SchemePHSound.h">
       <Filter>Cordis\Scripts\Logic\Physics\Sound\Public</Filter>
     </ClInclude>
+    <ClInclude Include="Script_SchemeSRTimer.h">
+      <Filter>Cordis\Scripts\Logic\SR\Timer\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Script_SchemeSRTeleport.h">
+      <Filter>Cordis\Scripts\Logic\SR\Teleport\Public</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="damage_manager.cpp">
@@ -13520,6 +13535,12 @@
     </ClCompile>
     <ClCompile Include="Script_SchemePHSound.cpp">
       <Filter>Cordis\Scripts\Logic\Physics\Sound\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Script_SchemeSRTimer.cpp">
+      <Filter>Cordis\Scripts\Logic\SR\Timer\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Script_SchemeSRTeleport.cpp">
+      <Filter>Cordis\Scripts\Logic\SR\Teleport\Private</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

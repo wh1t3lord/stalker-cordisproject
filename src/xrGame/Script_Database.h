@@ -931,6 +931,23 @@ public:
         this->m_sr_timer_on_value = data;
     }
 #pragma endregion
+
+#pragma region Cordis Scheme SR Teleport
+    inline std::uint32_t getSRTeleportTimeout(void) const noexcept { return this->m_sr_teleport_timeout; }
+    inline void setSRTeleportTimeout(const std::uint32_t value) noexcept { this->m_sr_teleport_timeout = value; }
+
+    inline const xr_vector<std::pair<std::uint32_t, std::pair<xr_string, xr_string>>>& getSRTeleportPoints(void) const
+        noexcept
+    {
+        return this->m_sr_teleport_points;
+    }
+
+    inline void setSRTeleportPoints(
+        const xr_vector<std::pair<std::uint32_t, std::pair<xr_string, xr_string>>>& data) noexcept
+    {
+        this->m_sr_teleport_points = data;
+    }
+#pragma endregion
 private:
     // @ Не понятно зачем в итоге но так у ПЫС, если в итоге оно находится в самом сторадже где уже зарегистрирован
     // сам НПС
@@ -970,6 +987,7 @@ private:
     std::uint32_t m_ph_sound_pause_min = 0;
     std::uint32_t m_ph_sound_pause_max = 0;
     std::uint32_t m_sr_timer_start_value = 0;
+    std::uint32_t m_sr_teleport_timeout = 0;
     float m_ph_jump_factor = 0.0f;
     float m_helicopter_min_rocket_distance = 0.0f;
     float m_helicopter_min_minigun_distance = 0.0f;
@@ -1002,6 +1020,7 @@ private:
     xr_map<xr_string, xr_map<std::uint32_t, CondlistData>> m_ph_code_on_check_code;
     xr_vector<Script_ISchemeEntity*> m_actions;
     xr_vector<LogicData> m_logic;
+    xr_vector<std::pair<std::uint32_t, std::pair<xr_string, xr_string>>> m_sr_teleport_points;
     xr_string m_path_walk_name;
     xr_string m_path_look_name;
     xr_string m_path_jump_name;

@@ -915,6 +915,12 @@ inline void map_change_spot_hint(const std::uint16_t& id, LPCSTR spot_type, LPCS
         return;
     ml->SetHint(text);
 }
+inline void add_pp_effector(LPCSTR fn, int id, bool cyclic)
+{
+    CPostprocessAnimator* pp = new CPostprocessAnimator(id, cyclic);
+    pp->Load(fn);
+    Actor()->Cameras().AddPPEffector(pp);
+}
 } // namespace level
 } // namespace Game
 

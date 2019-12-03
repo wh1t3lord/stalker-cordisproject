@@ -396,12 +396,7 @@ int get_actor_points(LPCSTR sect) { return Actor()->StatisticMgr().GetSectionPoi
 void add_complex_effector(LPCSTR section, int id) { AddEffector(Actor(), id, section); }
 void remove_complex_effector(int id) { RemoveEffector(Actor(), id); }
 #include "PostprocessAnimator.h"
-void add_pp_effector(LPCSTR fn, int id, bool cyclic)
-{
-    CPostprocessAnimator* pp = new CPostprocessAnimator(id, cyclic);
-    pp->Load(fn);
-    Actor()->Cameras().AddPPEffector(pp);
-}
+
 
 void remove_pp_effector(int id)
 {
