@@ -758,6 +758,41 @@ public:
     }
 #pragma endregion
 
+#pragma region Cordis Scheme PH Hit
+    inline float getPHHitPower(void) const noexcept { return this->m_ph_hit_power; }
+    inline void setPHHitPower(const float value) noexcept { this->m_ph_hit_power = value; }
+
+    inline float getPHHitImpulse(void) const noexcept { return this->m_ph_hit_impulse; }
+    inline void setPHHitImpulse(const float value) noexcept { this->m_ph_hit_impulse = value; }
+
+    inline const xr_string& getPHHitBoneName(void) const noexcept { return this->m_ph_hit_bone_name; }
+    inline void setPHHitBoneName(const xr_string& bone_name) noexcept
+    {
+        if (bone_name.empty())
+        {
+            Msg("[Scripts/DataBase/Storage_Scheme/setPHHitBoneName(bone_name)] WARNING: bone_name.empty() == true! You "
+                "set "
+                "an empty string");
+        }
+
+        this->m_ph_hit_bone_name = bone_name;
+    }
+
+    inline const xr_string& getPHHitDirectionPathName(void) const noexcept
+    {
+        return this->m_ph_hit_direction_path_name;
+    }
+    inline void setPHHitDirectionPathName(const xr_string& path_name) noexcept
+    {
+        if (path_name.empty())
+        {
+            Msg("[Scripts/DataBase/Storaeg_Scheme/setPHHitDirectionPathName(path_name)] WARNING: path_name.empty() == true! You set an empty string!");
+        }
+
+        this->m_ph_hit_direction_path_name = path_name;
+    }
+#pragma endregion
+
 private:
     // @ Не понятно зачем в итоге но так у ПЫС, если в итоге оно находится в самом сторадже где уже зарегистрирован
     // сам НПС
@@ -796,6 +831,8 @@ private:
     float m_helicopter_max_minigun_distance = 0.0f;
     float m_helicopter_velocity = 0.0f;
     float m_ph_force_force = 0.0f;
+    float m_ph_hit_power = 0.0f;
+    float m_ph_hit_impulse = 0.0f;
     CScriptGameObject* m_p_npc = nullptr;
     Script_ISchemeEntity* m_p_action =
         nullptr; // @ для XR_LOGIC::unsubscrive_action, используется в очень редких схемах!
@@ -842,6 +879,8 @@ private:
     xr_string m_ph_door_sound_open_start_name;
     xr_string m_ph_door_sound_close_start_name;
     xr_string m_ph_door_sound_close_stop_name;
+    xr_string m_ph_hit_bone_name;
+    xr_string m_ph_hit_direction_path_name;
     CondlistWaypoints m_path_walk_info;
     CondlistWaypoints m_path_look_info;
 };
