@@ -12,6 +12,7 @@ Script_SchemePHDoor::Script_SchemePHDoor(CScriptGameObject* const p_client_objec
     : inherited_scheme(p_client_object, storage), m_p_joint(nullptr), m_is_initialized(false), m_low_limits(0.0f),
       m_high_limits(0.0f), m_is_block(false), m_is_soundless_block(false), m_is_show_tips(false)
 {
+    this->m_scheme_name = "ph_door";
     this->m_storage->setPHDoorDoorAction(this);
 }
 
