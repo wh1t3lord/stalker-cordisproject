@@ -63,7 +63,7 @@
 #include "string_concatenations.h"
 #include "_flags.h"
 #include "Cordis/Cordis_Functions.h"
-
+#include <tuple>
 // stl ext
 struct XRCORE_API xr_rtoken
 {

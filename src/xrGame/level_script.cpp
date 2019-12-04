@@ -310,7 +310,7 @@ void enable_input()
 #endif // #ifdef DEBUG
 }
 
-void spawn_phantom(const Fvector& position) { Level().spawn_item("m_phantom", position, u32(-1), u16(-1), false); }
+
 Fbox get_bounding_volume() { return Level().ObjectSpace.GetBoundingVolume(); }
 void iterate_sounds(LPCSTR prefix, u32 max_count, const CScriptCallbackEx<void>& callback)
 {
@@ -374,12 +374,7 @@ float add_cam_effector2(LPCSTR fn, int id, bool cyclic, LPCSTR cb_func, float ca
 }
 
 void remove_cam_effector(int id) { Actor()->Cameras().RemoveCamEffector((ECamEffectorType)id); }
-float get_snd_volume() { return psSoundVFactor; }
-void set_snd_volume(float v)
-{
-    psSoundVFactor = v;
-    clamp(psSoundVFactor, 0.0f, 1.0f);
-}
+
 #include "actor_statistic_mgr.h"
 void add_actor_points(LPCSTR sect, LPCSTR detail_key, int cnt, int pts)
 {
@@ -398,21 +393,6 @@ void remove_complex_effector(int id) { RemoveEffector(Actor(), id); }
 #include "PostprocessAnimator.h"
 
 
-void remove_pp_effector(int id)
-{
-    CPostprocessAnimator* pp = smart_cast<CPostprocessAnimator*>(Actor()->Cameras().GetPPEffector((EEffectorPPType)id));
-
-    if (pp)
-        pp->Stop(1.0f);
-}
-
-void set_pp_effector_factor(int id, float f, float f_sp)
-{
-    CPostprocessAnimator* pp = smart_cast<CPostprocessAnimator*>(Actor()->Cameras().GetPPEffector((EEffectorPPType)id));
-
-    if (pp)
-        pp->SetDesiredFactor(f, f_sp);
-}
 
 void set_pp_effector_factor2(int id, float f)
 {
