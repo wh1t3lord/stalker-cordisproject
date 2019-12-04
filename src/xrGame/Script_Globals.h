@@ -115,6 +115,13 @@ inline std::uint16_t map_has_object_spot(const std::uint16_t& id, LPCSTR spot_ty
 inline void map_add_object_spot_ser(const std::uint16_t& id, LPCSTR spot_type, LPCSTR text);
 inline void map_change_spot_hint(const std::uint16_t& id, LPCSTR spot_type, LPCSTR text);
 inline void add_pp_effector(LPCSTR fn, int id, bool cyclic);
+inline float get_snd_volume(void) noexcept;
+inline void set_snd_volume(float v) noexcept;
+inline void spawn_phantom(const Fvector& position);
+inline void remove_pp_effector(int id);
+inline void set_pp_effector_factor(int id, float f, float f_sp);
+
+
 } // namespace level
 
 } // namespace Game

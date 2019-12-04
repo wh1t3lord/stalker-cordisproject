@@ -921,6 +921,30 @@ inline void add_pp_effector(LPCSTR fn, int id, bool cyclic)
     pp->Load(fn);
     Actor()->Cameras().AddPPEffector(pp);
 }
+inline float get_snd_volume(void) noexcept { return psSoundVFactor; }
+inline void set_snd_volume(const float value) noexcept
+{
+    psSoundVFactor = value;
+    clamp(psSoundVFactor, 0.0f, 1.0f);
+}
+inline void spawn_phantom(const Fvector& position)
+{
+    Level().spawn_item("m_phantom", position, u32(-1), u16(-1), false);
+}
+inline void remove_pp_effector(int id)
+{
+    CPostprocessAnimator* pp = smart_cast<CPostprocessAnimator*>(Actor()->Cameras().GetPPEffector((EEffectorPPType)id));
+
+    if (pp)
+        pp->Stop(1.0f);
+}
+void set_pp_effector_factor(int id, float f, float f_sp)
+{
+    CPostprocessAnimator* pp = smart_cast<CPostprocessAnimator*>(Actor()->Cameras().GetPPEffector((EEffectorPPType)id));
+
+    if (pp)
+        pp->SetDesiredFactor(f, f_sp);
+}
 } // namespace level
 } // namespace Game
 
