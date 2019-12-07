@@ -8,6 +8,7 @@ namespace Scripts
 Script_SchemeSRLight::Script_SchemeSRLight(CScriptGameObject* const p_client_object, DataBase::Storage_Scheme& storage)
     : inherited_scheme(p_client_object, storage), m_is_active(false)
 {
+    this->m_scheme_name = "sr_light";
 }
 
 Script_SchemeSRLight::~Script_SchemeSRLight(void) {}
