@@ -1062,7 +1062,8 @@ public:
     {
         if (path_name.empty())
         {
-            Msg("[Scripts/DataBase/Storage_Scheme/setSRParticlePathName(path_name)] WARNING: path_name.empty() == true! You set an empty string");
+            Msg("[Scripts/DataBase/Storage_Scheme/setSRParticlePathName(path_name)] WARNING: path_name.empty() == "
+                "true! You set an empty string");
         }
 
         this->m_sr_particle_path_name = path_name;
@@ -3283,6 +3284,7 @@ public:
         this->m_goodwill.first.clear();
         this->m_goodwill.second.clear();
         this->m_camp_storage.clear();
+        this->m_noweapon_zones.clear();
     }
 
     inline const xr_map<xr_string, xr_map<std::uint32_t, bool>>& getCampStorage(void) const noexcept
@@ -3307,6 +3309,18 @@ public:
     {
         return this->m_helicopter_enemies;
     }
+
+    inline const xr_map<xr_string, bool>& getNoWeaponZones(void) const noexcept { return this->m_noweapon_zones; }
+    inline void setNoWeaponZones(const xr_string& zone_name, const bool value) noexcept
+    {
+        if (zone_name.empty())
+        {
+            Msg("[Scripts/Database/Storage/setNoWeaponZones(zone_name, value)] WARNING: zone_name.empty() == true! You are trying to set an empty string! Retunr ...");
+            return;
+        }
+
+        this->m_noweapon_zones[zone_name] = value;
+    }
 #pragma endregion
 
     Storage(const Storage&) = delete;
@@ -3321,6 +3335,7 @@ private:
     xr_map<xr_string, xr_map<std::uint32_t, bool>> m_camp_storage; // @ Uses in mob_camp only
     xr_map<std::uint16_t, std::pair<std::uint16_t, xr_string>> m_offline_objects;
     xr_map<std::uint32_t, CScriptGameObject*> m_helicopter_enemies;
+    xr_map<xr_string, bool> m_noweapon_zones;
     xr_map<xr_string, CScriptGameObject*> m_zone_by_name;
     xr_map<xr_string, CScriptGameObject*> m_anomaly_by_name;
     xr_map<xr_string, CScriptGameObject*> m_game_registered_combat_spacerestrictors;

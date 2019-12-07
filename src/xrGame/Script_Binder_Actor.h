@@ -23,7 +23,12 @@ public:
     virtual void load(IReader* input_packet);
     virtual bool net_SaveRelevant(void);
     virtual void net_Relcase(CScriptGameObject* object);
-};
-}
-} // namespace Cordis
 
+    inline bool IsHideWeapon(void) const noexcept { return this->m_is_hide_weapon; }
+    inline void setHideWeapon(const bool value) noexcept { this->m_is_hide_weapon = value; }
+
+private:
+    bool m_is_hide_weapon;
+};
+} // namespace Scripts
+} // namespace Cordis

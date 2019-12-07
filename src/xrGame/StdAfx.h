@@ -461,4 +461,5 @@ enum
 #include "Script_SchemeSRPsyAntenna.h"
 #include "Script_SchemeSRPostProcess.h"
 #include "Script_SchemeSRParticle.h"
+#include "Script_SchemeSRNoWeapon.h"
 #include "Script_Globalsinline.h"
