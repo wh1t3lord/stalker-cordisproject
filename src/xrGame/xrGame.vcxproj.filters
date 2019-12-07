@@ -4009,6 +4009,33 @@
     <Filter Include="Cordis\Scripts\Logic\Schemes\SR\Idle\Private">
       <UniqueIdentifier>{e114a26a-9063-4c06-8ad4-b5844328b7a5}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Cordis\Scripts\Logic\Schemes\SR\Deimos">
+      <UniqueIdentifier>{0896eb1d-1ed0-4400-8374-acb23c18d77e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Logic\Schemes\SR\Deimos\Public">
+      <UniqueIdentifier>{9a6cc6e4-5120-4698-92c4-51a9853a84b4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Logic\Schemes\SR\Deimos\Private">
+      <UniqueIdentifier>{4177c9a9-df0c-40db-8f7f-ab7010006b1c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\XR\Sound">
+      <UniqueIdentifier>{ba0b7901-d645-4246-b6ee-545e56c815d8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\XR\Sound\Public">
+      <UniqueIdentifier>{46c10325-2a3e-4ef9-b218-03c9e6561f44}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Logic\Schemes\XR">
+      <UniqueIdentifier>{7bb2ea08-4d45-4c09-8869-d67183997dc1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Logic\Schemes\XR\Death">
+      <UniqueIdentifier>{003f9bd2-123d-4da9-91d7-e0edef1c63e3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Logic\Schemes\XR\Death\Public">
+      <UniqueIdentifier>{1f0701fb-c776-48b1-997b-50ecad88cc6e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Logic\Schemes\XR\Death\Private">
+      <UniqueIdentifier>{5fea6624-d26d-4bed-82e8-e9449637c6a7}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="mt_config.h">
@@ -8993,9 +9020,6 @@
     <ClInclude Include="Script_SoundManager.h">
       <Filter>Cordis\Scripts\Managers\Sound\Public</Filter>
     </ClInclude>
-    <ClInclude Include="Script_XR_Sound.h">
-      <Filter>Cordis\Scripts\XR\Public</Filter>
-    </ClInclude>
     <ClInclude Include="Script_EntitySounds.h">
       <Filter>Cordis\Scripts\Entities %28not server entities!%29\Sound\Public</Filter>
     </ClInclude>
@@ -9310,6 +9334,15 @@
     </ClInclude>
     <ClInclude Include="Script_SchemeSRIdle.h">
       <Filter>Cordis\Scripts\Logic\Schemes\SR\Idle\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Script_SchemeSRDeimos.h">
+      <Filter>Cordis\Scripts\Logic\Schemes\SR\Deimos\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Script_XR_Sound.h">
+      <Filter>Cordis\Scripts\XR\Sound\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Script_SchemeXRDeath.h">
+      <Filter>Cordis\Scripts\Logic\Schemes\XR\Death\Public</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -13682,6 +13715,12 @@
     </ClCompile>
     <ClCompile Include="Script_SchemeSRIdle.cpp">
       <Filter>Cordis\Scripts\Logic\Schemes\SR\Idle\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Script_SchemeSRDeimos.cpp">
+      <Filter>Cordis\Scripts\Logic\Schemes\SR\Deimos\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Script_SchemeXRDeath.cpp">
+      <Filter>Cordis\Scripts\Logic\Schemes\XR\Death\Private</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
