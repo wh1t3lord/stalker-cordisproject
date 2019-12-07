@@ -3982,6 +3982,33 @@
     <Filter Include="Cordis\Scripts\Logic\Schemes\SR\No weapon\Private">
       <UniqueIdentifier>{00310b4d-dc85-4b21-960a-2ba667b70fc2}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Cordis\Scripts\Logic\Schemes\SR\Idle">
+      <UniqueIdentifier>{874b4c89-be2d-4329-917d-84d5b72c6e83}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Logic\Schemes\SR\Monster">
+      <UniqueIdentifier>{dca94a3a-a302-4550-8d4d-f5fe96a63e18}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Logic\Schemes\SR\Monster\Public">
+      <UniqueIdentifier>{fd8710db-140a-435e-9b77-47a2fbe32f09}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Logic\Schemes\SR\Monster\Private">
+      <UniqueIdentifier>{f6fd4f94-18f1-4851-bc75-2d34eba474db}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Logic\Schemes\SR\Light">
+      <UniqueIdentifier>{1405610c-8347-4f15-827d-afba2fd5bba5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Logic\Schemes\SR\Light\Public">
+      <UniqueIdentifier>{788a6e37-64d6-4b06-a332-47036bb4bc52}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Logic\Schemes\SR\Light\Private">
+      <UniqueIdentifier>{67f8c4d5-8899-4518-93c3-063c6a22cd3f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Logic\Schemes\SR\Idle\Public">
+      <UniqueIdentifier>{3fd79170-857b-4b41-9e7c-f1e5c5cfd731}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Logic\Schemes\SR\Idle\Private">
+      <UniqueIdentifier>{e114a26a-9063-4c06-8ad4-b5844328b7a5}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="mt_config.h">
@@ -9278,6 +9305,12 @@
     <ClInclude Include="Script_SchemeSRNoWeapon.h">
       <Filter>Cordis\Scripts\Logic\Schemes\SR\No weapon\Public</Filter>
     </ClInclude>
+    <ClInclude Include="Script_SchemeSRLight.h">
+      <Filter>Cordis\Scripts\Logic\Schemes\SR\Light\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Script_SchemeSRIdle.h">
+      <Filter>Cordis\Scripts\Logic\Schemes\SR\Idle\Public</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="damage_manager.cpp">
@@ -13643,6 +13676,12 @@
     </ClCompile>
     <ClCompile Include="Script_SchemeSRNoWeapon.cpp">
       <Filter>Cordis\Scripts\Logic\Schemes\SR\No weapon\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Script_SchemeSRLight.cpp">
+      <Filter>Cordis\Scripts\Logic\Schemes\SR\Light\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Script_SchemeSRIdle.cpp">
+      <Filter>Cordis\Scripts\Logic\Schemes\SR\Idle\Private</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

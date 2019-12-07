@@ -463,4 +463,5 @@ enum
 #include "Script_SchemeSRParticle.h"
 #include "Script_SchemeSRNoWeapon.h"
 #include "Script_SchemeSRLight.h"
+#include "Script_SchemeSRIdle.h"
 #include "Script_Globalsinline.h"
