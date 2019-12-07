@@ -1192,6 +1192,26 @@ public:
     }
 #pragma endregion
 
+#pragma region Cordis Scheme XR Death
+    inline const xr_map<std::uint32_t, CondlistData>& getXRDeathInfo(void) const noexcept
+    {
+        return this->m_xr_death_info;
+    }
+    inline void setXRDeathInfo(const xr_map<std::uint32_t, CondlistData>& data) noexcept
+    {
+        this->m_xr_death_info = data;
+    }
+
+    inline const xr_map<std::uint32_t, CondlistData>& getXRDeathInfo2(void) const noexcept
+    {
+        return this->m_xr_death_info2;
+    }
+    inline void setXRDeathInfo2(const xr_map<std::uint32_t, CondlistData>& data) noexcept 
+    {
+        this->m_xr_death_info2 = data;
+    }
+#pragma endregion
+
 private:
     // @ Не понятно зачем в итоге но так у ПЫС, если в итоге оно находится в самом сторадже где уже зарегистрирован
     // сам НПС
@@ -1282,6 +1302,8 @@ private:
     xr_map<std::uint32_t, CondlistData> m_ph_button_on_press_condlist;
     xr_map<std::uint32_t, CondlistData> m_ph_code_on_code_condlist;
     xr_map<std::uint32_t, CondlistData> m_on_use_condlist;
+    xr_map<std::uint32_t, CondlistData> m_xr_death_info;
+    xr_map<std::uint32_t, CondlistData> m_xr_death_info2;
     xr_map<std::uint32_t, xr_map<std::uint32_t, CondlistData>> m_hit_on_bone;
     xr_map<std::uint32_t, xr_map<std::uint32_t, CondlistData>> m_sr_timer_on_value;
     xr_map<xr_string, xr_map<std::uint32_t, CondlistData>> m_ph_code_on_check_code;
