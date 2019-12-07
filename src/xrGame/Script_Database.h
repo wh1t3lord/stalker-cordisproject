@@ -1013,12 +1013,31 @@ public:
     {
         if (hit_type_name.empty())
         {
-            Msg("[Scripts/DataBase/Storage_Scheme/setSRPsyAntennaHitTypeName(hit_type_name)] WARNING: hit_type_name.empty() == true! You set an empty string");
+            Msg("[Scripts/DataBase/Storage_Scheme/setSRPsyAntennaHitTypeName(hit_type_name)] WARNING: "
+                "hit_type_name.empty() == true! You set an empty string");
         }
 
         this->m_sr_psy_antenna_hit_type_name = hit_type_name;
     }
 #pragma endregion
+
+#pragma region Cordis Scheme SR Postprocess
+    inline float getSRPostProcessIntensity(void) const noexcept { return this->m_sr_postprocess_intensity; }
+    inline void setSRPostProcessIntensity(const float value) noexcept { this->m_sr_postprocess_intensity = value; }
+
+    inline float getSRPostProcessIntensitySpeed(void) const noexcept { return this->m_sr_postprocess_intensity_speed; }
+    inline void setSRPostProcessIntensitySpeed(const float value) noexcept
+    {
+        this->m_sr_postprocess_intensity_speed = value;
+    }
+
+    inline float getSRPostProcessHitIntensity(void) const noexcept { return this->m_sr_postprocess_hit_intensity; }
+    inline void setSRPostProcessHitIntensity(const float value) noexcept
+    {
+        this->m_sr_postprocess_hit_intensity = value;
+    }
+#pragma endregion
+
 private:
     // @ Не понятно зачем в итоге но так у ПЫС, если в итоге оно находится в самом сторадже где уже зарегистрирован
     // сам НПС
@@ -1076,6 +1095,9 @@ private:
     float m_sr_psy_antenna_phantom_probability = 0.0f;
     float m_sr_psy_antenna_mute_sound_threshold = 0.0f;
     float m_sr_psy_antenna_hit_frequency = 0.0f;
+    float m_sr_postprocess_intensity = 0.0f;
+    float m_sr_postprocess_intensity_speed = 0.0f;
+    float m_sr_postprocess_hit_intensity = 0.0f;
     CScriptGameObject* m_p_npc = nullptr;
     Script_ISchemeEntity* m_p_action =
         nullptr; // @ для XR_LOGIC::unsubscrive_action, используется в очень редких схемах!

@@ -337,6 +337,7 @@ enum
 #include "xrServer_Objects_Alife_Smartcovers.h"
 #include "script_movement_action.h"
 #include "script_monster_hit_info.h"
+#include "script_effector.h"
 #include "xr_time.h"
 #include <random>
 #include "Script_GlobalDefinitions.h"
@@ -458,4 +459,5 @@ enum
 #include "Script_SchemeSRTeleport.h"
 #include "Script_SchemeSRSilenceZone.h"
 #include "Script_SchemeSRPsyAntenna.h"
+#include "Script_SchemeSRPostProcess.h"
 #include "Script_Globalsinline.h"
