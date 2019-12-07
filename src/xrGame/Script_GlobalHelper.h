@@ -19,7 +19,6 @@
 #include "Script_HelicopterFire.h"
 #include "Script_SchemeHelicopterMove.h"
 
-
 // @ PRIVATE PREPROCESSOR!
 #define _REGISTER_FULL_FUNCTION_XR_CONDITION(function_name, function)                                       \
     this->m_registered_functions_xr_conditions[#function_name "_client"] = function##_client;               \
@@ -4227,8 +4226,10 @@ private:
             // @ Во-первых для проверки самих себя
             // @ Во-вторых для проверки самого объекта и возвращаемого члена
             // @ В-третьих даём понять юзверю что мы явным образом регистрируем схему
-            // @ В-четрветых понимаем сколько вообще схем используется в игре, да наверное не удобно прописывать так, зато гарантия точности и надёжности
-            // @ В-пятых это обусловлено луа у пыс можно было mob_walker.something_like_this(), но у нас так нельзя делать потому что C++ и потому что интерфейсы
+            // @ В-четрветых понимаем сколько вообще схем используется в игре, да наверное не удобно прописывать так,
+            // зато гарантия точности и надёжности
+            // @ В-пятых это обусловлено луа у пыс можно было mob_walker.something_like_this(), но у нас так нельзя
+            // делать потому что C++ и потому что интерфейсы
             // @ В-шестых луа ловушка джокера никогда не используйте lua в таком сложном backend
 
             Script_SchemeMobCamp mob_camp = Script_SchemeMobCamp(nullptr, DataBase::Storage_Scheme());
@@ -4271,6 +4272,11 @@ private:
                 Script_SchemeHelicopterMove::add_to_binder;
         }
 #pragma endregion
+
+
+        #pragma region Cordis registering indoor levels for sr_light scheme
+        this->m_indoor_levels["jupiter_underground"] = true;
+        #pragma endregion
     }
 
 public:
@@ -5505,8 +5511,8 @@ public:
     }
 
     inline xr_map<xr_string,
-        std::function<void(CScriptGameObject* const, CScriptIniFile* const, const xr_string&, const xr_string&,
-            const xr_string&)>>&
+        std::function<void(
+            CScriptGameObject* const, CScriptIniFile* const, const xr_string&, const xr_string&, const xr_string&)>>&
     getSchemesSetSchemeCallbacks(void) noexcept
     {
         return this->m_registered_schemes_set_scheme_callbacks;
@@ -5518,6 +5524,20 @@ public:
     getSchemesAddToBinderCallbacks(void) noexcept
     {
         return this->m_registered_schemes_add_to_binder_callbacks;
+    }
+
+    // @ Uses in Script_SchemeSRLight
+    inline const xr_map<xr_string, bool>& getIndoorLevels(void) const noexcept { return this->m_indoor_levels; }
+    inline void setIndoorLevels(const xr_string& level_name, const bool value) noexcept
+    {
+        if (level_name.empty())
+        {
+            Msg("[Scripts/Script_GlobalHelper/setIndoorLevels(level_name, value)] WARNING: level_name.empty() == true! "
+                "You set an empty string return ...");
+            return;
+        }
+
+        this->m_indoor_levels[level_name] = value;
     }
 #pragma endregion
 
@@ -5532,8 +5552,8 @@ private:
     xr_map<xr_string, bool> m_registered_harmonica_visuals;
     xr_map<xr_string, bool> m_quest_section;
     xr_map<xr_string,
-        std::function<void(CScriptGameObject* const, CScriptIniFile* const, const xr_string&, const xr_string&,
-            const xr_string&)>>
+        std::function<void(
+            CScriptGameObject* const, CScriptIniFile* const, const xr_string&, const xr_string&, const xr_string&)>>
         m_registered_schemes_set_scheme_callbacks;
     xr_map<xr_string,
         std::function<void(CScriptGameObject* const, CScriptIniFile* const, const xr_string&, const xr_string&,
@@ -5558,6 +5578,7 @@ private:
     xr_map<xr_string, MonsterSound::EType> m_monster_sound_name_to_type_action;
     xr_map<xr_string, bool> m_registered_smart_terrain_territory_type;
     xr_map<xr_string, bool> m_simulationsquad_is_squad_monster_by_type;
+    xr_map<xr_string, bool> m_indoor_levels;
     // @ First - id | Second - distance
     std::pair<std::uint32_t, std::uint32_t> m_game_server_nearest_to_actor_smart_terrain;
     xr_vector<xr_string> m_registered_smart_terrain_path_fields;

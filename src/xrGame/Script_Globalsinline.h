@@ -1904,6 +1904,7 @@ void system_deallocation(void)
     DataBase::Storage::getInstance().Deallocate();
     Script_StoryObject::getInstance().Deallocate();
     Script_SimulationObjects::getInstance().Deallocate();
+    Script_SRLightManager::getInstance().Deallocate();
 }
 
 inline void set_save_marker(NET_Packet& packet, const xr_string& mode, bool check, const xr_string& prefix)

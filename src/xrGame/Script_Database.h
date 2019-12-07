@@ -1071,6 +1071,11 @@ public:
 
 #pragma endregion
 
+#pragma region Cordis Scheme SR Light
+    inline bool IsSRLightLight(void) const noexcept { return this->m_is_sr_light_light; }
+    inline void setSRLightLight(const bool value) noexcept { this->m_is_sr_light_light = value;}
+#pragma endregion
+
 private:
     // @ Не понятно зачем в итоге но так у ПЫС, если в итоге оно находится в самом сторадже где уже зарегистрирован
     // сам НПС
@@ -1101,6 +1106,7 @@ private:
     bool m_is_sr_psy_antenna_no_static = false;
     bool m_is_sr_psy_antenna_no_mumble = false;
     bool m_is_sr_particle_looped = false;
+    bool m_is_sr_light_light = false;
     std::uint32_t m_home_min_radius = 0;
     std::uint32_t m_home_mid_radius = 0;
     std::uint32_t m_home_max_radius = 0;
@@ -3315,7 +3321,8 @@ public:
     {
         if (zone_name.empty())
         {
-            Msg("[Scripts/Database/Storage/setNoWeaponZones(zone_name, value)] WARNING: zone_name.empty() == true! You are trying to set an empty string! Retunr ...");
+            Msg("[Scripts/Database/Storage/setNoWeaponZones(zone_name, value)] WARNING: zone_name.empty() == true! You "
+                "are trying to set an empty string! Retunr ...");
             return;
         }
 
