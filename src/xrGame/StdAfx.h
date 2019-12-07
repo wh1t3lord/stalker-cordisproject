@@ -466,4 +466,5 @@ enum
 #include "Script_SchemeSRIdle.h"
 #include "Script_SchemeSRDeimos.h"
 #include "Script_SchemeXRDeath.h"
+#include "Script_SchemeXRHit.h"
 #include "Script_Globalsinline.h"

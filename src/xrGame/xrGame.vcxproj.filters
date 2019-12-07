@@ -4036,6 +4036,15 @@
     <Filter Include="Cordis\Scripts\Logic\Schemes\XR\Death\Private">
       <UniqueIdentifier>{5fea6624-d26d-4bed-82e8-e9449637c6a7}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Cordis\Scripts\Logic\Schemes\XR\Hit">
+      <UniqueIdentifier>{efbcbfff-b54d-4d71-a649-8926625be7b6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Logic\Schemes\XR\Hit\Public">
+      <UniqueIdentifier>{fa55f595-22cb-40c3-b7b9-25e906b0eef2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Logic\Schemes\XR\Hit\Private">
+      <UniqueIdentifier>{ed7d748c-4e68-49c8-9520-a3b60957e531}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="mt_config.h">
@@ -9344,6 +9353,9 @@
     <ClInclude Include="Script_SchemeXRDeath.h">
       <Filter>Cordis\Scripts\Logic\Schemes\XR\Death\Public</Filter>
     </ClInclude>
+    <ClInclude Include="Script_SchemeXRHit.h">
+      <Filter>Cordis\Scripts\Logic\Schemes\XR\Hit\Public</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="damage_manager.cpp">
@@ -13721,6 +13733,9 @@
     </ClCompile>
     <ClCompile Include="Script_SchemeXRDeath.cpp">
       <Filter>Cordis\Scripts\Logic\Schemes\XR\Death\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Script_SchemeXRHit.cpp">
+      <Filter>Cordis\Scripts\Logic\Schemes\XR\Hit\Private</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
