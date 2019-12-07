@@ -3973,6 +3973,15 @@
     <Filter Include="Cordis\Scripts\Logic\Schemes\SR\Particle\Private">
       <UniqueIdentifier>{11b4c8c0-5b1a-49d2-89df-2245634473fa}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Cordis\Scripts\Logic\Schemes\SR\No weapon">
+      <UniqueIdentifier>{170fa632-fe97-4bfb-a649-f234be222860}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Logic\Schemes\SR\No weapon\Public">
+      <UniqueIdentifier>{dd6c4575-b528-4de4-9a32-8e81047f1523}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Logic\Schemes\SR\No weapon\Private">
+      <UniqueIdentifier>{00310b4d-dc85-4b21-960a-2ba667b70fc2}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="mt_config.h">
@@ -9266,6 +9275,9 @@
     <ClInclude Include="Script_SchemeSRParticle.h">
       <Filter>Cordis\Scripts\Logic\Schemes\SR\Particle\Public</Filter>
     </ClInclude>
+    <ClInclude Include="Script_SchemeSRNoWeapon.h">
+      <Filter>Cordis\Scripts\Logic\Schemes\SR\No weapon\Public</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="damage_manager.cpp">
@@ -13628,6 +13640,9 @@
     </ClCompile>
     <ClCompile Include="Script_SchemeSRParticle.cpp">
       <Filter>Cordis\Scripts\Logic\Schemes\SR\Particle\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Script_SchemeSRNoWeapon.cpp">
+      <Filter>Cordis\Scripts\Logic\Schemes\SR\No weapon\Private</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
