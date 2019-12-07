@@ -264,7 +264,7 @@ public:
             std::uint32_t index = packet.r_u16();
             this->m_postprocess[postprocess_id_name] = std::make_tuple(ii, ib, index);
             Globals::Game::level::add_pp_effector(postprocess_id_name.c_str(), index, true);
-            Globals::Game::level::set_pp_effector_factor(index, ii, 0.0f); // Lord: протестить правда ли что передаётся 0.0f?
+            Globals::Game::level::set_pp_effector_factor(index, ii); 
         }
 
         Globals::set_save_marker(packet, Globals::kSaveMarkerMode_Load, true, "Script_PsyAntennaManager");

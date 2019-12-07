@@ -27,8 +27,12 @@ public:
     inline bool IsHideWeapon(void) const noexcept { return this->m_is_hide_weapon; }
     inline void setHideWeapon(const bool value) noexcept { this->m_is_hide_weapon = value; }
 
+    inline float getDeimosIntensity(void) const noexcept { return this->m_deimos_intensity; }
+    inline void setDeimosIntensity(const float value) noexcept { this->m_deimos_intensity = value; }
+
 private:
     bool m_is_hide_weapon;
+    float m_deimos_intensity;
 };
 } // namespace Scripts
 } // namespace Cordis

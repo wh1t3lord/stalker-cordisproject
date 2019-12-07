@@ -1073,7 +1073,123 @@ public:
 
 #pragma region Cordis Scheme SR Light
     inline bool IsSRLightLight(void) const noexcept { return this->m_is_sr_light_light; }
-    inline void setSRLightLight(const bool value) noexcept { this->m_is_sr_light_light = value;}
+    inline void setSRLightLight(const bool value) noexcept { this->m_is_sr_light_light = value; }
+#pragma endregion
+
+#pragma region Cordis Scheme SR Deimos
+    inline float getSRDeimosIntensity(void) const noexcept { return this->m_sr_deimos_intensity; }
+    inline void setSRDeimosIntensity(const float value) noexcept { this->m_sr_deimos_intensity = value; }
+
+    inline float getSRDeimosMovementSpeed(void) const noexcept { return this->m_sr_deimos_movement_speed; }
+    inline void setSRDeimosMovementSpeed(const float value) noexcept { this->m_sr_deimos_movement_speed = value; }
+
+    inline float getSRDeimosGrowingKoef(void) const noexcept { return this->m_sr_deimos_growing_koef; }
+    inline void setSRDeimosGrowingKoef(const float value) noexcept { this->m_sr_deimos_growing_koef = value; }
+
+    inline float getSRDeimosLoweringKoef(void) const noexcept { return this->m_sr_deimos_lowering_koef; }
+    inline void setSRDeimosLoweringKoef(const float value) noexcept { this->m_sr_deimos_lowering_koef = value; }
+
+    inline std::uint32_t getSRDeimosCameraEffectorRepeatingTime(void) const noexcept
+    {
+        return this->m_sr_deimos_camera_effector_repeating_time;
+    }
+    inline void setSRDeimosCameraEffectorRepeatingTime(const std::uint32_t value) noexcept
+    {
+        this->m_sr_deimos_camera_effector_repeating_time = value;
+    }
+
+    inline float getSRDeimosHealthLost(void) const noexcept { return this->m_sr_deimos_health_lost; }
+    inline void setSRDeimosHealthLost(const float value) noexcept { this->m_sr_deimos_health_lost = value; }
+
+    inline float getSRDeimosDisableBound(void) const noexcept { return this->m_sr_deimos_disable_bound; }
+    inline void setSRDeimosDisableBound(const float value) noexcept { this->m_sr_deimos_disable_bound = value; }
+
+    inline float getSRDeimosSwitchLowerBound(void) const noexcept { return this->m_sr_deimos_switch_lower_bound; }
+    inline void setSRDeimosSwitchLowerBound(const float value) noexcept
+    {
+        this->m_sr_deimos_switch_lower_bound = value;
+    }
+
+    inline float getSRDeimosSwitchUpperBound(void) const noexcept { return this->m_sr_deimos_switch_upper_bound; }
+    inline void setSRDeimosSwitchUpperBound(const float value) noexcept
+    {
+        this->m_sr_deimos_switch_upper_bound = value;
+    }
+
+    inline const xr_string& getSRDeimosPostProcessEffectorName(void) const noexcept
+    {
+        return this->m_sr_deimos_postprocess_effector_name;
+    }
+    inline void setSRDeimosPostProcessEffectorName(const xr_string& effector_name) noexcept
+    {
+        if (effector_name.empty())
+        {
+            Msg("[Scripts/DataBase/Storage_Scheme/setSRDeimosPostProcessEffectorName(effector_name)] WARNING: "
+                "effector_name.empty() == true! You set an empty string");
+        }
+
+        this->m_sr_deimos_postprocess_effector_name = effector_name;
+    }
+
+    inline const xr_string& getSRDeimosCameraEffectorName(void) const noexcept
+    {
+        return this->m_sr_deimos_camera_effector_name;
+    }
+    inline void setSRDeimosCameraEffectorName(const xr_string& effector_name) noexcept
+    {
+        if (effector_name.empty())
+        {
+            Msg("[Scripts/DataBase/Storage_Scheme/setSRDeimosCameraEffectorName(effector_name)] WARNING: "
+                "effector_name.empty() == true! You set an empty string");
+        }
+
+        this->m_sr_deimos_camera_effector_name = effector_name;
+    }
+
+    inline const xr_string& getSRDeimosPostProcessEffector2Name(void) const noexcept
+    {
+        return this->m_sr_deimos_postprocess_effector2_name;
+    }
+    inline void setSRDeimosPostProcessEffector2Name(const xr_string& effector_name) noexcept
+    {
+        if (effector_name.empty())
+        {
+            Msg("[Scripts/DataBase/Storage_Scheme/setSRDeimosPostProcessEffector2Name(effector_name)] WARNING: "
+                "effector_name.empty() == true! You set an empty string");
+        }
+
+        this->m_sr_deimos_postprocess_effector2_name = effector_name;
+    }
+
+    inline const xr_string& getSRDeimosNoiseSoundName(void) const noexcept
+    {
+        return this->m_sr_deimos_noise_sound_name;
+    }
+    inline void setSRDeimosNoiseSoundName(const xr_string& sound_name) noexcept
+    {
+        if (sound_name.empty())
+        {
+            Msg("[Scripts/DataBase/Storage_Scheme/setSRDeimosNoiseSoundName(sound_name)] WARNING: sound_name.empty() "
+                "== true! You set an empty string");
+        }
+
+        this->m_sr_deimos_noise_sound_name = sound_name;
+    }
+
+    inline const xr_string& getSRDeimosHeartBeetSoundName(void) const noexcept
+    {
+        return this->m_sr_deimos_heartbeet_sound_name;
+    }
+    inline void setSRDeimosHeartBeetSoundName(const xr_string& sound_name) noexcept
+    {
+        if (sound_name.empty())
+        {
+            Msg("[Scripts/DataBase/Storage_Scheme/setSRDeimosHeartBeetSoundName(sound_name)] WARNING: "
+                "sound_name.empty() == true! You set an empty string");
+        }
+
+        this->m_sr_deimos_heartbeet_sound_name = sound_name;
+    }
 #pragma endregion
 
 private:
@@ -1121,6 +1237,7 @@ private:
     std::uint32_t m_sr_timer_start_value = 0;
     std::uint32_t m_sr_teleport_timeout = 0;
     std::uint32_t m_sr_particle_mode = 0;
+    std::uint32_t m_sr_deimos_camera_effector_repeating_time = 0;
     float m_ph_jump_factor = 0.0f;
     float m_helicopter_min_rocket_distance = 0.0f;
     float m_helicopter_min_minigun_distance = 0.0f;
@@ -1139,6 +1256,15 @@ private:
     float m_sr_postprocess_intensity = 0.0f;
     float m_sr_postprocess_intensity_speed = 0.0f;
     float m_sr_postprocess_hit_intensity = 0.0f;
+    float m_sr_deimos_intensity = 0.0f;
+    float m_sr_deimos_growing_speed = 0.0f;
+    float m_sr_deimos_growing_koef = 0.0f;
+    float m_sr_deimos_lowering_koef = 0.0f;
+    float m_sr_deimos_disable_bound = 0.0f;
+    float m_sr_deimos_switch_lower_bound = 0.0f;
+    float m_sr_deimos_switch_upper_bound = 0.0f;
+    float m_sr_deimos_health_lost = 0.0f;
+    float m_sr_deimos_movement_speed = 0.0f;
     CScriptGameObject* m_p_npc = nullptr;
     Script_ISchemeEntity* m_p_action =
         nullptr; // @ для XR_LOGIC::unsubscrive_action, используется в очень редких схемах!
@@ -1200,6 +1326,11 @@ private:
     xr_string m_sr_psy_antenna_hit_type_name;
     xr_string m_sr_particle_name;
     xr_string m_sr_particle_path_name;
+    xr_string m_sr_deimos_postprocess_effector_name;
+    xr_string m_sr_deimos_camera_effector_name;
+    xr_string m_sr_deimos_postprocess_effector2_name;
+    xr_string m_sr_deimos_noise_sound_name;
+    xr_string m_sr_deimos_heartbeet_sound_name;
     CondlistWaypoints m_path_walk_info;
     CondlistWaypoints m_path_look_info;
 };
