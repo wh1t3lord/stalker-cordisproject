@@ -1566,6 +1566,8 @@ $(xrLibDir);$(xrSdkDir)DXSDK/Lib/$(PlatformShortName);
     <ClInclude Include="Script_SchemePHOnHit.h" />
     <ClInclude Include="Script_SchemePHOscillate.h" />
     <ClInclude Include="Script_SchemePHSound.h" />
+    <ClInclude Include="Script_SchemeSRParticle.h" />
+    <ClInclude Include="Script_SchemeSRPostProcess.h" />
     <ClInclude Include="Script_SchemeSRPsyAntenna.h" />
     <ClInclude Include="Script_SchemeSRSilenceZone.h" />
     <ClInclude Include="Script_SchemeSRTeleport.h" />
@@ -3702,6 +3704,8 @@ $(xrLibDir);$(xrSdkDir)DXSDK/Lib/$(PlatformShortName);
     <ClCompile Include="Script_SchemePHOnHit.cpp" />
     <ClCompile Include="Script_SchemePHOscillate.cpp" />
     <ClCompile Include="Script_SchemePHSound.cpp" />
+    <ClCompile Include="Script_SchemeSRParticle.cpp" />
+    <ClCompile Include="Script_SchemeSRPostProcess.cpp" />
     <ClCompile Include="Script_SchemeSRPsyAntenna.cpp" />
     <ClCompile Include="Script_SchemeSRSilenceZone.cpp" />
     <ClCompile Include="Script_SchemeSRTeleport.cpp" />

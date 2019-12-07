@@ -37,8 +37,8 @@ void Script_SchemeSRPostProcess::reset_scheme(const bool value, CScriptGameObjec
         this->m_intensity_inertion = this->m_storage->getSRPostProcessIntensitySpeed();
     }
 
-    this->m_postprocess = CScriptEffector(this->m_id + 2000, 10000000);
-    this->m_postprocess.Add();
+//     this->m_postprocess = CScriptEffector(this->m_id + 2000, 10000000);
+//     this->m_postprocess.Add();
 }
 
 void Script_SchemeSRPostProcess::deactivate(CScriptGameObject* const p_client_object)
