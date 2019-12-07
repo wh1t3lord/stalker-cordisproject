@@ -1206,7 +1206,7 @@ public:
     {
         return this->m_xr_death_info2;
     }
-    inline void setXRDeathInfo2(const xr_map<std::uint32_t, CondlistData>& data) noexcept 
+    inline void setXRDeathInfo2(const xr_map<std::uint32_t, CondlistData>& data) noexcept
     {
         this->m_xr_death_info2 = data;
     }
@@ -1795,7 +1795,7 @@ public:
     class DeathData
     {
     public:
-        DeathData(void) = default;
+        DeathData(void) : m_killer_id(0) {}
         ~DeathData(void) = default;
 
         inline const xr_string& getKillerName(void) const noexcept { return this->m_killer_name; }
@@ -1816,6 +1816,27 @@ public:
     private:
         std::uint16_t m_killer_id;
         xr_string m_killer_name;
+    };
+
+    class HitData
+    {
+    public:
+        HitData(void) : m_is_deadly_hit(false), m_who_id(0), m_bone_index(0) {}
+        ~HitData(void) = default;
+
+        inline bool IsDeadlyHit(void) const noexcept { return this->m_is_deadly_hit; }
+        inline void setDeadlyHit(const bool value) noexcept { this->m_is_deadly_hit = value; }
+
+        inline std::uint16_t getWhoID(void) const noexcept { return this->m_who_id; }
+        inline void setWhoID(const std::uint16_t value) noexcept { this->m_who_id = value; }
+
+        inline std::uint32_t getBoneIndex(void) const noexcept { return this->m_bone_index; }
+        inline void setBoneIndex(const std::int16_t value) noexcept { this->m_bone_index; }
+
+    private:
+        bool m_is_deadly_hit;
+        std::uint16_t m_who_id;
+        std::int16_t m_bone_index;
     };
 
     ~Storage_Data(void)
@@ -2150,6 +2171,11 @@ public:
     inline std::uint8_t getSchemeType(void) const noexcept { return this->m_scheme_type; }
     inline void setSchemeType(const std::uint8_t stype) noexcept { this->m_scheme_type = stype; }
 
+    inline const HitData& getHit(void) const noexcept { return this->m_hit; }
+    inline void setHitDeadlyHit(const bool value) noexcept { this->m_hit.setDeadlyHit(value); }
+    inline void setHitWhoID(const std::uint16_t value) noexcept { this->m_hit.setWhoID(value); }
+    inline void setHitBoneIndex(const std::int16_t value) noexcept { this->m_hit.setBoneIndex(value); }
+
 private:
     bool m_is_invulnerable = false;
     bool m_is_immortal = false;
@@ -2160,6 +2186,7 @@ private:
     std::uint8_t m_scheme_type;
     std::uint16_t m_enemy_id = Globals::kUnsignedInt16Undefined;
     std::int32_t m_activation_time = 0;
+    HitData m_hit;
     CScriptGameObject* m_p_client_object = nullptr;
     StorageAnimpoint_Data m_storage_animpoint;
     CSE_ALifeObject* m_p_server_object = nullptr;
@@ -2920,6 +2947,21 @@ public:
     inline void setStorageSType(const std::uint16_t npc_id, const std::uint8_t stype) noexcept
     {
         this->m_storage[npc_id].setSchemeType(stype);
+    }
+
+    inline void setStorageHitDeadlyHit(const std::uint16_t npc_id, const bool value) noexcept
+    {
+        this->m_storage[npc_id].setHitDeadlyHit(value);
+    }
+
+    inline void setStorageHitWhoID(const std::uint16_t npc_id, const std::uint16_t who_id) noexcept
+    {
+        this->m_storage[npc_id].setHitWhoID(who_id);
+    }
+
+    inline void setStorageHitBoneIndex(const std::uint16_t npc_id, const std::int16_t bone_index) noexcept 
+    {
+        this->m_storage[npc_id].setHitBoneIndex(bone_index);
     }
 #pragma endregion
 
