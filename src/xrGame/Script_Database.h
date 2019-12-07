@@ -1038,6 +1038,38 @@ public:
     }
 #pragma endregion
 
+#pragma region Cordis Scheme SR Particle
+    inline bool IsSRParticleLooped(void) const noexcept { return this->m_is_sr_particle_looped; }
+    inline void setSRParticleLooped(const bool value) noexcept { this->m_is_sr_particle_looped = value; }
+
+    inline std::uint32_t getSRParticleMode(void) const noexcept { return this->m_sr_particle_mode; }
+    inline void setSRParticleMode(const std::uint32_t value) noexcept { this->m_sr_particle_mode = value; }
+
+    inline const xr_string& getSRParticleName(void) const noexcept { return this->m_sr_particle_name; }
+    inline void setSRParticleName(const xr_string& name) noexcept
+    {
+        if (name.empty())
+        {
+            Msg("[Scripts/DataBase/Storage_Scheme/setSRParticleName(name)] WARNING: name.empty() == true! You set an "
+                "empty string");
+        }
+
+        this->m_sr_particle_name = name;
+    }
+
+    inline const xr_string& getSRParticlePathName(void) const noexcept { return this->m_sr_particle_path_name; }
+    inline void setSRParticlePathName(const xr_string& path_name) noexcept
+    {
+        if (path_name.empty())
+        {
+            Msg("[Scripts/DataBase/Storage_Scheme/setSRParticlePathName(path_name)] WARNING: path_name.empty() == true! You set an empty string");
+        }
+
+        this->m_sr_particle_path_name = path_name;
+    }
+
+#pragma endregion
+
 private:
     // @ Не понятно зачем в итоге но так у ПЫС, если в итоге оно находится в самом сторадже где уже зарегистрирован
     // сам НПС
@@ -1067,6 +1099,7 @@ private:
     bool m_is_ph_sound_random = false;
     bool m_is_sr_psy_antenna_no_static = false;
     bool m_is_sr_psy_antenna_no_mumble = false;
+    bool m_is_sr_particle_looped = false;
     std::uint32_t m_home_min_radius = 0;
     std::uint32_t m_home_mid_radius = 0;
     std::uint32_t m_home_max_radius = 0;
@@ -1080,6 +1113,7 @@ private:
     std::uint32_t m_ph_sound_pause_max = 0;
     std::uint32_t m_sr_timer_start_value = 0;
     std::uint32_t m_sr_teleport_timeout = 0;
+    std::uint32_t m_sr_particle_mode = 0;
     float m_ph_jump_factor = 0.0f;
     float m_helicopter_min_rocket_distance = 0.0f;
     float m_helicopter_min_minigun_distance = 0.0f;
@@ -1157,6 +1191,8 @@ private:
     xr_string m_sr_timer_string_name;
     xr_string m_sr_psy_antenna_postprocess_name;
     xr_string m_sr_psy_antenna_hit_type_name;
+    xr_string m_sr_particle_name;
+    xr_string m_sr_particle_path_name;
     CondlistWaypoints m_path_walk_info;
     CondlistWaypoints m_path_look_info;
 };

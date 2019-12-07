@@ -4,19 +4,18 @@ namespace Cordis
 {
 namespace Scripts
 {
-    // @ Можете доделать!
-class Script_SchemeSRPostProcess : public Script_ISchemeEntity
+class Script_SchemeSRParticle : public Script_ISchemeEntity
 {
     using inherited_scheme = Script_ISchemeEntity;
 
 public:
-    Script_SchemeSRPostProcess(void) = delete;
-    Script_SchemeSRPostProcess(CScriptGameObject* const p_client_object, DataBase::Storage_Scheme& storage);
-    ~Script_SchemeSRPostProcess(void);
+    Script_SchemeSRParticle(void) = delete;
+    Script_SchemeSRParticle(CScriptGameObject* const p_client_object, DataBase::Storage_Scheme& storage);
+    ~Script_SchemeSRParticle(void);
 
     virtual void reset_scheme(const bool value, CScriptGameObject* const p_client_object);
-    virtual void deactivate(CScriptGameObject* const p_client_object);
     virtual void update(const float delta);
+    virtual void deactivate(CScriptGameObject* const p_client_object);
 
     // Lord: доделать и set_scheme тоже!
     // @ PRIVATE uses, in XR_LOGIC
@@ -47,22 +46,16 @@ public:
     }
 
 private:
-    void update_hit(const float delta);
+    bool IsEnd(void);
+    void update_mode_1(void);
+    void update_mode_2(void);
 
 private:
-    bool m_is_actor_inside;
-    std::uint32_t m_eff_time;
-    std::uint32_t m_hit_time;
-    float m_gray_amplitude;
-    float m_intensity;
-    float m_intensity_base;
-    float m_hit_power;
-    float m_intensity_inertion;
-    SPPInfo::SNoise m_noise;
-    SPPInfo::SColor m_gray_color;
-    SPPInfo::SColor m_base_color;
-  //  CScriptEffector m_postprocess;
+    bool m_is_started;
+    bool m_is_first_played;
+    std::uint32_t m_last_update;
+    CPatrolPathParams* m_path;
+    xr_vector<ParticleData> m_particles;
 };
-}
+} // namespace Scripts
 } // namespace Cordis
-

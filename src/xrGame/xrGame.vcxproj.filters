@@ -3964,6 +3964,15 @@
     <Filter Include="Cordis\Scripts\Logic\Schemes\SR\PostProcess\Private">
       <UniqueIdentifier>{fc2ba024-a91d-4345-a283-eb81bc3f36f5}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Cordis\Scripts\Logic\Schemes\SR\Particle">
+      <UniqueIdentifier>{84e1844e-a2a7-4e91-978e-648b5d995859}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Logic\Schemes\SR\Particle\Public">
+      <UniqueIdentifier>{52a871b6-ed1e-4fd3-8c41-4686f9aac85a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Logic\Schemes\SR\Particle\Private">
+      <UniqueIdentifier>{11b4c8c0-5b1a-49d2-89df-2245634473fa}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="mt_config.h">
@@ -9251,6 +9260,12 @@
     <ClInclude Include="Script_Binder_Phantom.h">
       <Filter>Cordis\Scripts\Binders\Phantom\Public</Filter>
     </ClInclude>
+    <ClInclude Include="Script_SchemeSRPostProcess.h">
+      <Filter>Cordis\Scripts\Logic\Schemes\SR\PostProcess\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Script_SchemeSRParticle.h">
+      <Filter>Cordis\Scripts\Logic\Schemes\SR\Particle\Public</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="damage_manager.cpp">
@@ -13607,6 +13622,12 @@
     </ClCompile>
     <ClCompile Include="Script_Binder_Phantom.cpp">
       <Filter>Cordis\Scripts\Binders\Phantom\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Script_SchemeSRPostProcess.cpp">
+      <Filter>Cordis\Scripts\Logic\Schemes\SR\PostProcess\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Script_SchemeSRParticle.cpp">
+      <Filter>Cordis\Scripts\Logic\Schemes\SR\Particle\Private</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

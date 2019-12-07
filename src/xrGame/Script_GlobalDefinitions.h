@@ -1,9 +1,56 @@
 #pragma once
 
+#include "script_particles.h"
+
 namespace Cordis
 {
 namespace Scripts
 {
+// @ Uses in Script_SchemeSRParticle
+class ParticleData
+{
+public:
+    ParticleData(void) = default;
+    ~ParticleData(void)
+    {
+        if (this->m_particle)
+        {
+            Msg("[Scripts/ParticleData/~dtor()] WARNING: deleting this->m_particle!");
+            xr_delete(this->m_particle);
+        }
+    }
+    inline bool IsPlayed(void) const noexcept { return this->m_is_played; }
+    inline void setPlayed(const bool value) noexcept { this->m_is_played = value; }
+
+    inline std::uint32_t getDelay(void) const noexcept { return this->m_delay; }
+    inline void setDelay(const std::uint32_t value) noexcept { this->m_delay = value; }
+
+    inline std::uint32_t getTime(void) const noexcept { return this->m_time; }
+    inline void setTime(const std::uint32_t value) noexcept { this->m_time = value; }
+
+    /*
+        inline const CScriptSound& getSound(void) const noexcept { return this->m_sound; }
+        inline void setSound(const CScriptSound& data) noexcept { this->m_sound = data; }*/
+
+    inline CScriptParticles* const getParticle(void) const { return this->m_particle; }
+    inline void setParticle(CScriptParticles* data)
+    {
+        if (!data)
+        {
+            Msg("[Scripts/ParticleData/setParticle(data)] WARNING: data == nullptr! You set an empty object");
+        }
+
+        this->m_particle = data;
+    }
+
+private:
+    bool m_is_played = false;
+    std::uint32_t m_delay = 0;
+    std::uint32_t m_time = 0;
+    /*    CScriptSound m_sound;*/
+    CScriptParticles* m_particle = nullptr;
+};
+
 struct JobDataSmartTerrain
 {
     ~JobDataSmartTerrain(void)
@@ -34,7 +81,7 @@ namespace DataBase
 class Storage_Scheme;
 class Storage;
 class Data_Overrides;
-}
+} // namespace DataBase
 
 namespace GulagGenerator
 {
@@ -62,7 +109,7 @@ void activate_by_section(CScriptGameObject* const p_client_object, CScriptIniFil
 CScriptIniFile* configure_schemes(CScriptGameObject* const p_client_object, CScriptIniFile* const p_ini,
     const xr_string& ini_filename, std::uint32_t stype, const xr_string& section_logic_name,
     const xr_string& gulag_name);
-}
+} // namespace XR_LOGIC
 
 namespace CRD_DialogManager
 {
