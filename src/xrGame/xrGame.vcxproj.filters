@@ -3955,6 +3955,15 @@
     <Filter Include="Cordis\Scripts\Logic\Schemes\Heli\Move\Handlers\Fire\Public">
       <UniqueIdentifier>{4c140098-507b-431a-ac91-f7f2a261513d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Cordis\Scripts\Logic\Schemes\SR\PostProcess">
+      <UniqueIdentifier>{1b5758b0-a7d7-4708-82c8-de1834d092d9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Logic\Schemes\SR\PostProcess\Public">
+      <UniqueIdentifier>{fa706272-f7e9-485b-a048-ae5f80eb745c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Logic\Schemes\SR\PostProcess\Private">
+      <UniqueIdentifier>{fc2ba024-a91d-4345-a283-eb81bc3f36f5}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="mt_config.h">
