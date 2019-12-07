@@ -16,6 +16,12 @@ private:
     Script_PsyAntennaManager(void) {}
 
 public:
+    static inline Script_PsyAntennaManager& getInstance(void) noexcept
+    {
+        static Script_PsyAntennaManager instance;
+        return instance;
+    }
+
     Script_PsyAntennaManager(const Script_PsyAntennaManager&) = delete;
     Script_PsyAntennaManager& operator=(const Script_PsyAntennaManager&) = delete;
     Script_PsyAntennaManager(Script_PsyAntennaManager&&) = delete;
@@ -62,7 +68,7 @@ public:
             if (!p_static || !this->m_is_no_static)
             {
                 p_hud->AddCustomStatic("cs_psy_danger", true);
-                p_hud->AddCustomStatic("cs_psy_danger")->wnd()->TextItemControl()->SetTextST("st_psy_danger");
+                p_hud->GetCustomStatic("cs_psy_danger")->wnd()->TextItemControl()->SetTextST("st_psy_danger");
             }
         }
         else
@@ -258,7 +264,7 @@ public:
             std::uint32_t index = packet.r_u16();
             this->m_postprocess[postprocess_id_name] = std::make_tuple(ii, ib, index);
             Globals::Game::level::add_pp_effector(postprocess_id_name.c_str(), index, true);
-            Globals::Game::level::set_pp_effector_factor(index, ii);
+            Globals::Game::level::set_pp_effector_factor(index, ii, 0.0f); // Lord: протестить правда ли что передаётся 0.0f?
         }
 
         Globals::set_save_marker(packet, Globals::kSaveMarkerMode_Load, true, "Script_PsyAntennaManager");
@@ -350,6 +356,10 @@ public:
         this->m_postprocess[postprocess_name] = data;
     }
 
+    inline void AddPostProcessCount(void) noexcept { ++this->m_postprocess_count; }
+    inline void RemovePostProcessCount(void) noexcept { --this->m_postprocess_count; }
+    inline std::uint32_t getPostProcessCount(void) const noexcept { return this->m_postprocess_count; }
+
 private:
     inline float update_intensity(const float intensity_base, const float intensity, const float delta)
     {
@@ -409,6 +419,19 @@ public:
     Script_SchemeSRPsyAntenna(void) = delete;
     Script_SchemeSRPsyAntenna(CScriptGameObject* const p_client_object, DataBase::Storage_Scheme& storage);
     ~Script_SchemeSRPsyAntenna(void);
+
+    virtual void reset_scheme(const bool value, CScriptGameObject* const p_client_object);
+    virtual void deactivate(CScriptGameObject* const p_client_object);
+    virtual void update(const float delta);
+    virtual void save(void);
+private:
+    void zone_enter(void);
+    void zone_leave(void);
+    void switch_state(CScriptGameObject* const p_client_actor);
+
+private:
+    std::uint32_t m_state;
+    Script_PsyAntennaManager* m_manager_psy_antenna;
 };
 } // namespace Scripts
 } // namespace Cordis

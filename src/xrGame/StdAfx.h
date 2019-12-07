@@ -355,6 +355,7 @@ enum
 #include "PhraseDialog.h"
 #include "Helicopter.h"
 #include "PostprocessAnimator.h"
+#include "ActorEffector.h"
 #include "Script_DialogManager.h"
 #include "Script_PhantomManager.h"
 #include "Script_SimulationObjects.h"
