@@ -1494,6 +1494,7 @@ $(xrLibDir);$(xrSdkDir)DXSDK/Lib/$(PlatformShortName);
     <ClInclude Include="Script_Binder_Monster.h" />
     <ClInclude Include="script_binder_object.h" />
     <ClInclude Include="script_binder_object_wrapper.h" />
+    <ClInclude Include="Script_Binder_Phantom.h" />
     <ClInclude Include="Script_Binder_PhysicObject.h" />
     <ClInclude Include="Script_Binder_Restrictor.h" />
     <ClInclude Include="Script_Binder_SignalLight.h" />
@@ -1543,6 +1544,7 @@ $(xrLibDir);$(xrSdkDir)DXSDK/Lib/$(PlatformShortName);
     <ClInclude Include="script_particles_inline.h" />
     <ClInclude Include="script_particle_action.h" />
     <ClInclude Include="script_particle_action_inline.h" />
+    <ClInclude Include="Script_PhantomManager.h" />
     <ClInclude Include="script_property_evaluator_wrapper.h" />
     <ClInclude Include="script_property_evaluator_wrapper_inline.h" />
     <ClInclude Include="Script_SchemeHelicopterMove.h" />
@@ -3554,6 +3556,7 @@ $(xrLibDir);$(xrSdkDir)DXSDK/Lib/$(PlatformShortName);
       <PrecompiledHeaderFile>pch_script.h</PrecompiledHeaderFile>
       <PrecompiledHeaderOutputFile>$(IntDir)$(ProjectName)_script.pch</PrecompiledHeaderOutputFile>
     </ClCompile>
+    <ClCompile Include="Script_Binder_Phantom.cpp" />
     <ClCompile Include="Script_Binder_PhysicObject.cpp" />
     <ClCompile Include="Script_Binder_Restrictor.cpp" />
     <ClCompile Include="Script_Binder_SignalLight.cpp" />

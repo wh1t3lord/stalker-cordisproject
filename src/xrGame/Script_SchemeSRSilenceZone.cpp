@@ -1,5 +1,5 @@
 #include "stdafx.h"
-#include "Script_SchemeSilenceZone.h"
+#include "Script_SchemeSRSilenceZone.h"
 
 namespace Cordis
 {

@@ -948,6 +948,77 @@ public:
         this->m_sr_teleport_points = data;
     }
 #pragma endregion
+
+#pragma region Cordis Scheme SR Psy Antenna
+    inline float getSRPsyAntennaIntensity(void) const noexcept { return this->m_sr_psy_antenna_intensity; }
+    inline void setSRPsyAntennaIntensity(const float value) noexcept { this->m_sr_psy_antenna_intensity = value; }
+
+    inline float getSRPsyAntennaHitIntensity(void) const noexcept { return this->m_sr_psy_antenna_hit_intensity; }
+    inline void setSRPsyAntennaHitIntensity(const float value) noexcept
+    {
+        this->m_sr_psy_antenna_hit_intensity = value;
+    }
+
+    inline float getSRPsyAntennaPhantomProbability(void) const noexcept
+    {
+        return this->m_sr_psy_antenna_phantom_probability;
+    }
+    inline void setSRPsyAntennaPhantomProbability(const float value) noexcept
+    {
+        this->m_sr_psy_antenna_phantom_probability = value;
+    }
+
+    inline float getSRPsyAntennaMuteSoundThreshold(void) const noexcept
+    {
+        return this->m_sr_psy_antenna_mute_sound_threshold;
+    }
+
+    inline void setSRPsyAntennaMuteSoundThreshold(const float value) noexcept
+    {
+        this->m_sr_psy_antenna_mute_sound_threshold = value;
+    }
+
+    inline float getSRPsyAntennaHitFrequency(void) const noexcept { return this->m_sr_psy_antenna_hit_frequency; }
+    inline void setSRPsyAntennaHitFrequency(const float value) noexcept
+    {
+        this->m_sr_psy_antenna_hit_frequency = value;
+    }
+
+    inline bool IsSRPsyAntennaNoStatic(void) const noexcept { return this->m_is_sr_psy_antenna_no_static; }
+    inline void setSRPsyAntennaNoStatic(const bool value) noexcept { this->m_is_sr_psy_antenna_no_static = value; }
+
+    inline bool IsSRPsyAntennaNoMumble(void) const noexcept { return this->m_is_sr_psy_antenna_no_mumble; }
+    inline void setSRPsyAntennaNoMumble(const bool value) noexcept { this->m_is_sr_psy_antenna_no_mumble = value; }
+
+    inline const xr_string& getSRPsyAntennaPostProcessName(void) const noexcept
+    {
+        return this->m_sr_psy_antenna_postprocess_name;
+    }
+    inline void setSRPsyAntennaPostProcessName(const xr_string& postprocess_name) noexcept
+    {
+        if (postprocess_name.empty())
+        {
+            Msg("[Scripts/DataBase/Storage_Scheme/setSRPsyAntennaPostProcessName(postprocess_name)] WARNING: "
+                "postprocess_name.empty() == true! You set an empty string");
+        }
+
+        this->m_sr_psy_antenna_postprocess_name = postprocess_name;
+    }
+
+    inline const xr_string& getSRPsyAntennaHitTypeName(void) const noexcept
+    {
+        return this->m_sr_psy_antenna_hit_type_name;
+    }
+    inline void setSRPsyAntennaHitTypeName(const xr_string& hit_type_name) noexcept
+    {
+        if (hit_type_name.empty())
+        {
+            Msg("[Scripts/DataBase/Storage_Scheme/setSRPsyAntennaHitTypeName(hit_type_name)] WARNING: hit_type_name.empty() == true! You set an empty string");
+        }
+
+        this->m_sr_psy_antenna_hit_type_name = hit_type_name;
+    }
+#pragma endregion
 private:
     // @ Не понятно зачем в итоге но так у ПЫС, если в итоге оно находится в самом сторадже где уже зарегистрирован
     // сам НПС
@@ -975,6 +1046,8 @@ private:
     bool m_is_ph_sound_no_hit = false;
     bool m_is_ph_sound_looped = false;
     bool m_is_ph_sound_random = false;
+    bool m_is_sr_psy_antenna_no_static = false;
+    bool m_is_sr_psy_antenna_no_mumble = false;
     std::uint32_t m_home_min_radius = 0;
     std::uint32_t m_home_mid_radius = 0;
     std::uint32_t m_home_max_radius = 0;
@@ -998,6 +1071,11 @@ private:
     float m_angle = 0.0f;
     float m_ph_hit_power = 0.0f;
     float m_ph_hit_impulse = 0.0f;
+    float m_sr_psy_antenna_intensity = 0.0f;
+    float m_sr_psy_antenna_hit_intensity = 0.0f;
+    float m_sr_psy_antenna_phantom_probability = 0.0f;
+    float m_sr_psy_antenna_mute_sound_threshold = 0.0f;
+    float m_sr_psy_antenna_hit_frequency = 0.0f;
     CScriptGameObject* m_p_npc = nullptr;
     Script_ISchemeEntity* m_p_action =
         nullptr; // @ для XR_LOGIC::unsubscrive_action, используется в очень редких схемах!
@@ -1055,6 +1133,8 @@ private:
     xr_string m_sr_timer_type_name;
     xr_string m_sr_timer_timer_id_name;
     xr_string m_sr_timer_string_name;
+    xr_string m_sr_psy_antenna_postprocess_name;
+    xr_string m_sr_psy_antenna_hit_type_name;
     CondlistWaypoints m_path_walk_info;
     CondlistWaypoints m_path_look_info;
 };
