@@ -101,7 +101,7 @@ void Script_SchemeSRPsyAntenna::zone_enter(void)
             this->m_storage->getSRPsyAntennaPostProcessName(), std::make_tuple(0.0f, 0.0f, id));
 
         Globals::Game::level::add_pp_effector(this->m_storage->getSRPsyAntennaPostProcessName().c_str(), id, true);
-        Globals::Game::level::set_pp_effector_factor(id, 0.01f, 0.0f);
+        Globals::Game::level::set_pp_effector_factor(id, 0.01f);
     }
 
     float intensity_base = std::get<_POSTPROCESS_GET_INTENSITY_BASE>(this->m_manager_psy_antenna->getPostProcess().at(

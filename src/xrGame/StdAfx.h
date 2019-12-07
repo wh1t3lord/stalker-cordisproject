@@ -464,4 +464,5 @@ enum
 #include "Script_SchemeSRNoWeapon.h"
 #include "Script_SchemeSRLight.h"
 #include "Script_SchemeSRIdle.h"
+#include "Script_SchemeSRDeimos.h"
 #include "Script_Globalsinline.h"

@@ -120,7 +120,9 @@ inline void set_snd_volume(float v) noexcept;
 inline void spawn_phantom(const Fvector& position);
 inline void remove_pp_effector(int id);
 inline void set_pp_effector_factor(int id, float f, float f_sp);
-
+inline void set_pp_effector_factor(int id, float f);
+inline float add_cam_effector(LPCSTR fn, int id, bool cyclic, LPCSTR cb_func);
+inline void remove_cam_effector(int id);
 
 } // namespace level
 

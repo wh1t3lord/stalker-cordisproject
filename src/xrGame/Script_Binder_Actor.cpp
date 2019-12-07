@@ -5,7 +5,7 @@ namespace Cordis
 {
 namespace Scripts
 {
-Script_Binder_Actor::Script_Binder_Actor(CScriptGameObject* object) : inherited(object), m_is_hide_weapon(false) {}
+Script_Binder_Actor::Script_Binder_Actor(CScriptGameObject* object) : inherited(object), m_is_hide_weapon(false), m_deimos_intensity(0.0f) {}
 
 Script_Binder_Actor::~Script_Binder_Actor(void) {}
 

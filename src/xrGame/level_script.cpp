@@ -351,15 +351,7 @@ void iterate_sounds2(LPCSTR prefix, u32 max_count, luabind::object object, luabi
 }
 
 #include "ActorEffector.h"
-float add_cam_effector(LPCSTR fn, int id, bool cyclic, LPCSTR cb_func)
-{
-    CAnimatorCamEffectorScriptCB* e = new CAnimatorCamEffectorScriptCB(cb_func);
-    e->SetType((ECamEffectorType)id);
-    e->SetCyclic(cyclic);
-    e->Start(fn);
-    Actor()->Cameras().AddCamEffector(e);
-    return e->GetAnimatorLength();
-}
+
 
 float add_cam_effector2(LPCSTR fn, int id, bool cyclic, LPCSTR cb_func, float cam_fov)
 {
@@ -373,7 +365,7 @@ float add_cam_effector2(LPCSTR fn, int id, bool cyclic, LPCSTR cb_func, float ca
     return e->GetAnimatorLength();
 }
 
-void remove_cam_effector(int id) { Actor()->Cameras().RemoveCamEffector((ECamEffectorType)id); }
+
 
 #include "actor_statistic_mgr.h"
 void add_actor_points(LPCSTR sect, LPCSTR detail_key, int cnt, int pts)
@@ -394,13 +386,7 @@ void remove_complex_effector(int id) { RemoveEffector(Actor(), id); }
 
 
 
-void set_pp_effector_factor2(int id, float f)
-{
-    CPostprocessAnimator* pp = smart_cast<CPostprocessAnimator*>(Actor()->Cameras().GetPPEffector((EEffectorPPType)id));
 
-    if (pp)
-        pp->SetCurrentFactor(f);
-}
 
 #include "relation_registry.h"
 

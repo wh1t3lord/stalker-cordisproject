@@ -938,13 +938,30 @@ inline void remove_pp_effector(int id)
     if (pp)
         pp->Stop(1.0f);
 }
-void set_pp_effector_factor(int id, float f, float f_sp)
+inline void set_pp_effector_factor(int id, float f, float f_sp)
 {
     CPostprocessAnimator* pp = smart_cast<CPostprocessAnimator*>(Actor()->Cameras().GetPPEffector((EEffectorPPType)id));
 
     if (pp)
         pp->SetDesiredFactor(f, f_sp);
 }
+inline void set_pp_effector_factor(int id, float f)
+{
+    CPostprocessAnimator* pp = smart_cast<CPostprocessAnimator*>(Actor()->Cameras().GetPPEffector((EEffectorPPType)id));
+
+    if (pp)
+        pp->SetCurrentFactor(f);
+}
+inline float add_cam_effector(LPCSTR fn, int id, bool cyclic, LPCSTR cb_func)
+{
+    CAnimatorCamEffectorScriptCB* e = new CAnimatorCamEffectorScriptCB(cb_func);
+    e->SetType((ECamEffectorType)id);
+    e->SetCyclic(cyclic);
+    e->Start(fn);
+    Actor()->Cameras().AddCamEffector(e);
+    return e->GetAnimatorLength();
+}
+inline void remove_cam_effector(int id) { Actor()->Cameras().RemoveCamEffector((ECamEffectorType)id); }
 } // namespace level
 } // namespace Game
 
