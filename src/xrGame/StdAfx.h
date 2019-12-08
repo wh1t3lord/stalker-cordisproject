@@ -312,6 +312,9 @@ enum
     rsMuteSounds = (1ul << 28ul),
     rsEnvironment = (1ul << 29ul),
 };
+
+#include "property_evaluator.h"
+#include "script_property_evaluator_wrapper.h"
 #include "physics_shell_scripted.h"
 #include "physics_joint_scripted.h"
 #include "script_object_action.h"
@@ -467,4 +470,5 @@ enum
 #include "Script_SchemeSRDeimos.h"
 #include "Script_SchemeXRDeath.h"
 #include "Script_SchemeXRHit.h"
+#include "Script_SchemeXRAbuse.h"
 #include "Script_Globalsinline.h"

@@ -14,6 +14,7 @@
 
 using namespace luabind;
 
+/*
 SCRIPT_EXPORT(CScriptPropertyEvaluator, (), {
     module(luaState)[class_<CScriptPropertyEvaluator, no_bases, default_holder, CScriptPropertyEvaluatorWrapper>(
                          "property_evaluator")
@@ -29,3 +30,4 @@ SCRIPT_EXPORT(CScriptPropertyEvaluator, (), {
         class_<CPropertyEvaluatorConst<CScriptGameObject>, CScriptPropertyEvaluator>("property_evaluator_const")
             .def(constructor<CPropertyEvaluatorConst<CScriptGameObject>::_value_type>())];
 });
+*/
