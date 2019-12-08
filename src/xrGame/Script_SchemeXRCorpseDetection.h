@@ -26,6 +26,7 @@ public:
     Script_SchemeXRCorpseDetection(const xr_string& action_name, DataBase::Storage_Scheme& storage)
         : inherited_scheme(nullptr, action_name, storage)
     {
+        this->m_scheme_name = "corpse_detection";
     }
     ~Script_SchemeXRCorpseDetection(void);
 

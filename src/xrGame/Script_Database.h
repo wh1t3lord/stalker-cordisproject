@@ -647,6 +647,9 @@ public:
 
     inline float getAngle(void) const noexcept { return this->m_angle; }
     inline void setAngle(const float value) noexcept { this->m_angle = value; }
+
+    inline std::uint16_t getSelectedID(void) const noexcept { return this->m_selected_id; }
+    inline void setSelectedID(const std::uint16_t value) noexcept { this->m_selected_id = value; }
 #pragma region Cordis Scheme PH FORCE
     inline std::uint32_t getPHForceTime(void) const noexcept { return this->m_ph_force_time; }
     inline void setPHForceTime(const std::uint32_t value) noexcept { this->m_ph_force_time = value; }
@@ -1294,14 +1297,8 @@ public:
 #pragma endregion
 
 #pragma region Cordis Scheme XR Corpse Detection
-    inline std::uint32_t getXRCorpseDetectionLevelVertexID(void) const noexcept
-    {
-        return this->m_xr_corpse_detection_level_vertex_id;
-    }
-    inline void setXRCorpseDetectionLevelVertexID(const std::uint32_t id) noexcept
-    {
-        this->m_xr_corpse_detection_level_vertex_id = id;
-    }
+    inline std::uint32_t getLevelVertexID(void) const noexcept { return this->m_level_vertex_id; }
+    inline void setLevelVertexID(const std::uint32_t id) noexcept { this->m_level_vertex_id = id; }
 
     inline std::uint16_t getXRCorpseDetectionSelectedCorpseID(void) const noexcept
     {
@@ -1312,15 +1309,9 @@ public:
         this->m_xr_corpse_detection_selected_corpse_id = id;
     }
 
-    inline const Fvector& getXRCorpseDetectionVertexPosition(void) const noexcept
-    {
-        return this->m_xr_corpse_detection_vertex_position;
-    }
+    inline const Fvector& getVertexPosition(void) const noexcept { return this->m_vertex_position; }
 
-    inline void setXRCorpseDetectionVertexPosition(const Fvector& position) noexcept
-    {
-        this->m_xr_corpse_detection_vertex_position = position;
-    }
+    inline void setVertexPosition(const Fvector& position) noexcept { this->m_vertex_position = position; }
 #pragma endregion
 
 #pragma region Cordis Scheme XR Combat
@@ -1332,6 +1323,17 @@ public:
     inline void setXRCombatScriptCombatTypeName(const xr_string& type_name) noexcept
     {
         this->m_xr_combat_script_combat_type_name = type_name;
+    }
+#pragma endregion
+
+#pragma region Cordis Scheme XR Help Wounded
+    inline bool IsXRHelpWoundedHelpWoundedEnabled(void) const noexcept
+    {
+        return this->m_is_xr_help_wounded_help_wounded_enabled;
+    }
+    inline void setXRHelpWoundedHelpWoundedEnabled(const bool value) noexcept
+    {
+        this->m_is_xr_help_wounded_help_wounded_enabled = value;
     }
 #pragma endregion
 
@@ -1366,7 +1368,9 @@ private:
     bool m_is_sr_psy_antenna_no_mumble = false;
     bool m_is_sr_particle_looped = false;
     bool m_is_sr_light_light = false;
+    bool m_is_xr_help_wounded_help_wounded_enabled = false;
     std::uint16_t m_xr_corpse_detection_selected_corpse_id = 0;
+    std::uint16_t m_selected_id = 0;
     std::uint32_t m_home_min_radius = 0;
     std::uint32_t m_home_mid_radius = 0;
     std::uint32_t m_home_max_radius = 0;
@@ -1382,7 +1386,7 @@ private:
     std::uint32_t m_sr_teleport_timeout = 0;
     std::uint32_t m_sr_particle_mode = 0;
     std::uint32_t m_sr_deimos_camera_effector_repeating_time = 0;
-    std::uint32_t m_xr_corpse_detection_level_vertex_id = 0;
+    std::uint32_t m_level_vertex_id = 0;
     float m_ph_jump_factor = 0.0f;
     float m_helicopter_min_rocket_distance = 0.0f;
     float m_helicopter_min_minigun_distance = 0.0f;
@@ -1423,7 +1427,7 @@ private:
     Script_XRAbuseManager* m_p_abuse_manager = nullptr;
     Fvector m_offset;
     Fvector m_ph_force_point;
-    Fvector m_xr_corpse_detection_vertex_position;
+    Fvector m_vertex_position;
     xr_map<xr_string, bool> m_signals;
     xr_map<std::uint32_t, CondlistData> m_dialog_condlist;
     xr_map<std::uint32_t, CondlistData> m_ph_button_on_press_condlist;
@@ -2310,6 +2314,12 @@ public:
         this->m_corpse_already_selected = value;
     }
 
+    inline std::uint16_t getWoundedAlreadySelected(void) const noexcept { return this->m_wounded_already_selected; }
+    inline void setWoundedAlreadySelected(const std::uint16_t value) noexcept
+    {
+        this->m_wounded_already_selected = value;
+    }
+
 private:
     bool m_is_invulnerable = false;
     bool m_is_immortal = false;
@@ -2320,6 +2330,7 @@ private:
     std::uint8_t m_scheme_type = 0;
     std::uint16_t m_enemy_id = Globals::kUnsignedInt16Undefined;
     std::uint16_t m_corpse_already_selected = 0;
+    std::uint16_t m_wounded_already_selected = 0;
     std::int32_t m_activation_time = 0;
     HitData m_hit;
     CScriptGameObject* m_p_client_object = nullptr;
@@ -3102,6 +3113,11 @@ public:
     inline void setStorageCorpseAlreadySelected(const std::uint16_t npc_id, const std::uint16_t corpse_id) noexcept
     {
         this->m_storage[npc_id].setCorpseAlreadySelected(corpse_id);
+    }
+
+    inline void setStorageWoundedAlreadySelected(const std::uint16_t npc_id, const std::uint16_t wounded_id) noexcept 
+    {
+        this->m_storage[npc_id].setWoundedAlreadySelected(wounded_id);
     }
 #pragma endregion
 

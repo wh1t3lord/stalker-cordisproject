@@ -19,7 +19,7 @@ void Script_SchemeXRCorpseDetection::initialize(void)
     CScriptActionBase::initialize();
     this->m_object->set_desired_position();
     this->m_object->set_desired_direction();
-    this->m_object->set_dest_level_vertex_id(this->m_p_storage->getXRCorpseDetectionLevelVertexID());
+    this->m_object->set_dest_level_vertex_id(this->m_p_storage->getLevelVertexID());
     // Lord: доделать когда будет сделан state_manager
 }
 
@@ -27,7 +27,7 @@ void Script_SchemeXRCorpseDetection::execute(void)
 {
     CScriptActionBase::execute();
 
-    if (this->m_object->Position().distance_to_sqr(this->m_p_storage->getXRCorpseDetectionVertexPosition()) > 2.0f)
+    if (this->m_object->Position().distance_to_sqr(this->m_p_storage->getVertexPosition()) > 2.0f)
     {
         return;
     }
