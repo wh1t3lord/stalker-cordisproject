@@ -4072,6 +4072,15 @@
     <Filter Include="Cordis\Scripts\Logic\Schemes\XR\Corpse Detection\Private">
       <UniqueIdentifier>{22bdcd0e-b1f6-4d9d-b1d2-750f73e199f0}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Cordis\Scripts\Logic\Schemes\XR\Help Wounded">
+      <UniqueIdentifier>{3912627d-ca37-49ac-8672-2437c6aa760c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Logic\Schemes\XR\Help Wounded\Public">
+      <UniqueIdentifier>{0c3b223b-4806-4af7-96d3-c9d49e65ec45}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Logic\Schemes\XR\Help Wounded\Private">
+      <UniqueIdentifier>{5f306053-ee23-4748-894c-f70ebbf66190}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="mt_config.h">
@@ -9392,6 +9401,9 @@
     <ClInclude Include="Script_SchemeXRCorpseDetection.h">
       <Filter>Cordis\Scripts\Logic\Schemes\XR\Corpse Detection\Public</Filter>
     </ClInclude>
+    <ClInclude Include="Script_SchemeXRHelpWounded.h">
+      <Filter>Cordis\Scripts\Logic\Schemes\XR\Help Wounded\Public</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="damage_manager.cpp">
@@ -13781,6 +13793,9 @@
     </ClCompile>
     <ClCompile Include="Script_SchemeXRCorpseDetection.cpp">
       <Filter>Cordis\Scripts\Logic\Schemes\XR\Corpse Detection\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Script_SchemeXRHelpWounded.cpp">
+      <Filter>Cordis\Scripts\Logic\Schemes\XR\Help Wounded\Private</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
