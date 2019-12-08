@@ -1579,7 +1579,9 @@ $(xrLibDir);$(xrSdkDir)DXSDK/Lib/$(PlatformShortName);
     <ClInclude Include="Script_SchemeXRAbuse.h" />
     <ClInclude Include="Script_SchemeXRCombat.h" />
     <ClInclude Include="Script_SchemeXRCorpseDetection.h" />
+    <ClInclude Include="Script_SchemeXRDanger.h" />
     <ClInclude Include="Script_SchemeXRDeath.h" />
+    <ClInclude Include="Script_SchemeXRGatherItems.h" />
     <ClInclude Include="Script_SchemeXRHelpWounded.h" />
     <ClInclude Include="Script_SchemeXRHit.h" />
     <ClInclude Include="Script_SE_Actor.h" />
@@ -3727,7 +3729,9 @@ $(xrLibDir);$(xrSdkDir)DXSDK/Lib/$(PlatformShortName);
     <ClCompile Include="Script_SchemeXRAbuse.cpp" />
     <ClCompile Include="Script_SchemeXRCombat.cpp" />
     <ClCompile Include="Script_SchemeXRCorpseDetection.cpp" />
+    <ClCompile Include="Script_SchemeXRDanger.cpp" />
     <ClCompile Include="Script_SchemeXRDeath.cpp" />
+    <ClCompile Include="Script_SchemeXRGatherItems.cpp" />
     <ClCompile Include="Script_SchemeXRHelpWounded.cpp" />
     <ClCompile Include="Script_SchemeXRHit.cpp" />
     <ClCompile Include="Script_SE_Actor.cpp" />

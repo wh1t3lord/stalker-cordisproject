@@ -4273,10 +4273,20 @@ private:
         }
 #pragma endregion
 
-
-        #pragma region Cordis registering indoor levels for sr_light scheme
+#pragma region Cordis registering indoor levels for sr_light scheme
         this->m_indoor_levels["jupiter_underground"] = true;
-        #pragma endregion
+#pragma endregion
+
+#pragma region Cordis initiazlizing ignore distance for XR_DANGER
+        this->m_xr_danger_ignore_distance_by_danger_type[CDangerObject::eDangerTypeAttacked] = 150.0f;
+        this->m_xr_danger_ignore_distance_by_danger_type[CDangerObject::eDangerTypeGrenade] = 15.0f;
+        this->m_xr_danger_ignore_distance_by_danger_type[CDangerObject::eDangerTypeFreshEntityCorpse] = 10.0f;
+        this->m_xr_danger_ignore_distance_by_danger_type[CDangerObject::eDangerTypeEntityAttacked] = 150.0f;
+        this->m_xr_danger_ignore_distance_by_danger_type[CDangerObject::eDangerTypeEnemySound] = 0.0f;
+        this->m_xr_danger_ignore_distance_by_danger_type[CDangerObject::eDangerTypeAttackSound] = 20.0f;
+        this->m_xr_danger_ignore_distance_by_danger_type[CDangerObject::eDangerTypeEntityDeath] = 4.0f;
+        this->m_xr_danger_ignore_distance_by_danger_type[CDangerObject::eDangerTypeBulletRicochet] = 2.0f;
+#pragma endregion
     }
 
 public:
@@ -5539,6 +5549,19 @@ public:
 
         this->m_indoor_levels[level_name] = value;
     }
+
+    inline float getXRDangerIgnoreDistanceByDangerType(const CDangerObject::EDangerType type) const noexcept
+    {
+        if (this->m_xr_danger_ignore_distance_by_danger_type.find(type) !=
+            this->m_xr_danger_ignore_distance_by_danger_type.end())
+            return this->m_xr_danger_ignore_distance_by_danger_type.at(type);
+
+        Msg("[Scripts/Script_GlobalHelper/setXRDangerIgnoreDistanceByDangerType(type)] WARNING: returns 0.0f, because "
+            "can't find a danger type -> %d",
+            static_cast<std::uint32_t>(type));
+
+        return 0.0f;
+    }
 #pragma endregion
 
 private:
@@ -5579,6 +5602,7 @@ private:
     xr_map<xr_string, bool> m_registered_smart_terrain_territory_type;
     xr_map<xr_string, bool> m_simulationsquad_is_squad_monster_by_type;
     xr_map<xr_string, bool> m_indoor_levels;
+    xr_map<CDangerObject::EDangerType, float> m_xr_danger_ignore_distance_by_danger_type;
     // @ First - id | Second - distance
     std::pair<std::uint32_t, std::uint32_t> m_game_server_nearest_to_actor_smart_terrain;
     xr_vector<xr_string> m_registered_smart_terrain_path_fields;
