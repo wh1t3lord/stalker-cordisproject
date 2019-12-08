@@ -18,6 +18,7 @@ private:
     DataBase::Storage_Scheme* m_p_storage;
 };
 
+// @ Можете доделать!
 class Script_SchemeXRAbuse : public Script_ISchemeStalker
 {
     using inherited_scheme = Script_ISchemeStalker;
@@ -32,7 +33,7 @@ public:
     virtual void finalize(void);
     virtual void initialize(void);
 
-    // Lord: доделать и set_scheme тоже!
+
     // @ PRIVATE uses, in XR_LOGIC
     static inline void add_to_binder(CScriptGameObject* const p_client_object, CScriptIniFile* const p_ini,
         const xr_string& scheme_name, const xr_string& section_name, DataBase::Storage_Scheme& storage)
