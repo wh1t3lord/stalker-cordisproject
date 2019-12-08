@@ -149,7 +149,6 @@ public:
     virtual void unregister_npc(CSE_ALifeMonsterAbstract* object);
     virtual CALifeSmartTerrainTask* task(CSE_ALifeMonsterAbstract* object);
 
-
     inline NpcInfo fill_npc_info(CSE_ALifeDynamicObject* server_object)
     {
         if (!server_object)
@@ -234,6 +233,7 @@ public:
     inline void setAttackRestrictor(const xr_string& string) noexcept { this->m_attack_restrictor = string; }
     inline void setSafeRestrictor(const xr_string& string) noexcept { this->m_safe_restirctor = string; }
     inline void setStaydSquadQuan(const std::uint32_t& value) noexcept { this->m_stayed_squad_quan = value; }
+    inline void set_alarm(void) noexcept { this->m_smart_alarm_time = Globals::Game::get_game_time(); }
 #pragma endregion
 
     inline bool am_i_reached(Script_SE_SimulationSquad* squad) noexcept

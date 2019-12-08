@@ -44,7 +44,7 @@ public:
     static inline void reset_gather_items(
         CScriptGameObject* const p_client_object, const xr_string& scheme_name, const xr_string& section_name)
     {
-    
+        
     }
 
 private:

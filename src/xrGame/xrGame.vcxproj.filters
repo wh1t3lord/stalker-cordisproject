@@ -4081,6 +4081,48 @@
     <Filter Include="Cordis\Scripts\Logic\Schemes\XR\Help Wounded\Private">
       <UniqueIdentifier>{5f306053-ee23-4748-894c-f70ebbf66190}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Cordis\Scripts\Logic\Schemes\XR\Gather Items">
+      <UniqueIdentifier>{aba9b9c6-39f5-4664-bd5a-4ff7bfdce87c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Logic\Schemes\XR\Gather Items\Public">
+      <UniqueIdentifier>{e195f6d0-2815-4fe9-9a9b-a90907e9e1c0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Logic\Schemes\XR\Gather Items\Private">
+      <UniqueIdentifier>{fc5c4fac-0c04-462b-8dca-ff8dea690446}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Logic\Schemes\XR\Danger">
+      <UniqueIdentifier>{0b71258e-2ea3-422a-b06d-174d676c9e9b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Logic\Schemes\XR\Danger\Public">
+      <UniqueIdentifier>{4e747cc9-2ea6-4aea-b1e1-51ea751d278a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Logic\Schemes\XR\Danger\Private">
+      <UniqueIdentifier>{876250d4-281e-4dc2-8190-cbaaf7f1ee65}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\XR\Gulag">
+      <UniqueIdentifier>{818463d6-0bf5-4881-99a5-3e3992bf9a2c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\XR\Gulag\Public">
+      <UniqueIdentifier>{dd1a0dd6-05fc-4f5f-b12c-1ad2ccc7a2ae}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\XR\Effects">
+      <UniqueIdentifier>{83dca461-3a73-42ba-8e13-b8fb07d19f91}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\XR\Effects\Public">
+      <UniqueIdentifier>{250fdf4d-31d1-44ea-8725-15ae3f7d07a9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\XR\Logic">
+      <UniqueIdentifier>{1d7381fd-f5e3-42d8-86e2-82a376fcc5b1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\XR\Logic\Public">
+      <UniqueIdentifier>{0cae8007-05b8-4361-ae9c-63367cc8848a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\XR\Condition">
+      <UniqueIdentifier>{9dfea13c-f04d-42df-9596-7f6510b321eb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\XR\Condition\Public">
+      <UniqueIdentifier>{151edb37-9a51-4997-95bd-b68d2189893b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="mt_config.h">
@@ -9047,9 +9089,6 @@
     <ClInclude Include="Script_UI_MainMenu.h">
       <Filter>Cordis\Scripts\UI\MainMenu\Public</Filter>
     </ClInclude>
-    <ClInclude Include="Script_XR_Logic.h">
-      <Filter>Cordis\Scripts\XR\Public</Filter>
-    </ClInclude>
     <ClInclude Include="Script_Database.h">
       <Filter>Cordis\Scripts\Database\Public</Filter>
     </ClInclude>
@@ -9071,9 +9110,6 @@
     <ClInclude Include="Script_NewsManager.h">
       <Filter>Cordis\Scripts\Managers\News\Public</Filter>
     </ClInclude>
-    <ClInclude Include="Script_XR_Condition.h">
-      <Filter>Cordis\Scripts\XR\Public</Filter>
-    </ClInclude>
     <ClInclude Include="Script_SurgeManager.h">
       <Filter>Cordis\Scripts\Managers\Surge\Public</Filter>
     </ClInclude>
@@ -9086,17 +9122,11 @@
     <ClInclude Include="Script_LogicManager.h">
       <Filter>Cordis\Scripts\Managers\Logic\Public</Filter>
     </ClInclude>
-    <ClInclude Include="Script_XR_Gulag.h">
-      <Filter>Cordis\Scripts\XR\Public</Filter>
-    </ClInclude>
     <ClInclude Include="Script_GulagGenerator.h">
       <Filter>Cordis\Scripts\Managers\Gulag Generator\Public</Filter>
     </ClInclude>
     <ClInclude Include="Script_SmartTerrainControl.h">
       <Filter>Cordis\Scripts\Entities %28not server entities!%29\Smart Terrain control\Public</Filter>
-    </ClInclude>
-    <ClInclude Include="Script_XR_Effects.h">
-      <Filter>Cordis\Scripts\XR\Public</Filter>
     </ClInclude>
     <ClInclude Include="Script_XR_Patrol.h">
       <Filter>Cordis\Scripts\XR\Public</Filter>
@@ -9403,6 +9433,24 @@
     </ClInclude>
     <ClInclude Include="Script_SchemeXRHelpWounded.h">
       <Filter>Cordis\Scripts\Logic\Schemes\XR\Help Wounded\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Script_SchemeXRGatherItems.h">
+      <Filter>Cordis\Scripts\Logic\Schemes\XR\Gather Items\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Script_SchemeXRDanger.h">
+      <Filter>Cordis\Scripts\Logic\Schemes\XR\Danger\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Script_XR_Gulag.h">
+      <Filter>Cordis\Scripts\XR\Gulag\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Script_XR_Effects.h">
+      <Filter>Cordis\Scripts\XR\Effects\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Script_XR_Logic.h">
+      <Filter>Cordis\Scripts\XR\Logic\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Script_XR_Condition.h">
+      <Filter>Cordis\Scripts\XR\Condition\Public</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -13796,6 +13844,12 @@
     </ClCompile>
     <ClCompile Include="Script_SchemeXRHelpWounded.cpp">
       <Filter>Cordis\Scripts\Logic\Schemes\XR\Help Wounded\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Script_SchemeXRGatherItems.cpp">
+      <Filter>Cordis\Scripts\Logic\Schemes\XR\Gather Items\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Script_SchemeXRDanger.cpp">
+      <Filter>Cordis\Scripts\Logic\Schemes\XR\Danger\Private</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

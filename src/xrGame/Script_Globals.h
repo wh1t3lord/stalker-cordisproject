@@ -238,6 +238,7 @@ inline void action(
 inline std::uint32_t choose_look_point(
     CPatrolPathParams* patrol_look, const CondlistWaypoints& path_look_info, const Flags32& search_for);
 inline bool is_vector_nil(const Fvector& data);
+inline CScriptActionPlanner* get_script_action_planner(CScriptGameObject* obj);
 } // namespace Globals
 } // namespace Scripts
 } // namespace Cordis

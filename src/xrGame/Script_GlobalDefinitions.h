@@ -93,6 +93,15 @@ inline static xr_string& getLtx(void) noexcept
 }
 } // namespace GulagGenerator
 
+namespace XR_DANGER
+{
+constexpr float kDangerIgnoreDistance = 150.0f;
+constexpr std::uint32_t kDangerInertionTime = 30000;
+inline xr_string get_danger_name(CDangerObject* const p_best_danger);
+inline bool is_danger(CScriptGameObject* const p_client_object);
+inline std::uint32_t get_danger_time(const CDangerObject* p_client_danger_object);
+} // namespace XR_DANGER
+
 namespace XR_LOGIC
 {
 inline void parse_infopotions(xr_map<std::uint32_t, CondlistData::CondlistValues>& data, xr_string& buffer);

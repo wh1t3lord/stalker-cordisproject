@@ -650,6 +650,10 @@ public:
 
     inline std::uint16_t getSelectedID(void) const noexcept { return this->m_selected_id; }
     inline void setSelectedID(const std::uint16_t value) noexcept { this->m_selected_id = value; }
+
+    inline std::uint32_t getDangerTime(void) const noexcept { return this->m_danger_time; }
+    inline void setDangerTime(const std::uint32_t value) noexcept { this->m_danger_time = value; }
+
 #pragma region Cordis Scheme PH FORCE
     inline std::uint32_t getPHForceTime(void) const noexcept { return this->m_ph_force_time; }
     inline void setPHForceTime(const std::uint32_t value) noexcept { this->m_ph_force_time = value; }
@@ -1387,6 +1391,7 @@ private:
     std::uint32_t m_sr_particle_mode = 0;
     std::uint32_t m_sr_deimos_camera_effector_repeating_time = 0;
     std::uint32_t m_level_vertex_id = 0;
+    std::uint32_t m_danger_time = 0;
     float m_ph_jump_factor = 0.0f;
     float m_helicopter_min_rocket_distance = 0.0f;
     float m_helicopter_min_minigun_distance = 0.0f;
@@ -2320,6 +2325,9 @@ public:
         this->m_wounded_already_selected = value;
     }
 
+    inline bool IsDangerFlag(void) const noexcept { return this->m_is_danger_flag; }
+    inline void setDangerFlag(const bool value) noexcept { this->m_is_danger_flag = value; }
+
 private:
     bool m_is_invulnerable = false;
     bool m_is_immortal = false;
@@ -2327,6 +2335,7 @@ private:
     bool m_is_enabled = false;
     bool m_is_anim_movement = false;
     bool m_is_allocated_ini = false;
+    bool m_is_danger_flag = false;
     std::uint8_t m_scheme_type = 0;
     std::uint16_t m_enemy_id = Globals::kUnsignedInt16Undefined;
     std::uint16_t m_corpse_already_selected = 0;
@@ -3115,9 +3124,14 @@ public:
         this->m_storage[npc_id].setCorpseAlreadySelected(corpse_id);
     }
 
-    inline void setStorageWoundedAlreadySelected(const std::uint16_t npc_id, const std::uint16_t wounded_id) noexcept 
+    inline void setStorageWoundedAlreadySelected(const std::uint16_t npc_id, const std::uint16_t wounded_id) noexcept
     {
         this->m_storage[npc_id].setWoundedAlreadySelected(wounded_id);
+    }
+
+    inline void setStorageDangerFlag(const std::uint16_t npc_id, const bool value) noexcept
+    {
+        this->m_storage[npc_id].setDangerFlag(value);
     }
 #pragma endregion
 

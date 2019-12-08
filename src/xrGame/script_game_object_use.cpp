@@ -120,10 +120,7 @@ IC T* CScriptGameObject::action_planner()
     return (&manager->brain());
 }
 
-CScriptActionPlanner* script_action_planner(CScriptGameObject* obj)
-{
-    return (obj->action_planner<CScriptActionPlanner>());
-}
+
 
 void CScriptGameObject::set_enemy_callback(const luabind::functor<bool>& functor)
 {

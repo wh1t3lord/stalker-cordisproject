@@ -718,7 +718,8 @@ inline xr_map<std::uint32_t, xr_map<std::uint32_t, CondlistData>> parse_data_1v(
             R_ASSERT2(false, "can't be it must be a string or condlist!!!");
         }
 
-        result[atoi(previous_data.c_str())] = XR_LOGIC::parse_condlist_by_script_object(previous_data, temporary, temporary);
+        result[atoi(previous_data.c_str())] =
+            XR_LOGIC::parse_condlist_by_script_object(previous_data, temporary, temporary);
         is_condlist_found = false;
     }
 
@@ -2312,6 +2313,17 @@ inline std::uint32_t choose_look_point(
 }
 
 inline bool is_vector_nil(const Fvector& data) { return (fis_zero(data.x) && fis_zero(data.y) && fis_zero(data.z)); }
+
+inline CScriptActionPlanner* get_script_action_planner(CScriptGameObject* obj)
+{
+    if (!obj)
+    {
+        R_ASSERT2(false, "object is null!");
+        return nullptr;
+    }
+
+    return (obj->action_planner<CScriptActionPlanner>());
+}
 
 } // namespace Globals
 } // namespace Scripts
