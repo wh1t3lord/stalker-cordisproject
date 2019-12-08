@@ -4045,6 +4045,33 @@
     <Filter Include="Cordis\Scripts\Logic\Schemes\XR\Hit\Private">
       <UniqueIdentifier>{ed7d748c-4e68-49c8-9520-a3b60957e531}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Cordis\Scripts\Logic\Schemes\XR\Abuse">
+      <UniqueIdentifier>{15a8e090-2925-4990-8380-d0f68836b3a9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Logic\Schemes\XR\Abuse\Public">
+      <UniqueIdentifier>{51ad018d-395c-4bcd-89f3-2bc07eecdbb1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Logic\Schemes\XR\Abuse\Private">
+      <UniqueIdentifier>{58f0fb7d-9d96-4eaf-8b78-fffdd46a6c60}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Logic\Schemes\XR\Combat">
+      <UniqueIdentifier>{1cb9f57a-6908-40ef-b6c3-cba38ef4b859}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Logic\Schemes\XR\Combat\Public">
+      <UniqueIdentifier>{c8663d1a-6603-42fa-9036-532ace7b171e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Logic\Schemes\XR\Combat\Private">
+      <UniqueIdentifier>{23ce73b1-c0e2-4480-a92b-c0946492edb7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Logic\Schemes\XR\Corpse Detection">
+      <UniqueIdentifier>{5b7c4a12-e298-4c7b-aba0-37c831e331a1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Logic\Schemes\XR\Corpse Detection\Public">
+      <UniqueIdentifier>{eab2a080-c5d7-48e5-a86b-f2ac0daefd81}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Logic\Schemes\XR\Corpse Detection\Private">
+      <UniqueIdentifier>{22bdcd0e-b1f6-4d9d-b1d2-750f73e199f0}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="mt_config.h">
@@ -9356,6 +9383,15 @@
     <ClInclude Include="Script_SchemeXRHit.h">
       <Filter>Cordis\Scripts\Logic\Schemes\XR\Hit\Public</Filter>
     </ClInclude>
+    <ClInclude Include="Script_SchemeXRAbuse.h">
+      <Filter>Cordis\Scripts\Logic\Schemes\XR\Abuse\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Script_SchemeXRCombat.h">
+      <Filter>Cordis\Scripts\Logic\Schemes\XR\Combat\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Script_SchemeXRCorpseDetection.h">
+      <Filter>Cordis\Scripts\Logic\Schemes\XR\Corpse Detection\Public</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="damage_manager.cpp">
@@ -13736,6 +13772,15 @@
     </ClCompile>
     <ClCompile Include="Script_SchemeXRHit.cpp">
       <Filter>Cordis\Scripts\Logic\Schemes\XR\Hit\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Script_SchemeXRAbuse.cpp">
+      <Filter>Cordis\Scripts\Logic\Schemes\XR\Abuse\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Script_SchemeXRCombat.cpp">
+      <Filter>Cordis\Scripts\Logic\Schemes\XR\Combat\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Script_SchemeXRCorpseDetection.cpp">
+      <Filter>Cordis\Scripts\Logic\Schemes\XR\Corpse Detection\Private</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

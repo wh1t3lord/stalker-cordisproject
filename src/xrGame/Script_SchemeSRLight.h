@@ -4,6 +4,8 @@ namespace Cordis
 {
 namespace Scripts
 {
+class Script_SchemeSRLight;
+
 class Script_SRLightManager
 {
     friend class Script_SchemeSRLight;
@@ -18,78 +20,7 @@ public:
         return instance;
     }
 
-    inline void check_light(CScriptGameObject* const p_client_object)
-    {
-        if (!p_client_object)
-        {
-            Msg("[Scripts/Script_SRLightManager/check_light(p_client_object)] WARNING: p_client_object was nullptr "
-                "return ...");
-            return;
-        }
-
-        CScriptGameObject* const p_client_torch = p_client_object->GetObjectByName("device_torch");
-        if (!p_client_torch)
-        {
-            Msg("[Scripts/Script_SRLightManager/check_light(p_client_object)] WARNING: p_client_torch was nullptr "
-                "return ...");
-        }
-
-        bool is_light = false;
-        bool is_forced = false;
-
-        if (!p_client_object->Alive())
-        {
-            is_light = false;
-            is_forced = true;
-        }
-
-        if (!is_forced)
-        {
-            for (std::pair<const std::uint16_t, Script_SchemeSRLight*>& it : this->m_light_zones)
-            {
-                if (it.second->check_stalker(p_client_object, is_light))
-                {
-                    break;
-                }
-            }
-        }
-
-        if (!is_forced)
-        {
-            std::uint32_t hours = Globals::get_time_hours();
-
-            if (hours <= 4 || hours >= 22)
-                is_light = true;
-
-            if (!is_light)
-                if (Script_GlobalHelper::getInstance().getIndoorLevels().at(Globals::Game::level::get_name()))
-                    is_light = true;
-        }
-
-        if (!is_forced && is_light)
-        {
-            const xr_string& active_scheme_name =
-                DataBase::Storage::getInstance().getStorage().at(p_client_object->ID()).getActiveSchemeName();
-            if (active_scheme_name == "kamp" || active_scheme_name == "camper" || active_scheme_name == "sleeper")
-            {
-                is_light = false;
-                is_forced = true;
-            }
-        }
-
-        if (!is_forced && is_light)
-        {
-            if (p_client_object->GetBestEnemy() &&
-                Script_GlobalHelper::getInstance().getIndoorLevels().find(Globals::Game::level::get_name()) !=
-                    Script_GlobalHelper::getInstance().getIndoorLevels().end())
-            {
-                is_light = false;
-            }
-        }
-        // @ Lord: I guess it right test it 
-        if (is_light)
-            p_client_torch->enable_attachable_item(is_light);
-    }
+    void check_light(CScriptGameObject* const p_client_object);
 
     // @ BE CAREFULL, PRIVATE SEE system_deallocation()
     inline void Deallocate(void)

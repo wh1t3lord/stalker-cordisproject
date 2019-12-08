@@ -9,7 +9,7 @@ namespace Cordis
 {
 namespace Scripts
 {
-Script_SchemeSRNoWeapon::Script_SchemeSRNoWeapon(CScriptGameObject* const p_client_object, DataBase::Storage& storage)
+Script_SchemeSRNoWeapon::Script_SchemeSRNoWeapon(CScriptGameObject* const p_client_object, DataBase::Storage_Scheme& storage)
     : inherited_scheme(p_client_object, storage), m_state(_kStateNoWhere)
 {
     this->m_scheme_name = "sr_no_weapon";
@@ -28,7 +28,7 @@ void Script_SchemeSRNoWeapon::update(const float delta)
 {
     CScriptGameObject* const p_client_actor = DataBase::Storage::getInstance().getActor();
 
-    if (XR_LOGIC::try_switch_to_another_section(this->m_npc, *this->m_storage, p_client_actor))
+    if (XR_LOGIC::try_switch_to_another_section(this->m_npc, *this->m_p_storage, p_client_actor))
     {
         if (this->m_state == _kStateInside)
             this->zone_leave();

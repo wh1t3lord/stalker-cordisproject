@@ -22,8 +22,8 @@ void Script_SchemePHOscillate::reset_scheme(const bool value, CScriptGameObject*
                             .set(Globals::Script_RandomFloat::getInstance().Generate(), 0.0f,
                                 Globals::Script_RandomFloat::getInstance().Generate())
                             .normalize();
-    this->m_koeff = this->m_storage->getForce() / static_cast<float>(this->m_storage->getPHOscillatePeriod());
-    this->m_p_joint = this->m_npc->get_physics_shell()->get_Joint(this->m_storage->getPHOscillateJointName().c_str());
+    this->m_koeff = this->m_p_storage->getForce() / static_cast<float>(this->m_p_storage->getPHOscillatePeriod());
+    this->m_p_joint = this->m_npc->get_physics_shell()->get_Joint(this->m_p_storage->getPHOscillateJointName().c_str());
     this->m_time = Globals::get_time_global();
     this->m_is_pause = false;
 }
@@ -34,7 +34,7 @@ void Script_SchemePHOscillate::update(const float delta)
 
     if (this->m_is_pause)
     {
-        if (current_time - this->m_time < this->m_storage->getPHOscillatePeriod() / 2)
+        if (current_time - this->m_time < this->m_p_storage->getPHOscillatePeriod() / 2)
         {
             return;
         }
@@ -43,11 +43,11 @@ void Script_SchemePHOscillate::update(const float delta)
         this->m_is_pause = false;
     }
 
-    if (current_time - this->m_time >= this->m_storage->getPHOscillatePeriod())
+    if (current_time - this->m_time >= this->m_p_storage->getPHOscillatePeriod())
     {
         this->m_direction.x = -this->m_direction.x;
         this->m_direction.z = -this->m_direction.z;
-        float angle = this->m_storage->getAngle();
+        float angle = this->m_p_storage->getAngle();
         this->m_direction = Globals::vector_rotate_y(Fvector().set(-this->m_direction.x, 0.0f, -this->m_direction.z), angle);
         this->m_time = current_time;
         this->m_is_pause = true;

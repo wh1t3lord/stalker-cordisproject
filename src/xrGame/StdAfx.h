@@ -472,4 +472,5 @@ enum
 #include "Script_SchemeXRHit.h"
 #include "Script_SchemeXRAbuse.h"
 #include "Script_SchemeXRCombat.h"
+#include "Script_SchemeXRCorpseDetection.h"
 #include "Script_Globalsinline.h"

@@ -103,6 +103,65 @@ private:
     LogicData m_on_combat;
 };
 
+class Script_XRAbuseManager
+{
+public:
+    Script_XRAbuseManager(void) = delete;
+    Script_XRAbuseManager(CScriptGameObject* const p_client_object, DataBase::Storage_Scheme& storage)
+        : m_p_npc(p_client_object), m_p_storage(&storage), m_is_enable(true), m_is_hit_done(false), m_abuse_rate(2.0f),
+          m_abuse_threshold(5.0f), m_abuse_value(0.0f), m_last_update(0.0f)
+    {
+    }
+    ~Script_XRAbuseManager(void) {}
+
+    inline void setAbuseRate(const float value) noexcept { this->m_abuse_rate = value; }
+    inline bool IsAbused(void) const noexcept { return (this->m_abuse_value >= this->m_abuse_threshold); }
+    inline bool update(void) noexcept
+    {
+        if (!this->m_last_update)
+            this->m_last_update = static_cast<float>(Globals::get_time_global());
+
+        if (this->m_abuse_value)
+            this->m_abuse_value =
+                this->m_abuse_value - (static_cast<float>(Globals::get_time_global()) - this->m_last_update) * 0.00005f;
+        else
+            this->m_abuse_value = 0.0f;
+
+        if (this->m_abuse_value > this->m_abuse_threshold * 1.1f)
+            this->m_abuse_value = this->m_abuse_threshold * 1.1f;
+
+        if (this->m_is_hit_done && (this->m_abuse_value < this->m_abuse_threshold * 2.0f / 3.0f))
+            this->m_is_hit_done = false;
+
+        this->m_last_update = static_cast<float>(Globals::get_time_global());
+
+        if (this->IsAbused())
+            return true;
+
+        return false;
+    }
+
+    inline void AddAbuse(const float value) noexcept
+    {
+        if (this->m_is_enable)
+            this->m_abuse_value = this->m_abuse_value + (value * this->m_abuse_rate);
+    }
+
+    inline void ClearAbuse(void) noexcept { this->m_abuse_value = 0.0f; }
+    inline void EnableAbuse(void) noexcept { this->m_is_enable = true; }
+    inline void DisableAbuse(void) noexcept { this->m_is_enable = false; }
+
+private:
+    bool m_is_enable;
+    bool m_is_hit_done;
+    float m_last_update;
+    float m_abuse_value;
+    float m_abuse_threshold;
+    float m_abuse_rate;
+    CScriptGameObject* m_p_npc;
+    DataBase::Storage_Scheme* m_p_storage;
+};
+
 // Lord: сгруппировать всё по pragma region!!!
 class Storage_Scheme
 {
@@ -1225,11 +1284,54 @@ public:
     {
         if (!p_object)
         {
-            Msg("[Scripts/DataBase/Storage_Scheme/setXRAbuseManager(p_object)] WARNING: you are trying to set an empty object return ...");
+            Msg("[Scripts/DataBase/Storage_Scheme/setXRAbuseManager(p_object)] WARNING: you are trying to set an empty "
+                "object return ...");
             return;
         }
 
         this->m_p_abuse_manager = p_object;
+    }
+#pragma endregion
+
+#pragma region Cordis Scheme XR Corpse Detection
+    inline std::uint32_t getXRCorpseDetectionLevelVertexID(void) const noexcept
+    {
+        return this->m_xr_corpse_detection_level_vertex_id;
+    }
+    inline void setXRCorpseDetectionLevelVertexID(const std::uint32_t id) noexcept
+    {
+        this->m_xr_corpse_detection_level_vertex_id = id;
+    }
+
+    inline std::uint16_t getXRCorpseDetectionSelectedCorpseID(void) const noexcept
+    {
+        return this->m_xr_corpse_detection_selected_corpse_id;
+    }
+    inline void setXRCorpseDetectionSelectedCorpseID(const std::uint16_t id) noexcept
+    {
+        this->m_xr_corpse_detection_selected_corpse_id = id;
+    }
+
+    inline const Fvector& getXRCorpseDetectionVertexPosition(void) const noexcept
+    {
+        return this->m_xr_corpse_detection_vertex_position;
+    }
+
+    inline void setXRCorpseDetectionVertexPosition(const Fvector& position) noexcept
+    {
+        this->m_xr_corpse_detection_vertex_position = position;
+    }
+#pragma endregion
+
+#pragma region Cordis Scheme XR Combat
+
+    inline const xr_string& getXRCombatScriptCombatTypeName(void) const noexcept
+    {
+        return this->m_xr_combat_script_combat_type_name;
+    }
+    inline void setXRCombatScriptCombatTypeName(const xr_string& type_name) noexcept
+    {
+        this->m_xr_combat_script_combat_type_name = type_name;
     }
 #pragma endregion
 
@@ -1264,6 +1366,7 @@ private:
     bool m_is_sr_psy_antenna_no_mumble = false;
     bool m_is_sr_particle_looped = false;
     bool m_is_sr_light_light = false;
+    std::uint16_t m_xr_corpse_detection_selected_corpse_id = 0;
     std::uint32_t m_home_min_radius = 0;
     std::uint32_t m_home_mid_radius = 0;
     std::uint32_t m_home_max_radius = 0;
@@ -1279,6 +1382,7 @@ private:
     std::uint32_t m_sr_teleport_timeout = 0;
     std::uint32_t m_sr_particle_mode = 0;
     std::uint32_t m_sr_deimos_camera_effector_repeating_time = 0;
+    std::uint32_t m_xr_corpse_detection_level_vertex_id = 0;
     float m_ph_jump_factor = 0.0f;
     float m_helicopter_min_rocket_distance = 0.0f;
     float m_helicopter_min_minigun_distance = 0.0f;
@@ -1319,6 +1423,7 @@ private:
     Script_XRAbuseManager* m_p_abuse_manager = nullptr;
     Fvector m_offset;
     Fvector m_ph_force_point;
+    Fvector m_xr_corpse_detection_vertex_position;
     xr_map<xr_string, bool> m_signals;
     xr_map<std::uint32_t, CondlistData> m_dialog_condlist;
     xr_map<std::uint32_t, CondlistData> m_ph_button_on_press_condlist;
@@ -1375,6 +1480,7 @@ private:
     xr_string m_sr_deimos_postprocess_effector2_name;
     xr_string m_sr_deimos_noise_sound_name;
     xr_string m_sr_deimos_heartbeet_sound_name;
+    xr_string m_xr_combat_script_combat_type_name;
     CondlistWaypoints m_path_walk_info;
     CondlistWaypoints m_path_look_info;
 };
@@ -2198,6 +2304,12 @@ public:
     inline void setHitWhoID(const std::uint16_t value) noexcept { this->m_hit.setWhoID(value); }
     inline void setHitBoneIndex(const std::int16_t value) noexcept { this->m_hit.setBoneIndex(value); }
 
+    inline std::uint16_t getCorpseAlreadySelected(void) const noexcept { return this->m_corpse_already_selected; }
+    inline void setCorpseAlreadySelected(const std::uint16_t value) noexcept
+    {
+        this->m_corpse_already_selected = value;
+    }
+
 private:
     bool m_is_invulnerable = false;
     bool m_is_immortal = false;
@@ -2205,8 +2317,9 @@ private:
     bool m_is_enabled = false;
     bool m_is_anim_movement = false;
     bool m_is_allocated_ini = false;
-    std::uint8_t m_scheme_type;
+    std::uint8_t m_scheme_type = 0;
     std::uint16_t m_enemy_id = Globals::kUnsignedInt16Undefined;
+    std::uint16_t m_corpse_already_selected = 0;
     std::int32_t m_activation_time = 0;
     HitData m_hit;
     CScriptGameObject* m_p_client_object = nullptr;
@@ -2984,6 +3097,11 @@ public:
     inline void setStorageHitBoneIndex(const std::uint16_t npc_id, const std::int16_t bone_index) noexcept
     {
         this->m_storage[npc_id].setHitBoneIndex(bone_index);
+    }
+
+    inline void setStorageCorpseAlreadySelected(const std::uint16_t npc_id, const std::uint16_t corpse_id) noexcept
+    {
+        this->m_storage[npc_id].setCorpseAlreadySelected(corpse_id);
     }
 #pragma endregion
 

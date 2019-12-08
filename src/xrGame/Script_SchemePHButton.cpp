@@ -16,14 +16,14 @@ Script_SchemePHButton::~Script_SchemePHButton(void) {}
 
 void Script_SchemePHButton::reset_scheme(const bool value, CScriptGameObject* const p_client_object)
 {
-    this->m_npc->play_cycle(this->m_storage->getPHButtonAnimationName().c_str(), this->m_storage->IsPHButtonBlending());
+    this->m_npc->play_cycle(this->m_p_storage->getPHButtonAnimationName().c_str(), this->m_p_storage->IsPHButtonBlending());
     this->m_last_hit_time = Globals::get_time_global();
 }
 
 void Script_SchemePHButton::update(const float delta)
 {
     if (XR_LOGIC::try_switch_to_another_section(
-            this->m_npc, *this->m_storage, DataBase::Storage::getInstance().getActor()))
+            this->m_npc, *this->m_p_storage, DataBase::Storage::getInstance().getActor()))
         return;
 }
 
@@ -46,11 +46,11 @@ bool Script_SchemePHButton::try_switch(void)
     const DataBase::Storage_Data& storage = DataBase::Storage::getInstance().getStorage().at(this->m_id);
     if (!storage.getActiveSchemeName().empty())
     {
-        if (storage.getActiveSchemeName() == "ph_button" && (!this->m_storage->getPHButtonOnPressCondlist().empty()))
+        if (storage.getActiveSchemeName() == "ph_button" && (!this->m_p_storage->getPHButtonOnPressCondlist().empty()))
         {
-            if (XR_LOGIC::switch_to_section(this->m_npc, this->m_storage->getIni(),
+            if (XR_LOGIC::switch_to_section(this->m_npc, this->m_p_storage->getIni(),
                     XR_LOGIC::pick_section_from_condlist(DataBase::Storage::getInstance().getActor(), this->m_npc,
-                        this->m_storage->getPHButtonOnPressCondlist())))
+                        this->m_p_storage->getPHButtonOnPressCondlist())))
             {
                 return true;
             }

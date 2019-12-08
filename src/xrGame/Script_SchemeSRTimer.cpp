@@ -25,7 +25,7 @@ Script_SchemeSRTimer::~Script_SchemeSRTimer(void) {}
 void Script_SchemeSRTimer::update(const float delta)
 {
     if (XR_LOGIC::try_switch_to_another_section(
-            this->m_npc, *this->m_storage, DataBase::Storage::getInstance().getActor()))
+            this->m_npc, *this->m_p_storage, DataBase::Storage::getInstance().getActor()))
     {
         return;
     }
@@ -34,10 +34,10 @@ void Script_SchemeSRTimer::update(const float delta)
         Globals::get_time_global() - DataBase::Storage::getInstance().getStorage().at(this->m_id).getActivationTime();
     std::uint32_t value_time = 0;
 
-    if (this->m_storage->getSRTimerTypeName() == "inc")
-        value_time = this->m_storage->getSRTimerStartValue() + nn;
+    if (this->m_p_storage->getSRTimerTypeName() == "inc")
+        value_time = this->m_p_storage->getSRTimerStartValue() + nn;
     else
-        value_time = this->m_storage->getSRTimerStartValue() - nn;
+        value_time = this->m_p_storage->getSRTimerStartValue() - nn;
 
     if (value_time <= 0)
         value_time = 0;
@@ -53,14 +53,14 @@ void Script_SchemeSRTimer::update(const float delta)
                                   .append(time_to_string(seconds))
                                   .c_str();
 
-    this->m_storage->getSRTimerTimer()->TextItemControl()->SetTextST(output_string.c_str());
+    this->m_p_storage->getSRTimerTimer()->TextItemControl()->SetTextST(output_string.c_str());
 
-    for (const std::pair<std::uint32_t, xr_map<std::uint32_t, CondlistData>>& it : this->m_storage->getSRTimerOnValue())
+    for (const std::pair<std::uint32_t, xr_map<std::uint32_t, CondlistData>>& it : this->m_p_storage->getSRTimerOnValue())
     {
-        if ((this->m_storage->getSRTimerTypeName() == "dec" && value_time <= it.first) ||
-            (this->m_storage->getSRTimerTypeName() == "inc" && value_time >= it.first))
+        if ((this->m_p_storage->getSRTimerTypeName() == "dec" && value_time <= it.first) ||
+            (this->m_p_storage->getSRTimerTypeName() == "inc" && value_time >= it.first))
         {
-            XR_LOGIC::switch_to_section(this->m_npc, this->m_storage->getIni(),
+            XR_LOGIC::switch_to_section(this->m_npc, this->m_p_storage->getIni(),
                 XR_LOGIC::pick_section_from_condlist(
                     DataBase::Storage::getInstance().getActor(), this->m_npc, it.second));
         }
@@ -69,16 +69,16 @@ void Script_SchemeSRTimer::update(const float delta)
 
 void Script_SchemeSRTimer::deactivate(CScriptGameObject* const p_client_object)
 {
-    if (!this->m_storage->getSRTimerUI())
+    if (!this->m_p_storage->getSRTimerUI())
     {
         Msg("[Scripts/Script_SchemeSRTimer/deactivate(p_client_object)] WARNING: ui field is nullptr! Return ...");
         return;
     }
 
-    this->m_storage->getSRTimerUI()->RemoveCustomStatic(this->m_storage->getSRTimerTimerIDName().c_str());
-    if (!this->m_storage->getSRTimerStringName().empty())
+    this->m_p_storage->getSRTimerUI()->RemoveCustomStatic(this->m_p_storage->getSRTimerTimerIDName().c_str());
+    if (!this->m_p_storage->getSRTimerStringName().empty())
     {
-        this->m_storage->getSRTimerUI()->RemoveCustomStatic(this->m_storage->getSRTimerStringName().c_str());
+        this->m_p_storage->getSRTimerUI()->RemoveCustomStatic(this->m_p_storage->getSRTimerStringName().c_str());
     }
 }
 

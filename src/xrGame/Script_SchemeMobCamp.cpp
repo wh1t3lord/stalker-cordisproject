@@ -31,18 +31,18 @@ void Script_SchemeMobCamp::reset_scheme(const bool, CScriptGameObject* const p_c
     Msg("[Scripts/Script_SchemeMobCamp/reset_scheme()] %s", this->m_npc->Name());
 
     XR_LOGIC::mob_capture(this->m_npc, true, this->m_scheme_name);
-    this->m_storage->ClearSignals();
+    this->m_p_storage->ClearSignals();
 
-    this->m_path_look = new CPatrolPathParams(this->m_storage->getLookPointName().c_str());
+    this->m_path_look = new CPatrolPathParams(this->m_p_storage->getLookPointName().c_str());
 
     if (!this->m_path_look->m_path)
     {
         R_ASSERT2(false, "Can't find look_point!");
     }
 
-    if (!this->m_storage->getHomePointName().empty())
+    if (!this->m_p_storage->getHomePointName().empty())
     {
-        this->m_path_home = new CPatrolPathParams(this->m_storage->getHomePointName().c_str());
+        this->m_path_home = new CPatrolPathParams(this->m_p_storage->getHomePointName().c_str());
 
         if (!this->m_path_home->m_path)
         {
@@ -71,7 +71,7 @@ void Script_SchemeMobCamp::reset_scheme(const bool, CScriptGameObject* const p_c
 
     this->m_is_previous_enemy = false;
 
-    if (this->m_storage->IsSkipTransferEnemy())
+    if (this->m_p_storage->IsSkipTransferEnemy())
         this->m_npc->skip_transfer_enemy(true);
 }
 
@@ -85,7 +85,7 @@ void Script_SchemeMobCamp::update(const float delta)
         return;
     }
 
-    if ((this->m_time_point_changed + this->m_storage->getTimeChangePoint() < Globals::get_time_global()))
+    if ((this->m_time_point_changed + this->m_p_storage->getTimeChangePoint() < Globals::get_time_global()))
     {
         this->select_current_home_point(false);
         this->m_time_point_changed = Globals::get_time_global();
@@ -102,7 +102,7 @@ void Script_SchemeMobCamp::deactivate(CScriptGameObject* const p_client_object)
         // Lord: проверить правильно что мы сюда прибавляем единицу
         // Lord: проверить везде на правильное использование this->m_current_point_index
         DataBase::Storage::getInstance().setCampStorage(
-            this->m_storage->getHomePointName(), this->m_current_point_index + 1, false);
+            this->m_p_storage->getHomePointName(), this->m_current_point_index + 1, false);
     }
 
     this->m_npc->skip_transfer_enemy(false);
@@ -115,7 +115,7 @@ void Script_SchemeMobCamp::net_destroy(CScriptGameObject* const p_client_object)
         // Lord: проверить правильно что мы сюда прибавляем единицу
         // Lord: проверить везде на правильное использование this->m_current_point_index
         DataBase::Storage::getInstance().setCampStorage(
-            this->m_storage->getHomePointName(), this->m_current_point_index + 1, false);
+            this->m_p_storage->getHomePointName(), this->m_current_point_index + 1, false);
     }
 
     this->m_npc->skip_transfer_enemy(false);
@@ -167,7 +167,7 @@ void Script_SchemeMobCamp::select_state(void)
     {
         if (!this->m_is_previous_enemy)
         {
-            this->m_storage->setSignals("enemy", true);
+            this->m_p_storage->setSignals("enemy", true);
         }
 
         this->m_is_previous_enemy = true;
@@ -181,15 +181,15 @@ void Script_SchemeMobCamp::select_state(void)
     {
         float enemy_distance = p_client_enemy->Position().distance_to(home_position);
 
-        if (this->m_state_previous == STATE_MOVE_HOME && (enemy_distance > this->m_storage->getHomeMinRadius()))
+        if (this->m_state_previous == STATE_MOVE_HOME && (enemy_distance > this->m_p_storage->getHomeMinRadius()))
         {
             // empty code
         }
-        else if (this->m_state_previous == STATE_ALIFE && (enemy_distance > this->m_storage->getHomeMaxRadius()))
+        else if (this->m_state_previous == STATE_ALIFE && (enemy_distance > this->m_p_storage->getHomeMaxRadius()))
         {
             this->m_state_current = STATE_MOVE_HOME;
         }
-        else if (this->m_state_previous == STATE_CAMP && (enemy_distance > this->m_storage->getHomeMinRadius()))
+        else if (this->m_state_previous == STATE_CAMP && (enemy_distance > this->m_p_storage->getHomeMinRadius()))
         {
             // empty code
         }
@@ -220,7 +220,7 @@ void Script_SchemeMobCamp::select_state(void)
     {
         float distance = this->m_npc->Position().distance_to(home_position);
 
-        if (distance < this->m_storage->getHomeMinRadius())
+        if (distance < this->m_p_storage->getHomeMinRadius())
             this->m_state_current = STATE_ALIFE;
     }
 }
@@ -235,7 +235,7 @@ void Script_SchemeMobCamp::select_current_home_point(const bool is_first_call)
 
         for (std::uint32_t i = 0; i < this->m_path_home->count(); ++i)
         {
-            if (!DataBase::Storage::getInstance().getCampStorage().at(this->m_storage->getHomePointName()).at(i))
+            if (!DataBase::Storage::getInstance().getCampStorage().at(this->m_p_storage->getHomePointName()).at(i))
             {
                 free_points_indecies.push_back(i);
             }
@@ -260,12 +260,12 @@ void Script_SchemeMobCamp::select_current_home_point(const bool is_first_call)
             if (previous_point_index != this->m_current_point_index)
             {
                 DataBase::Storage::getInstance().setCampStorage(
-                    this->m_storage->getHomePointName(), previous_point_index + 1, false);
+                    this->m_p_storage->getHomePointName(), previous_point_index + 1, false);
             }
         }
 
         DataBase::Storage::getInstance().setCampStorage(
-            this->m_storage->getHomePointName(), this->m_current_point_index + 1, true);
+            this->m_p_storage->getHomePointName(), this->m_current_point_index + 1, true);
     }
     else
     {

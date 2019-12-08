@@ -20,7 +20,7 @@ void Script_SchemeMobHome::reset_scheme(const bool, CScriptGameObject* const p_c
 {
     Msg("[Scripts/Script_SchemeMobHome/reset_scheme()] %s ", this->m_npc->Name());
 
-    Script_MobStateManager::getInstance().set_state(this->m_npc, this->m_storage->getStateName());
+    Script_MobStateManager::getInstance().set_state(this->m_npc, this->m_p_storage->getStateName());
 
     std::uint32_t min_radius = kDefaultMinRadius;
     std::uint32_t mid_radius = kDefaultMidRadius;
@@ -28,18 +28,18 @@ void Script_SchemeMobHome::reset_scheme(const bool, CScriptGameObject* const p_c
 
     CPatrolPathParams* patrol = nullptr;
     CondlistWaypoints::CondlistWayPointsData path_info;
-    if (!this->m_storage->getHomeName().empty())
+    if (!this->m_p_storage->getHomeName().empty())
     {
-        patrol = new CPatrolPathParams(this->m_storage->getHomeName().c_str());
+        patrol = new CPatrolPathParams(this->m_p_storage->getHomeName().c_str());
 
         path_info =
-            Globals::Utils::parse_waypoint_data(this->m_storage->getHomeName(), patrol->flags(0), patrol->name(0));
+            Globals::Utils::parse_waypoint_data(this->m_p_storage->getHomeName(), patrol->flags(0), patrol->name(0));
         xr_delete(patrol);
     }
 
-    if (this->m_storage->getHomeMinRadius())
+    if (this->m_p_storage->getHomeMinRadius())
     {
-        min_radius = this->m_storage->getHomeMinRadius();
+        min_radius = this->m_p_storage->getHomeMinRadius();
     }
     else
     {
@@ -53,9 +53,9 @@ void Script_SchemeMobHome::reset_scheme(const bool, CScriptGameObject* const p_c
         }
     }
 
-    if (this->m_storage->getHomeMaxRadius())
+    if (this->m_p_storage->getHomeMaxRadius())
     {
-        max_radius = this->m_storage->getHomeMaxRadius();
+        max_radius = this->m_p_storage->getHomeMaxRadius();
     }
     else
     {
@@ -74,9 +74,9 @@ void Script_SchemeMobHome::reset_scheme(const bool, CScriptGameObject* const p_c
         R_ASSERT2(false, "can't be!");
     }
 
-    if (this->m_storage->getHomeMidRadius())
+    if (this->m_p_storage->getHomeMidRadius())
     {
-        mid_radius = this->m_storage->getHomeMidRadius();
+        mid_radius = this->m_p_storage->getHomeMidRadius();
 
         if ((mid_radius <= min_radius) || (mid_radius >= max_radius))
             mid_radius = min_radius + ((max_radius - min_radius) / 2);
@@ -86,7 +86,7 @@ void Script_SchemeMobHome::reset_scheme(const bool, CScriptGameObject* const p_c
         mid_radius = min_radius + ((max_radius - min_radius) / 2);
     }
 
-    if (this->m_storage->IsGulagPoint())
+    if (this->m_p_storage->IsGulagPoint())
     {
         Script_SE_SmartTerrain* p_smart_terrain =
             ai().alife()
@@ -101,12 +101,12 @@ void Script_SchemeMobHome::reset_scheme(const bool, CScriptGameObject* const p_c
 
         std::uint32_t level_vertex_id = (p_smart_terrain) ? p_smart_terrain->m_tNodeID : 0;
 
-        this->m_npc->set_home(level_vertex_id, min_radius, max_radius, this->m_storage->IsAggresive(), mid_radius);
+        this->m_npc->set_home(level_vertex_id, min_radius, max_radius, this->m_p_storage->IsAggresive(), mid_radius);
     }
     else
     {
         this->m_npc->set_home(
-            this->m_storage->getHomeName().c_str(), min_radius, max_radius, this->m_storage->IsAggresive(), mid_radius);
+            this->m_p_storage->getHomeName().c_str(), min_radius, max_radius, this->m_p_storage->IsAggresive(), mid_radius);
     }
 }
 

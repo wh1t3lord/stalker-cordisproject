@@ -75,6 +75,7 @@ struct JobDataSmartTerrain
 };
 
 class Script_SE_SmartTerrain;
+class Script_SchemeXRAbuse;
 
 namespace DataBase
 {

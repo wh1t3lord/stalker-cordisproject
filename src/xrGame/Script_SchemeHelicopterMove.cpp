@@ -52,29 +52,29 @@ Script_SchemeHelicopterMove::~Script_SchemeHelicopterMove(void)
 void Script_SchemeHelicopterMove::reset_scheme(const bool is_loading, CScriptGameObject* const p_client_object)
 {
     Msg("[Scripts/Scripts_SchemeHelicopterMove/reset_scheme(is_loading)] %s", this->m_npc->Name());
-    this->m_storage->ClearSignals();
-    this->m_p_helicopter->TurnEngineSound(this->m_storage->IsHelicopterEngineSound());
+    this->m_p_storage->ClearSignals();
+    this->m_p_helicopter->TurnEngineSound(this->m_p_storage->IsHelicopterEngineSound());
 
-    if (!Globals::patrol_path_exists(this->m_storage->getHelicopterPathMoveName().c_str()))
+    if (!Globals::patrol_path_exists(this->m_p_storage->getHelicopterPathMoveName().c_str()))
     {
         R_ASSERT2(false, "Patrol path doesnt exist!");
         return;
     }
 
-    this->m_p_patrol_move = new CPatrolPathParams(this->m_storage->getHelicopterPathMoveName().c_str());
+    this->m_p_patrol_move = new CPatrolPathParams(this->m_p_storage->getHelicopterPathMoveName().c_str());
     this->m_patrol_move_info =
-        Globals::Utils::path_parse_waypoints(this->m_storage->getHelicopterPathMoveName().c_str());
+        Globals::Utils::path_parse_waypoints(this->m_p_storage->getHelicopterPathMoveName().c_str());
 
-    if (!this->m_storage->getHelicopterPathLookName().empty())
+    if (!this->m_p_storage->getHelicopterPathLookName().empty())
     {
-        if (this->m_storage->getHelicopterPathLookName() == "actor")
+        if (this->m_p_storage->getHelicopterPathLookName() == "actor")
         {
             this->m_p_manager_fly->set_look_point(DataBase::Storage::getInstance().getActor()->Position());
             this->update_look_state();
         }
         else
         {
-            this->m_p_patrol_look = new CPatrolPathParams(this->m_storage->getHelicopterPathLookName().c_str());
+            this->m_p_patrol_look = new CPatrolPathParams(this->m_p_storage->getHelicopterPathLookName().c_str());
             this->m_p_manager_fly->set_look_point(this->m_p_patrol_look->point(std::uint32_t(0)));
             this->update_look_state();
 
@@ -90,7 +90,7 @@ void Script_SchemeHelicopterMove::reset_scheme(const bool is_loading, CScriptGam
         this->m_p_patrol_look = nullptr;
     }
 
-    this->m_max_velocity = this->m_storage->getHelicopterVelocity();
+    this->m_max_velocity = this->m_p_storage->getHelicopterVelocity();
 
     if (is_loading)
     {
@@ -117,37 +117,37 @@ void Script_SchemeHelicopterMove::reset_scheme(const bool is_loading, CScriptGam
         this->m_is_callback = false;
         this->m_flag_to_wp_callback = false;
 
-        this->m_p_manager_fire->setEnemyTypeName(this->m_storage->getHelicopterEnemyName());
+        this->m_p_manager_fire->setEnemyTypeName(this->m_p_storage->getHelicopterEnemyName());
         this->m_p_manager_fire->setEnemy(nullptr);
         this->m_p_manager_fire->setFlagByEnemy(true);
 
-        if (!this->m_storage->getHelicopterFirePointName().empty())
+        if (!this->m_p_storage->getHelicopterFirePointName().empty())
         {
             this->m_p_manager_fire->setFirePoint(
-                CPatrolPathParams(this->m_storage->getHelicopterFirePointName().c_str()).point(std::uint32_t(0)));
+                CPatrolPathParams(this->m_p_storage->getHelicopterFirePointName().c_str()).point(std::uint32_t(0)));
         }
 
-        if (!fis_zero(this->m_storage->getHelicopterMaxMinigunDistance()))
+        if (!fis_zero(this->m_p_storage->getHelicopterMaxMinigunDistance()))
         {
-            this->m_p_helicopter->m_max_mgun_dist = this->m_storage->getHelicopterMaxMinigunDistance();
+            this->m_p_helicopter->m_max_mgun_dist = this->m_p_storage->getHelicopterMaxMinigunDistance();
         }
 
-        if (!fis_zero(this->m_storage->getHelicopterMaxRocketDistance()))
+        if (!fis_zero(this->m_p_storage->getHelicopterMaxRocketDistance()))
         {
-            this->m_p_helicopter->m_max_rocket_dist = this->m_storage->getHelicopterMaxRocketDistance();
+            this->m_p_helicopter->m_max_rocket_dist = this->m_p_storage->getHelicopterMaxRocketDistance();
         }
 
-        if (!fis_zero(this->m_storage->getHelicopterMinMinigunDistance()))
+        if (!fis_zero(this->m_p_storage->getHelicopterMinMinigunDistance()))
         {
-            this->m_p_helicopter->m_min_mgun_dist = this->m_storage->getHelicopterMinMinigunDistance();
+            this->m_p_helicopter->m_min_mgun_dist = this->m_p_storage->getHelicopterMinMinigunDistance();
         }
 
-        if (!fis_zero(this->m_storage->getHelicopterMinRocketDistance()))
+        if (!fis_zero(this->m_p_storage->getHelicopterMinRocketDistance()))
         {
-            this->m_p_helicopter->m_min_rocket_dist = this->m_storage->getHelicopterMinRocketDistance();
+            this->m_p_helicopter->m_min_rocket_dist = this->m_p_storage->getHelicopterMinRocketDistance();
         }
 
-        if (this->m_storage->IsHelicopterUseMinigun())
+        if (this->m_p_storage->IsHelicopterUseMinigun())
         {
             this->m_p_helicopter->m_use_mgun_on_attack = true;
         }
@@ -156,7 +156,7 @@ void Script_SchemeHelicopterMove::reset_scheme(const bool is_loading, CScriptGam
             this->m_p_helicopter->m_use_mgun_on_attack = false;
         }
 
-        if (this->m_storage->IsHelicopterUseRocket())
+        if (this->m_p_storage->IsHelicopterUseRocket())
         {
             this->m_p_helicopter->m_use_rocket_on_attack = true;
         }
@@ -165,11 +165,11 @@ void Script_SchemeHelicopterMove::reset_scheme(const bool is_loading, CScriptGam
             this->m_p_helicopter->m_use_rocket_on_attack = false;
         }
 
-        this->m_p_manager_fire->setUpdVis(this->m_storage->getHelicopterUpdVis());
+        this->m_p_manager_fire->setUpdVis(this->m_p_storage->getHelicopterUpdVis());
         this->m_p_manager_fire->update_enemy_state();
         this->update_movement_state();
 
-        if (this->m_storage->IsHelicopterShowHealth())
+        if (this->m_p_storage->IsHelicopterShowHealth())
         {
             this->m_p_manager_fire->cs_remove();
             this->m_p_manager_fire->setShowHealth(true);
@@ -181,7 +181,7 @@ void Script_SchemeHelicopterMove::reset_scheme(const bool is_loading, CScriptGam
             this->m_p_manager_fire->cs_remove();
         }
 
-        this->m_p_helicopter->UseFireTrail(this->m_storage->IsHelicopterFireTrail());
+        this->m_p_helicopter->UseFireTrail(this->m_p_storage->IsHelicopterFireTrail());
     }
 }
 
@@ -204,13 +204,13 @@ void Script_SchemeHelicopterMove::update(const float delta)
     }
     else
     {
-        if (!this->m_storage->getHelicopterPathLookName().empty())
+        if (!this->m_p_storage->getHelicopterPathLookName().empty())
         {
-            if (this->m_storage->getHelicopterPathLookName() == "actor")
+            if (this->m_p_storage->getHelicopterPathLookName() == "actor")
             {
                 this->m_p_manager_fly->set_look_point(DataBase::Storage::getInstance().getActor()->Position());
 
-                if (this->m_storage->IsHelicopterStopFire())
+                if (this->m_p_storage->IsHelicopterStopFire())
                 {
                     if (this->m_p_helicopter->isVisible(DataBase::Storage::getInstance().getActor()))
                     {
@@ -231,7 +231,7 @@ void Script_SchemeHelicopterMove::update(const float delta)
             this->update_look_state();
         }
 
-        if (this->m_storage->getHelicopterPathLookName().empty() && this->m_p_manager_look->getLookState())
+        if (this->m_p_storage->getHelicopterPathLookName().empty() && this->m_p_manager_look->getLookState())
         {
             this->m_p_manager_look->calculate_look_point(this->m_p_manager_fly->getDestinationPoint(), true);
         }
@@ -261,7 +261,7 @@ void Script_SchemeHelicopterMove::waypoint_callback(
                     xr_string signal_name = this->m_patrol_move_info.getData().at(this->m_last_index).getValue("sig");
                     if (!signal_name.empty())
                     {
-                        this->m_storage->setSignals(signal_name, true);
+                        this->m_p_storage->setSignals(signal_name, true);
                     }
                 }
 

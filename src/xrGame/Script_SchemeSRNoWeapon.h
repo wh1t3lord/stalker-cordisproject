@@ -10,7 +10,7 @@ class Script_SchemeSRNoWeapon : public Script_ISchemeEntity
 
 public:
     Script_SchemeSRNoWeapon(void) = delete;
-    Script_SchemeSRNoWeapon(CScriptGameObject* const p_client_object, DataBase::Storage& storage);
+    Script_SchemeSRNoWeapon(CScriptGameObject* const p_client_object, DataBase::Storage_Scheme& storage);
     ~Script_SchemeSRNoWeapon(void);
 
     virtual void reset_scheme(const bool value, CScriptGameObject* const p_client_object);

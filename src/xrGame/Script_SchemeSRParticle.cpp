@@ -54,7 +54,7 @@ void Script_SchemeSRParticle::reset_scheme(const bool value, CScriptGameObject* 
             "this->m_particles!");
     }
 
-    if (this->m_storage->getSRParticleMode() == 2)
+    if (this->m_p_storage->getSRParticleMode() == 2)
     {
         if (this->m_path)
         {
@@ -63,8 +63,8 @@ void Script_SchemeSRParticle::reset_scheme(const bool value, CScriptGameObject* 
                 "this->m_path!");
         }
 
-        this->m_path = new CPatrolPathParams(this->m_storage->getSRParticlePathName().c_str());
-        CondlistWaypoints flags = Globals::Utils::path_parse_waypoints(this->m_storage->getSRParticlePathName());
+        this->m_path = new CPatrolPathParams(this->m_p_storage->getSRParticlePathName().c_str());
+        CondlistWaypoints flags = Globals::Utils::path_parse_waypoints(this->m_p_storage->getSRParticlePathName());
         const std::uint32_t count = this->m_path->count();
 
         // Lord: проверить итерацию!
@@ -87,7 +87,7 @@ void Script_SchemeSRParticle::reset_scheme(const bool value, CScriptGameObject* 
             data.setDelay(delay);
             data.setPlayed(false);
             data.setTime(Globals::get_time_global());
-            data.setParticle(new CScriptParticles(this->m_storage->getSRParticleName().c_str()));
+            data.setParticle(new CScriptParticles(this->m_p_storage->getSRParticleName().c_str()));
             this->m_particles.push_back(data);
         }
     }
@@ -97,7 +97,7 @@ void Script_SchemeSRParticle::reset_scheme(const bool value, CScriptGameObject* 
         data.setPlayed(false);
         data.setTime(Globals::get_time_global());
         data.setDelay(0);
-        data.setParticle(new CScriptParticles(this->m_storage->getSRParticleName().c_str()));
+        data.setParticle(new CScriptParticles(this->m_p_storage->getSRParticleName().c_str()));
 
         this->m_particles.push_back(data);
 
@@ -107,7 +107,7 @@ void Script_SchemeSRParticle::reset_scheme(const bool value, CScriptGameObject* 
         }
     }
 
-    this->m_storage->ClearSignals();
+    this->m_p_storage->ClearSignals();
     this->m_last_update = 0;
     this->m_is_first_played = false;
     this->m_is_started = false;
@@ -135,12 +135,12 @@ void Script_SchemeSRParticle::update(const float delta)
     if (!this->m_is_started)
     {
         this->m_is_started = true;
-        if (this->m_storage->getSRParticleMode() == 1)
+        if (this->m_p_storage->getSRParticleMode() == 1)
         {
             Msg("[Scripts/Script_SchemeSRParticle/update(delta)] Load path %s",
-                this->m_storage->getSRParticlePathName().c_str());
-            this->m_particles[0].getParticle()->LoadPath(this->m_storage->getSRParticlePathName().c_str());
-            this->m_particles[0].getParticle()->StartPath(this->m_storage->IsSRParticleLooped());
+                this->m_p_storage->getSRParticlePathName().c_str());
+            this->m_particles[0].getParticle()->LoadPath(this->m_p_storage->getSRParticlePathName().c_str());
+            this->m_particles[0].getParticle()->StartPath(this->m_p_storage->IsSRParticleLooped());
             this->m_particles[0].getParticle()->Play();
             this->m_particles[0].setPlayed(true);
             this->m_is_first_played = true;
@@ -149,7 +149,7 @@ void Script_SchemeSRParticle::update(const float delta)
         return;
     }
 
-    if (this->m_storage->getSRParticleMode() == 1)
+    if (this->m_p_storage->getSRParticleMode() == 1)
     {
         this->update_mode_1();
     }
@@ -160,7 +160,7 @@ void Script_SchemeSRParticle::update(const float delta)
 
     this->IsEnd();
 
-    XR_LOGIC::try_switch_to_another_section(this->m_npc, *this->m_storage, DataBase::Storage::getInstance().getActor());
+    XR_LOGIC::try_switch_to_another_section(this->m_npc, *this->m_p_storage, DataBase::Storage::getInstance().getActor());
 }
 
 void Script_SchemeSRParticle::deactivate(CScriptGameObject* const p_client_object)
@@ -184,7 +184,7 @@ void Script_SchemeSRParticle::deactivate(CScriptGameObject* const p_client_objec
 
 bool Script_SchemeSRParticle::IsEnd(void)
 {
-    if (this->m_storage->IsSRParticleLooped() || !this->m_is_first_played)
+    if (this->m_p_storage->IsSRParticleLooped() || !this->m_is_first_played)
     {
         return false;
     }
@@ -201,13 +201,13 @@ bool Script_SchemeSRParticle::IsEnd(void)
             return false;
     }
 
-    this->m_storage->setSignals("particle_end", true);
+    this->m_p_storage->setSignals("particle_end", true);
     return true;
 }
 
 void Script_SchemeSRParticle::update_mode_1(void)
 {
-    if (!this->m_particles[0].getParticle()->IsPlaying() && !this->m_storage->IsSRParticleLooped())
+    if (!this->m_particles[0].getParticle()->IsPlaying() && !this->m_p_storage->IsSRParticleLooped())
     {
         this->m_particles[0].getParticle()->Play();
     }
@@ -233,7 +233,7 @@ void Script_SchemeSRParticle::update_mode_2(void)
         }
         else
         {
-            if (this->m_storage->IsSRParticleLooped())
+            if (this->m_p_storage->IsSRParticleLooped())
             {
                 it.getParticle()->PlayAtPos(this->m_path->point(i));
             }

@@ -22,7 +22,7 @@ void Script_SchemePHOnHit::hit_callback(CScriptGameObject* const p_client_object
     if (!DataBase::Storage::getInstance().getStorage().at(this->m_id).getActiveSchemeName().empty())
     {
         if (XR_LOGIC::try_switch_to_another_section(
-                p_client_object, *this->m_storage, DataBase::Storage::getInstance().getActor()))
+                p_client_object, *this->m_p_storage, DataBase::Storage::getInstance().getActor()))
         {
             return;
         }
