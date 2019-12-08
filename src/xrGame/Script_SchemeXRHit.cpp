@@ -8,6 +8,7 @@ namespace Scripts
 Script_SchemeXRHit::Script_SchemeXRHit(CScriptGameObject* const p_client_object, DataBase::Storage_Scheme& storage)
     : inherited_scheme(p_client_object, storage)
 {
+    this->m_scheme_name = "hit";
 }
 
 Script_SchemeXRHit::~Script_SchemeXRHit(void) {}

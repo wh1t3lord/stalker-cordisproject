@@ -109,7 +109,6 @@ class Storage_Scheme
 public:
     ~Storage_Scheme(void)
     {
-        this->m_p_npc = nullptr;
         this->m_p_ini =
             nullptr; // @ Контролиться в Script_SE_SmartTerrain, либо от this->m_ltx, либо от this->m_job_data
 
@@ -139,6 +138,14 @@ public:
                 this->m_p_jump_path->m_path_name);
             xr_delete(this->m_p_jump_path);
         }
+
+        if (this->m_p_abuse_manager)
+        {
+            Msg("[Scripts/DataBase/Storage_Scheme/~dtor()] deleting abuse manager from %s", this->m_p_npc->Name());
+            xr_delete(this->m_p_abuse_manager);
+        }
+
+        this->m_p_npc = nullptr;
     }
 
     inline const xr_vector<Script_ISchemeEntity*>& getActions(void) const noexcept { return this->m_actions; }
@@ -1212,6 +1219,20 @@ public:
     }
 #pragma endregion
 
+#pragma region Cordis Scheme XR Abuse
+    inline Script_XRAbuseManager* const getXRAbuseManager(void) const { return this->m_p_abuse_manager; }
+    inline void setXRAbuseManager(Script_XRAbuseManager* const p_object)
+    {
+        if (!p_object)
+        {
+            Msg("[Scripts/DataBase/Storage_Scheme/setXRAbuseManager(p_object)] WARNING: you are trying to set an empty object return ...");
+            return;
+        }
+
+        this->m_p_abuse_manager = p_object;
+    }
+#pragma endregion
+
 private:
     // @ Не понятно зачем в итоге но так у ПЫС, если в итоге оно находится в самом сторадже где уже зарегистрирован
     // сам НПС
@@ -1295,6 +1316,7 @@ private:
                  // action, но сам pointer зануляется в деструкторе схемы!
     CUIGameCustom* m_p_sr_timer_ui = nullptr;
     CUIStatic* m_p_sr_timer_timer = nullptr;
+    Script_XRAbuseManager* m_p_abuse_manager = nullptr;
     Fvector m_offset;
     Fvector m_ph_force_point;
     xr_map<xr_string, bool> m_signals;
@@ -2959,7 +2981,7 @@ public:
         this->m_storage[npc_id].setHitWhoID(who_id);
     }
 
-    inline void setStorageHitBoneIndex(const std::uint16_t npc_id, const std::int16_t bone_index) noexcept 
+    inline void setStorageHitBoneIndex(const std::uint16_t npc_id, const std::int16_t bone_index) noexcept
     {
         this->m_storage[npc_id].setHitBoneIndex(bone_index);
     }
