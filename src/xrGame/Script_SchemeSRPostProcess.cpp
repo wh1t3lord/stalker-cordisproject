@@ -25,16 +25,16 @@ void Script_SchemeSRPostProcess::reset_scheme(const bool value, CScriptGameObjec
     this->m_eff_time = 0;
     this->m_hit_time = 0;
     this->m_intensity = 0.0f;
-    this->m_intensity_base = this->m_storage->getSRPostProcessIntensity();
+    this->m_intensity_base = this->m_p_storage->getSRPostProcessIntensity();
     this->m_hit_power = 0.0f;
 
     if (this->m_intensity_base < 0.0f)
     {
-        this->m_intensity_inertion = -this->m_storage->getSRPostProcessIntensitySpeed();
+        this->m_intensity_inertion = -this->m_p_storage->getSRPostProcessIntensitySpeed();
     }
     else
     {
-        this->m_intensity_inertion = this->m_storage->getSRPostProcessIntensitySpeed();
+        this->m_intensity_inertion = this->m_p_storage->getSRPostProcessIntensitySpeed();
     }
 
 //     this->m_postprocess = CScriptEffector(this->m_id + 2000, 10000000);

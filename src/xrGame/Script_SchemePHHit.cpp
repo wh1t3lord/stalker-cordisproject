@@ -20,13 +20,13 @@ void Script_SchemePHHit::reset_scheme(const bool value, CScriptGameObject* const
     Msg("[Scripts/Script_SchemePHHit/reset_scheeme(is_loading, p_client_object)] %s", this->m_npc->Name());
 
     
-    const Fvector& patrol_position = CPatrolPathParams(this->m_storage->getPHHitDirectionPathName().c_str()).point(std::uint32_t(0));
+    const Fvector& patrol_position = CPatrolPathParams(this->m_p_storage->getPHHitDirectionPathName().c_str()).point(std::uint32_t(0));
     const Fvector& entity_position = this->m_npc->Position();
     CScriptHit hit;
 
-    hit.m_fPower = this->m_storage->getPHHitPower();
-    hit.m_fImpulse = this->m_storage->getPHHitImpulse();
-    hit.set_bone_name(this->m_storage->getPHHitBoneName().c_str());
+    hit.m_fPower = this->m_p_storage->getPHHitPower();
+    hit.m_fImpulse = this->m_p_storage->getPHHitImpulse();
+    hit.set_bone_name(this->m_p_storage->getPHHitBoneName().c_str());
     hit.m_tHitType = ALife::eHitTypeStrike;
     hit.m_tDirection = Fvector(patrol_position).sub(entity_position);
     hit.m_tpDraftsman = this->m_npc;
@@ -41,7 +41,7 @@ void Script_SchemePHHit::update(const float delta)
         return;
     
     if (XR_LOGIC::try_switch_to_another_section(
-            this->m_npc, *this->m_storage, DataBase::Storage::getInstance().getActor()))
+            this->m_npc, *this->m_p_storage, DataBase::Storage::getInstance().getActor()))
         return;
 }
 

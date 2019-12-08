@@ -44,7 +44,7 @@ void Script_SchemeXRHit::hit_callback(CScriptGameObject* const p_client_object, 
             this->m_id, (amount >= this->m_npc->GetHealth() * 100.0f));
 
         if (XR_LOGIC::try_switch_to_another_section(
-                p_client_object, *this->m_storage, DataBase::Storage::getInstance().getActor()))
+                p_client_object, *this->m_p_storage, DataBase::Storage::getInstance().getActor()))
         {
             DataBase::Storage::getInstance().setStorageHitDeadlyHit(this->m_id, false);
             return;

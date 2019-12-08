@@ -17,7 +17,7 @@ void Script_SchemePHDeath::death_callback(
     if (!DataBase::Storage::getInstance().getStorage().at(this->m_id).getActiveSchemeName().empty())
     {
         if (XR_LOGIC::try_switch_to_another_section(
-                p_client_victim, *this->m_storage, DataBase::Storage::getInstance().getActor()))
+                p_client_victim, *this->m_p_storage, DataBase::Storage::getInstance().getActor()))
             return;
     }
 }

@@ -17,7 +17,7 @@ void Script_SchemeMobCombat::combat_callback(void)
 {
     Msg("[SCripts/Script_SchemeMobCombat/combat_callback()] %s", this->m_npc->Name());
 
-    if (this->m_storage->IsEnabled() && this->m_npc->GetEnemy())
+    if (this->m_p_storage->IsEnabled() && this->m_npc->GetEnemy())
     {
         if (!DataBase::Storage::getInstance().getStorage().at(this->m_npc->ID()).getActiveSchemeName().empty())
         {

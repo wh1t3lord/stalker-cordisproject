@@ -30,41 +30,41 @@ void Script_SchemeMobWalker::reset_scheme(const bool, CScriptGameObject* const p
 {
     Msg("[Scripts/Script_SchemeMobWalker/reset_scheme()] %s", this->m_npc->Name());
 
-    this->m_storage->ClearSignals();
+    this->m_p_storage->ClearSignals();
 
-    Script_MobStateManager::getInstance().set_state(this->m_npc, this->m_storage->getStateName());
+    Script_MobStateManager::getInstance().set_state(this->m_npc, this->m_p_storage->getStateName());
 
     if (this->m_patrol_walk)
         xr_delete(this->m_patrol_walk);
 
-    this->m_patrol_walk = new CPatrolPathParams(this->m_storage->getPathWalkName().c_str());
+    this->m_patrol_walk = new CPatrolPathParams(this->m_p_storage->getPathWalkName().c_str());
     if (!this->m_patrol_walk->m_path)
     {
         R_ASSERT2(false, "Unable to find the path!");
     }
 
-    if (!this->m_storage->getPathLookName().empty())
+    if (!this->m_p_storage->getPathLookName().empty())
     {
         if (this->m_patrol_look)
             xr_delete(this->m_patrol_look);
 
-        this->m_patrol_look = new CPatrolPathParams(this->m_storage->getPathLookName().c_str());
+        this->m_patrol_look = new CPatrolPathParams(this->m_p_storage->getPathLookName().c_str());
         if (!this->m_patrol_look->m_path)
         {
             R_ASSERT2(false, "Unable to find the path!");
         }
     }
 
-    if (this->m_storage->getPathWalkInfo().getData().empty())
+    if (this->m_p_storage->getPathWalkInfo().getData().empty())
     {
-        this->m_storage->setPathWalkInfo(Globals::Utils::path_parse_waypoints(this->m_storage->getPathWalkName()));
-        this->m_path_walk_info = this->m_storage->getPathWalkInfo();
+        this->m_p_storage->setPathWalkInfo(Globals::Utils::path_parse_waypoints(this->m_p_storage->getPathWalkName()));
+        this->m_path_walk_info = this->m_p_storage->getPathWalkInfo();
     }
 
-    if (this->m_storage->getPathLookInfo().getData().empty())
+    if (this->m_p_storage->getPathLookInfo().getData().empty())
     {
-        this->m_storage->setPathLookInfo(Globals::Utils::path_parse_waypoints(this->m_storage->getPathLookName()));
-        this->m_path_look_info = this->m_storage->getPathLookInfo();
+        this->m_p_storage->setPathLookInfo(Globals::Utils::path_parse_waypoints(this->m_p_storage->getPathLookName()));
+        this->m_path_look_info = this->m_p_storage->getPathLookInfo();
     }
 
     this->m_state = state_moving;
@@ -80,7 +80,7 @@ void Script_SchemeMobWalker::reset_scheme(const bool, CScriptGameObject* const p
     Globals::action(this->m_npc,
         CScriptMovementAction(MonsterSpace::eMA_WalkFwd,
             new CPatrolPathParams(
-                this->m_storage->getPathWalkName().c_str(), ePatrolStartTypeNext, ePatrolRouteTypeContinue)),
+                this->m_p_storage->getPathWalkName().c_str(), ePatrolStartTypeNext, ePatrolRouteTypeContinue)),
         CScriptActionCondition(CScriptActionCondition::MOVEMENT_FLAG));
 }
 
@@ -166,7 +166,7 @@ void Script_SchemeMobWalker::waypoint_callback(
         }
         else
         {
-            Script_MobStateManager::getInstance().set_state(this->m_npc, this->m_storage->getStateName());
+            Script_MobStateManager::getInstance().set_state(this->m_npc, this->m_p_storage->getStateName());
         }
 
         Flags32 search_for = this->m_path_walk_info.getData().at(index).getFlags();
@@ -261,7 +261,7 @@ void Script_SchemeMobWalker::update_movement_state(void)
         Globals::action(this->m_npc,
             CScriptMovementAction(static_cast<MonsterSpace::EScriptMonsterMoveAction>(monster_move_action),
                 new CPatrolPathParams(
-                    this->m_storage->getPathWalkName().c_str(), ePatrolStartTypeNext, ePatrolRouteTypeContinue)),
+                    this->m_p_storage->getPathWalkName().c_str(), ePatrolStartTypeNext, ePatrolRouteTypeContinue)),
             CScriptSoundAction(
                 Script_GlobalHelper::getInstance().getSoundNameToAction().at(this->m_sheduled_sound_name)));
         this->m_sheduled_sound_name.clear();
@@ -271,7 +271,7 @@ void Script_SchemeMobWalker::update_movement_state(void)
         Globals::action(this->m_npc,
             CScriptMovementAction(static_cast<MonsterSpace::EScriptMonsterMoveAction>(monster_move_action),
                 new CPatrolPathParams(
-                    this->m_storage->getPathWalkName().c_str(), ePatrolStartTypeNext, ePatrolRouteTypeContinue)),
+                    this->m_p_storage->getPathWalkName().c_str(), ePatrolStartTypeNext, ePatrolRouteTypeContinue)),
             CScriptActionCondition(CScriptActionCondition::MOVEMENT_FLAG));
     }
 }

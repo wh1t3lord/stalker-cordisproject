@@ -35,11 +35,11 @@ void Script_SchemeSRTeleport::update(const float delta)
     }
     else
     {
-        if (Globals::get_time_global() - this->m_timer >= this->m_storage->getSRTeleportTimeout())
+        if (Globals::get_time_global() - this->m_timer >= this->m_p_storage->getSRTeleportTimeout())
         {
             std::uint32_t max_random = 0;
             for (const std::pair<std::uint32_t, std::pair<xr_string, xr_string>>& it :
-                this->m_storage->getSRTeleportPoints())
+                this->m_p_storage->getSRTeleportPoints())
             {
                 max_random += it.first;
             }
@@ -48,7 +48,7 @@ void Script_SchemeSRTeleport::update(const float delta)
                 Globals::Script_RandomInt::getInstance().Generate(std::uint32_t(0), max_random);
 
             for (const std::pair<std::uint32_t, std::pair<xr_string, xr_string>>& it :
-                this->m_storage->getSRTeleportPoints())
+                this->m_p_storage->getSRTeleportPoints())
             {
                 generated_value -= it.first;
                 if (generated_value <= 0)
@@ -75,7 +75,7 @@ void Script_SchemeSRTeleport::update(const float delta)
     }
 
     if (XR_LOGIC::try_switch_to_another_section(
-            this->m_npc, *this->m_storage, DataBase::Storage::getInstance().getActor()))
+            this->m_npc, *this->m_p_storage, DataBase::Storage::getInstance().getActor()))
         return;
 }
 

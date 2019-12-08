@@ -26,21 +26,21 @@ void Script_SchemePHCode::use_callback(CScriptGameObject* const p_client_object,
 
 void Script_SchemePHCode::OnNumberReceive(const xr_string& text)
 {
-    if (this->m_storage->getPHCodeCode())
+    if (this->m_p_storage->getPHCodeCode())
     {
-        if (static_cast<std::uint32_t>(atoi(text.c_str())) == this->m_storage->getPHCodeCode())
+        if (static_cast<std::uint32_t>(atoi(text.c_str())) == this->m_p_storage->getPHCodeCode())
         {
-            if (!this->m_storage->getPHCodeOnCodeCondlist().empty())
+            if (!this->m_p_storage->getPHCodeOnCodeCondlist().empty())
             {
                 Msg("[Scripts/Script_SchemePHCode/OnNumberReceive(text)] on_code %s", text.c_str());
                 XR_LOGIC::pick_section_from_condlist(DataBase::Storage::getInstance().getActor(), this->m_npc,
-                    this->m_storage->getPHCodeOnCodeCondlist());
+                    this->m_p_storage->getPHCodeOnCodeCondlist());
             }
         }
     }
     else
     {
-        const xr_map<std::uint32_t, CondlistData>& condlist = this->m_storage->getPHCodeOnCheckCode().at(text);
+        const xr_map<std::uint32_t, CondlistData>& condlist = this->m_p_storage->getPHCodeOnCheckCode().at(text);
         if (!condlist.empty())
         {
             Msg("[Scripts/Script_SchemePHCode/OnNumberReceive(text)] on_check_code %s", text.c_str());

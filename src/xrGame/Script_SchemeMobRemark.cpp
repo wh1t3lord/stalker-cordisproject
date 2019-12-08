@@ -17,11 +17,11 @@ void Script_SchemeMobRemark::reset_scheme(const bool, CScriptGameObject* const p
 {
     Msg("[Scripts/Script_SchemeMobRemark/reset_scheme()] called for %s", this->m_npc->Name());
 
-    Script_MobStateManager::getInstance().set_state(this->m_npc, this->m_storage->getStateName());
+    Script_MobStateManager::getInstance().set_state(this->m_npc, this->m_p_storage->getStateName());
 
     this->m_npc->DisableTalk();
 
-    XR_LOGIC::mob_capture(this->m_npc, !this->m_storage->IsNoReset(), this->m_scheme_name);
+    XR_LOGIC::mob_capture(this->m_npc, !this->m_p_storage->IsNoReset(), this->m_scheme_name);
 
     xr_vector<xr_string> sounds_name;
     xr_vector<xr_string> times_name;
@@ -29,16 +29,16 @@ void Script_SchemeMobRemark::reset_scheme(const bool, CScriptGameObject* const p
     xr_string picked_sound_name;
     float picked_time = 0.0f;
 
-    animations_name = Globals::Utils::parse_names(this->m_storage->getAnimationName());
+    animations_name = Globals::Utils::parse_names(this->m_p_storage->getAnimationName());
 
-    if (!this->m_storage->getSoundName().empty())
+    if (!this->m_p_storage->getSoundName().empty())
     {
-        sounds_name = Globals::Utils::parse_names(this->m_storage->getSoundName());
+        sounds_name = Globals::Utils::parse_names(this->m_p_storage->getSoundName());
     }
 
-    if (!this->m_storage->getTimeName().empty())
+    if (!this->m_p_storage->getTimeName().empty())
     {
-        times_name = Globals::Utils::parse_names(this->m_storage->getTimeName());
+        times_name = Globals::Utils::parse_names(this->m_p_storage->getTimeName());
     }
 
     {
@@ -65,7 +65,7 @@ void Script_SchemeMobRemark::reset_scheme(const bool, CScriptGameObject* const p
                     condition = CScriptActionCondition(CScriptActionCondition::TIME_FLAG, picked_time);
                 }
 
-                if (this->m_storage->IsAnimationMovement())
+                if (this->m_p_storage->IsAnimationMovement())
                 {
                     const Fvector& position = this->m_npc->Position();
                     const Fvector& direction = this->m_npc->Direction();
@@ -86,16 +86,16 @@ void Script_SchemeMobRemark::reset_scheme(const bool, CScriptGameObject* const p
     }
 
     this->m_is_tip_sent = false;
-    this->m_storage->ClearSignals();
+    this->m_p_storage->ClearSignals();
     this->m_is_action_end_signalled = false;
 }
 
 void Script_SchemeMobRemark::update(const float delta)
 {
-    if (!this->m_storage->getDialogCondlist().empty())
+    if (!this->m_p_storage->getDialogCondlist().empty())
     {
         if (!XR_LOGIC::pick_section_from_condlist(
-                DataBase::Storage::getInstance().getActor(), this->m_npc, this->m_storage->getDialogCondlist())
+                DataBase::Storage::getInstance().getActor(), this->m_npc, this->m_p_storage->getDialogCondlist())
                  .empty())
         {
             if (!this->m_npc->IsTalkEnabled())
@@ -111,7 +111,7 @@ void Script_SchemeMobRemark::update(const float delta)
     if (!this->m_is_tip_sent)
     {
         this->m_is_tip_sent = true;
-        if (!this->m_storage->getTipName().empty())
+        if (!this->m_p_storage->getTipName().empty())
         {
             // Lord: доделать когда будет news_manager, можешь посмотреть оригинальный скрипт
         }
@@ -122,7 +122,7 @@ void Script_SchemeMobRemark::update(const float delta)
         if (!this->m_is_action_end_signalled)
         {
             this->m_is_action_end_signalled = true;
-            this->m_storage->setSignals("action_end", true);
+            this->m_p_storage->setSignals("action_end", true);
             Msg("[Scripts/Script_SchemeMobRemark/update(delta)] signalling action_end!");
         }
     }

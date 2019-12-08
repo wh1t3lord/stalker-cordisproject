@@ -32,16 +32,16 @@ void Script_SchemeXRDeath::death_callback(
 
     if (DataBase::Storage::getInstance().getActor())
     {
-        if (!this->m_storage->getXRDeathInfo().empty())
+        if (!this->m_p_storage->getXRDeathInfo().empty())
         {
             XR_LOGIC::pick_section_from_condlist(
-                DataBase::Storage::getInstance().getActor(), this->m_npc, this->m_storage->getXRDeathInfo());
+                DataBase::Storage::getInstance().getActor(), this->m_npc, this->m_p_storage->getXRDeathInfo());
         }
 
-        if (!this->m_storage->getXRDeathInfo2().empty())
+        if (!this->m_p_storage->getXRDeathInfo2().empty())
         {
             XR_LOGIC::pick_section_from_condlist(
-                DataBase::Storage::getInstance().getActor(), this->m_npc, this->m_storage->getXRDeathInfo2());
+                DataBase::Storage::getInstance().getActor(), this->m_npc, this->m_p_storage->getXRDeathInfo2());
         }
     }
 }

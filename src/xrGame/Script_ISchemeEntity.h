@@ -12,7 +12,7 @@ class Script_ISchemeEntity
 public:
     Script_ISchemeEntity(void) = delete;
     Script_ISchemeEntity(CScriptGameObject* client_object, DataBase::Storage_Scheme& storage_scheme)
-        : m_npc(client_object), m_storage(&storage_scheme), m_id(m_npc ? m_npc->ID() : Globals::kUnsignedInt32Undefined)
+        : m_npc(client_object), m_p_storage(&storage_scheme), m_id(m_npc ? m_npc->ID() : Globals::kUnsignedInt32Undefined)
     {
         if (this->m_id == Globals::kUnsignedInt16Undefined)
         {
@@ -141,7 +141,7 @@ protected:
     // @ Это используется для удаления запоминается ID нашего npc
     std::uint32_t m_id;
     CScriptGameObject* m_npc;
-    DataBase::Storage_Scheme* m_storage;
+    DataBase::Storage_Scheme* m_p_storage;
     xr_string m_scheme_name;
 };
 } // namespace Scripts
