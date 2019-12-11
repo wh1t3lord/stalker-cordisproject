@@ -239,6 +239,19 @@ inline std::uint32_t choose_look_point(
     CPatrolPathParams* patrol_look, const CondlistWaypoints& path_look_info, const Flags32& search_for);
 inline bool is_vector_nil(const Fvector& data);
 inline CScriptActionPlanner* get_script_action_planner(CScriptGameObject* obj);
+inline CScriptActionPlanner* cast_planner(CScriptActionBase* action);
+inline bool is_strappable_weapon(CScriptGameObject* const p_client_object);
+
+// @ Uses in state manager of action of direction
+inline bool is_look_object_type(CScriptGameObject* const p_client_object, Script_StateManager* const p_state_manager);
+inline void look_at_object(CScriptGameObject* const p_client_object, Script_StateManager* const p_state_manager);
+inline std::uint32_t look_position_type(
+    CScriptGameObject* const p_client_object, Script_StateManager* const p_state_manager);
+inline void turn(CScriptGameObject* const p_client_object, Script_StateManager* const p_state_manager);
+// @ Uses in state manager of action of weapon
+inline std::uint32_t get_idle_state(const xr_string& target_state_name);
+inline CScriptGameObject* const get_weapon(
+    CScriptGameObject* const p_client_object, const xr_string& target_state_name);
 } // namespace Globals
 } // namespace Scripts
 } // namespace Cordis

@@ -21,9 +21,10 @@ void set_goal_world_state(CScriptActionPlanner* action_planner, CScriptActionPla
 }
 
 bool get_actual(const CScriptActionPlanner* action_planner) { return (action_planner->actual()); }
-CScriptActionPlanner* cast_planner(CScriptActionBase* action) { return (smart_cast<CScriptActionPlanner*>(action)); }
+
 IC static void CScriptActionPlanner_Export(lua_State* luaState)
 {
+/*
     module(
         luaState)[class_<CScriptActionPlanner, no_bases, default_holder, CScriptActionPlannerWrapper>("action_planner")
                       .def_readonly("object", &CScriptActionPlanner::m_object)
@@ -51,7 +52,7 @@ IC static void CScriptActionPlanner_Export(lua_State* luaState)
 #endif // LOG_ACTION
 
                       ,
-        def("cast_planner", &cast_planner)];
+        def("cast_planner", &cast_planner)];*/
 }
 
 SCRIPT_EXPORT_FUNC(CScriptActionPlanner, (), CScriptActionPlanner_Export);

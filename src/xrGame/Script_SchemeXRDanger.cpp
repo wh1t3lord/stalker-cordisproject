@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include "Script_SchemeXRDanger.h"
+#include "action_planner.h"
 
 namespace Cordis
 {

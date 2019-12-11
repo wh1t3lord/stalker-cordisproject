@@ -5,6 +5,7 @@
 #include "Script_XR_Gulag.h"
 #include "Script_GlobalHelper.h"
 #include "Script_LogicManager.h"
+#include "Script_GlobalDefinitions.h"
 
 namespace Cordis
 {
@@ -47,10 +48,6 @@ inline void enable_generic_schemes(CScriptIniFile* const p_ini, CScriptGameObjec
         return;
     }
 }
-
-
-
-
 
 inline CScriptIniFile get_customdata_or_ini_file(CScriptGameObject* npc, const xr_string& filename)
 {
@@ -2549,6 +2546,15 @@ inline bool switch_to_section(
     activate_by_section(p_client_object, p_ini, section_name,
         DataBase::Storage::getInstance().getStorage().at(npc_id).getGulagName(), false);
     return true;
+}
+
+inline bool is_active(CScriptGameObject* const p_client_object, DataBase::Storage_Scheme& storage)
+{
+    if (storage.getLogicName().empty())
+    {
+        R_ASSERT2(false, "it can't be!");
+    }
+    return (storage.getLogicName() == DataBase::Storage::getInstance().getStorage().at(p_client_object->ID()).getActiveSectionName());
 }
 
 inline void reset_generic_schemes_on_scheme_switch(

@@ -27,6 +27,11 @@ public:
         Msg("[Scripts/Script_ISchemeEntity/reset_scheme(value, p_client_object)] WARNING: NOT OVERLOADED FUNCTION!");
     }
 
+    virtual void activate_scheme(const bool is_loading, CScriptGameObject* const p_client_object) 
+    { 
+        Msg("[Scripts/Script_ISchemeEntity/activate_scheme(is_loading, p_client_object)] WARNING: NOT OVERLOADED FUNCTION!");
+    }
+
     virtual void update(const float delta)
     {
         Msg("[Scripts/Script_ISchemeEntity/update(delta)] WARNING: NOT OVERLOADED FUNCTION!");
