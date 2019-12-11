@@ -76,6 +76,7 @@ struct JobDataSmartTerrain
 
 class Script_SE_SmartTerrain;
 class Script_SchemeXRAbuse;
+class Script_StateManager;
 
 namespace DataBase
 {
@@ -93,6 +94,13 @@ inline static xr_string& getLtx(void) noexcept
 }
 } // namespace GulagGenerator
 
+namespace XR_REMARK
+{
+constexpr std::uint32_t kStateInitial = 0;
+constexpr std::uint32_t kStateAnimation = 1;
+constexpr std::uint32_t kStateSound = 2;
+}
+
 namespace XR_DANGER
 {
 constexpr float kDangerIgnoreDistance = 150.0f;
@@ -107,7 +115,8 @@ namespace XR_LOGIC
 inline void parse_infopotions(xr_map<std::uint32_t, CondlistData::CondlistValues>& data, xr_string& buffer);
 inline bool switch_to_section(
     CScriptGameObject* const p_client_object, CScriptIniFile* const p_ini, const xr_string& section_name);
-/*
+inline bool is_active(CScriptGameObject* const p_client_object, DataBase::Storage_Scheme& storage);
+    /*
 inline void activate_by_section(CScriptGameObject* const p_client_object, CScriptIniFile* const p_ini,
     const xr_string& section_name, const xr_string& gulag_name, const bool is_loading);*/
 inline void reset_generic_schemes_on_scheme_switch(
@@ -513,6 +522,9 @@ constexpr const char* kSystemLtxFileName =
     "system.ltx"; // For CScriptIniFile (Don't use Globals::get_system_ini()->fname() for initialization ctor of
                   // CScriptIniFile)
 constexpr std::uint32_t kTimeInfinite = 100000000;
+constexpr std::uint32_t kStateManagerAnimationMarkerIn = 1;
+constexpr std::uint32_t kStateManagerAnimationMarkerOut = 2;
+constexpr std::uint32_t kStateManagerAnimationMarkerIdle = 3;
 #pragma region Cordis Animpoint prediction functions
 inline bool predicate_const_true(std::uint16_t, bool);
 inline bool predicate_animpoint_bread(std::uint16_t npc_id, bool);

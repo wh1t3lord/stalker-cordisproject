@@ -4287,6 +4287,12 @@ private:
         this->m_xr_danger_ignore_distance_by_danger_type[CDangerObject::eDangerTypeEntityDeath] = 4.0f;
         this->m_xr_danger_ignore_distance_by_danger_type[CDangerObject::eDangerTypeBulletRicochet] = 2.0f;
 #pragma endregion
+
+#pragma region Cordis State Manager Initialzing
+        this->m_look_direction_states["threat_na"] = true;
+        this->m_look_direction_states["wait_na"] = true;
+        this->m_look_direction_states["guard_na"] = true;
+#pragma endregion
     }
 
 public:
@@ -5562,15 +5568,20 @@ public:
 
         return 0.0f;
     }
+
+    inline const xr_map<xr_string, bool>& getLookDirectionStates(void) const noexcept
+    {
+        return this->m_look_direction_states;
+    }
 #pragma endregion
 
-private:
-    CUISequencer* m_tutorial;
+        private : CUISequencer* m_tutorial;
     xr_map<int, bool> m_monster_classes;
     xr_map<int, bool> m_stalker_classes;
     xr_map<int, bool> m_weapon_classes;
     xr_map<int, bool> m_artefact_classes;
     xr_map<std::uint32_t, bool> m_ammo_section;
+    xr_map<xr_string, bool> m_look_direction_states;
     xr_map<xr_string, bool> m_registered_eatable_visuals;
     xr_map<xr_string, bool> m_registered_harmonica_visuals;
     xr_map<xr_string, bool> m_quest_section;

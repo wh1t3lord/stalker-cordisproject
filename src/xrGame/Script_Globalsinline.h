@@ -2325,6 +2325,203 @@ inline CScriptActionPlanner* get_script_action_planner(CScriptGameObject* obj)
     return (obj->action_planner<CScriptActionPlanner>());
 }
 
+inline CScriptActionPlanner* cast_planner(CScriptActionBase* action)
+{
+    return (smart_cast<CScriptActionPlanner*>(action));
+}
+
+inline bool is_strappable_weapon(CScriptGameObject* const p_client_object)
+{
+    if (!p_client_object)
+    {
+        R_ASSERT2(false, "object is null!");
+        return false;
+    }
+
+    xr_string section_name = p_client_object->Section();
+    return get_system_ini()->line_exist(section_name.c_str(), "strap_bone0");
+}
+
+inline bool is_look_object_type(CScriptGameObject* const p_client_object, Script_StateManager* const p_state_manager)
+{
+    if (!p_state_manager)
+    {
+        R_ASSERT2(false, "it can't be!");
+        return false;
+    }
+
+    if (!p_client_object)
+    {
+        R_ASSERT2(false, "it can't be");
+        return false;
+    }
+
+    if (Script_GlobalHelper::getInstance().getLookDirectionStates().find(p_state_manager->getTargetStateName()) !=
+        Script_GlobalHelper::getInstance().getLookDirectionStates().end())
+        if (Script_GlobalHelper::getInstance().getLookDirectionStates().at(p_state_manager->getTargetStateName()))
+            return true;
+
+    return !(Script_GlobalHelper::getInstance()
+                 .getStateLibrary()
+                 .at(p_state_manager->getTargetStateName())
+                 .getAnimationName()
+                 .empty());
+}
+
+inline void look_at_object(CScriptGameObject* const p_client_object, Script_StateManager* const p_state_manager)
+{
+    if (!p_client_object)
+    {
+        R_ASSERT2(false, "it can'be!");
+        return;
+    }
+
+    if (!p_state_manager)
+    {
+        R_ASSERT2(false, "it can't be!");
+        return;
+    }
+
+    p_state_manager->setPointObjectDirection(is_look_object_type(p_client_object, p_state_manager));
+
+    if (p_state_manager->isPointObjectDirection())
+    {
+        p_client_object->set_sight(
+            Game::level::get_object_by_id(p_state_manager->getLookObject()->ID()), true, false, false);
+    }
+    else
+    {
+        p_client_object->set_sight(Game::level::get_object_by_id(p_state_manager->getLookObject()->ID()), true, true);
+    }
+}
+
+inline std::uint32_t look_position_type(
+    CScriptGameObject* const p_client_object, Script_StateManager* const p_state_manager)
+{
+    if (!p_client_object)
+    {
+        R_ASSERT2(false, "it can't be!");
+        return 0;
+    }
+
+    if (!p_state_manager)
+    {
+        Msg("[Scripts/Globals/look_position_type(p_client_object, p_state_manager)] wARNING: p_state_manager == "
+            "nullptr! Return ...");
+        return SightManager::eSightTypePathDirection;
+    }
+
+    if (Script_GlobalHelper::getInstance()
+            .getStateLibrary()
+            .at(p_state_manager->getTargetStateName())
+            .getDirectionType())
+    {
+        return Script_GlobalHelper::getInstance()
+            .getStateLibrary()
+            .at(p_state_manager->getTargetStateName())
+            .getDirectionType();
+    }
+
+    if (!p_state_manager->getActionPlanner()
+             ->evaluator(p_state_manager->getProperties().at("movement_stand"))
+             .evaluate())
+    {
+        if (is_vector_nil(p_state_manager->getLookPosition()))
+            return SightManager::eSightTypeDirection;
+
+        return SightManager::eSightTypePathDirection;
+    }
+
+    if (is_vector_nil(p_state_manager->getLookPosition()))
+        return SightManager::eSightTypeDirection;
+
+    return SightManager::eSightTypeCover;
+}
+
+inline void turn(CScriptGameObject* const p_client_object, Script_StateManager* const p_state_manager)
+{
+    if (!p_client_object)
+    {
+        R_ASSERT2(false, "it can't be!");
+        return;
+    }
+
+    if (!p_state_manager)
+    {
+        R_ASSERT2(false, "it can't be!");
+        return;
+    }
+
+    p_state_manager->setPointObjectDirection(is_look_object_type(p_client_object, p_state_manager));
+
+    if (is_vector_nil(p_state_manager->getLookPosition()) &&
+        Game::level::get_object_by_id(p_state_manager->getLookObject()->ID()))
+    {
+        look_at_object(p_client_object, p_state_manager);
+    }
+    else if (is_vector_nil(p_state_manager->getLookPosition()))
+    {
+        Fvector direction = Fvector().sub(p_state_manager->getLookPosition(), p_client_object->Position());
+
+        if (p_state_manager->isPointObjectDirection())
+            direction.y = 0.0f;
+
+        direction.normalize();
+
+        if (is_vector_nil(direction))
+        {
+            Msg("[Scripts/Globals/turn(p_client_object, p_state_manager)] WARNING: You are trying to set a wrong "
+                "direction!");
+            p_state_manager->setLookPosition(
+                Fvector().set((p_client_object->Position().x + p_client_object->Direction().x),
+                    (p_client_object->Position().y + p_client_object->Direction().y),
+                    (p_client_object->Position().z + p_client_object->Direction().z)));
+            direction = p_client_object->Direction();
+        }
+
+        p_client_object->set_sight(SightManager::eSightTypeDirection, direction, true);
+    }
+}
+
+inline std::uint32_t get_idle_state(const xr_string& target_state_name)
+{
+    if (target_state_name.empty())
+        return MonsterSpace::eObjectActionIdle;
+
+    const StateLibData& data = Script_GlobalHelper::getInstance().getStateLibrary().at(target_state_name);
+
+    if (data.getMentalType() == eMentalStateDanger && data.getMovementType() == eMovementTypeStand &&
+        data.getAnimationName().empty())
+    {
+        return MonsterSpace::eObjectActionAim1;
+    }
+
+    return MonsterSpace::eObjectActionIdle;
+}
+
+inline CScriptGameObject* const get_weapon(CScriptGameObject* const p_client_object, const xr_string& target_state_name)
+{
+    if (target_state_name.empty())
+    {
+        R_ASSERT2(false, "string is empty not right!");
+        return nullptr;
+    }
+
+    if (!p_client_object)
+    {
+        R_ASSERT2(false, "object is null!");
+        return nullptr;
+    }
+
+    const std::uint16_t item_slot_id =
+        Script_GlobalHelper::getInstance().getStateLibrary().at(target_state_name).getWeaponSlot();
+
+    if (!item_slot_id)
+        return p_client_object->best_weapon();
+    else
+        return p_client_object->item_in_slot(item_slot_id);
+}
+
 } // namespace Globals
 } // namespace Scripts
 } // namespace Cordis

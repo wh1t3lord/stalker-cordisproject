@@ -11,6 +11,7 @@
 
 using namespace luabind;
 
+/*
 class_<CScriptGameObject>& script_register_game_object_trader(class_<CScriptGameObject>& instance)
 {
     instance.def("set_trader_global_anim", &CScriptGameObject::set_trader_global_anim)
@@ -20,3 +21,4 @@ class_<CScriptGameObject>& script_register_game_object_trader(class_<CScriptGame
         .def("external_sound_stop", &CScriptGameObject::external_sound_stop);
     return (instance);
 }
+*/

@@ -307,7 +307,18 @@ public:
     void external_sound_stop();
 
     template <typename T>
-    IC T* action_planner();
+    inline T* action_planner()
+    {
+        CAI_Stalker* manager = smart_cast<CAI_Stalker*>(&object());
+        if (!manager)
+        {
+            //         GEnv.ScriptEngine->script_log(
+            //             LuaMessageType::Error, "CAI_Stalker : cannot access class member action_planner!");
+            R_ASSERT2(false, "CAI_Stalker : cannot access class member action_planner!");
+            return (0);
+        }
+        return (&manager->brain());
+    }
 
     // CProjector
     Fvector GetCurrentDirection();

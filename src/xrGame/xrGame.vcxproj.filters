@@ -4123,6 +4123,39 @@
     <Filter Include="Cordis\Scripts\XR\Condition\Public">
       <UniqueIdentifier>{151edb37-9a51-4997-95bd-b68d2189893b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Cordis\Scripts\Logic\Schemes\XR\Remark">
+      <UniqueIdentifier>{dd8b86d3-a09d-4bb5-bc25-8ddc1697bf89}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Logic\Schemes\XR\Remark\Public">
+      <UniqueIdentifier>{d5cb2edb-0198-4914-8792-208a50e73bf4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Logic\Schemes\XR\Remark\Private">
+      <UniqueIdentifier>{27a49871-b13f-4d1b-af39-c144b2cdce25}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Managers\State">
+      <UniqueIdentifier>{13ab16b3-2632-4ef4-9d77-984543c1d8da}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Managers\State\Mob">
+      <UniqueIdentifier>{b6800db4-d976-418a-8d1e-372fe7110a99}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Managers\State\Public">
+      <UniqueIdentifier>{de633333-1350-4b1d-979e-ea67bf861ae8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Managers\State\Private">
+      <UniqueIdentifier>{7bceb726-57ed-4c5c-9aae-fb17aedec9f0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Managers\State\Evaluators">
+      <UniqueIdentifier>{42039de2-1040-4784-bde4-85ad63bd6276}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Managers\State\Evaluators\Public">
+      <UniqueIdentifier>{c0aacbec-c258-4008-8230-07bdd44f1b1b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Managers\State\Actions">
+      <UniqueIdentifier>{d9ecd375-f792-4c5e-9059-f0a7289e0278}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Managers\State\Actions\Public">
+      <UniqueIdentifier>{eb978bf1-7c94-4cdf-a6a2-973735fadc7e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="mt_config.h">
@@ -9452,6 +9485,18 @@
     <ClInclude Include="Script_XR_Condition.h">
       <Filter>Cordis\Scripts\XR\Condition\Public</Filter>
     </ClInclude>
+    <ClInclude Include="Script_SchemeXRRemark.h">
+      <Filter>Cordis\Scripts\Logic\Schemes\XR\Remark\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Script_StateManager.h">
+      <Filter>Cordis\Scripts\Managers\State\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Script_StateEvaluators.h">
+      <Filter>Cordis\Scripts\Managers\State\Evaluators\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Script_StateActions.h">
+      <Filter>Cordis\Scripts\Managers\State\Actions\Public</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="damage_manager.cpp">
@@ -13850,6 +13895,12 @@
     </ClCompile>
     <ClCompile Include="Script_SchemeXRDanger.cpp">
       <Filter>Cordis\Scripts\Logic\Schemes\XR\Danger\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Script_SchemeXRRemark.cpp">
+      <Filter>Cordis\Scripts\Logic\Schemes\XR\Remark\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Script_StateManager.cpp">
+      <Filter>Cordis\Scripts\Managers\State\Private</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
