@@ -77,7 +77,7 @@ private:
     CScriptActionPlanner* m_p_action_planner;
 };
 
-class Script_EvaluatorStateManagerIdleAlife : CScriptPropertyEvaluator
+class Script_EvaluatorStateManagerIdleAlife : public CScriptPropertyEvaluator
 {
 public:
     Script_EvaluatorStateManagerIdleAlife(const xr_string& evaluator_name, Script_StateManager* p_state_manager)
@@ -365,6 +365,27 @@ private:
     Script_StateManager* m_p_state_manager;
 };
 
+class Script_EvaluatorStateManagerAnimationNoneNow : public CScriptPropertyEvaluator
+{
+public:
+    Script_EvaluatorStateManagerAnimationNoneNow(
+        const xr_string& evaluator_name, Script_StateManager* const p_state_manager)
+        : CScriptPropertyEvaluator(nullptr, evaluator_name.c_str()), m_p_state_manager(p_state_manager)
+    {
+    }
+
+    ~Script_EvaluatorStateManagerAnimationNoneNow(void) {}
+
+    virtual _value_type evaluate(void)
+    {
+        // Lord: доделать когда сделаешь state_mgr_animation.animation
+        return false;
+    }
+
+private:
+    Script_StateManager* m_p_state_manager;
+};
+
 class Script_EvaluatorStateManagerNoneNow : public CScriptPropertyEvaluator
 {
 public:
@@ -385,7 +406,7 @@ private:
     Script_StateManager* m_p_state_manager;
 };
 
-class Script_EvaluatorStateManagerAnimationLocked : CScriptPropertyEvaluator
+class Script_EvaluatorStateManagerAnimationLocked : public CScriptPropertyEvaluator
 {
 public:
     Script_EvaluatorStateManagerAnimationLocked(
@@ -447,7 +468,7 @@ private:
     Script_StateManager* m_p_state_manager;
 };
 
-class Script_EvaluatorStateManagerAnimationStateIdleNow : CScriptPropertyEvaluator
+class Script_EvaluatorStateManagerAnimationStateIdleNow : public CScriptPropertyEvaluator
 {
 public:
     Script_EvaluatorStateManagerAnimationStateIdleNow(
@@ -468,7 +489,27 @@ private:
     Script_StateManager* m_p_state_manager;
 };
 
-class Script_EvaluatorStateManagerBodyState : CScriptPropertyEvaluator
+class Script_EvaluatorStateManagerAnimationStateLocked : public CScriptPropertyEvaluator
+{
+public:
+    Script_EvaluatorStateManagerAnimationStateLocked(
+        const xr_string& evaluator_name, Script_StateManager* const p_state_manager)
+        : CScriptPropertyEvaluator(nullptr, evaluator_name.c_str()), m_p_state_manager(p_state_manager)
+    {
+    }
+    ~Script_EvaluatorStateManagerAnimationStateLocked(void) {}
+
+    virtual _value_type evaluate(void)
+    {
+        // Lord: реализовать когда будет state_manager_animastate
+        return false;
+    }
+
+private:
+    Script_StateManager* m_p_state_manager;
+};
+
+class Script_EvaluatorStateManagerBodyState : public CScriptPropertyEvaluator
 {
 public:
     Script_EvaluatorStateManagerBodyState(const xr_string& evaluator_name, Script_StateManager* const p_state_manager)
@@ -492,7 +533,7 @@ private:
     Script_StateManager* m_p_state_manager;
 };
 
-class Script_EvaluatorStateManagerBodyStateCrouch : CScriptPropertyEvaluator
+class Script_EvaluatorStateManagerBodyStateCrouch : public CScriptPropertyEvaluator
 {
 public:
     Script_EvaluatorStateManagerBodyStateCrouch(
@@ -534,7 +575,7 @@ private:
     Script_StateManager* m_p_state_manager;
 };
 
-class Script_EvaluatorStateManagerBodyStateCrouchNow : CScriptPropertyEvaluator
+class Script_EvaluatorStateManagerBodyStateCrouchNow : public CScriptPropertyEvaluator
 {
 public:
     Script_EvaluatorStateManagerBodyStateCrouchNow(
@@ -549,7 +590,7 @@ private:
     Script_StateManager* m_p_state_manager;
 };
 
-class Script_EvaluatorStateManagerBodyStateStandingNow : CScriptPropertyEvaluator
+class Script_EvaluatorStateManagerBodyStateStandingNow : public CScriptPropertyEvaluator
 {
 public:
     Script_EvaluatorStateManagerBodyStateStandingNow(
@@ -564,7 +605,7 @@ private:
     Script_StateManager* m_p_state_manager;
 };
 
-class Script_EvaluatorStateManagerDirection : CScriptPropertyEvaluator
+class Script_EvaluatorStateManagerDirection : public CScriptPropertyEvaluator
 {
 public:
     Script_EvaluatorStateManagerDirection(const xr_string& evaluator_name, Script_StateManager* const p_state_manager)
@@ -583,7 +624,7 @@ private:
     Script_StateManager* m_p_state_manager;
 };
 
-class Script_EvaluatorStateManagerDirectionSearch : CScriptPropertyEvaluator
+class Script_EvaluatorStateManagerDirectionSearch : public CScriptPropertyEvaluator
 {
 public:
     Script_EvaluatorStateManagerDirectionSearch(
@@ -604,7 +645,7 @@ private:
 };
 
 #pragma region Cordis Evaluator State Manager about Mental states
-class Script_EvaluatorStateManagerMental : CScriptPropertyEvaluator
+class Script_EvaluatorStateManagerMental : public CScriptPropertyEvaluator
 {
 public:
     Script_EvaluatorStateManagerMental(const xr_string& evaluator_name, Script_StateManager* const p_state_manager)
@@ -629,7 +670,7 @@ private:
     Script_StateManager* m_p_state_manager;
 };
 
-class Script_EvaluatorStateManagerMentalFree : CScriptPropertyEvaluator
+class Script_EvaluatorStateManagerMentalFree : public CScriptPropertyEvaluator
 {
 public:
     Script_EvaluatorStateManagerMentalFree(const xr_string& evaluator_name, Script_StateManager* const p_state_manager)
@@ -650,7 +691,7 @@ private:
     Script_StateManager* m_p_state_manager;
 };
 
-class Script_EvaluatorStateManagerMentalFreeNow : CScriptPropertyEvaluator
+class Script_EvaluatorStateManagerMentalFreeNow : public CScriptPropertyEvaluator
 {
 public:
     Script_EvaluatorStateManagerMentalFreeNow(
@@ -669,7 +710,7 @@ private:
     Script_StateManager* m_p_state_manager;
 };
 
-class Script_EvaluatorStateManagerMentalDanger : CScriptPropertyEvaluator
+class Script_EvaluatorStateManagerMentalDanger : public CScriptPropertyEvaluator
 {
 public:
     Script_EvaluatorStateManagerMentalDanger(
@@ -691,7 +732,7 @@ private:
     Script_StateManager* m_p_state_manager;
 };
 
-class Script_EvaluatorStateManagerMentalDangerNow : CScriptPropertyEvaluator
+class Script_EvaluatorStateManagerMentalDangerNow : public CScriptPropertyEvaluator
 {
 public:
     Script_EvaluatorStateManagerMentalDangerNow(
@@ -710,7 +751,7 @@ private:
     Script_StateManager* m_p_state_manager;
 };
 
-class Script_EvaluatorStateManagerMentalPanic : CScriptPropertyEvaluator
+class Script_EvaluatorStateManagerMentalPanic : public CScriptPropertyEvaluator
 {
 public:
     Script_EvaluatorStateManagerMentalPanic(const xr_string& evaluator_name, Script_StateManager* const p_state_manager)
@@ -731,7 +772,7 @@ private:
     Script_StateManager* m_p_state_manager;
 };
 
-class Script_EvaluatorStateManagerMentalPanicNow : CScriptPropertyEvaluator
+class Script_EvaluatorStateManagerMentalPanicNow : public CScriptPropertyEvaluator
 {
 public:
     Script_EvaluatorStateManagerMentalPanicNow(
@@ -752,7 +793,7 @@ private:
 #pragma endregion
 
 #pragma region Cordis Evaluator State Manager about Movement
-class Script_EvaluatorStateManagerMovement : CScriptPropertyEvaluator
+class Script_EvaluatorStateManagerMovement : public CScriptPropertyEvaluator
 {
 public:
     Script_EvaluatorStateManagerMovement(const xr_string& evaluator_name, Script_StateManager* const p_state_manager)
@@ -777,7 +818,7 @@ private:
     Script_StateManager* m_p_state_manager;
 };
 
-class Script_EvaluatorStateManagerMovementWalk : CScriptPropertyEvaluator
+class Script_EvaluatorStateManagerMovementWalk : public CScriptPropertyEvaluator
 {
 public:
     Script_EvaluatorStateManagerMovementWalk(
@@ -799,7 +840,7 @@ private:
     Script_StateManager* m_p_state_manager;
 };
 
-class Script_EvaluatorStateManagerMovementRun : CScriptPropertyEvaluator
+class Script_EvaluatorStateManagerMovementRun : public CScriptPropertyEvaluator
 {
 public:
     Script_EvaluatorStateManagerMovementRun(const xr_string& evaluator_name, Script_StateManager* const p_state_manager)
@@ -820,7 +861,7 @@ private:
     Script_StateManager* m_p_state_manager;
 };
 
-class Script_EvaluatorStateManagerMovementStand : CScriptPropertyEvaluator
+class Script_EvaluatorStateManagerMovementStand : public CScriptPropertyEvaluator
 {
 public:
     Script_EvaluatorStateManagerMovementStand(
@@ -842,7 +883,7 @@ private:
     Script_StateManager* m_p_state_manager;
 };
 
-class Script_EvaluatorStateManagerMovementStandNow : CScriptPropertyEvaluator
+class Script_EvaluatorStateManagerMovementStandNow : public CScriptPropertyEvaluator
 {
 public:
     Script_EvaluatorStateManagerMovementStandNow(
@@ -863,7 +904,7 @@ private:
 #pragma endregion
 
 #pragma region Cordis Evaluator State Manager about smart covers
-class Script_EvaluatorStateManagerSmartCover : CScriptPropertyEvaluator
+class Script_EvaluatorStateManagerSmartCover : public CScriptPropertyEvaluator
 {
 public:
     Script_EvaluatorStateManagerSmartCover(const xr_string& evaluator_name, Script_StateManager* const p_state_manager)
@@ -872,16 +913,13 @@ public:
     }
     ~Script_EvaluatorStateManagerSmartCover(void) {}
 
-    virtual _value_type evaluate(void)
-    {
-        return true;
-    }
+    virtual _value_type evaluate(void) { return true; }
 
 private:
     Script_StateManager* m_p_state_manager;
 };
 
-class Script_EvaluatorStateManagerSmartCoverNeed : CScriptPropertyEvaluator
+class Script_EvaluatorStateManagerSmartCoverNeed : public CScriptPropertyEvaluator
 {
 public:
     Script_EvaluatorStateManagerSmartCoverNeed(
@@ -891,16 +929,29 @@ public:
     }
     ~Script_EvaluatorStateManagerSmartCoverNeed(void) {}
 
-    virtual _value_type evaluate(void)
-    {
-        return false;
-    }
+    virtual _value_type evaluate(void) { return false; }
 
 private:
     Script_StateManager* m_p_state_manager;
 };
 
-class Script_EvaluatorStateManagerSmartCoverLocked : CScriptPropertyEvaluator
+class Script_EvaluatorStateManagerInSmartCover : public CScriptPropertyEvaluator
+{
+public:
+    Script_EvaluatorStateManagerInSmartCover(
+        const xr_string& evaluator_name, Script_StateManager* const p_state_manager)
+        : CScriptPropertyEvaluator(nullptr, evaluator_name.c_str()), m_p_state_manager(p_state_manager)
+    {
+    }
+    ~Script_EvaluatorStateManagerInSmartCover(void) {}
+
+    virtual _value_type evaluate(void) { return this->m_object->in_smart_cover(); }
+
+private:
+    Script_StateManager* m_p_state_manager;
+};
+
+class Script_EvaluatorStateManagerSmartCoverLocked : public CScriptPropertyEvaluator
 {
 public:
     Script_EvaluatorStateManagerSmartCoverLocked(
@@ -910,16 +961,13 @@ public:
     }
     ~Script_EvaluatorStateManagerSmartCoverLocked(void) {}
 
-    virtual _value_type evaluate(void)
-    {
-        return false;
-    }
+    virtual _value_type evaluate(void) { return false; }
 
 private:
     Script_StateManager* m_p_state_manager;
 };
 
-class Script_EvaluatorStateManagerSmartCoverIn : CScriptPropertyEvaluator
+class Script_EvaluatorStateManagerSmartCoverIn : public CScriptPropertyEvaluator
 {
 public:
     Script_EvaluatorStateManagerSmartCoverIn(
@@ -929,10 +977,7 @@ public:
     }
     ~Script_EvaluatorStateManagerSmartCoverIn(void) {}
 
-    virtual _value_type evaluate(void)
-    {
-        return this->m_object->in_smart_cover();
-    }
+    virtual _value_type evaluate(void) { return this->m_object->in_smart_cover(); }
 
 private:
     Script_StateManager* m_p_state_manager;
@@ -940,7 +985,7 @@ private:
 #pragma endregion
 
 #pragma region Cordis Evaluator State Manager about Weapon
-class Script_EvaluatorStateManagerWeapon : CScriptPropertyEvaluator
+class Script_EvaluatorStateManagerWeapon : public CScriptPropertyEvaluator
 {
 public:
     Script_EvaluatorStateManagerWeapon(const xr_string& evaluator_name, Script_StateManager* const p_state_manager)
@@ -964,10 +1009,10 @@ public:
         CScriptGameObject* const p_client_best_weapon = this->m_object->best_weapon();
         CScriptGameObject* const p_client_active_item = this->m_object->GetActiveItem();
 
-        if ((state_weapon_name == "strapped") && (
-            ((Globals::is_strappable_weapon(p_client_best_weapon)) && this->m_object->weapon_strapped() && this->m_object->is_weapon_going_to_be_strapped(p_client_best_weapon)) 
-                        || (!Globals::is_strappable_weapon(p_client_best_weapon) && !p_client_active_item))
-            )
+        if ((state_weapon_name == "strapped") &&
+            (((Globals::is_strappable_weapon(p_client_best_weapon)) && this->m_object->weapon_strapped() &&
+                 this->m_object->is_weapon_going_to_be_strapped(p_client_best_weapon)) ||
+                (!Globals::is_strappable_weapon(p_client_best_weapon) && !p_client_active_item)))
             return true;
 
         if ((state_weapon_name == "unstrapped" || state_weapon_name == "fire" || state_weapon_name == "sniper_fire") &&
@@ -990,7 +1035,7 @@ private:
     Script_StateManager* m_p_state_manager;
 };
 
-class Script_EvaluatorStateManagerWeaponLocked : CScriptPropertyEvaluator
+class Script_EvaluatorStateManagerWeaponLocked : public CScriptPropertyEvaluator
 {
 public:
     Script_EvaluatorStateManagerWeaponLocked(
@@ -1027,7 +1072,7 @@ private:
     Script_StateManager* m_p_state_manager;
 };
 
-class Script_EvaluatorStateManagerWeaponStrapped : CScriptPropertyEvaluator
+class Script_EvaluatorStateManagerWeaponStrapped : public CScriptPropertyEvaluator
 {
 public:
     Script_EvaluatorStateManagerWeaponStrapped(
@@ -1039,14 +1084,17 @@ public:
 
     virtual _value_type evaluate(void)
     {
-        return Script_GlobalHelper::getInstance().getStateLibrary().at(this->m_p_state_manager->getTargetStateName()).getWeaponTypeName() == "strapped";
+        return Script_GlobalHelper::getInstance()
+                   .getStateLibrary()
+                   .at(this->m_p_state_manager->getTargetStateName())
+                   .getWeaponTypeName() == "strapped";
     }
 
 private:
     Script_StateManager* m_p_state_manager;
 };
 
-class Script_EvaluatorStateManagerWeaponStrappedNow : CScriptPropertyEvaluator
+class Script_EvaluatorStateManagerWeaponStrappedNow : public CScriptPropertyEvaluator
 {
 public:
     Script_EvaluatorStateManagerWeaponStrappedNow(
@@ -1065,14 +1113,15 @@ public:
 
         CScriptGameObject* const p_client_active_item = this->m_object->GetActiveItem();
 
-        return (!Globals::is_strappable_weapon(p_client_best_weapon) && !p_client_active_item) || (this->m_object->is_weapon_going_to_be_strapped(p_client_best_weapon) && this->m_object->weapon_strapped());
+        return (!Globals::is_strappable_weapon(p_client_best_weapon) && !p_client_active_item) ||
+            (this->m_object->is_weapon_going_to_be_strapped(p_client_best_weapon) && this->m_object->weapon_strapped());
     }
 
 private:
     Script_StateManager* m_p_state_manager;
 };
 
-class Script_EvaluatorStateManagerWeaponUnstrapped : CScriptPropertyEvaluator
+class Script_EvaluatorStateManagerWeaponUnstrapped : public CScriptPropertyEvaluator
 {
 public:
     Script_EvaluatorStateManagerWeaponUnstrapped(
@@ -1102,7 +1151,7 @@ private:
     Script_StateManager* m_p_state_manager;
 };
 
-class Script_EvaluatorStateManagerWeaponUnstrappedNow : CScriptPropertyEvaluator
+class Script_EvaluatorStateManagerWeaponUnstrappedNow : public CScriptPropertyEvaluator
 {
 public:
     Script_EvaluatorStateManagerWeaponUnstrappedNow(
@@ -1117,14 +1166,17 @@ public:
         CScriptGameObject* const p_client_active_item = this->m_object->GetActiveItem();
         CScriptGameObject* const p_client_best_weapon = this->m_object->best_weapon();
 
-        return (p_client_best_weapon) && (p_client_active_item) && (p_client_active_item->ID() == p_client_best_weapon->ID()) && (!this->m_object->is_weapon_going_to_be_strapped(p_client_best_weapon) && this->m_object->weapon_unstrapped());
+        return (p_client_best_weapon) && (p_client_active_item) &&
+            (p_client_active_item->ID() == p_client_best_weapon->ID()) &&
+            (!this->m_object->is_weapon_going_to_be_strapped(p_client_best_weapon) &&
+                this->m_object->weapon_unstrapped());
     }
 
 private:
     Script_StateManager* m_p_state_manager;
 };
 
-class Script_EvaluatorStateManagerWeaponNone : CScriptPropertyEvaluator
+class Script_EvaluatorStateManagerWeaponNone : public CScriptPropertyEvaluator
 {
 public:
     Script_EvaluatorStateManagerWeaponNone(const xr_string& evaluator_name, Script_StateManager* const p_state_manager)
@@ -1135,14 +1187,17 @@ public:
 
     virtual _value_type evaluate(void)
     {
-        return (Script_GlobalHelper::getInstance().getStateLibrary().at(this->m_p_state_manager->getTargetStateName()).getWeaponTypeName() == "none");
+        return (Script_GlobalHelper::getInstance()
+                    .getStateLibrary()
+                    .at(this->m_p_state_manager->getTargetStateName())
+                    .getWeaponTypeName() == "none");
     }
 
 private:
     Script_StateManager* m_p_state_manager;
 };
 
-class Script_EvaluatorStateManagerWeaponNoneNow : CScriptPropertyEvaluator
+class Script_EvaluatorStateManagerWeaponNoneNow : public CScriptPropertyEvaluator
 {
 public:
     Script_EvaluatorStateManagerWeaponNoneNow(
@@ -1152,16 +1207,13 @@ public:
     }
     ~Script_EvaluatorStateManagerWeaponNoneNow(void) {}
 
-    virtual _value_type evaluate(void)
-    {
-        return !(this->m_object->GetActiveItem());
-    }
+    virtual _value_type evaluate(void) { return !(this->m_object->GetActiveItem()); }
 
 private:
     Script_StateManager* m_p_state_manager;
 };
 
-class Script_EvaluatorStateManagerWeaponDrop : CScriptPropertyEvaluator
+class Script_EvaluatorStateManagerWeaponDrop : public CScriptPropertyEvaluator
 {
 public:
     Script_EvaluatorStateManagerWeaponDrop(const xr_string& evaluator_name, Script_StateManager* const p_state_manager)
@@ -1172,14 +1224,17 @@ public:
 
     virtual _value_type evaluate(void)
     {
-        return (Script_GlobalHelper::getInstance().getStateLibrary().at(this->m_p_state_manager->getTargetStateName()).getWeaponTypeName() == "drop");
+        return (Script_GlobalHelper::getInstance()
+                    .getStateLibrary()
+                    .at(this->m_p_state_manager->getTargetStateName())
+                    .getWeaponTypeName() == "drop");
     }
 
 private:
     Script_StateManager* m_p_state_manager;
 };
 
-class Script_EvaluatorStateManagerWeaponFire : CScriptPropertyEvaluator
+class Script_EvaluatorStateManagerWeaponFire : public CScriptPropertyEvaluator
 {
 public:
     Script_EvaluatorStateManagerWeaponFire(const xr_string& evaluator_name, Script_StateManager* const p_state_manager)
@@ -1190,7 +1245,14 @@ public:
 
     virtual _value_type evaluate(void)
     {
-        return (Script_GlobalHelper::getInstance().getStateLibrary().at(this->m_p_state_manager->getTargetStateName()).getWeaponTypeName() == "fire") || (Script_GlobalHelper::getInstance().getStateLibrary().at(this->m_p_state_manager->getTargetStateName()).getWeaponTypeName() == "sniper_fire");
+        return (Script_GlobalHelper::getInstance()
+                       .getStateLibrary()
+                       .at(this->m_p_state_manager->getTargetStateName())
+                       .getWeaponTypeName() == "fire") ||
+            (Script_GlobalHelper::getInstance()
+                    .getStateLibrary()
+                    .at(this->m_p_state_manager->getTargetStateName())
+                    .getWeaponTypeName() == "sniper_fire");
     }
 
 private:

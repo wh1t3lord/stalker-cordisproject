@@ -7,6 +7,7 @@ namespace Scripts
 /*
 class Script_ActionStateManager : public CScriptActionBase
 {
+public:
     Script_ActionStateManager(const xr_string& action_name, Script_StateManager* const p_state_manager)
         : CScriptActionBase(nullptr, action_name.c_str()), m_p_state_manager(p_state_manager)
     {
@@ -28,6 +29,7 @@ private:
 #pragma region Cordis State Manager Actions about state manager
 class Script_ActionStateManagerEnd : public CScriptActionBase
 {
+public:
     Script_ActionStateManagerEnd(const xr_string& action_name, Script_StateManager* const p_state_manager)
         : CScriptActionBase(nullptr, action_name.c_str()), m_p_state_manager(p_state_manager)
     {
@@ -45,6 +47,7 @@ private:
 
 class Script_ActionStateManagerLocked : public CScriptActionBase
 {
+public:
     Script_ActionStateManagerLocked(const xr_string& action_name, Script_StateManager* const p_state_manager)
         : CScriptActionBase(nullptr, action_name.c_str()), m_p_state_manager(p_state_manager)
     {
@@ -65,6 +68,7 @@ private:
 #pragma region Cordis State Manager Actions about animations
 class Script_ActionStateManagerAnimationStart : public CScriptActionBase
 {
+public:
     Script_ActionStateManagerAnimationStart(const xr_string& action_name, Script_StateManager* const p_state_manager)
         : CScriptActionBase(nullptr, action_name.c_str()), m_p_state_manager(p_state_manager)
     {
@@ -87,6 +91,7 @@ private:
 
 class Script_ActionStateManagerAnimationStop : public CScriptActionBase
 {
+public:
     Script_ActionStateManagerAnimationStop(const xr_string& action_name, Script_StateManager* const p_state_manager)
         : CScriptActionBase(nullptr, action_name.c_str()), m_p_state_manager(p_state_manager)
     {
@@ -111,6 +116,7 @@ private:
 #pragma region Cordis State Manager Actions about animstate
 class Script_ActionStateManagerAnimStateStart : public CScriptActionBase
 {
+public:
     Script_ActionStateManagerAnimStateStart(const xr_string& action_name, Script_StateManager* const p_state_manager)
         : CScriptActionBase(nullptr, action_name.c_str()), m_p_state_manager(p_state_manager)
     {
@@ -133,6 +139,7 @@ private:
 
 class Script_ActionStateManagerAnimStateStop : public CScriptActionBase
 {
+public:
     Script_ActionStateManagerAnimStateStop(const xr_string& action_name, Script_StateManager* const p_state_manager)
         : CScriptActionBase(nullptr, action_name.c_str()), m_p_state_manager(p_state_manager)
     {
@@ -157,6 +164,7 @@ private:
 #pragma region Cordis State Manager Actions about bodystate
 class Script_ActionStateManagerBodyStateCrouch : public CScriptActionBase
 {
+public:
     Script_ActionStateManagerBodyStateCrouch(const xr_string& action_name, Script_StateManager* const p_state_manager)
         : CScriptActionBase(nullptr, action_name.c_str()), m_p_state_manager(p_state_manager)
     {
@@ -179,6 +187,7 @@ private:
 
 class Script_ActionStateManagerBodyStateStanding : public CScriptActionBase
 {
+public:
     Script_ActionStateManagerBodyStateStanding(const xr_string& action_name, Script_StateManager* const p_state_manager)
         : CScriptActionBase(nullptr, action_name.c_str()), m_p_state_manager(p_state_manager)
     {
@@ -201,6 +210,7 @@ private:
 
 class Script_ActionStateManagerBodyStateCrouchDanger : public CScriptActionBase
 {
+public:
     Script_ActionStateManagerBodyStateCrouchDanger(
         const xr_string& action_name, Script_StateManager* const p_state_manager)
         : CScriptActionBase(nullptr, action_name.c_str()), m_p_state_manager(p_state_manager)
@@ -225,6 +235,7 @@ private:
 
 class Script_ActionStateManagerBodyStateStandingFree : public CScriptActionBase
 {
+public:
     Script_ActionStateManagerBodyStateStandingFree(
         const xr_string& action_name, Script_StateManager* const p_state_manager)
         : CScriptActionBase(nullptr, action_name.c_str()), m_p_state_manager(p_state_manager)
@@ -251,6 +262,7 @@ private:
 #pragma region Cordis State Manager Actions about direction
 class Script_ActionStateManagerDirectionTurn : public CScriptActionBase
 {
+public:
     Script_ActionStateManagerDirectionTurn(const xr_string& action_name, Script_StateManager* const p_state_manager)
         : CScriptActionBase(nullptr, action_name.c_str()), m_p_state_manager(p_state_manager)
     {
@@ -319,6 +331,7 @@ private:
 
 class Script_ActionStateManagerDirectionSearch : public CScriptActionBase
 {
+public:
     Script_ActionStateManagerDirectionSearch(const xr_string& action_name, Script_StateManager* const p_state_manager)
         : CScriptActionBase(nullptr, action_name.c_str()), m_p_state_manager(p_state_manager)
     {
@@ -359,6 +372,7 @@ private:
 #pragma region Cordis State Manager Actions about mental
 class Script_ActionStateManagerMentalFree : public CScriptActionBase
 {
+public:
     Script_ActionStateManagerMentalFree(const xr_string& action_name, Script_StateManager* const p_state_manager)
         : CScriptActionBase(nullptr, action_name.c_str()), m_p_state_manager(p_state_manager)
     {
@@ -385,6 +399,7 @@ private:
 
 class Script_ActionStateManagerMentalDanger : public CScriptActionBase
 {
+public:
     Script_ActionStateManagerMentalDanger(const xr_string& action_name, Script_StateManager* const p_state_manager)
         : CScriptActionBase(nullptr, action_name.c_str()), m_p_state_manager(p_state_manager)
     {
@@ -411,6 +426,7 @@ private:
 
 class Script_ActionStateManagerMentalPanic : public CScriptActionBase
 {
+public:
     Script_ActionStateManagerMentalPanic(const xr_string& action_name, Script_StateManager* const p_state_manager)
         : CScriptActionBase(nullptr, action_name.c_str()), m_p_state_manager(p_state_manager)
     {
@@ -439,6 +455,7 @@ private:
 #pragma region Cordis State Manager Actions about movement
 class Script_ActionStateManagerMovementWalk : public CScriptActionBase
 {
+public:
     Script_ActionStateManagerMovementWalk(const xr_string& action_name, Script_StateManager* const p_state_manager)
         : CScriptActionBase(nullptr, action_name.c_str()), m_p_state_manager(p_state_manager)
     {
@@ -461,6 +478,7 @@ private:
 
 class Script_ActionStateManagerMovementRun : public CScriptActionBase
 {
+public:
     Script_ActionStateManagerMovementRun(const xr_string& action_name, Script_StateManager* const p_state_manager)
         : CScriptActionBase(nullptr, action_name.c_str()), m_p_state_manager(p_state_manager)
     {
@@ -483,6 +501,7 @@ private:
 
 class Script_ActionStateManagerMovementStand : public CScriptActionBase
 {
+public:
     Script_ActionStateManagerMovementStand(const xr_string& action_name, Script_StateManager* const p_state_manager)
         : CScriptActionBase(nullptr, action_name.c_str()), m_p_state_manager(p_state_manager)
     {
@@ -505,6 +524,7 @@ private:
 
 class Script_ActionStateManagerMovementStandTurn : public CScriptActionBase
 {
+public:
     Script_ActionStateManagerMovementStandTurn(const xr_string& action_name, Script_StateManager* const p_state_manager)
         : CScriptActionBase(nullptr, action_name.c_str()), m_p_state_manager(p_state_manager)
     {
@@ -528,6 +548,7 @@ private:
 
 class Script_ActionStateManagerMovementStandSearch : public CScriptActionBase
 {
+public:
     Script_ActionStateManagerMovementStandSearch(
         const xr_string& action_name, Script_StateManager* const p_state_manager)
         : CScriptActionBase(nullptr, action_name.c_str()), m_p_state_manager(p_state_manager)
@@ -554,6 +575,7 @@ private:
 
 class Script_ActionStateManagerMovementWalkTurn : public CScriptActionBase
 {
+public:
     Script_ActionStateManagerMovementWalkTurn(const xr_string& action_name, Script_StateManager* const p_state_manager)
         : CScriptActionBase(nullptr, action_name.c_str()), m_p_state_manager(p_state_manager)
     {
@@ -577,6 +599,7 @@ private:
 
 class Script_ActionStateManagerMovementWalkSearch : public CScriptActionBase
 {
+public:
     Script_ActionStateManagerMovementWalkSearch(
         const xr_string& action_name, Script_StateManager* const p_state_manager)
         : CScriptActionBase(nullptr, action_name.c_str()), m_p_state_manager(p_state_manager)
@@ -603,6 +626,7 @@ private:
 
 class Script_ActionStateManagerMovementRunTurn : public CScriptActionBase
 {
+public:
     Script_ActionStateManagerMovementRunTurn(const xr_string& action_name, Script_StateManager* const p_state_manager)
         : CScriptActionBase(nullptr, action_name.c_str()), m_p_state_manager(p_state_manager)
     {
@@ -626,6 +650,7 @@ private:
 
 class Script_ActionStateManagerMovementRunSearch : public CScriptActionBase
 {
+public:
     Script_ActionStateManagerMovementRunSearch(const xr_string& action_name, Script_StateManager* const p_state_manager)
         : CScriptActionBase(nullptr, action_name.c_str()), m_p_state_manager(p_state_manager)
     {
@@ -653,6 +678,7 @@ private:
 #pragma region Cordis State Manager Actions about weapon
 class Script_ActionStateManagerWeaponUnStrapp : public CScriptActionBase
 {
+public:
     Script_ActionStateManagerWeaponUnStrapp(const xr_string& action_name, Script_StateManager* const p_state_manager)
         : CScriptActionBase(nullptr, action_name.c_str()), m_p_state_manager(p_state_manager)
     {
@@ -677,6 +703,7 @@ private:
 
 class Script_ActionStateManagerWeaponStrapp : public CScriptActionBase
 {
+public:
     Script_ActionStateManagerWeaponStrapp(const xr_string& action_name, Script_StateManager* const p_state_manager)
         : CScriptActionBase(nullptr, action_name.c_str()), m_p_state_manager(p_state_manager)
     {
@@ -705,6 +732,7 @@ private:
 
 class Script_ActionStateManagerWeaponNone : public CScriptActionBase
 {
+public:
     Script_ActionStateManagerWeaponNone(const xr_string& action_name, Script_StateManager* const p_state_manager)
         : CScriptActionBase(nullptr, action_name.c_str()), m_p_state_manager(p_state_manager)
     {
@@ -727,6 +755,7 @@ private:
 
 class Script_ActionStateManagerWeaponDrop : public CScriptActionBase
 {
+public:
     Script_ActionStateManagerWeaponDrop(const xr_string& action_name, Script_StateManager* const p_state_manager)
         : CScriptActionBase(nullptr, action_name.c_str()), m_p_state_manager(p_state_manager)
     {

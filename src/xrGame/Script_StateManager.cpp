@@ -1,5 +1,8 @@
 #include "stdafx.h"
 #include "Script_StateManager.h"
+#include "Script_StateEvaluators.h"
+#include "Script_StateActions.h"
+#include "property_evaluator.h"
 
 namespace Cordis
 {
@@ -7,11 +10,12 @@ namespace Scripts
 {
 Script_StateManager::Script_StateManager(CScriptGameObject* const p_client_object)
     : m_p_npc(p_client_object), m_is_position_direction_applied(false), m_target_state_name("idle"),
-      m_p_action_planner(nullptr), m_is_alife(true), m_is_combat(false), m_is_point_object_direction(false)
+      m_p_action_planner(new CScriptActionPlanner()), m_is_alife(true), m_is_combat(false),
+      m_is_point_object_direction(false)
 {
     this->m_p_action_planner->setup(this->m_p_npc);
 
-    #pragma region Cordis State Manager Init this->m_properties
+#pragma region Cordis State Manager Init this->m_properties
     this->m_properties["end"] = 1;
     this->m_properties["locked"] = 2;
     this->m_properties["locked_external"] = 3;
@@ -55,11 +59,489 @@ Script_StateManager::Script_StateManager(CScriptGameObject* const p_client_objec
     this->m_properties["smartcover_need"] = 90;
     this->m_properties["smartcover"] = 91;
     this->m_properties["in_smartcover"] = 92;
-    #pragma endregion
 
-    #pragma region Cordis State Manager Init this->m_operators
+    // Lord: проверить удаляются те Evaluators Actions которые выделил
+    // @  берём через .at, потому что если не находит то по сути возвращает ноль но это не обрабатывается, поэтому
+    // строгая привязка и сами проверяем что зарегистрировали выше (самопроверка самих же себя)
+    this->m_p_action_planner->add_evaluator(
+        this->m_properties.at("end"), new Script_EvaluatorStateManagerEnd("state_mgr_end", this));
+    this->m_p_action_planner->add_evaluator(
+        this->m_properties.at("locked"), new Script_EvaluatorStateManagerLocked("state_mgr_locked", this));
+    this->m_p_action_planner->add_evaluator(this->m_properties.at("locked_external"),
+        new Script_EvaluatorStateManagerLockedExternal("state_mgr_locked_external", this));
+    this->m_p_action_planner->add_evaluator(
+        this->m_properties.at("weapon"), new Script_EvaluatorStateManagerWeapon("state_mgr_weapon", this));
+    this->m_p_action_planner->add_evaluator(this->m_properties.at("weapon_locked"),
+        new Script_EvaluatorStateManagerWeaponLocked("state_mgr_weapon_locked", this));
+    this->m_p_action_planner->add_evaluator(this->m_properties.at("weapon_strapped"),
+        new Script_EvaluatorStateManagerWeaponStrapped("state_mgr_weapon_strapped", this));
+    this->m_p_action_planner->add_evaluator(this->m_properties.at("weapon_strapped_now"),
+        new Script_EvaluatorStateManagerWeaponStrappedNow("state_mgr_weapon_strapped_now", this));
+    this->m_p_action_planner->add_evaluator(this->m_properties.at("weapon_unstrapped"),
+        new Script_EvaluatorStateManagerWeaponUnstrapped("state_mgr_weapon_unstrapped", this));
+    this->m_p_action_planner->add_evaluator(this->m_properties.at("weapon_unstrapped_now"),
+        new Script_EvaluatorStateManagerWeaponUnstrappedNow("state_mgr_weapon_unstrapped_now", this));
+    this->m_p_action_planner->add_evaluator(this->m_properties.at("weapon_none"),
+        new Script_EvaluatorStateManagerWeaponNone("state_mgr_weapon_none", this));
+    this->m_p_action_planner->add_evaluator(this->m_properties.at("weapon_none_now"),
+        new Script_EvaluatorStateManagerWeaponNoneNow("state_mgr_weapon_none_now", this));
+    this->m_p_action_planner->add_evaluator(this->m_properties.at("weapon_drop"),
+        new Script_EvaluatorStateManagerWeaponDrop("state_mgr_weapon_drop", this));
+    this->m_p_action_planner->add_evaluator(this->m_properties.at("weapon_fire"),
+        new Script_EvaluatorStateManagerWeaponFire("state_mgr_weapon_fire", this));
+    this->m_p_action_planner->add_evaluator(
+        this->m_properties.at("movement"), new Script_EvaluatorStateManagerMovement("state_mgr_movement", this));
+    this->m_p_action_planner->add_evaluator(this->m_properties.at("movement_walk"),
+        new Script_EvaluatorStateManagerMovementWalk("state_mgr_movement_walk", this));
+    this->m_p_action_planner->add_evaluator(this->m_properties.at("movement_run"),
+        new Script_EvaluatorStateManagerMovementRun("state_mgr_movement_run", this));
+    this->m_p_action_planner->add_evaluator(this->m_properties.at("movement_stand"),
+        new Script_EvaluatorStateManagerMovementStand("state_mgr_movement_stand", this));
+    this->m_p_action_planner->add_evaluator(this->m_properties.at("movement_stand_now"),
+        new Script_EvaluatorStateManagerMovementStandNow("state_mgr_movement_stand_now", this));
+    this->m_p_action_planner->add_evaluator(
+        this->m_properties.at("mental"), new Script_EvaluatorStateManagerMental("state_mgr_mental", this));
+    this->m_p_action_planner->add_evaluator(this->m_properties.at("mental_free"),
+        new Script_EvaluatorStateManagerMentalFree("state_mgr_mental_free", this));
+    this->m_p_action_planner->add_evaluator(this->m_properties.at("mental_free_now"),
+        new Script_EvaluatorStateManagerMentalFreeNow("state_mgr_mental_free_now", this));
+    this->m_p_action_planner->add_evaluator(this->m_properties.at("mental_danger"),
+        new Script_EvaluatorStateManagerMentalDanger("state_mgr_mental_danger", this));
+    this->m_p_action_planner->add_evaluator(this->m_properties.at("mental_danger_now"),
+        new Script_EvaluatorStateManagerMentalDangerNow("state_mgr_mental_danger_now", this));
+    this->m_p_action_planner->add_evaluator(this->m_properties.at("mental_panic"),
+        new Script_EvaluatorStateManagerMentalPanic("state_mgr_mental_panic", this));
+    this->m_p_action_planner->add_evaluator(this->m_properties.at("mental_panic_now"),
+        new Script_EvaluatorStateManagerMentalPanicNow("state_mgr_mental_panic_now", this));
+    this->m_p_action_planner->add_evaluator(
+        this->m_properties.at("bodystate"), new Script_EvaluatorStateManagerBodyState("state_mgr_bodystate", this));
+    this->m_p_action_planner->add_evaluator(this->m_properties.at("bodystate_crouch"),
+        new Script_EvaluatorStateManagerBodyStateCrouch("state_mgr_bodystate_crouch", this));
+    this->m_p_action_planner->add_evaluator(this->m_properties.at("bodystate_standing"),
+        new Script_EvaluatorStateManagerBodyStateStanding("state_mgr_bodystate_standing", this));
+    this->m_p_action_planner->add_evaluator(this->m_properties.at("bodystate_crouch_now"),
+        new Script_EvaluatorStateManagerBodyStateCrouchNow("state_mgr_bodystate_crouch_now", this));
+    this->m_p_action_planner->add_evaluator(this->m_properties.at("bodystate_standing_now"),
+        new Script_EvaluatorStateManagerBodyStateStandingNow("state_mgr_bodystate_standing_now", this));
+    this->m_p_action_planner->add_evaluator(
+        this->m_properties.at("direction"), new Script_EvaluatorStateManagerDirection("state_mgr_direction", this));
+    this->m_p_action_planner->add_evaluator(this->m_properties.at("direction_search"),
+        new Script_EvaluatorStateManagerDirectionSearch("state_mgr_direction_search", this));
+    // st.animstate = state_mgr_animation.animation(npc, st, "state_mgr_animstate_list");
+    this->m_p_action_planner->add_evaluator(this->m_properties.at("animstate"),
+        new Script_EvaluatorStateManagerAnimationState("state_mgr_animstate", this));
+    this->m_p_action_planner->add_evaluator(this->m_properties.at("animstate_idle_now"),
+        new Script_EvaluatorStateManagerAnimationStateIdleNow("state_mgr_animstate_idle_now", this));
+    this->m_p_action_planner->add_evaluator(this->m_properties.at("animstate_play_now"),
+        new Script_EvaluatorStateManagerAnimationStatePlayNow("state_mgr_animstate_play_now", this));
+    this->m_p_action_planner->add_evaluator(this->m_properties.at("animstate_locked"),
+        new Script_EvaluatorStateManagerAnimationStateLocked("state_mgr_animstate_locked", this));
+    // st.animation = state_mgr_animation.animation(npc, st, "state_mgr_animation_list");
+    this->m_p_action_planner->add_evaluator(
+        this->m_properties.at("animation"), new Script_EvaluatorStateManagerAnimation("state_mgr_animation", this));
+    this->m_p_action_planner->add_evaluator(this->m_properties.at("animation_play_now"),
+        new Script_EvaluatorStateManagerAnimationPlayNow("state_mgr_animation_play_now", this));
+    this->m_p_action_planner->add_evaluator(this->m_properties.at("animation_none_now"),
+        new Script_EvaluatorStateManagerAnimationNoneNow("state_mgr_animation_none_now", this));
+    this->m_p_action_planner->add_evaluator(this->m_properties.at("animation_locked"),
+        new Script_EvaluatorStateManagerAnimationLocked("state_mgr_animation_locked", this));
+    this->m_p_action_planner->add_evaluator(
+        this->m_properties.at("smartcover"), new Script_EvaluatorStateManagerSmartCover("state_mgr_smartcover", this));
+    this->m_p_action_planner->add_evaluator(this->m_properties.at("smartcover_need"),
+        new Script_EvaluatorStateManagerSmartCoverNeed("state_mgr_smartcover_need", this));
+    this->m_p_action_planner->add_evaluator(this->m_properties.at("in_smartcover"),
+        new Script_EvaluatorStateManagerInSmartCover("state_mgr_in_smartcover", this));
 
-    #pragma endregion
+#pragma endregion
+
+#pragma region Cordis State Manager Init this->m_operators
+    this->m_operators["end"] = 1;
+    this->m_operators["locked"] = 2;
+    this->m_operators["locked_external"] = 3;
+    this->m_operators["locked_animation"] = 4;
+    this->m_operators["locked_animstate"] = 5;
+    this->m_operators["locked_smartcover"] = 6;
+    this->m_operators["weapon_strapp"] = 11;
+    this->m_operators["weapon_unstrapp"] = 12;
+    this->m_operators["weapon_none"] = 13;
+    this->m_operators["weapon_fire"] = 14;
+    this->m_operators["weapon_drop"] = 15;
+    this->m_operators["movement"] = 21;
+    this->m_operators["movement_walk"] = 22;
+    this->m_operators["movement_run"] = 23;
+    this->m_operators["movement_stand"] = 24;
+    this->m_operators["movement_walk_turn"] = 25;
+    this->m_operators["movement_walk_search"] = 26;
+    this->m_operators["movement_stand_turn"] = 27;
+    this->m_operators["movement_stand_search"] = 28;
+    this->m_operators["movement_run_turn"] = 29;
+    this->m_operators["movement_run_search"] = 30;
+    this->m_operators["mental_free"] = 31;
+    this->m_operators["mental_danger"] = 32;
+    this->m_operators["mental_panic"] = 33;
+    this->m_operators["bodystate_crouch"] = 41;
+    this->m_operators["bodystate_standing"] = 42;
+    this->m_operators["bodystate_crouch_danger"] = 43;
+    this->m_operators["bodystate_standing_free"] = 44;
+    this->m_operators["direction_turn"] = 51;
+    this->m_operators["direction_search"] = 52;
+    this->m_operators["animstate_start"] = 61;
+    this->m_operators["animstate_stop"] = 62;
+    this->m_operators["animation_start"] = 71;
+    this->m_operators["animation_stop"] = 72;
+    this->m_operators["walk_turn"] = 75;
+    this->m_operators["walk_search"] = 76;
+    this->m_operators["stand_turn"] = 77;
+    this->m_operators["stand_search"] = 78;
+    this->m_operators["smartcover_enter"] = 80;
+    this->m_operators["smartcover_exit"] = 81;
+
+    CScriptActionBase* p_action_weaponunstrapped =
+        new Script_ActionStateManagerWeaponUnStrapp("state_mgr_weapon_unstrapp", this);
+
+    p_action_weaponunstrapped->add_condition(CWorldProperty(this->m_properties.at("locked"), false));
+    p_action_weaponunstrapped->add_condition(CWorldProperty(this->m_properties.at("animstate_locked"), false));
+    p_action_weaponunstrapped->add_condition(CWorldProperty(this->m_properties.at("animation_locked"), false));
+    p_action_weaponunstrapped->add_condition(CWorldProperty(this->m_properties.at("locked_external"), false));
+    p_action_weaponunstrapped->add_condition(CWorldProperty(this->m_properties.at("movement"), true));
+    p_action_weaponunstrapped->add_condition(CWorldProperty(this->m_properties.at("bodystate"), true));
+    p_action_weaponunstrapped->add_condition(CWorldProperty(this->m_properties.at("mental"), true));
+    p_action_weaponunstrapped->add_condition(CWorldProperty(this->m_properties.at("weapon_unstrapped"), true));
+    p_action_weaponunstrapped->add_condition(CWorldProperty(this->m_properties.at("animstate_idle_now"), true));
+    p_action_weaponunstrapped->add_condition(CWorldProperty(this->m_properties.at("animation_none_now"), true));
+    p_action_weaponunstrapped->add_effect(CWorldProperty(this->m_properties.at("weapon"), true));
+
+    this->m_p_action_planner->add_operator(this->m_operators.at("weapon_unstrapp"), p_action_weaponunstrapped);
+
+    CScriptActionBase* p_action_weapon_strapp =
+        new Script_ActionStateManagerWeaponStrapp("state_mgr_weapon_strapp", this);
+
+    p_action_weapon_strapp->add_condition(CWorldProperty(this->m_properties.at("locked"), false));
+    p_action_weapon_strapp->add_condition(CWorldProperty(this->m_properties.at("animstate_locked"), false));
+    p_action_weapon_strapp->add_condition(CWorldProperty(this->m_properties.at("animation_locked"), false));
+    p_action_weapon_strapp->add_condition(CWorldProperty(this->m_properties.at("locked_external"), false));
+    p_action_weapon_strapp->add_condition(CWorldProperty(this->m_properties.at("movement"), true));
+    p_action_weapon_strapp->add_condition(CWorldProperty(this->m_properties.at("bodystate"), true));
+    p_action_weapon_strapp->add_condition(CWorldProperty(this->m_properties.at("mental"), true));
+    p_action_weapon_strapp->add_condition(CWorldProperty(this->m_properties.at("weapon_strapped"), true));
+    p_action_weapon_strapp->add_condition(CWorldProperty(this->m_properties.at("animstate_idle_now"), true));
+    p_action_weapon_strapp->add_condition(CWorldProperty(this->m_properties.at("animation_none_now"), true));
+    p_action_weapon_strapp->add_effect(CWorldProperty(this->m_properties.at("weapon"), true));
+
+    this->m_p_action_planner->add_operator(this->m_operators.at("weapon_strapp"), p_action_weapon_strapp);
+
+    CScriptActionBase* p_action_weapon_none = new Script_ActionStateManagerWeaponNone("state_mgr_weapon_none", this);
+
+    p_action_weapon_none->add_condition(CWorldProperty(this->m_properties.at("locked"), false));
+    p_action_weapon_none->add_condition(CWorldProperty(this->m_properties.at("animstate_locked"), false));
+    p_action_weapon_none->add_condition(CWorldProperty(this->m_properties.at("animation_locked"), false));
+    p_action_weapon_none->add_condition(CWorldProperty(this->m_properties.at("locked_external"), false));
+    p_action_weapon_none->add_condition(CWorldProperty(this->m_properties.at("movement"), true));
+    p_action_weapon_none->add_condition(CWorldProperty(this->m_properties.at("bodystate"), true));
+    p_action_weapon_none->add_condition(CWorldProperty(this->m_properties.at("mental"), true));
+    p_action_weapon_none->add_condition(CWorldProperty(this->m_properties.at("weapon_none"), true));
+    p_action_weapon_none->add_condition(CWorldProperty(this->m_properties.at("animation_none_now"), true));
+    p_action_weapon_none->add_effect(CWorldProperty(this->m_properties.at("weapon"), true));
+
+    this->m_p_action_planner->add_operator(this->m_operators.at("weapon_none"), p_action_weapon_none);
+
+    CScriptActionBase* p_action_weapon_drop = new Script_ActionStateManagerWeaponDrop("state_mgr_weapon_drop", this);
+
+    p_action_weapon_drop->add_condition(CWorldProperty(this->m_properties.at("locked"), false));
+    p_action_weapon_drop->add_condition(CWorldProperty(this->m_properties.at("animstate_locked"), false));
+    p_action_weapon_drop->add_condition(CWorldProperty(this->m_properties.at("animation_locked"), false));
+    p_action_weapon_drop->add_condition(CWorldProperty(this->m_properties.at("locked_external"), false));
+    p_action_weapon_drop->add_condition(CWorldProperty(this->m_properties.at("movement"), true));
+    p_action_weapon_drop->add_condition(CWorldProperty(this->m_properties.at("bodystate"), true));
+    p_action_weapon_drop->add_condition(CWorldProperty(this->m_properties.at("mental"), true));
+    p_action_weapon_drop->add_condition(CWorldProperty(this->m_properties.at("weapon_drop"), true));
+    p_action_weapon_drop->add_condition(CWorldProperty(this->m_properties.at("animation_none_now"), true));
+    p_action_weapon_drop->add_effect(CWorldProperty(this->m_properties.at("weapon"), true));
+
+    this->m_p_action_planner->add_operator(this->m_operators.at("weapon_drop"), p_action_weapon_drop);
+
+    CScriptActionBase* p_action_movement_walk =
+        new Script_ActionStateManagerMovementWalk("state_mgr_movement_walk", this);
+
+    p_action_movement_walk->add_condition(CWorldProperty(this->m_properties.at("locked"), false));
+    p_action_movement_walk->add_condition(CWorldProperty(this->m_properties.at("animstate_locked"), false));
+    p_action_movement_walk->add_condition(CWorldProperty(this->m_properties.at("animation_locked"), false));
+    p_action_movement_walk->add_condition(CWorldProperty(this->m_properties.at("locked_external"), false));
+    p_action_movement_walk->add_condition(CWorldProperty(this->m_properties.at("movement"), false));
+    p_action_movement_walk->add_condition(CWorldProperty(this->m_properties.at("bodystate"), true));
+    p_action_movement_walk->add_condition(CWorldProperty(this->m_properties.at("mental"), true));
+    p_action_movement_walk->add_condition(CWorldProperty(this->m_properties.at("movement_walk"), true));
+    p_action_movement_walk->add_condition(CWorldProperty(this->m_properties.at("animstate_idle_now"), true));
+    p_action_movement_walk->add_condition(CWorldProperty(this->m_properties.at("animation_none_now"), true));
+    p_action_movement_walk->add_effect(CWorldProperty(this->m_properties.at("movement"), true));
+
+    this->m_p_action_planner->add_operator(this->m_operators.at("movement_walk"), p_action_movement_walk);
+
+    CScriptActionBase* p_action_movement_walk_turn =
+        new Script_ActionStateManagerMovementWalkTurn("state_mgr_movement_walk_turn", this);
+
+    p_action_movement_walk_turn->add_condition(CWorldProperty(st.properties["locked"], false));
+    p_action_movement_walk_turn->add_condition(CWorldProperty(st.properties["animstate_locked"], false));
+    p_action_movement_walk_turn->add_condition(CWorldProperty(st.properties["animation_locked"], false));
+    p_action_movement_walk_turn->add_condition(CWorldProperty(st.properties["locked_external"], false));
+    p_action_movement_walk_turn->add_condition(CWorldProperty(st.properties["movement"], false));
+    p_action_movement_walk_turn->add_condition(CWorldProperty(st.properties["direction"], false));
+    p_action_movement_walk_turn->add_condition(CWorldProperty(st.properties["direction_search"], false));
+    p_action_movement_walk_turn->add_condition(CWorldProperty(st.properties["bodystate"], true));
+    p_action_movement_walk_turn->add_condition(CWorldProperty(st.properties["mental"], true));
+    p_action_movement_walk_turn->add_condition(CWorldProperty(st.properties["movement_walk"], true));
+    p_action_movement_walk_turn->add_condition(CWorldProperty(st.properties["animstate_idle_now"], true));
+    p_action_movement_walk_turn->add_condition(CWorldProperty(st.properties["animation_none_now"], true));
+    p_action_movement_walk_turn->add_effect(CWorldProperty(st.properties["movement"], true));
+    p_action_movement_walk_turn->add_effect(CWorldProperty(st.properties["direction"], true));
+
+    this->m_p_action_planner->add_operator(this->m_operators.at("movement_walk_turn"), p_action_movement_walk_turn);
+
+    CScriptActionBase* p_action_movement_walk_search =
+        new Script_ActionStateManagerMovementWalkSearch("state_mgr_movement_walk_search", this);
+
+    p_action_movement_walk_turn->add_condition(CWorldProperty(this->m_properties.at("locked"), false));
+    p_action_movement_walk_turn->add_condition(CWorldProperty(this->m_properties.at("animstate_locked"), false));
+    p_action_movement_walk_turn->add_condition(CWorldProperty(this->m_properties.at("animation_locked"), false));
+    p_action_movement_walk_turn->add_condition(CWorldProperty(this->m_properties.at("locked_external"), false));
+    p_action_movement_walk_turn->add_condition(CWorldProperty(this->m_properties.at("movement"), false));
+    p_action_movement_walk_turn->add_condition(CWorldProperty(this->m_properties.at("direction"), false));
+    p_action_movement_walk_turn->add_condition(CWorldProperty(this->m_properties.at("direction_search"), true));
+    p_action_movement_walk_turn->add_condition(CWorldProperty(this->m_properties.at("bodystate"), true));
+    p_action_movement_walk_turn->add_condition(CWorldProperty(this->m_properties.at("mental"), true));
+    p_action_movement_walk_turn->add_condition(CWorldProperty(this->m_properties.at("movement_walk"), true));
+    p_action_movement_walk_turn->add_condition(CWorldProperty(this->m_properties.at("animstate_idle_now"), true));
+    p_action_movement_walk_turn->add_condition(CWorldProperty(this->m_properties.at("animation_none_now"), true));
+    p_action_movement_walk_turn->add_effect(CWorldProperty(this->m_properties.at("movement"), true));
+    p_action_movement_walk_turn->add_effect(CWorldProperty(this->m_properties.at("direction"), true));
+
+    this->m_p_action_planner->add_operator(this->m_operators.at("movement_walk_search"), p_action_movement_walk_search);
+
+    CScriptActionBase* p_action_movement_run = new Script_ActionStateManagerMovementRun("state_mgr_movement_run", this);
+
+    p_action_movement_run->add_condition(CWorldProperty(this->m_properties.at("locked"), false));
+    p_action_movement_run->add_condition(CWorldProperty(this->m_properties.at("animstate_locked"), false));
+    p_action_movement_run->add_condition(CWorldProperty(this->m_properties.at("animation_locked"), false));
+    p_action_movement_run->add_condition(CWorldProperty(this->m_properties.at("locked_external"), false));
+    p_action_movement_run->add_condition(CWorldProperty(this->m_properties.at("movement"), false));
+    p_action_movement_run->add_condition(CWorldProperty(this->m_properties.at("bodystate"), true));
+    p_action_movement_run->add_condition(CWorldProperty(this->m_properties.at("mental"), true));
+    p_action_movement_run->add_condition(CWorldProperty(this->m_properties.at("movement_run"), true));
+    p_action_movement_run->add_condition(CWorldProperty(this->m_properties.at("animstate_idle_now"), true));
+    p_action_movement_run->add_condition(CWorldProperty(this->m_properties.at("animation_none_now"), true));
+    p_action_movement_run->add_effect(CWorldProperty(this->m_properties.at("movement"), true));
+
+    this->m_p_action_planner->add_operator(this->m_operators.at("movement_run"), p_action_movement_run);
+
+    CScriptActionBase* p_action_movement_run_turn =
+        new Script_ActionStateManagerMovementRun("state_mgr_movement_run_turn", this);
+
+    p_action_movement_run_turn->add_condition(CWorldProperty(this->m_properties.at("locked"), false));
+    p_action_movement_run_turn->add_condition(CWorldProperty(this->m_properties.at("animstate_locked"), false));
+    p_action_movement_run_turn->add_condition(CWorldProperty(this->m_properties.at("animation_locked"), false));
+    p_action_movement_run_turn->add_condition(CWorldProperty(this->m_properties.at("locked_external"), false));
+    p_action_movement_run_turn->add_condition(CWorldProperty(this->m_properties.at("movement"), false));
+    p_action_movement_run_turn->add_condition(CWorldProperty(this->m_properties.at("direction"), false));
+    p_action_movement_run_turn->add_condition(CWorldProperty(this->m_properties.at("direction_search"), false));
+    p_action_movement_run_turn->add_condition(CWorldProperty(this->m_properties.at("bodystate"), true));
+    p_action_movement_run_turn->add_condition(CWorldProperty(this->m_properties.at("mental"), true));
+    p_action_movement_run_turn->add_condition(CWorldProperty(this->m_properties.at("movement_run"), true));
+    p_action_movement_run_turn->add_condition(CWorldProperty(this->m_properties.at("animstate_idle_now"), true));
+    p_action_movement_run_turn->add_condition(CWorldProperty(this->m_properties.at("animation_none_now"), true));
+    p_action_movement_run_turn->add_effect(CWorldProperty(this->m_properties.at("movement"), true));
+    p_action_movement_run_turn->add_effect(CWorldProperty(this->m_properties.at("direction"), true));
+
+    this->m_p_action_planner->add_operator(this->m_operators.at("movement_run_turn"), p_action_movement_run_turn);
+
+    CScriptActionBase* p_action_movement_run_search =
+        new Script_ActionStateManagerMovementRun("state_mgr_movement_run_search", this);
+
+    p_action_movement_run_search->add_condition(CWorldProperty(this->m_properties.at("locked"), false));
+    p_action_movement_run_search->add_condition(CWorldProperty(this->m_properties.at("animstate_locked"), false));
+    p_action_movement_run_search->add_condition(CWorldProperty(this->m_properties.at("animation_locked"), false));
+    p_action_movement_run_search->add_condition(CWorldProperty(this->m_properties.at("locked_external"), false));
+    p_action_movement_run_search->add_condition(CWorldProperty(this->m_properties.at("movement"), false));
+    p_action_movement_run_search->add_condition(CWorldProperty(this->m_properties.at("direction"), false));
+    p_action_movement_run_search->add_condition(CWorldProperty(this->m_properties.at("direction_search"), true));
+    p_action_movement_run_search->add_condition(CWorldProperty(this->m_properties.at("bodystate"), true));
+    p_action_movement_run_search->add_condition(CWorldProperty(this->m_properties.at("mental"), true));
+    p_action_movement_run_search->add_condition(CWorldProperty(this->m_properties.at("movement_run"), true));
+    p_action_movement_run_search->add_condition(CWorldProperty(this->m_properties.at("animstate_idle_now"), true));
+    p_action_movement_run_search->add_condition(CWorldProperty(this->m_properties.at("animation_none_now"), true));
+    p_action_movement_run_search->add_effect(CWorldProperty(this->m_properties.at("movement"), true));
+    p_action_movement_run_search->add_effect(CWorldProperty(this->m_properties.at("direction"), true));
+
+    this->m_p_action_planner->add_operator(this->m_operators.at("movement_run_search"), p_action_movement_run_search);
+
+    CScriptActionBase* p_action_movement_stand =
+        new Script_ActionStateManagerMovementStand("state_mgr_movement_stand", this);
+
+    p_action_movement_stand->add_condition(CWorldProperty(this->m_properties.at("locked_external"), false));
+    p_action_movement_stand->add_condition(CWorldProperty(this->m_properties.at("animstate_locked"), false));
+    p_action_movement_stand->add_condition(CWorldProperty(this->m_properties.at("animation_locked"), false));
+    p_action_movement_stand->add_condition(CWorldProperty(this->m_properties.at("movement"), false));
+    p_action_movement_stand->add_condition(CWorldProperty(this->m_properties.at("movement_stand"), true));
+    p_action_movement_stand->add_condition(CWorldProperty(this->m_properties.at("mental"), true));
+    p_action_movement_stand->add_effect(CWorldProperty(this->m_properties.at("movement"), true));
+
+    this->m_p_action_planner->add_operator(this->m_operators.at("movement_stand"), p_action_movement_stand);
+
+    CScriptActionBase* p_action_movement_stand_turn =
+        new Script_ActionStateManagerMovementStandTurn("state_mgr_movement_stand_turn", this);
+
+    p_action_movement_stand_turn->add_condition(CWorldProperty(this->m_properties.at("locked_external"), false));
+    p_action_movement_stand_turn->add_condition(CWorldProperty(this->m_properties.at("animstate_locked"), false));
+    p_action_movement_stand_turn->add_condition(CWorldProperty(this->m_properties.at("animation_locked"), false));
+    p_action_movement_stand_turn->add_condition(CWorldProperty(this->m_properties.at("movement"), false));
+    p_action_movement_stand_turn->add_condition(CWorldProperty(this->m_properties.at("direction"), false));
+    p_action_movement_stand_turn->add_condition(CWorldProperty(this->m_properties.at("direction_search"), false));
+    p_action_movement_stand_turn->add_condition(CWorldProperty(this->m_properties.at("movement_stand"), true));
+    p_action_movement_stand_turn->add_condition(CWorldProperty(this->m_properties.at("mental"), true));
+    p_action_movement_stand_turn->add_effect(CWorldProperty(this->m_properties.at("movement"), true));
+    p_action_movement_stand_turn->add_effect(CWorldProperty(this->m_properties.at("direction"), true));
+
+    this->m_p_action_planner->add_operator(this->m_operators.at("movement_stand_turn"), p_action_movement_stand_turn);
+
+    CScriptActionBase* p_action_movement_stand_search =
+        new Script_ActionStateManagerMovementStandSearch("state_mgr_movement_stand_search", this);
+
+    p_action_movement_stand_search->add_condition(CWorldProperty(this->m_properties.at("locked_external"), false));
+    p_action_movement_stand_search->add_condition(CWorldProperty(this->m_properties.at("animstate_locked"), false));
+    p_action_movement_stand_search->add_condition(CWorldProperty(this->m_properties.at("animation_locked"), false));
+    p_action_movement_stand_search->add_condition(CWorldProperty(this->m_properties.at("movement"), false));
+    p_action_movement_stand_search->add_condition(CWorldProperty(this->m_properties.at("direction"), false));
+    p_action_movement_stand_search->add_condition(CWorldProperty(this->m_properties.at("direction_search"), true));
+    p_action_movement_stand_search->add_condition(CWorldProperty(this->m_properties.at("movement_stand"), true));
+    p_action_movement_stand_search->add_condition(CWorldProperty(this->m_properties.at("mental"), true));
+    p_action_movement_stand_search->add_effect(CWorldProperty(this->m_properties.at("movement"), true));
+    p_action_movement_stand_search->add_effect(CWorldProperty(this->m_properties.at("direction"), true));
+
+    this->m_p_action_planner->add_operator(
+        this->m_operators.at("movement_stand_search"), p_action_movement_stand_search);
+
+    CScriptActionBase* p_action_direction_turn =
+        new Script_ActionStateManagerDirectionTurn("state_mgr_direction_turn", this);
+
+    p_action_direction_turn->add_condition(CWorldProperty(this->m_properties.at("animstate_locked"), false));
+    p_action_direction_turn->add_condition(CWorldProperty(this->m_properties.at("animation_locked"), false));
+    p_action_direction_turn->add_condition(CWorldProperty(this->m_properties.at("locked_external"), false));
+    p_action_direction_turn->add_condition(CWorldProperty(this->m_properties.at("direction"), false));
+    p_action_direction_turn->add_condition(CWorldProperty(this->m_properties.at("direction_search"), false));
+    p_action_direction_turn->add_condition(CWorldProperty(this->m_properties.at("weapon"), true)); // From GSC: warning
+    p_action_direction_turn->add_condition(CWorldProperty(this->m_properties.at("animation_none_now"), true));
+    p_action_direction_turn->add_condition(CWorldProperty(this->m_properties.at("animstate_idle_now"), true));
+    p_action_direction_turn->add_condition(CWorldProperty(this->m_properties.at("movement"), true));
+    p_action_direction_turn->add_effect(CWorldProperty(this->m_properties.at("direction"), true));
+
+    this->m_p_action_planner->add_operator(this->m_operators.at("direction_turn"), p_action_direction_turn);
+
+    CScriptActionBase* p_action_direction_search =
+        new Script_ActionStateManagerDirectionSearch("state_mgr_direction_search", this);
+
+    p_action_direction_search->add_condition(CWorldProperty(this->m_properties.at("animstate_locked"), false));
+    p_action_direction_search->add_condition(CWorldProperty(this->m_properties.at("animation_locked"), false));
+    p_action_direction_search->add_condition(CWorldProperty(this->m_properties.at("locked_external"), false));
+    p_action_direction_search->add_condition(CWorldProperty(this->m_properties.at("direction"), false));
+    p_action_direction_search->add_condition(CWorldProperty(this->m_properties.at("direction_search"), true));
+    p_action_direction_search->add_condition(CWorldProperty(this->m_properties.at("weapon"), true));
+    p_action_direction_search->add_condition(CWorldProperty(this->m_properties.at("animation_none_now"), true));
+    p_action_direction_search->add_condition(CWorldProperty(this->m_properties.at("animstate_idle_now"), true));
+    p_action_direction_search->add_condition(CWorldProperty(this->m_properties.at("movement"), true));
+    p_action_direction_search->add_effect(CWorldProperty(this->m_properties.at("direction"), true));
+
+    this->m_p_action_planner->add_operator(this->m_operators.at("direction_search"), p_action_direction_search);
+
+    CScriptActionBase* p_action_mental_free = new Script_ActionStateManagerMentalFree("state_mgr_mental_free", this);
+
+    p_action_mental_free->add_condition(CWorldProperty(this->m_properties.at("locked_external"), false));
+    p_action_mental_free->add_condition(CWorldProperty(this->m_properties.at("mental"), false));
+    p_action_mental_free->add_condition(CWorldProperty(this->m_properties.at("animstate_idle_now"), true));
+    p_action_mental_free->add_condition(CWorldProperty(this->m_properties.at("animation_none_now"), true));
+    p_action_mental_free->add_condition(CWorldProperty(this->m_properties.at("mental_free"), true));
+    p_action_mental_free->add_condition(CWorldProperty(this->m_properties.at("bodystate"), true));
+    p_action_mental_free->add_condition(CWorldProperty(this->m_properties.at("bodystate_standing_now"), true));
+    p_action_mental_free->add_effect(CWorldProperty(this->m_properties.at("mental"), true));
+
+    this->m_p_action_planner->add_operator(this->m_operators.at("mental_free"), p_action_mental_free);
+
+    CScriptActionBase* p_action_mental_danger =
+        new Script_ActionStateManagerMentalDanger("state_mgr_mental_danger", this);
+
+    p_action_mental_danger->add_condition(CWorldProperty(this->m_properties.at("mental"), false));
+    p_action_mental_danger->add_condition(CWorldProperty(this->m_properties.at("locked_external"), false));
+    p_action_mental_danger->add_condition(CWorldProperty(this->m_properties.at("animstate_idle_now"), true));
+    p_action_mental_danger->add_condition(CWorldProperty(this->m_properties.at("animation_none_now"), true));
+    p_action_mental_danger->add_condition(CWorldProperty(this->m_properties.at("mental_danger"), true));
+    p_action_mental_danger->add_effect(CWorldProperty(this->m_properties.at("mental"), true));
+    p_action_mental_danger->add_effect(CWorldProperty(this->m_properties.at("mental_danger_now"), true));
+
+    this->m_p_action_planner->add_operator(this->m_operators.at("mental_danger"), p_action_mental_danger);
+
+    CScriptActionBase* p_action_mental_panic = new Script_ActionStateManagerMentalPanic("state_mgr_mental_panic", this);
+
+    p_action_mental_panic->add_condition(CWorldProperty(this->m_properties.at("locked_external"), false));
+    p_action_mental_panic->add_condition(CWorldProperty(this->m_properties.at("mental"), false));
+    p_action_mental_panic->add_condition(CWorldProperty(this->m_properties.at("animstate_idle_now"), true));
+    p_action_mental_panic->add_condition(CWorldProperty(this->m_properties.at("animation_none_now"), true));
+    p_action_mental_panic->add_condition(CWorldProperty(this->m_properties.at("mental_panic"), true));
+    p_action_mental_panic->add_effect(CWorldProperty(this->m_properties.at("mental"), true));
+
+    this->m_p_action_planner->add_operator(this->m_operators.at("mental_panic"), p_action_mental_panic);
+
+    CScriptActionBase* p_action_bodystate_crouch =
+        new Script_ActionStateManagerBodyStateCrouch("state_mgr_bodystate_crouch", this);
+
+    p_action_bodystate_crouch->add_condition(CWorldProperty(this->m_properties.at("locked_external"), false));
+    p_action_bodystate_crouch->add_condition(CWorldProperty(this->m_properties.at("bodystate"), false));
+    p_action_bodystate_crouch->add_condition(CWorldProperty(this->m_properties.at("bodystate_crouch_now"), false));
+    p_action_bodystate_crouch->add_condition(CWorldProperty(this->m_properties.at("bodystate_crouch"), true));
+    p_action_bodystate_crouch->add_condition(CWorldProperty(this->m_properties.at("mental_danger_now"), true));
+    p_action_bodystate_crouch->add_effect(CWorldProperty(this->m_properties.at("bodystate"), true));
+
+    this->m_p_action_planner->add_operator(this->m_operators.at("bodystate_crouch"), p_action_bodystate_crouch);
+
+    CScriptActionBase* p_action_bodystate_crouch_danger =
+        new Script_ActionStateManagerBodyStateCrouchDanger("state_mgr_bodystate_crouch_danger", this);
+
+    p_action_bodystate_crouch_danger->add_condition(CWorldProperty(this->m_properties.at("locked_external"), false));
+    p_action_bodystate_crouch_danger->add_condition(CWorldProperty(this->m_properties.at("bodystate"), false));
+    p_action_bodystate_crouch_danger->add_condition(CWorldProperty(this->m_properties.at("mental"), false));
+    p_action_bodystate_crouch_danger->add_condition(CWorldProperty(this->m_properties.at("bodystate_crouch_now"), false));
+    p_action_bodystate_crouch_danger->add_condition(CWorldProperty(this->m_properties.at("bodystate_crouch"), true));
+    p_action_bodystate_crouch_danger->add_effect(CWorldProperty(this->m_properties.at("bodystate"), true));
+    p_action_bodystate_crouch_danger->add_effect(CWorldProperty(this->m_properties.at("mental"), true));
+
+    this->m_p_action_planner->add_operator(
+        this->m_operators.at("bodystate_crouch_danger"), p_action_bodystate_crouch_danger);
+
+    CScriptActionBase* p_action_bodystate_standing =
+        new Script_ActionStateManagerBodyStateStanding("state_mgr_bodystate_standing", this);
+
+    p_action_bodystate_standing->add_condition(CWorldProperty(this->m_properties.at("locked_external"), false));
+    p_action_bodystate_standing->add_condition(CWorldProperty(this->m_properties.at("bodystate"), false));
+    p_action_bodystate_standing->add_condition(CWorldProperty(this->m_properties.at("bodystate_standing_now"), false));
+    p_action_bodystate_standing->add_condition(CWorldProperty(this->m_properties.at("bodystate_standing"), true));
+    p_action_bodystate_standing->add_effect(CWorldProperty(this->m_properties.at("bodystate"), true));
+    p_action_bodystate_standing->add_effect(CWorldProperty(this->m_properties.at("bodystate_standing_now"), true));
+
+    this->m_p_action_planner->add_operator(this->m_operators.at("bodystate_standing"), p_action_bodystate_standing);
+
+    CScriptActionBase* p_action_bodystate_standing_free =
+        new Script_ActionStateManagerBodyStateStandingFree("state_mgr_bodystate_standing_free", this);
+
+    p_action_bodystate_standing_free->add_condition(CWorldProperty(this->m_properties.at("locked_external"), false));
+    p_action_bodystate_standing_free->add_condition(CWorldProperty(this->m_properties.at("bodystate"), false));
+    p_action_bodystate_standing_free->add_condition(CWorldProperty(this->m_properties.at("mental"), false));
+    p_action_bodystate_standing_free->add_condition(
+        CWorldProperty(this->m_properties.at("bodystate_standing_now"), false));
+    p_action_bodystate_standing_free->add_condition(CWorldProperty(this->m_properties.at("bodystate_standing"), true));
+    p_action_bodystate_standing_free->add_condition(CWorldProperty(this->m_properties.at("mental_free"), false));
+    p_action_bodystate_standing_free->add_effect(CWorldProperty(this->m_properties.at("bodystate"), true));
+    p_action_bodystate_standing_free->add_effect(CWorldProperty(this->m_properties.at("bodystate_standing_now"), true));
+    p_action_bodystate_standing_free->add_effect(CWorldProperty(this->m_properties.at("mental"), true));
+
+    this->m_p_action_planner->add_operator(this->m_operators.at("bodystate_standing_free"), p_action_bodystate_standing_free);
+#pragma endregion
 }
 
 Script_StateManager::~Script_StateManager(void) {}
