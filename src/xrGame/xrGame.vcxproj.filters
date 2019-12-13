@@ -4138,12 +4138,6 @@
     <Filter Include="Cordis\Scripts\Managers\State\Mob">
       <UniqueIdentifier>{b6800db4-d976-418a-8d1e-372fe7110a99}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Cordis\Scripts\Managers\State\Public">
-      <UniqueIdentifier>{de633333-1350-4b1d-979e-ea67bf861ae8}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Cordis\Scripts\Managers\State\Private">
-      <UniqueIdentifier>{7bceb726-57ed-4c5c-9aae-fb17aedec9f0}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Cordis\Scripts\Managers\State\Evaluators">
       <UniqueIdentifier>{42039de2-1040-4784-bde4-85ad63bd6276}</UniqueIdentifier>
     </Filter>
@@ -4155,6 +4149,15 @@
     </Filter>
     <Filter Include="Cordis\Scripts\Managers\State\Actions\Public">
       <UniqueIdentifier>{eb978bf1-7c94-4cdf-a6a2-973735fadc7e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Managers\State\Kernel">
+      <UniqueIdentifier>{e55586d1-a968-4828-b716-58ade118807f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Managers\State\Kernel\Private">
+      <UniqueIdentifier>{7bceb726-57ed-4c5c-9aae-fb17aedec9f0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Managers\State\Kernel\Public">
+      <UniqueIdentifier>{de633333-1350-4b1d-979e-ea67bf861ae8}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -9489,7 +9492,7 @@
       <Filter>Cordis\Scripts\Logic\Schemes\XR\Remark\Public</Filter>
     </ClInclude>
     <ClInclude Include="Script_StateManager.h">
-      <Filter>Cordis\Scripts\Managers\State\Public</Filter>
+      <Filter>Cordis\Scripts\Managers\State\Kernel\Public</Filter>
     </ClInclude>
     <ClInclude Include="Script_StateEvaluators.h">
       <Filter>Cordis\Scripts\Managers\State\Evaluators\Public</Filter>
@@ -13900,7 +13903,7 @@
       <Filter>Cordis\Scripts\Logic\Schemes\XR\Remark\Private</Filter>
     </ClCompile>
     <ClCompile Include="Script_StateManager.cpp">
-      <Filter>Cordis\Scripts\Managers\State\Private</Filter>
+      <Filter>Cordis\Scripts\Managers\State\Kernel\Private</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
