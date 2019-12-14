@@ -432,7 +432,11 @@ public:
         this->m_condlist = condlist;
     }
 
-    inline bool IsEmpty(void) const noexcept { return (this->m_npc_id == 0) && (this->m_field_name.empty()) && (this->m_value1_name.empty()) && (this->m_value_name.empty()) && (this->m_condlist.empty()); }
+    inline bool IsEmpty(void) const noexcept
+    {
+        return (this->m_npc_id == 0) && (this->m_field_name.empty()) && (this->m_value1_name.empty()) &&
+            (this->m_value_name.empty()) && (this->m_condlist.empty());
+    }
 
 private:
     std::uint16_t m_npc_id = 0;
@@ -441,6 +445,5 @@ private:
     xr_string m_value1_name;
     xr_map<std::uint32_t, CondlistData> m_condlist;
 };
-
 } // namespace Scripts
 } // namespace Cordis

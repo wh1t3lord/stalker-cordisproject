@@ -114,14 +114,15 @@ private:
 #pragma endregion
 
 #pragma region Cordis State Manager Actions about animstate
-class Script_ActionStateManagerAnimStateStart : public CScriptActionBase
+class Script_ActionStateManagerAnimationStateStart : public CScriptActionBase
 {
 public:
-    Script_ActionStateManagerAnimStateStart(const xr_string& action_name, Script_StateManager* const p_state_manager)
+    Script_ActionStateManagerAnimationStateStart(
+        const xr_string& action_name, Script_StateManager* const p_state_manager)
         : CScriptActionBase(nullptr, action_name.c_str()), m_p_state_manager(p_state_manager)
     {
     }
-    ~Script_ActionStateManagerAnimStateStart(void) {}
+    ~Script_ActionStateManagerAnimationStateStart(void) {}
 
     virtual void initialize(void)
     {
@@ -137,14 +138,15 @@ private:
     Script_StateManager* m_p_state_manager;
 };
 
-class Script_ActionStateManagerAnimStateStop : public CScriptActionBase
+class Script_ActionStateManagerAnimationStateStop : public CScriptActionBase
 {
 public:
-    Script_ActionStateManagerAnimStateStop(const xr_string& action_name, Script_StateManager* const p_state_manager)
+    Script_ActionStateManagerAnimationStateStop(
+        const xr_string& action_name, Script_StateManager* const p_state_manager)
         : CScriptActionBase(nullptr, action_name.c_str()), m_p_state_manager(p_state_manager)
     {
     }
-    ~Script_ActionStateManagerAnimStateStop(void) {}
+    ~Script_ActionStateManagerAnimationStateStop(void) {}
 
     virtual void initialize(void) { CScriptActionBase::initialize(); }
 
@@ -765,7 +767,8 @@ public:
     virtual void initialize(void)
     {
         CScriptActionBase::initialize();
-        CScriptGameObject* const p_client_item = Globals::get_weapon(this->m_object, this->m_p_state_manager->getTargetStateName());
+        CScriptGameObject* const p_client_item =
+            Globals::get_weapon(this->m_object, this->m_p_state_manager->getTargetStateName());
 
         if (Globals::is_strappable_weapon(p_client_item))
         {
@@ -776,6 +779,68 @@ public:
         {
             this->m_object->set_item(MonsterSpace::eObjectActionIdle, nullptr);
         }
+    }
+
+    virtual void execute(void) { CScriptActionBase::execute(); }
+
+    virtual void finalize(void) { CScriptActionBase::finalize(); }
+
+private:
+    Script_StateManager* m_p_state_manager;
+};
+#pragma endregion
+
+#pragma region Cordis State Manager Actions about smartcover
+class Script_ActionStateManagerSmartCoverEnter : public CScriptActionBase
+{
+public:
+    Script_ActionStateManagerSmartCoverEnter(const xr_string& action_name, Script_StateManager* const p_state_manager)
+        : CScriptActionBase(nullptr, action_name.c_str()), m_p_state_manager(p_state_manager)
+    {
+    }
+    ~Script_ActionStateManagerSmartCoverEnter(void) {}
+
+    virtual void initialize(void)
+    {
+        CScriptActionBase::initialize();
+        this->m_object->use_smart_covers_only(true);
+        this->m_object->set_movement_type(eMovementTypeRun);
+        this->m_object->set_dest_smart_cover();
+    }
+
+    virtual void execute(void) { CScriptActionBase::execute(); }
+
+    virtual void finalize(void) { CScriptActionBase::finalize(); }
+
+private:
+    Script_StateManager* m_p_state_manager;
+};
+
+class Script_ActionStateManagerSmartCoverExit : public CScriptActionBase
+{
+public:
+    Script_ActionStateManagerSmartCoverExit(const xr_string& action_name, Script_StateManager* const p_state_manager)
+        : CScriptActionBase(nullptr, action_name.c_str()), m_p_state_manager(p_state_manager)
+    {
+    }
+    ~Script_ActionStateManagerSmartCoverExit(void) {}
+
+    virtual void initialize(void)
+    {
+        CScriptActionBase::initialize();
+        this->m_object->set_smart_cover_target();
+        this->m_object->use_smart_covers_only(false);
+        this->m_object->set_smart_cover_target_selector();
+        std::uint32_t vertex = this->m_object->level_vertex_id();
+        if (!this->m_object->accessible_position(
+                Globals::Game::level::vertex_position(this->m_object->level_vertex_id())))
+        {
+            Fvector ttp;
+            vertex = this->m_object->accessible_nearest(
+                Globals::Game::level::vertex_position(this->m_object->level_vertex_id()), ttp);
+        }
+
+        this->m_object->set_dest_level_vertex_id(vertex);
     }
 
     virtual void execute(void) { CScriptActionBase::execute(); }

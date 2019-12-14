@@ -99,7 +99,7 @@ namespace XR_REMARK
 constexpr std::uint32_t kStateInitial = 0;
 constexpr std::uint32_t kStateAnimation = 1;
 constexpr std::uint32_t kStateSound = 2;
-}
+} // namespace XR_REMARK
 
 namespace XR_DANGER
 {
@@ -116,9 +116,9 @@ inline void parse_infopotions(xr_map<std::uint32_t, CondlistData::CondlistValues
 inline bool switch_to_section(
     CScriptGameObject* const p_client_object, CScriptIniFile* const p_ini, const xr_string& section_name);
 inline bool is_active(CScriptGameObject* const p_client_object, DataBase::Storage_Scheme& storage);
-    /*
+/*
 inline void activate_by_section(CScriptGameObject* const p_client_object, CScriptIniFile* const p_ini,
-    const xr_string& section_name, const xr_string& gulag_name, const bool is_loading);*/
+const xr_string& section_name, const xr_string& gulag_name, const bool is_loading);*/
 inline void reset_generic_schemes_on_scheme_switch(
     CScriptGameObject* const p_client_object, const xr_string& scheme_name, const xr_string& section_name);
 inline DataBase::Data_Overrides cfg_get_overrides(
@@ -783,6 +783,22 @@ private:
 #pragma endregion
 } // namespace Globals
 
+struct StateManagerCallbackData
+{
+    StateManagerCallbackData(void) = default;
+    ~StateManagerCallbackData(void) = default;
+
+    inline std::uint32_t getBegin(void) const noexcept { return this->m_begin; }
+    inline void setBegin(const std::uint32_t value) noexcept { this->m_begin = value; }
+
+    inline std::uint32_t getTimeOut(void) const noexcept { return this->m_timeout; }
+    inline void setTimeOut(const std::uint32_t value) noexcept { this->m_timeout = value; }
+     
+private:
+    std::uint32_t m_begin;
+    std::uint32_t m_timeout;
+};
+
 struct StateLibData
 {
     StateLibData(void) = default;
@@ -796,6 +812,8 @@ struct StateLibData
           m_is_fast_set(is_fast_set), m_weapon_slot(weapon_slot)
     {
     }
+
+    ~StateLibData(void) = default;
 
     inline bool IsFastSet(void) const noexcept { return this->m_is_fast_set; }
     inline void setFastSet(const bool& value) noexcept { this->m_is_fast_set = value; }
