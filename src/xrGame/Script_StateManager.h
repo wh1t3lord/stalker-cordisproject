@@ -35,6 +35,7 @@ private:
     bool m_is_position_direction_applied;
     bool m_is_combat;
     bool m_is_alife;
+    bool m_is_need_reweapon;
     bool m_is_point_object_direction; // @ uses in actions of direction
     CScriptGameObject* m_p_npc;
     CScriptGameObject* m_p_look_object;
