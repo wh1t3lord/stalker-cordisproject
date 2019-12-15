@@ -793,10 +793,293 @@ struct StateManagerCallbackData
 
     inline std::uint32_t getTimeOut(void) const noexcept { return this->m_timeout; }
     inline void setTimeOut(const std::uint32_t value) noexcept { this->m_timeout = value; }
-     
+
+    // @ Argument for std::bind()
+    inline void setCallbackTime(const std::function<void(void)>& function) { this->m_callback_time = function; }
+
+    // @ Argument for std::bind()
+    inline void setCallbackTurnEnd(const std::function<void(void)>& function) { this->m_callback_turn_end = function; }
+
+    inline void CallCallbackTime(void)
+    {
+        if (this->m_callback_time)
+            this->m_callback_time();
+        else
+            Msg("[Scripts/StateManagerCallbackData/CallCallbackTime()] WARNINIG: function what you binded is nullptr!");
+    }
+
+    inline void CallCallbackTurnEnd(void)
+    {
+        if (this->m_callback_turn_end)
+            this->m_callback_turn_end();
+        else
+            Msg("[Scripts/StateManagerCallbackData/CallCallbackTurnEnd(void)] WARNING: function what you binded is "
+                "nullptr!");
+    }
+
 private:
-    std::uint32_t m_begin;
-    std::uint32_t m_timeout;
+    std::uint32_t m_begin = 0;
+    std::uint32_t m_timeout = 0;
+    std::function<void(void)> m_callback_time = nullptr; // @ lua => func
+    std::function<void(void)> m_callback_turn_end = nullptr; // @ lua => turn_end
+};
+
+// @ Implementes state_mgr_animation_list and state_mgr_animstate_list
+struct StateManagerAnimationData
+{
+    struct AnimationData
+    {
+        AnimationData(void) = default;
+        ~AnimationData(void) = default;
+
+        // @ Это только для Script_StateManagerAnimation, если у нас хотя бы одно поле не пустое то считаем объект
+        // комплексным (сложным) иначе это единичный объект который содержит название анимации, смотри lua ->
+        // state_mgr_animation.script:199 select_anim()
+        inline bool isSingleField(void) noexcept
+        {
+            return (!this->m_function && this->m_attach_item_name.empty() && this->m_detach_item_name.empty() &&
+                fis_zero(this->m_hit_power) && this->m_sound_name.empty());
+        }
+
+        inline float getHitPower(void) const noexcept { return this->m_hit_power; }
+        inline void setHitPower(const float value) noexcept { this->m_hit_power = value; }
+
+        inline const xr_string& getAnimationName(void) const noexcept { return this->m_animation_name; }
+        inline void setAnimationName(const xr_string& animation_name) noexcept
+        {
+            if (animation_name.empty())
+                Msg("[Scripts/StateManagerAnimationData/AnimationData/setAnimationName(animation_name)] WARNING: "
+                    "animation_name.empty() == true! You set an empty string");
+
+            this->m_animation_name = animation_name;
+        }
+
+        inline const xr_string& getSoundName(void) const noexcept { return this->m_sound_name; }
+        inline void setSoundName(const xr_string& sound_name) noexcept
+        {
+            if (sound_name.empty())
+                Msg("[Scripts/StateManagerAnimationData/AnimationData/setSoundName(sound_name)] WARNING: "
+                    "sound_name.empty() == true! You set an empty string");
+
+            this->m_sound_name = sound_name;
+        }
+
+        inline const xr_string& getAttachItemName(void) const noexcept { return this->m_attach_item_name; }
+        inline void setAttachItemName(const xr_string& item_name) noexcept
+        {
+            if (item_name.empty())
+                Msg("[Scripts/StateManagerAnimationData/AnimationData/setAttachItemName(item_name)] WARNING: "
+                    "item_name.empty() == true! You set an empty string");
+
+            this->m_attach_item_name = item_name;
+        }
+
+        inline const xr_string& getDetachItemName(void) const noexcept { return this->m_detach_item_name; }
+        inline void setDetachItemName(const xr_string& item_name) noexcept
+        {
+            if (item_name.empty())
+                Msg("[Scripts/StateManagerAnimationData/AnimationData/setDetachItemName(item_name)] WARNING: "
+                    "item_name.empty() == true! You set an empty string");
+
+            this->m_detach_item_name = item_name;
+        }
+
+        inline void CallFunction(CScriptGameObject* const p_client_object)
+        {
+            if (this->m_function)
+                this->m_function(p_client_object);
+            else
+                Msg("[Scripts/StateManagerAnimationData/AnimationData/CallFunction(p_client_object)] WARNING: "
+                    "m_function is nullptr! Can't call! Return ...");
+        }
+
+        inline void setFunction(const std::function<void(CScriptGameObject* const)>& function)
+        {
+            this->m_function = function;
+        }
+
+    private:
+        float m_hit_power = 0.0f;
+        xr_string m_animation_name;
+        xr_string m_sound_name;
+        xr_string m_attach_item_name;
+        xr_string m_detach_item_name;
+        std::function<void(CScriptGameObject* const)> m_function = nullptr;
+    };
+
+    StateManagerAnimationData(void) = default;
+    ~StateManagerAnimationData(void) = default;
+
+    inline std::uint32_t getPropertiesMaxIdle(void) const noexcept { return this->m_properties_max_idle; }
+    inline void setPropertiesMaxIdle(const std::uint32_t value) noexcept { this->m_properties_max_idle = value; }
+
+    inline std::uint32_t getPropertiesSumIdle(void) const noexcept { return this->m_properties_sum_idle; }
+    inline void setPropertiesSumIdle(const std::uint32_t value) noexcept { this->m_properties_sum_idle = value; }
+
+    inline std::uint32_t getPropertiesRandom(void) const noexcept { return this->m_properties_random; }
+    inline void setPropertiesRandom(const std::uint32_t value) noexcept { this->m_properties_random = value; }
+
+    inline const xr_map<std::uint32_t, xr_vector<AnimationData>>& getAnimationList(
+        const xr_string& animation_id_name) const
+    {
+        return this->m_data.at(animation_id_name);
+    }
+
+    inline void addAnimation(
+        const xr_string& animation_state_name, const std::uint32_t index, const xr_string& animation_name) noexcept
+    {
+        if (animation_state_name.empty())
+        {
+            Msg("[Scripts/StateManagerAnimationData/addAnimation(animation_state_name, index, animation_name)] "
+                "WARNING: "
+                "animation_state_name.empty() == true! Can't add animation to m_data! Return ...");
+            return;
+        }
+
+        if (animation_name.empty())
+        {
+            Msg("[Scripts/StateManagerAnimationData/addAnimation(animation_state_name, index, animation_name)] "
+                "WARNING: "
+                "animation_name.empty() == true! Can't add an empty animation name to m_data! Return ...");
+            return;
+        }
+
+        AnimationData data;
+        data.setAnimationName(animation_name);
+        const xr_vector<AnimationData>& animation_list = this->m_data[animation_state_name][index];
+
+        if (!animation_list.empty())
+        {
+            for (const AnimationData& data : animation_list)
+            {
+                if (data.getAnimationName() == animation_name)
+                    Msg("[Scripts/StateManagerAnimationData/addAnimation(animation_state_name, index, animation_name)] "
+                        "WARNING: You are trying to the same animation_name, which already existed in the list! %s %s",
+                        animation_state_name.c_str(), animation_name.c_str());
+            }
+        }
+
+        this->m_data[animation_state_name][index].push_back(data);
+    }
+
+    inline void addAnimationAttachItemName(
+        const xr_string& animation_state_name, const std::uint32_t index, const xr_string& attach_item_name) noexcept
+    {
+        if (animation_state_name.empty())
+        {
+            Msg("[Scripts/StateManagerAnimationData/addAnimation(animation_state_name, index, attach_item_name)] "
+                "WARNING: "
+                "animation_state_name.empty() == true! Can't add animation to m_data! Return ...");
+            return;
+        }
+
+        if (attach_item_name.empty())
+        {
+            Msg("[Scripts/StateManagerAnimationData/addAnimation(animation_state_name, index, attach_item_name)] "
+                "WARNING: "
+                "attach_item_name.empty() == true! Can't add an empty animation name to m_data! Return ...");
+            return;
+        }
+        AnimationData data;
+        data.setAttachItemName(attach_item_name);
+        this->m_data[animation_state_name][index].push_back(data);
+    }
+
+    inline void addAnimationDettachItemName(
+        const xr_string& animation_state_name, const std::uint32_t index, const xr_string& dettach_item_name) noexcept
+    {
+        if (animation_state_name.empty())
+        {
+            Msg("[Scripts/StateManagerAnimationData/addAnimation(animation_state_name, index, dettach_item_name)] "
+                "WARNING: "
+                "animation_state_name.empty() == true! Can't add animation to m_data! Return ...");
+            return;
+        }
+
+        if (dettach_item_name.empty())
+        {
+            Msg("[Scripts/StateManagerAnimationData/addAnimation(animation_state_name, index, dettach_item_name)] "
+                "WARNING: "
+                "dettach_item_name.empty() == true! Can't add an empty animation name to m_data! Return ...");
+            return;
+        }
+        AnimationData data;
+        data.setDetachItemName(dettach_item_name);
+        this->m_data[animation_state_name][index].push_back(data);
+    }
+
+    inline void addAnimationSoundName(
+        const xr_string& animation_state_name, const std::uint32_t index, const xr_string& sound_name) noexcept
+    {
+        if (animation_state_name.empty())
+        {
+            Msg("[Scripts/StateManagerAnimationData/addAnimation(animation_state_name, index, sound_name)] "
+                "WARNING: "
+                "animation_state_name.empty() == true! Can't add animation to m_data! Return ...");
+            return;
+        }
+
+        if (sound_name.empty())
+        {
+            Msg("[Scripts/StateManagerAnimationData/addAnimation(animation_state_name, index, sound_name)] "
+                "WARNING: "
+                "sound_name.empty() == true! Can't add an empty animation name to m_data! Return ...");
+            return;
+        }
+        AnimationData data;
+        data.setSoundName(sound_name);
+        this->m_data[animation_state_name][index].push_back(data);
+    }
+
+    inline void addAnimationHitPower(
+        const xr_string& animation_state_name, const std::uint32_t index, const float value) noexcept
+    {
+        if (animation_state_name.empty())
+        {
+            Msg("[Scripts/StateManagerAnimationData/addAnimation(animation_state_name, index, value)] "
+                "WARNING: "
+                "animation_state_name.empty() == true! Can't add animation to m_data! Return ...");
+            return;
+        }
+
+        AnimationData data;
+        data.setHitPower(value);
+        this->m_data[animation_state_name][index].push_back(data);
+    }
+
+    inline void addAnimationFunction(const xr_string& animation_state_name, const std::uint32_t index,
+        const std::function<void(CScriptGameObject* const)>& function) noexcept
+    {
+        if (animation_state_name.empty())
+        {
+            Msg("[Scripts/StateManagerAnimationData/addAnimation(animation_state_name, index, function)] "
+                "WARNING: "
+                "animation_state_name.empty() == true! Can't add animation to m_data! Return ...");
+            return;
+        }
+
+        if (!function)
+        {
+            Msg("[Scripts/StateManagerAnimationData/addAnimation(animation_state_name, index, function)] "
+                "WARNING: "
+                "function == nullptr! Can't add an empty animation name to m_data! Return ...");
+            return;
+        }
+
+        AnimationData data;
+        data.setFunction(function);
+        this->m_data[animation_state_name][index].push_back(data);
+    }
+
+    inline bool isPropertiesMoving(void) const noexcept { return this->m_is_properties_moving; }
+    inline void setPropertiesMoving(const bool value) noexcept { this->m_is_properties_moving = value; }
+
+private:
+    bool m_is_properties_moving = false;
+    std::uint32_t m_properties_max_idle = 0;
+    std::uint32_t m_properties_sum_idle = 0;
+    std::uint32_t m_properties_random = 0;
+    xr_map<xr_string, xr_map<std::uint32_t, xr_vector<AnimationData>>> m_data;
 };
 
 struct StateLibData
