@@ -4292,6 +4292,1003 @@ private:
         this->m_look_direction_states["threat_na"] = true;
         this->m_look_direction_states["wait_na"] = true;
         this->m_look_direction_states["guard_na"] = true;
+
+        StateManagerAnimationData idle_animation_data;
+        idle_animation_data.setPropertiesMaxIdle(5);
+        idle_animation_data.setPropertiesSumIdle(3);
+        idle_animation_data.setPropertiesRandom(80);
+
+        idle_animation_data.addAnimation("idle", 0, "idle_0_idle_1");
+        idle_animation_data.addAnimation("idle", 1, "idle_1_idle_1");
+        idle_animation_data.addAnimation("idle", 2, "idle_2_idle_1");
+        idle_animation_data.addAnimation("idle", 3, "idle_3_idle_1");
+        idle_animation_data.addAnimation("idle", 4, "idle_4_idle_1");
+        idle_animation_data.addAnimation("idle", 8, "idle_8_idle_1");
+        idle_animation_data.addAnimation("idle", 9, "idle_2_idle_1");
+        idle_animation_data.addAnimation("idle", 10, "idle_10_idle_1");
+
+        idle_animation_data.addAnimation("rnd", 0, "idle_0_idle_0");
+        idle_animation_data.addAnimation("rnd", 0, "idle_0_idle_2");
+        idle_animation_data.addAnimation("rnd", 0, "idle_0_idle_3");
+        idle_animation_data.addAnimation("rnd", 0, "idle_0_idle_4");
+
+        idle_animation_data.addAnimation("rnd", 1, "idle_1_idle_0");
+        idle_animation_data.addAnimation("rnd", 1, "idle_1_idle_2");
+        idle_animation_data.addAnimation("rnd", 1, "idle_1_idle_3");
+        idle_animation_data.addAnimation("rnd", 1, "idle_1_idle_4");
+
+        idle_animation_data.addAnimation("rnd", 2, "idle_2_idle_0");
+        idle_animation_data.addAnimation("rnd", 2, "idle_2_idle_2");
+        idle_animation_data.addAnimation("rnd", 2, "idle_2_idle_3");
+        idle_animation_data.addAnimation("rnd", 2, "idle_2_idle_4");
+
+        idle_animation_data.addAnimation("rnd", 3, "idle_3_idle_0");
+        idle_animation_data.addAnimation("rnd", 3, "idle_3_idle_2");
+        idle_animation_data.addAnimation("rnd", 3, "idle_3_idle_3");
+        idle_animation_data.addAnimation("rnd", 3, "idle_3_idle_4");
+
+        idle_animation_data.addAnimation("rnd", 4, "idle_4_idle_0");
+        idle_animation_data.addAnimation("rnd", 4, "idle_4_idle_2");
+        idle_animation_data.addAnimation("rnd", 4, "idle_4_idle_3");
+        idle_animation_data.addAnimation("rnd", 4, "idle_4_idle_4");
+
+        idle_animation_data.addAnimation("rnd", 8, "idle_8_idle_0");
+        idle_animation_data.addAnimation("rnd", 8, "idle_8_idle_2");
+        idle_animation_data.addAnimation("rnd", 8, "idle_8_idle_3");
+        idle_animation_data.addAnimation("rnd", 8, "idle_8_idle_4");
+
+        idle_animation_data.addAnimation("rnd", 9, "idle_2_idle_0");
+        idle_animation_data.addAnimation("rnd", 9, "idle_2_idle_2");
+        idle_animation_data.addAnimation("rnd", 9, "idle_2_idle_3");
+        idle_animation_data.addAnimation("rnd", 9, "idle_2_idle_4");
+
+        idle_animation_data.addAnimation("rnd", 10, "idle_10_idle_0");
+        idle_animation_data.addAnimation("rnd", 10, "idle_10_idle_2");
+        idle_animation_data.addAnimation("rnd", 10, "idle_10_idle_3");
+        idle_animation_data.addAnimation("rnd", 10, "idle_10_idle_4");
+
+        this->m_state_manager_animation_list["idle"] = idle_animation_data;
+
+        StateManagerAnimationData idle_chasovoy_animation_data;
+        idle_chasovoy_animation_data.setPropertiesMaxIdle(5);
+        idle_chasovoy_animation_data.setPropertiesSumIdle(3);
+        idle_chasovoy_animation_data.setPropertiesRandom(80);
+
+        idle_chasovoy_animation_data.addAnimation("idle", 0, "idle_0_idle_1");
+        idle_chasovoy_animation_data.addAnimation("idle", 1, "idle_1_idle_1");
+        idle_chasovoy_animation_data.addAnimation("idle", 2, "idle_2_idle_1");
+        idle_chasovoy_animation_data.addAnimation("idle", 3, "idle_3_idle_1");
+        idle_chasovoy_animation_data.addAnimation("idle", 4, "idle_4_idle_1");
+        idle_chasovoy_animation_data.addAnimation("idle", 8, "idle_8_idle_1");
+        idle_chasovoy_animation_data.addAnimation("idle", 9, "idle_2_idle_1");
+        idle_chasovoy_animation_data.addAnimation("idle", 10, "idle_10_idle_1");
+
+        idle_chasovoy_animation_data.addAnimation("rnd", 0, "chasovoy_0");
+        idle_chasovoy_animation_data.addAnimation("rnd", 0, "chasovoy_1");
+        idle_chasovoy_animation_data.addAnimation("rnd", 0, "chasovoy_2");
+        idle_chasovoy_animation_data.addAnimation("rnd", 0, "chasovoy_3");
+        idle_chasovoy_animation_data.addAnimation("rnd", 0, "chasovoy_4");
+
+        idle_chasovoy_animation_data.addAnimation("rnd", 1, "chasovoy_0");
+        idle_chasovoy_animation_data.addAnimation("rnd", 1, "chasovoy_1");
+        idle_chasovoy_animation_data.addAnimation("rnd", 1, "chasovoy_2");
+        idle_chasovoy_animation_data.addAnimation("rnd", 1, "chasovoy_3");
+        idle_chasovoy_animation_data.addAnimation("rnd", 1, "chasovoy_4");
+
+        idle_chasovoy_animation_data.addAnimation("rnd", 2, "chasovoy_0");
+        idle_chasovoy_animation_data.addAnimation("rnd", 2, "chasovoy_1");
+        idle_chasovoy_animation_data.addAnimation("rnd", 2, "chasovoy_2");
+        idle_chasovoy_animation_data.addAnimation("rnd", 2, "chasovoy_3");
+        idle_chasovoy_animation_data.addAnimation("rnd", 2, "chasovoy_4");
+
+        idle_chasovoy_animation_data.addAnimation("rnd", 3, "chasovoy_0");
+        idle_chasovoy_animation_data.addAnimation("rnd", 3, "chasovoy_1");
+        idle_chasovoy_animation_data.addAnimation("rnd", 3, "chasovoy_2");
+        idle_chasovoy_animation_data.addAnimation("rnd", 3, "chasovoy_3");
+        idle_chasovoy_animation_data.addAnimation("rnd", 3, "chasovoy_4");
+
+        idle_chasovoy_animation_data.addAnimation("rnd", 4, "chasovoy_0");
+        idle_chasovoy_animation_data.addAnimation("rnd", 4, "chasovoy_1");
+        idle_chasovoy_animation_data.addAnimation("rnd", 4, "chasovoy_2");
+        idle_chasovoy_animation_data.addAnimation("rnd", 4, "chasovoy_3");
+        idle_chasovoy_animation_data.addAnimation("rnd", 4, "chasovoy_4");
+
+        idle_chasovoy_animation_data.addAnimation("rnd", 8, "chasovoy_0");
+        idle_chasovoy_animation_data.addAnimation("rnd", 8, "chasovoy_1");
+        idle_chasovoy_animation_data.addAnimation("rnd", 8, "chasovoy_2");
+        idle_chasovoy_animation_data.addAnimation("rnd", 8, "chasovoy_3");
+        idle_chasovoy_animation_data.addAnimation("rnd", 8, "chasovoy_4");
+
+        idle_chasovoy_animation_data.addAnimation("rnd", 9, "chasovoy_0");
+        idle_chasovoy_animation_data.addAnimation("rnd", 9, "chasovoy_1");
+        idle_chasovoy_animation_data.addAnimation("rnd", 9, "chasovoy_2");
+        idle_chasovoy_animation_data.addAnimation("rnd", 9, "chasovoy_3");
+        idle_chasovoy_animation_data.addAnimation("rnd", 9, "chasovoy_4");
+
+        idle_chasovoy_animation_data.addAnimation("rnd", 10, "chasovoy_0");
+        idle_chasovoy_animation_data.addAnimation("rnd", 10, "chasovoy_1");
+        idle_chasovoy_animation_data.addAnimation("rnd", 10, "chasovoy_2");
+        idle_chasovoy_animation_data.addAnimation("rnd", 10, "chasovoy_3");
+        idle_chasovoy_animation_data.addAnimation("rnd", 10, "chasovoy_4");
+
+        this->m_state_manager_animation_list["idle_chasovoy"] = idle_chasovoy_animation_data;
+
+        StateManagerAnimationData caution_animation_data;
+        caution_animation_data.setPropertiesMaxIdle(5);
+        caution_animation_data.setPropertiesSumIdle(3);
+        caution_animation_data.setPropertiesRandom(80);
+
+        caution_animation_data.addAnimation("into", 0, "prisluh_0_in");
+        caution_animation_data.addAnimation("into", 1, "prisluh_1_in");
+        caution_animation_data.addAnimation("into", 2, "prisluh_2_in");
+        caution_animation_data.addAnimation("into", 3, "prisluh_3_in");
+        caution_animation_data.addAnimation("into", 4, "prisluh_4_in");
+        caution_animation_data.addAnimation("into", 8, "prisluh_8_in");
+        caution_animation_data.addAnimation("into", 9, "prisluh_9_in");
+        caution_animation_data.addAnimation("into", 10, "prisluh_10_in");
+
+        caution_animation_data.addAnimation("out", 0, "prisluh_0_out");
+        caution_animation_data.addAnimation("out", 1, "prisluh_1_out");
+        caution_animation_data.addAnimation("out", 2, "prisluh_2_out");
+        caution_animation_data.addAnimation("out", 3, "prisluh_3_out");
+        caution_animation_data.addAnimation("out", 4, "prisluh_4_out");
+        caution_animation_data.addAnimation("out", 8, "prisluh_8_out");
+        caution_animation_data.addAnimation("out", 9, "prisluh_9_out");
+        caution_animation_data.addAnimation("out", 10, "prisluh_10_out");
+
+        caution_animation_data.addAnimation("idle", 0, "prisluh_0_1");
+        caution_animation_data.addAnimation("idle", 1, "prisluh_1_1");
+        caution_animation_data.addAnimation("idle", 2, "prisluh_2_1");
+        caution_animation_data.addAnimation("idle", 3, "prisluh_3_1");
+        caution_animation_data.addAnimation("idle", 4, "prisluh_4_1");
+        caution_animation_data.addAnimation("idle", 8, "prisluh_8_1");
+        caution_animation_data.addAnimation("idle", 9, "prisluh_9_1");
+        caution_animation_data.addAnimation("idle", 10, "prisluh_10_1");
+
+        caution_animation_data.addAnimation("rnd", 0, "prisluh_0_0");
+        caution_animation_data.addAnimation("rnd", 0, "prisluh_0_2");
+        caution_animation_data.addAnimation("rnd", 1, "prisluh_1_0");
+        caution_animation_data.addAnimation("rnd", 1, "prisluh_1_2");
+        caution_animation_data.addAnimation("rnd", 2, "prisluh_2_0");
+        caution_animation_data.addAnimation("rnd", 2, "prisluh_2_2");
+        caution_animation_data.addAnimation("rnd", 3, "prisluh_3_0");
+        caution_animation_data.addAnimation("rnd", 3, "prisluh_3_2");
+        caution_animation_data.addAnimation("rnd", 4, "prisluh_4_0");
+        caution_animation_data.addAnimation("rnd", 4, "prisluh_4_2");
+        caution_animation_data.addAnimation("rnd", 8, "prisluh_8_0");
+        caution_animation_data.addAnimation("rnd", 8, "prisluh_8_2");
+        caution_animation_data.addAnimation("rnd", 9, "prisluh_9_0");
+        caution_animation_data.addAnimation("rnd", 9, "prisluh_9_2");
+        caution_animation_data.addAnimation("rnd", 10, "prisluh_10_0");
+        caution_animation_data.addAnimation("rnd", 10, "prisluh_10_2");
+
+        this->m_state_manager_animation_list["caution"] = caution_animation_data;
+
+        StateManagerAnimationData poisk_animation_data;
+        poisk_animation_data.setPropertiesMaxIdle(5);
+        poisk_animation_data.setPropertiesSumIdle(3);
+        poisk_animation_data.setPropertiesRandom(80);
+
+        poisk_animation_data.addAnimation("idle", 0, "poisk_0_idle_1");
+        poisk_animation_data.addAnimation("idle", 1, "poisk_1_idle_1");
+        poisk_animation_data.addAnimation("idle", 2, "poisk_2_idle_1");
+        poisk_animation_data.addAnimation("idle", 3, "poisk_3_idle_1");
+        poisk_animation_data.addAnimation("idle", 4, "poisk_4_idle_1");
+        poisk_animation_data.addAnimation("idle", 8, "poisk_8_idle_1");
+        poisk_animation_data.addAnimation("idle", 9, "poisk_9_idle_1");
+        poisk_animation_data.addAnimation("idle", 10, "poisk_10_idle_1");
+
+        poisk_animation_data.addAnimation("rnd", 0, "poisk_0_idle_0");
+        poisk_animation_data.addAnimation("rnd", 0, "poisk_0_idle_2");
+        poisk_animation_data.addAnimation("rnd", 1, "poisk_1_idle_0");
+        poisk_animation_data.addAnimation("rnd", 1, "poisk_1_idle_2");
+        poisk_animation_data.addAnimation("rnd", 2, "poisk_2_idle_0");
+        poisk_animation_data.addAnimation("rnd", 2, "poisk_2_idle_2");
+        poisk_animation_data.addAnimation("rnd", 3, "poisk_3_idle_0");
+        poisk_animation_data.addAnimation("rnd", 3, "poisk_3_idle_2");
+        poisk_animation_data.addAnimation("rnd", 4, "poisk_4_idle_0");
+        poisk_animation_data.addAnimation("rnd", 4, "poisk_4_idle_2");
+        poisk_animation_data.addAnimation("rnd", 8, "poisk_8_idle_0");
+        poisk_animation_data.addAnimation("rnd", 8, "poisk_8_idle_2");
+        poisk_animation_data.addAnimation("rnd", 9, "poisk_9_idle_0");
+        poisk_animation_data.addAnimation("rnd", 9, "poisk_9_idle_2");
+        poisk_animation_data.addAnimation("rnd", 10, "poisk_10_idle_0");
+        poisk_animation_data.addAnimation("rnd", 10, "poisk_10_idle_2");
+
+        this->m_state_manager_animation_list["poisk"] = poisk_animation_data;
+
+        StateManagerAnimationData stoop_no_weap_animation_data;
+        stoop_no_weap_animation_data.setPropertiesMaxIdle(2);
+        stoop_no_weap_animation_data.setPropertiesSumIdle(1);
+        stoop_no_weap_animation_data.setPropertiesRandom(80);
+
+        stoop_no_weap_animation_data.addAnimation("idle", 0, "poisk_0_idle_0");
+
+        this->m_state_manager_animation_list["stoop_no_weap"] = stoop_no_weap_animation_data;
+
+        StateManagerAnimationData hide_animation_data;
+        hide_animation_data.setPropertiesMaxIdle(5);
+        hide_animation_data.setPropertiesSumIdle(3);
+        hide_animation_data.setPropertiesRandom(80);
+
+        hide_animation_data.addAnimation("into", 0, "cr_idle_0_in");
+        hide_animation_data.addAnimation("into", 1, "cr_idle_1_in");
+        hide_animation_data.addAnimation("into", 2, "cr_idle_2_in");
+        hide_animation_data.addAnimation("into", 3, "cr_idle_3_in");
+        hide_animation_data.addAnimation("into", 4, "cr_idle_4_in");
+        hide_animation_data.addAnimation("into", 8, "cr_idle_8_in");
+        hide_animation_data.addAnimation("into", 9, "cr_idle_9_in");
+        hide_animation_data.addAnimation("into", 10, "cr_idle_10_in");
+
+        hide_animation_data.addAnimation("out", 0, "cr_idle_0_out");
+        hide_animation_data.addAnimation("out", 1, "cr_idle_1_out");
+        hide_animation_data.addAnimation("out", 2, "cr_idle_2_out");
+        hide_animation_data.addAnimation("out", 3, "cr_idle_3_out");
+        hide_animation_data.addAnimation("out", 4, "cr_idle_4_out");
+        hide_animation_data.addAnimation("out", 8, "cr_idle_8_out");
+        hide_animation_data.addAnimation("out", 9, "cr_idle_9_out");
+        hide_animation_data.addAnimation("out", 10, "cr_idle_10_out");
+
+        hide_animation_data.addAnimation("idle", 0, "cr_idle_0_1");
+        hide_animation_data.addAnimation("idle", 1, "cr_idle_1_1");
+        hide_animation_data.addAnimation("idle", 2, "cr_idle_2_1");
+        hide_animation_data.addAnimation("idle", 3, "cr_idle_3_1");
+        hide_animation_data.addAnimation("idle", 4, "cr_idle_4_1");
+        hide_animation_data.addAnimation("idle", 8, "cr_idle_8_1");
+        hide_animation_data.addAnimation("idle", 9, "cr_idle_9_1");
+        hide_animation_data.addAnimation("idle", 10, "cr_idle_10_1");
+
+        hide_animation_data.addAnimation("rnd", 0, "cr_idle_0_0");
+        hide_animation_data.addAnimation("rnd", 0, "cr_idle_0_2");
+        hide_animation_data.addAnimation("rnd", 1, "cr_idle_1_0");
+        hide_animation_data.addAnimation("rnd", 1, "cr_idle_1_2");
+        hide_animation_data.addAnimation("rnd", 2, "cr_idle_2_0");
+        hide_animation_data.addAnimation("rnd", 2, "cr_idle_2_2");
+        hide_animation_data.addAnimation("rnd", 3, "cr_idle_3_0");
+        hide_animation_data.addAnimation("rnd", 3, "cr_idle_3_2");
+        hide_animation_data.addAnimation("rnd", 4, "cr_idle_4_0");
+        hide_animation_data.addAnimation("rnd", 4, "cr_idle_4_2");
+        hide_animation_data.addAnimation("rnd", 8, "cr_idle_8_0");
+        hide_animation_data.addAnimation("rnd", 8, "cr_idle_8_2");
+        hide_animation_data.addAnimation("rnd", 9, "cr_idle_9_0");
+        hide_animation_data.addAnimation("rnd", 9, "cr_idle_9_2");
+        hide_animation_data.addAnimation("rnd", 10, "cr_idle_10_0");
+        hide_animation_data.addAnimation("rnd", 10, "cr_idle_10_2");
+
+        this->m_state_manager_animation_list["hide"] = hide_animation_data;
+
+        StateManagerAnimationData play_guitar_animation_data;
+        play_guitar_animation_data.setPropertiesMaxIdle(3);
+        play_guitar_animation_data.setPropertiesSumIdle(3);
+        play_guitar_animation_data.setPropertiesRandom(80);
+
+        play_guitar_animation_data.addAnimation("into", 0, "sit_1_guitar_0_0");
+        play_guitar_animation_data.addAnimationAttachItemName("into", 0, "guitar_a");
+        //       play_guitar_animation_data.addAnimationFunction(sr_camp.play_guitar) Lord: реализовать!
+        play_guitar_animation_data.addAnimation("into", 0, "sit_1_guitar_0_1");
+
+        play_guitar_animation_data.addAnimation("out", 0, "guitar_0_sit_1_0");
+        play_guitar_animation_data.addAnimationDettachItemName("out", 0, "guitar_a");
+        play_guitar_animation_data.addAnimationDettachItemName("out", 0, "guitar_0_sit_1_1");
+
+        play_guitar_animation_data.addAnimation("idle", 0, "guitar_0");
+
+        this->m_state_manager_animation_list["play_guitar"] = play_guitar_animation_data;
+
+        StateManagerAnimationData play_harmonica_animation_data;
+        play_harmonica_animation_data.setPropertiesMaxIdle(3);
+        play_harmonica_animation_data.setPropertiesSumIdle(3);
+        play_harmonica_animation_data.setPropertiesRandom(80);
+
+        play_harmonica_animation_data.addAnimation("into", 0, "sit_2_harmonica_1_0");
+        play_harmonica_animation_data.addAnimationAttachItemName("into", 0, "harmonica_a");
+        //    play_harmonica_animation_data.addAnimationFunction(sr_camp.start_harmonica); Lord: реализовать!
+        play_harmonica_animation_data.addAnimation("into", 0, "sit_2_harmonica_1_1");
+
+        play_harmonica_animation_data.addAnimation("out", 0, "harmonica_1_sit_2_0");
+        play_harmonica_animation_data.addAnimationDettachItemName("out", 0, "harmonica_a");
+        play_harmonica_animation_data.addAnimation("out", 0, "harmonica_1_sit_2_1");
+
+        play_harmonica_animation_data.addAnimation("idle", 0, "harmonica_0");
+
+        this->m_state_manager_animation_list["play_harmonica"] = play_harmonica_animation_data;
+
+        StateManagerAnimationData hello_animation_data;
+        hello_animation_data.setPropertiesMaxIdle(5);
+        hello_animation_data.setPropertiesSumIdle(5);
+        hello_animation_data.setPropertiesRandom(100);
+
+        hello_animation_data.addAnimation("rnd", 0 "hello_0_idle_0");
+        hello_animation_data.addAnimation("rnd", 1, "hello_1_idle_0");
+        hello_animation_data.addAnimation("rnd", 2, "hello_2_idle_0");
+        hello_animation_data.addAnimation("rnd", 3, "hello_3_idle_0");
+        hello_animation_data.addAnimation("rnd", 4, "hello_4_idle_0");
+        hello_animation_data.addAnimation("rnd", 8, "hello_8_idle_0");
+        hello_animation_data.addAnimation("rnd", 9, "hello_9_idle_0");
+        hello_animation_data.addAnimation("rnd", 10, "hello_10_idle_0");
+
+        this->m_state_manager_animation_list["hello"] = hello_animation_data;
+
+        StateManagerAnimationData refuse_animation_data;
+        refuse_animation_data.setPropertiesMaxIdle(3);
+        refuse_animation_data.setPropertiesSumIdle(3);
+        refuse_animation_data.setPropertiesRandom(100);
+
+        refuse_animation_data.addAnimation("rnd", 0 "net_0_0");
+        refuse_animation_data.addAnimation("rnd", 1, "net_1_0");
+        refuse_animation_data.addAnimation("rnd", 2, "net_2_0");
+        refuse_animation_data.addAnimation("rnd", 3, "net_3_0");
+        refuse_animation_data.addAnimation("rnd", 4, "net_4_0");
+        refuse_animation_data.addAnimation("rnd", 8, "net_8_0");
+        refuse_animation_data.addAnimation("rnd", 9, "net_9_0");
+        refuse_animation_data.addAnimation("rnd", 10, "net_10_0");
+
+        this->m_state_manager_animation_list["refuse"] = refuse_animation_data;
+
+        StateManagerAnimationData claim_animation_data;
+        claim_animation_data.setPropertiesMaxIdle(5);
+        claim_animation_data.setPropertiesSumIdle(2);
+        claim_animation_data.setPropertiesRandom(100);
+
+        claim_animation_data.addAnimation("rnd", 1, "gop_stop_1_0");
+        claim_animation_data.addAnimation("rnd", 2, "gop_stop_2_0");
+        claim_animation_data.addAnimation("rnd", 3, "gop_stop_3_0");
+        claim_animation_data.addAnimation("rnd", 4, "gop_stop_4_0");
+        claim_animation_data.addAnimation("rnd", 8, "gop_stop_8_0");
+        claim_animation_data.addAnimation("rnd", 9, "gop_stop_9_0");
+        claim_animation_data.addAnimation("rnd", 10, "gop_stop_10_0");
+
+        this->m_state_manager_animation_list["claim"] = claim_animation_data;
+
+        StateManagerAnimationData backoff_animation_data;
+        backoff_animation_data.setPropertiesMaxIdle(5);
+        backoff_animation_data.setPropertiesSumIdle(2);
+        backoff_animation_data.setPropertiesRandom(100);
+
+        backoff_animation_data.addAnimation("rnd", 0 "uhodi_1_0");
+        backoff_animation_data.addAnimation("rnd", 0 "uhodi_1_1");
+        backoff_animation_data.addAnimation("rnd", 1, "uhodi_1_0");
+        backoff_animation_data.addAnimation("rnd", 1, "uhodi_1_1");
+        backoff_animation_data.addAnimation("rnd", 2, "uhodi_2_0");
+        backoff_animation_data.addAnimation("rnd", 2, "uhodi_2_1");
+        backoff_animation_data.addAnimation("rnd", 3, "uhodi_3_0");
+        backoff_animation_data.addAnimation("rnd", 3, "uhodi_3_1");
+        backoff_animation_data.addAnimation("rnd", 4, "uhodi_4_0");
+        backoff_animation_data.addAnimation("rnd", 4, "uhodi_4_1");
+        backoff_animation_data.addAnimation("rnd", 8, "uhodi_8_0");
+        backoff_animation_data.addAnimation("rnd", 8, "uhodi_8_1");
+        backoff_animation_data.addAnimation("rnd", 9, "uhodi_9_0");
+        backoff_animation_data.addAnimation("rnd", 9, "uhodi_9_1");
+        backoff_animation_data.addAnimation("rnd", 10, "uhodi_10_0");
+        backoff_animation_data.addAnimation("rnd", 10, "uhodi_10_1");
+
+        this->m_state_manager_animation_list["backoff"] = backoff_animation_data;
+
+        StateManagerAnimationData punch_animation_data;
+        punch_animation_data.setPropertiesMaxIdle(5);
+        punch_animation_data.setPropertiesSumIdle(2);
+        punch_animation_data.setPropertiesRandom(100);
+
+        punch_animation_data.addAnimation("into", 0, "norm_facer_0_0");
+        // punch_animation_data.addAnimationFunction("into", 0, xr_effects.actor_punch); Lord: реализовать!
+        punch_animation_data.addAnimation("into", 0, "norm_facer_0_1");
+        // punch_animation_data.addAnimationFunction("into", 0, xr_effects.clearAbuse); Lord: реализовать!
+        punch_animation_data.addAnimation("into", 1, "norm_facer_1_0");
+        // punch_animation_data.addAnimationFunction("into", 1, xr_effects.actor_punch); Lord: реализовать!
+        punch_animation_data.addAnimation("into", 1, "norm_facer_1_1");
+        // punch_animation_data.addAnimationFunction("into", 1, xr_effects.clearAbuse); Lord: реализовать!
+        punch_animation_data.addAnimation("into", 2, "norm_facer_2_0");
+        // punch_animation_data.addAnimationFunction("into", 2, xr_effects.actor_punch); Lord: реализовать!
+        punch_animation_data.addAnimation("into", 2, "norm_facer_2_1");
+        // punch_animation_data.addAnimationFunction("into", 2, xr_effects.clearAbuse); Lord: реализовать!
+        punch_animation_data.addAnimation("into", 3, "norm_facer_3_0");
+        // punch_animation_data.addAnimationFunction("into", 3, xr_effects.actor_punch); Lord: реализовать!
+        punch_animation_data.addAnimation("into", 3, "norm_facer_3_1");
+        // punch_animation_data.addAnimationFunction("into", 3, xr_effects.clearAbuse); Lord: реализовать!
+        punch_animation_data.addAnimation("into", 4, "norm_facer_4_0");
+        // punch_animation_data.addAnimationFunction("into", 4, xr_effects.actor_punch); Lord: реализовать!
+        punch_animation_data.addAnimation("into", 4, "norm_facer_4_1");
+        // punch_animation_data.addAnimationFunction("into", 4, xr_effects.clearAbuse); Lord: реализовать!
+        punch_animation_data.addAnimation("into", 8, "norm_facer_8_0");
+        // punch_animation_data.addAnimationFunction("into", 8, xr_effects.actor_punch); Lord: реализовать!
+        punch_animation_data.addAnimation("into", 8, "norm_facer_8_1");
+        // punch_animation_data.addAnimationFunction("into", 8, xr_effects.clearAbuse); Lord: реализовать!
+        punch_animation_data.addAnimation("into", 9, "norm_facer_9_0");
+        // punch_animation_data.addAnimationFunction("into", 9, xr_effects.actor_punch); Lord: реализовать!
+        punch_animation_data.addAnimation("into", 9, "norm_facer_9_1");
+        // punch_animation_data.addAnimationFunction("into", 9, xr_effects.clearAbuse); Lord: реализовать!
+        punch_animation_data.addAnimation("into", 10, "norm_facer_10_0");
+        // punch_animation_data.addAnimationFunction("into", 10, xr_effects.actor_punch); Lord: реализовать!
+        punch_animation_data.addAnimation("into", 10, "norm_facer_10_1");
+        // punch_animation_data.addAnimationFunction("into", 10, xr_effects.clearAbuse); Lord: реализовать!
+
+        this->m_state_manager_animation_list["punch"] = punch_animation_data;
+
+        StateManagerAnimationData sleeping_animation_data;
+        sleeping_animation_data.setPropertiesMaxIdle(5);
+        sleeping_animation_data.setPropertiesSumIdle(10);
+        sleeping_animation_data.setPropertiesRandom(100);
+
+        sleeping_animation_data.addAnimation("into", 0, "idle_0_to_sit_0");
+        sleeping_animation_data.addAnimation("into", 0, "sit_to_sleep_0");
+        sleeping_animation_data.addAnimation("out", 0, "sleep_to_sit_0");
+        sleeping_animation_data.addAnimation("out", 0, "sit_0_to_idle_0");
+        sleeping_animation_data.addAnimation("idle", 0, "sleep_idle_0");
+        sleeping_animation_data.addAnimation("rnd", 0, "sleep_idle_1");
+
+        this->m_state_manager_animation_list["sleeping"] = sleeping_animation_data;
+
+        StateManagerAnimationData wounded_animation_data;
+        wounded_animation_data.setPropertiesMaxIdle(5);
+        wounded_animation_data.setPropertiesSumIdle(10);
+        wounded_animation_data.setPropertiesRandom(70);
+
+        wounded_animation_data.addAnimation("into", 0, "idle_to_wounded_0");
+        wounded_animation_data.addAnimation("out", 0, "wounded_to_idle_0");
+        wounded_animation_data.addAnimation("idle", 0, "wounded_idle_0");
+
+        this->m_state_manager_animation_list["wounded"] = wounded_animation_data;
+
+        StateManagerAnimationData wounded_heavy_1_animation_data;
+        wounded_heavy_1_animation_data.setPropertiesMaxIdle(5);
+        wounded_heavy_1_animation_data.setPropertiesSumIdle(10);
+        wounded_heavy_1_animation_data.setPropertiesRandom(70);
+
+        wounded_heavy_1_animation_data.addAnimation("into", 0, "idle_to_wounded_1");
+        wounded_heavy_1_animation_data.addAnimation("out", 0, "waunded_1_out");
+        wounded_heavy_1_animation_data.addAnimation("idle", 0, "waunded_1_idle_0");
+
+        this->m_state_manager_animation_list["wounded_heavy_1"] = wounded_heavy_1_animation_data;
+
+        StateManagerAnimationData wounded_heavy_2_animation_data;
+        wounded_heavy_2_animation_data.setPropertiesMaxIdle(5);
+        wounded_heavy_2_animation_data.setPropertiesSumIdle(10);
+        wounded_heavy_2_animation_data.setPropertiesRandom(70);
+
+        wounded_heavy_2_animation_data.addAnimation("into", 0, "idle_to_wounded_2");
+        wounded_heavy_2_animation_data.addAnimation("out", 0, "wounded_2_out");
+        wounded_heavy_2_animation_data.addAnimation("idle", 0, "wounded_2_idle_0");
+
+        this->m_state_manager_animation_list["wounded_heavy_2"] = wounded_heavy_2_animation_data;
+
+        StateManagerAnimationData wounded_heavy_3_animation_data;
+        wounded_heavy_3_animation_data.setPropertiesMaxIdle(5);
+        wounded_heavy_3_animation_data.setPropertiesSumIdle(10);
+        wounded_heavy_3_animation_data.setPropertiesRandom(70);
+
+        wounded_heavy_3_animation_data.addAnimation("idle", 0, "idle_to_wounded_3");
+        wounded_heavy_3_animation_data.addAnimation("out", 0, "wounded_3_out");
+        wounded_heavy_3_animation_data.addAnimation("idle", 0, "wounded_3_idle_0");
+
+        this->m_state_manager_animation_list["wounded_heavy_3"] = wounded_heavy_3_animation_data;
+
+        StateManagerAnimationData wounded_zombie_animation_data;
+        wounded_zombie_animation_data.setPropertiesMaxIdle(5);
+        wounded_zombie_animation_data.setPropertiesSumIdle(10);
+        wounded_zombie_animation_data.setPropertiesRandom(70);
+
+        wounded_zombie_animation_data.addAnimation("into", 0, "idle_to_wounded_0");
+        wounded_zombie_animation_data.addAnimation("out", 0, "wounded_to_idle_0");
+        wounded_zombie_animation_data.addAnimation("idle", 0, "wounded_idle_0");
+        wounded_zombie_animation_data.addAnimation("rnd", 0, "wounded_idle_1");
+
+        this->m_state_manager_animation_list["wounded_zombie"] = wounded_zombie_animation_data;
+
+        StateManagerAnimationData choosing_animation_data;
+        choosing_animation_data.setPropertiesMaxIdle(8);
+        choosing_animation_data.setPropertiesSumIdle(10);
+        choosing_animation_data.setPropertiesRandom(80);
+
+        choosing_animation_data.addAnimation("rnd", 0, "komandir_0");
+        choosing_animation_data.addAnimation("rnd", 0, "komandir_1");
+        choosing_animation_data.addAnimation("rnd", 0, "komandir_2");
+
+        this->m_state_manager_animation_list["choosing"] = choosing_animation_data;
+
+        StateManagerAnimationData press_animation_data;
+        press_animation_data.setPropertiesMaxIdle(8);
+        press_animation_data.setPropertiesSumIdle(10);
+        press_animation_data.setPropertiesRandom(80);
+
+        press_animation_data.addAnimation("into", 0, "knopka_0");
+        press_animation_data.addAnimation("out", 0, "knopka_1");
+        press_animation_data.addAnimation("idle", 0, "knopka_2");
+
+        this->m_state_manager_animation_list["press"] = press_animation_data;
+
+        StateManagerAnimationData warding_animation_data;
+        warding_animation_data.setPropertiesMaxIdle(10);
+        warding_animation_data.setPropertiesSumIdle(10);
+        warding_animation_data.setPropertiesRandom(0);
+
+        warding_animation_data.addAnimation("idle", 0, "ohrana_0");
+        warding_animation_data.addAnimation("out", 0, "ohrana_2");
+        warding_animation_data.addAnimation("idle", 0, "ohrana_1");
+
+        this->m_state_manager_animation_list["warding"] = warding_animation_data;
+
+        StateManagerAnimationData warding_short_animation_data;
+        warding_short_animation_data.setPropertiesMaxIdle(10);
+        warding_short_animation_data.setPropertiesSumIdle(10);
+        warding_short_animation_data.setPropertiesRandom(0);
+
+        warding_short_animation_data.addAnimation("into", 0, "ohrana_0");
+        warding_short_animation_data.addAnimation("out", 0, "ohrana_2");
+        warding_short_animation_data.addAnimation("idle", 0, "ohrana_1_short");
+
+        this->m_state_manager_animation_list["warding_short"] = warding_short_animation_data;
+
+        StateManagerAnimationData fold_arms_animation_data;
+        fold_arms_animation_data.setPropertiesMaxIdle(10);
+        fold_arms_animation_data.setPropertiesSumIdle(10);
+        fold_arms_animation_data.setPropertiesRandom(0);
+
+        fold_arms_animation_data.addAnimation("idle", 0, "cut_scene_idle_0");
+
+        this->m_state_manager_animation_list["fold_arms"] = fold_arms_animation_data;
+
+        StateManagerAnimationData talk_default_animation_data;
+        talk_default_animation_data.setPropertiesMaxIdle(5);
+        talk_default_animation_data.setPropertiesSumIdle(5);
+        talk_default_animation_data.setPropertiesRandom(70);
+
+        talk_default_animation_data.addAnimation("into", 2, "norm_talk_2_in_0");
+        talk_default_animation_data.addAnimation("out", 2, "norm_talk_2_out_0");
+        talk_default_animation_data.addAnimation("idle", 0, "idle_0_idle_1");
+        talk_default_animation_data.addAnimation("idle", 2, "norm_talk_2_idle_1");
+        talk_default_animation_data.addAnimation("rnd", 0, "idle_0_idle_0");
+        talk_default_animation_data.addAnimation("rnd", 2, "norm_talk_2_idle_0");
+        talk_default_animation_data.addAnimation("rnd", 2, "norm_talk_2_idle_2");
+        talk_default_animation_data.addAnimation("rnd", 2, "norm_talk_2_idle_3");
+        talk_default_animation_data.addAnimation("rnd", 2, "norm_talk_2_idle_4");
+
+        this->m_state_manager_animation_list["talk_default"] = talk_default_animation_data;
+
+        StateManagerAnimationData binocular_animation_data;
+        binocular_animation_data.setPropertiesMaxIdle(1);
+        binocular_animation_data.setPropertiesSumIdle(1);
+        binocular_animation_data.setPropertiesRandom(100);
+
+        binocular_animation_data.addAnimation("into", 0, "binoculars_draw_0");
+        binocular_animation_data.addAnimationAttachItemName("into", 0, "wpn_binoc");
+        binocular_animation_data.addAnimation("into", 0, "binoculars_draw_1");
+        binocular_animation_data.addAnimation("into", 0, "binoculars_zoom_in_0");
+
+        binocular_animation_data.addAnimation("out", 0, "binoculars_zoom_out_0");
+        binocular_animation_data.addAnimation("out", 0, "binoculars_hide_0");
+        binocular_animation_data.addAnimationAttachItemName("out", 0, "wpn_binoc");
+        binocular_animation_data.addAnimation("out", 0, "binoculars_hide_1");
+
+        binocular_animation_data.addAnimation("idle", 0, "binoculars_zoom_idle_0");
+
+        binocular_animation_data.addAnimation("rnd", 0, "binoculars_zoom_idle_1");
+        binocular_animation_data.addAnimation("rnd", 0, "binoculars_zoom_idle_2");
+        binocular_animation_data.addAnimation("rnd", 0, "binoculars_zoom_idle_3");
+        binocular_animation_data.addAnimation("rnd", 0, "binoculars_zoom_idle_4");
+
+        this->m_state_manager_animation_list["binocular"] = binocular_animation_data;
+
+        StateManagerAnimationData salut_animation_data;
+        salut_animation_data.setPropertiesMaxIdle(1);
+        salut_animation_data.setPropertiesSumIdle(1);
+        salut_animation_data.setPropertiesRandom(100);
+
+        salut_animation_data.addAnimation("into", 0, "chest_0_idle_0");
+        salut_animation_data.addAnimation("into", 0, "chest_0_idle_2");
+
+        salut_animation_data.addAnimation("out", 0, "chest_0_idle_3");
+
+        salut_animation_data.addAnimation("idle", 0, "chest_0_idle_1");
+
+        this->m_state_manager_animation_list["salut"] = salut_animation_data;
+
+        StateManagerAnimationData salut_free_animation_data;
+        salut_free_animation_data.setPropertiesMaxIdle(1);
+        salut_free_animation_data.setPropertiesSumIdle(1);
+        salut_free_animation_data.setPropertiesRandom(100);
+
+        salut_free_animation_data.addAnimation("into", 0, "chest_1_idle_0");
+
+        this->m_state_manager_animation_list["salut_free"] = salut_free_animation_data;
+
+        StateManagerAnimationData hands_up_animation_data;
+        hands_up_animation_data.setPropertiesMaxIdle(1);
+        hands_up_animation_data.setPropertiesSumIdle(1);
+        hands_up_animation_data.setPropertiesRandom(100);
+
+        hands_up_animation_data.addAnimation("idle", 0, "hand_up_0");
+
+        this->m_state_manager_animation_list["hands_up"] = hands_up_animation_data;
+
+        StateManagerAnimationData trans_0_animation_data;
+        trans_0_animation_data.setPropertiesMaxIdle(1);
+        trans_0_animation_data.setPropertiesSumIdle(1);
+        trans_0_animation_data.setPropertiesRandom(100);
+
+        trans_0_animation_data.addAnimation("into", 0, "idle_0_to_trans_0");
+        trans_0_animation_data.addAnimation("out", 0, "trans_0_to_idle_0");
+        trans_0_animation_data.addAnimation("idle", 0, "trans_0_idle_0");
+
+        this->m_state_manager_animation_list["trans_0"] = trans_0_animation_data;
+
+        StateManagerAnimationData trans_1_animation_data;
+        trans_1_animation_data.setPropertiesMaxIdle(1);
+        trans_1_animation_data.setPropertiesSumIdle(1);
+        trans_1_animation_data.setPropertiesRandom(100);
+
+        trans_1_animation_data.addAnimation("into", 0, "idle_0_to_trans_1");
+        trans_1_animation_data.addAnimation("out", 0, "trans_1_to_idle_0");
+        trans_1_animation_data.addAnimation("idle", 0, "trans_1_idle_0");
+
+        this->m_state_manager_animation_list["trans_1"] = trans_1_animation_data;
+
+        StateManagerAnimationData trans_zombied_animation_data;
+        trans_zombied_animation_data.setPropertiesMaxIdle(1);
+        trans_zombied_animation_data.setPropertiesSumIdle(1);
+        trans_zombied_animation_data.setPropertiesRandom(100);
+
+        trans_zombied_animation_data.addAnimation("into", 0, "trans_0_idle_1");
+        trans_zombied_animation_data.addAnimation("out", 0, "trans_0_idle_0");
+        trans_zombied_animation_data.addAnimation("out", 0, "trans_0_idle_2");
+        trans_zombied_animation_data.addAnimation("out", 0, "trans_0_idle_3");
+        trans_zombied_animation_data.addAnimation("out", 0, "trans_0_idle_4");
+        trans_zombied_animation_data.addAnimation("out", 0, "trans_0_idle_5");
+        trans_zombied_animation_data.addAnimation("out", 0, "trans_0_idle_6");
+
+        this->m_state_manager_animation_list["trans_zombied"] = trans_zombied_animation_data;
+
+        StateManagerAnimationData probe_stand_animation_data;
+        probe_stand_animation_data.setPropertiesMaxIdle(0);
+        probe_stand_animation_data.setPropertiesSumIdle(0);
+        probe_stand_animation_data.setPropertiesRandom(100);
+
+        probe_stand_animation_data.addAnimation("into", 0, "metering_anomalys_0_draw_0");
+        //  probe_stand_animation_data.addAnimationFunction("into", 0, XR_EFFECTS.get_best_detector); Lord: реализовать!
+        probe_stand_animation_data.addAnimation("into", 0, "metering_anomalys_0_draw_1");
+
+        probe_stand_animation_data.addAnimation("out", 0, "metering_anomalys_0_hide_0");
+        //  probe_stand_animation_data.addAnimationFunction("out", 0, XR_EFFECTS.hide_best_detector); Lord: реализовать!
+        probe_stand_animation_data.addAnimation("out", 0, "metering_anomalys_0_hide_1");
+
+        probe_stand_animation_data.addAnimation("idle", 0, "metering_anomalys_0_idle_0");
+
+        probe_stand_animation_data.addAnimation("rnd", 0, "metering_anomalys_0_idle_1");
+        probe_stand_animation_data.addAnimation("rnd", 0, "metering_anomalys_0_idle_2");
+        probe_stand_animation_data.addAnimation("rnd", 0, "metering_anomalys_0_idle_3");
+        probe_stand_animation_data.addAnimation("rnd", 0, "metering_anomalys_0_idle_4");
+        probe_stand_animation_data.addAnimation("rnd", 0, "metering_anomalys_0_idle_5");
+
+        this->m_state_manager_animation_list["probe_stand"] = probe_stand_animation_data;
+
+        StateManagerAnimationData probe_way_animation_data;
+        probe_way_animation_data.setPropertiesMaxIdle(0);
+        probe_way_animation_data.setPropertiesSumIdle(0);
+        probe_way_animation_data.setPropertiesRandom(100);
+
+        probe_way_animation_data.addAnimation("into", 0, "metering_anomalys_0_draw_0");
+        //     probe_way_animation_data.addAnimationFunction("into", 0, XR_EFFECTS.get_best_detector); Lord:
+        //     реализовать!
+        probe_way_animation_data.addAnimation("into", 0, "metering_anomalys_0_draw_1");
+        probe_way_animation_data.addAnimation("into", 0, "metering_anomalys_0_idle_6");
+
+        probe_way_animation_data.addAnimation("out", 0, "metering_anomalys_0_hide_0");
+        //  probe_way_animation_data.addAnimationFunction("out", 0, XR_EFFECTS.hide_best_detector); Lord: реализовать
+        probe_way_animation_data.addAnimation("out", 0, "metering_anomalys_0_hide_1");
+
+        probe_way_animation_data.addAnimation("idle", 0, "metering_anomalys_0_idle_0");
+
+        this->m_state_manager_animation_list["probe_way"] = probe_way_animation_data;
+
+        StateManagerAnimationData probe_crouch_animation_data;
+        probe_crouch_animation_data.setPropertiesMaxIdle(0);
+        probe_crouch_animation_data.setPropertiesSumIdle(0);
+        probe_crouch_animation_data.setPropertiesRandom(100);
+
+        probe_crouch_animation_data.addAnimation("into", 0, "metering_anomalys_1_draw_0");
+        // probe_crouch_animation_data.addAnimationFunction("into", 0, XR_EFFECTS.get_best_detector); Lord: реализовать!
+        probe_crouch_animation_data.addAnimation("into", 0, "metering_anomalys_1_draw_1");
+
+        probe_crouch_animation_data.addAnimation("out", 0, "metering_anomalys_1_hide_0");
+        //    probe_crouch_animation_data.addAnimationDettachItemName("out", 0, XR_EFFECTS.hide_best_detector); Lord:
+        //    реализовать!
+        probe_crouch_animation_data.addAnimation("out", 0, "metering_anomalys_1_hide_1");
+
+        probe_crouch_animation_data.addAnimation("idle", 0, "metering_anomalys_1_idle_0");
+
+        probe_crouch_animation_data.addAnimation("rnd", 0, "metering_anomalys_1_idle_1");
+        probe_crouch_animation_data.addAnimation("rnd", 0, "metering_anomalys_1_idle_2");
+        probe_crouch_animation_data.addAnimation("rnd", 0, "metering_anomalys_1_idle_3");
+        probe_crouch_animation_data.addAnimation("rnd", 0, "metering_anomalys_1_idle_4");
+
+        this->m_state_manager_animation_list["probe_crouch"] = probe_crouch_animation_data;
+
+        StateManagerAnimationData scaner_stand_animation_data;
+        scaner_stand_animation_data.setPropertiesMaxIdle(0);
+        scaner_stand_animation_data.setPropertiesSumIdle(0);
+        scaner_stand_animation_data.setPropertiesRandom(100);
+
+        scaner_stand_animation_data.addAnimation("into", 0, "metering_anomalys_0_draw_0");
+        scaner_stand_animation_data.addAnimationAttachItemName("into", 0, "anomaly_scaner");
+        scaner_stand_animation_data.addAnimation("into", 0, "metering_anomalys_0_draw_1");
+
+        scaner_stand_animation_data.addAnimation("out", 0, "metering_anomalys_0_hide_0");
+        scaner_stand_animation_data.addAnimationDettachItemName("out", 0, "anomaly_scaner");
+        scaner_stand_animation_data.addAnimation("out", 0, "metering_anomalys_0_hide_1");
+
+        scaner_stand_animation_data.addAnimation("idle", 0, "metering_anomalys_0_idle_0");
+
+        scaner_stand_animation_data.addAnimation("rnd", 0, "metering_anomalys_0_idle_1");
+        scaner_stand_animation_data.addAnimation("rnd", 0, "metering_anomalys_0_idle_2");
+        scaner_stand_animation_data.addAnimation("rnd", 0, "metering_anomalys_0_idle_3");
+        scaner_stand_animation_data.addAnimation("rnd", 0, "metering_anomalys_0_idle_4");
+        scaner_stand_animation_data.addAnimation("rnd", 0, "metering_anomalys_0_idle_5");
+
+        this->m_state_manager_animation_list["scaner_stand"] = scaner_stand_animation_data;
+
+        StateManagerAnimationData scaner_way_animation_data;
+        scaner_way_animation_data.setPropertiesMaxIdle(0);
+        scaner_way_animation_data.setPropertiesSumIdle(0);
+        scaner_way_animation_data.setPropertiesRandom(100);
+
+        scaner_way_animation_data.addAnimation("into", 0, "metering_anomalys_0_draw_0");
+        scaner_way_animation_data.addAnimationAttachItemName("into", 0, "anomaly_scaner");
+        scaner_way_animation_data.addAnimation("into", 0, "metering_anomalys_0_draw_1");
+        scaner_way_animation_data.addAnimation("into", 0, "metering_anomalys_0_idle_6");
+
+        scaner_way_animation_data.addAnimation("out", 0, "metering_anomalys_0_hide_0");
+        scaner_way_animation_data.addAnimationDettachItemName("out", 0, "anomaly_scaner");
+        scaner_way_animation_data.addAnimation("out", 0, "metering_anomalys_0_hide_1");
+
+        scaner_way_animation_data.addAnimation("idle", 0, "metering_anomalys_0_idle_0");
+
+        this->m_state_manager_animation_list["scaner_way"] = scaner_way_animation_data;
+
+        StateManagerAnimationData scaner_crouch_animation_data;
+        scaner_crouch_animation_data.setPropertiesMaxIdle(0);
+        scaner_crouch_animation_data.setPropertiesSumIdle(0);
+        scaner_crouch_animation_data.setPropertiesRandom(100);
+
+        scaner_crouch_animation_data.addAnimation("into", 0, "metering_anomalys_1_draw_0");
+        scaner_crouch_animation_data.addAnimationAttachItemName("into", 0, "anomaly_scaner");
+        scaner_crouch_animation_data.addAnimation("into", 0, "metering_anomalys_1_draw_1");
+
+        scaner_crouch_animation_data.addAnimation("out", 0, "metering_anomalys_1_hide_0");
+        scaner_crouch_animation_data.addAnimationDettachItemName("out", 0, "anomaly_scaner");
+        scaner_crouch_animation_data.addAnimation("out", 0, "metering_anomalys_1_hide_1");
+
+        scaner_crouch_animation_data.addAnimation("idle", 0, "metering_anomalys_1_idle_0");
+
+        scaner_crouch_animation_data.addAnimation("rnd", 0, "metering_anomalys_1_idle_1");
+        scaner_crouch_animation_data.addAnimation("rnd", 0, "metering_anomalys_1_idle_2");
+        scaner_crouch_animation_data.addAnimation("rnd", 0, "metering_anomalys_1_idle_3");
+        scaner_crouch_animation_data.addAnimation("rnd", 0, "metering_anomalys_1_idle_4");
+
+        this->m_state_manager_animation_list["scaner_crouch"] = scaner_crouch_animation_data;
+
+        StateManagerAnimationData prisoner_animation_data;
+        prisoner_animation_data.setPropertiesMaxIdle(1);
+        prisoner_animation_data.setPropertiesSumIdle(1);
+        prisoner_animation_data.setPropertiesRandom(100);
+
+        prisoner_animation_data.addAnimation("into", 0, "prisoner_0_sit_down_0");
+        prisoner_animation_data.addAnimation("out", 0, "prisoner_0_stand_up_0");
+        prisoner_animation_data.addAnimation("idle", 0, "prisoner_0_sit_idle_0");
+
+        this->m_state_manager_animation_list["prisoner"] = prisoner_animation_data;
+
+        StateManagerAnimationData raciya_animation_data;
+        raciya_animation_data.setPropertiesMaxIdle(1);
+        raciya_animation_data.setPropertiesSumIdle(1);
+        raciya_animation_data.setPropertiesRandom(100);
+
+        raciya_animation_data.addAnimation("into", 0, "raciya_0_draw_0");
+        raciya_animation_data.addAnimationAttachItemName("into", 0, "hand_radio");
+        raciya_animation_data.addAnimation("into", 0, "raciya_0_draw_1");
+        raciya_animation_data.addAnimation("into", 1, "raciya_1_draw_0");
+        raciya_animation_data.addAnimationAttachItemName("into", 1, "hand_radio");
+        raciya_animation_data.addAnimation("into", 1, "raciya_1_draw_1");
+        raciya_animation_data.addAnimation("into", 2, "raciya_2_draw_0");
+        raciya_animation_data.addAnimationAttachItemName("into", 2, "hand_radio");
+        raciya_animation_data.addAnimation("into", 2, "raciya_2_draw_1");
+        raciya_animation_data.addAnimation("into", 3, "raciya_3_draw_0");
+        raciya_animation_data.addAnimationAttachItemName("into", 3, "hand_radio");
+        raciya_animation_data.addAnimation("into", 3, "raciya_3_draw_1");
+        raciya_animation_data.addAnimation("into", 4, "raciya_4_draw_0");
+        raciya_animation_data.addAnimationAttachItemName("into", 4, "hand_radio");
+        raciya_animation_data.addAnimation("into", 4, "raciya_4_draw_1");
+        raciya_animation_data.addAnimation("into", 8, "raciya_8_draw_0");
+        raciya_animation_data.addAnimationAttachItemName("into", 8, "hand_radio");
+        raciya_animation_data.addAnimation("into", 8, "raciya_8_draw_1");
+        raciya_animation_data.addAnimation("into", 9, "raciya_9_draw_0");
+        raciya_animation_data.addAnimationAttachItemName("into", 9, "hand_radio");
+        raciya_animation_data.addAnimation("into", 9, "raciya_9_draw_1");
+        raciya_animation_data.addAnimation("into", 10, "raciya_10_draw_0");
+        raciya_animation_data.addAnimationAttachItemName("into", 10, "hand_radio");
+        raciya_animation_data.addAnimation("into", 10, "raciya_10_draw_1");
+
+        raciya_animation_data.addAnimation("out", 0, "raciya_0_hide_0");
+        raciya_animation_data.addAnimationDettachItemName("out", 0, "hand_radio");
+        raciya_animation_data.addAnimation("out", 0, "raciya_0_hide_1");
+        raciya_animation_data.addAnimation("out", 1, "raciya_1_hide_0");
+        raciya_animation_data.addAnimationDettachItemName("out", 1, "hand_radio");
+        raciya_animation_data.addAnimation("out", 1, "raciya_1_hide_1");
+        raciya_animation_data.addAnimation("out", 2, "raciya_2_hide_0");
+        raciya_animation_data.addAnimationDettachItemName("out", 2, "hand_radio");
+        raciya_animation_data.addAnimation("out", 2, "raciya_2_hide_1");
+        raciya_animation_data.addAnimation("out", 3, "raciya_3_hide_0");
+        raciya_animation_data.addAnimationDettachItemName("out", 3, "hand_radio");
+        raciya_animation_data.addAnimation("out", 3, "raciya_3_hide_1");
+        raciya_animation_data.addAnimation("out", 4, "raciya_4_hide_0");
+        raciya_animation_data.addAnimationDettachItemName("out", 4, "hand_radio");
+        raciya_animation_data.addAnimation("out", 4, "raciya_4_hide_1");
+        raciya_animation_data.addAnimation("out", 8, "raciya_8_hide_0");
+        raciya_animation_data.addAnimationDettachItemName("out", 8, "hand_radio");
+        raciya_animation_data.addAnimation("out", 8, "raciya_8_hide_1");
+        raciya_animation_data.addAnimation("out", 9, "raciya_9_hide_0");
+        raciya_animation_data.addAnimationDettachItemName("out", 9, "hand_radio");
+        raciya_animation_data.addAnimation("out", 9, "raciya_9_hide_1");
+        raciya_animation_data.addAnimation("out", 10, "raciya_10_hide_0");
+        raciya_animation_data.addAnimationDettachItemName("out", 10, "hand_radio");
+        raciya_animation_data.addAnimation("out", 10, "raciya_10_hide_1");
+
+        raciya_animation_data.addAnimation("idle", 0 "raciya_0_idle_0");
+        raciya_animation_data.addAnimation("idle", 1, "raciya_1_idle_0");
+        raciya_animation_data.addAnimation("idle", 2, "raciya_2_idle_0");
+        raciya_animation_data.addAnimation("idle", 3, "raciya_3_idle_0");
+        raciya_animation_data.addAnimation("idle", 4, "raciya_4_idle_0");
+        raciya_animation_data.addAnimation("idle", 8, "raciya_8_idle_0");
+        raciya_animation_data.addAnimation("idle", 9, "raciya_9_idle_0");
+        raciya_animation_data.addAnimation("idle", 10, "raciya_10_idle_0");
+
+        raciya_animation_data.addAnimation("rnd", 0 "raciya_0_talk_0");
+        raciya_animation_data.addAnimation("rnd", 1, "raciya_1_talk_0");
+        raciya_animation_data.addAnimation("rnd", 2, "raciya_2_talk_0");
+        raciya_animation_data.addAnimation("rnd", 3, "raciya_3_talk_0");
+        raciya_animation_data.addAnimation("rnd", 4, "raciya_4_talk_0");
+        raciya_animation_data.addAnimation("rnd", 8, "raciya_8_talk_0");
+        raciya_animation_data.addAnimation("rnd", 9, "raciya_9_talk_0");
+        raciya_animation_data.addAnimation("rnd", 10, "raciya_10_talk_0");
+
+        this->m_state_manager_animation_list["raciya"] = raciya_animation_data;
+
+        StateManagerAnimationData cr_raciya_animation_data;
+        cr_raciya_animation_data.setPropertiesMaxIdle(1);
+        cr_raciya_animation_data.setPropertiesSumIdle(1);
+        cr_raciya_animation_data.setPropertiesRandom(100);
+
+        cr_raciya_animation_data.addAnimation("into", 0, "cr_raciya_0_draw_0");
+        cr_raciya_animation_data.addAnimationAttachItemName("into", 0, "hand_radio");
+        cr_raciya_animation_data.addAnimation("into", 0, "cr_raciya_0_draw_1");
+        cr_raciya_animation_data.addAnimation("into", 1, "cr_raciya_1_draw_0");
+        cr_raciya_animation_data.addAnimationAttachItemName("into", 1, "hand_radio");
+        cr_raciya_animation_data.addAnimation("into", 1, "cr_raciya_1_draw_1");
+        cr_raciya_animation_data.addAnimation("into", 2, "cr_raciya_2_draw_0");
+        cr_raciya_animation_data.addAnimationAttachItemName("into", 2, "hand_radio");
+        cr_raciya_animation_data.addAnimation("into", 2, "cr_raciya_2_draw_1");
+        cr_raciya_animation_data.addAnimation("into", 3, "cr_raciya_3_draw_0");
+        cr_raciya_animation_data.addAnimationAttachItemName("into", 3, "hand_radio");
+        cr_raciya_animation_data.addAnimation("into", 3, "cr_raciya_3_draw_1");
+        cr_raciya_animation_data.addAnimation("into", 4, "cr_raciya_4_draw_0");
+        cr_raciya_animation_data.addAnimationAttachItemName("into", 4, "hand_radio");
+        cr_raciya_animation_data.addAnimation("into", 4, "cr_raciya_4_draw_1");
+        cr_raciya_animation_data.addAnimation("into", 8, "cr_raciya_8_draw_0");
+        cr_raciya_animation_data.addAnimationAttachItemName("into", 8, "hand_radio");
+        cr_raciya_animation_data.addAnimation("into", 8, "cr_raciya_8_draw_1");
+        cr_raciya_animation_data.addAnimation("into", 9, "cr_raciya_9_draw_0");
+        cr_raciya_animation_data.addAnimationAttachItemName("into", 9, "hand_radio");
+        cr_raciya_animation_data.addAnimation("into", 9, "cr_raciya_9_draw_1");
+        cr_raciya_animation_data.addAnimation("into", 10, "cr_raciya_10_draw_0");
+        cr_raciya_animation_data.addAnimationAttachItemName("into", 10, "hand_radio");
+        cr_raciya_animation_data.addAnimation("into", 10, "cr_raciya_10_draw_1");
+
+        cr_raciya_animation_data.addAnimation("out", 0, "cr_raciya_0_hide_0");
+        cr_raciya_animation_data.addAnimationDettachItemName("out", 0, "hand_radio");
+        cr_raciya_animation_data.addAnimation("out", 0, "cr_raciya_0_hide_1");
+        cr_raciya_animation_data.addAnimation("out", 1, "cr_raciya_1_hide_0");
+        cr_raciya_animation_data.addAnimationDettachItemName("out", 1, "hand_radio");
+        cr_raciya_animation_data.addAnimation("out", 1, "cr_raciya_1_hide_1");
+        cr_raciya_animation_data.addAnimation("out", 2, "cr_raciya_2_hide_0");
+        cr_raciya_animation_data.addAnimationDettachItemName("out", 2, "hand_radio");
+        cr_raciya_animation_data.addAnimation("out", 2, "cr_raciya_2_hide_1");
+        cr_raciya_animation_data.addAnimation("out", 3, "cr_raciya_3_hide_0");
+        cr_raciya_animation_data.addAnimationDettachItemName("out", 3, "hand_radio");
+        cr_raciya_animation_data.addAnimation("out", 3, "cr_raciya_3_hide_1");
+        cr_raciya_animation_data.addAnimation("out", 4, "cr_raciya_4_hide_0");
+        cr_raciya_animation_data.addAnimationDettachItemName("out", 4, "hand_radio");
+        cr_raciya_animation_data.addAnimation("out", 4, "cr_raciya_4_hide_1");
+        cr_raciya_animation_data.addAnimation("out", 8, "cr_raciya_8_hide_0");
+        cr_raciya_animation_data.addAnimationDettachItemName("out", 8, "hand_radio");
+        cr_raciya_animation_data.addAnimation("out", 8, "cr_raciya_8_hide_1");
+        cr_raciya_animation_data.addAnimation("out", 9, "cr_raciya_9_hide_0");
+        cr_raciya_animation_data.addAnimationDettachItemName("out", 9, "hand_radio");
+        cr_raciya_animation_data.addAnimation("out", 9, "cr_raciya_9_hide_1");
+        cr_raciya_animation_data.addAnimation("out", 10, "cr_raciya_10_hide_0");
+        cr_raciya_animation_data.addAnimationDettachItemName("out", 10, "hand_radio");
+        cr_raciya_animation_data.addAnimation("out", 10, "cr_raciya_10_hide_1");
+
+        cr_raciya_animation_data.addAnimation("idle", 0 "cr_raciya_0_idle_0");
+        cr_raciya_animation_data.addAnimation("idle", 1, "cr_raciya_1_idle_0");
+        cr_raciya_animation_data.addAnimation("idle", 2, "cr_raciya_2_idle_0");
+        cr_raciya_animation_data.addAnimation("idle", 3, "cr_raciya_3_idle_0");
+        cr_raciya_animation_data.addAnimation("idle", 4, "cr_raciya_4_idle_0");
+        cr_raciya_animation_data.addAnimation("idle", 8, "cr_raciya_8_idle_0");
+        cr_raciya_animation_data.addAnimation("idle", 9, "cr_raciya_9_idle_0");
+        cr_raciya_animation_data.addAnimation("idle", 10, "cr_raciya_10_idle_0");
+
+        cr_raciya_animation_data.addAnimation("rnd", 0 "cr_raciya_0_talk_0");
+        cr_raciya_animation_data.addAnimation("rnd", 1, "cr_raciya_1_talk_0");
+        cr_raciya_animation_data.addAnimation("rnd", 2, "cr_raciya_2_talk_0");
+        cr_raciya_animation_data.addAnimation("rnd", 3, "cr_raciya_3_talk_0");
+        cr_raciya_animation_data.addAnimation("rnd", 4, "cr_raciya_4_talk_0");
+        cr_raciya_animation_data.addAnimation("rnd", 8, "cr_raciya_8_talk_0");
+        cr_raciya_animation_data.addAnimation("rnd", 9, "cr_raciya_9_talk_0");
+        cr_raciya_animation_data.addAnimation("rnd", 10, "cr_raciya_10_talk_0");
+
+        this->m_state_manager_animation_list["cr_raciya"] = cr_raciya_animation_data;
+
+        StateManagerAnimationData psy_armed_animation_data;
+        psy_armed_animation_data.setPropertiesMaxIdle(1);
+        psy_armed_animation_data.setPropertiesSumIdle(1);
+        psy_armed_animation_data.setPropertiesRandom(100);
+
+        psy_armed_animation_data.addAnimation("into", 0, "idle_0_to_psy_0_idle_0");
+        psy_armed_animation_data.addAnimation("into", 1, "idle_0_to_psy_1_idle_0");
+        psy_armed_animation_data.addAnimation("out", 0, "psy_0_idle_0_to_idle_0");
+        psy_armed_animation_data.addAnimation("out", 1, "psy_1_idle_0_to_idle_0");
+        psy_armed_animation_data.addAnimation("idle", 0, "psy_0_idle_0");
+        psy_armed_animation_data.addAnimation("idle", 1, "psy_1_idle_0");
+        psy_armed_animation_data.addAnimation("rnd", 0, "psy_0_idle_1");
+        psy_armed_animation_data.addAnimation("rnd", 0, "psy_0_idle_2");
+        psy_armed_animation_data.addAnimation("rnd", 0, "psy_0_idle_3");
+        psy_armed_animation_data.addAnimation("rnd", 1, "psy_1_idle_1");
+        psy_armed_animation_data.addAnimation("rnd", 1, "psy_1_idle_2");
+        psy_armed_animation_data.addAnimation("rnd", 1, "psy_1_idle_3");
+
+        this->m_state_manager_animation_list["psy_armed"] = psy_armed_animation_data;
+
+        StateManagerAnimationData psy_shoot_animation_data;
+        psy_shoot_animation_data.setPropertiesMaxIdle(1);
+        psy_shoot_animation_data.setPropertiesSumIdle(1);
+        psy_shoot_animation_data.setPropertiesRandom(100);
+
+        psy_shoot_animation_data.addAnimation("into", 1, "psy_1_shot_0");
+        psy_shoot_animation_data.addAnimationHitPower("into", 1, 1000.0f);
+
+        psy_shoot_animation_data.addAnimation("idle", 1, "psy_1_death_0");
+
+        this->m_state_manager_animation_list["psy_shoot"] = psy_shoot_animation_data;
+
+        StateManagerAnimationData lay_on_bed_animation_data;
+        lay_on_bed_animation_data.setPropertiesMaxIdle(1);
+        lay_on_bed_animation_data.setPropertiesSumIdle(1);
+        lay_on_bed_animation_data.setPropertiesRandom(100);
+        lay_on_bed_animation_data.setPropertiesMoving(true);
+
+        lay_on_bed_animation_data.addAnimation("into", 0, "cut_scene_0_actor");
+
+        this->m_state_manager_animation_list["lay_on_bed"] = lay_on_bed_animation_data;
+
+        StateManagerAnimationData search_corpse_animation_data;
+        search_corpse_animation_data.setPropertiesMaxIdle(1);
+        search_corpse_animation_data.setPropertiesSumIdle(1);
+        search_corpse_animation_data.setPropertiesRandom(100);
+
+        search_corpse_animation_data.addAnimation("into", 0, "dinamit_1");
+        //      search_corpse_animation_data.addAnimationFunction("into", 0, xr_corpse_detection.get_all_from_corpse);
+        //      Lord: реализовать!
+
+        this->m_state_manager_animation_list["search_corpse"] = search_corpse_animation_data;
+
+        StateManagerAnimationData help_wounded_animation_data;
+        help_wounded_animation_data.setPropertiesMaxIdle(1);
+        help_wounded_animation_data.setPropertiesSumIdle(1);
+        help_wounded_animation_data.setPropertiesRandom(100);
+        
+        help_wounded_animation_data
+            .addAnimation("into", 0, "dinamit_1");
+    //    help_wounded_animation_data.addAnimationFunction("into", 0, xr_help_wounded.help_wounded); Lord: реализовать!
+        
+        this->m_state_manager_animation_list["help_wounded"] = help_wounded_animation_data;
 #pragma endregion
     }
 
@@ -5573,9 +6570,20 @@ public:
     {
         return this->m_look_direction_states;
     }
+
+    inline const xr_map<xr_string, StateManagerAnimationData>& getStateManagerAnimationList(void) const noexcept
+    {
+        return this->m_state_manager_animation_list;
+    }
+
+    inline const xr_map<xr_string, StateManagerAnimationData>& getStateManagerAnimationStateList(void) const noexcept
+    {
+        return this->m_state_manager_animationstate_list;
+    }
 #pragma endregion
 
-        private : CUISequencer* m_tutorial;
+private:
+    CUISequencer* m_tutorial;
     xr_map<int, bool> m_monster_classes;
     xr_map<int, bool> m_stalker_classes;
     xr_map<int, bool> m_weapon_classes;
@@ -5604,6 +6612,8 @@ public:
     xr_map<xr_string, xr_map<std::uint16_t, xr_map<std::uint32_t, int>>> m_phrase_priority_table;
     xr_map<xr_string, CScriptIniFile*> m_registered_generated_gulag_inis;
     xr_map<xr_string, StateLibData> m_state_library;
+    xr_map<xr_string, StateManagerAnimationData> m_state_manager_animation_list;
+    xr_map<xr_string, StateManagerAnimationData> m_state_manager_animationstate_list;
     xr_map<xr_string, SmartCoverData> m_registered_smartcovers;
     xr_map<xr_string, xr_string> m_job_type_by_scheme;
     xr_map<xr_string, xr_string> m_game_smarts_by_no_assault_zone;
