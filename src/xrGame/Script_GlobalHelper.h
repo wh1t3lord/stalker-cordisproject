@@ -6458,10 +6458,1142 @@ private:
         zat_b3_tech_idle_1_animation_data.setPropertiesRandom(100);
         zat_b3_tech_idle_1_animation_data.setPropertiesMoving(true);
 
-        zat_b3_tech_idle_1_animation_data
-            .addAnimation("idle", 0, "zat_b3_tech_idle_1");
+        zat_b3_tech_idle_1_animation_data.addAnimation("idle", 0, "zat_b3_tech_idle_1");
 
         this->m_state_manager_animation_list["zat_b3_tech_idle_1"] = zat_b3_tech_idle_1_animation_data;
+
+        StateManagerAnimationData zat_b3_tech_surprise_animation_data;
+        zat_b3_tech_surprise_animation_data.setPropertiesMaxIdle(1);
+        zat_b3_tech_surprise_animation_data.setPropertiesSumIdle(1);
+        zat_b3_tech_surprise_animation_data.setPropertiesRandom(100);
+        zat_b3_tech_surprise_animation_data.setPropertiesMoving(true);
+
+        zat_b3_tech_surprise_animation_data.addAnimation("into", 0, "zat_b3_tech_surprise");
+        //    zat_b3_tech_surprise_animation_data.addAnimationFunction("into", 0,
+        //    xr_effects.zat_b3_tech_surprise_anim_end); // Lord: доделать!
+
+        zat_b3_tech_surprise_animation_data.addAnimation("out", 0, "zat_b3_tech_drunk_idle");
+        zat_b3_tech_surprise_animation_data.addAnimation("idle", 0, "zat_b3_tech_drunk_idle");
+
+        this->m_state_manager_animation_list["zat_b3_tech_surprise"] = zat_b3_tech_surprise_animation_data;
+
+        StateManagerAnimationData zat_b3_tech_drink_animation_data;
+        zat_b3_tech_drink_animation_data.setPropertiesMaxIdle(1);
+        zat_b3_tech_drink_animation_data.setPropertiesSumIdle(1);
+        zat_b3_tech_drink_animation_data.setPropertiesMoving(true);
+        zat_b3_tech_drink_animation_data.setPropertiesRandom(100);
+
+        zat_b3_tech_drink_animation_data.addAnimation("into", 0, "zat_b3_tech_drink_in");
+        zat_b3_tech_drink_animation_data.addAnimationAttachItemName("into", 0, "vodka");
+
+        zat_b3_tech_drink_animation_data.addAnimationDettachItemName("out", 0, "vodka");
+        zat_b3_tech_drink_animation_data.addAnimation("out", 0, "zat_b3_tech_drink_out");
+        // zat_b3_tech_drink_animation_data.addAnimationFunction("out", 0, xr_effects.zat_b3_tech_drinked_out); // Lord:
+        // доделать!
+
+        zat_b3_tech_drink_animation_data.addAnimation("idle", 0, "zat_b3_tech_drink_idle");
+
+        this->m_state_manager_animation_list["zat_b3_tech_drink"] = zat_b3_tech_drink_animation_data;
+
+        StateManagerAnimationData jup_b10_drunk_ravings_animation_data;
+        jup_b10_drunk_ravings_animation_data.setPropertiesMaxIdle(1);
+        jup_b10_drunk_ravings_animation_data.setPropertiesSumIdle(1);
+        jup_b10_drunk_ravings_animation_data.setPropertiesRandom(100);
+        jup_b10_drunk_ravings_animation_data.setPropertiesMoving(true);
+
+        jup_b10_drunk_ravings_animation_data.addAnimation("idle", 0, "zat_b3_tech_drunk_idle");
+
+        this->m_state_manager_animation_list["jup_b10_drunk_ravings"] = jup_b10_drunk_ravings_animation_data;
+
+        StateManagerAnimationData pas_b400_vano_probe_animation_data;
+        pas_b400_vano_probe_animation_data.setPropertiesMaxIdle(0);
+        pas_b400_vano_probe_animation_data.setPropertiesSumIdle(0);
+        pas_b400_vano_probe_animation_data.setPropertiesRandom(100);
+
+        pas_b400_vano_probe_animation_data.addAnimation("into", 0, "metering_anomalys_0_draw_0");
+        pas_b400_vano_probe_animation_data.addAnimationAttachItemName("into", 0, "detector_elite");
+        pas_b400_vano_probe_animation_data.addAnimation("into", 0, "metering_anomalys_0_draw_1");
+
+        pas_b400_vano_probe_animation_data.addAnimation("out", 0, "metering_anomalys_0_hide_0");
+        pas_b400_vano_probe_animation_data.addAnimationDettachItemName("out", 0, "detector_elite");
+        pas_b400_vano_probe_animation_data.addAnimation("out", 0, "metering_anomalys_0_hide_1");
+
+        pas_b400_vano_probe_animation_data.addAnimation("idle", 0, "metering_anomalys_0_idle_0");
+
+        this->m_state_manager_animation_list["pas_b400_vano_probe"] = pas_b400_vano_probe_animation_data;
+
+        StateManagerAnimationData pri_a28_kirillov_sit_high_radio_animation_data;
+        pri_a28_kirillov_sit_high_radio_animation_data.setPropertiesMaxIdle(0);
+        pri_a28_kirillov_sit_high_radio_animation_data.setPropertiesSumIdle(0);
+        pri_a28_kirillov_sit_high_radio_animation_data.setPropertiesRandom(100);
+
+        pri_a28_kirillov_sit_high_radio_animation_data.addAnimation("into", 0, "pri_a28_kirillov_radio_on_in");
+        //     pri_a28_kirillov_sit_high_radio_animation_data.addAnimationFunction("into", 0,
+        //     xr_effects.pri_a28_kirillov_hq_online); // Lord: доделать!
+
+        pri_a28_kirillov_sit_high_radio_animation_data.addAnimation("out", 0, "pri_a28_kirillov_radio_on_out");
+
+        pri_a28_kirillov_sit_high_radio_animation_data.addAnimation("idle", 0, "pri_a28_kirillov_radio_on_idle");
+
+        this->m_state_manager_animation_list["pri_a28_kirillov_sit_high_radio"] =
+            pri_a28_kirillov_sit_high_radio_animation_data;
+
+        StateManagerAnimationData pri_a18_inspert_monolit_actor_animation_data;
+        pri_a18_inspert_monolit_actor_animation_data.setPropertiesRandom(0);
+        pri_a18_inspert_monolit_actor_animation_data.setPropertiesMaxIdle(1);
+        pri_a18_inspert_monolit_actor_animation_data.setPropertiesSumIdle(1);
+        pri_a18_inspert_monolit_actor_animation_data.setPropertiesMoving(true);
+
+        pri_a18_inspert_monolit_actor_animation_data.addAnimationAttachItemName("into", 0, "hand_radio_r");
+        pri_a18_inspert_monolit_actor_animation_data.addAnimation("into", 0, "pri_a18_inspert_monolit_actor_in");
+        //    pri_a18_inspert_monolit_actor_animation_data.addAnimationFunction("into", 0,
+        //    xr_effects.pri_a18_radio_start); // Lord: доделать!
+        pri_a18_inspert_monolit_actor_animation_data.addAnimation("into", 0, "pri_a18_inspert_monolit_actor_idle");
+        pri_a18_inspert_monolit_actor_animation_data.addAnimation("into", 0, "pri_a18_inspert_monolit_actor_idle");
+        pri_a18_inspert_monolit_actor_animation_data.addAnimation("into", 0, "pri_a18_inspert_monolit_actor_idle");
+        pri_a18_inspert_monolit_actor_animation_data.addAnimation("into", 0, "pri_a18_inspert_monolit_actor_out");
+        pri_a18_inspert_monolit_actor_animation_data.addAnimationDettachItemName("into", 0, "hand_radio_r");
+
+        this->m_state_manager_animation_list["pri_a18_inspert_monolit_actor"] =
+            pri_a18_inspert_monolit_actor_animation_data;
+
+        StateManagerAnimationData pri_a21_sentry_madness_animation_data;
+        pri_a21_sentry_madness_animation_data.setPropertiesMaxIdle(1);
+        pri_a21_sentry_madness_animation_data.setPropertiesSumIdle(1);
+        pri_a21_sentry_madness_animation_data.setPropertiesMoving(true);
+
+        pri_a21_sentry_madness_animation_data.addAnimation("idle", 0, "pri_a21_sentry_madness_idle");
+
+        this->m_state_manager_animation_list["pri_a21_sentry_madness"] = pri_a21_sentry_madness_animation_data;
+
+        StateManagerAnimationData pri_a21_sentry_madness_suicide_animation_data;
+        pri_a21_sentry_madness_suicide_animation_data.setPropertiesMaxIdle(1);
+        pri_a21_sentry_madness_suicide_animation_data.setPropertiesSumIdle(1);
+        pri_a21_sentry_madness_suicide_animation_data.setPropertiesMoving(true);
+
+        pri_a21_sentry_madness_suicide_animation_data.addAnimation("into", 0, "pri_a21_sentry_madness_suicide");
+
+        pri_a21_sentry_madness_suicide_animation_data.addAnimation("out", 0, "pri_a21_sentry_madness_suicide_idle");
+
+        this->m_state_manager_animation_list["pri_a21_sentry_madness_suicide"] =
+            pri_a21_sentry_madness_suicide_animation_data;
+
+        StateManagerAnimationData pri_a22_colonel_lean_on_table_in_animation_data;
+        pri_a22_colonel_lean_on_table_in_animation_data.setPropertiesMaxIdle(1);
+        pri_a22_colonel_lean_on_table_in_animation_data.setPropertiesSumIdle(1);
+        pri_a22_colonel_lean_on_table_in_animation_data.setPropertiesRandom(100);
+        pri_a22_colonel_lean_on_table_in_animation_data.setPropertiesMoving(true);
+
+        pri_a22_colonel_lean_on_table_in_animation_data.addAnimation("into", 0, "pri_a22_colonel_lean_on_tadl_in");
+
+        pri_a22_colonel_lean_on_table_in_animation_data.addAnimation("idle", 0, "pri_a22_colonel_lean_on_tadl_idle");
+
+        this->m_state_manager_animation_list["pri_a22_colonel_lean_on_table_in"] =
+            pri_a22_colonel_lean_on_table_in_animation_data;
+
+        StateManagerAnimationData pri_a22_colonel_lean_on_table_idle_animation_data;
+        pri_a22_colonel_lean_on_table_idle_animation_data.setPropertiesMaxIdle(1);
+        pri_a22_colonel_lean_on_table_idle_animation_data.setPropertiesSumIdle(1);
+        pri_a22_colonel_lean_on_table_idle_animation_data.setPropertiesRandom(100);
+
+        pri_a22_colonel_lean_on_table_idle_animation_data.addAnimation("idle", 0, "pri_a22_colonel_lean_on_tadl_idle");
+
+        this->m_state_manager_animation_list["pri_a22_colonel_lean_on_table_idle"] =
+            pri_a22_colonel_lean_on_table_idle_animation_data;
+
+        StateManagerAnimationData pri_a22_colonel_stand_from_table_animation_data;
+        pri_a22_colonel_stand_from_table_animation_data.setPropertiesMaxIdle(1);
+        pri_a22_colonel_stand_from_table_animation_data.setPropertiesSumIdle(1);
+        pri_a22_colonel_stand_from_table_animation_data.setPropertiesMoving(true);
+        pri_a22_colonel_stand_from_table_animation_data.setPropertiesRandom(100);
+
+        pri_a22_colonel_stand_from_table_animation_data.addAnimation("into", 0, "pri_a22_colonel_lean_on_tadl_out");
+
+        this->m_state_manager_animation_list["pri_a22_colonel_stand_from_table"] =
+            pri_a22_colonel_stand_from_table_animation_data;
+
+        StateManagerAnimationData pri_a28_army_trance_out_animation_data;
+        pri_a28_army_trance_out_animation_data.setPropertiesMaxIdle(1);
+        pri_a28_army_trance_out_animation_data.setPropertiesSumIdle(1);
+        pri_a28_army_trance_out_animation_data.setPropertiesMoving(true);
+
+        pri_a28_army_trance_out_animation_data.addAnimation("into", 0, "pri_a28_army_trance_out_in");
+        pri_a28_army_trance_out_animation_data.addAnimation("out", 0, "pri_a28_army_trance_out_out");
+        pri_a28_army_trance_out_animation_data.addAnimation("idle", 0, "pri_a28_army_trance_out_idle");
+
+        this->m_state_manager_animation_list["pri_a28_army_trance_out"] = pri_a28_army_trance_out_animation_data;
+
+        StateManagerAnimationData zat_b106_wounded_idle_animation_data;
+        zat_b106_wounded_idle_animation_data.setPropertiesMaxIdle(1);
+        zat_b106_wounded_idle_animation_data.setPropertiesSumIdle(1);
+        zat_b106_wounded_idle_animation_data.setPropertiesMoving(true);
+        zat_b106_wounded_idle_animation_data.setPropertiesRandom(100);
+
+        zat_b106_wounded_idle_animation_data.addAnimation("idle", 0, "cut_scene_0_actor_1");
+
+        this->m_state_manager_animation_list["zat_b106_wounded_idle"] = zat_b106_wounded_idle_animation_data;
+
+        StateManagerAnimationData zat_b38_cop_dead_animation_data;
+        zat_b38_cop_dead_animation_data.setPropertiesMaxIdle(1);
+        zat_b38_cop_dead_animation_data.setPropertiesSumIdle(1);
+        zat_b38_cop_dead_animation_data.setPropertiesMoving(true);
+        zat_b38_cop_dead_animation_data.setPropertiesRandom(100);
+
+        zat_b38_cop_dead_animation_data.addAnimation("into", 0, "cut_scene_0_actor");
+        //    zat_b38_cop_dead_animation_data.addAnimationFunction("into", 0, ); // Lord: доделать
+
+        zat_b38_cop_dead_animation_data.addAnimation("idle", 0, "cut_scene_0_actor");
+
+        this->m_state_manager_animation_list["zat_b38_cop_dead"] = zat_b38_cop_dead_animation_data;
+
+        StateManagerAnimationData jup_b15_zulus_sit_drink_animation_data;
+        jup_b15_zulus_sit_drink_animation_data.setPropertiesMaxIdle(1);
+        jup_b15_zulus_sit_drink_animation_data.setPropertiesSumIdle(1);
+        jup_b15_zulus_sit_drink_animation_data.setPropertiesMoving(true);
+        jup_b15_zulus_sit_drink_animation_data.setPropertiesRandom(100);
+
+        jup_b15_zulus_sit_drink_animation_data.addAnimation("into", 0, "jup_b15_zulus_sit_drink_in");
+        jup_b15_zulus_sit_drink_animation_data.addAnimationAttachItemName("into", 0, "vodka");
+        jup_b15_zulus_sit_drink_animation_data.addAnimation("into", 0, "jup_b15_zulus_sit_drink_idle");
+        jup_b15_zulus_sit_drink_animation_data.addAnimationDettachItemName("into", 0, "vodka");
+        jup_b15_zulus_sit_drink_animation_data.addAnimation("into", 0, "jup_b15_zulus_sit_drink_out");
+        //  jup_b15_zulus_sit_drink_animation_data.addAnimationFunction(
+        //  "into", 0, xr_effects.jup_b15_zulus_drink_anim_info); Lord: доделать
+
+        jup_b15_zulus_sit_drink_animation_data.addAnimation("idle", 0, "jup_b15_zulus_sit_idle_short");
+
+        this->m_state_manager_animation_list["jup_b15_zulus_sit_drink"] = jup_b15_zulus_sit_drink_animation_data;
+
+        StateManagerAnimationData jup_b15_zulus_sit_idle_animation_data;
+        jup_b15_zulus_sit_idle_animation_data.setPropertiesMaxIdle(1);
+        jup_b15_zulus_sit_idle_animation_data.setPropertiesSumIdle(1);
+        jup_b15_zulus_sit_idle_animation_data.setPropertiesMoving(true);
+        jup_b15_zulus_sit_idle_animation_data.setPropertiesRandom(100);
+
+        jup_b15_zulus_sit_idle_animation_data.addAnimation("idle", 0, "jup_b15_zulus_sit_idle");
+
+        this->m_state_manager_animation_list["jup_b15_zulus_sit_idle"] = jup_b15_zulus_sit_idle_animation_data;
+
+        StateManagerAnimationData jup_b15_zulus_sit_idle_short_animation_data;
+        jup_b15_zulus_sit_idle_short_animation_data.setPropertiesMaxIdle(1);
+        jup_b15_zulus_sit_idle_short_animation_data.setPropertiesSumIdle(1);
+        jup_b15_zulus_sit_idle_short_animation_data.setPropertiesMoving(true);
+        jup_b15_zulus_sit_idle_short_animation_data.setPropertiesRandom(100);
+
+        jup_b15_zulus_sit_idle_short_animation_data.addAnimation("idle", 0, "jup_b15_zulus_sit_idle_short");
+
+        this->m_state_manager_animation_list["jup_b15_zulus_sit_idle_short"] =
+            jup_b15_zulus_sit_idle_short_animation_data;
+
+        StateManagerAnimationData jup_b15_zulus_sit_out_animation_data;
+        jup_b15_zulus_sit_out_animation_data.setPropertiesMaxIdle(1);
+        jup_b15_zulus_sit_out_animation_data.setPropertiesSumIdle(1);
+        jup_b15_zulus_sit_out_animation_data.setPropertiesMoving(true);
+        jup_b15_zulus_sit_out_animation_data.setPropertiesRandom(100);
+
+        jup_b15_zulus_sit_out_animation_data.addAnimation("idle", 0, "jup_b15_zulus_sit_out");
+
+        this->m_state_manager_animation_list["jup_b15_zulus_sit_out"] = jup_b15_zulus_sit_out_animation_data;
+
+        StateManagerAnimationData jup_b219_actor_one_animation_data;
+        jup_b219_actor_one_animation_data.setPropertiesMaxIdle(1);
+        jup_b219_actor_one_animation_data.setPropertiesSumIdle(1);
+        jup_b219_actor_one_animation_data.setPropertiesMoving(true);
+        jup_b219_actor_one_animation_data.setPropertiesRandom(100);
+
+        jup_b219_actor_one_animation_data.addAnimation("into", 0, "jup_b219_descent_actor_1");
+        jup_b219_actor_one_animation_data.addAnimation("into", 0, "jup_b219_descent_actor_2");
+        jup_b219_actor_one_animation_data.addAnimation("into", 0, "jup_b219_descent_actor_3");
+        jup_b219_actor_one_animation_data.addAnimation("into", 0, "jup_b219_descent_actor_4");
+        jup_b219_actor_one_animation_data.addAnimationSoundName("into", 0, "jup_b219_actor_ready");
+        jup_b219_actor_one_animation_data.addAnimation("into", 0, "jup_b219_descent_actor_8");
+        //   jup_b219_actor_one_animation_data.addAnimationFunction("into", 0, xr_effects.jup_b219_opening); Lord:
+        //   доделать!
+        jup_b219_actor_one_animation_data.addAnimation("into", 0, "jup_b219_descent_actor_9");
+        jup_b219_actor_one_animation_data.addAnimationSoundName("into", 0, "jup_b219_actor_go");
+        jup_b219_actor_one_animation_data.addAnimation("into", 0, "jup_b219_descent_actor_10");
+
+        jup_b219_actor_one_animation_data.addAnimation("into", 1, "jup_b219_descent_actor_1");
+        jup_b219_actor_one_animation_data.addAnimation("into", 1, "jup_b219_descent_actor_2");
+        jup_b219_actor_one_animation_data.addAnimation("into", 1, "jup_b219_descent_actor_3");
+        jup_b219_actor_one_animation_data.addAnimation("into", 1, "jup_b219_descent_actor_4");
+        jup_b219_actor_one_animation_data.addAnimationSoundName("into", 1, "jup_b219_actor_ready");
+        jup_b219_actor_one_animation_data.addAnimation("into", 1, "jup_b219_descent_actor_8");
+        //   jup_b219_actor_one_animation_data.addAnimationFunction("into", 1, xr_effects.jup_b219_opening); Lord:
+        //   доделать!
+        jup_b219_actor_one_animation_data.addAnimation("into", 1, "jup_b219_descent_actor_9");
+        jup_b219_actor_one_animation_data.addAnimationSoundName("into", 1, "jup_b219_actor_go");
+        jup_b219_actor_one_animation_data.addAnimation("into", 1, "jup_b219_descent_actor_10");
+
+        this->m_state_manager_animation_list["jup_b219_actor_one"] = jup_b219_actor_one_animation_data;
+
+        StateManagerAnimationData jup_b219_actor_one_vano_animation_data;
+        jup_b219_actor_one_vano_animation_data.setPropertiesMaxIdle(1);
+        jup_b219_actor_one_vano_animation_data.setPropertiesSumIdle(1);
+        jup_b219_actor_one_vano_animation_data.setPropertiesMoving(true);
+        jup_b219_actor_one_vano_animation_data.setPropertiesRandom(100);
+
+        jup_b219_actor_one_vano_animation_data.addAnimation("into", 0, "jup_b219_descent_actor_1");
+        jup_b219_actor_one_vano_animation_data.addAnimation("into", 0, "jup_b219_descent_actor_2");
+        jup_b219_actor_one_vano_animation_data.addAnimation("into", 0, "jup_b219_descent_actor_3");
+        jup_b219_actor_one_vano_animation_data.addAnimation("into", 0, "jup_b219_descent_actor_4");
+        jup_b219_actor_one_vano_animation_data.addAnimation("into", 0, "jup_b219_descent_actor_5");
+        jup_b219_actor_one_vano_animation_data.addAnimationSoundName("into", 0, "jup_b219_actor_ready");
+        jup_b219_actor_one_vano_animation_data.addAnimation("into", 0, "jup_b219_descent_actor_8");
+        //   jup_b219_actor_one_vano_animation_data.addAnimationFunction("into", 0, xr_effects.jup_b219_opening); Lord:
+        //   доделать!
+        jup_b219_actor_one_vano_animation_data.addAnimation("into", 0, "jup_b219_descent_actor_9");
+        jup_b219_actor_one_vano_animation_data.addAnimationSoundName("into", 0, "jup_b219_actor_go");
+        jup_b219_actor_one_vano_animation_data.addAnimation("into", 0, "jup_b219_descent_actor_10");
+
+        this->m_state_manager_animation_list["jup_b219_actor_one_vano"] = jup_b219_actor_one_vano_animation_data;
+
+        StateManagerAnimationData jup_b219_actor_one_monolith_animation_data;
+        jup_b219_actor_one_monolith_animation_data.setPropertiesMaxIdle(1);
+        jup_b219_actor_one_monolith_animation_data.setPropertiesSumIdle(1);
+        jup_b219_actor_one_monolith_animation_data.setPropertiesMoving(true);
+        jup_b219_actor_one_monolith_animation_data.setPropertiesRandom(100);
+
+        jup_b219_actor_one_monolith_animation_data.addAnimation("into", 0, "jup_b219_descent_actor_1");
+        jup_b219_actor_one_monolith_animation_data.addAnimation("into", 0, "jup_b219_descent_actor_2");
+        jup_b219_actor_one_monolith_animation_data.addAnimation("into", 0, "jup_b219_descent_actor_3");
+        jup_b219_actor_one_monolith_animation_data.addAnimation("into", 0, "jup_b219_descent_actor_4");
+        jup_b219_actor_one_monolith_animation_data.addAnimation("into", 0, "jup_b219_descent_actor_6");
+        jup_b219_actor_one_monolith_animation_data.addAnimationSoundName("into", 0, "jup_b219_actor_ready");
+        jup_b219_actor_one_monolith_animation_data.addAnimation("into", 0, "jup_b219_descent_actor_8");
+        //   jup_b219_actor_one_monolith_animation_data.addAnimationFunction("into", 0, xr_effects.jup_b219_opening);
+        //   Lord: доделать!
+        jup_b219_actor_one_monolith_animation_data.addAnimation("into", 0, "jup_b219_descent_actor_9");
+        jup_b219_actor_one_monolith_animation_data.addAnimationSoundName("into", 0, "jup_b219_actor_go");
+        jup_b219_actor_one_monolith_animation_data.addAnimation("into", 0, "jup_b219_descent_actor_10");
+
+        this->m_state_manager_animation_list["jup_b219_actor_one_monolith"] =
+            jup_b219_actor_one_monolith_animation_data;
+
+        StateManagerAnimationData jup_b219_actor_one_soldier_animation_data;
+        jup_b219_actor_one_soldier_animation_data.setPropertiesMaxIdle(1);
+        jup_b219_actor_one_soldier_animation_data.setPropertiesSumIdle(1);
+        jup_b219_actor_one_soldier_animation_data.setPropertiesMoving(true);
+        jup_b219_actor_one_soldier_animation_data.setPropertiesRandom(100);
+
+        jup_b219_actor_one_soldier_animation_data.addAnimation("into", 0, "jup_b219_descent_actor_1");
+        jup_b219_actor_one_soldier_animation_data.addAnimation("into", 0, "jup_b219_descent_actor_2");
+        jup_b219_actor_one_soldier_animation_data.addAnimation("into", 0, "jup_b219_descent_actor_3");
+        jup_b219_actor_one_soldier_animation_data.addAnimation("into", 0, "jup_b219_descent_actor_4");
+        jup_b219_actor_one_soldier_animation_data.addAnimation("into", 0, "jup_b219_descent_actor_7");
+        jup_b219_actor_one_soldier_animation_data.addAnimationSoundName("into", 0, "jup_b219_actor_ready");
+        jup_b219_actor_one_soldier_animation_data.addAnimation("into", 0, "jup_b219_descent_actor_8");
+        //   jup_b219_actor_one_soldier_animation_data.addAnimationFunction("into", 0, xr_effects.jup_b219_opening);
+        //   Lord: доделать!
+        jup_b219_actor_one_soldier_animation_data.addAnimation("into", 0, "jup_b219_descent_actor_9");
+        jup_b219_actor_one_soldier_animation_data.addAnimationSoundName("into", 0, "jup_b219_actor_go");
+        jup_b219_actor_one_soldier_animation_data.addAnimation("into", 0, "jup_b219_descent_actor_10");
+
+        this->m_state_manager_animation_list["jup_b219_actor_one_soldier"] = jup_b219_actor_one_soldier_animation_data;
+
+        StateManagerAnimationData jup_b219_actor_all_animation_data;
+        jup_b219_actor_all_animation_data.setPropertiesMaxIdle(1);
+        jup_b219_actor_all_animation_data.setPropertiesSumIdle(1);
+        jup_b219_actor_all_animation_data.setPropertiesMoving(true);
+        jup_b219_actor_all_animation_data.setPropertiesRandom(100);
+
+        jup_b219_actor_all_animation_data.addAnimation("into", 0, "jup_b219_descent_actor_1");
+        jup_b219_actor_all_animation_data.addAnimation("into", 0, "jup_b219_descent_actor_2");
+        jup_b219_actor_all_animation_data.addAnimation("into", 0, "jup_b219_descent_actor_3");
+        jup_b219_actor_all_animation_data.addAnimation("into", 0, "jup_b219_descent_actor_4");
+        jup_b219_actor_all_animation_data.addAnimation("into", 0, "jup_b219_descent_actor_5");
+        jup_b219_actor_all_animation_data.addAnimation("into", 0, "jup_b219_descent_actor_6");
+        jup_b219_actor_all_animation_data.addAnimation("into", 0, "jup_b219_descent_actor_7");
+        jup_b219_actor_all_animation_data.addAnimationSoundName("into", 0, "jup_b219_actor_ready");
+        jup_b219_actor_all_animation_data.addAnimation("into", 0, "jup_b219_descent_actor_8");
+        //   jup_b219_actor_all_animation_data.addAnimationFunction("into", 0, xr_effects.jup_b219_opening); Lord:
+        //   доделать!
+        jup_b219_actor_all_animation_data.addAnimation("into", 0, "jup_b219_descent_actor_9");
+        jup_b219_actor_all_animation_data.addAnimationSoundName("into", 0, "jup_b219_actor_go");
+        jup_b219_actor_all_animation_data.addAnimation("into", 0, "jup_b219_descent_actor_10");
+
+        this->m_state_manager_animation_list["jup_b219_actor_all"] = jup_b219_actor_all_animation_data;
+
+        StateManagerAnimationData jup_b219_actor_soldier_vano_animation_data;
+        jup_b219_actor_soldier_vano_animation_data.setPropertiesMaxIdle(1);
+        jup_b219_actor_soldier_vano_animation_data.setPropertiesSumIdle(1);
+        jup_b219_actor_soldier_vano_animation_data.setPropertiesMoving(true);
+        jup_b219_actor_soldier_vano_animation_data.setPropertiesRandom(100);
+
+        jup_b219_actor_soldier_vano_animation_data.addAnimation("into", 0, "jup_b219_descent_actor_1");
+        jup_b219_actor_soldier_vano_animation_data.addAnimation("into", 0, "jup_b219_descent_actor_2");
+        jup_b219_actor_soldier_vano_animation_data.addAnimation("into", 0, "jup_b219_descent_actor_3");
+        jup_b219_actor_soldier_vano_animation_data.addAnimation("into", 0, "jup_b219_descent_actor_4");
+        jup_b219_actor_soldier_vano_animation_data.addAnimation("into", 0, "jup_b219_descent_actor_5");
+        jup_b219_actor_soldier_vano_animation_data.addAnimation("into", 0, "jup_b219_descent_actor_7");
+        jup_b219_actor_soldier_vano_animation_data.addAnimationSoundName("into", 0, "jup_b219_actor_ready");
+        jup_b219_actor_soldier_vano_animation_data.addAnimation("into", 0, "jup_b219_descent_actor_8");
+        //   jup_b219_actor_soldier_vano_animation_data.addAnimationFunction("into", 0, xr_effects.jup_b219_opening);
+        //   Lord: доделать!
+        jup_b219_actor_soldier_vano_animation_data.addAnimation("into", 0, "jup_b219_descent_actor_9");
+        jup_b219_actor_soldier_vano_animation_data.addAnimationSoundName("into", 0, "jup_b219_actor_go");
+        jup_b219_actor_soldier_vano_animation_data.addAnimation("into", 0, "jup_b219_descent_actor_10");
+
+        this->m_state_manager_animation_list["jup_b219_actor_soldier_vano"] =
+            jup_b219_actor_soldier_vano_animation_data;
+
+        StateManagerAnimationData jup_b219_actor_soldier_monolith_animation_data;
+        jup_b219_actor_soldier_monolith_animation_data.setPropertiesMaxIdle(1);
+        jup_b219_actor_soldier_monolith_animation_data.setPropertiesSumIdle(1);
+        jup_b219_actor_soldier_monolith_animation_data.setPropertiesMoving(true);
+        jup_b219_actor_soldier_monolith_animation_data.setPropertiesRandom(100);
+
+        jup_b219_actor_soldier_monolith_animation_data.addAnimation("into", 0, "jup_b219_descent_actor_1");
+        jup_b219_actor_soldier_monolith_animation_data.addAnimation("into", 0, "jup_b219_descent_actor_2");
+        jup_b219_actor_soldier_monolith_animation_data.addAnimation("into", 0, "jup_b219_descent_actor_3");
+        jup_b219_actor_soldier_monolith_animation_data.addAnimation("into", 0, "jup_b219_descent_actor_4");
+        jup_b219_actor_soldier_monolith_animation_data.addAnimation("into", 0, "jup_b219_descent_actor_6");
+        jup_b219_actor_soldier_monolith_animation_data.addAnimation("into", 0, "jup_b219_descent_actor_7");
+        jup_b219_actor_soldier_monolith_animation_data.addAnimationSoundName("into", 0, "jup_b219_actor_ready");
+        jup_b219_actor_soldier_monolith_animation_data.addAnimation("into", 0, "jup_b219_descent_actor_8");
+        //   jup_b219_actor_soldier_monolith_animation_data.addAnimationFunction("into", 0,
+        //   xr_effects.jup_b219_opening); Lord: доделать!
+        jup_b219_actor_soldier_monolith_animation_data.addAnimation("into", 0, "jup_b219_descent_actor_9");
+        jup_b219_actor_soldier_monolith_animation_data.addAnimationSoundName("into", 0, "jup_b219_actor_go");
+        jup_b219_actor_soldier_monolith_animation_data.addAnimation("into", 0, "jup_b219_descent_actor_10");
+
+        this->m_state_manager_animation_list["jup_b219_actor_soldier_monolith"] =
+            jup_b219_actor_soldier_monolith_animation_data;
+
+        StateManagerAnimationData jup_b219_actor_vano_monolith_animation_data;
+        jup_b219_actor_vano_monolith_animation_data.setPropertiesMaxIdle(1);
+        jup_b219_actor_vano_monolith_animation_data.setPropertiesSumIdle(1);
+        jup_b219_actor_vano_monolith_animation_data.setPropertiesMoving(true);
+        jup_b219_actor_vano_monolith_animation_data.setPropertiesRandom(100);
+
+        jup_b219_actor_vano_monolith_animation_data.addAnimation("into", 0, "jup_b219_descent_actor_1");
+        jup_b219_actor_vano_monolith_animation_data.addAnimation("into", 0, "jup_b219_descent_actor_2");
+        jup_b219_actor_vano_monolith_animation_data.addAnimation("into", 0, "jup_b219_descent_actor_3");
+        jup_b219_actor_vano_monolith_animation_data.addAnimation("into", 0, "jup_b219_descent_actor_4");
+        jup_b219_actor_vano_monolith_animation_data.addAnimation("into", 0, "jup_b219_descent_actor_5");
+        jup_b219_actor_vano_monolith_animation_data.addAnimation("into", 0, "jup_b219_descent_actor_6");
+        jup_b219_actor_vano_monolith_animation_data.addAnimationSoundName("into", 0, "jup_b219_actor_ready");
+        jup_b219_actor_vano_monolith_animation_data.addAnimation("into", 0, "jup_b219_descent_actor_8");
+        //   jup_b219_actor_vano_monolith_animation_data.addAnimationFunction("into", 0,
+        //   xr_effects.jup_b219_opening); Lord: доделать!
+        jup_b219_actor_vano_monolith_animation_data.addAnimation("into", 0, "jup_b219_descent_actor_9");
+        jup_b219_actor_vano_monolith_animation_data.addAnimationSoundName("into", 0, "jup_b219_actor_go");
+        jup_b219_actor_vano_monolith_animation_data.addAnimation("into", 0, "jup_b219_descent_actor_10");
+
+        this->m_state_manager_animation_list["jup_b219_actor_vano_monolith"] =
+            jup_b219_actor_vano_monolith_animation_data;
+
+        StateManagerAnimationData jup_b219_zulus_one_animation_data;
+        jup_b219_zulus_one_animation_data.setPropertiesMaxIdle(1);
+        jup_b219_zulus_one_animation_data.setPropertiesSumIdle(1);
+        jup_b219_zulus_one_animation_data.setPropertiesMoving(true);
+        jup_b219_zulus_one_animation_data.setPropertiesRandom(100);
+
+        jup_b219_zulus_one_animation_data.addAnimation("into", 0, "jup_b219_descent_actor_1");
+        jup_b219_zulus_one_animation_data.addAnimation("into", 0, "jup_b219_descent_actor_2");
+        jup_b219_zulus_one_animation_data.addAnimation("into", 0, "jup_b219_descent_actor_3");
+        jup_b219_zulus_one_animation_data.addAnimationSoundName("into", 0, "jup_b219_duty_ready");
+        jup_b219_zulus_one_animation_data.addAnimation("into", 0, "jup_b219_descent_actor_4");
+        jup_b219_zulus_one_animation_data.addAnimation("into", 0, "jup_b219_descent_actor_8");
+        jup_b219_zulus_one_animation_data.addAnimation("into", 0, "jup_b219_descent_actor_9");
+        jup_b219_zulus_one_animation_data.addAnimation("into", 0, "jup_b219_descent_actor_10");
+
+        this->m_state_manager_animation_list["jup_b219_zulus_one"] = jup_b219_zulus_one_animation_data;
+
+        StateManagerAnimationData jup_b219_zulus_one_vano_animation_data;
+        jup_b219_zulus_one_vano_animation_data.setPropertiesMaxIdle(1);
+        jup_b219_zulus_one_vano_animation_data.setPropertiesSumIdle(1);
+        jup_b219_zulus_one_vano_animation_data.setPropertiesMoving(true);
+        jup_b219_zulus_one_vano_animation_data.setPropertiesRandom(100);
+
+        jup_b219_zulus_one_vano_animation_data.addAnimation("into", 0, "jup_b219_descent_actor_1");
+        jup_b219_zulus_one_vano_animation_data.addAnimation("into", 0, "jup_b219_descent_actor_2");
+        jup_b219_zulus_one_vano_animation_data.addAnimation("into", 0, "jup_b219_descent_actor_3");
+        jup_b219_zulus_one_vano_animation_data.addAnimationSoundName("into", 0, "jup_b219_duty_ready");
+        jup_b219_zulus_one_vano_animation_data.addAnimation("into", 0, "jup_b219_descent_actor_4");
+        jup_b219_zulus_one_vano_animation_data.addAnimation("into", 0, "jup_b219_descent_actor_5");
+        jup_b219_zulus_one_vano_animation_data.addAnimation("into", 0, "jup_b219_descent_actor_8");
+        jup_b219_zulus_one_vano_animation_data.addAnimation("into", 0, "jup_b219_descent_actor_9");
+        jup_b219_zulus_one_vano_animation_data.addAnimation("into", 0, "jup_b219_descent_actor_10");
+
+        this->m_state_manager_animation_list["jup_b219_zulus_one_vano"] = jup_b219_zulus_one_vano_animation_data;
+
+        StateManagerAnimationData jup_b219_zulus_one_monolith_animation_data;
+        jup_b219_zulus_one_monolith_animation_data.setPropertiesMaxIdle(1);
+        jup_b219_zulus_one_monolith_animation_data.setPropertiesSumIdle(1);
+        jup_b219_zulus_one_monolith_animation_data.setPropertiesMoving(true);
+        jup_b219_zulus_one_monolith_animation_data.setPropertiesRandom(100);
+
+        jup_b219_zulus_one_monolith_animation_data.addAnimation("into", 0, "jup_b219_descent_actor_1");
+        jup_b219_zulus_one_monolith_animation_data.addAnimation("into", 0, "jup_b219_descent_actor_2");
+        jup_b219_zulus_one_monolith_animation_data.addAnimation("into", 0, "jup_b219_descent_actor_3");
+        jup_b219_zulus_one_monolith_animation_data.addAnimationSoundName("into", 0, "jup_b219_duty_ready");
+        jup_b219_zulus_one_monolith_animation_data.addAnimation("into", 0, "jup_b219_descent_actor_4");
+        jup_b219_zulus_one_monolith_animation_data.addAnimation("into", 0, "jup_b219_descent_actor_6");
+        jup_b219_zulus_one_monolith_animation_data.addAnimation("into", 0, "jup_b219_descent_actor_8");
+        jup_b219_zulus_one_monolith_animation_data.addAnimation("into", 0, "jup_b219_descent_actor_9");
+        jup_b219_zulus_one_monolith_animation_data.addAnimation("into", 0, "jup_b219_descent_actor_10");
+
+        this->m_state_manager_animation_list["jup_b219_zulus_one_monolith"] =
+            jup_b219_zulus_one_monolith_animation_data;
+
+        StateManagerAnimationData jup_b219_zulus_one_soldier_animation_data;
+        jup_b219_zulus_one_monolith_animation_data.setPropertiesMaxIdle(1);
+        jup_b219_zulus_one_monolith_animation_data.setPropertiesSumIdle(1);
+        jup_b219_zulus_one_monolith_animation_data.setPropertiesMoving(true);
+        jup_b219_zulus_one_monolith_animation_data.setPropertiesRandom(100);
+
+        jup_b219_zulus_one_monolith_animation_data.addAnimation("into", 0, "jup_b219_descent_actor_1");
+        jup_b219_zulus_one_monolith_animation_data.addAnimation("into", 0, "jup_b219_descent_actor_2");
+        jup_b219_zulus_one_monolith_animation_data.addAnimation("into", 0, "jup_b219_descent_actor_3");
+        jup_b219_zulus_one_monolith_animation_data.addAnimationSoundName("into", 0, "jup_b219_duty_ready");
+        jup_b219_zulus_one_monolith_animation_data.addAnimation("into", 0, "jup_b219_descent_actor_4");
+        jup_b219_zulus_one_monolith_animation_data.addAnimation("into", 0, "jup_b219_descent_actor_7");
+        jup_b219_zulus_one_monolith_animation_data.addAnimation("into", 0, "jup_b219_descent_actor_8");
+        jup_b219_zulus_one_monolith_animation_data.addAnimation("into", 0, "jup_b219_descent_actor_9");
+        jup_b219_zulus_one_monolith_animation_data.addAnimation("into", 0, "jup_b219_descent_actor_10");
+
+        this->m_state_manager_animation_list["jup_b219_zulus_one_soldier"] = jup_b219_zulus_one_soldier_animation_data;
+
+        StateManagerAnimationData jup_b219_zulus_all_animation_data;
+        jup_b219_zulus_one_monolith_animation_data.setPropertiesMaxIdle(1);
+        jup_b219_zulus_one_monolith_animation_data.setPropertiesSumIdle(1);
+        jup_b219_zulus_one_monolith_animation_data.setPropertiesMoving(true);
+        jup_b219_zulus_one_monolith_animation_data.setPropertiesRandom(100);
+
+        jup_b219_zulus_one_monolith_animation_data.addAnimation("into", 0, "jup_b219_descent_actor_1");
+        jup_b219_zulus_one_monolith_animation_data.addAnimation("into", 0, "jup_b219_descent_actor_2");
+        jup_b219_zulus_one_monolith_animation_data.addAnimation("into", 0, "jup_b219_descent_actor_3");
+        jup_b219_zulus_one_monolith_animation_data.addAnimationSoundName("into", 0, "jup_b219_duty_ready");
+        jup_b219_zulus_one_monolith_animation_data.addAnimation("into", 0, "jup_b219_descent_actor_4");
+        jup_b219_zulus_one_monolith_animation_data.addAnimation("into", 0, "jup_b219_descent_actor_5");
+        jup_b219_zulus_one_monolith_animation_data.addAnimation("into", 0, "jup_b219_descent_actor_6");
+        jup_b219_zulus_one_monolith_animation_data.addAnimation("into", 0, "jup_b219_descent_actor_7");
+        jup_b219_zulus_one_monolith_animation_data.addAnimation("into", 0, "jup_b219_descent_actor_8");
+        jup_b219_zulus_one_monolith_animation_data.addAnimation("into", 0, "jup_b219_descent_actor_9");
+        jup_b219_zulus_one_monolith_animation_data.addAnimation("into", 0, "jup_b219_descent_actor_10");
+
+        this->m_state_manager_animation_list["jup_b219_zulus_all"] = jup_b219_zulus_all_animation_data;
+
+        StateManagerAnimationData jup_b219_zulus_soldier_vano_animation_data;
+        jup_b219_zulus_soldier_vano_animation_data.setPropertiesMaxIdle(1);
+        jup_b219_zulus_soldier_vano_animation_data.setPropertiesSumIdle(1);
+        jup_b219_zulus_soldier_vano_animation_data.setPropertiesMoving(true);
+        jup_b219_zulus_soldier_vano_animation_data.setPropertiesRandom(100);
+
+        jup_b219_zulus_soldier_vano_animation_data.addAnimation("into", 0, "jup_b219_descent_actor_1");
+        jup_b219_zulus_soldier_vano_animation_data.addAnimation("into", 0, "jup_b219_descent_actor_2");
+        jup_b219_zulus_soldier_vano_animation_data.addAnimation("into", 0, "jup_b219_descent_actor_3");
+        jup_b219_zulus_soldier_vano_animation_data.addAnimationSoundName("into", 0, "jup_b219_duty_ready");
+        jup_b219_zulus_soldier_vano_animation_data.addAnimation("into", 0, "jup_b219_descent_actor_4");
+        jup_b219_zulus_soldier_vano_animation_data.addAnimation("into", 0, "jup_b219_descent_actor_5");
+        jup_b219_zulus_soldier_vano_animation_data.addAnimation("into", 0, "jup_b219_descent_actor_7");
+        jup_b219_zulus_soldier_vano_animation_data.addAnimation("into", 0, "jup_b219_descent_actor_8");
+        jup_b219_zulus_soldier_vano_animation_data.addAnimation("into", 0, "jup_b219_descent_actor_9");
+        jup_b219_zulus_soldier_vano_animation_data.addAnimation("into", 0, "jup_b219_descent_actor_10");
+
+        this->m_state_manager_animation_list["jup_b219_zulus_soldier_vano"] =
+            jup_b219_zulus_soldier_vano_animation_data;
+
+        StateManagerAnimationData jup_b219_zulus_soldier_monolith_animation_data;
+        jup_b219_zulus_soldier_monolith_animation_data.setPropertiesMaxIdle(1);
+        jup_b219_zulus_soldier_monolith_animation_data.setPropertiesSumIdle(1);
+        jup_b219_zulus_soldier_monolith_animation_data.setPropertiesMoving(true);
+        jup_b219_zulus_soldier_monolith_animation_data.setPropertiesRandom(100);
+
+        jup_b219_zulus_soldier_monolith_animation_data.addAnimation("into", 0, "jup_b219_descent_actor_1");
+        jup_b219_zulus_soldier_monolith_animation_data.addAnimation("into", 0, "jup_b219_descent_actor_2");
+        jup_b219_zulus_soldier_monolith_animation_data.addAnimation("into", 0, "jup_b219_descent_actor_3");
+        jup_b219_zulus_soldier_monolith_animation_data.addAnimationSoundName("into", 0, "jup_b219_duty_ready");
+        jup_b219_zulus_soldier_monolith_animation_data.addAnimation("into", 0, "jup_b219_descent_actor_4");
+        jup_b219_zulus_soldier_monolith_animation_data.addAnimation("into", 0, "jup_b219_descent_actor_6");
+        jup_b219_zulus_soldier_monolith_animation_data.addAnimation("into", 0, "jup_b219_descent_actor_7");
+        jup_b219_zulus_soldier_monolith_animation_data.addAnimation("into", 0, "jup_b219_descent_actor_8");
+        jup_b219_zulus_soldier_monolith_animation_data.addAnimation("into", 0, "jup_b219_descent_actor_9");
+        jup_b219_zulus_soldier_monolith_animation_data.addAnimation("into", 0, "jup_b219_descent_actor_10");
+
+        this->m_state_manager_animation_list["jup_b219_zulus_soldier_monolith"] =
+            jup_b219_zulus_soldier_monolith_animation_data;
+
+        StateManagerAnimationData jup_b219_zulus_vano_monolith_animation_data;
+        jup_b219_zulus_vano_monolith_animation_data.setPropertiesMaxIdle(1);
+        jup_b219_zulus_vano_monolith_animation_data.setPropertiesSumIdle(1);
+        jup_b219_zulus_vano_monolith_animation_data.setPropertiesMoving(true);
+        jup_b219_zulus_vano_monolith_animation_data.setPropertiesRandom(100);
+
+        jup_b219_zulus_vano_monolith_animation_data.addAnimation("into", 0, "jup_b219_descent_actor_1");
+        jup_b219_zulus_vano_monolith_animation_data.addAnimation("into", 0, "jup_b219_descent_actor_2");
+        jup_b219_zulus_vano_monolith_animation_data.addAnimation("into", 0, "jup_b219_descent_actor_3");
+        jup_b219_zulus_vano_monolith_animation_data.addAnimationSoundName("into", 0, "jup_b219_duty_ready");
+        jup_b219_zulus_vano_monolith_animation_data.addAnimation("into", 0, "jup_b219_descent_actor_4");
+        jup_b219_zulus_vano_monolith_animation_data.addAnimation("into", 0, "jup_b219_descent_actor_5");
+        jup_b219_zulus_vano_monolith_animation_data.addAnimation("into", 0, "jup_b219_descent_actor_6");
+        jup_b219_zulus_vano_monolith_animation_data.addAnimation("into", 0, "jup_b219_descent_actor_8");
+        jup_b219_zulus_vano_monolith_animation_data.addAnimation("into", 0, "jup_b219_descent_actor_9");
+        jup_b219_zulus_vano_monolith_animation_data.addAnimation("into", 0, "jup_b219_descent_actor_10");
+
+        this->m_state_manager_animation_list["jup_b219_zulus_vano_monolith"] =
+            jup_b219_zulus_vano_monolith_animation_data;
+
+        StateManagerAnimationData jup_b219_soldier_one_animation_data;
+        jup_b219_soldier_one_animation_data.setPropertiesMaxIdle(1);
+        jup_b219_soldier_one_animation_data.setPropertiesSumIdle(1);
+        jup_b219_soldier_one_animation_data.setPropertiesMoving(true);
+        jup_b219_soldier_one_animation_data.setPropertiesRandom(100);
+
+        jup_b219_soldier_one_animation_data.addAnimation("into", 0, "jup_b219_descent_soldier_1");
+        jup_b219_soldier_one_animation_data.addAnimation("into", 0, "jup_b219_descent_soldier_2");
+        jup_b219_soldier_one_animation_data.addAnimation("into", 0, "jup_b219_descent_soldier_3");
+        jup_b219_soldier_one_animation_data.addAnimation("into", 0, "jup_b219_descent_soldier_4");
+        jup_b219_soldier_one_animation_data.addAnimationSoundName("into", 0, "jup_b219_soldier_ready");
+        jup_b219_soldier_one_animation_data.addAnimation("into", 0, "jup_b219_descent_soldier_7");
+        jup_b219_soldier_one_animation_data.addAnimation("into", 0, "jup_b219_descent_soldier_8");
+        jup_b219_soldier_one_animation_data.addAnimation("into", 0, "jup_b219_descent_soldier_9");
+        jup_b219_soldier_one_animation_data.addAnimation("into", 0, "jup_b219_descent_soldier_10");
+
+        this->m_state_manager_animation_list["jup_b219_soldier_one"] = jup_b219_soldier_one_animation_data;
+
+        StateManagerAnimationData jup_b219_soldier_all_animation_data;
+        jup_b219_soldier_all_animation_data.setPropertiesMaxIdle(1);
+        jup_b219_soldier_all_animation_data.setPropertiesSumIdle(1);
+        jup_b219_soldier_all_animation_data.setPropertiesMoving(true);
+        jup_b219_soldier_all_animation_data.setPropertiesRandom(100);
+
+        jup_b219_soldier_all_animation_data.addAnimation("into", 0, "jup_b219_descent_soldier_1");
+        jup_b219_soldier_all_animation_data.addAnimation("into", 0, "jup_b219_descent_soldier_2");
+        jup_b219_soldier_all_animation_data.addAnimation("into", 0, "jup_b219_descent_soldier_3");
+        jup_b219_soldier_all_animation_data.addAnimation("into", 0, "jup_b219_descent_soldier_4");
+        jup_b219_soldier_all_animation_data.addAnimation("into", 0, "jup_b219_descent_soldier_5");
+        jup_b219_soldier_all_animation_data.addAnimation("into", 0, "jup_b219_descent_soldier_6");
+        jup_b219_soldier_all_animation_data.addAnimationSoundName("into", 0, "jup_b219_soldier_ready");
+        jup_b219_soldier_all_animation_data.addAnimation("into", 0, "jup_b219_descent_soldier_7");
+        jup_b219_soldier_all_animation_data.addAnimation("into", 0, "jup_b219_descent_soldier_8");
+        jup_b219_soldier_all_animation_data.addAnimation("into", 0, "jup_b219_descent_soldier_9");
+        jup_b219_soldier_all_animation_data.addAnimation("into", 0, "jup_b219_descent_soldier_10");
+
+        this->m_state_manager_animation_list["jup_b219_soldier_all"] = jup_b219_soldier_all_animation_data;
+
+        StateManagerAnimationData jup_b219_soldier_soldier_vano_animation_data;
+        jup_b219_soldier_soldier_vano_animation_data.setPropertiesMaxIdle(1);
+        jup_b219_soldier_soldier_vano_animation_data.setPropertiesSumIdle(1);
+        jup_b219_soldier_soldier_vano_animation_data.setPropertiesMoving(true);
+        jup_b219_soldier_soldier_vano_animation_data.setPropertiesRandom(100);
+
+        jup_b219_soldier_soldier_vano_animation_data.addAnimation("into", 0, "jup_b219_descent_soldier_1");
+        jup_b219_soldier_soldier_vano_animation_data.addAnimation("into", 0, "jup_b219_descent_soldier_2");
+        jup_b219_soldier_soldier_vano_animation_data.addAnimation("into", 0, "jup_b219_descent_soldier_3");
+        jup_b219_soldier_soldier_vano_animation_data.addAnimation("into", 0, "jup_b219_descent_soldier_4");
+        jup_b219_soldier_soldier_vano_animation_data.addAnimation("into", 0, "jup_b219_descent_soldier_5");
+        jup_b219_soldier_soldier_vano_animation_data.addAnimationSoundName("into", 0, "jup_b219_soldier_ready");
+        jup_b219_soldier_soldier_vano_animation_data.addAnimation("into", 0, "jup_b219_descent_soldier_7");
+        jup_b219_soldier_soldier_vano_animation_data.addAnimation("into", 0, "jup_b219_descent_soldier_8");
+        jup_b219_soldier_soldier_vano_animation_data.addAnimation("into", 0, "jup_b219_descent_soldier_9");
+        jup_b219_soldier_soldier_vano_animation_data.addAnimation("into", 0, "jup_b219_descent_soldier_10");
+
+        this->m_state_manager_animation_list["jup_b219_soldier_soldier_vano"] =
+            jup_b219_soldier_soldier_vano_animation_data;
+
+        StateManagerAnimationData jup_b219_soldier_soldier_monolith_animation_data;
+        jup_b219_soldier_soldier_monolith_animation_data.setPropertiesMaxIdle(1);
+        jup_b219_soldier_soldier_monolith_animation_data.setPropertiesSumIdle(1);
+        jup_b219_soldier_soldier_monolith_animation_data.setPropertiesMoving(true);
+        jup_b219_soldier_soldier_monolith_animation_data.setPropertiesRandom(100);
+
+        jup_b219_soldier_soldier_monolith_animation_data.addAnimation("into", 0, "jup_b219_descent_soldier_1");
+        jup_b219_soldier_soldier_monolith_animation_data.addAnimation("into", 0, "jup_b219_descent_soldier_2");
+        jup_b219_soldier_soldier_monolith_animation_data.addAnimation("into", 0, "jup_b219_descent_soldier_3");
+        jup_b219_soldier_soldier_monolith_animation_data.addAnimation("into", 0, "jup_b219_descent_soldier_4");
+        jup_b219_soldier_soldier_monolith_animation_data.addAnimation("into", 0, "jup_b219_descent_soldier_5");
+        jup_b219_soldier_soldier_monolith_animation_data.addAnimationSoundName("into", 0, "jup_b219_soldier_ready");
+        jup_b219_soldier_soldier_monolith_animation_data.addAnimation("into", 0, "jup_b219_descent_soldier_7");
+        jup_b219_soldier_soldier_monolith_animation_data.addAnimation("into", 0, "jup_b219_descent_soldier_8");
+        jup_b219_soldier_soldier_monolith_animation_data.addAnimation("into", 0, "jup_b219_descent_soldier_9");
+        jup_b219_soldier_soldier_monolith_animation_data.addAnimation("into", 0, "jup_b219_descent_soldier_10");
+
+        this->m_state_manager_animation_list["jup_b219_soldier_soldier_monolith"] =
+            jup_b219_soldier_soldier_monolith_animation_data;
+
+        StateManagerAnimationData jup_b219_monolith_one_animation_data;
+        jup_b219_monolith_one_animation_data.setPropertiesMaxIdle(1);
+        jup_b219_monolith_one_animation_data.setPropertiesSumIdle(1);
+        jup_b219_monolith_one_animation_data.setPropertiesMoving(true);
+        jup_b219_monolith_one_animation_data.setPropertiesRandom(100);
+
+        jup_b219_monolith_one_animation_data.addAnimation("into", 0, "jup_b219_descent_monolit_1");
+        jup_b219_monolith_one_animation_data.addAnimation("into", 0, "jup_b219_descent_monolit_2");
+        jup_b219_monolith_one_animation_data.addAnimation("into", 0, "jup_b219_descent_monolit_3");
+        jup_b219_monolith_one_animation_data.addAnimation("into", 0, "jup_b219_descent_monolit_4");
+        jup_b219_monolith_one_animation_data.addAnimationSoundName("into", 0, "jup_b219_monolith_ready");
+        jup_b219_monolith_one_animation_data.addAnimation("into", 0, "jup_b219_descent_monolit_6");
+        jup_b219_monolith_one_animation_data.addAnimation("into", 0, "jup_b219_descent_monolit_8");
+        jup_b219_monolith_one_animation_data.addAnimation("into", 0, "jup_b219_descent_monolit_9");
+        jup_b219_monolith_one_animation_data.addAnimation("into", 0, "jup_b219_descent_monolit_10");
+
+        this->m_state_manager_animation_list["jup_b219_monolith_one"] = jup_b219_monolith_one_animation_data;
+
+        StateManagerAnimationData jup_b219_monolith_all_animation_data;
+        jup_b219_monolith_all_animation_data.setPropertiesMaxIdle(1);
+        jup_b219_monolith_all_animation_data.setPropertiesSumIdle(1);
+        jup_b219_monolith_all_animation_data.setPropertiesMoving(true);
+        jup_b219_monolith_all_animation_data.setPropertiesRandom(100);
+
+        jup_b219_monolith_all_animation_data.addAnimation("into", 0, "jup_b219_descent_monolit_1");
+        jup_b219_monolith_all_animation_data.addAnimation("into", 0, "jup_b219_descent_monolit_2");
+        jup_b219_monolith_all_animation_data.addAnimation("into", 0, "jup_b219_descent_monolit_3");
+        jup_b219_monolith_all_animation_data.addAnimation("into", 0, "jup_b219_descent_monolit_4");
+        jup_b219_monolith_all_animation_data.addAnimation("into", 0, "jup_b219_descent_monolit_5");
+        jup_b219_monolith_all_animation_data.addAnimationSoundName("into", 0, "jup_b219_monolith_ready");
+        jup_b219_monolith_all_animation_data.addAnimation("into", 0, "jup_b219_descent_monolit_6");
+        jup_b219_monolith_all_animation_data.addAnimation("into", 0, "jup_b219_descent_monolit_7");
+        jup_b219_monolith_all_animation_data.addAnimation("into", 0, "jup_b219_descent_monolit_8");
+        jup_b219_monolith_all_animation_data.addAnimation("into", 0, "jup_b219_descent_monolit_9");
+        jup_b219_monolith_all_animation_data.addAnimation("into", 0, "jup_b219_descent_monolit_10");
+
+        this->m_state_manager_animation_list["jup_b219_monolith_all"] = jup_b219_monolith_all_animation_data;
+
+        StateManagerAnimationData jup_b219_monolith_soldier_monolith_animation_data;
+        jup_b219_monolith_soldier_monolith_animation_data.setPropertiesMaxIdle(1);
+        jup_b219_monolith_soldier_monolith_animation_data.setPropertiesSumIdle(1);
+        jup_b219_monolith_soldier_monolith_animation_data.setPropertiesMoving(true);
+        jup_b219_monolith_soldier_monolith_animation_data.setPropertiesRandom(100);
+
+        jup_b219_monolith_soldier_monolith_animation_data.addAnimation("into", 0, "jup_b219_descent_monolit_1");
+        jup_b219_monolith_soldier_monolith_animation_data.addAnimation("into", 0, "jup_b219_descent_monolit_2");
+        jup_b219_monolith_soldier_monolith_animation_data.addAnimation("into", 0, "jup_b219_descent_monolit_3");
+        jup_b219_monolith_soldier_monolith_animation_data.addAnimation("into", 0, "jup_b219_descent_monolit_4");
+        jup_b219_monolith_soldier_monolith_animation_data.addAnimationSoundName("into", 0, "jup_b219_monolith_ready");
+        jup_b219_monolith_soldier_monolith_animation_data.addAnimation("into", 0, "jup_b219_descent_monolit_6");
+        jup_b219_monolith_soldier_monolith_animation_data.addAnimation("into", 0, "jup_b219_descent_monolit_7");
+        jup_b219_monolith_soldier_monolith_animation_data.addAnimation("into", 0, "jup_b219_descent_monolit_8");
+        jup_b219_monolith_soldier_monolith_animation_data.addAnimation("into", 0, "jup_b219_descent_monolit_9");
+        jup_b219_monolith_soldier_monolith_animation_data.addAnimation("into", 0, "jup_b219_descent_monolit_10");
+
+        this->m_state_manager_animation_list["jup_b219_monolith_soldier_monolith"] =
+            jup_b219_monolith_soldier_monolith_animation_data;
+
+        StateManagerAnimationData jup_b219_monolith_vano_monolith_animation_data;
+        jup_b219_monolith_vano_monolith_animation_data.setPropertiesMaxIdle(1);
+        jup_b219_monolith_vano_monolith_animation_data.setPropertiesSumIdle(1);
+        jup_b219_monolith_vano_monolith_animation_data.setPropertiesMoving(true);
+        jup_b219_monolith_vano_monolith_animation_data.setPropertiesRandom(100);
+
+        jup_b219_monolith_vano_monolith_animation_data.addAnimation("into", 0, "jup_b219_descent_monolit_1");
+        jup_b219_monolith_vano_monolith_animation_data.addAnimation("into", 0, "jup_b219_descent_monolit_2");
+        jup_b219_monolith_vano_monolith_animation_data.addAnimation("into", 0, "jup_b219_descent_monolit_3");
+        jup_b219_monolith_vano_monolith_animation_data.addAnimation("into", 0, "jup_b219_descent_monolit_4");
+        jup_b219_monolith_vano_monolith_animation_data.addAnimation("into", 0, "jup_b219_descent_monolit_5");
+        jup_b219_monolith_vano_monolith_animation_data.addAnimationSoundName("into", 0, "jup_b219_monolith_ready");
+        jup_b219_monolith_vano_monolith_animation_data.addAnimation("into", 0, "jup_b219_descent_monolit_6");
+        jup_b219_monolith_vano_monolith_animation_data.addAnimation("into", 0, "jup_b219_descent_monolit_8");
+        jup_b219_monolith_vano_monolith_animation_data.addAnimation("into", 0, "jup_b219_descent_monolit_9");
+        jup_b219_monolith_vano_monolith_animation_data.addAnimation("into", 0, "jup_b219_descent_monolit_10");
+
+        this->m_state_manager_animation_list["jup_b219_monolith_vano_monolith"] =
+            jup_b219_monolith_vano_monolith_animation_data;
+
+        StateManagerAnimationData jup_b219_vano_one_animation_data;
+        jup_b219_vano_one_animation_data.setPropertiesMaxIdle(1);
+        jup_b219_vano_one_animation_data.setPropertiesSumIdle(1);
+        jup_b219_vano_one_animation_data.setPropertiesMoving(true);
+        jup_b219_vano_one_animation_data.setPropertiesRandom(100);
+
+        jup_b219_vano_one_animation_data.addAnimation("into", 0, "jup_b219_descent_stalker_1");
+        jup_b219_vano_one_animation_data.addAnimation("into", 0, "jup_b219_descent_stalker_2");
+        jup_b219_vano_one_animation_data.addAnimation("into", 0, "jup_b219_descent_stalker_3");
+        jup_b219_vano_one_animation_data.addAnimation("into", 0, "jup_b219_descent_stalker_4");
+        jup_b219_vano_one_animation_data.addAnimationSoundName("into", 0, "jup_b219_stalker_ready");
+        jup_b219_vano_one_animation_data.addAnimation("into", 0, "jup_b219_descent_stalker_5");
+        jup_b219_vano_one_animation_data.addAnimation("into", 0, "jup_b219_descent_stalker_8");
+        jup_b219_vano_one_animation_data.addAnimation("into", 0, "jup_b219_descent_stalker_9");
+        jup_b219_vano_one_animation_data.addAnimation("into", 0, "jup_b219_descent_stalker_10");
+
+        this->m_state_manager_animation_list["jup_b219_vano_one"] = jup_b219_vano_one_animation_data;
+
+        StateManagerAnimationData jup_b219_vano_all_animation_data;
+        jup_b219_vano_all_animation_data.setPropertiesMaxIdle(1);
+        jup_b219_vano_all_animation_data.setPropertiesSumIdle(1);
+        jup_b219_vano_all_animation_data.setPropertiesMoving(true);
+        jup_b219_vano_all_animation_data.setPropertiesRandom(100);
+
+        jup_b219_vano_all_animation_data.addAnimation("into", 0, "jup_b219_descent_stalker_1");
+        jup_b219_vano_all_animation_data.addAnimation("into", 0, "jup_b219_descent_stalker_2");
+        jup_b219_vano_all_animation_data.addAnimation("into", 0, "jup_b219_descent_stalker_3");
+        jup_b219_vano_all_animation_data.addAnimation("into", 0, "jup_b219_descent_stalker_4");
+        jup_b219_vano_all_animation_data.addAnimationSoundName("into", 0, "jup_b219_stalker_ready");
+        jup_b219_vano_all_animation_data.addAnimation("into", 0, "jup_b219_descent_stalker_5");
+        jup_b219_vano_all_animation_data.addAnimation("into", 0, "jup_b219_descent_stalker_6");
+        jup_b219_vano_all_animation_data.addAnimation("into", 0, "jup_b219_descent_stalker_7");
+        jup_b219_vano_all_animation_data.addAnimation("into", 0, "jup_b219_descent_stalker_8");
+        jup_b219_vano_all_animation_data.addAnimation("into", 0, "jup_b219_descent_stalker_9");
+        jup_b219_vano_all_animation_data.addAnimation("into", 0, "jup_b219_descent_stalker_10");
+
+        this->m_state_manager_animation_list["jup_b219_vano_all"] = jup_b219_vano_all_animation_data;
+
+        StateManagerAnimationData jup_b219_vano_soldier_vano_animation_data;
+        jup_b219_vano_soldier_vano_animation_data.setPropertiesMaxIdle(1);
+        jup_b219_vano_soldier_vano_animation_data.setPropertiesSumIdle(1);
+        jup_b219_vano_soldier_vano_animation_data.setPropertiesMoving(true);
+        jup_b219_vano_soldier_vano_animation_data.setPropertiesRandom(100);
+
+        jup_b219_vano_soldier_vano_animation_data.addAnimation("into", 0, "jup_b219_descent_stalker_1");
+        jup_b219_vano_soldier_vano_animation_data.addAnimation("into", 0, "jup_b219_descent_stalker_2");
+        jup_b219_vano_soldier_vano_animation_data.addAnimation("into", 0, "jup_b219_descent_stalker_3");
+        jup_b219_vano_soldier_vano_animation_data.addAnimation("into", 0, "jup_b219_descent_stalker_4");
+        jup_b219_vano_soldier_vano_animation_data.addAnimationSoundName("into", 0, "jup_b219_stalker_ready");
+        jup_b219_vano_soldier_vano_animation_data.addAnimation("into", 0, "jup_b219_descent_stalker_5");
+        jup_b219_vano_soldier_vano_animation_data.addAnimation("into", 0, "jup_b219_descent_stalker_7");
+        jup_b219_vano_soldier_vano_animation_data.addAnimation("into", 0, "jup_b219_descent_stalker_8");
+        jup_b219_vano_soldier_vano_animation_data.addAnimation("into", 0, "jup_b219_descent_stalker_9");
+        jup_b219_vano_soldier_vano_animation_data.addAnimation("into", 0, "jup_b219_descent_stalker_10");
+
+        this->m_state_manager_animation_list["jup_b219_vano_soldier_vano"] = jup_b219_vano_soldier_vano_animation_data;
+
+        StateManagerAnimationData jup_b219_vano_vano_monolith_animation_data;
+        jup_b219_vano_vano_monolith_animation_data.setPropertiesMaxIdle(1);
+        jup_b219_vano_vano_monolith_animation_data.setPropertiesSumIdle(1);
+        jup_b219_vano_vano_monolith_animation_data.setPropertiesMoving(true);
+        jup_b219_vano_vano_monolith_animation_data.setPropertiesRandom(100);
+
+        jup_b219_vano_vano_monolith_animation_data.addAnimation("into", 0, "jup_b219_descent_stalker_1");
+        jup_b219_vano_vano_monolith_animation_data.addAnimation("into", 0, "jup_b219_descent_stalker_2");
+        jup_b219_vano_vano_monolith_animation_data.addAnimation("into", 0, "jup_b219_descent_stalker_3");
+        jup_b219_vano_vano_monolith_animation_data.addAnimation("into", 0, "jup_b219_descent_stalker_4");
+        jup_b219_vano_vano_monolith_animation_data.addAnimationSoundName("into", 0, "jup_b219_stalker_ready");
+        jup_b219_vano_vano_monolith_animation_data.addAnimation("into", 0, "jup_b219_descent_stalker_5");
+        jup_b219_vano_vano_monolith_animation_data.addAnimation("into", 0, "jup_b219_descent_stalker_6");
+        jup_b219_vano_vano_monolith_animation_data.addAnimation("into", 0, "jup_b219_descent_stalker_8");
+        jup_b219_vano_vano_monolith_animation_data.addAnimation("into", 0, "jup_b219_descent_stalker_9");
+        jup_b219_vano_vano_monolith_animation_data.addAnimation("into", 0, "jup_b219_descent_stalker_10");
+
+        this->m_state_manager_animation_list["jup_b219_vano_vano_monolith"] =
+            jup_b219_vano_vano_monolith_animation_data;
+
+        StateManagerAnimationData jup_b219_azot_one_animation_data;
+        jup_b219_azot_one_animation_data.setPropertiesMaxIdle(1);
+        jup_b219_azot_one_animation_data.setPropertiesSumIdle(1);
+        jup_b219_azot_one_animation_data.setPropertiesMoving(true);
+        jup_b219_azot_one_animation_data.setPropertiesRandom(100);
+
+        jup_b219_azot_one_animation_data.addAnimationSoundName("into", 0, "jup_b219_tech_damn");
+        jup_b219_azot_one_animation_data.addAnimation("into", 0, "jup_b219_descent_tech_1");
+        jup_b219_azot_one_animation_data.addAnimationSoundName("into", 0, "jup_b219_tech_success");
+        jup_b219_azot_one_animation_data.addAnimation("into", 0, "jup_b219_descent_tech_1_1");
+        jup_b219_azot_one_animation_data.addAnimation("into", 0, "jup_b219_descent_tech_2");
+        jup_b219_azot_one_animation_data.addAnimationSoundName("into", 0, "jup_b219_tech_ready");
+        jup_b219_azot_one_animation_data.addAnimation("into", 0, "jup_b219_descent_tech_3");
+        jup_b219_azot_one_animation_data.addAnimation("into", 0, "jup_b219_descent_tech_4");
+        jup_b219_azot_one_animation_data.addAnimation("into", 0, "jup_b219_descent_tech_8");
+        jup_b219_azot_one_animation_data.addAnimationSoundName("into", 0, "jup_b219_tech_opening");
+        jup_b219_azot_one_animation_data.addAnimation("into", 0, "jup_b219_descent_tech_9");
+        jup_b219_azot_one_animation_data.addAnimation("into", 0, "jup_b219_descent_tech_10");
+        jup_b219_azot_one_animation_data.addAnimationSoundName("into", 0, "jup_b219_tech_to_duty");
+
+        this->m_state_manager_animation_list["jup_b219_azot_one"] = jup_b219_azot_one_animation_data;
+
+        StateManagerAnimationData jup_b219_azot_one_vano_animation_data;
+        jup_b219_azot_one_vano_animation_data.setPropertiesMaxIdle(1);
+        jup_b219_azot_one_vano_animation_data.setPropertiesSumIdle(1);
+        jup_b219_azot_one_vano_animation_data.setPropertiesMoving(true);
+        jup_b219_azot_one_vano_animation_data.setPropertiesRandom(100);
+
+        jup_b219_azot_one_vano_animation_data.addAnimationSoundName("into", 0, "jup_b219_tech_damn");
+        jup_b219_azot_one_vano_animation_data.addAnimation("into", 0, "jup_b219_descent_tech_1");
+        jup_b219_azot_one_vano_animation_data.addAnimationSoundName("into", 0, "jup_b219_tech_success");
+        jup_b219_azot_one_vano_animation_data.addAnimation("into", 0, "jup_b219_descent_tech_1_1");
+        jup_b219_azot_one_vano_animation_data.addAnimation("into", 0, "jup_b219_descent_tech_2");
+        jup_b219_azot_one_vano_animation_data.addAnimationSoundName("into", 0, "jup_b219_tech_ready");
+        jup_b219_azot_one_vano_animation_data.addAnimation("into", 0, "jup_b219_descent_tech_3");
+        jup_b219_azot_one_vano_animation_data.addAnimation("into", 0, "jup_b219_descent_tech_4");
+        jup_b219_azot_one_vano_animation_data.addAnimation("into", 0, "jup_b219_descent_tech_5");
+        jup_b219_azot_one_vano_animation_data.addAnimation("into", 0, "jup_b219_descent_tech_8");
+        jup_b219_azot_one_vano_animation_data.addAnimationSoundName("into", 0, "jup_b219_tech_opening");
+        jup_b219_azot_one_vano_animation_data.addAnimation("into", 0, "jup_b219_descent_tech_9");
+        jup_b219_azot_one_vano_animation_data.addAnimation("into", 0, "jup_b219_descent_tech_10");
+        jup_b219_azot_one_vano_animation_data.addAnimationSoundName("into", 0, "jup_b219_tech_to_duty");
+
+        this->m_state_manager_animation_list["jup_b219_azot_one_vano"] = jup_b219_azot_one_vano_animation_data;
+
+        StateManagerAnimationData jup_b219_azot_one_monolith_animation_data;
+        jup_b219_azot_one_monolith_animation_data.setPropertiesMaxIdle(1);
+        jup_b219_azot_one_monolith_animation_data.setPropertiesSumIdle(1);
+        jup_b219_azot_one_monolith_animation_data.setPropertiesMoving(true);
+        jup_b219_azot_one_monolith_animation_data.setPropertiesRandom(100);
+
+        jup_b219_azot_one_monolith_animation_data.addAnimationSoundName("into", 0, "jup_b219_tech_damn");
+        jup_b219_azot_one_monolith_animation_data.addAnimation("into", 0, "jup_b219_descent_tech_1");
+        jup_b219_azot_one_monolith_animation_data.addAnimationSoundName("into", 0, "jup_b219_tech_success");
+        jup_b219_azot_one_monolith_animation_data.addAnimation("into", 0, "jup_b219_descent_tech_1_1");
+        jup_b219_azot_one_monolith_animation_data.addAnimation("into", 0, "jup_b219_descent_tech_2");
+        jup_b219_azot_one_monolith_animation_data.addAnimationSoundName("into", 0, "jup_b219_tech_ready");
+        jup_b219_azot_one_monolith_animation_data.addAnimation("into", 0, "jup_b219_descent_tech_3");
+        jup_b219_azot_one_monolith_animation_data.addAnimation("into", 0, "jup_b219_descent_tech_4");
+        jup_b219_azot_one_monolith_animation_data.addAnimation("into", 0, "jup_b219_descent_tech_6");
+        jup_b219_azot_one_monolith_animation_data.addAnimation("into", 0, "jup_b219_descent_tech_8");
+        jup_b219_azot_one_monolith_animation_data.addAnimationSoundName("into", 0, "jup_b219_tech_opening");
+        jup_b219_azot_one_monolith_animation_data.addAnimation("into", 0, "jup_b219_descent_tech_9");
+        jup_b219_azot_one_monolith_animation_data.addAnimation("into", 0, "jup_b219_descent_tech_10");
+        jup_b219_azot_one_monolith_animation_data.addAnimationSoundName("into", 0, "jup_b219_tech_to_duty");
+
+        this->m_state_manager_animation_list["jup_b219_azot_one_monolith"] = jup_b219_azot_one_monolith_animation_data;
+
+        StateManagerAnimationData jup_b219_azot_one_soldier_animation_data;
+        jup_b219_azot_one_soldier_animation_data.setPropertiesMaxIdle(1);
+        jup_b219_azot_one_soldier_animation_data.setPropertiesSumIdle(1);
+        jup_b219_azot_one_soldier_animation_data.setPropertiesMoving(true);
+        jup_b219_azot_one_soldier_animation_data.setPropertiesRandom(100);
+
+        jup_b219_azot_one_soldier_animation_data.addAnimationSoundName("into", 0, "jup_b219_tech_damn");
+        jup_b219_azot_one_soldier_animation_data.addAnimation("into", 0, "jup_b219_descent_tech_1");
+        jup_b219_azot_one_soldier_animation_data.addAnimationSoundName("into", 0, "jup_b219_tech_success");
+        jup_b219_azot_one_soldier_animation_data.addAnimation("into", 0, "jup_b219_descent_tech_1_1");
+        jup_b219_azot_one_soldier_animation_data.addAnimation("into", 0, "jup_b219_descent_tech_2");
+        jup_b219_azot_one_soldier_animation_data.addAnimationSoundName("into", 0, "jup_b219_tech_ready");
+        jup_b219_azot_one_soldier_animation_data.addAnimation("into", 0, "jup_b219_descent_tech_3");
+        jup_b219_azot_one_soldier_animation_data.addAnimation("into", 0, "jup_b219_descent_tech_4");
+        jup_b219_azot_one_soldier_animation_data.addAnimation("into", 0, "jup_b219_descent_tech_7");
+        jup_b219_azot_one_soldier_animation_data.addAnimation("into", 0, "jup_b219_descent_tech_8");
+        jup_b219_azot_one_soldier_animation_data.addAnimationSoundName("into", 0, "jup_b219_tech_opening");
+        jup_b219_azot_one_soldier_animation_data.addAnimation("into", 0, "jup_b219_descent_tech_9");
+        jup_b219_azot_one_soldier_animation_data.addAnimation("into", 0, "jup_b219_descent_tech_10");
+        jup_b219_azot_one_soldier_animation_data.addAnimationSoundName("into", 0, "jup_b219_tech_to_duty");
+
+        this->m_state_manager_animation_list["jup_b219_azot_one_soldier"] = jup_b219_azot_one_soldier_animation_data;
+
+        StateManagerAnimationData jup_b219_azot_soldier_vano_animation_data;
+        jup_b219_azot_soldier_vano_animation_data.setPropertiesMaxIdle(1);
+        jup_b219_azot_soldier_vano_animation_data.setPropertiesSumIdle(1);
+        jup_b219_azot_soldier_vano_animation_data.setPropertiesMoving(true);
+        jup_b219_azot_soldier_vano_animation_data.setPropertiesRandom(100);
+
+        jup_b219_azot_soldier_vano_animation_data.addAnimationSoundName("into", 0, "jup_b219_tech_damn");
+        jup_b219_azot_soldier_vano_animation_data.addAnimation("into", 0, "jup_b219_descent_tech_1");
+        jup_b219_azot_soldier_vano_animation_data.addAnimationSoundName("into", 0, "jup_b219_tech_success");
+        jup_b219_azot_soldier_vano_animation_data.addAnimation("into", 0, "jup_b219_descent_tech_1_1");
+        jup_b219_azot_soldier_vano_animation_data.addAnimation("into", 0, "jup_b219_descent_tech_2");
+        jup_b219_azot_soldier_vano_animation_data.addAnimationSoundName("into", 0, "jup_b219_tech_ready");
+        jup_b219_azot_soldier_vano_animation_data.addAnimation("into", 0, "jup_b219_descent_tech_3");
+        jup_b219_azot_soldier_vano_animation_data.addAnimation("into", 0, "jup_b219_descent_tech_4");
+        jup_b219_azot_soldier_vano_animation_data.addAnimation("into", 0, "jup_b219_descent_tech_7");
+        jup_b219_azot_soldier_vano_animation_data.addAnimation("into", 0, "jup_b219_descent_tech_8");
+        jup_b219_azot_soldier_vano_animation_data.addAnimationSoundName("into", 0, "jup_b219_tech_opening");
+        jup_b219_azot_soldier_vano_animation_data.addAnimation("into", 0, "jup_b219_descent_tech_9");
+        jup_b219_azot_soldier_vano_animation_data.addAnimation("into", 0, "jup_b219_descent_tech_10");
+        jup_b219_azot_soldier_vano_animation_data.addAnimationSoundName("into", 0, "jup_b219_tech_to_duty");
+
+        this->m_state_manager_animation_list["jup_b219_azot_soldier_vano"] = jup_b219_azot_soldier_vano_animation_data;
+
+        StateManagerAnimationData jup_b219_azot_soldier_monolith_animation_data;
+        jup_b219_azot_soldier_monolith_animation_data.setPropertiesMaxIdle(1);
+        jup_b219_azot_soldier_monolith_animation_data.setPropertiesSumIdle(1);
+        jup_b219_azot_soldier_monolith_animation_data.setPropertiesMoving(true);
+        jup_b219_azot_soldier_monolith_animation_data.setPropertiesRandom(100);
+
+        jup_b219_azot_soldier_monolith_animation_data.addAnimationSoundName("into", 0, "jup_b219_tech_damn");
+        jup_b219_azot_soldier_monolith_animation_data.addAnimation("into", 0, "jup_b219_descent_tech_1");
+        jup_b219_azot_soldier_monolith_animation_data.addAnimationSoundName("into", 0, "jup_b219_tech_success");
+        jup_b219_azot_soldier_monolith_animation_data.addAnimation("into", 0, "jup_b219_descent_tech_1_1");
+        jup_b219_azot_soldier_monolith_animation_data.addAnimation("into", 0, "jup_b219_descent_tech_2");
+        jup_b219_azot_soldier_monolith_animation_data.addAnimationSoundName("into", 0, "jup_b219_tech_ready");
+        jup_b219_azot_soldier_monolith_animation_data.addAnimation("into", 0, "jup_b219_descent_tech_3");
+        jup_b219_azot_soldier_monolith_animation_data.addAnimation("into", 0, "jup_b219_descent_tech_4");
+        jup_b219_azot_soldier_monolith_animation_data.addAnimation("into", 0, "jup_b219_descent_tech_5");
+        jup_b219_azot_soldier_monolith_animation_data.addAnimation("into", 0, "jup_b219_descent_tech_7");
+        jup_b219_azot_soldier_monolith_animation_data.addAnimation("into", 0, "jup_b219_descent_tech_8");
+        jup_b219_azot_soldier_monolith_animation_data.addAnimationSoundName("into", 0, "jup_b219_tech_opening");
+        jup_b219_azot_soldier_monolith_animation_data.addAnimation("into", 0, "jup_b219_descent_tech_9");
+        jup_b219_azot_soldier_monolith_animation_data.addAnimation("into", 0, "jup_b219_descent_tech_10");
+        jup_b219_azot_soldier_monolith_animation_data.addAnimationSoundName("into", 0, "jup_b219_tech_to_duty");
+
+        this->m_state_manager_animation_list["jup_b219_azot_soldier_monolith"] =
+            jup_b219_azot_soldier_monolith_animation_data;
+
+        StateManagerAnimationData jup_b219_azot_vano_monolith_animation_data;
+        jup_b219_azot_vano_monolith_animation_data.setPropertiesMaxIdle(1);
+        jup_b219_azot_vano_monolith_animation_data.setPropertiesSumIdle(1);
+        jup_b219_azot_vano_monolith_animation_data.setPropertiesMoving(true);
+        jup_b219_azot_vano_monolith_animation_data.setPropertiesRandom(100);
+
+        jup_b219_azot_vano_monolith_animation_data.addAnimationSoundName("into", 0, "jup_b219_tech_damn");
+        jup_b219_azot_vano_monolith_animation_data.addAnimation("into", 0, "jup_b219_descent_tech_1");
+        jup_b219_azot_vano_monolith_animation_data.addAnimationSoundName("into", 0, "jup_b219_tech_success");
+        jup_b219_azot_vano_monolith_animation_data.addAnimation("into", 0, "jup_b219_descent_tech_1_1");
+        jup_b219_azot_vano_monolith_animation_data.addAnimation("into", 0, "jup_b219_descent_tech_2");
+        jup_b219_azot_vano_monolith_animation_data.addAnimationSoundName("into", 0, "jup_b219_tech_ready");
+        jup_b219_azot_vano_monolith_animation_data.addAnimation("into", 0, "jup_b219_descent_tech_3");
+        jup_b219_azot_vano_monolith_animation_data.addAnimation("into", 0, "jup_b219_descent_tech_4");
+        jup_b219_azot_vano_monolith_animation_data.addAnimation("into", 0, "jup_b219_descent_tech_5");
+        jup_b219_azot_vano_monolith_animation_data.addAnimation("into", 0, "jup_b219_descent_tech_6");
+        jup_b219_azot_vano_monolith_animation_data.addAnimation("into", 0, "jup_b219_descent_tech_8");
+        jup_b219_azot_vano_monolith_animation_data.addAnimationSoundName("into", 0, "jup_b219_tech_opening");
+        jup_b219_azot_vano_monolith_animation_data.addAnimation("into", 0, "jup_b219_descent_tech_9");
+        jup_b219_azot_vano_monolith_animation_data.addAnimation("into", 0, "jup_b219_descent_tech_10");
+        jup_b219_azot_vano_monolith_animation_data.addAnimationSoundName("into", 0, "jup_b219_tech_to_duty");
+
+        this->m_state_manager_animation_list["jup_b219_azot_vano_monolith"] =
+            jup_b219_azot_vano_monolith_animation_data;
+
+        StateManagerAnimationData jup_b219_azot_all_animation_data;
+        jup_b219_azot_all_animation_data.setPropertiesMaxIdle(1);
+        jup_b219_azot_all_animation_data.setPropertiesSumIdle(1);
+        jup_b219_azot_all_animation_data.setPropertiesMoving(true);
+        jup_b219_azot_all_animation_data.setPropertiesRandom(100);
+
+        jup_b219_azot_all_animation_data.addAnimationSoundName("into", 0, "jup_b219_tech_damn");
+        jup_b219_azot_all_animation_data.addAnimation("into", 0, "jup_b219_descent_tech_1");
+        jup_b219_azot_all_animation_data.addAnimationSoundName("into", 0, "jup_b219_tech_success");
+        jup_b219_azot_all_animation_data.addAnimation("into", 0, "jup_b219_descent_tech_1_1");
+        jup_b219_azot_all_animation_data.addAnimation("into", 0, "jup_b219_descent_tech_2");
+        jup_b219_azot_all_animation_data.addAnimationSoundName("into", 0, "jup_b219_tech_ready");
+        jup_b219_azot_all_animation_data.addAnimation("into", 0, "jup_b219_descent_tech_3");
+        jup_b219_azot_all_animation_data.addAnimation("into", 0, "jup_b219_descent_tech_4");
+        jup_b219_azot_all_animation_data.addAnimation("into", 0, "jup_b219_descent_tech_5");
+        jup_b219_azot_all_animation_data.addAnimation("into", 0, "jup_b219_descent_tech_6");
+        jup_b219_azot_all_animation_data.addAnimation("into", 0, "jup_b219_descent_tech_7");
+        jup_b219_azot_all_animation_data.addAnimation("into", 0, "jup_b219_descent_tech_8");
+        jup_b219_azot_all_animation_data.addAnimationSoundName("into", 0, "jup_b219_tech_opening");
+        jup_b219_azot_all_animation_data.addAnimation("into", 0, "jup_b219_descent_tech_9");
+        jup_b219_azot_all_animation_data.addAnimation("into", 0, "jup_b219_descent_tech_10");
+        jup_b219_azot_all_animation_data.addAnimationSoundName("into", 0, "jup_b219_tech_to_duty");
+
+        this->m_state_manager_animation_list["jup_b219_azot_all"] = jup_b219_azot_all_animation_data;
+
+        StateManagerAnimationData zat_b100_heli_2_serch_animation_data;
+        zat_b100_heli_2_serch_animation_data.setPropertiesMaxIdle(1);
+        zat_b100_heli_2_serch_animation_data.setPropertiesSumIdle(1);
+        zat_b100_heli_2_serch_animation_data.setPropertiesRandom(100);
+
+        zat_b100_heli_2_serch_animation_data.addAnimationAttachItemName("into", 0, "device_pda");
+        zat_b100_heli_2_serch_animation_data.addAnimation("into", 0, "zat_b100_heli_2_serch");
+
+        zat_b100_heli_2_serch_animation_data.addAnimation("idle", 0, "zat_b100_heli_2_serch");
+
+        this->m_state_manager_animation_list["zat_b100_heli_2_serch"] = zat_b100_heli_2_serch_animation_data;
+
+        StateManagerAnimationData zat_b101_heli_5_serch_animation_data;
+        zat_b101_heli_5_serch_animation_data.setPropertiesMaxIdle(1);
+        zat_b101_heli_5_serch_animation_data.setPropertiesSumIdle(1);
+        zat_b101_heli_5_serch_animation_data.setPropertiesRandom(100);
+
+        zat_b101_heli_5_serch_animation_data.addAnimationAttachItemName("into", 0, "device_pda");
+        zat_b101_heli_5_serch_animation_data.addAnimation("into", 0, "zat_b101_heli_5_serch");
+
+        zat_b101_heli_5_serch_animation_data.addAnimation("idle", 0, "zat_b101_heli_5_serch");
+
+        this->m_state_manager_animation_list["zat_b101_heli_5_serch"] = zat_b101_heli_5_serch_animation_data;
+
+        StateManagerAnimationData zat_b28_heli3_serch_animation_data;
+        zat_b28_heli3_serch_animation_data.setPropertiesMaxIdle(1);
+        zat_b28_heli3_serch_animation_data.setPropertiesSumIdle(1);
+        zat_b28_heli3_serch_animation_data.setPropertiesRandom(100);
+
+        zat_b28_heli3_serch_animation_data.addAnimationAttachItemName("into", 0, "device_pda");
+        zat_b28_heli3_serch_animation_data.addAnimation("into", 0, "zat_b28_heli3_serch");
+
+        zat_b28_heli3_serch_animation_data.addAnimation("idle", 0, "zat_b28_heli3_serch");
+
+        this->m_state_manager_animation_list["zat_b28_heli3_serch"] = zat_b28_heli3_serch_animation_data;
+
+        StateManagerAnimationData jup_b217_guide_stand_animation_data;
+        jup_b217_guide_stand_animation_data.setPropertiesMaxIdle(1);
+        jup_b217_guide_stand_animation_data.setPropertiesSumIdle(1);
+        jup_b217_guide_stand_animation_data.setPropertiesMoving(true);
+        jup_b217_guide_stand_animation_data.setPropertiesRandom(100);
+
+        jup_b217_guide_stand_animation_data.addAnimation("into", 0, "jup_b217_guide_stand");
+
+        this->m_state_manager_animation_list["jup_b217_guide_stand"] = jup_b217_guide_stand_animation_data;
+
+        StateManagerAnimationData jup_b217_nitro_stand_animation_data;
+        jup_b217_nitro_stand_animation_data.setPropertiesMaxIdle(1);
+        jup_b217_nitro_stand_animation_data.setPropertiesSumIdle(1);
+        jup_b217_nitro_stand_animation_data.setPropertiesMoving(true);
+        jup_b217_nitro_stand_animation_data.setPropertiesRandom(100);
+
+        jup_b217_nitro_stand_animation_data.addAnimation("into", 0, "jup_b217_nitro_stand");
+
+        this->m_state_manager_animation_list["jup_b217_nitro_stand"] = jup_b217_nitro_stand_animation_data;
+
+        StateManagerAnimationData jup_b41_novikov_stand_animation_data;
+        jup_b41_novikov_stand_animation_data.setPropertiesMaxIdle(10);
+        jup_b41_novikov_stand_animation_data.setPropertiesSumIdle(8);
+        jup_b41_novikov_stand_animation_data.setPropertiesMoving(true);
+        jup_b41_novikov_stand_animation_data.setPropertiesRandom(80);
+
+        jup_b41_novikov_stand_animation_data.addAnimation("into", 0, "lead_1_in_0");
+        jup_b41_novikov_stand_animation_data.addAnimation("out", 0, "lead_1_out_0");
+        jup_b41_novikov_stand_animation_data.addAnimation("idle", 0, "lead_1_idle");
+        jup_b41_novikov_stand_animation_data.addAnimation("rnd", 0, "lead_1_idle_0");
+        jup_b41_novikov_stand_animation_data.addAnimation("rnd", 0, "lead_1_idle_1");
+        jup_b41_novikov_stand_animation_data.addAnimation("rnd", 0, "lead_1_idle_2");
+        jup_b41_novikov_stand_animation_data.addAnimation("rnd", 0, "lead_1_idle_3");
+        jup_b41_novikov_stand_animation_data.addAnimation("rnd", 0, "lead_1_idle_4");
+        jup_b41_novikov_stand_animation_data.addAnimation("rnd", 0, "lead_1_idle_5");
+
+        this->m_state_manager_animation_list["jup_b41_novikov_stand"] = jup_b41_novikov_stand_animation_data;
+
+        StateManagerAnimationData pri_b305_actor_animation_data;
+        pri_b305_actor_animation_data.setPropertiesMaxIdle(1);
+        pri_b305_actor_animation_data.setPropertiesSumIdle(1);
+        pri_b305_actor_animation_data.setPropertiesMoving(true);
+        pri_b305_actor_animation_data.setPropertiesRandom(100);
+
+        pri_b305_actor_animation_data.addAnimation("into", 0, "pri_b305_actor");
+
+        this->m_state_manager_animation_list["pri_b305_actor"] = pri_b305_actor_animation_data;
+
+        StateManagerAnimationData jup_a9_cam1_actor_animation_data;
+        jup_a9_cam1_actor_animation_data.setPropertiesMaxIdle(1);
+        jup_a9_cam1_actor_animation_data.setPropertiesSumIdle(1);
+        jup_a9_cam1_actor_animation_data.setPropertiesRandom(100);
+
+        jup_a9_cam1_actor_animation_data.addAnimation("into", 0, "poisk_8_idle_2");
+        //    jup_a9_cam1_actor_animation_data.addAnimationFunction("into", 0, xr_effects.jup_a9_cam1_actor_anim_end);
+        //    Lord: доделать!
+
+        this->m_state_manager_animation_list["jup_a9_cam1_actor"] = jup_a9_cam1_actor_animation_data;
+
+        StateManagerAnimationData jup_a9_cam2_actor_animation_data;
+        jup_a9_cam2_actor_animation_data.setPropertiesMaxIdle(1);
+        jup_a9_cam2_actor_animation_data.setPropertiesSumIdle(1);
+        jup_a9_cam2_actor_animation_data.setPropertiesRandom(100);
+
+        jup_a9_cam2_actor_animation_data.addAnimation("into", 0, "poisk_2_idle_1");
+
+        this->m_state_manager_animationstate_list["jup_a9_cam2_actor"] = jup_a9_cam2_actor_animation_data;
+
+        StateManagerAnimationData jup_a9_cam3_actor_animation_data;
+        jup_a9_cam3_actor_animation_data.setPropertiesMaxIdle(1);
+        jup_a9_cam3_actor_animation_data.setPropertiesSumIdle(1);
+        jup_a9_cam3_actor_animation_data.setPropertiesRandom(100);
+
+        jup_a9_cam3_actor_animation_data.addAnimation("into", 0, "poisk_2_idle_1");
+
+        this->m_state_manager_animation_list["jup_a9_cam3_actor"] = jup_a9_cam3_actor_animation_data;
+
+        StateManagerAnimationData jup_b217_nitro_straight_animation_data;
+        jup_b217_nitro_straight_animation_data.setPropertiesMaxIdle(1);
+        jup_b217_nitro_straight_animation_data.setPropertiesSumIdle(1);
+        jup_b217_nitro_straight_animation_data.setPropertiesRandom(100);
+
+        jup_b217_nitro_straight_animation_data.addAnimation("idle", 0, "idle_0_idle_1");
+
+        this->m_state_manager_animation_list["jup_b217_nitro_straight"] = jup_b217_nitro_straight_animation_data;
+
+        StateManagerAnimationData pri_a25_psy_medic_idle_animation_data;
+        pri_a25_psy_medic_idle_animation_data.setPropertiesMaxIdle(1);
+        pri_a25_psy_medic_idle_animation_data.setPropertiesSumIdle(1);
+        pri_a25_psy_medic_idle_animation_data.setPropertiesRandom(100);
+
+        pri_a25_psy_medic_idle_animation_data.addAnimation("idle", 0, "psy_0_idle_0");
+        this->m_state_manager_animation_list["pri_a25_psy_medic_idle"] = pri_a25_psy_medic_idle_animation_data;
+
+        StateManagerAnimationData pri_a25_psy_medic_out_animation_data;
+        pri_a25_psy_medic_out_animation_data.setPropertiesMaxIdle(1);
+        pri_a25_psy_medic_out_animation_data.setPropertiesSumIdle(1);
+        pri_a25_psy_medic_out_animation_data.setPropertiesRandom(100);
+
+        pri_a25_psy_medic_out_animation_data.addAnimation("into", 0, "psy_0_idle_0_to_idle_0");
+        this->m_state_manager_animation_list["pri_a25_psy_medic_out"] = pri_a25_psy_medic_out_animation_data;
 #pragma endregion
     }
 
