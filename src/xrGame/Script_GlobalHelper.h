@@ -4598,7 +4598,7 @@ private:
         hello_animation_data.setPropertiesSumIdle(5);
         hello_animation_data.setPropertiesRandom(100);
 
-        hello_animation_data.addAnimation("rnd", 0 "hello_0_idle_0");
+        hello_animation_data.addAnimation("rnd", 0, "hello_0_idle_0");
         hello_animation_data.addAnimation("rnd", 1, "hello_1_idle_0");
         hello_animation_data.addAnimation("rnd", 2, "hello_2_idle_0");
         hello_animation_data.addAnimation("rnd", 3, "hello_3_idle_0");
@@ -4614,7 +4614,7 @@ private:
         refuse_animation_data.setPropertiesSumIdle(3);
         refuse_animation_data.setPropertiesRandom(100);
 
-        refuse_animation_data.addAnimation("rnd", 0 "net_0_0");
+        refuse_animation_data.addAnimation("rnd", 0, "net_0_0");
         refuse_animation_data.addAnimation("rnd", 1, "net_1_0");
         refuse_animation_data.addAnimation("rnd", 2, "net_2_0");
         refuse_animation_data.addAnimation("rnd", 3, "net_3_0");
@@ -4645,8 +4645,8 @@ private:
         backoff_animation_data.setPropertiesSumIdle(2);
         backoff_animation_data.setPropertiesRandom(100);
 
-        backoff_animation_data.addAnimation("rnd", 0 "uhodi_1_0");
-        backoff_animation_data.addAnimation("rnd", 0 "uhodi_1_1");
+        backoff_animation_data.addAnimation("rnd", 0, "uhodi_1_0");
+        backoff_animation_data.addAnimation("rnd", 0, "uhodi_1_1");
         backoff_animation_data.addAnimation("rnd", 1, "uhodi_1_0");
         backoff_animation_data.addAnimation("rnd", 1, "uhodi_1_1");
         backoff_animation_data.addAnimation("rnd", 2, "uhodi_2_0");
@@ -5131,7 +5131,7 @@ private:
         raciya_animation_data.addAnimationDettachItemName("out", 10, "hand_radio");
         raciya_animation_data.addAnimation("out", 10, "raciya_10_hide_1");
 
-        raciya_animation_data.addAnimation("idle", 0 "raciya_0_idle_0");
+        raciya_animation_data.addAnimation("idle", 0, "raciya_0_idle_0");
         raciya_animation_data.addAnimation("idle", 1, "raciya_1_idle_0");
         raciya_animation_data.addAnimation("idle", 2, "raciya_2_idle_0");
         raciya_animation_data.addAnimation("idle", 3, "raciya_3_idle_0");
@@ -5140,7 +5140,7 @@ private:
         raciya_animation_data.addAnimation("idle", 9, "raciya_9_idle_0");
         raciya_animation_data.addAnimation("idle", 10, "raciya_10_idle_0");
 
-        raciya_animation_data.addAnimation("rnd", 0 "raciya_0_talk_0");
+        raciya_animation_data.addAnimation("rnd", 0, "raciya_0_talk_0");
         raciya_animation_data.addAnimation("rnd", 1, "raciya_1_talk_0");
         raciya_animation_data.addAnimation("rnd", 2, "raciya_2_talk_0");
         raciya_animation_data.addAnimation("rnd", 3, "raciya_3_talk_0");
@@ -5206,7 +5206,7 @@ private:
         cr_raciya_animation_data.addAnimationDettachItemName("out", 10, "hand_radio");
         cr_raciya_animation_data.addAnimation("out", 10, "cr_raciya_10_hide_1");
 
-        cr_raciya_animation_data.addAnimation("idle", 0 "cr_raciya_0_idle_0");
+        cr_raciya_animation_data.addAnimation("idle", 0, "cr_raciya_0_idle_0");
         cr_raciya_animation_data.addAnimation("idle", 1, "cr_raciya_1_idle_0");
         cr_raciya_animation_data.addAnimation("idle", 2, "cr_raciya_2_idle_0");
         cr_raciya_animation_data.addAnimation("idle", 3, "cr_raciya_3_idle_0");
@@ -5215,7 +5215,7 @@ private:
         cr_raciya_animation_data.addAnimation("idle", 9, "cr_raciya_9_idle_0");
         cr_raciya_animation_data.addAnimation("idle", 10, "cr_raciya_10_idle_0");
 
-        cr_raciya_animation_data.addAnimation("rnd", 0 "cr_raciya_0_talk_0");
+        cr_raciya_animation_data.addAnimation("rnd", 0, "cr_raciya_0_talk_0");
         cr_raciya_animation_data.addAnimation("rnd", 1, "cr_raciya_1_talk_0");
         cr_raciya_animation_data.addAnimation("rnd", 2, "cr_raciya_2_talk_0");
         cr_raciya_animation_data.addAnimation("rnd", 3, "cr_raciya_3_talk_0");
@@ -5283,12 +5283,1185 @@ private:
         help_wounded_animation_data.setPropertiesMaxIdle(1);
         help_wounded_animation_data.setPropertiesSumIdle(1);
         help_wounded_animation_data.setPropertiesRandom(100);
-        
-        help_wounded_animation_data
-            .addAnimation("into", 0, "dinamit_1");
-    //    help_wounded_animation_data.addAnimationFunction("into", 0, xr_help_wounded.help_wounded); Lord: реализовать!
-        
+
+        help_wounded_animation_data.addAnimation("into", 0, "dinamit_1");
+        //    help_wounded_animation_data.addAnimationFunction("into", 0, xr_help_wounded.help_wounded); Lord:
+        //    реализовать!
+
         this->m_state_manager_animation_list["help_wounded"] = help_wounded_animation_data;
+
+        StateManagerAnimationData animpoint_stay_wall_animation_data;
+        animpoint_stay_wall_animation_data.setPropertiesMaxIdle(5);
+        animpoint_stay_wall_animation_data.setPropertiesSumIdle(3);
+        animpoint_stay_wall_animation_data.setPropertiesRandom(80);
+        animpoint_stay_wall_animation_data.setPropertiesMoving(true);
+
+        animpoint_stay_wall_animation_data.addAnimation("idle", 0, "animpoint_stay_wall_idle_1");
+        animpoint_stay_wall_animation_data.addAnimation("idle", 1, "animpoint_stay_wall_idle_1");
+
+        animpoint_stay_wall_animation_data.addAnimation("rnd", 0, "animpoint_stay_wall_idle_rnd_1");
+        animpoint_stay_wall_animation_data.addAnimation("rnd", 0, "animpoint_stay_wall_idle_rnd_2");
+        animpoint_stay_wall_animation_data.addAnimation("rnd", 0, "animpoint_stay_wall_idle_rnd_3");
+        animpoint_stay_wall_animation_data.addAnimation("rnd", 0, "animpoint_stay_wall_idle_rnd_4");
+
+        animpoint_stay_wall_animation_data.addAnimation("rnd", 1, "animpoint_stay_wall_idle_rnd_1");
+        animpoint_stay_wall_animation_data.addAnimation("rnd", 1, "animpoint_stay_wall_idle_rnd_2");
+        animpoint_stay_wall_animation_data.addAnimation("rnd", 1, "animpoint_stay_wall_idle_rnd_3");
+        animpoint_stay_wall_animation_data.addAnimation("rnd", 1, "animpoint_stay_wall_idle_rnd_4");
+
+        this->m_state_manager_animation_list["animpoint_stay_wall"] = animpoint_stay_wall_animation_data;
+
+        StateManagerAnimationData animpoint_stay_table_animation_data;
+        animpoint_stay_table_animation_data.setPropertiesMaxIdle(5);
+        animpoint_stay_table_animation_data.setPropertiesSumIdle(3);
+        animpoint_stay_table_animation_data.setPropertiesRandom(80);
+        animpoint_stay_table_animation_data.setPropertiesMoving(true);
+
+        animpoint_stay_table_animation_data.addAnimation("idle", 0, "animpoint_stay_table_idle_1");
+        animpoint_stay_table_animation_data.addAnimation("idle", 1, "animpoint_stay_table_idle_1");
+
+        animpoint_stay_table_animation_data.addAnimation("rnd", 0, "animpoint_stay_table_idle_rnd_1");
+        animpoint_stay_table_animation_data.addAnimation("rnd", 0, "animpoint_stay_table_idle_rnd_2");
+        animpoint_stay_table_animation_data.addAnimation("rnd", 0, "animpoint_stay_table_idle_rnd_3");
+        animpoint_stay_table_animation_data.addAnimation("rnd", 0, "animpoint_stay_table_idle_rnd_4");
+        animpoint_stay_table_animation_data.addAnimation("rnd", 0, "animpoint_stay_table_idle_rnd_5");
+
+        animpoint_stay_table_animation_data.addAnimation("rnd", 1, "animpoint_stay_table_idle_rnd_1");
+        animpoint_stay_table_animation_data.addAnimation("rnd", 1, "animpoint_stay_table_idle_rnd_2");
+        animpoint_stay_table_animation_data.addAnimation("rnd", 1, "animpoint_stay_table_idle_rnd_3");
+        animpoint_stay_table_animation_data.addAnimation("rnd", 1, "animpoint_stay_table_idle_rnd_4");
+        animpoint_stay_table_animation_data.addAnimation("rnd", 1, "animpoint_stay_table_idle_rnd_5");
+
+        this->m_state_manager_animation_list["animpoint_stay_table"] = animpoint_stay_table_animation_data;
+
+        StateManagerAnimationData animpoint_sit_high_animation_data;
+        animpoint_sit_high_animation_data.setPropertiesMaxIdle(5);
+        animpoint_sit_high_animation_data.setPropertiesSumIdle(3);
+        animpoint_sit_high_animation_data.setPropertiesRandom(80);
+        animpoint_sit_high_animation_data.setPropertiesMoving(true);
+
+        animpoint_sit_high_animation_data.addAnimation("idle", 0, "animpoint_stay_table_idle_1");
+        animpoint_sit_high_animation_data.addAnimation("idle", 1, "animpoint_stay_table_idle_1");
+        animpoint_sit_high_animation_data.addAnimation("rnd", 0, "animpoint_stay_table_idle_rnd_1");
+        animpoint_sit_high_animation_data.addAnimation("rnd", 0, "animpoint_stay_table_idle_rnd_2");
+        animpoint_sit_high_animation_data.addAnimation("rnd", 0, "animpoint_stay_table_idle_rnd_3");
+        animpoint_sit_high_animation_data.addAnimation("rnd", 0, "animpoint_stay_table_idle_rnd_4");
+        animpoint_sit_high_animation_data.addAnimation("rnd", 0, "animpoint_stay_table_idle_rnd_5");
+
+        animpoint_sit_high_animation_data.addAnimation("rnd", 1, "animpoint_stay_table_idle_rnd_1");
+        animpoint_sit_high_animation_data.addAnimation("rnd", 1, "animpoint_stay_table_idle_rnd_2");
+        animpoint_sit_high_animation_data.addAnimation("rnd", 1, "animpoint_stay_table_idle_rnd_3");
+        animpoint_sit_high_animation_data.addAnimation("rnd", 1, "animpoint_stay_table_idle_rnd_4");
+        animpoint_sit_high_animation_data.addAnimation("rnd", 1, "animpoint_stay_table_idle_rnd_5");
+
+        this->m_state_manager_animation_list["animpoint_sit_high"] = animpoint_sit_high_animation_data;
+
+        StateManagerAnimationData animpoint_sit_normal_animation_data;
+        animpoint_sit_normal_animation_data.setPropertiesMaxIdle(5);
+        animpoint_sit_normal_animation_data.setPropertiesSumIdle(3);
+        animpoint_sit_normal_animation_data.setPropertiesRandom(80);
+        animpoint_sit_normal_animation_data.setPropertiesMoving(true);
+
+        animpoint_sit_normal_animation_data.addAnimation("idle", 0, "animpoint_sit_normal_idle_1");
+        animpoint_sit_normal_animation_data.addAnimation("idle", 1, "animpoint_sit_normal_idle_1");
+
+        animpoint_sit_normal_animation_data.addAnimation("rnd", 0, "animpoint_sit_normal_idle_rnd_1");
+        animpoint_sit_normal_animation_data.addAnimation("rnd", 0, "animpoint_sit_normal_idle_rnd_2");
+        animpoint_sit_normal_animation_data.addAnimation("rnd", 0, "animpoint_sit_normal_idle_rnd_3");
+        animpoint_sit_normal_animation_data.addAnimation("rnd", 0, "animpoint_sit_normal_idle_rnd_4");
+
+        animpoint_sit_normal_animation_data.addAnimation("rnd", 1, "animpoint_sit_normal_idle_rnd_1");
+        animpoint_sit_normal_animation_data.addAnimation("rnd", 1, "animpoint_sit_normal_idle_rnd_2");
+        animpoint_sit_normal_animation_data.addAnimation("rnd", 1, "animpoint_sit_normal_idle_rnd_3");
+        animpoint_sit_normal_animation_data.addAnimation("rnd", 1, "animpoint_sit_normal_idle_rnd_4");
+
+        this->m_state_manager_animation_list["animpoint_sit_normal"] = animpoint_sit_normal_animation_data;
+
+        StateManagerAnimationData animpoint_sit_low_animation_data;
+        animpoint_sit_low_animation_data.setPropertiesMaxIdle(5);
+        animpoint_sit_low_animation_data.setPropertiesSumIdle(3);
+        animpoint_sit_low_animation_data.setPropertiesRandom(80);
+        animpoint_sit_low_animation_data.setPropertiesMoving(true);
+
+        animpoint_sit_low_animation_data.addAnimation("idle", 0, "animpoint_sit_low_idle_1");
+        animpoint_sit_low_animation_data.addAnimation("idle", 1, "animpoint_sit_low_idle_1");
+
+        animpoint_sit_low_animation_data.addAnimation("rnd", 0, "animpoint_sit_low_idle_rnd_1");
+        animpoint_sit_low_animation_data.addAnimation("rnd", 0, "animpoint_sit_low_idle_rnd_2");
+        animpoint_sit_low_animation_data.addAnimation("rnd", 0, "animpoint_sit_low_idle_rnd_3");
+        animpoint_sit_low_animation_data.addAnimation("rnd", 0, "animpoint_sit_low_idle_rnd_4");
+
+        animpoint_sit_low_animation_data.addAnimation("rnd", 1, "animpoint_sit_low_idle_rnd_1");
+        animpoint_sit_low_animation_data.addAnimation("rnd", 1, "animpoint_sit_low_idle_rnd_2");
+        animpoint_sit_low_animation_data.addAnimation("rnd", 1, "animpoint_sit_low_idle_rnd_3");
+        animpoint_sit_low_animation_data.addAnimation("rnd", 1, "animpoint_sit_low_idle_rnd_4");
+
+        this->m_state_manager_animation_list["animpoint_sit_low"] = animpoint_sit_low_animation_data;
+
+        StateManagerAnimationData animpoint_stay_wall_eat_bread_animation_data;
+        animpoint_stay_wall_eat_bread_animation_data.setPropertiesMaxIdle(5);
+        animpoint_stay_wall_eat_bread_animation_data.setPropertiesSumIdle(3);
+        animpoint_stay_wall_eat_bread_animation_data.setPropertiesRandom(80);
+        animpoint_stay_wall_eat_bread_animation_data.setPropertiesMoving(true);
+
+        animpoint_stay_wall_eat_bread_animation_data.addAnimation("into", 0, "animpoint_stay_wall_eat_in_1");
+        animpoint_stay_wall_eat_bread_animation_data.addAnimationAttachItemName("into", 0, "bread");
+        animpoint_stay_wall_eat_bread_animation_data.addAnimation("into", 0, "animpoint_stay_wall_eat_in_2");
+
+        animpoint_stay_wall_eat_bread_animation_data.addAnimation("into", 1, "animpoint_stay_wall_eat_in_1");
+        animpoint_stay_wall_eat_bread_animation_data.addAnimationAttachItemName("into", 1, "bread");
+        animpoint_stay_wall_eat_bread_animation_data.addAnimation("into", 1, "animpoint_stay_wall_eat_in_2");
+
+        animpoint_stay_wall_eat_bread_animation_data.addAnimation("out", 0, "animpoint_stay_wall_eat_out_1");
+        animpoint_stay_wall_eat_bread_animation_data.addAnimationDettachItemName("out", 0, "bread");
+        animpoint_stay_wall_eat_bread_animation_data.addAnimation("out", 0, "animpoint_stay_wall_eat_out_2");
+
+        animpoint_stay_wall_eat_bread_animation_data.addAnimation("out", 1, "animpoint_stay_wall_eat_out_1");
+        animpoint_stay_wall_eat_bread_animation_data.addAnimationDettachItemName("out", 1, "bread");
+        animpoint_stay_wall_eat_bread_animation_data.addAnimation("out", 1, "animpoint_stay_wall_eat_out_2");
+
+        animpoint_stay_wall_eat_bread_animation_data.addAnimation("idle", 0, "animpoint_stay_wall_eat_idle_1");
+        animpoint_stay_wall_eat_bread_animation_data.addAnimation("idle", 1, "animpoint_stay_wall_eat_idle_1");
+
+        animpoint_stay_wall_eat_bread_animation_data.addAnimation("rnd", 0, "animpoint_stay_wall_eat_idle_rnd_1");
+        animpoint_stay_wall_eat_bread_animation_data.addAnimation("rnd", 0, "animpoint_stay_wall_eat_idle_rnd_2");
+
+        animpoint_stay_wall_eat_bread_animation_data.addAnimation("rnd", 1, "animpoint_stay_wall_eat_idle_rnd_1");
+        animpoint_stay_wall_eat_bread_animation_data.addAnimation("rnd", 1, "animpoint_stay_wall_eat_idle_rnd_2");
+
+        this->m_state_manager_animation_list["animpoint_stay_wall_eat_bread"] =
+            animpoint_stay_wall_eat_bread_animation_data;
+
+        StateManagerAnimationData animpoint_stay_wall_eat_kolbasa_animation_data;
+        animpoint_stay_wall_eat_kolbasa_animation_data.setPropertiesMaxIdle(5);
+        animpoint_stay_wall_eat_kolbasa_animation_data.setPropertiesSumIdle(3);
+        animpoint_stay_wall_eat_kolbasa_animation_data.setPropertiesRandom(80);
+        animpoint_stay_wall_eat_kolbasa_animation_data.setPropertiesMoving(true);
+
+        animpoint_stay_wall_eat_kolbasa_animation_data.addAnimation("into", 0, "animpoint_stay_wall_eat_in_1");
+        animpoint_stay_wall_eat_kolbasa_animation_data.addAnimationAttachItemName("into", 0, "kolbasa");
+        animpoint_stay_wall_eat_kolbasa_animation_data.addAnimation("into", 0, "animpoint_stay_wall_eat_in_2");
+
+        animpoint_stay_wall_eat_kolbasa_animation_data.addAnimation("into", 1, "animpoint_stay_wall_eat_in_1");
+        animpoint_stay_wall_eat_kolbasa_animation_data.addAnimationAttachItemName("into", 1, "kolbasa");
+        animpoint_stay_wall_eat_kolbasa_animation_data.addAnimation("into", 1, "animpoint_stay_wall_eat_in_2");
+
+        animpoint_stay_wall_eat_kolbasa_animation_data.addAnimation("out", 0, "animpoint_stay_wall_eat_out_1");
+        animpoint_stay_wall_eat_kolbasa_animation_data.addAnimationDettachItemName("out", 0, "kolbasa");
+        animpoint_stay_wall_eat_kolbasa_animation_data.addAnimation("out", 0, "animpoint_stay_wall_eat_out_2");
+
+        animpoint_stay_wall_eat_kolbasa_animation_data.addAnimation("out", 1, "animpoint_stay_wall_eat_out_1");
+        animpoint_stay_wall_eat_kolbasa_animation_data.addAnimationDettachItemName("out", 1, "kolbasa");
+        animpoint_stay_wall_eat_kolbasa_animation_data.addAnimation("out", 1, "animpoint_stay_wall_eat_out_2");
+
+        animpoint_stay_wall_eat_kolbasa_animation_data.addAnimation("idle", 0, "animpoint_stay_wall_eat_idle_1");
+        animpoint_stay_wall_eat_kolbasa_animation_data.addAnimation("idle", 1, "animpoint_stay_wall_eat_idle_1");
+
+        animpoint_stay_wall_eat_kolbasa_animation_data.addAnimation("rnd", 0, "animpoint_stay_wall_eat_idle_rnd_1");
+        animpoint_stay_wall_eat_kolbasa_animation_data.addAnimation("rnd", 1, "animpoint_stay_wall_eat_idle_rnd_1");
+
+        this->m_state_manager_animation_list["animpoint_stay_wall_eat_kolbasa"] =
+            animpoint_stay_wall_eat_kolbasa_animation_data;
+
+        StateManagerAnimationData animpoint_stay_table_eat_bread_animation_data;
+        animpoint_stay_table_eat_bread_animation_data.setPropertiesMaxIdle(5);
+        animpoint_stay_table_eat_bread_animation_data.setPropertiesSumIdle(3);
+        animpoint_stay_table_eat_bread_animation_data.setPropertiesRandom(80);
+        animpoint_stay_table_eat_bread_animation_data.setPropertiesMoving(true);
+
+        animpoint_stay_table_eat_bread_animation_data.addAnimation("idle", 0, "animpoint_stay_table_idle_1");
+        animpoint_stay_table_eat_bread_animation_data.addAnimation("idle", 1, "animpoint_stay_table_idle_1");
+
+        animpoint_stay_table_eat_bread_animation_data.addAnimation("rnd", 0, "animpoint_stay_table_idle_1");
+        animpoint_stay_table_eat_bread_animation_data.addAnimation("rnd", 1, "animpoint_stay_table_idle_1");
+
+        this->m_state_manager_animation_list["animpoint_stay_table_eat_bread"] =
+            animpoint_stay_table_eat_bread_animation_data;
+
+        StateManagerAnimationData animpoint_stay_table_eat_kolbasa_animation_data;
+        animpoint_stay_table_eat_kolbasa_animation_data.setPropertiesMaxIdle(5);
+        animpoint_stay_table_eat_kolbasa_animation_data.setPropertiesSumIdle(3);
+        animpoint_stay_table_eat_kolbasa_animation_data.setPropertiesRandom(80);
+        animpoint_stay_table_eat_kolbasa_animation_data.setPropertiesMoving(true);
+
+        animpoint_stay_table_eat_kolbasa_animation_data.addAnimation("idle", 0, "animpoint_stay_table_idle_1");
+        animpoint_stay_table_eat_kolbasa_animation_data.addAnimation("idle", 1, "animpoint_stay_table_idle_1");
+
+        animpoint_stay_table_eat_kolbasa_animation_data.addAnimation("rnd", 0, "animpoint_stay_table_idle_1");
+        animpoint_stay_table_eat_kolbasa_animation_data.addAnimation("rnd", 1, "animpoint_stay_table_idle_1");
+
+        this->m_state_manager_animation_list["animpoint_stay_table_eat_kolbasa"] =
+            animpoint_stay_table_eat_kolbasa_animation_data;
+
+        StateManagerAnimationData animpoint_sit_high_eat_bread_animation_data;
+        animpoint_sit_high_eat_bread_animation_data.setPropertiesMaxIdle(5);
+        animpoint_sit_high_eat_bread_animation_data.setPropertiesSumIdle(3);
+        animpoint_sit_high_eat_bread_animation_data.setPropertiesRandom(80);
+        animpoint_sit_high_eat_bread_animation_data.setPropertiesMoving(true);
+
+        animpoint_sit_high_eat_bread_animation_data.addAnimation("into", 0, "animpoint_sit_high_eat_in_1");
+        animpoint_sit_high_eat_bread_animation_data.addAnimationAttachItemName("into", 0, "bread");
+        animpoint_sit_high_eat_bread_animation_data.addAnimation("into", 0, "animpoint_sit_high_eat_in_2");
+
+        animpoint_sit_high_eat_bread_animation_data.addAnimation("into", 1, "animpoint_sit_high_eat_in_1");
+        animpoint_sit_high_eat_bread_animation_data.addAnimationAttachItemName("into", 1, "bread");
+        animpoint_sit_high_eat_bread_animation_data.addAnimation("into", 1, "animpoint_sit_high_eat_in_2");
+
+        animpoint_sit_high_eat_bread_animation_data.addAnimation("out", 0, "animpoint_sit_high_eat_out_1");
+        animpoint_sit_high_eat_bread_animation_data.addAnimationAttachItemName("out", 0, "bread");
+        animpoint_sit_high_eat_bread_animation_data.addAnimation("out", 0, "animpoint_sit_high_eat_out_2");
+
+        animpoint_sit_high_eat_bread_animation_data.addAnimation("out", 1, "animpoint_sit_high_eat_out_1");
+        animpoint_sit_high_eat_bread_animation_data.addAnimationAttachItemName("out", 1, "bread");
+        animpoint_sit_high_eat_bread_animation_data.addAnimation("out", 1, "animpoint_sit_high_eat_out_2");
+
+        animpoint_sit_high_eat_bread_animation_data.addAnimation("idle", 0, "animpoint_sit_high_eat_idle_1");
+        animpoint_sit_high_eat_bread_animation_data.addAnimation("idle", 1, "animpoint_sit_high_eat_idle_1");
+
+        animpoint_sit_high_eat_bread_animation_data.addAnimation("rnd", 0, "animpoint_sit_high_eat_idle_rnd_1");
+        animpoint_sit_high_eat_bread_animation_data.addAnimation("rnd", 0, "animpoint_sit_high_eat_idle_rnd_2");
+
+        animpoint_sit_high_eat_bread_animation_data.addAnimation("rnd", 1, "animpoint_sit_high_eat_idle_rnd_1");
+        animpoint_sit_high_eat_bread_animation_data.addAnimation("rnd", 1, "animpoint_sit_high_eat_idle_rnd_2");
+
+        this->m_state_manager_animation_list["animpoint_sit_high_eat_bread"] =
+            animpoint_sit_high_eat_bread_animation_data;
+
+        StateManagerAnimationData animpoint_sit_high_eat_kolbasa_animation_data;
+        animpoint_sit_high_eat_kolbasa_animation_data.setPropertiesMaxIdle(5);
+        animpoint_sit_high_eat_kolbasa_animation_data.setPropertiesSumIdle(3);
+        animpoint_sit_high_eat_kolbasa_animation_data.setPropertiesRandom(80);
+        animpoint_sit_high_eat_kolbasa_animation_data.setPropertiesMoving(true);
+
+        animpoint_sit_high_eat_kolbasa_animation_data.addAnimation("into", 0, "animpoint_sit_high_eat_in_1");
+        animpoint_sit_high_eat_kolbasa_animation_data.addAnimationAttachItemName("into", 0, "kolbasa");
+        animpoint_sit_high_eat_kolbasa_animation_data.addAnimation("into", 0, "animpoint_sit_high_eat_in_2");
+
+        animpoint_sit_high_eat_kolbasa_animation_data.addAnimation("into", 1, "animpoint_sit_high_eat_in_1");
+        animpoint_sit_high_eat_kolbasa_animation_data.addAnimationAttachItemName("into", 1, "kolbasa");
+        animpoint_sit_high_eat_kolbasa_animation_data.addAnimation("into", 1, "animpoint_sit_high_eat_in_2");
+
+        animpoint_sit_high_eat_kolbasa_animation_data.addAnimation("out", 0, "animpoint_sit_high_eat_out_1");
+        animpoint_sit_high_eat_kolbasa_animation_data.addAnimationDettachItemName("out", 0, "kolbasa");
+        animpoint_sit_high_eat_kolbasa_animation_data.addAnimation("out", 0, "animpoint_sit_high_eat_out_2");
+
+        animpoint_sit_high_eat_kolbasa_animation_data.addAnimation("out", 1, "animpoint_sit_high_eat_out_1");
+        animpoint_sit_high_eat_kolbasa_animation_data.addAnimationDettachItemName("out", 1, "kolbasa");
+        animpoint_sit_high_eat_kolbasa_animation_data.addAnimation("out", 1, "animpoint_sit_high_eat_out_2");
+
+        animpoint_sit_high_eat_kolbasa_animation_data.addAnimation("idle", 0, "animpoint_sit_high_eat_idle_1");
+        animpoint_sit_high_eat_kolbasa_animation_data.addAnimation("idle", 1, "animpoint_sit_high_eat_idle_1");
+
+        animpoint_sit_high_eat_kolbasa_animation_data.addAnimation("rnd", 0, "animpoint_sit_high_eat_idle_rnd_1");
+        animpoint_sit_high_eat_kolbasa_animation_data.addAnimation("rnd", 1, "animpoint_sit_high_eat_idle_rnd_1");
+
+        this->m_state_manager_animation_list["animpoint_sit_high_eat_kolbasa"] =
+            animpoint_sit_high_eat_kolbasa_animation_data;
+
+        StateManagerAnimationData animpoint_sit_normal_eat_bread_animation_data;
+        animpoint_sit_normal_eat_bread_animation_data.setPropertiesMaxIdle(5);
+        animpoint_sit_normal_eat_bread_animation_data.setPropertiesSumIdle(3);
+        animpoint_sit_normal_eat_bread_animation_data.setPropertiesRandom(80);
+        animpoint_sit_normal_eat_bread_animation_data.setPropertiesMoving(true);
+
+        animpoint_sit_normal_eat_bread_animation_data.addAnimation("into", 0, "animpoint_sit_normal_eat_in_1");
+        animpoint_sit_normal_eat_bread_animation_data.addAnimationAttachItemName("into", 0, "bread");
+        animpoint_sit_normal_eat_bread_animation_data.addAnimation("into", 0, "animpoint_sit_normal_eat_in_2");
+
+        animpoint_sit_normal_eat_bread_animation_data.addAnimation("into", 1, "animpoint_sit_normal_eat_in_1");
+        animpoint_sit_normal_eat_bread_animation_data.addAnimationAttachItemName("into", 1, "bread");
+        animpoint_sit_normal_eat_bread_animation_data.addAnimation("into", 1, "animpoint_sit_normal_eat_in_2");
+
+        animpoint_sit_normal_eat_bread_animation_data.addAnimation("out", 0, "animpoint_sit_normal_eat_out_1");
+        animpoint_sit_normal_eat_bread_animation_data.addAnimationDettachItemName("out", 0, "bread");
+        animpoint_sit_normal_eat_bread_animation_data.addAnimation("out", 0, "animpoint_sit_normal_eat_out_2");
+
+        animpoint_sit_normal_eat_bread_animation_data.addAnimation("out", 1, "animpoint_sit_normal_eat_out_1");
+        animpoint_sit_normal_eat_bread_animation_data.addAnimationDettachItemName("out", 1, "bread");
+        animpoint_sit_normal_eat_bread_animation_data.addAnimation("out", 1, "animpoint_sit_normal_eat_out_2");
+
+        animpoint_sit_normal_eat_bread_animation_data.addAnimation("idle", 0, "animpoint_sit_normal_eat_idle_1");
+        animpoint_sit_normal_eat_bread_animation_data.addAnimation("idle", 1, "animpoint_sit_normal_eat_idle_1");
+
+        animpoint_sit_normal_eat_bread_animation_data.addAnimation("rnd", 0, "animpoint_sit_normal_eat_idle_rnd_1");
+        animpoint_sit_normal_eat_bread_animation_data.addAnimation("rnd", 0, "animpoint_sit_normal_eat_idle_rnd_2");
+
+        animpoint_sit_normal_eat_bread_animation_data.addAnimation("rnd", 0, "animpoint_sit_normal_eat_idle_rnd_1");
+        animpoint_sit_normal_eat_bread_animation_data.addAnimation("rnd", 0, "animpoint_sit_normal_eat_idle_rnd_2");
+
+        this->m_state_manager_animation_list["animpoint_sit_normal_eat_bread"] =
+            animpoint_sit_normal_eat_bread_animation_data;
+
+        StateManagerAnimationData animpoint_sit_normal_eat_kolbasa_animation_data;
+        animpoint_sit_normal_eat_kolbasa_animation_data.setPropertiesMaxIdle(5);
+        animpoint_sit_normal_eat_kolbasa_animation_data.setPropertiesSumIdle(3);
+        animpoint_sit_normal_eat_kolbasa_animation_data.setPropertiesRandom(80);
+        animpoint_sit_normal_eat_kolbasa_animation_data.setPropertiesMoving(true);
+
+        animpoint_sit_normal_eat_kolbasa_animation_data.addAnimation("into", 0, "animpoint_sit_normal_eat_in_1");
+        animpoint_sit_normal_eat_kolbasa_animation_data.addAnimationAttachItemName("into", 0, "kolbasa");
+        animpoint_sit_normal_eat_kolbasa_animation_data.addAnimation("into", 0, "animpoint_sit_normal_eat_in_2");
+
+        animpoint_sit_normal_eat_kolbasa_animation_data.addAnimation("into", 1, "animpoint_sit_normal_eat_in_1");
+        animpoint_sit_normal_eat_kolbasa_animation_data.addAnimationAttachItemName("into", 1, "kolbasa");
+        animpoint_sit_normal_eat_kolbasa_animation_data.addAnimation("into", 1, "animpoint_sit_normal_eat_in_2");
+
+        animpoint_sit_normal_eat_kolbasa_animation_data.addAnimation("out", 0, "animpoint_sit_normal_eat_out_1");
+        animpoint_sit_normal_eat_kolbasa_animation_data.addAnimationDettachItemName("out", 0, "kolbasa");
+        animpoint_sit_normal_eat_kolbasa_animation_data.addAnimation("out", 0, "animpoint_sit_normal_eat_out_2");
+
+        animpoint_sit_normal_eat_kolbasa_animation_data.addAnimation("out", 1, "animpoint_sit_normal_eat_out_1");
+        animpoint_sit_normal_eat_kolbasa_animation_data.addAnimationDettachItemName("out", 1, "kolbasa");
+        animpoint_sit_normal_eat_kolbasa_animation_data.addAnimation("out", 1, "animpoint_sit_normal_eat_out_2");
+
+        animpoint_sit_normal_eat_kolbasa_animation_data.addAnimation("idle", 0, "animpoint_sit_normal_eat_idle_1");
+        animpoint_sit_normal_eat_kolbasa_animation_data.addAnimation("idle", 1, "animpoint_sit_normal_eat_idle_1");
+
+        animpoint_sit_normal_eat_kolbasa_animation_data.addAnimation("rnd", 0, "animpoint_sit_normal_eat_idle_1");
+        animpoint_sit_normal_eat_kolbasa_animation_data.addAnimation("rnd", 1, "animpoint_sit_normal_eat_idle_1");
+
+        this->m_state_manager_animation_list["animpoint_sit_normal_eat_kolbasa"] =
+            animpoint_sit_normal_eat_kolbasa_animation_data;
+
+        StateManagerAnimationData animpoint_sit_low_eat_bread_animation_data;
+        animpoint_sit_low_eat_bread_animation_data.setPropertiesMaxIdle(5);
+        animpoint_sit_low_eat_bread_animation_data.setPropertiesSumIdle(3);
+        animpoint_sit_low_eat_bread_animation_data.setPropertiesRandom(80);
+        animpoint_sit_low_eat_bread_animation_data.setPropertiesMoving(true);
+
+        animpoint_sit_low_eat_bread_animation_data.addAnimation("into", 0, "animpoint_sit_low_eat_in_1");
+        animpoint_sit_low_eat_bread_animation_data.addAnimationAttachItemName("into", 0, "bread");
+        animpoint_sit_low_eat_bread_animation_data.addAnimation("into", 0, "animpoint_sit_low_eat_in_2");
+
+        animpoint_sit_low_eat_bread_animation_data.addAnimation("into", 1, "animpoint_sit_low_eat_in_1");
+        animpoint_sit_low_eat_bread_animation_data.addAnimationAttachItemName("into", 1, "bread");
+        animpoint_sit_low_eat_bread_animation_data.addAnimation("into", 1, "animpoint_sit_low_eat_in_2");
+
+        animpoint_sit_low_eat_bread_animation_data.addAnimation("out", 0, "animpoint_sit_low_eat_out_1");
+        animpoint_sit_low_eat_bread_animation_data.addAnimationDettachItemName("out", 0, "bread");
+        animpoint_sit_low_eat_bread_animation_data.addAnimation("out", 0, "animpoint_sit_low_eat_out_2");
+
+        animpoint_sit_low_eat_bread_animation_data.addAnimation("out", 1, "animpoint_sit_low_eat_out_1");
+        animpoint_sit_low_eat_bread_animation_data.addAnimationDettachItemName("out", 1, "bread");
+        animpoint_sit_low_eat_bread_animation_data.addAnimation("out", 1, "animpoint_sit_low_eat_out_2");
+
+        animpoint_sit_low_eat_bread_animation_data.addAnimation("idle", 0, "animpoint_sit_low_eat_idle_1");
+        animpoint_sit_low_eat_bread_animation_data.addAnimation("idle", 0, "animpoint_sit_low_eat_idle_1");
+
+        animpoint_sit_low_eat_bread_animation_data.addAnimation("rnd", 0, "animpoint_sit_low_eat_idle_1");
+        animpoint_sit_low_eat_bread_animation_data.addAnimation("rnd", 0, "animpoint_sit_low_eat_idle_2");
+
+        animpoint_sit_low_eat_bread_animation_data.addAnimation("rnd", 1, "animpoint_sit_low_eat_idle_1");
+        animpoint_sit_low_eat_bread_animation_data.addAnimation("rnd", 1, "animpoint_sit_low_eat_idle_2");
+
+        this->m_state_manager_animation_list["animpoint_sit_low_eat_bread"] =
+            animpoint_sit_low_eat_bread_animation_data;
+
+        StateManagerAnimationData animpoint_sit_low_eat_kolbasa_animation_data;
+        animpoint_sit_low_eat_kolbasa_animation_data.setPropertiesMaxIdle(5);
+        animpoint_sit_low_eat_kolbasa_animation_data.setPropertiesSumIdle(3);
+        animpoint_sit_low_eat_kolbasa_animation_data.setPropertiesRandom(80);
+        animpoint_sit_low_eat_kolbasa_animation_data.setPropertiesMoving(true);
+
+        animpoint_sit_low_eat_kolbasa_animation_data.addAnimation("into", 0, "animpoint_sit_low_eat_in_1");
+        animpoint_sit_low_eat_kolbasa_animation_data.addAnimationAttachItemName("into", 0, "kolbasa");
+        animpoint_sit_low_eat_kolbasa_animation_data.addAnimation("into", 0, "animpoint_sit_low_eat_in_2");
+
+        animpoint_sit_low_eat_kolbasa_animation_data.addAnimation("into", 1, "animpoint_sit_low_eat_in_1");
+        animpoint_sit_low_eat_kolbasa_animation_data.addAnimationAttachItemName("into", 1, "kolbasa");
+        animpoint_sit_low_eat_kolbasa_animation_data.addAnimation("into", 1, "animpoint_sit_low_eat_in_2");
+
+        animpoint_sit_low_eat_kolbasa_animation_data.addAnimation("out", 0, "animpoint_sit_low_eat_out_1");
+        animpoint_sit_low_eat_kolbasa_animation_data.addAnimationDettachItemName("out", 0, "kolbasa");
+        animpoint_sit_low_eat_kolbasa_animation_data.addAnimation("out", 0, "animpoint_sit_low_eat_out_2");
+
+        animpoint_sit_low_eat_kolbasa_animation_data.addAnimation("out", 1, "animpoint_sit_low_eat_out_1");
+        animpoint_sit_low_eat_kolbasa_animation_data.addAnimationDettachItemName("out", 1, "kolbasa");
+        animpoint_sit_low_eat_kolbasa_animation_data.addAnimation("out", 1, "animpoint_sit_low_eat_out_2");
+
+        animpoint_sit_low_eat_kolbasa_animation_data.addAnimation("idle", 0, "animpoint_sit_low_eat_idle_1");
+        animpoint_sit_low_eat_kolbasa_animation_data.addAnimation("idle", 0, "animpoint_sit_low_eat_idle_1");
+
+        animpoint_sit_low_eat_kolbasa_animation_data.addAnimation("rnd", 0, "animpoint_sit_low_eat_idle_1");
+        animpoint_sit_low_eat_kolbasa_animation_data.addAnimation("rnd", 0, "animpoint_sit_low_eat_idle_2");
+
+        animpoint_sit_low_eat_kolbasa_animation_data.addAnimation("rnd", 1, "animpoint_sit_low_eat_idle_1");
+        animpoint_sit_low_eat_kolbasa_animation_data.addAnimation("rnd", 1, "animpoint_sit_low_eat_idle_2");
+
+        this->m_state_manager_animation_list["animpoint_sit_low_eat_kolbasa"] =
+            animpoint_sit_low_eat_kolbasa_animation_data;
+
+        StateManagerAnimationData animpoint_stay_wall_drink_vodka_animation_data;
+        animpoint_stay_wall_drink_vodka_animation_data.setPropertiesMaxIdle(5);
+        animpoint_stay_wall_drink_vodka_animation_data.setPropertiesSumIdle(3);
+        animpoint_stay_wall_drink_vodka_animation_data.setPropertiesRandom(80);
+        animpoint_stay_wall_drink_vodka_animation_data.setPropertiesMoving(true);
+
+        animpoint_stay_wall_drink_vodka_animation_data.addAnimation("into", 0, "animpoint_stay_wall_drink_in_1");
+        animpoint_stay_wall_drink_vodka_animation_data.addAnimationAttachItemName("into", 0, "vodka");
+        animpoint_stay_wall_drink_vodka_animation_data.addAnimation("into", 0, "animpoint_stay_wall_drink_in_2");
+
+        animpoint_stay_wall_drink_vodka_animation_data.addAnimation("into", 1, "animpoint_stay_wall_drink_in_1");
+        animpoint_stay_wall_drink_vodka_animation_data.addAnimationAttachItemName("into", 1, "vodka");
+        animpoint_stay_wall_drink_vodka_animation_data.addAnimation("into", 1, "animpoint_stay_wall_drink_in_2");
+
+        animpoint_stay_wall_drink_vodka_animation_data.addAnimation("out", 0, "animpoint_stay_wall_drink_out_1");
+        animpoint_stay_wall_drink_vodka_animation_data.addAnimationDettachItemName("out", 0, "vodka");
+        animpoint_stay_wall_drink_vodka_animation_data.addAnimation("out", 0, "animpoint_stay_wall_drink_out_2");
+
+        animpoint_stay_wall_drink_vodka_animation_data.addAnimation("out", 1, "animpoint_stay_wall_drink_out_1");
+        animpoint_stay_wall_drink_vodka_animation_data.addAnimationDettachItemName("out", 1, "vodka");
+        animpoint_stay_wall_drink_vodka_animation_data.addAnimation("out", 1, "animpoint_stay_wall_drink_out_2");
+
+        animpoint_stay_wall_drink_vodka_animation_data.addAnimation("idle", 0, "animpoint_stay_wall_drink_idle_1");
+        animpoint_stay_wall_drink_vodka_animation_data.addAnimation("idle", 0, "animpoint_stay_wall_drink_idle_1");
+
+        animpoint_stay_wall_drink_vodka_animation_data.addAnimation("rnd", 0, "animpoint_stay_wall_drink_idle_rnd_1");
+        animpoint_stay_wall_drink_vodka_animation_data.addAnimation("rnd", 0, "animpoint_stay_wall_drink_idle_rnd_2");
+
+        animpoint_stay_wall_drink_vodka_animation_data.addAnimation("rnd", 1, "animpoint_stay_wall_drink_idle_rnd_1");
+        animpoint_stay_wall_drink_vodka_animation_data.addAnimation("rnd", 1, "animpoint_stay_wall_drink_idle_rnd_2");
+
+        this->m_state_manager_animation_list["animpoint_stay_wall_drink_vodka"] =
+            animpoint_stay_wall_drink_vodka_animation_data;
+
+        StateManagerAnimationData animpoint_stay_wall_drink_energy_animation_data;
+        animpoint_stay_wall_drink_energy_animation_data.setPropertiesMaxIdle(5);
+        animpoint_stay_wall_drink_energy_animation_data.setPropertiesSumIdle(3);
+        animpoint_stay_wall_drink_energy_animation_data.setPropertiesRandom(80);
+        animpoint_stay_wall_drink_energy_animation_data.setPropertiesMoving(true);
+
+        animpoint_stay_wall_drink_energy_animation_data.addAnimation("into", 0, "animpoint_stay_wall_drink_in_1");
+        animpoint_stay_wall_drink_energy_animation_data.addAnimationAttachItemName("into", 0, "energy_drink");
+        animpoint_stay_wall_drink_energy_animation_data.addAnimation("into", 0, "animpoint_stay_wall_drink_in_2");
+
+        animpoint_stay_wall_drink_energy_animation_data.addAnimation("into", 1, "animpoint_stay_wall_drink_in_1");
+        animpoint_stay_wall_drink_energy_animation_data.addAnimationAttachItemName("into", 1, "energy_drink");
+        animpoint_stay_wall_drink_energy_animation_data.addAnimation("into", 1, "animpoint_stay_wall_drink_in_2");
+
+        animpoint_stay_wall_drink_energy_animation_data.addAnimation("out", 0, "animpoint_stay_wall_drink_out_1");
+        animpoint_stay_wall_drink_energy_animation_data.addAnimationDettachItemName("out", 0, "energy_drink");
+        animpoint_stay_wall_drink_energy_animation_data.addAnimation("out", 0, "animpoint_stay_wall_drink_out_2");
+
+        animpoint_stay_wall_drink_energy_animation_data.addAnimation("out", 1, "animpoint_stay_wall_drink_out_1");
+        animpoint_stay_wall_drink_energy_animation_data.addAnimationDettachItemName("out", 1, "energy_drink");
+        animpoint_stay_wall_drink_energy_animation_data.addAnimation("out", 1, "animpoint_stay_wall_drink_out_2");
+
+        animpoint_stay_wall_drink_energy_animation_data.addAnimation("idle", 0, "animpoint_stay_wall_drink_idle_1");
+        animpoint_stay_wall_drink_energy_animation_data.addAnimation("idle", 0, "animpoint_stay_wall_drink_idle_1");
+
+        animpoint_stay_wall_drink_energy_animation_data.addAnimation("rnd", 0, "animpoint_stay_wall_drink_idle_rnd_1");
+        animpoint_stay_wall_drink_energy_animation_data.addAnimation("rnd", 0, "animpoint_stay_wall_drink_idle_rnd_2");
+
+        animpoint_stay_wall_drink_energy_animation_data.addAnimation("rnd", 1, "animpoint_stay_wall_drink_idle_rnd_1");
+        animpoint_stay_wall_drink_energy_animation_data.addAnimation("rnd", 1, "animpoint_stay_wall_drink_idle_rnd_2");
+
+        this->m_state_manager_animation_list["animpoint_stay_wall_drink_energy"] =
+            animpoint_stay_wall_drink_energy_animation_data;
+
+        StateManagerAnimationData animpoint_stay_table_drink_vodka_aniamtion_data;
+        animpoint_stay_table_drink_vodka_aniamtion_data.setPropertiesMaxIdle(5);
+        animpoint_stay_table_drink_vodka_aniamtion_data.setPropertiesSumIdle(3);
+        animpoint_stay_table_drink_vodka_aniamtion_data.setPropertiesRandom(80);
+        animpoint_stay_table_drink_vodka_aniamtion_data.setPropertiesMoving(true);
+
+        animpoint_stay_table_drink_vodka_aniamtion_data.addAnimation("idle", 0, "animpoint_stay_table_idle_1");
+        animpoint_stay_table_drink_vodka_aniamtion_data.addAnimation("idle", 1, "animpoint_stay_table_idle_1");
+
+        animpoint_stay_table_drink_vodka_aniamtion_data.addAnimation("rnd", 0, "animpoint_stay_table_idle_1");
+        animpoint_stay_table_drink_vodka_aniamtion_data.addAnimation("rnd", 1, "animpoint_stay_table_idle_1");
+
+        this->m_state_manager_animation_list["animpoint_stay_table_drink_vodka"] =
+            animpoint_stay_table_drink_vodka_aniamtion_data;
+
+        StateManagerAnimationData animpoint_stay_table_drink_energy_animation_data;
+        animpoint_stay_table_drink_energy_animation_data.setPropertiesMaxIdle(5);
+        animpoint_stay_table_drink_energy_animation_data.setPropertiesSumIdle(3);
+        animpoint_stay_table_drink_energy_animation_data.setPropertiesRandom(80);
+        animpoint_stay_table_drink_energy_animation_data.setPropertiesMoving(true);
+
+        animpoint_stay_table_drink_energy_animation_data.addAnimation("idle", 0, "animpoint_stay_table_idle_1");
+        animpoint_stay_table_drink_energy_animation_data.addAnimation("idle", 1, "animpoint_stay_table_idle_1");
+
+        animpoint_stay_table_drink_energy_animation_data.addAnimation("rnd", 0, "animpoint_stay_table_idle_1");
+        animpoint_stay_table_drink_energy_animation_data.addAnimation("rnd", 1, "animpoint_stay_table_idle_1");
+
+        this->m_state_manager_animation_list["animpoint_stay_table_drink_energy"] =
+            animpoint_stay_table_drink_energy_animation_data;
+
+        StateManagerAnimationData animpoint_sit_high_drink_vodka_animation_data;
+        animpoint_sit_high_drink_vodka_animation_data.setPropertiesMaxIdle(5);
+        animpoint_sit_high_drink_vodka_animation_data.setPropertiesMoving(true);
+        animpoint_sit_high_drink_vodka_animation_data.setPropertiesRandom(80);
+        animpoint_sit_high_drink_vodka_animation_data.setPropertiesSumIdle(3);
+
+        animpoint_sit_high_drink_vodka_animation_data.addAnimation("into", 0, "animpoint_sit_high_drink_in_1");
+        animpoint_sit_high_drink_vodka_animation_data.addAnimationAttachItemName("into", 0, "vodka");
+        animpoint_sit_high_drink_vodka_animation_data.addAnimation("into", 0, "animpoint_sit_high_drink_in_2");
+
+        animpoint_sit_high_drink_vodka_animation_data.addAnimation("into", 1, "animpoint_sit_high_drink_in_1");
+        animpoint_sit_high_drink_vodka_animation_data.addAnimationAttachItemName("into", 1, "vodka");
+        animpoint_sit_high_drink_vodka_animation_data.addAnimation("into", 1, "animpoint_sit_high_drink_in_2");
+
+        animpoint_sit_high_drink_vodka_animation_data.addAnimation("out", 0, "animpoint_sit_high_drink_out_1");
+        animpoint_sit_high_drink_vodka_animation_data.addAnimationDettachItemName("out", 0, "vodka");
+        animpoint_sit_high_drink_vodka_animation_data.addAnimation("out", 0, "animpoint_sit_high_drink_out_2");
+
+        animpoint_sit_high_drink_vodka_animation_data.addAnimation("out", 1, "animpoint_sit_high_drink_out_1");
+        animpoint_sit_high_drink_vodka_animation_data.addAnimationDettachItemName("out", 1, "vodka");
+        animpoint_sit_high_drink_vodka_animation_data.addAnimation("out", 1, "animpoint_sit_high_drink_out_2");
+
+        animpoint_sit_high_drink_vodka_animation_data.addAnimation("idle", 0, "animpoint_sit_high_drink_idle_1");
+        animpoint_sit_high_drink_vodka_animation_data.addAnimation("idle", 0, "animpoint_sit_high_drink_idle_1");
+
+        animpoint_sit_high_drink_vodka_animation_data.addAnimation("rnd", 0, "animpoint_sit_high_drink_idle_rnd_1");
+        animpoint_sit_high_drink_vodka_animation_data.addAnimation("rnd", 0, "animpoint_sit_high_drink_idle_rnd_2");
+
+        animpoint_sit_high_drink_vodka_animation_data.addAnimation("rnd", 1, "animpoint_sit_high_drink_idle_rnd_1");
+        animpoint_sit_high_drink_vodka_animation_data.addAnimation("rnd", 1, "animpoint_sit_high_drink_idle_rnd_2");
+
+        this->m_state_manager_animation_list["animpoint_sit_high_drink_vodka"] =
+            animpoint_sit_high_drink_vodka_animation_data;
+
+        StateManagerAnimationData animpoint_sit_high_drink_energy_animation_data;
+        animpoint_sit_high_drink_energy_animation_data.setPropertiesMaxIdle(5);
+        animpoint_sit_high_drink_energy_animation_data.setPropertiesMoving(true);
+        animpoint_sit_high_drink_energy_animation_data.setPropertiesRandom(80);
+        animpoint_sit_high_drink_energy_animation_data.setPropertiesSumIdle(3);
+
+        animpoint_sit_high_drink_energy_animation_data.addAnimation("into", 0, "animpoint_sit_high_drink_in_1");
+        animpoint_sit_high_drink_energy_animation_data.addAnimationAttachItemName("into", 0, "energy_drink");
+        animpoint_sit_high_drink_energy_animation_data.addAnimation("into", 0, "animpoint_sit_high_drink_in_2");
+
+        animpoint_sit_high_drink_energy_animation_data.addAnimation("into", 1, "animpoint_sit_high_drink_in_1");
+        animpoint_sit_high_drink_energy_animation_data.addAnimationAttachItemName("into", 1, "energy_drink");
+        animpoint_sit_high_drink_energy_animation_data.addAnimation("into", 1, "animpoint_sit_high_drink_in_2");
+
+        animpoint_sit_high_drink_energy_animation_data.addAnimation("out", 0, "animpoint_sit_high_drink_out_1");
+        animpoint_sit_high_drink_energy_animation_data.addAnimationDettachItemName("out", 0, "energy_drink");
+        animpoint_sit_high_drink_energy_animation_data.addAnimation("out", 0, "animpoint_sit_high_drink_out_2");
+
+        animpoint_sit_high_drink_energy_animation_data.addAnimation("out", 1, "animpoint_sit_high_drink_out_1");
+        animpoint_sit_high_drink_energy_animation_data.addAnimationDettachItemName("out", 1, "energy_drink");
+        animpoint_sit_high_drink_energy_animation_data.addAnimation("out", 1, "animpoint_sit_high_drink_out_2");
+
+        animpoint_sit_high_drink_energy_animation_data.addAnimation("idle", 0, "animpoint_sit_high_drink_idle_1");
+        animpoint_sit_high_drink_energy_animation_data.addAnimation("idle", 0, "animpoint_sit_high_drink_idle_1");
+
+        animpoint_sit_high_drink_energy_animation_data.addAnimation("rnd", 0, "animpoint_sit_high_drink_idle_rnd_1");
+        animpoint_sit_high_drink_energy_animation_data.addAnimation("rnd", 0, "animpoint_sit_high_drink_idle_rnd_2");
+
+        animpoint_sit_high_drink_energy_animation_data.addAnimation("rnd", 1, "animpoint_sit_high_drink_idle_rnd_1");
+        animpoint_sit_high_drink_energy_animation_data.addAnimation("rnd", 1, "animpoint_sit_high_drink_idle_rnd_2");
+
+        this->m_state_manager_animation_list["animpoint_sit_high_drink_energy"] =
+            animpoint_sit_high_drink_energy_animation_data;
+
+        StateManagerAnimationData animpoint_sit_normal_drink_vodka_animation_data;
+        animpoint_sit_normal_drink_vodka_animation_data.setPropertiesMaxIdle(5);
+        animpoint_sit_normal_drink_vodka_animation_data.setPropertiesMoving(true);
+        animpoint_sit_normal_drink_vodka_animation_data.setPropertiesRandom(80);
+        animpoint_sit_normal_drink_vodka_animation_data.setPropertiesSumIdle(3);
+
+        animpoint_sit_normal_drink_vodka_animation_data.addAnimation("into", 0, "animpoint_sit_normal_drink_in_1");
+        animpoint_sit_normal_drink_vodka_animation_data.addAnimationAttachItemName("into", 0, "vodka");
+        animpoint_sit_normal_drink_vodka_animation_data.addAnimation("into", 0, "animpoint_sit_normal_drink_in_2");
+
+        animpoint_sit_normal_drink_vodka_animation_data.addAnimation("into", 1, "animpoint_sit_normal_drink_in_1");
+        animpoint_sit_normal_drink_vodka_animation_data.addAnimationAttachItemName("into", 1, "vodka");
+        animpoint_sit_normal_drink_vodka_animation_data.addAnimation("into", 1, "animpoint_sit_normal_drink_in_2");
+
+        animpoint_sit_normal_drink_vodka_animation_data.addAnimation("out", 0, "animpoint_sit_normal_drink_out_1");
+        animpoint_sit_normal_drink_vodka_animation_data.addAnimationDettachItemName("out", 0, "vodka");
+        animpoint_sit_normal_drink_vodka_animation_data.addAnimation("out", 0, "animpoint_sit_normal_drink_out_2");
+
+        animpoint_sit_normal_drink_vodka_animation_data.addAnimation("out", 1, "animpoint_sit_normal_drink_out_1");
+        animpoint_sit_normal_drink_vodka_animation_data.addAnimationDettachItemName("out", 1, "vodka");
+        animpoint_sit_normal_drink_vodka_animation_data.addAnimation("out", 1, "animpoint_sit_normal_drink_out_2");
+
+        animpoint_sit_normal_drink_vodka_animation_data.addAnimation("idle", 0, "animpoint_sit_normal_drink_idle_1");
+        animpoint_sit_normal_drink_vodka_animation_data.addAnimation("idle", 0, "animpoint_sit_normal_drink_idle_1");
+
+        animpoint_sit_normal_drink_vodka_animation_data.addAnimation("rnd", 0, "animpoint_sit_normal_drink_idle_rnd_1");
+        animpoint_sit_normal_drink_vodka_animation_data.addAnimation("rnd", 0, "animpoint_sit_normal_drink_idle_rnd_2");
+
+        animpoint_sit_normal_drink_vodka_animation_data.addAnimation("rnd", 1, "animpoint_sit_normal_drink_idle_rnd_1");
+        animpoint_sit_normal_drink_vodka_animation_data.addAnimation("rnd", 1, "animpoint_sit_normal_drink_idle_rnd_2");
+
+        this->m_state_manager_animation_list["animpoint_sit_normal_drink_vodka"] =
+            animpoint_sit_normal_drink_vodka_animation_data;
+
+        StateManagerAnimationData animpoint_sit_normal_drink_energy_animation_data;
+        animpoint_sit_normal_drink_energy_animation_data.setPropertiesMaxIdle(5);
+        animpoint_sit_normal_drink_energy_animation_data.setPropertiesMoving(true);
+        animpoint_sit_normal_drink_energy_animation_data.setPropertiesRandom(80);
+        animpoint_sit_normal_drink_energy_animation_data.setPropertiesSumIdle(3);
+
+        animpoint_sit_normal_drink_energy_animation_data.addAnimation("into", 0, "animpoint_sit_normal_drink_in_1");
+        animpoint_sit_normal_drink_energy_animation_data.addAnimationAttachItemName("into", 0, "energy_drink");
+        animpoint_sit_normal_drink_energy_animation_data.addAnimation("into", 0, "animpoint_sit_normal_drink_in_2");
+
+        animpoint_sit_normal_drink_energy_animation_data.addAnimation("into", 1, "animpoint_sit_normal_drink_in_1");
+        animpoint_sit_normal_drink_energy_animation_data.addAnimationAttachItemName("into", 1, "energy_drink");
+        animpoint_sit_normal_drink_energy_animation_data.addAnimation("into", 1, "animpoint_sit_normal_drink_in_2");
+
+        animpoint_sit_normal_drink_energy_animation_data.addAnimation("out", 0, "animpoint_sit_normal_drink_out_1");
+        animpoint_sit_normal_drink_energy_animation_data.addAnimationDettachItemName("out", 0, "energy_drink");
+        animpoint_sit_normal_drink_energy_animation_data.addAnimation("out", 0, "animpoint_sit_normal_drink_out_2");
+
+        animpoint_sit_normal_drink_energy_animation_data.addAnimation("out", 1, "animpoint_sit_normal_drink_out_1");
+        animpoint_sit_normal_drink_energy_animation_data.addAnimationDettachItemName("out", 1, "energy_drink");
+        animpoint_sit_normal_drink_energy_animation_data.addAnimation("out", 1, "animpoint_sit_normal_drink_out_2");
+
+        animpoint_sit_normal_drink_energy_animation_data.addAnimation("idle", 0, "animpoint_sit_normal_drink_idle_1");
+        animpoint_sit_normal_drink_energy_animation_data.addAnimation("idle", 0, "animpoint_sit_normal_drink_idle_1");
+
+        animpoint_sit_normal_drink_energy_animation_data.addAnimation(
+            "rnd", 0, "animpoint_sit_normal_drink_idle_rnd_1");
+        animpoint_sit_normal_drink_energy_animation_data.addAnimation(
+            "rnd", 0, "animpoint_sit_normal_drink_idle_rnd_2");
+
+        animpoint_sit_normal_drink_energy_animation_data.addAnimation(
+            "rnd", 1, "animpoint_sit_normal_drink_idle_rnd_1");
+        animpoint_sit_normal_drink_energy_animation_data.addAnimation(
+            "rnd", 1, "animpoint_sit_normal_drink_idle_rnd_2");
+
+        this->m_state_manager_animation_list["animpoint_sit_normal_drink_energy"] =
+            animpoint_sit_normal_drink_energy_animation_data;
+
+        StateManagerAnimationData animpoint_sit_low_drink_vodka_animation_data;
+        animpoint_sit_low_drink_vodka_animation_data.setPropertiesMaxIdle(5);
+        animpoint_sit_low_drink_vodka_animation_data.setPropertiesMoving(true);
+        animpoint_sit_low_drink_vodka_animation_data.setPropertiesRandom(80);
+        animpoint_sit_low_drink_vodka_animation_data.setPropertiesSumIdle(3);
+
+        animpoint_sit_low_drink_vodka_animation_data.addAnimation("into", 0, "animpoint_sit_low_drink_in_1");
+        animpoint_sit_low_drink_vodka_animation_data.addAnimationAttachItemName("into", 0, "vodka");
+        animpoint_sit_low_drink_vodka_animation_data.addAnimation("into", 0, "animpoint_sit_low_drink_in_2");
+
+        animpoint_sit_low_drink_vodka_animation_data.addAnimation("into", 1, "animpoint_sit_low_drink_in_1");
+        animpoint_sit_low_drink_vodka_animation_data.addAnimationAttachItemName("into", 1, "vodka");
+        animpoint_sit_low_drink_vodka_animation_data.addAnimation("into", 1, "animpoint_sit_low_drink_in_2");
+
+        animpoint_sit_low_drink_vodka_animation_data.addAnimation("out", 0, "animpoint_sit_low_drink_out_1");
+        animpoint_sit_low_drink_vodka_animation_data.addAnimationDettachItemName("out", 0, "vodka");
+        animpoint_sit_low_drink_vodka_animation_data.addAnimation("out", 0, "animpoint_sit_low_drink_out_2");
+
+        animpoint_sit_low_drink_vodka_animation_data.addAnimation("out", 1, "animpoint_sit_low_drink_out_1");
+        animpoint_sit_low_drink_vodka_animation_data.addAnimationDettachItemName("out", 1, "vodka");
+        animpoint_sit_low_drink_vodka_animation_data.addAnimation("out", 1, "animpoint_sit_low_drink_out_2");
+
+        animpoint_sit_low_drink_vodka_animation_data.addAnimation("idle", 0, "animpoint_sit_low_drink_idle_1");
+        animpoint_sit_low_drink_vodka_animation_data.addAnimation("idle", 0, "animpoint_sit_low_drink_idle_1");
+
+        animpoint_sit_low_drink_vodka_animation_data.addAnimation("rnd", 0, "animpoint_sit_low_drink_idle_rnd_1");
+        animpoint_sit_low_drink_vodka_animation_data.addAnimation("rnd", 0, "animpoint_sit_low_drink_idle_rnd_2");
+
+        animpoint_sit_low_drink_vodka_animation_data.addAnimation("rnd", 1, "animpoint_sit_low_drink_idle_rnd_1");
+        animpoint_sit_low_drink_vodka_animation_data.addAnimation("rnd", 1, "animpoint_sit_low_drink_idle_rnd_2");
+
+        this->m_state_manager_animation_list["animpoint_sit_low_drink_vodka"] =
+            animpoint_sit_low_drink_vodka_animation_data;
+
+        StateManagerAnimationData animpoint_sit_low_drink_energy_animation_data;
+        animpoint_sit_low_drink_energy_animation_data.setPropertiesMaxIdle(5);
+        animpoint_sit_low_drink_energy_animation_data.setPropertiesMoving(true);
+        animpoint_sit_low_drink_energy_animation_data.setPropertiesRandom(80);
+        animpoint_sit_low_drink_energy_animation_data.setPropertiesSumIdle(3);
+
+        animpoint_sit_low_drink_energy_animation_data.addAnimation("into", 0, "animpoint_sit_low_drink_in_1");
+        animpoint_sit_low_drink_energy_animation_data.addAnimationAttachItemName("into", 0, "energy_drink");
+        animpoint_sit_low_drink_energy_animation_data.addAnimation("into", 0, "animpoint_sit_low_drink_in_2");
+
+        animpoint_sit_low_drink_energy_animation_data.addAnimation("into", 1, "animpoint_sit_low_drink_in_1");
+        animpoint_sit_low_drink_energy_animation_data.addAnimationAttachItemName("into", 1, "energy_drink");
+        animpoint_sit_low_drink_energy_animation_data.addAnimation("into", 1, "animpoint_sit_low_drink_in_2");
+
+        animpoint_sit_low_drink_energy_animation_data.addAnimation("out", 0, "animpoint_sit_low_drink_out_1");
+        animpoint_sit_low_drink_energy_animation_data.addAnimationDettachItemName("out", 0, "energy_drink");
+        animpoint_sit_low_drink_energy_animation_data.addAnimation("out", 0, "animpoint_sit_low_drink_out_2");
+
+        animpoint_sit_low_drink_energy_animation_data.addAnimation("out", 1, "animpoint_sit_low_drink_out_1");
+        animpoint_sit_low_drink_energy_animation_data.addAnimationDettachItemName("out", 1, "energy_drink");
+        animpoint_sit_low_drink_energy_animation_data.addAnimation("out", 1, "animpoint_sit_low_drink_out_2");
+
+        animpoint_sit_low_drink_energy_animation_data.addAnimation("idle", 0, "animpoint_sit_low_drink_idle_1");
+        animpoint_sit_low_drink_energy_animation_data.addAnimation("idle", 0, "animpoint_sit_low_drink_idle_1");
+
+        animpoint_sit_low_drink_energy_animation_data.addAnimation("rnd", 0, "animpoint_sit_low_drink_idle_rnd_1");
+        animpoint_sit_low_drink_energy_animation_data.addAnimation("rnd", 0, "animpoint_sit_low_drink_idle_rnd_2");
+
+        animpoint_sit_low_drink_energy_animation_data.addAnimation("rnd", 1, "animpoint_sit_low_drink_idle_rnd_1");
+        animpoint_sit_low_drink_energy_animation_data.addAnimation("rnd", 1, "animpoint_sit_low_drink_idle_rnd_2");
+
+        this->m_state_manager_animation_list["animpoint_sit_low_drink_energy"] =
+            animpoint_sit_low_drink_energy_animation_data;
+
+        StateManagerAnimationData animpoint_stay_wall_guitar_animation_data;
+        animpoint_stay_wall_guitar_animation_data.setPropertiesMaxIdle(5);
+        animpoint_stay_wall_guitar_animation_data.setPropertiesSumIdle(3);
+        animpoint_stay_wall_guitar_animation_data.setPropertiesRandom(80);
+        animpoint_stay_wall_guitar_animation_data.setPropertiesMoving(true);
+
+        animpoint_stay_wall_guitar_animation_data.addAnimation("idle", 0, "idle_0_idle_1");
+        animpoint_stay_wall_guitar_animation_data.addAnimation("idle", 1, "idle_0_idle_1");
+
+        animpoint_stay_wall_guitar_animation_data.addAnimation("rnd", 0, "idle_0_idle_0");
+        animpoint_stay_wall_guitar_animation_data.addAnimation("rnd", 1, "idle_0_idle_0");
+
+        this->m_state_manager_animation_list["animpoint_stay_wall_guitar"] = animpoint_stay_wall_guitar_animation_data;
+
+        StateManagerAnimationData animpoint_stay_table_guitar_animation_data;
+        animpoint_stay_table_guitar_animation_data.setPropertiesMaxIdle(5);
+        animpoint_stay_table_guitar_animation_data.setPropertiesSumIdle(3);
+        animpoint_stay_table_guitar_animation_data.setPropertiesRandom(80);
+        animpoint_stay_table_guitar_animation_data.setPropertiesMoving(true);
+
+        animpoint_stay_table_guitar_animation_data.addAnimation("idle", 0, "idle_0_idle_1");
+        animpoint_stay_table_guitar_animation_data.addAnimation("idle", 1, "idle_0_idle_1");
+
+        animpoint_stay_table_guitar_animation_data.addAnimation("rnd", 0, "idle_0_idle_0");
+        animpoint_stay_table_guitar_animation_data.addAnimation("rnd", 1, "idle_0_idle_0");
+
+        this->m_state_manager_animation_list["animpoint_stay_table_guitar"] =
+            animpoint_stay_table_guitar_animation_data;
+
+        StateManagerAnimationData animpoint_sit_high_guitar_animation_data;
+        animpoint_sit_high_guitar_animation_data.setPropertiesMaxIdle(5);
+        animpoint_sit_high_guitar_animation_data.setPropertiesSumIdle(3);
+        animpoint_sit_high_guitar_animation_data.setPropertiesRandom(80);
+        animpoint_sit_high_guitar_animation_data.setPropertiesMoving(true);
+
+        animpoint_sit_high_guitar_animation_data.addAnimation("idle", 0, "idle_0_idle_1");
+        animpoint_sit_high_guitar_animation_data.addAnimation("idle", 1, "idle_0_idle_1");
+
+        animpoint_sit_high_guitar_animation_data.addAnimation("rnd", 0, "idle_0_idle_0");
+        animpoint_sit_high_guitar_animation_data.addAnimation("rnd", 1, "idle_0_idle_0");
+
+        this->m_state_manager_animation_list["animpoint_sit_high_guitar"] = animpoint_sit_high_guitar_animation_data;
+
+        StateManagerAnimationData animpoint_sit_normal_guitar_animation_data;
+        animpoint_sit_normal_guitar_animation_data.setPropertiesMaxIdle(0);
+        animpoint_sit_normal_guitar_animation_data.setPropertiesSumIdle(0);
+        animpoint_sit_normal_guitar_animation_data.setPropertiesRandom(80);
+        animpoint_sit_normal_guitar_animation_data.setPropertiesMoving(true);
+
+        animpoint_sit_normal_guitar_animation_data.addAnimation("into", 0, "animpoint_sit_normal_guitar_in_1");
+        animpoint_sit_normal_guitar_animation_data.addAnimationAttachItemName("into", 0, "guitar_a");
+        //    animpoint_sit_normal_guitar_animation_data.addAnimationFunction("into", 0, sr_camp.start_guitar); Lord:
+        //    доделать!
+        animpoint_sit_normal_guitar_animation_data.addAnimation("into", 0, "animpoint_sit_normal_guitar_in_2");
+
+        animpoint_sit_normal_guitar_animation_data.addAnimation("into", 1, "animpoint_sit_normal_guitar_in_1");
+        animpoint_sit_normal_guitar_animation_data.addAnimationAttachItemName("into", 1, "guitar_a");
+        //    animpoint_sit_normal_guitar_animation_data.addAnimationFunction("into", 1, sr_camp.start_guitar); Lord:
+        //    доделать!
+        animpoint_sit_normal_guitar_animation_data.addAnimation("into", 1, "animpoint_sit_normal_guitar_in_2");
+
+        animpoint_sit_normal_guitar_animation_data.addAnimation("out", 0, "animpoint_sit_normal_guitar_out_1");
+        animpoint_sit_normal_guitar_animation_data.addAnimationDettachItemName("out", 0, "guitar_a");
+        animpoint_sit_normal_guitar_animation_data.addAnimation("out", 0, "animpoint_sit_normal_guitar_out_2");
+
+        animpoint_sit_normal_guitar_animation_data.addAnimation("out", 1, "animpoint_sit_normal_guitar_out_1");
+        animpoint_sit_normal_guitar_animation_data.addAnimationDettachItemName("out", 1, "guitar_a");
+        animpoint_sit_normal_guitar_animation_data.addAnimation("out", 1, "animpoint_sit_normal_guitar_out_2");
+
+        animpoint_sit_normal_guitar_animation_data.addAnimation("idle", 0, "animpoint_sit_normal_guitar_idle_1");
+        animpoint_sit_normal_guitar_animation_data.addAnimation("idle", 1, "animpoint_sit_normal_guitar_idle_1");
+
+        animpoint_sit_normal_guitar_animation_data.addAnimation("rnd", 0, "animpoint_sit_normal_guitar_idle_rnd_1");
+        animpoint_sit_normal_guitar_animation_data.addAnimation("rnd", 1, "animpoint_sit_normal_guitar_idle_rnd_1");
+
+        this->m_state_manager_animation_list["animpoint_sit_normal_guitar"] =
+            animpoint_sit_normal_guitar_animation_data;
+
+        StateManagerAnimationData animpoint_sit_low_guitar_animation_data;
+        animpoint_sit_low_guitar_animation_data.setPropertiesMaxIdle(0);
+        animpoint_sit_low_guitar_animation_data.setPropertiesSumIdle(0);
+        animpoint_sit_low_guitar_animation_data.setPropertiesRandom(80);
+        animpoint_sit_low_guitar_animation_data.setPropertiesMoving(true);
+
+        animpoint_sit_low_guitar_animation_data.addAnimation("into", 0, "animpoint_sit_low_guitar_in_1");
+        animpoint_sit_low_guitar_animation_data.addAnimationAttachItemName("into", 0, "guitar_a");
+        //    animpoint_sit_low_guitar_animation_data.addAnimationFunction("into", 0, sr_camp.start_guitar); Lord:
+        //    доделать!
+        animpoint_sit_low_guitar_animation_data.addAnimation("into", 0, "animpoint_sit_low_guitar_in_2");
+
+        animpoint_sit_low_guitar_animation_data.addAnimation("into", 1, "animpoint_sit_low_guitar_in_1");
+        animpoint_sit_low_guitar_animation_data.addAnimationAttachItemName("into", 1, "guitar_a");
+        //    animpoint_sit_low_guitar.addAnimationFunction("into", 1, sr_camp.start_guitar); Lord:
+        //    доделать!
+        animpoint_sit_low_guitar_animation_data.addAnimation("into", 1, "animpoint_sit_low_guitar_in_2");
+
+        animpoint_sit_low_guitar_animation_data.addAnimation("out", 0, "animpoint_sit_low_guitar_out_1");
+        animpoint_sit_low_guitar_animation_data.addAnimationDettachItemName("out", 0, "guitar_a");
+        animpoint_sit_low_guitar_animation_data.addAnimation("out", 0, "animpoint_sit_low_guitar_out_2");
+
+        animpoint_sit_low_guitar_animation_data.addAnimation("out", 1, "animpoint_sit_low_guitar_out_1");
+        animpoint_sit_low_guitar_animation_data.addAnimationDettachItemName("out", 1, "guitar_a");
+        animpoint_sit_low_guitar_animation_data.addAnimation("out", 1, "animpoint_sit_low_guitar_out_2");
+
+        animpoint_sit_low_guitar_animation_data.addAnimation("idle", 0, "animpoint_sit_low_guitar_idle_1");
+        animpoint_sit_low_guitar_animation_data.addAnimation("idle", 0, "animpoint_sit_low_guitar_idle_1");
+
+        animpoint_sit_low_guitar_animation_data.addAnimation("rnd", 0, "animpoint_sit_low_guitar_idle_rnd_2");
+        animpoint_sit_low_guitar_animation_data.addAnimation("rnd", 1, "animpoint_sit_low_guitar_idle_rnd_2");
+
+        this->m_state_manager_animation_list["animpoint_sit_low_guitar"] = animpoint_sit_low_guitar_animation_data;
+
+        StateManagerAnimationData animpoint_stay_wall_harmonica_animation_data;
+        animpoint_stay_wall_harmonica_animation_data.setPropertiesMaxIdle(5);
+        animpoint_stay_wall_harmonica_animation_data.setPropertiesSumIdle(3);
+        animpoint_stay_wall_harmonica_animation_data.setPropertiesRandom(80);
+        animpoint_stay_wall_harmonica_animation_data.setPropertiesMoving(true);
+
+        animpoint_stay_wall_harmonica_animation_data.addAnimation("idle", 0, "idle_0_idle_1");
+        animpoint_stay_wall_harmonica_animation_data.addAnimation("idle", 1, "idle_0_idle_1");
+
+        animpoint_stay_wall_harmonica_animation_data.addAnimation("rnd", 0, "idle_0_idle_0");
+        animpoint_stay_wall_harmonica_animation_data.addAnimation("rnd", 1, "idle_0_idle_0");
+
+        this->m_state_manager_animation_list["animpoint_stay_wall_harmonica"] =
+            animpoint_stay_wall_harmonica_animation_data;
+
+        StateManagerAnimationData animpoint_stay_table_harmonica_animation_data;
+        animpoint_stay_table_harmonica_animation_data.setPropertiesMaxIdle(5);
+        animpoint_stay_table_harmonica_animation_data.setPropertiesSumIdle(3);
+        animpoint_stay_table_harmonica_animation_data.setPropertiesRandom(80);
+        animpoint_stay_table_harmonica_animation_data.setPropertiesMoving(true);
+
+        animpoint_stay_table_harmonica_animation_data.addAnimation("idle", 0, "idle_0_idle_1");
+        animpoint_stay_table_harmonica_animation_data.addAnimation("idle", 1, "idle_0_idle_1");
+
+        animpoint_stay_table_harmonica_animation_data.addAnimation("rnd", 0, "idle_0_idle_0");
+        animpoint_stay_table_harmonica_animation_data.addAnimation("rnd", 1, "idle_0_idle_0");
+
+        this->m_state_manager_animation_list["animpoint_stay_table_harmonica"] =
+            animpoint_stay_table_harmonica_animation_data;
+
+        StateManagerAnimationData animpoint_sit_high_harmonica_animation_data;
+        animpoint_sit_high_harmonica_animation_data.setPropertiesMaxIdle(0);
+        animpoint_sit_high_harmonica_animation_data.setPropertiesSumIdle(0);
+        animpoint_sit_high_harmonica_animation_data.setPropertiesRandom(100);
+        animpoint_sit_high_harmonica_animation_data.setPropertiesMoving(true);
+
+        animpoint_sit_high_harmonica_animation_data.addAnimation("into", 0, "animpoint_sit_high_harmonica_in_1");
+        animpoint_sit_high_harmonica_animation_data.addAnimationAttachItemName("into", 0, "harmonica_a");
+        //    animpoint_sit_high_harmonica_animation_data.addAnimationFunction("into", 0, sr_camp.start_harmonica);
+        //    Lord: доделать!
+        animpoint_sit_high_harmonica_animation_data.addAnimation("into", 0, "animpoint_sit_high_harmonica_in_2");
+
+        animpoint_sit_high_harmonica_animation_data.addAnimation("into", 1, "animpoint_sit_high_harmonica_in_1");
+        animpoint_sit_high_harmonica_animation_data.addAnimationAttachItemName("into", 1, "harmonica_a");
+        //    animpoint_sit_low_guitar.addAnimationFunction("into", 1, sr_camp.start_harmonica); Lord:
+        //    доделать!
+        animpoint_sit_high_harmonica_animation_data.addAnimation("into", 1, "animpoint_sit_high_harmonica_in_2");
+
+        animpoint_sit_high_harmonica_animation_data.addAnimation("out", 0, "animpoint_sit_high_harmonica_out_1");
+        animpoint_sit_high_harmonica_animation_data.addAnimationDettachItemName("out", 0, "harmonica_a");
+        animpoint_sit_high_harmonica_animation_data.addAnimation("out", 0, "animpoint_sit_high_harmonica_out_2");
+
+        animpoint_sit_high_harmonica_animation_data.addAnimation("out", 1, "animpoint_sit_high_harmonica_out_1");
+        animpoint_sit_high_harmonica_animation_data.addAnimationDettachItemName("out", 1, "harmonica_a");
+        animpoint_sit_high_harmonica_animation_data.addAnimation("out", 1, "animpoint_sit_high_harmonica_out_2");
+
+        animpoint_sit_high_harmonica_animation_data.addAnimation("idle", 0, "animpoint_sit_high_harmonica_idle_1");
+        animpoint_sit_high_harmonica_animation_data.addAnimation("idle", 1, "animpoint_sit_high_harmonica_idle_1");
+
+        this->m_state_manager_animation_list["animpoint_sit_high_harmonica"] =
+            animpoint_sit_high_harmonica_animation_data;
+
+        StateManagerAnimationData animpoint_sit_normal_harmonica_animation_data;
+        animpoint_sit_normal_harmonica_animation_data.setPropertiesMaxIdle(0);
+        animpoint_sit_normal_harmonica_animation_data.setPropertiesSumIdle(0);
+        animpoint_sit_normal_harmonica_animation_data.setPropertiesRandom(100);
+        animpoint_sit_normal_harmonica_animation_data.setPropertiesMoving(true);
+
+        animpoint_sit_normal_harmonica_animation_data.addAnimation("idle", 0, "idle_0_idle_1");
+        animpoint_sit_normal_harmonica_animation_data.addAnimation("idle", 1, "idle_0_idle_1");
+
+        animpoint_sit_normal_harmonica_animation_data.addAnimation("rnd", 0, "idle_0_idle_0");
+        animpoint_sit_normal_harmonica_animation_data.addAnimation("rnd", 1, "idle_0_idle_0");
+
+        this->m_state_manager_animation_list["animpoint_sit_normal_harmonica"] =
+            animpoint_sit_normal_harmonica_animation_data;
+
+        StateManagerAnimationData animpoint_sit_low_harmonica_animation_data;
+        animpoint_sit_low_harmonica_animation_data.setPropertiesMaxIdle(0);
+        animpoint_sit_low_harmonica_animation_data.setPropertiesSumIdle(0);
+        animpoint_sit_low_harmonica_animation_data.setPropertiesRandom(100);
+        animpoint_sit_low_harmonica_animation_data.setPropertiesMoving(true);
+
+        animpoint_sit_low_harmonica_animation_data.addAnimation("into", 0, "animpoint_sit_low_harmonica_in_1");
+        animpoint_sit_low_harmonica_animation_data.addAnimationAttachItemName("into", 0, "harmonica_a");
+        //    animpoint_sit_low_harmonica_animation_data.addAnimationFunction("into", 0, sr_camp.start_harmonica);
+        //    Lord: доделать!
+        animpoint_sit_low_harmonica_animation_data.addAnimation("into", 0, "animpoint_sit_low_harmonica_in_2");
+
+        animpoint_sit_low_harmonica_animation_data.addAnimation("into", 1, "animpoint_sit_low_harmonica_in_1");
+        animpoint_sit_low_harmonica_animation_data.addAnimationAttachItemName("into", 1, "harmonica_a");
+        //    animpoint_sit_low_guitar.addAnimationFunction("into", 1, sr_camp.start_harmonica); Lord:
+        //    доделать!
+        animpoint_sit_low_harmonica_animation_data.addAnimation("into", 1, "animpoint_sit_low_harmonica_in_2");
+
+        animpoint_sit_low_harmonica_animation_data.addAnimation("out", 0, "animpoint_sit_low_harmonica_out_1");
+        animpoint_sit_low_harmonica_animation_data.addAnimationDettachItemName("out", 0, "harmonica_a");
+        animpoint_sit_low_harmonica_animation_data.addAnimation("out", 0, "animpoint_sit_low_harmonica_out_2");
+
+        animpoint_sit_low_harmonica_animation_data.addAnimation("out", 1, "animpoint_sit_low_harmonica_out_1");
+        animpoint_sit_low_harmonica_animation_data.addAnimationDettachItemName("out", 1, "harmonica_a");
+        animpoint_sit_low_harmonica_animation_data.addAnimation("out", 1, "animpoint_sit_low_harmonica_out_2");
+
+        animpoint_sit_low_harmonica_animation_data.addAnimation("idle", 0, "animpoint_sit_low_harmonica_idle_1");
+        animpoint_sit_low_harmonica_animation_data.addAnimation("idle", 1, "animpoint_sit_low_harmonica_idle_1");
+
+        this->m_state_manager_animation_list["animpoint_sit_low_harmonica"] =
+            animpoint_sit_low_harmonica_animation_data;
+
+        StateManagerAnimationData zat_b14_give_artefact_idle_animation_data;
+        zat_b14_give_artefact_idle_animation_data.setPropertiesMaxIdle(1);
+        zat_b14_give_artefact_idle_animation_data.setPropertiesSumIdle(4);
+        zat_b14_give_artefact_idle_animation_data.setPropertiesRandom(100);
+
+        zat_b14_give_artefact_idle_animation_data.addAnimation("into", 0, "zat_b14_give_artefact_ible");
+        zat_b14_give_artefact_idle_animation_data.addAnimationAttachItemName("into", 0, "af_quest_b14_twisted");
+
+        zat_b14_give_artefact_idle_animation_data.addAnimation("idle", 0, "zat_b14_give_artefact_ible");
+
+        this->m_state_manager_animation_list["zat_b14_give_artefact_idle"] = zat_b14_give_artefact_idle_animation_data;
+
+        StateManagerAnimationData zat_b14_give_artefact_act_animation_data;
+        zat_b14_give_artefact_act_animation_data.setPropertiesMaxIdle(1);
+        zat_b14_give_artefact_act_animation_data.setPropertiesSumIdle(1);
+        zat_b14_give_artefact_act_animation_data.setPropertiesRandom(100);
+
+        zat_b14_give_artefact_act_animation_data.addAnimation("into", 0, "zat_b14_give_artefact_in");
+        zat_b14_give_artefact_act_animation_data.addAnimationDettachItemName("into", 0, "af_quest_b14_twisted");
+        zat_b14_give_artefact_act_animation_data.addAnimation("into", 0, "zat_b14_give_artefact_out");
+
+        this->m_state_manager_animation_list["zat_b14_give_artefact_act"] = zat_b14_give_artefact_act_animation_data;
+
+        StateManagerAnimationData zat_b14_stay_wall_animation_data;
+        zat_b14_stay_wall_animation_data.setPropertiesRandom(100);
+        zat_b14_stay_wall_animation_data.setPropertiesMoving(true);
+        zat_b14_stay_wall_animation_data.setPropertiesMaxIdle(1);
+        zat_b14_stay_wall_animation_data.setPropertiesSumIdle(1);
+
+        zat_b14_stay_wall_animation_data.addAnimation("into", 0, "animpoint_stay_wall_in_1");
+        zat_b14_stay_wall_animation_data.addAnimation("out", 0, "animpoint_stay_wall_out_1");
+        zat_b14_stay_wall_animation_data.addAnimation("idle", 0, "animpoint_stay_wall_idle_1");
+
+        this->m_state_manager_animation_list["zat_b14_stay_wall"] = zat_b14_stay_wall_animation_data;
+
+        StateManagerAnimationData zat_b38_stalker_break_lock_animation_data;
+        zat_b38_stalker_break_lock_animation_data.setPropertiesMaxIdle(1);
+        zat_b38_stalker_break_lock_animation_data.setPropertiesSumIdle(1);
+        zat_b38_stalker_break_lock_animation_data.setPropertiesRandom(100);
+        zat_b38_stalker_break_lock_animation_data.setPropertiesMoving(true);
+
+        zat_b38_stalker_break_lock_animation_data.addAnimation("into", 0, "zat_b38_stalker_break_lock");
+        // zat_b38_stalker_break_lock_animation_data.addAnimationFunction("into", 0,
+        // xr_effects.zat_b38_underground_door_open); Lord: доделать!
+
+        this->m_state_manager_animation_list["zat_b38_stalker_break_lock"] = zat_b38_stalker_break_lock_animation_data;
+
+        StateManagerAnimationData zat_b38_stalker_turn_on_lift_animation_data;
+        zat_b38_stalker_turn_on_lift_animation_data.setPropertiesMaxIdle(1);
+        zat_b38_stalker_turn_on_lift_animation_data.setPropertiesSumIdle(1);
+        zat_b38_stalker_turn_on_lift_animation_data.setPropertiesMoving(true);
+        zat_b38_stalker_turn_on_lift_animation_data.setPropertiesRandom(100);
+
+        zat_b38_stalker_turn_on_lift_animation_data.addAnimation("into", 0, "zat_b38_stalker_jump_lift_in_1");
+        // zat_b38_stalker_turn_on_lift_animation_data.addAnimationFunction("into", 0, xr_effects.zat_b38_open_info);
+        // Lord: доделать!
+        zat_b38_stalker_turn_on_lift_animation_data.addAnimation("into", 0, "zat_b38_stalker_jump_lift_in_2");
+        // zat_b38_stalker_turn_on_lift_animation_data.addAnimationFunction("into", 0, xr_effects.zat_b38_switch_info);
+        // Lord: доделать!
+        zat_b38_stalker_turn_on_lift_animation_data.addAnimation("into", 0, "zat_b38_stalker_jump_lift_in_3");
+        zat_b38_stalker_turn_on_lift_animation_data.addAnimation("into", 0, "zat_b38_stalker_jump_lift_idle");
+        zat_b38_stalker_turn_on_lift_animation_data.addAnimation("into", 0, "zat_b38_stalker_jump_lift_out");
+
+        this->m_state_manager_animation_list["zat_b38_stalker_turn_on_lift"] =
+            zat_b38_stalker_turn_on_lift_animation_data;
+
+        StateManagerAnimationData zat_b38_stalker_jump_tonnel_animation_data;
+        zat_b38_stalker_jump_tonnel_animation_data.setPropertiesMaxIdle(1);
+        zat_b38_stalker_jump_tonnel_animation_data.setPropertiesSumIdle(1);
+        zat_b38_stalker_jump_tonnel_animation_data.setPropertiesRandom(100);
+        zat_b38_stalker_jump_tonnel_animation_data.setPropertiesMoving(true);
+
+        zat_b38_stalker_jump_tonnel_animation_data.addAnimation("into", 0, "zat_b38_stalker_jump_tonnel");
+        //   zat_b38_stalker_jump_tonnel_animation_data.addAnimationFunction("into", 0,
+        //   xr_effects.zat_b38_jump_tonnel_info); Lord: доделать!
+
+        this->m_state_manager_animation_list["zat_b38_stalker_jump_tonnel"] =
+            zat_b38_stalker_jump_tonnel_animation_data;
+
+        StateManagerAnimationData zat_b20_noah_jump_animation_data;
+        zat_b20_noah_jump_animation_data.setPropertiesMaxIdle(1);
+        zat_b20_noah_jump_animation_data.setPropertiesSumIdle(1);
+        zat_b20_noah_jump_animation_data.setPropertiesMoving(true);
+        zat_b20_noah_jump_animation_data.setPropertiesRandom(100);
+
+        zat_b20_noah_jump_animation_data.addAnimation("into", 0, "zat_b20_noah_jump");
+
+        this->m_state_manager_animation_list["zat_b20_noah_jump"] = zat_b20_noah_jump_animation_data;
+
+        StateManagerAnimationData zat_b38_stalker_alert_animation_data;
+        zat_b38_stalker_alert_animation_data.setPropertiesMaxIdle(1);
+        zat_b38_stalker_alert_animation_data.setPropertiesSumIdle(1);
+        zat_b38_stalker_alert_animation_data.setPropertiesRandom(100);
+        zat_b38_stalker_alert_animation_data.setPropertiesMoving(true);
+
+        zat_b38_stalker_alert_animation_data.addAnimation("into", 0, "zat_b38_stalker_alert");
+        // zat_b38_stalker_alert_animation_data.addAnimationFunction("into", 0, xr_effects.pri_a17_ice_climb_end); Lord:
+        // доделать!
+
+        this->m_state_manager_animation_list["zat_b38_stalker_alert"] = zat_b38_stalker_alert_animation_data;
+
+        StateManagerAnimationData pri_a17_ice_climb_animation_data;
+        pri_a17_ice_climb_animation_data.setPropertiesMaxIdle(1);
+        pri_a17_ice_climb_animation_data.setPropertiesSumIdle(1);
+        pri_a17_ice_climb_animation_data.setPropertiesMoving(true);
+        pri_a17_ice_climb_animation_data.setPropertiesRandom(100);
+
+        pri_a17_ice_climb_animation_data.addAnimation("into", 0, "pri_a17_sniper_climbing");
+
+        this->m_state_manager_animation_list["pri_a17_ice_climb"] = pri_a17_ice_climb_animation_data;
+
+        StateManagerAnimationData pri_a17_fall_down_animation_data;
+        pri_a17_fall_down_animation_data.setPropertiesMaxIdle(1);
+        pri_a17_fall_down_animation_data.setPropertiesSumIdle(1);
+        pri_a17_fall_down_animation_data.setPropertiesRandom(100);
+        pri_a17_fall_down_animation_data.setPropertiesMoving(true);
+
+        pri_a17_fall_down_animation_data.addAnimation("into", 0, "ragdoll_sniper_body_front_2");
+        //  pri_a17_fall_down_animation_data.addAnimationFunction("into", 0, xr_effects.pri_a17_preacher_death); Lord:
+        //  доделать!
+
+        this->m_state_manager_animation_list["pri_a17_fall_down"] = pri_a17_fall_down_animation_data;
+
+        StateManagerAnimationData pri_a17_pray_in_animation_data;
+        pri_a17_pray_in_animation_data.setPropertiesMaxIdle(1);
+        pri_a17_pray_in_animation_data.setPropertiesSumIdle(1);
+        pri_a17_pray_in_animation_data.setPropertiesRandom(100);
+        pri_a17_pray_in_animation_data.setPropertiesMoving(true);
+
+        pri_a17_pray_in_animation_data.addAnimation("into", 0, "pri_a17_preacher_sermon_in");
+        //  pri_a17_pray_in_animation_data.addAnimationFunction("into", 0, xr_effects.pri_a17_pray_start); // Lord:
+        //  доделать!
+        pri_a17_pray_in_animation_data.addAnimation("into", 0, "pri_a17_preacher_sermon_out");
+
+        this->m_state_manager_animation_list["pri_a17_pray_in"] = pri_a17_pray_in_animation_data;
+
+        StateManagerAnimationData pri_a17_pray_animation_data;
+        pri_a17_pray_animation_data.setPropertiesMaxIdle(1);
+        pri_a17_pray_animation_data.setPropertiesSumIdle(1);
+        pri_a17_pray_animation_data.setPropertiesMoving(true);
+        pri_a17_pray_animation_data.setPropertiesRandom(100);
+
+        pri_a17_pray_animation_data.addAnimation("idle", 0, "pri_a17_preacher_sermon_out");
+
+        this->m_state_manager_animation_list["pri_a17_pray"] = pri_a17_pray_animation_data;
+
+        StateManagerAnimationData dynamite_animation_data;
+        dynamite_animation_data.setPropertiesMaxIdle(1);
+        dynamite_animation_data.setPropertiesSumIdle(1);
+        dynamite_animation_data.setPropertiesRandom(100);
+
+        dynamite_animation_data.addAnimation("into", 0, "dinamit_1");
+
+        this->m_state_manager_animation_list["dynamite"] = dynamite_animation_data;
+
+        StateManagerAnimationData bloodsucker_panic_animation_data;
+        bloodsucker_panic_animation_data.setPropertiesMaxIdle(1);
+        bloodsucker_panic_animation_data.setPropertiesSumIdle(1);
+        bloodsucker_panic_animation_data.setPropertiesRandom(100);
+
+        bloodsucker_panic_animation_data.addAnimation("idle", 0, "norm_alert_attack_0");
+
+        this->m_state_manager_animation_list["bloodsucker_panic"] = bloodsucker_panic_animation_data;
+
+        StateManagerAnimationData bloodsucker_search_animation_data;
+        bloodsucker_search_animation_data.setPropertiesMaxIdle(0);
+        bloodsucker_search_animation_data.setPropertiesSumIdle(0);
+        bloodsucker_search_animation_data.setPropertiesRandom(100);
+
+        bloodsucker_search_animation_data.addAnimation("into", 0, "norm_alert_in_0");
+
+        bloodsucker_search_animation_data.addAnimation("idle", 0, "norm_alert_idle_0");
+
+        bloodsucker_search_animation_data.addAnimation("out", 0, "norm_alert_out_0");
+
+        bloodsucker_search_animation_data.addAnimation("rnd", 0, "norm_alert_idle_0");
+        bloodsucker_search_animation_data.addAnimation("rnd", 0, "norm_alert_idle_1");
+        bloodsucker_search_animation_data.addAnimation("rnd", 0, "norm_alert_idle_3");
+
+        this->m_state_manager_animation_list["bloodsucker_search"] = bloodsucker_search_animation_data;
+
+        StateManagerAnimationData give_orders_animation_data;
+        give_orders_animation_data.setPropertiesMaxIdle(1);
+        give_orders_animation_data.setPropertiesSumIdle(1);
+        give_orders_animation_data.setPropertiesRandom(100);
+
+        give_orders_animation_data.addAnimation("into", 0, "norm_alert_idle_0");
+        give_orders_animation_data.addAnimation("into", 0, "norm_alert_command_0");
+
+        this->m_state_manager_animation_list["give_orders"] = give_orders_animation_data;
+
+        StateManagerAnimationData zat_b22_medic_turn_idle_animation_data;
+        zat_b22_medic_turn_idle_animation_data.setPropertiesMaxIdle(1);
+        zat_b22_medic_turn_idle_animation_data.setPropertiesSumIdle(1);
+        zat_b22_medic_turn_idle_animation_data.setPropertiesMoving(true);
+
+        zat_b22_medic_turn_idle_animation_data.addAnimation("idle", 0, "zat_b22_medic_turn_idle");
+
+        this->m_state_manager_animation_list["zat_b22_medic_turn_idle"] = zat_b22_medic_turn_idle_animation_data;
+
+        StateManagerAnimationData zat_b22_medic_turn_out_animation_data;
+        zat_b22_medic_turn_out_animation_data.setPropertiesMaxIdle(1);
+        zat_b22_medic_turn_out_animation_data.setPropertiesSumIdle(1);
+        zat_b22_medic_turn_out_animation_data.setPropertiesMoving(true);
+
+        zat_b22_medic_turn_out_animation_data.addAnimation("into", 0, "zat_b22_medic_turn_out");
+
+        this->m_state_manager_animation_list["zat_b22_medic_turn_out"] = zat_b22_medic_turn_out_animation_data;
+
+        StateManagerAnimationData zat_b22_medic_suicide_animation_data;
+        zat_b22_medic_suicide_animation_data.setPropertiesMaxIdle(1);
+        zat_b22_medic_suicide_animation_data.setPropertiesSumIdle(1);
+        zat_b22_medic_suicide_animation_data.setPropertiesMoving(true);
+
+        zat_b22_medic_suicide_animation_data.addAnimation("into", 0, "zat_b22_medic_suicide_in");
+        zat_b22_medic_suicide_animation_data.addAnimation("idle", 0, "zat_b22_medic_suicide_idle");
+
+        this->m_state_manager_animation_list["zat_b22_medic_suicide"] = zat_b22_medic_suicide_animation_data;
+
+        StateManagerAnimationData zat_b3_tech_drunk_animation_data;
+        zat_b3_tech_drunk_animation_data.setPropertiesMaxIdle(1);
+        zat_b3_tech_drunk_animation_data.setPropertiesSumIdle(1);
+        zat_b3_tech_drunk_animation_data.setPropertiesRandom(100);
+        zat_b3_tech_drunk_animation_data.setPropertiesMoving(true);
+
+        zat_b3_tech_drunk_animation_data.addAnimation("into", 0, "zat_b3_tech_drunk_in");
+
+        zat_b3_tech_drunk_animation_data.addAnimation("out", 0, "zat_b3_tech_drunk_out");
+        //  zat_b3_tech_drunk_animation_data.addAnimationFunction("out", 0, xr_effects.zat_b3_tech_waked_up);
+
+        zat_b3_tech_drunk_animation_data.addAnimation("idle", 0, "zat_b3_tech_drunk_idle");
+
+        this->m_state_manager_animation_list["zat_b3_tech_drunk"] = zat_b3_tech_drunk_animation_data;
+
+        StateManagerAnimationData zat_b3_tech_idle_1_animation_data;
+        zat_b3_tech_idle_1_animation_data.setPropertiesMaxIdle(1);
+        zat_b3_tech_idle_1_animation_data.setPropertiesSumIdle(1);
+        zat_b3_tech_idle_1_animation_data.setPropertiesRandom(100);
+        zat_b3_tech_idle_1_animation_data.setPropertiesMoving(true);
+
+        zat_b3_tech_idle_1_animation_data
+            .addAnimation("idle", 0, "zat_b3_tech_idle_1");
+
+        this->m_state_manager_animation_list["zat_b3_tech_idle_1"] = zat_b3_tech_idle_1_animation_data;
 #pragma endregion
     }
 
