@@ -12473,7 +12473,59 @@ private:
         pri_a15_military_4_all_dead_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam31");
         pri_a15_military_4_all_dead_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam32");
 
-        this->m_state_manager_animation_list["pri_a15_military_4_all_dead"] = pri_a15_military_4_all_dead_animation_data;
+        this->m_state_manager_animation_list["pri_a15_military_4_all_dead"] =
+            pri_a15_military_4_all_dead_animation_data;
+
+        StateManagerAnimationData sit_animation_data;
+        sit_animation_data.setPropertiesMaxIdle(5);
+        sit_animation_data.setPropertiesSumIdle(3);
+        sit_animation_data.setPropertiesRandom(80);
+
+        sit_animation_data.addAnimation("into", 0, "idle_0_to_sit_0");
+
+        sit_animation_data.addAnimation("out", 0, "sit_0_to_idle_0");
+
+        sit_animation_data.addAnimation("idle", 0, "sit_0_idle_0");
+
+        sit_animation_data.addAnimation("rnd", 0, "sit_0_idle_1");
+        sit_animation_data.addAnimation("rnd", 0, "sit_0_idle_2");
+        sit_animation_data.addAnimation("rnd", 0, "sit_0_idle_3");
+
+        this->m_state_manager_animationstate_list["sit"] = sit_animation_data;
+
+        StateManagerAnimationData sit_knee_animation_data;
+        sit_knee_animation_data.setPropertiesMaxIdle(5);
+        sit_knee_animation_data.setPropertiesSumIdle(3);
+        sit_knee_animation_data.setPropertiesRandom(80);
+
+        sit_knee_animation_data.addAnimation("into", 0, "idle_0_to_sit_1");
+
+        sit_knee_animation_data.addAnimation("out", 0, "sit_1_to_idle_0");
+
+        sit_knee_animation_data.addAnimation("idle", 0, "sit_1_idle_0");
+
+        sit_knee_animation_data.addAnimation("rnd", 0, "sit_1_idle_1");
+        sit_knee_animation_data.addAnimation("rnd", 0, "sit_1_idle_2");
+        sit_knee_animation_data.addAnimation("rnd", 0, "sit_1_idle_3");
+
+        this->m_state_manager_animationstate_list["sit_knee"] = sit_knee_animation_data;
+
+        StateManagerAnimationData sit_ass_animation_data;
+        sit_ass_animation_data.setPropertiesMaxIdle(5);
+        sit_ass_animation_data.setPropertiesSumIdle(3);
+        sit_ass_animation_data.setPropertiesRandom(80);
+
+        sit_ass_animation_data.addAnimation("into", 0, "idle_0_to_sit_2");
+
+        sit_ass_animation_data.addAnimation("out", 0, "sit_2_to_idle_0");
+
+        sit_ass_animation_data.addAnimation("idle", 0, "sit_2_idle_0");
+
+        sit_ass_animation_data.addAnimation("rnd", 0, "sit_2_idle_1");
+        sit_ass_animation_data.addAnimation("rnd", 0, "sit_2_idle_2");
+        sit_ass_animation_data.addAnimation("rnd", 0, "sit_2_idle_3");
+
+        this->m_state_manager_animationstate_list["sit_ass"] = sit_ass_animation_data;
 #pragma endregion
     }
 
