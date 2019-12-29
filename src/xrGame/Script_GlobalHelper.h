@@ -7594,6 +7594,4289 @@ private:
 
         pri_a25_psy_medic_out_animation_data.addAnimation("into", 0, "psy_0_idle_0_to_idle_0");
         this->m_state_manager_animation_list["pri_a25_psy_medic_out"] = pri_a25_psy_medic_out_animation_data;
+
+        StateManagerAnimationData pri_a15_idle_none_animation_data;
+        pri_a15_idle_none_animation_data.setPropertiesMaxIdle(1);
+        pri_a15_idle_none_animation_data.setPropertiesSumIdle(1);
+        pri_a15_idle_none_animation_data.setPropertiesMoving(true);
+        pri_a15_idle_none_animation_data.setPropertiesRandom(100);
+
+        pri_a15_idle_none_animation_data.addAnimation("into", 0, "chest_0_idle_0");
+        pri_a15_idle_none_animation_data.addAnimation("idle", 0, "chest_0_idle_0");
+
+        this->m_state_manager_animation_list["pri_a15_idle_none"] = pri_a15_idle_none_animation_data;
+
+        StateManagerAnimationData pri_a15_idle_unstrap_animation_data;
+        pri_a15_idle_unstrap_animation_data.setPropertiesMaxIdle(1);
+        pri_a15_idle_unstrap_animation_data.setPropertiesSumIdle(1);
+        pri_a15_idle_unstrap_animation_data.setPropertiesMoving(true);
+        pri_a15_idle_unstrap_animation_data.setPropertiesRandom(100);
+
+        pri_a15_idle_unstrap_animation_data.addAnimation("into", 0, "chest_0_idle_0");
+        pri_a15_idle_unstrap_animation_data.addAnimation("idle", 0, "chest_0_idle_0");
+
+        this->m_state_manager_animation_list["pri_a15_idle_unstrap"] = pri_a15_idle_unstrap_animation_data;
+
+        StateManagerAnimationData pri_a15_vano_all_animation_data;
+        pri_a15_vano_all_animation_data.setPropertiesMaxIdle(1);
+        pri_a15_vano_all_animation_data.setPropertiesSumIdle(1);
+        pri_a15_vano_all_animation_data.setPropertiesMoving(true);
+        pri_a15_vano_all_animation_data.setPropertiesRandom(100);
+
+        pri_a15_vano_all_animation_data.addAnimation("into", 0, "pri_a15_vano_cam1");
+        pri_a15_vano_all_animation_data.addAnimationAttachItemName("into", 0, "pri_a15_wpn_wincheaster1300");
+        pri_a15_vano_all_animation_data.addAnimation("into", 0, "pri_a15_vano_cam2");
+        pri_a15_vano_all_animation_data.addAnimation("into", 0, "pri_a15_vano_cam3");
+        pri_a15_vano_all_animation_data.addAnimation("into", 0, "pri_a15_vano_cam4");
+        pri_a15_vano_all_animation_data.addAnimation("into", 0, "pri_a15_vano_cam5");
+        pri_a15_vano_all_animation_data.addAnimation("into", 0, "pri_a15_vano_cam6");
+        pri_a15_vano_all_animation_data.addAnimation("into", 0, "pri_a15_vano_cam7_1");
+        //       pri_a15_vano_all_animation_data.addAnimationFunction("into", 0, state_mgr_pri_a15.unstrap_weapon);
+        //       Lord: доделать!
+        pri_a15_vano_all_animation_data.addAnimation("into", 0, "pri_a15_vano_cam7_2");
+        pri_a15_vano_all_animation_data.addAnimation("into", 0, "pri_a15_vano_cam8");
+        pri_a15_vano_all_animation_data.addAnimation("into", 0, "pri_a15_vano_cam9");
+        pri_a15_vano_all_animation_data.addAnimation("into", 0, "pri_a15_vano_cam10");
+        pri_a15_vano_all_animation_data.addAnimation("into", 0, "pri_a15_vano_cam11");
+        pri_a15_vano_all_animation_data.addAnimation("into", 0, "pri_a15_vano_cam12");
+        pri_a15_vano_all_animation_data.addAnimation("into", 0, "pri_a15_vano_cam13");
+        pri_a15_vano_all_animation_data.addAnimation("into", 0, "pri_a15_vano_cam14");
+        pri_a15_vano_all_animation_data.addAnimation("into", 0, "pri_a15_vano_cam15");
+        pri_a15_vano_all_animation_data.addAnimation("into", 0, "pri_a15_vano_cam16");
+        pri_a15_vano_all_animation_data.addAnimation("into", 0, "pri_a15_vano_cam17");
+        pri_a15_vano_all_animation_data.addAnimation("into", 0, "pri_a15_vano_cam17_1");
+        pri_a15_vano_all_animation_data.addAnimation("into", 0, "pri_a15_vano_cam18");
+        pri_a15_vano_all_animation_data.addAnimation("into", 0, "pri_a15_vano_cam19");
+        pri_a15_vano_all_animation_data.addAnimation("into", 0, "pri_a15_vano_cam20");
+        pri_a15_vano_all_animation_data.addAnimation("into", 0, "pri_a15_vano_cam21");
+        pri_a15_vano_all_animation_data.addAnimationSoundName("into", 0, "pri_a15_vano_speech_one");
+        pri_a15_vano_all_animation_data.addAnimation("into", 0, "pri_a15_vano_cam22");
+        pri_a15_vano_all_animation_data.addAnimation("into", 0, "pri_a15_vano_cam23");
+        pri_a15_vano_all_animation_data.addAnimation("into", 0, "pri_a15_vano_cam24");
+        pri_a15_vano_all_animation_data.addAnimation("into", 0, "pri_a15_vano_cam25");
+        pri_a15_vano_all_animation_data.addAnimation("into", 0, "pri_a15_vano_cam25_1");
+        pri_a15_vano_all_animation_data.addAnimation("into", 0, "pri_a15_vano_cam26");
+        pri_a15_vano_all_animation_data.addAnimation("into", 0, "pri_a15_vano_cam27");
+        pri_a15_vano_all_animation_data.addAnimation("into", 0, "pri_a15_vano_cam28");
+        pri_a15_vano_all_animation_data.addAnimation("into", 0, "pri_a15_vano_cam29");
+        pri_a15_vano_all_animation_data.addAnimation("into", 0, "pri_a15_vano_cam30");
+        pri_a15_vano_all_animation_data.addAnimation("into", 0, "pri_a15_vano_cam31");
+        pri_a15_vano_all_animation_data.addAnimation("into", 0, "pri_a15_vano_cam32");
+
+        this->m_state_manager_animation_list["pri_a15_vano_all"] = pri_a15_vano_all_animation_data;
+
+        StateManagerAnimationData pri_a15_vano_1_sokolov_animation_data;
+        pri_a15_vano_1_sokolov_animation_data.setPropertiesMaxIdle(1);
+        pri_a15_vano_1_sokolov_animation_data.setPropertiesSumIdle(1);
+        pri_a15_vano_1_sokolov_animation_data.setPropertiesMoving(true);
+        pri_a15_vano_1_sokolov_animation_data.setPropertiesRandom(100);
+
+        pri_a15_vano_1_sokolov_animation_data.addAnimation("into", 0, "pri_a15_vano_cam1");
+        pri_a15_vano_1_sokolov_animation_data.addAnimationAttachItemName("into", 0, "pri_a15_wpn_wincheaster1300");
+        pri_a15_vano_1_sokolov_animation_data.addAnimation("into", 0, "pri_a15_vano_cam2");
+        pri_a15_vano_1_sokolov_animation_data.addAnimation("into", 0, "pri_a15_vano_cam3");
+        pri_a15_vano_1_sokolov_animation_data.addAnimation("into", 0, "pri_a15_vano_cam4");
+        pri_a15_vano_1_sokolov_animation_data.addAnimation("into", 0, "pri_a15_vano_cam5");
+        pri_a15_vano_1_sokolov_animation_data.addAnimation("into", 0, "pri_a15_vano_cam6");
+        pri_a15_vano_1_sokolov_animation_data.addAnimation("into", 0, "pri_a15_vano_cam7_1");
+        //       pri_a15_vano_1_sokolov_animation_data.addAnimationFunction("into", 0,
+        //       state_mgr_pri_a15.unstrap_weapon); Lord: доделать!
+        pri_a15_vano_1_sokolov_animation_data.addAnimation("into", 0, "pri_a15_vano_cam7_2");
+        pri_a15_vano_1_sokolov_animation_data.addAnimation("into", 0, "pri_a15_vano_cam8");
+        pri_a15_vano_1_sokolov_animation_data.addAnimation("into", 0, "pri_a15_vano_cam9");
+        pri_a15_vano_1_sokolov_animation_data.addAnimation("into", 0, "pri_a15_vano_cam10");
+        pri_a15_vano_1_sokolov_animation_data.addAnimation("into", 0, "pri_a15_vano_cam12");
+        pri_a15_vano_1_sokolov_animation_data.addAnimation("into", 0, "pri_a15_vano_cam13");
+        pri_a15_vano_1_sokolov_animation_data.addAnimation("into", 0, "pri_a15_vano_cam14");
+        pri_a15_vano_1_sokolov_animation_data.addAnimation("into", 0, "pri_a15_vano_cam15");
+        pri_a15_vano_1_sokolov_animation_data.addAnimation("into", 0, "pri_a15_vano_cam16");
+        pri_a15_vano_1_sokolov_animation_data.addAnimation("into", 0, "pri_a15_vano_cam17");
+        pri_a15_vano_1_sokolov_animation_data.addAnimation("into", 0, "pri_a15_vano_cam17_1");
+        pri_a15_vano_1_sokolov_animation_data.addAnimation("into", 0, "pri_a15_vano_cam18");
+        pri_a15_vano_1_sokolov_animation_data.addAnimation("into", 0, "pri_a15_vano_cam19");
+        pri_a15_vano_1_sokolov_animation_data.addAnimation("into", 0, "pri_a15_vano_cam21");
+        pri_a15_vano_1_sokolov_animation_data.addAnimationSoundName("into", 0, "pri_a15_vano_speech_one");
+        pri_a15_vano_1_sokolov_animation_data.addAnimation("into", 0, "pri_a15_vano_cam22");
+        pri_a15_vano_1_sokolov_animation_data.addAnimation("into", 0, "pri_a15_vano_cam23");
+        pri_a15_vano_1_sokolov_animation_data.addAnimation("into", 0, "pri_a15_vano_cam24");
+        pri_a15_vano_1_sokolov_animation_data.addAnimation("into", 0, "pri_a15_vano_cam25");
+        pri_a15_vano_1_sokolov_animation_data.addAnimation("into", 0, "pri_a15_vano_cam25_1");
+        pri_a15_vano_1_sokolov_animation_data.addAnimation("into", 0, "pri_a15_vano_cam26");
+        pri_a15_vano_1_sokolov_animation_data.addAnimation("into", 0, "pri_a15_vano_cam27");
+        pri_a15_vano_1_sokolov_animation_data.addAnimation("into", 0, "pri_a15_vano_cam28");
+        pri_a15_vano_1_sokolov_animation_data.addAnimation("into", 0, "pri_a15_vano_cam29");
+        pri_a15_vano_1_sokolov_animation_data.addAnimation("into", 0, "pri_a15_vano_cam30");
+        pri_a15_vano_1_sokolov_animation_data.addAnimation("into", 0, "pri_a15_vano_cam31");
+        pri_a15_vano_1_sokolov_animation_data.addAnimation("into", 0, "pri_a15_vano_cam32");
+
+        this->m_state_manager_animation_list["pri_a15_vano_1_sokolov"] = pri_a15_vano_1_sokolov_animation_data;
+
+        StateManagerAnimationData pri_a15_vano_1_zulus_animation_data;
+        pri_a15_vano_1_zulus_animation_data.setPropertiesMaxIdle(1);
+        pri_a15_vano_1_zulus_animation_data.setPropertiesSumIdle(1);
+        pri_a15_vano_1_zulus_animation_data.setPropertiesMoving(true);
+        pri_a15_vano_1_zulus_animation_data.setPropertiesRandom(100);
+
+        pri_a15_vano_1_zulus_animation_data.addAnimation("into", 0, "pri_a15_vano_cam1");
+        pri_a15_vano_1_zulus_animation_data.addAnimationAttachItemName("into", 0, "pri_a15_wpn_wincheaster1300");
+        pri_a15_vano_1_zulus_animation_data.addAnimation("into", 0, "pri_a15_vano_cam2");
+        pri_a15_vano_1_zulus_animation_data.addAnimation("into", 0, "pri_a15_vano_cam3");
+        pri_a15_vano_1_zulus_animation_data.addAnimation("into", 0, "pri_a15_vano_cam4");
+        pri_a15_vano_1_zulus_animation_data.addAnimation("into", 0, "pri_a15_vano_cam6");
+        pri_a15_vano_1_zulus_animation_data.addAnimation("into", 0, "pri_a15_vano_cam7_1");
+        //       pri_a15_vano_1_zulus_animation_data.addAnimationFunction("into", 0, state_mgr_pri_a15.unstrap_weapon);
+        //       Lord: доделать!
+        pri_a15_vano_1_zulus_animation_data.addAnimation("into", 0, "pri_a15_vano_cam7_2");
+        pri_a15_vano_1_zulus_animation_data.addAnimation("into", 0, "pri_a15_vano_cam8");
+        pri_a15_vano_1_zulus_animation_data.addAnimation("into", 0, "pri_a15_vano_cam9");
+        pri_a15_vano_1_zulus_animation_data.addAnimation("into", 0, "pri_a15_vano_cam10");
+        pri_a15_vano_1_zulus_animation_data.addAnimation("into", 0, "pri_a15_vano_cam11");
+        pri_a15_vano_1_zulus_animation_data.addAnimation("into", 0, "pri_a15_vano_cam12");
+        pri_a15_vano_1_zulus_animation_data.addAnimation("into", 0, "pri_a15_vano_cam13");
+        pri_a15_vano_1_zulus_animation_data.addAnimation("into", 0, "pri_a15_vano_cam14");
+        pri_a15_vano_1_zulus_animation_data.addAnimation("into", 0, "pri_a15_vano_cam15");
+        pri_a15_vano_1_zulus_animation_data.addAnimation("into", 0, "pri_a15_vano_cam16");
+        pri_a15_vano_1_zulus_animation_data.addAnimation("into", 0, "pri_a15_vano_cam17");
+        pri_a15_vano_1_zulus_animation_data.addAnimation("into", 0, "pri_a15_vano_cam17_1");
+        pri_a15_vano_1_zulus_animation_data.addAnimation("into", 0, "pri_a15_vano_cam18");
+        pri_a15_vano_1_zulus_animation_data.addAnimation("into", 0, "pri_a15_vano_cam20");
+        pri_a15_vano_1_zulus_animation_data.addAnimation("into", 0, "pri_a15_vano_cam21");
+        pri_a15_vano_1_zulus_animation_data.addAnimationSoundName("into", 0, "pri_a15_vano_speech_one");
+        pri_a15_vano_1_zulus_animation_data.addAnimation("into", 0, "pri_a15_vano_cam22");
+        pri_a15_vano_1_zulus_animation_data.addAnimation("into", 0, "pri_a15_vano_cam23");
+        pri_a15_vano_1_zulus_animation_data.addAnimation("into", 0, "pri_a15_vano_cam24");
+        pri_a15_vano_1_zulus_animation_data.addAnimation("into", 0, "pri_a15_vano_cam25");
+        pri_a15_vano_1_zulus_animation_data.addAnimation("into", 0, "pri_a15_vano_cam30");
+        pri_a15_vano_1_zulus_animation_data.addAnimation("into", 0, "pri_a15_vano_cam31");
+        pri_a15_vano_1_zulus_animation_data.addAnimation("into", 0, "pri_a15_vano_cam32");
+
+        this->m_state_manager_animation_list["pri_a15_vano_1_zulus"] = pri_a15_vano_1_zulus_animation_data;
+
+        StateManagerAnimationData pri_a15_vano_1_wanderer_animation_data;
+        pri_a15_vano_1_wanderer_animation_data.setPropertiesMaxIdle(1);
+        pri_a15_vano_1_wanderer_animation_data.setPropertiesSumIdle(1);
+        pri_a15_vano_1_wanderer_animation_data.setPropertiesMoving(true);
+        pri_a15_vano_1_wanderer_animation_data.setPropertiesRandom(100);
+
+        pri_a15_vano_1_wanderer_animation_data.addAnimation("into", 0, "pri_a15_vano_cam1");
+        pri_a15_vano_1_wanderer_animation_data.addAnimationAttachItemName("into", 0, "pri_a15_wpn_wincheaster1300");
+        pri_a15_vano_1_wanderer_animation_data.addAnimation("into", 0, "pri_a15_vano_cam2");
+        pri_a15_vano_1_wanderer_animation_data.addAnimation("into", 0, "pri_a15_vano_cam3");
+        pri_a15_vano_1_wanderer_animation_data.addAnimation("into", 0, "pri_a15_vano_cam4");
+        pri_a15_vano_1_wanderer_animation_data.addAnimation("into", 0, "pri_a15_vano_cam5");
+        pri_a15_vano_1_wanderer_animation_data.addAnimation("into", 0, "pri_a15_vano_cam6");
+        pri_a15_vano_1_wanderer_animation_data.addAnimation("into", 0, "pri_a15_vano_cam7_1");
+        //       pri_a15_vano_1_wanderer_animation_data.addAnimationFunction("into", 0,
+        //       state_mgr_pri_a15.unstrap_weapon); Lord: доделать!
+        pri_a15_vano_1_wanderer_animation_data.addAnimation("into", 0, "pri_a15_vano_cam7_2");
+        pri_a15_vano_1_wanderer_animation_data.addAnimation("into", 0, "pri_a15_vano_cam8");
+        pri_a15_vano_1_wanderer_animation_data.addAnimation("into", 0, "pri_a15_vano_cam9");
+        pri_a15_vano_1_wanderer_animation_data.addAnimation("into", 0, "pri_a15_vano_cam10");
+        pri_a15_vano_1_wanderer_animation_data.addAnimation("into", 0, "pri_a15_vano_cam11");
+        pri_a15_vano_1_wanderer_animation_data.addAnimation("into", 0, "pri_a15_vano_cam12");
+        pri_a15_vano_1_wanderer_animation_data.addAnimation("into", 0, "pri_a15_vano_cam13");
+        pri_a15_vano_1_wanderer_animation_data.addAnimation("into", 0, "pri_a15_vano_cam14");
+        pri_a15_vano_1_wanderer_animation_data.addAnimation("into", 0, "pri_a15_vano_cam15");
+        pri_a15_vano_1_wanderer_animation_data.addAnimation("into", 0, "pri_a15_vano_cam16");
+        pri_a15_vano_1_wanderer_animation_data.addAnimation("into", 0, "pri_a15_vano_cam17");
+        pri_a15_vano_1_wanderer_animation_data.addAnimation("into", 0, "pri_a15_vano_cam17_1");
+        pri_a15_vano_1_wanderer_animation_data.addAnimation("into", 0, "pri_a15_vano_cam18");
+        pri_a15_vano_1_wanderer_animation_data.addAnimation("into", 0, "pri_a15_vano_cam19");
+        pri_a15_vano_1_wanderer_animation_data.addAnimation("into", 0, "pri_a15_vano_cam20");
+        pri_a15_vano_1_wanderer_animation_data.addAnimation("into", 0, "pri_a15_vano_cam21");
+        pri_a15_vano_1_wanderer_animation_data.addAnimationSoundName("into", 0, "pri_a15_vano_speech_one");
+        pri_a15_vano_1_wanderer_animation_data.addAnimation("into", 0, "pri_a15_vano_cam22");
+        pri_a15_vano_1_wanderer_animation_data.addAnimation("into", 0, "pri_a15_vano_cam23");
+        pri_a15_vano_1_wanderer_animation_data.addAnimation("into", 0, "pri_a15_vano_cam24");
+        pri_a15_vano_1_wanderer_animation_data.addAnimation("into", 0, "pri_a15_vano_cam25");
+        pri_a15_vano_1_wanderer_animation_data.addAnimation("into", 0, "pri_a15_vano_cam25_1");
+        pri_a15_vano_1_wanderer_animation_data.addAnimation("into", 0, "pri_a15_vano_cam26");
+        pri_a15_vano_1_wanderer_animation_data.addAnimation("into", 0, "pri_a15_vano_cam27");
+        pri_a15_vano_1_wanderer_animation_data.addAnimation("into", 0, "pri_a15_vano_cam28");
+        pri_a15_vano_1_wanderer_animation_data.addAnimation("into", 0, "pri_a15_vano_cam29");
+        pri_a15_vano_1_wanderer_animation_data.addAnimation("into", 0, "pri_a15_vano_cam30");
+        pri_a15_vano_1_wanderer_animation_data.addAnimation("into", 0, "pri_a15_vano_cam31");
+        pri_a15_vano_1_wanderer_animation_data.addAnimation("into", 0, "pri_a15_vano_cam32");
+
+        this->m_state_manager_animation_list["pri_a15_vano_1_wanderer"] = pri_a15_vano_1_wanderer_animation_data;
+
+        StateManagerAnimationData pri_a15_vano_2_sokolov_zulus_animation_data;
+        pri_a15_vano_all_animation_data.setPropertiesMaxIdle(1);
+        pri_a15_vano_all_animation_data.setPropertiesSumIdle(1);
+        pri_a15_vano_all_animation_data.setPropertiesMoving(true);
+        pri_a15_vano_all_animation_data.setPropertiesRandom(100);
+
+        pri_a15_vano_all_animation_data.addAnimation("into", 0, "pri_a15_vano_cam1");
+        pri_a15_vano_all_animation_data.addAnimationAttachItemName("into", 0, "pri_a15_wpn_wincheaster1300");
+        pri_a15_vano_all_animation_data.addAnimation("into", 0, "pri_a15_vano_cam2");
+        pri_a15_vano_all_animation_data.addAnimation("into", 0, "pri_a15_vano_cam3");
+        pri_a15_vano_all_animation_data.addAnimation("into", 0, "pri_a15_vano_cam4");
+        pri_a15_vano_all_animation_data.addAnimation("into", 0, "pri_a15_vano_cam6");
+        pri_a15_vano_all_animation_data.addAnimation("into", 0, "pri_a15_vano_cam7_1");
+        //       pri_a15_vano_all_animation_data.addAnimationFunction("into", 0, state_mgr_pri_a15.unstrap_weapon);
+        //       Lord: доделать!
+        pri_a15_vano_all_animation_data.addAnimation("into", 0, "pri_a15_vano_cam7_2");
+        pri_a15_vano_all_animation_data.addAnimation("into", 0, "pri_a15_vano_cam8");
+        pri_a15_vano_all_animation_data.addAnimation("into", 0, "pri_a15_vano_cam9");
+        pri_a15_vano_all_animation_data.addAnimation("into", 0, "pri_a15_vano_cam10");
+        pri_a15_vano_all_animation_data.addAnimation("into", 0, "pri_a15_vano_cam12");
+        pri_a15_vano_all_animation_data.addAnimation("into", 0, "pri_a15_vano_cam13");
+        pri_a15_vano_all_animation_data.addAnimation("into", 0, "pri_a15_vano_cam14");
+        pri_a15_vano_all_animation_data.addAnimation("into", 0, "pri_a15_vano_cam15");
+        pri_a15_vano_all_animation_data.addAnimation("into", 0, "pri_a15_vano_cam16");
+        pri_a15_vano_all_animation_data.addAnimation("into", 0, "pri_a15_vano_cam17");
+        pri_a15_vano_all_animation_data.addAnimation("into", 0, "pri_a15_vano_cam17_1");
+        pri_a15_vano_all_animation_data.addAnimation("into", 0, "pri_a15_vano_cam18");
+        pri_a15_vano_all_animation_data.addAnimationSoundName("into", 0, "pri_a15_vano_speech_one");
+        pri_a15_vano_all_animation_data.addAnimation("into", 0, "pri_a15_vano_cam22");
+        pri_a15_vano_all_animation_data.addAnimation("into", 0, "pri_a15_vano_cam23");
+        pri_a15_vano_all_animation_data.addAnimation("into", 0, "pri_a15_vano_cam24");
+        pri_a15_vano_all_animation_data.addAnimation("into", 0, "pri_a15_vano_cam25");
+        pri_a15_vano_all_animation_data.addAnimation("into", 0, "pri_a15_vano_cam30");
+        pri_a15_vano_all_animation_data.addAnimation("into", 0, "pri_a15_vano_cam31");
+        pri_a15_vano_all_animation_data.addAnimation("into", 0, "pri_a15_vano_cam32");
+
+        this->m_state_manager_animation_list["pri_a15_vano_2_sokolov_zulus"] =
+            pri_a15_vano_2_sokolov_zulus_animation_data;
+
+        StateManagerAnimationData pri_a15_vano_2_sokolov_wanderer_animation_data;
+        pri_a15_vano_2_sokolov_wanderer_animation_data.setPropertiesMaxIdle(1);
+        pri_a15_vano_2_sokolov_wanderer_animation_data.setPropertiesSumIdle(1);
+        pri_a15_vano_2_sokolov_wanderer_animation_data.setPropertiesMoving(true);
+        pri_a15_vano_2_sokolov_wanderer_animation_data.setPropertiesRandom(100);
+
+        pri_a15_vano_2_sokolov_wanderer_animation_data.addAnimation("into", 0, "pri_a15_vano_cam1");
+        pri_a15_vano_2_sokolov_wanderer_animation_data.addAnimationAttachItemName(
+            "into", 0, "pri_a15_wpn_wincheaster1300");
+        pri_a15_vano_2_sokolov_wanderer_animation_data.addAnimation("into", 0, "pri_a15_vano_cam2");
+        pri_a15_vano_2_sokolov_wanderer_animation_data.addAnimation("into", 0, "pri_a15_vano_cam3");
+        pri_a15_vano_2_sokolov_wanderer_animation_data.addAnimation("into", 0, "pri_a15_vano_cam4");
+        pri_a15_vano_2_sokolov_wanderer_animation_data.addAnimation("into", 0, "pri_a15_vano_cam5");
+        pri_a15_vano_2_sokolov_wanderer_animation_data.addAnimation("into", 0, "pri_a15_vano_cam6");
+        pri_a15_vano_2_sokolov_wanderer_animation_data.addAnimation("into", 0, "pri_a15_vano_cam7_1");
+        //       pri_a15_vano_2_sokolov_wanderer_animation_data.addAnimationFunction("into", 0,
+        //       state_mgr_pri_a15.unstrap_weapon); Lord: доделать!
+        pri_a15_vano_2_sokolov_wanderer_animation_data.addAnimation("into", 0, "pri_a15_vano_cam7_2");
+        pri_a15_vano_2_sokolov_wanderer_animation_data.addAnimation("into", 0, "pri_a15_vano_cam8");
+        pri_a15_vano_2_sokolov_wanderer_animation_data.addAnimation("into", 0, "pri_a15_vano_cam9");
+        pri_a15_vano_2_sokolov_wanderer_animation_data.addAnimation("into", 0, "pri_a15_vano_cam10");
+        pri_a15_vano_2_sokolov_wanderer_animation_data.addAnimation("into", 0, "pri_a15_vano_cam12");
+        pri_a15_vano_2_sokolov_wanderer_animation_data.addAnimation("into", 0, "pri_a15_vano_cam13");
+        pri_a15_vano_2_sokolov_wanderer_animation_data.addAnimation("into", 0, "pri_a15_vano_cam14");
+        pri_a15_vano_2_sokolov_wanderer_animation_data.addAnimation("into", 0, "pri_a15_vano_cam15");
+        pri_a15_vano_2_sokolov_wanderer_animation_data.addAnimation("into", 0, "pri_a15_vano_cam16");
+        pri_a15_vano_2_sokolov_wanderer_animation_data.addAnimation("into", 0, "pri_a15_vano_cam17");
+        pri_a15_vano_2_sokolov_wanderer_animation_data.addAnimation("into", 0, "pri_a15_vano_cam17_1");
+        pri_a15_vano_2_sokolov_wanderer_animation_data.addAnimation("into", 0, "pri_a15_vano_cam18");
+        pri_a15_vano_2_sokolov_wanderer_animation_data.addAnimation("into", 0, "pri_a15_vano_cam19");
+        pri_a15_vano_2_sokolov_wanderer_animation_data.addAnimation("into", 0, "pri_a15_vano_cam21");
+        pri_a15_vano_2_sokolov_wanderer_animation_data.addAnimationSoundName("into", 0, "pri_a15_vano_speech_one");
+        pri_a15_vano_2_sokolov_wanderer_animation_data.addAnimation("into", 0, "pri_a15_vano_cam22");
+        pri_a15_vano_2_sokolov_wanderer_animation_data.addAnimation("into", 0, "pri_a15_vano_cam23");
+        pri_a15_vano_2_sokolov_wanderer_animation_data.addAnimation("into", 0, "pri_a15_vano_cam24");
+        pri_a15_vano_2_sokolov_wanderer_animation_data.addAnimation("into", 0, "pri_a15_vano_cam25");
+        pri_a15_vano_2_sokolov_wanderer_animation_data.addAnimation("into", 0, "pri_a15_vano_cam25_1");
+        pri_a15_vano_2_sokolov_wanderer_animation_data.addAnimation("into", 0, "pri_a15_vano_cam26");
+        pri_a15_vano_2_sokolov_wanderer_animation_data.addAnimation("into", 0, "pri_a15_vano_cam27");
+        pri_a15_vano_2_sokolov_wanderer_animation_data.addAnimation("into", 0, "pri_a15_vano_cam28");
+        pri_a15_vano_2_sokolov_wanderer_animation_data.addAnimation("into", 0, "pri_a15_vano_cam29");
+        pri_a15_vano_2_sokolov_wanderer_animation_data.addAnimation("into", 0, "pri_a15_vano_cam30");
+        pri_a15_vano_2_sokolov_wanderer_animation_data.addAnimation("into", 0, "pri_a15_vano_cam31");
+        pri_a15_vano_2_sokolov_wanderer_animation_data.addAnimation("into", 0, "pri_a15_vano_cam32");
+
+        this->m_state_manager_animation_list["pri_a15_vano_2_sokolov_wanderer"] =
+            pri_a15_vano_2_sokolov_wanderer_animation_data;
+
+        StateManagerAnimationData pri_a15_vano_2_zulus_wanderer_animation_data;
+        pri_a15_vano_2_zulus_wanderer_animation_data.setPropertiesMaxIdle(1);
+        pri_a15_vano_2_zulus_wanderer_animation_data.setPropertiesSumIdle(1);
+        pri_a15_vano_2_zulus_wanderer_animation_data.setPropertiesMoving(true);
+        pri_a15_vano_2_zulus_wanderer_animation_data.setPropertiesRandom(100);
+
+        pri_a15_vano_2_zulus_wanderer_animation_data.addAnimation("into", 0, "pri_a15_vano_cam1");
+        pri_a15_vano_2_zulus_wanderer_animation_data.addAnimationAttachItemName(
+            "into", 0, "pri_a15_wpn_wincheaster1300");
+        pri_a15_vano_2_zulus_wanderer_animation_data.addAnimation("into", 0, "pri_a15_vano_cam2");
+        pri_a15_vano_2_zulus_wanderer_animation_data.addAnimation("into", 0, "pri_a15_vano_cam3");
+        pri_a15_vano_2_zulus_wanderer_animation_data.addAnimation("into", 0, "pri_a15_vano_cam4");
+        pri_a15_vano_2_zulus_wanderer_animation_data.addAnimation("into", 0, "pri_a15_vano_cam6");
+        pri_a15_vano_2_zulus_wanderer_animation_data.addAnimation("into", 0, "pri_a15_vano_cam7_1");
+        //       pri_a15_vano_2_zulus_wanderer_animation_data.addAnimationFunction("into", 0,
+        //       state_mgr_pri_a15.unstrap_weapon); Lord: доделать!
+        pri_a15_vano_2_zulus_wanderer_animation_data.addAnimation("into", 0, "pri_a15_vano_cam7_2");
+        pri_a15_vano_2_zulus_wanderer_animation_data.addAnimation("into", 0, "pri_a15_vano_cam8");
+        pri_a15_vano_2_zulus_wanderer_animation_data.addAnimation("into", 0, "pri_a15_vano_cam9");
+        pri_a15_vano_2_zulus_wanderer_animation_data.addAnimation("into", 0, "pri_a15_vano_cam10");
+        pri_a15_vano_2_zulus_wanderer_animation_data.addAnimation("into", 0, "pri_a15_vano_cam11");
+        pri_a15_vano_2_zulus_wanderer_animation_data.addAnimation("into", 0, "pri_a15_vano_cam12");
+        pri_a15_vano_2_zulus_wanderer_animation_data.addAnimation("into", 0, "pri_a15_vano_cam13");
+        pri_a15_vano_2_zulus_wanderer_animation_data.addAnimation("into", 0, "pri_a15_vano_cam14");
+        pri_a15_vano_2_zulus_wanderer_animation_data.addAnimation("into", 0, "pri_a15_vano_cam15");
+        pri_a15_vano_2_zulus_wanderer_animation_data.addAnimation("into", 0, "pri_a15_vano_cam16");
+        pri_a15_vano_2_zulus_wanderer_animation_data.addAnimation("into", 0, "pri_a15_vano_cam17");
+        pri_a15_vano_2_zulus_wanderer_animation_data.addAnimation("into", 0, "pri_a15_vano_cam17_1");
+        pri_a15_vano_2_zulus_wanderer_animation_data.addAnimation("into", 0, "pri_a15_vano_cam18");
+        pri_a15_vano_2_zulus_wanderer_animation_data.addAnimation("into", 0, "pri_a15_vano_cam20");
+        pri_a15_vano_2_zulus_wanderer_animation_data.addAnimation("into", 0, "pri_a15_vano_cam21");
+        pri_a15_vano_2_zulus_wanderer_animation_data.addAnimationSoundName("into", 0, "pri_a15_vano_speech_one");
+        pri_a15_vano_2_zulus_wanderer_animation_data.addAnimation("into", 0, "pri_a15_vano_cam22");
+        pri_a15_vano_2_zulus_wanderer_animation_data.addAnimation("into", 0, "pri_a15_vano_cam23");
+        pri_a15_vano_2_zulus_wanderer_animation_data.addAnimation("into", 0, "pri_a15_vano_cam24");
+        pri_a15_vano_2_zulus_wanderer_animation_data.addAnimation("into", 0, "pri_a15_vano_cam25");
+        pri_a15_vano_2_zulus_wanderer_animation_data.addAnimation("into", 0, "pri_a15_vano_cam30");
+        pri_a15_vano_2_zulus_wanderer_animation_data.addAnimation("into", 0, "pri_a15_vano_cam31");
+        pri_a15_vano_2_zulus_wanderer_animation_data.addAnimation("into", 0, "pri_a15_vano_cam32");
+
+        this->m_state_manager_animation_list["pri_a15_vano_2_zulus_wanderer"] =
+            pri_a15_vano_2_zulus_wanderer_animation_data;
+
+        StateManagerAnimationData pri_a15_vano_3_vano_alive_animation_data;
+        pri_a15_vano_3_vano_alive_animation_data.setPropertiesMaxIdle(1);
+        pri_a15_vano_3_vano_alive_animation_data.setPropertiesSumIdle(1);
+        pri_a15_vano_3_vano_alive_animation_data.setPropertiesMoving(true);
+        pri_a15_vano_3_vano_alive_animation_data.setPropertiesRandom(100);
+
+        pri_a15_vano_3_vano_alive_animation_data.addAnimation("into", 0, "pri_a15_vano_cam1");
+        pri_a15_vano_3_vano_alive_animation_data.addAnimationAttachItemName("into", 0, "pri_a15_wpn_wincheaster1300");
+        pri_a15_vano_3_vano_alive_animation_data.addAnimation("into", 0, "pri_a15_vano_cam2");
+        pri_a15_vano_3_vano_alive_animation_data.addAnimation("into", 0, "pri_a15_vano_cam3");
+        pri_a15_vano_3_vano_alive_animation_data.addAnimation("into", 0, "pri_a15_vano_cam4");
+        pri_a15_vano_3_vano_alive_animation_data.addAnimation("into", 0, "pri_a15_vano_cam6");
+        pri_a15_vano_3_vano_alive_animation_data.addAnimation("into", 0, "pri_a15_vano_cam7_1");
+        //       pri_a15_vano_3_vano_alive_animation_data.addAnimationFunction("into", 0,
+        //       state_mgr_pri_a15.unstrap_weapon); Lord: доделать!
+        pri_a15_vano_3_vano_alive_animation_data.addAnimation("into", 0, "pri_a15_vano_cam7_2");
+        pri_a15_vano_3_vano_alive_animation_data.addAnimation("into", 0, "pri_a15_vano_cam8");
+        pri_a15_vano_3_vano_alive_animation_data.addAnimation("into", 0, "pri_a15_vano_cam9");
+        pri_a15_vano_3_vano_alive_animation_data.addAnimation("into", 0, "pri_a15_vano_cam10");
+        pri_a15_vano_3_vano_alive_animation_data.addAnimation("into", 0, "pri_a15_vano_cam12");
+        pri_a15_vano_3_vano_alive_animation_data.addAnimation("into", 0, "pri_a15_vano_cam13");
+        pri_a15_vano_3_vano_alive_animation_data.addAnimation("into", 0, "pri_a15_vano_cam14");
+        pri_a15_vano_3_vano_alive_animation_data.addAnimation("into", 0, "pri_a15_vano_cam15");
+        pri_a15_vano_3_vano_alive_animation_data.addAnimation("into", 0, "pri_a15_vano_cam16");
+        pri_a15_vano_3_vano_alive_animation_data.addAnimation("into", 0, "pri_a15_vano_cam17");
+        pri_a15_vano_3_vano_alive_animation_data.addAnimation("into", 0, "pri_a15_vano_cam17_1");
+        pri_a15_vano_3_vano_alive_animation_data.addAnimation("into", 0, "pri_a15_vano_cam18");
+        pri_a15_vano_3_vano_alive_animation_data.addAnimationSoundName("into", 0, "pri_a15_vano_speech_one");
+        pri_a15_vano_3_vano_alive_animation_data.addAnimation("into", 0, "pri_a15_vano_cam22");
+        pri_a15_vano_3_vano_alive_animation_data.addAnimation("into", 0, "pri_a15_vano_cam23");
+        pri_a15_vano_3_vano_alive_animation_data.addAnimation("into", 0, "pri_a15_vano_cam24");
+        pri_a15_vano_3_vano_alive_animation_data.addAnimation("into", 0, "pri_a15_vano_cam25");
+        pri_a15_vano_3_vano_alive_animation_data.addAnimation("into", 0, "pri_a15_vano_cam30");
+        pri_a15_vano_3_vano_alive_animation_data.addAnimation("into", 0, "pri_a15_vano_cam31");
+        pri_a15_vano_3_vano_alive_animation_data.addAnimation("into", 0, "pri_a15_vano_cam32");
+
+        this->m_state_manager_animation_list["pri_a15_vano_3_vano_alive"] = pri_a15_vano_3_vano_alive_animation_data;
+
+        StateManagerAnimationData pri_a15_sokolov_all_animation_data;
+        pri_a15_sokolov_all_animation_data.setPropertiesMaxIdle(1);
+        pri_a15_sokolov_all_animation_data.setPropertiesSumIdle(1);
+        pri_a15_sokolov_all_animation_data.setPropertiesMoving(true);
+        pri_a15_sokolov_all_animation_data.setPropertiesRandom(100);
+
+        pri_a15_sokolov_all_animation_data.addAnimation("into", 0, "pri_a15_cokolov_cam1");
+        pri_a15_sokolov_all_animation_data.addAnimationAttachItemName("into", 0, "pri_a15_wpn_ak74u");
+        pri_a15_sokolov_all_animation_data.addAnimation("into", 0, "pri_a15_cokolov_cam2");
+        pri_a15_sokolov_all_animation_data.addAnimation("into", 0, "pri_a15_cokolov_cam3");
+        pri_a15_sokolov_all_animation_data.addAnimation("into", 0, "pri_a15_cokolov_cam4");
+        pri_a15_sokolov_all_animation_data.addAnimation("into", 0, "pri_a15_cokolov_cam5");
+        pri_a15_sokolov_all_animation_data.addAnimation("into", 0, "pri_a15_cokolov_cam6");
+        pri_a15_sokolov_all_animation_data.addAnimation("into", 0, "pri_a15_cokolov_cam7");
+        pri_a15_sokolov_all_animation_data.addAnimation("into", 0, "pri_a15_cokolov_cam8_1");
+        //  pri_a15_sokolov_all_animation_data.addAnimationFunction("into", 0, state_mgr_pri_a15.unstrap_weapon); Lord:
+        //  доделать
+        pri_a15_sokolov_all_animation_data.addAnimation("into", 0, "pri_a15_cokolov_cam8_2");
+        pri_a15_sokolov_all_animation_data.addAnimation("into", 0, "pri_a15_cokolov_cam9");
+        pri_a15_sokolov_all_animation_data.addAnimation("into", 0, "pri_a15_cokolov_cam10");
+        pri_a15_sokolov_all_animation_data.addAnimation("into", 0, "pri_a15_cokolov_cam11_1");
+        //    pri_a15_sokolov_all_animation_data.addAnimationFunction("into", 0, state_mgr_pri_a15.strap_weapon); Lord:
+        //    доделать
+        pri_a15_sokolov_all_animation_data.addAnimationSoundName("into", 0, "pri_a15_sokolov_introduce");
+        pri_a15_sokolov_all_animation_data.addAnimation("into", 0, "pri_a15_cokolov_cam11_2");
+        pri_a15_sokolov_all_animation_data.addAnimation("into", 0, "pri_a15_cokolov_cam12");
+        pri_a15_sokolov_all_animation_data.addAnimation("into", 0, "pri_a15_cokolov_cam13");
+        pri_a15_sokolov_all_animation_data.addAnimationSoundName("into", 0, "pri_a15_sokolov_wonder");
+        pri_a15_sokolov_all_animation_data.addAnimation("into", 0, "pri_a15_cokolov_cam14");
+        pri_a15_sokolov_all_animation_data.addAnimation("into", 0, "pri_a15_cokolov_cam15");
+        pri_a15_sokolov_all_animation_data.addAnimation("into", 0, "pri_a15_cokolov_cam16");
+        pri_a15_sokolov_all_animation_data.addAnimation("into", 0, "pri_a15_cokolov_cam17");
+        pri_a15_sokolov_all_animation_data.addAnimation("into", 0, "pri_a15_cokolov_cam17_1");
+        pri_a15_sokolov_all_animation_data.addAnimation("into", 0, "pri_a15_cokolov_cam18");
+        pri_a15_sokolov_all_animation_data.addAnimation("into", 0, "pri_a15_cokolov_cam19");
+        pri_a15_sokolov_all_animation_data.addAnimationSoundName("into", 0, "pri_a15_sokolov_conjecture");
+        pri_a15_sokolov_all_animation_data.addAnimation("into", 0, "pri_a15_cokolov_cam20");
+        pri_a15_sokolov_all_animation_data.addAnimation("into", 0, "pri_a15_cokolov_cam21");
+        pri_a15_sokolov_all_animation_data.addAnimation("into", 0, "pri_a15_cokolov_cam22");
+        pri_a15_sokolov_all_animation_data.addAnimation("into", 0, "pri_a15_cokolov_cam23");
+        pri_a15_sokolov_all_animation_data.addAnimation("into", 0, "pri_a15_cokolov_cam24");
+        pri_a15_sokolov_all_animation_data.addAnimation("into", 0, "pri_a15_cokolov_cam25");
+        pri_a15_sokolov_all_animation_data.addAnimation("into", 0, "pri_a15_cokolov_cam25_1");
+        pri_a15_sokolov_all_animation_data.addAnimation("into", 0, "pri_a15_cokolov_cam26");
+        pri_a15_sokolov_all_animation_data.addAnimation("into", 0, "pri_a15_cokolov_cam27");
+        pri_a15_sokolov_all_animation_data.addAnimation("into", 0, "pri_a15_cokolov_cam28");
+        pri_a15_sokolov_all_animation_data.addAnimation("into", 0, "pri_a15_cokolov_cam29");
+        pri_a15_sokolov_all_animation_data.addAnimation("into", 0, "pri_a15_cokolov_cam30");
+        pri_a15_sokolov_all_animation_data.addAnimation("into", 0, "pri_a15_cokolov_cam31");
+        pri_a15_sokolov_all_animation_data.addAnimation("into", 0, "pri_a15_cokolov_cam32");
+
+        this->m_state_manager_animation_list["pri_a15_sokolov_all"] = pri_a15_sokolov_all_animation_data;
+
+        StateManagerAnimationData pri_a15_sokolov_1_vano_animation_data;
+        pri_a15_sokolov_1_vano_animation_data.setPropertiesMaxIdle(1);
+        pri_a15_sokolov_1_vano_animation_data.setPropertiesSumIdle(1);
+        pri_a15_sokolov_1_vano_animation_data.setPropertiesMoving(true);
+        pri_a15_sokolov_1_vano_animation_data.setPropertiesRandom(100);
+
+        pri_a15_sokolov_1_vano_animation_data.addAnimation("into", 0, "pri_a15_cokolov_cam1");
+        pri_a15_sokolov_1_vano_animation_data.addAnimationAttachItemName("into", 0, "pri_a15_wpn_ak74u");
+        pri_a15_sokolov_1_vano_animation_data.addAnimation("into", 0, "pri_a15_cokolov_cam2");
+        pri_a15_sokolov_1_vano_animation_data.addAnimation("into", 0, "pri_a15_cokolov_cam3");
+        pri_a15_sokolov_1_vano_animation_data.addAnimation("into", 0, "pri_a15_cokolov_cam4");
+        pri_a15_sokolov_1_vano_animation_data.addAnimation("into", 0, "pri_a15_cokolov_cam5");
+        pri_a15_sokolov_1_vano_animation_data.addAnimation("into", 0, "pri_a15_cokolov_cam6");
+        pri_a15_sokolov_1_vano_animation_data.addAnimation("into", 0, "pri_a15_cokolov_cam7");
+        pri_a15_sokolov_1_vano_animation_data.addAnimation("into", 0, "pri_a15_cokolov_cam8_1");
+        //  pri_a15_sokolov_1_vano_animation_data.addAnimationFunction("into", 0, state_mgr_pri_a15.unstrap_weapon);
+        //  Lord: доделать
+        pri_a15_sokolov_1_vano_animation_data.addAnimation("into", 0, "pri_a15_cokolov_cam8_2");
+        pri_a15_sokolov_1_vano_animation_data.addAnimation("into", 0, "pri_a15_cokolov_cam9");
+        pri_a15_sokolov_1_vano_animation_data.addAnimation("into", 0, "pri_a15_cokolov_cam10");
+        pri_a15_sokolov_1_vano_animation_data.addAnimation("into", 0, "pri_a15_cokolov_cam11_1");
+        //    pri_a15_sokolov_1_vano_animation_data.addAnimationFunction("into", 0, state_mgr_pri_a15.strap_weapon);
+        //    Lord: доделать
+        pri_a15_sokolov_1_vano_animation_data.addAnimationSoundName("into", 0, "pri_a15_sokolov_introduce");
+        pri_a15_sokolov_1_vano_animation_data.addAnimation("into", 0, "pri_a15_cokolov_cam11_2");
+        pri_a15_sokolov_1_vano_animation_data.addAnimation("into", 0, "pri_a15_cokolov_cam12");
+        pri_a15_sokolov_1_vano_animation_data.addAnimation("into", 0, "pri_a15_cokolov_cam13");
+        pri_a15_sokolov_1_vano_animation_data.addAnimationSoundName("into", 0, "pri_a15_sokolov_wonder");
+        pri_a15_sokolov_1_vano_animation_data.addAnimation("into", 0, "pri_a15_cokolov_cam14");
+        pri_a15_sokolov_1_vano_animation_data.addAnimation("into", 0, "pri_a15_cokolov_cam15");
+        pri_a15_sokolov_1_vano_animation_data.addAnimation("into", 0, "pri_a15_cokolov_cam16");
+        pri_a15_sokolov_1_vano_animation_data.addAnimation("into", 0, "pri_a15_cokolov_cam17");
+        pri_a15_sokolov_1_vano_animation_data.addAnimation("into", 0, "pri_a15_cokolov_cam17_1");
+        pri_a15_sokolov_1_vano_animation_data.addAnimation("into", 0, "pri_a15_cokolov_cam18");
+        pri_a15_sokolov_1_vano_animation_data.addAnimation("into", 0, "pri_a15_cokolov_cam19");
+        pri_a15_sokolov_1_vano_animation_data.addAnimationSoundName("into", 0, "pri_a15_sokolov_conjecture");
+        pri_a15_sokolov_1_vano_animation_data.addAnimation("into", 0, "pri_a15_cokolov_cam20");
+        pri_a15_sokolov_1_vano_animation_data.addAnimation("into", 0, "pri_a15_cokolov_cam21");
+        pri_a15_sokolov_1_vano_animation_data.addAnimation("into", 0, "pri_a15_cokolov_cam25");
+        pri_a15_sokolov_1_vano_animation_data.addAnimation("into", 0, "pri_a15_cokolov_cam25_1");
+        pri_a15_sokolov_1_vano_animation_data.addAnimation("into", 0, "pri_a15_cokolov_cam26");
+        pri_a15_sokolov_1_vano_animation_data.addAnimation("into", 0, "pri_a15_cokolov_cam27");
+        pri_a15_sokolov_1_vano_animation_data.addAnimation("into", 0, "pri_a15_cokolov_cam28");
+        pri_a15_sokolov_1_vano_animation_data.addAnimation("into", 0, "pri_a15_cokolov_cam29");
+        pri_a15_sokolov_1_vano_animation_data.addAnimation("into", 0, "pri_a15_cokolov_cam30");
+        pri_a15_sokolov_1_vano_animation_data.addAnimation("into", 0, "pri_a15_cokolov_cam31");
+        pri_a15_sokolov_1_vano_animation_data.addAnimation("into", 0, "pri_a15_cokolov_cam32");
+
+        this->m_state_manager_animation_list["pri_a15_sokolov_1_vano"] = pri_a15_sokolov_1_vano_animation_data;
+
+        StateManagerAnimationData pri_a15_sokolov_1_zulus_animation_data;
+        pri_a15_sokolov_1_zulus_animation_data.setPropertiesMaxIdle(1);
+        pri_a15_sokolov_1_zulus_animation_data.setPropertiesSumIdle(1);
+        pri_a15_sokolov_1_zulus_animation_data.setPropertiesMoving(true);
+        pri_a15_sokolov_1_zulus_animation_data.setPropertiesRandom(100);
+
+        pri_a15_sokolov_1_zulus_animation_data.addAnimation("into", 0, "pri_a15_cokolov_cam1");
+        pri_a15_sokolov_1_zulus_animation_data.addAnimationAttachItemName("into", 0, "pri_a15_wpn_ak74u");
+        pri_a15_sokolov_1_zulus_animation_data.addAnimation("into", 0, "pri_a15_cokolov_cam2");
+        pri_a15_sokolov_1_zulus_animation_data.addAnimation("into", 0, "pri_a15_cokolov_cam3");
+        pri_a15_sokolov_1_zulus_animation_data.addAnimation("into", 0, "pri_a15_cokolov_cam4");
+        pri_a15_sokolov_1_zulus_animation_data.addAnimation("into", 0, "pri_a15_cokolov_cam6");
+        pri_a15_sokolov_1_zulus_animation_data.addAnimation("into", 0, "pri_a15_cokolov_cam7");
+        pri_a15_sokolov_1_zulus_animation_data.addAnimation("into", 0, "pri_a15_cokolov_cam8_1");
+        //  pri_a15_sokolov_1_zulus_animation_data.addAnimationFunction("into", 0, state_mgr_pri_a15.unstrap_weapon);
+        //  Lord: доделать
+        pri_a15_sokolov_1_zulus_animation_data.addAnimation("into", 0, "pri_a15_cokolov_cam8_2");
+        pri_a15_sokolov_1_zulus_animation_data.addAnimation("into", 0, "pri_a15_cokolov_cam9");
+        pri_a15_sokolov_1_zulus_animation_data.addAnimation("into", 0, "pri_a15_cokolov_cam10");
+        pri_a15_sokolov_1_zulus_animation_data.addAnimation("into", 0, "pri_a15_cokolov_cam11_1");
+        //    pri_a15_sokolov_1_zulus_animation_data.addAnimationFunction("into", 0, state_mgr_pri_a15.strap_weapon);
+        //    Lord: доделать
+        pri_a15_sokolov_1_zulus_animation_data.addAnimationSoundName("into", 0, "pri_a15_sokolov_introduce");
+        pri_a15_sokolov_1_zulus_animation_data.addAnimation("into", 0, "pri_a15_cokolov_cam11_2");
+        pri_a15_sokolov_1_zulus_animation_data.addAnimation("into", 0, "pri_a15_cokolov_cam12");
+        pri_a15_sokolov_1_zulus_animation_data.addAnimation("into", 0, "pri_a15_cokolov_cam13");
+        pri_a15_sokolov_1_zulus_animation_data.addAnimationSoundName("into", 0, "pri_a15_sokolov_wonder");
+        pri_a15_sokolov_1_zulus_animation_data.addAnimation("into", 0, "pri_a15_cokolov_cam14");
+        pri_a15_sokolov_1_zulus_animation_data.addAnimation("into", 0, "pri_a15_cokolov_cam15");
+        pri_a15_sokolov_1_zulus_animation_data.addAnimation("into", 0, "pri_a15_cokolov_cam16");
+        pri_a15_sokolov_1_zulus_animation_data.addAnimation("into", 0, "pri_a15_cokolov_cam17");
+        pri_a15_sokolov_1_zulus_animation_data.addAnimation("into", 0, "pri_a15_cokolov_cam17_1");
+        pri_a15_sokolov_1_zulus_animation_data.addAnimation("into", 0, "pri_a15_cokolov_cam18");
+        pri_a15_sokolov_1_zulus_animation_data.addAnimationSoundName("into", 0, "pri_a15_sokolov_conjecture");
+        pri_a15_sokolov_1_zulus_animation_data.addAnimation("into", 0, "pri_a15_cokolov_cam20");
+        pri_a15_sokolov_1_zulus_animation_data.addAnimation("into", 0, "pri_a15_cokolov_cam21");
+        pri_a15_sokolov_1_zulus_animation_data.addAnimation("into", 0, "pri_a15_cokolov_cam22");
+        pri_a15_sokolov_1_zulus_animation_data.addAnimation("into", 0, "pri_a15_cokolov_cam23");
+        pri_a15_sokolov_1_zulus_animation_data.addAnimation("into", 0, "pri_a15_cokolov_cam24");
+        pri_a15_sokolov_1_zulus_animation_data.addAnimation("into", 0, "pri_a15_cokolov_cam25");
+        pri_a15_sokolov_1_zulus_animation_data.addAnimation("into", 0, "pri_a15_cokolov_cam30");
+        pri_a15_sokolov_1_zulus_animation_data.addAnimation("into", 0, "pri_a15_cokolov_cam31");
+        pri_a15_sokolov_1_zulus_animation_data.addAnimation("into", 0, "pri_a15_cokolov_cam32");
+
+        this->m_state_manager_animation_list["pri_a15_sokolov_1_zulus"] = pri_a15_sokolov_1_zulus_animation_data;
+
+        StateManagerAnimationData pri_a15_sokolov_1_wanderer_animation_data;
+        pri_a15_sokolov_1_wanderer_animation_data.setPropertiesMaxIdle(1);
+        pri_a15_sokolov_1_wanderer_animation_data.setPropertiesSumIdle(1);
+        pri_a15_sokolov_1_wanderer_animation_data.setPropertiesMoving(true);
+        pri_a15_sokolov_1_wanderer_animation_data.setPropertiesRandom(100);
+
+        pri_a15_sokolov_1_wanderer_animation_data.addAnimation("into", 0, "pri_a15_cokolov_cam1");
+        pri_a15_sokolov_1_wanderer_animation_data.addAnimationAttachItemName("into", 0, "pri_a15_wpn_ak74u");
+        pri_a15_sokolov_1_wanderer_animation_data.addAnimation("into", 0, "pri_a15_cokolov_cam2");
+        pri_a15_sokolov_1_wanderer_animation_data.addAnimation("into", 0, "pri_a15_cokolov_cam3");
+        pri_a15_sokolov_1_wanderer_animation_data.addAnimation("into", 0, "pri_a15_cokolov_cam4");
+        pri_a15_sokolov_1_wanderer_animation_data.addAnimation("into", 0, "pri_a15_cokolov_cam5");
+        pri_a15_sokolov_1_wanderer_animation_data.addAnimation("into", 0, "pri_a15_cokolov_cam6");
+        pri_a15_sokolov_1_wanderer_animation_data.addAnimation("into", 0, "pri_a15_cokolov_cam7");
+        pri_a15_sokolov_1_wanderer_animation_data.addAnimation("into", 0, "pri_a15_cokolov_cam8_1");
+        //  pri_a15_sokolov_1_wanderer_animation_data.addAnimationFunction("into", 0, state_mgr_pri_a15.unstrap_weapon);
+        //  Lord: доделать
+        pri_a15_sokolov_1_wanderer_animation_data.addAnimation("into", 0, "pri_a15_cokolov_cam8_2");
+        pri_a15_sokolov_1_wanderer_animation_data.addAnimation("into", 0, "pri_a15_cokolov_cam9");
+        pri_a15_sokolov_1_wanderer_animation_data.addAnimation("into", 0, "pri_a15_cokolov_cam10");
+        pri_a15_sokolov_1_wanderer_animation_data.addAnimation("into", 0, "pri_a15_cokolov_cam11_1");
+        //    pri_a15_sokolov_1_wanderer_animation_data.addAnimationFunction("into", 0, state_mgr_pri_a15.strap_weapon);
+        //    Lord: доделать
+        pri_a15_sokolov_1_wanderer_animation_data.addAnimationSoundName("into", 0, "pri_a15_sokolov_introduce");
+        pri_a15_sokolov_1_wanderer_animation_data.addAnimation("into", 0, "pri_a15_cokolov_cam11_2");
+        pri_a15_sokolov_1_wanderer_animation_data.addAnimation("into", 0, "pri_a15_cokolov_cam12");
+        pri_a15_sokolov_1_wanderer_animation_data.addAnimation("into", 0, "pri_a15_cokolov_cam13");
+        pri_a15_sokolov_1_wanderer_animation_data.addAnimationSoundName("into", 0, "pri_a15_sokolov_wonder");
+        pri_a15_sokolov_1_wanderer_animation_data.addAnimation("into", 0, "pri_a15_cokolov_cam14");
+        pri_a15_sokolov_1_wanderer_animation_data.addAnimation("into", 0, "pri_a15_cokolov_cam15");
+        pri_a15_sokolov_1_wanderer_animation_data.addAnimation("into", 0, "pri_a15_cokolov_cam16");
+        pri_a15_sokolov_1_wanderer_animation_data.addAnimation("into", 0, "pri_a15_cokolov_cam17");
+        pri_a15_sokolov_1_wanderer_animation_data.addAnimation("into", 0, "pri_a15_cokolov_cam17_1");
+        pri_a15_sokolov_1_wanderer_animation_data.addAnimation("into", 0, "pri_a15_cokolov_cam18");
+        pri_a15_sokolov_1_wanderer_animation_data.addAnimation("into", 0, "pri_a15_cokolov_cam19");
+        pri_a15_sokolov_1_wanderer_animation_data.addAnimationSoundName("into", 0, "pri_a15_sokolov_conjecture");
+        pri_a15_sokolov_1_wanderer_animation_data.addAnimation("into", 0, "pri_a15_cokolov_cam20");
+        pri_a15_sokolov_1_wanderer_animation_data.addAnimation("into", 0, "pri_a15_cokolov_cam21");
+        pri_a15_sokolov_1_wanderer_animation_data.addAnimation("into", 0, "pri_a15_cokolov_cam22");
+        pri_a15_sokolov_1_wanderer_animation_data.addAnimation("into", 0, "pri_a15_cokolov_cam23");
+        pri_a15_sokolov_1_wanderer_animation_data.addAnimation("into", 0, "pri_a15_cokolov_cam24");
+        pri_a15_sokolov_1_wanderer_animation_data.addAnimation("into", 0, "pri_a15_cokolov_cam25");
+        pri_a15_sokolov_1_wanderer_animation_data.addAnimation("into", 0, "pri_a15_cokolov_cam25_1");
+        pri_a15_sokolov_1_wanderer_animation_data.addAnimation("into", 0, "pri_a15_cokolov_cam26");
+        pri_a15_sokolov_1_wanderer_animation_data.addAnimation("into", 0, "pri_a15_cokolov_cam27");
+        pri_a15_sokolov_1_wanderer_animation_data.addAnimation("into", 0, "pri_a15_cokolov_cam28");
+        pri_a15_sokolov_1_wanderer_animation_data.addAnimation("into", 0, "pri_a15_cokolov_cam29");
+        pri_a15_sokolov_1_wanderer_animation_data.addAnimation("into", 0, "pri_a15_cokolov_cam30");
+        pri_a15_sokolov_1_wanderer_animation_data.addAnimation("into", 0, "pri_a15_cokolov_cam31");
+        pri_a15_sokolov_1_wanderer_animation_data.addAnimation("into", 0, "pri_a15_cokolov_cam32");
+
+        this->m_state_manager_animation_list["pri_a15_sokolov_1_wanderer"] = pri_a15_sokolov_1_wanderer_animation_data;
+
+        StateManagerAnimationData pri_a15_sokolov_2_vano_zulus_animation_data;
+        pri_a15_sokolov_2_vano_zulus_animation_data.setPropertiesMaxIdle(1);
+        pri_a15_sokolov_2_vano_zulus_animation_data.setPropertiesSumIdle(1);
+        pri_a15_sokolov_2_vano_zulus_animation_data.setPropertiesMoving(true);
+        pri_a15_sokolov_2_vano_zulus_animation_data.setPropertiesRandom(100);
+
+        pri_a15_sokolov_2_vano_zulus_animation_data.addAnimation("into", 0, "pri_a15_cokolov_cam1");
+        pri_a15_sokolov_2_vano_zulus_animation_data.addAnimationAttachItemName("into", 0, "pri_a15_wpn_ak74u");
+        pri_a15_sokolov_2_vano_zulus_animation_data.addAnimation("into", 0, "pri_a15_cokolov_cam2");
+        pri_a15_sokolov_2_vano_zulus_animation_data.addAnimation("into", 0, "pri_a15_cokolov_cam3");
+        pri_a15_sokolov_2_vano_zulus_animation_data.addAnimation("into", 0, "pri_a15_cokolov_cam4");
+        pri_a15_sokolov_2_vano_zulus_animation_data.addAnimation("into", 0, "pri_a15_cokolov_cam6");
+        pri_a15_sokolov_2_vano_zulus_animation_data.addAnimation("into", 0, "pri_a15_cokolov_cam7");
+        pri_a15_sokolov_2_vano_zulus_animation_data.addAnimation("into", 0, "pri_a15_cokolov_cam8_1");
+        //  pri_a15_sokolov_2_vano_zulus_animation_data.addAnimationFunction("into", 0,
+        //  state_mgr_pri_a15.unstrap_weapon); Lord: доделать
+        pri_a15_sokolov_2_vano_zulus_animation_data.addAnimation("into", 0, "pri_a15_cokolov_cam8_2");
+        pri_a15_sokolov_2_vano_zulus_animation_data.addAnimation("into", 0, "pri_a15_cokolov_cam9");
+        pri_a15_sokolov_2_vano_zulus_animation_data.addAnimation("into", 0, "pri_a15_cokolov_cam10");
+        pri_a15_sokolov_2_vano_zulus_animation_data.addAnimation("into", 0, "pri_a15_cokolov_cam11_1");
+        //    pri_a15_sokolov_2_vano_zulus_animation_data.addAnimationFunction("into", 0,
+        //    state_mgr_pri_a15.strap_weapon); Lord: доделать
+        pri_a15_sokolov_2_vano_zulus_animation_data.addAnimationSoundName("into", 0, "pri_a15_sokolov_introduce");
+        pri_a15_sokolov_2_vano_zulus_animation_data.addAnimation("into", 0, "pri_a15_cokolov_cam11_2");
+        pri_a15_sokolov_2_vano_zulus_animation_data.addAnimation("into", 0, "pri_a15_cokolov_cam12");
+        pri_a15_sokolov_2_vano_zulus_animation_data.addAnimation("into", 0, "pri_a15_cokolov_cam13");
+        pri_a15_sokolov_2_vano_zulus_animation_data.addAnimationSoundName("into", 0, "pri_a15_sokolov_wonder");
+        pri_a15_sokolov_2_vano_zulus_animation_data.addAnimation("into", 0, "pri_a15_cokolov_cam14");
+        pri_a15_sokolov_2_vano_zulus_animation_data.addAnimation("into", 0, "pri_a15_cokolov_cam15");
+        pri_a15_sokolov_2_vano_zulus_animation_data.addAnimation("into", 0, "pri_a15_cokolov_cam16");
+        pri_a15_sokolov_2_vano_zulus_animation_data.addAnimation("into", 0, "pri_a15_cokolov_cam17");
+        pri_a15_sokolov_2_vano_zulus_animation_data.addAnimation("into", 0, "pri_a15_cokolov_cam17_1");
+        pri_a15_sokolov_2_vano_zulus_animation_data.addAnimation("into", 0, "pri_a15_cokolov_cam18");
+        pri_a15_sokolov_2_vano_zulus_animation_data.addAnimationSoundName("into", 0, "pri_a15_sokolov_conjecture");
+        pri_a15_sokolov_2_vano_zulus_animation_data.addAnimation("into", 0, "pri_a15_cokolov_cam20");
+        pri_a15_sokolov_2_vano_zulus_animation_data.addAnimation("into", 0, "pri_a15_cokolov_cam21");
+        pri_a15_sokolov_2_vano_zulus_animation_data.addAnimation("into", 0, "pri_a15_cokolov_cam25");
+        pri_a15_sokolov_2_vano_zulus_animation_data.addAnimation("into", 0, "pri_a15_cokolov_cam30");
+        pri_a15_sokolov_2_vano_zulus_animation_data.addAnimation("into", 0, "pri_a15_cokolov_cam31");
+        pri_a15_sokolov_2_vano_zulus_animation_data.addAnimation("into", 0, "pri_a15_cokolov_cam32");
+
+        this->m_state_manager_animation_list["pri_a15_sokolov_2_vano_zulus"] =
+            pri_a15_sokolov_2_vano_zulus_animation_data;
+
+        StateManagerAnimationData pri_a15_sokolov_2_vano_wanderer_animation_data;
+        pri_a15_sokolov_2_vano_wanderer_animation_data.setPropertiesMaxIdle(1);
+        pri_a15_sokolov_2_vano_wanderer_animation_data.setPropertiesSumIdle(1);
+        pri_a15_sokolov_2_vano_wanderer_animation_data.setPropertiesMoving(true);
+        pri_a15_sokolov_2_vano_wanderer_animation_data.setPropertiesRandom(100);
+
+        pri_a15_sokolov_2_vano_wanderer_animation_data.addAnimation("into", 0, "pri_a15_cokolov_cam1");
+        pri_a15_sokolov_2_vano_wanderer_animation_data.addAnimationAttachItemName("into", 0, "pri_a15_wpn_ak74u");
+        pri_a15_sokolov_2_vano_wanderer_animation_data.addAnimation("into", 0, "pri_a15_cokolov_cam2");
+        pri_a15_sokolov_2_vano_wanderer_animation_data.addAnimation("into", 0, "pri_a15_cokolov_cam3");
+        pri_a15_sokolov_2_vano_wanderer_animation_data.addAnimation("into", 0, "pri_a15_cokolov_cam4");
+        pri_a15_sokolov_2_vano_wanderer_animation_data.addAnimation("into", 0, "pri_a15_cokolov_cam5");
+        pri_a15_sokolov_2_vano_wanderer_animation_data.addAnimation("into", 0, "pri_a15_cokolov_cam6");
+        pri_a15_sokolov_2_vano_wanderer_animation_data.addAnimation("into", 0, "pri_a15_cokolov_cam7");
+        pri_a15_sokolov_2_vano_wanderer_animation_data.addAnimation("into", 0, "pri_a15_cokolov_cam8_1");
+        //  pri_a15_sokolov_2_vano_wanderer_animation_data.addAnimationFunction("into", 0,
+        //  state_mgr_pri_a15.unstrap_weapon); Lord: доделать
+        pri_a15_sokolov_2_vano_wanderer_animation_data.addAnimation("into", 0, "pri_a15_cokolov_cam8_2");
+        pri_a15_sokolov_2_vano_wanderer_animation_data.addAnimation("into", 0, "pri_a15_cokolov_cam9");
+        pri_a15_sokolov_2_vano_wanderer_animation_data.addAnimation("into", 0, "pri_a15_cokolov_cam10");
+        pri_a15_sokolov_2_vano_wanderer_animation_data.addAnimation("into", 0, "pri_a15_cokolov_cam11_1");
+        //    pri_a15_sokolov_2_vano_wanderer_animation_data.addAnimationFunction("into", 0,
+        //    state_mgr_pri_a15.strap_weapon); Lord: доделать
+        pri_a15_sokolov_2_vano_wanderer_animation_data.addAnimationSoundName("into", 0, "pri_a15_sokolov_introduce");
+        pri_a15_sokolov_2_vano_wanderer_animation_data.addAnimation("into", 0, "pri_a15_cokolov_cam11_2");
+        pri_a15_sokolov_2_vano_wanderer_animation_data.addAnimation("into", 0, "pri_a15_cokolov_cam12");
+        pri_a15_sokolov_2_vano_wanderer_animation_data.addAnimation("into", 0, "pri_a15_cokolov_cam13");
+        pri_a15_sokolov_2_vano_wanderer_animation_data.addAnimationSoundName("into", 0, "pri_a15_sokolov_wonder");
+        pri_a15_sokolov_2_vano_wanderer_animation_data.addAnimation("into", 0, "pri_a15_cokolov_cam14");
+        pri_a15_sokolov_2_vano_wanderer_animation_data.addAnimation("into", 0, "pri_a15_cokolov_cam15");
+        pri_a15_sokolov_2_vano_wanderer_animation_data.addAnimation("into", 0, "pri_a15_cokolov_cam16");
+        pri_a15_sokolov_2_vano_wanderer_animation_data.addAnimation("into", 0, "pri_a15_cokolov_cam17");
+        pri_a15_sokolov_2_vano_wanderer_animation_data.addAnimation("into", 0, "pri_a15_cokolov_cam17_1");
+        pri_a15_sokolov_2_vano_wanderer_animation_data.addAnimation("into", 0, "pri_a15_cokolov_cam18");
+        pri_a15_sokolov_2_vano_wanderer_animation_data.addAnimation("into", 0, "pri_a15_cokolov_cam19");
+        pri_a15_sokolov_2_vano_wanderer_animation_data.addAnimationSoundName("into", 0, "pri_a15_sokolov_conjecture");
+        pri_a15_sokolov_2_vano_wanderer_animation_data.addAnimation("into", 0, "pri_a15_cokolov_cam20");
+        pri_a15_sokolov_2_vano_wanderer_animation_data.addAnimation("into", 0, "pri_a15_cokolov_cam21");
+        pri_a15_sokolov_2_vano_wanderer_animation_data.addAnimation("into", 0, "pri_a15_cokolov_cam25");
+        pri_a15_sokolov_2_vano_wanderer_animation_data.addAnimation("into", 0, "pri_a15_cokolov_cam25_1");
+        pri_a15_sokolov_2_vano_wanderer_animation_data.addAnimation("into", 0, "pri_a15_cokolov_cam26");
+        pri_a15_sokolov_2_vano_wanderer_animation_data.addAnimation("into", 0, "pri_a15_cokolov_cam27");
+        pri_a15_sokolov_2_vano_wanderer_animation_data.addAnimation("into", 0, "pri_a15_cokolov_cam28");
+        pri_a15_sokolov_2_vano_wanderer_animation_data.addAnimation("into", 0, "pri_a15_cokolov_cam29");
+        pri_a15_sokolov_2_vano_wanderer_animation_data.addAnimation("into", 0, "pri_a15_cokolov_cam30");
+        pri_a15_sokolov_2_vano_wanderer_animation_data.addAnimation("into", 0, "pri_a15_cokolov_cam31");
+        pri_a15_sokolov_2_vano_wanderer_animation_data.addAnimation("into", 0, "pri_a15_cokolov_cam32");
+
+        this->m_state_manager_animation_list["pri_a15_sokolov_2_vano_wanderer"] =
+            pri_a15_sokolov_2_vano_wanderer_animation_data;
+
+        StateManagerAnimationData pri_a15_sokolov_2_zulus_wanderer_animation_data;
+        pri_a15_sokolov_2_zulus_wanderer_animation_data.setPropertiesMaxIdle(1);
+        pri_a15_sokolov_2_zulus_wanderer_animation_data.setPropertiesSumIdle(1);
+        pri_a15_sokolov_2_zulus_wanderer_animation_data.setPropertiesMoving(true);
+        pri_a15_sokolov_2_zulus_wanderer_animation_data.setPropertiesRandom(100);
+
+        pri_a15_sokolov_2_zulus_wanderer_animation_data.addAnimation("into", 0, "pri_a15_cokolov_cam1");
+        pri_a15_sokolov_2_zulus_wanderer_animation_data.addAnimationAttachItemName("into", 0, "pri_a15_wpn_ak74u");
+        pri_a15_sokolov_2_zulus_wanderer_animation_data.addAnimation("into", 0, "pri_a15_cokolov_cam2");
+        pri_a15_sokolov_2_zulus_wanderer_animation_data.addAnimation("into", 0, "pri_a15_cokolov_cam3");
+        pri_a15_sokolov_2_zulus_wanderer_animation_data.addAnimation("into", 0, "pri_a15_cokolov_cam4");
+        pri_a15_sokolov_2_zulus_wanderer_animation_data.addAnimation("into", 0, "pri_a15_cokolov_cam6");
+        pri_a15_sokolov_2_zulus_wanderer_animation_data.addAnimation("into", 0, "pri_a15_cokolov_cam7");
+        pri_a15_sokolov_2_zulus_wanderer_animation_data.addAnimation("into", 0, "pri_a15_cokolov_cam8_1");
+        //  pri_a15_sokolov_2_zulus_wanderer_animation_data.addAnimationFunction("into", 0,
+        //  state_mgr_pri_a15.unstrap_weapon); Lord: доделать
+        pri_a15_sokolov_2_zulus_wanderer_animation_data.addAnimation("into", 0, "pri_a15_cokolov_cam8_2");
+        pri_a15_sokolov_2_zulus_wanderer_animation_data.addAnimation("into", 0, "pri_a15_cokolov_cam9");
+        pri_a15_sokolov_2_zulus_wanderer_animation_data.addAnimation("into", 0, "pri_a15_cokolov_cam10");
+        pri_a15_sokolov_2_zulus_wanderer_animation_data.addAnimation("into", 0, "pri_a15_cokolov_cam11_1");
+        //    pri_a15_sokolov_2_zulus_wanderer_animation_data.addAnimationFunction("into", 0,
+        //    state_mgr_pri_a15.strap_weapon); Lord: доделать
+        pri_a15_sokolov_2_zulus_wanderer_animation_data.addAnimationSoundName("into", 0, "pri_a15_sokolov_introduce");
+        pri_a15_sokolov_2_zulus_wanderer_animation_data.addAnimation("into", 0, "pri_a15_cokolov_cam11_2");
+        pri_a15_sokolov_2_zulus_wanderer_animation_data.addAnimation("into", 0, "pri_a15_cokolov_cam12");
+        pri_a15_sokolov_2_zulus_wanderer_animation_data.addAnimation("into", 0, "pri_a15_cokolov_cam13");
+        pri_a15_sokolov_2_zulus_wanderer_animation_data.addAnimationSoundName("into", 0, "pri_a15_sokolov_wonder");
+        pri_a15_sokolov_2_zulus_wanderer_animation_data.addAnimation("into", 0, "pri_a15_cokolov_cam14");
+        pri_a15_sokolov_2_zulus_wanderer_animation_data.addAnimation("into", 0, "pri_a15_cokolov_cam15");
+        pri_a15_sokolov_2_zulus_wanderer_animation_data.addAnimation("into", 0, "pri_a15_cokolov_cam16");
+        pri_a15_sokolov_2_zulus_wanderer_animation_data.addAnimation("into", 0, "pri_a15_cokolov_cam17");
+        pri_a15_sokolov_2_zulus_wanderer_animation_data.addAnimation("into", 0, "pri_a15_cokolov_cam17_1");
+        pri_a15_sokolov_2_zulus_wanderer_animation_data.addAnimation("into", 0, "pri_a15_cokolov_cam18");
+        pri_a15_sokolov_2_zulus_wanderer_animation_data.addAnimationSoundName("into", 0, "pri_a15_sokolov_conjecture");
+        pri_a15_sokolov_2_zulus_wanderer_animation_data.addAnimation("into", 0, "pri_a15_cokolov_cam20");
+        pri_a15_sokolov_2_zulus_wanderer_animation_data.addAnimation("into", 0, "pri_a15_cokolov_cam21");
+        pri_a15_sokolov_2_zulus_wanderer_animation_data.addAnimation("into", 0, "pri_a15_cokolov_cam22");
+        pri_a15_sokolov_2_zulus_wanderer_animation_data.addAnimation("into", 0, "pri_a15_cokolov_cam23");
+        pri_a15_sokolov_2_zulus_wanderer_animation_data.addAnimation("into", 0, "pri_a15_cokolov_cam24");
+        pri_a15_sokolov_2_zulus_wanderer_animation_data.addAnimation("into", 0, "pri_a15_cokolov_cam25");
+        pri_a15_sokolov_2_zulus_wanderer_animation_data.addAnimation("into", 0, "pri_a15_cokolov_cam30");
+        pri_a15_sokolov_2_zulus_wanderer_animation_data.addAnimation("into", 0, "pri_a15_cokolov_cam31");
+        pri_a15_sokolov_2_zulus_wanderer_animation_data.addAnimation("into", 0, "pri_a15_cokolov_cam32");
+
+        this->m_state_manager_animation_list["pri_a15_sokolov_2_zulus_wanderer"] =
+            pri_a15_sokolov_2_zulus_wanderer_animation_data;
+
+        StateManagerAnimationData pri_a15_sokolov_3_sokolov_alive_animation_data;
+        pri_a15_sokolov_3_sokolov_alive_animation_data.setPropertiesMaxIdle(1);
+        pri_a15_sokolov_3_sokolov_alive_animation_data.setPropertiesSumIdle(1);
+        pri_a15_sokolov_3_sokolov_alive_animation_data.setPropertiesMoving(true);
+        pri_a15_sokolov_3_sokolov_alive_animation_data.setPropertiesRandom(100);
+
+        pri_a15_sokolov_3_sokolov_alive_animation_data.addAnimation("into", 0, "pri_a15_cokolov_cam1");
+        pri_a15_sokolov_3_sokolov_alive_animation_data.addAnimationAttachItemName("into", 0, "pri_a15_wpn_ak74u");
+        pri_a15_sokolov_3_sokolov_alive_animation_data.addAnimation("into", 0, "pri_a15_cokolov_cam2");
+        pri_a15_sokolov_3_sokolov_alive_animation_data.addAnimation("into", 0, "pri_a15_cokolov_cam3");
+        pri_a15_sokolov_3_sokolov_alive_animation_data.addAnimation("into", 0, "pri_a15_cokolov_cam4");
+        pri_a15_sokolov_3_sokolov_alive_animation_data.addAnimation("into", 0, "pri_a15_cokolov_cam8_1");
+        //  pri_a15_sokolov_3_sokolov_alive_animation_data.addAnimationFunction("into", 0,
+        //  state_mgr_pri_a15.unstrap_weapon); Lord: доделать
+        pri_a15_sokolov_3_sokolov_alive_animation_data.addAnimation("into", 0, "pri_a15_cokolov_cam8_2");
+        pri_a15_sokolov_3_sokolov_alive_animation_data.addAnimation("into", 0, "pri_a15_cokolov_cam9");
+        pri_a15_sokolov_3_sokolov_alive_animation_data.addAnimation("into", 0, "pri_a15_cokolov_cam10");
+        pri_a15_sokolov_3_sokolov_alive_animation_data.addAnimation("into", 0, "pri_a15_cokolov_cam11_1");
+        //    pri_a15_sokolov_3_sokolov_alive_animation_data.addAnimationFunction("into", 0,
+        //    state_mgr_pri_a15.strap_weapon); Lord: доделать
+        pri_a15_sokolov_3_sokolov_alive_animation_data.addAnimationSoundName("into", 0, "pri_a15_sokolov_introduce");
+        pri_a15_sokolov_3_sokolov_alive_animation_data.addAnimation("into", 0, "pri_a15_cokolov_cam11_2");
+        pri_a15_sokolov_3_sokolov_alive_animation_data.addAnimation("into", 0, "pri_a15_cokolov_cam12");
+        pri_a15_sokolov_3_sokolov_alive_animation_data.addAnimation("into", 0, "pri_a15_cokolov_cam13");
+        pri_a15_sokolov_3_sokolov_alive_animation_data.addAnimationSoundName("into", 0, "pri_a15_sokolov_wonder");
+        pri_a15_sokolov_3_sokolov_alive_animation_data.addAnimation("into", 0, "pri_a15_cokolov_cam14");
+        pri_a15_sokolov_3_sokolov_alive_animation_data.addAnimation("into", 0, "pri_a15_cokolov_cam15");
+        pri_a15_sokolov_3_sokolov_alive_animation_data.addAnimation("into", 0, "pri_a15_cokolov_cam16");
+        pri_a15_sokolov_3_sokolov_alive_animation_data.addAnimation("into", 0, "pri_a15_cokolov_cam17");
+        pri_a15_sokolov_3_sokolov_alive_animation_data.addAnimation("into", 0, "pri_a15_cokolov_cam17_1");
+        pri_a15_sokolov_3_sokolov_alive_animation_data.addAnimation("into", 0, "pri_a15_cokolov_cam18");
+        pri_a15_sokolov_3_sokolov_alive_animation_data.addAnimationSoundName("into", 0, "pri_a15_sokolov_conjecture");
+        pri_a15_sokolov_3_sokolov_alive_animation_data.addAnimation("into", 0, "pri_a15_cokolov_cam20");
+        pri_a15_sokolov_3_sokolov_alive_animation_data.addAnimation("into", 0, "pri_a15_cokolov_cam21");
+        pri_a15_sokolov_3_sokolov_alive_animation_data.addAnimation("into", 0, "pri_a15_cokolov_cam25");
+        pri_a15_sokolov_3_sokolov_alive_animation_data.addAnimation("into", 0, "pri_a15_cokolov_cam30");
+        pri_a15_sokolov_3_sokolov_alive_animation_data.addAnimation("into", 0, "pri_a15_cokolov_cam31");
+        pri_a15_sokolov_3_sokolov_alive_animation_data.addAnimation("into", 0, "pri_a15_cokolov_cam32");
+
+        this->m_state_manager_animation_list["pri_a15_sokolov_3_sokolov_alive"] =
+            pri_a15_sokolov_3_sokolov_alive_animation_data;
+
+        StateManagerAnimationData pri_a15_zulus_all_animation_data;
+        pri_a15_zulus_all_animation_data.setPropertiesMaxIdle(1);
+        pri_a15_zulus_all_animation_data.setPropertiesSumIdle(1);
+        pri_a15_zulus_all_animation_data.setPropertiesMoving(true);
+        pri_a15_zulus_all_animation_data.setPropertiesRandom(100);
+
+        pri_a15_zulus_all_animation_data.addAnimation("into", 0, "pri_a15_zulus_cam1");
+        pri_a15_zulus_all_animation_data.addAnimation("into", 0, "pri_a15_zulus_cam2");
+        pri_a15_zulus_all_animation_data.addAnimation("into", 0, "pri_a15_zulus_cam3");
+        pri_a15_zulus_all_animation_data.addAnimation("into", 0, "pri_a15_zulus_cam4");
+        pri_a15_zulus_all_animation_data.addAnimation("into", 0, "pri_a15_zulus_cam5");
+        pri_a15_zulus_all_animation_data.addAnimation("into", 0, "pri_a15_zulus_cam6");
+        pri_a15_zulus_all_animation_data.addAnimation("into", 0, "pri_a15_zulus_cam7");
+        pri_a15_zulus_all_animation_data.addAnimation("into", 0, "pri_a15_zulus_cam9");
+        pri_a15_zulus_all_animation_data.addAnimation("into", 0, "pri_a15_zulus_cam10");
+        pri_a15_zulus_all_animation_data.addAnimation("into", 0, "pri_a15_zulus_cam11");
+        pri_a15_zulus_all_animation_data.addAnimation("into", 0, "pri_a15_zulus_cam12");
+        pri_a15_zulus_all_animation_data.addAnimation("into", 0, "pri_a15_zulus_cam13");
+        pri_a15_zulus_all_animation_data.addAnimation("into", 0, "pri_a15_zulus_cam14");
+        pri_a15_zulus_all_animation_data.addAnimation("into", 0, "pri_a15_zulus_cam15");
+        pri_a15_zulus_all_animation_data.addAnimation("into", 0, "pri_a15_zulus_cam16");
+        pri_a15_zulus_all_animation_data.addAnimation("into", 0, "pri_a15_zulus_cam17");
+        pri_a15_zulus_all_animation_data.addAnimation("into", 0, "pri_a15_zulus_cam17_1");
+        pri_a15_zulus_all_animation_data.addAnimation("into", 0, "pri_a15_zulus_cam18");
+        pri_a15_zulus_all_animation_data.addAnimationSoundName("into", 0, "pri_a15_zulus_wonder");
+        pri_a15_zulus_all_animation_data.addAnimation("into", 0, "pri_a15_zulus_cam19");
+        pri_a15_zulus_all_animation_data.addAnimation("into", 0, "pri_a15_zulus_cam20");
+        pri_a15_zulus_all_animation_data.addAnimation("into", 0, "pri_a15_zulus_cam21");
+        pri_a15_zulus_all_animation_data.addAnimation("into", 0, "pri_a15_zulus_cam22");
+        pri_a15_zulus_all_animation_data.addAnimation("into", 0, "pri_a15_zulus_cam23");
+        pri_a15_zulus_all_animation_data.addAnimation("into", 0, "pri_a15_zulus_cam24");
+        pri_a15_zulus_all_animation_data.addAnimation("into", 0, "pri_a15_zulus_cam25");
+        pri_a15_zulus_all_animation_data.addAnimationSoundName("into", 0, "pri_a15_zulus_not_me");
+        pri_a15_zulus_all_animation_data.addAnimation("into", 0, "pri_a15_zulus_cam25_1");
+        pri_a15_zulus_all_animation_data.addAnimationSoundName("into", 0, "pri_a15_zulus_no_business_with_army");
+        pri_a15_zulus_all_animation_data.addAnimation("into", 0, "pri_a15_zulus_cam26");
+        pri_a15_zulus_all_animation_data.addAnimationSoundName("into", 0, "pri_a15_zulus_go");
+        pri_a15_zulus_all_animation_data.addAnimation("into", 0, "pri_a15_zulus_cam27");
+        pri_a15_zulus_all_animation_data.addAnimation("into", 0, "pri_a15_zulus_cam28");
+        pri_a15_zulus_all_animation_data.addAnimation("into", 0, "pri_a15_zulus_cam29");
+
+        this->m_state_manager_animation_list["pri_a15_zulus_all"] = pri_a15_zulus_all_animation_data;
+
+        StateManagerAnimationData pri_a15_zulus_1_vano_animation_data;
+        pri_a15_zulus_1_vano_animation_data.setPropertiesMaxIdle(1);
+        pri_a15_zulus_1_vano_animation_data.setPropertiesSumIdle(1);
+        pri_a15_zulus_1_vano_animation_data.setPropertiesMoving(true);
+        pri_a15_zulus_1_vano_animation_data.setPropertiesRandom(100);
+
+        pri_a15_zulus_1_vano_animation_data.addAnimation("into", 0, "pri_a15_zulus_cam1");
+        pri_a15_zulus_1_vano_animation_data.addAnimation("into", 0, "pri_a15_zulus_cam2");
+        pri_a15_zulus_1_vano_animation_data.addAnimation("into", 0, "pri_a15_zulus_cam3");
+        pri_a15_zulus_1_vano_animation_data.addAnimation("into", 0, "pri_a15_zulus_cam4");
+        pri_a15_zulus_1_vano_animation_data.addAnimation("into", 0, "pri_a15_zulus_cam5");
+        pri_a15_zulus_1_vano_animation_data.addAnimation("into", 0, "pri_a15_zulus_cam6");
+        pri_a15_zulus_1_vano_animation_data.addAnimation("into", 0, "pri_a15_zulus_cam7");
+        pri_a15_zulus_1_vano_animation_data.addAnimation("into", 0, "pri_a15_zulus_cam9");
+        pri_a15_zulus_1_vano_animation_data.addAnimation("into", 0, "pri_a15_zulus_cam10");
+        pri_a15_zulus_1_vano_animation_data.addAnimation("into", 0, "pri_a15_zulus_cam11");
+        pri_a15_zulus_1_vano_animation_data.addAnimation("into", 0, "pri_a15_zulus_cam12");
+        pri_a15_zulus_1_vano_animation_data.addAnimation("into", 0, "pri_a15_zulus_cam13");
+        pri_a15_zulus_1_vano_animation_data.addAnimation("into", 0, "pri_a15_zulus_cam14");
+        pri_a15_zulus_1_vano_animation_data.addAnimation("into", 0, "pri_a15_zulus_cam15");
+        pri_a15_zulus_1_vano_animation_data.addAnimation("into", 0, "pri_a15_zulus_cam16");
+        pri_a15_zulus_1_vano_animation_data.addAnimation("into", 0, "pri_a15_zulus_cam17");
+        pri_a15_zulus_1_vano_animation_data.addAnimation("into", 0, "pri_a15_zulus_cam17_1");
+        pri_a15_zulus_1_vano_animation_data.addAnimation("into", 0, "pri_a15_zulus_cam18");
+        pri_a15_zulus_1_vano_animation_data.addAnimationSoundName("into", 0, "pri_a15_zulus_wonder");
+        pri_a15_zulus_1_vano_animation_data.addAnimation("into", 0, "pri_a15_zulus_cam19");
+        pri_a15_zulus_1_vano_animation_data.addAnimation("into", 0, "pri_a15_zulus_cam20");
+        pri_a15_zulus_1_vano_animation_data.addAnimation("into", 0, "pri_a15_zulus_cam21");
+        pri_a15_zulus_1_vano_animation_data.addAnimation("into", 0, "pri_a15_zulus_cam25");
+        pri_a15_zulus_1_vano_animation_data.addAnimationSoundName("into", 0, "pri_a15_zulus_not_me");
+        pri_a15_zulus_1_vano_animation_data.addAnimation("into", 0, "pri_a15_zulus_cam25_1");
+        pri_a15_zulus_1_vano_animation_data.addAnimationSoundName("into", 0, "pri_a15_zulus_no_business_with_army");
+        pri_a15_zulus_1_vano_animation_data.addAnimation("into", 0, "pri_a15_zulus_cam26");
+        pri_a15_zulus_1_vano_animation_data.addAnimationSoundName("into", 0, "pri_a15_zulus_go");
+        pri_a15_zulus_1_vano_animation_data.addAnimation("into", 0, "pri_a15_zulus_cam27");
+        pri_a15_zulus_1_vano_animation_data.addAnimation("into", 0, "pri_a15_zulus_cam28");
+        pri_a15_zulus_1_vano_animation_data.addAnimation("into", 0, "pri_a15_zulus_cam29");
+
+        this->m_state_manager_animation_list["pri_a15_zulus_1_vano"] = pri_a15_zulus_1_vano_animation_data;
+
+        StateManagerAnimationData pri_a15_zulus_1_sokolov_animation_data;
+        pri_a15_zulus_1_sokolov_animation_data.setPropertiesMaxIdle(1);
+        pri_a15_zulus_1_sokolov_animation_data.setPropertiesSumIdle(1);
+        pri_a15_zulus_1_sokolov_animation_data.setPropertiesMoving(true);
+        pri_a15_zulus_1_sokolov_animation_data.setPropertiesRandom(100);
+
+        pri_a15_zulus_1_sokolov_animation_data.addAnimation("into", 0, "pri_a15_zulus_cam1");
+        pri_a15_zulus_1_sokolov_animation_data.addAnimation("into", 0, "pri_a15_zulus_cam2");
+        pri_a15_zulus_1_sokolov_animation_data.addAnimation("into", 0, "pri_a15_zulus_cam3");
+        pri_a15_zulus_1_sokolov_animation_data.addAnimation("into", 0, "pri_a15_zulus_cam4");
+        pri_a15_zulus_1_sokolov_animation_data.addAnimation("into", 0, "pri_a15_zulus_cam5");
+        pri_a15_zulus_1_sokolov_animation_data.addAnimation("into", 0, "pri_a15_zulus_cam6");
+        pri_a15_zulus_1_sokolov_animation_data.addAnimation("into", 0, "pri_a15_zulus_cam7");
+        pri_a15_zulus_1_sokolov_animation_data.addAnimation("into", 0, "pri_a15_zulus_cam9");
+        pri_a15_zulus_1_sokolov_animation_data.addAnimation("into", 0, "pri_a15_zulus_cam10");
+        pri_a15_zulus_1_sokolov_animation_data.addAnimation("into", 0, "pri_a15_zulus_cam12");
+        pri_a15_zulus_1_sokolov_animation_data.addAnimation("into", 0, "pri_a15_zulus_cam13");
+        pri_a15_zulus_1_sokolov_animation_data.addAnimation("into", 0, "pri_a15_zulus_cam14");
+        pri_a15_zulus_1_sokolov_animation_data.addAnimation("into", 0, "pri_a15_zulus_cam15");
+        pri_a15_zulus_1_sokolov_animation_data.addAnimation("into", 0, "pri_a15_zulus_cam16");
+        pri_a15_zulus_1_sokolov_animation_data.addAnimation("into", 0, "pri_a15_zulus_cam17");
+        pri_a15_zulus_1_sokolov_animation_data.addAnimation("into", 0, "pri_a15_zulus_cam17_1");
+        pri_a15_zulus_1_sokolov_animation_data.addAnimation("into", 0, "pri_a15_zulus_cam18");
+        pri_a15_zulus_1_sokolov_animation_data.addAnimationSoundName("into", 0, "pri_a15_zulus_wonder");
+        pri_a15_zulus_1_sokolov_animation_data.addAnimation("into", 0, "pri_a15_zulus_cam19");
+        pri_a15_zulus_1_sokolov_animation_data.addAnimation("into", 0, "pri_a15_zulus_cam21");
+        pri_a15_zulus_1_sokolov_animation_data.addAnimation("into", 0, "pri_a15_zulus_cam22");
+        pri_a15_zulus_1_sokolov_animation_data.addAnimation("into", 0, "pri_a15_zulus_cam23");
+        pri_a15_zulus_1_sokolov_animation_data.addAnimation("into", 0, "pri_a15_zulus_cam24");
+        pri_a15_zulus_1_sokolov_animation_data.addAnimation("into", 0, "pri_a15_zulus_cam25");
+        pri_a15_zulus_1_sokolov_animation_data.addAnimationSoundName("into", 0, "pri_a15_zulus_not_me");
+        pri_a15_zulus_1_sokolov_animation_data.addAnimation("into", 0, "pri_a15_zulus_cam25_1");
+        pri_a15_zulus_1_sokolov_animation_data.addAnimationSoundName("into", 0, "pri_a15_zulus_no_business_with_army");
+        pri_a15_zulus_1_sokolov_animation_data.addAnimation("into", 0, "pri_a15_zulus_cam26");
+        pri_a15_zulus_1_sokolov_animation_data.addAnimationSoundName("into", 0, "pri_a15_zulus_go");
+        pri_a15_zulus_1_sokolov_animation_data.addAnimation("into", 0, "pri_a15_zulus_cam27");
+        pri_a15_zulus_1_sokolov_animation_data.addAnimation("into", 0, "pri_a15_zulus_cam28");
+        pri_a15_zulus_1_sokolov_animation_data.addAnimation("into", 0, "pri_a15_zulus_cam29");
+
+        this->m_state_manager_animation_list["pri_a15_zulus_1_sokolov"] = pri_a15_zulus_1_sokolov_animation_data;
+
+        StateManagerAnimationData pri_a15_zulus_1_wanderer_animation_data;
+        pri_a15_zulus_1_wanderer_animation_data.setPropertiesMaxIdle(1);
+        pri_a15_zulus_1_wanderer_animation_data.setPropertiesSumIdle(1);
+        pri_a15_zulus_1_wanderer_animation_data.setPropertiesMoving(true);
+        pri_a15_zulus_1_wanderer_animation_data.setPropertiesRandom(100);
+
+        pri_a15_zulus_1_wanderer_animation_data.addAnimation("into", 0, "pri_a15_zulus_cam1");
+        pri_a15_zulus_1_wanderer_animation_data.addAnimation("into", 0, "pri_a15_zulus_cam2");
+        pri_a15_zulus_1_wanderer_animation_data.addAnimation("into", 0, "pri_a15_zulus_cam3");
+        pri_a15_zulus_1_wanderer_animation_data.addAnimation("into", 0, "pri_a15_zulus_cam4");
+        pri_a15_zulus_1_wanderer_animation_data.addAnimation("into", 0, "pri_a15_zulus_cam5");
+        pri_a15_zulus_1_wanderer_animation_data.addAnimation("into", 0, "pri_a15_zulus_cam6");
+        pri_a15_zulus_1_wanderer_animation_data.addAnimation("into", 0, "pri_a15_zulus_cam7");
+        pri_a15_zulus_1_wanderer_animation_data.addAnimation("into", 0, "pri_a15_zulus_cam9");
+        pri_a15_zulus_1_wanderer_animation_data.addAnimation("into", 0, "pri_a15_zulus_cam10");
+        pri_a15_zulus_1_wanderer_animation_data.addAnimation("into", 0, "pri_a15_zulus_cam11");
+        pri_a15_zulus_1_wanderer_animation_data.addAnimation("into", 0, "pri_a15_zulus_cam12");
+        pri_a15_zulus_1_wanderer_animation_data.addAnimation("into", 0, "pri_a15_zulus_cam13");
+        pri_a15_zulus_1_wanderer_animation_data.addAnimation("into", 0, "pri_a15_zulus_cam14");
+        pri_a15_zulus_1_wanderer_animation_data.addAnimation("into", 0, "pri_a15_zulus_cam15");
+        pri_a15_zulus_1_wanderer_animation_data.addAnimation("into", 0, "pri_a15_zulus_cam16");
+        pri_a15_zulus_1_wanderer_animation_data.addAnimation("into", 0, "pri_a15_zulus_cam17");
+        pri_a15_zulus_1_wanderer_animation_data.addAnimation("into", 0, "pri_a15_zulus_cam17_1");
+        pri_a15_zulus_1_wanderer_animation_data.addAnimation("into", 0, "pri_a15_zulus_cam18");
+        pri_a15_zulus_1_wanderer_animation_data.addAnimationSoundName("into", 0, "pri_a15_zulus_wonder");
+        pri_a15_zulus_1_wanderer_animation_data.addAnimation("into", 0, "pri_a15_zulus_cam19");
+        pri_a15_zulus_1_wanderer_animation_data.addAnimation("into", 0, "pri_a15_zulus_cam20");
+        pri_a15_zulus_1_wanderer_animation_data.addAnimation("into", 0, "pri_a15_zulus_cam21");
+        pri_a15_zulus_1_wanderer_animation_data.addAnimation("into", 0, "pri_a15_zulus_cam22");
+        pri_a15_zulus_1_wanderer_animation_data.addAnimation("into", 0, "pri_a15_zulus_cam23");
+        pri_a15_zulus_1_wanderer_animation_data.addAnimation("into", 0, "pri_a15_zulus_cam24");
+        pri_a15_zulus_1_wanderer_animation_data.addAnimation("into", 0, "pri_a15_zulus_cam25");
+        pri_a15_zulus_1_wanderer_animation_data.addAnimationSoundName("into", 0, "pri_a15_zulus_not_me");
+        pri_a15_zulus_1_wanderer_animation_data.addAnimation("into", 0, "pri_a15_zulus_cam25_1");
+        pri_a15_zulus_1_wanderer_animation_data.addAnimationSoundName("into", 0, "pri_a15_zulus_no_business_with_army");
+        pri_a15_zulus_1_wanderer_animation_data.addAnimation("into", 0, "pri_a15_zulus_cam26");
+        pri_a15_zulus_1_wanderer_animation_data.addAnimationSoundName("into", 0, "pri_a15_zulus_go");
+        pri_a15_zulus_1_wanderer_animation_data.addAnimation("into", 0, "pri_a15_zulus_cam27");
+        pri_a15_zulus_1_wanderer_animation_data.addAnimation("into", 0, "pri_a15_zulus_cam28");
+        pri_a15_zulus_1_wanderer_animation_data.addAnimation("into", 0, "pri_a15_zulus_cam29");
+
+        this->m_state_manager_animation_list["pri_a15_zulus_1_wanderer"] = pri_a15_zulus_1_wanderer_animation_data;
+
+        StateManagerAnimationData pri_a15_zulus_2_vano_sokolov_animation_data;
+        pri_a15_zulus_2_vano_sokolov_animation_data.setPropertiesMaxIdle(1);
+        pri_a15_zulus_2_vano_sokolov_animation_data.setPropertiesSumIdle(1);
+        pri_a15_zulus_2_vano_sokolov_animation_data.setPropertiesMoving(true);
+        pri_a15_zulus_2_vano_sokolov_animation_data.setPropertiesRandom(100);
+
+        pri_a15_zulus_2_vano_sokolov_animation_data.addAnimation("into", 0, "pri_a15_zulus_cam1");
+        pri_a15_zulus_2_vano_sokolov_animation_data.addAnimation("into", 0, "pri_a15_zulus_cam2");
+        pri_a15_zulus_2_vano_sokolov_animation_data.addAnimation("into", 0, "pri_a15_zulus_cam3");
+        pri_a15_zulus_2_vano_sokolov_animation_data.addAnimation("into", 0, "pri_a15_zulus_cam4");
+        pri_a15_zulus_2_vano_sokolov_animation_data.addAnimation("into", 0, "pri_a15_zulus_cam5");
+        pri_a15_zulus_2_vano_sokolov_animation_data.addAnimation("into", 0, "pri_a15_zulus_cam6");
+        pri_a15_zulus_2_vano_sokolov_animation_data.addAnimation("into", 0, "pri_a15_zulus_cam7");
+        pri_a15_zulus_2_vano_sokolov_animation_data.addAnimation("into", 0, "pri_a15_zulus_cam9");
+        pri_a15_zulus_2_vano_sokolov_animation_data.addAnimation("into", 0, "pri_a15_zulus_cam10");
+        pri_a15_zulus_2_vano_sokolov_animation_data.addAnimation("into", 0, "pri_a15_zulus_cam12");
+        pri_a15_zulus_2_vano_sokolov_animation_data.addAnimation("into", 0, "pri_a15_zulus_cam13");
+        pri_a15_zulus_2_vano_sokolov_animation_data.addAnimation("into", 0, "pri_a15_zulus_cam14");
+        pri_a15_zulus_2_vano_sokolov_animation_data.addAnimation("into", 0, "pri_a15_zulus_cam15");
+        pri_a15_zulus_2_vano_sokolov_animation_data.addAnimation("into", 0, "pri_a15_zulus_cam16");
+        pri_a15_zulus_2_vano_sokolov_animation_data.addAnimation("into", 0, "pri_a15_zulus_cam17");
+        pri_a15_zulus_2_vano_sokolov_animation_data.addAnimation("into", 0, "pri_a15_zulus_cam17_1");
+        pri_a15_zulus_2_vano_sokolov_animation_data.addAnimation("into", 0, "pri_a15_zulus_cam18");
+        pri_a15_zulus_2_vano_sokolov_animation_data.addAnimationSoundName("into", 0, "pri_a15_zulus_wonder");
+        pri_a15_zulus_2_vano_sokolov_animation_data.addAnimation("into", 0, "pri_a15_zulus_cam19");
+        pri_a15_zulus_2_vano_sokolov_animation_data.addAnimation("into", 0, "pri_a15_zulus_cam21");
+        pri_a15_zulus_2_vano_sokolov_animation_data.addAnimation("into", 0, "pri_a15_zulus_cam25");
+        pri_a15_zulus_2_vano_sokolov_animation_data.addAnimationSoundName("into", 0, "pri_a15_zulus_not_me");
+        pri_a15_zulus_2_vano_sokolov_animation_data.addAnimation("into", 0, "pri_a15_zulus_cam25_1");
+        pri_a15_zulus_2_vano_sokolov_animation_data.addAnimationSoundName(
+            "into", 0, "pri_a15_zulus_no_business_with_army");
+        pri_a15_zulus_2_vano_sokolov_animation_data.addAnimation("into", 0, "pri_a15_zulus_cam26");
+        pri_a15_zulus_2_vano_sokolov_animation_data.addAnimationSoundName("into", 0, "pri_a15_zulus_go");
+        pri_a15_zulus_2_vano_sokolov_animation_data.addAnimation("into", 0, "pri_a15_zulus_cam27");
+        pri_a15_zulus_2_vano_sokolov_animation_data.addAnimation("into", 0, "pri_a15_zulus_cam28");
+        pri_a15_zulus_2_vano_sokolov_animation_data.addAnimation("into", 0, "pri_a15_zulus_cam29");
+
+        this->m_state_manager_animation_list["pri_a15_zulus_2_vano_sokolov"] =
+            pri_a15_zulus_2_vano_sokolov_animation_data;
+
+        StateManagerAnimationData pri_a15_zulus_2_vano_wanderer_animation_data;
+        pri_a15_zulus_2_vano_wanderer_animation_data.setPropertiesMaxIdle(1);
+        pri_a15_zulus_2_vano_wanderer_animation_data.setPropertiesSumIdle(1);
+        pri_a15_zulus_2_vano_wanderer_animation_data.setPropertiesMoving(true);
+        pri_a15_zulus_2_vano_wanderer_animation_data.setPropertiesRandom(100);
+
+        pri_a15_zulus_2_vano_wanderer_animation_data.addAnimation("into", 0, "pri_a15_zulus_cam1");
+        pri_a15_zulus_2_vano_wanderer_animation_data.addAnimation("into", 0, "pri_a15_zulus_cam2");
+        pri_a15_zulus_2_vano_wanderer_animation_data.addAnimation("into", 0, "pri_a15_zulus_cam3");
+        pri_a15_zulus_2_vano_wanderer_animation_data.addAnimation("into", 0, "pri_a15_zulus_cam4");
+        pri_a15_zulus_2_vano_wanderer_animation_data.addAnimation("into", 0, "pri_a15_zulus_cam5");
+        pri_a15_zulus_2_vano_wanderer_animation_data.addAnimation("into", 0, "pri_a15_zulus_cam6");
+        pri_a15_zulus_2_vano_wanderer_animation_data.addAnimation("into", 0, "pri_a15_zulus_cam7");
+        pri_a15_zulus_2_vano_wanderer_animation_data.addAnimation("into", 0, "pri_a15_zulus_cam9");
+        pri_a15_zulus_2_vano_wanderer_animation_data.addAnimation("into", 0, "pri_a15_zulus_cam10");
+        pri_a15_zulus_2_vano_wanderer_animation_data.addAnimation("into", 0, "pri_a15_zulus_cam11");
+        pri_a15_zulus_2_vano_wanderer_animation_data.addAnimation("into", 0, "pri_a15_zulus_cam12");
+        pri_a15_zulus_2_vano_wanderer_animation_data.addAnimation("into", 0, "pri_a15_zulus_cam13");
+        pri_a15_zulus_2_vano_wanderer_animation_data.addAnimation("into", 0, "pri_a15_zulus_cam14");
+        pri_a15_zulus_2_vano_wanderer_animation_data.addAnimation("into", 0, "pri_a15_zulus_cam15");
+        pri_a15_zulus_2_vano_wanderer_animation_data.addAnimation("into", 0, "pri_a15_zulus_cam16");
+        pri_a15_zulus_2_vano_wanderer_animation_data.addAnimation("into", 0, "pri_a15_zulus_cam17");
+        pri_a15_zulus_2_vano_wanderer_animation_data.addAnimation("into", 0, "pri_a15_zulus_cam17_1");
+        pri_a15_zulus_2_vano_wanderer_animation_data.addAnimation("into", 0, "pri_a15_zulus_cam18");
+        pri_a15_zulus_2_vano_wanderer_animation_data.addAnimationSoundName("into", 0, "pri_a15_zulus_wonder");
+        pri_a15_zulus_2_vano_wanderer_animation_data.addAnimation("into", 0, "pri_a15_zulus_cam19");
+        pri_a15_zulus_2_vano_wanderer_animation_data.addAnimation("into", 0, "pri_a15_zulus_cam20");
+        pri_a15_zulus_2_vano_wanderer_animation_data.addAnimation("into", 0, "pri_a15_zulus_cam21");
+        pri_a15_zulus_2_vano_wanderer_animation_data.addAnimation("into", 0, "pri_a15_zulus_cam25");
+        pri_a15_zulus_2_vano_wanderer_animation_data.addAnimationSoundName("into", 0, "pri_a15_zulus_not_me");
+        pri_a15_zulus_2_vano_wanderer_animation_data.addAnimation("into", 0, "pri_a15_zulus_cam25_1");
+        pri_a15_zulus_2_vano_wanderer_animation_data.addAnimationSoundName(
+            "into", 0, "pri_a15_zulus_no_business_with_army");
+        pri_a15_zulus_2_vano_wanderer_animation_data.addAnimation("into", 0, "pri_a15_zulus_cam26");
+        pri_a15_zulus_2_vano_wanderer_animation_data.addAnimationSoundName("into", 0, "pri_a15_zulus_go");
+        pri_a15_zulus_2_vano_wanderer_animation_data.addAnimation("into", 0, "pri_a15_zulus_cam27");
+        pri_a15_zulus_2_vano_wanderer_animation_data.addAnimation("into", 0, "pri_a15_zulus_cam28");
+        pri_a15_zulus_2_vano_wanderer_animation_data.addAnimation("into", 0, "pri_a15_zulus_cam29");
+
+        this->m_state_manager_animation_list["pri_a15_zulus_2_vano_wanderer"] =
+            pri_a15_zulus_2_vano_wanderer_animation_data;
+
+        StateManagerAnimationData pri_a15_zulus_2_sokolov_wanderer_animation_data;
+        pri_a15_zulus_2_sokolov_wanderer_animation_data.setPropertiesMaxIdle(1);
+        pri_a15_zulus_2_sokolov_wanderer_animation_data.setPropertiesSumIdle(1);
+        pri_a15_zulus_2_sokolov_wanderer_animation_data.setPropertiesMoving(true);
+        pri_a15_zulus_2_sokolov_wanderer_animation_data.setPropertiesRandom(100);
+
+        pri_a15_zulus_2_sokolov_wanderer_animation_data.addAnimation("into", 0, "pri_a15_zulus_cam1");
+        pri_a15_zulus_2_sokolov_wanderer_animation_data.addAnimation("into", 0, "pri_a15_zulus_cam2");
+        pri_a15_zulus_2_sokolov_wanderer_animation_data.addAnimation("into", 0, "pri_a15_zulus_cam3");
+        pri_a15_zulus_2_sokolov_wanderer_animation_data.addAnimation("into", 0, "pri_a15_zulus_cam4");
+        pri_a15_zulus_2_sokolov_wanderer_animation_data.addAnimation("into", 0, "pri_a15_zulus_cam5");
+        pri_a15_zulus_2_sokolov_wanderer_animation_data.addAnimation("into", 0, "pri_a15_zulus_cam6");
+        pri_a15_zulus_2_sokolov_wanderer_animation_data.addAnimation("into", 0, "pri_a15_zulus_cam7");
+        pri_a15_zulus_2_sokolov_wanderer_animation_data.addAnimation("into", 0, "pri_a15_zulus_cam9");
+        pri_a15_zulus_2_sokolov_wanderer_animation_data.addAnimation("into", 0, "pri_a15_zulus_cam10");
+        pri_a15_zulus_2_sokolov_wanderer_animation_data.addAnimation("into", 0, "pri_a15_zulus_cam12");
+        pri_a15_zulus_2_sokolov_wanderer_animation_data.addAnimation("into", 0, "pri_a15_zulus_cam13");
+        pri_a15_zulus_2_sokolov_wanderer_animation_data.addAnimation("into", 0, "pri_a15_zulus_cam14");
+        pri_a15_zulus_2_sokolov_wanderer_animation_data.addAnimation("into", 0, "pri_a15_zulus_cam15");
+        pri_a15_zulus_2_sokolov_wanderer_animation_data.addAnimation("into", 0, "pri_a15_zulus_cam16");
+        pri_a15_zulus_2_sokolov_wanderer_animation_data.addAnimation("into", 0, "pri_a15_zulus_cam17");
+        pri_a15_zulus_2_sokolov_wanderer_animation_data.addAnimation("into", 0, "pri_a15_zulus_cam17_1");
+        pri_a15_zulus_2_sokolov_wanderer_animation_data.addAnimation("into", 0, "pri_a15_zulus_cam18");
+        pri_a15_zulus_2_sokolov_wanderer_animation_data.addAnimationSoundName("into", 0, "pri_a15_zulus_wonder");
+        pri_a15_zulus_2_sokolov_wanderer_animation_data.addAnimation("into", 0, "pri_a15_zulus_cam19");
+        pri_a15_zulus_2_sokolov_wanderer_animation_data.addAnimation("into", 0, "pri_a15_zulus_cam21");
+        pri_a15_zulus_2_sokolov_wanderer_animation_data.addAnimation("into", 0, "pri_a15_zulus_cam22");
+        pri_a15_zulus_2_sokolov_wanderer_animation_data.addAnimation("into", 0, "pri_a15_zulus_cam23");
+        pri_a15_zulus_2_sokolov_wanderer_animation_data.addAnimation("into", 0, "pri_a15_zulus_cam24");
+        pri_a15_zulus_2_sokolov_wanderer_animation_data.addAnimation("into", 0, "pri_a15_zulus_cam25");
+        pri_a15_zulus_2_sokolov_wanderer_animation_data.addAnimationSoundName("into", 0, "pri_a15_zulus_not_me");
+        pri_a15_zulus_2_sokolov_wanderer_animation_data.addAnimation("into", 0, "pri_a15_zulus_cam25_1");
+        pri_a15_zulus_2_sokolov_wanderer_animation_data.addAnimationSoundName(
+            "into", 0, "pri_a15_zulus_no_business_with_army");
+        pri_a15_zulus_2_sokolov_wanderer_animation_data.addAnimation("into", 0, "pri_a15_zulus_cam26");
+        pri_a15_zulus_2_sokolov_wanderer_animation_data.addAnimationSoundName("into", 0, "pri_a15_zulus_go");
+        pri_a15_zulus_2_sokolov_wanderer_animation_data.addAnimation("into", 0, "pri_a15_zulus_cam27");
+        pri_a15_zulus_2_sokolov_wanderer_animation_data.addAnimation("into", 0, "pri_a15_zulus_cam28");
+        pri_a15_zulus_2_sokolov_wanderer_animation_data.addAnimation("into", 0, "pri_a15_zulus_cam29");
+
+        this->m_state_manager_animation_list["pri_a15_zulus_2_sokolov_wanderer"] =
+            pri_a15_zulus_2_sokolov_wanderer_animation_data;
+
+        StateManagerAnimationData pri_a15_zulus_3_zulus_alive_animation_data;
+        pri_a15_zulus_3_zulus_alive_animation_data.setPropertiesMaxIdle(1);
+        pri_a15_zulus_3_zulus_alive_animation_data.setPropertiesSumIdle(1);
+        pri_a15_zulus_3_zulus_alive_animation_data.setPropertiesMoving(true);
+        pri_a15_zulus_3_zulus_alive_animation_data.setPropertiesRandom(100);
+
+        pri_a15_zulus_3_zulus_alive_animation_data.addAnimation("into", 0, "pri_a15_zulus_cam1");
+        pri_a15_zulus_3_zulus_alive_animation_data.addAnimation("into", 0, "pri_a15_zulus_cam2");
+        pri_a15_zulus_3_zulus_alive_animation_data.addAnimation("into", 0, "pri_a15_zulus_cam3");
+        pri_a15_zulus_3_zulus_alive_animation_data.addAnimation("into", 0, "pri_a15_zulus_cam4");
+        pri_a15_zulus_3_zulus_alive_animation_data.addAnimation("into", 0, "pri_a15_zulus_cam5");
+        pri_a15_zulus_3_zulus_alive_animation_data.addAnimation("into", 0, "pri_a15_zulus_cam6");
+        pri_a15_zulus_3_zulus_alive_animation_data.addAnimation("into", 0, "pri_a15_zulus_cam7");
+        pri_a15_zulus_3_zulus_alive_animation_data.addAnimation("into", 0, "pri_a15_zulus_cam9");
+        pri_a15_zulus_3_zulus_alive_animation_data.addAnimation("into", 0, "pri_a15_zulus_cam10");
+        pri_a15_zulus_3_zulus_alive_animation_data.addAnimation("into", 0, "pri_a15_zulus_cam12");
+        pri_a15_zulus_3_zulus_alive_animation_data.addAnimation("into", 0, "pri_a15_zulus_cam13");
+        pri_a15_zulus_3_zulus_alive_animation_data.addAnimation("into", 0, "pri_a15_zulus_cam14");
+        pri_a15_zulus_3_zulus_alive_animation_data.addAnimation("into", 0, "pri_a15_zulus_cam15");
+        pri_a15_zulus_3_zulus_alive_animation_data.addAnimation("into", 0, "pri_a15_zulus_cam16");
+        pri_a15_zulus_3_zulus_alive_animation_data.addAnimation("into", 0, "pri_a15_zulus_cam17");
+        pri_a15_zulus_3_zulus_alive_animation_data.addAnimation("into", 0, "pri_a15_zulus_cam17_1");
+        pri_a15_zulus_3_zulus_alive_animation_data.addAnimation("into", 0, "pri_a15_zulus_cam18");
+        pri_a15_zulus_3_zulus_alive_animation_data.addAnimationSoundName("into", 0, "pri_a15_zulus_wonder");
+        pri_a15_zulus_3_zulus_alive_animation_data.addAnimation("into", 0, "pri_a15_zulus_cam19");
+        pri_a15_zulus_3_zulus_alive_animation_data.addAnimation("into", 0, "pri_a15_zulus_cam21");
+        pri_a15_zulus_3_zulus_alive_animation_data.addAnimation("into", 0, "pri_a15_zulus_cam25");
+        pri_a15_zulus_3_zulus_alive_animation_data.addAnimationSoundName("into", 0, "pri_a15_zulus_not_me");
+        pri_a15_zulus_3_zulus_alive_animation_data.addAnimation("into", 0, "pri_a15_zulus_cam25_1");
+        pri_a15_zulus_3_zulus_alive_animation_data.addAnimationSoundName(
+            "into", 0, "pri_a15_zulus_no_business_with_army");
+        pri_a15_zulus_3_zulus_alive_animation_data.addAnimation("into", 0, "pri_a15_zulus_cam26");
+        pri_a15_zulus_3_zulus_alive_animation_data.addAnimationSoundName("into", 0, "pri_a15_zulus_go");
+        pri_a15_zulus_3_zulus_alive_animation_data.addAnimation("into", 0, "pri_a15_zulus_cam27");
+        pri_a15_zulus_3_zulus_alive_animation_data.addAnimation("into", 0, "pri_a15_zulus_cam28");
+        pri_a15_zulus_3_zulus_alive_animation_data.addAnimation("into", 0, "pri_a15_zulus_cam29");
+
+        this->m_state_manager_animation_list["pri_a15_zulus_3_zulus_alive"] =
+            pri_a15_zulus_3_zulus_alive_animation_data;
+
+        StateManagerAnimationData pri_a15_wanderer_all_animation_data;
+        pri_a15_wanderer_all_animation_data.setPropertiesMaxIdle(1);
+        pri_a15_wanderer_all_animation_data.setPropertiesSumIdle(1);
+        pri_a15_wanderer_all_animation_data.setPropertiesMoving(true);
+        pri_a15_wanderer_all_animation_data.setPropertiesRandom(100);
+
+        pri_a15_wanderer_all_animation_data.addAnimation("into", 0, "pri_a15_monolit_cam1");
+        pri_a15_wanderer_all_animation_data.addAnimationAttachItemName("into", 0, "pri_a15_wpn_svu");
+        pri_a15_wanderer_all_animation_data.addAnimation("into", 0, "pri_a15_monolit_cam2");
+        pri_a15_wanderer_all_animation_data.addAnimation("into", 0, "pri_a15_monolit_cam3");
+        pri_a15_wanderer_all_animation_data.addAnimation("into", 0, "pri_a15_monolit_cam4");
+        pri_a15_wanderer_all_animation_data.addAnimation("into", 0, "pri_a15_monolit_cam5");
+        pri_a15_wanderer_all_animation_data.addAnimation("into", 0, "pri_a15_monolit_cam6_1");
+        //     pri_a15_wanderer_all_animation_data.addAnimationFunction("into", 0, state_mgr_pri_a15.unstrap_weapon);
+        //     Lord: доделать!
+        pri_a15_wanderer_all_animation_data.addAnimation("into", 0, "pri_a15_monolit_cam6_2");
+        pri_a15_wanderer_all_animation_data.addAnimation("into", 0, "pri_a15_monolit_cam7");
+        pri_a15_wanderer_all_animation_data.addAnimation("into", 0, "pri_a15_monolit_cam8");
+        pri_a15_wanderer_all_animation_data.addAnimation("into", 0, "pri_a15_monolit_cam9");
+        pri_a15_wanderer_all_animation_data.addAnimation("into", 0, "pri_a15_monolit_cam10");
+        pri_a15_wanderer_all_animation_data.addAnimation("into", 0, "pri_a15_monolit_cam11");
+        pri_a15_wanderer_all_animation_data.addAnimation("into", 0, "pri_a15_monolit_cam12");
+        pri_a15_wanderer_all_animation_data.addAnimation("into", 0, "pri_a15_monolit_cam13");
+        pri_a15_wanderer_all_animation_data.addAnimation("into", 0, "pri_a15_monolit_cam14");
+        pri_a15_wanderer_all_animation_data.addAnimation("into", 0, "pri_a15_monolit_cam15");
+        pri_a15_wanderer_all_animation_data.addAnimation("into", 0, "pri_a15_monolit_cam16");
+        pri_a15_wanderer_all_animation_data.addAnimation("into", 0, "pri_a15_monolit_cam17");
+        pri_a15_wanderer_all_animation_data.addAnimation("into", 0, "pri_a15_monolit_cam17_1");
+        pri_a15_wanderer_all_animation_data.addAnimation("into", 0, "pri_a15_monolit_cam18");
+        pri_a15_wanderer_all_animation_data.addAnimation("into", 0, "pri_a15_monolit_cam19");
+        pri_a15_wanderer_all_animation_data.addAnimation("into", 0, "pri_a15_monolit_cam20");
+        pri_a15_wanderer_all_animation_data.addAnimation("into", 0, "pri_a15_monolit_cam21");
+        pri_a15_wanderer_all_animation_data.addAnimation("into", 0, "pri_a15_monolit_cam22");
+        pri_a15_wanderer_all_animation_data.addAnimation("into", 0, "pri_a15_monolit_cam23");
+        pri_a15_wanderer_all_animation_data.addAnimation("into", 0, "pri_a15_monolit_cam24");
+        pri_a15_wanderer_all_animation_data.addAnimation("into", 0, "pri_a15_monolit_cam25");
+        pri_a15_wanderer_all_animation_data.addAnimation("into", 0, "pri_a15_monolit_cam25_1");
+        pri_a15_wanderer_all_animation_data.addAnimation("into", 0, "pri_a15_monolit_cam26");
+        pri_a15_wanderer_all_animation_data.addAnimation("into", 0, "pri_a15_monolit_cam27");
+        pri_a15_wanderer_all_animation_data.addAnimation("into", 0, "pri_a15_monolit_cam28");
+        pri_a15_wanderer_all_animation_data.addAnimation("into", 0, "pri_a15_monolit_cam29");
+        pri_a15_wanderer_all_animation_data.addAnimation("into", 0, "pri_a15_monolit_cam30");
+        pri_a15_wanderer_all_animation_data.addAnimationSoundName("into", 0, "pri_a15_wanderer_about_actor");
+        pri_a15_wanderer_all_animation_data.addAnimation("into", 0, "pri_a15_monolit_cam31");
+        pri_a15_wanderer_all_animation_data.addAnimation("into", 0, "pri_a15_monolit_cam32");
+
+        this->m_state_manager_animation_list["pri_a15_wanderer_all"] = pri_a15_wanderer_all_animation_data;
+
+        StateManagerAnimationData pri_a15_wanderer_1_vano_animation_data;
+        pri_a15_wanderer_1_vano_animation_data.setPropertiesMaxIdle(1);
+        pri_a15_wanderer_1_vano_animation_data.setPropertiesSumIdle(1);
+        pri_a15_wanderer_1_vano_animation_data.setPropertiesMoving(true);
+        pri_a15_wanderer_1_vano_animation_data.setPropertiesRandom(100);
+
+        pri_a15_wanderer_1_vano_animation_data.addAnimation("into", 0, "pri_a15_monolit_cam1");
+        pri_a15_wanderer_1_vano_animation_data.addAnimationAttachItemName("into", 0, "pri_a15_wpn_svu");
+        pri_a15_wanderer_1_vano_animation_data.addAnimation("into", 0, "pri_a15_monolit_cam2");
+        pri_a15_wanderer_1_vano_animation_data.addAnimation("into", 0, "pri_a15_monolit_cam3");
+        pri_a15_wanderer_1_vano_animation_data.addAnimation("into", 0, "pri_a15_monolit_cam4");
+        pri_a15_wanderer_1_vano_animation_data.addAnimation("into", 0, "pri_a15_monolit_cam5");
+        pri_a15_wanderer_1_vano_animation_data.addAnimation("into", 0, "pri_a15_monolit_cam6_1");
+        //     pri_a15_wanderer_1_vano_animation_data.addAnimationFunction("into", 0, state_mgr_pri_a15.unstrap_weapon);
+        //     Lord: доделать!
+        pri_a15_wanderer_1_vano_animation_data.addAnimation("into", 0, "pri_a15_monolit_cam6_2");
+        pri_a15_wanderer_1_vano_animation_data.addAnimation("into", 0, "pri_a15_monolit_cam7");
+        pri_a15_wanderer_1_vano_animation_data.addAnimation("into", 0, "pri_a15_monolit_cam8");
+        pri_a15_wanderer_1_vano_animation_data.addAnimation("into", 0, "pri_a15_monolit_cam9");
+        pri_a15_wanderer_1_vano_animation_data.addAnimation("into", 0, "pri_a15_monolit_cam10");
+        pri_a15_wanderer_1_vano_animation_data.addAnimation("into", 0, "pri_a15_monolit_cam11");
+        pri_a15_wanderer_1_vano_animation_data.addAnimation("into", 0, "pri_a15_monolit_cam12");
+        pri_a15_wanderer_1_vano_animation_data.addAnimation("into", 0, "pri_a15_monolit_cam13");
+        pri_a15_wanderer_1_vano_animation_data.addAnimation("into", 0, "pri_a15_monolit_cam14");
+        pri_a15_wanderer_1_vano_animation_data.addAnimation("into", 0, "pri_a15_monolit_cam15");
+        pri_a15_wanderer_1_vano_animation_data.addAnimation("into", 0, "pri_a15_monolit_cam16");
+        pri_a15_wanderer_1_vano_animation_data.addAnimation("into", 0, "pri_a15_monolit_cam17");
+        pri_a15_wanderer_1_vano_animation_data.addAnimation("into", 0, "pri_a15_monolit_cam17_1");
+        pri_a15_wanderer_1_vano_animation_data.addAnimation("into", 0, "pri_a15_monolit_cam18");
+        pri_a15_wanderer_1_vano_animation_data.addAnimation("into", 0, "pri_a15_monolit_cam19");
+        pri_a15_wanderer_1_vano_animation_data.addAnimation("into", 0, "pri_a15_monolit_cam20");
+        pri_a15_wanderer_1_vano_animation_data.addAnimation("into", 0, "pri_a15_monolit_cam21");
+        pri_a15_wanderer_1_vano_animation_data.addAnimation("into", 0, "pri_a15_monolit_cam25");
+        pri_a15_wanderer_1_vano_animation_data.addAnimation("into", 0, "pri_a15_monolit_cam25_1");
+        pri_a15_wanderer_1_vano_animation_data.addAnimation("into", 0, "pri_a15_monolit_cam26");
+        pri_a15_wanderer_1_vano_animation_data.addAnimation("into", 0, "pri_a15_monolit_cam27");
+        pri_a15_wanderer_1_vano_animation_data.addAnimation("into", 0, "pri_a15_monolit_cam28");
+        pri_a15_wanderer_1_vano_animation_data.addAnimation("into", 0, "pri_a15_monolit_cam29");
+        pri_a15_wanderer_1_vano_animation_data.addAnimation("into", 0, "pri_a15_monolit_cam30");
+        pri_a15_wanderer_1_vano_animation_data.addAnimationSoundName("into", 0, "pri_a15_wanderer_about_actor");
+        pri_a15_wanderer_1_vano_animation_data.addAnimation("into", 0, "pri_a15_monolit_cam31");
+        pri_a15_wanderer_1_vano_animation_data.addAnimation("into", 0, "pri_a15_monolit_cam32");
+
+        this->m_state_manager_animation_list["pri_a15_wanderer_1_vano"] = pri_a15_wanderer_1_vano_animation_data;
+
+        StateManagerAnimationData pri_a15_wanderer_1_sokolov_animation_data;
+        pri_a15_wanderer_1_sokolov_animation_data.setPropertiesMaxIdle(1);
+        pri_a15_wanderer_1_sokolov_animation_data.setPropertiesSumIdle(1);
+        pri_a15_wanderer_1_sokolov_animation_data.setPropertiesMoving(true);
+        pri_a15_wanderer_1_sokolov_animation_data.setPropertiesRandom(100);
+
+        pri_a15_wanderer_1_sokolov_animation_data.addAnimation("into", 0, "pri_a15_monolit_cam1");
+        pri_a15_wanderer_1_sokolov_animation_data.addAnimationAttachItemName("into", 0, "pri_a15_wpn_svu");
+        pri_a15_wanderer_1_sokolov_animation_data.addAnimation("into", 0, "pri_a15_monolit_cam2");
+        pri_a15_wanderer_1_sokolov_animation_data.addAnimation("into", 0, "pri_a15_monolit_cam3");
+        pri_a15_wanderer_1_sokolov_animation_data.addAnimation("into", 0, "pri_a15_monolit_cam4");
+        pri_a15_wanderer_1_sokolov_animation_data.addAnimation("into", 0, "pri_a15_monolit_cam5");
+        pri_a15_wanderer_1_sokolov_animation_data.addAnimation("into", 0, "pri_a15_monolit_cam6_1");
+        //     pri_a15_wanderer_1_sokolov_animation_data.addAnimationFunction("into", 0,
+        //     state_mgr_pri_a15.unstrap_weapon); Lord: доделать!
+        pri_a15_wanderer_1_sokolov_animation_data.addAnimation("into", 0, "pri_a15_monolit_cam6_2");
+        pri_a15_wanderer_1_sokolov_animation_data.addAnimation("into", 0, "pri_a15_monolit_cam7");
+        pri_a15_wanderer_1_sokolov_animation_data.addAnimation("into", 0, "pri_a15_monolit_cam8");
+        pri_a15_wanderer_1_sokolov_animation_data.addAnimation("into", 0, "pri_a15_monolit_cam9");
+        pri_a15_wanderer_1_sokolov_animation_data.addAnimation("into", 0, "pri_a15_monolit_cam10");
+        pri_a15_wanderer_1_sokolov_animation_data.addAnimation("into", 0, "pri_a15_monolit_cam12");
+        pri_a15_wanderer_1_sokolov_animation_data.addAnimation("into", 0, "pri_a15_monolit_cam13");
+        pri_a15_wanderer_1_sokolov_animation_data.addAnimation("into", 0, "pri_a15_monolit_cam14");
+        pri_a15_wanderer_1_sokolov_animation_data.addAnimation("into", 0, "pri_a15_monolit_cam15");
+        pri_a15_wanderer_1_sokolov_animation_data.addAnimation("into", 0, "pri_a15_monolit_cam16");
+        pri_a15_wanderer_1_sokolov_animation_data.addAnimation("into", 0, "pri_a15_monolit_cam17");
+        pri_a15_wanderer_1_sokolov_animation_data.addAnimation("into", 0, "pri_a15_monolit_cam17_1");
+        pri_a15_wanderer_1_sokolov_animation_data.addAnimation("into", 0, "pri_a15_monolit_cam18");
+        pri_a15_wanderer_1_sokolov_animation_data.addAnimation("into", 0, "pri_a15_monolit_cam19");
+        pri_a15_wanderer_1_sokolov_animation_data.addAnimation("into", 0, "pri_a15_monolit_cam21");
+        pri_a15_wanderer_1_sokolov_animation_data.addAnimation("into", 0, "pri_a15_monolit_cam22");
+        pri_a15_wanderer_1_sokolov_animation_data.addAnimation("into", 0, "pri_a15_monolit_cam23");
+        pri_a15_wanderer_1_sokolov_animation_data.addAnimation("into", 0, "pri_a15_monolit_cam24");
+        pri_a15_wanderer_1_sokolov_animation_data.addAnimation("into", 0, "pri_a15_monolit_cam25");
+        pri_a15_wanderer_1_sokolov_animation_data.addAnimation("into", 0, "pri_a15_monolit_cam25_1");
+        pri_a15_wanderer_1_sokolov_animation_data.addAnimation("into", 0, "pri_a15_monolit_cam26");
+        pri_a15_wanderer_1_sokolov_animation_data.addAnimation("into", 0, "pri_a15_monolit_cam27");
+        pri_a15_wanderer_1_sokolov_animation_data.addAnimation("into", 0, "pri_a15_monolit_cam28");
+        pri_a15_wanderer_1_sokolov_animation_data.addAnimation("into", 0, "pri_a15_monolit_cam29");
+        pri_a15_wanderer_1_sokolov_animation_data.addAnimation("into", 0, "pri_a15_monolit_cam30");
+        pri_a15_wanderer_1_sokolov_animation_data.addAnimationSoundName("into", 0, "pri_a15_wanderer_about_actor");
+        pri_a15_wanderer_1_sokolov_animation_data.addAnimation("into", 0, "pri_a15_monolit_cam31");
+        pri_a15_wanderer_1_sokolov_animation_data.addAnimation("into", 0, "pri_a15_monolit_cam32");
+
+        this->m_state_manager_animation_list["pri_a15_wanderer_1_sokolov"] = pri_a15_wanderer_1_sokolov_animation_data;
+
+        StateManagerAnimationData pri_a15_wanderer_1_zulus_animation_data;
+        pri_a15_wanderer_1_zulus_animation_data.setPropertiesMaxIdle(1);
+        pri_a15_wanderer_1_zulus_animation_data.setPropertiesSumIdle(1);
+        pri_a15_wanderer_1_zulus_animation_data.setPropertiesMoving(true);
+        pri_a15_wanderer_1_zulus_animation_data.setPropertiesRandom(100);
+
+        pri_a15_wanderer_1_zulus_animation_data.addAnimation("into", 0, "pri_a15_monolit_cam1");
+        pri_a15_wanderer_1_zulus_animation_data.addAnimationAttachItemName("into", 0, "pri_a15_wpn_svu");
+        pri_a15_wanderer_1_zulus_animation_data.addAnimation("into", 0, "pri_a15_monolit_cam2");
+        pri_a15_wanderer_1_zulus_animation_data.addAnimation("into", 0, "pri_a15_monolit_cam3");
+        pri_a15_wanderer_1_zulus_animation_data.addAnimation("into", 0, "pri_a15_monolit_cam4");
+        pri_a15_wanderer_1_zulus_animation_data.addAnimation("into", 0, "pri_a15_monolit_cam5");
+        pri_a15_wanderer_1_zulus_animation_data.addAnimation("into", 0, "pri_a15_monolit_cam6_1");
+        //     pri_a15_wanderer_1_zulus_animation_data.addAnimationFunction("into", 0,
+        //     state_mgr_pri_a15.unstrap_weapon); Lord: доделать!
+        pri_a15_wanderer_1_zulus_animation_data.addAnimation("into", 0, "pri_a15_monolit_cam6_2");
+        pri_a15_wanderer_1_zulus_animation_data.addAnimation("into", 0, "pri_a15_monolit_cam7");
+        pri_a15_wanderer_1_zulus_animation_data.addAnimation("into", 0, "pri_a15_monolit_cam8");
+        pri_a15_wanderer_1_zulus_animation_data.addAnimation("into", 0, "pri_a15_monolit_cam9");
+        pri_a15_wanderer_1_zulus_animation_data.addAnimation("into", 0, "pri_a15_monolit_cam10");
+        pri_a15_wanderer_1_zulus_animation_data.addAnimation("into", 0, "pri_a15_monolit_cam11");
+        pri_a15_wanderer_1_zulus_animation_data.addAnimation("into", 0, "pri_a15_monolit_cam12");
+        pri_a15_wanderer_1_zulus_animation_data.addAnimation("into", 0, "pri_a15_monolit_cam13");
+        pri_a15_wanderer_1_zulus_animation_data.addAnimation("into", 0, "pri_a15_monolit_cam14");
+        pri_a15_wanderer_1_zulus_animation_data.addAnimation("into", 0, "pri_a15_monolit_cam15");
+        pri_a15_wanderer_1_zulus_animation_data.addAnimation("into", 0, "pri_a15_monolit_cam16");
+        pri_a15_wanderer_1_zulus_animation_data.addAnimation("into", 0, "pri_a15_monolit_cam17");
+        pri_a15_wanderer_1_zulus_animation_data.addAnimation("into", 0, "pri_a15_monolit_cam17_1");
+        pri_a15_wanderer_1_zulus_animation_data.addAnimation("into", 0, "pri_a15_monolit_cam18");
+        pri_a15_wanderer_1_zulus_animation_data.addAnimation("into", 0, "pri_a15_monolit_cam20");
+        pri_a15_wanderer_1_zulus_animation_data.addAnimation("into", 0, "pri_a15_monolit_cam21");
+        pri_a15_wanderer_1_zulus_animation_data.addAnimation("into", 0, "pri_a15_monolit_cam22");
+        pri_a15_wanderer_1_zulus_animation_data.addAnimation("into", 0, "pri_a15_monolit_cam23");
+        pri_a15_wanderer_1_zulus_animation_data.addAnimation("into", 0, "pri_a15_monolit_cam24");
+        pri_a15_wanderer_1_zulus_animation_data.addAnimation("into", 0, "pri_a15_monolit_cam25");
+        pri_a15_wanderer_1_zulus_animation_data.addAnimation("into", 0, "pri_a15_monolit_cam30");
+        pri_a15_wanderer_1_zulus_animation_data.addAnimationSoundName("into", 0, "pri_a15_wanderer_about_actor");
+        pri_a15_wanderer_1_zulus_animation_data.addAnimation("into", 0, "pri_a15_monolit_cam31");
+        pri_a15_wanderer_1_zulus_animation_data.addAnimation("into", 0, "pri_a15_monolit_cam32");
+
+        this->m_state_manager_animation_list["pri_a15_wanderer_1_zulus"] = pri_a15_wanderer_1_zulus_animation_data;
+
+        StateManagerAnimationData pri_a15_wanderer_2_vano_sokolov_animation_data;
+        pri_a15_wanderer_2_vano_sokolov_animation_data.setPropertiesMaxIdle(1);
+        pri_a15_wanderer_2_vano_sokolov_animation_data.setPropertiesSumIdle(1);
+        pri_a15_wanderer_2_vano_sokolov_animation_data.setPropertiesMoving(true);
+        pri_a15_wanderer_2_vano_sokolov_animation_data.setPropertiesRandom(100);
+
+        pri_a15_wanderer_2_vano_sokolov_animation_data.addAnimation("into", 0, "pri_a15_monolit_cam1");
+        pri_a15_wanderer_2_vano_sokolov_animation_data.addAnimationAttachItemName("into", 0, "pri_a15_wpn_svu");
+        pri_a15_wanderer_2_vano_sokolov_animation_data.addAnimation("into", 0, "pri_a15_monolit_cam2");
+        pri_a15_wanderer_2_vano_sokolov_animation_data.addAnimation("into", 0, "pri_a15_monolit_cam3");
+        pri_a15_wanderer_2_vano_sokolov_animation_data.addAnimation("into", 0, "pri_a15_monolit_cam4");
+        pri_a15_wanderer_2_vano_sokolov_animation_data.addAnimation("into", 0, "pri_a15_monolit_cam5");
+        pri_a15_wanderer_2_vano_sokolov_animation_data.addAnimation("into", 0, "pri_a15_monolit_cam6_1");
+        //     pri_a15_wanderer_2_vano_sokolov_animation_data.addAnimationFunction("into", 0,
+        //     state_mgr_pri_a15.unstrap_weapon); Lord: доделать!
+        pri_a15_wanderer_2_vano_sokolov_animation_data.addAnimation("into", 0, "pri_a15_monolit_cam6_2");
+        pri_a15_wanderer_2_vano_sokolov_animation_data.addAnimation("into", 0, "pri_a15_monolit_cam7");
+        pri_a15_wanderer_2_vano_sokolov_animation_data.addAnimation("into", 0, "pri_a15_monolit_cam8");
+        pri_a15_wanderer_2_vano_sokolov_animation_data.addAnimation("into", 0, "pri_a15_monolit_cam9");
+        pri_a15_wanderer_2_vano_sokolov_animation_data.addAnimation("into", 0, "pri_a15_monolit_cam10");
+        pri_a15_wanderer_2_vano_sokolov_animation_data.addAnimation("into", 0, "pri_a15_monolit_cam12");
+        pri_a15_wanderer_2_vano_sokolov_animation_data.addAnimation("into", 0, "pri_a15_monolit_cam13");
+        pri_a15_wanderer_2_vano_sokolov_animation_data.addAnimation("into", 0, "pri_a15_monolit_cam14");
+        pri_a15_wanderer_2_vano_sokolov_animation_data.addAnimation("into", 0, "pri_a15_monolit_cam15");
+        pri_a15_wanderer_2_vano_sokolov_animation_data.addAnimation("into", 0, "pri_a15_monolit_cam16");
+        pri_a15_wanderer_2_vano_sokolov_animation_data.addAnimation("into", 0, "pri_a15_monolit_cam17");
+        pri_a15_wanderer_2_vano_sokolov_animation_data.addAnimation("into", 0, "pri_a15_monolit_cam17_1");
+        pri_a15_wanderer_2_vano_sokolov_animation_data.addAnimation("into", 0, "pri_a15_monolit_cam18");
+        pri_a15_wanderer_2_vano_sokolov_animation_data.addAnimation("into", 0, "pri_a15_monolit_cam19");
+        pri_a15_wanderer_2_vano_sokolov_animation_data.addAnimation("into", 0, "pri_a15_monolit_cam21");
+        pri_a15_wanderer_2_vano_sokolov_animation_data.addAnimation("into", 0, "pri_a15_monolit_cam25");
+        pri_a15_wanderer_2_vano_sokolov_animation_data.addAnimation("into", 0, "pri_a15_monolit_cam25_1");
+        pri_a15_wanderer_2_vano_sokolov_animation_data.addAnimation("into", 0, "pri_a15_monolit_cam26");
+        pri_a15_wanderer_2_vano_sokolov_animation_data.addAnimation("into", 0, "pri_a15_monolit_cam27");
+        pri_a15_wanderer_2_vano_sokolov_animation_data.addAnimation("into", 0, "pri_a15_monolit_cam28");
+        pri_a15_wanderer_2_vano_sokolov_animation_data.addAnimation("into", 0, "pri_a15_monolit_cam29");
+        pri_a15_wanderer_2_vano_sokolov_animation_data.addAnimation("into", 0, "pri_a15_monolit_cam30");
+        pri_a15_wanderer_2_vano_sokolov_animation_data.addAnimationSoundName("into", 0, "pri_a15_wanderer_about_actor");
+        pri_a15_wanderer_2_vano_sokolov_animation_data.addAnimation("into", 0, "pri_a15_monolit_cam31");
+        pri_a15_wanderer_2_vano_sokolov_animation_data.addAnimation("into", 0, "pri_a15_monolit_cam32");
+
+        this->m_state_manager_animation_list["pri_a15_wanderer_2_vano_sokolov"] =
+            pri_a15_wanderer_2_vano_sokolov_animation_data;
+
+        StateManagerAnimationData pri_a15_wanderer_2_vano_zulus_animation_data;
+        pri_a15_wanderer_2_vano_zulus_animation_data.setPropertiesMaxIdle(1);
+        pri_a15_wanderer_2_vano_zulus_animation_data.setPropertiesSumIdle(1);
+        pri_a15_wanderer_2_vano_zulus_animation_data.setPropertiesMoving(true);
+        pri_a15_wanderer_2_vano_zulus_animation_data.setPropertiesRandom(100);
+
+        pri_a15_wanderer_2_vano_zulus_animation_data.addAnimation("into", 0, "pri_a15_monolit_cam1");
+        pri_a15_wanderer_2_vano_zulus_animation_data.addAnimationAttachItemName("into", 0, "pri_a15_wpn_svu");
+        pri_a15_wanderer_2_vano_zulus_animation_data.addAnimation("into", 0, "pri_a15_monolit_cam2");
+        pri_a15_wanderer_2_vano_zulus_animation_data.addAnimation("into", 0, "pri_a15_monolit_cam3");
+        pri_a15_wanderer_2_vano_zulus_animation_data.addAnimation("into", 0, "pri_a15_monolit_cam4");
+        pri_a15_wanderer_2_vano_zulus_animation_data.addAnimation("into", 0, "pri_a15_monolit_cam6_1");
+        //     pri_a15_wanderer_2_vano_zulus_animation_data.addAnimationFunction("into", 0,
+        //     state_mgr_pri_a15.unstrap_weapon); Lord: доделать!
+        pri_a15_wanderer_2_vano_zulus_animation_data.addAnimation("into", 0, "pri_a15_monolit_cam6_2");
+        pri_a15_wanderer_2_vano_zulus_animation_data.addAnimation("into", 0, "pri_a15_monolit_cam7");
+        pri_a15_wanderer_2_vano_zulus_animation_data.addAnimation("into", 0, "pri_a15_monolit_cam8");
+        pri_a15_wanderer_2_vano_zulus_animation_data.addAnimation("into", 0, "pri_a15_monolit_cam9");
+        pri_a15_wanderer_2_vano_zulus_animation_data.addAnimation("into", 0, "pri_a15_monolit_cam10");
+        pri_a15_wanderer_2_vano_zulus_animation_data.addAnimation("into", 0, "pri_a15_monolit_cam11");
+        pri_a15_wanderer_2_vano_zulus_animation_data.addAnimation("into", 0, "pri_a15_monolit_cam12");
+        pri_a15_wanderer_2_vano_zulus_animation_data.addAnimation("into", 0, "pri_a15_monolit_cam13");
+        pri_a15_wanderer_2_vano_zulus_animation_data.addAnimation("into", 0, "pri_a15_monolit_cam14");
+        pri_a15_wanderer_2_vano_zulus_animation_data.addAnimation("into", 0, "pri_a15_monolit_cam15");
+        pri_a15_wanderer_2_vano_zulus_animation_data.addAnimation("into", 0, "pri_a15_monolit_cam16");
+        pri_a15_wanderer_2_vano_zulus_animation_data.addAnimation("into", 0, "pri_a15_monolit_cam17");
+        pri_a15_wanderer_2_vano_zulus_animation_data.addAnimation("into", 0, "pri_a15_monolit_cam17_1");
+        pri_a15_wanderer_2_vano_zulus_animation_data.addAnimation("into", 0, "pri_a15_monolit_cam18");
+        pri_a15_wanderer_2_vano_zulus_animation_data.addAnimation("into", 0, "pri_a15_monolit_cam20");
+        pri_a15_wanderer_2_vano_zulus_animation_data.addAnimation("into", 0, "pri_a15_monolit_cam21");
+        pri_a15_wanderer_2_vano_zulus_animation_data.addAnimation("into", 0, "pri_a15_monolit_cam25");
+        pri_a15_wanderer_2_vano_zulus_animation_data.addAnimation("into", 0, "pri_a15_monolit_cam30");
+        pri_a15_wanderer_2_vano_zulus_animation_data.addAnimationSoundName("into", 0, "pri_a15_wanderer_about_actor");
+        pri_a15_wanderer_2_vano_zulus_animation_data.addAnimation("into", 0, "pri_a15_monolit_cam31");
+        pri_a15_wanderer_2_vano_zulus_animation_data.addAnimation("into", 0, "pri_a15_monolit_cam32");
+
+        this->m_state_manager_animation_list["pri_a15_wanderer_2_vano_zulus"] =
+            pri_a15_wanderer_2_vano_zulus_animation_data;
+
+        StateManagerAnimationData pri_a15_wanderer_2_sokolov_zulus_animation_data;
+        pri_a15_wanderer_2_sokolov_zulus_animation_data.setPropertiesMaxIdle(1);
+        pri_a15_wanderer_2_sokolov_zulus_animation_data.setPropertiesSumIdle(1);
+        pri_a15_wanderer_2_sokolov_zulus_animation_data.setPropertiesMoving(true);
+        pri_a15_wanderer_2_sokolov_zulus_animation_data.setPropertiesRandom(100);
+
+        pri_a15_wanderer_2_sokolov_zulus_animation_data.addAnimation("into", 0, "pri_a15_monolit_cam1");
+        pri_a15_wanderer_2_sokolov_zulus_animation_data.addAnimationAttachItemName("into", 0, "pri_a15_wpn_svu");
+        pri_a15_wanderer_2_sokolov_zulus_animation_data.addAnimation("into", 0, "pri_a15_monolit_cam2");
+        pri_a15_wanderer_2_sokolov_zulus_animation_data.addAnimation("into", 0, "pri_a15_monolit_cam3");
+        pri_a15_wanderer_2_sokolov_zulus_animation_data.addAnimation("into", 0, "pri_a15_monolit_cam4");
+        pri_a15_wanderer_2_sokolov_zulus_animation_data.addAnimation("into", 0, "pri_a15_monolit_cam6_1");
+        //     pri_a15_wanderer_2_sokolov_zulus_animation_data.addAnimationFunction("into", 0,
+        //     state_mgr_pri_a15.unstrap_weapon); Lord: доделать!
+        pri_a15_wanderer_2_sokolov_zulus_animation_data.addAnimation("into", 0, "pri_a15_monolit_cam6_2");
+        pri_a15_wanderer_2_sokolov_zulus_animation_data.addAnimation("into", 0, "pri_a15_monolit_cam7");
+        pri_a15_wanderer_2_sokolov_zulus_animation_data.addAnimation("into", 0, "pri_a15_monolit_cam8");
+        pri_a15_wanderer_2_sokolov_zulus_animation_data.addAnimation("into", 0, "pri_a15_monolit_cam9");
+        pri_a15_wanderer_2_sokolov_zulus_animation_data.addAnimation("into", 0, "pri_a15_monolit_cam10");
+        pri_a15_wanderer_2_sokolov_zulus_animation_data.addAnimation("into", 0, "pri_a15_monolit_cam12");
+        pri_a15_wanderer_2_sokolov_zulus_animation_data.addAnimation("into", 0, "pri_a15_monolit_cam13");
+        pri_a15_wanderer_2_sokolov_zulus_animation_data.addAnimation("into", 0, "pri_a15_monolit_cam14");
+        pri_a15_wanderer_2_sokolov_zulus_animation_data.addAnimation("into", 0, "pri_a15_monolit_cam15");
+        pri_a15_wanderer_2_sokolov_zulus_animation_data.addAnimation("into", 0, "pri_a15_monolit_cam16");
+        pri_a15_wanderer_2_sokolov_zulus_animation_data.addAnimation("into", 0, "pri_a15_monolit_cam17");
+        pri_a15_wanderer_2_sokolov_zulus_animation_data.addAnimation("into", 0, "pri_a15_monolit_cam17_1");
+        pri_a15_wanderer_2_sokolov_zulus_animation_data.addAnimation("into", 0, "pri_a15_monolit_cam18");
+        pri_a15_wanderer_2_sokolov_zulus_animation_data.addAnimation("into", 0, "pri_a15_monolit_cam21");
+        pri_a15_wanderer_2_sokolov_zulus_animation_data.addAnimation("into", 0, "pri_a15_monolit_cam22");
+        pri_a15_wanderer_2_sokolov_zulus_animation_data.addAnimation("into", 0, "pri_a15_monolit_cam23");
+        pri_a15_wanderer_2_sokolov_zulus_animation_data.addAnimation("into", 0, "pri_a15_monolit_cam24");
+        pri_a15_wanderer_2_sokolov_zulus_animation_data.addAnimation("into", 0, "pri_a15_monolit_cam25");
+        pri_a15_wanderer_2_sokolov_zulus_animation_data.addAnimation("into", 0, "pri_a15_monolit_cam30");
+        pri_a15_wanderer_2_sokolov_zulus_animation_data.addAnimationSoundName(
+            "into", 0, "pri_a15_wanderer_about_actor");
+        pri_a15_wanderer_2_sokolov_zulus_animation_data.addAnimation("into", 0, "pri_a15_monolit_cam31");
+        pri_a15_wanderer_2_sokolov_zulus_animation_data.addAnimation("into", 0, "pri_a15_monolit_cam32");
+
+        this->m_state_manager_animation_list["pri_a15_wanderer_2_sokolov_zulus"] =
+            pri_a15_wanderer_2_sokolov_zulus_animation_data;
+
+        StateManagerAnimationData pri_a15_wanderer_3_wanderer_alive_animation_data;
+        pri_a15_wanderer_3_wanderer_alive_animation_data.setPropertiesMaxIdle(1);
+        pri_a15_wanderer_3_wanderer_alive_animation_data.setPropertiesSumIdle(1);
+        pri_a15_wanderer_3_wanderer_alive_animation_data.setPropertiesMoving(true);
+        pri_a15_wanderer_3_wanderer_alive_animation_data.setPropertiesRandom(100);
+
+        pri_a15_wanderer_3_wanderer_alive_animation_data.addAnimation("into", 0, "pri_a15_monolit_cam1");
+        pri_a15_wanderer_3_wanderer_alive_animation_data.addAnimationAttachItemName("into", 0, "pri_a15_wpn_svu");
+        pri_a15_wanderer_3_wanderer_alive_animation_data.addAnimation("into", 0, "pri_a15_monolit_cam2");
+        pri_a15_wanderer_3_wanderer_alive_animation_data.addAnimation("into", 0, "pri_a15_monolit_cam3");
+        pri_a15_wanderer_3_wanderer_alive_animation_data.addAnimation("into", 0, "pri_a15_monolit_cam4");
+        pri_a15_wanderer_3_wanderer_alive_animation_data.addAnimation("into", 0, "pri_a15_monolit_cam6_1");
+        //     pri_a15_wanderer_3_wanderer_alive_animation_data.addAnimationFunction("into", 0,
+        //     state_mgr_pri_a15.unstrap_weapon); Lord: доделать!
+        pri_a15_wanderer_3_wanderer_alive_animation_data.addAnimation("into", 0, "pri_a15_monolit_cam6_2");
+        pri_a15_wanderer_3_wanderer_alive_animation_data.addAnimation("into", 0, "pri_a15_monolit_cam7");
+        pri_a15_wanderer_3_wanderer_alive_animation_data.addAnimation("into", 0, "pri_a15_monolit_cam8");
+        pri_a15_wanderer_3_wanderer_alive_animation_data.addAnimation("into", 0, "pri_a15_monolit_cam9");
+        pri_a15_wanderer_3_wanderer_alive_animation_data.addAnimation("into", 0, "pri_a15_monolit_cam10");
+        pri_a15_wanderer_3_wanderer_alive_animation_data.addAnimation("into", 0, "pri_a15_monolit_cam12");
+        pri_a15_wanderer_3_wanderer_alive_animation_data.addAnimation("into", 0, "pri_a15_monolit_cam13");
+        pri_a15_wanderer_3_wanderer_alive_animation_data.addAnimation("into", 0, "pri_a15_monolit_cam14");
+        pri_a15_wanderer_3_wanderer_alive_animation_data.addAnimation("into", 0, "pri_a15_monolit_cam15");
+        pri_a15_wanderer_3_wanderer_alive_animation_data.addAnimation("into", 0, "pri_a15_monolit_cam16");
+        pri_a15_wanderer_3_wanderer_alive_animation_data.addAnimation("into", 0, "pri_a15_monolit_cam17");
+        pri_a15_wanderer_3_wanderer_alive_animation_data.addAnimation("into", 0, "pri_a15_monolit_cam17_1");
+        pri_a15_wanderer_3_wanderer_alive_animation_data.addAnimation("into", 0, "pri_a15_monolit_cam18");
+        pri_a15_wanderer_3_wanderer_alive_animation_data.addAnimation("into", 0, "pri_a15_monolit_cam21");
+        pri_a15_wanderer_3_wanderer_alive_animation_data.addAnimation("into", 0, "pri_a15_monolit_cam25");
+        pri_a15_wanderer_3_wanderer_alive_animation_data.addAnimation("into", 0, "pri_a15_monolit_cam30");
+        pri_a15_wanderer_3_wanderer_alive_animation_data.addAnimationSoundName(
+            "into", 0, "pri_a15_wanderer_about_actor");
+        pri_a15_wanderer_3_wanderer_alive_animation_data.addAnimation("into", 0, "pri_a15_monolit_cam31");
+        pri_a15_wanderer_3_wanderer_alive_animation_data.addAnimation("into", 0, "pri_a15_monolit_cam32");
+
+        this->m_state_manager_animation_list["pri_a15_wanderer_3_wanderer_alive"] =
+            pri_a15_wanderer_3_wanderer_alive_animation_data;
+
+        StateManagerAnimationData pri_a15_actor_all_animation_data;
+        pri_a15_actor_all_animation_data.setPropertiesMaxIdle(1);
+        pri_a15_actor_all_animation_data.setPropertiesSumIdle(1);
+        pri_a15_actor_all_animation_data.setPropertiesMoving(true);
+        pri_a15_actor_all_animation_data.setPropertiesRandom(100);
+
+        pri_a15_actor_all_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam1");
+        pri_a15_actor_all_animation_data.addAnimationAttachItemName("into", 0, "pri_a15_wpn_ak74");
+        pri_a15_actor_all_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam2");
+        pri_a15_actor_all_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam3");
+        //     pri_a15_actor_all_animation_data.addAnimationFunction("into", 0, state_mgr_pri_a15.break_fence); // Lord:
+        //     доделать!
+        pri_a15_actor_all_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam4");
+        //     pri_a15_actor_all_animation_data.addAnimationFunction("into", 0, state_mgr_pri_a15.lights_off);        //
+        //     Lord: доделать!
+        pri_a15_actor_all_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam5");
+        pri_a15_actor_all_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam6");
+        pri_a15_actor_all_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam7");
+        pri_a15_actor_all_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam8");
+        pri_a15_actor_all_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam9_1");
+        //    pri_a15_actor_all_animation_data.addAnimationFunction("into", 0, state_mgr_pri_a15.unstrap_weapon); Lord:
+        //    доделать!
+        pri_a15_actor_all_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam9_2");
+        pri_a15_actor_all_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam10");
+        pri_a15_actor_all_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam11");
+        pri_a15_actor_all_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam12");
+        //   pri_a15_actor_all_animation_data.addAnimationFunction("into", 0, state_mgr_pri_a15.strap_weapon); Lord:
+        //   доделать!
+        pri_a15_actor_all_animation_data.addAnimationSoundName("into", 0, "pri_a15_actor_need_talk_with_commander");
+        pri_a15_actor_all_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam13");
+        pri_a15_actor_all_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam14");
+        pri_a15_actor_all_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam15");
+        pri_a15_actor_all_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam16_1");
+        pri_a15_actor_all_animation_data.addAnimationSoundName("into", 0, "pri_a15_actor_introduce");
+        pri_a15_actor_all_animation_data.addAnimationAttachItemName("into", 0, "pri_a15_documents");
+        pri_a15_actor_all_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam16_2");
+        pri_a15_actor_all_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam17");
+        pri_a15_actor_all_animation_data.addAnimationSoundName("into", 0, "pri_a15_actor_introduce_squad");
+        pri_a15_actor_all_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam17_1");
+        pri_a15_actor_all_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam18");
+        pri_a15_actor_all_animation_data.addAnimationDettachItemName("into", 0, "pri_a15_documents");
+        pri_a15_actor_all_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam19");
+        pri_a15_actor_all_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam20");
+        pri_a15_actor_all_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam21");
+        pri_a15_actor_all_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam22");
+        pri_a15_actor_all_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam23");
+        pri_a15_actor_all_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam24");
+        pri_a15_actor_all_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam25");
+        pri_a15_actor_all_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam25_1");
+        pri_a15_actor_all_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam26");
+        pri_a15_actor_all_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam27");
+        pri_a15_actor_all_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam28");
+        pri_a15_actor_all_animation_data.addAnimationSoundName("into", 0, "pri_a15_actor_leave_him");
+        pri_a15_actor_all_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam29");
+        pri_a15_actor_all_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam30");
+        pri_a15_actor_all_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam31");
+        //     pri_a15_actor_all_animation_data.addAnimationFunction("into", 0, f = state_mgr_pri_a15.end_scene); Lord:
+        //     доделать!
+        pri_a15_actor_all_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam32");
+
+        this->m_state_manager_animation_list["pri_a15_actor_all"] = pri_a15_actor_all_animation_data;
+
+        StateManagerAnimationData pri_a15_actor_1_vano_animation_data;
+        pri_a15_actor_1_vano_animation_data.setPropertiesMaxIdle(1);
+        pri_a15_actor_1_vano_animation_data.setPropertiesSumIdle(1);
+        pri_a15_actor_1_vano_animation_data.setPropertiesMoving(true);
+        pri_a15_actor_1_vano_animation_data.setPropertiesRandom(100);
+
+        pri_a15_actor_1_vano_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam1");
+        pri_a15_actor_1_vano_animation_data.addAnimationAttachItemName("into", 0, "pri_a15_wpn_ak74");
+        pri_a15_actor_1_vano_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam2");
+        pri_a15_actor_1_vano_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam3");
+        //     pri_a15_actor_1_vano_animation_data.addAnimationFunction("into", 0, state_mgr_pri_a15.break_fence); //
+        //     Lord: доделать!
+        pri_a15_actor_1_vano_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam4");
+        //     pri_a15_actor_1_vano_animation_data.addAnimationFunction("into", 0, state_mgr_pri_a15.lights_off); //
+        //     Lord: доделать!
+        pri_a15_actor_1_vano_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam5");
+        pri_a15_actor_1_vano_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam6");
+        pri_a15_actor_1_vano_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam7");
+        pri_a15_actor_1_vano_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam8");
+        pri_a15_actor_1_vano_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam9_1");
+        //    pri_a15_actor_1_vano_animation_data.addAnimationFunction("into", 0, state_mgr_pri_a15.unstrap_weapon);
+        //    Lord: доделать!
+        pri_a15_actor_1_vano_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam9_2");
+        pri_a15_actor_1_vano_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam10");
+        pri_a15_actor_1_vano_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam11");
+        pri_a15_actor_1_vano_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam12");
+        //   pri_a15_actor_1_vano_animation_data.addAnimationFunction("into", 0, state_mgr_pri_a15.strap_weapon); Lord:
+        //   доделать!
+        pri_a15_actor_1_vano_animation_data.addAnimationSoundName("into", 0, "pri_a15_actor_need_talk_with_commander");
+        pri_a15_actor_1_vano_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam13");
+        pri_a15_actor_1_vano_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam14");
+        pri_a15_actor_1_vano_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam15");
+        pri_a15_actor_1_vano_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam16_1");
+        pri_a15_actor_1_vano_animation_data.addAnimationSoundName("into", 0, "pri_a15_actor_introduce");
+        pri_a15_actor_1_vano_animation_data.addAnimationAttachItemName("into", 0, "pri_a15_documents");
+        pri_a15_actor_1_vano_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam16_2");
+        pri_a15_actor_1_vano_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam17");
+        pri_a15_actor_1_vano_animation_data.addAnimationSoundName("into", 0, "pri_a15_actor_introduce_squad");
+        pri_a15_actor_1_vano_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam17_1");
+        pri_a15_actor_1_vano_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam18");
+        pri_a15_actor_1_vano_animation_data.addAnimationDettachItemName("into", 0, "pri_a15_documents");
+        pri_a15_actor_1_vano_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam19");
+        pri_a15_actor_1_vano_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam20");
+        pri_a15_actor_1_vano_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam21");
+        pri_a15_actor_1_vano_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam25");
+        pri_a15_actor_1_vano_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam25_1");
+        pri_a15_actor_1_vano_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam26");
+        pri_a15_actor_1_vano_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam27");
+        pri_a15_actor_1_vano_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam28");
+        pri_a15_actor_1_vano_animation_data.addAnimationSoundName("into", 0, "pri_a15_actor_leave_him");
+        pri_a15_actor_1_vano_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam29");
+        pri_a15_actor_1_vano_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam30");
+        pri_a15_actor_1_vano_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam31");
+        //     pri_a15_actor_1_vano_animation_data.addAnimationFunction("into", 0, f = state_mgr_pri_a15.end_scene);
+        //     Lord: доделать!
+        pri_a15_actor_1_vano_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam32");
+
+        this->m_state_manager_animation_list["pri_a15_actor_1_vano"] = pri_a15_actor_1_vano_animation_data;
+
+        StateManagerAnimationData pri_a15_actor_1_sokolov_animation_data;
+        pri_a15_actor_1_sokolov_animation_data.setPropertiesMaxIdle(1);
+        pri_a15_actor_1_sokolov_animation_data.setPropertiesSumIdle(1);
+        pri_a15_actor_1_sokolov_animation_data.setPropertiesMoving(true);
+        pri_a15_actor_1_sokolov_animation_data.setPropertiesRandom(100);
+
+        pri_a15_actor_1_sokolov_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam1");
+        pri_a15_actor_1_sokolov_animation_data.addAnimationAttachItemName("into", 0, "pri_a15_wpn_ak74");
+        pri_a15_actor_1_sokolov_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam2");
+        pri_a15_actor_1_sokolov_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam3");
+        //     pri_a15_actor_1_sokolov_animation_data.addAnimationFunction("into", 0, state_mgr_pri_a15.break_fence); //
+        //     Lord: доделать!
+        pri_a15_actor_1_sokolov_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam4");
+        //     pri_a15_actor_1_sokolov_animation_data.addAnimationFunction("into", 0, state_mgr_pri_a15.lights_off); //
+        //     Lord: доделать!
+        pri_a15_actor_1_sokolov_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam5");
+        pri_a15_actor_1_sokolov_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam6");
+        pri_a15_actor_1_sokolov_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam7");
+        pri_a15_actor_1_sokolov_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam8");
+        pri_a15_actor_1_sokolov_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam9_1");
+        //    pri_a15_actor_1_sokolov_animation_data.addAnimationFunction("into", 0, state_mgr_pri_a15.unstrap_weapon);
+        //    Lord: доделать!
+        pri_a15_actor_1_sokolov_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam9_2");
+        pri_a15_actor_1_sokolov_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam10");
+        pri_a15_actor_1_sokolov_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam12");
+        //   pri_a15_actor_1_sokolov_animation_data.addAnimationFunction("into", 0, state_mgr_pri_a15.strap_weapon);
+        //   Lord: доделать!
+        pri_a15_actor_1_sokolov_animation_data.addAnimationSoundName(
+            "into", 0, "pri_a15_actor_need_talk_with_commander");
+        pri_a15_actor_1_sokolov_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam13");
+        pri_a15_actor_1_sokolov_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam14");
+        pri_a15_actor_1_sokolov_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam15");
+        pri_a15_actor_1_sokolov_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam16_1");
+        pri_a15_actor_1_sokolov_animation_data.addAnimationSoundName("into", 0, "pri_a15_actor_introduce");
+        pri_a15_actor_1_sokolov_animation_data.addAnimationAttachItemName("into", 0, "pri_a15_documents");
+        pri_a15_actor_1_sokolov_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam16_2");
+        pri_a15_actor_1_sokolov_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam17");
+        pri_a15_actor_1_sokolov_animation_data.addAnimationSoundName("into", 0, "pri_a15_actor_introduce_squad");
+        pri_a15_actor_1_sokolov_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam17_1");
+        pri_a15_actor_1_sokolov_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam18");
+        pri_a15_actor_1_sokolov_animation_data.addAnimationDettachItemName("into", 0, "pri_a15_documents");
+        pri_a15_actor_1_sokolov_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam19");
+        pri_a15_actor_1_sokolov_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam21");
+        pri_a15_actor_1_sokolov_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam22");
+        pri_a15_actor_1_sokolov_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam23");
+        pri_a15_actor_1_sokolov_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam24");
+        pri_a15_actor_1_sokolov_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam25");
+        pri_a15_actor_1_sokolov_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam25_1");
+        pri_a15_actor_1_sokolov_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam26");
+        pri_a15_actor_1_sokolov_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam27");
+        pri_a15_actor_1_sokolov_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam28");
+        pri_a15_actor_1_sokolov_animation_data.addAnimationSoundName("into", 0, "pri_a15_actor_leave_him");
+        pri_a15_actor_1_sokolov_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam29");
+        pri_a15_actor_1_sokolov_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam30");
+        pri_a15_actor_1_sokolov_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam31");
+        //     pri_a15_actor_1_sokolov_animation_data.addAnimationFunction("into", 0, f = state_mgr_pri_a15.end_scene);
+        //     Lord: доделать!
+        pri_a15_actor_1_sokolov_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam32");
+
+        this->m_state_manager_animation_list["pri_a15_actor_1_sokolov"] = pri_a15_actor_1_sokolov_animation_data;
+
+        StateManagerAnimationData pri_a15_actor_1_zulus_animation_data;
+        pri_a15_actor_1_zulus_animation_data.setPropertiesMaxIdle(1);
+        pri_a15_actor_1_zulus_animation_data.setPropertiesSumIdle(1);
+        pri_a15_actor_1_zulus_animation_data.setPropertiesMoving(true);
+        pri_a15_actor_1_zulus_animation_data.setPropertiesRandom(100);
+
+        pri_a15_actor_1_zulus_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam1");
+        pri_a15_actor_1_zulus_animation_data.addAnimationAttachItemName("into", 0, "pri_a15_wpn_ak74");
+        pri_a15_actor_1_zulus_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam2");
+        pri_a15_actor_1_zulus_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam3");
+        //     pri_a15_actor_1_zulus_animation_data.addAnimationFunction("into", 0, state_mgr_pri_a15.break_fence); //
+        //     Lord: доделать!
+        pri_a15_actor_1_zulus_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam4");
+        //     pri_a15_actor_1_zulus_animation_data.addAnimationFunction("into", 0, state_mgr_pri_a15.lights_off); //
+        //     Lord: доделать!
+        pri_a15_actor_1_zulus_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam6");
+        pri_a15_actor_1_zulus_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam7");
+        pri_a15_actor_1_zulus_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam8");
+        pri_a15_actor_1_zulus_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam9_1");
+        //    pri_a15_actor_1_zulus_animation_data.addAnimationFunction("into", 0, state_mgr_pri_a15.unstrap_weapon);
+        //    Lord: доделать!
+        pri_a15_actor_1_zulus_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam9_2");
+        pri_a15_actor_1_zulus_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam10");
+        pri_a15_actor_1_zulus_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam11");
+        pri_a15_actor_1_zulus_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam12");
+        //   pri_a15_actor_1_zulus_animation_data.addAnimationFunction("into", 0, state_mgr_pri_a15.strap_weapon); Lord:
+        //   доделать!
+        pri_a15_actor_1_zulus_animation_data.addAnimationSoundName("into", 0, "pri_a15_actor_need_talk_with_commander");
+        pri_a15_actor_1_zulus_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam13");
+        pri_a15_actor_1_zulus_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam14");
+        pri_a15_actor_1_zulus_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam15");
+        pri_a15_actor_1_zulus_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam16_1");
+        pri_a15_actor_1_zulus_animation_data.addAnimationSoundName("into", 0, "pri_a15_actor_introduce");
+        pri_a15_actor_1_zulus_animation_data.addAnimationAttachItemName("into", 0, "pri_a15_documents");
+        pri_a15_actor_1_zulus_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam16_2");
+        pri_a15_actor_1_zulus_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam17");
+        pri_a15_actor_1_zulus_animation_data.addAnimationSoundName("into", 0, "pri_a15_actor_introduce_squad");
+        pri_a15_actor_1_zulus_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam17_1");
+        pri_a15_actor_1_zulus_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam18");
+        pri_a15_actor_1_zulus_animation_data.addAnimationDettachItemName("into", 0, "pri_a15_documents");
+        pri_a15_actor_1_zulus_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam20");
+        pri_a15_actor_1_zulus_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam21");
+        pri_a15_actor_1_zulus_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam22");
+        pri_a15_actor_1_zulus_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam23");
+        pri_a15_actor_1_zulus_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam24");
+        pri_a15_actor_1_zulus_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam25");
+        pri_a15_actor_1_zulus_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam30");
+        pri_a15_actor_1_zulus_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam31");
+        //     pri_a15_actor_1_zulus_animation_data.addAnimationFunction("into", 0, f = state_mgr_pri_a15.end_scene);
+        //     Lord: доделать!
+        pri_a15_actor_1_zulus_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam32");
+
+        this->m_state_manager_animation_list["pri_a15_actor_1_zulus"] = pri_a15_actor_1_zulus_animation_data;
+
+        StateManagerAnimationData pri_a15_actor_1_wanderer_animation_data;
+        pri_a15_actor_1_wanderer_animation_data.setPropertiesMaxIdle(1);
+        pri_a15_actor_1_wanderer_animation_data.setPropertiesSumIdle(1);
+        pri_a15_actor_1_wanderer_animation_data.setPropertiesMoving(true);
+        pri_a15_actor_1_wanderer_animation_data.setPropertiesRandom(100);
+
+        pri_a15_actor_1_wanderer_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam1");
+        pri_a15_actor_1_wanderer_animation_data.addAnimationAttachItemName("into", 0, "pri_a15_wpn_ak74");
+        pri_a15_actor_1_wanderer_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam2");
+        pri_a15_actor_1_wanderer_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam3");
+        //     pri_a15_actor_1_wanderer_animation_data.addAnimationFunction("into", 0, state_mgr_pri_a15.break_fence);
+        //     // Lord: доделать!
+        pri_a15_actor_1_wanderer_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam4");
+        //     pri_a15_actor_1_wanderer_animation_data.addAnimationFunction("into", 0, state_mgr_pri_a15.lights_off); //
+        //     Lord: доделать!
+        pri_a15_actor_1_wanderer_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam5");
+        pri_a15_actor_1_wanderer_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam6");
+        pri_a15_actor_1_wanderer_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam7");
+        pri_a15_actor_1_wanderer_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam8");
+        pri_a15_actor_1_wanderer_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam9_1");
+        //    pri_a15_actor_1_wanderer_animation_data.addAnimationFunction("into", 0, state_mgr_pri_a15.unstrap_weapon);
+        //    Lord: доделать!
+        pri_a15_actor_1_wanderer_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam9_2");
+        pri_a15_actor_1_wanderer_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam10");
+        pri_a15_actor_1_wanderer_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam11");
+        pri_a15_actor_1_wanderer_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam12");
+        //   pri_a15_actor_1_wanderer_animation_data.addAnimationFunction("into", 0, state_mgr_pri_a15.strap_weapon);
+        //   Lord: доделать!
+        pri_a15_actor_1_wanderer_animation_data.addAnimationSoundName(
+            "into", 0, "pri_a15_actor_need_talk_with_commander");
+        pri_a15_actor_1_wanderer_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam13");
+        pri_a15_actor_1_wanderer_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam14");
+        pri_a15_actor_1_wanderer_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam15");
+        pri_a15_actor_1_wanderer_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam16_1");
+        pri_a15_actor_1_wanderer_animation_data.addAnimationSoundName("into", 0, "pri_a15_actor_introduce");
+        pri_a15_actor_1_wanderer_animation_data.addAnimationAttachItemName("into", 0, "pri_a15_documents");
+        pri_a15_actor_1_wanderer_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam16_2");
+        pri_a15_actor_1_wanderer_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam17");
+        pri_a15_actor_1_wanderer_animation_data.addAnimationSoundName("into", 0, "pri_a15_actor_introduce_squad");
+        pri_a15_actor_1_wanderer_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam17_1");
+        pri_a15_actor_1_wanderer_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam18");
+        pri_a15_actor_1_wanderer_animation_data.addAnimationDettachItemName("into", 0, "pri_a15_documents");
+        pri_a15_actor_1_wanderer_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam19");
+        pri_a15_actor_1_wanderer_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam20");
+        pri_a15_actor_1_wanderer_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam21");
+        pri_a15_actor_1_wanderer_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam22");
+        pri_a15_actor_1_wanderer_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam23");
+        pri_a15_actor_1_wanderer_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam24");
+        pri_a15_actor_1_wanderer_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam25");
+        pri_a15_actor_1_wanderer_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam25_1");
+        pri_a15_actor_1_wanderer_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam26");
+        pri_a15_actor_1_wanderer_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam27");
+        pri_a15_actor_1_wanderer_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam28");
+        pri_a15_actor_1_wanderer_animation_data.addAnimationSoundName("into", 0, "pri_a15_actor_leave_him");
+        pri_a15_actor_1_wanderer_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam29");
+        pri_a15_actor_1_wanderer_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam30");
+        pri_a15_actor_1_wanderer_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam31");
+        //     pri_a15_actor_1_wanderer_animation_data.addAnimationFunction("into", 0, f = state_mgr_pri_a15.end_scene);
+        //     Lord: доделать!
+        pri_a15_actor_1_wanderer_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam32");
+
+        this->m_state_manager_animation_list["pri_a15_actor_1_wanderer"] = pri_a15_actor_1_wanderer_animation_data;
+
+        StateManagerAnimationData pri_a15_actor_2_vano_sokolov_animation_data;
+        pri_a15_actor_2_vano_sokolov_animation_data.setPropertiesMaxIdle(1);
+        pri_a15_actor_2_vano_sokolov_animation_data.setPropertiesSumIdle(1);
+        pri_a15_actor_2_vano_sokolov_animation_data.setPropertiesMoving(true);
+        pri_a15_actor_2_vano_sokolov_animation_data.setPropertiesRandom(100);
+
+        pri_a15_actor_2_vano_sokolov_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam1");
+        pri_a15_actor_2_vano_sokolov_animation_data.addAnimationAttachItemName("into", 0, "pri_a15_wpn_ak74");
+        pri_a15_actor_2_vano_sokolov_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam2");
+        pri_a15_actor_2_vano_sokolov_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam3");
+        //     pri_a15_actor_2_vano_sokolov_animation_data.addAnimationFunction("into", 0,
+        //     state_mgr_pri_a15.break_fence); // Lord: доделать!
+        pri_a15_actor_2_vano_sokolov_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam4");
+        //     pri_a15_actor_2_vano_sokolov_animation_data.addAnimationFunction("into", 0,
+        //     state_mgr_pri_a15.lights_off);        // Lord: доделать!
+        pri_a15_actor_2_vano_sokolov_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam5");
+        pri_a15_actor_2_vano_sokolov_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam6");
+        pri_a15_actor_2_vano_sokolov_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam7");
+        pri_a15_actor_2_vano_sokolov_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam8");
+        pri_a15_actor_2_vano_sokolov_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam9_1");
+        //    pri_a15_actor_2_vano_sokolov_animation_data.addAnimationFunction("into", 0,
+        //    state_mgr_pri_a15.unstrap_weapon); Lord: доделать!
+        pri_a15_actor_2_vano_sokolov_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam9_2");
+        pri_a15_actor_2_vano_sokolov_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam10");
+        pri_a15_actor_2_vano_sokolov_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam12");
+        //   pri_a15_actor_2_vano_sokolov_animation_data.addAnimationFunction("into", 0,
+        //   state_mgr_pri_a15.strap_weapon); Lord: доделать!
+        pri_a15_actor_2_vano_sokolov_animation_data.addAnimationSoundName(
+            "into", 0, "pri_a15_actor_need_talk_with_commander");
+        pri_a15_actor_2_vano_sokolov_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam13");
+        pri_a15_actor_2_vano_sokolov_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam14");
+        pri_a15_actor_2_vano_sokolov_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam15");
+        pri_a15_actor_2_vano_sokolov_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam16_1");
+        pri_a15_actor_2_vano_sokolov_animation_data.addAnimationSoundName("into", 0, "pri_a15_actor_introduce");
+        pri_a15_actor_2_vano_sokolov_animation_data.addAnimationAttachItemName("into", 0, "pri_a15_documents");
+        pri_a15_actor_2_vano_sokolov_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam16_2");
+        pri_a15_actor_2_vano_sokolov_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam17");
+        pri_a15_actor_2_vano_sokolov_animation_data.addAnimationSoundName("into", 0, "pri_a15_actor_introduce_squad");
+        pri_a15_actor_2_vano_sokolov_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam17_1");
+        pri_a15_actor_2_vano_sokolov_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam18");
+        pri_a15_actor_2_vano_sokolov_animation_data.addAnimationDettachItemName("into", 0, "pri_a15_documents");
+        pri_a15_actor_2_vano_sokolov_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam19");
+        pri_a15_actor_2_vano_sokolov_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam21");
+        pri_a15_actor_2_vano_sokolov_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam25");
+        pri_a15_actor_2_vano_sokolov_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam25_1");
+        pri_a15_actor_2_vano_sokolov_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam26");
+        pri_a15_actor_2_vano_sokolov_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam27");
+        pri_a15_actor_2_vano_sokolov_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam28");
+        pri_a15_actor_2_vano_sokolov_animation_data.addAnimationSoundName("into", 0, "pri_a15_actor_leave_him");
+        pri_a15_actor_2_vano_sokolov_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam29");
+        pri_a15_actor_2_vano_sokolov_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam30");
+        pri_a15_actor_2_vano_sokolov_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam31");
+        //     pri_a15_actor_2_vano_sokolov_animation_data.addAnimationFunction("into", 0, f =
+        //     state_mgr_pri_a15.end_scene); Lord: доделать!
+        pri_a15_actor_2_vano_sokolov_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam32");
+
+        this->m_state_manager_animation_list["pri_a15_actor_2_vano_sokolov"] =
+            pri_a15_actor_2_vano_sokolov_animation_data;
+
+        StateManagerAnimationData pri_a15_actor_2_vano_zulus_animation_data;
+        pri_a15_actor_2_vano_zulus_animation_data.setPropertiesMaxIdle(1);
+        pri_a15_actor_2_vano_zulus_animation_data.setPropertiesSumIdle(1);
+        pri_a15_actor_2_vano_zulus_animation_data.setPropertiesMoving(true);
+        pri_a15_actor_2_vano_zulus_animation_data.setPropertiesRandom(100);
+
+        pri_a15_actor_2_vano_zulus_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam1");
+        pri_a15_actor_2_vano_zulus_animation_data.addAnimationAttachItemName("into", 0, "pri_a15_wpn_ak74");
+        pri_a15_actor_2_vano_zulus_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam2");
+        pri_a15_actor_2_vano_zulus_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam3");
+        //     pri_a15_actor_2_vano_zulus_animation_data.addAnimationFunction("into", 0, state_mgr_pri_a15.break_fence);
+        //     // Lord: доделать!
+        pri_a15_actor_2_vano_zulus_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam4");
+        //     pri_a15_actor_2_vano_zulus_animation_data.addAnimationFunction("into", 0, state_mgr_pri_a15.lights_off);
+        //     // Lord: доделать!
+        pri_a15_actor_2_vano_zulus_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam6");
+        pri_a15_actor_2_vano_zulus_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam7");
+        pri_a15_actor_2_vano_zulus_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam8");
+        pri_a15_actor_2_vano_zulus_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam9_1");
+        //    pri_a15_actor_2_vano_zulus_animation_data.addAnimationFunction("into", 0,
+        //    state_mgr_pri_a15.unstrap_weapon); Lord: доделать!
+        pri_a15_actor_2_vano_zulus_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam9_2");
+        pri_a15_actor_2_vano_zulus_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam10");
+        pri_a15_actor_2_vano_zulus_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam11");
+        pri_a15_actor_2_vano_zulus_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam12");
+        //   pri_a15_actor_2_vano_zulus_animation_data.addAnimationFunction("into", 0, state_mgr_pri_a15.strap_weapon);
+        //   Lord: доделать!
+        pri_a15_actor_2_vano_zulus_animation_data.addAnimationSoundName(
+            "into", 0, "pri_a15_actor_need_talk_with_commander");
+        pri_a15_actor_2_vano_zulus_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam13");
+        pri_a15_actor_2_vano_zulus_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam14");
+        pri_a15_actor_2_vano_zulus_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam15");
+        pri_a15_actor_2_vano_zulus_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam16_1");
+        pri_a15_actor_2_vano_zulus_animation_data.addAnimationSoundName("into", 0, "pri_a15_actor_introduce");
+        pri_a15_actor_2_vano_zulus_animation_data.addAnimationAttachItemName("into", 0, "pri_a15_documents");
+        pri_a15_actor_2_vano_zulus_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam16_2");
+        pri_a15_actor_2_vano_zulus_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam17");
+        pri_a15_actor_2_vano_zulus_animation_data.addAnimationSoundName("into", 0, "pri_a15_actor_introduce_squad");
+        pri_a15_actor_2_vano_zulus_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam17_1");
+        pri_a15_actor_2_vano_zulus_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam18");
+        pri_a15_actor_2_vano_zulus_animation_data.addAnimationDettachItemName("into", 0, "pri_a15_documents");
+        pri_a15_actor_2_vano_zulus_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam20");
+        pri_a15_actor_2_vano_zulus_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam21");
+        pri_a15_actor_2_vano_zulus_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam25");
+        pri_a15_actor_2_vano_zulus_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam30");
+        pri_a15_actor_2_vano_zulus_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam31");
+        //     pri_a15_actor_2_vano_zulus_animation_data.addAnimationFunction("into", 0, f =
+        //     state_mgr_pri_a15.end_scene); Lord: доделать!
+        pri_a15_actor_2_vano_zulus_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam32");
+
+        this->m_state_manager_animation_list["pri_a15_actor_2_vano_zulus"] = pri_a15_actor_2_vano_zulus_animation_data;
+
+        StateManagerAnimationData pri_a15_actor_2_vano_wanderer_animation_data;
+        pri_a15_actor_2_vano_wanderer_animation_data.setPropertiesMaxIdle(1);
+        pri_a15_actor_2_vano_wanderer_animation_data.setPropertiesSumIdle(1);
+        pri_a15_actor_2_vano_wanderer_animation_data.setPropertiesMoving(true);
+        pri_a15_actor_2_vano_wanderer_animation_data.setPropertiesRandom(100);
+
+        pri_a15_actor_2_vano_wanderer_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam1");
+        pri_a15_actor_2_vano_wanderer_animation_data.addAnimationAttachItemName("into", 0, "pri_a15_wpn_ak74");
+        pri_a15_actor_2_vano_wanderer_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam2");
+        pri_a15_actor_2_vano_wanderer_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam3");
+        //     pri_a15_actor_2_vano_wanderer_animation_data.addAnimationFunction("into", 0,
+        //     state_mgr_pri_a15.break_fence); // Lord: доделать!
+        pri_a15_actor_2_vano_wanderer_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam4");
+        //     pri_a15_actor_2_vano_wanderer_animation_data.addAnimationFunction("into", 0,
+        //     state_mgr_pri_a15.lights_off);        // Lord: доделать!
+        pri_a15_actor_2_vano_wanderer_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam5");
+        pri_a15_actor_2_vano_wanderer_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam6");
+        pri_a15_actor_2_vano_wanderer_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam7");
+        pri_a15_actor_2_vano_wanderer_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam8");
+        pri_a15_actor_2_vano_wanderer_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam9_1");
+        //    pri_a15_actor_2_vano_wanderer_animation_data.addAnimationFunction("into", 0,
+        //    state_mgr_pri_a15.unstrap_weapon); Lord: доделать!
+        pri_a15_actor_2_vano_wanderer_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam9_2");
+        pri_a15_actor_2_vano_wanderer_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam10");
+        pri_a15_actor_2_vano_wanderer_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam11");
+        pri_a15_actor_2_vano_wanderer_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam12");
+        //   pri_a15_actor_2_vano_wanderer_animation_data.addAnimationFunction("into", 0,
+        //   state_mgr_pri_a15.strap_weapon); Lord: доделать!
+        pri_a15_actor_2_vano_wanderer_animation_data.addAnimationSoundName(
+            "into", 0, "pri_a15_actor_need_talk_with_commander");
+        pri_a15_actor_2_vano_wanderer_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam13");
+        pri_a15_actor_2_vano_wanderer_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam14");
+        pri_a15_actor_2_vano_wanderer_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam15");
+        pri_a15_actor_2_vano_wanderer_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam16_1");
+        pri_a15_actor_2_vano_wanderer_animation_data.addAnimationSoundName("into", 0, "pri_a15_actor_introduce");
+        pri_a15_actor_2_vano_wanderer_animation_data.addAnimationAttachItemName("into", 0, "pri_a15_documents");
+        pri_a15_actor_2_vano_wanderer_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam16_2");
+        pri_a15_actor_2_vano_wanderer_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam17");
+        pri_a15_actor_2_vano_wanderer_animation_data.addAnimationSoundName("into", 0, "pri_a15_actor_introduce_squad");
+        pri_a15_actor_2_vano_wanderer_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam17_1");
+        pri_a15_actor_2_vano_wanderer_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam18");
+        pri_a15_actor_2_vano_wanderer_animation_data.addAnimationDettachItemName("into", 0, "pri_a15_documents");
+        pri_a15_actor_2_vano_wanderer_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam19");
+        pri_a15_actor_2_vano_wanderer_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam20");
+        pri_a15_actor_2_vano_wanderer_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam21");
+        pri_a15_actor_2_vano_wanderer_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam25");
+        pri_a15_actor_2_vano_wanderer_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam25_1");
+        pri_a15_actor_2_vano_wanderer_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam26");
+        pri_a15_actor_2_vano_wanderer_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam27");
+        pri_a15_actor_2_vano_wanderer_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam28");
+        pri_a15_actor_2_vano_wanderer_animation_data.addAnimationSoundName("into", 0, "pri_a15_actor_leave_him");
+        pri_a15_actor_2_vano_wanderer_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam29");
+        pri_a15_actor_2_vano_wanderer_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam30");
+        pri_a15_actor_2_vano_wanderer_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam31");
+        //     pri_a15_actor_2_vano_wanderer_animation_data.addAnimationFunction("into", 0, f =
+        //     state_mgr_pri_a15.end_scene); Lord: доделать!
+        pri_a15_actor_2_vano_wanderer_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam32");
+
+        this->m_state_manager_animation_list["pri_a15_actor_2_vano_wanderer"] =
+            pri_a15_actor_2_vano_wanderer_animation_data;
+
+        StateManagerAnimationData pri_a15_actor_2_sokolov_zulus_animation_data;
+        pri_a15_actor_2_sokolov_zulus_animation_data.setPropertiesMaxIdle(1);
+        pri_a15_actor_2_sokolov_zulus_animation_data.setPropertiesSumIdle(1);
+        pri_a15_actor_2_sokolov_zulus_animation_data.setPropertiesMoving(true);
+        pri_a15_actor_2_sokolov_zulus_animation_data.setPropertiesRandom(100);
+
+        pri_a15_actor_2_sokolov_zulus_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam1");
+        pri_a15_actor_2_sokolov_zulus_animation_data.addAnimationAttachItemName("into", 0, "pri_a15_wpn_ak74");
+        pri_a15_actor_2_sokolov_zulus_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam2");
+        pri_a15_actor_2_sokolov_zulus_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam3");
+        //     pri_a15_actor_2_sokolov_zulus_animation_data.addAnimationFunction("into", 0,
+        //     state_mgr_pri_a15.break_fence); // Lord: доделать!
+        pri_a15_actor_2_sokolov_zulus_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam4");
+        //     pri_a15_actor_2_sokolov_zulus_animation_data.addAnimationFunction("into", 0,
+        //     state_mgr_pri_a15.lights_off);        // Lord: доделать!
+        pri_a15_actor_2_sokolov_zulus_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam6");
+        pri_a15_actor_2_sokolov_zulus_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam7");
+        pri_a15_actor_2_sokolov_zulus_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam8");
+        pri_a15_actor_2_sokolov_zulus_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam9_1");
+        //    pri_a15_actor_2_sokolov_zulus_animation_data.addAnimationFunction("into", 0,
+        //    state_mgr_pri_a15.unstrap_weapon); Lord: доделать!
+        pri_a15_actor_2_sokolov_zulus_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam9_2");
+        pri_a15_actor_2_sokolov_zulus_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam10");
+        pri_a15_actor_2_sokolov_zulus_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam12");
+        //   pri_a15_actor_2_sokolov_zulus_animation_data.addAnimationFunction("into", 0,
+        //   state_mgr_pri_a15.strap_weapon); Lord: доделать!
+        pri_a15_actor_2_sokolov_zulus_animation_data.addAnimationSoundName(
+            "into", 0, "pri_a15_actor_need_talk_with_commander");
+        pri_a15_actor_2_sokolov_zulus_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam13");
+        pri_a15_actor_2_sokolov_zulus_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam14");
+        pri_a15_actor_2_sokolov_zulus_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam15");
+        pri_a15_actor_2_sokolov_zulus_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam16_1");
+        pri_a15_actor_2_sokolov_zulus_animation_data.addAnimationSoundName("into", 0, "pri_a15_actor_introduce");
+        pri_a15_actor_2_sokolov_zulus_animation_data.addAnimationAttachItemName("into", 0, "pri_a15_documents");
+        pri_a15_actor_2_sokolov_zulus_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam16_2");
+        pri_a15_actor_2_sokolov_zulus_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam17");
+        pri_a15_actor_2_sokolov_zulus_animation_data.addAnimationSoundName("into", 0, "pri_a15_actor_introduce_squad");
+        pri_a15_actor_2_sokolov_zulus_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam17_1");
+        pri_a15_actor_2_sokolov_zulus_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam18");
+        pri_a15_actor_2_sokolov_zulus_animation_data.addAnimationDettachItemName("into", 0, "pri_a15_documents");
+        pri_a15_actor_2_sokolov_zulus_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam22");
+        pri_a15_actor_2_sokolov_zulus_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam23");
+        pri_a15_actor_2_sokolov_zulus_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam24");
+        pri_a15_actor_2_sokolov_zulus_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam25");
+        pri_a15_actor_2_sokolov_zulus_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam30");
+        pri_a15_actor_2_sokolov_zulus_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam31");
+        //     pri_a15_actor_2_sokolov_zulus_animation_data.addAnimationFunction("into", 0, f =
+        //     state_mgr_pri_a15.end_scene); Lord: доделать!
+        pri_a15_actor_2_sokolov_zulus_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam32");
+
+        this->m_state_manager_animation_list["pri_a15_actor_2_sokolov_zulus"] =
+            pri_a15_actor_2_sokolov_zulus_animation_data;
+
+        StateManagerAnimationData pri_a15_actor_2_sokolov_wanderer_animation_data;
+        pri_a15_actor_2_sokolov_wanderer_animation_data.setPropertiesMaxIdle(1);
+        pri_a15_actor_2_sokolov_wanderer_animation_data.setPropertiesSumIdle(1);
+        pri_a15_actor_2_sokolov_wanderer_animation_data.setPropertiesMoving(true);
+        pri_a15_actor_2_sokolov_wanderer_animation_data.setPropertiesRandom(100);
+
+        pri_a15_actor_2_sokolov_wanderer_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam1");
+        pri_a15_actor_2_sokolov_wanderer_animation_data.addAnimationAttachItemName("into", 0, "pri_a15_wpn_ak74");
+        pri_a15_actor_2_sokolov_wanderer_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam2");
+        pri_a15_actor_2_sokolov_wanderer_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam3");
+        //     pri_a15_actor_2_sokolov_wanderer_animation_data.addAnimationFunction("into", 0,
+        //     state_mgr_pri_a15.break_fence); // Lord: доделать!
+        pri_a15_actor_2_sokolov_wanderer_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam4");
+        //     pri_a15_actor_2_sokolov_wanderer_animation_data.addAnimationFunction("into", 0,
+        //     state_mgr_pri_a15.lights_off);        // Lord: доделать!
+        pri_a15_actor_2_sokolov_wanderer_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam5");
+        pri_a15_actor_2_sokolov_wanderer_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam6");
+        pri_a15_actor_2_sokolov_wanderer_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam7");
+        pri_a15_actor_2_sokolov_wanderer_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam8");
+        pri_a15_actor_2_sokolov_wanderer_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam9_1");
+        //    pri_a15_actor_2_sokolov_wanderer_animation_data.addAnimationFunction("into", 0,
+        //    state_mgr_pri_a15.unstrap_weapon); Lord: доделать!
+        pri_a15_actor_2_sokolov_wanderer_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam9_2");
+        pri_a15_actor_2_sokolov_wanderer_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam10");
+        pri_a15_actor_2_sokolov_wanderer_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam12");
+        //   pri_a15_actor_2_sokolov_wanderer_animation_data.addAnimationFunction("into", 0,
+        //   state_mgr_pri_a15.strap_weapon); Lord: доделать!
+        pri_a15_actor_2_sokolov_wanderer_animation_data.addAnimationSoundName(
+            "into", 0, "pri_a15_actor_need_talk_with_commander");
+        pri_a15_actor_2_sokolov_wanderer_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam13");
+        pri_a15_actor_2_sokolov_wanderer_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam14");
+        pri_a15_actor_2_sokolov_wanderer_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam15");
+        pri_a15_actor_2_sokolov_wanderer_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam16_1");
+        pri_a15_actor_2_sokolov_wanderer_animation_data.addAnimationSoundName("into", 0, "pri_a15_actor_introduce");
+        pri_a15_actor_2_sokolov_wanderer_animation_data.addAnimationAttachItemName("into", 0, "pri_a15_documents");
+        pri_a15_actor_2_sokolov_wanderer_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam16_2");
+        pri_a15_actor_2_sokolov_wanderer_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam17");
+        pri_a15_actor_2_sokolov_wanderer_animation_data.addAnimationSoundName(
+            "into", 0, "pri_a15_actor_introduce_squad");
+        pri_a15_actor_2_sokolov_wanderer_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam17_1");
+        pri_a15_actor_2_sokolov_wanderer_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam18");
+        pri_a15_actor_2_sokolov_wanderer_animation_data.addAnimationDettachItemName("into", 0, "pri_a15_documents");
+        pri_a15_actor_2_sokolov_wanderer_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam19");
+        pri_a15_actor_2_sokolov_wanderer_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam21");
+        pri_a15_actor_2_sokolov_wanderer_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam22");
+        pri_a15_actor_2_sokolov_wanderer_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam23");
+        pri_a15_actor_2_sokolov_wanderer_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam24");
+        pri_a15_actor_2_sokolov_wanderer_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam25");
+        pri_a15_actor_2_sokolov_wanderer_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam25_1");
+        pri_a15_actor_2_sokolov_wanderer_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam26");
+        pri_a15_actor_2_sokolov_wanderer_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam27");
+        pri_a15_actor_2_sokolov_wanderer_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam28");
+        pri_a15_actor_2_sokolov_wanderer_animation_data.addAnimationSoundName("into", 0, "pri_a15_actor_leave_him");
+        pri_a15_actor_2_sokolov_wanderer_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam29");
+        pri_a15_actor_2_sokolov_wanderer_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam30");
+        pri_a15_actor_2_sokolov_wanderer_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam31");
+        //     pri_a15_actor_2_sokolov_wanderer_animation_data.addAnimationFunction("into", 0, f =
+        //     state_mgr_pri_a15.end_scene); Lord: доделать!
+        pri_a15_actor_2_sokolov_wanderer_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam32");
+
+        this->m_state_manager_animation_list["pri_a15_actor_2_sokolov_wanderer"] =
+            pri_a15_actor_2_sokolov_wanderer_animation_data;
+
+        StateManagerAnimationData pri_a15_actor_2_zulus_wanderer_animation_data;
+        pri_a15_actor_2_zulus_wanderer_animation_data.setPropertiesMaxIdle(1);
+        pri_a15_actor_2_zulus_wanderer_animation_data.setPropertiesSumIdle(1);
+        pri_a15_actor_2_zulus_wanderer_animation_data.setPropertiesMoving(true);
+        pri_a15_actor_2_zulus_wanderer_animation_data.setPropertiesRandom(100);
+
+        pri_a15_actor_2_zulus_wanderer_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam1");
+        pri_a15_actor_2_zulus_wanderer_animation_data.addAnimationAttachItemName("into", 0, "pri_a15_wpn_ak74");
+        pri_a15_actor_2_zulus_wanderer_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam2");
+        pri_a15_actor_2_zulus_wanderer_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam3");
+        //     pri_a15_actor_2_zulus_wanderer_animation_data.addAnimationFunction("into", 0,
+        //     state_mgr_pri_a15.break_fence); // Lord: доделать!
+        pri_a15_actor_2_zulus_wanderer_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam4");
+        //     pri_a15_actor_2_zulus_wanderer_animation_data.addAnimationFunction("into", 0,
+        //     state_mgr_pri_a15.lights_off);        // Lord: доделать!
+        pri_a15_actor_2_zulus_wanderer_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam6");
+        pri_a15_actor_2_zulus_wanderer_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam7");
+        pri_a15_actor_2_zulus_wanderer_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam8");
+        pri_a15_actor_2_zulus_wanderer_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam9_1");
+        //    pri_a15_actor_2_zulus_wanderer_animation_data.addAnimationFunction("into", 0,
+        //    state_mgr_pri_a15.unstrap_weapon); Lord: доделать!
+        pri_a15_actor_2_zulus_wanderer_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam9_2");
+        pri_a15_actor_2_zulus_wanderer_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam10");
+        pri_a15_actor_2_zulus_wanderer_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam11");
+        pri_a15_actor_2_zulus_wanderer_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam12");
+        //   pri_a15_actor_2_zulus_wanderer_animation_data.addAnimationFunction("into", 0,
+        //   state_mgr_pri_a15.strap_weapon); Lord: доделать!
+        pri_a15_actor_2_zulus_wanderer_animation_data.addAnimationSoundName(
+            "into", 0, "pri_a15_actor_need_talk_with_commander");
+        pri_a15_actor_2_zulus_wanderer_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam13");
+        pri_a15_actor_2_zulus_wanderer_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam14");
+        pri_a15_actor_2_zulus_wanderer_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam15");
+        pri_a15_actor_2_zulus_wanderer_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam16_1");
+        pri_a15_actor_2_zulus_wanderer_animation_data.addAnimationSoundName("into", 0, "pri_a15_actor_introduce");
+        pri_a15_actor_2_zulus_wanderer_animation_data.addAnimationAttachItemName("into", 0, "pri_a15_documents");
+        pri_a15_actor_2_zulus_wanderer_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam16_2");
+        pri_a15_actor_2_zulus_wanderer_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam17");
+        pri_a15_actor_2_zulus_wanderer_animation_data.addAnimationSoundName("into", 0, "pri_a15_actor_introduce_squad");
+        pri_a15_actor_2_zulus_wanderer_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam17_1");
+        pri_a15_actor_2_zulus_wanderer_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam18");
+        pri_a15_actor_2_zulus_wanderer_animation_data.addAnimationDettachItemName("into", 0, "pri_a15_documents");
+        pri_a15_actor_2_zulus_wanderer_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam20");
+        pri_a15_actor_2_zulus_wanderer_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam21");
+        pri_a15_actor_2_zulus_wanderer_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam22");
+        pri_a15_actor_2_zulus_wanderer_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam23");
+        pri_a15_actor_2_zulus_wanderer_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam24");
+        pri_a15_actor_2_zulus_wanderer_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam25");
+        pri_a15_actor_2_zulus_wanderer_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam30");
+        pri_a15_actor_2_zulus_wanderer_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam31");
+        //     pri_a15_actor_2_zulus_wanderer_animation_data.addAnimationFunction("into", 0, f =
+        //     state_mgr_pri_a15.end_scene); Lord: доделать!
+        pri_a15_actor_2_zulus_wanderer_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam32");
+
+        this->m_state_manager_animation_list["pri_a15_actor_2_zulus_wanderer"] =
+            pri_a15_actor_2_zulus_wanderer_animation_data;
+
+        StateManagerAnimationData pri_a15_actor_3_vano_alive_animation_data;
+        pri_a15_actor_3_vano_alive_animation_data.setPropertiesMaxIdle(1);
+        pri_a15_actor_3_vano_alive_animation_data.setPropertiesSumIdle(1);
+        pri_a15_actor_3_vano_alive_animation_data.setPropertiesMoving(true);
+        pri_a15_actor_3_vano_alive_animation_data.setPropertiesRandom(100);
+
+        pri_a15_actor_3_vano_alive_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam1");
+        pri_a15_actor_3_vano_alive_animation_data.addAnimationAttachItemName("into", 0, "pri_a15_wpn_ak74");
+        pri_a15_actor_3_vano_alive_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam2");
+        pri_a15_actor_3_vano_alive_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam3");
+        //     pri_a15_actor_3_vano_alive_animation_data.addAnimationFunction("into", 0, state_mgr_pri_a15.break_fence);
+        //     // Lord: доделать!
+        pri_a15_actor_3_vano_alive_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam4");
+        //     pri_a15_actor_3_vano_alive_animation_data.addAnimationFunction("into", 0, state_mgr_pri_a15.lights_off);
+        //     // Lord: доделать!
+        pri_a15_actor_3_vano_alive_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam6");
+        pri_a15_actor_3_vano_alive_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam7");
+        pri_a15_actor_3_vano_alive_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam8");
+        pri_a15_actor_3_vano_alive_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam9_1");
+        //    pri_a15_actor_3_vano_alive_animation_data.addAnimationFunction("into", 0,
+        //    state_mgr_pri_a15.unstrap_weapon); Lord: доделать!
+        pri_a15_actor_3_vano_alive_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam9_2");
+        pri_a15_actor_3_vano_alive_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam10");
+        pri_a15_actor_3_vano_alive_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam12");
+        //   pri_a15_actor_3_vano_alive_animation_data.addAnimationFunction("into", 0, state_mgr_pri_a15.strap_weapon);
+        //   Lord: доделать!
+        pri_a15_actor_3_vano_alive_animation_data.addAnimationSoundName(
+            "into", 0, "pri_a15_actor_need_talk_with_commander");
+        pri_a15_actor_3_vano_alive_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam13");
+        pri_a15_actor_3_vano_alive_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam14");
+        pri_a15_actor_3_vano_alive_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam15");
+        pri_a15_actor_3_vano_alive_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam16_1");
+        pri_a15_actor_3_vano_alive_animation_data.addAnimationSoundName("into", 0, "pri_a15_actor_introduce");
+        pri_a15_actor_3_vano_alive_animation_data.addAnimationAttachItemName("into", 0, "pri_a15_documents");
+        pri_a15_actor_3_vano_alive_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam16_2");
+        pri_a15_actor_3_vano_alive_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam17");
+        pri_a15_actor_3_vano_alive_animation_data.addAnimationSoundName("into", 0, "pri_a15_actor_introduce_squad");
+        pri_a15_actor_3_vano_alive_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam17_1");
+        pri_a15_actor_3_vano_alive_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam18");
+        pri_a15_actor_3_vano_alive_animation_data.addAnimationDettachItemName("into", 0, "pri_a15_documents");
+        pri_a15_actor_3_vano_alive_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam22");
+        pri_a15_actor_3_vano_alive_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam23");
+        pri_a15_actor_3_vano_alive_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam24");
+        pri_a15_actor_3_vano_alive_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam25");
+        pri_a15_actor_3_vano_alive_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam30");
+        pri_a15_actor_3_vano_alive_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam31");
+        //     pri_a15_actor_3_vano_alive_animation_data.addAnimationFunction("into", 0, f =
+        //     state_mgr_pri_a15.end_scene); Lord: доделать!
+        pri_a15_actor_3_vano_alive_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam32");
+
+        this->m_state_manager_animation_list["pri_a15_actor_3_vano_alive"] = pri_a15_actor_3_vano_alive_animation_data;
+
+        StateManagerAnimationData pri_a15_actor_3_sokolov_alive_animation_data;
+        pri_a15_actor_3_sokolov_alive_animation_data.setPropertiesMaxIdle(1);
+        pri_a15_actor_3_sokolov_alive_animation_data.setPropertiesSumIdle(1);
+        pri_a15_actor_3_sokolov_alive_animation_data.setPropertiesMoving(true);
+        pri_a15_actor_3_sokolov_alive_animation_data.setPropertiesRandom(100);
+
+        pri_a15_actor_3_sokolov_alive_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam1");
+        pri_a15_actor_3_sokolov_alive_animation_data.addAnimationAttachItemName("into", 0, "pri_a15_wpn_ak74");
+        pri_a15_actor_3_sokolov_alive_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam2");
+        pri_a15_actor_3_sokolov_alive_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam3");
+        //     pri_a15_actor_3_sokolov_alive_animation_data.addAnimationFunction("into", 0,
+        //     state_mgr_pri_a15.break_fence); // Lord: доделать!
+        pri_a15_actor_3_sokolov_alive_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam4");
+        //     pri_a15_actor_3_sokolov_alive_animation_data.addAnimationFunction("into", 0,
+        //     state_mgr_pri_a15.lights_off);        // Lord: доделать!
+        pri_a15_actor_3_sokolov_alive_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam6");
+        pri_a15_actor_3_sokolov_alive_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam7");
+        pri_a15_actor_3_sokolov_alive_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam8");
+        pri_a15_actor_3_sokolov_alive_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam9_1");
+        //    pri_a15_actor_3_sokolov_alive_animation_data.addAnimationFunction("into", 0,
+        //    state_mgr_pri_a15.unstrap_weapon); Lord: доделать!
+        pri_a15_actor_3_sokolov_alive_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam9_2");
+        pri_a15_actor_3_sokolov_alive_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam10");
+        pri_a15_actor_3_sokolov_alive_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam11");
+        pri_a15_actor_3_sokolov_alive_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam12");
+        //   pri_a15_actor_3_sokolov_alive_animation_data.addAnimationFunction("into", 0,
+        //   state_mgr_pri_a15.strap_weapon); Lord: доделать!
+        pri_a15_actor_3_sokolov_alive_animation_data.addAnimationSoundName(
+            "into", 0, "pri_a15_actor_need_talk_with_commander");
+        pri_a15_actor_3_sokolov_alive_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam13");
+        pri_a15_actor_3_sokolov_alive_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam14");
+        pri_a15_actor_3_sokolov_alive_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam15");
+        pri_a15_actor_3_sokolov_alive_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam16_1");
+        pri_a15_actor_3_sokolov_alive_animation_data.addAnimationSoundName("into", 0, "pri_a15_actor_introduce");
+        pri_a15_actor_3_sokolov_alive_animation_data.addAnimationAttachItemName("into", 0, "pri_a15_documents");
+        pri_a15_actor_3_sokolov_alive_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam16_2");
+        pri_a15_actor_3_sokolov_alive_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam17");
+        pri_a15_actor_3_sokolov_alive_animation_data.addAnimationSoundName("into", 0, "pri_a15_actor_introduce_squad");
+        pri_a15_actor_3_sokolov_alive_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam17_1");
+        pri_a15_actor_3_sokolov_alive_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam18");
+        pri_a15_actor_3_sokolov_alive_animation_data.addAnimationDettachItemName("into", 0, "pri_a15_documents");
+        pri_a15_actor_3_sokolov_alive_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam20");
+        pri_a15_actor_3_sokolov_alive_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam21");
+        pri_a15_actor_3_sokolov_alive_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam25");
+        pri_a15_actor_3_sokolov_alive_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam30");
+        pri_a15_actor_3_sokolov_alive_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam31");
+        //     pri_a15_actor_3_sokolov_alive_animation_data.addAnimationFunction("into", 0, f =
+        //     state_mgr_pri_a15.end_scene); Lord: доделать!
+        pri_a15_actor_3_sokolov_alive_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam32");
+
+        this->m_state_manager_animation_list["pri_a15_actor_3_sokolov_alive"] =
+            pri_a15_actor_3_sokolov_alive_animation_data;
+
+        StateManagerAnimationData pri_a15_actor_3_zulus_alive_animation_data;
+        pri_a15_actor_3_zulus_alive_animation_data.setPropertiesMaxIdle(1);
+        pri_a15_actor_3_zulus_alive_animation_data.setPropertiesSumIdle(1);
+        pri_a15_actor_3_zulus_alive_animation_data.setPropertiesMoving(true);
+        pri_a15_actor_3_zulus_alive_animation_data.setPropertiesRandom(100);
+
+        pri_a15_actor_3_zulus_alive_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam1");
+        pri_a15_actor_3_zulus_alive_animation_data.addAnimationAttachItemName("into", 0, "pri_a15_wpn_ak74");
+        pri_a15_actor_3_zulus_alive_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam2");
+        pri_a15_actor_3_zulus_alive_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam3");
+        //     pri_a15_actor_3_zulus_alive_animation_data.addAnimationFunction("into", 0,
+        //     state_mgr_pri_a15.break_fence); // Lord: доделать!
+        pri_a15_actor_3_zulus_alive_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam4");
+        //     pri_a15_actor_3_zulus_alive_animation_data.addAnimationFunction("into", 0, state_mgr_pri_a15.lights_off);
+        //     // Lord: доделать!
+        pri_a15_actor_3_zulus_alive_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam5");
+        pri_a15_actor_3_zulus_alive_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam6");
+        pri_a15_actor_3_zulus_alive_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam7");
+        pri_a15_actor_3_zulus_alive_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam8");
+        pri_a15_actor_3_zulus_alive_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam9_1");
+        //    pri_a15_actor_3_zulus_alive_animation_data.addAnimationFunction("into", 0,
+        //    state_mgr_pri_a15.unstrap_weapon); Lord: доделать!
+        pri_a15_actor_3_zulus_alive_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam9_2");
+        pri_a15_actor_3_zulus_alive_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam10");
+        pri_a15_actor_3_zulus_alive_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam12");
+        //   pri_a15_actor_3_zulus_alive_animation_data.addAnimationFunction("into", 0, state_mgr_pri_a15.strap_weapon);
+        //   Lord: доделать!
+        pri_a15_actor_3_zulus_alive_animation_data.addAnimationSoundName(
+            "into", 0, "pri_a15_actor_need_talk_with_commander");
+        pri_a15_actor_3_zulus_alive_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam13");
+        pri_a15_actor_3_zulus_alive_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam14");
+        pri_a15_actor_3_zulus_alive_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam15");
+        pri_a15_actor_3_zulus_alive_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam16_1");
+        pri_a15_actor_3_zulus_alive_animation_data.addAnimationSoundName("into", 0, "pri_a15_actor_introduce");
+        pri_a15_actor_3_zulus_alive_animation_data.addAnimationAttachItemName("into", 0, "pri_a15_documents");
+        pri_a15_actor_3_zulus_alive_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam16_2");
+        pri_a15_actor_3_zulus_alive_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam17");
+        pri_a15_actor_3_zulus_alive_animation_data.addAnimationSoundName("into", 0, "pri_a15_actor_introduce_squad");
+        pri_a15_actor_3_zulus_alive_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam17_1");
+        pri_a15_actor_3_zulus_alive_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam18");
+        pri_a15_actor_3_zulus_alive_animation_data.addAnimationDettachItemName("into", 0, "pri_a15_documents");
+        pri_a15_actor_3_zulus_alive_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam19");
+        pri_a15_actor_3_zulus_alive_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam21");
+        pri_a15_actor_3_zulus_alive_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam25");
+        pri_a15_actor_3_zulus_alive_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam25_1");
+        pri_a15_actor_3_zulus_alive_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam26");
+        pri_a15_actor_3_zulus_alive_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam27");
+        pri_a15_actor_3_zulus_alive_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam28");
+        pri_a15_actor_3_zulus_alive_animation_data.addAnimationSoundName("into", 0, "pri_a15_actor_leave_him");
+        pri_a15_actor_3_zulus_alive_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam29");
+        pri_a15_actor_3_zulus_alive_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam30");
+        pri_a15_actor_3_zulus_alive_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam31");
+        //     pri_a15_actor_3_zulus_alive_animation_data.addAnimationFunction("into", 0, f =
+        //     state_mgr_pri_a15.end_scene); Lord: доделать!
+        pri_a15_actor_3_zulus_alive_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam32");
+
+        this->m_state_manager_animation_list["pri_a15_actor_3_zulus_alive"] =
+            pri_a15_actor_3_zulus_alive_animation_data;
+
+        StateManagerAnimationData pri_a15_actor_3_wanderer_alive_animation_data;
+        pri_a15_actor_3_wanderer_alive_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam1");
+        pri_a15_actor_3_wanderer_alive_animation_data.addAnimationAttachItemName("into", 0, "pri_a15_wpn_ak74");
+        pri_a15_actor_3_wanderer_alive_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam2");
+        pri_a15_actor_3_wanderer_alive_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam3");
+        //     pri_a15_actor_3_wanderer_alive_animation_data.addAnimationFunction("into", 0,
+        //     state_mgr_pri_a15.break_fence); // Lord: доделать!
+        pri_a15_actor_3_wanderer_alive_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam4");
+        //     pri_a15_actor_3_wanderer_alive_animation_data.addAnimationFunction("into", 0,
+        //     state_mgr_pri_a15.lights_off);        // Lord: доделать!
+        pri_a15_actor_3_wanderer_alive_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam6");
+        pri_a15_actor_3_wanderer_alive_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam7");
+        pri_a15_actor_3_wanderer_alive_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam8");
+        pri_a15_actor_3_wanderer_alive_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam9_1");
+        //    pri_a15_actor_3_wanderer_alive_animation_data.addAnimationFunction("into", 0,
+        //    state_mgr_pri_a15.unstrap_weapon); Lord: доделать!
+        pri_a15_actor_3_wanderer_alive_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam9_2");
+        pri_a15_actor_3_wanderer_alive_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam10");
+        pri_a15_actor_3_wanderer_alive_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam12");
+        //   pri_a15_actor_3_wanderer_alive_animation_data.addAnimationFunction("into", 0,
+        //   state_mgr_pri_a15.strap_weapon); Lord: доделать!
+        pri_a15_actor_3_wanderer_alive_animation_data.addAnimationSoundName(
+            "into", 0, "pri_a15_actor_need_talk_with_commander");
+        pri_a15_actor_3_wanderer_alive_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam13");
+        pri_a15_actor_3_wanderer_alive_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam14");
+        pri_a15_actor_3_wanderer_alive_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam15");
+        pri_a15_actor_3_wanderer_alive_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam16_1");
+        pri_a15_actor_3_wanderer_alive_animation_data.addAnimationSoundName("into", 0, "pri_a15_actor_introduce");
+        pri_a15_actor_3_wanderer_alive_animation_data.addAnimationAttachItemName("into", 0, "pri_a15_documents");
+        pri_a15_actor_3_wanderer_alive_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam16_2");
+        pri_a15_actor_3_wanderer_alive_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam17");
+        pri_a15_actor_3_wanderer_alive_animation_data.addAnimationSoundName("into", 0, "pri_a15_actor_introduce_squad");
+        pri_a15_actor_3_wanderer_alive_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam17_1");
+        pri_a15_actor_3_wanderer_alive_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam18");
+        pri_a15_actor_3_wanderer_alive_animation_data.addAnimationDettachItemName("into", 0, "pri_a15_documents");
+        pri_a15_actor_3_wanderer_alive_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam25");
+        pri_a15_actor_3_wanderer_alive_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam30");
+        pri_a15_actor_3_wanderer_alive_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam31");
+        //     pri_a15_actor_3_wanderer_alive_animation_data.addAnimationFunction("into", 0, f =
+        //     state_mgr_pri_a15.end_scene); Lord: доделать!
+        pri_a15_actor_3_wanderer_alive_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam32");
+
+        this->m_state_manager_animation_list["pri_a15_actor_3_wanderer_alive"] =
+            pri_a15_actor_3_wanderer_alive_animation_data;
+
+        StateManagerAnimationData pri_a15_actor_all_dead_animation_data;
+        pri_a15_actor_all_dead_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam1");
+        pri_a15_actor_all_dead_animation_data.addAnimationAttachItemName("into", 0, "pri_a15_wpn_ak74");
+        pri_a15_actor_all_dead_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam2");
+        pri_a15_actor_all_dead_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam3");
+        //     pri_a15_actor_all_dead_animation_data.addAnimationFunction("into", 0,
+        //     state_mgr_pri_a15.break_fence); // Lord: доделать!
+        pri_a15_actor_all_dead_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam4");
+        //     pri_a15_actor_all_dead_animation_data.addAnimationFunction("into", 0,
+        //     state_mgr_pri_a15.lights_off);        // Lord: доделать!
+        pri_a15_actor_all_dead_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam8");
+        pri_a15_actor_all_dead_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam9_1");
+        //    pri_a15_actor_all_dead_animation_data.addAnimationFunction("into", 0,
+        //    state_mgr_pri_a15.unstrap_weapon); Lord: доделать!
+        pri_a15_actor_all_dead_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam9_2");
+        pri_a15_actor_all_dead_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam10");
+        pri_a15_actor_all_dead_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam12");
+        //   pri_a15_actor_all_dead_animation_data.addAnimationFunction("into", 0,
+        //   state_mgr_pri_a15.strap_weapon); Lord: доделать!
+        pri_a15_actor_all_dead_animation_data.addAnimationSoundName(
+            "into", 0, "pri_a15_actor_need_talk_with_commander");
+        pri_a15_actor_all_dead_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam13");
+        pri_a15_actor_all_dead_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam14");
+        pri_a15_actor_all_dead_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam15");
+        pri_a15_actor_all_dead_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam16_1");
+        pri_a15_actor_all_dead_animation_data.addAnimationSoundName("into", 0, "pri_a15_actor_introduce");
+        pri_a15_actor_all_dead_animation_data.addAnimationAttachItemName("into", 0, "pri_a15_documents");
+        pri_a15_actor_all_dead_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam16_2");
+        pri_a15_actor_all_dead_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam17");
+        pri_a15_actor_all_dead_animation_data.addAnimationDettachItemName("into", 0, "pri_a15_documents");
+        pri_a15_actor_all_dead_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam25");
+        pri_a15_actor_all_dead_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam30");
+        pri_a15_actor_all_dead_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam31");
+        //     pri_a15_actor_all_dead_animation_data.addAnimationFunction("into", 0, f =
+        //     state_mgr_pri_a15.end_scene); Lord: доделать!
+        pri_a15_actor_all_dead_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam32");
+
+        this->m_state_manager_animation_list["pri_a15_actor_all_dead"] = pri_a15_actor_all_dead_animation_data;
+
+        StateManagerAnimationData pri_a15_military_tarasov_all_animation_data;
+        pri_a15_military_tarasov_all_animation_data.setPropertiesMaxIdle(1);
+        pri_a15_military_tarasov_all_animation_data.setPropertiesSumIdle(1);
+        pri_a15_military_tarasov_all_animation_data.setPropertiesMoving(true);
+        pri_a15_military_tarasov_all_animation_data.setPropertiesRandom(100);
+
+        pri_a15_military_tarasov_all_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam1");
+        pri_a15_military_tarasov_all_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam2");
+        pri_a15_military_tarasov_all_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam3");
+        pri_a15_military_tarasov_all_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam4");
+        pri_a15_military_tarasov_all_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam5");
+        pri_a15_military_tarasov_all_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam6");
+        pri_a15_military_tarasov_all_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam7");
+        pri_a15_military_tarasov_all_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam8");
+        pri_a15_military_tarasov_all_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam9");
+        pri_a15_military_tarasov_all_animation_data.addAnimationSoundName("into", 0, "pri_a15_army_hide_weapon");
+        //  pri_a15_military_tarasov_all_animation_data.addAnimationFunction("into", 0, state_mgr_pri_a15.lights_on);
+        //  Lord: доделать
+        pri_a15_military_tarasov_all_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam10");
+        pri_a15_military_tarasov_all_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam11");
+        pri_a15_military_tarasov_all_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam12");
+        pri_a15_military_tarasov_all_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam13");
+        pri_a15_military_tarasov_all_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam14");
+        pri_a15_military_tarasov_all_animation_data.addAnimationSoundName("into", 0, "pri_a15_army_who_a_you");
+        pri_a15_military_tarasov_all_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam15");
+        pri_a15_military_tarasov_all_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam16");
+        pri_a15_military_tarasov_all_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam17");
+        pri_a15_military_tarasov_all_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam17_1");
+        pri_a15_military_tarasov_all_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam18");
+        pri_a15_military_tarasov_all_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam19");
+        pri_a15_military_tarasov_all_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam20");
+        pri_a15_military_tarasov_all_animation_data.addAnimationSoundName("into", 0, "pri_a15_army_joke");
+        pri_a15_military_tarasov_all_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam21");
+        pri_a15_military_tarasov_all_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam22");
+        pri_a15_military_tarasov_all_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam23");
+        pri_a15_military_tarasov_all_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam24");
+        pri_a15_military_tarasov_all_animation_data.addAnimationSoundName("into", 0, "pri_a15_army_go_with_me");
+        pri_a15_military_tarasov_all_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam25");
+        pri_a15_military_tarasov_all_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam25_1");
+        pri_a15_military_tarasov_all_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam26");
+        pri_a15_military_tarasov_all_animation_data.addAnimationSoundName("into", 0, "pri_a15_army_stop");
+        pri_a15_military_tarasov_all_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam27");
+        pri_a15_military_tarasov_all_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam28");
+        pri_a15_military_tarasov_all_animation_data.addAnimationSoundName("into", 0, "pri_a15_army_leave");
+        pri_a15_military_tarasov_all_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam29");
+        pri_a15_military_tarasov_all_animation_data.addAnimation("into", 0, "pri_a15_army_go");
+        pri_a15_military_tarasov_all_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam30");
+        pri_a15_military_tarasov_all_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam31");
+        pri_a15_military_tarasov_all_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam32");
+
+        this->m_state_manager_animation_list["pri_a15_military_tarasov_all"] =
+            pri_a15_military_tarasov_all_animation_data;
+
+        StateManagerAnimationData pri_a15_military_tarasov_1_vano_animation_data;
+        pri_a15_military_tarasov_1_vano_animation_data.setPropertiesMaxIdle(1);
+        pri_a15_military_tarasov_1_vano_animation_data.setPropertiesSumIdle(1);
+        pri_a15_military_tarasov_1_vano_animation_data.setPropertiesMoving(true);
+        pri_a15_military_tarasov_1_vano_animation_data.setPropertiesRandom(100);
+
+        pri_a15_military_tarasov_1_vano_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam1");
+        pri_a15_military_tarasov_1_vano_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam2");
+        pri_a15_military_tarasov_1_vano_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam3");
+        pri_a15_military_tarasov_1_vano_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam4");
+        pri_a15_military_tarasov_1_vano_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam5");
+        pri_a15_military_tarasov_1_vano_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam6");
+        pri_a15_military_tarasov_1_vano_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam7");
+        pri_a15_military_tarasov_1_vano_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam8");
+        pri_a15_military_tarasov_1_vano_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam9");
+        pri_a15_military_tarasov_1_vano_animation_data.addAnimationSoundName("into", 0, "pri_a15_army_hide_weapon");
+        //  pri_a15_military_tarasov_1_vano_animation_data.addAnimationFunction("into", 0, state_mgr_pri_a15.lights_on);
+        //  Lord: доделать
+        pri_a15_military_tarasov_1_vano_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam10");
+        pri_a15_military_tarasov_1_vano_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam11");
+        pri_a15_military_tarasov_1_vano_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam12");
+        pri_a15_military_tarasov_1_vano_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam13");
+        pri_a15_military_tarasov_1_vano_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam14");
+        pri_a15_military_tarasov_1_vano_animation_data.addAnimationSoundName("into", 0, "pri_a15_army_who_a_you");
+        pri_a15_military_tarasov_1_vano_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam15");
+        pri_a15_military_tarasov_1_vano_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam16");
+        pri_a15_military_tarasov_1_vano_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam17");
+        pri_a15_military_tarasov_1_vano_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam17_1");
+        pri_a15_military_tarasov_1_vano_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam18");
+        pri_a15_military_tarasov_1_vano_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam19");
+        pri_a15_military_tarasov_1_vano_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam20");
+        pri_a15_military_tarasov_1_vano_animation_data.addAnimationSoundName("into", 0, "pri_a15_army_joke");
+        pri_a15_military_tarasov_1_vano_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam21");
+        pri_a15_military_tarasov_1_vano_animation_data.addAnimationSoundName("into", 0, "pri_a15_army_go_with_me");
+        pri_a15_military_tarasov_1_vano_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam25");
+        pri_a15_military_tarasov_1_vano_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam25_1");
+        pri_a15_military_tarasov_1_vano_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam26");
+        pri_a15_military_tarasov_1_vano_animation_data.addAnimationSoundName("into", 0, "pri_a15_army_stop");
+        pri_a15_military_tarasov_1_vano_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam27");
+        pri_a15_military_tarasov_1_vano_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam28");
+        pri_a15_military_tarasov_1_vano_animation_data.addAnimationSoundName("into", 0, "pri_a15_army_leave");
+        pri_a15_military_tarasov_1_vano_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam29");
+        pri_a15_military_tarasov_1_vano_animation_data.addAnimation("into", 0, "pri_a15_army_go");
+        pri_a15_military_tarasov_1_vano_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam30");
+        pri_a15_military_tarasov_1_vano_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam31");
+        pri_a15_military_tarasov_1_vano_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam32");
+
+        this->m_state_manager_animation_list["pri_a15_military_tarasov_1_vano"] =
+            pri_a15_military_tarasov_1_vano_animation_data;
+
+        StateManagerAnimationData pri_a15_military_tarasov_1_sokolov_animation_data;
+        pri_a15_military_tarasov_1_sokolov_animation_data.setPropertiesMaxIdle(1);
+        pri_a15_military_tarasov_1_sokolov_animation_data.setPropertiesSumIdle(1);
+        pri_a15_military_tarasov_1_sokolov_animation_data.setPropertiesMoving(true);
+        pri_a15_military_tarasov_1_sokolov_animation_data.setPropertiesRandom(100);
+
+        pri_a15_military_tarasov_1_sokolov_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam1");
+        pri_a15_military_tarasov_1_sokolov_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam2");
+        pri_a15_military_tarasov_1_sokolov_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam3");
+        pri_a15_military_tarasov_1_sokolov_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam4");
+        pri_a15_military_tarasov_1_sokolov_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam5");
+        pri_a15_military_tarasov_1_sokolov_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam6");
+        pri_a15_military_tarasov_1_sokolov_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam7");
+        pri_a15_military_tarasov_1_sokolov_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam8");
+        pri_a15_military_tarasov_1_sokolov_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam9");
+        pri_a15_military_tarasov_1_sokolov_animation_data.addAnimationSoundName("into", 0, "pri_a15_army_hide_weapon");
+        //  pri_a15_military_tarasov_1_sokolov_animation_data.addAnimationFunction("into", 0,
+        //  state_mgr_pri_a15.lights_on); Lord: доделать
+        pri_a15_military_tarasov_1_sokolov_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam10");
+        pri_a15_military_tarasov_1_sokolov_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam12");
+        pri_a15_military_tarasov_1_sokolov_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam13");
+        pri_a15_military_tarasov_1_sokolov_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam14");
+        pri_a15_military_tarasov_1_sokolov_animation_data.addAnimationSoundName("into", 0, "pri_a15_army_who_a_you");
+        pri_a15_military_tarasov_1_sokolov_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam15");
+        pri_a15_military_tarasov_1_sokolov_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam16");
+        pri_a15_military_tarasov_1_sokolov_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam17");
+        pri_a15_military_tarasov_1_sokolov_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam17_1");
+        pri_a15_military_tarasov_1_sokolov_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam18");
+        pri_a15_military_tarasov_1_sokolov_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam19");
+        pri_a15_military_tarasov_1_sokolov_animation_data.addAnimationSoundName("into", 0, "pri_a15_army_joke");
+        pri_a15_military_tarasov_1_sokolov_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam21");
+        pri_a15_military_tarasov_1_sokolov_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam22");
+        pri_a15_military_tarasov_1_sokolov_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam23");
+        pri_a15_military_tarasov_1_sokolov_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam24");
+        pri_a15_military_tarasov_1_sokolov_animation_data.addAnimationSoundName("into", 0, "pri_a15_army_go_with_me");
+        pri_a15_military_tarasov_1_sokolov_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam25");
+        pri_a15_military_tarasov_1_sokolov_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam25_1");
+        pri_a15_military_tarasov_1_sokolov_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam26");
+        pri_a15_military_tarasov_1_sokolov_animation_data.addAnimationSoundName("into", 0, "pri_a15_army_stop");
+        pri_a15_military_tarasov_1_sokolov_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam27");
+        pri_a15_military_tarasov_1_sokolov_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam28");
+        pri_a15_military_tarasov_1_sokolov_animation_data.addAnimationSoundName("into", 0, "pri_a15_army_leave");
+        pri_a15_military_tarasov_1_sokolov_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam29");
+        pri_a15_military_tarasov_1_sokolov_animation_data.addAnimation("into", 0, "pri_a15_army_go");
+        pri_a15_military_tarasov_1_sokolov_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam30");
+        pri_a15_military_tarasov_1_sokolov_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam31");
+        pri_a15_military_tarasov_1_sokolov_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam32");
+
+        this->m_state_manager_animation_list["pri_a15_military_tarasov_1_sokolov"] =
+            pri_a15_military_tarasov_1_sokolov_animation_data;
+
+        StateManagerAnimationData pri_a15_military_tarasov_1_zulus_animation_data;
+        pri_a15_military_tarasov_1_zulus_animation_data.setPropertiesMaxIdle(1);
+        pri_a15_military_tarasov_1_zulus_animation_data.setPropertiesSumIdle(1);
+        pri_a15_military_tarasov_1_zulus_animation_data.setPropertiesMoving(true);
+        pri_a15_military_tarasov_1_zulus_animation_data.setPropertiesRandom(100);
+
+        pri_a15_military_tarasov_1_zulus_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam1");
+        pri_a15_military_tarasov_1_zulus_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam2");
+        pri_a15_military_tarasov_1_zulus_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam3");
+        pri_a15_military_tarasov_1_zulus_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam4");
+        pri_a15_military_tarasov_1_zulus_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam6");
+        pri_a15_military_tarasov_1_zulus_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam7");
+        pri_a15_military_tarasov_1_zulus_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam8");
+        pri_a15_military_tarasov_1_zulus_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam9");
+        pri_a15_military_tarasov_1_zulus_animation_data.addAnimationSoundName("into", 0, "pri_a15_army_hide_weapon");
+        //  pri_a15_military_tarasov_1_zulus_animation_data.addAnimationFunction("into", 0,
+        //  state_mgr_pri_a15.lights_on); Lord: доделать
+        pri_a15_military_tarasov_1_zulus_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam10");
+        pri_a15_military_tarasov_1_zulus_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam11");
+        pri_a15_military_tarasov_1_zulus_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam12");
+        pri_a15_military_tarasov_1_zulus_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam13");
+        pri_a15_military_tarasov_1_zulus_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam14");
+        pri_a15_military_tarasov_1_zulus_animation_data.addAnimationSoundName("into", 0, "pri_a15_army_who_a_you");
+        pri_a15_military_tarasov_1_zulus_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam15");
+        pri_a15_military_tarasov_1_zulus_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam16");
+        pri_a15_military_tarasov_1_zulus_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam17");
+        pri_a15_military_tarasov_1_zulus_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam17_1");
+        pri_a15_military_tarasov_1_zulus_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam18");
+        pri_a15_military_tarasov_1_zulus_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam20");
+        pri_a15_military_tarasov_1_zulus_animation_data.addAnimationSoundName("into", 0, "pri_a15_army_joke");
+        pri_a15_military_tarasov_1_zulus_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam21");
+        pri_a15_military_tarasov_1_zulus_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam22");
+        pri_a15_military_tarasov_1_zulus_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam23");
+        pri_a15_military_tarasov_1_zulus_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam24");
+        pri_a15_military_tarasov_1_zulus_animation_data.addAnimationSoundName("into", 0, "pri_a15_army_go_with_me");
+        pri_a15_military_tarasov_1_zulus_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam25");
+        pri_a15_military_tarasov_1_zulus_animation_data.addAnimation("into", 0, "pri_a15_army_go");
+        pri_a15_military_tarasov_1_zulus_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam30");
+        pri_a15_military_tarasov_1_zulus_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam31");
+        pri_a15_military_tarasov_1_zulus_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam32");
+
+        this->m_state_manager_animation_list["pri_a15_military_tarasov_1_zulus"] =
+            pri_a15_military_tarasov_1_zulus_animation_data;
+
+        StateManagerAnimationData pri_a15_military_tarasov_1_wanderer_animation_data;
+        pri_a15_military_tarasov_1_wanderer_animation_data.setPropertiesMaxIdle(1);
+        pri_a15_military_tarasov_1_wanderer_animation_data.setPropertiesSumIdle(1);
+        pri_a15_military_tarasov_1_wanderer_animation_data.setPropertiesMoving(true);
+        pri_a15_military_tarasov_1_wanderer_animation_data.setPropertiesRandom(100);
+
+        pri_a15_military_tarasov_1_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam1");
+        pri_a15_military_tarasov_1_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam2");
+        pri_a15_military_tarasov_1_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam3");
+        pri_a15_military_tarasov_1_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam4");
+        pri_a15_military_tarasov_1_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam5");
+        pri_a15_military_tarasov_1_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam6");
+        pri_a15_military_tarasov_1_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam7");
+        pri_a15_military_tarasov_1_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam8");
+        pri_a15_military_tarasov_1_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam9");
+        pri_a15_military_tarasov_1_wanderer_animation_data.addAnimationSoundName("into", 0, "pri_a15_army_hide_weapon");
+        //  pri_a15_military_tarasov_1_wanderer_animation_data.addAnimationFunction("into", 0,
+        //  state_mgr_pri_a15.lights_on); Lord: доделать
+        pri_a15_military_tarasov_1_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam10");
+        pri_a15_military_tarasov_1_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam11");
+        pri_a15_military_tarasov_1_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam12");
+        pri_a15_military_tarasov_1_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam13");
+        pri_a15_military_tarasov_1_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam14");
+        pri_a15_military_tarasov_1_wanderer_animation_data.addAnimationSoundName("into", 0, "pri_a15_army_who_a_you");
+        pri_a15_military_tarasov_1_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam15");
+        pri_a15_military_tarasov_1_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam16");
+        pri_a15_military_tarasov_1_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam17");
+        pri_a15_military_tarasov_1_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam17_1");
+        pri_a15_military_tarasov_1_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam18");
+        pri_a15_military_tarasov_1_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam19");
+        pri_a15_military_tarasov_1_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam20");
+        pri_a15_military_tarasov_1_wanderer_animation_data.addAnimationSoundName("into", 0, "pri_a15_army_joke");
+        pri_a15_military_tarasov_1_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam21");
+        pri_a15_military_tarasov_1_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam22");
+        pri_a15_military_tarasov_1_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam23");
+        pri_a15_military_tarasov_1_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam24");
+        pri_a15_military_tarasov_1_wanderer_animation_data.addAnimationSoundName("into", 0, "pri_a15_army_go_with_me");
+        pri_a15_military_tarasov_1_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam25");
+        pri_a15_military_tarasov_1_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam25_1");
+        pri_a15_military_tarasov_1_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam26");
+        pri_a15_military_tarasov_1_wanderer_animation_data.addAnimationSoundName("into", 0, "pri_a15_army_stop");
+        pri_a15_military_tarasov_1_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam27");
+        pri_a15_military_tarasov_1_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam28");
+        pri_a15_military_tarasov_1_wanderer_animation_data.addAnimationSoundName("into", 0, "pri_a15_army_leave");
+        pri_a15_military_tarasov_1_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam29");
+        pri_a15_military_tarasov_1_wanderer_animation_data.addAnimation("into", 0, "pri_a15_army_go");
+        pri_a15_military_tarasov_1_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam30");
+        pri_a15_military_tarasov_1_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam31");
+        pri_a15_military_tarasov_1_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam32");
+
+        this->m_state_manager_animation_list["pri_a15_military_tarasov_1_wanderer"] =
+            pri_a15_military_tarasov_1_wanderer_animation_data;
+
+        StateManagerAnimationData pri_a15_military_tarasov_2_vano_sokolov_animation_data;
+        pri_a15_military_tarasov_2_vano_sokolov_animation_data.setPropertiesMaxIdle(1);
+        pri_a15_military_tarasov_2_vano_sokolov_animation_data.setPropertiesSumIdle(1);
+        pri_a15_military_tarasov_2_vano_sokolov_animation_data.setPropertiesMoving(true);
+        pri_a15_military_tarasov_2_vano_sokolov_animation_data.setPropertiesRandom(100);
+
+        pri_a15_military_tarasov_2_vano_sokolov_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam1");
+        pri_a15_military_tarasov_2_vano_sokolov_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam2");
+        pri_a15_military_tarasov_2_vano_sokolov_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam3");
+        pri_a15_military_tarasov_2_vano_sokolov_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam4");
+        pri_a15_military_tarasov_2_vano_sokolov_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam5");
+        pri_a15_military_tarasov_2_vano_sokolov_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam6");
+        pri_a15_military_tarasov_2_vano_sokolov_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam7");
+        pri_a15_military_tarasov_2_vano_sokolov_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam8");
+        pri_a15_military_tarasov_2_vano_sokolov_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam9");
+        pri_a15_military_tarasov_2_vano_sokolov_animation_data.addAnimationSoundName(
+            "into", 0, "pri_a15_army_hide_weapon");
+        //  pri_a15_military_tarasov_2_vano_sokolov_animation_data.addAnimationFunction("into", 0,
+        //  state_mgr_pri_a15.lights_on); Lord: доделать
+        pri_a15_military_tarasov_2_vano_sokolov_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam10");
+        pri_a15_military_tarasov_2_vano_sokolov_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam12");
+        pri_a15_military_tarasov_2_vano_sokolov_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam13");
+        pri_a15_military_tarasov_2_vano_sokolov_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam14");
+        pri_a15_military_tarasov_2_vano_sokolov_animation_data.addAnimationSoundName(
+            "into", 0, "pri_a15_army_who_a_you");
+        pri_a15_military_tarasov_2_vano_sokolov_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam15");
+        pri_a15_military_tarasov_2_vano_sokolov_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam16");
+        pri_a15_military_tarasov_2_vano_sokolov_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam17");
+        pri_a15_military_tarasov_2_vano_sokolov_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam17_1");
+        pri_a15_military_tarasov_2_vano_sokolov_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam18");
+        pri_a15_military_tarasov_2_vano_sokolov_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam19");
+        pri_a15_military_tarasov_2_vano_sokolov_animation_data.addAnimationSoundName("into", 0, "pri_a15_army_joke");
+        pri_a15_military_tarasov_2_vano_sokolov_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam21");
+        pri_a15_military_tarasov_2_vano_sokolov_animation_data.addAnimationSoundName(
+            "into", 0, "pri_a15_army_go_with_me");
+        pri_a15_military_tarasov_2_vano_sokolov_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam25");
+        pri_a15_military_tarasov_2_vano_sokolov_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam25_1");
+        pri_a15_military_tarasov_2_vano_sokolov_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam26");
+        pri_a15_military_tarasov_2_vano_sokolov_animation_data.addAnimationSoundName("into", 0, "pri_a15_army_stop");
+        pri_a15_military_tarasov_2_vano_sokolov_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam27");
+        pri_a15_military_tarasov_2_vano_sokolov_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam28");
+        pri_a15_military_tarasov_2_vano_sokolov_animation_data.addAnimationSoundName("into", 0, "pri_a15_army_leave");
+        pri_a15_military_tarasov_2_vano_sokolov_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam29");
+        pri_a15_military_tarasov_2_vano_sokolov_animation_data.addAnimation("into", 0, "pri_a15_army_go");
+        pri_a15_military_tarasov_2_vano_sokolov_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam30");
+        pri_a15_military_tarasov_2_vano_sokolov_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam31");
+        pri_a15_military_tarasov_2_vano_sokolov_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam32");
+
+        this->m_state_manager_animation_list["pri_a15_military_tarasov_2_vano_sokolov"] =
+            pri_a15_military_tarasov_2_vano_sokolov_animation_data;
+
+        StateManagerAnimationData pri_a15_military_tarasov_2_vano_zulus_animation_data;
+        pri_a15_military_tarasov_2_vano_zulus_animation_data.setPropertiesMaxIdle(1);
+        pri_a15_military_tarasov_2_vano_zulus_animation_data.setPropertiesSumIdle(1);
+        pri_a15_military_tarasov_2_vano_zulus_animation_data.setPropertiesMoving(true);
+        pri_a15_military_tarasov_2_vano_zulus_animation_data.setPropertiesRandom(100);
+
+        pri_a15_military_tarasov_2_vano_zulus_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam1");
+        pri_a15_military_tarasov_2_vano_zulus_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam2");
+        pri_a15_military_tarasov_2_vano_zulus_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam3");
+        pri_a15_military_tarasov_2_vano_zulus_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam4");
+        pri_a15_military_tarasov_2_vano_zulus_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam6");
+        pri_a15_military_tarasov_2_vano_zulus_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam7");
+        pri_a15_military_tarasov_2_vano_zulus_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam8");
+        pri_a15_military_tarasov_2_vano_zulus_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam9");
+        pri_a15_military_tarasov_2_vano_zulus_animation_data.addAnimationSoundName(
+            "into", 0, "pri_a15_army_hide_weapon");
+        //  pri_a15_military_tarasov_2_vano_zulus_animation_data.addAnimationFunction("into", 0,
+        //  state_mgr_pri_a15.lights_on); Lord: доделать
+        pri_a15_military_tarasov_2_vano_zulus_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam10");
+        pri_a15_military_tarasov_2_vano_zulus_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam11");
+        pri_a15_military_tarasov_2_vano_zulus_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam12");
+        pri_a15_military_tarasov_2_vano_zulus_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam13");
+        pri_a15_military_tarasov_2_vano_zulus_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam14");
+        pri_a15_military_tarasov_2_vano_zulus_animation_data.addAnimationSoundName("into", 0, "pri_a15_army_who_a_you");
+        pri_a15_military_tarasov_2_vano_zulus_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam15");
+        pri_a15_military_tarasov_2_vano_zulus_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam16");
+        pri_a15_military_tarasov_2_vano_zulus_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam17");
+        pri_a15_military_tarasov_2_vano_zulus_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam17_1");
+        pri_a15_military_tarasov_2_vano_zulus_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam18");
+        pri_a15_military_tarasov_2_vano_zulus_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam20");
+        pri_a15_military_tarasov_2_vano_zulus_animation_data.addAnimationSoundName("into", 0, "pri_a15_army_joke");
+        pri_a15_military_tarasov_2_vano_zulus_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam21");
+        pri_a15_military_tarasov_2_vano_zulus_animation_data.addAnimationSoundName(
+            "into", 0, "pri_a15_army_go_with_me");
+        pri_a15_military_tarasov_2_vano_zulus_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam25");
+        pri_a15_military_tarasov_2_vano_zulus_animation_data.addAnimation("into", 0, "pri_a15_army_go");
+        pri_a15_military_tarasov_2_vano_zulus_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam30");
+        pri_a15_military_tarasov_2_vano_zulus_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam31");
+        pri_a15_military_tarasov_2_vano_zulus_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam32");
+
+        this->m_state_manager_animation_list["pri_a15_military_tarasov_2_vano_zulus"] =
+            pri_a15_military_tarasov_2_vano_zulus_animation_data;
+
+        StateManagerAnimationData pri_a15_military_tarasov_2_vano_wanderer_animation_data;
+        pri_a15_military_tarasov_2_vano_wanderer_animation_data.setPropertiesMaxIdle(1);
+        pri_a15_military_tarasov_2_vano_wanderer_animation_data.setPropertiesSumIdle(1);
+        pri_a15_military_tarasov_2_vano_wanderer_animation_data.setPropertiesMoving(true);
+        pri_a15_military_tarasov_2_vano_wanderer_animation_data.setPropertiesRandom(100);
+
+        pri_a15_military_tarasov_2_vano_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam1");
+        pri_a15_military_tarasov_2_vano_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam2");
+        pri_a15_military_tarasov_2_vano_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam3");
+        pri_a15_military_tarasov_2_vano_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam4");
+        pri_a15_military_tarasov_2_vano_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam5");
+        pri_a15_military_tarasov_2_vano_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam6");
+        pri_a15_military_tarasov_2_vano_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam7");
+        pri_a15_military_tarasov_2_vano_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam8");
+        pri_a15_military_tarasov_2_vano_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam9");
+        pri_a15_military_tarasov_2_vano_wanderer_animation_data.addAnimationSoundName(
+            "into", 0, "pri_a15_army_hide_weapon");
+        //  pri_a15_military_tarasov_2_vano_wanderer_animation_data.addAnimationFunction("into", 0,
+        //  state_mgr_pri_a15.lights_on); Lord: доделать
+        pri_a15_military_tarasov_2_vano_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam10");
+        pri_a15_military_tarasov_2_vano_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam11");
+        pri_a15_military_tarasov_2_vano_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam12");
+        pri_a15_military_tarasov_2_vano_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam13");
+        pri_a15_military_tarasov_2_vano_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam14");
+        pri_a15_military_tarasov_2_vano_wanderer_animation_data.addAnimationSoundName(
+            "into", 0, "pri_a15_army_who_a_you");
+        pri_a15_military_tarasov_2_vano_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam15");
+        pri_a15_military_tarasov_2_vano_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam16");
+        pri_a15_military_tarasov_2_vano_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam17");
+        pri_a15_military_tarasov_2_vano_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam17_1");
+        pri_a15_military_tarasov_2_vano_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam18");
+        pri_a15_military_tarasov_2_vano_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam19");
+        pri_a15_military_tarasov_2_vano_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam20");
+        pri_a15_military_tarasov_2_vano_wanderer_animation_data.addAnimationSoundName("into", 0, "pri_a15_army_joke");
+        pri_a15_military_tarasov_2_vano_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam21");
+        pri_a15_military_tarasov_2_vano_wanderer_animation_data.addAnimationSoundName(
+            "into", 0, "pri_a15_army_go_with_me");
+        pri_a15_military_tarasov_2_vano_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam25");
+        pri_a15_military_tarasov_2_vano_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam25_1");
+        pri_a15_military_tarasov_2_vano_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam26");
+        pri_a15_military_tarasov_2_vano_wanderer_animation_data.addAnimationSoundName("into", 0, "pri_a15_army_stop");
+        pri_a15_military_tarasov_2_vano_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam27");
+        pri_a15_military_tarasov_2_vano_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam28");
+        pri_a15_military_tarasov_2_vano_wanderer_animation_data.addAnimationSoundName("into", 0, "pri_a15_army_leave");
+        pri_a15_military_tarasov_2_vano_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam29");
+        pri_a15_military_tarasov_2_vano_wanderer_animation_data.addAnimation("into", 0, "pri_a15_army_go");
+        pri_a15_military_tarasov_2_vano_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam30");
+        pri_a15_military_tarasov_2_vano_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam31");
+        pri_a15_military_tarasov_2_vano_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam32");
+
+        this->m_state_manager_animation_list["pri_a15_military_tarasov_2_vano_wanderer"] =
+            pri_a15_military_tarasov_2_vano_wanderer_animation_data;
+
+        StateManagerAnimationData pri_a15_military_tarasov_2_sokolov_zulus_animation_data;
+        pri_a15_military_tarasov_2_sokolov_zulus_animation_data.setPropertiesMaxIdle(1);
+        pri_a15_military_tarasov_2_sokolov_zulus_animation_data.setPropertiesSumIdle(1);
+        pri_a15_military_tarasov_2_sokolov_zulus_animation_data.setPropertiesMoving(true);
+        pri_a15_military_tarasov_2_sokolov_zulus_animation_data.setPropertiesRandom(100);
+
+        pri_a15_military_tarasov_2_sokolov_zulus_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam1");
+        pri_a15_military_tarasov_2_sokolov_zulus_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam2");
+        pri_a15_military_tarasov_2_sokolov_zulus_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam3");
+        pri_a15_military_tarasov_2_sokolov_zulus_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam4");
+        pri_a15_military_tarasov_2_sokolov_zulus_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam6");
+        pri_a15_military_tarasov_2_sokolov_zulus_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam7");
+        pri_a15_military_tarasov_2_sokolov_zulus_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam8");
+        pri_a15_military_tarasov_2_sokolov_zulus_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam9");
+        pri_a15_military_tarasov_2_sokolov_zulus_animation_data.addAnimationSoundName(
+            "into", 0, "pri_a15_army_hide_weapon");
+        //  pri_a15_military_tarasov_2_sokolov_zulus_animation_data.addAnimationFunction("into", 0,
+        //  state_mgr_pri_a15.lights_on); Lord: доделать
+        pri_a15_military_tarasov_2_sokolov_zulus_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam10");
+        pri_a15_military_tarasov_2_sokolov_zulus_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam12");
+        pri_a15_military_tarasov_2_sokolov_zulus_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam13");
+        pri_a15_military_tarasov_2_sokolov_zulus_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam14");
+        pri_a15_military_tarasov_2_sokolov_zulus_animation_data.addAnimationSoundName(
+            "into", 0, "pri_a15_army_who_a_you");
+        pri_a15_military_tarasov_2_sokolov_zulus_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam15");
+        pri_a15_military_tarasov_2_sokolov_zulus_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam16");
+        pri_a15_military_tarasov_2_sokolov_zulus_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam17");
+        pri_a15_military_tarasov_2_sokolov_zulus_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam17_1");
+        pri_a15_military_tarasov_2_sokolov_zulus_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam18");
+        pri_a15_military_tarasov_2_sokolov_zulus_animation_data.addAnimationSoundName("into", 0, "pri_a15_army_joke");
+        pri_a15_military_tarasov_2_sokolov_zulus_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam22");
+        pri_a15_military_tarasov_2_sokolov_zulus_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam23");
+        pri_a15_military_tarasov_2_sokolov_zulus_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam24");
+        pri_a15_military_tarasov_2_sokolov_zulus_animation_data.addAnimationSoundName(
+            "into", 0, "pri_a15_army_go_with_me");
+        pri_a15_military_tarasov_2_sokolov_zulus_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam25");
+        pri_a15_military_tarasov_2_sokolov_zulus_animation_data.addAnimation("into", 0, "pri_a15_army_go");
+        pri_a15_military_tarasov_2_sokolov_zulus_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam30");
+        pri_a15_military_tarasov_2_sokolov_zulus_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam31");
+        pri_a15_military_tarasov_2_sokolov_zulus_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam32");
+
+        this->m_state_manager_animation_list["pri_a15_military_tarasov_2_sokolov_zulus"] =
+            pri_a15_military_tarasov_2_sokolov_zulus_animation_data;
+
+        StateManagerAnimationData pri_a15_military_tarasov_2_sokolov_wanderer_animation_data;
+        pri_a15_military_tarasov_2_sokolov_wanderer_animation_data.setPropertiesMaxIdle(1);
+        pri_a15_military_tarasov_2_sokolov_wanderer_animation_data.setPropertiesSumIdle(1);
+        pri_a15_military_tarasov_2_sokolov_wanderer_animation_data.setPropertiesMoving(true);
+        pri_a15_military_tarasov_2_sokolov_wanderer_animation_data.setPropertiesRandom(100);
+
+        pri_a15_military_tarasov_2_sokolov_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam1");
+        pri_a15_military_tarasov_2_sokolov_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam2");
+        pri_a15_military_tarasov_2_sokolov_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam3");
+        pri_a15_military_tarasov_2_sokolov_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam4");
+        pri_a15_military_tarasov_2_sokolov_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam5");
+        pri_a15_military_tarasov_2_sokolov_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam6");
+        pri_a15_military_tarasov_2_sokolov_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam7");
+        pri_a15_military_tarasov_2_sokolov_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam8");
+        pri_a15_military_tarasov_2_sokolov_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam9");
+        pri_a15_military_tarasov_2_sokolov_wanderer_animation_data.addAnimationSoundName(
+            "into", 0, "pri_a15_army_hide_weapon");
+        //  pri_a15_military_tarasov_2_sokolov_wanderer_animation_data.addAnimationFunction("into", 0,
+        //  state_mgr_pri_a15.lights_on); Lord: доделать
+        pri_a15_military_tarasov_2_sokolov_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam10");
+        pri_a15_military_tarasov_2_sokolov_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam12");
+        pri_a15_military_tarasov_2_sokolov_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam13");
+        pri_a15_military_tarasov_2_sokolov_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam14");
+        pri_a15_military_tarasov_2_sokolov_wanderer_animation_data.addAnimationSoundName(
+            "into", 0, "pri_a15_army_who_a_you");
+        pri_a15_military_tarasov_2_sokolov_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam15");
+        pri_a15_military_tarasov_2_sokolov_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam16");
+        pri_a15_military_tarasov_2_sokolov_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam17");
+        pri_a15_military_tarasov_2_sokolov_wanderer_animation_data.addAnimation(
+            "into", 0, "pri_a15_soldier_kam_cam17_1");
+        pri_a15_military_tarasov_2_sokolov_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam18");
+        pri_a15_military_tarasov_2_sokolov_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam19");
+        pri_a15_military_tarasov_2_sokolov_wanderer_animation_data.addAnimationSoundName(
+            "into", 0, "pri_a15_army_joke");
+        pri_a15_military_tarasov_2_sokolov_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam21");
+        pri_a15_military_tarasov_2_sokolov_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam22");
+        pri_a15_military_tarasov_2_sokolov_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam23");
+        pri_a15_military_tarasov_2_sokolov_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam24");
+        pri_a15_military_tarasov_2_sokolov_wanderer_animation_data.addAnimationSoundName(
+            "into", 0, "pri_a15_army_go_with_me");
+        pri_a15_military_tarasov_2_sokolov_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam25");
+        pri_a15_military_tarasov_2_sokolov_wanderer_animation_data.addAnimation(
+            "into", 0, "pri_a15_soldier_kam_cam25_1");
+        pri_a15_military_tarasov_2_sokolov_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam26");
+        pri_a15_military_tarasov_2_sokolov_wanderer_animation_data.addAnimationSoundName(
+            "into", 0, "pri_a15_army_stop");
+        pri_a15_military_tarasov_2_sokolov_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam27");
+        pri_a15_military_tarasov_2_sokolov_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam28");
+        pri_a15_military_tarasov_2_sokolov_wanderer_animation_data.addAnimationSoundName(
+            "into", 0, "pri_a15_army_leave");
+        pri_a15_military_tarasov_2_sokolov_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam29");
+        pri_a15_military_tarasov_2_sokolov_wanderer_animation_data.addAnimation("into", 0, "pri_a15_army_go");
+        pri_a15_military_tarasov_2_sokolov_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam30");
+        pri_a15_military_tarasov_2_sokolov_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam31");
+        pri_a15_military_tarasov_2_sokolov_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam32");
+
+        this->m_state_manager_animation_list["pri_a15_military_tarasov_2_sokolov_wanderer"] =
+            pri_a15_military_tarasov_2_sokolov_wanderer_animation_data;
+
+        StateManagerAnimationData pri_a15_military_tarasov_2_zulus_wanderer_animation_data;
+        pri_a15_military_tarasov_2_zulus_wanderer_animation_data.setPropertiesMaxIdle(1);
+        pri_a15_military_tarasov_2_zulus_wanderer_animation_data.setPropertiesSumIdle(1);
+        pri_a15_military_tarasov_2_zulus_wanderer_animation_data.setPropertiesMoving(true);
+        pri_a15_military_tarasov_2_zulus_wanderer_animation_data.setPropertiesRandom(100);
+
+        pri_a15_military_tarasov_2_zulus_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam1");
+        pri_a15_military_tarasov_2_zulus_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam2");
+        pri_a15_military_tarasov_2_zulus_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam3");
+        pri_a15_military_tarasov_2_zulus_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam4");
+        pri_a15_military_tarasov_2_zulus_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam6");
+        pri_a15_military_tarasov_2_zulus_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam7");
+        pri_a15_military_tarasov_2_zulus_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam8");
+        pri_a15_military_tarasov_2_zulus_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam9");
+        pri_a15_military_tarasov_2_zulus_wanderer_animation_data.addAnimationSoundName(
+            "into", 0, "pri_a15_army_hide_weapon");
+        //  pri_a15_military_tarasov_2_zulus_wanderer_animation_data.addAnimationFunction("into", 0,
+        //  state_mgr_pri_a15.lights_on); Lord: доделать
+        pri_a15_military_tarasov_2_zulus_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam10");
+        pri_a15_military_tarasov_2_zulus_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam11");
+        pri_a15_military_tarasov_2_zulus_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam12");
+        pri_a15_military_tarasov_2_zulus_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam13");
+        pri_a15_military_tarasov_2_zulus_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam14");
+        pri_a15_military_tarasov_2_zulus_wanderer_animation_data.addAnimationSoundName(
+            "into", 0, "pri_a15_army_who_a_you");
+        pri_a15_military_tarasov_2_zulus_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam15");
+        pri_a15_military_tarasov_2_zulus_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam16");
+        pri_a15_military_tarasov_2_zulus_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam17");
+        pri_a15_military_tarasov_2_zulus_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam17_1");
+        pri_a15_military_tarasov_2_zulus_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam18");
+        pri_a15_military_tarasov_2_zulus_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam20");
+        pri_a15_military_tarasov_2_zulus_wanderer_animation_data.addAnimationSoundName("into", 0, "pri_a15_army_joke");
+        pri_a15_military_tarasov_2_zulus_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam21");
+        pri_a15_military_tarasov_2_zulus_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam22");
+        pri_a15_military_tarasov_2_zulus_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam23");
+        pri_a15_military_tarasov_2_zulus_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam24");
+        pri_a15_military_tarasov_2_zulus_wanderer_animation_data.addAnimationSoundName(
+            "into", 0, "pri_a15_army_go_with_me");
+        pri_a15_military_tarasov_2_zulus_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam25");
+        pri_a15_military_tarasov_2_zulus_wanderer_animation_data.addAnimation("into", 0, "pri_a15_army_go");
+        pri_a15_military_tarasov_2_zulus_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam30");
+        pri_a15_military_tarasov_2_zulus_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam31");
+        pri_a15_military_tarasov_2_zulus_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam32");
+
+        this->m_state_manager_animation_list["pri_a15_military_tarasov_2_zulus_wanderer"] =
+            pri_a15_military_tarasov_2_zulus_wanderer_animation_data;
+
+        StateManagerAnimationData pri_a15_military_tarasov_3_vano_alive_animation_data;
+        pri_a15_military_tarasov_3_vano_alive_animation_data.setPropertiesMaxIdle(1);
+        pri_a15_military_tarasov_3_vano_alive_animation_data.setPropertiesSumIdle(1);
+        pri_a15_military_tarasov_3_vano_alive_animation_data.setPropertiesMoving(true);
+        pri_a15_military_tarasov_3_vano_alive_animation_data.setPropertiesRandom(100);
+
+        pri_a15_military_tarasov_3_vano_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam1");
+        pri_a15_military_tarasov_3_vano_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam2");
+        pri_a15_military_tarasov_3_vano_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam3");
+        pri_a15_military_tarasov_3_vano_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam4");
+        pri_a15_military_tarasov_3_vano_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam6");
+        pri_a15_military_tarasov_3_vano_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam7");
+        pri_a15_military_tarasov_3_vano_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam8");
+        pri_a15_military_tarasov_3_vano_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam9");
+        pri_a15_military_tarasov_3_vano_alive_animation_data.addAnimationSoundName(
+            "into", 0, "pri_a15_army_hide_weapon");
+        //  pri_a15_military_tarasov_3_vano_alive_animation_data.addAnimationFunction("into", 0,
+        //  state_mgr_pri_a15.lights_on); Lord: доделать
+        pri_a15_military_tarasov_3_vano_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam10");
+        pri_a15_military_tarasov_3_vano_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam12");
+        pri_a15_military_tarasov_3_vano_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam13");
+        pri_a15_military_tarasov_3_vano_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam14");
+        pri_a15_military_tarasov_3_vano_alive_animation_data.addAnimationSoundName("into", 0, "pri_a15_army_who_a_you");
+        pri_a15_military_tarasov_3_vano_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam15");
+        pri_a15_military_tarasov_3_vano_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam16");
+        pri_a15_military_tarasov_3_vano_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam17");
+        pri_a15_military_tarasov_3_vano_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam17_1");
+        pri_a15_military_tarasov_3_vano_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam18");
+        pri_a15_military_tarasov_3_vano_alive_animation_data.addAnimationSoundName("into", 0, "pri_a15_army_joke");
+        pri_a15_military_tarasov_3_vano_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam22");
+        pri_a15_military_tarasov_3_vano_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam23");
+        pri_a15_military_tarasov_3_vano_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam24");
+        pri_a15_military_tarasov_3_vano_alive_animation_data.addAnimationSoundName(
+            "into", 0, "pri_a15_army_go_with_me");
+        pri_a15_military_tarasov_3_vano_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam25");
+        pri_a15_military_tarasov_3_vano_alive_animation_data.addAnimation("into", 0, "pri_a15_army_go");
+        pri_a15_military_tarasov_3_vano_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam30");
+        pri_a15_military_tarasov_3_vano_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam31");
+        pri_a15_military_tarasov_3_vano_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam32");
+
+        this->m_state_manager_animation_list["pri_a15_military_tarasov_3_vano_alive"] =
+            pri_a15_military_tarasov_3_vano_alive_animation_data;
+
+        StateManagerAnimationData pri_a15_military_tarasov_3_sokolov_alive_animation_data;
+        pri_a15_military_tarasov_3_sokolov_alive_animation_data.setPropertiesMaxIdle(1);
+        pri_a15_military_tarasov_3_sokolov_alive_animation_data.setPropertiesSumIdle(1);
+        pri_a15_military_tarasov_3_sokolov_alive_animation_data.setPropertiesMoving(true);
+        pri_a15_military_tarasov_3_sokolov_alive_animation_data.setPropertiesRandom(100);
+
+        pri_a15_military_tarasov_3_sokolov_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam1");
+        pri_a15_military_tarasov_3_sokolov_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam2");
+        pri_a15_military_tarasov_3_sokolov_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam3");
+        pri_a15_military_tarasov_3_sokolov_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam4");
+        pri_a15_military_tarasov_3_sokolov_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam6");
+        pri_a15_military_tarasov_3_sokolov_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam7");
+        pri_a15_military_tarasov_3_sokolov_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam8");
+        pri_a15_military_tarasov_3_sokolov_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam9");
+        pri_a15_military_tarasov_3_sokolov_alive_animation_data.addAnimationSoundName(
+            "into", 0, "pri_a15_army_hide_weapon");
+        //  pri_a15_military_tarasov_3_sokolov_alive_animation_data.addAnimationFunction("into", 0,
+        //  state_mgr_pri_a15.lights_on); Lord: доделать
+        pri_a15_military_tarasov_3_sokolov_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam10");
+        pri_a15_military_tarasov_3_sokolov_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam11");
+        pri_a15_military_tarasov_3_sokolov_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam12");
+        pri_a15_military_tarasov_3_sokolov_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam13");
+        pri_a15_military_tarasov_3_sokolov_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam14");
+        pri_a15_military_tarasov_3_sokolov_alive_animation_data.addAnimationSoundName(
+            "into", 0, "pri_a15_army_who_a_you");
+        pri_a15_military_tarasov_3_sokolov_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam15");
+        pri_a15_military_tarasov_3_sokolov_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam16");
+        pri_a15_military_tarasov_3_sokolov_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam17");
+        pri_a15_military_tarasov_3_sokolov_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam17_1");
+        pri_a15_military_tarasov_3_sokolov_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam18");
+        pri_a15_military_tarasov_3_sokolov_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam20");
+        pri_a15_military_tarasov_3_sokolov_alive_animation_data.addAnimationSoundName("into", 0, "pri_a15_army_joke");
+        pri_a15_military_tarasov_3_sokolov_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam21");
+        pri_a15_military_tarasov_3_sokolov_alive_animation_data.addAnimationSoundName(
+            "into", 0, "pri_a15_army_go_with_me");
+        pri_a15_military_tarasov_3_sokolov_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam25");
+        pri_a15_military_tarasov_3_sokolov_alive_animation_data.addAnimation("into", 0, "pri_a15_army_go");
+        pri_a15_military_tarasov_3_sokolov_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam30");
+        pri_a15_military_tarasov_3_sokolov_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam31");
+        pri_a15_military_tarasov_3_sokolov_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam32");
+
+        this->m_state_manager_animation_list["pri_a15_military_tarasov_3_sokolov_alive"] =
+            pri_a15_military_tarasov_3_sokolov_alive_animation_data;
+
+        StateManagerAnimationData pri_a15_military_tarasov_3_zulus_alive_animation_data;
+        pri_a15_military_tarasov_3_zulus_alive_animation_data.setPropertiesMaxIdle(1);
+        pri_a15_military_tarasov_3_zulus_alive_animation_data.setPropertiesSumIdle(1);
+        pri_a15_military_tarasov_3_zulus_alive_animation_data.setPropertiesMoving(true);
+        pri_a15_military_tarasov_3_zulus_alive_animation_data.setPropertiesRandom(100);
+
+        pri_a15_military_tarasov_3_zulus_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam1");
+        pri_a15_military_tarasov_3_zulus_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam2");
+        pri_a15_military_tarasov_3_zulus_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam3");
+        pri_a15_military_tarasov_3_zulus_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam4");
+        pri_a15_military_tarasov_3_zulus_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam5");
+        pri_a15_military_tarasov_3_zulus_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam6");
+        pri_a15_military_tarasov_3_zulus_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam7");
+        pri_a15_military_tarasov_3_zulus_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam8");
+        pri_a15_military_tarasov_3_zulus_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam9");
+        pri_a15_military_tarasov_3_zulus_alive_animation_data.addAnimationSoundName(
+            "into", 0, "pri_a15_army_hide_weapon");
+        //  pri_a15_military_tarasov_3_zulus_alive_animation_data.addAnimationFunction("into", 0,
+        //  state_mgr_pri_a15.lights_on); Lord: доделать
+        pri_a15_military_tarasov_3_zulus_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam10");
+        pri_a15_military_tarasov_3_zulus_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam12");
+        pri_a15_military_tarasov_3_zulus_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam13");
+        pri_a15_military_tarasov_3_zulus_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam14");
+        pri_a15_military_tarasov_3_zulus_alive_animation_data.addAnimationSoundName(
+            "into", 0, "pri_a15_army_who_a_you");
+        pri_a15_military_tarasov_3_zulus_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam15");
+        pri_a15_military_tarasov_3_zulus_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam16");
+        pri_a15_military_tarasov_3_zulus_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam17");
+        pri_a15_military_tarasov_3_zulus_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam17_1");
+        pri_a15_military_tarasov_3_zulus_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam18");
+        pri_a15_military_tarasov_3_zulus_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam19");
+        pri_a15_military_tarasov_3_zulus_alive_animation_data.addAnimationSoundName("into", 0, "pri_a15_army_joke");
+        pri_a15_military_tarasov_3_zulus_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam21");
+        pri_a15_military_tarasov_3_zulus_alive_animation_data.addAnimationSoundName(
+            "into", 0, "pri_a15_army_go_with_me");
+        pri_a15_military_tarasov_3_zulus_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam25");
+        pri_a15_military_tarasov_3_zulus_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam25_1");
+        pri_a15_military_tarasov_3_zulus_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam26");
+        pri_a15_military_tarasov_3_zulus_alive_animation_data.addAnimationSoundName("into", 0, "pri_a15_army_stop");
+        pri_a15_military_tarasov_3_zulus_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam27");
+        pri_a15_military_tarasov_3_zulus_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam28");
+        pri_a15_military_tarasov_3_zulus_alive_animation_data.addAnimationSoundName("into", 0, "pri_a15_army_leave");
+        pri_a15_military_tarasov_3_zulus_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam29");
+        pri_a15_military_tarasov_3_zulus_alive_animation_data.addAnimation("into", 0, "pri_a15_army_go");
+        pri_a15_military_tarasov_3_zulus_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam30");
+        pri_a15_military_tarasov_3_zulus_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam31");
+        pri_a15_military_tarasov_3_zulus_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam32");
+
+        this->m_state_manager_animation_list["pri_a15_military_tarasov_3_zulus_alive"] =
+            pri_a15_military_tarasov_3_zulus_alive_animation_data;
+
+        StateManagerAnimationData pri_a15_military_tarasov_3_wanderer_alive_animation_data;
+        pri_a15_military_tarasov_3_wanderer_alive_animation_data.setPropertiesMaxIdle(1);
+        pri_a15_military_tarasov_3_wanderer_alive_animation_data.setPropertiesSumIdle(1);
+        pri_a15_military_tarasov_3_wanderer_alive_animation_data.setPropertiesMoving(true);
+        pri_a15_military_tarasov_3_wanderer_alive_animation_data.setPropertiesRandom(100);
+
+        pri_a15_military_tarasov_3_wanderer_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam1");
+        pri_a15_military_tarasov_3_wanderer_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam2");
+        pri_a15_military_tarasov_3_wanderer_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam3");
+        pri_a15_military_tarasov_3_wanderer_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam4");
+        pri_a15_military_tarasov_3_wanderer_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam6");
+        pri_a15_military_tarasov_3_wanderer_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam7");
+        pri_a15_military_tarasov_3_wanderer_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam8");
+        pri_a15_military_tarasov_3_wanderer_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam9");
+        pri_a15_military_tarasov_3_wanderer_alive_animation_data.addAnimationSoundName(
+            "into", 0, "pri_a15_army_hide_weapon");
+        //  pri_a15_military_tarasov_3_wanderer_alive_animation_data.addAnimationFunction("into", 0,
+        //  state_mgr_pri_a15.lights_on); Lord: доделать
+        pri_a15_military_tarasov_3_wanderer_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam10");
+        pri_a15_military_tarasov_3_wanderer_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam12");
+        pri_a15_military_tarasov_3_wanderer_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam13");
+        pri_a15_military_tarasov_3_wanderer_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam14");
+        pri_a15_military_tarasov_3_wanderer_alive_animation_data.addAnimationSoundName(
+            "into", 0, "pri_a15_army_who_a_you");
+        pri_a15_military_tarasov_3_wanderer_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam15");
+        pri_a15_military_tarasov_3_wanderer_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam16");
+        pri_a15_military_tarasov_3_wanderer_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam17");
+        pri_a15_military_tarasov_3_wanderer_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam17_1");
+        pri_a15_military_tarasov_3_wanderer_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam18");
+        pri_a15_military_tarasov_3_wanderer_alive_animation_data.addAnimationSoundName("into", 0, "pri_a15_army_joke");
+        pri_a15_military_tarasov_3_wanderer_alive_animation_data.addAnimationSoundName(
+            "into", 0, "pri_a15_army_go_with_me");
+        pri_a15_military_tarasov_3_wanderer_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam25");
+        pri_a15_military_tarasov_3_wanderer_alive_animation_data.addAnimation("into", 0, "pri_a15_army_go");
+        pri_a15_military_tarasov_3_wanderer_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam30");
+        pri_a15_military_tarasov_3_wanderer_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam31");
+        pri_a15_military_tarasov_3_wanderer_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam32");
+
+        this->m_state_manager_animation_list["pri_a15_military_tarasov_3_wanderer_alive"] =
+            pri_a15_military_tarasov_3_wanderer_alive_animation_data;
+
+        StateManagerAnimationData pri_a15_military_tarasov_all_dead_animation_data;
+        pri_a15_military_tarasov_all_dead_animation_data.setPropertiesMaxIdle(1);
+        pri_a15_military_tarasov_all_dead_animation_data.setPropertiesSumIdle(1);
+        pri_a15_military_tarasov_all_dead_animation_data.setPropertiesMoving(true);
+        pri_a15_military_tarasov_all_dead_animation_data.setPropertiesRandom(100);
+
+        pri_a15_military_tarasov_all_dead_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam1");
+        pri_a15_military_tarasov_all_dead_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam2");
+        pri_a15_military_tarasov_all_dead_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam3");
+        pri_a15_military_tarasov_all_dead_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam4");
+        pri_a15_military_tarasov_all_dead_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam6");
+        pri_a15_military_tarasov_all_dead_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam7");
+        pri_a15_military_tarasov_all_dead_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam8");
+        pri_a15_military_tarasov_all_dead_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam9");
+        pri_a15_military_tarasov_all_dead_animation_data.addAnimationSoundName("into", 0, "pri_a15_army_hide_weapon");
+        //  pri_a15_military_tarasov_all_dead_animation_data.addAnimationFunction("into", 0,
+        //  state_mgr_pri_a15.lights_on); Lord: доделать
+        pri_a15_military_tarasov_all_dead_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam10");
+        pri_a15_military_tarasov_all_dead_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam12");
+        pri_a15_military_tarasov_all_dead_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam13");
+        pri_a15_military_tarasov_all_dead_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam14");
+        pri_a15_military_tarasov_all_dead_animation_data.addAnimationSoundName("into", 0, "pri_a15_army_who_a_you");
+        pri_a15_military_tarasov_all_dead_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam15");
+        pri_a15_military_tarasov_all_dead_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam16");
+        pri_a15_military_tarasov_all_dead_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam17");
+        pri_a15_military_tarasov_all_dead_animation_data.addAnimationSoundName("into", 0, "pri_a15_army_joke");
+        pri_a15_military_tarasov_all_dead_animation_data.addAnimationSoundName("into", 0, "pri_a15_army_go_with_me");
+        pri_a15_military_tarasov_all_dead_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam25");
+        pri_a15_military_tarasov_all_dead_animation_data.addAnimation("into", 0, "pri_a15_army_go");
+        pri_a15_military_tarasov_all_dead_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam30");
+        pri_a15_military_tarasov_all_dead_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam31");
+        pri_a15_military_tarasov_all_dead_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam32");
+
+        this->m_state_manager_animation_list["pri_a15_military_tarasov_all_dead"] =
+            pri_a15_military_tarasov_all_dead_animation_data;
+
+        StateManagerAnimationData pri_a15_military_2_all_animation_data;
+        pri_a15_military_2_all_animation_data.setPropertiesMaxIdle(1);
+        pri_a15_military_2_all_animation_data.setPropertiesSumIdle(1);
+        pri_a15_military_2_all_animation_data.setPropertiesMoving(true);
+        pri_a15_military_2_all_animation_data.setPropertiesRandom(100);
+
+        pri_a15_military_2_all_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam1");
+        pri_a15_military_2_all_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam2");
+        pri_a15_military_2_all_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam3");
+        pri_a15_military_2_all_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam4");
+        pri_a15_military_2_all_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam5");
+        pri_a15_military_2_all_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam6");
+        pri_a15_military_2_all_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam7");
+        pri_a15_military_2_all_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam8");
+        pri_a15_military_2_all_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam9");
+        pri_a15_military_2_all_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam10");
+        pri_a15_military_2_all_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam11");
+        pri_a15_military_2_all_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam12");
+        pri_a15_military_2_all_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam13");
+        pri_a15_military_2_all_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam14");
+        pri_a15_military_2_all_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam15");
+        pri_a15_military_2_all_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam16");
+        pri_a15_military_2_all_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam17");
+        pri_a15_military_2_all_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam17_1");
+        pri_a15_military_2_all_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam18");
+        pri_a15_military_2_all_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam19");
+        pri_a15_military_2_all_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam20");
+        pri_a15_military_2_all_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam21");
+        pri_a15_military_2_all_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam22");
+        pri_a15_military_2_all_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam23");
+        pri_a15_military_2_all_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam24");
+        pri_a15_military_2_all_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam25");
+        pri_a15_military_2_all_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam25_1");
+        pri_a15_military_2_all_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam26");
+        pri_a15_military_2_all_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam27");
+        pri_a15_military_2_all_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam28");
+        pri_a15_military_2_all_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam29");
+        pri_a15_military_2_all_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam30");
+        pri_a15_military_2_all_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam31");
+        pri_a15_military_2_all_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam32");
+
+        this->m_state_manager_animation_list["pri_a15_military_2_all"] = pri_a15_military_2_all_animation_data;
+
+        StateManagerAnimationData pri_a15_military_2_1_vano_animation_data;
+        pri_a15_military_2_1_vano_animation_data.setPropertiesMaxIdle(1);
+        pri_a15_military_2_1_vano_animation_data.setPropertiesSumIdle(1);
+        pri_a15_military_2_1_vano_animation_data.setPropertiesMoving(true);
+        pri_a15_military_2_1_vano_animation_data.setPropertiesRandom(100);
+
+        pri_a15_military_2_1_vano_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam1");
+        pri_a15_military_2_1_vano_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam2");
+        pri_a15_military_2_1_vano_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam3");
+        pri_a15_military_2_1_vano_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam4");
+        pri_a15_military_2_1_vano_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam5");
+        pri_a15_military_2_1_vano_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam6");
+        pri_a15_military_2_1_vano_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam7");
+        pri_a15_military_2_1_vano_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam8");
+        pri_a15_military_2_1_vano_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam9");
+        pri_a15_military_2_1_vano_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam10");
+        pri_a15_military_2_1_vano_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam11");
+        pri_a15_military_2_1_vano_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam12");
+        pri_a15_military_2_1_vano_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam13");
+        pri_a15_military_2_1_vano_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam14");
+        pri_a15_military_2_1_vano_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam15");
+        pri_a15_military_2_1_vano_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam16");
+        pri_a15_military_2_1_vano_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam17");
+        pri_a15_military_2_1_vano_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam17_1");
+        pri_a15_military_2_1_vano_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam18");
+        pri_a15_military_2_1_vano_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam19");
+        pri_a15_military_2_1_vano_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam20");
+        pri_a15_military_2_1_vano_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam21");
+        pri_a15_military_2_1_vano_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam25");
+        pri_a15_military_2_1_vano_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam25_1");
+        pri_a15_military_2_1_vano_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam26");
+        pri_a15_military_2_1_vano_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam27");
+        pri_a15_military_2_1_vano_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam28");
+        pri_a15_military_2_1_vano_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam29");
+        pri_a15_military_2_1_vano_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam30");
+        pri_a15_military_2_1_vano_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam31");
+        pri_a15_military_2_1_vano_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam32");
+
+        this->m_state_manager_animation_list["pri_a15_military_2_1_vano"] = pri_a15_military_2_1_vano_animation_data;
+
+        StateManagerAnimationData pri_a15_military_2_1_sokolov_animation_data;
+        pri_a15_military_2_1_sokolov_animation_data.setPropertiesMaxIdle(1);
+        pri_a15_military_2_1_sokolov_animation_data.setPropertiesSumIdle(1);
+        pri_a15_military_2_1_sokolov_animation_data.setPropertiesMoving(true);
+        pri_a15_military_2_1_sokolov_animation_data.setPropertiesRandom(100);
+
+        pri_a15_military_2_1_sokolov_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam1");
+        pri_a15_military_2_1_sokolov_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam2");
+        pri_a15_military_2_1_sokolov_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam3");
+        pri_a15_military_2_1_sokolov_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam4");
+        pri_a15_military_2_1_sokolov_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam5");
+        pri_a15_military_2_1_sokolov_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam6");
+        pri_a15_military_2_1_sokolov_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam7");
+        pri_a15_military_2_1_sokolov_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam8");
+        pri_a15_military_2_1_sokolov_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam9");
+        pri_a15_military_2_1_sokolov_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam10");
+        pri_a15_military_2_1_sokolov_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam12");
+        pri_a15_military_2_1_sokolov_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam13");
+        pri_a15_military_2_1_sokolov_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam14");
+        pri_a15_military_2_1_sokolov_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam15");
+        pri_a15_military_2_1_sokolov_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam16");
+        pri_a15_military_2_1_sokolov_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam17");
+        pri_a15_military_2_1_sokolov_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam17_1");
+        pri_a15_military_2_1_sokolov_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam18");
+        pri_a15_military_2_1_sokolov_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam19");
+        pri_a15_military_2_1_sokolov_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam21");
+        pri_a15_military_2_1_sokolov_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam22");
+        pri_a15_military_2_1_sokolov_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam23");
+        pri_a15_military_2_1_sokolov_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam24");
+        pri_a15_military_2_1_sokolov_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam25");
+        pri_a15_military_2_1_sokolov_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam25_1");
+        pri_a15_military_2_1_sokolov_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam26");
+        pri_a15_military_2_1_sokolov_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam27");
+        pri_a15_military_2_1_sokolov_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam28");
+        pri_a15_military_2_1_sokolov_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam29");
+        pri_a15_military_2_1_sokolov_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam30");
+        pri_a15_military_2_1_sokolov_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam31");
+        pri_a15_military_2_1_sokolov_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam32");
+
+        this->m_state_manager_animation_list["pri_a15_military_2_1_sokolov"] =
+            pri_a15_military_2_1_sokolov_animation_data;
+
+        StateManagerAnimationData pri_a15_military_2_1_zulus_animation_data;
+        pri_a15_military_2_1_zulus_animation_data.setPropertiesMaxIdle(1);
+        pri_a15_military_2_1_zulus_animation_data.setPropertiesSumIdle(1);
+        pri_a15_military_2_1_zulus_animation_data.setPropertiesMoving(true);
+        pri_a15_military_2_1_zulus_animation_data.setPropertiesRandom(100);
+
+        pri_a15_military_2_1_zulus_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam1");
+        pri_a15_military_2_1_zulus_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam2");
+        pri_a15_military_2_1_zulus_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam3");
+        pri_a15_military_2_1_zulus_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam4");
+        pri_a15_military_2_1_zulus_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam6");
+        pri_a15_military_2_1_zulus_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam7");
+        pri_a15_military_2_1_zulus_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam8");
+        pri_a15_military_2_1_zulus_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam9");
+        pri_a15_military_2_1_zulus_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam10");
+        pri_a15_military_2_1_zulus_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam11");
+        pri_a15_military_2_1_zulus_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam12");
+        pri_a15_military_2_1_zulus_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam13");
+        pri_a15_military_2_1_zulus_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam14");
+        pri_a15_military_2_1_zulus_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam15");
+        pri_a15_military_2_1_zulus_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam16");
+        pri_a15_military_2_1_zulus_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam17");
+        pri_a15_military_2_1_zulus_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam17_1");
+        pri_a15_military_2_1_zulus_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam18");
+        pri_a15_military_2_1_zulus_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam20");
+        pri_a15_military_2_1_zulus_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam21");
+        pri_a15_military_2_1_zulus_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam22");
+        pri_a15_military_2_1_zulus_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam23");
+        pri_a15_military_2_1_zulus_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam24");
+        pri_a15_military_2_1_zulus_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam25");
+        pri_a15_military_2_1_zulus_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam30");
+        pri_a15_military_2_1_zulus_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam31");
+        pri_a15_military_2_1_zulus_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam32");
+
+        this->m_state_manager_animation_list["pri_a15_military_2_1_zulus"] = pri_a15_military_2_1_zulus_animation_data;
+
+        StateManagerAnimationData pri_a15_military_2_1_wanderer_animation_data;
+        pri_a15_military_2_1_wanderer_animation_data.setPropertiesMaxIdle(1);
+        pri_a15_military_2_1_wanderer_animation_data.setPropertiesSumIdle(1);
+        pri_a15_military_2_1_wanderer_animation_data.setPropertiesMoving(true);
+        pri_a15_military_2_1_wanderer_animation_data.setPropertiesRandom(100);
+
+        pri_a15_military_2_1_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam1");
+        pri_a15_military_2_1_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam2");
+        pri_a15_military_2_1_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam3");
+        pri_a15_military_2_1_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam4");
+        pri_a15_military_2_1_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam5");
+        pri_a15_military_2_1_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam6");
+        pri_a15_military_2_1_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam7");
+        pri_a15_military_2_1_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam8");
+        pri_a15_military_2_1_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam9");
+        pri_a15_military_2_1_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam10");
+        pri_a15_military_2_1_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam11");
+        pri_a15_military_2_1_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam12");
+        pri_a15_military_2_1_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam13");
+        pri_a15_military_2_1_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam14");
+        pri_a15_military_2_1_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam15");
+        pri_a15_military_2_1_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam16");
+        pri_a15_military_2_1_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam17");
+        pri_a15_military_2_1_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam17_1");
+        pri_a15_military_2_1_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam18");
+        pri_a15_military_2_1_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam19");
+        pri_a15_military_2_1_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam20");
+        pri_a15_military_2_1_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam21");
+        pri_a15_military_2_1_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam22");
+        pri_a15_military_2_1_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam23");
+        pri_a15_military_2_1_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam24");
+        pri_a15_military_2_1_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam25");
+        pri_a15_military_2_1_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam25_1");
+        pri_a15_military_2_1_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam26");
+        pri_a15_military_2_1_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam27");
+        pri_a15_military_2_1_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam28");
+        pri_a15_military_2_1_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam29");
+        pri_a15_military_2_1_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam30");
+        pri_a15_military_2_1_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam31");
+        pri_a15_military_2_1_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam32");
+
+        this->m_state_manager_animation_list["pri_a15_military_2_1_wanderer"] =
+            pri_a15_military_2_1_wanderer_animation_data;
+
+        StateManagerAnimationData pri_a15_military_2_2_vano_sokolov_animation_data;
+        pri_a15_military_2_2_vano_sokolov_animation_data.setPropertiesMaxIdle(1);
+        pri_a15_military_2_2_vano_sokolov_animation_data.setPropertiesSumIdle(1);
+        pri_a15_military_2_2_vano_sokolov_animation_data.setPropertiesMoving(true);
+        pri_a15_military_2_2_vano_sokolov_animation_data.setPropertiesRandom(100);
+
+        pri_a15_military_2_2_vano_sokolov_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam1");
+        pri_a15_military_2_2_vano_sokolov_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam2");
+        pri_a15_military_2_2_vano_sokolov_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam3");
+        pri_a15_military_2_2_vano_sokolov_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam4");
+        pri_a15_military_2_2_vano_sokolov_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam5");
+        pri_a15_military_2_2_vano_sokolov_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam6");
+        pri_a15_military_2_2_vano_sokolov_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam7");
+        pri_a15_military_2_2_vano_sokolov_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam8");
+        pri_a15_military_2_2_vano_sokolov_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam9");
+        pri_a15_military_2_2_vano_sokolov_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam10");
+        pri_a15_military_2_2_vano_sokolov_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam12");
+        pri_a15_military_2_2_vano_sokolov_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam13");
+        pri_a15_military_2_2_vano_sokolov_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam14");
+        pri_a15_military_2_2_vano_sokolov_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam15");
+        pri_a15_military_2_2_vano_sokolov_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam16");
+        pri_a15_military_2_2_vano_sokolov_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam17");
+        pri_a15_military_2_2_vano_sokolov_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam17_1");
+        pri_a15_military_2_2_vano_sokolov_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam18");
+        pri_a15_military_2_2_vano_sokolov_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam19");
+        pri_a15_military_2_2_vano_sokolov_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam21");
+        pri_a15_military_2_2_vano_sokolov_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam25");
+        pri_a15_military_2_2_vano_sokolov_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam25_1");
+        pri_a15_military_2_2_vano_sokolov_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam26");
+        pri_a15_military_2_2_vano_sokolov_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam27");
+        pri_a15_military_2_2_vano_sokolov_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam28");
+        pri_a15_military_2_2_vano_sokolov_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam29");
+        pri_a15_military_2_2_vano_sokolov_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam30");
+        pri_a15_military_2_2_vano_sokolov_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam31");
+        pri_a15_military_2_2_vano_sokolov_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam32");
+
+        this->m_state_manager_animation_list["pri_a15_military_2_2_vano_sokolov"] =
+            pri_a15_military_2_2_vano_sokolov_animation_data;
+
+        StateManagerAnimationData pri_a15_military_2_2_vano_zulus_animation_data;
+        pri_a15_military_2_2_vano_zulus_animation_data.setPropertiesMaxIdle(1);
+        pri_a15_military_2_2_vano_zulus_animation_data.setPropertiesSumIdle(1);
+        pri_a15_military_2_2_vano_zulus_animation_data.setPropertiesMoving(true);
+        pri_a15_military_2_2_vano_zulus_animation_data.setPropertiesRandom(100);
+
+        pri_a15_military_2_2_vano_zulus_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam1");
+        pri_a15_military_2_2_vano_zulus_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam2");
+        pri_a15_military_2_2_vano_zulus_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam3");
+        pri_a15_military_2_2_vano_zulus_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam4");
+        pri_a15_military_2_2_vano_zulus_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam6");
+        pri_a15_military_2_2_vano_zulus_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam7");
+        pri_a15_military_2_2_vano_zulus_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam8");
+        pri_a15_military_2_2_vano_zulus_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam9");
+        pri_a15_military_2_2_vano_zulus_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam10");
+        pri_a15_military_2_2_vano_zulus_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam11");
+        pri_a15_military_2_2_vano_zulus_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam12");
+        pri_a15_military_2_2_vano_zulus_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam13");
+        pri_a15_military_2_2_vano_zulus_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam14");
+        pri_a15_military_2_2_vano_zulus_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam15");
+        pri_a15_military_2_2_vano_zulus_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam16");
+        pri_a15_military_2_2_vano_zulus_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam17");
+        pri_a15_military_2_2_vano_zulus_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam17_1");
+        pri_a15_military_2_2_vano_zulus_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam18");
+        pri_a15_military_2_2_vano_zulus_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam20");
+        pri_a15_military_2_2_vano_zulus_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam21");
+        pri_a15_military_2_2_vano_zulus_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam25");
+        pri_a15_military_2_2_vano_zulus_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam30");
+        pri_a15_military_2_2_vano_zulus_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam31");
+        pri_a15_military_2_2_vano_zulus_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam32");
+
+        this->m_state_manager_animation_list["pri_a15_military_2_2_vano_zulus"] =
+            pri_a15_military_2_2_vano_zulus_animation_data;
+
+        StateManagerAnimationData pri_a15_military_2_2_vano_wanderer_animation_data;
+        pri_a15_military_2_2_vano_wanderer_animation_data.setPropertiesMaxIdle(1);
+        pri_a15_military_2_2_vano_wanderer_animation_data.setPropertiesSumIdle(1);
+        pri_a15_military_2_2_vano_wanderer_animation_data.setPropertiesMoving(true);
+        pri_a15_military_2_2_vano_wanderer_animation_data.setPropertiesRandom(100);
+
+        pri_a15_military_2_2_vano_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam1");
+        pri_a15_military_2_2_vano_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam2");
+        pri_a15_military_2_2_vano_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam3");
+        pri_a15_military_2_2_vano_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam4");
+        pri_a15_military_2_2_vano_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam5");
+        pri_a15_military_2_2_vano_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam6");
+        pri_a15_military_2_2_vano_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam7");
+        pri_a15_military_2_2_vano_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam8");
+        pri_a15_military_2_2_vano_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam9");
+        pri_a15_military_2_2_vano_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam10");
+        pri_a15_military_2_2_vano_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam11");
+        pri_a15_military_2_2_vano_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam12");
+        pri_a15_military_2_2_vano_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam13");
+        pri_a15_military_2_2_vano_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam14");
+        pri_a15_military_2_2_vano_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam15");
+        pri_a15_military_2_2_vano_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam16");
+        pri_a15_military_2_2_vano_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam17");
+        pri_a15_military_2_2_vano_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam17_1");
+        pri_a15_military_2_2_vano_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam18");
+        pri_a15_military_2_2_vano_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam19");
+        pri_a15_military_2_2_vano_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam20");
+        pri_a15_military_2_2_vano_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam21");
+        pri_a15_military_2_2_vano_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam25");
+        pri_a15_military_2_2_vano_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam25_1");
+        pri_a15_military_2_2_vano_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam26");
+        pri_a15_military_2_2_vano_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam27");
+        pri_a15_military_2_2_vano_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam28");
+        pri_a15_military_2_2_vano_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam29");
+        pri_a15_military_2_2_vano_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam30");
+        pri_a15_military_2_2_vano_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam31");
+        pri_a15_military_2_2_vano_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam32");
+
+        this->m_state_manager_animation_list["pri_a15_military_2_2_vano_wanderer"] =
+            pri_a15_military_2_2_vano_wanderer_animation_data;
+
+        StateManagerAnimationData pri_a15_military_2_2_sokolov_zulus_animation_data;
+        pri_a15_military_2_2_sokolov_zulus_animation_data.setPropertiesMaxIdle(1);
+        pri_a15_military_2_2_sokolov_zulus_animation_data.setPropertiesSumIdle(1);
+        pri_a15_military_2_2_sokolov_zulus_animation_data.setPropertiesMoving(true);
+        pri_a15_military_2_2_sokolov_zulus_animation_data.setPropertiesRandom(100);
+
+        pri_a15_military_2_2_sokolov_zulus_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam1");
+        pri_a15_military_2_2_sokolov_zulus_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam2");
+        pri_a15_military_2_2_sokolov_zulus_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam3");
+        pri_a15_military_2_2_sokolov_zulus_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam4");
+        pri_a15_military_2_2_sokolov_zulus_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam6");
+        pri_a15_military_2_2_sokolov_zulus_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam7");
+        pri_a15_military_2_2_sokolov_zulus_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam8");
+        pri_a15_military_2_2_sokolov_zulus_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam9");
+        pri_a15_military_2_2_sokolov_zulus_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam10");
+        pri_a15_military_2_2_sokolov_zulus_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam12");
+        pri_a15_military_2_2_sokolov_zulus_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam13");
+        pri_a15_military_2_2_sokolov_zulus_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam14");
+        pri_a15_military_2_2_sokolov_zulus_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam15");
+        pri_a15_military_2_2_sokolov_zulus_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam16");
+        pri_a15_military_2_2_sokolov_zulus_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam17");
+        pri_a15_military_2_2_sokolov_zulus_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam17_1");
+        pri_a15_military_2_2_sokolov_zulus_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam18");
+        pri_a15_military_2_2_sokolov_zulus_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam22");
+        pri_a15_military_2_2_sokolov_zulus_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam23");
+        pri_a15_military_2_2_sokolov_zulus_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam24");
+        pri_a15_military_2_2_sokolov_zulus_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam25");
+        pri_a15_military_2_2_sokolov_zulus_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam30");
+        pri_a15_military_2_2_sokolov_zulus_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam31");
+        pri_a15_military_2_2_sokolov_zulus_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam32");
+
+        this->m_state_manager_animation_list["pri_a15_military_2_2_sokolov_zulus"] =
+            pri_a15_military_2_2_sokolov_zulus_animation_data;
+
+        StateManagerAnimationData pri_a15_military_2_2_sokolov_wanderer_animation_data;
+        pri_a15_military_2_2_sokolov_wanderer_animation_data.setPropertiesMaxIdle(1);
+        pri_a15_military_2_2_sokolov_wanderer_animation_data.setPropertiesSumIdle(1);
+        pri_a15_military_2_2_sokolov_wanderer_animation_data.setPropertiesMoving(true);
+        pri_a15_military_2_2_sokolov_wanderer_animation_data.setPropertiesRandom(100);
+
+        pri_a15_military_2_2_sokolov_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam1");
+        pri_a15_military_2_2_sokolov_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam2");
+        pri_a15_military_2_2_sokolov_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam3");
+        pri_a15_military_2_2_sokolov_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam4");
+        pri_a15_military_2_2_sokolov_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam5");
+        pri_a15_military_2_2_sokolov_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam6");
+        pri_a15_military_2_2_sokolov_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam7");
+        pri_a15_military_2_2_sokolov_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam8");
+        pri_a15_military_2_2_sokolov_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam9");
+        pri_a15_military_2_2_sokolov_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam10");
+        pri_a15_military_2_2_sokolov_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam12");
+        pri_a15_military_2_2_sokolov_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam13");
+        pri_a15_military_2_2_sokolov_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam14");
+        pri_a15_military_2_2_sokolov_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam15");
+        pri_a15_military_2_2_sokolov_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam16");
+        pri_a15_military_2_2_sokolov_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam17");
+        pri_a15_military_2_2_sokolov_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam17_1");
+        pri_a15_military_2_2_sokolov_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam18");
+        pri_a15_military_2_2_sokolov_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam19");
+        pri_a15_military_2_2_sokolov_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam21");
+        pri_a15_military_2_2_sokolov_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam22");
+        pri_a15_military_2_2_sokolov_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam23");
+        pri_a15_military_2_2_sokolov_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam24");
+        pri_a15_military_2_2_sokolov_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam25");
+        pri_a15_military_2_2_sokolov_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam25_1");
+        pri_a15_military_2_2_sokolov_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam26");
+        pri_a15_military_2_2_sokolov_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam27");
+        pri_a15_military_2_2_sokolov_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam28");
+        pri_a15_military_2_2_sokolov_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam29");
+        pri_a15_military_2_2_sokolov_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam30");
+        pri_a15_military_2_2_sokolov_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam31");
+        pri_a15_military_2_2_sokolov_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam32");
+
+        this->m_state_manager_animation_list["pri_a15_military_2_2_sokolov_wanderer"] =
+            pri_a15_military_2_2_sokolov_wanderer_animation_data;
+
+        StateManagerAnimationData pri_a15_military_2_2_zulus_wanderer_animation_data;
+        pri_a15_military_2_2_zulus_wanderer_animation_data.setPropertiesMaxIdle(1);
+        pri_a15_military_2_2_zulus_wanderer_animation_data.setPropertiesSumIdle(1);
+        pri_a15_military_2_2_zulus_wanderer_animation_data.setPropertiesMoving(true);
+        pri_a15_military_2_2_zulus_wanderer_animation_data.setPropertiesRandom(100);
+
+        pri_a15_military_2_2_zulus_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam1");
+        pri_a15_military_2_2_zulus_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam2");
+        pri_a15_military_2_2_zulus_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam3");
+        pri_a15_military_2_2_zulus_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam4");
+        pri_a15_military_2_2_zulus_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam6");
+        pri_a15_military_2_2_zulus_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam7");
+        pri_a15_military_2_2_zulus_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam8");
+        pri_a15_military_2_2_zulus_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam9");
+        pri_a15_military_2_2_zulus_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam10");
+        pri_a15_military_2_2_zulus_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam11");
+        pri_a15_military_2_2_zulus_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam12");
+        pri_a15_military_2_2_zulus_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam13");
+        pri_a15_military_2_2_zulus_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam14");
+        pri_a15_military_2_2_zulus_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam15");
+        pri_a15_military_2_2_zulus_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam16");
+        pri_a15_military_2_2_zulus_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam17");
+        pri_a15_military_2_2_zulus_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam17_1");
+        pri_a15_military_2_2_zulus_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam18");
+        pri_a15_military_2_2_zulus_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam20");
+        pri_a15_military_2_2_zulus_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam21");
+        pri_a15_military_2_2_zulus_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam22");
+        pri_a15_military_2_2_zulus_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam23");
+        pri_a15_military_2_2_zulus_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam24");
+        pri_a15_military_2_2_zulus_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam25");
+        pri_a15_military_2_2_zulus_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam30");
+        pri_a15_military_2_2_zulus_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam31");
+        pri_a15_military_2_2_zulus_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam32");
+
+        this->m_state_manager_animation_list["pri_a15_military_2_2_zulus_wanderer"] =
+            pri_a15_military_2_2_zulus_wanderer_animation_data;
+
+        StateManagerAnimationData pri_a15_military_2_3_vano_alive_animation_data;
+        pri_a15_military_2_3_vano_alive_animation_data.setPropertiesMaxIdle(1);
+        pri_a15_military_2_3_vano_alive_animation_data.setPropertiesSumIdle(1);
+        pri_a15_military_2_3_vano_alive_animation_data.setPropertiesMoving(true);
+        pri_a15_military_2_3_vano_alive_animation_data.setPropertiesRandom(100);
+
+        pri_a15_military_2_3_vano_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam1");
+        pri_a15_military_2_3_vano_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam2");
+        pri_a15_military_2_3_vano_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam3");
+        pri_a15_military_2_3_vano_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam4");
+        pri_a15_military_2_3_vano_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam6");
+        pri_a15_military_2_3_vano_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam7");
+        pri_a15_military_2_3_vano_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam8");
+        pri_a15_military_2_3_vano_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam9");
+        pri_a15_military_2_3_vano_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam10");
+        pri_a15_military_2_3_vano_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam12");
+        pri_a15_military_2_3_vano_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam13");
+        pri_a15_military_2_3_vano_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam14");
+        pri_a15_military_2_3_vano_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam15");
+        pri_a15_military_2_3_vano_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam16");
+        pri_a15_military_2_3_vano_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam17");
+        pri_a15_military_2_3_vano_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam17_1");
+        pri_a15_military_2_3_vano_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam18");
+        pri_a15_military_2_3_vano_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam22");
+        pri_a15_military_2_3_vano_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam23");
+        pri_a15_military_2_3_vano_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam24");
+        pri_a15_military_2_3_vano_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam25");
+        pri_a15_military_2_3_vano_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam30");
+        pri_a15_military_2_3_vano_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam31");
+        pri_a15_military_2_3_vano_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam32");
+
+        this->m_state_manager_animation_list["pri_a15_military_2_3_vano_alive"] =
+            pri_a15_military_2_3_vano_alive_animation_data;
+
+        StateManagerAnimationData pri_a15_military_2_3_sokolov_alive_animation_data;
+        pri_a15_military_2_3_sokolov_alive_animation_data.setPropertiesMaxIdle(1);
+        pri_a15_military_2_3_sokolov_alive_animation_data.setPropertiesSumIdle(1);
+        pri_a15_military_2_3_sokolov_alive_animation_data.setPropertiesMoving(true);
+        pri_a15_military_2_3_sokolov_alive_animation_data.setPropertiesRandom(100);
+
+        pri_a15_military_2_3_sokolov_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam1");
+        pri_a15_military_2_3_sokolov_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam2");
+        pri_a15_military_2_3_sokolov_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam3");
+        pri_a15_military_2_3_sokolov_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam4");
+        pri_a15_military_2_3_sokolov_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam6");
+        pri_a15_military_2_3_sokolov_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam7");
+        pri_a15_military_2_3_sokolov_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam8");
+        pri_a15_military_2_3_sokolov_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam9");
+        pri_a15_military_2_3_sokolov_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam10");
+        pri_a15_military_2_3_sokolov_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam11");
+        pri_a15_military_2_3_sokolov_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam12");
+        pri_a15_military_2_3_sokolov_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam13");
+        pri_a15_military_2_3_sokolov_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam14");
+        pri_a15_military_2_3_sokolov_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam15");
+        pri_a15_military_2_3_sokolov_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam16");
+        pri_a15_military_2_3_sokolov_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam17");
+        pri_a15_military_2_3_sokolov_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam17_1");
+        pri_a15_military_2_3_sokolov_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam18");
+        pri_a15_military_2_3_sokolov_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam20");
+        pri_a15_military_2_3_sokolov_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam21");
+        pri_a15_military_2_3_sokolov_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam25");
+        pri_a15_military_2_3_sokolov_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam30");
+        pri_a15_military_2_3_sokolov_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam31");
+        pri_a15_military_2_3_sokolov_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam32");
+
+        this->m_state_manager_animation_list["pri_a15_military_2_3_sokolov_alive"] =
+            pri_a15_military_2_3_sokolov_alive_animation_data;
+
+        StateManagerAnimationData pri_a15_military_2_3_zulus_alive_animation_data;
+        pri_a15_military_2_3_zulus_alive_animation_data.setPropertiesMaxIdle(1);
+        pri_a15_military_2_3_zulus_alive_animation_data.setPropertiesSumIdle(1);
+        pri_a15_military_2_3_zulus_alive_animation_data.setPropertiesMoving(true);
+        pri_a15_military_2_3_zulus_alive_animation_data.setPropertiesRandom(100);
+
+        pri_a15_military_2_3_zulus_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam1");
+        pri_a15_military_2_3_zulus_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam2");
+        pri_a15_military_2_3_zulus_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam3");
+        pri_a15_military_2_3_zulus_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam4");
+        pri_a15_military_2_3_zulus_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam5");
+        pri_a15_military_2_3_zulus_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam6");
+        pri_a15_military_2_3_zulus_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam7");
+        pri_a15_military_2_3_zulus_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam8");
+        pri_a15_military_2_3_zulus_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam9");
+        pri_a15_military_2_3_zulus_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam10");
+        pri_a15_military_2_3_zulus_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam12");
+        pri_a15_military_2_3_zulus_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam13");
+        pri_a15_military_2_3_zulus_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam14");
+        pri_a15_military_2_3_zulus_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam15");
+        pri_a15_military_2_3_zulus_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam16");
+        pri_a15_military_2_3_zulus_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam17");
+        pri_a15_military_2_3_zulus_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam17_1");
+        pri_a15_military_2_3_zulus_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam18");
+        pri_a15_military_2_3_zulus_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam19");
+        pri_a15_military_2_3_zulus_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam21");
+        pri_a15_military_2_3_zulus_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam25");
+        pri_a15_military_2_3_zulus_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam25_1");
+        pri_a15_military_2_3_zulus_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam26");
+        pri_a15_military_2_3_zulus_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam27");
+        pri_a15_military_2_3_zulus_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam28");
+        pri_a15_military_2_3_zulus_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam29");
+        pri_a15_military_2_3_zulus_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam30");
+        pri_a15_military_2_3_zulus_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam31");
+        pri_a15_military_2_3_zulus_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam32");
+
+        this->m_state_manager_animation_list["pri_a15_military_2_3_zulus_alive"] =
+            pri_a15_military_2_3_zulus_alive_animation_data;
+
+        StateManagerAnimationData pri_a15_military_2_3_wanderer_alive_animation_data;
+        pri_a15_military_2_3_wanderer_alive_animation_data.setPropertiesMaxIdle(1);
+        pri_a15_military_2_3_wanderer_alive_animation_data.setPropertiesSumIdle(1);
+        pri_a15_military_2_3_wanderer_alive_animation_data.setPropertiesMoving(true);
+        pri_a15_military_2_3_wanderer_alive_animation_data.setPropertiesRandom(100);
+
+        pri_a15_military_2_3_wanderer_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam1");
+        pri_a15_military_2_3_wanderer_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam2");
+        pri_a15_military_2_3_wanderer_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam3");
+        pri_a15_military_2_3_wanderer_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam4");
+        pri_a15_military_2_3_wanderer_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam6");
+        pri_a15_military_2_3_wanderer_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam7");
+        pri_a15_military_2_3_wanderer_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam8");
+        pri_a15_military_2_3_wanderer_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam9");
+        pri_a15_military_2_3_wanderer_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam10");
+        pri_a15_military_2_3_wanderer_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam12");
+        pri_a15_military_2_3_wanderer_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam13");
+        pri_a15_military_2_3_wanderer_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam14");
+        pri_a15_military_2_3_wanderer_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam15");
+        pri_a15_military_2_3_wanderer_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam16");
+        pri_a15_military_2_3_wanderer_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam17");
+        pri_a15_military_2_3_wanderer_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam17_1");
+        pri_a15_military_2_3_wanderer_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam18");
+        pri_a15_military_2_3_wanderer_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam25");
+        pri_a15_military_2_3_wanderer_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam30");
+        pri_a15_military_2_3_wanderer_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam31");
+        pri_a15_military_2_3_wanderer_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam32");
+
+        this->m_state_manager_animation_list["pri_a15_military_2_3_wanderer_alive"] =
+            pri_a15_military_2_3_wanderer_alive_animation_data;
+
+        StateManagerAnimationData pri_a15_military_2_all_dead_animation_data;
+        pri_a15_military_2_all_dead_animation_data.setPropertiesMaxIdle(1);
+        pri_a15_military_2_all_dead_animation_data.setPropertiesSumIdle(1);
+        pri_a15_military_2_all_dead_animation_data.setPropertiesMoving(true);
+        pri_a15_military_2_all_dead_animation_data.setPropertiesRandom(100);
+
+        pri_a15_military_2_all_dead_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam1");
+        pri_a15_military_2_all_dead_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam2");
+        pri_a15_military_2_all_dead_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam3");
+        pri_a15_military_2_all_dead_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam4");
+        pri_a15_military_2_all_dead_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam6");
+        pri_a15_military_2_all_dead_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam7");
+        pri_a15_military_2_all_dead_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam8");
+        pri_a15_military_2_all_dead_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam9");
+        pri_a15_military_2_all_dead_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam10");
+        pri_a15_military_2_all_dead_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam12");
+        pri_a15_military_2_all_dead_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam13");
+        pri_a15_military_2_all_dead_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam14");
+        pri_a15_military_2_all_dead_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam15");
+        pri_a15_military_2_all_dead_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam16");
+        pri_a15_military_2_all_dead_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam17");
+        pri_a15_military_2_all_dead_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam25");
+        pri_a15_military_2_all_dead_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam30");
+        pri_a15_military_2_all_dead_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam31");
+        pri_a15_military_2_all_dead_animation_data.addAnimation("into", 0, "pri_a15_soldier_1_cam32");
+
+        this->m_state_manager_animation_list["pri_a15_military_2_all_dead"] =
+            pri_a15_military_2_all_dead_animation_data;
+
+        StateManagerAnimationData pri_a15_military_3_all_animation_data;
+        pri_a15_military_3_all_animation_data.setPropertiesMaxIdle(1);
+        pri_a15_military_3_all_animation_data.setPropertiesSumIdle(1);
+        pri_a15_military_3_all_animation_data.setPropertiesMoving(true);
+        pri_a15_military_3_all_animation_data.setPropertiesRandom(100);
+
+        pri_a15_military_3_all_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam1");
+        pri_a15_military_3_all_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam2");
+        pri_a15_military_3_all_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam3");
+        pri_a15_military_3_all_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam4");
+        pri_a15_military_3_all_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam5");
+        pri_a15_military_3_all_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam6");
+        pri_a15_military_3_all_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam7");
+        pri_a15_military_3_all_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam8");
+        pri_a15_military_3_all_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam9");
+        pri_a15_military_3_all_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam10");
+        pri_a15_military_3_all_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam11");
+        pri_a15_military_3_all_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam12");
+        pri_a15_military_3_all_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam13");
+        pri_a15_military_3_all_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam14");
+        pri_a15_military_3_all_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam15");
+        pri_a15_military_3_all_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam16");
+        pri_a15_military_3_all_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam17");
+        pri_a15_military_3_all_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam17_1");
+        pri_a15_military_3_all_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam18");
+        pri_a15_military_3_all_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam19");
+        pri_a15_military_3_all_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam20");
+        pri_a15_military_3_all_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam21");
+        pri_a15_military_3_all_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam22");
+        pri_a15_military_3_all_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam23");
+        pri_a15_military_3_all_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam24");
+        pri_a15_military_3_all_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam25");
+        pri_a15_military_3_all_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam25_1");
+        pri_a15_military_3_all_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam26");
+        pri_a15_military_3_all_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam27");
+        pri_a15_military_3_all_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam28");
+        pri_a15_military_3_all_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam29");
+        pri_a15_military_3_all_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam30");
+        pri_a15_military_3_all_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam31");
+        pri_a15_military_3_all_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam32");
+
+        this->m_state_manager_animation_list["pri_a15_military_3_all"] = pri_a15_military_3_all_animation_data;
+
+        StateManagerAnimationData pri_a15_military_3_1_vano_animation_data;
+        pri_a15_military_3_1_vano_animation_data.setPropertiesMaxIdle(1);
+        pri_a15_military_3_1_vano_animation_data.setPropertiesSumIdle(1);
+        pri_a15_military_3_1_vano_animation_data.setPropertiesMoving(true);
+        pri_a15_military_3_1_vano_animation_data.setPropertiesRandom(100);
+
+        pri_a15_military_3_1_vano_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam1");
+        pri_a15_military_3_1_vano_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam2");
+        pri_a15_military_3_1_vano_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam3");
+        pri_a15_military_3_1_vano_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam4");
+        pri_a15_military_3_1_vano_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam5");
+        pri_a15_military_3_1_vano_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam6");
+        pri_a15_military_3_1_vano_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam7");
+        pri_a15_military_3_1_vano_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam8");
+        pri_a15_military_3_1_vano_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam9");
+        pri_a15_military_3_1_vano_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam10");
+        pri_a15_military_3_1_vano_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam11");
+        pri_a15_military_3_1_vano_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam12");
+        pri_a15_military_3_1_vano_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam13");
+        pri_a15_military_3_1_vano_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam14");
+        pri_a15_military_3_1_vano_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam15");
+        pri_a15_military_3_1_vano_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam16");
+        pri_a15_military_3_1_vano_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam17");
+        pri_a15_military_3_1_vano_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam17_1");
+        pri_a15_military_3_1_vano_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam18");
+        pri_a15_military_3_1_vano_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam19");
+        pri_a15_military_3_1_vano_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam20");
+        pri_a15_military_3_1_vano_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam21");
+        pri_a15_military_3_1_vano_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam25");
+        pri_a15_military_3_1_vano_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam25_1");
+        pri_a15_military_3_1_vano_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam26");
+        pri_a15_military_3_1_vano_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam27");
+        pri_a15_military_3_1_vano_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam28");
+        pri_a15_military_3_1_vano_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam29");
+        pri_a15_military_3_1_vano_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam30");
+        pri_a15_military_3_1_vano_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam31");
+        pri_a15_military_3_1_vano_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam32");
+
+        this->m_state_manager_animation_list["pri_a15_military_3_1_vano"] = pri_a15_military_3_1_vano_animation_data;
+
+        StateManagerAnimationData pri_a15_military_3_1_sokolov_animation_data;
+        pri_a15_military_3_1_sokolov_animation_data.setPropertiesMaxIdle(1);
+        pri_a15_military_3_1_sokolov_animation_data.setPropertiesSumIdle(1);
+        pri_a15_military_3_1_sokolov_animation_data.setPropertiesMoving(true);
+        pri_a15_military_3_1_sokolov_animation_data.setPropertiesRandom(100);
+
+        pri_a15_military_3_1_sokolov_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam1");
+        pri_a15_military_3_1_sokolov_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam2");
+        pri_a15_military_3_1_sokolov_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam3");
+        pri_a15_military_3_1_sokolov_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam4");
+        pri_a15_military_3_1_sokolov_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam5");
+        pri_a15_military_3_1_sokolov_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam6");
+        pri_a15_military_3_1_sokolov_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam7");
+        pri_a15_military_3_1_sokolov_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam8");
+        pri_a15_military_3_1_sokolov_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam9");
+        pri_a15_military_3_1_sokolov_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam10");
+        pri_a15_military_3_1_sokolov_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam12");
+        pri_a15_military_3_1_sokolov_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam13");
+        pri_a15_military_3_1_sokolov_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam14");
+        pri_a15_military_3_1_sokolov_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam15");
+        pri_a15_military_3_1_sokolov_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam16");
+        pri_a15_military_3_1_sokolov_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam17");
+        pri_a15_military_3_1_sokolov_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam17_1");
+        pri_a15_military_3_1_sokolov_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam18");
+        pri_a15_military_3_1_sokolov_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam19");
+        pri_a15_military_3_1_sokolov_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam21");
+        pri_a15_military_3_1_sokolov_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam22");
+        pri_a15_military_3_1_sokolov_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam23");
+        pri_a15_military_3_1_sokolov_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam24");
+        pri_a15_military_3_1_sokolov_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam25");
+        pri_a15_military_3_1_sokolov_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam25_1");
+        pri_a15_military_3_1_sokolov_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam26");
+        pri_a15_military_3_1_sokolov_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam27");
+        pri_a15_military_3_1_sokolov_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam28");
+        pri_a15_military_3_1_sokolov_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam29");
+        pri_a15_military_3_1_sokolov_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam30");
+        pri_a15_military_3_1_sokolov_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam31");
+        pri_a15_military_3_1_sokolov_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam32");
+
+        this->m_state_manager_animation_list["pri_a15_military_3_1_sokolov"] =
+            pri_a15_military_3_1_sokolov_animation_data;
+
+        StateManagerAnimationData pri_a15_military_3_1_zulus_animation_data;
+        pri_a15_military_3_1_zulus_animation_data.setPropertiesMaxIdle(1);
+        pri_a15_military_3_1_zulus_animation_data.setPropertiesSumIdle(1);
+        pri_a15_military_3_1_zulus_animation_data.setPropertiesMoving(true);
+        pri_a15_military_3_1_zulus_animation_data.setPropertiesRandom(100);
+
+        pri_a15_military_3_1_zulus_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam1");
+        pri_a15_military_3_1_zulus_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam2");
+        pri_a15_military_3_1_zulus_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam3");
+        pri_a15_military_3_1_zulus_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam4");
+        pri_a15_military_3_1_zulus_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam6");
+        pri_a15_military_3_1_zulus_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam7");
+        pri_a15_military_3_1_zulus_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam8");
+        pri_a15_military_3_1_zulus_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam9");
+        pri_a15_military_3_1_zulus_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam10");
+        pri_a15_military_3_1_zulus_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam11");
+        pri_a15_military_3_1_zulus_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam12");
+        pri_a15_military_3_1_zulus_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam13");
+        pri_a15_military_3_1_zulus_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam14");
+        pri_a15_military_3_1_zulus_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam15");
+        pri_a15_military_3_1_zulus_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam16");
+        pri_a15_military_3_1_zulus_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam17");
+        pri_a15_military_3_1_zulus_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam17_1");
+        pri_a15_military_3_1_zulus_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam18");
+        pri_a15_military_3_1_zulus_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam20");
+        pri_a15_military_3_1_zulus_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam21");
+        pri_a15_military_3_1_zulus_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam22");
+        pri_a15_military_3_1_zulus_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam23");
+        pri_a15_military_3_1_zulus_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam24");
+        pri_a15_military_3_1_zulus_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam25");
+        pri_a15_military_3_1_zulus_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam30");
+        pri_a15_military_3_1_zulus_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam31");
+        pri_a15_military_3_1_zulus_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam32");
+
+        this->m_state_manager_animation_list["pri_a15_military_3_1_zulus"] = pri_a15_military_3_1_zulus_animation_data;
+
+        StateManagerAnimationData pri_a15_military_3_1_wanderer_animation_data;
+        pri_a15_military_3_1_wanderer_animation_data.setPropertiesMaxIdle(1);
+        pri_a15_military_3_1_wanderer_animation_data.setPropertiesSumIdle(1);
+        pri_a15_military_3_1_wanderer_animation_data.setPropertiesMoving(true);
+        pri_a15_military_3_1_wanderer_animation_data.setPropertiesRandom(100);
+
+        pri_a15_military_3_1_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam1");
+        pri_a15_military_3_1_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam2");
+        pri_a15_military_3_1_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam3");
+        pri_a15_military_3_1_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam4");
+        pri_a15_military_3_1_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam5");
+        pri_a15_military_3_1_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam6");
+        pri_a15_military_3_1_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam7");
+        pri_a15_military_3_1_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam8");
+        pri_a15_military_3_1_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam9");
+        pri_a15_military_3_1_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam10");
+        pri_a15_military_3_1_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam11");
+        pri_a15_military_3_1_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam12");
+        pri_a15_military_3_1_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam13");
+        pri_a15_military_3_1_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam14");
+        pri_a15_military_3_1_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam15");
+        pri_a15_military_3_1_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam16");
+        pri_a15_military_3_1_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam17");
+        pri_a15_military_3_1_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam17_1");
+        pri_a15_military_3_1_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam18");
+        pri_a15_military_3_1_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam19");
+        pri_a15_military_3_1_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam20");
+        pri_a15_military_3_1_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam21");
+        pri_a15_military_3_1_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam22");
+        pri_a15_military_3_1_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam23");
+        pri_a15_military_3_1_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam24");
+        pri_a15_military_3_1_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam25");
+        pri_a15_military_3_1_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam25_1");
+        pri_a15_military_3_1_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam26");
+        pri_a15_military_3_1_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam27");
+        pri_a15_military_3_1_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam28");
+        pri_a15_military_3_1_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam29");
+        pri_a15_military_3_1_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam30");
+        pri_a15_military_3_1_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam31");
+        pri_a15_military_3_1_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam32");
+
+        this->m_state_manager_animation_list["pri_a15_military_3_1_wanderer"] =
+            pri_a15_military_3_1_wanderer_animation_data;
+
+        StateManagerAnimationData pri_a15_military_3_2_vano_sokolov_animation_data;
+        pri_a15_military_3_2_vano_sokolov_animation_data.setPropertiesMaxIdle(1);
+        pri_a15_military_3_2_vano_sokolov_animation_data.setPropertiesSumIdle(1);
+        pri_a15_military_3_2_vano_sokolov_animation_data.setPropertiesMoving(true);
+        pri_a15_military_3_2_vano_sokolov_animation_data.setPropertiesRandom(100);
+
+        pri_a15_military_3_2_vano_sokolov_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam1");
+        pri_a15_military_3_2_vano_sokolov_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam2");
+        pri_a15_military_3_2_vano_sokolov_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam3");
+        pri_a15_military_3_2_vano_sokolov_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam4");
+        pri_a15_military_3_2_vano_sokolov_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam5");
+        pri_a15_military_3_2_vano_sokolov_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam6");
+        pri_a15_military_3_2_vano_sokolov_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam7");
+        pri_a15_military_3_2_vano_sokolov_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam8");
+        pri_a15_military_3_2_vano_sokolov_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam9");
+        pri_a15_military_3_2_vano_sokolov_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam10");
+        pri_a15_military_3_2_vano_sokolov_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam12");
+        pri_a15_military_3_2_vano_sokolov_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam13");
+        pri_a15_military_3_2_vano_sokolov_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam14");
+        pri_a15_military_3_2_vano_sokolov_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam15");
+        pri_a15_military_3_2_vano_sokolov_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam16");
+        pri_a15_military_3_2_vano_sokolov_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam17");
+        pri_a15_military_3_2_vano_sokolov_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam17_1");
+        pri_a15_military_3_2_vano_sokolov_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam18");
+        pri_a15_military_3_2_vano_sokolov_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam19");
+        pri_a15_military_3_2_vano_sokolov_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam21");
+        pri_a15_military_3_2_vano_sokolov_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam25");
+        pri_a15_military_3_2_vano_sokolov_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam25_1");
+        pri_a15_military_3_2_vano_sokolov_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam26");
+        pri_a15_military_3_2_vano_sokolov_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam27");
+        pri_a15_military_3_2_vano_sokolov_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam28");
+        pri_a15_military_3_2_vano_sokolov_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam29");
+        pri_a15_military_3_2_vano_sokolov_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam30");
+        pri_a15_military_3_2_vano_sokolov_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam31");
+        pri_a15_military_3_2_vano_sokolov_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam32");
+
+        this->m_state_manager_animation_list["pri_a15_military_3_2_vano_sokolov"] =
+            pri_a15_military_3_2_vano_sokolov_animation_data;
+
+        StateManagerAnimationData pri_a15_military_3_2_vano_zulus_animation_data;
+        pri_a15_military_3_2_vano_zulus_animation_data.setPropertiesMaxIdle(1);
+        pri_a15_military_3_2_vano_zulus_animation_data.setPropertiesSumIdle(1);
+        pri_a15_military_3_2_vano_zulus_animation_data.setPropertiesMoving(true);
+        pri_a15_military_3_2_vano_zulus_animation_data.setPropertiesRandom(100);
+
+        pri_a15_military_3_2_vano_zulus_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam1");
+        pri_a15_military_3_2_vano_zulus_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam2");
+        pri_a15_military_3_2_vano_zulus_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam3");
+        pri_a15_military_3_2_vano_zulus_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam4");
+        pri_a15_military_3_2_vano_zulus_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam6");
+        pri_a15_military_3_2_vano_zulus_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam7");
+        pri_a15_military_3_2_vano_zulus_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam8");
+        pri_a15_military_3_2_vano_zulus_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam9");
+        pri_a15_military_3_2_vano_zulus_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam10");
+        pri_a15_military_3_2_vano_zulus_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam11");
+        pri_a15_military_3_2_vano_zulus_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam12");
+        pri_a15_military_3_2_vano_zulus_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam13");
+        pri_a15_military_3_2_vano_zulus_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam14");
+        pri_a15_military_3_2_vano_zulus_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam15");
+        pri_a15_military_3_2_vano_zulus_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam16");
+        pri_a15_military_3_2_vano_zulus_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam17");
+        pri_a15_military_3_2_vano_zulus_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam17_1");
+        pri_a15_military_3_2_vano_zulus_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam18");
+        pri_a15_military_3_2_vano_zulus_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam20");
+        pri_a15_military_3_2_vano_zulus_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam21");
+        pri_a15_military_3_2_vano_zulus_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam25");
+        pri_a15_military_3_2_vano_zulus_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam30");
+        pri_a15_military_3_2_vano_zulus_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam31");
+        pri_a15_military_3_2_vano_zulus_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam32");
+
+        this->m_state_manager_animation_list["pri_a15_military_3_2_vano_zulus"] =
+            pri_a15_military_3_2_vano_zulus_animation_data;
+
+        StateManagerAnimationData pri_a15_military_3_2_vano_wanderer_animation_data;
+        pri_a15_military_3_2_vano_wanderer_animation_data.setPropertiesMaxIdle(1);
+        pri_a15_military_3_2_vano_wanderer_animation_data.setPropertiesSumIdle(1);
+        pri_a15_military_3_2_vano_wanderer_animation_data.setPropertiesMoving(true);
+        pri_a15_military_3_2_vano_wanderer_animation_data.setPropertiesRandom(100);
+
+        pri_a15_military_3_2_vano_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam1");
+        pri_a15_military_3_2_vano_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam2");
+        pri_a15_military_3_2_vano_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam3");
+        pri_a15_military_3_2_vano_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam4");
+        pri_a15_military_3_2_vano_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam5");
+        pri_a15_military_3_2_vano_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam6");
+        pri_a15_military_3_2_vano_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam7");
+        pri_a15_military_3_2_vano_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam8");
+        pri_a15_military_3_2_vano_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam9");
+        pri_a15_military_3_2_vano_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam10");
+        pri_a15_military_3_2_vano_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam11");
+        pri_a15_military_3_2_vano_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam12");
+        pri_a15_military_3_2_vano_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam13");
+        pri_a15_military_3_2_vano_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam14");
+        pri_a15_military_3_2_vano_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam15");
+        pri_a15_military_3_2_vano_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam16");
+        pri_a15_military_3_2_vano_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam17");
+        pri_a15_military_3_2_vano_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam17_1");
+        pri_a15_military_3_2_vano_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam18");
+        pri_a15_military_3_2_vano_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam19");
+        pri_a15_military_3_2_vano_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam20");
+        pri_a15_military_3_2_vano_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam21");
+        pri_a15_military_3_2_vano_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam25");
+        pri_a15_military_3_2_vano_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam25_1");
+        pri_a15_military_3_2_vano_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam26");
+        pri_a15_military_3_2_vano_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam27");
+        pri_a15_military_3_2_vano_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam28");
+        pri_a15_military_3_2_vano_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam29");
+        pri_a15_military_3_2_vano_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam30");
+        pri_a15_military_3_2_vano_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam31");
+        pri_a15_military_3_2_vano_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam32");
+
+        this->m_state_manager_animation_list["pri_a15_military_3_2_vano_wanderer"] =
+            pri_a15_military_3_2_vano_wanderer_animation_data;
+
+        StateManagerAnimationData pri_a15_military_3_2_sokolov_zulus_animation_data;
+        pri_a15_military_3_2_sokolov_zulus_animation_data.setPropertiesMaxIdle(1);
+        pri_a15_military_3_2_sokolov_zulus_animation_data.setPropertiesSumIdle(1);
+        pri_a15_military_3_2_sokolov_zulus_animation_data.setPropertiesMoving(true);
+        pri_a15_military_3_2_sokolov_zulus_animation_data.setPropertiesRandom(100);
+
+        pri_a15_military_3_2_sokolov_zulus_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam1");
+        pri_a15_military_3_2_sokolov_zulus_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam2");
+        pri_a15_military_3_2_sokolov_zulus_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam3");
+        pri_a15_military_3_2_sokolov_zulus_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam4");
+        pri_a15_military_3_2_sokolov_zulus_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam6");
+        pri_a15_military_3_2_sokolov_zulus_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam7");
+        pri_a15_military_3_2_sokolov_zulus_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam8");
+        pri_a15_military_3_2_sokolov_zulus_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam9");
+        pri_a15_military_3_2_sokolov_zulus_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam10");
+        pri_a15_military_3_2_sokolov_zulus_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam12");
+        pri_a15_military_3_2_sokolov_zulus_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam13");
+        pri_a15_military_3_2_sokolov_zulus_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam14");
+        pri_a15_military_3_2_sokolov_zulus_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam15");
+        pri_a15_military_3_2_sokolov_zulus_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam16");
+        pri_a15_military_3_2_sokolov_zulus_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam17");
+        pri_a15_military_3_2_vano_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam17_1");
+        pri_a15_military_3_2_vano_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam18");
+        pri_a15_military_3_2_sokolov_zulus_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam22");
+        pri_a15_military_3_2_sokolov_zulus_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam23");
+        pri_a15_military_3_2_sokolov_zulus_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam24");
+        pri_a15_military_3_2_sokolov_zulus_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam25");
+        pri_a15_military_3_2_sokolov_zulus_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam30");
+        pri_a15_military_3_2_sokolov_zulus_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam31");
+        pri_a15_military_3_2_sokolov_zulus_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam32");
+
+        this->m_state_manager_animation_list["pri_a15_military_3_2_sokolov_zulus"] =
+            pri_a15_military_3_2_sokolov_zulus_animation_data;
+
+        StateManagerAnimationData pri_a15_military_3_2_sokolov_wanderer_animation_data;
+        pri_a15_military_3_2_sokolov_wanderer_animation_data.setPropertiesMaxIdle(1);
+        pri_a15_military_3_2_sokolov_wanderer_animation_data.setPropertiesSumIdle(1);
+        pri_a15_military_3_2_sokolov_wanderer_animation_data.setPropertiesMoving(true);
+        pri_a15_military_3_2_sokolov_wanderer_animation_data.setPropertiesRandom(100);
+
+        pri_a15_military_3_2_sokolov_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam1");
+        pri_a15_military_3_2_sokolov_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam2");
+        pri_a15_military_3_2_sokolov_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam3");
+        pri_a15_military_3_2_sokolov_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam4");
+        pri_a15_military_3_2_sokolov_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam5");
+        pri_a15_military_3_2_sokolov_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam6");
+        pri_a15_military_3_2_sokolov_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam7");
+        pri_a15_military_3_2_sokolov_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam8");
+        pri_a15_military_3_2_sokolov_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam9");
+        pri_a15_military_3_2_sokolov_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam10");
+        pri_a15_military_3_2_sokolov_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam12");
+        pri_a15_military_3_2_sokolov_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam13");
+        pri_a15_military_3_2_sokolov_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam14");
+        pri_a15_military_3_2_sokolov_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam15");
+        pri_a15_military_3_2_sokolov_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam16");
+        pri_a15_military_3_2_sokolov_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam17");
+        pri_a15_military_3_2_sokolov_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam17_1");
+        pri_a15_military_3_2_sokolov_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam18");
+        pri_a15_military_3_2_sokolov_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam19");
+        pri_a15_military_3_2_sokolov_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam21");
+        pri_a15_military_3_2_sokolov_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam22");
+        pri_a15_military_3_2_sokolov_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam23");
+        pri_a15_military_3_2_sokolov_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam24");
+        pri_a15_military_3_2_sokolov_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam25");
+        pri_a15_military_3_2_sokolov_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam25_1");
+        pri_a15_military_3_2_sokolov_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam26");
+        pri_a15_military_3_2_sokolov_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam27");
+        pri_a15_military_3_2_sokolov_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam28");
+        pri_a15_military_3_2_sokolov_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam29");
+        pri_a15_military_3_2_sokolov_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam30");
+        pri_a15_military_3_2_sokolov_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam31");
+        pri_a15_military_3_2_sokolov_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam32");
+
+        this->m_state_manager_animation_list["pri_a15_military_3_2_sokolov_wanderer"] =
+            pri_a15_military_3_2_sokolov_wanderer_animation_data;
+
+        StateManagerAnimationData pri_a15_military_3_2_zulus_wanderer_animation_data;
+        pri_a15_military_3_2_zulus_wanderer_animation_data.setPropertiesMaxIdle(1);
+        pri_a15_military_3_2_zulus_wanderer_animation_data.setPropertiesSumIdle(1);
+        pri_a15_military_3_2_zulus_wanderer_animation_data.setPropertiesMoving(true);
+        pri_a15_military_3_2_zulus_wanderer_animation_data.setPropertiesRandom(100);
+
+        pri_a15_military_3_2_zulus_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam1");
+        pri_a15_military_3_2_zulus_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam2");
+        pri_a15_military_3_2_zulus_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam3");
+        pri_a15_military_3_2_zulus_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam4");
+        pri_a15_military_3_2_zulus_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam6");
+        pri_a15_military_3_2_zulus_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam7");
+        pri_a15_military_3_2_zulus_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam8");
+        pri_a15_military_3_2_zulus_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam9");
+        pri_a15_military_3_2_zulus_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam10");
+        pri_a15_military_3_2_zulus_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam11");
+        pri_a15_military_3_2_zulus_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam12");
+        pri_a15_military_3_2_zulus_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam13");
+        pri_a15_military_3_2_zulus_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam14");
+        pri_a15_military_3_2_zulus_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam15");
+        pri_a15_military_3_2_zulus_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam16");
+        pri_a15_military_3_2_zulus_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam17");
+        pri_a15_military_3_2_zulus_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam17_1");
+        pri_a15_military_3_2_zulus_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam18");
+        pri_a15_military_3_2_zulus_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam20");
+        pri_a15_military_3_2_zulus_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam21");
+        pri_a15_military_3_2_zulus_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam22");
+        pri_a15_military_3_2_zulus_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam23");
+        pri_a15_military_3_2_zulus_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam24");
+        pri_a15_military_3_2_zulus_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam25");
+        pri_a15_military_3_2_zulus_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam30");
+        pri_a15_military_3_2_zulus_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam31");
+        pri_a15_military_3_2_zulus_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam32");
+
+        this->m_state_manager_animation_list["pri_a15_military_3_2_zulus_wanderer"] =
+            pri_a15_military_3_2_zulus_wanderer_animation_data;
+
+        StateManagerAnimationData pri_a15_military_3_3_vano_alive_animation_data;
+        pri_a15_military_3_3_vano_alive_animation_data.setPropertiesMaxIdle(1);
+        pri_a15_military_3_3_vano_alive_animation_data.setPropertiesSumIdle(1);
+        pri_a15_military_3_3_vano_alive_animation_data.setPropertiesMoving(true);
+        pri_a15_military_3_3_vano_alive_animation_data.setPropertiesRandom(100);
+
+        pri_a15_military_3_3_vano_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam1");
+        pri_a15_military_3_3_vano_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam2");
+        pri_a15_military_3_3_vano_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam3");
+        pri_a15_military_3_3_vano_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam4");
+        pri_a15_military_3_3_vano_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam6");
+        pri_a15_military_3_3_vano_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam7");
+        pri_a15_military_3_3_vano_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam8");
+        pri_a15_military_3_3_vano_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam9");
+        pri_a15_military_3_3_vano_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam10");
+        pri_a15_military_3_3_vano_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam12");
+        pri_a15_military_3_3_vano_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam13");
+        pri_a15_military_3_3_vano_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam14");
+        pri_a15_military_3_3_vano_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam15");
+        pri_a15_military_3_3_vano_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam16");
+        pri_a15_military_3_3_vano_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam17");
+        pri_a15_military_3_3_vano_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam17_1");
+        pri_a15_military_3_3_vano_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam18");
+        pri_a15_military_3_3_vano_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam22");
+        pri_a15_military_3_3_vano_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam23");
+        pri_a15_military_3_3_vano_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam24");
+        pri_a15_military_3_3_vano_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam25");
+        pri_a15_military_3_3_vano_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam30");
+        pri_a15_military_3_3_vano_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam31");
+        pri_a15_military_3_3_vano_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam32");
+
+        this->m_state_manager_animation_list["pri_a15_military_3_3_vano_alive"] =
+            pri_a15_military_3_3_vano_alive_animation_data;
+
+        StateManagerAnimationData pri_a15_military_3_3_sokolov_alive_animation_data;
+        pri_a15_military_3_3_sokolov_alive_animation_data.setPropertiesMaxIdle(1);
+        pri_a15_military_3_3_sokolov_alive_animation_data.setPropertiesSumIdle(1);
+        pri_a15_military_3_3_sokolov_alive_animation_data.setPropertiesMoving(true);
+        pri_a15_military_3_3_sokolov_alive_animation_data.setPropertiesRandom(100);
+
+        pri_a15_military_3_3_sokolov_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam1");
+        pri_a15_military_3_3_sokolov_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam2");
+        pri_a15_military_3_3_sokolov_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam3");
+        pri_a15_military_3_3_sokolov_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam4");
+        pri_a15_military_3_3_sokolov_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam6");
+        pri_a15_military_3_3_sokolov_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam7");
+        pri_a15_military_3_3_sokolov_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam8");
+        pri_a15_military_3_3_sokolov_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam9");
+        pri_a15_military_3_3_sokolov_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam10");
+        pri_a15_military_3_3_sokolov_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam11");
+        pri_a15_military_3_3_sokolov_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam12");
+        pri_a15_military_3_3_sokolov_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam13");
+        pri_a15_military_3_3_sokolov_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam14");
+        pri_a15_military_3_3_sokolov_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam15");
+        pri_a15_military_3_3_sokolov_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam16");
+        pri_a15_military_3_3_sokolov_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam17");
+        pri_a15_military_3_3_sokolov_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam20");
+        pri_a15_military_3_3_sokolov_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam21");
+        pri_a15_military_3_3_sokolov_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam25");
+        pri_a15_military_3_3_sokolov_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam30");
+        pri_a15_military_3_3_sokolov_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam31");
+        pri_a15_military_3_3_sokolov_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam32");
+
+        this->m_state_manager_animation_list["pri_a15_military_3_3_sokolov_alive"] =
+            pri_a15_military_3_3_sokolov_alive_animation_data;
+
+        StateManagerAnimationData pri_a15_military_3_3_zulus_alive_animation_data;
+        pri_a15_military_3_3_zulus_alive_animation_data.setPropertiesMaxIdle(1);
+        pri_a15_military_3_3_zulus_alive_animation_data.setPropertiesSumIdle(1);
+        pri_a15_military_3_3_zulus_alive_animation_data.setPropertiesMoving(true);
+        pri_a15_military_3_3_zulus_alive_animation_data.setPropertiesRandom(100);
+
+        pri_a15_military_3_3_zulus_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam1");
+        pri_a15_military_3_3_zulus_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam2");
+        pri_a15_military_3_3_zulus_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam3");
+        pri_a15_military_3_3_zulus_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam4");
+        pri_a15_military_3_3_zulus_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam5");
+        pri_a15_military_3_3_zulus_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam6");
+        pri_a15_military_3_3_zulus_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam7");
+        pri_a15_military_3_3_zulus_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam8");
+        pri_a15_military_3_3_zulus_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam9");
+        pri_a15_military_3_3_zulus_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam10");
+        pri_a15_military_3_3_zulus_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam12");
+        pri_a15_military_3_3_zulus_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam13");
+        pri_a15_military_3_3_zulus_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam14");
+        pri_a15_military_3_3_zulus_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam15");
+        pri_a15_military_3_3_zulus_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam16");
+        pri_a15_military_3_3_zulus_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam17");
+        pri_a15_military_3_3_zulus_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam17_1");
+        pri_a15_military_3_3_zulus_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam18");
+        pri_a15_military_3_3_zulus_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam19");
+        pri_a15_military_3_3_zulus_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam21");
+        pri_a15_military_3_3_zulus_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam25");
+        pri_a15_military_3_3_zulus_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam25_1");
+        pri_a15_military_3_3_zulus_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam26");
+        pri_a15_military_3_3_zulus_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam27");
+        pri_a15_military_3_3_zulus_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam28");
+        pri_a15_military_3_3_zulus_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam29");
+        pri_a15_military_3_3_zulus_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam30");
+        pri_a15_military_3_3_zulus_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam31");
+        pri_a15_military_3_3_zulus_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam32");
+
+        this->m_state_manager_animation_list["pri_a15_military_3_3_zulus_alive"] =
+            pri_a15_military_3_3_zulus_alive_animation_data;
+
+        StateManagerAnimationData pri_a15_military_3_3_wanderer_alive_animation_data;
+        pri_a15_military_3_3_wanderer_alive_animation_data.setPropertiesMaxIdle(1);
+        pri_a15_military_3_3_wanderer_alive_animation_data.setPropertiesSumIdle(1);
+        pri_a15_military_3_3_wanderer_alive_animation_data.setPropertiesMoving(true);
+        pri_a15_military_3_3_wanderer_alive_animation_data.setPropertiesRandom(100);
+
+        pri_a15_military_3_3_wanderer_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam1");
+        pri_a15_military_3_3_wanderer_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam2");
+        pri_a15_military_3_3_wanderer_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam3");
+        pri_a15_military_3_3_wanderer_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam4");
+        pri_a15_military_3_3_wanderer_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam6");
+        pri_a15_military_3_3_wanderer_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam7");
+        pri_a15_military_3_3_wanderer_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam8");
+        pri_a15_military_3_3_wanderer_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam9");
+        pri_a15_military_3_3_wanderer_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam10");
+        pri_a15_military_3_3_wanderer_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam12");
+        pri_a15_military_3_3_wanderer_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam13");
+        pri_a15_military_3_3_wanderer_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam14");
+        pri_a15_military_3_3_wanderer_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam15");
+        pri_a15_military_3_3_wanderer_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam16");
+        pri_a15_military_3_3_wanderer_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam17");
+        pri_a15_military_3_3_wanderer_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam17_1");
+        pri_a15_military_3_3_wanderer_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam18");
+        pri_a15_military_3_3_wanderer_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam25");
+        pri_a15_military_3_3_wanderer_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam30");
+        pri_a15_military_3_3_wanderer_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam31");
+        pri_a15_military_3_3_wanderer_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam32");
+
+        this->m_state_manager_animation_list["pri_a15_military_3_3_wanderer_alive"] =
+            pri_a15_military_3_3_wanderer_alive_animation_data;
+
+        StateManagerAnimationData pri_a15_military_3_all_dead_animation_data;
+        pri_a15_military_3_all_dead_animation_data.setPropertiesMaxIdle(1);
+        pri_a15_military_3_all_dead_animation_data.setPropertiesSumIdle(1);
+        pri_a15_military_3_all_dead_animation_data.setPropertiesMoving(true);
+        pri_a15_military_3_all_dead_animation_data.setPropertiesRandom(100);
+
+        pri_a15_military_3_all_dead_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam1");
+        pri_a15_military_3_all_dead_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam2");
+        pri_a15_military_3_all_dead_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam3");
+        pri_a15_military_3_all_dead_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam4");
+        pri_a15_military_3_all_dead_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam6");
+        pri_a15_military_3_all_dead_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam7");
+        pri_a15_military_3_all_dead_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam8");
+        pri_a15_military_3_all_dead_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam9");
+        pri_a15_military_3_all_dead_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam10");
+        pri_a15_military_3_all_dead_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam12");
+        pri_a15_military_3_all_dead_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam13");
+        pri_a15_military_3_all_dead_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam14");
+        pri_a15_military_3_all_dead_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam15");
+        pri_a15_military_3_all_dead_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam16");
+        pri_a15_military_3_all_dead_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam17");
+        pri_a15_military_3_all_dead_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam25");
+        pri_a15_military_3_all_dead_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam30");
+        pri_a15_military_3_all_dead_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam31");
+        pri_a15_military_3_all_dead_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam32");
+
+        this->m_state_manager_animation_list["pri_a15_military_3_all_dead"] = pri_a15_military_3_all_dead_animation_data;
 #pragma endregion
     }
 
