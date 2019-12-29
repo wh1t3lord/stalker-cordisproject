@@ -11876,7 +11876,604 @@ private:
         pri_a15_military_3_all_dead_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam31");
         pri_a15_military_3_all_dead_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam32");
 
-        this->m_state_manager_animation_list["pri_a15_military_3_all_dead"] = pri_a15_military_3_all_dead_animation_data;
+        this->m_state_manager_animation_list["pri_a15_military_3_all_dead"] =
+            pri_a15_military_3_all_dead_animation_data;
+
+        StateManagerAnimationData pri_a15_military_4_all_animation_data;
+        pri_a15_military_4_all_animation_data.setPropertiesMaxIdle(1);
+        pri_a15_military_4_all_animation_data.setPropertiesSumIdle(1);
+        pri_a15_military_4_all_animation_data.setPropertiesMoving(true);
+        pri_a15_military_4_all_animation_data.setPropertiesRandom(100);
+
+        pri_a15_military_4_all_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam1");
+        pri_a15_military_4_all_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam2");
+        pri_a15_military_4_all_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam3");
+        pri_a15_military_4_all_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam4");
+        pri_a15_military_4_all_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam5");
+        pri_a15_military_4_all_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam6");
+        pri_a15_military_4_all_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam7");
+        pri_a15_military_4_all_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam8");
+        pri_a15_military_4_all_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam9");
+        pri_a15_military_4_all_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam10");
+        pri_a15_military_4_all_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam11");
+        pri_a15_military_4_all_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam12");
+        pri_a15_military_4_all_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam13");
+        pri_a15_military_4_all_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam14");
+        pri_a15_military_4_all_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam15");
+        pri_a15_military_4_all_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam16");
+        pri_a15_military_4_all_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam17");
+        pri_a15_military_4_all_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam17_1");
+        pri_a15_military_4_all_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam18");
+        pri_a15_military_4_all_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam19");
+        pri_a15_military_4_all_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam20");
+        pri_a15_military_4_all_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam21");
+        pri_a15_military_4_all_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam22");
+        pri_a15_military_4_all_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam23");
+        pri_a15_military_4_all_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam24");
+        pri_a15_military_4_all_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam25");
+        pri_a15_military_4_all_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam25_1");
+        pri_a15_military_4_all_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam26");
+        pri_a15_military_4_all_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam27");
+        pri_a15_military_4_all_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam28");
+        pri_a15_military_4_all_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam29");
+        pri_a15_military_4_all_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam30");
+        pri_a15_military_4_all_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam31");
+        pri_a15_military_4_all_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam32");
+
+        this->m_state_manager_animation_list["pri_a15_military_4_all"] = pri_a15_military_4_all_animation_data;
+
+        StateManagerAnimationData pri_a15_military_4_1_vano_animation_data;
+        pri_a15_military_4_1_vano_animation_data.setPropertiesMaxIdle(1);
+        pri_a15_military_4_1_vano_animation_data.setPropertiesSumIdle(1);
+        pri_a15_military_4_1_vano_animation_data.setPropertiesMoving(true);
+        pri_a15_military_4_1_vano_animation_data.setPropertiesRandom(100);
+
+        pri_a15_military_4_1_vano_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam1");
+        pri_a15_military_4_1_vano_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam2");
+        pri_a15_military_4_1_vano_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam3");
+        pri_a15_military_4_1_vano_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam4");
+        pri_a15_military_4_1_vano_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam5");
+        pri_a15_military_4_1_vano_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam6");
+        pri_a15_military_4_1_vano_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam7");
+        pri_a15_military_4_1_vano_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam8");
+        pri_a15_military_4_1_vano_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam9");
+        pri_a15_military_4_1_vano_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam10");
+        pri_a15_military_4_1_vano_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam11");
+        pri_a15_military_4_1_vano_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam12");
+        pri_a15_military_4_1_vano_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam13");
+        pri_a15_military_4_1_vano_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam14");
+        pri_a15_military_4_1_vano_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam15");
+        pri_a15_military_4_1_vano_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam16");
+        pri_a15_military_4_1_vano_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam17");
+        pri_a15_military_4_1_vano_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam17_1");
+        pri_a15_military_4_1_vano_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam18");
+        pri_a15_military_4_1_vano_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam19");
+        pri_a15_military_4_1_vano_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam20");
+        pri_a15_military_4_1_vano_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam21");
+        pri_a15_military_4_1_vano_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam25");
+        pri_a15_military_4_1_vano_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam25_1");
+        pri_a15_military_4_1_vano_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam26");
+        pri_a15_military_4_1_vano_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam27");
+        pri_a15_military_4_1_vano_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam28");
+        pri_a15_military_4_1_vano_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam29");
+        pri_a15_military_4_1_vano_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam30");
+        pri_a15_military_4_1_vano_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam31");
+        pri_a15_military_4_1_vano_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam32");
+
+        this->m_state_manager_animation_list["pri_a15_military_4_1_vano"] = pri_a15_military_4_1_vano_animation_data;
+
+        StateManagerAnimationData pri_a15_military_4_1_sokolov_animation_data;
+        pri_a15_military_4_1_sokolov_animation_data.setPropertiesMaxIdle(1);
+        pri_a15_military_4_1_sokolov_animation_data.setPropertiesSumIdle(1);
+        pri_a15_military_4_1_sokolov_animation_data.setPropertiesMoving(true);
+        pri_a15_military_4_1_sokolov_animation_data.setPropertiesRandom(100);
+
+        pri_a15_military_4_1_sokolov_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam1");
+        pri_a15_military_4_1_sokolov_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam2");
+        pri_a15_military_4_1_sokolov_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam3");
+        pri_a15_military_4_1_sokolov_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam4");
+        pri_a15_military_4_1_sokolov_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam5");
+        pri_a15_military_4_1_sokolov_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam6");
+        pri_a15_military_4_1_sokolov_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam7");
+        pri_a15_military_4_1_sokolov_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam8");
+        pri_a15_military_4_1_sokolov_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam9");
+        pri_a15_military_4_1_sokolov_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam10");
+        pri_a15_military_4_1_sokolov_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam12");
+        pri_a15_military_4_1_sokolov_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam13");
+        pri_a15_military_4_1_sokolov_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam14");
+        pri_a15_military_4_1_sokolov_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam15");
+        pri_a15_military_4_1_sokolov_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam16");
+        pri_a15_military_4_1_sokolov_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam17");
+        pri_a15_military_4_1_sokolov_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam17_1");
+        pri_a15_military_4_1_sokolov_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam18");
+        pri_a15_military_4_1_sokolov_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam19");
+        pri_a15_military_4_1_sokolov_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam21");
+        pri_a15_military_4_1_sokolov_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam22");
+        pri_a15_military_4_1_sokolov_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam23");
+        pri_a15_military_4_1_sokolov_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam24");
+        pri_a15_military_4_1_sokolov_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam25");
+        pri_a15_military_4_1_sokolov_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam25_1");
+        pri_a15_military_4_1_sokolov_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam26");
+        pri_a15_military_4_1_sokolov_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam27");
+        pri_a15_military_4_1_sokolov_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam28");
+        pri_a15_military_4_1_sokolov_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam29");
+        pri_a15_military_4_1_sokolov_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam30");
+        pri_a15_military_4_1_sokolov_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam31");
+        pri_a15_military_4_1_sokolov_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam32");
+
+        this->m_state_manager_animation_list["pri_a15_military_4_1_sokolov"] =
+            pri_a15_military_4_1_sokolov_animation_data;
+
+        StateManagerAnimationData pri_a15_military_4_1_zulus_animation_data;
+        pri_a15_military_4_1_zulus_animation_data.setPropertiesMaxIdle(1);
+        pri_a15_military_4_1_zulus_animation_data.setPropertiesSumIdle(1);
+        pri_a15_military_4_1_zulus_animation_data.setPropertiesMoving(true);
+        pri_a15_military_4_1_zulus_animation_data.setPropertiesRandom(100);
+
+        pri_a15_military_4_1_zulus_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam1");
+        pri_a15_military_4_1_zulus_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam2");
+        pri_a15_military_4_1_zulus_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam3");
+        pri_a15_military_4_1_zulus_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam4");
+        pri_a15_military_4_1_zulus_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam6");
+        pri_a15_military_4_1_zulus_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam7");
+        pri_a15_military_4_1_zulus_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam8");
+        pri_a15_military_4_1_zulus_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam9");
+        pri_a15_military_4_1_zulus_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam10");
+        pri_a15_military_4_1_zulus_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam11");
+        pri_a15_military_4_1_zulus_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam12");
+        pri_a15_military_4_1_zulus_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam13");
+        pri_a15_military_4_1_zulus_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam14");
+        pri_a15_military_4_1_zulus_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam15");
+        pri_a15_military_4_1_zulus_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam16");
+        pri_a15_military_4_1_zulus_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam17");
+        pri_a15_military_4_1_zulus_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam17_1");
+        pri_a15_military_4_1_zulus_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam18");
+        pri_a15_military_4_1_zulus_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam20");
+        pri_a15_military_4_1_zulus_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam21");
+        pri_a15_military_4_1_zulus_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam22");
+        pri_a15_military_4_1_zulus_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam23");
+        pri_a15_military_4_1_zulus_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam24");
+        pri_a15_military_4_1_zulus_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam25");
+        pri_a15_military_4_1_zulus_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam30");
+        pri_a15_military_4_1_zulus_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam31");
+        pri_a15_military_4_1_zulus_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam32");
+
+        this->m_state_manager_animation_list["pri_a15_military_4_1_zulus"] = pri_a15_military_4_1_zulus_animation_data;
+
+        StateManagerAnimationData pri_a15_military_4_1_wanderer_animation_data;
+        pri_a15_military_4_1_wanderer_animation_data.setPropertiesMaxIdle(1);
+        pri_a15_military_4_1_wanderer_animation_data.setPropertiesSumIdle(1);
+        pri_a15_military_4_1_wanderer_animation_data.setPropertiesMoving(true);
+        pri_a15_military_4_1_wanderer_animation_data.setPropertiesRandom(100);
+
+        pri_a15_military_4_1_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam1");
+        pri_a15_military_4_1_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam2");
+        pri_a15_military_4_1_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam3");
+        pri_a15_military_4_1_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam4");
+        pri_a15_military_4_1_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam5");
+        pri_a15_military_4_1_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam6");
+        pri_a15_military_4_1_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam7");
+        pri_a15_military_4_1_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam8");
+        pri_a15_military_4_1_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam9");
+        pri_a15_military_4_1_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam10");
+        pri_a15_military_4_1_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam11");
+        pri_a15_military_4_1_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam12");
+        pri_a15_military_4_1_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam13");
+        pri_a15_military_4_1_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam14");
+        pri_a15_military_4_1_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam15");
+        pri_a15_military_4_1_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam16");
+        pri_a15_military_4_1_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam17");
+        pri_a15_military_4_1_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam17_1");
+        pri_a15_military_4_1_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam18");
+        pri_a15_military_4_1_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam19");
+        pri_a15_military_4_1_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam20");
+        pri_a15_military_4_1_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam21");
+        pri_a15_military_4_1_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam22");
+        pri_a15_military_4_1_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam23");
+        pri_a15_military_4_1_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam24");
+        pri_a15_military_4_1_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam25");
+        pri_a15_military_4_1_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam25_1");
+        pri_a15_military_4_1_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam26");
+        pri_a15_military_4_1_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam27");
+        pri_a15_military_4_1_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam28");
+        pri_a15_military_4_1_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam29");
+        pri_a15_military_4_1_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam30");
+        pri_a15_military_4_1_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam31");
+        pri_a15_military_4_1_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam32");
+
+        this->m_state_manager_animation_list["pri_a15_military_4_1_wanderer"] =
+            pri_a15_military_4_1_wanderer_animation_data;
+
+        StateManagerAnimationData pri_a15_military_4_2_vano_sokolov_animation_data;
+        pri_a15_military_4_2_vano_sokolov_animation_data.setPropertiesMaxIdle(1);
+        pri_a15_military_4_2_vano_sokolov_animation_data.setPropertiesSumIdle(1);
+        pri_a15_military_4_2_vano_sokolov_animation_data.setPropertiesMoving(true);
+        pri_a15_military_4_2_vano_sokolov_animation_data.setPropertiesRandom(100);
+
+        pri_a15_military_4_2_vano_sokolov_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam1");
+        pri_a15_military_4_2_vano_sokolov_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam2");
+        pri_a15_military_4_2_vano_sokolov_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam3");
+        pri_a15_military_4_2_vano_sokolov_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam4");
+        pri_a15_military_4_2_vano_sokolov_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam5");
+        pri_a15_military_4_2_vano_sokolov_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam6");
+        pri_a15_military_4_2_vano_sokolov_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam7");
+        pri_a15_military_4_2_vano_sokolov_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam8");
+        pri_a15_military_4_2_vano_sokolov_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam9");
+        pri_a15_military_4_2_vano_sokolov_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam10");
+        pri_a15_military_4_2_vano_sokolov_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam12");
+        pri_a15_military_4_2_vano_sokolov_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam13");
+        pri_a15_military_4_2_vano_sokolov_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam14");
+        pri_a15_military_4_2_vano_sokolov_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam15");
+        pri_a15_military_4_2_vano_sokolov_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam16");
+        pri_a15_military_4_2_vano_sokolov_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam17");
+        pri_a15_military_4_2_vano_sokolov_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam17_1");
+        pri_a15_military_4_2_vano_sokolov_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam18");
+        pri_a15_military_4_2_vano_sokolov_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam19");
+        pri_a15_military_4_2_vano_sokolov_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam21");
+        pri_a15_military_4_2_vano_sokolov_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam25");
+        pri_a15_military_4_2_vano_sokolov_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam25_1");
+        pri_a15_military_4_2_vano_sokolov_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam26");
+        pri_a15_military_4_2_vano_sokolov_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam27");
+        pri_a15_military_4_2_vano_sokolov_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam28");
+        pri_a15_military_4_2_vano_sokolov_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam29");
+        pri_a15_military_4_2_vano_sokolov_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam30");
+        pri_a15_military_4_2_vano_sokolov_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam31");
+        pri_a15_military_4_2_vano_sokolov_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam32");
+
+        this->m_state_manager_animation_list["pri_a15_military_4_2_vano_sokolov"] =
+            pri_a15_military_4_2_vano_sokolov_animation_data;
+
+        StateManagerAnimationData pri_a15_military_4_2_vano_zulus_animation_data;
+        pri_a15_military_4_2_vano_zulus_animation_data.setPropertiesMaxIdle(1);
+        pri_a15_military_4_2_vano_zulus_animation_data.setPropertiesSumIdle(1);
+        pri_a15_military_4_2_vano_zulus_animation_data.setPropertiesMoving(true);
+        pri_a15_military_4_2_vano_zulus_animation_data.setPropertiesRandom(100);
+
+        pri_a15_military_4_2_vano_zulus_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam1");
+        pri_a15_military_4_2_vano_zulus_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam2");
+        pri_a15_military_4_2_vano_zulus_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam3");
+        pri_a15_military_4_2_vano_zulus_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam4");
+        pri_a15_military_4_2_vano_zulus_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam6");
+        pri_a15_military_4_2_vano_zulus_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam7");
+        pri_a15_military_4_2_vano_zulus_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam8");
+        pri_a15_military_4_2_vano_zulus_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam9");
+        pri_a15_military_4_2_vano_zulus_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam10");
+        pri_a15_military_4_2_vano_zulus_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam11");
+        pri_a15_military_4_2_vano_zulus_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam12");
+        pri_a15_military_4_2_vano_zulus_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam13");
+        pri_a15_military_4_2_vano_zulus_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam14");
+        pri_a15_military_4_2_vano_zulus_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam15");
+        pri_a15_military_4_2_vano_zulus_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam16");
+        pri_a15_military_4_2_vano_zulus_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam17");
+        pri_a15_military_4_2_vano_zulus_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam17_1");
+        pri_a15_military_4_2_vano_zulus_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam18");
+        pri_a15_military_4_2_vano_zulus_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam20");
+        pri_a15_military_4_2_vano_zulus_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam21");
+        pri_a15_military_4_2_vano_zulus_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam25");
+        pri_a15_military_4_2_vano_zulus_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam30");
+        pri_a15_military_4_2_vano_zulus_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam31");
+        pri_a15_military_4_2_vano_zulus_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam32");
+
+        this->m_state_manager_animation_list["pri_a15_military_4_2_vano_zulus"] =
+            pri_a15_military_4_2_vano_zulus_animation_data;
+
+        StateManagerAnimationData pri_a15_military_4_2_vano_wanderer_animation_data;
+        pri_a15_military_4_2_vano_wanderer_animation_data.setPropertiesMaxIdle(1);
+        pri_a15_military_4_2_vano_wanderer_animation_data.setPropertiesSumIdle(1);
+        pri_a15_military_4_2_vano_wanderer_animation_data.setPropertiesMoving(true);
+        pri_a15_military_4_2_vano_wanderer_animation_data.setPropertiesRandom(100);
+
+        pri_a15_military_4_2_vano_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam1");
+        pri_a15_military_4_2_vano_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam2");
+        pri_a15_military_4_2_vano_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam3");
+        pri_a15_military_4_2_vano_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam4");
+        pri_a15_military_4_2_vano_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam5");
+        pri_a15_military_4_2_vano_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam6");
+        pri_a15_military_4_2_vano_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam7");
+        pri_a15_military_4_2_vano_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam8");
+        pri_a15_military_4_2_vano_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam9");
+        pri_a15_military_4_2_vano_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam10");
+        pri_a15_military_4_2_vano_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam11");
+        pri_a15_military_4_2_vano_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam12");
+        pri_a15_military_4_2_vano_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam13");
+        pri_a15_military_4_2_vano_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam14");
+        pri_a15_military_4_2_vano_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam15");
+        pri_a15_military_4_2_vano_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam16");
+        pri_a15_military_4_2_vano_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam17");
+        pri_a15_military_4_2_vano_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam17_1");
+        pri_a15_military_4_2_vano_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam18");
+        pri_a15_military_4_2_vano_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam19");
+        pri_a15_military_4_2_vano_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam20");
+        pri_a15_military_4_2_vano_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam21");
+        pri_a15_military_4_2_vano_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam25");
+        pri_a15_military_4_2_vano_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam25_1");
+        pri_a15_military_4_2_vano_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam26");
+        pri_a15_military_4_2_vano_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam27");
+        pri_a15_military_4_2_vano_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam28");
+        pri_a15_military_4_2_vano_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam29");
+        pri_a15_military_4_2_vano_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam30");
+        pri_a15_military_4_2_vano_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam31");
+        pri_a15_military_4_2_vano_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam32");
+
+        this->m_state_manager_animation_list["pri_a15_military_4_2_vano_wanderer"] =
+            pri_a15_military_4_2_vano_wanderer_animation_data;
+
+        StateManagerAnimationData pri_a15_military_4_2_sokolov_zulus_animation_data;
+        pri_a15_military_4_2_sokolov_zulus_animation_data.setPropertiesMaxIdle(1);
+        pri_a15_military_4_2_sokolov_zulus_animation_data.setPropertiesSumIdle(1);
+        pri_a15_military_4_2_sokolov_zulus_animation_data.setPropertiesMoving(true);
+        pri_a15_military_4_2_sokolov_zulus_animation_data.setPropertiesRandom(100);
+
+        pri_a15_military_4_2_sokolov_zulus_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam1");
+        pri_a15_military_4_2_sokolov_zulus_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam2");
+        pri_a15_military_4_2_sokolov_zulus_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam3");
+        pri_a15_military_4_2_sokolov_zulus_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam4");
+        pri_a15_military_4_2_sokolov_zulus_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam6");
+        pri_a15_military_4_2_sokolov_zulus_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam7");
+        pri_a15_military_4_2_sokolov_zulus_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam8");
+        pri_a15_military_4_2_sokolov_zulus_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam9");
+        pri_a15_military_4_2_sokolov_zulus_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam10");
+        pri_a15_military_4_2_sokolov_zulus_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam12");
+        pri_a15_military_4_2_sokolov_zulus_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam13");
+        pri_a15_military_4_2_sokolov_zulus_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam14");
+        pri_a15_military_4_2_sokolov_zulus_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam15");
+        pri_a15_military_4_2_sokolov_zulus_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam16");
+        pri_a15_military_4_2_sokolov_zulus_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam17");
+        pri_a15_military_4_2_sokolov_zulus_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam17_1");
+        pri_a15_military_4_2_sokolov_zulus_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam18");
+        pri_a15_military_4_2_sokolov_zulus_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam22");
+        pri_a15_military_4_2_sokolov_zulus_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam23");
+        pri_a15_military_4_2_sokolov_zulus_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam24");
+        pri_a15_military_4_2_sokolov_zulus_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam25");
+        pri_a15_military_4_2_sokolov_zulus_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam30");
+        pri_a15_military_4_2_sokolov_zulus_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam31");
+        pri_a15_military_4_2_sokolov_zulus_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam32");
+
+        this->m_state_manager_animation_list["pri_a15_military_4_2_sokolov_zulus"] =
+            pri_a15_military_4_2_sokolov_zulus_animation_data;
+
+        StateManagerAnimationData pri_a15_military_4_2_sokolov_wanderer_animation_data;
+        pri_a15_military_4_2_sokolov_wanderer_animation_data.setPropertiesMaxIdle(1);
+        pri_a15_military_4_2_sokolov_wanderer_animation_data.setPropertiesSumIdle(1);
+        pri_a15_military_4_2_sokolov_wanderer_animation_data.setPropertiesMoving(true);
+        pri_a15_military_4_2_sokolov_wanderer_animation_data.setPropertiesRandom(100);
+
+        pri_a15_military_4_2_sokolov_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam1");
+        pri_a15_military_4_2_sokolov_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam2");
+        pri_a15_military_4_2_sokolov_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam3");
+        pri_a15_military_4_2_sokolov_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam4");
+        pri_a15_military_4_2_sokolov_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam5");
+        pri_a15_military_4_2_sokolov_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam6");
+        pri_a15_military_4_2_sokolov_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam7");
+        pri_a15_military_4_2_sokolov_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam8");
+        pri_a15_military_4_2_sokolov_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam9");
+        pri_a15_military_4_2_sokolov_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam10");
+        pri_a15_military_4_2_sokolov_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam12");
+        pri_a15_military_4_2_sokolov_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam13");
+        pri_a15_military_4_2_sokolov_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam14");
+        pri_a15_military_4_2_sokolov_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam15");
+        pri_a15_military_4_2_sokolov_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam16");
+        pri_a15_military_4_2_sokolov_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam17");
+        pri_a15_military_4_2_sokolov_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam17_1");
+        pri_a15_military_4_2_sokolov_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam18");
+        pri_a15_military_4_2_sokolov_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam19");
+        pri_a15_military_4_2_sokolov_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam21");
+        pri_a15_military_4_2_sokolov_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam22");
+        pri_a15_military_4_2_sokolov_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam23");
+        pri_a15_military_4_2_sokolov_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam24");
+        pri_a15_military_4_2_sokolov_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam25");
+        pri_a15_military_4_2_sokolov_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam25_1");
+        pri_a15_military_4_2_sokolov_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam26");
+        pri_a15_military_4_2_sokolov_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam27");
+        pri_a15_military_4_2_sokolov_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam28");
+        pri_a15_military_4_2_sokolov_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam29");
+        pri_a15_military_4_2_sokolov_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam30");
+        pri_a15_military_4_2_sokolov_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam31");
+        pri_a15_military_4_2_sokolov_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam32");
+
+        this->m_state_manager_animation_list["pri_a15_military_4_2_sokolov_wanderer"] =
+            pri_a15_military_4_2_sokolov_wanderer_animation_data;
+
+        StateManagerAnimationData pri_a15_military_4_2_zulus_wanderer_animation_data;
+        pri_a15_military_4_2_zulus_wanderer_animation_data.setPropertiesMaxIdle(1);
+        pri_a15_military_4_2_zulus_wanderer_animation_data.setPropertiesSumIdle(1);
+        pri_a15_military_4_2_zulus_wanderer_animation_data.setPropertiesMoving(true);
+        pri_a15_military_4_2_zulus_wanderer_animation_data.setPropertiesRandom(100);
+
+        pri_a15_military_4_2_zulus_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam1");
+        pri_a15_military_4_2_zulus_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam2");
+        pri_a15_military_4_2_zulus_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam3");
+        pri_a15_military_4_2_zulus_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam4");
+        pri_a15_military_4_2_zulus_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam6");
+        pri_a15_military_4_2_zulus_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam7");
+        pri_a15_military_4_2_zulus_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam8");
+        pri_a15_military_4_2_zulus_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam9");
+        pri_a15_military_4_2_zulus_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam10");
+        pri_a15_military_4_2_zulus_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam11");
+        pri_a15_military_4_2_zulus_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam12");
+        pri_a15_military_4_2_zulus_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam13");
+        pri_a15_military_4_2_zulus_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam14");
+        pri_a15_military_4_2_zulus_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam15");
+        pri_a15_military_4_2_zulus_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam16");
+        pri_a15_military_4_2_zulus_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam17");
+        pri_a15_military_4_2_zulus_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam17_1");
+        pri_a15_military_4_2_zulus_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam18");
+        pri_a15_military_4_2_zulus_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam20");
+        pri_a15_military_4_2_zulus_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam21");
+        pri_a15_military_4_2_zulus_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam22");
+        pri_a15_military_4_2_zulus_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam23");
+        pri_a15_military_4_2_zulus_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam24");
+        pri_a15_military_4_2_zulus_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam25");
+        pri_a15_military_4_2_zulus_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam30");
+        pri_a15_military_4_2_zulus_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam31");
+        pri_a15_military_4_2_zulus_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam32");
+
+        this->m_state_manager_animation_list["pri_a15_military_4_2_zulus_wanderer"] =
+            pri_a15_military_4_2_zulus_wanderer_animation_data;
+
+        StateManagerAnimationData pri_a15_military_4_3_vano_alive_animation_data;
+        pri_a15_military_4_3_vano_alive_animation_data.setPropertiesMaxIdle(1);
+        pri_a15_military_4_3_vano_alive_animation_data.setPropertiesSumIdle(1);
+        pri_a15_military_4_3_vano_alive_animation_data.setPropertiesMoving(true);
+        pri_a15_military_4_3_vano_alive_animation_data.setPropertiesRandom(100);
+
+        pri_a15_military_4_3_vano_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam1");
+        pri_a15_military_4_3_vano_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam2");
+        pri_a15_military_4_3_vano_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam3");
+        pri_a15_military_4_3_vano_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam4");
+        pri_a15_military_4_3_vano_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam6");
+        pri_a15_military_4_3_vano_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam7");
+        pri_a15_military_4_3_vano_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam8");
+        pri_a15_military_4_3_vano_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam9");
+        pri_a15_military_4_3_vano_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam10");
+        pri_a15_military_4_3_vano_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam12");
+        pri_a15_military_4_3_vano_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam13");
+        pri_a15_military_4_3_vano_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam14");
+        pri_a15_military_4_3_vano_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam15");
+        pri_a15_military_4_3_vano_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam16");
+        pri_a15_military_4_3_vano_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam17");
+        pri_a15_military_4_3_vano_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam17_1");
+        pri_a15_military_4_3_vano_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam18");
+        pri_a15_military_4_3_vano_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam22");
+        pri_a15_military_4_3_vano_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam23");
+        pri_a15_military_4_3_vano_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam24");
+        pri_a15_military_4_3_vano_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam25");
+        pri_a15_military_4_3_vano_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam30");
+        pri_a15_military_4_3_vano_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam31");
+        pri_a15_military_4_3_vano_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam32");
+
+        this->m_state_manager_animation_list["pri_a15_military_4_3_vano_alive"] =
+            pri_a15_military_4_3_vano_alive_animation_data;
+
+        StateManagerAnimationData pri_a15_military_4_3_sokolov_alive_animation_data;
+        pri_a15_military_4_3_sokolov_alive_animation_data.setPropertiesMaxIdle(1);
+        pri_a15_military_4_3_sokolov_alive_animation_data.setPropertiesSumIdle(1);
+        pri_a15_military_4_3_sokolov_alive_animation_data.setPropertiesMoving(true);
+        pri_a15_military_4_3_sokolov_alive_animation_data.setPropertiesRandom(100);
+
+        pri_a15_military_4_3_sokolov_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam1");
+        pri_a15_military_4_3_sokolov_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam2");
+        pri_a15_military_4_3_sokolov_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam3");
+        pri_a15_military_4_3_sokolov_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam4");
+        pri_a15_military_4_3_sokolov_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam6");
+        pri_a15_military_4_3_sokolov_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam7");
+        pri_a15_military_4_3_sokolov_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam8");
+        pri_a15_military_4_3_sokolov_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam9");
+        pri_a15_military_4_3_sokolov_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam10");
+        pri_a15_military_4_3_sokolov_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam11");
+        pri_a15_military_4_3_sokolov_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam12");
+        pri_a15_military_4_3_sokolov_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam13");
+        pri_a15_military_4_3_sokolov_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam14");
+        pri_a15_military_4_3_sokolov_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam15");
+        pri_a15_military_4_3_sokolov_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam16");
+        pri_a15_military_4_3_sokolov_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam17");
+        pri_a15_military_4_3_sokolov_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam20");
+        pri_a15_military_4_3_sokolov_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam21");
+        pri_a15_military_4_3_sokolov_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam25");
+        pri_a15_military_4_3_sokolov_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam30");
+        pri_a15_military_4_3_sokolov_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam31");
+        pri_a15_military_4_3_sokolov_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam32");
+
+        this->m_state_manager_animation_list["pri_a15_military_4_3_sokolov_alive"] =
+            pri_a15_military_4_3_sokolov_alive_animation_data;
+
+        StateManagerAnimationData pri_a15_military_4_3_zulus_alive_animation_data;
+        pri_a15_military_4_3_zulus_alive_animation_data.setPropertiesMaxIdle(1);
+        pri_a15_military_4_3_zulus_alive_animation_data.setPropertiesSumIdle(1);
+        pri_a15_military_4_3_zulus_alive_animation_data.setPropertiesMoving(true);
+        pri_a15_military_4_3_zulus_alive_animation_data.setPropertiesRandom(100);
+
+        pri_a15_military_4_3_zulus_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam1");
+        pri_a15_military_4_3_zulus_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam2");
+        pri_a15_military_4_3_zulus_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam3");
+        pri_a15_military_4_3_zulus_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam4");
+        pri_a15_military_4_3_zulus_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam5");
+        pri_a15_military_4_3_zulus_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam6");
+        pri_a15_military_4_3_zulus_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam7");
+        pri_a15_military_4_3_zulus_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam8");
+        pri_a15_military_4_3_zulus_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam9");
+        pri_a15_military_4_3_zulus_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam10");
+        pri_a15_military_4_3_zulus_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam12");
+        pri_a15_military_4_3_zulus_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam13");
+        pri_a15_military_4_3_zulus_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam14");
+        pri_a15_military_4_3_zulus_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam15");
+        pri_a15_military_4_3_zulus_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam16");
+        pri_a15_military_4_3_zulus_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam17");
+        pri_a15_military_4_3_zulus_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam17_1");
+        pri_a15_military_4_3_zulus_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam18");
+        pri_a15_military_4_3_zulus_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam19");
+        pri_a15_military_4_3_zulus_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam21");
+        pri_a15_military_4_3_zulus_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam25");
+        pri_a15_military_4_3_zulus_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam25_1");
+        pri_a15_military_4_3_zulus_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam26");
+        pri_a15_military_4_3_zulus_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam27");
+        pri_a15_military_4_3_zulus_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam28");
+        pri_a15_military_4_3_zulus_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam29");
+        pri_a15_military_4_3_zulus_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam30");
+        pri_a15_military_4_3_zulus_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam31");
+        pri_a15_military_4_3_zulus_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam32");
+
+        this->m_state_manager_animation_list["pri_a15_military_4_3_zulus_alive"] =
+            pri_a15_military_4_3_zulus_alive_animation_data;
+
+        StateManagerAnimationData pri_a15_military_4_3_wanderer_alive_animation_data;
+        pri_a15_military_4_3_wanderer_alive_animation_data.setPropertiesMaxIdle(1);
+        pri_a15_military_4_3_wanderer_alive_animation_data.setPropertiesSumIdle(1);
+        pri_a15_military_4_3_wanderer_alive_animation_data.setPropertiesMoving(true);
+        pri_a15_military_4_3_wanderer_alive_animation_data.setPropertiesRandom(100);
+
+        pri_a15_military_4_3_wanderer_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam1");
+        pri_a15_military_4_3_wanderer_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam2");
+        pri_a15_military_4_3_wanderer_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam3");
+        pri_a15_military_4_3_wanderer_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam4");
+        pri_a15_military_4_3_wanderer_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam6");
+        pri_a15_military_4_3_wanderer_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam7");
+        pri_a15_military_4_3_wanderer_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam8");
+        pri_a15_military_4_3_wanderer_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam9");
+        pri_a15_military_4_3_wanderer_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam10");
+        pri_a15_military_4_3_wanderer_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam12");
+        pri_a15_military_4_3_wanderer_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam13");
+        pri_a15_military_4_3_wanderer_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam14");
+        pri_a15_military_4_3_wanderer_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam15");
+        pri_a15_military_4_3_wanderer_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam16");
+        pri_a15_military_4_3_wanderer_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam17");
+        pri_a15_military_4_3_wanderer_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam17_1");
+        pri_a15_military_4_3_wanderer_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam18");
+        pri_a15_military_4_3_wanderer_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam25");
+        pri_a15_military_4_3_wanderer_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam30");
+        pri_a15_military_4_3_wanderer_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam31");
+        pri_a15_military_4_3_wanderer_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam32");
+
+        this->m_state_manager_animation_list["pri_a15_military_4_3_wanderer_alive"] =
+            pri_a15_military_4_3_wanderer_alive_animation_data;
+
+        StateManagerAnimationData pri_a15_military_4_all_dead_animation_data;
+        pri_a15_military_4_all_dead_animation_data.setPropertiesMaxIdle(1);
+        pri_a15_military_4_all_dead_animation_data.setPropertiesSumIdle(1);
+        pri_a15_military_4_all_dead_animation_data.setPropertiesMoving(true);
+        pri_a15_military_4_all_dead_animation_data.setPropertiesRandom(100);
+
+        pri_a15_military_4_all_dead_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam1");
+        pri_a15_military_4_all_dead_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam2");
+        pri_a15_military_4_all_dead_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam3");
+        pri_a15_military_4_all_dead_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam4");
+        pri_a15_military_4_all_dead_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam6");
+        pri_a15_military_4_all_dead_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam7");
+        pri_a15_military_4_all_dead_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam8");
+        pri_a15_military_4_all_dead_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam9");
+        pri_a15_military_4_all_dead_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam10");
+        pri_a15_military_4_all_dead_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam12");
+        pri_a15_military_4_all_dead_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam13");
+        pri_a15_military_4_all_dead_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam14");
+        pri_a15_military_4_all_dead_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam15");
+        pri_a15_military_4_all_dead_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam16");
+        pri_a15_military_4_all_dead_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam17");
+        pri_a15_military_4_all_dead_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam25");
+        pri_a15_military_4_all_dead_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam30");
+        pri_a15_military_4_all_dead_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam31");
+        pri_a15_military_4_all_dead_animation_data.addAnimation("into", 0, "pri_a15_soldier_3_cam32");
+
+        this->m_state_manager_animation_list["pri_a15_military_4_all_dead"] = pri_a15_military_4_all_dead_animation_data;
 #pragma endregion
     }
 
