@@ -1,5 +1,6 @@
 #pragma once
 
+
 namespace Cordis
 {
 namespace Scripts
@@ -2346,6 +2347,18 @@ public:
     inline void setDangerFlag(const bool value) noexcept { this->m_is_danger_flag = value; }
 
     inline const Script_StateManager& getStateManager(void) const noexcept { return *this->m_p_state_manager; }
+    inline void setStateManager(Script_StateManager* const p_state_manager)
+    {
+        if (!p_state_manager)
+        {
+            Msg("[Scripts/DataBase/Script_StorageData/setStateManager(p_state_manager)] WARNING: you can't set nullptr "
+                "for object return...");
+            return;
+        }
+
+        this->m_p_state_manager = p_state_manager;
+    }
+
     inline void setStateManagerSetState(const xr_string& state_name, StateManagerCallbackData& callback,
         const std::uint32_t timeout, std::pair<Fvector, CScriptGameObject* const> target,
         const StateManagerExtraData& extra)
@@ -2877,6 +2890,9 @@ public:
 
 #pragma region Cordis Setters
 #pragma region Cordis DataBase Storage_Data setters
+    void setStorageStateManager(
+        CScriptGameObject* const p_client_object, Script_StateManager* const p_state_manager);
+
     inline void setStorageStateManagerSetState(const std::uint16_t npc_id, const xr_string& state_name,
         StateManagerCallbackData& callback, const std::uint32_t timeout,
         std::pair<Fvector, CScriptGameObject* const> target, const StateManagerExtraData& extra) noexcept

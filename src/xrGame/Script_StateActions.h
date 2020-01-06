@@ -63,6 +63,77 @@ public:
 private:
     Script_StateManager* m_p_state_manager;
 };
+
+class Script_ActionStateManagerToIdle : public CScriptActionBase
+{
+public:
+    Script_ActionStateManagerToIdle(const xr_string& action_name, Script_StateManager* const p_state_manager)
+        : CScriptActionBase(nullptr, action_name.c_str()), m_p_state_manager(p_state_manager)
+    {
+    }
+    ~Script_ActionStateManagerToIdle(void) {}
+
+    virtual void initialize(void)
+    {
+        CScriptActionBase::initialize();
+        this->m_object->inactualize_patrol_path();
+
+        StateManagerExtraData extra;
+        extra.setFastSet(true);
+        if (this->m_object->GetBestEnemy())
+        {
+            this->m_p_state_manager->set_state(
+                "idle", StateManagerCallbackData(), 0, std::pair<Fvector, CScriptGameObject*>(), extra);
+            return;
+        }
+
+        if (this->m_object->GetBestDanger())
+        {
+            this->m_p_state_manager->set_state(
+                "idle", StateManagerCallbackData(), 0, std::pair<Fvector, CScriptGameObject*>(), extra);
+            return;
+        }
+
+        this->m_p_state_manager->set_state(
+            "idle", StateManagerCallbackData(), 0, std::pair<Fvector, CScriptGameObject*>(), StateManagerExtraData());
+
+        Globals::Utils::send_to_nearest_accessible_vertex(this->m_object, this->m_object->level_vertex_id());
+        this->m_object->set_path_type(MovementManager::ePathTypeLevelPath);
+    }
+
+    virtual void execute(void)
+    {
+        Globals::Utils::send_to_nearest_accessible_vertex(this->m_object, this->m_object->level_vertex_id());
+        this->m_object->set_path_type(MovementManager::ePathTypeLevelPath);
+
+        StateManagerExtraData extra;
+        extra.setFastSet(true);
+        if (this->m_object->GetBestEnemy())
+        {
+            this->m_p_state_manager->set_state(
+                "idle", StateManagerCallbackData(), 0, std::pair<Fvector, CScriptGameObject*>(), extra);
+            CScriptActionBase::execute();
+            return;
+        }
+
+        if (this->m_object->GetBestDanger())
+        {
+            this->m_p_state_manager->set_state(
+                "idle", StateManagerCallbackData(), 0, std::pair<Fvector, CScriptGameObject*>(), extra);
+            CScriptActionBase::execute();
+            return;
+        }
+
+        this->m_p_state_manager->set_state(
+            "idle", StateManagerCallbackData(), 0, std::pair<Fvector, CScriptGameObject*>(), StateManagerExtraData());
+        CScriptActionBase::execute();
+    }
+
+    virtual void finalize(void) { CScriptActionBase::finalize(); }
+
+private:
+    Script_StateManager* m_p_state_manager;
+};
 #pragma endregion
 
 #pragma region Cordis State Manager Actions about animations
