@@ -4168,6 +4168,9 @@
     <Filter Include="Cordis\Scripts\Managers\State\Animation\Private">
       <UniqueIdentifier>{96f935e8-8fab-4c99-801b-42e920e267b3}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Cordis\Scripts\Database\Private">
+      <UniqueIdentifier>{b3d94870-eb1b-408f-99ea-eb41d150a903}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="mt_config.h">
@@ -13919,6 +13922,9 @@
     </ClCompile>
     <ClCompile Include="Script_StateAnimation.cpp">
       <Filter>Cordis\Scripts\Managers\State\Animation\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Script_DataBase.cpp">
+      <Filter>Cordis\Scripts\Database\Private</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

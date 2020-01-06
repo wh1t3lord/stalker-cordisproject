@@ -900,13 +900,14 @@ struct StateManagerExtraData
 
     ~StateManagerExtraData(void) = default;
 
+/* not used delete
     inline bool isInitialize(void) const noexcept
     {
         return !(fis_zero(this->m_animation_direction.x) && fis_zero(this->m_animation_direction.y) &&
                    fis_zero(this->m_animation_direction.z)) &&
             !(fis_zero(this->m_animation_position.x) && fis_zero(this->m_animation_position.y) &&
                 fis_zero(this->m_animation_position.z));
-    }
+    }*/
 
     inline bool isFastSet(void) const noexcept { return this->m_is_fast_set; }
     inline void setFastSet(const bool value) noexcept { this->m_is_fast_set = value; }

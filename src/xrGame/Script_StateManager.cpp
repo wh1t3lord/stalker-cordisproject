@@ -778,8 +778,6 @@ void Script_StateManager::set_state(const xr_string& state_name, StateManagerCal
     this->m_target_state_name = state_name;
     is_switched = true;
 
-    if (extra.isInitialize())
-    {
         this->m_is_fast_set = extra.isFastSet();
 
         if ((!this->m_is_position_direction_applied) ||
@@ -805,7 +803,7 @@ void Script_StateManager::set_state(const xr_string& state_name, StateManagerCal
             this->m_is_position_direction_applied = false;
             this->m_is_fast_set = false;
         }
-    }
+    
 
     this->m_callback_data = callback;
     if (timeout >= 0)

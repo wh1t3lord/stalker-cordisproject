@@ -3586,6 +3586,7 @@ $(xrLibDir);$(xrSdkDir)DXSDK/Lib/$(PlatformShortName);
     <ClCompile Include="Script_Binder_SmartCover.cpp" />
     <ClCompile Include="Script_Binder_SmartTerrain.cpp" />
     <ClCompile Include="Script_Binder_Stalker.cpp" />
+    <ClCompile Include="Script_DataBase.cpp" />
     <ClCompile Include="script_effector.cpp" />
     <ClCompile Include="script_effector_script.cpp">
       <PrecompiledHeaderFile>pch_script.h</PrecompiledHeaderFile>
