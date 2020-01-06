@@ -121,6 +121,48 @@ void Script_SchemeMobCamp::net_destroy(CScriptGameObject* const p_client_object)
     this->m_npc->skip_transfer_enemy(false);
 }
 
+void Script_SchemeMobCamp::set_scheme(CScriptGameObject* const p_client_object, CScriptIniFile* const p_ini,
+    const xr_string& scheme_name, const xr_string& section_name, const xr_string& gulag_name)
+{
+    DataBase::Storage_Scheme* p_storage =
+        XR_LOGIC::assign_storage_and_bind(p_client_object, p_ini, scheme_name, section_name, gulag_name);
+
+    if (!p_storage)
+    {
+        R_ASSERT2(false, "something goes wrong!");
+        return;
+    }
+
+    p_storage->setLogic(XR_LOGIC::cfg_get_switch_conditions(p_ini, section_name, p_client_object));
+    p_storage->setStateName(Script_MobStateManager::getInstance().get_state(p_ini, section_name));
+    p_storage->setLookPointName(Globals::Utils::cfg_get_string(p_ini, section_name, "path_look"));
+    p_storage->setHomePointName(Globals::Utils::cfg_get_string(p_ini, section_name, "path_home"));
+    p_storage->setTimeChangePoint(
+        static_cast<std::uint32_t>(Globals::Utils::cfg_get_number(p_ini, section_name, "time_change_point")) ?
+            static_cast<std::uint32_t>(Globals::Utils::cfg_get_number(p_ini, section_name, "time_change_point")) :
+            10000);
+    p_storage->setHomeMinRadius(
+        static_cast<std::uint32_t>(Globals::Utils::cfg_get_number(p_ini, section_name, "home_min_radius")) ?
+            static_cast<std::uint32_t>(Globals::Utils::cfg_get_number(p_ini, section_name, "home_min_radius")) :
+            30);
+    p_storage->setHomeMaxRadius(
+        static_cast<std::uint32_t>(Globals::Utils::cfg_get_number(p_ini, section_name, "home_max_radius")) ?
+            static_cast<std::uint32_t>(Globals::Utils::cfg_get_number(p_ini, section_name, "home_max_radius")) :
+            40);
+
+    if (p_storage->getHomeMinRadius() > p_storage->getHomeMaxRadius())
+    {
+        R_ASSERT2(false, "it can't be!");
+    }
+
+    if (p_storage->getLookPointName().empty() || !CPatrolPathParams(p_storage->getLookPointName().c_str()).m_path)
+    {
+        R_ASSERT2(false, "it can't be!");
+    }
+
+    p_storage->setSkipTransferEnemy(p_ini->line_exist(section_name.c_str(), "skip_transfer_enemy"));
+}
+
 void Script_SchemeMobCamp::execute_state(void)
 {
     if (this->m_state_current == STATE_ALIFE && this->m_state_previous == STATE_ALIFE)
@@ -141,7 +183,10 @@ void Script_SchemeMobCamp::execute_state(void)
     {
         if (!this->m_npc->GetCurrentAction())
         {
-            Globals::action(this->m_npc, CScriptAnimationAction(eAA_StandIdle, 0), CScriptWatchAction(SightManager::eSightTypePosition, this->m_path_look->point(this->m_current_point_index)), CScriptActionCondition(CScriptActionCondition::WATCH_FLAG));
+            Globals::action(this->m_npc, CScriptAnimationAction(eAA_StandIdle, 0),
+                CScriptWatchAction(
+                    SightManager::eSightTypePosition, this->m_path_look->point(this->m_current_point_index)),
+                CScriptActionCondition(CScriptActionCondition::WATCH_FLAG));
         }
 
         return;

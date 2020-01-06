@@ -1,8 +1,6 @@
 #include "stdafx.h"
 #include "Script_SchemeHelicopterMove.h"
 
- 
-
 namespace Cordis
 {
 namespace Scripts
@@ -195,47 +193,49 @@ void Script_SchemeHelicopterMove::save(void)
 
 void Script_SchemeHelicopterMove::update(const float delta)
 {
-    // Lord: доделать когда будет XR_LOGIC::try_switch_to_another_section
+    if (XR_LOGIC::try_switch_to_another_section(
+            this->m_npc, *this->m_p_storage, DataBase::Storage::getInstance().getActor()))
+        return;
 
-    if (this->m_is_callback)
-    {
-        this->update_movement_state();
-        this->m_is_callback = false;
-    }
-    else
-    {
-        if (!this->m_p_storage->getHelicopterPathLookName().empty())
+        if (this->m_is_callback)
         {
-            if (this->m_p_storage->getHelicopterPathLookName() == "actor")
+            this->update_movement_state();
+            this->m_is_callback = false;
+        }
+        else
+        {
+            if (!this->m_p_storage->getHelicopterPathLookName().empty())
             {
-                this->m_p_manager_fly->set_look_point(DataBase::Storage::getInstance().getActor()->Position());
-
-                if (this->m_p_storage->IsHelicopterStopFire())
+                if (this->m_p_storage->getHelicopterPathLookName() == "actor")
                 {
-                    if (this->m_p_helicopter->isVisible(DataBase::Storage::getInstance().getActor()))
+                    this->m_p_manager_fly->set_look_point(DataBase::Storage::getInstance().getActor()->Position());
+
+                    if (this->m_p_storage->IsHelicopterStopFire())
                     {
-                        if (!this->m_is_by_stop_fire_fly)
+                        if (this->m_p_helicopter->isVisible(DataBase::Storage::getInstance().getActor()))
                         {
-                            this->m_stop_point = this->m_npc->Position();
-                            this->m_is_by_stop_fire_fly = true;
-                            this->m_is_callback = true;
-                        }
-                        else
-                        {
-                            this->m_is_by_stop_fire_fly = false;
-                            this->m_is_callback = true;
+                            if (!this->m_is_by_stop_fire_fly)
+                            {
+                                this->m_stop_point = this->m_npc->Position();
+                                this->m_is_by_stop_fire_fly = true;
+                                this->m_is_callback = true;
+                            }
+                            else
+                            {
+                                this->m_is_by_stop_fire_fly = false;
+                                this->m_is_callback = true;
+                            }
                         }
                     }
                 }
+                this->update_look_state();
             }
-            this->update_look_state();
-        }
 
-        if (this->m_p_storage->getHelicopterPathLookName().empty() && this->m_p_manager_look->getLookState())
-        {
-            this->m_p_manager_look->calculate_look_point(this->m_p_manager_fly->getDestinationPoint(), true);
+            if (this->m_p_storage->getHelicopterPathLookName().empty() && this->m_p_manager_look->getLookState())
+            {
+                this->m_p_manager_look->calculate_look_point(this->m_p_manager_fly->getDestinationPoint(), true);
+            }
         }
-    }
 }
 
 void Script_SchemeHelicopterMove::waypoint_callback(
@@ -274,6 +274,70 @@ void Script_SchemeHelicopterMove::waypoint_callback(
     }
 
     this->m_is_callback = true;
+}
+
+void Script_SchemeHelicopterMove::add_to_binder(CScriptGameObject* const p_client_object, CScriptIniFile* const p_ini,
+    const xr_string& scheme_name, const xr_string& section_name, DataBase::Storage_Scheme& storage)
+{
+    if (!p_client_object)
+    {
+        R_ASSERT2(false, "object is null!");
+        return;
+    }
+
+    if (!p_ini)
+    {
+        R_ASSERT2(false, "object is null!");
+        return;
+    }
+
+    Msg("[Scripts/add_to_binder(p_client_object, p_ini, scheme_name, section_name, storage)] added "
+        "Script_SchemeMobWalker scheme to binder, name=%s scheme=%s section=%s",
+        p_client_object->Name(), scheme_name.c_str(), section_name.c_str());
+
+    Script_ISchemeEntity* action = new Script_SchemeMobWalker(p_client_object, storage);
+    DataBase::Storage::getInstance().setStorageSchemesActions(p_client_object->ID(), action->getSchemeName(), action);
+}
+
+void Script_SchemeHelicopterMove::set_scheme(CScriptGameObject* const p_client_object, CScriptIniFile* const p_ini,
+    const xr_string& scheme_name, const xr_string& section_name, const xr_string& gulag_name)
+{
+    DataBase::Storage_Scheme* const p_storage =
+        XR_LOGIC::assign_storage_and_bind(p_client_object, p_ini, scheme_name, section_name, gulag_name);
+    if (!p_storage)
+    {
+        R_ASSERT2(false, "Deep shit you are in!");
+    }
+
+    p_storage->setLogic(XR_LOGIC::cfg_get_switch_conditions(p_ini, section_name, p_client_object));
+
+    p_storage->setHelicopterPathMoveName(Globals::Utils::cfg_get_string(p_ini, section_name, "path_move"));
+    p_storage->setHelicopterPathLookName(Globals::Utils::cfg_get_string(p_ini, section_name, "path_look"));
+    p_storage->setHelicopterVelocity(Globals::Utils::cfg_get_number(p_ini, section_name, "max_velocity"));
+    p_storage->setHelicopterEnemyName(Globals::Utils::cfg_get_string(p_ini, section_name, "enemy"));
+    p_storage->setHelicopterFirePointName(Globals::Utils::cfg_get_string(p_ini, section_name, "fire_point"));
+    p_storage->setHelicopterMaxMinigunDistance(
+        Globals::Utils::cfg_get_number(p_ini, section_name, "max_mgun_attack_dist"));
+    p_storage->setHelicopterMaxRocketDistance(
+        Globals::Utils::cfg_get_number(p_ini, section_name, "max_rocket_attack_dist"));
+    p_storage->setHelicopterMinMinigunDistance(
+        Globals::Utils::cfg_get_number(p_ini, section_name, "min_mgun_attack_dist"));
+    p_storage->setHelicopterMinRocketDistance(
+        Globals::Utils::cfg_get_number(p_ini, section_name, "min_rocket_attack_dist"));
+    p_storage->setHelicopterUseRocket(Globals::Utils::cfg_get_bool(p_ini, section_name, "use_rocket"));
+    p_storage->setHelicopterUseMinigun(Globals::Utils::cfg_get_bool(p_ini, section_name, "use_mgun"));
+    p_storage->setHelicopterEngineSound(Globals::Utils::cfg_get_bool(p_ini, section_name, "engine_sound"));
+    p_storage->setHelicopterUpdVis(Globals::Utils::cfg_get_number(p_ini, section_name, "upd_vis"));
+    p_storage->setHelicopterStopFire(Globals::Utils::cfg_get_bool(p_ini, section_name, "stop_fire"));
+    p_storage->setHelicopterShowHealth(Globals::Utils::cfg_get_bool(p_ini, section_name, "show_health"));
+    p_storage->setHelicopterFireTrail(Globals::Utils::cfg_get_bool(p_ini, section_name, "fire_trail"));
+
+    DataBase::Storage::getInstance().setStorageMute(
+        p_client_object->ID(), Globals::Utils::cfg_get_bool(p_ini, section_name, "mute"));
+    DataBase::Storage::getInstance().setStorageInvulnerable(
+        p_client_object->ID(), Globals::Utils::cfg_get_bool(p_ini, section_name, "invulnerable"));
+    DataBase::Storage::getInstance().setStorageImmortal(
+        p_client_object->ID(), Globals::Utils::cfg_get_bool(p_ini, section_name, "invulnerable"));
 }
 
 } // namespace Scripts

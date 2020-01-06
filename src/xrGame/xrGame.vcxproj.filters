@@ -4159,6 +4159,15 @@
     <Filter Include="Cordis\Scripts\Managers\State\Kernel\Public">
       <UniqueIdentifier>{de633333-1350-4b1d-979e-ea67bf861ae8}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Cordis\Scripts\Managers\State\Animation">
+      <UniqueIdentifier>{c1ee1ade-aea7-48bb-8992-18a01f39ad17}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Managers\State\Animation\Public">
+      <UniqueIdentifier>{e14c3cec-4a19-4d92-a3f8-40df92ac71b4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Managers\State\Animation\Private">
+      <UniqueIdentifier>{96f935e8-8fab-4c99-801b-42e920e267b3}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="mt_config.h">
@@ -9500,6 +9509,9 @@
     <ClInclude Include="Script_StateActions.h">
       <Filter>Cordis\Scripts\Managers\State\Actions\Public</Filter>
     </ClInclude>
+    <ClInclude Include="Script_StateAnimation.h">
+      <Filter>Cordis\Scripts\Managers\State\Animation\Public</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="damage_manager.cpp">
@@ -13904,6 +13916,9 @@
     </ClCompile>
     <ClCompile Include="Script_StateManager.cpp">
       <Filter>Cordis\Scripts\Managers\State\Kernel\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Script_StateAnimation.cpp">
+      <Filter>Cordis\Scripts\Managers\State\Animation\Private</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

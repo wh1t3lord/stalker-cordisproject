@@ -786,7 +786,33 @@ private:
 struct StateManagerCallbackData
 {
     StateManagerCallbackData(void) = default;
+    StateManagerCallbackData(const StateManagerCallbackData& data)
+    {
+        this->m_begin = data.getBegin();
+        this->m_timeout = data.getTimeOut();
+        this->m_callback_time = data.m_callback_time;
+        this->m_callback_turn_end = data.m_callback_turn_end;
+    }
+
+    StateManagerCallbackData& operator=(const StateManagerCallbackData& data)
+    {
+        this->m_begin = data.getBegin();
+        this->m_timeout = data.getTimeOut();
+        this->m_callback_time = data.m_callback_time;
+        this->m_callback_turn_end = data.m_callback_turn_end;
+
+        return *this;
+    }
+
     ~StateManagerCallbackData(void) = default;
+
+    inline bool isAllFieldEmpty(void) const noexcept
+    {
+        return (!this->m_begin && !this->m_timeout && !this->m_callback_time && !this->m_callback_turn_end);
+    }
+
+    inline bool isCallbackTimeExist(void) const noexcept { return !!this->m_callback_time; }
+    inline bool isCallbackTurnEndExist(void) const noexcept { return !!this->m_callback_turn_end; }
 
     inline std::uint32_t getBegin(void) const noexcept { return this->m_begin; }
     inline void setBegin(const std::uint32_t value) noexcept { this->m_begin = value; }
@@ -822,6 +848,79 @@ private:
     std::uint32_t m_timeout = 0;
     std::function<void(void)> m_callback_time = nullptr; // @ lua => func
     std::function<void(void)> m_callback_turn_end = nullptr; // @ lua => turn_end
+}; // namespace Scripts
+
+struct StateManagerAnimationStates
+{
+    StateManagerAnimationStates(void) : m_animation_marker(0), m_sequence_id(0), m_next_random(0), m_last_id(0) {}
+    ~StateManagerAnimationStates(void) = default;
+
+    inline std::uint8_t getAnimationMarker(void) const noexcept { return this->m_animation_marker; }
+    inline void setAnimationMarker(const std::uint8_t value) noexcept { this->m_animation_marker = value; }
+
+    inline std::uint32_t getSequenceID(void) const noexcept { return this->m_sequence_id; }
+    inline void setSequenceID(const std::uint32_t value) noexcept { this->m_sequence_id = value; }
+
+    inline std::uint32_t getNextRandom(void) const noexcept { return this->m_next_random; }
+    inline void setNextRandom(const std::uint32_t value) noexcept { this->m_next_random = value; }
+
+    inline std::uint32_t getLastID(void) const noexcept { return this->m_last_id; }
+    inline void setLastID(const std::uint32_t value) noexcept { this->m_last_id = value; }
+
+    inline const xr_string& getCurrentStateName(void) const noexcept { return this->m_current_state_name; }
+    inline void setCurrentStateName(const xr_string& state_name) noexcept { this->m_current_state_name = state_name; }
+
+    inline const xr_string& getTargetStateName(void) const noexcept { return this->m_target_state_name; }
+    inline void setTargetStateName(const xr_string& target_name) noexcept
+    {
+        if (target_name.empty())
+            Msg("[Scripts/StateManagerAnimationStates/setTargetStateName(target_name)] WARNING: target_name.empty() == "
+                "true! You set an empty string");
+
+        this->m_target_state_name = target_name;
+    }
+
+private:
+    std::uint8_t m_animation_marker;
+    std::uint32_t m_sequence_id;
+    std::uint32_t m_next_random;
+    std::uint32_t m_last_id;
+    xr_string m_current_state_name;
+    xr_string m_target_state_name;
+};
+
+struct StateManagerExtraData
+{
+    StateManagerExtraData(void) : m_is_fast_set(false) {}
+    StateManagerExtraData(const bool is_fast_set, const Fvector& animation_position, const Fvector& animation_direction)
+        : m_is_fast_set(is_fast_set), m_animation_position(animation_position),
+          m_animation_direction(animation_direction)
+    {
+    }
+
+    ~StateManagerExtraData(void) = default;
+
+    inline bool isInitialize(void) const noexcept
+    {
+        return !(fis_zero(this->m_animation_direction.x) && fis_zero(this->m_animation_direction.y) &&
+                   fis_zero(this->m_animation_direction.z)) &&
+            !(fis_zero(this->m_animation_position.x) && fis_zero(this->m_animation_position.y) &&
+                fis_zero(this->m_animation_position.z));
+    }
+
+    inline bool isFastSet(void) const noexcept { return this->m_is_fast_set; }
+    inline void setFastSet(const bool value) noexcept { this->m_is_fast_set = value; }
+
+    inline const Fvector& getAnimationPosition(void) const noexcept { return this->m_animation_position; }
+    inline void setAnimationPosition(const Fvector& position) noexcept { this->m_animation_position = position; }
+
+    inline const Fvector& getAnimationDirection(void) const noexcept { return this->m_animation_direction; }
+    inline void setAnimationDirection(const Fvector& direction) noexcept { this->m_animation_direction = direction; }
+
+private:
+    bool m_is_fast_set;
+    Fvector m_animation_position;
+    Fvector m_animation_direction;
 };
 
 // @ Implementes state_mgr_animation_list and state_mgr_animstate_list
@@ -832,13 +931,10 @@ struct StateManagerAnimationData
         AnimationData(void) = default;
         ~AnimationData(void) = default;
 
-        // @ Это только для Script_StateManagerAnimation, если у нас хотя бы одно поле не пустое то считаем объект
-        // комплексным (сложным) иначе это единичный объект который содержит название анимации, смотри lua ->
-        // state_mgr_animation.script:199 select_anim()
-        inline bool isSingleField(void) noexcept
+        inline bool isNotInitialized(void) const
         {
-            return (!this->m_function && this->m_attach_item_name.empty() && this->m_detach_item_name.empty() &&
-                fis_zero(this->m_hit_power) && this->m_sound_name.empty());
+            return (fis_zero(this->m_hit_power) && this->m_animation_name.empty() && this->m_sound_name.empty() &&
+                this->m_attach_item_name.empty() && this->m_detach_item_name.empty() && !this->m_function);
         }
 
         inline float getHitPower(void) const noexcept { return this->m_hit_power; }
@@ -898,6 +994,8 @@ struct StateManagerAnimationData
             this->m_function = function;
         }
 
+        inline bool isFunctionExist(void) const noexcept { return (!!this->m_function); }
+
     private:
         float m_hit_power = 0.0f;
         xr_string m_animation_name;
@@ -923,6 +1021,18 @@ struct StateManagerAnimationData
         const xr_string& animation_id_name) const
     {
         return this->m_data.at(animation_id_name);
+    }
+
+    inline bool isAnimationListExist(const xr_string& animation_id_name) const
+    {
+        if (animation_id_name.empty())
+        {
+            Msg("[Scripts/StateManagerAnimationData/isAnimationListExist(animation_id_name)] WARNING: "
+                "animation_id_name.empty() == true! Return false ...");
+            return false;
+        }
+
+        return (this->m_data.find(animation_id_name) != this->m_data.end());
     }
 
     inline void addAnimation(
@@ -1073,6 +1183,13 @@ struct StateManagerAnimationData
 
     inline bool isPropertiesMoving(void) const noexcept { return this->m_is_properties_moving; }
     inline void setPropertiesMoving(const bool value) noexcept { this->m_is_properties_moving = value; }
+
+    inline bool isPropertiesInitialized(void) const noexcept
+    {
+        return (!this->m_is_properties_moving && !this->m_properties_max_idle && !this->m_properties_random &&
+            !this->m_properties_sum_idle);
+    }
+    inline bool isInitialized(void) const noexcept { return (!this->m_data.empty()); }
 
 private:
     bool m_is_properties_moving = false;

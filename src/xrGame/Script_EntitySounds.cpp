@@ -192,7 +192,7 @@ void Script_SoundNPC::callback(const std::uint16_t npc_id)
         return;
     }
 
-    if (storage_data.getSchemes().at(storage_data.getActiveSchemeName()).getSignals().empty())
+    if (storage_data.getSchemes().at(storage_data.getActiveSchemeName())->getSignals().empty())
     {
         Msg("[Scripts/Script_SoundNPC/callback(npc_id)] Signals is empty return ...");
         return;
@@ -523,7 +523,7 @@ void Script_SoundActor::callback(const std::uint16_t npc_id)
     }
 
 
-    if (storage_data.getSchemes().at(storage_data.getActiveSchemeName()).getSignals().empty())
+    if (storage_data.getSchemes().at(storage_data.getActiveSchemeName())->getSignals().empty())
     {
         Msg("[Scripts/Script_SoundActor/callback(npc_id)] signals is empty return ...");
         return;
@@ -735,7 +735,7 @@ void Script_SoundObject::callback(const std::uint16_t npc_id)
         return;
     }
 
-    if (storage_data.getSchemes().at(storage_data.getActiveSchemeName()).getSignals().empty())
+    if (storage_data.getSchemes().at(storage_data.getActiveSchemeName())->getSignals().empty())
     {
         Msg("[Scripts/Script_SoundObject/callback(npc_id)] signals is empty return ...");
         return;

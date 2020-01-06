@@ -108,8 +108,7 @@ inline void parse_infopotions(xr_map<std::uint32_t, CondlistData::CondlistValues
 
         switch (buffer[it])
         {
-        case '+':
-        {
+        case '+': {
             std::uint32_t z = it;
 
             z += 1;
@@ -128,8 +127,7 @@ inline void parse_infopotions(xr_map<std::uint32_t, CondlistData::CondlistValues
             maked_string.clear();
             break;
         }
-        case '-':
-        {
+        case '-': {
             std::uint32_t z = it;
             z += 1;
             while (buffer[z] && (mask_rejection.find(buffer[z]) == std::string::npos))
@@ -147,8 +145,7 @@ inline void parse_infopotions(xr_map<std::uint32_t, CondlistData::CondlistValues
             maked_string.clear();
             break;
         }
-        case '=':
-        {
+        case '=': {
             std::uint32_t z = it;
             std::string params = "";
             z += 1;
@@ -180,8 +177,7 @@ inline void parse_infopotions(xr_map<std::uint32_t, CondlistData::CondlistValues
             maked_string.clear();
             break;
         }
-        case '~':
-        {
+        case '~': {
             std::uint32_t z = it;
             z += 1;
             while (buffer[z] && (mask_rejection.find(buffer[z]) == std::string::npos))
@@ -198,8 +194,7 @@ inline void parse_infopotions(xr_map<std::uint32_t, CondlistData::CondlistValues
             maked_string.clear();
             break;
         }
-        case '!':
-        {
+        case '!': {
             std::uint32_t z = it;
             std::string params = "";
             z += 1;
@@ -421,28 +416,23 @@ inline xr_map<std::uint32_t, CondlistData> parse_condlist_by_server_object(
         {
             switch (it)
             {
-            case '+':
-            {
+            case '+': {
                 R_ASSERT2(false, "You're lose bracket or percent symbol!");
                 break;
             }
-            case '-':
-            {
+            case '-': {
                 R_ASSERT2(false, "You're lose bracket or percent symbol!");
                 break;
             }
-            case '=':
-            {
+            case '=': {
                 R_ASSERT2(false, "You're lose bracket or percent symbol!");
                 break;
             }
-            case '~':
-            {
+            case '~': {
                 R_ASSERT2(false, "You're lose bracket or percent symbol!");
                 break;
             }
-            case '!':
-            {
+            case '!': {
                 R_ASSERT2(false, "You're lose bracket or percent symbol!");
                 break;
             }
@@ -627,28 +617,23 @@ inline xr_map<std::uint32_t, CondlistData> parse_condlist_by_script_object(
         {
             switch (it)
             {
-            case '+':
-            {
+            case '+': {
                 R_ASSERT2(false, "You're lose bracket or percent symbol!");
                 break;
             }
-            case '-':
-            {
+            case '-': {
                 R_ASSERT2(false, "You're lose bracket or percent symbol!");
                 break;
             }
-            case '=':
-            {
+            case '=': {
                 R_ASSERT2(false, "You're lose bracket or percent symbol!");
                 break;
             }
-            case '~':
-            {
+            case '~': {
                 R_ASSERT2(false, "You're lose bracket or percent symbol!");
                 break;
             }
-            case '!':
-            {
+            case '!': {
                 R_ASSERT2(false, "You're lose bracket or percent symbol!");
                 break;
             }
@@ -2091,7 +2076,7 @@ inline void save_object(CScriptGameObject* client_object, NET_Packet& packet)
                 .at(client_object->ID())
                 .getSchemes()
                 .at(DataBase::Storage::getInstance().getStorage().at(client_object->ID()).getActiveSchemeName())
-                .getActions())
+                ->getActions())
         {
             it->save();
         }
@@ -2133,17 +2118,40 @@ inline bool is_mob_captured(CScriptGameObject* p_client_object)
     return p_client_object->GetScriptControl();
 }
 
-inline void assign_storage_and_bind(CScriptGameObject* const p_client_object, CScriptIniFile* const p_ini,
-    const xr_string& scheme_name, const xr_string& section_name, const xr_string& gulag_name)
+// Lord: нормально ли здесь реализовано
+inline DataBase::Storage_Scheme* assign_storage_and_bind(CScriptGameObject* const p_client_object,
+    CScriptIniFile* const p_ini, const xr_string& scheme_name, const xr_string& section_name,
+    const xr_string& gulag_name)
 {
-    DataBase::Storage_Scheme storage;
+    if (!p_client_object)
+    {
+        R_ASSERT2(false, "client object can't be nullptr!");
+        return nullptr;
+    }
+
+    if (!p_ini)
+    {
+        R_ASSERT2(false, "remeber it is not right ...");
+    }
+
     if (DataBase::Storage::getInstance().getStorage().at(p_client_object->ID()).getSchemes().find(scheme_name) ==
         DataBase::Storage::getInstance().getStorage().at(p_client_object->ID()).getSchemes().end())
 
     {
-        storage.setClientObject(p_client_object);
-        DataBase::Storage::getInstance().setStorageScheme(p_client_object->ID(), scheme_name, storage);
+        DataBase::Storage_Scheme* p_storage = new DataBase::Storage_Scheme();
+        p_storage->setClientObject(p_client_object);
+        DataBase::Storage::getInstance().setStorageScheme(p_client_object->ID(), scheme_name, p_storage);
     }
+
+    // Lord: лучше всё таки указатель сделать
+    DataBase::Storage_Scheme* result =
+        DataBase::Storage::getInstance().getStorage().at(p_client_object->ID()).getSchemes().at(scheme_name);
+
+    result->setSchemeName(scheme_name);
+    result->setLogicName(section_name);
+    result->setIni(p_ini);
+
+    return result;
 }
 
 inline void mob_release(CScriptGameObject* const p_client_object, const xr_string& scheme_name)
@@ -2535,7 +2543,7 @@ inline bool switch_to_section(
                 .at(npc_id)
                 .getSchemes()
                 .at(DataBase::Storage::getInstance().getStorage().at(npc_id).getActiveSchemeName())
-                .getActions())
+                ->getActions())
         {
             it->deactivate(p_client_object);
         }
@@ -2554,7 +2562,8 @@ inline bool is_active(CScriptGameObject* const p_client_object, DataBase::Storag
     {
         R_ASSERT2(false, "it can't be!");
     }
-    return (storage.getLogicName() == DataBase::Storage::getInstance().getStorage().at(p_client_object->ID()).getActiveSectionName());
+    return (storage.getLogicName() ==
+        DataBase::Storage::getInstance().getStorage().at(p_client_object->ID()).getActiveSectionName());
 }
 
 inline void reset_generic_schemes_on_scheme_switch(
@@ -2570,15 +2579,13 @@ inline void reset_generic_schemes_on_scheme_switch(
 
     switch (storage.getSchemeType())
     {
-    case Globals::kSTypeStalker:
-    {
+    case Globals::kSTypeStalker: {
         // Lord: доделать когда будешь уже сделаны схемы сталкеров xr_meet
         //         xr_help_wounded xr_corpse_detection xr_abuse xr_wounded xr_death xr_danger xr_gather_items
         //             xr_combat_ignore stalker_generic restrictor_manager xr_hear
         break;
     }
-    case Globals::kSTypeMobile:
-    {
+    case Globals::kSTypeMobile: {
         mob_release(p_client_object, scheme_name);
         if (Globals::get_script_clsid(CLSID_SE_MONSTER_BLOODSUCKER))
         {
@@ -2596,8 +2603,7 @@ inline void reset_generic_schemes_on_scheme_switch(
 
         break;
     }
-    case Globals::kSTypeItem:
-    {
+    case Globals::kSTypeItem: {
         p_client_object->SetNonscriptUsable(true);
         if (Globals::get_script_clsid(CLSID_CAR))
         {
@@ -2607,12 +2613,10 @@ inline void reset_generic_schemes_on_scheme_switch(
 
         break;
     }
-    case Globals::kSTypeHelicopter:
-    {
+    case Globals::kSTypeHelicopter: {
         break;
     }
-    case Globals::kSTypeRestrictor:
-    {
+    case Globals::kSTypeRestrictor: {
         break;
     }
     }

@@ -70,7 +70,7 @@ void Script_SchemeXRAbuse::add_abuse(CScriptGameObject* const p_client_object, c
             .at(p_client_object->ID())
             .getSchemes()
             .at("abuse")
-            .getXRAbuseManager()
+            ->getXRAbuseManager()
             ->AddAbuse(value);
     }
     else
@@ -98,7 +98,7 @@ void Script_SchemeXRAbuse::clear_abuse(CScriptGameObject* const p_client_object)
             .at(p_client_object->ID())
             .getSchemes()
             .at("abuse")
-            .getXRAbuseManager()
+            ->getXRAbuseManager()
             ->ClearAbuse();
     }
     else
@@ -126,7 +126,7 @@ void Script_SchemeXRAbuse::disable_abuse(CScriptGameObject* const p_client_objec
             .at(p_client_object->ID())
             .getSchemes()
             .at("abuse")
-            .getXRAbuseManager()
+            ->getXRAbuseManager()
             ->DisableAbuse();
     }
     else
@@ -154,7 +154,7 @@ void Script_SchemeXRAbuse::enable_abuse(CScriptGameObject* const p_client_object
             .at(p_client_object->ID())
             .getSchemes()
             .at("abuse")
-            .getXRAbuseManager()
+            ->getXRAbuseManager()
             ->EnableAbuse();
     }
     else
