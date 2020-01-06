@@ -1,5 +1,7 @@
 #pragma once
 
+#include "Script_StateManager.h"
+
 namespace Cordis
 {
 namespace Scripts
@@ -252,6 +254,9 @@ inline void turn(CScriptGameObject* const p_client_object, Script_StateManager* 
 inline std::uint32_t get_idle_state(const xr_string& target_state_name);
 inline CScriptGameObject* const get_weapon(
     CScriptGameObject* const p_client_object, const xr_string& target_state_name);
+inline void set_state(CScriptGameObject* const p_client_object, const xr_string& state_name,
+    StateManagerCallbackData& callback, const std::uint32_t timeout,
+    std::pair<Fvector, CScriptGameObject* const> target, const StateManagerExtraData& extra);
 } // namespace Globals
 } // namespace Scripts
 } // namespace Cordis

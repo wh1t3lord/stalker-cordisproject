@@ -160,8 +160,12 @@
       <AdditionalIncludeDirectories>$(xrSdkDir)boost_1_70_0\;..\..\Externals\FreeMagic\Source;..\..\Externals\FreeMagic\Source\Core3D;..\..\Externals\FreeMagic\Source\Core;$(SolutionDir)xrServerEntities;$(xrExternals)ode/include;$(xrExternals)OpenAutomate\inc;$(xrExternals)CxImage;$(xrExternals)pugixml\src;Render\3DFluid;Render\Kernel;Render\R4;Render\WildMagic;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>_USRDLL;XRGAME_EXPORTS;USE_DX11;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <DisableSpecificWarnings>4237;4250;%(DisableSpecificWarnings)</DisableSpecificWarnings>
-      <AdditionalOptions> %(AdditionalOptions)</AdditionalOptions>
       <CallingConvention>StdCall</CallingConvention>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <MinimalRebuild>false</MinimalRebuild>
+      <AdditionalOptions>/bigobj %(AdditionalOptions)</AdditionalOptions>
+      <WarningLevel>TurnOffAllWarnings</WarningLevel>
     </ClCompile>
     <Link>
       <DelayLoadDLLs>AnselSDK$(PlatformArchitecture).dll;</DelayLoadDLLs>
@@ -1628,6 +1632,7 @@ $(xrLibDir);$(xrSdkDir)DXSDK/Lib/$(PlatformShortName);
     <ClInclude Include="script_sound_info.h" />
     <ClInclude Include="script_sound_inline.h" />
     <ClInclude Include="Script_StateActions.h" />
+    <ClInclude Include="Script_StateAnimation.h" />
     <ClInclude Include="Script_StateEvaluators.h" />
     <ClInclude Include="Script_StateManager.h" />
     <ClInclude Include="Script_StoryObject.h" />
@@ -3790,6 +3795,7 @@ $(xrLibDir);$(xrSdkDir)DXSDK/Lib/$(PlatformShortName);
       <PrecompiledHeaderFile>pch_script.h</PrecompiledHeaderFile>
       <PrecompiledHeaderOutputFile>$(IntDir)$(ProjectName)_script.pch</PrecompiledHeaderOutputFile>
     </ClCompile>
+    <ClCompile Include="Script_StateAnimation.cpp" />
     <ClCompile Include="Script_StateManager.cpp" />
     <ClCompile Include="Script_StoryObject.cpp" />
     <ClCompile Include="Script_SurgeManager.cpp" />

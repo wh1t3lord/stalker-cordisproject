@@ -139,6 +139,7 @@
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
       <AdditionalIncludeDirectories>$(xrSdkDir)boost_1_70_0\;$(xrExternals)ode/include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AdditionalOptions>/Zm120 %(AdditionalOptions)</AdditionalOptions>
+      <WarningLevel>TurnOffAllWarnings</WarningLevel>
     </ClCompile>
     <Link>
       <AdditionalLibraryDirectories>D:\Cordis Project\Xray\sdk\boost_1_70_0\bin.v2\libs\regex\build\msvc-14.2\rls\adrs-mdl-64\lnk-sttc\thrd-mlt;

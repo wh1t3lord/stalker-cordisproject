@@ -12845,7 +12845,7 @@ private:
         this->m_state_manager_animationstate_list["pri_a22_colonel_lean_on_table"] = pri_a22_colonel_lean_on_table_animstate_data;
 #pragma endregion
     }
-
+     
 public:
     inline static Script_GlobalHelper& getInstance(void) noexcept
     {

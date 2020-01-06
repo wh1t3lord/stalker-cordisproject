@@ -139,6 +139,7 @@
         $(xrExternals)GameSpy\src;
         %(AdditionalIncludeDirectories)
       </AdditionalIncludeDirectories>
+      <WarningLevel>TurnOffAllWarnings</WarningLevel>
     </ClCompile>
     <Link>
       <AdditionalDependencies>Ws2_32.lib;%(AdditionalDependencies)</AdditionalDependencies>

@@ -2522,6 +2522,20 @@ inline CScriptGameObject* const get_weapon(CScriptGameObject* const p_client_obj
         return p_client_object->item_in_slot(item_slot_id);
 }
 
+inline void set_state(CScriptGameObject* const p_client_object, const xr_string& state_name,
+    StateManagerCallbackData& callback, const std::uint32_t timeout,
+    std::pair<Fvector, CScriptGameObject* const> target, const StateManagerExtraData& extra)
+{
+    if (!p_client_object)
+    {
+        R_ASSERT2(false, "can't assign state manager!");
+        return;
+    }
+
+    DataBase::Storage::getInstance().setStorageStateManagerSetState(
+        p_client_object->ID(), state_name, callback, timeout, target, extra);
+}
+
 } // namespace Globals
 } // namespace Scripts
 } // namespace Cordis

@@ -1620,7 +1620,7 @@ inline bool is_signal(CScriptGameObject* actor, CScriptGameObject* npc, const xr
     }
 
     const DataBase::Storage_Data& storage_data = DataBase::Storage::getInstance().getStorage().at(npc->ID());
-    return storage_data.getSchemes().at(storage_data.getActiveSchemeName()).getSignals().at(buffer[0]);
+    return storage_data.getSchemes().at(storage_data.getActiveSchemeName())->getSignals().at(buffer[0]);
 }
 
 /* Lord наверное не используется ибо такой перегрузки вообще нет

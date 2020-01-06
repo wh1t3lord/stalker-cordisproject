@@ -1666,18 +1666,15 @@ public:
     {
         switch (this->m_boolean)
         {
-        case '-':
-        {
+        case '-': {
             Msg("[Scripts/DataBase/PStor_Data/getBool()] Returns an initialized value -> False");
             break;
         }
-        case '0':
-        {
+        case '0': {
             Msg("[Scritps/DataBase/PStor_Data/getBool()] the m_boolean doesn't initialized!");
             break;
         }
-        case '+':
-        {
+        case '+': {
             Msg("[Scripts/DataBase/PStor_Data/getBool()] Returns an initialized value -> True");
             return true;
             break;
@@ -1929,6 +1926,8 @@ private:
     friend class Storage;
 
 public:
+    Storage_Data(void) = default;
+
     class DeathData
     {
     public:
@@ -1988,6 +1987,24 @@ public:
                 xr_delete(this->m_p_ini);
             else
                 this->m_p_ini = nullptr;
+        }
+
+        if (this->m_p_state_manager)
+        {
+            Msg("[Scripts/DataBase/Storage_Data/~dtor()] deleting m_p_state_manager");
+            xr_delete(this->m_p_state_manager);
+        }
+
+        // Lord: проверить деаллокацию
+        for (std::pair<const xr_string, Storage_Scheme*>& it : this->m_schemes)
+        {
+            if (it.second)
+            {
+                Msg("[Scripts/DataBase/Storage_Data/~dtor()] Deleting storage_scheme of %d %s %s",
+                    it.second->getClientObject()->ID(), it.second->getClientObject()->Name(),
+                    it.second->getSchemeName().c_str());
+                xr_delete(it.second);
+            }
         }
     }
     inline bool IsInvulnerable(void) const noexcept { return this->m_is_invulnerable; }
@@ -2222,9 +2239,9 @@ public:
     inline const std::int32_t getActivationTime(void) const noexcept { return this->m_activation_time; }
     inline void setActivationTime(const std::int32_t value) noexcept { this->m_activation_time = value; }
 
-    inline const xr_map<xr_string, Storage_Scheme>& getSchemes(void) const noexcept { return this->m_schemes; }
+    inline const xr_map<xr_string, Storage_Scheme*>& getSchemes(void) const noexcept { return this->m_schemes; }
 
-    inline void setScheme(const xr_map<xr_string, Storage_Scheme>& map) noexcept
+    inline void setScheme(const xr_map<xr_string, Storage_Scheme*>& map) noexcept
     {
         if (map.empty())
         {
@@ -2236,7 +2253,7 @@ public:
         this->m_schemes = map;
     }
 
-    inline void setScheme(const std::pair<xr_string, Storage_Scheme>& pair) noexcept
+    inline void setScheme(const std::pair<xr_string, Storage_Scheme*>& pair) noexcept
     {
         if (pair.first.empty())
         {
@@ -2248,7 +2265,7 @@ public:
         this->m_schemes.insert(pair);
     }
 
-    inline void setScheme(const xr_string& scheme_name, const Storage_Scheme& data) noexcept
+    inline void setScheme(const xr_string& scheme_name, Storage_Scheme* const data) noexcept
     {
         if (scheme_name.empty())
         {
@@ -2270,7 +2287,7 @@ public:
             return;
         }
 
-        this->m_schemes[scheme_name].setActions(p_scheme);
+        this->m_schemes[scheme_name]->setActions(p_scheme);
     }
 
     inline void setSchemesSectionName(const xr_string& scheme_name, const xr_string& section_name) noexcept
@@ -2282,7 +2299,7 @@ public:
             return;
         }
 
-        this->m_schemes[scheme_name].setLogicName(section_name);
+        this->m_schemes[scheme_name]->setLogicName(section_name);
     }
 
     inline void setSchemesEnabled(const xr_string& scheme_name, const bool value) noexcept
@@ -2294,7 +2311,7 @@ public:
             return;
         }
 
-        this->m_schemes[scheme_name].setEnabled(value);
+        this->m_schemes[scheme_name]->setEnabled(value);
     }
 
     inline const DeathData& getDeathData(void) const noexcept { return this->m_death; }
@@ -2328,6 +2345,14 @@ public:
     inline bool IsDangerFlag(void) const noexcept { return this->m_is_danger_flag; }
     inline void setDangerFlag(const bool value) noexcept { this->m_is_danger_flag = value; }
 
+    inline const Script_StateManager& getStateManager(void) const noexcept { return *this->m_p_state_manager; }
+    inline void setStateManagerSetState(const xr_string& state_name, StateManagerCallbackData& callback,
+        const std::uint32_t timeout, std::pair<Fvector, CScriptGameObject* const> target,
+        const StateManagerExtraData& extra)
+    {
+        this->m_p_state_manager->set_state(state_name, callback, timeout, target, extra);
+    }
+
 private:
     bool m_is_invulnerable = false;
     bool m_is_immortal = false;
@@ -2347,10 +2372,11 @@ private:
     CSE_ALifeObject* m_p_server_object = nullptr;
     CScriptSound* m_p_sound_object = nullptr;
     CScriptIniFile* m_p_ini = nullptr;
+    Script_StateManager* m_p_state_manager = nullptr;
     xrTime m_activation_game_time;
     /*    xr_map<xr_string, SubStorage_Data> m_data;*/
     xr_map<xr_string, PStor_Data> m_pstor;
-    xr_map<xr_string, Storage_Scheme> m_schemes;
+    xr_map<xr_string, Storage_Scheme*> m_schemes;
     xr_string m_active_scheme_name;
     xr_string m_active_section_name;
     xr_string m_sound_name;
@@ -2851,6 +2877,13 @@ public:
 
 #pragma region Cordis Setters
 #pragma region Cordis DataBase Storage_Data setters
+    inline void setStorageStateManagerSetState(const std::uint16_t npc_id, const xr_string& state_name,
+        StateManagerCallbackData& callback, const std::uint32_t timeout,
+        std::pair<Fvector, CScriptGameObject* const> target, const StateManagerExtraData& extra) noexcept
+    {
+        this->m_storage[npc_id].setStateManagerSetState(state_name, callback, timeout, target, extra);
+    }
+
     // Lord: обновлять сеттеры покуда обновляется сам Storage_Data
     inline void setStorageInvulnerable(const std::uint16_t npc_id, const bool value) noexcept
     {
@@ -2911,7 +2944,7 @@ public:
             return;
         }
 
-        this->m_storage[id].m_schemes[this->m_storage[id].getActiveSchemeName()].setSignals(signal_name, value);
+        this->m_storage[id].m_schemes[this->m_storage[id].getActiveSchemeName()]->setSignals(signal_name, value);
     }
 
     inline void setStorageActiveSchemeName(const std::uint16_t npc_id, const xr_string& active_scheme_name) noexcept
@@ -3000,7 +3033,7 @@ public:
         this->m_storage[npc_id].setGulagName(gulag_name);
     }
 
-    inline void setStorageSchemes(const std::uint16_t npc_id, const xr_map<xr_string, Storage_Scheme>& map) noexcept
+    inline void setStorageSchemes(const std::uint16_t npc_id, const xr_map<xr_string, Storage_Scheme*>& map) noexcept
     {
         if (map.empty())
         {
@@ -3011,7 +3044,7 @@ public:
         this->m_storage[npc_id].setScheme(map);
     }
 
-    inline void setStorageScheme(const std::uint16_t npc_id, const std::pair<xr_string, Storage_Scheme>& pair) noexcept
+    inline void setStorageScheme(const std::uint16_t npc_id, const std::pair<xr_string, Storage_Scheme*>& pair) noexcept
     {
         if (pair.first.empty())
         {
@@ -3024,7 +3057,7 @@ public:
     }
 
     inline void setStorageScheme(
-        const std::uint16_t npc_id, const xr_string& scheme_name, const Storage_Scheme& data) noexcept
+        const std::uint16_t npc_id, const xr_string& scheme_name, Storage_Scheme* const data) noexcept
     {
         if (scheme_name.empty())
         {

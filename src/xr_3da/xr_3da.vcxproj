@@ -103,6 +103,7 @@
         $(xrExternals)GameSpy\src;
         %(AdditionalIncludeDirectories)
       </AdditionalIncludeDirectories>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Mixed|x64'">TurnOffAllWarnings</WarningLevel>
     </ClCompile>
     <Link>
       <ProgramDatabaseFile>$(OutDir)$(ProjectName).pdb</ProgramDatabaseFile>

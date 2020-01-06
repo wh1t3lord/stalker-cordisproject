@@ -53,7 +53,6 @@ CALifeSimulator::CALifeSimulator(IPureServer* server, shared_str* command_line)
     *command_line = temp;
 
     LPCSTR start_game_callback = pSettings->r_string(alife_section, "start_game_callback");
-	// Lord: Lua Script here
 
     // Lord: здесь вызывается инициализация скриптов 
     Cordis::Scripts::Globals::start_game_callback();

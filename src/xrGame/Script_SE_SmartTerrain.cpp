@@ -109,7 +109,7 @@ void activate_by_section(CScriptGameObject* const p_client_object, CScriptIniFil
     else
     {
         for (Script_ISchemeEntity* it :
-            DataBase::Storage::getInstance().getStorage().at(npc_id).getSchemes().at(_scheme_name).getActions())
+            DataBase::Storage::getInstance().getStorage().at(npc_id).getSchemes().at(_scheme_name)->getActions())
         {
             it->reset_scheme(is_loading, p_client_object);
         }
@@ -127,7 +127,7 @@ CScriptIniFile* configure_schemes(CScriptGameObject* const p_client_object, CScr
 
     if (!storage.getActiveSectionName().empty())
     {
-        for (Script_ISchemeEntity* it : storage.getSchemes().at(storage.getActiveSchemeName()).getActions())
+        for (Script_ISchemeEntity* it : storage.getSchemes().at(storage.getActiveSchemeName())->getActions())
         {
             it->deactivate(p_client_object);
         }

@@ -135,6 +135,7 @@
         $(xrExternals)GameSpy\src;
         %(AdditionalIncludeDirectories)
       </AdditionalIncludeDirectories>
+      <WarningLevel>TurnOffAllWarnings</WarningLevel>
     </ClCompile>
     <Link>
       <AdditionalLibraryDirectories>

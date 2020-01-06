@@ -13,7 +13,8 @@ namespace Scripts
 Script_StateManager::Script_StateManager(CScriptGameObject* const p_client_object)
     : m_p_npc(p_client_object), m_is_position_direction_applied(false), m_target_state_name("idle"),
       m_p_action_planner(new CScriptActionPlanner()), m_is_alife(true), m_is_combat(false),
-      m_is_point_object_direction(false), m_is_need_reweapon(false)
+      m_is_point_object_direction(false), m_is_need_reweapon(false), m_look_object_id(0), m_is_fast_set(false),
+      m_p_animation(nullptr), m_p_animstate(nullptr)
 {
     this->m_p_action_planner->setup(this->m_p_npc);
 
@@ -508,7 +509,8 @@ Script_StateManager::Script_StateManager(CScriptGameObject* const p_client_objec
     p_action_bodystate_crouch_danger->add_condition(CWorldProperty(this->m_properties.at("locked_external"), false));
     p_action_bodystate_crouch_danger->add_condition(CWorldProperty(this->m_properties.at("bodystate"), false));
     p_action_bodystate_crouch_danger->add_condition(CWorldProperty(this->m_properties.at("mental"), false));
-    p_action_bodystate_crouch_danger->add_condition(CWorldProperty(this->m_properties.at("bodystate_crouch_now"), false));
+    p_action_bodystate_crouch_danger->add_condition(
+        CWorldProperty(this->m_properties.at("bodystate_crouch_now"), false));
     p_action_bodystate_crouch_danger->add_condition(CWorldProperty(this->m_properties.at("bodystate_crouch"), true));
     p_action_bodystate_crouch_danger->add_effect(CWorldProperty(this->m_properties.at("bodystate"), true));
     p_action_bodystate_crouch_danger->add_effect(CWorldProperty(this->m_properties.at("mental"), true));
@@ -542,12 +544,13 @@ Script_StateManager::Script_StateManager(CScriptGameObject* const p_client_objec
     p_action_bodystate_standing_free->add_effect(CWorldProperty(this->m_properties.at("bodystate_standing_now"), true));
     p_action_bodystate_standing_free->add_effect(CWorldProperty(this->m_properties.at("mental"), true));
 
-    this->m_p_action_planner->add_operator(this->m_operators.at("bodystate_standing_free"), p_action_bodystate_standing_free);
+    this->m_p_action_planner->add_operator(
+        this->m_operators.at("bodystate_standing_free"), p_action_bodystate_standing_free);
 
     CScriptActionBase* p_action_animationstate_start =
         new Script_ActionStateManagerAnimationStateStart("state_mgr_animstate_start", this);
 
-	p_action_animationstate_start->add_condition(CWorldProperty(this->m_properties.at("locked"), false));
+    p_action_animationstate_start->add_condition(CWorldProperty(this->m_properties.at("locked"), false));
     p_action_animationstate_start->add_condition(CWorldProperty(this->m_properties.at("locked_external"), false));
     p_action_animationstate_start->add_condition(CWorldProperty(this->m_properties.at("animstate"), false));
     p_action_animationstate_start->add_condition(CWorldProperty(this->m_properties.at("smartcover"), true));
@@ -608,7 +611,8 @@ Script_StateManager::Script_StateManager(CScriptGameObject* const p_client_objec
 
     this->m_p_action_planner->add_operator(this->m_operators.at("animation_stop"), p_action_animation_stop);
 
-    CScriptActionBase* p_action_smartcover_enter = new Script_ActionStateManagerSmartCoverEnter("act_state_mgr_smartcover_enter", this);
+    CScriptActionBase* p_action_smartcover_enter =
+        new Script_ActionStateManagerSmartCoverEnter("act_state_mgr_smartcover_enter", this);
 
     p_action_smartcover_enter->add_condition(CWorldProperty(this->m_properties.at("locked"), false));
     p_action_smartcover_enter->add_condition(CWorldProperty(this->m_properties.at("weapon"), true));
@@ -620,7 +624,8 @@ Script_StateManager::Script_StateManager(CScriptGameObject* const p_client_objec
 
     this->m_p_action_planner->add_operator(this->m_operators.at("smartcover_enter"), p_action_smartcover_enter);
 
-    CScriptActionBase* p_action_smartcover_exit = new Script_ActionStateManagerSmartCoverExit("act_state_mgr_smartcover_exit", this);
+    CScriptActionBase* p_action_smartcover_exit =
+        new Script_ActionStateManagerSmartCoverExit("act_state_mgr_smartcover_exit", this);
 
     p_action_smartcover_exit->add_condition(CWorldProperty(this->m_properties.at("locked"), false));
     p_action_smartcover_exit->add_condition(CWorldProperty(this->m_properties.at("weapon"), true));
@@ -642,7 +647,7 @@ Script_StateManager::Script_StateManager(CScriptGameObject* const p_client_objec
 
     p_action_locked->add_condition(CWorldProperty(this->m_properties.at("locked"), true));
     p_action_locked->add_effect(CWorldProperty(this->m_properties.at("locked"), false));
-    
+
     this->m_p_action_planner->add_operator(this->m_operators.at("locked"), p_action_locked);
 
     CScriptActionBase* p_action_animation_locked =
@@ -666,7 +671,7 @@ Script_StateManager::Script_StateManager(CScriptGameObject* const p_client_objec
 
     p_action_external_locked->add_condition(CWorldProperty(this->m_properties.at("locked_external"), true));
     p_action_external_locked->add_effect(CWorldProperty(this->m_properties.at("locked_external"), false));
-    
+
     this->m_p_action_planner->add_operator(this->m_operators.at("locked_external"), p_action_external_locked);
 
     CScriptActionBase* p_action_end = new Script_ActionStateManagerEnd("state_mgr_end", this);
@@ -690,13 +695,175 @@ Script_StateManager::Script_StateManager(CScriptGameObject* const p_client_objec
 
     this->m_p_action_planner->set_target_state(world_state);
 
-    #ifdef DEBUG
+#ifdef DEBUG
     this->m_p_npc->debug_planner(this->m_p_action_planner);
-    #endif
+#endif
 
-
+    this->m_p_animation = new Script_StateAnimation(this->m_p_npc, *this, true);
+    this->m_p_animstate = new Script_StateAnimation(this->m_p_npc, *this, false);
 }
 
-Script_StateManager::~Script_StateManager(void) {}
+Script_StateManager::~Script_StateManager(void)
+{
+    if (this->m_p_animation)
+    {
+        Msg("[Scripts/Script_StateManager/~dtor()] deleting m_p_animation");
+        xr_delete(this->m_p_animation);
+    }
+
+    if (this->m_p_animstate)
+    {
+        Msg("[Scripts/Script_StateManager/~dtor()] deleting m_p_animstate");
+        xr_delete(this->m_p_animstate);
+    }
+}
+
+void Script_StateManager::set_state(const xr_string& state_name, StateManagerCallbackData& callback,
+    const std::uint32_t timeout, std::pair<Fvector, CScriptGameObject* const> target,
+    const StateManagerExtraData& extra)
+{
+    if (Script_GlobalHelper::getInstance().getStateLibrary().find(state_name) ==
+        Script_GlobalHelper::getInstance().getStateLibrary().end())
+    {
+        R_ASSERT2(false, "can't find it!");
+        return;
+    }
+
+    if (!Globals::is_vector_nil(target.first) || target.second)
+    {
+        this->m_look_position = target.first;
+        if (target.second)
+            this->m_look_object_id = target.second->ID();
+        else
+            this->m_look_object_id = 0;
+    }
+    else
+    {
+        this->m_look_position.set(0.0f, 0.0f, 0.0f);
+        this->m_look_object_id = 0;
+    }
+
+    bool is_switched = false;
+    xr_string last_state_name = this->m_target_state_name;
+
+    // Lord: проверить сравнение строк!
+    if (this->m_target_state_name != state_name)
+    {
+        if (((Script_GlobalHelper::getInstance().getStateLibrary().at(this->m_target_state_name).getWeaponTypeName() ==
+                 "fire") ||
+                (Script_GlobalHelper::getInstance()
+                        .getStateLibrary()
+                        .at(this->m_target_state_name)
+                        .getWeaponTypeName() == "sniper_fire")) &&
+            ((Script_GlobalHelper::getInstance().getStateLibrary().at(state_name).getWeaponTypeName() != "fire") &&
+                (Script_GlobalHelper::getInstance().getStateLibrary().at(state_name).getWeaponTypeName() !=
+                    "sniper_fire")))
+        {
+            if (this->m_p_npc->weapon_unstrapped())
+                this->m_p_npc->set_item(eObjectActionIdle, Globals::get_weapon(this->m_p_npc, state_name));
+        }
+    }
+
+    if (Script_GlobalHelper::getInstance().getStateLibrary().at(state_name).IsSpecialDangerMove())
+    {
+        if (!this->m_p_npc->special_danger_move())
+            this->m_p_npc->special_danger_move(true);
+    }
+    else
+    {
+        if (this->m_p_npc->special_danger_move())
+            this->m_p_npc->special_danger_move(false);
+    }
+
+    this->m_target_state_name = state_name;
+    is_switched = true;
+
+    if (extra.isInitialize())
+    {
+        this->m_is_fast_set = extra.isFastSet();
+
+        if ((!this->m_is_position_direction_applied) ||
+            ((!Globals::is_vector_nil(this->m_animation_position)) &&
+                (!Globals::is_vector_nil(extra.getAnimationPosition())) &&
+                (this->m_animation_position.x != extra.getAnimationPosition().x &&
+                    this->m_animation_position.y != extra.getAnimationPosition().y &&
+                    this->m_animation_position.z != extra.getAnimationPosition().z)) ||
+            ((!Globals::is_vector_nil(this->m_animation_direction)) &&
+                (!Globals::is_vector_nil(extra.getAnimationDirection())) &&
+                (this->m_animation_direction.x != extra.getAnimationDirection().x &&
+                    this->m_animation_direction.y != extra.getAnimationDirection().y &&
+                    this->m_animation_direction.z != extra.getAnimationDirection().z)))
+        {
+            this->m_animation_direction = extra.getAnimationDirection();
+            this->m_animation_position = extra.getAnimationPosition();
+            this->m_is_position_direction_applied = false;
+        }
+        else
+        {
+            this->m_animation_position.set(0.0f, 0.0f, 0.0f);
+            this->m_animation_direction.set(0.0f, 0.0f, 0.0f);
+            this->m_is_position_direction_applied = false;
+            this->m_is_fast_set = false;
+        }
+    }
+
+    this->m_callback_data = callback;
+    if (timeout >= 0)
+    {
+        this->m_callback_data.setTimeOut(timeout);
+        this->m_callback_data.setBegin(0);
+    }
+    else
+    {
+        if (this->m_callback_data.isAllFieldEmpty())
+        {
+            this->m_callback_data.setCallbackTime(nullptr);
+            this->m_callback_data.setCallbackTurnEnd(nullptr);
+        }
+    }
+}
+
+void Script_StateManager::update(void)
+{
+    if (this->m_p_animation->getStates().getCurrentStateName() ==
+        Script_GlobalHelper::getInstance().getStateLibrary().at(this->m_target_state_name).getAnimationName())
+    {
+        if (!this->m_callback_data.isAllFieldEmpty() && this->m_callback_data.isCallbackTimeExist())
+        {
+            if (!this->m_callback_data.getBegin())
+            {
+                this->m_callback_data.setBegin(Globals::get_time_global());
+            }
+            else
+            {
+                if (Globals::get_time_global() - this->m_callback_data.getBegin() >= this->m_callback_data.getTimeOut())
+                {
+                    this->m_callback_data.setBegin(0);
+                    this->m_callback_data.setCallbackTime(nullptr);
+                    this->m_callback_data.CallCallbackTime();
+                }
+            }
+        }
+    }
+
+    this->m_p_action_planner->update();
+    if (!this->m_p_action_planner->initialized())
+        return;
+
+    std::uint32_t last_pl_id = 0;
+    std::uint32_t pl_id = this->m_p_action_planner->current_action_id();
+    while (pl_id != last_pl_id && pl_id != this->m_operators.at("end") && pl_id != this->m_operators.at("locked"))
+    {
+        last_pl_id = pl_id;
+        this->m_p_action_planner->update();
+        pl_id = this->m_p_action_planner->current_action_id();
+    }
+}
+
+const StateManagerCallbackData& Script_StateManager::getCallbackData(void) const noexcept
+{
+    return this->m_callback_data;
+}
+
 } // namespace Scripts
 } // namespace Cordis
