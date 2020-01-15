@@ -19,8 +19,8 @@ void Script_SchemePHHit::reset_scheme(const bool value, CScriptGameObject* const
 {
     Msg("[Scripts/Script_SchemePHHit/reset_scheeme(is_loading, p_client_object)] %s", this->m_npc->Name());
 
-    
-    const Fvector& patrol_position = CPatrolPathParams(this->m_p_storage->getPHHitDirectionPathName().c_str()).point(std::uint32_t(0));
+    const Fvector& patrol_position =
+        CPatrolPathParams(this->m_p_storage->getPHHitDirectionPathName().c_str()).point(std::uint32_t(0));
     const Fvector& entity_position = this->m_npc->Position();
     CScriptHit hit;
 
@@ -31,18 +31,50 @@ void Script_SchemePHHit::reset_scheme(const bool value, CScriptGameObject* const
     hit.m_tDirection = Fvector(patrol_position).sub(entity_position);
     hit.m_tpDraftsman = this->m_npc;
     this->m_npc->Hit(&hit);
-    
-    Msg("[Scripts/Script_SchemePHHit/reset_scheme(is_loading, p_client_object)] %f %f %f", hit.m_tDirection.x, hit.m_tDirection.y, hit.m_tDirection.z);
+
+    Msg("[Scripts/Script_SchemePHHit/reset_scheme(is_loading, p_client_object)] %f %f %f", hit.m_tDirection.x,
+        hit.m_tDirection.y, hit.m_tDirection.z);
 }
 
-void Script_SchemePHHit::update(const float delta) 
+void Script_SchemePHHit::update(const float delta)
 {
     if (!DataBase::Storage::getInstance().getActor())
         return;
-    
+
     if (XR_LOGIC::try_switch_to_another_section(
             this->m_npc, *this->m_p_storage, DataBase::Storage::getInstance().getActor()))
         return;
+}
+
+void Script_SchemePHHit::set_scheme(CScriptGameObject* const p_client_object, CScriptIniFile* const p_ini,
+    const xr_string& scheme_name, const xr_string& section_name, const xr_string& gulag_name)
+{
+    if (!p_client_object)
+    {
+        R_ASSERT2(false, "object is null!");
+        return;
+    }
+
+    DataBase::Storage_Scheme* p_storage =
+        XR_LOGIC::assign_storage_and_bind(p_client_object, p_ini, scheme_name, section_name, gulag_name);
+
+    if (!p_storage)
+    {
+        R_ASSERT2(false, "object is null!");
+        return;
+    }
+
+    p_storage->setLogic(XR_LOGIC::cfg_get_switch_conditions(p_ini, section_name, p_client_object));
+
+    p_storage->setPHHitPower(Globals::Utils::cfg_get_number(p_ini, section_name, "power"));
+    float impulse = Globals::Utils::cfg_get_number(p_ini, section_name, "impulse");
+
+    if (fis_zero(impulse))
+        impulse = 1000.0f;
+
+    p_storage->setPHHitImpulse(impulse);
+    p_storage->setPHHitBoneName(Globals::Utils::cfg_get_string(p_ini, section_name, "bone"));
+    p_storage->setPHHitDirectionPathName(Globals::Utils::cfg_get_string(p_ini, section_name, "dir_path"));
 }
 
 } // namespace Scripts

@@ -94,7 +94,8 @@ void Script_SchemeSRDeimos::update(const float delta)
         if (this->m_p_storage->getSRDeimosIntensity() > this->m_p_storage->getSRDeimosSwitchUpperBound())
         {
             std::uint32_t current_time = Globals::get_time_global();
-            if (current_time - this->m_camera_effector_time > this->m_p_storage->getSRDeimosCameraEffectorRepeatingTime())
+            if (current_time - this->m_camera_effector_time >
+                this->m_p_storage->getSRDeimosCameraEffectorRepeatingTime())
             {
                 this->m_camera_effector_time = Globals::get_time_global();
                 Globals::Game::level::add_cam_effector(xr_string("camera_effects\\")
@@ -175,6 +176,89 @@ void Script_SchemeSRDeimos::update(const float delta)
 
         return;
     }
+}
+
+void Script_SchemeSRDeimos::set_scheme(CScriptGameObject* const p_client_object, CScriptIniFile* const p_ini,
+    const xr_string& scheme_name, const xr_string& section_name, const xr_string& gulag_name)
+{
+    if (!p_client_object)
+    {
+        R_ASSERT2(false, "object is null!");
+        return;
+    }
+
+    DataBase::Storage_Scheme* p_storage =
+        XR_LOGIC::assign_storage_and_bind(p_client_object, p_ini, scheme_name, section_name, gulag_name);
+
+    if (!p_storage)
+    {
+        R_ASSERT2(false, "object is null!");
+        return;
+    }
+
+    p_storage->setLogic(XR_LOGIC::cfg_get_switch_conditions(p_ini, section_name, p_client_object));
+
+    float movement_speed = Globals::Utils::cfg_get_number(p_ini, section_name, "movement_speed");
+
+    if (fis_zero(movement_speed))
+        movement_speed = 100.0f;
+    
+    float growing_koef = Globals::Utils::cfg_get_number(p_ini, section_name, "growing_koef");
+
+    if (fis_zero(growing_koef))
+        growing_koef = 0.1f;
+
+    float lowering_koef = Globals::Utils::cfg_get_number(p_ini, section_name, "lowering_koef");
+
+    if (fis_zero(lowering_koef))
+        lowering_koef = growing_koef;
+
+
+    p_storage->setSRDeimosMovementSpeed(movement_speed);
+    p_storage->setSRDeimosGrowingKoef(growing_koef);
+    p_storage->setSRDeimosLoweringKoef(lowering_koef);
+    p_storage->setSRDeimosPostProcessEffectorName(Globals::Utils::cfg_get_string(p_ini, section_name, "pp_effector"));
+    p_storage->setSRDeimosPostProcessEffector2Name(Globals::Utils::cfg_get_string(p_ini, section_name, "pp_effector2"));
+    p_storage->setSRDeimosCameraEffectorName(Globals::Utils::cfg_get_string(p_ini, section_name, "cam_effector"));
+    
+    std::uint32_t camera_repeating_time = static_cast<std::uint32_t>(Globals::Utils::cfg_get_number(p_ini, section_name, "cam_effector_repeating_time"));
+
+    if (!camera_repeating_time)
+        camera_repeating_time = 10;
+
+    camera_repeating_time *= 1000;
+
+    p_storage->setSRDeimosCameraEffectorRepeatingTime(camera_repeating_time);
+    p_storage->setSRDeimosNoiseSoundName(Globals::Utils::cfg_get_string(p_ini, section_name, "noise_sound"));
+    p_storage->setSRDeimosHeartBeetSoundName(Globals::Utils::cfg_get_string(p_ini, section_name, "heartbeet_sound"));
+    
+    float health_lost = Globals::Utils::cfg_get_number(p_ini, section_name, "health_lost");
+
+    if (fis_zero(health_lost))
+        health_lost = 0.01f;
+
+    p_storage->setSRDeimosHealthLost(health_lost);
+    
+    float disable_bound = Globals::Utils::cfg_get_number(p_ini, section_name, "disable_bound");
+
+    if (fis_zero(disable_bound))
+        disable_bound = 0.1f;
+
+    p_storage->setSRDeimosDisableBound(disable_bound);
+
+    float switch_lower_bound = Globals::Utils::cfg_get_number(p_ini, section_name, "switch_lower_bound");
+
+    if (fis_zero(switch_lower_bound))
+        switch_lower_bound = 0.5f;
+
+    p_storage->setSRDeimosSwitchLowerBound(switch_lower_bound);
+
+    float switch_upper_bound = Globals::Utils::cfg_get_number(p_ini, section_name, "switch_upper_bound");
+
+    if (fis_zero(switch_upper_bound))
+        switch_upper_bound = 0.75f;
+
+    p_storage->setSRDeimosSwitchUpperBound(switch_upper_bound);
 }
 
 } // namespace Scripts

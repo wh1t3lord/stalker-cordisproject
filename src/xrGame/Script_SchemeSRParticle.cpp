@@ -160,7 +160,8 @@ void Script_SchemeSRParticle::update(const float delta)
 
     this->IsEnd();
 
-    XR_LOGIC::try_switch_to_another_section(this->m_npc, *this->m_p_storage, DataBase::Storage::getInstance().getActor());
+    XR_LOGIC::try_switch_to_another_section(
+        this->m_npc, *this->m_p_storage, DataBase::Storage::getInstance().getActor());
 }
 
 void Script_SchemeSRParticle::deactivate(CScriptGameObject* const p_client_object)
@@ -179,6 +180,48 @@ void Script_SchemeSRParticle::deactivate(CScriptGameObject* const p_client_objec
         CScriptParticles* p_object = it.getParticle();
         xr_delete(p_object);
         it.setParticle(nullptr);
+    }
+}
+
+void Script_SchemeSRParticle::set_scheme(CScriptGameObject* const p_client_object, CScriptIniFile* const p_ini,
+    const xr_string& scheme_name, const xr_string& section_name, const xr_string& gulag_name)
+{
+    if (!p_client_object)
+    {
+        R_ASSERT2(false, "object is null!");
+        return;
+    }
+
+    DataBase::Storage_Scheme* p_storage =
+        XR_LOGIC::assign_storage_and_bind(p_client_object, p_ini, scheme_name, section_name, gulag_name);
+
+    if (!p_storage)
+    {
+        R_ASSERT2(false, "object is null!");
+        return;
+    }
+
+    p_storage->setLogic(XR_LOGIC::cfg_get_switch_conditions(p_ini, section_name, p_client_object));
+    p_storage->setSRParticlePathName(Globals::Utils::cfg_get_string(p_ini, section_name, "path"));
+    p_storage->setSRParticleName(Globals::Utils::cfg_get_string(p_ini, section_name, "name"));
+    std::uint32_t mode = static_cast<std::uint32_t>(Globals::Utils::cfg_get_number(p_ini, section_name, "mode"));
+
+    if (!mode || mode == Globals::kUnsignedInt32Undefined)
+        mode = 1;
+
+    p_storage->setSRParticleMode(mode);
+    p_storage->setSRParticleLooped(Globals::Utils::cfg_get_bool(p_ini, section_name, "looped"));
+
+    if (p_storage->getSRParticlePathName().empty())
+    {
+        R_ASSERT2(false, "can't be an empty string");
+        return;
+    }
+
+    if (p_storage->getSRParticleMode() != 1 || p_storage->getSRParticleMode() != 2)
+    {
+        R_ASSERT2(false, "wrong mode you are set");
+        return;
     }
 }
 

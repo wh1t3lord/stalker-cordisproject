@@ -35,7 +35,7 @@ public:
 
 #pragma region Cordis Additional callbacks
     virtual void waypoint_callback(CScriptGameObject* p_client_object, const std::uint32_t action_type_movement,
-        const std::uint32_t m_current_point_index);
+        const std::uint32_t point_index);
     virtual void hit_callback(CScriptGameObject* p_client_object, const float amount, const Fvector& local_direction,
         CScriptGameObject* p_client_who, const std::int16_t bone_index);
     virtual void death_callback(CScriptGameObject* p_client_victim, CScriptGameObject* p_client_who);

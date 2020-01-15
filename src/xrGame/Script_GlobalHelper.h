@@ -12837,15 +12837,53 @@ private:
         pri_a22_colonel_lean_on_table_animstate_data.setPropertiesMoving(true);
 
         pri_a22_colonel_lean_on_table_animstate_data.addAnimation("into", 0, "pri_a22_colonel_lean_on_tabl_in");
-        //  pri_a22_colonel_lean_on_table_animstate_data.addAnimationFunction("idle", 0, xr_effects.pri_a22_kovalski_speak);
-        //  Lord: доделать!
+        //  pri_a22_colonel_lean_on_table_animstate_data.addAnimationFunction("idle", 0,
+        //  xr_effects.pri_a22_kovalski_speak); Lord: доделать!
         pri_a22_colonel_lean_on_table_animstate_data.addAnimation("out", 0, "pri_a22_colonel_lean_on_tabl_out");
         pri_a22_colonel_lean_on_table_animstate_data.addAnimation("idle", 0, "pri_a22_colonel_lean_on_tabl_idle");
 
-        this->m_state_manager_animationstate_list["pri_a22_colonel_lean_on_table"] = pri_a22_colonel_lean_on_table_animstate_data;
+        this->m_state_manager_animationstate_list["pri_a22_colonel_lean_on_table"] =
+            pri_a22_colonel_lean_on_table_animstate_data;
+#pragma endregion
+
+#pragma region Cordis News Manager
+        this->m_news_manager_registered_sound_tips["pioneer"] = "ui_inGame2_PD_Pervootkrivatel";
+        this->m_news_manager_registered_sound_tips["mutant_hunter"] = "ui_inGame2_PD_Ohotnik_na_mutantov";
+        this->m_news_manager_registered_sound_tips["detective"] = "ui_inGame2_PD_Sisshik";
+        this->m_news_manager_registered_sound_tips["one_of_the_lads"] = "ui_inGame2_PD_Svoy_paren";
+        this->m_news_manager_registered_sound_tips["kingpin"] = "ui_inGame2_PD_Avtoritet";
+        this->m_news_manager_registered_sound_tips["herald_of_justice"] = "ui_inGame2_PD_Gonets_pravosudiya";
+        this->m_news_manager_registered_sound_tips["seeker"] = "ui_inGame2_PD_Iskatel";
+        this->m_news_manager_registered_sound_tips["battle_systems_master"] = "ui_inGame2_PD_master_boevih_sistem";
+        this->m_news_manager_registered_sound_tips["high_tech_master"] = "ui_inGame2_PD_Master_visokih_technologiy";
+        this->m_news_manager_registered_sound_tips["skilled_stalker"] = "ui_inGame2_PD_Opitniy_stalker";
+        this->m_news_manager_registered_sound_tips["leader"] = "ui_inGame2_PD_Lider";
+        this->m_news_manager_registered_sound_tips["diplomat"] = "ui_inGame2_PD_Diplomat";
+        this->m_news_manager_registered_sound_tips["research_man"] = "ui_inGame2_PD_Nauchniy_sotrudnik";
+        this->m_news_manager_registered_sound_tips["friend_of_duty"] = "ui_inGame2_PD_Drug_Dolga";
+        this->m_news_manager_registered_sound_tips["friend_of_freedom"] = "ui_inGame2_PD_Drug_Swobodi";
+        this->m_news_manager_registered_sound_tips["balance_advocate"] = "ui_inGame2_PD_storonnik_ravnovesiya";
+        this->m_news_manager_registered_sound_tips["wealthy"] = "ui_inGame2_PD_Sostoyatelniy_klient";
+        this->m_news_manager_registered_sound_tips["keeper_of_secrets"] = "ui_inGame2_PD_Hranitel_tayn";
+        this->m_news_manager_registered_sound_tips["marked_by_zone"] = "ui_inGame2_PD_Otmecheniy_zonoy";
+        this->m_news_manager_registered_sound_tips["information_dealer"] = "ui_inGame2_PD_Torgovets_informatsiey";
+        this->m_news_manager_registered_sound_tips["friend_of_stalkers"] = "ui_inGame2_PD_Drug_Stalkerov";
+        this->m_news_manager_registered_sound_tips["got_artefact"] = "ui_inGame2_D_gonets_pravosudiya";
+        this->m_news_manager_registered_sound_tips["got_ammo"] = "ui_inGame2_D_Ohotnik_na_mutantov";
+        this->m_news_manager_registered_sound_tips["got_medicine"] = "ui_inGame2_D_Sisshik";
+        this->m_news_manager_registered_sound_tips["got_duty_light_armor"] =
+            "ui_inGame2_D_Vipolnil_2_zadaniya_dlya_Dolga";
+        this->m_news_manager_registered_sound_tips["got_duty_heavy_armor"] =
+            "ui_inGame2_D_Vipolnil_4_zadaniya_dlya_Dolga";
+        this->m_news_manager_registered_sound_tips["got_freedom_light_armor"] =
+            "ui_inGame2_D_Vipolnil_2_zadaniya_dlya_Swobodi";
+        this->m_news_manager_registered_sound_tips["got_freedom_heavy_armor"] =
+            "ui_inGame2_D_Vipolnil_4_zadaniya_dlya_Swobodi";
+        this->m_news_manager_registered_sound_tips["can_resupply"] = "ui_inGame2_Pered_zadaniyami_voennih";
+        this->m_news_manager_registered_sound_tips["recent_surge"] = "ui_inGame2_V_zone_nedavno_proshel_vibros";
 #pragma endregion
     }
-     
+
 public:
     inline static Script_GlobalHelper& getInstance(void) noexcept
     {
@@ -14087,7 +14125,7 @@ public:
 
     inline xr_map<xr_string,
         std::function<void(CScriptGameObject* const, CScriptIniFile* const, const xr_string&, const xr_string&,
-            DataBase::Storage_Scheme&)>>
+            DataBase::Storage_Scheme&)>>&
     getSchemesAddToBinderCallbacks(void) noexcept
     {
         return this->m_registered_schemes_add_to_binder_callbacks;
@@ -14134,6 +14172,11 @@ public:
     {
         return this->m_state_manager_animationstate_list;
     }
+
+    inline const xr_map<xr_string, xr_string>& getNewsManagerRegisteredSoundTips(void) const noexcept
+    {
+        return this->m_news_manager_registered_sound_tips;
+    }
 #pragma endregion
 
 private:
@@ -14171,6 +14214,7 @@ private:
     xr_map<xr_string, SmartCoverData> m_registered_smartcovers;
     xr_map<xr_string, xr_string> m_job_type_by_scheme;
     xr_map<xr_string, xr_string> m_game_smarts_by_no_assault_zone;
+    xr_map<xr_string, xr_string> m_news_manager_registered_sound_tips;
     xr_map<xr_string, std::uint32_t> m_simulationboard_group_id_by_levels_name;
     xr_map<xr_string, std::uint32_t> m_monster_animation_to_action;
     xr_map<xr_string, MonsterSound::EType> m_monster_sound_name_to_type_action;

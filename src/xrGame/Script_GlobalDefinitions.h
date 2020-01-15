@@ -587,6 +587,21 @@ constexpr std::uint32_t kStateManager = StalkerDecisionSpace::eWorldOperatorScri
 constexpr std::uint32_t kSmartcoverAction = StalkerDecisionSpace::eWorldOperatorScript + 215;
 constexpr std::uint32_t kTestReaction = StalkerDecisionSpace::eWorldOperatorScript + 218;
 
+namespace XR_EVALUATORS_ID
+{
+constexpr std::uint32_t kIDStart = StalkerDecisionSpace::eWorldPropertyScript;
+constexpr std::uint32_t kGlobalEvaluators = kIDStart;
+constexpr std::uint32_t kScriptCombat = kIDStart + 1110;
+constexpr std::uint32_t kSidorWoundedBase = kIDStart + 2010;
+constexpr std::uint32_t kWoundedExist = kIDStart + 55;
+constexpr std::uint32_t kReaction = kIDStart + 5;
+constexpr std::uint32_t kZmeyRemarkBase = kIDStart + 4520;
+constexpr std::uint32_t kStateManager = kIDStart + 100;
+constexpr std::uint32_t kStoheMeetBase = kIDStart + 1030;
+constexpr std::uint32_t kAbuseBase = kIDStart + 1120;
+constexpr std::uint32_t kCorpseExist = kIDStart + 50;
+} // namespace XR_EVALUATORS_ID
+
 constexpr std::uint32_t kStoheActions = StalkerDecisionSpace::eWorldOperatorScript + 220;
 constexpr std::uint32_t kStoheTradesellerInit = kStoheActions + 1;
 constexpr std::uint32_t kStoheTradesellerBase = kStoheActions + 10;
@@ -900,14 +915,14 @@ struct StateManagerExtraData
 
     ~StateManagerExtraData(void) = default;
 
-/* not used delete
-    inline bool isInitialize(void) const noexcept
-    {
-        return !(fis_zero(this->m_animation_direction.x) && fis_zero(this->m_animation_direction.y) &&
-                   fis_zero(this->m_animation_direction.z)) &&
-            !(fis_zero(this->m_animation_position.x) && fis_zero(this->m_animation_position.y) &&
-                fis_zero(this->m_animation_position.z));
-    }*/
+    /* not used delete
+        inline bool isInitialize(void) const noexcept
+        {
+            return !(fis_zero(this->m_animation_direction.x) && fis_zero(this->m_animation_direction.y) &&
+                       fis_zero(this->m_animation_direction.z)) &&
+                !(fis_zero(this->m_animation_position.x) && fis_zero(this->m_animation_position.y) &&
+                    fis_zero(this->m_animation_position.z));
+        }*/
 
     inline bool isFastSet(void) const noexcept { return this->m_is_fast_set; }
     inline void setFastSet(const bool value) noexcept { this->m_is_fast_set = value; }

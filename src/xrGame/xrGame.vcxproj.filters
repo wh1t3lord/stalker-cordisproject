@@ -4171,6 +4171,24 @@
     <Filter Include="Cordis\Scripts\Database\Private">
       <UniqueIdentifier>{b3d94870-eb1b-408f-99ea-eb41d150a903}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Cordis\Scripts\Logic\Schemes\XR\Walker">
+      <UniqueIdentifier>{53c8efad-499e-4970-acbc-b00708d3ff47}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Logic\Schemes\XR\Walker\Public">
+      <UniqueIdentifier>{a63b9aee-4a52-4d6c-b40b-0eccdd041574}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Logic\Schemes\XR\Walker\Private">
+      <UniqueIdentifier>{67f5fff6-448e-48fe-830e-c0fbb8d57c60}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Managers\Move">
+      <UniqueIdentifier>{a4464e2e-3b65-43a3-8cea-5b063423ea4f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Managers\Move\Public">
+      <UniqueIdentifier>{7f0223bc-26e4-43c6-9b7e-f55cba4866a3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Managers\Move\Private">
+      <UniqueIdentifier>{cd20dc21-016e-4126-8c67-966e28bdcac0}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="mt_config.h">
@@ -9515,6 +9533,12 @@
     <ClInclude Include="Script_StateAnimation.h">
       <Filter>Cordis\Scripts\Managers\State\Animation\Public</Filter>
     </ClInclude>
+    <ClInclude Include="Script_SchemeXRWalker.h">
+      <Filter>Cordis\Scripts\Logic\Schemes\XR\Walker\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Script_MoveManager.h">
+      <Filter>Cordis\Scripts\Managers\Move\Public</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="damage_manager.cpp">
@@ -13925,6 +13949,12 @@
     </ClCompile>
     <ClCompile Include="Script_DataBase.cpp">
       <Filter>Cordis\Scripts\Database\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Script_SchemeXRWalker.cpp">
+      <Filter>Cordis\Scripts\Logic\Schemes\XR\Walker\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Script_MoveManager.cpp">
+      <Filter>Cordis\Scripts\Managers\Move\Private</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -108,6 +108,7 @@ using RTokenVec = xr_vector<xr_rtoken>;
 #include <boost/regex.hpp>
 #include <boost/algorithm/algorithm.hpp>
 #include <boost/algorithm/string.hpp>
+#include <boost/lexical_cast.hpp>
 #pragma endregion
 
 #pragma region Cordis Includes

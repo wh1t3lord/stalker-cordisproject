@@ -46,7 +46,7 @@ public:
             "Script_SchemeMobWalker scheme to binder, name=%s scheme=%s section=%s",
             p_client_object->Name(), scheme_name.c_str(), section_name.c_str());
 
-        Script_ISchemeEntity* action = new Script_SchemeMobWalker(p_client_object, storage);
+        Script_ISchemeEntity* action = new Script_SchemeMobCamp(p_client_object, storage);
         DataBase::Storage::getInstance().setStorageSchemesActions(
             p_client_object->ID(), action->getSchemeName(), action);
     }

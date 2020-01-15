@@ -2078,7 +2078,11 @@ inline void save_object(CScriptGameObject* client_object, NET_Packet& packet)
                 .at(DataBase::Storage::getInstance().getStorage().at(client_object->ID()).getActiveSchemeName())
                 ->getActions())
         {
-            it->save();
+            if (it)
+            {
+                if (it->isActionSubscribed())
+                    it->save();
+            }
         }
     }
 
@@ -2141,6 +2145,7 @@ inline DataBase::Storage_Scheme* assign_storage_and_bind(CScriptGameObject* cons
         DataBase::Storage_Scheme* p_storage = new DataBase::Storage_Scheme();
         p_storage->setClientObject(p_client_object);
         DataBase::Storage::getInstance().setStorageScheme(p_client_object->ID(), scheme_name, p_storage);
+        Script_GlobalHelper::getInstance().getSchemesAddToBinderCallbacks()[scheme_name](p_client_object, p_ini, scheme_name, section_name, *p_storage);
     }
 
     // Lord: лучше всё таки указатель сделать
@@ -2545,7 +2550,13 @@ inline bool switch_to_section(
                 .at(DataBase::Storage::getInstance().getStorage().at(npc_id).getActiveSchemeName())
                 ->getActions())
         {
-            it->deactivate(p_client_object);
+            if (it)
+            {
+                if (it->isActionSubscribed())
+                {
+                    it->deactivate(p_client_object);
+                }
+            }
         }
     }
 

@@ -79,5 +79,64 @@ void Script_SchemeSRTeleport::update(const float delta)
         return;
 }
 
+void Script_SchemeSRTeleport::set_scheme(CScriptGameObject* const p_client_object, CScriptIniFile* const p_ini,
+    const xr_string& scheme_name, const xr_string& section_name, const xr_string& gulag_name)
+{
+    if (!p_client_object)
+    {
+        R_ASSERT2(false, "object is null!");
+        return;
+    }
+
+    DataBase::Storage_Scheme* p_storage =
+        XR_LOGIC::assign_storage_and_bind(p_client_object, p_ini, scheme_name, section_name, gulag_name);
+
+    if (!p_storage)
+    {
+        R_ASSERT2(false, "object is null!");
+        return;
+    }
+
+    p_storage->setLogic(XR_LOGIC::cfg_get_switch_conditions(p_ini, section_name, p_client_object));
+
+    std::uint32_t timeout = static_cast<std::uint32_t>(Globals::Utils::cfg_get_number(p_ini, section_name, "timeout"));
+
+    if (!timeout)
+        timeout = 900;
+
+    p_storage->setSRTeleportTimeout(timeout);
+
+    xr_vector<std::pair<std::uint32_t, std::pair<xr_string, xr_string>>> points;
+    std::pair<std::uint32_t, std::pair<xr_string, xr_string>> data;
+    xr_string point_name;
+    xr_string look_name;
+    xr_string probability_name;
+    for (std::uint32_t i = 1; i < 11; ++i)
+    {
+        point_name = "point";
+        point_name += std::to_string(i);
+        look_name = "look";
+        look_name += std::to_string(i);
+        probability_name = "prob";
+        probability_name += std::to_string(i);
+
+        data.second.first = Globals::Utils::cfg_get_string(p_ini, section_name, point_name);
+        data.second.second = Globals::Utils::cfg_get_string(p_ini, section_name, look_name);
+        data.first = static_cast<std::uint32_t>(Globals::Utils::cfg_get_number(p_ini, section_name, probability_name));
+
+        if (data.second.first.empty() || data.second.second.empty())
+            break;
+
+        points.push_back(data);
+    }
+
+    p_storage->setSRTeleportPoints(points);
+
+    if (points.empty())
+    {
+        R_ASSERT2(false, "Wrong point count in sr_teleport!");
+    }
+}
+
 } // namespace Scripts
 } // namespace Cordis

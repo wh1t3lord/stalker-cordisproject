@@ -37,16 +37,55 @@ void Script_SchemeSRPostProcess::reset_scheme(const bool value, CScriptGameObjec
         this->m_intensity_inertion = this->m_p_storage->getSRPostProcessIntensitySpeed();
     }
 
-//     this->m_postprocess = CScriptEffector(this->m_id + 2000, 10000000);
-//     this->m_postprocess.Add();
+    //     this->m_postprocess = CScriptEffector(this->m_id + 2000, 10000000);
+    //     this->m_postprocess.Add();
 }
 
-void Script_SchemeSRPostProcess::deactivate(CScriptGameObject* const p_client_object)
-{
-
-}
+void Script_SchemeSRPostProcess::deactivate(CScriptGameObject* const p_client_object) {}
 
 void Script_SchemeSRPostProcess::update(const float delta) {}
+
+void Script_SchemeSRPostProcess::set_scheme(CScriptGameObject* const p_client_object, CScriptIniFile* const p_ini,
+    const xr_string& scheme_name, const xr_string& section_name, const xr_string& gulag_name)
+{
+    if (!p_client_object)
+    {
+        R_ASSERT2(false, "object is null!");
+        return;
+    }
+
+    DataBase::Storage_Scheme* p_storage =
+        XR_LOGIC::assign_storage_and_bind(p_client_object, p_ini, scheme_name, section_name, gulag_name);
+
+    if (!p_storage)
+    {
+        R_ASSERT2(false, "object is null!");
+        return;
+    }
+
+    p_storage->setLogic(XR_LOGIC::cfg_get_switch_conditions(p_ini, section_name, p_client_object));
+
+    float hit_intesity = Globals::Utils::cfg_get_number(p_ini, section_name, "hit_intensity");
+
+    if (fis_zero(hit_intesity))
+        hit_intesity = 1.0f;
+
+    p_storage->setSRPostProcessHitIntensity(hit_intesity);
+
+    float intensity = Globals::Utils::cfg_get_number(p_ini, section_name, "intensity");
+
+    if (fis_zero(intensity))
+        intensity = 0.01f;
+
+    p_storage->setSRPostProcessIntensity(intensity);
+
+    float intensity_speed = Globals::Utils::cfg_get_number(p_ini, section_name, "intensity_speed");
+
+    if (fis_zero(intensity_speed))
+        intensity_speed = 0.01f;
+
+    p_storage->setSRPostProcessIntensitySpeed(intensity_speed);
+}
 
 void Script_SchemeSRPostProcess::update_hit(const float delta) {}
 } // namespace Scripts

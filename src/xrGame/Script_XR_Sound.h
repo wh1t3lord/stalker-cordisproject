@@ -135,7 +135,7 @@ inline void stop_sound_looped(const std::uint16_t npc_id, const xr_string& sound
             if (it.second && it.second->is_playing(npc_id))
                 it.second->stop(npc_id);
 
-            it.second = nullptr;  // Lord: проверить на всякий случай по поводу деалокации
+            it.second = nullptr; // Lord: проверить на всякий случай по поводу деалокации
         }
 
         getLoopedSoundDatabase()[npc_id].clear();
@@ -149,7 +149,8 @@ inline void set_volume_sound_looped(const std::uint16_t npc_id, const xr_string&
         if (getLoopedSoundDatabase()[npc_id][sound_name] &&
             getLoopedSoundDatabase()[npc_id][sound_name]->is_playing(npc_id))
         {
-            Msg("[Scripts/XR_SOUND/set_volume_sound_looped(npc_id, sound_name, value)] %s %d %f", sound_name, npc_id, value);
+            Msg("[Scripts/XR_SOUND/set_volume_sound_looped(npc_id, sound_name, value)] %s %d %f", sound_name, npc_id,
+                value);
             getLoopedSoundDatabase()[npc_id][sound_name]->set_volume(value);
         }
     }

@@ -128,5 +128,36 @@ void Script_SchemeMobRemark::update(const float delta)
     }
 }
 
+void Script_SchemeMobRemark::set_scheme(CScriptGameObject* const p_client_object, CScriptIniFile* const p_ini,
+    const xr_string& scheme_name, const xr_string& section_name, const xr_string& gulag_name)
+{
+    if (!p_client_object)
+    {
+        R_ASSERT2(false, "object is null!");
+        return;
+    }
+
+    DataBase::Storage_Scheme* p_storage =
+        XR_LOGIC::assign_storage_and_bind(p_client_object, p_ini, scheme_name, section_name, gulag_name);
+
+    if (!p_storage)
+    {
+        R_ASSERT2(false, "object is null!");
+        return;
+    }
+
+    p_storage->setLogic(XR_LOGIC::cfg_get_switch_conditions(p_ini, section_name, p_client_object));
+    p_storage->setStateName(Script_MobStateManager::getInstance().get_state(p_ini, section_name));
+    p_storage->setDialogCondlist(
+        XR_LOGIC::cfg_get_condlist(p_ini, section_name, "dialog_cond", p_client_object).getCondlist());
+    p_storage->setNoReset(true);
+    p_storage->setAnimationName(Globals::Utils::cfg_get_string(p_ini, section_name, "anim"));
+    p_storage->setAnimationMovement(Globals::Utils::cfg_get_bool(p_ini, section_name, "anim_movement"));
+    p_storage->setAnimationHeadName(Globals::Utils::cfg_get_string(p_ini, section_name, "anim_head"));
+    p_storage->setTipName(Globals::Utils::cfg_get_string(p_ini, section_name, "tip"));
+    p_storage->setSoundName(Globals::Utils::cfg_get_string(p_ini, section_name, "snd"));
+    p_storage->setTimeName(Globals::Utils::cfg_get_string(p_ini, section_name, "time"));
+}
+
 } // namespace Scripts
 } // namespace Cordis

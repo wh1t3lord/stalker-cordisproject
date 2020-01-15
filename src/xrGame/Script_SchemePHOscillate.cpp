@@ -48,7 +48,8 @@ void Script_SchemePHOscillate::update(const float delta)
         this->m_direction.x = -this->m_direction.x;
         this->m_direction.z = -this->m_direction.z;
         float angle = this->m_p_storage->getAngle();
-        this->m_direction = Globals::vector_rotate_y(Fvector().set(-this->m_direction.x, 0.0f, -this->m_direction.z), angle);
+        this->m_direction =
+            Globals::vector_rotate_y(Fvector().set(-this->m_direction.x, 0.0f, -this->m_direction.z), angle);
         this->m_time = current_time;
         this->m_is_pause = true;
         return;
@@ -56,6 +57,51 @@ void Script_SchemePHOscillate::update(const float delta)
 
     float force = static_cast<float>((current_time - this->m_time)) * this->m_koeff;
     this->m_npc->set_const_force(this->m_direction, force, 2);
+}
+
+void Script_SchemePHOscillate::set_scheme(CScriptGameObject* const p_client_object, CScriptIniFile* const p_ini,
+    const xr_string& scheme_name, const xr_string& section_name, const xr_string& gulag_name)
+{
+    if (!p_client_object)
+    {
+        R_ASSERT2(false, "object is null!");
+        return;
+    }
+
+    if (!p_ini)
+    {
+        Msg("[Scripts/Script_SchemePHOscillate/set_scheme(p_client_object, p_ini, scheme_name, section_name, "
+            "gulag_name)] WARNING: p_ini == nullptr!");
+    }
+
+    DataBase::Storage_Scheme* p_storage =
+        XR_LOGIC::assign_storage_and_bind(p_client_object, p_ini, scheme_name, section_name, gulag_name);
+
+    if (!p_storage)
+    {
+        R_ASSERT2(false, "object is null!");
+        return;
+    }
+
+    p_storage->setLogic(XR_LOGIC::cfg_get_switch_conditions(p_ini, section_name, p_client_object));
+    p_storage->setPHOscillateJointName(Globals::Utils::cfg_get_string(p_ini, section_name, "joint"));
+    if (p_storage->getPHOscillateJointName().empty())
+    {
+        R_ASSERT2(false, "joint name can't an empty string");
+        return;
+    }
+
+    p_storage->setPHOscillatePeriod(
+        static_cast<std::uint32_t>(Globals::Utils::cfg_get_number(p_ini, section_name, "period")));
+    p_storage->setForce(Globals::Utils::cfg_get_number(p_ini, section_name, "force"));
+
+    if (fis_zero(p_storage->getForce()) || !p_storage->getPHOscillatePeriod())
+    {
+        R_ASSERT2(false, "they are not defined! Please check your configuration file and set the values!");
+        return;
+    }
+
+    p_storage->setAngle(Globals::Utils::cfg_get_number(p_ini, section_name, "correct_angle"));
 }
 
 } // namespace Scripts

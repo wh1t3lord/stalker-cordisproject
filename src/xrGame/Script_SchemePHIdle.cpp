@@ -48,11 +48,40 @@ void Script_SchemePHIdle::use_callback(CScriptGameObject* const p_client_object,
 {
     if (!this->m_p_storage->getOnUseCondlist().empty())
     {
-        if (XR_LOGIC::switch_to_section(this->m_npc, this->m_p_storage->getIni(), XR_LOGIC::pick_section_from_condlist(DataBase::Storage::getInstance().getActor(), this->m_npc, this->m_p_storage->getOnUseCondlist())))
+        if (XR_LOGIC::switch_to_section(this->m_npc, this->m_p_storage->getIni(),
+                XR_LOGIC::pick_section_from_condlist(
+                    DataBase::Storage::getInstance().getActor(), this->m_npc, this->m_p_storage->getOnUseCondlist())))
         {
             return;
         }
     }
+}
+
+void Script_SchemePHIdle::set_scheme(CScriptGameObject* const p_client_object, CScriptIniFile* const p_ini,
+    const xr_string& scheme_name, const xr_string& section_name, const xr_string& gulag_name)
+{
+    if (!p_client_object)
+    {
+        R_ASSERT2(false, "object is null!");
+        return;
+    }
+
+    DataBase::Storage_Scheme* p_storage =
+        XR_LOGIC::assign_storage_and_bind(p_client_object, p_ini, scheme_name, section_name, gulag_name);
+
+    if (!p_storage)
+    {
+        R_ASSERT2(false, "object is null!");
+        return;
+    }
+
+    p_storage->setLogic(XR_LOGIC::cfg_get_switch_conditions(p_ini, section_name, p_client_object));
+    p_storage->setPHIdleNonScriptUsable(Globals::Utils::cfg_get_bool(p_ini, section_name, "nonscript_usable"));
+    p_storage->setTipName(Globals::Utils::cfg_get_string(p_ini, section_name, "tips"));
+    p_storage->setOnUseCondlist(XR_LOGIC::cfg_get_condlist(p_ini, section_name, "on_use", p_client_object).getCondlist());
+    p_storage->setHitOnBone(Globals::Utils::parse_data_1v(
+        p_client_object, Globals::Utils::cfg_get_string(p_ini, section_name, "hit_on_bone")));
+    p_client_object->SetTipText(p_storage->getTipName().c_str());
 }
 
 } // namespace Scripts

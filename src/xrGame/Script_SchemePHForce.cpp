@@ -44,5 +44,52 @@ void Script_SchemePHForce::update(const float delta)
     this->m_is_process = true;
 }
 
+void Script_SchemePHForce::set_scheme(CScriptGameObject* const p_client_object, CScriptIniFile* const p_ini,
+    const xr_string& scheme_name, const xr_string& section_name, const xr_string& gulag_name)
+{
+    if (!p_client_object)
+    {
+        R_ASSERT2(false, "object is null!");
+        return;
+    }
+
+    DataBase::Storage_Scheme* p_storage =
+        XR_LOGIC::assign_storage_and_bind(p_client_object, p_ini, scheme_name, section_name, gulag_name);
+    p_storage->setLogic(XR_LOGIC::cfg_get_switch_conditions(p_ini, section_name, p_client_object));
+
+    p_storage->setForce(Globals::Utils::cfg_get_number(p_ini, section_name, "force"));
+    p_storage->setPHForceTime(static_cast<std::uint32_t>(Globals::Utils::cfg_get_number(p_ini, section_name, "time")));
+    p_storage->setPHForceDelay(
+        static_cast<std::uint32_t>(Globals::Utils::cfg_get_number(p_ini, section_name, "delay")));
+
+    if (fis_zero(p_storage->getForce()) || p_storage->getForce() <= 0.0f)
+    {
+        R_ASSERT2(false, "invalid force value");
+    }
+
+    if (p_storage->getPHForceTime() == 0 || p_storage->getPHForceTime() == Globals::kUnsignedInt32Undefined)
+    {
+        R_ASSERT2(false, "invalid time!");
+    }
+
+    xr_string path_name = Globals::Utils::cfg_get_string(p_ini, section_name, "point");
+    std::uint32_t index =
+        static_cast<std::uint32_t>(Globals::Utils::cfg_get_number(p_ini, section_name, "point_index"));
+
+    if (path_name.empty())
+    {
+        R_ASSERT2(false, "invalid waypoint_name!");
+    }
+
+    CPatrolPathParams patrol(path_name.c_str());
+
+    if (index == Globals::kUnsignedInt32Undefined || patrol.count() <= index)
+    {
+        R_ASSERT2(false, "invalid waypoint_index");
+    }
+
+    p_storage->setPHForcePoint(patrol.point(index));
+}
+
 } // namespace Scripts
 } // namespace Cordis

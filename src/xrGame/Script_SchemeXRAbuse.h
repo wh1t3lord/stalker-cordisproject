@@ -14,6 +14,8 @@ public:
     {
     }
 
+    ~Script_EvaluatorAbuse(void) {}
+
     virtual _value_type evaluate(void);
 
 private:
@@ -30,6 +32,8 @@ public:
         : inherited_scheme(nullptr, action_name, storage)
     {
     }
+
+    ~Script_SchemeXRAbuse(void) {}
 
     virtual void execute(void);
     virtual void finalize(void);

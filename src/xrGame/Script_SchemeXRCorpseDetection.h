@@ -11,6 +11,8 @@ public:
     {
     }
 
+    ~Script_EvaluatorCorpse(void) {}
+
     virtual _value_type evaluate(void);
 
 private:

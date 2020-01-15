@@ -305,7 +305,9 @@ void Script_SchemeMobWalker::update_standing_state(void)
 void Script_SchemeMobWalker::deactivate(CScriptGameObject* const p_client_object)
 {
     XR_LOGIC::mob_capture(this->m_npc, true, this->m_scheme_name);
-    Globals::action(this->m_npc, CScriptMovementAction(MonsterSpace::eMA_Steal, const_cast<Fvector*>(&this->m_patrol_walk->point(std::uint32_t(0)))),
+    Globals::action(this->m_npc,
+        CScriptMovementAction(
+            MonsterSpace::eMA_Steal, const_cast<Fvector*>(&this->m_patrol_walk->point(std::uint32_t(0)))),
         CScriptActionCondition(CScriptActionCondition::MOVEMENT_FLAG));
 }
 
@@ -319,9 +321,41 @@ void Script_SchemeMobWalker::look_at_waypoint(const std::uint32_t point_index)
     look_point.normalize();
 
     XR_LOGIC::mob_capture(this->m_npc, true, this->m_scheme_name);
-    Globals::action(this->m_npc, CScriptWatchAction(SightManager::eSightTypeDirection, look_point), CScriptActionCondition(CScriptActionCondition::WATCH_FLAG));
+    Globals::action(this->m_npc, CScriptWatchAction(SightManager::eSightTypeDirection, look_point),
+        CScriptActionCondition(CScriptActionCondition::WATCH_FLAG));
 
     this->m_last_look_index = point_index;
+}
+
+void Script_SchemeMobWalker::set_scheme(CScriptGameObject* const p_client_object, CScriptIniFile* const p_ini,
+    const xr_string& scheme_name, const xr_string& section_name, const xr_string& gulag_name)
+{
+    if (!p_client_object)
+    {
+        R_ASSERT2(false, "it can't be");
+        return;
+    }
+
+    DataBase::Storage_Scheme* p_storage =
+        XR_LOGIC::assign_storage_and_bind(p_client_object, p_ini, scheme_name, section_name, gulag_name);
+
+    if (!p_storage)
+    {
+        R_ASSERT2(false, "it can't be!");
+        return;
+    }
+
+    p_storage->setLogic(XR_LOGIC::cfg_get_switch_conditions(p_ini, section_name, p_client_object));
+    p_storage->setStateName(Script_MobStateManager::getInstance().get_state(p_ini, section_name));
+    p_storage->setNoReset(Globals::Utils::cfg_get_bool(p_ini, section_name, "no_reset"));
+    p_storage->setPathWalkName(Globals::Utils::cfg_get_string(p_ini, section_name, "path_walk"));
+    p_storage->setPathLookName(Globals::Utils::cfg_get_string(p_ini, section_name, "path_look"));
+
+    if (p_storage->getPathLookName() == p_storage->getPathWalkName())
+    {
+        R_ASSERT2(false, "it can't be");
+        return;
+    }
 }
 
 } // namespace Scripts
