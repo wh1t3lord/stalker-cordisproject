@@ -77,13 +77,14 @@ void Script_SchemeMobCamp::reset_scheme(const bool, CScriptGameObject* const p_c
 
 void Script_SchemeMobCamp::update(const float delta)
 {
-    // Lord: доделать когда будет сделан XR_LOGIC::try_switch_to_another_section
-
-    if (!this->m_npc->Alive())
-    {
-        XR_LOGIC::mob_release(this->m_npc, this->m_scheme_name);
+    if (XR_LOGIC::try_switch_to_another_section(this->m_npc, *this->m_p_storage, DataBase::Storage::getInstance().getActor()))
         return;
-    }
+
+        if (!this->m_npc->Alive())
+        {
+            XR_LOGIC::mob_release(this->m_npc, this->m_scheme_name);
+            return;
+        }
 
     if ((this->m_time_point_changed + this->m_p_storage->getTimeChangePoint() < Globals::get_time_global()))
     {

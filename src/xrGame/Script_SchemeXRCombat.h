@@ -12,6 +12,8 @@ public:
     {
     }
 
+    ~Script_EvaluatorCheckCombat(void) {}
+
     virtual _value_type evaluate(void);
 
 private:
@@ -25,6 +27,7 @@ public:
         : CScriptPropertyEvaluator(nullptr, evaluator_name.c_str()), m_p_storage(&storage)
     {
     }
+    ~Script_EvaluatorEnemy(void) {}
 
     virtual _value_type evaluate(void);
 
@@ -34,7 +37,6 @@ private:
 
 namespace XR_COMBAT
 {
-// Lord: доделать и set_scheme тоже!
 // @ PRIVATE uses, in XR_LOGIC
 inline void add_to_binder(CScriptGameObject* const p_client_object, CScriptIniFile* const p_ini,
     const xr_string& scheme_name, const xr_string& section_name, DataBase::Storage_Scheme& storage)
@@ -54,6 +56,21 @@ inline void add_to_binder(CScriptGameObject* const p_client_object, CScriptIniFi
     Msg("[Scripts/add_to_binder(p_client_object, p_ini, scheme_name, section_name, storage)] added "
         "Script_SchemeMobWalker scheme to binder, name=%s scheme=%s section=%s",
         p_client_object->Name(), scheme_name.c_str(), section_name.c_str());
+
+    CScriptActionPlanner* p_planner = Globals::get_script_action_planner(p_client_object);
+
+    if (!p_planner)
+    {
+        R_ASSERT2(false, "object is null!");
+        return;
+    }
+
+    p_planner->add_evaluator(Globals::XR_ACTIONS_ID::XR_EVALUATORS_ID::kScriptCombat,
+        new Script_EvaluatorCheckCombat("script_combat", storage));
+    p_planner->action(StalkerDecisionSpace::eWorldOperatorCombatPlanner)
+        .add_condition(CWorldProperty(Globals::XR_ACTIONS_ID::XR_EVALUATORS_ID::kScriptCombat, false));
+
+    // Lord: доделать для игнора и зомбиед
 }
 
 inline void set_combat_checker(CScriptGameObject* const p_client_object, CScriptIniFile* const p_ini,
@@ -61,9 +78,7 @@ inline void set_combat_checker(CScriptGameObject* const p_client_object, CScript
 {
 }
 
-inline void disable_scheme(CScriptGameObject* const p_client_object, const xr_string& scheme_name) 
-{
-}
+inline void disable_scheme(CScriptGameObject* const p_client_object, const xr_string& scheme_name) {}
 
 } // namespace XR_COMBAT
 

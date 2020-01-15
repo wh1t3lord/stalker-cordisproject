@@ -1,6 +1,5 @@
 #pragma once
 
-
 namespace Cordis
 {
 namespace Scripts
@@ -172,13 +171,6 @@ public:
         this->m_p_ini =
             nullptr; // @ Контролиться в Script_SE_SmartTerrain, либо от this->m_ltx, либо от this->m_job_data
 
-        if (this->m_p_action)
-        {
-            Msg("[Scripts/DataBase/Storage_Scheme/~dtor()] deleting local m_action %s!",
-                this->m_p_action->getSchemeName().c_str());
-            xr_delete(this->m_p_action);
-        }
-
         if (!this->m_actions.empty())
         {
             for (Script_ISchemeEntity* it : this->m_actions)
@@ -222,17 +214,59 @@ public:
         this->m_actions.push_back(p_scheme);
     }
 
-    inline void setAction(Script_ISchemeEntity* p_scheme)
+    inline void setActionSchemeID(const std::uint32_t scheme_id) noexcept
     {
-        if (!p_scheme)
+        if (scheme_id == Globals::kUnsignedInt32Undefined)
         {
-            Msg("[Scripts/DataBase/Storage_Scheme/setAction(p_scheme)] WARNING: you can't assign nullptr object return "
-                "...!");
+            Msg("[Scripts/DataBase/Storage_Scheme/setActionShemeID(scheme_id)] WARNING: something not right. overflow "
+                "sheat ...");
+        }
+
+        this->m_scheme_id_for_unsubscring = scheme_id;
+    }
+
+    inline void UnSubscribeAction(void) noexcept
+    {
+        if (!this->m_scheme_id_for_unsubscring || this->m_scheme_id_for_unsubscring == Globals::kUnsignedInt32Undefined)
+        {
+            Msg("[Scripts/DataBase/Storage_Scheme/UnSubscribeAction()] WARNING: can't unsubscribe action, which not "
+                "registered with ID ... YOUR ID is [%d]",
+                this->m_scheme_id_for_unsubscring);
             return;
         }
 
-        this->m_p_action = p_scheme;
+        for (Script_ISchemeEntity* it : this->m_actions)
+        {
+            if (it)
+            {
+                if (it->getSchemeID() == this->m_scheme_id_for_unsubscring)
+                {
+                    Msg("[Scripts/DataBase/Storage_Scheme/UnSubscribeAction()] unsubscribe action for npc %s %d",
+                        it->getSchemeName().c_str(), it->getID());
+                    it->unsubscribe_action();
+                    break;
+                }
+            }
+        }
+
+        Msg("[Scripts/DataBase/Storage_Scheme/UnSubscribeAction()] WARNING: can't find action for unsubscribing YOUR "
+            "ACTION ID -> %d",
+            this->m_scheme_id_for_unsubscring);
     }
+
+    /*
+        inline void setAction(Script_ISchemeEntity* p_scheme)
+        {
+            if (!p_scheme)
+            {
+                Msg("[Scripts/DataBase/Storage_Scheme/setAction(p_scheme)] WARNING: you can't assign nullptr object
+       return "
+                    "...!");
+                return;
+            }
+
+            this->m_p_action = p_scheme;
+        }*/
 
     inline const xr_map<xr_string, bool>& getSignals(void) const noexcept { return this->m_signals; }
 
@@ -1342,6 +1376,105 @@ public:
     }
 #pragma endregion
 
+#pragma region Cordis Scheme XR Gather Items
+    inline bool isXRGatherItemsEnabled(void) const noexcept { return this->m_is_xr_gather_items_enabled; }
+    inline void setXRGatherItemsEnabled(const bool value) noexcept { this->m_is_xr_gather_items_enabled = value; }
+#pragma endregion
+
+#pragma region Cordis Scheme XR Remark
+    inline const xr_string& getXRRemarkTargetName(void) const noexcept { return this->m_xr_remark_target_name; }
+    inline void setXRRemarkTargetName(const xr_string& target_name) noexcept
+    {
+        if (target_name.empty())
+        {
+            Msg("[Scripts/DataBase/Storage_Scheme/setXRRemarkTargetName(target_name)] WARNING: target_name.empty() == "
+                "true! You are trying to set an empty string Return ...");
+            return;
+        }
+
+        this->m_xr_remark_target_name = target_name;
+    }
+
+    inline bool isXRRemarkTargetInitialized(void) const noexcept { return this->m_is_xr_remark_target_initialized; }
+    inline void setXRRemarkTargetInitialized(const bool value) noexcept
+    {
+        this->m_is_xr_remark_target_initialized = value;
+    }
+
+    inline const Fvector& getXRRemarkTargetPosition(void) const noexcept { return this->m_xr_remark_target_position; }
+    inline void setXRRemarkTargetPosition(const Fvector& target_position) noexcept
+    {
+        this->m_xr_remark_target_position = target_position;
+    }
+
+    inline std::uint16_t getXRRemarkTargetID(void) const noexcept { return this->m_xr_remark_target_id; }
+    inline void setXRRemarkTargetID(const std::uint16_t value) noexcept { this->m_xr_remark_target_id = value; }
+
+    inline bool isXRRemarkSoundAnimationSync(void) const noexcept { return this->m_is_xr_remark_sound_animation_sync; }
+    inline void setXRRemarkSoundAnimationSync(const bool value) noexcept
+    {
+        this->m_is_xr_remark_sound_animation_sync = value;
+    }
+
+    inline const xr_string& getXRRemarkSoundName(void) const noexcept { return this->m_xr_remark_sound_name; }
+    inline void setXRRemarkSoundName(const xr_string& sound_name) noexcept
+    {
+        if (sound_name.empty())
+        {
+            Msg("[Scripts/DataBase/Storage_Scheme/setXRRemarkSoundName(sound_name)] WARNING: sound_name.empty() == "
+                "true! You are set an empty string Return ...");
+            return;
+        }
+
+        this->m_xr_remark_sound_name = sound_name;
+    }
+
+    inline const xr_string& getXRRemarkTipsIDName(void) const noexcept { return this->m_xr_remark_tips_id_name; }
+    inline void setXRRemarkTipsIDName(const xr_string& text) noexcept
+    {
+        if (text.empty())
+        {
+            Msg("[Scripts/DataBase/Storage_Scheme/setXRRemarkTipsIDName(text)] WARNING: text.empty() == true! You are "
+                "set an empty string! Return ...");
+            return;
+        }
+
+        this->m_xr_remark_tips_id_name = text;
+    }
+
+    inline const xr_string& getXRRemarkTipsSenderName(void) const noexcept
+    {
+        return this->m_xr_remark_tips_sender_name;
+    }
+    inline void setXRRemarkTipsSenderName(const xr_string& text) noexcept
+    {
+        if (text.empty())
+        {
+            Msg("[Scripts/DataBase/Storage_Scheme/setXRRemarkTipsSenderName(text)] WARNING: text.empty() == treu! You "
+                "are set an empty string! Return ...");
+            return;
+        }
+
+        this->m_xr_remark_tips_sender_name = text;
+    }
+
+    inline const xr_map<std::uint32_t, CondlistData>& getXRRemarkAnimationCondlist(void) const noexcept
+    {
+        return this->m_xr_remark_animation_condlist;
+    }
+
+    inline void setXRRemarkAnimationCondlist(const xr_map<std::uint32_t, CondlistData>& condlist) noexcept
+    {
+        if (condlist.empty())
+        {
+            Msg("[Scripts/DataBase/Storage_Scheme/setXRRemarkAnimationCondlist(condlist)] WARNING: condlist.empty() == true! You are trying to set an empty condlist");
+            return;
+        }
+
+        this->m_xr_remark_animation_condlist = condlist;
+    }
+#pragma endregion
+
 private:
     // @ Не понятно зачем в итоге но так у ПЫС, если в итоге оно находится в самом сторадже где уже зарегистрирован
     // сам НПС
@@ -1374,8 +1507,12 @@ private:
     bool m_is_sr_particle_looped = false;
     bool m_is_sr_light_light = false;
     bool m_is_xr_help_wounded_help_wounded_enabled = false;
+    bool m_is_xr_gather_items_enabled = false;
+    bool m_is_xr_remark_target_initialized = false;
+    bool m_is_xr_remark_sound_animation_sync = false;
     std::uint16_t m_xr_corpse_detection_selected_corpse_id = 0;
     std::uint16_t m_selected_id = 0;
+    std::uint16_t m_xr_remark_target_id = 0;
     std::uint32_t m_home_min_radius = 0;
     std::uint32_t m_home_mid_radius = 0;
     std::uint32_t m_home_max_radius = 0;
@@ -1393,6 +1530,7 @@ private:
     std::uint32_t m_sr_deimos_camera_effector_repeating_time = 0;
     std::uint32_t m_level_vertex_id = 0;
     std::uint32_t m_danger_time = 0;
+    std::uint32_t m_scheme_id_for_unsubscring = 0;
     float m_ph_jump_factor = 0.0f;
     float m_helicopter_min_rocket_distance = 0.0f;
     float m_helicopter_min_minigun_distance = 0.0f;
@@ -1421,8 +1559,9 @@ private:
     float m_sr_deimos_health_lost = 0.0f;
     float m_sr_deimos_movement_speed = 0.0f;
     CScriptGameObject* m_p_npc = nullptr;
-    Script_ISchemeEntity* m_p_action =
-        nullptr; // @ для XR_LOGIC::unsubscrive_action, используется в очень редких схемах!
+    /*
+        Script_ISchemeEntity* m_p_action =
+            nullptr; // @ для XR_LOGIC::unsubscrive_action, используется в очень редких схемах!*/
     CScriptIniFile* m_p_ini = nullptr;
     CPatrolPathParams* m_p_jump_path = nullptr;
     Script_SchemePHDoor* m_p_ph_door_door_action =
@@ -1434,6 +1573,7 @@ private:
     Fvector m_offset;
     Fvector m_ph_force_point;
     Fvector m_vertex_position;
+    Fvector m_xr_remark_target_position;
     xr_map<xr_string, bool> m_signals;
     xr_map<std::uint32_t, CondlistData> m_dialog_condlist;
     xr_map<std::uint32_t, CondlistData> m_ph_button_on_press_condlist;
@@ -1441,6 +1581,7 @@ private:
     xr_map<std::uint32_t, CondlistData> m_on_use_condlist;
     xr_map<std::uint32_t, CondlistData> m_xr_death_info;
     xr_map<std::uint32_t, CondlistData> m_xr_death_info2;
+    xr_map<std::uint32_t, CondlistData> m_xr_remark_animation_condlist;
     xr_map<std::uint32_t, xr_map<std::uint32_t, CondlistData>> m_hit_on_bone;
     xr_map<std::uint32_t, xr_map<std::uint32_t, CondlistData>> m_sr_timer_on_value;
     xr_map<xr_string, xr_map<std::uint32_t, CondlistData>> m_ph_code_on_check_code;
@@ -1491,6 +1632,10 @@ private:
     xr_string m_sr_deimos_noise_sound_name;
     xr_string m_sr_deimos_heartbeet_sound_name;
     xr_string m_xr_combat_script_combat_type_name;
+    xr_string m_xr_remark_target_name;
+    xr_string m_xr_remark_sound_name;
+    xr_string m_xr_remark_tips_id_name;
+    xr_string m_xr_remark_tips_sender_name;
     CondlistWaypoints m_path_walk_info;
     CondlistWaypoints m_path_look_info;
 };
@@ -2890,8 +3035,27 @@ public:
 
 #pragma region Cordis Setters
 #pragma region Cordis DataBase Storage_Data setters
-    void setStorageStateManager(
-        CScriptGameObject* const p_client_object, Script_StateManager* const p_state_manager);
+    inline void UnsubscribeAction(const std::uint16_t npc_id, const xr_string& scheme_name) noexcept
+    {
+        if (scheme_name.empty())
+        {
+            Msg("[Scripts/DataBase/Storage/UnsubscribeAction(npc_id, scheme_name)] WARNING: scheme_name.empty() == "
+                "true! Return ...");
+            return;
+        }
+
+        if (this->m_storage[npc_id].getSchemes().find(scheme_name) == this->m_storage[npc_id].getSchemes().end())
+        {
+            Msg("[Scripts/DataBase/Storage/UnsubscribeAction(npc_id, scheme_name)] WARNING: can't find scheme by "
+                "scheme_name %s",
+                scheme_name.c_str());
+            return;
+        }
+
+        this->m_storage[npc_id].m_schemes[scheme_name]->UnSubscribeAction();
+    }
+
+    void setStorageStateManager(CScriptGameObject* const p_client_object, Script_StateManager* const p_state_manager);
 
     inline void setStorageStateManagerSetState(const std::uint16_t npc_id, const xr_string& state_name,
         StateManagerCallbackData& callback, const std::uint32_t timeout,
@@ -3087,6 +3251,27 @@ public:
         this->m_storage[npc_id].setScheme(scheme_name, data);
     }
 
+    inline void setStorageSchemesActionSchemeIDForUnSubscribing(
+        const std::uint16_t npc_id, const xr_string& scheme_name, const std::uint32_t scheme_id)
+    {
+        if (scheme_name.empty())
+        {
+            Msg("[Scripts/DataBase/Storage/setStorageSchemesActionSchemeIDForUnSubscribing(npc_id, scheme_name, "
+                "scheme_id)] WARNING: scheme_name.empty() == true! Return ...");
+            return;
+        }
+
+        if (this->m_storage[npc_id].getSchemes().find(scheme_name) == this->m_storage[npc_id].getSchemes().end())
+        {
+            Msg("[Scripts/DataBase/Storage/setStorageSchemesActionSchemeIDForUnSubscribing(npc_id, scheme_name, "
+                "scheme_id)] WARNING: can't find scheme %s return ...",
+                scheme_name.c_str());
+            return;
+        }
+
+        this->m_storage[npc_id].m_schemes[scheme_name]->setActionSchemeID(scheme_id);
+    }
+
     inline void setStorageSchemesActions(
         const std::uint16_t npc_id, const xr_string& scheme_name, Script_ISchemeEntity* p_scheme)
     {
@@ -3096,7 +3281,7 @@ public:
                 "scheme_name.empty() == true! Can't assign return ...");
             return;
         }
-
+        p_scheme->subscribe_action();
         this->m_storage[npc_id].setSchemesActions(scheme_name, p_scheme);
     }
 

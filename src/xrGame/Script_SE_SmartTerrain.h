@@ -196,7 +196,7 @@ public:
     }
     inline xrTime& getSmartAlarmTime(void) noexcept { return this->m_smart_alarm_time; }
     inline xr_map<std::uint32_t, xrTime>& getDeadTime(void) noexcept { return this->m_dead_time; }
-    inline std::uint32_t getIDNPCOnJob(const xr_string& job_name) noexcept
+    inline std::uint16_t getIDNPCOnJob(const xr_string& job_name) noexcept
     {
         return this->m_npc_by_job_section[job_name];
     }

@@ -2,13 +2,25 @@
 
 #include "Script_Database.h"
 #include "Script_GlobalHelper.h"
-
 namespace Cordis
 {
 namespace Scripts
 {
+
 namespace XR_GULAG
 {
+/*
+inline Script_SE_SmartTerrain* get_gulag_by_name(const xr_string& gulag_name)
+{
+    if (gulag_name.empty())
+    {
+        R_ASSERT2(false, "can't find by empty string!");
+        return nullptr;
+    }
+
+    return Script_SimulationBoard::getInstance().getSmartTerrainsByName().at(gulag_name);
+}*/
+
 inline CSE_ALifeDynamicObject* get_npc_smart(CScriptGameObject* object)
 {
     if (!object)

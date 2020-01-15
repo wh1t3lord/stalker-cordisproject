@@ -12,8 +12,11 @@ class Script_ISchemeEntity
 public:
     Script_ISchemeEntity(void) = delete;
     Script_ISchemeEntity(CScriptGameObject* client_object, DataBase::Storage_Scheme& storage_scheme)
-        : m_npc(client_object), m_p_storage(&storage_scheme), m_id(m_npc ? m_npc->ID() : Globals::kUnsignedInt32Undefined)
+        : m_npc(client_object), m_p_storage(&storage_scheme),
+          m_id(m_npc ? m_npc->ID() : Globals::kUnsignedInt32Undefined), m_is_subscribed_action(false), m_scheme_id(0)
     {
+        this->m_scheme_id = (++m_generate_scheme_id);
+
         if (this->m_id == Globals::kUnsignedInt16Undefined)
         {
             Msg("[Scripts/Script_ISchemeEntity/ctor()] WARNING: m_id == std::uint32_t(-1)");
@@ -22,14 +25,24 @@ public:
 
     virtual ~Script_ISchemeEntity(void) { this->m_npc = nullptr; }
 
+    inline void subscribe_action(void) noexcept
+    {
+        this->m_is_subscribed_action = true;
+        Msg("[Scripts/Script_ISchemeEntity/subscribe_action()] action of npc %s %d %s %d is subscribed!", this->m_scheme_name.c_str(), this->m_scheme_id, this->m_npc->Name(), this->m_id);
+    }
+
+    inline void unsubscribe_action(void) noexcept { this->m_is_subscribed_action = false; }
+    inline bool isActionSubscribed(void) const noexcept { return this->m_is_subscribed_action; }
+
     virtual void reset_scheme(const bool value, CScriptGameObject* const p_client_object)
     {
         Msg("[Scripts/Script_ISchemeEntity/reset_scheme(value, p_client_object)] WARNING: NOT OVERLOADED FUNCTION!");
     }
 
-    virtual void activate_scheme(const bool is_loading, CScriptGameObject* const p_client_object) 
-    { 
-        Msg("[Scripts/Script_ISchemeEntity/activate_scheme(is_loading, p_client_object)] WARNING: NOT OVERLOADED FUNCTION!");
+    virtual void activate_scheme(const bool is_loading, CScriptGameObject* const p_client_object)
+    {
+        Msg("[Scripts/Script_ISchemeEntity/activate_scheme(is_loading, p_client_object)] WARNING: NOT OVERLOADED "
+            "FUNCTION!");
     }
 
     virtual void update(const float delta)
@@ -130,10 +143,11 @@ public:
         return;
     }
 
-    virtual void hit_callback(CScriptGameObject* const p_client_object, const float amount, const Fvector& local_direction,
-        CScriptGameObject* const p_client_who, const std::int16_t bone_index) 
+    virtual void hit_callback(CScriptGameObject* const p_client_object, const float amount,
+        const Fvector& local_direction, CScriptGameObject* const p_client_who, const std::int16_t bone_index)
     {
-        Msg("[Scripts/Script_ISchemeEntity/hit_callback(p_client_object, amount, local_direction, p_client_who, bone_index)] WARNING: NOT OVERLOADED FUNCTION!");
+        Msg("[Scripts/Script_ISchemeEntity/hit_callback(p_client_object, amount, local_direction, p_client_who, "
+            "bone_index)] WARNING: NOT OVERLOADED FUNCTION!");
         return;
     }
 
@@ -141,9 +155,13 @@ public:
 
     // @ using for unsubscribing that stuff
     inline std::uint32_t getID(void) const noexcept { return this->m_id; }
+    inline std::uint32_t getSchemeID(void) const noexcept { return this->m_scheme_id; }
 
 protected:
     // @ Это используется для удаления запоминается ID нашего npc
+    bool m_is_subscribed_action;
+    std::uint32_t m_scheme_id; // вот эот используется для unsubscribe
+    static std::uint32_t m_generate_scheme_id;
     std::uint32_t m_id;
     CScriptGameObject* m_npc;
     DataBase::Storage_Scheme* m_p_storage;

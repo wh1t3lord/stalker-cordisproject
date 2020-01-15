@@ -4,6 +4,7 @@ namespace Cordis
 {
 namespace Scripts
 {
+    // Lord: здесь имплементировать waypoint_callback, но он в свою очередь вызывается через MoveManager!
 class Script_Binder_Stalker : public CScriptBinderObject
 {
     using inherited = CScriptBinderObject;

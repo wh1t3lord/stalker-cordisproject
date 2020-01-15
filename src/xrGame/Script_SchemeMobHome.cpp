@@ -105,14 +105,39 @@ void Script_SchemeMobHome::reset_scheme(const bool, CScriptGameObject* const p_c
     }
     else
     {
-        this->m_npc->set_home(
-            this->m_p_storage->getHomeName().c_str(), min_radius, max_radius, this->m_p_storage->IsAggresive(), mid_radius);
+        this->m_npc->set_home(this->m_p_storage->getHomeName().c_str(), min_radius, max_radius,
+            this->m_p_storage->IsAggresive(), mid_radius);
     }
 }
 
-void Script_SchemeMobHome::deactivate(CScriptGameObject* const p_client_object) 
+void Script_SchemeMobHome::deactivate(CScriptGameObject* const p_client_object) { this->m_npc->remove_home(); }
+
+void Script_SchemeMobHome::set_scheme(CScriptGameObject* const p_client_object, CScriptIniFile* const p_ini,
+    const xr_string& scheme_name, const xr_string& section_name, const xr_string& gulag_name)
 {
-    this->m_npc->remove_home(); 
+    if (!p_client_object)
+    {
+        R_ASSERT2(false, "it can't be!");
+        return;
+    }
+
+    DataBase::Storage_Scheme* p_storage =
+        XR_LOGIC::assign_storage_and_bind(p_client_object, p_ini, scheme_name, section_name, gulag_name);
+
+    if (!p_storage)
+    {
+        R_ASSERT2(false, "it can;t be!");
+        return;
+    }
+
+    p_storage->setLogic(XR_LOGIC::cfg_get_switch_conditions(p_ini, section_name, p_client_object));
+    p_storage->setStateName(Script_MobStateManager::getInstance().get_state(p_ini, section_name));
+    p_storage->setHomeName(Globals::Utils::cfg_get_string(p_ini, section_name, "path_home"));
+    p_storage->setGulagPoint(Globals::Utils::cfg_get_bool(p_ini, section_name, "gulag_point"));
+    p_storage->setHomeMinRadius(static_cast<std::uint32_t>(Globals::Utils::cfg_get_number(p_ini, section_name, "home_min_radius")));
+    p_storage->setHomeMidRadius(static_cast<std::uint32_t>(Globals::Utils::cfg_get_number(p_ini, section_name, "home_mid_radius")));
+    p_storage->setHomeMaxRadius(static_cast<std::uint32_t>(Globals::Utils::cfg_get_number(p_ini, section_name, "home_max_radius")));
+    p_storage->setAggresive(Globals::Utils::cfg_get_bool(p_ini, section_name, "aggressive"));
 }
 
 } // namespace Scripts

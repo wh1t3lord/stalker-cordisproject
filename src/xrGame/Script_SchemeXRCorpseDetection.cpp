@@ -20,7 +20,8 @@ void Script_SchemeXRCorpseDetection::initialize(void)
     this->m_object->set_desired_position();
     this->m_object->set_desired_direction();
     this->m_object->set_dest_level_vertex_id(this->m_p_storage->getLevelVertexID());
-    // Lord: доделать когда будет сделан state_manager
+    Globals::set_state(this->m_object, "patrol", StateManagerCallbackData(), 0,
+        std::pair<Fvector, CScriptGameObject* const>(Fvector().set(0.0f,0.0f,0.0f), nullptr), StateManagerExtraData());
 }
 
 void Script_SchemeXRCorpseDetection::execute(void)
@@ -31,8 +32,8 @@ void Script_SchemeXRCorpseDetection::execute(void)
     {
         return;
     }
-
-    // Lord: доделать когда будет state_manager
+    std::pair<Fvector, CScriptGameObject* const> target(this->m_p_storage->getVertexPosition(), nullptr);
+    Globals::set_state(this->m_object, "search_corpse", StateManagerCallbackData(), 0, target, StateManagerExtraData());
     xr_string faction_name;
     XR_SOUND::set_sound_play(this->m_object->ID(), "corpse_loot_begin", faction_name, 0);
 }
@@ -44,7 +45,8 @@ void Script_SchemeXRCorpseDetection::finalize(void)
              this->m_p_storage->getXRCorpseDetectionSelectedCorpseID()) !=
             DataBase::Storage::getInstance().getStorage().end()))
     {
-        DataBase::Storage::getInstance().setStorageCorpseAlreadySelected(this->m_p_storage->getXRCorpseDetectionSelectedCorpseID(), 0);
+        DataBase::Storage::getInstance().setStorageCorpseAlreadySelected(
+            this->m_p_storage->getXRCorpseDetectionSelectedCorpseID(), 0);
     }
 
     CScriptActionBase::finalize();

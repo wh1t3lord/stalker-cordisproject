@@ -12,11 +12,12 @@ namespace Scripts
 Script_SchemeSRPsyAntenna::Script_SchemeSRPsyAntenna(
     CScriptGameObject* const p_client_object, DataBase::Storage_Scheme& storage)
     : inherited_scheme(p_client_object, storage), m_state(_kStateNotDefined),
-      m_manager_psy_antenna(&Script_PsyAntennaManager::getInstance()){this->m_scheme_name = "sr_psy_antenna";}
-
-      Script_SchemeSRPsyAntenna::~Script_SchemeSRPsyAntenna(void)
+      m_manager_psy_antenna(&Script_PsyAntennaManager::getInstance())
 {
+    this->m_scheme_name = "sr_psy_antenna";
 }
+
+Script_SchemeSRPsyAntenna::~Script_SchemeSRPsyAntenna(void) {}
 
 void Script_SchemeSRPsyAntenna::reset_scheme(const bool is_loading, CScriptGameObject* const p_client_object)
 {
@@ -59,6 +60,70 @@ void Script_SchemeSRPsyAntenna::save(void)
     XR_LOGIC::pstor_store(this->m_npc, "inside", static_cast<std::uint8_t>(this->m_state));
 }
 
+void Script_SchemeSRPsyAntenna::set_scheme(CScriptGameObject* const p_client_object, CScriptIniFile* const p_ini,
+    const xr_string& scheme_name, const xr_string& section_name, const xr_string& gulag_name)
+{
+    if (!p_client_object)
+    {
+        R_ASSERT2(false, "object is null!");
+        return;
+    }
+
+    DataBase::Storage_Scheme* p_storage =
+        XR_LOGIC::assign_storage_and_bind(p_client_object, p_ini, scheme_name, section_name, gulag_name);
+
+    if (!p_storage)
+    {
+        R_ASSERT2(false, "object is null!");
+        return;
+    }
+
+    p_storage->setLogic(XR_LOGIC::cfg_get_switch_conditions(p_ini, section_name, p_client_object));
+
+    float intensity = Globals::Utils::cfg_get_number(p_ini, section_name, "eff_intensity");
+
+    if (fis_zero(intensity))
+        intensity = 0.01f;
+
+    p_storage->setSRPsyAntennaIntensity(intensity);
+
+    xr_string postprocess_name = Globals::Utils::cfg_get_string(p_ini, section_name, "postprocess");
+
+    if (postprocess_name.empty())
+        postprocess_name = "psy_antenna.ppe";
+
+    p_storage->setSRPsyAntennaPostProcessName(postprocess_name);
+
+    float hit_intensity = Globals::Utils::cfg_get_number(p_ini, section_name, "hit_intensity");
+
+    if (fis_zero(hit_intensity))
+        hit_intensity = 0.01f;
+
+    p_storage->setSRPsyAntennaHitIntensity(hit_intensity);
+
+    p_storage->setSRPsyAntennaPhantomProbability(
+        Globals::Utils::cfg_get_number(p_ini, section_name, "phantom_prob") * 0.01f);
+
+    p_storage->setSRPsyAntennaMuteSoundThreshold(
+        Globals::Utils::cfg_get_number(p_ini, section_name, "mute_sound_threshold"));
+    p_storage->setSRPsyAntennaNoStatic(Globals::Utils::cfg_get_bool(p_ini, section_name, "no_static"));
+    p_storage->setSRPsyAntennaNoMumble(Globals::Utils::cfg_get_bool(p_ini, section_name, "no_mumble"));
+
+    xr_string wound_name = Globals::Utils::cfg_get_string(p_ini, section_name, "hit_type");
+
+    if (wound_name.empty())
+        wound_name = "wound";
+
+    p_storage->setSRPsyAntennaHitTypeName(wound_name);
+
+    float hit_frequency = Globals::Utils::cfg_get_number(p_ini, section_name, "hit_freq");
+
+    if (fis_zero(hit_frequency))
+        hit_frequency = 5000.0f;
+
+    p_storage->setSRPsyAntennaHitFrequency(hit_frequency);
+}
+
 void Script_SchemeSRPsyAntenna::zone_enter(void)
 {
     this->m_state = _kStateInside;
@@ -73,7 +138,8 @@ void Script_SchemeSRPsyAntenna::zone_enter(void)
         this->m_manager_psy_antenna->getMuteSoundThreshold() + this->m_p_storage->getSRPsyAntennaMuteSoundThreshold();
     this->m_manager_psy_antenna->setMuteSoundThreshold(mute_sound_threshold);
 
-    float hit_intensity = this->m_manager_psy_antenna->getHitIntensity() + this->m_p_storage->getSRPsyAntennaIntensity();
+    float hit_intensity =
+        this->m_manager_psy_antenna->getHitIntensity() + this->m_p_storage->getSRPsyAntennaIntensity();
     this->m_manager_psy_antenna->setHitIntensity(hit_intensity);
 
     float phantom_spawn_probability = this->m_manager_psy_antenna->getPhantomSpawnProbability() +

@@ -31,11 +31,11 @@ void CScriptBinderObject::load(IReader* input_packet) {}
 bool CScriptBinderObject::net_SaveRelevant() { return (false); }
 void CScriptBinderObject::net_Relcase(CScriptGameObject* object) {}
 
-void CScriptBinderObject::waypoint_callback(CScriptGameObject* p_client_object,
-    const std::uint32_t action_type_movement, const std::uint32_t m_current_point_index)
+void CScriptBinderObject::waypoint_callback(
+    CScriptGameObject* p_client_object, const std::uint32_t action_type_movement, const std::uint32_t point_index)
 {
 #ifdef DEBUG
-    Msg("[CScriptBinderObject/waypoint_callback(p_client_object, action_type_movement, m_current_point_index)] NOT "
+    Msg("[CScriptBinderObject/waypoint_callback(p_client_object, action_type_movement, point_index)] NOT "
         "OVERLOADED FUNCTION! %s",
         p_client_object->Name());
 #endif

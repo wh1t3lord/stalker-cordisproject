@@ -111,7 +111,8 @@ void activate_by_section(CScriptGameObject* const p_client_object, CScriptIniFil
         for (Script_ISchemeEntity* it :
             DataBase::Storage::getInstance().getStorage().at(npc_id).getSchemes().at(_scheme_name)->getActions())
         {
-            it->reset_scheme(is_loading, p_client_object);
+            if (it->isActionSubscribed())
+                it->reset_scheme(is_loading, p_client_object);
         }
     }
 }
@@ -129,7 +130,11 @@ CScriptIniFile* configure_schemes(CScriptGameObject* const p_client_object, CScr
     {
         for (Script_ISchemeEntity* it : storage.getSchemes().at(storage.getActiveSchemeName())->getActions())
         {
-            it->deactivate(p_client_object);
+            if (it)
+            {
+                if (it->isActionSubscribed())
+                    it->deactivate(p_client_object);
+            }
         }
     }
 
@@ -205,7 +210,7 @@ CScriptIniFile* configure_schemes(CScriptGameObject* const p_client_object, CScr
 
     return storage.getIni();
 }
-}
+} // namespace XR_LOGIC
 } // namespace Scripts
 } // namespace Cordis
 

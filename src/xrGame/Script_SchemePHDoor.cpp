@@ -106,8 +106,78 @@ void Script_SchemePHDoor::hit_callback(CScriptGameObject* const p_client_object,
     }
 }
 
-void Script_SchemePHDoor::deactivate(CScriptGameObject* const p_client_object) 
-{ this->m_npc->SetTipText(""); }
+void Script_SchemePHDoor::deactivate(CScriptGameObject* const p_client_object) { this->m_npc->SetTipText(""); }
+
+void Script_SchemePHDoor::set_scheme(CScriptGameObject* const p_client_object, CScriptIniFile* const p_ini,
+    const xr_string& scheme_name, const xr_string& section_name, const xr_string& gulag_name)
+{
+    if (!p_client_object)
+    {
+        R_ASSERT2(false, "object is null!");
+        return;
+    }
+
+    DataBase::Storage_Scheme* p_storage =
+        XR_LOGIC::assign_storage_and_bind(p_client_object, p_ini, scheme_name, section_name, gulag_name);
+
+    if (!p_storage)
+    {
+        R_ASSERT2(false, "object is null!");
+        return;
+    }
+
+    p_storage->setLogic(XR_LOGIC::cfg_get_switch_conditions(p_ini, section_name, p_client_object));
+
+    p_storage->setPHDoorClosed(Globals::Utils::cfg_get_bool(p_ini, section_name, "closed"));
+    p_storage->setPHDoorLocked(Globals::Utils::cfg_get_bool(p_ini, section_name, "locked"));
+    p_storage->setPHDoorNoForce(Globals::Utils::cfg_get_bool(p_ini, section_name, "no_force"));
+
+    p_storage->setPHDoorNotForNpc(Globals::Utils::cfg_get_bool(p_ini, section_name, "not_for_npc"));
+    p_storage->setPHDoorShowTips(Globals::Utils::cfg_get_bool(p_ini, section_name, "show_tips"));
+
+    p_storage->setPHDoorTipOpenName(Globals::Utils::cfg_get_string(p_ini, section_name, "tip_open"));
+    p_storage->setPHDoorTipUnlockName(Globals::Utils::cfg_get_string(p_ini, section_name, "tip_open"));
+    p_storage->setPHDoorTipCloseName(Globals::Utils::cfg_get_string(p_ini, section_name, "tip_close"));
+
+    p_storage->setPHDoorSlider(Globals::Utils::cfg_get_bool(p_ini, section_name, "slider"));
+
+    xr_string sound_open_start_name;
+    xr_string sound_close_start_name;
+    xr_string sound_close_stop_name;
+
+    sound_open_start_name = Globals::Utils::cfg_get_string(p_ini, section_name, "snd_open_start");
+    sound_close_start_name = Globals::Utils::cfg_get_string(p_ini, section_name, "snd_close_start");
+    sound_close_stop_name = Globals::Utils::cfg_get_string(p_ini, section_name, "snd_close_stop");
+
+    if (sound_open_start_name.empty())
+        sound_open_start_name = "trader_door_open_start";
+
+    if (sound_close_start_name.empty())
+        sound_close_start_name = "trader_door_close_start";
+
+    if (sound_close_stop_name.empty())
+        sound_close_stop_name = "trader_door_close_stop";
+
+    p_storage->setPHDoorSoundOpenStartName(sound_open_start_name);
+    p_storage->setPHDoorSoundCloseStartName(sound_close_start_name);
+    p_storage->setPHDoorSoundCloseStopName(sound_close_stop_name);
+
+    p_storage->setOnUseCondlist(
+        XR_LOGIC::cfg_get_condlist(p_ini, section_name, "on_use", p_client_object).getCondlist());
+
+    if (p_storage->IsPHDoorLocked() || p_storage->IsPHDoorNotForNpc())
+    {
+        if (!p_client_object->is_door_locked_for_npc())
+            p_client_object->lock_door_for_npc();
+    }
+    else
+    {
+        if (p_client_object->is_door_locked_for_npc())
+            p_client_object->unlock_door_for_npc();
+    }
+
+    p_storage->setHitOnBone(Globals::Utils::parse_data_1v(p_client_object, Globals::Utils::cfg_get_string(p_ini, section_name, "hit_on_bone")));
+}
 
 void Script_SchemePHDoor::close_door(const bool is_disable_sound)
 {
@@ -339,6 +409,30 @@ bool Script_SchemePHDoor::fastcall(void)
     }
 
     return false;
+}
+
+void Script_SchemePHDoor::add_to_binder(CScriptGameObject* const p_client_object, CScriptIniFile* const p_ini,
+    const xr_string& scheme_name, const xr_string& section_name, DataBase::Storage_Scheme& storage)
+{
+    if (!p_client_object)
+    {
+        R_ASSERT2(false, "object is null!");
+        return;
+    }
+
+    if (!p_ini)
+    {
+        R_ASSERT2(false, "object is null!");
+        return;
+    }
+
+    Msg("[Scripts/add_to_binder(p_client_object, p_ini, scheme_name, section_name, storage)] added "
+        "Script_SchemeMobWalker scheme to binder, name=%s scheme=%s section=%s",
+        p_client_object->Name(), scheme_name.c_str(), section_name.c_str());
+
+    p_client_object->register_door();
+    Script_ISchemeEntity* p_scheme = new Script_SchemePHDoor(p_client_object, storage);
+    DataBase::Storage::getInstance().setStorageSchemesActions(p_client_object->ID(), scheme_name, p_scheme);
 }
 
 } // namespace Scripts
