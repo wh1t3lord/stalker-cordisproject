@@ -21,18 +21,31 @@ constexpr const char* kDefaultStateMovingName3 = "patrol";
 constexpr std::uint32_t kArrivialAfterRotation = 1;
 xr_map<xr_string, xr_map<std::uint16_t, bool>> synchronization;
 
-
-
 Script_MoveManager::Script_MoveManager(CScriptGameObject* const p_client_object)
     : m_p_client_object(p_client_object), m_is_at_terminal_waypoint(false), m_is_no_validation(false),
       m_p_patrol_walk(nullptr), m_is_can_use_get_current_point_index(false), m_current_point_initialization_time(0),
       m_current_point_index(0), m_last_index(0), m_p_patrol_look(nullptr), m_synchronization_signal_set_tm(0),
       m_keep_state_until(0), m_pt_wait_time(0), m_last_look_index(0), m_retval_after_rotation(0),
-      m_move_callback_info(nullptr)
+      m_move_callback_info(nullptr), m_point_wait_time(0)
 {
 }
 
-Script_MoveManager::~Script_MoveManager(void) {}
+Script_MoveManager::~Script_MoveManager(void)
+{
+    if (this->m_p_patrol_look)
+    {
+        Msg("[Scripts/Script_MoveManager/~dtor()] deleting this->m_p_patrol_look %s",
+            this->m_p_patrol_look->m_path_name);
+        xr_delete(this->m_p_patrol_look);
+    }
+
+    if (this->m_p_patrol_walk)
+    {
+        Msg("[Scripts/Script_MoveManager/~dtor()] deleting this->m_p_patrol_walk %s",
+            this->m_p_patrol_walk->m_path_name);
+        xr_delete(this->m_p_patrol_walk);
+    }
+}
 
 void Script_MoveManager::validate_paths(void)
 {
@@ -381,7 +394,215 @@ void Script_MoveManager::waypoint_callback(
         return;
     }
 
+    std::uint32_t point_chosen_index = Globals::choose_look_point(
+        this->m_p_patrol_look, this->m_path_look_info, this->m_path_walk_info.getData()[point_index].getFlags());
 
+    if (point_chosen_index)
+    {
+        xr_string prepare_for_condlist_data_name = this->m_path_look_info.getData()[point_chosen_index].getValue("a");
+
+        xr_map<std::uint32_t, CondlistData> condlist_animation;
+        if (!prepare_for_condlist_data_name.empty())
+        {
+            condlist_animation = XR_LOGIC::parse_condlist_by_script_object(
+                "waypoint_data", "anim_state", prepare_for_condlist_data_name);
+            this->m_current_state_standing_name = XR_LOGIC::pick_section_from_condlist(
+                DataBase::Storage::getInstance().getActor(), this->m_p_client_object, condlist_animation);
+        }
+        else
+        {
+            this->m_current_state_standing_name =
+                XR_LOGIC::pick_section_from_condlist(DataBase::Storage::getInstance().getActor(),
+                    this->m_p_client_object, this->m_default_state_standing_condlist);
+        }
+
+        xr_string suggested_time_string_data_name = this->m_path_look_info.getData()[point_chosen_index].getValue("t");
+        if (!suggested_time_string_data_name.empty())
+        {
+            if (suggested_time_string_data_name == "*")
+            {
+                this->m_point_wait_time = 0;
+            }
+            else
+            {
+                std::uint32_t point_time = boost::lexical_cast<std::uint32_t>(suggested_time_string_data_name);
+                if (point_time && (point_time < 1000 || point_time > 45000))
+                {
+                    Msg("[Scripts/Script_MoveManager/waypoint_callback(p_client_object, action_type_movement, "
+                        "point_index)] incorrect time must be in [1000 | 45000] interval");
+                }
+
+                this->m_point_wait_time = point_time;
+            }
+        }
+        else
+        {
+            this->m_point_wait_time = kDefaultWaitTime;
+        }
+
+        xr_string retv_name = this->m_path_look_info.getData()[point_chosen_index].getValue("ret");
+        if (retv_name.empty())
+        {
+            this->m_retval_after_rotation = boost::lexical_cast<std::uint32_t>(retv_name);
+        }
+        else
+        {
+            this->m_retval_after_rotation = 0;
+        }
+
+        const Fvector& look_position = this->m_p_patrol_look->point(point_chosen_index);
+        this->m_last_look_index = point_chosen_index;
+        this->update_standing_state(look_position);
+
+        this->m_state = kStateStanding;
+
+        this->update();
+    }
+    else
+    {
+        R_ASSERT2(false, "can't find corresponding point(s) on path_look");
+    }
+}
+
+void Script_MoveManager::reset(const xr_string& path_walk_name, const CondlistWaypoints& path_walk_info,
+    const xr_string& path_look_name, const CondlistWaypoints& path_look_info, const xr_string& team_name,
+    const xr_map<xr_string, xr_string>& suggested_state,
+    std::function<bool(std::uint32_t, std::uint32_t)>& move_callback_info, const bool is_no_validation)
+{
+    this->m_point_wait_time = kDefaultWaitTime;
+    this->m_suggested_state = suggested_state;
+
+    if (this->m_suggested_state.empty())
+    {
+        this->m_default_state_standing_condlist =
+            XR_LOGIC::parse_condlist_by_script_object("move_mgr", "def_state", kDefaultStateStandingName);
+        this->m_default_state_moving1_condlist =
+            XR_LOGIC::parse_condlist_by_script_object("move_mgr", "def_state", kDefaultStateMovingName1);
+        this->m_default_state_moving2_condlist =
+            XR_LOGIC::parse_condlist_by_script_object("move_mgr", "def_state", kDefaultStateMovingName2);
+        this->m_default_state_moving3_condlist =
+            XR_LOGIC::parse_condlist_by_script_object("move_mgr", "def_state", kDefaultStateMovingName3);
+    }
+    else
+    {
+        xr_string standing_state_name;
+        xr_string moving_state_name_1;
+        xr_string moving_state_name_2;
+        xr_string moving_state_name_3;
+
+        if (suggested_state.find("standing") == suggested_state.end())
+            standing_state_name = kDefaultStateStandingName;
+        else
+            standing_state_name = suggested_state.at("standing");
+
+        if (suggested_state.find("moving") == suggested_state.end())
+        {
+            moving_state_name_1 = kDefaultStateMovingName1;
+            moving_state_name_2 = kDefaultStateMovingName2;
+            moving_state_name_3 = kDefaultStateMovingName3;
+        }
+        else
+        {
+            moving_state_name_1 = suggested_state.at("standing");
+            moving_state_name_2 = moving_state_name_1;
+            moving_state_name_3 = moving_state_name_1;
+        }
+
+        this->m_default_state_standing_condlist =
+            XR_LOGIC::parse_condlist_by_script_object("move_mgr", "def_state", standing_state_name);
+        this->m_default_state_moving1_condlist =
+            XR_LOGIC::parse_condlist_by_script_object("move_mgr", "def_state", moving_state_name_1);
+        this->m_default_state_moving2_condlist =
+            XR_LOGIC::parse_condlist_by_script_object("move_mgr", "def_state", moving_state_name_2);
+        this->m_default_state_moving3_condlist =
+            XR_LOGIC::parse_condlist_by_script_object("move_mgr", "def_state", moving_state_name_3);
+    }
+
+    this->m_synchronization_signal_set_tm = Globals::get_time_global() + 1000;
+    this->m_synchronization_signal_name.clear();
+
+    this->m_move_callback_info = move_callback_info;
+
+    if (this->m_team_name != team_name)
+    {
+        this->m_team_name = team_name;
+        if (!this->m_team_name.empty())
+        {
+            xr_map<std::uint16_t, bool>& s = synchronization[this->m_team_name];
+            s[this->m_p_client_object->ID()] = false;
+        }
+    }
+
+    if (this->m_path_walk_name != path_walk_name || this->m_path_look_name != path_look_name)
+    {
+        this->m_is_no_validation = is_no_validation;
+
+        this->m_path_walk_name = path_walk_name;
+        if (this->m_p_patrol_walk)
+        {
+            Msg("[Scripts/Script_MoveManager/reset(path_walk_name, path_walk_info, path_look_name, path_look_info, "
+                "team_name, suggested_state, move_callback_info, is_no_validation)] deleting this->m_p_patrol_walk %s",
+                this->m_p_patrol_walk->m_path_name);
+            xr_delete(this->m_p_patrol_walk);
+        }
+
+        this->m_p_patrol_walk = new CPatrolPathParams(path_walk_name.c_str());
+        if (!this->m_p_patrol_walk->m_path)
+        {
+            R_ASSERT2(false, "unable to find path_walk on the map");
+        }
+
+        if (path_walk_info.getData().empty())
+        {
+            R_ASSERT2(false, "something is not right can't be!");
+        }
+
+        this->m_path_walk_info = path_walk_info;
+
+        if (this->m_p_patrol_look)
+        {
+            Msg("[Scripts/Script_MoveManager/reset(path_walk_name, path_walk_info, path_look_name, path_look_info, "
+                "team_name, suggested_state, move_callback_info, is_no_validation)] deleting this->m_p_patrol_look %s",
+                this->m_p_patrol_look->m_path_name);
+            xr_delete(this->m_p_patrol_look);
+        }
+
+        if (!path_look_name.empty())
+        {
+            this->m_p_patrol_look = new CPatrolPathParams(path_look_name.c_str());
+            if (!this->m_p_patrol_look->m_path)
+            {
+                R_ASSERT2(false, "unable to find path_look on the map!");
+            }
+        }
+
+        this->m_path_look_name = path_look_name;
+        this->m_path_look_info = path_look_info;
+
+        this->m_is_at_terminal_waypoint = false;
+
+        this->m_current_state_moving_name =
+            XR_LOGIC::pick_section_from_condlist(DataBase::Storage::getInstance().getActor(), this->m_p_client_object,
+                this->m_default_state_moving1_condlist);
+
+        this->m_current_state_standing_name =
+            XR_LOGIC::pick_section_from_condlist(DataBase::Storage::getInstance().getActor(), this->m_p_client_object,
+                this->m_default_state_standing_condlist);
+
+        this->m_retval_after_rotation = 0;
+        this->m_is_can_use_get_current_point_index = false;
+        this->m_current_point_index = 0;
+        this->m_walk_until = Globals::get_time_global() + kWalkMinTime;
+        this->m_run_until = Globals::get_time_global() + kWalkMinTime + kRunMinTime;
+        this->m_keep_state_until = Globals::get_time_global();
+
+        this->m_last_index = 0;
+        this->m_last_look_index = 0;
+        
+        this->m_p_client_object->patrol_path_make_inactual();
+    }
+
+    this->setup_movement_by_patrol_path();
 }
 
 } // namespace Scripts

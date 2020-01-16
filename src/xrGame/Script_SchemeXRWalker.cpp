@@ -5,7 +5,10 @@ namespace Cordis
 {
 namespace Scripts
 {
-Script_SchemeXRWalker::Script_SchemeXRWalker(const xr_string& action_name, DataBase::Storage_Scheme& storage) : inherited_scheme(nullptr, action_name, storage) {}
+Script_SchemeXRWalker::Script_SchemeXRWalker(const xr_string& action_name, DataBase::Storage_Scheme& storage) : inherited_scheme(nullptr, action_name, storage) 
+{
+    
+}
 
 Script_SchemeXRWalker::~Script_SchemeXRWalker(void) {}
 
