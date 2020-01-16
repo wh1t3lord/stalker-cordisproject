@@ -10450,10 +10450,8 @@ $(xrLibDir);$(xrSdkDir)DXSDK/Lib/$(PlatformShortName);
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Jumbo|x64'">true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="UnityBuild.cpp" />
-    <ClCompile Include="UnityBuildOther.cpp" />
     <ClCompile Include="UnityBuildRender.cpp" />
-    <ClCompile Include="UnityBuildSomethingNew.cpp" />
-    <ClCompile Include="UnityBuildxrServerEntities.cpp" />
+    <ClCompile Include="UnityBuild2.cpp" />
     <ClCompile Include="vision_client.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Jumbo|x64'">true</ExcludedFromBuild>
     </ClCompile>
