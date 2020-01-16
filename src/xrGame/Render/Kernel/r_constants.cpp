@@ -15,7 +15,7 @@ R_constant_table::~R_constant_table() { RImplementation.Resources->_DeleteConsta
 void R_constant_table::fatal(LPCSTR S) { FATAL(S); }
 // predicates
 IC bool p_search(ref_constant C, LPCSTR S) { return xr_strcmp(*C->name, S) < 0; }
-IC bool p_sort(ref_constant C1, ref_constant C2) { return xr_strcmp(C1->name, C2->name) < 0; }
+IC bool p_sort_values(ref_constant C1, ref_constant C2) { return xr_strcmp(C1->name, C2->name) < 0; }
 ref_constant R_constant_table::get(LPCSTR S)
 {
     // assumption - sorted by name
@@ -219,7 +219,7 @@ void R_constant_table::merge(R_constant_table* T)
     }
 
     // Sort
-    std::sort(table.begin(), table.end(), p_sort);
+    std::sort(table.begin(), table.end(), p_sort_values);
 
 #if defined(USE_DX10) || defined(USE_DX11)
     //	TODO:	DX10:	Implement merge with validity check

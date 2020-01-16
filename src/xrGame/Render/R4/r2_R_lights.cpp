@@ -2,8 +2,8 @@
 
 IC bool pred_area(light* _1, light* _2)
 {
-    u32 a0 = _1->X.S.size;
-    u32 a1 = _2->X.S.size;
+    u32 a0 = _1->_xformX.S.size;
+    u32 a1 = _2->_xformX.S.size;
     return a0 > a1; // reverse -> descending
 }
 
@@ -46,11 +46,11 @@ void CRender::render_lights(light_Package& LP)
             {
                 light* L = source[test];
                 SMAP_Rect R;
-                if (LP_smap_pool.push(R, L->X.S.size))
+                if (LP_smap_pool.push(R, L->_xformX.S.size))
                 {
                     // OK
-                    L->X.S.posX = R.min.x;
-                    L->X.S.posY = R.min.y;
+                    L->_xformX.S.posX = R.min.x;
+                    L->_xformX.S.posY = R.min.y;
                     L->vis.smap_ID = smap_ID;
                     refactored.push_back(L);
                     source.erase(source.begin() + test);
@@ -109,7 +109,7 @@ void CRender::render_lights(light_Package& LP)
                 r_pmask(true, false);
             L->svis.begin();
             // PIX_EVENT(SHADOWED_LIGHTS_RENDER_SUBSPACE);
-            r_dsgraph_render_subspace(L->spatial.sector, L->X.S.combine, L->position, TRUE);
+            r_dsgraph_render_subspace(L->spatial.sector, L->_xformX.S.combine, L->position, TRUE);
             bool bNormal = mapNormalPasses[0][0].size() || mapMatrixPasses[0][0].size();
             bool bSpecial = mapNormalPasses[1][0].size() || mapMatrixPasses[1][0].size() || mapSorted.size();
             if (bNormal || bSpecial)
@@ -118,15 +118,15 @@ void CRender::render_lights(light_Package& LP)
                 L_spot_s.push_back(L);
                 Target->phase_smap_spot(L);
                 RCache.set_xform_world(Fidentity);
-                RCache.set_xform_view(L->X.S.view);
-                RCache.set_xform_project(L->X.S.project);
+                RCache.set_xform_view(L->_xformX.S.view);
+                RCache.set_xform_project(L->_xformX.S.project);
                 r_dsgraph_render_graph(0);
                 if (ps_r2_ls_flags.test(R2FLAG_DETAIL_SHADOW))
                     Details->Render();
-                L->X.S.transluent = FALSE;
+                L->_xformX.S.transluent = FALSE;
                 if (bSpecial)
                 {
-                    L->X.S.transluent = TRUE;
+                    L->_xformX.S.transluent = TRUE;
                     Target->phase_smap_spot_tsh(L);
                     // PIX_EVENT(SHADOWED_LIGHTS_RENDER_GRAPH);
                     r_dsgraph_render_graph(1); // normal level, secondary priority

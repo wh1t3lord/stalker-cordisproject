@@ -91,10 +91,10 @@ void CRenderTarget::draw_rain(light& RainSetup)
         //		float			view_dimY			= float(RainSetup.X.D.maxX-RainSetup.X.D.minX-2)/smapsize;
         //		float			view_sx				= float(RainSetup.X.D.minX+1)/smapsize;
         //		float			view_sy				= float(RainSetup.X.D.minY+1)/smapsize;
-        float view_dimX = float(RainSetup.X.D.maxX - RainSetup.X.D.minX) / smapsize;
-        float view_dimY = float(RainSetup.X.D.maxX - RainSetup.X.D.minX) / smapsize;
-        float view_sx = float(RainSetup.X.D.minX) / smapsize;
-        float view_sy = float(RainSetup.X.D.minY) / smapsize;
+        float view_dimX = float(RainSetup._xformX.D.maxX - RainSetup._xformX.D.minX) / smapsize;
+        float view_dimY = float(RainSetup._xformX.D.maxX - RainSetup._xformX.D.minX) / smapsize;
+        float view_sx = float(RainSetup._xformX.D.minX) / smapsize;
+        float view_sy = float(RainSetup._xformX.D.minY) / smapsize;
         Fmatrix m_TexelAdjust = {view_dimX / 2.f, 0.0f, 0.0f, 0.0f, 0.0f, -view_dimY / 2.f, 0.0f, 0.0f, 0.0f, 0.0f,
             fRange, 0.0f, view_dimX / 2.f + view_sx + fTexelOffs, view_dimY / 2.f + view_sy + fTexelOffs, fBias, 1.0f};
 
@@ -107,7 +107,7 @@ void CRenderTarget::draw_rain(light& RainSetup)
         Fmatrix m_shadow;
         {
             Fmatrix xf_project;
-            xf_project.mul(m_TexelAdjust, RainSetup.X.D.combine);
+            xf_project.mul(m_TexelAdjust, RainSetup._xformX.D.combine);
             m_shadow.mul(xf_project, xf_invview);
 
             FPU::m24r();

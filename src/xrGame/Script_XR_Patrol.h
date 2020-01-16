@@ -167,9 +167,9 @@ public:
             return;
         }
 
-        if (strcmp(formation_name, XR_PATROL_FORMATION_INDEX_BACK) ||
-            strcmp(formation_name, XR_PATROL_FORMATION_INDEX_AROUND) ||
-            strcmp(formation_name, XR_PATROL_FORMATION_INDEX_LINE))
+        if (xr_strcmp(formation_name, XR_PATROL_FORMATION_INDEX_BACK) ||
+            xr_strcmp(formation_name, XR_PATROL_FORMATION_INDEX_AROUND) ||
+            xr_strcmp(formation_name, XR_PATROL_FORMATION_INDEX_LINE))
         {
             Msg("[Scripts/XR_PATROL/Script_PatrolEntity/set_formation(formation_name)] Invalid formation (%s) for "
                 "PatrolManager [%s]",

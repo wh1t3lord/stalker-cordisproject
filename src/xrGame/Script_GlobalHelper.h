@@ -4180,7 +4180,7 @@ private:
 
                     if (ini.line_exist(id, "info"))
                     {
-                        if (strcmp(ini.r_string(id, "info"), "") != 0)
+                        if (xr_strcmp(ini.r_string(id, "info"), "") != 0)
                         {
                             xr_map<std::uint32_t, CondlistData::CondlistValues> result;
                             xr_string buffer = ini.r_string(id, "info");

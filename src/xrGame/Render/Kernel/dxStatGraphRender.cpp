@@ -214,30 +214,30 @@ void dxStatGraphRender::RenderBars(CStatGraph& owner, FVF::TL0uv** ppv, CStatGra
         column_width--;
     for (auto it = pelements->begin(); it != pelements->end(); it++)
     {
-        float X = float(it - pelements->begin()) * elem_offs + owner.lt.x;
+        float koor_x = float(it - pelements->begin()) * elem_offs + owner.lt.x;
         float Y0 = base_y;
         float Y1 = base_y - it->data * elem_factor;
 
         if (Y1 > Y0)
         {
-            (*ppv)->set(X, Y1, it->color);
+            (*ppv)->set(koor_x, Y1, it->color);
             (*ppv)++;
-            (*ppv)->set(X, Y0, it->color);
+            (*ppv)->set(koor_x, Y0, it->color);
             (*ppv)++;
-            (*ppv)->set(X + column_width, Y1, it->color);
+            (*ppv)->set(koor_x + column_width, Y1, it->color);
             (*ppv)++;
-            (*ppv)->set(X + column_width, Y0, it->color);
+            (*ppv)->set(koor_x + column_width, Y0, it->color);
             (*ppv)++;
         }
         else
         {
-            (*ppv)->set(X, Y0, it->color);
+            (*ppv)->set(koor_x, Y0, it->color);
             (*ppv)++;
-            (*ppv)->set(X, Y1, it->color);
+            (*ppv)->set(koor_x, Y1, it->color);
             (*ppv)++;
-            (*ppv)->set(X + column_width, Y0, it->color);
+            (*ppv)->set(koor_x + column_width, Y0, it->color);
             (*ppv)++;
-            (*ppv)->set(X + column_width, Y1, it->color);
+            (*ppv)->set(koor_x + column_width, Y1, it->color);
             (*ppv)++;
         };
     };

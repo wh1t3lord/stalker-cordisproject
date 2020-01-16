@@ -2,12 +2,13 @@
 
 #include "Layers/xrRender/KinematicAnimatedDefs.h"
 
+/*
 namespace animation
-{
+{*/
 enum mix_type
 {
-    lerp = 0,
-    add,
+    eAnimationLerp = 0,
+    eAnimationAdd,
 };
 
 struct channal_rule
@@ -46,4 +47,6 @@ public:
         def.factor = factors[channel];
     }
 };
+/*
 };
+*/

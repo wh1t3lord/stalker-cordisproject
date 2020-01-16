@@ -14,6 +14,8 @@
 
 #include "xrUICore/ui_base.h"
 
+#undef PlaySound
+
 CHudItem::CHudItem()
 {
     RenderHud(TRUE);
@@ -46,13 +48,13 @@ void CHudItem::Load(LPCSTR section)
 
 void CHudItem::PlaySound(LPCSTR alias, const Fvector& position)
 {
-    m_sounds.PlaySound(alias, position, object().H_Root(), !!GetHUDmode());
+    m_sounds.play_sound(alias, position, object().H_Root(), !!GetHUDmode());
 }
 
 //Alundaio: Play at index
 void CHudItem::PlaySound(pcstr alias, const Fvector& position, u8 index)
 {
-    m_sounds.PlaySound(alias, position, object().H_Root(), !!GetHUDmode(), false, index);
+    m_sounds.play_sound(alias, position, object().H_Root(), !!GetHUDmode(), false, index);
 }
 //-Alundaio
 
@@ -129,7 +131,7 @@ void CHudItem::OnStateSwitch(u32 S, u32 oldState)
         if (HudItemData())
         {
             Fvector P = HudItemData()->m_item_transform.c;
-            m_sounds.PlaySound("sndBore", P, object().H_Root(), !!GetHUDmode(), false, m_started_rnd_anim_idx);
+            m_sounds.play_sound("sndBore", P, object().H_Root(), !!GetHUDmode(), false, m_started_rnd_anim_idx);
         }
 
         break;
@@ -279,11 +281,14 @@ u32 CHudItem::PlayHUDMotion_noCB(const shared_str& motion_name, BOOL bMixIn)
 {
     m_current_motion = motion_name;
 
-    if (bDebug && item().m_pInventory)
+    #ifdef DEBUG
+    if (item().m_pInventory)
     {
         Msg("-[%s] as[%d] [%d]anim_play [%s][%d]", HudItemData() ? "HUD" : "Simulating",
             item().m_pInventory->GetActiveSlot(), item().object_id(), motion_name.c_str(), Device.dwFrame);
     }
+    #endif
+
     if (HudItemData())
     {
         return HudItemData()->anim_play(motion_name, bMixIn, m_current_motion_def, m_started_rnd_anim_idx);

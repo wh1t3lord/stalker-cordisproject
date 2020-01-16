@@ -106,12 +106,12 @@ void CRenderTarget::u_setrt(const ref_rt& _1, const ref_rt& _2, ID3DDepthStencil
     //	RImplementation.rmNormal				();
 }
 
-void CRenderTarget::u_setrt(u32 W, u32 H, ID3DRenderTargetView* _1, ID3DRenderTargetView* _2, ID3DRenderTargetView* _3,
+void CRenderTarget::u_setrt(u32 width, u32 height, ID3DRenderTargetView* _1, ID3DRenderTargetView* _2, ID3DRenderTargetView* _3,
     ID3DDepthStencilView* zb)
 {
     // VERIFY									(_1);
-    dwWidth = W;
-    dwHeight = H;
+    dwWidth = width;
+    dwHeight = height;
     // VERIFY									(_1);
     RCache.set_RT(_1, 0);
     RCache.set_RT(_2, 1);

@@ -6,7 +6,7 @@ class CUIStatic;
 class CUI3tButton;
 class CUIFrameWindow;
 class CUIListBox;
-class CUISpinNum;
+/*class CUISpinNum;*/
 class CUIXml;
 struct game_PlayerState;
 

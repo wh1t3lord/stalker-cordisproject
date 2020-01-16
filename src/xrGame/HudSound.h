@@ -11,7 +11,7 @@ struct HUD_SOUND_ITEM
 
     static void DestroySound(HUD_SOUND_ITEM& hud_snd);
 
-    static void PlaySound(HUD_SOUND_ITEM& snd, const Fvector& position, const IGameObject* parent, bool hud_mode,
+    static void play_sound(HUD_SOUND_ITEM& snd, const Fvector& position, const IGameObject* parent, bool hud_mode,
         bool looped = false, u8 index = u8(-1));
 
     static void StopSound(HUD_SOUND_ITEM& snd);
@@ -63,7 +63,7 @@ public:
 
     HUD_SOUND_ITEM* FindSoundItem(LPCSTR alias, bool b_assert); //AVO: made public to check if sound is loaded
 
-    void PlaySound(LPCSTR alias, const Fvector& position, const IGameObject* parent, bool hud_mode, bool looped = false,
+    void play_sound(LPCSTR alias, const Fvector& position, const IGameObject* parent, bool hud_mode, bool looped = false,
         u8 index = u8(-1));
 
     void StopSound(LPCSTR alias);

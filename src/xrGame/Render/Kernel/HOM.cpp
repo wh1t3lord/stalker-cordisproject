@@ -265,30 +265,30 @@ void CHOM::Render(CFrustum& base)
     stats.Total.End();
 }
 
-ICF BOOL xform_b0(Fvector2& min, Fvector2& max, float& minz, Fmatrix& X, float _x, float _y, float _z)
+ICF BOOL xform_b0(Fvector2& min, Fvector2& max, float& minz, Fmatrix& mat, float _x, float _y, float _z)
 {
-    float z = _x * X._13 + _y * X._23 + _z * X._33 + X._43;
+    float z = _x * mat._13 + _y * mat._23 + _z * mat._33 + mat._43;
     if (z < EPS)
         return TRUE;
-    float iw = 1.f / (_x * X._14 + _y * X._24 + _z * X._34 + X._44);
-    min.x = max.x = (_x * X._11 + _y * X._21 + _z * X._31 + X._41) * iw;
-    min.y = max.y = (_x * X._12 + _y * X._22 + _z * X._32 + X._42) * iw;
+    float iw = 1.f / (_x * mat._14 + _y * mat._24 + _z * mat._34 + mat._44);
+    min.x = max.x = (_x * mat._11 + _y * mat._21 + _z * mat._31 + mat._41) * iw;
+    min.y = max.y = (_x * mat._12 + _y * mat._22 + _z * mat._32 + mat._42) * iw;
     minz = 0.f + z * iw;
     return FALSE;
 }
-ICF BOOL xform_b1(Fvector2& min, Fvector2& max, float& minz, Fmatrix& X, float _x, float _y, float _z)
+ICF BOOL xform_b1(Fvector2& min, Fvector2& max, float& minz, Fmatrix& mat, float _x, float _y, float _z)
 {
     float t;
-    float z = _x * X._13 + _y * X._23 + _z * X._33 + X._43;
+    float z = _x * mat._13 + _y * mat._23 + _z * mat._33 + mat._43;
     if (z < EPS)
         return TRUE;
-    float iw = 1.f / (_x * X._14 + _y * X._24 + _z * X._34 + X._44);
-    t = (_x * X._11 + _y * X._21 + _z * X._31 + X._41) * iw;
+    float iw = 1.f / (_x * mat._14 + _y * mat._24 + _z * mat._34 + mat._44);
+    t = (_x * mat._11 + _y * mat._21 + _z * mat._31 + mat._41) * iw;
     if (t < min.x)
         min.x = t;
     else if (t > max.x)
         max.x = t;
-    t = (_x * X._12 + _y * X._22 + _z * X._32 + X._42) * iw;
+    t = (_x * mat._12 + _y * mat._22 + _z * mat._32 + mat._42) * iw;
     if (t < min.y)
         min.y = t;
     else if (t > max.y)

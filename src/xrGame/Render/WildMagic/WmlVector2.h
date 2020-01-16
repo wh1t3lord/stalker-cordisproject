@@ -26,10 +26,10 @@ public:
     Vector2(const Vector<2, Real>& rkV);
 
     // member access
-    Real X() const;
-    Real& X();
-    Real Y() const;
-    Real& Y();
+    Real getX() const;
+    Real& getX();
+    Real getY() const;
+    Real& getY();
 
     // assignment
     Vector2& operator=(const Vector2& rkV);

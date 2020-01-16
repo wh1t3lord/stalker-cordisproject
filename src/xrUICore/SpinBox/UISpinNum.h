@@ -1,3 +1,4 @@
+#pragma once
 #include "xrUICore/SpinBox/UICustomSpin.h"
 
 class XRUICORE_API CUISpinNum : public CUICustomSpin

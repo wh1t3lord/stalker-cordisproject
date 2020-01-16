@@ -14,7 +14,7 @@ struct _hw
     u32 rgbh0;
     u32 rgbh1;
 };
-static D3DVERTEXELEMENT9 dwDecl[] = {
+static D3DVERTEXELEMENT9 dwDeclFLOD[] = {
     {0, 0, D3DDECLTYPE_FLOAT3, D3DDECLMETHOD_DEFAULT, D3DDECLUSAGE_POSITION, 0}, // pos-0
     {0, 12, D3DDECLTYPE_FLOAT3, D3DDECLMETHOD_DEFAULT, D3DDECLUSAGE_POSITION, 1}, // pos-1
     {0, 24, D3DDECLTYPE_FLOAT3, D3DDECLMETHOD_DEFAULT, D3DDECLUSAGE_NORMAL, 0}, // nrm-0
@@ -53,7 +53,7 @@ void FLOD::Load(LPCSTR name, IReader* data, u32 dwFlags)
     }
 
     // VS
-    geom.create(dwDecl, RCache.Vertex.Buffer(), RCache.QuadIB);
+    geom.create(dwDeclFLOD, RCache.Vertex.Buffer(), RCache.QuadIB);
 
     // lod correction
     Fvector3 S;

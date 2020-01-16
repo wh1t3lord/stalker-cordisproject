@@ -13,11 +13,11 @@ static void trajectory_get_position(
     result.mad(start_position, velocity, time).mad(gravity, _sqr(time) * .5f);
 }
 
-inline static float trajectory_max_error_time(float t0, float t1) { return ((t1 + t0) * .5f); }
+inline static float traje_trajectory_max_error_time(float t0, float t1) { return ((t1 + t0) * .5f); }
 static float trajectory_pick_error(
     float low, float high, const Fvector& position, const Fvector& velocity, const Fvector& gravity)
 {
-    float max_error_time = trajectory_max_error_time(low, high);
+    float max_error_time = traje_trajectory_max_error_time(low, high);
 
     Fvector start;
     trajectory_get_position(start, position, velocity, gravity, low);

@@ -95,30 +95,33 @@ void CWallmarksEngine::clear()
 // allocate
 CWallmarksEngine::static_wallmark* CWallmarksEngine::static_wm_allocate()
 {
-    static_wallmark* W = nullptr;
+    static_wallmark* p_wallmark = nullptr;
     if (static_pool.empty())
-        W = new static_wallmark();
+        p_wallmark = new static_wallmark();
     else
     {
-        W = static_pool.back();
+        p_wallmark = static_pool.back();
         static_pool.pop_back();
     }
 
-    W->ttl = ps_r__WallmarkTTL;
-    W->verts.clear();
-    return W;
+    p_wallmark->ttl = ps_r__WallmarkTTL;
+    p_wallmark->verts.clear();
+    return p_wallmark;
 }
 // destroy
-void CWallmarksEngine::static_wm_destroy(CWallmarksEngine::static_wallmark* W) { static_pool.push_back(W); }
-// render
-void CWallmarksEngine::static_wm_render(CWallmarksEngine::static_wallmark* W, FVF::LIT*& V)
+void CWallmarksEngine::static_wm_destroy(CWallmarksEngine::static_wallmark* p_wallmark)
 {
-    float a = 1 - (W->ttl / ps_r__WallmarkTTL);
+    static_pool.push_back(p_wallmark);
+}
+// render
+void CWallmarksEngine::static_wm_render(CWallmarksEngine::static_wallmark* p_wallmark, FVF::LIT*& V)
+{
+    float a = 1 - (p_wallmark->ttl / ps_r__WallmarkTTL);
     int aC = iFloor(a * 255.f);
     clamp(aC, 0, 255);
     u32 C = color_rgba(128, 128, 128, aC);
 
-    for (auto &i : W->verts)
+    for (auto& i : p_wallmark->verts)
     {
         V->p.set(i.p);
         V->color = C;
@@ -127,7 +130,7 @@ void CWallmarksEngine::static_wm_render(CWallmarksEngine::static_wallmark* W, FV
     }
 }
 //--------------------------------------------------------------------------------
-void CWallmarksEngine::RecurseTri(u32 t, Fmatrix& mView, CWallmarksEngine::static_wallmark& W)
+void CWallmarksEngine::RecurseTri(u32 t, Fmatrix& mView, CWallmarksEngine::static_wallmark& wallmark)
 {
     CDB::TRI* T = sml_collector.getT() + t;
     if (T->dummy)
@@ -164,9 +167,9 @@ void CWallmarksEngine::RecurseTri(u32 t, Fmatrix& mView, CWallmarksEngine::stati
         {
             mView.transform_tiny(UV, (*P)[i]);
             V2.set((*P)[i], 0, (1 + UV.x) * .5f, (1 - UV.y) * .5f);
-            W.verts.push_back(V0);
-            W.verts.push_back(V1);
-            W.verts.push_back(V2);
+            wallmark.verts.push_back(V0);
+            wallmark.verts.push_back(V1);
+            wallmark.verts.push_back(V2);
             V1 = V2;
         }
 
@@ -184,7 +187,7 @@ void CWallmarksEngine::RecurseTri(u32 t, Fmatrix& mView, CWallmarksEngine::stati
             float cosa = test_normal.dotproduct(sml_normal);
             if (cosa < 0.034899f)
                 continue; // cos(88)
-            RecurseTri(adj, mView, W);
+            RecurseTri(adj, mView, wallmark);
         }
     }
 }
@@ -248,13 +251,13 @@ void CWallmarksEngine::AddWallmark_internal(
     sml_clipper.CreateFromMatrix(mView, FRUSTUM_P_LRTB);
 
     // create wallmark
-    static_wallmark* W = static_wm_allocate();
-    RecurseTri(0, mView, *W);
+    static_wallmark* p_wallmark = static_wm_allocate();
+    RecurseTri(0, mView, *p_wallmark);
 
     // calc sphere
-    if (W->verts.size() < 3)
+    if (p_wallmark->verts.size() < 3)
     {
-        static_wm_destroy(W);
+        static_wm_destroy(p_wallmark);
         return;
     }
     else
@@ -262,12 +265,12 @@ void CWallmarksEngine::AddWallmark_internal(
         Fbox bb;
         bb.invalidate();
 
-        for (auto &i : W->verts)
+        for (auto &i : p_wallmark->verts)
             bb.modify(i.p);
-        bb.getsphere(W->bounds.P, W->bounds.R);
+        bb.getsphere(p_wallmark->bounds.P, p_wallmark->bounds.R);
     }
 
-    //	if (W->bounds.R < 1.f)
+    //	if (p_wallmark->bounds.R < 1.f)
     {
         // search if similar wallmark exists
         wm_slot* slot = FindSlot(hShader);
@@ -276,10 +279,10 @@ void CWallmarksEngine::AddWallmark_internal(
             for (auto &it : slot->static_items)
             {
                 static_wallmark* wm = it;
-                if (wm->bounds.P.similar(W->bounds.P, 0.02f))
+                if (wm->bounds.P.similar(p_wallmark->bounds.P, 0.02f))
                 { // replace
                     static_wm_destroy(wm);
-                    it = W;
+                    it = p_wallmark;
                     return;
                 }
             }
@@ -290,7 +293,7 @@ void CWallmarksEngine::AddWallmark_internal(
         }
 
         // no similar - register _new_
-        slot->static_items.push_back(W);
+        slot->static_items.push_back(p_wallmark);
     }
     // else
     //{
@@ -409,32 +412,32 @@ void CWallmarksEngine::Render()
         // static wallmarks
         for (auto &w_it : slot->static_items)
         {
-            static_wallmark* W = w_it;
-            if (RImplementation.ViewBase.testSphere_dirty(W->bounds.P, W->bounds.R))
+            static_wallmark* p_wallmark = w_it;
+            if (RImplementation.ViewBase.testSphere_dirty(p_wallmark->bounds.P, p_wallmark->bounds.R))
             {
                 RImplementation.BasicStats.StaticWMCount++;
-                float dst = Device.vCameraPosition.distance_to_sqr(W->bounds.P);
-                float ssa = W->bounds.R * W->bounds.R / dst;
+                float dst = Device.vCameraPosition.distance_to_sqr(p_wallmark->bounds.P);
+                float ssa = p_wallmark->bounds.R * p_wallmark->bounds.R / dst;
                 if (ssa >= ssaCLIP)
                 {
                     u32 w_count = u32(w_verts - w_start);
-                    if ((w_count + W->verts.size()) >= (MAX_TRIS * 3))
+                    if ((w_count + p_wallmark->verts.size()) >= (MAX_TRIS * 3))
                     {
                         RImplementation.BasicStats.WMTriCount +=
                             FlushStream(hGeom, slot->shader, w_offset, w_verts, w_start, FALSE);
                         BeginStream(hGeom, w_offset, w_verts, w_start);
                     }
-                    static_wm_render(W, w_verts);
+                    static_wm_render(p_wallmark, w_verts);
                 }
-                W->ttl -= 0.1f * Device.fTimeDelta; // visible wallmarks fade much slower
+                p_wallmark->ttl -= 0.1f * Device.fTimeDelta; // visible wallmarks fade much slower
             }
             else
             {
-                W->ttl -= Device.fTimeDelta;
+                p_wallmark->ttl -= Device.fTimeDelta;
             }
-            if (W->ttl <= EPS)
+            if (p_wallmark->ttl <= EPS)
             {
-                static_wm_destroy(W);
+                static_wm_destroy(p_wallmark);
                 w_it = slot->static_items.back();
                 slot->static_items.pop_back();
                 break;
@@ -448,28 +451,28 @@ void CWallmarksEngine::Render()
         // dynamic wallmarks
         for (auto &w_it : slot->skeleton_items)
         {
-            intrusive_ptr<CSkeletonWallmark> W = w_it;
-            if (!W)
+            intrusive_ptr<CSkeletonWallmark> p_wallmark = w_it;
+            if (!p_wallmark)
             {
                 continue;
             }
 
 #ifdef DEBUG
-            if (W->used_in_render != Device.dwFrame)
+            if (p_wallmark->used_in_render != Device.dwFrame)
             {
-                Log("W->used_in_render", W->used_in_render);
+                Log("p_wallmark->used_in_render", p_wallmark->used_in_render);
                 Log("Device.dwFrame", Device.dwFrame);
-                VERIFY(W->used_in_render == Device.dwFrame);
+                VERIFY(p_wallmark->used_in_render == Device.dwFrame);
             }
 #endif
 
-            float dst = Device.vCameraPosition.distance_to_sqr(W->m_Bounds.P);
-            float ssa = W->m_Bounds.R * W->m_Bounds.R / dst;
+            float dst = Device.vCameraPosition.distance_to_sqr(p_wallmark->m_Bounds.P);
+            float ssa = p_wallmark->m_Bounds.R * p_wallmark->m_Bounds.R / dst;
             if (ssa >= ssaCLIP)
             {
                 RImplementation.BasicStats.DynamicWMCount++;
                 u32 w_count = u32(w_verts - w_start);
-                if ((w_count + W->VCount()) >= (MAX_TRIS * 3))
+                if ((w_count + p_wallmark->VCount()) >= (MAX_TRIS * 3))
                 {
                     RImplementation.BasicStats.WMTriCount +=
                         FlushStream(hGeom, slot->shader, w_offset, w_verts, w_start, TRUE);
@@ -479,7 +482,7 @@ void CWallmarksEngine::Render()
                 FVF::LIT* w_save = w_verts;
                 try
                 {
-                    W->Parent()->RenderWallmark(W, w_verts);
+                    p_wallmark->Parent()->RenderWallmark(p_wallmark, w_verts);
                 }
                 catch (...)
                 {
@@ -488,7 +491,7 @@ void CWallmarksEngine::Render()
                 }
             }
 #ifdef DEBUG
-            W->used_in_render = u32(-1);
+            p_wallmark->used_in_render = u32(-1);
 #endif
         }
         slot->skeleton_items.clear();

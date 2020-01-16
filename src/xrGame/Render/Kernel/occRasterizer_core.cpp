@@ -74,7 +74,7 @@ IC void Vclamp(int& v, int a, int b)
     else if (v >= b)
         v = b - 1;
 }
-IC BOOL shared(occTri* T1, occTri* T2)
+IC BOOL shared_core(occTri* T1, occTri* T2)
 {
     if (T1 == T2)
         return TRUE;
@@ -96,7 +96,7 @@ IC BOOL lesser(float& a, float& b)
 const float one_div_3 = 1.f / 3.f;
 
 // Rasterize a scan line between given X point values, corresponding Z values and current color
-void i_scan(int curY, float leftX, float lhx, float rightX, float rhx, float startZ, float endZ)
+void i_scan(int curY, float leftX, float lhx, float rightX, float rhx, float start_z, float endZ)
 {
     // calculate span(s)
     float start_c = leftX + lhx;
@@ -142,14 +142,14 @@ void i_scan(int curY, float leftX, float lhx, float rightX, float rhx, float sta
 
     // interpolate
     float lenR = endR - startR;
-    float Zlen = endZ - startZ;
-    float Z = startZ + (minT - startR) / lenR * Zlen; // interpolate Z to the start
-    float Zend = startZ + (maxT - startR) / lenR * Zlen; // interpolate Z to the end
-    float dZ = (Zend - Z) / (maxT - minT); // increment in Z / pixel wrt dX
+    float z_len = endZ - start_z;
+    float interpolate_z = start_z + (minT - startR) / lenR * z_len; // interpolate Z to the start
+    float Zend = start_z + (maxT - startR) / lenR * z_len; // interpolate Z to the end
+    float dZ = (Zend - interpolate_z) / (maxT - minT); // increment in Z / pixel wrt dX
 
     // Move to far my dz/5 to place the pixel at the center of face that it covers.
     // This will make sure that objects will not be clipped for just standing next to the home from outside.
-    Z += 0.5f * _abs(dZ);
+    interpolate_z += 0.5f * _abs(dZ);
 
     // gain access to buffers
     occTri** pFrame = Raster.get_frame();
@@ -159,15 +159,15 @@ void i_scan(int curY, float leftX, float lhx, float rightX, float rhx, float sta
     int i_base = curY * occ_dim;
     int i = i_base + minT;
     int limit = i_base + limLeft;
-    for (; i < limit; i++, Z += dZ)
+    for (; i < limit; i++, interpolate_z += dZ)
     {
-        if (shared(currentTri, pFrame[i - 1]))
+        if (shared_core(currentTri, pFrame[i - 1]))
         {
             // float ZR = (Z+2*pDepth[i-1])*one_div_3;
-            if (Z < pDepth[i])
+            if (interpolate_z < pDepth[i])
             {
                 pFrame[i] = currentTri;
-                pDepth[i] = __max(Z, pDepth[i - 1]);
+                pDepth[i] = __max(interpolate_z, pDepth[i - 1]);
                 dwPixels++;
             }
         }
@@ -175,12 +175,12 @@ void i_scan(int curY, float leftX, float lhx, float rightX, float rhx, float sta
 
     // compute the scanline
     limit = i_base + maxX;
-    for (; i < limit; i++, Z += dZ)
+    for (; i < limit; i++, interpolate_z += dZ)
     {
-        if (Z < pDepth[i])
+        if (interpolate_z < pDepth[i])
         {
             pFrame[i] = currentTri;
-            pDepth[i] = Z;
+            pDepth[i] = interpolate_z;
             dwPixels++;
         }
     }
@@ -188,16 +188,16 @@ void i_scan(int curY, float leftX, float lhx, float rightX, float rhx, float sta
     // right connector
     i = i_base + maxT - 1;
     limit = i_base + limRight;
-    Z = Zend - dZ;
-    for (; i >= limit; i--, Z -= dZ)
+    interpolate_z = Zend - dZ;
+    for (; i >= limit; i--, interpolate_z -= dZ)
     {
-        if (shared(currentTri, pFrame[i + 1]))
+        if (shared_core(currentTri, pFrame[i + 1]))
         {
             // float ZR = (Z+2*pDepth[i+1])*one_div_3;
-            if (Z < pDepth[i])
+            if (interpolate_z < pDepth[i])
             {
                 pFrame[i] = currentTri;
-                pDepth[i] = __max(Z, pDepth[i + 1]);
+                pDepth[i] = __max(interpolate_z, pDepth[i + 1]);
                 dwPixels++;
             }
         }
@@ -221,7 +221,7 @@ IC void i_test_micro(int x, int y)
     occTri** pFrame = Raster.get_frame();
     occTri* T1 = pFrame[pos_up];
     occTri* T2 = pFrame[pos_down];
-    if (T1 && shared(T1, T2))
+    if (T1 && shared_core(T1, T2))
     {
         float* pDepth = Raster.get_depth();
         float ZR = (pDepth[pos_up] + pDepth[pos_down]) / 2;

@@ -2,9 +2,9 @@
 
 #include "Animation.h"
 
-using namespace animation;
-
-const channal_rule channels::rules[channels::max] = {{lerp, lerp}, {lerp, lerp}, {lerp, add}, {lerp, add}};
+const channal_rule channels::rules[channels::max] = {{mix_type::eAnimationLerp, mix_type::eAnimationLerp},
+    {mix_type::eAnimationLerp, mix_type::eAnimationLerp}, {mix_type::eAnimationLerp, mix_type::eAnimationAdd},
+    {mix_type::eAnimationLerp, mix_type::eAnimationAdd}};
 
 channels::channels() { init(); }
 void channels::init() { std::fill(factors, factors + max, 1.f); }

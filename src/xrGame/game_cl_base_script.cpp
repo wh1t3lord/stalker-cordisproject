@@ -1,6 +1,7 @@
 #include "pch_script.h"
 #include "game_cl_base.h"
 
+/*
 using namespace luabind;
 
 #pragma optimize("s", on)
@@ -25,3 +26,4 @@ void RPoint::script_register(lua_State* L)
                   .def_readwrite("P", &RPoint::P)
                   .def_readwrite("A", &RPoint::A)];
 }
+*/

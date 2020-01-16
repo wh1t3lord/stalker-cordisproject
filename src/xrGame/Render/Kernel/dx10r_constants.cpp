@@ -11,7 +11,7 @@
 #include "r_constants.h"
 #include "dx10ConstantBuffer.h"
 
-IC bool p_sort(ref_constant C1, ref_constant C2) { return xr_strcmp(C1->name, C2->name) < 0; }
+IC bool p_constants_sort(ref_constant C1, ref_constant C2) { return xr_strcmp(C1->name, C2->name) < 0; }
 BOOL R_constant_table::parseConstants(ID3DShaderReflectionConstantBuffer* pTable, u32 destination)
 {
     // VERIFY(_desc);
@@ -347,6 +347,6 @@ BOOL R_constant_table::parse(void* _desc, u32 destination)
         parseResources(pReflection, ShaderDesc.BoundResources, destination);
     }
 
-    std::sort(table.begin(), table.end(), p_sort);
+    std::sort(table.begin(), table.end(), p_constants_sort);
     return TRUE;
 }

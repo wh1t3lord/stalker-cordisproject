@@ -9,7 +9,7 @@ class CUIFrameLineWnd;
 class CUIStatic;
 class CUIFrameWindow;
 class CUI3tButton;
-class CUISpinText;
+/*class CUISpinText;*/
 class CUIMapInfo;
 class CUIComboBox;
 class CUIXml;

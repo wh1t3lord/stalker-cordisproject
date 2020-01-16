@@ -14,9 +14,9 @@ Fvector3 wform(Fmatrix& m, Fvector3 const& v);
 //////////////////////////////////////////////////////////////////////////
 // tables to calculate view-frustum bounds in world space
 // note: D3D uses [0..1] range for Z
-static Fvector3 corners[8] = {
+static Fvector3 rain_corners[8] = {
     {-1, -1, 0}, {-1, -1, +1}, {-1, +1, +1}, {-1, +1, 0}, {+1, +1, +1}, {+1, +1, 0}, {+1, -1, +1}, {+1, -1, 0}};
-static int facetable[6][4] = {
+static int rain_facetable[6][4] = {
     {0, 3, 5, 7}, {1, 2, 3, 0}, {6, 7, 5, 4}, {4, 2, 1, 6}, {3, 2, 4, 5}, {1, 0, 7, 6},
 };
 
@@ -88,14 +88,14 @@ void CRender::render_rain()
             hull.points.reserve(9);
             for (int p = 0; p < 8; p++)
             {
-                Fvector3 xf = wform(fullxform_inv, corners[p]);
+                Fvector3 xf = wform(fullxform_inv, rain_corners[p]);
                 hull.points.push_back(xf);
             }
             for (int plane = 0; plane < 6; plane++)
             {
                 hull.polys.push_back(t_volume::_poly());
                 for (int pt = 0; pt < 4; pt++)
-                    hull.polys.back().points.push_back(facetable[plane][pt]);
+                    hull.polys.back().points.push_back(rain_facetable[plane][pt]);
             }
         }
         // hull.compute_caster_model	(cull_planes,fuckingsun->direction);
@@ -205,10 +205,10 @@ void CRender::render_rain()
         adjust.translate(diff);
         cull_xform.mulA_44(adjust);
 
-        RainLight.X.D.minX = 0;
-        RainLight.X.D.maxX = limit;
-        RainLight.X.D.minY = 0;
-        RainLight.X.D.maxY = limit;
+        RainLight._xformX.D.minX = 0;
+        RainLight._xformX.D.maxX = limit;
+        RainLight._xformX.D.minY = 0;
+        RainLight._xformX.D.maxY = limit;
 
         // full-xform
         FPU::m24r();
@@ -228,7 +228,7 @@ void CRender::render_rain()
     r_dsgraph_render_subspace(cull_sector, &cull_frustum, cull_xform, cull_COP, FALSE);
 
     // Finalize & Cleanup
-    RainLight.X.D.combine = cull_xform; //*((Fmatrix*)&m_LightViewProj);
+    RainLight._xformX.D.combine = cull_xform; //*((Fmatrix*)&m_LightViewProj);
 
     // Render shadow-map
     //. !!! We should clip based on shrinked frustum (again)
@@ -240,7 +240,7 @@ void CRender::render_rain()
             Target->phase_smap_direct(&RainLight, SE_SUN_RAIN_SMAP);
             RCache.set_xform_world(Fidentity);
             RCache.set_xform_view(Fidentity);
-            RCache.set_xform_project(RainLight.X.D.combine);
+            RCache.set_xform_project(RainLight._xformX.D.combine);
             r_dsgraph_render_graph(0);
             // if (ps_r2_ls_flags.test(R2FLAG_DETAIL_SHADOW))
             //	Details->Render					()	;

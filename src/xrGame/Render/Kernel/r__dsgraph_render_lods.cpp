@@ -19,8 +19,8 @@
 extern float r_ssaLOD_A;
 extern float r_ssaLOD_B;
 
-template <class T> IC bool cmp_first_l(const T &lhs, const T &rhs) { return (lhs.first < rhs.first); }
-template <class T> IC bool cmp_first_h(const T &lhs, const T &rhs) { return (lhs.first > rhs.first); }
+template <class T> IC bool cmp_first_l_lods(const T &lhs, const T &rhs) { return (lhs.first < rhs.first); }
+template <class T> IC bool cmp_first_h_lods(const T &lhs, const T &rhs) { return (lhs.first > rhs.first); }
 
 ICF bool pred_dot(const std::pair<float, u32>& _1, const std::pair<float, u32>& _2) { return _1.first < _2.first; }
 
@@ -30,9 +30,9 @@ void D3DXRenderBase::r_dsgraph_render_lods(bool _setup_zb, bool _clear)
         return;
 
     if (_setup_zb)
-        std::sort(mapLOD.begin(), mapLOD.end(), cmp_first_l<R_dsgraph::mapLOD_T::value_type>); // front-to-back
+        std::sort(mapLOD.begin(), mapLOD.end(), cmp_first_l_lods<R_dsgraph::mapLOD_T::value_type>); // front-to-back
     else
-        std::sort(mapLOD.begin(), mapLOD.end(), cmp_first_h<R_dsgraph::mapLOD_T::value_type>); // back-to-front
+        std::sort(mapLOD.begin(), mapLOD.end(), cmp_first_h_lods<R_dsgraph::mapLOD_T::value_type>); // back-to-front
 
     // *** Fill VB and generate groups
     u32 shid = _setup_zb ? SE_R1_LMODELS : SE_R1_NORMAL_LQ;

@@ -100,7 +100,7 @@ private:
     svector<CBlend, MAX_BLENDED_POOL> blend_pool;
     BlendSVec blend_cycles[MAX_PARTS];
     BlendSVec blend_fx;
-    animation::channels channels;
+    channels channels;
 
 protected:
     // internal functions

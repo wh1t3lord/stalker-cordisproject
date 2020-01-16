@@ -1,7 +1,7 @@
 // Base32 encoding / decoding
 // based on public domain code by Warren Young
 
-#include <string.h>
+/*#include <string.h>*/
 #include <stdlib.h>
 #include <ctype.h>
 

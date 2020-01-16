@@ -1,7 +1,7 @@
 #ifndef BLENDER_EDITOR_WIRE_H
 #define BLENDER_EDITOR_WIRE_H
 #pragma once
-
+#undef bDebug
 class CBlender_Editor_Wire : public IBlender
 {
     string64 oT_Factor;

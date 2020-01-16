@@ -51,49 +51,49 @@ Vector4<Real>& Vector4<Real>::operator= (const Vector<4,Real>& rkV)
 }
 //----------------------------------------------------------------------------
 template <class Real>
-Real Vector4<Real>::X () const
+Real Vector4<Real>::getX () const
 {
     return m_afTuple[0];
 }
 //----------------------------------------------------------------------------
 template <class Real>
-Real& Vector4<Real>::X ()
+Real& Vector4<Real>::getX ()
 {
     return m_afTuple[0];
 }
 //----------------------------------------------------------------------------
 template <class Real>
-Real Vector4<Real>::Y () const
+Real Vector4<Real>::getY () const
 {
     return m_afTuple[1];
 }
 //----------------------------------------------------------------------------
 template <class Real>
-Real& Vector4<Real>::Y ()
+Real& Vector4<Real>::getY ()
 {
     return m_afTuple[1];
 }
 //----------------------------------------------------------------------------
 template <class Real>
-Real Vector4<Real>::Z () const
+Real Vector4<Real>::getZ () const
 {
     return m_afTuple[2];
 }
 //----------------------------------------------------------------------------
 template <class Real>
-Real& Vector4<Real>::Z ()
+Real& Vector4<Real>::getZ ()
 {
     return m_afTuple[2];
 }
 //----------------------------------------------------------------------------
 template <class Real>
-Real Vector4<Real>::W () const
+Real Vector4<Real>::getW () const
 {
     return m_afTuple[3];
 }
 //----------------------------------------------------------------------------
 template <class Real>
-Real& Vector4<Real>::W ()
+Real& Vector4<Real>::getW ()
 {
     return m_afTuple[3];
 }

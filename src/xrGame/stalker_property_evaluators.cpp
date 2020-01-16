@@ -41,7 +41,7 @@ using namespace StalkerDecisionSpace;
 
 typedef CStalkerPropertyEvaluator::_value_type _value_type;
 
-const float wounded_enemy_reached_distance = 3.f;
+constexpr float kwounded_enemy_reached_distance = 3.f;
 
 //////////////////////////////////////////////////////////////////////////
 // CStalkerPropertyEvaluatorALife
@@ -349,7 +349,7 @@ _value_type CStalkerPropertyEvaluatorEnemyReached::evaluate()
     if (processor_id != object().ID())
         return (false);
 
-    return ((object().Position().distance_to_sqr(enemy->Position()) <= _sqr(wounded_enemy_reached_distance)));
+    return ((object().Position().distance_to_sqr(enemy->Position()) <= _sqr(kwounded_enemy_reached_distance)));
 }
 
 //////////////////////////////////////////////////////////////////////////

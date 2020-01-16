@@ -4189,6 +4189,12 @@
     <Filter Include="Cordis\Scripts\Managers\Move\Private">
       <UniqueIdentifier>{cd20dc21-016e-4126-8c67-966e28bdcac0}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Jumbo">
+      <UniqueIdentifier>{145a34f1-18bb-4c2e-98a6-7c2a4c55f6f7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Jumbo\Private">
+      <UniqueIdentifier>{2dbaa734-0ee9-4600-8d05-2756a2f65185}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="mt_config.h">
@@ -13955,6 +13961,21 @@
     </ClCompile>
     <ClCompile Include="Script_MoveManager.cpp">
       <Filter>Cordis\Scripts\Managers\Move\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="UnityBuild.cpp">
+      <Filter>Jumbo\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="UnityBuildxrServerEntities.cpp">
+      <Filter>Jumbo\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="UnityBuildOther.cpp">
+      <Filter>Jumbo\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="UnityBuildSomethingNew.cpp">
+      <Filter>Jumbo\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="UnityBuildRender.cpp">
+      <Filter>Jumbo\Private</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -408,7 +408,7 @@ public:
         enemy_pos = pos;
     }
 
-    bool operator()(const CGameObject* tpObject1, const CGameObject* tpObject2) const
+    bool operator()(const IGameObject* tpObject1, const IGameObject* tpObject2) const
     {
         const float dist1 = enemy_pos.distance_to(tpObject1->Position());
         const float dist2 = enemy_pos.distance_to(tpObject2->Position());

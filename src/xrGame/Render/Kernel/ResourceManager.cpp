@@ -35,7 +35,7 @@ void fix_texture_name(LPSTR fn)
 */
 //--------------------------------------------------------------------------------------------------------------
 template <class T>
-bool reclaim(xr_vector<T*>& vec, const T* ptr)
+bool reclaim_resource(xr_vector<T*>& vec, const T* ptr)
 {
     auto it = vec.begin();
     auto end = vec.end();
@@ -170,7 +170,7 @@ void CResourceManager::_DeleteElement(const ShaderElement* S)
 {
     if (0 == (S->dwFlags & xr_resource_flagged::RF_REGISTERED))
         return;
-    if (reclaim(v_elements, S))
+    if (reclaim_resource(v_elements, S))
         return;
     Msg("! ERROR: Failed to find compiled 'shader-element'");
 }
@@ -336,7 +336,7 @@ void CResourceManager::Delete(const Shader* S)
 {
     if (0 == (S->dwFlags & xr_resource_flagged::RF_REGISTERED))
         return;
-    if (reclaim(v_shaders, S))
+    if (reclaim_resource(v_shaders, S))
         return;
     Msg("! ERROR: Failed to find complete shader");
 }

@@ -24,20 +24,20 @@ void Wml::ContAlignedBox(int iQuantity, const Vector3<Real>* akPoint, Vector3<Re
 
     for (int i = 1; i < iQuantity; i++)
     {
-        if (akPoint[i].X() < rkMin.X())
-            rkMin.X() = akPoint[i].X();
-        else if (akPoint[i].X() > rkMax.X())
-            rkMax.X() = akPoint[i].X();
+        if (akPoint[i].getX() < rkMin.getX())
+            rkMin.getX() = akPoint[i].getX();
+        else if (akPoint[i].getX() > rkMax.getX())
+            rkMax.getX() = akPoint[i].getX();
 
-        if (akPoint[i].Y() < rkMin.Y())
-            rkMin.Y() = akPoint[i].Y();
-        else if (akPoint[i].Y() > rkMax.Y())
-            rkMax.Y() = akPoint[i].Y();
+        if (akPoint[i].getY() < rkMin.getY())
+            rkMin.getY() = akPoint[i].getY();
+        else if (akPoint[i].getY() > rkMax.getY())
+            rkMax.getY() = akPoint[i].getY();
 
-        if (akPoint[i].Z() < rkMin.Z())
-            rkMin.Z() = akPoint[i].Z();
-        else if (akPoint[i].Z() > rkMax.Z())
-            rkMax.Z() = akPoint[i].Z();
+        if (akPoint[i].getZ() < rkMin.getZ())
+            rkMin.getZ() = akPoint[i].getZ();
+        else if (akPoint[i].getZ() > rkMax.getZ())
+            rkMax.getZ() = akPoint[i].getZ();
     }
 }
 //----------------------------------------------------------------------------

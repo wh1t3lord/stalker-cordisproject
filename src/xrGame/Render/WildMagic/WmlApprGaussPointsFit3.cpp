@@ -33,12 +33,12 @@ void Wml::GaussPointsFit(
     for (i = 0; i < iQuantity; i++)
     {
         Vector3<Real> kDiff = akPoint[i] - rkCenter;
-        fSumXX += kDiff.X() * kDiff.X();
-        fSumXY += kDiff.X() * kDiff.Y();
-        fSumXZ += kDiff.X() * kDiff.Z();
-        fSumYY += kDiff.Y() * kDiff.Y();
-        fSumYZ += kDiff.Y() * kDiff.Z();
-        fSumZZ += kDiff.Z() * kDiff.Z();
+        fSumXX += kDiff.getX() * kDiff.getX();
+        fSumXY += kDiff.getX() * kDiff.getY();
+        fSumXZ += kDiff.getX() * kDiff.getZ();
+        fSumYY += kDiff.getY() * kDiff.getY();
+        fSumYZ += kDiff.getY() * kDiff.getZ();
+        fSumZZ += kDiff.getZ() * kDiff.getZ();
     }
     fSumXX *= fInvQuantity;
     fSumXY *= fInvQuantity;
@@ -96,12 +96,12 @@ bool Wml::GaussPointsFit(int iQuantity, const Vector3<Real>* akPoint, const bool
         if (abValid[i])
         {
             Vector3<Real> kDiff = akPoint[i] - rkCenter;
-            fSumXX += kDiff.X() * kDiff.X();
-            fSumXY += kDiff.X() * kDiff.Y();
-            fSumXZ += kDiff.X() * kDiff.Z();
-            fSumYY += kDiff.Y() * kDiff.Y();
-            fSumYZ += kDiff.Y() * kDiff.Z();
-            fSumZZ += kDiff.Z() * kDiff.Z();
+            fSumXX += kDiff.getX() * kDiff.getX();
+            fSumXY += kDiff.getX() * kDiff.getY();
+            fSumXZ += kDiff.getX() * kDiff.getZ();
+            fSumYY += kDiff.getY() * kDiff.getY();
+            fSumYZ += kDiff.getY() * kDiff.getZ();
+            fSumZZ += kDiff.getZ() * kDiff.getZ();
         }
     }
     fSumXX *= fInvQuantity;

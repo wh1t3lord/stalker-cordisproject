@@ -12,21 +12,23 @@
 
 #include "dx10BufferUtils.h"
 
-const int quant = 16384;
-const int c_hdr = 10;
-const int c_size = 4;
+constexpr int kQuant = 16384;
+constexpr int kHDR = 10;
+constexpr int kSize = 4;
 
+/*
 static D3DVERTEXELEMENT9 dwDecl[] = {{0, 0, D3DDECLTYPE_FLOAT3, D3DDECLMETHOD_DEFAULT, D3DDECLUSAGE_POSITION, 0}, // pos
     {0, 12, D3DDECLTYPE_SHORT4, D3DDECLMETHOD_DEFAULT, D3DDECLUSAGE_TEXCOORD, 0}, // uv
-    D3DDECL_END()};
+    D3DDECL_END()};*/
 
+/*
 #pragma pack(push, 1)
 struct vertHW
 {
     float x, y, z;
     short u, v, t, mid;
 };
-#pragma pack(pop)
+#pragma pack(pop)*/
 
 short QC(float v);
 //{
@@ -77,7 +79,7 @@ void CDetailManager::hw_Render()
     RCache.set_Geometry(hw_Geom);
 
     // Wave0
-    float scale = 1.f / float(quant);
+    float scale = 1.f / float(kQuant);
     Fvector4 wave;
     Fvector4 consts;
     consts.set(scale, scale, ps_r__Detail_l_aniso, ps_r__Detail_l_ambient);

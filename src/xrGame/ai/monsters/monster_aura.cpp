@@ -4,8 +4,10 @@
 #include "Actor.h"
 #include "ActorEffector.h"
 
+/*
+
 namespace detail
-{
+{*/
 constexpr pcstr const s_pp_effector_name_string = "_pp_effector_name";
 constexpr pcstr const s_pp_highest_at_string = "_pp_highest_at";
 constexpr pcstr const s_linear_factor_string = "_linear_factor";
@@ -15,7 +17,7 @@ constexpr pcstr const s_max_distance_string = "_max_distance";
 constexpr pcstr const s_sound_string = "_sound";
 constexpr pcstr const s_detect_sound_string = "_detect_sound";
 constexpr pcstr const s_enable_for_dead_string = "_enable_for_dead";
-} // namespace detail
+/*} // namespace detail*/
 
 monster_aura::monster_aura(CBaseMonster* const object, pcstr const name)
     : m_object(object), m_linear_factor(0), m_quadratic_factor(0),
@@ -48,7 +50,6 @@ float monster_aura::calculate() const
 
     float const epsilon = 0.0001f;
 
-    using namespace detail;
     float linear_factor = override_if_debug(s_linear_factor_string, m_linear_factor);
     float quadratic_factor = override_if_debug(s_quadratic_factor_string, m_quadratic_factor);
     float max_power = override_if_debug(s_max_power_string, m_max_power);
@@ -71,7 +72,6 @@ float monster_aura::calculate() const
 
 void monster_aura::load_from_ini(CInifile const* ini, pcstr const section, bool enable_for_dead_default)
 {
-    using namespace detail;
     char* pp_effector_name_string = NULL;
     STRCONCAT(pp_effector_name_string, m_name, s_pp_effector_name_string);
 
@@ -141,7 +141,6 @@ void monster_aura::remove_pp_effector()
 
 float monster_aura::get_post_process_factor() const
 {
-    using namespace detail;
     float pp_highest_at = override_if_debug(s_pp_highest_at_string, m_pp_highest_at);
     VERIFY(pp_highest_at != 0.f);
 

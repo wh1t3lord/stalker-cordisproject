@@ -1,6 +1,6 @@
 #pragma once
 
-#include "UICursor.h"
+#include "../xrUICore/Cursor/UICursor.h"
 
 #include "UIDialogHolder.h"
 

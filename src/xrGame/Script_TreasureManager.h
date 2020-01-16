@@ -33,13 +33,13 @@ private:
 
                         if (ini.r_line(N, j, &N1, &V1))
                         {
-                            if (!strcmp(N1, "empty"))
+                            if (!xr_strcmp(N1, "empty"))
                             {
                                 data.m_condlist_empty =
                                     XR_LOGIC::parse_condlist_by_server_object("treasure_manager", "empty_cond", V1);
                                 this->m_secrets[N] = data;
                             }
-                            else if (!strcmp(N1, "refreshing"))
+                            else if (!xr_strcmp(N1, "refreshing"))
                             {
                                 data.m_condlist_refreshing = XR_LOGIC::parse_condlist_by_server_object(
                                     "treasure_manager", "refreshing_cond", V1);

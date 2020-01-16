@@ -318,14 +318,14 @@ struct vertHW_4W
 void CSkeletonX_PM::Copy(dxRender_Visual* V)
 {
     inherited1::Copy(V);
-    CSkeletonX_PM* X = (CSkeletonX_PM*)(V);
-    _Copy((CSkeletonX*)X);
+    CSkeletonX_PM* instance = (CSkeletonX_PM*)(V);
+    _Copy((CSkeletonX*)instance);
 }
 void CSkeletonX_ST::Copy(dxRender_Visual* P)
 {
     inherited1::Copy(P);
-    CSkeletonX_ST* X = (CSkeletonX_ST*)P;
-    _Copy((CSkeletonX*)X);
+    CSkeletonX_ST* instance = (CSkeletonX_ST*)P;
+    _Copy((CSkeletonX*)instance);
 }
 //////////////////////////////////////////////////////////////////////
 void CSkeletonX_PM::Render(float LOD)

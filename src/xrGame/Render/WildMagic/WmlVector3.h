@@ -26,12 +26,12 @@ public:
     Vector3(const Vector<3, Real>& rkV);
 
     // member access
-    Real X() const;
-    Real& X();
-    Real Y() const;
-    Real& Y();
-    Real Z() const;
-    Real& Z();
+    Real getX() const;
+    Real& getX();
+    Real getY() const;
+    Real& getY();
+    Real getZ() const;
+    Real& getZ();
 
     // assignment
     Vector3& operator=(const Vector3& rkV);

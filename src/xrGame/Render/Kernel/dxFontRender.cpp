@@ -73,10 +73,10 @@ void dxFontRender::OnRender(CGameFont& owner)
 
             if (len)
             {
-                float X = float(iFloor(PS.x));
-                float Y = float(iFloor(PS.y));
+                float koor_x = float(floorf(PS.x));
+                float koor_y = float(floorf(PS.y));
                 float S = PS.height * g_current_font_scale.y;
-                float Y2 = Y + S;
+                float Y2 = koor_y + S;
                 float fSize = 0;
 
                 if (PS.align)
@@ -84,8 +84,8 @@ void dxFontRender::OnRender(CGameFont& owner)
 
                 switch (PS.align)
                 {
-                case CGameFont::alCenter: X -= (iFloor(fSize * 0.5f)) * g_current_font_scale.x; break;
-                case CGameFont::alRight: X -= iFloor(fSize); break;
+                case CGameFont::alCenter: koor_x -= (floorf(fSize * 0.5f)) * g_current_font_scale.x; break;
+                case CGameFont::alRight: koor_x -= floorf(fSize); break;
                 }
 
                 u32 clr, clr2;
@@ -101,8 +101,8 @@ void dxFontRender::OnRender(CGameFont& owner)
 
 #if defined(USE_DX10) || defined(USE_DX11) || \
 defined(USE_OGL) // Vertex shader will cancel a DX9 correction, so make fake offset
-                X -= 0.5f;
-                Y -= 0.5f;
+                koor_x -= 0.5f;
+                koor_y -= 0.5f;
                 Y2 -= 0.5f;
 #endif // USE_DX10
 
@@ -129,21 +129,21 @@ defined(USE_OGL) // Vertex shader will cancel a DX9 correction, so make fake off
                         tv += (0.5f / owner.vTS.y);
 #endif // USE_DX10
 
-                        v->set(X, Y2, clr2, tu, tv + owner.fTCHeight);
+                        v->set(koor_x, Y2, clr2, tu, tv + owner.fTCHeight);
                         v++;
-                        v->set(X, Y, clr, tu, tv);
+                        v->set(koor_x, koor_y, clr, tu, tv);
                         v++;
-                        v->set(X + scw, Y2, clr2, tu + fTCWidth, tv + owner.fTCHeight);
+                        v->set(koor_x + scw, Y2, clr2, tu + fTCWidth, tv + owner.fTCHeight);
                         v++;
-                        v->set(X + scw, Y, clr, tu + fTCWidth, tv);
+                        v->set(koor_x + scw, koor_y, clr, tu + fTCWidth, tv);
                         v++;
                     }
-                    X += scw * owner.vInterval.x;
+                    koor_x += scw * owner.vInterval.x;
                     if (owner.IsMultibyte())
                     {
-                        X -= 2;
+                        koor_x -= 2;
                         if (IsNeedSpaceCharacter(wsStr[1 + j]))
-                            X += owner.fXStep;
+                            koor_x += owner.fXStep;
                     }
                 }
             }

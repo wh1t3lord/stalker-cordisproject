@@ -20,7 +20,7 @@
 #include <malloc.h>
 #pragma warning(pop)
 
-const u32 time_to_delete = 300000;
+constexpr u32 space_restriction_time_to_delete = 300000;
 
 CSpaceRestrictionHolder::~CSpaceRestrictionHolder() { clear(); }
 void CSpaceRestrictionHolder::clear()
@@ -206,7 +206,7 @@ IC void CSpaceRestrictionHolder::collect_garbage()
     for (; I != E;)
     {
         if (!(*I).second->shape() && (*I).second->released() &&
-            (Device.dwTimeGlobal >= (*I).second->m_last_time_dec + time_to_delete))
+            (Device.dwTimeGlobal >= (*I).second->m_last_time_dec + space_restriction_time_to_delete))
         {
             J = I;
             ++I;

@@ -84,8 +84,8 @@ void CRenderTarget::accum_point(light* L)
         u32 _id = 0;
         if (L->flags.bShadow)
         {
-            bool bFullSize = (L->X.S.size == u32(RImplementation.o.smapsize));
-            if (L->X.S.transluent)
+            bool bFullSize = (L->_xformX.S.size == u32(RImplementation.o.smapsize));
+            if (L->_xformX.S.transluent)
                 _id = SE_L_TRANSLUENT;
             else if (bFullSize)
                 _id = SE_L_FULLSIZE;

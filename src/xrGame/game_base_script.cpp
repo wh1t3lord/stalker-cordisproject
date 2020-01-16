@@ -17,6 +17,7 @@ struct CWrapperBase : public T, public luabind::wrap_base
 };
 
 #pragma optimize("s", on)
+/*
 void game_PlayerState::script_register(lua_State* L)
 {
     typedef CWrapperBase<game_PlayerState> WrapType;
@@ -66,3 +67,4 @@ void game_GameState::script_register(lua_State* L)
                   .def("Round", &game_GameState::Round)
                   .def("StartTime", &game_GameState::StartTime)];
 }
+*/

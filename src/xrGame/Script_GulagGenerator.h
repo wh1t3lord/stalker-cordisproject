@@ -657,7 +657,7 @@ inline std::pair<xr_vector<JobData>, xr_vector<JobDataExclusive*>> load_job(Scri
                     return false;
                 }
 
-                if (!strcmp(server_object->cast_human_abstract()->CommunityName(), "zombied"))
+                if (!xr_strcmp(server_object->cast_human_abstract()->CommunityName(), "zombied"))
                     return false;
 
                 if (smart->getSmartAlarmTime() == 0)
@@ -763,7 +763,7 @@ inline std::pair<xr_vector<JobData>, xr_vector<JobDataExclusive*>> load_job(Scri
                 return false;
             }
 
-            if (!strcmp(server_human->CommunityName(), "zombied"))
+            if (!xr_strcmp(server_human->CommunityName(), "zombied"))
                 return false;
 
             return true;
@@ -1061,7 +1061,7 @@ inline std::pair<xr_vector<JobData>, xr_vector<JobDataExclusive*>> load_job(Scri
                 return false;
             }
 
-            if (!strcmp(server_human->CommunityName(), "zombied"))
+            if (!xr_strcmp(server_human->CommunityName(), "zombied"))
                 return false;
 
             return Globals::is_accessible_job(server_object, params.first);
