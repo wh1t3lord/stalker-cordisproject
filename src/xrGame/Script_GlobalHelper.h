@@ -4232,6 +4232,7 @@ private:
             // делать потому что C++ и потому что интерфейсы
             // @ В-шестых луа ловушка джокера никогда не используйте lua в таком сложном backend
 
+/*          Lord: зарегистрировать схемы когда только начинается добавление в биндеры!
             Script_SchemeMobCamp mob_camp = Script_SchemeMobCamp(nullptr, DataBase::Storage_Scheme());
             Script_SchemeMobCombat mob_combat = Script_SchemeMobCombat(nullptr, DataBase::Storage_Scheme());
             Script_SchemeMobDeath mob_death = Script_SchemeMobDeath(nullptr, DataBase::Storage_Scheme());
@@ -4239,8 +4240,9 @@ private:
             Script_SchemeMobJump mob_jump = Script_SchemeMobJump(nullptr, DataBase::Storage_Scheme());
             Script_SchemeMobRemark mob_remark = Script_SchemeMobRemark(nullptr, DataBase::Storage_Scheme());
             Script_SchemeMobWalker mob_walker = Script_SchemeMobWalker(nullptr, DataBase::Storage_Scheme());
-            Script_SchemeHelicopterMove heli_move = Script_SchemeHelicopterMove(nullptr, DataBase::Storage_Scheme());
+            Script_SchemeHelicopterMove heli_move = Script_SchemeHelicopterMove(nullptr, DataBase::Storage_Scheme());*/
 
+/*
             this->m_registered_schemes_set_scheme_callbacks[mob_camp.getSchemeName()] =
                 Script_SchemeMobCamp::set_scheme;
             this->m_registered_schemes_set_scheme_callbacks[mob_combat.getSchemeName()] =
@@ -4269,7 +4271,7 @@ private:
             this->m_registered_schemes_add_to_binder_callbacks[mob_walker.getSchemeName()] =
                 Script_SchemeMobWalker::add_to_binder;
             this->m_registered_schemes_add_to_binder_callbacks[heli_move.getSchemeName()] =
-                Script_SchemeHelicopterMove::add_to_binder;
+                Script_SchemeHelicopterMove::add_to_binder;*/
         }
 #pragma endregion
 
