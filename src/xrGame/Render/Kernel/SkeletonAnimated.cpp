@@ -12,7 +12,6 @@
 #include "xrCore/dump_string.h"
 #endif
 extern int psSkeletonUpdate;
-using namespace animation;
 
 //////////////////////////////////////////////////////////////////////////
 // BoneInstance methods
@@ -866,7 +865,7 @@ void CKinematicsAnimated::LL_BuldBoneMatrixDequatize(const CBoneData* bd, u8 cha
         ++b_count;
     }
     for (u16 j = 0; MAX_CHANNELS > j; ++j)
-        if (channels.rule(j).extern_ == animation::add)
+        if (channels.rule(j).extern_ == eAnimationAdd)
             keys_substruct(keys.keys[j], BK[j], keys.chanel_blend_conts[j]);
 }
 
@@ -875,7 +874,7 @@ void CKinematicsAnimated::LL_BoneMatrixBuild(CBoneInstance& bi, const Fmatrix* p
 {
     // Blend them together
     CKey channel_keys[MAX_CHANNELS];
-    animation::channel_def BC[MAX_CHANNELS];
+    channel_def BC[MAX_CHANNELS];
     u16 ch_count = 0;
 
     for (u16 j = 0; MAX_CHANNELS > j; ++j)

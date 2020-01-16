@@ -523,18 +523,18 @@ void CNightVisionEffector::PlaySounds(EPlaySounds which)
     bool bPlaySoundFirstPerson = !!m_pActor->HUDview();
     switch (which)
     {
-    case eStartSound: { m_sounds.PlaySound("NightVisionOnSnd", m_pActor->Position(), NULL, bPlaySoundFirstPerson);
+    case eStartSound: { m_sounds.play_sound("NightVisionOnSnd", m_pActor->Position(), NULL, bPlaySoundFirstPerson);
     }
     break;
-    case eStopSound: { m_sounds.PlaySound("NightVisionOffSnd", m_pActor->Position(), NULL, bPlaySoundFirstPerson);
+    case eStopSound: { m_sounds.play_sound("NightVisionOffSnd", m_pActor->Position(), NULL, bPlaySoundFirstPerson);
     }
     break;
     case eIdleSound:
     {
-        m_sounds.PlaySound("NightVisionIdleSnd", m_pActor->Position(), NULL, bPlaySoundFirstPerson, true);
+        m_sounds.play_sound("NightVisionIdleSnd", m_pActor->Position(), NULL, bPlaySoundFirstPerson, true);
     }
     break;
-    case eBrokeSound: { m_sounds.PlaySound("NightVisionBrokenSnd", m_pActor->Position(), NULL, bPlaySoundFirstPerson);
+    case eBrokeSound: { m_sounds.play_sound("NightVisionBrokenSnd", m_pActor->Position(), NULL, bPlaySoundFirstPerson);
     }
     break;
     default: NODEFAULT;

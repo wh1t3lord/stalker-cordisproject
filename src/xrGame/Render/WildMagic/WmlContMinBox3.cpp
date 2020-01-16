@@ -77,23 +77,23 @@ Real MinBox3<Real>::Volume(const Real* afAngle, void* pvData)
     {
         Vector3<Real> kTest = rkSelf.m_akPoint[i] * kRot;
 
-        if (kTest.X() < kMin.X())
-            kMin.X() = kTest.X();
-        else if (kTest.X() > kMax.X())
-            kMax.X() = kTest.X();
+        if (kTest.getX() < kMin.getX())
+            kMin.getX() = kTest.getX();
+        else if (kTest.getX() > kMax.getX())
+            kMax.getX() = kTest.getX();
 
-        if (kTest.Y() < kMin.Y())
-            kMin.Y() = kTest.Y();
-        else if (kTest.Y() > kMax.Y())
-            kMax.Y() = kTest.Y();
+        if (kTest.getY() < kMin.getY())
+            kMin.getY() = kTest.getY();
+        else if (kTest.getY() > kMax.getY())
+            kMax.getY() = kTest.getY();
 
-        if (kTest.Z() < kMin.Z())
-            kMin.Z() = kTest.Z();
-        else if (kTest.Z() > kMax.Z())
-            kMax.Z() = kTest.Z();
+        if (kTest.getZ() < kMin.getZ())
+            kMin.getZ() = kTest.getZ();
+        else if (kTest.getZ() > kMax.getZ())
+            kMax.getZ() = kTest.getZ();
     }
 
-    Real fVolume = (kMax.X() - kMin.X()) * (kMax.Y() - kMin.Y()) * (kMax.Z() - kMin.Z());
+    Real fVolume = (kMax.getX() - kMin.getX()) * (kMax.getY() - kMin.getY()) * (kMax.getZ() - kMin.getZ());
     return fVolume;
 }
 //----------------------------------------------------------------------------
@@ -112,20 +112,20 @@ void MinBox3<Real>::MinimalBoxForAngles(int iQuantity, const Vector3<Real>* akPo
     {
         Vector3<Real> kTest = akPoint[i] * kRot;
 
-        if (kTest.X() < kMin.X())
-            kMin.X() = kTest.X();
-        else if (kTest.X() > kMax.X())
-            kMax.X() = kTest.X();
+        if (kTest.getX() < kMin.getX())
+            kMin.getX() = kTest.getX();
+        else if (kTest.getX() > kMax.getX())
+            kMax.getX() = kTest.getX();
 
-        if (kTest.Y() < kMin.Y())
-            kMin.Y() = kTest.Y();
-        else if (kTest.Y() > kMax.Y())
-            kMax.Y() = kTest.Y();
+        if (kTest.getY() < kMin.getY())
+            kMin.getY() = kTest.getY();
+        else if (kTest.getY() > kMax.getY())
+            kMax.getY() = kTest.getY();
 
-        if (kTest.Z() < kMin.Z())
-            kMin.Z() = kTest.Z();
-        else if (kTest.Z() > kMax.Z())
-            kMax.Z() = kTest.Z();
+        if (kTest.getZ() < kMin.getZ())
+            kMin.getZ() = kTest.getZ();
+        else if (kTest.getZ() > kMax.getZ())
+            kMax.getZ() = kTest.getZ();
     }
 
     Vector3<Real> kMid = ((Real)0.5) * (kMax + kMin);
@@ -135,9 +135,9 @@ void MinBox3<Real>::MinimalBoxForAngles(int iQuantity, const Vector3<Real>* akPo
     rkBox.Axis(0) = kRot.GetColumn(0);
     rkBox.Axis(1) = kRot.GetColumn(1);
     rkBox.Axis(2) = kRot.GetColumn(2);
-    rkBox.Extent(0) = kRng.X();
-    rkBox.Extent(1) = kRng.Y();
-    rkBox.Extent(2) = kRng.Z();
+    rkBox.Extent(0) = kRng.getX();
+    rkBox.Extent(1) = kRng.getY();
+    rkBox.Extent(2) = kRng.getZ();
 }
 //----------------------------------------------------------------------------
 

@@ -49,25 +49,25 @@ Vector2<Real>& Vector2<Real>::operator= (const Vector<2,Real>& rkV)
 }
 //----------------------------------------------------------------------------
 template <class Real>
-Real Vector2<Real>::X () const
+Real Vector2<Real>::getX () const
 {
     return m_afTuple[0];
 }
 //----------------------------------------------------------------------------
 template <class Real>
-Real& Vector2<Real>::X ()
+Real& Vector2<Real>::getX ()
 {
     return m_afTuple[0];
 }
 //----------------------------------------------------------------------------
 template <class Real>
-Real Vector2<Real>::Y () const
+Real Vector2<Real>::getY () const
 {
     return m_afTuple[1];
 }
 //----------------------------------------------------------------------------
 template <class Real>
-Real& Vector2<Real>::Y ()
+Real& Vector2<Real>::getY ()
 {
     return m_afTuple[1];
 }

@@ -36,20 +36,20 @@ void CalcGauss_k7(Fvector4& w0, // weight
     float s_out = 1.f // resulting magnitude
     )
 {
-    float W[8];
+    float wights[8];
 
     // calculate
     float mag = 0;
     for (int i = -7; i <= 0; i++)
-        W[-i] = expf(-float(i * i) / (2 * r * r)); // weight
+        wights[-i] = expf(-float(i * i) / (2 * r * r)); // weight
     for (int i = 0; i < 8; i++)
-        mag += i ? 2 * W[i] : W[i]; // symmetrical weight
+        mag += i ? 2 * wights[i] : wights[i]; // symmetrical weight
     for (int i = 0; i < 8; i++)
-        W[i] = s_out * W[i] / mag;
+        wights[i] = s_out * wights[i] / mag;
 
     // W[0]=0, W[7]=-7
-    w0.set(W[1], W[2], W[3], W[4]); // -1, -2, -3, -4
-    w1.set(W[5], W[6], W[7], W[0]); // -5, -6, -7, 0
+    w0.set(wights[1], wights[2], wights[3], wights[4]); // -1, -2, -3, -4
+    w1.set(wights[5], wights[6], wights[7], wights[0]); // -5, -6, -7, 0
 }
 void CalcGauss_wave(Fvector4& w0, // weight
     Fvector4& w1, // weight

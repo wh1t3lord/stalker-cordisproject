@@ -91,9 +91,9 @@ void CRenderTarget::accum_spot(light* L)
     {
         float smapsize = float(RImplementation.o.smapsize);
         float fTexelOffs = (.5f / smapsize);
-        float view_dim = float(L->X.S.size - 2) / smapsize;
-        float view_sx = float(L->X.S.posX + 1) / smapsize;
-        float view_sy = float(L->X.S.posY + 1) / smapsize;
+        float view_dim = float(L->_xformX.S.size - 2) / smapsize;
+        float view_sx = float(L->_xformX.S.posX + 1) / smapsize;
+        float view_sy = float(L->_xformX.S.posY + 1) / smapsize;
         float fRange = float(1.f) * ps_r2_ls_depth_scale;
         float fBias = ps_r2_ls_depth_bias;
         Fmatrix m_TexelAdjust = {view_dim / 2.f, 0.0f, 0.0f, 0.0f, 0.0f, -view_dim / 2.f, 0.0f, 0.0f, 0.0f, 0.0f,
@@ -102,9 +102,9 @@ void CRenderTarget::accum_spot(light* L)
         // compute xforms
         Fmatrix xf_world;
         xf_world.invert(Device.mView);
-        Fmatrix xf_view = L->X.S.view;
+        Fmatrix xf_view = L->_xformX.S.view;
         Fmatrix xf_project;
-        xf_project.mul(m_TexelAdjust, L->X.S.project);
+        xf_project.mul(m_TexelAdjust, L->_xformX.S.project);
         m_Shadow.mul(xf_view, xf_world);
         m_Shadow.mulA_44(xf_project);
 
@@ -116,7 +116,7 @@ void CRenderTarget::accum_spot(light* L)
             fRange, 0.0f, view_dim / 2.f + view_sx + fTexelOffs, view_dim / 2.f + view_sy + fTexelOffs, fBias, 1.0f};
 
         // compute xforms
-        xf_project.mul(m_TexelAdjust2, L->X.S.project);
+        xf_project.mul(m_TexelAdjust2, L->_xformX.S.project);
         m_Lmap.mul(xf_view, xf_world);
         m_Lmap.mulA_44(xf_project);
     }
@@ -137,8 +137,8 @@ void CRenderTarget::accum_spot(light* L)
         u32 _id = 0;
         if (L->flags.bShadow)
         {
-            bool bFullSize = (L->X.S.size == RImplementation.o.smapsize);
-            if (L->X.S.transluent)
+            bool bFullSize = (L->_xformX.S.size == RImplementation.o.smapsize);
+            if (L->_xformX.S.transluent)
                 _id = SE_L_TRANSLUENT;
             else if (bFullSize)
                 _id = SE_L_FULLSIZE;
@@ -315,9 +315,9 @@ void CRenderTarget::accum_volumetric(light* L)
     {
         float smapsize = float(RImplementation.o.smapsize);
         float fTexelOffs = (.5f / smapsize);
-        float view_dim = float(L->X.S.size - 2) / smapsize;
-        float view_sx = float(L->X.S.posX + 1) / smapsize;
-        float view_sy = float(L->X.S.posY + 1) / smapsize;
+        float view_dim = float(L->_xformX.S.size - 2) / smapsize;
+        float view_sx = float(L->_xformX.S.posX + 1) / smapsize;
+        float view_sy = float(L->_xformX.S.posY + 1) / smapsize;
         float fRange = float(1.f) * ps_r2_ls_depth_scale;
         float fBias = ps_r2_ls_depth_bias;
         Fmatrix m_TexelAdjust = {view_dim / 2.f, 0.0f, 0.0f, 0.0f, 0.0f, -view_dim / 2.f, 0.0f, 0.0f, 0.0f, 0.0f,
@@ -326,9 +326,9 @@ void CRenderTarget::accum_volumetric(light* L)
         // compute xforms
         Fmatrix xf_world;
         xf_world.invert(Device.mView);
-        Fmatrix xf_view = L->X.S.view;
+        Fmatrix xf_view = L->_xformX.S.view;
         Fmatrix xf_project;
-        xf_project.mul(m_TexelAdjust, L->X.S.project);
+        xf_project.mul(m_TexelAdjust, L->_xformX.S.project);
         m_Shadow.mul(xf_view, xf_world);
         m_Shadow.mulA_44(xf_project);
 
@@ -340,12 +340,12 @@ void CRenderTarget::accum_volumetric(light* L)
             fRange, 0.0f, view_dim / 2.f + view_sx + fTexelOffs, view_dim / 2.f + view_sy + fTexelOffs, fBias, 1.0f};
 
         // compute xforms
-        xf_project.mul(m_TexelAdjust2, L->X.S.project);
+        xf_project.mul(m_TexelAdjust2, L->_xformX.S.project);
         m_Lmap.mul(xf_view, xf_world);
         m_Lmap.mulA_44(xf_project);
 
         // Compute light frustum in world space
-        mFrustumSrc.mul(L->X.S.project, xf_view);
+        mFrustumSrc.mul(L->_xformX.S.project, xf_view);
         ClipFrustum.CreateFromMatrix(mFrustumSrc, FRUSTUM_P_ALL);
         //	Adjust frustum far plane
         //	4 - far, 5 - near

@@ -73,7 +73,7 @@ void HUD_SOUND_ITEM::DestroySound(HUD_SOUND_ITEM& hud_snd)
     hud_snd.m_activeSnd = nullptr;
 }
 
-void HUD_SOUND_ITEM::PlaySound(
+void HUD_SOUND_ITEM::play_sound(
     HUD_SOUND_ITEM& hud_snd, const Fvector& position, const IGameObject* parent, bool b_hud_mode, bool looped, u8 index)
 {
     if (hud_snd.sounds.empty())
@@ -130,7 +130,7 @@ HUD_SOUND_ITEM* HUD_SOUND_COLLECTION::FindSoundItem(LPCSTR alias, bool b_assert)
     return nullptr;
 }
 
-void HUD_SOUND_COLLECTION::PlaySound(
+void HUD_SOUND_COLLECTION::play_sound(
     LPCSTR alias, const Fvector& position, const IGameObject* parent, bool hud_mode, bool looped, u8 index)
 {
     for (auto& sound_item : m_sound_items)
@@ -138,7 +138,7 @@ void HUD_SOUND_COLLECTION::PlaySound(
             HUD_SOUND_ITEM::StopSound(sound_item);
 
     HUD_SOUND_ITEM* snd_item = FindSoundItem(alias, true);
-    HUD_SOUND_ITEM::PlaySound(*snd_item, position, parent, hud_mode, looped, index);
+    HUD_SOUND_ITEM::play_sound(*snd_item, position, parent, hud_mode, looped, index);
 }
 
 void HUD_SOUND_COLLECTION::StopSound(LPCSTR alias)
@@ -211,7 +211,7 @@ void HUD_SOUND_COLLECTION_LAYERED::PlaySound(pcstr alias, const Fvector& positio
 {
     for (auto& sound_item : m_sound_layered_items)
         if (sound_item.m_alias == alias)
-            sound_item.PlaySound(alias, position, parent, hud_mode, looped, index);
+            sound_item.play_sound(alias, position, parent, hud_mode, looped, index);
 }
 
 

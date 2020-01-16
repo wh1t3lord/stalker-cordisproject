@@ -360,8 +360,10 @@ u32 attachable_hud_item::anim_play(const shared_str& anm_name_b, BOOL bMixIn, co
         MotionID M2 = ka->ID_Cycle_Safe(item_anm_name);
         if (!M2.valid())
             M2 = ka->ID_Cycle_Safe("idle");
-        else if (bDebug)
+
+        #ifdef DEBUG
             Msg("playing item animation [%s]", item_anm_name.c_str());
+        #endif
 
         R_ASSERT3(M2.valid(), "model has no motion [idle] ", pSettings->r_string(m_sect_name, "item_visual"));
 

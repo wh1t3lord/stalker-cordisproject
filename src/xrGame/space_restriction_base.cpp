@@ -18,7 +18,7 @@ bool CSpaceRestrictionBase::inside(u32 level_vertex_id, bool partially_inside)
     return (inside(level_vertex_id, partially_inside, DEFAULT_RADIUS));
 }
 
-IC Fvector construct_position(u32 level_vertex_id, float x, float z)
+IC Fvector space_restriction_construct_position(u32 level_vertex_id, float x, float z)
 {
     return (Fvector().set(x, ai().level_graph().vertex_plane_y(level_vertex_id, x, z), z));
 }
@@ -37,23 +37,23 @@ bool CSpaceRestrictionBase::inside(u32 level_vertex_id, bool partially_inside, f
     float offset = ai().level_graph().header().cell_size() * .5f - EPS_L;
     if (partially_inside)
         return (CSpaceRestrictionBase_inside(
-                    this, construct_position(level_vertex_id, position.x + offset, position.z + offset), radius) ||
+                    this, space_restriction_construct_position(level_vertex_id, position.x + offset, position.z + offset), radius) ||
             CSpaceRestrictionBase_inside(
-                this, construct_position(level_vertex_id, position.x + offset, position.z - offset), radius) ||
+                this, space_restriction_construct_position(level_vertex_id, position.x + offset, position.z - offset), radius) ||
             CSpaceRestrictionBase_inside(
-                this, construct_position(level_vertex_id, position.x - offset, position.z + offset), radius) ||
+                this, space_restriction_construct_position(level_vertex_id, position.x - offset, position.z + offset), radius) ||
             CSpaceRestrictionBase_inside(
-                this, construct_position(level_vertex_id, position.x - offset, position.z - offset), radius) ||
+                this, space_restriction_construct_position(level_vertex_id, position.x - offset, position.z - offset), radius) ||
             CSpaceRestrictionBase_inside(this, Fvector().set(position.x, position.y, position.z), radius));
     else
         return (CSpaceRestrictionBase_inside(
-                    this, construct_position(level_vertex_id, position.x + offset, position.z + offset), radius) &&
+                    this, space_restriction_construct_position(level_vertex_id, position.x + offset, position.z + offset), radius) &&
             CSpaceRestrictionBase_inside(
-                this, construct_position(level_vertex_id, position.x + offset, position.z - offset), radius) &&
+                this, space_restriction_construct_position(level_vertex_id, position.x + offset, position.z - offset), radius) &&
             CSpaceRestrictionBase_inside(
-                this, construct_position(level_vertex_id, position.x - offset, position.z + offset), radius) &&
+                this, space_restriction_construct_position(level_vertex_id, position.x - offset, position.z + offset), radius) &&
             CSpaceRestrictionBase_inside(
-                this, construct_position(level_vertex_id, position.x - offset, position.z - offset), radius) &&
+                this, space_restriction_construct_position(level_vertex_id, position.x - offset, position.z - offset), radius) &&
             CSpaceRestrictionBase_inside(this, Fvector().set(position.x, position.y, position.z), radius));
 }
 

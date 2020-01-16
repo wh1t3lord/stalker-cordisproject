@@ -34,8 +34,8 @@ void CRenderTarget::phase_smap_direct(light* L, u32 sub_phase)
         RImplementation.rmNormal();
     else
     {
-        D3D_VIEWPORT VP = {(float)L->X.D.minX, (float)L->X.D.minY, (float)(L->X.D.maxX - L->X.D.minX),
-            (float)(L->X.D.maxY - L->X.D.minY), 0, 1};
+        D3D_VIEWPORT VP = {(float)L->_xformX.D.minX, (float)L->_xformX.D.minY, (float)(L->_xformX.D.maxX - L->_xformX.D.minX),
+            (float)(L->_xformX.D.maxY - L->_xformX.D.minY), 0, 1};
         // CHK_DX								(HW.pDevice->SetViewport(&VP));
         HW.pContext->RSSetViewports(1, &VP);
     }

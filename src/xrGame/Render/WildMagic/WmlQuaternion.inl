@@ -75,49 +75,49 @@ Real& Quaternion<Real>::operator[] (int i)
 }
 //----------------------------------------------------------------------------
 template <class Real>
-Real Quaternion<Real>::W () const
+Real Quaternion<Real>::getW () const
 {
     return m_afTuple[0];
 }
 //----------------------------------------------------------------------------
 template <class Real>
-Real& Quaternion<Real>::W ()
+Real& Quaternion<Real>::getW ()
 {
     return m_afTuple[0];
 }
 //----------------------------------------------------------------------------
 template <class Real>
-Real Quaternion<Real>::X () const
+Real Quaternion<Real>::getX () const
 {
     return m_afTuple[1];
 }
 //----------------------------------------------------------------------------
 template <class Real>
-Real& Quaternion<Real>::X ()
+Real& Quaternion<Real>::getX ()
 {
     return m_afTuple[1];
 }
 //----------------------------------------------------------------------------
 template <class Real>
-Real Quaternion<Real>::Y () const
+Real Quaternion<Real>::getY () const
 {
     return m_afTuple[2];
 }
 //----------------------------------------------------------------------------
 template <class Real>
-Real& Quaternion<Real>::Y ()
+Real& Quaternion<Real>::getY ()
 {
     return m_afTuple[2];
 }
 //----------------------------------------------------------------------------
 template <class Real>
-Real Quaternion<Real>::Z () const
+Real Quaternion<Real>::getZ () const
 {
     return m_afTuple[3];
 }
 //----------------------------------------------------------------------------
 template <class Real>
-Real& Quaternion<Real>::Z ()
+Real& Quaternion<Real>::getZ ()
 {
     return m_afTuple[3];
 }

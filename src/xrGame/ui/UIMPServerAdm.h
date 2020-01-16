@@ -8,7 +8,7 @@ class CUIXml;
 class CUI3tButton;
 class CUIWindow;
 class CUIEditBox;
-class CUISpinNum;
+/*class CUISpinNum;*/
 class CUICheckButton;
 
 class CUIMpServerAdm : public CUIWindow, public CUIWndCallback

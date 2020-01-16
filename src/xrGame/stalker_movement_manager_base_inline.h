@@ -8,7 +8,7 @@
 
 #ifndef STALKER_MOVEMENT_MANAGER_BASE_INLINE_H_INCLUDED
 #define STALKER_MOVEMENT_MANAGER_BASE_INLINE_H_INCLUDED
-
+#include "ai/stalker/ai_stalker.h"
 IC const MonsterSpace::SBoneRotation& stalker_movement_manager_base::head_orientation() const { return (m_head); }
 IC void stalker_movement_manager_base::set_head_orientation(const MonsterSpace::SBoneRotation& orientation)
 {

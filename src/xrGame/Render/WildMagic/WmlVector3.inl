@@ -50,37 +50,37 @@ Vector3<Real>& Vector3<Real>::operator= (const Vector<3,Real>& rkV)
 }
 //----------------------------------------------------------------------------
 template <class Real>
-Real Vector3<Real>::X () const
+Real Vector3<Real>::getX () const
 {
     return m_afTuple[0];
 }
 //----------------------------------------------------------------------------
 template <class Real>
-Real& Vector3<Real>::X ()
+Real& Vector3<Real>::getX ()
 {
     return m_afTuple[0];
 }
 //----------------------------------------------------------------------------
 template <class Real>
-Real Vector3<Real>::Y () const
+Real Vector3<Real>::getY () const
 {
     return m_afTuple[1];
 }
 //----------------------------------------------------------------------------
 template <class Real>
-Real& Vector3<Real>::Y ()
+Real& Vector3<Real>::getY ()
 {
     return m_afTuple[1];
 }
 //----------------------------------------------------------------------------
 template <class Real>
-Real Vector3<Real>::Z () const
+Real Vector3<Real>::getZ () const
 {
     return m_afTuple[2];
 }
 //----------------------------------------------------------------------------
 template <class Real>
-Real& Vector3<Real>::Z ()
+Real& Vector3<Real>::getZ ()
 {
     return m_afTuple[2];
 }

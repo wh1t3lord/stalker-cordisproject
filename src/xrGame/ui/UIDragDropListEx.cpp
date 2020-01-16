@@ -277,6 +277,7 @@ void CUIDragDropListEx::Draw()
 {
     inherited::Draw();
 
+/*
     if (0 && bDebug)
     {
         CGameFont* F = UI().Font().pFontDI;
@@ -286,7 +287,7 @@ void CUIDragDropListEx::Draw()
         F->SetColor(0xffffffff);
         Ivector2 pt = m_container->PickCell(GetUICursor().GetCursorPosition());
         F->OutNext("%d-%d", pt.x, pt.y);
-    };
+    };*/
 }
 
 void CUIDragDropListEx::Update()

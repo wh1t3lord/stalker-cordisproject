@@ -1128,9 +1128,9 @@ void CAI_Stalker::shedule_Update(u32 DT)
 float CAI_Stalker::Radius() const
 {
     float R = inherited::Radius();
-    CWeapon* W = smart_cast<CWeapon*>(inventory().ActiveItem());
-    if (W)
-        R += W->Radius();
+    CWeapon* p_weapon = smart_cast<CWeapon*>(inventory().ActiveItem());
+    if (p_weapon)
+        R += p_weapon->Radius();
     return R;
 }
 

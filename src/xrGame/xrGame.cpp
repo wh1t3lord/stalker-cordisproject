@@ -20,7 +20,7 @@ extern void FillUIStyleToken();
 extern void CleanupUIStyleToken();
 
 extern "C" {
-DLL_API IFactoryObject* __cdecl xrFactory_Create(CLASS_ID clsid)
+ IFactoryObject* xrFactory_Create(CLASS_ID clsid)
 {
     IFactoryObject* object = object_factory().client_object(clsid);
 #ifdef DEBUG
@@ -32,9 +32,9 @@ DLL_API IFactoryObject* __cdecl xrFactory_Create(CLASS_ID clsid)
     return (object);
 }
 
-DLL_API void __cdecl xrFactory_Destroy(IFactoryObject* O) { xr_delete(O); }
+  void xrFactory_Destroy(IFactoryObject* O) { xr_delete(O); }
 
-__declspec(dllexport) CSE_Abstract* __cdecl xrServer_Create(LPCSTR section, CSE_Motion*& motion, CSE_Visual*& visual)
+ CSE_Abstract* xrServer_Create(LPCSTR section, CSE_Motion*& motion, CSE_Visual*& visual)
 {
     IServerEntity* obj = object_factory().server_object(pSettings->r_clsid(section, "class"), section);
     motion = obj->motion();

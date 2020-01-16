@@ -97,9 +97,9 @@ static HRESULT create_shader(LPCSTR const pTarget, DWORD const* buffer, u32 cons
         D3DDisassemble(buffer, buffer_size, FALSE, 0, &disasm);
         string_path dname;
         strconcat(sizeof(dname), dname, "disasm" DELIMITER, file_name, extension);
-        IWriter* W = FS.w_open("$app_data_root$", dname);
-        W->w(disasm->GetBufferPointer(), (u32)disasm->GetBufferSize());
-        FS.w_close(W);
+        IWriter* p_writer = FS.w_open("$app_data_root$", dname);
+        p_writer->w(disasm->GetBufferPointer(), (u32)disasm->GetBufferSize());
+        FS.w_close(p_writer);
         _RELEASE(disasm);
     }
 

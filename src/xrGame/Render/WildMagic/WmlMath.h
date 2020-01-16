@@ -114,16 +114,16 @@ public:
     static Real ModBessel1(Real fX);
 
     // common constants
-    WML_ITEM static const Real EPSILON;
-    WML_ITEM static const Real ZERO_TOLERANCE;
-    WML_ITEM static const Real MAX_REAL;
-    WML_ITEM static const Real _PI;
-    WML_ITEM static const Real TWO_PI;
-    WML_ITEM static const Real HALF_PI;
-    WML_ITEM static const Real INV_PI;
-    WML_ITEM static const Real INV_TWO_PI;
-    WML_ITEM static const Real DEG_TO_RAD;
-    WML_ITEM static const Real RAD_TO_DEG;
+     static const Real FEPSILON;
+     static const Real ZERO_TOLERANCE;
+     static const Real MAX_REAL;
+     static const Real _PI;
+     static const Real TWO_PI;
+     static const Real HALF_PI;
+     static const Real INV_PI;
+     static const Real INV_TWO_PI;
+     static const Real DEG_TO_RAD;
+     static const Real RAD_TO_DEG;
 
 protected:
     // series form (used when fX < 1+fA)
@@ -136,7 +136,7 @@ protected:
 #include "WmlMath.inl"
 
 typedef Math<float> Mathf;
-typedef Math<double> Mathd;
+/*typedef Math<double> Mathd;*/
 }
 
 #endif

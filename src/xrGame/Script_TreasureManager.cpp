@@ -71,7 +71,7 @@ bool Script_TreasureManager::register_item(CSE_ALifeDynamicObject* server_object
 
         if (server_object->spawn_ini().r_line("secret", 0, &Field, &Value))
         {
-            if (strcmp(Field, "name"))
+            if (xr_strcmp(Field, "name"))
             {
                 Msg("[Scripts/Scripts_TreasureManager/register_item(server_object)] There is no 'name' field in "
                     "[secret] section for object [%s]",

@@ -3,6 +3,7 @@
 #include "xrServer_script_macroses.h"
 #include "xrServer.h"
 
+/*
 using namespace luabind;
 
 template <typename T>
@@ -27,3 +28,4 @@ void game_sv_Deathmatch::script_register(lua_State* L)
         //&CWrapperBase<game_sv_Deathmatch>::Money_SetStart_static)
     ];
 }
+*/

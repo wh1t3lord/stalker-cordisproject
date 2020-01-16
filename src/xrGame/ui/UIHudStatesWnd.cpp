@@ -525,7 +525,7 @@ void CUIHudStatesWnd::UpdateZones()
         if (zone_info.snd_time > zone_info.cur_period)
         {
             zone_info.snd_time = 0.0f;
-            HUD_SOUND_ITEM::PlaySound(zone_type->detect_snds, Fvector().set(0, 0, 0), NULL, true, false);
+            HUD_SOUND_ITEM::play_sound(zone_type->detect_snds, Fvector().set(0, 0, 0), NULL, true, false);
         }
         else
         {

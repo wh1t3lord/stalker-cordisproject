@@ -17,9 +17,9 @@
 
 #define RECT_SIZE 11
 
-extern u32 C_ON_ENEMY;
-extern u32 C_ON_NEUTRAL;
-extern u32 C_ON_FRIEND;
+u32 COLOR_ON_ENEMY = color_rgba(0xff, 0, 0, 0x80);
+u32 COLOR_ON_NEUTRAL = color_rgba(0xff, 0xff, 0x80, 0x80);
+u32 COLOR_ON_FRIEND = color_rgba(0, 0xff, 0, 0x80);
 
 struct FindVisObjByObject
 {
@@ -159,9 +159,9 @@ void SBinocVisibleObj::Update()
                     {
                         switch (RELATION_REGISTRY().GetRelationType(others_inv_owner, our_inv_owner))
                         {
-                        case ALife::eRelationTypeEnemy: clr = C_ON_ENEMY; break;
-                        case ALife::eRelationTypeNeutral: clr = C_ON_NEUTRAL; break;
-                        case ALife::eRelationTypeFriend: clr = C_ON_FRIEND; break;
+                        case ALife::eRelationTypeEnemy: clr = COLOR_ON_ENEMY; break;
+                        case ALife::eRelationTypeNeutral: clr = COLOR_ON_NEUTRAL; break;
+                        case ALife::eRelationTypeFriend: clr = COLOR_ON_FRIEND; break;
                         }
                     }
                     else
@@ -171,9 +171,9 @@ void SBinocVisibleObj::Update()
                         if (our_ealive && others_ealive)
                         {
                             if (Game().IsEnemy(our_ealive, others_ealive))
-                                clr = C_ON_ENEMY;
+                                clr = COLOR_ON_ENEMY;
                             else
-                                clr = C_ON_FRIEND;
+                                clr = COLOR_ON_FRIEND;
                         }
                     }
                 }
@@ -250,7 +250,7 @@ void CBinocularsVision::Update()
             new_vis_obj->create_default(m_frame_color.get());
             new_vis_obj->m_upd_speed = m_rotating_speed;
 
-            m_sounds.PlaySound("found_snd", Fvector().set(0, 0, 0), nullptr, true);
+            m_sounds.play_sound("found_snd", Fvector().set(0, 0, 0), nullptr, true);
         }
     }
     std::sort(m_active_objects.begin(), m_active_objects.end());
@@ -271,7 +271,7 @@ void CBinocularsVision::Update()
         (*it)->Update();
 
         if (bLocked != visObj->m_flags.test(flTargetLocked))
-            m_sounds.PlaySound("catch_snd", Fvector().set(0, 0, 0), nullptr, true);
+            m_sounds.play_sound("catch_snd", Fvector().set(0, 0, 0), nullptr, true);
     }
 }
 

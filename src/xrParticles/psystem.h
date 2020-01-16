@@ -208,8 +208,8 @@ public:
 
     // action
     virtual ParticleAction* CreateAction(PActionEnum type) = 0;
-    virtual size_t LoadActions(int alist_id, IReader& R) = 0;
-    virtual void SaveActions(int alist_id, IWriter& W) = 0;
+    virtual size_t LoadActions(int alist_id, IReader& reader) = 0;
+    virtual void SaveActions(int alist_id, IWriter& writer) = 0;
 };
 
 PARTICLES_API IParticleManager* ParticleManager();

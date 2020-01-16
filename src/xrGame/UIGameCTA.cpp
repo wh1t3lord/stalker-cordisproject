@@ -307,12 +307,12 @@ void CUIGameCTA::TryToDefuseAllWeapons(aditional_ammo_t& dest_ammo)
     }
 }
 
-struct AmmoSearcherPredicate
+struct CTA_AmmoSearcherPredicate
 {
     u16 additional_ammo_count;
     shared_str ammo_section;
 
-    AmmoSearcherPredicate(u16 ammo_elapsed, shared_str const& ammo_sect)
+    CTA_AmmoSearcherPredicate(u16 ammo_elapsed, shared_str const& ammo_sect)
         : additional_ammo_count(ammo_elapsed), ammo_section(ammo_sect)
     {
     }
@@ -384,7 +384,7 @@ void TryToDefuseGrenadeLauncher(
     if (!ammo_elapsed)
         return;
 
-    AmmoSearcherPredicate ammo_completitor(ammo_elapsed, ammo_section);
+    CTA_AmmoSearcherPredicate ammo_completitor(ammo_elapsed, ammo_section);
 
     TIItemContainer::const_iterator temp_iter = std::find_if(all_items.begin(), all_items.end(), ammo_completitor);
 
@@ -442,7 +442,7 @@ void TryToDefuseWeapon(CWeapon const* weapon, TIItemContainer const& all_items, 
     if (!ammo_elapsed)
         return;
 
-    AmmoSearcherPredicate ammo_completitor(ammo_elapsed, ammo_section);
+    CTA_AmmoSearcherPredicate ammo_completitor(ammo_elapsed, ammo_section);
 
     TIItemContainer::const_iterator temp_iter = std::find_if(all_items.begin(), all_items.end(), ammo_completitor);
 

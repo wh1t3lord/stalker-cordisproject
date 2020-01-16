@@ -515,7 +515,7 @@ IC bool RAYvsCYLINDER(const Fcylinder& c_cylinder, const Fvector& S, const Fvect
 
 void capped_cylinder_ray_collision_test()
 {
-    Fcylinder c;
+    _cylinder<float> c;
     c.m_center.set(0, 0, 0);
     c.m_direction.set(0, 0, 1);
     c.m_height = 2;
@@ -554,11 +554,11 @@ void capped_cylinder_ray_collision_test()
     R = 10;
     RAYvsCYLINDER(c, pos, dir, R, TRUE); // true, ?
     float ir[2];
-    c.intersect(pos, dir, ir);
+    c.intersect(pos, dir, *ir);
     //
     pos.set(0, 0, 0);
     RAYvsCYLINDER(c, pos, dir, R, FALSE); // true, ?
-    c.intersect(pos, dir, ir);
+    c.intersect(pos, dir, *ir);
     RAYvsCYLINDER(c, pos, dir, R, TRUE); // false
     CTimer t;
     t.Start();
@@ -589,7 +589,7 @@ void capped_cylinder_ray_collision_test()
         Fvector dir, pos; // float R=Random.randF(0.1f,2.f);
         dir.random_dir();
         pos.random_point(Fvector().set(2, 2, 2));
-        c.intersect(pos, dir, ir);
+        c.intersect(pos, dir, *ir);
     }
     Msg("current intersect time %f ms", t.GetElapsed_sec() * 1000.f);
 }

@@ -19,9 +19,9 @@ const float MAP_GROW_FACTOR = 4.f;
 //////////////////////////////////////////////////////////////////////////
 // tables to calculate view-frustum bounds in world space
 // note: D3D uses [0..1] range for Z
-static Fvector3 corners[8] = {
+static Fvector3 sun_corners[8] = {
     {-1, -1, 0}, {-1, -1, +1}, {-1, +1, +1}, {-1, +1, 0}, {+1, +1, +1}, {+1, +1, 0}, {+1, -1, +1}, {+1, -1, 0}};
-static int facetable[6][4] = {
+static int sun_facetable[6][4] = {
     {6, 7, 5, 4}, {1, 0, 7, 6}, {1, 2, 3, 0}, {3, 2, 4, 5},
     // near and far planes
     {0, 3, 5, 7}, {1, 6, 4, 2},
@@ -347,14 +347,14 @@ void CRender::render_sun()
             hull.points.reserve(8);
             for (int p = 0; p < 8; p++)
             {
-                Fvector3 xf = wform(fullxform_inv, corners[p]);
+                Fvector3 xf = wform(fullxform_inv, sun_corners[p]);
                 hull.points.push_back(xf);
             }
             for (int plane = 0; plane < 6; plane++)
             {
                 hull.polys.push_back(DumbConvexVolume<false>::_poly());
                 for (int pt = 0; pt < 4; pt++)
-                    hull.polys.back().points.push_back(facetable[plane][pt]);
+                    hull.polys.back().points.push_back(sun_facetable[plane][pt]);
             }
         }
         hull.compute_caster_model(cull_planes, fuckingsun->direction);
@@ -746,7 +746,7 @@ void CRender::render_sun()
     }
 
     // Finalize & Cleanup
-    fuckingsun->X.D.combine = *((Fmatrix*)&m_LightViewProj);
+    fuckingsun->_xformX.D.combine = *((Fmatrix*)&m_LightViewProj);
     s_receivers.clear();
     s_casters.clear();
 
@@ -760,12 +760,12 @@ void CRender::render_sun()
             Target->phase_smap_direct(fuckingsun, SE_SUN_FAR);
             RCache.set_xform_world(Fidentity);
             RCache.set_xform_view(Fidentity);
-            RCache.set_xform_project(fuckingsun->X.D.combine);
+            RCache.set_xform_project(fuckingsun->_xformX.D.combine);
             r_dsgraph_render_graph(0);
-            fuckingsun->X.D.transluent = FALSE;
+            fuckingsun->_xformX.D.transluent = FALSE;
             if (bSpecial)
             {
-                fuckingsun->X.D.transluent = TRUE;
+                fuckingsun->_xformX.D.transluent = TRUE;
                 Target->phase_smap_direct_tsh(fuckingsun, SE_SUN_FAR);
                 r_dsgraph_render_graph(1); // normal level, secondary priority
                 r_dsgraph_render_sorted(); // strict-sorted geoms
@@ -964,10 +964,10 @@ void CRender::render_sun_near()
             scissor.modify(xf);
         }
         s32 limit = RImplementation.o.smapsize - 1;
-        fuckingsun->X.D.minX = clampr(iFloor(scissor.vMin.x), 0, limit);
-        fuckingsun->X.D.maxX = clampr(iCeil(scissor.vMax.x), 0, limit);
-        fuckingsun->X.D.minY = clampr(iFloor(scissor.vMin.y), 0, limit);
-        fuckingsun->X.D.maxY = clampr(iCeil(scissor.vMax.y), 0, limit);
+        fuckingsun->_xformX.D.minX = clampr(iFloor(scissor.vMin.x), 0, limit);
+        fuckingsun->_xformX.D.maxX = clampr(iCeil(scissor.vMax.x), 0, limit);
+        fuckingsun->_xformX.D.minY = clampr(iFloor(scissor.vMin.y), 0, limit);
+        fuckingsun->_xformX.D.maxY = clampr(iCeil(scissor.vMax.y), 0, limit);
 
         // full-xform
         FPU::m24r();
@@ -990,7 +990,7 @@ void CRender::render_sun_near()
     r_dsgraph_render_subspace(cull_sector, &cull_frustum, cull_xform, cull_COP, TRUE);
 
     // Finalize & Cleanup
-    fuckingsun->X.D.combine = cull_xform; //*((Fmatrix*)&m_LightViewProj);
+    fuckingsun->_xformX.D.combine = cull_xform; //*((Fmatrix*)&m_LightViewProj);
 
     // Render shadow-map
     //. !!! We should clip based on shrinked frustum (again)
@@ -1002,14 +1002,14 @@ void CRender::render_sun_near()
             Target->phase_smap_direct(fuckingsun, SE_SUN_NEAR);
             RCache.set_xform_world(Fidentity);
             RCache.set_xform_view(Fidentity);
-            RCache.set_xform_project(fuckingsun->X.D.combine);
+            RCache.set_xform_project(fuckingsun->_xformX.D.combine);
             r_dsgraph_render_graph(0);
             if (ps_r2_ls_flags.test(R2FLAG_DETAIL_SHADOW))
                 Details->Render();
-            fuckingsun->X.D.transluent = FALSE;
+            fuckingsun->_xformX.D.transluent = FALSE;
             if (bSpecial)
             {
-                fuckingsun->X.D.transluent = TRUE;
+                fuckingsun->_xformX.D.transluent = TRUE;
                 Target->phase_smap_direct_tsh(fuckingsun, SE_SUN_NEAR);
                 r_dsgraph_render_graph(1); // normal level, secondary priority
                 r_dsgraph_render_sorted(); // strict-sorted geoms
@@ -1303,10 +1303,10 @@ void CRender::render_sun_cascade(u32 cascade_ind)
         m_sun_cascades[cascade_ind].xform = cull_xform;
 
         s32 limit = RImplementation.o.smapsize - 1;
-        fuckingsun->X.D.minX = 0;
-        fuckingsun->X.D.maxX = limit;
-        fuckingsun->X.D.minY = 0;
-        fuckingsun->X.D.maxY = limit;
+        fuckingsun->_xformX.D.minX = 0;
+        fuckingsun->_xformX.D.maxX = limit;
+        fuckingsun->_xformX.D.minY = 0;
+        fuckingsun->_xformX.D.maxY = limit;
 
         // full-xform
         FPU::m24r();
@@ -1329,7 +1329,7 @@ void CRender::render_sun_cascade(u32 cascade_ind)
     r_dsgraph_render_subspace(cull_sector, &cull_frustum, cull_xform, cull_COP, TRUE);
 
     // Finalize & Cleanup
-    fuckingsun->X.D.combine = cull_xform; //*((Fmatrix*)&m_LightViewProj);
+    fuckingsun->_xformX.D.combine = cull_xform; //*((Fmatrix*)&m_LightViewProj);
 
     // Render shadow-map
     //. !!! We should clip based on shrinked frustum (again)
@@ -1341,14 +1341,14 @@ void CRender::render_sun_cascade(u32 cascade_ind)
             Target->phase_smap_direct(fuckingsun, SE_SUN_FAR);
             RCache.set_xform_world(Fidentity);
             RCache.set_xform_view(Fidentity);
-            RCache.set_xform_project(fuckingsun->X.D.combine);
+            RCache.set_xform_project(fuckingsun->_xformX.D.combine);
             r_dsgraph_render_graph(0);
             if (ps_r2_ls_flags.test(R2FLAG_DETAIL_SHADOW))
                 Details->Render();
-            fuckingsun->X.D.transluent = FALSE;
+            fuckingsun->_xformX.D.transluent = FALSE;
             if (bSpecial)
             {
-                fuckingsun->X.D.transluent = TRUE;
+                fuckingsun->_xformX.D.transluent = TRUE;
                 Target->phase_smap_direct_tsh(fuckingsun, SE_SUN_FAR);
                 r_dsgraph_render_graph(1); // normal level, secondary priority
                 r_dsgraph_render_sorted(); // strict-sorted geoms

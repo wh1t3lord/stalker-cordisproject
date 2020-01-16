@@ -1,8 +1,10 @@
+#pragma once
 
-
+/*
 #ifdef __cplusplus
 extern "C" {
 #endif
+*/
 
 /*
 DecodeKeyData
@@ -27,7 +29,9 @@ the keys.
 Returns 1 if the key appears to be valid, 0 otherwise
 */
 int VerifyClientCheck(const char* key, unsigned short cskey);
+/*
 
 #ifdef __cplusplus
 }
 #endif
+*/

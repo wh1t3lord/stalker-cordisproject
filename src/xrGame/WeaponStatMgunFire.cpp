@@ -65,7 +65,7 @@ void CWeaponStatMgun::OnShot()
     OnShellDrop(m_fire_pos, zero_vel);
 
     bool b_hud_mode = (Level().CurrentEntity() == smart_cast<IGameObject*>(Owner()));
-    m_sounds.PlaySound("sndShot", m_fire_pos, Owner(), b_hud_mode);
+    m_sounds.play_sound("sndShot", m_fire_pos, Owner(), b_hud_mode);
 
     AddShotEffector();
     m_dAngle.set(::Random.randF(-fireDispersionBase, fireDispersionBase),

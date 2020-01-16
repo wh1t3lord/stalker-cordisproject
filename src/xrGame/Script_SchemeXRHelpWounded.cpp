@@ -66,7 +66,7 @@ Script_EvaluatorWoundedExist::_value_type Script_EvaluatorWoundedExist::evaluate
     if (this->m_object->GetBestEnemy())
         return false;
 
-    if (!strcmp(this->m_object->CharacterCommunity(), "zombied"))
+    if (!xr_strcmp(this->m_object->CharacterCommunity(), "zombied"))
         return false;
 
     if (!this->m_p_storage->IsXRHelpWoundedHelpWoundedEnabled())
@@ -75,7 +75,7 @@ Script_EvaluatorWoundedExist::_value_type Script_EvaluatorWoundedExist::evaluate
     if (CRD_Wounded::is_wounded(this->m_object))
         return false;
 
-    if (!strcmp(this->m_object->Section(), "actor_visual_stalker"))
+    if (!xr_strcmp(this->m_object->Section(), "actor_visual_stalker"))
         return false;
 
     float nearest_distance = 900.0f;

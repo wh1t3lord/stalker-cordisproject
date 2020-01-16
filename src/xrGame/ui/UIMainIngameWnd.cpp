@@ -540,7 +540,7 @@ void CUIMainIngameWnd::AnimateContacts(bool b_snd)
     UIZoneMap->Counter_ResetClrAnimation();
 
     if (b_snd)
-        HUD_SOUND_ITEM::PlaySound(m_contactSnd, Fvector().set(0, 0, 0), 0, true);
+        HUD_SOUND_ITEM::play_sound(m_contactSnd, Fvector().set(0, 0, 0), 0, true);
 }
 
 void CUIMainIngameWnd::SetPickUpItem(CInventoryItem* PickUpItem) { m_pPickUpItem = PickUpItem; };

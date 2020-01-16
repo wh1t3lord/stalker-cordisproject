@@ -312,6 +312,13 @@ enum
     rsMuteSounds = (1ul << 28ul),
     rsEnvironment = (1ul << 29ul),
 };
+extern "C" {
+__declspec(dllexport)  IFactoryObject*  xrFactory_Create(CLASS_ID clsid);
+
+__declspec(dllexport)  void xrFactory_Destroy(IFactoryObject* O);
+__declspec(dllexport)  CSE_Abstract* xrServer_Create(LPCSTR section, CSE_Motion*& motion, CSE_Visual*& visual);
+};
+
 
 #include "property_evaluator.h"
 #include "script_property_evaluator_wrapper.h"

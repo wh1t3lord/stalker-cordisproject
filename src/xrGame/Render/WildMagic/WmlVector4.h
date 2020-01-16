@@ -26,14 +26,14 @@ public:
     Vector4(const Vector<4, Real>& rkV);
 
     // member access
-    Real X() const;
-    Real& X();
-    Real Y() const;
-    Real& Y();
-    Real Z() const;
-    Real& Z();
-    Real W() const;
-    Real& W();
+    Real getX() const;
+    Real& getX();
+    Real getY() const;
+    Real& getY();
+    Real getZ() const;
+    Real& getZ();
+    Real getW() const;
+    Real& getW();
 
     // assignment
     Vector4& operator=(const Vector4& rkV);

@@ -41,14 +41,14 @@ public:
     operator Real*();
     Real operator[](int i) const;
     Real& operator[](int i);
-    Real W() const;
-    Real& W();
-    Real X() const;
-    Real& X();
-    Real Y() const;
-    Real& Y();
-    Real Z() const;
-    Real& Z();
+    Real getW() const;
+    Real& getW();
+    Real getX() const;
+    Real& getX();
+    Real getY() const;
+    Real& getY();
+    Real getZ() const;
+    Real& getZ();
 
     // assignment and comparison
     Quaternion& operator=(const Quaternion& rkQ);

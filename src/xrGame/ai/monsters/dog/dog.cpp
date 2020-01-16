@@ -227,7 +227,7 @@ void CAI_Dog::UpdateCL()
 {
     inherited::UpdateCL();
 
-    if (!detail::object_exists_in_alife_registry(ID()))
+    if (!object_exists_in_alife_registry(ID()))
     {
         return;
     }

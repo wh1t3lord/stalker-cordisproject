@@ -22,7 +22,7 @@
 #include "xrUICore/ScrollView/UIScrollView.h"
 #include "xrUICore/ProgressBar/UIProgressBar.h"
 #include "xrScriptEngine/ScriptExporter.hpp"
-
+#include "xrUICore/ListBox/UIListBox.h"
 using namespace luabind;
 
 void _attach_child(CUIWindow* _child, CUIWindow* _parent)

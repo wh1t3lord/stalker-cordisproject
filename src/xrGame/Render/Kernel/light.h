@@ -98,7 +98,7 @@ public:
             u32 posY;
             BOOL transluent;
         } S;
-    } X;
+    } _xformX;
 #endif //	(RENDER==R_R2) || (RENDER==R_R3) || (RENDER==R_R4) || (RENDER==R_GL)
 
 public:

@@ -350,6 +350,7 @@ bool stalker_movement_manager_smart_cover::target_approached(float const& distan
     return (detail().distance_to_target() < distance);
 }
 
+/*
 namespace hash_fixed_vertex_manager
 {
 IC u32 to_u32(shared_str const& string)
@@ -359,6 +360,7 @@ IC u32 to_u32(shared_str const& string)
 }
 
 } // namespace hash_fixed_vertex_manager
+*/
 
 void stalker_movement_manager_smart_cover::loophole_path(smart_cover::cover const& cover, shared_str const& source_raw,
     shared_str const& target_raw, LoopholePath& path) const

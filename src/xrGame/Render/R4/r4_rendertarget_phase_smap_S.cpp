@@ -20,7 +20,7 @@ void CRenderTarget::phase_smap_spot(light* L)
     // else								u_setrt	(rt_smap_surf, NULL, NULL, rt_smap_ZB);
     else
         VERIFY(!"Use HW SMap only for DX10!");
-    D3D_VIEWPORT VP = {(float)L->X.S.posX, (float)L->X.S.posY, (float)L->X.S.size, (float)L->X.S.size, 0, 1};
+    D3D_VIEWPORT VP = {(float)L->_xformX.S.posX, (float)L->_xformX.S.posY, (float)L->_xformX.S.size, (float)L->_xformX.S.size, 0, 1};
     // CHK_DX								(HW.pDevice->SetViewport(&VP));
     HW.pContext->RSSetViewports(1, &VP);
 
@@ -61,8 +61,8 @@ void CRenderTarget::phase_smap_spot_tsh(light* L)
         Fvector2 p0, p1;
         u32 Offset;
         u32 C = color_rgba(255, 255, 255, 255);
-        float _w = float(L->X.S.size);
-        float _h = float(L->X.S.size);
+        float _w = float(L->_xformX.S.size);
+        float _h = float(L->_xformX.S.size);
         float d_Z = EPS_S;
         float d_W = 1.f;
         p0.set(.5f / _w, .5f / _h);

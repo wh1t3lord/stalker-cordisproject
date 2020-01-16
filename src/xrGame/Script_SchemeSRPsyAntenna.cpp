@@ -1,9 +1,9 @@
 #include "stdafx.h"
 #include "Script_SchemeSRPsyAntenna.h"
 
-constexpr std::uint32_t _kStateOutSide = 0;
-constexpr std::uint32_t _kStateInside = 1;
-constexpr std::uint32_t _kStateNotDefined = 2;
+constexpr std::uint32_t _kPsyStateOutSide = 0;
+constexpr std::uint32_t _kPsyStateInside = 1;
+constexpr std::uint32_t _kPsyStateNotDefined = 2;
 
 namespace Cordis
 {
@@ -11,7 +11,7 @@ namespace Scripts
 {
 Script_SchemeSRPsyAntenna::Script_SchemeSRPsyAntenna(
     CScriptGameObject* const p_client_object, DataBase::Storage_Scheme& storage)
-    : inherited_scheme(p_client_object, storage), m_state(_kStateNotDefined),
+    : inherited_scheme(p_client_object, storage), m_state(_kPsyStateNotDefined),
       m_manager_psy_antenna(&Script_PsyAntennaManager::getInstance())
 {
     this->m_scheme_name = "sr_psy_antenna";
@@ -26,18 +26,18 @@ void Script_SchemeSRPsyAntenna::reset_scheme(const bool is_loading, CScriptGameO
         this->m_state = XR_LOGIC::pstor_retrieve_number(this->m_npc, "inside");
     }
 
-    if (this->m_state == _kStateInside)
+    if (this->m_state == _kPsyStateInside)
     {
         this->zone_leave();
     }
 
-    this->m_state = _kStateNotDefined;
+    this->m_state = _kPsyStateNotDefined;
     this->switch_state(DataBase::Storage::getInstance().getActor());
 }
 
 void Script_SchemeSRPsyAntenna::deactivate(CScriptGameObject* const p_client_object)
 {
-    if (this->m_state == _kStateInside)
+    if (this->m_state == _kPsyStateInside)
     {
         this->zone_leave();
     }
@@ -126,7 +126,7 @@ void Script_SchemeSRPsyAntenna::set_scheme(CScriptGameObject* const p_client_obj
 
 void Script_SchemeSRPsyAntenna::zone_enter(void)
 {
-    this->m_state = _kStateInside;
+    this->m_state = _kPsyStateInside;
 
     CurrentGameUI()->enable_fake_indicators(true);
 
@@ -180,7 +180,7 @@ void Script_SchemeSRPsyAntenna::zone_enter(void)
 
 void Script_SchemeSRPsyAntenna::zone_leave(void)
 {
-    this->m_state = _kStateOutSide;
+    this->m_state = _kPsyStateOutSide;
     CurrentGameUI()->enable_fake_indicators(false);
 
     float sound_intensity_base =
@@ -226,7 +226,7 @@ void Script_SchemeSRPsyAntenna::switch_state(CScriptGameObject* const p_client_a
         R_ASSERT2(false, "can't be!");
     }
 
-    if (this->m_state != _kStateInside)
+    if (this->m_state != _kPsyStateInside)
     {
         if (this->m_npc->inside(p_client_actor->Position()))
         {

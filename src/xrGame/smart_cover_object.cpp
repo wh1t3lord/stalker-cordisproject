@@ -18,8 +18,9 @@
 #include "smart_cover_description.h"
 #include "smart_cover_loophole.h"
 #include "xrEngine/xr_collide_form.h"
-using smart_cover::object;
 
+namespace smart_cover
+{
 void object::Load(LPCSTR section)
 {
     inherited::Load(section);
@@ -46,13 +47,11 @@ BOOL object::net_Spawn(CSE_Abstract* server_entity)
     {
         switch ((*I).type)
         {
-        case 0:
-        {
+        case 0: {
             shape->add_sphere((*I).data.sphere);
             break;
         }
-        case 1:
-        {
+        case 1: {
             shape->add_box((*I).data.box);
             break;
         }
@@ -104,8 +103,7 @@ void object::OnRender()
     {
         switch (l_pShape->type)
         {
-        case 0:
-        {
+        case 0: {
             Fsphere& l_sphere = l_pShape->data.sphere;
             l_ball.scale(l_sphere.R, l_sphere.R, l_sphere.R);
             Fvector l_p;
@@ -114,8 +112,7 @@ void object::OnRender()
             renderer.draw_ellipse(l_ball, Color);
             break;
         }
-        case 1:
-        {
+        case 1: {
             l_box.mul(XFORM(), l_pShape->data.box);
             renderer.draw_obb(l_box, l_half, Color);
             break;
@@ -152,15 +149,13 @@ bool object::inside(Fvector const& position) const
     {
         switch ((*i).type)
         {
-        case 0:
-        {
+        case 0: {
             if ((*i).data.sphere.P.distance_to(position) <= (*i).data.sphere.R)
                 return (true);
 
             continue;
         }
-        case 1:
-        {
+        case 1: {
             Fmatrix matrix;
             const Fmatrix& box = (*i).data.box;
             matrix.mul_43(XFORM(), box);
@@ -210,3 +205,5 @@ bool object::inside(Fvector const& position) const
 
     return (false);
 }
+
+} // namespace smart_cover
