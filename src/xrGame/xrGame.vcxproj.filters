@@ -13965,16 +13965,10 @@
     <ClCompile Include="UnityBuild.cpp">
       <Filter>Jumbo\Private</Filter>
     </ClCompile>
-    <ClCompile Include="UnityBuildxrServerEntities.cpp">
-      <Filter>Jumbo\Private</Filter>
-    </ClCompile>
-    <ClCompile Include="UnityBuildOther.cpp">
-      <Filter>Jumbo\Private</Filter>
-    </ClCompile>
-    <ClCompile Include="UnityBuildSomethingNew.cpp">
-      <Filter>Jumbo\Private</Filter>
-    </ClCompile>
     <ClCompile Include="UnityBuildRender.cpp">
+      <Filter>Jumbo\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="UnityBuild2.cpp">
       <Filter>Jumbo\Private</Filter>
     </ClCompile>
   </ItemGroup>
