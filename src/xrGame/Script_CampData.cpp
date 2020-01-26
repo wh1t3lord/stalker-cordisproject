@@ -200,11 +200,12 @@ Script_CampData::Script_CampData(CScriptGameObject* p_client_object, CScriptIniF
     this->m_states["harmonica"] = harmonica_data;
     this->m_states["guitar"] = guitar_data;
     this->m_states["story"] = story_data;
-
-
 }
 
 Script_CampData::~Script_CampData(void) {}
+
+void Script_CampData::update(void) 
+{  }
 
 } // namespace Scripts
 } // namespace Cordis
