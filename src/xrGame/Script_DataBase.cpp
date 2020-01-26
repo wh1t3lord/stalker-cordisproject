@@ -90,6 +90,17 @@ void Storage::setStorageStateManager(
         p_planner->action(StalkerDecisionSpace::eWorldOperatorDangerPlanner);
     p_action_danger_planner.add_condition(CWorldProperty(properties.at("state_mgr_idle_combat"), true));
 }
+
+void Storage::setStorageMoveManager(CScriptGameObject* const p_client_object, Script_MoveManager* const p_move_manager)
+{
+    if (!p_client_object)
+    {
+        R_ASSERT2(false, "object is null!");
+        return;
+    }
+
+    this->m_storage[p_client_object->ID()].setMoveManager(p_move_manager);
+}
 } // namespace DataBase
 } // namespace Scripts
 } // namespace Cordis

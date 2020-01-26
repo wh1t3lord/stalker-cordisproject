@@ -4147,6 +4147,7 @@ $(xrLibDir);$(xrSdkDir)DXSDK/Lib/$(PlatformShortName);
     <ClInclude Include="script_bind_macroses.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Jumbo|x64'">false</ExcludedFromBuild>
     </ClInclude>
+    <ClInclude Include="Script_CampData.h" />
     <ClInclude Include="Script_CRD_Wounded.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Jumbo|x64'">false</ExcludedFromBuild>
     </ClInclude>
@@ -9056,6 +9057,9 @@ $(xrLibDir);$(xrSdkDir)DXSDK/Lib/$(PlatformShortName);
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Jumbo|x64'">true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="Script_Binder_Stalker.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Jumbo|x64'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="Script_CampData.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Jumbo|x64'">true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="Script_DataBase.cpp">
