@@ -73,11 +73,17 @@ public:
         std::function<bool(Script_CampData* const)> m_precondition;
     };
 
-    inline const xr_vector<xr_string>& getHarmonicas(void) const noexcept { return this->m_harmonicas; }
+    void update(void);
+
+        inline const xr_vector<xr_string>& getHarmonicas(void) const noexcept
+    {
+        return this->m_harmonicas;
+    }
     inline const xr_vector<xr_string>& getGuitars(void) const noexcept { return this->m_guitars; }
     inline const xr_vector<xr_string>& getStories(void) const noexcept { return this->m_stories; }
 
-    inline const xr_map<std::uint16_t, std::pair<xr_string, xr_map<xr_string, std::uint32_t>>>& getNpcs(void) const noexcept
+    inline const xr_map<std::uint16_t, std::pair<xr_string, xr_map<xr_string, std::uint32_t>>>& getNpcs(void) const
+        noexcept
     {
         return this->m_npcs;
     }
