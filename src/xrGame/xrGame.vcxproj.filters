@@ -4195,6 +4195,15 @@
     <Filter Include="Jumbo\Private">
       <UniqueIdentifier>{2dbaa734-0ee9-4600-8d05-2756a2f65185}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Cordis\Scripts\Managers\Camp">
+      <UniqueIdentifier>{b3beb822-cdb1-4b1d-8c90-af5342ef6f4d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Managers\Camp\Public">
+      <UniqueIdentifier>{a6ea57e5-b52f-4b94-8f0a-39bdd3c9453a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Managers\Camp\Private">
+      <UniqueIdentifier>{943b0bd7-f254-464a-8049-283007cba83f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="mt_config.h">
@@ -9545,6 +9554,9 @@
     <ClInclude Include="Script_MoveManager.h">
       <Filter>Cordis\Scripts\Managers\Move\Public</Filter>
     </ClInclude>
+    <ClInclude Include="Script_CampData.h">
+      <Filter>Cordis\Scripts\Managers\Camp\Public</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="damage_manager.cpp">
@@ -13970,6 +13982,9 @@
     </ClCompile>
     <ClCompile Include="UnityBuild2.cpp">
       <Filter>Jumbo\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Script_CampData.cpp">
+      <Filter>Cordis\Scripts\Managers\Camp\Private</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

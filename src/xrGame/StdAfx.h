@@ -478,6 +478,7 @@ __declspec(dllexport)  CSE_Abstract* xrServer_Create(LPCSTR section, CSE_Motion*
 #include "Script_StateEvaluators.h"
 #include "Script_StateActions.h"
 #include "Script_StateManager.h"
+#include "Script_MoveManager.h"
 #include "Script_SchemeXRDeath.h"
 #include "Script_SchemeXRHit.h"
 #include "Script_SchemeXRAbuse.h"

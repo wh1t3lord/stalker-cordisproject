@@ -178,6 +178,7 @@
 #include "Script_TravelManager.cpp"
 #include "Script_TreasureManager.cpp"
 #include "Script_UI_MainMenu.cpp"
+#include "Script_CampData.cpp"
 #include "script_watch_action.cpp"
 #include "script_watch_action_script.cpp"
 #include "script_zone.cpp"

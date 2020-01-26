@@ -14,6 +14,7 @@ class Storage_Scheme;
 #include "script_sound.h"
 #include "Script_ISchemeEntity.h"
 #include "Script_SchemePHDoor.h"
+#include "Script_MoveManager.h"
 namespace Cordis
 {
 namespace Scripts
@@ -688,6 +689,24 @@ public:
 
     inline std::uint32_t getDangerTime(void) const noexcept { return this->m_danger_time; }
     inline void setDangerTime(const std::uint32_t value) noexcept { this->m_danger_time = value; }
+
+    inline const xr_vector<std::pair<std::function<bool(std::uint16_t, bool)>, xr_string>>& getApprovedActions(
+        void) const noexcept
+    {
+        return this->m_approved_actions;
+    }
+
+    inline void setApprovedActions(const std::pair<std::function<bool(std::uint16_t, bool)>, xr_string>& pair) noexcept
+    {
+        if (pair.first == nullptr)
+        {
+            Msg("[Scripts/DataBase/Storage_Scheme/setApprovedActions(pair)] WARNING: can't add pair, because the first "
+                "element (a function) is nullptr!");
+            return;
+        }
+
+        this->m_approved_actions.push_back(pair);
+    }
 
 #pragma region Cordis Scheme PH FORCE
     inline std::uint32_t getPHForceTime(void) const noexcept { return this->m_ph_force_time; }
@@ -1467,11 +1486,123 @@ public:
     {
         if (condlist.empty())
         {
-            Msg("[Scripts/DataBase/Storage_Scheme/setXRRemarkAnimationCondlist(condlist)] WARNING: condlist.empty() == true! You are trying to set an empty condlist");
+            Msg("[Scripts/DataBase/Storage_Scheme/setXRRemarkAnimationCondlist(condlist)] WARNING: condlist.empty() == "
+                "true! You are trying to set an empty condlist");
             return;
         }
 
         this->m_xr_remark_animation_condlist = condlist;
+    }
+#pragma endregion
+
+#pragma region Cordis Scheme XR Walker
+    inline const xr_string& getXRWalkerPathWalkName(void) const noexcept { return this->m_xr_walker_path_walk_name; }
+    inline void setXRWalkerPathWalkName(const xr_string& path_name) noexcept
+    {
+        if (path_name.empty())
+        {
+            Msg("[Scripts/DataBase/Storage_Scheme/setXRWalkerPathWalkName(path_name)] WARNING: path_walk.empty() == "
+                "true! You are set an empty string");
+            return;
+        }
+
+        this->m_xr_walker_path_walk_name = path_name;
+    }
+
+    inline const xr_string& getXRWalkerPathLookName(void) const noexcept { return this->m_xr_walker_path_look_name; }
+    inline void setXRWalkerPathLookName(const xr_string& path_name) noexcept
+    {
+        if (path_name.empty())
+        {
+            Msg("[Scripts/DataBase/Storage_Scheme/setXRWalkerPathLookName(path_name)] WARNING: path_name.empty() == "
+                "true! You are set an empty string");
+            return;
+        }
+
+        this->m_xr_walker_path_look_name = path_name;
+    }
+
+    inline const xr_string& getXRWalkerTeamName(void) const noexcept { return this->m_xr_walker_team_name; }
+    inline void setXRWalkerTeamName(const xr_string& team_name) noexcept
+    {
+        if (team_name.empty())
+        {
+            Msg("[Scripts/DataBase/Storage_Scheme/setXRWalkerTeamName(team_name)] WARNING: team_name.empty() == true! "
+                "You are set an empty string");
+            return;
+        }
+
+        this->m_xr_walker_team_name = team_name;
+    }
+
+    inline const xr_string& getXRWalkerDescriptionName(void) const noexcept
+    {
+        return this->m_xr_walker_description_name;
+    }
+    inline void setXRWalkerDescriptionName(const xr_string& description_name) noexcept
+    {
+        if (description_name.empty())
+        {
+            Msg("[Scripts/DataBase/Storage_Scheme/setXRWalkerDescriptionName(description_name)] WARNING: "
+                "description_name.empty() == true! You are set an empty string!");
+            return;
+        }
+
+        this->m_xr_walker_description_name = description_name;
+    }
+
+    inline bool isXRWalkerUseCamp(void) const noexcept { return this->m_is_xr_walker_use_camp; }
+    inline void setXRWalkerUseCamp(const bool is_using) noexcept { this->m_is_xr_walker_use_camp = is_using; }
+
+    inline const xr_map<xr_string, xr_string>& getXRWalkerSuggestedStates(void) const noexcept
+    {
+        return this->m_xr_walker_suggested_states;
+    }
+
+    inline void setXRWalkerSuggestedStates(const xr_string& type_name, const xr_string& animation_name) noexcept
+    {
+        if (type_name.empty())
+        {
+            Msg("[Scripts/DataBase/Storage_Scheme/setXRWalkerSuggestedStates(type_name, animation_name)] WARNING: "
+                "type_name.empty() == true! You are set an empty string!");
+            return;
+        }
+
+        if (this->m_xr_walker_suggested_states.find(type_name) != this->m_xr_walker_suggested_states.end())
+        {
+            Msg("[Scripts/DataBase/Storage_Scheme/setXRWalkerSuggestedStates(type_name, animation_name)] WARNING: you "
+                "are trying to change the existing value %s to %s",
+                this->m_xr_walker_suggested_states.at(type_name).c_str(), animation_name.c_str());
+        }
+
+        this->m_xr_walker_suggested_states[type_name] = animation_name;
+    }
+#pragma endregion
+
+#pragma region Cordis Scheme SR / XR Camp / Animpoint
+    inline const xr_string& getBaseActionName(void) const noexcept { return this->m_base_action_name; }
+    inline void setBaseActionName(const xr_string& action_name) noexcept
+    {
+        if (action_name.empty())
+        {
+            Msg("[Scripts/Storage_Scheme/setBaseActionName(action_name)] WARNING: action_name.empty() == true! You set "
+                "an empty string return");
+            return;
+        }
+
+        this->m_base_action_name = action_name;
+    }
+
+    inline const xr_string& getDescriptionName(void) const noexcept { return this->m_description_name; }
+    inline void setDescriptionName(const xr_string& description_name) noexcept
+    {
+        if (description_name.empty())
+        {
+            Msg("[Scripts/Storage_Scheme/setDescriptionName(description_name)] WARNING: description_name.empty() == true! You set an empty string return");
+            return;
+        }
+
+        this->m_description_name = description_name;
     }
 #pragma endregion
 
@@ -1510,6 +1641,7 @@ private:
     bool m_is_xr_gather_items_enabled = false;
     bool m_is_xr_remark_target_initialized = false;
     bool m_is_xr_remark_sound_animation_sync = false;
+    bool m_is_xr_walker_use_camp = false;
     std::uint16_t m_xr_corpse_detection_selected_corpse_id = 0;
     std::uint16_t m_selected_id = 0;
     std::uint16_t m_xr_remark_target_id = 0;
@@ -1584,10 +1716,12 @@ private:
     xr_map<std::uint32_t, CondlistData> m_xr_remark_animation_condlist;
     xr_map<std::uint32_t, xr_map<std::uint32_t, CondlistData>> m_hit_on_bone;
     xr_map<std::uint32_t, xr_map<std::uint32_t, CondlistData>> m_sr_timer_on_value;
+    xr_map<xr_string, xr_string> m_xr_walker_suggested_states;
     xr_map<xr_string, xr_map<std::uint32_t, CondlistData>> m_ph_code_on_check_code;
     xr_vector<Script_ISchemeEntity*> m_actions;
     xr_vector<LogicData> m_logic;
     xr_vector<std::pair<std::uint32_t, std::pair<xr_string, xr_string>>> m_sr_teleport_points;
+    xr_vector<std::pair<std::function<bool(std::uint16_t, bool)>, xr_string>> m_approved_actions;
     xr_string m_path_walk_name;
     xr_string m_path_look_name;
     xr_string m_path_jump_name;
@@ -1602,6 +1736,8 @@ private:
     xr_string m_home_name;
     xr_string m_look_point_name;
     xr_string m_home_point_name;
+    xr_string m_base_action_name;
+    xr_string m_description_name;
     xr_string m_helicopter_path_move_name;
     xr_string m_helicopter_path_look_name;
     xr_string m_helicopter_enemy_name;
@@ -1636,6 +1772,11 @@ private:
     xr_string m_xr_remark_sound_name;
     xr_string m_xr_remark_tips_id_name;
     xr_string m_xr_remark_tips_sender_name;
+    xr_string m_xr_walker_description_name;
+    xr_string m_xr_walker_path_walk_name;
+    xr_string m_xr_walker_team_name;
+    xr_string m_xr_walker_sound_idle;
+    xr_string m_xr_walker_path_look_name;
     CondlistWaypoints m_path_walk_info;
     CondlistWaypoints m_path_look_info;
 };
@@ -2141,6 +2282,12 @@ public:
             xr_delete(this->m_p_state_manager);
         }
 
+        if (this->m_p_move_manager)
+        {
+            Msg("[Scripts/DataBase/Storage_Data/~dtor()] deleting m_p_move_manager");
+            xr_delete(this->m_p_move_manager);
+        }
+
         // Lord: проверить деаллокацию
         for (std::pair<const xr_string, Storage_Scheme*>& it : this->m_schemes)
         {
@@ -2511,6 +2658,20 @@ public:
         this->m_p_state_manager->set_state(state_name, callback, timeout, target, extra);
     }
 
+    inline Script_MoveManager* const getMoveManager(void) const noexcept { return this->m_p_move_manager; }
+
+    inline void setMoveManager(Script_MoveManager* const p_move_manager)
+    {
+        if (!p_move_manager)
+        {
+            Msg("[Scripts/DataBase/Storage_Data/setMoveManager(p_move_manager)] WARNING: p_move_manager == nullptr! "
+                "You setan empty object is not right ... Return");
+            return;
+        }
+
+        this->m_p_move_manager = p_move_manager;
+    }
+
 private:
     bool m_is_invulnerable = false;
     bool m_is_immortal = false;
@@ -2531,6 +2692,7 @@ private:
     CScriptSound* m_p_sound_object = nullptr;
     CScriptIniFile* m_p_ini = nullptr;
     Script_StateManager* m_p_state_manager = nullptr;
+    Script_MoveManager* m_p_move_manager = nullptr;
     xrTime m_activation_game_time;
     /*    xr_map<xr_string, SubStorage_Data> m_data;*/
     xr_map<xr_string, PStor_Data> m_pstor;
@@ -3056,6 +3218,7 @@ public:
     }
 
     void setStorageStateManager(CScriptGameObject* const p_client_object, Script_StateManager* const p_state_manager);
+    void setStorageMoveManager(CScriptGameObject* const p_client_object, Script_MoveManager* const p_move_manager);
 
     inline void setStorageStateManagerSetState(const std::uint16_t npc_id, const xr_string& state_name,
         StateManagerCallbackData& callback, const std::uint32_t timeout,

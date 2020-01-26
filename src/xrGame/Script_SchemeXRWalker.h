@@ -35,6 +35,10 @@ public:
 
     virtual void activate_scheme(const bool is_loading, CScriptGameObject* const p_client_object);
     virtual void update(const float delta);
+
+private:
+    bool m_is_in_camp;
+    xr_vector<std::pair<std::function<bool(std::uint16_t, bool)>, xr_string>> m_avail_actions;
 };
 } // namespace Scripts
 } // namespace Cordis
