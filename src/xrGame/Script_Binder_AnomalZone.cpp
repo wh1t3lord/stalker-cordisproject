@@ -370,6 +370,95 @@ void Script_Binder_Anomaly::respawn_artefacts_and_replace_anomaly_zone(void)
     }
 }
 
+void Script_Binder_Anomaly::spawn_artefact_randomly(void)
+{
+    xr_string random_artefact_name;
+    if (this->m_is_forced_spawn_override)
+    {
+        random_artefact_name = this->m_forced_artefact_name;
+        this->m_is_forced_spawn_override = false;
+    }
+    else if (this->m_is_forced_spawn)
+    {
+        const xr_vector<xr_string>& data = this->m_table_start_artefacts[this->m_current_layer_name];
+        random_artefact_name = data[data.size() - 1];
+        this->m_is_forced_spawn = false;
+    }
+    else
+    {
+        if (Globals::Script_RandomInt::getInstance().Generate<std::uint16_t>(1, 100) > 17)
+            return;
+
+        std::uint32_t coeff_total = 0;
+        for (const int it : this->m_table_artefacts_coeff.at(this->m_current_layer_name))
+        {
+            coeff_total += it;
+        }
+
+        if (!coeff_total)
+        {
+            for (std::uint32_t i = 0; i < this->m_table_artefacts.at(this->m_current_layer_name).size(); ++i)
+            {
+                this->m_table_artefacts_coeff.at(this->m_current_layer_name)[i] = 1;
+                coeff_total += 1;
+            }
+        }
+
+        std::uint32_t random_value = Globals::Script_RandomInt::getInstance().Generate<std::uint32_t>(1, coeff_total);
+        for (std::uint32_t i = 0; i < this->m_table_artefacts.at(this->m_current_layer_name).size(); ++i)
+        {
+            std::uint32_t chance = this->m_table_artefacts_coeff.at(this->m_current_layer_name)[i];
+            if (random_value <= chance)
+            {
+                random_artefact_name = this->m_table_artefacts.at(this->m_current_layer_name)[i];
+                break;
+            }
+
+            random_value -= chance;
+        }
+    }
+
+    xr_string random_path_name = this->get_artefact_path();
+    CPatrolPathParams random_patrol(random_path_name.c_str());
+    std::uint32_t random_path_point = Globals::Script_RandomInt::getInstance().Generate<std::uint32_t>(0, random_patrol.count() - 1);
+    CSE_Abstract* p_server_artefact_object = Globals::Game::alife_create(random_artefact_name, random_patrol.point(random_path_point), this->m_object->level_vertex_id(), this->m_object->game_vertex_id());
+
+    DataBase::Storage::getInstance().setArtefactWaysByID(p_server_artefact_object->ID, random_path_name);
+    DataBase::Storage::getInstance().setArtefactPointsByID(p_server_artefact_object->ID, random_path_point);
+    this->m_artefact_ways_by_id[p_server_artefact_object->ID] = random_path_name;
+    this->m_artefact_points_by_id[p_server_artefact_object->ID] = random_path_point;
+    DataBase::Storage::getInstance().setParentZonesArtefactByID(p_server_artefact_object->ID, this);
+    ++(this->m_spawned_count);
+}
+
+xr_string Script_Binder_Anomaly::get_artefact_path(void)
+{
+    xr_vector<xr_string> table;
+
+    for (const xr_string& it : this->m_table_path.at(this->m_current_layer_name))
+    {
+        bool is_spawned = false;
+        for (const std::pair<std::uint16_t, xr_string>& it2 : this->m_artefact_ways_by_id)
+        {
+            if (!it2.second.empty() && it == it2.second)
+            {
+                is_spawned = true;
+            }
+        }
+
+        if (!is_spawned)
+        {
+            table.push_back(it);
+        }
+    }
+
+    if (table.empty())
+    {
+        return this->m_table_path.at(this->m_current_layer_name)[Globals::Script_RandomInt::getInstance().Generate<std::uint32_t>(0, this->m_table_path.at(this->m_current_layer_name).size() - 1)];
+    }
+
+    return (table[Globals::Script_RandomInt::getInstance().Generate<std::uint32_t>(0, table.size() - 1)]);
+}
 
 } // namespace Scripts
 } // namespace Cordis

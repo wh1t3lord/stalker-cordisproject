@@ -16,6 +16,7 @@ class Storage_Scheme;
 #include "Script_SchemePHDoor.h"
 #include "Script_MoveManager.h"
 #include "Script_Binder_AnomalZone.h"
+#include "Script_Binder_AnomalField.h"
 namespace Cordis
 {
 namespace Scripts
