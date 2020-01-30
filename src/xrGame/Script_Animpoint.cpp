@@ -68,7 +68,7 @@ void Script_Animpoint::activate_scheme(void)
             this->fill_approved_actions();
 
             const xr_string& target_action_name = this->m_storage->getApprovedActions()
-                                                      .at(Globals::Script_RandomInt::getInstance().Generate(
+                                                      .at(Globals::Script_RandomInt::getInstance().Generate<std::uint32_t>(
                                                           0, this->m_storage->getApprovedActions().size()))
                                                       .second;
 
@@ -86,7 +86,7 @@ void Script_Animpoint::activate_scheme(void)
                 if (target_action_name != this->m_current_action_name)
                 {
                     this->m_current_action_name = this->m_storage->getApprovedActions()
-                                                      .at(Globals::Script_RandomInt::getInstance().Generate(
+                                                      .at(Globals::Script_RandomInt::getInstance().Generate<std::uint32_t>(
                                                           0, this->m_storage->getApprovedActions().size()))
                                                       .second;
                     return;

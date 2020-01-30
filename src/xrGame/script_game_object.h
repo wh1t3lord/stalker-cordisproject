@@ -149,6 +149,7 @@ class object;
 }
 }
 
+// Lord: удалить все функции связаные с lua
 class CScriptGameObject
 {
     mutable CGameObject* m_game_object;
@@ -364,6 +365,8 @@ public:
 
     void ActorLookAtPoint(Fvector point);
     void IterateInventory(luabind::functor<void> functor, luabind::adl::object object);
+    void IterateInventory(std::function<void(CScriptGameObject* const)> func);
+    void IterateInventory(std::function<void(CScriptGameObject* const, CScriptGameObject* const)> func, CScriptGameObject* const p_npc);
     void IterateInventoryBox(luabind::functor<void> functor, luabind::adl::object object);
     void MarkItemDropped(CScriptGameObject* item);
     bool MarkedDropped(CScriptGameObject* item);

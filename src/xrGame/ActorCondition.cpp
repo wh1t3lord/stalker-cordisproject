@@ -211,8 +211,8 @@ void CActorCondition::UpdateCondition()
         float k_max_power = 1.0f;
         if (true)
         {
-            k_max_power =
-                1.0f + std::min(cur_weight, base_weight) / base_weight + std::max(0.0f, (cur_weight - base_weight) / 10.0f);
+            k_max_power = 1.0f + std::min(cur_weight, base_weight) / base_weight +
+                std::max(0.0f, (cur_weight - base_weight) / 10.0f);
         }
         else
         {
@@ -841,10 +841,11 @@ bool CActorCondition::ApplyBooster(const SBooster& B, const shared_str& sect)
     return true;
 }
 
+/*
 void disable_input();
-void enable_input();
+void enable_input();*/
 void hide_indicators();
-void show_indicators();
+/*void show_indicators();*/
 
 CActorDeathEffector::CActorDeathEffector(CActorCondition* parent, LPCSTR sect) // -((
     : m_pParent(parent)
@@ -853,7 +854,7 @@ CActorDeathEffector::CActorDeathEffector(CActorCondition* parent, LPCSTR sect) /
     hide_indicators();
 
     AddEffector(Actor(), effActorDeath, sect);
-    disable_input();
+    Cordis::Scripts::Globals::Game::level::disable_input();
     LPCSTR snd = pSettings->r_string(sect, "snd");
     m_death_sound.create(snd, st_Effect, 0);
     m_death_sound.play_at_pos(0, Fvector().set(0, 0, 0), sm_2D);
@@ -878,6 +879,6 @@ void CActorDeathEffector::Stop()
 {
     RemoveEffector(Actor(), effActorDeath);
     m_death_sound.destroy();
-    enable_input();
-    show_indicators();
+    Cordis::Scripts::Globals::Game::level::enable_input();
+    Cordis::Scripts::Globals::Game::level::show_indicators();
 }

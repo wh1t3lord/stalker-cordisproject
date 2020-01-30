@@ -462,11 +462,11 @@ StateManagerAnimationData::AnimationData Script_StateAnimation::select_rnd(
     {
         if (this->m_states.getLastID() == 0)
         {
-            found_index = Globals::Script_RandomInt::getInstance().Generate(0, animations.size() - 1);
+            found_index = Globals::Script_RandomInt::getInstance().Generate<std::uint32_t>(0, animations.size() - 1);
         }
         else
         {
-            found_index = Globals::Script_RandomInt::getInstance().Generate(0, animations.size() - 2);
+            found_index = Globals::Script_RandomInt::getInstance().Generate<std::uint32_t>(0, animations.size() - 2);
             if (found_index >= this->m_states.getLastID())
             {
                 ++found_index;

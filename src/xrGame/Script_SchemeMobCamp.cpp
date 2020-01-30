@@ -295,8 +295,8 @@ void Script_SchemeMobCamp::select_current_home_point(const bool is_first_call)
             }
             else
             {
-                std::uint32_t free_point_random_index = Globals::Script_RandomInt::getInstance().Generate(
-                    std::uint32_t(0), free_points_indecies.size() - 1);
+                std::uint32_t free_point_random_index = Globals::Script_RandomInt::getInstance().Generate<std::uint32_t>(
+                    0, free_points_indecies.size() - 1);
                 this->m_current_point_index = free_points_indecies[free_point_random_index] - 1; // Lord: проверить
             }
         }

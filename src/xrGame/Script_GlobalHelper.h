@@ -18,6 +18,7 @@
 #include "Script_HelicopterFly.h"
 #include "Script_HelicopterFire.h"
 #include "Script_SchemeHelicopterMove.h"
+#include "Script_SE_SmartTerrain.h"
 
 // @ PRIVATE PREPROCESSOR!
 #define _REGISTER_FULL_FUNCTION_XR_CONDITION(function_name, function)                                       \
@@ -4232,46 +4233,47 @@ private:
             // делать потому что C++ и потому что интерфейсы
             // @ В-шестых луа ловушка джокера никогда не используйте lua в таком сложном backend
 
-/*          Lord: зарегистрировать схемы когда только начинается добавление в биндеры!
-            Script_SchemeMobCamp mob_camp = Script_SchemeMobCamp(nullptr, DataBase::Storage_Scheme());
-            Script_SchemeMobCombat mob_combat = Script_SchemeMobCombat(nullptr, DataBase::Storage_Scheme());
-            Script_SchemeMobDeath mob_death = Script_SchemeMobDeath(nullptr, DataBase::Storage_Scheme());
-            Script_SchemeMobHome mob_home = Script_SchemeMobHome(nullptr, DataBase::Storage_Scheme());
-            Script_SchemeMobJump mob_jump = Script_SchemeMobJump(nullptr, DataBase::Storage_Scheme());
-            Script_SchemeMobRemark mob_remark = Script_SchemeMobRemark(nullptr, DataBase::Storage_Scheme());
-            Script_SchemeMobWalker mob_walker = Script_SchemeMobWalker(nullptr, DataBase::Storage_Scheme());
-            Script_SchemeHelicopterMove heli_move = Script_SchemeHelicopterMove(nullptr, DataBase::Storage_Scheme());*/
+            /*          Lord: зарегистрировать схемы когда только начинается добавление в биндеры!
+                        Script_SchemeMobCamp mob_camp = Script_SchemeMobCamp(nullptr, DataBase::Storage_Scheme());
+                        Script_SchemeMobCombat mob_combat = Script_SchemeMobCombat(nullptr, DataBase::Storage_Scheme());
+                        Script_SchemeMobDeath mob_death = Script_SchemeMobDeath(nullptr, DataBase::Storage_Scheme());
+                        Script_SchemeMobHome mob_home = Script_SchemeMobHome(nullptr, DataBase::Storage_Scheme());
+                        Script_SchemeMobJump mob_jump = Script_SchemeMobJump(nullptr, DataBase::Storage_Scheme());
+                        Script_SchemeMobRemark mob_remark = Script_SchemeMobRemark(nullptr, DataBase::Storage_Scheme());
+                        Script_SchemeMobWalker mob_walker = Script_SchemeMobWalker(nullptr, DataBase::Storage_Scheme());
+                        Script_SchemeHelicopterMove heli_move = Script_SchemeHelicopterMove(nullptr,
+               DataBase::Storage_Scheme());*/
 
-/*
-            this->m_registered_schemes_set_scheme_callbacks[mob_camp.getSchemeName()] =
-                Script_SchemeMobCamp::set_scheme;
-            this->m_registered_schemes_set_scheme_callbacks[mob_combat.getSchemeName()] =
-                Script_SchemeMobCombat::set_scheme;
-            this->m_registered_schemes_set_scheme_callbacks[mob_home.getSchemeName()] =
-                Script_SchemeMobDeath::set_scheme;
-            this->m_registered_schemes_set_scheme_callbacks[mob_jump.getSchemeName()] =
-                Script_SchemeMobJump::set_scheme;
-            this->m_registered_schemes_set_scheme_callbacks[mob_remark.getSchemeName()] =
-                Script_SchemeMobRemark::set_scheme;
-            this->m_registered_schemes_set_scheme_callbacks[mob_walker.getSchemeName()] =
-                Script_SchemeMobWalker::set_scheme;
-            this->m_registered_schemes_set_scheme_callbacks[heli_move.getSchemeName()] =
-                Script_SchemeHelicopterMove::set_scheme;
+            /*
+                        this->m_registered_schemes_set_scheme_callbacks[mob_camp.getSchemeName()] =
+                            Script_SchemeMobCamp::set_scheme;
+                        this->m_registered_schemes_set_scheme_callbacks[mob_combat.getSchemeName()] =
+                            Script_SchemeMobCombat::set_scheme;
+                        this->m_registered_schemes_set_scheme_callbacks[mob_home.getSchemeName()] =
+                            Script_SchemeMobDeath::set_scheme;
+                        this->m_registered_schemes_set_scheme_callbacks[mob_jump.getSchemeName()] =
+                            Script_SchemeMobJump::set_scheme;
+                        this->m_registered_schemes_set_scheme_callbacks[mob_remark.getSchemeName()] =
+                            Script_SchemeMobRemark::set_scheme;
+                        this->m_registered_schemes_set_scheme_callbacks[mob_walker.getSchemeName()] =
+                            Script_SchemeMobWalker::set_scheme;
+                        this->m_registered_schemes_set_scheme_callbacks[heli_move.getSchemeName()] =
+                            Script_SchemeHelicopterMove::set_scheme;
 
-            this->m_registered_schemes_add_to_binder_callbacks[mob_camp.getSchemeName()] =
-                Script_SchemeMobCamp::add_to_binder;
-            this->m_registered_schemes_add_to_binder_callbacks[mob_combat.getSchemeName()] =
-                Script_SchemeMobCombat::add_to_binder;
-            this->m_registered_schemes_add_to_binder_callbacks[mob_home.getSchemeName()] =
-                Script_SchemeMobHome::add_to_binder;
-            this->m_registered_schemes_add_to_binder_callbacks[mob_jump.getSchemeName()] =
-                Script_SchemeMobJump::add_to_binder;
-            this->m_registered_schemes_add_to_binder_callbacks[mob_remark.getSchemeName()] =
-                Script_SchemeMobRemark::add_to_binder;
-            this->m_registered_schemes_add_to_binder_callbacks[mob_walker.getSchemeName()] =
-                Script_SchemeMobWalker::add_to_binder;
-            this->m_registered_schemes_add_to_binder_callbacks[heli_move.getSchemeName()] =
-                Script_SchemeHelicopterMove::add_to_binder;*/
+                        this->m_registered_schemes_add_to_binder_callbacks[mob_camp.getSchemeName()] =
+                            Script_SchemeMobCamp::add_to_binder;
+                        this->m_registered_schemes_add_to_binder_callbacks[mob_combat.getSchemeName()] =
+                            Script_SchemeMobCombat::add_to_binder;
+                        this->m_registered_schemes_add_to_binder_callbacks[mob_home.getSchemeName()] =
+                            Script_SchemeMobHome::add_to_binder;
+                        this->m_registered_schemes_add_to_binder_callbacks[mob_jump.getSchemeName()] =
+                            Script_SchemeMobJump::add_to_binder;
+                        this->m_registered_schemes_add_to_binder_callbacks[mob_remark.getSchemeName()] =
+                            Script_SchemeMobRemark::add_to_binder;
+                        this->m_registered_schemes_add_to_binder_callbacks[mob_walker.getSchemeName()] =
+                            Script_SchemeMobWalker::add_to_binder;
+                        this->m_registered_schemes_add_to_binder_callbacks[heli_move.getSchemeName()] =
+                            Script_SchemeHelicopterMove::add_to_binder;*/
         }
 #pragma endregion
 
@@ -12884,6 +12886,116 @@ private:
         this->m_news_manager_registered_sound_tips["can_resupply"] = "ui_inGame2_Pered_zadaniyami_voennih";
         this->m_news_manager_registered_sound_tips["recent_surge"] = "ui_inGame2_V_zone_nedavno_proshel_vibros";
 #pragma endregion
+
+#pragma region Cordis Smart Names(Translated from smart_names.ltx)
+        CScriptIniFile ini_smart("misc\\smart_names.ltx");
+
+        for (std::uint32_t i = 0; i < ini_smart.line_count("levels"); ++i)
+        {
+            const char* level_name;
+            const char* value_name;
+
+            if (ini_smart.r_line("levels", i, &level_name, &value_name))
+            {
+                if (ini_smart.section_exist(level_name))
+                {
+                    for (std::uint32_t j = 0; j < ini_smart.line_count(level_name); ++j)
+                    {
+                        const char* smart_name;
+                        const char* translated_name;
+                        if (ini_smart.r_line(level_name, i, &smart_name, &translated_name))
+                        {
+                            this->m_smart_terrains_translated_name[level_name][smart_name] = translated_name;
+                        }
+                    }
+                }
+            }
+        }
+#pragma endregion
+
+#pragma region Cordis PDA initializing
+        this->m_registered_pda_primary_objects.push_back({"zat_b55_spot", "st_zat_b55_name"});
+        this->m_registered_pda_primary_objects.push_back({"zat_b100_spot", "st_zat_b100_name"});
+        this->m_registered_pda_primary_objects.push_back({"zat_b104_spot", "st_zat_b104_name"});
+        this->m_registered_pda_primary_objects.push_back({"zat_b38_spot", "st_zat_b38_name"});
+        this->m_registered_pda_primary_objects.push_back({"zat_b40_spot", "st_zat_b40_name"});
+        this->m_registered_pda_primary_objects.push_back({"zat_b56_spot", "st_zat_b56_name"});
+        this->m_registered_pda_primary_objects.push_back({"zat_b5_spot", "st_zat_b5_name"});
+        this->m_registered_pda_primary_objects.push_back({"zat_a2_spot", "st_zat_a2_name"});
+        this->m_registered_pda_primary_objects.push_back({"zat_b20_spot", "st_zat_b20_name"});
+        this->m_registered_pda_primary_objects.push_back({"zat_b53_spot", "st_zat_b53_name"});
+        this->m_registered_pda_primary_objects.push_back({"zat_b101_spot", "st_zat_b101_name"});
+        this->m_registered_pda_primary_objects.push_back({"zat_b106_spot", "st_zat_b106_name"});
+        this->m_registered_pda_primary_objects.push_back({"zat_b7_spot", "st_zat_b7_name"});
+        this->m_registered_pda_primary_objects.push_back({"zat_b14_spot", "st_zat_b14_name"});
+        this->m_registered_pda_primary_objects.push_back({"zat_b52_spot", "st_zat_b52_name"});
+        this->m_registered_pda_primary_objects.push_back({"zat_b39_spot", "st_zat_b39_name"});
+        this->m_registered_pda_primary_objects.push_back({"zat_b33_spot", "st_zat_b33_name"});
+        this->m_registered_pda_primary_objects.push_back({"zat_b18_spot", "st_zat_b18_name"});
+        this->m_registered_pda_primary_objects.push_back({"zat_b54_spot", "st_zat_b54_name"});
+        this->m_registered_pda_primary_objects.push_back({"zat_b12_spot", "st_zat_b12_name"});
+        this->m_registered_pda_primary_objects.push_back({"zat_b28_spot", "st_zat_b28_name"});
+        this->m_registered_pda_primary_objects.push_back({"zat_b103_spot", "st_zat_b103_name"});
+        this->m_registered_pda_primary_objects.push_back({"jup_b1_spot", "st_jup_b1_name"});
+        this->m_registered_pda_primary_objects.push_back({"jup_b46_spot", "st_jup_b46_name"});
+        this->m_registered_pda_primary_objects.push_back({"jup_b202_spot", "st_jup_b202_name"});
+        this->m_registered_pda_primary_objects.push_back({"jup_b211_spot", "st_jup_b211_name"});
+        this->m_registered_pda_primary_objects.push_back({"jup_b200_spot", "st_jup_b200_name"});
+        this->m_registered_pda_primary_objects.push_back({"jup_b19_spot", "st_jup_b19_name"});
+        this->m_registered_pda_primary_objects.push_back({"jup_a6_spot", "st_jup_a6_name"});
+        this->m_registered_pda_primary_objects.push_back({"jup_b25_spot", "st_jup_b25_name"});
+        this->m_registered_pda_primary_objects.push_back({"jup_b6_spot", "st_jup_b6_name"});
+        this->m_registered_pda_primary_objects.push_back({"jup_b205_spot", "st_jup_b205_name"});
+        this->m_registered_pda_primary_objects.push_back({"jup_b206_spot", "st_jup_b206_name"});
+        this->m_registered_pda_primary_objects.push_back({"jup_b32_spot", "st_jup_b32_name"});
+        this->m_registered_pda_primary_objects.push_back({"jup_a10_spot", "st_jup_a10_name"});
+        this->m_registered_pda_primary_objects.push_back({"jup_b209_spot", "st_jup_b209_name"});
+        this->m_registered_pda_primary_objects.push_back({"jup_b208_spot", "st_jup_b208_name"});
+        this->m_registered_pda_primary_objects.push_back({"jup_a12_spot", "st_jup_a12_name"});
+        this->m_registered_pda_primary_objects.push_back({"jup_b212_spot", "st_jup_b212_name"});
+        this->m_registered_pda_primary_objects.push_back({"jup_b9_spot", "st_jup_b9_name"});
+        this->m_registered_pda_primary_objects.push_back({"jup_b201_spot", "st_jup_b201_name"});
+        this->m_registered_pda_primary_objects.push_back({"jup_a9_spot", "st_jup_a9_name"});
+        this->m_registered_pda_primary_objects.push_back({"pri_a28_spot", "st_pri_a28_name"});
+        this->m_registered_pda_primary_objects.push_back({"pri_b36_spot", "st_pri_b36_name"});
+        this->m_registered_pda_primary_objects.push_back({"pri_b303_spot", "st_pri_b303_name"});
+        this->m_registered_pda_primary_objects.push_back({"pri_b301_spot", "st_pri_b301_name"});
+        this->m_registered_pda_primary_objects.push_back({"pri_a17_spot", "st_pri_a17_name"});
+        this->m_registered_pda_primary_objects.push_back({"pri_b306_spot", "st_pri_b306_name"});
+        this->m_registered_pda_primary_objects.push_back({"pri_a16_spot", "st_pri_a16_name"});
+        this->m_registered_pda_primary_objects.push_back({"pri_a25_spot", "st_pri_a25_name"});
+        this->m_registered_pda_primary_objects.push_back({"pri_b35_spot", "st_pri_b35_name"});
+        this->m_registered_pda_primary_objects.push_back({"pri_a21_spot", "st_pri_a21_name"});
+        this->m_registered_pda_primary_objects.push_back({"pri_b304_spot", "st_pri_b304_name"});
+        this->m_registered_pda_primary_objects.push_back({"pri_a18_spot", "st_pri_a18_name"});
+
+        PDA_ChangeObjectData data;
+        data.setTargetName("jup_b32_spot");
+        data.setHintName("st_jup_b32_name");
+        data.setZoneName("jup_b32_anomal_zone");
+        data.setGroupName("jup_b32_scanner_1_placed");
+        this->m_registered_pda_change_objects.push_back(data);
+        data.setTargetName("jup_b201_spot");
+        data.setHintName("st_jup_b201_name");
+        data.setZoneName("jup_b201_anomal_zone");
+        data.setGroupName("jup_b32_scanner_2_placed");
+        this->m_registered_pda_change_objects.push_back(data);
+        data.setTargetName("jup_b209_spot");
+        data.setHintName("st_jup_b209_name");
+        data.setZoneName("jup_b209_anomal_zone");
+        data.setGroupName("jup_b32_scanner_3_placed");
+        this->m_registered_pda_change_objects.push_back(data);
+        data.setTargetName("jup_b211_spot");
+        data.setHintName("st_jup_b211_name");
+        data.setZoneName("jup_b211_anomal_zone");
+        data.setGroupName("jup_b32_scanner_4_placed");
+        this->m_registered_pda_change_objects.push_back(data);
+        data.setTargetName("jup_b1_spot");
+        data.setHintName("st_jup_b1_name");
+        data.setZoneName("jup_b10_anomal_zone");
+        data.setGroupName("jup_b32_scanner_5_placed");
+        this->m_registered_pda_change_objects.push_back(data);
+#pragma endregion
     }
 
 public:
@@ -14179,6 +14291,42 @@ public:
     {
         return this->m_news_manager_registered_sound_tips;
     }
+
+    inline const xr_string& getTranslatedSmartTerrainName(Script_SE_SmartTerrain* const p_server_smart)
+    {
+        if (!p_server_smart)
+        {
+            R_ASSERT2(false, "object is null!");
+            return xr_string("can't obtain smart_terrain name");
+        }
+
+        xr_string level_name =
+            Globals::get_level_name(Globals::Game::get_game_graph()->vertex(p_server_smart->m_tGraphID)->level_id());
+        xr_string smart_terrain_name = p_server_smart->name_replace();
+
+        if (this->m_smart_terrains_translated_name.find(level_name) != this->m_smart_terrains_translated_name.end())
+        {
+            if (this->m_smart_terrains_translated_name.at(level_name).find(smart_terrain_name) !=
+                this->m_smart_terrains_translated_name.at(level_name).end())
+            {
+                return Globals::Game::translate_string(
+                    this->m_smart_terrains_translated_name.at(level_name).at(smart_terrain_name).c_str());
+            }
+        }
+
+        return smart_terrain_name;
+    }
+
+    inline const xr_vector<PDA_ChangeObjectData>& getPDAChangeObjects(void) const noexcept
+    {
+        return this->m_registered_pda_change_objects;
+    }
+
+    // .first -> target | .second -> hint
+    inline const xr_vector<std::pair<xr_string, xr_string>>& getPDAPrimaryObjects(void) const noexcept
+    {
+        return this->m_registered_pda_primary_objects;
+    }
 #pragma endregion
 
 private:
@@ -14217,6 +14365,7 @@ private:
     xr_map<xr_string, xr_string> m_job_type_by_scheme;
     xr_map<xr_string, xr_string> m_game_smarts_by_no_assault_zone;
     xr_map<xr_string, xr_string> m_news_manager_registered_sound_tips;
+    xr_map<xr_string, xr_map<xr_string, xr_string>> m_smart_terrains_translated_name;
     xr_map<xr_string, std::uint32_t> m_simulationboard_group_id_by_levels_name;
     xr_map<xr_string, std::uint32_t> m_monster_animation_to_action;
     xr_map<xr_string, MonsterSound::EType> m_monster_sound_name_to_type_action;
@@ -14227,6 +14376,11 @@ private:
     // @ First - id | Second - distance
     std::pair<std::uint32_t, std::uint32_t> m_game_server_nearest_to_actor_smart_terrain;
     xr_vector<xr_string> m_registered_smart_terrain_path_fields;
+
+#pragma region Cordis PDA the values of pda.script
+    xr_vector<PDA_ChangeObjectData> m_registered_pda_change_objects;
+    xr_vector<std::pair<xr_string, xr_string>> m_registered_pda_primary_objects;
+#pragma endregion
 };
 
 } // namespace Scripts

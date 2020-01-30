@@ -236,37 +236,7 @@ public:
     inline void set_alarm(void) noexcept { this->m_smart_alarm_time = Globals::Game::get_game_time(); }
 #pragma endregion
 
-    inline bool am_i_reached(Script_SE_SimulationSquad* squad) noexcept
-    {
-        if (!squad)
-        {
-            R_ASSERT2(false, "can't use an empty object!");
-            return false;
-        }
-
-        Fvector squad_position = squad->position();
-        std::uint32_t squad_level_vertex_id = squad->m_tNodeID;
-        std::uint16_t squad_game_vertex_Id = squad->m_tGraphID;
-
-        Fvector target_position = this->position();
-        std::uint32_t target_level_vertex_id = this->m_tNodeID;
-        std::uint16_t target_game_vertex_id = this->m_tGraphID;
-
-        if (Globals::Game::get_game_graph()->vertex(squad_game_vertex_Id)->level_id() !=
-            Globals::Game::get_game_graph()->vertex(target_game_vertex_id)->level_id())
-        {
-            return false;
-        }
-
-        if (Globals::IsMonster(ai().alife().objects().object(squad->commander_id()), 0) &&
-            squad->getScriptTarget() == 0)
-        {
-            return (squad_position.distance_to_sqr(target_position) <= 25.0f);
-        }
-
-        return squad->IsAlwaysArrived() ||
-            (squad_position.distance_to_sqr(target_position) <= (this->m_arrive_distance * this->m_arrive_distance));
-    }
+    bool am_i_reached(Script_SE_SimulationSquad* squad);
 
     void read_params(void);
     void on_after_reach(Script_SE_SimulationSquad* squad);

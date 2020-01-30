@@ -208,30 +208,6 @@ void hide_indicators()
     psActorFlags.set(AF_GODMODE_RT, TRUE);
 }
 
-void hide_indicators_safe()
-{
-    if (CurrentGameUI())
-    {
-        CurrentGameUI()->ShowGameIndicators(false);
-        CurrentGameUI()->ShowCrosshair(false);
-
-        CurrentGameUI()->OnExternalHideIndicators();
-    }
-    psActorFlags.set(AF_GODMODE_RT, TRUE);
-}
-
-void show_indicators()
-{
-    if (CurrentGameUI())
-    {
-        CurrentGameUI()->ShowGameIndicators(true);
-        CurrentGameUI()->ShowCrosshair(true);
-    }
-    psActorFlags.set(AF_GODMODE_RT, FALSE);
-}
-
-void show_weapon(bool b) { psHUD_Flags.set(HUD_WEAPON_RT2, b); }
-
 /*
 void add_call(const luabind::functor<bool>& condition, const luabind::functor<void>& action)
 {
@@ -294,21 +270,7 @@ cphysics_world_scripted* physics_world_scripted()
 }
 CEnvironment* environment() { return (g_pGamePersistent->pEnvironment); }
 CEnvDescriptor* current_environment(CEnvironment* self) { return (self->CurrentEnv); }
-extern bool g_bDisableAllInput;
-void disable_input()
-{
-    g_bDisableAllInput = true;
-#ifdef DEBUG
-    Msg("input disabled");
-#endif // #ifdef DEBUG
-}
-void enable_input()
-{
-    g_bDisableAllInput = false;
-#ifdef DEBUG
-    Msg("input enabled");
-#endif // #ifdef DEBUG
-}
+
 
 
 Fbox get_bounding_volume() { return Level().ObjectSpace.GetBoundingVolume(); }
@@ -353,19 +315,6 @@ void iterate_sounds2(LPCSTR prefix, u32 max_count, luabind::object object, luabi
 #include "ActorEffector.h"
 
 
-float add_cam_effector2(LPCSTR fn, int id, bool cyclic, LPCSTR cb_func, float cam_fov)
-{
-    CAnimatorCamEffectorScriptCB* e = new CAnimatorCamEffectorScriptCB(cb_func);
-    e->m_bAbsolutePositioning = true;
-    e->m_fov = cam_fov;
-    e->SetType((ECamEffectorType)id);
-    e->SetCyclic(cyclic);
-    e->Start(fn);
-    Actor()->Cameras().AddCamEffector(e);
-    return e->GetAnimatorLength();
-}
-
-
 
 #include "actor_statistic_mgr.h"
 void add_actor_points(LPCSTR sect, LPCSTR detail_key, int cnt, int pts)
@@ -380,8 +329,6 @@ void add_actor_points_str(LPCSTR sect, LPCSTR detail_key, LPCSTR str_value)
 
 int get_actor_points(LPCSTR sect) { return Actor()->StatisticMgr().GetSectionPoints(sect); }
 #include "ActorEffector.h"
-void add_complex_effector(LPCSTR section, int id) { AddEffector(Actor(), id, section); }
-void remove_complex_effector(int id) { RemoveEffector(Actor(), id); }
 #include "PostprocessAnimator.h"
 
 
