@@ -29,6 +29,8 @@ public:
 
     inline std::uint32_t getSpawnedCount(void) const noexcept { return this->m_spawned_count; }
 
+    void disable_anomaly_fields(void);
+
 private:
     bool m_is_created_own_ini_file_from_cfg_section;
     bool m_is_custom_placement;

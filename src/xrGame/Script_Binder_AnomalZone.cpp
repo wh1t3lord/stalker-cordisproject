@@ -250,5 +250,17 @@ void Script_Binder_Anomaly::load(IReader* input_packet) {}
 bool Script_Binder_Anomaly::net_SaveRelevant(void) { return false; }
 
 void Script_Binder_Anomaly::net_Relcase(CScriptGameObject* object) {}
+
+void Script_Binder_Anomaly::disable_anomaly_fields(void)
+{
+    if (!this->m_is_custom_placement)
+    {
+        this->m_is_disabled = true;
+        return;
+    }
+
+
+}
+
 } // namespace Scripts
 } // namespace Cordis
