@@ -207,7 +207,7 @@ Script_Binder_Anomaly::Script_Binder_Anomaly(CScriptGameObject* object)
                 {
                     if (this->m_p_ini->r_line(mines_section_name.c_str(), i, &mine_name, &value_name))
                     {
-                        this->m_table_mines[section_name] = mine_name;
+                        this->m_table_mines[section_name].push_back(mine_name);
                     }
                 }
             }
@@ -259,7 +259,71 @@ void Script_Binder_Anomaly::disable_anomaly_fields(void)
         return;
     }
 
+    const xr_map<xr_string, Script_Binder_AnomalField*>& anomaly_fields =
+        DataBase::Storage::getInstance().getFieldsByName();
 
+    std::uint32_t counter = 0;
+    for (const std::pair<xr_string, xr_vector<xr_string>>& it : this->m_table_fields)
+    {
+        if (it.first != this->m_current_layer_name)
+        {
+            for (const xr_string& it2 : it.second)
+            {
+                if (anomaly_fields.find(it2) != anomaly_fields.end())
+                {
+                    if (anomaly_fields.at(it2))
+                        anomaly_fields.at(it2)->set_enable(false);
+                }
+                else
+                {
+                    ++counter;
+                }
+            }
+        }
+    }
+
+    for (const std::pair<xr_string, xr_vector<xr_string>>& it : this->m_table_mines)
+    {
+        if (it.first != this->m_current_layer_name)
+        {
+            for (const xr_string& mine_name : it.second)
+            {
+                if (anomaly_fields.find(mine_name) != anomaly_fields.end())
+                {
+                    if (anomaly_fields.at(mine_name))
+                        anomaly_fields.at(mine_name)->set_enable(false);
+                }
+                else
+                {
+                    ++counter;
+                }
+            }
+        }
+    }
+
+    if (!counter)
+        this->m_is_disabled = true;
+
+    if (!this->m_is_turned_off)
+    {
+        for (const xr_string& it : this->m_table_fields.at(this->m_current_layer_name))
+        {
+            if (anomaly_fields.find(it) != anomaly_fields.end())
+            {
+                if (anomaly_fields.at(it))
+                    anomaly_fields.at(it)->set_enable(true);
+            }
+        }
+
+        for (const xr_string& it : this->m_table_mines.at(this->m_current_layer_name))
+        {
+            if (anomaly_fields.find(it) != anomaly_fields.end())
+            {
+                if (anomaly_fields.at(it))
+                    anomaly_fields.at(it)->set_enable(true);
+            }
+        }
+    }
 }
 
 } // namespace Scripts

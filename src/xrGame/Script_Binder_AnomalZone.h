@@ -50,7 +50,7 @@ private:
     xr_map<xr_string, std::uint32_t> m_table_max_artefacts;
     // .first -> xz | .second -> y
     xr_map<xr_string, std::pair<std::uint32_t, std::uint32_t>> m_table_forces;
-    xr_map<xr_string, xr_string> m_table_mines;
+    xr_map<xr_string, xr_vector<xr_string>> m_table_mines;
     xr_map<xr_string, xr_vector<xr_string>> m_table_artefacts;
     xr_map<xr_string, xr_vector<xr_string>> m_table_start_artefacts;
     xr_map<xr_string, xr_vector<xr_string>> m_table_path;
