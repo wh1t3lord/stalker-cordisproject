@@ -5,7 +5,7 @@ namespace Cordis
 {
 namespace Scripts
 {
-Script_Binder_AnomalField::Script_Binder_AnomalField(CScriptBinderObject* object) : inherited(object), m_last_update(0)
+Script_Binder_AnomalField::Script_Binder_AnomalField(CScriptGameObject* object) : inherited(object), m_last_update(0)
 {
     this->m_last_update = Globals::get_time_global();
 }

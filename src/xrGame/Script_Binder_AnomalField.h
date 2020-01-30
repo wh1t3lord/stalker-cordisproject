@@ -12,7 +12,7 @@ class Script_Binder_AnomalField : public CScriptBinderObject
 
 public:
     Script_Binder_AnomalField(void) = delete;
-    Script_Binder_AnomalField(CScriptBinderObject* object);
+    Script_Binder_AnomalField(CScriptGameObject* object);
     ~Script_Binder_AnomalField(void);
 
     virtual void reinit(void);

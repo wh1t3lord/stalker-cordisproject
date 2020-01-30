@@ -31,6 +31,8 @@ public:
 
     void disable_anomaly_fields(void);
     void respawn_artefacts_and_replace_anomaly_zone(void);
+    void spawn_artefact_randomly(void);
+    xr_string get_artefact_path(void);
 
 private:
     bool m_is_created_own_ini_file_from_cfg_section;
@@ -47,6 +49,8 @@ private:
     std::uint32_t m_applying_force_xz;
     std::uint32_t m_applying_force_y;
     CScriptIniFile* m_p_ini;
+    xr_map<std::uint16_t, xr_string> m_artefact_ways_by_id;
+    xr_map<std::uint16_t, std::uint32_t> m_artefact_points_by_id;
     xr_map<xr_string, std::uint32_t> m_table_respawn_tries;
     xr_map<xr_string, std::uint32_t> m_table_max_artefacts;
     // .first -> xz | .second -> y
