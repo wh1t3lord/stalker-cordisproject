@@ -2757,7 +2757,30 @@ inline void change_anomalies_names(void)
             hint_name += "\\n"; // Lord: должно ли быть так а не через один \ ????
 
             bool is_has_af = false;
-            // XR_CONDITION
+            xr_vector<xr_string> artefacts;
+            is_has_af = XR_CONDITION::is_anomaly_has_artefact(
+                DataBase::Storage::getInstance().getActor(), nullptr, {it.getZoneName()}, artefacts);
+
+            if (is_has_af)
+            {
+                hint_name += Globals::Game::translate_string("st_jup_b32_has_af");
+                
+                for (const xr_string& it : artefacts)
+                {
+                    xr_string translate_data_name = "st_";
+                    translate_data_name += it;
+                    translate_data_name += "_name";
+                    hint_name += "\\n";
+                    hint_name += Globals::Game::translate_string(translate_data_name.c_str());
+                }
+            }
+            else
+            {
+                hint_name += Globals::Game::translate_string("st_jup_b32_no_af");
+            }
+
+            if (object_id && (Globals::Game::level::map_has_object_spot(object_id, "primary_object") == 0))
+                Globals::Game::level::map_add_object_spot(object_id, "primary_object", hint_name.c_str());
         }
     }
 }

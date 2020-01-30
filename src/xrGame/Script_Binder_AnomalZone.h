@@ -25,15 +25,23 @@ public:
     virtual bool net_SaveRelevant(void);
 
     inline std::uint32_t getSpawnedCount(void) const noexcept { return this->m_spawned_count; }
-    inline void set_forced_override(const xr_string& artefact_name) 
+    inline void set_forced_override(const xr_string& artefact_name)
     {
         if (artefact_name.empty())
-            Msg("[Scripts/Script_Binder_AnomalZone/set_forced_override(artefact_name)] WARNING: artefact_name.empty() == true! You set an empty string");
+            Msg("[Scripts/Script_Binder_AnomalZone/set_forced_override(artefact_name)] WARNING: artefact_name.empty() "
+                "== true! You set an empty string");
 
         this->m_forced_artefact_name = artefact_name;
         this->m_is_forced_spawn_override = true;
 
-        Msg("[Scripts/Script_Binder_AnomalZone/set_forced_override(artefact_name)] set forced override zone %s, artefact %s", this->m_object->Name(), artefact_name.c_str());
+        Msg("[Scripts/Script_Binder_AnomalZone/set_forced_override(artefact_name)] set forced override zone %s, "
+            "artefact %s",
+            this->m_object->Name(), artefact_name.c_str());
+    }
+
+    inline const xr_map<std::uint16_t, xr_string>& getArtefactWaysByID(void) const noexcept
+    {
+        return this->m_artefact_ways_by_id;
     }
 
     void disable_anomaly_fields(void);

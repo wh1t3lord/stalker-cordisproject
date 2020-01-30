@@ -4133,8 +4133,9 @@ inline bool is_jup_b47_npc_online_server(
     return !!server_object;
 }
 
-inline bool is_anomaly_has_artefact(
-    CScriptGameObject* const p_actor, CScriptGameObject* const p_npc, const xr_vector<xr_string>& buffer)
+// Not uses in game, but uses in scripts maybe you should remove it in e.x. to Globals:: Lord
+inline bool is_anomaly_has_artefact(CScriptGameObject* const p_actor, CScriptGameObject* const p_npc,
+    const xr_vector<xr_string>& buffer, xr_vector<xr_string>& artefacts)
 {
     if (buffer.empty())
     {
@@ -4165,8 +4166,26 @@ inline bool is_anomaly_has_artefact(
 
     if (artefact_name.empty())
     {
-        
+        for (const std::pair<std::uint16_t, xr_string>& it : p_binder_zone->getArtefactWaysByID())
+        {
+            CSE_Abstract* p_server_object =
+                ai().alife().objects().object(it.first);
+
+            if (p_server_object)
+                artefacts.push_back(p_server_object->name());
+        }
+
+        return true;
     }
+
+    for (const std::pair<std::uint16_t, xr_string>& it : p_binder_zone->getArtefactWaysByID())
+    {
+        CSE_Abstract* p_server_object = ai().alife().objects().object(it.first);
+        if (p_server_object && p_server_object->name() == artefact_name)
+            return true;
+    }
+
+    return false;
 }
 
 inline bool is_zat_b29_anomaly_has_af_client(
