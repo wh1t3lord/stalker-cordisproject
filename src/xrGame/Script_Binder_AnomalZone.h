@@ -19,15 +19,22 @@ public:
     virtual void reload(LPCSTR section_name);
     virtual bool net_Spawn(SpawnType DC);
     virtual void net_Destroy(void);
-    virtual void net_Import(NET_Packet* packet);
-    virtual void net_Export(NET_Packet* packet);
     virtual void shedule_Update(std::uint32_t time_delta);
     virtual void save(NET_Packet* output_packet);
     virtual void load(IReader* input_packet);
     virtual bool net_SaveRelevant(void);
-    virtual void net_Relcase(CScriptGameObject* object);
 
     inline std::uint32_t getSpawnedCount(void) const noexcept { return this->m_spawned_count; }
+    inline void set_forced_override(const xr_string& artefact_name) 
+    {
+        if (artefact_name.empty())
+            Msg("[Scripts/Script_Binder_AnomalZone/set_forced_override(artefact_name)] WARNING: artefact_name.empty() == true! You set an empty string");
+
+        this->m_forced_artefact_name = artefact_name;
+        this->m_is_forced_spawn_override = true;
+
+        Msg("[Scripts/Script_Binder_AnomalZone/set_forced_override(artefact_name)] set forced override zone %s, artefact %s", this->m_object->Name(), artefact_name.c_str());
+    }
 
     void disable_anomaly_fields(void);
     void respawn_artefacts_and_replace_anomaly_zone(void);

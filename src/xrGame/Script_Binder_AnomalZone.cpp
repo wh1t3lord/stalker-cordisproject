@@ -229,27 +229,148 @@ Script_Binder_Anomaly::~Script_Binder_Anomaly(void)
     }
 }
 
-void Script_Binder_Anomaly::reinit(void) {}
+void Script_Binder_Anomaly::reinit(void)
+{
+    inherited::reinit();
+    // Lord: протестировать норм или нет
+    DataBase::Storage::getInstance().deleteStorage(this->m_object->ID());
+}
 
-void Script_Binder_Anomaly::reload(LPCSTR section_name) {}
+void Script_Binder_Anomaly::reload(LPCSTR section_name) { inherited::reload(section_name); }
 
-bool Script_Binder_Anomaly::net_Spawn(SpawnType DC) { return false; }
+bool Script_Binder_Anomaly::net_Spawn(SpawnType DC)
+{
+    if (!inherited::net_Spawn(DC))
+        return false;
 
-void Script_Binder_Anomaly::net_Destroy(void) {}
+    DataBase::Storage::getInstance().addAnomaly(this->m_object);
+    DataBase::Storage::getInstance().addObject(this->m_object);
 
-void Script_Binder_Anomaly::net_Import(NET_Packet* packet) {}
+    return true;
+}
 
-void Script_Binder_Anomaly::net_Export(NET_Packet* packet) {}
+void Script_Binder_Anomaly::net_Destroy(void)
+{
+    DataBase::Storage::getInstance().deleteAnomaly(this->m_object);
+    DataBase::Storage::getInstance().deleteObject(this->m_object);
+    DataBase::Storage::getInstance().deleteStorage(this->m_object->ID());
+    inherited::net_Destroy();
+}
 
-void Script_Binder_Anomaly::shedule_Update(std::uint32_t time_delta) {}
+void Script_Binder_Anomaly::shedule_Update(std::uint32_t time_delta)
+{
+    inherited::shedule_Update(time_delta);
+    if (!this->m_is_turned_off && (this->m_spawned_count < this->m_max_artefacts) && this->m_is_respawn_artefacts)
+    {
+        std::uint32_t count = this->m_respawn_tries;
+        if (count > this->m_max_artefacts - this->m_spawned_count)
+        {
+            count = this->m_max_artefacts - this->m_spawned_count;
+        }
 
-void Script_Binder_Anomaly::save(NET_Packet* output_packet) {}
+        if (count != 0)
+        {
+            for (std::uint32_t i = 0; i < count; ++i)
+                this->spawn_artefact_randomly();
+        }
 
-void Script_Binder_Anomaly::load(IReader* input_packet) {}
+        this->m_is_respawn_artefacts = false;
+    }
+    else if (!this->m_is_turned_off && (this->m_spawned_count >= this->m_max_artefacts) && this->m_is_respawn_artefacts)
+    {
+        this->m_is_respawn_artefacts = false;
+    }
 
-bool Script_Binder_Anomaly::net_SaveRelevant(void) { return false; }
+    if (!this->m_is_disabled)
+        this->disable_anomaly_fields();
+}
 
-void Script_Binder_Anomaly::net_Relcase(CScriptGameObject* object) {}
+void Script_Binder_Anomaly::save(NET_Packet* output_packet)
+{
+    Globals::set_save_marker(*output_packet, Globals::kSaveMarkerMode_Save, false, "script_binder_anomalzone");
+    inherited::save(output_packet);
+
+    std::uint32_t count = 0;
+    count = this->m_artefact_ways_by_id.size();
+    output_packet->w_u16(count);
+
+    for (const std::pair<std::uint16_t, xr_string>& it : this->m_artefact_ways_by_id)
+    {
+        output_packet->w_u16(it.first);
+        output_packet->w_stringZ(it.second.c_str());
+    }
+
+    count = this->m_artefact_points_by_id.size();
+    output_packet->w_u16(count);
+
+    for (const std::pair<std::uint16_t, std::uint32_t>& it : this->m_artefact_points_by_id)
+    {
+        output_packet->w_u16(it.first);
+        output_packet->w_u32(it.second);
+    }
+
+    output_packet->w_u8(this->m_spawned_count);
+    output_packet->w_u8(this->m_is_respawn_artefacts);
+    output_packet->w_u8(this->m_is_forced_spawn);
+    output_packet->w_u8(this->m_is_forced_spawn_override);
+    output_packet->w_stringZ(this->m_forced_artefact_name.c_str());
+
+    xr_string layer_number = this->m_current_layer_name.substr(this->m_current_layer_name.find("_") + 1);
+    std::uint8_t layer_number_value = static_cast<std::uint8_t>(atoi(layer_number.c_str()));
+    if (layer_number_value)
+        output_packet->w_u8(layer_number_value);
+    else
+        output_packet->w_u8(std::uint8_t(-1));
+
+    output_packet->w_u8(this->m_is_turned_off);
+
+    Globals::set_save_marker(*output_packet, Globals::kSaveMarkerMode_Save, true, "script_binder_anomalzone");
+}
+
+void Script_Binder_Anomaly::load(IReader* input_packet)
+{
+    Globals::set_save_marker(*input_packet, Globals::kSaveMarkerMode_Load, false, "script_binder_anomalzone");
+
+    inherited::load(input_packet);
+
+    std::uint16_t count = input_packet->r_u16();
+    for (std::uint16_t i = 0; i < count; ++i)
+    {
+        std::uint16_t artefact_id = input_packet->r_u16();
+        xr_string way_name;
+        input_packet->r_stringZ(way_name);
+        DataBase::Storage::getInstance().setArtefactWaysByID(artefact_id, way_name);
+        this->m_artefact_ways_by_id[artefact_id] = way_name;
+        DataBase::Storage::getInstance().setParentZonesArtefactByID(artefact_id, this);
+    }
+
+    count = input_packet->r_u16();
+    for (std::uint16_t i = 0; i < count; ++i)
+    {
+        std::uint16_t artefact_id = input_packet->r_u16();
+        std::uint32_t point = input_packet->r_u8();
+        DataBase::Storage::getInstance().setArtefactPointsByID(artefact_id, point);
+        this->m_artefact_points_by_id[artefact_id] = point;
+    }
+
+    this->m_spawned_count = input_packet->r_u8();
+    this->m_is_respawn_artefacts = static_cast<bool>(input_packet->r_u8());
+    this->m_is_forced_spawn = static_cast<bool>(input_packet->r_u8());
+    this->m_is_forced_spawn_override = static_cast<bool>(input_packet->r_u8());
+    input_packet->r_stringZ(this->m_forced_artefact_name);
+    std::uint8_t layer_number = input_packet->r_u8();
+    if (layer_number != Globals::kUnsignedInt8Undefined)
+    {
+        this->m_current_layer_name = "layer_";
+        this->m_current_layer_name += std::to_string(layer_number).c_str();
+    }
+
+    this->m_is_turned_off = input_packet->r_u8();
+
+    Globals::set_save_marker(*input_packet, Globals::kSaveMarkerMode_Load, true, "script_binder_anomalzone");
+}
+
+bool Script_Binder_Anomaly::net_SaveRelevant(void) { return true; }
 
 void Script_Binder_Anomaly::disable_anomaly_fields(void)
 {
@@ -420,8 +541,10 @@ void Script_Binder_Anomaly::spawn_artefact_randomly(void)
 
     xr_string random_path_name = this->get_artefact_path();
     CPatrolPathParams random_patrol(random_path_name.c_str());
-    std::uint32_t random_path_point = Globals::Script_RandomInt::getInstance().Generate<std::uint32_t>(0, random_patrol.count() - 1);
-    CSE_Abstract* p_server_artefact_object = Globals::Game::alife_create(random_artefact_name, random_patrol.point(random_path_point), this->m_object->level_vertex_id(), this->m_object->game_vertex_id());
+    std::uint32_t random_path_point =
+        Globals::Script_RandomInt::getInstance().Generate<std::uint32_t>(0, random_patrol.count() - 1);
+    CSE_Abstract* p_server_artefact_object = Globals::Game::alife_create(random_artefact_name,
+        random_patrol.point(random_path_point), this->m_object->level_vertex_id(), this->m_object->game_vertex_id());
 
     DataBase::Storage::getInstance().setArtefactWaysByID(p_server_artefact_object->ID, random_path_name);
     DataBase::Storage::getInstance().setArtefactPointsByID(p_server_artefact_object->ID, random_path_point);
@@ -454,7 +577,9 @@ xr_string Script_Binder_Anomaly::get_artefact_path(void)
 
     if (table.empty())
     {
-        return this->m_table_path.at(this->m_current_layer_name)[Globals::Script_RandomInt::getInstance().Generate<std::uint32_t>(0, this->m_table_path.at(this->m_current_layer_name).size() - 1)];
+        return this->m_table_path.at(
+            this->m_current_layer_name)[Globals::Script_RandomInt::getInstance().Generate<std::uint32_t>(
+            0, this->m_table_path.at(this->m_current_layer_name).size() - 1)];
     }
 
     return (table[Globals::Script_RandomInt::getInstance().Generate<std::uint32_t>(0, table.size() - 1)]);

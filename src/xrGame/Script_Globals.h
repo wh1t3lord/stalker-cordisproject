@@ -218,6 +218,7 @@ inline void start_game_callback(void);
 inline void system_deallocation(void);
 
 inline void set_save_marker(NET_Packet& packet, const xr_string& mode, bool check, const xr_string& prefix);
+inline void set_save_marker(IReader& packet, const xr_string& mode, bool check, const xr_string& prefix);
 // @ from simulation_objects
 inline bool is_on_the_same_level(CSE_ALifeObject* object1, CSE_ALifeObject* object2);
 inline float sim_dist_to(CSE_ALifeObject* object1, CSE_ALifeObject* object2);
