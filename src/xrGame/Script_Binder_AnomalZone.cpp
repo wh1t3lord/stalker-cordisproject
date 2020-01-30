@@ -326,5 +326,50 @@ void Script_Binder_Anomaly::disable_anomaly_fields(void)
     }
 }
 
+void Script_Binder_Anomaly::respawn_artefacts_and_replace_anomaly_zone(void)
+{
+    const xr_map<xr_string, Script_Binder_AnomalField*>& anomaly_fields =
+        DataBase::Storage::getInstance().getFieldsByName();
+    this->m_is_respawn_artefacts = true;
+
+    if (this->m_is_custom_placement)
+    {
+        for (const xr_string& it : this->m_table_fields.at(this->m_current_layer_name))
+        {
+            if (anomaly_fields.at(it))
+                anomaly_fields.at(it)->set_enable(false);
+        }
+
+        for (const xr_string& it : this->m_table_mines.at(this->m_current_layer_name))
+        {
+            if (anomaly_fields.at(it))
+                anomaly_fields.at(it)->set_enable(false);
+        }
+
+        xr_string layer_name = "layer_";
+        layer_name +=
+            std::to_string(Globals::Script_RandomInt::getInstance().Generate<std::uint32_t>(1, this->m_layers_count));
+
+        for (const xr_string& it : this->m_table_fields.at(this->m_current_layer_name))
+        {
+            if (anomaly_fields.at(it))
+                anomaly_fields.at(it)->set_enable(true);
+        }
+
+        for (const xr_string& it : this->m_table_mines.at(this->m_current_layer_name))
+        {
+            if (anomaly_fields.at(it))
+                anomaly_fields.at(it)->set_enable(true);
+        }
+
+        this->m_current_layer_name = layer_name;
+        this->m_respawn_tries = this->m_table_respawn_tries.at(this->m_current_layer_name);
+        this->m_max_artefacts = this->m_table_max_artefacts.at(this->m_current_layer_name);
+        this->m_applying_force_xz = this->m_table_forces.at(this->m_current_layer_name).first;
+        this->m_applying_force_y = this->m_table_forces.at(this->m_current_layer_name).second;
+    }
+}
+
+
 } // namespace Scripts
 } // namespace Cordis
