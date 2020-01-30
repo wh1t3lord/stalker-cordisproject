@@ -2069,6 +2069,57 @@ inline void set_save_marker(NET_Packet& packet, const xr_string& mode, bool chec
     }
 }
 
+inline void set_save_marker(IReader& packet, const xr_string& mode, bool check, const xr_string& prefix)
+{
+    xr_string result = "_";
+    result.append(prefix);
+
+    if (check)
+    {
+        if (SaveMarkers()[result] == 0)
+        {
+            R_ASSERT3(false, "Trying to check without marker ", result.c_str());
+        }
+
+        if (mode == kSaveMarkerMode_Save)
+        {
+            R_ASSERT2(false, "you can't use in that fuction save section!!!!");
+        }
+        else
+        {
+            const unsigned int c_delta = packet.tell() - SaveMarkers()[result];
+            unsigned int delta = packet.r_u16();
+
+            if (delta != c_delta)
+            {
+                Msg("INCORRECT LOAD [%s].[%d][%d]", result.c_str(), delta, c_delta);
+                R_ASSERT(false);
+            }
+            else
+            {
+                xr_string info = "";
+                info.append(result);
+                info.append(": LOAD DELTA: %d");
+                Msg(info.c_str(), delta);
+            }
+        }
+        return;
+    }
+
+    if (mode == kSaveMarkerMode_Save)
+    {
+        R_ASSERT2(false, "you can't use save section in this function!!!!!");
+    }
+    else
+    {
+        xr_string info = "";
+        info.append(result);
+        info.append(": set load marker: %d");
+        Msg(info.c_str(), packet.tell());
+        SaveMarkers()[result] = packet.tell();
+    }
+}
+
 inline bool is_on_the_same_level(CSE_ALifeObject* object1, CSE_ALifeObject* object2)
 {
     if (!object1 || !object2)
@@ -2706,7 +2757,7 @@ inline void change_anomalies_names(void)
             hint_name += "\\n"; // Lord: должно ли быть так а не через один \ ????
 
             bool is_has_af = false;
-            //XR_CONDITION
+            // XR_CONDITION
         }
     }
 }

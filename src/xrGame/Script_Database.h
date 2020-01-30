@@ -4048,6 +4048,12 @@ public:
         this->m_game_registered_smartcovers_by_level_id[level_id][id] = server_smartcover;
     }
 
+    inline void deleteStorage(const std::uint16_t object_id) 
+    { 
+        Msg("[Scripts/DataBase/Storage/deleteStorage(object_id)] deleting storage -> %d", object_id);
+        this->m_storage.erase(object_id);
+    }
+
     inline void Deallocate(void)
     {
         this->m_actor = nullptr;
