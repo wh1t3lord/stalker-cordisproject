@@ -585,5 +585,48 @@ xr_string Script_Binder_Anomaly::get_artefact_path(void)
     return (table[Globals::Script_RandomInt::getInstance().Generate<std::uint32_t>(0, table.size() - 1)]);
 }
 
+void Script_Binder_Anomaly::turn_on(const bool value)
+{
+    this->m_is_turned_off = false;
+    this->disable_anomaly_fields();
+    this->m_is_respawn_artefacts = value;
+}
+
+void Script_Binder_Anomaly::turn_off(void)
+{
+    this->m_is_turned_off = false;
+    this->disable_anomaly_fields();
+
+    for (const std::pair<std::uint16_t, xr_string>& it : this->m_artefact_ways_by_id)
+    {
+        CSE_Abstract* p_server_object = ai().alife().objects().object(it.first);
+        Globals::Game::alife_release(p_server_object, true);
+        DataBase::Storage::getInstance().setArtefactWaysByID(it.first, "");
+        DataBase::Storage::getInstance().setArtefactPointsByID(it.first, 0);
+        DataBase::Storage::getInstance().setParentZonesArtefactByID(it.first, nullptr);
+    }
+
+    this->m_spawned_count = 0;
+    this->m_artefact_points_by_id.clear();
+    this->m_artefact_ways_by_id.clear();
+}
+
+void Script_Binder_Anomaly::on_artefact_take(const std::uint16_t object_id)
+{
+    if (object_id == Globals::kUnsignedInt16Undefined)
+    {
+        R_ASSERT2(false, "something is not right");
+        return;
+    }
+
+    DataBase::Storage::getInstance().setArtefactWaysByID(object_id, "");
+    DataBase::Storage::getInstance().setArtefactPointsByID(object_id, 0);
+    this->m_artefact_points_by_id[object_id] = 0;
+    this->m_artefact_ways_by_id[object_id].clear();
+    --(this->m_spawned_count);
+
+    Globals::change_anomalies_names();
+}
+
 } // namespace Scripts
 } // namespace Cordis

@@ -40,6 +40,11 @@ public:
     void respawn_artefacts_and_replace_anomaly_zone(void);
     void spawn_artefact_randomly(void);
     xr_string get_artefact_path(void);
+    void turn_on(const bool value);
+    void turn_off(void);
+
+    // @ For Client & for Server
+    void on_artefact_take(const std::uint16_t object_id);
 
 private:
     bool m_is_created_own_ini_file_from_cfg_section;
