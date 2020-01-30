@@ -4165,9 +4165,7 @@ public:
     {
         if (path_name.empty())
         {
-            Msg("[Scripts/DataBase/Storage/setArtefactWaysByID(id, path_name)] WARNING: path_name.empty() == true! "
-                "Return ...");
-            return;
+            Msg("[Scripts/DataBase/Storage/setArtefactWaysByID(id, path_name)] WARNING: path_name.empty() == true! ");
         }
 
         this->m_artefact_ways_by_id[id] = path_name;
