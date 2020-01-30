@@ -836,12 +836,6 @@ public:
             R_ASSERT2(false, "It can't be! Rewrite values minimum and maximum!!!");
         }
 
-        if (std::is_integral<IntegerType>() == false)
-        {
-            R_ASSERT2(false, "you can't use here floating point!");
-            return IntegerType(0);
-        }
-
         std::uniform_int_distribution<IntegerType> distribution(minimum, maximum);
         return distribution(this->m_generator);
     }
