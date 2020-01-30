@@ -341,7 +341,7 @@ inline void jup_b32_place_scanner(
 inline void jup_b32_pda_check(
     CScriptGameObject* const p_actor, CScriptGameObject* const p_npc, const xr_vector<xr_string>& buffer)
 {
-
+    Globals::change_anomalies_names();
 }
 
 inline void remove_item(
