@@ -599,7 +599,7 @@ int Script_SoundActor::select_next_sound(const std::uint16_t& npc_id)
             //             std::mt19937 range(random_device);
             //             std::uniform_int_distribution<size_t> urandom(1, sound_map_size - 1);
 
-            size_t generated_value = Globals::Script_RandomInt::getInstance().Generate(1, sound_map_size - 1);
+            size_t generated_value = Globals::Script_RandomInt::getInstance().Generate<size_t>(1, sound_map_size - 1);
 
             if (generated_value >= this->m_played_id)
                 return generated_value + 1;
@@ -610,7 +610,7 @@ int Script_SoundActor::select_next_sound(const std::uint16_t& npc_id)
         //         std::random_device random_device;
         //         std::mt19937 range(random_device);
         //         std::uniform_int_distribution<size_t> urandom(1, sound_map_size);
-        size_t generated_value = Globals::Script_RandomInt::getInstance().Generate(1, sound_map_size);
+        size_t generated_value = Globals::Script_RandomInt::getInstance().Generate<size_t>(1, sound_map_size);
 
         return generated_value;
     }
@@ -829,7 +829,7 @@ int Script_SoundObject::select_next_sound(const std::uint16_t& npc_id)
             //             std::mt19937 range(random_device);
             //             std::uniform_int_distribution<size_t> urandom(1, sound_map_size - 1);
 
-            size_t generated_value = Globals::Script_RandomInt::getInstance().Generate(1, sound_map_size - 1);
+            size_t generated_value = Globals::Script_RandomInt::getInstance().Generate<size_t>(1, sound_map_size - 1);
 
             if (generated_value >= this->m_played_id)
                 return generated_value + 1;
@@ -840,7 +840,7 @@ int Script_SoundObject::select_next_sound(const std::uint16_t& npc_id)
         //         std::random_device random_device;
         //         std::mt19937 range(random_device);
         //         std::uniform_int_distribution<size_t> urandom(1, sound_map_size);
-        size_t generated_value = Globals::Script_RandomInt::getInstance().Generate(1, sound_map_size);
+        size_t generated_value = Globals::Script_RandomInt::getInstance().Generate<size_t>(1, sound_map_size);
 
         return generated_value;
     }

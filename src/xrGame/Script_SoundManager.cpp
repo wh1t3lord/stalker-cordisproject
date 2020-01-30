@@ -160,7 +160,7 @@ void Script_SoundManager::update(void)
         if (this->m_npc.size() >= 2)
         {
             std::uint32_t id =
-                Globals::Script_RandomInt::getInstance().Generate(std::uint32_t(0), (this->m_npc.size() - 1));
+                Globals::Script_RandomInt::getInstance().Generate<std::uint32_t>(0, (this->m_npc.size() - 1));
 
             if (id >= teller_id)
                 ++id;
@@ -193,7 +193,7 @@ void Script_SoundManager::update(void)
     else
     {
         npc_id =
-            this->m_npc[Globals::Script_RandomInt::getInstance().Generate(std::uint32_t(0), this->m_npc.size() - 1)];
+            this->m_npc[Globals::Script_RandomInt::getInstance().Generate<std::uint32_t>(0, this->m_npc.size() - 1)];
     }
 
     if (!npc_id ||

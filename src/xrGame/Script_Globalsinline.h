@@ -813,6 +813,33 @@ inline CSE_Abstract* alife_create(const xr_string& section, const Fvector& posit
     return (alife->server().Process_spawn(packet, clientID));
 }
 
+inline void alife_release(CSE_Abstract* object, bool no_assert)
+{
+    // VERIFY(self);
+    //	self->release						(object,true);
+
+    THROW(object);
+    CSE_ALifeObject* alife_object = smart_cast<CSE_ALifeObject*>(object);
+    THROW(alife_object);
+    if (!alife_object->m_bOnline)
+    {
+        CALifeSimulator* p_alife = const_cast<CALifeSimulator*>(ai().get_alife());
+
+        if (p_alife)
+            p_alife->release(object, no_assert);
+
+        return;
+    }
+
+    // awful hack, for stohe only
+    NET_Packet packet;
+    packet.w_begin(M_EVENT);
+    packet.w_u32(Level().timeServer());
+    packet.w_u16(GE_DESTROY);
+    packet.w_u16(object->ID);
+    Level().Send(packet, net_flags(TRUE, TRUE));
+}
+
 inline xr_string get_squad_relation_to_actor_by_id(const std::uint16_t& squad_id)
 {
     Script_SE_SimulationSquad* squad = ai().alife().objects().object(squad_id)->cast_script_se_simulationsquad();
@@ -880,7 +907,7 @@ inline CScriptGameObject* get_object_by_id(u16 id)
     return pGameObject->lua_game_object();
 }
 
-inline LPCSTR get_name(void) { return (*Level().name()); }
+inline xr_string get_name(void) { return (*Level().name()); }
 inline void map_remove_object_spot(const std::uint16_t& id, LPCSTR spot_type)
 {
     Level().MapManager().RemoveMapLocation(spot_type, id);
@@ -962,7 +989,52 @@ inline float add_cam_effector(LPCSTR fn, int id, bool cyclic, LPCSTR cb_func)
     Actor()->Cameras().AddCamEffector(e);
     return e->GetAnimatorLength();
 }
+inline float add_cam_effector2(LPCSTR fn, int id, bool cyclic, LPCSTR cb_func, float cam_fov)
+{
+    CAnimatorCamEffectorScriptCB* e = new CAnimatorCamEffectorScriptCB(cb_func);
+    e->m_bAbsolutePositioning = true;
+    e->m_fov = cam_fov;
+    e->SetType((ECamEffectorType)id);
+    e->SetCyclic(cyclic);
+    e->Start(fn);
+    Actor()->Cameras().AddCamEffector(e);
+    return e->GetAnimatorLength();
+}
 inline void remove_cam_effector(int id) { Actor()->Cameras().RemoveCamEffector((ECamEffectorType)id); }
+inline void show_weapon(bool b) { psHUD_Flags.set(HUD_WEAPON_RT2, b); }
+inline void disable_input(void)
+{
+    g_bDisableAllInput = true;
+    Msg("[Scripts/Globals/Game/level/disable_input()] input disabled");
+}
+
+inline void enable_input(void)
+{
+    g_bDisableAllInput = false;
+    Msg("input enabled");
+}
+inline void hide_indicators_safe(void)
+{
+    if (CurrentGameUI())
+    {
+        CurrentGameUI()->ShowGameIndicators(false);
+        CurrentGameUI()->ShowCrosshair(false);
+
+        CurrentGameUI()->OnExternalHideIndicators();
+    }
+    psActorFlags.set(AF_GODMODE_RT, TRUE);
+}
+inline void show_indicators(void)
+{
+    if (CurrentGameUI())
+    {
+        CurrentGameUI()->ShowGameIndicators(true);
+        CurrentGameUI()->ShowCrosshair(true);
+    }
+    psActorFlags.set(AF_GODMODE_RT, FALSE);
+}
+inline void add_complex_effector(LPCSTR section, int id) { AddEffector(Actor(), id, section); }
+inline void remove_complex_effector(int id) { RemoveEffector(Actor(), id); }
 } // namespace level
 } // namespace Game
 
@@ -1668,8 +1740,7 @@ inline bool IsMonster(CScriptGameObject* object, int class_id = 0)
 {
     if (!object)
     {
-        R_ASSERT2(false, "object is null!");
-        return false;
+        Msg("[Scripts/Globals/IsMonster(object, class_id)] WARNING: trying to use class_id = %d", class_id);
     }
 
     int result = class_id ? class_id : object->clsid();
@@ -1681,8 +1752,7 @@ inline bool IsMonster(CSE_ALifeDynamicObject* server_object, int class_id = 0)
 {
     if (!server_object)
     {
-        R_ASSERT2(false, "object was null!");
-        return false;
+        Msg("[Scripts/Globals/IsMonster(server_object, class_id)] WARNING: trying to use class_id = %d", class_id);
     }
 
     int result = class_id ? class_id : server_object->m_script_clsid;
@@ -1694,8 +1764,7 @@ inline bool IsStalker(CScriptGameObject* object, int class_id = 0)
 {
     if (!object)
     {
-        R_ASSERT2(false, "object in null!");
-        return false;
+        Msg("[Scripts/Globals/IsStalker(object, class_id)] WARNING: trying to use class_id = %d", class_id);
     }
 
     int result = class_id ? class_id : object->clsid();
@@ -1710,8 +1779,7 @@ inline bool IsStalker(CSE_ALifeDynamicObject* server_object, int class_id = 0)
 {
     if (!server_object)
     {
-        R_ASSERT2(false, "object was null!");
-        return false;
+        Msg("[Scripts/Globals/IsStalker(server_object, class_id)] WARNING: trying to use class_id = %d", class_id);
     }
 
     int result = class_id ? class_id : server_object->m_script_clsid;
@@ -1726,8 +1794,7 @@ inline bool IsArtefact(CScriptGameObject* object, int class_id = 0)
 {
     if (!object)
     {
-        R_ASSERT2(false, "object in null!");
-        return false;
+        Msg("[Scripts/Globals/IsArtefact(object, class_id)] WARNING: trying to use class_id = %d", class_id);
     }
 
     int result = class_id ? class_id : object->clsid();
@@ -1742,8 +1809,7 @@ inline bool IsWeapon(CScriptGameObject* object, int class_id)
 {
     if (!object)
     {
-        R_ASSERT2(false, "object is null!");
-        return false;
+        Msg("[Scripts/Globals/IsWeapon(object, class_id)] WARNING: trying to use class_id = %d", class_id);
     }
 
     int result = class_id ? class_id : object->clsid();
@@ -2534,6 +2600,115 @@ inline void set_state(CScriptGameObject* const p_client_object, const xr_string&
 
     DataBase::Storage::getInstance().setStorageStateManagerSetState(
         p_client_object->ID(), state_name, callback, timeout, target, extra);
+}
+
+// inline std::uint32_t get_level_id(void) { return (ai().game_graph().level().level_id()); }
+
+inline LPCSTR get_level_name(int level_id)
+{
+    LPCSTR result = *ai().game_graph().header().level((GameGraph::_LEVEL_ID)level_id).name();
+    return (result);
+}
+
+inline void update_logic(CScriptGameObject* const p_object)
+{
+    if (!p_object)
+    {
+        R_ASSERT2(false, "object is null!");
+        return;
+    }
+
+    bool is_object_alive = p_object->Alive();
+    const DataBase::Storage_Data& storage = DataBase::Storage::getInstance().getStorage().at(p_object->ID());
+    CScriptGameObject* const p_actor = DataBase::Storage::getInstance().getActor();
+    DataBase::Storage_Scheme* p_storage_combat = storage.getSchemes().at("combat");
+
+    if (is_object_alive && !storage.getActiveSchemeName().empty())
+    {
+        bool is_switched = false;
+        CScriptActionPlanner* p_planner = Globals::get_script_action_planner(p_object);
+
+        if (p_planner->initialized() &&
+            p_planner->current_action_id() == StalkerDecisionSpace::eWorldOperatorCombatPlanner)
+        {
+            const DataBase::Data_Overrides& overrides = storage.getOverrides();
+
+            if (!overrides.isEmpty())
+            {
+                if (!overrides.getOnCombat().IsEmpty())
+                {
+                    XR_LOGIC::pick_section_from_condlist(p_actor, p_object, overrides.getOnCombat().getCondlist());
+                }
+
+                if (p_storage_combat && !p_storage_combat->getLogic().empty())
+                {
+                    if (!XR_LOGIC::try_switch_to_another_section(p_object, *p_storage_combat, p_actor))
+                    {
+                        if (!overrides.getCombatType().IsEmpty())
+                        {
+                            XR_COMBAT::set_combat_type(p_object, p_actor, overrides.getCombatType().getCondlist());
+                        }
+                    }
+                    else
+                    {
+                        is_switched = true;
+                    }
+                }
+            }
+            else
+            {
+                XR_COMBAT::set_combat_type(p_object, p_actor, p_storage_combat->getXRCombatCombatTypeCondlist());
+            }
+
+            if (!is_switched)
+            {
+                XR_LOGIC::try_switch_to_another_section(
+                    p_object, *storage.getSchemes().at(storage.getActiveSchemeName()), p_actor);
+            }
+        }
+    }
+    else
+    {
+        XR_COMBAT::set_combat_type(p_object, p_actor, p_storage_combat->getXRCombatCombatTypeCondlist());
+    }
+}
+
+inline void change_anomalies_names(void)
+{
+    if (has_alife_info("jup_b32_scanner_reward"))
+    {
+        for (const PDA_ChangeObjectData& it : Script_GlobalHelper::getInstance().getPDAChangeObjects())
+        {
+            if (has_alife_info(it.getGroupName().c_str()) && !it.isEnabled())
+            {
+                PDA_ChangeObjectData& _it = const_cast<PDA_ChangeObjectData&>(it);
+                _it.setEnabled(true);
+            }
+        }
+    }
+
+    if (Globals::Game::level::get_name() != "jupiter")
+        return;
+
+    for (const PDA_ChangeObjectData& it : Script_GlobalHelper::getInstance().getPDAChangeObjects())
+    {
+        if (it.isEnabled())
+        {
+            std::uint16_t object_id = Globals::get_story_object_id(it.getTargetName());
+
+            if (object_id && Globals::Game::level::map_has_object_spot(object_id, "primary_object"))
+            {
+                Globals::Game::level::map_remove_object_spot(object_id, "primary_object");
+            }
+
+            xr_string hint_name = Globals::Game::translate_string(it.getHintName().c_str());
+            hint_name += "\\n";
+            hint_name += "\\n"; // Lord: должно ли быть так а не через один \ ????
+
+            bool is_has_af = false;
+            //XR_CONDITION
+        }
+    }
 }
 
 } // namespace Globals

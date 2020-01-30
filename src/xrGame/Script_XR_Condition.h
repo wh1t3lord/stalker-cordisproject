@@ -3,6 +3,7 @@
 #include "Script_XR_Sound.h"
 #include "Script_XR_Gulag.h"
 #include "Script_GlobalDefinitions.h"
+#include "Script_Binder_AnomalZone.h"
 
 namespace Cordis
 {
@@ -2586,7 +2587,7 @@ inline bool is_actor_on_level_client(
 
     for (const xr_string& it : buffer)
     {
-        if (Globals::Game::level::get_name())
+        if (!Globals::Game::level::get_name().empty())
             if (Globals::Game::level::get_name() == it)
                 return true;
     }
@@ -2605,7 +2606,7 @@ inline bool is_actor_on_level_server(
 
     for (const xr_string& it : buffer)
     {
-        if (Globals::Game::level::get_name())
+        if (!Globals::Game::level::get_name().empty())
             if (Globals::Game::level::get_name() == it)
                 return true;
     }
@@ -2624,7 +2625,7 @@ inline bool is_actor_on_level_client_server(
 
     for (const xr_string& it : buffer)
     {
-        if (Globals::Game::level::get_name())
+        if (!Globals::Game::level::get_name().empty())
             if (Globals::Game::level::get_name() == it)
                 return true;
     }
@@ -4132,6 +4133,42 @@ inline bool is_jup_b47_npc_online_server(
     return !!server_object;
 }
 
+inline bool is_anomaly_has_artefact(
+    CScriptGameObject* const p_actor, CScriptGameObject* const p_npc, const xr_vector<xr_string>& buffer)
+{
+    if (buffer.empty())
+    {
+        Msg("[Scripts/XR_CONDITION/is_anomaly_has_artefact(p_actor, p_npc, buffer)] WARNING: buffer.empty() == true! "
+            "Return ...");
+        return false;
+    }
+
+    xr_string anomaly_zone_name = buffer[0];
+    xr_string artefact_name;
+
+    if (buffer.size() > 1)
+        artefact_name = buffer[1];
+
+    CScriptGameObject* const p_zone = DataBase::Storage::getInstance().getAnomalyByName().at(anomaly_zone_name);
+    if (!p_zone)
+        return false;
+
+    Script_Binder_Anomaly* const p_binder_zone = dynamic_cast<Script_Binder_Anomaly*>(p_zone->binded_object());
+    if (!p_binder_zone)
+    {
+        R_ASSERT2(false, "bad cast! Check your object please (p_zone)");
+        return false;
+    }
+
+    if (p_binder_zone->getSpawnedCount() < 1)
+        return false;
+
+    if (artefact_name.empty())
+    {
+        
+    }
+}
+
 inline bool is_zat_b29_anomaly_has_af_client(
     CScriptGameObject* actor, CScriptGameObject* npc, const xr_vector<xr_string>& buffer)
 
@@ -4256,7 +4293,7 @@ inline bool is_jup_b221_who_will_start_client(
     if (buffer[0] == "ability")
         return !!reachable_theme_list.size(); // если массив пуст значит нет доступных тем и ненадо играть сцену
     else if (buffer[0] == "choose")
-        return reachable_theme_list[Globals::Script_RandomInt::getInstance().Generate(
+        return reachable_theme_list[Globals::Script_RandomInt::getInstance().Generate<std::uint32_t>(
                    0, reachable_theme_list.size())] <= 6;
     else
         R_ASSERT2(false, "Something goes wrong and it can't be!");
@@ -4311,7 +4348,7 @@ inline bool is_jup_b221_who_will_start_client_server(
     if (buffer[0] == "ability")
         return !!reachable_theme_list.size(); // если массив пуст значит нет доступных тем и ненадо играть сцену
     else if (buffer[0] == "choose")
-        return reachable_theme_list[Globals::Script_RandomInt::getInstance().Generate(
+        return reachable_theme_list[Globals::Script_RandomInt::getInstance().Generate<std::uint32_t>(
                    0, reachable_theme_list.size())] <= 6;
     else
         R_ASSERT2(false, "Something goes wrong and it can't be!");
@@ -4367,7 +4404,7 @@ inline bool is_jup_b221_who_will_start_server(
     if (buffer[0] == "ability")
         return !!reachable_theme_list.size(); // если массив пуст значит нет доступных тем и ненадо играть сцену
     else if (buffer[0] == "choose")
-        return reachable_theme_list[Globals::Script_RandomInt::getInstance().Generate(
+        return reachable_theme_list[Globals::Script_RandomInt::getInstance().Generate<std::uint32_t>(
                    0, reachable_theme_list.size())] <= 6;
     else
         R_ASSERT2(false, "Something goes wrong and it can't be!");

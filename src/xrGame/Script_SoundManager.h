@@ -59,7 +59,7 @@ public:
     inline void choose_random_storyteller(void) noexcept
     {
         this->m_storyteller_id =
-            this->m_npc[Globals::Script_RandomInt::getInstance().Generate(std::uint32_t(0), (this->m_npc.size() - 1))];
+            this->m_npc[Globals::Script_RandomInt::getInstance().Generate<std::uint32_t>(0, (this->m_npc.size() - 1))];
     }
 
 private:

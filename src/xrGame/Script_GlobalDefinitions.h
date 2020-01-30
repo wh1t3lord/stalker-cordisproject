@@ -6,6 +6,97 @@ namespace Cordis
 {
 namespace Scripts
 {
+namespace XR_EFFECTS
+{
+inline void update_npc_logic(
+    CScriptGameObject* const p_actor, CScriptGameObject* const p_object, const xr_vector<xr_string>& buffer);
+inline void update_obj_logic(
+    CScriptGameObject* const p_actor, CScriptGameObject* const p_object, const xr_vector<xr_string>& buffer);
+inline void disable_ui(
+    CScriptGameObject* const p_actor, CScriptGameObject* const p_npc, const xr_vector<xr_string>& buffer);
+inline void disable_ui_only(
+    CScriptGameObject* const p_actor, CScriptGameObject* const p_npc, const xr_vector<xr_string>& buffer);
+inline void enable_ui(
+    CScriptGameObject* const p_actor, CScriptGameObject* const p_npc, const xr_vector<xr_string>& buffer);
+inline void run_cam_effector(
+    CScriptGameObject* const p_actor, CScriptGameObject* const p_npc, const xr_vector<xr_string>& buffer);
+inline void stop_cam_effector(
+    CScriptGameObject* const p_actor, CScriptGameObject* const p_npc, const xr_vector<xr_string>& buffer);
+inline void run_cam_effector_global(
+    CScriptGameObject* const p_actor, CScriptGameObject* const p_npc, const xr_vector<xr_string>& buffer);
+inline void cam_effector_callback(void);
+inline void run_postprocess(
+    CScriptGameObject* const p_actor, CScriptGameObject* const p_npc, const xr_vector<xr_string>& buffer);
+inline void stop_postprocess(
+    CScriptGameObject* const p_actor, CScriptGameObject* const p_npc, const xr_vector<xr_string>& buffer);
+inline void run_tutorial(
+    CScriptGameObject* const p_actor, CScriptGameObject* const p_npc, const xr_vector<xr_string>& buffer);
+inline void jup_b32_place_scanner(
+    CScriptGameObject* const p_actor, CScriptGameObject* const p_npc, const xr_vector<xr_string>& buffer);
+inline void jup_b32_pda_check(
+    CScriptGameObject* const p_actor, CScriptGameObject* const p_npc, const xr_vector<xr_string>& buffer);
+inline void remove_item(
+    CScriptGameObject* const p_actor, CScriptGameObject* const p_npc, const xr_vector<xr_string>& buffer);
+inline void disable_actor_nightvision(
+    CScriptGameObject* const p_actor, CScriptGameObject* const p_npc, const xr_vector<xr_string>& buffer);
+inline void enable_actor_nightvision(
+    CScriptGameObject* const p_actor, CScriptGameObject* const p_npc, const xr_vector<xr_string>& buffer);
+inline void disable_actor_torch(
+    CScriptGameObject* const p_actor, CScriptGameObject* const p_npc, const xr_vector<xr_string>& buffer);
+inline void enable_actor_torch(
+    CScriptGameObject* const p_actor, CScriptGameObject* const p_npc, const xr_vector<xr_string>& buffer);
+inline void spawn_object(
+    CScriptGameObject* const p_actor, CScriptGameObject* const p_npc, const xr_vector<xr_string>& buffer);
+} // namespace XR_EFFECTS
+
+#pragma region Cordis Dialogs defenition
+inline CScriptGameObject* who_is_npc(
+    CScriptGameObject* const p_first_speaker, CScriptGameObject* const p_second_speaker);
+inline void relocate_money_from_actor(
+    CScriptGameObject* const p_first_speaker, CScriptGameObject* const p_second_speaker, const int value);
+inline void relocate_money_to_actor(
+    CScriptGameObject* const p_first_speaker, CScriptGameObject* const p_second_speaker, const int value);
+inline void relocate_item_section_from_actor(CScriptGameObject* const p_first_speaker,
+    CScriptGameObject* const p_second_speaker, const xr_string& section_name, const xr_string& amount_name = "1");
+inline void relocate_item_section_to_actor(CScriptGameObject* const p_first_speaker,
+    CScriptGameObject* const p_second_speaker, const xr_string& section_name, const std::uint32_t amount);
+#pragma endregion
+
+#pragma region Cordis Dialogs Zaton defenition
+inline bool zat_b30_owl_stalker_trader_actor_has_item_to_sell(
+    CScriptGameObject* const p_first_speaker, CScriptGameObject* const p_second_speaker);
+inline bool zat_b30_owl_can_say_about_heli(
+    CScriptGameObject* const p_first_speaker, CScriptGameObject* const p_second_speaker);
+#pragma endregion
+
+struct PDA_ChangeObjectData
+{
+    PDA_ChangeObjectData(void) = default;
+    ~PDA_ChangeObjectData(void) = default;
+
+    inline const xr_string& getTargetName(void) const noexcept { return this->m_target_name; }
+    inline void setTargetName(const xr_string& target_name) noexcept { this->m_target_name = target_name; }
+
+    inline const xr_string& getHintName(void) const noexcept { return this->m_hint_name; }
+    inline void setHintName(const xr_string& hint_name) noexcept { this->m_hint_name = hint_name; }
+
+    inline const xr_string& getZoneName(void) const noexcept { return this->m_zone_name; }
+    inline void setZoneName(const xr_string& zone_name) noexcept { this->m_zone_name = zone_name; }
+
+    inline const xr_string& getGroupName(void) const noexcept { return this->m_group_name; }
+    inline void setGroupName(const xr_string& group_name) noexcept { this->m_group_name = group_name; }
+
+    inline bool isEnabled(void) const noexcept { return this->m_is_enabled; }
+    inline void setEnabled(const bool value) noexcept { this->m_is_enabled = value; }
+
+private:
+    bool m_is_enabled = false;
+    xr_string m_target_name;
+    xr_string m_hint_name;
+    xr_string m_zone_name;
+    xr_string m_group_name;
+};
+
 // @ Uses in Script_SchemeSRParticle
 class ParticleData
 {
@@ -737,27 +828,35 @@ public:
     Script_RandomInt(Script_RandomInt&&) = delete;
     Script_RandomInt& operator=(Script_RandomInt&&) = delete;
 
-    inline int Generate(const int& minimum, const int& maximum)
+    template <typename IntegerType>
+    inline IntegerType Generate(const IntegerType minimum, const IntegerType maximum)
     {
         if (minimum > maximum)
         {
             R_ASSERT2(false, "It can't be! Rewrite values minimum and maximum!!!");
         }
 
-        std::uniform_int_distribution<int> distribution(minimum, maximum);
-        return distribution(this->m_generator);
-    }
-
-    inline std::uint32_t Generate(const std::uint32_t& minimum, const std::uint32_t& maximum)
-    {
-        if (minimum > maximum)
+        if (std::is_integral<IntegerType>() == false)
         {
-            R_ASSERT2(false, "It can't be! Rewrite values minimum and maximum!!!");
+            R_ASSERT2(false, "you can't use here floating point!");
+            return IntegerType(0);
         }
 
-        std::uniform_int_distribution<std::uint32_t> distribution(minimum, maximum);
+        std::uniform_int_distribution<IntegerType> distribution(minimum, maximum);
         return distribution(this->m_generator);
     }
+
+    /*
+        inline std::uint32_t Generate(const std::uint32_t& minimum, const std::uint32_t& maximum)
+        {
+            if (minimum > maximum)
+            {
+                R_ASSERT2(false, "It can't be! Rewrite values minimum and maximum!!!");
+            }
+
+            std::uniform_int_distribution<std::uint32_t> distribution(minimum, maximum);
+            return distribution(this->m_generator);
+        }*/
 
 private:
     std::mt19937 m_generator;
@@ -781,7 +880,7 @@ public:
     Script_RandomFloat(Script_RandomFloat&&) = delete;
     Script_RandomFloat& operator=(Script_RandomFloat&&) = delete;
 
-    inline float Generate(const float& minimum = 0.0f, const float& maximum = 1.0f)
+    inline float Generate(const float minimum = 0.0f, const float maximum = 1.0f)
     {
         if (minimum > maximum)
         {

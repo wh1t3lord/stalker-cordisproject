@@ -2,6 +2,8 @@
 
 #include "Script_StateManager.h"
 
+extern bool g_bDisableAllInput;
+
 namespace Cordis
 {
 namespace Scripts
@@ -100,6 +102,7 @@ inline CSE_Abstract* alife_create(
     const xr_string& section, const Fvector& position, std::uint32_t level_vertex_id, std::uint16_t game_vertex_id);
 inline CSE_Abstract* alife_create(const xr_string& section, const Fvector& position,
     const std::uint32_t& level_vertex_id, const std::uint16_t& game_vertex_id, const std::uint16_t& parent_id);
+inline void alife_release(CSE_Abstract* object, bool no_assert = false);
 inline xr_string get_squad_relation_to_actor_by_id(const std::uint16_t& squad_id);
 inline std::uint32_t time_global(void) noexcept;
 
@@ -110,7 +113,7 @@ inline bool is_level_present(void);
 inline u32 vertex_id(Fvector position);
 inline float rain_factor(void);
 inline CScriptGameObject* get_object_by_id(u16 id);
-inline LPCSTR get_name(void);
+inline xr_string get_name(void);
 inline void map_remove_object_spot(const std::uint16_t& id, LPCSTR spot_type);
 inline void map_add_object_spot(const std::uint16_t& id, LPCSTR spot_type, LPCSTR text);
 inline std::uint16_t map_has_object_spot(const std::uint16_t& id, LPCSTR spot_type);
@@ -124,7 +127,15 @@ inline void remove_pp_effector(int id);
 inline void set_pp_effector_factor(int id, float f, float f_sp);
 inline void set_pp_effector_factor(int id, float f);
 inline float add_cam_effector(LPCSTR fn, int id, bool cyclic, LPCSTR cb_func);
+inline float add_cam_effector2(LPCSTR fn, int id, bool cyclic, LPCSTR cb_func, float cam_fov);
 inline void remove_cam_effector(int id);
+inline void show_weapon(bool b);
+inline void disable_input(void);
+inline void enable_input(void);
+inline void hide_indicators_safe(void);
+inline void show_indicators(void);
+inline void add_complex_effector(LPCSTR section, int id);
+inline void remove_complex_effector(int id);
 
 } // namespace level
 
@@ -257,6 +268,10 @@ inline CScriptGameObject* const get_weapon(
 inline void set_state(CScriptGameObject* const p_client_object, const xr_string& state_name,
     StateManagerCallbackData& callback, const std::uint32_t timeout,
     std::pair<Fvector, CScriptGameObject* const> target, const StateManagerExtraData& extra);
+//inline std::uint32_t get_level_id(void);
+inline LPCSTR get_level_name(int level_id);
+inline void update_logic(CScriptGameObject* const p_object);
+inline void change_anomalies_names(void);
 } // namespace Globals
 } // namespace Scripts
 } // namespace Cordis

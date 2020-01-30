@@ -80,6 +80,26 @@ inline void set_combat_checker(CScriptGameObject* const p_client_object, CScript
 
 inline void disable_scheme(CScriptGameObject* const p_client_object, const xr_string& scheme_name) {}
 
+inline void set_combat_type(
+    CScriptGameObject* const p_npc, CScriptGameObject* const p_actor, const xr_map<std::uint32_t, CondlistData>& condlist)
+{
+    if (condlist.empty())
+        return;
+
+    if (!p_npc)
+    {
+        Msg("[Scripts/XR_COMBAT/set_combat_type(p_npc, p_actor, overrides)] WARNING: p_npc == nullptr! Return ...");
+        return;
+    }
+
+    DataBase::Storage::getInstance().setStorageEnemy(p_npc->ID(), p_npc->GetBestEnemy());
+    xr_string script_combat_type_name;
+
+    script_combat_type_name = XR_LOGIC::pick_section_from_condlist(p_actor, p_npc, condlist);
+    
+    DataBase::Storage::getInstance().setStorageScriptCombatTypeName(p_npc->ID(), script_combat_type_name);
+}
+
 } // namespace XR_COMBAT
 
 } // namespace Scripts

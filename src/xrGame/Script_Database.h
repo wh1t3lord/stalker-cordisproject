@@ -15,6 +15,7 @@ class Storage_Scheme;
 #include "Script_ISchemeEntity.h"
 #include "Script_SchemePHDoor.h"
 #include "Script_MoveManager.h"
+#include "Script_Binder_AnomalZone.h"
 namespace Cordis
 {
 namespace Scripts
@@ -90,6 +91,14 @@ public:
         }
 
         this->m_sound_group_name = sound_group_name;
+    }
+
+    inline bool isEmpty(void) const noexcept
+    {
+        return ((!this->m_combat_ignore_keep_when_attacked) && (!this->m_min_post_combat_time) &&
+            (!this->m_max_post_combat_time) && (this->m_helicopter_hunter_condlist.empty()) &&
+            (this->m_on_offline_condlist.empty()) && (this->m_sound_group_name.empty()) &&
+            (this->m_combat_ignore.IsEmpty()) && (this->m_combat_type.IsEmpty()) && (this->m_on_combat.IsEmpty()));
     }
 
 private:
@@ -1382,6 +1391,15 @@ public:
     {
         this->m_xr_combat_script_combat_type_name = type_name;
     }
+
+    inline const xr_map<std::uint32_t, CondlistData>& getXRCombatCombatTypeCondlist(void) const noexcept
+    {
+        return this->m_xr_combat_combat_type_condlist;
+    }
+    inline void setXRCombatCombatTypeCondlist(const xr_map<std::uint32_t, CondlistData>& condlist) noexcept
+    {
+        this->m_xr_combat_combat_type_condlist = condlist;
+    }
 #pragma endregion
 
 #pragma region Cordis Scheme XR Help Wounded
@@ -1598,7 +1616,8 @@ public:
     {
         if (description_name.empty())
         {
-            Msg("[Scripts/Storage_Scheme/setDescriptionName(description_name)] WARNING: description_name.empty() == true! You set an empty string return");
+            Msg("[Scripts/Storage_Scheme/setDescriptionName(description_name)] WARNING: description_name.empty() == "
+                "true! You set an empty string return");
             return;
         }
 
@@ -1714,6 +1733,7 @@ private:
     xr_map<std::uint32_t, CondlistData> m_xr_death_info;
     xr_map<std::uint32_t, CondlistData> m_xr_death_info2;
     xr_map<std::uint32_t, CondlistData> m_xr_remark_animation_condlist;
+    xr_map<std::uint32_t, CondlistData> m_xr_combat_combat_type_condlist;
     xr_map<std::uint32_t, xr_map<std::uint32_t, CondlistData>> m_hit_on_bone;
     xr_map<std::uint32_t, xr_map<std::uint32_t, CondlistData>> m_sr_timer_on_value;
     xr_map<xr_string, xr_string> m_xr_walker_suggested_states;
@@ -2638,7 +2658,7 @@ public:
     inline bool IsDangerFlag(void) const noexcept { return this->m_is_danger_flag; }
     inline void setDangerFlag(const bool value) noexcept { this->m_is_danger_flag = value; }
 
-    inline const Script_StateManager& getStateManager(void) const noexcept { return *this->m_p_state_manager; }
+    inline Script_StateManager* const getStateManager(void) const noexcept { return this->m_p_state_manager; }
     inline void setStateManager(Script_StateManager* const p_state_manager)
     {
         if (!p_state_manager)
@@ -2672,6 +2692,31 @@ public:
         this->m_p_move_manager = p_move_manager;
     }
 
+    inline void setClientEnemy(CScriptGameObject* const p_enemy)
+    {
+        if (!p_enemy)
+        {
+            Msg("[Scripts/DataBase/Storage_Data/setClientEnemy(p_enemy)] WARNING: p_enemy == nullptr! You set an empty "
+                "object!");
+        }
+
+        this->m_p_client_enemy = p_enemy;
+    }
+
+    inline CScriptGameObject* const getClientEnemy(void) const noexcept { return this->m_p_client_enemy; }
+
+    inline const xr_string& getScriptCombatTypeName(void) const noexcept { return this->m_script_combat_type_name; }
+    inline void setScriptCombatTypeName(const xr_string& type_name) noexcept
+    {
+        if (type_name.empty())
+        {
+            Msg("[Scripts/DataBase/Storage_Data/setScriptCombatTypeName(type_name)] WARNING: type_name.empty() == "
+                "true! You are set an empty string!");
+        }
+
+        this->m_script_combat_type_name = type_name;
+    }
+
 private:
     bool m_is_invulnerable = false;
     bool m_is_immortal = false;
@@ -2687,6 +2732,7 @@ private:
     std::int32_t m_activation_time = 0;
     HitData m_hit;
     CScriptGameObject* m_p_client_object = nullptr;
+    CScriptGameObject* m_p_client_enemy = nullptr;
     StorageAnimpoint_Data m_storage_animpoint;
     CSE_ALifeObject* m_p_server_object = nullptr;
     CScriptSound* m_p_sound_object = nullptr;
@@ -2712,6 +2758,7 @@ private:
     xr_string m_ini_filename;
     xr_string m_section_logic_name;
     xr_string m_gulag_name;
+    xr_string m_script_combat_type_name;
     DeathData m_death;
     Data_Overrides m_overrides;
 };
@@ -3219,6 +3266,16 @@ public:
 
     void setStorageStateManager(CScriptGameObject* const p_client_object, Script_StateManager* const p_state_manager);
     void setStorageMoveManager(CScriptGameObject* const p_client_object, Script_MoveManager* const p_move_manager);
+
+    inline void setStorageScriptCombatTypeName(const std::uint16_t npc_id, const xr_string& type_name)
+    {
+        this->m_storage[npc_id].setScriptCombatTypeName(type_name);
+    }
+
+    inline void setStorageEnemy(const std::uint16_t npc_id, CScriptGameObject* const p_enemy)
+    {
+        this->m_storage[npc_id].setClientEnemy(p_enemy);
+    }
 
     inline void setStorageStateManagerSetState(const std::uint16_t npc_id, const xr_string& state_name,
         StateManagerCallbackData& callback, const std::uint32_t timeout,
@@ -4092,6 +4149,49 @@ public:
     }
 #pragma endregion
 
+#pragma region Cordis Script_Binder_Anomaly stuff
+    inline const xr_map<std::uint16_t, xr_string>& getArtefactWaysByID(void) const noexcept
+    {
+        return this->m_artefact_ways_by_id;
+    }
+    inline void setArtefactWaysByID(const std::uint16_t id, const xr_string& path_name) noexcept
+    {
+        if (path_name.empty())
+        {
+            Msg("[Scripts/DataBase/Storage/setArtefactWaysByID(id, path_name)] WARNING: path_name.empty() == true! "
+                "Return ...");
+            return;
+        }
+
+        this->m_artefact_ways_by_id[id] = path_name;
+    }
+
+    inline const xr_map<std::uint16_t, std::uint32_t>& getArtefactPointsByID(void) const noexcept
+    {
+        return this->m_artefact_points_by_id;
+    }
+
+    inline void setArtefactPointsByID(const std::uint16_t id, const std::uint32_t point) noexcept
+    {
+        this->m_artefact_points_by_id[id] = point;
+    }
+
+    inline const xr_map<std::uint16_t, Script_Binder_Anomaly*>& getParentZonesArtefactByID(void)
+    {
+        return this->m_parent_zones_by_artefact_id;
+    }
+
+    inline void setParentZonesArtefactByID(const std::uint16_t id, Script_Binder_Anomaly* const p_binder_object) 
+    {
+        if (!p_binder_object)
+        {
+            Msg("[Scripts/DataBase/Storage/setParentZonesArtefactByID(id, p_binder_object)] WARNING: p_binder_object == nullptr!");
+        }
+
+        this->m_parent_zones_by_artefact_id[id] = p_binder_object;
+    }
+#pragma endregion
+
     Storage(const Storage&) = delete;
     Storage& operator=(const Storage&) = delete;
     Storage(Storage&&) = delete;
@@ -4112,6 +4212,11 @@ private:
     xr_map<std::uint8_t, xr_map<std::uint32_t, Script_SE_SmartCover*>> m_game_registered_smartcovers_by_level_id;
     xr_map<xr_string, Script_SE_SmartCover*> m_game_registered_smartcovers;
     xr_map<std::uint16_t, std::uint32_t> m_spawned_vertex_by_id;
+#pragma region Cordis Script_Binder_Anomaly
+    xr_map<std::uint16_t, xr_string> m_artefact_ways_by_id;
+    xr_map<std::uint16_t, std::uint32_t> m_artefact_points_by_id;
+    xr_map<std::uint16_t, Script_Binder_Anomaly*> m_parent_zones_by_artefact_id;
+#pragma endregion
     // first -> sympathy[ID] = std::uint32_t; | second -> relations[ID] = std::string;
     std::pair<xr_map<std::uint16_t, float>, xr_map<std::uint16_t, xr_string>> m_goodwill;
 };

@@ -4204,6 +4204,45 @@
     <Filter Include="Cordis\Scripts\Managers\Camp\Private">
       <UniqueIdentifier>{943b0bd7-f254-464a-8049-283007cba83f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Cordis\Scripts\Managers\Task">
+      <UniqueIdentifier>{77acffc5-90fc-4096-9303-2b75271e71c8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Managers\Task\Public">
+      <UniqueIdentifier>{94c3a47f-e487-4d7a-b9f2-8eb0fd7e9762}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Managers\Task\Private">
+      <UniqueIdentifier>{7d18fb80-7bb7-4842-8e0b-07d1f79e3b9f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Entities %28not server entities!%29\Task">
+      <UniqueIdentifier>{f6b8bcdc-c204-4eb7-84a7-7264fe768882}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Entities %28not server entities!%29\Task\Public">
+      <UniqueIdentifier>{3cb84955-4ef2-4b60-b892-d217fa58c112}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Entities %28not server entities!%29\Task\Private">
+      <UniqueIdentifier>{cf78a854-e5cc-422b-b155-27cae1f9ec66}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Dialogs">
+      <UniqueIdentifier>{1de64d7c-d8af-4982-8445-df2ce86798c8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Dialogs\Zaton">
+      <UniqueIdentifier>{cb3841a1-6cd3-43c3-80bf-23af7ea6ee40}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Dialogs\Jupiter">
+      <UniqueIdentifier>{fd4911c0-fa1c-4802-9175-a16d0ba2bd89}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Dialogs\Pripyat">
+      <UniqueIdentifier>{d4bd2ee8-16e3-4e3e-9588-3b399dc185f6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Dialogs\Zaton\Public">
+      <UniqueIdentifier>{9d6230f5-72b0-410c-aee1-170a9a63f3df}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Dialogs\Kernel">
+      <UniqueIdentifier>{44273dd5-65de-4160-a696-46855bccfaa7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Dialogs\Kernel\Public">
+      <UniqueIdentifier>{ffec9133-b8ab-48fa-bcd7-f8a95a7fa8b3}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="mt_config.h">
@@ -9557,6 +9596,18 @@
     <ClInclude Include="Script_CampData.h">
       <Filter>Cordis\Scripts\Managers\Camp\Public</Filter>
     </ClInclude>
+    <ClInclude Include="Script_TaskManager.h">
+      <Filter>Cordis\Scripts\Managers\Task\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Script_Task.h">
+      <Filter>Cordis\Scripts\Entities %28not server entities!%29\Task\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Script_DialogsZaton.h">
+      <Filter>Cordis\Scripts\Dialogs\Zaton\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Script_Dialogs.h">
+      <Filter>Cordis\Scripts\Dialogs\Kernel\Public</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="damage_manager.cpp">
@@ -13985,6 +14036,12 @@
     </ClCompile>
     <ClCompile Include="Script_CampData.cpp">
       <Filter>Cordis\Scripts\Managers\Camp\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Script_TaskManager.cpp">
+      <Filter>Cordis\Scripts\Managers\Task\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Script_Task.cpp">
+      <Filter>Cordis\Scripts\Entities %28not server entities!%29\Task\Private</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
