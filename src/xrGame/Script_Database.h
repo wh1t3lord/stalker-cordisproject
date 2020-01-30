@@ -4181,14 +4181,31 @@ public:
         return this->m_parent_zones_by_artefact_id;
     }
 
-    inline void setParentZonesArtefactByID(const std::uint16_t id, Script_Binder_Anomaly* const p_binder_object) 
+    inline void setParentZonesArtefactByID(const std::uint16_t id, Script_Binder_Anomaly* const p_binder_object)
     {
         if (!p_binder_object)
         {
-            Msg("[Scripts/DataBase/Storage/setParentZonesArtefactByID(id, p_binder_object)] WARNING: p_binder_object == nullptr!");
+            Msg("[Scripts/DataBase/Storage/setParentZonesArtefactByID(id, p_binder_object)] WARNING: p_binder_object "
+                "== nullptr!");
         }
 
         this->m_parent_zones_by_artefact_id[id] = p_binder_object;
+    }
+#pragma endregion
+
+#pragma region Cordis Script_Binder_Field
+    inline const xr_map<xr_string, Script_Binder_AnomalField*>& getFieldsByName(void) const noexcept
+    {
+        return this->m_fields_by_name;
+    }
+    inline void setFieldsByName(const xr_string& field_name, Script_Binder_AnomalField* const p_field)
+    {
+        if (!p_field)
+        {
+            Msg("[Scripts/DataBase/Storage/setFieldsByName(field_name, p_field)] WARNING: p_field == nullptr!");
+        }
+
+        this->m_fields_by_name[field_name] = p_field;
     }
 #pragma endregion
 
@@ -4212,11 +4229,16 @@ private:
     xr_map<std::uint8_t, xr_map<std::uint32_t, Script_SE_SmartCover*>> m_game_registered_smartcovers_by_level_id;
     xr_map<xr_string, Script_SE_SmartCover*> m_game_registered_smartcovers;
     xr_map<std::uint16_t, std::uint32_t> m_spawned_vertex_by_id;
-#pragma region Cordis Script_Binder_Anomaly
+#pragma region Cordis Script_Binder_AnomalZone
     xr_map<std::uint16_t, xr_string> m_artefact_ways_by_id;
     xr_map<std::uint16_t, std::uint32_t> m_artefact_points_by_id;
     xr_map<std::uint16_t, Script_Binder_Anomaly*> m_parent_zones_by_artefact_id;
 #pragma endregion
+
+#pragma region Cordis Script_Binder_Field
+    xr_map<xr_string, Script_Binder_AnomalField*> m_fields_by_name;
+#pragma endregion
+
     // first -> sympathy[ID] = std::uint32_t; | second -> relations[ID] = std::string;
     std::pair<xr_map<std::uint16_t, float>, xr_map<std::uint16_t, xr_string>> m_goodwill;
 };
