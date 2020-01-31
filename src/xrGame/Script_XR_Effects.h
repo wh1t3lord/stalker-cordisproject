@@ -376,6 +376,11 @@ inline void jup_b209_place_scanner(
 {
     if (XR_CONDITION::is_actor_in_zone_client(p_actor, p_npc, {"jup_b209_hypotheses"}))
     {
+        scenario_autosave(
+            DataBase::Storage::getInstance().getActor(), nullptr, {"st_save_jup_b209_placed_mutant_scanner"});
+        DataBase::Storage::getInstance().getActor()->GiveInfoPortion("jup_b209_scanner_placed");
+        remove_item(p_actor, nullptr, {"jup_b209_monster_scanner"});
+        spawn_object(p_actor, nullptr, {"jup_b209_ph_scanner", "jup_b209_scanner_place_point"});
     }
 }
 
@@ -584,7 +589,8 @@ inline void scenario_autosave(
 {
     if (buffer.empty())
     {
-        Msg("[Scripts/XR_EFFECTS/scenario_autosave(p_actor, p_npc, buffer)] WARNING: buffer.empty() == true! Return ...");
+        Msg("[Scripts/XR_EFFECTS/scenario_autosave(p_actor, p_npc, buffer)] WARNING: buffer.empty() == true! Return "
+            "...");
         return;
     }
 
