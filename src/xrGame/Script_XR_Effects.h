@@ -675,6 +675,35 @@ inline void give_item(
         p_server_object->cast_alife_dynamic_object()->m_tGraphID, npc_id);
 }
 
+inline void play_particle_on_path(
+    CScriptGameObject* const p_actor, CScriptGameObject* const p_npc, const xr_vector<xr_string>& buffer)
+{
+    if (buffer.empty())
+    {
+        Msg("[Scripts/XR_EFFECTS/play_particle_on_path(p_actor, p_npc, buffer)] WARNING: buffer.empty() == true! "
+            "Return ...");
+        return;
+    }
+
+    std::uint32_t point_prob;
+    if (buffer.size() < 2)
+        point_prob = 100;
+    else
+        point_prob = static_cast<std::uint32_t>(atoi(buffer[2].c_str()));
+
+    if (!point_prob)
+        point_prob = 100;
+
+    CPatrolPathParams path(buffer[1].c_str());
+
+    for (std::uint32_t i = 0; i < path.count(); ++i)
+    {
+        CScriptParticles patricle(buffer[0].c_str());
+        if (Globals::Script_RandomInt::getInstance().Generate<std::uint32_t>(1, 100) <= point_prob)
+            patricle.PlayAtPos(path.point(i));
+    }
+}
+
 inline void remove_item(
     CScriptGameObject* const p_actor, CScriptGameObject* const p_npc, const xr_vector<xr_string>& buffer)
 {
