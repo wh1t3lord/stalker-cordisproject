@@ -161,6 +161,31 @@ public:
     inline void setCurrentTargetID(const std::uint32_t& value) noexcept { this->m_current_target_id = value; }
     inline void setAssignedTargetID(const std::uint32_t& value) noexcept { this->m_assigned_target_id = value; }
     inline void setEnteredSmartID(const std::uint32_t& value) noexcept { this->m_entered_smart_id = value; }
+    inline void set_squad_positon(const Fvector& position) noexcept
+    {
+        if (!this->m_bOnline)
+            this->force_change_position(position);
+
+        for (AssociativeVector<std::uint16_t, CSE_ALifeMonsterAbstract*>::const_iterator it =
+                 this->squad_members().begin();
+             it != this->squad_members().end(); ++it)
+        {
+            CScriptGameObject* const p_client_object = Globals::Game::level::get_object_by_id(it->first);
+            DataBase::Storage::getInstance().setOfflineObjects(it->first, Globals::Game::level::vertex_id(position));
+            if (p_client_object)
+            {
+                XR_EFFECTS::_reset_animation(p_client_object);
+                Msg("[Scripts/Script_SE_SimulationSquad/set_squad_position(position)] teleporting npc %d %s", it->first,
+                    it->second->name_replace());
+                p_client_object->SetNpcPosition(position);
+                Msg("[Scripts/Script_SE_SimulationSquad/set_squad_position(position)] end teleporting npc %d %s", it->first, it->second->name_replace());
+            }
+            else
+            {
+                it->second->o_Position = position;
+            }
+        }
+    }
 #pragma endregion
 
     inline bool am_i_reached(void) noexcept { return (this->npc_count() == 0); }

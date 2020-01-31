@@ -460,7 +460,8 @@ inline void teleport_actor(
     if (buffer.size() > 1)
     {
         CPatrolPathParams look_point(buffer[1].c_str());
-        direction = -look_point.point(std::uint32_t(0)).sub(patrol.point(std::uint32_t(0))).getH();
+        Fvector temp = look_point.point(std::uint32_t(0));
+        direction = -temp.sub(patrol.point(std::uint32_t(0))).getH();
         DataBase::Storage::getInstance().getActor()->SetActorDirection(direction);
     }
 
@@ -579,6 +580,37 @@ inline void teleport_npc_by_story_id(
     {
         ai().alife().objects().object(npc_id)->o_Position = position;
     }
+}
+
+inline void teleport_squad(
+    CScriptGameObject* const p_actor, CScriptGameObject* const p_npc, const xr_vector<xr_string>& buffer)
+{
+    if (buffer.empty())
+    {
+        Msg("[Scripts/XR_EFFECTS/teleport_squad(p_actor, p_npc, buffer)] WARNING: buffer.empty() == true! Return ...");
+        return;
+    }
+
+    if (buffer.size() < 2)
+    {
+        Msg("[Scripts/XR_EFFECTS/teleport_squad(p_actor, p_npc, buffer)] WARNING: buffer.size() < 2! Return ...");
+        return;
+    }
+
+    std::uint32_t patrol_point_index = 0;
+
+    if (buffer.size() > 2)
+        patrol_point_index = static_cast<std::uint32_t>(atoi(buffer[2].c_str()));
+
+    Fvector position = CPatrolPathParams(buffer[1].c_str()).point(patrol_point_index);
+    Script_SE_SimulationSquad* const p_server_squad = Globals::get_story_squad(buffer[0]);
+
+    if (!p_server_squad)
+    {
+        Msg("[Scripts/XR_EFFECTS/teleport_squad(p_actor, p_npc, buffer)] WARNING: p_sever_squad == nullptr! Can't find %s Return ...", buffer[0].c_str());
+        return;
+    }
+
 }
 
 inline void remove_item(
