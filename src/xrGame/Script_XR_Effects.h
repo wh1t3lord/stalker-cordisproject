@@ -537,6 +537,50 @@ inline void teleport_npc(
     p_npc->SetNpcPosition(CPatrolPathParams(buffer[0].c_str()).point(patrol_point_index));
 }
 
+inline void teleport_npc_by_story_id(
+    CScriptGameObject* const p_actor, CScriptGameObject* const p_npc, const xr_vector<xr_string>& buffer)
+{
+    if (buffer.empty())
+    {
+        Msg("[Scripts/XR_EFFECTS/teleport_npc_by_story_id(p_actor, p_npc, buffer)] WARNING: buffer.empty() == true! "
+            "Return ...");
+        return;
+    }
+
+    if (buffer.size() < 2)
+    {
+        Msg("[Scripts/XR_EFFECTS/teleport_npc_by_story_id(p_actor, p_npc, buffer)] WARNING: buffer.size() < 2! Return "
+            "...");
+        return;
+    }
+
+    std::uint32_t patrol_point_index = 0;
+
+    if (buffer.size() > 2)
+        patrol_point_index = static_cast<std::uint32_t>(atoi(buffer[2].c_str()));
+
+    Fvector position = CPatrolPathParams(buffer[1].c_str()).point(patrol_point_index);
+    std::uint16_t npc_id = Globals::get_story_object_id(buffer[0]);
+
+    if (!npc_id)
+    {
+        R_ASSERT2(false, "there is no story object");
+        return;
+    }
+
+    CScriptGameObject* const p_client_object = Globals::Game::level::get_object_by_id(npc_id);
+
+    if (p_client_object)
+    {
+        _reset_animation(p_client_object);
+        p_client_object->SetNpcPosition(position);
+    }
+    else
+    {
+        ai().alife().objects().object(npc_id)->o_Position = position;
+    }
+}
+
 inline void remove_item(
     CScriptGameObject* const p_actor, CScriptGameObject* const p_npc, const xr_vector<xr_string>& buffer)
 {
