@@ -791,7 +791,54 @@ inline void hit_npc(
     p_npc->Hit(&hit);
 }
 
+inline void hit_obj(
+    CScriptGameObject* const p_actor, CScriptGameObject* const p_npc, const xr_vector<xr_string>& buffer)
+{
+    if (buffer.empty())
+    {
+        Msg("[Scripts/XR_EFFECTS/hit_obj(p_actor, p_npc, buffer)] WARNING: buffer.empty() == true! Return ...");
+        return;
+    }
 
+    if (buffer.size() < 4)
+    {
+        Msg("[Scripts/XR_EFFECTS/hit_obj(p_actor, p_npc, buffer)] WARNING: buffer.size() < 5! Return ...");
+        return;
+    }
+
+    if (!p_npc)
+    {
+        Msg("[Scripts/XR_EFFECTS/hit_obj(p_actor, p_npc, buffer)] WARNING: p_npc == nullptr! Return ...");
+        return;
+    }
+
+    CScriptHit hit;
+    CScriptGameObject* const p_client_object = Globals::get_story_object(buffer[0]);
+
+    if (!p_client_object)
+    {
+        Msg("[Scripts/XR_EFFECTS/hit_obj(p_actor, p_npc, buffer)] WARNING: p_client_object == nullptr! Return ...");
+        return;
+    }
+
+    hit.set_bone_name(buffer[1].c_str());
+    hit.m_fPower = boost::lexical_cast<float>(buffer[2]);
+    hit.m_fImpulse = boost::lexical_cast<float>(buffer[3]);
+
+    if (buffer.size() > 4)
+    {
+        hit.m_tDirection = Fvector().sub(CPatrolPathParams(buffer[4].c_str()).point(std::uint32_t(0))), p_client_object->Position());
+    }
+    else
+    {
+        hit.m_tDirection = Fvector().sub(p_npc->Position(), p_client_object->Position());
+    }
+
+    hit.m_tpDraftsman = p_npc;
+    hit.m_tHitType = ALife::EHitType::eHitTypeWound;
+
+    p_client_object->Hit(&hit);
+}
 
 inline void remove_item(
     CScriptGameObject* const p_actor, CScriptGameObject* const p_npc, const xr_vector<xr_string>& buffer)

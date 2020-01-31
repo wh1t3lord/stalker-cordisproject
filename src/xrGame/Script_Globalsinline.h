@@ -1579,7 +1579,7 @@ inline bool is_npc_in_actor_frustrum(CSE_ALifeDynamicObject* server_npc)
 inline CScriptGameObject* get_story_object(const xr_string& object_id)
 {
     CScriptGameObject* result = nullptr;
-    if (!object_id.size())
+    if (object_id.empty())
     {
         R_ASSERT2(false, "can't be empty!");
         return result;
