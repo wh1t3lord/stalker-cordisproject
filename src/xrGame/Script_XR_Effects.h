@@ -362,6 +362,17 @@ inline void jup_b206_get_plant(
     }
 }
 
+inline void pas_b400_switcher(
+    CScriptGameObject* const p_actor, CScriptGameObject* const p_npc, const xr_vector<xr_string>& buffer)
+{
+    if (XR_CONDITION::is_actor_in_zone_client(p_actor, p_npc, {"pas_b400_sr_switcher"}))
+    {
+        DataBase::Storage::getInstance().getActor()->GiveInfoPortion("pas_b400_switcher_use");
+    }
+}
+
+
+
 inline void remove_item(
     CScriptGameObject* const p_actor, CScriptGameObject* const p_npc, const xr_vector<xr_string>& buffer)
 {
@@ -552,11 +563,13 @@ inline void destroy_object(
 
     if (!p_server_object)
     {
-        Msg("[Scripts/XR_EFFECTS/destroy_object(p_actor, p_npc, buffer)] WARNING: p_server_object == nullptr! Return ...");
+        Msg("[Scripts/XR_EFFECTS/destroy_object(p_actor, p_npc, buffer)] WARNING: p_server_object == nullptr! Return "
+            "...");
         return;
     }
 
-    Msg("[Scripts/XR_EFFECTS/destory_object(p_actor, p_npc, buffer)] releasing object %s", p_server_object->name_replace());
+    Msg("[Scripts/XR_EFFECTS/destory_object(p_actor, p_npc, buffer)] releasing object %s",
+        p_server_object->name_replace());
     Globals::Game::alife_release(p_server_object, true);
 }
 
