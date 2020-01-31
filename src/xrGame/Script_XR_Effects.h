@@ -517,6 +517,26 @@ inline void _reset_animation(CScriptGameObject* const p_npc)
     p_npc->set_mental_state(eMentalStateFree);
 }
 
+inline void teleport_npc(
+    CScriptGameObject* const p_actor, CScriptGameObject* const p_npc, const xr_vector<xr_string>& buffer)
+{
+    if (buffer.empty())
+    {
+        Msg("[Scripts/XR_EFFECTS/teleport_npc(p_actor, p_npc, buffer)] WARNING: buffer.empty() == true! Return ...");
+        return;
+    }
+
+    if (!p_npc)
+    {
+        R_ASSERT2(false, "object is null!");
+        return;
+    }
+
+    std::uint32_t patrol_point_index = static_cast<std::uint32_t>(atoi(buffer[1].c_str()));
+    _reset_animation(p_npc);
+    p_npc->SetNpcPosition(CPatrolPathParams(buffer[0].c_str()).point(patrol_point_index));
+}
+
 inline void remove_item(
     CScriptGameObject* const p_actor, CScriptGameObject* const p_npc, const xr_vector<xr_string>& buffer)
 {
