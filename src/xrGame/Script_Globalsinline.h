@@ -2785,6 +2785,8 @@ inline void change_anomalies_names(void)
     }
 }
 
+inline bool isImportantSave(void) { return !!psActorFlags.test(AF_IMPORTANT_SAVE); }
+
 } // namespace Globals
 } // namespace Scripts
 } // namespace Cordis

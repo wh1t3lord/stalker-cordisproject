@@ -371,7 +371,13 @@ inline void pas_b400_switcher(
     }
 }
 
-
+inline void jup_b209_place_scanner(
+    CScriptGameObject* const p_actor, CScriptGameObject* const p_npc, const xr_vector<xr_string>& buffer)
+{
+    if (XR_CONDITION::is_actor_in_zone_client(p_actor, p_npc, {"jup_b209_hypotheses"}))
+    {
+    }
+}
 
 inline void remove_item(
     CScriptGameObject* const p_actor, CScriptGameObject* const p_npc, const xr_vector<xr_string>& buffer)
@@ -571,6 +577,26 @@ inline void destroy_object(
     Msg("[Scripts/XR_EFFECTS/destory_object(p_actor, p_npc, buffer)] releasing object %s",
         p_server_object->name_replace());
     Globals::Game::alife_release(p_server_object, true);
+}
+
+inline void scenario_autosave(
+    CScriptGameObject* const p_actor, CScriptGameObject* const p_npc, const xr_vector<xr_string>& buffer)
+{
+    if (buffer.empty())
+    {
+        Msg("[Scripts/XR_EFFECTS/scenario_autosave(p_actor, p_npc, buffer)] WARNING: buffer.empty() == true! Return ...");
+        return;
+    }
+
+    if (Globals::isImportantSave())
+    {
+        xr_string save_name = "save ";
+        save_name += Core.UserName;
+        save_name += " - ";
+        save_name += Globals::Game::translate_string(buffer[0].c_str());
+
+        Console->Execute(save_name.c_str());
+    }
 }
 
 } // namespace XR_EFFECTS
