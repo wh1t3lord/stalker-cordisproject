@@ -704,6 +704,95 @@ inline void play_particle_on_path(
     }
 }
 
+inline void send_tip(
+    CScriptGameObject* const p_actor, CScriptGameObject* const p_npc, const xr_vector<xr_string>& buffer)
+{
+    if (buffer.empty())
+    {
+        Msg("[Scripts/XR_EFFECTS/send_tip(p_actor, p_npc, buffer)] WARNING: buffer.empty() == true! Return ...");
+        return;
+    }
+
+    if (buffer.size() < 2 || buffer.size() < 3)
+    {
+        Msg("[Scripts/XR_EFFECTS/send_tip(p_actor, p_npc, buffer)] WARNING: buffer.size() < 2 || buffer.size() < 3. "
+            "Return ...");
+        return;
+    }
+
+    Script_NewsManager::getInstance().SendTip(p_actor, buffer[0], buffer[1], 0, 0, buffer[2]);
+}
+
+inline void hit_npc(
+    CScriptGameObject* const p_actor, CScriptGameObject* const p_npc, const xr_vector<xr_string>& buffer)
+{
+    if (buffer.empty())
+    {
+        Msg("[Scripts/XR_EFFECTS/hit_npc(p_actor, p_npc, buffer)] WARNING: buffer.empty() == true! Return ...");
+        return;
+    }
+
+    if (buffer.size() < 5)
+    {
+        Msg("[Scripts/XR_EFFECTS/hit_npc(p_actor, p_npc, buffer)] WARNING: buffer.size() < 5! Return ...");
+        return;
+    }
+
+    if (!p_npc)
+    {
+        Msg("[Scripts/XR_EFFECTS/hit_npc(p_actor, p_npc, buffer)] WARNING: p_npc == nullptr! Return ...");
+        return;
+    }
+
+    bool is_rev = false;
+    if (buffer.size() > 5)
+        is_rev = (buffer[5] == "true");
+
+    CScriptHit hit;
+    hit.m_tpDraftsman = p_npc;
+    hit.m_tHitType = ALife::EHitType::eHitTypeWound;
+    if (buffer[0] != "self")
+    {
+        CScriptGameObject* const p_client_object = Globals::get_story_object(buffer[0]);
+        if (!p_client_object)
+            return;
+
+        if (is_rev)
+        {
+            hit.m_tpDraftsman = p_client_object;
+            hit.m_tDirection = p_client_object->Position().sub(p_npc->Position());
+        }
+        else
+        {
+            hit.m_tDirection = p_npc->Position().sub(p_client_object->Position());
+        }
+    }
+    else
+    {
+        if (is_rev)
+        {
+            hit.m_tpDraftsman = nullptr;
+            hit.m_tDirection = p_npc->Position().sub(CPatrolPathParams(buffer[1].c_str()).point(std::uint32_t(0)));
+        }
+        else
+        {
+            Fvector data = CPatrolPathParams(buffer[1].c_str()).point(std::uint32_t(0));
+            hit.m_tDirection = data.sub(p_npc->Position());
+        }
+    }
+
+    hit.set_bone_name(buffer[2].c_str());
+    hit.m_fPower = boost::lexical_cast<float>(buffer[3]);
+    hit.m_fImpulse = boost::lexical_cast<float>(buffer[4]);
+
+    Msg("[Scripts/XR_EFFECTS/hit_npc(p_actor, p_npc, buffer)] hit effect %s %s %f %f %f", p_npc->Name(),
+        buffer[1].c_str(), hit.m_fPower, hit.m_fImpulse, p_npc->GetHealth());
+
+    p_npc->Hit(&hit);
+}
+
+
+
 inline void remove_item(
     CScriptGameObject* const p_actor, CScriptGameObject* const p_npc, const xr_vector<xr_string>& buffer)
 {
