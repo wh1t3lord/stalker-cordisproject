@@ -647,6 +647,34 @@ inline void give_items(
     }
 }
 
+inline void give_item(
+    CScriptGameObject* const p_actor, CScriptGameObject* const p_npc, const xr_vector<xr_string>& buffer)
+{
+    if (buffer.empty())
+    {
+        Msg("[Scripts/XR_EFFECTS/give_item(p_actor, p_npc, buffer)] WARNING: buffer.empty() == true! Return ...");
+        return;
+    }
+
+    if (!p_npc)
+    {
+        Msg("[Scripts/XR_EFFECTS/give_item(p_actor, p_npc, buffer)] WARNING: p_npc == nullptr! Return ...");
+        return;
+    }
+
+    std::uint16_t npc_id = 0;
+    if (buffer.size() > 1)
+        npc_id = Globals::get_story_object_id(buffer[1]);
+    else
+        npc_id = p_npc->ID();
+
+    CSE_Abstract* const p_server_object = ai().alife().objects().object(npc_id);
+
+    Globals::Game::alife_create(buffer[0], p_server_object->o_Position,
+        p_server_object->cast_alife_dynamic_object()->m_tNodeID,
+        p_server_object->cast_alife_dynamic_object()->m_tGraphID, npc_id);
+}
+
 inline void remove_item(
     CScriptGameObject* const p_actor, CScriptGameObject* const p_npc, const xr_vector<xr_string>& buffer)
 {
