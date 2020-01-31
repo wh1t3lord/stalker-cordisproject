@@ -620,8 +620,31 @@ inline void jup_teleport_actor(
     Fvector point_in = CPatrolPathParams("jup_b16_teleport_in").point(std::uint32_t(0));
     Fvector point_out = CPatrolPathParams("jup_b16_teleport_out").point(std::uint32_t(0));
     const Fvector& actor_position = p_actor->Position();
-    Fvector result_position = Fvector().set(actor_position.x - (point_in.x + point_out.x), actor_position.y - (point_in.y + point_out.y), actor_position.z - (point_in.z + point_out.z));
+    Fvector result_position = Fvector().set(actor_position.x - (point_in.x + point_out.x),
+        actor_position.y - (point_in.y + point_out.y), actor_position.z - (point_in.z + point_out.z));
     DataBase::Storage::getInstance().getActor()->SetActorPosition(result_position);
+}
+
+inline void give_items(
+    CScriptGameObject* const p_actor, CScriptGameObject* const p_npc, const xr_vector<xr_string>& buffer)
+{
+    if (!p_npc)
+    {
+        Msg("[Scripts/XR_EFFECTS/give_items(p_actor, p_npc, buffer)] WARNING: p_npc == nullptr! Return ...");
+        return;
+    }
+
+    if (buffer.empty())
+    {
+        Msg("[Scripts/XR_EFFECTS/give_items(p_actor, p_npc, buffer)] WARNING: buffer.empty() == true! Return ...");
+        return;
+    }
+
+    for (const xr_string& it : buffer)
+    {
+        Globals::Game::alife_create(
+            it, p_npc->Position(), p_npc->level_vertex_id(), p_npc->game_vertex_id(), p_npc->ID());
+    }
 }
 
 inline void remove_item(
