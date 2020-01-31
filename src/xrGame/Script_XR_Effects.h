@@ -607,10 +607,21 @@ inline void teleport_squad(
 
     if (!p_server_squad)
     {
-        Msg("[Scripts/XR_EFFECTS/teleport_squad(p_actor, p_npc, buffer)] WARNING: p_sever_squad == nullptr! Can't find %s Return ...", buffer[0].c_str());
+        Msg("[Scripts/XR_EFFECTS/teleport_squad(p_actor, p_npc, buffer)] WARNING: p_sever_squad == nullptr! Can't find "
+            "%s Return ...",
+            buffer[0].c_str());
         return;
     }
+}
 
+inline void jup_teleport_actor(
+    CScriptGameObject* const p_actor, CScriptGameObject* const p_npc, const xr_vector<xr_string>& buffer)
+{
+    Fvector point_in = CPatrolPathParams("jup_b16_teleport_in").point(std::uint32_t(0));
+    Fvector point_out = CPatrolPathParams("jup_b16_teleport_out").point(std::uint32_t(0));
+    const Fvector& actor_position = p_actor->Position();
+    Fvector result_position = Fvector().set(actor_position.x - (point_in.x + point_out.x), actor_position.y - (point_in.y + point_out.y), actor_position.z - (point_in.z + point_out.z));
+    DataBase::Storage::getInstance().getActor()->SetActorPosition(result_position);
 }
 
 inline void remove_item(
