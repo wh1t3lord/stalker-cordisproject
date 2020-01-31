@@ -446,6 +446,38 @@ inline void zat_b100_heli_2_searching(
     }
 }
 
+inline void teleport_actor(
+    CScriptGameObject* const p_actor, CScriptGameObject* const p_npc, const xr_vector<xr_string>& buffer)
+{
+    if (buffer.empty())
+    {
+        Msg("[Scripts/XR_EFFECTS/teleport_actor(p_actor, p_npc, buffer)] WARNING: buffer.empty() == true! Return ...");
+        return;
+    }
+
+    CPatrolPathParams patrol(buffer[0].c_str());
+    float direction = 0.0f;
+    if (buffer.size() > 1)
+    {
+        CPatrolPathParams look_point(buffer[1].c_str());
+        direction = -look_point.point(std::uint32_t(0)).sub(patrol.point(std::uint32_t(0))).getH();
+        DataBase::Storage::getInstance().getActor()->SetActorDirection(direction);
+    }
+
+    for (const std::pair<xr_string, bool>& it : DataBase::Storage::getInstance().getNoWeaponZones())
+    {
+        CScriptGameObject* const p_zone = DataBase::Storage::getInstance().getZoneByName().at(it.first);
+
+        if (Globals::Utils::is_npc_in_zone(DataBase::Storage::getInstance().getActor(), p_zone))
+            DataBase::Storage::getInstance().setNoWeaponZones(it.first, true);
+    }
+
+    if (p_npc && p_npc->Name())
+        Msg("[Scripts/XR_EFFECTS/teleport_actor(p_actor, p_npc, buffer)] teleporting actor from %s", p_npc->Name());
+    
+    DataBase::Storage::getInstance().getActor()->SetActorPosition(patrol.point(std::uint32_t(0)));
+}
+
 inline void remove_item(
     CScriptGameObject* const p_actor, CScriptGameObject* const p_npc, const xr_vector<xr_string>& buffer)
 {
