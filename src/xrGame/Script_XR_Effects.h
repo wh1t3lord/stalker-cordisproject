@@ -391,6 +391,21 @@ inline void jup_b9_heli_1_searching(
         DataBase::Storage::getInstance().getActor()->GiveInfoPortion("jup_b9_heli_1_searching");
 }
 
+inline void pri_a18_use_idol(
+    CScriptGameObject* const p_actor, CScriptGameObject* const p_npc, const xr_vector<xr_string>& buffer)
+{
+    if (XR_CONDITION::is_actor_in_zone_client(p_actor, p_npc, { "pri_a18_use_idol_restrictor" }))
+    {
+        DataBase::Storage::getInstance().getActor()->GiveInfoPortion("pri_a18_run_cam");
+    }
+}
+
+inline void jup_b8_heli_4_searching(
+    CScriptGameObject* const p_actor, CScriptGameObject* const p_npc, const xr_vector<xr_string>& buffer)
+{
+
+}
+
 inline void remove_item(
     CScriptGameObject* const p_actor, CScriptGameObject* const p_npc, const xr_vector<xr_string>& buffer)
 {
