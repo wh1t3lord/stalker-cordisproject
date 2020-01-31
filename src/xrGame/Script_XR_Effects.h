@@ -358,6 +358,7 @@ inline void jup_b206_get_plant(
     {
         DataBase::Storage::getInstance().getActor()->GiveInfoPortion("jup_b206_anomalous_grove_has_plant");
         give_actor(p_actor, p_npc, {"jup_b206_plant"});
+        destroy_object(p_actor, p_npc, {"story", "jup_b206_plant_ph"});
     }
 }
 
