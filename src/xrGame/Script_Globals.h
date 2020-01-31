@@ -101,7 +101,7 @@ inline const CGameGraph* get_game_graph();
 inline CSE_Abstract* alife_create(
     const xr_string& section, const Fvector& position, std::uint32_t level_vertex_id, std::uint16_t game_vertex_id);
 inline CSE_Abstract* alife_create(const xr_string& section, const Fvector& position,
-    const std::uint32_t& level_vertex_id, const std::uint16_t& game_vertex_id, const std::uint16_t& parent_id);
+    const std::uint32_t level_vertex_id, const std::uint16_t game_vertex_id, const std::uint16_t parent_id);
 inline void alife_release(CSE_Abstract* object, bool no_assert = false);
 inline xr_string get_squad_relation_to_actor_by_id(const std::uint16_t& squad_id);
 inline std::uint32_t time_global(void) noexcept;
