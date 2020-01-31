@@ -357,6 +357,7 @@ inline void jup_b206_get_plant(
     if (XR_CONDITION::is_actor_in_zone_client(p_actor, p_npc, {"jup_b206_sr_quest_line"}))
     {
         DataBase::Storage::getInstance().getActor()->GiveInfoPortion("jup_b206_anomalous_grove_has_plant");
+        give_actor(p_actor, p_npc, {"jup_b206_plant"});
     }
 }
 
@@ -495,12 +496,13 @@ inline void give_actor(
         Msg("[Scripts/XR_EFFECTS/give_actor(p_actor, p_npc, buffer)] WARNING: buffer.empty() == true! Return ...");
         return;
     }
-    
-    CScriptGameObject* const p_client_actor =
-        DataBase::Storage::getInstance().getActor();
+
+    CScriptGameObject* const p_client_actor = DataBase::Storage::getInstance().getActor();
     for (const xr_string& it : buffer)
     {
-        Globals::Game::alife_create(it, p_client_actor->Position(), p_client_actor->level_vertex_id(), p_client_actor->game_vertex_id(), p_client_actor->ID());
+        Globals::Game::alife_create(it, p_client_actor->Position(), p_client_actor->level_vertex_id(),
+            p_client_actor->game_vertex_id(), p_client_actor->ID());
+        Script_NewsManager::getInstance().relocate_item("in", it);
     }
 }
 
