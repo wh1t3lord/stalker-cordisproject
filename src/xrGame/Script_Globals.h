@@ -273,6 +273,7 @@ inline void set_state(CScriptGameObject* const p_client_object, const xr_string&
 inline LPCSTR get_level_name(int level_id);
 inline void update_logic(CScriptGameObject* const p_object);
 inline void change_anomalies_names(void);
+inline bool isImportantSave(void);
 } // namespace Globals
 } // namespace Scripts
 } // namespace Cordis

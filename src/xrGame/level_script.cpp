@@ -49,7 +49,6 @@ using namespace luabind::policy;
 
 LPCSTR command_line() { return Core.Params; }
 bool IsDynamicMusic() { return !!psActorFlags.test(AF_DYNAMIC_MUSIC); }
-bool IsImportantSave() { return !!psActorFlags.test(AF_IMPORTANT_SAVE); }
 #ifdef DEBUG
 void check_object(CScriptGameObject* object)
 {
