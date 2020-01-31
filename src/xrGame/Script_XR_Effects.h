@@ -506,6 +506,59 @@ inline void give_actor(
     }
 }
 
+inline void destroy_object(
+    CScriptGameObject* const p_actor, CScriptGameObject* const p_npc, const xr_vector<xr_string>& buffer)
+{
+    CSE_Abstract* p_server_object = nullptr;
+    if (buffer.empty())
+    {
+        p_server_object = ai().alife().objects().object(p_npc->ID());
+    }
+    else
+    {
+        if (buffer.size() < 2)
+        {
+            R_ASSERT2(false, "not right ...");
+            return;
+        }
+
+        xr_string target_str;
+        if (buffer.size() > 2)
+        {
+            target_str = buffer[0];
+            target_str += "|";
+            target_str += buffer[1];
+            target_str += ",";
+            target_str += buffer[2];
+        }
+        else
+        {
+            target_str = buffer[0];
+            target_str += "|";
+            target_str += buffer[1];
+        }
+        Fvector target_positon;
+        std::uint16_t target_id = 0;
+        bool is_target_init = false;
+        init_target(p_npc, target_str, target_positon, target_id, is_target_init);
+        if (!target_id)
+        {
+            R_ASSERT2(false, "You are trying to set non-existant target");
+            return;
+        }
+        p_server_object = ai().alife().objects().object(target_id);
+    }
+
+    if (!p_server_object)
+    {
+        Msg("[Scripts/XR_EFFECTS/destroy_object(p_actor, p_npc, buffer)] WARNING: p_server_object == nullptr! Return ...");
+        return;
+    }
+
+    Msg("[Scripts/XR_EFFECTS/destory_object(p_actor, p_npc, buffer)] releasing object %s", p_server_object->name_replace());
+    Globals::Game::alife_release(p_server_object, true);
+}
+
 } // namespace XR_EFFECTS
 } // namespace Scripts
 } // namespace Cordis

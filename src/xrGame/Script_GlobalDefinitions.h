@@ -6,6 +6,9 @@ namespace Cordis
 {
 namespace Scripts
 {
+void init_target(CScriptGameObject* const p_client_object, const xr_string& target_buffer, Fvector& target_position,
+    std::uint16_t& target_id, bool& is_target_initialized);
+
 namespace XR_EFFECTS
 {
 inline void update_npc_logic(
