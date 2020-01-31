@@ -840,6 +840,52 @@ inline void hit_obj(
     p_client_object->Hit(&hit);
 }
 
+inline void hit_by_killer(
+    CScriptGameObject* const p_actor, CScriptGameObject* const p_npc, const xr_vector<xr_string>& buffer)
+{
+    if (buffer.empty())
+    {
+        Msg("[Scripts/XR_EFFECTS/hit_by_killer(p_actor, p_npc, buffer)] WARNING: buffer.empty() == true! Return ...");
+        return;
+    }
+
+    if (!p_npc)
+    {
+        Msg("[Scripts/XR_EFFECTS/hit_by_killer(p_actor, p_npc, buffer)] WARNING: p_npc == nullptr! Return ...");
+        return;
+    }
+
+    std::uint16_t killer_id =
+        DataBase::Storage::getInstance().getStorage().at(p_npc->ID()).getDeathData().getKillerID();
+
+    if (!killer_id || killer_id == Globals::kUnsignedInt16Undefined)
+    {
+        Msg("[Scripts/XR_EFFECTS/hit_by_killer(p_actor, p_npc, buffer)] WARNING: killer_id is undefined. Return ...");
+        return;
+    }
+
+    const DataBase::Storage_Data& storage_killer = DataBase::Storage::getInstance().getStorage().at(killer_id);
+
+    if (!storage_killer.getClientObject())
+    {
+        Msg("[Scripts/XR_EFFECTS/hit_by_killer(p_actor, p_npc, buffer)] WARNING: can't obtain client object!");
+        return;
+    }
+
+    Fvector point1 = p_npc->Position();
+    Fvector point2 = storage_killer.getClientObject()->Position();
+
+    CScriptHit hit;
+    hit.m_tpDraftsman = p_npc;
+    hit.m_tHitType = ALife::EHitType::eHitTypeWound;
+    hit.m_tDirection = point1.sub(point2);
+    hit.set_bone_name(buffer[0].c_str());
+    hit.m_fPower = boost::lexical_cast<float>(buffer[1]);
+    hit.m_fImpulse = boost::lexical_cast<float>(buffer[2]);
+
+    p_npc->Hit(&hit);
+}
+
 inline void remove_item(
     CScriptGameObject* const p_actor, CScriptGameObject* const p_npc, const xr_vector<xr_string>& buffer)
 {
