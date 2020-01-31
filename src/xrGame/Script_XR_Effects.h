@@ -474,8 +474,47 @@ inline void teleport_actor(
 
     if (p_npc && p_npc->Name())
         Msg("[Scripts/XR_EFFECTS/teleport_actor(p_actor, p_npc, buffer)] teleporting actor from %s", p_npc->Name());
-    
+
     DataBase::Storage::getInstance().getActor()->SetActorPosition(patrol.point(std::uint32_t(0)));
+}
+
+// @ Local function don't use it everywhere!!
+inline void _reset_animation(CScriptGameObject* const p_npc)
+{
+    if (!p_npc)
+    {
+        R_ASSERT2(false, "object is null!");
+        return;
+    }
+
+    Script_StateManager* p_state_manager =
+        DataBase::Storage::getInstance().getStorage().at(p_npc->ID()).getStateManager();
+
+    if (!p_state_manager)
+        return;
+
+    CScriptActionPlanner* p_planner = Globals::get_script_action_planner(p_npc);
+
+    p_state_manager->getAnimation()->set_state();
+    p_state_manager->getAnimation()->set_control();
+    p_state_manager->getAnimation()->set_state();
+    p_state_manager->getAnimation()->set_control();
+
+    StateManagerExtraData data;
+    data.setFastSet(true);
+    p_state_manager->set_state(
+        "idle", StateManagerCallbackData(), 0, std::pair<Fvector, CScriptGameObject* const>(Fvector(), nullptr), data);
+
+    p_state_manager->update();
+    p_state_manager->update();
+    p_state_manager->update();
+    p_state_manager->update();
+    p_state_manager->update();
+    p_state_manager->update();
+    p_state_manager->update();
+
+    p_npc->set_body_state(eBodyStateStand);
+    p_npc->set_mental_state(eMentalStateFree);
 }
 
 inline void remove_item(
