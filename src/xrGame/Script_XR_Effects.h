@@ -344,6 +344,22 @@ inline void jup_b32_pda_check(
     Globals::change_anomalies_names();
 }
 
+inline void pri_b306_generator_start(
+    CScriptGameObject* const p_actor, CScriptGameObject* const p_npc, const xr_vector<xr_string>& buffer)
+{
+    if (XR_CONDITION::is_actor_in_zone_client(p_actor, p_npc, {"pri_b306_sr_generator"}))
+        DataBase::Storage::getInstance().getActor()->GiveInfoPortion("pri_b306_lift_generator_used");
+}
+
+inline void jup_b206_get_plant(
+    CScriptGameObject* const p_actor, CScriptGameObject* const p_npc, const xr_vector<xr_string>& buffer)
+{
+    if (XR_CONDITION::is_actor_in_zone_client(p_actor, p_npc, {"jup_b206_sr_quest_line"}))
+    {
+        DataBase::Storage::getInstance().getActor()->GiveInfoPortion("jup_b206_anomalous_grove_has_plant");
+    }
+}
+
 inline void remove_item(
     CScriptGameObject* const p_actor, CScriptGameObject* const p_npc, const xr_vector<xr_string>& buffer)
 {
@@ -468,6 +484,23 @@ inline void spawn_object(
     else if (p_server_object->script_clsid() == CLSID_SE_PHYSICS_OBJECT)
     {
         p_server_object->o_Angle.y = yaw * PI / 180.0f;
+    }
+}
+
+inline void give_actor(
+    CScriptGameObject* const p_actor, CScriptGameObject* const p_npc, const xr_vector<xr_string>& buffer)
+{
+    if (buffer.empty())
+    {
+        Msg("[Scripts/XR_EFFECTS/give_actor(p_actor, p_npc, buffer)] WARNING: buffer.empty() == true! Return ...");
+        return;
+    }
+    
+    CScriptGameObject* const p_client_actor =
+        DataBase::Storage::getInstance().getActor();
+    for (const xr_string& it : buffer)
+    {
+        Globals::Game::alife_create(it, p_client_actor->Position(), p_client_actor->level_vertex_id(), p_client_actor->game_vertex_id(), p_client_actor->ID());
     }
 }
 

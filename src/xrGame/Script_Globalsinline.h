@@ -777,7 +777,7 @@ inline CSE_Abstract* alife_create(
 }
 
 inline CSE_Abstract* alife_create(const xr_string& section, const Fvector& position,
-    const std::uint32_t& level_vertex_id, const std::uint16_t& game_vertex_id, const std::uint16_t& parent_id)
+    const std::uint32_t level_vertex_id, const std::uint16_t game_vertex_id, const std::uint16_t parent_id)
 {
     if (parent_id == kUnsignedInt16Undefined)
         return alife_create(section, position, level_vertex_id, game_vertex_id);
