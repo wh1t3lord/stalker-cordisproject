@@ -1111,6 +1111,19 @@ inline void actor_punch(
         DataBase::Storage::getInstance().getActor()->DropItem(p_active_item);
 }
 
+inline void clearAbuse(
+    CScriptGameObject* const p_actor, CScriptGameObject* const p_npc, const xr_vector<xr_string>& buffer)
+{
+    if (!p_npc)
+    {
+        Msg("[Scripts/XR_EFFECTS/clearAbuse(p_actor, p_npc, buffer)] WARNING: p_npc == nullptr! Return ...");
+        return;
+    }
+
+    Script_SchemeXRAbuse::clear_abuse(p_npc);
+    Msg("[Scripts/XR_EFFECTS/clearAbuse(p_actor, p_npc, buffer)] abuse is cleared!");
+}
+
 inline void remove_item(
     CScriptGameObject* const p_actor, CScriptGameObject* const p_npc, const xr_vector<xr_string>& buffer)
 {
