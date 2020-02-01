@@ -1353,6 +1353,18 @@ inline void game_credits(
     Globals::Game::start_tutorial("credits_seq");
 }
 
+inline void game_over(
+    CScriptGameObject* const p_actor, CScriptGameObject* const p_npc, const xr_vector<xr_string>& buffer)
+{
+    if (!Script_GlobalHelper::getInstance().isGameOverCreditsStarted())
+    {
+        Msg("[Scripts/XR_EFFECTS/game_over(p_actor, p_npc, buffer)] WARNING: flag is not true! Return ...");
+        return;
+    }
+
+    Console->Execute("main_menu on");
+}
+
 inline void remove_item(
     CScriptGameObject* const p_actor, CScriptGameObject* const p_npc, const xr_vector<xr_string>& buffer)
 {
