@@ -969,6 +969,17 @@ inline void sniper_fire_mode(
     p_npc->sniper_fire_mode(false);
 }
 
+inline void kill_npc(
+    CScriptGameObject* const p_actor, CScriptGameObject* const p_npc, const xr_vector<xr_string>& buffer)
+{
+    CScriptGameObject* p_client_object = p_npc;
+    if (!buffer.empty())
+        p_client_object = Globals::get_story_object(buffer[0]);
+
+    if (p_client_object && p_client_object->Alive())
+        p_client_object->Kill(p_client_object, false);
+}
+
 inline void remove_item(
     CScriptGameObject* const p_actor, CScriptGameObject* const p_npc, const xr_vector<xr_string>& buffer)
 {
