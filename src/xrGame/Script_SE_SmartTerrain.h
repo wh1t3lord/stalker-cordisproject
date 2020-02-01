@@ -245,6 +245,8 @@ public:
     void hide(void);
     void check_respawn_params(xr_string& params);
     void select_npc_job(NpcInfo& npc_info);
+    void switch_to_desired_job(CScriptGameObject* const p_npc);
+    void setup_logic(CScriptGameObject* const p_npc);
 
 private:
     void show(void);
@@ -296,6 +298,7 @@ private:
     xr_string m_fobidden_point_name;
     xr_string m_traveller_actor_path_name;
     xr_string m_traveller_squad_path_name;
+    xr_string m_ltx_name;
     xr_map<std::uint32_t, CondlistData> m_respawn_sector_condlist;
     std::unique_ptr<CScriptIniFile> m_ini;
 };

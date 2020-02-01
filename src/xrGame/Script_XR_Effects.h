@@ -1389,8 +1389,13 @@ inline void on_tutor_gameover_quickload(
     Console->Execute("load_last_save");
 }
 
-inline void remove_item(
-    CScriptGameObject* const p_actor, CScriptGameObject* const p_npc, const xr_vector<xr_string>& buffer)
+inline void switch_to_desired_job(CScriptGameObject* const p_actor, CScriptGameObject* const p_npc, const xr_vector<xr_string>& buffer)
+{
+    XR_GULAG::switch_to_desired_job(p_npc);
+}
+
+    inline void remove_item(
+        CScriptGameObject* const p_actor, CScriptGameObject* const p_npc, const xr_vector<xr_string>& buffer)
 {
     if (buffer.empty())
     {

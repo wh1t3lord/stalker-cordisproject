@@ -6,7 +6,6 @@ namespace Cordis
 {
 namespace Scripts
 {
-
 namespace XR_GULAG
 {
 /*
@@ -53,7 +52,7 @@ inline static xr_map<xr_string, std::unique_ptr<CScriptIniFile>>& getDynamicLtx(
 }*/
 
 // @ "*smart_name*type_gulag"
-inline CScriptIniFile* loadLtx(const xr_string& name /*, xr_string& result*/)
+inline CScriptIniFile* loadLtx(const xr_string& name, xr_string& ltx_name)
 {
     // Lord: доделать!
     xr_string header = "*";
@@ -65,7 +64,10 @@ inline CScriptIniFile* loadLtx(const xr_string& name /*, xr_string& result*/)
 
     // result = header; Lord: если что аргумент result="" сделать default
     if (file)
+    {
+        ltx_name = header;
         return file;
+    }
     else
     {
         xr_string& data = GulagGenerator::getLtx();
@@ -73,10 +75,11 @@ inline CScriptIniFile* loadLtx(const xr_string& name /*, xr_string& result*/)
         {
             CScriptIniFile* result = Globals::create_ini_file(data.c_str());
             Script_GlobalHelper::getInstance().setDynamicLtx(header, result);
+            ltx_name = header;
             return result;
         }
     }
-
+    ltx_name = "";
     // написать по нормальному!
     return nullptr;
 }
@@ -122,6 +125,26 @@ inline bool is_job_in_restrictor(
     }
 
     return true;
+}
+
+inline void switch_to_desired_job(CScriptGameObject* const p_npc)
+{
+    if (!p_npc)
+    {
+        Msg("[Scripts/XR_GULAG/switch_to_desired_job(p_npc)] WARNING: p_npc == nullptr! Return ...");
+        return;
+    }
+
+    Script_SE_SmartTerrain* const p_server_smart = get_npc_smart(p_npc)->cast_script_se_smartterrain();
+
+    if (!p_server_smart)
+    {
+        Msg("[Scripts/XR_GULAG/switch_to_desired_job(p_npc)] WARNING: bad cast for script server smart terrain! Return "
+            "...");
+        return;
+    }
+
+    p_server_smart->switch_to_desired_job(p_npc);
 }
 
 } // namespace XR_GULAG
