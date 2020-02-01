@@ -992,9 +992,31 @@ inline void remove_npc(
         Globals::Game::alife_release(ai().alife().objects().object(npc_id), true);
 }
 
-inline void inc_counter(CScriptGameObject* const p_actor, CScriptGameObject* const p_npc, const xr_vector<xr_string>& buffer)
+inline void inc_counter(
+    CScriptGameObject* const p_actor, CScriptGameObject* const p_npc, const xr_vector<xr_string>& buffer)
 {
+    if (buffer.empty())
+    {
+        Msg("[Scripts/XR_EFFECTS/inc_counter(p_actor, p_npc, buffer)] WARNING: buffer.empty() == true! Return ...");
+        return;
+    }
 
+    if (!p_actor)
+    {
+        Msg("[Scripts/XR_EFFECTS/inc_counter(p_actor, p_npc, buffer)] WARNING: p_actor == nullptr! Return ...");
+        return;
+    }
+
+    std::uint8_t inc_value = static_cast<std::uint8_t>(atoi(buffer[1].c_str()));
+    if (!inc_value)
+        inc_value = 1;
+
+    std::uint8_t new_value = XR_LOGIC::pstor_retrieve_number(p_actor, buffer[0]) + inc_value;
+
+    if (p_npc && p_npc->Name())
+        Msg("[Scripts/XR_EFFECTS/inc_counter(p_actor, p_npc, buffer)] inc_counter %s to value %s by %s", buffer[0].c_str(), std::to_string(new_value).c_str(), p_npc->Name());
+
+    XR_LOGIC::pstor_store(p_actor, buffer[0], std::to_string(new_value).c_str());
 }
 
 inline void remove_item(
