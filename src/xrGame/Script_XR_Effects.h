@@ -1187,6 +1187,18 @@ inline void turn_off(
     }
 }
 
+inline void turn_off_object(
+    CScriptGameObject* const p_actor, CScriptGameObject* const p_npc, const xr_vector<xr_string>& buffer)
+{
+    if (!p_npc)
+    {
+        Msg("[Scripts/XR_EFFFECTS/turn_off_object(p_actor, p_npc, buffer)] WARNING: p_npc == nullptr! Return ...");
+        return;
+    }
+
+    p_npc->get_hanging_lamp()->TurnOff();
+}
+
 inline void remove_item(
     CScriptGameObject* const p_actor, CScriptGameObject* const p_npc, const xr_vector<xr_string>& buffer)
 {
