@@ -1340,6 +1340,12 @@ inline void disable_combat_ignore_handler(
         storage.getSchemes().at("combat_ignore")->setEnabled(false);
 }
 
+inline void game_disconnect(
+    CScriptGameObject* const p_actor, CScriptGameObject* const p_npc, const xr_vector<xr_string>& buffer)
+{
+    Console->Execute("disconnect");
+}
+
 inline void remove_item(
     CScriptGameObject* const p_actor, CScriptGameObject* const p_npc, const xr_vector<xr_string>& buffer)
 {
