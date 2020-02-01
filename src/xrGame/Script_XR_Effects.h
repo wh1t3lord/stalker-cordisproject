@@ -1222,6 +1222,61 @@ inline void turn_on(
     }
 }
 
+inline void turn_on_and_force(
+    CScriptGameObject* const p_actor, CScriptGameObject* const p_npc, const xr_vector<xr_string>& buffer)
+{
+    if (buffer.empty())
+    {
+        Msg("[Scripts/XR_EFFECTS/turn_on_and_force(p_actor, p_npc, buffer)] WARNING: buffer.empty() == true! Return "
+            "...");
+        return;
+    }
+
+    CScriptGameObject* const p_client_object = Globals::get_story_object(buffer[0]);
+
+    if (!p_client_object)
+    {
+        Msg("[Scripts/XR_EFFECTS/turn_on_and_force(p_actor, p_npc, buffer)] WARNING: p_client_object == nullptr! "
+            "Return ...");
+        return;
+    }
+
+    float value = 55.0f;
+    std::uint32_t time_interval = 14000;
+
+    if (buffer.size() >= 2 && !fis_zero(atof(buffer[1].c_str())))
+        value = atof(buffer[1].c_str());
+
+    if (buffer.size() >= 3 && atoi(buffer[2].c_str()) != 0)
+        value = static_cast<std::uint32_t>(atoi(buffer[2].c_str()));
+
+    p_client_object->set_const_force(Fvector().set(0.0f, 1.0f, 0.0f), value, time_interval);
+    p_client_object->start_particles("weapons\\light_signal", "link");
+    p_client_object->get_hanging_lamp()->TurnOn();
+}
+
+inline void turn_off_and_force(
+    CScriptGameObject* const p_actor, CScriptGameObject* const p_npc, const xr_vector<xr_string>& buffer)
+{
+    if (buffer.empty())
+    {
+        Msg("[Scripts/XR_EFFECTS/turn_off_and_force(p_actor, p_npc, buffer)] WARNING: buffer.empty() == true! Return "
+            "...");
+        return;
+    }
+
+    CScriptGameObject* const p_client_object = Globals::get_story_object(buffer[0]);
+
+    if (!p_client_object)
+    {
+        Msg("[Scripts/XR_EFFECTS/turn_off_and_force(p_actor, p_npc, buffer)] WARNING: p_client_object == nullptr! Return ...");
+        return;
+    }
+
+    p_client_object->stop_particles("weapons\\light_signal", "link");
+    p_client_object->get_hanging_lamp()->TurnOff();
+}
+
 inline void remove_item(
     CScriptGameObject* const p_actor, CScriptGameObject* const p_npc, const xr_vector<xr_string>& buffer)
 {
