@@ -1324,6 +1324,22 @@ inline void disable_combat_handler(
     }
 }
 
+inline void disable_combat_ignore_handler(
+    CScriptGameObject* const p_actor, CScriptGameObject* const p_npc, const xr_vector<xr_string>& buffer)
+{
+    if (!p_npc)
+    {
+        Msg("[Scripts/XR_EFFECTS/disable_combat_ignore_handler(p_actor, p_npc, buffer)] WARNING: p_npc == nullptr! "
+            "Return ...");
+        return;
+    }
+
+    const DataBase::Storage_Data& storage = DataBase::Storage::getInstance().getStorage().at(p_npc->ID());
+
+    if (storage.getSchemes().find("combat_ignore") != storage.getSchemes().end())
+        storage.getSchemes().at("combat_ignore")->setEnabled(false);
+}
+
 inline void remove_item(
     CScriptGameObject* const p_actor, CScriptGameObject* const p_npc, const xr_vector<xr_string>& buffer)
 {
