@@ -1290,7 +1290,39 @@ inline void turn_on_object(
     p_npc->get_hanging_lamp()->TurnOn();
 }
 
+inline void turn_off_object(
+    CScriptGameObject* const p_actor, CScriptGameObject* const p_npc, const xr_vector<xr_string>& buffer)
+{
+    if (!p_npc)
+    {
+        Msg("[Scripts/XR_EFFECTS/turn_off_object(p_actor, p_npc, buffer)] WARNING: p_npc == nullptr! Return ...");
+        return;
+    }
 
+    p_npc->get_hanging_lamp()->TurnOff();
+}
+
+inline void disable_combat_handler(
+    CScriptGameObject* const p_actor, CScriptGameObject* const p_npc, const xr_vector<xr_string>& buffer)
+{
+    if (!p_npc)
+    {
+        Msg("[Scripts/XR_EFFECTS/disable_combat_handler(p_actor, p_npc, buffer)] WARNING: p_npc == nullptr! Return "
+            "...");
+        return;
+    }
+
+    const DataBase::Storage_Data& storage = DataBase::Storage::getInstance().getStorage().at(p_npc->ID());
+    if (storage.getSchemes().find("combat") != storage.getSchemes().end())
+    {
+        storage.getSchemes().at("combat")->setEnabled(false);
+    }
+
+    if (storage.getSchemes().find("mob_combat") != storage.getSchemes().end())
+    {
+        storage.getSchemes().at("mob_combat")->setEnabled(false);
+    }
+}
 
 inline void remove_item(
     CScriptGameObject* const p_actor, CScriptGameObject* const p_npc, const xr_vector<xr_string>& buffer)
