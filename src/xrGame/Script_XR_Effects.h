@@ -1633,6 +1633,20 @@ inline void jup_b219_save_pos(
         Globals::Game::alife_release(p_server_object, true);
 }
 
+inline void jup_b219_restore_gate(CScriptGameObject* const p_actor, CScriptGameObject* const p_npc, const xr_vector<xr_string>& buffer)
+{
+    float yaw = 0.0f;
+    xr_string spawn_section_name = "jup_b219_gate";
+
+    if (!Globals::is_vector_nil(jup_b219_position))
+    {
+        CSE_Abstract* p_server_object = Globals::Game::alife_create(
+            spawn_section_name, jup_b219_position, jup_b219_level_vertex_id, jup_b219_game_vertex_id);
+
+        p_server_object->o_Angle.y = yaw * PI / 180.0f;
+    }
+}
+
 } // namespace XR_EFFECTS
 } // namespace Scripts
 } // namespace Cordis
