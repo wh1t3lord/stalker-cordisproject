@@ -2764,7 +2764,7 @@ inline void change_anomalies_names(void)
             if (is_has_af)
             {
                 hint_name += Globals::Game::translate_string("st_jup_b32_has_af");
-                
+
                 for (const xr_string& it : artefacts)
                 {
                     xr_string translate_data_name = "st_";
@@ -2786,6 +2786,16 @@ inline void change_anomalies_names(void)
 }
 
 inline bool isImportantSave(void) { return !!psActorFlags.test(AF_IMPORTANT_SAVE); }
+
+inline void set_inactivate_input_time(const std::uint32_t delta)
+{
+    DataBase::Storage::getInstance().setStorageDisableInputTime(
+        DataBase::Storage::getInstance().getActor()->ID(), Globals::Game::get_game_time());
+    DataBase::Storage::getInstance().setStorageDisableInputIdle(
+        DataBase::Storage::getInstance().getActor()->ID(), delta);
+
+    Globals::Game::level::disable_input();
+}
 
 } // namespace Globals
 } // namespace Scripts

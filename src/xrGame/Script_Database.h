@@ -2718,6 +2718,12 @@ public:
         this->m_script_combat_type_name = type_name;
     }
 
+    inline std::uint32_t getDisableInputIdle(void) const noexcept { return this->m_disable_input_idle; }
+    inline void setDisableInputIdle(const std::uint32_t value) noexcept { this->m_disable_input_idle = value; }
+
+    inline const xrTime& getDisableInputTime(void) const noexcept { return this->m_disable_input_time; }
+    inline void setDisableInputTime(const xrTime& time) noexcept { this->m_disable_input_time = time; }
+
 private:
     bool m_is_invulnerable = false;
     bool m_is_immortal = false;
@@ -2731,6 +2737,8 @@ private:
     std::uint16_t m_corpse_already_selected = 0;
     std::uint16_t m_wounded_already_selected = 0;
     std::int32_t m_activation_time = 0;
+    std::uint32_t m_disable_input_idle;
+    xrTime m_disable_input_time;
     HitData m_hit;
     CScriptGameObject* m_p_client_object = nullptr;
     CScriptGameObject* m_p_client_enemy = nullptr;
@@ -3267,6 +3275,16 @@ public:
 
     void setStorageStateManager(CScriptGameObject* const p_client_object, Script_StateManager* const p_state_manager);
     void setStorageMoveManager(CScriptGameObject* const p_client_object, Script_MoveManager* const p_move_manager);
+
+    inline void setStorageDisableInputIdle(const std::uint16_t npc_id, const std::uint32_t value) noexcept
+    {
+        this->m_storage[npc_id].setDisableInputIdle(value);
+    }
+
+    inline void setStorageDisableInputTime(const std::uint16_t npc_id, const xrTime& time) noexcept 
+    {
+        this->m_storage[npc_id].setDisableInputTime(time);
+    }
 
     inline void setStorageScriptCombatTypeName(const std::uint16_t npc_id, const xr_string& type_name)
     {
@@ -4048,8 +4066,8 @@ public:
         this->m_game_registered_smartcovers_by_level_id[level_id][id] = server_smartcover;
     }
 
-    inline void deleteStorage(const std::uint16_t object_id) 
-    { 
+    inline void deleteStorage(const std::uint16_t object_id)
+    {
         Msg("[Scripts/DataBase/Storage/deleteStorage(object_id)] deleting storage -> %d", object_id);
         this->m_storage.erase(object_id);
     }
