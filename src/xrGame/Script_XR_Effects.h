@@ -1383,6 +1383,12 @@ inline void on_tutor_gameover_stop(
     Console->Execute("main_menu on");
 }
 
+inline void on_tutor_gameover_quickload(
+    CScriptGameObject* const p_actor, CScriptGameObject* const p_npc, const xr_vector<xr_string>& buffer)
+{
+    Console->Execute("load_last_save");
+}
+
 inline void remove_item(
     CScriptGameObject* const p_actor, CScriptGameObject* const p_npc, const xr_vector<xr_string>& buffer)
 {
