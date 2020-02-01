@@ -1,7 +1,6 @@
 #pragma once
 
 #include "script_particles.h"
-
 namespace Cordis
 {
 namespace Scripts
@@ -282,24 +281,69 @@ inline std::uint32_t get_danger_time(const CDangerObject* p_client_danger_object
 
 namespace XR_LOGIC
 {
-inline xr_string determine_section_to_activate(CScriptGameObject* const p_npc, CScriptIniFile* const p_ini,
-    const xr_string& section_logic_name, CScriptGameObject* const p_actor);
-inline void parse_infopotions(xr_map<std::uint32_t, CondlistData::CondlistValues>& data, xr_string& buffer);
-inline bool switch_to_section(
-    CScriptGameObject* const p_client_object, CScriptIniFile* const p_ini, const xr_string& section_name);
-inline bool is_active(CScriptGameObject* const p_client_object, DataBase::Storage_Scheme& storage);
-/*
-inline void activate_by_section(CScriptGameObject* const p_client_object, CScriptIniFile* const p_ini,
-const xr_string& section_name, const xr_string& gulag_name, const bool is_loading);*/
-inline void reset_generic_schemes_on_scheme_switch(
-    CScriptGameObject* const p_client_object, const xr_string& scheme_name, const xr_string& section_name);
-inline DataBase::Data_Overrides cfg_get_overrides(
-    CScriptIniFile* const p_ini, const xr_string& section_name, CScriptGameObject* const p_client_object);
 void activate_by_section(CScriptGameObject* const p_client_object, CScriptIniFile* const p_ini,
     const xr_string& section_name, const xr_string& gulag_name, const bool is_loading);
 CScriptIniFile* configure_schemes(CScriptGameObject* const p_client_object, CScriptIniFile* const p_ini,
     const xr_string& ini_filename, std::uint32_t stype, const xr_string& section_logic_name,
     const xr_string& gulag_name);
+inline xr_string
+    determine_section_to_activate(CScriptGameObject* const p_npc, CScriptIniFile* const p_ini,
+    const xr_string& section_logic_name, CScriptGameObject* const p_actor);
+inline void disable_generic_schemes(CScriptGameObject* const p_client_object, const std::uint32_t stype);
+inline void enable_generic_schemes(CScriptIniFile* const p_ini, CScriptGameObject* const p_client_object,
+    const std::uint32_t stype, const xr_string& section_logic_name);
+inline CScriptIniFile get_customdata_or_ini_file(CScriptGameObject* npc, const xr_string& filename);
+/*
+inline void intialize_job(CScriptGameObject* object, DataBase::Storage_Data& storage, const bool& loaded,
+    CScriptGameObject* actor, const std::uint16_t& stype);*/
+inline void parse_infopotions(xr_map<std::uint32_t, CondlistData::CondlistValues>& data, xr_string& buffer);
+inline bool parse_condlistdata(xr_map<std::uint32_t, CondlistData>& data, xr_vector<CondlistParsingData>& buffer);
+inline xr_map<std::uint32_t, CondlistData> parse_condlist_by_server_object(
+    const xr_string& section, const xr_string& field, const xr_string& source);
+inline xr_map<std::uint32_t, CondlistData> parse_condlist_by_script_object(
+    const xr_string& section, const xr_string& field, const xr_string& source);
+inline xr_string pick_section_from_condlist(
+    CScriptGameObject* actor, CSE_ALifeDynamicObject* npc, const xr_map<std::uint32_t, CondlistData>& condlist);
+inline xr_string pick_section_from_condlist(
+    CSE_ALifeDynamicObject* actor, CSE_ALifeDynamicObject* npc, const xr_map<std::uint32_t, CondlistData>& condlist);
+inline xr_string pick_section_from_condlist(
+    CScriptGameObject* actor, CScriptGameObject* npc, const xr_map<std::uint32_t, CondlistData>& condlist);
+inline void pstor_load_all(CScriptGameObject* client_object, NET_Packet& packet);
+inline void pstor_save_all(CScriptGameObject* const p_client_object, NET_Packet& packet);
+inline bool pstor_retrieve_bool(CScriptGameObject* object, const xr_string& varname);
+inline std::uint8_t pstor_retrieve_number(CScriptGameObject* object, const xr_string& varname);
+inline xr_string pstor_retrieve_string(CScriptGameObject* object, const xr_string& varname);
+inline void pstor_store(CScriptGameObject* object, const xr_string& varname, const bool value);
+inline void pstor_store(CScriptGameObject* object, const xr_string& varname, const std::uint8_t value);
+inline void pstor_store(CScriptGameObject* object, const xr_string& varname, const xr_string& value);
+inline void load_object(CScriptGameObject* client_object, NET_Packet& packet);
+inline void save_object(CScriptGameObject* client_object, NET_Packet& packet);
+inline void mob_capture(CScriptGameObject* client_mob, const bool is_reset_actions, const xr_string& scheme_name);
+inline bool is_mob_captured(CScriptGameObject* p_client_object);
+inline DataBase::Storage_Scheme* assign_storage_and_bind(CScriptGameObject* const p_client_object,
+    CScriptIniFile* const p_ini, const xr_string& scheme_name, const xr_string& section_name,
+    const xr_string& gulag_name);
+inline void mob_release(CScriptGameObject* const p_client_object, const xr_string& scheme_name);
+inline LogicData cfg_get_two_strings_and_condlist(CScriptIniFile* const p_ini, const xr_string& section_name,
+    const xr_string& field_name, CScriptGameObject* const p_npc);
+inline LogicData cfg_get_npc_and_zone(CScriptIniFile* const p_ini, const xr_string& section_name,
+    const xr_string& field_name, CScriptGameObject* const p_npc);
+inline LogicData cfg_get_string_and_condlist(CScriptIniFile* const p_ini, const xr_string& section_name,
+    const xr_string& field_name, CScriptGameObject* const p_npc);
+inline LogicData cfg_get_condlist(CScriptIniFile* const p_ini, const xr_string& section_name,
+    const xr_string& field_name, CScriptGameObject* const p_npc);
+inline xr_vector<LogicData> cfg_get_switch_conditions(
+    CScriptIniFile* p_ini, const xr_string& section_name, CScriptGameObject* const p_client_object);
+inline bool is_see_actor(CScriptGameObject* const p_client_object);
+inline bool try_switch_to_another_section(
+    CScriptGameObject* p_client_object, DataBase::Storage_Scheme& storage, CScriptGameObject* p_client_actor);
+inline bool switch_to_section(
+    CScriptGameObject* const p_client_object, CScriptIniFile* const p_ini, const xr_string& section_name);
+inline bool is_active(CScriptGameObject* const p_client_object, DataBase::Storage_Scheme& storage);
+inline void reset_generic_schemes_on_scheme_switch(
+    CScriptGameObject* const p_client_object, const xr_string& scheme_name, const xr_string& section_name);
+inline DataBase::Data_Overrides cfg_get_overrides(
+    CScriptIniFile* const p_ini, const xr_string& section_name, CScriptGameObject* const p_client_object);
 } // namespace XR_LOGIC
 
 namespace CRD_DialogManager

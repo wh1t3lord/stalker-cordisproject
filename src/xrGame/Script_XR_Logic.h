@@ -123,8 +123,8 @@ inline CScriptIniFile get_customdata_or_ini_file(CScriptGameObject* npc, const x
     {
         if (storage.getJobIniName().size())
             return CScriptIniFile(storage.getJobIniName().c_str());
-
-        return *XR_GULAG::loadLtx(filename.substr(filename.find('*') + 1));
+        xr_string something_like_that;
+        return *XR_GULAG::loadLtx(filename.substr(filename.find('*') + 1), something_like_that);
     }
 
     return CScriptIniFile(filename.c_str());
