@@ -980,6 +980,23 @@ inline void kill_npc(
         p_client_object->Kill(p_client_object, false);
 }
 
+inline void remove_npc(
+    CScriptGameObject* const p_actor, CScriptGameObject* const p_npc, const xr_vector<xr_string>& buffer)
+{
+    std::uint16_t npc_id = 0;
+
+    if (!buffer.empty())
+        npc_id = Globals::get_story_object_id(buffer[0]);
+
+    if (npc_id)
+        Globals::Game::alife_release(ai().alife().objects().object(npc_id), true);
+}
+
+inline void inc_counter(CScriptGameObject* const p_actor, CScriptGameObject* const p_npc, const xr_vector<xr_string>& buffer)
+{
+
+}
+
 inline void remove_item(
     CScriptGameObject* const p_actor, CScriptGameObject* const p_npc, const xr_vector<xr_string>& buffer)
 {
