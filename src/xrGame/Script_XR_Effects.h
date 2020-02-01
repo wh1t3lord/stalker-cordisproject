@@ -886,6 +886,89 @@ inline void hit_by_killer(
     p_npc->Hit(&hit);
 }
 
+inline void hit_npc_from_actor(
+    CScriptGameObject* const p_actor, CScriptGameObject* const p_npc, const xr_vector<xr_string>& buffer)
+{
+    if (!p_actor)
+    {
+        Msg("[Scripts/XR_EFFECTS/hit_npc_from_actor(p_actor, p_npc, buffer)] WARNING: p_actor == nullptr! Return ...");
+        return;
+    }
+
+    CScriptHit hit;
+    hit.m_tpDraftsman = p_actor;
+    hit.m_tHitType = ALife::EHitType::eHitTypeWound;
+    CScriptGameObject* p_client_object = nullptr;
+    if (!buffer.empty())
+        p_client_object = Globals::get_story_object(buffer[0]);
+
+    if (p_client_object)
+        hit.m_tDirection = p_actor->Position().sub(p_client_object->Position());
+    else
+        hit.m_tDirection = p_actor->Position().sub(p_npc->Position());
+
+    if (buffer.empty())
+        hit.m_tDirection = p_actor->Position().sub(p_npc->Position());
+
+    hit.set_bone_name("bip01_spine");
+    hit.m_fPower = 0.001f;
+    hit.m_fImpulse = 0.001f;
+    p_npc->Hit(&hit);
+}
+
+inline void restore_health(
+    CScriptGameObject* const p_actor, CScriptGameObject* const p_npc, const xr_vector<xr_string>& buffer)
+{
+    if (!p_npc)
+    {
+        Msg("[Scripts/XR_EFFECTS/restore_health(p_actor, p_npc, buffer)] WARNING: p_npc == nullptr! Return ...");
+        return;
+    }
+
+    p_npc->SetHealth(1.0f);
+}
+
+inline void make_enemy(
+    CScriptGameObject* const p_actor, CScriptGameObject* const p_npc, const xr_vector<xr_string>& buffer)
+{
+    if (buffer.empty())
+    {
+        Msg("[Scripts/XR_EFFECTS/make_enemy(p_actor, p_npc, buffer)] WARNING: buffer.empty() == true! Return ...");
+        return;
+    }
+
+    CScriptGameObject* p_hitted_npc = p_npc;
+    CScriptHit hit;
+    hit.m_tpDraftsman = Globals::get_story_object(buffer[0]);
+
+    if (buffer.size() > 1)
+        p_hitted_npc = Globals::get_story_object(buffer[0]);
+
+    hit.m_tHitType = ALife::EHitType::eHitTypeWound;
+    hit.m_tDirection = hit.m_tpDraftsman->Position().sub(p_hitted_npc->Position());
+    hit.set_bone_name("bip01_spine");
+    hit.m_fPower = 0.03f;
+    hit.m_fImpulse = 0.03f;
+    p_hitted_npc->Hit(&hit);
+}
+
+inline void sniper_fire_mode(
+    CScriptGameObject* const p_actor, CScriptGameObject* const p_npc, const xr_vector<xr_string>& buffer)
+{
+    if (buffer.empty())
+    {
+        Msg("[Scripts/XR_EFFECTS/sniper_fire_mode(p_actor, p_npc, buffer)] WARNING: buffer.empty() == true! Return "
+            "...");
+    }
+    else
+    {
+        if (buffer[0] == "true")
+            p_npc->sniper_fire_mode(true);
+    }
+
+    p_npc->sniper_fire_mode(false);
+}
+
 inline void remove_item(
     CScriptGameObject* const p_actor, CScriptGameObject* const p_npc, const xr_vector<xr_string>& buffer)
 {
