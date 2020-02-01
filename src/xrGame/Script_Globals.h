@@ -274,6 +274,7 @@ inline LPCSTR get_level_name(int level_id);
 inline void update_logic(CScriptGameObject* const p_object);
 inline void change_anomalies_names(void);
 inline bool isImportantSave(void);
+inline void set_inactivate_input_time(const std::uint32_t delta);
 } // namespace Globals
 } // namespace Scripts
 } // namespace Cordis

@@ -1083,6 +1083,19 @@ inline void set_counter(
     XR_LOGIC::pstor_store(p_actor, buffer[0], value_name);
 }
 
+// @ Используется только аргумент p_npc
+inline void actor_punch(
+    CScriptGameObject* const p_actor, CScriptGameObject* const p_npc, const xr_vector<xr_string>& buffer)
+{
+    if (!p_npc)
+    {
+        Msg("[Scripts/XR_EFFECTS/actor_punch(p_actor, p_npc, buffer)] WARNING: p_npc == nullptr! Return ...");
+        return;
+    }
+
+
+}
+
 inline void remove_item(
     CScriptGameObject* const p_actor, CScriptGameObject* const p_npc, const xr_vector<xr_string>& buffer)
 {
