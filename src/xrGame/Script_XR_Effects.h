@@ -1269,13 +1269,28 @@ inline void turn_off_and_force(
 
     if (!p_client_object)
     {
-        Msg("[Scripts/XR_EFFECTS/turn_off_and_force(p_actor, p_npc, buffer)] WARNING: p_client_object == nullptr! Return ...");
+        Msg("[Scripts/XR_EFFECTS/turn_off_and_force(p_actor, p_npc, buffer)] WARNING: p_client_object == nullptr! "
+            "Return ...");
         return;
     }
 
     p_client_object->stop_particles("weapons\\light_signal", "link");
     p_client_object->get_hanging_lamp()->TurnOff();
 }
+
+inline void turn_on_object(
+    CScriptGameObject* const p_actor, CScriptGameObject* const p_npc, const xr_vector<xr_string>& buffer)
+{
+    if (!p_npc)
+    {
+        Msg("[Scripts/XR_EFFECTS/turn_on_object(p_actor, p_npc, buffer)] WARNING: p_npc == nullptr! Return ...");
+        return;
+    }
+
+    p_npc->get_hanging_lamp()->TurnOn();
+}
+
+
 
 inline void remove_item(
     CScriptGameObject* const p_actor, CScriptGameObject* const p_npc, const xr_vector<xr_string>& buffer)
