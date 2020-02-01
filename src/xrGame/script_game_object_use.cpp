@@ -59,13 +59,13 @@ int CScriptGameObject::clsid() const { return (object().clsid()); }
 LPCSTR CScriptGameObject::Name() const { return (*object().cName()); }
 shared_str CScriptGameObject::cName() const { return (object().cName()); }
 LPCSTR CScriptGameObject::Section() const { return (*object().cNameSect()); }
-void CScriptGameObject::Kill(CScriptGameObject* who, bool bypass_actor_check /*AVO: added for actor before death callback*/)
+void CScriptGameObject::Kill(
+    CScriptGameObject* who, bool bypass_actor_check /*AVO: added for actor before death callback*/)
 {
     CEntity* l_tpEntity = smart_cast<CEntity*>(&object());
     if (!l_tpEntity)
     {
-        GEnv.ScriptEngine->script_log(
-            LuaMessageType::Error, "%s cannot access class member Kill!", *object().cName());
+        R_ASSERT2(false, "bad cast!");
         return;
     }
     if (!l_tpEntity->AlreadyDie())
@@ -110,9 +110,6 @@ ALife::ERelationType CScriptGameObject::GetRelationType(CScriptGameObject* who)
 template <typename T>
 IC T* CScriptGameObject::action_planner()*/
 
-
-
-
 void CScriptGameObject::set_enemy_callback(const luabind::functor<bool>& functor)
 {
     CCustomMonster* monster = smart_cast<CCustomMonster*>(&object());
@@ -123,7 +120,7 @@ void CScriptGameObject::set_enemy_callback(const luabind::functor<bool>& functor
         return;
     }
     // Lord - [Script] Re-write
- //   monster->memory().enemy().useful_callback().set(functor);
+    //   monster->memory().enemy().useful_callback().set(functor);
 }
 
 void CScriptGameObject::set_enemy_callback(const luabind::functor<bool>& functor, const luabind::object& object)
@@ -136,7 +133,7 @@ void CScriptGameObject::set_enemy_callback(const luabind::functor<bool>& functor
         return;
     }
     // Lord - [Script] Re-write
- //   monster->memory().enemy().useful_callback().set(functor, object);
+    //   monster->memory().enemy().useful_callback().set(functor, object);
 }
 
 void CScriptGameObject::set_enemy_callback()
@@ -149,23 +146,25 @@ void CScriptGameObject::set_enemy_callback()
         return;
     }
     // Lord - [Script] Re-write
-  //  monster->memory().enemy().useful_callback().clear();
+    //  monster->memory().enemy().useful_callback().clear();
 }
 
 void CScriptGameObject::SetCallback(GameObject::ECallbackType type, const luabind::functor<void>& functor)
 {
     // Lord - [Script] Re-write
-  //  object().callback(type).set(functor);
+    //  object().callback(type).set(functor);
 }
 
 void CScriptGameObject::SetCallback(
     GameObject::ECallbackType type, const luabind::functor<void>& functor, const luabind::object& object)
 {
     // Lord - [Script] Re-write
-  //  this->object().callback(type).set(functor, object);
+    //  this->object().callback(type).set(functor, object);
 }
 
-void CScriptGameObject::SetCallback(GameObject::ECallbackType type) { /*object().callback(type).clear();*/ }
+void CScriptGameObject::SetCallback(GameObject::ECallbackType type)
+{ /*object().callback(type).clear();*/
+}
 /*
 void CScriptGameObject::set_fastcall(const luabind::functor<bool>& functor, const luabind::object& object)
 {
@@ -176,7 +175,7 @@ void CScriptGameObject::set_fastcall(const luabind::functor<bool>& functor, cons
     Level().ph_commander_scripts().AddCallDeferred(c, a);
 }*/
 
-void CScriptGameObject::set_fastcall(std::function<bool(void)> func) 
+void CScriptGameObject::set_fastcall(std::function<bool(void)> func)
 {
     CPHScriptGameObjectCondition* c = new CPHScriptGameObjectCondition(func, m_game_object);
     CPHDummiAction* a = new CPHDummiAction();
