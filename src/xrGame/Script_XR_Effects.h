@@ -829,7 +829,8 @@ inline void hit_obj(
 
     if (buffer.size() > 4)
     {
-        hit.m_tDirection = Fvector().sub(CPatrolPathParams(buffer[4].c_str()).point(std::uint32_t(0)), p_client_object->Position());
+        hit.m_tDirection =
+            Fvector().sub(CPatrolPathParams(buffer[4].c_str()).point(std::uint32_t(0)), p_client_object->Position());
     }
     else
     {
@@ -1379,13 +1380,14 @@ inline void on_tutor_gameover_quickload(
     Console->Execute("load_last_save");
 }
 
-inline void switch_to_desired_job(CScriptGameObject* const p_actor, CScriptGameObject* const p_npc, const xr_vector<xr_string>& buffer)
+inline void switch_to_desired_job(
+    CScriptGameObject* const p_actor, CScriptGameObject* const p_npc, const xr_vector<xr_string>& buffer)
 {
     XR_GULAG::switch_to_desired_job(p_npc);
 }
 
-    inline void remove_item(
-        CScriptGameObject* const p_actor, CScriptGameObject* const p_npc, const xr_vector<xr_string>& buffer)
+inline void remove_item(
+    CScriptGameObject* const p_actor, CScriptGameObject* const p_npc, const xr_vector<xr_string>& buffer)
 {
     if (buffer.empty())
     {
@@ -1603,6 +1605,32 @@ inline void scenario_autosave(
 
         Console->Execute(save_name.c_str());
     }
+}
+
+static Fvector jup_b219_position;
+static std::uint32_t jup_b219_level_vertex_id = 0;
+static std::uint16_t jup_b219_game_vertex_id = 0;
+
+inline void jup_b219_save_pos(
+    CScriptGameObject* const p_actor, CScriptGameObject* const p_npc, const xr_vector<xr_string>& buffer)
+{
+    CScriptGameObject* const p_client_object = Globals::get_story_object("jup_b219_gate_id");
+
+    if (p_client_object)
+    {
+        jup_b219_position = p_client_object->Position();
+        jup_b219_level_vertex_id = p_client_object->level_vertex_id();
+        jup_b219_game_vertex_id = p_client_object->game_vertex_id();
+    }
+    else
+    {
+        Msg("[Scripts/XR_EFFECTS/jup_b219_save_pos(p_actor, p_npc, buffer)] WARNING: p_client_object == nullptr! Return ...");
+        return;
+    }
+
+    CSE_Abstract* p_server_object = ai().alife().objects().object(p_client_object->ID());
+    if (p_client_object)
+        Globals::Game::alife_release(p_server_object, true);
 }
 
 } // namespace XR_EFFECTS
