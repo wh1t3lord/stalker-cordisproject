@@ -282,6 +282,8 @@ inline std::uint32_t get_danger_time(const CDangerObject* p_client_danger_object
 
 namespace XR_LOGIC
 {
+inline xr_string determine_section_to_activate(CScriptGameObject* const p_npc, CScriptIniFile* const p_ini,
+    const xr_string& section_logic_name, CScriptGameObject* const p_actor);
 inline void parse_infopotions(xr_map<std::uint32_t, CondlistData::CondlistValues>& data, xr_string& buffer);
 inline bool switch_to_section(
     CScriptGameObject* const p_client_object, CScriptIniFile* const p_ini, const xr_string& section_name);

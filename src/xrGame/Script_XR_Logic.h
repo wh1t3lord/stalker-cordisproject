@@ -21,6 +21,57 @@ constexpr const char* XR_LOGIC_TEXT_NEVER = "never";
 constexpr const char* kXRLogicReturnTypeSuccessfulName = "true";
 constexpr const char* kXRLogicReturnTypeBadName = "false";
 
+inline xr_string determine_section_to_activate(CScriptGameObject* const p_npc, CScriptIniFile* const p_ini,
+    const xr_string& section_logic_name, CScriptGameObject* const p_actor)
+{
+    if (!p_ini)
+    {
+        R_ASSERT2(false, "something is not right!");
+        return xr_string();
+    }
+
+    if (!p_npc)
+    {
+        R_ASSERT2(false, "object is null!");
+        return xr_string();
+    }
+
+    if (!p_ini->section_exist(section_logic_name.c_str()))
+        return xr_string("nil");
+
+    if (DataBase::Storage::getInstance().getOfflineObjects().find(p_npc->ID()) !=
+        DataBase::Storage::getInstance().getOfflineObjects().end())
+    {
+        if (!DataBase::Storage::getInstance().getOfflineObjects().at(p_npc->ID()).second.empty())
+        {
+            xr_string section_to_retrive_name =
+                DataBase::Storage::getInstance().getOfflineObjects().at(p_npc->ID()).second;
+
+            DataBase::Storage::getInstance().setOfflineObjects(p_npc->ID(), "");
+
+            if (p_ini->section_exist(section_to_retrive_name.c_str()))
+                return section_to_retrive_name;
+        }
+    }
+
+    LogicData active_section_cond = cfg_get_condlist(p_ini, section_logic_name, "active", p_npc);
+    xr_string active_section_name;
+    if (active_section_cond.getCondlist().empty())
+    {
+        return xr_string("nil");
+    }
+    else
+    {
+        active_section_name = pick_section_from_condlist(p_actor, p_npc, active_section_cond.getCondlist());
+        if (active_section_name.empty())
+        {
+            R_ASSERT2(false, "something is not right hoooman!!!");
+        }
+    }
+
+    return active_section_name;
+}
+
 inline void disable_generic_schemes(CScriptGameObject* const p_client_object, const std::uint32_t stype)
 {
     if (!p_client_object)
@@ -2145,7 +2196,8 @@ inline DataBase::Storage_Scheme* assign_storage_and_bind(CScriptGameObject* cons
         DataBase::Storage_Scheme* p_storage = new DataBase::Storage_Scheme();
         p_storage->setClientObject(p_client_object);
         DataBase::Storage::getInstance().setStorageScheme(p_client_object->ID(), scheme_name, p_storage);
-        Script_GlobalHelper::getInstance().getSchemesAddToBinderCallbacks()[scheme_name](p_client_object, p_ini, scheme_name, section_name, *p_storage);
+        Script_GlobalHelper::getInstance().getSchemesAddToBinderCallbacks()[scheme_name](
+            p_client_object, p_ini, scheme_name, section_name, *p_storage);
     }
 
     // Lord: лучше всё таки указатель сделать

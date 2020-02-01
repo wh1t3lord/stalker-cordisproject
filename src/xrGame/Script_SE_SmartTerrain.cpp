@@ -1267,6 +1267,166 @@ void Script_SE_SmartTerrain::select_npc_job(NpcInfo& npc_info)
     }
 }
 
+void Script_SE_SmartTerrain::switch_to_desired_job(CScriptGameObject* const p_npc)
+{
+    if (!p_npc)
+    {
+        Msg("[Scripts/Script_SE_SmartTerrain/switch_to_desired_job(p_npc)] WARNING: p_npc == nullptr! Return ...");
+        return;
+    }
+
+    const std::uint16_t npc_id = p_npc->ID();
+    NpcInfo& npc_info = this->m_npc_info.at(npc_id);
+
+    std::uint16_t npc_changing_id = this->m_npc_by_job_section[npc_info.m_need_job];
+
+    if (npc_changing_id == 0)
+    {
+        if (this->m_npc_info[npc_id].m_job_link1 && this->m_npc_info[npc_id].m_job_link2)
+        {
+            R_ASSERT2(false, "can't have two valid jobs!!!");
+        }
+
+        if (this->m_npc_info[npc_id].m_job_link1)
+            this->m_npc_info[npc_id].m_job_link1 = nullptr;
+
+        if (this->m_npc_info[npc_id].m_job_link2)
+            this->m_npc_info[npc_id].m_job_link2 = nullptr;
+
+        this->m_npc_info[npc_id].m_job_id = -1;
+        this->m_npc_info[npc_id].m_job_prioprity = -1;
+
+        this->select_npc_job(this->m_npc_info[npc_id]);
+        return;
+    }
+
+    if (this->m_npc_info.find(npc_changing_id) == this->m_npc_info.end())
+    {
+        if (this->m_npc_info[npc_id].m_job_link1 && this->m_npc_info[npc_id].m_job_link2)
+        {
+            R_ASSERT2(false, "can't have two valid jobs!!!");
+        }
+
+        if (this->m_npc_info[npc_id].m_job_link1)
+            this->m_npc_info[npc_id].m_job_link1 = nullptr;
+
+        if (this->m_npc_info[npc_id].m_job_link2)
+            this->m_npc_info[npc_id].m_job_link2 = nullptr;
+
+        this->m_npc_info[npc_id].m_job_id = -1;
+        this->m_npc_info[npc_id].m_job_prioprity = -1;
+
+        this->select_npc_job(this->m_npc_info[npc_id]);
+        return;
+    }
+
+    std::uint32_t desired_job_id = this->m_npc_info[npc_changing_id].m_job_id;
+
+    if (npc_info.m_job_link1 && npc_info.m_job_link2)
+    {
+        R_ASSERT2(false, "can't be!!!");
+    }
+
+    if (npc_info.m_job_link1)
+    {
+        this->m_npc_by_job_section[this->m_job_data[npc_info.m_job_link1->m_job_index]->m_job_id.first] = 0;
+        npc_info.m_job_link1->m_npc_id = 0;
+    }
+
+    if (npc_info.m_job_link2)
+    {
+        this->m_npc_by_job_section[this->m_job_data[npc_info.m_job_link2->m_job_index]->m_job_id.first] = 0;
+        npc_info.m_job_link2->m_npc_id = 0;
+    }
+
+    JobData_SubData* const p_data = this->m_npc_info[npc_changing_id].m_job_link1;
+    JobDataExclusive* const p_data_exclusive = this->m_npc_info[npc_changing_id].m_job_link2;
+
+    if (p_data && p_data_exclusive)
+    {
+        R_ASSERT2(false, "can't be!!");
+    }
+
+    if (p_data)
+    {
+        p_data->m_npc_id = npc_info.m_server_object->ID;
+        this->m_npc_by_job_section[this->m_job_data[p_data->m_job_index]->m_job_id.first] = p_data->m_npc_id;
+        npc_info.m_job_id = p_data->m_job_index;
+        npc_info.m_job_prioprity = p_data->m_priority;
+        npc_info.m_begin_job = true;
+    }
+
+    if (p_data_exclusive)
+    {
+        p_data_exclusive->m_npc_id = npc_info.m_server_object->ID;
+        this->m_npc_by_job_section[this->m_job_data[p_data_exclusive->m_job_index]->m_job_id.first] =
+            p_data_exclusive->m_npc_id;
+        npc_info.m_job_id = p_data_exclusive->m_job_index;
+        npc_info.m_job_prioprity = p_data_exclusive->m_priority;
+        npc_info.m_begin_job = true;
+    }
+
+    npc_info.m_begin_job = true;
+    npc_info.m_need_job = "nil";
+
+    if (DataBase::Storage::getInstance().getStorage().find(npc_id) !=
+        DataBase::Storage::getInstance().getStorage().end())
+        this->setup_logic(DataBase::Storage::getInstance().getStorage().at(npc_id).getClientObject());
+
+    if (this->m_npc_info[npc_changing_id].m_job_link1 && this->m_npc_info[npc_changing_id].m_job_link2)
+    {
+        R_ASSERT2(false, "can't have two valid jobs!!!");
+    }
+
+    if (this->m_npc_info[npc_changing_id].m_job_link1)
+        this->m_npc_info[npc_changing_id].m_job_link1 = nullptr;
+
+    if (this->m_npc_info[npc_changing_id].m_job_link2)
+        this->m_npc_info[npc_changing_id].m_job_link2 = nullptr;
+
+    this->m_npc_info[npc_changing_id].m_job_id = -1;
+    this->m_npc_info[npc_changing_id].m_job_prioprity = -1;
+
+    this->select_npc_job(this->m_npc_info[npc_changing_id]);
+}
+
+void Script_SE_SmartTerrain::setup_logic(CScriptGameObject* const p_npc)
+{
+    if (!p_npc)
+    {
+        Msg("[Scripts/Script_SE_SmartTerrain/setup_logic(p_npc)] WARNING: p_npc == nullptr! Return ...");
+        return;
+    }
+
+    NpcInfo& npc_info = this->m_npc_info[p_npc->ID()];
+    JobDataSmartTerrain* job = this->m_job_data[npc_info.m_job_id];
+    CScriptIniFile* ini = job->m_ini_file ? job->m_ini_file : this->m_ltx;
+    xr_string ltx_name = job->m_ini_path_name.empty() ? this->m_ltx_name;
+    if (!ini)
+    {
+        R_ASSERT2(false, "something wrong!!!");
+        return;
+    }
+
+    if (ltx_name.empty())
+    {
+        R_ASSERT2(false, "something wrong!!!");
+        return;
+    }
+
+    XR_LOGIC::configure_schemes(p_npc, ini, ltx_name, npc_info.m_stype, job->m_ini_path_name, this->name_replace());
+
+    xr_string section_name = XR_LOGIC::determine_section_to_activate(
+        p_npc, ini, job->m_job_id.first, DataBase::Storage::getInstance().getActor());
+
+    if (Globals::Utils::get_scheme_by_section(job->m_job_id.first).empty())
+    {
+        R_ASSERT2(false, "doesnt use that section!");
+    }
+
+    XR_LOGIC::activate_by_section(p_npc, ini, section_name, this->name_replace(), false);
+}
+
 void Script_SE_SmartTerrain::show(void)
 {
     std::uint32_t time = Device.dwTimeGlobal;
@@ -1311,7 +1471,7 @@ void Script_SE_SmartTerrain::show(void)
 void Script_SE_SmartTerrain::load_jobs(void)
 {
     this->m_jobs = GulagGenerator::load_job(this);
-    this->m_ltx = XR_GULAG::loadLtx(this->name_replace());
+    this->m_ltx = XR_GULAG::loadLtx(this->name_replace(), this->m_ltx_name);
     auto sort_function = [](const std::pair<std::uint32_t, xr_vector<JobData_SubData>>& a,
                              const std::pair<std::uint32_t, xr_vector<JobData_SubData>>& b) -> bool {
         for (const JobData_SubData& it : a.second)
