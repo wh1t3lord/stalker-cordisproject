@@ -1199,6 +1199,29 @@ inline void turn_off_object(
     p_npc->get_hanging_lamp()->TurnOff();
 }
 
+inline void turn_on(
+    CScriptGameObject* const p_actor, CScriptGameObject* const p_npc, const xr_vector<xr_string>& buffer)
+{
+    if (buffer.empty())
+    {
+        Msg("[Scripts/XR_EFFECTS/turn_on(p_actor, p_npc, buffer)] WARNING: buffer.empty() == true! Return ...");
+        return;
+    }
+
+    for (const xr_string& it : buffer)
+    {
+        CScriptGameObject* const p_client_object = Globals::get_story_object(it);
+
+        if (!p_client_object)
+        {
+            Msg("[Scripts/XR_EFFECTS/turn_on(p_actor, p_npc, buffer)] WARNING: p_client_object == nullptr! Return ...");
+            return;
+        }
+
+        p_client_object->get_hanging_lamp()->TurnOn();
+    }
+}
+
 inline void remove_item(
     CScriptGameObject* const p_actor, CScriptGameObject* const p_npc, const xr_vector<xr_string>& buffer)
 {
