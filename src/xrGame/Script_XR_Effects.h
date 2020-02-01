@@ -1059,7 +1059,28 @@ inline void dec_counter(
     XR_LOGIC::pstor_store(p_actor, buffer[0], std::to_string(new_value).c_str());
 
     if (p_npc && p_npc->Name())
-        Msg("[Scripts/XR_EFFECTS/dec_counter(p_actor, p_npc, buffer)] dec_counter %s value %s by %s", buffer[0].c_str(), std::to_string(new_value).c_str(), p_npc->Name());
+        Msg("[Scripts/XR_EFFECTS/dec_counter(p_actor, p_npc, buffer)] dec_counter %s value %s by %s", buffer[0].c_str(),
+            std::to_string(new_value).c_str(), p_npc->Name());
+}
+
+inline void set_counter(
+    CScriptGameObject* const p_actor, CScriptGameObject* const p_npc, const xr_vector<xr_string>& buffer)
+{
+    if (buffer.empty())
+    {
+        Msg("[Scripts/XR_EFFECTS/set_counter(p_actor, p_npc, buffer)] WARNING: buffer.empty() == true! Return ...");
+        return;
+    }
+
+    if (!p_actor)
+    {
+        Msg("[Scripts/XR_EFFECTS/set_counter(p_actor, p_npc, buffer)] WARNING: p_actor == nullptr! Return ...");
+        return;
+    }
+
+    xr_string value_name = (atoi(buffer[0].c_str())) ? std::to_string(atoi(buffer[0].c_str())).c_str() : "0";
+
+    XR_LOGIC::pstor_store(p_actor, buffer[0], value_name);
 }
 
 inline void remove_item(
