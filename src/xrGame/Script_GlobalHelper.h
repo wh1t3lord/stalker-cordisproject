@@ -14329,7 +14329,11 @@ public:
     }
 #pragma endregion
 
+    inline bool isGameOverCreditsStarted(void) const noexcept { return this->m_is_gameover_credits_started; }
+    inline void setGameOverCreditsStarted(const bool value) noexcept {this->m_is_gameover_credits_started = value;}
+
 private:
+    bool m_is_gameover_credits_started;
     CUISequencer* m_tutorial;
     xr_map<int, bool> m_monster_classes;
     xr_map<int, bool> m_stalker_classes;

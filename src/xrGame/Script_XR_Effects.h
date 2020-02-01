@@ -1346,6 +1346,13 @@ inline void game_disconnect(
     Console->Execute("disconnect");
 }
 
+inline void game_credits(
+    CScriptGameObject* const p_actor, CScriptGameObject* const p_npc, const xr_vector<xr_string>& buffer)
+{
+    Script_GlobalHelper::getInstance().setGameOverCreditsStarted(true);
+    Globals::Game::start_tutorial("credits_seq");
+}
+
 inline void remove_item(
     CScriptGameObject* const p_actor, CScriptGameObject* const p_npc, const xr_vector<xr_string>& buffer)
 {
