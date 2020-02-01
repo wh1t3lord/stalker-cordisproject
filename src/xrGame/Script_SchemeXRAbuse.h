@@ -22,7 +22,7 @@ private:
     DataBase::Storage_Scheme* m_p_storage;
 };
 
-// @ Можете доделать!
+// Lord: доделать!
 class Script_SchemeXRAbuse : public Script_ISchemeStalker
 {
     using inherited_scheme = Script_ISchemeStalker;
