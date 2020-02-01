@@ -1624,7 +1624,8 @@ inline void jup_b219_save_pos(
     }
     else
     {
-        Msg("[Scripts/XR_EFFECTS/jup_b219_save_pos(p_actor, p_npc, buffer)] WARNING: p_client_object == nullptr! Return ...");
+        Msg("[Scripts/XR_EFFECTS/jup_b219_save_pos(p_actor, p_npc, buffer)] WARNING: p_client_object == nullptr! "
+            "Return ...");
         return;
     }
 
@@ -1633,7 +1634,8 @@ inline void jup_b219_save_pos(
         Globals::Game::alife_release(p_server_object, true);
 }
 
-inline void jup_b219_restore_gate(CScriptGameObject* const p_actor, CScriptGameObject* const p_npc, const xr_vector<xr_string>& buffer)
+inline void jup_b219_restore_gate(
+    CScriptGameObject* const p_actor, CScriptGameObject* const p_npc, const xr_vector<xr_string>& buffer)
 {
     float yaw = 0.0f;
     xr_string spawn_section_name = "jup_b219_gate";
@@ -1645,6 +1647,51 @@ inline void jup_b219_restore_gate(CScriptGameObject* const p_actor, CScriptGameO
 
         p_server_object->o_Angle.y = yaw * PI / 180.0f;
     }
+}
+
+inline void spawn_corpse(
+    CScriptGameObject* const p_actor, CScriptGameObject* const p_npc, const xr_vector<xr_string>& buffer)
+{
+    if (buffer.empty())
+    {
+        Msg("[Scripts/XR_EFFECTS/spawn_corpse(p_actor, p_npc, buffer)] WARNIING: buffer.empty() == true! Return ...");
+        return;
+    }
+
+    if (buffer.size() < 2)
+    {
+        Msg("[Scripts/XR_EFFECTS/spawn_corpse(p_actor, p_npc, buffer)] WARNING: buffer.size() < 2! Return ...");
+        return;
+    }
+
+    xr_string spawn_section_name = buffer[0];
+    xr_string path_name = buffer[1];
+
+    if (!Globals::patrol_path_exists(path_name.c_str()))
+    {
+        Msg("[Scripts/XR_EFFECTS/spawn_corpse(p_actor, p_npc, buffer)] WARNING: path_name doesn't exist! %s",
+            path_name.c_str());
+        return;
+    }
+
+    CPatrolPathParams patrol(path_name.c_str());
+
+    std::uint32_t index = 0;
+    if (buffer.size() >= 3)
+        index = static_cast<std::uint32_t>(atoi(buffer[2].c_str()));
+
+    CSE_Abstract* const p_server_object = Globals::Game::alife_create(
+        spawn_section_name, patrol.point(index), patrol.level_vertex_id(0), patrol.game_vertex_id(0));
+
+    CSE_ALifeHumanAbstract* const p_human = p_server_object->cast_human_abstract();
+
+    if (!p_human)
+    {
+        Msg("[Scripts/XR_EFFECTS/spawn_corpse(p_actor, p_npc, buffer)] WARNING: server object can't cast to alive human/creature and kill it! Check your spawn section -> %s", spawn_section_name.c_str());
+        return;
+    }
+
+    p_human->kill();
 }
 
 } // namespace XR_EFFECTS
