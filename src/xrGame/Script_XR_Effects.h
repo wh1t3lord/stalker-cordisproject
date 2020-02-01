@@ -1,5 +1,7 @@
-#include "Script_GlobalDefinitions.h"
 #pragma once
+#include "Script_GlobalDefinitions.h"
+#include "Script_SchemeXRAbuse.h"
+#include "HangingLamp.h"
 
 namespace Cordis
 {
@@ -827,7 +829,7 @@ inline void hit_obj(
 
     if (buffer.size() > 4)
     {
-        hit.m_tDirection = Fvector().sub(CPatrolPathParams(buffer[4].c_str()).point(std::uint32_t(0))), p_client_object->Position());
+        hit.m_tDirection = Fvector().sub(CPatrolPathParams(buffer[4].c_str()).point(std::uint32_t(0)), p_client_object->Position());
     }
     else
     {
@@ -1288,18 +1290,6 @@ inline void turn_on_object(
     }
 
     p_npc->get_hanging_lamp()->TurnOn();
-}
-
-inline void turn_off_object(
-    CScriptGameObject* const p_actor, CScriptGameObject* const p_npc, const xr_vector<xr_string>& buffer)
-{
-    if (!p_npc)
-    {
-        Msg("[Scripts/XR_EFFECTS/turn_off_object(p_actor, p_npc, buffer)] WARNING: p_npc == nullptr! Return ...");
-        return;
-    }
-
-    p_npc->get_hanging_lamp()->TurnOff();
 }
 
 inline void disable_combat_handler(
