@@ -1124,6 +1124,45 @@ inline void clearAbuse(
     Msg("[Scripts/XR_EFFECTS/clearAbuse(p_actor, p_npc, buffer)] abuse is cleared!");
 }
 
+inline void turn_off_underpass_lamps(
+    CScriptGameObject* const p_actor, CScriptGameObject* const p_npc, const xr_vector<xr_string>& buffer)
+{
+    xr_map<xr_string, bool> lamps;
+
+    lamps["pas_b400_lamp_start_flash"] = true;
+    lamps["pas_b400_lamp_start_red"] = true;
+    lamps["pas_b400_lamp_elevator_green"] = true;
+    lamps["pas_b400_lamp_elevator_flash"] = true;
+    lamps["pas_b400_lamp_elevator_green_1"] = true;
+    lamps["pas_b400_lamp_elevator_flash_1"] = true;
+    lamps["pas_b400_lamp_track_green"] = true;
+    lamps["pas_b400_lamp_track_flash"] = true;
+    lamps["pas_b400_lamp_downstairs_green"] = true;
+    lamps["pas_b400_lamp_downstairs_flash"] = true;
+    lamps["pas_b400_lamp_tunnel_green"] = true;
+    lamps["pas_b400_lamp_tunnel_flash"] = true;
+    lamps["pas_b400_lamp_tunnel_green_1"] = true;
+    lamps["pas_b400_lamp_tunnel_flash_1"] = true;
+    lamps["pas_b400_lamp_control_down_green"] = true;
+    lamps["pas_b400_lamp_control_down_flash"] = true;
+    lamps["pas_b400_lamp_control_up_green"] = true;
+    lamps["pas_b400_lamp_control_up_flash"] = true;
+    lamps["pas_b400_lamp_hall_green"] = true;
+    lamps["pas_b400_lamp_hall_flash"] = true;
+    lamps["pas_b400_lamp_way_green"] = true;
+    lamps["pas_b400_lamp_way_flash"] = true;
+
+    for (const std::pair<xr_string, bool>& it : lamps)
+    {
+        CScriptGameObject* const p_client_object = Globals::get_story_object(it.first);
+
+        if (p_client_object)
+            p_client_object->get_hanging_lamp()->TurnOff();
+        else
+            Msg("[Scripts/XR_EFFECTS/turn_off_underpass_lamps(p_actor, p_npc, buffer)] can't turn off because object is nullptr!");
+    }
+}
+
 inline void remove_item(
     CScriptGameObject* const p_actor, CScriptGameObject* const p_npc, const xr_vector<xr_string>& buffer)
 {
