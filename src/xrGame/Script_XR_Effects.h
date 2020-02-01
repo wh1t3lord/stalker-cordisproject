@@ -1687,11 +1687,49 @@ inline void spawn_corpse(
 
     if (!p_human)
     {
-        Msg("[Scripts/XR_EFFECTS/spawn_corpse(p_actor, p_npc, buffer)] WARNING: server object can't cast to alive human/creature and kill it! Check your spawn section -> %s", spawn_section_name.c_str());
+        Msg("[Scripts/XR_EFFECTS/spawn_corpse(p_actor, p_npc, buffer)] WARNING: server object can't cast to alive "
+            "human/creature and kill it! Check your spawn section -> %s",
+            spawn_section_name.c_str());
         return;
     }
 
     p_human->kill();
+}
+
+inline void spawn_object_in(
+    CScriptGameObject* const p_actor, CScriptGameObject* const p_npc, const xr_vector<xr_string>& buffer)
+{
+    if (buffer.empty())
+    {
+        Msg("[Scripts/XR_EFFECTS/spawn_object_in(p_actor, p_npc, buffer)] WARNING: buffer.empty() == true! Return ...");
+        return;
+    }
+
+    if (buffer.size() < 2)
+    {
+        Msg("[Scripts/XR_EFFECTS/spawn_object_in(p_actor, p_npc, buffer)] WARNING: buffer.size() < 2! Return ...");
+        return;
+    }
+
+    xr_string spawn_section_name = buffer[0];
+
+    std::uint16_t target_id = Globals::get_story_object_id(buffer[1]);
+
+    if (target_id)
+    {
+        CSE_Abstract* const p_server_object = ai().alife().objects().object(target_id);
+        if (!p_server_object)
+        {
+            Msg("[Scripts/XR_EFFECTS/spawn_object_in(p_actor, p_npc, buffer)] WARNING: p_server_object == nullptr! "
+                "Return ...");
+            return;
+        }
+
+        Globals::Game::alife_create(spawn_section_name, Fvector(), 0, 0, target_id);
+        return;
+    }
+
+    Msg("[Scripts/XR_EFFECTS/spawn_object_in(p_actor, p_npc, buffer)] WARNING: can't find object id by %s", buffer[1].c_str());
 }
 
 } // namespace XR_EFFECTS
