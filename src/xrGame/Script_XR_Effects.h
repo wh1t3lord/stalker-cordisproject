@@ -1159,7 +1159,31 @@ inline void turn_off_underpass_lamps(
         if (p_client_object)
             p_client_object->get_hanging_lamp()->TurnOff();
         else
-            Msg("[Scripts/XR_EFFECTS/turn_off_underpass_lamps(p_actor, p_npc, buffer)] can't turn off because object is nullptr!");
+            Msg("[Scripts/XR_EFFECTS/turn_off_underpass_lamps(p_actor, p_npc, buffer)] can't turn off because object "
+                "is nullptr!");
+    }
+}
+
+inline void turn_off(
+    CScriptGameObject* const p_actor, CScriptGameObject* const p_npc, const xr_vector<xr_string>& buffer)
+{
+    if (buffer.empty())
+    {
+        Msg("[Scripts/XR_EFFECTS/turn_off(p_actor, p_npc, buffer)] WARNING: buffer.empty() == true! Return ...");
+        return;
+    }
+
+    for (const xr_string& it : buffer)
+    {
+        CScriptGameObject* const p_client_object = Globals::get_story_object(it);
+
+        if (!p_client_object)
+        {
+            Msg("[Scripts/XR_EFFECTS/turn_off(p_actor, p_npc, buffer)] WARNIN: p_client_object == nullptr! Return ...");
+            return;
+        }
+
+        p_client_object->get_hanging_lamp()->TurnOff();
     }
 }
 
