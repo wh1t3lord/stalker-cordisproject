@@ -1093,7 +1093,22 @@ inline void actor_punch(
         return;
     }
 
+    Globals::set_inactivate_input_time(30);
+    Globals::Game::level::add_cam_effector("camera_effects\\fusker.anm", 999, false, "");
 
+    std::uint32_t current_slot = DataBase::Storage::getInstance().getActor()->active_slot();
+
+    if (current_slot != 2 && current_slot != 3)
+    {
+        Msg("[Scripts/XR_EFFECTS/actor_punch(p_actor, p_npc, buffer)] current_slot != 2 and current_slot != 3 Return "
+            "...");
+        return;
+    }
+
+    CScriptGameObject* const p_active_item = DataBase::Storage::getInstance().getActor()->GetActiveItem();
+
+    if (p_active_item)
+        DataBase::Storage::getInstance().getActor()->DropItem(p_active_item);
 }
 
 inline void remove_item(
