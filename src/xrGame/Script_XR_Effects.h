@@ -1365,6 +1365,12 @@ inline void game_over(
     Console->Execute("main_menu on");
 }
 
+inline void after_credits(
+    CScriptGameObject* const p_actor, CScriptGameObject* const p_npc, const xr_vector<xr_string>& buffer)
+{
+    Console->Execute("main_menu on");
+}
+
 inline void remove_item(
     CScriptGameObject* const p_actor, CScriptGameObject* const p_npc, const xr_vector<xr_string>& buffer)
 {
