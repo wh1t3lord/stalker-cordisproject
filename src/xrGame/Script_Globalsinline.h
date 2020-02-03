@@ -515,6 +515,35 @@ inline xrTime r_CTime(NET_Packet& packet)
     }
 }
 
+inline xrTime r_CTime(IReader& packet)
+{
+    int Y = packet.r_u8();
+    if (Y == Globals::kUnsignedInt8Undefined)
+    {
+        Msg("[Scripts/Globals/Utils/r_CTime(packet)] WARNING: bad initialize time from IReader!");
+        return xrTime();
+    }
+
+    if (Y != 0)
+    {
+        xrTime time = xrTime();
+        std::uint8_t mounth = packet.r_u8();
+        std::uint8_t day = packet.r_u8();
+        std::uint8_t hour = packet.r_u8();
+        std::uint8_t minute = packet.r_u8();
+        std::uint8_t second = packet.r_u8();
+        std::uint16_t milisecond = packet.r_u16();
+        time.set(Y + 2000, mounth, day, hour, minute, second, milisecond);
+
+        return time;
+    }
+    else
+    {
+        Msg("[Scripts/Globals/Utils/r_CTime(packet)] WARNING: can't initialize time from IReader!");
+        return xrTime();
+    }
+}
+
 inline void w_CTime(NET_Packet& packet, xrTime& time)
 {
     if (time == 0)

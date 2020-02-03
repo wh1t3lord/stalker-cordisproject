@@ -34,15 +34,16 @@ public:
     virtual void net_Relcase(CScriptGameObject* object);
 
 #pragma region Cordis Additional callbacks
-    virtual void waypoint_callback(CScriptGameObject* p_client_object, const std::uint32_t action_type_movement,
-        const std::uint32_t point_index);
+    virtual void waypoint_callback(
+        CScriptGameObject* p_client_object, const std::uint32_t action_type_movement, const std::uint32_t point_index);
     virtual void hit_callback(CScriptGameObject* p_client_object, const float amount, const Fvector& local_direction,
         CScriptGameObject* p_client_who, const std::int16_t bone_index);
     virtual void death_callback(CScriptGameObject* p_client_victim, CScriptGameObject* p_client_who);
     virtual void hear_callback(CScriptGameObject* p_client_object, const std::uint16_t who_id, const int sound_type,
         const Fvector& sound_position, const float sound_power);
     virtual void use_callback(CScriptGameObject* p_client_object, CScriptGameObject* p_client_who);
-#pragma endregion 
+    virtual void animation_callback(const bool);
+#pragma endregion
 
 #pragma region Cordis Actor binder callbacks
     virtual void use_invertory_item(CScriptGameObject* p_client_object);
@@ -53,4 +54,14 @@ public:
     virtual void on_item_take(CScriptGameObject* p_client_object);
     virtual void info_callback(const xr_string& info_name);
 #pragma endregion
+
+    // @ Uses only for animation_callback if exists
+    inline bool isCanUseAnimationCallback(void) const noexcept { return this->m_is_can_use_animation_callback; }
+    inline void setCanUseAnimationCallback(const bool is_can) noexcept
+    {
+        this->m_is_can_use_animation_callback = is_can;
+    }
+
+private:
+    bool m_is_can_use_animation_callback;
 };

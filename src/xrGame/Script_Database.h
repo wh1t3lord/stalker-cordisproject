@@ -17,6 +17,8 @@ class Storage_Scheme;
 #include "Script_MoveManager.h"
 #include "Script_Binder_AnomalZone.h"
 #include "Script_Binder_AnomalField.h"
+#include "Script_Binder_DoorLabx8.h"
+
 namespace Cordis
 {
 namespace Scripts
@@ -3281,7 +3283,7 @@ public:
         this->m_storage[npc_id].setDisableInputIdle(value);
     }
 
-    inline void setStorageDisableInputTime(const std::uint16_t npc_id, const xrTime& time) noexcept 
+    inline void setStorageDisableInputTime(const std::uint16_t npc_id, const xrTime& time) noexcept
     {
         this->m_storage[npc_id].setDisableInputTime(time);
     }
@@ -3643,6 +3645,18 @@ public:
         }
 
         this->m_storage[object->ID()].setClientObject(nullptr);
+    }
+
+    inline void addAnimationObject(CScriptGameObject* const p_animation_object, Script_Binder_DoorLabx8* const p_binder)
+    {
+        this->m_animation_object_by_name[p_animation_object->Name()] = p_binder;
+        this->addObject(p_animation_object);
+    }
+
+    inline void deleteAnimationObject(CScriptGameObject* const p_animation_object)
+    {
+        this->m_animation_object_by_name[p_animation_object->Name()] = nullptr;
+        this->deleteObject(p_animation_object);
     }
 
     inline void addZone(CScriptGameObject* zone)
@@ -4232,6 +4246,18 @@ public:
     }
 #pragma endregion
 
+    inline const xr_map<std::uint16_t, xr_string>& getScriptIDS(void) const noexcept { return this->m_script_ids; }
+    inline void setScriptIDS(const std::uint16_t id, const xr_string& name) noexcept
+    {
+        if (name.empty())
+        {
+            Msg("[Scripts/DataBase/Storage/setScriptIDS(id, name)] WARNING: name.empty() == true! You set an empty "
+                "string");
+        }
+
+        this->m_script_ids[id] = name;
+    }
+
     Storage(const Storage&) = delete;
     Storage& operator=(const Storage&) = delete;
     Storage(Storage&&) = delete;
@@ -4241,6 +4267,7 @@ private:
     std::uint32_t m_helicopter_count = 0;
     CScriptGameObject* m_actor = nullptr;
     xr_map<std::uint16_t, Storage_Data> m_storage;
+    xr_map<std::uint16_t, xr_string> m_script_ids;
     xr_map<xr_string, xr_map<std::uint32_t, bool>> m_camp_storage; // @ Uses in mob_camp only
     xr_map<std::uint16_t, std::pair<std::uint16_t, xr_string>> m_offline_objects;
     xr_map<std::uint32_t, CScriptGameObject*> m_helicopter_enemies;
@@ -4260,6 +4287,10 @@ private:
 
 #pragma region Cordis Script_Binder_Field
     xr_map<xr_string, Script_Binder_AnomalField*> m_fields_by_name;
+#pragma endregion
+
+#pragma region Cordis Script_Binder_DoorLabx8
+    xr_map<xr_string, Script_Binder_DoorLabx8*> m_animation_object_by_name;
 #pragma endregion
 
     // first -> sympathy[ID] = std::uint32_t; | second -> relations[ID] = std::string;

@@ -74,6 +74,13 @@ void CScriptBinderObject::use_callback(CScriptGameObject* p_client_object, CScri
 #endif
 }
 
+void CScriptBinderObject::animation_callback(const bool) 
+{
+    #ifdef DEBUG
+    Msg("[Scripts/CScriptBinderObject/animation_callback(is_value)] WARNING: not overloaded function for %s", this->m_object->Name());
+    #endif
+}
+
 void CScriptBinderObject::use_invertory_item(CScriptGameObject* p_client_object)
 {
 #ifdef DEBUG

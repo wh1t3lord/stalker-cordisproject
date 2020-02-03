@@ -308,6 +308,7 @@ inline xr_string pick_section_from_condlist(
     CSE_ALifeDynamicObject* actor, CSE_ALifeDynamicObject* npc, const xr_map<std::uint32_t, CondlistData>& condlist);
 inline xr_string pick_section_from_condlist(
     CScriptGameObject* actor, CScriptGameObject* npc, const xr_map<std::uint32_t, CondlistData>& condlist);
+inline void pstor_load_all(CScriptGameObject* client_object, IReader& packet);
 inline void pstor_load_all(CScriptGameObject* client_object, NET_Packet& packet);
 inline void pstor_save_all(CScriptGameObject* const p_client_object, NET_Packet& packet);
 inline bool pstor_retrieve_bool(CScriptGameObject* object, const xr_string& varname);
@@ -317,6 +318,7 @@ inline void pstor_store(CScriptGameObject* object, const xr_string& varname, con
 inline void pstor_store(CScriptGameObject* object, const xr_string& varname, const std::uint8_t value);
 inline void pstor_store(CScriptGameObject* object, const xr_string& varname, const xr_string& value);
 inline void load_object(CScriptGameObject* client_object, NET_Packet& packet);
+inline void load_object(CScriptGameObject* client_object, IReader& packet);
 inline void save_object(CScriptGameObject* client_object, NET_Packet& packet);
 inline void mob_capture(CScriptGameObject* client_mob, const bool is_reset_actions, const xr_string& scheme_name);
 inline bool is_mob_captured(CScriptGameObject* p_client_object);
