@@ -1749,6 +1749,20 @@ inline void anim_obj_forward(
     }
 }
 
+inline void anim_obj_backward(
+    CScriptGameObject* const p_actor, CScriptGameObject* const p_npc, const xr_vector<xr_string>& buffer)
+{
+    if (buffer.empty())
+    {
+        Msg("[Scripts/XR_EFFECTS/anim_obj_backward(p_actor, p_npc, buffer)] WARNING: buffer.empty() == true! Return ...");
+        return;
+    }
+
+    DataBase::Storage::getInstance().getAnimationObjectsByName().at(buffer[0])->animation_backward();
+}
+
+
+
 } // namespace XR_EFFECTS
 } // namespace Scripts
 } // namespace Cordis
