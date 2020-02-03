@@ -1981,6 +1981,77 @@ inline void create_squad(
     p_server_squad->update();
 }
 
+inline void create_squad_member(
+    CScriptGameObject* const p_actor, CScriptGameObject* const p_npc, const xr_vector<xr_string>& buffer)
+{
+    if (buffer.empty())
+    {
+        Msg("[Scripts/XR_EFFECTS/create_squad_member(p_actor, p_npc, buffer)] WARNING: buffer.empty() == true! Return "
+            "...");
+        return;
+    }
+
+    if (buffer.size() < 2)
+    {
+        Msg("[Scripts/XR_EFFECTS/create_squad_member(p_actor, p_npc, buffer)] WARNING: buffer.size() < 2! Return ...");
+        return;
+    }
+
+    xr_string squad_member_section_name = buffer[0];
+    xr_string squad_id_name = buffer[1];
+
+    Script_SE_SimulationSquad* const p_server_squad = Globals::get_story_squad(squad_id_name);
+    Script_SE_SmartTerrain* const p_server_smart =
+        Script_SimulationBoard::getInstance().getSmarts().at(p_server_squad->ID).getServerSmartTerrain();
+
+    Fvector position;
+    std::uint32_t level_vertex_id;
+    std::uint16_t game_vertex_id;
+    if (buffer.size() > 2)
+    {
+        xr_string picked_section_name;
+        xr_map<std::uint32_t, CondlistData> spawn_point_condlist;
+        xr_string spawn_point_name;
+
+        if (buffer[2] == "simulation_point")
+        {
+            spawn_point_name =
+                Globals::Utils::cfg_get_string(Globals::get_system_ini(), p_server_squad->name(), "spawn_point");
+            if (spawn_point_name.empty())
+                spawn_point_condlist = XR_LOGIC::parse_condlist_by_script_object(
+                    "spawn_point", "spawn_point", p_server_smart->getSpawnPointName());
+            else
+                spawn_point_condlist =
+                    XR_LOGIC::parse_condlist_by_script_object("spawn_point", "spawn_point", spawn_point_name);
+
+            picked_section_name = XR_LOGIC::pick_section_from_condlist(
+                DataBase::Storage::getInstance().getActor(), p_npc, spawn_point_condlist);
+        }
+        else
+        {
+            spawn_point_name = buffer[2];
+        }
+
+        CPatrolPathParams patrol(spawn_point_name.c_str());
+
+        position = patrol.point(static_cast<std::uint32_t>(0));
+        level_vertex_id = patrol.level_vertex_id(0);
+        game_vertex_id = patrol.game_vertex_id(0);
+    }
+    else
+    {
+        CSE_ALifeDynamicObject* const p_server_commander = ai().alife().objects().object(p_server_squad->commander_id());
+        position = p_server_commander->o_Position;
+        level_vertex_id = p_server_commander->m_tNodeID;
+        game_vertex_id = p_server_commander->m_tGraphID;
+    }
+
+    std::uint16_t new_member_id = p_server_squad->add_squad_member(squad_member_section_name, position, level_vertex_id, game_vertex_id);
+    p_server_squad->assign_squad_member_to_smart(new_member_id, p_server_smart, 0);
+    Script_SimulationBoard::getInstance().setup_squad_and_group(ai().alife().objects().object(new_member_id));
+    p_server_squad->update();
+}
+
 } // namespace XR_EFFECTS
 } // namespace Scripts
 } // namespace Cordis
