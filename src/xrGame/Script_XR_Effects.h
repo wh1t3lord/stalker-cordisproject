@@ -1774,6 +1774,49 @@ inline void anim_obj_stop(
     DataBase::Storage::getInstance().getAnimationObjectsByName().at(buffer[0])->animation_stop();
 }
 
+inline void play_sound(
+    CScriptGameObject* const p_actor, CScriptGameObject* const p_npc, const xr_vector<xr_string>& buffer)
+{
+    if (buffer.empty())
+    {
+        Msg("[Scripts/XR_EFFECTS/play_sound(p_actor, p_npc, buffer)] WARNING: buffer.empty() == true! Return ...");
+        return;
+    }
+
+    if (buffer.size() < 2)
+    {
+        Msg("[Scripts/XR_EFFECTS/play_sound(p_actor, p_npc, buffer)] WARNING: buffer.size() < 2! Return ...");
+        return;
+    }
+
+    if (buffer.size() < 3)
+    {
+        Msg("[Scripts/XR_EFFECTS/play_sound(p_actor, p_npc, buffer)] WARNING: buffer.size() < 3! Return ...");
+        return;
+    }
+
+    xr_string theme_name = buffer[0];
+    xr_string faction_name = buffer[1];
+    Script_SE_SmartTerrain* const p_server_smart =
+        Script_SimulationBoard::getInstance().getSmartTerrainsByName().at(buffer[2]);
+    std::uint16_t point = 0;
+    if (p_server_smart)
+        point = p_server_smart->ID;
+    else
+        point = static_cast<std::uint16_t>(atoi(buffer[2].c_str()));
+
+    if (p_npc && Globals::IsStalker(p_npc))
+    {
+        if (!p_npc->Alive())
+        {
+            Msg("[Scripts/XR_EFFECTS/play_sound(p_actor, p_npc, buffer)] WARNING: stalker is dead!");
+            return;
+        }
+    }
+
+    XR_SOUND::set_sound_play(p_npc->ID(), theme_name, faction_name, point);
+}
+
 } // namespace XR_EFFECTS
 } // namespace Scripts
 } // namespace Cordis
