@@ -1872,6 +1872,31 @@ inline void stop_sound(
     XR_SOUND::stop_sounds_by_id(p_npc->ID());
 }
 
+inline void play_sound_looped(
+    CScriptGameObject* const p_actor, CScriptGameObject* const p_npc, const xr_vector<xr_string>& buffer)
+{
+    if (buffer.empty())
+    {
+        Msg("[Scripts/XR_EFFECTS/play_sound_looper(p_actor, p_npc, buffer)] WARNING: buffer.empty() == true! Return "
+            "...");
+        return;
+    }
+
+    if (!p_npc)
+    {
+        Msg("[Scripts/XR_EFFECTS/play_sound_looped(p_actor, p_npc, buffer)] WARNING: p_npc == nullptr! Return ..."):
+        return;
+    }
+
+    xr_string theme_name = buffer[0];
+    XR_SOUND::play_sound_looped(p_npc->ID(), theme_name);
+}
+
+inline void stop_sound_looped()
+{
+
+}
+
 } // namespace XR_EFFECTS
 } // namespace Scripts
 } // namespace Cordis
