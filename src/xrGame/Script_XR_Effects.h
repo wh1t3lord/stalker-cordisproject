@@ -1783,27 +1783,27 @@ inline void play_sound(
         return;
     }
 
-    if (buffer.size() < 2)
-    {
-        Msg("[Scripts/XR_EFFECTS/play_sound(p_actor, p_npc, buffer)] WARNING: buffer.size() < 2! Return ...");
-        return;
-    }
-
-    if (buffer.size() < 3)
-    {
-        Msg("[Scripts/XR_EFFECTS/play_sound(p_actor, p_npc, buffer)] WARNING: buffer.size() < 3! Return ...");
-        return;
-    }
-
     xr_string theme_name = buffer[0];
-    xr_string faction_name = buffer[1];
-    Script_SE_SmartTerrain* const p_server_smart =
-        Script_SimulationBoard::getInstance().getSmartTerrainsByName().at(buffer[2]);
+    xr_string faction_name;
+
+    if (buffer.size() > 1)
+        faction_name = buffer[1];
+
+    Script_SE_SmartTerrain* p_server_smart = nullptr;
     std::uint16_t point = 0;
+
+    if (buffer.size() > 2)
+        p_server_smart = Script_SimulationBoard::getInstance().getSmartTerrainsByName().at(buffer[2]);
+
     if (p_server_smart)
+    {
         point = p_server_smart->ID;
+    }
     else
-        point = static_cast<std::uint16_t>(atoi(buffer[2].c_str()));
+    {
+        if (buffer.size() > 3)
+            point = static_cast<std::uint16_t>(atoi(buffer[2].c_str()));
+    }
 
     if (p_npc && Globals::IsStalker(p_npc))
     {
@@ -1815,6 +1815,49 @@ inline void play_sound(
     }
 
     XR_SOUND::set_sound_play(p_npc->ID(), theme_name, faction_name, point);
+}
+
+inline void play_sound_by_story(
+    CScriptGameObject* const p_actor, CScriptGameObject* const p_npc, const xr_vector<xr_string>& buffer)
+{
+    if (buffer.empty())
+    {
+        Msg("[Scripts/XR_EFFECTS/play_sound_by_story(p_actor, p_npc, buffer)] WARNING: buffer.empty() == true! Return "
+            "...");
+        return;
+    }
+
+    if (buffer.size() < 2)
+    {
+        Msg("[Scripts/XR_EFFECTS/play_sound_by_story(p_actor, p_npc, buffer)] WARNING: buffer.size() < 2! Return ...");
+        return;
+    }
+
+    std::uint16_t story_id = Globals::get_story_object_id(buffer[0]);
+    xr_string theme_name = buffer[1];
+
+    xr_string faction_name;
+
+    if (buffer.size() > 2)
+        faction_name = buffer[2];
+
+    Script_SE_SmartTerrain* p_server_smart = nullptr;
+
+    if (buffer.size() > 3)
+        p_server_smart = Script_SimulationBoard::getInstance().getSmartTerrainsByName().at(buffer[3]);
+
+    std::uint16_t point = 0;
+    if (p_server_smart)
+    {
+        point = p_server_smart->ID;
+    }
+    else
+    {
+        if (buffer.size() > 4)
+            point = static_cast<std::uint16_t>(atoi(buffer[4].c_str()));
+    }
+
+    XR_SOUND::set_sound_play(story_id, theme_name, faction_name, point);
 }
 
 } // namespace XR_EFFECTS
