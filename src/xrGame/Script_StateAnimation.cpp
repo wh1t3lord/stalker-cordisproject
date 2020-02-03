@@ -71,6 +71,9 @@ void Script_StateAnimation::set_state(const xr_string& new_state_name, const boo
 void Script_StateAnimation::set_control(void)
 {
     this->m_is_control_called = true;
+
+    this->m_p_client_object->binded_object()->setCanUseAnimationCallback(true);
+
     if (this->m_is_using_animation_list)
         this->m_p_state_manager->getAnimState()->setStatesAnimationMarker(0);
 

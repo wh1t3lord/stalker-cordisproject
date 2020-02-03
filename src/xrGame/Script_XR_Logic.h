@@ -1854,9 +1854,43 @@ inline xr_string pick_section_from_condlist(
     return xr_string("");
 }
 
+inline void pstor_load_all(CScriptGameObject* client_object, IReader& packet) 
+{
+    const std::uint16_t npc_id = client_object->ID();
+    std::uint32_t total_count = packet.r_u32();
+
+    for (std::uint32_t i = 0; i < total_count; ++i)
+    {
+        xr_string varname;
+        packet.r_stringZ(varname);
+
+        std::uint8_t pstor_type = packet.r_u8();
+        if (pstor_type == Globals::kPstorTypeNumber)
+        {
+            DataBase::Storage::getInstance().setPStorNumber(npc_id, varname, packet.r_float());
+        }
+        else if (pstor_type == Globals::kPstorTypeString)
+        {
+            xr_string result;
+            packet.r_stringZ(result);
+            DataBase::Storage::getInstance().setPStorString(npc_id, varname, result);
+        }
+        else if (pstor_type == Globals::kPstorTypeBoolean)
+        {
+            DataBase::Storage::getInstance().setPStorBool(npc_id, varname, packet.r_u8() ? true : false);
+        }
+        else
+        {
+            R_ASSERT2(false, "can't reached!");
+            return;
+        }
+    }
+
+}
+
 inline void pstor_load_all(CScriptGameObject* client_object, NET_Packet& packet)
 {
-    const std::uint16_t& npc_id = client_object->ID();
+    const std::uint16_t npc_id = client_object->ID();
     std::uint32_t total_count = packet.r_u32();
 
     for (std::uint32_t i = 0; i < total_count; ++i)
@@ -2048,6 +2082,49 @@ inline void pstor_store(CScriptGameObject* object, const xr_string& varname, con
 }
 
 inline void load_object(CScriptGameObject* client_object, NET_Packet& packet)
+{
+    if (!client_object)
+    {
+        R_ASSERT2(false, "can't load an empty object!");
+        return;
+    }
+    const std::uint16_t& npc_id = client_object->ID();
+    xr_string load_marker_name = "object";
+    load_marker_name += client_object->Name();
+    Globals::set_save_marker(packet, Globals::kSaveMarkerMode_Load, false, load_marker_name.c_str());
+
+    xr_string job_ini_name;
+    packet.r_stringZ(job_ini_name);
+
+    xr_string ini_filename;
+    packet.r_stringZ(ini_filename);
+
+    xr_string section_logic_name;
+    packet.r_stringZ(section_logic_name);
+
+    xr_string active_section_name;
+    packet.r_stringZ(active_section_name);
+
+    if (active_section_name.empty() || active_section_name == "")
+        active_section_name = "nil";
+
+    xr_string gulag_name;
+    packet.r_stringZ(gulag_name);
+
+    DataBase::Storage::getInstance().setStorageJobIniName(npc_id, job_ini_name);
+    DataBase::Storage::getInstance().setStorageLoadedInifilename(npc_id, ini_filename);
+    DataBase::Storage::getInstance().setStorageLoadedSectionLogicName(npc_id, section_logic_name);
+    DataBase::Storage::getInstance().setStorageLoadedActiveSectionName(npc_id, active_section_name);
+    DataBase::Storage::getInstance().setStorageLoadedGulagName(npc_id, gulag_name);
+
+    DataBase::Storage::getInstance().setStorageActivationTime(npc_id, packet.r_s32() + Globals::get_time_global());
+    DataBase::Storage::getInstance().setStorageActivationGameTime(npc_id, Globals::Utils::r_CTime(packet));
+
+    pstor_load_all(client_object, packet);
+    Globals::set_save_marker(packet, Globals::kSaveMarkerMode_Load, true, load_marker_name.c_str());
+}
+
+inline void load_object(CScriptGameObject* client_object, IReader& packet)
 {
     if (!client_object)
     {

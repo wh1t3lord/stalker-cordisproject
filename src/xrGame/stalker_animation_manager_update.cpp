@@ -21,6 +21,7 @@
         m_call_script_callback = false;
         // Lord - [Script] Re-write
       //  object().callback(GameObject::eScriptAnimation)();
+        object().GetScriptBinderObject()->animation_callback(false); // Lord: протестировать данный ли аргумент должен быть или true? 
         return;
     }
 
@@ -39,7 +40,7 @@ IC bool CStalkerAnimationManager::script_callback() const
         return (false);
     // Lord - [Script] Re-write
    // return (object().callback(GameObject::eScriptAnimation));
-    return false;
+    return object().GetScriptBinderObject()->isCanUseAnimationCallback();
 }
 
 IC bool CStalkerAnimationManager::need_update() const

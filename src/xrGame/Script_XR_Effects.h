@@ -1729,8 +1729,11 @@ inline void spawn_object_in(
         return;
     }
 
-    Msg("[Scripts/XR_EFFECTS/spawn_object_in(p_actor, p_npc, buffer)] WARNING: can't find object id by %s", buffer[1].c_str());
+    Msg("[Scripts/XR_EFFECTS/spawn_object_in(p_actor, p_npc, buffer)] WARNING: can't find object id by %s",
+        buffer[1].c_str());
 }
+
+
 
 } // namespace XR_EFFECTS
 } // namespace Scripts
