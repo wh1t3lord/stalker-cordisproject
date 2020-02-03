@@ -1884,7 +1884,7 @@ inline void play_sound_looped(
 
     if (!p_npc)
     {
-        Msg("[Scripts/XR_EFFECTS/play_sound_looped(p_actor, p_npc, buffer)] WARNING: p_npc == nullptr! Return ..."):
+        Msg("[Scripts/XR_EFFECTS/play_sound_looped(p_actor, p_npc, buffer)] WARNING: p_npc == nullptr! Return ...");
         return;
     }
 
@@ -1892,9 +1892,16 @@ inline void play_sound_looped(
     XR_SOUND::play_sound_looped(p_npc->ID(), theme_name);
 }
 
-inline void stop_sound_looped()
+inline void stop_sound_looped(
+    CScriptGameObject* const p_actor, CScriptGameObject* const p_npc, const xr_vector<xr_string>& buffer)
 {
+    if (!p_npc)
+    {
+        Msg("[Scripts/XR_EFFECTS/stop_sound_looped(p_actor, p_npc, buffer)] WARNING: p_npc == nullptr! Return ...");
+        return;
+    }
 
+    XR_SOUND::stop_sound_looped(p_npc->ID(), "");
 }
 
 } // namespace XR_EFFECTS
