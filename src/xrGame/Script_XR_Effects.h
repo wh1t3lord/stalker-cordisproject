@@ -1919,6 +1919,68 @@ inline void barrel_explode(
         p_object->explode(0);
 }
 
+inline void create_squad(
+    CScriptGameObject* const p_actor, CScriptGameObject* const p_npc, const xr_vector<xr_string>& buffer)
+{
+    if (buffer.empty())
+    {
+        Msg("[Scripts/XR_EFFECTS/create_squad(p_actor, p_npc, buffer)] WARNING: buffer.empty() == true! Return ...");
+        return;
+    }
+
+    if (!p_npc)
+    {
+        Msg("[Scripts/XR_EFFECTS/create_squad(p_actor, p_npc, buffer)] WARNING: p_npc == nullptr! Return ...");
+        return;
+    }
+
+    if (buffer.size() < 2)
+    {
+        Msg("[Scripts/XR_EFFECTS/create_squad(p_actor, p_npc, buffer)] WARNING: buffer.size() < 2! Return ...");
+        return;
+    }
+
+    std::uint16_t squad_id = static_cast<std::uint16_t>(atoi(buffer[0].c_str()));
+    if (!squad_id)
+    {
+        Msg("[Scripts/XR_EFFECTS/create_squad(p_actor, p_npc, buffer)] squad_id == 0! Return ...");
+        return;
+    }
+
+    xr_string smart_terrain_name = buffer[1];
+
+    const CInifile* const p_ini = Globals::get_system_ini();
+
+    if (!p_ini->section_exist(buffer[0].c_str()))
+    {
+        Msg("[Scripts/XR_EFFECTS/create_squad(p_actor, p_npc, buffer)] WARNING: section doesn't exist %s",
+            buffer[0].c_str());
+        return;
+    }
+
+    Script_SE_SmartTerrain* const p_server_smart =
+        Script_SimulationBoard::getInstance().getSmartTerrainsByName().at(smart_terrain_name);
+
+    if (!p_server_smart)
+    {
+        Msg("[Scripts/XR_EFFECTS/create_squad(p_actor, p_npc, buffer)] WARNING: p_server_smart == nullptr! Return ...");
+        return;
+    }
+
+    Script_SE_SimulationSquad* const p_server_squad =
+        Script_SimulationBoard::getInstance().create_squad(p_server_smart, buffer[0]);
+    Script_SimulationBoard::getInstance().enter_squad_to_smart(p_server_squad, p_server_smart->ID);
+
+    for (AssociativeVector<std::uint16_t, CSE_ALifeMonsterAbstract*>::const_iterator it =
+             p_server_squad->squad_members().begin();
+         it != p_server_squad->squad_members().end(); ++it)
+    {
+        Script_SimulationBoard::getInstance().setup_squad_and_group(it->second);
+    }
+
+    p_server_squad->update();
+}
+
 } // namespace XR_EFFECTS
 } // namespace Scripts
 } // namespace Cordis
