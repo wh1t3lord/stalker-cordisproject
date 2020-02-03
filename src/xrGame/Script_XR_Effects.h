@@ -1733,7 +1733,21 @@ inline void spawn_object_in(
         buffer[1].c_str());
 }
 
+inline void anim_obj_forward(
+    CScriptGameObject* const p_actor, CScriptGameObject* const p_npc, const xr_vector<xr_string>& buffer)
+{
+    if (buffer.empty())
+    {
+        Msg("[Scripts/XR_EFFECTS/anim_obj_forward(p_actor, p_npc, buffer)] WARNING: buffer.empty() == true! Return "
+            "...");
+        return;
+    }
 
+    for (const xr_string& it : buffer)
+    {
+        DataBase::Storage::getInstance().getAnimationObjectsByName().at(it)->animation_forward();
+    }
+}
 
 } // namespace XR_EFFECTS
 } // namespace Scripts

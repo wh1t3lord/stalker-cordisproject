@@ -4246,6 +4246,13 @@ public:
     }
 #pragma endregion
 
+#pragma region Cordis Script_Binder_DoorLabx8
+    inline const xr_map<xr_string, Script_Binder_DoorLabx8*>& getAnimationObjectsByName(void) const noexcept 
+    {
+        return this->m_animation_object_by_name;
+    }
+#pragma endregion
+
     inline const xr_map<std::uint16_t, xr_string>& getScriptIDS(void) const noexcept { return this->m_script_ids; }
     inline void setScriptIDS(const std::uint16_t id, const xr_string& name) noexcept
     {
