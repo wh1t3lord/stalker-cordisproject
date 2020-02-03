@@ -1904,6 +1904,21 @@ inline void stop_sound_looped(
     XR_SOUND::stop_sound_looped(p_npc->ID(), "");
 }
 
+inline void barrel_explode(
+    CScriptGameObject* const p_actor, CScriptGameObject* const p_npc, const xr_vector<xr_string>& buffer)
+{
+    if (buffer.empty())
+    {
+        Msg("[Scripts/XR_EFFECTS/barrel_explode(p_actor, p_npc, buffer)] WARNING: buffer.empty() == true! Return ...");
+        return;
+    }
+
+    CScriptGameObject* const p_object = Globals::get_story_object(buffer[0]);
+
+    if (p_object)
+        p_object->explode(0);
+}
+
 } // namespace XR_EFFECTS
 } // namespace Scripts
 } // namespace Cordis
