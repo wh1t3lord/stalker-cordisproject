@@ -1754,14 +1754,25 @@ inline void anim_obj_backward(
 {
     if (buffer.empty())
     {
-        Msg("[Scripts/XR_EFFECTS/anim_obj_backward(p_actor, p_npc, buffer)] WARNING: buffer.empty() == true! Return ...");
+        Msg("[Scripts/XR_EFFECTS/anim_obj_backward(p_actor, p_npc, buffer)] WARNING: buffer.empty() == true! Return "
+            "...");
         return;
     }
 
     DataBase::Storage::getInstance().getAnimationObjectsByName().at(buffer[0])->animation_backward();
 }
 
+inline void anim_obj_stop(
+    CScriptGameObject* const p_actor, CScriptGameObject* const p_npc, const xr_vector<xr_string>& buffer)
+{
+    if (buffer.empty())
+    {
+        Msg("[Scripts/XR_EFFECTS/anim_obj_stop(p_actor, p_npc, buffer)] WARNING: buffer.empty() == true! Return ...");
+        return;
+    }
 
+    DataBase::Storage::getInstance().getAnimationObjectsByName().at(buffer[0])->animation_stop();
+}
 
 } // namespace XR_EFFECTS
 } // namespace Scripts
