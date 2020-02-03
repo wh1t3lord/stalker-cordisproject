@@ -197,12 +197,12 @@ public:
     void on_npc_death(CSE_ALifeDynamicObject* server_object);
     void remove_squad(void);
     void set_squad_relation(const xr_string& relation_name = "");
-    void assign_smart(Script_SE_SmartTerrain* smart = nullptr);
+    void assign_smart(Script_SE_SmartTerrain* smart = static_cast<Script_SE_SmartTerrain*>(nullptr));
+    void assign_squad_member_to_smart(
+        const std::uint16_t& object_id, Script_SE_SmartTerrain* smart, const std::uint16_t& old_smart_terrain_id);
 
 private:
     inline xr_string& pick_next_target(void) { return this->m_parsed_targets[this->m_next_target_index]; }
-    void assign_squad_member_to_smart(
-        const std::uint16_t& object_id, Script_SE_SmartTerrain* smart, const std::uint16_t& old_smart_terrain_id);
     void set_location_types_section(const xr_string& section);
     void set_squad_sympathy(const float& sympathy = 0.0f);
     void set_squad_behaviour(void);
