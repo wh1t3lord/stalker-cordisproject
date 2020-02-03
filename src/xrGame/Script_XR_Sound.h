@@ -142,6 +142,21 @@ inline void stop_sound_looped(const std::uint16_t npc_id, const xr_string& sound
     }
 }
 
+inline void stop_sounds_by_id(const std::uint16_t object_id)
+{
+    Script_ISoundEntity* const p_sound = getSoundDatabase().at(object_id);
+    if (p_sound)
+        p_sound->stop(object_id);
+
+    const xr_map<xr_string, Script_ISoundEntity*>& looped_sounds = getLoopedSoundDatabase().at(object_id);
+
+    for (const std::pair<xr_string, Script_ISoundEntity*>& it : looped_sounds)
+    {
+        if (it.second && it.second->is_playing())
+            it.second->stop(object_id);
+    }
+}
+
 inline void set_volume_sound_looped(const std::uint16_t npc_id, const xr_string& sound_name, const float value)
 {
     if (!getLoopedSoundDatabase()[npc_id].empty())

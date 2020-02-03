@@ -1860,6 +1860,18 @@ inline void play_sound_by_story(
     XR_SOUND::set_sound_play(story_id, theme_name, faction_name, point);
 }
 
+inline void stop_sound(
+    CScriptGameObject* const p_actor, CScriptGameObject* const p_npc, const xr_vector<xr_string>& buffer)
+{
+    if (!p_npc)
+    {
+        Msg("[Scripts/XR_EFFECTS/stop_sound(p_actor, p_npc, buffer)] WARNING: p_npc == nullptr! Return ...");
+        return;
+    }
+
+    XR_SOUND::stop_sounds_by_id(p_npc->ID());
+}
+
 } // namespace XR_EFFECTS
 } // namespace Scripts
 } // namespace Cordis
