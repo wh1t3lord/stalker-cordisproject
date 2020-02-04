@@ -2066,11 +2066,47 @@ inline void remove_squad(
     Script_SE_SimulationSquad* const p_server_squad = Globals::get_story_squad(buffer[0]);
     if (!p_server_squad)
     {
-        Msg("[Scripts/XR_EFFECTS/remove_squad(p_actor, p_npc, buffer)] WARNING: can't find squad by %s", buffer[0].c_str());
+        Msg("[Scripts/XR_EFFECTS/remove_squad(p_actor, p_npc, buffer)] WARNING: can't find squad by %s",
+            buffer[0].c_str());
         return;
     }
 
     Script_SimulationBoard::getInstance().remove_squad(p_server_squad);
+}
+
+inline void kill_squad(
+    CScriptGameObject* const p_actor, CScriptGameObject* const p_npc, const xr_vector<xr_string>& buffer)
+{
+    if (buffer.empty())
+    {
+        Msg("[Scripts/XR_EFFECTS/kill_squad(p_actor, p_npc, buffer)] WARNING: buffer.empty() == true! Return ...");
+        return;
+    }
+
+    Script_SE_SimulationSquad* const p_server_squad = Globals::get_story_squad(buffer[0]);
+    if (!p_server_squad)
+    {
+        Msg("[Scripts/XR_EFFECTS/kill_squad(p_actor, p_npc, buffer)] WARNING: can't find squad by %s Return ...",
+            buffer[0].c_str());
+        return;
+    }
+
+    CScriptGameObject* p_client_object = nullptr;
+    for (AssociativeVector<std::uint16_t, CSE_ALifeMonsterAbstract*>::const_iterator it =
+             p_server_squad->squad_members().begin();
+         it != p_server_squad->squad_members().end(); ++it)
+    {
+        if (DataBase::Storage::getInstance().getStorage().find(it->first) !=
+            DataBase::Storage::getInstance().getStorage().end())
+        {
+            p_client_object = DataBase::Storage::getInstance().getStorage().at(it->first).getClientObject();
+        }
+
+        if (p_client_object)
+            p_client_object->Kill(p_client_object);
+        else
+            it->second->kill(); // Lord: проверить правильно ли? 
+    }
 }
 
 } // namespace XR_EFFECTS
