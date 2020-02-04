@@ -2040,16 +2040,37 @@ inline void create_squad_member(
     }
     else
     {
-        CSE_ALifeDynamicObject* const p_server_commander = ai().alife().objects().object(p_server_squad->commander_id());
+        CSE_ALifeDynamicObject* const p_server_commander =
+            ai().alife().objects().object(p_server_squad->commander_id());
         position = p_server_commander->o_Position;
         level_vertex_id = p_server_commander->m_tNodeID;
         game_vertex_id = p_server_commander->m_tGraphID;
     }
 
-    std::uint16_t new_member_id = p_server_squad->add_squad_member(squad_member_section_name, position, level_vertex_id, game_vertex_id);
+    std::uint16_t new_member_id =
+        p_server_squad->add_squad_member(squad_member_section_name, position, level_vertex_id, game_vertex_id);
     p_server_squad->assign_squad_member_to_smart(new_member_id, p_server_smart, 0);
     Script_SimulationBoard::getInstance().setup_squad_and_group(ai().alife().objects().object(new_member_id));
     p_server_squad->update();
+}
+
+inline void remove_squad(
+    CScriptGameObject* const p_actor, CScriptGameObject* const p_npc, const xr_vector<xr_string>& buffer)
+{
+    if (buffer.empty())
+    {
+        Msg("[Scripts/XR_EFFECTS/remove_squad(p_actor, p_npc, buffer)] WARNING: buffer.empty() == true! Return ...");
+        return;
+    }
+
+    Script_SE_SimulationSquad* const p_server_squad = Globals::get_story_squad(buffer[0]);
+    if (!p_server_squad)
+    {
+        Msg("[Scripts/XR_EFFECTS/remove_squad(p_actor, p_npc, buffer)] WARNING: can't find squad by %s", buffer[0].c_str());
+        return;
+    }
+
+    Script_SimulationBoard::getInstance().remove_squad(p_server_squad);
 }
 
 } // namespace XR_EFFECTS
