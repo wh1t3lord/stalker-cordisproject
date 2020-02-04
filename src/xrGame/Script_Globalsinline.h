@@ -1525,6 +1525,8 @@ inline std::uint16_t get_story_object_id(const xr_string& object_id_name)
     return Script_StoryObject::getInstance().get(object_id_name);
 }
 
+inline xr_string get_object_story_id(const std::uint16_t object_id) { return Script_StoryObject::getInstance().get_story_id(object_id); }
+
 inline Script_SE_SimulationSquad* get_story_squad(const xr_string& object_id_name)
 {
     if (!object_id_name.size())

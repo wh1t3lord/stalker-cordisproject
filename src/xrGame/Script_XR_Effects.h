@@ -2151,6 +2151,39 @@ inline void heal_squad(
     }
 }
 
+inline void clear_smart_terrain(
+    CScriptGameObject* const p_actor, CScriptGameObject* const p_npc, const xr_vector<xr_string>& buffer)
+{
+    if (buffer.empty())
+    {
+        Msg("[Scripts/XR_EFFECTS/clear_smart_terrain(p_actor, p_npc, buffer)] WARNING: buffer.empty() == true! Return "
+            "...");
+        return;
+    }
+
+    Script_SE_SmartTerrain* const p_server_smart =
+        Script_SimulationBoard::getInstance().getSmartTerrainsByName().at(buffer[0]);
+    std::uint16_t smart_id = p_server_smart->ID;
+
+    for (const std::pair<std::uint16_t, Script_SE_SimulationSquad*>& it :
+        Script_SimulationBoard::getInstance().getSmarts().at(smart_id).getSquads())
+    {
+        if (buffer.size() >= 2 && buffer[1] == "false")
+        {
+            if (Globals::get_object_story_id(it.second->ID).empty())
+            {
+                Script_SimulationBoard::getInstance().exit_smart(it.second, smart_id);
+                Script_SimulationBoard::getInstance().remove_squad(it.second);
+            }
+        }
+        else
+        {
+            Script_SimulationBoard::getInstance().exit_smart(it.second, smart_id);
+            Script_SimulationBoard::getInstance().remove_squad(it.second);
+        }
+    }
+}
+
 } // namespace XR_EFFECTS
 } // namespace Scripts
 } // namespace Cordis
