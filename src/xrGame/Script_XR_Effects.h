@@ -2105,7 +2105,49 @@ inline void kill_squad(
         if (p_client_object)
             p_client_object->Kill(p_client_object);
         else
-            it->second->kill(); // Lord: проверить правильно ли? 
+            it->second->kill(); // Lord: проверить правильно ли?
+    }
+}
+
+inline void heal_squad(
+    CScriptGameObject* const p_actor, CScriptGameObject* const p_npc, const xr_vector<xr_string>& buffer)
+{
+    if (buffer.empty())
+    {
+        Msg("[Scripts/XR_EFFECTS/heal_squad(p_actor, p_npc, buffer)] WARNING: buffer.empty() == true! Return ...");
+        return;
+    }
+
+    xr_string story_id_name = buffer[0];
+    float health_mod = 1.0f;
+
+    if (buffer.size() >= 2)
+    {
+        health_mod = ::ceilf(atof(buffer[1].c_str()) / 100.0f);
+    }
+
+    Script_SE_SimulationSquad* const p_server_squad = Globals::get_story_squad(story_id_name);
+
+    if (!p_server_squad)
+    {
+        Msg("[Scripts/XR_EFFECTS/heal_squad(p_actor, p_npc, buffer)] WARNING: can't find server squad by %s",
+            story_id_name.c_str());
+        return;
+    }
+
+    CScriptGameObject* p_client_object = nullptr;
+    for (AssociativeVector<std::uint16_t, CSE_ALifeMonsterAbstract*>::const_iterator it =
+             p_server_squad->squad_members().begin();
+         it != p_server_squad->squad_members().end(); ++it)
+    {
+        if (DataBase::Storage::getInstance().getStorage().find(it->first) !=
+            DataBase::Storage::getInstance().getStorage().end())
+        {
+            p_client_object = DataBase::Storage::getInstance().getStorage().at(it->first).getClientObject();
+        }
+
+        if (p_client_object)
+            p_client_object->SetHealth(health_mod);
     }
 }
 
