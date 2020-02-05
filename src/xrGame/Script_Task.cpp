@@ -16,11 +16,105 @@ xr_string task_functor_zat_b29_adv_title(
 {
     CScriptGameObject* p_client_actor = Globals::get_story_object("actor");
     xr_string generate_string = "zat_b29_simple_bring_title_";
-
+    xr_string result = "zat_b29_simple_bring_title_";
     for (std::uint8_t i = 16; i <= 23; ++i)
     {
-  //      if (Globals::has_alife_info())
+        if (Globals::has_alife_info(Script_GlobalHelper::getInstance().getZatB29InfopBringTable().at(i).c_str()) &&
+            p_client_actor->GetObjectByName(Script_GlobalHelper::getInstance().getZatB29AfTable().at(i).c_str()))
+        {
+            result += std::to_string(i).c_str();
+            break;
+        }
+        else if (Globals::has_alife_info(Script_GlobalHelper::getInstance().getZatB29InfopBringTable().at(i).c_str()))
+        {
+            result = "zat_b29_simple_find_title_";
+            result += std::to_string(i).c_str();
+            break;
+        }
     }
+
+    return result;
+}
+
+xr_string zat_b29_adv_descr(const xr_string& task_id_name, const xr_string& field_name, const xr_string& value_name)
+{
+    xr_string result_name;
+    CScriptGameObject* const p_actor = Globals::get_story_object("actor");
+    bool is_af = false;
+    for (std::uint8_t i = 16; i <= 23; ++i)
+    {
+        if (Globals::has_alife_info(Script_GlobalHelper::getInstance().getZatB29InfopBringTable().at(i).c_str()) &&
+            p_actor->GetObjectByName(Script_GlobalHelper::getInstance().getZatB29AfTable().at(i).c_str()))
+        {
+            is_af = true;
+            result_name = "zat_b29_simple_bring_text_5";
+            if (Globals::has_alife_info("zat_b29_stalker_rival_1_found_af") &&
+                Globals::has_alife_info("zat_b29_first_rival_taken_out") && is_af)
+            {
+                return result_name;
+            }
+            else if (Globals::has_alife_info("zat_b29_stalker_rival_2_found_af") &&
+                Globals::has_alife_info("zat_b29_second_rival_taken_out") && is_af)
+            {
+                return result_name;
+            }
+            else if (Globals::has_alife_info("zat_b29_linker_take_af_from_rival"))
+            {
+                result_name = "zat_b29_simple_bring_text_4";
+            }
+            else if (Globals::has_alife_info("zat_b29_stalkers_rivals_found_af"))
+            {
+                result_name = "zat_b29_simple_bring_text_3";
+            }
+            else if (Globals::has_alife_info("zat_b29_rivals_search") &&
+                Globals::has_alife_info("zat_b29_exclusive_conditions"))
+            {
+                result_name = "zat_b29_simple_bring_text_1";
+            }
+            else if (Globals::has_alife_info("zat_b29_rivals_search"))
+            {
+                result_name = "zat_b29_simple_bring_text_2";
+            }
+
+            break;
+        }
+        else if (Globals::has_alife_info(Script_GlobalHelper::getInstance().getZatB29InfopBringTable().at(i).c_str()))
+        {
+            result_name = "zat_b29_simple_find_text_5";
+
+            if (Globals::has_alife_info("zat_b29_stalker_rival_1_found_af") &&
+                Globals::has_alife_info("zat_b29_first_rival_taken_out") && is_af)
+            {
+                return result_name;
+            }
+            else if (Globals::has_alife_info("zat_b29_stalker_rival_2_found_af") &&
+                Globals::has_alife_info("zat_b29_second_rival_taken_out") && is_af)
+            {
+                return result_name;
+            }
+            else if (Globals::has_alife_info("zat_b29_linker_take_af_from_rival"))
+            {
+                result_name = "zat_b29_simple_find_text_4";
+            }
+            else if (Globals::has_alife_info("zat_b29_stalkers_rivals_found_af"))
+            {
+                result_name = "zat_b29_simple_find_text_3";
+            }
+            else if (Globals::has_alife_info("zat_b29_rivals_search") &&
+                Globals::has_alife_info("zat_b29_exclusive_conditions"))
+            {
+                result_name = "zat_b29_simple_find_text_1";
+            }
+            else if (Globals::has_alife_info("zat_b29_rivals_search"))
+            {
+                result_name = "zat_b29_simple_find_text_2";
+            }
+
+            break;
+        }
+    }
+
+    return result_name;
 }
 
 } // namespace Scripts

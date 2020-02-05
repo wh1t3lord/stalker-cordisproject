@@ -12996,6 +12996,26 @@ private:
         data.setGroupName("jup_b32_scanner_5_placed");
         this->m_registered_pda_change_objects.push_back(data);
 #pragma endregion
+
+#pragma region Cordis Dialog Zaton initializing
+        this->m_zat_b29_af_table[16] = "af_gravi";
+        this->m_zat_b29_af_table[17] = "af_eye";
+        this->m_zat_b29_af_table[18] = "af_baloon";
+        this->m_zat_b29_af_table[19] = "af_dummy_dummy";
+        this->m_zat_b29_af_table[20] = "af_gold_fish";
+        this->m_zat_b29_af_table[21] = "af_fire";
+        this->m_zat_b29_af_table[22] = "af_glass";
+        this->m_zat_b29_af_table[23] = "af_ice";
+
+        this->m_zat_b29_infop_bring_table[16] = "zat_b29_bring_af_16";
+        this->m_zat_b29_infop_bring_table[17] = "zat_b29_bring_af_17";
+        this->m_zat_b29_infop_bring_table[18] = "zat_b29_bring_af_18";
+        this->m_zat_b29_infop_bring_table[19] = "zat_b29_bring_af_19";
+        this->m_zat_b29_infop_bring_table[20] = "zat_b29_bring_af_20";
+        this->m_zat_b29_infop_bring_table[21] = "zat_b29_bring_af_21";
+        this->m_zat_b29_infop_bring_table[22] = "zat_b29_bring_af_22";
+        this->m_zat_b29_infop_bring_table[23] = "zat_b29_bring_af_23";
+#pragma endregion
     }
 
 public:
@@ -14330,7 +14350,15 @@ public:
 #pragma endregion
 
     inline bool isGameOverCreditsStarted(void) const noexcept { return this->m_is_gameover_credits_started; }
-    inline void setGameOverCreditsStarted(const bool value) noexcept {this->m_is_gameover_credits_started = value;}
+    inline void setGameOverCreditsStarted(const bool value) noexcept { this->m_is_gameover_credits_started = value; }
+
+#pragma region Cordis Dialog Zaton
+    inline const xr_map<std::uint16_t, xr_string>& getZatB29InfopBringTable(void) const noexcept
+    {
+        return this->m_zat_b29_infop_bring_table;
+    }
+    inline const xr_map<std::uint16_t, xr_string>& getZatB29AfTable(void) const noexcept { return this->m_zat_b29_af_table; }
+#pragma endregion
 
 private:
     bool m_is_gameover_credits_started;
@@ -14376,6 +14404,8 @@ private:
     xr_map<xr_string, bool> m_registered_smart_terrain_territory_type;
     xr_map<xr_string, bool> m_simulationsquad_is_squad_monster_by_type;
     xr_map<xr_string, bool> m_indoor_levels;
+    xr_map<std::uint16_t, xr_string> m_zat_b29_infop_bring_table;
+    xr_map<std::uint16_t, xr_string> m_zat_b29_af_table;
     xr_map<CDangerObject::EDangerType, float> m_xr_danger_ignore_distance_by_danger_type;
     // @ First - id | Second - distance
     std::pair<std::uint32_t, std::uint32_t> m_game_server_nearest_to_actor_smart_terrain;
