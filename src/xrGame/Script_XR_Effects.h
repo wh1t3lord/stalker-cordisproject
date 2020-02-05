@@ -2184,6 +2184,18 @@ inline void clear_smart_terrain(
     }
 }
 
+inline void give_task(
+    CScriptGameObject* const p_actor, CScriptGameObject* const p_npc, const xr_vector<xr_string>& buffer)
+{
+    if (buffer.empty())
+    {
+        Msg("[Scripts/XR_EFFECTS/give_task(p_actor, p_npc, buffer)] WARNING: buffer.empty() == true! Return ...");
+        return;
+    }
+
+
+}
+
 } // namespace XR_EFFECTS
 } // namespace Scripts
 } // namespace Cordis
