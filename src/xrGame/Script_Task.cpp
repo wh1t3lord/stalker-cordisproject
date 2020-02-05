@@ -117,6 +117,39 @@ xr_string zat_b29_adv_descr(const xr_string& task_id_name, const xr_string& fiel
     return result_name;
 }
 
+std::uint16_t target_condlist(const xr_string& id_name, const xr_string& field_name, const xr_string& value_name)
+{
+    if (value_name.empty())
+    {
+        Msg("[Scripts/target_condlist(id_name, field_name, value_name)] WARNING: value_name.empty() == true! Return "
+            "...");
+        return 0;
+    }
+
+    xr_map<std::uint32_t, CondlistData> parse_condlist =
+        XR_LOGIC::parse_condlist_by_script_object("task", "task_condlist", value_name);
+
+    xr_string picked_section_name = XR_LOGIC::pick_section_from_condlist(
+        Globals::get_story_object("actor"), static_cast<CScriptGameObject*>(nullptr), parse_condlist);
+
+    if (picked_section_name.empty())
+    {
+        Msg("[Scripts/target_condlist(id_name, field_name, value_name)] WARNING: picked_section_name.empty() == true! "
+            "Return ...");
+        return 0;
+    }
+
+    std::uint16_t target_object_id = Globals::get_story_object_id(picked_section_name);
+
+    if (!target_object_id)
+    {
+        Msg("[Scripts/target_condlist(id_name, field_name, value_name)] WARNING: target_object_id == 0! Return ...");
+        return 0;
+    }
+
+    return target_object_id;
+}
+
 } // namespace Scripts
 } // namespace Cordis
 
