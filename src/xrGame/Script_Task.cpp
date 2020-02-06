@@ -150,6 +150,86 @@ std::uint16_t target_condlist(const xr_string& id_name, const xr_string& field_n
     return target_object_id;
 }
 
+std::uint16_t zat_b29_adv_target(const xr_string& id_name, const xr_string& field_name, const xr_string& value_name)
+{
+    xr_string target_object_id_name = "zat_a2_stalker_barmen";
+    CScriptGameObject* const p_actor = Globals::get_story_object("actor");
+    xr_string artefact_name;
+
+    for (std::uint8_t i = 16; i <= 23; ++i)
+    {
+        if (Globals::has_alife_info(Script_GlobalHelper::getInstance().getZatB29InfopBringTable().at(i).c_str()) &&
+            p_actor->GetObjectByName(Script_GlobalHelper::getInstance().getZatB29AfTable().at(i).c_str()))
+        {
+            artefact_name = Script_GlobalHelper::getInstance().getZatB29AfTable().at(i);
+            break;
+        }
+    }
+
+    if (!Globals::has_alife_info("zat_b29_linker_take_af_from_rival") &&
+        Globals::has_alife_info("zat_b29_stalkers_rivals_found_af"))
+    {
+        if (Globals::has_alife_info("zat_b29_stalker_rival_1_found_af"))
+        {
+            if (!Globals::has_alife_info("zat_b29_first_rival_taken_out"))
+            {
+                if (Globals::has_alife_info("zat_b29_exclusive_conditions"))
+                {
+                    target_object_id_name = "zat_b29_stalker_rival_1";
+                }
+                else
+                {
+                    target_object_id_name = "zat_b29_stalker_rival_default_1";
+                }
+            }
+            else if (artefact_name.empty())
+            {
+                if (Globals::has_alife_info("zat_b29_exclusive_conditions"))
+                {
+                    target_object_id_name = "zat_b29_stalker_rival_1";
+                }
+                else
+                {
+                    target_object_id_name = "zat_b29_stalker_rival_default_1";
+                }
+            }
+        }
+        else if (Globals::has_alife_info("zat_b29_stalker_rival_2_found_af"))
+        {
+            if (!Globals::has_alife_info("zat_b29_second_rival_taken_out"))
+            {
+                if (Globals::has_alife_info("zat_b29_exclusive_conditions"))
+                {
+                    target_object_id_name = "zat_b29_stalker_rival_2";
+                }
+                else
+                {
+                    target_object_id_name = "zat_b29_stalker_rival_default_2";
+                }
+            }
+            else if (artefact_name.empty())
+            {
+                if (Globals::has_alife_info("zat_b29_exclusive_conditions"))
+                {
+                    target_object_id_name = "zat_b29_stalker_rival_2";
+                }
+                else
+                {
+                    target_object_id_name = "zat_b29_stalker_rival_default_2";
+                }
+            }
+        }
+
+        return Globals::get_story_object_id(target_object_id_name);
+    }
+
+    if (!artefact_name.empty())
+        return Globals::get_story_object_id(target_object_id_name);
+    
+    Msg("[Scripts/zat_b29_adv_target(id_name, field_name, value_name)] WARNING: return 0");
+    return 0;
+}
+
 } // namespace Scripts
 } // namespace Cordis
 
