@@ -83,7 +83,7 @@ public:
     void kill_all_unhided(void);
     void give_surge_hide_task(void);
     void respawn_artefacts_and_replace_anomaly_zone(void);
-    void end_surge(void);
+    void end_surge(bool is_manual = false);
     void skip_surge(void);
     void start(const bool is_manual = false);
 
@@ -103,7 +103,7 @@ private:
     int m_count;
     xrTime m_inited_time;
     xrTime m_last_surge_time;
-    xr_map<std::uint32_t, bool> m_levels_respawn;
+    xr_map<xr_string, bool> m_levels_respawn;
     xr_map<std::uint32_t, CondlistData> m_condlist;
     xr_map<std::uint32_t, CondlistData> m_survive_condlist;
     xr_map<int, std::pair<CScriptGameObject*, xr_map<std::uint32_t, CondlistData>>> m_covers;

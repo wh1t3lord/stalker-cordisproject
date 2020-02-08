@@ -137,6 +137,15 @@ inline void hide_indicators_safe(void);
 inline void show_indicators(void);
 inline void add_complex_effector(LPCSTR section, int id);
 inline void remove_complex_effector(int id);
+inline float get_time_factor(void);
+inline LPCSTR get_weather(void);
+inline void set_weather(pcstr const weather_name, const bool forced);
+inline bool set_weather_fx(pcstr const weather_name);
+inline bool is_wfx_playing(void);
+inline float get_wfx_time(void);
+inline void stop_weather_fx(void);
+inline void set_time_factor(const float time_factor);
+inline bool start_weather_fx_from_time(pcstr const weather_name, const float time);
 
 } // namespace level
 
@@ -277,6 +286,8 @@ inline void update_logic(CScriptGameObject* const p_object);
 inline void change_anomalies_names(void);
 inline bool isImportantSave(void);
 inline void set_inactivate_input_time(const std::uint32_t delta);
+inline xr_map<xr_string, xr_string> parse_ini_section_to_array(
+    CScriptIniFile* const p_ini, const xr_string& section_name);
 } // namespace Globals
 } // namespace Scripts
 } // namespace Cordis

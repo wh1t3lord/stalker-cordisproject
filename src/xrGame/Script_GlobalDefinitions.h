@@ -5,6 +5,39 @@ namespace Cordis
 {
 namespace Scripts
 {
+struct Script_WeatherData
+{
+    Script_WeatherData(void) = default;
+    ~Script_WeatherData(void) = default;
+
+    inline const xr_map<xr_string, xr_string>& getGraph(void) const noexcept { return this->m_graph; }
+    inline void setGraph(const xr_map<xr_string, xr_string>& data) noexcept { this->m_graph = data; }
+
+    inline const xr_string& getCurrentStateName(void) const noexcept { return this->m_current_state_name; }
+    inline void setCurrentStateName(const xr_string& state_name) noexcept { this->m_current_state_name = state_name; }
+
+    inline const xr_string& getNextStateName(void) const noexcept { return this->m_next_state_name; }
+    inline void setNextStateName(const xr_string& state_name) noexcept { this->m_next_state_name = state_name; }
+
+    inline const xr_string& getGraphName(void) const noexcept { return this->m_graph_name; }
+    inline void setGraphName(const xr_string& graph_name) noexcept { this->m_graph_name = graph_name; }
+
+    inline bool isEmpty(void) const noexcept { return (this->m_current_state_name.empty() && this->m_graph.empty() && this->m_next_state_name.empty() && this->m_graph_name.empty()); }
+    inline void Clear(void) noexcept
+    {
+        this->m_graph.clear();
+        this->m_current_state_name.clear();
+        this->m_graph_name.clear();
+        this->m_next_state_name.clear();
+    }
+
+private:
+    xr_map<xr_string, xr_string> m_graph;
+    xr_string m_current_state_name;
+    xr_string m_next_state_name;
+    xr_string m_graph_name;
+};
+
 void init_target(CScriptGameObject* const p_client_object, const xr_string& target_buffer, Fvector& target_position,
     std::uint16_t& target_id, bool& is_target_initialized);
 
@@ -286,8 +319,7 @@ void activate_by_section(CScriptGameObject* const p_client_object, CScriptIniFil
 CScriptIniFile* configure_schemes(CScriptGameObject* const p_client_object, CScriptIniFile* const p_ini,
     const xr_string& ini_filename, std::uint32_t stype, const xr_string& section_logic_name,
     const xr_string& gulag_name);
-inline xr_string
-    determine_section_to_activate(CScriptGameObject* const p_npc, CScriptIniFile* const p_ini,
+inline xr_string determine_section_to_activate(CScriptGameObject* const p_npc, CScriptIniFile* const p_ini,
     const xr_string& section_logic_name, CScriptGameObject* const p_actor);
 inline void disable_generic_schemes(CScriptGameObject* const p_client_object, const std::uint32_t stype);
 inline void enable_generic_schemes(CScriptIniFile* const p_ini, CScriptGameObject* const p_client_object,

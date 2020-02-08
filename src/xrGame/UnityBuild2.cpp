@@ -180,6 +180,7 @@
 #include "Script_UI_MainMenu.cpp"
 #include "Script_CampData.cpp"
 #include "Script_TaskManager.cpp"
+#include "Script_WeatherManager.cpp"
 #include "Script_Task.cpp"
 #include "script_watch_action.cpp"
 #include "script_watch_action_script.cpp"
