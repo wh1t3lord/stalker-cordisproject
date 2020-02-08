@@ -360,7 +360,26 @@ void Script_SurgeManager::kill_all_unhided(void) {}
 
 void Script_SurgeManager::give_surge_hide_task(void) {}
 
-void Script_SurgeManager::respawn_artefacts_and_replace_anomaly_zone(void) {}
+void Script_SurgeManager::respawn_artefacts_and_replace_anomaly_zone(void)
+{
+    if (this->m_levels_respawn.at(Globals::Game::level::get_name()))
+        this->m_levels_respawn[Globals::Game::level::get_name()] = false;
+
+    for (const std::pair<xr_string, CScriptGameObject*>& it : DataBase::Storage::getInstance().getZoneByName())
+    {
+        Script_Binder_Anomaly* const p_binder = dynamic_cast<Script_Binder_Anomaly*>(it.second->binded_object());
+        if (!p_binder)
+        {
+            R_ASSERT2(false, "Are you sure that is an anomaly client object?");
+            Msg("Object name: %s", it.second->Name());
+            return;
+        }
+
+        p_binder->respawn_artefacts_and_replace_anomaly_zone();
+    }
+
+    Globals::change_anomalies_names();
+}
 
 void Script_SurgeManager::end_surge(bool is_manual)
 {
@@ -404,7 +423,7 @@ void Script_SurgeManager::end_surge(bool is_manual)
         this->kill_all_unhided();
 
     this->respawn_artefacts_and_replace_anomaly_zone();
-    
+
     // Lord: добавить когда будет xr_statistic
 }
 
