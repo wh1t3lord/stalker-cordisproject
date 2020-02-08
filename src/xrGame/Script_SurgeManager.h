@@ -73,6 +73,15 @@ public:
     inline bool IsStarted(void) const noexcept { return this->m_is_started; }
     inline bool IsFinished(void) const noexcept { return this->m_is_finished; }
     inline bool IsKillingAll(void) const noexcept { return (this->m_is_ui_disabled && this->m_is_started); }
+    inline bool isUIDisabled(void) const noexcept { return this->m_is_ui_disabled; }
+    inline void setSurgeMessage(const xr_string& text) noexcept { this->m_surge_message_name = text; }
+    inline void setSurgeTaskSectionName(const xr_string& task_name) noexcept
+    {
+        this->m_surge_task_section_name = task_name;
+    }
+    inline bool isBlowoutSound(void) const noexcept { return this->m_is_blowout_sound; }
+    inline void setSkipMessage(const bool value) noexcept { this->m_is_skip_message = value; }
+
     void init_surge_covers(void);
     std::uint16_t get_nearest_cover(void);
     void update(void);
@@ -86,6 +95,50 @@ public:
     void end_surge(bool is_manual = false);
     void skip_surge(void);
     void start(const bool is_manual = false);
+
+    static bool actor_in_cover(void) noexcept
+    {
+        std::uint16_t cover_id = Script_SurgeManager::getInstance().get_nearest_cover();
+        if (cover_id &&
+            DataBase::Storage::getInstance().getStorage().at(cover_id).getClientObject()->inside(
+                DataBase::Storage::getInstance().getActor()->Position()))
+            return true;
+
+        return false;
+    }
+
+    static std::uint16_t get_task_target(void) noexcept
+    {
+        if (actor_in_cover())
+            return 0;
+
+        return Script_SurgeManager::getInstance().get_nearest_cover();
+    }
+
+    static void set_surge_message(const xr_string& text) noexcept
+    {
+        Script_SurgeManager::getInstance().setSurgeMessage(text);
+    }
+
+    static void set_surge_task(const xr_string& task_name) noexcept
+    {
+        Script_SurgeManager::getInstance().setSurgeTaskSectionName(task_name);
+    }
+
+    static bool is_killing_all(void) noexcept
+    {
+        if (Script_SurgeManager::getInstance().IsStarted() && Script_SurgeManager::getInstance().isUIDisabled())
+            return true;
+
+        return false;
+    }
+
+    static void resurrect_skip_message(void) { Script_SurgeManager::getInstance().setSkipMessage(false); }
+
+    static bool sound_started(void) noexcept
+    {
+        return (Script_SurgeManager::getInstance().IsStarted() && Script_SurgeManager::getInstance().isUIDisabled());
+    }
 
 private:
     bool m_is_started;

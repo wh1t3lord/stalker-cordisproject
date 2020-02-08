@@ -225,10 +225,12 @@ std::uint16_t zat_b29_adv_target(const xr_string& id_name, const xr_string& fiel
 
     if (!artefact_name.empty())
         return Globals::get_story_object_id(target_object_id_name);
-    
+
     Msg("[Scripts/zat_b29_adv_target(id_name, field_name, value_name)] WARNING: return 0");
     return 0;
 }
+
+std::uint16_t surge_task_target(const xr_string& id_name, const xr_string& field_name, const xr_string& value_name) { return Script_SurgeManager::get_task_target();}
 
 } // namespace Scripts
 } // namespace Cordis
@@ -321,6 +323,13 @@ Script_Task::Script_Task(CScriptIniFile* p_ini, const xr_string& task_id_name)
         Globals::Utils::cfg_get_number(this->m_p_ini, task_id_name, "community_relation_delta_fail"));
     this->m_community_relation_delta_complete = static_cast<std::uint32_t>(
         Globals::Utils::cfg_get_number(this->m_p_ini, task_id_name, "community_relation_delta_complete"));
+
+    task_functors_name["task_functor_condlist"] = task_functor_condlist;
+    task_functors_name["task_functor_zat_b29_adv_title"] = task_functor_zat_b29_adv_title;
+    task_functors_name["zat_b29_adv_descr"] = zat_b29_adv_descr;
+
+    task_functors_id["target_condlist"] = target_condlist;
+    task_functors_id["zat_b29_adv_target"] = zat_b29_adv_target;
 }
 
 Script_Task::~Script_Task(void) {}
