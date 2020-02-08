@@ -1064,6 +1064,38 @@ inline void show_indicators(void)
 }
 inline void add_complex_effector(LPCSTR section, int id) { AddEffector(Actor(), id, section); }
 inline void remove_complex_effector(int id) { RemoveEffector(Actor(), id); }
+inline float get_time_factor(void) { return (Level().GetGameTimeFactor()); }
+LPCSTR get_weather(void) { return *g_pGamePersistent->Environment().GetWeather(); }
+void set_weather(pcstr const weather_name, const bool forced)
+{
+    if (!Device.editor())
+        g_pGamePersistent->Environment().SetWeather(weather_name, forced);
+}
+
+bool set_weather_fx(pcstr const weather_name)
+{
+    if (!Device.editor())
+        return g_pGamePersistent->Environment().SetWeatherFX(weather_name);
+
+    return false;
+}
+inline bool is_wfx_playing(void) { return (g_pGamePersistent->Environment().IsWFXPlaying()); }
+inline float get_wfx_time(void) { return (g_pGamePersistent->Environment().wfx_time); }
+inline void stop_weather_fx(void) { g_pGamePersistent->Environment().StopWFX(); }
+inline void set_time_factor(const float time_factor)
+{
+    if (!OnServer() || Device.editor())
+        return;
+
+    Level().Server->GetGameState()->SetGameTimeFactor(time_factor);
+}
+inline bool start_weather_fx_from_time(pcstr const weather_name, const float time)
+{
+    if (!Device.editor())
+        return g_pGamePersistent->Environment().StartWeatherFXFromTime(weather_name, time);
+
+    return false;
+}
 } // namespace level
 } // namespace Game
 
@@ -1525,7 +1557,10 @@ inline std::uint16_t get_story_object_id(const xr_string& object_id_name)
     return Script_StoryObject::getInstance().get(object_id_name);
 }
 
-inline xr_string get_object_story_id(const std::uint16_t object_id) { return Script_StoryObject::getInstance().get_story_id(object_id); }
+inline xr_string get_object_story_id(const std::uint16_t object_id)
+{
+    return Script_StoryObject::getInstance().get_story_id(object_id);
+}
 
 inline Script_SE_SimulationSquad* get_story_squad(const xr_string& object_id_name)
 {
@@ -2826,6 +2861,32 @@ inline void set_inactivate_input_time(const std::uint32_t delta)
         DataBase::Storage::getInstance().getActor()->ID(), delta);
 
     Globals::Game::level::disable_input();
+}
+
+inline xr_map<xr_string, xr_string> parse_ini_section_to_array(
+    CScriptIniFile* const p_ini, const xr_string& section_name)
+{
+    xr_map<xr_string, xr_string> result;
+
+    if (p_ini && !section_name.empty() && p_ini->section_exist(section_name.c_str()))
+    {
+        const char* id_name;
+        const char* value_name;
+        for (std::uint32_t i = 0; i < p_ini->line_count(section_name.c_str()); ++i)
+        {
+            if (p_ini->r_line(section_name.c_str(), i, &id_name, &value_name))
+            {
+                boost::trim(id_name);
+                boost::trim(value_name);
+                result[id_name] = value_name;
+            }
+        }
+    }
+
+    if (result.empty())
+        Msg("[Scripts/Globals/parse_ini_section_to_array(p_ini, section_name)] WARNING: parsed data is empty!");
+
+    return result;
 }
 
 } // namespace Globals
