@@ -358,7 +358,27 @@ void Script_SurgeManager::kill_all_unhided_after_actor_death(void) {}
 
 void Script_SurgeManager::kill_all_unhided(void) {}
 
-void Script_SurgeManager::give_surge_hide_task(void) {}
+void Script_SurgeManager::give_surge_hide_task(void)
+{
+    if (this->m_surge_message_name != "empty")
+    {
+        xr_string message_name;
+        if (this->m_surge_message_name.empty())
+            message_name = Globals::Game::translate_string("hide_from_surge_message");
+        else
+            message_name = Globals::Game::translate_string(this->m_surge_message_name.c_str());
+
+        if (this->m_surge_task_section_name != "empty")
+        {
+            if (this->m_surge_task_section_name.empty())
+            {
+            }
+            else
+            {
+            }
+        }
+    }
+}
 
 void Script_SurgeManager::respawn_artefacts_and_replace_anomaly_zone(void)
 {
