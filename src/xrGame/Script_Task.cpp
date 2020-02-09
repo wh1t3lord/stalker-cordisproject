@@ -711,7 +711,7 @@ void Script_Task::save(NET_Packet& packet)
     Globals::set_save_marker(packet, Globals::kSaveMarkerMode_Save, true, "Script_Task");
 }
 
-void Script_Task::load(NET_Packet& packet)
+void Script_Task::load(IReader& packet)
 {
     Globals::set_save_marker(packet, Globals::kSaveMarkerMode_Load, false, "Script_Task");
     this->m_status_name = Script_GlobalHelper::getInstance().getTaskStatusByID().at(packet.r_u8());

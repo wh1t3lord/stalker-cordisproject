@@ -14,7 +14,8 @@ public:
     ~Script_Task(void);
 
     inline void reverse_task(void) { this->m_last_check_task_name = "reversed"; }
-
+    inline const xr_string& getTaskIDName(void) const noexcept { return this->m_task_id_name; }
+    inline const xr_string& getLastCheckTaskName(void) const noexcept { return this->m_last_check_task_name; }
     void give_task(void);
     void check_task(void);
     void give_reward(void);
@@ -23,7 +24,7 @@ public:
     void remove_guider_spot(void);
 
     void save(NET_Packet& packet);
-    void load(NET_Packet& packet);
+    void load(IReader& packet);
 
 private:
     bool m_is_storyline;
