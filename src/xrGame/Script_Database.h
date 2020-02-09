@@ -2894,6 +2894,20 @@ public:
     }
 
     inline CScriptGameObject* getActor(void) const { return this->m_actor; }
+    inline CScriptGameObject* getInvetoryUpgradesVictim(void) const { return this->m_p_victim; }
+
+    // Это need_victim() в inventory_upgrades!
+    inline void setInventoryUpgradesVictim(CScriptGameObject* const p_object)
+    {
+        if (!p_object)
+        {
+            Msg("[Scripts/DataBase/setInventoryUpgradesVictim(p_object)] WARNING: p_object = nullptr!");
+            return;
+        }
+
+        this->m_p_victim = p_object;
+    }
+
     // Lord: переделать сюда идёт bind_anomaly_zone
     inline const xr_map<xr_string, CScriptGameObject*>& getAnomalyByName(void) const noexcept
     {
@@ -4247,7 +4261,7 @@ public:
 #pragma endregion
 
 #pragma region Cordis Script_Binder_DoorLabx8
-    inline const xr_map<xr_string, Script_Binder_DoorLabx8*>& getAnimationObjectsByName(void) const noexcept 
+    inline const xr_map<xr_string, Script_Binder_DoorLabx8*>& getAnimationObjectsByName(void) const noexcept
     {
         return this->m_animation_object_by_name;
     }
@@ -4273,6 +4287,11 @@ public:
 private:
     std::uint32_t m_helicopter_count = 0;
     CScriptGameObject* m_actor = nullptr;
+
+#pragma region Cordis Inventory Upgrades
+    CScriptGameObject* m_p_victim = nullptr;
+#pragma endregion
+
     xr_map<std::uint16_t, Storage_Data> m_storage;
     xr_map<std::uint16_t, xr_string> m_script_ids;
     xr_map<xr_string, xr_map<std::uint32_t, bool>> m_camp_storage; // @ Uses in mob_camp only

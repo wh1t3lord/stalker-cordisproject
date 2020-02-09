@@ -12885,6 +12885,12 @@ private:
             "ui_inGame2_D_Vipolnil_4_zadaniya_dlya_Swobodi";
         this->m_news_manager_registered_sound_tips["can_resupply"] = "ui_inGame2_Pered_zadaniyami_voennih";
         this->m_news_manager_registered_sound_tips["recent_surge"] = "ui_inGame2_V_zone_nedavno_proshel_vibros";
+
+        this->m_news_manager_action_description_by_type_name["new"] = "general_new_task";
+        this->m_news_manager_action_description_by_type_name["complete"] = "general_complete_task";
+        this->m_news_manager_action_description_by_type_name["fail"] = "general_fail_task";
+        this->m_news_manager_action_description_by_type_name["reversed"] = "general_reverse_task";
+        this->m_news_manager_action_description_by_type_name["updated"] = "general_update_task";
 #pragma endregion
 
 #pragma region Cordis Smart Names(Translated from smart_names.ltx)
@@ -13015,6 +13021,31 @@ private:
         this->m_zat_b29_infop_bring_table[21] = "zat_b29_bring_af_21";
         this->m_zat_b29_infop_bring_table[22] = "zat_b29_bring_af_22";
         this->m_zat_b29_infop_bring_table[23] = "zat_b29_bring_af_23";
+#pragma endregion
+
+#pragma region Cordis Task
+        this->m_task_valid_values["complete"] = true;
+        this->m_task_valid_values["task"] = true;
+        this->m_task_valid_values["reversed"] = true;
+
+        this->m_task_guiders_by_level["zaton"]["jupiter"] = "zat_b215_stalker_guide_zaton";
+        this->m_task_guiders_by_level["zaton"]["pripyat"] = "zat_b215_stalker_guide_zaton";
+        this->m_task_guiders_by_level["jupiter"]["zaton"] = "zat_b215_stalker_guide_jupiter";
+        this->m_task_guiders_by_level["jupiter"]["pripyat"] = "jup_b43_stalker_assistant";
+        this->m_task_guiders_by_level["pripyat"]["zaton"] = "jup_b43_stalker_assistant_pri";
+        this->m_task_guiders_by_level["pripyat"]["jupiter"] = "jup_b43_stalker_assistant_pri";
+
+        this->m_task_status_by_id[0] = "normal";
+        this->m_task_status_by_id[1] = "selected";
+        this->m_task_status_by_id[2] = "completed";
+        this->m_task_status_by_id[3] = "fail";
+        this->m_task_status_by_id[4] = "reversed";
+
+        this->m_task_id_by_status["normal"] = 0;
+        this->m_task_id_by_status["selected"] = 1;
+        this->m_task_id_by_status["completed"] = 2;
+        this->m_task_id_by_status["fail"] = 3;
+        this->m_task_id_by_status["reversed"] = 4;
 #pragma endregion
     }
 
@@ -14357,8 +14388,29 @@ public:
     {
         return this->m_zat_b29_infop_bring_table;
     }
-    inline const xr_map<std::uint16_t, xr_string>& getZatB29AfTable(void) const noexcept { return this->m_zat_b29_af_table; }
+    inline const xr_map<std::uint16_t, xr_string>& getZatB29AfTable(void) const noexcept
+    {
+        return this->m_zat_b29_af_table;
+    }
 #pragma endregion
+
+    inline const xr_map<xr_string, xr_string>& getNewsManagerActionDescriptionByTypeName(void) const noexcept
+    {
+        return this->m_news_manager_action_description_by_type_name;
+    }
+
+    inline const xr_map<xr_string, bool>& getTaskValidValues(void) const noexcept { return this->m_task_valid_values; }
+
+    inline const xr_map<xr_string, xr_map<xr_string, xr_string>>& getTaskGuidersByLevel(void) const noexcept
+    {
+        return this->m_task_guiders_by_level;
+    }
+
+    inline const xr_map<xr_string, std::uint8_t>& getTaskIDByStatus(void) const noexcept
+    {
+        return this->m_task_id_by_status;
+    }
+    inline const xr_map<std::uint8_t, xr_string>& getTaskStatusByID(void) const noexcept { return this->m_task_status_by_id; }
 
 private:
     bool m_is_gameover_credits_started;
@@ -14397,6 +14449,7 @@ private:
     xr_map<xr_string, xr_string> m_job_type_by_scheme;
     xr_map<xr_string, xr_string> m_game_smarts_by_no_assault_zone;
     xr_map<xr_string, xr_string> m_news_manager_registered_sound_tips;
+    xr_map<xr_string, xr_string> m_news_manager_action_description_by_type_name;
     xr_map<xr_string, xr_map<xr_string, xr_string>> m_smart_terrains_translated_name;
     xr_map<xr_string, std::uint32_t> m_simulationboard_group_id_by_levels_name;
     xr_map<xr_string, std::uint32_t> m_monster_animation_to_action;
@@ -14404,8 +14457,12 @@ private:
     xr_map<xr_string, bool> m_registered_smart_terrain_territory_type;
     xr_map<xr_string, bool> m_simulationsquad_is_squad_monster_by_type;
     xr_map<xr_string, bool> m_indoor_levels;
+    xr_map<xr_string, bool> m_task_valid_values;
+    xr_map<xr_string, std::uint8_t> m_task_id_by_status;
+    xr_map<std::uint8_t, xr_string> m_task_status_by_id;
     xr_map<std::uint16_t, xr_string> m_zat_b29_infop_bring_table;
     xr_map<std::uint16_t, xr_string> m_zat_b29_af_table;
+    xr_map<xr_string, xr_map<xr_string, xr_string>> m_task_guiders_by_level;
     xr_map<CDangerObject::EDangerType, float> m_xr_danger_ignore_distance_by_danger_type;
     // @ First - id | Second - distance
     std::pair<std::uint32_t, std::uint32_t> m_game_server_nearest_to_actor_smart_terrain;
