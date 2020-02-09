@@ -47,6 +47,65 @@ inline void relocate_money_to_actor(
     Script_NewsManager::getInstance().relocate_money("in", value);
 }
 
+inline void relocate_money(CScriptGameObject* const p_victim, const int number, const xr_string& type_name)
+{
+    if (DataBase::Storage::getInstance().getActor())
+    {
+        if (type_name == "in")
+        {
+            DataBase::Storage::getInstance().getActor()->GiveMoney(number);
+            // Lord: game_stats когда будет
+        }
+        else if (type_name == "out")
+        {
+            if (!p_victim)
+            {
+                R_ASSERT2(false, "Couldn't relocate money to NULL");
+            }
+
+            DataBase::Storage::getInstance().getActor()->TransferMoney(number, p_victim);
+            // Lord: game_stats когда будет
+        }
+
+        Script_NewsManager::getInstance().relocate_money(type_name, number);
+    }
+}
+
+inline void relocate_item_section(
+    CScriptGameObject* const p_npc, const xr_string& section_name, const xr_string& type_name, const int amount)
+{
+    if (DataBase::Storage::getInstance().getActor())
+    {
+        int amnt = 0;
+        if (!amount)
+            amnt = 1;
+
+        for (std::uint32_t i = 1; i <= amnt; ++i)
+        {
+            if (type_name == "in")
+            {
+                Globals::Game::alife_create(section_name, DataBase::Storage::getInstance().getActor()->Position(),
+                    DataBase::Storage::getInstance().getActor()->level_vertex_id(),
+                    DataBase::Storage::getInstance().getActor()->game_vertex_id(),
+                    DataBase::Storage::getInstance().getActor()->ID());
+            }
+            else if (type_name == "out")
+            {
+                if (!p_npc)
+                {
+                    Msg("[Scripts/relocate_item_section(p_npc, section_name, type_name, amount)] WARNING: can't reloca item when p_npc is nullptr!");
+                    return;
+                }
+
+                DataBase::Storage::getInstance().getActor()->TransferItem(
+                    DataBase::Storage::getInstance().getActor()->GetObjectByName(section_name.c_str()), p_npc);
+            }
+
+            Script_NewsManager::getInstance().relocate_item(type_name, section_name, amount);
+        }
+    }
+}
+
 inline void relocate_item_section_from_actor(CScriptGameObject* const p_first_speaker,
     CScriptGameObject* const p_second_speaker, const xr_string& section_name, const xr_string& amount_name)
 {

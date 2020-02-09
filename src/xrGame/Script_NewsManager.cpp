@@ -56,6 +56,33 @@ bool Script_NewsManager::SendTip(CScriptGameObject* actor, const xr_string& news
     }
 }
 
+void Script_NewsManager::SendTask(CScriptGameObject* const p_actor, const xr_string& type_name, CGameTask* const p_task)
+{
+    if (!p_actor)
+        return;
+
+    std::uint32_t time_on_screen = 10000;
+
+    if (type_name == "updated")
+        time_on_screen = 5000;
+
+    XR_SOUND::set_sound_play(DataBase::Storage::getInstance().getActor()->ID(), "pda_task", xr_string(), 0);
+    xr_string news_caption_name = Globals::Game::translate_string(
+        Script_GlobalHelper::getInstance().getNewsManagerActionDescriptionByTypeName().at(type_name).c_str());
+    xr_string news_text_name = Globals::Game::translate_string(p_task->GetTitle_script());
+    xr_string icon_name = p_task->GetIconName_script();
+
+    if (icon_name.empty())
+        icon_name = "ui_iconsTotal_storyline";
+
+    if (DataBase::Storage::getInstance().getActor()->IsTalking())
+        DataBase::Storage::getInstance().getActor()->AddIconedTalkMessage(
+            news_caption_name.c_str(), news_text_name.append(".").c_str(), icon_name.c_str(), "iconed_answer_item");
+    else
+        DataBase::Storage::getInstance().getActor()->GiveGameNews(
+            news_caption_name.c_str(), news_text_name.append(".").c_str(), icon_name.c_str(), 0, time_on_screen);
+}
+
 void Script_NewsManager::relocate_money(const xr_string& type_name, const int amount)
 {
     if (!DataBase::Storage::getInstance().getActor())

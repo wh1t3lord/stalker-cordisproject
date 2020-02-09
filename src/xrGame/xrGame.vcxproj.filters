@@ -4243,6 +4243,15 @@
     <Filter Include="Cordis\Scripts\Dialogs\Kernel\Public">
       <UniqueIdentifier>{ffec9133-b8ab-48fa-bcd7-f8a95a7fa8b3}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Cordis\Scripts\Managers\Weather">
+      <UniqueIdentifier>{667f7e24-2ecb-4062-b0fb-c66a4f8ca0ee}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Managers\Weather\Public">
+      <UniqueIdentifier>{84a1888a-e5a6-4996-9670-fb254f80f490}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Managers\Weather\Private">
+      <UniqueIdentifier>{ac4391b9-79d9-4f5f-8e4d-499fec4f58de}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="mt_config.h">
@@ -9608,6 +9617,9 @@
     <ClInclude Include="Script_Dialogs.h">
       <Filter>Cordis\Scripts\Dialogs\Kernel\Public</Filter>
     </ClInclude>
+    <ClInclude Include="Script_WeatherManager.h">
+      <Filter>Cordis\Scripts\Managers\Weather\Public</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="damage_manager.cpp">
@@ -14042,6 +14054,9 @@
     </ClCompile>
     <ClCompile Include="Script_Task.cpp">
       <Filter>Cordis\Scripts\Entities %28not server entities!%29\Task\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Script_WeatherManager.cpp">
+      <Filter>Cordis\Scripts\Managers\Weather\Private</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

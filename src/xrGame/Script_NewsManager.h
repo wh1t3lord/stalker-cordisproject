@@ -26,6 +26,7 @@ public:
         const xr_string& str1 = xr_string(""), const float& delay = 0.0f);
     bool SendTip(CScriptGameObject* actor, const xr_string& news_id_name, const xr_string& sender_name,
         const std::uint32_t timeout = 0, const std::uint32_t show_time = 0, const xr_string& sender_id_name = "");
+    void SendTask(CScriptGameObject* const p_actor, const xr_string& type_name, CGameTask* const p_task);
     void relocate_money(const xr_string& type_name, const int amount);
     void relocate_item(const xr_string& type_name, const xr_string& section_name, const std::uint32_t amount = 1);
     /*

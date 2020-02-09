@@ -19,6 +19,8 @@
 #include "Common/object_broker.h"
 #include "xrUICore/XML/UITextureMaster.h"
 
+// Lord: переписать биндинг луа на C++, уйти здесь от луа!
+
 CGameTask::CGameTask()
     : m_map_object_id(0), m_TimeToComplete(0), m_priority(0)
 {
