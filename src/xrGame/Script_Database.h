@@ -4163,6 +4163,8 @@ public:
         this->m_goodwill.second.clear();
         this->m_camp_storage.clear();
         this->m_noweapon_zones.clear();
+
+        Script_TaskManager::getInstance().Deallocate();
     }
 
     inline const xr_map<xr_string, xr_map<std::uint32_t, bool>>& getCampStorage(void) const noexcept
@@ -4267,6 +4269,22 @@ public:
     }
 #pragma endregion
 
+#pragma region Cordis Script_Binder_Crow
+
+    inline const xr_map<std::uint16_t, std::uint16_t>& getCrowStorage(void) const noexcept
+    {
+        return this->m_crow_storage;
+    }
+
+    inline void setCrowStorage(const std::uint16_t object_id, const std::uint16_t objectid)
+    { 
+        this->m_crow_storage[object_id] = objectid;
+    }
+
+    inline void addCrowToCount(void) noexcept { ++this->m_crow_count; }
+    inline void deleteCrowToCount(void) noexcept {--this->m_crow_count;}
+#pragma endregion
+
     inline const xr_map<std::uint16_t, xr_string>& getScriptIDS(void) const noexcept { return this->m_script_ids; }
     inline void setScriptIDS(const std::uint16_t id, const xr_string& name) noexcept
     {
@@ -4285,6 +4303,7 @@ public:
     Storage& operator=(Storage&&) = delete;
 
 private:
+    std::uint32_t m_crow_count = 0;
     std::uint32_t m_helicopter_count = 0;
     CScriptGameObject* m_actor = nullptr;
 
@@ -4298,6 +4317,7 @@ private:
     xr_map<std::uint16_t, std::pair<std::uint16_t, xr_string>> m_offline_objects;
     xr_map<std::uint32_t, CScriptGameObject*> m_helicopter_enemies;
     xr_map<xr_string, bool> m_noweapon_zones;
+    xr_map<std::uint16_t, std::uint16_t> m_crow_storage;
     xr_map<xr_string, CScriptGameObject*> m_zone_by_name;
     xr_map<xr_string, CScriptGameObject*> m_anomaly_by_name;
     xr_map<xr_string, CScriptGameObject*> m_game_registered_combat_spacerestrictors;

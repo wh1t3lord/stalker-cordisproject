@@ -356,7 +356,18 @@ void Script_SurgeManager::launch_rockets(void) {}
 
 void Script_SurgeManager::kill_all_unhided_after_actor_death(void) {}
 
-void Script_SurgeManager::kill_all_unhided(void) {}
+void Script_SurgeManager::kill_all_unhided(void)
+{
+    CScriptHit hit;
+
+    hit.m_tHitType = ALife::eHitTypeFireWound;
+    hit.m_fPower = 0.9f;
+    hit.m_fImpulse = 0.0f;
+    hit.m_tDirection = Fvector().set(0.0f, 0.0f, 1.0f);
+    hit.m_tpDraftsman = DataBase::Storage::getInstance().getActor();
+
+    
+}
 
 void Script_SurgeManager::give_surge_hide_task(void)
 {
@@ -372,9 +383,11 @@ void Script_SurgeManager::give_surge_hide_task(void)
         {
             if (this->m_surge_task_section_name.empty())
             {
+                Script_TaskManager::getInstance().give_task("hide_from_surge");
             }
             else
             {
+                Script_TaskManager::getInstance().give_task(this->m_surge_task_section_name);
             }
         }
     }
