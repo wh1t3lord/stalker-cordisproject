@@ -410,6 +410,7 @@ __declspec(dllexport)  CSE_Abstract* xrServer_Create(LPCSTR section, CSE_Motion*
 #include "Script_TreasureManager.h"
 #include "Script_SoundManager.h"
 #include "Script_NewsManager.h"
+#include "Script_WeatherManager.h"
 #include "Script_CRD_Wounded.h"
 #include "Script_XR_Condition.h"
 #include "Script_XR_Gulag.h"

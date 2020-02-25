@@ -4,6 +4,14 @@ namespace Cordis
 {
 namespace Scripts
 {
+    class Script_Task;
+}
+} // namespace Cordis
+
+namespace Cordis
+{
+namespace Scripts
+{
 class Script_TaskManager
 {
 private:
@@ -33,7 +41,7 @@ public:
     // be carefull with that method
     void Deallocate(void);
 
-    static void TaskCallback(CGameTask* p_task, const std::uint32_t status) 
+    static void TaskCallback(CGameTask* p_task, const std::uint32_t status)
     {
         if (status == eTaskStateFail || status == eTaskStateCompleted)
         {

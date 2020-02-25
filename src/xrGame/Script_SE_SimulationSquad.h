@@ -139,6 +139,8 @@ public:
         return this->m_player_id;
     } // Lord: сделать под simulationActivities in Script_SimulationBoard как айдишник на который ссылаться
 
+    inline const xr_string& getPlayerIDName(void) const noexcept { return this->m_player_id_name; }
+
     inline CALifeSmartTerrainTask* getAlifeSmartTerrainTask(void)
     { // Lord: проверить не изменяются ли this->m_tGraphID, this->m_tNodeID!!!
         Msg("[Scripts/Script_SE_SimulationSquad/getAlifeSmartTerrainTask()] game_vertex_id -> [%d] | level_vertex_id "
@@ -178,7 +180,8 @@ public:
                 Msg("[Scripts/Script_SE_SimulationSquad/set_squad_position(position)] teleporting npc %d %s", it->first,
                     it->second->name_replace());
                 p_client_object->SetNpcPosition(position);
-                Msg("[Scripts/Script_SE_SimulationSquad/set_squad_position(position)] end teleporting npc %d %s", it->first, it->second->name_replace());
+                Msg("[Scripts/Script_SE_SimulationSquad/set_squad_position(position)] end teleporting npc %d %s",
+                    it->first, it->second->name_replace());
             }
             else
             {

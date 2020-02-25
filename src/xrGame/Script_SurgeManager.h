@@ -85,7 +85,7 @@ public:
     void init_surge_covers(void);
     std::uint16_t get_nearest_cover(void);
     void update(void);
-    void load(NET_Packet& packet);
+    void load(IReader* packet);
     void save(NET_Packet& packet);
     void launch_rockets(void);
     void kill_all_unhided_after_actor_death(void);

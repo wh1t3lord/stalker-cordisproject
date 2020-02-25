@@ -1150,8 +1150,6 @@ public:
     void remove_squad(Script_SE_SimulationSquad* server_squad);
     void exit_smart(Script_SE_SimulationSquad* server_squad, const std::uint32_t& smart_terrain_id);
     void fill_start_position(void);
-
-private:
     Script_SE_SimulationSquad* create_squad(Script_SE_SmartTerrain* smart, const xr_string& squad_id);
 
 private:

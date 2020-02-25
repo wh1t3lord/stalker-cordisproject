@@ -2876,9 +2876,12 @@ inline xr_map<xr_string, xr_string> parse_ini_section_to_array(
         {
             if (p_ini->r_line(section_name.c_str(), i, &id_name, &value_name))
             {
-                boost::trim(id_name);
-                boost::trim(value_name);
-                result[id_name] = value_name;
+                xr_string copy_id_name = id_name;
+                xr_string copy_value_name = value_name;
+                boost::trim(copy_id_name);
+                boost::trim(copy_value_name);
+
+                result[copy_id_name] = copy_value_name;
             }
         }
     }
