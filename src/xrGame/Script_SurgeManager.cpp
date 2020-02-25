@@ -7,6 +7,114 @@ namespace Cordis
 {
 namespace Scripts
 {
+bool check_squad_level(const std::uint16_t squad_id)
+{
+    CSE_Abstract* const p_squad = ai().alife().objects().object(squad_id);
+
+    if (p_squad)
+    {
+        xr_string squad_level_name = Globals::get_level_name(
+            Globals::Game::get_game_graph()->vertex(p_squad->cast_alife_dynamic_object()->m_tGraphID)->level_id());
+
+        if (squad_level_name == Globals::Game::level::get_name())
+            return true;
+    }
+
+    return false;
+}
+
+bool check_squad_community_and_story_id(const std::uint16_t squad_id)
+{
+    CSE_Abstract* const p_squad = ai().alife().objects().object(squad_id);
+
+    if (p_squad)
+    {
+        if (Script_GlobalHelper::getInstance().getSurgeManagerImmunedToSurgeSquads().at(
+                p_squad->cast_script_se_simulationsquad()->getPlayerIDName()))
+            return false;
+
+        if (!Globals::get_object_story_id(p_squad->ID).empty())
+            return false;
+    }
+
+    return true;
+}
+
+bool check_squad_community(const std::uint16_t squad_id)
+{
+    CSE_Abstract* const p_squad = ai().alife().objects().object(squad_id);
+
+    if (p_squad)
+    {
+        if (Script_GlobalHelper::getInstance().getSurgeManagerImmunedToSurgeSquads().at(
+                p_squad->cast_script_se_simulationsquad()->getPlayerIDName()))
+            return false;
+    }
+
+    return true;
+}
+
+bool check_squad_smart_props(const std::uint16_t squad_id)
+{
+    CSE_Abstract* const p_server_object = ai().alife().objects().object(squad_id);
+    Script_SE_SimulationSquad* const p_server_squad = p_server_object->cast_script_se_simulationsquad();
+
+    if (!p_server_squad)
+    {
+        Msg("[Scripts/check_squad_smart_props(squad_id)] WARNING: bad cast return ...");
+        return false;
+    }
+
+    if (p_server_object)
+    {
+        if (p_server_squad->getSmartTerrainID() &&
+            (Script_SimulationBoard::getInstance().getSmarts().find(p_server_squad->getSmartTerrainID()) !=
+                Script_SimulationBoard::getInstance().getSmarts().end()))
+        {
+            Script_SE_SmartTerrain* const p_smart_terrain = Script_SimulationBoard::getInstance()
+                                                                .getSmarts()
+                                                                .at(p_server_squad->getSmartTerrainID())
+                                                                .getServerSmartTerrain();
+
+            if (p_smart_terrain)
+            {
+                // Lord: проверить что за значение float или int
+                if (boost::lexical_cast<int>(p_smart_terrain->getProperties().at("surge")) <= 0)
+                {
+                    return true;
+                }
+            }
+        }
+    }
+
+    return false;
+}
+
+xr_map<std::uint16_t, bool> get_squad_members(const std::uint16_t squad_id)
+{
+    xr_map<std::uint16_t, bool> result;
+    CSE_Abstract* const p_server_object = ai().alife().objects().object(squad_id);
+
+    if (p_server_object)
+    {
+        Script_SE_SimulationSquad* const p_squad = p_server_object->cast_script_se_simulationsquad();
+        if (!p_squad)
+        {
+            Msg("[Scripts/get_squad_members(squad_id)] WARNING: bad cast return ...");
+            return result;
+        }
+
+        for (AssociativeVector<std::uint16_t, CSE_ALifeMonsterAbstract*>::const_iterator it =
+                 p_squad->squad_members().begin();
+             it != p_squad->squad_members().end(); ++it)
+        {
+            result[it->second->ID] = true;
+        }
+    }
+
+    return result;
+}
+
 Script_SurgeManager::~Script_SurgeManager(void) {}
 
 void Script_SurgeManager::init_surge_covers(void)
@@ -348,13 +456,123 @@ void Script_SurgeManager::update(void)
     }
 }
 
-void Script_SurgeManager::load(NET_Packet& packet) {}
+void Script_SurgeManager::load(IReader* packet)
+{
+    Globals::set_save_marker(*packet, Globals::kSaveMarkerMode_Load, false, "Script_SurgeManager");
 
-void Script_SurgeManager::save(NET_Packet& packet) {}
+    this->m_is_finished = packet->r_u8();
+    this->m_is_started = packet->r_u8();
 
-void Script_SurgeManager::launch_rockets(void) {}
+    this->m_last_surge_time = Globals::Utils::r_CTime(*packet);
 
-void Script_SurgeManager::kill_all_unhided_after_actor_death(void) {}
+    if (this->m_is_started)
+    {
+        this->m_inited_time = Globals::Utils::r_CTime(*packet);
+
+        this->m_levels_respawn["zaton"] = packet->r_u8();
+        this->m_levels_respawn["jupiter"] = packet->r_u8();
+        this->m_levels_respawn["pripyat"] = packet->r_u8();
+
+        this->m_is_task_given = packet->r_u8();
+        this->m_is_effector_set = packet->r_u8();
+        this->m_is_second_message_given = packet->r_u8();
+        this->m_is_ui_disabled = packet->r_u8();
+        this->m_is_blowout_sound = packet->r_u8();
+
+        packet->r_stringZ(this->m_surge_message_name);
+        packet->r_stringZ(this->m_surge_task_section_name);
+    }
+
+    this->m_delta = packet->r_u32();
+    this->m_is_loaded = true;
+    Globals::set_save_marker(*packet, Globals::kSaveMarkerMode_Load, true, "Script_SurgeManager");
+}
+
+void Script_SurgeManager::save(NET_Packet& packet)
+{
+    Globals::set_save_marker(packet, Globals::kSaveMarkerMode_Save, false, "Script_SurgeManager");
+
+    packet.w_u8(this->m_is_finished);
+    packet.w_u8(this->m_is_started);
+    Globals::Utils::w_CTime(packet, this->m_last_surge_time);
+
+    if (this->m_is_started)
+    {
+        Globals::Utils::w_CTime(packet, this->m_inited_time);
+
+        packet.w_u8(this->m_levels_respawn.at("zaton"));
+        packet.w_u8(this->m_levels_respawn.at("jupiter"));
+        packet.w_u8(this->m_levels_respawn.at("pripyat"));
+
+        packet.w_u8(this->m_is_task_given);
+        packet.w_u8(this->m_is_effector_set);
+        packet.w_u8(this->m_is_second_message_given);
+        packet.w_u8(this->m_is_ui_disabled);
+        packet.w_u8(this->m_is_blowout_sound);
+
+        packet.w_stringZ(this->m_surge_message_name.c_str());
+        packet.w_stringZ(this->m_surge_task_section_name.c_str());
+    }
+
+    packet.w_u32(this->m_delta);
+
+    Globals::set_save_marker(packet, Globals::kSaveMarkerMode_Save, true, "Script_SurgeManager");
+}
+
+void Script_SurgeManager::launch_rockets(void)
+{
+    // Можете реализовать сами
+}
+
+void Script_SurgeManager::kill_all_unhided_after_actor_death(void)
+{
+    for (const std::pair<std::uint32_t, Script_SE_SimulationSquad*>& it :
+        Script_SimulationBoard::getInstance().getSquads())
+    {
+        Script_SE_SimulationSquad* const p_squad = it.second;
+
+        if (check_squad_level(p_squad->ID))
+        {
+            if (check_squad_community(p_squad->ID))
+            {
+                xr_map<std::uint16_t, bool> squad_npcs = get_squad_members(p_squad->ID);
+
+                for (const std::pair<std::uint16_t, bool>& it : squad_npcs)
+                {
+                    CSE_Abstract* const p_server_object = ai().alife().objects().object(it.first);
+
+                    if (p_server_object)
+                    {
+                        bool is_release = true;
+
+                        for (const std::pair<int, std::pair<CScriptGameObject*, xr_map<std::uint32_t, CondlistData>>>&
+                                 it_cover : this->m_covers)
+                        {
+                            CScriptGameObject* const p_client_cover = it_cover.second.first;
+
+                            if (p_client_cover && p_client_cover->inside(p_server_object->o_Position))
+                                is_release = false;
+                        }
+
+                        if (is_release)
+                        {
+                            Msg("[Scripts/Script_SurgeManager/kill_all_unhide_after_actor_death()] Releasing npc %s "
+                                "from squad %s after actot's death",
+                                p_server_object->name_replace(), p_squad->name_replace());
+                            CScriptGameObject* const p_client_object =
+                                Globals::Game::level::get_object_by_id(p_server_object->ID);
+
+                            if (p_client_object)
+                                p_client_object->Kill(p_client_object);
+                            else
+                                p_server_object->cast_monster_abstract()->kill();
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
 
 void Script_SurgeManager::kill_all_unhided(void)
 {
@@ -366,7 +584,82 @@ void Script_SurgeManager::kill_all_unhided(void)
     hit.m_tDirection = Fvector().set(0.0f, 0.0f, 1.0f);
     hit.m_tpDraftsman = DataBase::Storage::getInstance().getActor();
 
-    
+    for (const std::pair<std::uint16_t, std::uint16_t>& it : DataBase::Storage::getInstance().getCrowStorage())
+    {
+        CSE_Abstract* const p_server_object = ai().alife().objects().object(it.second);
+
+        if (p_server_object)
+        {
+            CScriptGameObject* const p_client_object = Globals::Game::level::get_object_by_id(p_server_object->ID);
+
+            if (p_client_object && p_client_object->Alive())
+                p_client_object->Hit(&hit);
+        }
+    }
+
+    for (const std::pair<std::uint16_t, Script_SE_SimulationSquad*>& it :
+        Script_SimulationBoard::getInstance().getSquads())
+    {
+        Script_SE_SimulationSquad* const p_squad = it.second;
+        if (check_squad_level(p_squad->ID))
+        {
+            if (check_squad_community_and_story_id(p_squad->ID))
+            {
+                xr_map<std::uint16_t, bool> squad_npcs = get_squad_members(p_squad->ID);
+
+                for (const std::pair<std::uint16_t, bool>& it : squad_npcs)
+                {
+                    CSE_Abstract* const p_server_object = ai().alife().objects().object(it.first);
+
+                    if (p_server_object && (Globals::get_object_story_id(p_server_object->ID).empty()))
+                    {
+                        if (check_squad_smart_props(p_squad->ID))
+                        {
+                            Msg("[Scripts/Script_SurgeManager/kill_all_unhided()] Releasing npc %s from squad %s",
+                                p_server_object->name_replace(), p_squad->name_replace());
+
+                            CScriptGameObject* const p_client_object =
+                                Globals::Game::level::get_object_by_id(p_server_object->ID);
+
+                            if (p_client_object)
+                                p_client_object->Kill(p_client_object);
+                            else
+                                p_server_object->cast_monster_abstract()->kill();
+                        }
+                        else
+                        {
+                            bool is_release = true;
+
+                            for (const std::pair<int,
+                                     std::pair<CScriptGameObject*, xr_map<std::uint32_t, CondlistData>>>& it_cover :
+                                this->m_covers)
+                            {
+                                CScriptGameObject* const p_client_cover = it_cover.second.first;
+
+                                if (p_client_cover && p_client_cover->inside(p_server_object->o_Position))
+                                    is_release = false;
+                            }
+
+                            if (is_release)
+                            {
+                                Msg("[Scripts/Script_SurgeManager/kill_all_unhide_after_actor_death()] Releasing npc "
+                                    "%s "
+                                    "from squad %s after actot's death",
+                                    p_server_object->name_replace(), p_squad->name_replace());
+                                CScriptGameObject* const p_client_object =
+                                    Globals::Game::level::get_object_by_id(p_server_object->ID);
+
+                                if (p_client_object)
+                                    p_client_object->Kill(p_client_object);
+                                else
+                                    p_server_object->cast_monster_abstract()->kill();
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
 }
 
 void Script_SurgeManager::give_surge_hide_task(void)
@@ -465,7 +758,7 @@ void Script_SurgeManager::skip_surge(void)
     std::uint32_t year, month, day, hour, minute, second, milisecond = 0;
     this->m_inited_time.get(year, month, day, hour, minute, second, milisecond);
 
-    this->m_last_surge_time.set(year, month, day, minute, second + this->m_surge_time, milisecond);
+    this->m_last_surge_time.set(year, month, day, hour, minute, second + this->m_surge_time, milisecond);
 
     this->m_is_started = false;
     this->m_is_finished = true;

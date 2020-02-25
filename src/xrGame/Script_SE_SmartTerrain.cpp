@@ -1401,7 +1401,7 @@ void Script_SE_SmartTerrain::setup_logic(CScriptGameObject* const p_npc)
     NpcInfo& npc_info = this->m_npc_info[p_npc->ID()];
     JobDataSmartTerrain* job = this->m_job_data[npc_info.m_job_id];
     CScriptIniFile* ini = job->m_ini_file ? job->m_ini_file : this->m_ltx;
-    xr_string ltx_name = job->m_ini_path_name.empty() ? this->m_ltx_name;
+    xr_string ltx_name = job->m_ini_path_name.empty() ? this->m_ltx_name : job->m_ini_path_name;
     if (!ini)
     {
         R_ASSERT2(false, "something wrong!!!");
@@ -1414,7 +1414,7 @@ void Script_SE_SmartTerrain::setup_logic(CScriptGameObject* const p_npc)
         return;
     }
 
-    XR_LOGIC::configure_schemes(p_npc, ini, ltx_name, npc_info.m_stype, job->m_ini_path_name, this->name_replace());
+    XR_LOGIC::configure_schemes(p_npc, ini, ltx_name, npc_info.m_stype, job->m_job_id.first, this->name_replace());
 
     xr_string section_name = XR_LOGIC::determine_section_to_activate(
         p_npc, ini, job->m_job_id.first, DataBase::Storage::getInstance().getActor());

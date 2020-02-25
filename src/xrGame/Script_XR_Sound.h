@@ -152,7 +152,7 @@ inline void stop_sounds_by_id(const std::uint16_t object_id)
 
     for (const std::pair<xr_string, Script_ISoundEntity*>& it : looped_sounds)
     {
-        if (it.second && it.second->is_playing())
+        if (it.second && it.second->is_playing(object_id))
             it.second->stop(object_id);
     }
 }

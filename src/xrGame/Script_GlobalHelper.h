@@ -13047,6 +13047,17 @@ private:
         this->m_task_id_by_status["fail"] = 3;
         this->m_task_id_by_status["reversed"] = 4;
 #pragma endregion
+
+#pragma region Cordis Surge Manager Immuned to Surge squads
+        this->m_surge_manager_immuned_to_surge_squads["monster_predatory_day"] = true;
+        this->m_surge_manager_immuned_to_surge_squads["monster_predatory_night"] = true;
+        this->m_surge_manager_immuned_to_surge_squads["monster_vegetarian"] = true;
+        this->m_surge_manager_immuned_to_surge_squads["monster_zombied_day"] = true;
+        this->m_surge_manager_immuned_to_surge_squads["monster_zombied_night"] = true;
+        this->m_surge_manager_immuned_to_surge_squads["monster_special"] = true;
+        this->m_surge_manager_immuned_to_surge_squads["monster"] = true;
+        this->m_surge_manager_immuned_to_surge_squads["zombied"] = true;
+#pragma endregion
     }
 
 public:
@@ -14412,6 +14423,10 @@ public:
     }
     inline const xr_map<std::uint8_t, xr_string>& getTaskStatusByID(void) const noexcept { return this->m_task_status_by_id; }
 
+    #pragma region Cordis Surge Manager
+    inline const xr_map<xr_string, bool>& getSurgeManagerImmunedToSurgeSquads(void) const noexcept { return this->m_surge_manager_immuned_to_surge_squads; }
+    #pragma endregion
+
 private:
     bool m_is_gameover_credits_started;
     CUISequencer* m_tutorial;
@@ -14424,6 +14439,7 @@ private:
     xr_map<xr_string, bool> m_registered_eatable_visuals;
     xr_map<xr_string, bool> m_registered_harmonica_visuals;
     xr_map<xr_string, bool> m_quest_section;
+    xr_map<xr_string, bool> m_surge_manager_immuned_to_surge_squads;
     xr_map<xr_string,
         std::function<void(
             CScriptGameObject* const, CScriptIniFile* const, const xr_string&, const xr_string&, const xr_string&)>>

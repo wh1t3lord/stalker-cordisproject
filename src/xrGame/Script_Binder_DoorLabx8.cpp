@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include "Script_Binder_DoorLabx8.h"
+#include "PhysicObject.h"
 
 constexpr const char* _kAnimatedObjectName = "animated_object";
 

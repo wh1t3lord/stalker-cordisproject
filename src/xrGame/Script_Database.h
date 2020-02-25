@@ -18,6 +18,7 @@ class Storage_Scheme;
 #include "Script_Binder_AnomalZone.h"
 #include "Script_Binder_AnomalField.h"
 #include "Script_Binder_DoorLabx8.h"
+#include "Script_TaskManager.h"
 
 namespace Cordis
 {

@@ -635,7 +635,7 @@ void Script_Task::check_level(const std::uint16_t target_id)
 
     if (p_server_object)
     {
-        xr_string target_level_name = Globals::get_level_name(Globals::Game::get_game_graph()->vertex(p_server_object->cast_alife_dynamic_object()->m_tGraphID)->level_id()));
+        xr_string target_level_name = Globals::get_level_name(Globals::Game::get_game_graph()->vertex(p_server_object->cast_alife_dynamic_object()->m_tGraphID)->level_id());
         xr_string level_name = Globals::Game::level::get_name();
 
         if (target_level_name != level_name)
@@ -692,7 +692,7 @@ void Script_Task::remove_guider_spot(void)
                 Globals::Game::level::map_remove_object_spot(guider_id, "storyline_task_on_guider");
             }
 
-            if (Globals::Game::level::map_has_object_spot(guider_id, "secondary_task_on_guider") !+0)
+            if (Globals::Game::level::map_has_object_spot(guider_id, "secondary_task_on_guider") != 0)
             {
                 Globals::Game::level::map_remove_object_spot(guider_id, "secondary_task_on_guider");
             }
@@ -703,7 +703,7 @@ void Script_Task::remove_guider_spot(void)
 void Script_Task::save(NET_Packet& packet)
 {
     Globals::set_save_marker(packet, Globals::kSaveMarkerMode_Save, false, "Script_Task");
-    packet.w_u8(Script_GlobalHelper::getInstance().getTaskStatusByID().at(this->m_status_name));
+    packet.w_u8(Script_GlobalHelper::getInstance().getTaskIDByStatus().at(this->m_status_name));
     Globals::Utils::w_CTime(packet, this->m_initied_time);
     packet.w_stringZ(this->m_current_title_name.c_str());
     packet.w_stringZ(this->m_current_description_name.c_str());

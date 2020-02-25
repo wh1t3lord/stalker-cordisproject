@@ -1805,7 +1805,7 @@ inline void play_sound(
             point = static_cast<std::uint16_t>(atoi(buffer[2].c_str()));
     }
 
-    if (p_npc && Globals::IsStalker(p_npc))
+    if (p_npc && Globals::IsStalker(p_npc, 0))
     {
         if (!p_npc->Alive())
         {
