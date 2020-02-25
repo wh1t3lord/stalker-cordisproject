@@ -2232,6 +2232,23 @@ inline void actor_neutral(
     p_npc->ForceSetGoodwill(0, p_actor);
 }
 
+inline void actor_enemy(
+    CScriptGameObject* const p_actor, CScriptGameObject* const p_npc, const xr_vector<xr_string>& buffer)
+{
+    if (!p_actor)
+    {
+        Msg("[Scripts/XR_EFFECTS/actor_enemy(p_actor, p_npc, buffer)] WARNING: p_actor == nullptr! Return ...");
+        return;
+    }
+
+    if (!p_npc)
+    {
+        Msg("[Scripts/XR_EFFECTS/actor_enemy(p_actor, p_npc, buffer)] WARNING: p_npc == nullptr! Return ...");
+        return;
+    }
+
+    p_npc->ForceSetGoodwill(-1000, p_actor);
+}
 
 
 } // namespace XR_EFFECTS
