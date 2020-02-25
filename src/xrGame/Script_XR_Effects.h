@@ -2193,8 +2193,10 @@ inline void give_task(
         return;
     }
 
-
+    Script_TaskManager::getInstance().give_task(buffer[0]);
 }
+
+
 
 } // namespace XR_EFFECTS
 } // namespace Scripts
