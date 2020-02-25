@@ -2264,7 +2264,8 @@ inline void set_squad_neutral_to_actor(
 
     if (!p_squad)
     {
-        Msg("[Scripts/XR_EFFECTS/set_squad_neutral_to_actor(p_actor, p_npc, buffer)] WARNING: p_squad == nullptr! There is no squad! Return ...");
+        Msg("[Scripts/XR_EFFECTS/set_squad_neutral_to_actor(p_actor, p_npc, buffer)] WARNING: p_squad == nullptr! "
+            "There is no squad! Return ...");
         return;
     }
 
@@ -2315,6 +2316,24 @@ inline void set_squad_enemy_to_actor(
     p_squad->set_squad_relation("enemy");
 }
 
+inline void set_squad_goodwill(
+    CScriptGameObject* const p_actor, CScriptGameObject* const p_npc, const xr_vector<xr_string>& buffer)
+{
+    if (buffer.empty())
+    {
+        Msg("[Scripts/XR_EFFECTS/set_squad_goodwill(p_actor, p_npc, buffer)] WARNING: buffer.empty() == true! Return "
+            "...");
+        return;
+    }
+
+    if (buffer.size() < 2)
+    {
+        Msg("[Scripts/XR_EFFECTS/set_squad_goodwill(p_actor, p_npc, buffer)] WARNING: not enough size for buffer argument list! Must be == 2! Return ...");
+        return;
+    }
+
+    Globals::GameRelations::set_squad_goodwill(buffer[0], buffer[1]);
+}
 
 } // namespace XR_EFFECTS
 } // namespace Scripts
