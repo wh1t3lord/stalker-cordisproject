@@ -2196,6 +2196,24 @@ inline void give_task(
     Script_TaskManager::getInstance().give_task(buffer[0]);
 }
 
+inline void actor_friend(
+    CScriptGameObject* const p_actor, CScriptGameObject* const p_npc, const xr_vector<xr_string>& buffer)
+{
+    if (!p_actor)
+    {
+        Msg("[Scripts/XR_EFFECTS/actor_friend(p_actor, p_npc, buffer)] WARNING: p_actor == nullptr! Return ...");
+        return;
+    }
+
+    if (!p_npc)
+    {
+        Msg("[Scripts/XR_EFFECTS/actor_friend(p_actor, p_npc, buffer)] WARNING: p_npc == nullptr! Return ...");
+        return;
+    }
+    
+    p_npc->ForceSetGoodwill(1000, p_actor);
+}
+
 
 
 } // namespace XR_EFFECTS
