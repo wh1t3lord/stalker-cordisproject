@@ -2250,6 +2250,26 @@ inline void actor_enemy(
     p_npc->ForceSetGoodwill(-1000, p_actor);
 }
 
+inline void set_squad_neutral_to_actor(
+    CScriptGameObject* const p_actor, CScriptGameObject* const p_npc, const xr_vector<xr_string>& buffer)
+{
+    if (buffer.empty())
+    {
+        Msg("[Scripts/XR_EFFECTS/set_squad_neutral_to_actor(p_actor, p_npc, buffer)] WARNING: buffer.empty() == true! "
+            "Return ...");
+        return;
+    }
+
+    Script_SE_SimulationSquad* const p_squad = Globals::get_story_squad(buffer[0]);
+
+    if (!p_squad)
+    {
+        Msg("[Scripts/XR_EFFECTS/set_squad_neutral_to_actor(p_actor, p_npc, buffer)] WARNING: p_squad == nullptr! There is no squad! Return ...");
+        return;
+    }
+
+    p_squad->set_squad_relation("friend");
+}
 
 } // namespace XR_EFFECTS
 } // namespace Scripts
