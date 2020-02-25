@@ -165,6 +165,7 @@ inline void set_npcs_relation(CSE_ALifeMonsterAbstract* server_from_object, CSE_
     xr_string& new_relation_name);
 inline bool is_factions_enemies(const xr_string& faction, const xr_string& faction_to);
 inline bool is_factions_friends(const xr_string& faction, const xr_string& faction_to);
+inline void set_squad_goodwill(const xr_string& squad_id_name, const xr_string& goodwill_name);
 } // namespace GameRelations
 
 inline float distance_between(CScriptGameObject* object1, CScriptGameObject* object2);

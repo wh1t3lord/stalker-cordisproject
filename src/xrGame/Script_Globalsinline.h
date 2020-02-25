@@ -1334,6 +1334,32 @@ inline bool is_factions_friends(const xr_string& faction, const xr_string& facti
     return false;
 }
 
+inline void set_squad_goodwill(const xr_string& squad_id_name, const xr_string& goodwill_name)
+{
+    Script_SE_SimulationSquad* const p_squad = get_story_squad(squad_id_name);
+    if (!p_squad)
+    {
+        std::uint16_t squad_id = static_cast<std::uint16_t>(atoi(story_id_name.c_str()));
+        if (squad_id == 0)
+        {
+            Msg("[Scripts/Globals/GameRelations/set_squad_goowill(squad_id_name, goodwill_name)] WARNING: There is no "
+                "squad! Return ...");
+            return;
+        }
+        else
+        {
+            p_squad = ai().alife().objects().object(squad_id)->cast_script_se_simulationsquad();
+        }
+    }
+
+    if (p_squad)
+    {
+        p_squad->set_squad_relation(goodwill_name);
+    }
+
+    Msg("[Scripts/Globals/GameRelations/set_squad_goodwill(squad_id_name, goodwill_name)] WARNING: can't find squad anyway check your argument -> %s", squad_id_name.c_str());
+}
+
 } // namespace GameRelations
 
 inline bool predicate_const_true(std::uint16_t, bool) { return true; }
