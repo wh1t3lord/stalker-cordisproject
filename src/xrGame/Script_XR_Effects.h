@@ -2462,6 +2462,36 @@ inline void set_surge_mess_and_task(
             "set task!");
 }
 
+inline void make_actor_visible_to_squad(
+    CScriptGameObject* const p_actor, CScriptGameObject* const p_npc, const xr_vector<xr_string>& buffer)
+{
+    if (buffer.empty())
+    {
+        Msg("[Scripts/XR_EFFECTS/make_actor_visible_to_squad(p_actor, p_npc, buffer)] WARNING: buffer.empty() == true! "
+            "Return ...");
+        return;
+    }
+
+    Script_SE_SimulationSquad* const p_squad = Globals::get_story_squad(buffer[0]);
+
+    if (!p_squad)
+    {
+        Msg("[Scripts/XR_EFFECTS/make_actor_visible_to_squad(p_actor, p_npc, buffer)] WARNING: can't obtain squad from "
+            "id %s Return ...",
+            buffer[0].c_str());
+        return;
+    }
+
+    for (AssociativeVector<std::uint16_t, CSE_ALifeMonsterAbstract*>::const_iterator it =
+             p_squad->squad_members().begin();
+         it != p_squad->squad_members().end(); ++it)
+    {
+        CScriptGameObject* const p_client_object = Globals::Game::level::get_object_by_id(it->first);
+        if (p_client_object)
+            p_client_object->make_object_visible_somewhen(DataBase::Storage::getInstance().getActor());
+    }
+}
+
 } // namespace XR_EFFECTS
 } // namespace Scripts
 } // namespace Cordis
