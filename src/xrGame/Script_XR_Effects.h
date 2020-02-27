@@ -2383,6 +2383,33 @@ inline void inc_faction_goodwill_to_actor(
     Globals::GameRelations::change_factions_community_num(buffer[0], p_actor->ID(), atoi(buffer[1].c_str()));
 }
 
+inline void dec_faction_goodwill_to_actor(
+    CScriptGameObject* const p_actor, CScriptGameObject* const p_npc, const xr_vector<xr_string>& buffer)
+{
+    if (buffer.empty())
+    {
+        Msg("[Scripts/XR_EFFECTS/dec_faction_goodwill_to_actor(p_actor, p_npc, buffer)] WARNING: buffer.empty() == "
+            "true! Return ...");
+        return;
+    }
+
+    if (buffer.size() < 2)
+    {
+        Msg("[Scrpts/XR_EFFECTS/dec_faction_goodwill_to_actor(p_actor, p_npc, buffer)] WARNING: buffer.size() < 2! "
+            "Return ...");
+        return;
+    }
+
+    if (!p_actor)
+    {
+        Msg("[Scripts/XR_EFFECTS/dec_faction_goodwill_to_actor(p_actor, p_npc, buffer)] WARNING: p_actor == nullptr! "
+            "Return ...");
+        return;
+    }
+
+    Globals::GameRelations::change_factions_community_num(buffer[0], p_actor->ID(), -atoi(buffer[1].c_str()));
+}
+
 } // namespace XR_EFFECTS
 } // namespace Scripts
 } // namespace Cordis
