@@ -2431,14 +2431,35 @@ inline void give_treasure(
     }
 }
 
-inline void start_surge(CScriptGameObject* const p_actor, CScriptGameObject* const p_npc, const xr_vector<xr_string>& buffer)
+inline void start_surge(
+    CScriptGameObject* const p_actor, CScriptGameObject* const p_npc, const xr_vector<xr_string>& buffer)
 {
     Globals::start_surge();
 }
 
-inline void stop_surge(CScriptGameObject* const p_actor, CScriptGameObject* const p_npc, const xr_vector<xr_string>& buffer)
+inline void stop_surge(
+    CScriptGameObject* const p_actor, CScriptGameObject* const p_npc, const xr_vector<xr_string>& buffer)
 {
     Globals::stop_surge();
+}
+
+inline void set_surge_mess_and_task(
+    CScriptGameObject* const p_actor, CScriptGameObject* const p_npc, const xr_vector<xr_string>& buffer)
+{
+    if (buffer.empty())
+    {
+        Msg("[Scripts/XR_EFFECTS/set_surge_mess_and_task(p_actor, p_npc, buffer)] WARNING: buffer.empty() == true! "
+            "Return ...");
+        return;
+    }
+
+    Script_SurgeManager::getInstance().set_surge_message(buffer[0]);
+
+    if (buffer.size() >= 2)
+        Script_SurgeManager::getInstance().set_surge_task(buffer[1]);
+    else
+        Msg("[Scripts/XR_EFFECTS/set_surge_mess_and_task(p_actor, p_npc, buffer)] WARNING: buffer.size() < 2! Can't "
+            "set task!");
 }
 
 } // namespace XR_EFFECTS
