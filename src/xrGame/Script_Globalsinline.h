@@ -1336,7 +1336,7 @@ inline bool is_factions_friends(const xr_string& faction, const xr_string& facti
 
 inline void set_squad_goodwill(const xr_string& squad_id_name, const xr_string& goodwill_name)
 {
-    Script_SE_SimulationSquad* const p_squad = get_story_squad(squad_id_name);
+    Script_SE_SimulationSquad* p_squad = get_story_squad(squad_id_name);
     if (!p_squad)
     {
         std::uint16_t squad_id = static_cast<std::uint16_t>(atoi(story_id_name.c_str()));
@@ -1357,7 +1357,52 @@ inline void set_squad_goodwill(const xr_string& squad_id_name, const xr_string& 
         p_squad->set_squad_relation(goodwill_name);
     }
 
-    Msg("[Scripts/Globals/GameRelations/set_squad_goodwill(squad_id_name, goodwill_name)] WARNING: can't find squad anyway check your argument -> %s", squad_id_name.c_str());
+    Msg("[Scripts/Globals/GameRelations/set_squad_goodwill(squad_id_name, goodwill_name)] WARNING: can't find squad "
+        "anyway check your argument -> %s",
+        squad_id_name.c_str());
+}
+
+inline void set_squad_goodwill_to_npc(
+    CScriptGameObject* const p_npc, const xr_string& squad_id_name, const xr_string& goodwill_name)
+{
+    int goodwill = 0;
+    if (goodwill_name == Globals::kRelationsTypeEnemy)
+        goodwill = Globals::kRelationKoeffEnemy;
+    else if (goodwill_name == Globals::kRelationsTypeFriends)
+        goodwill = Globals::kRelationKoeffFriend;
+
+    Script_SE_SimulationSquad* p_squad = Globals::get_story_squad(squad_id_name);
+    if (!p_squad)
+    {
+        std::uint16_t squad_id = static_cast<std::uint16_t>(atoi(squad_id_name.c_str()));
+        if (squad_id == 0)
+        {
+            Msg("[Scripts/Globals/set_squad_goodwill_to_npc(p_npc, squad_id_name, goodwill_name)] WARNING: can't find "
+                "any squad by %s Return ...",
+                squad_id_name.c_str());
+            return;
+        }
+
+        p_squad = ai().alife().objects().object(squad_id)->cast_script_se_simulationsquad();
+    }
+
+    if (p_squad)
+    {
+        for (AssociativeVector<std::uint16_t, CSE_ALifeMonsterAbstract*>::const_iterator it =
+                 p_squad->squad_members().begin();
+             it != p_squad->squad_members().end(); ++it)
+        {
+            if (p_npc)
+            {
+                RELATION_REGISTRY().ForceSetGoodwill(it->second->ID, p_npc->ID(), goodwill);
+                RELATION_REGISTRY().ForceSetGoodwill(ai().alife().objects().object(p_npc->ID())->ID, ai().alife().objects().object(p_npc->ID())->ID, goodwill);
+            }
+        }
+    }
+
+    Msg("[Scripts/Globals/set_squad_goodwill_to_npc(p_npc, squad_id_name, goodwill_name)] WARNING: can't find any "
+        "squad by %s Return ...",
+        squad_id_name.c_str());
 }
 
 } // namespace GameRelations
