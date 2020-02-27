@@ -13058,6 +13058,8 @@ private:
         this->m_surge_manager_immuned_to_surge_squads["monster"] = true;
         this->m_surge_manager_immuned_to_surge_squads["zombied"] = true;
 #pragma endregion
+
+ 
     }
 
 public:
@@ -13075,6 +13077,7 @@ public:
             delete this->m_tutorial;
             this->m_tutorial = nullptr;
         }
+ 
     }
     Script_GlobalHelper(const Script_GlobalHelper&) = delete;
     Script_GlobalHelper& operator=(const Script_GlobalHelper&) = delete;
@@ -14421,11 +14424,17 @@ public:
     {
         return this->m_task_id_by_status;
     }
-    inline const xr_map<std::uint8_t, xr_string>& getTaskStatusByID(void) const noexcept { return this->m_task_status_by_id; }
+    inline const xr_map<std::uint8_t, xr_string>& getTaskStatusByID(void) const noexcept
+    {
+        return this->m_task_status_by_id;
+    }
 
-    #pragma region Cordis Surge Manager
-    inline const xr_map<xr_string, bool>& getSurgeManagerImmunedToSurgeSquads(void) const noexcept { return this->m_surge_manager_immuned_to_surge_squads; }
-    #pragma endregion
+#pragma region Cordis Surge Manager
+    inline const xr_map<xr_string, bool>& getSurgeManagerImmunedToSurgeSquads(void) const noexcept
+    {
+        return this->m_surge_manager_immuned_to_surge_squads;
+    }
+#pragma endregion
 
 private:
     bool m_is_gameover_credits_started;
