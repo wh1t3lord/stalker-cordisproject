@@ -2618,7 +2618,8 @@ inline void seize_money_to_npc(
 {
     if (buffer.empty())
     {
-        Msg("[Scripts/XR_EFFECTS/seize_money_to_npc(p_actor, p_npc, buffer)] WARNING: buffer.empty() == true! Return ...");
+        Msg("[Scripts/XR_EFFECTS/seize_money_to_npc(p_actor, p_npc, buffer)] WARNING: buffer.empty() == true! Return "
+            "...");
         return;
     }
 
@@ -2628,6 +2629,42 @@ inline void seize_money_to_npc(
         Msg("[Scripts/XR_EFFECTS/seize_money_to_npc(p_actor, p_npc, buffer)] WARNING: money == 0! You give Zero!");
 
     p_npc->GiveMoney(-value);
+}
+
+inline void relocate_item(
+    CScriptGameObject* const p_actor, CScriptGameObject* const p_npc, const xr_vector<xr_string>& buffer)
+{
+    if (buffer.empty())
+    {
+        Msg("[Scripts/XR_EFFECTS/relocate_item(p_actor, p_npc, buffer)] WARNING: buffer.empty() == true! Return ...");
+        return;
+    }
+
+    if (buffer.size() < 3)
+    {
+        Msg("[Scripts/XR_EFFECTS/relocate_item(p_actor, p_npc, buffer)] WARNING: buffer.size() < 3! Return ...");
+        return;
+    }
+
+    CScriptGameObject* const p_from_object = Globals::get_story_object(buffer[1]);
+    CScriptGameObject* const p_to_object = Globals::get_story_object(buffer[2]);
+
+    if (p_to_object)
+    {
+        if (p_from_object && p_from_object->GetObjectByName(buffer[0].c_str()))
+        {
+            p_from_object->TransferItem(p_from_object->GetObjectByName(buffer[0].c_str()), p_to_object);
+        }
+        else
+        {
+            Globals::Game::alife_create(buffer[0], p_to_object->Position(), p_to_object->level_vertex_id(),
+                p_to_object->game_vertex_id(), p_to_object->ID());
+        }
+    }
+    else
+    {
+        Msg("[Scripts/XR_EFFECTS/relocate_item(p_actor, p_npc, buffer)] WARNING: p_to_object == nullptr! Return ...");
+    }
 }
 
 } // namespace XR_EFFECTS
