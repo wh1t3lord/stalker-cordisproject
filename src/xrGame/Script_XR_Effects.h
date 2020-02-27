@@ -2416,6 +2416,21 @@ inline void kill_actor(
     DataBase::Storage::getInstance().getActor()->Kill(DataBase::Storage::getInstance().getActor());
 }
 
+inline void give_treasure(
+    CScriptGameObject* const p_actor, CScriptGameObject* const p_npc, const xr_vector<xr_string>& buffer)
+{
+    if (buffer.empty())
+    {
+        Msg("[Scripts/XR_EFFECTS/give_treasure(p_actor, p_npc, buffer)] WARNING: buffer.empty() == true! Return ...");
+        return;
+    }
+
+    for (const xr_string& it : buffer)
+    {
+        Script_TreasureManager::getInstance().give_treasure(it);
+    }
+}
+
 } // namespace XR_EFFECTS
 } // namespace Scripts
 } // namespace Cordis
