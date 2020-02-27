@@ -2667,6 +2667,58 @@ inline void relocate_item(
     }
 }
 
+inline void set_squads_enemies(
+    CScriptGameObject* const p_actor, CScriptGameObject* const p_npc, const xr_vector<xr_string>& buffer)
+{
+    if (buffer.empty())
+    {
+        Msg("[Scripts/XR_EFFECTS/set_squads_enemies(p_actor, p_npc, buffer)] WARNING: buffer.empty() == true! Return "
+            "...");
+        return;
+    }
+
+    Script_SE_SimulationSquad* const p_squad1 = Globals::get_story_squad(buffer[0]);
+    Script_SE_SimulationSquad* const p_squad2 = Globals::get_story_squad(buffer[1]);
+
+    if (!p_squad1)
+    {
+        Msg("[Scripts/XR_EFFECTS/set_squads_enemies(p_actor, p_npc, buffer)] WARNING: p_squad1 == nullptr! Return ...");
+        return;
+    }
+
+    if (!p_squad2)
+    {
+        Msg("[Scripts/XR_EFFECTS/set_squads_enemies(p_actor, p_npc, buffer)] WARNING: p_squad2 == nullptr! Return ...");
+        return;
+    }
+
+    // Lord: если будет вылетать то сделать обработку на find Storage_Data
+    for (AssociativeVector<std::uint16_t, CSE_ALifeMonsterAbstract*>::const_iterator it =
+             p_squad1->squad_members().begin();
+         it != p_squad1->squad_members().end(); ++it)
+    {
+        CScriptGameObject* const p_npc1 = DataBase::Storage::getInstance().getStorage().at(it->first).getClientObject();
+        if (p_npc1)
+        {
+            for (AssociativeVector<std::uint16_t, CSE_ALifeMonsterAbstract*>::const_iterator it2 =
+                     p_squad2->squad_members().begin();
+                 it != p_squad2->squad_members().end(); ++it)
+            {
+                CScriptGameObject* const p_npc2 =
+                    DataBase::Storage::getInstance().getStorage().at(it->first).getClientObject();
+
+                if (p_npc2)
+                {
+                    p_npc1->SetRelation(ALife::eRelationTypeEnemy, p_npc2);
+                    p_npc2->SetRelation(ALife::eRelationTypeEnemy, p_npc1);
+                }
+            }
+        }
+    }
+}
+
+
+
 } // namespace XR_EFFECTS
 } // namespace Scripts
 } // namespace Cordis
