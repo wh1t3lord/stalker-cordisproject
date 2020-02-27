@@ -2521,12 +2521,33 @@ inline void enable_anomaly(
     CScriptGameObject* const p_object = Globals::get_story_object(buffer[0]);
     if (!p_object)
     {
-        Msg("[Scripts/XR_EFFECTS/enable_anomaly(p_actor, p_npc, buffer)] WARNING: p_object == nullptr! %s Return ...", buffer[0].c_str());
+        Msg("[Scripts/XR_EFFECTS/enable_anomaly(p_actor, p_npc, buffer)] WARNING: p_object == nullptr! %s Return ...",
+            buffer[0].c_str());
         return;
     }
 
     p_object->EnableAnomaly();
 }
+
+inline void disable_anomaly(
+    CScriptGameObject* const p_actor, CScriptGameObject* const p_npc, const xr_vector<xr_string>& buffer)
+{
+    if (buffer.empty())
+    {
+        Msg("[Scripts/XR_EFFECTS/disable_anomaly(p_actor, p_npc, buffer)] WARNING: buffer.empty() == true! Return ...");
+        return;
+    }
+
+    CScriptGameObject* const p_object = Globals::get_story_object(buffer[0]);
+    if (!p_object)
+    {
+        Msg("[Scripts/XR_EFFECTS/disable_anomaly(p_actor, p_npc, buffer)] WARNING: can't find object by %s Return ...", buffer[0].c_str());
+        return;
+    }
+
+    p_object->DisableAnomaly();
+}
+
 
 } // namespace XR_EFFECTS
 } // namespace Scripts
