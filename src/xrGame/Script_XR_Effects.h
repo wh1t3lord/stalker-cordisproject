@@ -2749,6 +2749,63 @@ inline void set_bloodsucker_state(
     }
 }
 
+inline void zat_b29_create_random_infop(
+    CScriptGameObject* const p_actor, CScriptGameObject* const p_npc, const xr_vector<xr_string>& buffer)
+{
+    if (buffer.empty())
+    {
+        Msg("[Scripts/XR_EFFECTS/zat_b29_create_random_infop(p_actor, p_npc, buffer)] WARNING: buffer.empty() == true! "
+            "Return ...");
+        return;
+    }
+
+    if (buffer.size() < 2)
+    {
+        Msg("[Scripts/XR_EFFECTS/zat_b29_create_random_infop(p_actor, p_npc, buffer)] WARNING: buffer.size() < 2! "
+            "Return ...");
+        return;
+    }
+
+    int amount_needed = atoi(buffer[0].c_str());
+    int current_infop = 0;
+    int total_infop = 0;
+
+    if (amount_needed == 0)
+        amount_needed = 1;
+
+    for (int i = 1; i < buffer.size(); ++i)
+    {
+        ++total_infop;
+
+        if (Globals::has_alife_info(buffer[i].c_str()))
+        {
+            DataBase::Storage::getInstance().getActor()->DisableInfoPortion(buffer[i].c_str());
+        }
+    }
+
+    if (amount_needed > total_infop)
+        amount_needed = total_infop;
+
+    // Lord: протестировать
+    int j = 1;
+    for (int i = 0; i < amount_needed; ++i)
+    {
+        current_infop = Globals::Script_RandomInt::getInstance().Generate<int>(0, total_infop - 1);
+        for (const xr_string& it : buffer)
+        {
+            if (j > 1)
+            {
+                if (j == current_infop + 1 && (!Globals::has_alife_info(it.c_str())))
+                {
+                    DataBase::Storage::getInstance().getActor()->GiveInfoPortion(it.c_str());
+                    break;
+                }
+            }
+            ++j;
+        }
+    }
+}
+
 } // namespace XR_EFFECTS
 } // namespace Scripts
 } // namespace Cordis
