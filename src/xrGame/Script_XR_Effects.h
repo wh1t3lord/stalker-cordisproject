@@ -2431,6 +2431,11 @@ inline void give_treasure(
     }
 }
 
+inline void start_surge(CScriptGameObject* const p_actor, CScriptGameObject* const p_npc, const xr_vector<xr_string>& buffer)
+{
+ 
+}
+
 } // namespace XR_EFFECTS
 } // namespace Scripts
 } // namespace Cordis

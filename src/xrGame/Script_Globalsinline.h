@@ -1424,7 +1424,8 @@ inline void change_factions_community_num(const xr_string& community_name, const
 
     if (!npc_id)
     {
-        Msg("[Scripts/Globals/GameRelations/change_factions_community_num(community_name, npc_id, delta)] WARNING: npc_id == 0! Return ...");
+        Msg("[Scripts/Globals/GameRelations/change_factions_community_num(community_name, npc_id, delta)] WARNING: "
+            "npc_id == 0! Return ...");
         return;
     }
 
@@ -2990,6 +2991,24 @@ inline xr_map<xr_string, xr_string> parse_ini_section_to_array(
         Msg("[Scripts/Globals/parse_ini_section_to_array(p_ini, section_name)] WARNING: parsed data is empty!");
 
     return result;
+}
+
+inline void start_surge(void)
+{
+    if (Script_SurgeManager::getInstance().get_nearest_cover())
+    {
+        Script_SurgeManager::getInstance().start(true);
+    }
+    else
+    {
+        Msg("[Scripts/Globals/start_surge()] WARNING: can't obtain nearest cover and can't start manually!");
+    }
+}
+
+inline void stop_surge(void) 
+{ 
+    if (Script_SurgeManager::getInstance().IsStarted())
+        Script_SurgeManager::getInstance().end_surge(true);
 }
 
 } // namespace Globals
