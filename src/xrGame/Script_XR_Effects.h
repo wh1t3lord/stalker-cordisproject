@@ -2541,13 +2541,35 @@ inline void disable_anomaly(
     CScriptGameObject* const p_object = Globals::get_story_object(buffer[0]);
     if (!p_object)
     {
-        Msg("[Scripts/XR_EFFECTS/disable_anomaly(p_actor, p_npc, buffer)] WARNING: can't find object by %s Return ...", buffer[0].c_str());
+        Msg("[Scripts/XR_EFFECTS/disable_anomaly(p_actor, p_npc, buffer)] WARNING: can't find object by %s Return ...",
+            buffer[0].c_str());
         return;
     }
 
     p_object->DisableAnomaly();
 }
 
+// @ Сигнальные ракеты не использую
+
+inline void add_cs_text(
+    CScriptGameObject* const p_actor, CScriptGameObject* const p_npc, const xr_vector<xr_string>& buffer)
+{
+    if (buffer.empty())
+    {
+        Msg("[Scripts/XR_EFFECTS/add_cs_text(p_actor, p_npc, buffer)] WARNING: buffer.empty() == true! Return ...");
+        return;
+    }
+
+    CUIGameCustom* const p_hud = CurrentGameUI();
+    StaticDrawableWrapper* p_static = p_hud->GetCustomStatic("text_on_screen_center");
+
+    if (p_static)
+        p_hud->RemoveCustomStatic("text_on_screen_center");
+
+    p_hud->AddCustomStatic("text_on_screen_center", true);
+    p_static = p_hud->GetCustomStatic("text_on_screen_center");
+    p_static->wnd()->TextItemControl()->SetText(Globals::Game::translate_string(buffer[0].c_str()));
+}
 
 } // namespace XR_EFFECTS
 } // namespace Scripts
