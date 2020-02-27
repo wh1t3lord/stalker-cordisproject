@@ -284,7 +284,7 @@ inline CScriptGameObject* const get_weapon(
 inline void set_state(CScriptGameObject* const p_client_object, const xr_string& state_name,
     StateManagerCallbackData& callback, const std::uint32_t timeout,
     std::pair<Fvector, CScriptGameObject* const> target, const StateManagerExtraData& extra);
-//inline std::uint32_t get_level_id(void);
+// inline std::uint32_t get_level_id(void);
 inline LPCSTR get_level_name(int level_id);
 inline void update_logic(CScriptGameObject* const p_object);
 inline void change_anomalies_names(void);
@@ -292,6 +292,8 @@ inline bool isImportantSave(void);
 inline void set_inactivate_input_time(const std::uint32_t delta);
 inline xr_map<xr_string, xr_string> parse_ini_section_to_array(
     CScriptIniFile* const p_ini, const xr_string& section_name);
+inline void start_surge(void);
+inline void stop_surge(void);
 } // namespace Globals
 } // namespace Scripts
 } // namespace Cordis
