@@ -2410,6 +2410,12 @@ inline void dec_faction_goodwill_to_actor(
     Globals::GameRelations::change_factions_community_num(buffer[0], p_actor->ID(), -atoi(buffer[1].c_str()));
 }
 
+inline void kill_actor(
+    CScriptGameObject* const p_actor, CScriptGameObject* const p_npc, const xr_vector<xr_string>& buffer)
+{
+    DataBase::Storage::getInstance().getActor()->Kill(DataBase::Storage::getInstance().getActor());
+}
+
 } // namespace XR_EFFECTS
 } // namespace Scripts
 } // namespace Cordis
