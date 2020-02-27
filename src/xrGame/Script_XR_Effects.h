@@ -2571,6 +2571,16 @@ inline void add_cs_text(
     p_static->wnd()->TextItemControl()->SetText(Globals::Game::translate_string(buffer[0].c_str()));
 }
 
+inline void del_cs_text(
+    CScriptGameObject* const p_actor, CScriptGameObject* const p_npc, const xr_vector<xr_string>& buffer)
+{
+    CUIGameCustom* const p_hud = CurrentGameUI();
+    StaticDrawableWrapper* const p_static = p_hud->GetCustomStatic("text_on_screen_center");
+
+    if (p_static)
+        p_hud->RemoveCustomStatic("text_on_screen_center");
+}
+
 } // namespace XR_EFFECTS
 } // namespace Scripts
 } // namespace Cordis
