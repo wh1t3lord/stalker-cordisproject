@@ -2492,6 +2492,42 @@ inline void make_actor_visible_to_squad(
     }
 }
 
+inline void stop_sr_cutscene(
+    CScriptGameObject* const p_actor, CScriptGameObject* const p_npc, const xr_vector<xr_string>& buffer)
+{
+    if (!p_npc)
+    {
+        Msg("[Scripts/XR_EFFECTS/stop_sr_cutscene(p_actor, p_npc, buffer)] WARNING: p_npc == nullptr! Return ...");
+        return;
+    }
+
+    const DataBase::Storage_Data& storage = DataBase::Storage::getInstance().getStorage().at(p_npc->ID());
+
+    if (!storage.getActiveSchemeName().empty())
+    {
+        DataBase::Storage::getInstance().setStorageSignal(p_npc->ID(), "cam_effector_stop", true);
+    }
+}
+
+inline void enable_anomaly(
+    CScriptGameObject* const p_actor, CScriptGameObject* const p_npc, const xr_vector<xr_string>& buffer)
+{
+    if (buffer.empty())
+    {
+        Msg("[Scripts/XR_EFFECTS/enable_anomaly(p_actor, p_npc, buffer)] WARNING: buffer.empty() == true! Return ...");
+        return;
+    }
+
+    CScriptGameObject* const p_object = Globals::get_story_object(buffer[0]);
+    if (!p_object)
+    {
+        Msg("[Scripts/XR_EFFECTS/enable_anomaly(p_actor, p_npc, buffer)] WARNING: p_object == nullptr! %s Return ...", buffer[0].c_str());
+        return;
+    }
+
+    p_object->EnableAnomaly();
+}
+
 } // namespace XR_EFFECTS
 } // namespace Scripts
 } // namespace Cordis
