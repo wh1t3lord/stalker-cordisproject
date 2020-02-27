@@ -1395,7 +1395,8 @@ inline void set_squad_goodwill_to_npc(
             if (p_npc)
             {
                 RELATION_REGISTRY().ForceSetGoodwill(it->second->ID, p_npc->ID(), goodwill);
-                RELATION_REGISTRY().ForceSetGoodwill(ai().alife().objects().object(p_npc->ID())->ID, ai().alife().objects().object(p_npc->ID())->ID, goodwill);
+                RELATION_REGISTRY().ForceSetGoodwill(ai().alife().objects().object(p_npc->ID())->ID,
+                    ai().alife().objects().object(p_npc->ID())->ID, goodwill);
             }
         }
     }
@@ -1403,6 +1404,34 @@ inline void set_squad_goodwill_to_npc(
     Msg("[Scripts/Globals/set_squad_goodwill_to_npc(p_npc, squad_id_name, goodwill_name)] WARNING: can't find any "
         "squad by %s Return ...",
         squad_id_name.c_str());
+}
+
+inline void change_factions_community_num(const xr_string& community_name, const std::uint16_t npc_id, const int delta)
+{
+    if (community_name.empty())
+    {
+        Msg("[Scripts/Globals/GameRelations/change_factions_community_num(community_name, npc_id, delta)] WARNING: "
+            "community_name.empty() == true! Return ...");
+        return;
+    }
+
+    if (community_name == "none")
+    {
+        Msg("[Scripts/Globals/GameRelations/change_factions_community_num(community_name, npc_id, delta)] WARNING: "
+            "community_name == \"none\" Return ...");
+        return;
+    }
+
+    if (!npc_id)
+    {
+        Msg("[Scripts/Globals/GameRelations/change_factions_community_num(community_name, npc_id, delta)] WARNING: npc_id == 0! Return ...");
+        return;
+    }
+
+    CHARACTER_COMMUNITY character;
+    character.set(community_name.c_str());
+
+    RELATION_REGISTRY().ChangeCommunityGoodwill(character.index(), npc_id, delta);
 }
 
 } // namespace GameRelations

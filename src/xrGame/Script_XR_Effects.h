@@ -2348,11 +2348,39 @@ inline void set_squad_goodwill_to_npc(
 
     if (buffer.size() < 2)
     {
-        Msg("[Scripts/XR_EFFECTS/set_squad_goodwill_to_npc(p_actor, p_npc, buffer)] WARNING: buffer.size() < 2! Return ...");
+        Msg("[Scripts/XR_EFFECTS/set_squad_goodwill_to_npc(p_actor, p_npc, buffer)] WARNING: buffer.size() < 2! Return "
+            "...");
         return;
     }
 
     Globals::GameRelations::set_squad_goodwill_to_npc(p_npc, buffer[0], buffer[1]);
+}
+
+inline void inc_faction_goodwill_to_actor(
+    CScriptGameObject* const p_actor, CScriptGameObject* const p_npc, const xr_vector<xr_string>& buffer)
+{
+    if (buffer.empty())
+    {
+        Msg("[Scripts/XR_EFFECTS/inc_faction_goodwill_to_actor(p_actor, p_npc, buffer)] WARNING: buffer.empty() == "
+            "true! Return ...");
+        return;
+    }
+
+    if (buffer.size() < 2)
+    {
+        Msg("[Scrpts/XR_EFFECTS/inc_faction_goodwill_to_actor(p_actor, p_npc, buffer)] WARNING: buffer.size() < 2! "
+            "Return ...");
+        return;
+    }
+
+    if (!p_actor)
+    {
+        Msg("[Scripts/XR_EFFECTS/inc_faction_goodwill_to_actor(p_actor, p_npc, buffer)] WARNING: p_actor == nullptr! "
+            "Return ...");
+        return;
+    }
+
+    Globals::GameRelations::change_factions_community_num(buffer[0], p_actor->ID(), atoi(buffer[1].c_str()));
 }
 
 } // namespace XR_EFFECTS

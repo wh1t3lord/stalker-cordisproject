@@ -168,6 +168,7 @@ inline bool is_factions_friends(const xr_string& faction, const xr_string& facti
 inline void set_squad_goodwill(const xr_string& squad_id_name, const xr_string& goodwill_name);
 inline void set_squad_goodwill_to_npc(
     CScriptGameObject* const p_npc, const xr_string& squad_id_name, const xr_string& goodwill_name);
+inline void change_factions_community_num(const xr_string& community_name, const std::uint16_t npc_id, const int delta);
 } // namespace GameRelations
 
 inline float distance_between(CScriptGameObject* object1, CScriptGameObject* object2);
