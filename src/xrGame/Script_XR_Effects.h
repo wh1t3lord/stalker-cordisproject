@@ -2717,7 +2717,37 @@ inline void set_squads_enemies(
     }
 }
 
+inline void set_bloodsucker_state(
+    CScriptGameObject* const p_actor, CScriptGameObject* const p_npc, const xr_vector<xr_string>& buffer)
+{
+    if (buffer.empty())
+    {
+        Msg("[Scripts/XR_EFFECTS/set_bloodsucker_state(p_actor, p_npc, buffer)] WARNING: buffer.empty() == true! "
+            "Return ...");
+        return;
+    }
 
+    xr_string state_name = buffer[0];
+    CScriptGameObject* p_object = p_npc;
+
+    if (buffer.size() < 2)
+    {
+        Msg("[Scripts/XR_EFFECTS/set_bloodsucker_state(p_actor, p_npc, buffer)] WARNING: buffer.size() < 2!");
+    }
+    else
+    {
+        state_name = buffer[1];
+        p_object = Globals::get_story_object(buffer[0]);
+    }
+
+    if (p_object)
+    {
+        if (state_name == "default")
+            p_object->force_visibility_state(-1);
+        else
+            p_object->force_visibility_state(atoi(state_name.c_str()));
+    }
+}
 
 } // namespace XR_EFFECTS
 } // namespace Scripts
