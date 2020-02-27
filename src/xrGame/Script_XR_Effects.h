@@ -2581,6 +2581,39 @@ inline void del_cs_text(
         p_hud->RemoveCustomStatic("text_on_screen_center");
 }
 
+inline void spawn_item_to_npc(
+    CScriptGameObject* const p_actor, CScriptGameObject* const p_npc, const xr_vector<xr_string>& buffer)
+{
+    if (buffer.empty())
+    {
+        Msg("[Scripts/XR_EFFECTS/spawn_item_to_npc(p_actor, p_npc, buffer)] WARNING: buffer.empty() == true! Return "
+            "...");
+        return;
+    }
+
+    Globals::Game::alife_create(
+        buffer[0], p_npc->Position(), p_npc->level_vertex_id(), p_npc->game_vertex_id(), p_npc->ID());
+}
+
+inline void give_money_to_npc(
+    CScriptGameObject* const p_actor, CScriptGameObject* const p_npc, const xr_vector<xr_string>& buffer)
+{
+    if (buffer.empty())
+    {
+        Msg("[Scripts/XR_EFFECTS/give_money_to_npc(p_actor, p_npc, buffer)] WARNING: buffer.empty() == true! Return ...");
+        return;
+    }
+
+    int value = atoi(buffer[0].c_str());
+
+    if (!value)
+        Msg("[Scripts/XR_EFFECTS/give_money_to_npc(p_actor, p_npc, buffer)] WARNING: money == 0! You give Zero!");
+
+    p_npc->GiveMoney(value);
+}
+
+
+
 } // namespace XR_EFFECTS
 } // namespace Scripts
 } // namespace Cordis
