@@ -368,6 +368,9 @@ public:
     void IterateInventory(std::function<void(CScriptGameObject* const)> func);
     void IterateInventory(std::function<void(CScriptGameObject* const, CScriptGameObject* const)> func, CScriptGameObject* const p_npc);
     void IterateInventoryBox(luabind::functor<void> functor, luabind::adl::object object);
+    void IterateInventoryBox(std::function<void(CScriptGameObject* const)> func);
+    void IterateInventoryBox(std::function<void(CScriptGameObject* const, CScriptGameObject* const)> func,
+        CScriptGameObject* const p_object);
     void MarkItemDropped(CScriptGameObject* item);
     bool MarkedDropped(CScriptGameObject* item);
     void UnloadMagazine();
