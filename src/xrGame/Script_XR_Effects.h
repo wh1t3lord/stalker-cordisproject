@@ -3062,6 +3062,26 @@ inline void clear_box(
     }
 }
 
+inline void activate_weapon(
+    CScriptGameObject* const p_actor, CScriptGameObject* const p_npc, const xr_vector<xr_string>& buffer)
+{
+    if (buffer.empty())
+    {
+        Msg("[Scripts/XR_EFFECTS/activate_weapon(p_actor, p_npc, buffer)] WARNING: buffer.empty() == true! Return ...");
+        return;
+    }
+
+    CScriptGameObject* const p_weapon = p_actor->GetObjectByName(buffer[0].c_str());
+
+    if (!p_weapon)
+    {
+        Msg("[Scripts/XR_EFFECTS/activate_weapon(p_actor, p_npc, buffer)] WARNING: p_weapon == nullptr! can't find by %s Return ...", buffer[0].c_str());
+        return;
+    }
+
+    p_actor->MakeItemActive(p_weapon);
+}
+
 } // namespace XR_EFFECTS
 } // namespace Scripts
 } // namespace Cordis
