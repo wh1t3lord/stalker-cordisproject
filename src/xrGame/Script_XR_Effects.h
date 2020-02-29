@@ -3021,15 +3021,44 @@ inline void jup_b202_inventory_box_relocate(
 
     xr_vector<CScriptGameObject*> items_to_relocate;
 
-    auto iterate_function = [&](CScriptGameObject* const p_item) -> void {
-        items_to_relocate.push_back(p_item);
-    };
+    auto iterate_function = [&](CScriptGameObject* const p_item) -> void { items_to_relocate.push_back(p_item); };
 
     p_inventory_box_out->IterateInventoryBox(iterate_function);
 
     for (CScriptGameObject*& it : items_to_relocate)
     {
         p_inventory_box_out->TransferItem(it, p_inventory_box_in);
+    }
+}
+
+inline void clear_box(
+    CScriptGameObject* const p_actor, CScriptGameObject* const p_npc, const xr_vector<xr_string>& buffer)
+{
+    if (buffer.empty())
+    {
+        Msg("[Scripts/XR_EFFECTS/clear_box(p_actor, p_npc, buffer)] WARNING: buffer.empty() == true! Return ...");
+        return;
+    }
+
+    CScriptGameObject* const p_inventory_box = Globals::get_story_object(buffer[0]);
+
+    if (!p_inventory_box)
+    {
+        Msg("[Scripts/XR_EFFECTS/clear_box(p_actor, p_npc, buffer)] WARNING: p_inventory_box == nullptr! Can't find by "
+            "%s Return ...",
+            buffer[0].c_str());
+        return;
+    }
+
+    xr_vector<CScriptGameObject*> items_of_inventory_box;
+
+    auto iterate_function = [&](CScriptGameObject* const p_item) -> void { items_of_inventory_box.push_back(p_item); };
+
+    p_inventory_box->IterateInventoryBox(iterate_function);
+
+    for (CScriptGameObject*& it : items_of_inventory_box)
+    {
+        Globals::Game::alife_release(ai().alife().objects().object(it->ID()), true);
     }
 }
 
