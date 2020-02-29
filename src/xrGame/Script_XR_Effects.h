@@ -2806,6 +2806,147 @@ inline void zat_b29_create_random_infop(
     }
 }
 
+inline void pick_artefact_from_anomaly(
+    CScriptGameObject* const p_actor, CScriptGameObject* const p_npc, const xr_vector<xr_string>& buffer)
+{
+    if (buffer.empty())
+    {
+        Msg("[Scripts/XR_EFFECTS/pick_artefact_from_anomaly(p_actor, p_npc, buffer)] WARNING: buffer.empty() == true! "
+            "Return ...");
+        return;
+    }
+
+    if (buffer.size() < 2)
+    {
+        Msg("[Scripts/XR_EFFECTS/pick_artefact_from_anomaly(p_actor, p_npc, buffer)] WARNING: buffer.size() < 2! "
+            "Return ...");
+        return;
+    }
+
+    std::uint16_t npc_id = Globals::get_story_object_id(buffer[0]);
+    if (!npc_id)
+    {
+        Msg("[Scripts/XR_EFFECTS/pick_artefact_from_anomaly(p_actor, p_npc, buffer)] WARNING: npc_id == 0! Can't find "
+            "that id by %s Return ...",
+            buffer[0].c_str());
+        return;
+    }
+
+    CSE_Abstract* const p_server_npc = ai().alife().objects().object(npc_id);
+
+    if (p_server_npc)
+    {
+        if ((!Globals::IsStalker(p_server_npc->cast_alife_dynamic_object()) ||
+                !p_server_npc->cast_creature_abstract()->g_Alive()))
+        {
+            Msg("[Scripts/XR_EFFECTS/pick_artefact_from_anomaly(p_actor, p_npc, buffer)] WARNING: Can't relocate item "
+                "to dead or not stalker! Return ...");
+            return;
+        }
+    }
+
+    xr_string anomalzone_name = buffer[1];
+    xr_string artefact_name = buffer.size() > 2 ? buffer[2] : "";
+
+    CScriptGameObject* const p_zone = DataBase::Storage::getInstance().getAnomalyByName().at(anomalzone_name);
+
+    if (!p_zone)
+    {
+        Msg("[Scripts/XR_EFFECTS/pick_artefact_from_anomaly(p_actor, p_npc, buffer)] WARNING: Can't find anomal zone "
+            "(or it can be deleted) %s Return ...",
+            anomalzone_name.c_str());
+        return;
+    }
+
+    Script_Binder_Anomaly* const p_zone_object = dynamic_cast<Script_Binder_Anomaly*>(p_zone->binded_object());
+    if (!p_zone_object)
+    {
+        Msg("[Scripts/XR_EFFECTS/pick_artefact_from_anomaly(p_actor, p_npc, buffer)] WARNING: Bad cast. It is not "
+            "anomal zone at all, check your object and his binder! Return ...");
+        return;
+    }
+
+    if (p_zone_object->getSpawnedCount() < 1)
+    {
+        Msg("[Scripts/XR_EFFECTS/pick_artefact_from_anomaly(p_actor, p_npc, buffer)] WARNING: spawned count < 1! "
+            "Return ...");
+        return;
+    }
+
+    std::uint16_t artefact_id = 0;
+    CSE_Abstract* p_server_artefact = nullptr;
+
+    for (const std::pair<std::uint16_t, xr_string>& it : p_zone_object->getArtefactWaysByID())
+    {
+        if (ai().alife().objects().object(it.first) && artefact_name == ai().alife().objects().object(it.first)->name())
+        {
+            artefact_id = it.first;
+            p_server_artefact = ai().alife().objects().object(it.first);
+            break;
+        }
+
+        if (artefact_name.empty())
+        {
+            artefact_id = it.first;
+            p_server_artefact = ai().alife().objects().object(it.first);
+            artefact_name = p_server_artefact->name();
+            break;
+        }
+    }
+
+    if (artefact_id == 0)
+    {
+        Msg("[Scripts/XR_EFFECTS/pick_artefact_from_anomaly(p_actor, p_npc, buffer)] WARNING: Can't find artefact in "
+            "anomaly %s Return ...",
+            anomalzone_name.c_str());
+        return;
+    }
+
+    p_zone_object->on_artefact_take(artefact_id);
+    Globals::Game::alife_release(p_server_artefact, true);
+    give_item(DataBase::Storage::getInstance().getActor(), p_npc, {artefact_name, buffer[0]});
+}
+
+inline void give_item_b29(
+    CScriptGameObject* const p_actor, CScriptGameObject* const p_npc, const xr_vector<xr_string>& buffer)
+{
+    if (buffer.empty())
+    {
+        Msg("[Scripts/XR_EFFECTS/give_item_b29(p_actor, p_npc, buffer)] WARNING: buffer.empty() == true! Return ...");
+        return;
+    }
+
+    xr_string anomalzone_name;
+    xr_vector<xr_string> anomalzone_table = {
+        "zat_b55_anomal_zone",
+        "zat_b54_anomal_zone",
+        "zat_b53_anomal_zone",
+        "zat_b39_anomal_zone",
+        "zaton_b56_anomal_zone",
+    };
+
+    for (int i = 16; i <= 23; ++i)
+    {
+        if (Globals::has_alife_info(Script_GlobalHelper::getInstance().getZatB29InfopBringTable().at(i).c_str()))
+        {
+            for (const xr_string& it : anomalzone_table)
+            {
+                if (Globals::has_alife_info(it.c_str()))
+                {
+                    anomalzone_name = it;
+                    DataBase::Storage::getInstance().getActor()->DisableInfoPortion(it.c_str());
+                    break;
+                }
+            }
+
+            pick_artefact_from_anomaly(nullptr, nullptr, {buffer[0], anomalzone_name, Script_GlobalHelper::getInstance().getZatB29AfTable().at(i)});
+            break;
+        }
+    }
+}
+
+// Lord: доделать give_item_b29
+
 } // namespace XR_EFFECTS
 } // namespace Scripts
 } // namespace Cordis
