@@ -2996,6 +2996,23 @@ inline void relocate_item_b29(
     }
 }
 
+inline void reset_sound_npc(
+    CScriptGameObject* const p_actor, CScriptGameObject* const p_npc, const xr_vector<xr_string>& buffer)
+{
+    if (!p_npc)
+    {
+        Msg("[Scripts/XR_EFFECTS/reset_sound_npc(p_actor, p_npc, buffer)] WARNING: p_npc == nullptr! Return ...");
+        return;
+    }
+
+    std::uint16_t object_id = p_npc->ID();
+
+    if (object_id && XR_SOUND::getSoundDatabase().find(object_id) != XR_SOUND::getSoundDatabase().end())
+    {
+        XR_SOUND::getSoundDatabase().at(object_id)->reset(object_id);
+    }
+}
+
 } // namespace XR_EFFECTS
 } // namespace Scripts
 } // namespace Cordis
