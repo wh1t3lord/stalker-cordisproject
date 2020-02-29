@@ -106,20 +106,6 @@ void set_game_difficulty(ESingleGameDifficulty dif)
     game->OnDifficultyChanged();
 }
 
-
-void change_game_time(u32 days, u32 hours, u32 mins)
-{
-    game_sv_Single* tpGame = smart_cast<game_sv_Single*>(Level().Server->GetGameState());
-    if (tpGame && ai().get_alife())
-    {
-        u32 value = days * 86400 + hours * 3600 + mins * 60;
-        float fValue = static_cast<float>(value);
-        value *= 1000; // msec
-        g_pGamePersistent->Environment().ChangeGameTime(fValue);
-        tpGame->alife().time_manager().change_game_time(value);
-    }
-}
-
 float high_cover_in_direction(u32 level_vertex_id, const Fvector& direction)
 {
     float y, p;

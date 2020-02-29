@@ -82,6 +82,8 @@ public:
     inline bool isBlowoutSound(void) const noexcept { return this->m_is_blowout_sound; }
     inline void setSkipMessage(const bool value) noexcept { this->m_is_skip_message = value; }
 
+    inline void setTimeForwarded(const bool value) noexcept { this->m_is_time_forwarded = value; }
+
     void init_surge_covers(void);
     std::uint16_t get_nearest_cover(void);
     void update(void);

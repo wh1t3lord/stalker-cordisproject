@@ -294,6 +294,7 @@ inline xr_map<xr_string, xr_string> parse_ini_section_to_array(
     CScriptIniFile* const p_ini, const xr_string& section_name);
 inline void start_surge(void);
 inline void stop_surge(void);
+inline void change_game_time(std::uint32_t days, std::uint32_t hours, std::uint32_t mins);
 } // namespace Globals
 } // namespace Scripts
 } // namespace Cordis
