@@ -321,6 +321,45 @@ void CScriptGameObject::IterateInventoryBox(luabind::functor<void> functor, luab
     }
 }
 
+void CScriptGameObject::IterateInventoryBox(std::function<void(CScriptGameObject* const)> func) 
+{
+    CInventoryBox* inventory_box = smart_cast<CInventoryBox*>(&this->object());
+    if (!inventory_box)
+    {
+        Msg("[CScriptGameObject/IterateInventoryBox(func)] WARNING: bad cast! Return ...");
+        return;
+    }
+
+    xr_vector<u16>::const_iterator I = inventory_box->m_items.begin();
+    xr_vector<u16>::const_iterator E = inventory_box->m_items.end();
+    for (; I != E; ++I)
+    {
+        CGameObject* GO = smart_cast<CGameObject*>(Level().Objects.net_Find(*I));
+        if (GO)
+            func(GO->lua_game_object());
+    }
+}
+
+void CScriptGameObject::IterateInventoryBox(
+    std::function<void(CScriptGameObject* const, CScriptGameObject* const)> func, CScriptGameObject* const p_object)
+{
+    CInventoryBox* inventory_box = smart_cast<CInventoryBox*>(&this->object());
+    if (!inventory_box)
+    {
+        Msg("[CScriptGameObject/IterateInventoryBox(func, p_object)] WARNING: bad cast! Return ...");
+        return;
+    }
+
+    xr_vector<u16>::const_iterator I = inventory_box->m_items.begin();
+    xr_vector<u16>::const_iterator E = inventory_box->m_items.end();
+    for (; I != E; ++I)
+    {
+        CGameObject* GO = smart_cast<CGameObject*>(Level().Objects.net_Find(*I));
+        if (GO)
+            func(p_object, GO->lua_game_object());
+    }
+}
+
 void CScriptGameObject::MarkItemDropped(CScriptGameObject* item)
 {
     CInventoryOwner* inventory_owner = smart_cast<CInventoryOwner*>(&object());

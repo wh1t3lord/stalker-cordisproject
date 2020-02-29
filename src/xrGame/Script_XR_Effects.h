@@ -3013,6 +3013,26 @@ inline void reset_sound_npc(
     }
 }
 
+inline void jup_b202_inventory_box_relocate(
+    CScriptGameObject* const p_actor, CScriptGameObject* const p_npc, const xr_vector<xr_string>& buffer)
+{
+    CScriptGameObject* const p_inventory_box_out = Globals::get_story_object("jup_b202_actor_treasure");
+    CScriptGameObject* const p_inventory_box_in = Globals::get_story_object("jup_b202_snag_treasure");
+
+    xr_vector<CScriptGameObject*> items_to_relocate;
+
+    auto iterate_function = [&](CScriptGameObject* const p_item) -> void {
+        items_to_relocate.push_back(p_item);
+    };
+
+    p_inventory_box_out->IterateInventoryBox(iterate_function);
+
+    for (CScriptGameObject*& it : items_to_relocate)
+    {
+        p_inventory_box_out->TransferItem(it, p_inventory_box_in);
+    }
+}
+
 } // namespace XR_EFFECTS
 } // namespace Scripts
 } // namespace Cordis
