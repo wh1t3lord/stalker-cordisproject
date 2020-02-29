@@ -3011,6 +3011,19 @@ inline void stop_surge(void)
         Script_SurgeManager::getInstance().end_surge(true);
 }
 
+inline void change_game_time(std::uint32_t days, std::uint32_t hours, std::uint32_t mins)
+{
+    game_sv_Single* tpGame = smart_cast<game_sv_Single*>(Level().Server->GetGameState());
+    if (tpGame && ai().get_alife())
+    {
+        u32 value = days * 86400 + hours * 3600 + mins * 60;
+        float fValue = static_cast<float>(value);
+        value *= 1000; // msec
+        g_pGamePersistent->Environment().ChangeGameTime(fValue);
+        tpGame->alife().time_manager().change_game_time(value);
+    }
+}
+
 } // namespace Globals
 } // namespace Scripts
 } // namespace Cordis

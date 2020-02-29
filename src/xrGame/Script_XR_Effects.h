@@ -3075,11 +3075,64 @@ inline void activate_weapon(
 
     if (!p_weapon)
     {
-        Msg("[Scripts/XR_EFFECTS/activate_weapon(p_actor, p_npc, buffer)] WARNING: p_weapon == nullptr! can't find by %s Return ...", buffer[0].c_str());
+        Msg("[Scripts/XR_EFFECTS/activate_weapon(p_actor, p_npc, buffer)] WARNING: p_weapon == nullptr! can't find by "
+            "%s Return ...",
+            buffer[0].c_str());
         return;
     }
 
     p_actor->MakeItemActive(p_weapon);
+}
+
+inline void set_game_time(
+    CScriptGameObject* const p_actor, CScriptGameObject* const p_npc, const xr_vector<xr_string>& buffer)
+{
+    if (buffer.empty())
+    {
+        Msg("[Scripts/XR_EFFECTS/set_game_time(p_actor, p_npc, buffer)] WARNING: buffer.empty() == true! Return ...");
+        return;
+    }
+
+    std::uint32_t real_hours = Globals::get_time_hours();
+    std::uint32_t real_minutes = Globals::get_time_minutes();
+
+    int hours = atoi(buffer[0].c_str());
+
+    if (hours == 0)
+    {
+        Msg("[Scripts/XR_EFFECTS/set_game_time(p_actor, p_npc, buffer)] WARNING: hours == 0! Something will be wrong! "
+            "Check your arguments!");
+    }
+
+    int minutes = buffer.size() > 1 ? (atoi(buffer[1].c_str())) : 0;
+
+    if (minutes == 0)
+    {
+        Msg("[Scripts/XR_EFFECTS/set_game_time(p_actor, p_npc, buffer)] minutes == 0!");
+    }
+
+    int hours_to_change = hours - real_hours;
+
+    if (hours_to_change <= 0)
+        hours_to_change += 24;
+
+    int minutes_to_change = minutes - real_minutes;
+
+    if (minutes_to_change <= 0)
+    {
+        minutes_to_change += 60;
+        hours_to_change -= 1;
+    }
+    else if (hours == real_hours)
+    {
+        hours_to_change -= 24;
+    }
+
+    Globals::change_game_time(0, hours_to_change, minutes_to_change);
+    Script_WeatherManager::getInstance().forced_weather_change();
+    Script_SurgeManager::getInstance().setTimeForwarded(true);
+
+    Msg("[Scripts/XR_EFFECTS/set_game_time(p_actor, p_npc, buffer)] Time is changed to [%d][%d]", hours_to_change, minutes_to_change);
 }
 
 } // namespace XR_EFFECTS
