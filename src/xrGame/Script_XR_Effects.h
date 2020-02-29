@@ -2939,13 +2939,62 @@ inline void give_item_b29(
                 }
             }
 
-            pick_artefact_from_anomaly(nullptr, nullptr, {buffer[0], anomalzone_name, Script_GlobalHelper::getInstance().getZatB29AfTable().at(i)});
+            pick_artefact_from_anomaly(nullptr, nullptr,
+                {buffer[0], anomalzone_name, Script_GlobalHelper::getInstance().getZatB29AfTable().at(i)});
             break;
         }
     }
 }
 
-// Lord: доделать give_item_b29
+inline void relocate_item_b29(
+    CScriptGameObject* const p_actor, CScriptGameObject* const p_npc, const xr_vector<xr_string>& buffer)
+{
+    if (buffer.empty())
+    {
+        Msg("[Scripts/XR_EFFECTS/relocate_item_b29(p_actor, p_npc, buffer)] WARNING: buffer.empty() == true! Return "
+            "...");
+        return;
+    }
+
+    if (buffer.size() < 2)
+    {
+        Msg("[Scripts/XR_EFFECTS/relocate_item_b29(p_actor, p_npc, buffer)] WARNING: buffer.size() < 2! Return ...");
+        return;
+    }
+
+    xr_string item_name;
+
+    for (std::uint16_t i = 16; i <= 23; ++i)
+    {
+        if (Globals::has_alife_info(Script_GlobalHelper::getInstance().getZatB29InfopBringTable().at(i).c_str()))
+        {
+            item_name = Script_GlobalHelper::getInstance().getZatB29AfTable().at(i);
+            break;
+        }
+    }
+
+    CScriptGameObject* const p_from_object = Globals::get_story_object(buffer[0]);
+    CScriptGameObject* const p_to_object = Globals::get_story_object(buffer[1]);
+
+    if (p_to_object)
+    {
+        if (p_from_object && p_from_object->GetObjectByName(item_name.c_str()))
+        {
+            p_from_object->TransferItem(p_from_object->GetObjectByName(item_name.c_str()), p_to_object);
+        }
+        else
+        {
+            Globals::Game::alife_create(item_name, p_to_object->Position(), p_to_object->level_vertex_id(),
+                p_to_object->game_vertex_id(), p_to_object->ID());
+        }
+    }
+    else
+    {
+        Msg("[Scripts/XR_EFFECTS/relocate_item_b29(p_actor, p_npc, buffer)] WARNING: can't find object by %s Return "
+            "...",
+            buffer[1].c_str());
+    }
+}
 
 } // namespace XR_EFFECTS
 } // namespace Scripts
