@@ -3132,7 +3132,27 @@ inline void set_game_time(
     Script_WeatherManager::getInstance().forced_weather_change();
     Script_SurgeManager::getInstance().setTimeForwarded(true);
 
-    Msg("[Scripts/XR_EFFECTS/set_game_time(p_actor, p_npc, buffer)] Time is changed to [%d][%d]", hours_to_change, minutes_to_change);
+    Msg("[Scripts/XR_EFFECTS/set_game_time(p_actor, p_npc, buffer)] Time is changed to [%d][%d]", hours_to_change,
+        minutes_to_change);
+}
+
+inline void forward_game_time(
+    CScriptGameObject* const p_actor, CScriptGameObject* const p_npc, const xr_vector<xr_string>& buffer)
+{
+    if (buffer.empty())
+    {
+        Msg("[Scripts/XR_EFFECTS/forward_game_time(p_actor, p_npc, buffer)] WARNING: buffer.empty() == true! Return "
+            "...");
+        return;
+    }
+
+    std::uint32_t hours = static_cast<std::uint32_t>(atoi(buffer[0].c_str()));
+    std::uint32_t minutes = buffer.size() < 2 ? 0 : static_cast<std::uint32_t>(atoi(buffer[1].c_str()));
+
+    Globals::change_game_time(0, hours, minutes);
+    Script_WeatherManager::getInstance().forced_weather_change();
+    Script_SurgeManager::getInstance().setTimeForwarded(true);
+    Msg("[Scripts/XR_EFFECTS/forward_game_time(p_actor, p_npc, buffer)] time is forwarded to %d %d", hours, minutes);
 }
 
 } // namespace XR_EFFECTS
