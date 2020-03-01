@@ -20,7 +20,7 @@ CMakeFiles/
 *.so
 *.a
 *.o
-sdk/Chromium
+sdk/Chromium/
 
 # exclude doxygen output
 doc/doxygen/html/*
