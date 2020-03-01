@@ -3206,6 +3206,7 @@ inline void jup_b10_spawn_drunk_dead_items(
 
     if (buffer.size() > 1)
     {
+
     }
     else
     {
