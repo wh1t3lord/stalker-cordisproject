@@ -3161,6 +3161,64 @@ inline void stop_tutorial(
     Globals::Game::stop_tutorial();
 }
 
+inline void jup_b10_spawn_drunk_dead_items(
+    CScriptGameObject* const p_actor, CScriptGameObject* const p_npc, const xr_vector<xr_string>& buffer)
+{
+    xr_map<xr_string, std::uint32_t> items_all;
+
+    items_all["wpn_ak74"] = 1;
+    items_all["ammo_5.45x39_fmj"] = 5;
+    items_all["ammo_5.45x39_ap"] = 3;
+    items_all["wpn_fort"] = 1;
+    items_all["ammo_9x18_fmj"] = 3;
+    items_all["ammo_12x70_buck"] = 5;
+    items_all["ammo_11.43x23_hydro"] = 2;
+    items_all["grenade_rgd5"] = 3;
+    items_all["grenade_f1"] = 2;
+    items_all["medkit_army"] = 2;
+    items_all["medkit"] = 4;
+    items_all["bandage"] = 4;
+    items_all["antirad"] = 2;
+    items_all["vodka"] = 3;
+    items_all["energy_drink"] = 2;
+    items_all["conserva"] = 1;
+    items_all["jup_b10_ufo_memory_2"] = 1;
+
+    xr_map<std::uint32_t, xr_map<xr_string, std::uint32_t>> items;
+    items[2]["wpn_sig550_luckygun"] = 1;
+
+    items[1]["ammo_5.45x39_fmj"] = 5;
+    items[1]["ammo_5.45x39_ap"] = 3;
+    items[1]["wpn_fort"] = 1;
+    items[1]["ammo_9x18_fmj"] = 3;
+    items[1]["ammo_12x70_buck"] = 5;
+    items[1]["ammo_11.43x23_hydro"] = 2;
+    items[1]["grenade_rgd5"] = 3;
+    items[1]["grenade_f1"] = 2;
+
+    items[0]["medkit_army"] = 2;
+    items[0]["medkit"] = 4;
+    items[0]["bandage"] = 4;
+    items[0]["antirad"] = 2;
+    items[0]["vodka"] = 3;
+    items[0]["energy_drink"] = 2;
+    items[0]["conserva"] = 1;
+
+    if (buffer.size() > 1)
+    {
+    }
+    else
+    {
+        for (const std::pair<xr_string, std::uint32_t>& it : items_all)
+        {
+            for (std::uint32_t i = 0; i < it.second; ++i)
+            {
+                Globals::Game::alife_create(it.first, p_npc->Position(), p_npc->level_vertex_id(), p_npc->game_vertex_id(), p_npc->ID());          
+            }
+        }
+    }
+}
+
 } // namespace XR_EFFECTS
 } // namespace Scripts
 } // namespace Cordis
