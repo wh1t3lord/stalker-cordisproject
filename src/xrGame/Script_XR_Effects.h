@@ -3155,6 +3155,12 @@ inline void forward_game_time(
     Msg("[Scripts/XR_EFFECTS/forward_game_time(p_actor, p_npc, buffer)] time is forwarded to %d %d", hours, minutes);
 }
 
+inline void stop_tutorial(
+    CScriptGameObject* const p_actor, CScriptGameObject* const p_npc, const xr_vector<xr_string>& buffer)
+{
+    Globals::Game::stop_tutorial();
+}
+
 } // namespace XR_EFFECTS
 } // namespace Scripts
 } // namespace Cordis
