@@ -3462,6 +3462,12 @@ inline void zat_b202_spawn_random_loot(
     } while (max_weight <= 0);
 }
 
+inline void zat_a1_tutorial_end_give(
+    CScriptGameObject* const p_actor, CScriptGameObject* const p_npc, const xr_vector<xr_string>& buffer)
+{
+    DataBase::Storage::getInstance().getActor()->GiveInfoPortion("zat_a1_tutorial_end");
+}
+
 } // namespace XR_EFFECTS
 } // namespace Scripts
 } // namespace Cordis
