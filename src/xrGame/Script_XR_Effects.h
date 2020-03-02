@@ -3323,6 +3323,145 @@ inline void anomaly_turn_on(
     }
 }
 
+inline void zat_b202_spawn_random_loot(
+    CScriptGameObject* const p_actor, CScriptGameObject* const p_npc, const xr_vector<xr_string>& buffer)
+{
+    if (buffer.empty())
+    {
+        Msg("[Scripts/XR_EFFECTS/zat_b202_spawn_random_loot(p_actor, p_npc, buffer)] WARNING: buffer.empty() == true! "
+            "Return ...");
+        return;
+    }
+
+    xr_map<std::uint32_t, xr_map<std::uint32_t, xr_vector<xr_string>>> items;
+
+    items[1][1].push_back("bandage");
+    items[1][1].push_back("bandage");
+    items[1][1].push_back("bandage");
+    items[1][1].push_back("bandage");
+    items[1][1].push_back("bandage");
+    items[1][1].push_back("medkit");
+    items[1][1].push_back("medkit");
+    items[1][1].push_back("medkit");
+    items[1][1].push_back("conserva");
+    items[1][1].push_back("conserva");
+
+    items[1][2].push_back("medkit");
+    items[1][2].push_back("medkit");
+    items[1][2].push_back("medkit");
+    items[1][2].push_back("medkit");
+    items[1][2].push_back("medkit");
+    items[1][2].push_back("vodka");
+    items[1][2].push_back("vodka");
+    items[1][2].push_back("vodka");
+    items[1][2].push_back("kolbasa");
+    items[1][2].push_back("kolbasa");
+
+    items[1][3].push_back("antirad");
+    items[1][3].push_back("antirad");
+    items[1][3].push_back("antirad");
+    items[1][3].push_back("medkit");
+    items[1][3].push_back("medkit");
+    items[1][3].push_back("bandage");
+    items[1][3].push_back("kolbasa");
+    items[1][3].push_back("kolbasa");
+    items[1][3].push_back("conserva");
+
+    items[2][1].push_back("grenade_f1");
+    items[2][1].push_back("grenade_f1");
+    items[2][1].push_back("grenade_f1");
+
+    items[2][2].push_back("grenade_rgd5");
+    items[2][2].push_back("grenade_rgd5");
+    items[2][2].push_back("grenade_rgd5");
+    items[2][2].push_back("grenade_rgd5");
+    items[2][2].push_back("grenade_rgd5");
+
+    items[3][1].push_back("detector_elite");
+    items[3][2].push_back("detector_advanced");
+
+    items[4][1].push_back("helm_hardhat");
+    items[4][2].push_back("helm_respirator");
+
+    items[5][1].push_back("wpn_val");
+    items[5][1].push_back("ammo_9x39_ap");
+    items[5][1].push_back("ammo_9x39_ap");
+    items[5][1].push_back("ammo_9x39_ap");
+
+    items[5][2].push_back("wpn_spas12");
+    items[5][2].push_back("ammo_12x70_buck");
+    items[5][2].push_back("ammo_12x70_buck");
+    items[5][2].push_back("ammo_12x70_buck");
+    items[5][2].push_back("ammo_12x70_buck");
+
+    items[5][3].push_back("wpn_desert_eagle");
+    items[5][3].push_back("ammo_11.43x23_fmj");
+    items[5][3].push_back("ammo_11.43x23_fmj");
+    items[5][3].push_back("ammo_11.43x23_hydro");
+    items[5][3].push_back("ammo_11.43x23_hydro");
+
+    items[5][4].push_back("wpn_abakan");
+    items[5][4].push_back("ammo_5.45x39_ap");
+    items[5][4].push_back("ammo_5.45x39_ap");
+
+    items[5][5].push_back("wpn_sig550");
+    items[5][5].push_back("ammo_5.56x45_ap");
+    items[5][5].push_back("ammo_5.56x45_ap");
+
+    items[5][6].push_back("wpn_ak74");
+    items[5][6].push_back("ammo_5.45x39_fmj");
+    items[5][6].push_back("ammo_5.45x39_fmj");
+
+    items[5][7].push_back("wpn_l85");
+    items[5][7].push_back("ammo_5.56x45_ss190");
+    items[5][7].push_back("ammo_5.56x45_ss190");
+
+    items[6][1].push_back("specops_outfit");
+
+    items[6][2].push_back("stalker_outfit");
+
+    xr_map<std::uint32_t, std::uint32_t> weight_table;
+    weight_table[1] = 2;
+    weight_table[2] = 2;
+    weight_table[3] = 2;
+    weight_table[4] = 2;
+    weight_table[5] = 4;
+    weight_table[6] = 4;
+
+    xr_vector<std::uint32_t> spawned_item;
+    std::uint32_t max_weight = 12;
+
+    // Lord: протестировать!
+    do
+    {
+        std::uint32_t n = 0;
+        bool is_prap = true;
+        do
+        {
+            n = Globals::Script_RandomInt::getInstance().Generate<std::uint32_t>(1, weight_table.size());
+            for (std::uint32_t it : spawned_item)
+            {
+                if (it == n)
+                {
+                    is_prap = false;
+                    break;
+                }
+            }
+        } while (is_prap && ((max_weight - weight_table[n]) >= 0));
+
+        max_weight = max_weight - weight_table[n];
+        spawned_item.push_back(n);
+
+        std::uint32_t item = Globals::Script_RandomInt::getInstance().Generate<std::uint32_t>(1, items[n].size());
+
+        for (const xr_string& it : items[n][item])
+        {
+            spawn_object_in(p_actor, p_npc, {it, "jup_b202_snag_treasure"});
+        }
+
+    } while (max_weight <= 0);
+}
+
 } // namespace XR_EFFECTS
 } // namespace Scripts
 } // namespace Cordis
