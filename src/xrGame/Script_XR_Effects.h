@@ -3277,11 +3277,50 @@ inline void anomaly_turn_off(
 
     if (!p_binder)
     {
-        Msg("[Scripts/XR_EFFECTS/anomaly_turn_off(p_actor, p_npc, buffer)] WARNING: p_binder == nullptr! Bad cast Return ...");
+        Msg("[Scripts/XR_EFFECTS/anomaly_turn_off(p_actor, p_npc, buffer)] WARNING: p_binder == nullptr! Bad cast "
+            "Return ...");
         return;
     }
 
     p_binder->turn_off();
+}
+
+inline void anomaly_turn_on(
+    CScriptGameObject* const p_actor, CScriptGameObject* const p_npc, const xr_vector<xr_string>& buffer)
+{
+    if (buffer.empty())
+    {
+        Msg("[Scripts/XR_EFFECTS/anomaly_turn_on(p_actor, p_npc, buffer)] WARNING: buffer.empty() == true! Return ...");
+        return;
+    }
+
+    CScriptGameObject* const p_anomaly = DataBase::Storage::getInstance().getAnomalyByName().at(buffer[0]);
+
+    if (!p_anomaly)
+    {
+        Msg("[Scripts/XR_EFFECTS/anomaly_turn_on(p_actor, p_npc, buffer)] WARNING: p_anomaly == nullptr! Can't find "
+            "the anomaly by %s Return ...",
+            buffer[0].c_str());
+        return;
+    }
+
+    Script_Binder_Anomaly* const p_binder = dynamic_cast<Script_Binder_Anomaly*>(p_anomaly->binded_object());
+
+    if (!p_binder)
+    {
+        Msg("[Scripts/XR_EFFECTS/anomaly_turn_on(p_actor, p_npc, buffer)] WARNING: p_binder == nullptr! Bad cast "
+            "Return ...");
+        return;
+    }
+
+    if (buffer.size() < 2)
+    {
+        p_binder->turn_on(false);
+    }
+    else
+    {
+        p_binder->turn_on(true);
+    }
 }
 
 } // namespace XR_EFFECTS
