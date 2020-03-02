@@ -1,0 +1,10 @@
+^D:\CORDIS PROJECT\XRAY\SDK\ULTRALIGHT\CMAKEFILES\7F7EC2892D93496C24673F6D484C4A7D\GENERATE.STAMP.RULE
+setlocal
+"C:\Program Files\CMake\bin\cmake.exe" "-SD:/Cordis Project/Xray/sdk/Ultralight" "-BD:/Cordis Project/Xray/sdk/Ultralight" --check-stamp-list CMakeFiles/generate.stamp.list --vs-solution-file "D:/Cordis Project/Xray/sdk/Ultralight/Samples.sln"
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd

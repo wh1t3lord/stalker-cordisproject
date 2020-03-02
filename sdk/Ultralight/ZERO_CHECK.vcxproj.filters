@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="16.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <CustomBuild Include="D:\Cordis Project\Xray\sdk\Ultralight\CMakeFiles\7f7ec2892d93496c24673f6d484c4a7d\generate.stamp.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="CMake Rules">
+      <UniqueIdentifier>{76ED5CA9-DA4D-39DF-95B9-DD6A6CEBC8DE}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>
