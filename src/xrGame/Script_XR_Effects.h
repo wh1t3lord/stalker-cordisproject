@@ -3468,6 +3468,39 @@ inline void zat_a1_tutorial_end_give(
     DataBase::Storage::getInstance().getActor()->GiveInfoPortion("zat_a1_tutorial_end");
 }
 
+inline void oasis_heal(
+    CScriptGameObject* const p_actor, CScriptGameObject* const p_npc, const xr_vector<xr_string>& buffer)
+{
+    float health_koeff = 0.005f;
+    float power_koeff = 0.01f;
+    float bleeding_koeff = 0.05f;
+    float radiation_koeff = -0.05f;
+
+    CScriptGameObject* const p_client_actor = DataBase::Storage::getInstance().getActor();
+
+    if (p_client_actor->GetHealth() < 1.0f)
+    {
+        p_client_actor->SetHealth(health_koeff);
+    }
+
+    if (p_client_actor->GetPower() < 1.0f)
+    {
+        p_client_actor->SetPower(power_koeff);
+    }
+
+    if (p_client_actor->GetRadiation() > 0.0f)
+    {
+        p_client_actor->SetRadiation(radiation_koeff);
+    }
+
+    if (p_client_actor->GetBleeding() > 0.0f)
+    {
+        p_client_actor->SetBleeding(bleeding_koeff);
+    }
+
+    p_client_actor->ChangeSatiety(0.01f);
+}
+
 } // namespace XR_EFFECTS
 } // namespace Scripts
 } // namespace Cordis
