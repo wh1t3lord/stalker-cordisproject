@@ -3204,9 +3204,39 @@ inline void jup_b10_spawn_drunk_dead_items(
     items[0]["energy_drink"] = 2;
     items[0]["conserva"] = 1;
 
-    if (buffer.size() > 1)
+    if (!buffer.empty())
     {
+        std::uint32_t count = XR_LOGIC::pstor_retrieve_number(p_actor, "jup_b10_ufo_counter");
 
+        if (count > 2)
+            return;
+
+        for (const std::pair<xr_string, std::uint32_t>& it : items[count])
+        {
+            std::uint16_t target_object_id = Globals::get_story_object_id(buffer[0]);
+
+            if (target_object_id)
+            {
+                CSE_Abstract* const p_server_box = ai().alife().objects().object(target_object_id);
+
+                if (!p_server_box)
+                {
+                    Msg("[Scripts/XR_EFFECTS/jup_b10_spawn_drunk_dead_items(p_actor, p_npc, buffer)] WARNING: can't "
+                        "find server object by %d Return ...",
+                        target_object_id);
+                    return;
+                }
+
+                for (std::uint32_t i = 0; i < it.second; ++i)
+                {
+                    Globals::Game::alife_create(it.first, Fvector(), 0, 0, target_object_id);
+                }
+            }
+            else
+            {
+                Msg("[Scripts/XR_EFFECTS/jup_b10_spawn_drunk_dead_items(p_actor, p_npc, buffer)] WARNING: can't find id by %s", buffer[0].c_str());
+            }
+        }
     }
     else
     {
@@ -3214,7 +3244,8 @@ inline void jup_b10_spawn_drunk_dead_items(
         {
             for (std::uint32_t i = 0; i < it.second; ++i)
             {
-                Globals::Game::alife_create(it.first, p_npc->Position(), p_npc->level_vertex_id(), p_npc->game_vertex_id(), p_npc->ID());          
+                Globals::Game::alife_create(
+                    it.first, p_npc->Position(), p_npc->level_vertex_id(), p_npc->game_vertex_id(), p_npc->ID());
             }
         }
     }
