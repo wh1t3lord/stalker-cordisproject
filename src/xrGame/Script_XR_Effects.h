@@ -3815,6 +3815,12 @@ inline void jup_b15_zulus_drink_anim_info(
     DataBase::Storage::getInstance().getActor()->GiveInfoPortion("jup_b15_zulus_drink_anim_info");
 }
 
+inline void pri_a17_preacher_death(
+    CScriptGameObject* const p_actor, CScriptGameObject* const p_npc, const xr_vector<xr_string>& buffer)
+{
+    DataBase::Storage::getInstance().getActor()->GiveInfoPortion("pri_a17_preacher_death");
+}
+
 } // namespace XR_EFFECTS
 } // namespace Scripts
 } // namespace Cordis
