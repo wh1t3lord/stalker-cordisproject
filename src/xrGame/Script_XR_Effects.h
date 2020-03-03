@@ -4019,13 +4019,21 @@ inline void set_visual_memory_enabled(
 {
     if (buffer.empty())
     {
-        Msg("[Scripts/XR_EFFECTS/set_visual_memory_enabled(p_actor, p_npc, buffer)] WARNING: buffer.empty() == true! Return ...");
+        Msg("[Scripts/XR_EFFECTS/set_visual_memory_enabled(p_actor, p_npc, buffer)] WARNING: buffer.empty() == true! "
+            "Return ...");
         return;
     }
 
     bool value = static_cast<bool>(atoi(buffer[0].c_str()));
     p_npc->SetVisualMemoryEnabled(value);
+}
 
+inline void disable_memory_object(
+    CScriptGameObject* const p_actor, CScriptGameObject* const p_npc, const xr_vector<xr_string>& buffer)
+{
+    CScriptGameObject* const p_best_enemy = p_npc->GetBestEnemy();
+    if (p_best_enemy)
+        p_npc->enable_memory_object(p_best_enemy, false);
 }
 
 } // namespace XR_EFFECTS
