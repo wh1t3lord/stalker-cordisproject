@@ -3698,6 +3698,14 @@ inline void polter_actor_ignore(
         p_npc->poltergeist_set_actor_ignore(false);
 }
 
+inline void burer_force_gravi_attack(
+    CScriptGameObject* const p_actor, CScriptGameObject* const p_npc, const xr_vector<xr_string>& buffer)
+{
+    p_npc->burer_set_force_gravi_attack(true);
+}
+
+
+
 } // namespace XR_EFFECTS
 } // namespace Scripts
 } // namespace Cordis
