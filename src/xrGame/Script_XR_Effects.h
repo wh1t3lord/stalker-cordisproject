@@ -4092,6 +4092,43 @@ inline void restore_actor_position(
     DataBase::Storage::getInstance().getActor()->SetActorPosition(actor_position_for_restore);
 }
 
+inline void upgrade_hint(
+    CScriptGameObject* const p_actor, CScriptGameObject* const p_npc, const xr_vector<xr_string>& buffer)
+{
+    if (buffer.empty())
+    {
+        Msg("[Scripts/XR_EFFECTS/upgrade_hint(p_actor, p_npc, buffer)] WARNING: buffer.empty() == true! Return ...");
+        return;
+    }
+
+    // Lord: доделать inventory_upgrades
+}
+
+inline void force_obj(
+    CScriptGameObject* const p_actor, CScriptGameObject* const p_npc, const xr_vector<xr_string>& buffer)
+{
+    if (buffer.empty())
+    {
+        Msg("[Scripts/XR_EFFECTS/force_obj(p_actor, p_npc, buffer)] WARNING: buffer.empty() == true! Return ...");
+        return;
+    }
+
+    CScriptGameObject* const p_object = Globals::get_story_object(buffer[0]);
+
+    if (!p_object)
+    {
+        Msg("[Scripts/XR_EFFECTS/force_obj(p_actor, p_npc, buffer)] WARNING: Target object does not exist!");
+        return;
+    }
+
+    float value = buffer.size() > 1 ? boost::lexical_cast<float>(buffer[1]) : 0.0f;
+    std::uint32_t time_interval = buffer.size() > 2 ? boost::lexical_cast<std::uint32_t>(buffer[2]) : 0;
+
+
+
+    p_object->set_const_force(Fvector().set(0.0f, 1.0f, 0.0f), value, time_interval);
+}
+
 } // namespace XR_EFFECTS
 } // namespace Scripts
 } // namespace Cordis
