@@ -3637,6 +3637,15 @@ inline void damage_actor_items_on_start(
         p_object->SetCondition(0.7f);
 }
 
+inline void damage_pri_a17_gauss(
+    CScriptGameObject* const p_actor, CScriptGameObject* const p_npc, const xr_vector<xr_string>& buffer)
+{
+    CScriptGameObject* const p_gauss = Globals::get_story_object("pri_a17_gauss_rifle");
+
+    if (p_gauss)
+        p_gauss->SetCondition(0.0f);
+}
+
 } // namespace XR_EFFECTS
 } // namespace Scripts
 } // namespace Cordis
