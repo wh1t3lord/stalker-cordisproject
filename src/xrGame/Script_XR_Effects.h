@@ -3821,9 +3821,16 @@ inline void pri_a17_preacher_death(
     DataBase::Storage::getInstance().getActor()->GiveInfoPortion("pri_a17_preacher_death");
 }
 
-inline void zat_b3_tech_surprise_anim_end(CScriptGameObject* const p_actor, CScriptGameObject* const p_npc, const xr_vector<xr_string>& buffer)
+inline void zat_b3_tech_surprise_anim_end(
+    CScriptGameObject* const p_actor, CScriptGameObject* const p_npc, const xr_vector<xr_string>& buffer)
 {
     DataBase::Storage::getInstance().getActor()->GiveInfoPortion("zat_b3_tech_surprise_anim_end");
+}
+
+inline void zat_b3_tech_waked_up(
+    CScriptGameObject* const p_actor, CScriptGameObject* const p_npc, const xr_vector<xr_string>& buffer)
+{
+    DataBase::Storage::getInstance().getActor()->GiveInfoPortion("zat_b3_tech_waked_up");
 }
 
 } // namespace XR_EFFECTS
