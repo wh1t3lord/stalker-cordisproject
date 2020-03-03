@@ -4198,6 +4198,16 @@ inline void pri_a28_check_zones(
     create_squad(DataBase::Storage::getInstance().getActor(), nullptr, {squad_table.at(index), "pri_a28_heli"});
 }
 
+inline void eat_vodka_script(
+    CScriptGameObject* const p_actor, CScriptGameObject* const p_npc, const xr_vector<xr_string>& buffer)
+{
+    if (DataBase::Storage::getInstance().getActor()->GetObjectByName("vodka_script"))
+    {
+        DataBase::Storage::getInstance().getActor()->eat(
+            DataBase::Storage::getInstance().getActor()->GetObjectByName("vodka"));
+    }
+}
+
 } // namespace XR_EFFECTS
 } // namespace Scripts
 } // namespace Cordis
