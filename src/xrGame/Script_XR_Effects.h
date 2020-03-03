@@ -3970,11 +3970,25 @@ inline void create_cutscene_actor_with_weapon(
 
     if (p_active_item)
     {
-        CSE_Abstract* const p_server_new_weapon = Globals::Game::alife_create(section_name, patrol.point(index), patrol.level_vertex_id(0), patrol.game_vertex_id(0), p_server_npc->ID);
+        CSE_Abstract* const p_server_new_weapon = Globals::Game::alife_create(
+            section_name, patrol.point(index), patrol.level_vertex_id(0), patrol.game_vertex_id(0), p_server_npc->ID);
 
         if (section_name == "wpn_gauss")
             p_server_new_weapon->cast_item_weapon()->clone_addons(p_actor_weapon->cast_item_weapon());
     }
+}
+
+inline void set_force_sleep_animation(
+    CScriptGameObject* const p_actor, CScriptGameObject* const p_npc, const xr_vector<xr_string>& buffer)
+{
+    if (buffer.empty())
+    {
+        Msg("[Scripts/XR_EFFECTS/set_force_sleep_animation(p_actor, p_npc, buffer)] WARNING: buffer.empty() == true! Return ...");
+        return;
+    }
+
+    std::uint32_t value = boost::lexical_cast<std::uint32_t>(buffer[0]);
+    p_npc->force_stand_sleep_animation(value);
 }
 
 } // namespace XR_EFFECTS
