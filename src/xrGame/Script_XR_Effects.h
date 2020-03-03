@@ -3773,6 +3773,12 @@ inline void pri_a17_ice_climb_end(
     DataBase::Storage::getInstance().getActor()->GiveInfoPortion("pri_a17_ice_climb_end");
 }
 
+inline void jup_b219_opening(
+    CScriptGameObject* const p_actor, CScriptGameObject* const p_npc, const xr_vector<xr_string>& buffer)
+{
+    DataBase::Storage::getInstance().getActor()->GiveInfoPortion("jup_b219_opening");
+}
+
 } // namespace XR_EFFECTS
 } // namespace Scripts
 } // namespace Cordis
