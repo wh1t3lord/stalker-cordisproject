@@ -4078,6 +4078,20 @@ inline void zat_b202_spawn_b33_loot(
     }
 }
 
+static Fvector actor_position_for_restore;
+
+inline void save_actor_position(
+    CScriptGameObject* const p_actor, CScriptGameObject* const p_npc, const xr_vector<xr_string>& buffer)
+{
+    actor_position_for_restore = Globals::get_story_object("actor")->Position();
+}
+
+inline void restore_actor_position(
+    CScriptGameObject* const p_actor, CScriptGameObject* const p_npc, const xr_vector<xr_string>& buffer)
+{
+    DataBase::Storage::getInstance().getActor()->SetActorPosition(actor_position_for_restore);
+}
+
 } // namespace XR_EFFECTS
 } // namespace Scripts
 } // namespace Cordis
