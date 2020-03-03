@@ -3779,11 +3779,17 @@ inline void jup_b219_opening(
     DataBase::Storage::getInstance().getActor()->GiveInfoPortion("jup_b219_opening");
 }
 
-inline void jup_b219_entering_underpass(CScriptGameObject* const p_actor, CScriptGameObject* const p_npc, const xr_vector<xr_string>& buffer)
+inline void jup_b219_entering_underpass(
+    CScriptGameObject* const p_actor, CScriptGameObject* const p_npc, const xr_vector<xr_string>& buffer)
 {
     DataBase::Storage::getInstance().getActor()->GiveInfoPortion("jup_b219_entering_underpass");
 }
 
+inline void pri_a17_pray_start(
+    CScriptGameObject* const p_actor, CScriptGameObject* const p_npc, const xr_vector<xr_string>& buffer)
+{
+    DataBase::Storage::getInstance().getActor()->GiveInfoPortion("pri_a17_pray_start");
+}
 
 
 } // namespace XR_EFFECTS
