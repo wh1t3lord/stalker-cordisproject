@@ -3797,6 +3797,12 @@ inline void zat_b38_open_info(
     DataBase::Storage::getInstance().getActor()->GiveInfoPortion("zat_b38_open_info");
 }
 
+inline void zat_b38_switch_info(
+    CScriptGameObject* const p_actor, CScriptGameObject* const p_npc, const xr_vector<xr_string>& buffer)
+{
+    DataBase::Storage::getInstance().getActor()->GiveInfoPortion("zat_b38_switch_info");
+}
+
 } // namespace XR_EFFECTS
 } // namespace Scripts
 } // namespace Cordis
