@@ -3745,6 +3745,21 @@ inline void get_best_detector(
     }
 }
 
+inline void hide_best_detector(CScriptGameObject* const p_actor, CScriptGameObject* const p_npc, const xr_vector<xr_string>& buffer)
+{
+    xr_vector<xr_string> detectors = {"detector_simple", "detector_advanced", "detector_elite", "detector_scientific"};
+
+    for (const xr_string& detector_name : detectors)
+    {
+        CScriptGameObject* const p_detector = p_npc->GetObjectByName(detector_name.c_str());
+        if (p_detector)
+        {
+            p_detector->enable_attachable_item(false);
+            return;
+        }
+    }
+}
+
 } // namespace XR_EFFECTS
 } // namespace Scripts
 } // namespace Cordis
