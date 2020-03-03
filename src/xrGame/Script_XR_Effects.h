@@ -3779,6 +3779,13 @@ inline void jup_b219_opening(
     DataBase::Storage::getInstance().getActor()->GiveInfoPortion("jup_b219_opening");
 }
 
+inline void jup_b219_entering_underpass(CScriptGameObject* const p_actor, CScriptGameObject* const p_npc, const xr_vector<xr_string>& buffer)
+{
+    DataBase::Storage::getInstance().getActor()->GiveInfoPortion("jup_b219_entering_underpass");
+}
+
+
+
 } // namespace XR_EFFECTS
 } // namespace Scripts
 } // namespace Cordis
