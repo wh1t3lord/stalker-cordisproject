@@ -3501,6 +3501,106 @@ inline void oasis_heal(
     p_client_actor->ChangeSatiety(0.01f);
 }
 
+inline void jup_b221_play_main(
+    CScriptGameObject* const p_actor, CScriptGameObject* const p_npc, const xr_vector<xr_string>& buffer)
+{
+    if (buffer.empty())
+    {
+        Msg("[Scripts/XR_EFFECTS/jup_b221_play_main(p_actor, p_npc, buffer)] WARNING: buffer.empty() == true! Return "
+            "...");
+        return;
+    }
+
+    xr_string main_theme_name;
+    xr_string reply_theme_name;
+    xr_string info_need_reply_name;
+    xr_map<std::uint32_t, xr_string> info_table;
+    xr_vector<std::uint32_t> theme_indexes;
+    std::uint32_t index_theme = 0;
+
+    if (buffer[0] == "duty")
+    {
+        info_table[1] = "jup_b25_freedom_flint_gone";
+        info_table[2] = "jup_b25_flint_blame_done_to_duty";
+        info_table[3] = "jup_b4_monolith_squad_in_duty";
+        info_table[4] = "jup_a6_duty_leader_bunker_guards_work";
+        info_table[5] = "jup_a6_duty_leader_employ_work";
+        info_table[6] = "jup_b207_duty_wins";
+
+        main_theme_name = "jup_b221_duty_main_";
+        reply_theme_name = "jup_b221_duty_reply_";
+        info_need_reply_name = "jup_b221_duty_reply";
+    }
+    else if (buffer[0] == "freedom")
+    {
+        info_table[1] = "jup_b207_freedom_know_about_depot";
+        info_table[2] = "jup_b46_duty_founder_pda_to_freedom";
+        info_table[3] = "jup_b4_monolith_squad_in_freedom";
+        info_table[4] = "jup_a6_freedom_leader_bunker_guards_work";
+        info_table[5] = "jup_a6_freedom_leader_employ_work";
+        info_table[6] = "jup_b207_freedom_wins";
+
+        main_theme_name = "jup_b221_freedom_main_";
+        reply_theme_name = "jup_b221_freedom_reply_";
+        info_need_reply_name = "jup_b221_freedom_reply";
+    }
+    else
+    {
+        Msg("[Scripts/XR_EFFECTS/jup_b221_play_main(p_actor, p_npc, buffer)] WARNING: wrong argument, check it, it "
+            "must be community name! Return ...");
+        return;
+    }
+
+    for (const std::pair<std::uint32_t, xr_string>& it : info_table)
+    {
+        if (Globals::has_alife_info(it.second.c_str()) &&
+            (!Globals::has_alife_info(xr_string(main_theme_name).append(std::to_string(it.first).c_str()).append("_played").c_str()))
+        {
+            theme_indexes.push_back(it.first);
+        }
+    }
+
+    if (!theme_indexes.empty())
+    {
+        if (Globals::has_alife_info(info_need_reply_name.c_str()))
+        {
+            DataBase::Storage::getInstance().getActor()->DisableInfoPortion(info_need_reply_name.c_str());
+        }
+
+        index_theme = theme_indexes[Globals::Script_RandomInt::getInstance().Generate<std::uint32_t>(
+            0, theme_indexes.size() - 1)];
+        XR_LOGIC::pstor_store(p_actor, "jup_b221_played_main_theme", std::to_string(index_theme).c_str());
+        DataBase::Storage::getInstance().getActor()->GiveInfoPortion(
+            xr_string(main_theme_name).append(std::to_string(index_theme).c_str()).append("_played").c_str());
+        if (index_theme)
+        {
+            play_sound(p_actor, p_npc, {xr_string(main_theme_name).append(std::to_string(index_theme).c_str())});
+        }
+        else
+        {
+            Msg("[Scripts/XR_EFFECTS/jup_b221_play_main(p_actor, p_npc, buffer)] WARNING: can't pick index_theme check "
+                "your code here! Return ...");
+            return;
+        }
+    }
+    else
+    {
+        DataBase::Storage::getInstance().getActor()->GiveInfoPortion(info_need_reply_name.c_str());
+        index_theme = static_cast<std::uint32_t>(
+            atoi(XR_LOGIC::pstor_retrieve_string(p_actor, "jup_b221_played_main_theme").c_str()));
+        if (index_theme)
+        {
+            play_sound(p_actor, p_npc, {xr_string(reply_theme_name).append(std::to_string(index_theme).c_str())});
+        }
+        else
+        {
+            Msg("[Scripts/XR_EFFECTS/jup_b221_play_main(p_actor, p_npc, buffer)] WARNING: can't pick index_theme check code Return ...");
+        }
+
+        XR_LOGIC::pstor_store(p_actor, "jup_b221_played_main_theme", "0");
+    }
+}
+
 } // namespace XR_EFFECTS
 } // namespace Scripts
 } // namespace Cordis
