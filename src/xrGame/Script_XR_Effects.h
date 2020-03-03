@@ -3803,6 +3803,12 @@ inline void zat_b38_switch_info(
     DataBase::Storage::getInstance().getActor()->GiveInfoPortion("zat_b38_switch_info");
 }
 
+inline void zat_b38_cop_dead(
+    CScriptGameObject* const p_actor, CScriptGameObject* const p_npc, const xr_vector<xr_string>& buffer)
+{
+    DataBase::Storage::getInstance().getActor()->GiveInfoPortion("zat_b38_cop_dead");
+}
+
 } // namespace XR_EFFECTS
 } // namespace Scripts
 } // namespace Cordis
