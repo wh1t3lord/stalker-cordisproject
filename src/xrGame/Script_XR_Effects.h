@@ -3745,7 +3745,8 @@ inline void get_best_detector(
     }
 }
 
-inline void hide_best_detector(CScriptGameObject* const p_actor, CScriptGameObject* const p_npc, const xr_vector<xr_string>& buffer)
+inline void hide_best_detector(
+    CScriptGameObject* const p_actor, CScriptGameObject* const p_npc, const xr_vector<xr_string>& buffer)
 {
     xr_vector<xr_string> detectors = {"detector_simple", "detector_advanced", "detector_elite", "detector_scientific"};
 
@@ -3759,6 +3760,14 @@ inline void hide_best_detector(CScriptGameObject* const p_actor, CScriptGameObje
         }
     }
 }
+
+inline void pri_a18_radio_start(
+    CScriptGameObject* const p_actor, CScriptGameObject* const p_npc, const xr_vector<xr_string>& buffer)
+{
+    DataBase::Storage::getInstance().getActor()->GiveInfoPortion("pri_a18_radio_start");
+}
+
+
 
 } // namespace XR_EFFECTS
 } // namespace Scripts
