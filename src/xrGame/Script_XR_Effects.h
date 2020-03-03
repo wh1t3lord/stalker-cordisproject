@@ -4014,6 +4014,20 @@ inline void zat_b33_pic_snag_container(
     }
 }
 
+inline void set_visual_memory_enabled(
+    CScriptGameObject* const p_actor, CScriptGameObject* const p_npc, const xr_vector<xr_string>& buffer)
+{
+    if (buffer.empty())
+    {
+        Msg("[Scripts/XR_EFFECTS/set_visual_memory_enabled(p_actor, p_npc, buffer)] WARNING: buffer.empty() == true! Return ...");
+        return;
+    }
+
+    bool value = static_cast<bool>(atoi(buffer[0].c_str()));
+    p_npc->SetVisualMemoryEnabled(value);
+
+}
+
 } // namespace XR_EFFECTS
 } // namespace Scripts
 } // namespace Cordis
