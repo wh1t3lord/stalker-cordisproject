@@ -3791,6 +3791,11 @@ inline void pri_a17_pray_start(
     DataBase::Storage::getInstance().getActor()->GiveInfoPortion("pri_a17_pray_start");
 }
 
+inline void zat_b38_open_info(
+    CScriptGameObject* const p_actor, CScriptGameObject* const p_npc, const xr_vector<xr_string>& buffer)
+{
+    DataBase::Storage::getInstance().getActor()->GiveInfoPortion("zat_b38_open_info");
+}
 
 } // namespace XR_EFFECTS
 } // namespace Scripts
