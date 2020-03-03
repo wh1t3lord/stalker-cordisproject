@@ -3594,11 +3594,18 @@ inline void jup_b221_play_main(
         }
         else
         {
-            Msg("[Scripts/XR_EFFECTS/jup_b221_play_main(p_actor, p_npc, buffer)] WARNING: can't pick index_theme check code Return ...");
+            Msg("[Scripts/XR_EFFECTS/jup_b221_play_main(p_actor, p_npc, buffer)] WARNING: can't pick index_theme check "
+                "code Return ...");
         }
 
         XR_LOGIC::pstor_store(p_actor, "jup_b221_played_main_theme", "0");
     }
+}
+
+inline void pas_b400_play_particle(
+    CScriptGameObject* const p_actor, CScriptGameObject* const p_npc, const xr_vector<xr_string>& buffer)
+{
+    DataBase::Storage::getInstance().getActor()->start_particles("zones\\zone_acidic_idle", "bip01_head");
 }
 
 } // namespace XR_EFFECTS
