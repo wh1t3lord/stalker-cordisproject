@@ -3983,7 +3983,8 @@ inline void set_force_sleep_animation(
 {
     if (buffer.empty())
     {
-        Msg("[Scripts/XR_EFFECTS/set_force_sleep_animation(p_actor, p_npc, buffer)] WARNING: buffer.empty() == true! Return ...");
+        Msg("[Scripts/XR_EFFECTS/set_force_sleep_animation(p_actor, p_npc, buffer)] WARNING: buffer.empty() == true! "
+            "Return ...");
         return;
     }
 
@@ -3991,9 +3992,26 @@ inline void set_force_sleep_animation(
     p_npc->force_stand_sleep_animation(value);
 }
 
-inline void release_force_sleep_animation(CScriptGameObject* const p_actor, CScriptGameObject* const p_npc, const xr_vector<xr_string>& buffer)
+inline void release_force_sleep_animation(
+    CScriptGameObject* const p_actor, CScriptGameObject* const p_npc, const xr_vector<xr_string>& buffer)
 {
     p_npc->release_stand_sleep_animation();
+}
+
+inline void zat_b33_pic_snag_container(
+    CScriptGameObject* const p_actor, CScriptGameObject* const p_npc, const xr_vector<xr_string>& buffer)
+{
+    if (XR_CONDITION::is_actor_in_zone_client(p_actor, p_npc, {"zat_b33_tutor"}))
+    {
+        give_actor(p_actor, p_npc, {"zat_b33_safe_container"});
+        DataBase::Storage::getInstance().getActor()->GiveInfoPortion("zat_b33_find_package");
+
+        if (!Globals::has_alife_info("zat_b33_safe_container"))
+        {
+            CScriptGameObject* const p_zone = DataBase::Storage::getInstance().getZoneByName().at("zat_b33_tutor");
+            play_sound(p_actor, p_npc, {"pda_news"});
+        }
+    }
 }
 
 } // namespace XR_EFFECTS
