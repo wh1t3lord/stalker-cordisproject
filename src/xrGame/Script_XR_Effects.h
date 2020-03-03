@@ -3809,6 +3809,12 @@ inline void zat_b38_cop_dead(
     DataBase::Storage::getInstance().getActor()->GiveInfoPortion("zat_b38_cop_dead");
 }
 
+inline void jup_b15_zulus_drink_anim_info(
+    CScriptGameObject* const p_actor, CScriptGameObject* const p_npc, const xr_vector<xr_string>& buffer)
+{
+    DataBase::Storage::getInstance().getActor()->GiveInfoPortion("jup_b15_zulus_drink_anim_info");
+}
+
 } // namespace XR_EFFECTS
 } // namespace Scripts
 } // namespace Cordis
