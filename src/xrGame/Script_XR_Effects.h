@@ -3646,6 +3646,29 @@ inline void damage_pri_a17_gauss(
         p_gauss->SetCondition(0.0f);
 }
 
+inline void jup_b217_hard_animation_reset(
+    CScriptGameObject* const p_actor, CScriptGameObject* const p_npc, const xr_vector<xr_string>& buffer)
+{
+    Script_StateManager* const p_state_manager =
+        DataBase::Storage::getInstance().getStorage().at(p_npc->ID()).getStateManager();
+
+    if (!p_state_manager)
+    {
+        Msg("[Scripts/XR_EFFECTS/jup_b217_hard_animation_reset(p_actor, p_npc, buffer)] WARNING: p_state_manager == nullptr! Return ...");
+        return;
+    }
+
+    p_state_manager->set_state("jup_b217_nitro_straight", StateManagerCallbackData(), 0,
+        std::pair<Fvector, CScriptGameObject* const>(Fvector(), nullptr), StateManagerExtraData());
+
+    if (p_state_manager)
+    {
+        p_state_manager->getAnimation()->set_state();
+        p_state_manager->getAnimation()->set_state("jup_b217_nitro_straight", false);
+        p_state_manager->getAnimation()->set_control();
+    }
+}
+
 } // namespace XR_EFFECTS
 } // namespace Scripts
 } // namespace Cordis
