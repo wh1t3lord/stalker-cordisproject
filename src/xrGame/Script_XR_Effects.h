@@ -3654,7 +3654,8 @@ inline void jup_b217_hard_animation_reset(
 
     if (!p_state_manager)
     {
-        Msg("[Scripts/XR_EFFECTS/jup_b217_hard_animation_reset(p_actor, p_npc, buffer)] WARNING: p_state_manager == nullptr! Return ...");
+        Msg("[Scripts/XR_EFFECTS/jup_b217_hard_animation_reset(p_actor, p_npc, buffer)] WARNING: p_state_manager == "
+            "nullptr! Return ...");
         return;
     }
 
@@ -3667,6 +3668,34 @@ inline void jup_b217_hard_animation_reset(
         p_state_manager->getAnimation()->set_state("jup_b217_nitro_straight", false);
         p_state_manager->getAnimation()->set_control();
     }
+}
+
+inline void mech_discount(
+    CScriptGameObject* const p_actor, CScriptGameObject* const p_npc, const xr_vector<xr_string>& buffer)
+{
+    if (buffer.empty())
+    {
+        Msg("[Scripts/XR_EFFECTS/mech_discount(p_actor, p_npc, buffer)] WARNING: buffer.empty() == true! Return ...");
+        return;
+    }
+
+    // Lord: доделать когда будет invetory_upgrades
+}
+
+inline void polter_actor_ignore(
+    CScriptGameObject* const p_actor, CScriptGameObject* const p_npc, const xr_vector<xr_string>& buffer)
+{
+    if (buffer.empty())
+    {
+        Msg("[Scripts/XR_EFFECTS/polter_actor_ignore(p_actor, p_npc, buffer)] WARNING: buffer.empty() == true! Return "
+            "...");
+        return;
+    }
+
+    if (buffer[0] == "true")
+        p_npc->poltergeist_set_actor_ignore(true);
+    else
+        p_npc->poltergeist_set_actor_ignore(false);
 }
 
 } // namespace XR_EFFECTS
