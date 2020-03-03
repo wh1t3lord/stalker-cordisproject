@@ -3845,6 +3845,14 @@ inline void pri_a28_kirillov_hq_online(
     DataBase::Storage::getInstance().getActor()->GiveInfoPortion("pri_a28_kirillov_hq_online");
 }
 
+inline void pri_a20_radio_start(
+    CScriptGameObject* const p_actor, CScriptGameObject* const p_npc, const xr_vector<xr_string>& buffer)
+{
+    DataBase::Storage::getInstance().getActor()->GiveInfoPortion("pri_a20_radio_start");
+}
+
+
+
 } // namespace XR_EFFECTS
 } // namespace Scripts
 } // namespace Cordis
