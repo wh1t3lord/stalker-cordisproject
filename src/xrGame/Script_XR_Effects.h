@@ -3710,6 +3710,27 @@ inline void burer_force_anti_aim(
     p_npc->set_force_anti_aim(true);
 }
 
+inline void show_freeplay_dialog(
+    CScriptGameObject* const p_actor, CScriptGameObject* const p_npc, const xr_vector<xr_string>& buffer)
+{
+    if (buffer.empty())
+    {
+        Msg("[Scripts/XR_EFFECTS/show_freeplay_dialog(p_actor, p_npc, buffer)] WARNING: buffer.empty() == true! Return "
+            "...");
+        return;
+    }
+
+    if (buffer.size() < 2)
+    {
+        Msg("[Scripts/XR_EFFECTS/show_freeplay_dialog(p_actor, p_npc, buffer)] WARNING: buffer.size() < 2! Return ...");
+        return;
+    }
+
+    // Lord: доделать когда будет ui_freeplay_dialog
+}
+
+
+
 } // namespace XR_EFFECTS
 } // namespace Scripts
 } // namespace Cordis
