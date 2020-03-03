@@ -3863,9 +3863,15 @@ inline void zat_b38_underground_door_open(
     DataBase::Storage::getInstance().getActor()->GiveInfoPortion("zat_b38_underground_door_open");
 }
 
-inline void zat_b38_jump_tonnel_info(CScriptGameObject* const p_actor, CScriptGameObject* const p_npc, const xr_vector<xr_string>& buffer)
+inline void zat_b38_jump_tonnel_info(
+    CScriptGameObject* const p_actor, CScriptGameObject* const p_npc, const xr_vector<xr_string>& buffer)
 {
     DataBase::Storage::getInstance().getActor()->GiveInfoPortion("zat_b38_jump_tonnel_info");
+}
+
+inline void jup_a9_cam1_actor_anim_end(CScriptGameObject* const p_actor, CScriptGameObject* const p_npc, const xr_vector<xr_string>& buffer)
+{
+    DataBase::Storage::getInstance().getActor()->GiveInfoPortion("jup_a9_cam1_actor_anim_end");
 }
 
 } // namespace XR_EFFECTS
