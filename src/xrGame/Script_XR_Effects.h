@@ -3851,7 +3851,11 @@ inline void pri_a20_radio_start(
     DataBase::Storage::getInstance().getActor()->GiveInfoPortion("pri_a20_radio_start");
 }
 
-
+inline void pri_a22_kovalski_speak(
+    CScriptGameObject* const p_actor, CScriptGameObject* const p_npc, const xr_vector<xr_string>& buffer)
+{
+    DataBase::Storage::getInstance().getActor()->GiveInfoPortion("pri_a22_kovalski_speak");
+}
 
 } // namespace XR_EFFECTS
 } // namespace Scripts
