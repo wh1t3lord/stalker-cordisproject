@@ -3833,6 +3833,18 @@ inline void zat_b3_tech_waked_up(
     DataBase::Storage::getInstance().getActor()->GiveInfoPortion("zat_b3_tech_waked_up");
 }
 
+inline void zat_b3_tech_drinked_out(
+    CScriptGameObject* const p_actor, CScriptGameObject* const p_npc, const xr_vector<xr_string>& buffer)
+{
+    DataBase::Storage::getInstance().getActor()->GiveInfoPortion("zat_b3_tech_drinked_out");
+}
+
+inline void pri_a28_kirillov_hq_online(
+    CScriptGameObject* const p_actor, CScriptGameObject* const p_npc, const xr_vector<xr_string>& buffer)
+{
+    DataBase::Storage::getInstance().getActor()->GiveInfoPortion("pri_a28_kirillov_hq_online");
+}
+
 } // namespace XR_EFFECTS
 } // namespace Scripts
 } // namespace Cordis
