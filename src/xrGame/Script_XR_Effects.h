@@ -3869,14 +3869,112 @@ inline void zat_b38_jump_tonnel_info(
     DataBase::Storage::getInstance().getActor()->GiveInfoPortion("zat_b38_jump_tonnel_info");
 }
 
-inline void jup_a9_cam1_actor_anim_end(CScriptGameObject* const p_actor, CScriptGameObject* const p_npc, const xr_vector<xr_string>& buffer)
+inline void jup_a9_cam1_actor_anim_end(
+    CScriptGameObject* const p_actor, CScriptGameObject* const p_npc, const xr_vector<xr_string>& buffer)
 {
     DataBase::Storage::getInstance().getActor()->GiveInfoPortion("jup_a9_cam1_actor_anim_end");
 }
 
-inline void pri_a28_talk_ssu_video_end(CScriptGameObject* const p_actor, CScriptGameObject* const p_npc, const xr_vector<xr_string>& buffer)
+inline void pri_a28_talk_ssu_video_end(
+    CScriptGameObject* const p_actor, CScriptGameObject* const p_npc, const xr_vector<xr_string>& buffer)
 {
     DataBase::Storage::getInstance().getActor()->GiveInfoPortion("pri_a28_talk_ssu_video_end");
+}
+
+inline void create_cutscene_actor_with_weapon(
+    CScriptGameObject* const p_actor, CScriptGameObject* const p_npc, const xr_vector<xr_string>& buffer)
+{
+    if (buffer.empty())
+    {
+        Msg("[Scripts/XR_EFFECTS/create_cutscene_actor_with_weapon(p_actor, p_npc, buffer)] WARNING: buffer.empty() == "
+            "true! Return ...");
+        return;
+    }
+
+    xr_string spawn_section_name = buffer[0];
+
+    if (buffer.size() < 2)
+    {
+        Msg("[Scripts/XR_EFFECTS/create_cutscene_actor_with_weapon(p_actor, p_npc, buffer)] WARNING: buffer.size() < "
+            "2! Return ...");
+        return;
+    }
+
+    xr_string path_name = buffer[1];
+
+    if (!Globals::patrol_path_exists(path_name.c_str()))
+    {
+        Msg("[Scripts/XR_EFFECTS/create_cutscene_actor_with_weapon(p_actor, p_npc, buffer)] WARNING: path_name %s "
+            "doesn't exist! Return ...",
+            path_name.c_str());
+        return;
+    }
+
+    CPatrolPathParams patrol = CPatrolPathParams(path_name.c_str());
+    std::uint32_t index = buffer.size() > 2 ? boost::lexical_cast<std::uint32_t>(buffer[2]) : 0;
+    float yaw = buffer.size() > 3 ? boost::lexical_cast<float>(buffer[3]) : 0.0f;
+
+    CSE_Abstract* const p_server_npc = Globals::Game::alife_create(
+        spawn_section_name, patrol.point(index), patrol.level_vertex_id(0), patrol.game_vertex_id(0));
+
+    if (Globals::IsStalker(static_cast<CSE_ALifeDynamicObject*>(nullptr), p_server_npc->m_script_clsid))
+    {
+        p_server_npc->cast_creature_abstract()->o_torso.yaw = yaw * PI / 180.0f;
+    }
+    else
+    {
+        p_server_npc->o_Angle.y = yaw * PI / 180.0f;
+    }
+
+    int slot_override = buffer.size() > 4 ? boost::lexical_cast<int>(buffer[4]) : 0;
+
+    int slot = -1;
+    CScriptGameObject* p_active_item = nullptr;
+
+    if (slot_override == 0)
+    {
+        slot = DataBase::Storage::getInstance().getActor()->active_slot();
+        if (slot != 2 && slot != 3)
+            return;
+
+        p_active_item = DataBase::Storage::getInstance().getActor()->GetActiveItem();
+    }
+    else
+    {
+        if (DataBase::Storage::getInstance().getActor()->item_in_slot(slot_override))
+        {
+            p_active_item = DataBase::Storage::getInstance().getActor()->item_in_slot(slot_override);
+        }
+        else
+        {
+            if (DataBase::Storage::getInstance().getActor()->item_in_slot(3))
+            {
+                p_active_item = DataBase::Storage::getInstance().getActor()->item_in_slot(3);
+            }
+            else if (DataBase::Storage::getInstance().getActor()->item_in_slot(2))
+            {
+                p_active_item = DataBase::Storage::getInstance().getActor()->item_in_slot(2);
+            }
+            else
+            {
+                return;
+            }
+        }
+    }
+
+    CSE_Abstract* const p_actor_weapon = ai().alife().objects().object(p_active_item->ID());
+    xr_string section_name = p_actor_weapon->name();
+
+    if (section_name == "pri_a17_gauss_rifle")
+        section_name = "wpn_gauss";
+
+    if (p_active_item)
+    {
+        CSE_Abstract* const p_server_new_weapon = Globals::Game::alife_create(section_name, patrol.point(index), patrol.level_vertex_id(0), patrol.game_vertex_id(0), p_server_npc->ID);
+
+        if (section_name == "wpn_gauss")
+            p_server_new_weapon->cast_item_weapon()->clone_addons(p_actor_weapon->cast_item_weapon());
+    }
 }
 
 } // namespace XR_EFFECTS
