@@ -4036,6 +4036,48 @@ inline void disable_memory_object(
         p_npc->enable_memory_object(p_best_enemy, false);
 }
 
+inline void zat_b202_spawn_b33_loot(
+    CScriptGameObject* const p_actor, CScriptGameObject* const p_npc, const xr_vector<xr_string>& buffer)
+{
+    xr_map<std::uint32_t, xr_string> info_table;
+
+    info_table[1] = "zat_b33_first_item_gived";
+    info_table[2] = "zat_b33_second_item_gived";
+    info_table[3] = "zat_b33_third_item_gived";
+    info_table[4] = "zat_b33_fourth_item_gived";
+    info_table[5] = "zat_b33_fifth_item_gived";
+
+    xr_map<std::uint32_t, xr_vector<xr_string>> item_table;
+    item_table[1] = {"wpn_fort_snag"};
+    item_table[2] = {"medkit_scientic", "medkit_scientic", "medkit_scientic", "antirad", "antirad", "antirad",
+        "bandage", "bandage", "bandage", "bandage", "bandage"};
+    item_table[3] = {"wpn_ak74u_snag"};
+    item_table[4] = {"af_soul"};
+    item_table[5] = {"helm_hardhat_snag"};
+
+    for (const std::pair<std::uint32_t, xr_string>& it : info_table)
+    {
+        xr_string object_id_name;
+
+        if (it.first == 1 || it.first == 3)
+        {
+            object_id_name = "jup_b202_stalker_snag";
+        }
+        else
+        {
+            object_id_name = "jup_b202_snag_treasure";
+        }
+
+        if (!Globals::has_alife_info(it.second.c_str()))
+        {
+            for (const xr_string& item_name : item_table[it.first])
+            {
+                spawn_object_in(p_actor, p_npc, {item_name, object_id_name});
+            }
+        }
+    }
+}
+
 } // namespace XR_EFFECTS
 } // namespace Scripts
 } // namespace Cordis
