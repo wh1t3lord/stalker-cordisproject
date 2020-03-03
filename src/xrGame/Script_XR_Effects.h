@@ -3704,7 +3704,11 @@ inline void burer_force_gravi_attack(
     p_npc->burer_set_force_gravi_attack(true);
 }
 
-
+inline void burer_force_anti_aim(
+    CScriptGameObject* const p_actor, CScriptGameObject* const p_npc, const xr_vector<xr_string>& buffer)
+{
+    p_npc->set_force_anti_aim(true);
+}
 
 } // namespace XR_EFFECTS
 } // namespace Scripts
