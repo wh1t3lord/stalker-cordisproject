@@ -4124,9 +4124,78 @@ inline void force_obj(
     float value = buffer.size() > 1 ? boost::lexical_cast<float>(buffer[1]) : 0.0f;
     std::uint32_t time_interval = buffer.size() > 2 ? boost::lexical_cast<std::uint32_t>(buffer[2]) : 0;
 
-
-
     p_object->set_const_force(Fvector().set(0.0f, 1.0f, 0.0f), value, time_interval);
+}
+
+inline void pri_a28_check_zones(
+    CScriptGameObject* const p_actor, CScriptGameObject* const p_npc, const xr_vector<xr_string>& buffer)
+{
+    std::uint16_t story_object_id = 0;
+    float distance = 0.0f;
+    int index = 0;
+
+    xr_map<std::uint32_t, xr_string> zone_table;
+
+    zone_table[1] = "pri_a28_sr_mono_add_1";
+    zone_table[2] = "pri_a28_sr_mono_add_2";
+    zone_table[3] = "pri_a28_sr_mono_add_3";
+
+    xr_map<std::uint32_t, xr_string> info_table;
+
+    info_table[1] = "pri_a28_wave_1_spawned";
+    info_table[2] = "pri_a28_wave_2_spawned";
+    info_table[3] = "pri_a28_wave_3_spawned";
+
+    xr_map<std::uint32_t, xr_string> squad_table;
+    squad_table[1] = "pri_a28_heli_mono_add_1";
+    squad_table[2] = "pri_a28_heli_mono_add_2";
+    squad_table[3] = "pri_a28_heli_mono_add_3";
+
+    for (const std::pair<std::uint32_t, xr_string>& it : zone_table)
+    {
+        story_object_id = Globals::get_story_object_id(it.second);
+        if (story_object_id)
+        {
+            CSE_Abstract* const p_server_object = ai().alife().objects().object(story_object_id);
+            float current_distance =
+                p_server_object->o_Position.distance_to(DataBase::Storage::getInstance().getActor()->Position());
+
+            if (index == 0)
+            {
+                distance = current_distance;
+                index = it.first;
+            }
+            else if (distance < current_distance)
+            {
+                distance = current_distance;
+                index = it.first;
+            }
+        }
+    }
+
+    if (index == 0)
+    {
+        Msg("[Scripts/XR_EFFECTS/pri_a28_check_zones(p_actor, p_npc, buffer)] WARNING: Found no distance or zone "
+            "Return ...");
+        return;
+    }
+
+    if (Globals::has_alife_info(info_table.at(index).c_str()))
+    {
+        for (const std::pair<std::uint32_t, xr_string>& it : info_table)
+        {
+            if (!Globals::has_alife_info(it.second.c_str()))
+            {
+                DataBase::Storage::getInstance().getActor()->GiveInfoPortion(it.second.c_str());
+            }
+        }
+    }
+    else
+    {
+        DataBase::Storage::getInstance().getActor()->GiveInfoPortion(info_table.at(index).c_str());
+    }
+
+    create_squad(DataBase::Storage::getInstance().getActor(), nullptr, {squad_table.at(index), "pri_a28_heli"});
 }
 
 } // namespace XR_EFFECTS
