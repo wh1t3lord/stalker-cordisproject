@@ -3729,7 +3729,21 @@ inline void show_freeplay_dialog(
     // Lord: доделать когда будет ui_freeplay_dialog
 }
 
+inline void get_best_detector(
+    CScriptGameObject* const p_actor, CScriptGameObject* const p_npc, const xr_vector<xr_string>& buffer)
+{
+    xr_vector<xr_string> detectors = {"detector_simple", "detector_advanced", "detector_elite", "detector_scientific"};
 
+    for (const xr_string& detector_name : detectors)
+    {
+        CScriptGameObject* const p_detector = p_npc->GetObjectByName(detector_name.c_str());
+        if (p_detector)
+        {
+            p_detector->enable_attachable_item(true);
+            return;
+        }
+    }
+}
 
 } // namespace XR_EFFECTS
 } // namespace Scripts
