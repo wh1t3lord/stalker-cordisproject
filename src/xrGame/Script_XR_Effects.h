@@ -3608,6 +3608,35 @@ inline void pas_b400_play_particle(
     DataBase::Storage::getInstance().getActor()->start_particles("zones\\zone_acidic_idle", "bip01_head");
 }
 
+inline void pas_b400_stop_particle(
+    CScriptGameObject* const p_actor, CScriptGameObject* const p_npc, const xr_vector<xr_string>& buffer)
+{
+    DataBase::Storage::getInstance().getActor()->stop_particles("zones\\zone_acidic_idle", "bip01_head");
+}
+
+inline void damage_actor_items_on_start(
+    CScriptGameObject* const p_actor, CScriptGameObject* const p_npc, const xr_vector<xr_string>& buffer)
+{
+    CScriptGameObject* const p_client_actor = DataBase::Storage::getInstance().getActor();
+
+    CScriptGameObject* p_object = p_client_actor->GetObjectByName("helm_respirator");
+
+    if (p_object)
+        p_object->SetCondition(0.8f);
+
+    p_object = p_client_actor->GetObjectByName("stalker_outfit");
+    if (p_object)
+        p_object->SetCondition(0.76f);
+
+    p_object = p_client_actor->GetObjectByName("wpn_pm_actor");
+    if (p_object)
+        p_object->SetCondition(0.9f);
+
+    p_object = p_client_actor->GetObjectByIndex("wpn_ak74u");
+    if (p_object)
+        p_object->SetCondition(0.7f);
+}
+
 } // namespace XR_EFFECTS
 } // namespace Scripts
 } // namespace Cordis
