@@ -4208,6 +4208,41 @@ inline void eat_vodka_script(
     }
 }
 
+inline void jup_b200_count_found(
+    CScriptGameObject* const p_actor, CScriptGameObject* const p_npc, const xr_vector<xr_string>& buffer)
+{
+    xr_vector<xr_string> materials;
+    materials.push_back("jup_b200_material_1");
+    materials.push_back("jup_b200_material_2");
+    materials.push_back("jup_b200_material_3");
+    materials.push_back("jup_b200_material_4");
+    materials.push_back("jup_b200_material_5");
+    materials.push_back("jup_b200_material_6");
+    materials.push_back("jup_b200_material_7");
+    materials.push_back("jup_b200_material_8");
+    materials.push_back("jup_b200_material_9");
+
+    std::uint32_t count = 0;
+
+    for (const xr_string& it : materials)
+    {
+        CScriptGameObject* const p_material_object = Globals::get_story_object(it);
+        if (p_material_object)
+        {
+            CScriptGameObject* const p_parent = p_material_object->Parent();
+            if (p_parent)
+            {
+                std::uint16_t parent_id = p_parent->ID();
+                if (parent_id != Globals::kUnsignedInt16Undefined && parent_id == p_actor->ID())
+                    ++count;
+            }
+        }
+    }
+
+    count = count + XR_LOGIC::pstor_retrieve_number(p_actor, "jup_b200_tech_materials_brought_counter");
+    XR_LOGIC::pstor_store(p_actor, "jup_b200_tech_materials_found_counter", std::to_string(count).c_str());
+}
+
 } // namespace XR_EFFECTS
 } // namespace Scripts
 } // namespace Cordis
