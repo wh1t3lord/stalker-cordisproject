@@ -3991,6 +3991,11 @@ inline void set_force_sleep_animation(
     p_npc->force_stand_sleep_animation(value);
 }
 
+inline void release_force_sleep_animation(CScriptGameObject* const p_actor, CScriptGameObject* const p_npc, const xr_vector<xr_string>& buffer)
+{
+    p_npc->release_stand_sleep_animation();
+}
+
 } // namespace XR_EFFECTS
 } // namespace Scripts
 } // namespace Cordis
