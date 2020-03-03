@@ -3874,6 +3874,11 @@ inline void jup_a9_cam1_actor_anim_end(CScriptGameObject* const p_actor, CScript
     DataBase::Storage::getInstance().getActor()->GiveInfoPortion("jup_a9_cam1_actor_anim_end");
 }
 
+inline void pri_a28_talk_ssu_video_end(CScriptGameObject* const p_actor, CScriptGameObject* const p_npc, const xr_vector<xr_string>& buffer)
+{
+    DataBase::Storage::getInstance().getActor()->GiveInfoPortion("pri_a28_talk_ssu_video_end");
+}
+
 } // namespace XR_EFFECTS
 } // namespace Scripts
 } // namespace Cordis
