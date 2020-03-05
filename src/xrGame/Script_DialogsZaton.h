@@ -421,7 +421,208 @@ inline bool check_npc_name_mechanics(
         (XR_CONDITION::check_npc_name_client(p_first_speaker, p_second_speaker, {"stalker"})));
 }
 
+inline void zat_b33_set_counter_10(CScriptGameObject* const p_first_speaker, CScriptGameObject* const p_second_speaker)
+{
+    CScriptGameObject* const p_actor = who_is_actor(p_first_speaker, p_second_speaker);
+    XR_EFFECTS::set_counter(p_actor, nullptr, {"zat_b33_items", "10"});
+}
 
+inline bool zat_b33_counter_ge_2(CScriptGameObject* const p_first_speaker, CScriptGameObject* const p_second_speaker)
+{
+    CScriptGameObject* const p_actor = who_is_actor(p_first_speaker, p_second_speaker);
+    return XR_CONDITION::is_counter_greater_client(p_actor, nullptr, {"zat_b33_items", "1"});
+}
+
+inline bool zat_b33_counter_ge_4(CScriptGameObject* const p_first_speaker, CScriptGameObject* const p_second_speaker)
+{
+    CScriptGameObject* const p_actor = who_is_actor(p_first_speaker, p_second_speaker);
+    return XR_CONDITION::is_counter_greater_client(p_actor, nullptr, {"zat_b33_items", "3"});
+}
+
+inline bool zat_b33_counter_ge_8(CScriptGameObject* const p_first_speaker, CScriptGameObject* const p_second_speaker)
+{
+    CScriptGameObject* const p_actor = who_is_actor(p_first_speaker, p_second_speaker);
+    return XR_CONDITION::is_counter_greater_client(p_actor, nullptr, {"zat_b33_items", "7"});
+}
+
+inline bool zat_b33_counter_le_2(CScriptGameObject* const p_first_speaker, CScriptGameObject* const p_second_speaker)
+{
+    return !(zat_b33_counter_ge_2(p_first_speaker, p_second_speaker));
+}
+
+inline bool zat_b33_counter_le_4(CScriptGameObject* const p_first_speaker, CScriptGameObject* const p_second_speaker)
+{
+    return !(zat_b33_counter_ge_4(p_first_speaker, p_second_speaker));
+}
+
+inline bool zat_b33_counter_le_8(CScriptGameObject* const p_first_speaker, CScriptGameObject* const p_second_speaker)
+{
+    return !(zat_b33_counter_le_8(p_first_speaker, p_second_speaker));
+}
+
+inline void zat_b33_counter_de_2(CScriptGameObject* const p_first_speaker, CScriptGameObject* const p_second_speaker)
+{
+    CScriptGameObject* const p_actor = who_is_actor(p_first_speaker, p_second_speaker);
+    XR_EFFECTS::dec_counter(p_actor, nullptr, {"zat_b33_items", "2"});
+}
+
+inline void zat_b33_counter_de_4(CScriptGameObject* const p_first_speaker, CScriptGameObject* const p_second_speaker)
+{
+    CScriptGameObject* const p_actor = who_is_actor(p_first_speaker, p_second_speaker);
+    XR_EFFECTS::dec_counter(p_actor, nullptr, {"zat_b33_items", "4"});
+}
+
+inline void zat_b33_counter_de_8(CScriptGameObject* const p_first_speaker, CScriptGameObject* const p_second_speaker)
+{
+    CScriptGameObject* const p_actor = who_is_actor(p_first_speaker, p_second_speaker);
+    XR_EFFECTS::dec_counter(p_actor, nullptr, {"zat_b33_items", "8"});
+}
+
+inline bool zat_b33_counter_eq_10(CScriptGameObject* const p_first_speaker, CScriptGameObject* const p_second_speaker)
+{
+    CScriptGameObject* const p_actor = who_is_actor(p_first_speaker, p_second_speaker);
+    return XR_CONDITION::is_counter_equal_client(p_actor, nullptr, {"zat_b33_items", "10"});
+}
+
+inline bool zat_b33_counter_ne_10(CScriptGameObject* const p_first_speaker, CScriptGameObject* const p_second_speaker)
+{
+    return !(zat_b33_counter_eq_10(p_first_speaker, p_second_speaker));
+}
+
+inline void zat_b33_transfer_first_item(
+    CScriptGameObject* const p_first_speaker, CScriptGameObject* const p_second_speaker)
+{
+    CScriptGameObject* const p_actor = who_is_actor(p_first_speaker, p_second_speaker);
+    relocate_item_section(p_actor, "wpn_fort_snag", "in");
+}
+
+inline void zat_b33_transfer_second_item(
+    CScriptGameObject* const p_first_speaker, CScriptGameObject* const p_second_speaker)
+{
+    CScriptGameObject* const p_actor = who_is_actor(p_first_speaker, p_second_speaker);
+    relocate_item_section(p_actor, "medkit_scientic", "in", 3);
+    relocate_item_section(p_actor, "antirad", "in", 3);
+    relocate_item_section(p_actor, "bandage", "in", 5);
+}
+
+inline void zat_b33_transfer_third_item(
+    CScriptGameObject* const p_first_speaker, CScriptGameObject* const p_second_speaker)
+{
+    CScriptGameObject* const p_actor = who_is_actor(p_first_speaker, p_second_speaker);
+    relocate_item_section(p_actor, "wpn_ak74u_snag", "in");
+}
+
+inline void zat_b33_transfer_fourth_item(
+    CScriptGameObject* const p_first_speaker, CScriptGameObject* const p_second_speaker)
+{
+    CScriptGameObject* const p_actor = who_is_actor(p_first_speaker, p_second_speaker);
+    relocate_item_section(p_first_speaker, "af_soul", "in");
+}
+
+inline void zat_b33_transfer_fifth_item(
+    CScriptGameObject* const p_first_speaker, CScriptGameObject* const p_second_speaker)
+{
+    CScriptGameObject* const p_actor = who_is_actor(p_first_speaker, p_second_speaker);
+    relocate_item_section(p_actor, "helm_hardhat_snag", "in");
+}
+
+inline void zat_b33_transfer_safe_container(
+    CScriptGameObject* const p_first_speaker, CScriptGameObject* const p_second_speaker)
+{
+    CScriptGameObject* const p_npc = who_is_npc(p_first_speaker, p_second_speaker);
+    relocate_item_section(p_npc, "zat_b33_safe_container", "out");
+}
+
+inline bool zat_b33_aractor_has_habar(
+    CScriptGameObject* const p_first_speaker, CScriptGameObject* const p_second_speaker)
+{
+    return !!(DataBase::Storage::getInstance().getActor()->GetObjectByName("zat_b33_safe_container"));
+}
+
+inline bool zat_b33_actor_hasnt_habar(
+    CScriptGameObject* const p_first_speaker, CScriptGameObject* const p_second_speaker)
+{
+    return !(!!(zat_b33_aractor_has_habar(p_first_speaker, p_second_speaker)));
+}
+
+inline bool zat_b33_actor_has_needed_money(
+    CScriptGameObject* const p_first_speaker, CScriptGameObject* const p_second_speaker)
+{
+    std::uint32_t zat_b33_tech_money = 500;
+    return (DataBase::Storage::getInstance().getActor()->Money() >= zat_b33_tech_money);
+}
+
+inline bool zat_b33_actor_hasnt_needed_money(
+    CScriptGameObject* const p_first_speaker, CScriptGameObject* const p_second_speaker)
+{
+    return !(zat_b33_actor_hasnt_needed_money(p_first_speaker, p_second_speaker));
+}
+
+inline void zat_b33_relocate_money(CScriptGameObject* const p_first_speaker, CScriptGameObject* const p_second_speaker)
+{
+    std::uint32_t zat_b33_tech_money = 500;
+    if (zat_b33_actor_has_needed_money(p_first_speaker, p_second_speaker))
+        relocate_money_from_actor(p_first_speaker, p_second_speaker, zat_b33_tech_money);
+}
+
+inline void zat_b29_create_af_in_anomaly(
+    CScriptGameObject* const p_first_speaker, CScriptGameObject* const p_second_speaker)
+{
+    xr_map<std::uint32_t, xr_string> anomaly_table;
+    anomaly_table[16] = "gravi";
+    anomaly_table[17] = "thermal";
+    anomaly_table[18] = "acid";
+    anomaly_table[19] = "electra";
+    anomaly_table[20] = "gravi";
+    anomaly_table[21] = "thermal";
+    anomaly_table[22] = "acid";
+    anomaly_table[23] = "electra";
+
+    xr_map<xr_string, xr_map<std::uint32_t, xr_string>> anomalies_table;
+
+    anomalies_table["gravi"][1] = "zat_b14_anomal_zone";
+    anomalies_table["gravi"][2] = "zat_b55_anomal_zone";
+    anomalies_table["gravi"][3] = "zat_b44_anomal_zone_gravi";
+
+    anomalies_table["thermal"][1] = "zat_b20_anomal_zone";
+    anomalies_table["thermal"][2] = "zat_b53_anomal_zone";
+    anomalies_table["thermal"][3] = "zaton_b56_anomal_zone";
+
+    anomalies_table["acid"][1] = "zat_b39_anomal_zone";
+    anomalies_table["acid"][2] = "zat_b101_anomal_zone";
+    anomalies_table["acid"][3] = "zat_b44_anomal_zone_acid";
+
+    anomalies_table["electra"][1] = "zat_b54_anomal_zone";
+    anomalies_table["electra"][2] = "zat_b100_anomal_zone";
+
+    xr_string zone;
+    xr_string zone_name;
+    std::uint16_t key;
+
+    for (const std::pair<std::uint16_t, xr_string>& it : Script_GlobalHelper::getInstance().getZatB29InfopBringTable())
+    {
+        if (Globals::has_alife_info(it.second.c_str()))
+        {
+            key = it.first;
+            zone = anomaly_table[key];
+            break;
+        }
+    }
+
+    zone_name = anomalies_table[zone][Globals::Script_RandomInt::getInstance().Generate<std::uint32_t>(
+        1, anomalies_table[zone].size())];
+
+    CScriptGameObject* const p_object = DataBase::Storage::getInstance().getAnomalyByName().at(zone_name);
+    Script_Binder_Anomaly* const p_binder = dynamic_cast<Script_Binder_Anomaly*>(p_object->binded_object());
+
+    if (!p_binder)
+    {
+        Msg("[Scripts/zat_b29_create_af_in_anomaly(p_first_speaker, p_second_speaker)] WARNING: bad cast! Return ...");
+        return;
+    }
+
+    p_binder->set_forced_override(Script_GlobalHelper::getInstance().getZatB29AfTable().at(key));
+}
 
 } // namespace Scripts
 } // namespace Cordis

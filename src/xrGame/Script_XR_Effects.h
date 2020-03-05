@@ -9,6 +9,18 @@ namespace Scripts
 {
 namespace XR_EFFECTS
 {
+inline void pas_b400_play_particle(
+    CScriptGameObject* const p_actor, CScriptGameObject* const p_npc, const xr_vector<xr_string>& buffer);
+}
+} // namespace Scripts
+} // namespace Cordis
+
+namespace Cordis
+{
+namespace Scripts
+{
+namespace XR_EFFECTS
+{
 inline void update_npc_logic(
     CScriptGameObject* const p_actor, CScriptGameObject* const p_object, const xr_vector<xr_string>& buffer)
 {
@@ -3605,7 +3617,7 @@ inline void jup_b221_play_main(
 inline void pas_b400_play_particle(
     CScriptGameObject* const p_actor, CScriptGameObject* const p_npc, const xr_vector<xr_string>& buffer)
 {
-    DataBase::Storage::getInstance().getActor()->start_particles("zones\\zone_acidic_idle", "bip01_head");
+    DataBase::Storage::getInstance().getActor()->play_particles("zones\\zone_acidic_idle", "bip01_head");
 }
 
 inline void pas_b400_stop_particle(
