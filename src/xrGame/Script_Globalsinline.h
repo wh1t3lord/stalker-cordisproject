@@ -4,6 +4,7 @@
 #include "alife_registry_container_composition.h"
 #include "Script_GulagGenerator.h"
 #include "Script_StoryObject.h"
+#include "game_sv_single.h"
 
 namespace Cordis
 {
@@ -1340,7 +1341,7 @@ inline void set_squad_goodwill(const xr_string& squad_id_name, const xr_string& 
     Script_SE_SimulationSquad* p_squad = get_story_squad(squad_id_name);
     if (!p_squad)
     {
-        std::uint16_t squad_id = static_cast<std::uint16_t>(atoi(story_id_name.c_str()));
+        std::uint16_t squad_id = static_cast<std::uint16_t>(atoi(squad_id_name.c_str()));
         if (squad_id == 0)
         {
             Msg("[Scripts/Globals/GameRelations/set_squad_goowill(squad_id_name, goodwill_name)] WARNING: There is no "
