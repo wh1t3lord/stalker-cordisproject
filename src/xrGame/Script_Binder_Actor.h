@@ -30,9 +30,16 @@ public:
     inline float getDeimosIntensity(void) const noexcept { return this->m_deimos_intensity; }
     inline void setDeimosIntensity(const float value) noexcept { this->m_deimos_intensity = value; }
 
+    inline xr_string getGoodGunName(void) const noexcept { return this->m_good_gun_name; }
+    inline void setGoodGunName(const xr_string& gun_name) noexcept
+    {
+        this->m_good_gun_name = gun_name;
+    }
+
 private:
     bool m_is_hide_weapon;
     float m_deimos_intensity;
+    xr_string m_good_gun_name; 
 };
 } // namespace Scripts
 } // namespace Cordis
