@@ -72,7 +72,7 @@ inline void relocate_money(CScriptGameObject* const p_victim, const int number, 
 }
 
 inline void relocate_item_section(
-    CScriptGameObject* const p_npc, const xr_string& section_name, const xr_string& type_name, const int amount)
+    CScriptGameObject* const p_npc, const xr_string& section_name, const xr_string& type_name, const int amount = 0)
 {
     if (DataBase::Storage::getInstance().getActor())
     {
