@@ -624,5 +624,56 @@ inline void zat_b29_create_af_in_anomaly(
     p_binder->set_forced_override(Script_GlobalHelper::getInstance().getZatB29AfTable().at(key));
 }
 
+inline xr_string zat_b29_linker_give_adv_task(
+    CScriptGameObject* const p_first_speaker, CScriptGameObject* const p_second_speaker)
+{
+    xr_string result_name;
+    bool is_first = true;
+
+    for (std::uint16_t i = 16; i <= 23; ++i)
+    {
+        if (Globals::has_alife_info(Script_GlobalHelper::getInstance().getZatB29InfopBringTable().at(i).c_str()))
+        {
+            DataBase::Storage::getInstance().getActor()->DisableInfoPortion(
+                Script_GlobalHelper::getInstance().getZatB29InfopBringTable().at(i).c_str());
+        }
+
+        if (Globals::has_alife_info(Script_GlobalHelper::getInstance().getZatB29InfopTable().at(i)))
+        {
+            if (is_first)
+            {
+                result_name =
+                    Globals::Game::translate_string(Script_GlobalHelper::getInstance().getZatB29AfNamesTable().at(i));
+                is_first = false;
+            }
+            else
+            {
+                result_name += ",";
+                result_name +=
+                    Globals::Game::translate_string(Script_GlobalHelper::getInstance().getZatB29AfNamesTable().at(i));
+            }
+        }
+    }
+
+    result_name += ".";
+    return result_name;
+}
+
+inline bool zat_b29_actor_do_not_has_adv_task_af(
+    CScriptGameObject* const p_first_speaker, CScriptGameObject* const p_second_speaker)
+{
+    for (std::uint16_t i = 16; i <= 23; ++i)
+    {
+        if (Globals::has_alife_info(Script_GlobalHelper::getInstance().getZatB29InfopBringTable().at(i)) &&
+            DataBase::Storage::getInstance().getActor()->GetObjectByName(
+                Script_GlobalHelper::getInstance().getZatB29AfTable().at(i).c_str()))
+        {
+            return false;
+        }
+    }
+
+    return true;
+}
+
 } // namespace Scripts
 } // namespace Cordis

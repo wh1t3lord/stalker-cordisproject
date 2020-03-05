@@ -783,6 +783,7 @@ void stop_tutorial(void)
 }
 
 inline LPCSTR translate_string(LPCSTR str) { return *StringTable().translate(str); }
+inline LPCSTR translate_string(const xr_string& string) { return translate_string(string.c_str()); }
 inline xrTime get_game_time(void) noexcept { return get_time_struct(); }
 inline const CGameGraph* get_game_graph() { return &GEnv.AISpace->game_graph(); }
 inline CSE_Abstract* alife_create(
@@ -1858,6 +1859,11 @@ inline bool has_alife_info(LPCSTR info_id)
         return (false);
 
     return (true);
+}
+
+inline bool has_alife_info(const xr_string& info_id_name)
+{
+    return has_alife_info(info_id_name.c_str());
 }
 
 inline int get_general_goodwill_between(const std::uint16_t& from, const std::uint16_t& to)
@@ -3005,8 +3011,8 @@ inline void start_surge(void)
     }
 }
 
-inline void stop_surge(void) 
-{ 
+inline void stop_surge(void)
+{
     if (Script_SurgeManager::getInstance().IsStarted())
         Script_SurgeManager::getInstance().end_surge(true);
 }

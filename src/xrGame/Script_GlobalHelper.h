@@ -13021,10 +13021,28 @@ private:
         this->m_zat_b29_infop_bring_table[21] = "zat_b29_bring_af_21";
         this->m_zat_b29_infop_bring_table[22] = "zat_b29_bring_af_22";
         this->m_zat_b29_infop_bring_table[23] = "zat_b29_bring_af_23";
+
+        this->m_zat_b29_infop_table[16] = "zat_b29_af_16";
+        this->m_zat_b29_infop_table[17] = "zat_b29_af_17";
+        this->m_zat_b29_infop_table[18] = "zat_b29_af_18";
+        this->m_zat_b29_infop_table[19] = "zat_b29_af_19";
+        this->m_zat_b29_infop_table[20] = "zat_b29_af_20";
+        this->m_zat_b29_infop_table[21] = "zat_b29_af_21";
+        this->m_zat_b29_infop_table[22] = "zat_b29_af_22";
+        this->m_zat_b29_infop_table[23] = "zat_b29_af_23";
+
+        this->m_zat_b29_af_names_table[16] = "st_af_gravi_name";
+        this->m_zat_b29_af_names_table[17] = "st_af_eye_name";
+        this->m_zat_b29_af_names_table[18] = "st_af_baloon_name";
+        this->m_zat_b29_af_names_table[19] = "st_af_dummy_dummy_name";
+        this->m_zat_b29_af_names_table[20] = "st_af_gold_fish_name";
+        this->m_zat_b29_af_names_table[21] = "st_af_fire_name";
+        this->m_zat_b29_af_names_table[22] = "st_af_glass_name";
+        this->m_zat_b29_af_names_table[23] = "st_af_ice_name";
 #pragma endregion
 
 #pragma region Cordis Task
-        this->m_task_valid_values["complete"] = true;
+            this->m_task_valid_values["complete"] = true;
         this->m_task_valid_values["task"] = true;
         this->m_task_valid_values["reversed"] = true;
 
@@ -13058,8 +13076,6 @@ private:
         this->m_surge_manager_immuned_to_surge_squads["monster"] = true;
         this->m_surge_manager_immuned_to_surge_squads["zombied"] = true;
 #pragma endregion
-
- 
     }
 
 public:
@@ -13077,7 +13093,6 @@ public:
             delete this->m_tutorial;
             this->m_tutorial = nullptr;
         }
- 
     }
     Script_GlobalHelper(const Script_GlobalHelper&) = delete;
     Script_GlobalHelper& operator=(const Script_GlobalHelper&) = delete;
@@ -14406,6 +14421,15 @@ public:
     {
         return this->m_zat_b29_af_table;
     }
+
+    inline const xr_map<std::uint16_t, xr_string>& getZatB29AfNamesTable(void) const noexcept
+    {
+        return this->m_zat_b29_af_names_table;
+    }
+    inline const xr_map<std::uint16_t, xr_string>& getZatB29InfopTable(void) const noexcept
+    {
+        return this->m_zat_b29_infop_table;
+    }
 #pragma endregion
 
     inline const xr_map<xr_string, xr_string>& getNewsManagerActionDescriptionByTypeName(void) const noexcept
@@ -14460,10 +14484,33 @@ private:
     xr_map<xr_string, Script_SmartTerrainControl_States> m_registered_smart_terrain_control_script_states;
     xr_map<xr_string, xr_string> m_squad_community_by_behavior;
     xr_map<xr_string, xr_vector<std::pair<std::function<bool(std::uint16_t, bool)>, xr_string>>> m_animpoint_table;
+
+#pragma region Cordis XR_EFFECTS Functions
     xr_map<xr_string, AnyCallable<void>> m_registered_functions_xr_effects;
+#pragma endregion
+
+#pragma region Cordis XR_CONDITION Functions
     xr_map<xr_string, AnyCallable<bool>> m_registered_functions_xr_conditions;
+#pragma endregion
+
+#pragma region Cordis Dialog Manager Functions
     xr_map<xr_string, AnyCallable<void>> m_registered_functions_dialog_manager;
     xr_map<xr_string, AnyCallable<bool>> m_registered_functions_bool_dialog_manager;
+#pragma endregion
+
+#pragma region Cordis Dialog functions of all levels
+    // Если функция вызывалась как dialogs.my_name() то в данной карте будет nothing -> my_name(), а в xml файле просто
+    // my_name(), если dialogs_название_уровня, то вы должны просто писать название своего уровня, но оно нигде не
+    // привязывается (а в идеале надо сделать так), то есть просто вместо dialogs_zaton писать zaton.my_function_name()
+    // в xml
+
+    // По поводу привязки к уровням, мы просто должны заранее в карту занести список всех действительных уровней которые
+    // имеет юзверь, это можно сделать через файлы либо занести в ручную!
+    xr_map<xr_string, xr_map<xr_string, AnyCallable<void>>> m_registered_dialog_functions_void;
+    xr_map<xr_string, xr_map<xr_string, AnyCallable<bool>>> m_registered_dialog_functions_bool;
+    xr_map<xr_string, xr_map<xr_string, AnyCallable<xr_string>>> m_registered_dialog_functions_string;
+#pragma endregion
+
     xr_map<xr_string, xr_map<std::uint32_t, DialogData>> m_phrase_table;
     xr_map<xr_string, xr_map<std::uint16_t, xr_map<std::uint32_t, int>>> m_phrase_priority_table;
     xr_map<xr_string, CScriptIniFile*> m_registered_generated_gulag_inis;
@@ -14486,6 +14533,8 @@ private:
     xr_map<xr_string, std::uint8_t> m_task_id_by_status;
     xr_map<std::uint8_t, xr_string> m_task_status_by_id;
     xr_map<std::uint16_t, xr_string> m_zat_b29_infop_bring_table;
+    xr_map<std::uint16_t, xr_string> m_zat_b29_infop_table;
+    xr_map<std::uint16_t, xr_string> m_zat_b29_af_names_table;
     xr_map<std::uint16_t, xr_string> m_zat_b29_af_table;
     xr_map<xr_string, xr_map<xr_string, xr_string>> m_task_guiders_by_level;
     xr_map<CDangerObject::EDangerType, float> m_xr_danger_ignore_distance_by_danger_type;

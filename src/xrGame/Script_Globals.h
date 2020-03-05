@@ -97,6 +97,7 @@ inline bool has_active_tutotial(void);
 inline void start_tutorial(LPCSTR tutorial_name);
 inline void stop_tutorial(void);
 inline LPCSTR translate_string(LPCSTR str);
+inline LPCSTR translate_string(const xr_string& string);
 inline xrTime get_game_time(void) noexcept;
 inline const CGameGraph* get_game_graph();
 inline CSE_Abstract* alife_create(
@@ -194,6 +195,7 @@ inline bool patrol_path_exists(LPCSTR patrol_path);
 inline void load_sound(void);
 inline void init_npc_sound(CScriptGameObject* npc);
 inline bool has_alife_info(LPCSTR info_id);
+inline bool has_alife_info(const xr_string& info_id_name);
 inline int get_general_goodwill_between(const std::uint16_t& from, const std::uint16_t& to);
 inline bool check_squad_for_enemies(CSE_ALifeOnlineOfflineGroup* squad);
 inline bool IsMonster(CScriptGameObject* object, int class_id);
