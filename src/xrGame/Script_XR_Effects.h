@@ -2848,7 +2848,7 @@ inline void pick_artefact_from_anomaly(
 
     if (p_server_npc)
     {
-        if ((!Globals::IsStalker(p_server_npc->cast_alife_dynamic_object()) ||
+        if ((!Globals::IsStalker(p_server_npc->cast_alife_dynamic_object(), 0) ||
                 !p_server_npc->cast_creature_abstract()->g_Alive()))
         {
             Msg("[Scripts/XR_EFFECTS/pick_artefact_from_anomaly(p_actor, p_npc, buffer)] WARNING: Can't relocate item "
@@ -3566,7 +3566,7 @@ inline void jup_b221_play_main(
     for (const std::pair<std::uint32_t, xr_string>& it : info_table)
     {
         if (Globals::has_alife_info(it.second.c_str()) &&
-            (!Globals::has_alife_info(xr_string(main_theme_name).append(std::to_string(it.first).c_str()).append("_played").c_str()))
+            (!Globals::has_alife_info(xr_string(main_theme_name).append(std::to_string(it.first).c_str()).append("_played").c_str())))
         {
             theme_indexes.push_back(it.first);
         }
@@ -3617,7 +3617,8 @@ inline void jup_b221_play_main(
 inline void pas_b400_play_particle(
     CScriptGameObject* const p_actor, CScriptGameObject* const p_npc, const xr_vector<xr_string>& buffer)
 {
-    DataBase::Storage::getInstance().getActor()->play_particles("zones\\zone_acidic_idle", "bip01_head");
+    DataBase::Storage::getInstance().getActor()->start_particles("zones\\zone_acidic_idle", "bip01_head");
+    
 }
 
 inline void pas_b400_stop_particle(
@@ -3644,7 +3645,7 @@ inline void damage_actor_items_on_start(
     if (p_object)
         p_object->SetCondition(0.9f);
 
-    p_object = p_client_actor->GetObjectByIndex("wpn_ak74u");
+    p_object = p_client_actor->GetObjectByName("wpn_ak74u");
     if (p_object)
         p_object->SetCondition(0.7f);
 }
