@@ -13039,6 +13039,46 @@ private:
         this->m_zat_b29_af_names_table[21] = "st_af_fire_name";
         this->m_zat_b29_af_names_table[22] = "st_af_glass_name";
         this->m_zat_b29_af_names_table[23] = "st_af_ice_name";
+
+        this->m_zat_item_count_by_category[1] = 3;
+        this->m_zat_item_count_by_category[2] = 3;
+        this->m_zat_item_count_by_category[3] = 3;
+        this->m_zat_item_count_by_category[4] = 3;
+        this->m_zat_item_count_by_category[5] = 1;
+        this->m_zat_item_count_by_category[6] = 1;
+        this->m_zat_item_count_by_category[7] = 1;
+
+ this->m_zat_b51_costs_table[1] = {{"prepay_agreed", 700}, {"prepay_refused", 1400}, {"cost", 2800}};
+        this->m_zat_b51_costs_table[2] = {{
+                                              "prepay_agreed",
+                                              2000,
+                                          },
+            {"prepay_refused", 4000}, {"cost", 8000}};
+        this->m_zat_b51_costs_table[3] = {{
+                                              "prepay_agreed",
+                                              4000,
+                                          },
+            {"prepay_refused", 8000}, {"cost", 16000}};
+        this->m_zat_b51_costs_table[4] = {{
+                                              "prepay_agreed",
+                                              4000,
+                                          },
+            {"prepay_refused", 8000}, {"cost", 16000}};
+        this->m_zat_b51_costs_table[5] = {{
+                                              "prepay_agreed",
+                                              8000,
+                                          },
+            {"prepay_refused", 16000}, {"cost", 32000}};
+        this->m_zat_b51_costs_table[6] = {{
+                                              "prepay_agreed",
+                                              6000,
+                                          },
+            {"prepay_refused", 12000}, {"cost", 24000}};
+        this->m_zat_b51_costs_table[7] = {{
+                                              "prepay_agreed",
+                                              12000,
+                                          },
+            {"prepay_refused", 24000}, {"cost", 48000}};
 #pragma endregion
 
 #pragma region Cordis Task
@@ -14460,6 +14500,32 @@ public:
     }
 #pragma endregion
 
+#pragma region Cordis Zaton Dialog
+    inline const xr_map<std::uint32_t, std::uint32_t>& getZatItemCountByCategory(void) const noexcept
+    {
+        return this->m_zat_item_count_by_category;
+    }
+
+    inline const xr_map<std::uint32_t, xr_map<xr_string, std::uint32_t>>& getZatB51CostsTable(void) const noexcept
+    {
+        return this->m_zat_b51_costs_table;
+    }
+
+    inline const xr_map<std::uint32_t, xr_map<std::uint32_t, xr_vector<xr_string>>>& getZatB51BuyItemTable(void) const
+        noexcept
+    {
+        return this->m_zat_b51_buy_item_table;
+    }
+#pragma endregion
+
+#pragma region Cordis Jupiter Dialog
+
+#pragma endregion
+
+#pragma region Cordis Pripyat Dialog
+
+#pragma endregion
+
 private:
     bool m_is_gameover_credits_started;
     CUISequencer* m_tutorial;
@@ -14536,6 +14602,9 @@ private:
     xr_map<std::uint16_t, xr_string> m_zat_b29_infop_table;
     xr_map<std::uint16_t, xr_string> m_zat_b29_af_names_table;
     xr_map<std::uint16_t, xr_string> m_zat_b29_af_table;
+    xr_map<std::uint32_t, std::uint32_t> m_zat_item_count_by_category;
+    xr_map<std::uint32_t, xr_map<xr_string, std::uint32_t>> m_zat_b51_costs_table;
+    xr_map<std::uint32_t, xr_map<std::uint32_t, xr_vector<xr_string>>> m_zat_b51_buy_item_table;
     xr_map<xr_string, xr_map<xr_string, xr_string>> m_task_guiders_by_level;
     xr_map<CDangerObject::EDangerType, float> m_xr_danger_ignore_distance_by_danger_type;
     // @ First - id | Second - distance
