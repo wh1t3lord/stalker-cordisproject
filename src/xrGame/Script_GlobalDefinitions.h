@@ -473,7 +473,9 @@ inline void relocate_money_to_actor(
 inline void relocate_item_section_from_actor(CScriptGameObject* const p_first_speaker,
     CScriptGameObject* const p_second_speaker, const xr_string& section_name, const xr_string& amount_name = "1");
 inline void relocate_item_section_to_actor(CScriptGameObject* const p_first_speaker,
-    CScriptGameObject* const p_second_speaker, const xr_string& section_name, const std::uint32_t amount);
+    CScriptGameObject* const p_second_speaker, const xr_string& section_name, const std::uint32_t amount = 1);
+inline bool actor_has_item(
+    CScriptGameObject* const p_first_speaker, CScriptGameObject* const p_second_speaker, const xr_string& section_name);
 #pragma endregion
 
 #pragma region Cordis Dialogs Zaton defenition

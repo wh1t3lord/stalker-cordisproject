@@ -838,8 +838,8 @@ inline bool zat_b29_actor_has_adv_task_af_4(
     CScriptGameObject* const p_first_speaker, CScriptGameObject* const p_second_speaker)
 {
     if (!Globals::has_alife_info(Script_GlobalHelper::getInstance().getZatB29InfopTable().at(19)) &&
-            DataBase::Storage::getInstance().getActor()->GetObjectByName(
-                Script_GlobalHelper::getInstance().getZatB29AfTable().at(19).c_str()))
+        DataBase::Storage::getInstance().getActor()->GetObjectByName(
+            Script_GlobalHelper::getInstance().getZatB29AfTable().at(19).c_str()))
     {
         return true;
     }
@@ -877,7 +877,8 @@ inline bool zat_b29_actor_has_adv_task_af_7(
     CScriptGameObject* const p_first_speaker, CScriptGameObject* const p_second_speaker)
 {
     if (Globals::has_alife_info(Script_GlobalHelper::getInstance().getZatB29InfopTable().at(22)) &&
-        DataBase::Storage::getInstance().getActor()->GetObjectByName(Script_GlobalHelper::getInstance().getZatB29AfTable().at(22).c_str()))
+        DataBase::Storage::getInstance().getActor()->GetObjectByName(
+            Script_GlobalHelper::getInstance().getZatB29AfTable().at(22).c_str()))
     {
         return true;
     }
@@ -1264,6 +1265,900 @@ inline void zat_b51_rob_nimble_weapon(
 inline void give_compass_to_actor(CScriptGameObject* const p_first_speaker, CScriptGameObject* const p_second_speaker)
 {
     relocate_item_section_to_actor(p_first_speaker, p_second_speaker, "af_compass", 1);
+}
+
+inline void zat_b51_randomize_item(CScriptGameObject* const p_first_speaker, CScriptGameObject* const p_second_speaker)
+{
+    for (std::uint32_t i = 1; i <= 7; ++i)
+    {
+        if (Globals::has_alife_info(xr_string("zat_b51_processing_category_").append(std::to_string(i).c_str())))
+        {
+            xr_vector<std::uint32_t> zat_b51_available_items;
+
+            for (std::uint32_t j = 1; j <= Script_GlobalHelper::getInstance().getZatItemCountByCategory().at(i); ++j)
+            {
+                if (!Globals::has_alife_info(xr_string("zat_b51_done_item_")
+                                                 .append(std::to_string(i).c_str())
+                                                 .append("_")
+                                                 .append(std::to_string(j).c_str())))
+                {
+                    zat_b51_available_items.push_back(j);
+                }
+            }
+
+            xr_string infoporion_name = "zat_b51_ordered_item_";
+            infoporion_name += std::to_string(i).c_str();
+            infoporion_name += "_";
+            infoporion_name += std::to_string(
+                zat_b51_available_items.at(Globals::Script_RandomInt::getInstance().Generate<std::uint32_t>(
+                    0, zat_b51_available_items.size() - 1)))
+                                   .c_str();
+            DataBase::Storage::getInstance().getActor()->GiveInfoPortion(infoporion_name.c_str());
+        }
+    }
+}
+
+inline void zat_b51_give_prepay(CScriptGameObject* const p_first_speaker, CScriptGameObject* const p_second_speaker)
+{
+    for (std::uint32_t i = 1; i <= 7; ++i)
+    {
+        if (Globals::has_alife_info(xr_string("zat_b51_processing_category_").append(std::to_string(i).c_str())))
+        {
+            if (!Globals::has_alife_info("zat_b51_order_refused"))
+            {
+                relocate_money_from_actor(p_first_speaker, p_second_speaker,
+                    Script_GlobalHelper::getInstance().getZatB51CostsTable().at(i).at("prepay_agreed"));
+                return;
+            }
+
+            relocate_money_from_actor(p_first_speaker, p_second_speaker,
+                Script_GlobalHelper::getInstance().getZatB51CostsTable().at(i).at("prepay_refused"));
+            return;
+        }
+    }
+}
+
+inline bool zat_b51_has_prepay(CScriptGameObject* const p_first_speaker, CScriptGameObject* const p_second_speaker)
+{
+    for (std::uint32_t i = 1; i <= 7; ++i)
+    {
+        if (Globals::has_alife_info(xr_string("zat_b51_processing_category_").append(std::to_string(i).c_str())))
+        {
+            if (!Globals::has_alife_info("zat_b51_order_refused"))
+            {
+                return (DataBase::Storage::getInstance().getActor()->Money() >=
+                    Script_GlobalHelper::getInstance().getZatB51CostsTable().at(i).at("prepay_agreed"));
+            }
+
+            return (DataBase::Storage::getInstance().getActor()->Money() >=
+                Script_GlobalHelper::getInstance().getZatB51CostsTable().at(i).at("prepay_refused"));
+        }
+    }
+}
+
+inline bool zat_b51_hasnt_prepay(CScriptGameObject* const p_first_speaker, CScriptGameObject* const p_second_speaker)
+{
+    return !(zat_b51_has_prepay(p_first_speaker, p_second_speaker));
+}
+
+inline void zat_b51_buy_item(CScriptGameObject* const p_first_speaker, CScriptGameObject* const p_second_speaker)
+{
+    for (std::uint32_t i = 1; i <= 7; ++i)
+    {
+        if (Globals::has_alife_info(xr_string("zat_b51_processing_category_").append(std::to_string(i).c_str())))
+        {
+            for (std::uint32_t j = 1; j <= Script_GlobalHelper::getInstance().getZatB51BuyItemTable().at(i).size(); ++j)
+            {
+                if (Globals::has_alife_info(xr_string("zat_b51_ordered_item_")
+                                                .append(std::to_string(i).c_str())
+                                                .append("_")
+                                                .append(std::to_string(j).c_str())))
+                {
+                    for (const xr_string& it : Script_GlobalHelper::getInstance().getZatB51BuyItemTable().at(i).at(j))
+                    {
+                        relocate_item_section_to_actor(p_first_speaker, p_second_speaker, it, 1);
+                    }
+
+                    relocate_money_from_actor(p_first_speaker, p_second_speaker,
+                        Script_GlobalHelper::getInstance().getZatB51CostsTable().at(i).at("cost"));
+                    if (Globals::has_alife_info(
+                            xr_string("zat_b51_processing_category_").append(std::to_string(i).c_str())))
+                    {
+                        DataBase::Storage::getInstance().getActor()->DisableInfoPortion(
+                            xr_string("zat_b51_processing_category_").append(std::to_string(i).c_str()).c_str());
+                    }
+
+                    if (Globals::has_alife_info(xr_string("zat_b51_ordered_item_")
+                                                    .append(std::to_string(i).c_str())
+                                                    .append("_")
+                                                    .append(std::to_string(j).c_str())))
+                    {
+                        DataBase::Storage::getInstance().getActor()->DisableInfoPortion(
+                            xr_string("zat_b51_ordered_item_")
+                                .append(std::to_string(i).c_str())
+                                .append("_")
+                                .append(std::to_string(j).c_str())
+                                .c_str());
+                    }
+
+                    DataBase::Storage::getInstance().getActor()->GiveInfoPortion(xr_string("zat_b51_done_item_")
+                                                                                     .append(std::to_string(i).c_str())
+                                                                                     .append("_")
+                                                                                     .append(std::to_string(j).c_str())
+                                                                                     .c_str());
+                    break;
+                }
+
+                bool is_category_finishing = true;
+
+                for (std::uint32_t j = 1; j <= Script_GlobalHelper::getInstance().getZatB51BuyItemTable().at(i).size();
+                     ++j)
+                {
+                    if (!Globals::has_alife_info(xr_string("zat_b51_done_item_")
+                                                     .append(std::to_string(i).c_str())
+                                                     .append("_")
+                                                     .append(std::to_string(j).c_str())))
+                    {
+                        is_category_finishing = false;
+                        break;
+                    }
+                }
+
+                if (is_category_finishing)
+                    DataBase::Storage::getInstance().getActor()->GiveInfoPortion(
+                        xr_string("zat_b51_finishing_category_").append(std::to_string(i).c_str()).c_str());
+
+                return;
+            }
+        }
+    }
+}
+
+inline void zat_b51_refuse_item(CScriptGameObject* const p_first_speaker, CScriptGameObject* const p_second_speaker)
+{
+    for (std::uint32_t i = 1; i <= 7; ++i)
+    {
+        if (Globals::has_alife_info(xr_string("zat_b51_processing_category_").append(std::to_string(i).c_str())))
+        {
+            for (std::uint32_t j = 1; j <= Script_GlobalHelper::getInstance().getZatB51BuyItemTable().at(i).size(); ++j)
+            {
+                if (Globals::has_alife_info(xr_string("zat_b51_ordered_item_")
+                                                .append(std::to_string(i).c_str())
+                                                .append("_")
+                                                .append(std::to_string(j).c_str())))
+                {
+                    if (Globals::has_alife_info(
+                            xr_string("zat_b51_processing_category_").append(std::to_string(i).c_str())))
+                    {
+                        DataBase::Storage::getInstance().getActor()->DisableInfoPortion(
+                            xr_string("zat_b51_processing_category_").append(std::to_string(i).c_str()).c_str());
+                    }
+
+                    if (Globals::has_alife_info(xr_string("zat_b51_ordered_item_")
+                                                    .append(std::to_string(i).c_str())
+                                                    .append("_")
+                                                    .append(std::to_string(j).c_str())))
+                    {
+                        DataBase::Storage::getInstance().getActor()->DisableInfoPortion(
+                            xr_string("zat_b51_ordered_item_")
+                                .append(std::to_string(i).c_str())
+                                .append("_")
+                                .append(std::to_string(j).c_str())
+                                .c_str());
+                    }
+
+                    DataBase::Storage::getInstance().getActor()->GiveInfoPortion(xr_string("zat_b51_done_item_")
+                                                                                     .append(std::to_string(i).c_str())
+                                                                                     .append("_")
+                                                                                     .append(std::to_string(j).c_str())
+                                                                                     .c_str());
+
+                    break;
+                }
+            }
+
+            bool is_category_finishing = true;
+
+            for (std::uint32_t j = 1; j <= Script_GlobalHelper::getInstance().getZatB51BuyItemTable().at(i).size(); ++j)
+            {
+                if (!Globals::has_alife_info(xr_string("zat_b51_done_item_")
+                                                 .append(std::to_string(i).c_str())
+                                                 .append("_")
+                                                 .append(std::to_string(j).c_str())
+                                                 .c_str()))
+                {
+                    is_category_finishing = false;
+                    break;
+                }
+            }
+
+            if (is_category_finishing)
+                DataBase::Storage::getInstance().getActor()->GiveInfoPortion(
+                    xr_string("zat_b51_finishing_category_").append(std::to_string(i).c_str()).c_str());
+
+            return;
+        }
+    }
+}
+
+inline bool zat_b51_has_item_cost(CScriptGameObject* const p_first_speaker, CScriptGameObject* const p_second_speaker)
+{
+    for (std::uint32_t i = 1; i <= 7; ++i)
+    {
+        if (Globals::has_alife_info(xr_string("zat_b51_processing_category_").append(std::to_string(i).c_str())))
+        {
+            return (DataBase::Storage::getInstance().getActor()->Money() >=
+                Script_GlobalHelper::getInstance().getZatB51CostsTable().at(i).at("cost"));
+        }
+    }
+
+    return false;
+}
+
+inline bool zat_b51_hasnt_item_cost(CScriptGameObject* const p_first_speaker, CScriptGameObject* const p_second_speaker)
+{
+    return !(zat_b51_has_item_cost(p_first_speaker, p_second_speaker));
+}
+
+inline bool zat_b12_actor_have_documents(
+    CScriptGameObject* const p_first_speaker, CScriptGameObject* const p_second_speaker)
+{
+    if (DataBase::Storage::getInstance().getActor()->GetObjectByName("zat_b12_documents_1") ||
+        DataBase::Storage::getInstance().getActor()->GetObjectByName("zat_b12_documents_2"))
+    {
+        return true;
+    }
+
+    return false;
+}
+
+inline void zat_b12_actor_transfer_documents(
+    CScriptGameObject* const p_first_speaker, CScriptGameObject* const p_second_speaker)
+{
+    constexpr std::uint32_t amount_doc1 = 1000;
+    constexpr std::uint32_t amount_doc2 = 600;
+    constexpr std::uint32_t amount_doc3 = 400;
+    std::uint32_t amount_total = 0;
+    CScriptGameObject* const p_npc = who_is_npc(p_first_speaker, p_second_speaker);
+    std::uint32_t count = 0;
+    std::uint32_t count2 = 0;
+
+    auto item_iterator_npc = [&](CScriptGameObject* const p_item) -> void {
+        if (p_item->Section() == xr_string("zat_b12_documents_2"))
+            ++count;
+    };
+
+    auto item_iterator_actor = [&](CScriptGameObject* const p_item) -> void {
+        if (p_item->Section() == xr_string("zat_b12_documents_2"))
+            ++count2;
+    };
+
+    CScriptGameObject* const p_actor = DataBase::Storage::getInstance().getActor();
+
+    if (p_actor->GetObjectByName("zat_b12_documents_1"))
+    {
+        relocate_item_section_from_actor(p_first_speaker, p_second_speaker, "zat_b12_documents_1");
+        p_actor->GiveInfoPortion("zat_b12_documents_sold_1");
+        amount_total += amount_doc1;
+    }
+
+    p_npc->IterateInventory(item_iterator_npc);
+    p_actor->IterateInventory(item_iterator_actor);
+
+    if (p_actor->GetObjectByName("zat_b12_documents_2"))
+    {
+        if (count < 1)
+        {
+            amount_total += amount_doc2;
+            if (count2 > 1)
+            {
+                amount_total += amount_doc3 * (count2 - 1);
+                p_actor->GiveInfoPortion("zat_b12_documents_sold_2");
+            }
+        }
+        else
+        {
+            amount_total += amount_doc3 * count2;
+            p_actor->GiveInfoPortion("zat_b12_documents_sold_3");
+        }
+
+        relocate_item_section_from_actor(
+            p_first_speaker, p_second_speaker, "zat_b12_documents_2", std::to_string(count2).c_str());
+    }
+
+    relocate_money_to_actor(p_first_speaker, p_second_speaker, amount_total);
+}
+
+inline bool zat_b3_actor_got_toolkit(
+    CScriptGameObject* const p_first_speaker, CScriptGameObject* const p_second_speaker)
+{
+    bool is_found_toolkit = false;
+    auto have_toolkit = [&](CScriptGameObject* const p_item) -> void {
+        xr_string section_name = p_item->Section();
+        if ((section_name == "toolkit_1" && !Globals::has_alife_info("zat_b3_tech_instrument_1_brought")) ||
+            (section_name == "toolkit_2" && !Globals::has_alife_info("zat_b3_tech_instrument_2_brought")) ||
+            (section_name == "toolkit_3" && !Globals::has_alife_info("zat_b3_tech_instrument_3_brought")))
+        {
+            is_found_toolkit = true;
+            return;
+        }
+    };
+
+    DataBase::Storage::getInstance().getActor()->IterateInventory(have_toolkit);
+
+    return is_found_toolkit;
+}
+
+inline void give_toolkit_1(CScriptGameObject* const p_first_speaker, CScriptGameObject* const p_second_speaker)
+{
+    relocate_item_section_from_actor(p_first_speaker, p_second_speaker, "toolkit_1");
+    constexpr std::uint32_t amount = 1000;
+    relocate_money_to_actor(p_first_speaker, p_second_speaker, amount);
+}
+
+inline bool if_actor_has_toolkit_1(CScriptGameObject* const p_first_speaker, CScriptGameObject* const p_second_speaker)
+{
+    return !!(DataBase::Storage::getInstance().getActor()->GetObjectByName("toolkit_1"));
+}
+
+inline void give_toolkit_2(CScriptGameObject* const p_first_speaker, CScriptGameObject* const p_second_speaker)
+{
+    relocate_item_section_from_actor(p_first_speaker, p_second_speaker, "toolkit_2");
+    constexpr std::uint32_t amount = 1200;
+    relocate_money_to_actor(p_first_speaker, p_second_speaker, amount);
+}
+
+inline bool if_actor_has_toolkit_2(CScriptGameObject* const p_first_speaker, CScriptGameObject* const p_second_speaker)
+{
+    return !!(DataBase::Storage::getInstance().getActor()->GetObjectByName("toolkit_2"));
+}
+
+inline void give_toolkit_3(CScriptGameObject* const p_first_speaker, CScriptGameObject* const p_second_speaker)
+{
+    relocate_item_section_from_actor(p_first_speaker, p_second_speaker, "toolkit_3");
+    constexpr std::uint32_t amount = 1500;
+    relocate_money_to_actor(p_first_speaker, p_second_speaker, amount);
+}
+
+inline bool if_actor_has_toolkit_3(CScriptGameObject* const p_first_speaker, CScriptGameObject* const p_second_speaker)
+{
+    return !!(DataBase::Storage::getInstance().getActor()->GetObjectByName("toolkit_3"));
+}
+
+// @ RENAMED
+inline void zat_give_vodka(CScriptGameObject* const p_first_speaker, CScriptGameObject* const p_second_speaker)
+{
+    relocate_item_section_from_actor(p_first_speaker, p_second_speaker, "vodka");
+}
+
+inline bool if_actor_has_vodka(CScriptGameObject* const p_first_speaker, CScriptGameObject* const p_second_speaker)
+{
+    return !!(DataBase::Storage::getInstance().getActor()->GetObjectByName("vodka"));
+}
+
+inline bool actor_has_more_then_need_money_to_buy_battery(
+    CScriptGameObject* const p_first_speaker, CScriptGameObject* const p_second_speaker)
+{
+    return (DataBase::Storage::getInstance().getActor()->Money() >= 2000);
+}
+
+inline bool actor_has_less_then_need_money_to_buy_battery(
+    CScriptGameObject* const p_first_speaker, CScriptGameObject* const p_second_speaker)
+{
+    return (DataBase::Storage::getInstance().getActor()->Money() < 2000);
+}
+
+// @ RENAMED
+inline void zat_relocate_need_money_to_buy_battery(
+    CScriptGameObject* const p_first_speaker, CScriptGameObject* const p_second_speaker)
+{
+    constexpr std::uint32_t money_to_buy_battery = 2000;
+    relocate_money_from_actor(p_first_speaker, p_second_speaker, money_to_buy_battery);
+}
+
+// @ RENAMED
+inline void zat_give_actor_battery(CScriptGameObject* const p_first_speaker, CScriptGameObject* const p_second_speaker)
+{
+    relocate_item_section_to_actor(p_first_speaker, p_second_speaker, "ammo_gauss_cardan");
+}
+
+inline void give_actor_zat_a23_access_card(
+    CScriptGameObject* const p_first_speaker, CScriptGameObject* const p_second_speaker)
+{
+    relocate_item_section_to_actor(p_first_speaker, p_second_speaker, "zat_a23_access_card");
+}
+
+inline void give_zat_a23_gauss_rifle_docs(
+    CScriptGameObject* const p_first_speaker, CScriptGameObject* const p_second_speaker)
+{
+    relocate_item_section_from_actor(p_first_speaker, p_second_speaker, "zat_a23_gauss_rifle_docs");
+}
+
+inline void return_zat_a23_gauss_rifle_docs(
+    CScriptGameObject* const p_first_speaker, CScriptGameObject* const p_second_speaker)
+{
+    relocate_item_section_to_actor(p_first_speaker, p_second_speaker, "zat_a23_gauss_rifle_docs");
+}
+
+inline bool if_actor_has_zat_a23_gauss_rifle_docs(
+    CScriptGameObject* const p_first_speaker, CScriptGameObject* const p_second_speaker)
+{
+    return !!(p_first_speaker->GetObjectByName("zat_a23_gauss_rifle_docs"));
+}
+
+inline bool if_actor_has_gauss_rifle(
+    CScriptGameObject* const p_first_speaker, CScriptGameObject* const p_second_speaker)
+{
+    return !!(p_first_speaker->GetObjectByName("pri_a17_gauss_rifle"));
+}
+
+inline void give_tech_gauss_rifle(CScriptGameObject* const p_first_speaker, CScriptGameObject* const p_second_speaker)
+{
+    relocate_item_section_from_actor(p_first_speaker, p_second_speaker, "pri_a17_gauss_rifle");
+}
+
+inline void give_actor_repaired_gauss_rifle(
+    CScriptGameObject* const p_first_speaker, CScriptGameObject* const p_second_speaker)
+{
+    relocate_item_section_to_actor(p_first_speaker, p_second_speaker, "wpn_gauss");
+}
+
+inline bool zat_b215_actor_has_money_poor(
+    CScriptGameObject* const p_first_speaker, CScriptGameObject* const p_second_speaker)
+{
+    return (DataBase::Storage::getInstance().getActor()->Money() >= 1000);
+}
+
+inline bool zat_b215_actor_has_no_money_poor(
+    CScriptGameObject* const p_first_speaker, CScriptGameObject* const p_second_speaker)
+{
+    return (DataBase::Storage::getInstance().getActor()->Money() < 1000);
+}
+
+inline bool zat_b215_actor_has_money_poor_pripyat(
+    CScriptGameObject* const p_first_speaker, CScriptGameObject* const p_second_speaker)
+{
+    return (DataBase::Storage::getInstance().getActor()->Money() >= 4000);
+}
+
+inline bool zat_b215_actor_has_no_money_poor_pripyat(
+    CScriptGameObject* const p_first_speaker, CScriptGameObject* const p_second_speaker)
+{
+    return (DataBase::Storage::getInstance().getActor()->Money() < 4000);
+}
+
+inline bool zat_b215_actor_has_money_rich(
+    CScriptGameObject* const p_first_speaker, CScriptGameObject* const p_second_speaker)
+{
+    return (DataBase::Storage::getInstance().getActor()->Money() >= 3000);
+}
+
+inline bool zat_b215_actor_has_no_money_rich(
+    CScriptGameObject* const p_first_speaker, CScriptGameObject* const p_second_speaker)
+{
+    return (DataBase::Storage::getInstance().getActor()->Money() < 3000);
+}
+
+inline bool zat_b215_actor_has_money_rich_pripyat(
+    CScriptGameObject* const p_first_speaker, CScriptGameObject* const p_second_speaker)
+{
+    return (DataBase::Storage::getInstance().getActor()->Money() >= 6000);
+}
+
+inline bool zat_b215_actor_has_no_money_rich_pripyat(
+    CScriptGameObject* const p_first_speaker, CScriptGameObject* const p_second_speaker)
+{
+    return (DataBase::Storage::getInstance().getActor()->Money() < 6000);
+}
+
+inline void zat_b215_relocate_money_poor(
+    CScriptGameObject* const p_first_speaker, CScriptGameObject* const p_second_speaker)
+{
+    constexpr std::uint32_t value = 1000;
+    relocate_money_from_actor(p_first_speaker, p_second_speaker, value);
+}
+
+inline void zat_b215_relocate_money_poor_pripyat(
+    CScriptGameObject* const p_first_speaker, CScriptGameObject* const p_second_speaker)
+{
+    constexpr std::uint32_t value = 4000;
+    relocate_money_from_actor(p_first_speaker, p_second_speaker, value);
+}
+
+inline void zat_b215_relocate_money_rich(
+    CScriptGameObject* const p_first_speaker, CScriptGameObject* const p_second_speaker)
+{
+    constexpr std::uint32_t value = 3000;
+    relocate_money_from_actor(p_first_speaker, p_second_speaker, value);
+}
+
+inline void zat_b215_relocate_money_rich_pripyat(
+    CScriptGameObject* const p_first_speaker, CScriptGameObject* const p_second_speaker)
+{
+    constexpr std::uint32_t value = 6000;
+    relocate_money_from_actor(p_first_speaker, p_second_speaker, value);
+}
+
+inline bool zat_b215_counter_greater_3(
+    CScriptGameObject* const p_first_speaker, CScriptGameObject* const p_second_speaker)
+{
+    CScriptGameObject* const p_npc = who_is_npc(p_first_speaker, p_second_speaker);
+    CScriptGameObject* const p_actor = who_is_actor(p_first_speaker, p_second_speaker);
+    return XR_CONDITION::is_counter_greater_client(p_actor, p_npc, {"zat_a9_way_to_pripyat_counter", "3"});
+}
+
+inline bool zat_b215_counter_less_4(CScriptGameObject* const p_first_speaker, CScriptGameObject* const p_second_speaker)
+{
+    CScriptGameObject* const p_npc = who_is_npc(p_first_speaker, p_second_speaker);
+    CScriptGameObject* const p_actor = who_is_actor(p_first_speaker, p_second_speaker);
+
+    return !(XR_CONDITION::is_counter_greater_client(p_actor, p_npc, {"jup_a9_way_gates_counter", "4"}));
+}
+
+inline bool zat_b30_actor_has_noah_pda(
+    CScriptGameObject* const p_first_speaker, CScriptGameObject* const p_second_speaker)
+{
+    return !!(DataBase::Storage::getInstance().getActor()->GetObjectByName("zat_b20_noah_pda"));
+}
+
+inline void zat_b30_sell_noah_pda(CScriptGameObject* const p_first_speaker, CScriptGameObject* const p_second_speaker)
+{
+    constexpr std::uint32_t amount = 1000;
+    relocate_item_section_from_actor(p_first_speaker, p_second_speaker, "zat_b20_noah_pda");
+    relocate_money_to_actor(p_first_speaker, p_second_speaker, amount);
+}
+
+inline bool zat_b40_actor_has_notebook(
+    CScriptGameObject* const p_first_speaker, CScriptGameObject* const p_second_speaker)
+{
+    return !!(DataBase::Storage::getInstance().getActor()->GetObjectByName("zat_b40_notebook"));
+}
+
+inline bool zat_b40_actor_has_merc_pda_1(
+    CScriptGameObject* const p_first_speaker, CScriptGameObject* const p_second_speaker)
+{
+    return !!(DataBase::Storage::getInstance().getActor()->GetObjectByName("zat_b40_pda_1"));
+}
+
+inline bool zat_b40_actor_has_merc_pda_2(
+    CScriptGameObject* const p_first_speaker, CScriptGameObject* const p_second_speaker)
+{
+    return !!(DataBase::Storage::getInstance().getActor()->GetObjectByName("zat_b40_pda_2"));
+}
+
+inline void zat_b40_transfer_notebook(
+    CScriptGameObject* const p_first_speaker, CScriptGameObject* const p_second_speaker)
+{
+    relocate_item_section_from_actor(p_first_speaker, p_second_speaker, "zat_b40_notebook");
+    DataBase::Storage::getInstance().getActor()->GiveInfoPortion("zat_b40_notebook_saled");
+    relocate_money_to_actor(p_first_speaker, p_second_speaker, 2000);
+}
+
+inline void zat_b40_transfer_merc_pda_1(
+    CScriptGameObject* const p_first_speaker, CScriptGameObject* const p_second_speaker)
+{
+    relocate_item_section_from_actor(p_first_speaker, p_second_speaker, "zat_b40_pda_1");
+    CScriptGameObject* const p_actor = DataBase::Storage::getInstance().getActor();
+
+    p_actor->GiveInfoPortion("zat_b40_pda_1_saled");
+    relocate_money_to_actor(p_first_speaker, p_second_speaker, 1000);
+
+    if (p_actor->HasInfo("zat_b40_notebook_saled") && p_actor->HasInfo("zat_b40_pda_1_saled") &&
+        p_actor->HasInfo("zat_b40_pda_2_saled"))
+    {
+        p_actor->GiveInfoPortion("zat_b40_all_item_saled");
+    }
+}
+
+inline void zat_b40_transfer_merc_pda_2(
+    CScriptGameObject* const p_first_speaker, CScriptGameObject* const p_second_speaker)
+{
+    relocate_item_section_from_actor(p_first_speaker, p_second_speaker, "zat_b40_pda_2");
+    CScriptGameObject* const p_actor = DataBase::Storage::getInstance().getActor();
+
+    relocate_money_to_actor(p_first_speaker, p_second_speaker, 1000);
+
+    if (p_actor->HasInfo("zat_b40_notebook_saled") && p_actor->HasInfo("zat_b40_pda_1_saled") &&
+        p_actor->HasInfo("zat_b40_pda_2_saled"))
+    {
+        p_actor->GiveInfoPortion("zat_b40_all_item_saled");
+    }
+}
+
+inline bool zat_b44_actor_has_pda_global(
+    CScriptGameObject* const p_first_speaker, CScriptGameObject* const p_second_speaker)
+{
+    CScriptGameObject* const p_actor = DataBase::Storage::getInstance().getActor();
+    return ((p_actor->GetObjectByName("zat_b39_joker_pda")) || (p_actor->GetObjectByName("zat_b44_barge_pda")));
+}
+
+inline bool zat_b44_actor_has_not_pda_global(
+    CScriptGameObject* const p_first_speaker, CScriptGameObject* const p_second_speaker)
+{
+    CScriptGameObject* const p_actor = DataBase::Storage::getInstance().getActor();
+    return ((p_actor->GetObjectByName("zat_b39_joker_pda") == nullptr) ||
+        (p_actor->GetObjectByName("zat_b44_barge_pda") == nullptr));
+}
+
+inline bool zat_b44_actor_has_pda_barge(
+    CScriptGameObject* const p_first_speaker, CScriptGameObject* const p_second_speaker)
+{
+    return !!(DataBase::Storage::getInstance().getActor()->GetObjectByName("zat_b44_barge_pda"));
+}
+
+inline bool zat_b44_actor_has_pda_joker(
+    CScriptGameObject* const p_first_speaker, CScriptGameObject* const p_second_speaker)
+{
+    return !!(DataBase::Storage::getInstance().getActor()->GetObjectByName("zat_b39_joker_pda"));
+}
+
+inline bool zat_b44_actor_has_pda_both(
+    CScriptGameObject* const p_first_speaker, CScriptGameObject* const p_second_speaker)
+{
+    CScriptGameObject* const p_actor = DataBase::Storage::getInstance().getActor();
+
+    return ((p_actor->GetObjectByName("zat_b39_joker_pda")) || (p_actor->GetObjectByName("zat_b44_barge_pda")));
+}
+
+inline void zat_b44_transfer_pda_barge(
+    CScriptGameObject* const p_first_speaker, CScriptGameObject* const p_second_speaker)
+{
+    relocate_item_section_from_actor(p_first_speaker, p_second_speaker, "zat_b44_barge_pda");
+}
+
+inline void zat_b44_transfer_pda_joker(
+    CScriptGameObject* const p_first_speaker, CScriptGameObject* const p_second_speaker)
+{
+    relocate_item_section_from_actor(p_first_speaker, p_second_speaker, "zat_b39_joker_pda");
+}
+
+inline void zat_b44_transfer_pda_both(
+    CScriptGameObject* const p_first_speaker, CScriptGameObject* const p_second_speaker)
+{
+    relocate_item_section_from_actor(p_first_speaker, p_second_speaker, "zat_b44_barge_pda");
+    relocate_item_section_from_actor(p_first_speaker, p_second_speaker, "zat_b39_joker_pda");
+}
+
+inline bool zat_b44_frends_dialog_enabled(
+    CScriptGameObject* const p_first_speaker, CScriptGameObject* const p_second_speaker)
+{
+    CScriptGameObject* const p_actor = DataBase::Storage::getInstance().getActor();
+    bool is_logic_statement_1 =
+        ((p_actor->HasInfo("zat_b3_tech_have_couple_dose")) && (p_actor->HasInfo("zat_b3_tech_discount_1")));
+    bool is_logic_statement_2 = zat_b44_actor_has_pda_global(p_first_speaker, p_second_speaker);
+
+    return (is_logic_statement_1 || is_logic_statement_2);
+}
+
+inline bool zat_b53_if_actor_has_detector_advanced(
+    CScriptGameObject* const p_first_speaker, CScriptGameObject* const p_second_speaker)
+{
+    CScriptGameObject* const p_actor = DataBase::Storage::getInstance().getActor();
+
+    return (p_actor->GetObjectByName("detector_advanced") || p_actor->GetObjectByName("detector_elite") ||
+        p_actor->GetObjectByName("detector_scientific"));
+}
+
+inline bool zat_b53_if_actor_hasnt_detector_advanced(
+    CScriptGameObject* const p_first_speaker, CScriptGameObject* const p_second_speaker)
+{
+    return !(zat_b53_if_actor_has_detector_advanced(p_first_speaker, p_second_speaker));
+}
+
+inline void zat_b53_transfer_detector_advanced_to_actor(
+    CScriptGameObject* const p_first_speaker, CScriptGameObject* const p_second_speaker)
+{
+    relocate_item_section_to_actor(p_second_speaker, p_first_speaker, "detector_advanced");
+}
+
+inline void zat_b53_transfer_fireball_to_actor(
+    CScriptGameObject* const p_first_speaker, CScriptGameObject* const p_second_speaker)
+{
+    relocate_item_section_to_actor(p_second_speaker, p_first_speaker, "af_fireball");
+}
+
+inline void zat_b53_transfer_medkit_to_actor(
+    CScriptGameObject* const p_first_speaker, CScriptGameObject* const p_second_speaker)
+{
+    relocate_item_section_to_actor(p_second_speaker, p_first_speaker, "medkit");
+}
+
+inline void zat_b53_transfer_medkit_to_npc(
+    CScriptGameObject* const p_first_speaker, CScriptGameObject* const p_second_speaker)
+{
+    xr_string section_name;
+    CScriptGameObject* const p_actor = DataBase::Storage::getInstance().getActor();
+    if (p_actor->GetObjectByName("medkit"))
+    {
+        section_name = "medkit";
+    }
+    else if (p_actor->GetObjectByName("medkit_army"))
+    {
+        section_name = "medkit_army";
+    }
+    else if (p_actor->GetObjectByName("medkit_scientic"))
+    {
+        section_name = "medkit_scientic";
+    }
+
+    Globals::Game::alife_release(
+        ai().alife().objects().object(p_actor->GetObjectByName(section_name.c_str())->ID()), true);
+
+    Script_NewsManager::getInstance().relocate_item("out", section_name);
+
+    p_actor->ChangeCharacterReputation(10);
+}
+
+inline bool zat_a23_actor_has_access_card(
+    CScriptGameObject* const p_first_speaker, CScriptGameObject* const p_second_speaker)
+{
+    return !!(DataBase::Storage::getInstance().getActor()->GetObjectByName("zat_a23_access_card"));
+}
+
+inline void zat_a23_transfer_access_card_to_tech(
+    CScriptGameObject* const p_first_speaker, CScriptGameObject* const p_second_speaker)
+{
+    relocate_item_section_from_actor(p_first_speaker, p_second_speaker, "zat_a23_access_card");
+    relocate_item_section_to_actor(p_second_speaker, p_first_speaker, "medkit_scientic", 3);
+}
+
+inline void zat_b57_stalker_reward_to_actor_detector(
+    CScriptGameObject* const p_first_speaker, CScriptGameObject* const p_second_speaker)
+{
+    relocate_item_section_to_actor(p_first_speaker, p_second_speaker, "detector_elite");
+    Script_TreasureManager::getInstance().give_treasure("zat_hiding_place_54");
+}
+
+inline bool actor_has_gas(CScriptGameObject* const p_first_speaker, CScriptGameObject* const p_second_speaker)
+{
+    return !!(DataBase::Storage::getInstance().getActor()->GetObjectByName("zat_b57_gas"));
+}
+
+inline bool actor_has_not_gas(CScriptGameObject* const p_first_speaker, CScriptGameObject* const p_second_speaker)
+{
+    return !(actor_has_gas(p_first_speaker, p_second_speaker));
+}
+
+inline bool zat_b57_actor_has_money(CScriptGameObject* const p_first_speaker, CScriptGameObject* const p_second_speaker)
+{
+    return (DataBase::Storage::getInstance().getActor()->Money() >= 2000);
+}
+
+inline bool zat_b57_actor_hasnt_money(
+    CScriptGameObject* const p_first_speaker, CScriptGameObject* const p_second_speaker)
+{
+    return !(zat_b57_actor_has_money(p_first_speaker, p_second_speaker));
+}
+
+inline void zat_b57_transfer_gas_money(
+    CScriptGameObject* const p_first_speaker, CScriptGameObject* const p_second_speaker)
+{
+    relocate_money_from_actor(p_first_speaker, p_second_speaker, 2000);
+}
+
+inline bool is_zat_b106_hunting_time(
+    CScriptGameObject* const p_first_speaker, CScriptGameObject* const p_second_speaker)
+{
+    if (Globals::get_time_hours() >= 2 && Globals::get_time_hours() < 5)
+    {
+        if (Globals::get_time_hours() > 2)
+        {
+            return true;
+        }
+        else if (Globals::get_time_minutes() >= 45)
+        {
+            return true;
+        }
+    }
+
+    return false;
+}
+
+inline bool is_not_zat_b106_hunting_time(
+    CScriptGameObject* const p_first_speaker, CScriptGameObject* const p_second_speaker)
+{
+    if (Globals::get_time_hours() >= 2 && Globals::get_time_hours() < 5)
+    {
+        if (Globals::get_time_hours() > 2)
+        {
+            return false;
+        }
+        else if (Globals::get_time_minutes() >= 45)
+        {
+            return false;
+        }
+    }
+
+    return true;
+}
+
+inline void zat_b106_transfer_weap_to_actor(
+    CScriptGameObject* const p_first_speaker, CScriptGameObject* const p_second_speaker)
+{
+    relocate_item_section_to_actor(p_first_speaker, p_second_speaker, "wpn_spas12");
+}
+
+inline void zat_b106_soroka_reward(CScriptGameObject* const p_first_speaker, CScriptGameObject* const p_second_speaker)
+{
+    if (Globals::has_alife_info("jup_b25_flint_blame_done_to_duty") ||
+        Globals::has_alife_info("jup_b25_flint_blame_done_to_freedom"))
+        relocate_money_to_actor(p_first_speaker, p_second_speaker, 1000);
+    else
+        relocate_money_to_actor(p_first_speaker, p_second_speaker, 3000);
+}
+
+inline bool zat_b106_soroka_gone(CScriptGameObject* const p_first_speaker, CScriptGameObject* const p_second_speaker)
+{
+    return (Globals::has_alife_info("jup_b25_flint_blame_done_to_duty") ||
+        Globals::has_alife_info("jup_b25_flint_blame_done_to_freedom"));
+}
+
+inline bool zat_b106_soroka_not_gone(
+    CScriptGameObject* const p_first_speaker, CScriptGameObject* const p_second_speaker)
+{
+    return !(zat_b106_soroka_gone(p_first_speaker, p_second_speaker));
+}
+
+inline bool zat_b22_actor_has_proof(CScriptGameObject* const p_first_speaker, CScriptGameObject* const p_second_speaker)
+{
+    return (actor_has_item(p_first_speaker, p_second_speaker, "zat_b22_medic_pda"));
+}
+
+inline void zat_b22_transfer_proof(CScriptGameObject* const p_first_speaker, CScriptGameObject* const p_second_speaker)
+{
+    relocate_item_section_from_actor(p_first_speaker, p_second_speaker, "zat_b22_medic_pda");
+}
+
+inline bool zat_b103_actor_has_needed_food(
+    CScriptGameObject* const p_first_speaker, CScriptGameObject* const p_second_speaker)
+{
+    xr_vector<xr_string> items_sections;
+    std::uint32_t needed = 6;
+    std::uint32_t count = 0;
+    xr_string item_section_name;
+
+    auto iterator = [&](CScriptGameObject* const p_item) -> void {
+        if (p_item->Section() == item_section_name)
+            ++count;
+    };
+
+    for (const xr_string& it : items_sections)
+    {
+        item_section_name = it;
+        Globals::get_story_object("actor")->IterateInventory(iterator);
+    }
+
+    return (count >= needed);
+}
+
+inline void zat_b5_stalker_transfer_money(
+    CScriptGameObject* const p_first_speaker, CScriptGameObject* const p_second_speaker)
+{
+    relocate_money_to_actor(p_first_speaker, p_second_speaker, 2500);
+    Script_TreasureManager::getInstance().give_treasure("zat_hiding_place_7");
+}
+
+inline void zat_b5_dealer_full_revard(
+    CScriptGameObject* const p_first_speaker, CScriptGameObject* const p_second_speaker)
+{
+    relocate_money_to_actor(p_first_speaker, p_second_speaker, 6000);
+}
+
+inline void zat_b5_dealer_easy_revard(
+    CScriptGameObject* const p_first_speaker, CScriptGameObject* const p_second_speaker)
+{
+    relocate_money_to_actor(p_first_speaker, p_second_speaker, 3000);
+}
+
+inline void zat_b5_bandits_revard(CScriptGameObject* const p_first_speaker, CScriptGameObject* const p_second_speaker)
+{
+    relocate_money_to_actor(p_first_speaker, p_second_speaker, 5000);
+    Script_TreasureManager::getInstance().give_treasure("zat_hiding_place_20");
+}
+
+inline void zat_b106_give_reward(CScriptGameObject* const p_first_speaker, CScriptGameObject* const p_second_speaker) 
+{
+    Script_TreasureManager::getInstance().give_treasure("zat_hiding_place_50");
 }
 
 } // namespace Scripts
