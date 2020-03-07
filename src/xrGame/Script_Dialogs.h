@@ -93,7 +93,8 @@ inline void relocate_item_section(
             {
                 if (!p_npc)
                 {
-                    Msg("[Scripts/relocate_item_section(p_npc, section_name, type_name, amount)] WARNING: can't reloca item when p_npc is nullptr!");
+                    Msg("[Scripts/relocate_item_section(p_npc, section_name, type_name, amount)] WARNING: can't reloca "
+                        "item when p_npc is nullptr!");
                     return;
                 }
 
@@ -220,6 +221,12 @@ inline void relocate_item_section_to_actor(CScriptGameObject* const p_first_spea
     // Lord: доделать когда будет death_manager
 
     Script_NewsManager::getInstance().relocate_item("in", section_name, current_amount);
+}
+
+inline bool actor_has_item(
+    CScriptGameObject* const p_first_speaker, CScriptGameObject* const p_second_speaker, const xr_string& section_name)
+{
+    return !!(DataBase::Storage::getInstance().getActor()->GetObjectByName(section_name.c_str()));
 }
 
 } // namespace Scripts
