@@ -837,9 +837,9 @@ inline bool zat_b29_actor_has_adv_task_af_3(
 inline bool zat_b29_actor_has_adv_task_af_4(
     CScriptGameObject* const p_first_speaker, CScriptGameObject* const p_second_speaker)
 {
-    if (Globals::has_alife_info(Script_GlobalHelper::getInstance().getZatB29InfopTable().at(19) &&
+    if (!Globals::has_alife_info(Script_GlobalHelper::getInstance().getZatB29InfopTable().at(19)) &&
             DataBase::Storage::getInstance().getActor()->GetObjectByName(
-                Script_GlobalHelper::getInstance().getZatB29AfTable().at(19).c_str())))
+                Script_GlobalHelper::getInstance().getZatB29AfTable().at(19).c_str()))
     {
         return true;
     }
@@ -877,7 +877,7 @@ inline bool zat_b29_actor_has_adv_task_af_7(
     CScriptGameObject* const p_first_speaker, CScriptGameObject* const p_second_speaker)
 {
     if (Globals::has_alife_info(Script_GlobalHelper::getInstance().getZatB29InfopTable().at(22)) &&
-        DataBase::Storage::getInstance().getActor()->GetObjectByName())
+        DataBase::Storage::getInstance().getActor()->GetObjectByName(Script_GlobalHelper::getInstance().getZatB29AfTable().at(22).c_str()))
     {
         return true;
     }
@@ -973,7 +973,7 @@ inline bool zat_b29_actor_has_exchange_item(
     {
         Msg("[Scripts/zat_b29_actor_has_exchange_item(p_first_speaker, p_second_speaker)] WARNING: SOMETHING IS VERY "
             "BAD, WHAT YOU HAVE DONE! THE BINDER FOR ACTOR IS NOT ACTOR's BINDER!!! CHECK YOUR CODE AGAIN! Return ...");
-        return;
+        return false;
     }
 
     p_actor->IterateInventory(is_good_gun);
@@ -1011,7 +1011,7 @@ inline void zat_b29_actor_exchange(CScriptGameObject* const p_first_speaker, CSc
             {
                 relocate_item_section_from_actor(p_first_speaker, p_second_speaker, p_binder->getGoodGunName());
                 relocate_item_section_to_actor(
-                    p_first_speaker, p_second_speaker, Script_GlobalHelper::getInstance().getZatB29AfTable().at(i));
+                    p_first_speaker, p_second_speaker, Script_GlobalHelper::getInstance().getZatB29AfTable().at(i), 1);
                 p_binder->setGoodGunName("");
                 break;
             }
@@ -1022,7 +1022,7 @@ inline void zat_b29_actor_exchange(CScriptGameObject* const p_first_speaker, CSc
 inline void zat_b30_transfer_detector_to_actor(
     CScriptGameObject* const p_first_speaker, CScriptGameObject* const p_second_speaker)
 {
-    relocate_item_section_to_actor(p_first_speaker, p_second_speaker, "detector_scientific");
+    relocate_item_section_to_actor(p_first_speaker, p_second_speaker, "detector_scientific", 1);
 }
 
 inline void zat_b30_give_owls_share_to_actor(
@@ -1114,6 +1114,156 @@ inline void zat_b30_actor_exchange(CScriptGameObject* const p_first_speaker, CSc
     {
         p_actor->GiveInfoPortion("zat_b30_rival_2_wo_detector");
     }
+}
+
+inline bool zat_b30_actor_has_two_detectors(
+    CScriptGameObject* const p_first_speaker, CScriptGameObject* const p_second_speaker)
+{
+    std::uint32_t count = 0;
+    auto count_function = [&](CScriptGameObject* const p_item) -> void {
+        if (xr_string(p_item->Section()) == xr_string("detector_scientific"))
+        {
+            ++count;
+        }
+    };
+
+    DataBase::Storage::getInstance().getActor()->IterateInventory(count_function);
+
+    if (count > 1)
+        return true;
+
+    return false;
+}
+
+inline void zat_b30_actor_second_exchange(
+    CScriptGameObject* const p_first_speaker, CScriptGameObject* const p_second_speaker)
+{
+    relocate_item_section_to_actor(p_first_speaker, p_second_speaker, "detector_scientific", 1);
+}
+
+inline bool zat_actor_has_nimble_weapon(
+    CScriptGameObject* const p_first_speaker, CScriptGameObject* const p_second_speaker)
+{
+    CScriptGameObject* const p_actor = DataBase::Storage::getInstance().getActor();
+    xr_vector<xr_string> items;
+    items.push_back("wpn_groza_nimble");
+    items.push_back("wpn_vintorez_nimble");
+    items.push_back("wpn_desert_eagle_nimble");
+    items.push_back("wpn_fn2000_nimble");
+    items.push_back("wpn_g36_nimble");
+    items.push_back("wpn_protecta_nimble");
+    items.push_back("wpn_mp5_nimble");
+    items.push_back("wpn_sig220_nimble");
+    items.push_back("wpn_spas12_nimble");
+    items.push_back("wpn_usp_nimble");
+    items.push_back("wpn_svu_nimble");
+    items.push_back("wpn_svd_nimble");
+
+    for (const xr_string& it : items)
+        if (p_actor->GetObjectByName(it.c_str()))
+            return true;
+
+    return false;
+}
+
+inline void zat_b51_robbery(CScriptGameObject* const p_first_speaker, CScriptGameObject* const p_second_speaker)
+{
+    CScriptGameObject* const p_actor = DataBase::Storage::getInstance().getActor();
+    std::uint32_t amount = static_cast<std::uint32_t>(
+        floor(p_actor->Money() * (Globals::Script_RandomInt::getInstance().Generate<std::uint32_t>(35, 50) / 100)));
+
+    if (amount > p_actor->Money())
+        amount = p_actor->Money();
+
+    xr_map<xr_string, bool> need_items;
+    need_items["wpn_usp"] = true;
+    need_items["wpn_desert_eagle"] = true;
+    need_items["wpn_protecta"] = true;
+    need_items["wpn_sig550"] = true;
+    need_items["wpn_fn2000"] = true;
+    need_items["wpn_g36"] = true;
+    need_items["wpn_val"] = true;
+    need_items["wpn_vintorez"] = true;
+    need_items["wpn_groza"] = true;
+    need_items["wpn_svd"] = true;
+    need_items["wpn_svu"] = true;
+    need_items["wpn_pkm"] = true;
+    need_items["wpn_sig550_luckygun"] = true;
+    need_items["wpn_pkm_zulus"] = true;
+    need_items["wpn_wincheaster1300_trapper"] = true;
+    need_items["wpn_gauss"] = true;
+    need_items["wpn_groza_nimble"] = true;
+    need_items["wpn_desert_eagle_nimble"] = true;
+    need_items["wpn_fn2000_nimble"] = true;
+    need_items["wpn_g36_nimble"] = true;
+    need_items["wpn_protecta_nimble"] = true;
+    need_items["wpn_mp5_nimble"] = true;
+    need_items["wpn_sig220_nimble"] = true;
+    need_items["wpn_spas12_nimble"] = true;
+    need_items["wpn_usp_nimble"] = true;
+    need_items["wpn_vintorez_nimble"] = true;
+    need_items["wpn_svu_nimble"] = true;
+    need_items["wpn_svd_nimble"] = true;
+
+    for (const std::pair<xr_string, bool>& it : need_items)
+    {
+        if (p_actor->GetObjectByName(it.first.c_str()))
+        {
+            relocate_item_section_from_actor(p_first_speaker, p_second_speaker, it.first, "all");
+        }
+    }
+
+    relocate_money_from_actor(p_first_speaker, p_second_speaker, amount);
+}
+
+inline void zat_b51_rob_nimble_weapon(
+    CScriptGameObject* const p_first_speaker, CScriptGameObject* const p_second_speaker)
+{
+    CScriptGameObject* const p_actor = DataBase::Storage::getInstance().getActor();
+    xr_map<xr_string, bool> need_items;
+    xr_vector<xr_string> actor_has_item;
+
+    need_items["wpn_groza_nimble"] = true;
+    need_items["wpn_desert_eagle_nimble"] = true;
+    need_items["wpn_fn2000_nimble"] = true;
+    need_items["wpn_g36_nimble"] = true;
+    need_items["wpn_protecta_nimble"] = true;
+    need_items["wpn_mp5_nimble"] = true;
+    need_items["wpn_sig220_nimble"] = true;
+    need_items["wpn_spas12_nimble"] = true;
+    need_items["wpn_usp_nimble"] = true;
+    need_items["wpn_vintorez_nimble"] = true;
+    need_items["wpn_svu_nimble"] = true;
+    need_items["wpn_svd_nimble"] = true;
+
+    for (const std::pair<xr_string, bool>& it : need_items)
+    {
+        if (p_actor->GetObjectByName(it.first.c_str()))
+        {
+            actor_has_item.push_back(it.first);
+        }
+
+        if (p_actor->item_in_slot(2) && p_actor->item_in_slot(2)->Section() == it.first)
+        {
+            relocate_item_section_from_actor(p_first_speaker, p_second_speaker, it.first);
+            return;
+        }
+        else if (p_actor->item_in_slot(3) && p_actor->item_in_slot(3)->Section() == it.first)
+        {
+            relocate_item_section_from_actor(p_first_speaker, p_second_speaker, it.first);
+            return;
+        }
+    }
+
+    if (!actor_has_item.empty())
+        relocate_item_section_from_actor(p_first_speaker, p_second_speaker,
+            actor_has_item[Globals::Script_RandomInt::getInstance().Generate<std::uint32_t>(
+                0, actor_has_item.size() - 1)]);
+}
+
+inline void give_compass_to_actor(CScriptGameObject* const p_first_speaker, CScriptGameObject* const p_second_speaker)
+{
+    relocate_item_section_to_actor(p_first_speaker, p_second_speaker, "af_compass", 1);
 }
 
 } // namespace Scripts
