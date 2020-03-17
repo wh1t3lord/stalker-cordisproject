@@ -218,6 +218,7 @@ inline void zat_b30_sell_jup_b10_strelok_notes_3(
     relocate_money_from_actor(p_first_speaker, p_second_speaker, 500);
 }
 
+/* NOT USED
 inline void jup_a9_owl_stalker_trader_sell_jup_a9_evacuation_info(
     CScriptGameObject* const p_first_speaker, CScriptGameObject* const p_second_speaker)
 {
@@ -248,7 +249,7 @@ inline void jup_a9_owl_stalker_trader_sell_jup_a9_delivery_info(
     relocate_item_section_from_actor(p_first_speaker, p_second_speaker, "jup_a9_delivery_info");
     relocate_money_from_actor(p_first_speaker, p_second_speaker, 750);
     DataBase::Storage::getInstance().getActor()->GiveInfoPortion("jup_a9_delivery_info_sold");
-}
+}*/
 
 inline void zat_b30_owl_stalker_trader_sell_device_flash_snag(
     CScriptGameObject* const p_first_speaker, CScriptGameObject* const p_second_speaker)
