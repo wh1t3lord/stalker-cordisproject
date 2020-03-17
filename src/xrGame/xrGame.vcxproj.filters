@@ -4252,6 +4252,9 @@
     <Filter Include="Cordis\Scripts\Managers\Weather\Private">
       <UniqueIdentifier>{ac4391b9-79d9-4f5f-8e4d-499fec4f58de}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Cordis\Scripts\Dialogs\Jupiter\Public">
+      <UniqueIdentifier>{0515dce1-08f8-4035-a92a-06d24842e065}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="mt_config.h">
@@ -9619,6 +9622,9 @@
     </ClInclude>
     <ClInclude Include="Script_WeatherManager.h">
       <Filter>Cordis\Scripts\Managers\Weather\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Script_DialogsJupiter.h">
+      <Filter>Cordis\Scripts\Dialogs\Jupiter\Public</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
