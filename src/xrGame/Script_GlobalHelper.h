@@ -13116,6 +13116,13 @@ private:
         this->m_surge_manager_immuned_to_surge_squads["monster"] = true;
         this->m_surge_manager_immuned_to_surge_squads["zombied"] = true;
 #pragma endregion
+
+        #pragma region Cordis Dialogs Jupiter
+        this->m_jup_a12_af_table[1] = "af_fire";
+        this->m_jup_a12_af_table[2] = "af_gold_fish";
+        this->m_jup_a12_af_table[3] = "af_glass";
+        this->m_jup_a12_af_table[4] = "af_ice";
+        #pragma endregion
     }
 
 public:
@@ -14519,7 +14526,10 @@ public:
 #pragma endregion
 
 #pragma region Cordis Jupiter Dialog
-
+    inline const xr_map<std::uint32_t, xr_string>& getJupA12AfTable(void) const noexcept 
+    {
+        return this->m_jup_a12_af_table;
+    }
 #pragma endregion
 
 #pragma region Cordis Pripyat Dialog
@@ -14602,6 +14612,7 @@ private:
     xr_map<std::uint16_t, xr_string> m_zat_b29_infop_table;
     xr_map<std::uint16_t, xr_string> m_zat_b29_af_names_table;
     xr_map<std::uint16_t, xr_string> m_zat_b29_af_table;
+    xr_map<std::uint32_t, xr_string> m_jup_a12_af_table;
     xr_map<std::uint32_t, std::uint32_t> m_zat_item_count_by_category;
     xr_map<std::uint32_t, xr_map<xr_string, std::uint32_t>> m_zat_b51_costs_table;
     xr_map<std::uint32_t, xr_map<std::uint32_t, xr_vector<xr_string>>> m_zat_b51_buy_item_table;
