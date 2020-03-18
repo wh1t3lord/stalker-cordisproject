@@ -13122,6 +13122,9 @@ private:
         this->m_jup_a12_af_table[2] = "af_gold_fish";
         this->m_jup_a12_af_table[3] = "af_glass";
         this->m_jup_a12_af_table[4] = "af_ice";
+
+        this->m_jup_b9_money_count = {3000, 2850, 2700, 2550, 2400, 2250, 2100, 1950, 1800, 1650};
+
         #pragma endregion
     }
 
@@ -14525,10 +14528,15 @@ public:
     }
 #pragma endregion
 
-#pragma region Cordis Jupiter Dialog
+#pragma region Cordis Dialogs Jupiter
     inline const xr_map<std::uint32_t, xr_string>& getJupA12AfTable(void) const noexcept 
     {
         return this->m_jup_a12_af_table;
+    }
+
+    inline const xr_vector<std::uint32_t>& getJupB9MoneyCount(void) const noexcept 
+    {
+        return this->m_jup_b9_money_count;
     }
 #pragma endregion
 
@@ -14621,7 +14629,7 @@ private:
     // @ First - id | Second - distance
     std::pair<std::uint32_t, std::uint32_t> m_game_server_nearest_to_actor_smart_terrain;
     xr_vector<xr_string> m_registered_smart_terrain_path_fields;
-
+    xr_vector<std::uint32_t> m_jup_b9_money_count;
 #pragma region Cordis PDA the values of pda.script
     xr_vector<PDA_ChangeObjectData> m_registered_pda_change_objects;
     xr_vector<std::pair<xr_string, xr_string>> m_registered_pda_primary_objects;

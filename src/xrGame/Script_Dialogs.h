@@ -229,5 +229,28 @@ inline bool actor_has_item(
     return !!(DataBase::Storage::getInstance().getActor()->GetObjectByName(section_name.c_str()));
 }
 
+inline bool is_npc_in_current_smart(CScriptGameObject* const p_first_speaker, CScriptGameObject* const p_second_speaker, const xr_string& smart_name)
+{
+    CScriptGameObject* const p_npc = who_is_npc(p_first_speaker, p_second_speaker);
+    CSE_ALifeDynamicObject* const p_server_instance = XR_GULAG::get_npc_smart(p_npc);
+    
+    if (!p_server_instance)
+    {
+        Msg("[Scripts/is_npc_in_current_smart(p_first_speaker, p_second_speaker, smart_name)] WARNING: object is nullptr! Return ...");
+        return false;
+    }
+
+    Script_SE_SmartTerrain* const p_server_smart = p_server_instance->cast_script_se_smartterrain();
+
+    if (!p_server_smart)
+    {
+        Msg("[Scripts/is_npc_in_current_smart(p_first_speaker, p_second_speaker, smart_name)] WARNING: can't cast to server smart terrain! Something is wrong! ...");
+        return false;
+    }
+
+
+    return (p_server_smart->name_replace() == smart_name);
+}
+
 } // namespace Scripts
 } // namespace Cordis

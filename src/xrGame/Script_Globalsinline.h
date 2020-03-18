@@ -1188,6 +1188,18 @@ inline int get_community_relation(const xr_string& faction, const xr_string& fac
     return RELATION_REGISTRY().GetCommunityRelation(community_from.index(), community_to.index());
 }
 
+inline std::uint32_t get_npcs_relation(CScriptGameObject* const p_npc1, CScriptGameObject* const p_npc2)
+{ 
+    if (!p_npc1 || !p_npc2)
+    {
+        Msg("[Scripts/Globals/GameRelations/get_npcs_relation(p_npc1, p_npc2)] WARNING: some of arguemnts is null Return ...");
+        return ALife::ERelationType::eRelationTypeDummy;  
+    }
+
+
+    return p_npc1->GetRelationType(p_npc2); 
+}
+
 inline void set_npc_sympathy(CScriptGameObject* npc, float new_sympathy)
 {
     if (!npc)

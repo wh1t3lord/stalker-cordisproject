@@ -157,6 +157,7 @@ namespace GameRelations
 inline bool check_all_squad_members(const xr_string& squad_name, const xr_string& goodwill_name);
 inline int community_goodwill(LPCSTR community_name, int entity_id);
 inline int get_community_relation(const xr_string& faction, const xr_string& faction_to);
+inline std::uint32_t get_npcs_relation(CScriptGameObject* const p_npc1, CScriptGameObject* const p_npc2);
 inline void set_npc_sympathy(CScriptGameObject* npc, float new_sympathy);
 inline void set_npcs_relation(
     CScriptGameObject* client_from_object1, CScriptGameObject* client_to_object2, xr_string& new_relation_name);
