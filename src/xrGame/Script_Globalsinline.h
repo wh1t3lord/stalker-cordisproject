@@ -3153,6 +3153,69 @@ inline void break_fence(
    p_binder->animation_forward();
 }
 
+inline Script_CampData* get_current_camp(const Fvector& position) 
+{
+    for (const std::pair<std::uint16_t, std::pair<Script_CampData*, CScriptGameObject*>>& it : DataBase::Storage::getInstance().getCamps())
+    {
+        if (it.second.second->inside(position))
+        {
+            return it.second.first;
+        }
+    }
+
+    return nullptr;
+}
+
+inline void start_guitar(CScriptGameObject* const p_npc) 
+{
+    if (!p_npc)
+    {
+        Msg("[Scripts/Globals/start_guitar(p_npc)] WARNING: p_npc == nullptr! Return ...");
+        return;
+    }
+
+    std::uint16_t camp_id = DataBase::Storage::getInstance().getStorage().at(p_npc->ID()).getRegisteredCamp();
+
+    if (!camp_id)
+    {
+        Msg("[Scripts/Globals/start_guitar(p_npc)] WARNING: can't find camp_id, it doesnt registered! Return ...");
+        return;
+    }
+
+    Script_CampData* const p_camp = DataBase::Storage::getInstance().getCamps().at(camp_id).first;
+
+    p_camp->getScriptSoundManager()->set_storyteller(p_camp->getDirectorID());
+    p_camp->getScriptSoundManager()->set_story(p_camp->getGuitars()[Script_RandomInt::getInstance().Generate<std::uint32_t>(0, p_camp->getGuitars().size() - 1)]);
+    p_camp->setSoundManagerStarted(true);
+    p_camp->update();
+}
+
+inline void start_harmonica(CScriptGameObject* const p_npc) 
+{
+    if (!p_npc)
+    {
+        Msg("[Scripts/Globals/start_harmonica(p_npc)] WARNING: p_npc == nullptr! Return ...");
+        return;
+    }
+
+    std::uint16_t camp_id = DataBase::Storage::getInstance().getStorage().at(p_npc->ID()).getRegisteredCamp();
+
+    if (!camp_id)
+    {
+        Msg("[Scripts/Globals/start_harmonica(p_npc)] WARNING: can't find camp_id, it doesnt registered! Return ...");
+        return;
+    }
+
+    Script_CampData* const p_camp = DataBase::Storage::getInstance().getCamps().at(camp_id).first;
+
+    p_camp->getScriptSoundManager()->set_storyteller(p_camp->getDirectorID());
+    p_camp->getScriptSoundManager()->set_story(
+        p_camp->getHarmonicas()[Script_RandomInt::getInstance().Generate<std::uint32_t>(
+            0, p_camp->getHarmonicas().size() - 1)]);
+    p_camp->setSoundManagerStarted(true);
+    p_camp->update();
+}
+
 } // namespace Globals
 } // namespace Scripts
 } // namespace Cordis

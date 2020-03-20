@@ -83,6 +83,10 @@ public:
     void register_npc(const std::uint16_t npc_id);
     void unregister_npc(const std::uint16_t npc_id);
     std::uint32_t get_npc_role(const std::uint16_t npc_id, const xr_string& state);
+
+    inline std::uint16_t getDirectorID(void) const noexcept { return this->m_director_id; }
+    inline Script_SoundManager* getScriptSoundManager(void) const { return this->m_p_sound_manager; }
+
     inline const xr_vector<xr_string>& getHarmonicas(void) const noexcept
     {
         return this->m_harmonicas;
@@ -96,6 +100,7 @@ public:
         return this->m_npcs;
     }
 
+    inline void setSoundManagerStarted(const bool value) noexcept { this->m_is_sound_manager_started = value; }
 
 
 private:

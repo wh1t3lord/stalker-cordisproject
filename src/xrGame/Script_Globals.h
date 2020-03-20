@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Script_StateManager.h"
+#include "Script_CampData.h"
 
 extern bool g_bDisableAllInput;
 
@@ -309,6 +310,12 @@ inline void end_scene(
     CScriptGameObject* const p_not_used_1, CScriptGameObject* const p_not_used_2, const xr_vector<xr_string>& not_used);
 inline void break_fence(
     CScriptGameObject* const p_not_used_1, CScriptGameObject* const p_not_used_2, const xr_vector<xr_string>& not_used);
+#pragma endregion
+
+#pragma region Cordis sr_camp
+inline Script_CampData* get_current_camp(const Fvector& position);
+inline void start_guitar(CScriptGameObject* const p_npc);
+inline void start_harmonica(CScriptGameObject* const p_npc);
 #pragma endregion
 } // namespace Globals
 } // namespace Scripts
