@@ -4255,6 +4255,9 @@
     <Filter Include="Cordis\Scripts\Dialogs\Jupiter\Public">
       <UniqueIdentifier>{0515dce1-08f8-4035-a92a-06d24842e065}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Cordis\Scripts\Dialogs\Pripyat\Public">
+      <UniqueIdentifier>{03177ec0-958e-4f3b-86e1-7183a74a6bc9}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="mt_config.h">
@@ -9625,6 +9628,9 @@
     </ClInclude>
     <ClInclude Include="Script_DialogsJupiter.h">
       <Filter>Cordis\Scripts\Dialogs\Jupiter\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Script_DialogsPripyat.h">
+      <Filter>Cordis\Scripts\Dialogs\Pripyat\Public</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

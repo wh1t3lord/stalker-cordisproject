@@ -298,6 +298,18 @@ inline xr_map<xr_string, xr_string> parse_ini_section_to_array(
 inline void start_surge(void);
 inline void stop_surge(void);
 inline void change_game_time(std::uint32_t days, std::uint32_t hours, std::uint32_t mins);
+#pragma region Cordis State Manager
+inline void unstrap_weapon(
+    CScriptGameObject* const p_npc, CScriptGameObject* const p_not_used, const xr_vector<xr_string>& not_used);
+inline void strap_weapon(
+    CScriptGameObject* const p_npc, CScriptGameObject* const p_not_used, const xr_vector<xr_string>& not_used);
+inline void lights_off(CScriptGameObject* const p_not_used_1, CScriptGameObject* const p_not_used_2, const xr_vector<xr_string>& not_used);
+inline void lights_on(CScriptGameObject* const p_not_used_1, CScriptGameObject* const p_not_used_2, const xr_vector<xr_string>& not_used);
+inline void end_scene(
+    CScriptGameObject* const p_not_used_1, CScriptGameObject* const p_not_used_2, const xr_vector<xr_string>& not_used);
+inline void break_fence(
+    CScriptGameObject* const p_not_used_1, CScriptGameObject* const p_not_used_2, const xr_vector<xr_string>& not_used);
+#pragma endregion
 } // namespace Globals
 } // namespace Scripts
 } // namespace Cordis

@@ -461,6 +461,68 @@ inline void oasis_heal(
 inline void jup_b221_play_main(
     CScriptGameObject* const p_actor, CScriptGameObject* const p_npc, const xr_vector<xr_string>& buffer);
 
+inline void get_best_detector(
+    CScriptGameObject* const p_actor, CScriptGameObject* const p_npc, const xr_vector<xr_string>& buffer);
+
+inline void hide_best_detector(
+    CScriptGameObject* const p_actor, CScriptGameObject* const p_npc, const xr_vector<xr_string>& buffer);
+
+inline void pri_a18_radio_start(
+    CScriptGameObject* const p_actor, CScriptGameObject* const p_npc, const xr_vector<xr_string>& buffer);
+
+inline void pri_a17_ice_climb_end(
+    CScriptGameObject* const p_actor, CScriptGameObject* const p_npc, const xr_vector<xr_string>& buffer);
+
+inline void jup_b219_opening(
+    CScriptGameObject* const p_actor, CScriptGameObject* const p_npc, const xr_vector<xr_string>& buffer);
+
+inline void jup_b219_entering_underpass(
+    CScriptGameObject* const p_actor, CScriptGameObject* const p_npc, const xr_vector<xr_string>& buffer);
+
+inline void pri_a17_pray_start(
+    CScriptGameObject* const p_actor, CScriptGameObject* const p_npc, const xr_vector<xr_string>& buffer);
+
+inline void zat_b38_open_info(
+    CScriptGameObject* const p_actor, CScriptGameObject* const p_npc, const xr_vector<xr_string>& buffer);
+
+inline void zat_b38_switch_info(
+    CScriptGameObject* const p_actor, CScriptGameObject* const p_npc, const xr_vector<xr_string>& buffer);
+
+inline void zat_b38_cop_dead(
+    CScriptGameObject* const p_actor, CScriptGameObject* const p_npc, const xr_vector<xr_string>& buffer);
+
+inline void jup_b15_zulus_drink_anim_info(
+    CScriptGameObject* const p_actor, CScriptGameObject* const p_npc, const xr_vector<xr_string>& buffer);
+
+inline void pri_a17_preacher_death(
+    CScriptGameObject* const p_actor, CScriptGameObject* const p_npc, const xr_vector<xr_string>& buffer);
+
+inline void zat_b3_tech_surprise_anim_end(
+    CScriptGameObject* const p_actor, CScriptGameObject* const p_npc, const xr_vector<xr_string>& buffer);
+
+inline void zat_b3_tech_waked_up(
+    CScriptGameObject* const p_actor, CScriptGameObject* const p_npc, const xr_vector<xr_string>& buffer);
+
+inline void zat_b3_tech_drinked_out(
+    CScriptGameObject* const p_actor, CScriptGameObject* const p_npc, const xr_vector<xr_string>& buffer);
+
+inline void pri_a28_kirillov_hq_online(
+    CScriptGameObject* const p_actor, CScriptGameObject* const p_npc, const xr_vector<xr_string>& buffer);
+
+inline void pri_a20_radio_start(
+    CScriptGameObject* const p_actor, CScriptGameObject* const p_npc, const xr_vector<xr_string>& buffer);
+
+inline void pri_a22_kovalski_speak(
+    CScriptGameObject* const p_actor, CScriptGameObject* const p_npc, const xr_vector<xr_string>& buffer);
+
+inline void zat_b38_underground_door_open(
+    CScriptGameObject* const p_actor, CScriptGameObject* const p_npc, const xr_vector<xr_string>& buffer);
+inline void zat_b38_jump_tonnel_info(
+    CScriptGameObject* const p_actor, CScriptGameObject* const p_npc, const xr_vector<xr_string>& buffer);
+inline void jup_a9_cam1_actor_anim_end(
+    CScriptGameObject* const p_actor, CScriptGameObject* const p_npc, const xr_vector<xr_string>& buffer);
+inline void pri_a28_talk_ssu_video_end(
+    CScriptGameObject* const p_actor, CScriptGameObject* const p_npc, const xr_vector<xr_string>& buffer);
 } // namespace XR_EFFECTS
 
 #pragma region Cordis Dialogs defenition
@@ -1561,13 +1623,15 @@ struct StateManagerAnimationData
         inline void CallFunction(CScriptGameObject* const p_client_object)
         {
             if (this->m_function)
-                this->m_function(p_client_object);
+                this->m_function(p_client_object, nullptr, xr_vector<xr_string>());
             else
                 Msg("[Scripts/StateManagerAnimationData/AnimationData/CallFunction(p_client_object)] WARNING: "
                     "m_function is nullptr! Can't call! Return ...");
         }
 
-        inline void setFunction(const std::function<void(CScriptGameObject* const)>& function)
+        inline void setFunction(
+            const std::function<void(CScriptGameObject* const, CScriptGameObject* const, const xr_vector<xr_string>&)>&
+                function)
         {
             this->m_function = function;
         }
@@ -1580,7 +1644,8 @@ struct StateManagerAnimationData
         xr_string m_sound_name;
         xr_string m_attach_item_name;
         xr_string m_detach_item_name;
-        std::function<void(CScriptGameObject* const)> m_function = nullptr;
+        std::function<void(CScriptGameObject* const, CScriptGameObject* const, const xr_vector<xr_string>&)>
+            m_function = nullptr;
     };
 
     StateManagerAnimationData(void) = default;
@@ -1736,7 +1801,7 @@ struct StateManagerAnimationData
     }
 
     inline void addAnimationFunction(const xr_string& animation_state_name, const std::uint32_t index,
-        const std::function<void(CScriptGameObject* const)>& function) noexcept
+        const std::function<void(CScriptGameObject* const, CScriptGameObject* const, const xr_vector<xr_string>&)>& function) noexcept
     {
         if (animation_state_name.empty())
         {

@@ -4674,37 +4674,37 @@ private:
         punch_animation_data.setPropertiesRandom(100);
 
         punch_animation_data.addAnimation("into", 0, "norm_facer_0_0");
-        // punch_animation_data.addAnimationFunction("into", 0, xr_effects.actor_punch); Lord: реализовать!
+        punch_animation_data.addAnimationFunction("into", 0, XR_EFFECTS::actor_punch);
         punch_animation_data.addAnimation("into", 0, "norm_facer_0_1");
-        // punch_animation_data.addAnimationFunction("into", 0, xr_effects.clearAbuse); Lord: реализовать!
+        punch_animation_data.addAnimationFunction("into", 0, XR_EFFECTS::clearAbuse);  
         punch_animation_data.addAnimation("into", 1, "norm_facer_1_0");
-        // punch_animation_data.addAnimationFunction("into", 1, xr_effects.actor_punch); Lord: реализовать!
+        punch_animation_data.addAnimationFunction("into", 1, XR_EFFECTS::actor_punch); 
         punch_animation_data.addAnimation("into", 1, "norm_facer_1_1");
-        // punch_animation_data.addAnimationFunction("into", 1, xr_effects.clearAbuse); Lord: реализовать!
+        punch_animation_data.addAnimationFunction("into", 1, XR_EFFECTS::clearAbuse); 
         punch_animation_data.addAnimation("into", 2, "norm_facer_2_0");
-        // punch_animation_data.addAnimationFunction("into", 2, xr_effects.actor_punch); Lord: реализовать!
+        punch_animation_data.addAnimationFunction("into", 2, XR_EFFECTS::actor_punch);  
         punch_animation_data.addAnimation("into", 2, "norm_facer_2_1");
-        // punch_animation_data.addAnimationFunction("into", 2, xr_effects.clearAbuse); Lord: реализовать!
+        punch_animation_data.addAnimationFunction("into", 2, XR_EFFECTS::clearAbuse); 
         punch_animation_data.addAnimation("into", 3, "norm_facer_3_0");
-        // punch_animation_data.addAnimationFunction("into", 3, xr_effects.actor_punch); Lord: реализовать!
+        punch_animation_data.addAnimationFunction("into", 3, XR_EFFECTS::actor_punch);  
         punch_animation_data.addAnimation("into", 3, "norm_facer_3_1");
-        // punch_animation_data.addAnimationFunction("into", 3, xr_effects.clearAbuse); Lord: реализовать!
+        punch_animation_data.addAnimationFunction("into", 3, XR_EFFECTS::clearAbuse); 
         punch_animation_data.addAnimation("into", 4, "norm_facer_4_0");
-        // punch_animation_data.addAnimationFunction("into", 4, xr_effects.actor_punch); Lord: реализовать!
+        punch_animation_data.addAnimationFunction("into", 4, XR_EFFECTS::actor_punch); 
         punch_animation_data.addAnimation("into", 4, "norm_facer_4_1");
-        // punch_animation_data.addAnimationFunction("into", 4, xr_effects.clearAbuse); Lord: реализовать!
+        punch_animation_data.addAnimationFunction("into", 4, XR_EFFECTS::clearAbuse);
         punch_animation_data.addAnimation("into", 8, "norm_facer_8_0");
-        // punch_animation_data.addAnimationFunction("into", 8, xr_effects.actor_punch); Lord: реализовать!
+        punch_animation_data.addAnimationFunction("into", 8, XR_EFFECTS::actor_punch);
         punch_animation_data.addAnimation("into", 8, "norm_facer_8_1");
-        // punch_animation_data.addAnimationFunction("into", 8, xr_effects.clearAbuse); Lord: реализовать!
+        punch_animation_data.addAnimationFunction("into", 8, XR_EFFECTS::clearAbuse);
         punch_animation_data.addAnimation("into", 9, "norm_facer_9_0");
-        // punch_animation_data.addAnimationFunction("into", 9, xr_effects.actor_punch); Lord: реализовать!
+        punch_animation_data.addAnimationFunction("into", 9, XR_EFFECTS::actor_punch); 
         punch_animation_data.addAnimation("into", 9, "norm_facer_9_1");
-        // punch_animation_data.addAnimationFunction("into", 9, xr_effects.clearAbuse); Lord: реализовать!
+        punch_animation_data.addAnimationFunction("into", 9, XR_EFFECTS::clearAbuse); 
         punch_animation_data.addAnimation("into", 10, "norm_facer_10_0");
-        // punch_animation_data.addAnimationFunction("into", 10, xr_effects.actor_punch); Lord: реализовать!
+        punch_animation_data.addAnimationFunction("into", 10, XR_EFFECTS::actor_punch); 
         punch_animation_data.addAnimation("into", 10, "norm_facer_10_1");
-        // punch_animation_data.addAnimationFunction("into", 10, xr_effects.clearAbuse); Lord: реализовать!
+        punch_animation_data.addAnimationFunction("into", 10, XR_EFFECTS::clearAbuse); 
 
         this->m_state_manager_animation_list["punch"] = punch_animation_data;
 
@@ -4947,11 +4947,11 @@ private:
         probe_stand_animation_data.setPropertiesRandom(100);
 
         probe_stand_animation_data.addAnimation("into", 0, "metering_anomalys_0_draw_0");
-        //  probe_stand_animation_data.addAnimationFunction("into", 0, XR_EFFECTS.get_best_detector); Lord: реализовать!
+        probe_stand_animation_data.addAnimationFunction("into", 0, XR_EFFECTS::get_best_detector); 
         probe_stand_animation_data.addAnimation("into", 0, "metering_anomalys_0_draw_1");
 
         probe_stand_animation_data.addAnimation("out", 0, "metering_anomalys_0_hide_0");
-        //  probe_stand_animation_data.addAnimationFunction("out", 0, XR_EFFECTS.hide_best_detector); Lord: реализовать!
+        probe_stand_animation_data.addAnimationFunction("out", 0, XR_EFFECTS::hide_best_detector); 
         probe_stand_animation_data.addAnimation("out", 0, "metering_anomalys_0_hide_1");
 
         probe_stand_animation_data.addAnimation("idle", 0, "metering_anomalys_0_idle_0");
@@ -4970,13 +4970,12 @@ private:
         probe_way_animation_data.setPropertiesRandom(100);
 
         probe_way_animation_data.addAnimation("into", 0, "metering_anomalys_0_draw_0");
-        //     probe_way_animation_data.addAnimationFunction("into", 0, XR_EFFECTS.get_best_detector); Lord:
-        //     реализовать!
+        probe_way_animation_data.addAnimationFunction("into", 0, XR_EFFECTS::get_best_detector);
         probe_way_animation_data.addAnimation("into", 0, "metering_anomalys_0_draw_1");
         probe_way_animation_data.addAnimation("into", 0, "metering_anomalys_0_idle_6");
 
         probe_way_animation_data.addAnimation("out", 0, "metering_anomalys_0_hide_0");
-        //  probe_way_animation_data.addAnimationFunction("out", 0, XR_EFFECTS.hide_best_detector); Lord: реализовать
+        probe_way_animation_data.addAnimationFunction("out", 0, XR_EFFECTS::hide_best_detector); 
         probe_way_animation_data.addAnimation("out", 0, "metering_anomalys_0_hide_1");
 
         probe_way_animation_data.addAnimation("idle", 0, "metering_anomalys_0_idle_0");
@@ -4989,12 +4988,11 @@ private:
         probe_crouch_animation_data.setPropertiesRandom(100);
 
         probe_crouch_animation_data.addAnimation("into", 0, "metering_anomalys_1_draw_0");
-        // probe_crouch_animation_data.addAnimationFunction("into", 0, XR_EFFECTS.get_best_detector); Lord: реализовать!
+        probe_crouch_animation_data.addAnimationFunction("into", 0, XR_EFFECTS::get_best_detector); 
         probe_crouch_animation_data.addAnimation("into", 0, "metering_anomalys_1_draw_1");
 
         probe_crouch_animation_data.addAnimation("out", 0, "metering_anomalys_1_hide_0");
-        //    probe_crouch_animation_data.addAnimationDettachItemName("out", 0, XR_EFFECTS.hide_best_detector); Lord:
-        //    реализовать!
+        probe_crouch_animation_data.addAnimationFunction("out", 0, XR_EFFECTS::hide_best_detector);
         probe_crouch_animation_data.addAnimation("out", 0, "metering_anomalys_1_hide_1");
 
         probe_crouch_animation_data.addAnimation("idle", 0, "metering_anomalys_1_idle_0");
@@ -6264,8 +6262,7 @@ private:
         zat_b38_stalker_break_lock_animation_data.setPropertiesMoving(true);
 
         zat_b38_stalker_break_lock_animation_data.addAnimation("into", 0, "zat_b38_stalker_break_lock");
-        // zat_b38_stalker_break_lock_animation_data.addAnimationFunction("into", 0,
-        // xr_effects.zat_b38_underground_door_open); Lord: доделать!
+        zat_b38_stalker_break_lock_animation_data.addAnimationFunction("into", 0, XR_EFFECTS::zat_b38_underground_door_open); 
 
         this->m_state_manager_animation_list["zat_b38_stalker_break_lock"] = zat_b38_stalker_break_lock_animation_data;
 
@@ -6276,11 +6273,9 @@ private:
         zat_b38_stalker_turn_on_lift_animation_data.setPropertiesRandom(100);
 
         zat_b38_stalker_turn_on_lift_animation_data.addAnimation("into", 0, "zat_b38_stalker_jump_lift_in_1");
-        // zat_b38_stalker_turn_on_lift_animation_data.addAnimationFunction("into", 0, xr_effects.zat_b38_open_info);
-        // Lord: доделать!
+        zat_b38_stalker_turn_on_lift_animation_data.addAnimationFunction("into", 0, XR_EFFECTS::zat_b38_open_info);
         zat_b38_stalker_turn_on_lift_animation_data.addAnimation("into", 0, "zat_b38_stalker_jump_lift_in_2");
-        // zat_b38_stalker_turn_on_lift_animation_data.addAnimationFunction("into", 0, xr_effects.zat_b38_switch_info);
-        // Lord: доделать!
+        zat_b38_stalker_turn_on_lift_animation_data.addAnimationFunction("into", 0, XR_EFFECTS::zat_b38_switch_info);
         zat_b38_stalker_turn_on_lift_animation_data.addAnimation("into", 0, "zat_b38_stalker_jump_lift_in_3");
         zat_b38_stalker_turn_on_lift_animation_data.addAnimation("into", 0, "zat_b38_stalker_jump_lift_idle");
         zat_b38_stalker_turn_on_lift_animation_data.addAnimation("into", 0, "zat_b38_stalker_jump_lift_out");
@@ -6295,8 +6290,7 @@ private:
         zat_b38_stalker_jump_tonnel_animation_data.setPropertiesMoving(true);
 
         zat_b38_stalker_jump_tonnel_animation_data.addAnimation("into", 0, "zat_b38_stalker_jump_tonnel");
-        //   zat_b38_stalker_jump_tonnel_animation_data.addAnimationFunction("into", 0,
-        //   xr_effects.zat_b38_jump_tonnel_info); Lord: доделать!
+        zat_b38_stalker_jump_tonnel_animation_data.addAnimationFunction("into", 0, XR_EFFECTS::zat_b38_jump_tonnel_info);  
 
         this->m_state_manager_animation_list["zat_b38_stalker_jump_tonnel"] =
             zat_b38_stalker_jump_tonnel_animation_data;
@@ -6318,8 +6312,7 @@ private:
         zat_b38_stalker_alert_animation_data.setPropertiesMoving(true);
 
         zat_b38_stalker_alert_animation_data.addAnimation("into", 0, "zat_b38_stalker_alert");
-        // zat_b38_stalker_alert_animation_data.addAnimationFunction("into", 0, xr_effects.pri_a17_ice_climb_end); Lord:
-        // доделать!
+        zat_b38_stalker_alert_animation_data.addAnimationFunction("into", 0, XR_EFFECTS::pri_a17_ice_climb_end);
 
         this->m_state_manager_animation_list["zat_b38_stalker_alert"] = zat_b38_stalker_alert_animation_data;
 
@@ -6340,8 +6333,7 @@ private:
         pri_a17_fall_down_animation_data.setPropertiesMoving(true);
 
         pri_a17_fall_down_animation_data.addAnimation("into", 0, "ragdoll_sniper_body_front_2");
-        //  pri_a17_fall_down_animation_data.addAnimationFunction("into", 0, xr_effects.pri_a17_preacher_death); Lord:
-        //  доделать!
+        pri_a17_fall_down_animation_data.addAnimationFunction("into", 0, XR_EFFECTS::pri_a17_preacher_death); 
 
         this->m_state_manager_animation_list["pri_a17_fall_down"] = pri_a17_fall_down_animation_data;
 
@@ -6352,8 +6344,7 @@ private:
         pri_a17_pray_in_animation_data.setPropertiesMoving(true);
 
         pri_a17_pray_in_animation_data.addAnimation("into", 0, "pri_a17_preacher_sermon_in");
-        //  pri_a17_pray_in_animation_data.addAnimationFunction("into", 0, xr_effects.pri_a17_pray_start); // Lord:
-        //  доделать!
+        pri_a17_pray_in_animation_data.addAnimationFunction("into", 0, XR_EFFECTS::pri_a17_pray_start); 
         pri_a17_pray_in_animation_data.addAnimation("into", 0, "pri_a17_preacher_sermon_out");
 
         this->m_state_manager_animation_list["pri_a17_pray_in"] = pri_a17_pray_in_animation_data;
@@ -6450,7 +6441,7 @@ private:
         zat_b3_tech_drunk_animation_data.addAnimation("into", 0, "zat_b3_tech_drunk_in");
 
         zat_b3_tech_drunk_animation_data.addAnimation("out", 0, "zat_b3_tech_drunk_out");
-        //  zat_b3_tech_drunk_animation_data.addAnimationFunction("out", 0, xr_effects.zat_b3_tech_waked_up);
+        zat_b3_tech_drunk_animation_data.addAnimationFunction("out", 0, XR_EFFECTS::zat_b3_tech_waked_up);
 
         zat_b3_tech_drunk_animation_data.addAnimation("idle", 0, "zat_b3_tech_drunk_idle");
 
@@ -6473,8 +6464,7 @@ private:
         zat_b3_tech_surprise_animation_data.setPropertiesMoving(true);
 
         zat_b3_tech_surprise_animation_data.addAnimation("into", 0, "zat_b3_tech_surprise");
-        //    zat_b3_tech_surprise_animation_data.addAnimationFunction("into", 0,
-        //    xr_effects.zat_b3_tech_surprise_anim_end); // Lord: доделать!
+        zat_b3_tech_surprise_animation_data.addAnimationFunction("into", 0, XR_EFFECTS::zat_b3_tech_surprise_anim_end);
 
         zat_b3_tech_surprise_animation_data.addAnimation("out", 0, "zat_b3_tech_drunk_idle");
         zat_b3_tech_surprise_animation_data.addAnimation("idle", 0, "zat_b3_tech_drunk_idle");
@@ -6492,8 +6482,7 @@ private:
 
         zat_b3_tech_drink_animation_data.addAnimationDettachItemName("out", 0, "vodka");
         zat_b3_tech_drink_animation_data.addAnimation("out", 0, "zat_b3_tech_drink_out");
-        // zat_b3_tech_drink_animation_data.addAnimationFunction("out", 0, xr_effects.zat_b3_tech_drinked_out); // Lord:
-        // доделать!
+        zat_b3_tech_drink_animation_data.addAnimationFunction("out", 0, XR_EFFECTS::zat_b3_tech_drinked_out);
 
         zat_b3_tech_drink_animation_data.addAnimation("idle", 0, "zat_b3_tech_drink_idle");
 
@@ -6532,8 +6521,7 @@ private:
         pri_a28_kirillov_sit_high_radio_animation_data.setPropertiesRandom(100);
 
         pri_a28_kirillov_sit_high_radio_animation_data.addAnimation("into", 0, "pri_a28_kirillov_radio_on_in");
-        //     pri_a28_kirillov_sit_high_radio_animation_data.addAnimationFunction("into", 0,
-        //     xr_effects.pri_a28_kirillov_hq_online); // Lord: доделать!
+        pri_a28_kirillov_sit_high_radio_animation_data.addAnimationFunction("into", 0, XR_EFFECTS::pri_a28_kirillov_hq_online); 
 
         pri_a28_kirillov_sit_high_radio_animation_data.addAnimation("out", 0, "pri_a28_kirillov_radio_on_out");
 
@@ -6550,8 +6538,7 @@ private:
 
         pri_a18_inspert_monolit_actor_animation_data.addAnimationAttachItemName("into", 0, "hand_radio_r");
         pri_a18_inspert_monolit_actor_animation_data.addAnimation("into", 0, "pri_a18_inspert_monolit_actor_in");
-        //    pri_a18_inspert_monolit_actor_animation_data.addAnimationFunction("into", 0,
-        //    xr_effects.pri_a18_radio_start); // Lord: доделать!
+        pri_a18_inspert_monolit_actor_animation_data.addAnimationFunction("into", 0, XR_EFFECTS::pri_a18_radio_start);  
         pri_a18_inspert_monolit_actor_animation_data.addAnimation("into", 0, "pri_a18_inspert_monolit_actor_idle");
         pri_a18_inspert_monolit_actor_animation_data.addAnimation("into", 0, "pri_a18_inspert_monolit_actor_idle");
         pri_a18_inspert_monolit_actor_animation_data.addAnimation("into", 0, "pri_a18_inspert_monolit_actor_idle");
@@ -6644,7 +6631,7 @@ private:
         zat_b38_cop_dead_animation_data.setPropertiesRandom(100);
 
         zat_b38_cop_dead_animation_data.addAnimation("into", 0, "cut_scene_0_actor");
-        //    zat_b38_cop_dead_animation_data.addAnimationFunction("into", 0, ); // Lord: доделать
+        zat_b38_cop_dead_animation_data.addAnimationFunction("into", 0, XR_EFFECTS::zat_b38_cop_dead);  
 
         zat_b38_cop_dead_animation_data.addAnimation("idle", 0, "cut_scene_0_actor");
 
@@ -6661,8 +6648,7 @@ private:
         jup_b15_zulus_sit_drink_animation_data.addAnimation("into", 0, "jup_b15_zulus_sit_drink_idle");
         jup_b15_zulus_sit_drink_animation_data.addAnimationDettachItemName("into", 0, "vodka");
         jup_b15_zulus_sit_drink_animation_data.addAnimation("into", 0, "jup_b15_zulus_sit_drink_out");
-        //  jup_b15_zulus_sit_drink_animation_data.addAnimationFunction(
-        //  "into", 0, xr_effects.jup_b15_zulus_drink_anim_info); Lord: доделать
+        jup_b15_zulus_sit_drink_animation_data.addAnimationFunction("into", 0, XR_EFFECTS::jup_b15_zulus_drink_anim_info); 
 
         jup_b15_zulus_sit_drink_animation_data.addAnimation("idle", 0, "jup_b15_zulus_sit_idle_short");
 
@@ -6711,8 +6697,7 @@ private:
         jup_b219_actor_one_animation_data.addAnimation("into", 0, "jup_b219_descent_actor_4");
         jup_b219_actor_one_animation_data.addAnimationSoundName("into", 0, "jup_b219_actor_ready");
         jup_b219_actor_one_animation_data.addAnimation("into", 0, "jup_b219_descent_actor_8");
-        //   jup_b219_actor_one_animation_data.addAnimationFunction("into", 0, xr_effects.jup_b219_opening); Lord:
-        //   доделать!
+        jup_b219_actor_one_animation_data.addAnimationFunction("into", 0, XR_EFFECTS::jup_b219_opening);
         jup_b219_actor_one_animation_data.addAnimation("into", 0, "jup_b219_descent_actor_9");
         jup_b219_actor_one_animation_data.addAnimationSoundName("into", 0, "jup_b219_actor_go");
         jup_b219_actor_one_animation_data.addAnimation("into", 0, "jup_b219_descent_actor_10");
@@ -6723,8 +6708,7 @@ private:
         jup_b219_actor_one_animation_data.addAnimation("into", 1, "jup_b219_descent_actor_4");
         jup_b219_actor_one_animation_data.addAnimationSoundName("into", 1, "jup_b219_actor_ready");
         jup_b219_actor_one_animation_data.addAnimation("into", 1, "jup_b219_descent_actor_8");
-        //   jup_b219_actor_one_animation_data.addAnimationFunction("into", 1, xr_effects.jup_b219_opening); Lord:
-        //   доделать!
+        jup_b219_actor_one_animation_data.addAnimationFunction("into", 1, XR_EFFECTS::jup_b219_opening); 
         jup_b219_actor_one_animation_data.addAnimation("into", 1, "jup_b219_descent_actor_9");
         jup_b219_actor_one_animation_data.addAnimationSoundName("into", 1, "jup_b219_actor_go");
         jup_b219_actor_one_animation_data.addAnimation("into", 1, "jup_b219_descent_actor_10");
@@ -6744,8 +6728,7 @@ private:
         jup_b219_actor_one_vano_animation_data.addAnimation("into", 0, "jup_b219_descent_actor_5");
         jup_b219_actor_one_vano_animation_data.addAnimationSoundName("into", 0, "jup_b219_actor_ready");
         jup_b219_actor_one_vano_animation_data.addAnimation("into", 0, "jup_b219_descent_actor_8");
-        //   jup_b219_actor_one_vano_animation_data.addAnimationFunction("into", 0, xr_effects.jup_b219_opening); Lord:
-        //   доделать!
+        jup_b219_actor_one_vano_animation_data.addAnimationFunction("into", 0, XR_EFFECTS::jup_b219_opening); 
         jup_b219_actor_one_vano_animation_data.addAnimation("into", 0, "jup_b219_descent_actor_9");
         jup_b219_actor_one_vano_animation_data.addAnimationSoundName("into", 0, "jup_b219_actor_go");
         jup_b219_actor_one_vano_animation_data.addAnimation("into", 0, "jup_b219_descent_actor_10");
@@ -6765,8 +6748,7 @@ private:
         jup_b219_actor_one_monolith_animation_data.addAnimation("into", 0, "jup_b219_descent_actor_6");
         jup_b219_actor_one_monolith_animation_data.addAnimationSoundName("into", 0, "jup_b219_actor_ready");
         jup_b219_actor_one_monolith_animation_data.addAnimation("into", 0, "jup_b219_descent_actor_8");
-        //   jup_b219_actor_one_monolith_animation_data.addAnimationFunction("into", 0, xr_effects.jup_b219_opening);
-        //   Lord: доделать!
+        jup_b219_actor_one_monolith_animation_data.addAnimationFunction("into", 0, XR_EFFECTS::jup_b219_opening);
         jup_b219_actor_one_monolith_animation_data.addAnimation("into", 0, "jup_b219_descent_actor_9");
         jup_b219_actor_one_monolith_animation_data.addAnimationSoundName("into", 0, "jup_b219_actor_go");
         jup_b219_actor_one_monolith_animation_data.addAnimation("into", 0, "jup_b219_descent_actor_10");
@@ -6787,8 +6769,7 @@ private:
         jup_b219_actor_one_soldier_animation_data.addAnimation("into", 0, "jup_b219_descent_actor_7");
         jup_b219_actor_one_soldier_animation_data.addAnimationSoundName("into", 0, "jup_b219_actor_ready");
         jup_b219_actor_one_soldier_animation_data.addAnimation("into", 0, "jup_b219_descent_actor_8");
-        //   jup_b219_actor_one_soldier_animation_data.addAnimationFunction("into", 0, xr_effects.jup_b219_opening);
-        //   Lord: доделать!
+        jup_b219_actor_one_soldier_animation_data.addAnimationFunction("into", 0, XR_EFFECTS::jup_b219_opening);
         jup_b219_actor_one_soldier_animation_data.addAnimation("into", 0, "jup_b219_descent_actor_9");
         jup_b219_actor_one_soldier_animation_data.addAnimationSoundName("into", 0, "jup_b219_actor_go");
         jup_b219_actor_one_soldier_animation_data.addAnimation("into", 0, "jup_b219_descent_actor_10");
@@ -6810,8 +6791,7 @@ private:
         jup_b219_actor_all_animation_data.addAnimation("into", 0, "jup_b219_descent_actor_7");
         jup_b219_actor_all_animation_data.addAnimationSoundName("into", 0, "jup_b219_actor_ready");
         jup_b219_actor_all_animation_data.addAnimation("into", 0, "jup_b219_descent_actor_8");
-        //   jup_b219_actor_all_animation_data.addAnimationFunction("into", 0, xr_effects.jup_b219_opening); Lord:
-        //   доделать!
+        jup_b219_actor_all_animation_data.addAnimationFunction("into", 0, XR_EFFECTS::jup_b219_opening); 
         jup_b219_actor_all_animation_data.addAnimation("into", 0, "jup_b219_descent_actor_9");
         jup_b219_actor_all_animation_data.addAnimationSoundName("into", 0, "jup_b219_actor_go");
         jup_b219_actor_all_animation_data.addAnimation("into", 0, "jup_b219_descent_actor_10");
@@ -6832,8 +6812,7 @@ private:
         jup_b219_actor_soldier_vano_animation_data.addAnimation("into", 0, "jup_b219_descent_actor_7");
         jup_b219_actor_soldier_vano_animation_data.addAnimationSoundName("into", 0, "jup_b219_actor_ready");
         jup_b219_actor_soldier_vano_animation_data.addAnimation("into", 0, "jup_b219_descent_actor_8");
-        //   jup_b219_actor_soldier_vano_animation_data.addAnimationFunction("into", 0, xr_effects.jup_b219_opening);
-        //   Lord: доделать!
+        jup_b219_actor_soldier_vano_animation_data.addAnimationFunction("into", 0, XR_EFFECTS::jup_b219_opening);
         jup_b219_actor_soldier_vano_animation_data.addAnimation("into", 0, "jup_b219_descent_actor_9");
         jup_b219_actor_soldier_vano_animation_data.addAnimationSoundName("into", 0, "jup_b219_actor_go");
         jup_b219_actor_soldier_vano_animation_data.addAnimation("into", 0, "jup_b219_descent_actor_10");
@@ -6855,8 +6834,7 @@ private:
         jup_b219_actor_soldier_monolith_animation_data.addAnimation("into", 0, "jup_b219_descent_actor_7");
         jup_b219_actor_soldier_monolith_animation_data.addAnimationSoundName("into", 0, "jup_b219_actor_ready");
         jup_b219_actor_soldier_monolith_animation_data.addAnimation("into", 0, "jup_b219_descent_actor_8");
-        //   jup_b219_actor_soldier_monolith_animation_data.addAnimationFunction("into", 0,
-        //   xr_effects.jup_b219_opening); Lord: доделать!
+        jup_b219_actor_soldier_monolith_animation_data.addAnimationFunction("into", 0, XR_EFFECTS::jup_b219_opening); 
         jup_b219_actor_soldier_monolith_animation_data.addAnimation("into", 0, "jup_b219_descent_actor_9");
         jup_b219_actor_soldier_monolith_animation_data.addAnimationSoundName("into", 0, "jup_b219_actor_go");
         jup_b219_actor_soldier_monolith_animation_data.addAnimation("into", 0, "jup_b219_descent_actor_10");
@@ -6878,8 +6856,7 @@ private:
         jup_b219_actor_vano_monolith_animation_data.addAnimation("into", 0, "jup_b219_descent_actor_6");
         jup_b219_actor_vano_monolith_animation_data.addAnimationSoundName("into", 0, "jup_b219_actor_ready");
         jup_b219_actor_vano_monolith_animation_data.addAnimation("into", 0, "jup_b219_descent_actor_8");
-        //   jup_b219_actor_vano_monolith_animation_data.addAnimationFunction("into", 0,
-        //   xr_effects.jup_b219_opening); Lord: доделать!
+        jup_b219_actor_vano_monolith_animation_data.addAnimationFunction("into", 0, XR_EFFECTS::jup_b219_opening);  
         jup_b219_actor_vano_monolith_animation_data.addAnimation("into", 0, "jup_b219_descent_actor_9");
         jup_b219_actor_vano_monolith_animation_data.addAnimationSoundName("into", 0, "jup_b219_actor_go");
         jup_b219_actor_vano_monolith_animation_data.addAnimation("into", 0, "jup_b219_descent_actor_10");
@@ -7551,8 +7528,7 @@ private:
         jup_a9_cam1_actor_animation_data.setPropertiesRandom(100);
 
         jup_a9_cam1_actor_animation_data.addAnimation("into", 0, "poisk_8_idle_2");
-        //    jup_a9_cam1_actor_animation_data.addAnimationFunction("into", 0, xr_effects.jup_a9_cam1_actor_anim_end);
-        //    Lord: доделать!
+        jup_a9_cam1_actor_animation_data.addAnimationFunction("into", 0, XR_EFFECTS::jup_a9_cam1_actor_anim_end);
 
         this->m_state_manager_animation_list["jup_a9_cam1_actor"] = jup_a9_cam1_actor_animation_data;
 
@@ -7634,9 +7610,8 @@ private:
         pri_a15_vano_all_animation_data.addAnimation("into", 0, "pri_a15_vano_cam4");
         pri_a15_vano_all_animation_data.addAnimation("into", 0, "pri_a15_vano_cam5");
         pri_a15_vano_all_animation_data.addAnimation("into", 0, "pri_a15_vano_cam6");
-        pri_a15_vano_all_animation_data.addAnimation("into", 0, "pri_a15_vano_cam7_1");
-        //       pri_a15_vano_all_animation_data.addAnimationFunction("into", 0, state_mgr_pri_a15.unstrap_weapon);
-        //       Lord: доделать!
+        pri_a15_vano_all_animation_data.addAnimation("into", 0, "pri_a15_vano_cam7_1"); 
+        pri_a15_vano_all_animation_data.addAnimationFunction("into", 0, Globals::unstrap_weapon);
         pri_a15_vano_all_animation_data.addAnimation("into", 0, "pri_a15_vano_cam7_2");
         pri_a15_vano_all_animation_data.addAnimation("into", 0, "pri_a15_vano_cam8");
         pri_a15_vano_all_animation_data.addAnimation("into", 0, "pri_a15_vano_cam9");
@@ -7683,8 +7658,7 @@ private:
         pri_a15_vano_1_sokolov_animation_data.addAnimation("into", 0, "pri_a15_vano_cam5");
         pri_a15_vano_1_sokolov_animation_data.addAnimation("into", 0, "pri_a15_vano_cam6");
         pri_a15_vano_1_sokolov_animation_data.addAnimation("into", 0, "pri_a15_vano_cam7_1");
-        //       pri_a15_vano_1_sokolov_animation_data.addAnimationFunction("into", 0,
-        //       state_mgr_pri_a15.unstrap_weapon); Lord: доделать!
+        pri_a15_vano_1_sokolov_animation_data.addAnimationFunction("into", 0, Globals::unstrap_weapon); 
         pri_a15_vano_1_sokolov_animation_data.addAnimation("into", 0, "pri_a15_vano_cam7_2");
         pri_a15_vano_1_sokolov_animation_data.addAnimation("into", 0, "pri_a15_vano_cam8");
         pri_a15_vano_1_sokolov_animation_data.addAnimation("into", 0, "pri_a15_vano_cam9");
@@ -7728,8 +7702,7 @@ private:
         pri_a15_vano_1_zulus_animation_data.addAnimation("into", 0, "pri_a15_vano_cam4");
         pri_a15_vano_1_zulus_animation_data.addAnimation("into", 0, "pri_a15_vano_cam6");
         pri_a15_vano_1_zulus_animation_data.addAnimation("into", 0, "pri_a15_vano_cam7_1");
-        //       pri_a15_vano_1_zulus_animation_data.addAnimationFunction("into", 0, state_mgr_pri_a15.unstrap_weapon);
-        //       Lord: доделать!
+        pri_a15_vano_1_zulus_animation_data.addAnimationFunction("into", 0, Globals::unstrap_weapon);
         pri_a15_vano_1_zulus_animation_data.addAnimation("into", 0, "pri_a15_vano_cam7_2");
         pri_a15_vano_1_zulus_animation_data.addAnimation("into", 0, "pri_a15_vano_cam8");
         pri_a15_vano_1_zulus_animation_data.addAnimation("into", 0, "pri_a15_vano_cam9");
@@ -7770,8 +7743,7 @@ private:
         pri_a15_vano_1_wanderer_animation_data.addAnimation("into", 0, "pri_a15_vano_cam5");
         pri_a15_vano_1_wanderer_animation_data.addAnimation("into", 0, "pri_a15_vano_cam6");
         pri_a15_vano_1_wanderer_animation_data.addAnimation("into", 0, "pri_a15_vano_cam7_1");
-        //       pri_a15_vano_1_wanderer_animation_data.addAnimationFunction("into", 0,
-        //       state_mgr_pri_a15.unstrap_weapon); Lord: доделать!
+        pri_a15_vano_1_wanderer_animation_data.addAnimationFunction("into", 0, Globals::unstrap_weapon); 
         pri_a15_vano_1_wanderer_animation_data.addAnimation("into", 0, "pri_a15_vano_cam7_2");
         pri_a15_vano_1_wanderer_animation_data.addAnimation("into", 0, "pri_a15_vano_cam8");
         pri_a15_vano_1_wanderer_animation_data.addAnimation("into", 0, "pri_a15_vano_cam9");
@@ -7817,8 +7789,7 @@ private:
         pri_a15_vano_all_animation_data.addAnimation("into", 0, "pri_a15_vano_cam4");
         pri_a15_vano_all_animation_data.addAnimation("into", 0, "pri_a15_vano_cam6");
         pri_a15_vano_all_animation_data.addAnimation("into", 0, "pri_a15_vano_cam7_1");
-        //       pri_a15_vano_all_animation_data.addAnimationFunction("into", 0, state_mgr_pri_a15.unstrap_weapon);
-        //       Lord: доделать!
+        pri_a15_vano_all_animation_data.addAnimationFunction("into", 0, Globals::unstrap_weapon);
         pri_a15_vano_all_animation_data.addAnimation("into", 0, "pri_a15_vano_cam7_2");
         pri_a15_vano_all_animation_data.addAnimation("into", 0, "pri_a15_vano_cam8");
         pri_a15_vano_all_animation_data.addAnimation("into", 0, "pri_a15_vano_cam9");
@@ -7858,8 +7829,7 @@ private:
         pri_a15_vano_2_sokolov_wanderer_animation_data.addAnimation("into", 0, "pri_a15_vano_cam5");
         pri_a15_vano_2_sokolov_wanderer_animation_data.addAnimation("into", 0, "pri_a15_vano_cam6");
         pri_a15_vano_2_sokolov_wanderer_animation_data.addAnimation("into", 0, "pri_a15_vano_cam7_1");
-        //       pri_a15_vano_2_sokolov_wanderer_animation_data.addAnimationFunction("into", 0,
-        //       state_mgr_pri_a15.unstrap_weapon); Lord: доделать!
+        pri_a15_vano_2_sokolov_wanderer_animation_data.addAnimationFunction("into", 0, Globals::unstrap_weapon);
         pri_a15_vano_2_sokolov_wanderer_animation_data.addAnimation("into", 0, "pri_a15_vano_cam7_2");
         pri_a15_vano_2_sokolov_wanderer_animation_data.addAnimation("into", 0, "pri_a15_vano_cam8");
         pri_a15_vano_2_sokolov_wanderer_animation_data.addAnimation("into", 0, "pri_a15_vano_cam9");
@@ -7905,8 +7875,7 @@ private:
         pri_a15_vano_2_zulus_wanderer_animation_data.addAnimation("into", 0, "pri_a15_vano_cam4");
         pri_a15_vano_2_zulus_wanderer_animation_data.addAnimation("into", 0, "pri_a15_vano_cam6");
         pri_a15_vano_2_zulus_wanderer_animation_data.addAnimation("into", 0, "pri_a15_vano_cam7_1");
-        //       pri_a15_vano_2_zulus_wanderer_animation_data.addAnimationFunction("into", 0,
-        //       state_mgr_pri_a15.unstrap_weapon); Lord: доделать!
+        pri_a15_vano_2_zulus_wanderer_animation_data.addAnimationFunction("into", 0, Globals::unstrap_weapon);  
         pri_a15_vano_2_zulus_wanderer_animation_data.addAnimation("into", 0, "pri_a15_vano_cam7_2");
         pri_a15_vano_2_zulus_wanderer_animation_data.addAnimation("into", 0, "pri_a15_vano_cam8");
         pri_a15_vano_2_zulus_wanderer_animation_data.addAnimation("into", 0, "pri_a15_vano_cam9");
@@ -7947,8 +7916,7 @@ private:
         pri_a15_vano_3_vano_alive_animation_data.addAnimation("into", 0, "pri_a15_vano_cam4");
         pri_a15_vano_3_vano_alive_animation_data.addAnimation("into", 0, "pri_a15_vano_cam6");
         pri_a15_vano_3_vano_alive_animation_data.addAnimation("into", 0, "pri_a15_vano_cam7_1");
-        //       pri_a15_vano_3_vano_alive_animation_data.addAnimationFunction("into", 0,
-        //       state_mgr_pri_a15.unstrap_weapon); Lord: доделать!
+        pri_a15_vano_3_vano_alive_animation_data.addAnimationFunction("into", 0, Globals::unstrap_weapon); 
         pri_a15_vano_3_vano_alive_animation_data.addAnimation("into", 0, "pri_a15_vano_cam7_2");
         pri_a15_vano_3_vano_alive_animation_data.addAnimation("into", 0, "pri_a15_vano_cam8");
         pri_a15_vano_3_vano_alive_animation_data.addAnimation("into", 0, "pri_a15_vano_cam9");
@@ -7987,14 +7955,12 @@ private:
         pri_a15_sokolov_all_animation_data.addAnimation("into", 0, "pri_a15_cokolov_cam6");
         pri_a15_sokolov_all_animation_data.addAnimation("into", 0, "pri_a15_cokolov_cam7");
         pri_a15_sokolov_all_animation_data.addAnimation("into", 0, "pri_a15_cokolov_cam8_1");
-        //  pri_a15_sokolov_all_animation_data.addAnimationFunction("into", 0, state_mgr_pri_a15.unstrap_weapon); Lord:
-        //  доделать
+        pri_a15_sokolov_all_animation_data.addAnimationFunction("into", 0, Globals::unstrap_weapon);
         pri_a15_sokolov_all_animation_data.addAnimation("into", 0, "pri_a15_cokolov_cam8_2");
         pri_a15_sokolov_all_animation_data.addAnimation("into", 0, "pri_a15_cokolov_cam9");
         pri_a15_sokolov_all_animation_data.addAnimation("into", 0, "pri_a15_cokolov_cam10");
         pri_a15_sokolov_all_animation_data.addAnimation("into", 0, "pri_a15_cokolov_cam11_1");
-        //    pri_a15_sokolov_all_animation_data.addAnimationFunction("into", 0, state_mgr_pri_a15.strap_weapon); Lord:
-        //    доделать
+        pri_a15_sokolov_all_animation_data.addAnimationFunction("into", 0, Globals::strap_weapon); 
         pri_a15_sokolov_all_animation_data.addAnimationSoundName("into", 0, "pri_a15_sokolov_introduce");
         pri_a15_sokolov_all_animation_data.addAnimation("into", 0, "pri_a15_cokolov_cam11_2");
         pri_a15_sokolov_all_animation_data.addAnimation("into", 0, "pri_a15_cokolov_cam12");
@@ -8040,14 +8006,12 @@ private:
         pri_a15_sokolov_1_vano_animation_data.addAnimation("into", 0, "pri_a15_cokolov_cam6");
         pri_a15_sokolov_1_vano_animation_data.addAnimation("into", 0, "pri_a15_cokolov_cam7");
         pri_a15_sokolov_1_vano_animation_data.addAnimation("into", 0, "pri_a15_cokolov_cam8_1");
-        //  pri_a15_sokolov_1_vano_animation_data.addAnimationFunction("into", 0, state_mgr_pri_a15.unstrap_weapon);
-        //  Lord: доделать
+        pri_a15_sokolov_1_vano_animation_data.addAnimationFunction("into", 0, Globals::unstrap_weapon);
         pri_a15_sokolov_1_vano_animation_data.addAnimation("into", 0, "pri_a15_cokolov_cam8_2");
         pri_a15_sokolov_1_vano_animation_data.addAnimation("into", 0, "pri_a15_cokolov_cam9");
         pri_a15_sokolov_1_vano_animation_data.addAnimation("into", 0, "pri_a15_cokolov_cam10");
         pri_a15_sokolov_1_vano_animation_data.addAnimation("into", 0, "pri_a15_cokolov_cam11_1");
-        //    pri_a15_sokolov_1_vano_animation_data.addAnimationFunction("into", 0, state_mgr_pri_a15.strap_weapon);
-        //    Lord: доделать
+        pri_a15_sokolov_1_vano_animation_data.addAnimationFunction("into", 0, Globals::strap_weapon);
         pri_a15_sokolov_1_vano_animation_data.addAnimationSoundName("into", 0, "pri_a15_sokolov_introduce");
         pri_a15_sokolov_1_vano_animation_data.addAnimation("into", 0, "pri_a15_cokolov_cam11_2");
         pri_a15_sokolov_1_vano_animation_data.addAnimation("into", 0, "pri_a15_cokolov_cam12");
@@ -8089,14 +8053,13 @@ private:
         pri_a15_sokolov_1_zulus_animation_data.addAnimation("into", 0, "pri_a15_cokolov_cam6");
         pri_a15_sokolov_1_zulus_animation_data.addAnimation("into", 0, "pri_a15_cokolov_cam7");
         pri_a15_sokolov_1_zulus_animation_data.addAnimation("into", 0, "pri_a15_cokolov_cam8_1");
-        //  pri_a15_sokolov_1_zulus_animation_data.addAnimationFunction("into", 0, state_mgr_pri_a15.unstrap_weapon);
-        //  Lord: доделать
+        pri_a15_sokolov_1_zulus_animation_data.addAnimationFunction("into", 0, Globals::unstrap_weapon);
+ 
         pri_a15_sokolov_1_zulus_animation_data.addAnimation("into", 0, "pri_a15_cokolov_cam8_2");
         pri_a15_sokolov_1_zulus_animation_data.addAnimation("into", 0, "pri_a15_cokolov_cam9");
         pri_a15_sokolov_1_zulus_animation_data.addAnimation("into", 0, "pri_a15_cokolov_cam10");
         pri_a15_sokolov_1_zulus_animation_data.addAnimation("into", 0, "pri_a15_cokolov_cam11_1");
-        //    pri_a15_sokolov_1_zulus_animation_data.addAnimationFunction("into", 0, state_mgr_pri_a15.strap_weapon);
-        //    Lord: доделать
+        pri_a15_sokolov_1_zulus_animation_data.addAnimationFunction("into", 0, Globals::strap_weapon);
         pri_a15_sokolov_1_zulus_animation_data.addAnimationSoundName("into", 0, "pri_a15_sokolov_introduce");
         pri_a15_sokolov_1_zulus_animation_data.addAnimation("into", 0, "pri_a15_cokolov_cam11_2");
         pri_a15_sokolov_1_zulus_animation_data.addAnimation("into", 0, "pri_a15_cokolov_cam12");
@@ -8136,14 +8099,13 @@ private:
         pri_a15_sokolov_1_wanderer_animation_data.addAnimation("into", 0, "pri_a15_cokolov_cam6");
         pri_a15_sokolov_1_wanderer_animation_data.addAnimation("into", 0, "pri_a15_cokolov_cam7");
         pri_a15_sokolov_1_wanderer_animation_data.addAnimation("into", 0, "pri_a15_cokolov_cam8_1");
-        //  pri_a15_sokolov_1_wanderer_animation_data.addAnimationFunction("into", 0, state_mgr_pri_a15.unstrap_weapon);
-        //  Lord: доделать
+        pri_a15_sokolov_1_wanderer_animation_data.addAnimationFunction("into", 0, Globals::unstrap_weapon);
+ 
         pri_a15_sokolov_1_wanderer_animation_data.addAnimation("into", 0, "pri_a15_cokolov_cam8_2");
         pri_a15_sokolov_1_wanderer_animation_data.addAnimation("into", 0, "pri_a15_cokolov_cam9");
         pri_a15_sokolov_1_wanderer_animation_data.addAnimation("into", 0, "pri_a15_cokolov_cam10");
         pri_a15_sokolov_1_wanderer_animation_data.addAnimation("into", 0, "pri_a15_cokolov_cam11_1");
-        //    pri_a15_sokolov_1_wanderer_animation_data.addAnimationFunction("into", 0, state_mgr_pri_a15.strap_weapon);
-        //    Lord: доделать
+        pri_a15_sokolov_1_wanderer_animation_data.addAnimationFunction("into", 0, Globals::strap_weapon);
         pri_a15_sokolov_1_wanderer_animation_data.addAnimationSoundName("into", 0, "pri_a15_sokolov_introduce");
         pri_a15_sokolov_1_wanderer_animation_data.addAnimation("into", 0, "pri_a15_cokolov_cam11_2");
         pri_a15_sokolov_1_wanderer_animation_data.addAnimation("into", 0, "pri_a15_cokolov_cam12");
@@ -8188,14 +8150,12 @@ private:
         pri_a15_sokolov_2_vano_zulus_animation_data.addAnimation("into", 0, "pri_a15_cokolov_cam6");
         pri_a15_sokolov_2_vano_zulus_animation_data.addAnimation("into", 0, "pri_a15_cokolov_cam7");
         pri_a15_sokolov_2_vano_zulus_animation_data.addAnimation("into", 0, "pri_a15_cokolov_cam8_1");
-        //  pri_a15_sokolov_2_vano_zulus_animation_data.addAnimationFunction("into", 0,
-        //  state_mgr_pri_a15.unstrap_weapon); Lord: доделать
+        pri_a15_sokolov_2_vano_zulus_animation_data.addAnimationFunction("into", 0, Globals::unstrap_weapon);  
         pri_a15_sokolov_2_vano_zulus_animation_data.addAnimation("into", 0, "pri_a15_cokolov_cam8_2");
         pri_a15_sokolov_2_vano_zulus_animation_data.addAnimation("into", 0, "pri_a15_cokolov_cam9");
         pri_a15_sokolov_2_vano_zulus_animation_data.addAnimation("into", 0, "pri_a15_cokolov_cam10");
         pri_a15_sokolov_2_vano_zulus_animation_data.addAnimation("into", 0, "pri_a15_cokolov_cam11_1");
-        //    pri_a15_sokolov_2_vano_zulus_animation_data.addAnimationFunction("into", 0,
-        //    state_mgr_pri_a15.strap_weapon); Lord: доделать
+        pri_a15_sokolov_2_vano_zulus_animation_data.addAnimationFunction("into", 0, Globals::strap_weapon); 
         pri_a15_sokolov_2_vano_zulus_animation_data.addAnimationSoundName("into", 0, "pri_a15_sokolov_introduce");
         pri_a15_sokolov_2_vano_zulus_animation_data.addAnimation("into", 0, "pri_a15_cokolov_cam11_2");
         pri_a15_sokolov_2_vano_zulus_animation_data.addAnimation("into", 0, "pri_a15_cokolov_cam12");
@@ -8233,14 +8193,12 @@ private:
         pri_a15_sokolov_2_vano_wanderer_animation_data.addAnimation("into", 0, "pri_a15_cokolov_cam6");
         pri_a15_sokolov_2_vano_wanderer_animation_data.addAnimation("into", 0, "pri_a15_cokolov_cam7");
         pri_a15_sokolov_2_vano_wanderer_animation_data.addAnimation("into", 0, "pri_a15_cokolov_cam8_1");
-        //  pri_a15_sokolov_2_vano_wanderer_animation_data.addAnimationFunction("into", 0,
-        //  state_mgr_pri_a15.unstrap_weapon); Lord: доделать
+        pri_a15_sokolov_2_vano_wanderer_animation_data.addAnimationFunction("into", 0, Globals::unstrap_weapon); 
         pri_a15_sokolov_2_vano_wanderer_animation_data.addAnimation("into", 0, "pri_a15_cokolov_cam8_2");
         pri_a15_sokolov_2_vano_wanderer_animation_data.addAnimation("into", 0, "pri_a15_cokolov_cam9");
         pri_a15_sokolov_2_vano_wanderer_animation_data.addAnimation("into", 0, "pri_a15_cokolov_cam10");
         pri_a15_sokolov_2_vano_wanderer_animation_data.addAnimation("into", 0, "pri_a15_cokolov_cam11_1");
-        //    pri_a15_sokolov_2_vano_wanderer_animation_data.addAnimationFunction("into", 0,
-        //    state_mgr_pri_a15.strap_weapon); Lord: доделать
+        pri_a15_sokolov_2_vano_wanderer_animation_data.addAnimationFunction("into", 0, Globals::strap_weapon); 
         pri_a15_sokolov_2_vano_wanderer_animation_data.addAnimationSoundName("into", 0, "pri_a15_sokolov_introduce");
         pri_a15_sokolov_2_vano_wanderer_animation_data.addAnimation("into", 0, "pri_a15_cokolov_cam11_2");
         pri_a15_sokolov_2_vano_wanderer_animation_data.addAnimation("into", 0, "pri_a15_cokolov_cam12");
@@ -8283,14 +8241,12 @@ private:
         pri_a15_sokolov_2_zulus_wanderer_animation_data.addAnimation("into", 0, "pri_a15_cokolov_cam6");
         pri_a15_sokolov_2_zulus_wanderer_animation_data.addAnimation("into", 0, "pri_a15_cokolov_cam7");
         pri_a15_sokolov_2_zulus_wanderer_animation_data.addAnimation("into", 0, "pri_a15_cokolov_cam8_1");
-        //  pri_a15_sokolov_2_zulus_wanderer_animation_data.addAnimationFunction("into", 0,
-        //  state_mgr_pri_a15.unstrap_weapon); Lord: доделать
+        pri_a15_sokolov_2_zulus_wanderer_animation_data.addAnimationFunction("into", 0, Globals::unstrap_weapon);  
         pri_a15_sokolov_2_zulus_wanderer_animation_data.addAnimation("into", 0, "pri_a15_cokolov_cam8_2");
         pri_a15_sokolov_2_zulus_wanderer_animation_data.addAnimation("into", 0, "pri_a15_cokolov_cam9");
         pri_a15_sokolov_2_zulus_wanderer_animation_data.addAnimation("into", 0, "pri_a15_cokolov_cam10");
         pri_a15_sokolov_2_zulus_wanderer_animation_data.addAnimation("into", 0, "pri_a15_cokolov_cam11_1");
-        //    pri_a15_sokolov_2_zulus_wanderer_animation_data.addAnimationFunction("into", 0,
-        //    state_mgr_pri_a15.strap_weapon); Lord: доделать
+        pri_a15_sokolov_2_zulus_wanderer_animation_data.addAnimationFunction("into", 0, Globals::strap_weapon);  
         pri_a15_sokolov_2_zulus_wanderer_animation_data.addAnimationSoundName("into", 0, "pri_a15_sokolov_introduce");
         pri_a15_sokolov_2_zulus_wanderer_animation_data.addAnimation("into", 0, "pri_a15_cokolov_cam11_2");
         pri_a15_sokolov_2_zulus_wanderer_animation_data.addAnimation("into", 0, "pri_a15_cokolov_cam12");
@@ -8328,14 +8284,12 @@ private:
         pri_a15_sokolov_3_sokolov_alive_animation_data.addAnimation("into", 0, "pri_a15_cokolov_cam3");
         pri_a15_sokolov_3_sokolov_alive_animation_data.addAnimation("into", 0, "pri_a15_cokolov_cam4");
         pri_a15_sokolov_3_sokolov_alive_animation_data.addAnimation("into", 0, "pri_a15_cokolov_cam8_1");
-        //  pri_a15_sokolov_3_sokolov_alive_animation_data.addAnimationFunction("into", 0,
-        //  state_mgr_pri_a15.unstrap_weapon); Lord: доделать
+        pri_a15_sokolov_3_sokolov_alive_animation_data.addAnimationFunction("into", 0, Globals::unstrap_weapon); 
         pri_a15_sokolov_3_sokolov_alive_animation_data.addAnimation("into", 0, "pri_a15_cokolov_cam8_2");
         pri_a15_sokolov_3_sokolov_alive_animation_data.addAnimation("into", 0, "pri_a15_cokolov_cam9");
         pri_a15_sokolov_3_sokolov_alive_animation_data.addAnimation("into", 0, "pri_a15_cokolov_cam10");
         pri_a15_sokolov_3_sokolov_alive_animation_data.addAnimation("into", 0, "pri_a15_cokolov_cam11_1");
-        //    pri_a15_sokolov_3_sokolov_alive_animation_data.addAnimationFunction("into", 0,
-        //    state_mgr_pri_a15.strap_weapon); Lord: доделать
+        pri_a15_sokolov_3_sokolov_alive_animation_data.addAnimationFunction("into", 0, Globals::strap_weapon);  
         pri_a15_sokolov_3_sokolov_alive_animation_data.addAnimationSoundName("into", 0, "pri_a15_sokolov_introduce");
         pri_a15_sokolov_3_sokolov_alive_animation_data.addAnimation("into", 0, "pri_a15_cokolov_cam11_2");
         pri_a15_sokolov_3_sokolov_alive_animation_data.addAnimation("into", 0, "pri_a15_cokolov_cam12");
@@ -8703,8 +8657,7 @@ private:
         pri_a15_wanderer_all_animation_data.addAnimation("into", 0, "pri_a15_monolit_cam4");
         pri_a15_wanderer_all_animation_data.addAnimation("into", 0, "pri_a15_monolit_cam5");
         pri_a15_wanderer_all_animation_data.addAnimation("into", 0, "pri_a15_monolit_cam6_1");
-        //     pri_a15_wanderer_all_animation_data.addAnimationFunction("into", 0, state_mgr_pri_a15.unstrap_weapon);
-        //     Lord: доделать!
+        pri_a15_wanderer_all_animation_data.addAnimationFunction("into", 0, Globals::unstrap_weapon);
         pri_a15_wanderer_all_animation_data.addAnimation("into", 0, "pri_a15_monolit_cam6_2");
         pri_a15_wanderer_all_animation_data.addAnimation("into", 0, "pri_a15_monolit_cam7");
         pri_a15_wanderer_all_animation_data.addAnimation("into", 0, "pri_a15_monolit_cam8");
@@ -8751,8 +8704,7 @@ private:
         pri_a15_wanderer_1_vano_animation_data.addAnimation("into", 0, "pri_a15_monolit_cam4");
         pri_a15_wanderer_1_vano_animation_data.addAnimation("into", 0, "pri_a15_monolit_cam5");
         pri_a15_wanderer_1_vano_animation_data.addAnimation("into", 0, "pri_a15_monolit_cam6_1");
-        //     pri_a15_wanderer_1_vano_animation_data.addAnimationFunction("into", 0, state_mgr_pri_a15.unstrap_weapon);
-        //     Lord: доделать!
+        pri_a15_wanderer_1_vano_animation_data.addAnimationFunction("into", 0, Globals::unstrap_weapon);
         pri_a15_wanderer_1_vano_animation_data.addAnimation("into", 0, "pri_a15_monolit_cam6_2");
         pri_a15_wanderer_1_vano_animation_data.addAnimation("into", 0, "pri_a15_monolit_cam7");
         pri_a15_wanderer_1_vano_animation_data.addAnimation("into", 0, "pri_a15_monolit_cam8");
@@ -8796,8 +8748,7 @@ private:
         pri_a15_wanderer_1_sokolov_animation_data.addAnimation("into", 0, "pri_a15_monolit_cam4");
         pri_a15_wanderer_1_sokolov_animation_data.addAnimation("into", 0, "pri_a15_monolit_cam5");
         pri_a15_wanderer_1_sokolov_animation_data.addAnimation("into", 0, "pri_a15_monolit_cam6_1");
-        //     pri_a15_wanderer_1_sokolov_animation_data.addAnimationFunction("into", 0,
-        //     state_mgr_pri_a15.unstrap_weapon); Lord: доделать!
+        pri_a15_wanderer_1_sokolov_animation_data.addAnimationFunction("into", 0, Globals::unstrap_weapon); 
         pri_a15_wanderer_1_sokolov_animation_data.addAnimation("into", 0, "pri_a15_monolit_cam6_2");
         pri_a15_wanderer_1_sokolov_animation_data.addAnimation("into", 0, "pri_a15_monolit_cam7");
         pri_a15_wanderer_1_sokolov_animation_data.addAnimation("into", 0, "pri_a15_monolit_cam8");
@@ -8842,8 +8793,7 @@ private:
         pri_a15_wanderer_1_zulus_animation_data.addAnimation("into", 0, "pri_a15_monolit_cam4");
         pri_a15_wanderer_1_zulus_animation_data.addAnimation("into", 0, "pri_a15_monolit_cam5");
         pri_a15_wanderer_1_zulus_animation_data.addAnimation("into", 0, "pri_a15_monolit_cam6_1");
-        //     pri_a15_wanderer_1_zulus_animation_data.addAnimationFunction("into", 0,
-        //     state_mgr_pri_a15.unstrap_weapon); Lord: доделать!
+        pri_a15_wanderer_1_zulus_animation_data.addAnimationFunction("into", 0, Globals::unstrap_weapon); 
         pri_a15_wanderer_1_zulus_animation_data.addAnimation("into", 0, "pri_a15_monolit_cam6_2");
         pri_a15_wanderer_1_zulus_animation_data.addAnimation("into", 0, "pri_a15_monolit_cam7");
         pri_a15_wanderer_1_zulus_animation_data.addAnimation("into", 0, "pri_a15_monolit_cam8");
@@ -8884,8 +8834,7 @@ private:
         pri_a15_wanderer_2_vano_sokolov_animation_data.addAnimation("into", 0, "pri_a15_monolit_cam4");
         pri_a15_wanderer_2_vano_sokolov_animation_data.addAnimation("into", 0, "pri_a15_monolit_cam5");
         pri_a15_wanderer_2_vano_sokolov_animation_data.addAnimation("into", 0, "pri_a15_monolit_cam6_1");
-        //     pri_a15_wanderer_2_vano_sokolov_animation_data.addAnimationFunction("into", 0,
-        //     state_mgr_pri_a15.unstrap_weapon); Lord: доделать!
+        pri_a15_wanderer_2_vano_sokolov_animation_data.addAnimationFunction("into", 0, Globals::unstrap_weapon); 
         pri_a15_wanderer_2_vano_sokolov_animation_data.addAnimation("into", 0, "pri_a15_monolit_cam6_2");
         pri_a15_wanderer_2_vano_sokolov_animation_data.addAnimation("into", 0, "pri_a15_monolit_cam7");
         pri_a15_wanderer_2_vano_sokolov_animation_data.addAnimation("into", 0, "pri_a15_monolit_cam8");
@@ -8927,8 +8876,7 @@ private:
         pri_a15_wanderer_2_vano_zulus_animation_data.addAnimation("into", 0, "pri_a15_monolit_cam3");
         pri_a15_wanderer_2_vano_zulus_animation_data.addAnimation("into", 0, "pri_a15_monolit_cam4");
         pri_a15_wanderer_2_vano_zulus_animation_data.addAnimation("into", 0, "pri_a15_monolit_cam6_1");
-        //     pri_a15_wanderer_2_vano_zulus_animation_data.addAnimationFunction("into", 0,
-        //     state_mgr_pri_a15.unstrap_weapon); Lord: доделать!
+        pri_a15_wanderer_2_vano_zulus_animation_data.addAnimationFunction("into", 0, Globals::unstrap_weapon); 
         pri_a15_wanderer_2_vano_zulus_animation_data.addAnimation("into", 0, "pri_a15_monolit_cam6_2");
         pri_a15_wanderer_2_vano_zulus_animation_data.addAnimation("into", 0, "pri_a15_monolit_cam7");
         pri_a15_wanderer_2_vano_zulus_animation_data.addAnimation("into", 0, "pri_a15_monolit_cam8");
@@ -8966,8 +8914,7 @@ private:
         pri_a15_wanderer_2_sokolov_zulus_animation_data.addAnimation("into", 0, "pri_a15_monolit_cam3");
         pri_a15_wanderer_2_sokolov_zulus_animation_data.addAnimation("into", 0, "pri_a15_monolit_cam4");
         pri_a15_wanderer_2_sokolov_zulus_animation_data.addAnimation("into", 0, "pri_a15_monolit_cam6_1");
-        //     pri_a15_wanderer_2_sokolov_zulus_animation_data.addAnimationFunction("into", 0,
-        //     state_mgr_pri_a15.unstrap_weapon); Lord: доделать!
+        pri_a15_wanderer_2_sokolov_zulus_animation_data.addAnimationFunction("into", 0, Globals::unstrap_weapon); 
         pri_a15_wanderer_2_sokolov_zulus_animation_data.addAnimation("into", 0, "pri_a15_monolit_cam6_2");
         pri_a15_wanderer_2_sokolov_zulus_animation_data.addAnimation("into", 0, "pri_a15_monolit_cam7");
         pri_a15_wanderer_2_sokolov_zulus_animation_data.addAnimation("into", 0, "pri_a15_monolit_cam8");
@@ -9007,8 +8954,7 @@ private:
         pri_a15_wanderer_3_wanderer_alive_animation_data.addAnimation("into", 0, "pri_a15_monolit_cam3");
         pri_a15_wanderer_3_wanderer_alive_animation_data.addAnimation("into", 0, "pri_a15_monolit_cam4");
         pri_a15_wanderer_3_wanderer_alive_animation_data.addAnimation("into", 0, "pri_a15_monolit_cam6_1");
-        //     pri_a15_wanderer_3_wanderer_alive_animation_data.addAnimationFunction("into", 0,
-        //     state_mgr_pri_a15.unstrap_weapon); Lord: доделать!
+        pri_a15_wanderer_3_wanderer_alive_animation_data.addAnimationFunction("into", 0, Globals::unstrap_weapon);  
         pri_a15_wanderer_3_wanderer_alive_animation_data.addAnimation("into", 0, "pri_a15_monolit_cam6_2");
         pri_a15_wanderer_3_wanderer_alive_animation_data.addAnimation("into", 0, "pri_a15_monolit_cam7");
         pri_a15_wanderer_3_wanderer_alive_animation_data.addAnimation("into", 0, "pri_a15_monolit_cam8");
@@ -9043,24 +8989,20 @@ private:
         pri_a15_actor_all_animation_data.addAnimationAttachItemName("into", 0, "pri_a15_wpn_ak74");
         pri_a15_actor_all_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam2");
         pri_a15_actor_all_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam3");
-        //     pri_a15_actor_all_animation_data.addAnimationFunction("into", 0, state_mgr_pri_a15.break_fence); // Lord:
-        //     доделать!
+        pri_a15_actor_all_animation_data.addAnimationFunction("into", 0, Globals::break_fence);
         pri_a15_actor_all_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam4");
-        //     pri_a15_actor_all_animation_data.addAnimationFunction("into", 0, state_mgr_pri_a15.lights_off);        //
-        //     Lord: доделать!
+        pri_a15_actor_all_animation_data.addAnimationFunction("into", 0, Globals::lights_off);     
         pri_a15_actor_all_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam5");
         pri_a15_actor_all_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam6");
         pri_a15_actor_all_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam7");
         pri_a15_actor_all_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam8");
         pri_a15_actor_all_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam9_1");
-        //    pri_a15_actor_all_animation_data.addAnimationFunction("into", 0, state_mgr_pri_a15.unstrap_weapon); Lord:
-        //    доделать!
+        pri_a15_actor_all_animation_data.addAnimationFunction("into", 0, Globals::unstrap_weapon); 
         pri_a15_actor_all_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam9_2");
         pri_a15_actor_all_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam10");
         pri_a15_actor_all_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam11");
         pri_a15_actor_all_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam12");
-        //   pri_a15_actor_all_animation_data.addAnimationFunction("into", 0, state_mgr_pri_a15.strap_weapon); Lord:
-        //   доделать!
+        pri_a15_actor_all_animation_data.addAnimationFunction("into", 0, Globals::strap_weapon);
         pri_a15_actor_all_animation_data.addAnimationSoundName("into", 0, "pri_a15_actor_need_talk_with_commander");
         pri_a15_actor_all_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam13");
         pri_a15_actor_all_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam14");
@@ -9089,8 +9031,7 @@ private:
         pri_a15_actor_all_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam29");
         pri_a15_actor_all_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam30");
         pri_a15_actor_all_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam31");
-        //     pri_a15_actor_all_animation_data.addAnimationFunction("into", 0, f = state_mgr_pri_a15.end_scene); Lord:
-        //     доделать!
+        pri_a15_actor_all_animation_data.addAnimationFunction("into", 0, Globals::end_scene);
         pri_a15_actor_all_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam32");
 
         this->m_state_manager_animation_list["pri_a15_actor_all"] = pri_a15_actor_all_animation_data;
@@ -9105,24 +9046,20 @@ private:
         pri_a15_actor_1_vano_animation_data.addAnimationAttachItemName("into", 0, "pri_a15_wpn_ak74");
         pri_a15_actor_1_vano_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam2");
         pri_a15_actor_1_vano_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam3");
-        //     pri_a15_actor_1_vano_animation_data.addAnimationFunction("into", 0, state_mgr_pri_a15.break_fence); //
-        //     Lord: доделать!
+        pri_a15_actor_1_vano_animation_data.addAnimationFunction("into", 0, Globals::break_fence);
         pri_a15_actor_1_vano_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam4");
-        //     pri_a15_actor_1_vano_animation_data.addAnimationFunction("into", 0, state_mgr_pri_a15.lights_off); //
-        //     Lord: доделать!
+        pri_a15_actor_1_vano_animation_data.addAnimationFunction("into", 0, Globals::lights_off); 
         pri_a15_actor_1_vano_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam5");
         pri_a15_actor_1_vano_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam6");
         pri_a15_actor_1_vano_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam7");
         pri_a15_actor_1_vano_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam8");
         pri_a15_actor_1_vano_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam9_1");
-        //    pri_a15_actor_1_vano_animation_data.addAnimationFunction("into", 0, state_mgr_pri_a15.unstrap_weapon);
-        //    Lord: доделать!
+        pri_a15_actor_1_vano_animation_data.addAnimationFunction("into", 0, Globals::unstrap_weapon);
         pri_a15_actor_1_vano_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam9_2");
         pri_a15_actor_1_vano_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam10");
         pri_a15_actor_1_vano_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam11");
         pri_a15_actor_1_vano_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam12");
-        //   pri_a15_actor_1_vano_animation_data.addAnimationFunction("into", 0, state_mgr_pri_a15.strap_weapon); Lord:
-        //   доделать!
+        pri_a15_actor_1_vano_animation_data.addAnimationFunction("into", 0, Globals::strap_weapon); 
         pri_a15_actor_1_vano_animation_data.addAnimationSoundName("into", 0, "pri_a15_actor_need_talk_with_commander");
         pri_a15_actor_1_vano_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam13");
         pri_a15_actor_1_vano_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam14");
@@ -9148,8 +9085,7 @@ private:
         pri_a15_actor_1_vano_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam29");
         pri_a15_actor_1_vano_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam30");
         pri_a15_actor_1_vano_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam31");
-        //     pri_a15_actor_1_vano_animation_data.addAnimationFunction("into", 0, f = state_mgr_pri_a15.end_scene);
-        //     Lord: доделать!
+        pri_a15_actor_1_vano_animation_data.addAnimationFunction("into", 0, Globals::end_scene);
         pri_a15_actor_1_vano_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam32");
 
         this->m_state_manager_animation_list["pri_a15_actor_1_vano"] = pri_a15_actor_1_vano_animation_data;
@@ -9164,23 +9100,19 @@ private:
         pri_a15_actor_1_sokolov_animation_data.addAnimationAttachItemName("into", 0, "pri_a15_wpn_ak74");
         pri_a15_actor_1_sokolov_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam2");
         pri_a15_actor_1_sokolov_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam3");
-        //     pri_a15_actor_1_sokolov_animation_data.addAnimationFunction("into", 0, state_mgr_pri_a15.break_fence); //
-        //     Lord: доделать!
+        pri_a15_actor_1_sokolov_animation_data.addAnimationFunction("into", 0, Globals::break_fence); 
         pri_a15_actor_1_sokolov_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam4");
-        //     pri_a15_actor_1_sokolov_animation_data.addAnimationFunction("into", 0, state_mgr_pri_a15.lights_off); //
-        //     Lord: доделать!
+        pri_a15_actor_1_sokolov_animation_data.addAnimationFunction("into", 0, Globals::lights_off); 
         pri_a15_actor_1_sokolov_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam5");
         pri_a15_actor_1_sokolov_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam6");
         pri_a15_actor_1_sokolov_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam7");
         pri_a15_actor_1_sokolov_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam8");
         pri_a15_actor_1_sokolov_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam9_1");
-        //    pri_a15_actor_1_sokolov_animation_data.addAnimationFunction("into", 0, state_mgr_pri_a15.unstrap_weapon);
-        //    Lord: доделать!
+        pri_a15_actor_1_sokolov_animation_data.addAnimationFunction("into", 0, Globals::unstrap_weapon);
         pri_a15_actor_1_sokolov_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam9_2");
         pri_a15_actor_1_sokolov_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam10");
         pri_a15_actor_1_sokolov_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam12");
-        //   pri_a15_actor_1_sokolov_animation_data.addAnimationFunction("into", 0, state_mgr_pri_a15.strap_weapon);
-        //   Lord: доделать!
+        pri_a15_actor_1_sokolov_animation_data.addAnimationFunction("into", 0, Globals::strap_weapon);
         pri_a15_actor_1_sokolov_animation_data.addAnimationSoundName(
             "into", 0, "pri_a15_actor_need_talk_with_commander");
         pri_a15_actor_1_sokolov_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam13");
@@ -9209,8 +9141,7 @@ private:
         pri_a15_actor_1_sokolov_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam29");
         pri_a15_actor_1_sokolov_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam30");
         pri_a15_actor_1_sokolov_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam31");
-        //     pri_a15_actor_1_sokolov_animation_data.addAnimationFunction("into", 0, f = state_mgr_pri_a15.end_scene);
-        //     Lord: доделать!
+        pri_a15_actor_1_sokolov_animation_data.addAnimationFunction("into", 0, Globals::end_scene);
         pri_a15_actor_1_sokolov_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam32");
 
         this->m_state_manager_animation_list["pri_a15_actor_1_sokolov"] = pri_a15_actor_1_sokolov_animation_data;
@@ -9225,23 +9156,19 @@ private:
         pri_a15_actor_1_zulus_animation_data.addAnimationAttachItemName("into", 0, "pri_a15_wpn_ak74");
         pri_a15_actor_1_zulus_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam2");
         pri_a15_actor_1_zulus_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam3");
-        //     pri_a15_actor_1_zulus_animation_data.addAnimationFunction("into", 0, state_mgr_pri_a15.break_fence); //
-        //     Lord: доделать!
+        pri_a15_actor_1_zulus_animation_data.addAnimationFunction("into", 0, Globals::break_fence); 
         pri_a15_actor_1_zulus_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam4");
-        //     pri_a15_actor_1_zulus_animation_data.addAnimationFunction("into", 0, state_mgr_pri_a15.lights_off); //
-        //     Lord: доделать!
+        pri_a15_actor_1_zulus_animation_data.addAnimationFunction("into", 0, Globals::lights_off); 
         pri_a15_actor_1_zulus_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam6");
         pri_a15_actor_1_zulus_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam7");
         pri_a15_actor_1_zulus_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam8");
         pri_a15_actor_1_zulus_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam9_1");
-        //    pri_a15_actor_1_zulus_animation_data.addAnimationFunction("into", 0, state_mgr_pri_a15.unstrap_weapon);
-        //    Lord: доделать!
+        pri_a15_actor_1_zulus_animation_data.addAnimationFunction("into", 0, Globals::unstrap_weapon);
         pri_a15_actor_1_zulus_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam9_2");
         pri_a15_actor_1_zulus_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam10");
         pri_a15_actor_1_zulus_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam11");
         pri_a15_actor_1_zulus_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam12");
-        //   pri_a15_actor_1_zulus_animation_data.addAnimationFunction("into", 0, state_mgr_pri_a15.strap_weapon); Lord:
-        //   доделать!
+        pri_a15_actor_1_zulus_animation_data.addAnimationFunction("into", 0, Globals::strap_weapon);
         pri_a15_actor_1_zulus_animation_data.addAnimationSoundName("into", 0, "pri_a15_actor_need_talk_with_commander");
         pri_a15_actor_1_zulus_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam13");
         pri_a15_actor_1_zulus_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam14");
@@ -9263,8 +9190,7 @@ private:
         pri_a15_actor_1_zulus_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam25");
         pri_a15_actor_1_zulus_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam30");
         pri_a15_actor_1_zulus_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam31");
-        //     pri_a15_actor_1_zulus_animation_data.addAnimationFunction("into", 0, f = state_mgr_pri_a15.end_scene);
-        //     Lord: доделать!
+        pri_a15_actor_1_zulus_animation_data.addAnimationFunction("into", 0, Globals::end_scene);
         pri_a15_actor_1_zulus_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam32");
 
         this->m_state_manager_animation_list["pri_a15_actor_1_zulus"] = pri_a15_actor_1_zulus_animation_data;
@@ -9279,24 +9205,22 @@ private:
         pri_a15_actor_1_wanderer_animation_data.addAnimationAttachItemName("into", 0, "pri_a15_wpn_ak74");
         pri_a15_actor_1_wanderer_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam2");
         pri_a15_actor_1_wanderer_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam3");
-        //     pri_a15_actor_1_wanderer_animation_data.addAnimationFunction("into", 0, state_mgr_pri_a15.break_fence);
-        //     // Lord: доделать!
+        pri_a15_actor_1_wanderer_animation_data.addAnimationFunction("into", 0, Globals::break_fence);
+
         pri_a15_actor_1_wanderer_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam4");
-        //     pri_a15_actor_1_wanderer_animation_data.addAnimationFunction("into", 0, state_mgr_pri_a15.lights_off); //
-        //     Lord: доделать!
+        pri_a15_actor_1_wanderer_animation_data.addAnimationFunction("into", 0, Globals::lights_off); 
+
         pri_a15_actor_1_wanderer_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam5");
         pri_a15_actor_1_wanderer_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam6");
         pri_a15_actor_1_wanderer_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam7");
         pri_a15_actor_1_wanderer_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam8");
         pri_a15_actor_1_wanderer_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam9_1");
-        //    pri_a15_actor_1_wanderer_animation_data.addAnimationFunction("into", 0, state_mgr_pri_a15.unstrap_weapon);
-        //    Lord: доделать!
+        pri_a15_actor_1_wanderer_animation_data.addAnimationFunction("into", 0, Globals::unstrap_weapon);
         pri_a15_actor_1_wanderer_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam9_2");
         pri_a15_actor_1_wanderer_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam10");
         pri_a15_actor_1_wanderer_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam11");
         pri_a15_actor_1_wanderer_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam12");
-        //   pri_a15_actor_1_wanderer_animation_data.addAnimationFunction("into", 0, state_mgr_pri_a15.strap_weapon);
-        //   Lord: доделать!
+        pri_a15_actor_1_wanderer_animation_data.addAnimationFunction("into", 0, Globals::strap_weapon);
         pri_a15_actor_1_wanderer_animation_data.addAnimationSoundName(
             "into", 0, "pri_a15_actor_need_talk_with_commander");
         pri_a15_actor_1_wanderer_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam13");
@@ -9326,8 +9250,7 @@ private:
         pri_a15_actor_1_wanderer_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam29");
         pri_a15_actor_1_wanderer_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam30");
         pri_a15_actor_1_wanderer_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam31");
-        //     pri_a15_actor_1_wanderer_animation_data.addAnimationFunction("into", 0, f = state_mgr_pri_a15.end_scene);
-        //     Lord: доделать!
+        pri_a15_actor_1_wanderer_animation_data.addAnimationFunction("into", 0, Globals::end_scene);
         pri_a15_actor_1_wanderer_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam32");
 
         this->m_state_manager_animation_list["pri_a15_actor_1_wanderer"] = pri_a15_actor_1_wanderer_animation_data;
@@ -9342,23 +9265,19 @@ private:
         pri_a15_actor_2_vano_sokolov_animation_data.addAnimationAttachItemName("into", 0, "pri_a15_wpn_ak74");
         pri_a15_actor_2_vano_sokolov_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam2");
         pri_a15_actor_2_vano_sokolov_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam3");
-        //     pri_a15_actor_2_vano_sokolov_animation_data.addAnimationFunction("into", 0,
-        //     state_mgr_pri_a15.break_fence); // Lord: доделать!
+        pri_a15_actor_2_vano_sokolov_animation_data.addAnimationFunction("into", 0, Globals::break_fence); 
         pri_a15_actor_2_vano_sokolov_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam4");
-        //     pri_a15_actor_2_vano_sokolov_animation_data.addAnimationFunction("into", 0,
-        //     state_mgr_pri_a15.lights_off);        // Lord: доделать!
+        pri_a15_actor_2_vano_sokolov_animation_data.addAnimationFunction("into", 0, Globals::lights_off); 
         pri_a15_actor_2_vano_sokolov_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam5");
         pri_a15_actor_2_vano_sokolov_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam6");
         pri_a15_actor_2_vano_sokolov_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam7");
         pri_a15_actor_2_vano_sokolov_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam8");
         pri_a15_actor_2_vano_sokolov_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam9_1");
-        //    pri_a15_actor_2_vano_sokolov_animation_data.addAnimationFunction("into", 0,
-        //    state_mgr_pri_a15.unstrap_weapon); Lord: доделать!
+        pri_a15_actor_2_vano_sokolov_animation_data.addAnimationFunction("into", 0, Globals::unstrap_weapon); 
         pri_a15_actor_2_vano_sokolov_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam9_2");
         pri_a15_actor_2_vano_sokolov_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam10");
         pri_a15_actor_2_vano_sokolov_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam12");
-        //   pri_a15_actor_2_vano_sokolov_animation_data.addAnimationFunction("into", 0,
-        //   state_mgr_pri_a15.strap_weapon); Lord: доделать!
+        pri_a15_actor_2_vano_sokolov_animation_data.addAnimationFunction("into", 0, Globals::strap_weapon);
         pri_a15_actor_2_vano_sokolov_animation_data.addAnimationSoundName(
             "into", 0, "pri_a15_actor_need_talk_with_commander");
         pri_a15_actor_2_vano_sokolov_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam13");
@@ -9384,8 +9303,7 @@ private:
         pri_a15_actor_2_vano_sokolov_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam29");
         pri_a15_actor_2_vano_sokolov_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam30");
         pri_a15_actor_2_vano_sokolov_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam31");
-        //     pri_a15_actor_2_vano_sokolov_animation_data.addAnimationFunction("into", 0, f =
-        //     state_mgr_pri_a15.end_scene); Lord: доделать!
+        pri_a15_actor_2_vano_sokolov_animation_data.addAnimationFunction("into", 0, Globals::end_scene);
         pri_a15_actor_2_vano_sokolov_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam32");
 
         this->m_state_manager_animation_list["pri_a15_actor_2_vano_sokolov"] =
@@ -9401,23 +9319,20 @@ private:
         pri_a15_actor_2_vano_zulus_animation_data.addAnimationAttachItemName("into", 0, "pri_a15_wpn_ak74");
         pri_a15_actor_2_vano_zulus_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam2");
         pri_a15_actor_2_vano_zulus_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam3");
-        //     pri_a15_actor_2_vano_zulus_animation_data.addAnimationFunction("into", 0, state_mgr_pri_a15.break_fence);
-        //     // Lord: доделать!
+        pri_a15_actor_2_vano_zulus_animation_data.addAnimationFunction("into", 0, Globals::break_fence);
+ 
         pri_a15_actor_2_vano_zulus_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam4");
-        //     pri_a15_actor_2_vano_zulus_animation_data.addAnimationFunction("into", 0, state_mgr_pri_a15.lights_off);
-        //     // Lord: доделать!
+        pri_a15_actor_2_vano_zulus_animation_data.addAnimationFunction("into", 0, Globals::lights_off);
         pri_a15_actor_2_vano_zulus_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam6");
         pri_a15_actor_2_vano_zulus_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam7");
         pri_a15_actor_2_vano_zulus_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam8");
         pri_a15_actor_2_vano_zulus_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam9_1");
-        //    pri_a15_actor_2_vano_zulus_animation_data.addAnimationFunction("into", 0,
-        //    state_mgr_pri_a15.unstrap_weapon); Lord: доделать!
+        pri_a15_actor_2_vano_zulus_animation_data.addAnimationFunction("into", 0, Globals::unstrap_weapon);
         pri_a15_actor_2_vano_zulus_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam9_2");
         pri_a15_actor_2_vano_zulus_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam10");
         pri_a15_actor_2_vano_zulus_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam11");
         pri_a15_actor_2_vano_zulus_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam12");
-        //   pri_a15_actor_2_vano_zulus_animation_data.addAnimationFunction("into", 0, state_mgr_pri_a15.strap_weapon);
-        //   Lord: доделать!
+        pri_a15_actor_2_vano_zulus_animation_data.addAnimationFunction("into", 0, Globals::strap_weapon);
         pri_a15_actor_2_vano_zulus_animation_data.addAnimationSoundName(
             "into", 0, "pri_a15_actor_need_talk_with_commander");
         pri_a15_actor_2_vano_zulus_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam13");
@@ -9437,8 +9352,7 @@ private:
         pri_a15_actor_2_vano_zulus_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam25");
         pri_a15_actor_2_vano_zulus_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam30");
         pri_a15_actor_2_vano_zulus_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam31");
-        //     pri_a15_actor_2_vano_zulus_animation_data.addAnimationFunction("into", 0, f =
-        //     state_mgr_pri_a15.end_scene); Lord: доделать!
+        pri_a15_actor_2_vano_zulus_animation_data.addAnimationFunction("into", 0, Globals::end_scene);
         pri_a15_actor_2_vano_zulus_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam32");
 
         this->m_state_manager_animation_list["pri_a15_actor_2_vano_zulus"] = pri_a15_actor_2_vano_zulus_animation_data;
@@ -9453,24 +9367,20 @@ private:
         pri_a15_actor_2_vano_wanderer_animation_data.addAnimationAttachItemName("into", 0, "pri_a15_wpn_ak74");
         pri_a15_actor_2_vano_wanderer_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam2");
         pri_a15_actor_2_vano_wanderer_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam3");
-        //     pri_a15_actor_2_vano_wanderer_animation_data.addAnimationFunction("into", 0,
-        //     state_mgr_pri_a15.break_fence); // Lord: доделать!
+        pri_a15_actor_2_vano_wanderer_animation_data.addAnimationFunction("into", 0, Globals::break_fence);
         pri_a15_actor_2_vano_wanderer_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam4");
-        //     pri_a15_actor_2_vano_wanderer_animation_data.addAnimationFunction("into", 0,
-        //     state_mgr_pri_a15.lights_off);        // Lord: доделать!
+        pri_a15_actor_2_vano_wanderer_animation_data.addAnimationFunction("into", 0, Globals::lights_off);
         pri_a15_actor_2_vano_wanderer_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam5");
         pri_a15_actor_2_vano_wanderer_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam6");
         pri_a15_actor_2_vano_wanderer_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam7");
         pri_a15_actor_2_vano_wanderer_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam8");
         pri_a15_actor_2_vano_wanderer_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam9_1");
-        //    pri_a15_actor_2_vano_wanderer_animation_data.addAnimationFunction("into", 0,
-        //    state_mgr_pri_a15.unstrap_weapon); Lord: доделать!
+        pri_a15_actor_2_vano_wanderer_animation_data.addAnimationFunction("into", 0, Globals::unstrap_weapon); 
         pri_a15_actor_2_vano_wanderer_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam9_2");
         pri_a15_actor_2_vano_wanderer_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam10");
         pri_a15_actor_2_vano_wanderer_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam11");
         pri_a15_actor_2_vano_wanderer_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam12");
-        //   pri_a15_actor_2_vano_wanderer_animation_data.addAnimationFunction("into", 0,
-        //   state_mgr_pri_a15.strap_weapon); Lord: доделать!
+        pri_a15_actor_2_vano_wanderer_animation_data.addAnimationFunction("into", 0, Globals::strap_weapon); 
         pri_a15_actor_2_vano_wanderer_animation_data.addAnimationSoundName(
             "into", 0, "pri_a15_actor_need_talk_with_commander");
         pri_a15_actor_2_vano_wanderer_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam13");
@@ -9497,8 +9407,7 @@ private:
         pri_a15_actor_2_vano_wanderer_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam29");
         pri_a15_actor_2_vano_wanderer_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam30");
         pri_a15_actor_2_vano_wanderer_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam31");
-        //     pri_a15_actor_2_vano_wanderer_animation_data.addAnimationFunction("into", 0, f =
-        //     state_mgr_pri_a15.end_scene); Lord: доделать!
+        pri_a15_actor_2_vano_wanderer_animation_data.addAnimationFunction("into", 0, Globals::end_scene);
         pri_a15_actor_2_vano_wanderer_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam32");
 
         this->m_state_manager_animation_list["pri_a15_actor_2_vano_wanderer"] =
@@ -9514,22 +9423,18 @@ private:
         pri_a15_actor_2_sokolov_zulus_animation_data.addAnimationAttachItemName("into", 0, "pri_a15_wpn_ak74");
         pri_a15_actor_2_sokolov_zulus_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam2");
         pri_a15_actor_2_sokolov_zulus_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam3");
-        //     pri_a15_actor_2_sokolov_zulus_animation_data.addAnimationFunction("into", 0,
-        //     state_mgr_pri_a15.break_fence); // Lord: доделать!
+        pri_a15_actor_2_sokolov_zulus_animation_data.addAnimationFunction("into", 0, Globals::break_fence); 
         pri_a15_actor_2_sokolov_zulus_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam4");
-        //     pri_a15_actor_2_sokolov_zulus_animation_data.addAnimationFunction("into", 0,
-        //     state_mgr_pri_a15.lights_off);        // Lord: доделать!
+        pri_a15_actor_2_sokolov_zulus_animation_data.addAnimationFunction("into", 0, Globals::lights_off); 
         pri_a15_actor_2_sokolov_zulus_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam6");
         pri_a15_actor_2_sokolov_zulus_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam7");
         pri_a15_actor_2_sokolov_zulus_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam8");
         pri_a15_actor_2_sokolov_zulus_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam9_1");
-        //    pri_a15_actor_2_sokolov_zulus_animation_data.addAnimationFunction("into", 0,
-        //    state_mgr_pri_a15.unstrap_weapon); Lord: доделать!
+        pri_a15_actor_2_sokolov_zulus_animation_data.addAnimationFunction("into", 0, Globals::unstrap_weapon);
         pri_a15_actor_2_sokolov_zulus_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam9_2");
         pri_a15_actor_2_sokolov_zulus_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam10");
         pri_a15_actor_2_sokolov_zulus_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam12");
-        //   pri_a15_actor_2_sokolov_zulus_animation_data.addAnimationFunction("into", 0,
-        //   state_mgr_pri_a15.strap_weapon); Lord: доделать!
+        pri_a15_actor_2_sokolov_zulus_animation_data.addAnimationFunction("into", 0, Globals::strap_weapon); 
         pri_a15_actor_2_sokolov_zulus_animation_data.addAnimationSoundName(
             "into", 0, "pri_a15_actor_need_talk_with_commander");
         pri_a15_actor_2_sokolov_zulus_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam13");
@@ -9550,8 +9455,7 @@ private:
         pri_a15_actor_2_sokolov_zulus_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam25");
         pri_a15_actor_2_sokolov_zulus_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam30");
         pri_a15_actor_2_sokolov_zulus_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam31");
-        //     pri_a15_actor_2_sokolov_zulus_animation_data.addAnimationFunction("into", 0, f =
-        //     state_mgr_pri_a15.end_scene); Lord: доделать!
+        pri_a15_actor_2_sokolov_zulus_animation_data.addAnimationFunction("into", 0, Globals::end_scene);
         pri_a15_actor_2_sokolov_zulus_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam32");
 
         this->m_state_manager_animation_list["pri_a15_actor_2_sokolov_zulus"] =
@@ -9567,23 +9471,19 @@ private:
         pri_a15_actor_2_sokolov_wanderer_animation_data.addAnimationAttachItemName("into", 0, "pri_a15_wpn_ak74");
         pri_a15_actor_2_sokolov_wanderer_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam2");
         pri_a15_actor_2_sokolov_wanderer_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam3");
-        //     pri_a15_actor_2_sokolov_wanderer_animation_data.addAnimationFunction("into", 0,
-        //     state_mgr_pri_a15.break_fence); // Lord: доделать!
+        pri_a15_actor_2_sokolov_wanderer_animation_data.addAnimationFunction("into", 0, Globals::break_fence);
         pri_a15_actor_2_sokolov_wanderer_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam4");
-        //     pri_a15_actor_2_sokolov_wanderer_animation_data.addAnimationFunction("into", 0,
-        //     state_mgr_pri_a15.lights_off);        // Lord: доделать!
+        pri_a15_actor_2_sokolov_wanderer_animation_data.addAnimationFunction("into", 0, Globals::lights_off); 
         pri_a15_actor_2_sokolov_wanderer_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam5");
         pri_a15_actor_2_sokolov_wanderer_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam6");
         pri_a15_actor_2_sokolov_wanderer_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam7");
         pri_a15_actor_2_sokolov_wanderer_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam8");
         pri_a15_actor_2_sokolov_wanderer_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam9_1");
-        //    pri_a15_actor_2_sokolov_wanderer_animation_data.addAnimationFunction("into", 0,
-        //    state_mgr_pri_a15.unstrap_weapon); Lord: доделать!
+        pri_a15_actor_2_sokolov_wanderer_animation_data.addAnimationFunction("into", 0, Globals::unstrap_weapon);
         pri_a15_actor_2_sokolov_wanderer_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam9_2");
         pri_a15_actor_2_sokolov_wanderer_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam10");
         pri_a15_actor_2_sokolov_wanderer_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam12");
-        //   pri_a15_actor_2_sokolov_wanderer_animation_data.addAnimationFunction("into", 0,
-        //   state_mgr_pri_a15.strap_weapon); Lord: доделать!
+        pri_a15_actor_2_sokolov_wanderer_animation_data.addAnimationFunction("into", 0, Globals::strap_weapon);
         pri_a15_actor_2_sokolov_wanderer_animation_data.addAnimationSoundName(
             "into", 0, "pri_a15_actor_need_talk_with_commander");
         pri_a15_actor_2_sokolov_wanderer_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam13");
@@ -9613,8 +9513,7 @@ private:
         pri_a15_actor_2_sokolov_wanderer_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam29");
         pri_a15_actor_2_sokolov_wanderer_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam30");
         pri_a15_actor_2_sokolov_wanderer_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam31");
-        //     pri_a15_actor_2_sokolov_wanderer_animation_data.addAnimationFunction("into", 0, f =
-        //     state_mgr_pri_a15.end_scene); Lord: доделать!
+        pri_a15_actor_2_sokolov_wanderer_animation_data.addAnimationFunction("into", 0, Globals::end_scene);
         pri_a15_actor_2_sokolov_wanderer_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam32");
 
         this->m_state_manager_animation_list["pri_a15_actor_2_sokolov_wanderer"] =
@@ -9630,23 +9529,19 @@ private:
         pri_a15_actor_2_zulus_wanderer_animation_data.addAnimationAttachItemName("into", 0, "pri_a15_wpn_ak74");
         pri_a15_actor_2_zulus_wanderer_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam2");
         pri_a15_actor_2_zulus_wanderer_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam3");
-        //     pri_a15_actor_2_zulus_wanderer_animation_data.addAnimationFunction("into", 0,
-        //     state_mgr_pri_a15.break_fence); // Lord: доделать!
+        pri_a15_actor_2_zulus_wanderer_animation_data.addAnimationFunction("into", 0, Globals::break_fence);
         pri_a15_actor_2_zulus_wanderer_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam4");
-        //     pri_a15_actor_2_zulus_wanderer_animation_data.addAnimationFunction("into", 0,
-        //     state_mgr_pri_a15.lights_off);        // Lord: доделать!
+        pri_a15_actor_2_zulus_wanderer_animation_data.addAnimationFunction("into", 0, Globals::lights_off); 
         pri_a15_actor_2_zulus_wanderer_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam6");
         pri_a15_actor_2_zulus_wanderer_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam7");
         pri_a15_actor_2_zulus_wanderer_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam8");
         pri_a15_actor_2_zulus_wanderer_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam9_1");
-        //    pri_a15_actor_2_zulus_wanderer_animation_data.addAnimationFunction("into", 0,
-        //    state_mgr_pri_a15.unstrap_weapon); Lord: доделать!
+        pri_a15_actor_2_zulus_wanderer_animation_data.addAnimationFunction("into", 0, Globals::unstrap_weapon); 
         pri_a15_actor_2_zulus_wanderer_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam9_2");
         pri_a15_actor_2_zulus_wanderer_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam10");
         pri_a15_actor_2_zulus_wanderer_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam11");
         pri_a15_actor_2_zulus_wanderer_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam12");
-        //   pri_a15_actor_2_zulus_wanderer_animation_data.addAnimationFunction("into", 0,
-        //   state_mgr_pri_a15.strap_weapon); Lord: доделать!
+        pri_a15_actor_2_zulus_wanderer_animation_data.addAnimationFunction("into", 0, Globals::strap_weapon); 
         pri_a15_actor_2_zulus_wanderer_animation_data.addAnimationSoundName(
             "into", 0, "pri_a15_actor_need_talk_with_commander");
         pri_a15_actor_2_zulus_wanderer_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam13");
@@ -9669,8 +9564,7 @@ private:
         pri_a15_actor_2_zulus_wanderer_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam25");
         pri_a15_actor_2_zulus_wanderer_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam30");
         pri_a15_actor_2_zulus_wanderer_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam31");
-        //     pri_a15_actor_2_zulus_wanderer_animation_data.addAnimationFunction("into", 0, f =
-        //     state_mgr_pri_a15.end_scene); Lord: доделать!
+        pri_a15_actor_2_zulus_wanderer_animation_data.addAnimationFunction("into", 0, Globals::end_scene); 
         pri_a15_actor_2_zulus_wanderer_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam32");
 
         this->m_state_manager_animation_list["pri_a15_actor_2_zulus_wanderer"] =
@@ -9686,22 +9580,18 @@ private:
         pri_a15_actor_3_vano_alive_animation_data.addAnimationAttachItemName("into", 0, "pri_a15_wpn_ak74");
         pri_a15_actor_3_vano_alive_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam2");
         pri_a15_actor_3_vano_alive_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam3");
-        //     pri_a15_actor_3_vano_alive_animation_data.addAnimationFunction("into", 0, state_mgr_pri_a15.break_fence);
-        //     // Lord: доделать!
+        pri_a15_actor_3_vano_alive_animation_data.addAnimationFunction("into", 0, Globals::break_fence);
         pri_a15_actor_3_vano_alive_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam4");
-        //     pri_a15_actor_3_vano_alive_animation_data.addAnimationFunction("into", 0, state_mgr_pri_a15.lights_off);
-        //     // Lord: доделать!
+        pri_a15_actor_3_vano_alive_animation_data.addAnimationFunction("into", 0, Globals::lights_off);
         pri_a15_actor_3_vano_alive_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam6");
         pri_a15_actor_3_vano_alive_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam7");
         pri_a15_actor_3_vano_alive_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam8");
         pri_a15_actor_3_vano_alive_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam9_1");
-        //    pri_a15_actor_3_vano_alive_animation_data.addAnimationFunction("into", 0,
-        //    state_mgr_pri_a15.unstrap_weapon); Lord: доделать!
+        pri_a15_actor_3_vano_alive_animation_data.addAnimationFunction("into", 0, Globals::unstrap_weapon); 
         pri_a15_actor_3_vano_alive_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam9_2");
         pri_a15_actor_3_vano_alive_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam10");
         pri_a15_actor_3_vano_alive_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam12");
-        //   pri_a15_actor_3_vano_alive_animation_data.addAnimationFunction("into", 0, state_mgr_pri_a15.strap_weapon);
-        //   Lord: доделать!
+        pri_a15_actor_3_vano_alive_animation_data.addAnimationFunction("into", 0, Globals::strap_weapon);
         pri_a15_actor_3_vano_alive_animation_data.addAnimationSoundName(
             "into", 0, "pri_a15_actor_need_talk_with_commander");
         pri_a15_actor_3_vano_alive_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam13");
@@ -9722,8 +9612,7 @@ private:
         pri_a15_actor_3_vano_alive_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam25");
         pri_a15_actor_3_vano_alive_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam30");
         pri_a15_actor_3_vano_alive_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam31");
-        //     pri_a15_actor_3_vano_alive_animation_data.addAnimationFunction("into", 0, f =
-        //     state_mgr_pri_a15.end_scene); Lord: доделать!
+        pri_a15_actor_3_vano_alive_animation_data.addAnimationFunction("into", 0, Globals::end_scene);  
         pri_a15_actor_3_vano_alive_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam32");
 
         this->m_state_manager_animation_list["pri_a15_actor_3_vano_alive"] = pri_a15_actor_3_vano_alive_animation_data;
@@ -9738,23 +9627,19 @@ private:
         pri_a15_actor_3_sokolov_alive_animation_data.addAnimationAttachItemName("into", 0, "pri_a15_wpn_ak74");
         pri_a15_actor_3_sokolov_alive_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam2");
         pri_a15_actor_3_sokolov_alive_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam3");
-        //     pri_a15_actor_3_sokolov_alive_animation_data.addAnimationFunction("into", 0,
-        //     state_mgr_pri_a15.break_fence); // Lord: доделать!
+        pri_a15_actor_3_sokolov_alive_animation_data.addAnimationFunction("into", 0, Globals::break_fence); 
         pri_a15_actor_3_sokolov_alive_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam4");
-        //     pri_a15_actor_3_sokolov_alive_animation_data.addAnimationFunction("into", 0,
-        //     state_mgr_pri_a15.lights_off);        // Lord: доделать!
+        pri_a15_actor_3_sokolov_alive_animation_data.addAnimationFunction("into", 0, Globals::lights_off);      
         pri_a15_actor_3_sokolov_alive_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam6");
         pri_a15_actor_3_sokolov_alive_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam7");
         pri_a15_actor_3_sokolov_alive_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam8");
         pri_a15_actor_3_sokolov_alive_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam9_1");
-        //    pri_a15_actor_3_sokolov_alive_animation_data.addAnimationFunction("into", 0,
-        //    state_mgr_pri_a15.unstrap_weapon); Lord: доделать!
+        pri_a15_actor_3_sokolov_alive_animation_data.addAnimationFunction("into", 0, Globals::unstrap_weapon); 
         pri_a15_actor_3_sokolov_alive_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam9_2");
         pri_a15_actor_3_sokolov_alive_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam10");
         pri_a15_actor_3_sokolov_alive_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam11");
         pri_a15_actor_3_sokolov_alive_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam12");
-        //   pri_a15_actor_3_sokolov_alive_animation_data.addAnimationFunction("into", 0,
-        //   state_mgr_pri_a15.strap_weapon); Lord: доделать!
+        pri_a15_actor_3_sokolov_alive_animation_data.addAnimationFunction("into", 0, Globals::strap_weapon);
         pri_a15_actor_3_sokolov_alive_animation_data.addAnimationSoundName(
             "into", 0, "pri_a15_actor_need_talk_with_commander");
         pri_a15_actor_3_sokolov_alive_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam13");
@@ -9774,8 +9659,7 @@ private:
         pri_a15_actor_3_sokolov_alive_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam25");
         pri_a15_actor_3_sokolov_alive_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam30");
         pri_a15_actor_3_sokolov_alive_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam31");
-        //     pri_a15_actor_3_sokolov_alive_animation_data.addAnimationFunction("into", 0, f =
-        //     state_mgr_pri_a15.end_scene); Lord: доделать!
+        pri_a15_actor_3_sokolov_alive_animation_data.addAnimationFunction("into", 0, Globals::end_scene);
         pri_a15_actor_3_sokolov_alive_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam32");
 
         this->m_state_manager_animation_list["pri_a15_actor_3_sokolov_alive"] =
@@ -9791,23 +9675,19 @@ private:
         pri_a15_actor_3_zulus_alive_animation_data.addAnimationAttachItemName("into", 0, "pri_a15_wpn_ak74");
         pri_a15_actor_3_zulus_alive_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam2");
         pri_a15_actor_3_zulus_alive_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam3");
-        //     pri_a15_actor_3_zulus_alive_animation_data.addAnimationFunction("into", 0,
-        //     state_mgr_pri_a15.break_fence); // Lord: доделать!
+        pri_a15_actor_3_zulus_alive_animation_data.addAnimationFunction("into", 0, Globals::break_fence);
         pri_a15_actor_3_zulus_alive_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam4");
-        //     pri_a15_actor_3_zulus_alive_animation_data.addAnimationFunction("into", 0, state_mgr_pri_a15.lights_off);
-        //     // Lord: доделать!
+        pri_a15_actor_3_zulus_alive_animation_data.addAnimationFunction("into", 0, Globals::lights_off);
         pri_a15_actor_3_zulus_alive_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam5");
         pri_a15_actor_3_zulus_alive_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam6");
         pri_a15_actor_3_zulus_alive_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam7");
         pri_a15_actor_3_zulus_alive_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam8");
         pri_a15_actor_3_zulus_alive_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam9_1");
-        //    pri_a15_actor_3_zulus_alive_animation_data.addAnimationFunction("into", 0,
-        //    state_mgr_pri_a15.unstrap_weapon); Lord: доделать!
+        pri_a15_actor_3_zulus_alive_animation_data.addAnimationFunction("into", 0, Globals::unstrap_weapon);
         pri_a15_actor_3_zulus_alive_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam9_2");
         pri_a15_actor_3_zulus_alive_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam10");
         pri_a15_actor_3_zulus_alive_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam12");
-        //   pri_a15_actor_3_zulus_alive_animation_data.addAnimationFunction("into", 0, state_mgr_pri_a15.strap_weapon);
-        //   Lord: доделать!
+        pri_a15_actor_3_zulus_alive_animation_data.addAnimationFunction("into", 0, Globals::strap_weapon);
         pri_a15_actor_3_zulus_alive_animation_data.addAnimationSoundName(
             "into", 0, "pri_a15_actor_need_talk_with_commander");
         pri_a15_actor_3_zulus_alive_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam13");
@@ -9833,8 +9713,7 @@ private:
         pri_a15_actor_3_zulus_alive_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam29");
         pri_a15_actor_3_zulus_alive_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam30");
         pri_a15_actor_3_zulus_alive_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam31");
-        //     pri_a15_actor_3_zulus_alive_animation_data.addAnimationFunction("into", 0, f =
-        //     state_mgr_pri_a15.end_scene); Lord: доделать!
+        pri_a15_actor_3_zulus_alive_animation_data.addAnimationFunction("into", 0, Globals::end_scene);
         pri_a15_actor_3_zulus_alive_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam32");
 
         this->m_state_manager_animation_list["pri_a15_actor_3_zulus_alive"] =
@@ -9845,22 +9724,18 @@ private:
         pri_a15_actor_3_wanderer_alive_animation_data.addAnimationAttachItemName("into", 0, "pri_a15_wpn_ak74");
         pri_a15_actor_3_wanderer_alive_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam2");
         pri_a15_actor_3_wanderer_alive_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam3");
-        //     pri_a15_actor_3_wanderer_alive_animation_data.addAnimationFunction("into", 0,
-        //     state_mgr_pri_a15.break_fence); // Lord: доделать!
+        pri_a15_actor_3_wanderer_alive_animation_data.addAnimationFunction("into", 0, Globals::break_fence); 
         pri_a15_actor_3_wanderer_alive_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam4");
-        //     pri_a15_actor_3_wanderer_alive_animation_data.addAnimationFunction("into", 0,
-        //     state_mgr_pri_a15.lights_off);        // Lord: доделать!
+        pri_a15_actor_3_wanderer_alive_animation_data.addAnimationFunction("into", 0, Globals::lights_off);  
         pri_a15_actor_3_wanderer_alive_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam6");
         pri_a15_actor_3_wanderer_alive_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam7");
         pri_a15_actor_3_wanderer_alive_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam8");
         pri_a15_actor_3_wanderer_alive_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam9_1");
-        //    pri_a15_actor_3_wanderer_alive_animation_data.addAnimationFunction("into", 0,
-        //    state_mgr_pri_a15.unstrap_weapon); Lord: доделать!
+        pri_a15_actor_3_wanderer_alive_animation_data.addAnimationFunction("into", 0, Globals::unstrap_weapon);
         pri_a15_actor_3_wanderer_alive_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam9_2");
         pri_a15_actor_3_wanderer_alive_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam10");
         pri_a15_actor_3_wanderer_alive_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam12");
-        //   pri_a15_actor_3_wanderer_alive_animation_data.addAnimationFunction("into", 0,
-        //   state_mgr_pri_a15.strap_weapon); Lord: доделать!
+        pri_a15_actor_3_wanderer_alive_animation_data.addAnimationFunction("into", 0, Globals::strap_weapon); 
         pri_a15_actor_3_wanderer_alive_animation_data.addAnimationSoundName(
             "into", 0, "pri_a15_actor_need_talk_with_commander");
         pri_a15_actor_3_wanderer_alive_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam13");
@@ -9878,8 +9753,7 @@ private:
         pri_a15_actor_3_wanderer_alive_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam25");
         pri_a15_actor_3_wanderer_alive_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam30");
         pri_a15_actor_3_wanderer_alive_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam31");
-        //     pri_a15_actor_3_wanderer_alive_animation_data.addAnimationFunction("into", 0, f =
-        //     state_mgr_pri_a15.end_scene); Lord: доделать!
+        pri_a15_actor_3_wanderer_alive_animation_data.addAnimationFunction("into", 0, Globals::end_scene); 
         pri_a15_actor_3_wanderer_alive_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam32");
 
         this->m_state_manager_animation_list["pri_a15_actor_3_wanderer_alive"] =
@@ -9890,20 +9764,16 @@ private:
         pri_a15_actor_all_dead_animation_data.addAnimationAttachItemName("into", 0, "pri_a15_wpn_ak74");
         pri_a15_actor_all_dead_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam2");
         pri_a15_actor_all_dead_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam3");
-        //     pri_a15_actor_all_dead_animation_data.addAnimationFunction("into", 0,
-        //     state_mgr_pri_a15.break_fence); // Lord: доделать!
+        pri_a15_actor_all_dead_animation_data.addAnimationFunction("into", 0, Globals::break_fence); 
         pri_a15_actor_all_dead_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam4");
-        //     pri_a15_actor_all_dead_animation_data.addAnimationFunction("into", 0,
-        //     state_mgr_pri_a15.lights_off);        // Lord: доделать!
+        pri_a15_actor_all_dead_animation_data.addAnimationFunction("into", 0, Globals::lights_off); 
         pri_a15_actor_all_dead_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam8");
         pri_a15_actor_all_dead_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam9_1");
-        //    pri_a15_actor_all_dead_animation_data.addAnimationFunction("into", 0,
-        //    state_mgr_pri_a15.unstrap_weapon); Lord: доделать!
+        pri_a15_actor_all_dead_animation_data.addAnimationFunction("into", 0, Globals::unstrap_weapon); 
         pri_a15_actor_all_dead_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam9_2");
         pri_a15_actor_all_dead_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam10");
         pri_a15_actor_all_dead_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam12");
-        //   pri_a15_actor_all_dead_animation_data.addAnimationFunction("into", 0,
-        //   state_mgr_pri_a15.strap_weapon); Lord: доделать!
+        pri_a15_actor_all_dead_animation_data.addAnimationFunction("into", 0, Globals::strap_weapon);
         pri_a15_actor_all_dead_animation_data.addAnimationSoundName(
             "into", 0, "pri_a15_actor_need_talk_with_commander");
         pri_a15_actor_all_dead_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam13");
@@ -9918,8 +9788,7 @@ private:
         pri_a15_actor_all_dead_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam25");
         pri_a15_actor_all_dead_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam30");
         pri_a15_actor_all_dead_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam31");
-        //     pri_a15_actor_all_dead_animation_data.addAnimationFunction("into", 0, f =
-        //     state_mgr_pri_a15.end_scene); Lord: доделать!
+        pri_a15_actor_all_dead_animation_data.addAnimationFunction("into", 0, Globals::end_scene);
         pri_a15_actor_all_dead_animation_data.addAnimation("into", 0, "pri_a15_igrok_cam32");
 
         this->m_state_manager_animation_list["pri_a15_actor_all_dead"] = pri_a15_actor_all_dead_animation_data;
@@ -9940,8 +9809,7 @@ private:
         pri_a15_military_tarasov_all_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam8");
         pri_a15_military_tarasov_all_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam9");
         pri_a15_military_tarasov_all_animation_data.addAnimationSoundName("into", 0, "pri_a15_army_hide_weapon");
-        //  pri_a15_military_tarasov_all_animation_data.addAnimationFunction("into", 0, state_mgr_pri_a15.lights_on);
-        //  Lord: доделать
+        pri_a15_military_tarasov_all_animation_data.addAnimationFunction("into", 0, Globals::lights_on);
         pri_a15_military_tarasov_all_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam10");
         pri_a15_military_tarasov_all_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam11");
         pri_a15_military_tarasov_all_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam12");
@@ -9993,8 +9861,7 @@ private:
         pri_a15_military_tarasov_1_vano_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam8");
         pri_a15_military_tarasov_1_vano_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam9");
         pri_a15_military_tarasov_1_vano_animation_data.addAnimationSoundName("into", 0, "pri_a15_army_hide_weapon");
-        //  pri_a15_military_tarasov_1_vano_animation_data.addAnimationFunction("into", 0, state_mgr_pri_a15.lights_on);
-        //  Lord: доделать
+        pri_a15_military_tarasov_1_vano_animation_data.addAnimationFunction("into", 0, Globals::lights_on);
         pri_a15_military_tarasov_1_vano_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam10");
         pri_a15_military_tarasov_1_vano_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam11");
         pri_a15_military_tarasov_1_vano_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam12");
@@ -10043,8 +9910,7 @@ private:
         pri_a15_military_tarasov_1_sokolov_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam8");
         pri_a15_military_tarasov_1_sokolov_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam9");
         pri_a15_military_tarasov_1_sokolov_animation_data.addAnimationSoundName("into", 0, "pri_a15_army_hide_weapon");
-        //  pri_a15_military_tarasov_1_sokolov_animation_data.addAnimationFunction("into", 0,
-        //  state_mgr_pri_a15.lights_on); Lord: доделать
+        pri_a15_military_tarasov_1_sokolov_animation_data.addAnimationFunction("into", 0, Globals::lights_on);
         pri_a15_military_tarasov_1_sokolov_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam10");
         pri_a15_military_tarasov_1_sokolov_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam12");
         pri_a15_military_tarasov_1_sokolov_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam13");
@@ -10093,8 +9959,7 @@ private:
         pri_a15_military_tarasov_1_zulus_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam8");
         pri_a15_military_tarasov_1_zulus_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam9");
         pri_a15_military_tarasov_1_zulus_animation_data.addAnimationSoundName("into", 0, "pri_a15_army_hide_weapon");
-        //  pri_a15_military_tarasov_1_zulus_animation_data.addAnimationFunction("into", 0,
-        //  state_mgr_pri_a15.lights_on); Lord: доделать
+        pri_a15_military_tarasov_1_zulus_animation_data.addAnimationFunction("into", 0, Globals::lights_on); 
         pri_a15_military_tarasov_1_zulus_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam10");
         pri_a15_military_tarasov_1_zulus_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam11");
         pri_a15_military_tarasov_1_zulus_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam12");
@@ -10138,8 +10003,7 @@ private:
         pri_a15_military_tarasov_1_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam8");
         pri_a15_military_tarasov_1_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam9");
         pri_a15_military_tarasov_1_wanderer_animation_data.addAnimationSoundName("into", 0, "pri_a15_army_hide_weapon");
-        //  pri_a15_military_tarasov_1_wanderer_animation_data.addAnimationFunction("into", 0,
-        //  state_mgr_pri_a15.lights_on); Lord: доделать
+        pri_a15_military_tarasov_1_wanderer_animation_data.addAnimationFunction("into", 0, Globals::lights_on);
         pri_a15_military_tarasov_1_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam10");
         pri_a15_military_tarasov_1_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam11");
         pri_a15_military_tarasov_1_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam12");
@@ -10192,8 +10056,7 @@ private:
         pri_a15_military_tarasov_2_vano_sokolov_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam9");
         pri_a15_military_tarasov_2_vano_sokolov_animation_data.addAnimationSoundName(
             "into", 0, "pri_a15_army_hide_weapon");
-        //  pri_a15_military_tarasov_2_vano_sokolov_animation_data.addAnimationFunction("into", 0,
-        //  state_mgr_pri_a15.lights_on); Lord: доделать
+        pri_a15_military_tarasov_2_vano_sokolov_animation_data.addAnimationFunction("into", 0, Globals::lights_on);
         pri_a15_military_tarasov_2_vano_sokolov_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam10");
         pri_a15_military_tarasov_2_vano_sokolov_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam12");
         pri_a15_military_tarasov_2_vano_sokolov_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam13");
@@ -10242,8 +10105,7 @@ private:
         pri_a15_military_tarasov_2_vano_zulus_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam9");
         pri_a15_military_tarasov_2_vano_zulus_animation_data.addAnimationSoundName(
             "into", 0, "pri_a15_army_hide_weapon");
-        //  pri_a15_military_tarasov_2_vano_zulus_animation_data.addAnimationFunction("into", 0,
-        //  state_mgr_pri_a15.lights_on); Lord: доделать
+        pri_a15_military_tarasov_2_vano_zulus_animation_data.addAnimationFunction("into", 0, Globals::lights_on); 
         pri_a15_military_tarasov_2_vano_zulus_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam10");
         pri_a15_military_tarasov_2_vano_zulus_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam11");
         pri_a15_military_tarasov_2_vano_zulus_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam12");
@@ -10286,8 +10148,7 @@ private:
         pri_a15_military_tarasov_2_vano_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam9");
         pri_a15_military_tarasov_2_vano_wanderer_animation_data.addAnimationSoundName(
             "into", 0, "pri_a15_army_hide_weapon");
-        //  pri_a15_military_tarasov_2_vano_wanderer_animation_data.addAnimationFunction("into", 0,
-        //  state_mgr_pri_a15.lights_on); Lord: доделать
+        pri_a15_military_tarasov_2_vano_wanderer_animation_data.addAnimationFunction("into", 0, Globals::lights_on); 
         pri_a15_military_tarasov_2_vano_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam10");
         pri_a15_military_tarasov_2_vano_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam11");
         pri_a15_military_tarasov_2_vano_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam12");
@@ -10338,8 +10199,7 @@ private:
         pri_a15_military_tarasov_2_sokolov_zulus_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam9");
         pri_a15_military_tarasov_2_sokolov_zulus_animation_data.addAnimationSoundName(
             "into", 0, "pri_a15_army_hide_weapon");
-        //  pri_a15_military_tarasov_2_sokolov_zulus_animation_data.addAnimationFunction("into", 0,
-        //  state_mgr_pri_a15.lights_on); Lord: доделать
+        pri_a15_military_tarasov_2_sokolov_zulus_animation_data.addAnimationFunction("into", 0, Globals::lights_on);
         pri_a15_military_tarasov_2_sokolov_zulus_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam10");
         pri_a15_military_tarasov_2_sokolov_zulus_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam12");
         pri_a15_military_tarasov_2_sokolov_zulus_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam13");
@@ -10383,8 +10243,7 @@ private:
         pri_a15_military_tarasov_2_sokolov_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam9");
         pri_a15_military_tarasov_2_sokolov_wanderer_animation_data.addAnimationSoundName(
             "into", 0, "pri_a15_army_hide_weapon");
-        //  pri_a15_military_tarasov_2_sokolov_wanderer_animation_data.addAnimationFunction("into", 0,
-        //  state_mgr_pri_a15.lights_on); Lord: доделать
+        pri_a15_military_tarasov_2_sokolov_wanderer_animation_data.addAnimationFunction("into", 0, Globals::lights_on);
         pri_a15_military_tarasov_2_sokolov_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam10");
         pri_a15_military_tarasov_2_sokolov_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam12");
         pri_a15_military_tarasov_2_sokolov_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam13");
@@ -10441,8 +10300,7 @@ private:
         pri_a15_military_tarasov_2_zulus_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam9");
         pri_a15_military_tarasov_2_zulus_wanderer_animation_data.addAnimationSoundName(
             "into", 0, "pri_a15_army_hide_weapon");
-        //  pri_a15_military_tarasov_2_zulus_wanderer_animation_data.addAnimationFunction("into", 0,
-        //  state_mgr_pri_a15.lights_on); Lord: доделать
+        pri_a15_military_tarasov_2_zulus_wanderer_animation_data.addAnimationFunction("into", 0, Globals::lights_on); 
         pri_a15_military_tarasov_2_zulus_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam10");
         pri_a15_military_tarasov_2_zulus_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam11");
         pri_a15_military_tarasov_2_zulus_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam12");
@@ -10488,8 +10346,7 @@ private:
         pri_a15_military_tarasov_3_vano_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam9");
         pri_a15_military_tarasov_3_vano_alive_animation_data.addAnimationSoundName(
             "into", 0, "pri_a15_army_hide_weapon");
-        //  pri_a15_military_tarasov_3_vano_alive_animation_data.addAnimationFunction("into", 0,
-        //  state_mgr_pri_a15.lights_on); Lord: доделать
+        pri_a15_military_tarasov_3_vano_alive_animation_data.addAnimationFunction("into", 0, Globals::lights_on);
         pri_a15_military_tarasov_3_vano_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam10");
         pri_a15_military_tarasov_3_vano_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam12");
         pri_a15_military_tarasov_3_vano_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam13");
@@ -10531,8 +10388,7 @@ private:
         pri_a15_military_tarasov_3_sokolov_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam9");
         pri_a15_military_tarasov_3_sokolov_alive_animation_data.addAnimationSoundName(
             "into", 0, "pri_a15_army_hide_weapon");
-        //  pri_a15_military_tarasov_3_sokolov_alive_animation_data.addAnimationFunction("into", 0,
-        //  state_mgr_pri_a15.lights_on); Lord: доделать
+        pri_a15_military_tarasov_3_sokolov_alive_animation_data.addAnimationFunction("into", 0, Globals::lights_on); 
         pri_a15_military_tarasov_3_sokolov_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam10");
         pri_a15_military_tarasov_3_sokolov_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam11");
         pri_a15_military_tarasov_3_sokolov_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam12");
@@ -10576,8 +10432,8 @@ private:
         pri_a15_military_tarasov_3_zulus_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam9");
         pri_a15_military_tarasov_3_zulus_alive_animation_data.addAnimationSoundName(
             "into", 0, "pri_a15_army_hide_weapon");
-        //  pri_a15_military_tarasov_3_zulus_alive_animation_data.addAnimationFunction("into", 0,
-        //  state_mgr_pri_a15.lights_on); Lord: доделать
+        pri_a15_military_tarasov_3_zulus_alive_animation_data.addAnimationFunction("into", 0,
+        Globals::lights_on);
         pri_a15_military_tarasov_3_zulus_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam10");
         pri_a15_military_tarasov_3_zulus_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam12");
         pri_a15_military_tarasov_3_zulus_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam13");
@@ -10626,8 +10482,7 @@ private:
         pri_a15_military_tarasov_3_wanderer_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam9");
         pri_a15_military_tarasov_3_wanderer_alive_animation_data.addAnimationSoundName(
             "into", 0, "pri_a15_army_hide_weapon");
-        //  pri_a15_military_tarasov_3_wanderer_alive_animation_data.addAnimationFunction("into", 0,
-        //  state_mgr_pri_a15.lights_on); Lord: доделать
+        pri_a15_military_tarasov_3_wanderer_alive_animation_data.addAnimationFunction("into", 0, Globals::lights_on); 
         pri_a15_military_tarasov_3_wanderer_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam10");
         pri_a15_military_tarasov_3_wanderer_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam12");
         pri_a15_military_tarasov_3_wanderer_alive_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam13");
@@ -10666,8 +10521,7 @@ private:
         pri_a15_military_tarasov_all_dead_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam8");
         pri_a15_military_tarasov_all_dead_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam9");
         pri_a15_military_tarasov_all_dead_animation_data.addAnimationSoundName("into", 0, "pri_a15_army_hide_weapon");
-        //  pri_a15_military_tarasov_all_dead_animation_data.addAnimationFunction("into", 0,
-        //  state_mgr_pri_a15.lights_on); Lord: доделать
+        pri_a15_military_tarasov_all_dead_animation_data.addAnimationFunction("into", 0, Globals::lights_on);
         pri_a15_military_tarasov_all_dead_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam10");
         pri_a15_military_tarasov_all_dead_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam12");
         pri_a15_military_tarasov_all_dead_animation_data.addAnimation("into", 0, "pri_a15_soldier_kam_cam13");
@@ -12827,8 +12681,7 @@ private:
         pri_a20_colonel_radio_animstate_data.setPropertiesMoving(true);
 
         pri_a20_colonel_radio_animstate_data.addAnimation("into", 0, "pri_a20_colonel_radio_in");
-        //  pri_a20_colonel_radio_animstate_data.addAnimationFunction("idle", 0, xr_effects.pri_a20_radio_start);
-        //  Lord: доделать!
+        pri_a20_colonel_radio_animstate_data.addAnimationFunction("idle", 0, XR_EFFECTS::pri_a20_radio_start);
         pri_a20_colonel_radio_animstate_data.addAnimation("out", 0, "pri_a20_colonel_radio_out");
         pri_a20_colonel_radio_animstate_data.addAnimation("idle", 0, "pri_a20_colonel_radio_idle");
 
@@ -12841,8 +12694,7 @@ private:
         pri_a22_colonel_lean_on_table_animstate_data.setPropertiesMoving(true);
 
         pri_a22_colonel_lean_on_table_animstate_data.addAnimation("into", 0, "pri_a22_colonel_lean_on_tabl_in");
-        //  pri_a22_colonel_lean_on_table_animstate_data.addAnimationFunction("idle", 0,
-        //  xr_effects.pri_a22_kovalski_speak); Lord: доделать!
+        pri_a22_colonel_lean_on_table_animstate_data.addAnimationFunction("idle", 0, XR_EFFECTS::pri_a22_kovalski_speak);
         pri_a22_colonel_lean_on_table_animstate_data.addAnimation("out", 0, "pri_a22_colonel_lean_on_tabl_out");
         pri_a22_colonel_lean_on_table_animstate_data.addAnimation("idle", 0, "pri_a22_colonel_lean_on_tabl_idle");
 
