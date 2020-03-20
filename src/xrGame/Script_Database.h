@@ -2872,6 +2872,8 @@ public:
     {
         return this->m_camps.at(object_id).second;
     }
+
+    inline const xr_map<std::uint16_t, std::pair<Script_CampData*, CScriptGameObject*>>& getCamps(void) const noexcept { return this->m_camps; } 
     inline void setStorage(const xr_map<std::uint16_t, Storage_Data>& map) noexcept
     {
         if (!map.size())
