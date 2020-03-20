@@ -5,7 +5,7 @@ namespace Cordis
 {
     namespace Scripts
 {
-    Script_Binder_Camp::Script_Binder_Camp(CScriptGameObject* const p_client_object) : inherited(p_client_object), m_p_camp_object(nullptr) {}
+    Script_Binder_Camp::Script_Binder_Camp(CScriptGameObject* const p_client_object) : inherited(p_client_object) {}
 
     Script_Binder_Camp::~Script_Binder_Camp(void) {}
 
