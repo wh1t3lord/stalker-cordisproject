@@ -4159,6 +4159,7 @@ $(xrLibDir);$(xrSdkDir)DXSDK/Lib/$(PlatformShortName);
     </ClInclude>
     <ClInclude Include="Script_Dialogs.h" />
     <ClInclude Include="Script_DialogsJupiter.h" />
+    <ClInclude Include="Script_DialogsPripyat.h" />
     <ClInclude Include="Script_DialogsZaton.h" />
     <ClInclude Include="script_effector.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Jumbo|x64'">false</ExcludedFromBuild>
