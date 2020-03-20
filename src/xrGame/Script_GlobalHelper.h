@@ -13125,7 +13125,59 @@ private:
 
         this->m_jup_b9_money_count = {3000, 2850, 2700, 2550, 2400, 2250, 2100, 1950, 1800, 1650};
 
-        #pragma endregion
+#pragma endregion
+
+#pragma region Cordis Dialogs Pripyat
+        this->m_pri_a25_medic_items["basic"]["conserva"] = 2;
+        this->m_pri_a25_medic_items["basic"]["medkit"] = 2;
+        this->m_pri_a25_medic_items["basic"]["medkit_army"] = 1;
+        this->m_pri_a25_medic_items["basic"]["antirad"] = 2;
+        this->m_pri_a25_medic_items["basic"]["bandage"] = 4;
+        this->m_pri_a25_medic_items["basic"]["drug_coagulant"] = 1;
+        this->m_pri_a25_medic_items["basic"]["drug_radioprotector"] = 1;
+
+        this->m_pri_a25_medic_items["advanced"]["conserva"] = 3;
+        this->m_pri_a25_medic_items["advanced"]["medkit"] = 3;
+        this->m_pri_a25_medic_items["advanced"]["medkit_army"] = 2;
+        this->m_pri_a25_medic_items["advanced"]["antirad"] = 3;
+        this->m_pri_a25_medic_items["advanced"]["bandage"] = 5;
+        this->m_pri_a25_medic_items["advanced"]["drug_coagulant"] = 1;
+        this->m_pri_a25_medic_items["advanced"]["drug_radioprotector"] = 1;
+        this->m_pri_a25_medic_items["advanced"]["drug_antidot"] = 1;
+        this->m_pri_a25_medic_items["advanced"]["drug_psy_blockade"] = 1;
+
+        this->m_pri_a25_medic_items["elite"]["conserva"] = 4;
+        this->m_pri_a25_medic_items["elite"]["medkit"] = 5;
+        this->m_pri_a25_medic_items["elite"]["medkit_army"] = 3;
+        this->m_pri_a25_medic_items["elite"]["antirad"] = 5;
+        this->m_pri_a25_medic_items["elite"]["bandage"] = 8;
+        this->m_pri_a25_medic_items["elite"]["drug_coagulant"] = 2;
+        this->m_pri_a25_medic_items["elite"]["drug_radioprotector"] = 2;
+        this->m_pri_a25_medic_items["elite"]["drug_antidot"] = 1;
+        this->m_pri_a25_medic_items["elite"]["drug_psy_blockade"] = 1;
+
+
+        this->m_pri_a22_supp_items["supply_ammo_1"]["ammo_9x18_fmj"] = 2;
+        this->m_pri_a22_supp_items["supply_ammo_1"]["ammo_9x18_pmm"] = 1;
+        this->m_pri_a22_supp_items["supply_ammo_2"]["ammo_9x19_fmj"] = 2;
+        this->m_pri_a22_supp_items["supply_ammo_2"]["ammo_9x19_pbp"] = 1;
+        this->m_pri_a22_supp_items["supply_ammo_3"]["ammo_11.43x23_fmj"] = 2;
+        this->m_pri_a22_supp_items["supply_ammo_3"]["ammo_11.43x23_hydro"] = 1;
+        this->m_pri_a22_supp_items["supply_ammo_4"]["ammo_12x70_buck"] = 10;
+        this->m_pri_a22_supp_items["supply_ammo_4"]["ammo_12x76_zhekan"] = 5;
+        this->m_pri_a22_supp_items["supply_ammo_5"]["ammo_5.45x39_fmj"] = 2;
+        this->m_pri_a22_supp_items["supply_ammo_5"]["ammo_5.45x39_ap"] = 1;
+        this->m_pri_a22_supp_items["supply_ammo_6"]["ammo_5.56x45_ss190"] = 2;
+        this->m_pri_a22_supp_items["supply_ammo_6"]["ammo_5.56x45_ap"] = 1;
+        this->m_pri_a22_supp_items["supply_ammo_7"]["ammo_9x39_pab9"] = 1;
+        this->m_pri_a22_supp_items["supply_ammo_7"]["ammo_9x39_ap"] = 1;
+        this->m_pri_a22_supp_items["supply_ammo_8"]["ammo_7.62x54_7h1"] = 1;
+        this->m_pri_a22_supp_items["supply_ammo_9"]["ammo_pkm_100"] = 1;
+        this->m_pri_a22_supp_items["supply_grenade_1"]["grenade_rgd5"] = 3;
+        this->m_pri_a22_supp_items["supply_grenade_1"]["grenade_f1"] = 2;
+        this->m_pri_a22_supp_items["supply_grenade_2"]["ammo_vog-25"] = 3;
+        this->m_pri_a22_supp_items["supply_grenade_3"]["ammo_m209"] = 3;
+#pragma endregion
     }
 
 public:
@@ -14540,8 +14592,16 @@ public:
     }
 #pragma endregion
 
-#pragma region Cordis Pripyat Dialog
+#pragma region Cordis Dialogs Pripyat
+    inline const xr_map<xr_string, xr_map<xr_string, std::uint32_t>> getPriA25MedicItems(void) const noexcept 
+    {
+        return this->m_pri_a25_medic_items;
+    }
 
+    inline const xr_map<xr_string, xr_map<xr_string, std::uint32_t>> getPriA22SuppItems(void) const noexcept
+    {
+        return this->m_pri_a22_supp_items;
+    }
 #pragma endregion
 
 private:
@@ -14607,6 +14667,8 @@ private:
     xr_map<xr_string, xr_string> m_news_manager_registered_sound_tips;
     xr_map<xr_string, xr_string> m_news_manager_action_description_by_type_name;
     xr_map<xr_string, xr_map<xr_string, xr_string>> m_smart_terrains_translated_name;
+    xr_map<xr_string, xr_map<xr_string, std::uint32_t>> m_pri_a25_medic_items;
+    xr_map<xr_string, xr_map<xr_string, std::uint32_t>> m_pri_a22_supp_items;
     xr_map<xr_string, std::uint32_t> m_simulationboard_group_id_by_levels_name;
     xr_map<xr_string, std::uint32_t> m_monster_animation_to_action;
     xr_map<xr_string, MonsterSound::EType> m_monster_sound_name_to_type_action;
