@@ -2367,7 +2367,7 @@ public:
     }
 
     inline const StorageAnimpoint_Data& getStorageAnimpoint(void) const noexcept { return this->m_storage_animpoint; }
-    inline void setStorageAnimpoint(const StorageAnimpoint_Data& data) noexcept { this->m_storage_animpoint = data; }
+    inline void setStorageAnimpoint(const StorageAnimpoint_Data& data) noexcept { this->m_storage_animpoint = data; } 
 
     inline CSE_ALifeObject* getServerObject(void) const { return this->m_p_server_object; }
     inline void setServerObject(CSE_ALifeObject* p_server_object)
@@ -2862,7 +2862,15 @@ public:
 
 #pragma region Getters
     inline const xr_map<std::uint16_t, Storage_Data>& getStorage(void) const noexcept { return this->m_storage; }
+    inline Script_CampData* getCampsCamp(const std::uint16_t object_id) const
+    {
+        return this->m_camps.at(object_id).first;
+    }
 
+    inline CScriptGameObject* getCampsObject(const std::uint16_t object_id) const 
+    {
+        return this->m_camps.at(object_id).second;
+    }
     inline void setStorage(const xr_map<std::uint16_t, Storage_Data>& map) noexcept
     {
         if (!map.size())
@@ -3296,6 +3304,22 @@ public:
 
     void setStorageStateManager(CScriptGameObject* const p_client_object, Script_StateManager* const p_state_manager);
     void setStorageMoveManager(CScriptGameObject* const p_client_object, Script_MoveManager* const p_move_manager);
+
+    inline void setStorageCampsCamp(const std::uint16_t object_id, Script_CampData* p_camp) 
+    {
+        if (!p_camp)
+            Msg("[Scripts/DataBase/Storage/setStorageCampsCamp(p_camp)] WARNING: p_camp == nullptr! You are trying to set a null value");
+
+        this->m_camps[object_id].first = p_camp;
+    }
+
+    inline void setStorageCampsObject(const std::uint16_t object_id, CScriptGameObject* const p_client_object)
+    {
+        if (!p_client_object)
+            Msg("[Scripts/DataBase/Storage/setStorageCampsObject(p_client_object)] WARNING: p_client_object == nullptr! You are trying to set a null value!");
+
+        this->m_camps[object_id].second = p_client_object;
+    }
 
     inline void setStorageDisableInputIdle(const std::uint16_t npc_id, const std::uint32_t value) noexcept
     {
@@ -4167,6 +4191,12 @@ public:
             this->m_game_registered_smartcovers_by_level_id.clear();
         }
 
+        for (std::pair<const std::uint16_t, std::pair<Script_CampData*, CScriptGameObject*>>& it : this->m_camps)
+        {
+            if (it.second.first)
+                xr_delete(it.second.first);
+        }
+
         this->m_offline_objects.clear();
         this->m_spawned_vertex_by_id.clear();
         this->m_goodwill.first.clear();
@@ -4348,6 +4378,12 @@ private:
 #pragma region Cordis Script_Binder_DoorLabx8
     xr_map<xr_string, Script_Binder_DoorLabx8*> m_animation_object_by_name;
 #pragma endregion
+
+    #pragma region Cordis Script_Binder_Camp
+    // @ second.first -> .camp!
+    // @ second.second -> .object!
+    xr_map<std::uint16_t, std::pair<Script_CampData*, CScriptGameObject*>> m_camps;
+    #pragma endregion
 
     // first -> sympathy[ID] = std::uint32_t; | second -> relations[ID] = std::string;
     std::pair<xr_map<std::uint16_t, float>, xr_map<std::uint16_t, xr_string>> m_goodwill;

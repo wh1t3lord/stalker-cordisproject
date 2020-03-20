@@ -8,7 +8,7 @@ class Script_CampData
 {
 public:
     Script_CampData(void) = delete;
-    Script_CampData(CScriptGameObject* p_client_object, CScriptIniFile* p_ini);
+    Script_CampData(CScriptGameObject* p_client_object, CScriptIniFile* p_ini, bool is_deallocate_ini = false);
     ~Script_CampData(void);
 
     struct Script_CampStateData
@@ -98,6 +98,7 @@ public:
 
 private:
     bool m_is_sound_manager_started;
+    bool m_is_system_flag_deallocation; // @ true -> using dtor for deleting ini_file what allocated in binder | @ false -> not used dtor because we didn't do any allocation
     std::uint16_t m_director_id;
     std::uint16_t m_idle_talker_id;
     std::uint32_t m_timeout;

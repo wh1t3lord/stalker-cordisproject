@@ -147,11 +147,11 @@ namespace Cordis
 {
 namespace Scripts
 {
-Script_CampData::Script_CampData(CScriptGameObject* p_client_object, CScriptIniFile* p_ini)
+Script_CampData::Script_CampData(CScriptGameObject* p_client_object, CScriptIniFile* p_ini, bool is_deallocate_ini)
     : m_p_object(p_client_object), m_p_ini(p_ini), m_director_id(0), m_active_state_name("idle"),
       m_p_sound_manager(&Script_SoundManager::getSoundManager(
           xr_string("camp").append(std::to_string(this->m_p_object->ID()).c_str()))),
-      m_is_sound_manager_started(true), m_active_state_time(0), m_timeout(0), m_idle_talker_id(0)
+      m_is_sound_manager_started(true), m_active_state_time(0), m_timeout(0), m_idle_talker_id(0), m_is_system_flag_deallocation(is_deallocate_ini)
 {
     if (!this->m_p_ini)
     {
@@ -202,7 +202,14 @@ Script_CampData::Script_CampData(CScriptGameObject* p_client_object, CScriptIniF
     this->m_states["story"] = story_data;
 }
 
-Script_CampData::~Script_CampData(void) {}
+Script_CampData::~Script_CampData(void) 
+{
+    if (this->m_is_system_flag_deallocation)
+    {
+        Msg("[Scripts/Script_CampData/~dtor()] deleting allocated this->m_p_ini!");
+        xr_delete(this->m_p_ini);
+    }
+}
 
 void Script_CampData::update(void) 
 {

@@ -492,4 +492,5 @@ __declspec(dllexport)  CSE_Abstract* xrServer_Create(LPCSTR section, CSE_Motion*
 #include "Script_DialogsZaton.h"
 #include "Script_DialogsJupiter.h"
 #include "Script_DialogsPripyat.h"
+#include "Script_CampData.h"
 #include "Script_Globalsinline.h"
