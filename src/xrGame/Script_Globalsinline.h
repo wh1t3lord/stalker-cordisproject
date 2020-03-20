@@ -3043,6 +3043,116 @@ inline void change_game_time(std::uint32_t days, std::uint32_t hours, std::uint3
     }
 }
 
+inline void unstrap_weapon(
+    CScriptGameObject* const p_npc, CScriptGameObject* const p_not_used, const xr_vector<xr_string>& not_used)
+{
+    if (!p_npc)
+    {
+        Msg("[Scripts/Globals/unstrap_weapon(p_npc)] WARNING: p_npc == nullptr! Return ...");
+        return;
+    }
+
+    const xr_vector<xr_string> weapon_table = {
+        "pri_a15_wpn_svu", "pri_a15_wpn_wincheaster1300", "pri_a15_wpn_ak74u", "pri_a15_wpn_ak74"};
+
+    const xr_vector<xr_string> unstrapped = {"pri_a15_wpn_svu_unstrapped", "pri_a15_wpn_wincheaster1300_unstrapped",
+        "pri_a15_wpn_ak74u_unstrapped", "pri_a15_wpn_ak74_unstrapped"};
+    std::uint32_t index = 0;
+    CScriptGameObject* p_item = nullptr;
+    for (const xr_string& it : weapon_table)
+    {
+        p_item = p_npc->GetObjectByName(it.c_str());
+        if (p_item)
+        {
+            break;
+        }
+
+        ++index;
+    }
+
+    if (p_item == nullptr)
+    {
+        Msg("[Scripts/Globals/unstrap_weapon(p_npc)] WARNING: can't find item! Return ...");
+        return;
+    }
+
+    p_item->attachable_item_load_attach(unstrapped.at(index).c_str());
+}
+
+inline void strap_weapon(
+    CScriptGameObject* const p_npc, CScriptGameObject* const p_not_used, const xr_vector<xr_string>& not_used)
+{
+    if (!p_npc)
+    {
+        Msg("[Scripts/Globals/unstrap_weapon(p_npc)] WARNING: p_npc == nullptr! Return ...");
+        return;
+    }
+
+    const xr_vector<xr_string> weapon_table = {
+        "pri_a15_wpn_svu", "pri_a15_wpn_wincheaster1300", "pri_a15_wpn_ak74u", "pri_a15_wpn_ak74"};
+
+    CScriptGameObject* p_item = nullptr;
+    std::uint32_t index = 0;
+
+    for (const xr_string& it : weapon_table)
+    {
+        p_item = p_npc->GetObjectByName(it.c_str());
+
+        if (p_item)
+        {
+            break;
+        }
+
+        ++index;
+    }
+
+    if (p_item == nullptr)
+    {
+        Msg("[Scripts/Globals/unstrap_weapon(p_npc)] WARNING: p_item == nullptr! Return ...");
+        return;
+    }
+
+    p_item->attachable_item_load_attach(weapon_table.at(index).c_str());
+}
+
+inline void lights_off(
+    CScriptGameObject* const p_not_used_1, CScriptGameObject* const p_not_used_2, const xr_vector<xr_string>& not_used)
+{
+    DataBase::Storage::getInstance().getActor()->GiveInfoPortion("pri_a15_lights_off");
+}
+
+inline void lights_on(
+    CScriptGameObject* const p_not_used_1, CScriptGameObject* const p_not_used_2, const xr_vector<xr_string>& not_used)
+{
+    DataBase::Storage::getInstance().getActor()->DisableInfoPortion("pri_a15_lights_off");
+}
+
+inline void end_scene(
+    CScriptGameObject* const p_not_used_1, CScriptGameObject* const p_not_used_2, const xr_vector<xr_string>& not_used)
+{
+    DataBase::Storage::getInstance().getActor()->DisableInfoPortion("pri_a15_cutscene_end");
+}
+
+inline void break_fence(
+    CScriptGameObject* const p_not_used_1, CScriptGameObject* const p_not_used_2, const xr_vector<xr_string>& not_used)
+{
+    if (DataBase::Storage::getInstance().getAnimationObjectsByName().find("pri_a15_door") == DataBase::Storage::getInstance().getAnimationObjectsByName().end())
+    {
+        Msg("[Scripts/Globals/break_fence()] WARNING: can't find object by 'pri_a15_door' Return ...");
+        return;
+    }
+
+   Script_Binder_DoorLabx8* const p_binder = DataBase::Storage::getInstance().getAnimationObjectsByName().at("pri_a15_door");
+
+   if (!p_binder)
+   {
+       Msg("[Scripts/Globals/break_fence()] WARNING: something is went wrong! Object is nullptr Return ...");
+       return;
+   }
+
+   p_binder->animation_forward();
+}
+
 } // namespace Globals
 } // namespace Scripts
 } // namespace Cordis
