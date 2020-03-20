@@ -2727,6 +2727,9 @@ public:
     inline const xrTime& getDisableInputTime(void) const noexcept { return this->m_disable_input_time; }
     inline void setDisableInputTime(const xrTime& time) noexcept { this->m_disable_input_time = time; }
 
+    inline std::uint16_t getRegisteredCamp(void) const noexcept { return this->m_registered_camp; }
+    inline void setRegisteredCamp(const std::uint16_t id) noexcept { this->m_registered_camp = id; }
+
 private:
     bool m_is_invulnerable = false;
     bool m_is_immortal = false;
@@ -2739,6 +2742,7 @@ private:
     std::uint16_t m_enemy_id = Globals::kUnsignedInt16Undefined;
     std::uint16_t m_corpse_already_selected = 0;
     std::uint16_t m_wounded_already_selected = 0;
+    std::uint16_t m_registered_camp = 0;
     std::int32_t m_activation_time = 0;
     std::uint32_t m_disable_input_idle;
     xrTime m_disable_input_time;
@@ -3622,6 +3626,11 @@ public:
     inline void setStorageDangerFlag(const std::uint16_t npc_id, const bool value) noexcept
     {
         this->m_storage[npc_id].setDangerFlag(value);
+    }
+
+    inline void setStorageRegisteredCamp(const std::uint16_t npc_id, const std::uint16_t camp_id) noexcept 
+    {
+        this->m_storage[npc_id].setRegisteredCamp(camp_id);
     }
 #pragma endregion
 

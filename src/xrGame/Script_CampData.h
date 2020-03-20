@@ -74,8 +74,14 @@ public:
     };
 
     void update(void);
-
-        inline const xr_vector<xr_string>& getHarmonicas(void) const noexcept
+    void set_next_state(void);
+    void get_director(void);
+    void set_story(void);
+    void get_camp_action(const std::uint16_t npc_id, xr_string& state_name, bool& is_director);
+    void register_npc(const std::uint16_t npc_id);
+    void unregister_npc(const std::uint16_t npc_id);
+    std::uint32_t get_npc_role(const std::uint16_t npc_id, const xr_string& state);
+    inline const xr_vector<xr_string>& getHarmonicas(void) const noexcept
     {
         return this->m_harmonicas;
     }
@@ -87,6 +93,8 @@ public:
     {
         return this->m_npcs;
     }
+
+
 
 private:
     bool m_is_sound_manager_started;
