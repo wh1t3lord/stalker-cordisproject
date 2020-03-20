@@ -4195,15 +4195,6 @@
     <Filter Include="Jumbo\Private">
       <UniqueIdentifier>{2dbaa734-0ee9-4600-8d05-2756a2f65185}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Cordis\Scripts\Managers\Camp">
-      <UniqueIdentifier>{b3beb822-cdb1-4b1d-8c90-af5342ef6f4d}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Cordis\Scripts\Managers\Camp\Public">
-      <UniqueIdentifier>{a6ea57e5-b52f-4b94-8f0a-39bdd3c9453a}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Cordis\Scripts\Managers\Camp\Private">
-      <UniqueIdentifier>{943b0bd7-f254-464a-8049-283007cba83f}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Cordis\Scripts\Managers\Task">
       <UniqueIdentifier>{77acffc5-90fc-4096-9303-2b75271e71c8}</UniqueIdentifier>
     </Filter>
@@ -4257,6 +4248,15 @@
     </Filter>
     <Filter Include="Cordis\Scripts\Dialogs\Pripyat\Public">
       <UniqueIdentifier>{03177ec0-958e-4f3b-86e1-7183a74a6bc9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Entities %28not server entities!%29\Camp">
+      <UniqueIdentifier>{b3beb822-cdb1-4b1d-8c90-af5342ef6f4d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Entities %28not server entities!%29\Camp\Public">
+      <UniqueIdentifier>{a6ea57e5-b52f-4b94-8f0a-39bdd3c9453a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Entities %28not server entities!%29\Camp\Private">
+      <UniqueIdentifier>{943b0bd7-f254-464a-8049-283007cba83f}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -9609,7 +9609,7 @@
       <Filter>Cordis\Scripts\Managers\Move\Public</Filter>
     </ClInclude>
     <ClInclude Include="Script_CampData.h">
-      <Filter>Cordis\Scripts\Managers\Camp\Public</Filter>
+      <Filter>Cordis\Scripts\Entities %28not server entities!%29\Camp\Public</Filter>
     </ClInclude>
     <ClInclude Include="Script_TaskManager.h">
       <Filter>Cordis\Scripts\Managers\Task\Public</Filter>
@@ -14059,7 +14059,7 @@
       <Filter>Jumbo\Private</Filter>
     </ClCompile>
     <ClCompile Include="Script_CampData.cpp">
-      <Filter>Cordis\Scripts\Managers\Camp\Private</Filter>
+      <Filter>Cordis\Scripts\Entities %28not server entities!%29\Camp\Private</Filter>
     </ClCompile>
     <ClCompile Include="Script_TaskManager.cpp">
       <Filter>Cordis\Scripts\Managers\Task\Private</Filter>

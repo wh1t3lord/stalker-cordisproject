@@ -1,5 +1,7 @@
 #pragma once
 
+#include "Script_SoundManager.h"
+
 namespace Cordis
 {
 namespace Scripts
