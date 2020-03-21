@@ -6,7 +6,7 @@ namespace Cordis
 namespace Scripts
 {
 Script_SchemeXRWalker::Script_SchemeXRWalker(const xr_string& action_name, DataBase::Storage_Scheme& storage)
-    : inherited_scheme(nullptr, action_name, storage), m_is_in_camp(false)
+    : inherited_scheme(nullptr, action_name, storage), m_is_in_camp(false), m_p_camp(nullptr)
 {
     this->m_p_storage->setXRWalkerDescriptionName("walker_camp");
     this->m_avail_actions =
@@ -44,7 +44,29 @@ void Script_SchemeXRWalker::execute(void)
     }
 
     p_move_manager->update();
-    // Lord: доделать когда будет sr_camp
+
+    Script_CampData* const p_camp = Globals::get_current_camp(this->m_object->Position());
+
+    if (p_camp && this->m_p_storage->isXRWalkerUseCamp())
+    {
+        this->m_p_camp = p_camp;
+        this->m_p_camp->register_npc(this->m_object->ID());
+        this->m_is_in_camp = true;
+    }
+    else
+    {
+        if (this->m_is_in_camp)
+        {
+            this->m_p_camp->unregister_npc(this->m_object->ID());
+            this->m_is_in_camp = false;
+        }
+    }
+
+    if (!this->m_is_in_camp && !this->m_p_storage->getXRWalkerSoundIdleName().empty())
+    {
+        xr_string faction_name;
+        XR_SOUND::set_sound_play(this->m_object->ID(), this->m_p_storage->getXRWalkerSoundIdleName(), faction_name, 0);
+    }
 }
 
 void Script_SchemeXRWalker::finalize(void)
@@ -59,7 +81,8 @@ void Script_SchemeXRWalker::finalize(void)
 
     if (this->m_is_in_camp)
     {
-        // Lord: доделать когда будет camp (смотри скрипт)
+        this->m_p_camp->unregister_npc(this->m_object->ID());
+        this->m_is_in_camp = false;
     }
 
     CScriptActionBase::finalize();
@@ -73,7 +96,20 @@ void Script_SchemeXRWalker::activate_scheme(const bool is_loading, CScriptGameOb
 
 void Script_SchemeXRWalker::update(const float delta) 
 { 
-    return; // Lord: доделать когда будет camp! 
+    if (this->m_p_camp == nullptr)
+        return;
+
+    xr_string camp_action_name;
+    bool is_director = false;
+
+    this->m_p_camp->get_camp_action(this->m_object->ID(), camp_action_name, is_director);
+
+    if (!is_director)
+        return;
+
+    xr_string animation_name = Script_GlobalHelper::getInstance().getXRWalkerAssociation().at(camp_action_name);
+
+    Globals::set_state(this->m_object, animation_name, StateManagerCallbackData(), 0, std::pair<Fvector, CScriptGameObject* const>(Fvector(), nullptr), StateManagerExtraData());
 }
 
 } // namespace Scripts

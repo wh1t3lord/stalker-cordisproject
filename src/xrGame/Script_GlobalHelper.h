@@ -13030,6 +13030,13 @@ private:
         this->m_pri_a22_supp_items["supply_grenade_2"]["ammo_vog-25"] = 3;
         this->m_pri_a22_supp_items["supply_grenade_3"]["ammo_m209"] = 3;
 #pragma endregion
+
+        #pragma region Cordis Schemes stuff 
+        this->m_xr_walker_association["idle"] = "wait";
+        this->m_xr_walker_association["harmonica"] = "play_harmonica";
+        this->m_xr_walker_association["guitar"] = "play_guitar";
+        this->m_xr_walker_association["story"] = "wait";
+        #pragma endregion
     }
 
 public:
@@ -14456,6 +14463,13 @@ public:
     }
 #pragma endregion
 
+    #pragma region Cordis Schemes stuff
+    inline const xr_map<xr_string, xr_string>& getXRWalkerAssociation(void) const noexcept 
+    {
+        return this->m_xr_walker_association;
+    }
+    #pragma endregion
+
 private:
     bool m_is_gameover_credits_started;
     CUISequencer* m_tutorial;
@@ -14518,6 +14532,7 @@ private:
     xr_map<xr_string, xr_string> m_game_smarts_by_no_assault_zone;
     xr_map<xr_string, xr_string> m_news_manager_registered_sound_tips;
     xr_map<xr_string, xr_string> m_news_manager_action_description_by_type_name;
+    xr_map<xr_string, xr_string> m_xr_walker_association;
     xr_map<xr_string, xr_map<xr_string, xr_string>> m_smart_terrains_translated_name;
     xr_map<xr_string, xr_map<xr_string, std::uint32_t>> m_pri_a25_medic_items;
     xr_map<xr_string, xr_map<xr_string, std::uint32_t>> m_pri_a22_supp_items;
