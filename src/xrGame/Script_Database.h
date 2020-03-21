@@ -1611,6 +1611,47 @@ public:
     }
 #pragma endregion
 
+#pragma region Cordis Scheme XR Sleeper
+    inline bool isXRSleeperWakeable(void) const noexcept { return this->m_is_xr_sleeper_wakeable; }
+    inline void setXRSleeperWakeable(const bool value) noexcept { this->m_is_xr_sleeper_wakeable = value; }
+
+    inline const xr_string& getXRSleeperPathMainName(void) const noexcept { return this->m_xr_sleeper_path_main_name; }
+    inline void setXRSleeperPathMainName(const xr_string& path_name) noexcept 
+    {
+        if (path_name.empty())
+        {
+            Msg("[Scripts/DataBase/Storage_Scheme/setXRSleeperPathMainName(path_name)] WARNING: path_name.empty() == true! Return ...");
+            return;
+        }
+
+        this->m_xr_sleeper_path_main_name = path_name;
+    }
+
+    inline const xr_string& getXRSleeperPathWalkName(void) const noexcept { return this->m_xr_sleeper_path_walk_name; }
+    inline void setXRSleeperPathWalkName(const xr_string& path_name) noexcept 
+    {
+        if (path_name.empty())
+        {
+            Msg("[Scripts/DataBase/Storage_Scheme/setXRSleeperPathWalkName(path_name)] WARNING: path_name.empty() == true! Return ...");
+            return;
+        }
+
+        this->m_xr_sleeper_path_walk_name = path_name;
+    }
+
+    inline const xr_string& getXRSleeperPathLookName(void) const noexcept { return this->m_xr_sleeper_path_look_name; }
+    inline void setXRSleeperPathLookName(const xr_string& path_name) noexcept 
+    {
+        if (path_name.empty())
+        {
+            Msg("[Scripts/DataBase/Storage_Scheme/setXRSleeperPathLookName(path_name)] WARNING: path_name.empty() == true! Return ...");
+            return;
+        }
+
+        this->m_xr_sleeper_path_look_name = path_name;
+    }
+#pragma endregion
+
 #pragma region Cordis Scheme SR / XR Camp / Animpoint
     inline const xr_string& getBaseActionName(void) const noexcept { return this->m_base_action_name; }
     inline void setBaseActionName(const xr_string& action_name) noexcept
@@ -1675,6 +1716,7 @@ private:
     bool m_is_xr_remark_target_initialized = false;
     bool m_is_xr_remark_sound_animation_sync = false;
     bool m_is_xr_walker_use_camp = false;
+    bool m_is_xr_sleeper_wakeable = false;
     std::uint16_t m_xr_corpse_detection_selected_corpse_id = 0;
     std::uint16_t m_selected_id = 0;
     std::uint16_t m_xr_remark_target_id = 0;
@@ -1811,6 +1853,9 @@ private:
     xr_string m_xr_walker_team_name;
     xr_string m_xr_walker_sound_idle_name;
     xr_string m_xr_walker_path_look_name;
+    xr_string m_xr_sleeper_path_main_name;
+    xr_string m_xr_sleeper_path_walk_name;
+    xr_string m_xr_sleeper_path_look_name;
     CondlistWaypoints m_path_walk_info;
     CondlistWaypoints m_path_look_info;
 };
