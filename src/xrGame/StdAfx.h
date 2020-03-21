@@ -488,6 +488,8 @@ __declspec(dllexport)  CSE_Abstract* xrServer_Create(LPCSTR section, CSE_Motion*
 #include "Script_SchemeXRHelpWounded.h"
 #include "Script_SchemeXRGatherItems.h"
 #include "Script_SchemeXRRemark.h"
+#include "Script_SchemeXRWalker.h"
+#include "Script_SchemeXRSleeper.h"
 #include "Script_Dialogs.h"
 #include "Script_DialogsZaton.h"
 #include "Script_DialogsJupiter.h"

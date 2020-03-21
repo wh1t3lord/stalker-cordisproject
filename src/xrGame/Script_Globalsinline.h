@@ -648,6 +648,38 @@ inline CondlistWaypoints path_parse_waypoints(const xr_string& path_name)
     return result;
 }
 
+inline CondlistWaypoints path_parse_waypoints_argumentlist(const xr_string& path_name, const std::uint32_t point_count,
+    const xr_vector<std::pair<std::uint32_t, xr_string>>& data)
+{
+    if (path_name.empty())
+    {
+        Msg("[Scripts/Globals/Utils/path_parse_waypoints(path_name)] WARNING: path_name.empty() == true! Return empty "
+            "object ...");
+        return CondlistWaypoints();
+    }
+
+    CondlistWaypoints result;
+
+    CPatrolPathParams patrol = CPatrolPathParams(path_name.c_str());
+    std::uint32_t count = patrol.count();
+
+    if (count != point_count)
+    {
+        Msg("[Scripts/Globals/Utils/path_parse_waypoints_argumentlist(path_name, point_count, data)] WARNING: count doesn't equal point_count! Return ...");
+        return CondlistWaypoints();
+    }
+
+    // Lord: проверить правильно ли был составлен цикл на итерации
+    for (std::uint32_t i = 0; i < count; ++i)
+    {
+        Flags32 flags;
+        flags.assign(data[i].first);
+        result.setData(parse_waypoint_data(path_name, flags, data[i].second));
+    }
+
+    return result;
+}
+
 bool is_stalker_at_waypoint(
     CScriptGameObject* p_client_object, CPatrolPathParams& patrol_path, const std::uint32_t path_point)
 {
@@ -3214,6 +3246,23 @@ inline void start_harmonica(CScriptGameObject* const p_npc)
             0, p_camp->getHarmonicas().size() - 1)]);
     p_camp->setSoundManagerStarted(true);
     p_camp->update();
+}
+
+inline bool is_npc_asleep(CScriptGameObject* const p_npc) 
+{
+    if (!p_npc)
+    {
+        Msg("[Scripts/Globals/is_npc_asleep(p_npc)] WARNING: p_npc == nullptr! Return ...");
+        return false;
+    }
+
+    if (DataBase::Storage::getInstance().getStorage().find(p_npc->ID()) == DataBase::Storage::getInstance().getStorage().end())
+    {
+        Msg("[Scripts/Globals/is_npc_asleep(p_npc)] WARNING: SOMETHING IS WRONG THE NPC DIDN'T REGISTERED IN STORAGE YET! %d Return ...", p_npc->ID());
+        return false;
+    }
+    const DataBase::Storage_Data& storage = DataBase::Storage::getInstance().getStorage().at(p_npc->ID());
+    return (storage.getStateManager()->getAnimState()->getStates().getCurrentStateName() == "sleep");
 }
 
 } // namespace Globals

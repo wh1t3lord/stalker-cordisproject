@@ -83,6 +83,8 @@ inline void w_CTime(NET_Packet& packet, xrTime& time);
 inline CondlistWaypoints::CondlistWayPointsData parse_waypoint_data(
     const xr_string& name, const Flags32& waypoint_flags, const xr_string& waypoint_name);
 inline CondlistWaypoints path_parse_waypoints(const xr_string& path_name);
+inline CondlistWaypoints path_parse_waypoints_argumentlist(const xr_string& path_name, const std::uint32_t point_count,
+    const xr_vector<std::pair<std::uint32_t, xr_string>>& data);
 inline bool is_stalker_at_waypoint(
     CScriptGameObject* p_client_object, CPatrolPathParams& patrol_path, const std::uint32_t path_point);
 inline xr_vector<xr_string> parse_params(const xr_string& params);
@@ -317,6 +319,11 @@ inline Script_CampData* get_current_camp(const Fvector& position);
 inline void start_guitar(CScriptGameObject* const p_npc);
 inline void start_harmonica(CScriptGameObject* const p_npc);
 #pragma endregion
+
+#pragma region Cordis XR Sleeper
+inline bool is_npc_asleep(CScriptGameObject* const p_npc);
+#pragma endregion
+
 } // namespace Globals
 } // namespace Scripts
 } // namespace Cordis

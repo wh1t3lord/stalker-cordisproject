@@ -112,5 +112,50 @@ void Script_SchemeXRWalker::update(const float delta)
     Globals::set_state(this->m_object, animation_name, StateManagerCallbackData(), 0, std::pair<Fvector, CScriptGameObject* const>(Fvector(), nullptr), StateManagerExtraData());
 }
 
+void Script_SchemeXRWalker::set_scheme(CScriptGameObject* const p_client_object, CScriptIniFile* const p_ini,
+    const xr_string& scheme_name, const xr_string& section_name, const xr_string& gulag_name)
+{
+    DataBase::Storage_Scheme* const p_storage =
+        XR_LOGIC::assign_storage_and_bind(p_client_object, p_ini, scheme_name, section_name, gulag_name);
+    
+    p_storage->setLogic(XR_LOGIC::cfg_get_switch_conditions(p_ini, section_name, p_client_object));
+    xr_string path_walk_name = Globals::Utils::cfg_get_string(p_ini, section_name, "path_walk");
+    if (path_walk_name.empty())
+        path_walk_name = gulag_name;
+    p_storage->setXRWalkerPathWalkName(path_walk_name);
+    
+    if (!Globals::patrol_path_exists(path_walk_name.c_str()))
+    {
+        Msg("[Scripts/Script_SchemeXRWalker/set_scheme(p_client_object, p_ini, scheme_name, section_name, gulag_name)] WARNING: can't find path_walk by name %s Return ...", path_walk_name.c_str());
+        return;
+    }
+
+    xr_string path_look_name = Globals::Utils::cfg_get_string(p_ini, section_name, "path_look");
+
+    if (path_look_name.empty())
+        path_look_name = gulag_name;
+
+    p_storage->setXRWalkerPathLookName(path_look_name);
+
+    if (path_walk_name == path_look_name)
+    {
+        Msg("[Scripts/Script_SchemeXRWalker/set_scheme(p_client_object, p_ini, scheme_name, section_name, gulag_name)] WARNING: your scheme doesn't have any paths! Return ...");
+        return;
+    }
+
+    xr_string team_name = Globals::Utils::cfg_get_string(p_ini, section_name, "team");
+
+    if (team_name.empty())
+        team_name = gulag_name;
+
+    p_storage->setXRWalkerTeamName(team_name);
+    p_storage->setXRWalkerSoundIdleName(Globals::Utils::cfg_get_string(p_ini, section_name, "sound_idle"));
+    p_storage->setXRWalkerUseCamp(Globals::Utils::cfg_get_bool(p_ini, section_name, "use_camp"));
+
+    p_storage->setXRWalkerSuggestedStates("standing", Globals::Utils::cfg_get_string(p_ini, section_name, "def_state_standing"));
+    p_storage->setXRWalkerSuggestedStates("moving", Globals::Utils::cfg_get_string(p_ini, section_name, "def_state_moving1"));
+    p_storage->setXRWalkerSuggestedStates("moving", Globals::Utils::cfg_get_string(p_ini, section_name, "def_state_moving"));
+}
+
 } // namespace Scripts
 } // namespace Cordis
