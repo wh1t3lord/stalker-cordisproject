@@ -1600,6 +1600,15 @@ public:
 
         this->m_xr_walker_suggested_states[type_name] = animation_name;
     }
+
+    inline const xr_string& getXRWalkerSoundIdleName(void) const noexcept { return this->m_xr_walker_sound_idle_name; }
+    inline void setXRWalkerSoundIdleName(const xr_string& sound_name) noexcept 
+    {
+        if (sound_name.empty())
+            Msg("[Scripts/DataBase/Storage_Scheme/setXRWalkerSoundIdleName(sound_name)] WARNING: sound_name.empty() == true! Return ...");
+
+        this->m_xr_walker_sound_idle_name = sound_name;
+    }
 #pragma endregion
 
 #pragma region Cordis Scheme SR / XR Camp / Animpoint
@@ -1800,7 +1809,7 @@ private:
     xr_string m_xr_walker_description_name;
     xr_string m_xr_walker_path_walk_name;
     xr_string m_xr_walker_team_name;
-    xr_string m_xr_walker_sound_idle;
+    xr_string m_xr_walker_sound_idle_name;
     xr_string m_xr_walker_path_look_name;
     CondlistWaypoints m_path_walk_info;
     CondlistWaypoints m_path_look_info;
