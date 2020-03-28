@@ -7,7 +7,7 @@ namespace Cordis
     class Script_EvaluatorNeedSleeper : public CScriptPropertyEvaluator
     {
     public:
-        Script_EvaluatorNeedRemark(const xr_string& evaluator_name, DataBase::Storage_Scheme& storage)
+        Script_EvaluatorNeedSleeper(const xr_string& evaluator_name, DataBase::Storage_Scheme& storage)
             : CScriptPropertyEvaluator(nullptr, evaluator_name.c_str()), m_p_storage(&storage)
         {
         }
