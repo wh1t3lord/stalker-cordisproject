@@ -4258,6 +4258,24 @@
     <Filter Include="Cordis\Scripts\Entities %28not server entities!%29\Camp\Private">
       <UniqueIdentifier>{943b0bd7-f254-464a-8049-283007cba83f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Cordis\Scripts\Logic\Schemes\XR\Sleeper">
+      <UniqueIdentifier>{cf320492-55c1-4154-bbf2-55c52b088b68}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Logic\Schemes\XR\Sleeper\Public">
+      <UniqueIdentifier>{5b52ab35-31d2-4048-ab52-f625cf0c1ad9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Logic\Schemes\XR\Sleeper\Private">
+      <UniqueIdentifier>{4cec9089-0dd2-4c2c-ab24-4f6237e63106}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Logic\Schemes\XR\Kamp">
+      <UniqueIdentifier>{f9db25e6-cc31-4f60-bcbd-cfeabcc0f40d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Logic\Schemes\XR\Kamp\Private">
+      <UniqueIdentifier>{f55d2370-8c3c-4fb5-a6ec-55d6e1f837df}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Logic\Schemes\XR\Kamp\Public">
+      <UniqueIdentifier>{122934fd-ff2f-47f7-be37-4667d637af3c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="mt_config.h">
@@ -9632,6 +9650,12 @@
     <ClInclude Include="Script_DialogsPripyat.h">
       <Filter>Cordis\Scripts\Dialogs\Pripyat\Public</Filter>
     </ClInclude>
+    <ClInclude Include="Script_SchemeXRSleeper.h">
+      <Filter>Cordis\Scripts\Logic\Schemes\XR\Sleeper\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Script_SchemeXRKamp.h">
+      <Filter>Cordis\Scripts\Logic\Schemes\XR\Kamp\Public</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="damage_manager.cpp">
@@ -14069,6 +14093,12 @@
     </ClCompile>
     <ClCompile Include="Script_WeatherManager.cpp">
       <Filter>Cordis\Scripts\Managers\Weather\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Script_SchemeXRSleeper.cpp">
+      <Filter>Cordis\Scripts\Logic\Schemes\XR\Sleeper\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Script_SchemeXRKamp.cpp">
+      <Filter>Cordis\Scripts\Logic\Schemes\XR\Kamp\Private</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

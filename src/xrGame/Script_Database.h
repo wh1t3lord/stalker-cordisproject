@@ -20,6 +20,7 @@ class Storage_Scheme;
 #include "Script_Binder_DoorLabx8.h"
 #include "Script_CampData.h"
 #include "Script_TaskManager.h"
+#include "Script_SchemeXRKamp.h"
 
 namespace Cordis
 {
@@ -1652,6 +1653,26 @@ public:
     }
 #pragma endregion
 
+#pragma region Cordis Scheme XR Kamp
+    inline std::uint32_t getXRKampPosVertex(void) const noexcept { return this->m_xr_kamp_pos_vertex; }
+    inline void setXRKampPosVertex(const std::uint32_t value) noexcept { this->m_xr_kamp_pos_vertex = value; }
+
+    inline std::uint32_t getXRKampRadius (void) const noexcept { return this->m_xr_kamp_radius; }
+    inline void setXRKampRadius(const std::uint32_t value) noexcept { this->m_xr_kamp_radius = value; }
+
+    inline const xr_string& getXRKampCenterPointName(void) const noexcept { return this->m_xr_kamp_center_point_name; }
+    inline void setXRKampCenterPointName(const xr_string& center_point_name) noexcept { this->m_xr_kamp_center_point_name = center_point_name; }
+    
+    inline const xr_string& getXRKampDefStateMoving(void) const noexcept { return this->m_xr_kamp_def_state_moving_name; }
+    inline void setXRKampDefStateMoving(const xr_string& state_name) noexcept { this->m_xr_kamp_def_state_moving_name = state_name; }
+
+    inline std::uint32_t getXRKampNpcPositionNum(void) const noexcept { return this->m_xr_kamp_npc_position_num; }
+    inline void setXRKampNpcPositionNum(const std::uint32_t value) noexcept
+    {
+        this->m_xr_kamp_npc_position_num = value;
+    }
+#pragma endregion
+
 #pragma region Cordis Scheme SR / XR Camp / Animpoint
     inline const xr_string& getBaseActionName(void) const noexcept { return this->m_base_action_name; }
     inline void setBaseActionName(const xr_string& action_name) noexcept
@@ -1738,6 +1759,9 @@ private:
     std::uint32_t m_level_vertex_id = 0;
     std::uint32_t m_danger_time = 0;
     std::uint32_t m_scheme_id_for_unsubscring = 0;
+    std::uint32_t m_xr_kamp_pos_vertex = 0;
+    std::uint32_t m_xr_kamp_radius = 0;
+    std::uint32_t m_xr_kamp_npc_position_num = 0;
     float m_ph_jump_factor = 0.0f;
     float m_helicopter_min_rocket_distance = 0.0f;
     float m_helicopter_min_minigun_distance = 0.0f;
@@ -1856,6 +1880,8 @@ private:
     xr_string m_xr_sleeper_path_main_name;
     xr_string m_xr_sleeper_path_walk_name;
     xr_string m_xr_sleeper_path_look_name;
+    xr_string m_xr_kamp_center_point_name;
+    xr_string m_xr_kamp_def_state_moving_name;
     CondlistWaypoints m_path_walk_info;
     CondlistWaypoints m_path_look_info;
 };
@@ -4190,7 +4216,7 @@ public:
         Msg("[Scripts/DataBase/Storage/deleteStorage(object_id)] deleting storage -> %d", object_id);
         this->m_storage.erase(object_id);
     }
-
+    // @ Lord: проверить ВСЁ на очистку!
     inline void Deallocate(void)
     {
         this->m_actor = nullptr;
@@ -4254,12 +4280,24 @@ public:
                 xr_delete(it.second.first);
         }
 
+        if (!this->m_kamps.empty())
+        {
+            for (std::pair<const xr_string, Script_XRKamp*>& it : this->m_kamps)
+            {
+                if (it.second)
+                {
+                    xr_delete(it.second);
+                }
+            }
+        }
+
         this->m_offline_objects.clear();
         this->m_spawned_vertex_by_id.clear();
         this->m_goodwill.first.clear();
         this->m_goodwill.second.clear();
         this->m_camp_storage.clear();
         this->m_noweapon_zones.clear();
+        this->m_kamps_stalker.clear();
 
         Script_TaskManager::getInstance().Deallocate();
     }
@@ -4382,6 +4420,46 @@ public:
     inline void deleteCrowToCount(void) noexcept {--this->m_crow_count;}
 #pragma endregion
 
+    #pragma region Cordis Scheme XR Kamp
+    inline const xr_map<xr_string, Script_XRKamp*>& getKamps(void) const noexcept { return this->m_kamps; }
+
+    inline void setKamps(const xr_string& center_point_name, Script_XRKamp* const p_kamp)
+    {
+        if (center_point_name.empty())
+        {
+            Msg("[Scripts/DataBase/Storage/setKamps(center_point_name, p_kamp)] WARNING: center_point_name.empty() == "
+                "true! Return ...");
+            return;
+        }
+
+        if (!p_kamp)
+        {
+            Msg("[Scripts/DataBase/Storage/setKamps(center_point_name, p_kamp)] WARNING: p_kamp == nullptr! You are "
+                "trying to set a null object! But this object must be deallocated manually!");
+            return;
+        }
+
+        this->m_kamps[center_point_name] = p_kamp;
+    }
+
+    inline const xr_map<std::uint16_t, bool>& getKampsStalker(void) const noexcept { return this->m_kamps_stalker; }
+    
+    inline void setKampsStalker(const std::uint16_t npc_id, const bool value) noexcept 
+    {
+        if (npc_id == Globals::kUnsignedInt16Undefined)
+        {
+            Msg("[Scripts/DataBase/Storage/setKampsStalker(npc_id, value)] WARNING: npc_id is undefined value! Return ...");
+            return;
+        }
+
+        if (!npc_id)
+            Msg("[Scripts/DataBase/Storage/setKampsStalker(npc_id, value)] WARNING: npc_id == 0! You are trying to set ID equals to 0!");
+
+        this->m_kamps_stalker[npc_id] = value;
+        
+    }
+    #pragma endregion
+
     inline const xr_map<std::uint16_t, xr_string>& getScriptIDS(void) const noexcept { return this->m_script_ids; }
     inline void setScriptIDS(const std::uint16_t id, const xr_string& name) noexcept
     {
@@ -4414,6 +4492,8 @@ private:
     xr_map<std::uint16_t, std::pair<std::uint16_t, xr_string>> m_offline_objects;
     xr_map<std::uint32_t, CScriptGameObject*> m_helicopter_enemies;
     xr_map<xr_string, bool> m_noweapon_zones;
+    xr_map<std::uint16_t, bool> m_kamps_stalker;
+    xr_map<xr_string, Script_XRKamp*> m_kamps;
     xr_map<std::uint16_t, std::uint16_t> m_crow_storage;
     xr_map<xr_string, CScriptGameObject*> m_zone_by_name;
     xr_map<xr_string, CScriptGameObject*> m_anomaly_by_name;

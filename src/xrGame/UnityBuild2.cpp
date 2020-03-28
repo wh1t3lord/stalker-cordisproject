@@ -129,6 +129,7 @@
 #include "Script_SchemeXRRemark.cpp"
 #include "Script_SchemeXRWalker.cpp"
 #include "Script_SchemeXRSleeper.cpp"
+#include "Script_SchemeXRKamp.cpp"
 #include "Script_SE_Actor.cpp"
 #include "Script_SE_Ammo.cpp"
 #include "Script_SE_Artefact.cpp"
