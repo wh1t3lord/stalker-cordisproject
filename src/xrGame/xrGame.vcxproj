@@ -242,7 +242,7 @@ $(xrLibDir);$(xrSdkDir)DXSDK/Lib/$(PlatformShortName);
     <Link>
       <DelayLoadDLLs>AnselSDK$(PlatformArchitecture).dll;</DelayLoadDLLs>
       <AdditionalDependencies>d3d9.lib;nvapi64.lib;amd_ags_$(PlatformShortName).lib;dxgi.lib;dxguid.lib;d3dcompiler.lib;d3d11.lib;d3dx11.lib;shlwapi.lib;AnselSDK$(PlatformArchitecture).lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>D:\Cordis Project\Xray\sdk\boost_1_70_0\bin.v2\libs\regex\build\msvc-14.2\rls\adrs-mdl-64\lnk-sttc\thrd-mlt;$(xrExternals)OpenAutomate\libraries;$(xrExternals)AGS_SDK\ags_lib\lib;$(xrExternals)nvapi\amd64;C:\Program Files %28x86%29\Windows Kits\8.1\Lib\winv6.3\um\x64;$(xrSdkDir)libraries;
+      <AdditionalLibraryDirectories>$(xrSdkDir)lib_boost\stage\lib\;$(xrExternals)OpenAutomate\libraries;$(xrExternals)AGS_SDK\ags_lib\lib;$(xrExternals)nvapi\amd64;C:\Program Files %28x86%29\Windows Kits\8.1\Lib\winv6.3\um\x64;$(xrSdkDir)libraries;
 $(xrSdkDir)libraries/$(PlatformShortName);
 $(xrLibDir);$(xrSdkDir)DXSDK/Lib/$(PlatformShortName);
 %(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
