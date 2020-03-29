@@ -17,6 +17,8 @@ bin*/
 intermediate/
 intermediate_plugs/
 lib/
+!Externals/libvorbis/lib/
+!Externals/libtheora/lib/
 CMakeFiles/
 *.aps
 *.user
