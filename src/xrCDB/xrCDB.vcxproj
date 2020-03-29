@@ -188,7 +188,7 @@
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Jumbo|x64'">
     <ClCompile>
       <PreprocessorDefinitions>_USRDLL;XRCDB_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>$(xrSdkDir)boost_1_70_0\;
+      <AdditionalIncludeDirectories>$(xrSdkDir)lib_boost\;
         .;
         $(SolutionDir);
         $(xrExternals);
