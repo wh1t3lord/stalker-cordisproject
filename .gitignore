@@ -11,6 +11,8 @@ cmake_install.cmake
 install_manifest.txt
 bin*/
 !bind/
+!binary/
+!bindings/
 intermediate/
 intermediate_plugs/
 lib/
