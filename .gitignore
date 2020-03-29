@@ -3,13 +3,14 @@
 !.git*
 !.appveyor*
 !.travis.yml
-!bind/
+
 
 # exclude binaries and temporary files
 CMakeCache.txt
 cmake_install.cmake
 install_manifest.txt
 bin*/
+!bind/
 intermediate/
 intermediate_plugs/
 lib/

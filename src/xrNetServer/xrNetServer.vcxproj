@@ -189,7 +189,7 @@ D:\Cordis Project\Xray\sdk\boost_1_70_0\bin.v2\libs\regex\build\msvc-14.2\rls\ad
       <PreprocessorDefinitions>XR_NETSERVER_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>
         .;
-     $(xrSdkDir)boost_1_70_0\;   $(SolutionDir);
+     $(xrSdkDir)lib_boost\;   $(SolutionDir);
         $(xrExternals);
         $(ProjectDir);
         $(xrSdkDir)include;

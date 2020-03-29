@@ -182,7 +182,7 @@ D:\Cordis Project\Xray\sdk\boost_1_70_0\bin.v2\libs\regex\build\msvc-14.2\rls\ad
       <PreprocessorDefinitions>XRAICORE_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <PrecompiledHeaderFile>pch.hpp</PrecompiledHeaderFile>
       <AdditionalIncludeDirectories>
- $(xrSdkDir)boost_1_70_0\;       .;
+ $(xrSdkDir)lib_boost\;       .;
         $(SolutionDir);
         $(xrExternals);
         $(ProjectDir);

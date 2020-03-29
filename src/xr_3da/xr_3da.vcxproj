@@ -125,7 +125,7 @@
         $(xrExternals)GameSpy\src;
         %(AdditionalIncludeDirectories)
       </AdditionalIncludeDirectories>
-      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Jumbo|x64'">$(xrSdkDir)boost_1_70_0\;
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Jumbo|x64'">$(xrSdkDir)lib_boost\;
         .;
         $(SolutionDir);
         $(xrExternals);

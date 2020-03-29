@@ -229,7 +229,7 @@ $(xrLibDir);$(xrSdkDir)DXSDK/Lib/$(PlatformShortName);
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Jumbo|x64'">
     <ClCompile>
-      <AdditionalIncludeDirectories>$(xrSdkDir)boost_1_70_0\;..\..\Externals\FreeMagic\Source;..\..\Externals\FreeMagic\Source\Core3D;..\..\Externals\FreeMagic\Source\Core;$(SolutionDir)xrServerEntities;$(xrExternals)ode/include;$(xrExternals)OpenAutomate\inc;$(xrExternals)CxImage;$(xrExternals)pugixml\src;Render\3DFluid;Render\Kernel;Render\R4;Render\WildMagic;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(xrSdkDir)lib_boost\;..\..\Externals\FreeMagic\Source;..\..\Externals\FreeMagic\Source\Core3D;..\..\Externals\FreeMagic\Source\Core;$(SolutionDir)xrServerEntities;$(xrExternals)ode/include;$(xrExternals)OpenAutomate\inc;$(xrExternals)CxImage;$(xrExternals)pugixml\src;Render\3DFluid;Render\Kernel;Render\R4;Render\WildMagic;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>_USRDLL;XRGAME_EXPORTS;USE_DX11;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <DisableSpecificWarnings>4237;4250;%(DisableSpecificWarnings)</DisableSpecificWarnings>
       <CallingConvention>StdCall</CallingConvention>
