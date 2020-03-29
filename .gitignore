@@ -19,6 +19,7 @@ intermediate_plugs/
 lib/
 !Externals/libvorbis/lib/
 !Externals/libtheora/lib/
+!sdk/DXSDK/lib/
 CMakeFiles/
 *.aps
 *.user
