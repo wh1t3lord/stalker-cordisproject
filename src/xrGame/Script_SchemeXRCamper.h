@@ -54,6 +54,13 @@ namespace Cordis
 				return false;
 			}
 
+			static void add_to_binder(CScriptGameObject* const p_client_object, CScriptIniFile* const p_ini,
+				const xr_string& scheme_name, const xr_string& section_name, DataBase::Storage_Scheme& storage);
+
+			// @ PRIVATE, uses in XR_LOGIC
+			static void set_scheme(CScriptGameObject* const p_client_object, CScriptIniFile* const p_ini,
+				const xr_string& scheme_name, const xr_string& section_name, const xr_string& gulag_name);
+
 		private:
 			bool process_danger(void);
 			bool on_place(void);
