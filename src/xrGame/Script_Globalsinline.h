@@ -3075,6 +3075,21 @@ inline void change_game_time(std::uint32_t days, std::uint32_t hours, std::uint3
     }
 }
 
+inline void stop_play_sound(CScriptGameObject* const p_npc)
+{
+    if (!p_npc)
+    {
+        MESSAGEWR("p_npc == nullptr!");
+        return;
+    }
+
+    if (p_npc->Alive())
+    {
+        p_npc->set_sound_mask(Globals::kUnsignedInt32Undefined);
+        p_npc->set_sound_mask(0);
+    }
+}
+
 inline void unstrap_weapon(
     CScriptGameObject* const p_npc, CScriptGameObject* const p_not_used, const xr_vector<xr_string>& not_used)
 {

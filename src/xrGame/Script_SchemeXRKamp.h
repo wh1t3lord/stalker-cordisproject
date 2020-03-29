@@ -81,6 +81,17 @@ namespace Cordis
             struct NpcData
             {
                 public:
+                    inline const xr_string& getNpcName(void) const noexcept { return this->m_npc_name; }
+                    inline void setNpcName(const xr_string& npc_name) noexcept
+                    {
+                        if (npc_name.empty())
+                        {
+                            MESSAGEW("npc_name.empty() == true! Maybe something is wrong");
+                        }
+
+                        this->m_npc_name = npc_name;
+                    }
+
                     inline std::uint32_t getBegin(void) const noexcept { return this->m_begin;}
                     inline void setBegin(const std::uint32_t value) noexcept { this->m_begin = value; }
 
@@ -116,6 +127,11 @@ namespace Cordis
 
                         this->m_selected_state_name = state_name;
                     }
+
+                    inline bool isEmpty(void) const noexcept 
+                    {
+                        return (!this->m_is_new) && (!this->m_is_need_sound_begin) && (!this->m_begin) && (!this->m_state_idle) && (!this->m_position) && (this->m_states.empty()) && (this->m_selected_state_name.empty()) && (this->m_npc_name.empty());
+                    }
             private:
                 bool m_is_new = false;
                 bool m_is_need_sound_begin = false;
@@ -124,6 +140,7 @@ namespace Cordis
                 std::uint32_t m_position = 0;
                 xr_map<xr_string, bool> m_states;
                 xr_string m_selected_state_name;
+                xr_string m_npc_name;
             };
 
         private:
