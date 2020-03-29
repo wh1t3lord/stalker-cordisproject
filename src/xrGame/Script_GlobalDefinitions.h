@@ -1224,6 +1224,7 @@ constexpr std::uint32_t kAbuseBase = kIDStart + 1120;
 constexpr std::uint32_t kCorpseExist = kIDStart + 50;
 constexpr std::uint32_t kZmeyWalkerBase = kIDStart + 4370;
 constexpr std::uint32_t kZmeySleeperBase = kIDStart + 4190;
+constexpr std::uint32_t kStoheCamperBase = kIDStart + 1080;
 } // namespace XR_EVALUATORS_ID
 
 constexpr std::uint32_t kStoheActions = StalkerDecisionSpace::eWorldOperatorScript + 220;

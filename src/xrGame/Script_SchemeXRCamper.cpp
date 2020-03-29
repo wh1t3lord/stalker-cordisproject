@@ -306,6 +306,144 @@ namespace Cordis
 			this->m_p_storage->setXRCamperScanBegin(0);
 		}
 
+		void Script_SchemeXRCamper::add_to_binder(CScriptGameObject* const p_client_object, CScriptIniFile* const p_ini, const xr_string& scheme_name, const xr_string& section_name, DataBase::Storage_Scheme& storage)
+		{
+			if (!p_client_object)
+			{
+				R_ASSERT2(false, "object is null!");
+				return;
+			}
+
+			if (!p_ini)
+			{
+				R_ASSERT2(false, "object is null!");
+				return;
+			}
+
+			MESSAGE("Added scheme %s", scheme_name.c_str());
+
+			xr_map<xr_string, std::uint32_t> operators;
+			xr_map<xr_string, std::uint32_t> properties;
+
+			CScriptActionPlanner* const p_planner = Globals::get_script_action_planner(p_client_object);
+
+			operators["patrol"] = Globals::XR_ACTIONS_ID::kStoheCamperBase + 1;
+			operators["search_corpse"] = Globals::XR_ACTIONS_ID::kCorpseExist;
+			operators["help_wounded"] = Globals::XR_ACTIONS_ID::kWoundedExist;
+
+			properties["end"] = Globals::XR_ACTIONS_ID::XR_EVALUATORS_ID::kStoheCamperBase + 1;
+			properties["can_fight"] = Globals::XR_ACTIONS_ID::XR_EVALUATORS_ID::kSidorWoundedBase + 1;
+			properties["close_combat"] = Globals::XR_ACTIONS_ID::XR_EVALUATORS_ID::kStoheCamperBase + 2;
+			properties["state_mgr_logic_active"] = Globals::XR_ACTIONS_ID::XR_EVALUATORS_ID::kStateManager + 4;
+
+			p_planner->add_evaluator(properties.at("end"), new Script_EvaluatorCamperEnd("camper_end", storage));
+			p_planner->add_evaluator(properties.at("close_combat"), new Script_EvaluatorCloseCombat("camper_close_combat", storage));
+
+			Script_SchemeXRCamper* p_scheme = new Script_SchemeXRCamper("action_camper_patrol", storage);
+			p_scheme->add_condition(CWorldProperty(StalkerDecisionSpace::eWorldPropertyAlive, true));
+			p_scheme->add_condition(CWorldProperty(properties.at("end"), false));
+			p_scheme->add_condition(CWorldProperty(properties.at("close_combat"), false));
+			p_scheme->add_condition(CWorldProperty(properties.at("can_fight"), true));
+			p_scheme->add_condition(CWorldProperty(StalkerDecisionSpace::eWorldPropertyDanger, false));
+			p_scheme->add_condition(CWorldProperty(StalkerDecisionSpace::eWorldPropertyAnomaly, false));
+
+			p_scheme->add_condition(CWorldProperty(Globals::XR_ACTIONS_ID::XR_EVALUATORS_ID::kStoheMeetBase + 1, false));
+			p_scheme->add_condition(CWorldProperty(Globals::XR_ACTIONS_ID::XR_EVALUATORS_ID::kSidorWoundedBase, false));
+			p_scheme->add_condition(CWorldProperty(Globals::XR_ACTIONS_ID::XR_EVALUATORS_ID::kAbuseBase, false));
+
+			p_scheme->add_effect(CWorldProperty(properties.at("end"), true));
+			p_scheme->add_effect(CWorldProperty(StalkerDecisionSpace::eWorldPropertyEnemy, false));
+			p_scheme->add_effect(CWorldProperty(properties.at("state_mgr_logic_active"), false));
+
+			p_planner->add_operator(operators.at("patrol"), p_scheme);
+
+			DataBase::Storage::getInstance().setStorageSchemesActions(p_client_object->ID(), scheme_name, p_scheme);
+
+			p_planner->action(Globals::XR_ACTIONS_ID::kAlife).add_condition(CWorldProperty(properties.at("end"), true));
+			p_planner->action(StalkerDecisionSpace::eWorldOperatorGatherItems).add_condition(CWorldProperty(properties.at("end"), true));
+			p_planner->action(operators.at("search_corpse")).add_condition(CWorldProperty(properties.at("end"), true));
+			p_planner->action(operators.at("help_wounded")).add_condition(CWorldProperty(properties.at("end"), true));
+			CScriptActionBase& temp = p_planner->action(StalkerDecisionSpace::eWorldOperatorCombatPlanner);
+			temp.add_condition(CWorldProperty(properties.at("close_combat"), true));
+			temp.add_effect(CWorldProperty(properties.at("close_combat"), false));
+			temp.add_effect(CWorldProperty(properties.at("state_mgr_logic_active"), false));
+			temp.add_effect(CWorldProperty(properties.at("end"), true));
+		}
+
+		void Script_SchemeXRCamper::set_scheme(CScriptGameObject* const p_client_object, CScriptIniFile* const p_ini, const xr_string& scheme_name, const xr_string& section_name, const xr_string& gulag_name)
+		{
+			DataBase::Storage_Scheme* const p_storage = XR_LOGIC::assign_storage_and_bind(p_client_object, p_ini, scheme_name, section_name, gulag_name);
+			p_storage->setLogic(XR_LOGIC::cfg_get_switch_conditions(p_ini, section_name, p_client_object));
+
+			p_storage->setPathWalkName(Globals::Utils::cfg_get_string(p_ini, section_name, "path_walk"));
+			p_storage->setPathLookName(Globals::Utils::cfg_get_string(p_ini, section_name, "path_look"));
+
+			if (p_storage->getPathWalkName() == p_storage->getPathLookName())
+			{
+				MESSAGEWR("it can't be, check your data in your logic-configuration file please!");
+				return;
+			}
+
+			p_storage->setXRCamperSniper(Globals::Utils::cfg_get_bool(p_ini, section_name, "sniper"));
+			p_storage->setXRCamperNoRetreat(Globals::Utils::cfg_get_bool(p_ini, section_name, "no_retreat"));
+			
+			xr_string shoot_name = Globals::Utils::cfg_get_string(p_ini, section_name, "shoot");
+			if (shoot_name.empty())
+				shoot_name = "always";
+
+			p_storage->setXRCamperShootName(shoot_name);
+
+			xr_string animation_name = Globals::Utils::cfg_get_string(p_ini, section_name, "sniper_anim");
+			if (animation_name.empty())
+				animation_name = "hide_na";
+
+			p_storage->setXRCamperSniperAnimName(animation_name);
+
+			if (p_storage->isXRCamperSniper() && p_storage->isXRCamperNoRetreat())
+			{
+				MESSAGEWR("no retreat can't be with sniper!");
+				return;
+			}
+
+			float radius = Globals::Utils::cfg_get_number(p_ini, section_name, "radius");
+			if (fis_zero(radius))
+				radius = 20.0f;
+
+			p_storage->setXRCamperRadius(radius);
+
+			p_storage->setXRCamperSuggestedState("moving", Globals::Utils::cfg_get_string(p_ini, section_name, "def_state_moving"));
+			p_storage->setXRCamperSuggestedState("moving_fire", Globals::Utils::cfg_get_string(p_ini, section_name, "def_state_moving_fire"));
+			p_storage->setXRCamperSuggestedState("campering", Globals::Utils::cfg_get_string(p_ini, section_name, "def_state_campering"));
+
+			xr_string standing_value_name = Globals::Utils::cfg_get_string(p_ini, section_name, "def_state_standing");
+			if (standing_value_name.empty())
+				standing_value_name = p_storage->getXRCamperSuggestedStates().at("campering");
+
+			p_storage->setXRCamperSuggestedState("standing", standing_value_name);
+			p_storage->setXRCamperSuggestedState("campering_fire", Globals::Utils::cfg_get_string(p_ini, section_name, "def_state_campering_fire"));
+
+			std::uint32_t scantimefree = static_cast<std::uint32_t>(Globals::Utils::cfg_get_number(p_ini, section_name, "scantime_free"));
+			if (scantimefree == 0)
+				scantimefree = 60000;
+
+			p_storage->setXRCamperScanTimeFree(scantimefree);
+
+			xr_string attack_sound_name = Globals::Utils::cfg_get_string(p_ini, section_name, "attack_sound");
+			if (attack_sound_name.empty())
+				attack_sound_name = "fight_attack";
+
+			p_storage->setXRCamperAttackSoundName(attack_sound_name);
+
+			if (p_storage->getXRCamperAttackSoundName() == "false")
+				p_storage->setXRCamperAttackSoundName("");
+
+			std::uint32_t idle_value = static_cast<std::uint32_t>(Globals::Utils::cfg_get_number(p_ini, section_name, "enemy_idle"));
+			if (idle_value == 0)
+				idle_value = 60000;
+
+			p_storage->setXRCamperIdle(idle_value);
+		}
+
 		bool Script_SchemeXRCamper::process_danger(void)
 		{
 			if (XR_DANGER::is_danger(this->m_object))
