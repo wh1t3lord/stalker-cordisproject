@@ -320,7 +320,6 @@ namespace Cordis
         }
 
         std::uint32_t states = 0;
-     //   xr_string sound_name;
         xr_vector<xr_string> state;
 
         std::uint16_t npc_id = p_npc->ID();
@@ -432,11 +431,105 @@ namespace Cordis
         }
     }
 
-    void Script_XRKamp::addNpc(CScriptGameObject* const p_npc) {}
+    void Script_XRKamp::addNpc(CScriptGameObject* const p_npc)
+    {
+        if (!p_npc)
+        {
+            MESSAGEWR("can't register npc, because p_npc == nullptr!");
+            return;
+        }
 
-    void Script_XRKamp::removeNpc(CScriptGameObject* const p_npc) {}
+        if (this->m_npc.find(p_npc->ID()) != this->m_npc.end())
+        {
+            MESSAGEWR("npc %d is already exist, can't add ", p_npc->ID());
+            return;
+        }
 
-    void Script_XRKamp::increasePops(void) {}
+        if (Globals::character_community(p_npc) == "monolith" || Globals::character_community(p_npc) == "zombied")
+        {
+            NpcData data;
+            data.setNpcName(p_npc->Name());
+			data.setState("stand_wait", false);
+			data.setState("sit", false);
+			data.setState("sit_ass", false);
+			data.setState("sit_knee", false);
+			data.setState("declarate", true);
+			data.setState("eat_kolbasa", false);
+			data.setState("eat_vodka", false);
+			data.setState("eat_energy", false);
+			data.setState("eat_bread", false);
+			data.setState("trans", true);
+			data.setState("play_harmonica", false);
+			data.setState("play_guitar", false);
+            this->m_npc[p_npc->ID()] = data;
+        }
+        else
+        {
+            NpcData data;
+            data.setNpcName(p_npc->Name());
+			data.setState("stand_wait", true);
+			data.setState("sit", true);
+			data.setState("sit_ass", true);
+			data.setState("sit_knee", true);
+			data.setState("declarate", true);
+			data.setState("eat_kolbasa", false);
+			data.setState("eat_vodka", false);
+			data.setState("eat_energy", false);
+			data.setState("eat_bread", false);
+            data.setState("trans", false);
+			data.setState("play_harmonica", false);
+			data.setState("play_guitar", false);
+            this->m_npc[p_npc->ID()] = data;
+        }
+
+
+        this->select_position(p_npc->ID());
+        this->m_p_sound_manager->register_npc(p_npc->ID());
+    }
+
+    void Script_XRKamp::removeNpc(CScriptGameObject* const p_npc)
+    {
+        this->m_p_sound_manager->unregister_npc(p_npc->ID());
+        std::uint16_t npc_id = p_npc->ID();
+
+        if (this->m_npc.find(npc_id) != this->m_npc.end())
+        {
+
+            if (!this->m_npc.at(npc_id).isEmpty())
+            {
+				if (this->m_director_id == npc_id)
+				{
+					this->m_director_id = 0;
+					this->m_npc.at(npc_id).setBegin(0);
+					this->m_kamp_state_name = "idle";
+					this->m_begin = Globals::get_time_global();
+
+					for (std::pair<const std::uint16_t, NpcData>& it : this->m_npc)
+					{
+						it.second.setNew(true);
+					}
+
+					Globals::stop_play_sound(p_npc);
+				}
+            }
+            
+
+            std::uint32_t position = this->m_npc.at(npc_id).getPosition();
+            if (position >= this->m_position.size())
+            {
+                MESSAGEWR("Something is wrong, size can't be large or equal existed xr_vector, check your code please");
+                return;
+            }
+            this->m_position.at(position).second = 0;
+            this->m_npc[npc_id] = NpcData();
+        }
+    }
+
+    void Script_XRKamp::increasePops(void)
+    {
+        ++this->m_population;
+
+    }
 
     void Script_XRKamp::decreasePops(void) {}
 

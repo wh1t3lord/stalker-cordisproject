@@ -24,7 +24,11 @@ void Script_SchemeXRAbuse::finalize(void) { CScriptActionBase::finalize(); }
 void Script_SchemeXRAbuse::initialize(void) 
 {
     CScriptActionBase::initialize();
-    // @ Можете доделать!
+    
+    this->m_object->set_desired_position();
+    this->m_object->set_desired_direction();
+
+    Globals::set_state(this->m_object, "punch", StateManagerCallbackData(), 0, std::pair<Fvector, CScriptGameObject* const>(Fvector(), DataBase::Storage::getInstance().getActor()), StateManagerExtraData());
 }
 
 void Script_SchemeXRAbuse::add_to_binder(CScriptGameObject* const p_client_object, CScriptIniFile* const p_ini,
@@ -42,23 +46,46 @@ void Script_SchemeXRAbuse::add_to_binder(CScriptGameObject* const p_client_objec
         return;
     }
 
-    Msg("[Scripts/add_to_binder(p_client_object, p_ini, scheme_name, section_name, storage)] added "
-        "Script_SchemeMobWalker scheme to binder, name=%s scheme=%s section=%s",
-        p_client_object->Name(), scheme_name.c_str(), section_name.c_str());
+    MESSAGE("Added scheme %s", scheme_name);
+
+    xr_map<xr_string, std::uint32_t> operators;
+    xr_map<xr_string, std::uint32_t> properties;
+
+    CScriptActionPlanner* const p_planner = Globals::get_script_action_planner(p_client_object);
+
+    properties["abuse"] = Globals::XR_ACTIONS_ID::XR_EVALUATORS_ID::kAbuseBase;
+    properties["wounded"] = Globals::XR_ACTIONS_ID::XR_EVALUATORS_ID::kSidorWoundedBase;
+
+    operators["abuse"] = Globals::XR_ACTIONS_ID::kAbuseBase;
+
+    p_planner->add_evaluator(properties.at("abuse"), new Script_EvaluatorAbuse("evaluator_abuse", storage));
+
+    Script_SchemeXRAbuse* p_scheme = new Script_SchemeXRAbuse("action_abuse_hit", storage);
+    p_scheme->add_condition(CWorldProperty(StalkerDecisionSpace::eWorldPropertyAlive, true));
+    p_scheme->add_condition(CWorldProperty(StalkerDecisionSpace::eWorldPropertyDanger, true));
+    p_scheme->add_condition(CWorldProperty(properties.at("wounded"), false));
+    p_scheme->add_condition(CWorldProperty(properties.at("abuse"), false));
+    p_scheme->add_effect(CWorldProperty(properties.at("abuse"), true));
+    
+    p_planner->add_operator(operators.at("abuse"), p_scheme);
+
+    p_planner->action(Globals::XR_ACTIONS_ID::kAlife).add_condition(CWorldProperty(properties.at("abuse"), false));
+    storage.setXRAbuseManager(new DataBase::Script_XRAbuseManager(p_client_object, storage));
+
 }
 
 
 void Script_SchemeXRAbuse::set_abuse(CScriptGameObject* const p_client_object, CScriptIniFile* const p_ini,
     const xr_string& scheme_name, const xr_string& section_name)
 {
+    DataBase::Storage_Scheme* p_storage = XR_LOGIC::assign_storage_and_bind(p_client_object, p_ini, scheme_name, section_name, "");
 }
 
 void Script_SchemeXRAbuse::add_abuse(CScriptGameObject* const p_client_object, const float value)
 {
     if (!p_client_object)
     {
-        Msg("[Scripts/Script_SchemeXRAbuse/add_abuse(p_client_object, value)] WARNING: can't add because "
-            "p_client_object == nullptr!");
+        MESSAGEWR("can't add because p_client_object == nullptr!");
         return;
     }
 
@@ -75,8 +102,7 @@ void Script_SchemeXRAbuse::add_abuse(CScriptGameObject* const p_client_object, c
     }
     else
     {
-        Msg("[Scripts/Script_SchemeXRAbuse/add_abuse(p_client_object, value)] wARNING: can't add because abuse "
-            "scheme doesnt exist!");
+        MESSAGEWR("can't add because abuse scheme doesnt exist!");
         return;
     }
 }
@@ -85,8 +111,7 @@ void Script_SchemeXRAbuse::clear_abuse(CScriptGameObject* const p_client_object)
 {
     if (!p_client_object)
     {
-        Msg("[Scripts/Script_SchemeXRAbuse/clear_abuse(p_client_object)] WARNING: can't add because "
-            "p_client_object == nullptr!");
+        MESSAGEWR("can't add because p_client_object == nullptr!");
         return;
     }
 
@@ -103,8 +128,7 @@ void Script_SchemeXRAbuse::clear_abuse(CScriptGameObject* const p_client_object)
     }
     else
     {
-        Msg("[Scripts/Script_SchemeXRAbuse/clear_abuse(p_client_object)] wARNING: can't add because abuse "
-            "scheme doesnt exist!");
+        MESSAGEWR("can't add because abuse scheme doesnt exist!");
         return;
     }
 }
@@ -113,8 +137,7 @@ void Script_SchemeXRAbuse::disable_abuse(CScriptGameObject* const p_client_objec
 {
     if (!p_client_object)
     {
-        Msg("[Scripts/Script_SchemeXRAbuse/disable_abuse(p_client_object)] WARNING: can't add because "
-            "p_client_object == nullptr!");
+        MESSAGEWR("can't add because p_client_object == nullptr!");
         return;
     }
 
@@ -131,8 +154,7 @@ void Script_SchemeXRAbuse::disable_abuse(CScriptGameObject* const p_client_objec
     }
     else
     {
-        Msg("[Scripts/Script_SchemeXRAbuse/disable_abuse(p_client_object)] wARNING: can't add because abuse "
-            "scheme doesnt exist!");
+        MESSAGEWR("can't add because abuse scheme doesnt exist!");
         return;
     }
 }
@@ -141,8 +163,7 @@ void Script_SchemeXRAbuse::enable_abuse(CScriptGameObject* const p_client_object
 {
     if (!p_client_object)
     {
-        Msg("[Scripts/Script_SchemeXRAbuse/enable_abuse(p_client_object)] WARNING: can't add because "
-            "p_client_object == nullptr!");
+        MESSAGEWR("can't add because p_client_object == nullptr!");
         return;
     }
 
@@ -159,8 +180,7 @@ void Script_SchemeXRAbuse::enable_abuse(CScriptGameObject* const p_client_object
     }
     else
     {
-        Msg("[Scripts/Script_SchemeXRAbuse/enable_abuse(p_client_object)] wARNING: can't add because abuse "
-            "scheme doesnt exist!");
+        MESSAGEWR("can't add because abuse scheme doesnt exist!");
         return;
     }
 }

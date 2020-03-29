@@ -13,7 +13,7 @@ stype_restrictor	= 4
 ----------------------------------------------------------------------
 load_scheme("xr_danger",						"danger",			stype_stalker) -- Implemented
 load_scheme("xr_gather_items",					"gather_items",		stype_stalker) -- Implemented
-load_scheme("xr_abuse",							"abuse",			stype_stalker) -- Not used!!!
+load_scheme("xr_abuse",							"abuse",			stype_stalker) -- Implemented
 load_scheme("xr_walker",						"walker",			stype_stalker) -- Implemented
 load_scheme("xr_remark",						"remark",			stype_stalker) -- Implemented
 load_scheme("xr_cover",							"cover",			stype_stalker) -- Not used!!!
