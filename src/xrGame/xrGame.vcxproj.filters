@@ -4276,6 +4276,15 @@
     <Filter Include="Cordis\Scripts\Logic\Schemes\XR\Kamp\Public">
       <UniqueIdentifier>{122934fd-ff2f-47f7-be37-4667d637af3c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Cordis\Scripts\Logic\Schemes\XR\Camper">
+      <UniqueIdentifier>{de86d4c9-5c2c-40c6-ab63-6eecbb62272e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Logic\Schemes\XR\Camper\Public">
+      <UniqueIdentifier>{dfdb8041-81d5-48b8-b14c-689d5d44489b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Logic\Schemes\XR\Camper\Private">
+      <UniqueIdentifier>{53b6cf58-1eaa-4dc1-ae6e-9a84ab452aec}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="mt_config.h">
@@ -9656,6 +9665,9 @@
     <ClInclude Include="Script_SchemeXRKamp.h">
       <Filter>Cordis\Scripts\Logic\Schemes\XR\Kamp\Public</Filter>
     </ClInclude>
+    <ClInclude Include="Script_SchemeXRCamper.h">
+      <Filter>Cordis\Scripts\Logic\Schemes\XR\Camper\Public</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="damage_manager.cpp">
@@ -14099,6 +14111,9 @@
     </ClCompile>
     <ClCompile Include="Script_SchemeXRKamp.cpp">
       <Filter>Cordis\Scripts\Logic\Schemes\XR\Kamp\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Script_SchemeXRCamper.cpp">
+      <Filter>Cordis\Scripts\Logic\Schemes\XR\Camper\Private</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

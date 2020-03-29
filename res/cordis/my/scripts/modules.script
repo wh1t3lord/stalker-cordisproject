@@ -19,7 +19,7 @@ load_scheme("xr_remark",						"remark",			stype_stalker) -- Implemented
 load_scheme("xr_cover",							"cover",			stype_stalker) -- Not used!!!
 load_scheme("xr_sleeper",						"sleeper",			stype_stalker) -- Implmented
 load_scheme("xr_kamp",							"kamp",				stype_stalker) -- Not used!
-load_scheme("xr_camper",						"camper",			stype_stalker) --
+load_scheme("xr_camper",						"camper",			stype_stalker) -- 
 load_scheme("xr_meet",							"meet",				stype_stalker) -- 
 load_scheme("xr_help_wounded",					"help_wounded",		stype_stalker) -- Implemented
 load_scheme("xr_corpse_detection",				"corpse_detection",	stype_stalker) -- Implemented

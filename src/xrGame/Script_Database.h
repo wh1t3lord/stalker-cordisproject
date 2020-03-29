@@ -1701,6 +1701,115 @@ public:
     }
 #pragma endregion
 
+#pragma region Cordis Scheme XR Camper
+    inline float getXRCamperRadius(void) const noexcept { return this->m_xr_camper_radius; }
+    inline void setXRCamperRadius(const float value) noexcept { this->m_xr_camper_radius = value; }
+
+    inline const xr_string& getXRCamperAttackSoundName(void) const noexcept { return this->m_xr_camper_attack_sound_name; }
+    inline void setXRCamperAttackSoundName(const xr_string& sound_name) noexcept 
+    {
+        if (sound_name.empty())
+        {
+            MESSAGEW("you are trying to set an empty string!");
+        }
+
+        this->m_xr_camper_attack_sound_name = sound_name;
+    }
+
+    inline float getXRCamperEnemyDisp(void) const noexcept { return this->m_xr_camper_enemy_disp; }
+
+    inline std::uint32_t getXRCamperPostEnemyWait(void) const noexcept { return this->m_xr_camper_post_enemy_wait; }
+
+    inline float getXRCamperScanDelta(void) const noexcept { return this->m_xr_camper_scandelta; }
+    inline std::uint32_t getXRCamperTimeDelta(void) const noexcept { return this->m_xr_camper_timedelta; }
+    inline std::uint32_t getXRCamperTimeScanDelta(void) const noexcept { return this->m_xr_camper_timescandelta; }
+
+    inline std::uint32_t getXRCamperIdle(void) const noexcept { return this->m_xr_camper_idle; }
+    inline void setXRCamperIdle(const std::uint32_t value) noexcept { this->m_xr_camper_idle = value; }
+
+    inline std::uint32_t getXRCamperScanTimeFree(void) const noexcept { return this->m_xr_camper_scantimefree; }
+    inline void setXRCamperScanTimeFree(const std::uint32_t value) noexcept { this->m_xr_camper_scantimefree = value; }
+
+    inline const xr_string& getXRCamperSniperAnimName(void) const noexcept { return this->m_xr_camper_sniper_anim_name; }
+    inline void setXRCamperSniperAnimName(const xr_string& animation_name) noexcept 
+    {
+        if (animation_name.empty())
+        {
+            MESSAGEW("you are trying to set an empty string");
+        }
+
+        this->m_xr_camper_sniper_anim_name = animation_name;
+    }
+
+    inline bool isXRCamperSniper(void) const noexcept { return this->m_is_xr_camper_sniper; }
+    inline void setXRCamperSniper(const bool value) noexcept { this->m_is_xr_camper_sniper = value; }
+
+    inline bool isXRCamperNoRetreat(void) const noexcept { return this->m_is_xr_camper_no_retreat; }
+    inline void setXRCamperNoRetreat(const bool value) noexcept { this->m_is_xr_camper_no_retreat = value; }
+
+    inline const xr_string& getXRCamperShootName(void) const noexcept { return this->m_xr_camper_shoot_name; }
+    inline void setXRCamperShootName(const xr_string& name) noexcept
+    {
+        if (name.empty())
+        {
+            MESSAGEW("you are trying to set an empty string");
+        }    
+
+        this->m_xr_camper_shoot_name = name;
+    }
+
+    inline const std::pair<std::uint32_t, Fvector>& getXRCamperLastLookPoint(void) const noexcept { return this->m_xr_camper_last_look_point; }
+    inline void setXRCamperLastLookPointKey(const std::uint32_t value) noexcept { this->m_xr_camper_last_look_point.first = value; }
+    inline void setXRCamperLastLookPointPos(const Fvector& position) noexcept { this->m_xr_camper_last_look_point.second = position; }
+    inline void setXRCamperLastLookPoint(const std::uint32_t value, const Fvector& position) noexcept { this->m_xr_camper_last_look_point.first = value; this->m_xr_camper_last_look_point.second = position; }
+
+    
+    inline std::uint32_t getXRCamperWpFlag(void) const noexcept { return this->m_xr_camper_wp_flag; }
+    inline void setXRCamperWpFlag(const std::uint32_t value) noexcept 
+    {
+        if (value >= std::uint8_t(-1))
+        {
+            MESSAGEWR("deprecated value!");
+            return;
+        }
+        this->m_xr_camper_wp_flag = value; 
+    }
+
+    inline const xr_map<xr_string, xr_string>& getXRCamperSuggestedStates(void) const noexcept { return this->m_xr_camper_suggested_states; }
+    inline void setXRCamperSuggestedState(const xr_string& state_name, const xr_string& value_name) noexcept 
+    {
+        if (state_name.empty())
+        {
+            MESSAGEWR("you trying to set an empty string as a key");
+            return;
+        }
+
+        if (value_name.empty())
+        {
+            MESSAGEW("you are trying to set an empty string");
+            return;
+        }
+
+        this->m_xr_camper_suggested_states[state_name] = value_name;
+    }
+
+    inline const xr_map<std::uint32_t, xr_vector<std::pair<std::uint32_t, Fvector>>>& getXRCamperScanTable(void) const noexcept { return this->m_xr_camper_scan_table; }
+    inline void ClearXRCamperScanTable(void) noexcept { this->m_xr_camper_scan_table.clear(); }
+    inline void setXRCamperScanTable(const std::uint32_t index, const std::uint32_t value, const Fvector& position) noexcept 
+    {
+        this->m_xr_camper_scan_table[index].push_back({ value, position });
+    }
+
+    inline std::uint32_t getXRCamperScanBegin(void) const noexcept { return this->m_xr_camper_scan_begin; }
+    inline void setXRCamperScanBegin(const std::uint32_t value) noexcept { this->m_xr_camper_scan_begin = value; }
+
+    inline std::uint32_t getXRCamperCurrentLookPoint(void) const noexcept { return this->m_xr_camper_current_look_point; }
+    inline void setXRCamperCurrentLookPoint(const std::uint32_t value) noexcept { this->m_xr_camper_current_look_point = value; }
+
+    inline std::uint32_t getXRCamperMemoryEnemy(void) const noexcept { return this->m_xr_camper_memory_enemy; }
+    inline void setXRCamperMemoryEnemy(const std::uint32_t value) noexcept { this->m_xr_camper_memory_enemy = value; }
+#pragma endregion
+
 private:
     // @ Не понятно зачем в итоге но так у ПЫС, если в итоге оно находится в самом сторадже где уже зарегистрирован
     // сам НПС
@@ -1738,6 +1847,8 @@ private:
     bool m_is_xr_remark_sound_animation_sync = false;
     bool m_is_xr_walker_use_camp = false;
     bool m_is_xr_sleeper_wakeable = false;
+    bool m_is_xr_camper_sniper = false;
+    bool m_is_xr_camper_no_retreat = false;
     std::uint16_t m_xr_corpse_detection_selected_corpse_id = 0;
     std::uint16_t m_selected_id = 0;
     std::uint16_t m_xr_remark_target_id = 0;
@@ -1762,6 +1873,15 @@ private:
     std::uint32_t m_xr_kamp_pos_vertex = 0;
     std::uint32_t m_xr_kamp_radius = 0;
     std::uint32_t m_xr_kamp_npc_position_num = 0;
+    std::uint32_t m_xr_camper_wp_flag = 0;
+    std::uint32_t m_xr_camper_scan_begin = 0;
+    std::uint32_t m_xr_camper_current_look_point = 0;
+    std::uint32_t m_xr_camper_memory_enemy = 0;
+    const std::uint32_t m_xr_camper_post_enemy_wait = 5000;
+    const std::uint32_t m_xr_camper_timedelta = 4000;
+    const std::uint32_t m_xr_camper_timescandelta = this->m_xr_camper_timedelta / this->m_xr_camper_scandelta;
+    std::uint32_t m_xr_camper_idle = 0;
+    std::uint32_t m_xr_camper_scantimefree = 0;
     float m_ph_jump_factor = 0.0f;
     float m_helicopter_min_rocket_distance = 0.0f;
     float m_helicopter_min_minigun_distance = 0.0f;
@@ -1789,6 +1909,9 @@ private:
     float m_sr_deimos_switch_upper_bound = 0.0f;
     float m_sr_deimos_health_lost = 0.0f;
     float m_sr_deimos_movement_speed = 0.0f;
+    float m_xr_camper_radius = 0.0f;
+    const float m_xr_camper_scandelta = 30.0f;
+    const float m_xr_camper_enemy_disp = 7 / 57.2957f;
     CScriptGameObject* m_p_npc = nullptr;
     /*
         Script_ISchemeEntity* m_p_action =
@@ -1805,6 +1928,7 @@ private:
     Fvector m_ph_force_point;
     Fvector m_vertex_position;
     Fvector m_xr_remark_target_position;
+    std::pair<std::uint32_t, Fvector> m_xr_camper_last_look_point;
     xr_map<xr_string, bool> m_signals;
     xr_map<std::uint32_t, CondlistData> m_dialog_condlist;
     xr_map<std::uint32_t, CondlistData> m_ph_button_on_press_condlist;
@@ -1817,7 +1941,9 @@ private:
     xr_map<std::uint32_t, xr_map<std::uint32_t, CondlistData>> m_hit_on_bone;
     xr_map<std::uint32_t, xr_map<std::uint32_t, CondlistData>> m_sr_timer_on_value;
     xr_map<xr_string, xr_string> m_xr_walker_suggested_states;
+    xr_map<xr_string, xr_string> m_xr_camper_suggested_states;
     xr_map<xr_string, xr_map<std::uint32_t, CondlistData>> m_ph_code_on_check_code;
+    xr_map<std::uint32_t, xr_vector<std::pair<std::uint32_t, Fvector>>> m_xr_camper_scan_table;
     xr_vector<Script_ISchemeEntity*> m_actions;
     xr_vector<LogicData> m_logic;
     xr_vector<std::pair<std::uint32_t, std::pair<xr_string, xr_string>>> m_sr_teleport_points;
@@ -1882,6 +2008,9 @@ private:
     xr_string m_xr_sleeper_path_look_name;
     xr_string m_xr_kamp_center_point_name;
     xr_string m_xr_kamp_def_state_moving_name;
+    xr_string m_xr_camper_attack_sound_name;
+    xr_string m_xr_camper_sniper_anim_name;
+    xr_string m_xr_camper_shoot_name;
     CondlistWaypoints m_path_walk_info;
     CondlistWaypoints m_path_look_info;
 };
