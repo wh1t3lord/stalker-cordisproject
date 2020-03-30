@@ -302,6 +302,7 @@ inline void start_surge(void);
 inline void stop_surge(void);
 inline void change_game_time(std::uint32_t days, std::uint32_t hours, std::uint32_t mins);
 inline void stop_play_sound(CScriptGameObject* const p_npc);
+inline bool is_npc_in_combat(CScriptGameObject* const p_npc);
 #pragma region Cordis State Manager
 inline void unstrap_weapon(
     CScriptGameObject* const p_npc, CScriptGameObject* const p_not_used, const xr_vector<xr_string>& not_used);

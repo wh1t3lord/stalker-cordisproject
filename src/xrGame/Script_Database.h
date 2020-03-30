@@ -1884,6 +1884,9 @@ public:
     inline const xr_map<std::uint32_t, CondlistData>& getXRMeetUseText(void) const noexcept { return this->m_xr_meet_use_text; }
     inline void setXRMeetUseText(const xr_map<std::uint32_t, CondlistData>& data) noexcept { if (data.empty()) MESSAGEW("you are set an empty map!"); this->m_xr_meet_use_text = data; }
 
+    inline const xr_map<std::uint32_t, CondlistData>& getXRMeetFarSound(void) const noexcept { return this->m_xr_meet_far_sound; }
+    inline void setXRMeetFarSound(const xr_map<std::uint32_t, CondlistData>& data) noexcept { if (data.empty()) MESSAGEW("you are set an empty map!"); this->m_xr_meet_far_sound = data; }
+
     inline float getXRMeetResetDistance(void) const noexcept { return this->m_xr_meet_reset_distance; }
     inline void setXRMeetResetDistance(const float value) noexcept { this->m_xr_meet_reset_distance = value; }
 

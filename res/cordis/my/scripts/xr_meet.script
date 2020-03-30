@@ -93,7 +93,7 @@ function Cmeet_manager:__init(npc, storage)
 	self.allow_break = nil
 	self.npc_is_camp_director = false
 
-	self.curent_distance = nil -- nil - мит не активен, close - близко, far - далеко
+	self.current_distance = nil -- nil - мит не активен, close - близко, far - далеко
 
 	self.hello_passed = false 	-- √оворили ли мы привет
 	self.bye_passed = false	 	-- √оворили ли мы пока

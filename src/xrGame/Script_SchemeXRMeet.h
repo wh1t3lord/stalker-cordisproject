@@ -30,6 +30,7 @@ namespace Cordis
 			void update(void);
 
 		private:
+			bool m_is_allow_break;
 			bool m_is_npc_camp_director;
 			bool m_is_hello_passed;
 			bool m_is_bye_passed;
