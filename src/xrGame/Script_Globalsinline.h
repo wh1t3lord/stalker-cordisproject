@@ -3090,6 +3090,24 @@ inline void stop_play_sound(CScriptGameObject* const p_npc)
     }
 }
 
+inline bool is_npc_in_combat(CScriptGameObject* const p_npc)
+{
+    if (!p_npc)
+    {
+        MESSAGEWR("p_npc == nullptr!");
+        return false;
+    }
+
+    CScriptActionPlanner* const p_planner = get_script_action_planner(p_npc);
+
+    if (!p_planner->initialized())
+        return false;
+    
+    CScriptActionPlanner::_action_id_type current_action_id = p_planner->current_action_id();
+
+    return (current_action_id == StalkerDecisionSpace::eWorldOperatorCombatPlanner || current_action_id == StalkerDecisionSpace::eWorldOperatorPostCombatWait);
+}
+
 inline void unstrap_weapon(
     CScriptGameObject* const p_npc, CScriptGameObject* const p_not_used, const xr_vector<xr_string>& not_used)
 {
