@@ -453,36 +453,6 @@ function init_meet(npc, ini, section, st, scheme)
 
 	st.meet_section = utils.tostring(section)
 
--- Что можно настраивать в meet
---[[
-[meet]
-close_distance 	= {=actor_has_weapon} 3, 3
-close_anim 		= {=actor_has_weapon} a, b
-close_snd_hello = {=actor_has_weapon} a, b
-close_snd_bye 	= {=actor_has_weapon} a, b
-close_victim 	= {=actor_has_weapon} a, b
-
-
-far_distance 	= {=actor_has_weapon} 30, 30
-far_anim 		= {=actor_has_weapon} a, b
-far_snd 		= {=actor_has_weapon} a, b
-far_victim 		= {=actor_has_weapon} a, b
-
-
-snd_on_use 		= {=in_battle} a, {=no_talk} b, c
-
-use				= {=actor_has_weapon} true, false  -- self - юзает сам
-meet_dialog		= {=actor_has_weapon} a
-abuse			= {=in_battle} true, false
-trade_enable	= {=in_battle} true, false
-allow_break		= {=in_battle} true, false
-
-Ненастраиваемые параметры:
-
-reset_distance	= 30
-
-]]
-
 	-- Устанавливаем дефолты
 	local def = {}
 
