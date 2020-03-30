@@ -21,6 +21,7 @@ class Storage_Scheme;
 #include "Script_CampData.h"
 #include "Script_TaskManager.h"
 #include "Script_SchemeXRKamp.h"
+#include "Script_SchemeXRMeet.h"
 
 namespace Cordis
 {
@@ -211,6 +212,12 @@ public:
         {
             Msg("[Scripts/DataBase/Storage_Scheme/~dtor()] deleting abuse manager from %s", this->m_p_npc->Name());
             xr_delete(this->m_p_abuse_manager);
+        }
+
+        if (this->m_p_meet_manager)
+        {
+            MESSAGE("deleting meet manager from %s", this->m_p_npc->Name());
+            xr_delete(this->m_p_meet_manager);
         }
 
         this->m_p_npc = nullptr;
@@ -1810,6 +1817,84 @@ public:
     inline void setXRCamperMemoryEnemy(const std::uint32_t value) noexcept { this->m_xr_camper_memory_enemy = value; }
 #pragma endregion
 
+#pragma region Cordis Scheme XR Meet
+    inline Script_XRMeetManager* const getMeetManager(void) const { return this->m_p_meet_manager; }
+    inline void setMeetManager(Script_XRMeetManager* const p_meet)
+    {
+        if (!p_meet)
+        {
+            MESSAGEWR("Can't set an empty instance check your code and allocation!");
+            return;
+        }
+
+        this->m_p_meet_manager = p_meet; 
+    }
+
+    inline const xr_map<std::uint32_t, CondlistData>& getXRMeetCloseDistance(void) const noexcept { return this->m_xr_meet_close_distance; }
+    inline void setXRMeetCloseDistance(const xr_map<std::uint32_t, CondlistData>& data) noexcept { if (data.empty()) MESSAGEW("you are set an empty map!"); this->m_xr_meet_close_distance = data; }
+
+    inline const xr_map<std::uint32_t, CondlistData>& getXRMeetCloseAnim(void) const noexcept { return this->m_xr_meet_close_anim; }
+    inline void setXRMeetCloseAnim(const xr_map<std::uint32_t, CondlistData>& data) noexcept { if (data.empty()) MESSAGEW("you are set an empty map!"); this->m_xr_meet_close_anim = data; }
+
+    inline const xr_map<std::uint32_t, CondlistData>& getXRMeetCloseSoundDistance(void) const noexcept { return this->m_xr_meet_close_sound_distance; }
+    inline void setXRMeetCloseSoundDistance(const xr_map<std::uint32_t, CondlistData>& data) noexcept { if (data.empty()) MESSAGEW("you are set an empty map!"); this->m_xr_meet_close_sound_distance = data; }
+
+    inline const xr_map<std::uint32_t, CondlistData>& getXRMeetCloseSoundHello(void) const noexcept { return this->m_xr_meet_close_sound_hello; }
+    inline void setXRMeetCloseSoundHello(const xr_map<std::uint32_t, CondlistData>& data) noexcept { if (data.empty()) MESSAGEW("you are set an empty map!"); this->m_xr_meet_close_sound_hello = data; }
+
+    inline const xr_map<std::uint32_t, CondlistData>& getXRMeetCloseSoundBye(void) const noexcept { return this->m_xr_meet_close_sound_bye; }
+    inline void setXRMeetCloseSoundBye(const xr_map<std::uint32_t, CondlistData>& data) noexcept { if (data.empty()) MESSAGEW("you are set an empty map!") this->m_xr_meet_close_sound_bye = data; }
+
+    inline const xr_map<std::uint32_t, CondlistData>& getXRMeetCloseVictim(void) const noexcept { return this->m_xr_meet_close_victim; }
+    inline void setXRMeetCloseVictim(const xr_map<std::uint32_t, CondlistData>& data) noexcept { if (data.empty()) MESSAGEW("you are set an empty map!"); this->m_xr_meet_close_victim = data; }
+
+    inline const xr_map<std::uint32_t, CondlistData>& getXRMeetFarDistance(void) const noexcept { return this->m_xr_meet_far_distance; }
+    inline void setXRMeetFarDistance(const xr_map<std::uint32_t, CondlistData>& data) noexcept { if (data.empty()) MESSAGEW("you are set an empty map!"); this->m_xr_meet_far_distance = data; }
+
+    inline const xr_map<std::uint32_t, CondlistData>& getXRMeetFarAnim(void) const noexcept { return this->m_xr_meet_far_anim; }
+    inline void setXRMeetFarAnim(const xr_map<std::uint32_t, CondlistData>& data) noexcept { if (data.empty()) MESSAGEW("you are set an empty map!"); this->m_xr_meet_far_anim = data; }
+
+    inline const xr_map<std::uint32_t, CondlistData>& getXRMeetFarSoundDistance(void) const noexcept { return this->m_xr_meet_far_sound_distance; }
+    inline void setXRMeetFarSoundDistance(const xr_map<std::uint32_t, CondlistData>& data) noexcept { if (data.empty()) MESSAGEW("you are set an empty map!"); this->m_xr_meet_far_sound_distance = data; }
+
+    inline const xr_map<std::uint32_t, CondlistData>& getXRMeetFarVictim(void) const noexcept { return this->m_xr_meet_far_victim; }
+    inline void setXRMeetFarVictim(const xr_map<std::uint32_t, CondlistData>& data) noexcept { if (data.empty()) MESSAGEW("you are set an empty map!"); this->m_xr_meet_far_victim = data; }
+
+    inline const xr_map<std::uint32_t, CondlistData>& getXRMeetSoundOnUse(void) const noexcept { return this->m_xr_meet_sound_on_use; }
+    inline void setXRMeetSoundOnUse(const xr_map<std::uint32_t, CondlistData>& data) noexcept { if (data.empty()) MESSAGEW("you are set an empty map!"); this->m_xr_meet_sound_on_use = data; }
+
+    inline const xr_map<std::uint32_t, CondlistData>& getXRMeetUse(void) const noexcept { return this->m_xr_meet_use; }
+    inline void setXRMeetUse(const xr_map<std::uint32_t, CondlistData>& data) noexcept { if (data.empty()) MESSAGEW("you are set an empty map!"); this->m_xr_meet_use = data; }
+
+    inline const xr_map<std::uint32_t, CondlistData>& getXRMeetMeetDialog(void) const noexcept { return this->m_xr_meet_meet_dialog; }
+    inline void setXRMeetMeetDialog(const xr_map<std::uint32_t, CondlistData>& data) noexcept { if (data.empty()) MESSAGEW("you are set an empty map!"); this->m_xr_meet_meet_dialog = data; }
+
+    inline const xr_map<std::uint32_t, CondlistData>& getXRMeetAbuse(void) const noexcept { return this->m_xr_meet_abuse; }
+    inline void setXRMeetAbuse(const xr_map<std::uint32_t, CondlistData>& data) noexcept { if (data.empty()) MESSAGEW("you are set an empty map!"); this->m_xr_meet_abuse = data; }
+
+    inline const xr_map<std::uint32_t, CondlistData>& getXRMeetTradeEnable(void) const noexcept { return this->m_xr_meet_trade_enable; }
+    inline void setXRMeetTradeEnable(const xr_map<std::uint32_t, CondlistData>& data) noexcept { if (data.empty()) MESSAGEW("you are set an empty map!"); this->m_xr_meet_trade_enable = data; }
+
+    inline const xr_map<std::uint32_t, CondlistData>& getXRMeetAllowBreak(void) const noexcept { return this->m_xr_meet_allow_break; }
+    inline void setXRMeetAllowBreak(const xr_map<std::uint32_t, CondlistData>& data) noexcept { if (data.empty()) MESSAGEW("you are set an empty map!"); this->m_xr_meet_allow_break = data; }
+
+    inline const xr_map<std::uint32_t, CondlistData>& getXRMeetMeetOnTalking(void) const noexcept { return this->m_xr_meet_meet_on_talking; }
+    inline void setXRMeetMeetOnTalking(const xr_map<std::uint32_t, CondlistData>& data) noexcept { if (data.empty()) MESSAGEW("you are set an empty map!"); this->m_xr_meet_meet_on_talking = data; }
+
+    inline const xr_map<std::uint32_t, CondlistData>& getXRMeetUseText(void) const noexcept { return this->m_xr_meet_use_text; }
+    inline void setXRMeetUseText(const xr_map<std::uint32_t, CondlistData>& data) noexcept { if (data.empty()) MESSAGEW("you are set an empty map!"); this->m_xr_meet_use_text = data; }
+
+    inline float getXRMeetResetDistance(void) const noexcept { return this->m_xr_meet_reset_distance; }
+    inline void setXRMeetResetDistance(const float value) noexcept { this->m_xr_meet_reset_distance = value; }
+
+    inline bool isXRMeetMeetOnlyAtPath(void) const noexcept { return this->m_is_xr_meet_meet_only_at_path; }
+    inline void setXRMeetMeetOnlyAtPath(const bool value) noexcept { this->m_xr_meet_reset_distance = value; }
+
+    inline bool isXRMeetSet(void) const noexcept { return this->m_is_xr_meet_set; }
+    inline void setXRMeetSet(const bool value) noexcept { this->m_is_xr_meet_set = value; }
+
+#pragma endregion
+
 private:
     // @ Не понятно зачем в итоге но так у ПЫС, если в итоге оно находится в самом сторадже где уже зарегистрирован
     // сам НПС
@@ -1849,6 +1934,8 @@ private:
     bool m_is_xr_sleeper_wakeable = false;
     bool m_is_xr_camper_sniper = false;
     bool m_is_xr_camper_no_retreat = false;
+    bool m_is_xr_meet_meet_only_at_path = true;
+    bool m_is_xr_meet_set = false;
     std::uint16_t m_xr_corpse_detection_selected_corpse_id = 0;
     std::uint16_t m_selected_id = 0;
     std::uint16_t m_xr_remark_target_id = 0;
@@ -1910,6 +1997,7 @@ private:
     float m_sr_deimos_health_lost = 0.0f;
     float m_sr_deimos_movement_speed = 0.0f;
     float m_xr_camper_radius = 0.0f;
+    float m_xr_meet_reset_distance = 30.0f;
     const float m_xr_camper_scandelta = 30.0f;
     const float m_xr_camper_enemy_disp = 7 / 57.2957f;
     CScriptGameObject* m_p_npc = nullptr;
@@ -1924,6 +2012,7 @@ private:
     CUIGameCustom* m_p_sr_timer_ui = nullptr;
     CUIStatic* m_p_sr_timer_timer = nullptr;
     Script_XRAbuseManager* m_p_abuse_manager = nullptr;
+    Script_XRMeetManager* m_p_meet_manager = nullptr;
     Fvector m_offset;
     Fvector m_ph_force_point;
     Fvector m_vertex_position;
@@ -1938,6 +2027,25 @@ private:
     xr_map<std::uint32_t, CondlistData> m_xr_death_info2;
     xr_map<std::uint32_t, CondlistData> m_xr_remark_animation_condlist;
     xr_map<std::uint32_t, CondlistData> m_xr_combat_combat_type_condlist;
+    xr_map<std::uint32_t, CondlistData> m_xr_meet_close_distance;
+    xr_map<std::uint32_t, CondlistData> m_xr_meet_close_anim;
+    xr_map<std::uint32_t, CondlistData> m_xr_meet_close_sound_distance;
+    xr_map<std::uint32_t, CondlistData> m_xr_meet_close_sound_hello;
+    xr_map<std::uint32_t, CondlistData> m_xr_meet_close_sound_bye;
+    xr_map<std::uint32_t, CondlistData> m_xr_meet_close_victim;
+    xr_map<std::uint32_t, CondlistData> m_xr_meet_far_distance;
+    xr_map<std::uint32_t, CondlistData> m_xr_meet_far_anim;
+    xr_map<std::uint32_t, CondlistData> m_xr_meet_far_sound_distance;
+    xr_map<std::uint32_t, CondlistData> m_xr_meet_far_sound;
+    xr_map<std::uint32_t, CondlistData> m_xr_meet_far_victim;
+    xr_map<std::uint32_t, CondlistData> m_xr_meet_sound_on_use;
+    xr_map<std::uint32_t, CondlistData> m_xr_meet_use;
+    xr_map<std::uint32_t, CondlistData> m_xr_meet_meet_dialog;
+    xr_map<std::uint32_t, CondlistData> m_xr_meet_abuse;
+    xr_map<std::uint32_t, CondlistData> m_xr_meet_trade_enable;
+    xr_map<std::uint32_t, CondlistData> m_xr_meet_allow_break;
+    xr_map<std::uint32_t, CondlistData> m_xr_meet_meet_on_talking;
+    xr_map<std::uint32_t, CondlistData> m_xr_meet_use_text;
     xr_map<std::uint32_t, xr_map<std::uint32_t, CondlistData>> m_hit_on_bone;
     xr_map<std::uint32_t, xr_map<std::uint32_t, CondlistData>> m_sr_timer_on_value;
     xr_map<xr_string, xr_string> m_xr_walker_suggested_states;

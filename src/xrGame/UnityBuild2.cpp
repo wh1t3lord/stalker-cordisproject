@@ -120,6 +120,7 @@
 #include "Script_SchemeSRTimer.cpp"
 #include "Script_SchemeXRAbuse.cpp"
 #include "Script_SchemeXRCombat.cpp"
+#include "Script_SchemeXRMeet.cpp"
 #include "Script_SchemeXRCorpseDetection.cpp"
 #include "Script_SchemeXRDanger.cpp"
 #include "Script_SchemeXRDeath.cpp"
