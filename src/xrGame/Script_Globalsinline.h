@@ -33,15 +33,27 @@ inline xr_string cfg_get_string(CScriptIniFile* char_ini, const xr_string& secti
         result.append("_");
         result.append(char_ini->r_string(section.c_str(), field.c_str()));
         if (gulag_name.size())
+        {
+            if (result == "nil")
+                result.clear();
+
             return result;
+        }
         else
-            return char_ini->r_string(section.c_str(), field.c_str());
+        {
+            result = char_ini->r_string(section.c_str(), field.c_str());
+
+            if (result == "nil")
+                result.clear();
+
+            return result;
+        }
     }
 
     if (!mandatory)
         return "";
 
-    Msg("Attempt to read a non-existant string field %s in section %s", field.c_str(), section.c_str());
+    MESSAGEW("Attempt to read a non-existant string field %s in section %s", field.c_str(), section.c_str());
     R_ASSERT(false);
 
     return "";
@@ -57,16 +69,28 @@ inline xr_string cfg_get_string(const CInifile* char_ini, const xr_string& secti
         result.append(gulag_name);
         result.append("_");
         result.append(char_ini->r_string(section.c_str(), field.c_str()));
-        if (gulag_name.size())
-            return result;
-        else
-            return char_ini->r_string(section.c_str(), field.c_str());
+		if (gulag_name.size())
+		{
+			if (result == "nil")
+				result.clear();
+
+			return result;
+		}
+		else
+		{
+			result = char_ini->r_string(section.c_str(), field.c_str());
+
+			if (result == "nil")
+				result.clear();
+
+			return result;
+		}
     }
 
     if (!mandatory)
         return "";
 
-    Msg("Attempt to read a non-existant string field %s in section %s", field.c_str(), section.c_str());
+    MESSAGEW("Attempt to read a non-existant string field %s in section %s", field.c_str(), section.c_str());
     R_ASSERT(false);
 
     return "";
@@ -82,16 +106,28 @@ inline xr_string cfg_get_string(
         result.append(gulag_name);
         result.append("_");
         result.append(char_ini.r_string(section.c_str(), field.c_str()));
-        if (gulag_name.size())
-            return result;
-        else
-            return char_ini.r_string(section.c_str(), field.c_str());
+		if (gulag_name.size())
+		{
+			if (result == "nil")
+				result.clear();
+
+			return result;
+		}
+		else
+		{
+			result = char_ini.r_string(section.c_str(), field.c_str());
+
+			if (result == "nil")
+				result.clear();
+
+			return result;
+		}
     }
 
     if (!mandatory)
         return "";
 
-    Msg("Attempt to read a non-existant string field %s in section %s", field.c_str(), section.c_str());
+    MESSAGEW("Attempt to read a non-existant string field %s in section %s", field.c_str(), section.c_str());
     R_ASSERT(false);
 
     return "";
@@ -133,7 +169,7 @@ inline bool cfg_get_bool(const CInifile* char_ini, const xr_string& section, con
         return false;
     }
 
-    Msg("[Script]: ERROR object %s attempt to read a non-existant boolean field %s in section %s", object_name.c_str(),
+    MESSAGEW("ERROR object %s attempt to read a non-existant boolean field %s in section %s", object_name.c_str(),
         field.c_str(), section.c_str());
     R_ASSERT(false);
     return false;

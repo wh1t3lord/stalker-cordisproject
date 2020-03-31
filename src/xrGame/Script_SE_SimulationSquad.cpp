@@ -67,7 +67,7 @@ void Script_SE_SimulationSquad::STATE_Read(NET_Packet& packet, u16 size)
     xr_string current_target_id_data;
     packet.r_stringZ(current_target_id_data);
 
-    if (current_target_id_data == "nil")
+    if (current_target_id_data == "nil") // LorD: проверить будет ли дропать nil, если будет то найти и исправить когда это будет, чтобы все "nil" просто проверялись всегда как .empty()
         this->m_current_target_id = 0;
     else
         this->m_current_target_id = atoi(current_target_id_data.c_str());
@@ -75,19 +75,19 @@ void Script_SE_SimulationSquad::STATE_Read(NET_Packet& packet, u16 size)
     xr_string respawn_point_id_data;
     packet.r_stringZ(respawn_point_id_data);
 
-    if (respawn_point_id_data == "nil")
+    if (respawn_point_id_data == "nil") // LorD: проверить будет ли дропать nil, если будет то найти и исправить когда это будет, чтобы все "nil" просто проверялись всегда как .empty()
         this->m_respawn_point_id = 0;
     else
         this->m_respawn_point_id = atoi(respawn_point_id_data.c_str());
 
     packet.r_stringZ(this->m_respawn_point_prop_section_name);
-    if (this->m_respawn_point_prop_section_name == "nil")
+    if (this->m_respawn_point_prop_section_name == "nil") // LorD: проверить будет ли дропать nil, если будет то найти и исправить когда это будет, чтобы все "nil" просто проверялись всегда как .empty()
         this->m_respawn_point_prop_section_name.clear();
 
     xr_string smart_terrain_id_data;
     packet.r_stringZ(smart_terrain_id_data);
 
-    if (smart_terrain_id_data == "nil")
+    if (smart_terrain_id_data == "nil") // LorD: проверить будет ли дропать nil, если будет то найти и исправить когда это будет, чтобы все "nil" просто проверялись всегда как .empty()
         this->m_smart_terrain_id = 0;
     else
         this->m_smart_terrain_id = atoi(smart_terrain_id_data.c_str());
@@ -166,7 +166,7 @@ std::uint16_t Script_SE_SimulationSquad::getScriptTarget(void)
 
     xr_string _new_target = this->pick_next_target();
 
-    if (_new_target == "nil")
+    if (_new_target == "nil") // LorD: проверить будет ли дропать nil, если будет то найти и исправить когда это будет, чтобы все "nil" просто проверялись всегда как .empty()
         return 0;
     else if (_new_target == "loop")
     {

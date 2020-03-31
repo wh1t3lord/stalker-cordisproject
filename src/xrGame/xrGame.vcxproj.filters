@@ -4294,6 +4294,15 @@
     <Filter Include="Cordis\Scripts\Logic\Schemes\XR\Meet\Private">
       <UniqueIdentifier>{9b015e2c-d6f0-4a00-9ddd-da9791dcbe1d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Cordis\Scripts\Logic\Schemes\XR\Wounded">
+      <UniqueIdentifier>{f2c4afe7-a2cc-4b08-a4c6-98e4775e4ad2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Logic\Schemes\XR\Wounded\Public">
+      <UniqueIdentifier>{29f4ea9d-a472-45ff-aba0-81b7f8d55155}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Logic\Schemes\XR\Wounded\Private">
+      <UniqueIdentifier>{1a7e50a0-0ccd-440d-97c0-69ec16405ba4}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="mt_config.h">
@@ -9680,6 +9689,9 @@
     <ClInclude Include="Script_SchemeXRMeet.h">
       <Filter>Cordis\Scripts\Logic\Schemes\XR\Meet\Public</Filter>
     </ClInclude>
+    <ClInclude Include="Script_SchemeXRWounded.h">
+      <Filter>Cordis\Scripts\Logic\Schemes\XR\Wounded\Public</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="damage_manager.cpp">
@@ -14129,6 +14141,9 @@
     </ClCompile>
     <ClCompile Include="Script_SchemeXRMeet.cpp">
       <Filter>Cordis\Scripts\Logic\Schemes\XR\Meet\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Script_SchemeXRWounded.cpp">
+      <Filter>Cordis\Scripts\Logic\Schemes\XR\Wounded\Private</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

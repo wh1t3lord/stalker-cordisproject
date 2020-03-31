@@ -37,7 +37,7 @@ inline xr_string determine_section_to_activate(CScriptGameObject* const p_npc, C
     }
 
     if (!p_ini->section_exist(section_logic_name.c_str()))
-        return xr_string("nil");
+        return xr_string();
 
     if (DataBase::Storage::getInstance().getOfflineObjects().find(p_npc->ID()) !=
         DataBase::Storage::getInstance().getOfflineObjects().end())
@@ -58,7 +58,7 @@ inline xr_string determine_section_to_activate(CScriptGameObject* const p_npc, C
     xr_string active_section_name;
     if (active_section_cond.getCondlist().empty())
     {
-        return xr_string("nil");
+        return xr_string();
     }
     else
     {
@@ -342,7 +342,7 @@ inline xr_map<std::uint32_t, CondlistData> parse_condlist_by_server_object(
         if (it == ',')
         {
             if (!was_found_section)
-                sub_data.m_text_name = "nil";
+                sub_data.m_text_name.clear();
             else
             {
                 if (current_section.size())
@@ -350,7 +350,7 @@ inline xr_map<std::uint32_t, CondlistData> parse_condlist_by_server_object(
                 else
                 {
                     R_ASSERT2(false, "it can't be!");
-                    sub_data.m_text_name = "nil";
+                    sub_data.m_text_name.clear();
                 }
             }
             was_found_section = false;
@@ -554,7 +554,7 @@ inline xr_map<std::uint32_t, CondlistData> parse_condlist_by_script_object(
         if (it == ',')
         {
             if (!was_found_section)
-                sub_data.m_text_name = "nil";
+                sub_data.m_text_name.clear();
 
             buffer.push_back(sub_data);
             sub_data.Clear();
@@ -1481,8 +1481,7 @@ inline xr_string pick_section_from_condlist(
     // Lord: доделать
     if (!actor)
     {
-        Msg("[Scripts/XR_LOGIC/pick_section_from_condlist(client_actor, client_npc, condlist)] WARNING: client_actor = "
-            "nullptr! client_actor is null!");
+        MESSAGEW("actor is nullptr!");
         //         R_ASSERT2(false, "object is null!");
         //         return xr_string("");
     }
@@ -1491,8 +1490,7 @@ inline xr_string pick_section_from_condlist(
     {
         //         R_ASSERT2(false, "object is null!");
         //         return xr_string("");
-        Msg("[Scripts/XR_LOGIC/pick_section_from_condlist(client_actor, client_npc, condlist)] WARNING: client_npc = "
-            "nullptr! client_npc is null!");
+        MESSAGEW("npc is nullptr!");
     }
 
     std::uint32_t value = 0; // idk what does it mean. Translate this to normal
@@ -1529,9 +1527,7 @@ inline xr_string pick_section_from_condlist(
                     Script_GlobalHelper::getInstance().getRegisteredFunctionsXRCondition().end())
                 {
                     // @ Если мы ничего не нашли (Lord: проверить)
-                    Msg("[Scripts/XR_LOGIC/pick_section_from_condlist(actor, npc, condlist)] Object: [%s] - Function: "
-                        "%s doesn't registered in Singleton Script_GlobalHelper in function "
-                        "Script_GlobalHelper::RegisterFunctionsFromAnotherFiles!!!! ",
+                    MESSAGEW("Object: [%s] - Function: %s doesn't registered in Singleton Script_GlobalHelper in function Script_GlobalHelper::RegisterFunctionsFromAnotherFiles!!!!",
                         npc->Name(), it_infoportion_check.second.m_function_name.c_str());
                     R_ASSERT(false);
                 }
@@ -1551,7 +1547,7 @@ inline xr_string pick_section_from_condlist(
                     while (it != end)
                     {
                         ++argument_counter;
-                        Msg("[Scripts/XR_LOGIC/pick_section_from_condlist(actor, npc, condlist)] Argument #%d: %s",
+                        MESSAGE("Argument #%d: %s",
                             argument_counter, it->str().c_str());
                         argument_buffer.push_back(it->str().c_str());
                         ++it;
@@ -1559,7 +1555,7 @@ inline xr_string pick_section_from_condlist(
 
                     //                     if (buffer.find(':') == xr_string::npos)
                     //                     {
-                    Msg("[Scripts/XR_LOGIC/pick_section_from_condlist(actor, npc, condlist)] Total arguments count: %d",
+                    MESSAGE("Total arguments count: %d",
                         argument_buffer.size());
 
                     /*                    xr_string& argument = buffer;*/
@@ -1718,8 +1714,7 @@ inline xr_string pick_section_from_condlist(
             {
                 if (!it_infoportion_check.second.m_required)
                 {
-                    Msg("[Scripts/XR_LOGIC/pick_section_from_condlist(actor, npc, condlist)] CANCELLED: actor has "
-                        "infoportion '%s', which is NOT needed [%s]",
+                    MESSAGE("CANCELLED: actor has infoportion '%s', which is NOT needed [%s]",
                         it_infoportion_check.second.m_infopotion_name,
                         std::to_string(Globals::has_alife_info(it_infoportion_check.second.m_infopotion_name.c_str()))
                             .c_str());
@@ -1728,8 +1723,7 @@ inline xr_string pick_section_from_condlist(
                 }
                 else
                 {
-                    Msg("[Scripts/XR_LOGIC/pick_section_from_condlist(actor, npc, condlist)] PASSED: actor has "
-                        "infoportion '%s', which is needed [%s]",
+                    MESSAGE("PASSED: actor has infoportion '%s', which is needed [%s]",
                         it_infoportion_check.second.m_infopotion_name,
                         std::to_string(Globals::has_alife_info(it_infoportion_check.second.m_infopotion_name.c_str()))
                             .c_str());
@@ -1739,8 +1733,7 @@ inline xr_string pick_section_from_condlist(
             {
                 if (it_infoportion_check.second.m_required)
                 {
-                    Msg("[Scripts/XR_LOGIC/pick_section_from_condlist(actor, npc, condlist)] CANCELLED: actor has NO "
-                        "infop '%s', which is needed [%s]",
+                    MESSAGE("CANCELLED: actor has NO infop '%s', which is needed [%s]",
                         it_infoportion_check.second.m_infopotion_name,
                         std::to_string(Globals::has_alife_info(it_infoportion_check.second.m_infopotion_name.c_str()))
                             .c_str());
@@ -1749,11 +1742,7 @@ inline xr_string pick_section_from_condlist(
                 }
                 else
                 {
-                    Msg("[Scripts/XR_LOGIC/pick_section_from_condlist(actor, npc, condlist)] PASSED: actor has NO "
-                        "infop '%s', which is not needed [%s]",
-                        it_infoportion_check.second.m_infopotion_name.c_str(),
-                        std::to_string(Globals::has_alife_info(it_infoportion_check.second.m_infopotion_name.c_str()))
-                            .c_str());
+                    MESSAGE("PASSED: actor has NO infop '%s', which is not needed [%s]", it_infoportion_check.second.m_infopotion_name.c_str(), std::to_string(Globals::has_alife_info(it_infoportion_check.second.m_infopotion_name.c_str())).c_str());
                 }
             }
         }
@@ -1776,10 +1765,7 @@ inline xr_string pick_section_from_condlist(
                             calling_function_name) ==
                         Script_GlobalHelper::getInstance().getRegisteredFunctionsXRCondition().end())
                     {
-                        Msg("[Scripts/XR_LOGIC/pick_section_from_condlist(actor, npc, condlist)] object '%s': "
-                            "pick_section_from_condlist: function '%s' is "
-                            "not defined in xr_effects",
-                            npc->Name(), it_infoportion_set.second.m_function_name.c_str());
+                        MESSAGEW("object '%s': pick_section_from_condlist: function '%s' is not defined in xr_effects", npc->Name(), it_infoportion_set.second.m_function_name.c_str());
                         R_ASSERT(false);
                     }
 
@@ -1815,13 +1801,11 @@ inline xr_string pick_section_from_condlist(
                     if (!Globals::has_alife_info(it_infoportion_set.second.m_infopotion_name.c_str()))
                     {
                         CScriptGameObject* client_actor = DataBase::Storage::getInstance().getActor();
+
                         if (client_actor)
                             client_actor->GiveInfoPortion(it_infoportion_set.second.m_infopotion_name.c_str());
                         else
-                            Msg("[XR_LOGIC/pick_section_from_condlist(server_actor, server_npc, condlist)] WARNING: "
-                                "Can not set an infoportion [%s] for actor, because "
-                                "DataBase::Storage::getInstane().getActor() == nullptr!",
-                                it_infoportion_set.second.m_infopotion_name.c_str());
+                            MESSAGEW("Can not set an infoportion [%s] for actor, because actor == nullptr!", it_infoportion_set.second.m_infopotion_name.c_str());
                     }
                 }
                 else if (!it_infoportion_set.second.m_required)
@@ -1829,13 +1813,11 @@ inline xr_string pick_section_from_condlist(
                     if (Globals::has_alife_info(it_infoportion_set.second.m_infopotion_name.c_str()))
                     {
                         CScriptGameObject* client_actor = DataBase::Storage::getInstance().getActor();
+
                         if (client_actor)
                             client_actor->DisableInfoPortion(it_infoportion_set.second.m_infopotion_name.c_str());
                         else
-                            Msg("[XR_LOGIC/pick_section_from_condlist(server_actor, server_npc, condlist)] WARNING: "
-                                "Can not set an infoportion [%s] for actor, because "
-                                "DataBase::Storage::getInstane().getActor() == nullptr!",
-                                it_infoportion_set.second.m_infopotion_name.c_str());
+							MESSAGEW("Can not set an infoportion [%s] for actor, because actor == nullptr!", it_infoportion_set.second.m_infopotion_name.c_str());
                     }
                 }
             }
@@ -1846,7 +1828,12 @@ inline xr_string pick_section_from_condlist(
             }
             else
             {
-                return it.second.m_text_name;
+                xr_string result = it.second.m_text_name;
+
+                if (result == "nil")
+                    result.clear();
+
+                return result;
             }
         }
     }
@@ -2106,7 +2093,7 @@ inline void load_object(CScriptGameObject* client_object, NET_Packet& packet)
     packet.r_stringZ(active_section_name);
 
     if (active_section_name.empty() || active_section_name == "")
-        active_section_name = "nil";
+        active_section_name.clear();
 
     xr_string gulag_name;
     packet.r_stringZ(gulag_name);
@@ -2149,7 +2136,7 @@ inline void load_object(CScriptGameObject* client_object, IReader& packet)
     packet.r_stringZ(active_section_name);
 
     if (active_section_name.empty() || active_section_name == "")
-        active_section_name = "nil";
+        active_section_name.clear();
 
     xr_string gulag_name;
     packet.r_stringZ(gulag_name);
@@ -2729,7 +2716,7 @@ inline void reset_generic_schemes_on_scheme_switch(
         mob_release(p_client_object, scheme_name);
         if (Globals::get_script_clsid(CLSID_SE_MONSTER_BLOODSUCKER))
         {
-            if (scheme_name == "nil")
+            if (scheme_name == "nil" || scheme_name.empty()) // LorD: проверить будет ли дропать nil, если будет то найти и исправить когда это будет, чтобы все "nil" просто проверялись всегда как .empty()
             {
                 p_client_object->set_manual_invisibility(false);
             }
@@ -2813,7 +2800,7 @@ inline DataBase::Data_Overrides cfg_get_overrides(
     {
         result.setOnOfflineCondlist(parse_condlist_by_script_object(section_name, "on_offline",
             Globals::Utils::cfg_get_string(p_ini, section_name, "on_offline").empty() ?
-                "nil" :
+                "nil" : // LorD: проверить будет ли дропать nil, если будет то найти и исправить когда это будет, чтобы все "nil" просто проверялись всегда как .empty()
                 Globals::Utils::cfg_get_string(p_ini, section_name, "on_offline")));
     }
     else
@@ -2822,7 +2809,7 @@ inline DataBase::Data_Overrides cfg_get_overrides(
             DataBase::Storage::getInstance().getStorage().at(p_client_object->ID()).getSectionLogicName();
         result.setOnOfflineCondlist(parse_condlist_by_script_object(section_logic_name, "on_offline",
             Globals::Utils::cfg_get_string(p_ini, section_name, "on_offline").empty() ?
-                "nil" :
+                "nil" : // LorD: проверить будет ли дропать nil, если будет то найти и исправить когда это будет, чтобы все "nil" просто проверялись всегда как .empty()
                 Globals::Utils::cfg_get_string(p_ini, section_name, "on_offline")));
     }
 

@@ -226,7 +226,7 @@ public:
 
         if (this->m_p_enemy->ID() == this->m_fire_id)
         {
-            if (this->m_enemy_type_name != "nil")
+            if (this->m_enemy_type_name != "nil") // LorD: проверить будет ли дропать nil, если будет то найти и исправить когда это будет, чтобы все "nil" просто проверялись всегда как .empty()
             {
                 ++this->m_hit_count;
             }
@@ -286,7 +286,7 @@ private:
                         }
                         else
                         {
-                            if (this->m_enemy_type_name != "nil")
+                            if (this->m_enemy_type_name != "nil") // LorD: проверить будет ли дропать nil, если будет то найти и исправить когда это будет, чтобы все "nil" просто проверялись всегда как .empty()
                             {
                                 this->m_enemy_id = ai().alife()
                                                        .story_objects()

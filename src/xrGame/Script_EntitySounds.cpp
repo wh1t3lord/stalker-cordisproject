@@ -658,7 +658,7 @@ void Script_SoundActor::load(NET_Packet& packet)
     xr_string id;
     packet.r_stringZ(id);
 
-    if (id != "nil")
+    if (id != "nil") // LorD: проверить будет ли дропать nil, если будет то найти и исправить когда это будет, чтобы все "nil" просто проверялись всегда как .empty()
         this->m_played_id = atoi(id.c_str());
     else
         this->m_played_id = 0;
@@ -900,7 +900,7 @@ void Script_SoundObject::load(NET_Packet& packet)
     xr_string id;
     packet.r_stringZ(id);
 
-    if (id != "nil")
+    if (id != "nil") // LorD: проверить будет ли дропать nil, если будет то найти и исправить когда это будет, чтобы все "nil" просто проверялись всегда как .empty()
         this->m_played_id = atoi(id.c_str());
     else
         this->m_played_id = 0;

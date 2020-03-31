@@ -25,6 +25,8 @@
 #include "script_animation_action_script.cpp"
 #include "Script_Animpoint.cpp"
 #include "script_binder.cpp"
+
+#pragma region Cordis Scheme Binders
 #include "Script_Binder_Actor.cpp"
 #include "Script_Binder_AnomalField.cpp"
 #include "Script_Binder_AnomalZone.cpp"
@@ -47,7 +49,10 @@
 #include "Script_Binder_SmartCover.cpp"
 #include "Script_Binder_SmartTerrain.cpp"
 #include "Script_Binder_Stalker.cpp"
+
 #include "Script_DataBase.cpp"
+#pragma endregion
+
 #include "script_effector.cpp"
 #include "script_effector_script.cpp"
 #include "script_effector_wrapper.cpp"
@@ -90,6 +95,8 @@
 #include "script_property_evaluator_wrapper.cpp"
 #include "script_render_device_script.cpp"
 #include "Script_SchemeHelicopterMove.cpp"
+
+#pragma region Cordis Scheme MOB
 #include "Script_SchemeMobCamp.cpp"
 #include "Script_SchemeMobCombat.cpp"
 #include "Script_SchemeMobDeath.cpp"
@@ -97,6 +104,9 @@
 #include "Script_SchemeMobJump.cpp"
 #include "Script_SchemeMobRemark.cpp"
 #include "Script_SchemeMobWalker.cpp"
+#pragma endregion
+
+#pragma region Cordis Scheme PH
 #include "Script_SchemePHButton.cpp"
 #include "Script_SchemePHCode.cpp"
 #include "Script_SchemePHDeath.cpp"
@@ -108,6 +118,9 @@
 #include "Script_SchemePHOnHit.cpp"
 #include "Script_SchemePHOscillate.cpp"
 #include "Script_SchemePHSound.cpp"
+#pragma endregion
+
+#pragma region Cordis Scheme SR
 #include "Script_SchemeSRDeimos.cpp"
 #include "Script_SchemeSRIdle.cpp"
 #include "Script_SchemeSRLight.cpp"
@@ -118,6 +131,9 @@
 #include "Script_SchemeSRSilenceZone.cpp"
 #include "Script_SchemeSRTeleport.cpp"
 #include "Script_SchemeSRTimer.cpp"
+#pragma endregion
+
+#pragma region Cordis Schemes XR
 #include "Script_SchemeXRAbuse.cpp"
 #include "Script_SchemeXRCombat.cpp"
 #include "Script_SchemeXRMeet.cpp"
@@ -132,6 +148,11 @@
 #include "Script_SchemeXRSleeper.cpp"
 #include "Script_SchemeXRKamp.cpp"
 #include "Script_SchemeXRCamper.cpp"
+#include "Script_SchemeXRWounded.cpp"
+#pragma endregion
+
+
+#pragma region Cordis Server Entities
 #include "Script_SE_Actor.cpp"
 #include "Script_SE_Ammo.cpp"
 #include "Script_SE_Artefact.cpp"
@@ -164,6 +185,8 @@
 #include "Script_SE_ZoneAnomaly.cpp"
 #include "Script_SE_ZoneTorrid.cpp"
 #include "Script_SE_ZoneVisual.cpp"
+#pragma endregion
+
 #include "Script_SimulationBoard.cpp"
 #include "Script_SimulationObjects.cpp"
 #include "Script_SmartTerrainControl.cpp"
