@@ -152,7 +152,7 @@ void Script_SchemeSRPsyAntenna::zone_enter(void)
     this->m_manager_psy_antenna->setHitFrequency(this->m_p_storage->getSRPsyAntennaHitFrequency());
 
     if (this->m_p_storage->getSRPsyAntennaPostProcessName().empty() ||
-        this->m_p_storage->getSRPsyAntennaPostProcessName() == "nil")
+        this->m_p_storage->getSRPsyAntennaPostProcessName() == "nil") // LorD: проверить будет ли дропать nil, если будет то найти и исправить когда это будет, чтобы все "nil" просто проверялись всегда как .empty()
     {
         Msg("[Scripts/Script_SchemeSRPsyAntenna/update(delta)] WARNING: postprocess is 'nil' return!");
         return;
@@ -199,7 +199,7 @@ void Script_SchemeSRPsyAntenna::zone_leave(void)
         this->m_p_storage->getSRPsyAntennaPhantomProbability();
     this->m_manager_psy_antenna->setPhantomSpawnProbability(phantom_probability);
 
-    if (this->m_p_storage->getSRPsyAntennaPostProcessName() == "nil" ||
+    if (this->m_p_storage->getSRPsyAntennaPostProcessName() == "nil" || // LorD: проверить будет ли дропать nil, если будет то найти и исправить когда это будет, чтобы все "nil" просто проверялись всегда как .empty()
         this->m_p_storage->getSRPsyAntennaPostProcessName().empty())
     {
         Msg("[Scripts/Script_SchemeSRPsyAntenna/zone_leave()] WARNING: postprocess_name.empty() == true! You set an "

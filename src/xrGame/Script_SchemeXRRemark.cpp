@@ -43,7 +43,7 @@ void init_target(CScriptGameObject* const p_client_object, const xr_string& targ
     target_id = 0;
     is_target_initialized = false;
 
-    if (target_buffer == "nil")
+    if (target_buffer == "nil") // LorD: проверить будет ли дропать nil, если будет то найти и исправить когда это будет, чтобы все "nil" просто проверялись всегда как .empty()
         return;
 
     if (target_buffer.empty())
@@ -237,7 +237,7 @@ void Script_SchemeXRRemark::set_scheme(CScriptGameObject* const p_client_object,
     xr_string target_name = Globals::Utils::cfg_get_string(p_ini, section_name, "target");
 
     if (target_name.empty())
-        target_name = "nil";
+        target_name = "nil"; // LorD: проверить будет ли дропать nil, если будет то найти и исправить когда это будет, чтобы все "nil" просто проверялись всегда как .empty()
 
     p_storage->setXRRemarkTargetName(target_name);
     p_storage->setXRRemarkTargetID(0);

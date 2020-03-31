@@ -205,7 +205,7 @@ void Script_SchemeMobWalker::waypoint_callback(
             xr_string suggested_animation_set_name = this->m_path_look_info.getData().at(index).getValue("a");
             if (!suggested_animation_set_name.empty())
             {
-                if (suggested_animation_set_name == "nil")
+                if (suggested_animation_set_name == "nil") // LorD: проверить будет ли дропать nil, если будет то найти и исправить когда это будет, чтобы все "nil" просто проверялись всегда как .empty()
                     suggested_animation_set_name.clear();
                 // Lord: протестировать!
                 this->m_current_animation_set =

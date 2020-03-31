@@ -42,17 +42,17 @@ void Script_SE_Stalker::STATE_Write(NET_Packet& packet)
             packet.w_stringZ(
                 std::to_string(Globals::Game::level::get_object_by_id(this->ID)->level_vertex_id()).c_str());
         else
-            packet.w_stringZ("nil");
+            packet.w_stringZ("nil"); // LorD: проверить будет ли дропать nil, если будет то найти и исправить когда это будет, чтобы все "nil" просто проверялись всегда как .empty()
     }
     else
     {
         packet.w_stringZ(DataBase::Storage::getInstance().getOfflineObjects().at(this->ID).first ?
                 std::to_string(DataBase::Storage::getInstance().getOfflineObjects().at(this->ID).first).c_str() :
-                "nil");
+                "nil"); // LorD: проверить будет ли дропать nil, если будет то найти и исправить когда это будет, чтобы все "nil" просто проверялись всегда как .empty()
     }
 
     packet.w_stringZ(DataBase::Storage::getInstance().getOfflineObjects().at(this->ID).second.empty() ?
-            "nil" :
+            "nil" : // LorD: проверить будет ли дропать nil, если будет то найти и исправить когда это будет, чтобы все "nil" просто проверялись всегда как .empty()
             DataBase::Storage::getInstance().getOfflineObjects().at(this->ID).second.c_str());
 
     packet.w_u8(this->m_is_dropped_death ? 1 : 0);
@@ -75,7 +75,7 @@ void Script_SE_Stalker::STATE_Read(NET_Packet& packet, std::uint16_t size)
             DataBase::Storage::getInstance().setOfflineObjects(this->ID, "");
         }
 
-        if (old_level_vertex_id_name != "nil")
+        if (old_level_vertex_id_name != "nil") // LorD: проверить будет ли дропать nil, если будет то найти и исправить когда это будет, чтобы все "nil" просто проверялись всегда как .empty()
         {
             DataBase::Storage::getInstance().setOfflineObjects(this->ID, atoi(old_level_vertex_id_name.c_str()));
         }

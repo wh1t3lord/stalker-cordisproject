@@ -7,6 +7,34 @@ namespace Cordis
 	{
 		Script_EvaluatorContact::_value_type Script_EvaluatorContact::evaluate(void)
 		{
+			if (this->m_p_storage->isXRMeetSet() == false)
+				return false;
+
+			if (DataBase::Storage::getInstance().getActor())
+			{
+				if (!DataBase::Storage::getInstance().getActor()->Alive())
+					return false;
+
+				this->m_p_storage->getMeetManager()->update();
+
+				if (CRD_Wounded::is_wounded(this->m_object))
+					return false;
+
+				if (this->m_object->GetBestEnemy())
+					return false;
+
+				CScriptActionPlanner* const p_planner = Globals::get_script_action_planner(this->m_object);
+
+				if (p_planner->evaluator(StalkerDecisionSpace::eWorldPropertyEnemy).evaluate())
+				{
+					this->m_p_storage->getMeetManager()->setUseName("false");
+					this->m_object->DisableTalk();
+					return false;
+				}
+
+				return !(this->m_p_storage->getMeetManager()->getCurrentDistanceName().empty());
+			}
+
 			return false;
 		}
 
@@ -317,5 +345,284 @@ namespace Cordis
 			}
 		}
 
-	}
+		Script_SchemeXRMeet::~Script_SchemeXRMeet(void)
+		{
+		}
+
+		void Script_SchemeXRMeet::initialize(void)
+		{
+			CScriptActionBase::initialize();
+			this->m_object->set_desired_position();
+			this->m_object->set_desired_direction();
+		}
+
+		void Script_SchemeXRMeet::execute(void)
+		{
+			CScriptActionBase::execute();
+			this->m_p_storage->getMeetManager()->update_state();
+		}
+
+		void Script_SchemeXRMeet::finalize(void)
+		{
+			CScriptActionBase::finalize();
+		}
+
+		void Script_SchemeXRMeet::set_meet(CScriptGameObject* const p_client_object, CScriptIniFile* const p_ini, const xr_string& scheme_name, const xr_string& section_name)
+		{
+			DataBase::Storage_Scheme* const p_storage = XR_LOGIC::assign_storage_and_bind(p_client_object, p_ini, scheme_name, section_name, "");
+		}
+
+		void Script_SchemeXRMeet::reset_meet(CScriptGameObject* const p_client_object, const xr_string& scheme_name, const DataBase::Storage_Data& storage, const xr_string& section_name)
+		{
+			xr_string meet_section_name;
+
+			if (scheme_name.empty())
+			{
+				meet_section_name = Globals::Utils::cfg_get_string(storage.getIni(), storage.getSectionLogicName(), "meet");
+			}
+			else
+			{
+				meet_section_name = Globals::Utils::cfg_get_string(storage.getIni(), section_name, "meet");
+			}
+
+			DataBase::Storage_Scheme* p_storage_scheme = storage.getSchemes().at("meet");
+			init_meet(p_client_object, storage.getIni(), meet_section_name, *p_storage_scheme, scheme_name);
+		}
+
+		void Script_SchemeXRMeet::init_meet(CScriptGameObject* const p_client_object, CScriptIniFile* const p_ini, const xr_string& section_name, DataBase::Storage_Scheme& storage, const xr_string& scheme_name)
+		{
+			if (section_name == storage.getXRMeetMeetSectionName() || (section_name.empty()))
+				return;
+
+			storage.setXRMeetMeetSectionName(section_name);
+
+			xr_map<xr_string, xr_string> defaults;
+			
+			std::uint32_t relation_type = Globals::GameRelations::get_npcs_relation(p_client_object, DataBase::Storage::getInstance().getActor());
+
+			if (relation_type == ALife::eRelationTypeEnemy)
+			{
+				defaults["close_distance"] = "0";
+				defaults["close_anim"] = "";
+				defaults["close_snd_distance"] = "0";
+				defaults["close_snd_hello"] = "";
+				defaults["close_snd_bye"] = "";
+				defaults["close_victim"] = "";
+				defaults["far_distance"] = "0";
+				defaults["far_anim"] = "";
+				defaults["far_snd_distance"] = "0";
+				defaults["far_snd"] = "";
+				defaults["far_victim"] = "";
+				defaults["snd_on_use"] = "";
+				defaults["use"] = "false";
+				defaults["meet_dialog"] = "";
+				defaults["abuse"] = "false";
+				defaults["trade_enable"] = "true";
+				defaults["allow_break"] = "true";
+				defaults["meet_on_talking"] = "false";
+				defaults["use_text"] = "";
+			}
+			else
+			{
+				defaults["close_distance"] = "{=is_wounded} 0, {!is_squad_commander} 0, 3";
+				defaults["close_anim"] = "{=is_wounded} nil, {!is_squad_commander} nil, {=actor_has_weapon} threat_na, talk_default";
+				defaults["close_snd_distance"] = "{=is_wounded} 0, {!is_squad_commander} 0, 3";
+				defaults["close_snd_hello"] = "{=is_wounded} nil, {!is_squad_commander} nil, {=actor_enemy} nil, {=actor_has_weapon} meet_hide_weapon, meet_hello";
+				defaults["close_snd_bye"] = "{=is_wounded} nil, {!is_squad_commander} nil, {=actor_enemy} nil, {=actor_has_weapon} nil, meet_hello";
+				defaults["close_victim"] = "{=is_wounded} nil, {!is_squad_commander} nil, actor";
+				defaults["far_distance"] = "{=is_wounded} 0, {!is_squad_commander} 0, 5";
+				defaults["far_anim"] = "";
+				defaults["far_snd_distance"] = "{=is_wounded} 0, {!is_squad_commander} 0, 5";
+				defaults["far_snd"] = "";
+				defaults["far_victim"] = "";
+				defaults["snd_on_use"] = "{=is_wounded} nil, {!is_squad_commander} meet_use_no_talk_leader, {=actor_enemy} nil, {=has_enemy} meet_use_no_fight, {=actor_has_weapon} meet_use_no_weapon, {!dist_to_actor_le(3)} nil";
+				defaults["use"] = "{=is_wounded} false, {!is_squad_commander} false, {=actor_enemy} false, {=has_enemy} false, {=actor_has_weapon} false, {=dist_to_actor_le(3)} true, false";
+				defaults["meet_dialog"] = "";
+				defaults["abuse"] = "{=has_enemy} false, true";
+				defaults["trade_enable"] = "true";
+				defaults["allow_break"] = "true";
+				defaults["meet_on_talking"] = "true";
+				defaults["use_text"] = "";
+			}
+
+			if (section_name == "no_meet")
+			{
+				storage.setXRMeetCloseDistance(XR_LOGIC::parse_condlist_by_script_object(section_name, "close_distance", "0"));
+				storage.setXRMeetCloseAnim(XR_LOGIC::parse_condlist_by_script_object(section_name, "close_anim", "nil"));
+				storage.setXRMeetCloseSoundDistance(XR_LOGIC::parse_condlist_by_script_object(section_name, "close_distance", "0"));
+				storage.setXRMeetCloseSoundHello(XR_LOGIC::parse_condlist_by_script_object(section_name, "close_sound_hello", "nil"));
+				storage.setXRMeetCloseSoundBye(XR_LOGIC::parse_condlist_by_script_object(section_name, "close_sound_bye", "nil"));
+				storage.setXRMeetCloseVictim(XR_LOGIC::parse_condlist_by_script_object(section_name, "close_victim", "nil"));
+
+				storage.setXRMeetFarDistance(XR_LOGIC::parse_condlist_by_script_object(section_name, "far_distance", "0"));
+				storage.setXRMeetFarAnim(XR_LOGIC::parse_condlist_by_script_object(section_name, "far_anim", "nil"));
+				storage.setXRMeetFarSoundDistance(XR_LOGIC::parse_condlist_by_script_object(section_name, "far_distance", "0"));
+				storage.setXRMeetFarSound(XR_LOGIC::parse_condlist_by_script_object(section_name, "far_snd", "nil"));
+				storage.setXRMeetFarVictim(XR_LOGIC::parse_condlist_by_script_object(section_name, "far_victim", "nil"));
+
+				storage.setXRMeetSoundOnUse(XR_LOGIC::parse_condlist_by_script_object(section_name, "snd_on_use", "nil"));
+				storage.setXRMeetUse(XR_LOGIC::parse_condlist_by_script_object(section_name, "use", "false"));
+				storage.setXRMeetMeetDialog(XR_LOGIC::parse_condlist_by_script_object(section_name, "meet_dialog", "nil"));
+				storage.setXRMeetAbuse(XR_LOGIC::parse_condlist_by_script_object(section_name, "abuse", "false"));
+				storage.setXRMeetTradeEnable(XR_LOGIC::parse_condlist_by_script_object(section_name, "trade_enable", "true"));
+				storage.setXRMeetAllowBreak(XR_LOGIC::parse_condlist_by_script_object(section_name, "allow_break", "true"));
+				storage.setXRMeetMeetOnTalking(XR_LOGIC::parse_condlist_by_script_object(section_name, "meet_on_talking", "false"));
+				storage.setXRMeetUseText(XR_LOGIC::parse_condlist_by_script_object(section_name, "use_text", "nil"));
+			}
+			else
+			{
+				xr_string close_distance_name = Globals::Utils::cfg_get_string(p_ini, section_name, "close_distance");
+				if (close_distance_name.empty())
+					close_distance_name = defaults.at("close_distance");
+
+				storage.setXRMeetCloseDistance(XR_LOGIC::parse_condlist_by_script_object(section_name, "close_distance", close_distance_name));
+
+				xr_string close_anim_name = Globals::Utils::cfg_get_string(p_ini, section_name, "close_anim");
+				if (close_anim_name.empty())
+					close_anim_name = defaults.at("close_anim");
+
+				storage.setXRMeetCloseAnim(XR_LOGIC::parse_condlist_by_script_object(section_name, "close_anim", close_anim_name));
+
+				xr_string close_sound_distance_name = Globals::Utils::cfg_get_string(p_ini, section_name, "close_distance");
+				if (close_distance_name.empty())
+					close_distance_name = defaults.at("close_snd_distance");
+
+				storage.setXRMeetCloseSoundDistance(XR_LOGIC::parse_condlist_by_script_object(section_name, "close_distance", close_sound_distance_name));
+
+				xr_string close_sound_hello_name = Globals::Utils::cfg_get_string(p_ini, section_name, "close_snd_hello");
+				if (close_sound_hello_name.empty())
+					close_sound_hello_name = defaults.at("close_snd_hello");
+
+				storage.setXRMeetCloseSoundHello(XR_LOGIC::parse_condlist_by_script_object(section_name, "close_sound_hello", close_sound_hello_name));
+
+				xr_string close_sound_bye_name = Globals::Utils::cfg_get_string(p_ini, section_name, "close_snd_bye");
+				if (close_sound_bye_name.empty())
+					close_sound_bye_name = defaults.at("close_snd_bye");
+
+				storage.setXRMeetCloseSoundBye(XR_LOGIC::parse_condlist_by_script_object(section_name, "close_sound_bye", close_sound_bye_name));
+
+				xr_string close_victim_name = Globals::Utils::cfg_get_string(p_ini, section_name, "close_victim");
+				if (close_victim_name.empty())
+					close_victim_name = defaults.at("close_victim");
+
+				storage.setXRMeetCloseVictim(XR_LOGIC::parse_condlist_by_script_object(section_name, "close_victim", close_victim_name));
+
+				xr_string far_distance_name = Globals::Utils::cfg_get_string(p_ini, section_name, "far_distance");
+				if (far_distance_name.empty())
+					far_distance_name = defaults.at("far_distance");
+
+				storage.setXRMeetFarDistance(XR_LOGIC::parse_condlist_by_script_object(section_name, "far_distance", far_distance_name));
+
+				xr_string far_anim_name = Globals::Utils::cfg_get_string(p_ini, section_name, "far_anim");
+				if (far_anim_name.empty())
+					far_anim_name = defaults.at("far_anim");
+
+				storage.setXRMeetFarAnim(XR_LOGIC::parse_condlist_by_script_object(section_name, "far_anim", far_anim_name));
+
+				xr_string far_distance_sound_name = Globals::Utils::cfg_get_string(p_ini, section_name, "far_snd_distance");
+				if (far_distance_sound_name.empty())
+					far_distance_sound_name = defaults.at("far_snd_distance");
+
+				storage.setXRMeetFarSoundDistance(XR_LOGIC::parse_condlist_by_script_object(section_name, "far_distance", far_distance_sound_name));
+
+				xr_string far_sound_name = Globals::Utils::cfg_get_string(p_ini, section_name, "far_snd");
+				if (far_sound_name.empty())
+					far_sound_name = defaults.at("far_snd");
+				storage.setXRMeetFarSound(XR_LOGIC::parse_condlist_by_script_object(section_name, "far_snd", far_sound_name));
+
+				xr_string far_victim_name = Globals::Utils::cfg_get_string(p_ini, section_name, "far_victim");
+				if (far_victim_name.empty())
+					far_victim_name = defaults.at("far_victim");
+
+				storage.setXRMeetFarVictim(XR_LOGIC::parse_condlist_by_script_object(section_name, "far_victim", far_victim_name));
+
+				xr_string sound_on_use_name = Globals::Utils::cfg_get_string(p_ini, section_name, "snd_on_use");
+				if (sound_on_use_name.empty())
+					sound_on_use_name = defaults.at("snd_on_use");
+				storage.setXRMeetSoundOnUse(XR_LOGIC::parse_condlist_by_script_object(section_name, "snd_on_use", sound_on_use_name));
+
+				xr_string use_name = Globals::Utils::cfg_get_string(p_ini, section_name, "use");
+				if (use_name.empty())
+					use_name = defaults.at("use");
+				storage.setXRMeetUse(XR_LOGIC::parse_condlist_by_script_object(section_name, "use", use_name));
+
+				xr_string meet_dialog_name = Globals::Utils::cfg_get_string(p_ini, section_name, "meet_dialog");
+				if (meet_dialog_name.empty())
+					meet_dialog_name = defaults.at("meet_dialog");
+
+				storage.setXRMeetMeetDialog(XR_LOGIC::parse_condlist_by_script_object(section_name, "meet_dialog", meet_dialog_name));
+
+				xr_string abuse_name = Globals::Utils::cfg_get_string(p_ini, section_name, "abuse");
+				if (abuse_name.empty())
+					abuse_name = defaults.at("abuse");
+				storage.setXRMeetAbuse(XR_LOGIC::parse_condlist_by_script_object(section_name, "abuse", abuse_name));
+
+				xr_string trade_enable_name = Globals::Utils::cfg_get_string(p_ini, section_name, "trade_enable");
+				if (trade_enable_name.empty())
+					trade_enable_name = defaults.at("trade_enable");
+
+				storage.setXRMeetTradeEnable(XR_LOGIC::parse_condlist_by_script_object(section_name, "trade_enable", trade_enable_name));
+
+				xr_string allow_break_name = Globals::Utils::cfg_get_string(p_ini, section_name, "allow_break");
+				if (allow_break_name.empty())
+					allow_break_name = defaults.at("allow_break");
+				storage.setXRMeetAllowBreak(XR_LOGIC::parse_condlist_by_script_object(section_name, "allow_break", allow_break_name));
+
+				xr_string meet_on_talking_name = Globals::Utils::cfg_get_string(p_ini, section_name, "meet_on_talking");
+				if (meet_on_talking_name.empty())
+					meet_on_talking_name = defaults.at("meet_on_talking");
+				storage.setXRMeetMeetOnTalking(XR_LOGIC::parse_condlist_by_script_object(section_name, "meet_on_talking", meet_on_talking_name));
+
+				xr_string use_text_name = Globals::Utils::cfg_get_string(p_ini, section_name, "use_text");
+				storage.setXRMeetUseText(XR_LOGIC::parse_condlist_by_script_object(section_name, "use_text", use_text_name));
+			}
+
+			storage.getMeetManager()->set_start_distance();
+			storage.setXRMeetSet(true);
+		}
+
+		bool Script_SchemeXRMeet::is_meet(CScriptGameObject* const p_client_object)
+		{
+			CScriptActionPlanner* const p_planner = Globals::get_script_action_planner(p_client_object);
+			if (p_planner && p_planner->initialized())
+			{
+				std::uint32_t id = p_planner->current_action_id();
+				if (id == (Globals::XR_ACTIONS_ID::kStoheMeetBase + 1))
+					return true;
+			}
+
+			return false;
+		}
+
+		void Script_SchemeXRMeet::process_npc_usability(CScriptGameObject* const p_client_object)
+		{
+			if (!p_client_object)
+			{
+				MESSAGEWR("p_client_object == nullptr!");
+				return;
+			}
+
+
+			if (CRD_Wounded::is_wounded(p_client_object))
+			{
+				if (p_client_object->GetRelationType(DataBase::Storage::getInstance().getActor()) == ALife::eRelationTypeEnemy)
+				{
+					p_client_object->DisableTalk();
+				}
+				else
+				{
+					DataBase::Storage_Scheme* p_storage = DataBase::Storage::getInstance().getStorage().at(p_client_object->ID()).getSchemes().at("wounded");
+
+					if (!p_storage)
+					{
+						MESSAGEWR("wounded scheme doesn't allocated at all!");
+						return;
+					}
+
+					// Lord: доделать!
+				}
+			}
+		}
+
+}
 }

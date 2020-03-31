@@ -219,7 +219,7 @@ void Script_SoundManager::update(void)
 
     this->m_last_playing_npc = npc_id;
 
-    if (std::get<_kTupleGetTheme>(next_phrase) != "nil")
+    if (std::get<_kTupleGetTheme>(next_phrase) != "nil") // LorD: проверить будет ли дропать nil, если будет то найти и исправить когда это будет, чтобы все "nil" просто проверялись всегда как .empty()
     {
         if (this->m_p_story && this->m_p_story->getIDName() == "squad_counter_attack")
         {

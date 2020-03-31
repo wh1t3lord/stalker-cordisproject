@@ -242,7 +242,7 @@ void Script_WeatherManager::load(NET_Packet& packet)
     this->m_update_time = packet.r_u32();
     xr_string weather_fx_name;
     packet.r_stringZ(weather_fx_name);
-    if (weather_fx_name != "nil")
+    if (weather_fx_name != "nil") // LorD: проверить будет ли дропать nil, если будет то найти и исправить когда это будет, чтобы все "nil" просто проверялись всегда как .empty()
     {
         this->m_weather_fx_name = weather_fx_name;
         this->m_wfx_time = packet.r_float();

@@ -7,6 +7,7 @@ namespace Scripts
 namespace DataBase
 {
 class Storage_Scheme;
+class Storage_Data;
 }
 } // namespace Scripts
 } // namespace Cordis
@@ -1895,7 +1896,24 @@ public:
 
     inline bool isXRMeetSet(void) const noexcept { return this->m_is_xr_meet_set; }
     inline void setXRMeetSet(const bool value) noexcept { this->m_is_xr_meet_set = value; }
+    
+    inline const xr_map<std::uint32_t, CondlistData>& getXRMeetMeetDialogName(void) const noexcept { return this->m_xr_meet_meet_dialog; }
+    inline void setXRMeetMeetDialogName(const xr_map<std::uint32_t, CondlistData>& data) noexcept
+    {
+        if (data.empty()) MESSAGEW("you are trying to set an empty map!");
+        this->m_xr_meet_meet_dialog = data;
+    }
 
+    inline const xr_string& getXRMeetMeetSectionName(void) const noexcept { return this->m_xr_meet_meet_section_name; }
+    inline void setXRMeetMeetSectionName(const xr_string& name) noexcept 
+    {
+        if (name.empty())
+        {
+            MESSAGEW("you are trying to set an empty map!");
+        }
+
+        this->m_xr_meet_meet_section_name = name;
+    }
 #pragma endregion
 
 private:
@@ -2122,6 +2140,7 @@ private:
     xr_string m_xr_camper_attack_sound_name;
     xr_string m_xr_camper_sniper_anim_name;
     xr_string m_xr_camper_shoot_name;
+    xr_string m_xr_meet_meet_section_name;
     CondlistWaypoints m_path_walk_info;
     CondlistWaypoints m_path_look_info;
 };

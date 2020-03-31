@@ -722,7 +722,7 @@ void Script_Task::load(IReader& packet)
     xr_string id_name;
     packet.r_stringZ(id_name);
 
-    if (id_name.empty() || id_name == "nil")
+    if (id_name.empty() || id_name == "nil") // LorD: проверить будет ли дропать nil, если будет то найти и исправить когда это будет, чтобы все "nil" просто проверялись всегда как .empty()
         this->m_current_target_id = 0;
     else
         this->m_current_target_id = boost::lexical_cast<std::uint16_t>(id_name);

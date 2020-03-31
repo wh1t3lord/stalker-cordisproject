@@ -47,13 +47,13 @@ Script_Binder_DoorLabx8::Script_Binder_DoorLabx8(CScriptGameObject* object)
     if (sound_stop_name.empty())
         sound_stop_name = "device\\airtight_door_stop";
 
-    if (sound_idle_name != "nil")
+    if (sound_idle_name.empty() == false) // LorD: проверить будет ли дропать nil, если будет то найти и исправить когда это будет, чтобы все "nil" просто проверялись всегда как .empty()
         this->m_p_sound_idle = new CScriptSound(sound_idle_name.c_str());
 
-    if (sound_start_name != "nil")
+    if (sound_start_name.empty() == false) // LorD: проверить будет ли дропать nil, если будет то найти и исправить когда это будет, чтобы все "nil" просто проверялись всегда как .empty()
         this->m_p_sound_start = new CScriptSound(sound_start_name.c_str());
 
-    if (sound_stop_name != "nil")
+    if (sound_stop_name.empty() == false) // LorD: проверить будет ли дропать nil, если будет то найти и исправить когда это будет, чтобы все "nil" просто проверялись всегда как .empty()
         this->m_p_sound_stop = new CScriptSound(sound_stop_name.c_str());
 
     this->m_tip_condlist = XR_LOGIC::parse_condlist_by_script_object(

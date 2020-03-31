@@ -34,10 +34,10 @@ void activate_by_section(CScriptGameObject* const p_client_object, CScriptIniFil
         DataBase::Storage::getInstance().setStorageActivationGameTime(npc_id, Globals::Game::get_game_time());
     }
 
-    if (section_name == "nil")
+    if (section_name == "nil") // LorD: проверить будет ли дропать nil, если будет то найти и исправить когда это будет, чтобы все "nil" просто проверялись всегда как .empty()
     {
         DataBase::Storage::getInstance().setStorageOverrides(npc_id, DataBase::Data_Overrides());
-        reset_generic_schemes_on_scheme_switch(p_client_object, "nil", "nil"); // имеет ли смысл?
+        reset_generic_schemes_on_scheme_switch(p_client_object, "nil", "nil"); // имеет ли смысл? // LorD: проверить будет ли дропать nil, если будет то найти и исправить когда это будет, чтобы все "nil" просто проверялись всегда как .empty()
         DataBase::Storage::getInstance().setStorageActiveSectionName(npc_id, "");
         DataBase::Storage::getInstance().setStorageActiveSchemeName(npc_id, "");
         return;
@@ -1367,7 +1367,7 @@ void Script_SE_SmartTerrain::switch_to_desired_job(CScriptGameObject* const p_np
     }
 
     npc_info.m_begin_job = true;
-    npc_info.m_need_job = "nil";
+    npc_info.m_need_job = "nil"; // LorD: проверить будет ли дропать nil, если будет то найти и исправить когда это будет, чтобы все "nil" просто проверялись всегда как .empty()
 
     if (DataBase::Storage::getInstance().getStorage().find(npc_id) !=
         DataBase::Storage::getInstance().getStorage().end())

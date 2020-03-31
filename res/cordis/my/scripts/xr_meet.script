@@ -307,11 +307,7 @@ function Cmeet_manager:update()
 	end
 
 		self.npc:allow_break_talk_dialog(self.allow_break)
---[[
-	if is_talking then
-		db.actor:allow_break_talk_dialog(self.allow_break)
-	end
-]]
+
 	-- Проверяем включать ли обижание на заюзывание
 	local abuse = xr_logic.pick_section_from_condlist(db.actor, self.npc, self.a.abuse)
 	if self.abuse_mode ~= abuse then
@@ -563,10 +559,10 @@ function init_meet(npc, ini, section, st, scheme)
 	st.meet_set = true
 end
 
-function disable_scheme(npc, scheme)
-	db.storage[npc:id()].actor_dialogs = nil
-	db.storage[npc:id()].actor_disable = nil
-end
+--function disable_scheme(npc, scheme)
+	--db.storage[npc:id()].actor_dialogs = nil
+--	db.storage[npc:id()].actor_disable = nil
+--end
 
 --- Находится ли чувак в данный момент в состоянии мита
 function is_meet(npc)
