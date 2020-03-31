@@ -11,6 +11,7 @@ HOW TO USE:
             Example: "cd C:\Users\user\cordisproject\sdk\lib_boost"
         1.2 Write the command: "bootstrap"
         1.3 After, write the command: ".\b2" 
+    When the boost library is built you can start from second stage of this instruction
     2. Open Visual Studio or your favorite IDE (it can be just notepad)
     3. Build the solution in IDE or use cmake file.
     
