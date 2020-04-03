@@ -13040,6 +13040,10 @@ private:
         this->m_wounded_by_state[0] = "wounded_heavy";
         this->m_wounded_by_state[1] = "wounded_heavy_2";
         this->m_wounded_by_state[2] = "wounded_heavy_3";
+
+        this->m_xr_combat_ignore_smarts_by_no_assault_zones["zat_a2_sr_no_assault"] = "zat_stalker_base_smart";
+        this->m_xr_combat_ignore_smarts_by_no_assault_zones["jup_a6_sr_no_assault"] = "jup_a6";
+        this->m_xr_combat_ignore_smarts_by_no_assault_zones["jup_b41_sr_no_assault"] = "jup_b41";
         #pragma endregion
     }
 
@@ -14474,6 +14478,10 @@ public:
     }
 
     inline const xr_map<std::uint32_t, xr_string>& getXRWoundedStates(void) const noexcept { return this->m_wounded_by_state; }
+
+    inline const xr_map<xr_string, bool>& getXRCombatIgnoreSmarts(void) const noexcept { return this->m_ignored_smart; }
+
+    inline const xr_map<xr_string, xr_string>& getXRCombatIgnoreSmartsByNoAssaultZones(void) const noexcept { return this->m_xr_combat_ignore_smarts_by_no_assault_zones; }
     #pragma endregion
 
 private:
@@ -14539,6 +14547,7 @@ private:
     xr_map<xr_string, xr_string> m_news_manager_registered_sound_tips;
     xr_map<xr_string, xr_string> m_news_manager_action_description_by_type_name;
     xr_map<xr_string, xr_string> m_xr_walker_association;
+    xr_map<xr_string, xr_string> m_xr_combat_ignore_smarts_by_no_assault_zones;
     xr_map<xr_string, xr_map<xr_string, xr_string>> m_smart_terrains_translated_name;
     xr_map<xr_string, xr_map<xr_string, std::uint32_t>> m_pri_a25_medic_items;
     xr_map<xr_string, xr_map<xr_string, std::uint32_t>> m_pri_a22_supp_items;
@@ -14549,6 +14558,7 @@ private:
     xr_map<xr_string, bool> m_simulationsquad_is_squad_monster_by_type;
     xr_map<xr_string, bool> m_indoor_levels;
     xr_map<xr_string, bool> m_task_valid_values;
+    xr_map<xr_string, bool> m_ignored_smart;
     xr_map<xr_string, std::uint8_t> m_task_id_by_status;
     xr_map<std::uint8_t, xr_string> m_task_status_by_id;
     xr_map<std::uint16_t, xr_string> m_zat_b29_infop_bring_table;

@@ -4303,6 +4303,15 @@
     <Filter Include="Cordis\Scripts\Logic\Schemes\XR\Wounded\Private">
       <UniqueIdentifier>{1a7e50a0-0ccd-440d-97c0-69ec16405ba4}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Cordis\Scripts\Logic\Schemes\XR\Combat\Ignore">
+      <UniqueIdentifier>{6d4f6bac-d422-406d-ab33-caa8f753bacb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Logic\Schemes\XR\Combat\Ignore\Public">
+      <UniqueIdentifier>{7e3deb2e-2cf4-49a5-823a-fd766e611fa0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Logic\Schemes\XR\Combat\Ignore\Private">
+      <UniqueIdentifier>{b549b679-c0f8-44cc-a370-1625677f458c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="mt_config.h">
@@ -9692,6 +9701,9 @@
     <ClInclude Include="Script_SchemeXRWounded.h">
       <Filter>Cordis\Scripts\Logic\Schemes\XR\Wounded\Public</Filter>
     </ClInclude>
+    <ClInclude Include="Script_SchemeXRCombatIgnore.h">
+      <Filter>Cordis\Scripts\Logic\Schemes\XR\Combat\Ignore\Public</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="damage_manager.cpp">
@@ -14144,6 +14156,9 @@
     </ClCompile>
     <ClCompile Include="Script_SchemeXRWounded.cpp">
       <Filter>Cordis\Scripts\Logic\Schemes\XR\Wounded\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Script_SchemeXRCombatIgnore.cpp">
+      <Filter>Cordis\Scripts\Logic\Schemes\XR\Combat\Ignore\Private</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

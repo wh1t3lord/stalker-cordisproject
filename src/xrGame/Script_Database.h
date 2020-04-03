@@ -2040,6 +2040,11 @@ public:
     }
 #pragma endregion
 
+#pragma region Cordis Scheme XR Combat Ignore
+    inline bool isXRCombatIgnoreEnabled(void) const noexcept { return this->m_is_xr_combat_ignore_enabled; }
+    inline void setXRCombatIgnoreEnabled(const bool value) noexcept { this->m_is_xr_combat_ignore_enabled = value; }
+#pragma endregion
+
 private:
     // @ Не понятно зачем в итоге но так у ПЫС, если в итоге оно находится в самом сторадже где уже зарегистрирован
     // сам НПС
@@ -2086,6 +2091,7 @@ private:
     bool m_is_xr_wounded_autoheal = false;
     bool m_is_xr_wounded_enable_talk = false;
     bool m_is_xr_wounded_not_for_help = false;
+    bool m_is_xr_combat_ignore_enabled = false;
     std::uint16_t m_xr_corpse_detection_selected_corpse_id = 0;
     std::uint16_t m_selected_id = 0;
     std::uint16_t m_xr_remark_target_id = 0;
@@ -4870,6 +4876,21 @@ public:
         this->m_script_ids[id] = name;
     }
 
+#pragma region Cordis Scheme XR Combat Ignore 
+    inline const xr_map<std::uint16_t, bool>& getXRCombatIgnoreFightingWithActorNpcs(void) const noexcept { return this->m_fighting_with_actor_npcs; }
+    
+    inline void setXRCombatIgnoreFightingWithActorNpcs(const std::uint16_t npc_id, const bool value) noexcept 
+    {
+        if (npc_id == 0 || npc_id == Globals::kUnsignedInt16Undefined)
+        {
+            MESSAGEWR("bad id check your code!");
+            return;
+        }
+
+        this->m_fighting_with_actor_npcs[npc_id] = value;
+    }
+#pragma endregion
+
     Storage(const Storage&) = delete;
     Storage& operator=(const Storage&) = delete;
     Storage(Storage&&) = delete;
@@ -4919,6 +4940,10 @@ private:
     // @ second.second -> .object!
     xr_map<std::uint16_t, std::pair<Script_CampData*, CScriptGameObject*>> m_camps;
     #pragma endregion
+
+#pragma region Cordis Scheme XR Combat Ignore 
+    xr_map<std::uint16_t, bool> m_fighting_with_actor_npcs;
+#pragma endregion
 
     // first -> sympathy[ID] = std::uint32_t; | second -> relations[ID] = std::string;
     std::pair<xr_map<std::uint16_t, float>, xr_map<std::uint16_t, xr_string>> m_goodwill;
