@@ -183,7 +183,100 @@ namespace Cordis
 				defaults["hp_victim"].append("40|nil");
 				defaults["hp_cover"].append("40|false");
 				defaults["hp_fight"].append("40|false");
+                defaults["help_dialog"].clear();
+                defaults["help_start_dialog"].clear();
+                is_default_use_medkit = false;
+                is_default_enable_talk = true;
+                is_default_not_for_help = true;
 			}
+            else
+            {
+                xr_string state_name = Script_GlobalHelper::getInstance().getXRWoundedStates().at(picked_index);
+                defaults["hp_state"].append("20|");
+                defaults["hp_state"].append(state_name);
+                defaults["hp_state"].append("@help_heavy");
+                defaults["hp_state_see"].append("20|");
+                defaults["hp_state_see"].append(state_name);
+                defaults["hp_state_see"].append("@help_heavy");
+                defaults["psy_state"].append("20|{=best_pistol}psy_armed,psy_pain@wounded_psy|20|{=best_pistol}psy_shoot,psy_pain@{=best_pistol}wounded_psy_shoot,wounded_psy");
+                defaults["hp_victim"].append("20|nil");
+                defaults["hp_fight"].append("20|false");
+                defaults["help_dialog"].append("dm_help_wounded_medkit_dialog");
+                defaults["help_start_dialog"].clear();
+                defaults["hp_cover"].clear();
+                is_default_use_medkit = true;
+                is_default_enable_talk = true;
+                is_default_not_for_help = false;
+            }
+
+            if (section_name.empty())
+            {
+                p_storage->setXRWoundedHealthState(Globals::Utils::parse_data(defaults.at("hp_state")));
+                p_storage->setXRWoundedHealthStateSee(Globals::Utils::parse_data(defaults.at("hp_state_see")));
+                p_storage->setXRWoundedPsyState(Globals::Utils::parse_data(defaults.at("psy_state")));
+                p_storage->setXRWoundedHealthVictim(Globals::Utils::parse_data(defaults.at("hp_victim")));
+                p_storage->setXRWoundedHealthCover(Globals::Utils::parse_data(defaults.at("hp_cover")));
+                p_storage->setXRWoundedHealthFight(Globals::Utils::parse_data(defaults.at("hp_fight")));
+                p_storage->setXRWoundedHelpDialogName(defaults.at("help_dialog"));
+                p_storage->setXRWoundedHelpStartDialogName("");
+                p_storage->setXRWoundedUseMedkit(is_default_use_medkit);
+                p_storage->setXRWoundedAutoHeal(true);
+                p_storage->setXRWoundedEnableTalk(true);
+                p_storage->setXRWoundedNotForHelp(is_default_not_for_help);
+            }
+            else
+            {
+                xr_string hp_state_name = Globals::Utils::cfg_get_string(p_ini, section_name, "hp_state");
+                if (hp_state_name.empty())
+                    hp_state_name = defaults.at("hp_state");
+                
+                p_storage->setXRWoundedHealthState(Globals::Utils::parse_data(hp_state_name));
+
+                xr_string hp_state_see_name = Globals::Utils::cfg_get_string(p_ini, section_name, "hp_state_see");
+                if (hp_state_see_name.empty())
+                    hp_state_see_name = defaults.at("hp_state_see");
+
+                p_storage->setXRWoundedHealthStateSee(Globals::Utils::parse_data(hp_state_see_name));
+
+                xr_string psy_state_name = Globals::Utils::cfg_get_string(p_ini, section_name, "psy_state");
+                if (psy_state_name.empty())
+                    psy_state_name = defaults.at("psy_state");
+
+                p_storage->setXRWoundedPsyState(Globals::Utils::parse_data(psy_state_name));
+
+                xr_string hp_victim_name = Globals::Utils::cfg_get_string(p_ini, section_name, "hp_victim");
+                if (hp_victim_name.empty())
+                    hp_victim_name = defaults.at("hp_victim");
+
+                p_storage->setXRWoundedHealthFight(Globals::Utils::parse_data(hp_victim_name));
+
+                xr_string hp_cover_name = Globals::Utils::cfg_get_string(p_ini, section_name, "hp_cover");
+                if (hp_cover_name.empty())
+                    hp_cover_name = defaults.at("hp_cover");
+
+                p_storage->setXRWoundedHealthCover(Globals::Utils::parse_data(hp_cover_name));
+
+                xr_string hp_fight_name = Globals::Utils::cfg_get_string(p_ini, section_name, "hp_fight");
+                if (hp_fight_name.empty())
+                    hp_fight_name = defaults.at("hp_fight");
+
+                p_storage->setXRWoundedHealthFight(Globals::Utils::parse_data(hp_fight_name));
+
+                xr_string help_dialog_name = Globals::Utils::cfg_get_string(p_ini, section_name, "help_dialog");
+                if (help_dialog_name.empty())
+                    help_dialog_name = defaults.at("help_dialog");
+
+                p_storage->setXRWoundedHelpDialogName(help_dialog_name);
+
+                p_storage->setXRWoundedHelpStartDialogName(Globals::Utils::cfg_get_string(p_ini, section_name, "help_start_dialog"));
+
+                p_storage->setXRWoundedUseMedkit(Globals::Utils::cfg_get_bool(p_ini, section_name, "use_medkit"));
+                p_storage->setXRWoundedAutoHeal(Globals::Utils::cfg_get_bool(p_ini, section_name, "autoheal"));
+                p_storage->setXRWoundedEnableTalk(Globals::Utils::cfg_get_bool(p_ini, section_name, "enable_talk"));
+                p_storage->setXRWoundedNotForHelp(Globals::Utils::cfg_get_bool(p_ini, section_name, "not_for_help"));
+            }
+
+            p_storage->setXRWoundedSet(true);
 		}
 
 		Script_WoundedManager::Script_WoundedManager(CScriptGameObject* const p_client_object, DataBase::Storage_Scheme& storage) : m_is_can_use_medkit(false), m_p_npc(p_client_object), m_p_storage(&storage)
@@ -426,7 +519,7 @@ namespace Cordis
 			if (p_planner->evaluator(StalkerDecisionSpace::eWorldPropertyEnemy).evaluate() && (XR_LOGIC::pstor_retrieve_string(this->m_object, "wounded_fight") == Globals::kStringTrue))
 				return false;
 
-			// Lord: проверить ибо не хочется использовать "nil" как в оригинале
+			// Lord: РїСЂРѕРІРµСЂРёС‚СЊ РёР±Рѕ РЅРµ С…РѕС‡РµС‚СЃСЏ РёСЃРїРѕР»СЊР·РѕРІР°С‚СЊ "nil" РєР°Рє РІ РѕСЂРёРіРёРЅР°Р»Рµ
 			return (XR_LOGIC::pstor_retrieve_string(this->m_object, "wounded_state").empty() == false);
 		}
 
