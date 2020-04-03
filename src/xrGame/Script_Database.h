@@ -1373,6 +1373,13 @@ public:
     inline Script_XRAbuseManager* const getXRAbuseManager(void) const { return this->m_p_abuse_manager; }
     inline void setXRAbuseManager(Script_XRAbuseManager* const p_object)
     {
+        // Lord: проверить все таки manager* если можно будет ресетить на новый объект при условии что оно вообще удалется только в деструкторе ...
+        if (this->m_p_abuse_manager)
+        {
+			R_ASSERT2(false, "you can't set to existed instance you must deallocate this!");
+			return;
+        }
+
         if (!p_object)
         {
             Msg("[Scripts/DataBase/Storage_Scheme/setXRAbuseManager(p_object)] WARNING: you are trying to set an empty "
@@ -1829,6 +1836,12 @@ public:
     inline Script_XRMeetManager* const getMeetManager(void) const { return this->m_p_meet_manager; }
     inline void setMeetManager(Script_XRMeetManager* const p_meet)
     {
+        if (this->m_p_meet_manager)
+        {
+			R_ASSERT2(false, "you can't set to existed instance you must deallocate this!");
+			return;
+        }
+
         if (!p_meet)
         {
             MESSAGEWR("Can't set an empty instance check your code and allocation!");
@@ -2011,6 +2024,12 @@ public:
     inline Script_WoundedManager* getWoundedManager(void) const { return this->m_p_wounded_manager; }
     inline void setWoundedManager(Script_WoundedManager* const p_manager) 
     {
+        if (this->m_p_wounded_manager)
+        {
+            R_ASSERT2(false, "you can't set to existed instance you must deallocate this!");
+            return;
+        }
+
         if (!p_manager)
         {
             R_ASSERT2(false, "can't be you must allocate manager!");
