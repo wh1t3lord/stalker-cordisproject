@@ -37,7 +37,7 @@ public:
     virtual void activate_scheme(const bool is_loading, CScriptGameObject* const p_client_object);
     virtual void update(const float delta);
 
-        static inline void add_to_binder(CScriptGameObject* const p_client_object, CScriptIniFile* const p_ini,
+    static inline void add_to_binder(CScriptGameObject* const p_client_object, CScriptIniFile* const p_ini,
         const xr_string& scheme_name, const xr_string& section_name, DataBase::Storage_Scheme& storage)
     {
         if (!p_client_object)
@@ -52,8 +52,7 @@ public:
             return;
         }
 
-        Msg("[Scripts/add_to_binder(p_client_object, p_ini, scheme_name, section_name, storage)] added "
-            "Script_SchemeXRWalker scheme to binder, name=%s scheme=%s section=%s",
+        MESSAGE("added scheme to binder, name=%s scheme=%s section=%s",
             p_client_object->Name(), scheme_name.c_str(), section_name.c_str());
 
         CScriptActionPlanner* const p_planner = Globals::get_script_action_planner(p_client_object);

@@ -112,6 +112,80 @@ namespace Cordis
 			this->m_object->enable_movement(true);
 		}
 
+		void Script_SchemeXRWounded::set_wounded(CScriptGameObject* const p_client_object, CScriptIniFile* const p_ini, const xr_string& scheme_name, const xr_string& section_name, const xr_string& gulag_name)
+		{
+			DataBase::Storage_Scheme* p_storage = XR_LOGIC::assign_storage_and_bind(p_client_object, p_ini, scheme_name, section_name, "");
+			p_storage->setWoundedManager(new Script_WoundedManager(p_client_object, *p_storage));
+		}
+
+		void Script_SchemeXRWounded::reset_wounded(CScriptGameObject* const p_client_object, const xr_string& scheme_name, const DataBase::Storage_Data& storage, const xr_string& section_name)
+		{
+			xr_string wounded_section_name;
+			if (scheme_name.empty())
+				wounded_section_name = Globals::Utils::cfg_get_string(storage.getIni(), storage.getSectionLogicName(), "wounded");
+			else
+				wounded_section_name = Globals::Utils::cfg_get_string(storage.getIni(), section_name, "wounded");
+
+			init_wounded(p_client_object, storage.getIni(), wounded_section_name, storage.getSchemes().at("wounded"), scheme_name);
+			storage.getSchemes().at("wounded")->getWoundedManager()->hit_callback();
+		}
+
+		void Script_SchemeXRWounded::init_wounded(CScriptGameObject* const p_client_object, CScriptIniFile* const p_ini, const xr_string& section_name, DataBase::Storage_Scheme* p_storage, const xr_string& scheme_name)
+		{
+			if (section_name == p_storage->getXRWoundedWoundedSectionName() && (section_name.empty() == false))
+				return;
+
+			if (!p_client_object)
+			{
+				R_ASSERT2(false, "can'be");
+				return;
+			}
+
+			p_storage->setXRWoundedWoundedSectionName(section_name);
+			xr_map<xr_string, xr_string> defaults;
+			bool is_default_use_medkit = false;
+			bool is_default_enable_talk = true;
+			bool is_default_not_for_help = true;
+
+			std::uint32_t picked_index = p_client_object->ID() % 3;
+			if (picked_index > Script_GlobalHelper::getInstance().getXRWoundedStates().size() - 1)
+			{
+				R_ASSERT2(false, "bad index, it can't be check your data");
+				return;
+			}
+
+			xr_string community_name = Globals::character_community(p_client_object);
+
+			if (community_name == "monolith")
+			{
+				xr_string state_name = Script_GlobalHelper::getInstance().getXRWoundedStates().at(picked_index);
+				defaults["hp_state"].append("20|");
+				defaults["hp_state"].append(state_name);
+				defaults["hp_state"].append("@nil");
+				defaults["hp_state_see"].append("20|");
+				defaults["hp_state_see"].append(state_name);
+				defaults["hp_state_see"].append("@nil");
+				defaults["psy_state"].clear();
+				defaults["hp_victim"].append("20|nil");
+				defaults["hp_cover"].append("20|false");
+				defaults["hp_fight"].append("20|false");
+				defaults["help_dialog"].clear();
+				defaults["help_start_dialog"].clear();
+				is_default_enable_talk = true;
+				is_default_not_for_help = true;
+				is_default_use_medkit = false;
+			}
+			else if (community_name == "zombied")
+			{
+				defaults["hp_state"].append("40|wounded_zombie@nil");
+				defaults["hp_state_see"].append("40|wounded_zombie@nil");
+				defaults["psy_state"].clear();
+				defaults["hp_victim"].append("40|nil");
+				defaults["hp_cover"].append("40|false");
+				defaults["hp_fight"].append("40|false");
+			}
+		}
+
 		Script_WoundedManager::Script_WoundedManager(CScriptGameObject* const p_client_object, DataBase::Storage_Scheme& storage) : m_is_can_use_medkit(false), m_p_npc(p_client_object), m_p_storage(&storage)
 		{
 		}

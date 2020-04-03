@@ -13036,6 +13036,10 @@ private:
         this->m_xr_walker_association["harmonica"] = "play_harmonica";
         this->m_xr_walker_association["guitar"] = "play_guitar";
         this->m_xr_walker_association["story"] = "wait";
+
+        this->m_wounded_by_state[0] = "wounded_heavy";
+        this->m_wounded_by_state[1] = "wounded_heavy_2";
+        this->m_wounded_by_state[2] = "wounded_heavy_3";
         #pragma endregion
     }
 
@@ -14468,6 +14472,8 @@ public:
     {
         return this->m_xr_walker_association;
     }
+
+    inline const xr_map<std::uint32_t, xr_string>& getXRWoundedStates(void) const noexcept { return this->m_wounded_by_state; }
     #pragma endregion
 
 private:
@@ -14550,6 +14556,7 @@ private:
     xr_map<std::uint16_t, xr_string> m_zat_b29_af_names_table;
     xr_map<std::uint16_t, xr_string> m_zat_b29_af_table;
     xr_map<std::uint32_t, xr_string> m_jup_a12_af_table;
+    xr_map<std::uint32_t, xr_string> m_wounded_by_state;
     xr_map<std::uint32_t, std::uint32_t> m_zat_item_count_by_category;
     xr_map<std::uint32_t, xr_map<xr_string, std::uint32_t>> m_zat_b51_costs_table;
     xr_map<std::uint32_t, xr_map<std::uint32_t, xr_vector<xr_string>>> m_zat_b51_buy_item_table;
