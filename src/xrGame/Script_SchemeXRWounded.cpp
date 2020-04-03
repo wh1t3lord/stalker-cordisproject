@@ -112,6 +112,40 @@ namespace Cordis
 			this->m_object->enable_movement(true);
 		}
 
+		void Script_SchemeXRWounded::add_to_binder(CScriptGameObject* const p_client_object, CScriptIniFile* const p_ini, const xr_string& scheme_name, const xr_string& section_name, DataBase::Storage_Scheme& storage)
+		{
+			if (p_client_object == nullptr)
+			{
+				MESSAGEWR("p_client_object == nullptr!");
+				return;
+			}
+
+			xr_map<xr_string, std::uint32_t> operators;
+			xr_map<xr_string, std::uint32_t> properties;
+
+			properties["wounded"] = Globals::XR_ACTIONS_ID::XR_EVALUATORS_ID::kSidorWoundedBase;
+			properties["can_fight"] = Globals::XR_ACTIONS_ID::XR_EVALUATORS_ID::kSidorWoundedBase + 1;
+			operators["wounded"] = Globals::XR_ACTIONS_ID::kSidorActWoundedBase;
+
+			CScriptActionPlanner* const p_planner = Globals::get_script_action_planner(p_client_object);
+			p_planner->add_evaluator(properties.at("wounded"), new Script_EvaluatorWound("wounded", storage));
+			p_planner->add_evaluator(properties.at("can_fight"), new Script_EvaluatorCanFight("can_fight", storage));
+
+			Script_SchemeXRWounded* p_scheme = new Script_SchemeXRWounded("wounded_action", storage);
+			p_scheme->add_condition(CWorldProperty(StalkerDecisionSpace::eWorldPropertyAlive, true));
+			p_scheme->add_condition(CWorldProperty(properties.at("wounded"), true));
+			p_scheme->add_effect(CWorldProperty(properties.at("wounded"), false));
+			p_scheme->add_effect(CWorldProperty(StalkerDecisionSpace::eWorldPropertyEnemy, false));
+			p_scheme->add_effect(CWorldProperty(properties.at("can_fight"), true));
+			
+			p_planner->add_operator(operators.at("wounded"), p_scheme);
+			p_planner->action(Globals::XR_ACTIONS_ID::kAlife).add_condition(CWorldProperty(properties.at("wounded"), false));
+			p_planner->action(StalkerDecisionSpace::eWorldOperatorGatherItems).add_condition(CWorldProperty(properties.at("wounded"), false));
+			p_planner->action(StalkerDecisionSpace::eWorldOperatorCombatPlanner).add_condition(CWorldProperty(properties.at("can_fight"), true));
+			p_planner->action(StalkerDecisionSpace::eWorldOperatorDangerPlanner).add_condition(CWorldProperty(properties.at("can_fight"), true));
+			p_planner->action(StalkerDecisionSpace::eWorldOperatorAnomalyPlanner).add_condition(CWorldProperty(properties.at("can_fight"), true));
+		}
+
 		void Script_SchemeXRWounded::set_wounded(CScriptGameObject* const p_client_object, CScriptIniFile* const p_ini, const xr_string& scheme_name, const xr_string& section_name, const xr_string& gulag_name)
 		{
 			DataBase::Storage_Scheme* p_storage = XR_LOGIC::assign_storage_and_bind(p_client_object, p_ini, scheme_name, section_name, "");
