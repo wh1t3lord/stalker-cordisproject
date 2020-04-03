@@ -3404,6 +3404,59 @@ inline bool is_npc_asleep(CScriptGameObject* const p_npc)
     return (storage.getStateManager()->getAnimState()->getStates().getCurrentStateName() == "sleep");
 }
 
+inline void unlock_medkit(CScriptGameObject* const p_client_object) 
+{
+    if (!p_client_object)
+    {
+        MESSAGEWR("p_client_object == nullptr");
+        return;
+    }
+
+    if (DataBase::Storage::getInstance().getStorage().at(p_client_object->ID()).getSchemes().at("wounded"))
+    {
+        DataBase::Storage::getInstance().getStorage().at(p_client_object->ID()).getSchemes().at("wounded")->getWoundedManager()->unlock_medkit();
+    }
+}
+
+inline bool is_wounded(CScriptGameObject* const p_client_object) 
+{
+    if (!p_client_object)
+    {
+        MESSAGEWR("p_client_object == nullptr!");
+        return false;
+    }
+
+    if (DataBase::Storage::getInstance().getStorage().find(p_client_object->ID()) ==
+        DataBase::Storage::getInstance().getStorage().end())
+    {
+        MESSAGEWR("early calling of storage!");
+        return false;
+    }
+
+    if (DataBase::Storage::getInstance().getStorage().at(p_client_object->ID()).getSchemes().at("wounded") == nullptr)
+        return false;
+
+    
+    // Lord: проверить на использование nil
+    return (DataBase::Storage::getInstance().getStorage().at(p_client_object->ID()).getSchemes().at("wounded").getWoundedManager()->getStateName().empty() == false); 
+}
+
+inline void hit_callback(const std::uint16_t npc_id)
+{
+    if (DataBase::Storage::getInstance().getStorage().at(npc_id).getSchemes().at("wounded"))
+        DataBase::Storage::getInstance()
+            .getStorage()
+            .at(npc_id)
+            .getSchemes()
+            .at("wounded")
+            ->getWoundedManager()
+            ->hit_callback();
+}
+
+bool is_heavy_wounded(const std::uint16_t npc_id) { return false; }
+
+bool is_psy_wounded_by_id(const std::uint16_t npc_id) { return false; }
+
 } // namespace Globals
 } // namespace Scripts
 } // namespace Cordis
