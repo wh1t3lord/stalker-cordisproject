@@ -3438,7 +3438,7 @@ inline bool is_wounded(CScriptGameObject* const p_client_object)
 
     
     // Lord: проверить на использование nil
-    return (DataBase::Storage::getInstance().getStorage().at(p_client_object->ID()).getSchemes().at("wounded").getWoundedManager()->getStateName().empty() == false); 
+    return (DataBase::Storage::getInstance().getStorage().at(p_client_object->ID()).getSchemes().at("wounded")->getWoundedManager()->getStateName().empty() == false); 
 }
 
 inline void hit_callback(const std::uint16_t npc_id)
@@ -3453,9 +3453,59 @@ inline void hit_callback(const std::uint16_t npc_id)
             ->hit_callback();
 }
 
-bool is_heavy_wounded(const std::uint16_t npc_id) { return false; }
+inline bool is_heavy_wounded(const std::uint16_t npc_id) 
+{
+    if (DataBase::Storage::getInstance().getStorage().find(npc_id) == DataBase::Storage::getInstance().getStorage().end())
+    {
+        MESSAGEWR("early calling, storage maybe not prepared");
+        return false;
+    }
 
-bool is_psy_wounded_by_id(const std::uint16_t npc_id) { return false; }
+    if (npc_id == Globals::kUnsignedInt32Undefined)
+    {
+        MESSAGEWR("bad id check code!");
+        return false;
+    }
+
+    if (DataBase::Storage::getInstance().getStorage().at(npc_id).getSchemes().at("wounded"))
+        return (DataBase::Storage::getInstance().getStorage().at(npc_id).getSchemes().at("wounded")->getWoundedManager()->getStateName().empty() == false);
+
+    return false;
+}
+
+inline bool is_psy_wounded_by_id(const std::uint16_t npc_id)
+{
+    if (DataBase::Storage::getInstance().getStorage().find(npc_id) == DataBase::Storage::getInstance().getStorage().end())
+    {
+        MESSAGEWR("early calling, storage maybe not prepared!");
+        return false;
+    }
+
+    if (npc_id == Globals::kUnsignedInt32Undefined)
+    {
+        MESSAGEWR("bad id check code!");
+        return false;
+    }
+
+    xr_vector<xr_string> states;
+    states.emplace_back("psy_pain");
+    states.emplace_back("psy_armed");
+    states.emplace_back("psy_shoot");
+    states.emplace_back("psycho_pain");
+    states.emplace_back("psycho_shoot");
+
+    DataBase::Storage_Scheme* p_storage = DataBase::Storage::getInstance().getStorage().at(npc_id).getSchemes().at("wounded");
+    if (p_storage)
+    {
+        for (const xr_string& it : states)
+        {
+            if (p_storage->getWoundedManager()->getStateName() == it)
+                return true;
+        }
+    }
+
+    return false;
+}
 
 } // namespace Globals
 } // namespace Scripts
