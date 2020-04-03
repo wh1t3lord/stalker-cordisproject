@@ -68,6 +68,7 @@ namespace Cordis
 			std::uint32_t get_key_from_distance(const xr_map<std::uint32_t, std::tuple<std::uint32_t, xr_map<std::uint32_t, CondlistData>, xr_map<std::uint32_t, CondlistData>>>& data, const std::uint32_t health);
 			inline void unlock_medkit(void) { this->m_is_can_use_medkit = true; }
 			inline bool isCanUseMedkit(void) const noexcept { return this->m_is_can_use_medkit; }
+            inline const xr_string& getStateName(void) const noexcept { return this->m_state_name; }
 		private:
 			bool m_is_can_use_medkit;
 			CScriptGameObject* m_p_npc;

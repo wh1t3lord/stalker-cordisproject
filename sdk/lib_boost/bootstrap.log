@@ -1,9 +1,9 @@
 LOCALAPPDATA=C:\Users\user\AppData\Local
-Found with vswhere C:\Program Files (x86)\Microsoft Visual Studio\2017\Professional
-Found with vswhere C:\Program Files (x86)\Microsoft Visual Studio\2017\Professional
-Call_If_Exists "C:\Program Files (x86)\Microsoft Visual Studio\2017\Professional\Common7\Tools\..\..\VC\Auxiliary\Build\vcvarsall.bat"  x86
+Found with vswhere D:\Visual Studio 2017 Enterprise
+Found with vswhere D:\Visual Studio 2017 Enterprise
+Call_If_Exists "D:\Visual Studio 2017 Enterprise\Common7\Tools\..\..\VC\Auxiliary\Build\vcvarsall.bat"  x86
 **********************************************************************
-** Visual Studio 2017 Developer Command Prompt v15.9.21
+** Visual Studio 2017 Developer Command Prompt v15.9.18
 ** Copyright (c) 2017 Microsoft Corporation
 **********************************************************************
 [vcvarsall.bat] Environment initialized for: 'x86'
@@ -11,7 +11,7 @@ Call_If_Exists "C:\Program Files (x86)\Microsoft Visual Studio\2017\Professional
 ### Using 'vc141' toolset.
 ###
 
-C:\Users\user\modding\cordisproject\sdk\lib_boost\tools\build\src\engine>cl /nologo /Zi /MT /TP /Feb2 /wd4996 /Ox /GL   -DNDEBUG  builtins.cpp class.cpp command.cpp compile.cpp constants.cpp cwd.cpp debug.cpp debugger.cpp execcmd.cpp execnt.cpp filent.cpp filesys.cpp frames.cpp function.cpp glob.cpp hash.cpp hcache.cpp hdrmacro.cpp headers.cpp jam.cpp jambase.cpp jamgram.cpp lists.cpp make.cpp make1.cpp md5.cpp mem.cpp modules.cpp native.cpp object.cpp option.cpp output.cpp parse.cpp pathnt.cpp pathsys.cpp regexp.cpp rules.cpp scan.cpp search.cpp strings.cpp subst.cpp sysinfo.cpp timestamp.cpp variable.cpp w32_getreg.cpp modules/order.cpp modules/path.cpp modules/property-set.cpp modules/regex.cpp modules/sequence.cpp modules/set.cpp /link kernel32.lib advapi32.lib user32.lib 
+D:\Cordis Project\Xray\sdk\lib_boost\tools\build\src\engine>cl /nologo /Zi /MT /TP /Feb2 /wd4996 /Ox /GL   -DNDEBUG  builtins.cpp class.cpp command.cpp compile.cpp constants.cpp cwd.cpp debug.cpp debugger.cpp execcmd.cpp execnt.cpp filent.cpp filesys.cpp frames.cpp function.cpp glob.cpp hash.cpp hcache.cpp hdrmacro.cpp headers.cpp jam.cpp jambase.cpp jamgram.cpp lists.cpp make.cpp make1.cpp md5.cpp mem.cpp modules.cpp native.cpp object.cpp option.cpp output.cpp parse.cpp pathnt.cpp pathsys.cpp regexp.cpp rules.cpp scan.cpp search.cpp strings.cpp subst.cpp sysinfo.cpp timestamp.cpp variable.cpp w32_getreg.cpp modules/order.cpp modules/path.cpp modules/property-set.cpp modules/regex.cpp modules/sequence.cpp modules/set.cpp /link kernel32.lib advapi32.lib user32.lib 
 builtins.cpp
 class.cpp
 command.cpp
@@ -68,15 +68,16 @@ set.cpp
 Generating code
 Finished generating code
 
-C:\Users\user\modding\cordisproject\sdk\lib_boost\tools\build\src\engine>dir *.exe 
- Том в устройстве C не имеет метки.
- Серийный номер тома: 1803-252E
+D:\Cordis Project\Xray\sdk\lib_boost\tools\build\src\engine>dir *.exe 
+ Volume in drive D has no label.
+ Volume Serial Number is FC19-67AE
 
- Содержимое папки C:\Users\user\modding\cordisproject\sdk\lib_boost\tools\build\src\engine
+ Directory of D:\Cordis Project\Xray\sdk\lib_boost\tools\build\src\engine
 
-28.03.2020  21:27           867 328 b2.exe
-               1 файлов        867 328 байт
-               0 папок  425 924 534 272 байт свободно
+03/04/2020  15:19           867.328 b2.exe
+29/03/2020  08:47           867.328 bjam.exe
+               2 File(s)      1.734.656 bytes
+               0 Dir(s)  173.058.310.144 bytes free
 
-C:\Users\user\modding\cordisproject\sdk\lib_boost\tools\build\src\engine>copy /b .\b2.exe .\bjam.exe 
-Скопировано файлов:         1.
+D:\Cordis Project\Xray\sdk\lib_boost\tools\build\src\engine>copy /b .\b2.exe .\bjam.exe 
+        1 file(s) copied.

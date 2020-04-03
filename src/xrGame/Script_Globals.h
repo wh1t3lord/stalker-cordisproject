@@ -327,6 +327,14 @@ inline void start_harmonica(CScriptGameObject* const p_npc);
 inline bool is_npc_asleep(CScriptGameObject* const p_npc);
 #pragma endregion
 
+#pragma region Cordis XR Wounded
+inline void unlock_medkit(CScriptGameObject* const p_client_object);
+inline bool is_wounded(CScriptGameObject* const p_client_object);
+inline void hit_callback(const std::uint16_t npc_id);
+inline bool is_heavy_wounded(const std::uint16_t npc_id);
+inline bool is_psy_wounded_by_id(const std::uint16_t npc_id);
+#pragma endregion
+
 } // namespace Globals
 } // namespace Scripts
 } // namespace Cordis
