@@ -452,7 +452,8 @@ public:
 
     void set_enemy_callback(const luabind::functor<bool>& functor);
     void set_enemy_callback(const luabind::functor<bool>& functor, const luabind::adl::object& object);
-    void set_enemy_callback();
+    void set_enemy_callback(std::function<bool(CScriptGameObject* const, CScriptGameObject* const)>& func);
+    void delete_enemy_callback(void);
 
     //////////////////////////////////////////////////////////////////////////////////////
     ////////////////////////////use calback///////////////////////////////////////////////

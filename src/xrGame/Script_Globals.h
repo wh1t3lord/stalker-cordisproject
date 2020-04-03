@@ -335,6 +335,8 @@ inline bool is_heavy_wounded(const std::uint16_t npc_id);
 inline bool is_psy_wounded_by_id(const std::uint16_t npc_id);
 #pragma endregion
 
+ 
+
 } // namespace Globals
 } // namespace Scripts
 } // namespace Cordis

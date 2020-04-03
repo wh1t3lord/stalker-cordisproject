@@ -136,17 +136,35 @@ void CScriptGameObject::set_enemy_callback(const luabind::functor<bool>& functor
     //   monster->memory().enemy().useful_callback().set(functor, object);
 }
 
-void CScriptGameObject::set_enemy_callback()
+void CScriptGameObject::set_enemy_callback(std::function<bool(CScriptGameObject* const, CScriptGameObject* const)>& func)
+{
+    if (func == nullptr)
+    {
+        MESSAGEWR("If you want delete function call the delete_enemy_callback() function!");
+        return;
+    }
+
+    CCustomMonster* monster = smart_cast<CCustomMonster*>(&this->object());
+
+    if (!monster)
+    {
+        MESSAGEWR("bad cast can't cast to CCustomMonster!");
+        return;
+    }
+
+    monster->memory().enemy().setUsefulCallback(func);
+}
+
+void CScriptGameObject::delete_enemy_callback(void)
 {
     CCustomMonster* monster = smart_cast<CCustomMonster*>(&object());
     if (!monster)
     {
-        GEnv.ScriptEngine->script_log(
-            LuaMessageType::Error, "CCustomMonster : cannot access class member set_enemy_callback!");
+        MESSAGEWR("bad cast can't cast to CCustomMonster");
         return;
     }
-    // Lord - [Script] Re-write
-    //  monster->memory().enemy().useful_callback().clear();
+
+    monster->memory().enemy().setUsefulCallback(nullptr);
 }
 
 void CScriptGameObject::SetCallback(GameObject::ECallbackType type, const luabind::functor<void>& functor)
