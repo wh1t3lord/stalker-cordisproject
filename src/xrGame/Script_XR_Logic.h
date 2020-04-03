@@ -1965,18 +1965,18 @@ inline bool pstor_retrieve_bool(CScriptGameObject* object, const xr_string& varn
     return false;
 }
 
-inline std::uint8_t pstor_retrieve_number(CScriptGameObject* object, const xr_string& varname)
+inline float pstor_retrieve_number(CScriptGameObject* object, const xr_string& varname)
 {
     if (!object)
     {
         R_ASSERT2(false, "object was null!");
-        return std::uint8_t(0);
+        return 0.0f;
     }
 
     if (!varname.size())
     {
         R_ASSERT2(false, "can't be an empty string!");
-        return std::uint8_t(0);
+        return 0.0f;
     }
 
     if (DataBase::Storage::getInstance().getStorage().at(object->ID()).getPStor().at(varname).IsInitializedNumber())
@@ -1984,11 +1984,9 @@ inline std::uint8_t pstor_retrieve_number(CScriptGameObject* object, const xr_st
         return DataBase::Storage::getInstance().getStorage().at(object->ID()).getPStor().at(varname).getNumber();
     }
 
-    Msg("[Scripts/XR_LOGIC/pstor_retrieve_number(object, varname)] WARNING: returning a default value, because can't "
-        "find current value by string index -> [%s]",
-        varname.c_str());
+	MESSAGEWR("returning a default value, because can't  find current value by string index -> [%s]", varname.c_str())
 
-    return std::uint8_t(0);
+    return 0.0f;
 }
 
 inline xr_string pstor_retrieve_string(CScriptGameObject* object, const xr_string& varname)
@@ -2034,7 +2032,7 @@ inline void pstor_store(CScriptGameObject* object, const xr_string& varname, con
     DataBase::Storage::getInstance().setPStorBool(object->ID(), varname, value);
 }
 
-inline void pstor_store(CScriptGameObject* object, const xr_string& varname, const std::uint8_t value)
+inline void pstor_store(CScriptGameObject* object, const xr_string& varname, const std::uint32_t value)
 {
     if (!object)
     {

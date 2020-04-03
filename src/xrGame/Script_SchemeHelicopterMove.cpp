@@ -185,9 +185,10 @@ void Script_SchemeHelicopterMove::reset_scheme(const bool is_loading, CScriptGam
 
 void Script_SchemeHelicopterMove::save(void)
 {
-    XR_LOGIC::pstor_store(this->m_npc, "st", this->m_state);
-    XR_LOGIC::pstor_store(this->m_npc, "li", static_cast<std::uint8_t>(this->m_last_index));
-    XR_LOGIC::pstor_store(this->m_npc, "ni", static_cast<std::uint8_t>(this->m_next_index));
+    // Lord: желательно переделать
+    XR_LOGIC::pstor_store(this->m_npc, "st", static_cast<std::uint32_t>(this->m_state));
+    XR_LOGIC::pstor_store(this->m_npc, "li", static_cast<std::uint32_t>(this->m_last_index));
+    XR_LOGIC::pstor_store(this->m_npc, "ni", static_cast<std::uint32_t>(this->m_next_index));
     XR_LOGIC::pstor_store(this->m_npc, "wc", this->m_is_callback);
 }
 

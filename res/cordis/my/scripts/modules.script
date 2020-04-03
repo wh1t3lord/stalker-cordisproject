@@ -34,7 +34,7 @@ load_scheme("xr_patrol",						"patrol",			stype_stalker) --
 load_scheme("xr_smartcover",					"smartcover",		stype_stalker) --
 load_scheme("xr_companion",						"companion",		stype_stalker) -- Not used!!!
 load_scheme("xr_animpoint",						"animpoint",		stype_stalker) -- 
-load_scheme("xr_reach_task",					"reach_task",		stype_stalker) -- Not used!!!
+load_scheme("xr_reach_task",					"reach_task",		stype_stalker) -- 
 
 ----------------------------------------------------------------------
 -- Загрузка модулей монстров:

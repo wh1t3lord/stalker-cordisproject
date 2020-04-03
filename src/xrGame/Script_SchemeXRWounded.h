@@ -17,6 +17,19 @@ namespace Cordis
 			DataBase::Storage_Scheme* m_p_storage;
 		};
 
+		class Script_EvaluatorCanFight : public CScriptPropertyEvaluator
+		{
+		public:
+			Script_EvaluatorCanFight(void) = delete;
+			Script_EvaluatorCanFight(const xr_string& name, DataBase::Storage_Scheme& storage) : CScriptPropertyEvaluator(nullptr, name.c_str()), m_p_storage(&storage) {}
+			~Script_EvaluatorCanFight(void);
+
+			virtual _value_type evaluate(void);
+
+		private:
+			DataBase::Storage_Scheme* m_p_storage;
+		};
+
 
 		class Script_SchemeXRWounded : public CScriptActionBase
 		{
@@ -41,10 +54,24 @@ namespace Cordis
 			Script_WoundedManager(CScriptGameObject* const p_client_object, DataBase::Storage_Scheme& storage);
 			~Script_WoundedManager(void);
 
+			void update(void);
+			void eat_medkit(void);
+			void process_fight(const std::uint32_t health, xr_string& result_name);
+			void process_victim(const std::uint32_t health, xr_string& result_name);
+			void process_hp_wound(const std::uint32_t health, xr_string& state_name, xr_string& sound_name);
+			void process_psy_wound(const std::uint32_t health, xr_string& state_name, xr_string& sound_name);
+			void hit_callback(void);
+			std::uint32_t get_key_from_distance(const xr_map<std::uint32_t, std::tuple<std::uint32_t, xr_map<std::uint32_t, CondlistData>, xr_map<std::uint32_t, CondlistData>>>& data, const std::uint32_t health);
+			inline void unlock_medkit(void) { this->m_is_can_use_medkit = true; }
+			inline bool isCanUseMedkit(void) const noexcept { return this->m_is_can_use_medkit; }
 		private:
 			bool m_is_can_use_medkit;
 			CScriptGameObject* m_p_npc;
 			DataBase::Storage_Scheme* m_p_storage;
+			xr_string m_state_name;
+			xr_string m_sound_name;
+			xr_string m_fight_name;
+			xr_string m_victim_name;
 		};
 	}
 }

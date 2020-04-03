@@ -824,6 +824,76 @@ inline xr_map<std::uint32_t, xr_map<std::uint32_t, CondlistData>> parse_data_1v(
     return result;
 }
 
+inline xr_map<std::uint32_t, std::tuple<std::uint32_t, xr_map<std::uint32_t, CondlistData>, xr_map<std::uint32_t, CondlistData>>> parse_data(const xr_string& buffer_name)
+{
+    xr_map<std::uint32_t, std::tuple<std::uint32_t, xr_map<std::uint32_t, CondlistData>, xr_map<std::uint32_t, CondlistData>>> result;
+
+    if (buffer_name.empty())
+    {
+        MESSAGEWR("string is empty can't parse data");
+        return result;
+    }
+
+	boost::regex rgx("\\w+|[^\\|\\[\\]]+");
+	boost::sregex_token_iterator iter(buffer_name.begin(), buffer_name.end(), rgx);
+	boost::sregex_token_iterator end;
+	bool is_condlist_found = false;
+    bool is_first = true;
+	xr_string previous_data;
+    std::uint32_t index = 0;
+	for (; iter != end; ++iter)
+	{
+		xr_string temporary = iter->str().c_str();
+		boost::algorithm::trim(temporary);
+        if (temporary.empty())
+        {
+            R_ASSERT2(false, "it can't be! Check your string data");
+            return result;
+        }
+
+        if (is_first)
+        {
+            if ((atoi(temporary.c_str()) == 0) && (temporary != "0"))
+            {
+                R_ASSERT2(false, "first value must be integer or number not a real string!");
+                return result;
+            }
+            is_first = false;
+        }
+
+		if (!is_condlist_found)
+		{
+			previous_data = temporary;
+			is_condlist_found = true;
+			continue;
+		}
+
+		if (atoi(temporary.c_str()) != 0)
+		{
+			R_ASSERT2(false, "can't be it must be a string or condlist!!!");
+		}
+
+        std::tuple<std::uint32_t, xr_map<std::uint32_t, CondlistData>, xr_map<std::uint32_t, CondlistData>> data;
+        std::get<0>(data) = atoi(previous_data.c_str());
+        if (temporary.find('@') != xr_string::npos)
+        {
+            xr_string state_name = temporary.substr(0, temporary.find('@'));
+            xr_string sound_name = temporary.substr(temporary.rfind('@') + 1);
+
+            std::get<1>(data) = XR_LOGIC::parse_condlist_by_script_object(previous_data, state_name, state_name);
+            std::get<2>(data) = XR_LOGIC::parse_condlist_by_script_object(previous_data, sound_name, sound_name);
+        }
+        else
+        {
+            std::get<1>(data) = XR_LOGIC::parse_condlist_by_script_object(previous_data, temporary, temporary);
+        }
+
+        result[index] = data;
+		is_condlist_found = false;
+        ++index;
+	}
+}
+
 } // namespace Utils
 
 namespace Game
