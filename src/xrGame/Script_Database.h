@@ -23,6 +23,7 @@ class Storage_Data;
 #include "Script_TaskManager.h"
 #include "Script_SchemeXRKamp.h"
 #include "Script_SchemeXRMeet.h"
+#include "Script_SchemeXRWounded.h"
 
 namespace Cordis
 {
@@ -219,6 +220,12 @@ public:
         {
             MESSAGE("deleting meet manager from %s", this->m_p_npc->Name());
             xr_delete(this->m_p_meet_manager);
+        }
+
+        if (this->m_p_wounded_manager)
+        {
+            MESSAGE("deleting wounded manager from %s", this->m_p_npc->Name());
+            xr_delete(this->m_p_wounded_manager);
         }
 
         this->m_p_npc = nullptr;
@@ -1916,6 +1923,104 @@ public:
     }
 #pragma endregion
 
+#pragma region Cordis Scheme XR Wounded
+    inline bool isXRWoundedSet(void) const noexcept { return this->m_is_xr_wounded_set; }
+    inline void setXRWoundedSet(const bool value) noexcept { this->m_is_xr_wounded_set = value; }
+
+    inline bool isXRWoundedUseMedkit(void) const noexcept { return this->m_is_xr_wounded_use_medkit; }
+    inline void setXRWoundedUseMedkit(const bool value) noexcept { this->m_is_xr_wounded_use_medkit = value; }
+
+    inline bool isXRWoundedAutoHeal(void) const noexcept { return this->m_is_xr_wounded_autoheal; }
+    inline void setXRWoundedAutoHeal(const bool value) noexcept { this->m_is_xr_wounded_autoheal = value; }
+
+    inline bool isXRWoundedEnableTalk(void) const noexcept { return this->m_is_xr_wounded_enable_talk; }
+    inline void setXRWoundedEnableTalk(const bool value) noexcept { this->m_is_xr_wounded_enable_talk = value; }
+
+    inline bool isXRWoundedNotForHelp(void) const noexcept { return this->m_is_xr_wounded_not_for_help; }
+    inline void setXRWoundedNotForHelp(const bool value) noexcept { this->m_is_xr_wounded_not_for_help = value; }
+
+    inline const xr_string& getXRWoundedHelpDialogName(void) const noexcept { return this->m_xr_wounded_help_dialog_name; }
+    inline void setXRWoundedHelpDialogName(const xr_string& dialog_name) noexcept 
+    {
+        if (dialog_name.empty())
+        {
+            MESSAGEW("you are trying to set an empty string!");
+        }
+
+        this->m_xr_wounded_help_dialog_name = dialog_name;
+    }
+
+    inline const xr_string& getXRWoundedHelpStartDialogName(void) const noexcept { return this->m_xr_wounded_help_start_dialog_name; }
+    inline void setXRWoundedHelpStartDialogName(const xr_string& dialog_start_name) noexcept 
+    {
+        if (dialog_start_name.empty()) 
+        {
+            MESSAGEW("you are trying to set an empty string!");
+        } 
+
+        this->m_xr_wounded_help_start_dialog_name = dialog_start_name;
+    }
+
+    inline const xr_map<std::uint32_t, std::tuple<std::uint32_t, xr_map<std::uint32_t, CondlistData>, xr_map<std::uint32_t, CondlistData>>>& getXRWoundedHealthState(void) const noexcept { return this->m_xr_wounded_health_state; }
+    inline void setXRWoundedHealthState(xr_map<std::uint32_t, std::tuple<std::uint32_t, xr_map<std::uint32_t, CondlistData>, xr_map<std::uint32_t, CondlistData>>>& data) noexcept
+    {
+        this->m_xr_wounded_health_state = data;
+    }
+
+    inline const xr_map<std::uint32_t, std::tuple<std::uint32_t, xr_map<std::uint32_t, CondlistData>, xr_map<std::uint32_t, CondlistData>>>& getXRWoundedHealthStateSee(void) const noexcept { return this->m_xr_wounded_health_state_see; }
+    inline void setXRWoundedHealthStateSee(xr_map<std::uint32_t, std::tuple<std::uint32_t, xr_map<std::uint32_t, CondlistData>, xr_map<std::uint32_t, CondlistData>>>& data) noexcept 
+    {
+        this->m_xr_wounded_health_state_see = data;
+    }
+
+    inline const xr_map<std::uint32_t, std::tuple<std::uint32_t, xr_map<std::uint32_t, CondlistData>, xr_map<std::uint32_t, CondlistData>>>& getXRWoundedPsyState(void) const noexcept { return this->m_xr_wounded_psy_state; }
+    inline void setXRWoundedPsyState(xr_map<std::uint32_t, std::tuple<std::uint32_t, xr_map<std::uint32_t, CondlistData>, xr_map<std::uint32_t, CondlistData>>>& data) noexcept 
+    {
+        this->m_xr_wounded_psy_state = data;
+    }
+
+    inline const xr_map<std::uint32_t, std::tuple<std::uint32_t, xr_map<std::uint32_t, CondlistData>, xr_map<std::uint32_t, CondlistData>>>& getXRWoundedHealthVictim(void) const noexcept { return this->m_xr_wounded_health_victim; }
+    inline void setXRWoundedHealthVictim(xr_map<std::uint32_t, std::tuple<std::uint32_t, xr_map<std::uint32_t, CondlistData>, xr_map<std::uint32_t, CondlistData>>>& data) noexcept 
+    {
+        this->m_xr_wounded_health_victim = data;
+    }
+
+    inline const xr_map<std::uint32_t, std::tuple<std::uint32_t, xr_map<std::uint32_t, CondlistData>, xr_map<std::uint32_t, CondlistData>>>& getXRWoundedHealthCover(void) const noexcept { return this->m_xr_wounded_health_cover; }
+    inline void setXRWoundedHealthCover(xr_map<std::uint32_t, std::tuple<std::uint32_t, xr_map<std::uint32_t, CondlistData>, xr_map<std::uint32_t, CondlistData>>>& data) noexcept 
+    {
+        this->m_xr_wounded_health_cover = data;
+    }
+
+    inline const xr_map<std::uint32_t, std::tuple<std::uint32_t, xr_map<std::uint32_t, CondlistData>, xr_map<std::uint32_t, CondlistData>>>& getXRWoundedHealthFight(void) const noexcept { return this->m_xr_wounded_health_fight; }
+    inline void setXRWoundedHealthFight(xr_map<std::uint32_t, std::tuple<std::uint32_t, xr_map<std::uint32_t, CondlistData>, xr_map<std::uint32_t, CondlistData>>>& data) noexcept 
+    {
+        this->m_xr_wounded_health_cover = data;
+    }
+
+    inline const xr_string& getXRWoundedWoundedSectionName(void) const noexcept { return this->m_xr_wounded_wounded_section_name; }
+    inline void setXRWoundedWoundedSectionName(const xr_string& section_name) noexcept 
+    {
+        if (section_name.empty())
+        {
+            MESSAGEW("you are trying to set an empty string!");
+        }
+
+        this->m_xr_wounded_wounded_section_name = section_name;
+    }
+
+    inline Script_WoundedManager* getWoundedManager(void) const { return this->m_p_wounded_manager; }
+    inline void setWoundedManager(Script_WoundedManager* const p_manager) 
+    {
+        if (!p_manager)
+        {
+            R_ASSERT2(false, "can't be you must allocate manager!");
+            return;
+        }
+
+        this->m_p_wounded_manager = p_manager;
+    }
+#pragma endregion
+
 private:
     // @ Не понятно зачем в итоге но так у ПЫС, если в итоге оно находится в самом сторадже где уже зарегистрирован
     // сам НПС
@@ -1957,6 +2062,11 @@ private:
     bool m_is_xr_camper_no_retreat = false;
     bool m_is_xr_meet_meet_only_at_path = true;
     bool m_is_xr_meet_set = false;
+    bool m_is_xr_wounded_set = false;
+    bool m_is_xr_wounded_use_medkit = false;
+    bool m_is_xr_wounded_autoheal = false;
+    bool m_is_xr_wounded_enable_talk = false;
+    bool m_is_xr_wounded_not_for_help = false;
     std::uint16_t m_xr_corpse_detection_selected_corpse_id = 0;
     std::uint16_t m_selected_id = 0;
     std::uint16_t m_xr_remark_target_id = 0;
@@ -2034,6 +2144,7 @@ private:
     CUIStatic* m_p_sr_timer_timer = nullptr;
     Script_XRAbuseManager* m_p_abuse_manager = nullptr;
     Script_XRMeetManager* m_p_meet_manager = nullptr;
+    Script_WoundedManager* m_p_wounded_manager = nullptr;
     Fvector m_offset;
     Fvector m_ph_force_point;
     Fvector m_vertex_position;
@@ -2073,6 +2184,12 @@ private:
     xr_map<xr_string, xr_string> m_xr_camper_suggested_states;
     xr_map<xr_string, xr_map<std::uint32_t, CondlistData>> m_ph_code_on_check_code;
     xr_map<std::uint32_t, xr_vector<std::pair<std::uint32_t, Fvector>>> m_xr_camper_scan_table;
+    xr_map<std::uint32_t, std::tuple<std::uint32_t, xr_map<std::uint32_t, CondlistData>, xr_map<std::uint32_t, CondlistData>>> m_xr_wounded_health_state;
+    xr_map<std::uint32_t, std::tuple<std::uint32_t, xr_map<std::uint32_t, CondlistData>, xr_map<std::uint32_t, CondlistData>>> m_xr_wounded_health_state_see;
+    xr_map<std::uint32_t, std::tuple<std::uint32_t, xr_map<std::uint32_t, CondlistData>, xr_map<std::uint32_t, CondlistData>>> m_xr_wounded_psy_state;
+    xr_map<std::uint32_t, std::tuple<std::uint32_t, xr_map<std::uint32_t, CondlistData>, xr_map<std::uint32_t, CondlistData>>> m_xr_wounded_health_victim;
+    xr_map<std::uint32_t, std::tuple<std::uint32_t, xr_map<std::uint32_t, CondlistData>, xr_map<std::uint32_t, CondlistData>>> m_xr_wounded_health_cover;
+    xr_map<std::uint32_t, std::tuple<std::uint32_t, xr_map<std::uint32_t, CondlistData>, xr_map<std::uint32_t, CondlistData>>> m_xr_wounded_health_fight;
     xr_vector<Script_ISchemeEntity*> m_actions;
     xr_vector<LogicData> m_logic;
     xr_vector<std::pair<std::uint32_t, std::pair<xr_string, xr_string>>> m_sr_teleport_points;
@@ -2141,6 +2258,9 @@ private:
     xr_string m_xr_camper_sniper_anim_name;
     xr_string m_xr_camper_shoot_name;
     xr_string m_xr_meet_meet_section_name;
+    xr_string m_xr_wounded_help_dialog_name;
+    xr_string m_xr_wounded_help_start_dialog_name;
+    xr_string m_xr_wounded_wounded_section_name;
     CondlistWaypoints m_path_walk_info;
     CondlistWaypoints m_path_look_info;
 };
@@ -4141,7 +4261,7 @@ public:
         this->m_storage[id].m_pstor[varname].setBool(value);
     }
 
-    inline void setPStorNumber(const std::uint16_t& id, const xr_string& varname, const std::uint8_t& value)
+    inline void setPStorNumber(const std::uint16_t& id, const xr_string& varname, const std::uint32_t value)
     {
         if (id == Globals::kUnsignedInt16Undefined)
         {

@@ -57,7 +57,8 @@ void Script_SchemeSRPsyAntenna::update(const float delta)
 
 void Script_SchemeSRPsyAntenna::save(void)
 {
-    XR_LOGIC::pstor_store(this->m_npc, "inside", static_cast<std::uint8_t>(this->m_state));
+    // Lord: желательно переделать
+    XR_LOGIC::pstor_store(this->m_npc, "inside", static_cast<std::uint32_t>(this->m_state));
 }
 
 void Script_SchemeSRPsyAntenna::set_scheme(CScriptGameObject* const p_client_object, CScriptIniFile* const p_ini,
