@@ -4384,7 +4384,9 @@ $(xrLibDir);$(xrSdkDir)DXSDK/Lib/$(PlatformShortName);
     <ClInclude Include="Script_SchemeXRCombat.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Jumbo|x64'">false</ExcludedFromBuild>
     </ClInclude>
+    <ClInclude Include="Script_SchemeXRCombatCamper.h" />
     <ClInclude Include="Script_SchemeXRCombatIgnore.h" />
+    <ClInclude Include="Script_SchemeXRCombatZombied.h" />
     <ClInclude Include="Script_SchemeXRCorpseDetection.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Jumbo|x64'">false</ExcludedFromBuild>
     </ClInclude>
@@ -9348,7 +9350,13 @@ $(xrLibDir);$(xrSdkDir)DXSDK/Lib/$(PlatformShortName);
     <ClCompile Include="Script_SchemeXRCombat.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Jumbo|x64'">true</ExcludedFromBuild>
     </ClCompile>
+    <ClCompile Include="Script_SchemeXRCombatCamper.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Jumbo|x64'">true</ExcludedFromBuild>
+    </ClCompile>
     <ClCompile Include="Script_SchemeXRCombatIgnore.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Jumbo|x64'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="Script_SchemeXRCombatZombied.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Jumbo|x64'">true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="Script_SchemeXRCorpseDetection.cpp">

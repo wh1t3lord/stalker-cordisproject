@@ -4312,6 +4312,24 @@
     <Filter Include="Cordis\Scripts\Logic\Schemes\XR\Combat\Ignore\Private">
       <UniqueIdentifier>{b549b679-c0f8-44cc-a370-1625677f458c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Cordis\Scripts\Logic\Schemes\XR\Combat\Zombied">
+      <UniqueIdentifier>{f10c4b16-9478-457d-bde2-7297a1db9fec}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Logic\Schemes\XR\Combat\Zombied\Public">
+      <UniqueIdentifier>{374a1ffe-884b-4f88-bb93-6f3232d9a97c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Logic\Schemes\XR\Combat\Zombied\Private">
+      <UniqueIdentifier>{1d11a844-1121-4834-9134-10e36467efbf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Logic\Schemes\XR\Combat\Camper">
+      <UniqueIdentifier>{8067ac2e-0a4b-4bdd-a046-470d590b5467}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Logic\Schemes\XR\Combat\Camper\Public">
+      <UniqueIdentifier>{9a0712d9-8af5-4b43-982d-1657862f162d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Logic\Schemes\XR\Combat\Camper\Private">
+      <UniqueIdentifier>{5337d4b4-91a5-4110-9280-7c3335641fb9}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="mt_config.h">
@@ -9704,6 +9722,12 @@
     <ClInclude Include="Script_SchemeXRCombatIgnore.h">
       <Filter>Cordis\Scripts\Logic\Schemes\XR\Combat\Ignore\Public</Filter>
     </ClInclude>
+    <ClInclude Include="Script_SchemeXRCombatZombied.h">
+      <Filter>Cordis\Scripts\Logic\Schemes\XR\Combat\Zombied\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Script_SchemeXRCombatCamper.h">
+      <Filter>Cordis\Scripts\Logic\Schemes\XR\Combat\Camper\Public</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="damage_manager.cpp">
@@ -14159,6 +14183,12 @@
     </ClCompile>
     <ClCompile Include="Script_SchemeXRCombatIgnore.cpp">
       <Filter>Cordis\Scripts\Logic\Schemes\XR\Combat\Ignore\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Script_SchemeXRCombatZombied.cpp">
+      <Filter>Cordis\Scripts\Logic\Schemes\XR\Combat\Zombied\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Script_SchemeXRCombatCamper.cpp">
+      <Filter>Cordis\Scripts\Logic\Schemes\XR\Combat\Camper\Private</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
