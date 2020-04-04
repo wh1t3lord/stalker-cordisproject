@@ -1,10 +1,10 @@
 #include "stdafx.h"
 #include "Script_SchemeXRCombatCamper.h"
 
-constexpr std::uint32_t kBase = Globals::XR_ACTIONS_ID::XR_EVALUATORS_ID::kCombatCamperBase;
+constexpr std::uint32_t kBase = Cordis::Scripts::Globals::XR_ACTIONS_ID::XR_EVALUATORS_ID::kCombatCamperBase;
 constexpr std::uint32_t kPropEnable = kBase;
 constexpr std::uint32_t kPropSee = kBase + 1;
-constexpr std::uint32_t kActionShoot = Globals::XR_ACTIONS_ID::kCombatCamperBase;
+constexpr std::uint32_t kActionShoot = Cordis::Scripts::Globals::XR_ACTIONS_ID::kCombatCamperBase;
 constexpr std::uint32_t kActionLookAround = kActionShoot + 1;
 
 namespace Cordis
