@@ -2053,6 +2053,14 @@ public:
     inline void setXRCombatZombiedCurrentAction(const std::uint32_t action_id) noexcept { this->m_xr_combat_zombied_current_action = action_id; }
 #pragma endregion
 
+#pragma region Cordis Scheme XR Combat Camper 
+    inline bool isXRCombatCamperAction(void) const noexcept { return this->m_is_xr_combat_camper_action; }
+    inline void setXRCombatCamperAction(const bool value) noexcept { this->m_is_xr_combat_camper_action = value; }
+
+    inline const Fvector& getXRCombatCamperLastSeenPosition(void) const noexcept { return this->m_xr_combat_camper_last_seen_position; }
+    inline void setXRCombatCamperLastSeenPosition(const Fvector& position) noexcept { this->m_xr_combat_camper_last_seen_position = position; }
+#pragma endregion
+
 private:
     // @ Не понятно зачем в итоге но так у ПЫС, если в итоге оно находится в самом сторадже где уже зарегистрирован
     // сам НПС
@@ -2100,6 +2108,7 @@ private:
     bool m_is_xr_wounded_enable_talk = false;
     bool m_is_xr_wounded_not_for_help = false;
     bool m_is_xr_combat_ignore_enabled = false;
+    bool m_is_xr_combat_camper_action = false;
     std::uint16_t m_xr_corpse_detection_selected_corpse_id = 0;
     std::uint16_t m_selected_id = 0;
     std::uint16_t m_xr_remark_target_id = 0;
@@ -2184,6 +2193,7 @@ private:
     Fvector m_ph_force_point;
     Fvector m_vertex_position;
     Fvector m_xr_remark_target_position;
+    Fvector m_xr_combat_camper_last_seen_position;
     std::pair<std::uint32_t, Fvector> m_xr_camper_last_look_point;
     xr_map<xr_string, bool> m_signals;
     xr_map<std::uint32_t, CondlistData> m_dialog_condlist;
