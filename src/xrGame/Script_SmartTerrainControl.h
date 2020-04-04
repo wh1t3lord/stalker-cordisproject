@@ -30,7 +30,7 @@ public:
 
     void update(void);
     bool IsActorTreat(void);
-    // Lord: сделать метод actor_attack(), когда будет xr_sound!
+    void actor_attack(void);
     void load(NET_Packet& packet);
     void save(NET_Packet& packet);
     inline Script_SmartTerrainControl_States& getState(void) noexcept { return this->m_state; }

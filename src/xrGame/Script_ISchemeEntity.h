@@ -13,13 +13,13 @@ public:
     Script_ISchemeEntity(void) = delete;
     Script_ISchemeEntity(CScriptGameObject* client_object, DataBase::Storage_Scheme& storage_scheme)
         : m_npc(client_object), m_p_storage(&storage_scheme),
-          m_id(m_npc ? m_npc->ID() : Globals::kUnsignedInt32Undefined), m_is_subscribed_action(false), m_scheme_id(0)
+          m_id(m_npc ? m_npc->ID() : Globals::kUnsignedInt32Undefined), m_is_subscribed_action(true), m_scheme_id(0)
     {
         this->m_scheme_id = (++m_generate_scheme_id);
 
         if (this->m_id == Globals::kUnsignedInt16Undefined)
         {
-            Msg("[Scripts/Script_ISchemeEntity/ctor()] WARNING: m_id == std::uint32_t(-1)");
+            MESSAGEW("bad id of npc!");
         }
     }
 
