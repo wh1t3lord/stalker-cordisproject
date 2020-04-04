@@ -84,6 +84,27 @@ bool Script_SmartTerrainControl::IsActorTreat(void)
     return false;
 }
 
+void Script_SmartTerrainControl::actor_attack(void)
+{
+    if (this->m_state != Script_SmartTerrainControl_States::kAlarm)
+    {
+        xr_string sound_name = XR_LOGIC::pick_section_from_condlist(DataBase::Storage::getInstance().getActor(), this->m_smart, this->m_alarm_start_sound);
+
+        if (sound_name.empty() == false)
+        {
+            XR_SOUND::set_sound_play(DataBase::Storage::getInstance().getActor()->ID(), sound_name, xr_string(), 0);
+        }
+
+        for (const std::pair<std::uint32_t, Script_SE_SimulationSquad*> it : Script_SimulationBoard::getInstance().getSmarts().at(this->m_smart->ID).getSquads())
+        {
+            Globals::GameRelations::set_squad_goodwill(std::to_string(it.first).c_str(), "enemy");
+        }
+    }
+
+    this->m_state = Script_SmartTerrainControl_States::kAlarm;
+    this->m_alarm_time = Globals::Game::get_game_time();
+}
+
 void Script_SmartTerrainControl::load(NET_Packet& packet) 
 {
     Globals::set_save_marker(packet, Globals::kSaveMarkerMode_Load, false, "Script_SmartTerrainControl");

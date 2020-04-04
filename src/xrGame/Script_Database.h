@@ -275,7 +275,7 @@ public:
                     Msg("[Scripts/DataBase/Storage_Scheme/UnSubscribeAction()] unsubscribe action for npc %s %d",
                         it->getSchemeName().c_str(), it->getID());
                     it->unsubscribe_action();
-                    break;
+                    return;
                 }
             }
         }
@@ -2045,6 +2045,9 @@ public:
     inline void setXRCombatIgnoreEnabled(const bool value) noexcept { this->m_is_xr_combat_ignore_enabled = value; }
 #pragma endregion
 
+    inline void setAction(Script_ISchemeEntity* const p_action) { this->m_p_action = p_action; }
+    inline Script_ISchemeEntity* getAction(void) const { return this->m_p_action; }
+
 private:
     // @ Не понятно зачем в итоге но так у ПЫС, если в итоге оно находится в самом сторадже где уже зарегистрирован
     // сам НПС
@@ -2170,6 +2173,7 @@ private:
     Script_XRAbuseManager* m_p_abuse_manager = nullptr;
     Script_XRMeetManager* m_p_meet_manager = nullptr;
     Script_WoundedManager* m_p_wounded_manager = nullptr;
+    Script_ISchemeEntity* m_p_action = nullptr; // @ Здесь он не удаляется, пробрасываетс специально такой дизайн пыс (
     Fvector m_offset;
     Fvector m_ph_force_point;
     Fvector m_vertex_position;
