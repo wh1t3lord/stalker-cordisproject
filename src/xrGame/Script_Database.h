@@ -2048,6 +2048,11 @@ public:
     inline void setAction(Script_ISchemeEntity* const p_action) { this->m_p_action = p_action; }
     inline Script_ISchemeEntity* getAction(void) const { return this->m_p_action; }
 
+#pragma region Cordis Scheme XR Combat Zombied
+    inline std::uint32_t getXRCombatZombiedCurrentAction(void) const noexcept { return this->m_xr_combat_zombied_current_action; }
+    inline void setXRCombatZombiedCurrentAction(const std::uint32_t action_id) noexcept { this->m_xr_combat_zombied_current_action = action_id; }
+#pragma endregion
+
 private:
     // @ Не понятно зачем в итоге но так у ПЫС, если в итоге оно находится в самом сторадже где уже зарегистрирован
     // сам НПС
@@ -2123,6 +2128,7 @@ private:
     std::uint32_t m_xr_camper_scan_begin = 0;
     std::uint32_t m_xr_camper_current_look_point = 0;
     std::uint32_t m_xr_camper_memory_enemy = 0;
+    std::uint32_t m_xr_combat_zombied_current_action = 0;
     const std::uint32_t m_xr_camper_post_enemy_wait = 5000;
     const std::uint32_t m_xr_camper_timedelta = 4000;
     const std::uint32_t m_xr_camper_timescandelta = this->m_xr_camper_timedelta / this->m_xr_camper_scandelta;

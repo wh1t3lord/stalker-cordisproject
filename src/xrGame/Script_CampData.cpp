@@ -256,7 +256,8 @@ void Script_CampData::update(void)
 
                 for (Script_ISchemeEntity* p_scheme_entity : p_scheme->getActions())
                 {
-                    p_scheme_entity->update(0.0f); // Lord: подумать какое значение передавать
+                    if (p_scheme_entity->isActionSubscribed())
+                        p_scheme_entity->update(0.0f); // Lord: подумать какое значение передавать
                 }
             }
 

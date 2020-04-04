@@ -27,6 +27,7 @@ public:
 
     inline void subscribe_action(void) noexcept
     {
+        MESSAGE("WARNING TO LORD: DELETE THIS FUNCTION!");
         this->m_is_subscribed_action = true;
         Msg("[Scripts/Script_ISchemeEntity/subscribe_action()] action of npc %s %d %s %d is subscribed!", this->m_scheme_name.c_str(), this->m_scheme_id, this->m_npc->Name(), this->m_id);
     }
