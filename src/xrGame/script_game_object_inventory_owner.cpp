@@ -1051,14 +1051,12 @@ u32 CScriptGameObject::accessible_nearest(const Fvector& position, Fvector& resu
     CCustomMonster* monster = smart_cast<CCustomMonster*>(&object());
     if (!monster)
     {
-        GEnv.ScriptEngine->script_log(
-            LuaMessageType::Error, "CRestrictedObject : cannot access class member accessible!");
+        MESSAGEWR("CRestrictedObject : cannot access class member accessible!");
         return (u32(-1));
     }
     if (monster->movement().restrictions().accessible(position))
     {
-        GEnv.ScriptEngine->script_log(LuaMessageType::Error,
-            "CRestrictedObject : you use accessible_nearest when position is already accessible!");
+        MESSAGEWR("CRestrictedObject : you use accessible_nearest when position is already accessible!");
         return (u32(-1));
     }
     return (monster->movement().restrictions().accessible_nearest(position, result));

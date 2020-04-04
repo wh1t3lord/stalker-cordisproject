@@ -150,6 +150,7 @@
 #include "Script_SchemeXRCamper.cpp"
 #include "Script_SchemeXRWounded.cpp"
 #include "Script_SchemeXRCombatIgnore.cpp"
+#include "Script_SchemeXRCombatZombied.cpp"
 #pragma endregion
 
 

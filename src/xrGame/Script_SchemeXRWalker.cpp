@@ -26,8 +26,8 @@ Script_SchemeXRWalker::~Script_SchemeXRWalker(void) {}
 void Script_SchemeXRWalker::initialize(void)
 {
     CScriptActionBase::initialize();
-    this->m_npc->set_desired_position();
-    this->m_npc->set_desired_direction();
+    this->m_object->set_desired_position();
+    this->m_object->set_desired_direction();
     this->reset_scheme(false, this->m_npc);
 }
 
