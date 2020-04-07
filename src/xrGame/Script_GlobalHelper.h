@@ -13044,6 +13044,33 @@ private:
         this->m_xr_combat_ignore_smarts_by_no_assault_zones["zat_a2_sr_no_assault"] = "zat_stalker_base_smart";
         this->m_xr_combat_ignore_smarts_by_no_assault_zones["jup_a6_sr_no_assault"] = "jup_a6";
         this->m_xr_combat_ignore_smarts_by_no_assault_zones["jup_b41_sr_no_assault"] = "jup_b41";
+
+        this->m_xr_patrol_formations["line"].push_back({Fvector().set(-1.0f, 0.0f, 0.0f), 2});
+        this->m_xr_patrol_formations["line"].push_back({Fvector().set(-1.0f, 0.0f, 0.0f), 4});
+        this->m_xr_patrol_formations["line"].push_back({Fvector().set(-1.0f, 0.0f, 0.0f), 6});
+        this->m_xr_patrol_formations["line"].push_back({Fvector().set(1.0f, 0.0f, 0.0f), 2});
+        this->m_xr_patrol_formations["line"].push_back({Fvector().set(1.0f, 0.0f, 0.0f), 4});
+        this->m_xr_patrol_formations["line"].push_back({Fvector().set(1.0f, 0.0f, 0.0f), 6});
+
+		this->m_xr_patrol_formations["back"].push_back({ Fvector().set(0.3f, 0.0f, -1.0f), 1.2f });
+		this->m_xr_patrol_formations["back"].push_back({ Fvector().set(-0.3f, 0.0f, -1.0f), 2.4f });
+		this->m_xr_patrol_formations["back"].push_back({ Fvector().set(0.3f, 0.0f, -1.0f), 3.6f });
+		this->m_xr_patrol_formations["back"].push_back({ Fvector().set(-0.3f, 0.0f, -1.0f), 4.8f });
+		this->m_xr_patrol_formations["back"].push_back({ Fvector().set(0.3f, 0.0f, -1.0f), 6.0f });
+		this->m_xr_patrol_formations["back"].push_back({ Fvector().set(-0.3f, 0.0f, -1.0f), 7.2f });
+
+		this->m_xr_patrol_formations["around"].push_back({ Fvector().set(0.44721359f, 0.0f, -0.89442718f), 2.2360680f });
+		this->m_xr_patrol_formations["around"].push_back({ Fvector().set(-0.44721359f, 0.0f, -0.89442718f), 2.2360680f });
+		this->m_xr_patrol_formations["around"].push_back({ Fvector().set(1.0f, 0.0f, 0.0f), 2.0f });
+		this->m_xr_patrol_formations["around"].push_back({ Fvector().set(-1.0f, 0.0f, -0.0f), 2.0f });
+		this->m_xr_patrol_formations["around"].push_back({ Fvector().set(0.44721359f, 0.0f, 0.89442718f), 2.2360680f });
+		this->m_xr_patrol_formations["around"].push_back({ Fvector().set(-0.44721359f, 0.0f, 0.89442718f), 2.2360680f });
+    
+        this->m_xr_patrol_accel_by_curtype["walk"] = "run";
+        this->m_xr_patrol_accel_by_curtype["patrol"] = "rush";
+        this->m_xr_patrol_accel_by_curtype["raid"] = "assault";
+        this->m_xr_patrol_accel_by_curtype["sneak"] = "sneak_run";
+        this->m_xr_patrol_accel_by_curtype["sneak_run"] = "assault";
         #pragma endregion
     }
 
@@ -14482,6 +14509,10 @@ public:
     inline const xr_map<xr_string, bool>& getXRCombatIgnoreSmarts(void) const noexcept { return this->m_ignored_smart; }
 
     inline const xr_map<xr_string, xr_string>& getXRCombatIgnoreSmartsByNoAssaultZones(void) const noexcept { return this->m_xr_combat_ignore_smarts_by_no_assault_zones; }
+
+    inline const xr_map<xr_string, xr_vector<std::pair<Fvector, std::uint32_t>>>& getXRPatrolFormations(void) const noexcept { return this->m_xr_patrol_formations; }
+
+    inline const xr_map<xr_string, xr_string>& getXRPatrolAccelByCurrentType(void) const noexcept { return this->m_xr_patrol_accel_by_curtype; }
     #pragma endregion
 
 private:
@@ -14547,6 +14578,7 @@ private:
     xr_map<xr_string, xr_string> m_news_manager_registered_sound_tips;
     xr_map<xr_string, xr_string> m_news_manager_action_description_by_type_name;
     xr_map<xr_string, xr_string> m_xr_walker_association;
+    xr_map<xr_string, xr_string> m_xr_patrol_accel_by_curtype;
     xr_map<xr_string, xr_string> m_xr_combat_ignore_smarts_by_no_assault_zones;
     xr_map<xr_string, xr_map<xr_string, xr_string>> m_smart_terrains_translated_name;
     xr_map<xr_string, xr_map<xr_string, std::uint32_t>> m_pri_a25_medic_items;
@@ -14571,6 +14603,7 @@ private:
     xr_map<std::uint32_t, xr_map<xr_string, std::uint32_t>> m_zat_b51_costs_table;
     xr_map<std::uint32_t, xr_map<std::uint32_t, xr_vector<xr_string>>> m_zat_b51_buy_item_table;
     xr_map<xr_string, xr_map<xr_string, xr_string>> m_task_guiders_by_level;
+    xr_map<xr_string, xr_vector<std::pair<Fvector, std::uint32_t>>> m_xr_patrol_formations;
     xr_map<CDangerObject::EDangerType, float> m_xr_danger_ignore_distance_by_danger_type;
     // @ First - id | Second - distance
     std::pair<std::uint32_t, std::uint32_t> m_game_server_nearest_to_actor_smart_terrain;

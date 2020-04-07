@@ -4407,6 +4407,7 @@ $(xrLibDir);$(xrSdkDir)DXSDK/Lib/$(PlatformShortName);
     </ClInclude>
     <ClInclude Include="Script_SchemeXRKamp.h" />
     <ClInclude Include="Script_SchemeXRMeet.h" />
+    <ClInclude Include="Script_SchemeXRPatrol.h" />
     <ClInclude Include="Script_SchemeXRRemark.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Jumbo|x64'">false</ExcludedFromBuild>
     </ClInclude>
@@ -9381,6 +9382,9 @@ $(xrLibDir);$(xrSdkDir)DXSDK/Lib/$(PlatformShortName);
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Jumbo|x64'">true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="Script_SchemeXRMeet.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Jumbo|x64'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="Script_SchemeXRPatrol.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Jumbo|x64'">true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="Script_SchemeXRRemark.cpp">

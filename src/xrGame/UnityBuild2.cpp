@@ -152,6 +152,7 @@
 #include "Script_SchemeXRCombatIgnore.cpp"
 #include "Script_SchemeXRCombatZombied.cpp"
 #include "Script_SchemeXRCombatCamper.cpp"
+#include "Script_SchemeXRPatrol.cpp"
 #pragma endregion
 
 
