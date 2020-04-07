@@ -171,5 +171,8 @@ namespace Cordis
 
 			Globals::set_state(this->m_object, "hide", StateManagerCallbackData(), 0, std::pair<Fvector, CScriptGameObject* const>(this->m_p_storage->getXRCombatCamperLastSeenPosition(), nullptr), StateManagerExtraData());
 		}
-	}
+		Script_EvaluatorCombatCamperSee::~Script_EvaluatorCombatCamperSee(void)
+		{
+		}
+}
 }

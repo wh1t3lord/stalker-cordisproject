@@ -496,6 +496,7 @@ __declspec(dllexport)  CSE_Abstract* xrServer_Create(LPCSTR section, CSE_Motion*
 #include "Script_SchemeXRCombatIgnore.h"
 #include "Script_SchemeXRCombatZombied.h"
 #include "Script_SchemeXRCombatCamper.h"
+#include "Script_SchemeXRPatrol.h"
 #include "Script_Dialogs.h"
 #include "Script_DialogsZaton.h"
 #include "Script_DialogsJupiter.h"

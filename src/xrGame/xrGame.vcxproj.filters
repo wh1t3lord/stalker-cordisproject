@@ -4045,15 +4045,6 @@
     <Filter Include="Cordis\Scripts\Logic\Schemes\XR\Hit\Private">
       <UniqueIdentifier>{ed7d748c-4e68-49c8-9520-a3b60957e531}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Cordis\Scripts\Logic\Schemes\XR\Abuse">
-      <UniqueIdentifier>{15a8e090-2925-4990-8380-d0f68836b3a9}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Cordis\Scripts\Logic\Schemes\XR\Abuse\Public">
-      <UniqueIdentifier>{51ad018d-395c-4bcd-89f3-2bc07eecdbb1}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Cordis\Scripts\Logic\Schemes\XR\Abuse\Private">
-      <UniqueIdentifier>{58f0fb7d-9d96-4eaf-8b78-fffdd46a6c60}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Cordis\Scripts\Logic\Schemes\XR\Combat">
       <UniqueIdentifier>{1cb9f57a-6908-40ef-b6c3-cba38ef4b859}</UniqueIdentifier>
     </Filter>
@@ -4329,6 +4320,24 @@
     </Filter>
     <Filter Include="Cordis\Scripts\Logic\Schemes\XR\Combat\Camper\Private">
       <UniqueIdentifier>{5337d4b4-91a5-4110-9280-7c3335641fb9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Logic\Schemes\XR\Abuse">
+      <UniqueIdentifier>{15a8e090-2925-4990-8380-d0f68836b3a9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Logic\Schemes\XR\Abuse\Public">
+      <UniqueIdentifier>{51ad018d-395c-4bcd-89f3-2bc07eecdbb1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Logic\Schemes\XR\Abuse\Private">
+      <UniqueIdentifier>{58f0fb7d-9d96-4eaf-8b78-fffdd46a6c60}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Logic\Schemes\XR\Patrol">
+      <UniqueIdentifier>{507f7323-26a7-4e96-a5d6-c5b1c396bc94}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Logic\Schemes\XR\Patrol\Public">
+      <UniqueIdentifier>{a8d57c4c-542a-4084-a0ec-98b726235280}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Logic\Schemes\XR\Patrol\Private">
+      <UniqueIdentifier>{98337b67-b69b-4ca4-8967-d950917c1916}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -9728,6 +9737,9 @@
     <ClInclude Include="Script_SchemeXRCombatCamper.h">
       <Filter>Cordis\Scripts\Logic\Schemes\XR\Combat\Camper\Public</Filter>
     </ClInclude>
+    <ClInclude Include="Script_SchemeXRPatrol.h">
+      <Filter>Cordis\Scripts\Logic\Schemes\XR\Patrol\Public</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="damage_manager.cpp">
@@ -14189,6 +14201,9 @@
     </ClCompile>
     <ClCompile Include="Script_SchemeXRCombatCamper.cpp">
       <Filter>Cordis\Scripts\Logic\Schemes\XR\Combat\Camper\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Script_SchemeXRPatrol.cpp">
+      <Filter>Cordis\Scripts\Logic\Schemes\XR\Patrol\Private</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

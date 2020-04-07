@@ -24,6 +24,7 @@ class Storage_Data;
 #include "Script_SchemeXRKamp.h"
 #include "Script_SchemeXRMeet.h"
 #include "Script_SchemeXRWounded.h"
+#include "Script_SchemeXRPatrol.h"
 
 namespace Cordis
 {
@@ -4715,6 +4716,8 @@ public:
             }
         }
 
+        
+        this->m_patrols_xr_patrol.clear();
         this->m_offline_objects.clear();
         this->m_spawned_vertex_by_id.clear();
         this->m_goodwill.first.clear();
@@ -4911,6 +4914,26 @@ public:
     }
 #pragma endregion
 
+#pragma region Cordis Scheme XR Patrol
+    inline const xr_map<xr_string, Script_XRPatrolManager*>& getPatrolsXRPatrol(void) const { return this->m_patrols_xr_patrol; }
+    inline void setPatrolsXRPatrol(const xr_string& path_name, Script_XRPatrolManager* const p_manager) 
+    {
+        if (path_name.empty())
+        {
+            MESSAGEWR("your index is empty!");
+            return;
+        }
+
+        if (p_manager == nullptr)
+        {
+            MESSAGEWR("your value is nullptr, can't be because it must be deallocated!");
+            return;
+        }
+
+        this->m_patrols_xr_patrol[path_name] = p_manager;
+    } 
+#pragma endregion
+
     Storage(const Storage&) = delete;
     Storage& operator=(const Storage&) = delete;
     Storage(Storage&&) = delete;
@@ -4963,6 +4986,10 @@ private:
 
 #pragma region Cordis Scheme XR Combat Ignore 
     xr_map<std::uint16_t, bool> m_fighting_with_actor_npcs;
+#pragma endregion
+
+#pragma region Cordis Scheme XR Patrol
+    xr_map<xr_string, Script_XRPatrolManager*> m_patrols_xr_patrol;
 #pragma endregion
 
     // first -> sympathy[ID] = std::uint32_t; | second -> relations[ID] = std::string;
