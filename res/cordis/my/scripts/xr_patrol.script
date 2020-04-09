@@ -1,5 +1,5 @@
 ----------------------------------------------------------------------------------------------------------------------
---	Схема патруль. Мужики в патруле
+--	Г‘ГµГҐГ¬Г  ГЇГ ГІГ°ГіГ«Гј. ГЊГіГ¦ГЁГЄГЁ Гў ГЇГ ГІГ°ГіГ«ГҐ
 ----------------------------------------------------------------------------------------------------------------------
 function printf()
 end
@@ -8,11 +8,11 @@ local key = nil
 local data = nil
 
 --'patrol states
-local patrol_move   =   0       -- просто движение
-local patrol_hide   =   1       -- ракоход
-local patrol_sprint =   2       -- очень быстро бежим
-local patrol_run    =   3       -- просто несемся, аки лоси в кукурузу
-local patrol_stop   =   4       -- стоим
+local patrol_move   =   0       -- ГЇГ°Г®Г±ГІГ® Г¤ГўГЁГ¦ГҐГ­ГЁГҐ
+local patrol_hide   =   1       -- Г°Г ГЄГ®ГµГ®Г¤
+local patrol_sprint =   2       -- Г®Г·ГҐГ­Гј ГЎГ»Г±ГІГ°Г® ГЎГҐГ¦ГЁГ¬
+local patrol_run    =   3       -- ГЇГ°Г®Г±ГІГ® Г­ГҐГ±ГҐГ¬Г±Гї, Г ГЄГЁ Г«Г®Г±ГЁ Гў ГЄГіГЄГіГ°ГіГ§Гі
+local patrol_stop   =   4       -- Г±ГІГ®ГЁГ¬
 
 local patrols = {}
 
@@ -75,14 +75,14 @@ function PatrolManager:__init(path_name)
 		self.commander_dir = vector ():set (0, 0, 1)
 		self.npc_count = 0
 end
---' Добавление нового персонажа
+--' Г„Г®ГЎГ ГўГ«ГҐГ­ГЁГҐ Г­Г®ГўГ®ГЈГ® ГЇГҐГ°Г±Г®Г­Г Г¦Г 
 function PatrolManager:add_npc(npc, leader)
 		--'validate npc
 		if npc == nil or npc:alive() == false or self.npc_list[npc:id()] ~= nil then
 			 return
 		end
 
-	--' Проверка на то что в патруле не больше 7 сталкеров (иначе будет вылетать дальше)
+	--' ГЏГ°Г®ГўГҐГ°ГЄГ  Г­Г  ГІГ® Г·ГІГ® Гў ГЇГ ГІГ°ГіГ«ГҐ Г­ГҐ ГЎГ®Г«ГјГёГҐ 7 Г±ГІГ Г«ГЄГҐГ°Г®Гў (ГЁГ­Г Г·ГҐ ГЎГіГ¤ГҐГІ ГўГ»Г«ГҐГІГ ГІГј Г¤Г Г«ГјГёГҐ)
 	if self.npc_count == 7 then
 		abort("[XR_PATROL] attempt to add more then 7 npc. [%s]", npc:name())
 		return
@@ -92,7 +92,7 @@ function PatrolManager:add_npc(npc, leader)
 		self.npc_list[npc:id ()] = {soldier = npc, dir = vector ():set (1, 0, 0), dist = 0}
 
 		self.npc_count = self.npc_count + 1
-		--' если мужик первый или считается лидером, то установим, как лидера
+		--' ГҐГ±Г«ГЁ Г¬ГіГ¦ГЁГЄ ГЇГҐГ°ГўГ»Г© ГЁГ«ГЁ Г±Г·ГЁГІГ ГҐГІГ±Гї Г«ГЁГ¤ГҐГ°Г®Г¬, ГІГ® ГіГ±ГІГ Г­Г®ГўГЁГ¬, ГЄГ ГЄ Г«ГЁГ¤ГҐГ°Г 
 		if self.npc_count == 1 or leader == true then
 			 self.commander_id = npc:id ()
 			 printf ("[XR_PATROL] ASSIGNED NPC %s AS PATROL COMMANDER", npc:name ())
@@ -101,7 +101,7 @@ function PatrolManager:add_npc(npc, leader)
 		printf ("[XR_PATROL] NPC %s added to patrol manager %s", npc:name (), self.path_name)
 		self:reset_positions ()
 end
---' Удаление персонажа
+--' Г“Г¤Г Г«ГҐГ­ГЁГҐ ГЇГҐГ°Г±Г®Г­Г Г¦Г 
 function PatrolManager:remove_npc(npc)
 		if npc == nil then return end
 		if self.npc_list[npc:id()] == nil then
@@ -116,28 +116,28 @@ function PatrolManager:remove_npc(npc)
 			 self:reset_positions ()
 		end
 end
---' Пересчет занимаемых позиций
+--' ГЏГҐГ°ГҐГ±Г·ГҐГІ Г§Г Г­ГЁГ¬Г ГҐГ¬Г»Гµ ГЇГ®Г§ГЁГ¶ГЁГ©
 function PatrolManager:reset_positions()
 		local form_ = formations[self.formation]
 		local index = 1
 		for key, data in pairs(self.npc_list) do
-				--установим командора, если это еще не сделано
+				--ГіГ±ГІГ Г­Г®ГўГЁГ¬ ГЄГ®Г¬Г Г­Г¤Г®Г°Г , ГҐГ±Г«ГЁ ГЅГІГ® ГҐГ№ГҐ Г­ГҐ Г±Г¤ГҐГ«Г Г­Г®
 				if self.commander_id == -1 and index == 1 then
 					 self.commander_id = data.soldier:id ()
 				end
-				-- пересчитаем позиции
+				-- ГЇГҐГ°ГҐГ±Г·ГЁГІГ ГҐГ¬ ГЇГ®Г§ГЁГ¶ГЁГЁ
 				if self.commander_id ~= self.npc_list[key].soldier:id () then
 			 --printf("key[%s] index[%s]", tostring(key), tostring(index))
 					 self.npc_list[key].dir = form_[index].dir
 					 self.npc_list[key].dist = form_[index].dist
-				 self.npc_list[key].vertex_id = -1
-					 self.npc_list[key].accepted = true
+				-- self.npc_list[key].vertex_id = -1
+				--	 self.npc_list[key].accepted = true
 
 					 index = index + 1
 				end
 		end
 end
---' Установление формации
+--' Г“Г±ГІГ Г­Г®ГўГ«ГҐГ­ГЁГҐ ГґГ®Г°Г¬Г Г¶ГЁГЁ
 function PatrolManager:set_formation(formation)
 		if formation == nil then
 			 abort ("Invalid formation (nil) for PatrolManager[%s]", self.path_name)
@@ -148,67 +148,67 @@ function PatrolManager:set_formation(formation)
 		self.formation = formation
 		self:reset_positions ()
 end
---' Получить командира патруля
+--' ГЏГ®Г«ГіГ·ГЁГІГј ГЄГ®Г¬Г Г­Г¤ГЁГ°Г  ГЇГ ГІГ°ГіГ«Гї
 function PatrolManager:get_commander(npc)
 		if npc == nil then
 			 abort ("Invalid NPC on call PatrolManager:get_npc_command in PatrolManager[%s]", self.path_name)
 		end
 
-		--закешируем айдишник непися
+		--Г§Г ГЄГҐГёГЁГ°ГіГҐГ¬ Г Г©Г¤ГЁГёГ­ГЁГЄ Г­ГҐГЇГЁГ±Гї
 		local npc_id = npc:id ()
-		--проверка непися на присутсвие в списке
+		--ГЇГ°Г®ГўГҐГ°ГЄГ  Г­ГҐГЇГЁГ±Гї Г­Г  ГЇГ°ГЁГ±ГіГІГ±ГўГЁГҐ Гў Г±ГЇГЁГ±ГЄГҐ
 		if self.npc_list[npc:id ()] == nil then
 			 abort ("NPC with name %s can't present in PatrolManager[%s]", npc:name (), self.path_name)
 		end
-		--проверка, чтобы командир не вздумал задавать глупых вопросов
+		--ГЇГ°Г®ГўГҐГ°ГЄГ , Г·ГІГ®ГЎГ» ГЄГ®Г¬Г Г­Г¤ГЁГ° Г­ГҐ ГўГ§Г¤ГіГ¬Г Г« Г§Г Г¤Г ГўГ ГІГј ГЈГ«ГіГЇГ»Гµ ГўГ®ГЇГ°Г®Г±Г®Гў
 		if npc:id () == self.commander_id then
 			 abort ("Patrol commander called function PatrolManager:get_npc_command in PatrolManager[%s]", self.path_name)
 		end
-		--получим данные командира
+		--ГЇГ®Г«ГіГ·ГЁГ¬ Г¤Г Г­Г­Г»ГҐ ГЄГ®Г¬Г Г­Г¤ГЁГ°Г 
 		local commander = self.npc_list[self.commander_id].soldier
 		if commander == nil then
 			 abort ("Patrol commander not present in PatrolManager[%s]", self.path_name)
 		end
 		return commander
 end
---' Получить параметры действия NPC
+--' ГЏГ®Г«ГіГ·ГЁГІГј ГЇГ Г°Г Г¬ГҐГІГ°Г» Г¤ГҐГ©Г±ГІГўГЁГї NPC
 function PatrolManager:get_npc_command(npc)
 		if npc == nil then
 			 abort("Invalid NPC on call PatrolManager:get_npc_command in PatrolManager[%s]", self.path_name)
 		end
 
-		--'закешируем айдишник непися
+		--'Г§Г ГЄГҐГёГЁГ°ГіГҐГ¬ Г Г©Г¤ГЁГёГ­ГЁГЄ Г­ГҐГЇГЁГ±Гї
 		local npc_id = npc:id ()
-		--'проверка непися на присутсвие в списке
+		--'ГЇГ°Г®ГўГҐГ°ГЄГ  Г­ГҐГЇГЁГ±Гї Г­Г  ГЇГ°ГЁГ±ГіГІГ±ГўГЁГҐ Гў Г±ГЇГЁГ±ГЄГҐ
 		if self.npc_list[npc:id ()] == nil then
 			 abort("NPC with name %s can't present in PatrolManager[%s]", npc:name (), self.path_name)
 		end
-		--'проверка, чтобы командир не вздумал задавать глупых вопросов
+		--'ГЇГ°Г®ГўГҐГ°ГЄГ , Г·ГІГ®ГЎГ» ГЄГ®Г¬Г Г­Г¤ГЁГ° Г­ГҐ ГўГ§Г¤ГіГ¬Г Г« Г§Г Г¤Г ГўГ ГІГј ГЈГ«ГіГЇГ»Гµ ГўГ®ГЇГ°Г®Г±Г®Гў
 		if npc:id() == self.commander_id then
 			 abort("Patrol commander called function PatrolManager:get_npc_command in PatrolManager[%s]", self.path_name)
 		end
-		--'получим данные командира
+		--'ГЇГ®Г«ГіГ·ГЁГ¬ Г¤Г Г­Г­Г»ГҐ ГЄГ®Г¬Г Г­Г¤ГЁГ°Г 
 		local commander = self.npc_list[self.commander_id].soldier
 
 		local dir = commander:direction()
 
 		local pos = vector():set(0, 0, 0)
 		local vertex_id = commander:location_on_path(5, pos)
-	--' Если командир сам еще не дошел до пути (расстояние до вертекса больше чем 5 метров)
-	--' то за основную точку берем вертекс командира
+	--' Г…Г±Г«ГЁ ГЄГ®Г¬Г Г­Г¤ГЁГ° Г±Г Г¬ ГҐГ№ГҐ Г­ГҐ Г¤Г®ГёГҐГ« Г¤Г® ГЇГіГІГЁ (Г°Г Г±Г±ГІГ®ГїГ­ГЁГҐ Г¤Г® ГўГҐГ°ГІГҐГЄГ±Г  ГЎГ®Г«ГјГёГҐ Г·ГҐГ¬ 5 Г¬ГҐГІГ°Г®Гў)
+	--' ГІГ® Г§Г  Г®Г±Г­Г®ГўГ­ГіГѕ ГІГ®Г·ГЄГі ГЎГҐГ°ГҐГ¬ ГўГҐГ°ГІГҐГЄГ± ГЄГ®Г¬Г Г­Г¤ГЁГ°Г 
 	if level.vertex_position(vertex_id):distance_to(self.npc_list[npc_id].soldier:position()) > 5 then
 		vertex_id = commander:level_vertex_id()
 	end
 
-		--'уберем влияние вертикальной составляющей
+		--'ГіГЎГҐГ°ГҐГ¬ ГўГ«ГЁГїГ­ГЁГҐ ГўГҐГ°ГІГЁГЄГ Г«ГјГ­Г®Г© Г±Г®Г±ГІГ ГўГ«ГїГѕГ№ГҐГ©
 		dir.y = 0
 		dir:normalize()
-		--'получим данные салаги
+		--'ГЇГ®Г«ГіГ·ГЁГ¬ Г¤Г Г­Г­Г»ГҐ Г±Г Г«Г ГЈГЁ
 		local dir_s = self.npc_list[npc_id].dir
 		local dist_s = self.npc_list[npc_id].dist
 
-		--'расчет позиции для салаги
-		--'сначала получим направление
+		--'Г°Г Г±Г·ГҐГІ ГЇГ®Г§ГЁГ¶ГЁГЁ Г¤Г«Гї Г±Г Г«Г ГЈГЁ
+		--'Г±Г­Г Г·Г Г«Г  ГЇГ®Г«ГіГ·ГЁГ¬ Г­Г ГЇГ°Г ГўГ«ГҐГ­ГЁГҐ
 		local angle = yaw_degree(dir_s, vector():set(0, 0, 1))
 		local vvv = vector_cross(dir_s, vector():set(0, 0, 1))
 		if vvv.y < 0 then
@@ -217,17 +217,17 @@ function PatrolManager:get_npc_command(npc)
 		dir_s = vector_rotate_y(dir, angle)
 
 		local d = 2
-		--'теперь аи ноду относительно командора ордена рыцарей храма
+		--'ГІГҐГЇГҐГ°Гј Г ГЁ Г­Г®Г¤Гі Г®ГІГ­Г®Г±ГЁГІГҐГ«ГјГ­Г® ГЄГ®Г¬Г Г­Г¤Г®Г°Г  Г®Г°Г¤ГҐГ­Г  Г°Г»Г¶Г Г°ГҐГ© ГµГ°Г Г¬Г 
 		local vertex = level.vertex_in_direction(level.vertex_in_direction(vertex_id, dir_s, dist_s), dir, d)
-		self.npc_list[npc_id].vertex_id = vertex
+	--	self.npc_list[npc_id].vertex_id = vertex
 
-		--' проверим, а не имеет ли смысла неписю скорректировать свою позицию
+		--' ГЇГ°Г®ГўГҐГ°ГЁГ¬, Г  Г­ГҐ ГЁГ¬ГҐГҐГІ Г«ГЁ Г±Г¬Г»Г±Г«Г  Г­ГҐГЇГЁГ±Гѕ Г±ГЄГ®Г°Г°ГҐГЄГІГЁГ°Г®ГўГ ГІГј Г±ГўГ®Гѕ ГЇГ®Г§ГЁГ¶ГЁГѕ
 		--local distance = level.vertex_position(vertex):distance_to(self.npc_list[npc_id].soldier:position())
-		-- нужно считать отставание от командира, а не от расчетной точки.
+		-- Г­ГіГ¦Г­Г® Г±Г·ГЁГІГ ГІГј Г®ГІГ±ГІГ ГўГ Г­ГЁГҐ Г®ГІ ГЄГ®Г¬Г Г­Г¤ГЁГ°Г , Г  Г­ГҐ Г®ГІ Г°Г Г±Г·ГҐГІГ­Г®Г© ГІГ®Г·ГЄГЁ.
 		local distance = commander:position():distance_to(self.npc_list[npc_id].soldier:position())
 		if distance > dist_s + 2 then
-		--' Игрок сильно отстал. Необходимо изменить тип перемещения.
-		--' Тип перемещения задаем в зависимости от базового типа.
+		--' Г€ГЈГ°Г®ГЄ Г±ГЁГ«ГјГ­Г® Г®ГІГ±ГІГ Г«. ГЌГҐГ®ГЎГµГ®Г¤ГЁГ¬Г® ГЁГ§Г¬ГҐГ­ГЁГІГј ГІГЁГЇ ГЇГҐГ°ГҐГ¬ГҐГ№ГҐГ­ГЁГї.
+		--' Г’ГЁГЇ ГЇГҐГ°ГҐГ¬ГҐГ№ГҐГ­ГЁГї Г§Г Г¤Г ГҐГ¬ Гў Г§Г ГўГЁГ±ГЁГ¬Г®Г±ГІГЁ Г®ГІ ГЎГ Г§Г®ГўГ®ГЈГ® ГІГЁГЇГ .
 		local new_state = accel_by_curtype[self.current_state]
 		if new_state ~= nil then
 			return vertex, dir, new_state
@@ -236,7 +236,7 @@ function PatrolManager:get_npc_command(npc)
 
 		return vertex, dir, self.current_state
 end
---' Установить действие НПС
+--' Г“Г±ГІГ Г­Г®ГўГЁГІГј Г¤ГҐГ©Г±ГІГўГЁГҐ ГЌГЏГ‘
 function PatrolManager:set_command(npc, command, formation)
 		if npc == nil or npc:alive () == false then
 			self:remove_npc(npc)
@@ -254,11 +254,11 @@ function PatrolManager:set_command(npc, command, formation)
 		self.commander_dir = npc:direction ()
 		self:update ()
 end
---' Является ли указанный НПС командиром.
+--' ГџГўГ«ГїГҐГІГ±Гї Г«ГЁ ГіГЄГ Г§Г Г­Г­Г»Г© ГЌГЏГ‘ ГЄГ®Г¬Г Г­Г¤ГЁГ°Г®Г¬.
 function PatrolManager:is_commander(npc_id)
 		return npc_id == self.commander_id
 end
---' Находится ли командир патруля в схеме XR_MEET
+--' ГЌГ ГµГ®Г¤ГЁГІГ±Гї Г«ГЁ ГЄГ®Г¬Г Г­Г¤ГЁГ° ГЇГ ГІГ°ГіГ«Гї Гў Г±ГµГҐГ¬ГҐ XR_MEET
 function PatrolManager:is_commander_in_meet()
 		if self.commander_id == -1 then return false end
 		local npc = self.npc_list[self.commander_id].soldier
@@ -267,7 +267,7 @@ function PatrolManager:is_commander_in_meet()
 		end
 		return false
 end
---' Апдейт
+--' ГЂГЇГ¤ГҐГ©ГІ
 function PatrolManager:update ()
 		if tm_enabled == true then
 			 self.tm:update ()
@@ -445,7 +445,7 @@ function action_patrol:execute()
 	end
 	self.object:set_path_type(game_object.level_path)
 
-	--'перемещаемся по пути
+	--'ГЇГҐГ°ГҐГ¬ГҐГ№Г ГҐГ¬Г±Гї ГЇГ® ГЇГіГІГЁ
 			state_mgr.set_state(self.object, self.cur_state)
 end
 function action_patrol:finalize()
@@ -520,7 +520,7 @@ function add_to_binder (object, ini, scheme, section, storage)
 	action:add_precondition		(world_property(properties["patrol_end"],		true))
 end
 
--- включение патруля
+-- ГўГЄГ«ГѕГ·ГҐГ­ГЁГҐ ГЇГ ГІГ°ГіГ«Гї
 function set_scheme(npc, ini, scheme, section, gulag_name)
 		printf ("XR_PATROL CALLED 'SET_SCHEME' FOR NPC %s", npc:name ())
 	local st = xr_logic.assign_storage_and_bind (npc, ini, scheme, section)
@@ -551,8 +551,8 @@ function set_scheme(npc, ini, scheme, section, gulag_name)
 	st.suggested_state.moving  = utils.cfg_get_string(ini, section, "def_state_moving", npc, false, "", st.suggested_state.moving)
 --'	st.animation = utils.cfg_get_string(ini, section, "animation", npc, false, "")
 
-	st.path_walk_info = nil --'Будут инициализированы в reset(), сейчас пути могут быть еще
-	st.path_look_info = nil --'не загружены.
+	st.path_walk_info = nil --'ГЃГіГ¤ГіГІ ГЁГ­ГЁГ¶ГЁГ Г«ГЁГ§ГЁГ°Г®ГўГ Г­Г» Гў reset(), Г±ГҐГ©Г·Г Г± ГЇГіГІГЁ Г¬Г®ГЈГіГІ ГЎГ»ГІГј ГҐГ№ГҐ
+	st.path_look_info = nil --'Г­ГҐ Г§Г ГЈГ°ГіГ¦ГҐГ­Г».
 
 	st.commander = utils.cfg_get_bool(ini, section, "commander", npc, false, false)
 
@@ -564,7 +564,7 @@ function set_scheme(npc, ini, scheme, section, gulag_name)
 	end
 
 		if patrols[st.patrol_key] == nil then
-			 patrols[st.patrol_key] = PatrolManager(st.path_name)
+			 patrol_sneak[st.patrol_key] = PatrolManager(st.path_name)
 	end
 	patrols[st.patrol_key]:add_npc(npc, st.commander)
 end

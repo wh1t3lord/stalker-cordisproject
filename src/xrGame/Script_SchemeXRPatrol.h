@@ -29,7 +29,25 @@ namespace Cordis
 
 		class Script_ActionCommander : public Script_ISchemeStalker
 		{
-			
+		public:
+			Script_ActionCommander(CScriptGameObject* const p_client_object, const xr_string& name, DataBase::Storage_Scheme& storage);
+			~Script_ActionCommander(void);
+
+			virtual void initialize(void);
+			virtual void execute(void);
+			virtual void finalize(void);
+
+			virtual void death_callback(CScriptGameObject* const p_client_victim, CScriptGameObject* const p_client_who);
+			virtual void net_destroy(CScriptGameObject* const p_client_object);
+			virtual void deactivate(CScriptGameObject* const p_client_object);
+			virtual void activate_scheme(const bool is_loading, CScriptGameObject* const p_client_object);
+
+			bool formation_callback(std::uint32_t number, std::uint32_t index);
+		private:
+			bool m_is_was_reset;
+			Script_MoveManager* m_p_move_manager;
+			xr_string m_current_state_name;
+			xr_string m_old_state_name;
 		};
 		 
 		class Script_SchemeXRPatrol : public Script_ISchemeStalker
@@ -64,7 +82,6 @@ namespace Cordis
 			std::uint16_t m_commander_id;
 			std::uint32_t m_commander_level_vertex_id;
 			std::uint32_t m_npc_count;
-			DataBase::Storage_Scheme* m_p_storage;
 			Fvector m_commander_direction;
 			xr_map<std::uint16_t, std::tuple<CScriptGameObject*, Fvector, std::uint32_t>> m_npc_list;
 			xr_string m_path_name;

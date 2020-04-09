@@ -2062,6 +2062,38 @@ public:
     inline void setXRCombatCamperLastSeenPosition(const Fvector& position) noexcept { this->m_xr_combat_camper_last_seen_position = position; }
 #pragma endregion
 
+#pragma region Cordis Scheme XR Patrol 
+    inline bool isXRPatrolCommander(void) const noexcept { return this->m_is_xr_patrol_commander; }
+    inline void setXRPatrolCommander(const bool value) noexcept { this->m_is_xr_patrol_commander = value; }
+
+    inline bool isXRPatrolSilent(void) const noexcept { return this->m_is_xr_patrol_silent; }
+    inline void setXRPatrolSilent(const bool value) noexcept { this->m_is_xr_patrol_silent = value; }
+
+    inline const xr_string& getXRPatrolPathName(void) const noexcept { return this->m_xr_patrol_path_name; }
+    inline void setXRPatrolPathName(const xr_string& path_name) noexcept { if (path_name.empty()) { MESSAGEWR("string is empty!"); return; } this->m_xr_patrol_path_name = path_name; }
+
+    inline const xr_string& getXRPatrolPatrolKeyName(void) const noexcept { return this->m_xr_patrol_patrol_key_name; }
+    inline void setXRPatrolPatrolKeyName(const xr_string& key_name) noexcept { if (key_name.empty()) { MESSAGEWR("string is empty!"); return; } this->m_xr_patrol_patrol_key_name = key_name; }
+
+    inline const xr_string& getXRPatrolFormationName(void) const noexcept { return this->m_xr_patrol_formation_name; }
+    inline void setXRPatrolFormationName(const xr_string& formation_name) noexcept { if (formation_name.empty()) { MESSAGEWR("string is empty!"); return; } this->m_xr_patrol_formation_name = formation_name; }
+
+    inline const xr_string& getXRPatrolMoveTypeName(void) const noexcept { return this->m_xr_patrol_move_type_name; }
+    inline void setXRPatrolMoveTypeName(const xr_string& type_name) noexcept { if (type_name.empty()) { MESSAGEWR("string is empty!"); return; } this->m_xr_patrol_move_type_name = type_name; }
+
+    inline const xr_map<xr_string, xr_string>& getXRPatrolSuggestedStates(void) const noexcept { return this->m_xr_patrol_suggested_states; }
+    inline void setXRPatrolSuggestedStates(const xr_string& state_name, const xr_string& value_name) noexcept 
+    {
+        if (state_name.empty())
+        { 
+            MESSAGEWR("can't be empty!");
+            return;
+        }
+
+        this->m_xr_patrol_suggested_states[state_name] = value_name;
+    }
+#pragma endregion
+
 private:
     // @ Не понятно зачем в итоге но так у ПЫС, если в итоге оно находится в самом сторадже где уже зарегистрирован
     // сам НПС
@@ -2110,6 +2142,8 @@ private:
     bool m_is_xr_wounded_not_for_help = false;
     bool m_is_xr_combat_ignore_enabled = false;
     bool m_is_xr_combat_camper_action = false;
+    bool m_is_xr_patrol_silent = false;
+    bool m_is_xr_patrol_commander = false;
     std::uint16_t m_xr_corpse_detection_selected_corpse_id = 0;
     std::uint16_t m_selected_id = 0;
     std::uint16_t m_xr_remark_target_id = 0;
@@ -2228,6 +2262,7 @@ private:
     xr_map<std::uint32_t, xr_map<std::uint32_t, CondlistData>> m_sr_timer_on_value;
     xr_map<xr_string, xr_string> m_xr_walker_suggested_states;
     xr_map<xr_string, xr_string> m_xr_camper_suggested_states;
+    xr_map<xr_string, xr_string> m_xr_patrol_suggested_states;
     xr_map<xr_string, xr_map<std::uint32_t, CondlistData>> m_ph_code_on_check_code;
     xr_map<std::uint32_t, xr_vector<std::pair<std::uint32_t, Fvector>>> m_xr_camper_scan_table;
     xr_map<std::uint32_t, std::tuple<std::uint32_t, xr_map<std::uint32_t, CondlistData>, xr_map<std::uint32_t, CondlistData>>> m_xr_wounded_health_state;
@@ -2307,6 +2342,10 @@ private:
     xr_string m_xr_wounded_help_dialog_name;
     xr_string m_xr_wounded_help_start_dialog_name;
     xr_string m_xr_wounded_wounded_section_name;
+    xr_string m_xr_patrol_patrol_key_name;
+    xr_string m_xr_patrol_path_name;
+    xr_string m_xr_patrol_formation_name;
+    xr_string m_xr_patrol_move_type_name;
     CondlistWaypoints m_path_walk_info;
     CondlistWaypoints m_path_look_info;
 };
