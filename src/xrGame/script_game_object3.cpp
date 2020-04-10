@@ -566,18 +566,24 @@ void CScriptGameObject::set_desired_direction(const Fvector* desired_direction)
 {
     CAI_Stalker* stalker = smart_cast<CAI_Stalker*>(&object());
     if (!stalker)
-        GEnv.ScriptEngine->script_log(LuaMessageType::Error, "CAI_Stalker : cannot access class member movement!");
+    {
+        MESSAGEWR("CAI_Stalker : cannot access class member movement!");
+        return;
+    }
     else
     {
         if (fsimilar(desired_direction->magnitude(), 0.f))
-            GEnv.ScriptEngine->script_log(LuaMessageType::Error,
-                "CAI_Stalker : [%s] set_desired_direction - you passed zero direction!", stalker->cName().c_str());
+		{
+            MESSAGEWR("CAI_Stalker : [%s] set_desired_direction - you passed zero direction!", stalker->cName().c_str());
+            return;
+		}
         else
         {
             if (!fsimilar(desired_direction->magnitude(), 1.f))
-                GEnv.ScriptEngine->script_log(LuaMessageType::Error,
-                    "CAI_Stalker : [%s] set_desired_direction - you passed non-normalized direction!",
-                    stalker->cName().c_str());
+            {
+				MESSAGEWR("CAI_Stalker : [%s] set_desired_direction - you passed non-normalized direction!", stalker->cName().c_str());
+                return;
+            }
         }
 
         Fvector direction = *desired_direction;

@@ -130,8 +130,8 @@ function PatrolManager:reset_positions()
 			 --printf("key[%s] index[%s]", tostring(key), tostring(index))
 					 self.npc_list[key].dir = form_[index].dir
 					 self.npc_list[key].dist = form_[index].dist
-				-- self.npc_list[key].vertex_id = -1
-				--	 self.npc_list[key].accepted = true
+				--- self.npc_list[key].vertex_id = -1
+					 self.npc_list[key].accepted = true
 
 					 index = index + 1
 				end
@@ -219,7 +219,7 @@ function PatrolManager:get_npc_command(npc)
 		local d = 2
 		--'òåïåðü àè íîäó îòíîñèòåëüíî êîìàíäîðà îðäåíà ðûöàðåé õðàìà
 		local vertex = level.vertex_in_direction(level.vertex_in_direction(vertex_id, dir_s, dist_s), dir, d)
-	--	self.npc_list[npc_id].vertex_id = vertex
+		self.npc_list[npc_id].vertex_id = vertex
 
 		--' ïðîâåðèì, à íå èìååò ëè ñìûñëà íåïèñþ ñêîððåêòèðîâàòü ñâîþ ïîçèöèþ
 		--local distance = level.vertex_position(vertex):distance_to(self.npc_list[npc_id].soldier:position())
