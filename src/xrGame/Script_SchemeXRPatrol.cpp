@@ -187,6 +187,54 @@ namespace Cordis
 
 		void Script_SchemeXRPatrol::set_scheme(CScriptGameObject* const p_client_object, CScriptIniFile* const p_ini, const xr_string& scheme_name, const xr_string& section_name, const xr_string& gulag_name)
 		{
+			DataBase::Storage_Scheme* const p_storage = XR_LOGIC::assign_storage_and_bind(p_client_object, p_ini, scheme_name, section_name, gulag_name);
+			p_storage->setLogic(XR_LOGIC::cfg_get_switch_conditions(p_ini, section_name, p_client_object));
+			
+			xr_string path_walk_name = Globals::Utils::cfg_get_string(p_ini, section_name, "path_walk");
+			if (path_walk_name.empty())
+				path_walk_name = gulag_name;
+
+			p_storage->setPathWalkName(path_walk_name);
+			p_storage->setXRPatrolPathName(path_walk_name);
+
+			xr_string path_look_name = Globals::Utils::cfg_get_string(p_ini, section_name, "path_look");
+			if (path_look_name.empty())
+				path_look_name = gulag_name;
+
+			p_storage->setPathLookName(path_look_name);
+
+			if (p_storage->getPathLookName() == p_storage->getPathWalkName())
+			{
+				MESSAGEWR("you have and equal paths!");
+				return;
+			}
+
+			p_storage->setXRPatrolFormationName(Globals::Utils::cfg_get_string(p_ini, section_name, "formation"));
+			p_storage->setXRPatrolSilent(Globals::Utils::cfg_get_bool(p_ini, section_name, "silent"));
+
+			if (p_storage->getXRPatrolFormationName().empty())
+				p_storage->setXRPatrolFormationName("back");
+
+			p_storage->setXRPatrolMoveTypeName(Globals::Utils::cfg_get_string(p_ini, section_name, "move_type"));
+			if (p_storage->getXRPatrolMoveTypeName().empty())
+				p_storage->setXRPatrolMoveTypeName("patrol");
+
+			p_storage->setXRPatrolSuggestedStates("standing", Globals::Utils::cfg_get_string(p_ini, section_name, "def_state_standing"));
+			xr_string moving_name = Globals::Utils::cfg_get_string(p_ini, section_name, "def_state_moving");
+			if (moving_name.empty())
+				moving_name = Globals::Utils::cfg_get_string(p_ini, section_name, "def_state_moving1");
+
+			p_storage->setXRPatrolSuggestedStates("moving", moving_name);
+
+			p_storage->setXRPatrolCommander(Globals::Utils::cfg_get_bool(p_ini, section_name, "commander"));
+			p_storage->setXRPatrolPatrolKeyName(p_storage->getXRPatrolPathName());
+
+			Script_SE_SimulationSquad* const p_squad = Globals::get_object_squad(p_client_object->ID());
+			if (p_squad)
+				p_storage->setXRPatrolPatrolKeyName(xr_string(p_storage->getXRPatrolPatrolKeyName()).append(std::to_string(p_squad->ID).c_str()));
+
+			if (DataBase::Storage::getInstance().getPatrolsXRPatrol().find(p_storage->getXRPatrolPatrolKeyName()) != DataBase::Storage::getInstance().getPatrolsXRPatrol().end())
+				DataBase::Storage::getInstance().getPatrolsXRPatrol().at(p_storage->getXRPatrolPatrolKeyName())->add_npc(p_client_object, p_storage->isXRPatrolCommander());
 		}
 
 
