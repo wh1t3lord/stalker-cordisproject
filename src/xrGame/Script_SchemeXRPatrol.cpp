@@ -233,8 +233,9 @@ namespace Cordis
 			if (p_squad)
 				p_storage->setXRPatrolPatrolKeyName(xr_string(p_storage->getXRPatrolPatrolKeyName()).append(std::to_string(p_squad->ID).c_str()));
 
-			if (DataBase::Storage::getInstance().getPatrolsXRPatrol().find(p_storage->getXRPatrolPatrolKeyName()) != DataBase::Storage::getInstance().getPatrolsXRPatrol().end())
-				DataBase::Storage::getInstance().getPatrolsXRPatrol().at(p_storage->getXRPatrolPatrolKeyName())->add_npc(p_client_object, p_storage->isXRPatrolCommander());
+			if (DataBase::Storage::getInstance().getPatrolsXRPatrol().find(p_storage->getXRPatrolPatrolKeyName()) == DataBase::Storage::getInstance().getPatrolsXRPatrol().end())
+				DataBase::Storage::getInstance().setPatrolsXRPatrol(p_storage->getXRPatrolPatrolKeyName(), new Script_XRPatrolManager(p_storage->getXRPatrolPathName()));
+			DataBase::Storage::getInstance().getPatrolsXRPatrol().at(p_storage->getXRPatrolPatrolKeyName())->add_npc(p_client_object, p_storage->isXRPatrolCommander());
 		}
 
 
