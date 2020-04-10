@@ -27,11 +27,165 @@ namespace Cordis
 			return DataBase::Storage::getInstance().getPatrolsXRPatrol().at(this->m_p_storage->getXRPatrolPatrolKeyName())->is_commander(this->m_object->ID());
 		}
 
-		Script_SchemeXRPatrol::Script_SchemeXRPatrol(const xr_string& name, DataBase::Storage_Scheme& storage) : Script_ISchemeStalker(nullptr, name, storage)
+		Script_SchemeXRPatrol::Script_SchemeXRPatrol(const xr_string& name, DataBase::Storage_Scheme& storage) : Script_ISchemeStalker(nullptr, name, storage), m_level_vertex_id(Globals::kUnsignedInt32Undefined), m_dist(0), m_direction(Fvector().set(0.0f, 0.0f, 1.0f)), m_is_on_point(false), m_is_was_reset(false), m_time_to_update(Globals::get_time_global() + 1000), m_current_state_name("patrol")
 		{
 		}
 
 		Script_SchemeXRPatrol::~Script_SchemeXRPatrol(void)
+		{
+		}
+
+		void Script_SchemeXRPatrol::activate_scheme(const bool is_loading, CScriptGameObject* const p_client_object)
+		{
+			this->m_p_storage->ClearSignals();
+			MESSAGE("set soldier patrol path %s", this->m_p_storage->getPathWalkName());
+
+			this->m_p_storage->setPathWalkInfo(Globals::Utils::path_parse_waypoints(this->m_p_storage->getPathWalkName()));
+			this->m_p_storage->setPathLookInfo(Globals::Utils::path_parse_waypoints(this->m_p_storage->getPathLookName()));
+
+			std::function<bool(std::uint32_t, std::uint32_t)> callback = std::bind(&Script_SchemeXRPatrol::formation_callback, this, std::placeholders::_1, std::placeholders::_2);
+			this->m_p_move_manager->reset(this->m_p_storage->getPathWalkName(), this->m_p_storage->getPathWalkInfo(), this->m_p_storage->getPathLookName(), this->m_p_storage->getPathLookInfo(), "", this->m_p_storage->getXRPatrolSuggestedStates(), callback, false);
+		}
+
+		void Script_SchemeXRPatrol::initialize(void)
+		{
+			CScriptActionBase::initialize();
+
+			this->m_object->set_desired_position();
+			this->m_object->set_desired_direction();
+			this->m_is_on_point = false;
+		}
+
+		void Script_SchemeXRPatrol::execute(void)
+		{
+			if (this->m_time_to_update - Globals::get_time_global() > 0)
+				return;
+
+			this->m_time_to_update = Globals::get_time_global() + 1000;
+
+			DataBase::Storage::getInstance().getPatrolsXRPatrol().at(this->m_p_storage->getXRPatrolPatrolKeyName())->get_npc_command(this->m_object, this->m_level_vertex_id, this->m_direction, this->m_current_state_name);
+
+			this->m_level_vertex_id = Globals::Utils::send_to_nearest_accessible_vertex(this->m_object, this->m_level_vertex_id);
+			Fvector desired_direction = this->m_direction;
+			MESSAGE("desired_direction = {%f %f %f}", this->m_direction.x, this->m_direction.y, this->m_direction.z);
+
+			if (Globals::is_vector_nil(desired_direction) == false)
+			{
+				desired_direction.normalize();
+				this->m_object->set_desired_direction(&desired_direction);
+			}
+
+			this->m_object->set_path_type(MovementManager::ePathTypeLevelPath);
+		}
+
+		void Script_SchemeXRPatrol::finalize(void)
+		{
+			if (this->m_object->Alive())
+				this->m_p_move_manager->finalize();
+
+			CScriptActionBase::finalize();
+		}
+
+		void Script_SchemeXRPatrol::death_callback(CScriptGameObject* const p_client_victim, CScriptGameObject* const p_client_who)
+		{
+			if (!p_client_who && !p_client_victim)
+			{
+				MESSAGEWR("can't be check code ...");
+				return;
+			}
+
+			DataBase::Storage::getInstance().getPatrolsXRPatrol().at(this->m_p_storage->getXRPatrolPatrolKeyName())->remove_npc(p_client_victim);
+		}
+
+		void Script_SchemeXRPatrol::deactivate(CScriptGameObject* const p_client_object)
+		{
+			DataBase::Storage::getInstance().getPatrolsXRPatrol().at(this->m_p_storage->getXRPatrolPatrolKeyName())->remove_npc(p_client_object);
+		}
+
+		void Script_SchemeXRPatrol::net_destroy(CScriptGameObject* const p_client_object)
+		{
+			this->deactivate(p_client_object);
+		}
+
+		bool Script_SchemeXRPatrol::formation_callback(std::uint32_t, std::uint32_t)
+		{
+			return false;
+		}
+
+		void Script_SchemeXRPatrol::add_to_binder(CScriptGameObject* const p_client_object, CScriptIniFile* const p_ini, const xr_string& scheme_name, const xr_string& section_name, DataBase::Storage_Scheme& storage)
+		{
+			if (p_client_object == nullptr)
+			{
+				MESSAGEWR("Can't be!");
+				return;
+			}
+
+			if (p_ini == nullptr)
+			{
+				MESSAGEWR("Can't be");
+				return;
+			}
+
+			xr_map<xr_string, std::uint32_t> properties;
+			xr_map<xr_string, std::uint32_t> operators;
+
+			properties["event"] = Globals::XR_ACTIONS_ID::XR_EVALUATORS_ID::kReaction;
+			properties["patrol_end"] = Globals::XR_ACTIONS_ID::XR_EVALUATORS_ID::kSidorPatrolBase;
+			properties["patrol_comm"] = Globals::XR_ACTIONS_ID::XR_EVALUATORS_ID::kSidorPatrolBase + 1;
+			properties["state_mgr_logic_active"] = Globals::XR_ACTIONS_ID::XR_EVALUATORS_ID::kStateManager + 4;
+
+			operators["action_patrol"] = Globals::XR_ACTIONS_ID::kSidorActPatrol;
+			operators["action_commander"] = Globals::XR_ACTIONS_ID::kSidorActPatrol + 1;
+
+			CScriptActionPlanner* const p_planner = Globals::get_script_action_planner(p_client_object);
+
+			p_planner->add_evaluator(properties.at("patrol_end"), new Script_EvaluatorPatrolEnd("patrol_end", storage));
+			p_planner->add_evaluator(properties.at("patrol_comm"), new Script_EvaluatorPatrolComm("patrol_comm", storage));
+
+			Script_ActionCommander* const p_scheme_commander = new Script_ActionCommander(p_client_object, "action_commander", storage);
+			p_scheme_commander->add_condition(CWorldProperty(StalkerDecisionSpace::eWorldPropertyAlive, true));
+			p_scheme_commander->add_condition(CWorldProperty(StalkerDecisionSpace::eWorldPropertyDanger, false));
+			p_scheme_commander->add_condition(CWorldProperty(StalkerDecisionSpace::eWorldPropertyEnemy, false));
+			p_scheme_commander->add_condition(CWorldProperty(StalkerDecisionSpace::eWorldPropertyAnomaly, false));
+			
+			p_scheme_commander->add_condition(CWorldProperty(Globals::XR_ACTIONS_ID::XR_EVALUATORS_ID::kStoheMeetBase + 1, false));
+			p_scheme_commander->add_condition(CWorldProperty(Globals::XR_ACTIONS_ID::XR_EVALUATORS_ID::kSidorWoundedBase, false));
+			p_scheme_commander->add_condition(CWorldProperty(Globals::XR_ACTIONS_ID::XR_EVALUATORS_ID::kAbuseBase, false));
+			p_scheme_commander->add_condition(CWorldProperty(Globals::XR_ACTIONS_ID::XR_EVALUATORS_ID::kWoundedExist, false));
+			p_scheme_commander->add_condition(CWorldProperty(Globals::XR_ACTIONS_ID::XR_EVALUATORS_ID::kCorpseExist, false));
+			p_scheme_commander->add_condition(CWorldProperty(StalkerDecisionSpace::eWorldPropertyItems, false));
+
+			p_scheme_commander->add_condition(CWorldProperty(properties.at("patrol_end"), false));
+			p_scheme_commander->add_condition(CWorldProperty(properties.at("patrol_comm"), true));
+			p_scheme_commander->add_effect(CWorldProperty(properties.at("patrol_end"), true));
+			p_scheme_commander->add_effect(CWorldProperty(properties.at("state_mgr_logic_active"), false));
+			p_planner->add_operator(operators.at("action_commander"), p_scheme_commander);
+			DataBase::Storage::getInstance().setStorageSchemesActions(p_client_object->ID(), scheme_name, p_scheme_commander);
+
+			Script_SchemeXRPatrol* const p_scheme = new Script_SchemeXRPatrol("action_patrol", storage);
+			p_scheme->add_condition(CWorldProperty(StalkerDecisionSpace::eWorldPropertyAlive, true));
+			p_scheme->add_condition(CWorldProperty(StalkerDecisionSpace::eWorldPropertyDanger, false));
+			p_scheme->add_condition(CWorldProperty(StalkerDecisionSpace::eWorldPropertyEnemy, false));
+			p_scheme->add_condition(CWorldProperty(StalkerDecisionSpace::eWorldPropertyAnomaly, false));
+
+			p_scheme->add_condition(CWorldProperty(Globals::XR_ACTIONS_ID::XR_EVALUATORS_ID::kStoheMeetBase + 1, false));
+			p_scheme->add_condition(CWorldProperty(Globals::XR_ACTIONS_ID::XR_EVALUATORS_ID::kSidorWoundedBase, false));
+			p_scheme->add_condition(CWorldProperty(Globals::XR_ACTIONS_ID::XR_EVALUATORS_ID::kAbuseBase, false));
+			p_scheme->add_condition(CWorldProperty(Globals::XR_ACTIONS_ID::XR_EVALUATORS_ID::kWoundedExist, false));
+			p_scheme->add_condition(CWorldProperty(Globals::XR_ACTIONS_ID::XR_EVALUATORS_ID::kCorpseExist, false));
+			p_scheme->add_condition(CWorldProperty(StalkerDecisionSpace::eWorldPropertyItems, false));
+
+			p_scheme->add_condition(CWorldProperty(properties.at("patrol_end"), false));
+			p_scheme->add_condition(CWorldProperty(properties.at("patrol_comm"), false));
+			p_scheme->add_effect(CWorldProperty(properties.at("patrol_end"), true));
+			p_scheme->add_effect(CWorldProperty(properties.at("state_mgr_logic_active"), false));
+			p_planner->add_operator(operators.at("action_patrol"), p_scheme);
+
+			p_planner->action(Globals::XR_ACTIONS_ID::kAlife).add_condition(CWorldProperty(properties.at("patrol_end"), true));
+
+		}
+
+		void Script_SchemeXRPatrol::set_scheme(CScriptGameObject* const p_client_object, CScriptIniFile* const p_ini, const xr_string& scheme_name, const xr_string& section_name, const xr_string& gulag_name)
 		{
 		}
 

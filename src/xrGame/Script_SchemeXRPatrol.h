@@ -56,8 +56,32 @@ namespace Cordis
 			Script_SchemeXRPatrol(void) = delete;
 			Script_SchemeXRPatrol(const xr_string& name, DataBase::Storage_Scheme& storage);
 			~Script_SchemeXRPatrol(void);
+			virtual void activate_scheme(const bool is_loading, CScriptGameObject* const p_client_object);
+			virtual void initialize(void);
+			virtual void execute(void);
+			virtual void finalize(void);
+			virtual void death_callback(CScriptGameObject* const p_client_victim, CScriptGameObject* const p_client_who);
+			virtual void deactivate(CScriptGameObject* const p_client_object);
+			virtual void net_destroy(CScriptGameObject* const p_client_object);
+
+			bool formation_callback(std::uint32_t, std::uint32_t);
+
+			static void add_to_binder(CScriptGameObject* const p_client_object, CScriptIniFile* const p_ini,
+				const xr_string& scheme_name, const xr_string& section_name, DataBase::Storage_Scheme& storage);
+
+			static void set_scheme(CScriptGameObject* const p_client_object, CScriptIniFile* const p_ini,
+				const xr_string& scheme_name, const xr_string& section_name, const xr_string& gulag_name);
 
 		private:
+			bool m_is_on_point;
+			bool m_is_was_reset;
+			std::uint32_t m_level_vertex_id;
+			std::uint32_t m_dist;
+			int m_time_to_update;
+			DataBase::Storage_Scheme* m_p_storage;
+			Script_MoveManager* m_p_move_manager;
+			Fvector m_direction;
+			xr_string m_current_state_name;
 		};
 
 		class Script_XRPatrolManager
