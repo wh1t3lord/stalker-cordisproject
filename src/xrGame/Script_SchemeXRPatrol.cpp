@@ -81,7 +81,7 @@ namespace Cordis
 		void Script_SchemeXRPatrol::finalize(void)
 		{
 			if (this->m_object->Alive())
-				this->m_p_move_manager->finalize();
+				this->m_p_move_manager->finalize(nullptr);
 
 			CScriptActionBase::finalize();
 		}
