@@ -13071,6 +13071,22 @@ private:
         this->m_xr_patrol_accel_by_curtype["raid"] = "assault";
         this->m_xr_patrol_accel_by_curtype["sneak"] = "sneak_run";
         this->m_xr_patrol_accel_by_curtype["sneak_run"] = "assault";
+
+        this->m_xr_reach_task_formations["back"].push_back({ Fvector().set(0.3f, 0.0f, -1.0f), 1.2f });
+        this->m_xr_reach_task_formations["back"].push_back({ Fvector().set(-0.3f, 0.0f, -1.0f), 1.2f });
+        this->m_xr_reach_task_formations["back"].push_back({ Fvector().set(0.3f, 0.0f, -1.0f), 2.4f });
+        this->m_xr_reach_task_formations["back"].push_back({ Fvector().set(-0.3f, 0.0f, -1.0f), 2.4f });
+        this->m_xr_reach_task_formations["back"].push_back({ Fvector().set(0.3f, 0.0f, -1.0f), 3.6f });
+        this->m_xr_reach_task_formations["back"].push_back({ Fvector().set(-0.3f, 0.0f, -1.0f), 3.6f });
+        this->m_xr_reach_task_formations["back"].push_back({ Fvector().set(0.3f, 0.0f, -1.0f), 4.8f });
+        this->m_xr_reach_task_formations["back"].push_back({ Fvector().set(-0.3f, 0.0f, -1.0f), 4.8f });
+        this->m_xr_reach_task_formations["back"].push_back({ Fvector().set(0.3f, 0.0f, -1.0f), 6.0f });
+        this->m_xr_reach_task_formations["back"].push_back({ Fvector().set(-0.3f, 0.0f, -1.0f), 6.0f });
+        this->m_xr_reach_task_formations["back"].push_back({ Fvector().set(0.3f, 0.0f, -1.0f), 7.2f });
+        this->m_xr_reach_task_formations["back"].push_back({ Fvector().set(-0.3f, 0.0f, -1.0f), 7.2f });
+        this->m_xr_reach_task_formations["back"].push_back({ Fvector().set(0.3f, 0.0f, -1.0f), 8.4f });
+        this->m_xr_reach_task_formations["back"].push_back({ Fvector().set(-0.3f, 0.0f, -1.0f), 8.4f });
+
         #pragma endregion
     }
 
@@ -14510,9 +14526,11 @@ public:
 
     inline const xr_map<xr_string, xr_string>& getXRCombatIgnoreSmartsByNoAssaultZones(void) const noexcept { return this->m_xr_combat_ignore_smarts_by_no_assault_zones; }
 
-    inline const xr_map<xr_string, xr_vector<std::pair<Fvector, std::uint32_t>>>& getXRPatrolFormations(void) const noexcept { return this->m_xr_patrol_formations; }
+    inline const xr_map<xr_string, xr_vector<std::pair<Fvector, float>>>& getXRPatrolFormations(void) const noexcept { return this->m_xr_patrol_formations; }
 
     inline const xr_map<xr_string, xr_string>& getXRPatrolAccelByCurrentType(void) const noexcept { return this->m_xr_patrol_accel_by_curtype; }
+
+    inline const xr_map<xr_string, xr_vector<std::pair<Fvector, float>>>& getXRReachTaskFormations(void) const noexcept { return this->m_xr_reach_task_formations; }
     #pragma endregion
 
 private:
@@ -14603,7 +14621,8 @@ private:
     xr_map<std::uint32_t, xr_map<xr_string, std::uint32_t>> m_zat_b51_costs_table;
     xr_map<std::uint32_t, xr_map<std::uint32_t, xr_vector<xr_string>>> m_zat_b51_buy_item_table;
     xr_map<xr_string, xr_map<xr_string, xr_string>> m_task_guiders_by_level;
-    xr_map<xr_string, xr_vector<std::pair<Fvector, std::uint32_t>>> m_xr_patrol_formations;
+    xr_map<xr_string, xr_vector<std::pair<Fvector, float>>> m_xr_patrol_formations;
+    xr_map<xr_string, xr_vector<std::pair<Fvector, float>>> m_xr_reach_task_formations;
     xr_map<CDangerObject::EDangerType, float> m_xr_danger_ignore_distance_by_danger_type;
     // @ First - id | Second - distance
     std::pair<std::uint32_t, std::uint32_t> m_game_server_nearest_to_actor_smart_terrain;

@@ -171,6 +171,6 @@ extern XRCORE_API xrCore Core;
 #define MESSAGE(text_message, ...) Msg("[" __FUNCTION__ "|%d]"##text_message, __LINE__, __VA_ARGS__);
 #define MESSAGEW(text_message, ...) Msg("[" __FUNCTION__ "|%d] WARNING: "##text_message, __LINE__, __VA_ARGS__);
 #define MESSAGEWR(text_message, ...) Msg("[" __FUNCTION__ "|%d] WARNING: "##text_message" Return ...", __LINE__, __VA_ARGS__);
-#define MESSAGEE(text_message, ...) Msg("[" __FUNCTION__ "|%d] ERROR: "##text_message, __LINE__, __VA_ARGS__);
-#define MESSAGEER(text_message, ...) Msg("[" __FUNCTION__ "|%d] ERROR: "##text_message, __LINE__, __VA_ARGS__);
+#define MESSAGEE(text_message, ...) Msg("[" __FUNCTION__ "|%d] ERROR: "##text_message, __LINE__, __VA_ARGS__); R_ASSERT(false);
+#define MESSAGEER(text_message, ...) Msg("[" __FUNCTION__ "|%d] ERROR: "##text_message, __LINE__, __VA_ARGS__); R_ASSERT(false);
 #pragma endregion

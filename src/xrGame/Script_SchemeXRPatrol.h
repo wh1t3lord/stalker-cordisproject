@@ -107,7 +107,7 @@ namespace Cordis
 			std::uint32_t m_commander_level_vertex_id;
 			std::uint32_t m_npc_count;
 			Fvector m_commander_direction;
-			xr_map<std::uint16_t, std::tuple<CScriptGameObject*, Fvector, std::uint32_t>> m_npc_list;
+			xr_map<std::uint16_t, std::tuple<CScriptGameObject*, Fvector, float>> m_npc_list;
 			xr_string m_path_name;
 			xr_string m_current_state_name;
 			xr_string m_formation_name;

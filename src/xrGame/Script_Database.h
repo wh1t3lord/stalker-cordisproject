@@ -25,6 +25,7 @@ class Storage_Data;
 #include "Script_SchemeXRMeet.h"
 #include "Script_SchemeXRWounded.h"
 #include "Script_SchemeXRPatrol.h"
+#include "Script_SchemeXRReachTask.h"
 
 namespace Cordis
 {
@@ -4755,7 +4756,25 @@ public:
             }
         }
 
-        
+        for (std::pair<const xr_string, Script_XRPatrolManager*>& it : this->m_patrols_xr_patrol)
+        {
+            if (it.second)
+            {
+                MESSAGEWR("deallocating %s", typeid(it.second).name());
+                xr_delete(it.second);
+            }
+        }
+
+        for (std::pair<const xr_string, Script_ReachTaskManager*>& it : this->m_patrols_xr_reach_task)
+        {
+            if (it.second)
+            {
+                MESSAGEWR("deallocating %s", typeid(it.second).name());
+                xr_delete(it.second);
+            }
+        }
+
+        this->m_patrols_xr_reach_task.clear();
         this->m_patrols_xr_patrol.clear();
         this->m_offline_objects.clear();
         this->m_spawned_vertex_by_id.clear();
@@ -4973,6 +4992,47 @@ public:
     } 
 #pragma endregion
 
+#pragma region Cordis Scheme XR Reach Task
+    inline const xr_map<xr_string, Script_ReachTaskManager*>& getPatrolsXRReachTask(void) const noexcept 
+    {
+        return this->m_patrols_xr_reach_task;
+    }
+
+    inline void setPatrolsXRReachTask(const xr_map<xr_string, Script_ReachTaskManager*>& data) noexcept 
+    {
+        if (data.empty())
+        {
+            MESSAGEWR("You are trying to set an empty map!");
+            return;
+        }
+
+        this->m_patrols_xr_reach_task = data;
+    }
+
+    inline void setPatrolsXRReachTask(const xr_string& id_name, Script_ReachTaskManager* const p_manager)
+    {
+        if (id_name.empty())
+        {
+            MESSAGEWR("You are trying to set with id which it is empty!");
+            return;
+        }
+        
+        if (this->m_patrols_xr_reach_task.find(id_name) != this->m_patrols_xr_reach_task.end())
+        {
+            MESSAGEWR("You are trying to add an existing element!");
+            return;
+        }
+
+        if (p_manager == nullptr)
+        {
+            MESSAGEWR("Value can't be equals to nullptr!");
+            return;
+        }
+
+        this->m_patrols_xr_reach_task[id_name] = p_manager;
+    }
+#pragma endregion
+
     Storage(const Storage&) = delete;
     Storage& operator=(const Storage&) = delete;
     Storage(Storage&&) = delete;
@@ -5029,6 +5089,10 @@ private:
 
 #pragma region Cordis Scheme XR Patrol
     xr_map<xr_string, Script_XRPatrolManager*> m_patrols_xr_patrol;
+#pragma endregion
+
+#pragma region Cordis Scheme XR Reach Task
+    xr_map<xr_string, Script_ReachTaskManager*> m_patrols_xr_reach_task;
 #pragma endregion
 
     // first -> sympathy[ID] = std::uint32_t; | second -> relations[ID] = std::string;

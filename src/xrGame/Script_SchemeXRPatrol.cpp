@@ -303,8 +303,8 @@ namespace Cordis
 		void Script_XRPatrolManager::reset_positions(void)
 		{
 			std::uint32_t index = 0;
-			const xr_vector<std::pair<Fvector, std::uint32_t>>& picked_formation = Script_GlobalHelper::getInstance().getXRPatrolFormations().at(this->m_formation_name);
-			for (std::pair<const std::uint16_t, std::tuple<CScriptGameObject*, Fvector, std::uint32_t>>& it : this->m_npc_list)
+			const xr_vector<std::pair<Fvector, float>>& picked_formation = Script_GlobalHelper::getInstance().getXRPatrolFormations().at(this->m_formation_name);
+			for (std::pair<const std::uint16_t, std::tuple<CScriptGameObject*, Fvector, float>>& it : this->m_npc_list)
 			{
 				if (this->m_commander_id == Globals::kUnsignedInt16Undefined && index == 0)
 				{
@@ -416,7 +416,7 @@ namespace Cordis
 			_direction.normalize();
 
 			Fvector dir_s = std::get<kGetDirection>(this->m_npc_list.at(p_npc->ID()));
-			std::uint32_t dist_s = std::get<kGetDist>(this->m_npc_list.at(p_npc->ID()));
+			float dist_s = std::get<kGetDist>(this->m_npc_list.at(p_npc->ID()));
 
 			float angle = Globals::yaw_degree(dir_s, Fvector().set(0.0f, 0.0f, 1.0f));
 			Fvector vvv = Globals::vector_cross(dir_s, Fvector().set(0.0f, 0.0f, 1.0f));
