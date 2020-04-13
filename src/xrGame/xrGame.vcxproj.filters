@@ -4339,6 +4339,15 @@
     <Filter Include="Cordis\Scripts\Logic\Schemes\XR\Patrol\Private">
       <UniqueIdentifier>{98337b67-b69b-4ca4-8967-d950917c1916}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Cordis\Scripts\Logic\Schemes\XR\Reach task">
+      <UniqueIdentifier>{6e6ff605-5f14-46d2-8c3d-adcd3354d90b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Logic\Schemes\XR\Reach task\Public">
+      <UniqueIdentifier>{de2e2087-ea73-41de-8b1d-a0ee4a7920a9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Logic\Schemes\XR\Reach task\Private">
+      <UniqueIdentifier>{782a0c34-e8b9-46a7-b392-307230a19b6f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="mt_config.h">
@@ -9740,6 +9749,9 @@
     <ClInclude Include="Script_SchemeXRPatrol.h">
       <Filter>Cordis\Scripts\Logic\Schemes\XR\Patrol\Public</Filter>
     </ClInclude>
+    <ClInclude Include="Script_SchemeXRReachTask.h">
+      <Filter>Cordis\Scripts\Logic\Schemes\XR\Reach task\Public</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="damage_manager.cpp">
@@ -14204,6 +14216,9 @@
     </ClCompile>
     <ClCompile Include="Script_SchemeXRPatrol.cpp">
       <Filter>Cordis\Scripts\Logic\Schemes\XR\Patrol\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Script_SchemeXRReachTask.cpp">
+      <Filter>Cordis\Scripts\Logic\Schemes\XR\Reach task\Private</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
