@@ -35,7 +35,7 @@ namespace Cordis
 		class Script_EvaluatorReachedTaskLocation : public CScriptPropertyEvaluator
 		{
 		public:
-			Script_EvaluatorReachedTaskLocation(const xr_string& name, DataBase::Storage_Scheme& storage) : CScriptPropertyEvaluator(nullptr, name.c_str()) {}
+			Script_EvaluatorReachedTaskLocation(const xr_string& name) : CScriptPropertyEvaluator(nullptr, name.c_str()) {}
 			~Script_EvaluatorReachedTaskLocation(void) {}
 
 			virtual _value_type evaluate(void);
