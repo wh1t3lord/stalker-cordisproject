@@ -434,7 +434,7 @@ namespace Cordis
 			p_casted->add_evaluator(StalkerDecisionSpace::eWorldPropertySmartTerrainTask, new Script_EvaluatorReachedTaskLocation("reached_task_location"));
 			p_casted->remove_operator(StalkerDecisionSpace::eWorldOperatorSmartTerrainTask);
 
-			Script_SchemeXRReachTask* const p_action = new Script_SchemeXRReachTask("reach_task_location");
+			Script_SchemeXRReachTask* const p_action = new Script_SchemeXRReachTask("reach_task_location")
 
 
 			p_action->add_condition(CWorldProperty(StalkerDecisionSpace::eWorldPropertyALife, true));
