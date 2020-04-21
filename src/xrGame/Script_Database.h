@@ -198,7 +198,7 @@ public:
             {
                 if (it)
                 {
-                    Msg("[Scripts/DataBase/Storage_Scheme/~dtor()] deleting scheme %s from actions",
+                    MESSAGE("deleting scheme %s from actions",
                         it->getSchemeName().c_str());
                     xr_delete(it);
                 }
@@ -207,14 +207,14 @@ public:
 
         if (this->m_p_jump_path)
         {
-            Msg("[Scripts/DataBase/Storage_Scheme/~dtor()] deleting CPatrolPathParams m_p_jump_path %s",
+            MESSAGE("deleting CPatrolPathParams m_p_jump_path %s",
                 this->m_p_jump_path->m_path_name);
             xr_delete(this->m_p_jump_path);
         }
 
         if (this->m_p_abuse_manager)
         {
-            Msg("[Scripts/DataBase/Storage_Scheme/~dtor()] deleting abuse manager from %s", this->m_p_npc->Name());
+            MESSAGE("deleting abuse manager from %s", this->m_p_npc->Name());
             xr_delete(this->m_p_abuse_manager);
         }
 
@@ -1568,8 +1568,7 @@ public:
     {
         if (path_name.empty())
         {
-            Msg("[Scripts/DataBase/Storage_Scheme/setXRWalkerPathLookName(path_name)] WARNING: path_name.empty() == "
-                "true! You are set an empty string");
+            MESSAGEWR("path_name.empty() == true! You are set an empty string");
             return;
         }
 
@@ -1581,8 +1580,7 @@ public:
     {
         if (team_name.empty())
         {
-            Msg("[Scripts/DataBase/Storage_Scheme/setXRWalkerTeamName(team_name)] WARNING: team_name.empty() == true! "
-                "You are set an empty string");
+            MESSAGEWR("team_name.empty() == true! You are set an empty string");
             return;
         }
 
@@ -1597,8 +1595,7 @@ public:
     {
         if (description_name.empty())
         {
-            Msg("[Scripts/DataBase/Storage_Scheme/setXRWalkerDescriptionName(description_name)] WARNING: "
-                "description_name.empty() == true! You are set an empty string!");
+            MESSAGEWR("description_name.empty() == true! You are set an empty string!");
             return;
         }
 
@@ -1617,15 +1614,13 @@ public:
     {
         if (type_name.empty())
         {
-            Msg("[Scripts/DataBase/Storage_Scheme/setXRWalkerSuggestedStates(type_name, animation_name)] WARNING: "
-                "type_name.empty() == true! You are set an empty string!");
+            MESSAGEW("type_name.empty() == true! You are set an empty string!");
             return;
         }
 
         if (this->m_xr_walker_suggested_states.find(type_name) != this->m_xr_walker_suggested_states.end())
         {
-            Msg("[Scripts/DataBase/Storage_Scheme/setXRWalkerSuggestedStates(type_name, animation_name)] WARNING: you "
-                "are trying to change the existing value %s to %s",
+            MESSAGEW("you are trying to change the existing value %s to %s",
                 this->m_xr_walker_suggested_states.at(type_name).c_str(), animation_name.c_str());
         }
 
@@ -1636,7 +1631,11 @@ public:
     inline void setXRWalkerSoundIdleName(const xr_string& sound_name) noexcept 
     {
         if (sound_name.empty())
-            Msg("[Scripts/DataBase/Storage_Scheme/setXRWalkerSoundIdleName(sound_name)] WARNING: sound_name.empty() == true! Return ...");
+        {
+            MESSAGEWR("sound_name.empty() == true!");
+            return;
+        }
+
 
         this->m_xr_walker_sound_idle_name = sound_name;
     }
@@ -1651,7 +1650,7 @@ public:
     {
         if (path_name.empty())
         {
-            Msg("[Scripts/DataBase/Storage_Scheme/setXRSleeperPathMainName(path_name)] WARNING: path_name.empty() == true! Return ...");
+            MESSAGEWR("path_name.empty() == true!");
             return;
         }
 
@@ -1663,7 +1662,7 @@ public:
     {
         if (path_name.empty())
         {
-            Msg("[Scripts/DataBase/Storage_Scheme/setXRSleeperPathWalkName(path_name)] WARNING: path_name.empty() == true! Return ...");
+            MESSAGEWR("path_name.empty() == true!");
             return;
         }
 
@@ -1675,7 +1674,7 @@ public:
     {
         if (path_name.empty())
         {
-            Msg("[Scripts/DataBase/Storage_Scheme/setXRSleeperPathLookName(path_name)] WARNING: path_name.empty() == true! Return ...");
+            MESSAGEWR("path_name.empty() == true!");
             return;
         }
 
@@ -1709,8 +1708,7 @@ public:
     {
         if (action_name.empty())
         {
-            Msg("[Scripts/Storage_Scheme/setBaseActionName(action_name)] WARNING: action_name.empty() == true! You set "
-                "an empty string return");
+            MESSAGEWR("action_name.empty() == true!");
             return;
         }
 
@@ -1722,8 +1720,7 @@ public:
     {
         if (description_name.empty())
         {
-            Msg("[Scripts/Storage_Scheme/setDescriptionName(description_name)] WARNING: description_name.empty() == "
-                "true! You set an empty string return");
+            MESSAGEWR("description_name.empty() == true!");
             return;
         }
 
@@ -2102,7 +2099,16 @@ public:
 #pragma endregion
 
 #pragma region Cordis Scheme XR Animpoint
+    inline Script_Animpoint* getAnimpoint(void) const { return this->m_p_animpoint; }
+    inline void setAnimpoint(Script_Animpoint* const p_animpoint) 
+    {
+        if (p_animpoint == nullptr)
+        {
+            MESSAGEW("set an empty object!");
+        }
 
+        this->m_p_animpoint = p_animpoint;
+    }
 
     inline const xr_string& getXRAnimpointCoverName(void) const noexcept { return this->m_xr_animpoint_cover_name; }
     inline void setXRAnimpointCoverName(const xr_string& name) noexcept 
@@ -2150,6 +2156,22 @@ public:
 
     inline const xr_string& getXRAnimpointDescriptionName(void) const noexcept { return this->m_xr_animpoint_description_name; }
     inline void setXRAnimpointDescriptionName(const xr_string& name) noexcept { if (name.empty()) { MESSAGEWR("you are trying to set an empty string!"); return; }  this->m_xr_animpoint_description_name = name; }
+
+    inline const xr_string& getXRAnimpointBaseActionName(void) const noexcept
+    {
+        return this->m_xr_animpoint_base_action_name;
+    }
+
+    inline void setXRAnimpointBaseActionName(const xr_string& name) noexcept 
+    {
+        if (name.empty())
+        {
+            MESSAGEWR("You are trying to set an empty string!");
+            return;
+        }
+
+        this->m_xr_animpoint_base_action_name = name;
+    }
 #pragma endregion
 
 private:
@@ -2284,6 +2306,7 @@ private:
     Script_XRMeetManager* m_p_meet_manager = nullptr;
     Script_WoundedManager* m_p_wounded_manager = nullptr;
     Script_ISchemeEntity* m_p_action = nullptr; // @ Здесь он не удаляется, пробрасываетс специально такой дизайн пыс (
+    Script_Animpoint* m_p_animpoint = nullptr;
     Fvector m_offset;
     Fvector m_ph_force_point;
     Fvector m_vertex_position;
@@ -2410,6 +2433,7 @@ private:
     xr_string m_xr_animpoint_cover_name;
     xr_string m_xr_animpoint_reach_movement_name;
     xr_string m_xr_animpoint_description_name;
+    xr_string m_xr_animpoint_base_action_name;
     CondlistWaypoints m_path_walk_info;
     CondlistWaypoints m_path_look_info;
 };
