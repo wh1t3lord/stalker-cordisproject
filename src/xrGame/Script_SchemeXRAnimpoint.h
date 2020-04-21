@@ -26,6 +26,7 @@ namespace Cordis
             inline const Fvector& getLookPosition(void) const noexcept { return this->m_look_position; }
             inline bool isStarted(void) const noexcept { return this->m_is_started; }
             inline std::uint32_t getPositionVertex(void) const noexcept { return this->m_position_vertex; }
+			
 		private:
 			bool m_is_started;
 			std::uint16_t m_npc_id;
