@@ -9342,7 +9342,9 @@ $(xrLibDir);$(xrSdkDir)DXSDK/Lib/$(PlatformShortName);
     <ClCompile Include="Script_SchemeXRAbuse.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Jumbo|x64'">true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="Script_SchemeXRAnimpoint.cpp" />
+    <ClCompile Include="Script_SchemeXRAnimpoint.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Jumbo|x64'">true</ExcludedFromBuild>
+    </ClCompile>
     <ClCompile Include="Script_SchemeXRCamper.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Jumbo|x64'">true</ExcludedFromBuild>
     </ClCompile>

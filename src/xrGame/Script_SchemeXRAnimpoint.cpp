@@ -49,6 +49,11 @@ namespace Cordis
             CScriptActionBase::finalize();
 		}
 
+		void Script_SchemeXRAnimpoint::net_destroy(CScriptGameObject* const p_client_object)
+		{
+			this->m_p_storage->getAnimpoint()->stop();
+		}
+
 		Script_ActionReachAnimpoint::Script_ActionReachAnimpoint(const xr_string& name, DataBase::Storage_Scheme& storage) : Script_ISchemeStalker(nullptr, name, storage)
 		{
 		}
@@ -102,7 +107,7 @@ namespace Cordis
 			return XR_LOGIC::is_active(this->m_object, *this->m_p_storage);
 		}
 
-		Script_Animpoint::Script_Animpoint(const std::uint16_t npc_id, DataBase::Storage_Scheme& storage) : Script_ISchemeEntity(), m_p_storage(&storage), m_npc_id(npc_id), m_is_started(false), m_position_vertex(0), m_p_camp(nullptr)
+		Script_Animpoint::Script_Animpoint(const std::uint16_t npc_id, DataBase::Storage_Scheme& storage) : Script_ISchemeEntity(nullptr, storage), m_p_storage(&storage), m_npc_id(npc_id), m_is_started(false), m_position_vertex(0), m_p_camp(nullptr)
 		{
 		}
 
@@ -212,7 +217,7 @@ namespace Cordis
 			if (DataBase::Storage::getInstance().getStorage().find(this->m_npc_id) == DataBase::Storage::getInstance().getStorage().end())
 			{
 				MESSAGEWR("can't find npc's storage by id %d", this->m_npc_id);
-				return;
+				return false;
 			}
 			else
 			{
@@ -227,7 +232,7 @@ namespace Cordis
 			float v1 = -deg(atan2(this->m_smart_direction.x, this->m_smart_direction.z));
 			float v2 = -deg(atan2(p_object->Direction().x, p_object->Direction().z));
 
-			float rot_y = min(abs(v1 - v2), 360.0f - abs(v1) - abs(v2));
+			float rot_y = std::min<float>(static_cast<float>(fabs(v1 - v2)), static_cast<float>(360.0f - fabs(v1) - fabs(v2)));
 
 			bool is_direction_reached = rot_y < 50.0f;
 
@@ -365,7 +370,7 @@ namespace Cordis
 
             std::uint32_t generated_id = Globals::Script_RandomInt::getInstance().Generate<std::uint32_t>(0, temp_actions.size() - 1);
             xr_string picked_action_name = temp_actions.at(generated_id);
-            const xr_string& as_iterator = temp_actions.at(generated_id);
+            xr_string as_iterator = temp_actions.at(generated_id);
             if (this->m_p_storage->getXRAnimpointBaseActionName().empty() == false)
             {
                 if (this->m_p_storage->getXRAnimpointBaseActionName() == xr_string(description_name).append("_weapon"))
@@ -376,7 +381,7 @@ namespace Cordis
 
                 if (picked_action_name == xr_string(description_name).append("_weapon") && (this->m_p_storage->getXRAnimpointBaseActionName() == description_name))
                 {
-                    temp_actions.erase(as_iterator);
+                    temp_actions.erase(temp_actions.begin() + generated_id);
                     picked_action_name = temp_actions.at(Globals::Script_RandomInt::getInstance().Generate<std::uint32_t>(0, temp_actions.size() - 1));
                 }
             }

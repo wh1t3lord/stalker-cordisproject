@@ -19,7 +19,7 @@ public:
 
         if (this->m_id == Globals::kUnsignedInt16Undefined)
         {
-            MESSAGEW("bad id of npc!");
+            MESSAGEW("bad id of npc! %s", this->m_scheme_name.c_str());
         }
     }
 

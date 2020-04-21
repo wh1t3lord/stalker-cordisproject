@@ -3458,16 +3458,35 @@ inline bool is_quest_npc_enemy_actor_client_server(
 
 inline bool is_animpoint_reached(CScriptGameObject* actor, CScriptGameObject* npc)
 {
-    const DataBase::StorageAnimpoint_Data& animpoint_storage =
-        DataBase::Storage::getInstance().getStorage().at(npc->ID()).getStorageAnimpoint();
-    Script_Animpoint* animpoint = animpoint_storage.getAnimpoint();
-    if (!animpoint)
+    if (npc == nullptr)
     {
-        Msg("[Scripts/XR_CONDITION/is_animpoint_reached(actor, npc)] WARNING: animpoint = nullptr! Returns False");
+        MESSAGEWR("Invalid npc!");
         return false;
     }
 
-    return animpoint->is_position_riched();
+    if (DataBase::Storage::getInstance().getStorage().find(npc->ID()) == DataBase::Storage::getInstance().getStorage().end())
+    {
+        MESSAGEWR("Can't find storage for npc %d", npc->ID());
+        return false;
+    }
+
+    const DataBase::Storage_Data& storage = DataBase::Storage::getInstance().getStorage().at(npc->ID());
+
+    if (storage.getSchemes().find("animpoint") == storage.getSchemes().end())
+    {
+        MESSAGEWR("Can't find scheme animpoint!");
+        return false;
+    }
+
+    Script_Animpoint* const p_animpoint = storage.getSchemes().at("animpoint")->getAnimpoint();
+
+    if (p_animpoint == nullptr)
+    {
+        MESSAGEWR("Invalid object! Animpoint class didn't setted!");
+        return false;
+    }
+
+    return p_animpoint->position_riched();
 }
 
 inline bool is_distance_to_obj_ge_client(
