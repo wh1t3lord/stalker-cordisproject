@@ -168,7 +168,7 @@ extern XRCORE_API xrCore Core;
 
 
 #pragma region Cordis
-#define MESSAGE(text_message, ...) Msg("[" __FUNCTION__ "|%d]"##text_message, __LINE__, __VA_ARGS__);
+#define MESSAGE(text_message, ...) { xr_string file_name = __FILE__; Msg("[%s|" __FUNCTION__ "|%d] "##text_message, file_name.substr(file_name.rfind("\\")).c_str(), __LINE__, __VA_ARGS__); }
 #define MESSAGEW(text_message, ...) Msg("[" __FUNCTION__ "|%d] WARNING: "##text_message, __LINE__, __VA_ARGS__);
 #define MESSAGEWR(text_message, ...) Msg("[" __FUNCTION__ "|%d] WARNING: "##text_message" Return ...", __LINE__, __VA_ARGS__);
 #define MESSAGEE(text_message, ...) Msg("[" __FUNCTION__ "|%d] ERROR: "##text_message, __LINE__, __VA_ARGS__); R_ASSERT(false);

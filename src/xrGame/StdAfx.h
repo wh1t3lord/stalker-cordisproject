@@ -360,7 +360,6 @@ __declspec(dllexport)  CSE_Abstract* xrServer_Create(LPCSTR section, CSE_Motion*
 #include "map_manager.h"
 #include "xrAICore/Navigation/game_graph.h"
 #include "script_ini_file.h"
-#include "Script_Animpoint.h"
 #include "Script_Database.h"
 #include "Script_SE_SimulationSquad.h"
 #include "PhraseDialog.h"
