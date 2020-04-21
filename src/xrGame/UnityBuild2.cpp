@@ -23,7 +23,6 @@
 #include "script_action_wrapper.cpp"
 #include "script_animation_action.cpp"
 #include "script_animation_action_script.cpp"
-#include "Script_Animpoint.cpp"
 #include "script_binder.cpp"
 
 #pragma region Cordis Scheme Binders

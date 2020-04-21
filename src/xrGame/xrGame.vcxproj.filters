@@ -4348,6 +4348,15 @@
     <Filter Include="Cordis\Scripts\Logic\Schemes\XR\Reach task\Private">
       <UniqueIdentifier>{782a0c34-e8b9-46a7-b392-307230a19b6f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Cordis\Scripts\Logic\Schemes\XR\Animpoint">
+      <UniqueIdentifier>{8297db16-aa7f-4a11-8c98-dd3d9bc3f0ff}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Logic\Schemes\XR\Animpoint\Public">
+      <UniqueIdentifier>{0e54ed3b-f696-49c0-b28c-d9d512f5ab33}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Logic\Schemes\XR\Animpoint\Private">
+      <UniqueIdentifier>{d3ec4838-6460-4038-a4af-6e9f1518fd9c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="mt_config.h">
@@ -9365,9 +9374,6 @@
     <ClInclude Include="Script_TreasureManager.h">
       <Filter>Cordis\Scripts\Managers\Treasure</Filter>
     </ClInclude>
-    <ClInclude Include="Script_Animpoint.h">
-      <Filter>Cordis\Scripts\Entities %28not server entities!%29\Animpoint\Public</Filter>
-    </ClInclude>
     <ClInclude Include="Script_DialogManager.h">
       <Filter>Cordis\Scripts\Managers\Dialog\Public</Filter>
     </ClInclude>
@@ -9751,6 +9757,9 @@
     </ClInclude>
     <ClInclude Include="Script_SchemeXRReachTask.h">
       <Filter>Cordis\Scripts\Logic\Schemes\XR\Reach task\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Script_SchemeXRAnimpoint.h">
+      <Filter>Cordis\Scripts\Logic\Schemes\XR\Animpoint\Public</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -14219,6 +14228,9 @@
     </ClCompile>
     <ClCompile Include="Script_SchemeXRReachTask.cpp">
       <Filter>Cordis\Scripts\Logic\Schemes\XR\Reach task\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Script_SchemeXRAnimpoint.cpp">
+      <Filter>Cordis\Scripts\Logic\Schemes\XR\Animpoint\Private</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

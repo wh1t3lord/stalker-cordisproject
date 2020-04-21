@@ -346,6 +346,12 @@ public:
         this->m_signals.clear();
     }
 
+    inline void ClearApprovedActions(void) noexcept 
+    {
+        MESSAGE("clearing approved actions");
+        this->m_approved_actions.clear();
+    }
+
     inline const xr_string& getPathWalkName(void) const noexcept { return this->m_path_walk_name; }
     inline void setPathWalkName(const xr_string& path_walk_name) noexcept
     {
@@ -2095,6 +2101,57 @@ public:
     }
 #pragma endregion
 
+#pragma region Cordis Scheme XR Animpoint
+
+
+    inline const xr_string& getXRAnimpointCoverName(void) const noexcept { return this->m_xr_animpoint_cover_name; }
+    inline void setXRAnimpointCoverName(const xr_string& name) noexcept 
+    {
+        if (name.empty())
+        {
+            MESSAGEWR("You are trying to set an empty string!");
+            return;
+        }
+        
+        this->m_xr_animpoint_cover_name = name;
+    }
+
+	inline const xr_vector<xr_string>& getXRAnimpointAvailAnimations(void) const noexcept {
+        return this->m_xr_animpoint_avail_animations;
+	}
+
+    inline void setXRAnimpointAvailAnimations(const xr_vector<xr_string>& data) noexcept 
+    {
+        if (data.empty())
+        {
+            MESSAGEWR("You are trying to set an empty vector!");
+            return;
+        }
+
+        this->m_xr_animpoint_avail_animations = data;
+    }
+
+    inline bool isXRAnimpointUseCamp(void) const noexcept { return this->m_is_xr_animpoint_use_camp; }
+    inline void setXRAnimpointUseCamp(const bool value) noexcept { this->m_is_xr_animpoint_use_camp = value; }
+
+    inline const xr_string& getXRAnimpointReachMovementName(void) const noexcept { return this->m_xr_animpoint_reach_movement_name; }
+    inline void setXRAnimpointReachMovementName(const xr_string& name) noexcept {
+        if (name.empty())
+        {
+            MESSAGEWR("You are trying to set an empty string!");
+            return;
+        }
+
+        this->m_xr_animpoint_reach_movement_name = name;
+    }
+
+    inline float getXRAnimpointReachDistance(void) const noexcept { return this->m_xr_animpoint_reach_distance; }
+    inline void setXRAnimpointReachDistance(const float value) noexcept { this->m_xr_animpoint_reach_distance = value; }
+
+    inline const xr_string& getXRAnimpointDescriptionName(void) const noexcept { return this->m_xr_animpoint_description_name; }
+    inline void setXRAnimpointDescriptionName(const xr_string& name) noexcept { if (name.empty()) { MESSAGEWR("you are trying to set an empty string!"); return; }  this->m_xr_animpoint_description_name = name; }
+#pragma endregion
+
 private:
     // @ Не понятно зачем в итоге но так у ПЫС, если в итоге оно находится в самом сторадже где уже зарегистрирован
     // сам НПС
@@ -2145,6 +2202,7 @@ private:
     bool m_is_xr_combat_camper_action = false;
     bool m_is_xr_patrol_silent = false;
     bool m_is_xr_patrol_commander = false;
+    bool m_is_xr_animpoint_use_camp = false;
     std::uint16_t m_xr_corpse_detection_selected_corpse_id = 0;
     std::uint16_t m_selected_id = 0;
     std::uint16_t m_xr_remark_target_id = 0;
@@ -2208,6 +2266,7 @@ private:
     float m_sr_deimos_movement_speed = 0.0f;
     float m_xr_camper_radius = 0.0f;
     float m_xr_meet_reset_distance = 30.0f;
+    float m_xr_animpoint_reach_distance = 0.0f;
     const float m_xr_camper_scandelta = 30.0f;
     const float m_xr_camper_enemy_disp = 7 / 57.2957f;
     CScriptGameObject* m_p_npc = nullptr;
@@ -2276,6 +2335,7 @@ private:
     xr_vector<LogicData> m_logic;
     xr_vector<std::pair<std::uint32_t, std::pair<xr_string, xr_string>>> m_sr_teleport_points;
     xr_vector<std::pair<std::function<bool(std::uint16_t, bool)>, xr_string>> m_approved_actions;
+    xr_vector<xr_string> m_xr_animpoint_avail_animations;
     xr_string m_path_walk_name;
     xr_string m_path_look_name;
     xr_string m_path_jump_name;
@@ -2347,6 +2407,9 @@ private:
     xr_string m_xr_patrol_path_name;
     xr_string m_xr_patrol_formation_name;
     xr_string m_xr_patrol_move_type_name;
+    xr_string m_xr_animpoint_cover_name;
+    xr_string m_xr_animpoint_reach_movement_name;
+    xr_string m_xr_animpoint_description_name;
     CondlistWaypoints m_path_walk_info;
     CondlistWaypoints m_path_look_info;
 };
