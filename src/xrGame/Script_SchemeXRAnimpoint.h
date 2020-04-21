@@ -19,8 +19,13 @@ namespace Cordis
 			void fill_approved_actions(void);
 			void start(void);
 			void stop(void);
-			void update(void);
+			virtual void update(const float delta);
 			const xr_string& getActionName(void) noexcept { return this->m_action_name; }
+            inline const Fvector& getSmartDirection(void) const noexcept { return this->m_smart_direction; }
+            inline const Fvector& getVertexPosition(void) const noexcept { return this->m_vertex_position; }
+            inline const Fvector& getLookPosition(void) const noexcept { return this->m_look_position; }
+            inline bool isStarted(void) const noexcept { return this->m_is_started; }
+            inline std::uint32_t getPositionVertex(void) const noexcept { return this->m_position_vertex; }
 		private:
 			bool m_is_started;
 			std::uint16_t m_npc_id;

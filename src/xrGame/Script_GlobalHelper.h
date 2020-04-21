@@ -13087,6 +13087,43 @@ private:
         this->m_xr_reach_task_formations["back"].push_back({ Fvector().set(0.3f, 0.0f, -1.0f), 8.4f });
         this->m_xr_reach_task_formations["back"].push_back({ Fvector().set(-0.3f, 0.0f, -1.0f), 8.4f });
 
+        this->m_xr_animpoint_association_table["idle"].first.push_back("");
+        this->m_xr_animpoint_association_table["idle"].first.push_back("_eat_bread");
+        this->m_xr_animpoint_association_table["idle"].first.push_back("_eat_kolbasa");
+        this->m_xr_animpoint_association_table["idle"].first.push_back("_drink_vodka");
+        this->m_xr_animpoint_association_table["idle"].first.push_back("_drink_energy");
+        this->m_xr_animpoint_association_table["idle"].first.push_back("_weapon");
+        this->m_xr_animpoint_association_table["idle"].second.push_back("");
+        this->m_xr_animpoint_association_table["idle"].second.push_back("_eat_bread");
+        this->m_xr_animpoint_association_table["idle"].second.push_back("_eat_kolbasa");
+        this->m_xr_animpoint_association_table["idle"].second.push_back("_drink_vodka");
+        this->m_xr_animpoint_association_table["idle"].second.push_back("_drink_energy");
+        this->m_xr_animpoint_association_table["idle"].second.push_back("_weapon");
+
+        this->m_xr_animpoint_association_table["harmonica"].first.push_back("_harmonica");
+        this->m_xr_animpoint_association_table["harmonica"].second.push_back("");
+        this->m_xr_animpoint_association_table["harmonica"].second.push_back("_eat_bread");
+        this->m_xr_animpoint_association_table["harmonica"].second.push_back("_eat_kolbasa");
+        this->m_xr_animpoint_association_table["harmonica"].second.push_back("_drink_vodka");
+        this->m_xr_animpoint_association_table["harmonica"].second.push_back("_drink_energy");
+        this->m_xr_animpoint_association_table["harmonica"].second.push_back("_weapon");
+
+        this->m_xr_animpoint_association_table["guitar"].first.push_back("_guitar");
+        this->m_xr_animpoint_association_table["guitar"].second.push_back("");
+        this->m_xr_animpoint_association_table["guitar"].second.push_back("_eat_bread");
+        this->m_xr_animpoint_association_table["guitar"].second.push_back("_eat_kolbasa");
+        this->m_xr_animpoint_association_table["guitar"].second.push_back("_drink_vodka");
+        this->m_xr_animpoint_association_table["guitar"].second.push_back("_drink_energy");
+        this->m_xr_animpoint_association_table["guitar"].second.push_back("_weapon");
+
+        this->m_xr_animpoint_association_table["story"].first.push_back("");
+        this->m_xr_animpoint_association_table["story"].first.push_back("_weapon");
+        this->m_xr_animpoint_association_table["story"].second.push_back("");
+        this->m_xr_animpoint_association_table["story"].second.push_back("_eat_bread");
+        this->m_xr_animpoint_association_table["story"].second.push_back("_eat_kolbasa");
+        this->m_xr_animpoint_association_table["story"].second.push_back("_drink_vodka");
+        this->m_xr_animpoint_association_table["story"].second.push_back("_drink_energy");
+        this->m_xr_animpoint_association_table["story"].second.push_back("_weapon");
         #pragma endregion
     }
 
@@ -14531,6 +14568,8 @@ public:
     inline const xr_map<xr_string, xr_string>& getXRPatrolAccelByCurrentType(void) const noexcept { return this->m_xr_patrol_accel_by_curtype; }
 
     inline const xr_map<xr_string, xr_vector<std::pair<Fvector, float>>>& getXRReachTaskFormations(void) const noexcept { return this->m_xr_reach_task_formations; }
+
+    inline const xr_map<xr_string, std::pair<xr_vector<xr_string>, xr_vector<xr_string>>>& getXRAnimpointAssociationTable(void) const noexcept {return this->m_xr_animpoint_association_table;}
     #pragma endregion
 
 private:
@@ -14596,6 +14635,9 @@ private:
     xr_map<xr_string, xr_string> m_news_manager_registered_sound_tips;
     xr_map<xr_string, xr_string> m_news_manager_action_description_by_type_name;
     xr_map<xr_string, xr_string> m_xr_walker_association;
+    // @ Pair.first -> director 
+    // @ Pair.second -> listener
+    xr_map<xr_string, std::pair<xr_vector<xr_string>, xr_vector<xr_string>>> m_xr_animpoint_association_table;
     xr_map<xr_string, xr_string> m_xr_patrol_accel_by_curtype;
     xr_map<xr_string, xr_string> m_xr_combat_ignore_smarts_by_no_assault_zones;
     xr_map<xr_string, xr_map<xr_string, xr_string>> m_smart_terrains_translated_name;
