@@ -26,6 +26,7 @@ class Storage_Data;
 #include "Script_SchemeXRWounded.h"
 #include "Script_SchemeXRPatrol.h"
 #include "Script_SchemeXRReachTask.h"
+#include "Script_SchemeXRAnimpoint.h"
 
 namespace Cordis
 {

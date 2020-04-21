@@ -153,6 +153,7 @@
 #include "Script_SchemeXRCombatCamper.cpp"
 #include "Script_SchemeXRPatrol.cpp"
 #include "Script_SchemeXRReachTask.cpp"
+#include "Script_SchemeXRAnimpoint.cpp"
 #pragma endregion
 
 

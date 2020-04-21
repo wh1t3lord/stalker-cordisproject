@@ -52,6 +52,7 @@ namespace Cordis
 			virtual void initialize(void);
 			virtual void execute(void);
 			virtual void finalize(void);
+			virtual void net_destroy(CScriptGameObject* const p_client_object);
 		};
 
 		class Script_ActionReachAnimpoint : public Script_ISchemeStalker
