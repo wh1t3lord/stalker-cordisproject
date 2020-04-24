@@ -154,6 +154,7 @@
 #include "Script_SchemeXRPatrol.cpp"
 #include "Script_SchemeXRReachTask.cpp"
 #include "Script_SchemeXRAnimpoint.cpp"
+#include "Script_SchemeXRSmartCover.cpp"
 #pragma endregion
 
 

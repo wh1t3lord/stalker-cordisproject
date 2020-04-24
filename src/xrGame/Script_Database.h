@@ -2175,6 +2175,53 @@ public:
     }
 #pragma endregion
 
+#pragma region Cordis Scheme XR Smart Cover
+    inline const xr_string& getXRSmartCoverCoverName(void) const noexcept { return this->m_xr_smartcover_cover_name; }
+    inline void setXRSmartCoverCoverName(const xr_string& name) noexcept { if (name.empty()) { MESSAGEWR("invalid string!"); return; } this->m_xr_smartcover_cover_name = name; }
+
+    inline const xr_string& getXRSmartCoverLoopholeName(void) const noexcept { return this->m_xr_smartcover_loophole_name; }
+    inline void setXRSmartCoverLoopholeName(const xr_string& name) noexcept { if (name.empty()) { MESSAGEWR("invalid string!"); return; } this->m_xr_smartcover_loophole_name = name; }
+
+    inline const xr_string& getXRSmartCoverCoverStateName(void) const noexcept { return this->m_xr_smartcover_cover_state_name; }
+    inline void setXRSmartCoverCoverStateName(const xr_string& name) noexcept { if (name.empty()) { MESSAGEWR("invalid string!"); return; } this->m_xr_smartcover_cover_state_name = name; }
+
+    inline const xr_string& getXRSmartCoverTargetEnemyName(void) const noexcept { return this->m_xr_smartcover_target_enemy_name; }
+    inline void setXRSmartCoverTargetEnemyName(const xr_string& name) noexcept { if (name.empty()) { MESSAGEWR("invalid string!"); return; } this->m_xr_smartcover_target_enemy_name = name; }
+
+    inline const xr_string& getXRSmartCoverTargetPathName(void) const noexcept { return this->m_xr_smartcover_target_path_name; }
+    inline void setXRSmartCoverTargetPathName(const xr_string& name) noexcept { if (name.empty()) { MESSAGEWR("invalid string!"); return; } this->m_xr_smartcover_target_path_name = name; }
+
+    inline const xr_string& getXRSmartCoverExitBodyStateName(void) const noexcept { return this->m_xr_smartcover_exit_body_state_name; }
+    inline void setXRSmartCoverExitBodyStateName(const xr_string& name) noexcept { if (name.empty()) { MESSAGEWR("invalid string!"); return; } this->m_xr_smartcover_exit_body_state_name = name; }
+
+    inline const xr_string& getXRSmartCoverWeaponTypeName(void) const noexcept { return this->m_xr_smartcover_weapon_type_name; }
+    inline void setXRSmartCoverWeaponTypeName(const xr_string& name) noexcept { if (name.empty()) { MESSAGEWR("invalid string!"); return; } this->m_xr_smartcover_weapon_type_name = name; }
+
+    inline const xr_string& getXRSmartCoverMovingName(void) const noexcept { return this->m_xr_smartcover_moving_name; }
+    inline void setXRSmartCoverMovingName(const xr_string& name) noexcept { if (name.empty()) { MESSAGEWR("invalid string!"); return; } this->m_xr_smartcover_moving_name = name; }
+
+    inline const xr_string& getXRSmartCoverSoundIdleName(void) const noexcept { return this->m_xr_smartcover_sound_idle_name; }
+    inline void setXRSmartCoverSoundIdleName(const xr_string& name) noexcept { if (name.empty()) { MESSAGEWR("invalid string!"); return; } this->m_xr_smartcover_sound_idle_name; }
+
+    inline bool isXRSmartCoverUsePreCalcCover(void) const noexcept { return this->m_is_xr_smartcover_precalc_cover; }
+    inline void setXRSmartCoverUsePreCalcCover(const bool value) noexcept { this->m_is_xr_smartcover_precalc_cover = value; }
+
+    inline bool isXRSmartCoverUseInCombat(void) const noexcept { return this->m_is_xr_smartcover_in_combat; }
+    inline void setXRSmartCoverUseInCombat(const bool value) noexcept { this->m_is_xr_smartcover_in_combat = value; }
+
+    inline std::uint32_t getXRSmartCoverIdleMinTime(void) const noexcept { return this->m_xr_smartcover_idle_min_time; }
+    inline void setXRSmartCoverIdleMinTime(const std::uint32_t value) noexcept { this->m_xr_smartcover_idle_min_time = value; }
+
+    inline std::uint32_t getXRSmartCoverIdleMaxTime(void) const noexcept { return this->m_xr_smartcover_idle_max_time; }
+    inline void setXRSmartCoverIdleMaxTime(const std::uint32_t value) noexcept { this->m_xr_smartcover_idle_max_time = value; }
+
+    inline std::uint32_t getXRSmartCoverLookOutMinTime(void) const noexcept { return this->m_xr_smartcover_lookout_min_time; }
+    inline void setXRSmartCoverLookOutMaxTime(const std::uint32_t value) noexcept { this->m_xr_smartcover_lookout_max_time = value; }
+
+    inline std::uint32_t getXRSmartCoverLookOutMaxTime(void) const noexcept { return this->m_xr_smartcover_lookout_max_time; }
+    inline void setXRSmartCoverLookOutMaxTime(const std::uint32_t value) noexcept { this->m_xr_smartcover_lookout_max_time = value; }
+#pragma endregion
+
 private:
     // @ Не понятно зачем в итоге но так у ПЫС, если в итоге оно находится в самом сторадже где уже зарегистрирован
     // сам НПС
@@ -2226,6 +2273,8 @@ private:
     bool m_is_xr_patrol_silent = false;
     bool m_is_xr_patrol_commander = false;
     bool m_is_xr_animpoint_use_camp = false;
+    bool m_is_xr_smartcover_precalc_cover = false;
+    bool m_is_xr_smartcover_in_combat = false;
     std::uint16_t m_xr_corpse_detection_selected_corpse_id = 0;
     std::uint16_t m_selected_id = 0;
     std::uint16_t m_xr_remark_target_id = 0;
@@ -2254,6 +2303,10 @@ private:
     std::uint32_t m_xr_camper_scan_begin = 0;
     std::uint32_t m_xr_camper_current_look_point = 0;
     std::uint32_t m_xr_camper_memory_enemy = 0;
+    std::uint32_t m_xr_smartcover_idle_min_time = 0;
+    std::uint32_t m_xr_smartcover_idle_max_time = 0;
+    std::uint32_t m_xr_smartcover_lookout_min_time = 0;
+    std::uint32_t m_xr_smartcover_lookout_max_time = 0;
     std::uint32_t m_xr_combat_zombied_current_action = 0;
     const std::uint32_t m_xr_camper_post_enemy_wait = 5000;
     const std::uint32_t m_xr_camper_timedelta = 4000;
@@ -2435,6 +2488,15 @@ private:
     xr_string m_xr_animpoint_reach_movement_name;
     xr_string m_xr_animpoint_description_name;
     xr_string m_xr_animpoint_base_action_name;
+    xr_string m_xr_smartcover_cover_name;
+    xr_string m_xr_smartcover_loophole_name;
+    xr_string m_xr_smartcover_cover_state_name;
+    xr_string m_xr_smartcover_target_enemy_name;
+    xr_string m_xr_smartcover_target_path_name;
+    xr_string m_xr_smartcover_exit_body_state_name;
+    xr_string m_xr_smartcover_weapon_type_name;
+    xr_string m_xr_smartcover_moving_name;
+    xr_string m_xr_smartcover_sound_idle_name;
     CondlistWaypoints m_path_walk_info;
     CondlistWaypoints m_path_look_info;
 };

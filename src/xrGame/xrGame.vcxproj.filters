@@ -4357,6 +4357,15 @@
     <Filter Include="Cordis\Scripts\Logic\Schemes\XR\Animpoint\Private">
       <UniqueIdentifier>{d3ec4838-6460-4038-a4af-6e9f1518fd9c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Cordis\Scripts\Logic\Schemes\XR\SmartCover">
+      <UniqueIdentifier>{871b9dcd-9767-4449-9e0f-c54d0fc1a7d6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Logic\Schemes\XR\SmartCover\Public">
+      <UniqueIdentifier>{63901c8e-c594-4442-85cd-d7418076449d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Logic\Schemes\XR\SmartCover\Private">
+      <UniqueIdentifier>{05b65033-cdf4-48ad-9077-03a7a69c0640}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="mt_config.h">

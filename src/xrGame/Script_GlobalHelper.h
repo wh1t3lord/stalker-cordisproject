@@ -13124,6 +13124,11 @@ private:
         this->m_xr_animpoint_association_table["story"].second.push_back("_drink_vodka");
         this->m_xr_animpoint_association_table["story"].second.push_back("_drink_energy");
         this->m_xr_animpoint_association_table["story"].second.push_back("_weapon");
+
+        this->m_xr_smartcover_cover_substate["fire_target"] = "fire";
+        this->m_xr_smartcover_cover_substate["fire_no_lookout_target"] = "fire";
+        this->m_xr_smartcover_cover_substate["idle_target"] = "idle";
+        this->m_xr_smartcover_cover_substate["lookout_target"] = "idle";
         #pragma endregion
     }
 
@@ -14570,6 +14575,7 @@ public:
     inline const xr_map<xr_string, xr_vector<std::pair<Fvector, float>>>& getXRReachTaskFormations(void) const noexcept { return this->m_xr_reach_task_formations; }
 
     inline const xr_map<xr_string, std::pair<xr_vector<xr_string>, xr_vector<xr_string>>>& getXRAnimpointAssociationTable(void) const noexcept {return this->m_xr_animpoint_association_table;}
+    inline const xr_map<xr_string, xr_string>& getXRSmartCoverCoverSubState(void) const noexcept { return this->m_xr_smartcover_cover_substate; }
     #pragma endregion
 
 private:
@@ -14595,6 +14601,7 @@ private:
         m_registered_schemes_add_to_binder_callbacks;
     xr_map<xr_string, Script_SmartTerrainControl_States> m_registered_smart_terrain_control_script_states;
     xr_map<xr_string, xr_string> m_squad_community_by_behavior;
+    xr_map<xr_string, xr_string> m_xr_smartcover_cover_substate;
     xr_map<xr_string, xr_vector<std::pair<std::function<bool(std::uint16_t, bool)>, xr_string>>> m_animpoint_table;
 
 #pragma region Cordis XR_EFFECTS Functions
