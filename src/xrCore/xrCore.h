@@ -14,6 +14,10 @@
 #error Please enable multi-threaded library...
 #endif
 
+#ifdef DEBUG
+#define _ITERATOR_DEBUG_LEVEL 0
+#endif
+
 #ifdef NDEBUG
 #define XRAY_EXCEPTIONS 0
 #define LUABIND_NO_EXCEPTIONS
@@ -114,8 +118,6 @@ using RTokenVec = xr_vector<xr_rtoken>;
 #pragma region Cordis Includes
 #include "Cordis_ScriptDataStructures.h"
 #pragma endregion
-
-
 
 // destructor
 template <class T>
