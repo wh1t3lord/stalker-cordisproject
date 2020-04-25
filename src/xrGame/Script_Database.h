@@ -2177,10 +2177,10 @@ public:
 
 #pragma region Cordis Scheme XR Smart Cover
     inline const xr_string& getXRSmartCoverCoverName(void) const noexcept { return this->m_xr_smartcover_cover_name; }
-    inline void setXRSmartCoverCoverName(const xr_string& name) noexcept { if (name.empty()) { MESSAGEWR("invalid string!"); return; } this->m_xr_smartcover_cover_name = name; }
+    inline void setXRSmartCoverCoverName(const xr_string& name) noexcept { if (name.empty()) { MESSAGEW("setting empty string!"); } this->m_xr_smartcover_cover_name = name; }
 
     inline const xr_string& getXRSmartCoverLoopholeName(void) const noexcept { return this->m_xr_smartcover_loophole_name; }
-    inline void setXRSmartCoverLoopholeName(const xr_string& name) noexcept { if (name.empty()) { MESSAGEWR("invalid string!"); return; } this->m_xr_smartcover_loophole_name = name; }
+    inline void setXRSmartCoverLoopholeName(const xr_string& name) noexcept { if (name.empty()) { MESSAGEW("setting empty string!"); } this->m_xr_smartcover_loophole_name = name; }
 
     inline const xr_string& getXRSmartCoverCoverStateName(void) const noexcept { return this->m_xr_smartcover_cover_state_name; }
     inline void setXRSmartCoverCoverStateName(const xr_string& name) noexcept { if (name.empty()) { MESSAGEWR("invalid string!"); return; } this->m_xr_smartcover_cover_state_name = name; }

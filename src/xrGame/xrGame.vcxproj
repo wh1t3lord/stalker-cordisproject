@@ -4411,6 +4411,7 @@ $(xrLibDir);$(xrSdkDir)DXSDK/Lib/$(PlatformShortName);
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Jumbo|x64'">false</ExcludedFromBuild>
     </ClInclude>
     <ClInclude Include="Script_SchemeXRSleeper.h" />
+    <ClInclude Include="Script_SchemeXRSmartCover.h" />
     <ClInclude Include="Script_SchemeXRWalker.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Jumbo|x64'">false</ExcludedFromBuild>
     </ClInclude>
@@ -9394,6 +9395,9 @@ $(xrLibDir);$(xrSdkDir)DXSDK/Lib/$(PlatformShortName);
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Jumbo|x64'">true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="Script_SchemeXRSleeper.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Jumbo|x64'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="Script_SchemeXRSmartCover.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Jumbo|x64'">true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="Script_SchemeXRWalker.cpp">

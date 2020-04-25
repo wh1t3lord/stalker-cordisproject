@@ -9770,6 +9770,9 @@
     <ClInclude Include="Script_SchemeXRAnimpoint.h">
       <Filter>Cordis\Scripts\Logic\Schemes\XR\Animpoint\Public</Filter>
     </ClInclude>
+    <ClInclude Include="Script_SchemeXRSmartCover.h">
+      <Filter>Cordis\Scripts\Logic\Schemes\XR\SmartCover\Public</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="damage_manager.cpp">
@@ -14240,6 +14243,9 @@
     </ClCompile>
     <ClCompile Include="Script_SchemeXRAnimpoint.cpp">
       <Filter>Cordis\Scripts\Logic\Schemes\XR\Animpoint\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Script_SchemeXRSmartCover.cpp">
+      <Filter>Cordis\Scripts\Logic\Schemes\XR\SmartCover\Private</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
