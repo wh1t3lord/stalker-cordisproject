@@ -21,6 +21,8 @@
 #include ".GitInfo.hpp"
 #endif
 
+#pragma comment(lib, "shlwapi")
+
 #ifndef GIT_INFO_CURRENT_BRANCH
 #define GIT_INFO_CURRENT_BRANCH unknown
 #endif

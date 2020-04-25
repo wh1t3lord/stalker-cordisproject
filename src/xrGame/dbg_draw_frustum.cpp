@@ -62,7 +62,7 @@ void MK_Frustum(CFrustum& F, float FOV, float _FAR, float A, Fvector& P, Fvector
     F.CreateFromPoints(_F, 4, COP);
 }
 
-void dbg_draw_frustum(float FOV, float _FAR, float A, Fvector& P, Fvector& D, Fvector& U)
+void dbg_draw_frustum_original(float FOV, float _FAR, float A, Fvector& P, Fvector& D, Fvector& U)
 {
     // if (!bDebug)		return;
 

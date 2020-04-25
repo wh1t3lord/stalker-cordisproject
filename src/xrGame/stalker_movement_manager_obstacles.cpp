@@ -121,7 +121,7 @@ void stalker_movement_manager_obstacles::move_along_path_impl(
     CPHMovementControl* movement_control, Fvector& dest_position, float time_delta)
 {
 #ifndef MASTER_GOLD
-    if (psAI_Flags.test(aiObstaclesAvoidingStatic))
+   // if (psAI_Flags.test(aiObstaclesAvoidingStatic))
 #endif // MASTER_GOLD
     {
         m_dynamic_obstacles.update();
@@ -141,7 +141,7 @@ void stalker_movement_manager_obstacles::move_along_path_impl(
 
     if (
 #ifndef MASTER_GOLD
-        (!psAI_Flags.test(aiObstaclesAvoidingStatic) && m_dynamic_obstacles.need_path_to_rebuild()) ||
+        (/*!psAI_Flags.test(aiObstaclesAvoidingStatic) &&*/ m_dynamic_obstacles.need_path_to_rebuild()) ||
 #endif // MASTER_GOLD
         m_static_obstacles.need_path_to_rebuild())
         rebuild_path();
@@ -171,11 +171,11 @@ void stalker_movement_manager_obstacles::move_along_path(
 //	Msg								( "%6d stalker %s is going", Device.dwTimeGlobal, object().cName().c_str() );
 
 #ifndef MASTER_GOLD
-    if (!psAI_Flags.test(aiObstaclesAvoiding))
-    {
+  //  if (!psAI_Flags.test(aiObstaclesAvoiding))
+   // {
         inherited::move_along_path(movement_control, dest_position, time_delta);
         return;
-    }
+  //  }
 #endif // MASTER_GOLD
 
     if (Device.dwTimeGlobal < (m_last_fail_time + fail_check_time))

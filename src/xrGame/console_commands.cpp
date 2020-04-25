@@ -1871,17 +1871,18 @@ void CCC_RegisterCommands()
 #endif // MASTER_GOLD
 
 #ifndef MASTER_GOLD
+/*
     CMD3(CCC_Mask, "ai_obstacles_avoiding", &psAI_Flags, aiObstaclesAvoiding);
     CMD3(CCC_Mask, "ai_obstacles_avoiding_static", &psAI_Flags, aiObstaclesAvoidingStatic);
     CMD3(CCC_Mask, "ai_use_smart_covers", &psAI_Flags, aiUseSmartCovers);
-    CMD3(CCC_Mask, "ai_use_smart_covers_animation_slots", &psAI_Flags, (u32)aiUseSmartCoversAnimationSlot);
+    CMD3(CCC_Mask, "ai_use_smart_covers_animation_slots", &psAI_Flags, (u32)aiUseSmartCoversAnimationSlot);*/
     CMD4(CCC_Float, "ai_smart_factor", &g_smart_cover_factor, 0.f, 1000000.f);
     CMD3(CCC_Mask, "lua_debug", &g_LuaDebug, 1);
 #endif // MASTER_GOLD
 
 #ifdef DEBUG
     CMD4(CCC_Integer, "lua_gcstep", &psLUA_GCSTEP, 1, 1000);
-    CMD3(CCC_Mask, "ai_debug", &psAI_Flags, aiDebug);
+    /*CMD3(CCC_Mask, "ai_debug", &psAI_Flags, aiDebug);
     CMD3(CCC_Mask, "ai_dbg_brain", &psAI_Flags, aiBrain);
     CMD3(CCC_Mask, "ai_dbg_motion", &psAI_Flags, aiMotion);
     CMD3(CCC_Mask, "ai_dbg_frustum", &psAI_Flags, aiFrustum);
@@ -1904,13 +1905,14 @@ void CCC_RegisterCommands()
     CMD3(CCC_Mask, "ai_draw_game_graph", &psAI_Flags, aiDrawGameGraph);
     CMD3(CCC_Mask, "ai_draw_game_graph_stalkers", &psAI_Flags, aiDrawGameGraphStalkers);
     CMD3(CCC_Mask, "ai_draw_game_graph_objects", &psAI_Flags, aiDrawGameGraphObjects);
-    CMD3(CCC_Mask, "ai_draw_game_graph_real_pos", &psAI_Flags, aiDrawGameGraphRealPos);
+    CMD3(CCC_Mask, "ai_draw_game_graph_real_pos", &psAI_Flags, aiDrawGameGraphRealPos);*/
 
     // XXX: register from script engine
     // CMD3(CCC_Mask,				"lua_nil_object_access",	&psAI_Flags,	aiNilObjectAccess);
 
+/*
     CMD3(CCC_Mask, "ai_draw_visibility_rays", &psAI_Flags, aiDrawVisibilityRays);
-    CMD3(CCC_Mask, "ai_animation_stats", &psAI_Flags, aiAnimationStats);
+    CMD3(CCC_Mask, "ai_animation_stats", &psAI_Flags, aiAnimationStats);*/
 
     /////////////////////////////////////////////HIT ANIMATION////////////////////////////////////////////////////
     // float						power_factor				= 2.f;
@@ -1959,7 +1961,7 @@ void CCC_RegisterCommands()
 #endif // DEBUG
 
 #ifndef MASTER_GOLD
-    CMD3(CCC_Mask, "ai_ignore_actor", &psAI_Flags, aiIgnoreActor);
+  //  CMD3(CCC_Mask, "ai_ignore_actor", &psAI_Flags, aiIgnoreActor);
 #endif // MASTER_GOLD
 
     // Physics

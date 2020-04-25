@@ -267,11 +267,11 @@ void CALifeSimulatorBase::create(CSE_ALifeObject* object)
 void CALifeSimulatorBase::release(CSE_Abstract* abstract, bool alife_query)
 {
 #ifdef DEBUG
-    if (psAI_Flags.test(aiALife))
-    {
-        Msg("[LSS] Releasing object [%s][%s][%d][%x]", abstract->name_replace(), *abstract->s_name, abstract->ID,
+  //  if (psAI_Flags.test(aiALife))
+ //   {
+        MESSAGE("[LSS] Releasing object [%s][%s][%d][%x]", abstract->name_replace(), *abstract->s_name, abstract->ID,
             smart_cast<void*>(abstract));
-    }
+ //   }
 #endif
     CSE_ALifeDynamicObject* object = objects().object(abstract->ID);
     VERIFY(object);
@@ -341,12 +341,12 @@ void CALifeSimulatorBase::assign_death_position(CSE_ALifeCreatureAbstract* tpALi
     i += (e != i) ? random().random(s32(e - i)) : 0;
     tpALifeCreatureAbstract->m_tGraphID = tGraphID;
 #ifdef DEBUG
-    if (psAI_Flags.test(aiALife))
-    {
-        Msg("[LSS] Generated death position %s[%f][%f][%f] -> [%f][%f][%f] : [%d]",
+    //if (psAI_Flags.test(aiALife))
+    //{
+        MESSAGE("[LSS] Generated death position %s[%f][%f][%f] -> [%f][%f][%f] : [%d]",
             tpALifeCreatureAbstract->name_replace(), VPUSH(tpALifeCreatureAbstract->o_Position),
             VPUSH((*i).level_point()), (*i).level_vertex_id());
-    }
+   // }
 #endif
     tpALifeCreatureAbstract->o_Position = (*i).level_point();
     tpALifeCreatureAbstract->m_tNodeID = (*i).level_vertex_id();

@@ -85,8 +85,6 @@ float object::Radius() const { return (GetCForm()->getRadius()); }
 void object::UpdateCL() { NODEFAULT; }
 void object::shedule_Update(u32 dt) { NODEFAULT; }
 #ifdef DEBUG
-void dbg_draw_frustum(float FOV, float _FAR, float A, Fvector& P, Fvector& D, Fvector& U);
-
 void object::OnRender()
 {
     GEnv.DRender->OnFrameEnd();
@@ -132,7 +130,7 @@ void object::OnRender()
         Fvector position = m_cover->fov_position(*loophole);
         Fvector direction = m_cover->fov_direction(*loophole);
         Fvector up = XFORM().j;
-        dbg_draw_frustum(loophole->fov() * 180.f / PI, loophole->range(), 1.f, position, direction, up);
+        dbg_draw_frustum_original(loophole->fov() * 180.f / PI, loophole->range(), 1.f, position, direction, up);
     }
 }
 #endif // DEBUG

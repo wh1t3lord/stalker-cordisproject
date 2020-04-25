@@ -700,8 +700,8 @@ void CLevel::OnRender()
     }
     debug_renderer().render();
     DBG().draw_debug_text();
-    if (psAI_Flags.is(aiVision))
-    {
+  //  if (psAI_Flags.is(aiVision))
+   // {
         for (u32 I = 0; I < Level().Objects.o_count(); I++)
         {
             IGameObject* object = Objects.o_get_by_iterator(I);
@@ -710,10 +710,10 @@ void CLevel::OnRender()
                 continue;
             stalker->dbg_draw_vision();
         }
-    }
+   // }
 
-    if (psAI_Flags.test(aiDrawVisibilityRays))
-    {
+  //  if (psAI_Flags.test(aiDrawVisibilityRays))
+  //  {
         for (u32 I = 0; I < Level().Objects.o_count(); I++)
         {
             IGameObject* object = Objects.o_get_by_iterator(I);
@@ -722,7 +722,7 @@ void CLevel::OnRender()
                 continue;
             stalker->dbg_draw_visibility_rays();
         }
-    }
+  //  }
 #endif
 }
 

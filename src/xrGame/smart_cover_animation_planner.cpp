@@ -286,7 +286,7 @@ bool animation_planner::hit_callback(SHit const* hit)
     m_time_object_hit = Device.dwTimeGlobal;
 
 #ifndef MASTER_GOLD
-    if (hit->who && smart_cast<CActor*>(hit->who) && psAI_Flags.test(aiIgnoreActor))
+    if (hit->who && smart_cast<CActor*>(hit->who) && false /*psAI_Flags.test(aiIgnoreActor)*/)
         return (false);
 #endif // MASTER_GOLD
 

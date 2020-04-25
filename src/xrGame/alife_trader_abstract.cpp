@@ -19,7 +19,7 @@
 #include "xrServerEntities/xrMessages.h"
 
 #ifdef DEBUG
-extern Flags32 psAI_Flags;
+//extern Flags32 psAI_Flags;
 #endif
 
 void CSE_ALifeTraderAbstract::spawn_supplies()

@@ -132,6 +132,10 @@ CBaseMonster::~CBaseMonster()
     xr_delete(m_anomaly_detector);
     xr_delete(CoverMan);
     xr_delete(Home);
+
+#ifdef DEBUG
+    DBG().object_info(this, this).clear();
+#endif
 }
 
 void CBaseMonster::update_pos_by_grouping_behaviour()

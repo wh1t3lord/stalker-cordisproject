@@ -63,7 +63,7 @@ void SetActorVisibility(u16 who, float value);
 extern int g_AI_inactive_time;
 
 #ifndef MASTER_GOLD
-Flags32 psAI_Flags = {aiObstaclesAvoiding | aiUseSmartCovers};
+/*Flags32 psAI_Flags = {aiObstaclesAvoiding | aiUseSmartCovers};*/
 #endif // MASTER_GOLD
 
 void CCustomMonster::SAnimState::Create(IKinematicsAnimated* K, LPCSTR base)
@@ -336,7 +336,7 @@ void CCustomMonster::shedule_Update(u32 DT)
             Device.seqParallel.push_back(fastdelegate::FastDelegate0<>(this, &CCustomMonster::Exec_Visibility));
 #else // DEBUG
         {
-            if (!psAI_Flags.test(aiStalker) || !!smart_cast<CActor*>(Level().CurrentEntity()))
+            if (!!smart_cast<CActor*>(Level().CurrentEntity()))
                 Device.seqParallel.push_back(fastdelegate::FastDelegate0<>(this, &CCustomMonster::Exec_Visibility));
             else
                 Exec_Visibility();
@@ -1152,18 +1152,18 @@ void CCustomMonster::OnRender()
         }
     }
 
-    if (psAI_Flags.test(aiFrustum))
-    {
+  //  if (psAI_Flags.test(aiFrustum))
+  //  {
         float new_range = eye_range, new_fov = eye_fov;
 
         if (g_Alive())
             update_range_fov(
                 new_range, new_fov, memory().visual().current_state().m_max_view_distance * eye_range, eye_fov);
 
-        dbg_draw_frustum(new_fov, new_range, 1, eye_matrix.c, eye_matrix.k, eye_matrix.j);
-    }
+        dbg_draw_frustum_original(new_fov, new_range, 1, eye_matrix.c, eye_matrix.k, eye_matrix.j);
+  //  }
 
-    if (psAI_Flags.test(aiMotion))
+  //  if (psAI_Flags.test(aiMotion))
         if (character_physics_support())
             character_physics_support()->movement()->dbg_Draw();
 

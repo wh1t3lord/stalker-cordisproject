@@ -1,4 +1,5 @@
 #include "StdAfx.h"
+/*
 
 #ifdef DEBUG
 
@@ -47,7 +48,7 @@ std::string dbg_object_visual_geom_dump_string(const CObject* obj)
         get_string(c).c_str(), obj->Radius());
 }
 std::string get_string(bool v) { return v ? std::string("true") : std::string("false"); }
-/*
+/ *
         struct
         {
             u32	net_ID			:	16;
@@ -65,7 +66,7 @@ std::string get_string(bool v) { return v ? std::string("true") : std::string("f
 #endif
     u32									dwFrame_UpdateCL;
     u32									dwFrame_AsCrow;
-*/
+* /
 std::string dbg_object_props_dump_string(const CObject* obj)
 {
     if (!obj)
@@ -97,3 +98,4 @@ std::string dbg_object_full_capped_dump_string(const CObject* obj)
     return std::string("\n object dump: \n") + dbg_object_full_dump_string(obj);
 }
 #endif
+*/
