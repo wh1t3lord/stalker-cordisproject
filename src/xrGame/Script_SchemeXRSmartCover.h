@@ -34,11 +34,24 @@ namespace Cordis
 			Script_SchemeXRSmartCover(const xr_string& name, DataBase::Storage_Scheme& storage);
 			~Script_SchemeXRSmartCover(void);
 
+			virtual void finalize(void);
+			virtual void initialize(void);
+			virtual void execute(void);
+			virtual void activate_scheme(const bool is_loading, CScriptGameObject* const p_client_object);
+			virtual void deactivate(CScriptGameObject* const p_client_object);
+
+			void target_selector(CScriptGameObject* const p_client_object);
+			void check_target_selector(void);
+			bool check_target(void);
+			bool position_riched(void);
+
+
 		private:
+			bool m_is_initialized;
 			std::uint16_t m_target_enemy_id;
 			Fvector m_fire_position;
-			xr_map<CondlistData, std::uint32_t> m_condlist_cover;
-			xr_map<CondlistData, std::uint32_t> m_condlist_target_path;
+			xr_map<std::uint32_t, CondlistData> m_condlist_cover;
+			xr_map<std::uint32_t, CondlistData> m_condlist_target_path;
 			xr_string m_cover_state_name;
 			xr_string m_cover_name;
 		};
