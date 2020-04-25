@@ -47,6 +47,9 @@ void target_selector::update()
     //. when script callback is setup
     inherited::update();
 
+    if (this->m_callback)
+        this->m_callback(object().object().lua_game_object());
+
  //   m_script_callback(object().object().lua_game_object());
 }
 
@@ -123,3 +126,5 @@ void target_selector::add_actions()
 }
 
 LPCSTR target_selector::object_name() const { return ("target_selector"); }
+
+ 

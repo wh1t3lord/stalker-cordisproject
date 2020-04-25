@@ -459,6 +459,34 @@ void stalker_movement_manager_smart_cover::target_selector(CScriptCallbackEx<voi
 /*    m_target_selector->callback(callback);*/
 }
 
+void stalker_movement_manager_smart_cover::target_selector(std::function<void(CScriptGameObject* const)>& my_function)
+{
+    if (my_function == nullptr)
+    {
+        MESSAGEWR("can't bind function, because it is empty!");
+        return;
+    }
+
+    if (this->m_target_selector == nullptr)
+    {
+        MESSAGEWR("invalid object!");
+        return;
+    }
+
+    this->m_target_selector->register_callback(my_function);
+}
+
+void stalker_movement_manager_smart_cover::target_selector_without_callback(void)
+{
+    if (this->m_target_selector == nullptr)
+    {
+        MESSAGEWR("invalid object!");
+        return;
+    }
+
+    this->m_target_selector->delete_callback();
+}
+
 void stalker_movement_manager_smart_cover::target_idle()
 {
     //	if (!m_current.cover()) {
@@ -548,6 +576,9 @@ bool stalker_movement_manager_smart_cover::default_behaviour() const
     // Lord - [Script] Re-write
 //     if (m_target_selector->callback())
 //         return (m_default_behaviour);
+
+    if (this->m_target_selector->isExist())
+        return (m_default_behaviour);
 
     if (m_current.cover_fire_object())
         return (true);

@@ -5,8 +5,7 @@
 //	Description : Target selector for smart covers animation planner
 ////////////////////////////////////////////////////////////////////////////
 
-#ifndef SMART_COVER_PLANNER_TARGET_SELECTOR_H_INCLUDED
-#define SMART_COVER_PLANNER_TARGET_SELECTOR_H_INCLUDED
+#pragma once
 
 #include "Common/Noncopyable.hpp"
 #include "smart_cover_detail.h"
@@ -27,6 +26,7 @@ public:
 
 private:
  //   callback_type m_script_callback;
+    std::function<void(CScriptGameObject* const)> m_callback;
     CRandom m_random;
 
 private:
@@ -37,6 +37,24 @@ public:
     virtual void setup(animation_planner* object, CPropertyStorage* storage);
     virtual void update();
     virtual LPCSTR object_name() const;
+
+    inline void delete_callback(void) noexcept
+    {
+        this->m_callback = nullptr;
+    }
+
+    inline void register_callback(std::function<void(CScriptGameObject* const)>& my_function) 
+    {
+		if (my_function == nullptr)
+		{
+			MESSAGEWR("can't register callback because it is empty!");
+			return;
+		}
+
+		this->m_callback = my_function;
+    }
+
+    inline bool isExist(void) const noexcept { return !!(this->m_callback); }
     // Lord - [Script] Re-write
    // void callback(callback_type const& callback);
    // IC callback_type const& callback() const;
@@ -46,4 +64,4 @@ public:
 
 #include "smart_cover_planner_target_selector_inline.h"
 
-#endif // SMART_COVER_PLANNER_TARGET_SELECTOR_H_INCLUDED
+

@@ -2215,11 +2215,11 @@ public:
     inline std::uint32_t getXRSmartCoverIdleMaxTime(void) const noexcept { return this->m_xr_smartcover_idle_max_time; }
     inline void setXRSmartCoverIdleMaxTime(const std::uint32_t value) noexcept { this->m_xr_smartcover_idle_max_time = value; }
 
-    inline std::uint32_t getXRSmartCoverLookOutMinTime(void) const noexcept { return this->m_xr_smartcover_lookout_min_time; }
-    inline void setXRSmartCoverLookOutMaxTime(const std::uint32_t value) noexcept { this->m_xr_smartcover_lookout_max_time = value; }
+    inline float getXRSmartCoverLookOutMinTime(void) const noexcept { return this->m_xr_smartcover_lookout_min_time; }
+    inline void setXRSmartCoverLookOutMinTime(const float value) noexcept { this->m_xr_smartcover_lookout_min_time = value; }
 
-    inline std::uint32_t getXRSmartCoverLookOutMaxTime(void) const noexcept { return this->m_xr_smartcover_lookout_max_time; }
-    inline void setXRSmartCoverLookOutMaxTime(const std::uint32_t value) noexcept { this->m_xr_smartcover_lookout_max_time = value; }
+    inline float getXRSmartCoverLookOutMaxTime(void) const noexcept { return this->m_xr_smartcover_lookout_max_time; }
+    inline void setXRSmartCoverLookOutMaxTime(const float value) noexcept { this->m_xr_smartcover_lookout_max_time = value; }
 #pragma endregion
 
 private:
@@ -2305,8 +2305,6 @@ private:
     std::uint32_t m_xr_camper_memory_enemy = 0;
     std::uint32_t m_xr_smartcover_idle_min_time = 0;
     std::uint32_t m_xr_smartcover_idle_max_time = 0;
-    std::uint32_t m_xr_smartcover_lookout_min_time = 0;
-    std::uint32_t m_xr_smartcover_lookout_max_time = 0;
     std::uint32_t m_xr_combat_zombied_current_action = 0;
     const std::uint32_t m_xr_camper_post_enemy_wait = 5000;
     const std::uint32_t m_xr_camper_timedelta = 4000;
@@ -2343,6 +2341,8 @@ private:
     float m_xr_camper_radius = 0.0f;
     float m_xr_meet_reset_distance = 30.0f;
     float m_xr_animpoint_reach_distance = 0.0f;
+	float m_xr_smartcover_lookout_min_time = 0.0f;
+	float m_xr_smartcover_lookout_max_time = 0.0f;
     const float m_xr_camper_scandelta = 30.0f;
     const float m_xr_camper_enemy_disp = 7 / 57.2957f;
     CScriptGameObject* m_p_npc = nullptr;
@@ -4799,27 +4799,19 @@ public:
     {
         if (level_id == Globals::kUnsignedInt8Undefined)
         {
-            Msg("[Script_GlobalHelper/setGameRegisteredServerSmartCoversByLevelID(level_id, "
-                "id, server_smartcover)] "
-                "WARNING: level_id = std::uint8_t(-1)! You are trying to set an undefined "
-                "number of unsigned int!");
+            MESSAGEW("level_id = std::uint8_t(-1)! You are trying to set an undefined number of unsigned int!");
             //  return;
         }
 
         if (id == Globals::kUnsignedInt32Undefined)
         {
-            Msg("[Script_GlobalHelper/setGameRegisteredServerSmartCoversByLevelID(level_id, "
-                "id, server_smartcover)] "
-                "WARNING: id = std::uint32_t(-1)! You are trying to set an undefined number of "
-                "unsigned int!");
+            MESSAGEW("id = std::uint32_t(-1)! You are trying to set an undefined number of unsigned int!");
             //    return;
         }
 
         if (!server_smartcover)
         {
-            Msg("[Script_GlobalHelper/setGameRegisteredServerSmartCoversByLevelID(level_id, "
-                "id, server_smartcover)] "
-                "WARNING: server_smartcover = null! You are trying to set an empty object!");
+            MESSAGEW("server_smartcover = null! You are trying to set an empty object!");
             //   return;
         }
 
@@ -4828,7 +4820,7 @@ public:
 
     inline void deleteStorage(const std::uint16_t object_id)
     {
-        Msg("[Scripts/DataBase/Storage/deleteStorage(object_id)] deleting storage -> %d", object_id);
+        MESSAGEI("deleting storage -> %d", object_id);
         this->m_storage.erase(object_id);
     }
     // @ Lord: проверить ВСЁ на очистку!
@@ -4910,7 +4902,7 @@ public:
         {
             if (it.second)
             {
-                MESSAGEWR("deallocating %s", typeid(it.second).name());
+                MESSAGEI("deallocating %s", typeid(it.second).name());
                 xr_delete(it.second);
             }
         }
@@ -4919,7 +4911,7 @@ public:
         {
             if (it.second)
             {
-                MESSAGEWR("deallocating %s", typeid(it.second).name());
+                MESSAGEI("deallocating %s", typeid(it.second).name());
                 xr_delete(it.second);
             }
         }
@@ -4933,6 +4925,7 @@ public:
         this->m_camp_storage.clear();
         this->m_noweapon_zones.clear();
         this->m_kamps_stalker.clear();
+        this->m_script_ids.clear();
 
         Script_TaskManager::getInstance().Deallocate();
     }
@@ -5100,8 +5093,7 @@ public:
     {
         if (name.empty())
         {
-            Msg("[Scripts/DataBase/Storage/setScriptIDS(id, name)] WARNING: name.empty() == true! You set an empty "
-                "string");
+            MESSAGEW("name.empty() == true! You set an empty string");
         }
 
         this->m_script_ids[id] = name;

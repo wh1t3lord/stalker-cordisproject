@@ -764,6 +764,7 @@ public:
     void set_smart_cover_target_selector();
     void set_smart_cover_target_selector(luabind::functor<void> functor);
     void set_smart_cover_target_selector(luabind::functor<void> functor, luabind::adl::object object);
+    void set_smart_cover_target_selector(std::function<void(CScriptGameObject* const)>& my_function);
 
     void set_smart_cover_target_idle();
     void set_smart_cover_target_lookout();
