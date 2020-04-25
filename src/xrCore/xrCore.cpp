@@ -263,9 +263,9 @@ void xrCore::Initialize(pcstr _ApplicationName, pcstr commandLine, LogCallback c
         Memory._initialize();
 
         SDL_LogSetOutputFunction(SDLLogOutput, nullptr);
-        Msg("%s %s build %d, %s", "OpenXRay", GetBuildConfiguration(), buildId, buildDate);
+        MESSAGE("%s %s build %d, %s", "OpenXRay", GetBuildConfiguration(), buildId, buildDate);
         PrintBuildInfo();
-        Msg("\ncommand line %s\n", Params);
+        MESSAGE("\ncommand line %s\n", Params);
         _initialize_cpu();
         R_ASSERT(SDL_HasSSE());
         XRay::Math::Initialize();
