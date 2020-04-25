@@ -1127,7 +1127,7 @@ constexpr unsigned int kSTypeMobile = 1;
 constexpr unsigned int kSTypeItem = 2;
 constexpr unsigned int kSTypeHelicopter = 3;
 constexpr unsigned int kSTypeRestrictor = 4;
-
+constexpr const char* kTemplateSmartCoverAndAnimpointName = "$script_id$";
 #pragma region Cordis Dialogs constants
 constexpr const char* kDialogsTypeNothing = "nothing";
 #pragma endregion
@@ -1229,6 +1229,7 @@ constexpr std::uint32_t kCombatZombiedBase = kIDStart + 3110;
 constexpr std::uint32_t kCombatCamperBase = kIDStart + 3130;
 constexpr std::uint32_t kSidorPatrolBase = kIDStart + 2250;
 constexpr std::uint32_t kAnimpointProperty = kIDStart + 500;
+constexpr std::uint32_t kSmartCoverAction = kIDStart + 400;
 } // namespace XR_EVALUATORS_ID
 
 constexpr std::uint32_t kStoheActions = StalkerDecisionSpace::eWorldOperatorScript + 220;

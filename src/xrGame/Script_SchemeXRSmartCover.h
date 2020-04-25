@@ -45,7 +45,11 @@ namespace Cordis
 			bool check_target(void);
 			bool position_riched(void);
 
+			static void add_to_binder(CScriptGameObject* const p_client_object, CScriptIniFile* const p_ini,
+				const xr_string& scheme_name, const xr_string& section_name, DataBase::Storage_Scheme& storage);
 
+			static void set_scheme(CScriptGameObject* const p_client_object, CScriptIniFile* const p_ini,
+				const xr_string& scheme_name, const xr_string& section_name, const xr_string& gulag_name);
 		private:
 			bool m_is_initialized;
 			std::uint16_t m_target_enemy_id;
@@ -54,6 +58,7 @@ namespace Cordis
 			xr_map<std::uint32_t, CondlistData> m_condlist_target_path;
 			xr_string m_cover_state_name;
 			xr_string m_cover_name;
+			xr_string m_target_path_name;
 		};
 	}
 }
