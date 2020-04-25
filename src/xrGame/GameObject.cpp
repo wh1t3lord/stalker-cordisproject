@@ -281,8 +281,8 @@ void CGameObject::reload(LPCSTR section) { m_script_clsid = object_factory().scr
 void CGameObject::net_Destroy()
 {
 #ifdef DEBUG
-    if (psAI_Flags.test(aiDestroy))
-        Msg("Destroying client object [%d][%s][%x]", ID(), *cName(), this);
+/*    if (psAI_Flags.test(aiDestroy))*/
+        MESSAGEI("Destroying client object [%d][%s][%x]", ID(), *cName(), this);
 #endif
 
     VERIFY(m_spawned);
@@ -644,11 +644,11 @@ void CGameObject::net_Save(NET_Packet& net_packet)
 
 // Script Binder Save ---------------------------------------
 #ifdef DEBUG
-    if (psAI_Flags.test(aiSerialize))
-    {
-        Msg(">> **** Save script object [%s] *****", *cName());
-        Msg(">> Before save :: packet position = [%u]", net_packet.w_tell());
-    }
+   // if (psAI_Flags.test(aiSerialize))
+   // {
+        MESSAGE(">> **** Save script object [%s] *****", *cName());
+        MESSAGE(">> Before save :: packet position = [%u]", net_packet.w_tell());
+   // }
 
 #endif
 
@@ -656,10 +656,10 @@ void CGameObject::net_Save(NET_Packet& net_packet)
 
 #ifdef DEBUG
 
-    if (psAI_Flags.test(aiSerialize))
-    {
-        Msg(">> After save :: packet position = [%u]", net_packet.w_tell());
-    }
+   // if (psAI_Flags.test(aiSerialize))
+   // {
+        MESSAGE(">> After save :: packet position = [%u]", net_packet.w_tell());
+   // }
 #endif
 
     // ----------------------------------------------------------
@@ -673,11 +673,11 @@ void CGameObject::net_Load(IReader& ireader)
 
 // Script Binder Load ---------------------------------------
 #ifdef DEBUG
-    if (psAI_Flags.test(aiSerialize))
-    {
-        Msg(">> **** Load script object [%s] *****", *cName());
-        Msg(">> Before load :: reader position = [%i]", ireader.tell());
-    }
+  //  if (psAI_Flags.test(aiSerialize))
+  //  {
+        MESSAGE(">> **** Load script object [%s] *****", *cName());
+        MESSAGE(">> Before load :: reader position = [%i]", ireader.tell());
+   // }
 
 #endif
 
@@ -685,10 +685,10 @@ void CGameObject::net_Load(IReader& ireader)
 
 #ifdef DEBUG
 
-    if (psAI_Flags.test(aiSerialize))
-    {
-        Msg(">> After load :: reader position = [%i]", ireader.tell());
-    }
+   // if (psAI_Flags.test(aiSerialize))
+  //  {
+        MESSAGE(">> After load :: reader position = [%i]", ireader.tell());
+   // }
 #endif
 // ----------------------------------------------------------
 #ifdef DEBUG

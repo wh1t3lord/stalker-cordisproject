@@ -3013,7 +3013,7 @@ public:
         {
             if (it.second)
             {
-                Msg("[Scripts/DataBase/Storage_Data/~dtor()] Deleting storage_scheme of %d %s %s",
+                MESSAGEI("Deleting storage_scheme of %d %s %s",
                     it.second->getClientObject()->ID(), it.second->getClientObject()->Name(),
                     it.second->getSchemeName().c_str());
                 xr_delete(it.second);

@@ -212,16 +212,14 @@ void CAniVector::Load(IKinematicsAnimated* tpKinematics, LPCSTR caBaseName)
         {
             A.push_back(tpMotionDef);
 #ifdef DEBUG
-            if (psAI_Flags.test(aiAnimation))
-                Msg("* Loaded animation %s", S1);
+                MESSAGE("* Loaded animation %s", S1);
 #endif
         }
         else if (!!(tpMotionDef = tpKinematics->ID_FX_Safe(strconcat(sizeof(S1), S1, caBaseName, xr_itoa(i, S2, 10)))))
         {
             A.push_back(tpMotionDef);
 #ifdef DEBUG
-            if (psAI_Flags.test(aiAnimation))
-                Msg("* Loaded animation fx %s", S1);
+                MESSAGE("* Loaded animation fx %s", S1);
 #endif
         }
         else if (i < 10)

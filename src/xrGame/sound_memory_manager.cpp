@@ -117,7 +117,7 @@ void CSoundMemoryManager::feel_sound_new(
     IGameObject* object, int sound_type, CSound_UserDataPtr user_data, const Fvector& position, float sound_power)
 {
 #ifndef MASTER_GOLD
-    if (object && smart_cast<CActor*>(object) && psAI_Flags.test(aiIgnoreActor))
+    if (object && smart_cast<CActor*>(object) && false /*psAI_Flags.test(aiIgnoreActor)*/)
         return;
 #endif // MASTER_GOLD
 

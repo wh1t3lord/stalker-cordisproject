@@ -67,16 +67,18 @@ void LevelGraphDebugRender::Render(CGameGraph& gameGraph, CLevelGraph& levelGrap
 {
     this->gameGraph = &gameGraph;
     this->levelGraph = &levelGraph;
-    if (psAI_Flags.test(aiDrawGameGraph))
-        DrawGameGraph();
-    if (!bDebug && !psAI_Flags.test(aiMotion))
+    // Lord: переделать psAI_Flags в более нормальную форму
+ //   if (psAI_Flags.test(aiDrawGameGraph))
+    return;
+    DrawGameGraph();
+    if (!bDebug /*&& !psAI_Flags.test(aiMotion)*/)
         return;
-    if (bDebug && psAI_Flags.test(aiDebug))
+    if (bDebug /* && psAI_Flags.test(aiDebug)*/)
         DrawNodes();
     DrawRestrictions();
-    if (psAI_Flags.test(aiCover))
+/*    if (psAI_Flags.test(aiCover))*/
         DrawCovers();
-    if (psAI_Flags.test(aiMotion))
+/*    if (psAI_Flags.test(aiMotion))*/
         DrawObjects();
 #ifdef DEBUG
     DrawDebugNode();
@@ -133,10 +135,12 @@ Fvector LevelGraphDebugRender::ConvertPosition(const Fvector& pos)
 
 void LevelGraphDebugRender::DrawEdge(int vid1, int vid2)
 {
+    // Lord [DEBUG]: 
+    return;
     const GameGraph::CVertex& v1 = *gameGraph->vertex(vid1);
     const GameGraph::CVertex& v2 = *gameGraph->vertex(vid2);
     float radius = 0.005f;
-    if (psAI_Flags.test(aiDrawGameGraphRealPos))
+  //  if (psAI_Flags.test(aiDrawGameGraphRealPos))
         radius = 1.f;
     const u32 defaultVertexColor = color_xrgb(0, 255, 255);
     const u32 xVertexColor = color_xrgb(255, 0, 255);
@@ -144,6 +148,7 @@ void LevelGraphDebugRender::DrawEdge(int vid1, int vid2)
     u32 vertexColor1 = !v1.vertex_type()[3] ? xVertexColor : defaultVertexColor;
     u32 vertexColor2 = !v2.vertex_type()[3] ? xVertexColor : defaultVertexColor;
     Fvector pos1, pos2;
+/* Lord [DEBUG]
     if (psAI_Flags.test(aiDrawGameGraphRealPos))
     {
         pos1 = v1.level_point();
@@ -153,7 +158,7 @@ void LevelGraphDebugRender::DrawEdge(int vid1, int vid2)
     {
         pos1 = ConvertPosition(v1.game_point());
         pos2 = ConvertPosition(v2.game_point());
-    }
+    }*/
     CDebugRenderer& render = Level().debug_renderer();
     render.draw_aabb(pos1, radius, radius, radius, vertexColor1);
     render.draw_aabb(pos2, radius, radius, radius, vertexColor2);
@@ -176,16 +181,19 @@ void LevelGraphDebugRender::DrawStalkers(int vid)
 {
     if (!ai().get_alife())
         return;
+    // Lord [DEBUG]
+    return;
     float radius = 0.0105f;
-    if (psAI_Flags.test(aiDrawGameGraphRealPos))
+  //  if (psAI_Flags.test(aiDrawGameGraphRealPos))
         radius = 1;
     const u32 color = color_xrgb(255, 0, 0);
     IGameFont& font = *UI().Font().pFontDI;
     Fvector pos;
+/*
     if (psAI_Flags.test(aiDrawGameGraphRealPos))
         pos = gameGraph->vertex(vid)->level_point();
     else
-        pos = ConvertPosition(gameGraph->vertex(vid)->game_point());
+        pos = ConvertPosition(gameGraph->vertex(vid)->game_point());*/
     font.SetColor(color_xrgb(255, 255, 0));
     bool showText = true;
     Fvector4 temp;
@@ -215,10 +223,11 @@ void LevelGraphDebugRender::DrawStalkers(int vid)
             if (!firstTime)
                 continue;
             Fvector pos;
+/* Lord [DEBUG]
             if (psAI_Flags.test(aiDrawGameGraphRealPos))
                 pos = gameGraph->vertex(stalker->m_tGraphID)->level_point();
             else
-                pos = ConvertPosition(gameGraph->vertex(stalker->m_tGraphID)->game_point());
+                pos = ConvertPosition(gameGraph->vertex(stalker->m_tGraphID)->game_point());*/
             render.draw_aabb(pos, radius, radius, radius, color);
             firstTime = false;
         }
@@ -241,6 +250,7 @@ void LevelGraphDebugRender::DrawStalkers(int vid)
         const CGameGraph::CVertex& v2 = *gameGraph->vertex(vid2);
         Fvector pos1, pos2;
         float distance;
+/* Lord [DEBUG]
         if (psAI_Flags.test(aiDrawGameGraphRealPos))
         {
             pos1 = v1.level_point();
@@ -252,7 +262,7 @@ void LevelGraphDebugRender::DrawStalkers(int vid)
             pos1 = ConvertPosition(v1.game_point());
             pos2 = ConvertPosition(v2.game_point());
             distance = v1.game_point().distance_to(v2.game_point());
-        }
+        }*/
         Fvector direction = Fvector().sub(pos2, pos1);
         float magnitude = direction.magnitude();
         direction.normalize();
@@ -271,17 +281,20 @@ void LevelGraphDebugRender::DrawObjects(int vid)
 {
     if (!ai().get_alife())
         return;
+
+    // Lord: [DEBUG]
     const GameGraph::CVertex& vertex = *gameGraph->vertex(vid);
     float radius = 0.0105f;
-    if (psAI_Flags.test(aiDrawGameGraphRealPos))
+   // if (psAI_Flags.test(aiDrawGameGraphRealPos))
         radius = 1.0f;
     const u32 color = color_xrgb(255, 0, 0);
     IGameFont& font = *UI().Font().pFontDI;
     Fvector position;
+/*
     if (psAI_Flags.test(aiDrawGameGraphRealPos))
         position = vertex.level_point();
     else
-        position = ConvertPosition(vertex.game_point());
+        position = ConvertPosition(vertex.game_point());*/
     font.SetColor(color_xrgb(255, 255, 0));
     Fvector4 temp;
     Device.mFullTransform.transform(temp, position);
@@ -311,10 +324,11 @@ void LevelGraphDebugRender::DrawObjects(int vid)
             if (!firstTime)
                 continue;
             Fvector position;
+/*
             if (psAI_Flags.test(aiDrawGameGraphRealPos))
                 position = gameGraph->vertex(monster->m_tGraphID)->level_point();
             else
-                position = ConvertPosition(gameGraph->vertex(monster->m_tGraphID)->game_point());
+                position = ConvertPosition(gameGraph->vertex(monster->m_tGraphID)->game_point());*/
             render.draw_aabb(position, radius, radius, radius, color);
             firstTime = false;
         }
@@ -337,6 +351,7 @@ void LevelGraphDebugRender::DrawObjects(int vid)
         float distance;
         const CGameGraph::CVertex& v1 = *gameGraph->vertex(vid1);
         const CGameGraph::CVertex& v2 = *gameGraph->vertex(vid2);
+/* Lord [DEBUG]
         if (psAI_Flags.test(aiDrawGameGraphRealPos))
         {
             pos1 = v1.level_point();
@@ -348,7 +363,7 @@ void LevelGraphDebugRender::DrawObjects(int vid)
             pos1 = ConvertPosition(v1.game_point());
             pos2 = ConvertPosition(v2.game_point());
             distance = v1.game_point().distance_to(v2.game_point());
-        }
+        }*/
         Fvector direction = Fvector().sub(pos1, pos2);
         float magnitude = direction.magnitude();
         direction.normalize();
@@ -400,9 +415,9 @@ void LevelGraphDebugRender::DrawGameGraph()
             found = true;
         }
         DrawVertex(i);
-        if (psAI_Flags.test(aiDrawGameGraphStalkers))
+    //    if (psAI_Flags.test(aiDrawGameGraphStalkers))
             DrawStalkers(i);
-        if (psAI_Flags.test(aiDrawGameGraphObjects))
+      //  if (psAI_Flags.test(aiDrawGameGraphObjects))
             DrawObjects(i);
     }
 #if 0 // XXX: update/delete

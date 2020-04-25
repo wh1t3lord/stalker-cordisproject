@@ -66,6 +66,7 @@ public:
 };
 
 #include "abstract_path_manager_inline.h"
+/* Lord [DEBUG]: IDK but it is create some fake redefinition and actual() <= can't be detectable for level_path().actual()!
 
 template <typename _Graph, typename _VertexEvaluator, typename _vertex_id_type, typename _index_type>
 class CBasePathManager : public CAbstractPathManager<_Graph, _VertexEvaluator, _vertex_id_type, _index_type>
@@ -75,4 +76,4 @@ private:
 
 public:
     IC CBasePathManager(CRestrictedObject* object) : inherited(object) {}
-};
+};*/

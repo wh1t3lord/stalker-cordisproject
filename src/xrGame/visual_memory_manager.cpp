@@ -415,11 +415,12 @@ bool CVisualMemoryManager::should_ignore_object(IGameObject const* object) const
     }
 
 #ifndef MASTER_GOLD
+/*
     if (smart_cast<CActor const*>(object) && psAI_Flags.test(aiIgnoreActor))
     {
         return true;
     }
-    else
+    else*/
 #endif // MASTER_GOLD
 
         if (CBaseMonster const* const monster = smart_cast<CBaseMonster const*>(object))

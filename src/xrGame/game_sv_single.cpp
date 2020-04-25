@@ -95,13 +95,16 @@ BOOL game_sv_Single::OnTouch(u16 eid_who, u16 eid_what, BOOL bForced)
         if (l_tpALifeInventoryItem && l_tpDynamicObject &&
             ai().alife().graph().level().object(l_tpALifeInventoryItem->base()->ID, true) &&
             ai().alife().objects().object(e_who->ID, true) && ai().alife().objects().object(e_what->ID, true))
-            alife().graph().attach(*e_who, l_tpALifeInventoryItem, l_tpDynamicObject->m_tGraphID, false, false);
-#ifdef DEBUG
-        else if (psAI_Flags.test(aiALife))
         {
-            Msg("Cannot attach object [%s][%s][%d] to object [%s][%s][%d]", e_what->name_replace(), *e_what->s_name,
-                e_what->ID, e_who->name_replace(), *e_who->s_name, e_who->ID);
+            alife().graph().attach(*e_who, l_tpALifeInventoryItem, l_tpDynamicObject->m_tGraphID, false, false);
         }
+
+#ifdef DEBUG
+     //   else if (psAI_Flags.test(aiALife))
+     //   {
+            MESSAGE("Cannot attach object [%s][%s][%d] to object [%s][%s][%d]", e_what->name_replace(), *e_what->s_name,
+                e_what->ID, e_who->name_replace(), *e_who->s_name, e_who->ID);
+    //    }
 #endif
     }
     return TRUE;
@@ -145,13 +148,13 @@ void game_sv_Single::OnDetach(u16 eid_who, u16 eid_what)
                 l_tpALifeInventoryItem->base()->ID_Parent = id;
             }
 #ifdef DEBUG
-            else if (psAI_Flags.test(aiALife))
-            {
-                Msg("Cannot detach object [%s][%s][%d] from object [%s][%s][%d]",
+          //  else if (psAI_Flags.test(aiALife))
+         //   {
+                MESSAGE("Cannot detach object [%s][%s][%d] from object [%s][%s][%d]",
                     l_tpALifeInventoryItem->base()->name_replace(), *l_tpALifeInventoryItem->base()->s_name,
                     l_tpALifeInventoryItem->base()->ID, l_tpDynamicObject->base()->name_replace(),
                     l_tpDynamicObject->base()->s_name, l_tpDynamicObject->ID);
-            }
+          //  }
 #endif
         }
     }

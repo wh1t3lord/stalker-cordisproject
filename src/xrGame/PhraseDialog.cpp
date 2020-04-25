@@ -115,13 +115,13 @@ bool CPhraseDialog::SayPhrase(DIALOG_SHARED_PTR& phrase_dialog, const shared_str
             {
                 phrase_dialog->m_PhraseVector.push_back(next_phrase_vertex->data());
 #ifdef DEBUG
-                if (psAI_Flags.test(aiDialogs))
-                {
+              //  if (psAI_Flags.test(aiDialogs))
+             //   {
                     LPCSTR phrase_text = next_phrase_vertex->data()->GetText();
                     shared_str id = next_phrase_vertex->data()->GetID();
-                    Msg("----added phrase text [%s] phrase_id=[%s] id=[%s] to dialog [%s]", phrase_text,
+                    MESSAGE("----added phrase text [%s] phrase_id=[%s] id=[%s] to dialog [%s]", phrase_text,
                         phrase_id.c_str(), id.c_str(), phrase_dialog->m_DialogId.c_str());
-                }
+               // }
 #endif
             }
         }

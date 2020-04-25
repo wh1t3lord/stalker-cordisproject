@@ -1957,7 +1957,7 @@ bool CLocatorAPI::dirExists(const xr_string& str)
 
 bool CLocatorAPI::fileExists(const xr_string& path)
 {
-    if (!path.size())
+    if (path.empty())
         return false;
 
 #ifdef _WIN32

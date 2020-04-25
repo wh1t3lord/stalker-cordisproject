@@ -104,10 +104,10 @@ CSE_ALifeDynamicObject* CALifeObjectRegistry::get_object(IReader& file_stream)
     string64 s_name;
     tNetPacket.r_stringZ(s_name);
 #ifdef DEBUG
-    if (psAI_Flags.test(aiALife))
-    {
-        Msg("Loading object %s [%d]b", s_name, tNetPacket.B.count);
-    }
+    //if (psAI_Flags.test(aiALife))
+   // {
+        MESSAGE("Loading object %s [%d]b", s_name, tNetPacket.B.count);
+   // }
 #endif
     // create entity
     CSE_Abstract* tpSE_Abstract = F_entity_Create(s_name);

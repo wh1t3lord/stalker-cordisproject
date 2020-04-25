@@ -278,7 +278,7 @@ public:
     bool CreateFolder(const xr_string& path);
 
 private:
-    void CreateSDKMainFolder(void);
+  //  void CreateSDKMainFolder(void);
     void CreateSDKSubFolders(const xr_string&);
 };
 

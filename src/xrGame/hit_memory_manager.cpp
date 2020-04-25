@@ -85,8 +85,9 @@ void CHitMemoryManager::reload(LPCSTR section)
 void CHitMemoryManager::add(float amount, const Fvector& vLocalDir, const IGameObject* who, s16 element)
 {
 #ifndef MASTER_GOLD
+/*
     if (who && smart_cast<CActor const*>(who) && psAI_Flags.test(aiIgnoreActor))
-        return;
+        return;*/
 #endif // MASTER_GOLD
 
     VERIFY(m_hits);
@@ -151,8 +152,9 @@ void CHitMemoryManager::add(float amount, const Fvector& vLocalDir, const IGameO
 void CHitMemoryManager::add(const CHitObject& _hit_object)
 {
 #ifndef MASTER_GOLD
+/*
     if (_hit_object.m_object && smart_cast<CActor const*>(_hit_object.m_object) && psAI_Flags.test(aiIgnoreActor))
-        return;
+        return;*/
 #endif // MASTER_GOLD
 
     VERIFY(m_hits);

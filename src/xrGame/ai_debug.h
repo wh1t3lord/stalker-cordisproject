@@ -45,5 +45,5 @@
 #define aiObstaclesAvoidingStatic (1 << 29)
 #define aiUseSmartCovers (1 << 30)
 #define aiUseSmartCoversAnimationSlot (1 << 31)
-extern Flags32 psAI_Flags;
+//extern Flags32 psAI_Flags;
 #endif // MASTER_GOLD
