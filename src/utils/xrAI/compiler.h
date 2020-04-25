@@ -5,7 +5,7 @@
 #include "xrAICore/Navigation/level_graph.h"
 #include "utils/communicate.h"
 #include "ESceneAIMapTools_Export.h"
-#include "Layers/xrRender/ETextureParams.h"
+#include "xrGame/Render/Kernel/ETextureParams.h"
 
 // base patch used all the time up to merging
 const u32 InvalidNode = (1 << 24) - 1;
