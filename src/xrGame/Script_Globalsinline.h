@@ -3507,6 +3507,69 @@ inline bool is_psy_wounded_by_id(const std::uint16_t npc_id)
     return false;
 }
 
+inline void turn_on_campfires_by_smart_name(const xr_string& name) 
+{
+    if (name.empty())
+    {
+        MESSAGEWR("invalid string!");
+        return;
+    }
+
+    if (DataBase::Storage::getInstance().getCampfiresBySmartName().find(name) == DataBase::Storage::getInstance().getCampfiresBySmartName().end())
+    {
+        MESSAGEWR("can't find data by smart_terrain %s", name.c_str());
+        return;
+    }
+
+    const xr_map<std::uint16_t, CZoneCampfire*>& smart_campfires =
+        DataBase::Storage::getInstance().getCampfiresBySmartName().at(name);
+
+    if (smart_campfires.empty())
+    {
+        MESSAGEWR("data is empty! Maybe it was not initialized correctly!");
+        return;
+    }
+
+    for (const std::pair<std::uint16_t, CZoneCampfire*>& it : smart_campfires)
+    {
+        if (it.second)
+            if (!it.second->is_on())
+                it.second->turn_on_script();
+    }
+}
+
+inline void turn_off_campfires_by_smart_name(const xr_string& name) 
+{
+    if (name.empty())
+    {
+        MESSAGEWR("invalid string!");
+        return;
+    }
+
+    if (DataBase::Storage::getInstance().getCampfiresBySmartName().find(name) ==
+        DataBase::Storage::getInstance().getCampfiresBySmartName().end())
+    {
+        MESSAGEWR("can't find data by smart_terrain %s", name.c_str());
+        return;
+    }
+
+    const xr_map<std::uint16_t, CZoneCampfire*>& smart_campfires =
+        DataBase::Storage::getInstance().getCampfiresBySmartName().at(name);
+
+    if (smart_campfires.empty())
+    {
+        MESSAGEWR("data is empty! Maybe it was not initialized correctly!");
+        return;
+    }
+
+    for (const std::pair<std::uint16_t, CZoneCampfire*>& it : smart_campfires)
+    {
+        if (it.second)
+            if (it.second->is_on())
+                it.second->turn_off_script();
+    }
+}
+
 } // namespace Globals
 } // namespace Scripts
 } // namespace Cordis

@@ -335,6 +335,11 @@ inline bool is_heavy_wounded(const std::uint16_t npc_id);
 inline bool is_psy_wounded_by_id(const std::uint16_t npc_id);
 #pragma endregion
 
+#pragma region Cordis Script_Binder_Campfire
+inline void turn_on_campfires_by_smart_name(const xr_string& name);
+inline void turn_off_campfires_by_smart_name(const xr_string& name);
+#pragma endregion
+
  
 
 } // namespace Globals
