@@ -3560,6 +3560,12 @@ public:
     inline const xr_map<std::uint16_t, Storage_Data>& getStorage(void) const noexcept { return this->m_storage; }
     inline Script_CampData* getCampsCamp(const std::uint16_t object_id) const
     {
+        if (this->m_camps.find(object_id) == this->m_camps.end())
+        {
+            MESSAGEWR("can't obtain camp data by id %d", object_id);
+            return nullptr;
+        }
+
         return this->m_camps.at(object_id).first;
     }
 
