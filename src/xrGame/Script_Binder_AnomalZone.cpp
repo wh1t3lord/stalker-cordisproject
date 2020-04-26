@@ -101,16 +101,14 @@ Script_Binder_Anomaly::Script_Binder_Anomaly(CScriptGameObject* object)
 
         this->m_table_max_artefacts[section_name] = _max_artefacts;
 
-        std::uint32_t _app_xz = static_cast<std::uint32_t>(
-            Globals::Utils::cfg_get_number(this->m_p_ini, section_name, "applying_force_xz"));
-        if (!_app_xz)
+        float _app_xz = Globals::Utils::cfg_get_number(this->m_p_ini, section_name, "applying_force_xz");
+        if (fis_zero(_app_xz))
             _app_xz = default_app_force_xz;
 
         this->m_table_forces[section_name].first = _app_xz;
 
-        std::uint32_t _app_y =
-            static_cast<std::uint32_t>(Globals::Utils::cfg_get_number(this->m_p_ini, section_name, "applying_force_y"));
-        if (!_app_y)
+        float _app_y = Globals::Utils::cfg_get_number(this->m_p_ini, section_name, "applying_force_y");
+        if (fis_zero(_app_y))
             _app_y = default_app_force_y;
 
         this->m_table_forces[section_name].second = _app_y;

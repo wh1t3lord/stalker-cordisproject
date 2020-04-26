@@ -54,6 +54,9 @@ public:
     // @ For Client & for Server
     void on_artefact_take(const std::uint16_t object_id);
 
+    inline float getApplyingForceXZ(void) const noexcept { return this->m_applying_force_xz; }
+    inline float getApplyingForceY(void) const noexcept { return this->m_applying_force_y; }
+
 private:
     bool m_is_created_own_ini_file_from_cfg_section;
     bool m_is_custom_placement;
@@ -66,15 +69,15 @@ private:
     std::uint32_t m_layers_count;
     std::uint32_t m_respawn_tries;
     std::uint32_t m_max_artefacts;
-    std::uint32_t m_applying_force_xz;
-    std::uint32_t m_applying_force_y;
+    float m_applying_force_xz;
+    float m_applying_force_y;
     CScriptIniFile* m_p_ini;
     xr_map<std::uint16_t, xr_string> m_artefact_ways_by_id;
     xr_map<std::uint16_t, std::uint32_t> m_artefact_points_by_id;
     xr_map<xr_string, std::uint32_t> m_table_respawn_tries;
     xr_map<xr_string, std::uint32_t> m_table_max_artefacts;
     // .first -> xz | .second -> y
-    xr_map<xr_string, std::pair<std::uint32_t, std::uint32_t>> m_table_forces;
+    xr_map<xr_string, std::pair<float, float>> m_table_forces;
     xr_map<xr_string, xr_vector<xr_string>> m_table_mines;
     xr_map<xr_string, xr_vector<xr_string>> m_table_artefacts;
     xr_map<xr_string, xr_vector<xr_string>> m_table_start_artefacts;

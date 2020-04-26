@@ -52,7 +52,9 @@ namespace Cordis
     void Script_Binder_Camp::shedule_Update(u32 time_delta) 
     {
         Script_CampData* const p_camp = DataBase::Storage::getInstance().getCampsCamp(this->m_object->ID());
-        p_camp->update();
+
+        if (p_camp)
+            p_camp->update();
     }
 
     bool Script_Binder_Camp::net_SaveRelevant() { return true; }
