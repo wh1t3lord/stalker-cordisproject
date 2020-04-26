@@ -227,14 +227,14 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <AdditionalLibraryDirectories>
- D:\Cordis Project\Xray\sdk\boost_1_70_0\bin.v2\libs\regex\build\msvc-14.2\rls\adrs-mdl-64\lnk-sttc\thrd-mlt;       $(xrSdkDir)libraries;
+ $(xrSdkDir)lib_boost\stage\lib\;       $(xrSdkDir)libraries;
         $(xrSdkDir)libraries/$(PlatformShortName);
         $(xrLibDir);$(xrSdkDir)DXSDK/Lib/$(PlatformShortName);
         %(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
     <ClCompile>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
-      <AdditionalIncludeDirectories>$(xrSdkDir)boost_1_70_0\;$(xrExternals)lzo\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(xrSdkDir)lib_boost\;$(xrExternals)lzo\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Jumbo|x64'">

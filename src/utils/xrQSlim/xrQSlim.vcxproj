@@ -209,7 +209,7 @@
       <PreprocessorDefinitions>XR_QSLIM_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>
         .;
-   $(xrSdkDir)boost_1_70_0\;     $(SolutionDir);
+   $(xrSdkDir)lib_boost\;     $(SolutionDir);
         $(xrExternals);
         $(ProjectDir);
         $(xrSdkDir)include;
