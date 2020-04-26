@@ -3558,6 +3558,30 @@ public:
 
 #pragma region Getters
     inline const xr_map<std::uint16_t, Storage_Data>& getStorage(void) const noexcept { return this->m_storage; }
+
+    inline const xr_map<xr_string, xr_map<std::uint16_t, CZoneCampfire*>>& getCampfiresBySmartName(void) const noexcept { return this->m_campfires_by_smart_name; }
+    inline void setCampfiresBySmartName(const xr_string& smart_name, const std::uint16_t object_id, CZoneCampfire* const p_zone) 
+    {
+        if (smart_name.empty())
+        {
+            MESSAGEWR("invalid string!");
+            return;
+        }
+
+        if (object_id == 0 || object_id == Globals::kUnsignedInt16Undefined)
+        {
+            MESSAGEWR("invalid id!");
+            return;
+        }
+
+        if (p_zone == nullptr)
+        {
+            MESSAGEW("you are set an empty object!");
+        }
+
+        this->m_campfires_by_smart_name[smart_name][object_id] = p_zone;
+    }
+
     inline Script_CampData* getCampsCamp(const std::uint16_t object_id) const
     {
         if (this->m_camps.find(object_id) == this->m_camps.end())
@@ -5230,6 +5254,10 @@ private:
     // @ second.second -> .object!
     xr_map<std::uint16_t, std::pair<Script_CampData*, CScriptGameObject*>> m_camps;
     #pragma endregion
+
+#pragma region Cordis Script_Binder_Campfire
+    xr_map<xr_string, xr_map<std::uint16_t, CZoneCampfire*>> m_campfires_by_smart_name;
+#pragma endregion
 
 #pragma region Cordis Scheme XR Combat Ignore 
     xr_map<std::uint16_t, bool> m_fighting_with_actor_npcs;
