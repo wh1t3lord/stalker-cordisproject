@@ -160,6 +160,8 @@
     <ClCompile>
       <DisableSpecificWarnings>4251;4275;4458;4244</DisableSpecificWarnings>
       <PrecompiledHeaderFile>pch.hpp</PrecompiledHeaderFile>
+      <BasicRuntimeChecks>Default</BasicRuntimeChecks>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
     </ClCompile>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Mixed|Win32'">

@@ -197,6 +197,8 @@
     <ClCompile>
       <AdditionalIncludeDirectories>$(xrSdkDir)lib_boost\;$(SolutionDir)utils\xrQSlim\src;$(xrExternals)FreeImage\Dist\x32;$(xrExternals)FreeMagic\Include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>LEVEL_COMPILER;_USE_MATH_DEFINES;FORCE_NO_EXCEPTIONS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <BasicRuntimeChecks>Default</BasicRuntimeChecks>
     </ClCompile>
     <Link>
       <AdditionalLibraryDirectories>$(xrSdkDir)lib_boost\stage\lib\;$(xrExternals)FreeImage\Dist\x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>

@@ -14,10 +14,6 @@
 #error Please enable multi-threaded library...
 #endif
 
-#ifdef DEBUG
-#define _ITERATOR_DEBUG_LEVEL 0
-#endif
-
 #ifdef NDEBUG
 #define XRAY_EXCEPTIONS 0
 #define LUABIND_NO_EXCEPTIONS
