@@ -6,7 +6,6 @@ namespace Cordis
 	{
 		class Script_Binder_Campfire : public CScriptBinderObject
 		{
-			using inhertied = CScriptBinderObject;
 		public:
 			Script_Binder_Campfire(void) = delete;
 			Script_Binder_Campfire(CScriptGameObject* const p_client_object);
