@@ -175,6 +175,7 @@
         $(xrExternals)GameSpy\src;
         %(AdditionalIncludeDirectories)
       </AdditionalIncludeDirectories>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
     </ClCompile>
     <Link>
       <AdditionalLibraryDirectories>
