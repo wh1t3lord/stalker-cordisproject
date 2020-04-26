@@ -203,13 +203,10 @@ echo git found
 call .GitInfo.cmd</Command>
     </PreBuildEvent>
     <CustomBuildStep>
-      <Command>if not exist "$(OutDir)tbb_debug.dll" copy /y "$(xrSdkDir)binaries\$(PlatformShortName)\tbb_debug.dll" "$(OutDir)tbb_debug.dll"
-if not exist "$(OutDir)tbb_preview_debug.dll" copy /y "$(xrSdkDir)binaries\$(PlatformShortName)\tbb_preview_debug.dll" "$(OutDir)tbb_preview_debug.dll"
-if not exist "$(OutDir)tbbmalloc_debug.dll" copy /y "$(xrSdkDir)binaries\$(PlatformShortName)\tbbmalloc_debug.dll" "$(OutDir)tbbmalloc_debug.dll"
-if not exist "$(OutDir)tbbmalloc_proxy_debug.dll" copy /y "$(xrSdkDir)binaries\$(PlatformShortName)\tbbmalloc_proxy_debug.dll" "$(OutDir)tbbmalloc_proxy_debug.dll"</Command>
-      <Outputs>$(OutDir)tbb_debug.dll;$(OutDir)tbb_preview_debug.dll;$(OutDir)tbbmalloc_debug.dll;$(OutDir)tbbmalloc_proxy_debug.dll;%(Outputs)</Outputs>
+      <Command>if not exist "$(OutDir)tbb.dll" copy /y "$(xrSdkDir)binaries\$(PlatformShortName)\tbb.dll" "$(OutDir)tbb.dll"</Command>
+      <Outputs>$(OutDir)tbb.dll;$(OutDir)tbb_preview.dll;$(OutDir)tbbmalloc.dll;$(OutDir)tbbmalloc_proxy.dll;%(Outputs)</Outputs>
       <TreatOutputAsContent>true</TreatOutputAsContent>
-      <Inputs>$(xrSdkDir)binaries\$(PlatformShortName)\tbb_debug.dll;$(xrSdkDir)binaries\$(PlatformShortName)\tbb_preview_debug.dll;$(xrSdkDir)binaries\$(PlatformShortName)\tbbmalloc_debug.dll;$(xrSdkDir)binaries\$(PlatformShortName)\tbbmalloc_proxy_debug.dll;%(Inputs)</Inputs>
+      <Inputs>$(xrSdkDir)binaries\$(PlatformShortName)\tbb.dll;$(xrSdkDir)binaries\$(PlatformShortName)\tbb_preview.dll;$(xrSdkDir)binaries\$(PlatformShortName)\tbbmalloc.dll;$(xrSdkDir)binaries\$(PlatformShortName)\tbbmalloc_proxy.dll;%(Inputs)</Inputs>
     </CustomBuildStep>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
