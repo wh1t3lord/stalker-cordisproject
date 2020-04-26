@@ -23,7 +23,7 @@ Script_Binder_DoorLabx8::Script_Binder_DoorLabx8(CScriptGameObject* object)
 
     if (!p_ini->section_exist(_kAnimatedObjectName))
     {
-        Msg("[Scripts/Script_Binder_DoorLabx8/ctor()] WARNING: can't find section_name \"animatied_object\"! Return "
+        MESSAGEWR("can't find section_name \"animatied_object\"! Return "
             "...");
         return;
     }
@@ -47,13 +47,13 @@ Script_Binder_DoorLabx8::Script_Binder_DoorLabx8(CScriptGameObject* object)
     if (sound_stop_name.empty())
         sound_stop_name = "device\\airtight_door_stop";
 
-    if (sound_idle_name.empty() == false) // LorD: ïðîâåðèòü áóäåò ëè äðîïàòü nil, åñëè áóäåò òî íàéòè è èñïðàâèòü êîãäà ýòî áóäåò, ÷òîáû âñå "nil" ïðîñòî ïðîâåðÿëèñü âñåãäà êàê .empty()
+    if (sound_idle_name.empty() == false) // LorD: Ð¿Ñ€Ð¾Ð²ÐµÑ€Ð¸Ñ‚ÑŒ Ð±ÑƒÐ´ÐµÑ‚ Ð»Ð¸ Ð´Ñ€Ð¾Ð¿Ð°Ñ‚ÑŒ nil, ÐµÑÐ»Ð¸ Ð±ÑƒÐ´ÐµÑ‚ Ñ‚Ð¾ Ð½Ð°Ð¹Ñ‚Ð¸ Ð¸ Ð¸ÑÐ¿Ñ€Ð°Ð²Ð¸Ñ‚ÑŒ ÐºÐ¾Ð³Ð´Ð° ÑÑ‚Ð¾ Ð±ÑƒÐ´ÐµÑ‚, Ñ‡Ñ‚Ð¾Ð±Ñ‹ Ð²ÑÐµ "nil" Ð¿Ñ€Ð¾ÑÑ‚Ð¾ Ð¿Ñ€Ð¾Ð²ÐµÑ€ÑÐ»Ð¸ÑÑŒ Ð²ÑÐµÐ³Ð´Ð° ÐºÐ°Ðº .empty()
         this->m_p_sound_idle = new CScriptSound(sound_idle_name.c_str());
 
-    if (sound_start_name.empty() == false) // LorD: ïðîâåðèòü áóäåò ëè äðîïàòü nil, åñëè áóäåò òî íàéòè è èñïðàâèòü êîãäà ýòî áóäåò, ÷òîáû âñå "nil" ïðîñòî ïðîâåðÿëèñü âñåãäà êàê .empty()
+    if (sound_start_name.empty() == false) // LorD: Ð¿Ñ€Ð¾Ð²ÐµÑ€Ð¸Ñ‚ÑŒ Ð±ÑƒÐ´ÐµÑ‚ Ð»Ð¸ Ð´Ñ€Ð¾Ð¿Ð°Ñ‚ÑŒ nil, ÐµÑÐ»Ð¸ Ð±ÑƒÐ´ÐµÑ‚ Ñ‚Ð¾ Ð½Ð°Ð¹Ñ‚Ð¸ Ð¸ Ð¸ÑÐ¿Ñ€Ð°Ð²Ð¸Ñ‚ÑŒ ÐºÐ¾Ð³Ð´Ð° ÑÑ‚Ð¾ Ð±ÑƒÐ´ÐµÑ‚, Ñ‡Ñ‚Ð¾Ð±Ñ‹ Ð²ÑÐµ "nil" Ð¿Ñ€Ð¾ÑÑ‚Ð¾ Ð¿Ñ€Ð¾Ð²ÐµÑ€ÑÐ»Ð¸ÑÑŒ Ð²ÑÐµÐ³Ð´Ð° ÐºÐ°Ðº .empty()
         this->m_p_sound_start = new CScriptSound(sound_start_name.c_str());
 
-    if (sound_stop_name.empty() == false) // LorD: ïðîâåðèòü áóäåò ëè äðîïàòü nil, åñëè áóäåò òî íàéòè è èñïðàâèòü êîãäà ýòî áóäåò, ÷òîáû âñå "nil" ïðîñòî ïðîâåðÿëèñü âñåãäà êàê .empty()
+    if (sound_stop_name.empty() == false) // LorD: Ð¿Ñ€Ð¾Ð²ÐµÑ€Ð¸Ñ‚ÑŒ Ð±ÑƒÐ´ÐµÑ‚ Ð»Ð¸ Ð´Ñ€Ð¾Ð¿Ð°Ñ‚ÑŒ nil, ÐµÑÐ»Ð¸ Ð±ÑƒÐ´ÐµÑ‚ Ñ‚Ð¾ Ð½Ð°Ð¹Ñ‚Ð¸ Ð¸ Ð¸ÑÐ¿Ñ€Ð°Ð²Ð¸Ñ‚ÑŒ ÐºÐ¾Ð³Ð´Ð° ÑÑ‚Ð¾ Ð±ÑƒÐ´ÐµÑ‚, Ñ‡Ñ‚Ð¾Ð±Ñ‹ Ð²ÑÐµ "nil" Ð¿Ñ€Ð¾ÑÑ‚Ð¾ Ð¿Ñ€Ð¾Ð²ÐµÑ€ÑÐ»Ð¸ÑÑŒ Ð²ÑÐµÐ³Ð´Ð° ÐºÐ°Ðº .empty()
         this->m_p_sound_stop = new CScriptSound(sound_stop_name.c_str());
 
     this->m_tip_condlist = XR_LOGIC::parse_condlist_by_script_object(
@@ -93,19 +93,19 @@ Script_Binder_DoorLabx8::~Script_Binder_DoorLabx8(void)
 {
     if (this->m_p_sound_idle)
     {
-        Msg("[Scripts/Script_Binder_DoorLabx8/~dtor()] deleting m_p_sound_idle");
+        MESSAGEI("deleting m_p_sound_idle");
         xr_delete(this->m_p_sound_idle);
     }
 
     if (this->m_p_sound_start)
     {
-        Msg("[Scripts/Script_Binder_DoorLabx8/~dtor()] deleting m_p_sound_start");
+        MESSAGEI("deleting m_p_sound_start");
         xr_delete(this->m_p_sound_start);
     }
 
     if (this->m_p_sound_stop)
     {
-        Msg("[Scripts/Script_Binder_DoorLabx8/~dtor()] deleting m_p_sound_end");
+        MESSAGEI("deleting m_p_sound_end");
         xr_delete(this->m_p_sound_stop);
     }
 }
