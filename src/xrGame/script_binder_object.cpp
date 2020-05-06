@@ -138,7 +138,7 @@ void CScriptBinderObject::on_point(const float distance, const Fvector& position
 #endif // DEBUG
 }
 
-void CScriptBinderObject::on_hit(const float power, const float impulse, const EHitType& hit_type, const std::uint16_t enemy_id)
+void CScriptBinderObject::on_hit(const float power, const float impulse, const ALife::EHitType& hit_type, const std::uint16_t enemy_id)
 {
 #ifdef DEBUG
     MESSAGE("not overloaded function!");

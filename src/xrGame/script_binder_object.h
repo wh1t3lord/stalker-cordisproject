@@ -57,7 +57,7 @@ public:
     
 #pragma region Cordis Helicopter callbacks
     virtual void on_point(const float distance, const Fvector& position, const std::uint32_t path_index);
-    virtual void on_hit(const float power, const float impulse, const EHitType& hit_type, const std::uint16_t enemy_id);
+    virtual void on_hit(const float power, const float impulse, const ALife::EHitType& hit_type, const std::uint16_t enemy_id);
 #pragma endregion
 
     // @ Uses only for animation_callback if exists

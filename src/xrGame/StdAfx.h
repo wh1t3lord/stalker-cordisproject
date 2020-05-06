@@ -231,6 +231,7 @@
 #include "xrGame/ai/monsters/control_path_builder.h" // ~130
 #include "xrGame/ai/monsters/monster_corpse_manager.h" // ~130
 #include "xrGame/ai/stalker/ai_stalker.h"
+#include "xrGame/ZoneCampfire.h"
 
 #include <d3dx9.h>
 
