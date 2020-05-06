@@ -1,4 +1,12 @@
 #pragma once
-class Script_Binder_Helicopter
+
+namespace Cordis
 {
-};
+	namespace Scripts
+	{
+		class Script_Binder_Helicopter : public CScriptBinderObject
+		{
+		};
+	}
+}
+
