@@ -35,7 +35,6 @@ namespace Cordis
             return true;
 		}
 
-		void Script_Binder_Campfire::shedule_Update(u32 time_delta) { CScriptBinderObject::shedule_Update(time_delta);
-		}
+		void Script_Binder_Campfire::shedule_Update(u32 time_delta) { CScriptBinderObject::shedule_Update(time_delta); }
 	}
 }
