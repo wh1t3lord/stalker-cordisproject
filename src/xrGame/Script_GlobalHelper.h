@@ -19,11 +19,43 @@
 #include "Script_HelicopterFire.h"
 #include "Script_SchemeHelicopterMove.h"
 #include "Script_SE_SmartTerrain.h"
+#include "Script_GlobalDefinitions.h"
 
 // @ PRIVATE PREPROCESSOR!
 #define _REGISTER_FULL_FUNCTION_XR_CONDITION(function_name, function)                                       \
     this->m_registered_functions_xr_conditions[#function_name "_client"] = function##_client;               \
     this->m_registered_functions_xr_conditions[#function_name "_client_server"] = function##_client_server; \
+    this->m_registered_functions_xr_conditions[#function_name "_server"] = function##_server;
+
+// @ _client & _server
+#define _REGISTER_CS_FUNCTION_XR_CONDITION(function_name, function)                                       \
+    this->m_registered_functions_xr_conditions[#function_name "_client"] = function##_client;               \
+    this->m_registered_functions_xr_conditions[#function_name "_server"] = function##_server;
+
+// @ _client & _client_server
+#define _REGISTER_CCS_FUNCTION_XR_CONDITION(function_name, function)                                       \
+    this->m_registered_functions_xr_conditions[#function_name "_client"] = function##_client;               \
+    this->m_registered_functions_xr_conditions[#function_name "_client_server"] = function##_client_server;
+
+// @ _client
+#define _REGISTER_C_FUNCTION_XR_CONDITION(function_name, function)                                       \
+    this->m_registered_functions_xr_conditions[#function_name "_client"] = function##_client; 
+
+// @ _client
+#define _REGISTER_C_PURE_FUNCTION_XR_CONDITION(function_name, function)                                       \
+    this->m_registered_functions_xr_conditions[#function_name "_client"] = function; 
+
+// @ _server
+#define _REGISTER_S_FUNCTION_XR_CONDITION(function_name, function)                                       \
+    this->m_registered_functions_xr_conditions[#function_name "_server"] = function##_server; 
+
+// @ _server
+#define _REGISTER_S_PURE_FUNCTION_XR_CONDITION(function_name, function)                                       \
+    this->m_registered_functions_xr_conditions[#function_name "_server"] = function; 
+
+// @ _client_server & _server
+#define _REGISTER_CSS_FUNCTION_XR_CONDITION(function_name, function)                                       \
+    this->m_registered_functions_xr_conditions[#function_name "_client_server"] = function##_client_server;               \
     this->m_registered_functions_xr_conditions[#function_name "_server"] = function##_server;
 
 // @ PRIVATE PREPROCESSOR!
@@ -4098,6 +4130,89 @@ private:
 
 #pragma region Cordis Registering XR_CONDITINO Functions
         _REGISTER_FULL_FUNCTION_XR_CONDITION(actor_on_level, XR_CONDITION::is_actor_on_level)
+        _REGISTER_FULL_FUNCTION_XR_CONDITION(dist_to_actor_ge, XR_CONDITION::is_distance_to_obj_ge)
+        _REGISTER_FULL_FUNCTION_XR_CONDITION(actor_in_zone, XR_CONDITION::is_actor_in_zone)
+        _REGISTER_FULL_FUNCTION_XR_CONDITION(npc_in_zone, XR_CONDITION::is_npc_in_zone)
+        _REGISTER_FULL_FUNCTION_XR_CONDITION(npc_community, XR_CONDITION::is_npc_community)
+        _REGISTER_FULL_FUNCTION_XR_CONDITION(is_alive_one, XR_CONDITION::is_alive_one)
+        _REGISTER_FULL_FUNCTION_XR_CONDITION(is_alive, XR_CONDITION::is_alive)
+        _REGISTER_FULL_FUNCTION_XR_CONDITION(is_dead, XR_CONDITION::is_dead)
+        _REGISTER_FULL_FUNCTION_XR_CONDITION(story_object_exist, XR_CONDITION::is_story_object_exist)
+        _REGISTER_FULL_FUNCTION_XR_CONDITION(actor_has_item, XR_CONDITION::is_actor_has_item)
+        _REGISTER_FULL_FUNCTION_XR_CONDITION(check_smart_alarm_status, XR_CONDITION::check_smart_alarm_status)
+        _REGISTER_FULL_FUNCTION_XR_CONDITION(is_faction_enemy_to_actor, XR_CONDITION::is_faction_enemy_to_actor)
+            _REGISTER_FULL_FUNCTION_XR_CONDITION(is_faction_friend_to_actor, XR_CONDITION::is_faction_friend_to_actor)
+            _REGISTER_FULL_FUNCTION_XR_CONDITION(is_faction_neutral_to_actor, XR_CONDITION::is_faction_neutral_to_actor)
+            _REGISTER_FULL_FUNCTION_XR_CONDITION(is_squad_friend_to_actor, XR_CONDITION::is_squad_friend_to_actor)
+            _REGISTER_FULL_FUNCTION_XR_CONDITION(is_squad_enemy_to_actor, XR_CONDITION::is_squad_enemy_to_actor)
+            _REGISTER_FULL_FUNCTION_XR_CONDITION(is_squad_neutral_to_actor, XR_CONDITION::is_squad_neutral_to_actor)
+            _REGISTER_FULL_FUNCTION_XR_CONDITION(actor_active_detector, XR_CONDITION::is_actor_active_detector)
+            _REGISTER_FULL_FUNCTION_XR_CONDITION(is_rain, XR_CONDITION::is_rain)
+            _REGISTER_FULL_FUNCTION_XR_CONDITION(is_heavy_rain, XR_CONDITION::is_heavy_rain)
+            _REGISTER_FULL_FUNCTION_XR_CONDITION(is_day, XR_CONDITION::is_day)
+            _REGISTER_FULL_FUNCTION_XR_CONDITION(is_dark_night, XR_CONDITION::is_dark_night)
+            _REGISTER_FULL_FUNCTION_XR_CONDITION(is_jup_a12_mercs_time, XR_CONDITION::is_jup_a12_mercs_time)
+            _REGISTER_FULL_FUNCTION_XR_CONDITION(zat_b7_is_night, XR_CONDITION::is_zat_b7_is_night)
+            _REGISTER_FULL_FUNCTION_XR_CONDITION(zat_b7_is_late_attack_time, XR_CONDITION::is_zat_b7_is_late_attack_time)
+            _REGISTER_FULL_FUNCTION_XR_CONDITION(actor_on_level, XR_CONDITION::is_actor_on_level)
+            _REGISTER_FULL_FUNCTION_XR_CONDITION(squad_has_enemy, XR_CONDITION::is_squad_has_enemy)
+            _REGISTER_FULL_FUNCTION_XR_CONDITION(squad_in_zone_all, XR_CONDITION::is_squad_in_zone_all)
+            _REGISTER_FULL_FUNCTION_XR_CONDITION(squads_in_zone_b41, XR_CONDITION::is_squads_in_zone_b41)
+            
+        _REGISTER_CS_FUNCTION_XR_CONDITION(fighting_dist_ge, XR_CONDITION::is_fighting_dist_ge)
+        _REGISTER_CS_FUNCTION_XR_CONDITION(fighting_dist_le, XR_CONDITION::is_fighting_dist_le)
+        _REGISTER_CS_FUNCTION_XR_CONDITION(enemy_in_zone, XR_CONDITION::is_enemy_in_zone)
+        _REGISTER_CS_FUNCTION_XR_CONDITION(story_obj_in_zone_by_name, XR_CONDITION::is_story_obj_in_zone_by_name)
+
+        _REGISTER_CCS_FUNCTION_XR_CONDITION(black_screen, XR_CONDITION::is_black_screen)
+        _REGISTER_CCS_FUNCTION_XR_CONDITION(check_npc_name, XR_CONDITION::check_npc_name)
+	    _REGISTER_CCS_FUNCTION_XR_CONDITION(counter_greater, XR_CONDITION::is_counter_greater)
+		_REGISTER_CCS_FUNCTION_XR_CONDITION(counter_equal, XR_CONDITION::is_counter_equal)
+        _REGISTER_CCS_FUNCTION_XR_CONDITION(actor_has_weapon, XR_CONDITION::is_actor_has_weapon)
+        _REGISTER_CCS_FUNCTION_XR_CONDITION(squad_in_zone, XR_CONDITION::is_squad_in_zone)
+
+        _REGISTER_CSS_FUNCTION_XR_CONDITION(target_squad_name, XR_CONDITION::is_target_squad_name)
+
+        _REGISTER_C_FUNCTION_XR_CONDITION(check_enemy_name, XR_CONDITION::check_enemy_name)
+        _REGISTER_C_FUNCTION_XR_CONDITION(target_smart_name, XR_CONDITION::is_target_smart_name)
+            
+            _REGISTER_C_PURE_FUNCTION_XR_CONDITION(mob_was_hit, XR_CONDITION::is_mob_was_hit)
+            _REGISTER_C_PURE_FUNCTION_XR_CONDITION(mob_has_enemy, XR_CONDITION::is_mob_has_enemy)
+            _REGISTER_C_PURE_FUNCTION_XR_CONDITION(heavy_wounded,XR_CONDITION::is_heavy_wounded)
+            _REGISTER_C_PURE_FUNCTION_XR_CONDITION(killed_by_actor, XR_CONDITION::is_killed_by_actor)
+            _REGISTER_C_PURE_FUNCTION_XR_CONDITION(hit_by_actor, XR_CONDITION::is_hit_by_actor)
+        _REGISTER_C_PURE_FUNCTION_XR_CONDITION(fighting_actor, XR_CONDITION::is_fighting_actor)
+        _REGISTER_C_PURE_FUNCTION_XR_CONDITION(is_factions_friends, XR_CONDITION::is_factions_friends)
+        _REGISTER_C_PURE_FUNCTION_XR_CONDITION(is_factions_neutrals, XR_CONDITION::is_factions_neutrals)
+        _REGISTER_C_PURE_FUNCTION_XR_CONDITION(is_factions_enemies, XR_CONDITION::is_factions_enemies)
+        _REGISTER_C_PURE_FUNCTION_XR_CONDITION(actor_neutral, XR_CONDITION::is_actor_neutral)
+        _REGISTER_C_PURE_FUNCTION_XR_CONDITION(actor_friend, XR_CONDITION::is_actor_friend)
+        _REGISTER_C_PURE_FUNCTION_XR_CONDITION(actor_enemy, XR_CONDITION::is_actor_enemy)
+        _REGISTER_C_PURE_FUNCTION_XR_CONDITION(see_actor, XR_CONDITION::is_see_actor)
+        _REGISTER_C_PURE_FUNCTION_XR_CONDITION(npc_talking, XR_CONDITION::is_npc_talking)
+        _REGISTER_C_PURE_FUNCTION_XR_CONDITION(talking, XR_CONDITION::is_talking)
+        _REGISTER_C_PURE_FUNCTION_XR_CONDITION(has_enemy_in_current_loopholes_fov, XR_CONDITION::is_has_enemy_in_current_loopholes_fov)
+        _REGISTER_C_PURE_FUNCTION_XR_CONDITION(_kamp_talk, XR_CONDITION::is_kamp_talk)
+        _REGISTER_C_PURE_FUNCTION_XR_CONDITION(see_enemy, XR_CONDITION::is_see_enemy)
+        _REGISTER_C_PURE_FUNCTION_XR_CONDITION(has_actor_enemy, XR_CONDITION::is_has_actor_enemy)
+        _REGISTER_C_PURE_FUNCTION_XR_CONDITION(has_enemy, XR_CONDITION::is_has_enemy)
+        _REGISTER_C_PURE_FUNCTION_XR_CONDITION(signal, XR_CONDITION::is_signal)
+        _REGISTER_C_PURE_FUNCTION_XR_CONDITION(npc_has_item, XR_CONDITION::is_npc_has_item)
+        _REGISTER_C_PURE_FUNCTION_XR_CONDITION(killed_by, XR_CONDITION::is_killed_by)
+        _REGISTER_C_PURE_FUNCTION_XR_CONDITION(deadly_hit, XR_CONDITION::is_deadly_hit)
+        _REGISTER_C_PURE_FUNCTION_XR_CONDITION(best_pistol, XR_CONDITION::is_best_pistol)
+        _REGISTER_C_PURE_FUNCTION_XR_CONDITION(hitted_on_bone, XR_CONDITION::is_hitted_on_bone)
+        _REGISTER_C_PURE_FUNCTION_XR_CONDITION(hitted_by, XR_CONDITION::is_hitted_by)
+        _REGISTER_C_PURE_FUNCTION_XR_CONDITION(actor_health_le, XR_CONDITION::is_actor_health_le)
+        _REGISTER_C_PURE_FUNCTION_XR_CONDITION(health_le, XR_CONDITION::is_health_le)
+        _REGISTER_C_PURE_FUNCTION_XR_CONDITION(distance_to_obj_on_job_le, XR_CONDITION::is_distance_to_obj_on_job_le)
+        _REGISTER_C_PURE_FUNCTION_XR_CONDITION(is_obj_on_job, XR_CONDITION::is_obj_on_job)
+        _REGISTER_C_PURE_FUNCTION_XR_CONDITION(is_wounded, XR_CONDITION::is_wounded)
+        _REGISTER_C_PURE_FUNCTION_XR_CONDITION(npc_in_actor_frustum, XR_CONDITION::is_npc_in_actor_frustrum)
+        _REGISTER_C_PURE_FUNCTION_XR_CONDITION(actor_see_npc, XR_CONDITION::is_actor_see_npc)
+        _REGISTER_C_PURE_FUNCTION_XR_CONDITION(see_npc, XR_CONDITION::is_see_npc)
+        _REGISTER_C_PURE_FUNCTION_XR_CONDITION(is_playing_sound, XR_CONDITION::is_playing_sound)
+        _REGISTER_C_PURE_FUNCTION_XR_CONDITION(is_enemy_actor, XR_CONDITION::is_enemy_actor)
 #pragma endregion
 
 #pragma region Cordis Initializing DialogManager

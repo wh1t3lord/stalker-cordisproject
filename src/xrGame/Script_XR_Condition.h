@@ -2587,9 +2587,8 @@ inline bool is_actor_on_level_client(
 
     for (const xr_string& it : buffer)
     {
-        if (!Globals::Game::level::get_name().empty())
-            if (Globals::Game::level::get_name() == it)
-                return true;
+		if (Globals::Game::level::get_name() == it)
+			return true;
     }
 
     return false;
@@ -2606,9 +2605,8 @@ inline bool is_actor_on_level_server(
 
     for (const xr_string& it : buffer)
     {
-        if (!Globals::Game::level::get_name().empty())
-            if (Globals::Game::level::get_name() == it)
-                return true;
+        if (Globals::Game::level::get_name() == it)
+            return true;
     }
 
     return false;
@@ -2625,9 +2623,8 @@ inline bool is_actor_on_level_client_server(
 
     for (const xr_string& it : buffer)
     {
-        if (!Globals::Game::level::get_name().empty())
-            if (Globals::Game::level::get_name() == it)
-                return true;
+		if (Globals::Game::level::get_name() == it)
+			return true;
     }
 
     return false;
@@ -3038,17 +3035,17 @@ inline bool is_squads_in_zone_b41_server(
 
     if (!client_zone)
     {
-        Msg("[Scripts/XR_CONDITION/is_squads_in_zone_b41(server_actor, server_npc, buffer)] WARNING: client_zone = "
-            "nullptr! Returns "
-            "False");
+#ifdef DEBUG
+        MESSAGEWR("client_zone = nullptr!");
+#endif // DEBUG
         return false;
     }
 
     if (!server_smart)
     {
-        Msg("[Scripts/XR_CONDITION/is_squads_in_zone_b41(server_actor, server_npc, buffer)] WARNING: server_smart = "
-            "nullptr! Returns "
-            "False");
+#ifdef DEBUG
+        MESSAGEWR("server_smart = nullptr!");
+#endif // DEBUG
         return false;
     }
 
@@ -3073,25 +3070,24 @@ inline bool is_squads_in_zone_b41_server(
     return true;
 }
 
-inline bool is_squads_in_zone_b41_client_server(
-    CScriptGameObject* actor, CSE_ALifeDynamicObject* server_npc, const xr_vector<xr_string>& buffer)
+inline bool is_squads_in_zone_b41_client_server(CScriptGameObject* actor, CSE_ALifeDynamicObject* server_npc, const xr_vector<xr_string>& buffer)
 {
     Script_SE_SmartTerrain* server_smart = Script_SimulationBoard::getInstance().getSmartTerrainsByName().at("jup_b41");
     CScriptGameObject* client_zone = DataBase::Storage::getInstance().getZoneByName().at("jup_b41_sr_light");
 
     if (!client_zone)
     {
-        Msg("[Scripts/XR_CONDITION/is_squads_in_zone_b41(server_actor, server_npc, buffer)] WARNING: client_zone = "
-            "nullptr! Returns "
-            "False");
+#ifdef DEBUG
+        MESSAGEWR("client_zone = nullptr!");
+#endif // DEBUG
         return false;
     }
 
     if (!server_smart)
     {
-        Msg("[Scripts/XR_CONDITION/is_squads_in_zone_b41(server_actor, server_npc, buffer)] WARNING: server_smart = "
-            "nullptr! Returns "
-            "False");
+#ifdef DEBUG
+        MESSAGEWR("server_smart = nullptr!");
+#endif // DEBUG
         return false;
     }
 
@@ -3366,8 +3362,10 @@ inline bool is_quest_npc_enemy_actor_client(
 
     if (!object)
     {
-        Msg("[Scripts/XR_CONDITION/is_quest_npc_enemy_actor(actor, npc, buffer)] WARNING: object = nullptr! Returns "
-            "False");
+#ifdef DEBUG
+        MESSAGEWR("object = nullptr!");
+#endif // DEBUG
+        return false;
     }
     else
     {
@@ -3400,9 +3398,10 @@ inline bool is_quest_npc_enemy_actor_server(
 
     if (!object)
     {
-        Msg("[Scripts/XR_CONDITION/is_quest_npc_enemy_actor(server_actor, server_npc, buffer)] WARNING: object = "
-            "nullptr! Returns "
-            "False");
+#ifdef DEBUG
+        MESSAGEWR("object = nullptr!");
+#endif // DEBUG
+        return false;
     }
     else
     {
@@ -3435,9 +3434,10 @@ inline bool is_quest_npc_enemy_actor_client_server(
 
     if (!object)
     {
-        Msg("[Scripts/XR_CONDITION/is_quest_npc_enemy_actor(actor, server_npc, buffer)] WARNING: object = nullptr! "
-            "Returns "
-            "False");
+#ifdef DEBUG
+        MESSAGEWR("object = nullptr! ");
+#endif // DEBUG
+        return false;
     }
     else
     {

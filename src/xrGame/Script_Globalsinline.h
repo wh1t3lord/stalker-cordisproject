@@ -461,7 +461,7 @@ inline xr_vector<std::pair<xr_string, float>> parse_spawns(const xr_string& buff
         std::pair<xr_string, std::uint32_t> data;
         data.first = buffer_names[it];
 
-        // Lord: наверное лучше сделать через try
+        // Lord: наверное лучше сделать через try | updated: 07.05.2020 пока что спарсил нормально
         if (buffer_names[it + 1].size() && it + 1 <= count)
         {
             std::uint32_t value = atoi(buffer_names[it + 1].c_str());
@@ -1076,7 +1076,15 @@ inline CScriptGameObject* get_object_by_id(u16 id)
     return pGameObject->lua_game_object();
 }
 
-inline xr_string get_name(void) { return (*Level().name()); }
+inline xr_string get_name(void) 
+{ 
+    const char* level_name = *Level().name();
+
+    if (level_name == nullptr)
+        return xr_string();
+
+    return xr_string(level_name);
+}
 inline void map_remove_object_spot(const std::uint16_t& id, LPCSTR spot_type)
 {
     Level().MapManager().RemoveMapLocation(spot_type, id);

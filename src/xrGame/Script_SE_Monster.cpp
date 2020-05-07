@@ -6,7 +6,13 @@ namespace Cordis
 {
 namespace Scripts
 {
-Script_SE_Monster::Script_SE_Monster(LPCSTR section_name) : inherited(section_name), m_is_registered(false) { Msg("[Scripts/Script_SE_Monster/ctor(section_name)] %s", section_name); }
+Script_SE_Monster::Script_SE_Monster(LPCSTR section_name) : inherited(section_name), m_is_registered(false) 
+{
+#ifdef DEBUG
+    MESSAGE("%s", section_name);
+#endif // DEBUG
+ 
+}
 
 Script_SE_Monster::~Script_SE_Monster(void) {}
 
@@ -108,7 +114,7 @@ void Script_SE_Monster::STATE_Read(NET_Packet& packet, std::uint16_t size)
 
         packet.r_stringZ(xr_string(offline_objects_data.second.c_str()));
 
-        if (offline_objects_data.second == "nil") // LorD: проверить будет ли дропать nil, если будет то найти и исправить когда это будет, чтобы все "nil" просто проверялись всегда как .empty()
+        if (offline_objects_data.second.empty()) // LorD: проверить будет ли дропать nil, если будет то найти и исправить когда это будет, чтобы все "nil" просто проверялись всегда как .empty()
             DataBase::Storage::getInstance().setOfflineObjects(this->ID, "");
         //    offline_objects_data.second.clear();
 

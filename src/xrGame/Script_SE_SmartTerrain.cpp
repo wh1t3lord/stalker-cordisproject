@@ -34,7 +34,7 @@ void activate_by_section(CScriptGameObject* const p_client_object, CScriptIniFil
         DataBase::Storage::getInstance().setStorageActivationGameTime(npc_id, Globals::Game::get_game_time());
     }
 
-    if (section_name == "nil") // LorD: проверить будет ли дропать nil, если будет то найти и исправить когда это будет, чтобы все "nil" просто проверялись всегда как .empty()
+    if (section_name.empty()) // LorD: проверить будет ли дропать nil, если будет то найти и исправить когда это будет, чтобы все "nil" просто проверялись всегда как .empty()
     {
         DataBase::Storage::getInstance().setStorageOverrides(npc_id, DataBase::Data_Overrides());
         reset_generic_schemes_on_scheme_switch(p_client_object, "nil", "nil"); // имеет ли смысл? // LorD: проверить будет ли дропать nil, если будет то найти и исправить когда это будет, чтобы все "nil" просто проверялись всегда как .empty()
@@ -783,8 +783,14 @@ CALifeSmartTerrainTask* Script_SE_SmartTerrain::task(CSE_ALifeMonsterAbstract* o
 
     if (this->m_arriving_npc[object->ID])
         return this->m_smart_alife_task.get();
+    // Lord: смотри как было до этого исправить и вернуть как было, сейчас это как временная заглушка для НПС у которых нет ещё биндера!
+    CALifeSmartTerrainTask* p_task = nullptr;
+    if (this->m_job_data.find(this->m_npc_info[object->ID].m_job_id) != this->m_job_data.end())
+        p_task = this->m_job_data[this->m_npc_info[object->ID].m_job_id]->m_alife_task;
+    else
+        p_task = this->m_job_data[0]->m_alife_task;
 
-    return this->m_job_data[this->m_npc_info[object->ID].m_job_id]->m_alife_task;
+    return p_task;
 }
 
 bool Script_SE_SmartTerrain::am_i_reached(Script_SE_SimulationSquad* squad)
