@@ -122,7 +122,7 @@ public:
     virtual void STATE_Write(NET_Packet& packet);
     virtual void on_register(void);
     virtual void on_unregister(void);
-
+    virtual void update();
 #pragma region Cordis Getters
     inline bool IsAlwaysArrived(void) const noexcept { return this->m_is_always_arrived; }
     inline std::uint32_t getSmartTerrainID(void) noexcept { return this->m_smart_terrain_id; }

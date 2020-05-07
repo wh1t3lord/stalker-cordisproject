@@ -142,6 +142,16 @@ void Script_SE_SimulationSquad::on_unregister(void)
     }
 }
 
+void Script_SE_SimulationSquad::update()
+{
+    inherited::update();
+    this->refresh();
+
+    Script_SimulationObjects::getInstance().update_avaliability(this);
+
+    
+}
+
 std::uint16_t Script_SE_SimulationSquad::getScriptTarget(void)
 {
     xr_string new_target_name = XR_LOGIC::pick_section_from_condlist(
