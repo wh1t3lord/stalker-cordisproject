@@ -466,7 +466,9 @@ Script_SE_SmartTerrain::Script_SE_SmartTerrain(LPCSTR section)
       m_smart_showed_spot_name(""), m_is_disabled(false), m_is_respawn_point(true), m_base_on_actor_control(nullptr),
       m_ltx(nullptr)
 {
-    Msg("[Scripts/Script_SE_SmartTerrain/ctor(section)] %s", section);
+#ifdef DEBUG
+    MESSAGE("%s", section);
+#endif // DEBUG
 }
 
 Script_SE_SmartTerrain::~Script_SE_SmartTerrain(void)
@@ -480,8 +482,10 @@ Script_SE_SmartTerrain::~Script_SE_SmartTerrain(void)
             previous_section_name = it->m_job_id.m_section_name;
             if (it->m_job_id.m_ini_file)
             {
-                Msg("[Scripts/Script_SE_SmartTerrain/~dtor()] deleting m_ini_file from %s",
+#ifdef DEBUG
+                MESSAGEI("deleting m_ini_file from %s",
                     it->m_job_id.m_section_name.c_str());
+#endif // DEBUG
                 xr_delete(it);
             }
         }
@@ -490,8 +494,10 @@ Script_SE_SmartTerrain::~Script_SE_SmartTerrain(void)
     {
         for (std::pair<const std::uint32_t, JobDataSmartTerrain*>& it : this->m_job_data)
         {
-            Msg("[Scripts/Script_SE_SmartTerrain/~dtor()] deleting JobDataSmartTerrain from this->m_job_data! %s",
+#ifdef DEBUG
+            MESSAGEI("deleting JobDataSmartTerrain from this->m_job_data! %s",
                 it.second->m_job_id.first);
+#endif // DEBUG
             xr_delete(it.second);
         }
     }
@@ -512,11 +518,15 @@ void Script_SE_SmartTerrain::on_register(void)
     Script_StoryObject::getInstance().check_spawn_ini_for_story_id(this);
     Script_SimulationObjects::getInstance().registrate(this);
 
-    Msg("[Scripts/Script_SE_SmartTerrain/on_register()] register smart %s", this->name_replace());
+#ifdef DEBUG
+    MESSAGEI("register smart %s", this->name_replace());
+#endif // DEBUG
 
-    Msg("[Scripts/Script_SE_SmartTerrain/on_register()] Returning alife task for object [%d] game_vertex [%d] "
+#ifdef DEBUG
+    MESSAGE("Returning alife task for object [%d] game_vertex [%d] "
         "level_vertex [%d] position %f %f %f",
         this->ID, this->m_tGraphID, this->m_tNodeID, this->o_Position.x, this->o_Position.y, this->o_Position.z);
+#endif // DEBUG
 
     this->m_smart_alife_task = std::make_unique<CALifeSmartTerrainTask>(this->m_tGraphID, this->m_tNodeID);
 
@@ -531,9 +541,13 @@ void Script_SE_SmartTerrain::on_register(void)
     if (this->m_is_need_init_npc)
     {
         this->m_is_need_init_npc = false;
-        // Lord: реализовать метод
-        // this->init_npc_after_load();
+        this->init_npc_after_load();
     }
+
+    for (CSE_ALifeDynamicObject*& it : this->m_npc_to_register)
+        this->register_npc(it->cast_monster_abstract());
+
+    this->m_npc_to_register.clear();
 }
 
 void Script_SE_SmartTerrain::on_unregister(void) {}
@@ -626,8 +640,10 @@ void Script_SE_SmartTerrain::STATE_Read(NET_Packet& packet, u16 size)
             else
             {
                 this->m_last_respawn_update = xrTime();
-                Msg("[Scripts/Script_SE_SmartTerrain/STATE_Read(packet, size)] this->m_last_respawn_update = "
+#ifdef DEBUG
+                MESSAGEW("[Scripts/Script_SE_SmartTerrain/STATE_Read(packet, size)] this->m_last_respawn_update = "
                     "xrTime()!");
+#endif // DEBUG
             }
         }
     }
@@ -721,7 +737,9 @@ void Script_SE_SmartTerrain::register_npc(CSE_ALifeMonsterAbstract* object)
         return;
     }
 
-    Msg("[Scripts/Script_SE_SmartTerrain/register_npc(object)] register object %s", object->name_replace());
+#ifdef DEBUG
+    MESSAGEI("register object %s", object->name_replace());
+#endif // DEBUG
 
     ++(this->m_population);
 
@@ -783,14 +801,8 @@ CALifeSmartTerrainTask* Script_SE_SmartTerrain::task(CSE_ALifeMonsterAbstract* o
 
     if (this->m_arriving_npc[object->ID])
         return this->m_smart_alife_task.get();
-    // Lord: смотри как было до этого исправить и вернуть как было, сейчас это как временная заглушка для НПС у которых нет ещё биндера!
-    CALifeSmartTerrainTask* p_task = nullptr;
-    if (this->m_job_data.find(this->m_npc_info[object->ID].m_job_id) != this->m_job_data.end())
-        p_task = this->m_job_data[this->m_npc_info[object->ID].m_job_id]->m_alife_task;
-    else
-        p_task = this->m_job_data[0]->m_alife_task;
 
-    return p_task;
+    return this->m_job_data[this->m_npc_info[object->ID].m_job_id]->m_alife_task;
 }
 
 bool Script_SE_SmartTerrain::am_i_reached(Script_SE_SimulationSquad* squad)
@@ -1433,6 +1445,81 @@ void Script_SE_SmartTerrain::setup_logic(CScriptGameObject* const p_npc)
     XR_LOGIC::activate_by_section(p_npc, ini, section_name, this->name_replace(), false);
 }
 
+void Script_SE_SmartTerrain::init_npc_after_load(void)
+{
+    auto find_job = [&](NpcInfo& info)->void 
+    {
+        for (JobData& it : this->m_jobs.first)
+        {
+            for (std::pair<std::uint32_t, xr_vector<JobData_SubData>>& it2 : it.m_jobs)
+            {
+                for (JobData_SubData& job_it : it2.second)
+                {
+                    if (job_it.m_job_index == info.m_job_id)
+                    {
+                        info.m_job_link1 = &job_it;
+                        job_it.m_npc_id = info.m_server_object->ID;
+                    }
+                }
+            }
+        }
+
+        for (JobDataExclusive* it : this->m_jobs.second)
+        {
+            if (it->m_job_index == info.m_job_id)
+            {
+                info.m_job_link2 = it;
+                it->m_npc_id = info.m_server_object->ID;
+            }
+        }
+
+    };
+
+    for (const std::pair<std::uint32_t, CSE_ALifeDynamicObject*>& it : this->m_arriving_npc)
+    {
+        CSE_ALifeDynamicObject* const p_server_object = ai().alife().objects().object(static_cast<std::uint16_t>(it.first))->cast_alife_dynamic_object();
+        if (p_server_object)
+        {
+            this->m_arriving_npc[it.first] = p_server_object;
+        }
+        else
+        {
+            this->m_arriving_npc[it.first] = nullptr;
+        }
+    }
+
+    for (const std::pair<std::uint32_t, NpcInfo>& it : this->m_npc_info)
+    {
+        CSE_ALifeDynamicObject* p_server_object = ai().alife().objects().object(it.first)->cast_alife_dynamic_object();
+        if (p_server_object)
+        {
+            NpcInfo info_npc = this->fill_npc_info(p_server_object);
+            info_npc.m_job_prioprity = it.second.m_job_prioprity;
+            info_npc.m_job_id = it.second.m_job_id;
+            info_npc.m_begin_job = it.second.m_begin_job;
+            info_npc.m_need_job = it.second.m_need_job;
+
+            find_job(info_npc);
+
+            this->m_npc_info[it.first] = info_npc;
+            if (info_npc.m_job_link1 && info_npc.m_job_link2)
+            {
+                R_ASSERT2(false, "can't be!");
+                return;
+            }
+
+            if (info_npc.m_job_link1)
+            {
+                this->m_npc_by_job_section[this->m_job_data[info_npc.m_job_link1->m_job_index]->m_job_id.first] = it.first;
+            }
+        }
+        else
+        {
+            this->m_npc_info[it.first] = NpcInfo();
+        }
+    }
+}
+
 void Script_SE_SmartTerrain::show(void)
 {
     std::uint32_t time = Device.dwTimeGlobal;
@@ -1602,14 +1689,18 @@ void Script_SE_SmartTerrain::load_jobs(void)
 
             if (!current_ini->line_exist(section_name.c_str(), "active"))
             {
-                Msg("[Scripts/Script_SE_SmartTerrain/load_jobs()] ERROR: %s", section_name.c_str());
+#ifdef DEBUG
+                MESSAGEER("%s", section_name.c_str());
+#endif // DEBUG
                 R_ASSERT2(false, "no 'active' in section");
             }
 
             xr_string active_section_name = current_ini->r_string(section_name.c_str(), "active");
 
-            Msg("[Scripts/Script_SE_SmartTerrain/load_jobs()] parsed active section name %s",
+#ifdef DEBUG
+            MESSAGE("parsed active section name %s",
                 active_section_name.c_str());
+#endif // DEBUG
 
             const xr_string& job_type_name = it.second->m_job_id.second;
 
@@ -1626,16 +1717,22 @@ void Script_SE_SmartTerrain::load_jobs(void)
                     }
                 }
 
-                Msg("[Scripts/Script_SE_SmartTerrain/load_jobs()] parsed path_field_name %s", path_field_name.c_str());
+#ifdef DEBUG
+                MESSAGE("parsed path_field_name %s", path_field_name.c_str());
+#endif // DEBUG
 
                 xr_string _path_name = current_ini->r_string(active_section_name.c_str(), path_field_name.c_str());
-                Msg("[Scripts/Script_SE_SmartTerrain/load_jobs()] parsed path_name %s", _path_name.c_str());
+#ifdef DEBUG
+                MESSAGE("parsed path_name %s", _path_name.c_str());
+#endif // DEBUG
 
                 xr_string path_name = this->name_replace();
                 path_name += "_";
                 path_name += _path_name;
 
-                Msg("[Scripts/Script_SE_SmartTerrain/load_jobs()] generated path_name %s", path_name.c_str());
+#ifdef DEBUG
+              MESSAGE("generated path_name %s", path_name.c_str());
+#endif // DEBUG
 
                 if (path_field_name == Globals::kSmartTerrainPathFieldCenterPoint)
                 {
@@ -1644,12 +1741,16 @@ void Script_SE_SmartTerrain::load_jobs(void)
                     if (Globals::patrol_path_exists(patrol_path_name.c_str()))
                     {
                         path_name = patrol_path_name;
-                        Msg("[Scripts/Script_SE_SmartTerrain/load_jobs()] current path_name %s", path_name.c_str());
+#ifdef DEBUG
+                        MESSAGE("current path_name %s", path_name.c_str());
+#endif // DEBUG
                     }
                 }
 
-                Msg("[Scripts/Script_SE_SmartTerrain/load_jobs()] creating (allocating) alife smart terrain task by "
+#ifdef DEBUG
+                MESSAGE("creating (allocating) alife smart terrain task by "
                     "patrol path");
+#endif // DEBUG
                 it.second->m_alife_task = new CALifeSmartTerrainTask(path_name.c_str());
             }
             else if (job_type_name == Globals::GulagGenerator::kGulagJobSmartCover)

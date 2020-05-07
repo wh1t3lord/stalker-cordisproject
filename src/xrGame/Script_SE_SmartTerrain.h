@@ -262,7 +262,7 @@ public:
     void select_npc_job(NpcInfo& npc_info);
     void switch_to_desired_job(CScriptGameObject* const p_npc);
     void setup_logic(CScriptGameObject* const p_npc);
-
+    void init_npc_after_load(void);
 private:
     void show(void);
     void load_jobs(void);
