@@ -4420,7 +4420,9 @@ public:
             return;
         }
 
-        this->m_storage[object->ID()].setClientObject(nullptr);
+
+        // Lord: протестировать ибо зануляют!
+        this->m_storage.erase(object->ID());
     }
 
     inline void addAnimationObject(CScriptGameObject* const p_animation_object, Script_Binder_DoorLabx8* const p_binder)

@@ -101,12 +101,28 @@ void Script_Binder_Monster::net_Destroy(void)
 #ifdef DEBUG
     MESSAGE("deleting from database %s", this->m_object->Name()); 
 #endif // DEBUG
+
+    DataBase::Storage::getInstance().setXRCombatIgnoreFightingWithActorNpcs(this->m_object->ID(), false);
+
+    if (this->m_storage.getActiveSchemeName().empty() == false)
+    {
+        DataBase::Storage_Scheme* const p_storage = this->m_storage.getSchemes().at(this->m_storage.getActiveSchemeName());
+        for (Script_ISchemeEntity* const it : p_storage->getActions())
+        {
+            if (it)
+                it->net_destroy(nullptr); // Lord: протестировать насколько я понял там передаётся именно nullptr
+        }
+    }
+
+    if (DataBase::Storage::getInstance().getOfflineObjects().find(this->m_object->ID()) != DataBase::Storage::getInstance().getOfflineObjects().end())
+    {
+        DataBase::Storage::getInstance().setOfflineObjects(this->m_object->ID(), this->m_object->level_vertex_id(), this->m_storage.getActiveSectionName());
+    }
+
+
     DataBase::Storage::getInstance().deleteObject(this->m_object);
+    CScriptBinderObject::net_Destroy();
 }
-
-void Script_Binder_Monster::net_Import(NET_Packet* packet) {}
-
-void Script_Binder_Monster::net_Export(NET_Packet* packet) {}
 
 void Script_Binder_Monster::shedule_Update(std::uint32_t time_delta)
 {
@@ -223,9 +239,22 @@ void Script_Binder_Monster::shedule_Update(std::uint32_t time_delta)
    }
 }
 
-void Script_Binder_Monster::save(NET_Packet* output_packet) {}
+void Script_Binder_Monster::save(NET_Packet* output_packet) 
+{
+    Globals::set_save_marker(*output_packet, Globals::kSaveMarkerMode_Save, false, "script_binder_monster");
+    CScriptBinderObject::save(output_packet);
+    XR_LOGIC::save_object(this->m_object, *output_packet);
+    Globals::set_save_marker(*output_packet, Globals::kSaveMarkerMode_Save, true, "script_binder_monster");
+}
 
-void Script_Binder_Monster::load(IReader* input_packet) {}
+void Script_Binder_Monster::load(IReader* input_packet) 
+{
+    this->m_is_loaded = true;
+    Globals::set_save_marker(*input_packet, Globals::kSaveMarkerMode_Load, false, "script_binder_monster");
+    CScriptBinderObject::load(input_packet);
+    XR_LOGIC::load_object(this->m_object, *input_packet);
+    Globals::set_save_marker(*input_packet, Globals::kSaveMarkerMode_Load, true, "script_binder_monster");
+}
 
 bool Script_Binder_Monster::net_SaveRelevant(void)
 {
