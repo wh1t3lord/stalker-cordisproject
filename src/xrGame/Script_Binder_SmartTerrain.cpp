@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "Script_Binder_SmartTerrain.h"
 
-Cordis::Scripts::Script_Binder_SmartTerrain::Script_Binder_SmartTerrain(CScriptGameObject* const p_client_object)
+Cordis::Scripts::Script_Binder_SmartTerrain::Script_Binder_SmartTerrain(CScriptGameObject* const p_client_object) : CScriptBinderObject(p_client_object)
 {
 }
 

@@ -4632,6 +4632,20 @@ public:
         this->m_game_registered_server_smartterrains_by_name[name] = server_smart;
     }
 
+    inline const xr_map<xr_string, CScriptGameObject*>& getSmartCoversByName(void) const noexcept { return this->m_smart_covers_by_name; }
+    inline void setSmartCoversByName(const xr_string& name, CScriptGameObject* const p_client_object) noexcept 
+    {
+        if (name.empty())
+        {
+#ifdef DEBUG
+            MESSAGEWR("can't set by empty id!");
+#endif // DEBUG
+            return;
+        }
+
+        this->m_smart_covers_by_name[name] = p_client_object;
+    }
+
     // @ In-Game
     inline const xr_map<xr_string, Script_SE_SmartCover*>& getGameRegisteredServerSmartCovers(void) const noexcept
     {
@@ -4952,6 +4966,7 @@ public:
             }
         }
 
+        this->m_smart_covers_by_name.clear();
         this->m_patrols_xr_reach_task.clear();
         this->m_patrols_xr_patrol.clear();
         this->m_offline_objects.clear();
@@ -5236,6 +5251,7 @@ private:
     xr_map<std::uint16_t, std::uint16_t> m_crow_storage;
     xr_map<xr_string, CScriptGameObject*> m_zone_by_name;
     xr_map<xr_string, CScriptGameObject*> m_anomaly_by_name;
+    xr_map<xr_string, CScriptGameObject*> m_smart_covers_by_name;
     xr_map<xr_string, CScriptGameObject*> m_game_registered_combat_spacerestrictors;
     xr_map<xr_string, Script_SE_SmartTerrain*> m_game_registered_server_smartterrains_by_name;
     xr_map<std::uint8_t, xr_map<std::uint32_t, Script_SE_SmartCover*>> m_game_registered_smartcovers_by_level_id;
