@@ -79,8 +79,10 @@ inline void play_sound_looped(const std::uint16_t npc_id, const xr_string& sound
 {
     if (sound_name.empty())
     {
-        Msg("[Scripts/XR_SOUND/play_sound_looped(npc_id, sound_name)] WARNING: sound_name.empty() == true! Empty "
+#ifdef DEBUG
+        MESSAGEWR("sound_name.empty() == true! Empty "
             "string return ...");
+#endif // DEBUG
         return;
     }
 
@@ -105,8 +107,10 @@ inline void play_sound_looped(const std::uint16_t npc_id, const xr_string& sound
 
     if (p_sound->play(npc_id))
     {
-        Msg("[Scripts/XR_SOUND/play_sound_looped(npc_id, sound_name)] %s %s", sound_name.c_str(),
+#ifdef DEBUG
+        MESSAGE("%s %s", sound_name.c_str(),
             std::to_string(npc_id).c_str());
+#endif // DEBUG
         getLoopedSoundDatabase()[npc_id][sound_name] = p_sound;
     }
 }
