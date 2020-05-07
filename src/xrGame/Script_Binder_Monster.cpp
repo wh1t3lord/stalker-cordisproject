@@ -5,7 +5,7 @@ namespace Cordis
 {
 namespace Scripts
 {
-Script_Binder_Monster::Script_Binder_Monster(CScriptGameObject* object) : inherited(object), m_is_loaded(false), m_storage(DataBase::Storage::getInstance().getStorage().at(this->m_object->ID())) {}
+Script_Binder_Monster::Script_Binder_Monster(CScriptGameObject* object) : inherited(object), m_is_loaded(false) {}
 
 Script_Binder_Monster::~Script_Binder_Monster(void) {}
 
@@ -23,10 +23,15 @@ bool Script_Binder_Monster::net_Spawn(SpawnType DC)
     if (!CScriptBinderObject::net_Spawn(DC))
         return false;
 
-    if (this->m_storage.getOverrides().getOnOfflineCondlist().empty() == false)
+    // LorD: должно ли быть так? 
+    if (DataBase::Storage::getInstance().getStorage().find(this->m_object->ID()) != DataBase::Storage::getInstance().getStorage().end())
     {
-        XR_LOGIC::pick_section_from_condlist(DataBase::Storage::getInstance().getActor(), this->m_object, this->m_storage.getOverrides().getOnOfflineCondlist());
+		if (DataBase::Storage::getInstance().getStorage().at(this->m_object->ID()).getOverrides().getOnOfflineCondlist().empty() == false)
+		{
+			XR_LOGIC::pick_section_from_condlist(DataBase::Storage::getInstance().getActor(), this->m_object, DataBase::Storage::getInstance().getStorage().at(this->m_object->ID()).getOverrides().getOnOfflineCondlist());
+		}
     }
+
 
     if (!this->m_object->Alive())
         return true;
@@ -91,7 +96,7 @@ bool Script_Binder_Monster::net_Spawn(SpawnType DC)
         }
     }
 
-    Globals::setup_gulag_and_logic_on_spawn(this->m_object, this->m_storage, Globals::kSTypeMobile, this->m_is_loaded);
+    Globals::setup_gulag_and_logic_on_spawn(this->m_object, DataBase::Storage::getInstance().getStorage().at(this->m_object->ID()), Globals::kSTypeMobile, this->m_is_loaded);
 
     return true; 
 }
@@ -104,9 +109,9 @@ void Script_Binder_Monster::net_Destroy(void)
 
     DataBase::Storage::getInstance().setXRCombatIgnoreFightingWithActorNpcs(this->m_object->ID(), false);
 
-    if (this->m_storage.getActiveSchemeName().empty() == false)
+    if (DataBase::Storage::getInstance().getStorage().at(this->m_object->ID()).getActiveSchemeName().empty() == false)
     {
-        DataBase::Storage_Scheme* const p_storage = this->m_storage.getSchemes().at(this->m_storage.getActiveSchemeName());
+        DataBase::Storage_Scheme* const p_storage = DataBase::Storage::getInstance().getStorage().at(this->m_object->ID()).getSchemes().at(DataBase::Storage::getInstance().getStorage().at(this->m_object->ID()).getActiveSchemeName());
         for (Script_ISchemeEntity* const it : p_storage->getActions())
         {
             if (it)
@@ -116,7 +121,7 @@ void Script_Binder_Monster::net_Destroy(void)
 
     if (DataBase::Storage::getInstance().getOfflineObjects().find(this->m_object->ID()) != DataBase::Storage::getInstance().getOfflineObjects().end())
     {
-        DataBase::Storage::getInstance().setOfflineObjects(this->m_object->ID(), this->m_object->level_vertex_id(), this->m_storage.getActiveSectionName());
+        DataBase::Storage::getInstance().setOfflineObjects(this->m_object->ID(), this->m_object->level_vertex_id(), DataBase::Storage::getInstance().getStorage().at(this->m_object->ID()).getActiveSectionName());
     }
 
 
@@ -228,9 +233,9 @@ void Script_Binder_Monster::shedule_Update(std::uint32_t time_delta)
         return;
     }
 
-    if (this->m_storage.getActiveSectionName().empty() == false)
+    if (DataBase::Storage::getInstance().getStorage().at(this->m_object->ID()).getActiveSectionName().empty() == false)
     {
-        DataBase::Storage_Scheme* const p_current_scheme = this->m_storage.getSchemes().at(this->m_storage.getActiveSchemeName());
+        DataBase::Storage_Scheme* const p_current_scheme = DataBase::Storage::getInstance().getStorage().at(this->m_object->ID()).getSchemes().at(DataBase::Storage::getInstance().getStorage().at(this->m_object->ID()).getActiveSchemeName());
         for (Script_ISchemeEntity* const it : p_current_scheme->getActions())
         {
             if (it)
@@ -265,9 +270,9 @@ void Script_Binder_Monster::net_Relcase(CScriptGameObject* object) {}
 
 void Script_Binder_Monster::waypoint_callback(CScriptGameObject* p_client_object, const std::uint32_t action_type_movement, const std::uint32_t point_index)
 {
-    if (this->m_storage.getActiveSectionName().empty() == false)
+    if (DataBase::Storage::getInstance().getStorage().at(this->m_object->ID()).getActiveSectionName().empty() == false)
     {
-        DataBase::Storage_Scheme* const p_current_scheme = this->m_storage.getSchemes().at(this->m_storage.getActiveSchemeName());
+        DataBase::Storage_Scheme* const p_current_scheme = DataBase::Storage::getInstance().getStorage().at(this->m_object->ID()).getSchemes().at(DataBase::Storage::getInstance().getStorage().at(this->m_object->ID()).getActiveSchemeName());
         for (Script_ISchemeEntity* const it : p_current_scheme->getActions())
         {
             if (it)
@@ -283,9 +288,9 @@ void Script_Binder_Monster::hit_callback(CScriptGameObject* p_client_object, con
         // Lord: сделать когда будет статистика
     }
 
-    if (this->m_storage.getSchemes().find("hit") != this->m_storage.getSchemes().end())
+    if (DataBase::Storage::getInstance().getStorage().at(this->m_object->ID()).getSchemes().find("hit") != DataBase::Storage::getInstance().getStorage().at(this->m_object->ID()).getSchemes().end())
     {
-        DataBase::Storage_Scheme* const p_current_scheme = this->m_storage.getSchemes().at("hit");
+        DataBase::Storage_Scheme* const p_current_scheme = DataBase::Storage::getInstance().getStorage().at(this->m_object->ID()).getSchemes().at("hit");
         if (p_current_scheme)
         {
             for (Script_ISchemeEntity* const it : p_current_scheme->getActions())
@@ -310,9 +315,9 @@ void Script_Binder_Monster::death_callback(CScriptGameObject* p_client_victim, C
 		// Lord: добавить когда будет статистика
 	}
 
-	if (this->m_storage.getSchemes().find("mob_death") != this->m_storage.getSchemes().end())
+	if (DataBase::Storage::getInstance().getStorage().at(this->m_object->ID()).getSchemes().find("mob_death") != DataBase::Storage::getInstance().getStorage().at(this->m_object->ID()).getSchemes().end())
 	{
-		DataBase::Storage_Scheme* const p_current_scheme = this->m_storage.getSchemes().at("mob_death");
+		DataBase::Storage_Scheme* const p_current_scheme = DataBase::Storage::getInstance().getStorage().at(this->m_object->ID()).getSchemes().at("mob_death");
 		if (p_current_scheme)
 		{
 			for (Script_ISchemeEntity* const it : p_current_scheme->getActions())
@@ -323,9 +328,9 @@ void Script_Binder_Monster::death_callback(CScriptGameObject* p_client_victim, C
 		}
 	}
 
-	if (this->m_storage.getActiveSectionName().empty() == false)
+	if (DataBase::Storage::getInstance().getStorage().at(this->m_object->ID()).getActiveSectionName().empty() == false)
 	{
-		DataBase::Storage_Scheme* const p_current_scheme = this->m_storage.getSchemes().at(this->m_storage.getActiveSchemeName());
+		DataBase::Storage_Scheme* const p_current_scheme = DataBase::Storage::getInstance().getStorage().at(this->m_object->ID()).getSchemes().at(DataBase::Storage::getInstance().getStorage().at(this->m_object->ID()).getActiveSchemeName());
 		for (Script_ISchemeEntity* const it : p_current_scheme->getActions())
 		{
 			if (it)

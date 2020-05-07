@@ -30,7 +30,6 @@ public:
 		const Fvector& sound_position, const float sound_power);
 private:
     bool m_is_loaded;
-    const DataBase::Storage_Data& m_storage;
 };
 }
 } // namespace Cordis

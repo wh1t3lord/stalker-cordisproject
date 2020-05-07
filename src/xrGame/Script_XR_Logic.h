@@ -147,7 +147,7 @@ inline void intialize_job(CScriptGameObject* object, const DataBase::Storage_Dat
         }
 
         float sympathy = Globals::Utils::cfg_get_number(p_ini, "logic", "sympathy");
-        if (sympathy)
+        if (fis_zero(sympathy) == false)
         {
             object->SetSympathy(sympathy);
         }
@@ -2736,7 +2736,7 @@ inline void reset_generic_schemes_on_scheme_switch(
     }
     case Globals::kSTypeMobile: {
         mob_release(p_client_object, scheme_name);
-        if (Globals::get_script_clsid(CLSID_SE_MONSTER_BLOODSUCKER))
+        if (Globals::get_script_clsid(CLSID_SE_MONSTER_BLOODSUCKER) == p_client_object->clsid())
         {
             if (scheme_name == "nil" || scheme_name.empty()) // LorD: проверить будет ли дропать nil, если будет то найти и исправить когда это будет, чтобы все "nil" просто проверялись всегда как .empty()
             {
@@ -2754,7 +2754,7 @@ inline void reset_generic_schemes_on_scheme_switch(
     }
     case Globals::kSTypeItem: {
         p_client_object->SetNonscriptUsable(true);
-        if (Globals::get_script_clsid(CLSID_CAR))
+        if (Globals::get_script_clsid(CLSID_CAR) == p_client_object->clsid())
         {
             //  p_client_object->car, Lord: наверное ph_minigun, но как сделать если там простой класс
             mob_release(p_client_object, scheme_name);
