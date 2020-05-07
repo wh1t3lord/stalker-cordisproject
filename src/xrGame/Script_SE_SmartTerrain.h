@@ -51,16 +51,17 @@ struct NpcInfo
 { // @ Lord: пока что не вся заполнена!
     bool m_is_monster;
     bool m_begin_job;
-    int m_job_prioprity;
+	int m_job_prioprity;
+	int m_stype;
     std::uint32_t m_job_id;
-    int m_stype;
     CSE_ALifeDynamicObject* m_server_object; // @ Lord: определить где оно именно удаляется в итоге
+	JobData_SubData* m_job_link1 = nullptr;
+	JobDataExclusive* m_job_link2 = nullptr;
     xr_string m_need_job;
     // Как бы у нас может быть только одна работа, и учитываем это всегда то есть одно из m_job_link будет отлично от
     // nullptr
 
-    JobData_SubData* m_job_link1 = nullptr;
-    JobDataExclusive* m_job_link2 = nullptr;
+
 
     inline void clear(void)
     {
@@ -225,6 +226,20 @@ public:
         }
 
         this->m_already_spawned[section_name] = value;
+    }
+
+    inline const xr_map<std::uint32_t, CSE_ALifeDynamicObject*>& getArrivingNpc(void) const { return this->m_arriving_npc; }
+    inline void setArrivingNpc(const std::uint32_t id, CSE_ALifeDynamicObject* const p_object)
+    {
+        if (id >= Globals::kUnsignedInt16Undefined)
+        {
+#ifdef DEBUG
+            MESSAGE("Something wrong with your id!");
+#endif // DEBUG
+            return;
+        }
+
+        this->m_arriving_npc[id] = p_object;
     }
 #pragma endregion
 

@@ -130,13 +130,37 @@ inline CScriptIniFile get_customdata_or_ini_file(CScriptGameObject* npc, const x
     return CScriptIniFile(filename.c_str());
 }
 
-inline void intialize_job(CScriptGameObject* object, DataBase::Storage_Data& storage, const bool& loaded,
+inline void intialize_job(CScriptGameObject* object, const DataBase::Storage_Data& storage, const bool& loaded,
     CScriptGameObject* actor, const std::uint16_t& stype)
 {
-    // Lord: доделать!
     if (!loaded)
     {
         xr_string ini_filename = XR_LOGIC_CUSTOMDATA;
+        CScriptIniFile ini = get_customdata_or_ini_file(object, ini_filename);
+        CScriptIniFile* const p_ini = configure_schemes(object, &ini, ini_filename, stype, "logic", "");
+        xr_string section_name = determine_section_to_activate(object, p_ini, "logic", actor);
+        activate_by_section(object, p_ini, section_name, storage.getGulagName(), false);
+        xr_string relation_name = Globals::Utils::cfg_get_string(p_ini, "logic", "relation");
+        if (relation_name.empty() == false)
+        {
+            object->SetRelation(static_cast<ALife::ERelationType>(Globals::GameRelations::get_relation_id_by_name(relation_name)), DataBase::Storage::getInstance().getActor());
+        }
+
+        float sympathy = Globals::Utils::cfg_get_number(p_ini, "logic", "sympathy");
+        if (sympathy)
+        {
+            object->SetSympathy(sympathy);
+        }
+    }
+    else
+    {
+        xr_string ini_filename = storage.getLoadedInifilename();
+        if (ini_filename.empty() == false)
+        {
+            CScriptIniFile ini = get_customdata_or_ini_file(object, ini_filename);
+            CScriptIniFile* const p_ini = configure_schemes(object, &ini, ini_filename, stype, storage.getLoadedSectionLogicName(), storage.getLoadedGulagName());
+            activate_by_section(object, p_ini, storage.getLoadedActiveSectionName(), storage.getLoadedGulagName(), true);
+        }
     }
 }
 

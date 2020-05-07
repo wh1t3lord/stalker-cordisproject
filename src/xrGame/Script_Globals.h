@@ -9,6 +9,11 @@ namespace Cordis
 {
 namespace Scripts
 {
+namespace DataBase
+{
+    class Storage_Data;
+}
+
 namespace Globals
 {
 #pragma region Cordis Custom Datas
@@ -175,6 +180,7 @@ inline void set_squad_goodwill(const xr_string& squad_id_name, const xr_string& 
 inline void set_squad_goodwill_to_npc(
     CScriptGameObject* const p_npc, const xr_string& squad_id_name, const xr_string& goodwill_name);
 inline void change_factions_community_num(const xr_string& community_name, const std::uint16_t npc_id, const int delta);
+inline std::uint32_t get_relation_id_by_name(const xr_string& relation_name);
 } // namespace GameRelations
 
 inline float distance_between(CScriptGameObject* object1, CScriptGameObject* object2);
@@ -340,7 +346,8 @@ inline void turn_on_campfires_by_smart_name(const xr_string& name);
 inline void turn_off_campfires_by_smart_name(const xr_string& name);
 #pragma endregion
 
- 
+inline void setup_gulag_and_logic_on_spawn(CScriptGameObject* const p_client_object, const DataBase::Storage_Data& storage, const std::uint16_t stype, const bool loaded);
+
 
 } // namespace Globals
 } // namespace Scripts

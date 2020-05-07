@@ -1587,6 +1587,40 @@ inline void change_factions_community_num(const xr_string& community_name, const
     RELATION_REGISTRY().ChangeCommunityGoodwill(character.index(), npc_id, delta);
 }
 
+inline std::uint32_t get_relation_id_by_name(const xr_string& relation_name)
+{
+    std::uint32_t result = 0;
+    if (relation_name.empty())
+    {
+#ifdef DEBUG
+        MESSAGEWR("You passed an empty argument can't find anything!");
+#endif // DEBUG
+        return result;
+    }
+
+
+    if (Script_GlobalHelper::getInstance().getRegisteredRelations().empty())
+    {
+#ifdef DEBUG
+        MESSAGEWR("Early (late) calling!");
+#endif // DEBUG
+        return result;
+    }
+
+    if (Script_GlobalHelper::getInstance().getRegisteredRelations().find(relation_name) == Script_GlobalHelper::getInstance().getRegisteredRelations().end())
+    {
+#ifdef DEBUG
+        MESSAGEWR("can't find relation id by name %s", relation_name.c_str());
+#endif // DEBUG
+
+        return result;
+    }
+
+    result = Script_GlobalHelper::getInstance().getRegisteredRelations().at(relation_name);
+
+    return result;
+}
+
 } // namespace GameRelations
 
 inline bool predicate_const_true(std::uint16_t, bool) { return true; }
@@ -3567,6 +3601,72 @@ inline void turn_off_campfires_by_smart_name(const xr_string& name)
         if (it.second)
             if (it.second->is_on())
                 it.second->turn_off_script();
+    }
+}
+
+inline void setup_gulag_and_logic_on_spawn(CScriptGameObject* const p_client_object, const DataBase::Storage_Data& storage, const std::uint16_t stype, const bool loaded)
+{
+    if (p_client_object == nullptr)
+    {
+#ifdef DEBUG
+        MESSAGEWR("Invalid object!");
+#endif // DEBUG
+        return;
+    }
+
+    CSE_ALifeMonsterAbstract* const p_monster = ai().alife().objects().object(p_client_object->ID())->cast_monster_abstract();
+    if (p_monster)
+    {
+        std::uint16_t smart_terrain_id = p_monster->m_smart_terrain_id;
+#ifdef DEBUG
+        MESSAGE("client_object=%s smart_terrain_id=%d is_loaded=%s", p_client_object->Name(), smart_terrain_id, loaded ? "true" : false);
+#endif // DEBUG
+
+        if (smart_terrain_id && smart_terrain_id != Globals::kUnsignedInt16Undefined)
+        {
+            Script_SE_SmartTerrain* const p_smart_terrain = ai().alife().objects().object(smart_terrain_id)->cast_script_se_smartterrain();
+            if (p_smart_terrain == nullptr)
+            {
+#ifdef DEBUG
+                MESSAGEWR("can't cast to smart terrain!");
+#endif // DEBUG
+                return;
+            }
+
+            bool is_need_setup_logic = false;
+
+            if (!loaded)
+            {
+				if (p_smart_terrain->getNpcInfo().find(p_client_object->ID()) != p_smart_terrain->getNpcInfo().end())
+				{
+					if (p_smart_terrain->getNpcInfo().at(p_client_object->ID()).m_begin_job)
+					{
+						is_need_setup_logic = true;
+					}
+					else
+					{
+						is_need_setup_logic = false;
+					}
+				}
+            }
+
+            if (is_need_setup_logic)
+            {
+                p_smart_terrain->setup_logic(p_client_object);
+            }
+            else
+            {
+                XR_LOGIC::intialize_job(p_client_object, storage, loaded, DataBase::Storage::getInstance().getActor(), stype);
+            }
+        }
+        else
+        {
+            XR_LOGIC::intialize_job(p_client_object, storage, loaded, DataBase::Storage::getInstance().getActor(), stype);
+        }
+    }
+    else
+    {
+        XR_LOGIC::intialize_job(p_client_object, storage, loaded, DataBase::Storage::getInstance().getActor(), stype);
     }
 }
 

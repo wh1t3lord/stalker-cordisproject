@@ -13130,6 +13130,12 @@ private:
         this->m_xr_smartcover_cover_substate["idle_target"] = "idle";
         this->m_xr_smartcover_cover_substate["lookout_target"] = "idle";
         #pragma endregion
+
+#pragma region Cordis Registering some constants
+        this->m_data_relations["friend"] = ALife::eRelationTypeFriend;
+        this->m_data_relations["enemy"] = ALife::eRelationTypeEnemy;
+        this->m_data_relations["neutral"] = ALife::eRelationTypeNeutral;
+#pragma endregion
     }
 
 public:
@@ -14461,6 +14467,11 @@ public:
     {
         return this->m_registered_pda_primary_objects;
     }
+
+    inline const xr_map<xr_string, std::uint32_t>& getRegisteredRelations(void) const noexcept 
+    {
+        return this->m_data_relations;
+    }
 #pragma endregion
 
     inline bool isGameOverCreditsStarted(void) const noexcept { return this->m_is_gameover_credits_started; }
@@ -14652,6 +14663,7 @@ private:
     xr_map<xr_string, xr_map<xr_string, std::uint32_t>> m_pri_a22_supp_items;
     xr_map<xr_string, std::uint32_t> m_simulationboard_group_id_by_levels_name;
     xr_map<xr_string, std::uint32_t> m_monster_animation_to_action;
+    xr_map<xr_string, std::uint32_t> m_data_relations;
     xr_map<xr_string, MonsterSound::EType> m_monster_sound_name_to_type_action;
     xr_map<xr_string, bool> m_registered_smart_terrain_territory_type;
     xr_map<xr_string, bool> m_simulationsquad_is_squad_monster_by_type;
