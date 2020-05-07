@@ -4447,7 +4447,9 @@ public:
 
         this->m_zone_by_name[zone->Name()] = zone;
 
-        Msg("[Scripts/DataBase/Storage/addZone(zone)] adding to database %s", zone->Name());
+#ifdef DEBUG
+        MESSAGEI("adding to database %s", zone->Name());
+#endif // DEBUG
     }
 
     inline void deleteZone(CScriptGameObject* zone)
@@ -4460,7 +4462,9 @@ public:
 
         this->m_zone_by_name[zone->Name()] = nullptr;
 
-        Msg("[Scripts/DataBase/Storage/deleteZone(zone)] 'deleting' from database %s", zone->Name());
+#ifdef DEBUG
+        MESSAGEI("'deleting' from database %s", zone->Name());
+#endif // DEBUG
     }
 
     inline void addAnomaly(CScriptGameObject* anomaly)
