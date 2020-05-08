@@ -1520,6 +1520,11 @@ void Script_SE_SmartTerrain::init_npc_after_load(void)
     }
 }
 
+float Script_SE_SmartTerrain::evaluate_prior(Script_SE_SimulationSquad* const p_squad)
+{
+    return Script_SimulationObjects::getInstance().evaluate_priority(this, p_squad);
+}
+
 void Script_SE_SmartTerrain::show(void)
 {
     std::uint32_t time = Device.dwTimeGlobal;

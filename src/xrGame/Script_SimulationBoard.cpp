@@ -247,5 +247,37 @@ Script_SE_SimulationSquad* Script_SimulationBoard::create_squad(
     return server_object;
 }
 
+Script_SE_SimulationSquad* Script_SimulationBoard::get_squad_target(Script_SE_SimulationSquad* const p_squad)
+{
+    if (p_squad == nullptr)
+    {
+#ifdef DEBUG
+        MESSAGEWR("passed invalid squad!");
+#endif // DEBUG
+        return nullptr;
+    }
+
+    for (std::pair<const std::uint16_t, CSE_ALifeDynamicObject*>& it : Script_SimulationObjects::getInstance().getObjects())
+    {
+        float current_prior = 0.0f;
+
+        if (it.first != p_squad->ID)
+        {
+            Script_SE_SmartTerrain* const p_smart = it.second->cast_script_se_smartterrain();
+            if (p_smart)
+            {
+                current_prior = p_smart->evaluate_prior(p_squad);
+            }
+
+            if (current_prior > 0.0f || fis_zero(current_prior) == false)
+            {
+                // Lord: дндекюрэ!!!
+            }
+        }
+    }
+
+	return nullptr;
+}
+
 } // namespace Scripts
 } // namespace Cordis

@@ -263,6 +263,7 @@ public:
     void switch_to_desired_job(CScriptGameObject* const p_npc);
     void setup_logic(CScriptGameObject* const p_npc);
     void init_npc_after_load(void);
+    float evaluate_prior(Script_SE_SimulationSquad* const p_squad);
 private:
     void show(void);
     void load_jobs(void);
