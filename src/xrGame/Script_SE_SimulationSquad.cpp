@@ -216,8 +216,11 @@ void Script_SE_SimulationSquad::update()
 
     std::uint16_t script_target_id = this->getScriptTarget();
 
+    // Lord: не реализована проверка на бессмертие
+
     if (script_target_id == 0 || script_target_id == Globals::kUnsignedInt16Undefined)
     {
+        this->generic_update();
         if (this->m_is_need_to_reset_location_masks)
         {
             this->set_location_types("");
@@ -233,7 +236,7 @@ void Script_SE_SimulationSquad::update()
     {
         if (this->m_current_action.getName().empty() == false)
         {
-            if (this->m_current_action.getName() == "stay_point")
+            if (this->m_current_action.getName() == Globals::kSimulationSquadCurrentActionIDStayOnTarget)
             {
                 if (this->check_squad_come_to_point())
                 {
@@ -261,7 +264,7 @@ void Script_SE_SimulationSquad::update()
     }
     else
     {
-        if (this->m_current_action.getSquadID() == 0)
+        if (this->m_current_action.getName().empty())
         {
             is_need_to_find_new_action = true;
         }
@@ -275,7 +278,7 @@ void Script_SE_SimulationSquad::update()
     {
         this->m_assigned_target_id = script_target_id;
 
-        if (this->m_current_action.getSquadID())
+        if (this->m_current_action.getName().empty() == false)
         {
             this->m_current_action.Clear();
         }
