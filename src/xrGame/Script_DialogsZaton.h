@@ -1,4 +1,4 @@
-#include "Script_GlobalDefinitions.h"
+﻿#include "Script_GlobalDefinitions.h"
 #pragma once
 
 namespace Cordis
@@ -2110,7 +2110,8 @@ inline void zat_b22_transfer_proof(CScriptGameObject* const p_first_speaker, CSc
     relocate_item_section_from_actor(p_first_speaker, p_second_speaker, "zat_b22_medic_pda");
 }
 
-inline bool zat_b103_actor_has_needed_food(
+// @ Сделан rename потому что идёт коллизия в Script_GlobalHelper при регистрации XR_CONDITION функции
+inline bool zat_dialog_b103_actor_has_needed_food(
     CScriptGameObject* const p_first_speaker, CScriptGameObject* const p_second_speaker)
 {
     xr_vector<xr_string> items_sections;
