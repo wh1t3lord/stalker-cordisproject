@@ -4,7 +4,6 @@ namespace Cordis
 {
 namespace Scripts
 {
-    // Lord: здесь имплементировать waypoint_callback, но он в свою очередь вызывается через MoveManager!
 class Script_Binder_Stalker : public CScriptBinderObject
 {
     using inherited = CScriptBinderObject;
@@ -25,8 +24,19 @@ public:
     virtual bool net_SaveRelevant(void);
     virtual void net_Relcase(CScriptGameObject* object);
 
+	virtual void waypoint_callback(
+		CScriptGameObject* p_client_object, const std::uint32_t action_type_movement, const std::uint32_t point_index);
+	virtual void hit_callback(CScriptGameObject* p_client_object, const float amount, const Fvector& local_direction,
+		CScriptGameObject* p_client_who, const std::int16_t bone_index);
+	virtual void death_callback(CScriptGameObject* p_client_victim, CScriptGameObject* p_client_who);
+	virtual void hear_callback(CScriptGameObject* p_client_object, const std::uint16_t who_id, const int sound_type,
+		const Fvector& sound_position, const float sound_power);
+	virtual void use_callback(CScriptGameObject* p_client_object, CScriptGameObject* p_client_who);
+
 private:
     bool m_is_loaded;
+    bool m_is_first_update;
+    std::uint32_t m_last_update;
 };
 }
 } // namespace Cordis
