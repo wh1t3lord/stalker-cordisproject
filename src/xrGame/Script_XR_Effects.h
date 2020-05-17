@@ -9,8 +9,8 @@ namespace Scripts
 {
 namespace XR_EFFECTS
 {
-inline void pas_b400_play_particle(
-    CScriptGameObject* const p_actor, CScriptGameObject* const p_npc, const xr_vector<xr_string>& buffer);
+
+
 }
 } // namespace Scripts
 } // namespace Cordis
@@ -3688,7 +3688,7 @@ inline void mech_discount(
 {
     if (buffer.empty())
     {
-        Msg("[Scripts/XR_EFFECTS/mech_discount(p_actor, p_npc, buffer)] WARNING: buffer.empty() == true! Return ...");
+        MESSAGEWR("buffer.empty() == true!");
         return;
     }
 
@@ -3700,8 +3700,7 @@ inline void polter_actor_ignore(
 {
     if (buffer.empty())
     {
-        Msg("[Scripts/XR_EFFECTS/polter_actor_ignore(p_actor, p_npc, buffer)] WARNING: buffer.empty() == true! Return "
-            "...");
+        MESSAGEWR("buffer.empty() == true!");
         return;
     }
 
@@ -3728,14 +3727,13 @@ inline void show_freeplay_dialog(
 {
     if (buffer.empty())
     {
-        Msg("[Scripts/XR_EFFECTS/show_freeplay_dialog(p_actor, p_npc, buffer)] WARNING: buffer.empty() == true! Return "
-            "...");
+        MESSAGEWR("buffer.empty() == true!");
         return;
     }
 
     if (buffer.size() < 2)
     {
-        Msg("[Scripts/XR_EFFECTS/show_freeplay_dialog(p_actor, p_npc, buffer)] WARNING: buffer.size() < 2! Return ...");
+        MESSAGEWR("buffer.size() < 2!");
         return;
     }
 
