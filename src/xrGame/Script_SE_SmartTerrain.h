@@ -149,6 +149,7 @@ public:
     virtual void register_npc(CSE_ALifeMonsterAbstract* object);
     virtual void unregister_npc(CSE_ALifeMonsterAbstract* object);
     virtual CALifeSmartTerrainTask* task(CSE_ALifeMonsterAbstract* object);
+    bool target_precondition(CSE_ALifeObject* squad, bool is_need_to_dec_population);
 
     inline NpcInfo fill_npc_info(CSE_ALifeDynamicObject* server_object)
     {

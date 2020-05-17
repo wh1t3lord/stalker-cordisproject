@@ -358,6 +358,69 @@ void Script_SE_SimulationSquad::assign_squad_member_to_smart(
         smart->register_npc(server_monster);
 }
 
+bool Script_SE_SimulationSquad::assigned_target_available(void)
+{
+    bool is_target_object = this->m_assigned_target_id && ai().alife().objects().object(this->m_assigned_target_id);
+    if (is_target_object == false)
+        return false;
+
+    CSE_ALifeDynamicObject* const p_server_object = ai().alife().objects().object(this->m_assigned_target_id);
+    Script_SE_SmartTerrain* const p_smart = p_server_object->cast_script_se_smartterrain();
+    if (p_smart)
+        p_smart->target_precondition(this, true);
+
+    return false;
+}
+
+bool Script_SE_SimulationSquad::target_precondition(CSE_ALifeObject* squad)
+{
+    if (squad == nullptr)
+    {
+        MESSAGEWR("invalid squad passed!");
+        return false;
+    }
+
+    Script_SE_SimulationSquad* const p_squad = squad->cast_script_se_simulationsquad();
+
+    if (p_squad)
+    {
+        if (Script_SimulationBoard::getInstance().getSimulationActivities().find(p_squad->getPlayerID()) == Script_SimulationBoard::getInstance().getSimulationActivities().end())
+        {
+            MESSAGEWR("Can't find simulation activity for %d", p_squad->getPlayerID());
+            return false;
+        }
+
+        const SimulationActivitiesType& activity = Script_SimulationBoard::getInstance().getSimulationActivities().at(p_squad->getPlayerID());
+
+        if (activity.m_squad.empty())
+        {
+            MESSAGEWR("m_squad was empty!");
+            return false;
+        }
+
+        if (activity.m_squad.find(this->m_player_id) == activity.m_squad.end())
+        {
+            MESSAGEWR("Can't find data in m_squad by ID -> %d", this->m_player_id);
+            return false;
+        }
+
+        std::function<bool(CSE_ALifeOnlineOfflineGroup*, CSE_ALifeObject*)> precondition = activity.m_squad.at(this->m_player_id);
+
+        if (precondition)
+        {
+            return precondition(p_squad, this);
+        }
+        else
+        {
+            MESSAGEWR("invalid precondition! Can't be check initialization in Script_SimulationBoard!");
+            return false;
+        }
+    }
+    
+    MESSAGEWR("Can't cast to %s", typeid(p_squad).name());
+    return false;
+}
+
 void Script_SE_SimulationSquad::set_location_types_section(const xr_string& section)
 {
     if (locations_ini.section_exist(section.c_str()))
@@ -584,7 +647,7 @@ void Script_SE_SimulationSquad::on_npc_death(CSE_ALifeDynamicObject* server_obje
         return;
     }
 
-    Msg("[Scripts/Script_SE_SimulationSquad/on_npc_death(server_object)] Squad %d killed member is %d", this->ID,
+    MESSAGE("Squad %d killed member is %d", this->ID,
         server_object->ID);
 
     this->m_sound_manager.unregister_npc(server_object->ID);
@@ -592,7 +655,7 @@ void Script_SE_SimulationSquad::on_npc_death(CSE_ALifeDynamicObject* server_obje
 
     if (!this->npc_count())
     {
-        Msg("[Scripts/Script_SE_SimulationSquad/on_npc_death(server_object)] REMOVING DEAD SQUAD %d", this->ID);
+        MESSAGE("REMOVING DEAD SQUAD %d", this->ID);
 
         if (this->m_current_action.getName().empty() == false)
         {
@@ -878,8 +941,48 @@ void Script_SE_SimulationSquad::generic_update(void)
 
     if (this->m_assigned_target_id && ai().alife().objects().object(this->m_assigned_target_id) && ai().alife().objects().object(this->m_assigned_target_id)->m_script_clsid != Globals::get_script_clsid(CLSID_SE_ONLINE_OFFLINE_GROUP))
     {
+        Script_SE_SimulationSquad* const p_squad_target = Script_SimulationBoard::getInstance().get_squad_target(this);
+        if (p_squad_target == nullptr)
+        {
+            MESSAGEWR("Invalid object!");
+            return;
+        }
 
+        if (p_squad_target->m_script_clsid == Globals::get_script_clsid(CLSID_SE_ONLINE_OFFLINE_GROUP))
+        {
+            this->m_assigned_target_id = p_squad_target->ID;
+            this->m_current_action.Clear();
+            this->get_next_action(true);
+            return;
+        }
+
+        if ((this->m_current_action.getName().empty() == false) && this->assigned_target_available())
+        {
+            bool is_finished = this->m_current_action.update(true);
+
+            if (is_finished)
+            {
+                if (this->m_current_action.getName() == Globals::kSimulationSquadCurrentActionIDStayOnTarget || !this->m_assigned_target_id)
+                {
+                    this->m_assigned_target_id = Script_SimulationBoard::getInstance().get_squad_target(this)->ID;
+                }
+
+                this->m_current_action.Clear();
+            }
+            else
+            {
+                return;
+            }
+        }
+        else
+        {
+            this->m_current_action.Clear();
+            this->m_current_target_id = 0;
+            this->m_assigned_target_id = Script_SimulationBoard::getInstance().get_squad_target(this)->ID;
+        }
     }
+
+    this->get_next_action(true);
 }
 
 bool StayReachOnTarget::update(const bool is_under_simulation)

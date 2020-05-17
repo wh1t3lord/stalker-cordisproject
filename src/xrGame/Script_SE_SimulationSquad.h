@@ -184,7 +184,9 @@ public:
     void assign_smart(Script_SE_SmartTerrain* smart = static_cast<Script_SE_SmartTerrain*>(nullptr));
     void assign_squad_member_to_smart(
         const std::uint16_t& object_id, Script_SE_SmartTerrain* smart, const std::uint16_t& old_smart_terrain_id);
+    bool assigned_target_available(void);
 
+    bool target_precondition(CSE_ALifeObject* squad);
 private:
     inline xr_string& pick_next_target(void) { return this->m_parsed_targets[this->m_next_target_index]; }
     void set_location_types_section(const xr_string& section);

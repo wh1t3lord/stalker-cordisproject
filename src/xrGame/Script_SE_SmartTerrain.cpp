@@ -8,6 +8,33 @@ namespace Cordis
 {
 namespace Scripts
 {
+	std::uint32_t smart_terrain_squad_count(const xr_map<std::uint32_t, Script_SE_SimulationSquad*>& data)
+	{
+		if (data.empty())
+		{
+			MESSAGEWR("data was empty!");
+			return 0;
+		}
+
+		std::uint32_t result = 0;
+		for (const std::pair<std::uint32_t, Script_SE_SimulationSquad*>& it : data)
+		{
+			if (it.second)
+			{
+				if (it.second->getScriptTarget() == 0 || it.second->getScriptTarget == Globals::kUnsignedInt16Undefined)
+				{
+					++result;
+				}
+			}
+			else
+			{
+				MESSAGEWR("invalid object!");
+			}
+		}
+
+		return result;
+	}
+
 namespace XR_LOGIC
 {
 void activate_by_section(CScriptGameObject* const p_client_object, CScriptIniFile* const p_ini,
@@ -803,6 +830,173 @@ CALifeSmartTerrainTask* Script_SE_SmartTerrain::task(CSE_ALifeMonsterAbstract* o
         return this->m_smart_alife_task.get();
 
     return this->m_job_data[this->m_npc_info[object->ID].m_job_id]->m_alife_task;
+}
+
+bool Script_SE_SmartTerrain::target_precondition(CSE_ALifeObject* squad, bool is_need_to_dec_population)
+{
+	if (squad == nullptr)
+	{
+		MESSAGEWR("invalid object passed!");
+		return false;
+	}
+
+    Script_SE_SimulationSquad* const p_squad = squad->cast_script_se_simulationsquad();
+
+    if (p_squad == nullptr)
+    {
+        MESSAGEWR("Can't cast to %s", typeid(p_squad).name());
+        return false;
+    }
+
+    if (Script_SimulationBoard::getInstance().getSmarts().find(this->ID) == Script_SimulationBoard::getInstance().getSmarts().end())
+    {
+        MESSAGEWR("Can't find smart_terrain data in Script_SimulationBoard by ID %d", this->ID);
+        return false;
+    }
+
+    std::uint32_t squad_count = smart_terrain_squad_count(Script_SimulationBoard::getInstance().getSmarts().at(this->ID).getSquads());
+
+    if (is_need_to_dec_population)
+        --squad_count;
+
+    if (squad_count && (this->m_max_population <= squad_count))
+        return false;
+
+    if (Script_SimulationBoard::getInstance().getSimulationActivities().find(p_squad->getPlayerID()) == Script_SimulationBoard::getInstance().getSimulationActivities().end())
+    {
+        MESSAGEWR("Can't get simulation activity by ID %d", p_squad->getPlayerID());
+        return false;
+    }
+
+    const SimulationActivitiesType& squad_params = Script_SimulationBoard::getInstance().getSimulationActivities().at(p_squad->getPlayerID());
+    if (squad_params.m_smart.empty())
+    {
+        MESSAGEWR("m_smart was empty!");
+        return false;
+    }
+
+    if (this->getProperties().find("resource") != this->getProperties().end())
+    {
+		if (atoi(this->getProperties().at("resource").c_str()))
+		{
+			if (squad_params.m_smart.find(SimulationActivitiesType::resource) == squad_params.m_smart.end())
+			{
+				MESSAGEW("Can't find data by %d", SimulationActivitiesType::resource);
+			}
+			else
+			{
+				std::function<bool(CSE_ALifeOnlineOfflineGroup*, CSE_ALifeObject*)> p_precondition = squad_params.m_smart.at(SimulationActivitiesType::resource);
+				if (p_precondition)
+				{
+					if (p_precondition(p_squad, this))
+						return true;
+				}
+				else
+				{
+					MESSAGEW("precondition was invalid!");
+				}
+			}
+		}
+    }
+
+
+	if (this->getProperties().find("base") != this->getProperties().end())
+	{
+		if (atoi(this->getProperties().at("base").c_str()))
+		{
+			if (squad_params.m_smart.find(SimulationActivitiesType::base) == squad_params.m_smart.end())
+			{
+				MESSAGEW("Can't find data by %d", SimulationActivitiesType::base);
+			}
+			else
+			{
+				std::function<bool(CSE_ALifeOnlineOfflineGroup*, CSE_ALifeObject*)> p_precondition = squad_params.m_smart.at(SimulationActivitiesType::base);
+				if (p_precondition)
+				{
+					if (p_precondition(p_squad, this))
+						return true;
+				}
+				else
+				{
+					MESSAGEW("precondition was invalid!");
+				}
+			}
+		}
+	}
+
+	if (this->getProperties().find("lair") != this->getProperties().end())
+	{
+		if (atoi(this->getProperties().at("lair").c_str()))
+		{
+			if (squad_params.m_smart.find(SimulationActivitiesType::lair) == squad_params.m_smart.end())
+			{
+				MESSAGEW("Can't find data by %d", SimulationActivitiesType::lair);
+			}
+			else
+			{
+				std::function<bool(CSE_ALifeOnlineOfflineGroup*, CSE_ALifeObject*)> p_precondition = squad_params.m_smart.at(SimulationActivitiesType::lair);
+				if (p_precondition)
+				{
+					if (p_precondition(p_squad, this))
+						return true;
+				}
+				else
+				{
+					MESSAGEW("precondition was invalid!");
+				}
+			}
+		}
+	}
+
+	if (this->getProperties().find("territory") != this->getProperties().end())
+	{
+		if (atoi(this->getProperties().at("territory").c_str()))
+		{
+			if (squad_params.m_smart.find(SimulationActivitiesType::territory) == squad_params.m_smart.end())
+			{
+				MESSAGEW("Can't find data by %d", SimulationActivitiesType::territory);
+			}
+			else
+			{
+				std::function<bool(CSE_ALifeOnlineOfflineGroup*, CSE_ALifeObject*)> p_precondition = squad_params.m_smart.at(SimulationActivitiesType::territory);
+				if (p_precondition)
+				{
+					if (p_precondition(p_squad, this))
+						return true;
+				}
+				else
+				{
+					MESSAGEW("precondition was invalid!");
+				}
+			}
+		}
+	}
+
+	if (this->getProperties().find("surge") != this->getProperties().end())
+	{
+		if (atoi(this->getProperties().at("surge").c_str()))
+		{
+			if (squad_params.m_smart.find(SimulationActivitiesType::surge) == squad_params.m_smart.end())
+			{
+				MESSAGEW("Can't find data by %d", SimulationActivitiesType::surge);
+			}
+			else
+			{
+				std::function<bool(CSE_ALifeOnlineOfflineGroup*, CSE_ALifeObject*)> p_precondition = squad_params.m_smart.at(SimulationActivitiesType::surge);
+				if (p_precondition)
+				{
+					if (p_precondition(p_squad, this))
+						return true;
+				}
+				else
+				{
+					MESSAGEW("precondition was invalid!");
+				}
+			}
+		}
+	}
+
+    return false;
 }
 
 bool Script_SE_SmartTerrain::am_i_reached(Script_SE_SimulationSquad* squad)
