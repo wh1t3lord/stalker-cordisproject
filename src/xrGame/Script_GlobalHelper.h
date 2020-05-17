@@ -4245,7 +4245,6 @@ private:
         _REGISTER_C_PURE_FUNCTION_XR_CONDITION(is_monster_controller, XR_CONDITION::is_monster_controller)
         _REGISTER_C_PURE_FUNCTION_XR_CONDITION(is_monster_flesh, XR_CONDITION::is_monster_flesh)
         _REGISTER_C_PURE_FUNCTION_XR_CONDITION(is_monster_boar, XR_CONDITION::is_monster_boar)
-        _REGISTER_C_PURE_FUNCTION_XR_CONDITION(anomaly_has_artefact, XR_CONDITION::is_anomaly_has_artefact)
         _REGISTER_C_PURE_FUNCTION_XR_CONDITION(pas_b400_actor_far_forward, XR_CONDITION::is_pas_b400_actor_far_forward)
         _REGISTER_C_PURE_FUNCTION_XR_CONDITION(pas_b400_actor_far_backward, XR_CONDITION::is_pas_b400_actor_far_backward)
         _REGISTER_C_PURE_FUNCTION_XR_CONDITION(pri_a28_actor_is_far, XR_CONDITION::is_pri_a28_actor_is_far)
