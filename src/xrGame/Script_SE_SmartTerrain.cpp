@@ -3,11 +3,28 @@
 #include "Script_GulagGenerator.h"
 
 CScriptIniFile ini_file_locations = CScriptIniFile("misc\\smart_terrain_masks.ltx");
-
+constexpr float DEATH_IDLE_TIME = 10.0f * 60.0f;
 namespace Cordis
 {
 namespace Scripts
 {
+    bool is_only_monsters_on_jobs(const xr_map<std::uint32_t, NpcInfo>& data)
+    {
+        if (data.empty())
+        {
+            MESSAGEWR("You passed an invalid data!");
+            return false;
+        }
+
+        for (const std::pair<std::uint32_t, NpcInfo>& it : data)
+        {
+            if (it.second.m_is_monster == false)
+                return false;
+        }
+
+        return true;
+    }
+
 	std::uint32_t smart_terrain_squad_count(const xr_map<std::uint32_t, Script_SE_SimulationSquad*>& data)
 	{
 		if (data.empty())
@@ -21,7 +38,7 @@ namespace Scripts
 		{
 			if (it.second)
 			{
-				if (it.second->getScriptTarget() == 0 || it.second->getScriptTarget == Globals::kUnsignedInt16Undefined)
+				if (it.second->getScriptTarget() == 0 || it.second->getScriptTarget() == Globals::kUnsignedInt16Undefined)
 				{
 					++result;
 				}
@@ -341,7 +358,7 @@ bool arrived_to_smart(CSE_ALifeMonsterAbstract* object, Script_SE_SmartTerrain* 
 
     if (object_vertex->level_id() == smart_vertex->level_id())
     {
-        return object_position.distance_to_sqr(smart->position()) <= 10000;
+        return object_position.distance_to_sqr(smart->position()) <= 10000.0f;
     }
     else
     {
@@ -491,11 +508,9 @@ namespace Scripts
 Script_SE_SmartTerrain::Script_SE_SmartTerrain(LPCSTR section)
     : inherited(section), m_is_initialized(false), m_is_registered(false), m_population(0),
       m_smart_showed_spot_name(""), m_is_disabled(false), m_is_respawn_point(true), m_base_on_actor_control(nullptr),
-      m_ltx(nullptr)
+      m_ltx(nullptr), m_check_time(0), m_is_campfires_on(false)
 {
-#ifdef DEBUG
     MESSAGE("%s", section);
-#endif // DEBUG
 }
 
 Script_SE_SmartTerrain::~Script_SE_SmartTerrain(void)
@@ -509,10 +524,8 @@ Script_SE_SmartTerrain::~Script_SE_SmartTerrain(void)
             previous_section_name = it->m_job_id.m_section_name;
             if (it->m_job_id.m_ini_file)
             {
-#ifdef DEBUG
                 MESSAGEI("deleting m_ini_file from %s",
                     it->m_job_id.m_section_name.c_str());
-#endif // DEBUG
                 xr_delete(it);
             }
         }
@@ -521,10 +534,8 @@ Script_SE_SmartTerrain::~Script_SE_SmartTerrain(void)
     {
         for (std::pair<const std::uint32_t, JobDataSmartTerrain*>& it : this->m_job_data)
         {
-#ifdef DEBUG
             MESSAGEI("deleting JobDataSmartTerrain from this->m_job_data! %s",
                 it.second->m_job_id.first);
-#endif // DEBUG
             xr_delete(it.second);
         }
     }
@@ -545,15 +556,11 @@ void Script_SE_SmartTerrain::on_register(void)
     Script_StoryObject::getInstance().check_spawn_ini_for_story_id(this);
     Script_SimulationObjects::getInstance().registrate(this);
 
-#ifdef DEBUG
     MESSAGEI("register smart %s", this->name_replace());
-#endif // DEBUG
 
-#ifdef DEBUG
     MESSAGE("Returning alife task for object [%d] game_vertex [%d] "
         "level_vertex [%d] position %f %f %f",
         this->ID, this->m_tGraphID, this->m_tNodeID, this->o_Position.x, this->o_Position.y, this->o_Position.z);
-#endif // DEBUG
 
     this->m_smart_alife_task = std::make_unique<CALifeSmartTerrainTask>(this->m_tGraphID, this->m_tNodeID);
 
@@ -575,6 +582,8 @@ void Script_SE_SmartTerrain::on_register(void)
         this->register_npc(it->cast_monster_abstract());
 
     this->m_npc_to_register.clear();
+
+    this->m_check_time = Globals::get_time_global();
 }
 
 void Script_SE_SmartTerrain::on_unregister(void) {}
@@ -830,6 +839,88 @@ CALifeSmartTerrainTask* Script_SE_SmartTerrain::task(CSE_ALifeMonsterAbstract* o
         return this->m_smart_alife_task.get();
 
     return this->m_job_data[this->m_npc_info[object->ID].m_job_id]->m_alife_task;
+}
+
+void Script_SE_SmartTerrain::update(void)
+{
+    inherited::update();
+
+    std::uint32_t current_time = Globals::get_time_global();
+
+    if (Globals::is_on_the_same_level(this, ai().alife().graph().actor()))
+    {
+        float distance_to_actor = this->o_Position.distance_to(ai().alife().graph().actor()->position());
+        float old_distance_to_actor = 0.0f;
+
+        if (!Script_GlobalHelper::getInstance().getGameNearestToActorServerSmartTerrain().first && (fis_zero(Script_GlobalHelper::getInstance().getGameNearestToActorServerSmartTerrain().second) == false))
+        {
+            old_distance_to_actor = static_cast<float>(Script_GlobalHelper::getInstance().getGameNearestToActorServerSmartTerrain().second);
+        }
+        else
+        {
+            CSE_Abstract* const p_object = ai().alife().objects().object(Script_GlobalHelper::getInstance().getGameNearestToActorServerSmartTerrain().first);
+            if (p_object)
+            {
+                old_distance_to_actor = p_object->o_Position.distance_to(ai().alife().graph().actor()->o_Position);
+            }
+            else
+            {
+                MESSAGEER("Can't initialize old_distance_to_actor, because ID of GameNearestSmartTerrain is invalid!");
+                return;
+            }
+        }
+
+        if (distance_to_actor < old_distance_to_actor)
+        {
+            Script_GlobalHelper::getInstance().setGameNearestToActorServerSmartTerrain(this->ID, distance_to_actor);
+        }
+    }
+
+    if (this->m_respawn_params.empty() == false)
+    {
+        // Lord: реализовать try_respawn!
+    }
+
+    if (this->m_check_time && current_time < this->m_check_time)
+        return;
+
+    if (is_only_monsters_on_jobs(this->m_npc_info) && this->m_is_campfires_on)
+    {
+        Globals::turn_off_campfires_by_smart_name(this->name_replace());
+        this->m_is_campfires_on = false;
+    }
+    else if (!is_only_monsters_on_jobs(this->m_npc_info) && !this->m_is_campfires_on)
+    {
+        Globals::turn_on_campfires_by_smart_name(this->name_replace());
+        this->m_is_campfires_on = true;
+    }
+
+    if (DataBase::Storage::getInstance().getActor())
+    {
+        float distance = DataBase::Storage::getInstance().getActor()->Position().distance_to_sqr(this->o_Position);
+        float idle_time = std::max<float>(60.0f, 0.003f * distance);
+        this->m_check_time = current_time + static_cast<std::uint32_t>(idle_time);
+    }
+    else
+    {
+        this->m_check_time = current_time + 10;
+    }
+
+    xrTime time_current = Globals::Game::get_game_time();
+    for (const std::pair<std::uint32_t, xrTime>& it : this->m_dead_time)
+    {
+        if (time_current.diffSec(it.second) >= DEATH_IDLE_TIME)
+        {
+            this->m_dead_time[it.first] = 0;
+        }
+    }
+
+    this->update_jobs();
+
+    if (this->m_base_on_actor_control.get())
+        this->m_base_on_actor_control->update();
+
+    Script_SimulationObjects::getInstance().update_avaliability(this);
 }
 
 bool Script_SE_SmartTerrain::target_precondition(CSE_ALifeObject* squad, bool is_need_to_dec_population)
@@ -1988,6 +2079,37 @@ void Script_SE_SmartTerrain::load_jobs(void)
             it.second->m_level_id = Globals::Game::get_game_graph()->vertex(it.second->m_game_vertex_id)->level_id();
             it.second->m_position = it.second->m_alife_task->position();
         }
+    }
+}
+
+void Script_SE_SmartTerrain::update_jobs(void)
+{
+    if (this->m_smart_alarm_time == 0)
+        return;
+
+    if (Globals::Game::get_game_time().diffSec(this->m_smart_alarm_time) > 21600)
+        this->m_smart_alarm_time = 0;
+
+    for (const std::pair<std::uint32_t, CSE_ALifeDynamicObject*>& it : this->m_arriving_npc)
+    {
+        if (arrived_to_smart(it.second->cast_monster_abstract(), this))
+        {
+            this->m_npc_info[it.second->ID] = this->fill_npc_info(it.second);
+
+            this->m_dead_time.clear();
+
+            this->select_npc_job(this->m_npc_info.at(it.second->ID));
+            this->m_arriving_npc[it.first] = nullptr;
+        }
+    }
+
+    std::sort(this->m_npc_info.begin(), this->m_npc_info.end(), [](const std::pair<std::uint32_t, NpcInfo>& elem1, const std::pair<std::uint32_t, NpcInfo>& elem2) {
+        return elem1.second.m_job_prioprity < elem2.second.m_job_prioprity;
+        });
+
+    for (std::pair<const std::uint32_t, NpcInfo>& it : this->m_npc_info)
+    {
+        this->select_npc_job(it.second);
     }
 }
 

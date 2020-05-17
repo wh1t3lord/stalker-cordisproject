@@ -34,7 +34,7 @@ float Script_SimulationObjects::evaluate_priority(CSE_ALifeDynamicObject* target
         Script_SE_SmartTerrain* const p_smart = target->cast_script_se_smartterrain();
         if (p_smart)
         {
-            if (!p_smart->target_precondition(squad) || Globals::is_on_the_same_level(target, squad))
+            if (!p_smart->target_precondition(squad, false) || Globals::is_on_the_same_level(target, squad))
             {
                 return priority;
             }
