@@ -4155,104 +4155,297 @@ private:
             _REGISTER_FULL_FUNCTION_XR_CONDITION(zat_b7_is_night, XR_CONDITION::is_zat_b7_is_night)
             _REGISTER_FULL_FUNCTION_XR_CONDITION(zat_b7_is_late_attack_time, XR_CONDITION::is_zat_b7_is_late_attack_time)
             _REGISTER_FULL_FUNCTION_XR_CONDITION(actor_on_level, XR_CONDITION::is_actor_on_level)
-            _REGISTER_FULL_FUNCTION_XR_CONDITION(squad_has_enemy, XR_CONDITION::is_squad_has_enemy)
-            _REGISTER_FULL_FUNCTION_XR_CONDITION(squad_in_zone_all, XR_CONDITION::is_squad_in_zone_all)
-            _REGISTER_FULL_FUNCTION_XR_CONDITION(squads_in_zone_b41, XR_CONDITION::is_squads_in_zone_b41)
-            _REGISTER_FULL_FUNCTION_XR_CONDITION(squad_exist, XR_CONDITION::is_squad_exist)
-            _REGISTER_FULL_FUNCTION_XR_CONDITION(is_squad_commander, XR_CONDITION::is_squad_commander)
-            _REGISTER_FULL_FUNCTION_XR_CONDITION(squad_npc_count_ge, XR_CONDITION::is_squad_npc_count_ge)
-            _REGISTER_FULL_FUNCTION_XR_CONDITION(quest_npc_enemy_actor, XR_CONDITION::is_quest_npc_enemy_actor)
-            _REGISTER_FULL_FUNCTION_XR_CONDITION(distance_to_obj_ge, XR_CONDITION::is_distance_to_obj_ge)
-            _REGISTER_FULL_FUNCTION_XR_CONDITION(distance_to_obj_le, XR_CONDITION::is_distance_to_obj_le)
-            _REGISTER_FULL_FUNCTION_XR_CONDITION(dist_to_story_obj_ge, XR_CONDITION::is_dist_to_story_obj_ge)
-            _REGISTER_FULL_FUNCTION_XR_CONDITION(jup_b202_inventory_box_empty, XR_CONDITION::is_jup_b202_inventory_box_empty)
-            _REGISTER_FULL_FUNCTION_XR_CONDITION(object_exist, XR_CONDITION::is_object_exist)
-            _REGISTER_FULL_FUNCTION_XR_CONDITION(squad_curr_action, XR_CONDITION::is_squad_curr_action)
-            _REGISTER_FULL_FUNCTION_XR_CONDITION(jup_b47_npc_online, XR_CONDITION::is_jup_b47_npc_online)
-            _REGISTER_FULL_FUNCTION_XR_CONDITION(zat_b29_anomaly_has_af, XR_CONDITION::is_zat_b29_anomaly_has_af)
-            _REGISTER_FULL_FUNCTION_XR_CONDITION(jup_b221_who_will_start, XR_CONDITION::is_jup_b221_who_will_start)
-            _REGISTER_FULL_FUNCTION_XR_CONDITION(jup_b202_actor_treasure_not_in_steal, XR_CONDITION::is_jup_b202_actor_treasure_not_in_steal)
-            _REGISTER_FULL_FUNCTION_XR_CONDITION(jup_b25_senya_spawn_condition, XR_CONDITION::is_jup_b25_senya_spawn_condition)
-            _REGISTER_FULL_FUNCTION_XR_CONDITION(jup_b25_flint_gone_condition, XR_CONDITION::is_jup_b25_flint_gone_condition)
-            
-            _REGISTER_CS_FUNCTION_XR_CONDITION(fighting_dist_ge, XR_CONDITION::is_fighting_dist_ge)
-            _REGISTER_CS_FUNCTION_XR_CONDITION(fighting_dist_le, XR_CONDITION::is_fighting_dist_le)
-            _REGISTER_CS_FUNCTION_XR_CONDITION(enemy_in_zone, XR_CONDITION::is_enemy_in_zone)
-            _REGISTER_CS_FUNCTION_XR_CONDITION(story_obj_in_zone_by_name, XR_CONDITION::is_story_obj_in_zone_by_name)
+_REGISTER_FULL_FUNCTION_XR_CONDITION(squad_has_enemy, XR_CONDITION::is_squad_has_enemy)
+_REGISTER_FULL_FUNCTION_XR_CONDITION(squad_in_zone_all, XR_CONDITION::is_squad_in_zone_all)
+_REGISTER_FULL_FUNCTION_XR_CONDITION(squads_in_zone_b41, XR_CONDITION::is_squads_in_zone_b41)
+_REGISTER_FULL_FUNCTION_XR_CONDITION(squad_exist, XR_CONDITION::is_squad_exist)
+_REGISTER_FULL_FUNCTION_XR_CONDITION(is_squad_commander, XR_CONDITION::is_squad_commander)
+_REGISTER_FULL_FUNCTION_XR_CONDITION(squad_npc_count_ge, XR_CONDITION::is_squad_npc_count_ge)
+_REGISTER_FULL_FUNCTION_XR_CONDITION(quest_npc_enemy_actor, XR_CONDITION::is_quest_npc_enemy_actor)
+_REGISTER_FULL_FUNCTION_XR_CONDITION(distance_to_obj_ge, XR_CONDITION::is_distance_to_obj_ge)
+_REGISTER_FULL_FUNCTION_XR_CONDITION(distance_to_obj_le, XR_CONDITION::is_distance_to_obj_le)
+_REGISTER_FULL_FUNCTION_XR_CONDITION(dist_to_story_obj_ge, XR_CONDITION::is_dist_to_story_obj_ge)
+_REGISTER_FULL_FUNCTION_XR_CONDITION(jup_b202_inventory_box_empty, XR_CONDITION::is_jup_b202_inventory_box_empty)
+_REGISTER_FULL_FUNCTION_XR_CONDITION(object_exist, XR_CONDITION::is_object_exist)
+_REGISTER_FULL_FUNCTION_XR_CONDITION(squad_curr_action, XR_CONDITION::is_squad_curr_action)
+_REGISTER_FULL_FUNCTION_XR_CONDITION(jup_b47_npc_online, XR_CONDITION::is_jup_b47_npc_online)
+_REGISTER_FULL_FUNCTION_XR_CONDITION(zat_b29_anomaly_has_af, XR_CONDITION::is_zat_b29_anomaly_has_af)
+_REGISTER_FULL_FUNCTION_XR_CONDITION(jup_b221_who_will_start, XR_CONDITION::is_jup_b221_who_will_start)
+_REGISTER_FULL_FUNCTION_XR_CONDITION(jup_b202_actor_treasure_not_in_steal, XR_CONDITION::is_jup_b202_actor_treasure_not_in_steal)
+_REGISTER_FULL_FUNCTION_XR_CONDITION(jup_b25_senya_spawn_condition, XR_CONDITION::is_jup_b25_senya_spawn_condition)
+_REGISTER_FULL_FUNCTION_XR_CONDITION(jup_b25_flint_gone_condition, XR_CONDITION::is_jup_b25_flint_gone_condition)
 
-            _REGISTER_CCS_FUNCTION_XR_CONDITION(black_screen, XR_CONDITION::is_black_screen)
-            _REGISTER_CCS_FUNCTION_XR_CONDITION(check_npc_name, XR_CONDITION::check_npc_name)
-            _REGISTER_CCS_FUNCTION_XR_CONDITION(counter_greater, XR_CONDITION::is_counter_greater)
-            _REGISTER_CCS_FUNCTION_XR_CONDITION(counter_equal, XR_CONDITION::is_counter_equal)
-            _REGISTER_CCS_FUNCTION_XR_CONDITION(actor_has_weapon, XR_CONDITION::is_actor_has_weapon)
-            _REGISTER_CCS_FUNCTION_XR_CONDITION(squad_in_zone, XR_CONDITION::is_squad_in_zone)
-            _REGISTER_CCS_FUNCTION_XR_CONDITION(actor_has_nimble_weapon, XR_CONDITION::is_actor_has_nimble_weapon)
-            _REGISTER_CCS_FUNCTION_XR_CONDITION(actor_has_active_nimble_weapon, XR_CONDITION::is_actor_has_active_nimble_weapon)
+_REGISTER_CS_FUNCTION_XR_CONDITION(fighting_dist_ge, XR_CONDITION::is_fighting_dist_ge)
+_REGISTER_CS_FUNCTION_XR_CONDITION(fighting_dist_le, XR_CONDITION::is_fighting_dist_le)
+_REGISTER_CS_FUNCTION_XR_CONDITION(enemy_in_zone, XR_CONDITION::is_enemy_in_zone)
+_REGISTER_CS_FUNCTION_XR_CONDITION(story_obj_in_zone_by_name, XR_CONDITION::is_story_obj_in_zone_by_name)
 
-            _REGISTER_CSS_FUNCTION_XR_CONDITION(target_squad_name, XR_CONDITION::is_target_squad_name)
-            
-            
+_REGISTER_CCS_FUNCTION_XR_CONDITION(black_screen, XR_CONDITION::is_black_screen)
+_REGISTER_CCS_FUNCTION_XR_CONDITION(check_npc_name, XR_CONDITION::check_npc_name)
+_REGISTER_CCS_FUNCTION_XR_CONDITION(counter_greater, XR_CONDITION::is_counter_greater)
+_REGISTER_CCS_FUNCTION_XR_CONDITION(counter_equal, XR_CONDITION::is_counter_equal)
+_REGISTER_CCS_FUNCTION_XR_CONDITION(actor_has_weapon, XR_CONDITION::is_actor_has_weapon)
+_REGISTER_CCS_FUNCTION_XR_CONDITION(squad_in_zone, XR_CONDITION::is_squad_in_zone)
+_REGISTER_CCS_FUNCTION_XR_CONDITION(actor_has_nimble_weapon, XR_CONDITION::is_actor_has_nimble_weapon)
+_REGISTER_CCS_FUNCTION_XR_CONDITION(actor_has_active_nimble_weapon, XR_CONDITION::is_actor_has_active_nimble_weapon)
 
-            _REGISTER_C_FUNCTION_XR_CONDITION(check_enemy_name, XR_CONDITION::check_enemy_name)
-            _REGISTER_C_FUNCTION_XR_CONDITION(target_smart_name, XR_CONDITION::is_target_smart_name)
-            
-        _REGISTER_C_PURE_FUNCTION_XR_CONDITION(mob_was_hit, XR_CONDITION::is_mob_was_hit)
-        _REGISTER_C_PURE_FUNCTION_XR_CONDITION(mob_has_enemy, XR_CONDITION::is_mob_has_enemy)
-        _REGISTER_C_PURE_FUNCTION_XR_CONDITION(heavy_wounded,XR_CONDITION::is_heavy_wounded)
-        _REGISTER_C_PURE_FUNCTION_XR_CONDITION(killed_by_actor, XR_CONDITION::is_killed_by_actor)
-        _REGISTER_C_PURE_FUNCTION_XR_CONDITION(hit_by_actor, XR_CONDITION::is_hit_by_actor)
-        _REGISTER_C_PURE_FUNCTION_XR_CONDITION(fighting_actor, XR_CONDITION::is_fighting_actor)
-        _REGISTER_C_PURE_FUNCTION_XR_CONDITION(is_factions_friends, XR_CONDITION::is_factions_friends)
-        _REGISTER_C_PURE_FUNCTION_XR_CONDITION(is_factions_neutrals, XR_CONDITION::is_factions_neutrals)
-        _REGISTER_C_PURE_FUNCTION_XR_CONDITION(is_factions_enemies, XR_CONDITION::is_factions_enemies)
-        _REGISTER_C_PURE_FUNCTION_XR_CONDITION(actor_neutral, XR_CONDITION::is_actor_neutral)
-        _REGISTER_C_PURE_FUNCTION_XR_CONDITION(actor_friend, XR_CONDITION::is_actor_friend)
-        _REGISTER_C_PURE_FUNCTION_XR_CONDITION(actor_enemy, XR_CONDITION::is_actor_enemy)
-        _REGISTER_C_PURE_FUNCTION_XR_CONDITION(see_actor, XR_CONDITION::is_see_actor)
-        _REGISTER_C_PURE_FUNCTION_XR_CONDITION(npc_talking, XR_CONDITION::is_npc_talking)
-        _REGISTER_C_PURE_FUNCTION_XR_CONDITION(talking, XR_CONDITION::is_talking)
-        _REGISTER_C_PURE_FUNCTION_XR_CONDITION(has_enemy_in_current_loopholes_fov, XR_CONDITION::is_has_enemy_in_current_loopholes_fov)
-        _REGISTER_C_PURE_FUNCTION_XR_CONDITION(_kamp_talk, XR_CONDITION::is_kamp_talk)
-        _REGISTER_C_PURE_FUNCTION_XR_CONDITION(see_enemy, XR_CONDITION::is_see_enemy)
-        _REGISTER_C_PURE_FUNCTION_XR_CONDITION(has_actor_enemy, XR_CONDITION::is_has_actor_enemy)
-        _REGISTER_C_PURE_FUNCTION_XR_CONDITION(has_enemy, XR_CONDITION::is_has_enemy)
-        _REGISTER_C_PURE_FUNCTION_XR_CONDITION(signal, XR_CONDITION::is_signal)
-        _REGISTER_C_PURE_FUNCTION_XR_CONDITION(npc_has_item, XR_CONDITION::is_npc_has_item)
-        _REGISTER_C_PURE_FUNCTION_XR_CONDITION(killed_by, XR_CONDITION::is_killed_by)
-        _REGISTER_C_PURE_FUNCTION_XR_CONDITION(deadly_hit, XR_CONDITION::is_deadly_hit)
-        _REGISTER_C_PURE_FUNCTION_XR_CONDITION(best_pistol, XR_CONDITION::is_best_pistol)
-        _REGISTER_C_PURE_FUNCTION_XR_CONDITION(hitted_on_bone, XR_CONDITION::is_hitted_on_bone)
-        _REGISTER_C_PURE_FUNCTION_XR_CONDITION(hitted_by, XR_CONDITION::is_hitted_by)
-        _REGISTER_C_PURE_FUNCTION_XR_CONDITION(actor_health_le, XR_CONDITION::is_actor_health_le)
-        _REGISTER_C_PURE_FUNCTION_XR_CONDITION(health_le, XR_CONDITION::is_health_le)
-        _REGISTER_C_PURE_FUNCTION_XR_CONDITION(distance_to_obj_on_job_le, XR_CONDITION::is_distance_to_obj_on_job_le)
-        _REGISTER_C_PURE_FUNCTION_XR_CONDITION(is_obj_on_job, XR_CONDITION::is_obj_on_job)
-        _REGISTER_C_PURE_FUNCTION_XR_CONDITION(is_wounded, XR_CONDITION::is_wounded)
-        _REGISTER_C_PURE_FUNCTION_XR_CONDITION(npc_in_actor_frustum, XR_CONDITION::is_npc_in_actor_frustrum)
-        _REGISTER_C_PURE_FUNCTION_XR_CONDITION(actor_see_npc, XR_CONDITION::is_actor_see_npc)
-        _REGISTER_C_PURE_FUNCTION_XR_CONDITION(see_npc, XR_CONDITION::is_see_npc)
-        _REGISTER_C_PURE_FUNCTION_XR_CONDITION(is_playing_sound, XR_CONDITION::is_playing_sound)
-        _REGISTER_C_PURE_FUNCTION_XR_CONDITION(is_enemy_actor, XR_CONDITION::is_enemy_actor)
-        _REGISTER_C_PURE_FUNCTION_XR_CONDITION(animpoint_reached, XR_CONDITION::is_animpoint_reached)
-        _REGISTER_C_PURE_FUNCTION_XR_CONDITION(in_dest_smart_cover, XR_CONDITION::is_in_dest_smart_cover)
-        _REGISTER_C_PURE_FUNCTION_XR_CONDITION(jup_b16_is_zone_active, XR_CONDITION::is_jup_b16_is_zone_active)
-        _REGISTER_C_PURE_FUNCTION_XR_CONDITION(is_monster_snork, XR_CONDITION::is_monster_snork)
-        _REGISTER_C_PURE_FUNCTION_XR_CONDITION(is_monster_dog, XR_CONDITION::is_monster_dog)
-        _REGISTER_C_PURE_FUNCTION_XR_CONDITION(is_monster_psy_dog, XR_CONDITION::is_monster_psy_dog)
-        _REGISTER_C_PURE_FUNCTION_XR_CONDITION(is_monster_polter, XR_CONDITION::is_monster_polter)
-        _REGISTER_C_PURE_FUNCTION_XR_CONDITION(is_monster_tushkano, XR_CONDITION::is_monster_tushkano)
-        _REGISTER_C_PURE_FUNCTION_XR_CONDITION(is_monster_burer, XR_CONDITION::is_monster_burer)
-        _REGISTER_C_PURE_FUNCTION_XR_CONDITION(is_monster_controller, XR_CONDITION::is_monster_controller)
-        _REGISTER_C_PURE_FUNCTION_XR_CONDITION(is_monster_flesh, XR_CONDITION::is_monster_flesh)
-        _REGISTER_C_PURE_FUNCTION_XR_CONDITION(is_monster_boar, XR_CONDITION::is_monster_boar)
-        _REGISTER_C_PURE_FUNCTION_XR_CONDITION(pas_b400_actor_far_forward, XR_CONDITION::is_pas_b400_actor_far_forward)
-        _REGISTER_C_PURE_FUNCTION_XR_CONDITION(pas_b400_actor_far_backward, XR_CONDITION::is_pas_b400_actor_far_backward)
-        _REGISTER_C_PURE_FUNCTION_XR_CONDITION(pri_a28_actor_is_far, XR_CONDITION::is_pri_a28_actor_is_far)
-        _REGISTER_C_PURE_FUNCTION_XR_CONDITION(check_enemy_smart, XR_CONDITION::is_check_enemy_smart)
-        _REGISTER_C_PURE_FUNCTION_XR_CONDITION(zat_b103_actor_has_needed_food, XR_CONDITION::is_zat_b103_actor_has_needed_food)
-        _REGISTER_C_PURE_FUNCTION_XR_CONDITION(zat_b29_rivals_dialog_precond, XR_CONDITION::is_zat_b29_rivals_dialog_precond)
+_REGISTER_CSS_FUNCTION_XR_CONDITION(target_squad_name, XR_CONDITION::is_target_squad_name)
+
+
+
+_REGISTER_C_FUNCTION_XR_CONDITION(check_enemy_name, XR_CONDITION::check_enemy_name)
+_REGISTER_C_FUNCTION_XR_CONDITION(target_smart_name, XR_CONDITION::is_target_smart_name)
+
+_REGISTER_C_PURE_FUNCTION_XR_CONDITION(mob_was_hit, XR_CONDITION::is_mob_was_hit)
+_REGISTER_C_PURE_FUNCTION_XR_CONDITION(mob_has_enemy, XR_CONDITION::is_mob_has_enemy)
+_REGISTER_C_PURE_FUNCTION_XR_CONDITION(heavy_wounded, XR_CONDITION::is_heavy_wounded)
+_REGISTER_C_PURE_FUNCTION_XR_CONDITION(killed_by_actor, XR_CONDITION::is_killed_by_actor)
+_REGISTER_C_PURE_FUNCTION_XR_CONDITION(hit_by_actor, XR_CONDITION::is_hit_by_actor)
+_REGISTER_C_PURE_FUNCTION_XR_CONDITION(fighting_actor, XR_CONDITION::is_fighting_actor)
+_REGISTER_C_PURE_FUNCTION_XR_CONDITION(is_factions_friends, XR_CONDITION::is_factions_friends)
+_REGISTER_C_PURE_FUNCTION_XR_CONDITION(is_factions_neutrals, XR_CONDITION::is_factions_neutrals)
+_REGISTER_C_PURE_FUNCTION_XR_CONDITION(is_factions_enemies, XR_CONDITION::is_factions_enemies)
+_REGISTER_C_PURE_FUNCTION_XR_CONDITION(actor_neutral, XR_CONDITION::is_actor_neutral)
+_REGISTER_C_PURE_FUNCTION_XR_CONDITION(actor_friend, XR_CONDITION::is_actor_friend)
+_REGISTER_C_PURE_FUNCTION_XR_CONDITION(actor_enemy, XR_CONDITION::is_actor_enemy)
+_REGISTER_C_PURE_FUNCTION_XR_CONDITION(see_actor, XR_CONDITION::is_see_actor)
+_REGISTER_C_PURE_FUNCTION_XR_CONDITION(npc_talking, XR_CONDITION::is_npc_talking)
+_REGISTER_C_PURE_FUNCTION_XR_CONDITION(talking, XR_CONDITION::is_talking)
+_REGISTER_C_PURE_FUNCTION_XR_CONDITION(has_enemy_in_current_loopholes_fov, XR_CONDITION::is_has_enemy_in_current_loopholes_fov)
+_REGISTER_C_PURE_FUNCTION_XR_CONDITION(_kamp_talk, XR_CONDITION::is_kamp_talk)
+_REGISTER_C_PURE_FUNCTION_XR_CONDITION(see_enemy, XR_CONDITION::is_see_enemy)
+_REGISTER_C_PURE_FUNCTION_XR_CONDITION(has_actor_enemy, XR_CONDITION::is_has_actor_enemy)
+_REGISTER_C_PURE_FUNCTION_XR_CONDITION(has_enemy, XR_CONDITION::is_has_enemy)
+_REGISTER_C_PURE_FUNCTION_XR_CONDITION(signal, XR_CONDITION::is_signal)
+_REGISTER_C_PURE_FUNCTION_XR_CONDITION(npc_has_item, XR_CONDITION::is_npc_has_item)
+_REGISTER_C_PURE_FUNCTION_XR_CONDITION(killed_by, XR_CONDITION::is_killed_by)
+_REGISTER_C_PURE_FUNCTION_XR_CONDITION(deadly_hit, XR_CONDITION::is_deadly_hit)
+_REGISTER_C_PURE_FUNCTION_XR_CONDITION(best_pistol, XR_CONDITION::is_best_pistol)
+_REGISTER_C_PURE_FUNCTION_XR_CONDITION(hitted_on_bone, XR_CONDITION::is_hitted_on_bone)
+_REGISTER_C_PURE_FUNCTION_XR_CONDITION(hitted_by, XR_CONDITION::is_hitted_by)
+_REGISTER_C_PURE_FUNCTION_XR_CONDITION(actor_health_le, XR_CONDITION::is_actor_health_le)
+_REGISTER_C_PURE_FUNCTION_XR_CONDITION(health_le, XR_CONDITION::is_health_le)
+_REGISTER_C_PURE_FUNCTION_XR_CONDITION(distance_to_obj_on_job_le, XR_CONDITION::is_distance_to_obj_on_job_le)
+_REGISTER_C_PURE_FUNCTION_XR_CONDITION(is_obj_on_job, XR_CONDITION::is_obj_on_job)
+_REGISTER_C_PURE_FUNCTION_XR_CONDITION(is_wounded, XR_CONDITION::is_wounded)
+_REGISTER_C_PURE_FUNCTION_XR_CONDITION(npc_in_actor_frustum, XR_CONDITION::is_npc_in_actor_frustrum)
+_REGISTER_C_PURE_FUNCTION_XR_CONDITION(actor_see_npc, XR_CONDITION::is_actor_see_npc)
+_REGISTER_C_PURE_FUNCTION_XR_CONDITION(see_npc, XR_CONDITION::is_see_npc)
+_REGISTER_C_PURE_FUNCTION_XR_CONDITION(is_playing_sound, XR_CONDITION::is_playing_sound)
+_REGISTER_C_PURE_FUNCTION_XR_CONDITION(is_enemy_actor, XR_CONDITION::is_enemy_actor)
+_REGISTER_C_PURE_FUNCTION_XR_CONDITION(animpoint_reached, XR_CONDITION::is_animpoint_reached)
+_REGISTER_C_PURE_FUNCTION_XR_CONDITION(in_dest_smart_cover, XR_CONDITION::is_in_dest_smart_cover)
+_REGISTER_C_PURE_FUNCTION_XR_CONDITION(jup_b16_is_zone_active, XR_CONDITION::is_jup_b16_is_zone_active)
+_REGISTER_C_PURE_FUNCTION_XR_CONDITION(is_monster_snork, XR_CONDITION::is_monster_snork)
+_REGISTER_C_PURE_FUNCTION_XR_CONDITION(is_monster_dog, XR_CONDITION::is_monster_dog)
+_REGISTER_C_PURE_FUNCTION_XR_CONDITION(is_monster_psy_dog, XR_CONDITION::is_monster_psy_dog)
+_REGISTER_C_PURE_FUNCTION_XR_CONDITION(is_monster_polter, XR_CONDITION::is_monster_polter)
+_REGISTER_C_PURE_FUNCTION_XR_CONDITION(is_monster_tushkano, XR_CONDITION::is_monster_tushkano)
+_REGISTER_C_PURE_FUNCTION_XR_CONDITION(is_monster_burer, XR_CONDITION::is_monster_burer)
+_REGISTER_C_PURE_FUNCTION_XR_CONDITION(is_monster_controller, XR_CONDITION::is_monster_controller)
+_REGISTER_C_PURE_FUNCTION_XR_CONDITION(is_monster_flesh, XR_CONDITION::is_monster_flesh)
+_REGISTER_C_PURE_FUNCTION_XR_CONDITION(is_monster_boar, XR_CONDITION::is_monster_boar)
+_REGISTER_C_PURE_FUNCTION_XR_CONDITION(pas_b400_actor_far_forward, XR_CONDITION::is_pas_b400_actor_far_forward)
+_REGISTER_C_PURE_FUNCTION_XR_CONDITION(pas_b400_actor_far_backward, XR_CONDITION::is_pas_b400_actor_far_backward)
+_REGISTER_C_PURE_FUNCTION_XR_CONDITION(pri_a28_actor_is_far, XR_CONDITION::is_pri_a28_actor_is_far)
+_REGISTER_C_PURE_FUNCTION_XR_CONDITION(check_enemy_smart, XR_CONDITION::is_check_enemy_smart)
+_REGISTER_C_PURE_FUNCTION_XR_CONDITION(zat_b103_actor_has_needed_food, XR_CONDITION::is_zat_b103_actor_has_needed_food)
+_REGISTER_C_PURE_FUNCTION_XR_CONDITION(zat_b29_rivals_dialog_precond, XR_CONDITION::is_zat_b29_rivals_dialog_precond)
+
+#pragma endregion
+
+#pragma region Cordis Registering XR_EFFECTS Functions
+        this->m_registered_functions_xr_effects["update_npc_logic"] = XR_EFFECTS::update_npc_logic;
+        this->m_registered_functions_xr_effects["update_obj_logic"] = XR_EFFECTS::update_obj_logic;
+        this->m_registered_functions_xr_effects["disable_ui"] = XR_EFFECTS::disable_ui;
+        this->m_registered_functions_xr_effects["disable_ui_only"] = XR_EFFECTS::disable_ui_only;
+        this->m_registered_functions_xr_effects["enable_ui"] = XR_EFFECTS::enable_ui;
+        this->m_registered_functions_xr_effects["run_cam_effector"] = XR_EFFECTS::run_cam_effector;
+        this->m_registered_functions_xr_effects["stop_cam_effector"] = XR_EFFECTS::stop_cam_effector;
+        this->m_registered_functions_xr_effects["run_cam_effector_global"] = XR_EFFECTS::run_cam_effector_global;
+        this->m_registered_functions_xr_effects["cam_effector_callback"] = XR_EFFECTS::cam_effector_callback;
+        this->m_registered_functions_xr_effects["run_postprocess"] = XR_EFFECTS::run_postprocess;
+        this->m_registered_functions_xr_effects["stop_postprocess"] = XR_EFFECTS::stop_postprocess;
+        this->m_registered_functions_xr_effects["run_tutorial"] = XR_EFFECTS::run_tutorial;
+        this->m_registered_functions_xr_effects["jup_b32_place_scanner"] = XR_EFFECTS::jup_b32_place_scanner;
+        this->m_registered_functions_xr_effects["jup_b32_pda_check"] = XR_EFFECTS::jup_b32_pda_check;
+        this->m_registered_functions_xr_effects["pri_b306_generator_start"] = XR_EFFECTS::pri_b306_generator_start;
+        this->m_registered_functions_xr_effects["jup_b206_get_plant"] = XR_EFFECTS::jup_b206_get_plant;
+        this->m_registered_functions_xr_effects["pas_b400_switcher"] = XR_EFFECTS::pas_b400_switcher;
+        this->m_registered_functions_xr_effects["jup_b209_place_scanner"] = XR_EFFECTS::jup_b209_place_scanner;
+        this->m_registered_functions_xr_effects["jup_b9_heli_1_searching"] = XR_EFFECTS::jup_b9_heli_1_searching;
+        this->m_registered_functions_xr_effects["pri_a18_use_idol"] = XR_EFFECTS::pri_a18_use_idol;
+        this->m_registered_functions_xr_effects["jup_b8_heli_4_searching"] = XR_EFFECTS::jup_b8_heli_4_searching;
+        this->m_registered_functions_xr_effects["jup_b10_ufo_searching"] = XR_EFFECTS::jup_b10_ufo_searching;
+        this->m_registered_functions_xr_effects["zat_b101_heli_5_searching"] = XR_EFFECTS::zat_b101_heli_5_searching;
+        this->m_registered_functions_xr_effects["zat_b28_heli_3_searching"] = XR_EFFECTS::zat_b28_heli_3_searching;
+        this->m_registered_functions_xr_effects["zat_b100_heli_2_searching"] = XR_EFFECTS::zat_b100_heli_2_searching;
+        this->m_registered_functions_xr_effects["teleport_actor"] = XR_EFFECTS::teleport_actor;
+        this->m_registered_functions_xr_effects["teleport_npc"] = XR_EFFECTS::teleport_npc;
+        this->m_registered_functions_xr_effects["teleport_npc_by_story_id"] = XR_EFFECTS::teleport_npc_by_story_id;
+        this->m_registered_functions_xr_effects["teleport_squad"] = XR_EFFECTS::teleport_squad;
+        this->m_registered_functions_xr_effects["jup_teleport_actor"] = XR_EFFECTS::jup_teleport_actor;
+        this->m_registered_functions_xr_effects["give_items"] = XR_EFFECTS::give_items;
+        this->m_registered_functions_xr_effects["give_item"] = XR_EFFECTS::give_item;
+        this->m_registered_functions_xr_effects["play_particle_on_path"] = XR_EFFECTS::play_particle_on_path;
+        this->m_registered_functions_xr_effects["send_tip"] = XR_EFFECTS::send_tip;
+        this->m_registered_functions_xr_effects["hit_npc"] = XR_EFFECTS::hit_npc;
+        this->m_registered_functions_xr_effects["hit_obj"] = XR_EFFECTS::hit_obj;
+        this->m_registered_functions_xr_effects["hit_by_killer"] = XR_EFFECTS::hit_by_killer;
+        this->m_registered_functions_xr_effects["hit_npc_from_actor"] = XR_EFFECTS::hit_npc_from_actor;
+        this->m_registered_functions_xr_effects["restore_health"] = XR_EFFECTS::restore_health;
+        this->m_registered_functions_xr_effects["make_enemy"] = XR_EFFECTS::make_enemy;
+        this->m_registered_functions_xr_effects["sniper_fire_mode"] = XR_EFFECTS::sniper_fire_mode;
+        this->m_registered_functions_xr_effects["kill_npc"] = XR_EFFECTS::kill_npc;
+        this->m_registered_functions_xr_effects["remove_npc"] = XR_EFFECTS::remove_npc;
+        this->m_registered_functions_xr_effects["inc_counter"] = XR_EFFECTS::inc_counter;
+        this->m_registered_functions_xr_effects["dec_counter"] = XR_EFFECTS::dec_counter;
+        this->m_registered_functions_xr_effects["set_counter"] = XR_EFFECTS::set_counter;
+        this->m_registered_functions_xr_effects["actor_punch"] = XR_EFFECTS::actor_punch;
+        this->m_registered_functions_xr_effects["clearAbuse"] = XR_EFFECTS::clearAbuse;
+        this->m_registered_functions_xr_effects["turn_off_underpass_lamps"] = XR_EFFECTS::turn_off_underpass_lamps;
+        this->m_registered_functions_xr_effects["turn_off"] = XR_EFFECTS::turn_off;
+		this->m_registered_functions_xr_effects["turn_off_object"] = XR_EFFECTS::turn_off_object;
+        this->m_registered_functions_xr_effects["turn_on"] = XR_EFFECTS::turn_on;
+        this->m_registered_functions_xr_effects["turn_on_and_force"] = XR_EFFECTS::turn_on_and_force;
+        this->m_registered_functions_xr_effects["turn_off_and_force"] = XR_EFFECTS::turn_off_and_force;
+        this->m_registered_functions_xr_effects["turn_on_object"] = XR_EFFECTS::turn_on_object;
+        this->m_registered_functions_xr_effects["turn_off_object"] = XR_EFFECTS::turn_off_object;
+        this->m_registered_functions_xr_effects["disable_combat_handler"] = XR_EFFECTS::disable_combat_handler;
+        this->m_registered_functions_xr_effects["disable_combat_ignore_handler"] = XR_EFFECTS::disable_combat_ignore_handler;
+        this->m_registered_functions_xr_effects["set_weather"] = XR_EFFECTS::set_weather;
+        this->m_registered_functions_xr_effects["game_disconnect"] = XR_EFFECTS::game_disconnect;
+        this->m_registered_functions_xr_effects["game_credits"] = XR_EFFECTS::game_credits;
+        this->m_registered_functions_xr_effects["game_over"] = XR_EFFECTS::game_over;
+        this->m_registered_functions_xr_effects["after_credits"] = XR_EFFECTS::after_credits;
+        this->m_registered_functions_xr_effects["before_credits"] = XR_EFFECTS::before_credits;
+        this->m_registered_functions_xr_effects["on_tutor_gameover_stop"] = XR_EFFECTS::on_tutor_gameover_stop;
+        this->m_registered_functions_xr_effects["on_tutor_gameover_quickload"] = XR_EFFECTS::on_tutor_gameover_quickload;
+        this->m_registered_functions_xr_effects["switch_to_desired_job"] = XR_EFFECTS::switch_to_desired_job;
+        this->m_registered_functions_xr_effects["spawn_object"] = XR_EFFECTS::spawn_object;
+        this->m_registered_functions_xr_effects["jup_b219_save_pos"] = XR_EFFECTS::jup_b219_save_pos;
+        this->m_registered_functions_xr_effects["jup_b219_restore_gate"] = XR_EFFECTS::jup_b219_restore_gate;
+        this->m_registered_functions_xr_effects["spawn_corpse"] = XR_EFFECTS::spawn_corpse;
+        this->m_registered_functions_xr_effects["spawn_object_in"] = XR_EFFECTS::spawn_object_in;
+        this->m_registered_functions_xr_effects["destroy_object"] = XR_EFFECTS::destroy_object;
+        this->m_registered_functions_xr_effects["give_actor"] = XR_EFFECTS::give_actor;
+        this->m_registered_functions_xr_effects["anim_obj_forward"] = XR_EFFECTS::anim_obj_forward;
+        this->m_registered_functions_xr_effects["anim_obj_backward"] = XR_EFFECTS::anim_obj_backward;
+        this->m_registered_functions_xr_effects["anim_obj_stop"] = XR_EFFECTS::anim_obj_stop;
+        this->m_registered_functions_xr_effects["play_sound"] = XR_EFFECTS::play_sound;
+        this->m_registered_functions_xr_effects["play_sound_by_story"] = XR_EFFECTS::play_sound_by_story;
+        this->m_registered_functions_xr_effects["stop_sound"] = XR_EFFECTS::stop_sound;
+        this->m_registered_functions_xr_effects["play_sound_looped"] = XR_EFFECTS::play_sound_looped;
+        this->m_registered_functions_xr_effects["stop_sound_looped"] = XR_EFFECTS::stop_sound_looped;
+        this->m_registered_functions_xr_effects["barrel_explode"] = XR_EFFECTS::barrel_explode;
+        this->m_registered_functions_xr_effects["create_squad"] = XR_EFFECTS::create_squad;
+        this->m_registered_functions_xr_effects["create_squad_member"] = XR_EFFECTS::create_squad_member;
+        this->m_registered_functions_xr_effects["remove_squad"] = XR_EFFECTS::remove_squad;
+        this->m_registered_functions_xr_effects["kill_squad"] = XR_EFFECTS::kill_squad;
+        this->m_registered_functions_xr_effects["heal_squad"] = XR_EFFECTS::heal_squad;
+        this->m_registered_functions_xr_effects["clear_smart_terrain"] = XR_EFFECTS::clear_smart_terrain;
+        this->m_registered_functions_xr_effects["give_task"] = XR_EFFECTS::give_task;
+        this->m_registered_functions_xr_effects["actor_friend"] = XR_EFFECTS::actor_friend;
+        this->m_registered_functions_xr_effects["actor_neutral"] = XR_EFFECTS::actor_neutral;
+        this->m_registered_functions_xr_effects["actor_enemy"] = XR_EFFECTS::actor_enemy;
+        this->m_registered_functions_xr_effects["set_squad_neutral_to_actor"] = XR_EFFECTS::set_squad_neutral_to_actor;
+        this->m_registered_functions_xr_effects["set_squad_friend_to_actor"] = XR_EFFECTS::set_squad_friend_to_actor;
+        this->m_registered_functions_xr_effects["set_squad_enemy_to_actor"] = XR_EFFECTS::set_squad_enemy_to_actor;
+        this->m_registered_functions_xr_effects["set_squad_goodwill"] = XR_EFFECTS::set_squad_goodwill;
+        this->m_registered_functions_xr_effects["set_squad_goodwill_to_npc"] = XR_EFFECTS::set_squad_goodwill_to_npc;
+        this->m_registered_functions_xr_effects["inc_faction_goodwill_to_actor"] = XR_EFFECTS::inc_faction_goodwill_to_actor;
+        this->m_registered_functions_xr_effects["dec_faction_goodwill_to_actor"] = XR_EFFECTS::dec_faction_goodwill_to_actor;
+        this->m_registered_functions_xr_effects["kill_actor"] = XR_EFFECTS::kill_actor;
+        this->m_registered_functions_xr_effects["give_treasure"] = XR_EFFECTS::give_treasure;
+        this->m_registered_functions_xr_effects["start_surge"] = XR_EFFECTS::start_surge;
+        this->m_registered_functions_xr_effects["stop_surge"] = XR_EFFECTS::stop_surge;
+        this->m_registered_functions_xr_effects["set_surge_mess_and_task"] = XR_EFFECTS::set_surge_mess_and_task;
+        this->m_registered_functions_xr_effects["make_actor_visible_to_squad"] = XR_EFFECTS::make_actor_visible_to_squad;
+        this->m_registered_functions_xr_effects["stop_sr_cutscene"] = XR_EFFECTS::stop_sr_cutscene;
+        this->m_registered_functions_xr_effects["enable_anomaly"] = XR_EFFECTS::enable_anomaly;
+        this->m_registered_functions_xr_effects["disable_anomaly"] = XR_EFFECTS::disable_anomaly;
+        this->m_registered_functions_xr_effects["add_cs_text"] = XR_EFFECTS::add_cs_text;
+        this->m_registered_functions_xr_effects["del_cs_text"] = XR_EFFECTS::del_cs_text;
+        this->m_registered_functions_xr_effects["spawn_item_to_npc"] = XR_EFFECTS::spawn_item_to_npc;
+        this->m_registered_functions_xr_effects["give_money_to_npc"] = XR_EFFECTS::give_money_to_npc;
+        this->m_registered_functions_xr_effects["seize_money_to_npc"] = XR_EFFECTS::seize_money_to_npc;
+        this->m_registered_functions_xr_effects["relocate_item"] = XR_EFFECTS::relocate_item;
+        this->m_registered_functions_xr_effects["set_squads_enemies"] = XR_EFFECTS::set_squads_enemies;
+        this->m_registered_functions_xr_effects["set_bloodsucker_state"] = XR_EFFECTS::set_bloodsucker_state;
+        this->m_registered_functions_xr_effects["remove_item"] = XR_EFFECTS::remove_item;
+        this->m_registered_functions_xr_effects["scenario_autosave"] = XR_EFFECTS::scenario_autosave;
+        this->m_registered_functions_xr_effects["zat_b29_create_random_infop"] = XR_EFFECTS::zat_b29_create_random_infop;
+        this->m_registered_functions_xr_effects["give_item_b29"] = XR_EFFECTS::give_item_b29;
+        this->m_registered_functions_xr_effects["relocate_item_b29"] = XR_EFFECTS::relocate_item_b29;
+        this->m_registered_functions_xr_effects["reset_sound_npc"] = XR_EFFECTS::reset_sound_npc;
+        this->m_registered_functions_xr_effects["jup_b202_inventory_box_relocate"] = XR_EFFECTS::jup_b202_inventory_box_relocate;
+        this->m_registered_functions_xr_effects["clear_box"] = XR_EFFECTS::clear_box;
+        this->m_registered_functions_xr_effects["activate_weapon"] = XR_EFFECTS::activate_weapon;
+        this->m_registered_functions_xr_effects["set_game_time"] = XR_EFFECTS::set_game_time;
+        this->m_registered_functions_xr_effects["forward_game_time"] = XR_EFFECTS::forward_game_time;
+        this->m_registered_functions_xr_effects["stop_tutorial"] = XR_EFFECTS::stop_tutorial;
+        this->m_registered_functions_xr_effects["jup_b10_spawn_drunk_dead_items"] = XR_EFFECTS::jup_b10_spawn_drunk_dead_items;
+        this->m_registered_functions_xr_effects["pick_artefact_from_anomaly"] = XR_EFFECTS::pick_artefact_from_anomaly;
+        this->m_registered_functions_xr_effects["anomaly_turn_off"] = XR_EFFECTS::anomaly_turn_off;
+        this->m_registered_functions_xr_effects["anomaly_turn_on"] = XR_EFFECTS::anomaly_turn_on;
+        this->m_registered_functions_xr_effects["zat_b202_spawn_random_loot"] = XR_EFFECTS::zat_b202_spawn_random_loot;
+        this->m_registered_functions_xr_effects["zat_a1_tutorial_end_give"] = XR_EFFECTS::zat_a1_tutorial_end_give;
+        this->m_registered_functions_xr_effects["oasis_heal"] = XR_EFFECTS::oasis_heal;
+        this->m_registered_functions_xr_effects["jup_b221_play_main"] = XR_EFFECTS::jup_b221_play_main;
+        this->m_registered_functions_xr_effects["pas_b400_play_particle"] = XR_EFFECTS::pas_b400_play_particle;
+        this->m_registered_functions_xr_effects["pas_b400_stop_particle"] = XR_EFFECTS::pas_b400_stop_particle;
+        this->m_registered_functions_xr_effects["damage_actor_items_on_start"] = XR_EFFECTS::damage_actor_items_on_start;
+        this->m_registered_functions_xr_effects["damage_pri_a17_gauss"] = XR_EFFECTS::damage_pri_a17_gauss;
+        this->m_registered_functions_xr_effects["jup_b217_hard_animation_reset"] = XR_EFFECTS::jup_b217_hard_animation_reset;
+/*        this->m_registered_functions_xr_effects["sleep"] = XR_EFFECTS::sleep;*/
+        this->m_registered_functions_xr_effects["mech_discount"] = XR_EFFECTS::mech_discount;
+        this->m_registered_functions_xr_effects["polter_actor_ignore"] = XR_EFFECTS::polter_actor_ignore;
+        this->m_registered_functions_xr_effects["burer_force_gravi_attack"] = XR_EFFECTS::burer_force_gravi_attack;
+        this->m_registered_functions_xr_effects["burer_force_anti_aim"] = XR_EFFECTS::burer_force_anti_aim;
+        this->m_registered_functions_xr_effects["show_freeplay_dialog"] = XR_EFFECTS::show_freeplay_dialog;
+        this->m_registered_functions_xr_effects["get_best_detector"] = XR_EFFECTS::get_best_detector;
+        this->m_registered_functions_xr_effects["hide_best_detector"] = XR_EFFECTS::hide_best_detector;
+        this->m_registered_functions_xr_effects["pri_a18_radio_start"] = XR_EFFECTS::pri_a18_radio_start;
+        this->m_registered_functions_xr_effects["pri_a17_ice_climb_end"] = XR_EFFECTS::pri_a17_ice_climb_end;
+        this->m_registered_functions_xr_effects["jup_b219_opening"] = XR_EFFECTS::jup_b219_opening;
+        this->m_registered_functions_xr_effects["jup_b219_entering_underpass"] = XR_EFFECTS::jup_b219_entering_underpass;
+        this->m_registered_functions_xr_effects["pri_a17_pray_start"] = XR_EFFECTS::pri_a17_pray_start;
+        this->m_registered_functions_xr_effects["zat_b38_open_info"] = XR_EFFECTS::zat_b38_open_info;
+        this->m_registered_functions_xr_effects["zat_b38_switch_info"] = XR_EFFECTS::zat_b38_switch_info;
+        this->m_registered_functions_xr_effects["zat_b38_cop_dead"] = XR_EFFECTS::zat_b38_cop_dead;
+        this->m_registered_functions_xr_effects["jup_b15_zulus_drink_anim_info"] = XR_EFFECTS::jup_b15_zulus_drink_anim_info;
+        this->m_registered_functions_xr_effects["pri_a17_preacher_death"] = XR_EFFECTS::pri_a17_preacher_death;
+        this->m_registered_functions_xr_effects["zat_b3_tech_surprise_anim_end"] = XR_EFFECTS::zat_b3_tech_surprise_anim_end;
+        this->m_registered_functions_xr_effects["zat_b3_tech_waked_up"] = XR_EFFECTS::zat_b3_tech_waked_up;
+        this->m_registered_functions_xr_effects["zat_b3_tech_drinked_out"] = XR_EFFECTS::zat_b3_tech_drinked_out;
+        this->m_registered_functions_xr_effects["pri_a28_kirillov_hq_online"] = XR_EFFECTS::pri_a28_kirillov_hq_online;
+        this->m_registered_functions_xr_effects["pri_a20_radio_start"] = XR_EFFECTS::pri_a20_radio_start;
+        this->m_registered_functions_xr_effects["pri_a22_kovalski_speak"] = XR_EFFECTS::pri_a22_kovalski_speak;
+        this->m_registered_functions_xr_effects["zat_b38_underground_door_open"] = XR_EFFECTS::zat_b38_underground_door_open;
+        this->m_registered_functions_xr_effects["zat_b38_jump_tonnel_info"] = XR_EFFECTS::zat_b38_jump_tonnel_info;
+        this->m_registered_functions_xr_effects["jup_a9_cam1_actor_anim_end"] = XR_EFFECTS::jup_a9_cam1_actor_anim_end;
+        this->m_registered_functions_xr_effects["pri_a28_talk_ssu_video_end"] = XR_EFFECTS::pri_a28_talk_ssu_video_end;
+        this->m_registered_functions_xr_effects["disable_actor_nightvision"] = XR_EFFECTS::disable_actor_nightvision;
+        this->m_registered_functions_xr_effects["enable_actor_nightvision"] = XR_EFFECTS::enable_actor_nightvision;
+        this->m_registered_functions_xr_effects["disable_actor_torch"] = XR_EFFECTS::disable_actor_torch;
+        this->m_registered_functions_xr_effects["enable_actor_torch"] = XR_EFFECTS::enable_actor_torch;
+        this->m_registered_functions_xr_effects["create_cutscene_actor_with_weapon"] = XR_EFFECTS::create_cutscene_actor_with_weapon;
+        this->m_registered_functions_xr_effects["set_force_sleep_animation"] = XR_EFFECTS::set_force_sleep_animation;
+        this->m_registered_functions_xr_effects["release_force_sleep_animation"] = XR_EFFECTS::release_force_sleep_animation;
+        this->m_registered_functions_xr_effects["zat_b33_pic_snag_container"] = XR_EFFECTS::zat_b33_pic_snag_container;
+        this->m_registered_functions_xr_effects["set_visual_memory_enabled"] = XR_EFFECTS::set_visual_memory_enabled;
+        this->m_registered_functions_xr_effects["disable_memory_object"] = XR_EFFECTS::disable_memory_object;
+        this->m_registered_functions_xr_effects["zat_b202_spawn_b33_loot"] = XR_EFFECTS::zat_b202_spawn_b33_loot;
+        this->m_registered_functions_xr_effects["save_actor_position"] = XR_EFFECTS::save_actor_position;
+        this->m_registered_functions_xr_effects["restore_actor_position"] = XR_EFFECTS::restore_actor_position;
+        this->m_registered_functions_xr_effects["upgrade_hint"] = XR_EFFECTS::upgrade_hint;
+        this->m_registered_functions_xr_effects["force_obj"] = XR_EFFECTS::force_obj;
+        this->m_registered_functions_xr_effects["pri_a28_check_zones"] = XR_EFFECTS::pri_a28_check_zones;
+        this->m_registered_functions_xr_effects["eat_vodka_script"] = XR_EFFECTS::eat_vodka_script;
+        this->m_registered_functions_xr_effects["jup_b200_count_found"] = XR_EFFECTS::jup_b200_count_found;
         
 #pragma endregion
+
 
 #pragma region Cordis Initializing DialogManager
         {
