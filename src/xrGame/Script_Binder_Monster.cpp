@@ -16,9 +16,9 @@ void Script_Binder_Monster::reinit(void)
 
 bool Script_Binder_Monster::net_Spawn(SpawnType DC) 
 {
-#ifdef DEBUG
+ 
     MESSAGE("adding to database %s", this->m_object->Name());
-#endif // DEBUG
+ 
 
     if (!CScriptBinderObject::net_Spawn(DC))
         return false;
@@ -51,10 +51,10 @@ bool Script_Binder_Monster::net_Spawn(SpawnType DC)
     {
         if (DataBase::Storage::getInstance().getOfflineObjects().at(p_server_object->ID).first)
         {
-#ifdef DEBUG
+ 
             Fvector change_pos = Globals::Game::level::vertex_position(DataBase::Storage::getInstance().getOfflineObjects().at(p_server_object->ID).first);
             MESSAGE("changing position for object[%s] from %f %f %f to %f %f %f : level_vertex [%d] to [%d]", p_server_object->name_replace(), p_server_object->position().x, p_server_object->position().y, p_server_object->position().z, change_pos.x, change_pos.y, change_pos.z, p_server_object->cast_alife_dynamic_object()->m_tNodeID, DataBase::Storage::getInstance().getOfflineObjects().at(p_server_object->ID).first);
-#endif // DEBUG
+ 
             this->m_object->SetNpcPosition(change_pos);
         }
     }
@@ -68,9 +68,9 @@ bool Script_Binder_Monster::net_Spawn(SpawnType DC)
 
             if (p_smart_terrain->getNpcInfo().find(p_server_object->ID) == p_smart_terrain->getNpcInfo().end())
             {
-#ifdef DEBUG
+ 
                 MESSAGEWR("Can't find npc info from smart_terrain by ID %d", p_server_object->ID);
-#endif // DEBUG
+ 
                 return false;
             }
 
@@ -78,17 +78,17 @@ bool Script_Binder_Monster::net_Spawn(SpawnType DC)
             
             if (job_data.find(job_id) == job_data.end())
             {
-#ifdef DEBUG
+ 
                 MESSAGEWR("Can't find job_data by job_id %d", p_server_object->ID);
-#endif // DEBUG
+ 
                 return false;
             }
 
             if (job_data.at(job_id)->m_alife_task == nullptr)
             {
-#ifdef DEBUG
+ 
                 MESSAGEWR("Alife task was nullptr! Can't be!");
-#endif // DEBUG
+ 
                 return false;
             }
 
@@ -103,9 +103,9 @@ bool Script_Binder_Monster::net_Spawn(SpawnType DC)
 
 void Script_Binder_Monster::net_Destroy(void) 
 {
-#ifdef DEBUG
+ 
     MESSAGE("deleting from database %s", this->m_object->Name()); 
-#endif // DEBUG
+ 
 
     DataBase::Storage::getInstance().setXRCombatIgnoreFightingWithActorNpcs(this->m_object->ID(), false);
 
@@ -304,9 +304,9 @@ void Script_Binder_Monster::hit_callback(CScriptGameObject* p_client_object, con
 
 void Script_Binder_Monster::death_callback(CScriptGameObject* p_client_victim, CScriptGameObject* p_client_who)
 {
-#ifdef DEBUG
+ 
 	MESSAGE("stop_dead_id: %d", this->m_object->ID());
-#endif // DEBUG
+ 
 
 	DataBase::Storage::getInstance().setXRCombatIgnoreFightingWithActorNpcs(this->m_object->ID(), false);
 
@@ -348,9 +348,9 @@ void Script_Binder_Monster::death_callback(CScriptGameObject* p_client_victim, C
 
 	if (this->m_object->clsid() == CLSID_SE_MONSTER_POLTERGEIST)
 	{
-#ifdef DEBUG
+ 
 		MESSAGEI("releasing object %s", this->m_object->Name());
-#endif // DEBUG
+ 
 
 		if (ai().alife().objects().object(this->m_object->ID()))
 		{
