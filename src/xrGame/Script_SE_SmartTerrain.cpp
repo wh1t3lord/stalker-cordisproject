@@ -1161,7 +1161,7 @@ void Script_SE_SmartTerrain::read_params(void)
             this->m_simulation_type_name) ==
         Script_GlobalHelper::getInstance().getRegisteredSmartTerrainTerritoryType().end())
     {
-        Msg("[Scripts/Script_SE_SmartTerrain/read_params()] ERROR: %s", this->m_simulation_type_name.c_str());
+        MESSAGEE("ERROR: %s", this->m_simulation_type_name.c_str());
         R_ASSERT2(false, "Invalid type of territory check the getRegisteredSmartTerrainTerritoryType()!");
     }
 
@@ -1201,7 +1201,7 @@ void Script_SE_SmartTerrain::read_params(void)
         Globals::Utils::cfg_get_bool(&ini, Globals::kSmartTerrainSMRTSection, "no_mutant");
 
     if (this->m_is_no_mutant)
-        Msg("[Scripts/Script_SE_SmartTerrain/read_params()] Found no mutant point %s", this->name_replace());
+        MESSAGEI("Found no mutant point %s", this->name_replace());
 
     this->m_fobidden_point_name = script_ini ?
         Globals::Utils::cfg_get_string(script_ini, Globals::kSmartTerrainSMRTSection, "forbidden_point") :
@@ -1277,21 +1277,21 @@ void Script_SE_SmartTerrain::read_params(void)
 
     if (Globals::patrol_path_exists(traveller_actor_name.c_str()))
     {
-        Msg("[Scripts/Script_SE_SmartTerrain/read_params()] %s has no traveller path traveller_actor_name",
+        MESSAGEW("%s has no traveller path traveller_actor_name",
             this->name_replace());
         this->m_traveller_actor_path_name = traveller_actor_name;
     }
 
     if (Globals::patrol_path_exists(traveller_squad_name.c_str()))
     {
-        Msg("[Scripts/Script_SE_SmartTerrain/read_params()] %s has no traveller path traveller_squad_name",
+        MESSAGEW("%s has no traveller path traveller_squad_name",
             this->name_replace());
         this->m_traveller_squad_path_name = traveller_squad_name;
     }
 
     if (!ini_file_locations.section_exist(this->name_replace()))
     {
-        Msg("[Scripts/Script_SE_SmartTerrain/read_params()] %s has no terrain_mask section in smart_terrain_masks.ltx!",
+        MESSAGEW("%s has no terrain_mask section in smart_terrain_masks.ltx!",
             this->name_replace());
     }
 }
@@ -1412,7 +1412,7 @@ void Script_SE_SmartTerrain::check_respawn_params(xr_string& params)
 {
     if (params.empty())
     {
-        Msg("[Scripts/Script_SE_SmartTerrain/check_respawn_params(params)] WARNING: params.empty() == true! Return");
+        MESSAGEWR("params.empty() == true!");
         return;
     }
 
@@ -1574,7 +1574,7 @@ void Script_SE_SmartTerrain::switch_to_desired_job(CScriptGameObject* const p_np
 {
     if (!p_npc)
     {
-        Msg("[Scripts/Script_SE_SmartTerrain/switch_to_desired_job(p_npc)] WARNING: p_npc == nullptr! Return ...");
+        MESSAGEWR("p_npc == nullptr!");
         return;
     }
 
@@ -1697,7 +1697,7 @@ void Script_SE_SmartTerrain::setup_logic(CScriptGameObject* const p_npc)
 {
     if (!p_npc)
     {
-        Msg("[Scripts/Script_SE_SmartTerrain/setup_logic(p_npc)] WARNING: p_npc == nullptr! Return ...");
+        MESSAGEWR("p_npc == nullptr!");
         return;
     }
 
