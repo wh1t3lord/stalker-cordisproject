@@ -15,14 +15,14 @@ void Script_Binder_Stalker::reload(LPCSTR section_name) {}
 
 bool Script_Binder_Stalker::net_Spawn(SpawnType DC) 
 {
-    Msg("[Scripts/Script_Binder_Stalker/net_Spawn(DC)] add to database %s", this->m_object->Name());
+    MESSAGE("add to database %s", this->m_object->Name());
     DataBase::Storage::getInstance().addObject(this->m_object);
     return true; 
 }
 
 void Script_Binder_Stalker::net_Destroy(void)
 {
-    Msg("[Scripts/Script_Binder_Stalker/net_Destroy()] delete from database %s", this->m_object->Name());
+    MESSAGE("delete from database %s", this->m_object->Name());
     DataBase::Storage::getInstance().deleteObject(this->m_object);
 }
 
