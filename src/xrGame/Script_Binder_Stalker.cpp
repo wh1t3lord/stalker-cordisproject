@@ -1,4 +1,4 @@
-#include "stdafx.h"
+﻿#include "stdafx.h"
 #include "Script_Binder_Stalker.h"
 
 namespace Cordis
@@ -73,12 +73,48 @@ void Script_Binder_Stalker::reinit(void)
     DataBase::Storage::getInstance().setStorageMoveManager(this->m_object, p_move_manager);
 }
 
-void Script_Binder_Stalker::reload(LPCSTR section_name) {}
+void Script_Binder_Stalker::reload(LPCSTR section_name) 
+{
+    
+}
 
 bool Script_Binder_Stalker::net_Spawn(SpawnType DC) 
 {
     MESSAGE("add to database %s", this->m_object->Name());
+
+    xr_string visual_name = Globals::Utils::cfg_get_string(Globals::get_system_ini(), this->m_object->Section(), "set_visual");
+    if (visual_name.empty() == false)
+    {
+        if (visual_name == "actor_visual")
+        {
+            this->m_object->set_visual_name(DataBase::Storage::getInstance().getActor()->get_visual_name());
+        }
+        else
+        {
+            this->m_object->set_visual_name(visual_name.c_str());
+        }
+    }
+
+    // Lord: xrs_dyn_music - реализовать наверное
+
     DataBase::Storage::getInstance().addObject(this->m_object);
+
+    this->m_object->apply_loophole_direction_distance(1.0f);
+
+    if (this->m_is_loaded == false)
+    {
+        // Lord: дописать
+    }
+
+    if (!this->m_object->Alive())
+    {
+        this->m_object->death_sound_enabled(false);
+        // Lord: когда будет release_manager 
+        return true;
+    }
+
+
+
     return true; 
 }
 
