@@ -4087,8 +4087,8 @@ private:
 #pragma endregion
 
 #pragma region SmartTerrain Initializing
-        this->m_game_server_nearest_to_actor_smart_terrain.first = std::uint32_t(-1);
-        this->m_game_server_nearest_to_actor_smart_terrain.second = std::uint32_t(-1);
+        this->m_game_server_nearest_to_actor_smart_terrain.first = 0;
+        this->m_game_server_nearest_to_actor_smart_terrain.second = 0.0f;
         this->m_registered_smart_terrain_territory_type[Globals::kSmartTerrainTerritoryBase] = true;
         this->m_registered_smart_terrain_territory_type[Globals::kSmartTerrainTerritoryDefault] = true;
         this->m_registered_smart_terrain_territory_type[Globals::kSmartTerrainTerritoryResource] = true;
@@ -13753,33 +13753,26 @@ public:
 
 #pragma region Cordis InGame
     // @ First - id | Second - distance
-    inline const std::pair<std::uint32_t, std::uint32_t>& getGameNearestToActorServerSmartTerrain(void) const noexcept
+    inline const std::pair<std::uint16_t, float>& getGameNearestToActorServerSmartTerrain(void) const noexcept
     {
         return this->m_game_server_nearest_to_actor_smart_terrain;
     }
 
-    inline void setGameNearestToActorServerSmartTerrain(const std::pair<std::uint32_t, std::uint32_t>& pair) noexcept
+    inline void setGameNearestToActorServerSmartTerrain(const std::pair<std::uint16_t, float>& pair) noexcept
     {
-        if (pair.first == Globals::kUnsignedInt32Undefined || pair.second == Globals::kUnsignedInt32Undefined)
+        if (pair.first == 0)
         {
-            Msg("[Script_GlobalHelper/setGameNearestToActorServerSmartTerrain(id, distance)] "
-                "WARNING: pair.first || "
-                "pair.second = "
-                "std::uint32_t(-1)!!! Values id or distance are not initialized at all or "
-                "equals minus one!");
+            MESSAGEW("Your data contains an invalid ID!");
         }
 
         this->m_game_server_nearest_to_actor_smart_terrain = pair;
     }
 
-    inline void setGameNearestToActorServerSmartTerrain(const std::uint32_t& id, const std::uint32_t& distance) noexcept
+    inline void setGameNearestToActorServerSmartTerrain(const std::uint16_t id, const float distance) noexcept
     {
-        if (id == Globals::kUnsignedInt32Undefined || distance == Globals::kUnsignedInt32Undefined)
+        if (id == 0)
         {
-            Msg("[Script_GlobalHelper/setGameNearestToActorServerSmartTerrain(id, distance)] "
-                "WARNING: id || distance = "
-                "std::uint32_t(-1)!!! Values id or distance are undefined at all or equals "
-                "minus one!");
+            MESSAGEW("Your data contains an invalid ID!");
         }
 
         this->m_game_server_nearest_to_actor_smart_terrain.first = id;
@@ -14801,7 +14794,7 @@ private:
     xr_map<xr_string, xr_vector<std::pair<Fvector, float>>> m_xr_reach_task_formations;
     xr_map<CDangerObject::EDangerType, float> m_xr_danger_ignore_distance_by_danger_type;
     // @ First - id | Second - distance
-    std::pair<std::uint32_t, std::uint32_t> m_game_server_nearest_to_actor_smart_terrain;
+    std::pair<std::uint16_t, float> m_game_server_nearest_to_actor_smart_terrain;
     xr_vector<xr_string> m_registered_smart_terrain_path_fields;
     xr_vector<std::uint32_t> m_jup_b9_money_count;
 #pragma region Cordis PDA the values of pda.script

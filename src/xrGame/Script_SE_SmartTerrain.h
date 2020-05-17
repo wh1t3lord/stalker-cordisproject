@@ -149,6 +149,7 @@ public:
     virtual void register_npc(CSE_ALifeMonsterAbstract* object);
     virtual void unregister_npc(CSE_ALifeMonsterAbstract* object);
     virtual CALifeSmartTerrainTask* task(CSE_ALifeMonsterAbstract* object);
+    void update(void) override;
     bool target_precondition(CSE_ALifeObject* squad, bool is_need_to_dec_population);
 
     inline NpcInfo fill_npc_info(CSE_ALifeDynamicObject* server_object)
@@ -268,6 +269,7 @@ public:
 private:
     void show(void);
     void load_jobs(void);
+    void update_jobs(void);
 
 private:
     bool m_is_initialized;
@@ -279,6 +281,7 @@ private:
     bool m_is_mutant_lair;
     bool m_is_no_mutant;
     bool m_is_respawn_only_smart;
+    bool m_is_campfires_on;
     std::uint16_t m_squad_id;
     std::uint16_t m_respawn_radius;
     std::uint32_t m_max_population;
@@ -286,6 +289,7 @@ private:
     std::uint32_t m_population;
     std::uint32_t m_stayed_squad_quan;
     std::uint32_t m_show_time;
+    std::uint32_t m_check_time;
     CScriptIniFile* m_ltx;
     xrTime m_smart_alarm_time;
     std::pair<xr_vector<JobData>, xr_vector<JobDataExclusive*>>
@@ -294,6 +298,7 @@ private:
     std::unique_ptr<CALifeSmartTerrainTask> m_smart_alife_task;
     //  Script_SmartTerrainControl* m_base_on_actor_control;
     std::unique_ptr<Script_SmartTerrainControl> m_base_on_actor_control;
+    std::unique_ptr<CScriptIniFile> m_ini;
     xr_map<std::uint32_t, xrTime> m_dead_time;
     xr_map<xr_string, std::uint16_t> m_npc_by_job_section;
     // pair<vector_spawn_squads_name, condlist_spawn_num>!
@@ -302,6 +307,7 @@ private:
     xr_map<std::uint32_t, CSE_ALifeDynamicObject*> m_arriving_npc;
     xr_map<std::uint32_t, NpcInfo> m_npc_info;
     xr_map<std::uint32_t, JobDataSmartTerrain*> m_job_data;
+    xr_map<std::uint32_t, CondlistData> m_respawn_sector_condlist;
     xr_vector<CSE_ALifeDynamicObject*> m_npc_to_register;
     xrTime m_last_respawn_update;
     xr_string m_smart_level;
@@ -316,8 +322,6 @@ private:
     xr_string m_traveller_actor_path_name;
     xr_string m_traveller_squad_path_name;
     xr_string m_ltx_name;
-    xr_map<std::uint32_t, CondlistData> m_respawn_sector_condlist;
-    std::unique_ptr<CScriptIniFile> m_ini;
 };
 } // namespace Scripts
 } // namespace Cordis
