@@ -2103,12 +2103,18 @@ void Script_SE_SmartTerrain::update_jobs(void)
         }
     }
 
-    std::sort(this->m_npc_info.begin(), this->m_npc_info.end(), [](const std::pair<std::uint32_t, NpcInfo>& elem1, const std::pair<std::uint32_t, NpcInfo>& elem2) {
+    // Lord: проверить сортировку и заполнение 
+    xr_vector<std::pair<std::uint32_t, NpcInfo>> temp(this->m_npc_info.begin(), this->m_npc_info.end());
+
+    std::sort(temp.begin(), temp.end(), [](const std::pair<std::uint32_t, NpcInfo>& elem1, const std::pair<std::uint32_t, NpcInfo>& elem2) {
         return elem1.second.m_job_prioprity < elem2.second.m_job_prioprity;
         });
 
-    for (std::pair<const std::uint32_t, NpcInfo>& it : this->m_npc_info)
+    this->m_npc_info.clear();
+
+    for (std::pair<std::uint32_t, NpcInfo>& it : temp)
     {
+        this->m_npc_info.insert(it);
         this->select_npc_job(it.second);
     }
 }
