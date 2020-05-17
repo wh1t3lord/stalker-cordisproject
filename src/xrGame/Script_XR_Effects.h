@@ -4221,6 +4221,33 @@ inline void eat_vodka_script(
     }
 }
 
+inline void set_weather(CScriptGameObject* const p_actor, CScriptGameObject* const p_npc, const xr_vector<xr_string>& buffer)
+{
+    if (buffer.empty())
+    {
+        MESSAGEWR("Invalid buffer!");
+        return;
+    }
+
+    if (buffer.size() == 1)
+    {
+        Globals::Game::level::set_weather(buffer[0].c_str(), false);
+    }
+    else if (buffer.size() > 1)
+    {
+		if (buffer[1] == "true")
+		{
+			Globals::Game::level::set_weather(buffer[0].c_str(), true);
+		}
+    }
+    else
+    {
+        MESSAGEW("Invalid size of buffer!");
+    }
+
+
+}
+
 inline void jup_b200_count_found(
     CScriptGameObject* const p_actor, CScriptGameObject* const p_npc, const xr_vector<xr_string>& buffer)
 {

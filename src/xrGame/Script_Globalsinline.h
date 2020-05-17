@@ -1213,8 +1213,8 @@ inline void show_indicators(void)
 inline void add_complex_effector(LPCSTR section, int id) { AddEffector(Actor(), id, section); }
 inline void remove_complex_effector(int id) { RemoveEffector(Actor(), id); }
 inline float get_time_factor(void) { return (Level().GetGameTimeFactor()); }
-LPCSTR get_weather(void) { return *g_pGamePersistent->Environment().GetWeather(); }
-void set_weather(pcstr const weather_name, const bool forced)
+inline LPCSTR get_weather(void) { return *g_pGamePersistent->Environment().GetWeather(); }
+inline void set_weather(pcstr const weather_name, const bool forced)
 {
     if (!Device.editor())
         g_pGamePersistent->Environment().SetWeather(weather_name, forced);
