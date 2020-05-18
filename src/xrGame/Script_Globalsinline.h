@@ -3620,9 +3620,7 @@ inline void setup_gulag_and_logic_on_spawn(CScriptGameObject* const p_client_obj
 {
     if (p_client_object == nullptr)
     {
-#ifdef DEBUG
         MESSAGEWR("Invalid object!");
-#endif // DEBUG
         return;
     }
 
@@ -3630,18 +3628,14 @@ inline void setup_gulag_and_logic_on_spawn(CScriptGameObject* const p_client_obj
     if (p_monster)
     {
         std::uint16_t smart_terrain_id = p_monster->m_smart_terrain_id;
-#ifdef DEBUG
         MESSAGE("client_object=%s smart_terrain_id=%d is_loaded=%s", p_client_object->Name(), smart_terrain_id, loaded ? "true" : false);
-#endif // DEBUG
 
         if (smart_terrain_id && smart_terrain_id != Globals::kUnsignedInt16Undefined)
         {
             Script_SE_SmartTerrain* const p_smart_terrain = ai().alife().objects().object(smart_terrain_id)->cast_script_se_smartterrain();
             if (p_smart_terrain == nullptr)
             {
-#ifdef DEBUG
                 MESSAGEWR("can't cast to smart terrain!");
-#endif // DEBUG
                 return;
             }
 
