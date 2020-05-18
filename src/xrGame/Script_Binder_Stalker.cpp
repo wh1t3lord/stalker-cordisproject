@@ -5,7 +5,7 @@ namespace Cordis
 {
 namespace Scripts
 {
-Script_Binder_Stalker::Script_Binder_Stalker(CScriptGameObject* object) : inherited(object), m_is_loaded(false), m_is_first_update(false), m_last_update(0) {}
+Script_Binder_Stalker::Script_Binder_Stalker(CScriptGameObject* object) : inherited(object), m_is_loaded(false), m_is_first_update(false), m_last_update(0), m_enemy_helicopter_id(0) {}
 
 Script_Binder_Stalker::~Script_Binder_Stalker(void) {}
 
@@ -94,6 +94,16 @@ bool Script_Binder_Stalker::net_Spawn(SpawnType DC)
             Globals::GameRelations::set_npcs_relation(this->m_object, DataBase::Storage::getInstance().getActor(), DataBase::Storage::getInstance().getGoodwill_Relations().at(this->m_object->ID()));
         }
     }
+
+    if (DataBase::Storage::getInstance().getGoodwill_Sympathy().find(this->m_object->ID()) != DataBase::Storage::getInstance().getGoodwill_Sympathy().end())
+    {
+        Globals::GameRelations::set_npc_sympathy(this->m_object, DataBase::Storage::getInstance().getGoodwill_Sympathy().at(this->m_object->ID()));
+    }
+
+    DataBase::Storage::getInstance().addEnemy(this->m_object);
+    this->m_enemy_helicopter_id = DataBase::Storage::getInstance().getHelicopterCount() - 1;
+
+    // Lord: actor_stats и release_body_manager когда будет тогда и дописать 
 
     return true; 
 }

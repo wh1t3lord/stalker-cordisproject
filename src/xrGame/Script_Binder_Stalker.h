@@ -37,6 +37,7 @@ private:
     bool m_is_loaded;
     bool m_is_first_update;
     std::uint32_t m_last_update;
+    std::uint32_t m_enemy_helicopter_id;
 };
 }
 } // namespace Cordis
