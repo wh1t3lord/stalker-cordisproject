@@ -1727,17 +1727,13 @@ struct StateManagerAnimationData
     {
         if (animation_state_name.empty())
         {
-            Msg("[Scripts/StateManagerAnimationData/addAnimation(animation_state_name, index, animation_name)] "
-                "WARNING: "
-                "animation_state_name.empty() == true! Can't add animation to m_data! Return ...");
+            MESSAGEWR("animation_state_name.empty() == true! Can't add animation to m_data!");
             return;
         }
 
         if (animation_name.empty())
         {
-            Msg("[Scripts/StateManagerAnimationData/addAnimation(animation_state_name, index, animation_name)] "
-                "WARNING: "
-                "animation_name.empty() == true! Can't add an empty animation name to m_data! Return ...");
+            MESSAGEWR("animation_name.empty() == true! Can't add an empty animation name to m_data!");
             return;
         }
 
@@ -1750,9 +1746,7 @@ struct StateManagerAnimationData
             for (const AnimationData& data : animation_list)
             {
                 if (data.getAnimationName() == animation_name)
-                    Msg("[Scripts/StateManagerAnimationData/addAnimation(animation_state_name, index, animation_name)] "
-                        "WARNING: You are trying to the same animation_name, which already existed in the list! %s %s",
-                        animation_state_name.c_str(), animation_name.c_str());
+                    MESSAGEW("You are trying to the same animation_name, which already existed in the list! %s %s", animation_state_name.c_str(), animation_name.c_str());
             }
         }
 
@@ -1764,17 +1758,13 @@ struct StateManagerAnimationData
     {
         if (animation_state_name.empty())
         {
-            Msg("[Scripts/StateManagerAnimationData/addAnimation(animation_state_name, index, attach_item_name)] "
-                "WARNING: "
-                "animation_state_name.empty() == true! Can't add animation to m_data! Return ...");
+            MESSAGEWR("animation_state_name.empty() == true! Can't add animation to m_data!");
             return;
         }
 
         if (attach_item_name.empty())
         {
-            Msg("[Scripts/StateManagerAnimationData/addAnimation(animation_state_name, index, attach_item_name)] "
-                "WARNING: "
-                "attach_item_name.empty() == true! Can't add an empty animation name to m_data! Return ...");
+            MESSAGEWR("attach_item_name.empty() == true! Can't add an empty animation name to m_data!");
             return;
         }
         AnimationData data;
@@ -1787,17 +1777,13 @@ struct StateManagerAnimationData
     {
         if (animation_state_name.empty())
         {
-            Msg("[Scripts/StateManagerAnimationData/addAnimation(animation_state_name, index, dettach_item_name)] "
-                "WARNING: "
-                "animation_state_name.empty() == true! Can't add animation to m_data! Return ...");
+            MESSAGEWR("animation_state_name.empty() == true! Can't add animation to m_data!");
             return;
         }
 
         if (dettach_item_name.empty())
         {
-            Msg("[Scripts/StateManagerAnimationData/addAnimation(animation_state_name, index, dettach_item_name)] "
-                "WARNING: "
-                "dettach_item_name.empty() == true! Can't add an empty animation name to m_data! Return ...");
+            MESSAGEWR("dettach_item_name.empty() == true! Can't add an empty animation name to m_data!");
             return;
         }
         AnimationData data;
@@ -1810,17 +1796,13 @@ struct StateManagerAnimationData
     {
         if (animation_state_name.empty())
         {
-            Msg("[Scripts/StateManagerAnimationData/addAnimation(animation_state_name, index, sound_name)] "
-                "WARNING: "
-                "animation_state_name.empty() == true! Can't add animation to m_data! Return ...");
+            MESSAGEWR("animation_state_name.empty() == true! Can't add animation to m_data!");
             return;
         }
 
         if (sound_name.empty())
         {
-            Msg("[Scripts/StateManagerAnimationData/addAnimation(animation_state_name, index, sound_name)] "
-                "WARNING: "
-                "sound_name.empty() == true! Can't add an empty animation name to m_data! Return ...");
+            MESSAGEWR("sound_name.empty() == true! Can't add an empty animation name to m_data!");
             return;
         }
         AnimationData data;
@@ -1833,9 +1815,7 @@ struct StateManagerAnimationData
     {
         if (animation_state_name.empty())
         {
-            Msg("[Scripts/StateManagerAnimationData/addAnimation(animation_state_name, index, value)] "
-                "WARNING: "
-                "animation_state_name.empty() == true! Can't add animation to m_data! Return ...");
+            MESSAGEWR("animation_state_name.empty() == true! Can't add animation to m_data!");
             return;
         }
 
@@ -1849,17 +1829,13 @@ struct StateManagerAnimationData
     {
         if (animation_state_name.empty())
         {
-            Msg("[Scripts/StateManagerAnimationData/addAnimation(animation_state_name, index, function)] "
-                "WARNING: "
-                "animation_state_name.empty() == true! Can't add animation to m_data! Return ...");
+            MESSAGEWR("animation_state_name.empty() == true! Can't add animation to m_data!");
             return;
         }
 
         if (!function)
         {
-            Msg("[Scripts/StateManagerAnimationData/addAnimation(animation_state_name, index, function)] "
-                "WARNING: "
-                "function == nullptr! Can't add an empty animation name to m_data! Return ...");
+            MESSAGEWR("function == nullptr! Can't add an empty animation name to m_data!");
             return;
         }
 
@@ -1913,8 +1889,7 @@ struct StateLibData
     {
         if (value == Globals::kUnsignedInt16Undefined)
         {
-            Msg("[StateLibData/setWeaponSlot(value)] WARNING: value = std::uint16_t(-1)! You are trying to set an "
-                "undefined value! No assignment!");
+            MESSAGEWR("value = std::uint16_t(-1)! You are trying to set an undefined value! No assignment!");
             return;
         }
 
@@ -1926,7 +1901,7 @@ struct StateLibData
     {
         if (value == Globals::kUnsignedInt32Undefined)
         {
-            Msg("[StateLibData/setMovementType(value)] WARNING: value = std::uint32_t(-1)!");
+            MESSAGEW("value = std::uint32_t(-1)!");
         }
 
         this->m_movement_type = value;
@@ -1936,7 +1911,7 @@ struct StateLibData
     {
         if (value == Globals::kUnsignedInt32Undefined)
         {
-            Msg("[StateLibData/setMentalType(value)] WARNING: value = std::uint32_t(-1)!");
+            MESSAGEW("value = std::uint32_t(-1)!");
         }
 
         this->m_mental_type = value;
@@ -1946,7 +1921,7 @@ struct StateLibData
     {
         if (value == Globals::kUnsignedInt32Undefined)
         {
-            Msg("[StateLibData/setBodyStateType(value)] WARNING: value = std::uint32_t(-1)!");
+            MESSAGEW("value = std::uint32_t(-1)!");
         }
 
         this->m_bodystate_type = value;
@@ -1956,7 +1931,7 @@ struct StateLibData
     {
         if (value == Globals::kUnsignedInt32Undefined)
         {
-            Msg("[StateLibData/setDirectionType(value)] WARNING: value = std::uint32_t(-1)!");
+            MESSAGEW("value = std::uint32_t(-1)!");
         }
 
         this->m_direction_type = value;
@@ -1966,7 +1941,7 @@ struct StateLibData
     {
         if (!string.size())
         {
-            Msg("[StateLibData/setWeaponTypeName(string)] WARNING: string.size() = 0!");
+            MESSAGEW("string.size() = 0!");
         }
 
         this->m_weapon_name = string;
@@ -1976,7 +1951,7 @@ struct StateLibData
     {
         if (!string.size())
         {
-            Msg("[StateLibData/setAnimStateTypeName(string)] WARNING: string.size() = 0!");
+            MESSAGEW("string.size() = 0!");
         }
 
         this->m_animstate_name = string;
@@ -1986,7 +1961,7 @@ struct StateLibData
     {
         if (!string.size())
         {
-            Msg("[StateLibData/setAnimationName(string)] WARNING: string.size() = 0!");
+            MESSAGEW("string.size() = 0!");
         }
 
         this->m_animation_name = string;
