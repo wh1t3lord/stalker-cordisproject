@@ -4506,17 +4506,6 @@ Cordis::Scripts::Script_GlobalHelper::Script_GlobalHelper(void)
         // делать потому что C++ и потому что интерфейсы
         // @ В-шестых луа ловушка джокера никогда не используйте lua в таком сложном backend
 
-        /*          Lord: зарегистрировать схемы когда только начинается добавление в биндеры!
-                    Script_SchemeMobCamp mob_camp = Script_SchemeMobCamp(nullptr, DataBase::Storage_Scheme());
-                    Script_SchemeMobCombat mob_combat = Script_SchemeMobCombat(nullptr, DataBase::Storage_Scheme());
-                    Script_SchemeMobDeath mob_death = Script_SchemeMobDeath(nullptr, DataBase::Storage_Scheme());
-                    Script_SchemeMobHome mob_home = Script_SchemeMobHome(nullptr, DataBase::Storage_Scheme());
-                    Script_SchemeMobJump mob_jump = Script_SchemeMobJump(nullptr, DataBase::Storage_Scheme());
-                    Script_SchemeMobRemark mob_remark = Script_SchemeMobRemark(nullptr, DataBase::Storage_Scheme());
-                    Script_SchemeMobWalker mob_walker = Script_SchemeMobWalker(nullptr, DataBase::Storage_Scheme());
-                    Script_SchemeHelicopterMove heli_move = Script_SchemeHelicopterMove(nullptr,
-           DataBase::Storage_Scheme());*/   
-
         this->m_registered_schemes_add_to_binder_callbacks["danger"] = Script_EvaluatorDanger::add_to_binder;
         this->m_registered_schemes_add_to_binder_callbacks["gather_items"] = Script_EvaluatorGatherItems::add_to_binder;
         this->m_registered_schemes_add_to_binder_callbacks["abuse"] = Script_SchemeXRAbuse::add_to_binder;

@@ -47,6 +47,10 @@
 #include "xrDebug.h"
 //#include "vector.h"
 
+#ifdef DEBUG
+#include <vld.h>
+#endif
+
 #include "clsid.h"
 //#include "Threading/Lock.hpp"
 #include "xrMemory.h"
