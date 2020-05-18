@@ -193,6 +193,8 @@
 #include "Script_SE_ZoneVisual.cpp"
 #pragma endregion
 
+#include "Script_GlobalHelper.cpp"
+
 #include "Script_SimulationBoard.cpp"
 #include "Script_SimulationObjects.cpp"
 #include "Script_SmartTerrainControl.cpp"
