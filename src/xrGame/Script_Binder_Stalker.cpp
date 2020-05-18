@@ -51,7 +51,33 @@ bool Script_Binder_Stalker::net_Spawn(SpawnType DC)
 
     if (this->m_is_loaded == false)
     {
-        // Lord: дописать
+        CScriptIniFile* const p_spawn_ini = this->m_object->spawn_ini();
+        xr_string filename;
+
+        if (p_spawn_ini)
+        {
+            filename = Globals::Utils::cfg_get_string(p_spawn_ini, "logic", "cfg");
+            MESSAGEI("filename about logic %s", filename.c_str());
+        }
+
+          
+        if (filename.empty() == false)
+        {
+            CScriptIniFile ini(filename.c_str());
+            Globals::load_info(this->m_object, &ini);
+        }
+        else
+        {
+            if (p_spawn_ini)
+            {
+                Globals::load_info(this->m_object, p_spawn_ini);
+            }
+            else
+            {
+                CScriptIniFile ini("scripts\\dummy.ltx");
+                Globals::load_info(this->m_object, &ini);
+            }
+        }
     }
 
     if (!this->m_object->Alive())
@@ -61,7 +87,13 @@ bool Script_Binder_Stalker::net_Spawn(SpawnType DC)
         return true;
     }
 
-
+    if (DataBase::Storage::getInstance().getGoodwill_Relations().find(this->m_object->ID()) != DataBase::Storage::getInstance().getGoodwill_Relations().end())
+    {
+        if (DataBase::Storage::getInstance().getActor())
+        {
+            Globals::GameRelations::set_npcs_relation(this->m_object, DataBase::Storage::getInstance().getActor(), DataBase::Storage::getInstance().getGoodwill_Relations().at(this->m_object->ID()));
+        }
+    }
 
     return true; 
 }
