@@ -2223,7 +2223,7 @@ inline void change_team_squad_group(CSE_ALifeDynamicObject* server_object, const
         return;
     }
     CScriptGameObject* client_object = nullptr;
-    if (DataBase::Storage::getInstance().getStorage().size())
+    if (DataBase::Storage::getInstance().getStorage().find(server_object->ID) != DataBase::Storage::getInstance().getStorage().end())
         client_object = DataBase::Storage::getInstance().getStorage().at(server_object->ID).getClientObject();
 
     if (!client_object)
