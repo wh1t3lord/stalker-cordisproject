@@ -28,7 +28,7 @@ void Script_Binder_Stalker::reload(LPCSTR section_name)
 
 bool Script_Binder_Stalker::net_Spawn(SpawnType DC) 
 {
-    MESSAGE("add to database %s", this->m_object->Name());
+    MESSAGEI("add to database %s", this->m_object->Name());
 
     xr_string visual_name = Globals::Utils::cfg_get_string(Globals::get_system_ini(), this->m_object->Section(), "set_visual");
     if (visual_name.empty() == false)
@@ -105,20 +105,162 @@ bool Script_Binder_Stalker::net_Spawn(SpawnType DC)
 
     // Lord: actor_stats и release_body_manager когда будет тогда и дописать 
 
+    Globals::init_npc_sound(this->m_object);
+
+    if (Globals::get_object_story_id(this->m_object->ID()) == "zat_b53_artefact_hunter_1")
+    {
+        CScriptActionPlanner* const p_planner = Globals::get_script_action_planner(this->m_object);
+        if (p_planner == nullptr)
+        {
+            R_ASSERT2(false, "can't cast and use!");
+            return true;
+        }
+
+        p_planner->remove_evaluator(StalkerDecisionSpace::eWorldPropertyAnomaly);
+        p_planner->add_evaluator(StalkerDecisionSpace::eWorldPropertyAnomaly, new CPropertyEvaluatorConst<CScriptGameObject>(false));
+    }
+
+    Script_SchemeXRReachTask::add_reach_task_action(this->m_object);
+
+    CSE_Abstract* const p_server_object = ai().alife().objects().object(this->m_object->ID());
+
+    if (p_server_object)
+    {
+        if (DataBase::Storage::getInstance().getSpawnedVertexByID().find(p_server_object->ID) != DataBase::Storage::getInstance().getSpawnedVertexByID().end())
+        {
+            this->m_object->SetNpcPosition(Globals::Game::level::vertex_position(DataBase::Storage::getInstance().getSpawnedVertexByID().at(p_server_object->ID)));
+            DataBase::Storage::getInstance().setSpawnedVertexByID(this->m_object->ID(), 0);
+        }
+        else if (DataBase::Storage::getInstance().getOfflineObjects().find(p_server_object->ID) != DataBase::Storage::getInstance().getOfflineObjects().end())
+        {
+            if (DataBase::Storage::getInstance().getOfflineObjects().at(p_server_object->ID).first)
+            {
+                Fvector new_position = Globals::Game::level::vertex_position(DataBase::Storage::getInstance().getOfflineObjects().at(p_server_object->ID).first);
+                MESSAGEI("changed position to %f %f %f", new_position.x, new_position.y, new_position.z);
+                this->m_object->SetNpcPosition(new_position);
+            }
+        }
+        else if (p_server_object->cast_monster_abstract()->m_smart_terrain_id != Globals::kUnsignedInt16Undefined)
+        {
+            Script_SE_SmartTerrain* const p_smart = ai().alife().objects().object(p_server_object->cast_monster_abstract()->m_smart_terrain_id)->cast_script_se_smartterrain();
+            if (p_smart == nullptr)
+            {
+                R_ASSERT2(false, "at this point of code must be a smart_terrain cast!");
+                return true;
+            }
+
+            if (p_smart->getArrivingNpc().find(p_server_object->ID) == p_smart->getArrivingNpc().end() || !p_smart->getArrivingNpc().at(p_server_object->ID))
+            {
+                CALifeSmartTerrainTask* const p_task = p_smart->getJobData().at(p_smart->getNpcInfo().at(p_server_object->ID).m_job_id)->m_alife_task;
+                this->m_object->SetNpcPosition(p_task->position());
+            }
+        }
+    }
+
+    Globals::setup_gulag_and_logic_on_spawn(this->m_object, DataBase::Storage::getInstance().getStorage().at(this->m_object->ID()), Globals::kSTypeStalker, this->m_is_loaded);
+
+    if (Globals::character_community(this->m_object) != "zombied")
+    {
+         
+    }
+
+    this->m_object->group_throw_time_interval(2000);
+
     return true; 
 }
 
 void Script_Binder_Stalker::net_Destroy(void)
 {
-    MESSAGE("delete from database %s", this->m_object->Name());
+    MESSAGEI("delete from database %s", this->m_object->Name());
+
+    DataBase::Storage::getInstance().setXRCombatIgnoreFightingWithActorNpcs(this->m_object->ID(), false);
+
+    XR_SOUND::stop_sounds_by_id(this->m_object->ID());
+
+    const DataBase::Storage_Data& storage = DataBase::Storage::getInstance().getStorage().at(this->m_object->ID());
+
+    if (storage.getActiveSchemeName().empty() == false)
+    {
+        if (storage.getSchemes().find(storage.getActiveSchemeName()) != storage.getSchemes().end())
+        {
+            DataBase::Storage_Scheme* const p_storage = storage.getSchemes().at(storage.getActiveSchemeName());
+            if (p_storage)
+            {
+                for (Script_ISchemeEntity* it : p_storage->getActions())
+                {
+                    if (it)
+                    {
+                        it->net_destroy(this->m_object);
+                    }
+                }
+            }
+        }
+    }
+
+    if (storage.getSchemes().find("reach_task") != storage.getSchemes().end())
+    {
+        DataBase::Storage_Scheme* const p_storage = storage.getSchemes().at("reach_task");
+
+        if (p_storage)
+        {
+            for (Script_ISchemeEntity* it : p_storage->getActions())
+            {
+                if (it)
+                    it->net_destroy(this->m_object);
+            }
+        }
+    }
+
+
+    const DataBase::Data_Overrides& overrides = storage.getOverrides();
+    
+    if (overrides.getOnOfflineCondlist().empty() == false)
+    {
+        XR_LOGIC::pick_section_from_condlist(DataBase::Storage::getInstance().getActor(), this->m_object, overrides.getOnOfflineCondlist());
+    }
+
+    if (DataBase::Storage::getInstance().getOfflineObjects().find(this->m_object->ID()) != DataBase::Storage::getInstance().getOfflineObjects().end())
+    {
+        DataBase::Storage::getInstance().setOfflineObjects(this->m_object->ID(), storage.getActiveSectionName());
+        DataBase::Storage::getInstance().setOfflineObjects(this->m_object->ID(), this->m_object->level_vertex_id());
+    }
+
     DataBase::Storage::getInstance().deleteObject(this->m_object);
+
+    // Lord: происходит зануление стораджа
+
+    DataBase::Storage::getInstance().deleteStorage(this->m_object->ID());
+
+    if (this->m_enemy_helicopter_id)
+    {
+        DataBase::Storage::getInstance().deleteEnemy(this->m_enemy_helicopter_id);
+    }
+
+    CScriptBinderObject::net_Destroy();
 }
 
 void Script_Binder_Stalker::net_Import(NET_Packet* packet) {}
 
 void Script_Binder_Stalker::net_Export(NET_Packet* packet) {}
 
-void Script_Binder_Stalker::shedule_Update(std::uint32_t time_delta) {}
+void Script_Binder_Stalker::shedule_Update(std::uint32_t time_delta) 
+{
+    CScriptBinderObject::shedule_Update(time_delta);
+
+    if (DataBase::Storage::getInstance().getXRCombatIgnoreFightingWithActorNpcs().find(this->m_object->ID()) != DataBase::Storage::getInstance().getXRCombatIgnoreFightingWithActorNpcs().end())
+    {
+        if (DataBase::Storage::getInstance().getXRCombatIgnoreFightingWithActorNpcs().at(this->m_object->ID()))
+        {
+			if (this->m_object->GetBestEnemy() == nullptr)
+			{
+                DataBase::Storage::getInstance().setXRCombatIgnoreFightingWithActorNpcs(this->m_object->ID(), false);
+			}
+        }
+    }
+
+
+
+}
 
 void Script_Binder_Stalker::save(NET_Packet* output_packet)
 {
@@ -131,7 +273,7 @@ void Script_Binder_Stalker::save(NET_Packet* output_packet)
 
 void Script_Binder_Stalker::load(IReader* input_packet) {}
 
-bool Script_Binder_Stalker::net_SaveRelevant(void) { return false; }
+bool Script_Binder_Stalker::net_SaveRelevant(void) { return true; }
 
 void Script_Binder_Stalker::net_Relcase(CScriptGameObject* object) {}
 
