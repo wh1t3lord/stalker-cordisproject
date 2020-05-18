@@ -3984,6 +3984,8 @@ Cordis::Scripts::Script_GlobalHelper::Script_GlobalHelper(void)
         MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "unstrapped",
         Globals::kStringUndefined, "pri_a15_military_4_all_dead");
     state_library["pri_a15_military_4_all_dead"] = state_lib_data;
+
+    this->m_state_library = std::move(state_library);
 #pragma endregion
 #pragma endregion
 
