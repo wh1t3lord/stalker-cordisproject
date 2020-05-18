@@ -50,7 +50,7 @@ namespace Cordis
 			virtual void execute(void);
 			virtual void finalize(void);
 
-			static void add_to_binder(CScriptGameObject* const p_client_object, CScriptIniFile* const p_ini, DataBase::Storage_Scheme& storage, CScriptActionPlanner* const p_planner);
+			static void add_to_binder(CScriptGameObject* const p_client_object, CScriptIniFile* const p_ini, const xr_string& section_name, const xr_string& scheme_name, DataBase::Storage_Scheme& storage);
 		};
 
 
