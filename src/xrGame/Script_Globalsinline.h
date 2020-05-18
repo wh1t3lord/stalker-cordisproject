@@ -2111,7 +2111,9 @@ inline bool IsMonster(CScriptGameObject* object, int class_id = 0)
 
     int result = class_id ? class_id : object->clsid();
 
-    return (Script_GlobalHelper::getInstance().getMonsterClasses().at(result) == true);
+	bool is_found = Script_GlobalHelper::getInstance().getMonsterClasses().find(result) != Script_GlobalHelper::getInstance().getMonsterClasses().end();
+
+	return is_found;
 }
 
 inline bool IsMonster(CSE_ALifeDynamicObject* server_object, int class_id = 0)
@@ -2123,7 +2125,9 @@ inline bool IsMonster(CSE_ALifeDynamicObject* server_object, int class_id = 0)
 
     int result = class_id ? class_id : server_object->m_script_clsid;
 
-    return (Script_GlobalHelper::getInstance().getMonsterClasses().at(result) == true);
+    bool is_found = Script_GlobalHelper::getInstance().getMonsterClasses().find(result) != Script_GlobalHelper::getInstance().getMonsterClasses().end();
+
+    return is_found;
 }
 
 inline bool IsStalker(CScriptGameObject* object, int class_id = 0)

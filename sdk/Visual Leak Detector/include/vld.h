@@ -291,7 +291,7 @@ __declspec(dllimport) VLD_BOOL VLDGetModulesList(wchar_t *modules, VLD_UINT size
 //    None.
 //
 __declspec(dllimport) void VLDSetReportOptions(VLD_UINT option_mask, const wchar_t *filename);
-
+	
 // VLDSetReportHook - Installs or uninstalls a client-defined reporting function by hooking it
 //  into the C run-time debug reporting process (debug version only).
 //
