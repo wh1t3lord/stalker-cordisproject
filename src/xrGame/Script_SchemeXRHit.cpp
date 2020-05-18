@@ -54,7 +54,7 @@ void Script_SchemeXRHit::hit_callback(CScriptGameObject* const p_client_object, 
 }
 
 void Script_SchemeXRHit::set_hit_checker(CScriptGameObject* const p_client_object, CScriptIniFile* const p_ini,
-    const xr_string& scheme_name, const xr_string& section_name)
+    const xr_string& scheme_name, const xr_string& section_name, const xr_string& gulag_name)
 {
     if (!p_client_object)
     {
@@ -63,7 +63,7 @@ void Script_SchemeXRHit::set_hit_checker(CScriptGameObject* const p_client_objec
     }
 
     DataBase::Storage_Scheme* p_storage =
-        XR_LOGIC::assign_storage_and_bind(p_client_object, p_ini, scheme_name, section_name, "");
+        XR_LOGIC::assign_storage_and_bind(p_client_object, p_ini, scheme_name, section_name, gulag_name);
 
     if (!p_storage)
     {
