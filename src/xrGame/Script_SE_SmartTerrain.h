@@ -162,7 +162,7 @@ public:
 
         NpcInfo data;
 
-        data.m_is_monster = Globals::IsStalker(server_object, 0);
+        data.m_is_monster = Globals::IsStalker(server_object, 0) ? false : true;
         data.m_server_object = server_object;
         data.m_need_job = "nil"; // LorD: проверить будет ли дропать nil, если будет то найти и исправить когда это будет, чтобы все "nil" просто проверялись всегда как .empty()
         data.m_job_prioprity = -1;
