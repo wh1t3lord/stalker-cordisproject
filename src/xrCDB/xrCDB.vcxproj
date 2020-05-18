@@ -216,7 +216,7 @@
     <ClCompile>
       <PreprocessorDefinitions>_USRDLL;XRCDB_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>$(xrSdkDir)lib_boost\;
-        .;
+     $(xrSdkDir)Visual Leak Detector\include;   .;
         $(SolutionDir);
         $(xrExternals);
         $(ProjectDir);

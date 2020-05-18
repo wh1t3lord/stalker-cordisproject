@@ -216,7 +216,7 @@
       <PreprocessorDefinitions>_USRDLL;XRLC_LIGHT_STAB_EXPORTS;_USE_MATH_DEFINES;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>
         .;
-    $(xrSdkDir)lib_boost\;    $(SolutionDir);
+  $(xrSdkDir)Visual Leak Detector\include;  $(xrSdkDir)lib_boost\;    $(SolutionDir);
         $(xrExternals);
         $(ProjectDir);
         $(xrSdkDir)include;

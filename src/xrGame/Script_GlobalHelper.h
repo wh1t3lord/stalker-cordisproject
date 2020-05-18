@@ -80,7 +80,7 @@ public:
     {
         if (this->m_tutorial)
         {
-            Msg("[Scripts/Script_GlobalHelper/dtor()] Deleting GlobalTutorial!");
+            MESSAGEI("Deleting GlobalTutorial! %s", typeid(this->m_tutorial).name());
             delete this->m_tutorial;
             this->m_tutorial = nullptr;
         }
@@ -646,9 +646,7 @@ public:
     {
         if (!sequence)
         {
-            Msg("[Scripts/Script_GlobalHelper/setGlobalTutorial(sequence)] WARNING: sequence = "
-                "nullptr!");
-            //  return;
+            MESSAGE("sequence = nullptr!");
         }
 
         this->m_tutorial = sequence;
