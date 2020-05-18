@@ -169,7 +169,7 @@ inline int get_community_relation(const xr_string& faction, const xr_string& fac
 inline std::uint32_t get_npcs_relation(CScriptGameObject* const p_npc1, CScriptGameObject* const p_npc2);
 inline void set_npc_sympathy(CScriptGameObject* npc, float new_sympathy);
 inline void set_npcs_relation(
-    CScriptGameObject* client_from_object1, CScriptGameObject* client_to_object2, xr_string& new_relation_name);
+    CScriptGameObject* client_from_object1, CScriptGameObject* client_to_object2, const xr_string& new_relation_name);
 inline void set_npcs_relation(
     const std::uint16_t& server_from_object_id, const std::uint16_t& server_to_object_id, xr_string& new_relation_name);
 inline void set_npcs_relation(CSE_ALifeMonsterAbstract* server_from_object, CSE_ALifeMonsterAbstract* server_to_object,
@@ -348,6 +348,9 @@ inline void turn_off_campfires_by_smart_name(const xr_string& name);
 
 inline void setup_gulag_and_logic_on_spawn(CScriptGameObject* const p_client_object, const DataBase::Storage_Data& storage, const std::uint16_t stype, const bool loaded);
 
+#pragma region Cordis
+inline void load_info(CScriptGameObject* const p_client_object, CScriptIniFile* const p_ini);
+#pragma endregion
 
 } // namespace Globals
 } // namespace Scripts

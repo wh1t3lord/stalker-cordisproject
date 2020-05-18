@@ -1364,7 +1364,7 @@ inline void set_npc_sympathy(CScriptGameObject* npc, float new_sympathy)
 }
 
 inline void set_npcs_relation(
-    CScriptGameObject* client_from_object1, CScriptGameObject* client_to_object2, xr_string& new_relation_name)
+    CScriptGameObject* client_from_object1, CScriptGameObject* client_to_object2, const xr_string& new_relation_name)
 {
     if (!client_from_object1)
     {
@@ -1378,20 +1378,22 @@ inline void set_npcs_relation(
         return;
     }
 
-    if (!new_relation_name.c_str())
+    if (new_relation_name.empty())
     {
-        Msg("[Scripts/Globals/GameRelations/set_npcs_relation(server_object, client_object, new_relation_name)] "
-            "WARNING: new_relation_name was an empty string! Set default value => [%s]",
+        MESSAGEW("new_relation_name was an empty string! Set default value => [%s]",
             kRelationsTypeNeutral);
-        new_relation_name = kRelationsTypeNeutral;
     }
 
     int goodwill = 0;
 
-    if (new_relation_name == kRelationsTypeEnemy)
-        goodwill = -1000;
-    else if (new_relation_name == kRelationsTypeFriends)
-        goodwill = 1000;
+    if (new_relation_name.empty() == false)
+    {
+		if (new_relation_name == kRelationsTypeEnemy)
+			goodwill = -1000;
+		else if (new_relation_name == kRelationsTypeFriends)
+			goodwill = 1000;
+    }
+
 
     RELATION_REGISTRY().ForceSetGoodwill(client_from_object1->ID(), client_to_object2->ID(), goodwill);
 }
@@ -3673,6 +3675,38 @@ inline void setup_gulag_and_logic_on_spawn(CScriptGameObject* const p_client_obj
     else
     {
         XR_LOGIC::intialize_job(p_client_object, storage, loaded, DataBase::Storage::getInstance().getActor(), stype);
+    }
+}
+
+inline void load_info(CScriptGameObject* const p_client_object, CScriptIniFile* const p_ini)
+{
+    if (p_client_object == nullptr)
+    {
+        MESSAGEWR("invalid object!");
+        return;
+    }
+
+    if (p_ini == nullptr)
+    {
+        MESSAGEWR("invalid ini!");
+        return;
+    }
+
+    xr_string known_info = "known_info";
+
+    if (p_ini->section_exist(known_info.c_str()))
+    {
+        MESSAGE("Known info section exists for npc %s", p_client_object->Name());
+        std::uint32_t count = p_ini->line_count(known_info.c_str());
+
+        const char* id_name;
+        const char* value_name;
+        for (std::uint32_t i = 0; i < count; ++i)
+        {
+            p_ini->r_line(known_info.c_str(), i, &id_name, &value_name);
+            MESSAGE("info -> npc %s", id_name);
+            p_client_object->GiveInfoPortion(id_name);
+        }
     }
 }
 
