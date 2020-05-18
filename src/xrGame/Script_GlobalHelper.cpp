@@ -9,7 +9,7 @@ Cordis::Scripts::Script_GlobalHelper::Script_GlobalHelper(void)
     this->m_stalker_classes[Globals::get_script_clsid(CLSID_SE_ACTOR)] = true;
     this->m_stalker_classes[Globals::get_script_clsid(CLSID_SE_STALKER)] = true;
 
-    Msg("[Scripts/Script_GlobalHelper/ctor()] registered stalker clsid classes!");
+    MESSAGEI("registered stalker clsid classes!");
 
     this->m_monster_classes[Globals::get_script_clsid(CLSID_SE_MONSTER_BLOODSUCKER)] = true;
     this->m_monster_classes[Globals::get_script_clsid(CLSID_SE_MONSTER_BOAR)] = true;
@@ -30,7 +30,7 @@ Cordis::Scripts::Script_GlobalHelper::Script_GlobalHelper(void)
     this->m_monster_classes[Globals::get_script_clsid(CLSID_SE_MONSTER_SNORK)] = true;
     this->m_monster_classes[Globals::get_script_clsid(CLSID_SE_MONSTER_TUSHKANO)] = true;
 
-    Msg("[Scripts/Script_GlobalHelper/ctor()] registered monster clsid classes!");
+    MESSAGEI("registered monster clsid classes!");
 
     this->m_weapon_classes[Globals::get_script_clsid(CLSID_SE_WEAPON_VINTOREZ)] = true;
     this->m_weapon_classes[Globals::get_script_clsid(CLSID_SE_WEAPON_AK74)] = true;
@@ -54,7 +54,7 @@ Cordis::Scripts::Script_GlobalHelper::Script_GlobalHelper(void)
     this->m_weapon_classes[Globals::get_script_clsid(CLSID_SE_GRENADE_RGD)] = true;
     this->m_weapon_classes[Globals::get_script_clsid(CLSID_OBJECT_G_FAKE)] = true;
 
-    Msg("[Scripts/Script_GlobalHelper/ctor()] registered weapon clsid classes!");
+    MESSAGEI("registered weapon clsid classes!");
 
     this->m_artefact_classes[Globals::get_script_clsid(CLSID_SE_ARTEFACT)] = true;
     this->m_artefact_classes[Globals::get_script_clsid(CLSID_AF_BAST)] = true;
@@ -72,7 +72,7 @@ Cordis::Scripts::Script_GlobalHelper::Script_GlobalHelper(void)
     this->m_artefact_classes[Globals::get_script_clsid(CLSID_AF_ZUDA)] = true;
     this->m_artefact_classes[Globals::get_script_clsid(CLSID_ARTEFACT)] = true;
 
-    Msg("[Scripts/Script_GlobalHelper/ctor()] registered artefact clsid classes!");
+    MESSAGEI("registered artefact clsid classes!");
 
 #pragma endregion
 
@@ -4370,8 +4370,6 @@ Cordis::Scripts::Script_GlobalHelper::Script_GlobalHelper(void)
     this->m_registered_functions_xr_effects["pri_a28_check_zones"] = XR_EFFECTS::pri_a28_check_zones;
     this->m_registered_functions_xr_effects["eat_vodka_script"] = XR_EFFECTS::eat_vodka_script;
     this->m_registered_functions_xr_effects["jup_b200_count_found"] = XR_EFFECTS::jup_b200_count_found;
-
-
 #pragma endregion
 
 
@@ -4467,7 +4465,7 @@ Cordis::Scripts::Script_GlobalHelper::Script_GlobalHelper(void)
                         }
                         else
                         {
-                            Msg("[Scripts/Script_GlobalHelper/ctor()] WARNING: can't parse infoportions!!!!!!");
+                            MESSAGEW("can't parse infoportions!!!!!!");
                         }
                     }
                 }
@@ -4517,38 +4515,7 @@ Cordis::Scripts::Script_GlobalHelper::Script_GlobalHelper(void)
                     Script_SchemeMobRemark mob_remark = Script_SchemeMobRemark(nullptr, DataBase::Storage_Scheme());
                     Script_SchemeMobWalker mob_walker = Script_SchemeMobWalker(nullptr, DataBase::Storage_Scheme());
                     Script_SchemeHelicopterMove heli_move = Script_SchemeHelicopterMove(nullptr,
-           DataBase::Storage_Scheme());*/
-
-           /*
-                       this->m_registered_schemes_set_scheme_callbacks[mob_camp.getSchemeName()] =
-                           Script_SchemeMobCamp::set_scheme;
-                       this->m_registered_schemes_set_scheme_callbacks[mob_combat.getSchemeName()] =
-                           Script_SchemeMobCombat::set_scheme;
-                       this->m_registered_schemes_set_scheme_callbacks[mob_home.getSchemeName()] =
-                           Script_SchemeMobDeath::set_scheme;
-                       this->m_registered_schemes_set_scheme_callbacks[mob_jump.getSchemeName()] =
-                           Script_SchemeMobJump::set_scheme;
-                       this->m_registered_schemes_set_scheme_callbacks[mob_remark.getSchemeName()] =
-                           Script_SchemeMobRemark::set_scheme;
-                       this->m_registered_schemes_set_scheme_callbacks[mob_walker.getSchemeName()] =
-                           Script_SchemeMobWalker::set_scheme;
-                       this->m_registered_schemes_set_scheme_callbacks[heli_move.getSchemeName()] =
-                           Script_SchemeHelicopterMove::set_scheme;
-
-                       this->m_registered_schemes_add_to_binder_callbacks[mob_camp.getSchemeName()] =
-                           Script_SchemeMobCamp::add_to_binder;
-                       this->m_registered_schemes_add_to_binder_callbacks[mob_combat.getSchemeName()] =
-                           Script_SchemeMobCombat::add_to_binder;
-                       this->m_registered_schemes_add_to_binder_callbacks[mob_home.getSchemeName()] =
-                           Script_SchemeMobHome::add_to_binder;
-                       this->m_registered_schemes_add_to_binder_callbacks[mob_jump.getSchemeName()] =
-                           Script_SchemeMobJump::add_to_binder;
-                       this->m_registered_schemes_add_to_binder_callbacks[mob_remark.getSchemeName()] =
-                           Script_SchemeMobRemark::add_to_binder;
-                       this->m_registered_schemes_add_to_binder_callbacks[mob_walker.getSchemeName()] =
-                           Script_SchemeMobWalker::add_to_binder;
-                       this->m_registered_schemes_add_to_binder_callbacks[heli_move.getSchemeName()] =
-                           Script_SchemeHelicopterMove::add_to_binder;*/
+           DataBase::Storage_Scheme());*/   
 
         this->m_registered_schemes_add_to_binder_callbacks["danger"] = Script_EvaluatorDanger::add_to_binder;
         this->m_registered_schemes_add_to_binder_callbacks["gather_items"] = Script_EvaluatorGatherItems::add_to_binder;
@@ -4559,8 +4526,50 @@ Cordis::Scripts::Script_GlobalHelper::Script_GlobalHelper(void)
         this->m_registered_schemes_add_to_binder_callbacks["camper"] = Script_SchemeXRCamper::add_to_binder;
         this->m_registered_schemes_add_to_binder_callbacks["meet"] = Script_SchemeXRMeet::init_meet;
         this->m_registered_schemes_add_to_binder_callbacks["help_wounded"] = Script_ActionXRHelpWounded::add_to_binder;
-        //this->m_registered_schemes_add_to_binder_callbacks["corpse_detection"] = Script_SchemeXRCorpseDetection::
+        //this->m_registered_schemes_add_to_binder_callbacks["corpse_detection"] = Script_SchemeXRCorpseDetection:: Lord: доделать!
+        this->m_registered_schemes_add_to_binder_callbacks["combat"] = Script_SchemeXRCombatCamper::add_to_binder;
+        this->m_registered_schemes_add_to_binder_callbacks["death"] = Script_SchemeXRDeath::add_to_binder;
+        this->m_registered_schemes_add_to_binder_callbacks["hit"] = Script_SchemeXRHit::add_to_binder;
+        this->m_registered_schemes_add_to_binder_callbacks["wounded"] = Script_SchemeXRWounded::add_to_binder;
+        this->m_registered_schemes_add_to_binder_callbacks["combat_ignore"] = Script_SchemeXRCombatIgnore::add_to_binder;
+        this->m_registered_schemes_add_to_binder_callbacks["combat_zombied"] = Script_SchemeXRCombatZombied::add_to_binder;
+        this->m_registered_schemes_add_to_binder_callbacks["patrol"] = Script_SchemeXRPatrol::add_to_binder;
+        this->m_registered_schemes_add_to_binder_callbacks["smartcover"] = Script_SchemeXRSmartCover::add_to_binder;
+        this->m_registered_schemes_add_to_binder_callbacks["animpoint"] = Script_SchemeXRAnimpoint::add_to_binder;
+        this->m_registered_schemes_add_to_binder_callbacks["reach_task"] = Script_SchemeXRReachTask::add_to_binder;
 
+        this->m_registered_schemes_add_to_binder_callbacks["mob_remark"] = Script_SchemeMobRemark::add_to_binder;
+        this->m_registered_schemes_add_to_binder_callbacks["mob_walker"] = Script_SchemeMobWalker::add_to_binder;
+        this->m_registered_schemes_add_to_binder_callbacks["mob_combat"] = Script_SchemeMobCombat::add_to_binder;
+        this->m_registered_schemes_add_to_binder_callbacks["mob_death"] = Script_SchemeMobDeath::add_to_binder;
+        this->m_registered_schemes_add_to_binder_callbacks["mob_jump"] = Script_SchemeMobJump::add_to_binder;
+        this->m_registered_schemes_add_to_binder_callbacks["mob_home"] = Script_SchemeMobHome::add_to_binder;
+
+        this->m_registered_schemes_add_to_binder_callbacks["ph_door"] = Script_SchemePHDoor::add_to_binder;
+        this->m_registered_schemes_add_to_binder_callbacks["ph_idle"] = Script_SchemePHIdle::add_to_binder;
+        this->m_registered_schemes_add_to_binder_callbacks["ph_hit"] = Script_SchemePHHit::add_to_binder;
+        this->m_registered_schemes_add_to_binder_callbacks["ph_on_hit"] = Script_SchemePHOnHit::add_to_binder;
+        this->m_registered_schemes_add_to_binder_callbacks["ph_button"] = Script_SchemePHButton::add_to_binder;
+        this->m_registered_schemes_add_to_binder_callbacks["ph_code"] = Script_SchemePHCode::add_to_binder;
+        this->m_registered_schemes_add_to_binder_callbacks["ph_on_death"] = Script_SchemePHDeath::add_to_binder;
+/*        this->m_registered_schemes_add_to_binder_callbacks["ph_minigun"] = Script_SchemePHMinigun::add_to_binder; Not used!*/
+        this->m_registered_schemes_add_to_binder_callbacks["ph_oscillate"] = Script_SchemePHOscillate::add_to_binder;
+
+        this->m_registered_schemes_add_to_binder_callbacks["sr_no_weapon"] = Script_SchemeSRNoWeapon::add_to_binder;
+        this->m_registered_schemes_add_to_binder_callbacks["sr_teleport"] = Script_SchemeSRTeleport::add_to_binder;
+        this->m_registered_schemes_add_to_binder_callbacks["sr_idle"] = Script_SchemeSRIdle::add_to_binder;
+        this->m_registered_schemes_add_to_binder_callbacks["sr_light"] = Script_SchemeSRLight::add_to_binder;
+        this->m_registered_schemes_add_to_binder_callbacks["sr_timer"] = Script_SchemeSRTimer::add_to_binder;
+        this->m_registered_schemes_add_to_binder_callbacks["sr_psy_antenna"] = Script_SchemeSRPsyAntenna::add_to_binder;
+        this->m_registered_schemes_add_to_binder_callbacks["sr_postprocess"] = Script_SchemeSRPostProcess::add_to_binder;
+        this->m_registered_schemes_add_to_binder_callbacks["sr_particle"] = Script_SchemeSRParticle::add_to_binder;
+/*        this->m_registered_schemes_add_to_binder_callbacks["sr_cutscene"] = Script_SchemeSRC::add_to_binder;*/
+/*        this->m_registered_schemes_add_to_binder_callbacks["sr_crow_spawner"] = Script_SchemeSRCrr::add_to_binder;*/
+/*        this->m_registered_schemes_add_to_binder_callbacks["sr_silence"] = Script_SchemeSRSilenceZone::add_to_binder; Not used!*/
+        this->m_registered_schemes_add_to_binder_callbacks["sr_deimos"] = Script_SchemeSRDeimos::add_to_binder;
+
+
+        
     }
 #pragma endregion
 

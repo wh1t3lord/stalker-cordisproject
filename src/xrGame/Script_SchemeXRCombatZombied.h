@@ -34,7 +34,7 @@ namespace Cordis
 
 			virtual void hit_callback(CScriptGameObject* const p_client_object, const float amount, const Fvector& local_direction, CScriptGameObject* const p_client_who, const std::int16_t bone_index);
 
-			static void add_to_binder(CScriptGameObject* const p_client_object, CScriptIniFile* const p_ini, DataBase::Storage_Scheme* p_storage, CScriptActionPlanner* const p_planner);
+			static void add_to_binder(CScriptGameObject* const p_client_object, CScriptIniFile* const p_ini, const xr_string& section_name, const xr_string& scheme_name, DataBase::Storage_Scheme& p_storage);
 		private:
 			void set_state(const xr_string& state_name, CScriptGameObject* const p_look_object, const Fvector& position);
 			Fvector calc_random_direction(void);
