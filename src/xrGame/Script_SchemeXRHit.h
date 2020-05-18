@@ -43,7 +43,7 @@ public:
     }
 
     static void set_hit_checker(CScriptGameObject* const p_client_object, CScriptIniFile* const p_ini,
-        const xr_string& scheme_name, const xr_string& section_name);
+        const xr_string& scheme_name, const xr_string& section_name, const xr_string& gulag_name);
 
     static inline void disable_scheme(CScriptGameObject* const p_client_object, const xr_string& scheme_name)
     {
