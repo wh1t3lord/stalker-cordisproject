@@ -45,7 +45,7 @@ public:
         const xr_string& scheme_name, const xr_string& section_name, DataBase::Storage_Scheme& storage);
 
     static void set_abuse(CScriptGameObject* const p_client_object, CScriptIniFile* const p_ini,
-        const xr_string& scheme_name, const xr_string& section_name);
+        const xr_string& scheme_name, const xr_string& section_name, const xr_string& gulag_name);
  
 
     static void add_abuse(CScriptGameObject* const p_client_object, const float value);

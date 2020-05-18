@@ -38,47 +38,50 @@ private:
 namespace XR_COMBAT
 {
 // @ PRIVATE uses, in XR_LOGIC
-inline void add_to_binder(CScriptGameObject* const p_client_object, CScriptIniFile* const p_ini,
-    const xr_string& scheme_name, const xr_string& section_name, DataBase::Storage_Scheme& storage)
+    static void add_to_binder(CScriptGameObject* const p_client_object, CScriptIniFile* const p_ini,
+        const xr_string& scheme_name, const xr_string& section_name, DataBase::Storage_Scheme& storage);
+
+    static void set_combat_checker(CScriptGameObject* const p_client_object, CScriptIniFile* const p_ini,
+        const xr_string& scheme_name, const xr_string& section_name, const xr_string& gulag_name);
+
+static void disable_scheme(CScriptGameObject* const p_client_object, const xr_string& scheme_name) 
 {
-    if (!p_client_object)
+    if (p_client_object == nullptr)
     {
-        R_ASSERT2(false, "object is null!");
+        MESSAGEWR("invalid object!");
         return;
     }
 
-    if (!p_ini)
+    if (scheme_name.empty())
     {
-        R_ASSERT2(false, "object is null!");
+        MESSAGEWR("invalid scheme name!");
+        return; 
+    }
+
+    if (DataBase::Storage::getInstance().getStorage().find(p_client_object->ID()) == DataBase::Storage::getInstance().getStorage().end())
+    {
+        MESSAGEWR("invalid storage for %d", p_client_object->ID());
         return;
     }
 
-    Msg("[Scripts/add_to_binder(p_client_object, p_ini, scheme_name, section_name, storage)] added "
-        "Script_SchemeMobWalker scheme to binder, name=%s scheme=%s section=%s",
-        p_client_object->Name(), scheme_name.c_str(), section_name.c_str());
+    const DataBase::Storage_Data& storage = DataBase::Storage::getInstance().getStorage().at(p_client_object->ID());
 
-    CScriptActionPlanner* p_planner = Globals::get_script_action_planner(p_client_object);
-
-    if (!p_planner)
+    if (storage.getSchemes().find(scheme_name) == storage.getSchemes().end())
     {
-        R_ASSERT2(false, "object is null!");
+        MESSAGEWR("Can't find scheme by name %s", scheme_name.c_str());
         return;
     }
 
-    p_planner->add_evaluator(Globals::XR_ACTIONS_ID::XR_EVALUATORS_ID::kScriptCombat,
-        new Script_EvaluatorCheckCombat("script_combat", storage));
-    p_planner->action(StalkerDecisionSpace::eWorldOperatorCombatPlanner)
-        .add_condition(CWorldProperty(Globals::XR_ACTIONS_ID::XR_EVALUATORS_ID::kScriptCombat, false));
+    DataBase::Storage_Scheme* const p_storage_scheme = storage.getSchemes().at(scheme_name);
 
-    // Lord: доделать для игнора и зомбиед
+    if (p_storage_scheme == nullptr)
+    {
+        MESSAGEWR("invalid storage!");
+        return;
+    }
+
+    p_storage_scheme->setEnabled(false);
 }
-
-inline void set_combat_checker(CScriptGameObject* const p_client_object, CScriptIniFile* const p_ini,
-    const xr_string& scheme_name, const xr_string& section_name)
-{
-}
-
-inline void disable_scheme(CScriptGameObject* const p_client_object, const xr_string& scheme_name) {}
 
 inline void set_combat_type(
     CScriptGameObject* const p_npc, CScriptGameObject* const p_actor, const xr_map<std::uint32_t, CondlistData>& condlist)
@@ -88,7 +91,7 @@ inline void set_combat_type(
 
     if (!p_npc)
     {
-        Msg("[Scripts/XR_COMBAT/set_combat_type(p_npc, p_actor, overrides)] WARNING: p_npc == nullptr! Return ...");
+        Msg("p_npc == nullptr!");
         return;
     }
 

@@ -76,9 +76,9 @@ void Script_SchemeXRAbuse::add_to_binder(CScriptGameObject* const p_client_objec
 
 
 void Script_SchemeXRAbuse::set_abuse(CScriptGameObject* const p_client_object, CScriptIniFile* const p_ini,
-    const xr_string& scheme_name, const xr_string& section_name)
+    const xr_string& scheme_name, const xr_string& section_name, const xr_string& gulag_name)
 {
-    DataBase::Storage_Scheme* p_storage = XR_LOGIC::assign_storage_and_bind(p_client_object, p_ini, scheme_name, section_name, "");
+    DataBase::Storage_Scheme* p_storage = XR_LOGIC::assign_storage_and_bind(p_client_object, p_ini, scheme_name, section_name, gulag_name);
 }
 
 void Script_SchemeXRAbuse::add_abuse(CScriptGameObject* const p_client_object, const float value)
