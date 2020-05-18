@@ -14247,6 +14247,9 @@
     <ClCompile Include="Script_SchemeXRSmartCover.cpp">
       <Filter>Cordis\Scripts\Logic\Schemes\XR\SmartCover\Private</Filter>
     </ClCompile>
+    <ClCompile Include="Script_GlobalHelper.cpp">
+      <Filter>Cordis\Scripts\Global\Public</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="ai\monsters\chimera\chimera_attack_state.h">

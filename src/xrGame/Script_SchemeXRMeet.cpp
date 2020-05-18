@@ -386,10 +386,10 @@ namespace Cordis
 			}
 
 			DataBase::Storage_Scheme* p_storage_scheme = storage.getSchemes().at("meet");
-			init_meet(p_client_object, storage.getIni(), meet_section_name, *p_storage_scheme, scheme_name);
+			init_meet(p_client_object, storage.getIni(), meet_section_name, scheme_name, *p_storage_scheme);
 		}
 
-		void Script_SchemeXRMeet::init_meet(CScriptGameObject* const p_client_object, CScriptIniFile* const p_ini, const xr_string& section_name, DataBase::Storage_Scheme& storage, const xr_string& scheme_name)
+		void Script_SchemeXRMeet::init_meet(CScriptGameObject* const p_client_object, CScriptIniFile* const p_ini, const xr_string& section_name, const xr_string& scheme_name, DataBase::Storage_Scheme& storage)
 		{
 			if (section_name == storage.getXRMeetMeetSectionName() || (section_name.empty()))
 				return;

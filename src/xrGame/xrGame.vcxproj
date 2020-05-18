@@ -13092,6 +13092,13 @@ $(xrLibDir);$(xrSdkDir)DXSDK/Lib/$(PlatformShortName);
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Jumbo - Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Mixed|x64'">true</ExcludedFromBuild>
     </ClCompile>
+    <ClCompile Include="Script_GlobalHelper.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Mixed|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Jumbo - Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Jumbo|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </ClCompile>
     <ClCompile Include="script_hit.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Jumbo|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Jumbo - Debug|x64'">true</ExcludedFromBuild>

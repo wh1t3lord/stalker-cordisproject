@@ -500,6 +500,7 @@ __declspec(dllexport)  CSE_Abstract* xrServer_Create(LPCSTR section, CSE_Motion*
 #include "Script_SchemeXRReachTask.h"
 #include "Script_SchemeXRAnimpoint.h"
 #include "Script_SchemeXRSmartCover.h"
+#include "Script_SchemeXRDanger.h"
 #include "Script_Dialogs.h"
 #include "Script_DialogsZaton.h"
 #include "Script_DialogsJupiter.h"

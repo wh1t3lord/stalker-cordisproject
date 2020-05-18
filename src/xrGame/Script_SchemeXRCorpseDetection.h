@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 namespace Cordis
 {
 namespace Scripts
@@ -35,6 +35,8 @@ public:
     virtual void initialize(void);
     virtual void execute(void);
     virtual void finalize(void);
+
+    // Lord: доделать add_to_binder и прочий стаф
 };
 
 } // namespace Scripts
