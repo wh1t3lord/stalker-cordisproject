@@ -403,7 +403,7 @@ namespace Cordis
 				return;
 			}
 
-			Script_ISchemeStalker* const p_action = dynamic_cast<Script_ISchemeStalker*>(&p_casted->action(StalkerDecisionSpace::eWorldOperatorSmartTerrainTask)); // Lord: проверить на dynamic_cast должен работать изначально мы туда добавляем action типа Scrirpt_ISchemeStalker
+			Script_ISchemeStalker* const p_action = dynamic_cast<Script_ISchemeStalker*>(&p_casted->action(StalkerDecisionSpace::eWorldOperatorSmartTerrainTask));
 			if (p_action == nullptr)
 			{
 				MESSAGEER("can't be bad casting!");

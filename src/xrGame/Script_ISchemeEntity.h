@@ -12,11 +12,10 @@ class Script_ISchemeEntity
 public:
     Script_ISchemeEntity(void) = delete;
     Script_ISchemeEntity(CScriptGameObject* client_object, DataBase::Storage_Scheme& storage_scheme)
-        : m_npc(client_object), m_p_storage(&storage_scheme),
-          m_id(client_object ? m_npc->ID() : Globals::kUnsignedInt32Undefined), m_is_subscribed_action(true), m_scheme_id(0)
+        : m_npc(client_object), m_p_storage(&storage_scheme), m_is_subscribed_action(true), m_scheme_id(0)
     {
         this->m_scheme_id = (++m_generate_scheme_id);
-
+        this->m_id = client_object ? m_npc->ID() : Globals::kUnsignedInt32Undefined;
         if (this->m_id == Globals::kUnsignedInt16Undefined)
         {
             MESSAGEW("bad id of npc! %s", this->m_scheme_name.c_str());
