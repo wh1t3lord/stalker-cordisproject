@@ -60,7 +60,7 @@ public:
         }
 
         p_planner->add_evaluator(
-            Globals::XR_ACTIONS_ID::kWoundedExist, new Script_EvaluatorWoundedExist("wounded_exist", storage));
+            Globals::XR_ACTIONS_ID::XR_EVALUATORS_ID::kWoundedExist, new Script_EvaluatorWoundedExist("wounded_exist", storage));
 
         Script_ActionXRHelpWounded* p_action = new Script_ActionXRHelpWounded("action_help_wounded", storage);
         p_action->add_condition(CWorldProperty(StalkerDecisionSpace::eWorldPropertyAlive, true));
