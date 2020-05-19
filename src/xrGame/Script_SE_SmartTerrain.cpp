@@ -54,6 +54,178 @@ namespace Scripts
 
 namespace XR_LOGIC
 {
+	void disable_generic_schemes(CScriptGameObject* const p_client_object, const std::uint32_t stype)
+	{
+		if (!p_client_object)
+		{
+			R_ASSERT2(false, "object is null!");
+			return;
+		}
+
+		// Lord: доделать 
+		switch (stype)
+		{
+		case Globals::kSTypeStalker:
+		{
+			XR_COMBAT::disable_scheme(p_client_object, "combat");
+			Script_SchemeXRHit::disable_scheme(p_client_object, "hit");
+			Script_SchemeXRCombatIgnore::disable_scheme(p_client_object, "combat_ignore");
+			// Lord: дописать когда будет stalker_generic
+			break;
+		}
+		case Globals::kSTypeMobile:
+		{
+			Script_SchemeMobCombat::disable_scheme(p_client_object, "mob_combat");
+			Script_SchemeXRCombatIgnore::disable_scheme(p_client_object, "combat_ignore");
+			// Lord: дописать когда будет stalker_generic
+			break;
+		}
+		case Globals::kSTypeItem:
+		{
+			Script_SchemePHOnHit::disable_scheme(p_client_object, "ph_on_hit");
+			break;
+		}
+		case Globals::kSTypeHelicopter:
+		{
+			Script_SchemeXRHit::disable_scheme(p_client_object, "hit");
+			break;
+		}
+		}
+	}
+
+	void enable_generic_schemes(CScriptIniFile* const p_ini, CScriptGameObject* const p_client_object,
+		const std::uint32_t stype, const xr_string& section_logic_name)
+	{
+		// Lord: доделать когда будут сделаны все схемы
+		if (!p_client_object)
+		{
+			R_ASSERT2(false, "object is null!");
+			return;
+		}
+
+		if (!p_ini)
+		{
+			R_ASSERT2(false, "object is null!");
+			return;
+		}
+
+		switch (stype)
+		{
+		case Globals::kSTypeStalker:
+		{
+			Script_EvaluatorDanger::set_danger(p_client_object, p_ini, "danger", "danger", "");
+			Script_EvaluatorGatherItems::set_gather_items(p_client_object, p_ini, "gather_items", "gather_items", "");
+
+			xr_string combat_section = Globals::Utils::cfg_get_string(p_ini, section_logic_name, "on_combat");
+			XR_COMBAT::set_combat_checker(p_client_object, p_ini, "combat", combat_section, "");
+
+			// Lord: когда будет stalker_generic
+
+			xr_string info_section_name = Globals::Utils::cfg_get_string(p_ini, section_logic_name, "info");
+			if (info_section_name.empty() == false)
+			{
+				// Lord: когда будет stalker_generic
+			}
+
+			xr_string hit_section_name = Globals::Utils::cfg_get_string(p_ini, section_logic_name, "on_hit");
+			if (hit_section_name.empty() == false)
+			{
+				Script_SchemeXRHit::set_hit_checker(p_client_object, p_ini, "hit", hit_section_name, "");
+			}
+
+			xr_string actor_dialogs_section = Globals::Utils::cfg_get_string(p_ini, section_logic_name, "actor_dialogs");
+			if (actor_dialogs_section.empty() == false)
+			{
+				// Lord: если правда используется то реализовать!
+				R_ASSERT(false);
+			}
+
+			xr_string wounded_section_name = Globals::Utils::cfg_get_string(p_ini, section_logic_name, "wounded");
+			Script_SchemeXRWounded::set_wounded(p_client_object, p_ini, "wounded", wounded_section_name, "");
+			Script_SchemeXRAbuse::set_abuse(p_client_object, p_ini, "abuse", section_logic_name, "");
+
+			Script_ActionXRHelpWounded::set_help_wounded(p_client_object, p_ini, "help_wounded", "", "");
+
+			// Lord: когда будет corpse_detection
+
+			xr_string meet_section_name = Globals::Utils::cfg_get_string(p_ini, section_logic_name, "meet");
+			Script_SchemeXRMeet::set_meet(p_client_object, p_ini, "meet", meet_section_name, "");
+
+			xr_string death_section_name = Globals::Utils::cfg_get_string(p_ini, section_logic_name, "on_death");
+			Script_SchemeXRDeath::set_scheme(p_client_object, p_ini, "death", death_section_name, "");
+
+			Script_SchemeXRCombatIgnore::set_combat_ignore_checker(p_client_object, p_ini, "combat_ignore", "", "");
+			Script_SchemeXRReachTask::set_reach_task(p_client_object, p_ini, "reach_task", "", "");
+			break;
+		}
+		}
+	}
+
+	void reset_generic_schemes_on_scheme_switch(
+		CScriptGameObject* const p_client_object, const xr_string& scheme_name, const xr_string& section_name)
+    {
+		if (!p_client_object)
+		{
+			R_ASSERT2(false, "object is null!");
+			return;
+		}
+
+		const DataBase::Storage_Data& storage = DataBase::Storage::getInstance().getStorage().at(p_client_object->ID());
+
+		switch (storage.getSchemeType())
+		{
+		case Globals::kSTypeStalker: {
+			// Lord: доделать  
+
+			Script_SchemeXRMeet::reset_meet(p_client_object, scheme_name, storage, section_name);
+			Script_ActionXRHelpWounded::reset_help_wounded(p_client_object, scheme_name, section_name);
+			Script_SchemeXRWounded::reset_wounded(p_client_object, scheme_name, storage, section_name);
+			Script_SchemeXRDeath::reset_death(p_client_object, scheme_name, section_name);
+			Script_EvaluatorGatherItems::reset_gather_items(p_client_object, scheme_name, section_name);
+			Script_SchemeXRCombatIgnore::reset_combat_ignore_checker(p_client_object, scheme_name, storage, section_name);
+
+			// Lord: stalker_generic, restrictor_manager
+
+
+			break;
+		}
+		case Globals::kSTypeMobile: {
+			mob_release(p_client_object, scheme_name);
+			if (Globals::get_script_clsid(CLSID_SE_MONSTER_BLOODSUCKER) == p_client_object->clsid())
+			{
+				if (scheme_name == "nil" || scheme_name.empty()) // LorD: проверить будет ли дропать nil, если будет то найти и исправить когда это будет, чтобы все "nil" просто проверялись всегда как .empty()
+				{
+					p_client_object->set_manual_invisibility(false);
+				}
+				else
+				{
+					p_client_object->set_manual_invisibility(true);
+				}
+			}
+
+			// Lord: доделать когда будут сделаны следующие xr_hear, restrictor_manager, stalker_generic, xr_combat_ignore
+
+			break;
+		}
+		case Globals::kSTypeItem: {
+			p_client_object->SetNonscriptUsable(true);
+			if (Globals::get_script_clsid(CLSID_CAR) == p_client_object->clsid())
+			{
+				//  p_client_object->car, Lord: наверное ph_minigun, но как сделать если там простой класс
+				mob_release(p_client_object, scheme_name);
+			}
+
+			break;
+		}
+		case Globals::kSTypeHelicopter: {
+			break;
+		}
+		case Globals::kSTypeRestrictor: {
+			break;
+		}
+		}
+    }
+
 void activate_by_section(CScriptGameObject* const p_client_object, CScriptIniFile* const p_ini,
     const xr_string& section_name, const xr_string& gulag_name, const bool is_loading)
 {
@@ -81,7 +253,7 @@ void activate_by_section(CScriptGameObject* const p_client_object, CScriptIniFil
     if (section_name.empty()) // LorD: проверить будет ли дропать nil, если будет то найти и исправить когда это будет, чтобы все "nil" просто проверялись всегда как .empty()
     {
         DataBase::Storage::getInstance().setStorageOverrides(npc_id, DataBase::Data_Overrides());
-        reset_generic_schemes_on_scheme_switch(p_client_object, "nil", "nil"); // имеет ли смысл? // LorD: проверить будет ли дропать nil, если будет то найти и исправить когда это будет, чтобы все "nil" просто проверялись всегда как .empty()
+        reset_generic_schemes_on_scheme_switch(p_client_object, "", ""); // имеет ли смысл? // LorD: проверить будет ли дропать nil, если будет то найти и исправить когда это будет, чтобы все "nil" просто проверялись всегда как .empty()
         DataBase::Storage::getInstance().setStorageActiveSectionName(npc_id, "");
         DataBase::Storage::getInstance().setStorageActiveSchemeName(npc_id, "");
         return;

@@ -72,33 +72,9 @@ inline xr_string determine_section_to_activate(CScriptGameObject* const p_npc, C
     return active_section_name;
 }
 
-inline void disable_generic_schemes(CScriptGameObject* const p_client_object, const std::uint32_t stype)
-{
-    if (!p_client_object)
-    {
-        R_ASSERT2(false, "object is null!");
-        return;
-    }
 
-    // Lord: доделать когда будут сделаны все схемы
-}
 
-inline void enable_generic_schemes(CScriptIniFile* const p_ini, CScriptGameObject* const p_client_object,
-    const std::uint32_t stype, const xr_string& section_logic_name)
-{
-    // Lord: доделать когда будут сделаны все схемы
-    if (!p_client_object)
-    {
-        R_ASSERT2(false, "object is null!");
-        return;
-    }
 
-    if (!p_ini)
-    {
-        R_ASSERT2(false, "object is null!");
-        return;
-    }
-}
 
 inline CScriptIniFile get_customdata_or_ini_file(CScriptGameObject* npc, const xr_string& filename)
 {
@@ -112,7 +88,7 @@ inline CScriptIniFile get_customdata_or_ini_file(CScriptGameObject* npc, const x
     if (filename == XR_LOGIC_CUSTOMDATA)
     {
         CScriptIniFile* file = npc->spawn_ini();
-        if (!file)
+        if (file)
         {
             return *file;
         }
@@ -2715,61 +2691,7 @@ inline bool is_active(CScriptGameObject* const p_client_object, DataBase::Storag
         DataBase::Storage::getInstance().getStorage().at(p_client_object->ID()).getActiveSectionName());
 }
 
-inline void reset_generic_schemes_on_scheme_switch(
-    CScriptGameObject* const p_client_object, const xr_string& scheme_name, const xr_string& section_name)
-{
-    if (!p_client_object)
-    {
-        R_ASSERT2(false, "object is null!");
-        return;
-    }
-
-    const DataBase::Storage_Data& storage = DataBase::Storage::getInstance().getStorage().at(p_client_object->ID());
-
-    switch (storage.getSchemeType())
-    {
-    case Globals::kSTypeStalker: {
-        // Lord: доделать когда будешь уже сделаны схемы сталкеров xr_meet
-        //         xr_help_wounded xr_corpse_detection xr_abuse xr_wounded xr_death xr_danger xr_gather_items
-        //             xr_combat_ignore stalker_generic restrictor_manager xr_hear
-        break;
-    }
-    case Globals::kSTypeMobile: {
-        mob_release(p_client_object, scheme_name);
-        if (Globals::get_script_clsid(CLSID_SE_MONSTER_BLOODSUCKER) == p_client_object->clsid())
-        {
-            if (scheme_name == "nil" || scheme_name.empty()) // LorD: проверить будет ли дропать nil, если будет то найти и исправить когда это будет, чтобы все "nil" просто проверялись всегда как .empty()
-            {
-                p_client_object->set_manual_invisibility(false);
-            }
-            else
-            {
-                p_client_object->set_manual_invisibility(true);
-            }
-        }
-
-        // Lord: доделать когда будут сделаны следующие xr_hear, restrictor_manager, stalker_generic, xr_combat_ignore
-
-        break;
-    }
-    case Globals::kSTypeItem: {
-        p_client_object->SetNonscriptUsable(true);
-        if (Globals::get_script_clsid(CLSID_CAR) == p_client_object->clsid())
-        {
-            //  p_client_object->car, Lord: наверное ph_minigun, но как сделать если там простой класс
-            mob_release(p_client_object, scheme_name);
-        }
-
-        break;
-    }
-    case Globals::kSTypeHelicopter: {
-        break;
-    }
-    case Globals::kSTypeRestrictor: {
-        break;
-    }
-    }
-}
+ 
 
 inline DataBase::Data_Overrides cfg_get_overrides(
     CScriptIniFile* const p_ini, const xr_string& section_name, CScriptGameObject* const p_client_object)
