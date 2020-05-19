@@ -707,13 +707,13 @@ Script_StateManager::~Script_StateManager(void)
 {
     if (this->m_p_animation)
     {
-        Msg("[Scripts/Script_StateManager/~dtor()] deleting m_p_animation");
+        MESSAGEI("deleting m_p_animation");
         xr_delete(this->m_p_animation);
     }
 
     if (this->m_p_animstate)
     {
-        Msg("[Scripts/Script_StateManager/~dtor()] deleting m_p_animstate");
+        MESSAGEI("deleting m_p_animstate");
         xr_delete(this->m_p_animstate);
     }
 }
