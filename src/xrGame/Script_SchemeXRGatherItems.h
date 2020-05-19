@@ -38,8 +38,7 @@ public:
             return;
         }
 
-        Msg("[Scripts/add_to_binder(p_client_object, p_ini, scheme_name, section_name, storage)] added "
-            "Script_SchemeMobWalker scheme to binder, name=%s scheme=%s section=%s",
+        MESSAGEI("added scheme to binder, name=%s scheme=%s section=%s",
             p_client_object->Name(), scheme_name.c_str(), section_name.c_str());
 
         CScriptActionPlanner* p_planner = Globals::get_script_action_planner(p_client_object);

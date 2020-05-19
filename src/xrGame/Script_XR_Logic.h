@@ -75,7 +75,7 @@ inline xr_string determine_section_to_activate(CScriptGameObject* const p_npc, C
 
 
 
-
+// Lord: уйти от копирования, реализовать через передачу CScriptIniFile&, чтобы инитил по ссылке
 inline CScriptIniFile get_customdata_or_ini_file(CScriptGameObject* npc, const xr_string& filename)
 {
     if (!npc)
