@@ -1,4 +1,4 @@
-#include "stdafx.h"
+﻿#include "stdafx.h"
 #include "Script_SchemeXRMeet.h"
 
 namespace Cordis
@@ -367,6 +367,67 @@ namespace Cordis
 			CScriptActionBase::finalize();
 		}
 
+		void Script_SchemeXRMeet::add_to_binder(CScriptGameObject* const p_object, CScriptIniFile* const p_ini, const xr_string& scheme_name, const xr_string& section_name, DataBase::Storage_Scheme& storage)
+		{
+			if (p_object == nullptr)
+			{
+				R_ASSERT2(false, "invalid object!");
+				return;
+			}
+
+			if (p_ini == nullptr)
+			{
+				R_ASSERT2(false, "invalid object!");
+				return;
+			}
+
+			if (scheme_name.empty())
+			{
+				R_ASSERT2(false, "invalid string!");
+				return;
+			}
+
+			
+			CScriptActionPlanner* const p_planner = Globals::get_script_action_planner(p_object);
+			xr_map<xr_string, std::uint32_t> properties;
+			xr_map<xr_string, std::uint32_t> operators;
+
+			properties["contact"] = Globals::XR_ACTIONS_ID::XR_EVALUATORS_ID::kStoheMeetBase + 1;
+			properties["wounded"] = Globals::XR_ACTIONS_ID::XR_EVALUATORS_ID::kSidorWoundedBase;
+			properties["abuse"] = Globals::XR_ACTIONS_ID::XR_EVALUATORS_ID::kAbuseBase;
+			properties["wounded_exist"] = Globals::XR_ACTIONS_ID::XR_EVALUATORS_ID::kWoundedExist;
+			properties["corpse_exist"] = Globals::XR_ACTIONS_ID::XR_EVALUATORS_ID::kCorpseExist;
+
+			operators["contact"] = Globals::XR_ACTIONS_ID::kStoheMeetBase + 1;
+			operators["state_mgr_to_idle_alife"] = Globals::XR_ACTIONS_ID::kStateManager + 2;
+
+			p_planner->add_evaluator(properties.at("contact"), new Script_EvaluatorContact("meet_contact", storage));
+
+			Script_SchemeXRMeet* const p_action = new Script_SchemeXRMeet("action_process_meet", storage);
+			p_action->add_condition(CWorldProperty(StalkerDecisionSpace::eWorldPropertyAlive, true));
+			p_action->add_condition(CWorldProperty(StalkerDecisionSpace::eWorldPropertyEnemy, false));
+			p_action->add_condition(CWorldProperty(StalkerDecisionSpace::eWorldPropertyDanger, false));
+			p_action->add_condition(CWorldProperty(StalkerDecisionSpace::eWorldPropertyAnomaly, false));
+			p_action->add_condition(CWorldProperty(StalkerDecisionSpace::eWorldPropertyItems, false));
+			p_action->add_condition(CWorldProperty(properties.at("wounded_exist"), false));
+			p_action->add_condition(CWorldProperty(properties.at("corpse_exist"), false));
+			p_action->add_condition(CWorldProperty(properties.at("contact"), true));
+			p_action->add_condition(CWorldProperty(properties.at("wounded"), false));
+			p_action->add_condition(CWorldProperty(properties.at("abuse"), false));
+
+			p_action->add_effect(CWorldProperty(properties.at("contact"), false));
+
+			p_planner->add_operator(operators.at("contact"), p_action);
+
+			p_planner->action(StalkerDecisionSpace::eWorldPropertyALife).add_condition(CWorldProperty(properties.at("contact"), false));
+			p_planner->action(operators.at("state_mgr_to_idle_alife")).add_condition(CWorldProperty(properties.at("contact"), false));
+
+			MESSAGEI("allocated meet manager for %d %s", p_object->ID(), p_object->Name());
+			storage.setMeetManager(new Script_XRMeetManager(p_object, storage));
+
+			// @ Lord: получить с subscribe_action_for_events ...
+		}
+
 		void Script_SchemeXRMeet::set_meet(CScriptGameObject* const p_client_object, CScriptIniFile* const p_ini, const xr_string& scheme_name, const xr_string& section_name, const xr_string& gulag_name)
 		{
 			DataBase::Storage_Scheme* const p_storage = XR_LOGIC::assign_storage_and_bind(p_client_object, p_ini, scheme_name, section_name, gulag_name);
@@ -619,7 +680,7 @@ namespace Cordis
 						return;
 					}
 
-					// Lord: ��������!
+					// Lord: äîäåëàòü!
 				}
 			}
 		}

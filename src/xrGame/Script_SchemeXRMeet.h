@@ -24,7 +24,8 @@ namespace Cordis
 			virtual void initialize(void);
 			virtual void execute(void);
 			virtual void finalize(void);
-			// Lord: сделать add_to_binder
+
+			static void add_to_binder(CScriptGameObject* const p_object, CScriptIniFile* const p_ini, const xr_string& scheme_name, const xr_string& section_name, DataBase::Storage_Scheme& storage);
 			static void set_meet(CScriptGameObject* const p_client_object, CScriptIniFile* const p_ini, const xr_string& scheme_name, const xr_string& section_name, const xr_string& gulag_name);
 			static void	reset_meet(CScriptGameObject* const p_client_object, const xr_string& scheme_name, const DataBase::Storage_Data& storage, const xr_string& section_name);
 			static void init_meet(CScriptGameObject* const p_client_object, CScriptIniFile* const p_ini, const xr_string& section_name, const xr_string& scheme_name, DataBase::Storage_Scheme& storage);

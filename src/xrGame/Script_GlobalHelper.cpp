@@ -4515,7 +4515,7 @@ Cordis::Scripts::Script_GlobalHelper::Script_GlobalHelper(void)
         this->m_registered_schemes_add_to_binder_callbacks["remark"] = Script_SchemeXRRemark::add_to_binder;
         this->m_registered_schemes_add_to_binder_callbacks["sleeper"] = Script_SchemeXRSleeper::add_to_binder;
         this->m_registered_schemes_add_to_binder_callbacks["camper"] = Script_SchemeXRCamper::add_to_binder;
-        this->m_registered_schemes_add_to_binder_callbacks["meet"] = Script_SchemeXRMeet::init_meet;
+        this->m_registered_schemes_add_to_binder_callbacks["meet"] = Script_SchemeXRMeet::add_to_binder;
         this->m_registered_schemes_add_to_binder_callbacks["help_wounded"] = Script_ActionXRHelpWounded::add_to_binder;
         //this->m_registered_schemes_add_to_binder_callbacks["corpse_detection"] = Script_SchemeXRCorpseDetection:: Lord: доделать!
         this->m_registered_schemes_add_to_binder_callbacks["combat"] = XR_COMBAT::add_to_binder;
