@@ -155,6 +155,7 @@
 #include "Script_SchemeXRReachTask.cpp"
 #include "Script_SchemeXRAnimpoint.cpp"
 #include "Script_SchemeXRSmartCover.cpp"
+#include "Script_PostCombat.cpp"
 #pragma endregion
 
 

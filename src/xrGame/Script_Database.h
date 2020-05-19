@@ -199,7 +199,7 @@ public:
             {
                 if (it)
                 {
-                    MESSAGE("deleting scheme %s from actions",
+                    MESSAGEI("deleting scheme %s from actions",
                         it->getSchemeName().c_str());
                     xr_delete(it);
                 }
@@ -208,27 +208,33 @@ public:
 
         if (this->m_p_jump_path)
         {
-            MESSAGE("deleting CPatrolPathParams m_p_jump_path %s",
+            MESSAGEI("deleting CPatrolPathParams m_p_jump_path %s",
                 this->m_p_jump_path->m_path_name);
             xr_delete(this->m_p_jump_path);
         }
 
         if (this->m_p_abuse_manager)
         {
-            MESSAGE("deleting abuse manager from %s", this->m_p_npc->Name());
+            MESSAGEI("deleting abuse manager from %s", this->m_p_npc->Name());
             xr_delete(this->m_p_abuse_manager);
         }
 
         if (this->m_p_meet_manager)
         {
-            MESSAGE("deleting meet manager from %s", this->m_p_npc->Name());
+            MESSAGEI("deleting meet manager from %s", this->m_p_npc->Name());
             xr_delete(this->m_p_meet_manager);
         }
 
         if (this->m_p_wounded_manager)
         {
-            MESSAGE("deleting wounded manager from %s", this->m_p_npc->Name());
+            MESSAGEI("deleting wounded manager from %s", this->m_p_npc->Name());
             xr_delete(this->m_p_wounded_manager);
+        }
+
+        if (this->m_p_post_combat_animation)
+        {
+            MESSAGEI("deleting post combat animation");
+            xr_delete(this->m_p_post_combat_animation);
         }
 
         this->m_p_npc = nullptr;
@@ -2222,6 +2228,23 @@ public:
     inline void setXRSmartCoverLookOutMaxTime(const float value) noexcept { this->m_xr_smartcover_lookout_max_time = value; }
 #pragma endregion
 
+#pragma region Cordis Post Combat 
+    inline std::uint16_t getPostCombatLastBestEnemyID(void) const noexcept { return this->m_post_combat_last_best_enemy_id; }
+    inline void setPostCombatLastBestEnemyID(const std::uint16_t id) noexcept { this->m_post_combat_last_best_enemy_id = id; }
+
+    inline std::uint32_t getPostCombatTimer(void) const noexcept { return this->m_post_combat_timer; }
+    inline void setPostCombatTimer(const std::uint32_t value) noexcept { this->m_post_combat_timer = value; }
+
+    inline const xr_string& getPostCombatLastBestEnemyName(void) const noexcept { return this->m_post_combat_last_best_enemy_name; }
+    inline void setPostCombatLastBestEnemyName(const xr_string& name) noexcept { this->m_post_combat_last_best_enemy_name = name; }
+
+    inline Script_StateAnimation* getPostCombatAnimation(void) const { return this->m_p_post_combat_animation; }
+    inline void setPostCombatAnimation(Script_StateAnimation* const p_data) 
+    {
+        this->m_p_post_combat_animation = p_data;
+    }
+#pragma endregion
+
 private:
     // @ Не понятно зачем в итоге но так у ПЫС, если в итоге оно находится в самом сторадже где уже зарегистрирован
     // сам НПС
@@ -2278,6 +2301,7 @@ private:
     std::uint16_t m_xr_corpse_detection_selected_corpse_id = 0;
     std::uint16_t m_selected_id = 0;
     std::uint16_t m_xr_remark_target_id = 0;
+    std::uint16_t m_post_combat_last_best_enemy_id = 0;
     std::uint32_t m_home_min_radius = 0;
     std::uint32_t m_home_mid_radius = 0;
     std::uint32_t m_home_max_radius = 0;
@@ -2306,6 +2330,7 @@ private:
     std::uint32_t m_xr_smartcover_idle_min_time = 0;
     std::uint32_t m_xr_smartcover_idle_max_time = 0;
     std::uint32_t m_xr_combat_zombied_current_action = 0;
+    std::uint32_t m_post_combat_timer = 0;
     const std::uint32_t m_xr_camper_post_enemy_wait = 5000;
     const std::uint32_t m_xr_camper_timedelta = 4000;
     const std::uint32_t m_xr_camper_timescandelta = this->m_xr_camper_timedelta / this->m_xr_camper_scandelta;
@@ -2361,6 +2386,7 @@ private:
     Script_WoundedManager* m_p_wounded_manager = nullptr;
     Script_ISchemeEntity* m_p_action = nullptr; // @ Здесь он не удаляется, пробрасываетс специально такой дизайн пыс (
     Script_Animpoint* m_p_animpoint = nullptr;
+    Script_StateAnimation* m_p_post_combat_animation = nullptr;
     Fvector m_offset;
     Fvector m_ph_force_point;
     Fvector m_vertex_position;
@@ -2497,6 +2523,7 @@ private:
     xr_string m_xr_smartcover_weapon_type_name;
     xr_string m_xr_smartcover_moving_name;
     xr_string m_xr_smartcover_sound_idle_name;
+    xr_string m_post_combat_last_best_enemy_name;
     CondlistWaypoints m_path_walk_info;
     CondlistWaypoints m_path_look_info;
 };
@@ -3258,7 +3285,7 @@ public:
     {
         if (map.empty())
         {
-            Msg("[Scripts/DataBase/Storage_Data/setScheme(map)] WARNING: map.empty() == true! Can't assign an empty "
+            MESSAGEWR("map.empty() == true! Can't assign an empty "
                 "map!");
             return;
         }
@@ -3270,8 +3297,8 @@ public:
     {
         if (pair.first.empty())
         {
-            Msg("[Scripts/DataBase/Storage_Data/setScheme(pair)] WARNING: pair.first.empty() == true! Can't assign an "
-                "empty string return ...");
+            MESSAGEWR("pair.first.empty() == true! Can't assign an "
+                "empty string");
             return;
         }
 
@@ -3282,7 +3309,7 @@ public:
     {
         if (scheme_name.empty())
         {
-            Msg("[Scripts/DataBase/Storage_Data/setScheme(scheme_name, data)] WARNING: scheme_name.empty() == true! "
+            MESSAGEWR("scheme_name.empty() == true! "
                 "Can't "
                 "assign return ...");
             return;
@@ -3295,8 +3322,8 @@ public:
     {
         if (scheme_name.empty())
         {
-            Msg("[Scripts/DataBase/Storage_Data/setSchemeActions(scheme_name, p_scheme)] WARNING: scheme_name.empty() "
-                "== true! Can't assign return ...");
+            MESSAGEWR("scheme_name.empty() "
+                "== true! Can't assign");
             return;
         }
 
@@ -3307,8 +3334,7 @@ public:
     {
         if (scheme_name.empty())
         {
-            Msg("[Scripts/DataBase/Storage_Data/setSchemesSectionName(scheme_name, section_name)] WARNING: "
-                "scheme_name.empty() == true! Can't assign return ...");
+            MESSAGEWR("scheme_name.empty() == true! Can't assign");
             return;
         }
 
@@ -3319,8 +3345,8 @@ public:
     {
         if (scheme_name.empty())
         {
-            Msg("[Scripts/DataBase/Storage_Data/setSchemesEnabled(scheme_name, value)] WARNING: scheme_name.empty() == "
-                "true! Can't assign return ...");
+            MESSAGEWR("scheme_name.empty() == "
+                "true! Can't assign");
             return;
         }
 
@@ -3363,8 +3389,8 @@ public:
     {
         if (!p_state_manager)
         {
-            Msg("[Scripts/DataBase/Script_StorageData/setStateManager(p_state_manager)] WARNING: you can't set nullptr "
-                "for object return...");
+            MESSAGEWR("you can't set nullptr "
+                "for object");
             return;
         }
 
@@ -3384,7 +3410,7 @@ public:
     {
         if (!p_move_manager)
         {
-            Msg("[Scripts/DataBase/Storage_Data/setMoveManager(p_move_manager)] WARNING: p_move_manager == nullptr! "
+            MESSAGEW("p_move_manager == nullptr! "
                 "You setan empty object is not right ... Return");
             return;
         }
@@ -3396,7 +3422,7 @@ public:
     {
         if (!p_enemy)
         {
-            Msg("[Scripts/DataBase/Storage_Data/setClientEnemy(p_enemy)] WARNING: p_enemy == nullptr! You set an empty "
+            MESSAGEW("p_enemy == nullptr! You set an empty "
                 "object!");
         }
 
@@ -3410,7 +3436,7 @@ public:
     {
         if (type_name.empty())
         {
-            Msg("[Scripts/DataBase/Storage_Data/setScriptCombatTypeName(type_name)] WARNING: type_name.empty() == "
+            MESSAGEW("type_name.empty() == "
                 "true! You are set an empty string!");
         }
 
@@ -3495,7 +3521,7 @@ public:
         {
             if (it.second.getStorageAnimpoint().getAnimpoint())
             {
-                Msg("[Scripts/DataBase/Storage/~dtor] Deleting: Animpoint -> [%s]",
+                MESSAGEI("Deleting: Animpoint -> [%s]",
                     it.second.getStorageAnimpoint().getCoverName().c_str());
                 Script_Animpoint* instance = it.second.getStorageAnimpoint().getAnimpoint();
                 delete instance;
@@ -3539,7 +3565,7 @@ public:
             if (it.second.getIni())
             {
                 CInifile* p_ini = it.second.getIni();
-                Msg("[Scripts/DataBase/Storage/~dtor] Delete the m_ini: %s", p_ini->fname());
+                MESSAGEI("Delete the m_ini: %s", p_ini->fname());
                 delete p_ini;
                 p_ini = nullptr;
             }
@@ -3547,7 +3573,7 @@ public:
             if (it.second.getSoundObject())
             {
                 CScriptSound* p_sound = it.second.getSoundObject();
-                Msg("[Scripts/DataBase/Storage/~dtor] Deleting the m_sound_object");
+                MESSAGEI("Deleting the m_sound_object");
                 delete p_sound;
                 p_sound = nullptr;
             }
@@ -3601,9 +3627,9 @@ public:
     inline const xr_map<std::uint16_t, std::pair<Script_CampData*, CScriptGameObject*>>& getCamps(void) const noexcept { return this->m_camps; } 
     inline void setStorage(const xr_map<std::uint16_t, Storage_Data>& map) noexcept
     {
-        if (!map.size())
+        if (map.empty())
         {
-            Msg("[DataBase/Storage/setStorage(map)] WARNING: map.size() = 0! You are trying to set an empty map! No "
+            MESSAGEWR("map.size() = 0! You are trying to set an empty map! No "
                 "assignment!");
             return;
         }
@@ -3615,7 +3641,7 @@ public:
     {
         if (pair.first == Globals::kUnsignedInt16Undefined)
         {
-            Msg("[DataBase/Storage/setStorage(pair)] WARNING: pair.first = std::uint16_t(-1)! You are trying to set an "
+            MESSAGEWR("pair.first = std::uint16_t(-1)! You are trying to set an "
                 "undefined variable! No assignment!");
             return;
         }
@@ -3626,7 +3652,7 @@ public:
     {
         if (id == Globals::kUnsignedInt16Undefined)
         {
-            Msg("[DataBase/Storage/setStorage(id, data)] WARNING: id = std::uint16_t(-1)! You are trying to set an "
+            MESSAGEWR("id = std::uint16_t(-1)! You are trying to set an "
                 "undefined variable! No assignment!");
             return;
         }
@@ -3642,7 +3668,7 @@ public:
     {
         if (!p_object)
         {
-            Msg("[Scripts/DataBase/setInventoryUpgradesVictim(p_object)] WARNING: p_object = nullptr!");
+            MESSAGEWR("p_object = nullptr!");
             return;
         }
 
@@ -3659,8 +3685,8 @@ public:
     {
         if (!map.size())
         {
-            Msg("[Scripts/DataBase/Storage/setAnomalyByName(map)] WARNING: map.size() = 0! You are trying to set empty "
-                "map! Return!");
+            MESSAGEWR("map.size() = 0! You are trying to set empty "
+                "map!");
             return;
         }
 
@@ -3671,15 +3697,15 @@ public:
     {
         if (!pair.first.size())
         {
-            Msg("[Scripts/DataBase/Storage/setAnomalyByName(pair)] WARNING: pair.first.size() = 0! You are trying to "
-                "set an empty string! Return");
+            MESSAGEWR("pair.first.size() = 0! You are trying to "
+                "set an empty string!");
             return;
         }
 
         if (!pair.second)
         {
-            Msg("[Scripts/DataBase/Storage/setAnomalyByName(pair)] WARNING: pair.second = nullptr! You are trying to "
-                "set an empty object! Return!");
+            MESSAGEWR("pair.second = nullptr! You are trying to "
+                "set an empty object!");
             return;
         }
 
@@ -3688,16 +3714,16 @@ public:
 
     inline void setAnomalyByName(const xr_string& anomaly_name, CScriptGameObject* object)
     {
-        if (!anomaly_name.size())
+        if (anomaly_name.empty())
         {
-            Msg("[Scripts/DataBase/Storage/setAnomalyByName(anomaly_name, object)] WARNING: anomaly_name.size() = 0! "
-                "You are trying to set an empty string! Return;");
+            MESSAGEWR("anomaly_name.size() = 0! "
+                "You are trying to set an empty string!");
             return;
         }
 
         if (!object)
         {
-            Msg("[Scripts/DataBase/Storage/setAnomalyByName(anomaly_name, object)] WARNING: object = nullptr! You are "
+            MESSAGEWR("object = nullptr! You are "
                 "trying to set an empty object!");
             return;
         }
@@ -3712,9 +3738,9 @@ public:
 
     inline void setZoneByName(const xr_map<xr_string, CScriptGameObject*>& map)
     {
-        if (!map.size())
+        if (map.empty())
         {
-            Msg("[DataBase/Storage/setZoneByName(map)] WARNING: map.size() = 0! You are trying to set an empty map! No "
+            MESSAGEWR("map.size() = 0! You are trying to set an empty map! No "
                 "assignment!");
             return;
         }
@@ -3724,16 +3750,16 @@ public:
 
     inline void setZoneByName(const std::pair<xr_string, CScriptGameObject*>& pair)
     {
-        if (!pair.first.size())
+        if (pair.first.empty())
         {
-            Msg("[DataBase/Storage/setZoneByName(pair)] WARNING: pair.first.size() = 0! You are "
+            MESSAGEWR("pair.first.size() = 0! You are "
                 "trying to set an empty string! No assignment!");
             return;
         }
 
         if (!pair.second)
         {
-            Msg("[DataBase/Storage/setZoneByName(pair)] WARNING: pair.second = null! You are "
+            MESSAGEWR("pair.second = null! You are "
                 "trying to set an empty object! No assignment!");
             return;
         }
@@ -3743,16 +3769,16 @@ public:
 
     inline void setZoneByName(const xr_string& zone_name, CScriptGameObject* p_client_zone)
     {
-        if (!zone_name.size())
+        if (zone_name.empty())
         {
-            Msg("[DataBase/Storage/setZoneByName(zone_name, p_client_zone)] WARNING: zone_name.size() = 0! You are "
+            MESSAGEWR("zone_name.size() = 0! You are "
                 "trying to set an empty string! No assignment!");
             return;
         }
 
         if (!p_client_zone)
         {
-            Msg("[DataBase/Storage/setZoneByName(zone_name, p_client_zone)] WARNING: p_client_zone = null! You are "
+            MESSAGEWR("p_client_zone = null! You are "
                 "trying to set an empty object! No assignment!");
             return;
         }
@@ -3767,9 +3793,9 @@ public:
 
     inline void setGoodwill_Sympathy(const xr_map<std::uint16_t, float>& first) noexcept
     {
-        if (!first.size())
+        if (first.empty())
         {
-            Msg("DataBase/Storage/setGoodwill_Sympathy(first, second)] WARNING: first.size() = 0! You are trying to "
+            MESSAGEWR("first.size() = 0! You are trying to "
                 "set an "
                 "empty map! No assignment!");
             return;
@@ -3782,7 +3808,7 @@ public:
     {
         if (pair_first.first == Globals::kUnsignedInt16Undefined)
         {
-            Msg("[DataBase/Storage/setGoodwill_Sympathy(pair_first)] WARNING: pair_first.first = std::uint16_t(-1)! "
+            MESSAGEWR("pair_first.first = std::uint16_t(-1)! "
                 "You are "
                 "trying to set an undefined value! No assignment!");
             return;
@@ -3795,7 +3821,7 @@ public:
     {
         if (id == Globals::kUnsignedInt16Undefined)
         {
-            Msg("[DataBase/Storage/setGoodwill_Sympathy(id, value)] WARNING: id = std::uint16_t(-1)! You are trying to "
+            MESSAGEWR("id = std::uint16_t(-1)! You are trying to "
                 "set an "
                 "undefined value! No assignment!");
             return;
@@ -3811,9 +3837,9 @@ public:
 
     inline void setGoodwill_Relations(const xr_map<std::uint16_t, xr_string>& second) noexcept
     {
-        if (!second.size())
+        if (second.empty())
         {
-            Msg("[DataBase/Storage/setGoodwill_Relations(first, second] WARNING: second.size() = 0! You are trying to "
+            MESSAGEWR("second.size() = 0! You are trying to "
                 "set an "
                 "empty map! No assignment!");
             return;
@@ -3826,7 +3852,7 @@ public:
     {
         if (pair_second.first == Globals::kUnsignedInt16Undefined)
         {
-            Msg("[DataBase/Storage/setGoodwill_Relations(pair_second)] WARNING: pair_second.first = std::uint16_t(-1)! "
+            MESSAGEWR("[DataBase/Storage/setGoodwill_Relations(pair_second)] WARNING: pair_second.first = std::uint16_t(-1)! "
                 "You are "
                 "trying to set an undefined value! No assignment!");
             return;
@@ -3839,7 +3865,7 @@ public:
     {
         if (id == Globals::kUnsignedInt16Undefined)
         {
-            Msg("[DataBase/Storage/setGoodwill_Relations(id, string)] WARNING: id = std::uint16_t(-1)! You are trying "
+            MESSAGEWR("id = std::uint16_t(-1)! You are trying "
                 "to set an "
                 "undefined value! No assignment!");
             return;
@@ -3855,9 +3881,9 @@ public:
 
     inline void setSpawnedVertexByID(const xr_map<std::uint16_t, std::uint32_t>& map) noexcept
     {
-        if (!map.size())
+        if (map.empty())
         {
-            Msg("[DataBase/Storage/setSpawnedVertexByID(map)] WARNING: map.size() = 0! You are trying to set an empty "
+            MESSAGEWR("map.size() = 0! You are trying to set an empty "
                 "map! No assignment!");
             return;
         }
@@ -3869,7 +3895,7 @@ public:
     {
         if (pair.first == Globals::kUnsignedInt16Undefined)
         {
-            Msg("[DataBase/Storage/setSpawnedVertexByID(pair)] WARNING: pair.first = std::uint16_t(-1)! You are trying "
+            MESSAGEWR("pair.first = std::uint16_t(-1)! You are trying "
                 "to set an undefined value! No assignment!");
             return;
         }
@@ -3881,7 +3907,7 @@ public:
     {
         if (id == Globals::kUnsignedInt16Undefined)
         {
-            Msg("[DataBase/Storage/setSpawnedVertexByID(id, value)] WARNING: id = std::uint16_t(-1)! You are trying to "
+            MESSAGEWR("id = std::uint16_t(-1)! You are trying to "
                 "set an undefined value! No assignment!");
             return;
         }
@@ -3908,9 +3934,9 @@ public:
 
     inline void setOfflineObjects(const xr_map<std::uint16_t, std::pair<std::uint16_t, xr_string>>& map) noexcept
     {
-        if (!map.size())
+        if (map.empty())
         {
-            Msg("[DataBase/Storage/setOfflineObjects(map)] WARNING: map.size() = 0! You are trying to set an empty "
+            MESSAGEW("map.size() = 0! You are trying to set an empty "
                 "map!");
             //  return;
         }
@@ -3922,7 +3948,7 @@ public:
     {
         if (pair.first == Globals::kUnsignedInt16Undefined)
         {
-            Msg("[DataBase/Storage/setOfflineObjects(pair)] WARNING: pair.first = std::uint16_t(-1)! You are trying to "
+            MESSAGEW("pair.first = std::uint16_t(-1)! You are trying to "
                 "set "
                 "an empty pair!");
             //   return;
@@ -3935,7 +3961,7 @@ public:
     {
         if (id == Globals::kUnsignedInt16Undefined)
         {
-            Msg("[DataBase/Storage/setOfflineObjects(id, pair)] WARNING: id = std::uint16_t(-1)! You are trying to set "
+            MESSAGEW("id = std::uint16_t(-1)! You are trying to set "
                 "an undefined value!");
             //   return;
         }
@@ -3948,7 +3974,7 @@ public:
     {
         if (id == Globals::kUnsignedInt16Undefined)
         {
-            Msg("[DataBase/Storage/setOfflineObjects(id, _id, string)] WARNING: id = std::uint16_t(-1)! You are trying "
+            MESSAGEW("id = std::uint16_t(-1)! You are trying "
                 "to set an undefined value!");
             //    return;
         }
@@ -3960,7 +3986,7 @@ public:
     {
         if (id == Globals::kUnsignedInt16Undefined)
         {
-            Msg("[DataBase/Storage/setOfflineObjects(id, _id, string)] WARNING: id = std::uint16_t(-1)! You are trying "
+            MESSAGEW("id = std::uint16_t(-1)! You are trying "
                 "to set an undefined value!");
             //  return;
         }
@@ -3972,7 +3998,7 @@ public:
     {
         if (id == Globals::kUnsignedInt16Undefined)
         {
-            Msg("[DataBase/Storage/setOfflineObjects(id, _id, string)] WARNING: id = std::uint16_t(-1)! You are trying "
+            MESSAGEW("id = std::uint16_t(-1)! You are trying "
                 "to set an undefined value!");
             //  return;
         }
@@ -3989,16 +4015,16 @@ public:
     inline void setGoodwill(
         const xr_map<std::uint16_t, float>& first, const xr_map<std::uint16_t, xr_string>& second) noexcept
     {
-        if (!first.size())
+        if (first.empty())
         {
-            Msg("DataBase/Storage/setGoodwill(first, second)] WARNING: first.size() = 0! You are trying to set an "
+            MESSAGEWR("first.size() = 0! You are trying to set an "
                 "empty map! No assignment!");
             return;
         }
 
-        if (!second.size())
+        if (second.empty())
         {
-            Msg("[DataBase/Storage/setGoodwill(first, second] WARNING: second.size() = 0! You are trying to set an "
+            MESSAGEWR("second.size() = 0! You are trying to set an "
                 "empty map! No assignment!");
             return;
         }
@@ -4014,14 +4040,14 @@ public:
     {
         if (scheme_name.empty())
         {
-            Msg("[Scripts/DataBase/Storage/UnsubscribeAction(npc_id, scheme_name)] WARNING: scheme_name.empty() == "
-                "true! Return ...");
+            MESSAGEWR("scheme_name.empty() == "
+                "true!");
             return;
         }
 
         if (this->m_storage[npc_id].getSchemes().find(scheme_name) == this->m_storage[npc_id].getSchemes().end())
         {
-            Msg("[Scripts/DataBase/Storage/UnsubscribeAction(npc_id, scheme_name)] WARNING: can't find scheme by "
+            MESSAGEWR("can't find scheme by "
                 "scheme_name %s",
                 scheme_name.c_str());
             return;
@@ -4036,7 +4062,7 @@ public:
     inline void setStorageCampsCamp(const std::uint16_t object_id, Script_CampData* p_camp) 
     {
         if (!p_camp)
-            Msg("[Scripts/DataBase/Storage/setStorageCampsCamp(p_camp)] WARNING: p_camp == nullptr! You are trying to set a null value");
+           MESSAGEW("p_camp == nullptr! You are trying to set a null value");
 
         this->m_camps[object_id].first = p_camp;
     }
@@ -4044,7 +4070,7 @@ public:
     inline void setStorageCampsObject(const std::uint16_t object_id, CScriptGameObject* const p_client_object)
     {
         if (!p_client_object)
-            Msg("[Scripts/DataBase/Storage/setStorageCampsObject(p_client_object)] WARNING: p_client_object == nullptr! You are trying to set a null value!");
+            MESSAGEW("p_client_object == nullptr! You are trying to set a null value!");
 
         this->m_camps[object_id].second = p_client_object;
     }
@@ -4131,8 +4157,7 @@ public:
     {
         if (id == Globals::kUnsignedInt16Undefined)
         {
-            Msg("[DataBase/Storage/setSignal(id, signal_name, value)] WARNING: id = std::uint16_t(-1)! You are trying "
-                "to get access through an undefined value! No assignment!");
+            MESSAGEWR("id = std::uint16_t(-1)! You are trying to get access through an undefined value! No assignment!");
             return;
         }
 
@@ -4229,7 +4254,7 @@ public:
     {
         if (map.empty())
         {
-            Msg("[Scripts/DataBase/Storage/setSchemes(map)] WARNING: can't assign an empty map! Return");
+            MESSAGEWR("can't assign an empty map!");
             return;
         }
 
@@ -4240,8 +4265,7 @@ public:
     {
         if (pair.first.empty())
         {
-            Msg("[Scripts/DataBase/Storage/setScheme(pair)] WARNING: pair.first.empty() == true! Can't assign return "
-                "...");
+            MESSAGEWR("pair.first.empty() == true! Can't assign");
             return;
         }
 
@@ -4253,12 +4277,11 @@ public:
     {
         if (scheme_name.empty())
         {
-            Msg("[Scripts/DataBase/Storage/setScheme(scheme_name, data)] WARNING: scheme_name.empty() == true! Can't "
-                "assign return ...");
+            MESSAGEWR("scheme_name.empty() == true! Can't assign");
             return;
         }
 
-        Msg("[Scripts/DataBase/Storage/setScheme(scheme_name, data)] Registered scheme %s", scheme_name);
+        MESSAGEI("Registered scheme %s for npc [%d]", scheme_name, npc_id);
 
         this->m_storage[npc_id].setScheme(scheme_name, data);
     }
@@ -4268,15 +4291,13 @@ public:
     {
         if (scheme_name.empty())
         {
-            Msg("[Scripts/DataBase/Storage/setStorageSchemesActionSchemeIDForUnSubscribing(npc_id, scheme_name, "
-                "scheme_id)] WARNING: scheme_name.empty() == true! Return ...");
+            MESSAGEWR("scheme_name.empty() == true!");
             return;
         }
 
         if (this->m_storage[npc_id].getSchemes().find(scheme_name) == this->m_storage[npc_id].getSchemes().end())
         {
-            Msg("[Scripts/DataBase/Storage/setStorageSchemesActionSchemeIDForUnSubscribing(npc_id, scheme_name, "
-                "scheme_id)] WARNING: can't find scheme %s return ...",
+            MESSAGEWR("can't find scheme %s",
                 scheme_name.c_str());
             return;
         }
@@ -4289,8 +4310,7 @@ public:
     {
         if (scheme_name.empty())
         {
-            Msg("[Scripts/DataBase/Storage/setStorageSchemesActions(npc_id, scheme_name, p_scheme)] WARNING: "
-                "scheme_name.empty() == true! Can't assign return ...");
+            MESSAGEWR("scheme_name.empty() == true! Can't assign");
             return;
         }
         p_scheme->subscribe_action();
@@ -4302,8 +4322,7 @@ public:
     {
         if (scheme_name.empty())
         {
-            Msg("[Scripts/DataBase/Storage/setStorageSchemesSectionName(npc_id, scheme_name, section_name)] WARNING: "
-                "scheme_name.empty() == true! Can't assign return ...");
+            MESSAGEWR("scheme_name.empty() == true! Can't assign");
             return;
         }
 
@@ -4315,8 +4334,7 @@ public:
     {
         if (scheme_name.empty())
         {
-            Msg("[Scripts/DataBase/Storage/setStorageSchemesEnabled(npc_id, scheme_name, value)] WARNING: "
-                "scheme_name.empty() == true! Can't assign return ...");
+            MESSAGEWR("scheme_name.empty() == true! Can't assign");
             return;
         }
 
@@ -4446,10 +4464,7 @@ public:
         }
 
         this->m_zone_by_name[zone->Name()] = zone;
-
-#ifdef DEBUG
         MESSAGEI("adding to database %s", zone->Name());
-#endif // DEBUG
     }
 
     inline void deleteZone(CScriptGameObject* zone)
@@ -4461,10 +4476,7 @@ public:
         }
 
         this->m_zone_by_name[zone->Name()] = nullptr;
-
-#ifdef DEBUG
         MESSAGEI("'deleting' from database %s", zone->Name());
-#endif // DEBUG
     }
 
     inline void addAnomaly(CScriptGameObject* anomaly)
@@ -4477,7 +4489,7 @@ public:
 
         this->m_anomaly_by_name[anomaly->Name()] = anomaly;
 
-        Msg("[Scripts/DataBase/Storage/addAnomaly(anomaly)] adding object to database %s", anomaly->Name());
+        MESSAGEI("adding object to database %s", anomaly->Name());
     }
 
     inline void deleteAnomaly(CScriptGameObject* anomaly)
@@ -4490,7 +4502,7 @@ public:
 
         this->m_anomaly_by_name[anomaly->Name()] = nullptr;
 
-        Msg("[Scripts/DataBase/Storage/deleteAnomaly(anomaly)] 'deleting' object from database %s", anomaly->Name());
+        MESSAGEI("'deleting' object from database %s", anomaly->Name());
     }
 
     inline void setActor(CScriptGameObject* object)
@@ -4503,7 +4515,7 @@ public:
 
         this->m_actor = object;
         this->addObject(object);
-        Msg("[Scripts/DataBase/Storage/setActor(object)] registering actor to database!");
+        MESSAGEI("registering actor to database!");
     }
 
     inline void deleteActor(CScriptGameObject* object)
@@ -4511,21 +4523,21 @@ public:
         this->m_actor = nullptr;
         this->deleteObject(object);
 
-        Msg("[Scripts/DataBase/Storage/deleteActor(object)] 'deleting' actor from database!");
+        MESSAGEI("'deleting' actor from database!");
     }
 
     inline void setPStorBool(const std::uint16_t& id, const xr_string& varname, const bool& value) noexcept
     {
         if (id == Globals::kUnsignedInt16Undefined)
         {
-            Msg("[DataBase/Storage/setPStorNumber(id, varname, value)] WARNING: id = std::uint16_t(-1)! You are trying "
+            MESSAGEWR("id = std::uint16_t(-1)! You are trying "
                 "to get access through an undefined value! No assignment!");
             return;
         }
 
-        if (!varname.size())
+        if (varname.empty())
         {
-            Msg("[DataBase/Storage/setPStorNumber(id, varname, value)] WARNING: varname.size() = 0! You are trying to "
+            MESSAGEWR("varname.size() = 0! You are trying to "
                 "get an access through an empty string! No assignment!");
             return;
         }
@@ -4537,14 +4549,14 @@ public:
     {
         if (id == Globals::kUnsignedInt16Undefined)
         {
-            Msg("[DataBase/Storage/setPStorNumber(id, varname, value)] WARNING: id = std::uint16_t(-1)! You are trying "
+            MESSAGEWR("id = std::uint16_t(-1)! You are trying "
                 "to get access through an undefined value! No assignment!");
             return;
         }
 
-        if (!varname.size())
+        if (varname.empty())
         {
-            Msg("[DataBase/Storage/setPStorNumber(id, varname, value)] WARNING: varname.size() = 0! You are trying to "
+            MESSAGEWR("varname.size() = 0! You are trying to "
                 "get an access through an empty string! No assignment!");
             return;
         }
@@ -4556,14 +4568,14 @@ public:
     {
         if (id == Globals::kUnsignedInt16Undefined)
         {
-            Msg("[DataBase/Storage/setPStorString(id, varname, value)] WARNING: id = std::uint16_t(-1)! You are trying "
+            MESSAGEWR("id = std::uint16_t(-1)! You are trying "
                 "to get an access through an undefined value! No assignment!");
             return;
         }
 
-        if (!varname.size())
+        if (varname.empty())
         {
-            Msg("[DataBase/Storage/setPStorString(id, varname, value)] WARNING: id = std::uint16_t(-1)! You are trying "
+            MESSAGEWR("id = std::uint16_t(-1)! You are trying "
                 "to get an access through an undefined value! No assignment!");
             return;
         }
@@ -4579,11 +4591,9 @@ public:
 
     inline void setGameRegisteredServerSmartTerrainsByName(const xr_map<xr_string, Script_SE_SmartTerrain*>& map)
     {
-        if (!map.size())
+        if (map.empty())
         {
-            Msg("[Scripts/DataBase/Storage/setGameRegisteredServerSmartTerrainsByName(map)] "
-                "WARNING: map.size() = 0! You "
-                "are trying to set an empty map!");
+            MESSAGEW("map.size() = 0! You are trying to set an empty map!");
             //  return;
         }
 
@@ -4592,19 +4602,15 @@ public:
 
     inline void setGameRegisteredServerSmartTerrainsByName(const std::pair<xr_string, Script_SE_SmartTerrain*>& pair)
     {
-        if (!pair.first.size())
+        if (pair.first.empty())
         {
-            Msg("[Scripts/DataBase/Storage/setGameRegisteredServerSmartTerrainsByName(name, "
-                "server_smart)] WARNING: "
-                "pair.first.size() = 0! You are trying to set an empty string!");
+            MESSAGEW("pair.first.size() = 0! You are trying to set an empty string!");
             //  return;
         }
 
         if (!pair.second)
         {
-            Msg("[Scripts/DataBase/Storage/setGameRegisteredServerSmartTerrainsByName(name, "
-                "server_smart)] WARNING: "
-                "pair.second = null! You are trying to set an empty object!");
+            MESSAGEW("pair.second = null! You are trying to set an empty object!");
             // return;
         }
 
@@ -4613,19 +4619,15 @@ public:
 
     inline void setGameRegisteredServerSmartTerrainsByName(const xr_string& name, Script_SE_SmartTerrain* server_smart)
     {
-        if (!name.size())
+        if (name.empty())
         {
-            Msg("[Scripts/DataBase/Storage/setGameRegisteredServerSmartTerrainsByName(name, "
-                "server_smart)] WARNING: "
-                "name.size() = 0! You are trying to set an empty string!");
+            MESSAGEW("name.size() = 0! You are trying to set an empty string!");
             //  return;
         }
 
         if (!server_smart)
         {
-            Msg("[Scripts/DataBase/Storage/setGameRegisteredServerSmartTerrainsByName(name, "
-                "server_smart)] WARNING: "
-                "server_smart = null! You are trying to set an empty object!");
+            MESSAGEW("server_smart = null! You are trying to set an empty object!");
             //    return;
         }
 
@@ -4637,9 +4639,7 @@ public:
     {
         if (name.empty())
         {
-#ifdef DEBUG
             MESSAGEWR("can't set by empty id!");
-#endif // DEBUG
             return;
         }
 
@@ -4656,9 +4656,7 @@ public:
     {
         if (!map.size())
         {
-            Msg("[Script_GlobalHelper/setGameRegisteredServerSmartCovers(map)] WARNING: "
-                "map.size() = 0! You are trying "
-                "to set an empty map!");
+            MESSAGEW("map.size() = 0! You are trying to set an empty map!");
             //  return;
         }
 
@@ -4669,17 +4667,13 @@ public:
     {
         if (!pair.first.size())
         {
-            Msg("[Script_GlobalHelper/setGameRegisteredServerSmartCovers(name, "
-                "server_smartcover)] WARNING: "
-                "pair.first.size() = 0! You are trying to set an empty string!");
+            MESSAGEW("pair.first.size() = 0! You are trying to set an empty string!");
             //  return;
         }
 
         if (!pair.second)
         {
-            Msg("[Script_GlobalHelper/setGameRegisteredServerSmartCovers(name, "
-                "server_smartcover)] WARNING: "
-                "pair.second = null! You are trying to set an empty object!");
+            MESSAGEW("pair.second = null! You are trying to set an empty object!");
             //    return;
         }
 
@@ -4688,19 +4682,15 @@ public:
 
     inline void setGameRegisteredServerSmartCovers(const xr_string& name, Script_SE_SmartCover* server_smartcover)
     {
-        if (!name.size())
+        if (name.empty())
         {
-            Msg("[Script_GlobalHelper/setGameRegisteredServerSmartCovers(name, "
-                "server_smartcover)] WARNING: "
-                "name.size() = 0! You are trying to set an empty string!");
+            MESSAGEW("name.size() = 0! You are trying to set an empty string!");
             //   return;
         }
 
         if (!server_smartcover)
         {
-            Msg("[Script_GlobalHelper/setGameRegisteredServerSmartCovers(name, "
-                "server_smartcover)] WARNING: "
-                "server_smartcover = null! You are trying to set an empty object!");
+            MESSAGEW("server_smartcover = null! You are trying to set an empty object!");
             // return;
         }
 
@@ -4714,11 +4704,9 @@ public:
 
     inline void setGameRegisteredCombatSpaceRestrictors(const xr_map<xr_string, CScriptGameObject*>& map)
     {
-        if (!map.size())
+        if (map.empty())
         {
-            Msg("[Script_GlobalHelper/setGameRegisteredCombatSpaceRestrictors(space_name, "
-                "client_zone)] WARNING: "
-                "map.size() = 0! You are trying to set an empty map!");
+            MESSAGEW("map.size() = 0! You are trying to set an empty map!");
             //    return;
         }
 
@@ -4727,19 +4715,15 @@ public:
 
     inline void setGameRegisteredCombatSpaceRestrictors(const std::pair<xr_string, CScriptGameObject*>& pair)
     {
-        if (!pair.first.size())
+        if (pair.first.empty())
         {
-            Msg("[Script_GlobalHelper/setGameRegisteredCombatSpaceRestrictors(space_name, "
-                "client_zone)] WARNING: "
-                "pair.first.size() = 0! You are trying to set an empty string!");
+            MESSAGEW("pair.first.size() = 0! You are trying to set an empty string!");
             //   return;
         }
 
         if (!pair.second)
         {
-            Msg("[Script_GlobalHelper/setGameRegisteredCombatSpaceRestrictors(space_name, "
-                "client_zone)] WARNING: "
-                "pair.second = null! You are trying to set an empty object!");
+            MESSAGEW("pair.second = null! You are trying to set an empty object!");
             //  return;
         }
 
@@ -4748,19 +4732,15 @@ public:
 
     inline void setGameRegisteredCombatSpaceRestrictors(const xr_string& space_name, CScriptGameObject* client_zone)
     {
-        if (!space_name.size())
+        if (space_name.empty())
         {
-            Msg("[Script_GlobalHelper/setGameRegisteredCombatSpaceRestrictors(space_name, "
-                "client_zone)] WARNING: "
-                "space_name.size() = 0! You are trying to set an empty string!");
+            MESSAGEW("space_name.size() = 0! You are trying to set an empty string!");
             //    return;
         }
 
         if (!client_zone)
         {
-            Msg("[Script_GlobalHelper/setGameRegisteredCombatSpaceRestrictors(space_name, "
-                "client_zone)] WARNING: "
-                "client_zone = null! You are trying to set an empty object!");
+            MESSAGEW("client_zone = null! You are trying to set an empty object!");
             //    return;
         }
 
@@ -4778,11 +4758,9 @@ public:
     inline void setGameRegisteredServerSmartCoversByLevelID(
         const xr_map<std::uint8_t, xr_map<std::uint32_t, Script_SE_SmartCover*>>& map)
     {
-        if (!map.size())
+        if (map.empty())
         {
-            Msg("[Script_GlobalHelper/setGameRegisteredServerSmartCoversByLevelID(map)] "
-                "WARNING: map.size() = 0! You "
-                "are trying to set an empty map!");
+            MESSAGEW("map.size() = 0! You are trying to set an empty map!");
             //  return;
         }
 
@@ -4794,18 +4772,13 @@ public:
     {
         if (level_id == Globals::kUnsignedInt8Undefined)
         {
-            Msg("[Script_GlobalHelper/setGameRegisteredServerSmartCoversByLevelID(level_id, "
-                "map)] "
-                "WARNING: level_id = std::uint8_t(-1)! You are trying to set an undefined "
-                "number of unsigned int!");
+            MESSAGEW("level_id = std::uint8_t(-1)! You are trying to set an undefined number of unsigned int!");
             //  return;
         }
 
-        if (!map.size())
+        if (map.empty())
         {
-            Msg("[Script_GlobalHelper/setGameRegisteredServerSmartCoversByLevelID(level_id, "
-                "map)] WARNING: map.size() "
-                "= 0! You are trying to set an empty map!");
+            MESSAGEW("map.size() = 0! You are trying to set an empty map!");
             //  return;
         }
 
@@ -4817,27 +4790,20 @@ public:
     {
         if (level_id == Globals::kUnsignedInt8Undefined)
         {
-            Msg("[Script_GlobalHelper/setGameRegisteredServerSmartCoversByLevelID(level_id, "
-                "pair)] "
-                "WARNING: level_id = std::uint8_t(-1)! You are trying to set an undefined "
-                "number of unsigned int!");
+            MESSAGEW("level_id = std::uint8_t(-1)! You are trying to set an undefined number of unsigned int!");
             //  return;
         }
 
         if (pair.first == Globals::kUnsignedInt32Undefined)
         {
-            Msg("[Script_GlobalHelper/setGameRegisteredServerSmartCoversByLevelID(level_id, "
-                "pair)] "
-                "WARNING: pair.first = std::uint32_t(-1)! You are trying to set an undefined "
+            MESSAGEW("pair.first = std::uint32_t(-1)! You are trying to set an undefined "
                 "number of unsigned int! ");
             //   return;
         }
 
         if (!pair.second)
         {
-            Msg("[Script_GlobalHelper/setGameRegisteredServerSmartCoversByLevelID(level_id, "
-                "pair)] "
-                "WARNING: pair.second = null! You are trying to set an empty object!");
+            MESSAGEW("pair.second = null! You are trying to set an empty object!");
             //  return;
         }
 
