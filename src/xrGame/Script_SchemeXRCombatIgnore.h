@@ -18,7 +18,7 @@ namespace Cordis
 			static void add_to_binder(CScriptGameObject* const p_client_object, CScriptIniFile* const p_ini,
 				const xr_string& scheme_name, const xr_string& section_name, DataBase::Storage_Scheme& storage);
 			static void set_combat_ignore_checker(CScriptGameObject* const p_npc, CScriptIniFile* const p_ini, const xr_string& scheme_name, const xr_string& section_name, const xr_string& gulag_name);
-			static void reset_combat_ignore_checker(CScriptGameObject* const p_npc, const xr_string& scheme_name, DataBase::Storage_Scheme* p_storage, const xr_string& section_name);
+			static void reset_combat_ignore_checker(CScriptGameObject* const p_npc, const xr_string& scheme_name, const DataBase::Storage_Data& p_storage, const xr_string& section_name);
 			static void disable_scheme(CScriptGameObject* const p_client_object, const xr_string& scheme_name);
 		private:
 

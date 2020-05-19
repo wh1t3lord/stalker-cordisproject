@@ -258,7 +258,136 @@ void Script_Binder_Stalker::shedule_Update(std::uint32_t time_delta)
         }
     }
 
+    bool is_object_alive = this->m_object->Alive();
+    
+    if ((DataBase::Storage::getInstance().getStorage().find(this->m_object->ID()) != DataBase::Storage::getInstance().getStorage().end()) && is_object_alive && (DataBase::Storage::getInstance().getStorage().at(this->m_object->ID()).getActiveSchemeName().empty() == false))
+    {
+		const DataBase::Storage_Data& storage = DataBase::Storage::getInstance().getStorage().at(this->m_object->ID());
 
+		DataBase::Storage_Scheme* p_storage = nullptr;
+
+		if (storage.getSchemes().find("combat") != storage.getSchemes().end())
+		{
+			p_storage = storage.getSchemes().at("combat");
+		}
+
+        bool is_switched = false;
+
+        CScriptActionPlanner* const p_planner = Globals::get_script_action_planner(this->m_object);
+
+        if (p_planner->initialized() && p_planner->current_action_id() == StalkerDecisionSpace::eWorldOperatorCombatPlanner)
+        {
+            const DataBase::Data_Overrides& overrides = storage.getOverrides();
+
+            if (overrides.isEmpty() == false)
+            {
+                if (overrides.getOnCombat().IsEmpty() == false)
+                {
+                    XR_LOGIC::pick_section_from_condlist(DataBase::Storage::getInstance().getActor(), this->m_object, overrides.getOnCombat().getCondlist());
+                }
+
+                if (p_storage && (p_storage->getLogic().empty() == false))
+                {
+                    if (!XR_LOGIC::try_switch_to_another_section(this->m_object, *p_storage, DataBase::Storage::getInstance().getActor()))
+                    {
+                        if (overrides.getCombatType().IsEmpty() == false)
+                        {
+                            XR_COMBAT::set_combat_type(this->m_object, DataBase::Storage::getInstance().getActor(), overrides.getCombatType().getCondlist());
+                        }
+                    }
+                }
+            }
+            else
+            {
+                XR_COMBAT::set_combat_type(this->m_object, DataBase::Storage::getInstance().getActor(), p_storage->getXRCombatCombatTypeCondlist());
+            }
+        }
+
+        if (!is_switched)
+        {
+            XR_LOGIC::try_switch_to_another_section(this->m_object, *storage.getSchemes().at(storage.getActiveSchemeName()), DataBase::Storage::getInstance().getActor());
+        }
+    }
+    else
+    {
+        DataBase::Storage_Scheme* const p_storage = DataBase::Storage::getInstance().getStorage().at(this->m_object->ID()).getSchemes().at("combat");
+
+        if (p_storage == nullptr)
+        {
+            // Lord: так и должно быть?
+            R_ASSERT2(false, "can't be!");
+            return;
+        }
+
+        XR_COMBAT::set_combat_type(this->m_object, DataBase::Storage::getInstance().getActor(), p_storage->getXRCombatCombatTypeCondlist());
+    }
+
+    if (this->m_is_first_update == false)
+    {
+        if (is_object_alive == false)
+        {
+            // Lord: death_manager когда будет
+        }
+
+        this->m_is_first_update = true;
+    }
+
+    if (Globals::get_time_global() - this->m_last_update > 1000)
+    {
+        Script_SRLightManager::getInstance().check_light(this->m_object);
+        this->m_last_update = Globals::get_time_global();
+    }
+
+    if (is_object_alive)
+    {
+        // Lord: ph_door, когда будет
+    }
+
+    if (DataBase::Storage::getInstance().getStorage().find(this->m_object->ID()) != DataBase::Storage::getInstance().getStorage().end())
+    {
+        const DataBase::Storage_Data& storage = DataBase::Storage::getInstance().getStorage().at(this->m_object->ID());
+
+        if (storage.getStateManager())
+        {
+            Script_StateManager* const p_state_manager = storage.getStateManager();
+            if (is_object_alive)
+            {
+                p_state_manager->update();
+
+                if (p_state_manager->isCombat() == false && p_state_manager->isAlife())
+                {
+                    // Lord: когда trader_manager будет!
+                }
+            }
+            else
+            {
+                // Lord: здесь происходит удаление, ибо НПС мёртв, можно ли без него обойтись и удалить в деструкторе? ПроверитЬ!
+            }
+        }
+    }
+
+    if (is_object_alive)
+    {
+        XR_SOUND::update(this->m_object->ID());
+        Script_SchemeXRMeet::process_npc_usability(this->m_object);
+
+        // Lord: пока что без бессмертия
+    }
+
+    Script_SE_SimulationSquad* const p_squad = Globals::get_object_squad(this->m_object->ID());
+
+    if (p_squad)
+    {
+        if (p_squad->commander_id() == this->m_object->ID())
+            p_squad->update();
+    }
+
+    this->m_object->info_clear();
+
+    if (is_object_alive)
+    {
+
+    }
 
 }
 

@@ -775,7 +775,7 @@ inline bool try_switch_to_another_section(
 inline bool switch_to_section(
     CScriptGameObject* const p_client_object, CScriptIniFile* const p_ini, const xr_string& section_name);
 inline bool is_active(CScriptGameObject* const p_client_object, DataBase::Storage_Scheme& storage);
-inline void reset_generic_schemes_on_scheme_switch(
+void reset_generic_schemes_on_scheme_switch(
     CScriptGameObject* const p_client_object, const xr_string& scheme_name, const xr_string& section_name);
 inline DataBase::Data_Overrides cfg_get_overrides(
     CScriptIniFile* const p_ini, const xr_string& section_name, CScriptGameObject* const p_client_object);
