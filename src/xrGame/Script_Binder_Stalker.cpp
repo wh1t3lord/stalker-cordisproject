@@ -161,7 +161,7 @@ bool Script_Binder_Stalker::net_Spawn(SpawnType DC)
 
     if (Globals::character_community(this->m_object) != "zombied")
     {
-         
+        Script_ActionPostCombatWait::add_post_combat_idle(this->m_object);
     }
 
     this->m_object->group_throw_time_interval(2000);
