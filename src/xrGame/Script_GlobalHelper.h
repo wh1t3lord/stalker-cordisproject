@@ -1300,8 +1300,7 @@ public:
     }
 
     inline xr_map<xr_string,
-        std::function<void(CScriptGameObject* const, CScriptIniFile* const, const xr_string&, const xr_string&,
-            DataBase::Storage_Scheme&)>>&
+        std::function<void(CScriptGameObject* const, CScriptIniFile* const, const xr_string&, const xr_string&, DataBase::Storage_Scheme&)>>&
     getSchemesAddToBinderCallbacks(void) noexcept
     {
         return this->m_registered_schemes_add_to_binder_callbacks;
