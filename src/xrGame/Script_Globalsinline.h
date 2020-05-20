@@ -834,7 +834,7 @@ inline xr_map<std::uint32_t, std::tuple<std::uint32_t, xr_map<std::uint32_t, Con
         return result;
     }
 
-	boost::regex rgx("\\w+|[^\\|\\[\\]]+");
+	boost::regex rgx("\\d+|[^|]+@[^|]+|\\w+");
 	boost::sregex_token_iterator iter(buffer_name.begin(), buffer_name.end(), rgx);
 	boost::sregex_token_iterator end;
 	bool is_condlist_found = false;
@@ -892,6 +892,8 @@ inline xr_map<std::uint32_t, std::tuple<std::uint32_t, xr_map<std::uint32_t, Con
 		is_condlist_found = false;
         ++index;
 	}
+
+    return result;
 }
 
 } // namespace Utils

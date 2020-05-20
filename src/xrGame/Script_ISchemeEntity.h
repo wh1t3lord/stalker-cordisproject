@@ -28,7 +28,12 @@ public:
     {
         MESSAGE("WARNING TO LORD: DELETE THIS FUNCTION!");
         this->m_is_subscribed_action = true;
-        MESSAGEI("[Scripts/Script_ISchemeEntity/subscribe_action()] action of npc %s %d %s %d is subscribed!", this->m_scheme_name.c_str(), this->m_scheme_id, this->m_npc->Name(), this->m_id);
+
+        xr_string npc_name;
+        if (this->m_npc)
+            npc_name = this->m_npc->Name();
+
+        MESSAGEI("[Scripts/Script_ISchemeEntity/subscribe_action()] action of npc %s %d %s %d is subscribed!", this->m_scheme_name.c_str(), this->m_scheme_id, npc_name.empty() ? "npc_undefined" : npc_name.c_str(), this->m_id);
     }
 
     inline void unsubscribe_action(void) noexcept { this->m_is_subscribed_action = false; }
