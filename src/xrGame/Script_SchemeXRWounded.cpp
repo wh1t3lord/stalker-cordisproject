@@ -394,13 +394,18 @@ namespace Cordis
 				return;
 			}
 
+			if (this->m_p_storage->getXRWoundedHealthFight().empty())
+			{
+				result_name = Globals::kStringTrue;
+				return;
+			}
+
 			const xr_map<std::uint32_t, CondlistData>& condlist_state = std::get<_kGetStateCondlist>(this->m_p_storage->getXRWoundedHealthFight().at(key));
 
 			if (condlist_state.empty() == false)
 				result_name = XR_LOGIC::pick_section_from_condlist(DataBase::Storage::getInstance().getActor(), this->m_p_npc, condlist_state);
 			else
 				result_name = Globals::kStringTrue;
-
 		}
 
 		void Script_WoundedManager::process_victim(const std::uint32_t health, xr_string& result_name)
