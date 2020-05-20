@@ -393,6 +393,8 @@ void CScriptBinder::reload(LPCSTR section)
 #endif // DEBUG
     }
 
+    this->owner->SetScriptBinderObject(this->m_object);
+
     /*
     #ifndef DBG_DISABLE_SCRIPTS
 
