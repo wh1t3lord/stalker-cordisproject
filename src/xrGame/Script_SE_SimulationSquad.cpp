@@ -306,7 +306,10 @@ std::uint16_t Script_SE_SimulationSquad::getScriptTarget(void)
             this->m_is_need_free_update = false;
     }
 
-    if (!this->m_parsed_targets[this->m_next_target_index].size())
+    if (this->m_next_target_index >= this->m_parsed_targets.size())
+        this->m_next_target_index = 0;
+
+    if (this->m_parsed_targets[this->m_next_target_index].empty())
         this->m_next_target_index = 0;
 
     xr_string _new_target = this->pick_next_target();
