@@ -15,7 +15,7 @@ public:
     virtual u32 getType() = 0;
 
 #ifdef DEBUG
-    virtual shared_str getDebugName() = 0;
+    virtual xr_string getDebugName() = 0;
 #endif
 
     virtual IRenderVisual* getSubModel(u8 idx) { return nullptr; } //--#SM+#--

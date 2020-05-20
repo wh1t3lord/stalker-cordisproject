@@ -70,8 +70,15 @@ public:
     ogf_desc desc;
 #endif
 #ifdef DEBUG
-    shared_str dbg_name;
-    virtual shared_str getDebugName() { return dbg_name; }
+    xr_string dbg_name;
+    virtual xr_string getDebugName() 
+    {
+        if (dbg_name.empty())
+            return "null";
+
+        return dbg_name; 
+    }
+
 #endif
 public:
     // Common data for rendering
