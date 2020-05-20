@@ -410,7 +410,7 @@ namespace Cordis
 			p_action->add_condition(CWorldProperty(StalkerDecisionSpace::eWorldPropertyAnomaly, false));
 			p_action->add_condition(CWorldProperty(StalkerDecisionSpace::eWorldPropertyItems, false));
 			p_action->add_condition(CWorldProperty(properties.at("wounded_exist"), false));
-			p_action->add_condition(CWorldProperty(properties.at("corpse_exist"), false));
+		//	p_action->add_condition(CWorldProperty(properties.at("corpse_exist"), false)); Lord: расскоменнитровать ибо не реализовано!
 			p_action->add_condition(CWorldProperty(properties.at("contact"), true));
 			p_action->add_condition(CWorldProperty(properties.at("wounded"), false));
 			p_action->add_condition(CWorldProperty(properties.at("abuse"), false));
