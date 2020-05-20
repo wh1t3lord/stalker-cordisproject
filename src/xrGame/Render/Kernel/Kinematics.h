@@ -100,7 +100,7 @@ public:
 // debug
 #ifdef DEBUG
     virtual void DebugRender(Fmatrix& XFORM) = 0;
-    virtual shared_str getDebugName() = 0;
+    virtual xr_string getDebugName() = 0;
 #endif
 };
 
