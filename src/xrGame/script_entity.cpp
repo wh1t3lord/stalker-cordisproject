@@ -703,8 +703,8 @@ void CScriptEntity::process_sound_callbacks()
 
     for (; I != E; ++I)
     {
-        object().GetScriptBinderObject()->hear_callback(
-            object().lua_game_object(), I->m_game_object_id, I->m_sound_type, I->m_position, I->m_sound_power);
+        if (object().GetScriptBinderObject())
+            object().GetScriptBinderObject()->hear_callback(object().lua_game_object(), I->m_game_object_id, I->m_sound_type, I->m_position, I->m_sound_power);
     }
 
     m_saved_sounds.clear();
