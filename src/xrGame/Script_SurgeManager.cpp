@@ -125,6 +125,9 @@ void Script_SurgeManager::init_surge_covers(void)
     {
         if (this->m_ini.r_line("list", i, &id_name, &temp_name))
         {
+            if (DataBase::Storage::getInstance().getZoneByName().find(id_name) == DataBase::Storage::getInstance().getZoneByName().end())
+                return;
+
             CScriptGameObject* const p_zone = DataBase::Storage::getInstance().getZoneByName().at(id_name);
             if (p_zone)
             {
