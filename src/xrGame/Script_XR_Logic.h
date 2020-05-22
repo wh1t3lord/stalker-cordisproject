@@ -323,7 +323,7 @@ inline xr_map<std::uint32_t, CondlistData> parse_condlist_by_server_object(
     bool was_found_set = false;
     bool was_found_section = false;
     std::uint8_t counter_percent_symbol = 0;
-    xr_string mask_symbols = "%{}, qwertyuioplkjhgfdsamnbvcxz1234567890-+=~!_():";
+    xr_string mask_symbols = "%{}., qwertyuioplkjhgfdsamnbvcxz1234567890@-+=~!_():";
 
     xr_vector<CondlistParsingData> buffer;
     CondlistParsingData sub_data;
@@ -535,7 +535,7 @@ inline xr_map<std::uint32_t, CondlistData> parse_condlist_by_script_object(
     bool was_found_set = false;
     bool was_found_section = false;
     std::uint8_t counter_percent_symbol = 0;
-    xr_string mask_symbols = "%{}, qwertyuioplkjhgfdsamnbvcxz1234567890-+=~!_():";
+    xr_string mask_symbols = "%{}., qwertyuioplkjhgfdsamnbvcxz1234567890@-+=~!_():";
 
     xr_vector<CondlistParsingData> buffer;
     CondlistParsingData sub_data;
@@ -704,6 +704,9 @@ inline xr_map<std::uint32_t, CondlistData> parse_condlist_by_script_object(
     }
 
     // @ Added last sub_data, cuz in loop we can't add at last it : source!
+	if (current_section.size())
+		sub_data.m_text_name = current_section;
+
     buffer.push_back(sub_data);
     sub_data.Clear();
 
@@ -2359,6 +2362,8 @@ inline LogicData cfg_get_string_and_condlist(CScriptIniFile* const p_ini, const 
     if (data_name.empty())
         return result;
 
+    // Lord: завтра запустить потестить, вылетает, наверное нужно как-то улучшить parse_params!!!
+    // Ибо оно должно и такое парсить a|b -> a,b
     xr_vector<xr_string> params = Globals::Utils::parse_params(data_name);
     if (params.empty() || params.size() < 2)
     {
@@ -2488,7 +2493,7 @@ inline bool try_switch_to_another_section(
 
     if (logic.empty())
     {
-        R_ASSERT2(false, "can't be see set_scheme!");
+        MESSAGEI("Your scheme is a demon!");
         return false;
     }
 
@@ -2641,7 +2646,7 @@ inline bool switch_to_section(
 
     if (section_name.empty())
     {
-        R_ASSERT2(false, "can't be empty!");
+        MESSAGEI("waiting to switch the section or your scheme is a demon!");
         return false;
     }
 

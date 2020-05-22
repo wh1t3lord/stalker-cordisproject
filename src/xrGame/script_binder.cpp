@@ -65,30 +65,22 @@ void CScriptBinder::reinit()
 
 void CScriptBinder::reload(LPCSTR section)
 {
-    VERIFY(!m_object);
-    Msg("[CScriptBinder/reload(section_name)] TO LORD IMPLEMENT BINDING FOR INSTANCES. %s", this->owner->Name());
+	VERIFY(!m_object);
+ 
 
     int owner_clsid = this->owner->clsid();
-
+    MESSAGEI("binding %s the instance {%s}", section, this->owner->Name());
     if (owner_clsid == Cordis::Scripts::Globals::get_script_clsid(CLSID_SE_ACTOR))
     {
         this->m_object = new Cordis::Scripts::Script_Binder_Actor(this->owner->lua_game_object());
-#ifdef DEBUG
-        MESSAGEI("binding %s the instance {%s}", section, this->owner->Name());
-#endif // DEBUG
     }
     else if (owner_clsid == Cordis::Scripts::Globals::get_script_clsid(CLSID_SE_STALKER))
     {
         this->m_object = new Cordis::Scripts::Script_Binder_Stalker(this->owner->lua_game_object());
-#ifdef DEBUG
-        MESSAGEI("binding %s the instance {%s}", section, this->owner->Name());
-#endif // DEBUG
     }
     else if (owner_clsid == Cordis::Scripts::Globals::get_script_clsid(CLSID_SE_AMMO))
     {
-#ifdef DEBUG
-        MESSAGEI("%s binding ammo the instance {%s}", section, this->owner->Name());
-#endif // DEBUG
+ 
     }
     else if (owner_clsid == Cordis::Scripts::Globals::get_script_clsid(CLSID_SE_HELI))
     {
@@ -122,12 +114,14 @@ void CScriptBinder::reload(LPCSTR section)
     }
     else if (owner_clsid == Cordis::Scripts::Globals::get_script_clsid(CLSID_SE_LEVEL_CHANGER))
     {
+        this->m_object = new Cordis::Scripts::Script_Binder_LevelChanger(this->owner->lua_game_object());
     }
     else if (owner_clsid == Cordis::Scripts::Globals::get_script_clsid(CLSID_UI_MAIN_MENU))
     {
     }
     else if (owner_clsid == Cordis::Scripts::Globals::get_script_clsid(CLSID_SE_ONLINE_OFFLINE_GROUP))
     {
+  
     }
     else if (owner_clsid == Cordis::Scripts::Globals::get_script_clsid(CLSID_SE_DESTROYABLE_PHYSICS_OBJECT))
     {
@@ -137,130 +131,98 @@ void CScriptBinder::reload(LPCSTR section)
     }
     else if (owner_clsid == Cordis::Scripts::Globals::get_script_clsid(CLSID_SE_ARTEFACT))
     {
+       
     }
     else if (owner_clsid == Cordis::Scripts::Globals::get_script_clsid(CLSID_SE_SMART_TERRAIN))
     {
+        this->m_object = new Cordis::Scripts::Script_Binder_SmartTerrain(this->owner->lua_game_object());
     }
     else if (owner_clsid == Cordis::Scripts::Globals::get_script_clsid(CLSID_SE_SMART_COVER))
     {
+        this->m_object = new Cordis::Scripts::Script_Binder_SmartCover(this->owner->lua_game_object());
     }
     else if (owner_clsid == Cordis::Scripts::Globals::get_script_clsid(CLSID_SE_MONSTER_BLOODSUCKER))
     {
-#ifdef DEBUG
-        MESSAGEI("binding %s the instance {%s}", section, this->owner->Name());
-#endif // DEBUG
         this->m_object = new Cordis::Scripts::Script_Binder_Monster(this->owner->lua_game_object());
     }
     else if (owner_clsid == Cordis::Scripts::Globals::get_script_clsid(CLSID_SE_MONSTER_BOAR))
     {
-#ifdef DEBUG
-        MESSAGEI("binding %s the instance {%s}", section, this->owner->Name());
-#endif // DEBUG
+ 
         this->m_object = new Cordis::Scripts::Script_Binder_Monster(this->owner->lua_game_object());
     }
     else if (owner_clsid == Cordis::Scripts::Globals::get_script_clsid(CLSID_SE_MONSTER_BURER))
     {
-#ifdef DEBUG
-        MESSAGEI("binding %s the instance {%s}", section, this->owner->Name());
-#endif // DEBUG
+ 
         this->m_object = new Cordis::Scripts::Script_Binder_Monster(this->owner->lua_game_object());
     }
     else if (owner_clsid == Cordis::Scripts::Globals::get_script_clsid(CLSID_SE_MONSTER_CAT))
     {
-#ifdef DEBUG
-        MESSAGEI("binding %s the instance {%s}", section, this->owner->Name());
-#endif // DEBUG
+ 
         this->m_object = new Cordis::Scripts::Script_Binder_Monster(this->owner->lua_game_object());
     }
     else if (owner_clsid == Cordis::Scripts::Globals::get_script_clsid(CLSID_SE_MONSTER_CHIMERA))
     {
-#ifdef DEBUG
-        MESSAGEI("binding %s the instance {%s}", section, this->owner->Name());
-#endif // DEBUG
+ 
         this->m_object = new Cordis::Scripts::Script_Binder_Monster(this->owner->lua_game_object());
     }
     else if (owner_clsid == Cordis::Scripts::Globals::get_script_clsid(CLSID_SE_MONSTER_CONTROLLER))
     {
-#ifdef DEBUG
-        MESSAGEI("binding %s the instance {%s}", section, this->owner->Name());
-#endif // DEBUG
+ 
         this->m_object = new Cordis::Scripts::Script_Binder_Monster(this->owner->lua_game_object());
     }
     else if (owner_clsid == Cordis::Scripts::Globals::get_script_clsid(CLSID_SE_MONSTER_DOG_PSY_PHANTOM))
     {
-#ifdef DEBUG
-        MESSAGEI("binding %s the instance {%s}", section, this->owner->Name());
-#endif // DEBUG
+ 
         this->m_object = new Cordis::Scripts::Script_Binder_Monster(this->owner->lua_game_object());
     }
     else if (owner_clsid == Cordis::Scripts::Globals::get_script_clsid(CLSID_SE_MONSTER_DOG_PSY))
     {
-#ifdef DEBUG
-        MESSAGEI("binding %s the instance {%s}", section, this->owner->Name());
-#endif // DEBUG
+ 
         this->m_object = new Cordis::Scripts::Script_Binder_Monster(this->owner->lua_game_object());
     }
     else if (owner_clsid == Cordis::Scripts::Globals::get_script_clsid(CLSID_SE_MONSTER_DOG))
     {
-#ifdef DEBUG
-        MESSAGEI("binding %s the instance {%s}", section, this->owner->Name());
-#endif // DEBUG
+ 
         this->m_object = new Cordis::Scripts::Script_Binder_Monster(this->owner->lua_game_object());
     }
     else if (owner_clsid == Cordis::Scripts::Globals::get_script_clsid(CLSID_SE_MONSTER_FLESH))
     {
-#ifdef DEBUG
-        MESSAGEI("binding %s the instance {%s}", section, this->owner->Name());
-#endif // DEBUG
+ 
         this->m_object = new Cordis::Scripts::Script_Binder_Monster(this->owner->lua_game_object());
     }
     else if (owner_clsid == Cordis::Scripts::Globals::get_script_clsid(CLSID_SE_MONSTER_PSEUDO_GIGANT))
     {
-#ifdef DEBUG
-        MESSAGEI("binding %s the instance {%s}", section, this->owner->Name());
-#endif // DEBUG
+ 
         this->m_object = new Cordis::Scripts::Script_Binder_Monster(this->owner->lua_game_object());
     }
     else if (owner_clsid == Cordis::Scripts::Globals::get_script_clsid(CLSID_SE_MONSTER_IZLOM))
     {
-#ifdef DEBUG
-        MESSAGEI("binding %s the instance {%s}", section, this->owner->Name());
-#endif // DEBUG
+ 
         this->m_object = new Cordis::Scripts::Script_Binder_Monster(this->owner->lua_game_object());
     }
     else if (owner_clsid == Cordis::Scripts::Globals::get_script_clsid(CLSID_SE_MONSTER_POLTERGEIST))
     {
-#ifdef DEBUG
-        MESSAGEI("binding %s the instance {%s}", section, this->owner->Name());
-#endif // DEBUG
+ 
         this->m_object = new Cordis::Scripts::Script_Binder_Monster(this->owner->lua_game_object());
     }
     else if (owner_clsid == Cordis::Scripts::Globals::get_script_clsid(CLSID_SE_MONSTER_DOG_PSEUDO))
     {
-#ifdef DEBUG
-        MESSAGEI("binding %s the instance {%s}", section, this->owner->Name());
-#endif // DEBUG
+ 
         this->m_object = new Cordis::Scripts::Script_Binder_Monster(this->owner->lua_game_object());
     }
     else if (owner_clsid == Cordis::Scripts::Globals::get_script_clsid(CLSID_SE_MONSTER_SNORK))
     {
-#ifdef DEBUG
-        MESSAGEI("binding %s the instance {%s}", section, this->owner->Name());
-#endif // DEBUG
+ 
         this->m_object = new Cordis::Scripts::Script_Binder_Monster(this->owner->lua_game_object());
     }
     else if (owner_clsid == Cordis::Scripts::Globals::get_script_clsid(CLSID_SE_MONSTER_TUSHKANO))
     {
-#ifdef DEBUG
-        MESSAGEI("binding %s the instance {%s}", section, this->owner->Name());
-#endif // DEBUG
+ 
         this->m_object = new Cordis::Scripts::Script_Binder_Monster(this->owner->lua_game_object());
     }
     else if (owner_clsid == Cordis::Scripts::Globals::get_script_clsid(CLSID_SE_MONSTER_ZOMBI))
     {
-#ifdef DEBUG
-        MESSAGEI("binding %s the instance {%s}", section, this->owner->Name());
-#endif // DEBUG
+ 
         this->m_object = new Cordis::Scripts::Script_Binder_Monster(this->owner->lua_game_object());
     }
     else if (owner_clsid == Cordis::Scripts::Globals::get_script_clsid(CLSID_SE_LAMP))
@@ -268,6 +230,7 @@ void CScriptBinder::reload(LPCSTR section)
     }
     else if (owner_clsid == Cordis::Scripts::Globals::get_script_clsid(CLSID_SE_RESTRICTOR))
     {
+    this->m_object = new Cordis::Scripts::Script_Binder_Restrictor(this->owner->lua_game_object());
     }
     else if (owner_clsid == Cordis::Scripts::Globals::get_script_clsid(CLSID_SE_ANTIRAD))
     {
@@ -392,6 +355,9 @@ void CScriptBinder::reload(LPCSTR section)
        MESSAGEW("YOU ARE NOT REGISTER (HANDLE) THE CLSID OF INSTANCE {name:%s | clsid: %d}. YOU MUST TO FIX IT...", section, this->owner->clsid());
 #endif // DEBUG
     }
+    
+    if (this->m_object)
+        this->m_object->reload(section);
 
     /*
     #ifndef DBG_DISABLE_SCRIPTS

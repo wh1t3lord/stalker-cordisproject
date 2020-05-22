@@ -393,14 +393,22 @@ void Script_Binder_Stalker::shedule_Update(std::uint32_t time_delta)
 
 void Script_Binder_Stalker::save(NET_Packet* output_packet)
 {
-    this->m_is_loaded = true;
     Globals::set_save_marker(*output_packet, Globals::kSaveMarkerMode_Save, false, "Script_Binder_Stalker");
     inherited::save(output_packet);
     
     Globals::set_save_marker(*output_packet, Globals::kSaveMarkerMode_Save, true, "Script_Binder_Stalker");
 }
 
-void Script_Binder_Stalker::load(IReader* input_packet) {}
+void Script_Binder_Stalker::load(IReader* input_packet)
+{
+    this->m_is_loaded = true;
+    Globals::set_save_marker(*input_packet, Globals::kSaveMarkerMode_Load, false, "Script_Binder_Stalker");
+
+    XR_LOGIC::load_object(this->m_object, *input_packet);
+    
+
+    Globals::set_save_marker(*input_packet, Globals::kSaveMarkerMode_Load, true, "Script_Binder_Stalker");
+}
 
 bool Script_Binder_Stalker::net_SaveRelevant(void) { return true; }
 
