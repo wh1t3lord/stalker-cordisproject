@@ -1021,14 +1021,32 @@ inline xr_string pick_section_from_condlist(
                             calling_function_name) ==
                         Script_GlobalHelper::getInstance().getRegisteredFunctionsXRCondition().end())
                     {
-                        Msg("[Scripts/XR_LOGIC/pick_section_from_condlist(actor, npc, condlist)] object '%s': "
+                        MESSAGEW("object '%s': "
                             "pick_section_from_condlist: function '%s' is "
                             "not defined in xr_effects",
                             npc->s_name, it_infoportion_set.second.m_function_name.c_str());
                         R_ASSERT(false);
                     }
 
-                    if (it_infoportion_set.second.m_params.size())
+					xr_string buffer = it_infoportion_set.second.m_params;
+					static const boost::regex expr{ "\\w+" };
+					boost::regex_token_iterator<std::string::iterator> it{ buffer.begin(), buffer.end(), expr };
+					boost::regex_token_iterator<std::string::iterator> end;
+					xr_vector<xr_string> argument_buffer;
+					std::uint8_t argument_counter = 0;
+					while (it != end)
+					{
+						++argument_counter;
+						MESSAGE("Argument #%d: %s",
+							argument_counter, it->str().c_str());
+						argument_buffer.push_back(it->str().c_str());
+						++it;
+					}
+
+					Script_GlobalHelper::getInstance().getRegisteredFunctionsXREffects()[calling_function_name].operator()<CScriptGameObject* const, CScriptGameObject* const, const xr_vector<xr_string>&>(
+						actor, nullptr, argument_buffer);
+
+                    /*if (it_infoportion_set.second.m_params.size())
                     {
                         if (it_infoportion_set.second.m_params.find(':') == xr_string::npos)
                         {
@@ -1053,7 +1071,7 @@ inline xr_string pick_section_from_condlist(
                                     .getRegisteredFunctionsXREffects()[calling_function_name](
                                         actor, npc, argument1, argument2_number);
                         }
-                    }
+                    }*/
                 }
                 else if (it_infoportion_set.second.m_required)
                 {
@@ -1407,6 +1425,23 @@ inline xr_string pick_section_from_condlist(
                         R_ASSERT(false);
                     }
 
+					xr_string buffer = it_infoportion_set.second.m_params;
+					static const boost::regex expr{ "\\w+" };
+					boost::regex_token_iterator<std::string::iterator> it{ buffer.begin(), buffer.end(), expr };
+					boost::regex_token_iterator<std::string::iterator> end;
+					xr_vector<xr_string> argument_buffer;
+					std::uint8_t argument_counter = 0;
+					while (it != end)
+					{
+						++argument_counter;
+						MESSAGE("Argument #%d: %s",
+							argument_counter, it->str().c_str());
+						argument_buffer.push_back(it->str().c_str());
+						++it;
+					}
+					Script_GlobalHelper::getInstance().getRegisteredFunctionsXREffects()[calling_function_name].operator()<CScriptGameObject* const, CScriptGameObject* const, const xr_vector<xr_string>&> (
+						nullptr, nullptr, argument_buffer);
+/*
                     if (it_infoportion_set.second.m_params.size())
                     {
                         if (it_infoportion_set.second.m_params.find(':') == xr_string::npos)
@@ -1432,7 +1467,7 @@ inline xr_string pick_section_from_condlist(
                                     .getRegisteredFunctionsXREffects()[calling_function_name](
                                         actor, npc, argument1, argument2_number);
                         }
-                    }
+                    }*/
                 }
                 else if (it_infoportion_set.second.m_required)
                 {
@@ -1542,7 +1577,7 @@ inline xr_string pick_section_from_condlist(
                     ///
                     xr_string buffer = it_infoportion_check.second.m_params;
                     xr_vector<xr_string> argument_buffer;
-                    boost::regex expr{"\\w+"};
+                    static const boost::regex expr{"\\w+"};
                     boost::regex_token_iterator<std::string::iterator> it{buffer.begin(), buffer.end(), expr};
                     boost::regex_token_iterator<std::string::iterator> end;
 
@@ -1774,11 +1809,29 @@ inline xr_string pick_section_from_condlist(
 
                     if (it_infoportion_set.second.m_params.size())
                     {
+                        xr_string buffer = it_infoportion_set.second.m_params;
+						static const boost::regex expr{ "\\w+" };
+						boost::regex_token_iterator<std::string::iterator> it{ buffer.begin(), buffer.end(), expr };
+						boost::regex_token_iterator<std::string::iterator> end;
+                        xr_vector<xr_string> argument_buffer;
+						std::uint8_t argument_counter = 0;
+						while (it != end)
+						{
+							++argument_counter;
+							MESSAGE("Argument #%d: %s",
+								argument_counter, it->str().c_str());
+							argument_buffer.push_back(it->str().c_str());
+							++it;
+						}
+						Script_GlobalHelper::getInstance().getRegisteredFunctionsXREffects()[calling_function_name].operator()<CScriptGameObject* const, CScriptGameObject* const, const xr_vector<xr_string>&>(
+							actor, npc, argument_buffer);
+/*
                         if (it_infoportion_set.second.m_params.find(':') == xr_string::npos)
                         {
                             xr_string argument = it_infoportion_set.second.m_params;
-                            Script_GlobalHelper::getInstance().getRegisteredFunctionsXREffects()[calling_function_name](
-                                actor, npc, argument);
+                            
+                            Script_GlobalHelper::getInstance().getRegisteredFunctionsXREffects()[calling_function_name].operator()<CScriptGameObject* const, CScriptGameObject* const, const xr_vector<xr_string>&>(
+                                actor, npc, { argument });
                         }
                         else
                         {
@@ -1796,7 +1849,7 @@ inline xr_string pick_section_from_condlist(
                                 Script_GlobalHelper::getInstance()
                                     .getRegisteredFunctionsXREffects()[calling_function_name](
                                         actor, npc, argument1, argument2_number);
-                        }
+                        }*/
                     }
                 }
                 else if (it_infoportion_set.second.m_required)
