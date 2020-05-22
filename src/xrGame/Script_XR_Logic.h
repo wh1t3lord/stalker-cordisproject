@@ -72,16 +72,18 @@ inline xr_string determine_section_to_activate(CScriptGameObject* const p_npc, C
     return active_section_name;
 }
 
-
-
-
-// Lord: уйти от копирования, реализовать через передачу CScriptIniFile&, чтобы инитил по ссылке
-inline CScriptIniFile get_customdata_or_ini_file(CScriptGameObject* npc, const xr_string& filename)
+inline CScriptIniFile* get_customdata_or_ini_file(CScriptGameObject* npc, const xr_string& filename)
 {
     if (!npc)
     {
         R_ASSERT2(false, "object was null!");
-        return CScriptIniFile("system.ltx");
+        static int generated = 0;
+        CScriptIniFile* p_instance = new CScriptIniFile("system.ltx");
+        ++generated;
+        xr_string generated_name = "undefined_";
+        generated_name.append(std::to_string(generated));
+        DataBase::Storage::getInstance().RegisterAllocatedTemporaryIni(generated_name, p_instance);
+        return p_instance;
     }
 
     const DataBase::Storage_Data& storage = DataBase::Storage::getInstance().getStorage().at(npc->ID());
@@ -90,20 +92,33 @@ inline CScriptIniFile get_customdata_or_ini_file(CScriptGameObject* npc, const x
         CScriptIniFile* file = npc->spawn_ini();
         if (file)
         {
-            return *file;
+            return file;
         }
         else
-            return CScriptIniFile("[[scripts\\dummy.ltx]]");
+        {
+            CScriptIniFile* p_instance = new CScriptIniFile("[[scripts\\dummy.ltx]]");
+            DataBase::Storage::getInstance().RegisterAllocatedTemporaryIni(npc->Name(), p_instance);
+            return p_instance;
+        }
+            
     }
     else if (!filename.find('*'))
     {
-        if (storage.getJobIniName().size())
-            return CScriptIniFile(storage.getJobIniName().c_str());
+        if (storage.getJobIniName().empty() == false)
+        {
+            CScriptIniFile* const p_instance = new CScriptIniFile(storage.getJobIniName().c_str());
+            DataBase::Storage::getInstance().RegisterAllocatedTemporaryIni(npc->Name(), p_instance);
+            return p_instance;
+        }
+
+
         xr_string something_like_that;
-        return *XR_GULAG::loadLtx(filename.substr(filename.find('*') + 1), something_like_that);
+        return XR_GULAG::loadLtx(filename.substr(filename.find('*') + 1), something_like_that);
     }
 
-    return CScriptIniFile(filename.c_str());
+    CScriptIniFile* p_instance = new CScriptIniFile(filename.c_str());
+    DataBase::Storage::getInstance().RegisterAllocatedTemporaryIni(npc->Name(), p_instance);
+    return p_instance;
 }
 
 inline void intialize_job(CScriptGameObject* object, const DataBase::Storage_Data& storage, const bool& loaded,
@@ -112,8 +127,8 @@ inline void intialize_job(CScriptGameObject* object, const DataBase::Storage_Dat
     if (!loaded)
     {
         xr_string ini_filename = XR_LOGIC_CUSTOMDATA;
-        CScriptIniFile ini = get_customdata_or_ini_file(object, ini_filename);
-        CScriptIniFile* const p_ini = configure_schemes(object, &ini, ini_filename, stype, "logic", "");
+        CScriptIniFile* ini = get_customdata_or_ini_file(object, ini_filename);
+        CScriptIniFile* const p_ini = configure_schemes(object, ini, ini_filename, stype, "logic", "");
         xr_string section_name = determine_section_to_activate(object, p_ini, "logic", actor);
         activate_by_section(object, p_ini, section_name, storage.getGulagName(), false);
         xr_string relation_name = Globals::Utils::cfg_get_string(p_ini, "logic", "relation");
@@ -133,8 +148,8 @@ inline void intialize_job(CScriptGameObject* object, const DataBase::Storage_Dat
         xr_string ini_filename = storage.getLoadedInifilename();
         if (ini_filename.empty() == false)
         {
-            CScriptIniFile ini = get_customdata_or_ini_file(object, ini_filename);
-            CScriptIniFile* const p_ini = configure_schemes(object, &ini, ini_filename, stype, storage.getLoadedSectionLogicName(), storage.getLoadedGulagName());
+            CScriptIniFile* ini = get_customdata_or_ini_file(object, ini_filename);
+            CScriptIniFile* const p_ini = configure_schemes(object, ini, ini_filename, stype, storage.getLoadedSectionLogicName(), storage.getLoadedGulagName());
             activate_by_section(object, p_ini, storage.getLoadedActiveSectionName(), storage.getLoadedGulagName(), true);
         }
     }
@@ -2591,10 +2606,13 @@ inline bool try_switch_to_another_section(
         }
         else if (field_name.find("on_signal") != xr_string::npos)
         {
-            if (!storage.getSignals().at(it.getFirstValueName()))
+            if (storage.getSignals().find(it.getFieldName()) != storage.getSignals().end())
             {
-                is_switched = switch_to_section(p_client_object, storage.getIni(),
-                    pick_section_from_condlist(p_client_actor, p_client_object, it.getCondlist()));
+				if (!storage.getSignals().at(it.getFirstValueName()))
+				{
+					is_switched = switch_to_section(p_client_object, storage.getIni(),
+						pick_section_from_condlist(p_client_actor, p_client_object, it.getCondlist()));
+				}
             }
         }
         else if (field_name.find("on_info") != xr_string::npos)

@@ -34,6 +34,10 @@ public:
               // , comment(0)
               //#endif
               {};
+
+        ~Item(void) 
+        {
+        }
     };
 
     using Items = xr_vector<Item>;

@@ -373,6 +373,8 @@ CInifile::~CInifile()
     {
         xr_delete(val);
     }
+
+    DATA.clear();
 }
 
 static void insert_item(CInifile::Sect* tgt, const CInifile::Item& I)
