@@ -14,8 +14,8 @@ public:
     virtual ~Script_Binder_Stalker(void);
     virtual void reinit(void);
     virtual void reload(LPCSTR section_name);
-    virtual bool net_Spawn(SpawnType DC);
-    virtual void net_Destroy(void);
+    bool net_Spawn(SpawnType DC) override;
+    void net_Destroy(void) override;
     virtual void net_Import(NET_Packet* packet);
     virtual void net_Export(NET_Packet* packet);
     virtual void shedule_Update(std::uint32_t time_delta);

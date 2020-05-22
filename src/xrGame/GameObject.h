@@ -103,6 +103,7 @@ protected:
 public:
     CGameObject();
     virtual ~CGameObject();
+
 // XXX: review
 #ifdef DEBUG
     virtual u32 GetDbgUpdateFrame() const override { return dbg_update_cl; }

@@ -60,9 +60,31 @@ Fvector CScriptGameObject::Center()
 }
 
 BIND_FUNCTION10(&object(), CScriptGameObject::Position, CGameObject, Position, Fvector, Fvector());
+
 BIND_FUNCTION10(&object(), CScriptGameObject::Direction, CGameObject, Direction, Fvector, Fvector());
+
 BIND_FUNCTION10(&object(), CScriptGameObject::Mass, CPhysicsShellHolder, GetMass, float, float(-1));
-BIND_FUNCTION10(&object(), CScriptGameObject::ID, CGameObject, ID, u16, u16(-1));
+
+u16 CScriptGameObject::ID() const 
+{
+    CGameObject* p_entity = &object();
+
+    if (p_entity)
+    {
+        if (p_entity->lua_game_object() == nullptr)
+        {
+            MESSAGEWR("returned undefined ID, because scripted object was deleted!");
+            return Cordis::Scripts::Globals::kUnsignedInt16Undefined;
+        }
+        
+        return p_entity->ID();
+    }
+
+
+    MESSAGEER("you operate with already deleted instance!");
+    return Cordis::Scripts::Globals::kUnsignedInt16Undefined;
+}
+
 BIND_FUNCTION10(&object(), CScriptGameObject::getVisible, CGameObject, getVisible, BOOL, FALSE);
 // BIND_FUNCTION01	(&object(),	CScriptGameObject::setVisible,			CGameObject,	setVisible,			BOOL,
 // BOOL);

@@ -406,7 +406,7 @@ BOOL CScriptBinder::net_Spawn(CSE_Abstract* DC)
 
     if (object && this->m_object)
     {
-        return static_cast<BOOL>(this->m_object->net_Spawn(object)); // Lord: уйти от каста переписать наверное стоит
+        return static_cast<BOOL>(this->m_object->net_Spawn(object));
     }
 
     /*
@@ -467,14 +467,14 @@ void CScriptBinder::shedule_Update(u32 time_delta)
 {
     if (m_object)
     {
-        try
-        {
+  //      try
+ //       {
             m_object->shedule_Update(time_delta);
-        }
-        catch (...)
-        {
-            clear();
-        }
+  //      }
+  //      catch (...)
+  //      {
+    //        clear();
+  //      }
     }
 }
 
@@ -482,14 +482,14 @@ void CScriptBinder::save(NET_Packet& output_packet)
 {
     if (m_object)
     {
-        try
-        {
+//         try
+//         {
             m_object->save(&output_packet);
-        }
-        catch (...)
-        {
-            clear();
-        }
+//         }
+//         catch (...)
+//         {
+//             clear();
+//         }
     }
 }
 
@@ -525,6 +525,7 @@ BOOL CScriptBinder::net_SaveRelevant()
             clear();
         }*/
     }
+
     return (FALSE);
 }
 

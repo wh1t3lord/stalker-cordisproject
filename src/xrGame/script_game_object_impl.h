@@ -25,10 +25,11 @@ IC CGameObject& CScriptGameObject::object() const
     {
     }
 
+/*
     GEnv.ScriptEngine->script_log(
         LuaMessageType::Error, "you are trying to use a destroyed object [%x]", m_game_object);
     THROW2(m_game_object && m_game_object->lua_game_object() == this,
-        "Probably, you are trying to use a destroyed object!");
+        "Probably, you are trying to use a destroyed object!");*/
 #endif // #ifdef DEBUG
     return (*m_game_object);
 }

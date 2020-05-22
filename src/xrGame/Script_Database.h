@@ -3046,6 +3046,8 @@ public:
                 xr_delete(it.second);
             }
         }
+
+        this->m_schemes.clear();
     }
     inline bool IsInvulnerable(void) const noexcept { return this->m_is_invulnerable; }
     inline void setInvulnerable(const bool value) noexcept { this->m_is_invulnerable = value; }
@@ -4932,6 +4934,16 @@ public:
             }
         }
 
+        if (this->m_temporaries_ini_files.empty() == false)
+        {
+            for (std::pair<const xr_string, CScriptIniFile*>& it : this->m_temporaries_ini_files)
+            {
+                MESSAGEI("deleted temporary ini_file of object %s", it.first.c_str());
+                xr_delete(it.second);
+            }
+        }
+
+        this->m_temporaries_ini_files.clear();
         this->m_smart_covers_by_name.clear();
         this->m_patrols_xr_reach_task.clear();
         this->m_patrols_xr_patrol.clear();
@@ -5192,6 +5204,19 @@ public:
     }
 #pragma endregion
 
+#pragma region Cordis Temporaries XR_LOGIC
+    inline void RegisterAllocatedTemporaryIni(const xr_string& object_name, CScriptIniFile* p_pointer)
+    {
+        if (this->m_temporaries_ini_files.find(object_name) != this->m_temporaries_ini_files.end())
+        {
+            MESSAGEER("You are trying to set already allocated instance! Memory leak!");
+            return;
+        }
+
+        this->m_temporaries_ini_files[object_name] = p_pointer;
+    }
+#pragma endregion 
+
     Storage(const Storage&) = delete;
     Storage& operator=(const Storage&) = delete;
     Storage(Storage&&) = delete;
@@ -5258,7 +5283,9 @@ private:
 #pragma region Cordis Scheme XR Reach Task
     xr_map<xr_string, Script_ReachTaskManager*> m_patrols_xr_reach_task;
 #pragma endregion
-
+#pragma region Cordis Temporary from XR_LOGIC determine_...
+    xr_map<xr_string, CScriptIniFile*> m_temporaries_ini_files;
+#pragma endregion 
     // first -> sympathy[ID] = std::uint32_t; | second -> relations[ID] = std::string;
     std::pair<xr_map<std::uint16_t, float>, xr_map<std::uint16_t, xr_string>> m_goodwill;
 };
