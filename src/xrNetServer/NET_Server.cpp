@@ -994,9 +994,9 @@ void IPureServer::BannedList_Load()
 
     for (; it != it_e; ++it)
     {
-        const shared_str& sect_name = (*it)->Name;
+        const xr_string& sect_name = (*it)->Name;
         IBannedClient* Cl = new IBannedClient();
-        Cl->Load(ini, sect_name);
+        Cl->Load(ini, sect_name.c_str());
         BannedAddresses.push_back(Cl);
     }
 }

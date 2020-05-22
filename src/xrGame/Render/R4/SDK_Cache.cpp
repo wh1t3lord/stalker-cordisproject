@@ -90,7 +90,7 @@ namespace Cordis
 			LPCSTR value;
 			if ((*it)->line_exist("$spawn", &value))
 			{
-				shared_str sdk_info = pSettings->r_string_wb((*it)->Name, "$spawn");
+				shared_str sdk_info = pSettings->r_string_wb((*it)->Name.c_str(), "$spawn");
 
 				if (sdk_info.size())
 					cache_element.first = sdk_info.c_str();

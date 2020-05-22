@@ -24,13 +24,12 @@ class XRCORE_API CInifile
 public:
     struct XRCORE_API Item
     {
-        shared_str first;
-        shared_str second;
+        xr_string first;
+        xr_string second;
         //#ifdef DEBUG
         // shared_str comment;
         //#endif
         Item()
-            : first(nullptr), second(nullptr)
               //#ifdef DEBUG
               // , comment(0)
               //#endif
@@ -41,7 +40,7 @@ public:
 
     struct XRCORE_API Sect
     {
-        shared_str Name;
+        xr_string Name;
         Items Data;
 
         bool line_exist(pcstr line, pcstr* value = nullptr);

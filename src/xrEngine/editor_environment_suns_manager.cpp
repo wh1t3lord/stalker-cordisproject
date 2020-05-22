@@ -60,7 +60,7 @@ void manager::load()
     m_suns.reserve(sections.size());
 
     for (const auto &i : sections)
-        add(*config, i->Name);
+        add(*config, i->Name.c_str());
 
     xr_delete(config);
 }
