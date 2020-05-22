@@ -148,16 +148,22 @@ inline void stop_sound_looped(const std::uint16_t npc_id, const xr_string& sound
 
 inline void stop_sounds_by_id(const std::uint16_t object_id)
 {
-    Script_ISoundEntity* const p_sound = getSoundDatabase().at(object_id);
-    if (p_sound)
-        p_sound->stop(object_id);
-
-    const xr_map<xr_string, Script_ISoundEntity*>& looped_sounds = getLoopedSoundDatabase().at(object_id);
-
-    for (const std::pair<xr_string, Script_ISoundEntity*>& it : looped_sounds)
+    if (getSoundDatabase().find(object_id) != getSoundDatabase().end())
     {
-        if (it.second && it.second->is_playing(object_id))
-            it.second->stop(object_id);
+		Script_ISoundEntity* const p_sound = getSoundDatabase().at(object_id);
+		if (p_sound)
+			p_sound->stop(object_id);
+    }
+
+    if (getLoopedSoundDatabase().find(object_id) != getLoopedSoundDatabase().end())
+    {
+		const xr_map<xr_string, Script_ISoundEntity*>& looped_sounds = getLoopedSoundDatabase().at(object_id);
+
+		for (const std::pair<xr_string, Script_ISoundEntity*>& it : looped_sounds)
+		{
+			if (it.second && it.second->is_playing(object_id))
+				it.second->stop(object_id);
+		}
     }
 }
 

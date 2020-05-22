@@ -15,7 +15,7 @@ namespace Scripts
 class Script_TaskManager
 {
 private:
-    Script_TaskManager(void) {}
+    Script_TaskManager(void) : m_p_ini(new CScriptIniFile("misc\\task_manager.ltx")) {}
 
 public:
     inline static Script_TaskManager& getInstance(void) noexcept
