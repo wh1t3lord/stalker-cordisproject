@@ -89,11 +89,11 @@ LPCSTR configs_verifyer::get_section_diff(CInifile::Sect* sect_ptr, CInifile& ac
 
     for (auto cit = sect_ptr->Data.cbegin(), ciet = sect_ptr->Data.cend(); cit != ciet; ++cit)
     {
-        shared_str const& tmp_value = cit->second;
+        shared_str const& tmp_value = cit->second.c_str();
         shared_str real_value;
         if (tmp_active_param)
         {
-            if (active_params.line_exist(sect_ptr->Name.c_str(), cit->first))
+            if (active_params.line_exist(sect_ptr->Name.c_str(), cit->first.c_str()))
             {
                 real_value = active_params.r_string(sect_ptr->Name.c_str(), cit->first.c_str());
                 if (tmp_value != real_value)
@@ -108,7 +108,7 @@ LPCSTR configs_verifyer::get_section_diff(CInifile::Sect* sect_ptr, CInifile& ac
                 continue;
             }
         }
-        if (!pSettings->line_exist(sect_ptr->Name.c_str(), cit->first))
+        if (!pSettings->line_exist(sect_ptr->Name.c_str(), cit->first.c_str()))
         {
             STRCONCAT(diff_str, "line ", sect_ptr->Name.c_str(), "::", cit->first.c_str(), " not found");
             strncpy_s(dst_diff, diff_str, sizeof(dst_diff) - 1);

@@ -47,7 +47,7 @@ void setup_location_types_section(GameGraph::TERRAIN_VECTOR& m_vertex_types, CIn
     auto E = sect.Data.cend();
     for (; I != E; ++I)
     {
-        pcstr S = *(*I).first;
+        pcstr S = (*I).first.c_str();
         string16 I2;
         u32 N = _GetItemCount(S);
 

@@ -85,10 +85,10 @@ void CParticlesPlayer::LoadParticles(IKinematics* K)
         for (auto I = data.Data.cbegin(); I != data.Data.cend(); I++)
         {
             const CInifile::Item& item = *I;
-            u16 index = K->LL_BoneID(*item.first);
-            R_ASSERT3(index != BI_NONE, "Particles bone not found", *item.first);
+            u16 index = K->LL_BoneID(item.first.c_str());
+            R_ASSERT3(index != BI_NONE, "Particles bone not found", item.first.c_str());
             Fvector offs;
-            sscanf(*item.second, "%f,%f,%f", &offs.x, &offs.y, &offs.z);
+            sscanf(item.second.c_str(), "%f,%f,%f", &offs.x, &offs.y, &offs.z);
             m_Bones.push_back(SBoneInfo(index, offs));
             bone_mask |= u64(1) << u64(index);
         }

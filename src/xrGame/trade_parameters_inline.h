@@ -79,14 +79,14 @@ IC void CTradeParameters::process(_action_type type, CInifile& ini_file, const s
     {
         if (!(*I).second.size())
         {
-            _action.disable((*I).first);
+            _action.disable((*I).first.c_str());
             continue;
         }
 
         string256 temp0, temp1;
-        THROW3(_GetItemCount(*(*I).second) == 2, "Invalid parameters in section", *section);
-        _action.enable((*I).first, CTradeFactors((float)atof(_GetItem(*(*I).second, 0, temp0)),
-                                       (float)atof(_GetItem(*(*I).second, 1, temp1))));
+        THROW3(_GetItemCount((*I).second.c_str()) == 2, "Invalid parameters in section", *section);
+        _action.enable((*I).first.c_str(), CTradeFactors((float)atof(_GetItem((*I).second.c_str(), 0, temp0)),
+                                       (float)atof(_GetItem((*I).second.c_str(), 1, temp1))));
     }
 }
 
