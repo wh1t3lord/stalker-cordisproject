@@ -1274,7 +1274,11 @@ inline bool check_all_squad_members(const xr_string& squad_name, const xr_string
              it != squad->squad_members().end(); ++it)
         {
             bool is_goodwill = false;
-            CScriptGameObject* object = DataBase::Storage::getInstance().getStorage().at(it->first).getClientObject();
+            CScriptGameObject* object = nullptr;
+            
+            if (DataBase::Storage::getInstance().getStorage().find(it->first) != DataBase::Storage::getInstance().getStorage().end())
+                object = DataBase::Storage::getInstance().getStorage().at(it->first).getClientObject();
+
             if (goodwill_name == Globals::kRelationsTypeEnemy)
             {
                 if (object)
