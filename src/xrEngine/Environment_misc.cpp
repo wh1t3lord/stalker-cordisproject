@@ -538,7 +538,7 @@ void CEnvironment::load_weathers()
         env.reserve(sections.size());
 
         for (const auto& section : sections)
-            env.emplace_back(create_descriptor(section->Name, config));
+            env.emplace_back(create_descriptor(section->Name.c_str(), config));
 
         CInifile::Destroy(config);
     }
@@ -586,7 +586,7 @@ void CEnvironment::load_weather_effects()
         env.emplace_back(create_descriptor("00:00:00", nullptr));
 
         for (const auto& section : sections)
-            env.emplace_back(create_descriptor(section->Name, config));
+            env.emplace_back(create_descriptor(section->Name.c_str(), config));
 
         CInifile::Destroy(config);
 

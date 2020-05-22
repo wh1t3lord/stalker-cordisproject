@@ -108,7 +108,7 @@ LPCSTR configs_verifyer::get_section_diff(CInifile::Sect* sect_ptr, CInifile& ac
                 continue;
             }
         }
-        if (!pSettings->line_exist(sect_ptr->Name, cit->first))
+        if (!pSettings->line_exist(sect_ptr->Name.c_str(), cit->first))
         {
             STRCONCAT(diff_str, "line ", sect_ptr->Name.c_str(), "::", cit->first.c_str(), " not found");
             strncpy_s(dst_diff, diff_str, sizeof(dst_diff) - 1);
