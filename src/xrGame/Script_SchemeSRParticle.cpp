@@ -218,7 +218,7 @@ void Script_SchemeSRParticle::set_scheme(CScriptGameObject* const p_client_objec
         return;
     }
 
-    if (p_storage->getSRParticleMode() != 1 || p_storage->getSRParticleMode() != 2)
+    if (p_storage->getSRParticleMode() != 1 && p_storage->getSRParticleMode() != 2)
     {
         R_ASSERT2(false, "wrong mode you are set");
         return;
