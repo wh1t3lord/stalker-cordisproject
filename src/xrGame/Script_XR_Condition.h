@@ -11,11 +11,61 @@ namespace Scripts
 {
 namespace XR_CONDITION
 {
-inline bool is_surge_started(void) { return Script_SurgeManager::getInstance().IsStarted(); }
+	inline bool is_surge_started_client(
+		CScriptGameObject* actor, CScriptGameObject* npc, const xr_vector<xr_string>& buffer)
+	{
+        return Script_SurgeManager::getInstance().IsStarted();
+	}
 
-inline bool is_surge_complete(void) { return Script_SurgeManager::getInstance().IsFinished(); }
+	inline bool is_surge_started_client_server(
+		CScriptGameObject* actor, CSE_ALifeDynamicObject* server_npc, const xr_vector<xr_string>& buffer)
+	{
+		return Script_SurgeManager::getInstance().IsStarted();
+	}
 
-inline bool is_surge_kill_all(void) { return Script_SurgeManager::getInstance().IsKillingAll(); }
+	inline bool is_surge_started_server(
+		CSE_ALifeDynamicObject* server_actor, CSE_ALifeDynamicObject* server_npc, const xr_vector<xr_string>& buffer)
+	{
+		return Script_SurgeManager::getInstance().IsStarted();
+	}
+
+	inline bool is_surge_complete_client(
+		CScriptGameObject* actor, CScriptGameObject* npc, const xr_vector<xr_string>& buffer)
+	{
+		return Script_SurgeManager::getInstance().IsFinished();
+	}
+
+	inline bool is_surge_complete_client_server(
+		CScriptGameObject* actor, CSE_ALifeDynamicObject* server_npc, const xr_vector<xr_string>& buffer)
+	{
+		return Script_SurgeManager::getInstance().IsFinished();
+	}
+
+	inline bool is_surge_complete_server(
+		CSE_ALifeDynamicObject* server_actor, CSE_ALifeDynamicObject* server_npc, const xr_vector<xr_string>& buffer)
+	{
+		return Script_SurgeManager::getInstance().IsFinished(); 
+	}
+
+	inline bool is_surge_kill_all_client(
+		CScriptGameObject* actor, CScriptGameObject* npc, const xr_vector<xr_string>& buffer)
+	{
+		return Script_SurgeManager::getInstance().IsKillingAll();
+	}
+
+	inline bool is_surge_kill_all_client_server(
+		CScriptGameObject* actor, CSE_ALifeDynamicObject* server_npc, const xr_vector<xr_string>& buffer)
+	{
+		return Script_SurgeManager::getInstance().IsKillingAll();
+	}
+
+	inline bool is_surge_kill_all_server(
+		CSE_ALifeDynamicObject* server_actor, CSE_ALifeDynamicObject* server_npc, const xr_vector<xr_string>& buffer)
+	{
+		return Script_SurgeManager::getInstance().IsKillingAll();
+	}
+
+ 
 
 inline bool is_enemy_actor(CScriptGameObject* enemy, CScriptGameObject* object)
 {

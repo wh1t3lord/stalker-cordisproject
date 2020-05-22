@@ -464,7 +464,7 @@ namespace Cordis
 
 				if (p_target && !p_object->IsTalking())
 				{
-					if (XR_CONDITION::is_surge_started())
+					if (XR_CONDITION::is_surge_started_server(nullptr, nullptr, {}))
 					{
 						p_object->set_movement_type(EMovementType::eMovementTypeRun);
 						p_object->set_mental_state(EMentalState::eMentalStateFree);
@@ -560,7 +560,7 @@ namespace Cordis
 
 			this->m_object->set_path_type(MovementManager::ePathTypeLevelPath);
 
-			if (p_server_object == nullptr || XR_CONDITION::is_surge_started())
+			if (p_server_object == nullptr || XR_CONDITION::is_surge_started_server(nullptr, nullptr, {}))
 			{
 				this->m_object->set_movement_type(Globals::Game::level::get_object_by_id(p_squad->commander_id())->movement_type());
 				this->m_object->set_mental_state(Globals::Game::level::get_object_by_id(p_squad->commander_id())->mental_state());
@@ -568,7 +568,7 @@ namespace Cordis
 			}
 			else
 			{
-				if (p_server_object->m_script_clsid == CLSID_SE_ONLINE_OFFLINE_GROUP)
+				if (p_server_object->m_script_clsid == Globals::get_script_clsid(CLSID_SE_ONLINE_OFFLINE_GROUP))
 				{
 					this->m_object->set_movement_type(Globals::Game::level::get_object_by_id(p_squad->commander_id())->movement_type());
 					this->m_object->set_mental_state(Globals::Game::level::get_object_by_id(p_squad->commander_id())->mental_state());

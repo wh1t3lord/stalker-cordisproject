@@ -153,7 +153,7 @@ private:
                 return false;
             }
 
-            return ((Globals::in_time_interval(18, 8) && (!XR_CONDITION::is_surge_started())) &&
+            return ((Globals::in_time_interval(18, 8) && (!XR_CONDITION::is_surge_started_server(nullptr, nullptr, {}))) &&
                 (Globals::check_squad_for_enemies(squad)) &&
                 (target->name() == "zat_stalker_base_smart" || target->name() == "jup_a6" ||
                     target->name() == "pri_a16"));
@@ -162,19 +162,19 @@ private:
         // @ WA
         this->m_simulation_activities[SimulationActivitiesType::stalker].m_smart[SimulationActivitiesType::surge] =
             [](CSE_ALifeOnlineOfflineGroup* squad, CSE_ALifeObject* target) -> bool {
-            return XR_CONDITION::is_surge_started();
+            return XR_CONDITION::is_surge_started_server(nullptr, nullptr, {});
         };
 
         // @ WA
         this->m_simulation_activities[SimulationActivitiesType::stalker].m_smart[SimulationActivitiesType::territory] =
             [](CSE_ALifeOnlineOfflineGroup* squad, CSE_ALifeObject* target) -> bool {
-            return Globals::in_time_interval(8, 18) && (!XR_CONDITION::is_surge_started());
+            return Globals::in_time_interval(8, 18) && (!XR_CONDITION::is_surge_started_server(nullptr, nullptr, {}));
         };
 
         // @ WA
         this->m_simulation_activities[SimulationActivitiesType::stalker].m_smart[SimulationActivitiesType::resource] =
             [](CSE_ALifeOnlineOfflineGroup* squad, CSE_ALifeObject* target) -> bool {
-            return Globals::in_time_interval(8, 18) && (!XR_CONDITION::is_surge_started());
+            return Globals::in_time_interval(8, 18) && (!XR_CONDITION::is_surge_started_server(nullptr, nullptr, {}));
         };
 
         this->m_simulation_activities[SimulationActivitiesType::stalker].m_actor = nullptr;
@@ -188,7 +188,7 @@ private:
             }
 
             return Globals::in_time_interval(8, 21) &&
-                (!XR_CONDITION::is_surge_started() &&
+                (!XR_CONDITION::is_surge_started_server(nullptr, nullptr, {}) &&
                     (Globals::sim_dist_to(squad, target) <= kSimulationBoardSimulationDistance));
         };
 
@@ -201,20 +201,20 @@ private:
             }
 
             return Globals::in_time_interval(21, 8) &&
-                (!XR_CONDITION::is_surge_started() && (!Globals::check_squad_for_enemies(squad)) &&
+                (!XR_CONDITION::is_surge_started_server(nullptr, nullptr, {}) && (!Globals::check_squad_for_enemies(squad)) &&
                     (target->name() == "zat_stalker_base_smart" || target->name() == "jup_a10_smart_terrain"));
         };
 
         // @ WA
         this->m_simulation_activities[SimulationActivitiesType::bandit].m_smart[SimulationActivitiesType::territory] =
             [](CSE_ALifeOnlineOfflineGroup* squad, CSE_ALifeObject* target) -> bool {
-            return Globals::in_time_interval(8, 21) && (!XR_CONDITION::is_surge_started());
+            return Globals::in_time_interval(8, 21) && (!XR_CONDITION::is_surge_started_server(nullptr, nullptr, {}));
         };
 
         // @ WA
         this->m_simulation_activities[SimulationActivitiesType::bandit].m_smart[SimulationActivitiesType::surge] =
             [](CSE_ALifeOnlineOfflineGroup* squad, CSE_ALifeObject* target) -> bool {
-            return XR_CONDITION::is_surge_started();
+            return XR_CONDITION::is_surge_started_server(nullptr, nullptr, {});
         };
 
         this->m_simulation_activities[SimulationActivitiesType::bandit].m_actor = [](CSE_ALifeOnlineOfflineGroup* squad,
@@ -237,7 +237,7 @@ private:
                 return false;
             }
 
-            return Globals::in_time_interval(8, 19) && (!XR_CONDITION::is_surge_started()) &&
+            return Globals::in_time_interval(8, 19) && (!XR_CONDITION::is_surge_started_server(nullptr, nullptr, {})) &&
                 (Globals::sim_dist_to(squad, target) <= kSimulationBoardSimulationDistance);
         };
 
@@ -250,7 +250,7 @@ private:
                 return false;
             }
 
-            return Globals::in_time_interval(8, 19) && (!XR_CONDITION::is_surge_started()) &&
+            return Globals::in_time_interval(8, 19) && (!XR_CONDITION::is_surge_started_server(nullptr, nullptr, {})) &&
                 (Globals::sim_dist_to(squad, target) <= kSimulationBoardSimulationDistance);
         };
 
@@ -262,7 +262,7 @@ private:
                 R_ASSERT2(false, "Object is null!");
                 return false;
             }
-            return Globals::in_time_interval(8, 19) && (!XR_CONDITION::is_surge_started()) &&
+            return Globals::in_time_interval(8, 19) && (!XR_CONDITION::is_surge_started_server(nullptr, nullptr, {})) &&
                 (Globals::sim_dist_to(squad, target) <= kSimulationBoardSimulationDistance);
         };
 
@@ -274,7 +274,7 @@ private:
                 R_ASSERT2(false, "Object is null!");
                 return false;
             }
-            return Globals::in_time_interval(8, 19) && (!XR_CONDITION::is_surge_started()) &&
+            return Globals::in_time_interval(8, 19) && (!XR_CONDITION::is_surge_started_server(nullptr, nullptr, {})) &&
                 (Globals::sim_dist_to(squad, target) <= kSimulationBoardSimulationDistance);
         };
 
@@ -287,7 +287,7 @@ private:
                 return false;
             }
 
-            return Globals::in_time_interval(8, 19) && (!XR_CONDITION::is_surge_started()) &&
+            return Globals::in_time_interval(8, 19) && (!XR_CONDITION::is_surge_started_server(nullptr, nullptr, {})) &&
                 (Globals::sim_dist_to(squad, target) <= kSimulationBoardSimulationDistance);
         };
 
@@ -300,7 +300,7 @@ private:
                 return false;
             }
 
-            return Globals::in_time_interval(8, 19) && (!XR_CONDITION::is_surge_started()) &&
+            return Globals::in_time_interval(8, 19) && (!XR_CONDITION::is_surge_started_server(nullptr, nullptr, {})) &&
                 (Globals::sim_dist_to(squad, target) <= kSimulationBoardSimulationDistance);
         };
 
@@ -312,7 +312,7 @@ private:
                 return false;
             }
 
-            return Globals::in_time_interval(19, 8) && (!XR_CONDITION::is_surge_started()) &&
+            return Globals::in_time_interval(19, 8) && (!XR_CONDITION::is_surge_started_server(nullptr, nullptr, {})) &&
                 (!Globals::check_squad_for_enemies(squad)) &&
                 (target->name() == "zat_stalker_base_smart" || target->name() == "jup_a6" ||
                     target->name() == "pri_a16");
@@ -321,13 +321,13 @@ private:
         // @ WA
         this->m_simulation_activities[SimulationActivitiesType::dolg].m_smart[SimulationActivitiesType::territory] =
             [](CSE_ALifeOnlineOfflineGroup* squad, CSE_ALifeObject* target) -> bool {
-            return Globals::in_time_interval(8, 19) && (!XR_CONDITION::is_surge_started());
+            return Globals::in_time_interval(8, 19) && (!XR_CONDITION::is_surge_started_server(nullptr, nullptr, {}));
         };
 
         // @ WA
         this->m_simulation_activities[SimulationActivitiesType::dolg].m_smart[SimulationActivitiesType::surge] =
             [](CSE_ALifeOnlineOfflineGroup* squad, CSE_ALifeObject* target) -> bool {
-            return XR_CONDITION::is_surge_started();
+            return XR_CONDITION::is_surge_started_server(nullptr, nullptr, {});
         };
 
         this->m_simulation_activities[SimulationActivitiesType::dolg].m_actor = nullptr;
@@ -340,7 +340,7 @@ private:
                 return false;
             }
 
-            return Globals::in_time_interval(8, 19) && (!XR_CONDITION::is_surge_started()) &&
+            return Globals::in_time_interval(8, 19) && (!XR_CONDITION::is_surge_started_server(nullptr, nullptr, {})) &&
                 (Globals::sim_dist_to(squad, target) <= kSimulationBoardSimulationDistance);
         };
 
@@ -352,7 +352,7 @@ private:
                 return false;
             }
 
-            return Globals::in_time_interval(19, 8) && (!XR_CONDITION::is_surge_started()) &&
+            return Globals::in_time_interval(19, 8) && (!XR_CONDITION::is_surge_started_server(nullptr, nullptr, {})) &&
                 (!Globals::check_squad_for_enemies(squad)) &&
                 (target->name() == "zat_stalker_base_smart" || target->name() == "jup_a6" ||
                     target->name() == "pri_a16");
@@ -361,13 +361,13 @@ private:
         // @ WA
         this->m_simulation_activities[SimulationActivitiesType::freedom].m_smart[SimulationActivitiesType::territory] =
             [](CSE_ALifeOnlineOfflineGroup* squad, CSE_ALifeObject* target) -> bool {
-            return Globals::in_time_interval(8, 19) && (!XR_CONDITION::is_surge_started());
+            return Globals::in_time_interval(8, 19) && (!XR_CONDITION::is_surge_started_server(nullptr, nullptr, {}));
         };
 
         // @ WA
         this->m_simulation_activities[SimulationActivitiesType::freedom].m_smart[SimulationActivitiesType::surge] =
             [](CSE_ALifeOnlineOfflineGroup* squad, CSE_ALifeObject* target) -> bool {
-            return XR_CONDITION::is_surge_started();
+            return XR_CONDITION::is_surge_started_server(nullptr, nullptr, {});
         };
 
         this->m_simulation_activities[SimulationActivitiesType::freedom].m_actor = nullptr;
@@ -375,13 +375,13 @@ private:
         // @ WA
         this->m_simulation_activities[SimulationActivitiesType::killer].m_smart[SimulationActivitiesType::territory] =
             [](CSE_ALifeOnlineOfflineGroup* squad, CSE_ALifeObject* target) -> bool {
-            return (!XR_CONDITION::is_surge_started());
+            return (!XR_CONDITION::is_surge_started_server(nullptr, nullptr, {}));
         };
 
         // @ WA
         this->m_simulation_activities[SimulationActivitiesType::killer].m_smart[SimulationActivitiesType::surge] =
             [](CSE_ALifeOnlineOfflineGroup* squad, CSE_ALifeObject* target) -> bool {
-            return (XR_CONDITION::is_surge_started());
+            return (XR_CONDITION::is_surge_started_server(nullptr, nullptr, {}));
         };
 
         this->m_simulation_activities[SimulationActivitiesType::killer].m_actor = [](CSE_ALifeOnlineOfflineGroup* squad,
@@ -686,7 +686,7 @@ private:
         this->m_simulation_activities[SimulationActivitiesType::monster_zombied_day]
             .m_smart[SimulationActivitiesType::territory] = [](CSE_ALifeOnlineOfflineGroup* squad,
                                                                 CSE_ALifeObject* target) -> bool {
-            return (!XR_CONDITION::is_surge_started());
+            return (!XR_CONDITION::is_surge_started_server(nullptr, nullptr, {}));
         };
 
         // @ WA

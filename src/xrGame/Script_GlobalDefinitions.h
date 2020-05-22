@@ -616,11 +616,12 @@ public:
     ParticleData(void) = default;
     ~ParticleData(void)
     {
+/* Lord: протестировать, если удаление оставить только на самой схеме sr_particle
         if (this->m_particle)
         {
             Msg("[Scripts/ParticleData/~dtor()] WARNING: deleting this->m_particle!");
             xr_delete(this->m_particle);
-        }
+        }*/
     }
     inline bool IsPlayed(void) const noexcept { return this->m_is_played; }
     inline void setPlayed(const bool value) noexcept { this->m_is_played = value; }
@@ -797,9 +798,18 @@ inline void init_hello_dialogs(CPhraseDialog* p_dialog);
 
 namespace XR_CONDITION
 {
-inline bool is_surge_started(void);
-inline bool is_surge_complete(void);
-inline bool is_surge_kill_all(void);
+    inline bool is_surge_complete_client(
+        CScriptGameObject* actor, CScriptGameObject* npc, const xr_vector<xr_string>& buffer);
+    inline bool is_surge_complete_client_server(
+        CScriptGameObject* actor, CSE_ALifeDynamicObject* server_npc, const xr_vector<xr_string>& buffer);
+    inline bool is_surge_complete_server(
+        CSE_ALifeDynamicObject* server_actor, CSE_ALifeDynamicObject* server_npc, const xr_vector<xr_string>& buffer);
+inline bool is_surge_started_client(CScriptGameObject* actor, CScriptGameObject* npc, const xr_vector<xr_string>& buffer);
+inline bool is_surge_started_client_server(CScriptGameObject* actor, CSE_ALifeDynamicObject* server_npc, const xr_vector<xr_string>& buffer);
+inline bool is_surge_started_server(CSE_ALifeDynamicObject* server_actor, CSE_ALifeDynamicObject* server_npc, const xr_vector<xr_string>& buffer);
+inline bool is_surge_kill_all_client(CScriptGameObject* actor, CScriptGameObject* npc, const xr_vector<xr_string>& buffer);
+inline bool is_surge_kill_all_client_server(CScriptGameObject* actor, CSE_ALifeDynamicObject* server_npc, const xr_vector<xr_string>& buffer);
+inline bool is_surge_kill_all_server(CSE_ALifeDynamicObject* server_actor, CSE_ALifeDynamicObject* server_npc, const xr_vector<xr_string>& buffer);
 inline bool is_enemy_actor(CScriptGameObject* enemy, CScriptGameObject* object);
 inline bool is_fighting_dist_ge_client(
     CScriptGameObject* enemy, CScriptGameObject* npc, const xr_vector<xr_string>& buffer);
