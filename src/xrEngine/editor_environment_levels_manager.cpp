@@ -40,17 +40,17 @@ void manager::fill_levels(CInifile& config, pcstr section, pcstr category)
 {
     for (const auto &i : config.r_section(section).Data)
     {
-        if (!i.first.size())
+        if (i.first.empty() == false)
             continue;
 
-        VERIFY(config.section_exist(i.first));
-        if (!config.line_exist(i.first, "weathers"))
+        VERIFY(config.section_exist(i.first.c_str()));
+        if (!config.line_exist(i.first.c_str(), "weathers"))
         {
             m_levels.insert(std::make_pair(i.first.c_str(), std::make_pair(category, s_default_weather_id)));
             continue;
         }
 
-        pcstr weather_id = config.r_string(i.first, "weathers");
+        pcstr weather_id = config.r_string(i.first.c_str(), "weathers");
         m_levels.insert(std::make_pair(i.first.c_str(), std::make_pair(category, weather_id)));
     }
 }

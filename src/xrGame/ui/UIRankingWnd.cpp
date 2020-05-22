@@ -154,7 +154,7 @@ void CUIRankingWnd::Init()
     auto ib = achievs_section.Data.begin();
     auto ie = achievs_section.Data.end();
     for (u8 i = 0; ib != ie; ++ib, ++i)
-        add_achievement(xml, (*ib).first);
+        add_achievement(xml, (*ib).first.c_str());
 
     xml.SetLocalRoot(stored_root);
 }

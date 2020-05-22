@@ -60,11 +60,11 @@ void collection::load(CInifile& config)
 
     for (const auto &i : items.Data)
     {
-        thunderbolt_id* object = new thunderbolt_id(m_manager, i.first);
+        thunderbolt_id* object = new thunderbolt_id(m_manager, i.first.c_str());
         object->fill(m_collection);
         m_ids.push_back(object);
 
-        palette.push_back(m_manager.description(config, i.first));
+        palette.push_back(m_manager.description(config, i.first.c_str()));
     }
 }
 
