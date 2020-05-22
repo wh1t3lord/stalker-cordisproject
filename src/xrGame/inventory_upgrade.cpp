@@ -198,7 +198,7 @@ UpgradeStateResult Upgrade::get_preconditions()
 void Upgrade::run_effects(bool loading)
 {
     m_effects.parameter3 = loading ? 1 : 0;
-    m_effects();
+    //m_effects(); Lord: переделать!
 }
 
 void Upgrade::set_highlight(bool value) { m_highlight = value; }
