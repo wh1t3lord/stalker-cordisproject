@@ -553,8 +553,8 @@ void CInifile::Load(IReader* F, pcstr path, allow_include_func_t allow_include_f
                 }
 
                 Item I;
-                I.first = name[0] ? name : NULL;
-                I.second = str2[0] ? str2 : NULL;
+                I.first = name[0] ? name : xr_string();
+                I.second = str2[0] ? str2 : xr_string();
                 //#ifdef DEBUG
                 // I.comment = m_flags.test(eReadOnly)?0:comment;
                 //#endif
