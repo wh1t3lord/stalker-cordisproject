@@ -1396,11 +1396,11 @@ inline xr_string pick_section_from_condlist(
                     xr_string calling_function_name = it_infoportion_set.second.m_function_name;
                     calling_function_name += XR_LOGIC_CLIENT_SERVER_ARGUMENTS;
 
-                    if (Script_GlobalHelper::getInstance().getRegisteredFunctionsXRCondition().find(
+                    if (Script_GlobalHelper::getInstance().getRegisteredFunctionsXREffects().find(
                             calling_function_name) ==
-                        Script_GlobalHelper::getInstance().getRegisteredFunctionsXRCondition().end())
+                        Script_GlobalHelper::getInstance().getRegisteredFunctionsXREffects().end())
                     {
-                        Msg("[Scripts/XR_LOGIC/pick_section_from_condlist(actor, npc, condlist)] object '%s': "
+                        MESSAGEW("object '%s': "
                             "pick_section_from_condlist: function '%s' is "
                             "not defined in xr_effects",
                             npc->s_name, it_infoportion_set.second.m_function_name.c_str());
@@ -1764,9 +1764,9 @@ inline xr_string pick_section_from_condlist(
                     xr_string calling_function_name = it_infoportion_set.second.m_function_name;
                     calling_function_name += XR_LOGIC_CLIENT_SERVER_ARGUMENTS;
 
-                    if (Script_GlobalHelper::getInstance().getRegisteredFunctionsXRCondition().find(
+                    if (Script_GlobalHelper::getInstance().getRegisteredFunctionsXREffects().find(
                             calling_function_name) ==
-                        Script_GlobalHelper::getInstance().getRegisteredFunctionsXRCondition().end())
+                        Script_GlobalHelper::getInstance().getRegisteredFunctionsXREffects().end())
                     {
                         MESSAGEW("object '%s': pick_section_from_condlist: function '%s' is not defined in xr_effects", npc->Name(), it_infoportion_set.second.m_function_name.c_str());
                         R_ASSERT(false);
