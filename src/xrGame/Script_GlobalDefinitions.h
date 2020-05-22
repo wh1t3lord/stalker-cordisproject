@@ -347,6 +347,8 @@ inline void clear_smart_terrain(
 inline void give_task(
     CScriptGameObject* const p_actor, CScriptGameObject* const p_npc, const xr_vector<xr_string>& buffer);
 
+inline void set_active_task(CScriptGameObject* const p_actor, CScriptGameObject* const p_npc, const xr_vector<xr_string>& buffer);
+
 inline void actor_friend(
     CScriptGameObject* const p_actor, CScriptGameObject* const p_npc, const xr_vector<xr_string>& buffer);
 

@@ -4278,6 +4278,7 @@ Cordis::Scripts::Script_GlobalHelper::Script_GlobalHelper(void)
     this->m_registered_functions_xr_effects["heal_squad"] = XR_EFFECTS::heal_squad;
     this->m_registered_functions_xr_effects["clear_smart_terrain"] = XR_EFFECTS::clear_smart_terrain;
     this->m_registered_functions_xr_effects["give_task"] = XR_EFFECTS::give_task;
+    this->m_registered_functions_xr_effects["set_active_task"] = XR_EFFECTS::set_active_task;
     this->m_registered_functions_xr_effects["actor_friend"] = XR_EFFECTS::actor_friend;
     this->m_registered_functions_xr_effects["actor_neutral"] = XR_EFFECTS::actor_neutral;
     this->m_registered_functions_xr_effects["actor_enemy"] = XR_EFFECTS::actor_enemy;

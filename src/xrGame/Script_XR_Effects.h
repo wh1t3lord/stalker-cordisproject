@@ -2208,6 +2208,27 @@ inline void give_task(
     Script_TaskManager::getInstance().give_task(buffer[0]);
 }
 
+inline void set_active_task(CScriptGameObject* const p_actor, CScriptGameObject* const p_npc, const xr_vector<xr_string>& buffer)
+{
+    if (buffer.empty())
+    {
+        MESSAGEWR("invalid buffer!");
+        return;
+    }
+
+    if (DataBase::Storage::getInstance().getActor() == nullptr)
+    {
+        MESSAGEWR("invalid actor! Maybe early calling!");
+        return;
+    }
+
+    CGameTask* const p_task = DataBase::Storage::getInstance().getActor()->GetTask(buffer[0].c_str(), true);
+    if (p_task)
+    {
+        DataBase::Storage::getInstance().getActor()->SetActiveTask(p_task);
+    }
+}
+
 inline void actor_friend(
     CScriptGameObject* const p_actor, CScriptGameObject* const p_npc, const xr_vector<xr_string>& buffer)
 {
