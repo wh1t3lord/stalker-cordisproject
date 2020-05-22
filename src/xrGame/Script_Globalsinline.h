@@ -739,11 +739,11 @@ inline xr_vector<xr_string> parse_params(const xr_string& params)
     xr_vector<xr_string> result;
     if (params.empty())
     {
-        Msg("[Scripts/Globals/Utils/parse_params(params)] params.empty() == true! Return empty vector");
+        MESSAGEWR("params.empty() == true!");
         return result;
     }
 
-    boost::regex rgx("\\w+|[^\\|\\[\\]]+");
+    static const boost::regex rgx("[^|]+");
     boost::sregex_token_iterator iter(params.begin(), params.end(), rgx);
     boost::sregex_token_iterator end;
     for (; iter != end; ++iter)

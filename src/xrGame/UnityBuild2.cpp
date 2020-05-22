@@ -156,6 +156,7 @@
 #include "Script_SchemeXRAnimpoint.cpp"
 #include "Script_SchemeXRSmartCover.cpp"
 #include "Script_PostCombat.cpp"
+#include "Script_XR_Logic.cpp"
 #pragma endregion
 
 
