@@ -1015,7 +1015,7 @@ inline xr_string pick_section_from_condlist(
                 if (it_infoportion_set.second.m_function_name.size())
                 {
                     xr_string calling_function_name = it_infoportion_set.second.m_function_name;
-                    calling_function_name += XR_LOGIC_CLIENT_SERVER_ARGUMENTS;
+                    //calling_function_name += XR_LOGIC_CLIENT_SERVER_ARGUMENTS;
 
                     if (Script_GlobalHelper::getInstance().getRegisteredFunctionsXRCondition().find(
                             calling_function_name) ==
@@ -1394,7 +1394,7 @@ inline xr_string pick_section_from_condlist(
                 if (it_infoportion_set.second.m_function_name.size())
                 {
                     xr_string calling_function_name = it_infoportion_set.second.m_function_name;
-                    calling_function_name += XR_LOGIC_CLIENT_SERVER_ARGUMENTS;
+                    //calling_function_name += XR_LOGIC_CLIENT_SERVER_ARGUMENTS;
 
                     if (Script_GlobalHelper::getInstance().getRegisteredFunctionsXREffects().find(
                             calling_function_name) ==
@@ -1762,7 +1762,7 @@ inline xr_string pick_section_from_condlist(
                 if (it_infoportion_set.second.m_function_name.size())
                 {
                     xr_string calling_function_name = it_infoportion_set.second.m_function_name;
-                    calling_function_name += XR_LOGIC_CLIENT_SERVER_ARGUMENTS;
+                    //calling_function_name += XR_LOGIC_CLIENT_SERVER_ARGUMENTS;
 
                     if (Script_GlobalHelper::getInstance().getRegisteredFunctionsXREffects().find(
                             calling_function_name) ==
