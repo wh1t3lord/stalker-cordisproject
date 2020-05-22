@@ -288,7 +288,7 @@ inline float cfg_get_number(const CInifile* char_ini, const xr_string& section, 
     if (char_ini->section_exist(section.c_str()) && char_ini->line_exist(section.c_str(), field.c_str()))
         return char_ini->r_float(section.c_str(), field.c_str());
 
-    Msg("[Script] cfg_get_number has returned a default value");
+    MESSAGEI("cfg_get_number has returned a default value");
     return 0.0f;
 }
 
@@ -306,7 +306,7 @@ inline float cfg_get_number(const CInifile* char_ini, const xr_string& section, 
     if (char_ini->section_exist(section.c_str()) && char_ini->line_exist(section.c_str(), field.c_str()))
         return char_ini->r_float(section.c_str(), field.c_str());
 
-    Msg("[Script] cfg_get_number has returned a default value");
+    MESSAGEI("cfg_get_number has returned a default value");
     return 0.0f;
 }
 
@@ -324,7 +324,7 @@ inline float cfg_get_number(CScriptIniFile* char_ini, const xr_string& section, 
     if (char_ini->section_exist(section.c_str()) && char_ini->line_exist(section.c_str(), field.c_str()))
         return char_ini->r_float(section.c_str(), field.c_str());
 
-    Msg("[Script] cfg_get_number has returned a default value");
+    MESSAGEI("cfg_get_number has returned a default value");
     return 0.0f;
 }
 
@@ -342,7 +342,7 @@ inline float cfg_get_number(CScriptIniFile* char_ini, const xr_string& section, 
     if (char_ini->section_exist(section.c_str()) && char_ini->line_exist(section.c_str(), field.c_str()))
         return char_ini->r_float(section.c_str(), field.c_str());
 
-    Msg("[Script] cfg_get_number has returned a default value");
+    MESSAGEI("cfg_get_number has returned a default value");
     return 0.0f;
 }
 

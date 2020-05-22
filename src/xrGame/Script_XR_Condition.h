@@ -388,6 +388,133 @@ inline bool is_npc_in_actor_frustrum(CScriptGameObject* actor, CScriptGameObject
 
 inline bool is_wounded(CScriptGameObject* actor, CScriptGameObject* npc) { return CRD_Wounded::is_wounded(npc); }
 
+
+inline bool is_dist_to_actor_le_client(
+	CScriptGameObject* actor, CScriptGameObject* npc, const xr_vector<xr_string>& buffer)
+{
+	if (!buffer.size())
+	{
+		R_ASSERT2(false, "Argument list can't be empty!");
+		return false;
+	}
+
+	if (!actor)
+	{
+		R_ASSERT2(false, "object was null!");
+		return false;
+	}
+
+	if (!npc)
+	{
+		R_ASSERT2(false, "object was null!");
+		return false;
+	}
+
+	float distance = atof(buffer[0].c_str());
+
+	if (fis_zero(distance))
+	{
+		MESSAGEWR("distance is ZERO -> %f",
+			distance);
+		return false;
+	}
+
+	if (distance < 0.0f)
+	{
+		MESSAGEWR("distance is a negative value -> "
+			"%f",
+			distance);
+		return false;
+	}
+
+	return (npc->Position().distance_to_sqr(actor->Position()) <= (distance * distance));
+}
+
+inline bool is_dist_to_actor_le_client_server(
+	CScriptGameObject* actor, CSE_ALifeDynamicObject* server_npc, const xr_vector<xr_string>& buffer)
+{
+	if (!buffer.size())
+	{
+		R_ASSERT2(false, "Argument list can't be empty!");
+		return false;
+	}
+
+	if (!actor)
+	{
+		R_ASSERT2(false, "object was null!");
+		return false;
+	}
+
+	if (!server_npc)
+	{
+		R_ASSERT2(false, "object was null!");
+		return false;
+	}
+
+	float distance = atof(buffer[0].c_str());
+
+	if (fis_zero(distance))
+	{
+		MESSAGEWR("distance is ZERO "
+			"-> %f",
+			distance);
+		return false;
+	}
+
+	if (distance < 0.0f)
+	{
+		MESSAGEWR("WARNING: distance is a "
+			"negative value -> %f",
+			distance);
+		return false;
+	}
+
+	return (server_npc->Position().distance_to_sqr(actor->Position()) <= (distance * distance));
+}
+
+inline bool is_dist_to_actor_le_server(
+	CSE_ALifeDynamicObject* server_actor, CSE_ALifeDynamicObject* server_npc, const xr_vector<xr_string>& buffer)
+{
+	if (!buffer.size())
+	{
+		R_ASSERT2(false, "Argument list can't be empty!");
+		return false;
+	}
+
+	if (!server_actor)
+	{
+		R_ASSERT2(false, "object was null!");
+		return false;
+	}
+
+	if (!server_npc)
+	{
+		R_ASSERT2(false, "object was null!");
+		return false;
+	}
+
+	float distance = atof(buffer[0].c_str());
+
+	if (fis_zero(distance))
+	{
+		MESSAGEWR("distnace is ZERO "
+			"-> %f",
+			distance);
+		return false;
+	}
+
+	if (distance < 0.0f)
+	{
+		MESSAGEWR("distance is a "
+			"negative value -> %f",
+			distance);
+		return false;
+	}
+
+	return (server_npc->Position().distance_to_sqr(server_actor->Position()) <= (distance * distance));
+}
+
+
 inline bool is_dist_to_actor_ge_client(
     CScriptGameObject* actor, CScriptGameObject* npc, const xr_vector<xr_string>& buffer)
 {

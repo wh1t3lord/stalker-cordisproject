@@ -4060,6 +4060,7 @@ Cordis::Scripts::Script_GlobalHelper::Script_GlobalHelper(void)
 #pragma region Cordis Registering XR_CONDITION Functions
     _REGISTER_FULL_FUNCTION_XR_CONDITION(actor_on_level, XR_CONDITION::is_actor_on_level)
         _REGISTER_FULL_FUNCTION_XR_CONDITION(dist_to_actor_ge, XR_CONDITION::is_dist_to_actor_ge)
+		_REGISTER_FULL_FUNCTION_XR_CONDITION(dist_to_actor_le, XR_CONDITION::is_dist_to_actor_le)
         _REGISTER_FULL_FUNCTION_XR_CONDITION(actor_in_zone, XR_CONDITION::is_actor_in_zone)
         _REGISTER_FULL_FUNCTION_XR_CONDITION(npc_in_zone, XR_CONDITION::is_npc_in_zone)
         _REGISTER_FULL_FUNCTION_XR_CONDITION(npc_community, XR_CONDITION::is_npc_community)

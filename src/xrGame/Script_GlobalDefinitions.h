@@ -825,6 +825,9 @@ inline bool is_see_npc(CScriptGameObject* actor, CScriptGameObject* npc, const x
 inline bool is_actor_see_npc(CScriptGameObject* actor, CScriptGameObject* npc);
 inline bool is_npc_in_actor_frustrum(CScriptGameObject* actor, CScriptGameObject* npc);
 inline bool is_wounded(CScriptGameObject* actor, CScriptGameObject* npc);
+inline bool is_dist_to_actor_le_client(CScriptGameObject* actor, CScriptGameObject* npc, const xr_vector<xr_string>& buffer);
+inline bool is_dist_to_actor_le_client_server(CScriptGameObject* actor, CSE_ALifeDynamicObject* server_npc, const xr_vector<xr_string>& buffer);
+inline bool is_dist_to_actor_le_server(CSE_ALifeDynamicObject* server_actor, CSE_ALifeDynamicObject* server_npc, const xr_vector<xr_string>& buffer);
 inline bool is_dist_to_actor_ge_client(
     CScriptGameObject* actor, CScriptGameObject* npc, const xr_vector<xr_string>& buffer);
 inline bool is_dist_to_actor_ge_client_server(
