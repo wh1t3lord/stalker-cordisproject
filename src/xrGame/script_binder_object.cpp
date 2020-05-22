@@ -100,6 +100,19 @@ void CScriptBinderObject::task_callback(CGameTask* p_game_task, const std::uint3
 #ifdef DEBUG
     MESSAGE("NOT OVERLOADED FUNCTION!");
 #endif
+    if (task_state != eTaskStateFail)
+    {
+        if (task_state == eTaskStateCompleted)
+        {
+            Cordis::Scripts::Script_NewsManager::getInstance().SendTip(Cordis::Scripts::DataBase::Storage::getInstance().getActor(), "complete", "");
+        }
+        else
+        {
+            Cordis::Scripts::Script_NewsManager::getInstance().SendTip(Cordis::Scripts::DataBase::Storage::getInstance().getActor(), "new", "");
+        }
+    }
+
+    Cordis::Scripts::Script_TaskManager::getInstance().TaskCallback(p_game_task, task_state);
 }
 
 void CScriptBinderObject::on_trade(

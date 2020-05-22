@@ -310,14 +310,12 @@ void Script_Binder_Stalker::shedule_Update(std::uint32_t time_delta)
     }
     else
     {
-        DataBase::Storage_Scheme* const p_storage = DataBase::Storage::getInstance().getStorage().at(this->m_object->ID()).getSchemes().at("combat");
-
-        if (p_storage == nullptr)
+        if (DataBase::Storage::getInstance().getStorage().at(this->m_object->ID()).getSchemes().find("combat") == DataBase::Storage::getInstance().getStorage().at(this->m_object->ID()).getSchemes().end())
         {
-            // Lord: так и должно быть?
-            R_ASSERT2(false, "can't be!");
             return;
         }
+
+        DataBase::Storage_Scheme* const p_storage = DataBase::Storage::getInstance().getStorage().at(this->m_object->ID()).getSchemes().at("combat");
 
         XR_COMBAT::set_combat_type(this->m_object, DataBase::Storage::getInstance().getActor(), p_storage->getXRCombatCombatTypeCondlist());
     }

@@ -2050,10 +2050,14 @@ inline float pstor_retrieve_number(CScriptGameObject* object, const xr_string& v
         return 0.0f;
     }
 
-    if (DataBase::Storage::getInstance().getStorage().at(object->ID()).getPStor().at(varname).IsInitializedNumber())
+    if (DataBase::Storage::getInstance().getStorage().at(object->ID()).getPStor().find(varname) != DataBase::Storage::getInstance().getStorage().at(object->ID()).getPStor().end())
     {
-        return DataBase::Storage::getInstance().getStorage().at(object->ID()).getPStor().at(varname).getNumber();
+		if (DataBase::Storage::getInstance().getStorage().at(object->ID()).getPStor().at(varname).IsInitializedNumber())
+		{
+			return DataBase::Storage::getInstance().getStorage().at(object->ID()).getPStor().at(varname).getNumber();
+		}
     }
+
 
 	MESSAGEWR("returning a default value, because can't  find current value by string index -> [%s]", varname.c_str())
 
