@@ -932,6 +932,12 @@ inline bool is_actor_in_zone_client(
         return false;
     }
 
+    if (DataBase::Storage::getInstance().getZoneByName().find(zone_name) == DataBase::Storage::getInstance().getZoneByName().end())
+    {
+        MESSAGEWR("object is not presented in database! You don't registered it or something else ...");
+        return false;
+    }
+
     CScriptGameObject* zone = DataBase::Storage::getInstance().getZoneByName().at(zone_name);
 
     if (!zone)
@@ -962,10 +968,16 @@ inline bool is_actor_in_zone_client_server(
 
     if (!DataBase::Storage::getInstance().getActor())
     {
-        Msg("[Scripts/XR_CONDITION/is_actor_in_zone(server_actor, server_npc, zone_name)] WARNING: Client still not "
+        MESSAGEWR("Client still not "
             "initialize! Early calling!!! DataBase::Storage::Actor = nullptr! Return false.");
         return false;
     }
+
+	if (DataBase::Storage::getInstance().getZoneByName().find(zone_name) == DataBase::Storage::getInstance().getZoneByName().end())
+	{
+		MESSAGEWR("object is not presented in database! You don't registered it or something else ...");
+		return false;
+	}
 
     CScriptGameObject* zone = DataBase::Storage::getInstance().getZoneByName().at(zone_name);
 
@@ -997,10 +1009,16 @@ inline bool is_actor_in_zone_server(
 
     if (!DataBase::Storage::getInstance().getActor())
     {
-        Msg("[Scripts/XR_CONDITION/is_actor_in_zone(server_actor, server_npc, zone_name)] WARNING: Client still not "
+        MESSAGEWR("Client still not "
             "initialize! Early calling!!! DataBase::Storage::Actor = nullptr! Return false.");
         return false;
     }
+
+	if (DataBase::Storage::getInstance().getZoneByName().find(zone_name) == DataBase::Storage::getInstance().getZoneByName().end())
+	{
+		MESSAGEWR("object is not presented in database! You don't registered it or something else ...");
+		return false;
+	}
 
     CScriptGameObject* zone = DataBase::Storage::getInstance().getZoneByName().at(zone_name);
 
