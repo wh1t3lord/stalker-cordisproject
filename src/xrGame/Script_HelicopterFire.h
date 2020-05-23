@@ -226,7 +226,7 @@ public:
 
         if (this->m_p_enemy->ID() == this->m_fire_id)
         {
-            if (this->m_enemy_type_name != "nil") // LorD: ïğîâåğèòü áóäåò ëè äğîïàòü nil, åñëè áóäåò òî íàéòè è èñïğàâèòü êîãäà ıòî áóäåò, ÷òîáû âñå "nil" ïğîñòî ïğîâåğÿëèñü âñåãäà êàê .empty()
+            if (this->m_enemy_type_name != "nil") // LorD: Ğ¿Ñ€Ğ¾Ğ²ĞµÑ€Ğ¸Ñ‚ÑŒ Ğ±ÑƒĞ´ĞµÑ‚ Ğ»Ğ¸ Ğ´Ñ€Ğ¾Ğ¿Ğ°Ñ‚ÑŒ nil, ĞµÑĞ»Ğ¸ Ğ±ÑƒĞ´ĞµÑ‚ Ñ‚Ğ¾ Ğ½Ğ°Ğ¹Ñ‚Ğ¸ Ğ¸ Ğ¸ÑĞ¿Ñ€Ğ°Ğ²Ğ¸Ñ‚ÑŒ ĞºĞ¾Ğ³Ğ´Ğ° ÑÑ‚Ğ¾ Ğ±ÑƒĞ´ĞµÑ‚, Ñ‡Ñ‚Ğ¾Ğ±Ñ‹ Ğ²ÑĞµ "nil" Ğ¿Ñ€Ğ¾ÑÑ‚Ğ¾ Ğ¿Ñ€Ğ¾Ğ²ĞµÑ€ÑĞ»Ğ¸ÑÑŒ Ğ²ÑĞµĞ³Ğ´Ğ° ĞºĞ°Ğº .empty()
             {
                 ++this->m_hit_count;
             }
@@ -286,7 +286,7 @@ private:
                         }
                         else
                         {
-                            if (this->m_enemy_type_name != "nil") // LorD: ïğîâåğèòü áóäåò ëè äğîïàòü nil, åñëè áóäåò òî íàéòè è èñïğàâèòü êîãäà ıòî áóäåò, ÷òîáû âñå "nil" ïğîñòî ïğîâåğÿëèñü âñåãäà êàê .empty()
+                            if (this->m_enemy_type_name != "nil") // LorD: Ğ¿Ñ€Ğ¾Ğ²ĞµÑ€Ğ¸Ñ‚ÑŒ Ğ±ÑƒĞ´ĞµÑ‚ Ğ»Ğ¸ Ğ´Ñ€Ğ¾Ğ¿Ğ°Ñ‚ÑŒ nil, ĞµÑĞ»Ğ¸ Ğ±ÑƒĞ´ĞµÑ‚ Ñ‚Ğ¾ Ğ½Ğ°Ğ¹Ñ‚Ğ¸ Ğ¸ Ğ¸ÑĞ¿Ñ€Ğ°Ğ²Ğ¸Ñ‚ÑŒ ĞºĞ¾Ğ³Ğ´Ğ° ÑÑ‚Ğ¾ Ğ±ÑƒĞ´ĞµÑ‚, Ñ‡Ñ‚Ğ¾Ğ±Ñ‹ Ğ²ÑĞµ "nil" Ğ¿Ñ€Ğ¾ÑÑ‚Ğ¾ Ğ¿Ñ€Ğ¾Ğ²ĞµÑ€ÑĞ»Ğ¸ÑÑŒ Ğ²ÑĞµĞ³Ğ´Ğ° ĞºĞ°Ğº .empty()
                             {
                                 this->m_enemy_id = ai().alife()
                                                        .story_objects()
@@ -398,7 +398,7 @@ public:
     {
         if (this->m_fires_storage[entity_id])
         {
-            Msg("[Scripts/Script_HelicopterFireStorage/DeallocateFirer(entity_id)] deleting %s %d", this->m_fires_storage[entity_id]->m_p_npc->Name(), this->m_fires_storage[entity_id]->m_p_npc->ID());
+            MESSAGEI("deleting %s %d", this->m_fires_storage[entity_id]->m_p_npc->Name(), this->m_fires_storage[entity_id]->m_p_npc->ID());
             xr_delete(this->m_fires_storage[entity_id]);
         }
     }
