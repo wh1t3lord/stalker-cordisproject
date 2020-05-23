@@ -110,7 +110,8 @@ public:
     {
         if (this->m_scheme_name.empty())
         {
-            R_ASSERT2(false, "it can't be, you must initialize you m_scheme_name field in your scheme class!!!!!");
+            MESSAGEW("object already deleted!");
+            
         }
 
         return this->m_scheme_name;
