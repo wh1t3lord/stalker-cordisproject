@@ -9,8 +9,8 @@ namespace Scripts
 {
 namespace XR_EFFECTS
 {
-inline void pas_b400_play_particle(
-    CScriptGameObject* const p_actor, CScriptGameObject* const p_npc, const xr_vector<xr_string>& buffer);
+
+
 }
 } // namespace Scripts
 } // namespace Cordis
@@ -2208,6 +2208,27 @@ inline void give_task(
     Script_TaskManager::getInstance().give_task(buffer[0]);
 }
 
+inline void set_active_task(CScriptGameObject* const p_actor, CScriptGameObject* const p_npc, const xr_vector<xr_string>& buffer)
+{
+    if (buffer.empty())
+    {
+        MESSAGEWR("invalid buffer!");
+        return;
+    }
+
+    if (DataBase::Storage::getInstance().getActor() == nullptr)
+    {
+        MESSAGEWR("invalid actor! Maybe early calling!");
+        return;
+    }
+
+    CGameTask* const p_task = DataBase::Storage::getInstance().getActor()->GetTask(buffer[0].c_str(), true);
+    if (p_task)
+    {
+        DataBase::Storage::getInstance().getActor()->SetActiveTask(p_task);
+    }
+}
+
 inline void actor_friend(
     CScriptGameObject* const p_actor, CScriptGameObject* const p_npc, const xr_vector<xr_string>& buffer)
 {
@@ -3688,7 +3709,7 @@ inline void mech_discount(
 {
     if (buffer.empty())
     {
-        Msg("[Scripts/XR_EFFECTS/mech_discount(p_actor, p_npc, buffer)] WARNING: buffer.empty() == true! Return ...");
+        MESSAGEWR("buffer.empty() == true!");
         return;
     }
 
@@ -3700,8 +3721,7 @@ inline void polter_actor_ignore(
 {
     if (buffer.empty())
     {
-        Msg("[Scripts/XR_EFFECTS/polter_actor_ignore(p_actor, p_npc, buffer)] WARNING: buffer.empty() == true! Return "
-            "...");
+        MESSAGEWR("buffer.empty() == true!");
         return;
     }
 
@@ -3728,14 +3748,13 @@ inline void show_freeplay_dialog(
 {
     if (buffer.empty())
     {
-        Msg("[Scripts/XR_EFFECTS/show_freeplay_dialog(p_actor, p_npc, buffer)] WARNING: buffer.empty() == true! Return "
-            "...");
+        MESSAGEWR("buffer.empty() == true!");
         return;
     }
 
     if (buffer.size() < 2)
     {
-        Msg("[Scripts/XR_EFFECTS/show_freeplay_dialog(p_actor, p_npc, buffer)] WARNING: buffer.size() < 2! Return ...");
+        MESSAGEWR("buffer.size() < 2!");
         return;
     }
 
@@ -4219,6 +4238,33 @@ inline void eat_vodka_script(
         DataBase::Storage::getInstance().getActor()->eat(
             DataBase::Storage::getInstance().getActor()->GetObjectByName("vodka"));
     }
+}
+
+inline void set_weather(CScriptGameObject* const p_actor, CScriptGameObject* const p_npc, const xr_vector<xr_string>& buffer)
+{
+    if (buffer.empty())
+    {
+        MESSAGEWR("Invalid buffer!");
+        return;
+    }
+
+    if (buffer.size() == 1)
+    {
+        Globals::Game::level::set_weather(buffer[0].c_str(), false);
+    }
+    else if (buffer.size() > 1)
+    {
+		if (buffer[1] == "true")
+		{
+			Globals::Game::level::set_weather(buffer[0].c_str(), true);
+		}
+    }
+    else
+    {
+        MESSAGEW("Invalid size of buffer!");
+    }
+
+
 }
 
 inline void jup_b200_count_found(

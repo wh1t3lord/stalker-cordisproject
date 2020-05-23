@@ -347,14 +347,14 @@ if not exist "$(OutDir)tbbmalloc_proxy.dll" copy /y "$(xrSdkDir)binaries\$(Platf
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Mixed|x64'">
     <ClCompile>
-      <AdditionalIncludeDirectories>$(xrSdkDir)lib_boost\;$(xrExternals);$(xrExternals)lzo\include;$(xrExternals)pugixml\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(xrSdkDir)Visual Leak Detector\include;$(xrSdkDir)lib_boost\;$(xrExternals);$(xrExternals)lzo\include;$(xrExternals)pugixml\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>_USRDLL;XRCORE_EXPORTS;CRYPTO_BUILD;CI=$(CI);APPVEYOR=$(APPVEYOR);APPVEYOR_BUILD_VERSION=$(APPVEYOR_BUILD_VERSION);APPVEYOR_ACCOUNT_NAME=$(APPVEYOR_ACCOUNT_NAME);%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalOptions>/Zm120 %(AdditionalOptions)</AdditionalOptions>
       <WarningLevel>TurnOffAllWarnings</WarningLevel>
     </ClCompile>
     <Link>
       <AdditionalDependencies>PowrProf.lib;DbgHelp.lib;shlwapi.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>$(xrSdkDir)lib_boost\stage\lib\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(xrSdkDir)Visual Leak Detector\lib\Win64\;$(xrSdkDir)lib_boost\stage\lib\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
     <PreBuildEvent>
       <Command>where /q git

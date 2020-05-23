@@ -79,8 +79,10 @@ inline void play_sound_looped(const std::uint16_t npc_id, const xr_string& sound
 {
     if (sound_name.empty())
     {
-        Msg("[Scripts/XR_SOUND/play_sound_looped(npc_id, sound_name)] WARNING: sound_name.empty() == true! Empty "
+#ifdef DEBUG
+        MESSAGEWR("sound_name.empty() == true! Empty "
             "string return ...");
+#endif // DEBUG
         return;
     }
 
@@ -105,8 +107,10 @@ inline void play_sound_looped(const std::uint16_t npc_id, const xr_string& sound
 
     if (p_sound->play(npc_id))
     {
-        Msg("[Scripts/XR_SOUND/play_sound_looped(npc_id, sound_name)] %s %s", sound_name.c_str(),
+#ifdef DEBUG
+        MESSAGE("%s %s", sound_name.c_str(),
             std::to_string(npc_id).c_str());
+#endif // DEBUG
         getLoopedSoundDatabase()[npc_id][sound_name] = p_sound;
     }
 }
@@ -144,16 +148,22 @@ inline void stop_sound_looped(const std::uint16_t npc_id, const xr_string& sound
 
 inline void stop_sounds_by_id(const std::uint16_t object_id)
 {
-    Script_ISoundEntity* const p_sound = getSoundDatabase().at(object_id);
-    if (p_sound)
-        p_sound->stop(object_id);
-
-    const xr_map<xr_string, Script_ISoundEntity*>& looped_sounds = getLoopedSoundDatabase().at(object_id);
-
-    for (const std::pair<xr_string, Script_ISoundEntity*>& it : looped_sounds)
+    if (getSoundDatabase().find(object_id) != getSoundDatabase().end())
     {
-        if (it.second && it.second->is_playing(object_id))
-            it.second->stop(object_id);
+		Script_ISoundEntity* const p_sound = getSoundDatabase().at(object_id);
+		if (p_sound)
+			p_sound->stop(object_id);
+    }
+
+    if (getLoopedSoundDatabase().find(object_id) != getLoopedSoundDatabase().end())
+    {
+		const xr_map<xr_string, Script_ISoundEntity*>& looped_sounds = getLoopedSoundDatabase().at(object_id);
+
+		for (const std::pair<xr_string, Script_ISoundEntity*>& it : looped_sounds)
+		{
+			if (it.second && it.second->is_playing(object_id))
+				it.second->stop(object_id);
+		}
     }
 }
 

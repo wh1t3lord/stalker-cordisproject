@@ -15,10 +15,68 @@ float Script_SimulationObjects::evaluate_priority(CSE_ALifeDynamicObject* target
         R_ASSERT2(false, "Object was null!");
         return 0.0f;
     }
-
     float priority = 0.0f;
+    Script_SE_SimulationSquad* const p_squad_prior = squad->cast_script_se_simulationsquad();
+    Script_SE_Actor* const p_actor = target->cast_script_se_actor();
+    if (p_actor)
+    {
+        if (!p_actor->target_precondition(p_squad_prior) || Globals::is_on_the_same_level(target, squad))
+        {
+            return priority;
+        }
+        else
+        {
+            priority = 3.0f;
+        }
+    }
+    else
+    {
+        Script_SE_SmartTerrain* const p_smart = target->cast_script_se_smartterrain();
+        if (p_smart)
+        {
+            if (!p_smart->target_precondition(squad, false) || Globals::is_on_the_same_level(target, squad))
+            {
+                return priority;
+            }
+            else
+            {
+                priority = 3.0f;
+            }
+        }
+        else
+        {
+            Script_SE_SimulationSquad* const p_squad = target->cast_script_se_simulationsquad();
+            if (p_squad)
+            {
+                if (!p_squad->target_precondition(squad) || Globals::is_on_the_same_level(target, squad))
+                {
+                    return priority;
+                }
+                else
+                {
+                    priority = 3.0f;
+                }
+            }
+            else
+            {
+                R_ASSERT2(false, "can't be!");
+            }
+        }
+    }
 
-    // Lord: доделать!
+    for (const std::pair<xr_string, xr_string>& it : p_squad_prior->getBehavior())
+    {
+        float squad_koeff = boost::lexical_cast<float>(it.first.c_str());
+        float target_koeff = 0.0f;
+        if (target->cast_script_se_smartterrain())
+        {
+            target_koeff = boost::lexical_cast<float>(target->cast_script_se_smartterrain()->getProperties().at(it.first));
+        }
+
+        priority += squad_koeff * target_koeff;
+    }
+
+    return priority*this->evaluate_priority_by_distance(target, squad);
 }
 
 void Script_SimulationObjects::registrate(CSE_ALifeDynamicObject* object)

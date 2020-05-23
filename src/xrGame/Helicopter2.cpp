@@ -214,7 +214,8 @@ void CHelicopter::Hit(SHit* pHDS)
         (smart_cast<CActor*>(pHDS->who) || smart_cast<CAI_Stalker*>(pHDS->who) || smart_cast<CCustomZone*>(pHDS->who)))
     {
         // Lord - [Script] Re-write
-       // callback(GameObject::eHelicopterOnHit)(pHDS->damage(), pHDS->impulse, pHDS->hit_type, pHDS->who->ID());
+      //callback(GameObject::eHelicopterOnHit)(pHDS->damage(), pHDS->impulse, pHDS->hit_type, pHDS->who->ID());
+        this->GetScriptBinderObject()->on_hit(pHDS->damage(), pHDS->impulse, pHDS->hit_type, pHDS->who->ID());
     }
 
     CPHDestroyable::SetFatalHit(*pHDS);

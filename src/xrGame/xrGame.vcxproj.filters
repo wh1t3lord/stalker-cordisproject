@@ -9773,6 +9773,9 @@
     <ClInclude Include="Script_SchemeXRSmartCover.h">
       <Filter>Cordis\Scripts\Logic\Schemes\XR\SmartCover\Public</Filter>
     </ClInclude>
+    <ClInclude Include="Script_PostCombat.h">
+      <Filter>Cordis\Scripts\Logic\Schemes\XR\Combat\Public</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="damage_manager.cpp">
@@ -14246,6 +14249,15 @@
     </ClCompile>
     <ClCompile Include="Script_SchemeXRSmartCover.cpp">
       <Filter>Cordis\Scripts\Logic\Schemes\XR\SmartCover\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Script_GlobalHelper.cpp">
+      <Filter>Cordis\Scripts\Global\Public</Filter>
+    </ClCompile>
+    <ClCompile Include="Script_PostCombat.cpp">
+      <Filter>Cordis\Scripts\Logic\Schemes\XR\Combat\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Script_XR_Logic.cpp">
+      <Filter>Cordis\Scripts\XR\Logic\Public</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

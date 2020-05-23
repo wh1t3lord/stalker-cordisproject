@@ -22,9 +22,18 @@ void CallFunction(shared_str const& func)
        xr_effects.something_like_that luabind::functor<void> functor_to_call; bool functor_exists =
        GEnv.ScriptEngine->functor(func.c_str(), functor_to_call); THROW3(functor_exists, "Cannot find script function
        described in tutorial item ", func.c_str()); if (functor_to_call.is_valid()) functor_to_call();*/
-    Msg("[UIGameTutorial.cpp/CallFunction(func_name)] WARNING: NOT IMPLEMENTED FUNCTIONS FOR UIGameTutorial.cpp for "
-        "method CUISequenceItem::Stop. {%s}",
-        func.c_str());
+
+    xr_string parsed = func.c_str();
+
+    parsed = parsed.substr(parsed.rfind('.') + 1);
+
+    if (Cordis::Scripts::Script_GlobalHelper::getInstance().getRegisteredFunctionsXREffects().find(parsed) == Cordis::Scripts::Script_GlobalHelper::getInstance().getRegisteredFunctionsXREffects().end())
+    {
+        MESSAGEWR("Can't find function by name %s for executing", parsed.c_str());
+        return;
+    }
+
+    Cordis::Scripts::Script_GlobalHelper::getInstance().getRegisteredFunctionsXREffects().at(parsed).operator()<CScriptGameObject* const, CScriptGameObject* const, const xr_vector<xr_string>&>(nullptr, nullptr, {});
 }
 
 void CallFunctions(xr_vector<shared_str>& v)

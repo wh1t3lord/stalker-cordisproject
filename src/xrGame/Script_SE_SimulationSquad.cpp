@@ -7,6 +7,71 @@ CScriptIniFile locations_ini = CScriptIniFile("misc\\smart_terrain_masks.ltx");
 
 namespace Cordis
 {
+    namespace Scripts
+    {
+		bool can_help_actor(Script_SE_SimulationSquad* const p_squad)
+		{
+			if (DataBase::Storage::getInstance().getXRCombatIgnoreFightingWithActorNpcs().empty())
+				return false;
+
+			if (Globals::Game::get_game_graph()->vertex(p_squad->m_tGraphID)->level_vertex_id() != Globals::Game::get_game_graph()->vertex(ai().alife().graph().actor()->m_tGraphID)->level_vertex_id())
+			{
+				return false;
+			}
+			const xr_string& community_name = Script_GlobalHelper::getInstance().getSquadCommunityByBehavior().at(p_squad->getPlayerIDName());
+
+			if (community_name.empty() == false)
+			{
+				R_ASSERT2(false, "something wrong!");
+				return false;
+			}
+
+			if (Globals::has_alife_info("sim_duty_help_harder") && community_name == "duty")
+			{
+				return true;
+			}
+			else if (Globals::has_alife_info("sim_freedom_help_harder") && community_name == "freedom")
+			{
+				return true;
+			}
+			else if (Globals::has_alife_info("sim_stalker_help_harder") && community_name == "stalker")
+			{
+				return true;
+			}
+
+			return false;
+		}
+
+		std::uint16_t get_help_target_id(Script_SE_SimulationSquad* const p_squad)
+		{
+			if (!can_help_actor(p_squad))
+				return 0;
+
+			for (const std::pair<std::uint16_t, bool>& it : DataBase::Storage::getInstance().getXRCombatIgnoreFightingWithActorNpcs())
+			{
+				std::uint16_t enemy_squad_id = ai().alife().objects().object(0)->cast_monster_abstract()->m_group_id;
+
+				if (enemy_squad_id)
+				{
+					Script_SE_SimulationSquad* const p_target_squad = ai().alife().objects().object(enemy_squad_id)->cast_script_se_simulationsquad();
+					if (p_target_squad)
+					{
+						if (p_squad->position().distance_to_sqr(p_target_squad->position()) < 150.0f * 150.0f && Globals::GameRelations::is_factions_enemies(Script_GlobalHelper::getInstance().getSquadCommunityByBehavior().at(p_squad->getPlayerIDName()), Script_GlobalHelper::getInstance().getSquadCommunityByBehavior().at(p_target_squad->getPlayerIDName())))
+						{
+							return enemy_squad_id;
+						}
+					}
+				}
+			}
+
+			return 0;
+		}
+    }
+}
+
+
+namespace Cordis
+{
 namespace Scripts
 {
 Script_SE_SimulationSquad::Script_SE_SimulationSquad(LPCSTR section)
@@ -142,6 +207,86 @@ void Script_SE_SimulationSquad::on_unregister(void)
     }
 }
 
+void Script_SE_SimulationSquad::update()
+{
+    inherited::update();
+    this->refresh();
+
+    Script_SimulationObjects::getInstance().update_avaliability(this);
+
+    std::uint16_t script_target_id = this->getScriptTarget();
+
+    // Lord: не реализована проверка на бессмертие
+
+    if (script_target_id == 0 || script_target_id == Globals::kUnsignedInt16Undefined)
+    {
+        this->generic_update();
+        if (this->m_is_need_to_reset_location_masks)
+        {
+            this->set_location_types("");
+            this->m_is_need_to_reset_location_masks = false;
+        }
+        return;
+    }
+
+    this->m_sound_manager.update();
+
+    bool is_need_to_find_new_action = false;
+    if (this->m_assigned_target_id && this->m_assigned_target_id == script_target_id)
+    {
+        if (this->m_current_action.getName().empty() == false)
+        {
+            if (this->m_current_action.getName() == Globals::kSimulationSquadCurrentActionIDStayOnTarget)
+            {
+                if (this->check_squad_come_to_point())
+                {
+                    is_need_to_find_new_action = true;
+                }
+                else
+                {
+                    is_need_to_find_new_action = this->update_current_action();
+                }
+            }
+            else
+            {
+                if (this->update_current_action())
+                {
+                    this->check_squad_come_to_point();
+                    is_need_to_find_new_action = true;
+                }
+            }
+        }
+        else
+        {
+            this->check_squad_come_to_point();
+            is_need_to_find_new_action = true;
+        }
+    }
+    else
+    {
+        if (this->m_current_action.getName().empty())
+        {
+            is_need_to_find_new_action = true;
+        }
+        else
+        {
+            is_need_to_find_new_action = true;
+        }
+    }
+
+    if (is_need_to_find_new_action)
+    {
+        this->m_assigned_target_id = script_target_id;
+
+        if (this->m_current_action.getName().empty() == false)
+        {
+            this->m_current_action.Clear();
+        }
+
+        this->get_next_action(false);
+    }
+}
+
 std::uint16_t Script_SE_SimulationSquad::getScriptTarget(void)
 {
     xr_string new_target_name = XR_LOGIC::pick_section_from_condlist(
@@ -161,7 +306,10 @@ std::uint16_t Script_SE_SimulationSquad::getScriptTarget(void)
             this->m_is_need_free_update = false;
     }
 
-    if (!this->m_parsed_targets[this->m_next_target_index].size())
+    if (this->m_next_target_index >= this->m_parsed_targets.size())
+        this->m_next_target_index = 0;
+
+    if (this->m_parsed_targets[this->m_next_target_index].empty())
         this->m_next_target_index = 0;
 
     xr_string _new_target = this->pick_next_target();
@@ -216,6 +364,69 @@ void Script_SE_SimulationSquad::assign_squad_member_to_smart(
         smart->register_npc(server_monster);
 }
 
+bool Script_SE_SimulationSquad::assigned_target_available(void)
+{
+    bool is_target_object = this->m_assigned_target_id && ai().alife().objects().object(this->m_assigned_target_id);
+    if (is_target_object == false)
+        return false;
+
+    CSE_ALifeDynamicObject* const p_server_object = ai().alife().objects().object(this->m_assigned_target_id);
+    Script_SE_SmartTerrain* const p_smart = p_server_object->cast_script_se_smartterrain();
+    if (p_smart)
+        p_smart->target_precondition(this, true);
+
+    return false;
+}
+
+bool Script_SE_SimulationSquad::target_precondition(CSE_ALifeObject* squad)
+{
+    if (squad == nullptr)
+    {
+        MESSAGEWR("invalid squad passed!");
+        return false;
+    }
+
+    Script_SE_SimulationSquad* const p_squad = squad->cast_script_se_simulationsquad();
+
+    if (p_squad)
+    {
+        if (Script_SimulationBoard::getInstance().getSimulationActivities().find(p_squad->getPlayerID()) == Script_SimulationBoard::getInstance().getSimulationActivities().end())
+        {
+            MESSAGEWR("Can't find simulation activity for %d", p_squad->getPlayerID());
+            return false;
+        }
+
+        const SimulationActivitiesType& activity = Script_SimulationBoard::getInstance().getSimulationActivities().at(p_squad->getPlayerID());
+
+        if (activity.m_squad.empty())
+        {
+            MESSAGEWR("m_squad was empty!");
+            return false;
+        }
+
+        if (activity.m_squad.find(this->m_player_id) == activity.m_squad.end())
+        {
+            MESSAGEWR("Can't find data in m_squad by ID -> %d", this->m_player_id);
+            return false;
+        }
+
+        std::function<bool(CSE_ALifeOnlineOfflineGroup*, CSE_ALifeObject*)> precondition = activity.m_squad.at(this->m_player_id);
+
+        if (precondition)
+        {
+            return precondition(p_squad, this);
+        }
+        else
+        {
+            MESSAGEWR("invalid precondition! Can't be check initialization in Script_SimulationBoard!");
+            return false;
+        }
+    }
+    
+    MESSAGEWR("Can't cast to %s", typeid(p_squad).name());
+    return false;
+}
+
 void Script_SE_SimulationSquad::set_location_types_section(const xr_string& section)
 {
     if (locations_ini.section_exist(section.c_str()))
@@ -248,16 +459,21 @@ void Script_SE_SimulationSquad::set_location_types(const xr_string& new_smart_na
             }
         }
 
-        Msg("[Scripts/Script_SE_SmartTerrain/set_location_types(new_smart_name)] Old smart terrain name [%s]",
+#ifdef DEBUG
+        MESSAGE("Old smart terrain name [%s]",
             old_smart_name.c_str());
+#endif // DEBUG
 
-        if (old_smart_name.size())
+        if (old_smart_name.empty() == false)
             this->set_location_types_section(old_smart_name);
 
-        Msg("[Scripts/Script_SE_SmartTerrain/set_location_types(new_smart_name)] New smart terrain name [%s]",
+#ifdef DEBUG
+        if (new_smart_name.empty() == false)
+            MESSAGE("New smart terrain name [%s]",
             new_smart_name.c_str());
+#endif // DEBUG
 
-        if (new_smart_name.c_str())
+        if (new_smart_name.empty() == false)
             this->set_location_types_section(new_smart_name);
     }
     else
@@ -437,7 +653,7 @@ void Script_SE_SimulationSquad::on_npc_death(CSE_ALifeDynamicObject* server_obje
         return;
     }
 
-    Msg("[Scripts/Script_SE_SimulationSquad/on_npc_death(server_object)] Squad %d killed member is %d", this->ID,
+    MESSAGE("Squad %d killed member is %d", this->ID,
         server_object->ID);
 
     this->m_sound_manager.unregister_npc(server_object->ID);
@@ -445,9 +661,9 @@ void Script_SE_SimulationSquad::on_npc_death(CSE_ALifeDynamicObject* server_obje
 
     if (!this->npc_count())
     {
-        Msg("[Scripts/Script_SE_SimulationSquad/on_npc_death(server_object)] REMOVING DEAD SQUAD %d", this->ID);
+        MESSAGE("REMOVING DEAD SQUAD %d", this->ID);
 
-        if (this->m_current_action.getName().size())
+        if (this->m_current_action.getName().empty() == false)
         {
             this->m_current_action.Clear();
         }
@@ -671,6 +887,181 @@ bool Script_SE_SimulationSquad::check_squad_come_to_point(void)
     }
 
     return false;
+}
+
+// @ Not used in game
+void Script_SE_SimulationSquad::check_invulnerability(void)
+{
+    return;
+}
+
+bool Script_SE_SimulationSquad::update_current_action(void)
+{
+    return this->m_current_action.update(false);
+}
+
+void Script_SE_SimulationSquad::get_next_action(const bool is_under_simulation)
+{
+    Script_SE_SmartTerrain* const p_server_squad_target = ai().alife().objects().object(this->m_assigned_target_id)->cast_script_se_smartterrain();
+
+    if (this->m_current_target_id == 0)
+    {
+        if (p_server_squad_target && p_server_squad_target->am_i_reached(this))
+        {
+            p_server_squad_target->on_reach_target(this);
+            p_server_squad_target->on_after_reach(this);
+        }
+
+        this->m_current_action = StayReachOnTarget();
+        this->m_current_target_id = this->m_assigned_target_id;
+        this->m_current_action.make(is_under_simulation);
+        return;
+    }
+
+    if ((this->m_assigned_target_id == this->m_current_target_id) || this->m_assigned_target_id == 0)
+    {
+        this->m_current_action = StayReachOnTarget();
+        this->m_current_target_id = this->m_assigned_target_id;
+        this->m_current_action.make(is_under_simulation);
+    }
+    else
+    {
+        this->m_current_action = StayReachOnTarget(this->ID);
+        this->m_current_action.make(is_under_simulation);
+    }
+}
+
+void Script_SE_SimulationSquad::generic_update(void)
+{
+    this->m_sound_manager.update();
+    this->refresh();
+
+    std::uint16_t help_target_id = get_help_target_id(this);
+    if (help_target_id)
+    {
+        this->m_assigned_target_id = help_target_id;
+        this->m_current_action.Clear();
+        this->get_next_action(false);
+        return;
+    }
+
+    if (this->m_assigned_target_id && ai().alife().objects().object(this->m_assigned_target_id) && ai().alife().objects().object(this->m_assigned_target_id)->m_script_clsid != Globals::get_script_clsid(CLSID_SE_ONLINE_OFFLINE_GROUP))
+    {
+        Script_SE_SimulationSquad* const p_squad_target = Script_SimulationBoard::getInstance().get_squad_target(this);
+        if (p_squad_target == nullptr)
+        {
+            MESSAGEWR("Invalid object!");
+            return;
+        }
+
+        if (p_squad_target->m_script_clsid == Globals::get_script_clsid(CLSID_SE_ONLINE_OFFLINE_GROUP))
+        {
+            this->m_assigned_target_id = p_squad_target->ID;
+            this->m_current_action.Clear();
+            this->get_next_action(true);
+            return;
+        }
+
+        if ((this->m_current_action.getName().empty() == false) && this->assigned_target_available())
+        {
+            bool is_finished = this->m_current_action.update(true);
+
+            if (is_finished)
+            {
+                if (this->m_current_action.getName() == Globals::kSimulationSquadCurrentActionIDStayOnTarget || !this->m_assigned_target_id)
+                {
+                    this->m_assigned_target_id = Script_SimulationBoard::getInstance().get_squad_target(this)->ID;
+                }
+
+                this->m_current_action.Clear();
+            }
+            else
+            {
+                return;
+            }
+        }
+        else
+        {
+            this->m_current_action.Clear();
+            this->m_current_target_id = 0;
+            this->m_assigned_target_id = Script_SimulationBoard::getInstance().get_squad_target(this)->ID;
+        }
+    }
+
+    this->get_next_action(true);
+}
+
+bool StayReachOnTarget::update(const bool is_under_simulation)
+{
+	if (!this->m_name.size())
+	{
+		R_ASSERT2(false, "You must indentifying your class's ID!");
+		return false;
+	}
+
+	if (this->m_name == Globals::kSimulationSquadCurrentActionIDStayOnTarget)
+	{
+		if (!is_under_simulation)
+			return false;
+		else
+			return (Globals::Game::get_game_time().diffSec(this->m_start_time) > this->m_idle_time);
+	}
+	else if (this->m_name == Globals::kSimulationSquadCurrentActionIDReachTarget)
+	{
+		Script_SE_SimulationSquad* const p_squad = ai().alife().objects().object(this->m_squad_id)->cast_script_se_simulationsquad();
+		Script_SE_SmartTerrain* p_terrain = Script_SimulationObjects::getInstance().getObjects().at(p_squad->getAssignedTargetID())->cast_script_se_smartterrain();
+
+		if (!is_under_simulation)
+			p_terrain = ai().alife().objects().object(p_squad->getAssignedTargetID())->cast_script_se_smartterrain();
+
+		if (p_terrain == nullptr)
+		{
+			p_squad->setAssignedTargetID(0);
+			return true;
+		}
+
+		if (p_terrain->am_i_reached(p_squad))
+		{
+			p_terrain->on_after_reach(p_squad);
+			return true;
+		}
+	}
+
+	return false;
+}
+
+void StayReachOnTarget::make(const bool is_under_simulation)
+{
+	if (this->m_name.empty())
+	{
+		MESSAGEWR("You must indentify your class!");
+		return;
+	}
+
+	if (this->m_name == Globals::kSimulationSquadCurrentActionIDStayOnTarget)
+	{
+		this->m_start_time = get_time_struct();
+	}
+	else if (this->m_name == Globals::kSimulationSquadCurrentActionIDReachTarget)
+	{
+		Script_SE_SimulationSquad* const p_squad = ai().alife().objects().object(this->m_squad_id)->cast_script_se_simulationsquad();
+		Script_SE_SmartTerrain* p_terrain = Script_SimulationObjects::getInstance().getObjects().at(p_squad->getAssignedTargetID())->cast_script_se_smartterrain();
+
+		if (!is_under_simulation)
+			p_terrain = ai().alife().objects().object(p_squad->getAssignedTargetID())->cast_script_se_smartterrain();
+
+		if (p_terrain)
+			p_terrain->on_reach_target(p_squad);
+
+		for (AssociativeVector<std::uint16_t, CSE_ALifeMonsterAbstract*>::const_iterator it = p_squad->squad_members().begin(); it != p_squad->squad_members().end(); ++it)
+		{
+			if (it->first)
+			{
+				Script_SimulationBoard::getInstance().setup_squad_and_group(it->second);
+			}
+		}
+	}
+
 }
 
 } // namespace Scripts

@@ -393,7 +393,7 @@ bool CUICharacterInfo::ignore_community(shared_str const& check_community)
     auto ie = faction_section.Data.end();
     for (; ib != ie; ++ib)
     {
-        if (check_community == (*ib).first)
+        if (check_community == (*ib).first.c_str())
         {
             return true;
         }

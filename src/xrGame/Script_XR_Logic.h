@@ -72,71 +72,86 @@ inline xr_string determine_section_to_activate(CScriptGameObject* const p_npc, C
     return active_section_name;
 }
 
-inline void disable_generic_schemes(CScriptGameObject* const p_client_object, const std::uint32_t stype)
-{
-    if (!p_client_object)
-    {
-        R_ASSERT2(false, "object is null!");
-        return;
-    }
-
-    // Lord: доделать когда будут сделаны все схемы
-}
-
-inline void enable_generic_schemes(CScriptIniFile* const p_ini, CScriptGameObject* const p_client_object,
-    const std::uint32_t stype, const xr_string& section_logic_name)
-{
-    // Lord: доделать когда будут сделаны все схемы
-    if (!p_client_object)
-    {
-        R_ASSERT2(false, "object is null!");
-        return;
-    }
-
-    if (!p_ini)
-    {
-        R_ASSERT2(false, "object is null!");
-        return;
-    }
-}
-
-inline CScriptIniFile get_customdata_or_ini_file(CScriptGameObject* npc, const xr_string& filename)
+inline CScriptIniFile* get_customdata_or_ini_file(CScriptGameObject* npc, const xr_string& filename)
 {
     if (!npc)
     {
         R_ASSERT2(false, "object was null!");
-        return CScriptIniFile("system.ltx");
+        static int generated = 0;
+        CScriptIniFile* p_instance = new CScriptIniFile("system.ltx");
+        ++generated;
+        xr_string generated_name = "undefined_";
+        generated_name.append(std::to_string(generated));
+        DataBase::Storage::getInstance().RegisterAllocatedTemporaryIni(generated_name, p_instance);
+        return p_instance;
     }
 
     const DataBase::Storage_Data& storage = DataBase::Storage::getInstance().getStorage().at(npc->ID());
     if (filename == XR_LOGIC_CUSTOMDATA)
     {
         CScriptIniFile* file = npc->spawn_ini();
-        if (!file)
+        if (file)
         {
-            return *file;
+            return file;
         }
         else
-            return CScriptIniFile("[[scripts\\dummy.ltx]]");
+        {
+            CScriptIniFile* p_instance = new CScriptIniFile("[[scripts\\dummy.ltx]]");
+            DataBase::Storage::getInstance().RegisterAllocatedTemporaryIni(npc->Name(), p_instance);
+            return p_instance;
+        }
+            
     }
     else if (!filename.find('*'))
     {
-        if (storage.getJobIniName().size())
-            return CScriptIniFile(storage.getJobIniName().c_str());
+        if (storage.getJobIniName().empty() == false)
+        {
+            CScriptIniFile* const p_instance = new CScriptIniFile(storage.getJobIniName().c_str());
+            DataBase::Storage::getInstance().RegisterAllocatedTemporaryIni(npc->Name(), p_instance);
+            return p_instance;
+        }
+
+
         xr_string something_like_that;
-        return *XR_GULAG::loadLtx(filename.substr(filename.find('*') + 1), something_like_that);
+        return XR_GULAG::loadLtx(filename.substr(filename.find('*') + 1), something_like_that);
     }
 
-    return CScriptIniFile(filename.c_str());
+    CScriptIniFile* p_instance = new CScriptIniFile(filename.c_str());
+    DataBase::Storage::getInstance().RegisterAllocatedTemporaryIni(npc->Name(), p_instance);
+    return p_instance;
 }
 
-inline void intialize_job(CScriptGameObject* object, DataBase::Storage_Data& storage, const bool& loaded,
+inline void intialize_job(CScriptGameObject* object, const DataBase::Storage_Data& storage, const bool& loaded,
     CScriptGameObject* actor, const std::uint16_t& stype)
 {
-    // Lord: доделать!
     if (!loaded)
     {
         xr_string ini_filename = XR_LOGIC_CUSTOMDATA;
+        CScriptIniFile* ini = get_customdata_or_ini_file(object, ini_filename);
+        CScriptIniFile* const p_ini = configure_schemes(object, ini, ini_filename, stype, "logic", "");
+        xr_string section_name = determine_section_to_activate(object, p_ini, "logic", actor);
+        activate_by_section(object, p_ini, section_name, storage.getGulagName(), false);
+        xr_string relation_name = Globals::Utils::cfg_get_string(p_ini, "logic", "relation");
+        if (relation_name.empty() == false)
+        {
+            object->SetRelation(static_cast<ALife::ERelationType>(Globals::GameRelations::get_relation_id_by_name(relation_name)), DataBase::Storage::getInstance().getActor());
+        }
+
+        float sympathy = Globals::Utils::cfg_get_number(p_ini, "logic", "sympathy");
+        if (fis_zero(sympathy) == false)
+        {
+            object->SetSympathy(sympathy);
+        }
+    }
+    else
+    {
+        xr_string ini_filename = storage.getLoadedInifilename();
+        if (ini_filename.empty() == false)
+        {
+            CScriptIniFile* ini = get_customdata_or_ini_file(object, ini_filename);
+            CScriptIniFile* const p_ini = configure_schemes(object, ini, ini_filename, stype, storage.getLoadedSectionLogicName(), storage.getLoadedGulagName());
+            activate_by_section(object, p_ini, storage.getLoadedActiveSectionName(), storage.getLoadedGulagName(), true);
+        }
     }
 }
 
@@ -323,7 +338,7 @@ inline xr_map<std::uint32_t, CondlistData> parse_condlist_by_server_object(
     bool was_found_set = false;
     bool was_found_section = false;
     std::uint8_t counter_percent_symbol = 0;
-    xr_string mask_symbols = "%{}, qwertyuioplkjhgfdsamnbvcxz1234567890-+=~!_():";
+    xr_string mask_symbols = "%{}., qwertyuioplkjhgfdsamnbvcxz1234567890@-+=~!_():";
 
     xr_vector<CondlistParsingData> buffer;
     CondlistParsingData sub_data;
@@ -535,7 +550,7 @@ inline xr_map<std::uint32_t, CondlistData> parse_condlist_by_script_object(
     bool was_found_set = false;
     bool was_found_section = false;
     std::uint8_t counter_percent_symbol = 0;
-    xr_string mask_symbols = "%{}, qwertyuioplkjhgfdsamnbvcxz1234567890-+=~!_():";
+    xr_string mask_symbols = "%{}., qwertyuioplkjhgfdsamnbvcxz1234567890@-+=~!_():";
 
     xr_vector<CondlistParsingData> buffer;
     CondlistParsingData sub_data;
@@ -704,6 +719,9 @@ inline xr_map<std::uint32_t, CondlistData> parse_condlist_by_script_object(
     }
 
     // @ Added last sub_data, cuz in loop we can't add at last it : source!
+	if (current_section.size())
+		sub_data.m_text_name = current_section;
+
     buffer.push_back(sub_data);
     sub_data.Clear();
 
@@ -762,7 +780,7 @@ inline xr_string pick_section_from_condlist(
             else if (it_infoportion_check.second.m_function_name.size())
             {
                 xr_string calling_function_name = it_infoportion_check.second.m_function_name;
-                calling_function_name += XR_LOGIC_SERVER_SERVER_ARGUMENTS;
+                calling_function_name += XR_LOGIC_CLIENT_SERVER_ARGUMENTS;
 
                 if (Script_GlobalHelper::getInstance().getRegisteredFunctionsXRCondition().find(
                         calling_function_name) ==
@@ -1012,20 +1030,38 @@ inline xr_string pick_section_from_condlist(
                 if (it_infoportion_set.second.m_function_name.size())
                 {
                     xr_string calling_function_name = it_infoportion_set.second.m_function_name;
-                    calling_function_name += XR_LOGIC_CLIENT_SERVER_ARGUMENTS;
+                    //calling_function_name += XR_LOGIC_CLIENT_SERVER_ARGUMENTS;
 
                     if (Script_GlobalHelper::getInstance().getRegisteredFunctionsXRCondition().find(
                             calling_function_name) ==
                         Script_GlobalHelper::getInstance().getRegisteredFunctionsXRCondition().end())
                     {
-                        Msg("[Scripts/XR_LOGIC/pick_section_from_condlist(actor, npc, condlist)] object '%s': "
+                        MESSAGEW("object '%s': "
                             "pick_section_from_condlist: function '%s' is "
                             "not defined in xr_effects",
                             npc->s_name, it_infoportion_set.second.m_function_name.c_str());
                         R_ASSERT(false);
                     }
 
-                    if (it_infoportion_set.second.m_params.size())
+					xr_string buffer = it_infoportion_set.second.m_params;
+					static const boost::regex expr{ "[^:]+" };
+					boost::regex_token_iterator<std::string::iterator> it{ buffer.begin(), buffer.end(), expr };
+					boost::regex_token_iterator<std::string::iterator> end;
+					xr_vector<xr_string> argument_buffer;
+					std::uint8_t argument_counter = 0;
+					while (it != end)
+					{
+						++argument_counter;
+						MESSAGE("Argument #%d: %s",
+							argument_counter, it->str().c_str());
+						argument_buffer.push_back(it->str().c_str());
+						++it;
+					}
+
+					Script_GlobalHelper::getInstance().getRegisteredFunctionsXREffects()[calling_function_name].operator()<CScriptGameObject* const, CScriptGameObject* const, const xr_vector<xr_string>&>(
+						actor, nullptr, argument_buffer);
+
+                    /*if (it_infoportion_set.second.m_params.size())
                     {
                         if (it_infoportion_set.second.m_params.find(':') == xr_string::npos)
                         {
@@ -1050,7 +1086,7 @@ inline xr_string pick_section_from_condlist(
                                     .getRegisteredFunctionsXREffects()[calling_function_name](
                                         actor, npc, argument1, argument2_number);
                         }
-                    }
+                    }*/
                 }
                 else if (it_infoportion_set.second.m_required)
                 {
@@ -1391,19 +1427,36 @@ inline xr_string pick_section_from_condlist(
                 if (it_infoportion_set.second.m_function_name.size())
                 {
                     xr_string calling_function_name = it_infoportion_set.second.m_function_name;
-                    calling_function_name += XR_LOGIC_CLIENT_SERVER_ARGUMENTS;
+                    //calling_function_name += XR_LOGIC_CLIENT_SERVER_ARGUMENTS;
 
-                    if (Script_GlobalHelper::getInstance().getRegisteredFunctionsXRCondition().find(
+                    if (Script_GlobalHelper::getInstance().getRegisteredFunctionsXREffects().find(
                             calling_function_name) ==
-                        Script_GlobalHelper::getInstance().getRegisteredFunctionsXRCondition().end())
+                        Script_GlobalHelper::getInstance().getRegisteredFunctionsXREffects().end())
                     {
-                        Msg("[Scripts/XR_LOGIC/pick_section_from_condlist(actor, npc, condlist)] object '%s': "
+                        MESSAGEW("object '%s': "
                             "pick_section_from_condlist: function '%s' is "
                             "not defined in xr_effects",
                             npc->s_name, it_infoportion_set.second.m_function_name.c_str());
                         R_ASSERT(false);
                     }
 
+					xr_string buffer = it_infoportion_set.second.m_params;
+					static const boost::regex expr{ "[^:]+" };
+					boost::regex_token_iterator<std::string::iterator> it{ buffer.begin(), buffer.end(), expr };
+					boost::regex_token_iterator<std::string::iterator> end;
+					xr_vector<xr_string> argument_buffer;
+					std::uint8_t argument_counter = 0;
+					while (it != end)
+					{
+						++argument_counter;
+						MESSAGE("Argument #%d: %s",
+							argument_counter, it->str().c_str());
+						argument_buffer.push_back(it->str().c_str());
+						++it;
+					}
+					Script_GlobalHelper::getInstance().getRegisteredFunctionsXREffects()[calling_function_name].operator()<CScriptGameObject* const, CScriptGameObject* const, const xr_vector<xr_string>&> (
+						nullptr, nullptr, argument_buffer);
+/*
                     if (it_infoportion_set.second.m_params.size())
                     {
                         if (it_infoportion_set.second.m_params.find(':') == xr_string::npos)
@@ -1429,7 +1482,7 @@ inline xr_string pick_section_from_condlist(
                                     .getRegisteredFunctionsXREffects()[calling_function_name](
                                         actor, npc, argument1, argument2_number);
                         }
-                    }
+                    }*/
                 }
                 else if (it_infoportion_set.second.m_required)
                 {
@@ -1520,7 +1573,7 @@ inline xr_string pick_section_from_condlist(
             else if (it_infoportion_check.second.m_function_name.size())
             {
                 xr_string calling_function_name = it_infoportion_check.second.m_function_name;
-                calling_function_name += XR_LOGIC_SERVER_SERVER_ARGUMENTS;
+                calling_function_name += XR_LOGIC_CLIENT_CLIENT_ARGUMENTS;
 
                 if (Script_GlobalHelper::getInstance().getRegisteredFunctionsXRCondition().find(
                         calling_function_name) ==
@@ -1539,7 +1592,7 @@ inline xr_string pick_section_from_condlist(
                     ///
                     xr_string buffer = it_infoportion_check.second.m_params;
                     xr_vector<xr_string> argument_buffer;
-                    boost::regex expr{"\\w+"};
+                    static const boost::regex expr{"\\w+"};
                     boost::regex_token_iterator<std::string::iterator> it{buffer.begin(), buffer.end(), expr};
                     boost::regex_token_iterator<std::string::iterator> end;
 
@@ -1759,11 +1812,11 @@ inline xr_string pick_section_from_condlist(
                 if (it_infoportion_set.second.m_function_name.size())
                 {
                     xr_string calling_function_name = it_infoportion_set.second.m_function_name;
-                    calling_function_name += XR_LOGIC_CLIENT_SERVER_ARGUMENTS;
+                    //calling_function_name += XR_LOGIC_CLIENT_SERVER_ARGUMENTS;
 
-                    if (Script_GlobalHelper::getInstance().getRegisteredFunctionsXRCondition().find(
+                    if (Script_GlobalHelper::getInstance().getRegisteredFunctionsXREffects().find(
                             calling_function_name) ==
-                        Script_GlobalHelper::getInstance().getRegisteredFunctionsXRCondition().end())
+                        Script_GlobalHelper::getInstance().getRegisteredFunctionsXREffects().end())
                     {
                         MESSAGEW("object '%s': pick_section_from_condlist: function '%s' is not defined in xr_effects", npc->Name(), it_infoportion_set.second.m_function_name.c_str());
                         R_ASSERT(false);
@@ -1771,11 +1824,29 @@ inline xr_string pick_section_from_condlist(
 
                     if (it_infoportion_set.second.m_params.size())
                     {
+                        xr_string buffer = it_infoportion_set.second.m_params;
+						static const boost::regex expr{ "[^:]+" };
+						boost::regex_token_iterator<std::string::iterator> it{ buffer.begin(), buffer.end(), expr };
+						boost::regex_token_iterator<std::string::iterator> end;
+                        xr_vector<xr_string> argument_buffer;
+						std::uint8_t argument_counter = 0;
+						while (it != end)
+						{
+							++argument_counter;
+							MESSAGE("Argument #%d: %s",
+								argument_counter, it->str().c_str());
+							argument_buffer.push_back(it->str().c_str());
+							++it;
+						}
+						Script_GlobalHelper::getInstance().getRegisteredFunctionsXREffects()[calling_function_name].operator()<CScriptGameObject* const, CScriptGameObject* const, const xr_vector<xr_string>&>(
+							actor, npc, argument_buffer);
+/*
                         if (it_infoportion_set.second.m_params.find(':') == xr_string::npos)
                         {
                             xr_string argument = it_infoportion_set.second.m_params;
-                            Script_GlobalHelper::getInstance().getRegisteredFunctionsXREffects()[calling_function_name](
-                                actor, npc, argument);
+                            
+                            Script_GlobalHelper::getInstance().getRegisteredFunctionsXREffects()[calling_function_name].operator()<CScriptGameObject* const, CScriptGameObject* const, const xr_vector<xr_string>&>(
+                                actor, npc, { argument });
                         }
                         else
                         {
@@ -1793,7 +1864,7 @@ inline xr_string pick_section_from_condlist(
                                 Script_GlobalHelper::getInstance()
                                     .getRegisteredFunctionsXREffects()[calling_function_name](
                                         actor, npc, argument1, argument2_number);
-                        }
+                        }*/
                     }
                 }
                 else if (it_infoportion_set.second.m_required)
@@ -1979,10 +2050,14 @@ inline float pstor_retrieve_number(CScriptGameObject* object, const xr_string& v
         return 0.0f;
     }
 
-    if (DataBase::Storage::getInstance().getStorage().at(object->ID()).getPStor().at(varname).IsInitializedNumber())
+    if (DataBase::Storage::getInstance().getStorage().at(object->ID()).getPStor().find(varname) != DataBase::Storage::getInstance().getStorage().at(object->ID()).getPStor().end())
     {
-        return DataBase::Storage::getInstance().getStorage().at(object->ID()).getPStor().at(varname).getNumber();
+		if (DataBase::Storage::getInstance().getStorage().at(object->ID()).getPStor().at(varname).IsInitializedNumber())
+		{
+			return DataBase::Storage::getInstance().getStorage().at(object->ID()).getPStor().at(varname).getNumber();
+		}
     }
+
 
 	MESSAGEWR("returning a default value, because can't  find current value by string index -> [%s]", varname.c_str())
 
@@ -2359,6 +2434,8 @@ inline LogicData cfg_get_string_and_condlist(CScriptIniFile* const p_ini, const 
     if (data_name.empty())
         return result;
 
+    // Lord: завтра запустить потестить, вылетает, наверное нужно как-то улучшить parse_params!!!
+    // Ибо оно должно и такое парсить a|b -> a,b
     xr_vector<xr_string> params = Globals::Utils::parse_params(data_name);
     if (params.empty() || params.size() < 2)
     {
@@ -2488,7 +2565,7 @@ inline bool try_switch_to_another_section(
 
     if (logic.empty())
     {
-        R_ASSERT2(false, "can't be see set_scheme!");
+        MESSAGEI("Your scheme is a demon!");
         return false;
     }
 
@@ -2533,10 +2610,13 @@ inline bool try_switch_to_another_section(
         }
         else if (field_name.find("on_signal") != xr_string::npos)
         {
-            if (!storage.getSignals().at(it.getFirstValueName()))
+            if (storage.getSignals().find(it.getFieldName()) != storage.getSignals().end())
             {
-                is_switched = switch_to_section(p_client_object, storage.getIni(),
-                    pick_section_from_condlist(p_client_actor, p_client_object, it.getCondlist()));
+				if (!storage.getSignals().at(it.getFirstValueName()))
+				{
+					is_switched = switch_to_section(p_client_object, storage.getIni(),
+						pick_section_from_condlist(p_client_actor, p_client_object, it.getCondlist()));
+				}
             }
         }
         else if (field_name.find("on_info") != xr_string::npos)
@@ -2641,7 +2721,7 @@ inline bool switch_to_section(
 
     if (section_name.empty())
     {
-        R_ASSERT2(false, "can't be empty!");
+        MESSAGEI("waiting to switch the section or your scheme is a demon!");
         return false;
     }
 
@@ -2691,61 +2771,7 @@ inline bool is_active(CScriptGameObject* const p_client_object, DataBase::Storag
         DataBase::Storage::getInstance().getStorage().at(p_client_object->ID()).getActiveSectionName());
 }
 
-inline void reset_generic_schemes_on_scheme_switch(
-    CScriptGameObject* const p_client_object, const xr_string& scheme_name, const xr_string& section_name)
-{
-    if (!p_client_object)
-    {
-        R_ASSERT2(false, "object is null!");
-        return;
-    }
-
-    const DataBase::Storage_Data& storage = DataBase::Storage::getInstance().getStorage().at(p_client_object->ID());
-
-    switch (storage.getSchemeType())
-    {
-    case Globals::kSTypeStalker: {
-        // Lord: доделать когда будешь уже сделаны схемы сталкеров xr_meet
-        //         xr_help_wounded xr_corpse_detection xr_abuse xr_wounded xr_death xr_danger xr_gather_items
-        //             xr_combat_ignore stalker_generic restrictor_manager xr_hear
-        break;
-    }
-    case Globals::kSTypeMobile: {
-        mob_release(p_client_object, scheme_name);
-        if (Globals::get_script_clsid(CLSID_SE_MONSTER_BLOODSUCKER))
-        {
-            if (scheme_name == "nil" || scheme_name.empty()) // LorD: проверить будет ли дропать nil, если будет то найти и исправить когда это будет, чтобы все "nil" просто проверялись всегда как .empty()
-            {
-                p_client_object->set_manual_invisibility(false);
-            }
-            else
-            {
-                p_client_object->set_manual_invisibility(true);
-            }
-        }
-
-        // Lord: доделать когда будут сделаны следующие xr_hear, restrictor_manager, stalker_generic, xr_combat_ignore
-
-        break;
-    }
-    case Globals::kSTypeItem: {
-        p_client_object->SetNonscriptUsable(true);
-        if (Globals::get_script_clsid(CLSID_CAR))
-        {
-            //  p_client_object->car, Lord: наверное ph_minigun, но как сделать если там простой класс
-            mob_release(p_client_object, scheme_name);
-        }
-
-        break;
-    }
-    case Globals::kSTypeHelicopter: {
-        break;
-    }
-    case Globals::kSTypeRestrictor: {
-        break;
-    }
-    }
-}
+ 
 
 inline DataBase::Data_Overrides cfg_get_overrides(
     CScriptIniFile* const p_ini, const xr_string& section_name, CScriptGameObject* const p_client_object)

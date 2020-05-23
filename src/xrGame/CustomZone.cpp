@@ -649,7 +649,7 @@ void CCustomZone::PlayIdleParticles(bool bIdleLight)
 {
     m_idle_sound.play_at_pos(0, Position(), true);
 
-    if (*m_sIdleParticles)
+    if (m_sIdleParticles.size())
     {
         if (!m_pIdleParticles)
         {

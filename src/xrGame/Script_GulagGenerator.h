@@ -178,7 +178,7 @@ inline std::pair<xr_vector<JobData>, xr_vector<JobDataExclusive*>> load_job(Scri
             if (!smart)
                 Msg("[Scripts/GulagGenerator/load_job(smart)] WARNING: smart was null!");
 
-            return XR_CONDITION::is_surge_started();
+            return XR_CONDITION::is_surge_started_server(nullptr, nullptr, {});
         };
 
         stalker_surge.second.push_back(data);

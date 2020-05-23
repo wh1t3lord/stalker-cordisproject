@@ -224,21 +224,24 @@ namespace Cordis
 			DataBase::Storage_Scheme* const p_storage = XR_LOGIC::assign_storage_and_bind(p_npc, p_ini, scheme_name, "", "");
 		}
 
-		void Script_SchemeXRCombatIgnore::reset_combat_ignore_checker(CScriptGameObject* const p_npc, const xr_string& scheme_name, DataBase::Storage_Scheme* p_storage, const xr_string& section_name)
+		void Script_SchemeXRCombatIgnore::reset_combat_ignore_checker(CScriptGameObject* const p_npc, const xr_string& scheme_name, const DataBase::Storage_Data& p_storage, const xr_string& section_name)
 		{
-			if (p_storage->getSchemeName() != "combat_ignore")
+			if (p_storage.getSchemes().find("combat_ignore") == p_storage.getSchemes().end())
 			{
 				MESSAGEWR("you passed wrong scheme! Must be 'combat_ignore'");
 				return;
 			}
 
-			std::function<bool(CScriptGameObject* const, CScriptGameObject* const)> data = std::bind(&Script_SchemeXRCombatIgnore::enemy_callback, static_cast<Script_SchemeXRCombatIgnore*>(p_storage->getAction()), std::placeholders::_1, std::placeholders::_2);
+			DataBase::Storage_Scheme* const p_storage_scheme = p_storage.getSchemes().at("combat_ignore");
+
+
+			std::function<bool(CScriptGameObject* const, CScriptGameObject* const)> data = std::bind(&Script_SchemeXRCombatIgnore::enemy_callback, static_cast<Script_SchemeXRCombatIgnore*>(p_storage_scheme->getAction()), std::placeholders::_1, std::placeholders::_2);
 			p_npc->set_enemy_callback(data);
 
-			DataBase::Storage::getInstance().setStorageSchemesActions(p_npc->ID(), scheme_name, p_storage->getAction());
-			DataBase::Storage::getInstance().setStorageSchemesActionSchemeIDForUnSubscribing(p_npc->ID(), scheme_name, p_storage->getAction()->getSchemeID());
+			DataBase::Storage::getInstance().setStorageSchemesActions(p_npc->ID(), scheme_name, p_storage_scheme->getAction());
+			DataBase::Storage::getInstance().setStorageSchemesActionSchemeIDForUnSubscribing(p_npc->ID(), scheme_name, p_storage_scheme->getAction()->getSchemeID());
 
-			p_storage->setXRCombatIgnoreEnabled(true);
+			p_storage_scheme->setXRCombatIgnoreEnabled(true);
 		}
 
 		void Script_SchemeXRCombatIgnore::disable_scheme(CScriptGameObject* const p_client_object, const xr_string& scheme_name)

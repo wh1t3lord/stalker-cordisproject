@@ -3,214 +3,56 @@
 #include "Script_GulagGenerator.h"
 
 CScriptIniFile ini_file_locations = CScriptIniFile("misc\\smart_terrain_masks.ltx");
-
+constexpr float DEATH_IDLE_TIME = 10.0f * 60.0f;
 namespace Cordis
 {
 namespace Scripts
 {
-namespace XR_LOGIC
-{
-void activate_by_section(CScriptGameObject* const p_client_object, CScriptIniFile* const p_ini,
-    const xr_string& section_name, const xr_string& gulag_name, const bool is_loading)
-{
-    xr_string _section_name; // @ if argument is empty string for section_name
-    if (!p_ini)
+    bool is_only_monsters_on_jobs(const xr_map<std::uint32_t, NpcInfo>& data)
     {
-        R_ASSERT2(false, "object is null!");
-        return;
-    }
-
-    if (!p_client_object)
-    {
-        R_ASSERT2(false, "object is null!");
-        return;
-    }
-
-    const std::uint16_t npc_id = p_client_object->ID();
-
-    if (!is_loading)
-    {
-        DataBase::Storage::getInstance().setStorageActivationTime(npc_id, Globals::get_time_global());
-        DataBase::Storage::getInstance().setStorageActivationGameTime(npc_id, Globals::Game::get_game_time());
-    }
-
-    if (section_name == "nil") // LorD: проверить будет ли дропать nil, если будет то найти и исправить когда это будет, чтобы все "nil" просто проверялись всегда как .empty()
-    {
-        DataBase::Storage::getInstance().setStorageOverrides(npc_id, DataBase::Data_Overrides());
-        reset_generic_schemes_on_scheme_switch(p_client_object, "nil", "nil"); // имеет ли смысл? // LorD: проверить будет ли дропать nil, если будет то найти и исправить когда это будет, чтобы все "nil" просто проверялись всегда как .empty()
-        DataBase::Storage::getInstance().setStorageActiveSectionName(npc_id, "");
-        DataBase::Storage::getInstance().setStorageActiveSchemeName(npc_id, "");
-        return;
-    }
-
-    if (section_name.empty())
-    {
-        CSE_ALifeDynamicObject* p_server_smart = XR_GULAG::get_npc_smart(p_client_object);
-        if (!p_server_smart)
+        if (data.empty())
         {
-            R_ASSERT2(false, "section is NIL and NPC not in smart_terrain!");
+            MESSAGEWR("You passed an invalid data!");
+            return false;
         }
 
-        const xr_map<std::uint32_t, JobDataSmartTerrain*>& job =
-            p_server_smart->cast_script_se_smartterrain()->getJobData();
-
-        if (job.at(p_client_object->ID()))
+        for (const std::pair<std::uint32_t, NpcInfo>& it : data)
         {
-            _section_name = job.at(p_client_object->ID())->m_job_id.first;
+            if (it.second.m_is_monster == false)
+                return false;
         }
+
+        return true;
     }
 
-    if (section_name.empty())
-    {
-        if (!p_ini->section_exist(_section_name.c_str()))
-        {
-            R_ASSERT2(false, "doesnt exist!");
-        }
-    }
-    else
-    {
-        if (!p_ini->section_exist(section_name.c_str()))
-        {
-            R_ASSERT2(false, "doesnt exist!");
-        }
-    }
+	std::uint32_t smart_terrain_squad_count(const xr_map<std::uint32_t, Script_SE_SimulationSquad*>& data)
+	{
+		if (data.empty())
+		{
+			MESSAGEWR("data was empty!");
+			return 0;
+		}
 
-    xr_string _scheme_name = section_name.empty() ? Globals::Utils::get_scheme_by_section(_section_name) :
-                                                    Globals::Utils::get_scheme_by_section(xr_string(section_name));
-    if (_scheme_name.empty())
-    {
-        R_ASSERT2(false, "can't detect scheme name");
-    }
+		std::uint32_t result = 0;
+		for (const std::pair<std::uint32_t, Script_SE_SimulationSquad*>& it : data)
+		{
+			if (it.second)
+			{
+				if (it.second->getScriptTarget() == 0 || it.second->getScriptTarget() == Globals::kUnsignedInt16Undefined)
+				{
+					++result;
+				}
+			}
+			else
+			{
+				MESSAGEWR("invalid object!");
+			}
+		}
 
-    DataBase::Storage::getInstance().setStorageOverrides(
-        npc_id, cfg_get_overrides(p_ini, section_name.empty() ? _section_name : section_name, p_client_object));
+		return result;
+	}
 
-    reset_generic_schemes_on_scheme_switch(
-        p_client_object, _scheme_name, section_name.empty() ? _section_name : section_name);
 
-    if (!Script_GlobalHelper::getInstance().getSchemesSetSchemeCallbacks()[_scheme_name])
-    {
-        R_ASSERT2(false, "doesn't exist function for _scheme_name! Check Script_GlobalHelper::ctor()");
-        return;
-    }
-
-    Script_GlobalHelper::getInstance().getSchemesSetSchemeCallbacks()[_scheme_name](
-        p_client_object, p_ini, _scheme_name, section_name.empty() ? _section_name : section_name, gulag_name);
-
-    DataBase::Storage::getInstance().setStorageActiveSectionName(
-        npc_id, section_name.empty() ? _section_name : section_name);
-    DataBase::Storage::getInstance().setStorageActiveSchemeName(npc_id, _scheme_name);
-
-    if (DataBase::Storage::getInstance().getStorage().at(npc_id).getSchemeType() == Globals::kSTypeStalker)
-    {
-        Globals::Utils::send_to_nearest_accessible_vertex(p_client_object, p_client_object->level_vertex_id());
-        // LorD: доделать когда будет activate_scheme
-    }
-    else
-    {
-        for (Script_ISchemeEntity* it :
-            DataBase::Storage::getInstance().getStorage().at(npc_id).getSchemes().at(_scheme_name)->getActions())
-        {
-            if (it->isActionSubscribed())
-                it->reset_scheme(is_loading, p_client_object);
-        }
-    }
-}
-
-// Lord: проверить на memory leak, особенно проверить факт будет ли повторно заходить в ветку else где выделяется память
-// под p_actual_ini
-CScriptIniFile* configure_schemes(CScriptGameObject* const p_client_object, CScriptIniFile* const p_ini,
-    const xr_string& ini_filename, std::uint32_t stype, const xr_string& section_logic_name,
-    const xr_string& gulag_name)
-{
-    const std::uint16_t npc_id = p_client_object->ID();
-    const DataBase::Storage_Data& storage = DataBase::Storage::getInstance().getStorage().at(npc_id);
-
-    if (!storage.getActiveSectionName().empty())
-    {
-        for (Script_ISchemeEntity* it : storage.getSchemes().at(storage.getActiveSchemeName())->getActions())
-        {
-            if (it)
-            {
-                if (it->isActionSubscribed())
-                    it->deactivate(p_client_object);
-            }
-        }
-    }
-
-    xr_string actual_ini_filename;
-    CScriptIniFile* p_actual_ini = nullptr;
-    static bool is_allocated_for_storage =
-        false; // если всё таки выделяли память, то в dtor() сторага будем сами удалять
-    if (!p_ini->section_exist(section_logic_name.c_str()))
-    {
-        if (gulag_name.empty())
-        {
-            actual_ini_filename = ini_filename;
-            p_actual_ini = p_ini;
-        }
-        else
-        {
-            R_ASSERT2(false, "YOu don't give a job to your entity!");
-        }
-    }
-    else
-    {
-        xr_string filename = Globals::Utils::cfg_get_string(p_ini, section_logic_name, "cfg");
-        if (!filename.empty())
-        {
-            actual_ini_filename = filename;
-            p_actual_ini = new CScriptIniFile(filename.c_str());
-            is_allocated_for_storage = true;
-            if (!p_actual_ini->section_exist(section_logic_name.c_str()))
-            {
-                R_ASSERT2(false, "NOT FOUND!");
-            }
-
-            return configure_schemes(
-                p_client_object, p_actual_ini, actual_ini_filename, stype, section_logic_name, gulag_name);
-        }
-        else
-        {
-            if (stype == Globals::kSTypeStalker || stype == Globals::kSTypeMobile)
-            {
-                Script_SE_SmartTerrain* p_server_smart =
-                    XR_GULAG::get_npc_smart(p_client_object)->cast_script_se_smartterrain();
-                if (p_server_smart)
-                {
-                    JobDataSmartTerrain* job = p_server_smart->getJobData()[npc_id];
-                    if (job)
-                    {
-                        DataBase::Storage::getInstance().setStorageJobIniName(npc_id, job->m_ini_path_name);
-                    }
-                }
-            }
-
-            actual_ini_filename = ini_filename;
-            p_actual_ini = p_ini;
-            is_allocated_for_storage = false; // Lord: Needz here. check it pls
-        }
-    }
-
-    disable_generic_schemes(p_client_object, stype);
-    enable_generic_schemes(p_actual_ini, p_client_object, stype, section_logic_name);
-
-    DataBase::Storage::getInstance().setStorageActiveSectionName(npc_id, "");
-    DataBase::Storage::getInstance().setStorageActiveSchemeName(npc_id, "");
-    DataBase::Storage::getInstance().setStorageGulagName(npc_id, gulag_name);
-    DataBase::Storage::getInstance().setStorageSType(npc_id, stype);
-    DataBase::Storage::getInstance().setStorageIniFile(npc_id, p_actual_ini, is_allocated_for_storage);
-    DataBase::Storage::getInstance().setStorageInifilename(npc_id, actual_ini_filename);
-    DataBase::Storage::getInstance().setStorageSectionLogicName(npc_id, section_logic_name);
-
-    if (stype == Globals::kSTypeStalker)
-    {
-        // Lord: доделать когда будет trader_manager, spawner
-    }
-
-    return storage.getIni();
-}
-} // namespace XR_LOGIC
 } // namespace Scripts
 } // namespace Cordis
 
@@ -314,7 +156,7 @@ bool arrived_to_smart(CSE_ALifeMonsterAbstract* object, Script_SE_SmartTerrain* 
 
     if (object_vertex->level_id() == smart_vertex->level_id())
     {
-        return object_position.distance_to_sqr(smart->position()) <= 10000;
+        return object_position.distance_to_sqr(smart->position()) <= 10000.0f;
     }
     else
     {
@@ -464,9 +306,9 @@ namespace Scripts
 Script_SE_SmartTerrain::Script_SE_SmartTerrain(LPCSTR section)
     : inherited(section), m_is_initialized(false), m_is_registered(false), m_population(0),
       m_smart_showed_spot_name(""), m_is_disabled(false), m_is_respawn_point(true), m_base_on_actor_control(nullptr),
-      m_ltx(nullptr)
+      m_ltx(nullptr), m_check_time(0), m_is_campfires_on(false)
 {
-    Msg("[Scripts/Script_SE_SmartTerrain/ctor(section)] %s", section);
+    MESSAGE("%s", section);
 }
 
 Script_SE_SmartTerrain::~Script_SE_SmartTerrain(void)
@@ -480,7 +322,7 @@ Script_SE_SmartTerrain::~Script_SE_SmartTerrain(void)
             previous_section_name = it->m_job_id.m_section_name;
             if (it->m_job_id.m_ini_file)
             {
-                Msg("[Scripts/Script_SE_SmartTerrain/~dtor()] deleting m_ini_file from %s",
+                MESSAGEI("deleting m_ini_file from %s",
                     it->m_job_id.m_section_name.c_str());
                 xr_delete(it);
             }
@@ -490,7 +332,7 @@ Script_SE_SmartTerrain::~Script_SE_SmartTerrain(void)
     {
         for (std::pair<const std::uint32_t, JobDataSmartTerrain*>& it : this->m_job_data)
         {
-            Msg("[Scripts/Script_SE_SmartTerrain/~dtor()] deleting JobDataSmartTerrain from this->m_job_data! %s",
+            MESSAGEI("deleting JobDataSmartTerrain from this->m_job_data! %s",
                 it.second->m_job_id.first);
             xr_delete(it.second);
         }
@@ -512,9 +354,9 @@ void Script_SE_SmartTerrain::on_register(void)
     Script_StoryObject::getInstance().check_spawn_ini_for_story_id(this);
     Script_SimulationObjects::getInstance().registrate(this);
 
-    Msg("[Scripts/Script_SE_SmartTerrain/on_register()] register smart %s", this->name_replace());
+    MESSAGEI("register smart %s", this->name_replace());
 
-    Msg("[Scripts/Script_SE_SmartTerrain/on_register()] Returning alife task for object [%d] game_vertex [%d] "
+    MESSAGE("Returning alife task for object [%d] game_vertex [%d] "
         "level_vertex [%d] position %f %f %f",
         this->ID, this->m_tGraphID, this->m_tNodeID, this->o_Position.x, this->o_Position.y, this->o_Position.z);
 
@@ -531,9 +373,15 @@ void Script_SE_SmartTerrain::on_register(void)
     if (this->m_is_need_init_npc)
     {
         this->m_is_need_init_npc = false;
-        // Lord: реализовать метод
-        // this->init_npc_after_load();
+        this->init_npc_after_load();
     }
+
+    for (CSE_ALifeDynamicObject*& it : this->m_npc_to_register)
+        this->register_npc(it->cast_monster_abstract());
+
+    this->m_npc_to_register.clear();
+
+    this->m_check_time = Globals::get_time_global();
 }
 
 void Script_SE_SmartTerrain::on_unregister(void) {}
@@ -626,8 +474,10 @@ void Script_SE_SmartTerrain::STATE_Read(NET_Packet& packet, u16 size)
             else
             {
                 this->m_last_respawn_update = xrTime();
-                Msg("[Scripts/Script_SE_SmartTerrain/STATE_Read(packet, size)] this->m_last_respawn_update = "
+#ifdef DEBUG
+                MESSAGEW("[Scripts/Script_SE_SmartTerrain/STATE_Read(packet, size)] this->m_last_respawn_update = "
                     "xrTime()!");
+#endif // DEBUG
             }
         }
     }
@@ -721,7 +571,9 @@ void Script_SE_SmartTerrain::register_npc(CSE_ALifeMonsterAbstract* object)
         return;
     }
 
-    Msg("[Scripts/Script_SE_SmartTerrain/register_npc(object)] register object %s", object->name_replace());
+#ifdef DEBUG
+    MESSAGEI("register object %s", object->name_replace());
+#endif // DEBUG
 
     ++(this->m_population);
 
@@ -785,6 +637,255 @@ CALifeSmartTerrainTask* Script_SE_SmartTerrain::task(CSE_ALifeMonsterAbstract* o
         return this->m_smart_alife_task.get();
 
     return this->m_job_data[this->m_npc_info[object->ID].m_job_id]->m_alife_task;
+}
+
+void Script_SE_SmartTerrain::update(void)
+{
+    inherited::update();
+
+    std::uint32_t current_time = Globals::get_time_global();
+
+    if (Globals::is_on_the_same_level(this, ai().alife().graph().actor()))
+    {
+        float distance_to_actor = this->o_Position.distance_to(ai().alife().graph().actor()->position());
+        float old_distance_to_actor = 0.0f;
+
+        if (!Script_GlobalHelper::getInstance().getGameNearestToActorServerSmartTerrain().first && (fis_zero(Script_GlobalHelper::getInstance().getGameNearestToActorServerSmartTerrain().second) == false))
+        {
+            old_distance_to_actor = static_cast<float>(Script_GlobalHelper::getInstance().getGameNearestToActorServerSmartTerrain().second);
+        }
+        else
+        {
+            CSE_Abstract* const p_object = ai().alife().objects().object(Script_GlobalHelper::getInstance().getGameNearestToActorServerSmartTerrain().first);
+            if (p_object)
+            {
+                old_distance_to_actor = p_object->o_Position.distance_to(ai().alife().graph().actor()->o_Position);
+            }
+            else
+            {
+                MESSAGEER("Can't initialize old_distance_to_actor, because ID of GameNearestSmartTerrain is invalid!");
+                return;
+            }
+        }
+
+        if (distance_to_actor < old_distance_to_actor)
+        {
+            Script_GlobalHelper::getInstance().setGameNearestToActorServerSmartTerrain(this->ID, distance_to_actor);
+        }
+    }
+
+    if (this->m_respawn_params.empty() == false)
+    {
+        // Lord: реализовать try_respawn!
+    }
+
+    if (this->m_check_time && current_time < this->m_check_time)
+        return;
+
+    if (is_only_monsters_on_jobs(this->m_npc_info) && this->m_is_campfires_on)
+    {
+        Globals::turn_off_campfires_by_smart_name(this->name_replace());
+        this->m_is_campfires_on = false;
+    }
+    else if (!is_only_monsters_on_jobs(this->m_npc_info) && !this->m_is_campfires_on)
+    {
+        Globals::turn_on_campfires_by_smart_name(this->name_replace());
+        this->m_is_campfires_on = true;
+    }
+
+    if (DataBase::Storage::getInstance().getActor())
+    {
+        float distance = DataBase::Storage::getInstance().getActor()->Position().distance_to_sqr(this->o_Position);
+        float idle_time = std::max<float>(60.0f, 0.003f * distance);
+        this->m_check_time = current_time + static_cast<std::uint32_t>(idle_time);
+    }
+    else
+    {
+        this->m_check_time = current_time + 10;
+    }
+
+    xrTime time_current = Globals::Game::get_game_time();
+    for (const std::pair<std::uint32_t, xrTime>& it : this->m_dead_time)
+    {
+        if (time_current.diffSec(it.second) >= DEATH_IDLE_TIME)
+        {
+            this->m_dead_time[it.first] = 0;
+        }
+    }
+
+    this->update_jobs();
+
+    if (this->m_base_on_actor_control.get())
+        this->m_base_on_actor_control->update();
+
+    Script_SimulationObjects::getInstance().update_avaliability(this);
+}
+
+bool Script_SE_SmartTerrain::target_precondition(CSE_ALifeObject* squad, bool is_need_to_dec_population)
+{
+	if (squad == nullptr)
+	{
+		MESSAGEWR("invalid object passed!");
+		return false;
+	}
+
+    Script_SE_SimulationSquad* const p_squad = squad->cast_script_se_simulationsquad();
+
+    if (p_squad == nullptr)
+    {
+        MESSAGEWR("Can't cast to %s", typeid(p_squad).name());
+        return false;
+    }
+
+    if (Script_SimulationBoard::getInstance().getSmarts().find(this->ID) == Script_SimulationBoard::getInstance().getSmarts().end())
+    {
+        MESSAGEWR("Can't find smart_terrain data in Script_SimulationBoard by ID %d", this->ID);
+        return false;
+    }
+
+    std::uint32_t squad_count = smart_terrain_squad_count(Script_SimulationBoard::getInstance().getSmarts().at(this->ID).getSquads());
+
+    if (is_need_to_dec_population)
+        --squad_count;
+
+    if (squad_count && (this->m_max_population <= squad_count))
+        return false;
+
+    if (Script_SimulationBoard::getInstance().getSimulationActivities().find(p_squad->getPlayerID()) == Script_SimulationBoard::getInstance().getSimulationActivities().end())
+    {
+        MESSAGEWR("Can't get simulation activity by ID %d", p_squad->getPlayerID());
+        return false;
+    }
+
+    const SimulationActivitiesType& squad_params = Script_SimulationBoard::getInstance().getSimulationActivities().at(p_squad->getPlayerID());
+    if (squad_params.m_smart.empty())
+    {
+        MESSAGEWR("m_smart was empty!");
+        return false;
+    }
+
+    if (this->getProperties().find("resource") != this->getProperties().end())
+    {
+		if (atoi(this->getProperties().at("resource").c_str()))
+		{
+			if (squad_params.m_smart.find(SimulationActivitiesType::resource) == squad_params.m_smart.end())
+			{
+				MESSAGEW("Can't find data by %d", SimulationActivitiesType::resource);
+			}
+			else
+			{
+				std::function<bool(CSE_ALifeOnlineOfflineGroup*, CSE_ALifeObject*)> p_precondition = squad_params.m_smart.at(SimulationActivitiesType::resource);
+				if (p_precondition)
+				{
+					if (p_precondition(p_squad, this))
+						return true;
+				}
+				else
+				{
+					MESSAGEW("precondition was invalid!");
+				}
+			}
+		}
+    }
+
+
+	if (this->getProperties().find("base") != this->getProperties().end())
+	{
+		if (atoi(this->getProperties().at("base").c_str()))
+		{
+			if (squad_params.m_smart.find(SimulationActivitiesType::base) == squad_params.m_smart.end())
+			{
+				MESSAGEW("Can't find data by %d", SimulationActivitiesType::base);
+			}
+			else
+			{
+				std::function<bool(CSE_ALifeOnlineOfflineGroup*, CSE_ALifeObject*)> p_precondition = squad_params.m_smart.at(SimulationActivitiesType::base);
+				if (p_precondition)
+				{
+					if (p_precondition(p_squad, this))
+						return true;
+				}
+				else
+				{
+					MESSAGEW("precondition was invalid!");
+				}
+			}
+		}
+	}
+
+	if (this->getProperties().find("lair") != this->getProperties().end())
+	{
+		if (atoi(this->getProperties().at("lair").c_str()))
+		{
+			if (squad_params.m_smart.find(SimulationActivitiesType::lair) == squad_params.m_smart.end())
+			{
+				MESSAGEW("Can't find data by %d", SimulationActivitiesType::lair);
+			}
+			else
+			{
+				std::function<bool(CSE_ALifeOnlineOfflineGroup*, CSE_ALifeObject*)> p_precondition = squad_params.m_smart.at(SimulationActivitiesType::lair);
+				if (p_precondition)
+				{
+					if (p_precondition(p_squad, this))
+						return true;
+				}
+				else
+				{
+					MESSAGEW("precondition was invalid!");
+				}
+			}
+		}
+	}
+
+	if (this->getProperties().find("territory") != this->getProperties().end())
+	{
+		if (atoi(this->getProperties().at("territory").c_str()))
+		{
+			if (squad_params.m_smart.find(SimulationActivitiesType::territory) == squad_params.m_smart.end())
+			{
+				MESSAGEW("Can't find data by %d", SimulationActivitiesType::territory);
+			}
+			else
+			{
+				std::function<bool(CSE_ALifeOnlineOfflineGroup*, CSE_ALifeObject*)> p_precondition = squad_params.m_smart.at(SimulationActivitiesType::territory);
+				if (p_precondition)
+				{
+					if (p_precondition(p_squad, this))
+						return true;
+				}
+				else
+				{
+					MESSAGEW("precondition was invalid!");
+				}
+			}
+		}
+	}
+
+	if (this->getProperties().find("surge") != this->getProperties().end())
+	{
+		if (atoi(this->getProperties().at("surge").c_str()))
+		{
+			if (squad_params.m_smart.find(SimulationActivitiesType::surge) == squad_params.m_smart.end())
+			{
+				MESSAGEW("Can't find data by %d", SimulationActivitiesType::surge);
+			}
+			else
+			{
+				std::function<bool(CSE_ALifeOnlineOfflineGroup*, CSE_ALifeObject*)> p_precondition = squad_params.m_smart.at(SimulationActivitiesType::surge);
+				if (p_precondition)
+				{
+					if (p_precondition(p_squad, this))
+						return true;
+				}
+				else
+				{
+					MESSAGEW("precondition was invalid!");
+				}
+			}
+		}
+	}
+
+    return false;
 }
 
 bool Script_SE_SmartTerrain::am_i_reached(Script_SE_SimulationSquad* squad)
@@ -858,7 +959,7 @@ void Script_SE_SmartTerrain::read_params(void)
             this->m_simulation_type_name) ==
         Script_GlobalHelper::getInstance().getRegisteredSmartTerrainTerritoryType().end())
     {
-        Msg("[Scripts/Script_SE_SmartTerrain/read_params()] ERROR: %s", this->m_simulation_type_name.c_str());
+        MESSAGEE("ERROR: %s", this->m_simulation_type_name.c_str());
         R_ASSERT2(false, "Invalid type of territory check the getRegisteredSmartTerrainTerritoryType()!");
     }
 
@@ -898,7 +999,7 @@ void Script_SE_SmartTerrain::read_params(void)
         Globals::Utils::cfg_get_bool(&ini, Globals::kSmartTerrainSMRTSection, "no_mutant");
 
     if (this->m_is_no_mutant)
-        Msg("[Scripts/Script_SE_SmartTerrain/read_params()] Found no mutant point %s", this->name_replace());
+        MESSAGEI("Found no mutant point %s", this->name_replace());
 
     this->m_fobidden_point_name = script_ini ?
         Globals::Utils::cfg_get_string(script_ini, Globals::kSmartTerrainSMRTSection, "forbidden_point") :
@@ -974,21 +1075,21 @@ void Script_SE_SmartTerrain::read_params(void)
 
     if (Globals::patrol_path_exists(traveller_actor_name.c_str()))
     {
-        Msg("[Scripts/Script_SE_SmartTerrain/read_params()] %s has no traveller path traveller_actor_name",
+        MESSAGEW("%s has no traveller path traveller_actor_name",
             this->name_replace());
         this->m_traveller_actor_path_name = traveller_actor_name;
     }
 
     if (Globals::patrol_path_exists(traveller_squad_name.c_str()))
     {
-        Msg("[Scripts/Script_SE_SmartTerrain/read_params()] %s has no traveller path traveller_squad_name",
+        MESSAGEW("%s has no traveller path traveller_squad_name",
             this->name_replace());
         this->m_traveller_squad_path_name = traveller_squad_name;
     }
 
     if (!ini_file_locations.section_exist(this->name_replace()))
     {
-        Msg("[Scripts/Script_SE_SmartTerrain/read_params()] %s has no terrain_mask section in smart_terrain_masks.ltx!",
+        MESSAGEW("%s has no terrain_mask section in smart_terrain_masks.ltx!",
             this->name_replace());
     }
 }
@@ -1109,7 +1210,7 @@ void Script_SE_SmartTerrain::check_respawn_params(xr_string& params)
 {
     if (params.empty())
     {
-        Msg("[Scripts/Script_SE_SmartTerrain/check_respawn_params(params)] WARNING: params.empty() == true! Return");
+        MESSAGEWR("params.empty() == true!");
         return;
     }
 
@@ -1271,7 +1372,7 @@ void Script_SE_SmartTerrain::switch_to_desired_job(CScriptGameObject* const p_np
 {
     if (!p_npc)
     {
-        Msg("[Scripts/Script_SE_SmartTerrain/switch_to_desired_job(p_npc)] WARNING: p_npc == nullptr! Return ...");
+        MESSAGEWR("p_npc == nullptr!");
         return;
     }
 
@@ -1394,7 +1495,7 @@ void Script_SE_SmartTerrain::setup_logic(CScriptGameObject* const p_npc)
 {
     if (!p_npc)
     {
-        Msg("[Scripts/Script_SE_SmartTerrain/setup_logic(p_npc)] WARNING: p_npc == nullptr! Return ...");
+        MESSAGEWR("p_npc == nullptr!");
         return;
     }
 
@@ -1425,6 +1526,86 @@ void Script_SE_SmartTerrain::setup_logic(CScriptGameObject* const p_npc)
     }
 
     XR_LOGIC::activate_by_section(p_npc, ini, section_name, this->name_replace(), false);
+}
+
+void Script_SE_SmartTerrain::init_npc_after_load(void)
+{
+    auto find_job = [&](NpcInfo& info)->void 
+    {
+        for (JobData& it : this->m_jobs.first)
+        {
+            for (std::pair<std::uint32_t, xr_vector<JobData_SubData>>& it2 : it.m_jobs)
+            {
+                for (JobData_SubData& job_it : it2.second)
+                {
+                    if (job_it.m_job_index == info.m_job_id)
+                    {
+                        info.m_job_link1 = &job_it;
+                        job_it.m_npc_id = info.m_server_object->ID;
+                    }
+                }
+            }
+        }
+
+        for (JobDataExclusive* it : this->m_jobs.second)
+        {
+            if (it->m_job_index == info.m_job_id)
+            {
+                info.m_job_link2 = it;
+                it->m_npc_id = info.m_server_object->ID;
+            }
+        }
+
+    };
+
+    for (const std::pair<std::uint32_t, CSE_ALifeDynamicObject*>& it : this->m_arriving_npc)
+    {
+        CSE_ALifeDynamicObject* const p_server_object = ai().alife().objects().object(static_cast<std::uint16_t>(it.first))->cast_alife_dynamic_object();
+        if (p_server_object)
+        {
+            this->m_arriving_npc[it.first] = p_server_object;
+        }
+        else
+        {
+            this->m_arriving_npc[it.first] = nullptr;
+        }
+    }
+
+    for (const std::pair<std::uint32_t, NpcInfo>& it : this->m_npc_info)
+    {
+        CSE_ALifeDynamicObject* p_server_object = ai().alife().objects().object(it.first)->cast_alife_dynamic_object();
+        if (p_server_object)
+        {
+            NpcInfo info_npc = this->fill_npc_info(p_server_object);
+            info_npc.m_job_prioprity = it.second.m_job_prioprity;
+            info_npc.m_job_id = it.second.m_job_id;
+            info_npc.m_begin_job = it.second.m_begin_job;
+            info_npc.m_need_job = it.second.m_need_job;
+
+            find_job(info_npc);
+
+            this->m_npc_info[it.first] = info_npc;
+            if (info_npc.m_job_link1 && info_npc.m_job_link2)
+            {
+                R_ASSERT2(false, "can't be!");
+                return;
+            }
+
+            if (info_npc.m_job_link1)
+            {
+                this->m_npc_by_job_section[this->m_job_data[info_npc.m_job_link1->m_job_index]->m_job_id.first] = it.first;
+            }
+        }
+        else
+        {
+            this->m_npc_info[it.first] = NpcInfo();
+        }
+    }
+}
+
+float Script_SE_SmartTerrain::evaluate_prior(Script_SE_SimulationSquad* const p_squad)
+{
+    return Script_SimulationObjects::getInstance().evaluate_priority(this, p_squad);
 }
 
 void Script_SE_SmartTerrain::show(void)
@@ -1596,14 +1777,18 @@ void Script_SE_SmartTerrain::load_jobs(void)
 
             if (!current_ini->line_exist(section_name.c_str(), "active"))
             {
-                Msg("[Scripts/Script_SE_SmartTerrain/load_jobs()] ERROR: %s", section_name.c_str());
+#ifdef DEBUG
+                MESSAGEER("%s", section_name.c_str());
+#endif // DEBUG
                 R_ASSERT2(false, "no 'active' in section");
             }
 
             xr_string active_section_name = current_ini->r_string(section_name.c_str(), "active");
 
-            Msg("[Scripts/Script_SE_SmartTerrain/load_jobs()] parsed active section name %s",
+#ifdef DEBUG
+            MESSAGE("parsed active section name %s",
                 active_section_name.c_str());
+#endif // DEBUG
 
             const xr_string& job_type_name = it.second->m_job_id.second;
 
@@ -1620,16 +1805,22 @@ void Script_SE_SmartTerrain::load_jobs(void)
                     }
                 }
 
-                Msg("[Scripts/Script_SE_SmartTerrain/load_jobs()] parsed path_field_name %s", path_field_name.c_str());
+#ifdef DEBUG
+                MESSAGE("parsed path_field_name %s", path_field_name.c_str());
+#endif // DEBUG
 
                 xr_string _path_name = current_ini->r_string(active_section_name.c_str(), path_field_name.c_str());
-                Msg("[Scripts/Script_SE_SmartTerrain/load_jobs()] parsed path_name %s", _path_name.c_str());
+#ifdef DEBUG
+                MESSAGE("parsed path_name %s", _path_name.c_str());
+#endif // DEBUG
 
                 xr_string path_name = this->name_replace();
                 path_name += "_";
                 path_name += _path_name;
 
-                Msg("[Scripts/Script_SE_SmartTerrain/load_jobs()] generated path_name %s", path_name.c_str());
+#ifdef DEBUG
+              MESSAGE("generated path_name %s", path_name.c_str());
+#endif // DEBUG
 
                 if (path_field_name == Globals::kSmartTerrainPathFieldCenterPoint)
                 {
@@ -1638,12 +1829,16 @@ void Script_SE_SmartTerrain::load_jobs(void)
                     if (Globals::patrol_path_exists(patrol_path_name.c_str()))
                     {
                         path_name = patrol_path_name;
-                        Msg("[Scripts/Script_SE_SmartTerrain/load_jobs()] current path_name %s", path_name.c_str());
+#ifdef DEBUG
+                        MESSAGE("current path_name %s", path_name.c_str());
+#endif // DEBUG
                     }
                 }
 
-                Msg("[Scripts/Script_SE_SmartTerrain/load_jobs()] creating (allocating) alife smart terrain task by "
+#ifdef DEBUG
+                MESSAGE("creating (allocating) alife smart terrain task by "
                     "patrol path");
+#endif // DEBUG
                 it.second->m_alife_task = new CALifeSmartTerrainTask(path_name.c_str());
             }
             else if (job_type_name == Globals::GulagGenerator::kGulagJobSmartCover)
@@ -1682,6 +1877,43 @@ void Script_SE_SmartTerrain::load_jobs(void)
             it.second->m_level_id = Globals::Game::get_game_graph()->vertex(it.second->m_game_vertex_id)->level_id();
             it.second->m_position = it.second->m_alife_task->position();
         }
+    }
+}
+
+void Script_SE_SmartTerrain::update_jobs(void)
+{
+    if (this->m_smart_alarm_time == 0)
+        return;
+
+    if (Globals::Game::get_game_time().diffSec(this->m_smart_alarm_time) > 21600)
+        this->m_smart_alarm_time = 0;
+
+    for (const std::pair<std::uint32_t, CSE_ALifeDynamicObject*>& it : this->m_arriving_npc)
+    {
+        if (arrived_to_smart(it.second->cast_monster_abstract(), this))
+        {
+            this->m_npc_info[it.second->ID] = this->fill_npc_info(it.second);
+
+            this->m_dead_time.clear();
+
+            this->select_npc_job(this->m_npc_info.at(it.second->ID));
+            this->m_arriving_npc[it.first] = nullptr;
+        }
+    }
+
+    // Lord: проверить сортировку и заполнение 
+    xr_vector<std::pair<std::uint32_t, NpcInfo>> temp(this->m_npc_info.begin(), this->m_npc_info.end());
+
+    std::sort(temp.begin(), temp.end(), [](const std::pair<std::uint32_t, NpcInfo>& elem1, const std::pair<std::uint32_t, NpcInfo>& elem2) {
+        return elem1.second.m_job_prioprity < elem2.second.m_job_prioprity;
+        });
+
+    this->m_npc_info.clear();
+
+    for (std::pair<std::uint32_t, NpcInfo>& it : temp)
+    {
+        this->m_npc_info.insert(it);
+        this->select_npc_job(it.second);
     }
 }
 

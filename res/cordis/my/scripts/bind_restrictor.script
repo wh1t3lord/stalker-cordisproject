@@ -50,13 +50,13 @@ function restrictor_binder:net_spawn(data)
 		return true
 	end
 
-	if ini:section_exist("information_sector") then
-		sr_danger.register_new_sector(self.object)
-	end
+	--if ini:section_exist("information_sector") then
+	--	sr_danger.register_new_sector(self.object)
+--	end
 
-		if ini:section_exist("apply_on_combat") then
-		combat_restrictor.register_combat_restrictor(self.object)
-	end
+	---	if ini:section_exist("apply_on_combat") then
+	--	combat_restrictor.register_combat_restrictor(self.object)
+	--end
 
 	return true
 end

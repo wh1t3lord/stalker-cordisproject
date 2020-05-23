@@ -283,7 +283,7 @@ u16 get_ik_bone(IKinematics* K, LPCSTR S, u16 i)
 #ifdef DEBUG
     if (BI_NONE == bone)
     {
-        Msg("ik bone: %s does not found in visual: %s", sbone, *smart_cast<IRenderVisual*>(K)->getDebugName());
+        Msg("ik bone: %s does not found in visual: %s", sbone, smart_cast<IRenderVisual*>(K)->getDebugName().c_str());
         VERIFY(false);
     }
 #endif

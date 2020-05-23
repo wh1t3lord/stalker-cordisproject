@@ -81,7 +81,7 @@ class Script_EvaluatorStateManagerIdleAlife : public CScriptPropertyEvaluator
 {
 public:
     Script_EvaluatorStateManagerIdleAlife(const xr_string& evaluator_name, Script_StateManager* p_state_manager)
-        : CScriptPropertyEvaluator(nullptr, evaluator_name.c_str()), m_current_action_id(0)
+        : CScriptPropertyEvaluator(nullptr, evaluator_name.c_str()), m_current_action_id(0), m_p_state_manager(p_state_manager)
     {
     }
 

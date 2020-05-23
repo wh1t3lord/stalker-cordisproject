@@ -12,11 +12,10 @@ class Script_ISchemeEntity
 public:
     Script_ISchemeEntity(void) = delete;
     Script_ISchemeEntity(CScriptGameObject* client_object, DataBase::Storage_Scheme& storage_scheme)
-        : m_npc(client_object), m_p_storage(&storage_scheme),
-          m_id(m_npc ? m_npc->ID() : Globals::kUnsignedInt32Undefined), m_is_subscribed_action(true), m_scheme_id(0)
+        : m_npc(client_object), m_p_storage(&storage_scheme), m_is_subscribed_action(true), m_scheme_id(0)
     {
         this->m_scheme_id = (++m_generate_scheme_id);
-
+        this->m_id = client_object ? m_npc->ID() : Globals::kUnsignedInt32Undefined;
         if (this->m_id == Globals::kUnsignedInt16Undefined)
         {
             MESSAGEW("bad id of npc! %s", this->m_scheme_name.c_str());
@@ -29,7 +28,12 @@ public:
     {
         MESSAGE("WARNING TO LORD: DELETE THIS FUNCTION!");
         this->m_is_subscribed_action = true;
-        Msg("[Scripts/Script_ISchemeEntity/subscribe_action()] action of npc %s %d %s %d is subscribed!", this->m_scheme_name.c_str(), this->m_scheme_id, this->m_npc->Name(), this->m_id);
+
+        xr_string npc_name;
+        if (this->m_npc)
+            npc_name = this->m_npc->Name();
+
+        MESSAGEI("[Scripts/Script_ISchemeEntity/subscribe_action()] action of npc %s %d %s %d is subscribed!", this->m_scheme_name.c_str(), this->m_scheme_id, npc_name.empty() ? "npc_undefined" : npc_name.c_str(), this->m_id);
     }
 
     inline void unsubscribe_action(void) noexcept { this->m_is_subscribed_action = false; }
@@ -37,67 +41,67 @@ public:
 
     virtual void reset_scheme(const bool value, CScriptGameObject* const p_client_object)
     {
-        Msg("[Scripts/Script_ISchemeEntity/reset_scheme(value, p_client_object)] WARNING: NOT OVERLOADED FUNCTION!");
+        MESSAGEW("[Scripts/Script_ISchemeEntity/reset_scheme(value, p_client_object)] WARNING: NOT OVERLOADED FUNCTION!");
     }
 
     virtual void activate_scheme(const bool is_loading, CScriptGameObject* const p_client_object)
     {
-        Msg("[Scripts/Script_ISchemeEntity/activate_scheme(is_loading, p_client_object)] WARNING: NOT OVERLOADED "
+        MESSAGEW("[Scripts/Script_ISchemeEntity/activate_scheme(is_loading, p_client_object)] WARNING: NOT OVERLOADED "
             "FUNCTION!");
     }
 
     virtual void update(const float delta)
     {
-        Msg("[Scripts/Script_ISchemeEntity/update(delta)] WARNING: NOT OVERLOADED FUNCTION!");
+        MESSAGEW("[Scripts/Script_ISchemeEntity/update(delta)] WARNING: NOT OVERLOADED FUNCTION!");
     }
 
     virtual void waypoint_callback(
         CScriptGameObject* p_client_object, const std::uint32_t action_movement_type, const std::uint32_t index)
     {
-        Msg("[Scripts/Script_ISchemeEntity/waypoint_callback(p_client_object, index)] WARNING: NOT OVERLOADED "
+        MESSAGEW("[Scripts/Script_ISchemeEntity/waypoint_callback(p_client_object, index)] WARNING: NOT OVERLOADED "
             "FUNCTION!");
         return;
     }
 
     virtual void update_movement_state(void)
     {
-        Msg("[Scripts/Script_ISchemeEntity/update_movement_state()] WARNING: NOT OVERLOADED FUNCTION!");
+        MESSAGEW("[Scripts/Script_ISchemeEntity/update_movement_state()] WARNING: NOT OVERLOADED FUNCTION!");
         return;
     }
 
     virtual void update_standing_state(void)
     {
-        Msg("[Scripts/Script_ISchemeEntity/update_standing_state()] WARNING: NOT OVERLOADED FUNCTION!");
+        MESSAGEW("[Scripts/Script_ISchemeEntity/update_standing_state()] WARNING: NOT OVERLOADED FUNCTION!");
         return;
     }
 
     virtual void deactivate(CScriptGameObject* const p_client_object)
     {
-        Msg("[Scripts/Script_ISchemeEntity/deactivate(p_client_object)] WARNING: NOT OVERLOADED FUNCTION!");
+        MESSAGEW("[Scripts/Script_ISchemeEntity/deactivate(p_client_object)] WARNING: NOT OVERLOADED FUNCTION!");
         return;
     }
 
     virtual void look_at_waypoint(const xr_string& point_name)
     {
-        Msg("[Scripts/Script_ISchemeEntity/look_at_waypoint(point_name)] WARNING: NOT OVERLOADED FUNCTION!");
+        MESSAGEW("[Scripts/Script_ISchemeEntity/look_at_waypoint(point_name)] WARNING: NOT OVERLOADED FUNCTION!");
         return;
     }
 
     virtual void look_at_waypoint(const Fvector& point)
     {
-        Msg("[Scripts/Script_ISchemeEntity/look_at_waypoint(point)] WARNING: NOT OVERLOADED FUNCTION!");
+        MESSAGEW("[Scripts/Script_ISchemeEntity/look_at_waypoint(point)] WARNING: NOT OVERLOADED FUNCTION!");
         return;
     }
 
     virtual void look_at_waypoint(const std::uint32_t choosen_point)
     {
-        Msg("[Scripts/Script_ISchemeEntity/look_at_waypoint(choosen_point)] WARNING: NOT OVERLOADED FUNCTION!");
+        MESSAGEW("[Scripts/Script_ISchemeEntity/look_at_waypoint(choosen_point)] WARNING: NOT OVERLOADED FUNCTION!");
         return;
     }
 
     virtual inline bool is_arrived_to_first_waypoint(void)
     {
-        Msg("[Scripts/Script_ISchemeEntity/is_arrived_to_first_waypoint] WARNING: NOT OVERLOADED FUNCTION!");
+        MESSAGEW("[Scripts/Script_ISchemeEntity/is_arrived_to_first_waypoint] WARNING: NOT OVERLOADED FUNCTION!");
         return false;
     }
 
@@ -114,32 +118,32 @@ public:
 
     virtual void death_callback(CScriptGameObject* const p_client_victim, CScriptGameObject* const p_client_who)
     {
-        Msg("[Scripts/SCript_ISchemeEntity/death_callback(p_client_victim, p_client_who)] WARNING: NOT OVERLOADED "
+        MESSAGEW("[Scripts/SCript_ISchemeEntity/death_callback(p_client_victim, p_client_who)] WARNING: NOT OVERLOADED "
             "FUNCTION!");
         return;
     }
 
     virtual void combat_callback(void)
     {
-        Msg("[Scripts/Script_ISchemeEntity/combat_callback()] WARNING: NOT OVERLOADED FUNCTION!");
+        MESSAGEW("[Scripts/Script_ISchemeEntity/combat_callback()] WARNING: NOT OVERLOADED FUNCTION!");
         return;
     }
 
     virtual void net_destroy(CScriptGameObject* const p_client_object)
     {
-        Msg("[Scripts/Script_ISchemeEntity/net_destroy(p_client_object)] WARNING: NOT OVERLOADED FUNCTION!");
+        MESSAGEW("[Scripts/Script_ISchemeEntity/net_destroy(p_client_object)] WARNING: NOT OVERLOADED FUNCTION!");
         return;
     }
 
     virtual void save(void)
     {
-        Msg("[Scripts/Script_ISchemeEntity/save()] WARNING: NOT OVERLOADED FUNCTION!");
+        MESSAGEW("[Scripts/Script_ISchemeEntity/save()] WARNING: NOT OVERLOADED FUNCTION!");
         return;
     }
 
     virtual void use_callback(CScriptGameObject* const p_client_object, CScriptGameObject* const p_client_who)
     {
-        Msg("[Scripts/Script_ISchemeEntity/use_callback(p_client_object, p_client_who)] WARNING: NOT OVERLOADED "
+        MESSAGEW("[Scripts/Script_ISchemeEntity/use_callback(p_client_object, p_client_who)] WARNING: NOT OVERLOADED "
             "FUNCTION!");
         return;
     }
@@ -147,7 +151,7 @@ public:
     virtual void hit_callback(CScriptGameObject* const p_client_object, const float amount,
         const Fvector& local_direction, CScriptGameObject* const p_client_who, const std::int16_t bone_index)
     {
-        Msg("[Scripts/Script_ISchemeEntity/hit_callback(p_client_object, amount, local_direction, p_client_who, "
+        MESSAGEW("[Scripts/Script_ISchemeEntity/hit_callback(p_client_object, amount, local_direction, p_client_who, "
             "bone_index)] WARNING: NOT OVERLOADED FUNCTION!");
         return;
     }

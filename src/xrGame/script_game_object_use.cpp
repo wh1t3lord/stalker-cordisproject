@@ -56,7 +56,15 @@ CScriptGameObject* CScriptGameObject::Parent() const
 }
 
 int CScriptGameObject::clsid() const { return (object().clsid()); }
-LPCSTR CScriptGameObject::Name() const { return (*object().cName()); }
+LPCSTR CScriptGameObject::Name() const 
+{ 
+    if (object().lua_game_object() == nullptr)
+    {
+        MESSAGEI("instance was deleted and returned this, if you skip this you will get PVC!");
+        return xr_string("already_deleted_npc!").c_str();
+    }
+    return (*object().cName()); 
+}
 shared_str CScriptGameObject::cName() const { return (object().cName()); }
 LPCSTR CScriptGameObject::Section() const { return (*object().cNameSect()); }
 void CScriptGameObject::Kill(

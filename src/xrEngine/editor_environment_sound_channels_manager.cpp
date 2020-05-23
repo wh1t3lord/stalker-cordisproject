@@ -57,7 +57,7 @@ void manager::load()
 
     for (const auto &i : sections)
     {
-        channel* object = new channel(*this, i->Name);
+        channel* object = new channel(*this, i->Name.c_str());
         object->load(*config);
         object->fill(m_collection);
         m_channels.push_back(object);

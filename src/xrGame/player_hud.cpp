@@ -61,11 +61,11 @@ void player_hud_motion_container::load(IKinematicsAnimated* model, const shared_
     {
         if (strstr(_b->first.c_str(), "anm_") == _b->first.c_str())
         {
-            const shared_str& anm = _b->second;
+            const shared_str& anm = _b->second.c_str();
             m_anims.resize(m_anims.size() + 1);
             pm = &m_anims.back();
             // base and alias name
-            pm->m_alias_name = _b->first;
+            pm->m_alias_name = _b->first.c_str();
 
             if (_GetItemCount(anm.c_str()) == 1)
             {
@@ -459,7 +459,7 @@ void player_hud::load(const shared_str& player_hud_sect)
     {
         if (strstr(_b->first.c_str(), "ancor_") == _b->first.c_str())
         {
-            const shared_str& _bone = _b->second;
+            const shared_str& _bone = _b->second.c_str();
             m_ancors.push_back(m_model->dcast_PKinematics()->LL_BoneID(_bone));
         }
     }

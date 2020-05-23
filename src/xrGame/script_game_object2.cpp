@@ -90,9 +90,14 @@ void CScriptGameObject::set_item(MonsterSpace::EObjectAction object_action)
 {
     CObjectHandler* object_handler = smart_cast<CAI_Stalker*>(&object());
     if (!object_handler)
-        GEnv.ScriptEngine->script_log(LuaMessageType::Error, "CObjectHandler : cannot access class member set_item!");
+    {
+        MESSAGEWR("CObjectHandler : cannot access class member set_item!");
+    }
     else
+    {
         object_handler->set_goal(object_action);
+    }
+
 }
 
 void CScriptGameObject::set_item(MonsterSpace::EObjectAction object_action, CScriptGameObject* lua_game_object)

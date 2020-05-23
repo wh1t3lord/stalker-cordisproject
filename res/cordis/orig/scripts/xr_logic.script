@@ -1064,9 +1064,11 @@ function cfg_get_condlist(ini, section, field, npc)
 
 	local t = {}
 
+	abort("--- cfg_get_condlist [%s]", npc:name())
 	t.name = field
 	t.condlist = parse_condlist(npc, section, field, par[1])
 
+	
 	return t
 end
 

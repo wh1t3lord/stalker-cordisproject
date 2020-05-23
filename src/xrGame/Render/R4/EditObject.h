@@ -85,7 +85,7 @@ class CEditableObject : public IKinematics, public CPhysicsShellHolderEditorBase
     // desc
     shared_str m_CreateName;
     time_t m_CreateTime;
-    shared_str m_ModifName;
+    xr_string m_ModifName;
     time_t m_ModifTime;
 
     // general
@@ -494,7 +494,7 @@ private:
 // debug
 #ifdef DEBUG
     virtual void DebugRender(Fmatrix& XFORM) { VERIFY(false); }
-    virtual shared_str getDebugName() { return m_ModifName; }
+    virtual xr_string getDebugName() { return m_ModifName; }
 #endif
 private:
     virtual IKinematics* ObjectKinematics() { return this; }

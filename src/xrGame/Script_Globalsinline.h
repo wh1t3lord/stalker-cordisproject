@@ -288,7 +288,7 @@ inline float cfg_get_number(const CInifile* char_ini, const xr_string& section, 
     if (char_ini->section_exist(section.c_str()) && char_ini->line_exist(section.c_str(), field.c_str()))
         return char_ini->r_float(section.c_str(), field.c_str());
 
-    Msg("[Script] cfg_get_number has returned a default value");
+    MESSAGEI("cfg_get_number has returned a default value");
     return 0.0f;
 }
 
@@ -306,7 +306,7 @@ inline float cfg_get_number(const CInifile* char_ini, const xr_string& section, 
     if (char_ini->section_exist(section.c_str()) && char_ini->line_exist(section.c_str(), field.c_str()))
         return char_ini->r_float(section.c_str(), field.c_str());
 
-    Msg("[Script] cfg_get_number has returned a default value");
+    MESSAGEI("cfg_get_number has returned a default value");
     return 0.0f;
 }
 
@@ -324,7 +324,7 @@ inline float cfg_get_number(CScriptIniFile* char_ini, const xr_string& section, 
     if (char_ini->section_exist(section.c_str()) && char_ini->line_exist(section.c_str(), field.c_str()))
         return char_ini->r_float(section.c_str(), field.c_str());
 
-    Msg("[Script] cfg_get_number has returned a default value");
+    MESSAGEI("cfg_get_number has returned a default value");
     return 0.0f;
 }
 
@@ -342,7 +342,7 @@ inline float cfg_get_number(CScriptIniFile* char_ini, const xr_string& section, 
     if (char_ini->section_exist(section.c_str()) && char_ini->line_exist(section.c_str(), field.c_str()))
         return char_ini->r_float(section.c_str(), field.c_str());
 
-    Msg("[Script] cfg_get_number has returned a default value");
+    MESSAGEI("cfg_get_number has returned a default value");
     return 0.0f;
 }
 
@@ -399,7 +399,7 @@ inline xr_vector<xr_string> parse_names(const xr_string& buffer)
         return result;
     }
 
-    const char* pattern = "[^,]+";
+    const char* pattern = "[^,:]+";
     boost::regex regex(pattern);
 
     boost::sregex_iterator it(buffer.begin(), buffer.end(), regex);
@@ -461,7 +461,7 @@ inline xr_vector<std::pair<xr_string, float>> parse_spawns(const xr_string& buff
         std::pair<xr_string, std::uint32_t> data;
         data.first = buffer_names[it];
 
-        // Lord: наверное лучше сделать через try
+        // Lord: наверное лучше сделать через try | updated: 07.05.2020 пока что спарсил нормально
         if (buffer_names[it + 1].size() && it + 1 <= count)
         {
             std::uint32_t value = atoi(buffer_names[it + 1].c_str());
@@ -739,11 +739,11 @@ inline xr_vector<xr_string> parse_params(const xr_string& params)
     xr_vector<xr_string> result;
     if (params.empty())
     {
-        Msg("[Scripts/Globals/Utils/parse_params(params)] params.empty() == true! Return empty vector");
+        MESSAGEWR("params.empty() == true!");
         return result;
     }
 
-    boost::regex rgx("\\w+|[^\\|\\[\\]]+");
+    static const boost::regex rgx("[^|]+");
     boost::sregex_token_iterator iter(params.begin(), params.end(), rgx);
     boost::sregex_token_iterator end;
     for (; iter != end; ++iter)
@@ -834,7 +834,7 @@ inline xr_map<std::uint32_t, std::tuple<std::uint32_t, xr_map<std::uint32_t, Con
         return result;
     }
 
-	boost::regex rgx("\\w+|[^\\|\\[\\]]+");
+	boost::regex rgx("\\d+|[^|]+@[^|]+|\\w+");
 	boost::sregex_token_iterator iter(buffer_name.begin(), buffer_name.end(), rgx);
 	boost::sregex_token_iterator end;
 	bool is_condlist_found = false;
@@ -892,6 +892,8 @@ inline xr_map<std::uint32_t, std::tuple<std::uint32_t, xr_map<std::uint32_t, Con
 		is_condlist_found = false;
         ++index;
 	}
+
+    return result;
 }
 
 } // namespace Utils
@@ -1076,7 +1078,15 @@ inline CScriptGameObject* get_object_by_id(u16 id)
     return pGameObject->lua_game_object();
 }
 
-inline xr_string get_name(void) { return (*Level().name()); }
+inline xr_string get_name(void) 
+{ 
+    const char* level_name = *Level().name();
+
+    if (level_name == nullptr)
+        return xr_string();
+
+    return xr_string(level_name);
+}
 inline void map_remove_object_spot(const std::uint16_t& id, LPCSTR spot_type)
 {
     Level().MapManager().RemoveMapLocation(spot_type, id);
@@ -1205,8 +1215,8 @@ inline void show_indicators(void)
 inline void add_complex_effector(LPCSTR section, int id) { AddEffector(Actor(), id, section); }
 inline void remove_complex_effector(int id) { RemoveEffector(Actor(), id); }
 inline float get_time_factor(void) { return (Level().GetGameTimeFactor()); }
-LPCSTR get_weather(void) { return *g_pGamePersistent->Environment().GetWeather(); }
-void set_weather(pcstr const weather_name, const bool forced)
+inline LPCSTR get_weather(void) { return *g_pGamePersistent->Environment().GetWeather(); }
+inline void set_weather(pcstr const weather_name, const bool forced)
 {
     if (!Device.editor())
         g_pGamePersistent->Environment().SetWeather(weather_name, forced);
@@ -1264,7 +1274,11 @@ inline bool check_all_squad_members(const xr_string& squad_name, const xr_string
              it != squad->squad_members().end(); ++it)
         {
             bool is_goodwill = false;
-            CScriptGameObject* object = DataBase::Storage::getInstance().getStorage().at(it->first).getClientObject();
+            CScriptGameObject* object = nullptr;
+            
+            if (DataBase::Storage::getInstance().getStorage().find(it->first) != DataBase::Storage::getInstance().getStorage().end())
+                object = DataBase::Storage::getInstance().getStorage().at(it->first).getClientObject();
+
             if (goodwill_name == Globals::kRelationsTypeEnemy)
             {
                 if (object)
@@ -1356,7 +1370,7 @@ inline void set_npc_sympathy(CScriptGameObject* npc, float new_sympathy)
 }
 
 inline void set_npcs_relation(
-    CScriptGameObject* client_from_object1, CScriptGameObject* client_to_object2, xr_string& new_relation_name)
+    CScriptGameObject* client_from_object1, CScriptGameObject* client_to_object2, const xr_string& new_relation_name)
 {
     if (!client_from_object1)
     {
@@ -1370,20 +1384,22 @@ inline void set_npcs_relation(
         return;
     }
 
-    if (!new_relation_name.c_str())
+    if (new_relation_name.empty())
     {
-        Msg("[Scripts/Globals/GameRelations/set_npcs_relation(server_object, client_object, new_relation_name)] "
-            "WARNING: new_relation_name was an empty string! Set default value => [%s]",
+        MESSAGEW("new_relation_name was an empty string! Set default value => [%s]",
             kRelationsTypeNeutral);
-        new_relation_name = kRelationsTypeNeutral;
     }
 
     int goodwill = 0;
 
-    if (new_relation_name == kRelationsTypeEnemy)
-        goodwill = -1000;
-    else if (new_relation_name == kRelationsTypeFriends)
-        goodwill = 1000;
+    if (new_relation_name.empty() == false)
+    {
+		if (new_relation_name == kRelationsTypeEnemy)
+			goodwill = -1000;
+		else if (new_relation_name == kRelationsTypeFriends)
+			goodwill = 1000;
+    }
+
 
     RELATION_REGISTRY().ForceSetGoodwill(client_from_object1->ID(), client_to_object2->ID(), goodwill);
 }
@@ -1585,6 +1601,40 @@ inline void change_factions_community_num(const xr_string& community_name, const
     character.set(community_name.c_str());
 
     RELATION_REGISTRY().ChangeCommunityGoodwill(character.index(), npc_id, delta);
+}
+
+inline std::uint32_t get_relation_id_by_name(const xr_string& relation_name)
+{
+    std::uint32_t result = 0;
+    if (relation_name.empty())
+    {
+#ifdef DEBUG
+        MESSAGEWR("You passed an empty argument can't find anything!");
+#endif // DEBUG
+        return result;
+    }
+
+
+    if (Script_GlobalHelper::getInstance().getRegisteredRelations().empty())
+    {
+#ifdef DEBUG
+        MESSAGEWR("Early (late) calling!");
+#endif // DEBUG
+        return result;
+    }
+
+    if (Script_GlobalHelper::getInstance().getRegisteredRelations().find(relation_name) == Script_GlobalHelper::getInstance().getRegisteredRelations().end())
+    {
+#ifdef DEBUG
+        MESSAGEWR("can't find relation id by name %s", relation_name.c_str());
+#endif // DEBUG
+
+        return result;
+    }
+
+    result = Script_GlobalHelper::getInstance().getRegisteredRelations().at(relation_name);
+
+    return result;
 }
 
 } // namespace GameRelations
@@ -2069,7 +2119,9 @@ inline bool IsMonster(CScriptGameObject* object, int class_id = 0)
 
     int result = class_id ? class_id : object->clsid();
 
-    return (Script_GlobalHelper::getInstance().getMonsterClasses().at(result) == true);
+	bool is_found = Script_GlobalHelper::getInstance().getMonsterClasses().find(result) != Script_GlobalHelper::getInstance().getMonsterClasses().end();
+
+	return is_found;
 }
 
 inline bool IsMonster(CSE_ALifeDynamicObject* server_object, int class_id = 0)
@@ -2081,7 +2133,9 @@ inline bool IsMonster(CSE_ALifeDynamicObject* server_object, int class_id = 0)
 
     int result = class_id ? class_id : server_object->m_script_clsid;
 
-    return (Script_GlobalHelper::getInstance().getMonsterClasses().at(result) == true);
+    bool is_found = Script_GlobalHelper::getInstance().getMonsterClasses().find(result) != Script_GlobalHelper::getInstance().getMonsterClasses().end();
+
+    return is_found;
 }
 
 inline bool IsStalker(CScriptGameObject* object, int class_id = 0)
@@ -2177,7 +2231,7 @@ inline void change_team_squad_group(CSE_ALifeDynamicObject* server_object, const
         return;
     }
     CScriptGameObject* client_object = nullptr;
-    if (DataBase::Storage::getInstance().getStorage().size())
+    if (DataBase::Storage::getInstance().getStorage().find(server_object->ID) != DataBase::Storage::getInstance().getStorage().end())
         client_object = DataBase::Storage::getInstance().getStorage().at(server_object->ID).getClientObject();
 
     if (!client_object)
@@ -3567,6 +3621,98 @@ inline void turn_off_campfires_by_smart_name(const xr_string& name)
         if (it.second)
             if (it.second->is_on())
                 it.second->turn_off_script();
+    }
+}
+
+inline void setup_gulag_and_logic_on_spawn(CScriptGameObject* const p_client_object, const DataBase::Storage_Data& storage, const std::uint16_t stype, const bool loaded)
+{
+    if (p_client_object == nullptr)
+    {
+        MESSAGEWR("Invalid object!");
+        return;
+    }
+
+    CSE_ALifeMonsterAbstract* const p_monster = ai().alife().objects().object(p_client_object->ID())->cast_monster_abstract();
+    if (p_monster)
+    {
+        std::uint16_t smart_terrain_id = p_monster->m_smart_terrain_id;
+        MESSAGE("client_object=%s smart_terrain_id=%d is_loaded=%s", p_client_object->Name(), smart_terrain_id, loaded ? "true" : false);
+
+        if (smart_terrain_id && smart_terrain_id != Globals::kUnsignedInt16Undefined)
+        {
+            Script_SE_SmartTerrain* const p_smart_terrain = ai().alife().objects().object(smart_terrain_id)->cast_script_se_smartterrain();
+            if (p_smart_terrain == nullptr)
+            {
+                MESSAGEWR("can't cast to smart terrain!");
+                return;
+            }
+
+            bool is_need_setup_logic = false;
+
+            if (!loaded)
+            {
+				if (p_smart_terrain->getNpcInfo().find(p_client_object->ID()) != p_smart_terrain->getNpcInfo().end())
+				{
+					if (p_smart_terrain->getNpcInfo().at(p_client_object->ID()).m_begin_job)
+					{
+						is_need_setup_logic = true;
+					}
+					else
+					{
+						is_need_setup_logic = false;
+					}
+				}
+            }
+
+            if (is_need_setup_logic)
+            {
+                p_smart_terrain->setup_logic(p_client_object);
+            }
+            else
+            {
+                XR_LOGIC::intialize_job(p_client_object, storage, loaded, DataBase::Storage::getInstance().getActor(), stype);
+            }
+        }
+        else
+        {
+            XR_LOGIC::intialize_job(p_client_object, storage, loaded, DataBase::Storage::getInstance().getActor(), stype);
+        }
+    }
+    else
+    {
+        XR_LOGIC::intialize_job(p_client_object, storage, loaded, DataBase::Storage::getInstance().getActor(), stype);
+    }
+}
+
+inline void load_info(CScriptGameObject* const p_client_object, CScriptIniFile* const p_ini)
+{
+    if (p_client_object == nullptr)
+    {
+        MESSAGEWR("invalid object!");
+        return;
+    }
+
+    if (p_ini == nullptr)
+    {
+        MESSAGEWR("invalid ini!");
+        return;
+    }
+
+    xr_string known_info = "known_info";
+
+    if (p_ini->section_exist(known_info.c_str()))
+    {
+        MESSAGE("Known info section exists for npc %s", p_client_object->Name());
+        std::uint32_t count = p_ini->line_count(known_info.c_str());
+
+        const char* id_name;
+        const char* value_name;
+        for (std::uint32_t i = 0; i < count; ++i)
+        {
+            p_ini->r_line(known_info.c_str(), i, &id_name, &value_name);
+            MESSAGE("info -> npc %s", id_name);
+            p_client_object->GiveInfoPortion(id_name);
+        }
     }
 }
 

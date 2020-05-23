@@ -142,7 +142,7 @@ namespace Cordis
 			}
 		}
 
-		void Script_SchemeXRCombatZombied::add_to_binder(CScriptGameObject* const p_client_object, CScriptIniFile* const p_ini, DataBase::Storage_Scheme* p_storage, CScriptActionPlanner* const p_planner)
+		void Script_SchemeXRCombatZombied::add_to_binder(CScriptGameObject* const p_client_object, CScriptIniFile* const p_ini, const xr_string& section_name, const xr_string& scheme_name, DataBase::Storage_Scheme& p_storage)
 		{
 			if (!p_client_object)
 			{
@@ -150,15 +150,23 @@ namespace Cordis
 				return;
 			}
 
-			if (!p_storage)
+			if (section_name.empty())
 			{
-				MESSAGEWR("p_storage == nullptr!");
+				MESSAGEWR("invalid section!");
 				return;
 			}
 
+			if (scheme_name.empty())
+			{
+				MESSAGEWR("invalid scheme!");
+				return;
+			}
+
+			CScriptActionPlanner* const p_planner = Globals::get_script_action_planner(p_client_object);
+
 			if (!p_planner)
 			{
-				MESSAGEWR("p_planner == nullptr!");
+				MESSAGEWR("can't cast or find action planner!");
 				return;
 			}
 
@@ -166,9 +174,9 @@ namespace Cordis
 			
 			properties["state_mgr_logic_active"] = Globals::XR_ACTIONS_ID::XR_EVALUATORS_ID::kStateManager + 4;
 
-			p_planner->add_evaluator(Globals::XR_ACTIONS_ID::XR_EVALUATORS_ID::kCombatZombiedBase, new Script_EvaluatorCombatZombied("combat_zombied", *p_storage));
+			p_planner->add_evaluator(Globals::XR_ACTIONS_ID::XR_EVALUATORS_ID::kCombatZombiedBase, new Script_EvaluatorCombatZombied("combat_zombied", p_storage));
 
-			Script_SchemeXRCombatZombied* const p_scheme = new Script_SchemeXRCombatZombied("action_zombie_shoot", *p_storage);
+			Script_SchemeXRCombatZombied* const p_scheme = new Script_SchemeXRCombatZombied("action_zombie_shoot", p_storage);
 			p_scheme->add_condition(CWorldProperty(StalkerDecisionSpace::eWorldPropertyAlive, true));
 			p_scheme->add_condition(CWorldProperty(Globals::XR_ACTIONS_ID::XR_EVALUATORS_ID::kCombatZombiedBase, true));
 			p_scheme->add_condition(CWorldProperty(Globals::XR_ACTIONS_ID::XR_EVALUATORS_ID::kScriptCombat, true));
@@ -176,9 +184,9 @@ namespace Cordis
 			p_scheme->add_effect(CWorldProperty(properties.at("state_mgr_logic_active"), false));
 
 			p_planner->add_operator(Globals::XR_ACTIONS_ID::kCombatZombiedBase, p_scheme);
-			DataBase::Storage::getInstance().setStorageSchemesActions(p_client_object->ID(), p_storage->getSchemeName(), p_scheme);
+			DataBase::Storage::getInstance().setStorageSchemesActions(p_client_object->ID(), scheme_name, p_scheme);
 
-			Script_SchemeXRCombatZombiedDanger* const p_scheme_danger = new Script_SchemeXRCombatZombiedDanger("action_zombie_go_to_danger", *p_storage);
+			Script_SchemeXRCombatZombiedDanger* const p_scheme_danger = new Script_SchemeXRCombatZombiedDanger("action_zombie_go_to_danger", p_storage);
 			p_scheme_danger->add_condition(CWorldProperty(StalkerDecisionSpace::eWorldPropertyAlive, true));
 			p_scheme_danger->add_condition(CWorldProperty(Globals::XR_ACTIONS_ID::XR_EVALUATORS_ID::kCombatZombiedBase, true));
 			p_scheme_danger->add_condition(CWorldProperty(StalkerDecisionSpace::eWorldPropertyEnemy, false));
@@ -188,7 +196,7 @@ namespace Cordis
 
 			p_planner->add_operator(Globals::XR_ACTIONS_ID::kCombatZombiedBase + 1, p_scheme_danger);
 
-			DataBase::Storage::getInstance().setStorageSchemesActions(p_client_object->ID(), p_storage->getSchemeName(), p_scheme_danger);
+			DataBase::Storage::getInstance().setStorageSchemesActions(p_client_object->ID(), scheme_name, p_scheme_danger);
 		}
 
 		void Script_SchemeXRCombatZombied::set_state(const xr_string& state_name, CScriptGameObject* const p_look_object, const Fvector& position)

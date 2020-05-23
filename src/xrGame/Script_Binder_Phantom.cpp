@@ -7,7 +7,7 @@ namespace Scripts
 {
 Script_Binder_Phantom::Script_Binder_Phantom(CScriptGameObject* const p_client_object) : inherited(p_client_object)
 {
-    Msg("[Scripts/Script_Binder_Phantom/ctor()] %s", p_client_object->Name());
+    MESSAGE("%s", p_client_object->Name());
     Script_PhantomManager::getInstance().add_phantom();
 }
 
