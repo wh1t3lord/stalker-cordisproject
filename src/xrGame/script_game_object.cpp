@@ -67,6 +67,12 @@ BIND_FUNCTION10(&object(), CScriptGameObject::Mass, CPhysicsShellHolder, GetMass
 
 u16 CScriptGameObject::ID() const 
 {
+    if ((this == nullptr) || (m_game_object == nullptr))
+    {
+        MESSAGEWR("object was deleted!");
+        return -1;
+    }
+
     CGameObject* p_entity = &object();
 
     if (p_entity)
