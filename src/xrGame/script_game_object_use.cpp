@@ -68,7 +68,7 @@ int CScriptGameObject::clsid() const
 
 LPCSTR CScriptGameObject::Name() const 
 { 
-    if ((m_game_object == nullptr) || (m_game_object->lua_game_object() == nullptr))
+    if ((this == nullptr) || (m_game_object == nullptr) || (m_game_object->lua_game_object() == nullptr))
     {
         MESSAGEI("instance was deleted and returned this, if you skip this you will get PVC!");
         return xr_string("already_deleted_npc!").c_str();
