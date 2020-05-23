@@ -70,7 +70,8 @@ void Script_SchemeMobCombat::disable_scheme(CScriptGameObject* const p_client_ob
         return;
     }
 
-    DataBase::Storage::getInstance().setStorageSchemesEnabled(p_client_object->ID(), scheme_name, false);
+    if (DataBase::Storage::getInstance().getStorage().at(p_client_object->ID()).getSchemes().find(scheme_name) != DataBase::Storage::getInstance().getStorage().at(p_client_object->ID()).getSchemes().end())
+        DataBase::Storage::getInstance().setStorageSchemesEnabled(p_client_object->ID(), scheme_name, false);
 }
 
 } // namespace Scripts
