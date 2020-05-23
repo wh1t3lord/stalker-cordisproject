@@ -155,6 +155,8 @@
 #include "Script_SchemeXRReachTask.cpp"
 #include "Script_SchemeXRAnimpoint.cpp"
 #include "Script_SchemeXRSmartCover.cpp"
+#include "Script_PostCombat.cpp"
+#include "Script_XR_Logic.cpp"
 #pragma endregion
 
 
@@ -192,6 +194,8 @@
 #include "Script_SE_ZoneTorrid.cpp"
 #include "Script_SE_ZoneVisual.cpp"
 #pragma endregion
+
+#include "Script_GlobalHelper.cpp"
 
 #include "Script_SimulationBoard.cpp"
 #include "Script_SimulationObjects.cpp"

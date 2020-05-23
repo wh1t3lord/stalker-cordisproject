@@ -61,8 +61,8 @@ void manager::load()
     m_ambients.reserve(sections.size());
     for (const auto &i : sections)
     {
-        ambient* object = new ambient(*this, i->Name);
-        object->load(*m_manager.m_ambients_config, *m_manager.m_sound_channels_config, *m_manager.m_effects_config, i->Name);
+        ambient* object = new ambient(*this, i->Name.c_str());
+        object->load(*m_manager.m_ambients_config, *m_manager.m_sound_channels_config, *m_manager.m_effects_config, i->Name.c_str());
         object->fill(m_collection);
         m_ambients.push_back(object);
     }

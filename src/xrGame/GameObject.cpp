@@ -331,6 +331,7 @@ void CGameObject::net_Destroy()
     scriptBinder.net_Destroy();
 
     xr_delete(m_lua_game_object);
+
     m_spawned = false;
 }
 

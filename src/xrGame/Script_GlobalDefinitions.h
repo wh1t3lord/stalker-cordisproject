@@ -43,6 +43,27 @@ void init_target(CScriptGameObject* const p_client_object, const xr_string& targ
 
 namespace XR_EFFECTS
 {
+	inline void pas_b400_play_particle(
+		CScriptGameObject* const p_actor, CScriptGameObject* const p_npc, const xr_vector<xr_string>& buffer);
+	inline void pas_b400_stop_particle(CScriptGameObject* const p_actor, CScriptGameObject* const p_npc, const xr_vector<xr_string>& buffer);
+	inline void set_weather(CScriptGameObject* const p_actor, CScriptGameObject* const p_npc, const xr_vector<xr_string>& buffer);
+    inline void jup_b200_count_found(CScriptGameObject* const p_actor, CScriptGameObject* const p_npc, const xr_vector<xr_string>& buffer);
+	inline void damage_actor_items_on_start(
+		CScriptGameObject* const p_actor, CScriptGameObject* const p_npc, const xr_vector<xr_string>& buffer);
+	inline void damage_pri_a17_gauss(
+		CScriptGameObject* const p_actor, CScriptGameObject* const p_npc, const xr_vector<xr_string>& buffer);
+	inline void jup_b217_hard_animation_reset(
+		CScriptGameObject* const p_actor, CScriptGameObject* const p_npc, const xr_vector<xr_string>& buffer);
+	inline void mech_discount(
+		CScriptGameObject* const p_actor, CScriptGameObject* const p_npc, const xr_vector<xr_string>& buffer);
+	inline void polter_actor_ignore(
+		CScriptGameObject* const p_actor, CScriptGameObject* const p_npc, const xr_vector<xr_string>& buffer);
+	inline void burer_force_gravi_attack(
+		CScriptGameObject* const p_actor, CScriptGameObject* const p_npc, const xr_vector<xr_string>& buffer);
+	inline void burer_force_anti_aim(
+		CScriptGameObject* const p_actor, CScriptGameObject* const p_npc, const xr_vector<xr_string>& buffer);
+	inline void show_freeplay_dialog(
+		CScriptGameObject* const p_actor, CScriptGameObject* const p_npc, const xr_vector<xr_string>& buffer);
 inline void update_npc_logic(
     CScriptGameObject* const p_actor, CScriptGameObject* const p_object, const xr_vector<xr_string>& buffer);
 
@@ -326,6 +347,8 @@ inline void clear_smart_terrain(
 inline void give_task(
     CScriptGameObject* const p_actor, CScriptGameObject* const p_npc, const xr_vector<xr_string>& buffer);
 
+inline void set_active_task(CScriptGameObject* const p_actor, CScriptGameObject* const p_npc, const xr_vector<xr_string>& buffer);
+
 inline void actor_friend(
     CScriptGameObject* const p_actor, CScriptGameObject* const p_npc, const xr_vector<xr_string>& buffer);
 
@@ -523,6 +546,19 @@ inline void jup_a9_cam1_actor_anim_end(
     CScriptGameObject* const p_actor, CScriptGameObject* const p_npc, const xr_vector<xr_string>& buffer);
 inline void pri_a28_talk_ssu_video_end(
     CScriptGameObject* const p_actor, CScriptGameObject* const p_npc, const xr_vector<xr_string>& buffer);
+inline void create_cutscene_actor_with_weapon(CScriptGameObject* const p_actor, CScriptGameObject* const p_npc, const xr_vector<xr_string>& buffer);
+inline void set_force_sleep_animation(CScriptGameObject* const p_actor, CScriptGameObject* const p_npc, const xr_vector<xr_string>& buffer);
+inline void release_force_sleep_animation(CScriptGameObject* const p_actor, CScriptGameObject* const p_npc, const xr_vector<xr_string>& buffer);
+inline void zat_b33_pic_snag_container(CScriptGameObject* const p_actor, CScriptGameObject* const p_npc, const xr_vector<xr_string>& buffer);
+inline void set_visual_memory_enabled(CScriptGameObject* const p_actor, CScriptGameObject* const p_npc, const xr_vector<xr_string>& buffer);
+inline void disable_memory_object(CScriptGameObject* const p_actor, CScriptGameObject* const p_npc, const xr_vector<xr_string>& buffer);
+inline void zat_b202_spawn_b33_loot(CScriptGameObject* const p_actor, CScriptGameObject* const p_npc, const xr_vector<xr_string>& buffer);
+inline void save_actor_position(CScriptGameObject* const p_actor, CScriptGameObject* const p_npc, const xr_vector<xr_string>& buffer);
+inline void restore_actor_position(CScriptGameObject* const p_actor, CScriptGameObject* const p_npc, const xr_vector<xr_string>& buffer);
+inline void upgrade_hint(CScriptGameObject* const p_actor, CScriptGameObject* const p_npc, const xr_vector<xr_string>& buffer);
+inline void force_obj(CScriptGameObject* const p_actor, CScriptGameObject* const p_npc, const xr_vector<xr_string>& buffer);
+inline void pri_a28_check_zones(CScriptGameObject* const p_actor, CScriptGameObject* const p_npc, const xr_vector<xr_string>& buffer);
+inline void eat_vodka_script(CScriptGameObject* const p_actor, CScriptGameObject* const p_npc, const xr_vector<xr_string>& buffer);
 } // namespace XR_EFFECTS
 
 #pragma region Cordis Dialogs defenition
@@ -582,11 +618,12 @@ public:
     ParticleData(void) = default;
     ~ParticleData(void)
     {
+/* Lord: протестировать, если удаление оставить только на самой схеме sr_particle
         if (this->m_particle)
         {
             Msg("[Scripts/ParticleData/~dtor()] WARNING: deleting this->m_particle!");
             xr_delete(this->m_particle);
-        }
+        }*/
     }
     inline bool IsPlayed(void) const noexcept { return this->m_is_played; }
     inline void setPlayed(const bool value) noexcept { this->m_is_played = value; }
@@ -691,7 +728,7 @@ inline xr_string determine_section_to_activate(CScriptGameObject* const p_npc, C
 inline void disable_generic_schemes(CScriptGameObject* const p_client_object, const std::uint32_t stype);
 inline void enable_generic_schemes(CScriptIniFile* const p_ini, CScriptGameObject* const p_client_object,
     const std::uint32_t stype, const xr_string& section_logic_name);
-inline CScriptIniFile get_customdata_or_ini_file(CScriptGameObject* npc, const xr_string& filename);
+inline CScriptIniFile* get_customdata_or_ini_file(CScriptGameObject* npc, const xr_string& filename);
 /*
 inline void intialize_job(CScriptGameObject* object, DataBase::Storage_Data& storage, const bool& loaded,
     CScriptGameObject* actor, const std::uint16_t& stype);*/
@@ -741,7 +778,7 @@ inline bool try_switch_to_another_section(
 inline bool switch_to_section(
     CScriptGameObject* const p_client_object, CScriptIniFile* const p_ini, const xr_string& section_name);
 inline bool is_active(CScriptGameObject* const p_client_object, DataBase::Storage_Scheme& storage);
-inline void reset_generic_schemes_on_scheme_switch(
+void reset_generic_schemes_on_scheme_switch(
     CScriptGameObject* const p_client_object, const xr_string& scheme_name, const xr_string& section_name);
 inline DataBase::Data_Overrides cfg_get_overrides(
     CScriptIniFile* const p_ini, const xr_string& section_name, CScriptGameObject* const p_client_object);
@@ -763,9 +800,18 @@ inline void init_hello_dialogs(CPhraseDialog* p_dialog);
 
 namespace XR_CONDITION
 {
-inline bool is_surge_started(void);
-inline bool is_surge_complete(void);
-inline bool is_surge_kill_all(void);
+    inline bool is_surge_complete_client(
+        CScriptGameObject* actor, CScriptGameObject* npc, const xr_vector<xr_string>& buffer);
+    inline bool is_surge_complete_client_server(
+        CScriptGameObject* actor, CSE_ALifeDynamicObject* server_npc, const xr_vector<xr_string>& buffer);
+    inline bool is_surge_complete_server(
+        CSE_ALifeDynamicObject* server_actor, CSE_ALifeDynamicObject* server_npc, const xr_vector<xr_string>& buffer);
+inline bool is_surge_started_client(CScriptGameObject* actor, CScriptGameObject* npc, const xr_vector<xr_string>& buffer);
+inline bool is_surge_started_client_server(CScriptGameObject* actor, CSE_ALifeDynamicObject* server_npc, const xr_vector<xr_string>& buffer);
+inline bool is_surge_started_server(CSE_ALifeDynamicObject* server_actor, CSE_ALifeDynamicObject* server_npc, const xr_vector<xr_string>& buffer);
+inline bool is_surge_kill_all_client(CScriptGameObject* actor, CScriptGameObject* npc, const xr_vector<xr_string>& buffer);
+inline bool is_surge_kill_all_client_server(CScriptGameObject* actor, CSE_ALifeDynamicObject* server_npc, const xr_vector<xr_string>& buffer);
+inline bool is_surge_kill_all_server(CSE_ALifeDynamicObject* server_actor, CSE_ALifeDynamicObject* server_npc, const xr_vector<xr_string>& buffer);
 inline bool is_enemy_actor(CScriptGameObject* enemy, CScriptGameObject* object);
 inline bool is_fighting_dist_ge_client(
     CScriptGameObject* enemy, CScriptGameObject* npc, const xr_vector<xr_string>& buffer);
@@ -791,6 +837,9 @@ inline bool is_see_npc(CScriptGameObject* actor, CScriptGameObject* npc, const x
 inline bool is_actor_see_npc(CScriptGameObject* actor, CScriptGameObject* npc);
 inline bool is_npc_in_actor_frustrum(CScriptGameObject* actor, CScriptGameObject* npc);
 inline bool is_wounded(CScriptGameObject* actor, CScriptGameObject* npc);
+inline bool is_dist_to_actor_le_client(CScriptGameObject* actor, CScriptGameObject* npc, const xr_vector<xr_string>& buffer);
+inline bool is_dist_to_actor_le_client_server(CScriptGameObject* actor, CSE_ALifeDynamicObject* server_npc, const xr_vector<xr_string>& buffer);
+inline bool is_dist_to_actor_le_server(CSE_ALifeDynamicObject* server_actor, CSE_ALifeDynamicObject* server_npc, const xr_vector<xr_string>& buffer);
 inline bool is_dist_to_actor_ge_client(
     CScriptGameObject* actor, CScriptGameObject* npc, const xr_vector<xr_string>& buffer);
 inline bool is_dist_to_actor_ge_client_server(
@@ -1693,17 +1742,13 @@ struct StateManagerAnimationData
     {
         if (animation_state_name.empty())
         {
-            Msg("[Scripts/StateManagerAnimationData/addAnimation(animation_state_name, index, animation_name)] "
-                "WARNING: "
-                "animation_state_name.empty() == true! Can't add animation to m_data! Return ...");
+            MESSAGEWR("animation_state_name.empty() == true! Can't add animation to m_data!");
             return;
         }
 
         if (animation_name.empty())
         {
-            Msg("[Scripts/StateManagerAnimationData/addAnimation(animation_state_name, index, animation_name)] "
-                "WARNING: "
-                "animation_name.empty() == true! Can't add an empty animation name to m_data! Return ...");
+            MESSAGEWR("animation_name.empty() == true! Can't add an empty animation name to m_data!");
             return;
         }
 
@@ -1716,9 +1761,7 @@ struct StateManagerAnimationData
             for (const AnimationData& data : animation_list)
             {
                 if (data.getAnimationName() == animation_name)
-                    Msg("[Scripts/StateManagerAnimationData/addAnimation(animation_state_name, index, animation_name)] "
-                        "WARNING: You are trying to the same animation_name, which already existed in the list! %s %s",
-                        animation_state_name.c_str(), animation_name.c_str());
+                    MESSAGEW("You are trying to the same animation_name, which already existed in the list! %s %s", animation_state_name.c_str(), animation_name.c_str());
             }
         }
 
@@ -1730,17 +1773,13 @@ struct StateManagerAnimationData
     {
         if (animation_state_name.empty())
         {
-            Msg("[Scripts/StateManagerAnimationData/addAnimation(animation_state_name, index, attach_item_name)] "
-                "WARNING: "
-                "animation_state_name.empty() == true! Can't add animation to m_data! Return ...");
+            MESSAGEWR("animation_state_name.empty() == true! Can't add animation to m_data!");
             return;
         }
 
         if (attach_item_name.empty())
         {
-            Msg("[Scripts/StateManagerAnimationData/addAnimation(animation_state_name, index, attach_item_name)] "
-                "WARNING: "
-                "attach_item_name.empty() == true! Can't add an empty animation name to m_data! Return ...");
+            MESSAGEWR("attach_item_name.empty() == true! Can't add an empty animation name to m_data!");
             return;
         }
         AnimationData data;
@@ -1753,17 +1792,13 @@ struct StateManagerAnimationData
     {
         if (animation_state_name.empty())
         {
-            Msg("[Scripts/StateManagerAnimationData/addAnimation(animation_state_name, index, dettach_item_name)] "
-                "WARNING: "
-                "animation_state_name.empty() == true! Can't add animation to m_data! Return ...");
+            MESSAGEWR("animation_state_name.empty() == true! Can't add animation to m_data!");
             return;
         }
 
         if (dettach_item_name.empty())
         {
-            Msg("[Scripts/StateManagerAnimationData/addAnimation(animation_state_name, index, dettach_item_name)] "
-                "WARNING: "
-                "dettach_item_name.empty() == true! Can't add an empty animation name to m_data! Return ...");
+            MESSAGEWR("dettach_item_name.empty() == true! Can't add an empty animation name to m_data!");
             return;
         }
         AnimationData data;
@@ -1776,17 +1811,13 @@ struct StateManagerAnimationData
     {
         if (animation_state_name.empty())
         {
-            Msg("[Scripts/StateManagerAnimationData/addAnimation(animation_state_name, index, sound_name)] "
-                "WARNING: "
-                "animation_state_name.empty() == true! Can't add animation to m_data! Return ...");
+            MESSAGEWR("animation_state_name.empty() == true! Can't add animation to m_data!");
             return;
         }
 
         if (sound_name.empty())
         {
-            Msg("[Scripts/StateManagerAnimationData/addAnimation(animation_state_name, index, sound_name)] "
-                "WARNING: "
-                "sound_name.empty() == true! Can't add an empty animation name to m_data! Return ...");
+            MESSAGEWR("sound_name.empty() == true! Can't add an empty animation name to m_data!");
             return;
         }
         AnimationData data;
@@ -1799,9 +1830,7 @@ struct StateManagerAnimationData
     {
         if (animation_state_name.empty())
         {
-            Msg("[Scripts/StateManagerAnimationData/addAnimation(animation_state_name, index, value)] "
-                "WARNING: "
-                "animation_state_name.empty() == true! Can't add animation to m_data! Return ...");
+            MESSAGEWR("animation_state_name.empty() == true! Can't add animation to m_data!");
             return;
         }
 
@@ -1815,17 +1844,13 @@ struct StateManagerAnimationData
     {
         if (animation_state_name.empty())
         {
-            Msg("[Scripts/StateManagerAnimationData/addAnimation(animation_state_name, index, function)] "
-                "WARNING: "
-                "animation_state_name.empty() == true! Can't add animation to m_data! Return ...");
+            MESSAGEWR("animation_state_name.empty() == true! Can't add animation to m_data!");
             return;
         }
 
         if (!function)
         {
-            Msg("[Scripts/StateManagerAnimationData/addAnimation(animation_state_name, index, function)] "
-                "WARNING: "
-                "function == nullptr! Can't add an empty animation name to m_data! Return ...");
+            MESSAGEWR("function == nullptr! Can't add an empty animation name to m_data!");
             return;
         }
 
@@ -1879,8 +1904,7 @@ struct StateLibData
     {
         if (value == Globals::kUnsignedInt16Undefined)
         {
-            Msg("[StateLibData/setWeaponSlot(value)] WARNING: value = std::uint16_t(-1)! You are trying to set an "
-                "undefined value! No assignment!");
+            MESSAGEWR("value = std::uint16_t(-1)! You are trying to set an undefined value! No assignment!");
             return;
         }
 
@@ -1892,7 +1916,7 @@ struct StateLibData
     {
         if (value == Globals::kUnsignedInt32Undefined)
         {
-            Msg("[StateLibData/setMovementType(value)] WARNING: value = std::uint32_t(-1)!");
+            MESSAGEW("value = std::uint32_t(-1)!");
         }
 
         this->m_movement_type = value;
@@ -1902,7 +1926,7 @@ struct StateLibData
     {
         if (value == Globals::kUnsignedInt32Undefined)
         {
-            Msg("[StateLibData/setMentalType(value)] WARNING: value = std::uint32_t(-1)!");
+            MESSAGEW("value = std::uint32_t(-1)!");
         }
 
         this->m_mental_type = value;
@@ -1912,7 +1936,7 @@ struct StateLibData
     {
         if (value == Globals::kUnsignedInt32Undefined)
         {
-            Msg("[StateLibData/setBodyStateType(value)] WARNING: value = std::uint32_t(-1)!");
+            MESSAGEW("value = std::uint32_t(-1)!");
         }
 
         this->m_bodystate_type = value;
@@ -1922,7 +1946,7 @@ struct StateLibData
     {
         if (value == Globals::kUnsignedInt32Undefined)
         {
-            Msg("[StateLibData/setDirectionType(value)] WARNING: value = std::uint32_t(-1)!");
+            MESSAGEW("value = std::uint32_t(-1)!");
         }
 
         this->m_direction_type = value;
@@ -1932,7 +1956,7 @@ struct StateLibData
     {
         if (!string.size())
         {
-            Msg("[StateLibData/setWeaponTypeName(string)] WARNING: string.size() = 0!");
+            MESSAGEW("string.size() = 0!");
         }
 
         this->m_weapon_name = string;
@@ -1942,7 +1966,7 @@ struct StateLibData
     {
         if (!string.size())
         {
-            Msg("[StateLibData/setAnimStateTypeName(string)] WARNING: string.size() = 0!");
+            MESSAGEW("string.size() = 0!");
         }
 
         this->m_animstate_name = string;
@@ -1952,7 +1976,7 @@ struct StateLibData
     {
         if (!string.size())
         {
-            Msg("[StateLibData/setAnimationName(string)] WARNING: string.size() = 0!");
+            MESSAGEW("string.size() = 0!");
         }
 
         this->m_animation_name = string;

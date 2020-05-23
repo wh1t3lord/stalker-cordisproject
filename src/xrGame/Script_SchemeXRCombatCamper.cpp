@@ -37,7 +37,7 @@ namespace Cordis
 			this->m_p_storage->setXRCombatCamperAction(false);
 		}
 
-		void Script_SchemeXRCombatCamper::add_to_binder(CScriptGameObject* const p_client_object, CScriptIniFile* const p_ini, DataBase::Storage_Scheme& storage, CScriptActionPlanner* const p_planner)
+		void Script_SchemeXRCombatCamper::add_to_binder(CScriptGameObject* const p_client_object, CScriptIniFile* const p_ini, const xr_string& section_name, const xr_string& scheme_name, DataBase::Storage_Scheme& storage)
 		{
 			if (!p_client_object)
 			{
@@ -50,12 +50,20 @@ namespace Cordis
 				MESSAGEWR("p_ini == nullptr!");
 				return;
 			}
-
-			if (!p_planner)
+			
+			if (section_name.empty())
 			{
-				MESSAGEWR("p_planner == nullptr!");
+				MESSAGEWR("invalid section!");
 				return;
 			}
+
+			if (scheme_name.empty())
+			{
+				MESSAGEWR("invalid scheme!");
+				return;
+			}
+
+			CScriptActionPlanner* const p_planner = Globals::get_script_action_planner(p_client_object);
 
 			xr_map<xr_string, std::uint32_t> properties;
 
@@ -84,7 +92,7 @@ namespace Cordis
 			p_scheme_look->add_effect(CWorldProperty(properties.at("state_mgr_logic_active"), false));
 			p_planner->add_operator(kActionLookAround, p_scheme_look);
 
-			DataBase::Storage::getInstance().setStorageSchemesActions(p_client_object->ID(), storage.getSchemeName(), p_scheme_look);
+			DataBase::Storage::getInstance().setStorageSchemesActions(p_client_object->ID(), scheme_name, p_scheme_look);
 
 			storage.setXRCombatCamperAction(false);
 		}

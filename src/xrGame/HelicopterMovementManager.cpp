@@ -104,6 +104,7 @@ void SHeliMovementState::UpdatePatrolPath()
         // Lord - [Script] Re-write
       //  parent->callback(GameObject::eHelicopterOnPoint)(
         //    dist, currP, currPatrolVertex ? currPatrolVertex->vertex_id() : -1);
+        parent->GetScriptBinderObject()->on_point(dist, currP, currPatrolVertex ? currPatrolVertex->vertex_id() : -1);
         CPatrolPath::const_iterator b, e;
         currPatrolPath->begin(currPatrolVertex, b, e);
         if (b != e)
@@ -133,6 +134,7 @@ void SHeliMovementState::UpdateMovToPoint()
         float dist = GetDistanceToDestPosition();
         // Lord - [Script] Re-write
        // parent->callback(GameObject::eHelicopterOnPoint)(dist, currP, -1);
+        parent->GetScriptBinderObject()->on_point(dist, currP, -1);
         type = eMovNone;
     }
 }

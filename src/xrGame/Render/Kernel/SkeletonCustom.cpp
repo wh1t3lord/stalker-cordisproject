@@ -400,7 +400,7 @@ void CKinematics::LL_Validate()
                     BD.IK_data.ik_flags.set(SJointIKData::flBreakable, FALSE);
             }
 #ifdef DEBUG
-            Msg("! ERROR: Invalid breakable object: '%s'", *dbg_name);
+            Msg("! ERROR: Invalid breakable object: '%s'", dbg_name.c_str());
 #endif
         }
     }

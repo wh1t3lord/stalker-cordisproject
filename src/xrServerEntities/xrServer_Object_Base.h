@@ -90,8 +90,10 @@ public:
     //
     virtual void __cdecl Spawn_Write(NET_Packet& tNetPacket, BOOL bLocal);
     virtual BOOL __cdecl Spawn_Read(NET_Packet& tNetPacket);
-    virtual LPCSTR __cdecl name() const; // @ section_name();
-    virtual LPCSTR __cdecl name_replace() const; // @ name();
+    // @ section_name();
+    virtual LPCSTR __cdecl name() const; 
+    // @ name();
+    virtual LPCSTR __cdecl name_replace() const; 
 
     virtual void __cdecl set_name_replace(LPCSTR s)
     {

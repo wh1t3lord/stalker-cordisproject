@@ -731,6 +731,9 @@ function try_switch_to_another_section(npc, st, actor)
 	end
 
 	local switched = false
+
+
+
 	for n, c in pairs(l) do
 		--printf("_bp: %d: %s", time_global(), c.name)
 		if cond_name(c.name, "on_actor_dist_le") then

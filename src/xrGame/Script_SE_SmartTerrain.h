@@ -51,16 +51,17 @@ struct NpcInfo
 { // @ Lord: пока что не вся заполнена!
     bool m_is_monster;
     bool m_begin_job;
-    int m_job_prioprity;
+	int m_job_prioprity;
+	int m_stype;
     std::uint32_t m_job_id;
-    int m_stype;
     CSE_ALifeDynamicObject* m_server_object; // @ Lord: определить где оно именно удаляется в итоге
+	JobData_SubData* m_job_link1 = nullptr;
+	JobDataExclusive* m_job_link2 = nullptr;
     xr_string m_need_job;
     // Как бы у нас может быть только одна работа, и учитываем это всегда то есть одно из m_job_link будет отлично от
     // nullptr
 
-    JobData_SubData* m_job_link1 = nullptr;
-    JobDataExclusive* m_job_link2 = nullptr;
+
 
     inline void clear(void)
     {
@@ -148,6 +149,8 @@ public:
     virtual void register_npc(CSE_ALifeMonsterAbstract* object);
     virtual void unregister_npc(CSE_ALifeMonsterAbstract* object);
     virtual CALifeSmartTerrainTask* task(CSE_ALifeMonsterAbstract* object);
+    void update(void) override;
+    bool target_precondition(CSE_ALifeObject* squad, bool is_need_to_dec_population);
 
     inline NpcInfo fill_npc_info(CSE_ALifeDynamicObject* server_object)
     {
@@ -159,7 +162,7 @@ public:
 
         NpcInfo data;
 
-        data.m_is_monster = Globals::IsStalker(server_object, 0);
+        data.m_is_monster = Globals::IsStalker(server_object, 0) ? false : true;
         data.m_server_object = server_object;
         data.m_need_job = "nil"; // LorD: проверить будет ли дропать nil, если будет то найти и исправить когда это будет, чтобы все "nil" просто проверялись всегда как .empty()
         data.m_job_prioprity = -1;
@@ -226,6 +229,20 @@ public:
 
         this->m_already_spawned[section_name] = value;
     }
+
+    inline const xr_map<std::uint32_t, CSE_ALifeDynamicObject*>& getArrivingNpc(void) const { return this->m_arriving_npc; }
+    inline void setArrivingNpc(const std::uint32_t id, CSE_ALifeDynamicObject* const p_object)
+    {
+        if (id >= Globals::kUnsignedInt16Undefined)
+        {
+#ifdef DEBUG
+            MESSAGE("Something wrong with your id!");
+#endif // DEBUG
+            return;
+        }
+
+        this->m_arriving_npc[id] = p_object;
+    }
 #pragma endregion
 
 #pragma region Cordis Setters
@@ -247,10 +264,12 @@ public:
     void select_npc_job(NpcInfo& npc_info);
     void switch_to_desired_job(CScriptGameObject* const p_npc);
     void setup_logic(CScriptGameObject* const p_npc);
-
+    void init_npc_after_load(void);
+    float evaluate_prior(Script_SE_SimulationSquad* const p_squad);
 private:
     void show(void);
     void load_jobs(void);
+    void update_jobs(void);
 
 private:
     bool m_is_initialized;
@@ -262,6 +281,7 @@ private:
     bool m_is_mutant_lair;
     bool m_is_no_mutant;
     bool m_is_respawn_only_smart;
+    bool m_is_campfires_on;
     std::uint16_t m_squad_id;
     std::uint16_t m_respawn_radius;
     std::uint32_t m_max_population;
@@ -269,6 +289,7 @@ private:
     std::uint32_t m_population;
     std::uint32_t m_stayed_squad_quan;
     std::uint32_t m_show_time;
+    std::uint32_t m_check_time;
     CScriptIniFile* m_ltx;
     xrTime m_smart_alarm_time;
     std::pair<xr_vector<JobData>, xr_vector<JobDataExclusive*>>
@@ -277,6 +298,7 @@ private:
     std::unique_ptr<CALifeSmartTerrainTask> m_smart_alife_task;
     //  Script_SmartTerrainControl* m_base_on_actor_control;
     std::unique_ptr<Script_SmartTerrainControl> m_base_on_actor_control;
+    std::unique_ptr<CScriptIniFile> m_ini;
     xr_map<std::uint32_t, xrTime> m_dead_time;
     xr_map<xr_string, std::uint16_t> m_npc_by_job_section;
     // pair<vector_spawn_squads_name, condlist_spawn_num>!
@@ -285,6 +307,7 @@ private:
     xr_map<std::uint32_t, CSE_ALifeDynamicObject*> m_arriving_npc;
     xr_map<std::uint32_t, NpcInfo> m_npc_info;
     xr_map<std::uint32_t, JobDataSmartTerrain*> m_job_data;
+    xr_map<std::uint32_t, CondlistData> m_respawn_sector_condlist;
     xr_vector<CSE_ALifeDynamicObject*> m_npc_to_register;
     xrTime m_last_respawn_update;
     xr_string m_smart_level;
@@ -299,8 +322,6 @@ private:
     xr_string m_traveller_actor_path_name;
     xr_string m_traveller_squad_path_name;
     xr_string m_ltx_name;
-    xr_map<std::uint32_t, CondlistData> m_respawn_sector_condlist;
-    std::unique_ptr<CScriptIniFile> m_ini;
 };
 } // namespace Scripts
 } // namespace Cordis

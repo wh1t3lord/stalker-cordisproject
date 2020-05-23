@@ -11,11 +11,61 @@ namespace Scripts
 {
 namespace XR_CONDITION
 {
-inline bool is_surge_started(void) { return Script_SurgeManager::getInstance().IsStarted(); }
+	inline bool is_surge_started_client(
+		CScriptGameObject* actor, CScriptGameObject* npc, const xr_vector<xr_string>& buffer)
+	{
+        return Script_SurgeManager::getInstance().IsStarted();
+	}
 
-inline bool is_surge_complete(void) { return Script_SurgeManager::getInstance().IsFinished(); }
+	inline bool is_surge_started_client_server(
+		CScriptGameObject* actor, CSE_ALifeDynamicObject* server_npc, const xr_vector<xr_string>& buffer)
+	{
+		return Script_SurgeManager::getInstance().IsStarted();
+	}
 
-inline bool is_surge_kill_all(void) { return Script_SurgeManager::getInstance().IsKillingAll(); }
+	inline bool is_surge_started_server(
+		CSE_ALifeDynamicObject* server_actor, CSE_ALifeDynamicObject* server_npc, const xr_vector<xr_string>& buffer)
+	{
+		return Script_SurgeManager::getInstance().IsStarted();
+	}
+
+	inline bool is_surge_complete_client(
+		CScriptGameObject* actor, CScriptGameObject* npc, const xr_vector<xr_string>& buffer)
+	{
+		return Script_SurgeManager::getInstance().IsFinished();
+	}
+
+	inline bool is_surge_complete_client_server(
+		CScriptGameObject* actor, CSE_ALifeDynamicObject* server_npc, const xr_vector<xr_string>& buffer)
+	{
+		return Script_SurgeManager::getInstance().IsFinished();
+	}
+
+	inline bool is_surge_complete_server(
+		CSE_ALifeDynamicObject* server_actor, CSE_ALifeDynamicObject* server_npc, const xr_vector<xr_string>& buffer)
+	{
+		return Script_SurgeManager::getInstance().IsFinished(); 
+	}
+
+	inline bool is_surge_kill_all_client(
+		CScriptGameObject* actor, CScriptGameObject* npc, const xr_vector<xr_string>& buffer)
+	{
+		return Script_SurgeManager::getInstance().IsKillingAll();
+	}
+
+	inline bool is_surge_kill_all_client_server(
+		CScriptGameObject* actor, CSE_ALifeDynamicObject* server_npc, const xr_vector<xr_string>& buffer)
+	{
+		return Script_SurgeManager::getInstance().IsKillingAll();
+	}
+
+	inline bool is_surge_kill_all_server(
+		CSE_ALifeDynamicObject* server_actor, CSE_ALifeDynamicObject* server_npc, const xr_vector<xr_string>& buffer)
+	{
+		return Script_SurgeManager::getInstance().IsKillingAll();
+	}
+
+ 
 
 inline bool is_enemy_actor(CScriptGameObject* enemy, CScriptGameObject* object)
 {
@@ -388,6 +438,133 @@ inline bool is_npc_in_actor_frustrum(CScriptGameObject* actor, CScriptGameObject
 
 inline bool is_wounded(CScriptGameObject* actor, CScriptGameObject* npc) { return CRD_Wounded::is_wounded(npc); }
 
+
+inline bool is_dist_to_actor_le_client(
+	CScriptGameObject* actor, CScriptGameObject* npc, const xr_vector<xr_string>& buffer)
+{
+	if (!buffer.size())
+	{
+		R_ASSERT2(false, "Argument list can't be empty!");
+		return false;
+	}
+
+	if (!actor)
+	{
+		R_ASSERT2(false, "object was null!");
+		return false;
+	}
+
+	if (!npc)
+	{
+		R_ASSERT2(false, "object was null!");
+		return false;
+	}
+
+	float distance = atof(buffer[0].c_str());
+
+	if (fis_zero(distance))
+	{
+		MESSAGEWR("distance is ZERO -> %f",
+			distance);
+		return false;
+	}
+
+	if (distance < 0.0f)
+	{
+		MESSAGEWR("distance is a negative value -> "
+			"%f",
+			distance);
+		return false;
+	}
+
+	return (npc->Position().distance_to_sqr(actor->Position()) <= (distance * distance));
+}
+
+inline bool is_dist_to_actor_le_client_server(
+	CScriptGameObject* actor, CSE_ALifeDynamicObject* server_npc, const xr_vector<xr_string>& buffer)
+{
+	if (!buffer.size())
+	{
+		R_ASSERT2(false, "Argument list can't be empty!");
+		return false;
+	}
+
+	if (!actor)
+	{
+		R_ASSERT2(false, "object was null!");
+		return false;
+	}
+
+	if (!server_npc)
+	{
+		R_ASSERT2(false, "object was null!");
+		return false;
+	}
+
+	float distance = atof(buffer[0].c_str());
+
+	if (fis_zero(distance))
+	{
+		MESSAGEWR("distance is ZERO "
+			"-> %f",
+			distance);
+		return false;
+	}
+
+	if (distance < 0.0f)
+	{
+		MESSAGEWR("WARNING: distance is a "
+			"negative value -> %f",
+			distance);
+		return false;
+	}
+
+	return (server_npc->Position().distance_to_sqr(actor->Position()) <= (distance * distance));
+}
+
+inline bool is_dist_to_actor_le_server(
+	CSE_ALifeDynamicObject* server_actor, CSE_ALifeDynamicObject* server_npc, const xr_vector<xr_string>& buffer)
+{
+	if (!buffer.size())
+	{
+		R_ASSERT2(false, "Argument list can't be empty!");
+		return false;
+	}
+
+	if (!server_actor)
+	{
+		R_ASSERT2(false, "object was null!");
+		return false;
+	}
+
+	if (!server_npc)
+	{
+		R_ASSERT2(false, "object was null!");
+		return false;
+	}
+
+	float distance = atof(buffer[0].c_str());
+
+	if (fis_zero(distance))
+	{
+		MESSAGEWR("distnace is ZERO "
+			"-> %f",
+			distance);
+		return false;
+	}
+
+	if (distance < 0.0f)
+	{
+		MESSAGEWR("distance is a "
+			"negative value -> %f",
+			distance);
+		return false;
+	}
+
+	return (server_npc->Position().distance_to_sqr(server_actor->Position()) <= (distance * distance));
+}
+
+
 inline bool is_dist_to_actor_ge_client(
     CScriptGameObject* actor, CScriptGameObject* npc, const xr_vector<xr_string>& buffer)
 {
@@ -755,6 +932,12 @@ inline bool is_actor_in_zone_client(
         return false;
     }
 
+    if (DataBase::Storage::getInstance().getZoneByName().find(zone_name) == DataBase::Storage::getInstance().getZoneByName().end())
+    {
+        MESSAGEWR("object is not presented in database! You don't registered it or something else ...");
+        return false;
+    }
+
     CScriptGameObject* zone = DataBase::Storage::getInstance().getZoneByName().at(zone_name);
 
     if (!zone)
@@ -785,10 +968,16 @@ inline bool is_actor_in_zone_client_server(
 
     if (!DataBase::Storage::getInstance().getActor())
     {
-        Msg("[Scripts/XR_CONDITION/is_actor_in_zone(server_actor, server_npc, zone_name)] WARNING: Client still not "
+        MESSAGEWR("Client still not "
             "initialize! Early calling!!! DataBase::Storage::Actor = nullptr! Return false.");
         return false;
     }
+
+	if (DataBase::Storage::getInstance().getZoneByName().find(zone_name) == DataBase::Storage::getInstance().getZoneByName().end())
+	{
+		MESSAGEWR("object is not presented in database! You don't registered it or something else ...");
+		return false;
+	}
 
     CScriptGameObject* zone = DataBase::Storage::getInstance().getZoneByName().at(zone_name);
 
@@ -820,10 +1009,16 @@ inline bool is_actor_in_zone_server(
 
     if (!DataBase::Storage::getInstance().getActor())
     {
-        Msg("[Scripts/XR_CONDITION/is_actor_in_zone(server_actor, server_npc, zone_name)] WARNING: Client still not "
+        MESSAGEWR("Client still not "
             "initialize! Early calling!!! DataBase::Storage::Actor = nullptr! Return false.");
         return false;
     }
+
+	if (DataBase::Storage::getInstance().getZoneByName().find(zone_name) == DataBase::Storage::getInstance().getZoneByName().end())
+	{
+		MESSAGEWR("object is not presented in database! You don't registered it or something else ...");
+		return false;
+	}
 
     CScriptGameObject* zone = DataBase::Storage::getInstance().getZoneByName().at(zone_name);
 
@@ -2587,9 +2782,8 @@ inline bool is_actor_on_level_client(
 
     for (const xr_string& it : buffer)
     {
-        if (!Globals::Game::level::get_name().empty())
-            if (Globals::Game::level::get_name() == it)
-                return true;
+		if (Globals::Game::level::get_name() == it)
+			return true;
     }
 
     return false;
@@ -2606,9 +2800,8 @@ inline bool is_actor_on_level_server(
 
     for (const xr_string& it : buffer)
     {
-        if (!Globals::Game::level::get_name().empty())
-            if (Globals::Game::level::get_name() == it)
-                return true;
+        if (Globals::Game::level::get_name() == it)
+            return true;
     }
 
     return false;
@@ -2625,9 +2818,8 @@ inline bool is_actor_on_level_client_server(
 
     for (const xr_string& it : buffer)
     {
-        if (!Globals::Game::level::get_name().empty())
-            if (Globals::Game::level::get_name() == it)
-                return true;
+		if (Globals::Game::level::get_name() == it)
+			return true;
     }
 
     return false;
@@ -3038,17 +3230,17 @@ inline bool is_squads_in_zone_b41_server(
 
     if (!client_zone)
     {
-        Msg("[Scripts/XR_CONDITION/is_squads_in_zone_b41(server_actor, server_npc, buffer)] WARNING: client_zone = "
-            "nullptr! Returns "
-            "False");
+#ifdef DEBUG
+        MESSAGEWR("client_zone = nullptr!");
+#endif // DEBUG
         return false;
     }
 
     if (!server_smart)
     {
-        Msg("[Scripts/XR_CONDITION/is_squads_in_zone_b41(server_actor, server_npc, buffer)] WARNING: server_smart = "
-            "nullptr! Returns "
-            "False");
+#ifdef DEBUG
+        MESSAGEWR("server_smart = nullptr!");
+#endif // DEBUG
         return false;
     }
 
@@ -3073,25 +3265,24 @@ inline bool is_squads_in_zone_b41_server(
     return true;
 }
 
-inline bool is_squads_in_zone_b41_client_server(
-    CScriptGameObject* actor, CSE_ALifeDynamicObject* server_npc, const xr_vector<xr_string>& buffer)
+inline bool is_squads_in_zone_b41_client_server(CScriptGameObject* actor, CSE_ALifeDynamicObject* server_npc, const xr_vector<xr_string>& buffer)
 {
     Script_SE_SmartTerrain* server_smart = Script_SimulationBoard::getInstance().getSmartTerrainsByName().at("jup_b41");
     CScriptGameObject* client_zone = DataBase::Storage::getInstance().getZoneByName().at("jup_b41_sr_light");
 
     if (!client_zone)
     {
-        Msg("[Scripts/XR_CONDITION/is_squads_in_zone_b41(server_actor, server_npc, buffer)] WARNING: client_zone = "
-            "nullptr! Returns "
-            "False");
+#ifdef DEBUG
+        MESSAGEWR("client_zone = nullptr!");
+#endif // DEBUG
         return false;
     }
 
     if (!server_smart)
     {
-        Msg("[Scripts/XR_CONDITION/is_squads_in_zone_b41(server_actor, server_npc, buffer)] WARNING: server_smart = "
-            "nullptr! Returns "
-            "False");
+#ifdef DEBUG
+        MESSAGEWR("server_smart = nullptr!");
+#endif // DEBUG
         return false;
     }
 
@@ -3366,8 +3557,10 @@ inline bool is_quest_npc_enemy_actor_client(
 
     if (!object)
     {
-        Msg("[Scripts/XR_CONDITION/is_quest_npc_enemy_actor(actor, npc, buffer)] WARNING: object = nullptr! Returns "
-            "False");
+#ifdef DEBUG
+        MESSAGEWR("object = nullptr!");
+#endif // DEBUG
+        return false;
     }
     else
     {
@@ -3400,9 +3593,10 @@ inline bool is_quest_npc_enemy_actor_server(
 
     if (!object)
     {
-        Msg("[Scripts/XR_CONDITION/is_quest_npc_enemy_actor(server_actor, server_npc, buffer)] WARNING: object = "
-            "nullptr! Returns "
-            "False");
+#ifdef DEBUG
+        MESSAGEWR("object = nullptr!");
+#endif // DEBUG
+        return false;
     }
     else
     {
@@ -3435,9 +3629,10 @@ inline bool is_quest_npc_enemy_actor_client_server(
 
     if (!object)
     {
-        Msg("[Scripts/XR_CONDITION/is_quest_npc_enemy_actor(actor, server_npc, buffer)] WARNING: object = nullptr! "
-            "Returns "
-            "False");
+#ifdef DEBUG
+        MESSAGEWR("object = nullptr! ");
+#endif // DEBUG
+        return false;
     }
     else
     {

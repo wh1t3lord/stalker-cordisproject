@@ -288,7 +288,7 @@ public:
     void DebugRender(Fmatrix& XFORM) override;
 
 protected:
-    shared_str getDebugName() override { return dbg_name; }
+    xr_string getDebugName() override { return dbg_name; }
 
 public:
 #endif

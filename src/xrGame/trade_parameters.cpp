@@ -20,5 +20,5 @@ void CTradeParameters::process(action_show, CInifile& ini_file, const shared_str
     auto E = S.Data.cend();
     for (; I != E; ++I)
         if (!(*I).second.size())
-            m_show.disable((*I).first);
+            m_show.disable((*I).first.c_str());
 }

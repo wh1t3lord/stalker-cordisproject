@@ -54,6 +54,11 @@ public:
     virtual void on_item_take(CScriptGameObject* p_client_object);
     virtual void info_callback(const xr_string& info_name);
 #pragma endregion
+    
+#pragma region Cordis Helicopter callbacks
+    virtual void on_point(const float distance, const Fvector& position, const std::uint32_t path_index);
+    virtual void on_hit(const float power, const float impulse, const ALife::EHitType& hit_type, const std::uint16_t enemy_id);
+#pragma endregion
 
     // @ Uses only for animation_callback if exists
     inline bool isCanUseAnimationCallback(void) const noexcept { return this->m_is_can_use_animation_callback; }

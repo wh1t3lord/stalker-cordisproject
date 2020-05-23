@@ -303,20 +303,20 @@ Script_StateManager::Script_StateManager(CScriptGameObject* const p_client_objec
     CScriptActionBase* p_action_movement_walk_search =
         new Script_ActionStateManagerMovementWalkSearch("state_mgr_movement_walk_search", this);
 
-    p_action_movement_walk_turn->add_condition(CWorldProperty(this->m_properties.at("locked"), false));
-    p_action_movement_walk_turn->add_condition(CWorldProperty(this->m_properties.at("animstate_locked"), false));
-    p_action_movement_walk_turn->add_condition(CWorldProperty(this->m_properties.at("animation_locked"), false));
-    p_action_movement_walk_turn->add_condition(CWorldProperty(this->m_properties.at("locked_external"), false));
-    p_action_movement_walk_turn->add_condition(CWorldProperty(this->m_properties.at("movement"), false));
-    p_action_movement_walk_turn->add_condition(CWorldProperty(this->m_properties.at("direction"), false));
-    p_action_movement_walk_turn->add_condition(CWorldProperty(this->m_properties.at("direction_search"), true));
-    p_action_movement_walk_turn->add_condition(CWorldProperty(this->m_properties.at("bodystate"), true));
-    p_action_movement_walk_turn->add_condition(CWorldProperty(this->m_properties.at("mental"), true));
-    p_action_movement_walk_turn->add_condition(CWorldProperty(this->m_properties.at("movement_walk"), true));
-    p_action_movement_walk_turn->add_condition(CWorldProperty(this->m_properties.at("animstate_idle_now"), true));
-    p_action_movement_walk_turn->add_condition(CWorldProperty(this->m_properties.at("animation_none_now"), true));
-    p_action_movement_walk_turn->add_effect(CWorldProperty(this->m_properties.at("movement"), true));
-    p_action_movement_walk_turn->add_effect(CWorldProperty(this->m_properties.at("direction"), true));
+    p_action_movement_walk_search->add_condition(CWorldProperty(this->m_properties.at("locked"), false));
+    p_action_movement_walk_search->add_condition(CWorldProperty(this->m_properties.at("animstate_locked"), false));
+    p_action_movement_walk_search->add_condition(CWorldProperty(this->m_properties.at("animation_locked"), false));
+    p_action_movement_walk_search->add_condition(CWorldProperty(this->m_properties.at("locked_external"), false));
+    p_action_movement_walk_search->add_condition(CWorldProperty(this->m_properties.at("movement"), false));
+    p_action_movement_walk_search->add_condition(CWorldProperty(this->m_properties.at("direction"), false));
+    p_action_movement_walk_search->add_condition(CWorldProperty(this->m_properties.at("direction_search"), true));
+    p_action_movement_walk_search->add_condition(CWorldProperty(this->m_properties.at("bodystate"), true));
+    p_action_movement_walk_search->add_condition(CWorldProperty(this->m_properties.at("mental"), true));
+    p_action_movement_walk_search->add_condition(CWorldProperty(this->m_properties.at("movement_walk"), true));
+    p_action_movement_walk_search->add_condition(CWorldProperty(this->m_properties.at("animstate_idle_now"), true));
+    p_action_movement_walk_search->add_condition(CWorldProperty(this->m_properties.at("animation_none_now"), true));
+    p_action_movement_walk_search->add_effect(CWorldProperty(this->m_properties.at("movement"), true));
+    p_action_movement_walk_search->add_effect(CWorldProperty(this->m_properties.at("direction"), true));
 
     this->m_p_action_planner->add_operator(this->m_operators.at("movement_walk_search"), p_action_movement_walk_search);
 
@@ -707,13 +707,13 @@ Script_StateManager::~Script_StateManager(void)
 {
     if (this->m_p_animation)
     {
-        Msg("[Scripts/Script_StateManager/~dtor()] deleting m_p_animation");
+        MESSAGEI("deleting m_p_animation");
         xr_delete(this->m_p_animation);
     }
 
     if (this->m_p_animstate)
     {
-        Msg("[Scripts/Script_StateManager/~dtor()] deleting m_p_animstate");
+        MESSAGEI("deleting m_p_animstate");
         xr_delete(this->m_p_animstate);
     }
 }

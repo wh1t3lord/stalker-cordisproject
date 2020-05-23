@@ -252,10 +252,14 @@ void CGameTask::load_task(IReader& stream)
 
 void CGameTask::CommitScriptHelperContents()
 {
+    Cordis::Scripts::Script_TaskManager::getInstance().task_complete(this->m_ID.c_str());
+    Cordis::Scripts::Script_TaskManager::getInstance().task_fail(this->m_ID.c_str());
+/*
     m_pScriptHelper.init_functors(m_pScriptHelper.m_s_complete_lua_functions, m_complete_lua_functions);
-    m_pScriptHelper.init_functors(m_pScriptHelper.m_s_fail_lua_functions, m_fail_lua_functions);
+    m_pScriptHelper.init_functors(m_pScriptHelper.m_s_fail_lua_functions, m_fail_lua_functions);*/
+/* Lord: проверить есть ли такие callback ли вообще? 
     m_pScriptHelper.init_functors(m_pScriptHelper.m_s_lua_functions_on_complete, m_lua_functions_on_complete);
-    m_pScriptHelper.init_functors(m_pScriptHelper.m_s_lua_functions_on_fail, m_lua_functions_on_fail);
+    m_pScriptHelper.init_functors(m_pScriptHelper.m_s_lua_functions_on_fail, m_lua_functions_on_fail);*/
 }
 
 void CGameTask::AddCompleteInfo_script(LPCSTR _str) { m_completeInfos.push_back(_str); }

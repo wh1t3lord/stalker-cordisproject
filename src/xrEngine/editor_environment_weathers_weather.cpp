@@ -67,7 +67,7 @@ void weather::load()
 
     for (const auto &i : sections)
     {
-        time* object = new time(&m_manager, this, i->Name);
+        time* object = new time(&m_manager, this, i->Name.c_str());
         object->load(*config);
         object->fill(m_collection);
         m_times.push_back(object);
@@ -290,7 +290,7 @@ bool weather::paste_time_frame(shared_str const& frame_id, char const* buffer, u
         if (temp.sections().empty())
             return (false);
 
-        i->load_from((*temp.sections().begin())->Name, temp, shared_str(i->id()));
+        i->load_from((*temp.sections().begin())->Name.c_str(), temp, shared_str(i->id()));
         return (true);
     }
 
@@ -304,7 +304,7 @@ bool weather::add_time_frame(char const* buffer, u32 const& buffer_size)
     if (temp.sections().empty())
         return (false);
 
-    shared_str const& section = (*temp.sections().begin())->Name;
+    shared_str const& section = (*temp.sections().begin())->Name.c_str();
     for (const auto &i : m_times)
         if (section._get() == i->id()._get())
             return (false);

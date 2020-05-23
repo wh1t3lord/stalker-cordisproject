@@ -231,6 +231,7 @@
 #include "xrGame/ai/monsters/control_path_builder.h" // ~130
 #include "xrGame/ai/monsters/monster_corpse_manager.h" // ~130
 #include "xrGame/ai/stalker/ai_stalker.h"
+#include "xrGame/ZoneCampfire.h"
 
 #include <d3dx9.h>
 
@@ -499,6 +500,8 @@ __declspec(dllexport)  CSE_Abstract* xrServer_Create(LPCSTR section, CSE_Motion*
 #include "Script_SchemeXRReachTask.h"
 #include "Script_SchemeXRAnimpoint.h"
 #include "Script_SchemeXRSmartCover.h"
+#include "Script_SchemeXRDanger.h"
+#include "Script_PostCombat.h"
 #include "Script_Dialogs.h"
 #include "Script_DialogsZaton.h"
 #include "Script_DialogsJupiter.h"

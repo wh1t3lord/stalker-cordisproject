@@ -1,5 +1,7 @@
 #include "stdafx.h"
 #include "Script_SchemeSRParticle.h"
+#include "RenderVisual.h"
+#include "ParticleCustom.h"
 
 namespace Cordis
 {
@@ -17,7 +19,7 @@ Script_SchemeSRParticle::~Script_SchemeSRParticle(void)
 {
     if (this->m_path)
     {
-        Msg("[Scripts/Script_SchemeSRParticle/~dtor()] deleting m_path %s!", this->m_path->m_path_name);
+        MESSAGEI("deleting m_path %s!", this->m_path->m_path_name);
         xr_delete(this->m_path);
     }
 
@@ -25,7 +27,7 @@ Script_SchemeSRParticle::~Script_SchemeSRParticle(void)
     {
         if (it.getParticle())
         {
-            Msg("[Scripts/Script_SchemeSRParticle/~dtor()] deleting m_particle");
+            MESSAGEI("deleting m_particle");
             CScriptParticles* p_pointer = it.getParticle();
             xr_delete(p_pointer);
             it.setParticle(nullptr);
@@ -44,23 +46,23 @@ void Script_SchemeSRParticle::reset_scheme(const bool value, CScriptGameObject* 
             if (it.getParticle())
             {
                 CScriptParticles* p_pointer = it.getParticle();
+                MESSAGEI("deleting particles! %s", p_pointer->m_particles->GetRenderData().visual->dcast_ParticleCustom()->Name().c_str());
                 xr_delete(p_pointer);
                 it.setParticle(nullptr);
             }
         }
 
         this->m_particles.clear();
-        Msg("[Scripts/Script_SchemeSRParticle/reset_scheme(is_loading, p_client_object)] deallocating "
-            "this->m_particles!");
     }
 
     if (this->m_p_storage->getSRParticleMode() == 2)
     {
         if (this->m_path)
         {
+			MESSAGEI("deallocating "
+				"this->m_path! %s", this->m_path->m_path_name);
             xr_delete(this->m_path);
-            Msg("[Scripts/Script_SchemeSRParticle/reset_scheme(is_loading, p_client_object)] deallocating "
-                "this->m_path!");
+
         }
 
         this->m_path = new CPatrolPathParams(this->m_p_storage->getSRParticlePathName().c_str());
@@ -88,7 +90,7 @@ void Script_SchemeSRParticle::reset_scheme(const bool value, CScriptGameObject* 
             data.setPlayed(false);
             data.setTime(Globals::get_time_global());
             data.setParticle(new CScriptParticles(this->m_p_storage->getSRParticleName().c_str()));
-            this->m_particles.push_back(data);
+            this->m_particles.emplace_back(std::move(data));
         }
     }
     else
@@ -99,10 +101,11 @@ void Script_SchemeSRParticle::reset_scheme(const bool value, CScriptGameObject* 
         data.setDelay(0);
         data.setParticle(new CScriptParticles(this->m_p_storage->getSRParticleName().c_str()));
 
-        this->m_particles.push_back(data);
+        this->m_particles.emplace_back(std::move(data));
 
         if (this->m_path)
         {
+            MESSAGEI("deleting m_path in sr_particle!");
             xr_delete(this->m_path);
         }
     }
@@ -218,7 +221,7 @@ void Script_SchemeSRParticle::set_scheme(CScriptGameObject* const p_client_objec
         return;
     }
 
-    if (p_storage->getSRParticleMode() != 1 || p_storage->getSRParticleMode() != 2)
+    if (p_storage->getSRParticleMode() != 1 && p_storage->getSRParticleMode() != 2)
     {
         R_ASSERT2(false, "wrong mode you are set");
         return;

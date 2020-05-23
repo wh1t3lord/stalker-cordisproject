@@ -19,7 +19,7 @@ void cdkey_ban_list::load()
     for (CInifile::Root::iterator i = banlist.begin(), ie = banlist.end(); i != ie; ++i)
     {
         banned_client* tmp_client = new banned_client();
-        if (tmp_client->load(&bl_ini, (*i)->Name))
+        if (tmp_client->load(&bl_ini, (*i)->Name.c_str()))
         {
             m_ban_list.push_back(tmp_client);
         }

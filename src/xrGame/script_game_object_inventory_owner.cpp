@@ -671,7 +671,8 @@ int CScriptGameObject::GetAttitude(CScriptGameObject* pToWho)
     // VERIFY(pInventoryOwner);
     if (!pInventoryOwner)
     {
-        GEnv.ScriptEngine->script_log(LuaMessageType::Error, "GetAttitude available only for InventoryOwner");
+        // Lord: вызывается когда пытаемся удалить объект но странно, ибо на объекте оно являвется уже NULL 
+        MESSAGEWR("GetAttitude available only for InventoryOwner");
         return 0;
     }
     CInventoryOwner* pOthersInventoryOwner = smart_cast<CInventoryOwner*>(&pToWho->object());

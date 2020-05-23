@@ -273,7 +273,7 @@ Script_Task::Script_Task(CScriptIniFile* p_ini, const xr_string& task_id_name)
 
     xr_string title_function_name = Globals::Utils::cfg_get_string(this->m_p_ini, task_id_name, "title_functor");
     if (title_function_name.empty())
-        title_function_name = "condlist";
+        title_function_name = "task_functor_condlist";
 
     this->m_title_functor_name = title_function_name;
 
@@ -286,7 +286,7 @@ Script_Task::Script_Task(CScriptIniFile* p_ini, const xr_string& task_id_name)
     xr_string description_functor_name = Globals::Utils::cfg_get_string(this->m_p_ini, task_id_name, "descr_functor");
 
     if (description_functor_name.empty())
-        description_functor_name = "condlist";
+        description_functor_name = "task_functor_condlist";
 
     this->m_description_functor_name = description_functor_name;
 

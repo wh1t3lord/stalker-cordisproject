@@ -92,7 +92,7 @@ void manager::load_thunderbolts()
 
     for (const auto &i : sections)
     {
-        thunderbolt* object = new thunderbolt(this, i->Name);
+        thunderbolt* object = new thunderbolt(this, i->Name.c_str());
         object->load(*config);
         object->fill(m_environment, m_thunderbolt_collection);
         m_thunderbolts.push_back(object);
@@ -125,7 +125,7 @@ void manager::load_collections()
 
     for (const auto &i : sections)
     {
-        collection* object = new collection(*this, i->Name);
+        collection* object = new collection(*this, i->Name.c_str());
         object->load(*config);
         object->fill(m_thunderbolt_collection);
         m_collections.push_back(object);
