@@ -18,8 +18,12 @@ IC CGameObject& CScriptGameObject::object() const
     // What does this even throw? Think about rewriting this try-catch block
     try
     {
-        if (m_game_object && m_game_object->lua_game_object() == this)
-            return (*m_game_object);
+        if (this)
+        {
+            if (m_game_object && m_game_object->lua_game_object() == this)
+                return (*m_game_object);      
+        }
+
     }
     catch (...)
     {
