@@ -46,3 +46,12 @@
 [submodule "Externals/gli"]
 	path = Externals/gli
 	url = https://github.com/g-truc/gli.git
+[submodule "bgfx"]
+	path = bgfx
+	url = https://github.com/bkaradzic/bgfx.git
+[submodule "bx"]
+	path = bx
+	url = git://github.com/bkaradzic/bx.git
+[submodule "bimg"]
+	path = bimg
+	url = git://github.com/bkaradzic/bimg.git
