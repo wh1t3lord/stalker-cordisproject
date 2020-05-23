@@ -2352,19 +2352,13 @@ inline void mob_release(CScriptGameObject* const p_client_object, const xr_strin
 {
     if (!p_client_object)
     {
-        R_ASSERT2(false, "object is null!");
-        return;
-    }
-
-    if (scheme_name.empty())
-    {
-        R_ASSERT2(false, "string can't be empty here");
+        MESSAGEWR("invalid object!");
         return;
     }
 
     if (p_client_object->GetScriptControl())
     {
-        p_client_object->SetScriptControl(false, scheme_name.c_str());
+        p_client_object->SetScriptControl(false, "xr_logic");
     }
 }
 
