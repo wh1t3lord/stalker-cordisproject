@@ -55,14 +55,25 @@ CScriptGameObject* CScriptGameObject::Parent() const
         return (0);
 }
 
-int CScriptGameObject::clsid() const { return (object().clsid()); }
+int CScriptGameObject::clsid() const 
+{
+    if (m_game_object == nullptr)
+    {
+        MESSAGEWR("object is already deleted!");
+        return -1;
+    }
+
+    return (object().clsid()); 
+}
+
 LPCSTR CScriptGameObject::Name() const 
 { 
-    if (object().lua_game_object() == nullptr)
+    if ((m_game_object == nullptr) || (m_game_object->lua_game_object() == nullptr))
     {
         MESSAGEI("instance was deleted and returned this, if you skip this you will get PVC!");
         return xr_string("already_deleted_npc!").c_str();
     }
+
     return (*object().cName()); 
 }
 shared_str CScriptGameObject::cName() const { return (object().cName()); }
