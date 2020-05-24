@@ -95,9 +95,9 @@ private: // Lord: добавить карты
     bool m_can_play_group_sound;
     bool m_group_sound;
     std::uint32_t m_played_time;
-    int m_idle_time;
-    int m_min_idle;
-    int m_max_idle;
+    float m_idle_time;
+    float m_min_idle;
+    float m_max_idle;
     int m_random;
     int m_played_id;
     float m_delay_sound;
@@ -186,9 +186,9 @@ private:
     bool m_can_play_sound;
     std::uint32_t m_played_id;
     std::uint32_t m_played_time;
-    int m_idle_time;
-    int m_min_idle;
-    int m_max_idle;
+    float m_idle_time;
+    float m_min_idle;
+    float m_max_idle;
     int m_random;
     CScriptSound* m_sound_object;
     xr_map<std::uint16_t, xr_string> m_sound;
@@ -272,9 +272,9 @@ private:
     bool m_can_play_sound;
     std::uint32_t m_played_id;
     std::uint32_t m_played_time;
-    int m_idle_time;
-    int m_min_idle;
-    int m_max_idle;
+    float m_idle_time;
+    float m_min_idle;
+    float m_max_idle;
     int m_random;
     CScriptSound* m_sound_object;
     CScriptSound* m_pda_sound_object;
