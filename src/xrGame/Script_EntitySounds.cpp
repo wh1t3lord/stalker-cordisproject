@@ -676,6 +676,8 @@ Script_SoundObject::Script_SoundObject(CScriptIniFile& ini, const xr_string& sec
       m_message(Globals::Utils::cfg_get_string(&ini, section, "message")), m_section(section), m_sound_object(nullptr),
       m_idle_time(0), m_pda_sound_object(nullptr)
 {
+    if(this->m_shuffle.empty())
+        this->m_shuffle = "rnd";
 
     xr_vector<xr_string> to_parse_numbers = Globals::Utils::parse_names(Globals::Utils::cfg_get_string(&ini, section, "idle"));
 
