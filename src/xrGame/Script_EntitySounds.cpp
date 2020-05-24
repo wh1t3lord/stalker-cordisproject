@@ -689,7 +689,7 @@ Script_SoundObject::Script_SoundObject(CScriptIniFile& ini, const xr_string& sec
     }
     else
     {
-        size_t id = 0;
+        size_t id = 1;
         while (FS.exist("$game_sounds$", ((this->m_path + std::to_string(id).c_str()) + ".ogg").c_str()))
         {
             this->m_sound[id] = this->m_path + std::to_string(id).c_str();
