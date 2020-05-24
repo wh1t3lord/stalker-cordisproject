@@ -225,16 +225,12 @@ void Script_Binder_Stalker::net_Destroy(void)
         DataBase::Storage::getInstance().setOfflineObjects(this->m_object->ID(), this->m_object->level_vertex_id());
     }
 
-    DataBase::Storage::getInstance().deleteObject(this->m_object);
-
-    // Lord: происходит зануление стораджа
-
-    DataBase::Storage::getInstance().deleteStorage(this->m_object->ID());
-
     if (this->m_enemy_helicopter_id)
     {
         DataBase::Storage::getInstance().deleteEnemy(this->m_enemy_helicopter_id);
     }
+
+    DataBase::Storage::getInstance().deleteObject(this->m_object);
 
     CScriptBinderObject::net_Destroy();
 }
