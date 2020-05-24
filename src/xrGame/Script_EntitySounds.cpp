@@ -37,6 +37,9 @@ Script_SoundNPC::Script_SoundNPC(CScriptIniFile& sound_ini, const xr_string& sec
 
     for (const xr_string& it : avail_communities)
         this->m_avail_communities[it] = true;
+
+    if (this->m_shuffle.empty())
+        this->m_shuffle = "rnd";
 }
 
 Script_SoundNPC::~Script_SoundNPC(void)
