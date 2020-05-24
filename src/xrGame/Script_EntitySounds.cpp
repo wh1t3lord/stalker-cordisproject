@@ -454,13 +454,17 @@ Script_SoundActor::Script_SoundActor(CScriptIniFile& ini, const xr_string& secti
     : m_is_stereo(Globals::Utils::cfg_get_bool(&ini, section, "actor_stereo")),
       m_is_prefix(Globals::Utils::cfg_get_bool(&ini, section, "npc_prefix")),
       m_path(Globals::Utils::cfg_get_string(&ini, section, "path")),
-      m_shuffle(Globals::Utils::cfg_get_string(&ini, section, "play_always")), m_section(section), m_played_id(0),
+      m_shuffle(Globals::Utils::cfg_get_string(&ini, section, "shuffle"),
+      m_is_play_always(Globals::Utils::cfg_get_bool(&ini, section, "play_always")),
+      m_section(section), m_played_id(0),
       m_can_play_sound(true), m_sound_object(nullptr),
       m_faction(Globals::Utils::cfg_get_string(&ini, section, "faction")),
       m_point(Globals::Utils::cfg_get_string(&ini, section, "point")),
       m_message(Globals::Utils::cfg_get_string(&ini, section, "message")), m_class_id(SCRIPTSOUNDTYPE_ACTOR)
 {
-    
+    if (this->m_shuffle.empty())
+        this->m_shuffle = "rnd";
+
     xr_vector<xr_string> iterval = Globals::Utils::parse_names(Globals::Utils::cfg_get_string(&ini, section, "idle"));
 
     if (iterval.size() > 0)
