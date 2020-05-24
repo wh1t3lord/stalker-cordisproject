@@ -35,6 +35,7 @@ void Script_Binder_Actor::net_Export(NET_Packet* packet) {}
 
 void Script_Binder_Actor::shedule_Update(std::uint32_t time_delta) 
 {
+    XR_SOUND::update(this->m_object->ID());
     Cordis::Scripts::Script_SimulationObjects::getInstance().update_avaliability(ai().alife().graph().actor());
 }
 
