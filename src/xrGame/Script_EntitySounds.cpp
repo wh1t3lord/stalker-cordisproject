@@ -582,10 +582,17 @@ bool Script_SoundActor::play(const std::uint16_t& npc_id, xr_string& faction, st
     this->m_played_time = 0;
     this->m_played_id = this->select_next_sound();
 
-    if (this->m_played_id)
+    if (this->m_played_id == Globals::kUnsignedInt32Undefined)
         return false;
 
-    xr_string sound_name = this->m_sound[this->m_played_id];
+    xr_string sound_name;
+    if (this->m_played_id < this->m_sound.size())
+        sound_name = this->m_sound.at(this->m_played_id);
+    else if (this->m_played_id == this->m_sound.size())
+        sound_name = this->m_sound.at(this->m_played_id - 1);
+    else
+        R_ASSERT2(false, "can't be!");
+
     this->m_sound_object = new CScriptSound(sound_name.c_str());
     this->m_sound_object->SetVolume(0.8f);
     this->m_sound_object->PlayAtPos(DataBase::Storage::getInstance().getActor(), Fvector().set(0, 0, 0), 0.0f, sm_2D);
@@ -626,20 +633,20 @@ int Script_SoundActor::select_next_sound(const std::uint16_t& npc_id)
     if (this->m_shuffle == "seq")
     {
         if (this->m_played_id == -1)
-            return -1;
+            return Globals::kUnsignedInt32Undefined;
 
-        if (!this->m_played_id)
+        if (this->m_played_id == Globals::kUnsignedInt32Undefined)
             return 1;
 
         if (this->m_played_id < sound_map_size)
             return this->m_played_id + 1;
 
-        return -1;
+        return Globals::kUnsignedInt32Undefined;
     }
 
     if (this->m_shuffle == "loop")
     {
-        if (!this->m_played_id)
+        if (this->m_played_id == Globals::kUnsignedInt32Undefined)
             return 1;
 
         if (this->m_played_id < sound_map_size)
@@ -650,7 +657,7 @@ int Script_SoundActor::select_next_sound(const std::uint16_t& npc_id)
 
     // Lord: хз гарантировано он будет проходить все ифы но какое значение здесь должен возвращать по тестировать!!!
     R_ASSERT(false);
-    return 0;
+    return Globals::kUnsignedInt32Undefined;
 }
 
 void Script_SoundActor::stop(const std::uint16_t& obj_id)
@@ -789,10 +796,16 @@ bool Script_SoundObject::play(const std::uint16_t& npc_id, xr_string& faction, s
 
     this->m_played_id = this->select_next_sound();
 
-    if (this->m_played_id == -1)
+    if (this->m_played_id == Globals::kUnsignedInt32Undefined)
         return false;
 
-    xr_string sound_name = this->m_sound[this->m_played_id];
+	xr_string sound_name;
+	if (this->m_played_id < this->m_sound.size())
+		sound_name = this->m_sound.at(this->m_played_id);
+	else if (this->m_played_id == this->m_sound.size())
+		sound_name = this->m_sound.at(this->m_played_id - 1);
+	else
+		R_ASSERT2(false, "can't be!");
 
     if (sound_name.size())
     {
@@ -865,20 +878,20 @@ int Script_SoundObject::select_next_sound(const std::uint16_t& npc_id)
     if (this->m_shuffle == "seq")
     {
         if (this->m_played_id == -1)
-            return -1;
+            return Globals::kUnsignedInt32Undefined;
 
-        if (!this->m_played_id)
+        if (this->m_played_id == Globals::kUnsignedInt32Undefined)
             return 1;
 
         if (this->m_played_id < sound_map_size)
             return this->m_played_id + 1;
 
-        return -1;
+        return Globals::kUnsignedInt32Undefined;
     }
 
     if (this->m_shuffle == "loop")
     {
-        if (!this->m_played_id)
+        if (this->m_played_id == Globals::kUnsignedInt32Undefined)
             return 1;
 
         if (this->m_played_id < sound_map_size)
@@ -889,7 +902,7 @@ int Script_SoundObject::select_next_sound(const std::uint16_t& npc_id)
 
     // Lord: хз гарантировано он будет проходить все ифы но какое значение здесь должен возвращать по тестировать!!!
     R_ASSERT(false);
-    return 0;
+    return Globals::kUnsignedInt32Undefined;
 }
 
 void Script_SoundObject::stop(const std::uint16_t& obj_id)
