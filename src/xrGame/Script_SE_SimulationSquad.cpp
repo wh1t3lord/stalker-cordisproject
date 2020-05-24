@@ -285,6 +285,12 @@ void Script_SE_SimulationSquad::update()
 
         this->get_next_action(false);
     }
+
+    if (this->m_is_need_to_reset_location_masks)
+    {
+        this->set_location_types("");
+        this->m_is_need_to_reset_location_masks = false;
+    }
 }
 
 std::uint16_t Script_SE_SimulationSquad::getScriptTarget(void)
@@ -292,7 +298,7 @@ std::uint16_t Script_SE_SimulationSquad::getScriptTarget(void)
     xr_string new_target_name = XR_LOGIC::pick_section_from_condlist(
         DataBase::Storage::getInstance().getActor(), this, this->m_condlist_action);
 
-    if (!new_target_name.size())
+    if (new_target_name.empty())
         return std::uint16_t(0);
 
     if (new_target_name != this->m_last_target_name)
@@ -906,16 +912,19 @@ void Script_SE_SimulationSquad::get_next_action(const bool is_under_simulation)
 
     if (this->m_current_target_id == 0)
     {
-        if (p_server_squad_target && p_server_squad_target->am_i_reached(this))
+        if (p_server_squad_target == nullptr || p_server_squad_target->am_i_reached(this))
         {
-            p_server_squad_target->on_reach_target(this);
-            p_server_squad_target->on_after_reach(this);
-        }
+            if (p_server_squad_target)
+            {
+				p_server_squad_target->on_reach_target(this);
+				p_server_squad_target->on_after_reach(this);
+            }
 
-        this->m_current_action = StayReachOnTarget();
-        this->m_current_target_id = this->m_assigned_target_id;
-        this->m_current_action.make(is_under_simulation);
-        return;
+			this->m_current_action = StayReachOnTarget();
+			this->m_current_target_id = this->m_assigned_target_id;
+			this->m_current_action.make(is_under_simulation);
+			return;
+        }
     }
 
     if ((this->m_assigned_target_id == this->m_current_target_id) || this->m_assigned_target_id == 0)
