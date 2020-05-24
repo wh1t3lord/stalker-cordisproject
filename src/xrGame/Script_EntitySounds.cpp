@@ -21,11 +21,22 @@ Script_SoundNPC::Script_SoundNPC(CScriptIniFile& sound_ini, const xr_string& sec
       m_message(Globals::Utils::cfg_get_string(&sound_ini, section, "message")), m_min_idle(3), m_max_idle(5),
       m_random(100), m_played_time(0), m_idle_time(0), m_class_id(SCRIPTSOUNDTYPE_NPC)
 {
-    // Lord: не совсем доделано! Подебажить и спарсить!
-    xr_string interval = Globals::Utils::cfg_get_string(&sound_ini, section, "idle");
+    
+    xr_vector<xr_string> interval = Globals::Utils::parse_names(Globals::Utils::cfg_get_string(&sound_ini, section, "idle"));
+    if (interval.size() > 0)
+        this->m_min_idle = boost::lexical_cast<int>(interval[0]);
 
-    // Lord: не совсем доделано! Подебажить и спарсить!
+    if (interval.size() >= 1)
+        this->m_max_idle = boost::lexical_cast<int>(interval[1]);
+
+    if (interval.size() >= 2)
+        this->m_random = boost::lexical_cast<int>(interval[2]);
+
     xr_string data_avail_communities = Globals::Utils::cfg_get_string(&sound_ini, section, "avail_communities");
+    xr_vector<xr_string> avail_communities = Globals::Utils::parse_names(data_avail_communities);
+
+    for (const xr_string& it : avail_communities)
+        this->m_avail_communities[it] = true;
 }
 
 Script_SoundNPC::~Script_SoundNPC(void)
@@ -170,10 +181,6 @@ void Script_SoundNPC::initialize_npc(CScriptGameObject* npc)
 void Script_SoundNPC::callback(const std::uint16_t npc_id)
 {
     this->m_played_time = Device.dwTimeGlobal;
-    // LorD: нормально ли генерирует рандомное значение простетировать
-    //     std::random_device random_device;
-    //     std::mt19937 range(random_device);
-    //     std::uniform_int_distribution<int> urandom(this->m_min_idle, this->m_max_idle);
 
     this->m_idle_time = Globals::Script_RandomInt::getInstance().Generate(this->m_min_idle, this->m_max_idle);
 
@@ -188,13 +195,13 @@ void Script_SoundNPC::callback(const std::uint16_t npc_id)
 
     if (storage_data.getActiveSchemeName().empty())
     {
-        Msg("[Scripts/Script_SoundNPC/callback(npc_id)] ActiveScheme is empty return ...");
+        MESSAGEWR("ActiveScheme is empty return ...");
         return;
     }
 
     if (storage_data.getSchemes().at(storage_data.getActiveSchemeName())->getSignals().empty())
     {
-        Msg("[Scripts/Script_SoundNPC/callback(npc_id)] Signals is empty return ...");
+        MESSAGEWR("Signals is empty return ...");
         return;
     }
 
@@ -450,8 +457,15 @@ Script_SoundActor::Script_SoundActor(CScriptIniFile& ini, const xr_string& secti
       m_point(Globals::Utils::cfg_get_string(&ini, section, "point")),
       m_message(Globals::Utils::cfg_get_string(&ini, section, "message")), m_class_id(SCRIPTSOUNDTYPE_ACTOR)
 {
-    // Lord: Реализовать парсинг
-    xr_string iterval = Globals::Utils::cfg_get_string(&ini, section, "idle");
+    
+    xr_vector<xr_string> iterval = Globals::Utils::parse_names(Globals::Utils::cfg_get_string(&ini, section, "idle"));
+
+    if (iterval.size() > 0)
+        this->m_min_idle = boost::lexical_cast<int>(iterval[0]);
+    if (iterval.size() >= 1)
+        this->m_max_idle = boost::lexical_cast<int>(iterval[1]);
+    if (iterval.size() >= 2)
+        this->m_random = boost::lexical_cast<int>(iterval[2]);
 
     if (FS.exist("$game_sounds$", (this->m_path + ".ogg").c_str()))
     {
@@ -499,10 +513,6 @@ bool Script_SoundActor::is_playing(const std::uint16_t& npc_id)
 void Script_SoundActor::callback(const std::uint16_t npc_id)
 {
     this->m_played_time = Device.dwTimeGlobal;
-    //     std::random_device random_device;
-    //     std::mt19937 range(random_device);
-    //     std::uniform_int_distribution<int> urandom(this->m_min_idle, this->m_max_idle);
-
     this->m_idle_time = Globals::Script_RandomInt::getInstance().Generate(this->m_min_idle, this->m_max_idle);
     if (this->m_sound_object)
     {
@@ -525,14 +535,14 @@ void Script_SoundActor::callback(const std::uint16_t npc_id)
 
     if (storage_data.getSchemes().at(storage_data.getActiveSchemeName())->getSignals().empty())
     {
-        Msg("[Scripts/Script_SoundActor/callback(npc_id)] signals is empty return ...");
+        MESSAGEWR("signals is empty return ...");
         return;
     }
 
     // Lord: проверить больше или всё же оно равно этому значению (про размер карты)
     if (this->m_played_id == this->m_sound.size() && (this->m_shuffle != "rnd"))
     {
-        Msg("[Script_SoundActor] -> [%s] signalled 'theme_end' in section [%s]", std::to_string(npc_id).c_str(),
+        MESSAGEI("[%s] signalled 'theme_end' in section [%s]", std::to_string(npc_id).c_str(),
             storage_data.getActiveSectionName().c_str());
         //    storage_data[storage_data.m_active_scheme].getSignals()["theme_end"] = true;
         //    storage_data[storage_data.m_active_scheme].getSignals()["sound_end"] = true;
@@ -541,7 +551,7 @@ void Script_SoundActor::callback(const std::uint16_t npc_id)
     }
     else
     {
-        Msg("[Script_SoundActor] -> [%s] signalled 'sound_end' in section [%s]", std::to_string(npc_id).c_str(),
+        MESSAGEI("[%s] signalled 'sound_end' in section [%s]", std::to_string(npc_id).c_str(),
             storage_data.getActiveSectionName().c_str());
 
         //  storage_data[storage_data.m_active_scheme].getSignals()["sound_end"] = true;
@@ -553,7 +563,7 @@ bool Script_SoundActor::play(const std::uint16_t& npc_id, xr_string& faction, st
 {
     if (!this->m_can_play_sound)
     {
-        Msg("[Script_SoundActor] -> this->m_can_play_sound == false!");
+        MESSAGEWR("this->m_can_play_sound == false!");
         return false;
     }
 
@@ -577,8 +587,6 @@ bool Script_SoundActor::play(const std::uint16_t& npc_id, xr_string& faction, st
     this->m_can_play_sound = false;
 
     Script_NewsManager::getInstance().SendSound(nullptr, this->m_faction, this->m_point, sound_name);
-
-    // Lord: доделать
     return true;
 }
 
@@ -595,10 +603,6 @@ int Script_SoundActor::select_next_sound(const std::uint16_t& npc_id)
 
         if (this->m_played_id)
         {
-            //             std::random_device random_device;
-            //             std::mt19937 range(random_device);
-            //             std::uniform_int_distribution<size_t> urandom(1, sound_map_size - 1);
-
             size_t generated_value = Globals::Script_RandomInt::getInstance().Generate<size_t>(1, sound_map_size - 1);
 
             if (generated_value >= this->m_played_id)
@@ -607,9 +611,6 @@ int Script_SoundActor::select_next_sound(const std::uint16_t& npc_id)
             return generated_value;
         }
 
-        //         std::random_device random_device;
-        //         std::mt19937 range(random_device);
-        //         std::uniform_int_distribution<size_t> urandom(1, sound_map_size);
         size_t generated_value = Globals::Script_RandomInt::getInstance().Generate<size_t>(1, sound_map_size);
 
         return generated_value;
@@ -672,8 +673,15 @@ Script_SoundObject::Script_SoundObject(CScriptIniFile& ini, const xr_string& sec
       m_message(Globals::Utils::cfg_get_string(&ini, section, "message")), m_section(section), m_sound_object(nullptr),
       m_idle_time(0), m_pda_sound_object(nullptr)
 {
-    // Lord: потестить и распарисить
-    xr_string to_parse_numbers = Globals::Utils::cfg_get_string(&ini, section, "idle");
+
+    xr_vector<xr_string> to_parse_numbers = Globals::Utils::parse_names(Globals::Utils::cfg_get_string(&ini, section, "idle"));
+
+    if (to_parse_numbers.size() > 0)
+        this->m_min_idle = boost::lexical_cast<int>(to_parse_numbers[0]);
+    if (to_parse_numbers.size() >= 1)
+        this->m_max_idle = boost::lexical_cast<int>(to_parse_numbers[1]);
+    if (to_parse_numbers.size() >= 2)
+        this->m_random = boost::lexical_cast<int>(to_parse_numbers[2]);
 
     if (FS.exist("$game_sounds$", (this->m_path + ".ogg").c_str()))
     {
