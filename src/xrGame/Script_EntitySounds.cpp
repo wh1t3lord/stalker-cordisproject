@@ -246,7 +246,7 @@ bool Script_SoundNPC::play(const std::uint16_t& npc_id, xr_string& faction, std:
         }
     }
 
-    if (!this->m_played_time && ((Device.dwTimeGlobal - this->m_played_time) < this->m_idle_time))
+    if (this->m_played_time && ((Device.dwTimeGlobal - this->m_played_time) < this->m_idle_time))
     {
         return false;
     }
@@ -574,7 +574,7 @@ bool Script_SoundActor::play(const std::uint16_t& npc_id, xr_string& faction, st
         return false;
     }
 
-    if (!this->m_played_time && (Device.dwTimeGlobal - this->m_played_time < this->m_idle_time))
+    if (this->m_played_time && (Device.dwTimeGlobal - this->m_played_time < this->m_idle_time))
     {
         return false;
     }
