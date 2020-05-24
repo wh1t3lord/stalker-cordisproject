@@ -18,16 +18,16 @@ Script_SoundNPC::Script_SoundNPC(CScriptIniFile& sound_ini, const xr_string& sec
       m_played_id(0), m_delay_sound(Globals::Utils::cfg_get_number(&sound_ini, section, "delay_sound")),
       m_can_play_group_sound(true), m_faction(Globals::Utils::cfg_get_string(&sound_ini, section, "faction")),
       m_point(Globals::Utils::cfg_get_string(&sound_ini, section, "point")),
-      m_message(Globals::Utils::cfg_get_string(&sound_ini, section, "message")), m_min_idle(3), m_max_idle(5),
+      m_message(Globals::Utils::cfg_get_string(&sound_ini, section, "message")), m_min_idle(3.0f), m_max_idle(5.0f),
       m_random(100), m_played_time(0), m_idle_time(0), m_class_id(SCRIPTSOUNDTYPE_NPC)
 {
     
     xr_vector<xr_string> interval = Globals::Utils::parse_names(Globals::Utils::cfg_get_string(&sound_ini, section, "idle"));
     if (interval.size() > 0)
-        this->m_min_idle = boost::lexical_cast<int>(interval[0]);
+        this->m_min_idle = boost::lexical_cast<float>(interval[0]);
 
     if (interval.size() >= 1)
-        this->m_max_idle = boost::lexical_cast<int>(interval[1]);
+        this->m_max_idle = boost::lexical_cast<float>(interval[1]);
 
     if (interval.size() >= 2)
         this->m_random = boost::lexical_cast<int>(interval[2]);
@@ -182,7 +182,7 @@ void Script_SoundNPC::callback(const std::uint16_t npc_id)
 {
     this->m_played_time = Device.dwTimeGlobal;
 
-    this->m_idle_time = Globals::Script_RandomInt::getInstance().Generate(this->m_min_idle, this->m_max_idle);
+    this->m_idle_time = Globals::Script_RandomFloat::getInstance().Generate(this->m_min_idle, this->m_max_idle);
 
     if (this->m_group_sound)
         this->m_can_play_group_sound = true;
@@ -461,9 +461,9 @@ Script_SoundActor::Script_SoundActor(CScriptIniFile& ini, const xr_string& secti
     xr_vector<xr_string> iterval = Globals::Utils::parse_names(Globals::Utils::cfg_get_string(&ini, section, "idle"));
 
     if (iterval.size() > 0)
-        this->m_min_idle = boost::lexical_cast<int>(iterval[0]);
+        this->m_min_idle = boost::lexical_cast<float>(iterval[0]);
     if (iterval.size() >= 1)
-        this->m_max_idle = boost::lexical_cast<int>(iterval[1]);
+        this->m_max_idle = boost::lexical_cast<float>(iterval[1]);
     if (iterval.size() >= 2)
         this->m_random = boost::lexical_cast<int>(iterval[2]);
 
@@ -513,7 +513,7 @@ bool Script_SoundActor::is_playing(const std::uint16_t& npc_id)
 void Script_SoundActor::callback(const std::uint16_t npc_id)
 {
     this->m_played_time = Device.dwTimeGlobal;
-    this->m_idle_time = Globals::Script_RandomInt::getInstance().Generate(this->m_min_idle, this->m_max_idle);
+    this->m_idle_time = Globals::Script_RandomFloat::getInstance().Generate(this->m_min_idle, this->m_max_idle);
     if (this->m_sound_object)
     {
         delete this->m_sound_object;
@@ -677,9 +677,9 @@ Script_SoundObject::Script_SoundObject(CScriptIniFile& ini, const xr_string& sec
     xr_vector<xr_string> to_parse_numbers = Globals::Utils::parse_names(Globals::Utils::cfg_get_string(&ini, section, "idle"));
 
     if (to_parse_numbers.size() > 0)
-        this->m_min_idle = boost::lexical_cast<int>(to_parse_numbers[0]);
+        this->m_min_idle = boost::lexical_cast<float>(to_parse_numbers[0]);
     if (to_parse_numbers.size() >= 1)
-        this->m_max_idle = boost::lexical_cast<int>(to_parse_numbers[1]);
+        this->m_max_idle = boost::lexical_cast<float>(to_parse_numbers[1]);
     if (to_parse_numbers.size() >= 2)
         this->m_random = boost::lexical_cast<int>(to_parse_numbers[2]);
 
@@ -731,7 +731,7 @@ void Script_SoundObject::callback(const std::uint16_t npc_id)
     //     std::random_device random_device;
     //     std::mt19937 range(random_device);
     //     std::uniform_int_distribution<int> urandom(this->m_min_idle, this->m_max_idle);
-    this->m_idle_time = Globals::Script_RandomInt::getInstance().Generate(this->m_min_idle, this->m_max_idle) * 1000;
+    this->m_idle_time = Globals::Script_RandomFloat::getInstance().Generate(this->m_min_idle, this->m_max_idle) * 1000;
     this->m_can_play_sound = true;
 
     CurrentGameUI()->RemoveCustomStatic("cs_subtitles_object");
