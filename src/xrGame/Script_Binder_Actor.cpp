@@ -18,14 +18,14 @@ void Script_Binder_Actor::reload(LPCSTR section_name) {}
 
 bool Script_Binder_Actor::net_Spawn(SpawnType DC) 
 {
-    Msg("[Scripts/Script_Binder_Actor/net_Spawn(DC)] adding to database %s", this->m_object->Name());
+    MESSAGEI("adding to database %s", this->m_object->Name());
     DataBase::Storage::getInstance().setActor(this->m_object);
     return true; 
 }
 
 void Script_Binder_Actor::net_Destroy(void)
 {
-    Msg("[Scripts/Script_Binder_Actor/net_Destroy()] deleting from database %s", this->m_object->Name());
+    MESSAGEI("deleting from database %s", this->m_object->Name());
     DataBase::Storage::getInstance().deleteActor(this->m_object);
 }
 
@@ -33,7 +33,10 @@ void Script_Binder_Actor::net_Import(NET_Packet* packet) {}
 
 void Script_Binder_Actor::net_Export(NET_Packet* packet) {}
 
-void Script_Binder_Actor::shedule_Update(std::uint32_t time_delta) {}
+void Script_Binder_Actor::shedule_Update(std::uint32_t time_delta) 
+{
+    Cordis::Scripts::Script_SimulationObjects::getInstance().update_avaliability(ai().alife().graph().actor());
+}
 
 void Script_Binder_Actor::save(NET_Packet* output_packet) {}
 

@@ -380,7 +380,44 @@ void Script_Binder_Stalker::shedule_Update(std::uint32_t time_delta)
 
     if (is_object_alive)
     {
+        const xr_string& active_section_name = DataBase::Storage::getInstance().getStorage().at(this->m_object->ID()).getActiveSectionName();
 
+        if (active_section_name.empty() == false)
+        {
+            this->m_object->info_add(xr_string("section: ").append(active_section_name).c_str());
+        }
+
+        CScriptGameObject* const p_best_enemy = this->m_object->GetBestEnemy();
+        if (p_best_enemy)
+        {
+            this->m_object->info_add(xr_string("enemy: ").append(p_best_enemy->Name()).c_str());
+        }
+
+        const CDangerObject* const p_danger = this->m_object->GetBestDanger();
+        if (p_danger)
+        {
+            this->m_object->info_add(xr_string("danger: ").append(XR_DANGER::get_danger_name(p_danger)).c_str());
+        }
+
+        this->m_object->info_add(xr_string(this->m_object->Name()).append("[").append(std::to_string(this->m_object->Team()).c_str()).append("]").append("[").append(std::to_string(this->m_object->Squad()).c_str()).append("]").append("[").append(std::to_string(this->m_object->Group()).c_str()).append("]").c_str());
+
+        if (ai().alife().objects().object(this->m_object->ID()) == nullptr)
+            return;
+
+        if (p_squad)
+        {
+            this->m_object->info_add(xr_string("squad_id: ").append(p_squad->name()).c_str());
+
+            CSE_Abstract* const p_target = ai().alife().objects().object(p_squad->getAssignedTargetID());
+
+            xr_string target_name = "none";
+            if (p_target)
+            {
+                target_name = p_target->name_replace();
+            }
+
+            this->m_object->info_add(xr_string("current_action: ").append(p_squad->getCurrentAction().getName()).append("[").append(target_name).append("]").c_str());
+        }
     }
 
 }

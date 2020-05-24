@@ -13477,4 +13477,8 @@ Cordis::Scripts::Script_GlobalHelper::Script_GlobalHelper(void)
     this->m_data_relations["enemy"] = ALife::eRelationTypeEnemy;
     this->m_data_relations["neutral"] = ALife::eRelationTypeNeutral;
 #pragma endregion
+
+#pragma region Cordis XR_SOUND loading sounds 
+    Globals::load_sound();
+#pragma endregion
 }

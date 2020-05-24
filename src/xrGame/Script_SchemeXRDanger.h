@@ -6,7 +6,7 @@ namespace Scripts
 {
 namespace XR_DANGER
 {
-inline xr_string get_danger_name(CDangerObject* const p_best_danger)
+inline xr_string get_danger_name(const CDangerObject* const p_best_danger)
 {
     xr_string result;
     if (!p_best_danger)
