@@ -329,9 +329,24 @@ namespace Cordis
 			generated_id_name.append("_to_");
 			generated_id_name.append(std::to_string(this->m_squad_id).c_str());
 
-			Script_ReachTaskManager* p_manager = new Script_ReachTaskManager(std::to_string(this->m_target_id).c_str());
+			Script_ReachTaskManager* p_manager = nullptr;
+			if (DataBase::Storage::getInstance().getPatrolsXRReachTask().find(generated_id_name) == DataBase::Storage::getInstance().getPatrolsXRReachTask().end())
+			{
+				p_manager = new Script_ReachTaskManager(std::to_string(this->m_target_id).c_str());
+				DataBase::Storage::getInstance().setPatrolsXRReachTask(generated_id_name, p_manager);
+			}
+			else
+			{
+				p_manager = DataBase::Storage::getInstance().getPatrolsXRReachTask().at(generated_id_name);
+			}
+
+			if (p_manager == nullptr)
+			{
+				R_ASSERT2(false, "something is wrong!");
+				return;
+			}
+ 
 			p_manager->add_npc(this->m_object);
-			DataBase::Storage::getInstance().setPatrolsXRReachTask(generated_id_name, p_manager);
 		}
 
 		void Script_SchemeXRReachTask::execute(void)

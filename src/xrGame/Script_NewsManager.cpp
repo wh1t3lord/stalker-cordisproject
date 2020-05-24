@@ -50,10 +50,37 @@ bool Script_NewsManager::SendTip(CScriptGameObject* actor, const xr_string& news
         {
             if (p_server_npc->m_bOnline)
             {
-                // Lord: доделать
+                if (CRD_Wounded::is_heavy_wounded_by_id(p_server_npc->ID))
+                {
+                    MESSAGEWR("can't send tip by heavy wounded object!");
+                    return false;
+                }
+            }
+
+            if (p_server_npc->cast_creature_abstract()->g_Alive())
+            {
+                MESSAGEWR("Can't send a tip by dead object!");
+                return false;
             }
         }
     }
+
+    XR_SOUND::set_sound_play(DataBase::Storage::getInstance().getActor()->ID(), "pda_tips", xr_string(), 0);
+
+    xr_string texture_name = "ui_iconsTotal_grouping";
+
+    if (sender_name.empty() == false)
+    {
+        if (Script_GlobalHelper::getInstance().getNewsManagerRegisteredSoundTips().find(sender_name) != Script_GlobalHelper::getInstance().getNewsManagerRegisteredSoundTips().end())
+            texture_name = Script_GlobalHelper::getInstance().getNewsManagerRegisteredSoundTips().at(sender_name);
+    }
+
+    xr_string news_caption_name = Globals::Game::translate_string("st_tip");
+    xr_string news_text_name = Globals::Game::translate_string(news_id_name);
+
+    DataBase::Storage::getInstance().getActor()->GiveGameNews(news_caption_name.c_str(), news_text_name.c_str(), texture_name.c_str(), timeout * 1000, show_time, 0);
+
+    return true;
 }
 
 void Script_NewsManager::SendTask(CScriptGameObject* const p_actor, const xr_string& type_name, CGameTask* const p_task)
