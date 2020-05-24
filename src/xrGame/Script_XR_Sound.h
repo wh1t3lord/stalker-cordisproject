@@ -60,10 +60,10 @@ inline CScriptSound* set_sound_play(
         return getSoundDatabase().at(npc_id)->getSoundObject();
     }
 
-    return getSoundDatabase()[npc_id]->getSoundObject();
+    return getSoundDatabase().at(npc_id)->getSoundObject();
 }
 
-inline void update(const std::uint16_t& npc_id)
+inline void update(const std::uint16_t npc_id)
 {
     if (getSoundDatabase().find(npc_id) != getSoundDatabase().end())
     {
