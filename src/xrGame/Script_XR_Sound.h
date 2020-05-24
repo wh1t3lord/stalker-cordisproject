@@ -21,7 +21,7 @@ inline static xr_map<std::uint16_t, xr_map<xr_string, Script_ISoundEntity*>>& ge
 inline CScriptSound* set_sound_play(
     const std::uint16_t& npc_id, const xr_string& sound, xr_string& faction, const std::uint16_t point)
 {
-    if (!sound.size())
+    if (sound.empty())
     {
         R_ASSERT2(false, "string was empty!");
         return nullptr;
@@ -31,23 +31,23 @@ inline CScriptSound* set_sound_play(
 
     if (!sound_entity)
     {
-        Msg("object was null! Wrong sound theme [%s], npc_id - %s", sound.c_str(), std::to_string(npc_id).c_str());
+        MESSAGEWR("object was null! Wrong sound theme [%s], npc_id - %s", sound.c_str(), std::to_string(npc_id).c_str());
         R_ASSERT(false);
         return nullptr;
     }
 
     if (sound_entity->getSoundType() == SCRIPTSOUNDTYPE_LOOPED)
     {
-        Msg("You are trying to play sound [%s] which type is [%s]", sound.c_str(), SCRIPTSOUNDTYPE_LOOPED);
+        MESSAGEWR("You are trying to play sound [%s] which type is [%s]", sound.c_str(), SCRIPTSOUNDTYPE_LOOPED);
         R_ASSERT(false);
         return nullptr;
     }
 
-    if (getSoundDatabase()[npc_id] == nullptr || sound_entity->IsPlayAlways())
+    if ((getSoundDatabase().find(npc_id) == getSoundDatabase().end()) || sound_entity->IsPlayAlways())
     {
-        if (getSoundDatabase()[npc_id])
+        if (getSoundDatabase().find(npc_id) != getSoundDatabase().end())
         {
-            getSoundDatabase()[npc_id]->reset(npc_id);
+            getSoundDatabase().at(npc_id)->reset(npc_id);
         }
 
         if (sound_entity->play(npc_id, faction, point))
@@ -57,7 +57,7 @@ inline CScriptSound* set_sound_play(
     }
     else
     {
-        return getSoundDatabase()[npc_id]->getSoundObject();
+        return getSoundDatabase().at(npc_id)->getSoundObject();
     }
 
     return getSoundDatabase()[npc_id]->getSoundObject();
@@ -65,11 +65,11 @@ inline CScriptSound* set_sound_play(
 
 inline void update(const std::uint16_t& npc_id)
 {
-    if (getSoundDatabase()[npc_id])
+    if (getSoundDatabase().find(npc_id) != getSoundDatabase().end())
     {
-        if (!getSoundDatabase()[npc_id]->is_playing(npc_id))
+        if (!getSoundDatabase().at(npc_id)->is_playing(npc_id))
         {
-            getSoundDatabase()[npc_id]->callback(npc_id);
+            getSoundDatabase().at(npc_id)->callback(npc_id);
             getSoundDatabase()[npc_id] = nullptr;
         }
     }
@@ -99,18 +99,16 @@ inline void play_sound_looped(const std::uint16_t npc_id, const xr_string& sound
         return;
     }
 
-    if (getLoopedSoundDatabase()[npc_id][sound_name] &&
-        getLoopedSoundDatabase()[npc_id][sound_name]->is_playing(npc_id))
+    if (getLoopedSoundDatabase().at(npc_id)[sound_name] &&
+        getLoopedSoundDatabase().at(npc_id)[sound_name]->is_playing(npc_id))
     {
         return;
     }
 
     if (p_sound->play(npc_id))
     {
-#ifdef DEBUG
         MESSAGE("%s %s", sound_name.c_str(),
             std::to_string(npc_id).c_str());
-#endif // DEBUG
         getLoopedSoundDatabase()[npc_id][sound_name] = p_sound;
     }
 }
@@ -126,15 +124,15 @@ inline void stop_sound_looped(const std::uint16_t npc_id, const xr_string& sound
         }
     */
 
-    if (getLoopedSoundDatabase()[npc_id][sound_name] &&
-        getLoopedSoundDatabase()[npc_id][sound_name]->is_playing(npc_id))
+    if (getLoopedSoundDatabase().at(npc_id)[sound_name] &&
+        getLoopedSoundDatabase().at(npc_id)[sound_name]->is_playing(npc_id))
     {
-        getLoopedSoundDatabase()[npc_id][sound_name]->stop();
+        getLoopedSoundDatabase().at(npc_id)[sound_name]->stop();
         getLoopedSoundDatabase()[npc_id][sound_name] = nullptr;
     }
     else
     {
-        for (std::pair<const xr_string, Script_ISoundEntity*>& it : getLoopedSoundDatabase()[npc_id])
+        for (std::pair<const xr_string, Script_ISoundEntity*>& it : getLoopedSoundDatabase().at(npc_id))
         {
             if (it.second && it.second->is_playing(npc_id))
                 it.second->stop(npc_id);
@@ -142,7 +140,7 @@ inline void stop_sound_looped(const std::uint16_t npc_id, const xr_string& sound
             it.second = nullptr; // Lord: проверить на всякий случай по поводу деалокации
         }
 
-        getLoopedSoundDatabase()[npc_id].clear();
+        getLoopedSoundDatabase().at(npc_id).clear();
     }
 }
 
@@ -171,12 +169,12 @@ inline void set_volume_sound_looped(const std::uint16_t npc_id, const xr_string&
 {
     if (!getLoopedSoundDatabase()[npc_id].empty())
     {
-        if (getLoopedSoundDatabase()[npc_id][sound_name] &&
-            getLoopedSoundDatabase()[npc_id][sound_name]->is_playing(npc_id))
+        if (getLoopedSoundDatabase().at(npc_id)[sound_name] &&
+            getLoopedSoundDatabase().at(npc_id)[sound_name]->is_playing(npc_id))
         {
             Msg("[Scripts/XR_SOUND/set_volume_sound_looped(npc_id, sound_name, value)] %s %d %f", sound_name, npc_id,
                 value);
-            getLoopedSoundDatabase()[npc_id][sound_name]->set_volume(value);
+            getLoopedSoundDatabase().at(npc_id)[sound_name]->set_volume(value);
         }
     }
 }
