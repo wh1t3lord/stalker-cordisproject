@@ -471,7 +471,7 @@ namespace Cordis
 						return;
 					}
 					MESSAGE("JUST DELETE THIS AFTER SUCCESSFUL TESTING CLSID p_target -> %d ||| CLSID ONLINE_OFFLINE_GROUP -> %d", p_target->script_clsid(), CLSID_SE_ONLINE_OFFLINE_GROUP);
-					if (p_target->script_clsid() == CLSID_SE_ONLINE_OFFLINE_GROUP)
+					if (p_target->script_clsid() == Globals::get_script_clsid(CLSID_SE_ONLINE_OFFLINE_GROUP))
 					{
 						p_object->set_movement_type(EMovementType::eMovementTypeRun);
 						if (p_target->o_Position.distance_to_sqr(p_object->Position()) <= 10000.0f)
