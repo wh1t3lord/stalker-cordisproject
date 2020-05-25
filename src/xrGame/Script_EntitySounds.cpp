@@ -46,13 +46,13 @@ Script_SoundNPC::~Script_SoundNPC(void)
 {
     if (this->m_sound_object)
     {
-        delete this->m_sound_object;
+    //    delete this->m_sound_object;
         this->m_sound_object = nullptr;
     }
 
     if (this->m_pda_sound_object)
     {
-        delete this->m_pda_sound_object;
+     //   delete this->m_pda_sound_object;
         this->m_pda_sound_object = nullptr;
     }
 }
@@ -467,7 +467,7 @@ Script_SoundActor::~Script_SoundActor(void)
 {
     if (this->m_sound_object)
     {
-        delete this->m_sound_object;
+       // delete this->m_sound_object;
         this->m_sound_object = nullptr;
     }
 }
@@ -690,7 +690,7 @@ Script_SoundObject::~Script_SoundObject(void)
 {
     if (this->m_sound_object)
     {
-        delete this->m_sound_object;
+      //  delete this->m_sound_object;
         this->m_sound_object = nullptr;
     }
 }
@@ -918,7 +918,7 @@ Script_SoundLooped::~Script_SoundLooped(void)
 {
     if (this->m_sound_object)
     {
-        delete this->m_sound_object;
+       // delete this->m_sound_object;
         this->m_sound_object = nullptr;
     }
 }
