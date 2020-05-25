@@ -193,6 +193,7 @@ public:
         this->m_p_ini =
             nullptr; // @ Контролиться в Script_SE_SmartTerrain, либо от this->m_ltx, либо от this->m_job_data
 
+/* 
         if (!this->m_actions.empty())
         {
             for (Script_ISchemeEntity* it : this->m_actions)
@@ -204,7 +205,7 @@ public:
                     xr_delete(it);
                 }
             }
-        }
+        }*/
 
         if (this->m_p_jump_path)
         {

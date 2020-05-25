@@ -11,10 +11,12 @@ void Script_NewsManager::SendSound(CScriptGameObject* object, const xr_string& f
     const xr_string& str, const xr_string& str1, const float& delay)
 {
     // @ может передаваться и nullptr, так уж не особой роли играет это
-    /*
-        if (!object)
-            Msg("[Scripts/Script_NewsManager/SendSound(object, faction, point, str str1, delay)] -> SendSound() object
-       is " "nullptr!");
+/*
+    if (!object)
+    {
+
+    }
+
 
         if (faction.size())
         {
@@ -30,9 +32,7 @@ void Script_NewsManager::SendSound(CScriptGameObject* object, const xr_string& f
 
 
             }
-        }*/
-
-    Msg("SendSound - doesn't use in game!");
+        } */
 }
 
 bool Script_NewsManager::SendTip(CScriptGameObject* actor, const xr_string& news_id_name, const xr_string& sender_name,

@@ -320,7 +320,9 @@ namespace Cordis
 			this->m_object->set_mental_state(MonsterSpace::eMentalStateFree);
 			this->m_object->set_movement_type(EMovementType::eMovementTypeWalk);
 
-			this->m_object->set_dest_game_vertex_id(p_squad->m_tGraphID);
+            CSE_Abstract* const p_target = ai().alife().objects().object(this->m_target_id);
+			this->m_object->set_dest_game_vertex_id(p_target->cast_alife_dynamic_object()->m_tGraphID);
+
 			this->m_object->set_path_type(MovementManager::ePathTypeGamePath);
 			this->m_object->inactualize_patrol_path();
 			this->m_object->set_sight(SightManager::eSightTypePathDirection, static_cast<Fvector*>(nullptr), static_cast<std::uint32_t>(0));
@@ -616,7 +618,7 @@ namespace Cordis
 				if (p_server_object == nullptr)
 					return false;
 
-				return !p_server_object->cast_script_se_smartterrain()->am_i_reached(p_squad); // Lord: проверить какой гарантированно тип прилетает для каста!
+				return !p_server_object->cast_script_se_smartterrain()->am_i_reached(p_squad); // Lord: РїСЂРѕРІРµСЂРёС‚СЊ РєР°РєРѕР№ РіР°СЂР°РЅС‚РёСЂРѕРІР°РЅРЅРѕ С‚РёРї РїСЂРёР»РµС‚Р°РµС‚ РґР»СЏ РєР°СЃС‚Р°!
 			}
 		}
 }

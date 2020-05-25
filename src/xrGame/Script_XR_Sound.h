@@ -67,10 +67,13 @@ inline void update(const std::uint16_t npc_id)
 {
     if (getSoundDatabase().find(npc_id) != getSoundDatabase().end())
     {
-        if (!getSoundDatabase().at(npc_id)->is_playing(npc_id))
+        if (getSoundDatabase().at(npc_id))
         {
-            getSoundDatabase().at(npc_id)->callback(npc_id);
-            getSoundDatabase()[npc_id] = nullptr;
+            if (!getSoundDatabase().at(npc_id)->is_playing(npc_id))
+            {
+                getSoundDatabase().at(npc_id)->callback(npc_id);
+                getSoundDatabase()[npc_id] = nullptr;
+            }       
         }
     }
 }

@@ -265,7 +265,7 @@ bool Script_SoundNPC::play(const std::uint16_t& npc_id, xr_string& faction, std:
     std::uint32_t table_id = this->m_played_id + 1;
     xr_string& sound_name = this->m_sound_path[npc_id][table_id];
 
-    if (sound_name.size())
+    if (sound_name.empty() == false)
     {
         sound_name.append("_pda.ogg");
         if (FS.exist("$game_sounds$", sound_name.c_str()) &&
@@ -286,42 +286,11 @@ bool Script_SoundNPC::play(const std::uint16_t& npc_id, xr_string& faction, std:
         }
     }
 
-    // Lord: проверить
-    xr_string& replaced_string = sound_name.replace(sound_name.begin(), sound_name.end(), '\\', '_');
-
     if (this->m_group_sound)
         this->m_can_play_group_sound = true;
     else
         this->m_can_play_sound[npc_id] = true;
-    xr_string translated_string = Globals::Game::translate_string(replaced_string.c_str());
-    if (translated_string != replaced_string)
-    {
-        if (!this->m_faction.size())
-        {
-            this->m_faction = Globals::character_community(npc);
-        }
 
-        if (!this->m_point.size())
-        {
-            this->m_point = npc->ProfileName();
-            this->m_point.append("_name");
-            xr_string translated = Globals::Game::translate_string(this->m_point.c_str());
-            if (translated.size())
-            {
-                if (translated == this->m_point)
-                {
-                    this->m_point = "";
-                }
-            }
-        }
-        Script_NewsManager::getInstance().SendSound(
-            npc, this->m_faction, this->m_point, sound_name, replaced_string, this->m_delay_sound);
-    }
-    else
-    {
-        Script_NewsManager::getInstance().SendSound(
-            npc, this->m_faction, this->m_point, sound_name, "", this->m_delay_sound);
-    }
 
     return true;
 }
@@ -597,10 +566,8 @@ bool Script_SoundActor::play(const std::uint16_t& npc_id, xr_string& faction, st
     this->m_sound_object->SetVolume(0.8f);
     this->m_sound_object->PlayAtPos(DataBase::Storage::getInstance().getActor(), Fvector().set(0, 0, 0), 0.0f, sm_2D);
     this->m_sound_object->SetVolume(0.8f);
-    xr_string& replaced_string = sound_name.replace(sound_name.begin(), sound_name.end(), '\\', '_');
     this->m_can_play_sound = false;
 
-    Script_NewsManager::getInstance().SendSound(nullptr, this->m_faction, this->m_point, sound_name);
     return true;
 }
 
@@ -833,11 +800,7 @@ bool Script_SoundObject::play(const std::uint16_t& npc_id, xr_string& faction, s
 
     this->m_sound_object = new CScriptSound(sound_name.c_str());
     this->m_sound_object->PlayAtPos(npc, npc->Position(), 0.0f, 0);
-
-    xr_string& replaced_string = sound_name.replace(sound_name.begin(), sound_name.end(), '\\', '_');
     this->m_can_play_sound = false;
-
-    Script_NewsManager::getInstance().SendSound(nullptr, this->m_faction, this->m_point, this->m_message);
 
     return true;
 }

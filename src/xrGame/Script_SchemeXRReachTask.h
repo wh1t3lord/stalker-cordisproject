@@ -48,9 +48,9 @@ namespace Cordis
 			Script_SchemeXRReachTask(const xr_string& name);
 			~Script_SchemeXRReachTask(void);
 
-			virtual void initialize(void);
-			virtual void execute(void);
-			virtual void finalize(void);
+			void initialize(void) override;
+			void execute(void) override;
+			void finalize(void) override;
 
 			virtual void death_callback(CScriptGameObject* const p_client_victim, CScriptGameObject* const p_client_who);
 			virtual void net_destroy(CScriptGameObject* const p_client_object);

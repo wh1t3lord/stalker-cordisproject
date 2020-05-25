@@ -147,7 +147,7 @@ bool arrived_to_smart(CSE_ALifeMonsterAbstract* object, Script_SE_SmartTerrain* 
                     return false;
                 }
             }
-            else if (squad->getCurrentAction().getName() == "stay_point")
+            else if (squad->getCurrentAction().getName() == Globals::kSimulationSquadCurrentActionIDStayOnTarget)
             {
                 return true;
             }
