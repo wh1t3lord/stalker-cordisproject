@@ -194,16 +194,17 @@ void Script_SE_SimulationSquad::on_unregister(void)
 
     if (this->m_respawn_point_id)
     {
-        Script_SE_SmartTerrain* smart = ai().alife().objects().object(this->m_respawn_point_id)->cast_script_se_smartterrain();
+        CSE_Abstract* smart = ai().alife().objects().object(this->m_respawn_point_id, true);
 
         // smart_terrain удаляются раньше чем squadss
         if (!smart)
             return;
 
+        Script_SE_SmartTerrain* const p_smart = smart->cast_script_se_smartterrain();
         
-        std::uint8_t value = smart->getAlreadySpawned().at(this->m_respawn_point_prop_section_name);
+        std::uint8_t value = p_smart->getAlreadySpawned().at(this->m_respawn_point_prop_section_name);
         --value;
-        smart->setAlreadySpawned(this->m_respawn_point_prop_section_name, value);
+        p_smart->setAlreadySpawned(this->m_respawn_point_prop_section_name, value);
     }
 }
 
