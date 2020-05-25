@@ -108,21 +108,20 @@ void Script_TaskManager::task_callback(CGameTask* p_task, const std::uint32_t st
     if (this->m_task_info.find(task_id_name) == this->m_task_info.end())
         return;
 
-    Msg("[Scripts/Script_TaskManager/task_callback(p_task, status)] clear task %s", task_id_name.c_str());
-
     this->m_task_info.at(task_id_name)->deactivate_task(p_task);
 
     Script_Task* pointer_to_delete = this->m_task_info.at(task_id_name);
 
-    Msg("[Scripts/Script_TaskManager/task_callback(p_task, status)] deleting task %S", pointer_to_delete->getTaskIDName().c_str());
+    MESSAGEI("deleting task %S", pointer_to_delete->getTaskIDName().c_str());
     xr_delete(pointer_to_delete);
+    this->m_task_info.erase(task_id_name);
 }
 
 void Script_TaskManager::Deallocate(void)
 {
     if (this->m_p_ini)
     {
-        Msg("[Scripts/Script_TaskManager/Deallocate()] deleting this->m_p_ini");
+        MESSAGEI("deleting this->m_p_ini");
         xr_delete(this->m_p_ini);
     }
 
@@ -130,7 +129,11 @@ void Script_TaskManager::Deallocate(void)
     {
         for (std::pair<const xr_string, Script_Task*>& it : this->m_task_info)
         {
-            Msg("[Scripts/Scritp_TaskManager/Deallocate()] deleting task %s", it.second->getTaskIDName().c_str());
+            const xr_string& task_name = it.second->getTaskIDName();
+
+            if (task_name.empty() == false)
+                MESSAGEI("deleting task %s", task_name.c_str());
+
             xr_delete(it.second);
         }
 
