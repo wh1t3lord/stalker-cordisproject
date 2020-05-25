@@ -20,7 +20,7 @@ namespace Cordis
 			}
 			const xr_string& community_name = Script_GlobalHelper::getInstance().getSquadCommunityByBehavior().at(p_squad->getPlayerIDName());
 
-			if (community_name.empty() == false)
+			if (community_name.empty())
 			{
 				R_ASSERT2(false, "something wrong!");
 				return false;
