@@ -1,4 +1,4 @@
-﻿#include "stdafx.h"
+#include "stdafx.h"
 #include "Script_GlobalHelper.h"
 
 Cordis::Scripts::Script_GlobalHelper::Script_GlobalHelper(void)
@@ -13480,5 +13480,24 @@ Cordis::Scripts::Script_GlobalHelper::Script_GlobalHelper(void)
 
 #pragma region Cordis XR_SOUND loading sounds 
     Globals::load_sound();
+#pragma endregion
+
+#pragma region Cordis squad_community_by_behaviour
+    this->m_squad_community_by_behavior["stalker"] = "stalker";
+    this->m_squad_community_by_behavior["bandit"] = "bandit";
+    this->m_squad_community_by_behavior["dolg"] = "dolg";
+    this->m_squad_community_by_behavior["freedom"] = "freedom";
+    this->m_squad_community_by_behavior["army"] = "army";
+    this->m_squad_community_by_behavior["ecolog"] = "ecolog";
+    this->m_squad_community_by_behavior["killer"] = "killer";
+    this->m_squad_community_by_behavior["zombied"] = "zombied";
+    this->m_squad_community_by_behavior["monolith"] = "monolith";
+    this->m_squad_community_by_behavior["monster"] = "monster";
+    this->m_squad_community_by_behavior["monster_predatory_day"] = "monster";
+    this->m_squad_community_by_behavior["monster_predatory_night"] = "monster";
+    this->m_squad_community_by_behavior["monster_vegetarian"] = "monster";
+    this->m_squad_community_by_behavior["monster_zombied_day"] = "monster";
+    this->m_squad_community_by_behavior["monster_zombied_night"] = "monster";
+    this->m_squad_community_by_behavior["monster_special"] = "monster";
 #pragma endregion
 }

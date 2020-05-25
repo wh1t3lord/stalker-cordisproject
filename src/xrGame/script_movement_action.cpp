@@ -129,7 +129,7 @@ CScriptMovementAction::~CScriptMovementAction()
     // оригиналу здесь он никак не сохраняется и получается лютейщая утечка памяти
     if (this->m_p_captured_path)
     {
-        xr_delete(this->m_p_captured_path);
+  //     xr_delete(this->m_p_captured_path);
     }
 }
 
