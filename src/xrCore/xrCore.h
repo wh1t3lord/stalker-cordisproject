@@ -140,6 +140,7 @@ class XRCORE_API xrCore
 
 public:
     string64 ApplicationName;
+    CTimer m_Timer;
     string_path ApplicationPath;
     string_path WorkingPath;
     string64 UserName;
