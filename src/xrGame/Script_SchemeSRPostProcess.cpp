@@ -6,7 +6,7 @@ namespace Cordis
 namespace Scripts
 {
 Script_SchemeSRPostProcess::Script_SchemeSRPostProcess(
-    CScriptGameObject* const p_client_object, DataBase::Storage_Scheme& storage)
+    CScriptGameObject* const p_client_object, void* storage)
     : inherited_scheme(p_client_object, storage), m_is_actor_inside(false), m_intensity(0.0f), m_intensity_base(0.0f),
       m_hit_power(0.0f), m_gray_amplitude(0.0f), m_hit_time(0), m_eff_time(0), m_intensity_inertion(0.0f)
 {

@@ -7,7 +7,7 @@ namespace Cordis
 		class Script_EvaluatorCombatZombied : public CScriptPropertyEvaluator
 		{
 		public:
-			Script_EvaluatorCombatZombied(const xr_string& name, DataBase::Storage_Scheme& storage) : CScriptPropertyEvaluator(nullptr, name.c_str()), m_p_storage(&storage)
+			Script_EvaluatorCombatZombied(const xr_string& name, void* storage) : CScriptPropertyEvaluator(nullptr, name.c_str()), m_p_storage(&storage)
 			{
 				
 			}
@@ -25,7 +25,7 @@ namespace Cordis
 		{
 		public:
 			Script_SchemeXRCombatZombied(void) = delete;
-			Script_SchemeXRCombatZombied(const xr_string& action_name, DataBase::Storage_Scheme& storage);
+			Script_SchemeXRCombatZombied(const xr_string& action_name, void* storage);
 			~Script_SchemeXRCombatZombied(void);
 
 			virtual void initialize(void);
@@ -34,7 +34,7 @@ namespace Cordis
 
 			virtual void hit_callback(CScriptGameObject* const p_client_object, const float amount, const Fvector& local_direction, CScriptGameObject* const p_client_who, const std::int16_t bone_index);
 
-			static void add_to_binder(CScriptGameObject* const p_client_object, CScriptIniFile* const p_ini, const xr_string& section_name, const xr_string& scheme_name, DataBase::Storage_Scheme& p_storage);
+			static void add_to_binder(CScriptGameObject* const p_client_object, CScriptIniFile* const p_ini, const xr_string& section_name, const xr_string& scheme_name, void* p_storage);
 		private:
 			void set_state(const xr_string& state_name, CScriptGameObject* const p_look_object, const Fvector& position);
 			Fvector calc_random_direction(void);
@@ -55,7 +55,7 @@ namespace Cordis
 		{
 		public:
 			Script_SchemeXRCombatZombiedDanger(void) = delete;
-			Script_SchemeXRCombatZombiedDanger(const xr_string& name, DataBase::Storage_Scheme& storage);
+			Script_SchemeXRCombatZombiedDanger(const xr_string& name, void* storage);
 			~Script_SchemeXRCombatZombiedDanger(void); 
 
 			virtual void initialize(void);

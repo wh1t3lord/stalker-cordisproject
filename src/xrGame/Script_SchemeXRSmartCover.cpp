@@ -19,7 +19,7 @@ namespace Cordis
 		}
 
 
-		Script_SchemeXRSmartCover::Script_SchemeXRSmartCover(const xr_string& name, DataBase::Storage_Scheme& storage) : Script_ISchemeStalker(nullptr, name, storage), m_target_enemy_id(0), m_is_initialized(false)
+		Script_SchemeXRSmartCover::Script_SchemeXRSmartCover(const xr_string& name, void* storage) : Script_ISchemeStalker(nullptr, name, storage), m_target_enemy_id(0), m_is_initialized(false)
 		{
 		}
 
@@ -249,7 +249,7 @@ namespace Cordis
 			return this->m_object->in_smart_cover();
 		}
 
-		void Script_SchemeXRSmartCover::add_to_binder(CScriptGameObject* const p_client_object, CScriptIniFile* const p_ini, const xr_string& scheme_name, const xr_string& section_name, DataBase::Storage_Scheme& storage)
+		void Script_SchemeXRSmartCover::add_to_binder(CScriptGameObject* const p_client_object, CScriptIniFile* const p_ini, const xr_string& scheme_name, const xr_string& section_name, void* storage)
 		{
 			if (p_client_object == nullptr)
 			{

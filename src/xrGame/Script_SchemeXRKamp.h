@@ -10,7 +10,7 @@ namespace Cordis
         class Script_EvaluatorKampEnd : public CScriptPropertyEvaluator
         {
         public:
-            Script_EvaluatorKampEnd(const xr_string& evaluator_name, DataBase::Storage_Scheme& storage)
+            Script_EvaluatorKampEnd(const xr_string& evaluator_name, void* storage)
                 : CScriptPropertyEvaluator(nullptr, evaluator_name.c_str()), m_p_storage(&storage)
             {
             }
@@ -24,7 +24,7 @@ namespace Cordis
         class Script_EvaluatorOnPosition : public CScriptPropertyEvaluator
         {
         public:
-            Script_EvaluatorOnPosition(const xr_string& evaluator_name, DataBase::Storage_Scheme& storage)
+            Script_EvaluatorOnPosition(const xr_string& evaluator_name, void* storage)
                 : CScriptPropertyEvaluator(nullptr, evaluator_name.c_str()), m_p_storage(&storage)
             {
             }
@@ -38,7 +38,7 @@ namespace Cordis
         class Script_ActionXRKampGoPosition : public CScriptActionBase
         {
         public:
-            Script_ActionXRKampGoPosition(CScriptGameObject* const p_object, xr_string& action_name, DataBase::Storage_Scheme& storage) : CScriptActionBase(nullptr, action_name.c_str()), m_p_storage(&storage), m_p_object(p_object)
+            Script_ActionXRKampGoPosition(CScriptGameObject* const p_object, xr_string& action_name, void* storage) : CScriptActionBase(nullptr, action_name.c_str()), m_p_storage(&storage), m_p_object(p_object)
             {
                 
             }

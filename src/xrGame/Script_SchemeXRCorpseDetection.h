@@ -6,7 +6,7 @@ namespace Scripts
 class Script_EvaluatorCorpse : public CScriptPropertyEvaluator
 {
 public:
-    Script_EvaluatorCorpse(const xr_string& evaluator_name, DataBase::Storage_Scheme& storage)
+    Script_EvaluatorCorpse(const xr_string& evaluator_name, void* storage)
         : CScriptPropertyEvaluator(nullptr, evaluator_name.c_str()), m_p_storage(&storage)
     {
     }
@@ -25,7 +25,7 @@ class Script_SchemeXRCorpseDetection : public Script_ISchemeStalker
 
 public:
     Script_SchemeXRCorpseDetection(void) = delete;
-    Script_SchemeXRCorpseDetection(const xr_string& action_name, DataBase::Storage_Scheme& storage)
+    Script_SchemeXRCorpseDetection(const xr_string& action_name, void* storage)
         : inherited_scheme(nullptr, action_name, storage)
     {
         this->m_scheme_name = "corpse_detection";

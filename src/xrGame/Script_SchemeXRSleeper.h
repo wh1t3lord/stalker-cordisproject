@@ -7,7 +7,7 @@ namespace Cordis
     class Script_EvaluatorNeedSleeper : public CScriptPropertyEvaluator
     {
     public:
-        Script_EvaluatorNeedSleeper(const xr_string& evaluator_name, DataBase::Storage_Scheme& storage)
+        Script_EvaluatorNeedSleeper(const xr_string& evaluator_name, void* storage)
             : CScriptPropertyEvaluator(nullptr, evaluator_name.c_str()), m_p_storage(&storage)
         {
         }
@@ -22,7 +22,7 @@ namespace Cordis
     {
         using inherited_scheme = Script_ISchemeStalker;
     public:
-        Script_SchemeXRSleeper(const xr_string& action_name, DataBase::Storage_Scheme& storage)
+        Script_SchemeXRSleeper(const xr_string& action_name, void* storage)
             : inherited_scheme(nullptr, action_name, storage), m_is_reset(false), m_p_move_manager(DataBase::Storage::getInstance().getStorage().at(this->m_object->ID()).getMoveManager()), m_state(0)
         {
 
@@ -37,7 +37,7 @@ namespace Cordis
         bool callback(std::uint32_t mode, std::uint32_t number);
 
         static inline void add_to_binder(CScriptGameObject* const p_client_object, CScriptIniFile* const p_ini,
-            const xr_string& scheme_name, const xr_string& section_name, DataBase::Storage_Scheme& storage)
+            const xr_string& scheme_name, const xr_string& section_name, void* storage)
         {
             if (!p_client_object)
             {

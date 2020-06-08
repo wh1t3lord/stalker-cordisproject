@@ -4366,6 +4366,12 @@
     <Filter Include="Cordis\Scripts\Logic\Schemes\XR\SmartCover\Private">
       <UniqueIdentifier>{05b65033-cdf4-48ad-9077-03a7a69c0640}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Cordis\Scripts\Database\Public\Allocators">
+      <UniqueIdentifier>{e623bdbc-11b0-4194-b365-24176adcf5d1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Database\Public\Allocators\Public">
+      <UniqueIdentifier>{80406785-d5d6-4c34-a0ff-f3fbcf58c79a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="mt_config.h">
@@ -9775,6 +9781,12 @@
     </ClInclude>
     <ClInclude Include="Script_PostCombat.h">
       <Filter>Cordis\Scripts\Logic\Schemes\XR\Combat\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Script_ComponentSchemes.h">
+      <Filter>Cordis\Scripts\Database\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Script_ComponentSchemes_Allocators.h">
+      <Filter>Cordis\Scripts\Database\Public\Allocators\Public</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

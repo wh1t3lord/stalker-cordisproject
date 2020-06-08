@@ -10,7 +10,7 @@ const std::uint32_t default_anim_standing = MonsterSpace::eAA_StandIdle;
 const bool state_moving = false;
 const bool state_standing = true;
 
-Script_SchemeMobWalker::Script_SchemeMobWalker(CScriptGameObject* p_client_object, DataBase::Storage_Scheme& storage)
+Script_SchemeMobWalker::Script_SchemeMobWalker(CScriptGameObject* p_client_object, void* storage)
     : inherited_scheme(p_client_object, storage), m_is_crouch(false), m_is_running(false), m_last_index(0),
       m_last_look_index(0), m_patrol_walk(nullptr), m_patrol_look(nullptr)
 {

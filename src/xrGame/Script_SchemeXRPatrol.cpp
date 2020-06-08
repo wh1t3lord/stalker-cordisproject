@@ -27,7 +27,7 @@ namespace Cordis
 			return DataBase::Storage::getInstance().getPatrolsXRPatrol().at(this->m_p_storage->getXRPatrolPatrolKeyName())->is_commander(this->m_object->ID());
 		}
 
-		Script_SchemeXRPatrol::Script_SchemeXRPatrol(const xr_string& name, DataBase::Storage_Scheme& storage) : Script_ISchemeStalker(nullptr, name, storage), m_level_vertex_id(Globals::kUnsignedInt32Undefined), m_dist(0), m_direction(Fvector().set(0.0f, 0.0f, 1.0f)), m_is_on_point(false), m_is_was_reset(false), m_time_to_update(Globals::get_time_global() + 1000), m_current_state_name("patrol")
+		Script_SchemeXRPatrol::Script_SchemeXRPatrol(const xr_string& name, void* storage) : Script_ISchemeStalker(nullptr, name, storage), m_level_vertex_id(Globals::kUnsignedInt32Undefined), m_dist(0), m_direction(Fvector().set(0.0f, 0.0f, 1.0f)), m_is_on_point(false), m_is_was_reset(false), m_time_to_update(Globals::get_time_global() + 1000), m_current_state_name("patrol")
 		{
 		}
 
@@ -112,7 +112,7 @@ namespace Cordis
 			return false;
 		}
 
-		void Script_SchemeXRPatrol::add_to_binder(CScriptGameObject* const p_client_object, CScriptIniFile* const p_ini, const xr_string& scheme_name, const xr_string& section_name, DataBase::Storage_Scheme& storage)
+		void Script_SchemeXRPatrol::add_to_binder(CScriptGameObject* const p_client_object, CScriptIniFile* const p_ini, const xr_string& scheme_name, const xr_string& section_name, void* storage)
 		{
 			if (p_client_object == nullptr)
 			{
@@ -487,7 +487,7 @@ namespace Cordis
 			return false;
 		}
 
-		Script_ActionCommander::Script_ActionCommander(CScriptGameObject* const p_client_object, const xr_string& name, DataBase::Storage_Scheme& storage) : Script_ISchemeStalker(nullptr, name, storage), m_is_was_reset(false), m_current_state_name("patrol"), m_p_move_manager(DataBase::Storage::getInstance().getStorage().at(p_client_object->ID()).getMoveManager())
+		Script_ActionCommander::Script_ActionCommander(CScriptGameObject* const p_client_object, const xr_string& name, void* storage) : Script_ISchemeStalker(nullptr, name, storage), m_is_was_reset(false), m_current_state_name("patrol"), m_p_move_manager(DataBase::Storage::getInstance().getStorage().at(p_client_object->ID()).getMoveManager())
 		{
 		}
 

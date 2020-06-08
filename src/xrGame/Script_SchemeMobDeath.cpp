@@ -7,7 +7,7 @@ namespace Cordis
 namespace Scripts
 {
 Script_SchemeMobDeath::Script_SchemeMobDeath(
-    CScriptGameObject* const p_client_object, DataBase::Storage_Scheme& storage)
+    CScriptGameObject* const p_client_object, void* storage)
     : inherited_scheme(p_client_object, storage)
 {
 }

@@ -2695,6 +2695,7 @@ $(xrLibDir);$(xrSdkDir)DXSDK/Lib/$(PlatformShortName);
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Jumbo|x64'">false</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Jumbo - Debug|x64'">false</ExcludedFromBuild>
     </ClInclude>
+    <ClInclude Include="Script_ComponentSchemes.h" />
     <ClInclude Include="configs_common.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Jumbo|x64'">false</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Jumbo - Debug|x64'">false</ExcludedFromBuild>
@@ -5514,6 +5515,7 @@ $(xrLibDir);$(xrSdkDir)DXSDK/Lib/$(PlatformShortName);
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Jumbo - Debug|x64'">false</ExcludedFromBuild>
     </ClInclude>
     <ClInclude Include="Script_CampData.h" />
+    <ClInclude Include="Script_ComponentSchemes_Allocators.h" />
     <ClInclude Include="Script_CRD_Wounded.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Jumbo|x64'">false</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Jumbo - Debug|x64'">false</ExcludedFromBuild>

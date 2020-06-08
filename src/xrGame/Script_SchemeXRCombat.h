@@ -7,7 +7,7 @@ namespace Scripts
 class Script_EvaluatorCheckCombat : public CScriptPropertyEvaluator
 {
 public:
-    Script_EvaluatorCheckCombat(const xr_string& evaluator_name, DataBase::Storage_Scheme& storage)
+    Script_EvaluatorCheckCombat(const xr_string& evaluator_name, void* storage)
         : CScriptPropertyEvaluator(nullptr, evaluator_name.c_str()), m_p_storage(&storage)
     {
     }
@@ -23,7 +23,7 @@ private:
 class Script_EvaluatorEnemy : public CScriptPropertyEvaluator
 {
 public:
-    Script_EvaluatorEnemy(const xr_string& evaluator_name, DataBase::Storage_Scheme& storage)
+    Script_EvaluatorEnemy(const xr_string& evaluator_name, void* storage)
         : CScriptPropertyEvaluator(nullptr, evaluator_name.c_str()), m_p_storage(&storage)
     {
     }
@@ -39,7 +39,7 @@ namespace XR_COMBAT
 {
 // @ PRIVATE uses, in XR_LOGIC
     static void add_to_binder(CScriptGameObject* const p_client_object, CScriptIniFile* const p_ini,
-        const xr_string& scheme_name, const xr_string& section_name, DataBase::Storage_Scheme& storage);
+        const xr_string& scheme_name, const xr_string& section_name, void* storage);
 
     static void set_combat_checker(CScriptGameObject* const p_client_object, CScriptIniFile* const p_ini,
         const xr_string& scheme_name, const xr_string& section_name, const xr_string& gulag_name);

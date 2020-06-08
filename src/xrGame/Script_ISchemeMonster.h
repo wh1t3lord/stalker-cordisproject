@@ -11,7 +11,7 @@ class Script_ISchemeMonster : public Script_ISchemeEntity
 
 public:
     Script_ISchemeMonster(void) = delete;
-    Script_ISchemeMonster(CScriptGameObject* client_object, DataBase::Storage_Scheme& storage_scheme)
+    Script_ISchemeMonster(CScriptGameObject* client_object, void* storage_scheme)
         : inherited_scheme(client_object, storage_scheme)
     {
     }

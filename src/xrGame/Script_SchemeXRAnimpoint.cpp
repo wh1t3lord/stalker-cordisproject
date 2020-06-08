@@ -10,7 +10,7 @@ namespace Cordis
 {
 	namespace Scripts
 	{
-		Script_SchemeXRAnimpoint::Script_SchemeXRAnimpoint(const xr_string& name, DataBase::Storage_Scheme& storage) : Script_ISchemeStalker(nullptr, name, storage)
+		Script_SchemeXRAnimpoint::Script_SchemeXRAnimpoint(const xr_string& name, void* storage) : Script_ISchemeStalker(nullptr, name, storage)
 		{
 		}
 
@@ -54,7 +54,7 @@ namespace Cordis
 			this->m_p_storage->getAnimpoint()->stop();
 		}
 
-		void Script_SchemeXRAnimpoint::add_to_binder(CScriptGameObject* const p_client_object, CScriptIniFile* const p_ini, const xr_string& scheme_name, const xr_string& section_name, DataBase::Storage_Scheme& storage)
+		void Script_SchemeXRAnimpoint::add_to_binder(CScriptGameObject* const p_client_object, CScriptIniFile* const p_ini, const xr_string& scheme_name, const xr_string& section_name, void* storage)
 		{
 			if (p_client_object == nullptr)
 			{
@@ -154,7 +154,7 @@ namespace Cordis
 			p_storage->setXRAnimpointAvailAnimations(Globals::Utils::parse_names(Globals::Utils::cfg_get_string(p_ini, section_name, "avail_animations")));
 		}
 
-		Script_ActionReachAnimpoint::Script_ActionReachAnimpoint(const xr_string& name, DataBase::Storage_Scheme& storage) : Script_ISchemeStalker(nullptr, name, storage)
+		Script_ActionReachAnimpoint::Script_ActionReachAnimpoint(const xr_string& name, void* storage) : Script_ISchemeStalker(nullptr, name, storage)
 		{
 		}
 
@@ -207,7 +207,7 @@ namespace Cordis
 			return XR_LOGIC::is_active(this->m_object, *this->m_p_storage);
 		}
 
-		Script_Animpoint::Script_Animpoint(const std::uint16_t npc_id, DataBase::Storage_Scheme& storage) : Script_ISchemeEntity(nullptr, storage), m_p_storage(&storage), m_npc_id(npc_id), m_is_started(false), m_position_vertex(0), m_p_camp(nullptr)
+		Script_Animpoint::Script_Animpoint(const std::uint16_t npc_id, void* storage) : Script_ISchemeEntity(nullptr, storage), m_p_storage(&storage), m_npc_id(npc_id), m_is_started(false), m_position_vertex(0), m_p_camp(nullptr)
 		{
 		}
 

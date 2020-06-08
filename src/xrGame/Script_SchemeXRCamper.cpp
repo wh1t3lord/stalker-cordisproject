@@ -45,7 +45,7 @@ namespace Cordis
 			return this->m_is_close_combat;
 		}
 
-		Script_SchemeXRCamper::Script_SchemeXRCamper(const xr_string& name, DataBase::Storage_Scheme& storage) : inherited_scheme(nullptr, name, storage), m_is_danger(false), m_flag(0), m_p_enemy(nullptr), m_scantime(0)
+		Script_SchemeXRCamper::Script_SchemeXRCamper(const xr_string& name, void* storage) : inherited_scheme(nullptr, name, storage), m_is_danger(false), m_flag(0), m_p_enemy(nullptr), m_scantime(0)
 		{
 			this->m_p_move_manager = DataBase::Storage::getInstance().getStorage().at(this->m_object->ID()).getMoveManager();
 			
@@ -306,7 +306,7 @@ namespace Cordis
 			this->m_p_storage->setXRCamperScanBegin(0);
 		}
 
-		void Script_SchemeXRCamper::add_to_binder(CScriptGameObject* const p_client_object, CScriptIniFile* const p_ini, const xr_string& scheme_name, const xr_string& section_name, DataBase::Storage_Scheme& storage)
+		void Script_SchemeXRCamper::add_to_binder(CScriptGameObject* const p_client_object, CScriptIniFile* const p_ini, const xr_string& scheme_name, const xr_string& section_name, void* storage)
 		{
 			if (!p_client_object)
 			{

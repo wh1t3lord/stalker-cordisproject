@@ -6,7 +6,7 @@ namespace Cordis
 namespace Scripts
 {
 Script_SchemePHButton::Script_SchemePHButton(
-    CScriptGameObject* const p_client_object, DataBase::Storage_Scheme& storage)
+    CScriptGameObject* const p_client_object, void* storage)
     : inherited_scheme(p_client_object, storage), m_last_hit_time(0)
 {
     this->m_scheme_name = "ph_button";

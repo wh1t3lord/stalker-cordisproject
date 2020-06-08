@@ -5,7 +5,7 @@ namespace Cordis
 {
 namespace Scripts
 {
-Script_ActionXRHelpWounded::Script_ActionXRHelpWounded(const xr_string& action_name, DataBase::Storage_Scheme& storage)
+Script_ActionXRHelpWounded::Script_ActionXRHelpWounded(const xr_string& action_name, void* storage)
     : inherited_scheme(nullptr, action_name.c_str()), m_p_storage(&storage)
 {
     this->m_scheme_name = "help_wounded";

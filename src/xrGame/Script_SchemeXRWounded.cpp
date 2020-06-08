@@ -112,7 +112,7 @@ namespace Cordis
 			this->m_object->enable_movement(true);
 		}
 
-		void Script_SchemeXRWounded::add_to_binder(CScriptGameObject* const p_client_object, CScriptIniFile* const p_ini, const xr_string& scheme_name, const xr_string& section_name, DataBase::Storage_Scheme& storage)
+		void Script_SchemeXRWounded::add_to_binder(CScriptGameObject* const p_client_object, CScriptIniFile* const p_ini, const xr_string& scheme_name, const xr_string& section_name, void* storage)
 		{
 			if (p_client_object == nullptr)
 			{
@@ -313,7 +313,7 @@ namespace Cordis
             p_storage->setXRWoundedSet(true);
 		}
 
-		Script_WoundedManager::Script_WoundedManager(CScriptGameObject* const p_client_object, DataBase::Storage_Scheme& storage) : m_is_can_use_medkit(false), m_p_npc(p_client_object), m_p_storage(&storage)
+		Script_WoundedManager::Script_WoundedManager(CScriptGameObject* const p_client_object, void* storage) : m_is_can_use_medkit(false), m_p_npc(p_client_object), m_p_storage(&storage)
 		{
 		}
 

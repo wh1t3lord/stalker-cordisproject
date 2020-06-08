@@ -14,7 +14,7 @@ private:
     using inherited = CScriptActionBase;
 public:
     Script_ISchemeStalker(void) = delete;
-    Script_ISchemeStalker(CScriptGameObject* const p_client_object, const xr_string& action_name, DataBase::Storage_Scheme& storage_scheme)
+    Script_ISchemeStalker(CScriptGameObject* const p_client_object, const xr_string& action_name, void* storage_scheme)
         : inherited(nullptr, action_name.c_str()), inherited_scheme(p_client_object, storage_scheme)
     {
     

@@ -7,7 +7,7 @@ namespace Cordis
 		class Script_EvaluatorPatrolEnd : public CScriptPropertyEvaluator
 		{
 		public:
-			Script_EvaluatorPatrolEnd(const xr_string& name, DataBase::Storage_Scheme& storage) : CScriptPropertyEvaluator(nullptr, name.c_str()), m_p_storage(&storage) {}
+			Script_EvaluatorPatrolEnd(const xr_string& name, void* storage) : CScriptPropertyEvaluator(nullptr, name.c_str()), m_p_storage(&storage) {}
 			~Script_EvaluatorPatrolEnd(void);
 			virtual _value_type evaluate(void);
 
@@ -18,7 +18,7 @@ namespace Cordis
 		class Script_EvaluatorPatrolComm : public CScriptPropertyEvaluator 
 		{
 		public:
-			Script_EvaluatorPatrolComm(const xr_string& name, DataBase::Storage_Scheme& storage) : CScriptPropertyEvaluator(nullptr, name.c_str()), m_p_storage(&storage) {}
+			Script_EvaluatorPatrolComm(const xr_string& name, void* storage) : CScriptPropertyEvaluator(nullptr, name.c_str()), m_p_storage(&storage) {}
 			~Script_EvaluatorPatrolComm(void);
 
 			virtual _value_type evaluate(void);
@@ -30,7 +30,7 @@ namespace Cordis
 		class Script_ActionCommander : public Script_ISchemeStalker
 		{
 		public:
-			Script_ActionCommander(CScriptGameObject* const p_client_object, const xr_string& name, DataBase::Storage_Scheme& storage);
+			Script_ActionCommander(CScriptGameObject* const p_client_object, const xr_string& name, void* storage);
 			~Script_ActionCommander(void);
 
 			virtual void initialize(void);
@@ -54,7 +54,7 @@ namespace Cordis
 		{
 		public:
 			Script_SchemeXRPatrol(void) = delete;
-			Script_SchemeXRPatrol(const xr_string& name, DataBase::Storage_Scheme& storage);
+			Script_SchemeXRPatrol(const xr_string& name, void* storage);
 			~Script_SchemeXRPatrol(void);
 			virtual void activate_scheme(const bool is_loading, CScriptGameObject* const p_client_object);
 			virtual void initialize(void);
@@ -67,7 +67,7 @@ namespace Cordis
 			bool formation_callback(std::uint32_t, std::uint32_t);
 
 			static void add_to_binder(CScriptGameObject* const p_client_object, CScriptIniFile* const p_ini,
-				const xr_string& scheme_name, const xr_string& section_name, DataBase::Storage_Scheme& storage);
+				const xr_string& scheme_name, const xr_string& section_name, void* storage);
 
 			static void set_scheme(CScriptGameObject* const p_client_object, CScriptIniFile* const p_ini,
 				const xr_string& scheme_name, const xr_string& section_name, const xr_string& gulag_name);

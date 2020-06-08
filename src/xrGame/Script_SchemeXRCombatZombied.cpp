@@ -8,7 +8,7 @@ namespace Cordis
 {
 	namespace Scripts
 	{
-		Script_SchemeXRCombatZombied::Script_SchemeXRCombatZombied(const xr_string& action_name, DataBase::Storage_Scheme& storage) : Script_ISchemeStalker(nullptr, action_name, storage), m_is_was_hit(false), m_is_valid_path(false), m_enemy_last_seen_level_vertex_id(0), m_last_level_vertex_id(0), m_turn_time(0), m_enemy_last_accessible_level_vertex_id(0), m_hit_reaction_end_time(0)
+		Script_SchemeXRCombatZombied::Script_SchemeXRCombatZombied(const xr_string& action_name, void* storage) : Script_ISchemeStalker(nullptr, action_name, storage), m_is_was_hit(false), m_is_valid_path(false), m_enemy_last_seen_level_vertex_id(0), m_last_level_vertex_id(0), m_turn_time(0), m_enemy_last_accessible_level_vertex_id(0), m_hit_reaction_end_time(0)
 		{
 		}
 
@@ -142,7 +142,7 @@ namespace Cordis
 			}
 		}
 
-		void Script_SchemeXRCombatZombied::add_to_binder(CScriptGameObject* const p_client_object, CScriptIniFile* const p_ini, const xr_string& section_name, const xr_string& scheme_name, DataBase::Storage_Scheme& p_storage)
+		void Script_SchemeXRCombatZombied::add_to_binder(CScriptGameObject* const p_client_object, CScriptIniFile* const p_ini, const xr_string& section_name, const xr_string& scheme_name, void* p_storage)
 		{
 			if (!p_client_object)
 			{
@@ -222,7 +222,7 @@ namespace Cordis
 			return look_position;
 		}
 
-		Script_SchemeXRCombatZombiedDanger::Script_SchemeXRCombatZombiedDanger(const xr_string& name, DataBase::Storage_Scheme& storage) : Script_ISchemeStalker(nullptr, name, storage), m_is_was_hit(false), m_bestdanger_id(0), m_bestdanger_level_vertex_id(0), m_hit_reaction_end_time(0), m_last_sent_level_vertex_id(0)
+		Script_SchemeXRCombatZombiedDanger::Script_SchemeXRCombatZombiedDanger(const xr_string& name, void* storage) : Script_ISchemeStalker(nullptr, name, storage), m_is_was_hit(false), m_bestdanger_id(0), m_bestdanger_level_vertex_id(0), m_hit_reaction_end_time(0), m_last_sent_level_vertex_id(0)
 		{
 		}
 

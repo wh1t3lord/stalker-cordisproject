@@ -10,7 +10,7 @@ namespace Cordis
 namespace Scripts
 {
 Script_SchemeSRNoWeapon::Script_SchemeSRNoWeapon(
-    CScriptGameObject* const p_client_object, DataBase::Storage_Scheme& storage)
+    CScriptGameObject* const p_client_object, void* storage)
     : inherited_scheme(p_client_object, storage), m_state(_kStateNoWhere)
 {
     this->m_scheme_name = "sr_no_weapon";

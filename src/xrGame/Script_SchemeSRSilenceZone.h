@@ -10,7 +10,7 @@ class Script_SchemeSRSilenceZone : public Script_ISchemeEntity
 
 public:
     Script_SchemeSRSilenceZone(void) = delete;
-    Script_SchemeSRSilenceZone(CScriptGameObject* const p_client_object, DataBase::Storage_Scheme& storage);
+    Script_SchemeSRSilenceZone(CScriptGameObject* const p_client_object, void* storage);
     ~Script_SchemeSRSilenceZone(void);
 };
 }

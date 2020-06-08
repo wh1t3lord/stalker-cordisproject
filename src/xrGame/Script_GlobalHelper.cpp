@@ -4564,6 +4564,10 @@ Cordis::Scripts::Script_GlobalHelper::Script_GlobalHelper(void)
 /*        this->m_registered_schemes_add_to_binder_callbacks["sr_silence"] = Script_SchemeSRSilenceZone::add_to_binder; Not used!*/
         this->m_registered_schemes_add_to_binder_callbacks["sr_deimos"] = Script_SchemeSRDeimos::add_to_binder;
 
+        ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+        ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 		this->m_registered_schemes_set_scheme_callbacks["danger"] = Script_EvaluatorDanger::set_danger;
 		this->m_registered_schemes_set_scheme_callbacks["gather_items"] = Script_EvaluatorGatherItems::set_gather_items;
 		this->m_registered_schemes_set_scheme_callbacks["abuse"] = Script_SchemeXRAbuse::set_abuse;

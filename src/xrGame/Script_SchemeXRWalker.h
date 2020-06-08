@@ -7,7 +7,7 @@ namespace Scripts
 class Script_EvaluatorNeedWalker : public CScriptPropertyEvaluator
 {
 public:
-    Script_EvaluatorNeedWalker(const xr_string& evaluator_name, DataBase::Storage_Scheme& storage)
+    Script_EvaluatorNeedWalker(const xr_string& evaluator_name, void* storage)
         : CScriptPropertyEvaluator(nullptr, evaluator_name.c_str()), m_p_storage(&storage)
     {
     }
@@ -27,7 +27,7 @@ class Script_SchemeXRWalker : public Script_ISchemeStalker
 
 public:
     Script_SchemeXRWalker(void) = delete;
-    Script_SchemeXRWalker(const xr_string& action_name, DataBase::Storage_Scheme& storage);
+    Script_SchemeXRWalker(const xr_string& action_name, void* storage);
     ~Script_SchemeXRWalker(void);
 
     virtual void initialize(void);
@@ -38,7 +38,7 @@ public:
     virtual void update(const float delta);
 
     static inline void add_to_binder(CScriptGameObject* const p_client_object, CScriptIniFile* const p_ini,
-        const xr_string& scheme_name, const xr_string& section_name, DataBase::Storage_Scheme& storage)
+        const xr_string& scheme_name, const xr_string& section_name, void* storage)
     {
         if (!p_client_object)
         {

@@ -7,7 +7,7 @@ namespace Cordis
 		class Script_EvaluatorContact : public CScriptPropertyEvaluator
 		{
 		public:
-			Script_EvaluatorContact(const xr_string& name, DataBase::Storage_Scheme& storage) : CScriptPropertyEvaluator(nullptr, name.c_str()), m_p_storage(&storage) {}
+			Script_EvaluatorContact(const xr_string& name, void* storage) : CScriptPropertyEvaluator(nullptr, name.c_str()), m_p_storage(&storage) {}
 
 			virtual _value_type evaluate(void);
 		private:
@@ -18,17 +18,17 @@ namespace Cordis
 		{
 		public:
 			Script_SchemeXRMeet(void) = delete;
-			Script_SchemeXRMeet(const xr_string& name, DataBase::Storage_Scheme& storage) : CScriptActionBase(nullptr, name.c_str()), m_p_storage(&storage) {}
+			Script_SchemeXRMeet(const xr_string& name, void* storage) : CScriptActionBase(nullptr, name.c_str()), m_p_storage(&storage) {}
 			~Script_SchemeXRMeet(void);
 
 			virtual void initialize(void);
 			virtual void execute(void);
 			virtual void finalize(void);
 
-			static void add_to_binder(CScriptGameObject* const p_object, CScriptIniFile* const p_ini, const xr_string& scheme_name, const xr_string& section_name, DataBase::Storage_Scheme& storage);
+			static void add_to_binder(CScriptGameObject* const p_object, CScriptIniFile* const p_ini, const xr_string& scheme_name, const xr_string& section_name, void* storage);
 			static void set_meet(CScriptGameObject* const p_client_object, CScriptIniFile* const p_ini, const xr_string& scheme_name, const xr_string& section_name, const xr_string& gulag_name);
 			static void	reset_meet(CScriptGameObject* const p_client_object, const xr_string& scheme_name, const DataBase::Storage_Data& storage, const xr_string& section_name);
-			static void init_meet(CScriptGameObject* const p_client_object, CScriptIniFile* const p_ini, const xr_string& section_name, const xr_string& scheme_name, DataBase::Storage_Scheme& storage);
+			static void init_meet(CScriptGameObject* const p_client_object, CScriptIniFile* const p_ini, const xr_string& section_name, const xr_string& scheme_name, void* storage);
 			static bool is_meet(CScriptGameObject* const p_client_object);
 			static void process_npc_usability(CScriptGameObject* const p_client_object);
 		private:
@@ -39,7 +39,7 @@ namespace Cordis
 		{
 		public:
 			Script_XRMeetManager(void) = delete;
-			Script_XRMeetManager(CScriptGameObject* const p_client_object, DataBase::Storage_Scheme& storage);
+			Script_XRMeetManager(CScriptGameObject* const p_client_object, void* storage);
 			~Script_XRMeetManager(void);
 
 			void update_state(void);

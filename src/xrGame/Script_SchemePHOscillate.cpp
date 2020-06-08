@@ -8,7 +8,7 @@ namespace Cordis
 namespace Scripts
 {
 Script_SchemePHOscillate::Script_SchemePHOscillate(
-    CScriptGameObject* const p_client_object, DataBase::Storage_Scheme& storage)
+    CScriptGameObject* const p_client_object, void* storage)
     : inherited_scheme(p_client_object, storage), m_koeff(0.0f), m_time(0), m_p_joint(nullptr), m_is_pause(false)
 {
 }

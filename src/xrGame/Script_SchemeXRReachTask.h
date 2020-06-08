@@ -59,7 +59,7 @@ namespace Cordis
 				const xr_string& scheme_name, const xr_string& section_name, const xr_string& gulag_name);
 
 			static void add_to_binder(CScriptGameObject* const p_client_object, CScriptIniFile* const p_ini,
-				const xr_string& scheme_name, const xr_string& section_name, DataBase::Storage_Scheme& storage);
+				const xr_string& scheme_name, const xr_string& section_name, void* storage);
 
 			static void add_reach_task_action(CScriptGameObject* const p_client_object);
 		private:

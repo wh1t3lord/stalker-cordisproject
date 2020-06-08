@@ -5,7 +5,7 @@ namespace Cordis
 {
 namespace Scripts
 {
-Script_SchemeMobCamp::Script_SchemeMobCamp(CScriptGameObject* const p_client_object, DataBase::Storage_Scheme& storage)
+Script_SchemeMobCamp::Script_SchemeMobCamp(CScriptGameObject* const p_client_object, void* storage)
     : inherited_scheme(p_client_object, storage), m_path_look(nullptr), m_path_home(nullptr), m_current_point_index(0),
       m_time_point_changed(0), m_state_previous(0), m_state_current(0), m_is_previous_enemy(false), m_camp_node(0)
 {

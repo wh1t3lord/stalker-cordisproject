@@ -1300,10 +1300,15 @@ public:
     }
 
     inline xr_map<xr_string,
-        std::function<void(CScriptGameObject* const, CScriptIniFile* const, const xr_string&, const xr_string&, DataBase::Storage_Scheme&)>>&
+        std::function<void(CScriptGameObject* const, CScriptIniFile* const, const xr_string&, const xr_string&, void*)>>&
     getSchemesAddToBinderCallbacks(void) noexcept
     {
         return this->m_registered_schemes_add_to_binder_callbacks;
+    }
+
+    inline xr_map<xr_string, std::function<void*(void)>>& getSchemesAllocatorCallbacks(void) noexcept 
+    {
+        return this->m_schemes_allocators;
     }
 
     // @ Uses in Script_SchemeSRLight
@@ -1527,10 +1532,9 @@ private:
         std::function<void(
             CScriptGameObject* const, CScriptIniFile* const, const xr_string&, const xr_string&, const xr_string&)>>
         m_registered_schemes_set_scheme_callbacks;
-    xr_map<xr_string,
-        std::function<void(CScriptGameObject* const, CScriptIniFile* const, const xr_string&, const xr_string&,
-            DataBase::Storage_Scheme&)>>
+    xr_map<xr_string, std::function<void(CScriptGameObject* const, CScriptIniFile* const, const xr_string&, const xr_string&, void*)>>
         m_registered_schemes_add_to_binder_callbacks;
+    xr_map<xr_string, std::function<void* (void)>> m_schemes_allocators;
     xr_map<xr_string, Script_SmartTerrainControl_States> m_registered_smart_terrain_control_script_states;
     xr_map<xr_string, xr_string> m_squad_community_by_behavior;
     xr_map<xr_string, xr_string> m_xr_smartcover_cover_substate;

@@ -9,7 +9,7 @@ namespace Cordis
 namespace Scripts
 {
 Script_SchemeSRTeleport::Script_SchemeSRTeleport(
-    CScriptGameObject* const p_client_object, DataBase::Storage_Scheme& storage)
+    CScriptGameObject* const p_client_object, void* storage)
     : inherited_scheme(p_client_object, storage), m_state(false), m_timer(0)
 {
     this->m_scheme_name = "sr_teleport";

@@ -10,7 +10,7 @@ class Script_SchemePHOnHit : public Script_ISchemeEntity
 
 public:
     Script_SchemePHOnHit(void) = delete;
-    Script_SchemePHOnHit(CScriptGameObject* const p_client_object, DataBase::Storage_Scheme& storage);
+    Script_SchemePHOnHit(CScriptGameObject* const p_client_object, void* storage);
     ~Script_SchemePHOnHit(void);
 
     virtual void hit_callback(CScriptGameObject* const p_client_object, const float amount,
@@ -18,7 +18,7 @@ public:
 
     // @ PRIVATE uses, in XR_LOGIC
     static inline void add_to_binder(CScriptGameObject* const p_client_object, CScriptIniFile* const p_ini,
-        const xr_string& scheme_name, const xr_string& section_name, DataBase::Storage_Scheme& storage)
+        const xr_string& scheme_name, const xr_string& section_name, void* storage)
     {
         if (!p_client_object)
         {

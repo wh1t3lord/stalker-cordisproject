@@ -5,7 +5,7 @@ namespace Cordis
 {
 namespace Scripts
 {
-Script_SchemePHForce::Script_SchemePHForce(CScriptGameObject* const p_client_object, DataBase::Storage_Scheme& storage)
+Script_SchemePHForce::Script_SchemePHForce(CScriptGameObject* const p_client_object, void* storage)
     : inherited_scheme(p_client_object, storage), m_is_process(false), m_time(0)
 {
 }
