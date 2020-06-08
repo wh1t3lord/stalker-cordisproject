@@ -6,7 +6,7 @@ namespace Cordis
 namespace Scripts
 {
 Script_SchemeHelicopterMove::Script_SchemeHelicopterMove(
-    CScriptGameObject* const p_client_object, DataBase::Storage_Scheme& storage)
+    CScriptGameObject* const p_client_object, void* storage)
     : inherited_scheme(p_client_object, storage), m_p_helicopter(p_client_object->get_helicopter()),
       m_p_manager_fire(Script_HelicopterFireStorage::getInstance().AllocateFirer(p_client_object)),
       m_p_manager_fly(Script_HelicopterFlyStorage::getInstance().AllocateFlyer(p_client_object)),
@@ -278,7 +278,7 @@ void Script_SchemeHelicopterMove::waypoint_callback(
 }
 
 void Script_SchemeHelicopterMove::add_to_binder(CScriptGameObject* const p_client_object, CScriptIniFile* const p_ini,
-    const xr_string& scheme_name, const xr_string& section_name, DataBase::Storage_Scheme& storage)
+    const xr_string& scheme_name, const xr_string& section_name, void* storage)
 {
     if (!p_client_object)
     {

@@ -7,7 +7,7 @@ namespace Scripts
 class Script_EvaluatorNeedRemark : public CScriptPropertyEvaluator
 {
 public:
-    Script_EvaluatorNeedRemark(const xr_string& evaluator_name, DataBase::Storage_Scheme& storage)
+    Script_EvaluatorNeedRemark(const xr_string& evaluator_name, void* storage)
         : CScriptPropertyEvaluator(nullptr, evaluator_name.c_str()), m_p_storage(&storage)
     {
     }
@@ -24,7 +24,7 @@ class Script_SchemeXRRemark : public Script_ISchemeStalker
 
 public:
     Script_SchemeXRRemark(void) = delete;
-    Script_SchemeXRRemark(const xr_string& action_name, DataBase::Storage_Scheme& storage)
+    Script_SchemeXRRemark(const xr_string& action_name, void* storage)
         : inherited_scheme(nullptr, action_name, storage), m_is_sound_end_signalled(false),
           m_is_action_end_signalled(false), m_is_animation_end_signalled(false), m_is_sound_scheduled(false),
           m_is_sound_started(false), m_state(0)
@@ -42,7 +42,7 @@ public:
 
         // @ PRIVATE uses, in XR_LOGIC
     static inline void add_to_binder(CScriptGameObject* const p_client_object, CScriptIniFile* const p_ini,
-            const xr_string& scheme_name, const xr_string& section_name, DataBase::Storage_Scheme& storage)
+            const xr_string& scheme_name, const xr_string& section_name, void* storage)
     {
         if (!p_client_object)
         {

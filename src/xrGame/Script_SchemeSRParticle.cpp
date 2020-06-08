@@ -8,7 +8,7 @@ namespace Cordis
 namespace Scripts
 {
 Script_SchemeSRParticle::Script_SchemeSRParticle(
-    CScriptGameObject* const p_client_object, DataBase::Storage_Scheme& storage)
+    CScriptGameObject* const p_client_object, void* storage)
     : inherited_scheme(p_client_object, storage), m_last_update(0), m_path(nullptr), m_is_started(false),
       m_is_first_played(false)
 {

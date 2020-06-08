@@ -5,7 +5,7 @@ namespace Cordis
 {
 namespace Scripts
 {
-Script_SchemePHCode::Script_SchemePHCode(CScriptGameObject* const p_client_object, DataBase::Storage_Scheme& storage)
+Script_SchemePHCode::Script_SchemePHCode(CScriptGameObject* const p_client_object, void* storage)
     : inherited_scheme(p_client_object, storage)
 {
 }

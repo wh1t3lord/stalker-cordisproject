@@ -7,7 +7,7 @@ namespace Cordis
 		class Script_EvaluatorCamperEnd : public CScriptPropertyEvaluator
 		{
 		public:
-			Script_EvaluatorCamperEnd(const xr_string& name, DataBase::Storage_Scheme& storage) : CScriptPropertyEvaluator(nullptr, name.c_str()), m_p_storage(&storage)
+			Script_EvaluatorCamperEnd(const xr_string& name, void* storage) : CScriptPropertyEvaluator(nullptr, name.c_str()), m_p_storage(&storage)
 			{
 
 			}
@@ -24,7 +24,7 @@ namespace Cordis
 		class Script_EvaluatorCloseCombat : public CScriptPropertyEvaluator
 		{
 		public:
-			Script_EvaluatorCloseCombat(const xr_string& name, DataBase::Storage_Scheme& storage) : CScriptPropertyEvaluator(nullptr, name.c_str()), m_p_storage(&storage), m_is_close_combat(false)
+			Script_EvaluatorCloseCombat(const xr_string& name, void* storage) : CScriptPropertyEvaluator(nullptr, name.c_str()), m_p_storage(&storage), m_is_close_combat(false)
 			{}
 
 			virtual _value_type evaluate(void);
@@ -39,7 +39,7 @@ namespace Cordis
 
 		public:
 			Script_SchemeXRCamper(void) = delete;
-			Script_SchemeXRCamper(const xr_string& name, DataBase::Storage_Scheme& storage);
+			Script_SchemeXRCamper(const xr_string& name, void* storage);
 			~Script_SchemeXRCamper(void);
 
 			virtual void initialize(void);
@@ -55,7 +55,7 @@ namespace Cordis
 			}
 
 			static void add_to_binder(CScriptGameObject* const p_client_object, CScriptIniFile* const p_ini,
-				const xr_string& scheme_name, const xr_string& section_name, DataBase::Storage_Scheme& storage);
+				const xr_string& scheme_name, const xr_string& section_name, void* storage);
 
 			// @ PRIVATE, uses in XR_LOGIC
 			static void set_scheme(CScriptGameObject* const p_client_object, CScriptIniFile* const p_ini,

@@ -5,7 +5,7 @@ namespace Cordis
 {
 namespace Scripts
 {
-Script_SchemePHIdle::Script_SchemePHIdle(CScriptGameObject* const p_client_object, DataBase::Storage_Scheme& storage)
+Script_SchemePHIdle::Script_SchemePHIdle(CScriptGameObject* const p_client_object, void* storage)
     : inherited_scheme(p_client_object, storage)
 {
     this->m_scheme_name = "ph_idle";

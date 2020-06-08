@@ -5,7 +5,7 @@ namespace Cordis
 {
 namespace Scripts
 {
-Script_SchemeXRWalker::Script_SchemeXRWalker(const xr_string& action_name, DataBase::Storage_Scheme& storage)
+Script_SchemeXRWalker::Script_SchemeXRWalker(const xr_string& action_name, void* storage)
     : inherited_scheme(nullptr, action_name, storage), m_is_in_camp(false), m_p_camp(nullptr)
 {
     this->m_p_storage->setXRWalkerDescriptionName("walker_camp");

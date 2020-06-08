@@ -11,7 +11,7 @@ namespace Cordis
 {
 	namespace Scripts
 	{
-		Script_SchemeXRCombatCamper::Script_SchemeXRCombatCamper(const xr_string& name, DataBase::Storage_Scheme& storage) : Script_ISchemeStalker(nullptr, name, storage)
+		Script_SchemeXRCombatCamper::Script_SchemeXRCombatCamper(const xr_string& name, void* storage) : Script_ISchemeStalker(nullptr, name, storage)
 		{
 		}
 		Script_SchemeXRCombatCamper::~Script_SchemeXRCombatCamper(void)
@@ -37,7 +37,7 @@ namespace Cordis
 			this->m_p_storage->setXRCombatCamperAction(false);
 		}
 
-		void Script_SchemeXRCombatCamper::add_to_binder(CScriptGameObject* const p_client_object, CScriptIniFile* const p_ini, const xr_string& section_name, const xr_string& scheme_name, DataBase::Storage_Scheme& storage)
+		void Script_SchemeXRCombatCamper::add_to_binder(CScriptGameObject* const p_client_object, CScriptIniFile* const p_ini, const xr_string& section_name, const xr_string& scheme_name, void* storage)
 		{
 			if (!p_client_object)
 			{
@@ -97,7 +97,7 @@ namespace Cordis
 			storage.setXRCombatCamperAction(false);
 		}
 
-		Script_SchemeXRCombatCamperLook::Script_SchemeXRCombatCamperLook(const xr_string& name, DataBase::Storage_Scheme& storage) : Script_ISchemeStalker(nullptr, name, storage), m_forget_time(0), m_change_dir_time(0)
+		Script_SchemeXRCombatCamperLook::Script_SchemeXRCombatCamperLook(const xr_string& name, void* storage) : Script_ISchemeStalker(nullptr, name, storage), m_forget_time(0), m_change_dir_time(0)
 		{
 		}
 

@@ -10,7 +10,7 @@ namespace Cordis
 namespace Scripts
 {
 Script_SchemeSRPsyAntenna::Script_SchemeSRPsyAntenna(
-    CScriptGameObject* const p_client_object, DataBase::Storage_Scheme& storage)
+    CScriptGameObject* const p_client_object, void* storage)
     : inherited_scheme(p_client_object, storage), m_state(_kPsyStateNotDefined),
       m_manager_psy_antenna(&Script_PsyAntennaManager::getInstance())
 {

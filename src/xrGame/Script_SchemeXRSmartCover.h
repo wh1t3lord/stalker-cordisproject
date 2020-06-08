@@ -7,7 +7,7 @@ namespace Cordis
 		class Script_EvaluatorUseSmartCoverInCombat : public CScriptPropertyEvaluator
 		{
 		public:
-			Script_EvaluatorUseSmartCoverInCombat(const xr_string& name, DataBase::Storage_Scheme& storage) : CScriptPropertyEvaluator(nullptr, name.c_str()), m_p_storage(&storage) {}
+			Script_EvaluatorUseSmartCoverInCombat(const xr_string& name, void* storage) : CScriptPropertyEvaluator(nullptr, name.c_str()), m_p_storage(&storage) {}
 			~Script_EvaluatorUseSmartCoverInCombat(void) {}
 
 			virtual _value_type evaluate(void);
@@ -18,7 +18,7 @@ namespace Cordis
 		class Script_EvaluatorNeedSmartCover : public CScriptPropertyEvaluator
 		{
 		public:
-			Script_EvaluatorNeedSmartCover(const xr_string& name, DataBase::Storage_Scheme& storage) : CScriptPropertyEvaluator(nullptr, name.c_str()), m_p_storage(&storage) {}
+			Script_EvaluatorNeedSmartCover(const xr_string& name, void* storage) : CScriptPropertyEvaluator(nullptr, name.c_str()), m_p_storage(&storage) {}
 			~Script_EvaluatorNeedSmartCover(void) {}
 
 			virtual _value_type evaluate(void);
@@ -31,7 +31,7 @@ namespace Cordis
 		{
 		public:
 			Script_SchemeXRSmartCover(void) = delete;
-			Script_SchemeXRSmartCover(const xr_string& name, DataBase::Storage_Scheme& storage);
+			Script_SchemeXRSmartCover(const xr_string& name, void* storage);
 			~Script_SchemeXRSmartCover(void);
 
 			virtual void finalize(void);
@@ -46,7 +46,7 @@ namespace Cordis
 			bool position_riched(void);
 
 			static void add_to_binder(CScriptGameObject* const p_client_object, CScriptIniFile* const p_ini,
-				const xr_string& scheme_name, const xr_string& section_name, DataBase::Storage_Scheme& storage);
+				const xr_string& scheme_name, const xr_string& section_name, void* storage);
 
 			static void set_scheme(CScriptGameObject* const p_client_object, CScriptIniFile* const p_ini,
 				const xr_string& scheme_name, const xr_string& section_name, const xr_string& gulag_name);

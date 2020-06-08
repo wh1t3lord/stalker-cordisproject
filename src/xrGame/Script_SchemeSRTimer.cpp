@@ -14,7 +14,7 @@ namespace Cordis
 {
 namespace Scripts
 {
-Script_SchemeSRTimer::Script_SchemeSRTimer(CScriptGameObject* const p_client_object, DataBase::Storage_Scheme& storage)
+Script_SchemeSRTimer::Script_SchemeSRTimer(CScriptGameObject* const p_client_object, void* storage)
     : inherited_scheme(p_client_object, storage)
 {
     this->m_scheme_name = "sr_timer";

@@ -5,7 +5,7 @@ namespace Cordis
 {
 namespace Scripts
 {
-Script_SchemePHOnHit::Script_SchemePHOnHit(CScriptGameObject* const p_client_object, DataBase::Storage_Scheme& storage)
+Script_SchemePHOnHit::Script_SchemePHOnHit(CScriptGameObject* const p_client_object, void* storage)
     : inherited_scheme(p_client_object, storage)
 {
 }

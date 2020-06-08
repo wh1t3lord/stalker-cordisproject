@@ -758,9 +758,12 @@ inline void load_object(CScriptGameObject* client_object, IReader& packet);
 inline void save_object(CScriptGameObject* client_object, NET_Packet& packet);
 inline void mob_capture(CScriptGameObject* client_mob, const bool is_reset_actions, const xr_string& scheme_name);
 inline bool is_mob_captured(CScriptGameObject* p_client_object);
-inline DataBase::Storage_Scheme* assign_storage_and_bind(CScriptGameObject* const p_client_object,
+
+template<typename ComponentType>
+inline ComponentType* assign_storage_and_bind(CScriptGameObject* const p_client_object,
     CScriptIniFile* const p_ini, const xr_string& scheme_name, const xr_string& section_name,
     const xr_string& gulag_name);
+
 inline void mob_release(CScriptGameObject* const p_client_object, const xr_string& scheme_name);
 inline LogicData cfg_get_two_strings_and_condlist(CScriptIniFile* const p_ini, const xr_string& section_name,
     const xr_string& field_name, CScriptGameObject* const p_npc);
@@ -774,10 +777,10 @@ inline xr_vector<LogicData> cfg_get_switch_conditions(
     CScriptIniFile* p_ini, const xr_string& section_name, CScriptGameObject* const p_client_object);
 inline bool is_see_actor(CScriptGameObject* const p_client_object);
 inline bool try_switch_to_another_section(
-    CScriptGameObject* p_client_object, DataBase::Storage_Scheme& storage, CScriptGameObject* p_client_actor);
+    CScriptGameObject* p_client_object, void* storage, CScriptGameObject* p_client_actor);
 inline bool switch_to_section(
     CScriptGameObject* const p_client_object, CScriptIniFile* const p_ini, const xr_string& section_name);
-inline bool is_active(CScriptGameObject* const p_client_object, DataBase::Storage_Scheme& storage);
+inline bool is_active(CScriptGameObject* const p_client_object, void* storage);
 void reset_generic_schemes_on_scheme_switch(
     CScriptGameObject* const p_client_object, const xr_string& scheme_name, const xr_string& section_name);
 inline DataBase::Data_Overrides cfg_get_overrides(

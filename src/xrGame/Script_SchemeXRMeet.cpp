@@ -38,7 +38,7 @@ namespace Cordis
 			return false;
 		}
 
-		Script_XRMeetManager::Script_XRMeetManager(CScriptGameObject* const p_client_object, DataBase::Storage_Scheme& storage) : m_is_bye_passed(false), m_is_hello_passed(false), m_is_npc_camp_director(false), m_p_storage(&storage), m_p_npc(p_client_object), m_is_allow_break(false) 
+		Script_XRMeetManager::Script_XRMeetManager(CScriptGameObject* const p_client_object, void* storage) : m_is_bye_passed(false), m_is_hello_passed(false), m_is_npc_camp_director(false), m_p_storage(&storage), m_p_npc(p_client_object), m_is_allow_break(false) 
 		{
 		}
 
@@ -367,7 +367,7 @@ namespace Cordis
 			CScriptActionBase::finalize();
 		}
 
-		void Script_SchemeXRMeet::add_to_binder(CScriptGameObject* const p_object, CScriptIniFile* const p_ini, const xr_string& scheme_name, const xr_string& section_name, DataBase::Storage_Scheme& storage)
+		void Script_SchemeXRMeet::add_to_binder(CScriptGameObject* const p_object, CScriptIniFile* const p_ini, const xr_string& scheme_name, const xr_string& section_name, void* storage)
 		{
 			if (p_object == nullptr)
 			{
@@ -450,7 +450,7 @@ namespace Cordis
 			init_meet(p_client_object, storage.getIni(), meet_section_name, scheme_name, *p_storage_scheme);
 		}
 
-		void Script_SchemeXRMeet::init_meet(CScriptGameObject* const p_client_object, CScriptIniFile* const p_ini, const xr_string& section_name, const xr_string& scheme_name, DataBase::Storage_Scheme& storage)
+		void Script_SchemeXRMeet::init_meet(CScriptGameObject* const p_client_object, CScriptIniFile* const p_ini, const xr_string& section_name, const xr_string& scheme_name, void* storage)
 		{
 			if (section_name == storage.getXRMeetMeetSectionName() || (section_name.empty()))
 				return;

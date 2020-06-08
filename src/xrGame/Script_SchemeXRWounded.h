@@ -8,7 +8,7 @@ namespace Cordis
 		{
 		public:
 			Script_EvaluatorWound(void) = delete;
-			Script_EvaluatorWound(const xr_string& name, DataBase::Storage_Scheme& storage) : CScriptPropertyEvaluator(nullptr, name.c_str()), m_p_storage(&storage) {}
+			Script_EvaluatorWound(const xr_string& name, void* storage) : CScriptPropertyEvaluator(nullptr, name.c_str()), m_p_storage(&storage) {}
 			~Script_EvaluatorWound(void);
 
 			virtual _value_type evaluate(void);
@@ -21,7 +21,7 @@ namespace Cordis
 		{
 		public:
 			Script_EvaluatorCanFight(void) = delete;
-			Script_EvaluatorCanFight(const xr_string& name, DataBase::Storage_Scheme& storage) : CScriptPropertyEvaluator(nullptr, name.c_str()), m_p_storage(&storage) {}
+			Script_EvaluatorCanFight(const xr_string& name, void* storage) : CScriptPropertyEvaluator(nullptr, name.c_str()), m_p_storage(&storage) {}
 			~Script_EvaluatorCanFight(void);
 
 			virtual _value_type evaluate(void);
@@ -35,7 +35,7 @@ namespace Cordis
 		{
 		public: 
 			Script_SchemeXRWounded(void) = delete;
-			Script_SchemeXRWounded(const xr_string& name, DataBase::Storage_Scheme& storage) : CScriptActionBase(nullptr, name.c_str()), m_p_storage(&storage) {}
+			Script_SchemeXRWounded(const xr_string& name, void* storage) : CScriptActionBase(nullptr, name.c_str()), m_p_storage(&storage) {}
 			~Script_SchemeXRWounded(void);
 
 
@@ -43,7 +43,7 @@ namespace Cordis
 			virtual void execute(void);
 			virtual void finalize(void);
 			static void add_to_binder(CScriptGameObject* const p_client_object, CScriptIniFile* const p_ini,
-				const xr_string& scheme_name, const xr_string& section_name, DataBase::Storage_Scheme& storage);
+				const xr_string& scheme_name, const xr_string& section_name, void* storage);
 			static void set_wounded(CScriptGameObject* const p_client_object, CScriptIniFile* const p_ini, const xr_string& scheme_name, const xr_string& section_name, const xr_string& gulag_name);
 			static void reset_wounded(CScriptGameObject* const p_client_object, const xr_string& scheme_name, const DataBase::Storage_Data& storage, const xr_string& section_name);
 			static void init_wounded(CScriptGameObject* const p_client_object, CScriptIniFile* const p_ini, const xr_string& section_name, DataBase::Storage_Scheme* p_storage, const xr_string& scheme_name);
@@ -56,7 +56,7 @@ namespace Cordis
 		{
 		public:
 			Script_WoundedManager(void) = delete;
-			Script_WoundedManager(CScriptGameObject* const p_client_object, DataBase::Storage_Scheme& storage);
+			Script_WoundedManager(CScriptGameObject* const p_client_object, void* storage);
 			~Script_WoundedManager(void);
 
 			void update(void);

@@ -9,7 +9,7 @@ class Script_SchemeMobRemark : public Script_ISchemeMonster
     using inherited_scheme = Script_ISchemeMonster;
 public:
     Script_SchemeMobRemark(void) = delete;
-    Script_SchemeMobRemark(CScriptGameObject* p_client_object, DataBase::Storage_Scheme& storage);
+    Script_SchemeMobRemark(CScriptGameObject* p_client_object, void* storage);
     ~Script_SchemeMobRemark(void);
 
     virtual void reset_scheme(const bool, CScriptGameObject* const p_client_object);
@@ -17,7 +17,7 @@ public:
 
     // @ PRIVATE uses, in XR_LOGIC
     static inline void add_to_binder(CScriptGameObject* const p_client_object, CScriptIniFile* const p_ini,
-        const xr_string& scheme_name, const xr_string& section_name, DataBase::Storage_Scheme& storage)
+        const xr_string& scheme_name, const xr_string& section_name, void* storage)
     {
         if (!p_client_object)
         {

@@ -5,7 +5,7 @@ namespace Cordis
 {
 namespace Scripts
 {
-Script_SchemeMobRemark::Script_SchemeMobRemark(CScriptGameObject* p_client_object, DataBase::Storage_Scheme& storage)
+Script_SchemeMobRemark::Script_SchemeMobRemark(CScriptGameObject* p_client_object, void* storage)
     : inherited_scheme(p_client_object, storage), m_is_tip_sent(false), m_is_action_end_signalled(false)
 {
     this->m_scheme_name = "mob_remark";

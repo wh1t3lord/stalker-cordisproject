@@ -5,7 +5,7 @@ namespace Cordis
 {
 	namespace Scripts
 	{
-		Script_SchemeXRCombatIgnore::Script_SchemeXRCombatIgnore(CScriptGameObject* const p_client_object, DataBase::Storage_Scheme& storage) : Script_ISchemeEntity(p_client_object, storage)
+		Script_SchemeXRCombatIgnore::Script_SchemeXRCombatIgnore(CScriptGameObject* const p_client_object, void* storage) : Script_ISchemeEntity(p_client_object, storage)
 		{
 		}
 
@@ -213,7 +213,7 @@ namespace Cordis
 			return true;
 		}
 
-		void Script_SchemeXRCombatIgnore::add_to_binder(CScriptGameObject* const p_client_object, CScriptIniFile* const p_ini, const xr_string& scheme_name, const xr_string& section_name, DataBase::Storage_Scheme& storage)
+		void Script_SchemeXRCombatIgnore::add_to_binder(CScriptGameObject* const p_client_object, CScriptIniFile* const p_ini, const xr_string& scheme_name, const xr_string& section_name, void* storage)
 		{
 			Script_SchemeXRCombatIgnore* const p_scheme = new Script_SchemeXRCombatIgnore(p_client_object, storage);
 			storage.setAction(p_scheme);
