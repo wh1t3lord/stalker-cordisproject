@@ -735,86 +735,86 @@ namespace Cordis
 			};
 			struct Script_ComponentScheme_XRCamper
 			{
-				Script_ComponentScheme_XRCamper(void) : m_is_xr_camper_sniper(false), m_is_xr_camper_no_retreat(false), m_xr_camper_wp_flag(0),
-					m_xr_camper_scan_begin(0), m_xr_camper_current_look_point(0), m_xr_camper_memory_enemy(0), m_xr_camper_idle(0), m_xr_camper_scantimefree(0),
-					m_xr_camper_radius(0.0f)
+				Script_ComponentScheme_XRCamper(void) : m_is_sniper(false), m_is_no_retreat(false), m_wp_flag(0),
+					m_scan_begin(0), m_current_look_point(0), m_memory_enemy(0), m_idle(0), m_scantimefree(0),
+					m_radius(0.0f)
 				{}
 
-				inline float getXRCamperRadius(void) const noexcept { return this->m_xr_camper_radius; }
-				inline void setXRCamperRadius(const float value) noexcept { this->m_xr_camper_radius = value; }
+				inline float getRadius(void) const noexcept { return this->m_radius; }
+				inline void setRadius(const float value) noexcept { this->m_radius = value; }
 
-				inline const xr_string& getXRCamperAttackSoundName(void) const noexcept { return this->m_xr_camper_attack_sound_name; }
-				inline void setXRCamperAttackSoundName(const xr_string& sound_name) noexcept
+				inline const xr_string& getAttackSoundName(void) const noexcept { return this->m_attack_sound_name; }
+				inline void setAttackSoundName(const xr_string& sound_name) noexcept
 				{
 					if (sound_name.empty())
 					{
 						MESSAGEW("you are trying to set an empty string!");
 					}
 
-					this->m_xr_camper_attack_sound_name = sound_name;
+					this->m_attack_sound_name = sound_name;
 				}
 
-				inline float getXRCamperEnemyDisp(void) const noexcept { return this->m_xr_camper_enemy_disp; }
+				inline float getEnemyDisp(void) const noexcept { return this->m_enemy_disp; }
 
-				inline std::uint32_t getXRCamperPostEnemyWait(void) const noexcept { return this->m_xr_camper_post_enemy_wait; }
+				inline std::uint32_t getPostEnemyWait(void) const noexcept { return this->m_post_enemy_wait; }
 
-				inline float getXRCamperScanDelta(void) const noexcept { return this->m_xr_camper_scandelta; }
-				inline std::uint32_t getXRCamperTimeDelta(void) const noexcept { return this->m_xr_camper_timedelta; }
-				inline std::uint32_t getXRCamperTimeScanDelta(void) const noexcept { return this->m_xr_camper_timescandelta; }
+				inline float getScanDelta(void) const noexcept { return this->m_scandelta; }
+				inline std::uint32_t getTimeDelta(void) const noexcept { return this->m_timedelta; }
+				inline std::uint32_t getTimeScanDelta(void) const noexcept { return this->m_timescandelta; }
 
-				inline std::uint32_t getXRCamperIdle(void) const noexcept { return this->m_xr_camper_idle; }
-				inline void setXRCamperIdle(const std::uint32_t value) noexcept { this->m_xr_camper_idle = value; }
+				inline std::uint32_t getIdle(void) const noexcept { return this->m_idle; }
+				inline void setIdle(const std::uint32_t value) noexcept { this->m_idle = value; }
 
-				inline std::uint32_t getXRCamperScanTimeFree(void) const noexcept { return this->m_xr_camper_scantimefree; }
-				inline void setXRCamperScanTimeFree(const std::uint32_t value) noexcept { this->m_xr_camper_scantimefree = value; }
+				inline std::uint32_t getScanTimeFree(void) const noexcept { return this->m_scantimefree; }
+				inline void setScanTimeFree(const std::uint32_t value) noexcept { this->m_scantimefree = value; }
 
-				inline const xr_string& getXRCamperSniperAnimName(void) const noexcept { return this->m_xr_camper_sniper_anim_name; }
-				inline void setXRCamperSniperAnimName(const xr_string& animation_name) noexcept
+				inline const xr_string& getSniperAnimName(void) const noexcept { return this->m_sniper_anim_name; }
+				inline void setSniperAnimName(const xr_string& animation_name) noexcept
 				{
 					if (animation_name.empty())
 					{
 						MESSAGEW("you are trying to set an empty string");
 					}
 
-					this->m_xr_camper_sniper_anim_name = animation_name;
+					this->m_sniper_anim_name = animation_name;
 				}
 
-				inline bool isXRCamperSniper(void) const noexcept { return this->m_is_xr_camper_sniper; }
-				inline void setXRCamperSniper(const bool value) noexcept { this->m_is_xr_camper_sniper = value; }
+				inline bool isSniper(void) const noexcept { return this->m_is_sniper; }
+				inline void setSniper(const bool value) noexcept { this->m_is_sniper = value; }
 
-				inline bool isXRCamperNoRetreat(void) const noexcept { return this->m_is_xr_camper_no_retreat; }
-				inline void setXRCamperNoRetreat(const bool value) noexcept { this->m_is_xr_camper_no_retreat = value; }
+				inline bool isNoRetreat(void) const noexcept { return this->m_is_no_retreat; }
+				inline void setNoRetreat(const bool value) noexcept { this->m_is_no_retreat = value; }
 
-				inline const xr_string& getXRCamperShootName(void) const noexcept { return this->m_xr_camper_shoot_name; }
-				inline void setXRCamperShootName(const xr_string& name) noexcept
+				inline const xr_string& getShootName(void) const noexcept { return this->m_shoot_name; }
+				inline void setShootName(const xr_string& name) noexcept
 				{
 					if (name.empty())
 					{
 						MESSAGEW("you are trying to set an empty string");
 					}
 
-					this->m_xr_camper_shoot_name = name;
+					this->m_shoot_name = name;
 				}
 
-				inline const std::pair<std::uint32_t, Fvector>& getXRCamperLastLookPoint(void) const noexcept { return this->m_xr_camper_last_look_point; }
-				inline void setXRCamperLastLookPointKey(const std::uint32_t value) noexcept { this->m_xr_camper_last_look_point.first = value; }
-				inline void setXRCamperLastLookPointPos(const Fvector& position) noexcept { this->m_xr_camper_last_look_point.second = position; }
-				inline void setXRCamperLastLookPoint(const std::uint32_t value, const Fvector& position) noexcept { this->m_xr_camper_last_look_point.first = value; this->m_xr_camper_last_look_point.second = position; }
+				inline const std::pair<std::uint32_t, Fvector>& getLastLookPoint(void) const noexcept { return this->m_last_look_point; }
+				inline void setLastLookPointKey(const std::uint32_t value) noexcept { this->m_last_look_point.first = value; }
+				inline void setLastLookPointPos(const Fvector& position) noexcept { this->m_last_look_point.second = position; }
+				inline void setLastLookPoint(const std::uint32_t value, const Fvector& position) noexcept { this->m_last_look_point.first = value; this->m_last_look_point.second = position; }
 
 
-				inline std::uint32_t getXRCamperWpFlag(void) const noexcept { return this->m_xr_camper_wp_flag; }
-				inline void setXRCamperWpFlag(const std::uint32_t value) noexcept
+				inline std::uint32_t getWpFlag(void) const noexcept { return this->m_wp_flag; }
+				inline void setWpFlag(const std::uint32_t value) noexcept
 				{
 					if (value >= std::uint8_t(-1))
 					{
 						MESSAGEWR("deprecated value!");
 						return;
 					}
-					this->m_xr_camper_wp_flag = value;
+					this->m_wp_flag = value;
 				}
 
-				inline const xr_map<xr_string, xr_string>& getXRCamperSuggestedStates(void) const noexcept { return this->m_xr_camper_suggested_states; }
-				inline void setXRCamperSuggestedState(const xr_string& state_name, const xr_string& value_name) noexcept
+				inline const xr_map<xr_string, xr_string>& getSuggestedStates(void) const noexcept { return this->m_suggested_states; }
+				inline void setSuggestedState(const xr_string& state_name, const xr_string& value_name) noexcept
 				{
 					if (state_name.empty())
 					{
@@ -828,52 +828,417 @@ namespace Cordis
 						return;
 					}
 
-					this->m_xr_camper_suggested_states[state_name] = value_name;
+					this->m_suggested_states[state_name] = value_name;
 				}
 
-				inline const xr_map<std::uint32_t, xr_vector<std::pair<std::uint32_t, Fvector>>>& getXRCamperScanTable(void) const noexcept { return this->m_xr_camper_scan_table; }
-				inline void ClearXRCamperScanTable(void) noexcept { this->m_xr_camper_scan_table.clear(); }
-				inline void setXRCamperScanTable(const std::uint32_t index, const std::uint32_t value, const Fvector& position) noexcept
+				inline const xr_map<std::uint32_t, xr_vector<std::pair<std::uint32_t, Fvector>>>& getScanTable(void) const noexcept { return this->m_scan_table; }
+				inline void ClearScanTable(void) noexcept { this->m_scan_table.clear(); }
+				inline void setScanTable(const std::uint32_t index, const std::uint32_t value, const Fvector& position) noexcept
 				{
-					this->m_xr_camper_scan_table[index].push_back({ value, position });
+					this->m_scan_table[index].push_back({ value, position });
 				}
 
-				inline std::uint32_t getXRCamperScanBegin(void) const noexcept { return this->m_xr_camper_scan_begin; }
-				inline void setXRCamperScanBegin(const std::uint32_t value) noexcept { this->m_xr_camper_scan_begin = value; }
+				inline std::uint32_t getScanBegin(void) const noexcept { return this->m_scan_begin; }
+				inline void setScanBegin(const std::uint32_t value) noexcept { this->m_scan_begin = value; }
 
-				inline std::uint32_t getXRCamperCurrentLookPoint(void) const noexcept { return this->m_xr_camper_current_look_point; }
-				inline void setXRCamperCurrentLookPoint(const std::uint32_t value) noexcept { this->m_xr_camper_current_look_point = value; }
+				inline std::uint32_t getCurrentLookPoint(void) const noexcept { return this->m_current_look_point; }
+				inline void setCurrentLookPoint(const std::uint32_t value) noexcept { this->m_current_look_point = value; }
 
-				inline std::uint32_t getXRCamperMemoryEnemy(void) const noexcept { return this->m_xr_camper_memory_enemy; }
-				inline void setXRCamperMemoryEnemy(const std::uint32_t value) noexcept { this->m_xr_camper_memory_enemy = value; }
+				inline std::uint32_t getMemoryEnemy(void) const noexcept { return this->m_memory_enemy; }
+				inline void setMemoryEnemy(const std::uint32_t value) noexcept { this->m_memory_enemy = value; }
 
 				inline void clear(void) noexcept 
 				{
-					this->m_is_xr_camper_no_retreat = false;
-					this->m_is_xr_camper_sniper = false;
+					this->m_is_no_retreat = false;
+					this->m_is_sniper = false;
+					this->m_wp_flag = 0;
+					this->m_scan_begin = 0;
+					this->m_current_look_point = 0;
+					this->m_memory_enemy = 0;
+					this->m_idle = 0;
+					this->m_scantimefree = 0;
+					this->m_radius = 0.0f;
+					this->m_last_look_point.first = 0;
+					this->m_last_look_point.second.x = 0.0f;
+					this->m_last_look_point.second.y = 0.0f;
+					this->m_last_look_point.second.z = 0.0f;
+					this->m_scan_table.clear();
+					this->m_suggested_states.clear();
+					this->m_sniper_anim_name.clear();
+					this->m_shoot_name.clear();
+					this->m_attack_sound_name.clear();
 				}
 
 			private:
-				bool m_is_xr_camper_sniper;
-				bool m_is_xr_camper_no_retreat;
-				std::uint32_t m_xr_camper_wp_flag;
-				std::uint32_t m_xr_camper_scan_begin;
-				std::uint32_t m_xr_camper_current_look_point;
-				std::uint32_t m_xr_camper_memory_enemy;
-				const std::uint32_t m_xr_camper_post_enemy_wait = 5000;
-				const std::uint32_t m_xr_camper_timedelta = 4000;
-				const std::uint32_t m_xr_camper_timescandelta = this->m_xr_camper_timedelta / this->m_xr_camper_scandelta;
-				std::uint32_t m_xr_camper_idle;
-				std::uint32_t m_xr_camper_scantimefree;
-				float m_xr_camper_radius;
-				const float m_xr_camper_scandelta = 30.0f;
-				const float m_xr_camper_enemy_disp = 7 / 57.2957f;
-				std::pair<std::uint32_t, Fvector> m_xr_camper_last_look_point;
-				xr_map<std::uint32_t, xr_vector<std::pair<std::uint32_t, Fvector>>> m_xr_camper_scan_table;
-				xr_map<xr_string, xr_string> m_xr_camper_suggested_states;
-				xr_string m_xr_camper_attack_sound_name;
-				xr_string m_xr_camper_sniper_anim_name;
-				xr_string m_xr_camper_shoot_name;
+				bool m_is_sniper;
+				bool m_is_no_retreat;
+				std::uint32_t m_wp_flag;
+				std::uint32_t m_scan_begin;
+				std::uint32_t m_current_look_point;
+				std::uint32_t m_memory_enemy;
+				const std::uint32_t m_post_enemy_wait = 5000;
+				const std::uint32_t m_timedelta = 4000;
+				const std::uint32_t m_timescandelta = this->m_timedelta / this->m_scandelta;
+				std::uint32_t m_idle;
+				std::uint32_t m_scantimefree;
+				float m_radius;
+				const float m_scandelta = 30.0f;
+				const float m_enemy_disp = 7 / 57.2957f;
+				std::pair<std::uint32_t, Fvector> m_last_look_point;
+				xr_map<std::uint32_t, xr_vector<std::pair<std::uint32_t, Fvector>>> m_scan_table;
+				xr_map<xr_string, xr_string> m_suggested_states;
+				xr_string m_attack_sound_name;
+				xr_string m_sniper_anim_name;
+				xr_string m_shoot_name;
+			};
+
+			struct Script_ComponentScheme_XRKamp
+			{
+				Script_ComponentScheme_XRKamp(void) : m_pos_vertex(0), m_radius(0), m_npc_position_num(0) {}
+
+				inline std::uint32_t getPosVertex(void) const noexcept { return this->m_pos_vertex; }
+				inline void setPosVertex(const std::uint32_t value) noexcept { this->m_pos_vertex = value; }
+
+				inline std::uint32_t getRadius(void) const noexcept { return this->m_radius; }
+				inline void setRadius(const std::uint32_t value) noexcept { this->m_radius = value; }
+
+				inline const xr_string& getCenterPointName(void) const noexcept { return this->m_center_point_name; }
+				inline void setCenterPointName(const xr_string& center_point_name) noexcept { this->m_center_point_name = center_point_name; }
+
+				inline const xr_string& getDefStateMoving(void) const noexcept { return this->m_def_state_moving_name; }
+				inline void setDefStateMoving(const xr_string& state_name) noexcept { this->m_def_state_moving_name = state_name; }
+
+				inline std::uint32_t getNpcPositionNum(void) const noexcept { return this->m_npc_position_num; }
+				inline void setNpcPositionNum(const std::uint32_t value) noexcept
+				{
+					this->m_npc_position_num = value;
+				}
+
+				inline void clear(void) noexcept 
+				{
+					this->m_center_point_name.clear();
+					this->m_def_state_moving_name.clear();
+					this->m_radius = 0;
+					this->m_pos_vertex = 0;
+					this->m_npc_position_num = 0;
+				}
+			private:
+				std::uint32_t m_pos_vertex;
+				std::uint32_t m_radius;
+				std::uint32_t m_npc_position_num;
+				xr_string m_center_point_name;
+				xr_string m_def_state_moving_name;
+			};
+
+			struct Script_ComponentScheme_XRSleeper
+			{
+				Script_ComponentScheme_XRSleeper(void) : m_is_wakeable(false) {}
+
+				inline bool isWakeable(void) const noexcept { return this->m_is_wakeable; }
+				inline void setWakeable(const bool value) noexcept { this->m_is_wakeable = value; }
+
+				inline const xr_string& getPathMainName(void) const noexcept { return this->m_path_main_name; }
+				inline void setPathMainName(const xr_string& path_name) noexcept
+				{
+					if (path_name.empty())
+					{
+						MESSAGEWR("path_name.empty() == true!");
+						return;
+					}
+
+					this->m_path_main_name = path_name;
+				}
+
+				inline const xr_string& getPathWalkName(void) const noexcept { return this->m_path_walk_name; }
+				inline void setPathWalkName(const xr_string& path_name) noexcept
+				{
+					if (path_name.empty())
+					{
+						MESSAGEWR("path_name.empty() == true!");
+						return;
+					}
+
+					this->m_path_walk_name = path_name;
+				}
+
+				inline const xr_string& getPathLookName(void) const noexcept { return this->m_path_look_name; }
+				inline void setPathLookName(const xr_string& path_name) noexcept
+				{
+					if (path_name.empty())
+					{
+						MESSAGEWR("path_name.empty() == true!");
+						return;
+					}
+
+					this->m_path_look_name = path_name;
+				}
+
+				inline void clear(void) noexcept 
+				{
+					this->m_is_wakeable = false;
+					this->m_path_look_name.clear();
+					this->m_path_main_name.clear();
+					this->m_path_walk_name.clear();
+				}
+			private:
+				bool m_is_wakeable;
+				xr_string m_path_main_name;
+				xr_string m_path_walk_name;
+				xr_string m_path_look_name;
+			};
+
+			struct Script_ComponentScheme_XRWalker
+			{
+				Script_ComponentScheme_XRWalker(void) : m_is_use_camp(false) {}
+
+				inline const xr_string& getPathWalkName(void) const noexcept { return this->m_path_walk_name; }
+				inline void setPathWalkName(const xr_string& path_name) noexcept
+				{
+					if (path_name.empty())
+					{
+						MESSAGEWR("path_walk.empty() == "
+							"true! You are set an empty string");
+						return;
+					}
+
+					this->m_path_walk_name = path_name;
+				}
+
+				inline const xr_string& getPathLookName(void) const noexcept { return this->m_path_look_name; }
+				inline void setPathLookName(const xr_string& path_name) noexcept
+				{
+					if (path_name.empty())
+					{
+						MESSAGEWR("path_name.empty() == true! You are set an empty string");
+						return;
+					}
+
+					this->m_path_look_name = path_name;
+				}
+
+				inline const xr_string& getTeamName(void) const noexcept { return this->m_team_name; }
+				inline void setTeamName(const xr_string& team_name) noexcept
+				{
+					if (team_name.empty())
+					{
+						MESSAGEWR("team_name.empty() == true! You are set an empty string");
+						return;
+					}
+
+					this->m_team_name = team_name;
+				}
+
+				inline const xr_string& getDescriptionName(void) const noexcept
+				{
+					return this->m_description_name;
+				}
+				inline void setDescriptionName(const xr_string& description_name) noexcept
+				{
+					if (description_name.empty())
+					{
+						MESSAGEWR("description_name.empty() == true! You are set an empty string!");
+						return;
+					}
+
+					this->m_description_name = description_name;
+				}
+
+				inline bool isUseCamp(void) const noexcept { return this->m_is_use_camp; }
+				inline void setUseCamp(const bool is_using) noexcept { this->m_is_use_camp = is_using; }
+
+				inline const xr_map<xr_string, xr_string>& getSuggestedStates(void) const noexcept
+				{
+					return this->m_suggested_states;
+				}
+
+				inline void setSuggestedStates(const xr_string& type_name, const xr_string& animation_name) noexcept
+				{
+					if (type_name.empty())
+					{
+						MESSAGEW("type_name.empty() == true! You are set an empty string!");
+						return;
+					}
+
+					if (this->m_suggested_states.find(type_name) != this->m_suggested_states.end())
+					{
+						MESSAGEW("you are trying to change the existing value %s to %s",
+							this->m_suggested_states.at(type_name).c_str(), animation_name.c_str());
+					}
+
+					this->m_suggested_states[type_name] = animation_name;
+				}
+
+				inline const xr_string& getSoundIdleName(void) const noexcept { return this->m_sound_idle_name; }
+				inline void setSoundIdleName(const xr_string& sound_name) noexcept
+				{
+					if (sound_name.empty())
+					{
+						MESSAGEWR("sound_name.empty() == true!");
+						return;
+					}
+
+
+					this->m_sound_idle_name = sound_name;
+				}
+
+				inline void clear(void) noexcept 
+				{
+					this->m_is_use_camp = false;
+					this->m_description_name.clear();
+					this->m_path_look_name.clear();
+					this->m_path_walk_name.clear();
+					this->m_sound_idle_name.clear();
+					this->m_suggested_states.clear();
+					this->m_team_name.clear();
+				}
+			private:
+				bool m_is_use_camp;
+				xr_map<xr_string, xr_string> m_suggested_states;
+				xr_string m_description_name;
+				xr_string m_path_walk_name;
+				xr_string m_team_name;
+				xr_string m_sound_idle_name;
+				xr_string m_path_look_name;
+			};
+
+			struct Script_ComponentScheme_XRRemark
+			{
+				Script_ComponentScheme_XRRemark(void) : m_is_target_initialized(false), m_is_sound_animation_sync(false), m_target_id(0) {}
+
+				inline const xr_string& getTargetName(void) const noexcept { return this->m_target_name; }
+				inline void setTargetName(const xr_string& target_name) noexcept
+				{
+					if (target_name.empty())
+					{
+						MESSAGEWR("target_name.empty() == "
+							"true! You are trying to set an empty string Return ...");
+						return;
+					}
+
+					this->m_target_name = target_name;
+				}
+
+				inline bool isTargetInitialized(void) const noexcept { return this->m_is_target_initialized; }
+				inline void setTargetInitialized(const bool value) noexcept
+				{
+					this->m_is_target_initialized = value;
+				}
+
+				inline const Fvector& getTargetPosition(void) const noexcept { return this->m_target_position; }
+				inline void setTargetPosition(const Fvector& target_position) noexcept
+				{
+					this->m_target_position = target_position;
+				}
+
+				inline std::uint16_t getTargetID(void) const noexcept { return this->m_target_id; }
+				inline void setTargetID(const std::uint16_t value) noexcept { this->m_target_id = value; }
+
+				inline bool isSoundAnimationSync(void) const noexcept { return this->m_is_sound_animation_sync; }
+				inline void setSoundAnimationSync(const bool value) noexcept
+				{
+					this->m_is_sound_animation_sync = value;
+				}
+
+				inline const xr_string& getSoundName(void) const noexcept { return this->m_sound_name; }
+				inline void setSoundName(const xr_string& sound_name) noexcept
+				{
+					if (sound_name.empty())
+					{
+						MESSAGEWR("sound_name.empty() == "
+							"true! You are set an empty string Return ...");
+						return;
+					}
+
+					this->m_sound_name = sound_name;
+				}
+
+				inline const xr_string& getTipsIDName(void) const noexcept { return this->m_tips_id_name; }
+				inline void setTipsIDName(const xr_string& text) noexcept
+				{
+					if (text.empty())
+					{
+						MESSAGEWR("text.empty() == true! You are "
+							"set an empty string! Return ...");
+						return;
+					}
+
+					this->m_tips_id_name = text;
+				}
+
+				inline const xr_string& getTipsSenderName(void) const noexcept
+				{
+					return this->m_tips_sender_name;
+				}
+				inline void setTipsSenderName(const xr_string& text) noexcept
+				{
+					if (text.empty())
+					{
+						MESSAGEWR("text.empty() == treu! You "
+							"are set an empty string! Return ...");
+						return;
+					}
+
+					this->m_tips_sender_name = text;
+				}
+
+				inline const xr_map<std::uint32_t, CondlistData>& getAnimationCondlist(void) const noexcept
+				{
+					return this->m_animation_condlist;
+				}
+
+				inline void setAnimationCondlist(const xr_map<std::uint32_t, CondlistData>& condlist) noexcept
+				{
+					if (condlist.empty())
+					{
+						MESSAGEWR("condlist.empty() == "
+							"true! You are trying to set an empty condlist");
+						return;
+					}
+
+					this->m_animation_condlist = condlist;
+				}
+
+				inline void clear(void) noexcept 
+				{
+					this->m_is_sound_animation_sync = false;
+					this->m_is_target_initialized = false;
+					this->m_target_id = 0;
+					this->m_target_position.x = 0.0f;
+					this->m_target_position.y = 0.0f;
+					this->m_target_position.z = 0.0f;
+					this->m_animation_condlist.clear();
+					this->m_sound_name.clear();
+					this->m_target_name.clear();
+					this->m_tips_id_name.clear();
+					this->m_tips_sender_name.clear();
+				}
+
+			private:
+				bool m_is_target_initialized;
+				bool m_is_sound_animation_sync;
+				std::uint16_t m_target_id;
+				Fvector m_target_position;
+				xr_map<std::uint32_t, CondlistData> m_animation_condlist;
+				xr_string m_target_name;
+				xr_string m_sound_name;
+				xr_string m_tips_id_name;
+				xr_string m_tips_sender_name;
+			};
+
+			struct Script_ComponentScheme_XRGatherItems
+			{
+				Script_ComponentScheme_XRGatherItems(void) : m_is_enabled(false) {}
+
+				inline bool isEnabled(void) const noexcept { return this->m_is_enabled; }
+				inline void setEnabled(const bool value) noexcept { this->m_is_enabled = value; }
+
+				inline void clear(void) noexcept 
+				{
+					this->m_is_enabled = false;
+				}
+
+			private:
+				bool m_is_enabled;
 			};
 		}
 	}
