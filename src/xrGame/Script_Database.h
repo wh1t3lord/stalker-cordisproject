@@ -1406,256 +1406,19 @@ public:
 #pragma endregion
 
 #pragma region Cordis Scheme XR Gather Items
-    inline bool isXRGatherItemsEnabled(void) const noexcept { return this->m_is_xr_gather_items_enabled; }
-    inline void setXRGatherItemsEnabled(const bool value) noexcept { this->m_is_xr_gather_items_enabled = value; }
 #pragma endregion
 
 #pragma region Cordis Scheme XR Remark
-    inline const xr_string& getXRRemarkTargetName(void) const noexcept { return this->m_xr_remark_target_name; }
-    inline void setXRRemarkTargetName(const xr_string& target_name) noexcept
-    {
-        if (target_name.empty())
-        {
-            Msg("[Scripts/DataBase/Storage_Scheme/setXRRemarkTargetName(target_name)] WARNING: target_name.empty() == "
-                "true! You are trying to set an empty string Return ...");
-            return;
-        }
-
-        this->m_xr_remark_target_name = target_name;
-    }
-
-    inline bool isXRRemarkTargetInitialized(void) const noexcept { return this->m_is_xr_remark_target_initialized; }
-    inline void setXRRemarkTargetInitialized(const bool value) noexcept
-    {
-        this->m_is_xr_remark_target_initialized = value;
-    }
-
-    inline const Fvector& getXRRemarkTargetPosition(void) const noexcept { return this->m_xr_remark_target_position; }
-    inline void setXRRemarkTargetPosition(const Fvector& target_position) noexcept
-    {
-        this->m_xr_remark_target_position = target_position;
-    }
-
-    inline std::uint16_t getXRRemarkTargetID(void) const noexcept { return this->m_xr_remark_target_id; }
-    inline void setXRRemarkTargetID(const std::uint16_t value) noexcept { this->m_xr_remark_target_id = value; }
-
-    inline bool isXRRemarkSoundAnimationSync(void) const noexcept { return this->m_is_xr_remark_sound_animation_sync; }
-    inline void setXRRemarkSoundAnimationSync(const bool value) noexcept
-    {
-        this->m_is_xr_remark_sound_animation_sync = value;
-    }
-
-    inline const xr_string& getXRRemarkSoundName(void) const noexcept { return this->m_xr_remark_sound_name; }
-    inline void setXRRemarkSoundName(const xr_string& sound_name) noexcept
-    {
-        if (sound_name.empty())
-        {
-            Msg("[Scripts/DataBase/Storage_Scheme/setXRRemarkSoundName(sound_name)] WARNING: sound_name.empty() == "
-                "true! You are set an empty string Return ...");
-            return;
-        }
-
-        this->m_xr_remark_sound_name = sound_name;
-    }
-
-    inline const xr_string& getXRRemarkTipsIDName(void) const noexcept { return this->m_xr_remark_tips_id_name; }
-    inline void setXRRemarkTipsIDName(const xr_string& text) noexcept
-    {
-        if (text.empty())
-        {
-            Msg("[Scripts/DataBase/Storage_Scheme/setXRRemarkTipsIDName(text)] WARNING: text.empty() == true! You are "
-                "set an empty string! Return ...");
-            return;
-        }
-
-        this->m_xr_remark_tips_id_name = text;
-    }
-
-    inline const xr_string& getXRRemarkTipsSenderName(void) const noexcept
-    {
-        return this->m_xr_remark_tips_sender_name;
-    }
-    inline void setXRRemarkTipsSenderName(const xr_string& text) noexcept
-    {
-        if (text.empty())
-        {
-            Msg("[Scripts/DataBase/Storage_Scheme/setXRRemarkTipsSenderName(text)] WARNING: text.empty() == treu! You "
-                "are set an empty string! Return ...");
-            return;
-        }
-
-        this->m_xr_remark_tips_sender_name = text;
-    }
-
-    inline const xr_map<std::uint32_t, CondlistData>& getXRRemarkAnimationCondlist(void) const noexcept
-    {
-        return this->m_xr_remark_animation_condlist;
-    }
-
-    inline void setXRRemarkAnimationCondlist(const xr_map<std::uint32_t, CondlistData>& condlist) noexcept
-    {
-        if (condlist.empty())
-        {
-            Msg("[Scripts/DataBase/Storage_Scheme/setXRRemarkAnimationCondlist(condlist)] WARNING: condlist.empty() == "
-                "true! You are trying to set an empty condlist");
-            return;
-        }
-
-        this->m_xr_remark_animation_condlist = condlist;
-    }
 #pragma endregion
 
 #pragma region Cordis Scheme XR Walker
-    inline const xr_string& getXRWalkerPathWalkName(void) const noexcept { return this->m_xr_walker_path_walk_name; }
-    inline void setXRWalkerPathWalkName(const xr_string& path_name) noexcept
-    {
-        if (path_name.empty())
-        {
-            Msg("[Scripts/DataBase/Storage_Scheme/setXRWalkerPathWalkName(path_name)] WARNING: path_walk.empty() == "
-                "true! You are set an empty string");
-            return;
-        }
 
-        this->m_xr_walker_path_walk_name = path_name;
-    }
-
-    inline const xr_string& getXRWalkerPathLookName(void) const noexcept { return this->m_xr_walker_path_look_name; }
-    inline void setXRWalkerPathLookName(const xr_string& path_name) noexcept
-    {
-        if (path_name.empty())
-        {
-            MESSAGEWR("path_name.empty() == true! You are set an empty string");
-            return;
-        }
-
-        this->m_xr_walker_path_look_name = path_name;
-    }
-
-    inline const xr_string& getXRWalkerTeamName(void) const noexcept { return this->m_xr_walker_team_name; }
-    inline void setXRWalkerTeamName(const xr_string& team_name) noexcept
-    {
-        if (team_name.empty())
-        {
-            MESSAGEWR("team_name.empty() == true! You are set an empty string");
-            return;
-        }
-
-        this->m_xr_walker_team_name = team_name;
-    }
-
-    inline const xr_string& getXRWalkerDescriptionName(void) const noexcept
-    {
-        return this->m_xr_walker_description_name;
-    }
-    inline void setXRWalkerDescriptionName(const xr_string& description_name) noexcept
-    {
-        if (description_name.empty())
-        {
-            MESSAGEWR("description_name.empty() == true! You are set an empty string!");
-            return;
-        }
-
-        this->m_xr_walker_description_name = description_name;
-    }
-
-    inline bool isXRWalkerUseCamp(void) const noexcept { return this->m_is_xr_walker_use_camp; }
-    inline void setXRWalkerUseCamp(const bool is_using) noexcept { this->m_is_xr_walker_use_camp = is_using; }
-
-    inline const xr_map<xr_string, xr_string>& getXRWalkerSuggestedStates(void) const noexcept
-    {
-        return this->m_xr_walker_suggested_states;
-    }
-
-    inline void setXRWalkerSuggestedStates(const xr_string& type_name, const xr_string& animation_name) noexcept
-    {
-        if (type_name.empty())
-        {
-            MESSAGEW("type_name.empty() == true! You are set an empty string!");
-            return;
-        }
-
-        if (this->m_xr_walker_suggested_states.find(type_name) != this->m_xr_walker_suggested_states.end())
-        {
-            MESSAGEW("you are trying to change the existing value %s to %s",
-                this->m_xr_walker_suggested_states.at(type_name).c_str(), animation_name.c_str());
-        }
-
-        this->m_xr_walker_suggested_states[type_name] = animation_name;
-    }
-
-    inline const xr_string& getXRWalkerSoundIdleName(void) const noexcept { return this->m_xr_walker_sound_idle_name; }
-    inline void setXRWalkerSoundIdleName(const xr_string& sound_name) noexcept 
-    {
-        if (sound_name.empty())
-        {
-            MESSAGEWR("sound_name.empty() == true!");
-            return;
-        }
-
-
-        this->m_xr_walker_sound_idle_name = sound_name;
-    }
 #pragma endregion
 
 #pragma region Cordis Scheme XR Sleeper
-    inline bool isXRSleeperWakeable(void) const noexcept { return this->m_is_xr_sleeper_wakeable; }
-    inline void setXRSleeperWakeable(const bool value) noexcept { this->m_is_xr_sleeper_wakeable = value; }
-
-    inline const xr_string& getXRSleeperPathMainName(void) const noexcept { return this->m_xr_sleeper_path_main_name; }
-    inline void setXRSleeperPathMainName(const xr_string& path_name) noexcept 
-    {
-        if (path_name.empty())
-        {
-            MESSAGEWR("path_name.empty() == true!");
-            return;
-        }
-
-        this->m_xr_sleeper_path_main_name = path_name;
-    }
-
-    inline const xr_string& getXRSleeperPathWalkName(void) const noexcept { return this->m_xr_sleeper_path_walk_name; }
-    inline void setXRSleeperPathWalkName(const xr_string& path_name) noexcept 
-    {
-        if (path_name.empty())
-        {
-            MESSAGEWR("path_name.empty() == true!");
-            return;
-        }
-
-        this->m_xr_sleeper_path_walk_name = path_name;
-    }
-
-    inline const xr_string& getXRSleeperPathLookName(void) const noexcept { return this->m_xr_sleeper_path_look_name; }
-    inline void setXRSleeperPathLookName(const xr_string& path_name) noexcept 
-    {
-        if (path_name.empty())
-        {
-            MESSAGEWR("path_name.empty() == true!");
-            return;
-        }
-
-        this->m_xr_sleeper_path_look_name = path_name;
-    }
 #pragma endregion
 
 #pragma region Cordis Scheme XR Kamp
-    inline std::uint32_t getXRKampPosVertex(void) const noexcept { return this->m_xr_kamp_pos_vertex; }
-    inline void setXRKampPosVertex(const std::uint32_t value) noexcept { this->m_xr_kamp_pos_vertex = value; }
-
-    inline std::uint32_t getXRKampRadius (void) const noexcept { return this->m_xr_kamp_radius; }
-    inline void setXRKampRadius(const std::uint32_t value) noexcept { this->m_xr_kamp_radius = value; }
-
-    inline const xr_string& getXRKampCenterPointName(void) const noexcept { return this->m_xr_kamp_center_point_name; }
-    inline void setXRKampCenterPointName(const xr_string& center_point_name) noexcept { this->m_xr_kamp_center_point_name = center_point_name; }
-    
-    inline const xr_string& getXRKampDefStateMoving(void) const noexcept { return this->m_xr_kamp_def_state_moving_name; }
-    inline void setXRKampDefStateMoving(const xr_string& state_name) noexcept { this->m_xr_kamp_def_state_moving_name = state_name; }
-
-    inline std::uint32_t getXRKampNpcPositionNum(void) const noexcept { return this->m_xr_kamp_npc_position_num; }
-    inline void setXRKampNpcPositionNum(const std::uint32_t value) noexcept
-    {
-        this->m_xr_kamp_npc_position_num = value;
-    }
 #pragma endregion
 
 #pragma region Cordis Scheme SR / XR Camp / Animpoint
@@ -1748,14 +1511,11 @@ private:
     bool m_is_sr_particle_looped = false;
     bool m_is_sr_light_light = false;
     bool m_is_xr_help_wounded_help_wounded_enabled = false;
-    bool m_is_xr_gather_items_enabled = false;
-    bool m_is_xr_remark_target_initialized = false;
-    bool m_is_xr_remark_sound_animation_sync = false;
-    bool m_is_xr_walker_use_camp = false;
-    bool m_is_xr_sleeper_wakeable = false;
+
+
     std::uint16_t m_xr_corpse_detection_selected_corpse_id = 0;
     std::uint16_t m_selected_id = 0;
-    std::uint16_t m_xr_remark_target_id = 0;
+
     std::uint32_t m_home_min_radius = 0;
     std::uint32_t m_home_mid_radius = 0;
     std::uint32_t m_home_max_radius = 0;
@@ -1774,9 +1534,6 @@ private:
     std::uint32_t m_level_vertex_id = 0;
     std::uint32_t m_danger_time = 0;
     std::uint32_t m_scheme_id_for_unsubscring = 0;
-    std::uint32_t m_xr_kamp_pos_vertex = 0;
-    std::uint32_t m_xr_kamp_radius = 0;
-    std::uint32_t m_xr_kamp_npc_position_num = 0;
     float m_ph_jump_factor = 0.0f;
     float m_helicopter_min_rocket_distance = 0.0f;
     float m_helicopter_min_minigun_distance = 0.0f;
@@ -1820,18 +1577,18 @@ private:
     Fvector m_offset;
     Fvector m_ph_force_point;
     Fvector m_vertex_position;
-    Fvector m_xr_remark_target_position;
+
     xr_map<xr_string, bool> m_signals;
     xr_map<std::uint32_t, CondlistData> m_dialog_condlist;
     xr_map<std::uint32_t, CondlistData> m_ph_code_on_code_condlist;
     xr_map<std::uint32_t, CondlistData> m_on_use_condlist;
     xr_map<std::uint32_t, CondlistData> m_xr_death_info;
     xr_map<std::uint32_t, CondlistData> m_xr_death_info2;
-    xr_map<std::uint32_t, CondlistData> m_xr_remark_animation_condlist;
+
     xr_map<std::uint32_t, CondlistData> m_xr_combat_combat_type_condlist;
     xr_map<std::uint32_t, xr_map<std::uint32_t, CondlistData>> m_hit_on_bone;
     xr_map<std::uint32_t, xr_map<std::uint32_t, CondlistData>> m_sr_timer_on_value;
-    xr_map<xr_string, xr_string> m_xr_walker_suggested_states;
+
     xr_map<xr_string, xr_map<std::uint32_t, CondlistData>> m_ph_code_on_check_code;
     xr_vector<Script_ISchemeEntity*> m_actions;
     xr_vector<LogicData> m_logic;
@@ -1881,20 +1638,8 @@ private:
     xr_string m_sr_deimos_noise_sound_name;
     xr_string m_sr_deimos_heartbeet_sound_name;
     xr_string m_xr_combat_script_combat_type_name;
-    xr_string m_xr_remark_target_name;
-    xr_string m_xr_remark_sound_name;
-    xr_string m_xr_remark_tips_id_name;
-    xr_string m_xr_remark_tips_sender_name;
-    xr_string m_xr_walker_description_name;
-    xr_string m_xr_walker_path_walk_name;
-    xr_string m_xr_walker_team_name;
-    xr_string m_xr_walker_sound_idle_name;
-    xr_string m_xr_walker_path_look_name;
-    xr_string m_xr_sleeper_path_main_name;
-    xr_string m_xr_sleeper_path_walk_name;
-    xr_string m_xr_sleeper_path_look_name;
-    xr_string m_xr_kamp_center_point_name;
-    xr_string m_xr_kamp_def_state_moving_name;
+
+
     CondlistWaypoints m_path_walk_info;
     CondlistWaypoints m_path_look_info;
 };
