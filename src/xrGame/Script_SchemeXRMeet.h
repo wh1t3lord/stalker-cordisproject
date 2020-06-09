@@ -7,11 +7,11 @@ namespace Cordis
 		class Script_EvaluatorContact : public CScriptPropertyEvaluator
 		{
 		public:
-			Script_EvaluatorContact(const xr_string& name, void* storage) : CScriptPropertyEvaluator(nullptr, name.c_str()), m_p_storage(&storage) {}
+			Script_EvaluatorContact(const xr_string& name, DataBase::Script_ComponentScheme_XRMeet* storage) : CScriptPropertyEvaluator(nullptr, name.c_str()), m_p_storage(storage) {}
 
 			virtual _value_type evaluate(void);
 		private:
-			DataBase::Storage_Scheme* m_p_storage;
+			DataBase::Script_ComponentScheme_XRMeet* m_p_storage;
 		};
 
 		class Script_SchemeXRMeet : public CScriptActionBase
@@ -39,7 +39,7 @@ namespace Cordis
 		{
 		public:
 			Script_XRMeetManager(void) = delete;
-			Script_XRMeetManager(CScriptGameObject* const p_client_object, void* storage);
+			Script_XRMeetManager(CScriptGameObject* const p_client_object, DataBase::Script_ComponentScheme_XRMeet* storage);
 			~Script_XRMeetManager(void);
 
 			void update_state(void);
@@ -63,7 +63,7 @@ namespace Cordis
 			bool m_is_hello_passed;
 			bool m_is_bye_passed;
 			CScriptGameObject* m_p_npc;
-			DataBase::Storage_Scheme* m_p_storage;
+			DataBase::Script_ComponentScheme_XRMeet* m_p_storage;
 			xr_string m_allow_break_name;
 			xr_string m_trade_enable_name;
 			xr_string m_use_name;

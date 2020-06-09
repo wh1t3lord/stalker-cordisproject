@@ -38,7 +38,7 @@ namespace Cordis
 			return false;
 		}
 
-		Script_XRMeetManager::Script_XRMeetManager(CScriptGameObject* const p_client_object, void* storage) : m_is_bye_passed(false), m_is_hello_passed(false), m_is_npc_camp_director(false), m_p_storage(&storage), m_p_npc(p_client_object), m_is_allow_break(false) 
+		Script_XRMeetManager::Script_XRMeetManager(CScriptGameObject* const p_client_object, DataBase::Script_ComponentScheme_XRMeet* storage) : m_is_bye_passed(false), m_is_hello_passed(false), m_is_npc_camp_director(false), m_p_storage(storage), m_p_npc(p_client_object), m_is_allow_break(false)
 		{
 		}
 

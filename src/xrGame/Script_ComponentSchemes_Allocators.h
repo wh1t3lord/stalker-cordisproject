@@ -6,30 +6,32 @@ namespace Cordis
 	{
 		namespace DataBase
 		{
-			struct Script_AllocatorScheme_PHButton
+			template<class ComponentType>
+			struct Script_AllocatorScheme
 			{
-			private:
-				Script_AllocatorScheme_PHButton(void) {}
-
 			public:
-				inline static Script_AllocatorScheme_PHButton& getInstance(void) noexcept { static Script_AllocatorScheme_PHButton instance; return instance; }
-				~Script_AllocatorScheme_PHButton(void) {}
+				Script_AllocatorScheme(void) {}
+				~Script_AllocatorScheme(void) {}
+				Script_AllocatorScheme(const Script_AllocatorScheme&) = delete;
+				Script_AllocatorScheme& operator=(const Script_AllocatorScheme&) = delete;
+				Script_AllocatorScheme(Script_AllocatorScheme&&) = delete;
+				Script_AllocatorScheme& operator=(Script_AllocatorScheme&&) = delete;
 
 				inline void* allocate(const std::uint16_t npc_id) noexcept 
 				{
 					if (this->m_buffer.find(npc_id) != this->m_buffer.end())
 					{
-						Script_ComponentScheme_PHButton& reference = this->m_buffer.at(npc_id);
+						ComponentType& reference = this->m_buffer.at(npc_id);
 						reference.clear();
 					}
 
-					Script_ComponentScheme_PHButton& instance = this->m_buffer[npc_id];
+					ComponentType& instance = this->m_buffer[npc_id];
 
 					return static_cast<void*>(&instance);
 				}
 
 			private:
-				xr_map<std::uint16_t, Script_ComponentScheme_PHButton> m_buffer;
+				xr_map<std::uint16_t, ComponentType> m_buffer;
 			};
 		}
 	}
