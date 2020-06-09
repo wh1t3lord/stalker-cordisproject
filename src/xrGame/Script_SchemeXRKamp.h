@@ -10,15 +10,15 @@ namespace Cordis
         class Script_EvaluatorKampEnd : public CScriptPropertyEvaluator
         {
         public:
-            Script_EvaluatorKampEnd(const xr_string& evaluator_name, void* storage)
-                : CScriptPropertyEvaluator(nullptr, evaluator_name.c_str()), m_p_storage(&storage)
+            Script_EvaluatorKampEnd(const xr_string& evaluator_name, DataBase::Script_ComponentScheme_XRKamp* storage)
+                : CScriptPropertyEvaluator(nullptr, evaluator_name.c_str()), m_p_storage(storage)
             {
             }
 
             virtual _value_type evaluate(void);
 
         private:
-            DataBase::Storage_Scheme* m_p_storage;
+            DataBase::Script_ComponentScheme_XRKamp* m_p_storage;
         };
 
         class Script_EvaluatorOnPosition : public CScriptPropertyEvaluator

@@ -8,6 +8,42 @@ namespace DataBase
 {
 class Storage_Scheme;
 class Storage_Data;
+struct Script_ComponentScheme_PHButton;
+struct Script_ComponentScheme_XRSmartCover;
+struct Script_ComponentScheme_PostCombat;
+struct Script_ComponentScheme_XRAnimPoint;
+struct Script_ComponentScheme_XRPatrol;
+struct Script_ComponentScheme_XRCombatCamper;
+struct Script_ComponentScheme_XRCombatZombied;
+struct Script_ComponentScheme_XRCombatIgnore;
+struct Script_ComponentScheme_XRWounded;
+struct Script_ComponentScheme_XRMeet;
+struct Script_ComponentScheme_XRCamper;
+struct Script_ComponentScheme_XRKamp;
+struct Script_ComponentScheme_XRSleeper;
+struct Script_ComponentScheme_XRWalker;
+struct Script_ComponentScheme_XRRemark;
+struct Script_ComponentScheme_XRGatherItems;
+struct Script_ComponentScheme_XRHelpWounded;
+struct Script_ComponentScheme_XRCombat;
+struct Script_ComponentScheme_XRCorpseDetection;
+struct Script_ComponentScheme_XRAbuse;
+struct Script_ComponentScheme_XRDeath;
+struct Script_ComponentScheme_SRDeimos;
+struct Script_ComponentScheme_SRLight;
+struct Script_ComponentScheme_SRParticle;
+struct Script_ComponentScheme_SRPostProcess;
+struct Script_ComponentScheme_SRPsyAntenna;
+struct Script_ComponentScheme_SRTeleport;
+struct Script_ComponentScheme_SRTimer;
+struct Script_ComponentScheme_PHSound;
+struct Script_ComponentScheme_PHOscillate;
+struct Script_ComponentScheme_PHIdle;
+struct Script_ComponentScheme_PHHit;
+struct Script_ComponentScheme_PHDoor;
+struct Script_ComponentScheme_PHCode;
+struct Script_ComponentScheme_PHForce;
+struct Script_ComponentScheme_Helicopter;
 }
 } // namespace Scripts
 } // namespace Cordis
@@ -27,7 +63,7 @@ class Storage_Data;
 #include "Script_SchemeXRPatrol.h"
 #include "Script_SchemeXRReachTask.h"
 #include "Script_SchemeXRAnimpoint.h"
-#include "Script_ComponentSchemes.h"
+
 
 namespace Cordis
 {
@@ -131,7 +167,7 @@ class Script_XRAbuseManager
 public:
     Script_XRAbuseManager(void) = delete;
     Script_XRAbuseManager(CScriptGameObject* const p_client_object, void* storage)
-        : m_p_npc(p_client_object), m_p_storage(&storage), m_is_enable(true), m_is_hit_done(false), m_abuse_rate(2.0f),
+        : m_p_npc(p_client_object), m_p_storage(reinterpret_cast<Script_ComponentScheme_XRAbuse*>(storage)), m_is_enable(true), m_is_hit_done(false), m_abuse_rate(2.0f),
           m_abuse_threshold(5.0f), m_abuse_value(0.0f), m_last_update(0.0f)
     {
     }
@@ -182,7 +218,7 @@ private:
     float m_abuse_threshold;
     float m_abuse_rate;
     CScriptGameObject* m_p_npc;
-    DataBase::Storage_Scheme* m_p_storage;
+    Script_ComponentScheme_XRAbuse* m_p_storage;
 };
 
 // Lord: сгруппировать всё по pragma region!!!
@@ -1340,6 +1376,7 @@ public:
         }
 
         // Lord: проверить деаллокацию
+/*
         for (std::pair<const xr_string, Storage_Scheme*>& it : this->m_schemes)
         {
             if (it.second)
@@ -1349,7 +1386,7 @@ public:
                     it.second->getSchemeName().c_str());
                 xr_delete(it.second);
             }
-        }
+        }*/
 
         this->m_schemes.clear();
     }
@@ -1587,6 +1624,7 @@ public:
 
     inline const xr_map<xr_string, void*>& getSchemes(void) const noexcept { return this->m_schemes; }
 
+/*
     inline void setScheme(const xr_map<xr_string, void*>& map) noexcept
     {
         if (map.empty())
@@ -1622,9 +1660,9 @@ public:
         }
 
         this->m_schemes[scheme_name] = data;
-    }
+    }*/
 
-    inline void setSchemesActions(const xr_string& scheme_name, Script_ISchemeEntity* p_scheme)
+ /*   inline void setSchemesActions(const xr_string& scheme_name, Script_ISchemeEntity* p_scheme)
     {
         if (scheme_name.empty())
         {
@@ -1657,7 +1695,7 @@ public:
         }
 
         this->m_schemes[scheme_name]->setEnabled(value);
-    }
+    }*/
 
     inline const DeathData& getDeathData(void) const noexcept { return this->m_death; }
     inline void setDeathData(const DeathData& data) noexcept { this->m_death = data; }
@@ -2342,6 +2380,7 @@ public:
 
 #pragma region Cordis Setters
 #pragma region Cordis DataBase Storage_Data setters
+/*
     inline void UnsubscribeAction(const std::uint16_t npc_id, const xr_string& scheme_name) noexcept
     {
         if (scheme_name.empty())
@@ -2360,7 +2399,7 @@ public:
         }
 
         this->m_storage[npc_id].m_schemes[scheme_name]->UnSubscribeAction();
-    }
+    }*/
 
     void setStorageStateManager(CScriptGameObject* const p_client_object, Script_StateManager* const p_state_manager);
     void setStorageMoveManager(CScriptGameObject* const p_client_object, Script_MoveManager* const p_move_manager);
@@ -2459,6 +2498,7 @@ public:
         this->m_storage[npc_id].setIni(ini, is_allocated);
     }
 
+/*
     inline void setStorageSignal(const std::uint16_t id, const xr_string& signal_name, const bool value) noexcept
     {
         if (id == Globals::kUnsignedInt16Undefined)
@@ -2468,7 +2508,7 @@ public:
         }
 
         this->m_storage[id].m_schemes[this->m_storage[id].getActiveSchemeName()]->setSignals(signal_name, value);
-    }
+    }*/
 
     inline void setStorageActiveSchemeName(const std::uint16_t npc_id, const xr_string& active_scheme_name) noexcept
     {
@@ -2556,7 +2596,8 @@ public:
         this->m_storage[npc_id].setGulagName(gulag_name);
     }
 
-    inline void setStorageSchemes(const std::uint16_t npc_id, const xr_map<xr_string, Storage_Scheme*>& map) noexcept
+/*
+    inline void setStorageSchemes(const std::uint16_t npc_id, const xr_map<xr_string, void*>& map) noexcept
     {
         if (map.empty())
         {
@@ -2565,9 +2606,10 @@ public:
         }
 
         this->m_storage[npc_id].setScheme(map);
-    }
+    }*/
 
-    inline void setStorageScheme(const std::uint16_t npc_id, const std::pair<xr_string, Storage_Scheme*>& pair) noexcept
+/*
+    inline void setStorageScheme(const std::uint16_t npc_id, const std::pair<xr_string, void*>& pair) noexcept
     {
         if (pair.first.empty())
         {
@@ -2576,10 +2618,11 @@ public:
         }
 
         this->m_storage[npc_id].setScheme(pair);
-    }
+    }*/
 
+/*
     inline void setStorageScheme(
-        const std::uint16_t npc_id, const xr_string& scheme_name, Storage_Scheme* const data) noexcept
+        const std::uint16_t npc_id, const xr_string& scheme_name, void* const data) noexcept
     {
         if (scheme_name.empty())
         {
@@ -2590,8 +2633,9 @@ public:
         MESSAGEI("Registered scheme %s for npc [%d]", scheme_name, npc_id);
 
         this->m_storage[npc_id].setScheme(scheme_name, data);
-    }
+    }*/
 
+/*
     inline void setStorageSchemesActionSchemeIDForUnSubscribing(
         const std::uint16_t npc_id, const xr_string& scheme_name, const std::uint32_t scheme_id)
     {
@@ -2609,8 +2653,9 @@ public:
         }
 
         this->m_storage[npc_id].m_schemes[scheme_name]->setActionSchemeID(scheme_id);
-    }
+    }*/
 
+/*
     inline void setStorageSchemesActions(
         const std::uint16_t npc_id, const xr_string& scheme_name, Script_ISchemeEntity* p_scheme)
     {
@@ -2621,8 +2666,9 @@ public:
         }
         p_scheme->subscribe_action();
         this->m_storage[npc_id].setSchemesActions(scheme_name, p_scheme);
-    }
+    }*/
 
+/*
     inline void setStorageSchemesSectionName(
         const std::uint16_t npc_id, const xr_string& scheme_name, const xr_string& section_name) noexcept
     {
@@ -2633,8 +2679,9 @@ public:
         }
 
         this->m_storage[npc_id].setSchemesSectionName(scheme_name, section_name);
-    }
+    }*/
 
+/*
     inline void setStorageSchemesEnabled(
         const std::uint16_t npc_id, const xr_string& scheme_name, const bool value) noexcept
     {
@@ -2645,7 +2692,7 @@ public:
         }
 
         this->m_storage[npc_id].setSchemesEnabled(scheme_name, value);
-    }
+    }*/
 
     inline void setStorageDeathData(const std::uint16_t npc_id, const Storage_Data::DeathData& data) noexcept
     {
@@ -3597,3 +3644,5 @@ private:
 } // namespace DataBase
 } // namespace Scripts
 } // namespace Cordis
+
+#include "Script_ComponentSchemes.h"

@@ -4565,7 +4565,57 @@ Cordis::Scripts::Script_GlobalHelper::Script_GlobalHelper(void)
         this->m_registered_schemes_add_to_binder_callbacks["sr_deimos"] = Script_SchemeSRDeimos::add_to_binder;
 
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+		this->m_schemes_allocators["danger"] = std::bind(&DataBase::Script_AllocatorScheme<DataBase::Script_ComponentScheme_PHButton>::allocate, &this->m_allocator_ph_button);
+/*
+		this->m_schemes_allocators["gather_items"] = Script_EvaluatorGatherItems::add_to_binder;
+		this->m_schemes_allocators["abuse"] = Script_SchemeXRAbuse::add_to_binder;
+		this->m_schemes_allocators["walker"] = Script_SchemeXRWalker::add_to_binder;
+		this->m_schemes_allocators["remark"] = Script_SchemeXRRemark::add_to_binder;
+		this->m_schemes_allocators["sleeper"] = Script_SchemeXRSleeper::add_to_binder;
+		this->m_schemes_allocators["camper"] = Script_SchemeXRCamper::add_to_binder;
+		this->m_schemes_allocators["meet"] = Script_SchemeXRMeet::add_to_binder;
+		this->m_schemes_allocators["help_wounded"] = Script_ActionXRHelpWounded::add_to_binder;
+		//this->m_schemes_allocators["corpse_detection"] = Script_SchemeXRCorpseDetection:: Lord: доделать!
+		this->m_schemes_allocators["combat"] = XR_COMBAT::add_to_binder;
+		this->m_schemes_allocators["death"] = Script_SchemeXRDeath::add_to_binder;
+		this->m_schemes_allocators["hit"] = Script_SchemeXRHit::add_to_binder;
+		this->m_schemes_allocators["wounded"] = Script_SchemeXRWounded::add_to_binder;
+		this->m_schemes_allocators["combat_ignore"] = Script_SchemeXRCombatIgnore::add_to_binder;
+		this->m_schemes_allocators["combat_zombied"] = Script_SchemeXRCombatZombied::add_to_binder;
+		this->m_schemes_allocators["patrol"] = Script_SchemeXRPatrol::add_to_binder;
+		this->m_schemes_allocators["smartcover"] = Script_SchemeXRSmartCover::add_to_binder;
+		this->m_schemes_allocators["animpoint"] = Script_SchemeXRAnimpoint::add_to_binder;
+		this->m_schemes_allocators["reach_task"] = Script_SchemeXRReachTask::add_to_binder;
 
+		this->m_schemes_allocators["mob_remark"] = Script_SchemeMobRemark::add_to_binder;
+		this->m_schemes_allocators["mob_walker"] = Script_SchemeMobWalker::add_to_binder;
+		this->m_schemes_allocators["mob_combat"] = Script_SchemeMobCombat::add_to_binder;
+		this->m_schemes_allocators["mob_death"] = Script_SchemeMobDeath::add_to_binder;
+		this->m_schemes_allocators["mob_jump"] = Script_SchemeMobJump::add_to_binder;
+		this->m_schemes_allocators["mob_home"] = Script_SchemeMobHome::add_to_binder;
+
+		this->m_schemes_allocators["ph_door"] = Script_SchemePHDoor::add_to_binder;
+		this->m_schemes_allocators["ph_idle"] = Script_SchemePHIdle::add_to_binder;
+		this->m_schemes_allocators["ph_hit"] = Script_SchemePHHit::add_to_binder;
+		this->m_schemes_allocators["ph_on_hit"] = Script_SchemePHOnHit::add_to_binder;
+		this->m_schemes_allocators["ph_button"] = Script_SchemePHButton::add_to_binder;
+		this->m_schemes_allocators["ph_code"] = Script_SchemePHCode::add_to_binder;
+		this->m_schemes_allocators["ph_on_death"] = Script_SchemePHDeath::add_to_binder;
+		/ *        this->m_schemes_allocators["ph_minigun"] = Script_SchemePHMinigun::add_to_binder; Not used!* /
+		this->m_schemes_allocators["ph_oscillate"] = Script_SchemePHOscillate::add_to_binder;
+
+		this->m_schemes_allocators["sr_no_weapon"] = Script_SchemeSRNoWeapon::add_to_binder;
+		this->m_schemes_allocators["sr_teleport"] = Script_SchemeSRTeleport::add_to_binder;
+		this->m_schemes_allocators["sr_idle"] = Script_SchemeSRIdle::add_to_binder;
+		this->m_schemes_allocators["sr_light"] = Script_SchemeSRLight::add_to_binder;
+		this->m_schemes_allocators["sr_timer"] = Script_SchemeSRTimer::add_to_binder;
+		this->m_schemes_allocators["sr_psy_antenna"] = Script_SchemeSRPsyAntenna::add_to_binder;
+		this->m_schemes_allocators["sr_postprocess"] = Script_SchemeSRPostProcess::add_to_binder;
+		this->m_schemes_allocators["sr_particle"] = Script_SchemeSRParticle::add_to_binder;
+		/ *        this->m_schemes_allocators["sr_cutscene"] = Script_SchemeSRC::add_to_binder;* /
+		/ *        this->m_schemes_allocators["sr_crow_spawner"] = Script_SchemeSRCrr::add_to_binder;* /
+		/ *        this->m_schemes_allocators["sr_silence"] = Script_SchemeSRSilenceZone::add_to_binder; Not used!* /
+		this->m_schemes_allocators["sr_deimos"] = Script_SchemeSRDeimos::add_to_binder;*/
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 		this->m_registered_schemes_set_scheme_callbacks["danger"] = Script_EvaluatorDanger::set_danger;
