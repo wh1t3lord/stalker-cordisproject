@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 
 namespace Cordis
 {
@@ -891,7 +891,6 @@ namespace Cordis
 				xr_string m_sniper_anim_name;
 				xr_string m_shoot_name;
 			};
-
 			struct Script_ComponentScheme_XRKamp
 			{
 				Script_ComponentScheme_XRKamp(void) : m_pos_vertex(0), m_radius(0), m_npc_position_num(0) {}
@@ -929,7 +928,6 @@ namespace Cordis
 				xr_string m_center_point_name;
 				xr_string m_def_state_moving_name;
 			};
-
 			struct Script_ComponentScheme_XRSleeper
 			{
 				Script_ComponentScheme_XRSleeper(void) : m_is_wakeable(false) {}
@@ -986,7 +984,6 @@ namespace Cordis
 				xr_string m_path_walk_name;
 				xr_string m_path_look_name;
 			};
-
 			struct Script_ComponentScheme_XRWalker
 			{
 				Script_ComponentScheme_XRWalker(void) : m_is_use_camp(false) {}
@@ -1100,7 +1097,6 @@ namespace Cordis
 				xr_string m_sound_idle_name;
 				xr_string m_path_look_name;
 			};
-
 			struct Script_ComponentScheme_XRRemark
 			{
 				Script_ComponentScheme_XRRemark(void) : m_is_target_initialized(false), m_is_sound_animation_sync(false), m_target_id(0) {}
@@ -1224,7 +1220,6 @@ namespace Cordis
 				xr_string m_tips_id_name;
 				xr_string m_tips_sender_name;
 			};
-
 			struct Script_ComponentScheme_XRGatherItems
 			{
 				Script_ComponentScheme_XRGatherItems(void) : m_is_enabled(false) {}
@@ -1239,6 +1234,1125 @@ namespace Cordis
 
 			private:
 				bool m_is_enabled;
+			};
+			struct Script_ComponentScheme_XRHelpWounded
+			{
+				Script_ComponentScheme_XRHelpWounded(void) : m_is_wounded_enabled(false) {}
+				
+				inline bool IsXRHelpWoundedHelpWoundedEnabled(void) const noexcept
+				{
+					return this->m_is_wounded_enabled;
+				}
+
+				inline void setXRHelpWoundedHelpWoundedEnabled(const bool value) noexcept
+				{
+					this->m_is_wounded_enabled = value;
+				}
+
+				inline void clear(void) noexcept 
+				{
+					this->m_is_wounded_enabled = false;
+				}
+
+			private:
+				bool m_is_wounded_enabled;
+			};
+			struct Script_ComponentScheme_XRCombat
+			{
+				Script_ComponentScheme_XRCombat(void) {}
+
+				inline const xr_string& getXRCombatScriptCombatTypeName(void) const noexcept
+				{
+					return this->m_xr_combat_script_combat_type_name;
+				}
+
+				inline void setXRCombatScriptCombatTypeName(const xr_string& type_name) noexcept
+				{
+					this->m_xr_combat_script_combat_type_name = type_name;
+				}
+
+				inline const xr_map<std::uint32_t, CondlistData>& getXRCombatCombatTypeCondlist(void) const noexcept
+				{
+					return this->m_xr_combat_combat_type_condlist;
+				}
+
+				inline void setXRCombatCombatTypeCondlist(const xr_map<std::uint32_t, CondlistData>& condlist) noexcept
+				{
+					this->m_xr_combat_combat_type_condlist = condlist;
+				}
+
+				inline void clear(void) noexcept 
+				{
+					this->m_xr_combat_combat_type_condlist.clear();
+					this->m_xr_combat_script_combat_type_name.clear();
+				}
+
+			private:
+				xr_map<std::uint32_t, CondlistData> m_xr_combat_combat_type_condlist;
+				xr_string m_xr_combat_script_combat_type_name;
+			};
+			struct Script_ComponentScheme_XRCorpseDetection
+			{
+				Script_ComponentScheme_XRCorpseDetection(void) : m_selected_corpse_id(0) {}
+				inline void clear(void) noexcept { this->m_selected_corpse_id = 0; }
+
+				inline std::uint16_t getXRCorpseDetectionSelectedCorpseID(void) const noexcept
+				{
+					return this->m_selected_corpse_id;
+				}
+				inline void setXRCorpseDetectionSelectedCorpseID(const std::uint16_t id) noexcept
+				{
+					this->m_selected_corpse_id = id;
+				}
+			private:
+				std::uint16_t m_selected_corpse_id;
+			};
+			struct Script_ComponentScheme_XRAbuse
+			{
+				Script_ComponentScheme_XRAbuse(void) : m_p_abuse_manager(nullptr) {}
+				~Script_ComponentScheme_XRAbuse(void) 
+				{
+					if (this->m_p_abuse_manager)
+					{
+						MESSAGEI("deleting abuse manager!");
+						xr_delete(this->m_p_abuse_manager);
+					}
+				}
+
+				inline Script_XRAbuseManager* const getManager(void) const { return this->m_p_abuse_manager; }
+				inline void setManager(Script_XRAbuseManager* const p_object)
+				{
+					// Lord: проверить все таки manager* если можно будет ресетить на новый объект при условии что оно вообще удалется только в деструкторе ...
+					if (this->m_p_abuse_manager)
+					{
+						R_ASSERT2(false, "you can't set to existed instance you must deallocate this!");
+						return;
+					}
+
+					if (!p_object)
+					{
+						MESSAGEWR("you are trying to set an empty "
+							"object return ...");
+						return;
+					}
+
+					this->m_p_abuse_manager = p_object;
+				}
+
+				inline void clear(void) 
+				{
+					if (this->m_p_abuse_manager)
+					{
+						MESSAGEI("deleting abuse manager!");
+						xr_delete(this->m_p_abuse_manager);
+					}
+				}
+			private:
+				Script_XRAbuseManager* m_p_abuse_manager;
+			};
+			struct Script_ComponentScheme_XRDeath
+			{
+				Script_ComponentScheme_XRDeath(void) {}
+
+				inline const xr_map<std::uint32_t, CondlistData>& getInfo(void) const noexcept
+				{
+					return this->m_xr_death_info;
+				}
+				inline void setInfo(const xr_map<std::uint32_t, CondlistData>& data) noexcept
+				{
+					this->m_xr_death_info = data;
+				}
+
+				inline const xr_map<std::uint32_t, CondlistData>& getInfo2(void) const noexcept
+				{
+					return this->m_xr_death_info2;
+				}
+				inline void setInfo2(const xr_map<std::uint32_t, CondlistData>& data) noexcept
+				{
+					this->m_xr_death_info2 = data;
+				}
+
+				inline void clear(void) noexcept
+				{
+					this->m_xr_death_info.clear();
+					this->m_xr_death_info2.clear();
+				}
+			private:
+				xr_map<std::uint32_t, CondlistData> m_xr_death_info;
+				xr_map<std::uint32_t, CondlistData> m_xr_death_info2;
+			};
+			struct Script_ComponentScheme_SRDeimos
+			{
+				Script_ComponentScheme_SRDeimos(void) { this->clear(); }
+
+				inline float getSRDeimosIntensity(void) const noexcept { return this->m_intensity; }
+				inline void setSRDeimosIntensity(const float value) noexcept { this->m_intensity = value; }
+
+				inline float getSRDeimosMovementSpeed(void) const noexcept { return this->m_movement_speed; }
+				inline void setSRDeimosMovementSpeed(const float value) noexcept { this->m_movement_speed = value; }
+
+				inline float getSRDeimosGrowingKoef(void) const noexcept { return this->m_growing_koef; }
+				inline void setSRDeimosGrowingKoef(const float value) noexcept { this->m_growing_koef = value; }
+
+				inline float getSRDeimosLoweringKoef(void) const noexcept { return this->m_lowering_koef; }
+				inline void setSRDeimosLoweringKoef(const float value) noexcept { this->m_lowering_koef = value; }
+
+				inline std::uint32_t getSRDeimosCameraEffectorRepeatingTime(void) const noexcept
+				{
+					return this->m_camera_effector_repeating_time;
+				}
+				inline void setSRDeimosCameraEffectorRepeatingTime(const std::uint32_t value) noexcept
+				{
+					this->m_camera_effector_repeating_time = value;
+				}
+
+				inline float getSRDeimosHealthLost(void) const noexcept { return this->m_health_lost; }
+				inline void setSRDeimosHealthLost(const float value) noexcept { this->m_health_lost = value; }
+
+				inline float getSRDeimosDisableBound(void) const noexcept { return this->m_disable_bound; }
+				inline void setSRDeimosDisableBound(const float value) noexcept { this->m_disable_bound = value; }
+
+				inline float getSRDeimosSwitchLowerBound(void) const noexcept { return this->m_switch_lower_bound; }
+				inline void setSRDeimosSwitchLowerBound(const float value) noexcept
+				{
+					this->m_switch_lower_bound = value;
+				}
+
+				inline float getSRDeimosSwitchUpperBound(void) const noexcept { return this->m_switch_upper_bound; }
+				inline void setSRDeimosSwitchUpperBound(const float value) noexcept
+				{
+					this->m_switch_upper_bound = value;
+				}
+
+				inline const xr_string& getSRDeimosPostProcessEffectorName(void) const noexcept
+				{
+					return this->m_postprocess_effector_name;
+				}
+				inline void setSRDeimosPostProcessEffectorName(const xr_string& effector_name) noexcept
+				{
+					if (effector_name.empty())
+					{
+						MESSAGEW("effector_name.empty() == true! You set an empty string");
+					}
+
+					this->m_postprocess_effector_name = effector_name;
+				}
+
+				inline const xr_string& getSRDeimosCameraEffectorName(void) const noexcept
+				{
+					return this->m_camera_effector_name;
+				}
+				inline void setSRDeimosCameraEffectorName(const xr_string& effector_name) noexcept
+				{
+					if (effector_name.empty())
+					{
+						MESSAGEW("effector_name.empty() == true! You set an empty string");
+					}
+
+					this->m_camera_effector_name = effector_name;
+				}
+
+				inline const xr_string& getSRDeimosPostProcessEffector2Name(void) const noexcept
+				{
+					return this->m_postprocess_effector2_name;
+				}
+				inline void setSRDeimosPostProcessEffector2Name(const xr_string& effector_name) noexcept
+				{
+					if (effector_name.empty())
+					{
+						MESSAGEW("effector_name.empty() == true! You set an empty string");
+					}
+
+					this->m_postprocess_effector2_name = effector_name;
+				}
+
+				inline const xr_string& getSRDeimosNoiseSoundName(void) const noexcept
+				{
+					return this->m_noise_sound_name;
+				}
+				inline void setSRDeimosNoiseSoundName(const xr_string& sound_name) noexcept
+				{
+					if (sound_name.empty())
+					{
+						MESSAGEW("sound_name.empty() "
+							"== true! You set an empty string");
+					}
+
+					this->m_noise_sound_name = sound_name;
+				}
+
+				inline const xr_string& getSRDeimosHeartBeetSoundName(void) const noexcept
+				{
+					return this->m_heartbeet_sound_name;
+				}
+				inline void setSRDeimosHeartBeetSoundName(const xr_string& sound_name) noexcept
+				{
+					if (sound_name.empty())
+					{
+						MESSAGEW("sound_name.empty() == true! You set an empty string");
+					}
+
+					this->m_heartbeet_sound_name = sound_name;
+				}
+
+				inline void clear(void) noexcept 
+				{
+					this->m_camera_effector_name.clear();
+					this->m_camera_effector_repeating_time = 0;
+					this->m_intensity = 0.0f;
+					this->m_disable_bound = 0.0f;
+					this->m_growing_speed = 0.0f;
+					this->m_growing_koef = 0.0f;
+					this->m_lowering_koef = 0.0f;
+					this->m_switch_lower_bound = 0.0f;
+					this->m_switch_upper_bound = 0.0f;
+					this->m_health_lost = 0.0f;
+					this->m_movement_speed = 0.0f;
+					this->m_postprocess_effector_name.clear();
+					this->m_postprocess_effector2_name.clear();
+					this->m_heartbeet_sound_name.clear();
+					this->m_noise_sound_name.clear();
+				}
+
+			private:
+				std::uint32_t m_camera_effector_repeating_time;
+				float m_intensity;
+				float m_growing_speed;
+				float m_growing_koef;
+				float m_lowering_koef;
+				float m_disable_bound;
+				float m_switch_lower_bound;
+				float m_switch_upper_bound;
+				float m_health_lost;
+				float m_movement_speed;
+				xr_string m_postprocess_effector_name;
+				xr_string m_camera_effector_name;
+				xr_string m_postprocess_effector2_name;
+				xr_string m_noise_sound_name;
+				xr_string m_heartbeet_sound_name;
+			};
+			struct Script_ComponentScheme_SRLight
+			{
+				Script_ComponentScheme_SRLight(void) : m_is_light(false) {}
+
+				inline bool IsSRLightLight(void) const noexcept { return this->m_is_light; }
+				inline void setSRLightLight(const bool value) noexcept { this->m_is_light = value; }
+
+				inline void clear(void) noexcept 
+				{
+					this->m_is_light = false;
+				}
+			private:
+				bool m_is_light;
+			};
+			struct Script_ComponentScheme_SRParticle 
+			{
+				Script_ComponentScheme_SRParticle(void) : m_is_looped(false), m_mode(0) {}
+
+				inline bool IsSRParticleLooped(void) const noexcept { return this->m_is_looped; }
+				inline void setSRParticleLooped(const bool value) noexcept { this->m_is_looped = value; }
+
+				inline std::uint32_t getSRParticleMode(void) const noexcept { return this->m_mode; }
+				inline void setSRParticleMode(const std::uint32_t value) noexcept { this->m_mode = value; }
+
+				inline const xr_string& getSRParticleName(void) const noexcept { return this->m_name; }
+				inline void setSRParticleName(const xr_string& name) noexcept
+				{
+					if (name.empty())
+					{
+						MESSAGEW("name.empty() == true! You set an "
+							"empty string");
+					}
+
+					this->m_name = name;
+				}
+
+				inline const xr_string& getSRParticlePathName(void) const noexcept { return this->m_path_name; }
+				inline void setSRParticlePathName(const xr_string& path_name) noexcept
+				{
+					if (path_name.empty())
+					{
+						MESSAGEW("path_name.empty() == "
+							"true! You set an empty string");
+					}
+
+					this->m_path_name = path_name;
+				}
+
+				inline void clear(void) noexcept 
+				{
+					this->m_is_looped = false;
+					this->m_mode = 0;
+					this->m_name.clear();
+					this->m_path_name.clear();
+				}
+
+			private:
+				bool m_is_looped;
+				std::uint32_t m_mode;
+				xr_string m_name;
+				xr_string m_path_name;
+			};
+			struct Script_ComponentScheme_SRPostProcess 
+			{
+				Script_ComponentScheme_SRPostProcess(void) : m_hit_intensity(0.0f), m_intensity(0.0f), m_intensity_speed(0.0f) {}
+
+				inline void clear(void) noexcept 
+				{
+					this->m_hit_intensity = 0.0f;
+					this->m_intensity_speed = 0.0f;
+					this->m_intensity = 0.0f;
+				}
+
+				inline float getSRPostProcessIntensity(void) const noexcept { return this->m_intensity; }
+				inline void setSRPostProcessIntensity(const float value) noexcept { this->m_intensity = value; }
+
+				inline float getSRPostProcessIntensitySpeed(void) const noexcept { return this->m_intensity_speed; }
+				inline void setSRPostProcessIntensitySpeed(const float value) noexcept
+				{
+					this->m_intensity_speed = value;
+				}
+
+				inline float getSRPostProcessHitIntensity(void) const noexcept { return this->m_hit_intensity; }
+				inline void setSRPostProcessHitIntensity(const float value) noexcept
+				{
+					this->m_hit_intensity = value;
+				}
+
+			private:
+				float m_intensity;
+				float m_intensity_speed;
+				float m_hit_intensity;
+			};
+			struct Script_ComponentScheme_SRPsyAntenna
+			{
+				Script_ComponentScheme_SRPsyAntenna(void) { this->clear(); }
+
+				inline void clear(void) noexcept 
+				{
+					this->m_is_sr_psy_antenna_no_static = false;
+					this->m_is_sr_psy_antenna_no_mumble = false;
+					this->m_sr_psy_antenna_intensity = 0.0f;
+					this->m_sr_psy_antenna_hit_intensity = 0.0f;
+					this->m_sr_psy_antenna_phantom_probability = 0.0f;
+					this->m_sr_psy_antenna_mute_sound_threshold = 0.0f;
+					this->m_sr_psy_antenna_hit_frequency = 0.0f;
+					this->m_sr_psy_antenna_hit_type_name.clear();
+					this->m_sr_psy_antenna_postprocess_name.clear();
+				}
+
+				inline float getSRPsyAntennaIntensity(void) const noexcept { return this->m_sr_psy_antenna_intensity; }
+				inline void setSRPsyAntennaIntensity(const float value) noexcept { this->m_sr_psy_antenna_intensity = value; }
+
+				inline float getSRPsyAntennaHitIntensity(void) const noexcept { return this->m_sr_psy_antenna_hit_intensity; }
+				inline void setSRPsyAntennaHitIntensity(const float value) noexcept
+				{
+					this->m_sr_psy_antenna_hit_intensity = value;
+				}
+
+				inline float getSRPsyAntennaPhantomProbability(void) const noexcept
+				{
+					return this->m_sr_psy_antenna_phantom_probability;
+				}
+				inline void setSRPsyAntennaPhantomProbability(const float value) noexcept
+				{
+					this->m_sr_psy_antenna_phantom_probability = value;
+				}
+
+				inline float getSRPsyAntennaMuteSoundThreshold(void) const noexcept
+				{
+					return this->m_sr_psy_antenna_mute_sound_threshold;
+				}
+
+				inline void setSRPsyAntennaMuteSoundThreshold(const float value) noexcept
+				{
+					this->m_sr_psy_antenna_mute_sound_threshold = value;
+				}
+
+				inline float getSRPsyAntennaHitFrequency(void) const noexcept { return this->m_sr_psy_antenna_hit_frequency; }
+				inline void setSRPsyAntennaHitFrequency(const float value) noexcept
+				{
+					this->m_sr_psy_antenna_hit_frequency = value;
+				}
+
+				inline bool IsSRPsyAntennaNoStatic(void) const noexcept { return this->m_is_sr_psy_antenna_no_static; }
+				inline void setSRPsyAntennaNoStatic(const bool value) noexcept { this->m_is_sr_psy_antenna_no_static = value; }
+
+				inline bool IsSRPsyAntennaNoMumble(void) const noexcept { return this->m_is_sr_psy_antenna_no_mumble; }
+				inline void setSRPsyAntennaNoMumble(const bool value) noexcept { this->m_is_sr_psy_antenna_no_mumble = value; }
+
+				inline const xr_string& getSRPsyAntennaPostProcessName(void) const noexcept
+				{
+					return this->m_sr_psy_antenna_postprocess_name;
+				}
+				inline void setSRPsyAntennaPostProcessName(const xr_string& postprocess_name) noexcept
+				{
+					if (postprocess_name.empty())
+					{
+						MESSAGEW("postprocess_name.empty() == true! You set an empty string");
+					}
+
+					this->m_sr_psy_antenna_postprocess_name = postprocess_name;
+				}
+
+				inline const xr_string& getSRPsyAntennaHitTypeName(void) const noexcept
+				{
+					return this->m_sr_psy_antenna_hit_type_name;
+				}
+				inline void setSRPsyAntennaHitTypeName(const xr_string& hit_type_name) noexcept
+				{
+					if (hit_type_name.empty())
+					{
+						MESSAGEW("hit_type_name.empty() == true! You set an empty string");
+					}
+
+					this->m_sr_psy_antenna_hit_type_name = hit_type_name;
+				}
+
+			private:
+				bool m_is_sr_psy_antenna_no_static;
+				bool m_is_sr_psy_antenna_no_mumble;
+				float m_sr_psy_antenna_intensity;
+				float m_sr_psy_antenna_hit_intensity;
+				float m_sr_psy_antenna_phantom_probability;
+				float m_sr_psy_antenna_mute_sound_threshold;
+				float m_sr_psy_antenna_hit_frequency;
+				xr_string m_sr_psy_antenna_postprocess_name;
+				xr_string m_sr_psy_antenna_hit_type_name;
+			};
+			struct Script_ComponentScheme_SRTeleport
+			{
+				Script_ComponentScheme_SRTeleport(void) : m_timeout(0) {}
+
+				inline std::uint32_t getTimeout(void) const noexcept { return this->m_timeout; }
+				inline void setTimeout(const std::uint32_t value) noexcept { this->m_timeout = value; }
+
+				inline const xr_vector<std::pair<std::uint32_t, std::pair<xr_string, xr_string>>>& getPoints(void) const
+					noexcept
+				{
+					return this->m_points;
+				}
+
+				inline void setPoints(
+					const xr_vector<std::pair<std::uint32_t, std::pair<xr_string, xr_string>>>& data) noexcept
+				{
+					this->m_points = data;
+				}
+
+				inline void clear(void) noexcept 
+				{
+					this->m_points.clear();
+					this->m_timeout = 0;
+				}
+
+			private:
+				std::uint32_t m_timeout;
+				xr_vector<std::pair<std::uint32_t, std::pair<xr_string, xr_string>>> m_points;
+			};
+			struct Script_ComponentScheme_SRTimer 
+			{
+				Script_ComponentScheme_SRTimer(void) : m_p_sr_timer_ui(nullptr), m_p_sr_timer_timer(nullptr), m_sr_timer_start_value(0){}
+
+				inline const xr_string& getSRTimerTypeName(void) const noexcept { return this->m_sr_timer_type_name; }
+				inline void setSRTimerTypeName(const xr_string& timer_type_name) noexcept
+				{
+					if (timer_type_name.empty())
+					{
+						MESSAGEW("timer_type_name.empty() == true! You set an empty string");
+					}
+
+					this->m_sr_timer_type_name = timer_type_name;
+				}
+
+				inline const xr_string& getSRTimerTimerIDName(void) const noexcept { return this->m_sr_timer_timer_id_name; }
+				inline void setSRTimerTimerIDName(const xr_string& timer_id_name) noexcept
+				{
+					if (timer_id_name.empty())
+					{
+						MESSAGEW("timer_id_name.empty() "
+							"== true! You set an empty string");
+					}
+
+					this->m_sr_timer_timer_id_name = timer_id_name;
+				}
+
+				inline const xr_string& getSRTimerStringName(void) const noexcept { return this->m_sr_timer_string_name; }
+				inline void setSRTimerStringName(const xr_string& string_name) noexcept
+				{
+					if (string_name.empty())
+					{
+						MESSAGEW("string_name.empty() == "
+							"true! You set an empty string");
+					}
+
+					this->m_sr_timer_string_name = string_name;
+				}
+
+				inline std::uint32_t getSRTimerStartValue(void) const noexcept { return this->m_sr_timer_start_value; }
+				inline void setSRTimerStartValue(const std::uint32_t value) noexcept { this->m_sr_timer_start_value = value; }
+
+				inline CUIGameCustom* const getSRTimerUI(void) const { return this->m_p_sr_timer_ui; }
+				inline void setSRTimerUI(CUIGameCustom* const p_ui)
+				{
+					if (!p_ui)
+					{
+						MESSAGEW("p_ui == nullptr! You set an empty "
+							"object");
+					}
+
+					this->m_p_sr_timer_ui = p_ui;
+				}
+
+				inline CUIStatic* const getSRTimerTimer(void) const { return this->m_p_sr_timer_timer; }
+				inline void setSRTimerTimer(CUIStatic* const p_static)
+				{
+					if (!p_static)
+					{
+						MESSAGEW("p_static == nullptr! You set an "
+							"empty object");
+					}
+
+					this->m_p_sr_timer_timer = p_static;
+				}
+
+				inline const xr_map<std::uint32_t, xr_map<std::uint32_t, CondlistData>>& getSRTimerOnValue(void) const noexcept
+				{
+					return this->m_sr_timer_on_value;
+				}
+				inline void setSRTimerOnValue(const xr_map<std::uint32_t, xr_map<std::uint32_t, CondlistData>>& data) noexcept
+				{
+					this->m_sr_timer_on_value = data;
+				}
+
+				inline void clear(void) noexcept 
+				{
+					this->m_sr_timer_start_value = 0;
+					this->m_p_sr_timer_timer = nullptr;
+					this->m_p_sr_timer_ui = nullptr;
+					this->m_sr_timer_string_name.clear();
+					this->m_sr_timer_timer_id_name.clear();
+					this->m_sr_timer_type_name.clear();
+				}
+				
+			private:
+				std::uint32_t m_sr_timer_start_value;
+				CUIGameCustom* m_p_sr_timer_ui;
+				CUIStatic* m_p_sr_timer_timer;
+				xr_map<std::uint32_t, xr_map<std::uint32_t, CondlistData>> m_sr_timer_on_value;
+				xr_string m_sr_timer_type_name;
+				xr_string m_sr_timer_timer_id_name;
+				xr_string m_sr_timer_string_name;
+			};
+			struct Script_ComponentScheme_PHSound
+			{
+				Script_ComponentScheme_PHSound(void) : m_is_no_hit(false), m_is_looped(false), m_is_random(false), m_pause_min(0), m_pause_max(0) {}
+
+				inline bool IsLooped(void) const noexcept { return this->m_is_looped; }
+				inline void setLooped(const bool value) noexcept { this->m_is_looped = value; }
+
+				inline bool IsRandom(void) const noexcept { return this->m_is_random; }
+				inline void setRandom(const bool value) noexcept { this->m_is_random = value; }
+
+				inline bool IsNoHit(void) const noexcept { return this->m_is_no_hit; }
+				inline void setNoHit(const bool value) noexcept { this->m_is_no_hit = value; }
+
+				inline const xr_string& getThemeName(void) const noexcept { return this->m_theme_name; }
+				inline void setThemeName(const xr_string& theme_name) noexcept
+				{
+					if (theme_name.empty())
+					{
+						MESSAGEW("theme_name.empty() == "
+							"true! You set an empty string");
+					}
+
+					this->m_theme_name = theme_name;
+				}
+
+				inline std::uint32_t getPauseMin(void) const noexcept { return this->m_pause_min; }
+				inline void setPauseMin(const std::uint32_t value) noexcept { this->m_pause_min = value; }
+
+				inline std::uint32_t getPauseMax(void) const noexcept { return this->m_pause_max; }
+				inline void setPauseMax(const std::uint32_t value) noexcept { this->m_pause_max = value; }
+
+				inline void clear(void) noexcept 
+				{
+					this->m_is_random = false;
+					this->m_is_no_hit = false;
+					this->m_is_looped = false;
+					this->m_pause_min = 0;
+					this->m_pause_max = 0;
+					this->m_theme_name.clear();
+				}
+
+			private:
+				bool m_is_no_hit;
+				bool m_is_looped;
+				bool m_is_random;
+				std::uint32_t m_pause_min;
+				std::uint32_t m_pause_max;
+				xr_string m_theme_name;
+			};
+			struct Script_ComponentScheme_PHOscillate
+			{
+				Script_ComponentScheme_PHOscillate(void) : m_period(0) {}
+
+				inline const xr_string& getJointName(void) const noexcept { return this->m_joint_name; }
+				inline void setJointName(const xr_string& joint_name) noexcept
+				{
+					if (joint_name.empty())
+					{
+						MESSAGEW("joint_name.empty() == "
+							"true! You set an empty string!");
+					}
+
+					this->m_joint_name = joint_name;
+				}
+
+				inline std::uint32_t getPeriod(void) const noexcept { return this->m_period; }
+				inline void setPeriod(const std::uint32_t value) noexcept { this->m_period = value; }
+
+				inline void clear(void) noexcept 
+				{
+					this->m_period = 0;
+					this->m_joint_name.clear();
+				}
+
+			private:
+				std::uint32_t m_period;
+				xr_string m_joint_name;
+			};
+			struct Script_ComponentScheme_PHIdle
+			{
+				Script_ComponentScheme_PHIdle(void) : m_is_nonscript_usable(false) {}
+
+				inline bool IsNonScriptUsable(void) const noexcept { return this->m_is_nonscript_usable; }
+				inline void setNonScriptUsable(const bool value) noexcept { this->m_is_nonscript_usable = value; }
+
+				inline void clear(void) noexcept 
+				{
+					this->m_is_nonscript_usable = false;
+				}
+
+			private:
+				bool m_is_nonscript_usable;
+			};
+			struct Script_ComponentScheme_PHHit
+			{
+				Script_ComponentScheme_PHHit(void) : m_power(0.0f), m_impulse(0.0f) {}
+
+				inline void clear(void) noexcept 
+				{
+					this->m_bone_name.clear();
+					this->m_direction_path_name.clear();
+					this->m_power = 0.0f;
+					this->m_impulse = 0.0f;
+				}
+
+				inline float getPower(void) const noexcept { return this->m_power; }
+				inline void setPower(const float value) noexcept { this->m_power = value; }
+
+				inline float getImpulse(void) const noexcept { return this->m_impulse; }
+				inline void setImpulse(const float value) noexcept { this->m_impulse = value; }
+
+				inline const xr_string& getBoneName(void) const noexcept { return this->m_bone_name; }
+				inline void setBoneName(const xr_string& bone_name) noexcept
+				{
+					if (bone_name.empty())
+					{
+						MESSAGEW("bone_name.empty() == true! You "
+							"set "
+							"an empty string");
+					}
+
+					this->m_bone_name = bone_name;
+				}
+
+				inline const xr_string& getDirectionPathName(void) const noexcept
+				{
+					return this->m_direction_path_name;
+				}
+				inline void setDirectionPathName(const xr_string& path_name) noexcept
+				{
+					if (path_name.empty())
+					{
+						MESSAGEW("path_name.empty() == "
+							"true! You set an empty string!");
+					}
+
+					this->m_direction_path_name = path_name;
+				}
+
+			private:
+				float m_power;
+				float m_impulse;
+				xr_string m_bone_name;
+				xr_string m_direction_path_name;
+			};
+			struct Script_ComponentScheme_PHDoor
+			{
+				Script_ComponentScheme_PHDoor(void) { this->clear(); }
+
+				inline Script_SchemePHDoor* getDoorAction(void) { return this->m_p_door_action; }
+				inline void setDoorAction(Script_SchemePHDoor* p_action) { this->m_p_door_action = p_action; }
+
+				inline bool IsClosed(void) const noexcept { return this->m_is_closed; }
+				inline void setClosed(const bool value) noexcept { this->m_is_closed = value; }
+
+				inline bool IsLocked(void) const noexcept { return this->m_is_locked; }
+				inline void setLocked(const bool value) noexcept { this->m_is_locked = value; }
+
+				inline bool IsNoForce(void) const noexcept { return this->m_is_no_force; }
+				inline void setNoForce(const bool value) noexcept { this->m_is_no_force = value; }
+
+				inline bool IsNotForNpc(void) const noexcept { return this->m_is_not_for_npc; }
+				inline void setNotForNpc(const bool value) noexcept { this->m_is_not_for_npc = value; }
+
+				inline bool IsShowTips(void) const noexcept { return this->m_is_show_tips; }
+				inline void setShowTips(const bool value) noexcept { this->m_is_show_tips = value; }
+
+				inline const xr_string& getTipOpenName(void) const noexcept { return this->m_tip_open_name; }
+				inline void setTipOpenName(const xr_string& tip_name) noexcept
+				{
+					if (tip_name.empty())
+					{
+						MESSAGEW("tip_name.empty() == true! "
+							"You set an "
+							"empty string!");
+					}
+
+					this->m_tip_open_name = tip_name;
+				}
+
+				inline const xr_string& getTipUnlockName(void) const noexcept { return this->m_tip_unlock_name; }
+				inline void setTipUnlockName(const xr_string& tip_name) noexcept
+				{
+					if (tip_name.empty())
+					{
+						MESSAGEW("tip_name.empty() == true! "
+							"You set an empty string!");
+					}
+
+					this->m_tip_unlock_name = tip_name;
+				}
+
+				inline const xr_string& getTipCloseName(void) const noexcept { return this->m_tip_close_name; }
+				inline void setTipCloseName(const xr_string& tip_name) noexcept
+				{
+					if (tip_name.empty())
+					{
+						MESSAGEW("tip_name.empty() == true! "
+							"You set an empty string!");
+					}
+
+					this->m_tip_close_name = tip_name;
+				}
+
+				inline bool IsSlider(void) const noexcept { return this->m_is_slider; }
+				inline void setSlider(const bool value) noexcept { this->m_is_slider = value; }
+
+				inline const xr_string& getSoundOpenStartName(void) const noexcept
+				{
+					return this->m_sound_open_start_name;
+				}
+				inline void setSoundOpenStartName(const xr_string& sound_name) noexcept
+				{
+					if (sound_name.empty())
+					{
+						MESSAGEW("sound_name.empty() "
+							"== true! You set an empty string!");
+					}
+
+					this->m_sound_open_start_name = sound_name;
+				}
+
+				inline const xr_string& getSoundCloseStartName(void) const noexcept
+				{
+					return this->m_sound_close_start_name;
+				}
+				inline void setSoundCloseStartName(const xr_string& sound_name) noexcept
+				{
+					if (sound_name.empty())
+					{
+						MESSAGEW("sound_name.empty() == true! You set an empty string!");
+					}
+
+					this->m_sound_close_start_name = sound_name;
+				}
+
+				inline const xr_string& getSoundCloseStopName(void) const noexcept
+				{
+					return this->m_sound_close_stop_name;
+				}
+				inline void setSoundCloseStopName(const xr_string& sound_name) noexcept
+				{
+					if (sound_name.empty())
+					{
+						MESSAGEW("sound_name.empty() "
+							"== true! You set an empty string!");
+					}
+
+					this->m_sound_close_stop_name = sound_name;
+				}
+
+				inline bool IsScriptUsedMoreThanOnce(void) const noexcept
+				{
+					return this->m_is_script_used_more_than_once;
+				}
+				inline void setScriptUsedMoreThanOnce(const bool value) noexcept
+				{
+					this->m_is_script_used_more_than_once = value;
+				}
+
+				inline void clear(void) noexcept 
+				{
+					this->m_is_closed = false;
+					this->m_is_locked = false;
+					this->m_is_no_force = false;
+					this->m_is_not_for_npc = false;
+					this->m_is_show_tips = false;
+					this->m_is_slider = false;
+					this->m_is_script_used_more_than_once = false;
+					this->m_p_door_action = nullptr;
+					this->m_sound_close_start_name.clear();
+					this->m_sound_close_stop_name.clear();
+					this->m_sound_open_start_name.clear();
+					this->m_tip_unlock_name.clear();
+					this->m_tip_close_name.clear();
+					this->m_tip_open_name.clear();
+				}
+
+
+			private:
+				bool m_is_closed;
+				bool m_is_locked;
+				bool m_is_no_force;
+				bool m_is_not_for_npc;
+				bool m_is_show_tips;
+				bool m_is_slider;
+				bool m_is_script_used_more_than_once;
+				Script_SchemePHDoor* m_p_door_action; // @ Используется исключительно когда у нас схема -> ph_door, удаляется как обычный зарегистрированный  action, но сам pointer зануляется в деструкторе схемы!
+				xr_string m_tip_open_name;
+				xr_string m_tip_unlock_name;
+				xr_string m_tip_close_name;
+				xr_string m_sound_open_start_name;
+				xr_string m_sound_close_start_name;
+				xr_string m_sound_close_stop_name;
+			};
+			struct Script_ComponentScheme_PHCode
+			{
+				Script_ComponentScheme_PHCode(void) : m_code(0) {}
+
+				inline void clear(void) noexcept 
+				{
+					this->m_code = 0;
+					this->m_on_code_condlist.clear();
+					this->m_on_check_code.clear();
+					this->m_tip_name.clear();
+				}
+
+				inline const xr_string& getTipName(void) const noexcept { return this->m_tip_name; }
+				inline void setTipName(const xr_string& text_name) noexcept { this->m_tip_name = text_name; }
+
+				inline std::uint32_t getCode(void) const noexcept { return this->m_code; }
+				inline void setCode(const std::uint32_t value) noexcept { this->m_code = value; }
+
+				inline const xr_map<std::uint32_t, CondlistData>& getOnCodeCondlist(void) const noexcept
+				{
+					return this->m_on_code_condlist;
+				}
+				inline void setOnCodeCondlist(const xr_map<std::uint32_t, CondlistData>& condlist) noexcept
+				{
+					this->m_on_code_condlist = condlist;
+				}
+
+				inline const xr_map<xr_string, xr_map<std::uint32_t, CondlistData>>& getOnCheckCode(void) const noexcept
+				{
+					return this->m_on_check_code;
+				}
+
+				inline void setOnCheckCode(const xr_map<xr_string, xr_map<std::uint32_t, CondlistData>>& data) noexcept
+				{
+					this->m_on_check_code = data;
+				}
+
+			private:
+				std::uint32_t m_code;
+				xr_map<std::uint32_t, CondlistData> m_on_code_condlist;
+				xr_map<xr_string, xr_map<std::uint32_t, CondlistData>> m_on_check_code;
+				xr_string m_tip_name;
+			};
+			struct Script_ComponentScheme_PHForce
+			{
+				Script_ComponentScheme_PHForce(void) : m_time(0), m_delay(0) {}
+
+				inline void clear(void) noexcept 
+				{
+					this->m_time = 0;
+					this->m_delay = 0;
+					this->m_point.x = 0.0f;
+					this->m_point.y = 0.0f;
+					this->m_point.z = 0.0f;
+				}
+
+				inline std::uint32_t getTime(void) const noexcept { return this->m_time; }
+				inline void setTime(const std::uint32_t value) noexcept { this->m_time = value; }
+
+				inline std::uint32_t getDelay(void) const noexcept { return this->m_delay; }
+				inline void setDelay(const std::uint32_t value) noexcept { this->m_delay = value; }
+
+				inline const Fvector& getPoint(void) const noexcept { return this->m_point; }
+				inline void setPoint(const Fvector& point) noexcept { this->m_point = point; }
+
+			private:
+				std::uint32_t m_time;
+				std::uint32_t m_delay;
+				Fvector m_point;
+			};
+			struct Script_ComponentScheme_Helicopter
+			{
+				Script_ComponentScheme_Helicopter(void) { this->clear(); }
+
+				inline const xr_string& getPathMoveName(void) const noexcept { return this->m_path_move_name; }
+				inline void setPathMoveName(const xr_string& path_name) noexcept
+				{
+					if (path_name.empty())
+					{
+						MESSAGEW("path_name.empty() == "
+							"true! You set an empty string");
+					}
+
+					this->m_path_move_name = path_name;
+				}
+
+				inline const xr_string& getPathLookName(void) const noexcept { return this->m_path_look_name; }
+				inline void setPathLookName(const xr_string& path_name) noexcept
+				{
+					if (path_name.empty())
+					{
+						MESSAGEW("path_name.empty() == "
+							"true! You set an empty string");
+					}
+
+					this->m_path_look_name = path_name;
+				}
+
+				inline const xr_string& getEnemyName(void) const noexcept { return this->m_enemy_name; }
+				inline void setEnemyName(const xr_string& enemy_name) noexcept
+				{
+					if (enemy_name.empty())
+					{
+						MESSAGEW("enemy_name.empty() == "
+							"true! You set an empty string");
+					}
+
+					this->m_enemy_name = enemy_name;
+				}
+
+				inline const xr_string& getFirePointName(void) const noexcept
+				{
+					return this->m_fire_point_name;
+				}
+				inline void setFirePointName(const xr_string& fire_point_name) noexcept
+				{
+					if (fire_point_name.empty())
+					{
+						MESSAGEW("fire_point_name.empty() == true! You set an empty string");
+					}
+
+					this->m_fire_point_name = fire_point_name;
+				}
+
+				inline bool IsUseRocket(void) const noexcept { return this->m_is_use_rocket; }
+				inline void setUseRocket(const bool value) noexcept { this->m_is_use_rocket = value; }
+
+				inline bool IsUseMinigun(void) const noexcept { return this->m_is_use_minigun; }
+				inline void setUseMinigun(const bool value) noexcept { this->m_is_use_minigun = value; }
+
+				inline bool IsFireTrail(void) const noexcept { return this->m_is_fire_trail; }
+				inline void setFireTrail(const bool value) noexcept { this->m_is_fire_trail = value; }
+
+				inline bool IsEngineSound(void) const noexcept { return this->m_is_engine_sound; }
+				inline void setEngineSound(const bool value) noexcept { this->m_is_engine_sound = value; }
+
+				inline bool IsShowHealth(void) const noexcept { return this->m_is_show_health; }
+				inline void setShowHealth(const bool value) noexcept { this->m_is_show_health = value; }
+
+				inline std::uint32_t getUpdVis(void) const noexcept { return this->m_upd_vis; }
+				inline void setUpdVis(const std::uint32_t value) noexcept { this->m_upd_vis = value; }
+
+				inline float getMaxRocketDistance(void) const noexcept { return this->m_max_rocket_distance; }
+				inline void setMaxRocketDistance(const float value) noexcept
+				{
+					this->m_max_rocket_distance = value;
+				}
+
+				inline float getMaxMinigunDistance(void) const noexcept
+				{
+					return this->m_max_minigun_distance;
+				}
+				inline void setMaxMinigunDistance(const float value) noexcept
+				{
+					this->m_max_minigun_distance = value;
+				}
+
+				inline float getMinRocketDistance(void) const noexcept { return this->m_min_rocket_distance; }
+				inline void setMinRocketDistance(const float value) noexcept
+				{
+					this->m_min_rocket_distance = value;
+				}
+
+				inline float getMinMinigunDistance(void) const noexcept
+				{
+					return this->m_min_minigun_distance;
+				}
+				inline void setMinMinigunDistance(const float value) noexcept
+				{
+					this->m_min_minigun_distance = value;
+				}
+
+				inline float getVelocity(void) const noexcept { return this->m_velocity; }
+				inline void setVelocity(const float value) noexcept { this->m_velocity = value; }
+
+				inline bool IsStopFire(void) const noexcept { return this->m_is_stop_fire; }
+				inline void setStopFire(const bool value) noexcept { this->m_is_stop_fire = value; }
+
+				inline void clear(void) noexcept 
+				{
+					this->m_is_use_rocket = false;
+					this->m_is_show_health = false;
+					this->m_is_fire_trail = false;
+					this->m_is_engine_sound = false;
+					this->m_is_use_minigun = false;
+					this->m_is_stop_fire = false;
+					this->m_upd_vis = 0;
+					this->m_min_rocket_distance = 0.0f;
+					this->m_min_minigun_distance = 0.0f;
+					this->m_max_rocket_distance = 0.0f;
+					this->m_max_minigun_distance = 0.0f;
+					this->m_velocity = 0.0f;
+					this->m_path_move_name.clear();
+					this->m_path_look_name.clear();
+					this->m_enemy_name.clear();
+					this->m_fire_point_name.clear();
+				}
+
+			private:
+				bool m_is_use_rocket;
+				bool m_is_show_health;
+				bool m_is_fire_trail;
+				bool m_is_engine_sound;
+				bool m_is_use_minigun;
+				bool m_is_stop_fire;
+				std::uint32_t m_upd_vis;
+				float m_min_rocket_distance;
+				float m_min_minigun_distance;
+				float m_max_rocket_distance;
+				float m_max_minigun_distance;
+				float m_velocity;
+				xr_string m_path_move_name;
+				xr_string m_path_look_name;
+				xr_string m_enemy_name;
+				xr_string m_fire_point_name;
 			};
 		}
 	}
