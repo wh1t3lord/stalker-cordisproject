@@ -3050,7 +3050,7 @@ inline void update_logic(CScriptGameObject* const p_object)
     bool is_object_alive = p_object->Alive();
     const DataBase::Storage_Data& storage = DataBase::Storage::getInstance().getStorage().at(p_object->ID());
     CScriptGameObject* const p_actor = DataBase::Storage::getInstance().getActor();
-    DataBase::Storage_Scheme* p_storage_combat = storage.getSchemes().at("combat");
+    DataBase::Script_ComponentScheme_XRCombat* p_storage_combat = static_cast<DataBase::Script_ComponentScheme_XRCombat*>(storage.getSchemes().at("combat"));
 
     if (is_object_alive && !storage.getActiveSchemeName().empty())
     {
@@ -3092,7 +3092,7 @@ inline void update_logic(CScriptGameObject* const p_object)
             if (!is_switched)
             {
                 XR_LOGIC::try_switch_to_another_section(
-                    p_object, *storage.getSchemes().at(storage.getActiveSchemeName()), p_actor);
+                    p_object, storage.getSchemes().at(storage.getActiveSchemeName()), p_actor);
             }
         }
     }
@@ -3498,13 +3498,18 @@ inline bool is_wounded(CScriptGameObject* const p_client_object)
 inline void hit_callback(const std::uint16_t npc_id)
 {
     if (DataBase::Storage::getInstance().getStorage().at(npc_id).getSchemes().at("wounded"))
-        DataBase::Storage::getInstance()
-            .getStorage()
-            .at(npc_id)
-            .getSchemes()
-            .at("wounded")
-            ->getWoundedManager()
-            ->hit_callback();
+    {
+        DataBase::Script_ComponentScheme_XRWounded* const p_scheme_storage = static_cast<DataBase::Script_ComponentScheme_XRWounded*>(
+            DataBase::Storage::getInstance()
+                        .getStorage()
+                        .at(npc_id)
+                        .getSchemes()
+                        .at("wounded"))
+            ;
+
+        p_scheme_storage->getWoundedManager()->hit_callback();
+        
+    }
 }
 
 inline bool is_heavy_wounded(const std::uint16_t npc_id) 
@@ -3522,7 +3527,7 @@ inline bool is_heavy_wounded(const std::uint16_t npc_id)
     }
 
     if (DataBase::Storage::getInstance().getStorage().at(npc_id).getSchemes().at("wounded"))
-        return (DataBase::Storage::getInstance().getStorage().at(npc_id).getSchemes().at("wounded")->getWoundedManager()->getStateName().empty() == false);
+        return (static_cast<DataBase::Script_ComponentScheme_XRWounded*>(DataBase::Storage::getInstance().getStorage().at(npc_id).getSchemes().at("wounded"))->getWoundedManager()->getStateName().empty() == false);
 
     return false;
 }
@@ -3548,7 +3553,7 @@ inline bool is_psy_wounded_by_id(const std::uint16_t npc_id)
     states.emplace_back("psycho_pain");
     states.emplace_back("psycho_shoot");
 
-    DataBase::Storage_Scheme* p_storage = DataBase::Storage::getInstance().getStorage().at(npc_id).getSchemes().at("wounded");
+	DataBase::Script_ComponentScheme_XRWounded* p_storage = static_cast<DataBase::Script_ComponentScheme_XRWounded*>(DataBase::Storage::getInstance().getStorage().at(npc_id).getSchemes().at("wounded"));
     if (p_storage)
     {
         for (const xr_string& it : states)
