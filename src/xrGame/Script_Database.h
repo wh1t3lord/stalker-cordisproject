@@ -1251,14 +1251,30 @@ struct Script_IComponentScheme
 			this->m_scheme_id_for_unsubscring);
 	}
 
+	inline CScriptGameObject* const getClientObject(void) const { return this->m_p_npc; }
+	inline void setClientObject(CScriptGameObject* const p_client_object) { this->m_p_npc = p_client_object; }
+
+	inline const xr_string& getSchemeName(void) const noexcept { return this->m_scheme_name; }
+	inline void setSchemeName(const xr_string& scheme_name) noexcept
+	{
+		if (scheme_name.empty())
+		{
+			MESSAGEW("scheme_name.empty() == true! You set an empty string!");
+		}
+
+		this->m_scheme_name = scheme_name;
+	}
+
 protected:
     bool m_is_enabled = false;
     std::uint32_t m_scheme_id_for_unsubscring = 0;
 	CScriptIniFile* m_p_ini = nullptr;
+    CScriptGameObject* m_p_npc = nullptr;
 	xr_map<xr_string, bool> m_signals;
 	xr_vector<Script_ISchemeEntity*> m_actions;
 	xr_vector<LogicData> m_logic;
 	xr_string m_logic_name;
+    xr_string m_scheme_name;
 };
 
 struct Script_ComponentScheme_PHButton : public Script_IComponentScheme
@@ -1391,10 +1407,14 @@ private:
     xr_string m_state_name;
 };
 
+struct Script_ComponentScheme_MobDeath : public Script_IComponentScheme
+{
+    Script_ComponentScheme_MobDeath(void) {}
+};
+
 struct Script_ComponentScheme_MobCombat : public Script_IComponentScheme
 {
-private:
-
+    Script_ComponentScheme_MobCombat(void) {}
 };
 
 struct Script_ComponentScheme_XRSmartCover : public Script_IComponentScheme
@@ -5031,6 +5051,7 @@ public:
         this->m_storage[npc_id].setGulagName(gulag_name);
     }
 
+ 
 /*
     inline void setStorageSchemes(const std::uint16_t npc_id, const xr_map<xr_string, void*>& map) noexcept
     {
@@ -5041,7 +5062,7 @@ public:
         }
 
         this->m_storage[npc_id].setScheme(map);
-    }*/
+    } */
 
 /*
     inline void setStorageScheme(const std::uint16_t npc_id, const std::pair<xr_string, void*>& pair) noexcept

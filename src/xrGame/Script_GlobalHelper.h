@@ -1300,7 +1300,7 @@ public:
     }
 
     inline xr_map<xr_string,
-        std::function<void(CScriptGameObject* const, CScriptIniFile* const, const xr_string&, const xr_string&, void*)>>&
+        std::function<void(CScriptGameObject* const, CScriptIniFile* const, const xr_string&, const xr_string&, DataBase::Script_IComponentScheme*)>>&
     getSchemesAddToBinderCallbacks(void) noexcept
     {
         return this->m_registered_schemes_add_to_binder_callbacks;
@@ -1532,7 +1532,7 @@ private:
         std::function<void(
             CScriptGameObject* const, CScriptIniFile* const, const xr_string&, const xr_string&, const xr_string&)>>
         m_registered_schemes_set_scheme_callbacks;
-    xr_map<xr_string, std::function<void(CScriptGameObject* const, CScriptIniFile* const, const xr_string&, const xr_string&, void*)>>
+    xr_map<xr_string, std::function<void(CScriptGameObject* const, CScriptIniFile* const, const xr_string&, const xr_string&, DataBase::Script_IComponentScheme*)>>
         m_registered_schemes_add_to_binder_callbacks;
     xr_map<xr_string, std::function<void* (std::uint16_t)>> m_schemes_allocators;
     xr_map<xr_string, Script_SmartTerrainControl_States> m_registered_smart_terrain_control_script_states;
