@@ -5,9 +5,9 @@ namespace Cordis
 {
 namespace Scripts
 {
-Script_SchemeMobCamp::Script_SchemeMobCamp(CScriptGameObject* const p_client_object, void* storage)
+Script_SchemeMobCamp::Script_SchemeMobCamp(CScriptGameObject* const p_client_object, DataBase::Script_ComponentScheme_MobCamp* storage)
     : inherited_scheme(p_client_object, storage), m_path_look(nullptr), m_path_home(nullptr), m_current_point_index(0),
-      m_time_point_changed(0), m_state_previous(0), m_state_current(0), m_is_previous_enemy(false), m_camp_node(0)
+      m_time_point_changed(0), m_state_previous(0), m_state_current(0), m_is_previous_enemy(false), m_camp_node(0), m_p_storage(storage)
 {
 }
 
@@ -15,20 +15,20 @@ Script_SchemeMobCamp::~Script_SchemeMobCamp(void)
 {
     if (this->m_path_home)
     {
-        Msg("[Scripts/Script_SchemeMobCamp/~dtor()] deleting path_home");
+        MESSAGEI("deleting path_home");
         xr_delete(this->m_path_home);
     }
 
     if (this->m_path_look)
     {
-        Msg("[SCripts/Script_SchemeMobCamp/~dtor()] deleting path_look");
+        MESSAGEI("deleting path_look");
         xr_delete(this->m_path_look);
     }
 }
 
 void Script_SchemeMobCamp::reset_scheme(const bool, CScriptGameObject* const p_client_object)
 {
-    Msg("[Scripts/Script_SchemeMobCamp/reset_scheme()] %s", this->m_npc->Name());
+    MESSAGEI("Resetting scheme for %s", this->m_npc->Name());
 
     XR_LOGIC::mob_capture(this->m_npc, true, this->m_scheme_name);
     this->m_p_storage->ClearSignals();

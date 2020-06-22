@@ -66,9 +66,10 @@ private:
     std::uint32_t m_camp_node; // @ level_vertex_id of this->m_npc
     std::uint32_t m_state_current;
     std::uint32_t m_state_previous;
+    DataBase::Script_ComponentScheme_MobCamp* m_p_storage;
+	CPatrolPathParams* m_path_look;
+	CPatrolPathParams* m_path_home;
     Fvector m_camp_position;
-    CPatrolPathParams* m_path_look;
-    CPatrolPathParams* m_path_home;
 };
 
 }
