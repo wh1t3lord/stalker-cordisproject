@@ -3199,7 +3199,7 @@ inline xr_map<xr_string, xr_string> parse_ini_section_to_array(
     }
 
     if (result.empty())
-        Msg("[Scripts/Globals/parse_ini_section_to_array(p_ini, section_name)] WARNING: parsed data is empty!");
+        MESSAGEW("parsed data is empty!");
 
     return result;
 }
@@ -3212,7 +3212,7 @@ inline void start_surge(void)
     }
     else
     {
-        Msg("[Scripts/Globals/start_surge()] WARNING: can't obtain nearest cover and can't start manually!");
+        MESSAGEW("can't obtain nearest cover and can't start manually!");
     }
 }
 
@@ -3273,7 +3273,7 @@ inline void unstrap_weapon(
 {
     if (!p_npc)
     {
-        Msg("[Scripts/Globals/unstrap_weapon(p_npc)] WARNING: p_npc == nullptr! Return ...");
+        MESSAGEWR("p_npc == nullptr!");
         return;
     }
 
@@ -3297,7 +3297,7 @@ inline void unstrap_weapon(
 
     if (p_item == nullptr)
     {
-        Msg("[Scripts/Globals/unstrap_weapon(p_npc)] WARNING: can't find item! Return ...");
+        MESSAGEWR("can't find item!");
         return;
     }
 
@@ -3309,7 +3309,7 @@ inline void strap_weapon(
 {
     if (!p_npc)
     {
-        Msg("[Scripts/Globals/unstrap_weapon(p_npc)] WARNING: p_npc == nullptr! Return ...");
+        MESSAGEWR("p_npc == nullptr!");
         return;
     }
 
@@ -3333,7 +3333,7 @@ inline void strap_weapon(
 
     if (p_item == nullptr)
     {
-        Msg("[Scripts/Globals/unstrap_weapon(p_npc)] WARNING: p_item == nullptr! Return ...");
+        MESSAGEWR("p_item == nullptr!");
         return;
     }
 
@@ -3363,7 +3363,7 @@ inline void break_fence(
 {
     if (DataBase::Storage::getInstance().getAnimationObjectsByName().find("pri_a15_door") == DataBase::Storage::getInstance().getAnimationObjectsByName().end())
     {
-        Msg("[Scripts/Globals/break_fence()] WARNING: can't find object by 'pri_a15_door' Return ...");
+        MESSAGEWR("can't find object by 'pri_a15_door'");
         return;
     }
 
@@ -3371,7 +3371,7 @@ inline void break_fence(
 
    if (!p_binder)
    {
-       Msg("[Scripts/Globals/break_fence()] WARNING: something is went wrong! Object is nullptr Return ...");
+       MESSAGEWR("something is went wrong! Object is nullptr");
        return;
    }
 
@@ -3403,7 +3403,7 @@ inline void start_guitar(CScriptGameObject* const p_npc)
 
     if (!camp_id)
     {
-        Msg("[Scripts/Globals/start_guitar(p_npc)] WARNING: can't find camp_id, it doesnt registered! Return ...");
+        MESSAGEWR("can't find camp_id, it doesnt registered!");
         return;
     }
 
