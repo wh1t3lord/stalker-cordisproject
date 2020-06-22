@@ -78,7 +78,7 @@ inline void update_obj_logic(
         {
             const DataBase::Storage_Data& storage = DataBase::Storage::getInstance().getStorage().at(p_object->ID());
             XR_LOGIC::try_switch_to_another_section(
-                p_object, *storage.getSchemes().at(storage.getActiveSchemeName()), p_actor);
+                p_object, storage.getSchemes().at(storage.getActiveSchemeName()), p_actor);
         }
     }
 }
@@ -189,8 +189,7 @@ inline void stop_cam_effector(
 {
     if (buffer.empty())
     {
-        Msg("[Scripts/XR_EFFECTS/stop_cam_effector(p_actor, p_npc, buffer)] WARNING: buffer.empty() == true! Return "
-            "...");
+        MESSAGEWR("buffer.empty() == true!");
         return;
     }
 
@@ -204,8 +203,7 @@ inline void run_cam_effector_global(
 {
     if (buffer.empty())
     {
-        Msg("[Scripts/XR_EFFECTS/run_cam_effector_global(p_actor, p_npc, buffer)] WARNING: buffer.empty() == true! "
-            "Return ...");
+        MESSAGEWR("buffer.empty() == true!");
         return;
     }
 
@@ -269,7 +267,7 @@ inline void run_postprocess(
 {
     if (buffer.empty())
     {
-        Msg("[Scripts/XR_EFFECTS/run_postprocess(p_actor, p_npc, buffer)] WARNING: buffer.empty() == true! Return ...");
+        MESSAGEWR("buffer.empty() == true!");
         return;
     }
 
