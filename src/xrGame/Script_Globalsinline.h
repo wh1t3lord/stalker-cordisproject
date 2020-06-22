@@ -2114,7 +2114,7 @@ inline bool IsMonster(CScriptGameObject* object, int class_id = 0)
 {
     if (!object)
     {
-        Msg("[Scripts/Globals/IsMonster(object, class_id)] WARNING: trying to use class_id = %d", class_id);
+        MESSAGEW("trying to use class_id = %d", class_id);
     }
 
     int result = class_id ? class_id : object->clsid();
@@ -2128,7 +2128,7 @@ inline bool IsMonster(CSE_ALifeDynamicObject* server_object, int class_id = 0)
 {
     if (!server_object)
     {
-        Msg("[Scripts/Globals/IsMonster(server_object, class_id)] WARNING: trying to use class_id = %d", class_id);
+        MESSAGEW("trying to use class_id = %d", class_id);
     }
 
     int result = class_id ? class_id : server_object->m_script_clsid;
@@ -2142,7 +2142,7 @@ inline bool IsStalker(CScriptGameObject* object, int class_id = 0)
 {
     if (!object)
     {
-        Msg("[Scripts/Globals/IsStalker(object, class_id)] WARNING: trying to use class_id = %d", class_id);
+        MESSAGEW("trying to use class_id = %d", class_id);
     }
 
     int result = class_id ? class_id : object->clsid();
@@ -2157,7 +2157,7 @@ inline bool IsStalker(CSE_ALifeDynamicObject* server_object, int class_id = 0)
 {
     if (!server_object)
     {
-        Msg("[Scripts/Globals/IsStalker(server_object, class_id)] WARNING: trying to use class_id = %d", class_id);
+        MESSAGEW("trying to use class_id = %d", class_id);
     }
 
     int result = class_id ? class_id : server_object->m_script_clsid;
@@ -2172,7 +2172,7 @@ inline bool IsArtefact(CScriptGameObject* object, int class_id = 0)
 {
     if (!object)
     {
-        Msg("[Scripts/Globals/IsArtefact(object, class_id)] WARNING: trying to use class_id = %d", class_id);
+        MESSAGEW("trying to use class_id = %d", class_id);
     }
 
     int result = class_id ? class_id : object->clsid();
@@ -2187,7 +2187,7 @@ inline bool IsWeapon(CScriptGameObject* object, int class_id)
 {
     if (!object)
     {
-        Msg("[Scripts/Globals/IsWeapon(object, class_id)] WARNING: trying to use class_id = %d", class_id);
+        MESSAGEW("trying to use class_id = %d", class_id);
     }
 
     int result = class_id ? class_id : object->clsid();
@@ -2355,12 +2355,12 @@ inline void start_game_callback(void)
 
     Script_GlobalHelper::getInstance();
 
-    Msg("[Scripts/Globals/start_game_callback()] was called!");
+    MESSAGEI("initializing scripts!");
 }
 
 void system_deallocation(void)
 {
-    Msg("[Scripts/Globals/system_deallocation()] disconnect from server!");
+    MESSAGEI("disconnect from server!");
     Script_GlobalHelper::getInstance().DeallocateDynamicLtx();
     Script_SimulationBoard::getInstance().Deallocate();
     DataBase::Storage::getInstance().Deallocate();
@@ -2392,8 +2392,7 @@ inline void set_save_marker(NET_Packet& packet, const xr_string& mode, bool chec
 
             if (delta >= 8000)
             {
-                // Lord: переделать в In-Game логгирование
-                Log("WARNING! Maybe this is problem save point");
+                MESSAGEW("Maybe this is problem save point");
             }
 
             if (delta >= 10240)
