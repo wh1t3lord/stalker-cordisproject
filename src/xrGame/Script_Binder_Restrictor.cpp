@@ -49,7 +49,7 @@ void Cordis::Scripts::Script_Binder_Restrictor::net_Destroy()
 		const xr_string& active_scheme_name = DataBase::Storage::getInstance().getStorage().at(this->m_object->ID()).getActiveSchemeName();
 		if (active_scheme_name.empty() == false)
 		{
-			DataBase::Storage_Scheme* const p_storage = DataBase::Storage::getInstance().getStorage().at(this->m_object->ID()).getSchemes().at(active_scheme_name);
+			DataBase::Script_IComponentScheme* const p_storage = DataBase::Storage::getInstance().getStorage().at(this->m_object->ID()).getSchemes().at(active_scheme_name);
 			for (Script_ISchemeEntity* const it : p_storage->getActions())
 			{
 				if (it)
@@ -85,7 +85,7 @@ void Cordis::Scripts::Script_Binder_Restrictor::shedule_Update(u32 time_delta)
 	if (active_section_name.empty() == false)
 	{
 		const xr_string& active_scheme_name = DataBase::Storage::getInstance().getStorage().at(this->m_object->ID()).getActiveSchemeName();
-		DataBase::Storage_Scheme* const p_storage = DataBase::Storage::getInstance().getStorage().at(this->m_object->ID()).getSchemes().at(active_scheme_name);
+		DataBase::Script_IComponentScheme* const p_storage = DataBase::Storage::getInstance().getStorage().at(this->m_object->ID()).getSchemes().at(active_scheme_name);
 
 		for (Script_ISchemeEntity* const it : p_storage->getActions())
 		{
