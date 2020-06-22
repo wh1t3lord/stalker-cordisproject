@@ -7,8 +7,8 @@ namespace Scripts
 class Script_EvaluatorWoundedExist : public CScriptPropertyEvaluator
 {
 public:
-    Script_EvaluatorWoundedExist(const xr_string& evaluator_name, void* storage)
-        : CScriptPropertyEvaluator(nullptr, evaluator_name.c_str()), m_p_storage(&storage)
+    Script_EvaluatorWoundedExist(const xr_string& evaluator_name, DataBase::Script_ComponentScheme_XRHelpWounded* storage)
+        : CScriptPropertyEvaluator(nullptr, evaluator_name.c_str()), m_p_storage(storage)
     {
     }
 
@@ -17,7 +17,7 @@ public:
     virtual _value_type evaluate(void);
 
 private:
-    DataBase::Storage_Scheme* m_p_storage;
+    DataBase::Script_ComponentScheme_XRHelpWounded* m_p_storage;
 };
 
 class Script_ActionXRHelpWounded : public CScriptActionBase
@@ -103,7 +103,7 @@ public:
         if (storage.getIni()->line_exist(section_name.c_str(), "help_wounded_enabled"))
             result = Globals::Utils::cfg_get_bool(storage.getIni(), section_name, "help_wounded_enabled");
 
-        storage.getSchemes().at("help_wounded")->setXRHelpWoundedHelpWoundedEnabled(result);
+        static_cast<DataBase::Script_ComponentScheme_XRHelpWounded*>(storage.getSchemes().at("help_wounded"))->setXRHelpWoundedHelpWoundedEnabled(result);
     }
 
     static inline bool is_under_help_wounded(CScriptGameObject* const p_client_object)

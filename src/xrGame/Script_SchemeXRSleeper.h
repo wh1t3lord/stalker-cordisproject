@@ -7,15 +7,15 @@ namespace Cordis
     class Script_EvaluatorNeedSleeper : public CScriptPropertyEvaluator
     {
     public:
-        Script_EvaluatorNeedSleeper(const xr_string& evaluator_name, void* storage)
-            : CScriptPropertyEvaluator(nullptr, evaluator_name.c_str()), m_p_storage(&storage)
+        Script_EvaluatorNeedSleeper(const xr_string& evaluator_name, DataBase::Script_ComponentScheme_XRSleeper* storage)
+            : CScriptPropertyEvaluator(nullptr, evaluator_name.c_str()), m_p_storage(storage)
         {
         }
 
-        virtual _value_type evaluate(void) { return XR_LOGIC::is_active(this->m_object, *this->m_p_storage); }
+        virtual _value_type evaluate(void) { return XR_LOGIC::is_active(this->m_object, this->m_p_storage); }
 
     private:
-        DataBase::Storage_Scheme* m_p_storage;
+        DataBase::Script_ComponentScheme_XRSleeper* m_p_storage;
     };
 
     class Script_SchemeXRSleeper : public Script_ISchemeStalker
@@ -37,7 +37,7 @@ namespace Cordis
         bool callback(std::uint32_t mode, std::uint32_t number);
 
         static inline void add_to_binder(CScriptGameObject* const p_client_object, CScriptIniFile* const p_ini,
-            const xr_string& scheme_name, const xr_string& section_name, void* storage)
+            const xr_string& scheme_name, const xr_string& section_name, DataBase::Script_IComponentScheme* storage)
         {
             if (!p_client_object)
             {
@@ -51,8 +51,7 @@ namespace Cordis
                 return;
             }
 
-            Msg("[Scripts/add_to_binder(p_client_object, p_ini, scheme_name, section_name, storage)] added "
-                "Script_SchemeXRWalker scheme to binder, name=%s scheme=%s section=%s",
+            MESSAGEI("added scheme to binder, name=%s scheme=%s section=%s",
                 p_client_object->Name(), scheme_name.c_str(), section_name.c_str());
 
             CScriptActionPlanner* const p_planner = Globals::get_script_action_planner(p_client_object);
@@ -71,9 +70,9 @@ namespace Cordis
             operators["action_sleeper"] = Globals::XR_ACTIONS_ID::kZmeySleeperBase + 1;
 
             p_planner->add_evaluator(
-                properties.at("need_sleeper"), new Script_EvaluatorNeedSleeper("sleeper_need_sleep", storage));
+                properties.at("need_sleeper"), new Script_EvaluatorNeedSleeper("sleeper_need_sleep", static_cast<DataBase::Script_ComponentScheme_XRSleeper*>(storage)));
             
-            Script_SchemeXRSleeper* const p_scheme = new Script_SchemeXRSleeper("action_sleeper_activity", storage);
+            Script_SchemeXRSleeper* const p_scheme = new Script_SchemeXRSleeper("action_sleeper_activity", static_cast<DataBase::Script_ComponentScheme_XRSleeper*>(storage));
             p_scheme->add_condition(CWorldProperty(StalkerDecisionSpace::eWorldPropertyAlive, true));
             p_scheme->add_condition(CWorldProperty(StalkerDecisionSpace::eWorldPropertyDanger, false));
             p_scheme->add_condition(CWorldProperty(StalkerDecisionSpace::eWorldPropertyEnemy, false));
