@@ -4724,7 +4724,7 @@ public:
 
 #pragma region Cordis Setters
 #pragma region Cordis DataBase Storage_Data setters
-/*
+ 
     inline void UnsubscribeAction(const std::uint16_t npc_id, const xr_string& scheme_name) noexcept
     {
         if (scheme_name.empty())
@@ -4743,7 +4743,7 @@ public:
         }
 
         this->m_storage[npc_id].m_schemes[scheme_name]->UnSubscribeAction();
-    }*/
+    } 
 
     void setStorageStateManager(CScriptGameObject* const p_client_object, Script_StateManager* const p_state_manager);
     void setStorageMoveManager(CScriptGameObject* const p_client_object, Script_MoveManager* const p_move_manager);
