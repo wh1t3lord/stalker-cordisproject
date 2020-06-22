@@ -38,9 +38,7 @@ public:
             return;
         }
 
-        Msg("[Scripts/add_to_binder(p_client_object, p_ini, scheme_name, section_name, storage)] added "
-            "Script_SchemeMobWalker scheme to binder, name=%s scheme=%s section=%s",
-            p_client_object->Name(), scheme_name.c_str(), section_name.c_str());
+       MESSAGEI("added scheme to binder, name=%s scheme=%s section=%s", p_client_object->Name(), scheme_name.c_str(), section_name.c_str());
 
         Script_ISchemeEntity* action = new Script_SchemeMobWalker(p_client_object, storage);
         DataBase::Storage::getInstance().setStorageSchemesActions(
