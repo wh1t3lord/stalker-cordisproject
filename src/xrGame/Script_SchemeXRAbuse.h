@@ -9,8 +9,8 @@ namespace Scripts
 class Script_EvaluatorAbuse : public CScriptPropertyEvaluator
 {
 public:
-    Script_EvaluatorAbuse(const xr_string& evaluator_name, void* storage)
-        : CScriptPropertyEvaluator(nullptr, evaluator_name.c_str()), m_p_storage(&storage)
+    Script_EvaluatorAbuse(const xr_string& evaluator_name, DataBase::Script_ComponentScheme_XRAbuse* storage)
+        : CScriptPropertyEvaluator(nullptr, evaluator_name.c_str()), m_p_storage(storage)
     {
     }
 
@@ -19,7 +19,7 @@ public:
     virtual _value_type evaluate(void);
 
 private:
-    DataBase::Storage_Scheme* m_p_storage;
+    DataBase::Script_ComponentScheme_XRAbuse* m_p_storage;
 };
 
 
