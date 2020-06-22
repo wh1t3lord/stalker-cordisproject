@@ -7,30 +7,30 @@ namespace Cordis
 		class Script_EvaluatorCamperEnd : public CScriptPropertyEvaluator
 		{
 		public:
-			Script_EvaluatorCamperEnd(const xr_string& name, void* storage) : CScriptPropertyEvaluator(nullptr, name.c_str()), m_p_storage(&storage)
+			Script_EvaluatorCamperEnd(const xr_string& name, DataBase::Script_ComponentScheme_XRCamper* storage) : CScriptPropertyEvaluator(nullptr, name.c_str()), m_p_storage(storage)
 			{
 
 			}
 
 			virtual _value_type evaluate(void)
 			{
-				return !XR_LOGIC::is_active(this->m_object, *this->m_p_storage);
+				return !XR_LOGIC::is_active(this->m_object, this->m_p_storage);
 			}
 
 		private:
-			DataBase::Storage_Scheme* m_p_storage;
+			DataBase::Script_ComponentScheme_XRCamper* m_p_storage;
 		};
 
 		class Script_EvaluatorCloseCombat : public CScriptPropertyEvaluator
 		{
 		public:
-			Script_EvaluatorCloseCombat(const xr_string& name, void* storage) : CScriptPropertyEvaluator(nullptr, name.c_str()), m_p_storage(&storage), m_is_close_combat(false)
+			Script_EvaluatorCloseCombat(const xr_string& name, DataBase::Script_ComponentScheme_XRCamper* storage) : CScriptPropertyEvaluator(nullptr, name.c_str()), m_p_storage(storage), m_is_close_combat(false)
 			{}
 
 			virtual _value_type evaluate(void);
 		private:
 			bool m_is_close_combat;
-			DataBase::Storage_Scheme* m_p_storage;
+			DataBase::Script_ComponentScheme_XRCamper* m_p_storage;
 		};
 
 		class Script_SchemeXRCamper : public Script_ISchemeStalker

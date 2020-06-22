@@ -7,7 +7,7 @@ namespace Cordis
 		class Script_EvaluatorCombatZombied : public CScriptPropertyEvaluator
 		{
 		public:
-			Script_EvaluatorCombatZombied(const xr_string& name, void* storage) : CScriptPropertyEvaluator(nullptr, name.c_str()), m_p_storage(&storage)
+			Script_EvaluatorCombatZombied(const xr_string& name, DataBase::Script_ComponentScheme_XRCombatZombied* storage) : CScriptPropertyEvaluator(nullptr, name.c_str()), m_p_storage(storage)
 			{
 				
 			}
@@ -17,7 +17,7 @@ namespace Cordis
 				return (Globals::character_community(this->m_object) == "zombied");
 			}
 		private:
-			DataBase::Storage_Scheme* m_p_storage;
+			DataBase::Script_ComponentScheme_XRCombatZombied* m_p_storage;
 		};
 
 		// @ Shoot
