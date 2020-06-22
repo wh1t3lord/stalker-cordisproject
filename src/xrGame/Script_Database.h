@@ -442,7 +442,7 @@ public:
     {
         if (point_name.empty())
         {
-            Msg("[Scripts/DataBase/Storage_Scheme/setLookPointName(point_name)] WARNING: point_name.empty() == true! "
+            MESSAGE("point_name.empty() == true! "
                 "You set an empty string");
         }
 
@@ -454,7 +454,7 @@ public:
     {
         if (home_name.empty())
         {
-            Msg("[Scripts/DataBase/Storage_Scheme/setHomePointName(home_name)] WARNING: home_name.empty() == true! You "
+            MESSAGEW("home_name.empty() == true! You "
                 "set an empty string");
         }
 
@@ -1318,6 +1318,38 @@ private:
 struct Script_ComponentScheme_MobCamp : public Script_IComponentScheme
 {
     Script_ComponentScheme_MobCamp(void) {}
+
+	inline const xr_string& getLookPointName(void) const noexcept { return this->m_look_point_name; }
+	inline void setLookPointName(const xr_string& point_name) noexcept
+	{
+		if (point_name.empty())
+		{
+			MESSAGE("point_name.empty() == true! You set an empty string");
+		}
+
+		this->m_look_point_name = point_name;
+	}
+
+	inline const xr_string& getHomePointName(void) const noexcept { return this->m_home_point_name; }
+	inline void setHomePointName(const xr_string& home_name) noexcept
+	{
+		if (home_name.empty())
+		{
+			MESSAGEW("home_name.empty() == true! You set an empty string");
+		}
+
+		this->m_home_point_name = home_name;
+	}
+
+    inline void clear(void) noexcept 
+    {
+        this->m_look_point_name.clear();
+        this->m_home_point_name.clear();
+    }
+
+private:
+    xr_string m_look_point_name;
+    xr_string m_home_point_name;
 };
 
 struct Script_ComponentScheme_XRSmartCover : public Script_IComponentScheme
@@ -2615,6 +2647,8 @@ private:
 struct Script_ComponentScheme_XRDanger : public Script_IComponentScheme
 {
     Script_ComponentScheme_XRDanger(void) {}
+
+    inline void clear(void) noexcept { }
 };
 
 struct Script_ComponentScheme_XRDeath : public Script_IComponentScheme
