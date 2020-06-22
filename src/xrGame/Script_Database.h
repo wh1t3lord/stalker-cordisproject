@@ -271,7 +271,7 @@ public:
     {
         if (state_name.empty())
         {
-            Msg("[Scripts/DataBase/Storage_Scheme/setStateName(state_name)] WARNING: state_name.empty() == true! You "
+            MESSAGEW("state_name.empty() == true! You "
                 "set an empty string");
         }
 
@@ -1317,7 +1317,7 @@ private:
 
 struct Script_ComponentScheme_MobCamp : public Script_IComponentScheme
 {
-    Script_ComponentScheme_MobCamp(void) : m_is_skip_transfer_enemy(false){}
+    Script_ComponentScheme_MobCamp(void) : m_is_skip_transfer_enemy(false), m_time_change_point(0), m_home_min_radius(0), m_home_mid_radius(0), m_home_max_radius(0) {}
 
 	inline const xr_string& getLookPointName(void) const noexcept { return this->m_look_point_name; }
 	inline void setLookPointName(const xr_string& point_name) noexcept
@@ -1344,17 +1344,57 @@ struct Script_ComponentScheme_MobCamp : public Script_IComponentScheme
     inline void clear(void) noexcept 
     {
         this->m_is_skip_transfer_enemy = false;
+        this->m_time_change_point = 0;
+        this->m_home_max_radius = 0;
+        this->m_home_mid_radius = 0;
+        this->m_home_min_radius = 0;
         this->m_look_point_name.clear();
         this->m_home_point_name.clear();
+        this->m_state_name.clear();
     }
 
 	inline bool IsSkipTransferEnemy(void) const noexcept { return this->m_is_skip_transfer_enemy; }
 	inline void setSkipTransferEnemy(const bool value) noexcept { this->m_is_skip_transfer_enemy = value; }
 
+	inline std::uint32_t getTimeChangePoint(void) const noexcept { return this->m_time_change_point; }
+	inline void setTimeChangePoint(const std::uint32_t value) noexcept { this->m_time_change_point = value; }
+
+	inline const xr_string& getStateName(void) const noexcept { return this->m_state_name; }
+	inline void setStateName(const xr_string& state_name) noexcept
+	{
+		if (state_name.empty())
+		{
+			MESSAGEW("state_name.empty() == true! You "
+				"set an empty string");
+		}
+
+		this->m_state_name = state_name;
+	}
+
+	inline std::uint32_t getHomeMinRadius(void) const noexcept { return this->m_home_min_radius; }
+	inline void setHomeMinRadius(const std::uint32_t value) noexcept { this->m_home_min_radius = value; }
+
+	inline std::uint32_t getHomeMidRadius(void) const noexcept { return this->m_home_mid_radius; }
+	inline void setHomeMidRadius(const std::uint32_t value) noexcept { this->m_home_mid_radius = value; }
+
+	inline std::uint32_t getHomeMaxRadius(void) const noexcept { return this->m_home_max_radius; }
+	inline void setHomeMaxRadius(const std::uint32_t value) noexcept { this->m_home_max_radius = value; }
+
 private:
     bool m_is_skip_transfer_enemy;
+    std::uint32_t m_time_change_point;
+    std::uint32_t m_home_min_radius;
+    std::uint32_t m_home_mid_radius;
+    std::uint32_t m_home_max_radius;
     xr_string m_look_point_name;
     xr_string m_home_point_name;
+    xr_string m_state_name;
+};
+
+struct Script_ComponentScheme_MobCombat : public Script_IComponentScheme
+{
+private:
+
 };
 
 struct Script_ComponentScheme_XRSmartCover : public Script_IComponentScheme
@@ -5076,7 +5116,7 @@ public:
         this->m_storage[npc_id].setSchemesSectionName(scheme_name, section_name);
     }*/
 
-/*
+ 
     inline void setStorageSchemesEnabled(
         const std::uint16_t npc_id, const xr_string& scheme_name, const bool value) noexcept
     {
@@ -5087,7 +5127,7 @@ public:
         }
 
         this->m_storage[npc_id].setSchemesEnabled(scheme_name, value);
-    }*/
+    } 
 
     inline void setStorageDeathData(const std::uint16_t npc_id, const Storage_Data::DeathData& data) noexcept
     {
