@@ -30,7 +30,7 @@ inline bool is_heavy_wounded_by_id(const std::uint16_t npc_id)
         return false;
     }
 
-    DataBase::Storage_Scheme* const p_storage = storage.getSchemes().at("wounded");
+    DataBase::Script_ComponentScheme_XRWounded* const p_storage = dynamic_cast<DataBase::Script_ComponentScheme_XRWounded*>(storage.getSchemes().at("wounded"));
 
     if (p_storage == nullptr)
     {
