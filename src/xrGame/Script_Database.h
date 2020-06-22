@@ -1136,7 +1136,14 @@ private:
 
 struct Script_IComponentScheme
 {
-	virtual ~Script_IComponentScheme(void) {}
+	virtual ~Script_IComponentScheme(void) 
+    {
+        for (Script_ISchemeEntity*& it : this->m_actions)
+        {
+            MESSAGEI("deleting action %s", it->getSchemeName().c_str());
+            xr_delete(it);
+        }
+    }
 
 	inline const xr_vector<Script_ISchemeEntity*>& getActions(void) const noexcept { return this->m_actions; }
 	inline void addAction(Script_ISchemeEntity* const p_data)
@@ -1329,6 +1336,58 @@ private:
 	xr_map<std::uint32_t, CondlistData> m_on_press_condlist;
 	xr_string m_animation_name;
 	xr_string m_tooptip_name;
+};
+
+struct Script_ComponentScheme_MobJump : public Script_IComponentScheme
+{
+    Script_ComponentScheme_MobJump(void) : m_p_path_jump(nullptr), m_ph_factor(0.0f) {}
+    ~Script_ComponentScheme_MobJump(void) 
+    {
+        if (this->m_p_path_jump)
+        {
+            MESSAGEI("deleting m_p_path_jump!");
+            xr_delete(this->m_p_path_jump);
+        }
+    }
+
+    inline CPatrolPathParams* getJumpPath(void) const { return this->m_p_path_jump; }
+    inline void setJumpPath(CPatrolPathParams* const p_data) 
+    { 
+        if (p_data == nullptr)
+        {
+            MESSAGEER("You can't set an invalid object here! Because it's destroying in class (dtor)");
+
+            if (this->m_p_path_jump)
+                xr_delete(this->m_p_path_jump);
+
+            return;
+        }
+
+        this->m_p_path_jump = p_data; 
+    }
+
+    inline const xr_string& getPathJumpName(void) const noexcept { return this->m_path_jump_name; }
+    inline void setPathJumpName(const xr_string& path_name) noexcept 
+    {
+        if (path_name.empty())
+        {
+            MESSAGEW("set empty string!");
+        }
+
+        this->m_path_jump_name = path_name;
+    }
+
+    inline float getPHJumpFactor(void) const noexcept { return this->m_ph_factor; }
+    inline void setPHJumpFactor(const float value) noexcept { this->m_ph_factor = value; }
+
+    inline const Fvector& getOffset(void) const noexcept { return this->m_offset; }
+    inline void setOffset(const Fvector& data) noexcept { this->m_offset = data; }
+
+private:
+    float m_ph_factor;
+    CPatrolPathParams* m_p_path_jump;
+    Fvector m_offset;
+    xr_string m_path_jump_name;
 };
 
 struct Script_ComponentScheme_MobHome : public Script_IComponentScheme

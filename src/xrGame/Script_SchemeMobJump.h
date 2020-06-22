@@ -10,7 +10,7 @@ class Script_SchemeMobJump : public Script_ISchemeMonster
 
 public:
     Script_SchemeMobJump(void) = delete;
-    Script_SchemeMobJump(CScriptGameObject* const p_client_object, void* storage);
+    Script_SchemeMobJump(CScriptGameObject* const p_client_object, DataBase::Script_ComponentScheme_MobJump* storage);
     ~Script_SchemeMobJump(void);
 
     virtual void reset_scheme(const bool, CScriptGameObject* const p_client_object);
@@ -32,8 +32,7 @@ public:
             return;
         }
 
-        Msg("[Scripts/add_to_binder(p_client_object, p_ini, scheme_name, section_name, storage)] added "
-            "Script_SchemeMobWalker scheme to binder, name=%s scheme=%s section=%s",
+        MESSAGEI("added scheme to binder, name=%s scheme=%s section=%s",
             p_client_object->Name(), scheme_name.c_str(), section_name.c_str());
 
         Script_ISchemeEntity* action = new Script_SchemeMobJump(p_client_object, storage);
@@ -53,8 +52,9 @@ public:
     };
 
 private:
-    Fvector m_point;
     std::uint32_t m_current_state = STATE_START_LOOK;
+    DataBase::Script_ComponentScheme_MobJump* m_p_storage;
+    Fvector m_point;
 };
 
 } // namespace Scripts
