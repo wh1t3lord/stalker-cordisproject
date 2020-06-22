@@ -1411,17 +1411,17 @@ struct Script_ComponentScheme_PostCombat : public Script_IComponentScheme
 		}
 	}
 
-	inline std::uint16_t getPostCombatLastBestEnemyID(void) const noexcept { return this->m_last_best_enemy_id; }
-	inline void setPostCombatLastBestEnemyID(const std::uint16_t id) noexcept { this->m_last_best_enemy_id = id; }
+	inline std::uint16_t getLastBestEnemyID(void) const noexcept { return this->m_last_best_enemy_id; }
+	inline void setLastBestEnemyID(const std::uint16_t id) noexcept { this->m_last_best_enemy_id = id; }
 
-	inline std::uint32_t getPostCombatTimer(void) const noexcept { return this->m_timer; }
-	inline void setPostCombatTimer(const std::uint32_t value) noexcept { this->m_timer = value; }
+	inline std::uint32_t getTimer(void) const noexcept { return this->m_timer; }
+	inline void setTimer(const std::uint32_t value) noexcept { this->m_timer = value; }
 
-	inline const xr_string& getPostCombatLastBestEnemyName(void) const noexcept { return this->m_last_best_enemy_name; }
-	inline void setPostCombatLastBestEnemyName(const xr_string& name) noexcept { this->m_last_best_enemy_name = name; }
+	inline const xr_string& getLastBestEnemyName(void) const noexcept { return this->m_last_best_enemy_name; }
+	inline void setLastBestEnemyName(const xr_string& name) noexcept { this->m_last_best_enemy_name = name; }
 
-	inline Script_StateAnimation* getPostCombatAnimation(void) const { return this->m_p_animation; }
-	inline void setPostCombatAnimation(Script_StateAnimation* const p_data)
+	inline Script_StateAnimation* getAnimation(void) const { return this->m_p_animation; }
+	inline void setAnimation(Script_StateAnimation* const p_data)
 	{
 		this->m_p_animation = p_data;
 	}
@@ -2605,6 +2605,12 @@ struct Script_ComponentScheme_XRAbuse : public Script_IComponentScheme
 private:
 	Script_XRAbuseManager* m_p_abuse_manager;
 };
+
+struct Script_ComponentScheme_XRDanger : public Script_IComponentScheme
+{
+    Script_ComponentScheme_XRDanger(void) {}
+};
+
 struct Script_ComponentScheme_XRDeath : public Script_IComponentScheme
 {
 	Script_ComponentScheme_XRDeath(void) {}

@@ -7,9 +7,9 @@ namespace Cordis
 		class Script_EvaluatorCombatEnemy : public CScriptPropertyEvaluator
 		{
 		public: 
-			Script_EvaluatorCombatEnemy(const xr_string& name, DataBase::Storage_Scheme* p_storage) : CScriptPropertyEvaluator(nullptr, name.c_str()), m_p_storage(p_storage)
+			Script_EvaluatorCombatEnemy(const xr_string& name, DataBase::Script_ComponentScheme_PostCombat* p_storage) : CScriptPropertyEvaluator(nullptr, name.c_str()), m_p_storage(p_storage)
 			{
-				this->m_p_storage->setPostCombatTimer(Globals::get_time_global());
+				this->m_p_storage->setTimer(Globals::get_time_global());
 			}
 
 			~Script_EvaluatorCombatEnemy(void) {}
@@ -17,7 +17,7 @@ namespace Cordis
 			_value_type evaluate(void) override;
 
 		private:
-			DataBase::Storage_Scheme* m_p_storage;
+			DataBase::Script_ComponentScheme_PostCombat* m_p_storage;
 		};
 
 		class Script_ActionPostCombatWait : CScriptActionBase 

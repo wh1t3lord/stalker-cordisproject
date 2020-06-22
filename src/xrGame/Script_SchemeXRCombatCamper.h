@@ -20,7 +20,7 @@ namespace Cordis
 		class Script_EvaluatorCombatCamperSee : public CScriptPropertyEvaluator
 		{
 		public:
-			Script_EvaluatorCombatCamperSee(const xr_string& name, void* storage) : CScriptPropertyEvaluator(nullptr, name.c_str()), m_p_storage(&storage) {}
+			Script_EvaluatorCombatCamperSee(const xr_string& name, DataBase::Script_ComponentScheme_XRCombatCamper* storage) : CScriptPropertyEvaluator(nullptr, name.c_str()), m_p_storage(storage) {}
 			~Script_EvaluatorCombatCamperSee(void);
 
 			virtual _value_type evaluate(void) 
@@ -29,14 +29,14 @@ namespace Cordis
 
 				if (this->m_object->Alive() && p_best_enemy && this->m_object->CheckObjectVisibility(p_best_enemy))
 				{
-					this->m_p_storage->setXRCombatCamperLastSeenPosition(p_best_enemy->Position());
+					this->m_p_storage->setLastSeenPosition(p_best_enemy->Position());
 					return true;
 				}
 
 				return false;
 			}
 		private:
-			DataBase::Storage_Scheme* m_p_storage;
+			DataBase::Script_ComponentScheme_XRCombatCamper* m_p_storage;
 		};
 
 		class Script_SchemeXRCombatCamper : public Script_ISchemeStalker

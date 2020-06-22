@@ -126,8 +126,8 @@ inline std::uint32_t get_danger_time(const CDangerObject* p_client_danger_object
 class Script_EvaluatorDanger : public CScriptPropertyEvaluator
 {
 public:
-    Script_EvaluatorDanger(const xr_string& evaluator_name, void* storage)
-        : CScriptPropertyEvaluator(nullptr, evaluator_name.c_str()), m_p_storage(&storage), m_p_manager(nullptr)
+    Script_EvaluatorDanger(const xr_string& evaluator_name, DataBase::Script_ComponentScheme_XRDanger* storage)
+        : CScriptPropertyEvaluator(nullptr, evaluator_name.c_str()), m_p_storage(storage), m_p_manager(nullptr)
     {
     }
 
@@ -137,7 +137,7 @@ public:
 
     // @ PRIVATE uses, in XR_LOGIC
     static inline void add_to_binder(CScriptGameObject* const p_client_object, CScriptIniFile* const p_ini,
-        const xr_string& scheme_name, const xr_string& section_name, void* storage)
+        const xr_string& scheme_name, const xr_string& section_name, DataBase::Script_ComponentScheme_XRDanger* storage)
     {
         if (!p_client_object)
         {
@@ -151,8 +151,7 @@ public:
             return;
         }
 
-        Msg("[Scripts/add_to_binder(p_client_object, p_ini, scheme_name, section_name, storage)] added "
-            "Script_SchemeMobWalker scheme to binder, name=%s scheme=%s section=%s",
+        MESSAGEI("added scheme to binder, name=%s scheme=%s section=%s",
             p_client_object->Name(), scheme_name.c_str(), section_name.c_str());
 
         CScriptActionPlanner* p_planner = Globals::get_script_action_planner(p_client_object);
@@ -174,11 +173,11 @@ public:
 
         p_planner->remove_evaluator(StalkerDecisionSpace::eWorldPropertyDanger);
         p_planner->add_evaluator(
-            StalkerDecisionSpace::eWorldPropertyDanger, new Script_EvaluatorDanger("danger", storage));
+            StalkerDecisionSpace::eWorldPropertyDanger, new Script_EvaluatorDanger("danger", static_cast<DataBase::Script_ComponentScheme_XRDanger*>(storage)));
 
         p_danger_action_planner->remove_evaluator(StalkerDecisionSpace::eWorldPropertyDanger);
         p_danger_action_planner->add_evaluator(
-            StalkerDecisionSpace::eWorldPropertyDanger, new Script_EvaluatorDanger("danger", storage));
+            StalkerDecisionSpace::eWorldPropertyDanger, new Script_EvaluatorDanger("danger", static_cast<DataBase::Script_ComponentScheme_XRDanger*>(storage)));
     }
 
     static inline void set_danger(CScriptGameObject* const p_client_object, CScriptIniFile* const p_ini,
@@ -190,7 +189,7 @@ public:
             return;
         }
 
-        DataBase::Storage_Scheme* p_storage = XR_LOGIC::assign_storage_and_bind(p_client_object, p_ini, scheme_name, section_name, gulag_name);
+        DataBase::Script_ComponentScheme_XRDanger* p_storage = XR_LOGIC::assign_storage_and_bind<DataBase::Script_ComponentScheme_XRDanger>(p_client_object, p_ini, scheme_name, section_name, gulag_name);
 
         DataBase::Storage::getInstance().setStorageDangerFlag(p_client_object->ID(), false);
     }
@@ -205,7 +204,7 @@ public:
 
 private:
     CScriptActionPlanner* m_p_manager;
-    DataBase::Storage_Scheme* m_p_storage;
+    DataBase::Script_ComponentScheme_XRDanger* m_p_storage;
 };
 
 } // namespace Scripts
