@@ -1317,7 +1317,7 @@ private:
 
 struct Script_ComponentScheme_MobCamp : public Script_IComponentScheme
 {
-    Script_ComponentScheme_MobCamp(void) {}
+    Script_ComponentScheme_MobCamp(void) : m_is_skip_transfer_enemy(false){}
 
 	inline const xr_string& getLookPointName(void) const noexcept { return this->m_look_point_name; }
 	inline void setLookPointName(const xr_string& point_name) noexcept
@@ -1343,11 +1343,16 @@ struct Script_ComponentScheme_MobCamp : public Script_IComponentScheme
 
     inline void clear(void) noexcept 
     {
+        this->m_is_skip_transfer_enemy = false;
         this->m_look_point_name.clear();
         this->m_home_point_name.clear();
     }
 
+	inline bool IsSkipTransferEnemy(void) const noexcept { return this->m_is_skip_transfer_enemy; }
+	inline void setSkipTransferEnemy(const bool value) noexcept { this->m_is_skip_transfer_enemy = value; }
+
 private:
+    bool m_is_skip_transfer_enemy;
     xr_string m_look_point_name;
     xr_string m_home_point_name;
 };
