@@ -1338,6 +1338,112 @@ private:
 	xr_string m_tooptip_name;
 };
 
+struct Script_ComponentScheme_MobRemark : public Script_IComponentScheme
+{
+    Script_ComponentScheme_MobRemark(void) : m_is_no_reset(false), m_is_animation_movement(false) {}
+
+    inline bool isNoReset(void) const noexcept { return this->m_is_no_reset; }
+    inline void setNoReset(const bool value) noexcept { this->m_is_no_reset = value; }
+
+    inline const xr_string& getStateName(void) const noexcept { return this->m_state_name; }
+    inline void setStateName(const xr_string& state_name) noexcept 
+    {
+        if (state_name.empty())
+        {
+            MESSAGEW("set empty string!");
+        }
+
+        this->m_state_name = state_name;
+    }
+
+    inline void clear(void) noexcept 
+    {
+        this->m_is_no_reset = false;
+        this->m_is_animation_movement = false;
+        this->m_state_name.clear();
+        this->m_animation_name.clear();
+        this->m_sound_name.clear();
+        this->m_time_name.clear();
+        this->m_tip_name.clear();
+        this->m_animation_head_name.clear();
+    }
+
+    inline const xr_string& getAnimationName(void) const noexcept { return this->m_animation_name; }
+    inline void setAnimationName(const xr_string& animation_name) noexcept 
+    {
+        if (animation_name.empty())
+        {
+            MESSAGEW("set an empty string!");
+        }
+
+        this->m_animation_name = animation_name;
+    }
+
+    inline const xr_string& getSoundName(void) const noexcept { return this->m_sound_name; }
+    inline void setSoundName(const xr_string& sound_name) noexcept 
+    {
+        if (sound_name.empty())
+        {
+            MESSAGEW("set an empty string!");
+        }
+
+        this->m_sound_name = sound_name;
+    }
+
+    inline bool isAnimationMovement(void) const noexcept { return this->m_is_animation_movement; }
+    inline void setAnimationMovement(const bool value) noexcept { this->m_is_animation_movement = value; }
+
+    inline const xr_map<std::uint32_t, CondlistData>& getDialogCondlist(void) const noexcept { return this->m_dialog_condlist; }
+    inline void setDialogCondlist(const xr_map<std::uint32_t, CondlistData>& data) noexcept 
+    {
+        this->m_dialog_condlist = data;
+    }
+
+    inline const xr_string& getTimeName(void) const noexcept { return this->m_time_name; }
+    inline void setTimeName(const xr_string& time_name) noexcept 
+    {
+        if (time_name.empty())
+        {
+            MESSAGEW("set an empty string!");
+        }
+
+        this->m_time_name = time_name;
+    }
+
+    inline const xr_string& getTipName(void) const noexcept { return this->m_tip_name; }
+    inline void setTipName(const xr_string& tip_name) noexcept 
+    {
+        if (tip_name.empty())
+        {
+            MESSAGEW("set an empty string!");
+        }
+
+        this->m_tip_name = tip_name;
+    }
+
+    inline const xr_string& getAnimationHeadName(void) const noexcept { return this->m_animation_head_name; }
+    inline void setAnimationHeadName(const xr_string& animation_name) noexcept 
+    {
+        if (animation_name.empty())
+        {
+            MESSAGEW("set an empty animation!");
+        }
+
+        this->m_animation_head_name = animation_name;
+    }
+
+private:
+    bool m_is_no_reset;
+    bool m_is_animation_movement;
+    xr_map<std::uint32_t, CondlistData> m_dialog_condlist;
+    xr_string m_state_name;
+    xr_string m_animation_name;
+    xr_string m_sound_name;
+    xr_string m_time_name;
+    xr_string m_tip_name;
+    xr_string m_animation_head_name;
+};
+
 struct Script_ComponentScheme_MobJump : public Script_IComponentScheme
 {
     Script_ComponentScheme_MobJump(void) : m_p_path_jump(nullptr), m_ph_factor(0.0f) {}
@@ -1382,6 +1488,20 @@ struct Script_ComponentScheme_MobJump : public Script_IComponentScheme
 
     inline const Fvector& getOffset(void) const noexcept { return this->m_offset; }
     inline void setOffset(const Fvector& data) noexcept { this->m_offset = data; }
+
+    inline void clear(void) noexcept 
+    {
+        this->m_ph_factor = 0.0f;
+        
+        if (this->m_p_path_jump)
+            xr_delete(this->m_p_path_jump);
+
+        this->m_offset.x = 0.0f;
+        this->m_offset.y = 0.0f;
+        this->m_offset.z = 0.0f;
+
+        this->m_path_jump_name.clear();
+    }
 
 private:
     float m_ph_factor;
