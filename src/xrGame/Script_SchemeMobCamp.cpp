@@ -77,7 +77,7 @@ void Script_SchemeMobCamp::reset_scheme(const bool, CScriptGameObject* const p_c
 
 void Script_SchemeMobCamp::update(const float delta)
 {
-    if (XR_LOGIC::try_switch_to_another_section(this->m_npc, *this->m_p_storage, DataBase::Storage::getInstance().getActor()))
+    if (XR_LOGIC::try_switch_to_another_section(this->m_npc, this->m_p_storage, DataBase::Storage::getInstance().getActor()))
         return;
 
         if (!this->m_npc->Alive())
