@@ -284,7 +284,7 @@ void Script_Binder_Stalker::shedule_Update(std::uint32_t time_delta)
 
                 if (p_storage && (p_storage->getLogic().empty() == false))
                 {
-                    if (!XR_LOGIC::try_switch_to_another_section(this->m_object, *p_storage, DataBase::Storage::getInstance().getActor()))
+                    if (!XR_LOGIC::try_switch_to_another_section(this->m_object, p_storage, DataBase::Storage::getInstance().getActor()))
                     {
                         if (overrides.getCombatType().IsEmpty() == false)
                         {
@@ -301,7 +301,7 @@ void Script_Binder_Stalker::shedule_Update(std::uint32_t time_delta)
 
         if (!is_switched)
         {
-            XR_LOGIC::try_switch_to_another_section(this->m_object, *storage.getSchemes().at(storage.getActiveSchemeName()), DataBase::Storage::getInstance().getActor());
+            XR_LOGIC::try_switch_to_another_section(this->m_object, storage.getSchemes().at(storage.getActiveSchemeName()), DataBase::Storage::getInstance().getActor());
         }
     }
     else
