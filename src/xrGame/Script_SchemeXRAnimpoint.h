@@ -77,13 +77,13 @@ namespace Cordis
 		class Script_EvaluatorReachAnimpoint : public CScriptPropertyEvaluator
 		{
 		public:
-			Script_EvaluatorReachAnimpoint(const xr_string& name, void* storage) : CScriptPropertyEvaluator(nullptr, name.c_str()), m_p_storage(&storage) {}
+			Script_EvaluatorReachAnimpoint(const xr_string& name, DataBase::Script_ComponentScheme_XRAnimPoint* storage) : CScriptPropertyEvaluator(nullptr, name.c_str()), m_p_storage(storage) {}
 			~Script_EvaluatorReachAnimpoint(void) {}
 
 			virtual _value_type evaluate(void);
 
 		private:
-			DataBase::Storage_Scheme* m_p_storage;
+			DataBase::Script_ComponentScheme_XRAnimPoint* m_p_storage;
 		};
 
 		class Script_EvaluatorNeedAnimpoint : public CScriptPropertyEvaluator

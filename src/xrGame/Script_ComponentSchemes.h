@@ -6,7 +6,92 @@ namespace Cordis
 	{
 		namespace DataBase
 		{
-			struct Script_ComponentScheme_PHButton
+			struct Script_IComponentScheme 
+			{
+				virtual ~Script_IComponentScheme(void) {}
+
+				inline const xr_vector<Script_ISchemeEntity*>& getActions(void) const noexcept { return this->m_actions; }
+				inline void addAction(Script_ISchemeEntity* const p_data) 
+				{
+					if (p_data == nullptr)
+					{
+						MESSAGEWR("You can't add a nullptr object!");
+						return;
+					}
+
+					this->m_actions.push_back(p_data);
+				}
+
+				inline const xr_vector<LogicData>& getLogic(void) const noexcept { return this->m_logic; }
+				inline void setLogic(const xr_vector<LogicData>& data) noexcept { this->m_logic = data; }
+
+				inline CScriptIniFile* const getIni(void) const { return this->m_p_ini; }
+				inline void setIni(CScriptIniFile* const p_ini) { this->m_p_ini = p_ini; }
+
+				inline const xr_map<xr_string, bool>& getSignals(void) const noexcept { return this->m_signals; }
+
+				inline void setSignals(const xr_map<xr_string, bool>& map) noexcept
+				{
+					if (map.empty())
+					{
+						MESSAGEWR("map.empty() == true! Can't assign an empty map return ...");
+						return;
+					}
+
+					this->m_signals = map;
+				}
+
+				inline void setSignals(const std::pair<xr_string, bool>& pair) noexcept
+				{
+					if (pair.first.empty())
+					{
+						MESSAGEWR("pair.first.empty() == true! Can't assign "
+							"an empty string return ...");
+						return;
+					}
+
+					this->m_signals.insert(pair);
+				}
+
+				inline void setSignals(const xr_string& signal_name, const bool value) noexcept
+				{
+					if (signal_name.empty())
+					{
+						MESSAGEWR("signal_name.empty() == "
+							"true! Can't assign an empty string return ...");
+						return;
+					}
+
+					this->m_signals[signal_name] = value;
+				}
+
+				inline void ClearSignals(void) noexcept
+				{
+					MESSAGEI("signals are cleared!");
+					this->m_signals.clear();
+				}
+
+				inline const xr_string& getLogicName(void) const noexcept { return this->m_logic_name; }
+				inline void setLogicName(const xr_string& section_name) noexcept
+				{
+					if (section_name.empty())
+					{
+						MESSAGEW("section_name.empty() == "
+							"true! You set an empty string.");
+					}
+
+					this->m_logic_name = section_name;
+				}
+
+			protected:
+				CScriptIniFile* m_p_ini = nullptr;
+				xr_map<xr_string, bool> m_signals;
+				xr_vector<Script_ISchemeEntity*> m_actions;
+				xr_vector<LogicData> m_logic;
+				xr_string m_logic_name;
+			};
+
+			struct Script_ComponentScheme_PHButton : public Script_IComponentScheme
 			{
 				Script_ComponentScheme_PHButton(void) : m_is_blending(false) {}
 
@@ -59,7 +144,7 @@ namespace Cordis
 				xr_string m_animation_name;
 				xr_string m_tooptip_name;
 			};
-			struct Script_ComponentScheme_XRSmartCover
+			struct Script_ComponentScheme_XRSmartCover : public Script_IComponentScheme
 			{
 				Script_ComponentScheme_XRSmartCover(void) : m_is_precalc_cover(false), m_is_in_combat(false), m_idle_max_time(0), m_idle_min_time(0), m_lookout_min_time(0), m_lookout_max_time(0) {}
 
@@ -144,7 +229,7 @@ namespace Cordis
 				xr_string m_moving_name;
 				xr_string m_sound_idle_name;
 			};
-			struct Script_ComponentScheme_PostCombat
+			struct Script_ComponentScheme_PostCombat : public Script_IComponentScheme
 			{
 				Script_ComponentScheme_PostCombat(void) : m_last_best_enemy_id(0), m_timer(0), m_p_animation(nullptr) {}
 				~Script_ComponentScheme_PostCombat(void) 
@@ -190,7 +275,7 @@ namespace Cordis
 				Script_StateAnimation* m_p_animation;
 				xr_string m_last_best_enemy_name;
 			};
-			struct Script_ComponentScheme_XRAnimPoint
+			struct Script_ComponentScheme_XRAnimPoint : public Script_IComponentScheme
 			{
 				Script_ComponentScheme_XRAnimPoint(void) : m_is_use_camp(false), m_reach_distance(0.0f), m_p_animpoint(nullptr) {}
 				~Script_ComponentScheme_XRAnimPoint(void) 
@@ -304,7 +389,7 @@ namespace Cordis
 				xr_string m_description_name;
 				xr_string m_base_action_name;
 			};
-			struct Script_ComponentScheme_XRPatrol
+			struct Script_ComponentScheme_XRPatrol : public Script_IComponentScheme
 			{
 				Script_ComponentScheme_XRPatrol(void) : m_is_silent(false), m_is_commander(false) {}
 
@@ -359,7 +444,7 @@ namespace Cordis
 				xr_string m_formation_name;
 				xr_string m_move_type_name;
 			};
-			struct Script_ComponentScheme_XRCombatCamper
+			struct Script_ComponentScheme_XRCombatCamper : public Script_IComponentScheme
 			{
 				Script_ComponentScheme_XRCombatCamper(void) : m_is_camper_action(false) {}
 
@@ -381,7 +466,7 @@ namespace Cordis
 				bool m_is_camper_action;
 				Fvector m_camper_last_seen_position;
 			};
-			struct Script_ComponentScheme_XRCombatZombied
+			struct Script_ComponentScheme_XRCombatZombied : public Script_IComponentScheme
 			{
 				Script_ComponentScheme_XRCombatZombied(void) : m_zombied_current_action(0) {}
 
@@ -393,7 +478,7 @@ namespace Cordis
 			private:
 				std::uint32_t m_zombied_current_action;
 			};
-			struct Script_ComponentScheme_XRCombatIgnore
+			struct Script_ComponentScheme_XRCombatIgnore : public Script_IComponentScheme
 			{
 				Script_ComponentScheme_XRCombatIgnore(void) : m_is_ignore_enabled(false) {}
 
@@ -404,7 +489,7 @@ namespace Cordis
 			private:
 				bool m_is_ignore_enabled;
 			};
-			struct Script_ComponentScheme_XRWounded
+			struct Script_ComponentScheme_XRWounded : public Script_IComponentScheme
 			{
 				Script_ComponentScheme_XRWounded(void) : m_is_xr_wounded_autoheal(false), m_is_xr_wounded_enable_talk(false), m_is_xr_wounded_not_for_help(false), m_is_xr_wounded_set(false), m_is_xr_wounded_use_medkit(false), m_p_wounded_manager(nullptr) {}
 				~Script_ComponentScheme_XRWounded(void) 
@@ -561,7 +646,7 @@ namespace Cordis
 				xr_string m_xr_wounded_help_start_dialog_name;
 				xr_string m_xr_wounded_wounded_section_name;
 			};
-			struct Script_ComponentScheme_XRMeet 
+			struct Script_ComponentScheme_XRMeet : public Script_IComponentScheme
 			{
 				Script_ComponentScheme_XRMeet(void) : m_is_meet_only_at_path(true), m_is_set(false), m_reset_distance(30.0f), m_p_meet_manager(nullptr) {}
 				~Script_ComponentScheme_XRMeet(void) 
@@ -733,7 +818,7 @@ namespace Cordis
 				xr_map<std::uint32_t, CondlistData> m_use_text;
 				xr_string m_meet_section_name;
 			};
-			struct Script_ComponentScheme_XRCamper
+			struct Script_ComponentScheme_XRCamper : public Script_IComponentScheme
 			{
 				Script_ComponentScheme_XRCamper(void) : m_is_sniper(false), m_is_no_retreat(false), m_wp_flag(0),
 					m_scan_begin(0), m_current_look_point(0), m_memory_enemy(0), m_idle(0), m_scantimefree(0),
@@ -891,7 +976,7 @@ namespace Cordis
 				xr_string m_sniper_anim_name;
 				xr_string m_shoot_name;
 			};
-			struct Script_ComponentScheme_XRKamp
+			struct Script_ComponentScheme_XRKamp : public Script_IComponentScheme
 			{
 				Script_ComponentScheme_XRKamp(void) : m_pos_vertex(0), m_radius(0), m_npc_position_num(0) {}
 
@@ -928,7 +1013,7 @@ namespace Cordis
 				xr_string m_center_point_name;
 				xr_string m_def_state_moving_name;
 			};
-			struct Script_ComponentScheme_XRSleeper
+			struct Script_ComponentScheme_XRSleeper : public Script_IComponentScheme
 			{
 				Script_ComponentScheme_XRSleeper(void) : m_is_wakeable(false) {}
 
@@ -984,7 +1069,7 @@ namespace Cordis
 				xr_string m_path_walk_name;
 				xr_string m_path_look_name;
 			};
-			struct Script_ComponentScheme_XRWalker
+			struct Script_ComponentScheme_XRWalker : public Script_IComponentScheme
 			{
 				Script_ComponentScheme_XRWalker(void) : m_is_use_camp(false) {}
 
@@ -1097,7 +1182,7 @@ namespace Cordis
 				xr_string m_sound_idle_name;
 				xr_string m_path_look_name;
 			};
-			struct Script_ComponentScheme_XRRemark
+			struct Script_ComponentScheme_XRRemark : public Script_IComponentScheme
 			{
 				Script_ComponentScheme_XRRemark(void) : m_is_target_initialized(false), m_is_sound_animation_sync(false), m_target_id(0) {}
 
@@ -1220,7 +1305,7 @@ namespace Cordis
 				xr_string m_tips_id_name;
 				xr_string m_tips_sender_name;
 			};
-			struct Script_ComponentScheme_XRGatherItems
+			struct Script_ComponentScheme_XRGatherItems : public Script_IComponentScheme
 			{
 				Script_ComponentScheme_XRGatherItems(void) : m_is_enabled(false) {}
 
@@ -1235,7 +1320,7 @@ namespace Cordis
 			private:
 				bool m_is_enabled;
 			};
-			struct Script_ComponentScheme_XRHelpWounded
+			struct Script_ComponentScheme_XRHelpWounded : public Script_IComponentScheme
 			{
 				Script_ComponentScheme_XRHelpWounded(void) : m_is_wounded_enabled(false) {}
 				
@@ -1257,7 +1342,7 @@ namespace Cordis
 			private:
 				bool m_is_wounded_enabled;
 			};
-			struct Script_ComponentScheme_XRCombat
+			struct Script_ComponentScheme_XRCombat : public Script_IComponentScheme
 			{
 				Script_ComponentScheme_XRCombat(void) {}
 
@@ -1291,7 +1376,7 @@ namespace Cordis
 				xr_map<std::uint32_t, CondlistData> m_xr_combat_combat_type_condlist;
 				xr_string m_xr_combat_script_combat_type_name;
 			};
-			struct Script_ComponentScheme_XRCorpseDetection
+			struct Script_ComponentScheme_XRCorpseDetection : public Script_IComponentScheme
 			{
 				Script_ComponentScheme_XRCorpseDetection(void) : m_selected_corpse_id(0) {}
 				inline void clear(void) noexcept { this->m_selected_corpse_id = 0; }
@@ -1307,7 +1392,7 @@ namespace Cordis
 			private:
 				std::uint16_t m_selected_corpse_id;
 			};
-			struct Script_ComponentScheme_XRAbuse
+			struct Script_ComponentScheme_XRAbuse : public Script_IComponentScheme
 			{
 				Script_ComponentScheme_XRAbuse(void) : m_p_abuse_manager(nullptr) {}
 				~Script_ComponentScheme_XRAbuse(void) 
@@ -1350,7 +1435,7 @@ namespace Cordis
 			private:
 				Script_XRAbuseManager* m_p_abuse_manager;
 			};
-			struct Script_ComponentScheme_XRDeath
+			struct Script_ComponentScheme_XRDeath : public Script_IComponentScheme
 			{
 				Script_ComponentScheme_XRDeath(void) {}
 
@@ -1381,7 +1466,7 @@ namespace Cordis
 				xr_map<std::uint32_t, CondlistData> m_xr_death_info;
 				xr_map<std::uint32_t, CondlistData> m_xr_death_info2;
 			};
-			struct Script_ComponentScheme_SRDeimos
+			struct Script_ComponentScheme_SRDeimos : public Script_IComponentScheme
 			{
 				Script_ComponentScheme_SRDeimos(void) { this->clear(); }
 
@@ -1531,7 +1616,7 @@ namespace Cordis
 				xr_string m_noise_sound_name;
 				xr_string m_heartbeet_sound_name;
 			};
-			struct Script_ComponentScheme_SRLight
+			struct Script_ComponentScheme_SRLight : public Script_IComponentScheme
 			{
 				Script_ComponentScheme_SRLight(void) : m_is_light(false) {}
 
@@ -1545,7 +1630,7 @@ namespace Cordis
 			private:
 				bool m_is_light;
 			};
-			struct Script_ComponentScheme_SRParticle 
+			struct Script_ComponentScheme_SRParticle : public Script_IComponentScheme
 			{
 				Script_ComponentScheme_SRParticle(void) : m_is_looped(false), m_mode(0) {}
 
@@ -1593,7 +1678,7 @@ namespace Cordis
 				xr_string m_name;
 				xr_string m_path_name;
 			};
-			struct Script_ComponentScheme_SRPostProcess 
+			struct Script_ComponentScheme_SRPostProcess : public Script_IComponentScheme
 			{
 				Script_ComponentScheme_SRPostProcess(void) : m_hit_intensity(0.0f), m_intensity(0.0f), m_intensity_speed(0.0f) {}
 
@@ -1624,7 +1709,7 @@ namespace Cordis
 				float m_intensity_speed;
 				float m_hit_intensity;
 			};
-			struct Script_ComponentScheme_SRPsyAntenna
+			struct Script_ComponentScheme_SRPsyAntenna : public Script_IComponentScheme
 			{
 				Script_ComponentScheme_SRPsyAntenna(void) { this->clear(); }
 
@@ -1720,7 +1805,7 @@ namespace Cordis
 				xr_string m_sr_psy_antenna_postprocess_name;
 				xr_string m_sr_psy_antenna_hit_type_name;
 			};
-			struct Script_ComponentScheme_SRTeleport
+			struct Script_ComponentScheme_SRTeleport : public Script_IComponentScheme
 			{
 				Script_ComponentScheme_SRTeleport(void) : m_timeout(0) {}
 
@@ -1749,7 +1834,7 @@ namespace Cordis
 				std::uint32_t m_timeout;
 				xr_vector<std::pair<std::uint32_t, std::pair<xr_string, xr_string>>> m_points;
 			};
-			struct Script_ComponentScheme_SRTimer 
+			struct Script_ComponentScheme_SRTimer : public Script_IComponentScheme
 			{
 				Script_ComponentScheme_SRTimer(void) : m_p_sr_timer_ui(nullptr), m_p_sr_timer_timer(nullptr), m_sr_timer_start_value(0){}
 
@@ -1843,7 +1928,7 @@ namespace Cordis
 				xr_string m_sr_timer_timer_id_name;
 				xr_string m_sr_timer_string_name;
 			};
-			struct Script_ComponentScheme_PHSound
+			struct Script_ComponentScheme_PHSound : public Script_IComponentScheme
 			{
 				Script_ComponentScheme_PHSound(void) : m_is_no_hit(false), m_is_looped(false), m_is_random(false), m_pause_min(0), m_pause_max(0) {}
 
@@ -1892,7 +1977,7 @@ namespace Cordis
 				std::uint32_t m_pause_max;
 				xr_string m_theme_name;
 			};
-			struct Script_ComponentScheme_PHOscillate
+			struct Script_ComponentScheme_PHOscillate : public Script_IComponentScheme
 			{
 				Script_ComponentScheme_PHOscillate(void) : m_period(0) {}
 
@@ -1921,7 +2006,7 @@ namespace Cordis
 				std::uint32_t m_period;
 				xr_string m_joint_name;
 			};
-			struct Script_ComponentScheme_PHIdle
+			struct Script_ComponentScheme_PHIdle : public Script_IComponentScheme
 			{
 				Script_ComponentScheme_PHIdle(void) : m_is_nonscript_usable(false) {}
 
@@ -1936,7 +2021,7 @@ namespace Cordis
 			private:
 				bool m_is_nonscript_usable;
 			};
-			struct Script_ComponentScheme_PHHit
+			struct Script_ComponentScheme_PHHit : public Script_IComponentScheme
 			{
 				Script_ComponentScheme_PHHit(void) : m_power(0.0f), m_impulse(0.0f) {}
 
@@ -1988,7 +2073,7 @@ namespace Cordis
 				xr_string m_bone_name;
 				xr_string m_direction_path_name;
 			};
-			struct Script_ComponentScheme_PHDoor
+			struct Script_ComponentScheme_PHDoor : public Script_IComponentScheme
 			{
 				Script_ComponentScheme_PHDoor(void) { this->clear(); }
 
@@ -2138,7 +2223,7 @@ namespace Cordis
 				xr_string m_sound_close_start_name;
 				xr_string m_sound_close_stop_name;
 			};
-			struct Script_ComponentScheme_PHCode
+			struct Script_ComponentScheme_PHCode : public Script_IComponentScheme
 			{
 				Script_ComponentScheme_PHCode(void) : m_code(0) {}
 
@@ -2181,7 +2266,7 @@ namespace Cordis
 				xr_map<xr_string, xr_map<std::uint32_t, CondlistData>> m_on_check_code;
 				xr_string m_tip_name;
 			};
-			struct Script_ComponentScheme_PHForce
+			struct Script_ComponentScheme_PHForce : public Script_IComponentScheme
 			{
 				Script_ComponentScheme_PHForce(void) : m_time(0), m_delay(0) {}
 
@@ -2208,7 +2293,7 @@ namespace Cordis
 				std::uint32_t m_delay;
 				Fvector m_point;
 			};
-			struct Script_ComponentScheme_Helicopter
+			struct Script_ComponentScheme_Helicopter : public Script_IComponentScheme
 			{
 				Script_ComponentScheme_Helicopter(void) { this->clear(); }
 

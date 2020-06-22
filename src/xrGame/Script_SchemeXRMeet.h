@@ -18,7 +18,7 @@ namespace Cordis
 		{
 		public:
 			Script_SchemeXRMeet(void) = delete;
-			Script_SchemeXRMeet(const xr_string& name, void* storage) : CScriptActionBase(nullptr, name.c_str()), m_p_storage(&storage) {}
+			Script_SchemeXRMeet(const xr_string& name, DataBase::Script_ComponentScheme_XRMeet* storage) : CScriptActionBase(nullptr, name.c_str()), m_p_storage(storage) {}
 			~Script_SchemeXRMeet(void);
 
 			virtual void initialize(void);
@@ -32,7 +32,7 @@ namespace Cordis
 			static bool is_meet(CScriptGameObject* const p_client_object);
 			static void process_npc_usability(CScriptGameObject* const p_client_object);
 		private:
-			DataBase::Storage_Scheme* m_p_storage;
+			DataBase::Script_ComponentScheme_XRMeet* m_p_storage;
 		};
 
 		class Script_XRMeetManager

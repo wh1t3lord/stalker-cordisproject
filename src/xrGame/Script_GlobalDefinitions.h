@@ -689,6 +689,43 @@ namespace DataBase
 class Storage_Scheme;
 class Storage;
 class Data_Overrides;
+struct Script_IComponentScheme;
+struct Script_ComponentScheme_Helicopter;
+struct Script_ComponentScheme_PHButton;
+struct Script_ComponentScheme_XRSmartCover;
+struct Script_ComponentScheme_PostCombat;
+struct Script_ComponentScheme_XRAnimPoint;
+struct Script_ComponentScheme_XRPatrol;
+struct Script_ComponentScheme_XRCombatCamper;
+struct Script_ComponentScheme_XRCombatZombied;
+struct Script_ComponentScheme_XRCombatIgnore;
+struct Script_ComponentScheme_XRWounded;
+struct Script_ComponentScheme_XRMeet;
+struct Script_ComponentScheme_XRCamper;
+struct Script_ComponentScheme_XRKamp;
+struct Script_ComponentScheme_XRSleeper;
+struct Script_ComponentScheme_XRWalker;
+struct Script_ComponentScheme_XRRemark;
+struct Script_ComponentScheme_XRGatherItems;
+struct Script_ComponentScheme_XRHelpWounded;
+struct Script_ComponentScheme_XRCombat;
+struct Script_ComponentScheme_XRCorpseDetection;
+struct Script_ComponentScheme_XRAbuse;
+struct Script_ComponentScheme_XRDeath;
+struct Script_ComponentScheme_SRDeimos;
+struct Script_ComponentScheme_SRLight;
+struct Script_ComponentScheme_SRParticle;
+struct Script_ComponentScheme_SRPostProcess;
+struct Script_ComponentScheme_SRPsyAntenna;
+struct Script_ComponentScheme_SRTeleport;
+struct Script_ComponentScheme_SRTimer;
+struct Script_ComponentScheme_PHSound;
+struct Script_ComponentScheme_PHOscillate;
+struct Script_ComponentScheme_PHIdle;
+struct Script_ComponentScheme_PHHit;
+struct Script_ComponentScheme_PHDoor;
+struct Script_ComponentScheme_PHCode;
+struct Script_ComponentScheme_PHForce;
 } // namespace DataBase
 
 namespace GulagGenerator
@@ -777,10 +814,10 @@ inline xr_vector<LogicData> cfg_get_switch_conditions(
     CScriptIniFile* p_ini, const xr_string& section_name, CScriptGameObject* const p_client_object);
 inline bool is_see_actor(CScriptGameObject* const p_client_object);
 inline bool try_switch_to_another_section(
-    CScriptGameObject* p_client_object, void* storage, CScriptGameObject* p_client_actor);
+    CScriptGameObject* p_client_object, DataBase::Script_IComponentScheme* storage, CScriptGameObject* p_client_actor);
 inline bool switch_to_section(
     CScriptGameObject* const p_client_object, CScriptIniFile* const p_ini, const xr_string& section_name);
-inline bool is_active(CScriptGameObject* const p_client_object, void* storage);
+inline bool is_active(CScriptGameObject* const p_client_object, DataBase::Script_IComponentScheme* storage);
 void reset_generic_schemes_on_scheme_switch(
     CScriptGameObject* const p_client_object, const xr_string& scheme_name, const xr_string& section_name);
 inline DataBase::Data_Overrides cfg_get_overrides(

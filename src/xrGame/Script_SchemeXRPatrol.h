@@ -7,24 +7,24 @@ namespace Cordis
 		class Script_EvaluatorPatrolEnd : public CScriptPropertyEvaluator
 		{
 		public:
-			Script_EvaluatorPatrolEnd(const xr_string& name, void* storage) : CScriptPropertyEvaluator(nullptr, name.c_str()), m_p_storage(&storage) {}
+			Script_EvaluatorPatrolEnd(const xr_string& name, DataBase::Script_ComponentScheme_XRPatrol* storage) : CScriptPropertyEvaluator(nullptr, name.c_str()), m_p_storage(storage) {}
 			~Script_EvaluatorPatrolEnd(void);
 			virtual _value_type evaluate(void);
 
 		private:
-			DataBase::Storage_Scheme* m_p_storage;
+			DataBase::Script_ComponentScheme_XRPatrol* m_p_storage;
 		};
 
 		class Script_EvaluatorPatrolComm : public CScriptPropertyEvaluator 
 		{
 		public:
-			Script_EvaluatorPatrolComm(const xr_string& name, void* storage) : CScriptPropertyEvaluator(nullptr, name.c_str()), m_p_storage(&storage) {}
+			Script_EvaluatorPatrolComm(const xr_string& name, DataBase::Script_ComponentScheme_XRPatrol* storage) : CScriptPropertyEvaluator(nullptr, name.c_str()), m_p_storage(storage) {}
 			~Script_EvaluatorPatrolComm(void);
 
 			virtual _value_type evaluate(void);
 
 		private:
-			DataBase::Storage_Scheme* m_p_storage;
+			DataBase::Script_ComponentScheme_XRPatrol* m_p_storage;
 		};
 
 		class Script_ActionCommander : public Script_ISchemeStalker
