@@ -2475,7 +2475,7 @@ public:
         this->m_storage[npc_id].setIni(ini, is_allocated);
     }
 
-/*
+
     inline void setStorageSignal(const std::uint16_t id, const xr_string& signal_name, const bool value) noexcept
     {
         if (id == Globals::kUnsignedInt16Undefined)
@@ -2485,7 +2485,7 @@ public:
         }
 
         this->m_storage[id].m_schemes[this->m_storage[id].getActiveSchemeName()]->setSignals(signal_name, value);
-    }*/
+    }
 
     inline void setStorageActiveSchemeName(const std::uint16_t npc_id, const xr_string& active_scheme_name) noexcept
     {
