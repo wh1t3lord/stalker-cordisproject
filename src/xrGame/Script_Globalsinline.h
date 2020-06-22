@@ -3049,7 +3049,7 @@ inline void update_logic(CScriptGameObject* const p_object)
     bool is_object_alive = p_object->Alive();
     const DataBase::Storage_Data& storage = DataBase::Storage::getInstance().getStorage().at(p_object->ID());
     CScriptGameObject* const p_actor = DataBase::Storage::getInstance().getActor();
-    DataBase::Script_ComponentScheme_XRCombat* p_storage_combat = static_cast<DataBase::Script_ComponentScheme_XRCombat*>(storage.getSchemes().at("combat"));
+    DataBase::Script_ComponentScheme_XRCombat* p_storage_combat = reinterpret_cast<DataBase::Script_ComponentScheme_XRCombat*>(storage.getSchemes().at("combat"));
 
     if (is_object_alive && !storage.getActiveSchemeName().empty())
     {
