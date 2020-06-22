@@ -7,8 +7,8 @@ namespace Scripts
 class Script_EvaluatorCheckCombat : public CScriptPropertyEvaluator
 {
 public:
-    Script_EvaluatorCheckCombat(const xr_string& evaluator_name, void* storage)
-        : CScriptPropertyEvaluator(nullptr, evaluator_name.c_str()), m_p_storage(&storage)
+    Script_EvaluatorCheckCombat(const xr_string& evaluator_name, DataBase::Script_ComponentScheme_XRCombat* storage)
+        : CScriptPropertyEvaluator(nullptr, evaluator_name.c_str()), m_p_storage(storage)
     {
     }
 
@@ -17,14 +17,14 @@ public:
     virtual _value_type evaluate(void);
 
 private:
-    DataBase::Storage_Scheme* m_p_storage;
+    DataBase::Script_ComponentScheme_XRCombat* m_p_storage;
 };
 
 class Script_EvaluatorEnemy : public CScriptPropertyEvaluator
 {
 public:
-    Script_EvaluatorEnemy(const xr_string& evaluator_name, void* storage)
-        : CScriptPropertyEvaluator(nullptr, evaluator_name.c_str()), m_p_storage(&storage)
+    Script_EvaluatorEnemy(const xr_string& evaluator_name, DataBase::Script_ComponentScheme_XRCombat* storage)
+        : CScriptPropertyEvaluator(nullptr, evaluator_name.c_str()), m_p_storage(storage)
     {
     }
     ~Script_EvaluatorEnemy(void) {}
@@ -32,7 +32,7 @@ public:
     virtual _value_type evaluate(void);
 
 private:
-    DataBase::Storage_Scheme* m_p_storage;
+    DataBase::Script_ComponentScheme_XRCombat* m_p_storage;
 };
 
 namespace XR_COMBAT

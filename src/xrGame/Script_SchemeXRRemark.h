@@ -7,15 +7,15 @@ namespace Scripts
 class Script_EvaluatorNeedRemark : public CScriptPropertyEvaluator
 {
 public:
-    Script_EvaluatorNeedRemark(const xr_string& evaluator_name, void* storage)
-        : CScriptPropertyEvaluator(nullptr, evaluator_name.c_str()), m_p_storage(&storage)
+    Script_EvaluatorNeedRemark(const xr_string& evaluator_name, DataBase::Script_ComponentScheme_XRRemark* storage)
+        : CScriptPropertyEvaluator(nullptr, evaluator_name.c_str()), m_p_storage(storage)
     {
     }
 
     virtual _value_type evaluate(void);
 
 private:
-    DataBase::Storage_Scheme* m_p_storage;
+    DataBase::Script_ComponentScheme_XRRemark* m_p_storage;
 };
 
 class Script_SchemeXRRemark : public Script_ISchemeStalker
@@ -42,7 +42,7 @@ public:
 
         // @ PRIVATE uses, in XR_LOGIC
     static inline void add_to_binder(CScriptGameObject* const p_client_object, CScriptIniFile* const p_ini,
-            const xr_string& scheme_name, const xr_string& section_name, void* storage)
+            const xr_string& scheme_name, const xr_string& section_name, DataBase::Script_IComponentScheme* storage)
     {
         if (!p_client_object)
         {
@@ -56,8 +56,7 @@ public:
             return;
         }
 
-        Msg("[Scripts/add_to_binder(p_client_object, p_ini, scheme_name, section_name, storage)] added "
-            "Script_SchemeXRRemark scheme to binder, name=%s scheme=%s section=%s",
+        MESSAGEI("added scheme to binder, name=%s scheme=%s section=%s",
             p_client_object->Name(), scheme_name.c_str(), section_name.c_str());
 
         CScriptActionPlanner* p_planner = Globals::get_script_action_planner(p_client_object);
@@ -69,7 +68,7 @@ public:
         }
 
         p_planner->add_evaluator(
-            Globals::XR_ACTIONS_ID::kZmeyRemarkBase + 1, new Script_EvaluatorNeedRemark("remark_need_remark", storage));
+            Globals::XR_ACTIONS_ID::kZmeyRemarkBase + 1, new Script_EvaluatorNeedRemark("remark_need_remark", static_cast<DataBase::Script_ComponentScheme_XRRemark*>(storage)));
 
         Script_ISchemeStalker* p_scheme = new Script_SchemeXRRemark("action_remark_activity", storage);
         p_scheme->add_condition(CWorldProperty(StalkerDecisionSpace::eWorldPropertyAlive, true));

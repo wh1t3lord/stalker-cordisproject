@@ -7,18 +7,18 @@ namespace Scripts
 class Script_EvaluatorNeedWalker : public CScriptPropertyEvaluator
 {
 public:
-    Script_EvaluatorNeedWalker(const xr_string& evaluator_name, void* storage)
-        : CScriptPropertyEvaluator(nullptr, evaluator_name.c_str()), m_p_storage(&storage)
+    Script_EvaluatorNeedWalker(const xr_string& evaluator_name, DataBase::Script_ComponentScheme_XRWalker* storage)
+        : CScriptPropertyEvaluator(nullptr, evaluator_name.c_str()), m_p_storage(storage)
     {
     }
 
     virtual _value_type evaluate(void) 
     { 
-        return XR_LOGIC::is_active(this->m_object, *this->m_p_storage);
+        return XR_LOGIC::is_active(this->m_object, this->m_p_storage);
     }
 
 private:
-    DataBase::Storage_Scheme* m_p_storage;
+    DataBase::Script_ComponentScheme_XRWalker* m_p_storage;
 };
 
 class Script_SchemeXRWalker : public Script_ISchemeStalker
@@ -38,7 +38,7 @@ public:
     virtual void update(const float delta);
 
     static inline void add_to_binder(CScriptGameObject* const p_client_object, CScriptIniFile* const p_ini,
-        const xr_string& scheme_name, const xr_string& section_name, void* storage)
+        const xr_string& scheme_name, const xr_string& section_name, DataBase::Script_IComponentScheme* storage)
     {
         if (!p_client_object)
         {
@@ -71,7 +71,7 @@ public:
         properties["state_mgr_logic_active"] = Globals::XR_ACTIONS_ID::XR_EVALUATORS_ID::kStateManager + 4;
         operators["action_walker"] = Globals::XR_ACTIONS_ID::kZmeyWalkerBase + 1;
 
-        p_planner->add_evaluator(properties.at("need_walker"), new Script_EvaluatorNeedWalker("walker_need", storage));
+        p_planner->add_evaluator(properties.at("need_walker"), new Script_EvaluatorNeedWalker("walker_need", static_cast<DataBase::Script_ComponentScheme_XRWalker*>(storage)));
 
         Script_SchemeXRWalker* const p_scheme = new Script_SchemeXRWalker("action_walker_activity", storage);
         p_scheme->add_condition(CWorldProperty(StalkerDecisionSpace::eWorldPropertyAlive, true));
