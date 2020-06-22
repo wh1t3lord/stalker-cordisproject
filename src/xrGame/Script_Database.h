@@ -1331,6 +1331,66 @@ private:
 	xr_string m_tooptip_name;
 };
 
+struct Script_ComponentScheme_MobHome : public Script_IComponentScheme
+{
+    Script_ComponentScheme_MobHome(void) {}
+
+    inline const xr_string& getStateName(void) const noexcept { return this->m_state_name; }
+    inline void setStateName(const xr_string& state_name) noexcept 
+    {
+        if (state_name.empty())
+        {
+            MESSAGEW("empty string is set!");
+        }
+
+        this->m_state_name = state_name;
+    }
+
+    inline const xr_string& getHomeName(void) const noexcept { return this->m_home_name; }
+    inline void setHomeName(const xr_string& home_name) noexcept 
+    {
+        if (home_name.empty())
+        {
+            MESSAGEW("empty string is set!");
+        }
+
+        this->m_home_name = home_name;
+    }
+
+    inline bool isAggresive(void) const noexcept { return this->m_is_aggresive; }
+    inline void setAggresive(const bool value) noexcept 
+    {
+        this->m_is_aggresive = value;
+    }
+
+    inline std::uint32_t getHomeMinRadius(void) const noexcept { return this->m_home_min_radius; }
+    inline void setHomeMinRadius(const std::uint32_t value) noexcept 
+    {
+        this->m_home_min_radius = value;
+    }
+
+    inline std::uint32_t getHomeMaxRadius(void) const noexcept { return this->m_home_max_radius; }
+    inline void setHomeMaxRadius(const std::uint32_t value) noexcept 
+    {
+        this->m_home_max_radius = value;
+    }
+
+    inline std::uint32_t getHomeMidRadius(void) const noexcept { return this->m_home_mid_radius; }
+    inline void setHomeMidRadius(const std::uint32_t value) noexcept { this->m_home_mid_radius = value; }
+
+    inline bool isGulagPoint(void) const noexcept { return this->m_is_gulag_point; }
+    inline void setGulagPoint(const bool value) noexcept { this->m_is_gulag_point = value; }
+
+private:
+    bool m_is_aggresive;
+    bool m_is_gulag_point;
+    std::uint32_t m_home_min_radius;
+    std::uint32_t m_home_mid_radius;
+    std::uint32_t m_home_max_radius;
+    xr_string m_state_name;
+    xr_string m_home_name;
+};
+
 struct Script_ComponentScheme_MobCamp : public Script_IComponentScheme
 {
     Script_ComponentScheme_MobCamp(void) : m_is_skip_transfer_enemy(false), m_time_change_point(0), m_home_min_radius(0), m_home_mid_radius(0), m_home_max_radius(0) {}
