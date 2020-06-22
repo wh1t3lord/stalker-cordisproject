@@ -1308,8 +1308,7 @@ inline void disable_combat_handler(
 {
     if (!p_npc)
     {
-        Msg("[Scripts/XR_EFFECTS/disable_combat_handler(p_actor, p_npc, buffer)] WARNING: p_npc == nullptr! Return "
-            "...");
+        MESSAGEWR("p_npc == nullptr!");
         return;
     }
 

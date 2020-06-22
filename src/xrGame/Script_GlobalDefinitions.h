@@ -1,6 +1,7 @@
 #pragma once
 
 #include "script_particles.h"
+
 namespace Cordis
 {
 namespace Scripts
@@ -66,63 +67,43 @@ namespace XR_EFFECTS
 		CScriptGameObject* const p_actor, CScriptGameObject* const p_npc, const xr_vector<xr_string>& buffer);
 inline void update_npc_logic(
     CScriptGameObject* const p_actor, CScriptGameObject* const p_object, const xr_vector<xr_string>& buffer);
-
 inline void update_obj_logic(
     CScriptGameObject* const p_actor, CScriptGameObject* const p_object, const xr_vector<xr_string>& buffer);
-
 inline void disable_ui(
     CScriptGameObject* const p_actor, CScriptGameObject* const p_npc, const xr_vector<xr_string>& buffer);
-
 inline void disable_ui_only(
     CScriptGameObject* const p_actor, CScriptGameObject* const p_npc, const xr_vector<xr_string>& buffer);
-
 inline void enable_ui(
     CScriptGameObject* const p_actor, CScriptGameObject* const p_npc, const xr_vector<xr_string>& buffer);
-
 inline void run_cam_effector(
     CScriptGameObject* const p_actor, CScriptGameObject* const p_npc, const xr_vector<xr_string>& buffer);
-
 inline void stop_cam_effector(
     CScriptGameObject* const p_actor, CScriptGameObject* const p_npc, const xr_vector<xr_string>& buffer);
-
 inline void run_cam_effector_global(
     CScriptGameObject* const p_actor, CScriptGameObject* const p_npc, const xr_vector<xr_string>& buffer);
-
 inline void cam_effector_callback(void);
-
 inline void run_postprocess(
     CScriptGameObject* const p_actor, CScriptGameObject* const p_npc, const xr_vector<xr_string>& buffer);
-
 inline void stop_postprocess(
     CScriptGameObject* const p_actor, CScriptGameObject* const p_npc, const xr_vector<xr_string>& buffer);
-
 inline void run_tutorial(
     CScriptGameObject* const p_actor, CScriptGameObject* const p_npc, const xr_vector<xr_string>& buffer);
-
 inline void jup_b32_place_scanner(
     CScriptGameObject* const p_actor, CScriptGameObject* const p_npc, const xr_vector<xr_string>& buffer);
-
 inline void jup_b32_pda_check(
     CScriptGameObject* const p_actor, CScriptGameObject* const p_npc, const xr_vector<xr_string>& buffer);
-
 inline void pri_b306_generator_start(
     CScriptGameObject* const p_actor, CScriptGameObject* const p_npc, const xr_vector<xr_string>& buffer);
-
 inline void jup_b206_get_plant(
     CScriptGameObject* const p_actor, CScriptGameObject* const p_npc, const xr_vector<xr_string>& buffer);
-
 inline void pas_b400_switcher(
     CScriptGameObject* const p_actor, CScriptGameObject* const p_npc, const xr_vector<xr_string>& buffer);
-
 inline void jup_b209_place_scanner(
     CScriptGameObject* const p_actor, CScriptGameObject* const p_npc, const xr_vector<xr_string>& buffer);
-
 inline void jup_b9_heli_1_searching(
     CScriptGameObject* const p_actor, CScriptGameObject* const p_npc, const xr_vector<xr_string>& buffer);
-
 inline void pri_a18_use_idol(
     CScriptGameObject* const p_actor, CScriptGameObject* const p_npc, const xr_vector<xr_string>& buffer);
-
 inline void jup_b8_heli_4_searching(
     CScriptGameObject* const p_actor, CScriptGameObject* const p_npc, const xr_vector<xr_string>& buffer);
 
@@ -450,94 +431,64 @@ inline void jup_b202_inventory_box_relocate(
 
 inline void clear_box(
     CScriptGameObject* const p_actor, CScriptGameObject* const p_npc, const xr_vector<xr_string>& buffer);
-
 inline void activate_weapon(
     CScriptGameObject* const p_actor, CScriptGameObject* const p_npc, const xr_vector<xr_string>& buffer);
-
 inline void set_game_time(
     CScriptGameObject* const p_actor, CScriptGameObject* const p_npc, const xr_vector<xr_string>& buffer);
-
 inline void forward_game_time(
     CScriptGameObject* const p_actor, CScriptGameObject* const p_npc, const xr_vector<xr_string>& buffer);
-
 inline void stop_tutorial(
     CScriptGameObject* const p_actor, CScriptGameObject* const p_npc, const xr_vector<xr_string>& buffer);
-
 inline void jup_b10_spawn_drunk_dead_items(
     CScriptGameObject* const p_actor, CScriptGameObject* const p_npc, const xr_vector<xr_string>& buffer);
-
 inline void anomaly_turn_off(
     CScriptGameObject* const p_actor, CScriptGameObject* const p_npc, const xr_vector<xr_string>& buffer);
-
 inline void anomaly_turn_on(
     CScriptGameObject* const p_actor, CScriptGameObject* const p_npc, const xr_vector<xr_string>& buffer);
-
 inline void zat_b202_spawn_random_loot(
     CScriptGameObject* const p_actor, CScriptGameObject* const p_npc, const xr_vector<xr_string>& buffer);
-
 inline void zat_a1_tutorial_end_give(
     CScriptGameObject* const p_actor, CScriptGameObject* const p_npc, const xr_vector<xr_string>& buffer);
-
 inline void oasis_heal(
     CScriptGameObject* const p_actor, CScriptGameObject* const p_npc, const xr_vector<xr_string>& buffer);
-
 inline void jup_b221_play_main(
     CScriptGameObject* const p_actor, CScriptGameObject* const p_npc, const xr_vector<xr_string>& buffer);
-
 inline void get_best_detector(
     CScriptGameObject* const p_actor, CScriptGameObject* const p_npc, const xr_vector<xr_string>& buffer);
-
 inline void hide_best_detector(
     CScriptGameObject* const p_actor, CScriptGameObject* const p_npc, const xr_vector<xr_string>& buffer);
-
 inline void pri_a18_radio_start(
     CScriptGameObject* const p_actor, CScriptGameObject* const p_npc, const xr_vector<xr_string>& buffer);
-
 inline void pri_a17_ice_climb_end(
     CScriptGameObject* const p_actor, CScriptGameObject* const p_npc, const xr_vector<xr_string>& buffer);
-
 inline void jup_b219_opening(
     CScriptGameObject* const p_actor, CScriptGameObject* const p_npc, const xr_vector<xr_string>& buffer);
-
 inline void jup_b219_entering_underpass(
     CScriptGameObject* const p_actor, CScriptGameObject* const p_npc, const xr_vector<xr_string>& buffer);
-
 inline void pri_a17_pray_start(
     CScriptGameObject* const p_actor, CScriptGameObject* const p_npc, const xr_vector<xr_string>& buffer);
-
 inline void zat_b38_open_info(
     CScriptGameObject* const p_actor, CScriptGameObject* const p_npc, const xr_vector<xr_string>& buffer);
-
 inline void zat_b38_switch_info(
     CScriptGameObject* const p_actor, CScriptGameObject* const p_npc, const xr_vector<xr_string>& buffer);
-
 inline void zat_b38_cop_dead(
     CScriptGameObject* const p_actor, CScriptGameObject* const p_npc, const xr_vector<xr_string>& buffer);
-
 inline void jup_b15_zulus_drink_anim_info(
     CScriptGameObject* const p_actor, CScriptGameObject* const p_npc, const xr_vector<xr_string>& buffer);
-
 inline void pri_a17_preacher_death(
     CScriptGameObject* const p_actor, CScriptGameObject* const p_npc, const xr_vector<xr_string>& buffer);
-
 inline void zat_b3_tech_surprise_anim_end(
     CScriptGameObject* const p_actor, CScriptGameObject* const p_npc, const xr_vector<xr_string>& buffer);
-
 inline void zat_b3_tech_waked_up(
     CScriptGameObject* const p_actor, CScriptGameObject* const p_npc, const xr_vector<xr_string>& buffer);
-
 inline void zat_b3_tech_drinked_out(
     CScriptGameObject* const p_actor, CScriptGameObject* const p_npc, const xr_vector<xr_string>& buffer);
-
 inline void pri_a28_kirillov_hq_online(
     CScriptGameObject* const p_actor, CScriptGameObject* const p_npc, const xr_vector<xr_string>& buffer);
-
 inline void pri_a20_radio_start(
     CScriptGameObject* const p_actor, CScriptGameObject* const p_npc, const xr_vector<xr_string>& buffer);
-
 inline void pri_a22_kovalski_speak(
     CScriptGameObject* const p_actor, CScriptGameObject* const p_npc, const xr_vector<xr_string>& buffer);
-
 inline void zat_b38_underground_door_open(
     CScriptGameObject* const p_actor, CScriptGameObject* const p_npc, const xr_vector<xr_string>& buffer);
 inline void zat_b38_jump_tonnel_info(
