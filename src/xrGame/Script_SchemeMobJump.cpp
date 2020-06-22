@@ -5,8 +5,8 @@ namespace Cordis
 {
 namespace Scripts
 {
-Script_SchemeMobJump::Script_SchemeMobJump(CScriptGameObject* const p_client_object, void* storage)
-    : inherited_scheme(p_client_object, storage)
+Script_SchemeMobJump::Script_SchemeMobJump(CScriptGameObject* const p_client_object, DataBase::Script_ComponentScheme_MobJump* storage)
+    : inherited_scheme(p_client_object, storage), m_p_storage(storage)
 {
     this->m_scheme_name = "mob_jump";
 }
@@ -14,7 +14,8 @@ Script_SchemeMobJump::~Script_SchemeMobJump(void) {}
 
 void Script_SchemeMobJump::reset_scheme(const bool, CScriptGameObject* const p_client_object)
 {
-    Msg("[Scripts/Script_SchemeMobJump/reset_scheme()] %s", this->m_npc->Name());
+    MESSAGE("%s", this->m_npc->Name());
+
     this->m_p_storage->ClearSignals();
 
     if (!this->m_p_storage->getPathJumpName().empty())
@@ -76,8 +77,8 @@ void Script_SchemeMobJump::set_scheme(CScriptGameObject* const p_client_object, 
         return;
     }
 
-    DataBase::Storage_Scheme* p_storage =
-        XR_LOGIC::assign_storage_and_bind(p_client_object, p_ini, scheme_name, section_name, gulag_name);
+    DataBase::Script_ComponentScheme_MobJump* p_storage =
+        XR_LOGIC::assign_storage_and_bind<DataBase::Script_ComponentScheme_MobJump>(p_client_object, p_ini, scheme_name, section_name, gulag_name);
 
     if (!p_storage)
     {
