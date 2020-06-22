@@ -1,5 +1,7 @@
 #pragma once
 
+
+
 namespace Cordis
 {
 namespace Scripts
@@ -330,9 +332,7 @@ public:
     {
         if (map.empty())
         {
-            Msg("[Scripts/DataBase/Storage_Scheme/setSignals(map)] WARNING: map.empty() == true! Can't assign an empty "
-                "map "
-                "return ...");
+            MESSAGEWR("map.empty() == true! Can't assign an empty map return ...");
             return;
         }
 
@@ -423,17 +423,7 @@ public:
         this->m_scheme_name = scheme_name;
     }
 
-    inline const xr_string& getLogicName(void) const noexcept { return this->m_logic_name; }
-    inline void setLogicName(const xr_string& section_name) noexcept
-    {
-        if (section_name.empty())
-        {
-            Msg("[Scripts/DataBase/Storage_Scheme/setSectionScheme(section_name)] WARNING: section_name.empty() == "
-                "true! You set an empty string.");
-        }
 
-        this->m_logic_name = section_name;
-    }
 
     inline const xr_string& getSoundName(void) const noexcept { return this->m_sound_name; }
     inline void setSoundName(const xr_string& data_name) noexcept
@@ -525,8 +515,7 @@ public:
     inline const CondlistWaypoints& getPathLookInfo(void) const noexcept { return this->m_path_look_info; }
     inline void setPathLookInfo(const CondlistWaypoints& data) noexcept { this->m_path_look_info = data; }
 
-    inline CScriptIniFile* const getIni(void) const { return this->m_p_ini; }
-    inline void setIni(CScriptIniFile* const p_ini) { this->m_p_ini = p_ini; }
+
 
     inline CScriptGameObject* const getClientObject(void) const { return this->m_p_npc; }
     inline void setClientObject(CScriptGameObject* const p_client_object) { this->m_p_npc = p_client_object; }
@@ -614,8 +603,6 @@ public:
     inline bool IsSkipTransferEnemy(void) const noexcept { return this->m_is_skip_transfer_enemy; }
     inline void setSkipTransferEnemy(const bool value) noexcept { this->m_is_skip_transfer_enemy = value; }
 
-    inline const xr_vector<LogicData>& getLogic(void) const noexcept { return this->m_logic; }
-    inline void setLogic(const xr_vector<LogicData>& data) noexcept { this->m_logic = data; }
 
     inline const xr_map<std::uint32_t, xr_map<std::uint32_t, CondlistData>>& getHitOnBone(void) const noexcept
     {
@@ -895,8 +882,7 @@ public:
     {
         if (state_name.empty())
         {
-            Msg("[Scripts/DataBase/Data_Wounded/setHPStateName(state_name)] WARNING: state_name.empty() == true! "
-                "Trying to set an empty string!");
+            MESSAGEW("state_name.empty() == true! Trying to set an empty string!");
         }
 
         this->m_hp_state_name = state_name;
@@ -907,8 +893,7 @@ public:
     {
         if (state_see_name.empty())
         {
-            Msg("[Scripts/DataBase/Data_Wounded/setHPStateSeeName(state_see_name)] WARNING: state_see_name.empty() == "
-                "true! Trying to set an empty string!");
+            MESSAGEW("state_see_name.empty() == true! Trying to set an empty string!");
         }
 
         this->m_hp_state_see_name = state_see_name;
@@ -922,8 +907,7 @@ public:
     {
         if (cover_name.empty())
         {
-            Msg("[Scripts/DataBase/Data_Wounded/setHPCoverName(cover_name)] WARNING: cover_name.empty() == true! "
-                "Trying to set an empty string!");
+            MESSAGEW("cover_name.empty() == true! Trying to set an empty string!");
         }
 
         this->m_hp_cover_name = cover_name;
@@ -934,8 +918,7 @@ public:
     {
         if (fight_name.empty())
         {
-            Msg("[Scripts/DataBase/Data_Wounded/setHPFightName(fight_name)] WARNING: fight_name.empty() == true! "
-                "Trying to set an empty string!");
+            MESSAGEW("fight_name.empty() == true! Trying to set an empty string!");
         }
 
         this->m_hp_fight_name = fight_name;
@@ -946,8 +929,7 @@ public:
     {
         if (psy_state_name.empty())
         {
-            Msg("[Scripts/DataBase/Data_Wounded/setPsyStateName(psy_state_name)] WARNING: psy_state_name.empty() == "
-                "true! Trying to set an empty string!");
+            MESSAGEW("psy_state_name.empty() == true! Trying to set an empty string!");
         }
 
         this->m_psy_state_name = psy_state_name;
@@ -958,8 +940,7 @@ public:
     {
         if (syndata_name.empty())
         {
-            Msg("[Scripts/DataBase/Data_Wounded/setSynDataName(syndata_name)] WARNING: syndata_name.empty() == true! "
-                "Trying to set an empty string!");
+            MESSAGEW("syndata_name.empty() == true! Trying to set an empty string!");
         }
 
         this->m_syndata_name = syndata_name;
@@ -970,8 +951,7 @@ public:
     {
         if (dialog_name.empty())
         {
-            Msg("[Scripts/DataBase/Data_Wounded/setHelpDialogName(dialog_name)] WARNING: dialog_name.empty() == true! "
-                "Trying to set an empty string!");
+            MESSAGEW("dialog_name.empty() == true! Trying to set an empty string!");
         }
 
         this->m_help_dialog_name = dialog_name;
@@ -982,8 +962,7 @@ public:
     {
         if (dialog_name.empty())
         {
-            Msg("[Scripts/DataBase/Data_Wounded/setHelpStartDialogName(dialog_name)] WARNING: dialog_name.empty() == "
-                "true! Trying to set an empty string!");
+            MESSAGEW("dialog_name.empty() == true! Trying to set an empty string!");
         }
 
         this->m_help_start_dialog_name = dialog_name;
@@ -994,8 +973,7 @@ public:
     {
         if (section_name.empty())
         {
-            Msg("[Scripts/DataBase/Data_Wounded/setWoundedSectionName(section_name)] WARNING: section_name.empty() == "
-                "true! Trying to set an empty string!");
+            MESSAGEW("section_name.empty() == true! Trying to set an empty string!");
         }
 
         this->m_wounded_section_name = section_name;
@@ -1041,15 +1019,15 @@ public:
         switch (this->m_boolean)
         {
         case '-': {
-            Msg("[Scripts/DataBase/PStor_Data/getBool()] Returns an initialized value -> False");
+            MESSAGE("Returns an initialized value -> False");
             break;
         }
         case '0': {
-            Msg("[Scritps/DataBase/PStor_Data/getBool()] the m_boolean doesn't initialized!");
+            MESSAGE("the m_boolean doesn't initialized!");
             break;
         }
         case '+': {
-            Msg("[Scripts/DataBase/PStor_Data/getBool()] Returns an initialized value -> True");
+            MESSAGE("Returns an initialized value -> True");
             return true;
             break;
         }
@@ -1060,7 +1038,7 @@ public:
 
     inline float getNumber(void) const noexcept
     {
-        Msg("[Scripts/DataBase/PStor_Data/getNumber()] Returns value [%d], because it was initialized!",
+        MESSAGEI("Returns value [%d], because it was initialized!",
             this->m_number);
         return this->m_number;
     }
@@ -1069,11 +1047,11 @@ public:
     {
         if (this->m_string == Globals::kStringUndefined)
         {
-            Msg("[Scripts/DataBase/PStor_Data/getString()] the m_string doesn't initialized. Returns an empty string.");
+            MESSAGEWR("the m_string doesn't initialized. Returns an empty string.");
             return xr_string();
         }
 
-        Msg("[Scripts/DataBase/PStor_Data/getString()] Returns value [%s], it's initialized!", this->m_string.c_str());
+        MESSAGEI("Returns value [%s], it's initialized!", this->m_string.c_str());
         return this->m_string;
     }
 
@@ -1081,19 +1059,19 @@ public:
     {
         if (this->m_number != Globals::kUnsignedInt8Undefined || this->m_string != Globals::kStringUndefined)
         {
-            Msg("[Scripts/DataBase/PStor_Data/setNumber(value)] You can't assigned a value to m_boolean, because some "
+            MESSAGEWR("You can't assigned a value to m_boolean, because some "
                 "member of structure was initialized!");
             return;
         }
 
         if (value)
         {
-            Msg("[Scripts/DataBase/PStor_Data/setBool(value)] -> True");
+            MESSAGEI("-> True");
             this->m_boolean = Globals::kPstorBooleanTrue;
         }
         else
         {
-            Msg("[Scripts/DataBase/PStor_Data/setBool(value)] -> False");
+            MESSAGEI("-> False");
             this->m_boolean = Globals::kPstorBooleanFalse;
         }
     }
@@ -1102,12 +1080,12 @@ public:
     {
         if (this->m_boolean != Globals::kPstorBooleanUndefined || this->m_string != Globals::kStringUndefined)
         {
-            Msg("[Scripts/DataBase/PStor_Data/setNumber(value)] You can't assigned a value to m_number, because some "
+            MESSAGEWR("You can't assigned a value to m_number, because some "
                 "member of structure was initialized!");
             return;
         }
 
-        Msg("[Scripts/DataBase/PStor_Data/setNumber(value)] -> %f", value);
+        MESSAGEI("-> %f", value);
         this->m_number = value;
     }
 
@@ -1115,12 +1093,12 @@ public:
     {
         if (this->m_boolean != Globals::kPstorBooleanUndefined || this->m_number != Globals::kUnsignedInt8Undefined)
         {
-            Msg("[Scripts/DataBase/PStor_Data/setNumber(value)] You can't assigned a value to m_string, because some "
+            MESSAGEWR("You can't assigned a value to m_string, because some "
                 "member of structure was initialized!");
             return;
         }
 
-        Msg("[Scripts/DataBase/PStor_Data/setString(string)] -> %s", string.c_str());
+        MESSAGEI("-> %s", string.c_str());
         this->m_string = string;
     }
 };
@@ -1264,8 +1242,7 @@ public:
     {
         if (!description_name.size())
         {
-            Msg("[Scripts/DataBase/StorageAnimpoint_Data/setDescriptionName(description_name)] WARNING: you are trying "
-                "to set an empty string!");
+            MESSAGEW("you are trying to set an empty string!");
         }
 
         this->m_description_name = description_name;
@@ -1313,8 +1290,7 @@ public:
         {
             if (name.empty())
             {
-                Msg("[Scripts/DataBase/Storage_Data/setKillerName(name)] WARNING: name.empty() == true! You set an "
-                    "empty string");
+                MESSAGEW("name.empty() == true! You set an empty string");
             }
 
             this->m_killer_name = name;
@@ -1354,9 +1330,11 @@ public:
         this->m_p_client_object = nullptr;
         this->m_p_server_object = nullptr;
         this->m_p_sound_object = nullptr; // @ Lord: нужно ли удалять?
+
         if (this->m_p_ini)
         {
-            Msg("[Scripts/DataBase/Storage_Data/~dtor()] deleting CScriptIniFile");
+            MESSAGEI("deleting CScriptIniFile");
+
             if (this->m_is_allocated_ini)
                 xr_delete(this->m_p_ini);
             else
@@ -1365,13 +1343,13 @@ public:
 
         if (this->m_p_state_manager)
         {
-            Msg("[Scripts/DataBase/Storage_Data/~dtor()] deleting m_p_state_manager");
+            MESSAGEI("deleting m_p_state_manager");
             xr_delete(this->m_p_state_manager);
         }
 
         if (this->m_p_move_manager)
         {
-            Msg("[Scripts/DataBase/Storage_Data/~dtor()] deleting m_p_move_manager");
+            MESSAGEI("deleting m_p_move_manager");
             xr_delete(this->m_p_move_manager);
         }
 
@@ -1406,8 +1384,7 @@ public:
     {
         if (value == Globals::kUnsignedInt16Undefined)
         {
-            Msg("[DataBase/Storage_Data/setEnemyID(value)] WARNING: value = std::uint16_t(-1)! You are trying to set "
-                "an undefined value! No assignment!");
+            MESSAGEWR("value = std::uint16_t(-1)! You are trying to set an undefined value! No assignment!");
             return;
         }
 
@@ -1419,7 +1396,7 @@ public:
     {
         if (!p_client_object)
         {
-            Msg("[Scripts/DataBase/Storage_Data/setClientObject(p_client_object)] 'deleting' object from database -> "
+            MESSAGEI("'deleting' object from database -> "
                 "%s",
                 this->m_p_client_object ? this->m_p_client_object->Name() :
                                           "using undefined object, you must add to database at first!");
@@ -1427,7 +1404,7 @@ public:
         else
         {
             this->m_p_client_object = p_client_object;
-            Msg("[Scripts/DataBase/Storage/setClientObject(p_client_object)] adding object to database -> %s",
+            MESSAGEWR("adding object to database -> %s",
                 p_client_object->Name());
         }
     }
@@ -1440,7 +1417,7 @@ public:
     {
         if (!p_server_object)
         {
-            Msg("[DataBase/Storage_Data/setServerObject(p_server_object)] WARNING: p_server_object = null! You are "
+            MESSAGEWR("p_server_object = null! You are "
                 "trying to set an empty object! No assignment!");
             return;
         }
@@ -1453,7 +1430,7 @@ public:
     {
         if (!p_sound_object)
         {
-            Msg("[DataBase/Storage_Data/setSoundObject(p_sound_object)] WARNING: p_sound_object = null! You are trying "
+            MESSAGEWR("p_sound_object = null! You are trying "
                 "to set an empty object! No assignment!");
             return;
         }
@@ -1466,7 +1443,7 @@ public:
     {
         if (!p_ini)
         {
-            Msg("[DataBase/Storage_Data/setIniObject(p_ini)] WARNING: p_ini = null! You are trying to set an empty "
+            MESSAGEWR("p_ini = null! You are trying to set an empty "
                 "object! No assignment!");
             return;
         }
@@ -1622,7 +1599,7 @@ public:
     inline const std::int32_t getActivationTime(void) const noexcept { return this->m_activation_time; }
     inline void setActivationTime(const std::int32_t value) noexcept { this->m_activation_time = value; }
 
-    inline const xr_map<xr_string, void*>& getSchemes(void) const noexcept { return this->m_schemes; }
+    inline const xr_map<xr_string, Script_IComponentScheme*>& getSchemes(void) const noexcept { return this->m_schemes; }
 
 /*
     inline void setScheme(const xr_map<xr_string, void*>& map) noexcept
@@ -1824,7 +1801,7 @@ private:
     xrTime m_activation_game_time;
     /*    xr_map<xr_string, SubStorage_Data> m_data;*/
     xr_map<xr_string, PStor_Data> m_pstor;
-    xr_map<xr_string, void*> m_schemes;
+    xr_map<xr_string, Script_IComponentScheme*> m_schemes;
     xr_string m_active_scheme_name;
     xr_string m_active_section_name;
     xr_string m_sound_name;
