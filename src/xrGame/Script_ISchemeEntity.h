@@ -11,7 +11,7 @@ class Script_ISchemeEntity
 {
 public:
     Script_ISchemeEntity(void) = delete;
-    Script_ISchemeEntity(CScriptGameObject* client_object, void* storage_scheme)
+    Script_ISchemeEntity(CScriptGameObject* client_object, DataBase::Script_IComponentScheme* storage_scheme)
         : m_npc(client_object), m_p_true_storage(storage_scheme), m_is_subscribed_action(true), m_scheme_id(0)
     {
         this->m_scheme_id = (++m_generate_scheme_id);
@@ -170,7 +170,7 @@ protected:
     static std::uint32_t m_generate_scheme_id;
     std::uint32_t m_id;
     CScriptGameObject* m_npc;
-    void* m_p_true_storage;
+    DataBase::Script_IComponentScheme* m_p_true_storage;
     xr_string m_scheme_name;
 };
 } // namespace Scripts
