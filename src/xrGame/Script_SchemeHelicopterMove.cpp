@@ -195,7 +195,7 @@ void Script_SchemeHelicopterMove::save(void)
 void Script_SchemeHelicopterMove::update(const float delta)
 {
     if (XR_LOGIC::try_switch_to_another_section(
-            this->m_npc, *this->m_p_storage, DataBase::Storage::getInstance().getActor()))
+            this->m_npc, this->m_p_storage, DataBase::Storage::getInstance().getActor()))
         return;
 
         if (this->m_is_callback)
