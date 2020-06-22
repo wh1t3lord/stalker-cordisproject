@@ -3070,7 +3070,7 @@ inline void update_logic(CScriptGameObject* const p_object)
 
                 if (p_storage_combat && !p_storage_combat->getLogic().empty())
                 {
-                    if (!XR_LOGIC::try_switch_to_another_section(p_object, *p_storage_combat, p_actor))
+                    if (!XR_LOGIC::try_switch_to_another_section(p_object, p_storage_combat, p_actor))
                     {
                         if (!overrides.getCombatType().IsEmpty())
                         {
@@ -3467,7 +3467,7 @@ inline void unlock_medkit(CScriptGameObject* const p_client_object)
 
     if (DataBase::Storage::getInstance().getStorage().at(p_client_object->ID()).getSchemes().at("wounded"))
     {
-        DataBase::Storage::getInstance().getStorage().at(p_client_object->ID()).getSchemes().at("wounded")->getWoundedManager()->unlock_medkit();
+        reinterpret_cast<DataBase::Script_ComponentScheme_XRWounded*>(DataBase::Storage::getInstance().getStorage().at(p_client_object->ID()).getSchemes().at("wounded"))->getWoundedManager()->unlock_medkit();
     }
 }
 
@@ -3491,7 +3491,7 @@ inline bool is_wounded(CScriptGameObject* const p_client_object)
 
     
     // Lord: проверить на использование nil
-    return (DataBase::Storage::getInstance().getStorage().at(p_client_object->ID()).getSchemes().at("wounded")->getWoundedManager()->getStateName().empty() == false); 
+    return (reinterpret_cast<DataBase::Script_ComponentScheme_XRWounded*>(DataBase::Storage::getInstance().getStorage().at(p_client_object->ID()).getSchemes().at("wounded"))->getWoundedManager()->getStateName().empty() == false); 
 }
 
 inline void hit_callback(const std::uint16_t npc_id)
