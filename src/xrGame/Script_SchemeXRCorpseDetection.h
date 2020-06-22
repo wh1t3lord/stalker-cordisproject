@@ -25,7 +25,7 @@ class Script_SchemeXRCorpseDetection : public Script_ISchemeStalker
 
 public:
     Script_SchemeXRCorpseDetection(void) = delete;
-    Script_SchemeXRCorpseDetection(const xr_string& action_name, void* storage)
+    Script_SchemeXRCorpseDetection(const xr_string& action_name, DataBase::Script_ComponentScheme_XRCorpseDetection* storage)
         : inherited_scheme(nullptr, action_name, storage)
     {
         this->m_scheme_name = "corpse_detection";

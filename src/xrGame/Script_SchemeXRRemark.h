@@ -24,7 +24,7 @@ class Script_SchemeXRRemark : public Script_ISchemeStalker
 
 public:
     Script_SchemeXRRemark(void) = delete;
-    Script_SchemeXRRemark(const xr_string& action_name, void* storage)
+    Script_SchemeXRRemark(const xr_string& action_name, DataBase::Script_ComponentScheme_XRRemark* storage)
         : inherited_scheme(nullptr, action_name, storage), m_is_sound_end_signalled(false),
           m_is_action_end_signalled(false), m_is_animation_end_signalled(false), m_is_sound_scheduled(false),
           m_is_sound_started(false), m_state(0)
@@ -70,7 +70,7 @@ public:
         p_planner->add_evaluator(
             Globals::XR_ACTIONS_ID::kZmeyRemarkBase + 1, new Script_EvaluatorNeedRemark("remark_need_remark", static_cast<DataBase::Script_ComponentScheme_XRRemark*>(storage)));
 
-        Script_ISchemeStalker* p_scheme = new Script_SchemeXRRemark("action_remark_activity", storage);
+        Script_ISchemeStalker* p_scheme = new Script_SchemeXRRemark("action_remark_activity", reinterpret_cast<DataBase::Script_ComponentScheme_XRRemark*>(storage));
         p_scheme->add_condition(CWorldProperty(StalkerDecisionSpace::eWorldPropertyAlive, true));
         p_scheme->add_condition(CWorldProperty(StalkerDecisionSpace::eWorldPropertyDanger, false));
         p_scheme->add_condition(CWorldProperty(StalkerDecisionSpace::eWorldPropertyEnemy, false));
