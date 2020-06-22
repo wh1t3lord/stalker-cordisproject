@@ -145,7 +145,7 @@ void Script_SchemeHelicopterMove::reset_scheme(const bool is_loading, CScriptGam
             this->m_p_helicopter->m_min_rocket_dist = this->m_p_storage->getMinRocketDistance();
         }
 
-        if (this->m_p_storage->IsHelicopterUseMinigun())
+        if (this->m_p_storage->IsUseMinigun())
         {
             this->m_p_helicopter->m_use_mgun_on_attack = true;
         }
@@ -154,7 +154,7 @@ void Script_SchemeHelicopterMove::reset_scheme(const bool is_loading, CScriptGam
             this->m_p_helicopter->m_use_mgun_on_attack = false;
         }
 
-        if (this->m_p_storage->IsHelicopterUseRocket())
+        if (this->m_p_storage->IsUseRocket())
         {
             this->m_p_helicopter->m_use_rocket_on_attack = true;
         }
@@ -167,7 +167,7 @@ void Script_SchemeHelicopterMove::reset_scheme(const bool is_loading, CScriptGam
         this->m_p_manager_fire->update_enemy_state();
         this->update_movement_state();
 
-        if (this->m_p_storage->IsHelicopterShowHealth())
+        if (this->m_p_storage->IsShowHealth())
         {
             this->m_p_manager_fire->cs_remove();
             this->m_p_manager_fire->setShowHealth(true);
@@ -179,7 +179,7 @@ void Script_SchemeHelicopterMove::reset_scheme(const bool is_loading, CScriptGam
             this->m_p_manager_fire->cs_remove();
         }
 
-        this->m_p_helicopter->UseFireTrail(this->m_p_storage->IsHelicopterFireTrail());
+        this->m_p_helicopter->UseFireTrail(this->m_p_storage->IsFireTrail());
     }
 }
 
@@ -211,7 +211,7 @@ void Script_SchemeHelicopterMove::update(const float delta)
                 {
                     this->m_p_manager_fly->set_look_point(DataBase::Storage::getInstance().getActor()->Position());
 
-                    if (this->m_p_storage->IsHelicopterStopFire())
+                    if (this->m_p_storage->IsStopFire())
                     {
                         if (this->m_p_helicopter->isVisible(DataBase::Storage::getInstance().getActor()))
                         {

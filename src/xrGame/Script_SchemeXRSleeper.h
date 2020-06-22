@@ -22,7 +22,7 @@ namespace Cordis
     {
         using inherited_scheme = Script_ISchemeStalker;
     public:
-        Script_SchemeXRSleeper(const xr_string& action_name, void* storage)
+        Script_SchemeXRSleeper(const xr_string& action_name, DataBase::Script_ComponentScheme_XRSleeper* storage)
             : inherited_scheme(nullptr, action_name, storage), m_is_reset(false), m_p_move_manager(DataBase::Storage::getInstance().getStorage().at(this->m_object->ID()).getMoveManager()), m_state(0)
         {
 

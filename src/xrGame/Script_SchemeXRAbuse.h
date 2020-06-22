@@ -28,7 +28,7 @@ class Script_SchemeXRAbuse : public Script_ISchemeStalker
     using inherited_scheme = Script_ISchemeStalker;
 
 public:
-    Script_SchemeXRAbuse(const xr_string& action_name, void* storage)
+    Script_SchemeXRAbuse(const xr_string& action_name, DataBase::Script_ComponentScheme_XRAbuse* storage)
         : inherited_scheme(nullptr, action_name, storage)
     {
     }
