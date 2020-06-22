@@ -3895,7 +3895,7 @@ public:
     {
         if (!id_name.size())
         {
-            Msg("[DataBase/Storage_Data/setPStor(id_name, data)] WARNING: id_name.size() = 0! You are trying to set an "
+            MESSAGEWR("id_name.size() = 0! You are trying to set an "
                 "empty string! No assignment!");
             return;
         }
