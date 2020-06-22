@@ -35,7 +35,7 @@ public:
 
     // @ PRIVATE uses, in XR_LOGIC
     static inline void add_to_binder(CScriptGameObject* const p_client_object, CScriptIniFile* const p_ini,
-        const xr_string& scheme_name, const xr_string& section_name, void* storage)
+        const xr_string& scheme_name, const xr_string& section_name, DataBase::Script_IComponentScheme* storage)
     {
         if (!p_client_object)
         {
@@ -60,7 +60,7 @@ public:
         }
 
         p_planner->add_evaluator(
-            Globals::XR_ACTIONS_ID::XR_EVALUATORS_ID::kWoundedExist, new Script_EvaluatorWoundedExist("wounded_exist", storage));
+            Globals::XR_ACTIONS_ID::XR_EVALUATORS_ID::kWoundedExist, new Script_EvaluatorWoundedExist("wounded_exist", static_cast<DataBase::Script_ComponentScheme_XRHelpWounded*>(storage)));
 
         Script_ActionXRHelpWounded* p_action = new Script_ActionXRHelpWounded("action_help_wounded", storage);
         p_action->add_condition(CWorldProperty(StalkerDecisionSpace::eWorldPropertyAlive, true));

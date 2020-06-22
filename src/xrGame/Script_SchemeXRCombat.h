@@ -72,7 +72,7 @@ static void disable_scheme(CScriptGameObject* const p_client_object, const xr_st
         return;
     }
 
-    DataBase::Storage_Scheme* const p_storage_scheme = storage.getSchemes().at(scheme_name);
+    DataBase::Script_ComponentScheme_XRCombat* const p_storage_scheme = static_cast<DataBase::Script_ComponentScheme_XRCombat*>(storage.getSchemes().at(scheme_name));
 
     if (p_storage_scheme == nullptr)
     {
