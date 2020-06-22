@@ -1314,6 +1314,12 @@ private:
 	xr_string m_animation_name;
 	xr_string m_tooptip_name;
 };
+
+struct Script_ComponentScheme_MobCamp : public Script_IComponentScheme
+{
+    Script_ComponentScheme_MobCamp(void) {}
+};
+
 struct Script_ComponentScheme_XRSmartCover : public Script_IComponentScheme
 {
 	Script_ComponentScheme_XRSmartCover(void) : m_is_precalc_cover(false), m_is_in_combat(false), m_idle_max_time(0), m_idle_min_time(0), m_lookout_min_time(0), m_lookout_max_time(0) {}
