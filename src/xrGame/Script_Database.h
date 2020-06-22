@@ -222,60 +222,6 @@ public:
         this->m_p_npc = nullptr;
     }
 
-    inline const xr_vector<Script_ISchemeEntity*>& getActions(void) const noexcept { return this->m_actions; }
-
-    inline void setActions(Script_ISchemeEntity* p_scheme)
-    {
-        if (!p_scheme)
-        {
-            Msg("[Scripts/DataBase/Storage_Scheme/setActions(p_scheme)] WARNING: you can't assign nullptr object "
-                "return ...!");
-            return;
-        }
-
-        this->m_actions.push_back(p_scheme);
-    }
-
-    inline void setActionSchemeID(const std::uint32_t scheme_id) noexcept
-    {
-        if (scheme_id == Globals::kUnsignedInt32Undefined)
-        {
-            Msg("[Scripts/DataBase/Storage_Scheme/setActionShemeID(scheme_id)] WARNING: something not right. overflow "
-                "sheat ...");
-        }
-
-        this->m_scheme_id_for_unsubscring = scheme_id;
-    }
-
-    inline void UnSubscribeAction(void) noexcept
-    {
-        if (!this->m_scheme_id_for_unsubscring || this->m_scheme_id_for_unsubscring == Globals::kUnsignedInt32Undefined)
-        {
-            Msg("[Scripts/DataBase/Storage_Scheme/UnSubscribeAction()] WARNING: can't unsubscribe action, which not "
-                "registered with ID ... YOUR ID is [%d]",
-                this->m_scheme_id_for_unsubscring);
-            return;
-        }
-
-        for (Script_ISchemeEntity* it : this->m_actions)
-        {
-            if (it)
-            {
-                if (it->getSchemeID() == this->m_scheme_id_for_unsubscring)
-                {
-                    Msg("[Scripts/DataBase/Storage_Scheme/UnSubscribeAction()] unsubscribe action for npc %s %d",
-                        it->getSchemeName().c_str(), it->getID());
-                    it->unsubscribe_action();
-                    return;
-                }
-            }
-        }
-
-        Msg("[Scripts/DataBase/Storage_Scheme/UnSubscribeAction()] WARNING: can't find action for unsubscribing YOUR "
-            "ACTION ID -> %d",
-            this->m_scheme_id_for_unsubscring);
-    }
-
     /*
         inline void setAction(Script_ISchemeEntity* p_scheme)
         {
@@ -289,49 +235,6 @@ public:
 
             this->m_p_action = p_scheme;
         }*/
-
-    inline const xr_map<xr_string, bool>& getSignals(void) const noexcept { return this->m_signals; }
-
-    inline void setSignals(const xr_map<xr_string, bool>& map) noexcept
-    {
-        if (map.empty())
-        {
-            MESSAGEWR("map.empty() == true! Can't assign an empty map return ...");
-            return;
-        }
-
-        this->m_signals = map;
-    }
-
-    inline void setSignals(const std::pair<xr_string, bool>& pair) noexcept
-    {
-        if (pair.first.empty())
-        {
-            Msg("[Scripts/DataBase/Storage_Scheme/setSignals(pair)] WARNING: pair.first.empty() == true! Can't assign "
-                "an empty string return ...");
-            return;
-        }
-
-        this->m_signals.insert(pair);
-    }
-
-    inline void setSignals(const xr_string& signal_name, const bool value) noexcept
-    {
-        if (signal_name.empty())
-        {
-            Msg("[Scripts/DataBase/Storage_Scheme/setSignals(signal_name, value)] WARNING: signal_name.empty() == "
-                "true! Can't assign an empty string return ...");
-            return;
-        }
-
-        this->m_signals[signal_name] = value;
-    }
-
-    inline void ClearSignals(void) noexcept
-    {
-        Msg("[Scripts/DataBase/Storage_Scheme/ClearSignals(void)] signals are cleared!");
-        this->m_signals.clear();
-    }
 
     inline void ClearApprovedActions(void) noexcept 
     {
@@ -774,7 +677,6 @@ private:
  
     std::uint32_t m_level_vertex_id = 0;
     std::uint32_t m_danger_time = 0;
-    std::uint32_t m_scheme_id_for_unsubscring = 0;
     float m_ph_jump_factor = 0.0f;
 
     float m_force = 0.0f;
@@ -1312,8 +1214,46 @@ struct Script_IComponentScheme
 	inline bool IsEnabled(void) const noexcept { return this->m_is_enabled; }
 	inline void setEnabled(const bool value) noexcept { this->m_is_enabled = value; }
 
+	inline void setActionSchemeID(const std::uint32_t scheme_id) noexcept
+	{
+		if (scheme_id == Globals::kUnsignedInt32Undefined)
+		{
+			MESSAGEWR("something not right. overflow sheat ...");
+		}
+
+		this->m_scheme_id_for_unsubscring = scheme_id;
+	}
+
+	inline void UnSubscribeAction(void) noexcept
+	{
+		if (!this->m_scheme_id_for_unsubscring || this->m_scheme_id_for_unsubscring == Globals::kUnsignedInt32Undefined)
+		{
+			MESSAGEWR("can't unsubscribe action, which not registered with ID ... YOUR ID is [%d]", this->m_scheme_id_for_unsubscring);
+			return;
+		}
+
+		for (Script_ISchemeEntity* it : this->m_actions)
+		{
+			if (it)
+			{
+				if (it->getSchemeID() == this->m_scheme_id_for_unsubscring)
+				{
+					MESSAGEI("unsubscribe action for npc %s %d",
+						it->getSchemeName().c_str(), it->getID());
+					it->unsubscribe_action();
+					return;
+				}
+			}
+		}
+
+		MESSAGEW("can't find action for unsubscribing YOUR "
+			"ACTION ID -> %d",
+			this->m_scheme_id_for_unsubscring);
+	}
+
 protected:
     bool m_is_enabled = false;
+    std::uint32_t m_scheme_id_for_unsubscring = 0;
 	CScriptIniFile* m_p_ini = nullptr;
 	xr_map<xr_string, bool> m_signals;
 	xr_vector<Script_ISchemeEntity*> m_actions;
@@ -5039,7 +4979,7 @@ public:
         this->m_storage[npc_id].setScheme(scheme_name, data);
     }*/
 
-/*
+ 
     inline void setStorageSchemesActionSchemeIDForUnSubscribing(
         const std::uint16_t npc_id, const xr_string& scheme_name, const std::uint32_t scheme_id)
     {
@@ -5057,7 +4997,7 @@ public:
         }
 
         this->m_storage[npc_id].m_schemes[scheme_name]->setActionSchemeID(scheme_id);
-    }*/
+    } 
 
  
     inline void setStorageSchemesActions(
