@@ -183,7 +183,7 @@ void Script_Binder_Stalker::net_Destroy(void)
     {
         if (storage.getSchemes().find(storage.getActiveSchemeName()) != storage.getSchemes().end())
         {
-            DataBase::Storage_Scheme* const p_storage = storage.getSchemes().at(storage.getActiveSchemeName());
+            DataBase::Script_IComponentScheme* const p_storage = storage.getSchemes().at(storage.getActiveSchemeName());
             if (p_storage)
             {
                 for (Script_ISchemeEntity* it : p_storage->getActions())
@@ -199,7 +199,7 @@ void Script_Binder_Stalker::net_Destroy(void)
 
     if (storage.getSchemes().find("reach_task") != storage.getSchemes().end())
     {
-        DataBase::Storage_Scheme* const p_storage = storage.getSchemes().at("reach_task");
+        DataBase::Script_IComponentScheme* const p_storage = storage.getSchemes().at("reach_task");
 
         if (p_storage)
         {
@@ -260,11 +260,11 @@ void Script_Binder_Stalker::shedule_Update(std::uint32_t time_delta)
     {
 		const DataBase::Storage_Data& storage = DataBase::Storage::getInstance().getStorage().at(this->m_object->ID());
 
-		DataBase::Storage_Scheme* p_storage = nullptr;
+		DataBase::Script_ComponentScheme_XRCombat* p_storage = nullptr;
 
 		if (storage.getSchemes().find("combat") != storage.getSchemes().end())
 		{
-			p_storage = storage.getSchemes().at("combat");
+			p_storage = reinterpret_cast<DataBase::Script_ComponentScheme_XRCombat*>(storage.getSchemes().at("combat"));
 		}
 
         bool is_switched = false;
@@ -311,7 +311,7 @@ void Script_Binder_Stalker::shedule_Update(std::uint32_t time_delta)
             return;
         }
 
-        DataBase::Storage_Scheme* const p_storage = DataBase::Storage::getInstance().getStorage().at(this->m_object->ID()).getSchemes().at("combat");
+        DataBase::Script_ComponentScheme_XRCombat* const p_storage = reinterpret_cast<DataBase::Script_ComponentScheme_XRCombat*>(DataBase::Storage::getInstance().getStorage().at(this->m_object->ID()).getSchemes().at("combat"));
 
         XR_COMBAT::set_combat_type(this->m_object, DataBase::Storage::getInstance().getActor(), p_storage->getXRCombatCombatTypeCondlist());
     }
