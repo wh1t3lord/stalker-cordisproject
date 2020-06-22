@@ -7,24 +7,24 @@ namespace Cordis
 		class Script_EvaluatorUseSmartCoverInCombat : public CScriptPropertyEvaluator
 		{
 		public:
-			Script_EvaluatorUseSmartCoverInCombat(const xr_string& name, void* storage) : CScriptPropertyEvaluator(nullptr, name.c_str()), m_p_storage(&storage) {}
+			Script_EvaluatorUseSmartCoverInCombat(const xr_string& name, DataBase::Script_ComponentScheme_XRSmartCover* storage) : CScriptPropertyEvaluator(nullptr, name.c_str()), m_p_storage(storage) {}
 			~Script_EvaluatorUseSmartCoverInCombat(void) {}
 
 			virtual _value_type evaluate(void);
 		private:
-			DataBase::Storage_Scheme* m_p_storage;
+			DataBase::Script_ComponentScheme_XRSmartCover* m_p_storage;
 		};
 
 		class Script_EvaluatorNeedSmartCover : public CScriptPropertyEvaluator
 		{
 		public:
-			Script_EvaluatorNeedSmartCover(const xr_string& name, void* storage) : CScriptPropertyEvaluator(nullptr, name.c_str()), m_p_storage(&storage) {}
+			Script_EvaluatorNeedSmartCover(const xr_string& name, DataBase::Script_ComponentScheme_XRSmartCover* storage) : CScriptPropertyEvaluator(nullptr, name.c_str()), m_p_storage(storage) {}
 			~Script_EvaluatorNeedSmartCover(void) {}
 
 			virtual _value_type evaluate(void);
 
 		private:
-			DataBase::Storage_Scheme* m_p_storage;
+			DataBase::Script_ComponentScheme_XRSmartCover* m_p_storage;
 		};
 
 		class Script_SchemeXRSmartCover : public Script_ISchemeStalker
