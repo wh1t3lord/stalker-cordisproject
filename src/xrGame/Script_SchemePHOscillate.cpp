@@ -8,8 +8,8 @@ namespace Cordis
 namespace Scripts
 {
 Script_SchemePHOscillate::Script_SchemePHOscillate(
-    CScriptGameObject* const p_client_object, void* storage)
-    : inherited_scheme(p_client_object, storage), m_koeff(0.0f), m_time(0), m_p_joint(nullptr), m_is_pause(false)
+    CScriptGameObject* const p_client_object, DataBase::Script_ComponentScheme_PHOscillate* storage)
+    : inherited_scheme(p_client_object, storage), m_koeff(0.0f), m_time(0), m_p_joint(nullptr), m_is_pause(false), m_p_storage(storage)
 {
 }
 
@@ -22,8 +22,9 @@ void Script_SchemePHOscillate::reset_scheme(const bool value, CScriptGameObject*
                             .set(Globals::Script_RandomFloat::getInstance().Generate(), 0.0f,
                                 Globals::Script_RandomFloat::getInstance().Generate())
                             .normalize();
-    this->m_koeff = this->m_p_storage->getForce() / static_cast<float>(this->m_p_storage->getPHOscillatePeriod());
-    this->m_p_joint = this->m_npc->get_physics_shell()->get_Joint(this->m_p_storage->getPHOscillateJointName().c_str());
+
+    this->m_koeff = this->m_p_storage->getForce() / static_cast<float>(this->m_p_storage->getPeriod());
+    this->m_p_joint = this->m_npc->get_physics_shell()->get_Joint(this->m_p_storage->getJointName().c_str());
     this->m_time = Globals::get_time_global();
     this->m_is_pause = false;
 }
@@ -34,7 +35,7 @@ void Script_SchemePHOscillate::update(const float delta)
 
     if (this->m_is_pause)
     {
-        if (current_time - this->m_time < this->m_p_storage->getPHOscillatePeriod() / 2)
+        if (current_time - this->m_time < this->m_p_storage->getPeriod() / 2)
         {
             return;
         }
@@ -43,7 +44,7 @@ void Script_SchemePHOscillate::update(const float delta)
         this->m_is_pause = false;
     }
 
-    if (current_time - this->m_time >= this->m_p_storage->getPHOscillatePeriod())
+    if (current_time - this->m_time >= this->m_p_storage->getPeriod())
     {
         this->m_direction.x = -this->m_direction.x;
         this->m_direction.z = -this->m_direction.z;
@@ -70,12 +71,11 @@ void Script_SchemePHOscillate::set_scheme(CScriptGameObject* const p_client_obje
 
     if (!p_ini)
     {
-        Msg("[Scripts/Script_SchemePHOscillate/set_scheme(p_client_object, p_ini, scheme_name, section_name, "
-            "gulag_name)] WARNING: p_ini == nullptr!");
+        MESSAGEW("p_ini == nullptr!");
     }
 
-    DataBase::Storage_Scheme* p_storage =
-        XR_LOGIC::assign_storage_and_bind(p_client_object, p_ini, scheme_name, section_name, gulag_name);
+    DataBase::Script_ComponentScheme_PHOscillate* p_storage =
+        XR_LOGIC::assign_storage_and_bind<DataBase::Script_ComponentScheme_PHOscillate>(p_client_object, p_ini, scheme_name, section_name, gulag_name);
 
     if (!p_storage)
     {
@@ -84,18 +84,18 @@ void Script_SchemePHOscillate::set_scheme(CScriptGameObject* const p_client_obje
     }
 
     p_storage->setLogic(XR_LOGIC::cfg_get_switch_conditions(p_ini, section_name, p_client_object));
-    p_storage->setPHOscillateJointName(Globals::Utils::cfg_get_string(p_ini, section_name, "joint"));
-    if (p_storage->getPHOscillateJointName().empty())
+    p_storage->setJointName(Globals::Utils::cfg_get_string(p_ini, section_name, "joint"));
+    if (p_storage->getJointName().empty())
     {
         R_ASSERT2(false, "joint name can't an empty string");
         return;
     }
 
-    p_storage->setPHOscillatePeriod(
+    p_storage->setPeriod(
         static_cast<std::uint32_t>(Globals::Utils::cfg_get_number(p_ini, section_name, "period")));
     p_storage->setForce(Globals::Utils::cfg_get_number(p_ini, section_name, "force"));
 
-    if (fis_zero(p_storage->getForce()) || !p_storage->getPHOscillatePeriod())
+    if (fis_zero(p_storage->getForce()) || !p_storage->getPeriod())
     {
         R_ASSERT2(false, "they are not defined! Please check your configuration file and set the values!");
         return;
