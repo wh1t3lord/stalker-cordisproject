@@ -25,7 +25,7 @@ namespace Cordis
 		{
 		public:
 			Script_SchemeXRCombatZombied(void) = delete;
-			Script_SchemeXRCombatZombied(const xr_string& action_name, void* storage);
+			Script_SchemeXRCombatZombied(const xr_string& action_name, DataBase::Script_ComponentScheme_XRCombatZombied* storage);
 			~Script_SchemeXRCombatZombied(void);
 
 			virtual void initialize(void);
@@ -34,7 +34,8 @@ namespace Cordis
 
 			virtual void hit_callback(CScriptGameObject* const p_client_object, const float amount, const Fvector& local_direction, CScriptGameObject* const p_client_who, const std::int16_t bone_index);
 
-			static void add_to_binder(CScriptGameObject* const p_client_object, CScriptIniFile* const p_ini, const xr_string& section_name, const xr_string& scheme_name, void* p_storage);
+			static void add_to_binder(CScriptGameObject* const p_client_object, CScriptIniFile* const p_ini,
+				const xr_string& section_name, const xr_string& scheme_name, DataBase::Script_IComponentScheme* p_storage);
 		private:
 			void set_state(const xr_string& state_name, CScriptGameObject* const p_look_object, const Fvector& position);
 			Fvector calc_random_direction(void);
@@ -46,6 +47,7 @@ namespace Cordis
 			std::uint32_t m_last_level_vertex_id;
 			std::uint32_t m_turn_time;
 			std::uint32_t m_hit_reaction_end_time;
+			DataBase::Script_ComponentScheme_XRCombatZombied* m_p_storage;
 			Fvector m_enemy_last_seen_position;
 			Fvector m_enemy_last_accessible_position;
 			xr_string m_last_state_name;
@@ -55,7 +57,7 @@ namespace Cordis
 		{
 		public:
 			Script_SchemeXRCombatZombiedDanger(void) = delete;
-			Script_SchemeXRCombatZombiedDanger(const xr_string& name, void* storage);
+			Script_SchemeXRCombatZombiedDanger(const xr_string& name, DataBase::Script_ComponentScheme_XRCombatZombied* storage);
 			~Script_SchemeXRCombatZombiedDanger(void); 
 
 			virtual void initialize(void);
@@ -70,6 +72,7 @@ namespace Cordis
 			std::uint32_t m_bestdanger_level_vertex_id;
 			std::uint32_t m_last_sent_level_vertex_id;
 			std::uint32_t m_hit_reaction_end_time;
+			DataBase::Script_ComponentScheme_XRCombatZombied* m_p_storage;
 			Fvector m_enemy_last_seen_position;
 			xr_string m_last_state_name;
 		};

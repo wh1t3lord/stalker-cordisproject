@@ -2046,14 +2046,17 @@ private:
 };
 struct Script_ComponentScheme_XRCombatIgnore : public Script_IComponentScheme
 {
-	Script_ComponentScheme_XRCombatIgnore(void) : m_is_ignore_enabled(false) {}
+	Script_ComponentScheme_XRCombatIgnore(void) : m_is_ignore_enabled(false), m_p_action(nullptr) {}
 
 	inline bool isXRCombatIgnoreEnabled(void) const noexcept { return this->m_is_ignore_enabled; }
 	inline void setXRCombatIgnoreEnabled(const bool value) noexcept { this->m_is_ignore_enabled = value; }
-
+	inline void setAction(Script_ISchemeEntity* const p_action) { this->m_p_action = p_action; }
+	inline Script_ISchemeEntity* getAction(void) const { return this->m_p_action; }
 	inline void clear(void) noexcept { this->m_is_ignore_enabled = false; }
+
 private:
 	bool m_is_ignore_enabled;
+    Script_ISchemeEntity* m_p_action;
 };
 struct Script_ComponentScheme_XRWounded : public Script_IComponentScheme
 {
