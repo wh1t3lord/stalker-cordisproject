@@ -8,7 +8,7 @@ namespace Cordis
 namespace Scripts
 {
 Script_SchemeSRParticle::Script_SchemeSRParticle(
-    CScriptGameObject* const p_client_object, void* storage)
+    CScriptGameObject* const p_client_object, DataBase::Script_ComponentScheme_SRParticle* storage)
     : inherited_scheme(p_client_object, storage), m_last_update(0), m_path(nullptr), m_is_started(false),
       m_is_first_played(false)
 {
@@ -55,7 +55,7 @@ void Script_SchemeSRParticle::reset_scheme(const bool value, CScriptGameObject* 
         this->m_particles.clear();
     }
 
-    if (this->m_p_storage->getSRParticleMode() == 2)
+    if (this->m_p_storage->getMode() == 2)
     {
         if (this->m_path)
         {
@@ -65,8 +65,8 @@ void Script_SchemeSRParticle::reset_scheme(const bool value, CScriptGameObject* 
 
         }
 
-        this->m_path = new CPatrolPathParams(this->m_p_storage->getSRParticlePathName().c_str());
-        CondlistWaypoints flags = Globals::Utils::path_parse_waypoints(this->m_p_storage->getSRParticlePathName());
+        this->m_path = new CPatrolPathParams(this->m_p_storage->getPathName().c_str());
+        CondlistWaypoints flags = Globals::Utils::path_parse_waypoints(this->m_p_storage->getPathName());
         const std::uint32_t count = this->m_path->count();
 
         // Lord: проверить итерацию!
@@ -89,7 +89,7 @@ void Script_SchemeSRParticle::reset_scheme(const bool value, CScriptGameObject* 
             data.setDelay(delay);
             data.setPlayed(false);
             data.setTime(Globals::get_time_global());
-            data.setParticle(new CScriptParticles(this->m_p_storage->getSRParticleName().c_str()));
+            data.setParticle(new CScriptParticles(this->m_p_storage->getName().c_str()));
             this->m_particles.emplace_back(std::move(data));
         }
     }
@@ -99,7 +99,7 @@ void Script_SchemeSRParticle::reset_scheme(const bool value, CScriptGameObject* 
         data.setPlayed(false);
         data.setTime(Globals::get_time_global());
         data.setDelay(0);
-        data.setParticle(new CScriptParticles(this->m_p_storage->getSRParticleName().c_str()));
+        data.setParticle(new CScriptParticles(this->m_p_storage->getName().c_str()));
 
         this->m_particles.emplace_back(std::move(data));
 
@@ -138,12 +138,12 @@ void Script_SchemeSRParticle::update(const float delta)
     if (!this->m_is_started)
     {
         this->m_is_started = true;
-        if (this->m_p_storage->getSRParticleMode() == 1)
+        if (this->m_p_storage->getMode() == 1)
         {
             Msg("[Scripts/Script_SchemeSRParticle/update(delta)] Load path %s",
-                this->m_p_storage->getSRParticlePathName().c_str());
-            this->m_particles[0].getParticle()->LoadPath(this->m_p_storage->getSRParticlePathName().c_str());
-            this->m_particles[0].getParticle()->StartPath(this->m_p_storage->IsSRParticleLooped());
+                this->m_p_storage->getPathName().c_str());
+            this->m_particles[0].getParticle()->LoadPath(this->m_p_storage->getPathName().c_str());
+            this->m_particles[0].getParticle()->StartPath(this->m_p_storage->isLooped());
             this->m_particles[0].getParticle()->Play();
             this->m_particles[0].setPlayed(true);
             this->m_is_first_played = true;
@@ -152,7 +152,7 @@ void Script_SchemeSRParticle::update(const float delta)
         return;
     }
 
-    if (this->m_p_storage->getSRParticleMode() == 1)
+    if (this->m_p_storage->getMode() == 1)
     {
         this->update_mode_1();
     }
@@ -195,8 +195,8 @@ void Script_SchemeSRParticle::set_scheme(CScriptGameObject* const p_client_objec
         return;
     }
 
-    DataBase::Storage_Scheme* p_storage =
-        XR_LOGIC::assign_storage_and_bind(p_client_object, p_ini, scheme_name, section_name, gulag_name);
+    DataBase::Script_ComponentScheme_SRParticle* p_storage =
+        XR_LOGIC::assign_storage_and_bind<DataBase::Script_ComponentScheme_SRParticle>(p_client_object, p_ini, scheme_name, section_name, gulag_name);
 
     if (!p_storage)
     {
@@ -205,23 +205,23 @@ void Script_SchemeSRParticle::set_scheme(CScriptGameObject* const p_client_objec
     }
 
     p_storage->setLogic(XR_LOGIC::cfg_get_switch_conditions(p_ini, section_name, p_client_object));
-    p_storage->setSRParticlePathName(Globals::Utils::cfg_get_string(p_ini, section_name, "path"));
-    p_storage->setSRParticleName(Globals::Utils::cfg_get_string(p_ini, section_name, "name"));
+    p_storage->setPathName(Globals::Utils::cfg_get_string(p_ini, section_name, "path"));
+    p_storage->setName(Globals::Utils::cfg_get_string(p_ini, section_name, "name"));
     std::uint32_t mode = static_cast<std::uint32_t>(Globals::Utils::cfg_get_number(p_ini, section_name, "mode"));
 
     if (!mode || mode == Globals::kUnsignedInt32Undefined)
         mode = 1;
 
-    p_storage->setSRParticleMode(mode);
-    p_storage->setSRParticleLooped(Globals::Utils::cfg_get_bool(p_ini, section_name, "looped"));
+    p_storage->setMode(mode);
+    p_storage->setLooped(Globals::Utils::cfg_get_bool(p_ini, section_name, "looped"));
 
-    if (p_storage->getSRParticlePathName().empty())
+    if (p_storage->getPathName().empty())
     {
         R_ASSERT2(false, "can't be an empty string");
         return;
     }
 
-    if (p_storage->getSRParticleMode() != 1 && p_storage->getSRParticleMode() != 2)
+    if (p_storage->getMode() != 1 && p_storage->getMode() != 2)
     {
         R_ASSERT2(false, "wrong mode you are set");
         return;
@@ -230,7 +230,7 @@ void Script_SchemeSRParticle::set_scheme(CScriptGameObject* const p_client_objec
 
 bool Script_SchemeSRParticle::IsEnd(void)
 {
-    if (this->m_p_storage->IsSRParticleLooped() || !this->m_is_first_played)
+    if (this->m_p_storage->isLooped() || !this->m_is_first_played)
     {
         return false;
     }
@@ -253,7 +253,7 @@ bool Script_SchemeSRParticle::IsEnd(void)
 
 void Script_SchemeSRParticle::update_mode_1(void)
 {
-    if (!this->m_particles[0].getParticle()->IsPlaying() && !this->m_p_storage->IsSRParticleLooped())
+    if (!this->m_particles[0].getParticle()->IsPlaying() && !this->m_p_storage->isLooped())
     {
         this->m_particles[0].getParticle()->Play();
     }
@@ -279,7 +279,7 @@ void Script_SchemeSRParticle::update_mode_2(void)
         }
         else
         {
-            if (this->m_p_storage->IsSRParticleLooped())
+            if (this->m_p_storage->isLooped())
             {
                 it.getParticle()->PlayAtPos(this->m_path->point(i));
             }
