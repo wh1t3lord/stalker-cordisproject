@@ -1338,6 +1338,64 @@ private:
 	xr_string m_tooptip_name;
 };
 
+struct Script_ComponentScheme_MobWalker : public Script_IComponentScheme
+{
+    Script_ComponentScheme_MobWalker(void) {}
+
+    inline const xr_string& getPathLookName(void) const noexcept { return this->m_path_look_name; }
+    inline void setPathLookName(const xr_string& path_name) noexcept 
+    {
+        if (path_name.empty())
+        {
+            MESSAGEW("set an empty string!");
+        }
+
+        this->m_path_look_name = path_name;
+    }
+
+    inline const xr_string& getPathWalkName(void) const noexcept { return this->m_path_walk_name; }
+    inline void setPathWalkName(const xr_string& path_name) noexcept 
+    {
+        if (path_name.empty())
+        {
+            MESSAGEW("set an empty string!");
+        }
+
+        this->m_path_walk_name = path_name;
+    }
+
+    inline bool isNoReset(void) const noexcept { return this->m_is_no_reset; }
+    inline void setNoReset(const bool value) noexcept { this->m_is_no_reset = value; }
+
+    inline const xr_string& getStateName(void) const noexcept { return this->m_state_name; }
+    inline void setStateName(const xr_string& state_name) noexcept { if (state_name.empty()) { MESSAGEW("set an empty string!"); } this->m_state_name = state_name; }
+
+	inline const CondlistWaypoints& getPathWalkInfo(void) const noexcept { return this->m_condlist_walk; }
+	inline void setPathWalkInfo(const CondlistWaypoints& data) noexcept { this->m_condlist_walk = data; }
+
+	inline const CondlistWaypoints& getPathLookInfo(void) const noexcept { return this->m_condlist_look; }
+	inline void setPathLookInfo(const CondlistWaypoints& data) noexcept { this->m_condlist_look = data; }
+
+
+    inline void clear(void) noexcept 
+    {
+        this->m_is_no_reset = false;
+        this->m_path_look_name.clear();
+        this->m_path_walk_name.clear();
+        this->m_state_name.clear();
+        this->m_condlist_walk.clear();
+        this->m_condlist_look.clear();
+    }
+
+private:
+    bool m_is_no_reset;
+    xr_string m_path_walk_name;
+    xr_string m_path_look_name;
+    xr_string m_state_name;
+    CondlistWaypoints m_condlist_walk;
+    CondlistWaypoints m_condlist_look;
+};
+
 struct Script_ComponentScheme_MobRemark : public Script_IComponentScheme
 {
     Script_ComponentScheme_MobRemark(void) : m_is_no_reset(false), m_is_animation_movement(false) {}
@@ -3593,6 +3651,16 @@ private:
 	xr_string m_bone_name;
 	xr_string m_direction_path_name;
 };
+
+struct Script_ComponentScheme_PHDeath : public Script_IComponentScheme
+{
+    Script_ComponentScheme_PHDeath(void) {}
+
+
+private:
+
+};
+
 struct Script_ComponentScheme_PHDoor : public Script_IComponentScheme
 {
 	Script_ComponentScheme_PHDoor(void) { this->clear(); }
