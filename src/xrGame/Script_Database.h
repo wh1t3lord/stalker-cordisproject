@@ -3048,50 +3048,50 @@ struct Script_ComponentScheme_SRDeimos : public Script_IComponentScheme
 {
 	Script_ComponentScheme_SRDeimos(void) { this->clear(); }
 
-	inline float getSRDeimosIntensity(void) const noexcept { return this->m_intensity; }
-	inline void setSRDeimosIntensity(const float value) noexcept { this->m_intensity = value; }
+	inline float getIntensity(void) const noexcept { return this->m_intensity; }
+	inline void setIntensity(const float value) noexcept { this->m_intensity = value; }
 
-	inline float getSRDeimosMovementSpeed(void) const noexcept { return this->m_movement_speed; }
-	inline void setSRDeimosMovementSpeed(const float value) noexcept { this->m_movement_speed = value; }
+	inline float getMovementSpeed(void) const noexcept { return this->m_movement_speed; }
+	inline void setMovementSpeed(const float value) noexcept { this->m_movement_speed = value; }
 
-	inline float getSRDeimosGrowingKoef(void) const noexcept { return this->m_growing_koef; }
-	inline void setSRDeimosGrowingKoef(const float value) noexcept { this->m_growing_koef = value; }
+	inline float getGrowingKoef(void) const noexcept { return this->m_growing_koef; }
+	inline void setGrowingKoef(const float value) noexcept { this->m_growing_koef = value; }
 
-	inline float getSRDeimosLoweringKoef(void) const noexcept { return this->m_lowering_koef; }
-	inline void setSRDeimosLoweringKoef(const float value) noexcept { this->m_lowering_koef = value; }
+	inline float getLoweringKoef(void) const noexcept { return this->m_lowering_koef; }
+	inline void setLoweringKoef(const float value) noexcept { this->m_lowering_koef = value; }
 
-	inline std::uint32_t getSRDeimosCameraEffectorRepeatingTime(void) const noexcept
+	inline std::uint32_t getCameraEffectorRepeatingTime(void) const noexcept
 	{
 		return this->m_camera_effector_repeating_time;
 	}
-	inline void setSRDeimosCameraEffectorRepeatingTime(const std::uint32_t value) noexcept
+	inline void setCameraEffectorRepeatingTime(const std::uint32_t value) noexcept
 	{
 		this->m_camera_effector_repeating_time = value;
 	}
 
-	inline float getSRDeimosHealthLost(void) const noexcept { return this->m_health_lost; }
-	inline void setSRDeimosHealthLost(const float value) noexcept { this->m_health_lost = value; }
+	inline float getHealthLost(void) const noexcept { return this->m_health_lost; }
+	inline void setHealthLost(const float value) noexcept { this->m_health_lost = value; }
 
-	inline float getSRDeimosDisableBound(void) const noexcept { return this->m_disable_bound; }
-	inline void setSRDeimosDisableBound(const float value) noexcept { this->m_disable_bound = value; }
+	inline float getDisableBound(void) const noexcept { return this->m_disable_bound; }
+	inline void setDisableBound(const float value) noexcept { this->m_disable_bound = value; }
 
-	inline float getSRDeimosSwitchLowerBound(void) const noexcept { return this->m_switch_lower_bound; }
-	inline void setSRDeimosSwitchLowerBound(const float value) noexcept
+	inline float getSwitchLowerBound(void) const noexcept { return this->m_switch_lower_bound; }
+	inline void setSwitchLowerBound(const float value) noexcept
 	{
 		this->m_switch_lower_bound = value;
 	}
 
-	inline float getSRDeimosSwitchUpperBound(void) const noexcept { return this->m_switch_upper_bound; }
-	inline void setSRDeimosSwitchUpperBound(const float value) noexcept
+	inline float getSwitchUpperBound(void) const noexcept { return this->m_switch_upper_bound; }
+	inline void setSwitchUpperBound(const float value) noexcept
 	{
 		this->m_switch_upper_bound = value;
 	}
 
-	inline const xr_string& getSRDeimosPostProcessEffectorName(void) const noexcept
+	inline const xr_string& getPostProcessEffectorName(void) const noexcept
 	{
 		return this->m_postprocess_effector_name;
 	}
-	inline void setSRDeimosPostProcessEffectorName(const xr_string& effector_name) noexcept
+	inline void setPostProcessEffectorName(const xr_string& effector_name) noexcept
 	{
 		if (effector_name.empty())
 		{
@@ -3101,11 +3101,11 @@ struct Script_ComponentScheme_SRDeimos : public Script_IComponentScheme
 		this->m_postprocess_effector_name = effector_name;
 	}
 
-	inline const xr_string& getSRDeimosCameraEffectorName(void) const noexcept
+	inline const xr_string& getCameraEffectorName(void) const noexcept
 	{
 		return this->m_camera_effector_name;
 	}
-	inline void setSRDeimosCameraEffectorName(const xr_string& effector_name) noexcept
+	inline void setCameraEffectorName(const xr_string& effector_name) noexcept
 	{
 		if (effector_name.empty())
 		{
@@ -3115,11 +3115,11 @@ struct Script_ComponentScheme_SRDeimos : public Script_IComponentScheme
 		this->m_camera_effector_name = effector_name;
 	}
 
-	inline const xr_string& getSRDeimosPostProcessEffector2Name(void) const noexcept
+	inline const xr_string& getPostProcessEffector2Name(void) const noexcept
 	{
 		return this->m_postprocess_effector2_name;
 	}
-	inline void setSRDeimosPostProcessEffector2Name(const xr_string& effector_name) noexcept
+	inline void setPostProcessEffector2Name(const xr_string& effector_name) noexcept
 	{
 		if (effector_name.empty())
 		{
@@ -3129,11 +3129,11 @@ struct Script_ComponentScheme_SRDeimos : public Script_IComponentScheme
 		this->m_postprocess_effector2_name = effector_name;
 	}
 
-	inline const xr_string& getSRDeimosNoiseSoundName(void) const noexcept
+	inline const xr_string& getNoiseSoundName(void) const noexcept
 	{
 		return this->m_noise_sound_name;
 	}
-	inline void setSRDeimosNoiseSoundName(const xr_string& sound_name) noexcept
+	inline void setNoiseSoundName(const xr_string& sound_name) noexcept
 	{
 		if (sound_name.empty())
 		{
@@ -3144,11 +3144,11 @@ struct Script_ComponentScheme_SRDeimos : public Script_IComponentScheme
 		this->m_noise_sound_name = sound_name;
 	}
 
-	inline const xr_string& getSRDeimosHeartBeetSoundName(void) const noexcept
+	inline const xr_string& getHeartBeetSoundName(void) const noexcept
 	{
 		return this->m_heartbeet_sound_name;
 	}
-	inline void setSRDeimosHeartBeetSoundName(const xr_string& sound_name) noexcept
+	inline void setHeartBeetSoundName(const xr_string& sound_name) noexcept
 	{
 		if (sound_name.empty())
 		{
@@ -3157,6 +3157,9 @@ struct Script_ComponentScheme_SRDeimos : public Script_IComponentScheme
 
 		this->m_heartbeet_sound_name = sound_name;
 	}
+
+    inline void setDeimosIntensity(const float value) noexcept { this->m_deimos_intensity = value; }
+    inline float getDeimosIntensity(void) const noexcept { return this->m_deimos_intensity; }
 
 	inline void clear(void) noexcept
 	{
@@ -3171,6 +3174,7 @@ struct Script_ComponentScheme_SRDeimos : public Script_IComponentScheme
 		this->m_switch_upper_bound = 0.0f;
 		this->m_health_lost = 0.0f;
 		this->m_movement_speed = 0.0f;
+        this->m_deimos_intensity = 0.0f;
 		this->m_postprocess_effector_name.clear();
 		this->m_postprocess_effector2_name.clear();
 		this->m_heartbeet_sound_name.clear();
@@ -3188,6 +3192,7 @@ private:
 	float m_switch_upper_bound;
 	float m_health_lost;
 	float m_movement_speed;
+    float m_deimos_intensity;
 	xr_string m_postprocess_effector_name;
 	xr_string m_camera_effector_name;
 	xr_string m_postprocess_effector2_name;
