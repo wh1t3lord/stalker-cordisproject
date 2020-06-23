@@ -34,7 +34,7 @@ public:
         MESSAGEI("added scheme to binder, name=%s scheme=%s section=%s",
             p_client_object->Name(), scheme_name.c_str(), section_name.c_str());
 
-        Script_ISchemeEntity* p_scheme = new Script_SchemePHHit(p_client_object, reinterpret_cast<DataBase::Script_IComponentScheme*>(storage));
+        Script_ISchemeEntity* p_scheme = new Script_SchemePHHit(p_client_object, reinterpret_cast<DataBase::Script_ComponentScheme_PHHit*>(storage));
         DataBase::Storage::getInstance().setStorageSchemesActions(p_client_object->ID(), scheme_name, p_scheme);
     }
 
