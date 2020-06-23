@@ -10,9 +10,9 @@ namespace Cordis
 namespace Scripts
 {
 Script_SchemeSRPsyAntenna::Script_SchemeSRPsyAntenna(
-    CScriptGameObject* const p_client_object, void* storage)
+    CScriptGameObject* const p_client_object, DataBase::Script_ComponentScheme_SRPsyAntenna* storage)
     : inherited_scheme(p_client_object, storage), m_state(_kPsyStateNotDefined),
-      m_manager_psy_antenna(&Script_PsyAntennaManager::getInstance())
+      m_manager_psy_antenna(&Script_PsyAntennaManager::getInstance()), m_p_storage(storage)
 {
     this->m_scheme_name = "sr_psy_antenna";
 }
@@ -47,7 +47,7 @@ void Script_SchemeSRPsyAntenna::update(const float delta)
 {
     CScriptGameObject* p_client_object = DataBase::Storage::getInstance().getActor();
 
-    if (XR_LOGIC::try_switch_to_another_section(this->m_npc, *this->m_p_storage, p_client_object))
+    if (XR_LOGIC::try_switch_to_another_section(this->m_npc, this->m_p_storage, p_client_object))
     {
         return;
     }
@@ -70,8 +70,7 @@ void Script_SchemeSRPsyAntenna::set_scheme(CScriptGameObject* const p_client_obj
         return;
     }
 
-    DataBase::Storage_Scheme* p_storage =
-        XR_LOGIC::assign_storage_and_bind(p_client_object, p_ini, scheme_name, section_name, gulag_name);
+    DataBase::Script_ComponentScheme_SRPsyAntenna* p_storage = XR_LOGIC::assign_storage_and_bind<DataBase::Script_ComponentScheme_SRPsyAntenna>(p_client_object, p_ini, scheme_name, section_name, gulag_name);
 
     if (!p_storage)
     {
@@ -86,43 +85,43 @@ void Script_SchemeSRPsyAntenna::set_scheme(CScriptGameObject* const p_client_obj
     if (fis_zero(intensity))
         intensity = 0.01f;
 
-    p_storage->setSRPsyAntennaIntensity(intensity);
+    p_storage->setIntensity(intensity);
 
     xr_string postprocess_name = Globals::Utils::cfg_get_string(p_ini, section_name, "postprocess");
 
     if (postprocess_name.empty())
         postprocess_name = "psy_antenna.ppe";
 
-    p_storage->setSRPsyAntennaPostProcessName(postprocess_name);
+    p_storage->setPostProcessName(postprocess_name);
 
     float hit_intensity = Globals::Utils::cfg_get_number(p_ini, section_name, "hit_intensity");
 
     if (fis_zero(hit_intensity))
         hit_intensity = 0.01f;
 
-    p_storage->setSRPsyAntennaHitIntensity(hit_intensity);
+    p_storage->setHitIntensity(hit_intensity);
 
-    p_storage->setSRPsyAntennaPhantomProbability(
+    p_storage->setPhantomProbability(
         Globals::Utils::cfg_get_number(p_ini, section_name, "phantom_prob") * 0.01f);
 
-    p_storage->setSRPsyAntennaMuteSoundThreshold(
+    p_storage->setMuteSoundThreshold(
         Globals::Utils::cfg_get_number(p_ini, section_name, "mute_sound_threshold"));
-    p_storage->setSRPsyAntennaNoStatic(Globals::Utils::cfg_get_bool(p_ini, section_name, "no_static"));
-    p_storage->setSRPsyAntennaNoMumble(Globals::Utils::cfg_get_bool(p_ini, section_name, "no_mumble"));
+    p_storage->setNoStatic(Globals::Utils::cfg_get_bool(p_ini, section_name, "no_static"));
+    p_storage->setNoMumble(Globals::Utils::cfg_get_bool(p_ini, section_name, "no_mumble"));
 
     xr_string wound_name = Globals::Utils::cfg_get_string(p_ini, section_name, "hit_type");
 
     if (wound_name.empty())
         wound_name = "wound";
 
-    p_storage->setSRPsyAntennaHitTypeName(wound_name);
+    p_storage->setHitTypeName(wound_name);
 
     float hit_frequency = Globals::Utils::cfg_get_number(p_ini, section_name, "hit_freq");
 
     if (fis_zero(hit_frequency))
         hit_frequency = 5000.0f;
 
-    p_storage->setSRPsyAntennaHitFrequency(hit_frequency);
+    p_storage->setHitFrequency(hit_frequency);
 }
 
 void Script_SchemeSRPsyAntenna::zone_enter(void)
@@ -132,51 +131,51 @@ void Script_SchemeSRPsyAntenna::zone_enter(void)
     CurrentGameUI()->enable_fake_indicators(true);
 
     float sound_intensity_base =
-        this->m_manager_psy_antenna->getSoundIntensityBase() + this->m_p_storage->getSRPsyAntennaIntensity();
+        this->m_manager_psy_antenna->getSoundIntensityBase() + this->m_p_storage->getIntensity();
     this->m_manager_psy_antenna->setSoundIntensityBase(sound_intensity_base);
 
     float mute_sound_threshold =
-        this->m_manager_psy_antenna->getMuteSoundThreshold() + this->m_p_storage->getSRPsyAntennaMuteSoundThreshold();
+        this->m_manager_psy_antenna->getMuteSoundThreshold() + this->m_p_storage->getMuteSoundThreshold();
     this->m_manager_psy_antenna->setMuteSoundThreshold(mute_sound_threshold);
 
     float hit_intensity =
-        this->m_manager_psy_antenna->getHitIntensity() + this->m_p_storage->getSRPsyAntennaIntensity();
+        this->m_manager_psy_antenna->getHitIntensity() + this->m_p_storage->getIntensity();
     this->m_manager_psy_antenna->setHitIntensity(hit_intensity);
 
     float phantom_spawn_probability = this->m_manager_psy_antenna->getPhantomSpawnProbability() +
-        this->m_p_storage->getSRPsyAntennaPhantomProbability();
+        this->m_p_storage->getPhantomProbability();
     this->m_manager_psy_antenna->setPhantomSpawnProbability(phantom_spawn_probability);
 
     this->m_manager_psy_antenna->setNoStatic(this->m_p_storage->IsSRPsyAntennaNoStatic());
     this->m_manager_psy_antenna->setNoMumble(this->m_p_storage->IsSRPsyAntennaNoMumble());
-    this->m_manager_psy_antenna->setHitTypeName(this->m_p_storage->getSRPsyAntennaHitTypeName());
-    this->m_manager_psy_antenna->setHitFrequency(this->m_p_storage->getSRPsyAntennaHitFrequency());
+    this->m_manager_psy_antenna->setHitTypeName(this->m_p_storage->getHitTypeName());
+    this->m_manager_psy_antenna->setHitFrequency(this->m_p_storage->getHitFrequency());
 
-    if (this->m_p_storage->getSRPsyAntennaPostProcessName().empty() ||
-        this->m_p_storage->getSRPsyAntennaPostProcessName() == "nil") // LorD: проверить будет ли дропать nil, если будет то найти и исправить когда это будет, чтобы все "nil" просто проверялись всегда как .empty()
+    if (this->m_p_storage->getPostProcessName().empty() ||
+        this->m_p_storage->getPostProcessName() == "nil") // LorD: проверить будет ли дропать nil, если будет то найти и исправить когда это будет, чтобы все "nil" просто проверялись всегда как .empty()
     {
         Msg("[Scripts/Script_SchemeSRPsyAntenna/update(delta)] WARNING: postprocess is 'nil' return!");
         return;
     }
 
-    if (this->m_manager_psy_antenna->getPostProcess().at(this->m_p_storage->getSRPsyAntennaPostProcessName()) ==
+    if (this->m_manager_psy_antenna->getPostProcess().at(this->m_p_storage->getPostProcessName()) ==
         std::tuple<float, float, std::uint32_t>(0.0f, 0.0f, 0))
     {
         this->m_manager_psy_antenna->AddPostProcessCount();
         std::uint32_t id = 1500 + this->m_manager_psy_antenna->getPostProcessCount();
         this->m_manager_psy_antenna->setPostProcess(
-            this->m_p_storage->getSRPsyAntennaPostProcessName(), std::make_tuple(0.0f, 0.0f, id));
+            this->m_p_storage->getPostProcessName(), std::make_tuple(0.0f, 0.0f, id));
 
-        Globals::Game::level::add_pp_effector(this->m_p_storage->getSRPsyAntennaPostProcessName().c_str(), id, true);
+        Globals::Game::level::add_pp_effector(this->m_p_storage->getPostProcessName().c_str(), id, true);
         Globals::Game::level::set_pp_effector_factor(id, 0.01f);
     }
 
     float intensity_base = std::get<_POSTPROCESS_GET_INTENSITY_BASE>(this->m_manager_psy_antenna->getPostProcess().at(
-                               this->m_p_storage->getSRPsyAntennaPostProcessName())) +
-        this->m_p_storage->getSRPsyAntennaIntensity();
+                               this->m_p_storage->getPostProcessName())) +
+        this->m_p_storage->getIntensity();
 
     this->m_manager_psy_antenna->setPostProcessIntensityBase(
-        this->m_p_storage->getSRPsyAntennaPostProcessName(), intensity_base);
+        this->m_p_storage->getPostProcessName(), intensity_base);
 }
 
 void Script_SchemeSRPsyAntenna::zone_leave(void)
@@ -185,38 +184,38 @@ void Script_SchemeSRPsyAntenna::zone_leave(void)
     CurrentGameUI()->enable_fake_indicators(false);
 
     float sound_intensity_base =
-        this->m_manager_psy_antenna->getSoundIntensityBase() - this->m_p_storage->getSRPsyAntennaIntensity();
+        this->m_manager_psy_antenna->getSoundIntensityBase() - this->m_p_storage->getIntensity();
     this->m_manager_psy_antenna->setSoundIntensityBase(sound_intensity_base);
 
     float mute_sound_threshold =
-        this->m_manager_psy_antenna->getMuteSoundThreshold() - this->m_p_storage->getSRPsyAntennaMuteSoundThreshold();
+        this->m_manager_psy_antenna->getMuteSoundThreshold() - this->m_p_storage->getMuteSoundThreshold();
     this->m_manager_psy_antenna->setMuteSoundThreshold(mute_sound_threshold);
 
     float hit_intensity =
-        this->m_manager_psy_antenna->getHitIntensity() - this->m_p_storage->getSRPsyAntennaHitIntensity();
+        this->m_manager_psy_antenna->getHitIntensity() - this->m_p_storage->getHitIntensity();
     this->m_manager_psy_antenna->setHitIntensity(hit_intensity);
 
     float phantom_probability = this->m_manager_psy_antenna->getPhantomSpawnProbability() -
-        this->m_p_storage->getSRPsyAntennaPhantomProbability();
+        this->m_p_storage->getPhantomProbability();
     this->m_manager_psy_antenna->setPhantomSpawnProbability(phantom_probability);
 
-    if (this->m_p_storage->getSRPsyAntennaPostProcessName() == "nil" || // LorD: проверить будет ли дропать nil, если будет то найти и исправить когда это будет, чтобы все "nil" просто проверялись всегда как .empty()
-        this->m_p_storage->getSRPsyAntennaPostProcessName().empty())
+    if (this->m_p_storage->getPostProcessName() == "nil" || // LorD: проверить будет ли дропать nil, если будет то найти и исправить когда это будет, чтобы все "nil" просто проверялись всегда как .empty()
+        this->m_p_storage->getPostProcessName().empty())
     {
-        Msg("[Scripts/Script_SchemeSRPsyAntenna/zone_leave()] WARNING: postprocess_name.empty() == true! You set an "
+        MESSAGEWR("postprocess_name.empty() == true! You set an "
             "empty string");
         return;
     }
 
-    if (this->m_manager_psy_antenna->getPostProcess().at(this->m_p_storage->getSRPsyAntennaPostProcessName()) !=
+    if (this->m_manager_psy_antenna->getPostProcess().at(this->m_p_storage->getPostProcessName()) !=
         std::tuple<float, float, std::uint32_t>(0.0f, 0.0f, 0))
     {
         float intensity_base =
             std::get<_POSTPROCESS_GET_INTENSITY_BASE>(
-                this->m_manager_psy_antenna->getPostProcess().at(this->m_p_storage->getSRPsyAntennaPostProcessName())) -
-            this->m_p_storage->getSRPsyAntennaIntensity();
+                this->m_manager_psy_antenna->getPostProcess().at(this->m_p_storage->getPostProcessName())) -
+            this->m_p_storage->getIntensity();
         this->m_manager_psy_antenna->setPostProcessIntensityBase(
-            this->m_p_storage->getSRPsyAntennaPostProcessName(), intensity_base);
+            this->m_p_storage->getPostProcessName(), intensity_base);
     }
 }
 
