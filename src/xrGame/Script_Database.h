@@ -3557,7 +3557,7 @@ private:
 };
 struct Script_ComponentScheme_PHOscillate : public Script_IComponentScheme
 {
-	Script_ComponentScheme_PHOscillate(void) : m_period(0) {}
+	Script_ComponentScheme_PHOscillate(void) : m_period(0), m_angle(0.0f), m_force(0.0f) {}
 
 	inline const xr_string& getJointName(void) const noexcept { return this->m_joint_name; }
 	inline void setJointName(const xr_string& joint_name) noexcept
@@ -3574,14 +3574,24 @@ struct Script_ComponentScheme_PHOscillate : public Script_IComponentScheme
 	inline std::uint32_t getPeriod(void) const noexcept { return this->m_period; }
 	inline void setPeriod(const std::uint32_t value) noexcept { this->m_period = value; }
 
+    inline float getAngle(void) const noexcept { return this->m_angle; }
+    inline void setAngle(const float value) noexcept { this->m_angle = value; }
+
+    inline float getForce(void) const noexcept { return this->m_force; }
+    inline void setForce(const float value) noexcept { this->m_force = value; }
+
 	inline void clear(void) noexcept
 	{
 		this->m_period = 0;
+        this->m_force = 0.0f;
+        this->m_angle = 0.0f;
 		this->m_joint_name.clear();
 	}
 
 private:
 	std::uint32_t m_period;
+    float m_angle;
+    float m_force;
 	xr_string m_joint_name;
 };
 
