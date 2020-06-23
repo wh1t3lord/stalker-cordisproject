@@ -23,7 +23,7 @@ namespace Cordis
         using inherited_scheme = Script_ISchemeStalker;
     public:
         Script_SchemeXRSleeper(const xr_string& action_name, DataBase::Script_ComponentScheme_XRSleeper* storage)
-            : inherited_scheme(nullptr, action_name, storage), m_is_reset(false), m_p_move_manager(DataBase::Storage::getInstance().getStorage().at(this->m_object->ID()).getMoveManager()), m_state(0)
+            : inherited_scheme(nullptr, action_name, storage), m_is_reset(false), m_p_move_manager(DataBase::Storage::getInstance().getStorage().at(this->m_object->ID()).getMoveManager()), m_state(0), m_p_storage(storage)
         {
 
         }
@@ -103,6 +103,7 @@ namespace Cordis
         bool m_is_reset;
         std::uint32_t m_state;
         Script_MoveManager* m_p_move_manager;
+        DataBase::Script_ComponentScheme_XRSleeper* m_p_storage;
     };
     }
 }

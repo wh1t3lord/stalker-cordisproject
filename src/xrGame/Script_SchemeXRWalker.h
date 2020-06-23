@@ -27,7 +27,7 @@ class Script_SchemeXRWalker : public Script_ISchemeStalker
 
 public:
     Script_SchemeXRWalker(void) = delete;
-    Script_SchemeXRWalker(const xr_string& action_name, void* storage);
+    Script_SchemeXRWalker(const xr_string& action_name, DataBase::Script_ComponentScheme_XRWalker* storage);
     ~Script_SchemeXRWalker(void);
 
     virtual void initialize(void);
@@ -73,7 +73,7 @@ public:
 
         p_planner->add_evaluator(properties.at("need_walker"), new Script_EvaluatorNeedWalker("walker_need", static_cast<DataBase::Script_ComponentScheme_XRWalker*>(storage)));
 
-        Script_SchemeXRWalker* const p_scheme = new Script_SchemeXRWalker("action_walker_activity", storage);
+        Script_SchemeXRWalker* const p_scheme = new Script_SchemeXRWalker("action_walker_activity", static_cast<DataBase::Script_ComponentScheme_XRWalker*>(storage));
         p_scheme->add_condition(CWorldProperty(StalkerDecisionSpace::eWorldPropertyAlive, true));
         p_scheme->add_condition(CWorldProperty(StalkerDecisionSpace::eWorldPropertyDanger, false));
         p_scheme->add_condition(CWorldProperty(StalkerDecisionSpace::eWorldPropertyEnemy, false));
@@ -104,6 +104,7 @@ private:
     bool m_is_in_camp;
     xr_vector<std::pair<std::function<bool(std::uint16_t, bool)>, xr_string>> m_avail_actions;
     Script_CampData* m_p_camp;
+    DataBase::Script_ComponentScheme_XRWalker* m_p_storage;
 };
 } // namespace Scripts
 } // namespace Cordis
