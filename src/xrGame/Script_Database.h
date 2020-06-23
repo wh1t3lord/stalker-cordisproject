@@ -3221,6 +3221,14 @@ struct Script_ComponentScheme_SRLight : public Script_IComponentScheme
 private:
 	bool m_is_light;
 };
+
+struct Script_ComponentScheme_SRNoWeapon : public Script_IComponentScheme
+{
+    Script_ComponentScheme_SRNoWeapon(void) {}
+
+private:
+};
+
 struct Script_ComponentScheme_SRParticle : public Script_IComponentScheme
 {
 	Script_ComponentScheme_SRParticle(void) : m_is_looped(false), m_mode(0) {}
