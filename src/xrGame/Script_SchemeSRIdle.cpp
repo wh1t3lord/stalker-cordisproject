@@ -5,8 +5,8 @@ namespace Cordis
 {
 namespace Scripts
 {
-Script_SchemeSRIdle::Script_SchemeSRIdle(CScriptGameObject* const p_client_object, void* storage)
-    : inherited_scheme(p_client_object, storage)
+Script_SchemeSRIdle::Script_SchemeSRIdle(CScriptGameObject* const p_client_object, DataBase::Script_ComponentScheme_SRIdle* storage)
+    : inherited_scheme(p_client_object, storage), m_p_storage(storage)
 {
     this->m_scheme_name = "sr_idle";
 }
@@ -21,7 +21,7 @@ void Script_SchemeSRIdle::reset_scheme(const bool value, CScriptGameObject* cons
 void Script_SchemeSRIdle::update(const float delta)
 {
     if (XR_LOGIC::try_switch_to_another_section(
-            this->m_npc, *this->m_p_storage, DataBase::Storage::getInstance().getActor()))
+            this->m_npc, this->m_p_storage, DataBase::Storage::getInstance().getActor()))
     {
         return;
     }
@@ -36,8 +36,8 @@ void Script_SchemeSRIdle::set_scheme(CScriptGameObject* const p_client_object, C
         return;
     }
 
-    DataBase::Storage_Scheme* p_storage =
-        XR_LOGIC::assign_storage_and_bind(p_client_object, p_ini, scheme_name, section_name, gulag_name);
+    DataBase::Script_ComponentScheme_SRIdle* p_storage =
+        XR_LOGIC::assign_storage_and_bind<DataBase::Script_ComponentScheme_SRIdle>(p_client_object, p_ini, scheme_name, section_name, gulag_name);
 
     if (!p_storage)
     {
