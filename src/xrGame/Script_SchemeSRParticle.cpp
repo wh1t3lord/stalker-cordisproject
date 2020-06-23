@@ -164,7 +164,7 @@ void Script_SchemeSRParticle::update(const float delta)
     this->IsEnd();
 
     XR_LOGIC::try_switch_to_another_section(
-        this->m_npc, *this->m_p_storage, DataBase::Storage::getInstance().getActor());
+        this->m_npc, this->m_p_storage, DataBase::Storage::getInstance().getActor());
 }
 
 void Script_SchemeSRParticle::deactivate(CScriptGameObject* const p_client_object)

@@ -3325,51 +3325,51 @@ struct Script_ComponentScheme_SRPsyAntenna : public Script_IComponentScheme
 		this->m_sr_psy_antenna_postprocess_name.clear();
 	}
 
-	inline float getSRPsyAntennaIntensity(void) const noexcept { return this->m_sr_psy_antenna_intensity; }
-	inline void setSRPsyAntennaIntensity(const float value) noexcept { this->m_sr_psy_antenna_intensity = value; }
+	inline float getIntensity(void) const noexcept { return this->m_sr_psy_antenna_intensity; }
+	inline void setIntensity(const float value) noexcept { this->m_sr_psy_antenna_intensity = value; }
 
-	inline float getSRPsyAntennaHitIntensity(void) const noexcept { return this->m_sr_psy_antenna_hit_intensity; }
-	inline void setSRPsyAntennaHitIntensity(const float value) noexcept
+	inline float getHitIntensity(void) const noexcept { return this->m_sr_psy_antenna_hit_intensity; }
+	inline void setHitIntensity(const float value) noexcept
 	{
 		this->m_sr_psy_antenna_hit_intensity = value;
 	}
 
-	inline float getSRPsyAntennaPhantomProbability(void) const noexcept
+	inline float getPhantomProbability(void) const noexcept
 	{
 		return this->m_sr_psy_antenna_phantom_probability;
 	}
-	inline void setSRPsyAntennaPhantomProbability(const float value) noexcept
+	inline void setPhantomProbability(const float value) noexcept
 	{
 		this->m_sr_psy_antenna_phantom_probability = value;
 	}
 
-	inline float getSRPsyAntennaMuteSoundThreshold(void) const noexcept
+	inline float getMuteSoundThreshold(void) const noexcept
 	{
 		return this->m_sr_psy_antenna_mute_sound_threshold;
 	}
 
-	inline void setSRPsyAntennaMuteSoundThreshold(const float value) noexcept
+	inline void setMuteSoundThreshold(const float value) noexcept
 	{
 		this->m_sr_psy_antenna_mute_sound_threshold = value;
 	}
 
-	inline float getSRPsyAntennaHitFrequency(void) const noexcept { return this->m_sr_psy_antenna_hit_frequency; }
-	inline void setSRPsyAntennaHitFrequency(const float value) noexcept
+	inline float getHitFrequency(void) const noexcept { return this->m_sr_psy_antenna_hit_frequency; }
+	inline void setHitFrequency(const float value) noexcept
 	{
 		this->m_sr_psy_antenna_hit_frequency = value;
 	}
 
-	inline bool IsSRPsyAntennaNoStatic(void) const noexcept { return this->m_is_sr_psy_antenna_no_static; }
-	inline void setSRPsyAntennaNoStatic(const bool value) noexcept { this->m_is_sr_psy_antenna_no_static = value; }
+	inline bool IsNoStatic(void) const noexcept { return this->m_is_sr_psy_antenna_no_static; }
+	inline void setNoStatic(const bool value) noexcept { this->m_is_sr_psy_antenna_no_static = value; }
 
-	inline bool IsSRPsyAntennaNoMumble(void) const noexcept { return this->m_is_sr_psy_antenna_no_mumble; }
-	inline void setSRPsyAntennaNoMumble(const bool value) noexcept { this->m_is_sr_psy_antenna_no_mumble = value; }
+	inline bool IsNoMumble(void) const noexcept { return this->m_is_sr_psy_antenna_no_mumble; }
+	inline void setNoMumble(const bool value) noexcept { this->m_is_sr_psy_antenna_no_mumble = value; }
 
-	inline const xr_string& getSRPsyAntennaPostProcessName(void) const noexcept
+	inline const xr_string& getPostProcessName(void) const noexcept
 	{
 		return this->m_sr_psy_antenna_postprocess_name;
 	}
-	inline void setSRPsyAntennaPostProcessName(const xr_string& postprocess_name) noexcept
+	inline void setPostProcessName(const xr_string& postprocess_name) noexcept
 	{
 		if (postprocess_name.empty())
 		{
@@ -3379,11 +3379,11 @@ struct Script_ComponentScheme_SRPsyAntenna : public Script_IComponentScheme
 		this->m_sr_psy_antenna_postprocess_name = postprocess_name;
 	}
 
-	inline const xr_string& getSRPsyAntennaHitTypeName(void) const noexcept
+	inline const xr_string& getHitTypeName(void) const noexcept
 	{
 		return this->m_sr_psy_antenna_hit_type_name;
 	}
-	inline void setSRPsyAntennaHitTypeName(const xr_string& hit_type_name) noexcept
+	inline void setHitTypeName(const xr_string& hit_type_name) noexcept
 	{
 		if (hit_type_name.empty())
 		{
