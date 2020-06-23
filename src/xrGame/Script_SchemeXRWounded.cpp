@@ -20,8 +20,8 @@ namespace Cordis
 			this->m_object->set_desired_position();
 			this->m_object->set_desired_direction();
 
-			if (this->m_p_storage->getXRWoundedHelpStartDialogName().empty() == false)
-				this->m_object->SetStartDialog(this->m_p_storage->getXRWoundedHelpStartDialogName().c_str());
+			if (this->m_p_storage->getHelpStartDialogName().empty() == false)
+				this->m_object->SetStartDialog(this->m_p_storage->getHelpStartDialogName().c_str());
 
 			this->m_object->enable_movement(false);
 			this->m_object->DisableTrade();
@@ -44,7 +44,7 @@ namespace Cordis
 				p_victim = Globals::get_story_object(wounded_victim_name);
 			}
 
-			if (this->m_p_storage->isXRWoundedAutoHeal())
+			if (this->m_p_storage->isAutoHeal())
 			{
 				if (this->m_p_storage->getWoundedManager()->isCanUseMedkit() == false)
 				{
@@ -79,7 +79,7 @@ namespace Cordis
 			}
 			else
 			{
-				if (this->m_p_storage->isXRWoundedUseMedkit())
+				if (this->m_p_storage->isUseMedkit())
 					this->m_p_storage->getWoundedManager()->eat_medkit();
 
 				if (wounded_state_name.empty() == false)
@@ -128,10 +128,10 @@ namespace Cordis
 			operators["wounded"] = Globals::XR_ACTIONS_ID::kSidorActWoundedBase;
 
 			CScriptActionPlanner* const p_planner = Globals::get_script_action_planner(p_client_object);
-			p_planner->add_evaluator(properties.at("wounded"), new Script_EvaluatorWound("wounded", storage));
-			p_planner->add_evaluator(properties.at("can_fight"), new Script_EvaluatorCanFight("can_fight", storage));
+			p_planner->add_evaluator(properties.at("wounded"), new Script_EvaluatorWound("wounded", static_cast<DataBase::Script_ComponentScheme_XRWounded*>(storage)));
+			p_planner->add_evaluator(properties.at("can_fight"), new Script_EvaluatorCanFight("can_fight", static_cast<DataBase::Script_ComponentScheme_XRWounded*>(storage)));
 
-			Script_SchemeXRWounded* p_scheme = new Script_SchemeXRWounded("wounded_action", storage);
+			Script_SchemeXRWounded* p_scheme = new Script_SchemeXRWounded("wounded_action", static_cast<DataBase::Script_ComponentScheme_XRWounded*>(storage));
 			p_scheme->add_condition(CWorldProperty(StalkerDecisionSpace::eWorldPropertyAlive, true));
 			p_scheme->add_condition(CWorldProperty(properties.at("wounded"), true));
 			p_scheme->add_effect(CWorldProperty(properties.at("wounded"), false));
@@ -148,8 +148,8 @@ namespace Cordis
 
 		void Script_SchemeXRWounded::set_wounded(CScriptGameObject* const p_client_object, CScriptIniFile* const p_ini, const xr_string& scheme_name, const xr_string& section_name, const xr_string& gulag_name)
 		{
-			DataBase::Storage_Scheme* p_storage = XR_LOGIC::assign_storage_and_bind(p_client_object, p_ini, scheme_name, section_name, "");
-			p_storage->setWoundedManager(new Script_WoundedManager(p_client_object, *p_storage));
+			DataBase::Script_ComponentScheme_XRWounded* p_storage = XR_LOGIC::assign_storage_and_bind<DataBase::Script_ComponentScheme_XRWounded>(p_client_object, p_ini, scheme_name, section_name, "");
+			p_storage->setWoundedManager(new Script_WoundedManager(p_client_object, p_storage));
 		}
 
 		void Script_SchemeXRWounded::reset_wounded(CScriptGameObject* const p_client_object, const xr_string& scheme_name, const DataBase::Storage_Data& storage, const xr_string& section_name)
@@ -160,13 +160,13 @@ namespace Cordis
 			else
 				wounded_section_name = Globals::Utils::cfg_get_string(storage.getIni(), section_name, "wounded");
 
-			init_wounded(p_client_object, storage.getIni(), wounded_section_name, storage.getSchemes().at("wounded"), scheme_name);
-			storage.getSchemes().at("wounded")->getWoundedManager()->hit_callback();
+			init_wounded(p_client_object, storage.getIni(), wounded_section_name, static_cast<DataBase::Script_ComponentScheme_XRWounded*>(storage.getSchemes().at("wounded")), scheme_name);
+			static_cast<DataBase::Script_ComponentScheme_XRWounded*>(storage.getSchemes().at("wounded"))->getWoundedManager()->hit_callback();
 		}
 
-		void Script_SchemeXRWounded::init_wounded(CScriptGameObject* const p_client_object, CScriptIniFile* const p_ini, const xr_string& section_name, DataBase::Storage_Scheme* p_storage, const xr_string& scheme_name)
+		void Script_SchemeXRWounded::init_wounded(CScriptGameObject* const p_client_object, CScriptIniFile* const p_ini, const xr_string& section_name, DataBase::Script_ComponentScheme_XRWounded* p_storage, const xr_string& scheme_name)
 		{
-			if (section_name == p_storage->getXRWoundedWoundedSectionName() && (section_name.empty() == false))
+			if (section_name == p_storage->getWoundedSectionName() && (section_name.empty() == false))
 				return;
 
 			if (!p_client_object)
@@ -175,7 +175,7 @@ namespace Cordis
 				return;
 			}
 
-			p_storage->setXRWoundedWoundedSectionName(section_name);
+			p_storage->setWoundedSectionName(section_name);
 			xr_map<xr_string, xr_string> defaults;
 			bool is_default_use_medkit = false;
 			bool is_default_enable_talk = true;
@@ -245,18 +245,18 @@ namespace Cordis
 
             if (section_name.empty())
             {
-                p_storage->setXRWoundedHealthState(Globals::Utils::parse_data(defaults.at("hp_state")));
-                p_storage->setXRWoundedHealthStateSee(Globals::Utils::parse_data(defaults.at("hp_state_see")));
-                p_storage->setXRWoundedPsyState(Globals::Utils::parse_data(defaults.at("psy_state")));
-                p_storage->setXRWoundedHealthVictim(Globals::Utils::parse_data(defaults.at("hp_victim")));
-                p_storage->setXRWoundedHealthCover(Globals::Utils::parse_data(defaults.at("hp_cover")));
-                p_storage->setXRWoundedHealthFight(Globals::Utils::parse_data(defaults.at("hp_fight")));
-                p_storage->setXRWoundedHelpDialogName(defaults.at("help_dialog"));
-                p_storage->setXRWoundedHelpStartDialogName("");
-                p_storage->setXRWoundedUseMedkit(is_default_use_medkit);
-                p_storage->setXRWoundedAutoHeal(true);
-                p_storage->setXRWoundedEnableTalk(true);
-                p_storage->setXRWoundedNotForHelp(is_default_not_for_help);
+                p_storage->setHealthState(Globals::Utils::parse_data(defaults.at("hp_state")));
+                p_storage->setHealthStateSee(Globals::Utils::parse_data(defaults.at("hp_state_see")));
+                p_storage->setPsyState(Globals::Utils::parse_data(defaults.at("psy_state")));
+                p_storage->setHealthVictim(Globals::Utils::parse_data(defaults.at("hp_victim")));
+                p_storage->setHealthCover(Globals::Utils::parse_data(defaults.at("hp_cover")));
+                p_storage->setHealthFight(Globals::Utils::parse_data(defaults.at("hp_fight")));
+                p_storage->setHelpDialogName(defaults.at("help_dialog"));
+                p_storage->setHelpStartDialogName("");
+                p_storage->setUseMedkit(is_default_use_medkit);
+                p_storage->setAutoHeal(true);
+                p_storage->setEnableTalk(true);
+                p_storage->setNotForHelp(is_default_not_for_help);
             }
             else
             {
@@ -264,56 +264,56 @@ namespace Cordis
                 if (hp_state_name.empty())
                     hp_state_name = defaults.at("hp_state");
                 
-                p_storage->setXRWoundedHealthState(Globals::Utils::parse_data(hp_state_name));
+                p_storage->setHealthState(Globals::Utils::parse_data(hp_state_name));
 
                 xr_string hp_state_see_name = Globals::Utils::cfg_get_string(p_ini, section_name, "hp_state_see");
                 if (hp_state_see_name.empty())
                     hp_state_see_name = defaults.at("hp_state_see");
 
-                p_storage->setXRWoundedHealthStateSee(Globals::Utils::parse_data(hp_state_see_name));
+                p_storage->setHealthStateSee(Globals::Utils::parse_data(hp_state_see_name));
 
                 xr_string psy_state_name = Globals::Utils::cfg_get_string(p_ini, section_name, "psy_state");
                 if (psy_state_name.empty())
                     psy_state_name = defaults.at("psy_state");
 
-                p_storage->setXRWoundedPsyState(Globals::Utils::parse_data(psy_state_name));
+                p_storage->setPsyState(Globals::Utils::parse_data(psy_state_name));
 
                 xr_string hp_victim_name = Globals::Utils::cfg_get_string(p_ini, section_name, "hp_victim");
                 if (hp_victim_name.empty())
                     hp_victim_name = defaults.at("hp_victim");
 
-                p_storage->setXRWoundedHealthFight(Globals::Utils::parse_data(hp_victim_name));
+                p_storage->setHealthFight(Globals::Utils::parse_data(hp_victim_name));
 
                 xr_string hp_cover_name = Globals::Utils::cfg_get_string(p_ini, section_name, "hp_cover");
                 if (hp_cover_name.empty())
                     hp_cover_name = defaults.at("hp_cover");
 
-                p_storage->setXRWoundedHealthCover(Globals::Utils::parse_data(hp_cover_name));
+                p_storage->setHealthCover(Globals::Utils::parse_data(hp_cover_name));
 
                 xr_string hp_fight_name = Globals::Utils::cfg_get_string(p_ini, section_name, "hp_fight");
                 if (hp_fight_name.empty())
                     hp_fight_name = defaults.at("hp_fight");
 
-                p_storage->setXRWoundedHealthFight(Globals::Utils::parse_data(hp_fight_name));
+                p_storage->setHealthFight(Globals::Utils::parse_data(hp_fight_name));
 
                 xr_string help_dialog_name = Globals::Utils::cfg_get_string(p_ini, section_name, "help_dialog");
                 if (help_dialog_name.empty())
                     help_dialog_name = defaults.at("help_dialog");
 
-                p_storage->setXRWoundedHelpDialogName(help_dialog_name);
+                p_storage->setHelpDialogName(help_dialog_name);
 
-                p_storage->setXRWoundedHelpStartDialogName(Globals::Utils::cfg_get_string(p_ini, section_name, "help_start_dialog"));
+                p_storage->setHelpStartDialogName(Globals::Utils::cfg_get_string(p_ini, section_name, "help_start_dialog"));
 
-                p_storage->setXRWoundedUseMedkit(Globals::Utils::cfg_get_bool(p_ini, section_name, "use_medkit"));
-                p_storage->setXRWoundedAutoHeal(Globals::Utils::cfg_get_bool(p_ini, section_name, "autoheal"));
-                p_storage->setXRWoundedEnableTalk(Globals::Utils::cfg_get_bool(p_ini, section_name, "enable_talk"));
-                p_storage->setXRWoundedNotForHelp(Globals::Utils::cfg_get_bool(p_ini, section_name, "not_for_help"));
+                p_storage->setUseMedkit(Globals::Utils::cfg_get_bool(p_ini, section_name, "use_medkit"));
+                p_storage->setAutoHeal(Globals::Utils::cfg_get_bool(p_ini, section_name, "autoheal"));
+                p_storage->setEnableTalk(Globals::Utils::cfg_get_bool(p_ini, section_name, "enable_talk"));
+                p_storage->setNotForHelp(Globals::Utils::cfg_get_bool(p_ini, section_name, "not_for_help"));
             }
 
-            p_storage->setXRWoundedSet(true);
+            p_storage->setSet(true);
 		}
 
-		Script_WoundedManager::Script_WoundedManager(CScriptGameObject* const p_client_object, void* storage) : m_is_can_use_medkit(false), m_p_npc(p_client_object), m_p_storage(&storage)
+		Script_WoundedManager::Script_WoundedManager(CScriptGameObject* const p_client_object, DataBase::Script_ComponentScheme_XRWounded* storage) : m_is_can_use_medkit(false), m_p_npc(p_client_object), m_p_storage(storage)
 		{
 		}
 
@@ -381,7 +381,7 @@ namespace Cordis
 
 		void Script_WoundedManager::process_fight(const std::uint32_t health, xr_string& result_name)
 		{
-			std::uint32_t key = this->get_key_from_distance(this->m_p_storage->getXRWoundedHealthFight(), health);
+			std::uint32_t key = this->get_key_from_distance(this->m_p_storage->getHealthFight(), health);
 
 			if (key == 0)
 			{
@@ -394,13 +394,13 @@ namespace Cordis
 				return;
 			}
 
-			if (this->m_p_storage->getXRWoundedHealthFight().empty())
+			if (this->m_p_storage->getHealthFight().empty())
 			{
 				result_name = Globals::kStringTrue;
 				return;
 			}
 
-			const xr_map<std::uint32_t, CondlistData>& condlist_state = std::get<_kGetStateCondlist>(this->m_p_storage->getXRWoundedHealthFight().at(key));
+			const xr_map<std::uint32_t, CondlistData>& condlist_state = std::get<_kGetStateCondlist>(this->m_p_storage->getHealthFight().at(key));
 
 			if (condlist_state.empty() == false)
 				result_name = XR_LOGIC::pick_section_from_condlist(DataBase::Storage::getInstance().getActor(), this->m_p_npc, condlist_state);
@@ -410,7 +410,7 @@ namespace Cordis
 
 		void Script_WoundedManager::process_victim(const std::uint32_t health, xr_string& result_name)
 		{
-			std::uint32_t key = this->get_key_from_distance(this->m_p_storage->getXRWoundedHealthVictim(), health);
+			std::uint32_t key = this->get_key_from_distance(this->m_p_storage->getHealthVictim(), health);
 
 			if (key == 0)
 			{
@@ -423,7 +423,7 @@ namespace Cordis
 				return;
 			}
 
-			const xr_map<std::uint32_t, CondlistData>& condlist_state = std::get<_kGetStateCondlist>(this->m_p_storage->getXRWoundedHealthVictim().at(key));
+			const xr_map<std::uint32_t, CondlistData>& condlist_state = std::get<_kGetStateCondlist>(this->m_p_storage->getHealthVictim().at(key));
 
 			if (condlist_state.empty() == false)
 				result_name = XR_LOGIC::pick_section_from_condlist(DataBase::Storage::getInstance().getActor(), this->m_p_npc, condlist_state);
@@ -433,7 +433,7 @@ namespace Cordis
 
 		void Script_WoundedManager::process_hp_wound(const std::uint32_t health, xr_string& state_name, xr_string& sound_name)
 		{
-			std::uint32_t key = this->get_key_from_distance(this->m_p_storage->getXRWoundedHealthState(), health);
+			std::uint32_t key = this->get_key_from_distance(this->m_p_storage->getHealthState(), health);
 
 			if (key == 0)
 			{
@@ -448,8 +448,8 @@ namespace Cordis
 
 			if (this->m_p_npc->CheckObjectVisibility(DataBase::Storage::getInstance().getActor()))
 			{
-				const xr_map<std::uint32_t, CondlistData>& condlist_state = std::get<_kGetStateCondlist>(this->m_p_storage->getXRWoundedHealthStateSee().at(key));
-				const xr_map<std::uint32_t, CondlistData>& condlist_sound = std::get<_kGetSoundCondlist>(this->m_p_storage->getXRWoundedHealthStateSee().at(key));
+				const xr_map<std::uint32_t, CondlistData>& condlist_state = std::get<_kGetStateCondlist>(this->m_p_storage->getHealthStateSee().at(key));
+				const xr_map<std::uint32_t, CondlistData>& condlist_sound = std::get<_kGetSoundCondlist>(this->m_p_storage->getHealthStateSee().at(key));
 
 				if (condlist_state.empty() == false)
 					state_name = XR_LOGIC::pick_section_from_condlist(DataBase::Storage::getInstance().getActor(), this->m_p_npc, condlist_state);
@@ -463,8 +463,8 @@ namespace Cordis
 			}
 			else
 			{
-				const xr_map<std::uint32_t, CondlistData>& condlist_state = std::get<_kGetStateCondlist>(this->m_p_storage->getXRWoundedHealthState().at(key));
-				const xr_map<std::uint32_t, CondlistData>& condlist_sound = std::get<_kGetSoundCondlist>(this->m_p_storage->getXRWoundedHealthState().at(key));
+				const xr_map<std::uint32_t, CondlistData>& condlist_state = std::get<_kGetStateCondlist>(this->m_p_storage->getHealthState().at(key));
+				const xr_map<std::uint32_t, CondlistData>& condlist_sound = std::get<_kGetSoundCondlist>(this->m_p_storage->getHealthState().at(key));
 
 				if (condlist_state.empty() == false)
 					state_name = XR_LOGIC::pick_section_from_condlist(DataBase::Storage::getInstance().getActor(), this->m_p_npc, condlist_state);
@@ -480,7 +480,7 @@ namespace Cordis
 
 		void Script_WoundedManager::process_psy_wound(const std::uint32_t health, xr_string& state_name, xr_string& sound_name)
 		{
-			std::uint32_t key = this->get_key_from_distance(this->m_p_storage->getXRWoundedPsyState(), health);
+			std::uint32_t key = this->get_key_from_distance(this->m_p_storage->getPsyState(), health);
 			if (key == 0)
 			{
 				MESSAGEW("maybe it is not right! Check data in debug mode!");
@@ -492,8 +492,8 @@ namespace Cordis
 				return;
 			}
 
-			const xr_map<std::uint32_t, CondlistData>& state_condlist = std::get<_kGetStateCondlist>(this->m_p_storage->getXRWoundedPsyState().at(key));
-			const xr_map<std::uint32_t, CondlistData>& sound_condlist = std::get<_kGetSoundCondlist>(this->m_p_storage->getXRWoundedPsyState().at(key));
+			const xr_map<std::uint32_t, CondlistData>& state_condlist = std::get<_kGetStateCondlist>(this->m_p_storage->getPsyState().at(key));
+			const xr_map<std::uint32_t, CondlistData>& sound_condlist = std::get<_kGetSoundCondlist>(this->m_p_storage->getPsyState().at(key));
 
 			if (state_condlist.empty() == false)
 				state_name = XR_LOGIC::pick_section_from_condlist(DataBase::Storage::getInstance().getActor(), this->m_p_npc, state_condlist);
@@ -545,7 +545,7 @@ namespace Cordis
 			if (this->m_object->in_smart_cover())
 				return false;
 
-			if (this->m_p_storage->isXRWoundedSet() == false)
+			if (this->m_p_storage->isSet() == false)
 				return false;
 
 			this->m_p_storage->getWoundedManager()->update();

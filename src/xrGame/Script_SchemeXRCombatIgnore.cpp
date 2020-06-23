@@ -5,7 +5,7 @@ namespace Cordis
 {
 	namespace Scripts
 	{
-		Script_SchemeXRCombatIgnore::Script_SchemeXRCombatIgnore(CScriptGameObject* const p_client_object, void* storage) : Script_ISchemeEntity(p_client_object, storage)
+		Script_SchemeXRCombatIgnore::Script_SchemeXRCombatIgnore(CScriptGameObject* const p_client_object, DataBase::Script_ComponentScheme_XRCombatIgnore* storage) : Script_ISchemeEntity(p_client_object, storage), m_p_storage(storage)
 		{
 		}
 
@@ -98,7 +98,7 @@ namespace Cordis
 			}
 		}
 
-		bool Script_SchemeXRCombatIgnore::is_enemy_xr_combat_ignore(CScriptGameObject* const p_client_object, CScriptGameObject* const p_enemy, DataBase::Storage_Scheme* p_storage)
+		bool Script_SchemeXRCombatIgnore::is_enemy_xr_combat_ignore(CScriptGameObject* const p_client_object, CScriptGameObject* const p_enemy, DataBase::Script_ComponentScheme_XRCombatIgnore* p_storage)
 		{
 			if (!p_client_object)
 			{
@@ -213,10 +213,10 @@ namespace Cordis
 			return true;
 		}
 
-		void Script_SchemeXRCombatIgnore::add_to_binder(CScriptGameObject* const p_client_object, CScriptIniFile* const p_ini, const xr_string& scheme_name, const xr_string& section_name, void* storage)
+		void Script_SchemeXRCombatIgnore::add_to_binder(CScriptGameObject* const p_client_object, CScriptIniFile* const p_ini, const xr_string& scheme_name, const xr_string& section_name, DataBase::Script_IComponentScheme* storage)
 		{
-			Script_SchemeXRCombatIgnore* const p_scheme = new Script_SchemeXRCombatIgnore(p_client_object, storage);
-			storage.setAction(p_scheme);
+			Script_SchemeXRCombatIgnore* const p_scheme = new Script_SchemeXRCombatIgnore(p_client_object, static_cast<DataBase::Script_ComponentScheme_XRCombatIgnore*>(storage));
+			storage->setAction(p_scheme);
 		}
 
 		void Script_SchemeXRCombatIgnore::set_combat_ignore_checker(CScriptGameObject* const p_npc, CScriptIniFile* const p_ini, const xr_string& scheme_name, const xr_string& section_name, const xr_string& gulag_name)

@@ -9,8 +9,6 @@ namespace Cordis
 {
     namespace Scripts
     {
-   
-
     Script_SchemeXRSleeper::~Script_SchemeXRSleeper(void) {}
 
     void Script_SchemeXRSleeper::initialize(void) 
@@ -119,8 +117,8 @@ namespace Cordis
     void Script_SchemeXRSleeper::set_scheme(CScriptGameObject* const p_client_object, CScriptIniFile* const p_ini,
         const xr_string& scheme_name, const xr_string& section_name, const xr_string& gulag_name)
     {
-        DataBase::Storage_Scheme* const p_storage =
-            XR_LOGIC::assign_storage_and_bind(p_client_object, p_ini, scheme_name, section_name, gulag_name);
+        DataBase::Script_ComponentScheme_XRSleeper* const p_storage =
+            XR_LOGIC::assign_storage_and_bind<DataBase::Script_ComponentScheme_XRSleeper>(p_client_object, p_ini, scheme_name, section_name, gulag_name);
 
         p_storage->setLogic(XR_LOGIC::cfg_get_switch_conditions(p_ini, section_name, p_client_object));
         p_storage->setPathMainName(Globals::Utils::cfg_get_string(p_ini, section_name, "path_main"));

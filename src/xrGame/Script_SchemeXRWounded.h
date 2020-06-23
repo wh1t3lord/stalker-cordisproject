@@ -46,7 +46,7 @@ namespace Cordis
 				const xr_string& scheme_name, const xr_string& section_name, void* storage);
 			static void set_wounded(CScriptGameObject* const p_client_object, CScriptIniFile* const p_ini, const xr_string& scheme_name, const xr_string& section_name, const xr_string& gulag_name);
 			static void reset_wounded(CScriptGameObject* const p_client_object, const xr_string& scheme_name, const DataBase::Storage_Data& storage, const xr_string& section_name);
-			static void init_wounded(CScriptGameObject* const p_client_object, CScriptIniFile* const p_ini, const xr_string& section_name, DataBase::Storage_Scheme* p_storage, const xr_string& scheme_name);
+			static void init_wounded(CScriptGameObject* const p_client_object, CScriptIniFile* const p_ini, const xr_string& section_name, DataBase::Script_ComponentScheme_XRWounded* p_storage, const xr_string& scheme_name);
 
 		private:
 			DataBase::Script_ComponentScheme_XRWounded* m_p_storage;
@@ -56,7 +56,7 @@ namespace Cordis
 		{
 		public:
 			Script_WoundedManager(void) = delete;
-			Script_WoundedManager(CScriptGameObject* const p_client_object, void* storage);
+			Script_WoundedManager(CScriptGameObject* const p_client_object, DataBase::Script_ComponentScheme_XRWounded* storage);
 			~Script_WoundedManager(void);
 
 			void update(void);
@@ -73,7 +73,7 @@ namespace Cordis
 		private:
 			bool m_is_can_use_medkit;
 			CScriptGameObject* m_p_npc;
-			DataBase::Storage_Scheme* m_p_storage;
+			DataBase::Script_ComponentScheme_XRWounded* m_p_storage;
 			xr_string m_state_name;
 			xr_string m_sound_name;
 			xr_string m_fight_name;

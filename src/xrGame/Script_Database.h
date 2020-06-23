@@ -2048,8 +2048,8 @@ struct Script_ComponentScheme_XRCombatIgnore : public Script_IComponentScheme
 {
 	Script_ComponentScheme_XRCombatIgnore(void) : m_is_ignore_enabled(false) {}
 
-	inline bool isEnabled(void) const noexcept { return this->m_is_ignore_enabled; }
-	inline void setEnabled(const bool value) noexcept { this->m_is_ignore_enabled = value; }
+	inline bool isXRCombatIgnoreEnabled(void) const noexcept { return this->m_is_ignore_enabled; }
+	inline void setXRCombatIgnoreEnabled(const bool value) noexcept { this->m_is_ignore_enabled = value; }
 
 	inline void clear(void) noexcept { this->m_is_ignore_enabled = false; }
 private:
@@ -2067,23 +2067,23 @@ struct Script_ComponentScheme_XRWounded : public Script_IComponentScheme
 		}
 	}
 
-	inline bool isXRWoundedSet(void) const noexcept { return this->m_is_xr_wounded_set; }
-	inline void setXRWoundedSet(const bool value) noexcept { this->m_is_xr_wounded_set = value; }
+	inline bool isSet(void) const noexcept { return this->m_is_xr_wounded_set; }
+	inline void setSet(const bool value) noexcept { this->m_is_xr_wounded_set = value; }
 
-	inline bool isXRWoundedUseMedkit(void) const noexcept { return this->m_is_xr_wounded_use_medkit; }
-	inline void setXRWoundedUseMedkit(const bool value) noexcept { this->m_is_xr_wounded_use_medkit = value; }
+	inline bool isUseMedkit(void) const noexcept { return this->m_is_xr_wounded_use_medkit; }
+	inline void setUseMedkit(const bool value) noexcept { this->m_is_xr_wounded_use_medkit = value; }
 
-	inline bool isXRWoundedAutoHeal(void) const noexcept { return this->m_is_xr_wounded_autoheal; }
-	inline void setXRWoundedAutoHeal(const bool value) noexcept { this->m_is_xr_wounded_autoheal = value; }
+	inline bool isAutoHeal(void) const noexcept { return this->m_is_xr_wounded_autoheal; }
+	inline void setAutoHeal(const bool value) noexcept { this->m_is_xr_wounded_autoheal = value; }
 
-	inline bool isXRWoundedEnableTalk(void) const noexcept { return this->m_is_xr_wounded_enable_talk; }
-	inline void setXRWoundedEnableTalk(const bool value) noexcept { this->m_is_xr_wounded_enable_talk = value; }
+	inline bool isEnableTalk(void) const noexcept { return this->m_is_xr_wounded_enable_talk; }
+	inline void setEnableTalk(const bool value) noexcept { this->m_is_xr_wounded_enable_talk = value; }
 
-	inline bool isXRWoundedNotForHelp(void) const noexcept { return this->m_is_xr_wounded_not_for_help; }
-	inline void setXRWoundedNotForHelp(const bool value) noexcept { this->m_is_xr_wounded_not_for_help = value; }
+	inline bool isNotForHelp(void) const noexcept { return this->m_is_xr_wounded_not_for_help; }
+	inline void setNotForHelp(const bool value) noexcept { this->m_is_xr_wounded_not_for_help = value; }
 
-	inline const xr_string& getXRWoundedHelpDialogName(void) const noexcept { return this->m_xr_wounded_help_dialog_name; }
-	inline void setXRWoundedHelpDialogName(const xr_string& dialog_name) noexcept
+	inline const xr_string& getHelpDialogName(void) const noexcept { return this->m_xr_wounded_help_dialog_name; }
+	inline void setHelpDialogName(const xr_string& dialog_name) noexcept
 	{
 		if (dialog_name.empty())
 		{
@@ -2093,8 +2093,8 @@ struct Script_ComponentScheme_XRWounded : public Script_IComponentScheme
 		this->m_xr_wounded_help_dialog_name = dialog_name;
 	}
 
-	inline const xr_string& getXRWoundedHelpStartDialogName(void) const noexcept { return this->m_xr_wounded_help_start_dialog_name; }
-	inline void setXRWoundedHelpStartDialogName(const xr_string& dialog_start_name) noexcept
+	inline const xr_string& getHelpStartDialogName(void) const noexcept { return this->m_xr_wounded_help_start_dialog_name; }
+	inline void setHelpStartDialogName(const xr_string& dialog_start_name) noexcept
 	{
 		if (dialog_start_name.empty())
 		{
@@ -2104,44 +2104,44 @@ struct Script_ComponentScheme_XRWounded : public Script_IComponentScheme
 		this->m_xr_wounded_help_start_dialog_name = dialog_start_name;
 	}
 
-	inline const xr_map<std::uint32_t, std::tuple<std::uint32_t, xr_map<std::uint32_t, CondlistData>, xr_map<std::uint32_t, CondlistData>>>& getXRWoundedHealthState(void) const noexcept { return this->m_xr_wounded_health_state; }
-	inline void setXRWoundedHealthState(xr_map<std::uint32_t, std::tuple<std::uint32_t, xr_map<std::uint32_t, CondlistData>, xr_map<std::uint32_t, CondlistData>>>& data) noexcept
+	inline const xr_map<std::uint32_t, std::tuple<std::uint32_t, xr_map<std::uint32_t, CondlistData>, xr_map<std::uint32_t, CondlistData>>>& getHealthState(void) const noexcept { return this->m_xr_wounded_health_state; }
+	inline void setHealthState(xr_map<std::uint32_t, std::tuple<std::uint32_t, xr_map<std::uint32_t, CondlistData>, xr_map<std::uint32_t, CondlistData>>>& data) noexcept
 	{
 		this->m_xr_wounded_health_state = data;
 	}
 
-	inline const xr_map<std::uint32_t, std::tuple<std::uint32_t, xr_map<std::uint32_t, CondlistData>, xr_map<std::uint32_t, CondlistData>>>& getXRWoundedHealthStateSee(void) const noexcept { return this->m_xr_wounded_health_state_see; }
-	inline void setXRWoundedHealthStateSee(xr_map<std::uint32_t, std::tuple<std::uint32_t, xr_map<std::uint32_t, CondlistData>, xr_map<std::uint32_t, CondlistData>>>& data) noexcept
+	inline const xr_map<std::uint32_t, std::tuple<std::uint32_t, xr_map<std::uint32_t, CondlistData>, xr_map<std::uint32_t, CondlistData>>>& getHealthStateSee(void) const noexcept { return this->m_xr_wounded_health_state_see; }
+	inline void setHealthStateSee(xr_map<std::uint32_t, std::tuple<std::uint32_t, xr_map<std::uint32_t, CondlistData>, xr_map<std::uint32_t, CondlistData>>>& data) noexcept
 	{
 		this->m_xr_wounded_health_state_see = data;
 	}
 
-	inline const xr_map<std::uint32_t, std::tuple<std::uint32_t, xr_map<std::uint32_t, CondlistData>, xr_map<std::uint32_t, CondlistData>>>& getXRWoundedPsyState(void) const noexcept { return this->m_xr_wounded_psy_state; }
-	inline void setXRWoundedPsyState(xr_map<std::uint32_t, std::tuple<std::uint32_t, xr_map<std::uint32_t, CondlistData>, xr_map<std::uint32_t, CondlistData>>>& data) noexcept
+	inline const xr_map<std::uint32_t, std::tuple<std::uint32_t, xr_map<std::uint32_t, CondlistData>, xr_map<std::uint32_t, CondlistData>>>& getPsyState(void) const noexcept { return this->m_xr_wounded_psy_state; }
+	inline void setPsyState(xr_map<std::uint32_t, std::tuple<std::uint32_t, xr_map<std::uint32_t, CondlistData>, xr_map<std::uint32_t, CondlistData>>>& data) noexcept
 	{
 		this->m_xr_wounded_psy_state = data;
 	}
 
-	inline const xr_map<std::uint32_t, std::tuple<std::uint32_t, xr_map<std::uint32_t, CondlistData>, xr_map<std::uint32_t, CondlistData>>>& getXRWoundedHealthVictim(void) const noexcept { return this->m_xr_wounded_health_victim; }
-	inline void setXRWoundedHealthVictim(xr_map<std::uint32_t, std::tuple<std::uint32_t, xr_map<std::uint32_t, CondlistData>, xr_map<std::uint32_t, CondlistData>>>& data) noexcept
+	inline const xr_map<std::uint32_t, std::tuple<std::uint32_t, xr_map<std::uint32_t, CondlistData>, xr_map<std::uint32_t, CondlistData>>>& getHealthVictim(void) const noexcept { return this->m_xr_wounded_health_victim; }
+	inline void setHealthVictim(xr_map<std::uint32_t, std::tuple<std::uint32_t, xr_map<std::uint32_t, CondlistData>, xr_map<std::uint32_t, CondlistData>>>& data) noexcept
 	{
 		this->m_xr_wounded_health_victim = data;
 	}
 
-	inline const xr_map<std::uint32_t, std::tuple<std::uint32_t, xr_map<std::uint32_t, CondlistData>, xr_map<std::uint32_t, CondlistData>>>& getXRWoundedHealthCover(void) const noexcept { return this->m_xr_wounded_health_cover; }
-	inline void setXRWoundedHealthCover(xr_map<std::uint32_t, std::tuple<std::uint32_t, xr_map<std::uint32_t, CondlistData>, xr_map<std::uint32_t, CondlistData>>>& data) noexcept
+	inline const xr_map<std::uint32_t, std::tuple<std::uint32_t, xr_map<std::uint32_t, CondlistData>, xr_map<std::uint32_t, CondlistData>>>& getHealthCover(void) const noexcept { return this->m_xr_wounded_health_cover; }
+	inline void setHealthCover(xr_map<std::uint32_t, std::tuple<std::uint32_t, xr_map<std::uint32_t, CondlistData>, xr_map<std::uint32_t, CondlistData>>>& data) noexcept
 	{
 		this->m_xr_wounded_health_cover = data;
 	}
 
-	inline const xr_map<std::uint32_t, std::tuple<std::uint32_t, xr_map<std::uint32_t, CondlistData>, xr_map<std::uint32_t, CondlistData>>>& getXRWoundedHealthFight(void) const noexcept { return this->m_xr_wounded_health_fight; }
-	inline void setXRWoundedHealthFight(xr_map<std::uint32_t, std::tuple<std::uint32_t, xr_map<std::uint32_t, CondlistData>, xr_map<std::uint32_t, CondlistData>>>& data) noexcept
+	inline const xr_map<std::uint32_t, std::tuple<std::uint32_t, xr_map<std::uint32_t, CondlistData>, xr_map<std::uint32_t, CondlistData>>>& getHealthFight(void) const noexcept { return this->m_xr_wounded_health_fight; }
+	inline void setHealthFight(xr_map<std::uint32_t, std::tuple<std::uint32_t, xr_map<std::uint32_t, CondlistData>, xr_map<std::uint32_t, CondlistData>>>& data) noexcept
 	{
 		this->m_xr_wounded_health_cover = data;
 	}
 
-	inline const xr_string& getXRWoundedWoundedSectionName(void) const noexcept { return this->m_xr_wounded_wounded_section_name; }
-	inline void setXRWoundedWoundedSectionName(const xr_string& section_name) noexcept
+	inline const xr_string& getWoundedSectionName(void) const noexcept { return this->m_xr_wounded_wounded_section_name; }
+	inline void setWoundedSectionName(const xr_string& section_name) noexcept
 	{
 		if (section_name.empty())
 		{
@@ -2520,6 +2520,27 @@ struct Script_ComponentScheme_XRCamper : public Script_IComponentScheme
 		this->m_attack_sound_name.clear();
 	}
 
+    inline const xr_string& getPathWalkName(void) const noexcept { return this->m_path_walk_name; }
+    inline void setPathWalkName(const xr_string& path_name) noexcept 
+    {
+        if (path_name.empty())
+        {
+            MESSAGEW("set an empty string!");
+        }
+
+        this->m_path_walk_name = path_name;
+    }
+
+    inline const xr_string& getPathLookName(void) const noexcept { return this->m_path_look_name; }
+    inline void setPathLookName(const xr_string& path_name) noexcept 
+    {
+        if (path_name.empty())
+        {
+            MESSAGEW("set an empty string!");
+        }
+
+        this->m_path_look_name = path_name;
+    }
 private:
 	bool m_is_sniper;
 	bool m_is_no_retreat;
@@ -2541,6 +2562,8 @@ private:
 	xr_string m_attack_sound_name;
 	xr_string m_sniper_anim_name;
 	xr_string m_shoot_name;
+    xr_string m_path_walk_name;
+    xr_string m_path_look_name;
 };
 struct Script_ComponentScheme_XRKamp : public Script_IComponentScheme
 {
