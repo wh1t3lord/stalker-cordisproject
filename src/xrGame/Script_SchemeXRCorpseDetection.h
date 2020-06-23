@@ -26,7 +26,7 @@ class Script_SchemeXRCorpseDetection : public Script_ISchemeStalker
 public:
     Script_SchemeXRCorpseDetection(void) = delete;
     Script_SchemeXRCorpseDetection(const xr_string& action_name, DataBase::Script_ComponentScheme_XRCorpseDetection* storage)
-        : inherited_scheme(nullptr, action_name, storage)
+        : inherited_scheme(nullptr, action_name, storage), m_p_storage(storage)
     {
         this->m_scheme_name = "corpse_detection";
     }
@@ -37,6 +37,9 @@ public:
     virtual void finalize(void);
 
     // Lord: доделать add_to_binder и прочий стаф
+
+private:
+    DataBase::Script_ComponentScheme_XRCorpseDetection* m_p_storage;
 };
 
 } // namespace Scripts
