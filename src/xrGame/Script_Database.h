@@ -3877,16 +3877,20 @@ private:
 };
 struct Script_ComponentScheme_PHForce : public Script_IComponentScheme
 {
-	Script_ComponentScheme_PHForce(void) : m_time(0), m_delay(0) {}
+	Script_ComponentScheme_PHForce(void) : m_time(0), m_delay(0), m_force(0.0f) {}
 
 	inline void clear(void) noexcept
 	{
 		this->m_time = 0;
 		this->m_delay = 0;
+        this->m_force = 0.0f;
 		this->m_point.x = 0.0f;
 		this->m_point.y = 0.0f;
 		this->m_point.z = 0.0f;
 	}
+
+	inline float getForce(void) const noexcept { return this->m_force; }
+	inline void setForce(const float value) noexcept { this->m_force = value; }
 
 	inline std::uint32_t getTime(void) const noexcept { return this->m_time; }
 	inline void setTime(const std::uint32_t value) noexcept { this->m_time = value; }
@@ -3900,6 +3904,7 @@ struct Script_ComponentScheme_PHForce : public Script_IComponentScheme
 private:
 	std::uint32_t m_time;
 	std::uint32_t m_delay;
+    float m_force;
 	Fvector m_point;
 };
 struct Script_ComponentScheme_Helicopter : public Script_IComponentScheme
