@@ -5,7 +5,7 @@ namespace Cordis
 {
 namespace Scripts
 {
-Script_SchemePHDeath::Script_SchemePHDeath(CScriptGameObject* const p_client_object, void* storage)
+Script_SchemePHDeath::Script_SchemePHDeath(CScriptGameObject* const p_client_object, DataBase::Script_ComponentScheme_PHDeath* storage)
     : inherited_scheme(p_client_object, storage)
 {
 }
@@ -17,7 +17,7 @@ void Script_SchemePHDeath::death_callback(
     if (!DataBase::Storage::getInstance().getStorage().at(this->m_id).getActiveSchemeName().empty())
     {
         if (XR_LOGIC::try_switch_to_another_section(
-                p_client_victim, *this->m_p_storage, DataBase::Storage::getInstance().getActor()))
+                p_client_victim, this->m_p_storage, DataBase::Storage::getInstance().getActor()))
             return;
     }
 }
@@ -31,8 +31,8 @@ void Script_SchemePHDeath::set_scheme(CScriptGameObject* const p_client_object, 
         return;
     }
 
-    DataBase::Storage_Scheme* p_storage =
-        XR_LOGIC::assign_storage_and_bind(p_client_object, p_ini, scheme_name, section_name, gulag_name);
+    DataBase::Script_ComponentScheme_PHDeath* p_storage =
+        XR_LOGIC::assign_storage_and_bind<DataBase::Script_ComponentScheme_PHDeath>(p_client_object, p_ini, scheme_name, section_name, gulag_name);
 
     if (!p_storage)
     {

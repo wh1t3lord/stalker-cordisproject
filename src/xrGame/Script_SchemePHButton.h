@@ -10,7 +10,7 @@ class Script_SchemePHButton : public Script_ISchemeEntity
 
 public:
     Script_SchemePHButton(void) = delete;
-    Script_SchemePHButton(CScriptGameObject* const p_client_object, void* storage);
+    Script_SchemePHButton(CScriptGameObject* const p_client_object, DataBase::Script_ComponentScheme_PHButton* storage);
     ~Script_SchemePHButton(void);
 
     virtual void reset_scheme(const bool value, CScriptGameObject* const p_client_object);
@@ -21,7 +21,7 @@ public:
 
     // @ PRIVATE uses, in XR_LOGIC
     static inline void add_to_binder(CScriptGameObject* const p_client_object, CScriptIniFile* const p_ini,
-        const xr_string& scheme_name, const xr_string& section_name, void* p_storage)
+        const xr_string& scheme_name, const xr_string& section_name, DataBase::Script_IComponentScheme* p_storage)
     {
         if (!p_client_object)
         {
@@ -38,7 +38,7 @@ public:
         MESSAGEI("added scheme to binder, name=%s scheme=%s section=%s",
             p_client_object->Name(), scheme_name.c_str(), section_name.c_str());
 
-        Script_ISchemeEntity* p_scheme = new Script_SchemePHButton(p_client_object, p_storage);
+        Script_ISchemeEntity* p_scheme = new Script_SchemePHButton(p_client_object, reinterpret_cast<DataBase::Script_ComponentScheme_PHButton*>(p_storage));
 
         DataBase::Storage::getInstance().setStorageSchemesActions(p_client_object->ID(), scheme_name, p_scheme);
     }
@@ -52,6 +52,7 @@ private:
 
 private:
     std::uint32_t m_last_hit_time;
+    DataBase::Script_ComponentScheme_PHButton* m_p_storage;
 };
 }
 } // namespace Cordis

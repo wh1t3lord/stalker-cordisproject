@@ -6,8 +6,8 @@ namespace Cordis
 namespace Scripts
 {
 Script_SchemePHButton::Script_SchemePHButton(
-    CScriptGameObject* const p_client_object, void* storage)
-    : inherited_scheme(p_client_object, storage), m_last_hit_time(0)
+    CScriptGameObject* const p_client_object, DataBase::Script_ComponentScheme_PHButton* storage)
+    : inherited_scheme(p_client_object, storage), m_last_hit_time(0), m_p_storage(storage)
 {
     this->m_scheme_name = "ph_button";
 }
@@ -17,14 +17,14 @@ Script_SchemePHButton::~Script_SchemePHButton(void) {}
 void Script_SchemePHButton::reset_scheme(const bool value, CScriptGameObject* const p_client_object)
 {
     this->m_npc->play_cycle(
-        this->m_p_storage->getPHButtonAnimationName().c_str(), this->m_p_storage->IsPHButtonBlending());
+        this->m_p_storage->getAnimationName().c_str(), this->m_p_storage->IsBlending());
     this->m_last_hit_time = Globals::get_time_global();
 }
 
 void Script_SchemePHButton::update(const float delta)
 {
     if (XR_LOGIC::try_switch_to_another_section(
-            this->m_npc, *this->m_p_storage, DataBase::Storage::getInstance().getActor()))
+            this->m_npc, this->m_p_storage, DataBase::Storage::getInstance().getActor()))
         return;
 }
 
@@ -52,8 +52,8 @@ void Script_SchemePHButton::set_scheme(CScriptGameObject* const p_client_object,
         return;
     }
 
-    DataBase::Storage_Scheme* p_storage =
-        XR_LOGIC::assign_storage_and_bind(p_client_object, p_ini, scheme_name, section_name, gulag_name);
+    DataBase::Script_ComponentScheme_PHButton* p_storage =
+        XR_LOGIC::assign_storage_and_bind<DataBase::Script_ComponentScheme_PHButton>(p_client_object, p_ini, scheme_name, section_name, gulag_name);
 
     if (!p_storage)
     {
@@ -62,12 +62,12 @@ void Script_SchemePHButton::set_scheme(CScriptGameObject* const p_client_object,
     }
 
     p_storage->setLogic(XR_LOGIC::cfg_get_switch_conditions(p_ini, section_name, p_client_object));
-    p_storage->setPHButtonOnPressCondlist(
+    p_storage->setOnPressCondlist(
         XR_LOGIC::cfg_get_condlist(p_ini, section_name, "on_press", p_client_object).getCondlist());
-    p_storage->setPHButtonToolTipName(Globals::Utils::cfg_get_string(p_ini, section_name, "tooltip"));
-    p_client_object->SetTipText(p_storage->getPHButtonToolTipName().c_str());
-    p_storage->setPHButtonAnimationName(Globals::Utils::cfg_get_string(p_ini, section_name, "anim"));
-    p_storage->setPHButtonBlending(Globals::Utils::cfg_get_bool(p_ini, section_name, "anim_blend"));
+    p_storage->setToolTipName(Globals::Utils::cfg_get_string(p_ini, section_name, "tooltip"));
+    p_client_object->SetTipText(p_storage->getToolTipName().c_str());
+    p_storage->setAnimationName(Globals::Utils::cfg_get_string(p_ini, section_name, "anim"));
+    p_storage->setBlending(Globals::Utils::cfg_get_bool(p_ini, section_name, "anim_blend"));
 }
 
 bool Script_SchemePHButton::try_switch(void)
@@ -75,11 +75,11 @@ bool Script_SchemePHButton::try_switch(void)
     const DataBase::Storage_Data& storage = DataBase::Storage::getInstance().getStorage().at(this->m_id);
     if (!storage.getActiveSchemeName().empty())
     {
-        if (storage.getActiveSchemeName() == "ph_button" && (!this->m_p_storage->getPHButtonOnPressCondlist().empty()))
+        if (storage.getActiveSchemeName() == "ph_button" && (!this->m_p_storage->getOnPressCondlist().empty()))
         {
             if (XR_LOGIC::switch_to_section(this->m_npc, this->m_p_storage->getIni(),
                     XR_LOGIC::pick_section_from_condlist(DataBase::Storage::getInstance().getActor(), this->m_npc,
-                        this->m_p_storage->getPHButtonOnPressCondlist())))
+                        this->m_p_storage->getOnPressCondlist())))
             {
                 return true;
             }

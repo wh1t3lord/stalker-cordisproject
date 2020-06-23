@@ -10,9 +10,9 @@ const std::uint32_t default_anim_standing = MonsterSpace::eAA_StandIdle;
 const bool state_moving = false;
 const bool state_standing = true;
 
-Script_SchemeMobWalker::Script_SchemeMobWalker(CScriptGameObject* p_client_object, void* storage)
+Script_SchemeMobWalker::Script_SchemeMobWalker(CScriptGameObject* p_client_object, DataBase::Script_ComponentScheme_MobWalker* storage)
     : inherited_scheme(p_client_object, storage), m_is_crouch(false), m_is_running(false), m_last_index(0),
-      m_last_look_index(0), m_patrol_walk(nullptr), m_patrol_look(nullptr)
+      m_last_look_index(0), m_patrol_walk(nullptr), m_patrol_look(nullptr), m_p_storage(storage)
 {
     this->m_scheme_name = "mob_walker";
 }
@@ -28,7 +28,7 @@ Script_SchemeMobWalker::~Script_SchemeMobWalker(void)
 
 void Script_SchemeMobWalker::reset_scheme(const bool, CScriptGameObject* const p_client_object)
 {
-    Msg("[Scripts/Script_SchemeMobWalker/reset_scheme()] %s", this->m_npc->Name());
+    MESSAGE("%s", this->m_npc->Name());
 
     this->m_p_storage->ClearSignals();
 
@@ -336,8 +336,8 @@ void Script_SchemeMobWalker::set_scheme(CScriptGameObject* const p_client_object
         return;
     }
 
-    DataBase::Storage_Scheme* p_storage =
-        XR_LOGIC::assign_storage_and_bind(p_client_object, p_ini, scheme_name, section_name, gulag_name);
+    DataBase::Script_ComponentScheme_MobWalker* p_storage =
+        XR_LOGIC::assign_storage_and_bind<DataBase::Script_ComponentScheme_MobWalker>(p_client_object, p_ini, scheme_name, section_name, gulag_name);
 
     if (!p_storage)
     {
