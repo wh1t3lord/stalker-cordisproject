@@ -3211,8 +3211,8 @@ struct Script_ComponentScheme_SRLight : public Script_IComponentScheme
 {
 	Script_ComponentScheme_SRLight(void) : m_is_light(false) {}
 
-	inline bool IsSRLightLight(void) const noexcept { return this->m_is_light; }
-	inline void setSRLightLight(const bool value) noexcept { this->m_is_light = value; }
+	inline bool isLight(void) const noexcept { return this->m_is_light; }
+	inline void setLight(const bool value) noexcept { this->m_is_light = value; }
 
 	inline void clear(void) noexcept
 	{
