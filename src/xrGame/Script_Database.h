@@ -3584,6 +3584,14 @@ private:
 	std::uint32_t m_period;
 	xr_string m_joint_name;
 };
+
+struct Script_ComponentScheme_PHOnHit : public Script_IComponentScheme
+{
+    Script_ComponentScheme_PHOnHit(void) {}
+
+private:
+};
+
 struct Script_ComponentScheme_PHIdle : public Script_IComponentScheme
 {
 	Script_ComponentScheme_PHIdle(void) : m_is_nonscript_usable(false) {}
@@ -3594,10 +3602,45 @@ struct Script_ComponentScheme_PHIdle : public Script_IComponentScheme
 	inline void clear(void) noexcept
 	{
 		this->m_is_nonscript_usable = false;
+        this->m_condlist_on_use.clear();
+        this->m_tip_name.clear();
+        this->m_condlist_on_hit_bone.clear();
+	}
+
+    inline const xr_string& getTipName(void) const noexcept { return this->m_tip_name; }
+    inline void setTipName(const xr_string& tip_name) noexcept 
+    {
+        if (tip_name.empty())
+        {
+            MESSAGEW("set an empty string!");
+        }
+
+        this->m_tip_name = tip_name; 
+    }
+
+	inline const xr_map<std::uint32_t, CondlistData>& getOnUseCondlist(void) const noexcept
+	{
+		return this->m_condlist_on_use;
+	}
+	inline void setOnUseCondlist(const xr_map<std::uint32_t, CondlistData>& condlist) noexcept
+	{
+		this->m_condlist_on_use = condlist;
+	}
+
+	inline const xr_map<std::uint32_t, xr_map<std::uint32_t, CondlistData>>& getHitOnBone(void) const noexcept
+	{
+		return this->m_condlist_on_hit_bone;
+	}
+	inline void setHitOnBone(const xr_map<std::uint32_t, xr_map<std::uint32_t, CondlistData>>& data) noexcept
+	{
+		this->m_condlist_on_hit_bone = data;
 	}
 
 private:
 	bool m_is_nonscript_usable;
+    xr_map<std::uint32_t, CondlistData> m_condlist_on_use;
+    xr_map<std::uint32_t, xr_map<std::uint32_t, CondlistData>> m_condlist_on_hit_bone;
+    xr_string m_tip_name;
 };
 struct Script_ComponentScheme_PHHit : public Script_IComponentScheme
 {
