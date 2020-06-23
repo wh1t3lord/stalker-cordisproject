@@ -3044,6 +3044,14 @@ private:
 	xr_map<std::uint32_t, CondlistData> m_xr_death_info;
 	xr_map<std::uint32_t, CondlistData> m_xr_death_info2;
 };
+
+struct Script_ComponentScheme_SRIdle : public Script_IComponentScheme
+{
+    Script_ComponentScheme_SRIdle(void) {}
+
+private:
+};
+
 struct Script_ComponentScheme_SRDeimos : public Script_IComponentScheme
 {
 	Script_ComponentScheme_SRDeimos(void) { this->clear(); }
