@@ -3446,8 +3446,8 @@ struct Script_ComponentScheme_SRTimer : public Script_IComponentScheme
 {
 	Script_ComponentScheme_SRTimer(void) : m_p_sr_timer_ui(nullptr), m_p_sr_timer_timer(nullptr), m_sr_timer_start_value(0) {}
 
-	inline const xr_string& getSRTimerTypeName(void) const noexcept { return this->m_sr_timer_type_name; }
-	inline void setSRTimerTypeName(const xr_string& timer_type_name) noexcept
+	inline const xr_string& getTypeName(void) const noexcept { return this->m_sr_timer_type_name; }
+	inline void setTypeName(const xr_string& timer_type_name) noexcept
 	{
 		if (timer_type_name.empty())
 		{
@@ -3457,8 +3457,8 @@ struct Script_ComponentScheme_SRTimer : public Script_IComponentScheme
 		this->m_sr_timer_type_name = timer_type_name;
 	}
 
-	inline const xr_string& getSRTimerTimerIDName(void) const noexcept { return this->m_sr_timer_timer_id_name; }
-	inline void setSRTimerTimerIDName(const xr_string& timer_id_name) noexcept
+	inline const xr_string& getTimerIDName(void) const noexcept { return this->m_sr_timer_timer_id_name; }
+	inline void setTimerIDName(const xr_string& timer_id_name) noexcept
 	{
 		if (timer_id_name.empty())
 		{
@@ -3469,8 +3469,8 @@ struct Script_ComponentScheme_SRTimer : public Script_IComponentScheme
 		this->m_sr_timer_timer_id_name = timer_id_name;
 	}
 
-	inline const xr_string& getSRTimerStringName(void) const noexcept { return this->m_sr_timer_string_name; }
-	inline void setSRTimerStringName(const xr_string& string_name) noexcept
+	inline const xr_string& getStringName(void) const noexcept { return this->m_sr_timer_string_name; }
+	inline void setStringName(const xr_string& string_name) noexcept
 	{
 		if (string_name.empty())
 		{
@@ -3481,11 +3481,11 @@ struct Script_ComponentScheme_SRTimer : public Script_IComponentScheme
 		this->m_sr_timer_string_name = string_name;
 	}
 
-	inline std::uint32_t getSRTimerStartValue(void) const noexcept { return this->m_sr_timer_start_value; }
-	inline void setSRTimerStartValue(const std::uint32_t value) noexcept { this->m_sr_timer_start_value = value; }
+	inline std::uint32_t getStartValue(void) const noexcept { return this->m_sr_timer_start_value; }
+	inline void setStartValue(const std::uint32_t value) noexcept { this->m_sr_timer_start_value = value; }
 
-	inline CUIGameCustom* const getSRTimerUI(void) const { return this->m_p_sr_timer_ui; }
-	inline void setSRTimerUI(CUIGameCustom* const p_ui)
+	inline CUIGameCustom* const getUI(void) const { return this->m_p_sr_timer_ui; }
+	inline void setUI(CUIGameCustom* const p_ui)
 	{
 		if (!p_ui)
 		{
@@ -3496,8 +3496,8 @@ struct Script_ComponentScheme_SRTimer : public Script_IComponentScheme
 		this->m_p_sr_timer_ui = p_ui;
 	}
 
-	inline CUIStatic* const getSRTimerTimer(void) const { return this->m_p_sr_timer_timer; }
-	inline void setSRTimerTimer(CUIStatic* const p_static)
+	inline CUIStatic* const getTimer(void) const { return this->m_p_sr_timer_timer; }
+	inline void setTimer(CUIStatic* const p_static)
 	{
 		if (!p_static)
 		{
@@ -3508,11 +3508,11 @@ struct Script_ComponentScheme_SRTimer : public Script_IComponentScheme
 		this->m_p_sr_timer_timer = p_static;
 	}
 
-	inline const xr_map<std::uint32_t, xr_map<std::uint32_t, CondlistData>>& getSRTimerOnValue(void) const noexcept
+	inline const xr_map<std::uint32_t, xr_map<std::uint32_t, CondlistData>>& getOnValue(void) const noexcept
 	{
 		return this->m_sr_timer_on_value;
 	}
-	inline void setSRTimerOnValue(const xr_map<std::uint32_t, xr_map<std::uint32_t, CondlistData>>& data) noexcept
+	inline void setOnValue(const xr_map<std::uint32_t, xr_map<std::uint32_t, CondlistData>>& data) noexcept
 	{
 		this->m_sr_timer_on_value = data;
 	}

@@ -14,7 +14,7 @@ namespace Cordis
 {
 namespace Scripts
 {
-Script_SchemeSRTimer::Script_SchemeSRTimer(CScriptGameObject* const p_client_object, void* storage)
+Script_SchemeSRTimer::Script_SchemeSRTimer(CScriptGameObject* const p_client_object, DataBase::Script_ComponentScheme_SRTimer* storage)
     : inherited_scheme(p_client_object, storage)
 {
     this->m_scheme_name = "sr_timer";
@@ -25,7 +25,7 @@ Script_SchemeSRTimer::~Script_SchemeSRTimer(void) {}
 void Script_SchemeSRTimer::update(const float delta)
 {
     if (XR_LOGIC::try_switch_to_another_section(
-            this->m_npc, *this->m_p_storage, DataBase::Storage::getInstance().getActor()))
+            this->m_npc, this->m_p_storage, DataBase::Storage::getInstance().getActor()))
     {
         return;
     }
@@ -34,10 +34,10 @@ void Script_SchemeSRTimer::update(const float delta)
         Globals::get_time_global() - DataBase::Storage::getInstance().getStorage().at(this->m_id).getActivationTime();
     std::uint32_t value_time = 0;
 
-    if (this->m_p_storage->getSRTimerTypeName() == "inc")
-        value_time = this->m_p_storage->getSRTimerStartValue() + nn;
+    if (this->m_p_storage->getTypeName() == "inc")
+        value_time = this->m_p_storage->getStartValue() + nn;
     else
-        value_time = this->m_p_storage->getSRTimerStartValue() - nn;
+        value_time = this->m_p_storage->getStartValue() - nn;
 
     if (value_time <= 0)
         value_time = 0;
@@ -53,13 +53,13 @@ void Script_SchemeSRTimer::update(const float delta)
                                   .append(time_to_string(seconds))
                                   .c_str();
 
-    this->m_p_storage->getSRTimerTimer()->TextItemControl()->SetTextST(output_string.c_str());
+    this->m_p_storage->getTimer()->TextItemControl()->SetTextST(output_string.c_str());
 
     for (const std::pair<std::uint32_t, xr_map<std::uint32_t, CondlistData>>& it :
-        this->m_p_storage->getSRTimerOnValue())
+        this->m_p_storage->getOnValue())
     {
-        if ((this->m_p_storage->getSRTimerTypeName() == "dec" && value_time <= it.first) ||
-            (this->m_p_storage->getSRTimerTypeName() == "inc" && value_time >= it.first))
+        if ((this->m_p_storage->getTypeName() == "dec" && value_time <= it.first) ||
+            (this->m_p_storage->getTypeName() == "inc" && value_time >= it.first))
         {
             XR_LOGIC::switch_to_section(this->m_npc, this->m_p_storage->getIni(),
                 XR_LOGIC::pick_section_from_condlist(
@@ -70,16 +70,16 @@ void Script_SchemeSRTimer::update(const float delta)
 
 void Script_SchemeSRTimer::deactivate(CScriptGameObject* const p_client_object)
 {
-    if (!this->m_p_storage->getSRTimerUI())
+    if (!this->m_p_storage->getUI())
     {
-        Msg("[Scripts/Script_SchemeSRTimer/deactivate(p_client_object)] WARNING: ui field is nullptr! Return ...");
+        MESSAGEWR("ui field is nullptr!");
         return;
     }
 
-    this->m_p_storage->getSRTimerUI()->RemoveCustomStatic(this->m_p_storage->getSRTimerTimerIDName().c_str());
-    if (!this->m_p_storage->getSRTimerStringName().empty())
+    this->m_p_storage->getUI()->RemoveCustomStatic(this->m_p_storage->getTimerIDName().c_str());
+    if (!this->m_p_storage->getStringName().empty())
     {
-        this->m_p_storage->getSRTimerUI()->RemoveCustomStatic(this->m_p_storage->getSRTimerStringName().c_str());
+        this->m_p_storage->getUI()->RemoveCustomStatic(this->m_p_storage->getStringName().c_str());
     }
 }
 
@@ -92,8 +92,8 @@ void Script_SchemeSRTimer::set_scheme(CScriptGameObject* const p_client_object, 
         return;
     }
 
-    DataBase::Storage_Scheme* p_storage =
-        XR_LOGIC::assign_storage_and_bind(p_client_object, p_ini, scheme_name, section_name, gulag_name);
+    DataBase::Script_ComponentScheme_SRTimer* p_storage =
+        XR_LOGIC::assign_storage_and_bind<DataBase::Script_ComponentScheme_SRTimer>(p_client_object, p_ini, scheme_name, section_name, gulag_name);
 
     if (!p_storage)
     {
@@ -113,11 +113,11 @@ void Script_SchemeSRTimer::set_scheme(CScriptGameObject* const p_client_object, 
         return;
     }
 
-    p_storage->setSRTimerTypeName(timer_type_name);
+    p_storage->setTypeName(timer_type_name);
 
-    p_storage->setSRTimerStartValue(
+    p_storage->setStartValue(
         static_cast<std::uint32_t>(Globals::Utils::cfg_get_number(p_ini, section_name, "start_value")));
-    p_storage->setSRTimerOnValue(Globals::Utils::parse_data_1v(
+    p_storage->setOnValue(Globals::Utils::parse_data_1v(
         p_client_object, Globals::Utils::cfg_get_string(p_ini, section_name, "on_value")));
 
     xr_string timer_id_name = Globals::Utils::cfg_get_string(p_ini, section_name, "timer_id");
@@ -125,21 +125,21 @@ void Script_SchemeSRTimer::set_scheme(CScriptGameObject* const p_client_object, 
     if (timer_id_name.empty())
         timer_id_name = "hud_timer";
 
-    p_storage->setSRTimerTimerIDName(timer_id_name);
+    p_storage->setTimerIDName(timer_id_name);
 
-    p_storage->setSRTimerStringName(Globals::Utils::cfg_get_string(p_ini, section_name, "string"));
-    p_storage->setSRTimerUI(CurrentGameUI());
-    p_storage->getSRTimerUI()->AddCustomStatic(p_storage->getSRTimerTimerIDName().c_str(), true);
-    p_storage->setSRTimerTimer(p_storage->getSRTimerUI()->GetCustomStatic(p_storage->getSRTimerTimerIDName().c_str())->wnd());
+    p_storage->setStringName(Globals::Utils::cfg_get_string(p_ini, section_name, "string"));
+    p_storage->setUI(CurrentGameUI());
+    p_storage->getUI()->AddCustomStatic(p_storage->getTimerIDName().c_str(), true);
+    p_storage->setTimer(p_storage->getUI()->GetCustomStatic(p_storage->getTimerIDName().c_str())->wnd());
 
-    if (!p_storage->getSRTimerStringName().empty())
+    if (!p_storage->getStringName().empty())
     {
-        p_storage->getSRTimerUI()->AddCustomStatic("hud_timer_text", true);
+        p_storage->getUI()->AddCustomStatic("hud_timer_text", true);
 
-        CUIStatic* p_timer_text_ui = p_storage->getSRTimerUI()->GetCustomStatic("hud_timer_text")->wnd();
+        CUIStatic* p_timer_text_ui = p_storage->getUI()->GetCustomStatic("hud_timer_text")->wnd();
 
         if (p_timer_text_ui)
-            p_timer_text_ui->TextItemControl()->SetTextST(p_storage->getSRTimerStringName().c_str());
+            p_timer_text_ui->TextItemControl()->SetTextST(p_storage->getStringName().c_str());
     }
 }
 
