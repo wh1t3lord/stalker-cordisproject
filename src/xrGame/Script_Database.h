@@ -3222,6 +3222,13 @@ private:
 	bool m_is_light;
 };
 
+struct Script_ComponentScheme_SRSilenceZone : public Script_IComponentScheme
+{
+    Script_ComponentScheme_SRSilenceZone(void) {}
+
+private:
+};
+
 struct Script_ComponentScheme_SRNoWeapon : public Script_IComponentScheme
 {
     Script_ComponentScheme_SRNoWeapon(void) {}
@@ -3277,6 +3284,7 @@ private:
 	xr_string m_name;
 	xr_string m_path_name;
 };
+
 struct Script_ComponentScheme_SRPostProcess : public Script_IComponentScheme
 {
 	Script_ComponentScheme_SRPostProcess(void) : m_hit_intensity(0.0f), m_intensity(0.0f), m_intensity_speed(0.0f) {}
@@ -3308,6 +3316,7 @@ private:
 	float m_intensity_speed;
 	float m_hit_intensity;
 };
+
 struct Script_ComponentScheme_SRPsyAntenna : public Script_IComponentScheme
 {
 	Script_ComponentScheme_SRPsyAntenna(void) { this->clear(); }

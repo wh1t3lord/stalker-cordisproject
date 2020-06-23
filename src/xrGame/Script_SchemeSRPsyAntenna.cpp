@@ -146,8 +146,8 @@ void Script_SchemeSRPsyAntenna::zone_enter(void)
         this->m_p_storage->getPhantomProbability();
     this->m_manager_psy_antenna->setPhantomSpawnProbability(phantom_spawn_probability);
 
-    this->m_manager_psy_antenna->setNoStatic(this->m_p_storage->IsSRPsyAntennaNoStatic());
-    this->m_manager_psy_antenna->setNoMumble(this->m_p_storage->IsSRPsyAntennaNoMumble());
+    this->m_manager_psy_antenna->setNoStatic(this->m_p_storage->IsNoStatic());
+    this->m_manager_psy_antenna->setNoMumble(this->m_p_storage->IsNoMumble());
     this->m_manager_psy_antenna->setHitTypeName(this->m_p_storage->getHitTypeName());
     this->m_manager_psy_antenna->setHitFrequency(this->m_p_storage->getHitFrequency());
 
