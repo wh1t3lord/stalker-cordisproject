@@ -12,8 +12,8 @@ namespace Cordis
         this->m_p_object->set_desired_position();
         this->m_p_object->set_desired_direction();
 
-        this->m_p_storage->setXRKampPosVertex(0);
-        this->m_p_storage->setXRKampNpcPositionNum(0);
+        this->m_p_storage->setPosVertex(0);
+        this->m_p_storage->setNpcPositionNum(0);
         this->m_p_storage->ClearSignals();
     }
 
@@ -315,7 +315,7 @@ namespace Cordis
     {
         if (!p_npc)
         {
-            Msg("[Scripts/Script_XRKamp/proceedRole(p_npc, state_name, sound_name)] WARNING: p_npc == nullptr! Return ...");
+            MESSAGEWR("p_npc == nullptr!");
             return;
         }
 
@@ -389,7 +389,7 @@ namespace Cordis
     {
         if (!p_npc)
         {
-            Msg("[Scripts/Script_XRKamp/checkNpcAbility(p_npc)] WARNING: p_npc == nullptr! Return ...");
+            MESSAGEWR("p_npc == nullptr!");
             return;
         }
 
@@ -535,7 +535,7 @@ namespace Cordis
 
     Script_EvaluatorKampEnd::_value_type Script_EvaluatorOnPosition::evaluate(void)
     {
-        if (this->m_object->level_vertex_id() == this->m_p_storage->getXRKampPosVertex())
+        if (this->m_object->level_vertex_id() == this->m_p_storage->getPosVertex())
         {
             return true;
         }
@@ -545,7 +545,7 @@ namespace Cordis
 
     Script_EvaluatorKampEnd::_value_type Script_EvaluatorKampEnd::evaluate(void)
     {
-        return !XR_LOGIC::is_active(this->m_object, *this->m_p_storage);
+        return !XR_LOGIC::is_active(this->m_object, this->m_p_storage);
     }
 
     } // namespace Scripts
