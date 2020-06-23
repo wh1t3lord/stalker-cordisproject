@@ -5,8 +5,8 @@ namespace Cordis
 {
 namespace Scripts
 {
-Script_SchemeXRDeath::Script_SchemeXRDeath(CScriptGameObject* const p_client_object, void* storage)
-    : inherited_scheme(p_client_object, storage)
+Script_SchemeXRDeath::Script_SchemeXRDeath(CScriptGameObject* const p_client_object, DataBase::Script_ComponentScheme_XRDeath* storage)
+    : inherited_scheme(p_client_object, storage), m_p_storage(storage)
 {
     this->m_scheme_name = "death";
 }
@@ -18,13 +18,13 @@ void Script_SchemeXRDeath::death_callback(
 {
     if (p_client_who)
     {
-        Msg("[Scripts/Script_SchemeXRDeath/death_callback(p_client_victim, p_client_who)] %s killed by %s",
+        MESSAGE("%s killed by %s",
             p_client_victim->Name(), p_client_who->Name());
         DataBase::Storage::getInstance().setStorageDeathDataKillerID(p_client_victim->ID(), p_client_who->ID());
     }
     else
     {
-        Msg("[Scripts/Script_SchemeXRDeath/death_callback(p_client_victim, p_client_who)] %s killed by Unknown",
+        MESSAGE("%s killed by Unknown",
             p_client_victim->Name());
         DataBase::Storage::getInstance().setStorageDeathDataKillerID(
             p_client_victim->ID(), Globals::kUnsignedInt32Undefined);
@@ -32,16 +32,16 @@ void Script_SchemeXRDeath::death_callback(
 
     if (DataBase::Storage::getInstance().getActor())
     {
-        if (!this->m_p_storage->getXRDeathInfo().empty())
+        if (!this->m_p_storage->getInfo().empty())
         {
             XR_LOGIC::pick_section_from_condlist(
-                DataBase::Storage::getInstance().getActor(), this->m_npc, this->m_p_storage->getXRDeathInfo());
+                DataBase::Storage::getInstance().getActor(), this->m_npc, this->m_p_storage->getInfo());
         }
 
-        if (!this->m_p_storage->getXRDeathInfo2().empty())
+        if (!this->m_p_storage->getInfo2().empty())
         {
             XR_LOGIC::pick_section_from_condlist(
-                DataBase::Storage::getInstance().getActor(), this->m_npc, this->m_p_storage->getXRDeathInfo2());
+                DataBase::Storage::getInstance().getActor(), this->m_npc, this->m_p_storage->getInfo2());
         }
     }
 }
@@ -55,8 +55,8 @@ void Script_SchemeXRDeath::set_scheme(CScriptGameObject* const p_client_object, 
         return;
     }
 
-    DataBase::Storage_Scheme* p_storage =
-        XR_LOGIC::assign_storage_and_bind(p_client_object, p_ini, scheme_name, section_name, gulag_name);
+    DataBase::Script_ComponentScheme_XRDeath* p_storage =
+        XR_LOGIC::assign_storage_and_bind<DataBase::Script_ComponentScheme_XRDeath>(p_client_object, p_ini, scheme_name, section_name, gulag_name);
 
     if (!p_storage)
     {
