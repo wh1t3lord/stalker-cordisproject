@@ -216,12 +216,12 @@ namespace Cordis
 		void Script_SchemeXRCombatIgnore::add_to_binder(CScriptGameObject* const p_client_object, CScriptIniFile* const p_ini, const xr_string& scheme_name, const xr_string& section_name, DataBase::Script_IComponentScheme* storage)
 		{
 			Script_SchemeXRCombatIgnore* const p_scheme = new Script_SchemeXRCombatIgnore(p_client_object, static_cast<DataBase::Script_ComponentScheme_XRCombatIgnore*>(storage));
-			storage->setAction(p_scheme);
+			static_cast<DataBase::Script_ComponentScheme_XRCombatIgnore*>(storage)->setAction(p_scheme);
 		}
 
 		void Script_SchemeXRCombatIgnore::set_combat_ignore_checker(CScriptGameObject* const p_npc, CScriptIniFile* const p_ini, const xr_string& scheme_name, const xr_string& section_name, const xr_string& gulag_name)
 		{
-			DataBase::Storage_Scheme* const p_storage = XR_LOGIC::assign_storage_and_bind(p_npc, p_ini, scheme_name, "", "");
+			DataBase::Script_ComponentScheme_XRCombatIgnore* const p_storage = XR_LOGIC::assign_storage_and_bind<DataBase::Script_ComponentScheme_XRCombatIgnore>(p_npc, p_ini, scheme_name, "", "");
 		}
 
 		void Script_SchemeXRCombatIgnore::reset_combat_ignore_checker(CScriptGameObject* const p_npc, const xr_string& scheme_name, const DataBase::Storage_Data& p_storage, const xr_string& section_name)
@@ -232,7 +232,7 @@ namespace Cordis
 				return;
 			}
 
-			DataBase::Storage_Scheme* const p_storage_scheme = p_storage.getSchemes().at("combat_ignore");
+			DataBase::Script_ComponentScheme_XRCombatIgnore* const p_storage_scheme = static_cast<DataBase::Script_ComponentScheme_XRCombatIgnore*>(p_storage.getSchemes().at("combat_ignore"));
 
 
 			std::function<bool(CScriptGameObject* const, CScriptGameObject* const)> data = std::bind(&Script_SchemeXRCombatIgnore::enemy_callback, static_cast<Script_SchemeXRCombatIgnore*>(p_storage_scheme->getAction()), std::placeholders::_1, std::placeholders::_2);
