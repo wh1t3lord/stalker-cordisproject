@@ -3233,14 +3233,14 @@ struct Script_ComponentScheme_SRParticle : public Script_IComponentScheme
 {
 	Script_ComponentScheme_SRParticle(void) : m_is_looped(false), m_mode(0) {}
 
-	inline bool IsSRParticleLooped(void) const noexcept { return this->m_is_looped; }
-	inline void setSRParticleLooped(const bool value) noexcept { this->m_is_looped = value; }
+	inline bool isLooped(void) const noexcept { return this->m_is_looped; }
+	inline void setLooped(const bool value) noexcept { this->m_is_looped = value; }
 
-	inline std::uint32_t getSRParticleMode(void) const noexcept { return this->m_mode; }
-	inline void setSRParticleMode(const std::uint32_t value) noexcept { this->m_mode = value; }
+	inline std::uint32_t getMode(void) const noexcept { return this->m_mode; }
+	inline void setMode(const std::uint32_t value) noexcept { this->m_mode = value; }
 
-	inline const xr_string& getSRParticleName(void) const noexcept { return this->m_name; }
-	inline void setSRParticleName(const xr_string& name) noexcept
+	inline const xr_string& getName(void) const noexcept { return this->m_name; }
+	inline void setName(const xr_string& name) noexcept
 	{
 		if (name.empty())
 		{
@@ -3251,8 +3251,8 @@ struct Script_ComponentScheme_SRParticle : public Script_IComponentScheme
 		this->m_name = name;
 	}
 
-	inline const xr_string& getSRParticlePathName(void) const noexcept { return this->m_path_name; }
-	inline void setSRParticlePathName(const xr_string& path_name) noexcept
+	inline const xr_string& getPathName(void) const noexcept { return this->m_path_name; }
+	inline void setPathName(const xr_string& path_name) noexcept
 	{
 		if (path_name.empty())
 		{
