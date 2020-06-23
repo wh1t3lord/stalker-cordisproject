@@ -14,7 +14,7 @@ class Script_SchemePHDoor : public Script_ISchemeEntity
 
 public:
     Script_SchemePHDoor(void) = delete;
-    Script_SchemePHDoor(CScriptGameObject* const p_client_object, void* storage);
+    Script_SchemePHDoor(CScriptGameObject* const p_client_object, DataBase::Script_ComponentScheme_PHDoor* storage);
     ~Script_SchemePHDoor(void);
 
     virtual void reset_scheme(const bool value, CScriptGameObject* const p_client_object);
@@ -28,7 +28,7 @@ public:
 
     // @ PRIVATE uses, in XR_LOGIC
     static void add_to_binder(CScriptGameObject* const p_client_object, CScriptIniFile* const p_ini,
-        const xr_string& scheme_name, const xr_string& section_name, void* storage);
+        const xr_string& scheme_name, const xr_string& section_name, DataBase::Script_IComponentScheme* storage);
 
     // @ PRIVATE, uses in XR_LOGIC
     static void set_scheme(CScriptGameObject* const p_client_object, CScriptIniFile* const p_ini,
@@ -52,6 +52,7 @@ private:
     bool m_is_show_tips;
     float m_low_limits;
     float m_high_limits;
+    DataBase::Script_ComponentScheme_PHDoor* m_p_storage;
     cphysics_joint_scripted* m_p_joint;
 };
 } // namespace Scripts

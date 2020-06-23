@@ -3776,6 +3776,24 @@ struct Script_ComponentScheme_PHDoor : public Script_IComponentScheme
 		this->m_is_script_used_more_than_once = value;
 	}
 
+	inline const xr_map<std::uint32_t, CondlistData>& getOnUseCondlist(void) const noexcept
+	{
+		return this->m_on_use_condlist;
+	}
+	inline void setOnUseCondlist(const xr_map<std::uint32_t, CondlistData>& condlist) noexcept
+	{
+		this->m_on_use_condlist = condlist;
+	}
+
+	inline const xr_map<std::uint32_t, xr_map<std::uint32_t, CondlistData>>& getHitOnBone(void) const noexcept
+	{
+		return this->m_hit_on_bone;
+	}
+	inline void setHitOnBone(const xr_map<std::uint32_t, xr_map<std::uint32_t, CondlistData>>& data) noexcept
+	{
+		this->m_hit_on_bone = data;
+	}
+
 	inline void clear(void) noexcept
 	{
 		this->m_is_closed = false;
@@ -3792,6 +3810,7 @@ struct Script_ComponentScheme_PHDoor : public Script_IComponentScheme
 		this->m_tip_unlock_name.clear();
 		this->m_tip_close_name.clear();
 		this->m_tip_open_name.clear();
+        this->m_on_use_condlist.clear();
 	}
 
 
@@ -3804,6 +3823,8 @@ private:
 	bool m_is_slider;
 	bool m_is_script_used_more_than_once;
 	Script_SchemePHDoor* m_p_door_action; // @ Используется исключительно когда у нас схема -> ph_door, удаляется как обычный зарегистрированный  action, но сам pointer зануляется в деструкторе схемы!
+    xr_map<std::uint32_t, CondlistData> m_on_use_condlist;
+    xr_map<std::uint32_t, xr_map<std::uint32_t, CondlistData>> m_hit_on_bone;
 	xr_string m_tip_open_name;
 	xr_string m_tip_unlock_name;
 	xr_string m_tip_close_name;
