@@ -571,11 +571,7 @@ public:
 #pragma endregion
 
 #pragma region Cordis Scheme XR Corpse Detection
-    inline std::uint32_t getLevelVertexID(void) const noexcept { return this->m_level_vertex_id; }
-    inline void setLevelVertexID(const std::uint32_t id) noexcept { this->m_level_vertex_id = id; }
 
-    inline const Fvector& getVertexPosition(void) const noexcept { return this->m_vertex_position; }
-    inline void setVertexPosition(const Fvector& position) noexcept { this->m_vertex_position = position; }
 #pragma endregion
 
 #pragma region Cordis Scheme XR Combat
@@ -2948,19 +2944,35 @@ private:
 };
 struct Script_ComponentScheme_XRCorpseDetection : public Script_IComponentScheme
 {
-	Script_ComponentScheme_XRCorpseDetection(void) : m_selected_corpse_id(0) {}
-	inline void clear(void) noexcept { this->m_selected_corpse_id = 0; }
+	Script_ComponentScheme_XRCorpseDetection(void) : m_selected_corpse_id(0), m_level_vertex_id(0) {}
+	
+    inline void clear(void) noexcept 
+    {
+        this->m_selected_corpse_id = 0; 
+        this->m_level_vertex_id = 0;
+        this->m_vertex_position.x = 0.0f;
+        this->m_vertex_position.y = 0.0f;
+        this->m_vertex_position.z = 0.0f;
+    }
 
-	inline std::uint16_t getXRCorpseDetectionSelectedCorpseID(void) const noexcept
+	inline std::uint16_t getSelectedCorpseID(void) const noexcept
 	{
 		return this->m_selected_corpse_id;
 	}
-	inline void setXRCorpseDetectionSelectedCorpseID(const std::uint16_t id) noexcept
+	inline void setSelectedCorpseID(const std::uint16_t id) noexcept
 	{
 		this->m_selected_corpse_id = id;
 	}
+
+	inline std::uint32_t getLevelVertexID(void) const noexcept { return this->m_level_vertex_id; }
+	inline void setLevelVertexID(const std::uint32_t id) noexcept { this->m_level_vertex_id = id; }
+
+	inline const Fvector& getVertexPosition(void) const noexcept { return this->m_vertex_position; }
+	inline void setVertexPosition(const Fvector& position) noexcept { this->m_vertex_position = position; }
 private:
 	std::uint16_t m_selected_corpse_id;
+    std::uint32_t m_level_vertex_id;
+    Fvector m_vertex_position;
 };
 struct Script_ComponentScheme_XRAbuse : public Script_IComponentScheme
 {

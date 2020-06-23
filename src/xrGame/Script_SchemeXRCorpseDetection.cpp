@@ -40,13 +40,13 @@ void Script_SchemeXRCorpseDetection::execute(void)
 
 void Script_SchemeXRCorpseDetection::finalize(void)
 {
-    if (this->m_p_storage->getXRCorpseDetectionSelectedCorpseID() &&
+    if (this->m_p_storage->getSelectedCorpseID() &&
         (DataBase::Storage::getInstance().getStorage().find(
-             this->m_p_storage->getXRCorpseDetectionSelectedCorpseID()) !=
+             this->m_p_storage->getSelectedCorpseID()) !=
             DataBase::Storage::getInstance().getStorage().end()))
     {
         DataBase::Storage::getInstance().setStorageCorpseAlreadySelected(
-            this->m_p_storage->getXRCorpseDetectionSelectedCorpseID(), 0);
+            this->m_p_storage->getSelectedCorpseID(), 0);
     }
 
     CScriptActionBase::finalize();
