@@ -444,7 +444,7 @@ public:
         MESSAGEI("added scheme to binder, name=%s scheme=%s section=%s",
             p_client_object->Name(), scheme_name.c_str(), section_name.c_str());
 
-        Script_ISchemeEntity* p_scheme = new Script_SchemeSRPsyAntenna(p_client_object, reinterpret_cast<DataBase::Script_ComponentScheme_SRPsyAntenna*>(storage));
+        Script_ISchemeEntity* p_scheme = new Script_SchemeSRPsyAntenna(p_client_object, static_cast<DataBase::Script_ComponentScheme_SRPsyAntenna*>(storage));
         DataBase::Storage::getInstance().setStorageSchemesActions(p_client_object->ID(), scheme_name, p_scheme);
     }
 
