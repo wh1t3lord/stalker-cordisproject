@@ -137,7 +137,7 @@ public:
 
     // @ PRIVATE uses, in XR_LOGIC
     static inline void add_to_binder(CScriptGameObject* const p_client_object, CScriptIniFile* const p_ini,
-        const xr_string& scheme_name, const xr_string& section_name, DataBase::Script_ComponentScheme_XRDanger* storage)
+        const xr_string& scheme_name, const xr_string& section_name, DataBase::Script_IComponentScheme* storage)
     {
         if (!p_client_object)
         {
@@ -172,12 +172,10 @@ public:
         }
 
         p_planner->remove_evaluator(StalkerDecisionSpace::eWorldPropertyDanger);
-        p_planner->add_evaluator(
-            StalkerDecisionSpace::eWorldPropertyDanger, new Script_EvaluatorDanger("danger", static_cast<DataBase::Script_ComponentScheme_XRDanger*>(storage)));
+        p_planner->add_evaluator(StalkerDecisionSpace::eWorldPropertyDanger, new Script_EvaluatorDanger("danger", static_cast<DataBase::Script_ComponentScheme_XRDanger*>(storage)));
 
         p_danger_action_planner->remove_evaluator(StalkerDecisionSpace::eWorldPropertyDanger);
-        p_danger_action_planner->add_evaluator(
-            StalkerDecisionSpace::eWorldPropertyDanger, new Script_EvaluatorDanger("danger", static_cast<DataBase::Script_ComponentScheme_XRDanger*>(storage)));
+        p_danger_action_planner->add_evaluator(StalkerDecisionSpace::eWorldPropertyDanger, new Script_EvaluatorDanger("danger", static_cast<DataBase::Script_ComponentScheme_XRDanger*>(storage)));
     }
 
     static inline void set_danger(CScriptGameObject* const p_client_object, CScriptIniFile* const p_ini,

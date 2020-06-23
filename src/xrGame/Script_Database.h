@@ -3020,9 +3020,19 @@ private:
 
 struct Script_ComponentScheme_XRDanger : public Script_IComponentScheme
 {
-    Script_ComponentScheme_XRDanger(void) {}
+    Script_ComponentScheme_XRDanger(void) : m_danger_time(0) {}
 
-    inline void clear(void) noexcept { }
+    inline void clear(void) noexcept 
+    {
+        this->m_danger_time = 0;
+    }
+
+	inline std::uint32_t getDangerTime(void) const noexcept { return this->m_danger_time; }
+	inline void setDangerTime(const std::uint32_t value) noexcept { this->m_danger_time = value; }
+
+
+private:
+    std::uint32_t m_danger_time;
 };
 
 struct Script_ComponentScheme_XRDeath : public Script_IComponentScheme
