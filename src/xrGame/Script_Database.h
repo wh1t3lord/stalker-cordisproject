@@ -3288,17 +3288,17 @@ struct Script_ComponentScheme_SRPostProcess : public Script_IComponentScheme
 		this->m_intensity = 0.0f;
 	}
 
-	inline float getSRPostProcessIntensity(void) const noexcept { return this->m_intensity; }
-	inline void setSRPostProcessIntensity(const float value) noexcept { this->m_intensity = value; }
+	inline float getIntensity(void) const noexcept { return this->m_intensity; }
+	inline void setIntensity(const float value) noexcept { this->m_intensity = value; }
 
-	inline float getSRPostProcessIntensitySpeed(void) const noexcept { return this->m_intensity_speed; }
-	inline void setSRPostProcessIntensitySpeed(const float value) noexcept
+	inline float getIntensitySpeed(void) const noexcept { return this->m_intensity_speed; }
+	inline void setIntensitySpeed(const float value) noexcept
 	{
 		this->m_intensity_speed = value;
 	}
 
-	inline float getSRPostProcessHitIntensity(void) const noexcept { return this->m_hit_intensity; }
-	inline void setSRPostProcessHitIntensity(const float value) noexcept
+	inline float getHitIntensity(void) const noexcept { return this->m_hit_intensity; }
+	inline void setHitIntensity(const float value) noexcept
 	{
 		this->m_hit_intensity = value;
 	}
