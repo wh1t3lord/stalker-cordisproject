@@ -5,8 +5,8 @@ namespace Cordis
 {
 namespace Scripts
 {
-Script_ActionXRHelpWounded::Script_ActionXRHelpWounded(const xr_string& action_name, void* storage)
-    : inherited_scheme(nullptr, action_name.c_str()), m_p_storage(&storage)
+Script_ActionXRHelpWounded::Script_ActionXRHelpWounded(const xr_string& action_name, DataBase::Script_ComponentScheme_XRHelpWounded* storage)
+    : inherited_scheme(nullptr, action_name.c_str()), m_p_storage(storage)
 {
     this->m_scheme_name = "help_wounded";
 }
@@ -48,8 +48,8 @@ void Script_ActionXRHelpWounded::set_help_wounded(CScriptGameObject* const p_cli
         return;
     }
 
-    DataBase::Storage_Scheme* p_storage =
-        XR_LOGIC::assign_storage_and_bind(p_client_object, p_ini, scheme_name, section_name, gulag_name);
+    DataBase::Script_ComponentScheme_XRHelpWounded* p_storage =
+        XR_LOGIC::assign_storage_and_bind<DataBase::Script_ComponentScheme_XRHelpWounded>(p_client_object, p_ini, scheme_name, section_name, gulag_name);
 
     if (!p_storage)
     {

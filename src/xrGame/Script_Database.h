@@ -2622,22 +2622,38 @@ struct Script_ComponentScheme_XRSleeper : public Script_IComponentScheme
 		this->m_path_look_name = path_name;
 	}
 
+    inline const CondlistWaypoints& getPathWalkInfo(void) const noexcept { return this->m_condlist_walk; }
+    inline void setPathWalkInfo(const CondlistWaypoints& data) noexcept { this->m_condlist_walk = data; }
+
+    inline const CondlistWaypoints& getPathLookInfo(void) const noexcept { return this->m_condlist_look; }
+    inline void setPathLookInfo(const CondlistWaypoints& data) noexcept { this->m_condlist_look = data; }
+
 	inline void clear(void) noexcept
 	{
 		this->m_is_wakeable = false;
 		this->m_path_look_name.clear();
 		this->m_path_main_name.clear();
 		this->m_path_walk_name.clear();
+        this->m_condlist_look.clear();
+        this->m_condlist_walk.clear();
 	}
 private:
 	bool m_is_wakeable;
 	xr_string m_path_main_name;
 	xr_string m_path_walk_name;
 	xr_string m_path_look_name;
+    CondlistWaypoints m_condlist_walk;
+    CondlistWaypoints m_condlist_look;
 };
 struct Script_ComponentScheme_XRWalker : public Script_IComponentScheme
 {
 	Script_ComponentScheme_XRWalker(void) : m_is_use_camp(false) {}
+
+	inline void ClearApprovedActions(void) noexcept
+	{
+		MESSAGE("clearing approved actions");
+		this->m_approved_actions.clear();
+	}
 
 	inline const xr_string& getPathWalkName(void) const noexcept { return this->m_path_walk_name; }
 	inline void setPathWalkName(const xr_string& path_name) noexcept
@@ -2738,10 +2754,31 @@ struct Script_ComponentScheme_XRWalker : public Script_IComponentScheme
 		this->m_sound_idle_name.clear();
 		this->m_suggested_states.clear();
 		this->m_team_name.clear();
+        this->ClearApprovedActions();
 	}
+
+	inline void setApprovedActions(const std::pair<std::function<bool(std::uint16_t, bool)>, xr_string>& pair) noexcept
+	{
+		if (pair.first == nullptr)
+		{
+			MESSAGEWR("can't add pair, because the first "
+				"element (a function) is nullptr!");
+			return;
+		}
+
+		this->m_approved_actions.push_back(pair);
+	}
+
+	inline const xr_vector<std::pair<std::function<bool(std::uint16_t, bool)>, xr_string>>& getApprovedActions(
+		void) const noexcept
+	{
+		return this->m_approved_actions;
+	}
+
 private:
 	bool m_is_use_camp;
 	xr_map<xr_string, xr_string> m_suggested_states;
+    xr_vector<std::pair<std::function<bool(std::uint16_t, bool)>, xr_string>> m_approved_actions;
 	xr_string m_description_name;
 	xr_string m_path_walk_name;
 	xr_string m_team_name;
@@ -2886,6 +2923,12 @@ struct Script_ComponentScheme_XRGatherItems : public Script_IComponentScheme
 private:
 	bool m_is_gather_items_enabled;
 };
+
+struct Script_ComponentScheme_XRHit : public Script_IComponentScheme
+{
+    Script_ComponentScheme_XRHit(void) {}
+};
+
 struct Script_ComponentScheme_XRHelpWounded : public Script_IComponentScheme
 {
 	Script_ComponentScheme_XRHelpWounded(void) : m_is_wounded_enabled(false) {}
@@ -2900,13 +2943,33 @@ struct Script_ComponentScheme_XRHelpWounded : public Script_IComponentScheme
 		this->m_is_wounded_enabled = value;
 	}
 
+    inline std::uint16_t getSelectedID(void) const noexcept { return this->m_selected_id; }
+    inline void setSelectedID(const std::uint16_t value) noexcept 
+    {
+        this->m_selected_id = value;
+    }
+
+    inline std::uint32_t getLevelVertexID(void) const noexcept { return this->m_level_vertex_id; }
+    inline void setLevelVertexID(const std::uint32_t value) noexcept { this->m_level_vertex_id = value; }
+
+    inline const Fvector& getVertexPosition(void) const noexcept { return this->m_vertex_position; }
+    inline void setVertexPosition(const Fvector& data) noexcept { this->m_vertex_position = data; }
+
 	inline void clear(void) noexcept
 	{
 		this->m_is_wounded_enabled = false;
+        this->m_selected_id = 0;
+        this->m_level_vertex_id = 0;
+        this->m_vertex_position.x = 0.0f;
+        this->m_vertex_position.y = 0.0f;
+        this->m_vertex_position.z = 0.0f;
 	}
 
 private:
 	bool m_is_wounded_enabled;
+    std::uint16_t m_selected_id;
+    std::uint32_t m_level_vertex_id;
+    Fvector m_vertex_position;
 };
 struct Script_ComponentScheme_XRCombat : public Script_IComponentScheme
 {

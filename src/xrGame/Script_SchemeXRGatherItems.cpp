@@ -14,7 +14,7 @@ void Script_EvaluatorGatherItems::set_gather_items(CScriptGameObject* const p_cl
         return;
     }
 
-    DataBase::Storage_Scheme* p_storage = XR_LOGIC::assign_storage_and_bind(p_client_object, p_ini, scheme_name, section_name, gulag_name);
+    DataBase::Script_ComponentScheme_XRGatherItems* p_storage = XR_LOGIC::assign_storage_and_bind<DataBase::Script_ComponentScheme_XRGatherItems>(p_client_object, p_ini, scheme_name, section_name, gulag_name);
 
     if (!p_storage)
     {

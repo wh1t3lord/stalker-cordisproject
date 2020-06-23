@@ -27,7 +27,7 @@ public:
     Script_SchemeXRRemark(const xr_string& action_name, DataBase::Script_ComponentScheme_XRRemark* storage)
         : inherited_scheme(nullptr, action_name, storage), m_is_sound_end_signalled(false),
           m_is_action_end_signalled(false), m_is_animation_end_signalled(false), m_is_sound_scheduled(false),
-          m_is_sound_started(false), m_state(0)
+          m_is_sound_started(false), m_state(0), m_p_storage(storage)
     {
     }
 
@@ -112,6 +112,7 @@ private:
     bool m_is_sound_scheduled;
     bool m_is_sound_started;
     std::uint32_t m_state;
+    DataBase::Script_ComponentScheme_XRRemark* m_p_storage;
 };
 } // namespace Scripts
 } // namespace Cordis

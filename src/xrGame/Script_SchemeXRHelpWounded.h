@@ -26,7 +26,7 @@ class Script_ActionXRHelpWounded : public CScriptActionBase
 
 public:
     Script_ActionXRHelpWounded(void) = delete;
-    Script_ActionXRHelpWounded(const xr_string& action_name, void* storage);
+    Script_ActionXRHelpWounded(const xr_string& action_name, DataBase::Script_ComponentScheme_XRHelpWounded* storage);
     ~Script_ActionXRHelpWounded(void);
 
     virtual void initialize(void);
@@ -62,7 +62,7 @@ public:
         p_planner->add_evaluator(
             Globals::XR_ACTIONS_ID::XR_EVALUATORS_ID::kWoundedExist, new Script_EvaluatorWoundedExist("wounded_exist", static_cast<DataBase::Script_ComponentScheme_XRHelpWounded*>(storage)));
 
-        Script_ActionXRHelpWounded* p_action = new Script_ActionXRHelpWounded("action_help_wounded", storage);
+        Script_ActionXRHelpWounded* p_action = new Script_ActionXRHelpWounded("action_help_wounded", static_cast<DataBase::Script_ComponentScheme_XRHelpWounded*>(storage));
         p_action->add_condition(CWorldProperty(StalkerDecisionSpace::eWorldPropertyAlive, true));
         p_action->add_condition(CWorldProperty(StalkerDecisionSpace::eWorldPropertyEnemy, false));
         p_action->add_condition(CWorldProperty(StalkerDecisionSpace::eWorldPropertyDanger, false));
@@ -124,7 +124,7 @@ public:
     }
 
 private:
-    DataBase::Storage_Scheme* m_p_storage;
+    DataBase::Script_ComponentScheme_XRHelpWounded* m_p_storage;
     xr_string m_scheme_name;
 };
 } // namespace Scripts

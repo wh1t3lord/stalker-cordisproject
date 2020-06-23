@@ -5,7 +5,7 @@ namespace Cordis
 {
 namespace Scripts
 {
-Script_SchemeXRHit::Script_SchemeXRHit(CScriptGameObject* const p_client_object, void* storage)
+Script_SchemeXRHit::Script_SchemeXRHit(CScriptGameObject* const p_client_object, DataBase::Script_ComponentScheme_XRHit* storage)
     : inherited_scheme(p_client_object, storage)
 {
     this->m_scheme_name = "hit";
@@ -25,15 +25,13 @@ void Script_SchemeXRHit::hit_callback(CScriptGameObject* const p_client_object, 
 
     if (p_client_who)
     {
-        Msg("[Scripts/Script_SchemeXRHit/hit_callback(p_client_object, amount, local_direction, p_client_who, "
-            "bone_index)] %s hit by %s",
+        MESSAGE("%s hit by %s",
             p_client_object->Name(), p_client_who->Name());
         DataBase::Storage::getInstance().setStorageHitWhoID(p_client_object->ID(), p_client_who->ID());
     }
     else
     {
-        Msg("[Scripts/Script_SchemeXRHit/hit_callback(p_client_object, amount, local_direction, p_client_who, "
-            "bone_index)] %s hit by Unknown",
+        MESSAGE("%s hit by Unknown",
             p_client_object->Name());
         DataBase::Storage::getInstance().setStorageHitWhoID(p_client_object->ID(), Globals::kUnsignedInt16Undefined);
     }
@@ -44,7 +42,7 @@ void Script_SchemeXRHit::hit_callback(CScriptGameObject* const p_client_object, 
             this->m_id, (amount >= this->m_npc->GetHealth() * 100.0f));
 
         if (XR_LOGIC::try_switch_to_another_section(
-                p_client_object, *this->m_p_storage, DataBase::Storage::getInstance().getActor()))
+                p_client_object, this->m_p_storage, DataBase::Storage::getInstance().getActor()))
         {
             DataBase::Storage::getInstance().setStorageHitDeadlyHit(this->m_id, false);
             return;
@@ -62,8 +60,8 @@ void Script_SchemeXRHit::set_hit_checker(CScriptGameObject* const p_client_objec
         return;
     }
 
-    DataBase::Storage_Scheme* p_storage =
-        XR_LOGIC::assign_storage_and_bind(p_client_object, p_ini, scheme_name, section_name, gulag_name);
+    DataBase::Script_ComponentScheme_XRHit* p_storage =
+        XR_LOGIC::assign_storage_and_bind<DataBase::Script_ComponentScheme_XRHit>(p_client_object, p_ini, scheme_name, section_name, gulag_name);
 
     if (!p_storage)
     {
