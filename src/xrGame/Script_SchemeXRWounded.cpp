@@ -481,29 +481,27 @@ namespace Cordis
 		void Script_WoundedManager::process_psy_wound(const std::uint32_t health, xr_string& state_name, xr_string& sound_name)
 		{
 			std::uint32_t key = this->get_key_from_distance(this->m_p_storage->getPsyState(), health);
-			if (key == 0)
+
+			if (this->m_p_storage->getPsyState().find(key) != this->m_p_storage->getPsyState().end())
 			{
-				MESSAGEW("maybe it is not right! Check data in debug mode!");
+				const xr_map<std::uint32_t, CondlistData>& state_condlist = std::get<_kGetStateCondlist>(this->m_p_storage->getPsyState().at(key));
+				const xr_map<std::uint32_t, CondlistData>& sound_condlist = std::get<_kGetSoundCondlist>(this->m_p_storage->getPsyState().at(key));
+
+				if (state_condlist.empty() == false)
+					state_name = XR_LOGIC::pick_section_from_condlist(DataBase::Storage::getInstance().getActor(), this->m_p_npc, state_condlist);
+				else
+					state_name.clear();
+
+				if (sound_condlist.empty() == false)
+					sound_name = XR_LOGIC::pick_section_from_condlist(DataBase::Storage::getInstance().getActor(), this->m_p_npc, sound_condlist);
+				else
+					sound_name.clear();
 			}
-
-			if (key == Globals::kUnsignedInt32Undefined)
-			{
-				MESSAGEWR("Something is not right check your data!");
-				return;
-			}
-
-			const xr_map<std::uint32_t, CondlistData>& state_condlist = std::get<_kGetStateCondlist>(this->m_p_storage->getPsyState().at(key));
-			const xr_map<std::uint32_t, CondlistData>& sound_condlist = std::get<_kGetSoundCondlist>(this->m_p_storage->getPsyState().at(key));
-
-			if (state_condlist.empty() == false)
-				state_name = XR_LOGIC::pick_section_from_condlist(DataBase::Storage::getInstance().getActor(), this->m_p_npc, state_condlist);
 			else
+			{
 				state_name.clear();
-
-			if (sound_condlist.empty() == false)
-				sound_name = XR_LOGIC::pick_section_from_condlist(DataBase::Storage::getInstance().getActor(), this->m_p_npc, sound_condlist);
-			else
 				sound_name.clear();
+			}
 		}
 
 		void Script_WoundedManager::hit_callback(void)
