@@ -489,7 +489,9 @@ namespace Cordis
 			return false;
 		}
 
-		Script_ActionCommander::Script_ActionCommander(CScriptGameObject* const p_client_object, const xr_string& name, void* storage) : Script_ISchemeStalker(nullptr, name, storage), m_is_was_reset(false), m_current_state_name("patrol"), m_p_move_manager(DataBase::Storage::getInstance().getStorage().at(p_client_object->ID()).getMoveManager())
+		Script_ActionCommander::Script_ActionCommander(CScriptGameObject* const p_client_object, const xr_string& name, DataBase::Script_ComponentScheme_XRPatrol* storage) : Script_ISchemeStalker(nullptr, name, storage), 
+			m_is_was_reset(false), m_current_state_name("patrol"),
+			m_p_move_manager(DataBase::Storage::getInstance().getStorage().at(p_client_object->ID()).getMoveManager()), m_p_storage(storage)
 		{
 		}
 
