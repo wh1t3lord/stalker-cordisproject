@@ -84,7 +84,7 @@ void anim_script_callback::anim_callback(CBlend* B)
     }
 }
 
-void anim_script_callback::update(CGameObject& O)
+void anim_script_callback::update(CGameObject& object)
 {
     if (!is_set)
         return;
@@ -94,7 +94,10 @@ void anim_script_callback::update(CGameObject& O)
 
     // Lord - [Script] Re-write
     //O.callback(GameObject::eScriptAnimation)(on_end);
-    O.GetScriptBinderObject()->animation_callback(on_end);
+
+    if (object.GetScriptBinderObject())
+        object.GetScriptBinderObject()->animation_callback(on_end);
+
     on_end = false;
     on_begin = false;
 }
