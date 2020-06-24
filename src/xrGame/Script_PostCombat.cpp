@@ -98,7 +98,7 @@ namespace Cordis
 				return;
 			}
 
-			DataBase::Script_ComponentScheme_XRCombatIgnore* const p_storage = new DataBase::Script_ComponentScheme_XRCombatIgnore();
+			DataBase::Script_ComponentScheme_PostCombat* const p_storage = new DataBase::Script_ComponentScheme_PostCombat();
 			DataBase::Storage::getInstance().setStorageScheme(p_client_object->ID(), "post_combat_wait", p_storage);
 
 			p_planner->remove_evaluator(StalkerDecisionSpace::eWorldPropertyEnemy);
