@@ -1945,7 +1945,7 @@ struct Script_ComponentScheme_PostCombat : public Script_IComponentScheme
 		this->m_p_animation = p_data;
 	}
 
-	inline void clear(void)
+	inline void clear(void) noexcept override
 	{
         Script_IComponentScheme::clear();
 
@@ -2075,7 +2075,7 @@ struct Script_ComponentScheme_XRAnimPoint : public Script_IComponentScheme
 		this->m_p_animpoint = p_animpoint;
 	}
 
-	inline void clear(void)
+	inline void clear(void) noexcept override
 	{
         Script_IComponentScheme::clear();
 
@@ -2515,7 +2515,7 @@ struct Script_ComponentScheme_XRMeet : public Script_IComponentScheme
 		this->m_meet_section_name = name;
 	}
 
-	inline void clear(void)
+	inline void clear(void) noexcept override
 	{
         Script_IComponentScheme::clear();
 
@@ -3320,7 +3320,7 @@ struct Script_ComponentScheme_XRAbuse : public Script_IComponentScheme
 		this->m_p_abuse_manager = p_object;
 	}
 
-	inline void clear(void)
+	inline void clear(void) noexcept override
 	{
         Script_IComponentScheme::clear();
 
