@@ -77,7 +77,7 @@ bool sr_camp_guitar_precondition(Script_CampData* const p_camp)
             for (const std::pair<std::uint16_t, std::pair<xr_string, xr_map<xr_string, std::uint32_t>>>& it :
                 p_camp->getNpcs())
             {
-                DataBase::Storage_Scheme* p_storage_scheme = nullptr;
+                DataBase::Script_ComponentScheme_SRCamp* p_storage_scheme = nullptr;
                 CScriptGameObject* p_npc = nullptr;
 
                 if (DataBase::Storage::getInstance().getStorage().find(it.first) !=

@@ -1615,6 +1615,17 @@ struct Script_ComponentScheme_MobHome : public Script_IComponentScheme
     inline bool isGulagPoint(void) const noexcept { return this->m_is_gulag_point; }
     inline void setGulagPoint(const bool value) noexcept { this->m_is_gulag_point = value; }
 
+    inline void clear(void) noexcept 
+    {
+        this->m_is_aggresive = false;
+        this->m_is_gulag_point = false;
+        this->m_home_max_radius = 0;
+        this->m_home_mid_radius = 0;
+        this->m_home_min_radius = 0;
+        this->m_state_name.clear();
+        this->m_home_name.clear();
+    }
+
 private:
     bool m_is_aggresive;
     bool m_is_gulag_point;
@@ -1704,11 +1715,15 @@ private:
 struct Script_ComponentScheme_MobDeath : public Script_IComponentScheme
 {
     Script_ComponentScheme_MobDeath(void) {}
+
+    inline void clear(void) noexcept {}
 };
 
 struct Script_ComponentScheme_MobCombat : public Script_IComponentScheme
 {
     Script_ComponentScheme_MobCombat(void) {}
+
+    inline void clear(void) noexcept {}
 };
 
 struct Script_ComponentScheme_XRSmartCover : public Script_IComponentScheme
@@ -4393,12 +4408,14 @@ public:
 	Script_AllocatorScheme(Script_AllocatorScheme&&) = delete;
 	Script_AllocatorScheme& operator=(Script_AllocatorScheme&&) = delete;
 
-	inline void* allocate(const std::uint16_t npc_id) noexcept
+	inline void* allocate(std::uint16_t npc_id) noexcept
 	{
 		if (this->m_buffer.find(npc_id) != this->m_buffer.end())
 		{
 			ComponentType& reference = this->m_buffer.at(npc_id);
 			reference.clear();
+
+            return static_cast<void*>(&reference);
 		}
 
 		ComponentType& instance = this->m_buffer[npc_id];
