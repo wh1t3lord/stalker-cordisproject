@@ -10,7 +10,7 @@ namespace Scripts
 Script_SchemeSRParticle::Script_SchemeSRParticle(
     CScriptGameObject* const p_client_object, DataBase::Script_ComponentScheme_SRParticle* storage)
     : inherited_scheme(p_client_object, storage), m_last_update(0), m_path(nullptr), m_is_started(false),
-      m_is_first_played(false)
+      m_is_first_played(false), m_p_storage(storage)
 {
     this->m_scheme_name = "sr_particle";
 }
