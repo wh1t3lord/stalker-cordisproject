@@ -115,6 +115,31 @@ using RTokenVec = xr_vector<xr_rtoken>;
 #include <boost/lexical_cast.hpp>
 #pragma endregion
 
+
+#pragma region Cordis
+// @ default message
+// Color: Gray in log  ouput
+#define MESSAGE(text_message, ...) { xr_string file_name = __FILE__; Msg("[%s|" __FUNCTION__ "|%d] "##text_message, file_name.substr(file_name.rfind("\\")+1).c_str(), __LINE__, __VA_ARGS__); }
+
+// @ used for deallocation or something else rare and indeed vital information in log 
+// Color: Dark Blue in log ouput
+#define MESSAGEI(text_message, ...) { xr_string file_name = __FILE__; Msg("[%s|" __FUNCTION__ "|%d] information -> "##text_message, file_name.substr(file_name.rfind("\\")+1).c_str(), __LINE__, __VA_ARGS__); }
+
+// @ used for warnings
+// Color: Yellow in log output
+#define MESSAGEW(text_message, ...) { xr_string file_name = __FILE__; Msg("[%s|" __FUNCTION__ "|%d] WARNING: "##text_message, file_name.substr(file_name.rfind("\\")+1).c_str(), __LINE__, __VA_ARGS__); }
+// @ version of MESSAGEW macros, but with Return statement at the end
+// Color: Yellow in log ouput
+#define MESSAGEWR(text_message, ...){ xr_string file_name = __FILE__; Msg("[%s|" __FUNCTION__ "|%d] WARNING: "##text_message" Return ...", file_name.substr(file_name.rfind("\\")+1).c_str(), __LINE__, __VA_ARGS__); }
+
+// @ for errors
+// Color: Red in log output
+#define MESSAGEE(text_message, ...) { xr_string file_name = __FILE__; Msg("[%s|" __FUNCTION__ "|%d] ERROR: "##text_message, file_name.substr(file_name.rfind("\\")+1).c_str(), __LINE__, __VA_ARGS__); R_ASSERT(false); }
+// @ version of MESSAGEE, but with Return statement at the end
+// Color: Red in log output
+#define MESSAGEER(text_message, ...) { xr_string file_name = __FILE__; Msg("[%s|" __FUNCTION__ "|%d] ERROR: "##text_message" Return ...", file_name.substr(file_name.rfind("\\")+1).c_str(), __LINE__, __VA_ARGS__); R_ASSERT(false); }
+#pragma endregion
+
 #pragma region Cordis Includes
 #include "Cordis_ScriptDataStructures.h"
 #pragma endregion
@@ -140,6 +165,7 @@ class XRCORE_API xrCore
 
 public:
     string64 ApplicationName;
+    CTimer m_Timer;
     string_path ApplicationPath;
     string_path WorkingPath;
     string64 UserName;
@@ -167,28 +193,3 @@ private:
 };
 
 extern XRCORE_API xrCore Core;
-
-
-#pragma region Cordis
-// @ default message
-// Color: Gray in log  ouput
-#define MESSAGE(text_message, ...) { xr_string file_name = __FILE__; Msg("[%s|" __FUNCTION__ "|%d] "##text_message, file_name.substr(file_name.rfind("\\")+1).c_str(), __LINE__, __VA_ARGS__); }
-
-// @ used for deallocation or something else rare and indeed vital information in log 
-// Color: Dark Blue in log ouput
-#define MESSAGEI(text_message, ...) { xr_string file_name = __FILE__; Msg("[%s|" __FUNCTION__ "|%d] information -> "##text_message, file_name.substr(file_name.rfind("\\")+1).c_str(), __LINE__, __VA_ARGS__); }
-
-// @ used for warnings
-// Color: Yellow in log output
-#define MESSAGEW(text_message, ...) { xr_string file_name = __FILE__; Msg("[%s|" __FUNCTION__ "|%d] WARNING: "##text_message, file_name.substr(file_name.rfind("\\")+1).c_str(), __LINE__, __VA_ARGS__); }
-// @ version of MESSAGEW macros, but with Return statement at the end
-// Color: Yellow in log ouput
-#define MESSAGEWR(text_message, ...){ xr_string file_name = __FILE__; Msg("[%s|" __FUNCTION__ "|%d] WARNING: "##text_message" Return ...", file_name.substr(file_name.rfind("\\")+1).c_str(), __LINE__, __VA_ARGS__); }
-
-// @ for errors
-// Color: Red in log output
-#define MESSAGEE(text_message, ...) { xr_string file_name = __FILE__; Msg("[%s|" __FUNCTION__ "|%d] ERROR: "##text_message, file_name.substr(file_name.rfind("\\")+1).c_str(), __LINE__, __VA_ARGS__); R_ASSERT(false); }
-// @ version of MESSAGEE, but with Return statement at the end
-// Color: Red in log output
-#define MESSAGEER(text_message, ...) { xr_string file_name = __FILE__; Msg("[%s|" __FUNCTION__ "|%d] ERROR: "##text_message" Return ...", file_name.substr(file_name.rfind("\\")+1).c_str(), __LINE__, __VA_ARGS__); R_ASSERT(false); }
-#pragma endregion

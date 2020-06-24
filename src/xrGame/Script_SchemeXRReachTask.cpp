@@ -282,7 +282,7 @@ namespace Cordis
 			return false;
 		}
 
-		Script_SchemeXRReachTask::Script_SchemeXRReachTask(const xr_string& name) : Script_ISchemeStalker(nullptr, name, DataBase::Storage_Scheme())
+		Script_SchemeXRReachTask::Script_SchemeXRReachTask(const xr_string& name, DataBase::Script_ComponentScheme_XRReachTask* storage) : Script_ISchemeStalker(nullptr, name, storage), m_p_storage(storage)
 		{
 		}
 
@@ -401,10 +401,10 @@ namespace Cordis
 
 		void Script_SchemeXRReachTask::set_reach_task(CScriptGameObject* const p_client_object, CScriptIniFile* const p_ini, const xr_string& scheme_name, const xr_string& section_name, const xr_string& gulag_name)
 		{
-			DataBase::Storage_Scheme* const p_storage = XR_LOGIC::assign_storage_and_bind(p_client_object, p_ini, scheme_name, section_name, gulag_name);
+			DataBase::Script_ComponentScheme_XRReachTask* const p_storage = XR_LOGIC::assign_storage_and_bind<DataBase::Script_ComponentScheme_XRReachTask>(p_client_object, p_ini, scheme_name, section_name, gulag_name);
 		}
 
-		void Script_SchemeXRReachTask::add_to_binder(CScriptGameObject* const p_client_object, CScriptIniFile* const p_ini, const xr_string& scheme_name, const xr_string& section_name, DataBase::Storage_Scheme& storage)
+		void Script_SchemeXRReachTask::add_to_binder(CScriptGameObject* const p_client_object, CScriptIniFile* const p_ini, const xr_string& scheme_name, const xr_string& section_name, DataBase::Script_IComponentScheme* storage)
 		{
 			if (p_client_object == nullptr)
 			{
@@ -451,7 +451,8 @@ namespace Cordis
 			p_casted->add_evaluator(StalkerDecisionSpace::eWorldPropertySmartTerrainTask, new Script_EvaluatorReachedTaskLocation("reached_task_location"));
 			p_casted->remove_operator(StalkerDecisionSpace::eWorldOperatorSmartTerrainTask);
 
-			Script_SchemeXRReachTask* const p_action = new Script_SchemeXRReachTask("reach_task_location");
+			/*const DataBase::Storage_Data& storage = DataBase::Storage::getInstance().getStorage().at(p_client_object->ID());*/
+			Script_SchemeXRReachTask* const p_action = new Script_SchemeXRReachTask("reach_task_location", nullptr);
 
 
 			p_action->add_condition(CWorldProperty(StalkerDecisionSpace::eWorldPropertyALife, true));

@@ -3673,7 +3673,7 @@ inline bool is_animpoint_reached(CScriptGameObject* actor, CScriptGameObject* np
         return false;
     }
 
-    Script_Animpoint* const p_animpoint = storage.getSchemes().at("animpoint")->getAnimpoint();
+    Script_Animpoint* const p_animpoint = static_cast<DataBase::Script_ComponentScheme_XRAnimPoint*>(storage.getSchemes().at("animpoint"))->getAnimpoint();
 
     if (p_animpoint == nullptr)
     {

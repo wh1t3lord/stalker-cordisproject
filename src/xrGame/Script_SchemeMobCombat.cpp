@@ -6,7 +6,7 @@ namespace Cordis
 namespace Scripts
 {
 Script_SchemeMobCombat::Script_SchemeMobCombat(
-    CScriptGameObject* const p_client_object, DataBase::Storage_Scheme& storage)
+    CScriptGameObject* const p_client_object, DataBase::Script_ComponentScheme_MobCombat* storage)
     : inherited_scheme(p_client_object, storage)
 {
 }
@@ -15,14 +15,14 @@ Script_SchemeMobCombat::~Script_SchemeMobCombat(void) {}
 
 void Script_SchemeMobCombat::combat_callback(void)
 {
-    Msg("[SCripts/Script_SchemeMobCombat/combat_callback()] %s", this->m_npc->Name());
+    Msg("%s", this->m_npc->Name());
 
-    if (this->m_p_storage->IsEnabled() && this->m_npc->GetEnemy())
+    if (this->m_p_true_storage->IsEnabled() && this->m_npc->GetEnemy())
     {
         if (!DataBase::Storage::getInstance().getStorage().at(this->m_npc->ID()).getActiveSchemeName().empty())
         {
             if (XR_LOGIC::try_switch_to_another_section(
-                    this->m_npc, *this->m_p_storage, DataBase::Storage::getInstance().getActor()))
+                    this->m_npc, this->m_p_true_storage, DataBase::Storage::getInstance().getActor()))
                 return;
         }
     }
@@ -43,8 +43,8 @@ void Script_SchemeMobCombat::set_scheme(CScriptGameObject* const p_client_object
         return;
     }
 
-    DataBase::Storage_Scheme* p_storage =
-        XR_LOGIC::assign_storage_and_bind(p_client_object, p_ini, scheme_name, section_name, gulag_name);
+    DataBase::Script_ComponentScheme_MobCombat* p_storage =
+        XR_LOGIC::assign_storage_and_bind<DataBase::Script_ComponentScheme_MobCombat>(p_client_object, p_ini, scheme_name, section_name, gulag_name);
 
     if (!p_storage)
     {

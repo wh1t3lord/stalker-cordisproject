@@ -110,7 +110,7 @@ void init_target(CScriptGameObject* const p_client_object, const xr_string& targ
 
 Script_EvaluatorNeedRemark::_value_type Script_EvaluatorNeedRemark::evaluate(void)
 {
-    return XR_LOGIC::is_active(this->m_object, *this->m_p_storage);
+    return XR_LOGIC::is_active(this->m_object, this->m_p_storage);
 }
 
 Script_SchemeXRRemark::~Script_SchemeXRRemark(void) {}
@@ -137,7 +137,7 @@ void Script_SchemeXRRemark::activate_scheme(const bool is_loading, CScriptGameOb
     this->m_is_action_end_signalled = false;
     this->m_is_animation_end_signalled = false;
 
-    if (!this->m_p_storage->isXRRemarkSoundAnimationSync() && !this->m_p_storage->getXRRemarkSoundName().empty())
+    if (!this->m_p_storage->isSoundAnimationSync() && !this->m_p_storage->getSoundName().empty())
     {
         this->m_is_sound_scheduled = true;
     }
@@ -162,7 +162,7 @@ void Script_SchemeXRRemark::update(const float delta)
         if (!target.first && Globals::is_vector_nil(target.second))
         {
             xr_string state_name = XR_LOGIC::pick_section_from_condlist(DataBase::Storage::getInstance().getActor(),
-                this->m_object, this->m_p_storage->getXRRemarkAnimationCondlist());
+                this->m_object, this->m_p_storage->getAnimationCondlist());
             Globals::set_state(this->m_object, state_name, callback, 0,
                 std::pair<Fvector, CScriptGameObject* const>(Fvector(), nullptr), StateManagerExtraData());
             this->m_state = XR_REMARK::kStateAnimation;
@@ -170,7 +170,7 @@ void Script_SchemeXRRemark::update(const float delta)
         }
 
         xr_string state_name = XR_LOGIC::pick_section_from_condlist(DataBase::Storage::getInstance().getActor(),
-            this->m_object, this->m_p_storage->getXRRemarkAnimationCondlist());
+            this->m_object, this->m_p_storage->getAnimationCondlist());
         Globals::set_state(this->m_object, state_name, callback, 0,
             std::pair<Fvector, CScriptGameObject* const>(target.second, target.first), StateManagerExtraData());
         this->m_state = XR_REMARK::kStateAnimation;
@@ -181,7 +181,7 @@ void Script_SchemeXRRemark::update(const float delta)
         {
             this->m_is_sound_started = true;
             xr_string faction;
-            XR_SOUND::set_sound_play(this->m_object->ID(), this->m_p_storage->getXRRemarkSoundName(), faction, 0);
+            XR_SOUND::set_sound_play(this->m_object->ID(), this->m_p_storage->getSoundName(), faction, 0);
         }
 
         if (!this->m_is_animation_end_signalled)
@@ -216,8 +216,8 @@ void Script_SchemeXRRemark::set_scheme(CScriptGameObject* const p_client_object,
         return;
     }
 
-    DataBase::Storage_Scheme* p_storage =
-        XR_LOGIC::assign_storage_and_bind(p_client_object, p_ini, scheme_name, section_name, gulag_name);
+    DataBase::Script_ComponentScheme_XRRemark* p_storage =
+        XR_LOGIC::assign_storage_and_bind<DataBase::Script_ComponentScheme_XRRemark>(p_client_object, p_ini, scheme_name, section_name, gulag_name);
 
     if (!p_storage)
     {
@@ -226,22 +226,22 @@ void Script_SchemeXRRemark::set_scheme(CScriptGameObject* const p_client_object,
     }
 
     p_storage->setLogic(XR_LOGIC::cfg_get_switch_conditions(p_ini, section_name, p_client_object));
-    p_storage->setXRRemarkSoundAnimationSync(Globals::Utils::cfg_get_bool(p_ini, section_name, "snd_anim_sync"));
-    p_storage->setXRRemarkSoundName(Globals::Utils::cfg_get_string(p_ini, section_name, "snd"));
+    p_storage->setSoundAnimationSync(Globals::Utils::cfg_get_bool(p_ini, section_name, "snd_anim_sync"));
+    p_storage->setSoundName(Globals::Utils::cfg_get_string(p_ini, section_name, "snd"));
     xr_string animation_name = Globals::Utils::cfg_get_string(p_ini, section_name, "anim");
     if (animation_name.empty())
         animation_name = "wait";
 
-    p_storage->setXRRemarkAnimationCondlist(XR_LOGIC::parse_condlist_by_script_object("anim", "anim", animation_name));
+    p_storage->setAnimationCondlist(XR_LOGIC::parse_condlist_by_script_object("anim", "anim", animation_name));
 
     xr_string target_name = Globals::Utils::cfg_get_string(p_ini, section_name, "target");
 
     if (target_name.empty())
         target_name = "nil"; // LorD: проверить будет ли дропать nil, если будет то найти и исправить когда это будет, чтобы все "nil" просто проверялись всегда как .empty()
 
-    p_storage->setXRRemarkTargetName(target_name);
-    p_storage->setXRRemarkTargetID(0);
-    p_storage->setXRRemarkTargetPosition(Fvector());
+    p_storage->setTargetName(target_name);
+    p_storage->setTargetID(0);
+    p_storage->setTargetPosition(Fvector());
 }
 
 std::pair<CScriptGameObject*, Fvector> Script_SchemeXRRemark::get_target(void)
@@ -253,11 +253,11 @@ std::pair<CScriptGameObject*, Fvector> Script_SchemeXRRemark::get_target(void)
     bool is_target_initialized = false;
 
     init_target(
-        this->m_npc, this->m_p_storage->getXRRemarkTargetName(), target_position, target_id, is_target_initialized);
+        this->m_npc, this->m_p_storage->getTargetName(), target_position, target_id, is_target_initialized);
 
-    this->m_p_storage->setXRRemarkTargetID(target_id);
-    this->m_p_storage->setXRRemarkTargetInitialized(is_target_initialized);
-    this->m_p_storage->setXRRemarkTargetPosition(target_position);
+    this->m_p_storage->setTargetID(target_id);
+    this->m_p_storage->setTargetInitialized(is_target_initialized);
+    this->m_p_storage->setTargetPosition(target_position);
 
     if (!is_target_initialized)
         return result;

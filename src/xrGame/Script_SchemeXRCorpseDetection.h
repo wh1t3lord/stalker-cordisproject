@@ -6,8 +6,8 @@ namespace Scripts
 class Script_EvaluatorCorpse : public CScriptPropertyEvaluator
 {
 public:
-    Script_EvaluatorCorpse(const xr_string& evaluator_name, DataBase::Storage_Scheme& storage)
-        : CScriptPropertyEvaluator(nullptr, evaluator_name.c_str()), m_p_storage(&storage)
+    Script_EvaluatorCorpse(const xr_string& evaluator_name, DataBase::Script_ComponentScheme_XRCorpseDetection* storage)
+        : CScriptPropertyEvaluator(nullptr, evaluator_name.c_str()), m_p_storage(storage)
     {
     }
 
@@ -16,7 +16,7 @@ public:
     virtual _value_type evaluate(void);
 
 private:
-    DataBase::Storage_Scheme* m_p_storage;
+    DataBase::Script_ComponentScheme_XRCorpseDetection* m_p_storage;
 };
 
 class Script_SchemeXRCorpseDetection : public Script_ISchemeStalker
@@ -25,8 +25,8 @@ class Script_SchemeXRCorpseDetection : public Script_ISchemeStalker
 
 public:
     Script_SchemeXRCorpseDetection(void) = delete;
-    Script_SchemeXRCorpseDetection(const xr_string& action_name, DataBase::Storage_Scheme& storage)
-        : inherited_scheme(nullptr, action_name, storage)
+    Script_SchemeXRCorpseDetection(const xr_string& action_name, DataBase::Script_ComponentScheme_XRCorpseDetection* storage)
+        : inherited_scheme(nullptr, action_name, storage), m_p_storage(storage)
     {
         this->m_scheme_name = "corpse_detection";
     }
@@ -37,6 +37,9 @@ public:
     virtual void finalize(void);
 
     // Lord: доделать add_to_binder и прочий стаф
+
+private:
+    DataBase::Script_ComponentScheme_XRCorpseDetection* m_p_storage;
 };
 
 } // namespace Scripts

@@ -8,7 +8,10 @@ namespace Cordis
 {
 	namespace Scripts
 	{
-		Script_SchemeXRCombatZombied::Script_SchemeXRCombatZombied(const xr_string& action_name, DataBase::Storage_Scheme& storage) : Script_ISchemeStalker(nullptr, action_name, storage), m_is_was_hit(false), m_is_valid_path(false), m_enemy_last_seen_level_vertex_id(0), m_last_level_vertex_id(0), m_turn_time(0), m_enemy_last_accessible_level_vertex_id(0), m_hit_reaction_end_time(0)
+		Script_SchemeXRCombatZombied::Script_SchemeXRCombatZombied(const xr_string& action_name, DataBase::Script_ComponentScheme_XRCombatZombied* storage) : Script_ISchemeStalker(nullptr, action_name, storage),
+			m_is_was_hit(false), m_is_valid_path(false), m_enemy_last_seen_level_vertex_id(0),
+			m_last_level_vertex_id(0), m_turn_time(0), m_enemy_last_accessible_level_vertex_id(0),
+			m_hit_reaction_end_time(0), m_p_storage(storage)
 		{
 		}
 
@@ -28,7 +31,7 @@ namespace Cordis
 			this->m_last_level_vertex_id = 0;
 			this->m_is_valid_path = false;
 			this->m_turn_time = 0;
-			this->m_p_storage->setXRCombatZombiedCurrentAction(kCombatZombieShoot);
+			this->m_p_storage->setCurrentAction(kCombatZombieShoot);
 		}
 
 		void Script_SchemeXRCombatZombied::execute(void)
@@ -118,7 +121,7 @@ namespace Cordis
 		void Script_SchemeXRCombatZombied::finalize(void)
 		{
 			CScriptActionBase::finalize();
-			this->m_p_storage->setXRCombatZombiedCurrentAction(0);
+			this->m_p_storage->setCurrentAction(0);
 		}
 
 		void Script_SchemeXRCombatZombied::hit_callback(CScriptGameObject* const p_client_object, const float amount, const Fvector& local_direction, CScriptGameObject* const p_client_who, const std::int16_t bone_index)
@@ -126,7 +129,7 @@ namespace Cordis
 			if (p_client_who == nullptr)
 				return;
 
-			if (this->m_p_storage->getXRCombatZombiedCurrentAction() == kCombatZombieShoot)
+			if (this->m_p_storage->getCurrentAction() == kCombatZombieShoot)
 			{
 				if (this->m_object == nullptr)
 					return;
@@ -142,7 +145,8 @@ namespace Cordis
 			}
 		}
 
-		void Script_SchemeXRCombatZombied::add_to_binder(CScriptGameObject* const p_client_object, CScriptIniFile* const p_ini, const xr_string& section_name, const xr_string& scheme_name, DataBase::Storage_Scheme& p_storage)
+		void Script_SchemeXRCombatZombied::add_to_binder(CScriptGameObject* const p_client_object, 
+			CScriptIniFile* const p_ini, const xr_string& section_name, const xr_string& scheme_name, DataBase::Script_IComponentScheme* p_storage)
 		{
 			if (!p_client_object)
 			{
@@ -174,9 +178,9 @@ namespace Cordis
 			
 			properties["state_mgr_logic_active"] = Globals::XR_ACTIONS_ID::XR_EVALUATORS_ID::kStateManager + 4;
 
-			p_planner->add_evaluator(Globals::XR_ACTIONS_ID::XR_EVALUATORS_ID::kCombatZombiedBase, new Script_EvaluatorCombatZombied("combat_zombied", p_storage));
+			p_planner->add_evaluator(Globals::XR_ACTIONS_ID::XR_EVALUATORS_ID::kCombatZombiedBase, new Script_EvaluatorCombatZombied("combat_zombied", static_cast<DataBase::Script_ComponentScheme_XRCombatZombied*>(p_storage)));
 
-			Script_SchemeXRCombatZombied* const p_scheme = new Script_SchemeXRCombatZombied("action_zombie_shoot", p_storage);
+			Script_SchemeXRCombatZombied* const p_scheme = new Script_SchemeXRCombatZombied("action_zombie_shoot", static_cast<DataBase::Script_ComponentScheme_XRCombatZombied*>(p_storage));
 			p_scheme->add_condition(CWorldProperty(StalkerDecisionSpace::eWorldPropertyAlive, true));
 			p_scheme->add_condition(CWorldProperty(Globals::XR_ACTIONS_ID::XR_EVALUATORS_ID::kCombatZombiedBase, true));
 			p_scheme->add_condition(CWorldProperty(Globals::XR_ACTIONS_ID::XR_EVALUATORS_ID::kScriptCombat, true));
@@ -186,7 +190,7 @@ namespace Cordis
 			p_planner->add_operator(Globals::XR_ACTIONS_ID::kCombatZombiedBase, p_scheme);
 			DataBase::Storage::getInstance().setStorageSchemesActions(p_client_object->ID(), scheme_name, p_scheme);
 
-			Script_SchemeXRCombatZombiedDanger* const p_scheme_danger = new Script_SchemeXRCombatZombiedDanger("action_zombie_go_to_danger", p_storage);
+			Script_SchemeXRCombatZombiedDanger* const p_scheme_danger = new Script_SchemeXRCombatZombiedDanger("action_zombie_go_to_danger", static_cast<DataBase::Script_ComponentScheme_XRCombatZombied*>(p_storage));
 			p_scheme_danger->add_condition(CWorldProperty(StalkerDecisionSpace::eWorldPropertyAlive, true));
 			p_scheme_danger->add_condition(CWorldProperty(Globals::XR_ACTIONS_ID::XR_EVALUATORS_ID::kCombatZombiedBase, true));
 			p_scheme_danger->add_condition(CWorldProperty(StalkerDecisionSpace::eWorldPropertyEnemy, false));
@@ -222,7 +226,9 @@ namespace Cordis
 			return look_position;
 		}
 
-		Script_SchemeXRCombatZombiedDanger::Script_SchemeXRCombatZombiedDanger(const xr_string& name, DataBase::Storage_Scheme& storage) : Script_ISchemeStalker(nullptr, name, storage), m_is_was_hit(false), m_bestdanger_id(0), m_bestdanger_level_vertex_id(0), m_hit_reaction_end_time(0), m_last_sent_level_vertex_id(0)
+		Script_SchemeXRCombatZombiedDanger::Script_SchemeXRCombatZombiedDanger(const xr_string& name, DataBase::Script_ComponentScheme_XRCombatZombied* storage) : Script_ISchemeStalker(nullptr, name, storage), 
+			m_is_was_hit(false), m_bestdanger_id(0), m_bestdanger_level_vertex_id(0), m_hit_reaction_end_time(0),
+			m_last_sent_level_vertex_id(0), m_p_storage(storage)
 		{
 		}
 
@@ -241,7 +247,7 @@ namespace Cordis
 			this->m_bestdanger_id = 0;
 			this->m_bestdanger_level_vertex_id = 0;
 			this->m_last_sent_level_vertex_id = 0;
-			this->m_p_storage->setXRCombatZombiedCurrentAction(kCombatZombieDanger);
+			this->m_p_storage->setCurrentAction(kCombatZombieDanger);
 		}
 
 		void Script_SchemeXRCombatZombiedDanger::execute(void)
@@ -289,7 +295,7 @@ namespace Cordis
 		void Script_SchemeXRCombatZombiedDanger::finalize(void)
 		{
 			CScriptActionBase::finalize();
-			this->m_p_storage->setXRCombatZombiedCurrentAction(0);
+			this->m_p_storage->setCurrentAction(0);
 		}
 
 		void Script_SchemeXRCombatZombiedDanger::hit_callback(CScriptGameObject* const p_client_object, const float amount, const Fvector& local_direction, CScriptGameObject* const p_client_who, const std::int16_t bone_index)
@@ -297,7 +303,7 @@ namespace Cordis
 			if (p_client_who == nullptr)
 				return;
 
-			if (this->m_p_storage->getXRCombatZombiedCurrentAction() == kCombatZombieDanger)
+			if (this->m_p_storage->getCurrentAction() == kCombatZombieDanger)
 			{
 				const CDangerObject* const p_danger = this->m_object->GetBestDanger();
 

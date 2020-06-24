@@ -9,15 +9,15 @@ namespace Cordis
 {
 namespace Scripts
 {
-Script_SchemePHDoor::Script_SchemePHDoor(CScriptGameObject* const p_client_object, DataBase::Storage_Scheme& storage)
+Script_SchemePHDoor::Script_SchemePHDoor(CScriptGameObject* const p_client_object, DataBase::Script_ComponentScheme_PHDoor* storage)
     : inherited_scheme(p_client_object, storage), m_p_joint(nullptr), m_is_initialized(false), m_low_limits(0.0f),
       m_high_limits(0.0f), m_is_block(false), m_is_soundless_block(false), m_is_show_tips(false)
 {
     this->m_scheme_name = "ph_door";
-    this->m_p_storage->setPHDoorDoorAction(this);
+    this->m_p_storage->setDoorAction(this);
 }
 
-Script_SchemePHDoor::~Script_SchemePHDoor(void) { this->m_p_storage->setPHDoorDoorAction(nullptr); }
+Script_SchemePHDoor::~Script_SchemePHDoor(void) { this->m_p_storage->setDoorAction(nullptr); }
 
 void Script_SchemePHDoor::reset_scheme(const bool value, CScriptGameObject* const p_client_object)
 {
@@ -41,16 +41,16 @@ void Script_SchemePHDoor::reset_scheme(const bool value, CScriptGameObject* cons
     this->m_p_joint->GetLimits(this->m_low_limits, this->m_high_limits, 0);
     this->m_is_block = false;
     this->m_is_soundless_block = false;
-    this->m_is_show_tips = this->m_p_storage->IsPHDoorShowTips();
+    this->m_is_show_tips = this->m_p_storage->IsShowTips();
 
     bool is_disable_sound = false;
-    if (!this->m_p_storage->IsPHDoorScriptUsedMoreThanOnce())
+    if (!this->m_p_storage->IsScriptUsedMoreThanOnce())
     {
         is_disable_sound = true;
-        this->m_p_storage->setPHDoorScriptUsedMoreThanOnce(true);
+        this->m_p_storage->setScriptUsedMoreThanOnce(true);
     }
 
-    if (this->m_p_storage->IsPHDoorClosed())
+    if (this->m_p_storage->IsClosed())
     {
         if (this->is_closed())
         {
@@ -75,18 +75,18 @@ void Script_SchemePHDoor::update(const float delta)
     }
 
     if (XR_LOGIC::try_switch_to_another_section(
-            this->m_npc, *this->m_p_storage, DataBase::Storage::getInstance().getActor()))
+            this->m_npc, this->m_p_storage, DataBase::Storage::getInstance().getActor()))
         return;
 }
 
 void Script_SchemePHDoor::use_callback(CScriptGameObject* const p_client_object, CScriptGameObject* const p_client_who)
 {
-    if (this->m_p_storage->IsPHDoorLocked())
+    if (this->m_p_storage->IsLocked())
     {
-        if (!this->m_p_storage->getPHDoorSoundOpenStartName().empty())
+        if (!this->m_p_storage->getSoundOpenStartName().empty())
         {
             xr_string faction_name;
-            XR_SOUND::set_sound_play(this->m_id, this->m_p_storage->getPHDoorSoundOpenStartName(), faction_name, 0);
+            XR_SOUND::set_sound_play(this->m_id, this->m_p_storage->getSoundOpenStartName(), faction_name, 0);
         }
     }
 
@@ -117,8 +117,8 @@ void Script_SchemePHDoor::set_scheme(CScriptGameObject* const p_client_object, C
         return;
     }
 
-    DataBase::Storage_Scheme* p_storage =
-        XR_LOGIC::assign_storage_and_bind(p_client_object, p_ini, scheme_name, section_name, gulag_name);
+    DataBase::Script_ComponentScheme_PHDoor* p_storage =
+        XR_LOGIC::assign_storage_and_bind<DataBase::Script_ComponentScheme_PHDoor>(p_client_object, p_ini, scheme_name, section_name, gulag_name);
 
     if (!p_storage)
     {
@@ -128,18 +128,18 @@ void Script_SchemePHDoor::set_scheme(CScriptGameObject* const p_client_object, C
 
     p_storage->setLogic(XR_LOGIC::cfg_get_switch_conditions(p_ini, section_name, p_client_object));
 
-    p_storage->setPHDoorClosed(Globals::Utils::cfg_get_bool(p_ini, section_name, "closed"));
-    p_storage->setPHDoorLocked(Globals::Utils::cfg_get_bool(p_ini, section_name, "locked"));
-    p_storage->setPHDoorNoForce(Globals::Utils::cfg_get_bool(p_ini, section_name, "no_force"));
+    p_storage->setClosed(Globals::Utils::cfg_get_bool(p_ini, section_name, "closed"));
+    p_storage->setLocked(Globals::Utils::cfg_get_bool(p_ini, section_name, "locked"));
+    p_storage->setNoForce(Globals::Utils::cfg_get_bool(p_ini, section_name, "no_force"));
 
-    p_storage->setPHDoorNotForNpc(Globals::Utils::cfg_get_bool(p_ini, section_name, "not_for_npc"));
-    p_storage->setPHDoorShowTips(Globals::Utils::cfg_get_bool(p_ini, section_name, "show_tips"));
+    p_storage->setNotForNpc(Globals::Utils::cfg_get_bool(p_ini, section_name, "not_for_npc"));
+    p_storage->setShowTips(Globals::Utils::cfg_get_bool(p_ini, section_name, "show_tips"));
 
-    p_storage->setPHDoorTipOpenName(Globals::Utils::cfg_get_string(p_ini, section_name, "tip_open"));
-    p_storage->setPHDoorTipUnlockName(Globals::Utils::cfg_get_string(p_ini, section_name, "tip_open"));
-    p_storage->setPHDoorTipCloseName(Globals::Utils::cfg_get_string(p_ini, section_name, "tip_close"));
+    p_storage->setTipOpenName(Globals::Utils::cfg_get_string(p_ini, section_name, "tip_open"));
+    p_storage->setTipUnlockName(Globals::Utils::cfg_get_string(p_ini, section_name, "tip_open"));
+    p_storage->setTipCloseName(Globals::Utils::cfg_get_string(p_ini, section_name, "tip_close"));
 
-    p_storage->setPHDoorSlider(Globals::Utils::cfg_get_bool(p_ini, section_name, "slider"));
+    p_storage->setSlider(Globals::Utils::cfg_get_bool(p_ini, section_name, "slider"));
 
     xr_string sound_open_start_name;
     xr_string sound_close_start_name;
@@ -158,14 +158,14 @@ void Script_SchemePHDoor::set_scheme(CScriptGameObject* const p_client_object, C
     if (sound_close_stop_name.empty())
         sound_close_stop_name = "trader_door_close_stop";
 
-    p_storage->setPHDoorSoundOpenStartName(sound_open_start_name);
-    p_storage->setPHDoorSoundCloseStartName(sound_close_start_name);
-    p_storage->setPHDoorSoundCloseStopName(sound_close_stop_name);
+    p_storage->setSoundOpenStartName(sound_open_start_name);
+    p_storage->setSoundCloseStartName(sound_close_start_name);
+    p_storage->setSoundCloseStopName(sound_close_stop_name);
 
     p_storage->setOnUseCondlist(
         XR_LOGIC::cfg_get_condlist(p_ini, section_name, "on_use", p_client_object).getCondlist());
 
-    if (p_storage->IsPHDoorLocked() || p_storage->IsPHDoorNotForNpc())
+    if (p_storage->IsLocked() || p_storage->IsNotForNpc())
     {
         if (!p_client_object->is_door_locked_for_npc())
             p_client_object->lock_door_for_npc();
@@ -183,16 +183,16 @@ void Script_SchemePHDoor::close_door(const bool is_disable_sound)
 {
     if (!is_disable_sound)
     {
-        if (!this->m_p_storage->getPHDoorSoundCloseStartName().empty())
+        if (!this->m_p_storage->getSoundCloseStartName().empty())
         {
             xr_string faction_name;
-            XR_SOUND::set_sound_play(this->m_id, this->m_p_storage->getPHDoorSoundCloseStartName(), faction_name, 0);
+            XR_SOUND::set_sound_play(this->m_id, this->m_p_storage->getSoundCloseStartName(), faction_name, 0);
         }
     }
 
     this->m_npc->set_fastcall(std::bind(&Script_SchemePHDoor::fastcall, this));
 
-    if (this->m_p_storage->IsPHDoorNoForce())
+    if (this->m_p_storage->IsNoForce())
     {
         this->m_p_joint->SetForceAndVelocity(0.0f, 0.0f, 0);
     }
@@ -212,15 +212,15 @@ void Script_SchemePHDoor::close_door(const bool is_disable_sound)
 
     if (this->m_is_show_tips)
     {
-        if (this->m_p_storage->IsPHDoorLocked() && !this->m_p_storage->getPHDoorTipUnlockName().empty())
+        if (this->m_p_storage->IsLocked() && !this->m_p_storage->getTipUnlockName().empty())
         {
-            this->m_npc->SetTipText(this->m_p_storage->getPHDoorTipUnlockName().c_str());
+            this->m_npc->SetTipText(this->m_p_storage->getTipUnlockName().c_str());
             return;
         }
 
-        if (!this->m_p_storage->getPHDoorTipOpenName().empty())
+        if (!this->m_p_storage->getTipOpenName().empty())
         {
-            this->m_npc->SetTipText(this->m_p_storage->getPHDoorTipOpenName().c_str());
+            this->m_npc->SetTipText(this->m_p_storage->getTipOpenName().c_str());
         }
     }
 }
@@ -229,10 +229,10 @@ void Script_SchemePHDoor::open_door(const bool is_disable_sound)
 {
     if (!is_disable_sound)
     {
-        if (!this->m_p_storage->getPHDoorSoundOpenStartName().empty())
+        if (!this->m_p_storage->getSoundOpenStartName().empty())
         {
             xr_string faction_name;
-            XR_SOUND::set_sound_play(this->m_id, this->m_p_storage->getPHDoorSoundOpenStartName(), faction_name, 0);
+            XR_SOUND::set_sound_play(this->m_id, this->m_p_storage->getSoundOpenStartName(), faction_name, 0);
         }
     }
 
@@ -253,7 +253,7 @@ void Script_SchemePHDoor::open_door(const bool is_disable_sound)
         }
     }
 
-    if (this->m_p_storage->IsPHDoorNoForce())
+    if (this->m_p_storage->IsNoForce())
     {
         this->m_p_joint->SetForceAndVelocity(0.0f, 0.0, 0);
     }
@@ -264,9 +264,9 @@ void Script_SchemePHDoor::open_door(const bool is_disable_sound)
 
     this->m_is_block = false;
 
-    if (this->m_is_show_tips && !this->m_p_storage->getPHDoorTipCloseName().empty())
+    if (this->m_is_show_tips && !this->m_p_storage->getTipCloseName().empty())
     {
-        this->m_npc->SetTipText(this->m_p_storage->getPHDoorTipCloseName().c_str());
+        this->m_npc->SetTipText(this->m_p_storage->getTipCloseName().c_str());
     }
 }
 
@@ -274,7 +274,7 @@ void Script_SchemePHDoor::close_action(void)
 {
     Msg("[Scripts/Script_SchemePHDoor/close_action()] %d", Globals::get_time_global());
 
-    if (this->m_p_storage->IsPHDoorNoForce())
+    if (this->m_p_storage->IsNoForce())
     {
         this->m_p_joint->SetForceAndVelocity(0.0f, 0.0f, 0);
     }
@@ -297,10 +297,10 @@ void Script_SchemePHDoor::close_action(void)
     p_physic_object->unset_door_ignore_dynamics();
     this->m_is_block = false;
 
-    if (!this->m_is_soundless_block && !this->m_p_storage->getPHDoorSoundCloseStopName().empty())
+    if (!this->m_is_soundless_block && !this->m_p_storage->getSoundCloseStopName().empty())
     {
         xr_string faction_name;
-        XR_SOUND::set_sound_play(this->m_id, this->m_p_storage->getPHDoorSoundCloseStopName(), faction_name, 0);
+        XR_SOUND::set_sound_play(this->m_id, this->m_p_storage->getSoundCloseStopName(), faction_name, 0);
     }
 }
 
@@ -323,12 +323,12 @@ bool Script_SchemePHDoor::is_closed(void) noexcept
 {
     if (!this->m_p_joint)
     {
-        Msg("[Scripts/Script_SchemePHDoor/is_closed()] WARNING: this->m_p_joint == nullptr! Return ...");
+        MESSAGEWR("this->m_p_joint == nullptr!");
         return false;
     }
 
     float angle;
-    if (this->m_p_storage->IsPHDoorSlider())
+    if (this->m_p_storage->IsSlider())
     {
         angle = -this->m_p_joint->GetAxisAngle(0);
     }
@@ -347,12 +347,12 @@ bool Script_SchemePHDoor::is_open(void) noexcept
 {
     if (!this->m_p_joint)
     {
-        Msg("[Scripts/Script_SchemePHDoor/is_open()] WARNING: this->m_p_joint == nullptr! Return ...");
+        MESSAGEWR("this->m_p_joint == nullptr!");
         return false;
     }
 
     float angle;
-    if (this->m_p_storage->IsPHDoorSlider())
+    if (this->m_p_storage->IsSlider())
     {
         angle = -this->m_p_joint->GetAxisAngle(0);
     }
@@ -384,7 +384,7 @@ bool Script_SchemePHDoor::open_fastcall(void)
         }
         else
         {
-            Msg("[Scripts/Script_SchemePHDoor/open_fastcall()] WARNING: CPhysicObject field is nullptr! Something "
+            MESSAGEW("CPhysicObject field is nullptr! Something "
                 "wrong, check your dynamic part of the door!");
         }
 
@@ -412,7 +412,7 @@ bool Script_SchemePHDoor::fastcall(void)
 }
 
 void Script_SchemePHDoor::add_to_binder(CScriptGameObject* const p_client_object, CScriptIniFile* const p_ini,
-    const xr_string& scheme_name, const xr_string& section_name, DataBase::Storage_Scheme& storage)
+    const xr_string& scheme_name, const xr_string& section_name, DataBase::Script_IComponentScheme* storage)
 {
     if (!p_client_object)
     {
@@ -426,12 +426,11 @@ void Script_SchemePHDoor::add_to_binder(CScriptGameObject* const p_client_object
         return;
     }
 
-    Msg("[Scripts/add_to_binder(p_client_object, p_ini, scheme_name, section_name, storage)] added "
-        "Script_SchemeMobWalker scheme to binder, name=%s scheme=%s section=%s",
+    MESSAGEI("added scheme to binder, name=%s scheme=%s section=%s",
         p_client_object->Name(), scheme_name.c_str(), section_name.c_str());
 
     p_client_object->register_door();
-    Script_ISchemeEntity* p_scheme = new Script_SchemePHDoor(p_client_object, storage);
+    Script_ISchemeEntity* p_scheme = new Script_SchemePHDoor(p_client_object, reinterpret_cast<DataBase::Script_ComponentScheme_PHDoor*>(storage));
     DataBase::Storage::getInstance().setStorageSchemesActions(p_client_object->ID(), scheme_name, p_scheme);
 }
 

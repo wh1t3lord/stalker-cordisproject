@@ -11,7 +11,7 @@ class Script_SchemeHelicopterMove : public Script_ISchemeEntity
 
 public:
     Script_SchemeHelicopterMove(void) = delete;
-    Script_SchemeHelicopterMove(CScriptGameObject* const p_client_object, DataBase::Storage_Scheme& storage);
+    Script_SchemeHelicopterMove(CScriptGameObject* const p_client_object, DataBase::Script_ComponentScheme_Helicopter* storage);
     ~Script_SchemeHelicopterMove(void);
 
     virtual void reset_scheme(const bool is_loading, CScriptGameObject* const p_client_object);
@@ -22,7 +22,7 @@ public:
 
     // @ PRIVATE uses, in XR_LOGIC
     static void add_to_binder(CScriptGameObject* const p_client_object, CScriptIniFile* const p_ini,
-        const xr_string& scheme_name, const xr_string& section_name, DataBase::Storage_Scheme& storage);
+        const xr_string& scheme_name, const xr_string& section_name, DataBase::Script_IComponentScheme* storage);
 
     // @ PRIVATE, uses in XR_LOGIC
     static void set_scheme(CScriptGameObject* const p_client_object, CScriptIniFile* const p_ini,
@@ -97,6 +97,7 @@ private:
     std::uint32_t m_last_index;
     std::uint32_t m_next_index;
     float m_max_velocity;
+    DataBase::Script_ComponentScheme_Helicopter* m_p_storage;
     CPatrolPathParams* m_p_patrol_move;
     CPatrolPathParams* m_p_patrol_look;
     CHelicopter* m_p_helicopter;

@@ -2310,8 +2310,9 @@ inline bool is_mob_captured(CScriptGameObject* p_client_object)
     return p_client_object->GetScriptControl();
 }
 
-// Lord: нормально ли здесь реализовано
-inline DataBase::Storage_Scheme* assign_storage_and_bind(CScriptGameObject* const p_client_object,
+ 
+template<typename ComponentType>
+inline ComponentType* assign_storage_and_bind(CScriptGameObject* const p_client_object,
     CScriptIniFile* const p_ini, const xr_string& scheme_name, const xr_string& section_name,
     const xr_string& gulag_name)
 {
@@ -2330,16 +2331,13 @@ inline DataBase::Storage_Scheme* assign_storage_and_bind(CScriptGameObject* cons
         DataBase::Storage::getInstance().getStorage().at(p_client_object->ID()).getSchemes().end())
 
     {
-        DataBase::Storage_Scheme* p_storage = new DataBase::Storage_Scheme();
+        ComponentType* p_storage = static_cast<ComponentType*>(Script_GlobalHelper::getInstance().getSchemesAllocatorCallbacks()[scheme_name](p_client_object->ID())); 
         p_storage->setClientObject(p_client_object);
         DataBase::Storage::getInstance().setStorageScheme(p_client_object->ID(), scheme_name, p_storage);
-        Script_GlobalHelper::getInstance().getSchemesAddToBinderCallbacks()[scheme_name](
-            p_client_object, p_ini, scheme_name, section_name, *p_storage);
+        Script_GlobalHelper::getInstance().getSchemesAddToBinderCallbacks()[scheme_name](p_client_object, p_ini, scheme_name, section_name, static_cast<DataBase::Script_IComponentScheme*>(p_storage));
     }
 
-    // Lord: лучше всё таки указатель сделать
-    DataBase::Storage_Scheme* result =
-        DataBase::Storage::getInstance().getStorage().at(p_client_object->ID()).getSchemes().at(scheme_name);
+    ComponentType* result = static_cast<ComponentType*>(DataBase::Storage::getInstance().getStorage().at(p_client_object->ID()).getSchemes().at(scheme_name));
 
     result->setSchemeName(scheme_name);
     result->setLogicName(section_name);
@@ -2540,7 +2538,7 @@ inline bool is_see_actor(CScriptGameObject* const p_client_object)
 }
 
 inline bool try_switch_to_another_section(
-    CScriptGameObject* p_client_object, DataBase::Storage_Scheme& storage, CScriptGameObject* p_client_actor)
+    CScriptGameObject* p_client_object, DataBase::Script_IComponentScheme* storage, CScriptGameObject* p_client_actor)
 {
     if (!p_client_actor)
     {
@@ -2554,7 +2552,7 @@ inline bool try_switch_to_another_section(
         return false;
     }
 
-    const xr_vector<LogicData>& logic = storage.getLogic();
+    const xr_vector<LogicData>& logic = storage->getLogic();
     std::uint16_t npc_id = p_client_object->ID();
 
     if (logic.empty())
@@ -2573,7 +2571,7 @@ inline bool try_switch_to_another_section(
             if (is_see_actor(p_client_object) &&
                 Globals::distance_between(p_client_actor, p_client_object) <= atof(it.getFirstValueName().c_str()))
             {
-                is_switched = switch_to_section(p_client_object, storage.getIni(),
+                is_switched = switch_to_section(p_client_object, storage->getIni(),
                     pick_section_from_condlist(p_client_actor, p_client_object, it.getCondlist()));
             }
         }
@@ -2581,7 +2579,7 @@ inline bool try_switch_to_another_section(
         {
             if (Globals::distance_between(p_client_actor, p_client_object) <= atof(it.getFirstValueName().c_str()))
             {
-                is_switched = switch_to_section(p_client_object, storage.getIni(),
+                is_switched = switch_to_section(p_client_object, storage->getIni(),
                     pick_section_from_condlist(p_client_actor, p_client_object, it.getCondlist()));
             }
         }
@@ -2590,7 +2588,7 @@ inline bool try_switch_to_another_section(
             if (is_see_actor(p_client_object) &&
                 Globals::distance_between(p_client_actor, p_client_object) > atof(it.getFirstValueName().c_str()))
             {
-                is_switched = switch_to_section(p_client_object, storage.getIni(),
+                is_switched = switch_to_section(p_client_object, storage->getIni(),
                     pick_section_from_condlist(p_client_actor, p_client_object, it.getCondlist()));
             }
         }
@@ -2598,24 +2596,24 @@ inline bool try_switch_to_another_section(
         {
             if (Globals::distance_between(p_client_actor, p_client_object) > atof(field_name.c_str()))
             {
-                is_switched = switch_to_section(p_client_object, storage.getIni(),
+                is_switched = switch_to_section(p_client_object, storage->getIni(),
                     pick_section_from_condlist(p_client_actor, p_client_object, it.getCondlist()));
             }
         }
         else if (field_name.find("on_signal") != xr_string::npos)
         {
-            if (storage.getSignals().find(it.getFieldName()) != storage.getSignals().end())
+            if (storage->getSignals().find(it.getFieldName()) != storage->getSignals().end())
             {
-				if (!storage.getSignals().at(it.getFirstValueName()))
+				if (!storage->getSignals().at(it.getFirstValueName()))
 				{
-					is_switched = switch_to_section(p_client_object, storage.getIni(),
+					is_switched = switch_to_section(p_client_object, storage->getIni(),
 						pick_section_from_condlist(p_client_actor, p_client_object, it.getCondlist()));
 				}
             }
         }
         else if (field_name.find("on_info") != xr_string::npos)
         {
-            is_switched = switch_to_section(p_client_object, storage.getIni(),
+            is_switched = switch_to_section(p_client_object, storage->getIni(),
                 pick_section_from_condlist(p_client_actor, p_client_object, it.getCondlist()));
         }
         else if (field_name.find("on_timer") != xr_string::npos)
@@ -2624,7 +2622,7 @@ inline bool try_switch_to_another_section(
                 DataBase::Storage::getInstance().getStorage().at(npc_id).getActivationTime() +
                     atoi(it.getFirstValueName().c_str()))
             {
-                is_switched = switch_to_section(p_client_object, storage.getIni(),
+                is_switched = switch_to_section(p_client_object, storage->getIni(),
                     pick_section_from_condlist(p_client_actor, p_client_object, it.getCondlist()));
             }
         }
@@ -2634,7 +2632,7 @@ inline bool try_switch_to_another_section(
                     DataBase::Storage::getInstance().getStorage().at(npc_id).getActivationGameTime()) >=
                 atof(it.getFirstValueName().c_str()))
             {
-                is_switched = switch_to_section(p_client_object, storage.getIni(),
+                is_switched = switch_to_section(p_client_object, storage->getIni(),
                     pick_section_from_condlist(p_client_actor, p_client_object, it.getCondlist()));
             }
         }
@@ -2643,7 +2641,7 @@ inline bool try_switch_to_another_section(
             if (Globals::Utils::is_npc_in_zone(
                     p_client_actor, DataBase::Storage::getInstance().getZoneByName().at(it.getFirstValueName())))
             {
-                is_switched = switch_to_section(p_client_object, storage.getIni(),
+                is_switched = switch_to_section(p_client_object, storage->getIni(),
                     pick_section_from_condlist(p_client_actor, p_client_object, it.getCondlist()));
             }
         }
@@ -2652,7 +2650,7 @@ inline bool try_switch_to_another_section(
             if (!Globals::Utils::is_npc_in_zone(
                     p_client_actor, DataBase::Storage::getInstance().getZoneByName().at(it.getFirstValueName())))
             {
-                is_switched = switch_to_section(p_client_object, storage.getIni(),
+                is_switched = switch_to_section(p_client_object, storage->getIni(),
                     pick_section_from_condlist(p_client_actor, p_client_object, it.getCondlist()));
             }
         }
@@ -2661,7 +2659,7 @@ inline bool try_switch_to_another_section(
             if (Globals::Utils::is_npc_in_zone(Globals::Game::level::get_object_by_id(it.getNpcID()),
                     DataBase::Storage::getInstance().getZoneByName().at(it.getSecondValue1Name())))
             {
-                is_switched = switch_to_section(p_client_object, storage.getIni(),
+                is_switched = switch_to_section(p_client_object, storage->getIni(),
                     pick_section_from_condlist(p_client_actor, p_client_object, it.getCondlist()));
             }
         }
@@ -2670,7 +2668,7 @@ inline bool try_switch_to_another_section(
             if (!Globals::Utils::is_npc_in_zone(Globals::Game::level::get_object_by_id(it.getNpcID()),
                     DataBase::Storage::getInstance().getZoneByName().at(it.getSecondValue1Name())))
             {
-                is_switched = switch_to_section(p_client_object, storage.getIni(),
+                is_switched = switch_to_section(p_client_object, storage->getIni(),
                     pick_section_from_condlist(p_client_actor, p_client_object, it.getCondlist()));
             }
         }
@@ -2678,7 +2676,7 @@ inline bool try_switch_to_another_section(
         {
             if (Globals::Utils::is_npc_in_zone(p_client_actor, p_client_object))
             {
-                is_switched = switch_to_section(p_client_object, storage.getIni(),
+                is_switched = switch_to_section(p_client_object, storage->getIni(),
                     pick_section_from_condlist(p_client_actor, p_client_object, it.getCondlist()));
             }
         }
@@ -2686,7 +2684,7 @@ inline bool try_switch_to_another_section(
         {
             if (!Globals::Utils::is_npc_in_zone(p_client_actor, p_client_object))
             {
-                is_switched = switch_to_section(p_client_object, storage.getIni(),
+                is_switched = switch_to_section(p_client_object, storage->getIni(),
                     pick_section_from_condlist(p_client_actor, p_client_object, it.getCondlist()));
             }
         }
@@ -2755,13 +2753,14 @@ inline bool switch_to_section(
     return true;
 }
 
-inline bool is_active(CScriptGameObject* const p_client_object, DataBase::Storage_Scheme& storage)
+inline bool is_active(CScriptGameObject* const p_client_object, DataBase::Script_IComponentScheme* storage)
 {
-    if (storage.getLogicName().empty())
+    if (storage->getLogicName().empty())
     {
         R_ASSERT2(false, "it can't be!");
     }
-    return (storage.getLogicName() ==
+    
+    return (storage->getLogicName() ==
         DataBase::Storage::getInstance().getStorage().at(p_client_object->ID()).getActiveSectionName());
 }
 

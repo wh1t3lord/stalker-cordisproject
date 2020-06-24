@@ -16,7 +16,7 @@ namespace Cordis
 					const DataBase::Storage_Data& storage = DataBase::Storage::getInstance().getStorage().at(this->m_object->ID());
 					if (storage.getSchemes().find("combat_ignore") != storage.getSchemes().end())
 					{
-						DataBase::Storage_Scheme* const p_storage = storage.getSchemes().at("combat_ignore");
+						DataBase::Script_ComponentScheme_XRCombatIgnore* const p_storage = static_cast<DataBase::Script_ComponentScheme_XRCombatIgnore*>(storage.getSchemes().at("combat_ignore"));
 						if (p_storage)
 						{
 							if (!Script_SchemeXRCombatIgnore::is_enemy_xr_combat_ignore(this->m_object, p_best_enemy, p_storage) == false)
@@ -28,15 +28,15 @@ namespace Cordis
 				}
 			}
 
-			if (p_best_enemy && this->m_p_storage->getPostCombatTimer())
+			if (p_best_enemy && this->m_p_storage->getTimer())
 			{
-				this->m_p_storage->setPostCombatLastBestEnemyID(p_best_enemy->ID());
-				this->m_p_storage->setPostCombatLastBestEnemyName(p_best_enemy->Name());
-				this->m_p_storage->setPostCombatTimer(0);
+				this->m_p_storage->setLastBestEnemyID(p_best_enemy->ID());
+				this->m_p_storage->setLastBestEnemyName(p_best_enemy->Name());
+				this->m_p_storage->setTimer(0);
 				return true;
 			}
 
-			if (p_best_enemy == nullptr && this->m_p_storage->getPostCombatTimer() == 0)
+			if (p_best_enemy == nullptr && this->m_p_storage->getTimer() == 0)
 			{
 				const DataBase::Data_Overrides& overrides = DataBase::Storage::getInstance().getStorage().at(this->m_object->ID()).getOverrides();
 				std::uint32_t min_time = overrides.getMinPostCombatTime() * 1000;
@@ -48,28 +48,28 @@ namespace Cordis
 				if (max_time == 0)
 					max_time = 15000;
 
-				if (this->m_p_storage->getPostCombatLastBestEnemyID() == DataBase::Storage::getInstance().getActor()->ID())
+				if (this->m_p_storage->getLastBestEnemyID() == DataBase::Storage::getInstance().getActor()->ID())
 				{
-					this->m_p_storage->setPostCombatTimer(Globals::get_time_global());
+					this->m_p_storage->setTimer(Globals::get_time_global());
 				}
 				else
 				{
-					this->m_p_storage->setPostCombatTimer(Globals::get_time_global() + Globals::Script_RandomInt::getInstance().Generate<std::uint32_t>(min_time, max_time));
+					this->m_p_storage->setTimer(Globals::get_time_global() + Globals::Script_RandomInt::getInstance().Generate<std::uint32_t>(min_time, max_time));
 				}
 			}
 
-			if (this->m_p_storage->getPostCombatTimer() == 0)
+			if (this->m_p_storage->getTimer() == 0)
 				return (p_best_enemy != nullptr);
 
-			if (Globals::get_time_global() < this->m_p_storage->getPostCombatTimer())
+			if (Globals::get_time_global() < this->m_p_storage->getTimer())
 				return true;
 
-			if (this->m_p_storage->getPostCombatAnimation() == nullptr)
+			if (this->m_p_storage->getAnimation() == nullptr)
 				return false;
 
-			this->m_p_storage->getPostCombatAnimation()->set_state("", false);
+			this->m_p_storage->getAnimation()->set_state("", false);
 
-			return (this->m_p_storage->getPostCombatAnimation()->getStates().getAnimationMarker() != 0);
+			return (this->m_p_storage->getAnimation()->getStates().getAnimationMarker() != 0);
 		}
 
 		Script_ActionPostCombatWait::~Script_ActionPostCombatWait(void)
@@ -98,7 +98,7 @@ namespace Cordis
 				return;
 			}
 
-			DataBase::Storage_Scheme* const p_storage = new DataBase::Storage_Scheme();
+			DataBase::Script_ComponentScheme_PostCombat* const p_storage = new DataBase::Script_ComponentScheme_PostCombat();
 			DataBase::Storage::getInstance().setStorageScheme(p_client_object->ID(), "post_combat_wait", p_storage);
 
 			p_planner->remove_evaluator(StalkerDecisionSpace::eWorldPropertyEnemy);
@@ -131,7 +131,7 @@ namespace Cordis
 			this->m_object->set_sight(SightManager::ESightType::eSightTypeCover, nullptr, 0);
 			this->m_p_state_manager = new Script_StateManager(this->m_object);
 			this->m_p_state_manager->setAnimState(new Script_StateAnimation(this->m_object, *this->m_p_state_manager, false));
-			this->m_p_storage->setPostCombatAnimation(new Script_StateAnimation(this->m_object, *this->m_p_state_manager, true));
+			this->m_p_storage->setAnimation(new Script_StateAnimation(this->m_object, *this->m_p_state_manager, true));
 			this->m_is_anim_started = false;
 		}
 
@@ -140,13 +140,13 @@ namespace Cordis
 			XR_SOUND::set_sound_play(this->m_object->ID(), "post_combat_relax", xr_string(), 0);
 
 			if (this->m_is_anim_started)
-				this->m_p_storage->getPostCombatAnimation()->set_state();
+				this->m_p_storage->getAnimation()->set_state();
 
-			Script_StateAnimation* p_object = this->m_p_storage->getPostCombatAnimation();
+			Script_StateAnimation* p_object = this->m_p_storage->getAnimation();
 			
 			MESSAGEI("deleting animation from post combat storage!");
 			xr_delete(p_object);
-			this->m_p_storage->setPostCombatAnimation(nullptr);
+			this->m_p_storage->setAnimation(nullptr);
 
 			CScriptActionBase::finalize();
 		}
@@ -184,8 +184,8 @@ namespace Cordis
 			if (!this->m_object->in_smart_cover() && (!check_weapon_locked()))
 			{
 				this->m_is_anim_started = true;
-				this->m_p_storage->getPostCombatAnimation()->set_state("hide", false);
-				this->m_p_storage->getPostCombatAnimation()->set_control();
+				this->m_p_storage->getAnimation()->set_state("hide", false);
+				this->m_p_storage->getAnimation()->set_control();
 			}
 
 			XR_SOUND::set_sound_play(this->m_object->ID(), "post_combat_wait", xr_string(), 0);

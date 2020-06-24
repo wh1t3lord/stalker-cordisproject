@@ -10,35 +10,35 @@ namespace Cordis
         class Script_EvaluatorKampEnd : public CScriptPropertyEvaluator
         {
         public:
-            Script_EvaluatorKampEnd(const xr_string& evaluator_name, DataBase::Storage_Scheme& storage)
-                : CScriptPropertyEvaluator(nullptr, evaluator_name.c_str()), m_p_storage(&storage)
+            Script_EvaluatorKampEnd(const xr_string& evaluator_name, DataBase::Script_ComponentScheme_XRKamp* storage)
+                : CScriptPropertyEvaluator(nullptr, evaluator_name.c_str()), m_p_storage(storage)
             {
             }
 
             virtual _value_type evaluate(void);
 
         private:
-            DataBase::Storage_Scheme* m_p_storage;
+            DataBase::Script_ComponentScheme_XRKamp* m_p_storage;
         };
 
         class Script_EvaluatorOnPosition : public CScriptPropertyEvaluator
         {
         public:
-            Script_EvaluatorOnPosition(const xr_string& evaluator_name, DataBase::Storage_Scheme& storage)
-                : CScriptPropertyEvaluator(nullptr, evaluator_name.c_str()), m_p_storage(&storage)
+            Script_EvaluatorOnPosition(const xr_string& evaluator_name, DataBase::Script_ComponentScheme_XRKamp* storage)
+                : CScriptPropertyEvaluator(nullptr, evaluator_name.c_str()), m_p_storage(storage)
             {
             }
 
             virtual _value_type evaluate(void);
 
         private:
-            DataBase::Storage_Scheme* m_p_storage;
+            DataBase::Script_ComponentScheme_XRKamp* m_p_storage;
         };
 
         class Script_ActionXRKampGoPosition : public CScriptActionBase
         {
         public:
-            Script_ActionXRKampGoPosition(CScriptGameObject* const p_object, xr_string& action_name, DataBase::Storage_Scheme& storage) : CScriptActionBase(nullptr, action_name.c_str()), m_p_storage(&storage), m_p_object(p_object)
+            Script_ActionXRKampGoPosition(CScriptGameObject* const p_object, xr_string& action_name, DataBase::Script_ComponentScheme_XRKamp* storage) : CScriptActionBase(nullptr, action_name.c_str()), m_p_storage(storage), m_p_object(p_object)
             {
                 
             }
@@ -48,7 +48,7 @@ namespace Cordis
             virtual void finalize(void);
 
         private:
-            DataBase::Storage_Scheme* m_p_storage;
+            DataBase::Script_ComponentScheme_XRKamp* m_p_storage;
             CScriptGameObject* m_p_object;
         };
 
@@ -112,7 +112,7 @@ namespace Cordis
                     {
                         if (state_name.empty())
                         {
-                            Msg("[Scripts/Script_XRKamp/NpcData/setState(state_name, value)] WARNING: can't set because a key is null Return ...");
+                            MESSAGEWR("can't set because a key is null Return ...");
                             return;
                         }
 
@@ -123,7 +123,7 @@ namespace Cordis
                     inline void setSelectedStateName(const xr_string& state_name) noexcept 
                     {
                         if (state_name.empty())
-                            Msg("[Scripts/Script_XRKamp/NpcData/setSelectedStateName(state_name)] WARNING: state_name.empty() == true!");
+                            MESSAGEW("state_name.empty() == true!");
 
                         this->m_selected_state_name = state_name;
                     }

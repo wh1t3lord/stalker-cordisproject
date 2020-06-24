@@ -7,7 +7,7 @@ namespace Cordis
 		class Script_EvaluatorCombatCamper : public CScriptPropertyEvaluator
 		{
 		public:
-			Script_EvaluatorCombatCamper(const xr_string& name, DataBase::Storage_Scheme& storage) : CScriptPropertyEvaluator(nullptr, name.c_str()) {}
+			Script_EvaluatorCombatCamper(const xr_string& name, DataBase::Script_ComponentScheme_XRCombatCamper* storage) : CScriptPropertyEvaluator(nullptr, name.c_str()) {}
 
 			~Script_EvaluatorCombatCamper(void) {}
 
@@ -20,7 +20,7 @@ namespace Cordis
 		class Script_EvaluatorCombatCamperSee : public CScriptPropertyEvaluator
 		{
 		public:
-			Script_EvaluatorCombatCamperSee(const xr_string& name, DataBase::Storage_Scheme& storage) : CScriptPropertyEvaluator(nullptr, name.c_str()), m_p_storage(&storage) {}
+			Script_EvaluatorCombatCamperSee(const xr_string& name, DataBase::Script_ComponentScheme_XRCombatCamper* storage) : CScriptPropertyEvaluator(nullptr, name.c_str()), m_p_storage(storage) {}
 			~Script_EvaluatorCombatCamperSee(void);
 
 			virtual _value_type evaluate(void) 
@@ -29,28 +29,32 @@ namespace Cordis
 
 				if (this->m_object->Alive() && p_best_enemy && this->m_object->CheckObjectVisibility(p_best_enemy))
 				{
-					this->m_p_storage->setXRCombatCamperLastSeenPosition(p_best_enemy->Position());
+					this->m_p_storage->setLastSeenPosition(p_best_enemy->Position());
 					return true;
 				}
 
 				return false;
 			}
 		private:
-			DataBase::Storage_Scheme* m_p_storage;
+			DataBase::Script_ComponentScheme_XRCombatCamper* m_p_storage;
 		};
 
 		class Script_SchemeXRCombatCamper : public Script_ISchemeStalker
 		{
 		public:
 			Script_SchemeXRCombatCamper(void) = delete;
-			Script_SchemeXRCombatCamper(const xr_string& name, DataBase::Storage_Scheme& storage);
+			Script_SchemeXRCombatCamper(const xr_string& name, DataBase::Script_ComponentScheme_XRCombatCamper* storage);
 			~Script_SchemeXRCombatCamper(void);
 			
 			virtual void initialize(void);
 			virtual void execute(void);
 			virtual void finalize(void);
 
-			static void add_to_binder(CScriptGameObject* const p_client_object, CScriptIniFile* const p_ini, const xr_string& section_name, const xr_string& scheme_name, DataBase::Storage_Scheme& storage);
+			static void add_to_binder(CScriptGameObject* const p_client_object, CScriptIniFile* const p_ini, 
+				const xr_string& section_name, const xr_string& scheme_name, DataBase::Script_IComponentScheme* storage);
+
+		private:
+			DataBase::Script_ComponentScheme_XRCombatCamper* m_p_storage;
 		};
 
 
@@ -58,7 +62,7 @@ namespace Cordis
 		{
 		public:
 			Script_SchemeXRCombatCamperLook(void) = delete;
-			Script_SchemeXRCombatCamperLook(const xr_string& name, DataBase::Storage_Scheme& storage);
+			Script_SchemeXRCombatCamperLook(const xr_string& name, DataBase::Script_ComponentScheme_XRCombatCamper* storage);
 			~Script_SchemeXRCombatCamperLook(void);
 
 			virtual void initialize(void);
@@ -71,6 +75,7 @@ namespace Cordis
 		private:
 			std::uint32_t m_forget_time;
 			std::uint32_t m_change_dir_time;
+			DataBase::Script_ComponentScheme_XRCombatCamper* m_p_storage;
 		};
 	}
 }

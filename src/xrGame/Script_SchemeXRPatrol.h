@@ -7,30 +7,30 @@ namespace Cordis
 		class Script_EvaluatorPatrolEnd : public CScriptPropertyEvaluator
 		{
 		public:
-			Script_EvaluatorPatrolEnd(const xr_string& name, DataBase::Storage_Scheme& storage) : CScriptPropertyEvaluator(nullptr, name.c_str()), m_p_storage(&storage) {}
+			Script_EvaluatorPatrolEnd(const xr_string& name, DataBase::Script_ComponentScheme_XRPatrol* storage) : CScriptPropertyEvaluator(nullptr, name.c_str()), m_p_storage(storage) {}
 			~Script_EvaluatorPatrolEnd(void);
 			virtual _value_type evaluate(void);
 
 		private:
-			DataBase::Storage_Scheme* m_p_storage;
+			DataBase::Script_ComponentScheme_XRPatrol* m_p_storage;
 		};
 
 		class Script_EvaluatorPatrolComm : public CScriptPropertyEvaluator 
 		{
 		public:
-			Script_EvaluatorPatrolComm(const xr_string& name, DataBase::Storage_Scheme& storage) : CScriptPropertyEvaluator(nullptr, name.c_str()), m_p_storage(&storage) {}
+			Script_EvaluatorPatrolComm(const xr_string& name, DataBase::Script_ComponentScheme_XRPatrol* storage) : CScriptPropertyEvaluator(nullptr, name.c_str()), m_p_storage(storage) {}
 			~Script_EvaluatorPatrolComm(void);
 
 			virtual _value_type evaluate(void);
 
 		private:
-			DataBase::Storage_Scheme* m_p_storage;
+			DataBase::Script_ComponentScheme_XRPatrol* m_p_storage;
 		};
 
 		class Script_ActionCommander : public Script_ISchemeStalker
 		{
 		public:
-			Script_ActionCommander(CScriptGameObject* const p_client_object, const xr_string& name, DataBase::Storage_Scheme& storage);
+			Script_ActionCommander(CScriptGameObject* const p_client_object, const xr_string& name, DataBase::Script_ComponentScheme_XRPatrol* storage);
 			~Script_ActionCommander(void);
 
 			virtual void initialize(void);
@@ -46,6 +46,7 @@ namespace Cordis
 		private:
 			bool m_is_was_reset;
 			Script_MoveManager* m_p_move_manager;
+			DataBase::Script_ComponentScheme_XRPatrol* m_p_storage;
 			xr_string m_current_state_name;
 			xr_string m_old_state_name;
 		};
@@ -54,7 +55,7 @@ namespace Cordis
 		{
 		public:
 			Script_SchemeXRPatrol(void) = delete;
-			Script_SchemeXRPatrol(const xr_string& name, DataBase::Storage_Scheme& storage);
+			Script_SchemeXRPatrol(const xr_string& name, DataBase::Script_ComponentScheme_XRPatrol* storage);
 			~Script_SchemeXRPatrol(void);
 			virtual void activate_scheme(const bool is_loading, CScriptGameObject* const p_client_object);
 			virtual void initialize(void);
@@ -67,7 +68,7 @@ namespace Cordis
 			bool formation_callback(std::uint32_t, std::uint32_t);
 
 			static void add_to_binder(CScriptGameObject* const p_client_object, CScriptIniFile* const p_ini,
-				const xr_string& scheme_name, const xr_string& section_name, DataBase::Storage_Scheme& storage);
+				const xr_string& scheme_name, const xr_string& section_name, DataBase::Script_IComponentScheme* storage);
 
 			static void set_scheme(CScriptGameObject* const p_client_object, CScriptIniFile* const p_ini,
 				const xr_string& scheme_name, const xr_string& section_name, const xr_string& gulag_name);
@@ -78,7 +79,7 @@ namespace Cordis
 			std::uint32_t m_level_vertex_id;
 			std::uint32_t m_dist;
 			int m_time_to_update;
-			DataBase::Storage_Scheme* m_p_storage;
+			DataBase::Script_ComponentScheme_XRPatrol* m_p_storage;
 			Script_MoveManager* m_p_move_manager;
 			Fvector m_direction;
 			xr_string m_current_state_name;
