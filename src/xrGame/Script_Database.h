@@ -1274,6 +1274,19 @@ struct Script_IComponentScheme
 		this->m_scheme_name = scheme_name;
 	}
 
+    inline virtual void deleteActions(void) noexcept 
+    {
+		for (Script_ISchemeEntity*& it : this->m_actions)
+		{
+			if (it->getSchemeName().empty() == false)
+				MESSAGEI("deleting action %s", it->getSchemeName().c_str());
+
+			xr_delete(it);
+		}
+
+		this->m_actions.clear();
+    }
+
     inline virtual void clear(void) noexcept 
     {
         this->m_is_enabled = false;
@@ -1282,13 +1295,8 @@ struct Script_IComponentScheme
         this->m_p_npc = nullptr;
         this->m_signals.clear();
 
-		for (Script_ISchemeEntity*& it : this->m_actions)
-		{
-			MESSAGEI("deleting action %s", it->getSchemeName().c_str());
-			xr_delete(it);
-		}
+        this->deleteActions();
 
-        this->m_actions.clear();
         this->m_logic.clear();
         this->m_logic_name.clear();
         this->m_scheme_name.clear();
@@ -2207,6 +2215,7 @@ struct Script_ComponentScheme_XRReachTask : public Script_IComponentScheme
 {
     Script_ComponentScheme_XRReachTask(void) : Script_IComponentScheme() {}
 
+    inline void deleteActions(void) noexcept override { this->m_actions.clear(); }
     inline void clear(void) noexcept override { Script_IComponentScheme::clear(); }
 };
 

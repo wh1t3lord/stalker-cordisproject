@@ -128,8 +128,11 @@ bool Script_Binder_Stalker::net_Spawn(SpawnType DC)
     {
         if (DataBase::Storage::getInstance().getSpawnedVertexByID().find(p_server_object->ID) != DataBase::Storage::getInstance().getSpawnedVertexByID().end())
         {
-            this->m_object->SetNpcPosition(Globals::Game::level::vertex_position(DataBase::Storage::getInstance().getSpawnedVertexByID().at(p_server_object->ID)));
-            DataBase::Storage::getInstance().setSpawnedVertexByID(this->m_object->ID(), 0);
+            if (DataBase::Storage::getInstance().getSpawnedVertexByID().at(p_server_object->ID) != 0)
+            {
+                this->m_object->SetNpcPosition(Globals::Game::level::vertex_position(DataBase::Storage::getInstance().getSpawnedVertexByID().at(p_server_object->ID)));
+                DataBase::Storage::getInstance().setSpawnedVertexByID(this->m_object->ID(), 0);
+            }
         }
         else if (DataBase::Storage::getInstance().getOfflineObjects().find(p_server_object->ID) != DataBase::Storage::getInstance().getOfflineObjects().end())
         {
