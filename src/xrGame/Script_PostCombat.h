@@ -23,7 +23,7 @@ namespace Cordis
 		class Script_ActionPostCombatWait : CScriptActionBase 
 		{
 		public: 
-			Script_ActionPostCombatWait(const xr_string& name, DataBase::Storage_Scheme* p_storage) : CScriptActionBase(nullptr, name.c_str()), m_p_storage(p_storage), m_p_state_manager(nullptr), m_is_anim_started(false)
+			Script_ActionPostCombatWait(const xr_string& name, DataBase::Script_ComponentScheme_PostCombat* p_storage) : CScriptActionBase(nullptr, name.c_str()), m_p_storage(p_storage), m_p_state_manager(nullptr), m_is_anim_started(false)
 			{
 
 			}
