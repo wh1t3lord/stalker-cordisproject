@@ -1796,6 +1796,32 @@ private:
 	xr_string m_moving_name;
 	xr_string m_sound_idle_name;
 };
+
+struct Script_ComponentScheme_SRCamp : public Script_IComponentScheme
+{
+    Script_ComponentScheme_SRCamp(void) {}
+
+    inline void clear(void) noexcept 
+    {
+        this->m_base_action_name.clear();
+        this->m_description_name.clear();
+    }
+
+    inline const xr_string& getBaseActionName(void) const noexcept 
+    {
+        return this->m_base_action_name;
+    }
+
+    inline void setBaseActionName(void) noexcept 
+    {
+        
+    }
+
+private:
+    xr_string m_base_action_name;
+    xr_string m_description_name;
+};
+
 struct Script_ComponentScheme_PostCombat : public Script_IComponentScheme
 {
 	Script_ComponentScheme_PostCombat(void) : m_last_best_enemy_id(0), m_timer(0), m_p_animation(nullptr) {}
