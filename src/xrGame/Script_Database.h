@@ -10,6 +10,7 @@ namespace DataBase
 {
 class Storage_Scheme;
 class Storage_Data;
+struct Script_ComponentScheme_XRReachTask;
 }
 } // namespace Scripts
 } // namespace Cordis
@@ -2048,6 +2049,12 @@ private:
     CondlistWaypoints m_condlist_walk;
     CondlistWaypoints m_condlist_look;
 };
+
+struct Script_ComponentScheme_XRReachTask : public Script_IComponentScheme
+{
+    Script_ComponentScheme_XRReachTask(void) {}
+};
+
 struct Script_ComponentScheme_XRCombatCamper : public Script_IComponentScheme
 {
 	Script_ComponentScheme_XRCombatCamper(void) : m_is_camper_action(false) {}

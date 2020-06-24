@@ -9,7 +9,7 @@ namespace Cordis
 		{
 		public:
 			Script_Animpoint(void) = delete;
-			Script_Animpoint(const std::uint16_t npc_id, void* storage);
+			Script_Animpoint(const std::uint16_t npc_id, DataBase::Script_ComponentScheme_XRAnimPoint* storage);
 			~Script_Animpoint(void);
 
 			void initialize(void);
@@ -32,7 +32,7 @@ namespace Cordis
 			bool m_is_started;
 			std::uint16_t m_npc_id;
 			std::uint32_t m_position_vertex;
-			DataBase::Storage_Scheme* m_p_storage;
+			DataBase::Script_ComponentScheme_XRAnimPoint* m_p_storage;
 			Script_CampData* m_p_camp;
 			Fvector m_position;
 			Fvector m_smart_direction;
@@ -47,7 +47,7 @@ namespace Cordis
 		{
 		public:
 			Script_SchemeXRAnimpoint(void) = delete;
-			Script_SchemeXRAnimpoint(const xr_string& name, void* storage);
+			Script_SchemeXRAnimpoint(const xr_string& name, DataBase::Script_ComponentScheme_XRAnimPoint* storage);
 			~Script_SchemeXRAnimpoint(void);
 
 			virtual void initialize(void);
@@ -56,22 +56,28 @@ namespace Cordis
 			virtual void net_destroy(CScriptGameObject* const p_client_object);
 
 			static void add_to_binder(CScriptGameObject* const p_client_object, CScriptIniFile* const p_ini,
-				const xr_string& scheme_name, const xr_string& section_name, void* storage);
+				const xr_string& scheme_name, const xr_string& section_name, DataBase::Script_IComponentScheme* storage);
 
 			static void set_scheme(CScriptGameObject* const p_client_object, CScriptIniFile* const p_ini,
 				const xr_string& scheme_name, const xr_string& section_name, const xr_string& gulag_name);
+
+		private:
+			DataBase::Script_ComponentScheme_XRAnimPoint* m_p_storage;
 		};
 
 		class Script_ActionReachAnimpoint : public Script_ISchemeStalker
 		{
 		public:
 			Script_ActionReachAnimpoint(void) = delete;
-			Script_ActionReachAnimpoint(const xr_string& name, void* storage);
+			Script_ActionReachAnimpoint(const xr_string& name, DataBase::Script_ComponentScheme_XRAnimPoint* storage);
 			~Script_ActionReachAnimpoint(void);
 
 			virtual void initialize(void);
 			virtual void execute(void);
 			virtual void finalize(void);
+
+		private:
+			DataBase::Script_ComponentScheme_XRAnimPoint* m_p_storage;
 		};
 
 		class Script_EvaluatorReachAnimpoint : public CScriptPropertyEvaluator

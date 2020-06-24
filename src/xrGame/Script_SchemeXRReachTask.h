@@ -45,7 +45,7 @@ namespace Cordis
 		{
 		public:
 			Script_SchemeXRReachTask(void) = delete;
-			Script_SchemeXRReachTask(const xr_string& name);
+			Script_SchemeXRReachTask(const xr_string& name, DataBase::Script_ComponentScheme_XRReachTask* storage);
 			~Script_SchemeXRReachTask(void);
 
 			void initialize(void) override;
@@ -59,7 +59,7 @@ namespace Cordis
 				const xr_string& scheme_name, const xr_string& section_name, const xr_string& gulag_name);
 
 			static void add_to_binder(CScriptGameObject* const p_client_object, CScriptIniFile* const p_ini,
-				const xr_string& scheme_name, const xr_string& section_name, void* storage);
+				const xr_string& scheme_name, const xr_string& section_name, DataBase::Script_IComponentScheme* storage);
 
 			static void add_reach_task_action(CScriptGameObject* const p_client_object);
 		private:
@@ -74,6 +74,7 @@ namespace Cordis
 			std::uint32_t m_level_vertex_id;
 			int m_time_to_update;
 			float m_dist;
+			DataBase::Script_ComponentScheme_XRReachTask* m_p_storage;
 			Fvector m_direction;
 			xr_string m_current_state_name;
 			xr_string m_formation_name;
