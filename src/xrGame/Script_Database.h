@@ -1998,9 +1998,43 @@ struct Script_ComponentScheme_XRPatrol : public Script_IComponentScheme
 		this->m_patrol_key_name.clear();
 		this->m_formation_name.clear();
 		this->m_move_type_name.clear();
+        this->m_path_walk_name.clear();
+        this->m_path_look_name.clear();
+        this->m_condlist_walk.clear();
+        this->m_condlist_look.clear();
 	}
 
 
+    inline const xr_string& getPathWalkName(void) const noexcept { return this->m_path_walk_name; }
+    inline void setPathWalkName(const xr_string& path_name) noexcept 
+    {
+        if (path_name.empty())
+            MESSAGEW("set an empty string!");
+
+        this->m_path_walk_name = path_name;
+    }
+
+    inline const xr_string& getPathLookName(void) const noexcept { return this->m_path_look_name; }
+    inline void setPathLookName(const xr_string& path_name) noexcept 
+    {
+        if (path_name.empty())
+            MESSAGEW("set an empty string!");
+
+        this->m_path_look_name = path_name;
+    }
+
+    inline const CondlistWaypoints& getPathWalkInfo(void) const noexcept { return this->m_condlist_walk; }
+    inline void setPathWalkInfo(const CondlistWaypoints& data) noexcept 
+    {
+        this->m_condlist_walk = data;
+    }
+
+    inline const CondlistWaypoints& getPathLookInfo(void) const noexcept { return this->m_condlist_look; }
+    inline void setPathLookInfo(const CondlistWaypoints& data) noexcept 
+    {
+        this->m_condlist_look = data;
+    }
+ 
 private:
 	bool m_is_silent;
 	bool m_is_commander;
@@ -2009,6 +2043,10 @@ private:
 	xr_string m_path_name;
 	xr_string m_formation_name;
 	xr_string m_move_type_name;
+    xr_string m_path_walk_name;
+    xr_string m_path_look_name;
+    CondlistWaypoints m_condlist_walk;
+    CondlistWaypoints m_condlist_look;
 };
 struct Script_ComponentScheme_XRCombatCamper : public Script_IComponentScheme
 {
