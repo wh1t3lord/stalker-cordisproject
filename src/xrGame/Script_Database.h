@@ -1805,6 +1805,7 @@ struct Script_ComponentScheme_SRCamp : public Script_IComponentScheme
     {
         this->m_base_action_name.clear();
         this->m_description_name.clear();
+        this->ClearApprovedActions();
     }
 
     inline const xr_string& getBaseActionName(void) const noexcept 
@@ -1812,12 +1813,49 @@ struct Script_ComponentScheme_SRCamp : public Script_IComponentScheme
         return this->m_base_action_name;
     }
 
-    inline void setBaseActionName(void) noexcept 
+    inline void setBaseActionName(const xr_string& action_name) noexcept 
     {
-        
+        if (action_name.empty())
+            MESSAGEW("set an empty string!");
+
+        this->m_base_action_name = action_name;
+    }
+
+    inline const xr_string& getDescriptionName(void) const noexcept { return this->m_description_name; }
+    inline void setDescriptionName(const xr_string& description_name) noexcept
+    {
+        if (description_name.empty())
+            MESSAGEW("set an empty string!");
+
+        this->m_description_name = description_name;
+    }
+
+	inline void setApprovedActions(const std::pair<std::function<bool(std::uint16_t, bool)>, xr_string>& pair) noexcept
+	{
+		if (pair.first == nullptr)
+		{
+			MESSAGEWR("can't add pair, because the first "
+				"element (a function) is nullptr!");
+			return;
+		}
+
+		this->m_approved_actions.push_back(pair);
+	}
+
+	inline const xr_vector<std::pair<std::function<bool(std::uint16_t, bool)>, xr_string>>& getApprovedActions(
+		void) const noexcept
+	{
+		return this->m_approved_actions;
+	}
+
+
+    inline void ClearApprovedActions(void) noexcept 
+    {
+        this->m_approved_actions.clear();
     }
 
 private:
+    xr_vector<std::pair<std::function<bool(std::uint16_t, bool)>, xr_string>> m_approved_actions;
     xr_string m_base_action_name;
     xr_string m_description_name;
 };
