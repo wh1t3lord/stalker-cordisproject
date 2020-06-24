@@ -2157,6 +2157,8 @@ private:
 struct Script_ComponentScheme_XRReachTask : public Script_IComponentScheme
 {
     Script_ComponentScheme_XRReachTask(void) {}
+
+    inline void clear(void) noexcept {}
 };
 
 struct Script_ComponentScheme_XRCombatCamper : public Script_IComponentScheme
@@ -3102,6 +3104,8 @@ private:
 struct Script_ComponentScheme_XRHit : public Script_IComponentScheme
 {
     Script_ComponentScheme_XRHit(void) {}
+
+    inline void clear(void) noexcept {}
 };
 
 struct Script_ComponentScheme_XRHelpWounded : public Script_IComponentScheme
@@ -3309,6 +3313,8 @@ struct Script_ComponentScheme_SRIdle : public Script_IComponentScheme
 {
     Script_ComponentScheme_SRIdle(void) {}
 
+    inline void clear(void) noexcept {}
+
 private:
 };
 
@@ -3486,12 +3492,16 @@ struct Script_ComponentScheme_SRSilenceZone : public Script_IComponentScheme
 {
     Script_ComponentScheme_SRSilenceZone(void) {}
 
+    inline void clear(void) noexcept {}
+
 private:
 };
 
 struct Script_ComponentScheme_SRNoWeapon : public Script_IComponentScheme
 {
     Script_ComponentScheme_SRNoWeapon(void) {}
+
+    inline void clear(void) noexcept {}
 
 private:
 };
