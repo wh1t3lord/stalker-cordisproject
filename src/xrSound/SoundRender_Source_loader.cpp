@@ -65,7 +65,10 @@ void CSoundRender_Source::LoadWave(pcstr pName)
 
 #ifdef DEBUG
     if (ovi->channels == 2)
-        Msg("stereo sound source [%s]", pName);
+    {
+        MESSAGEI("Game was runned: %f", Core.m_Timer.GetElapsed_sec());
+        MESSAGE("stereo sound source [%s]", pName);
+    }
 #endif // #ifdef DEBUG
 
     ZeroMemory(&m_wformat, sizeof(WAVEFORMATEX));
