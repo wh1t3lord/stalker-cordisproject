@@ -451,9 +451,8 @@ namespace Cordis
 			p_casted->add_evaluator(StalkerDecisionSpace::eWorldPropertySmartTerrainTask, new Script_EvaluatorReachedTaskLocation("reached_task_location"));
 			p_casted->remove_operator(StalkerDecisionSpace::eWorldOperatorSmartTerrainTask);
 
-			const DataBase::Storage_Data& storage = DataBase::Storage::getInstance().getStorage().at(p_client_object->ID());
-			
-			Script_SchemeXRReachTask* const p_action = new Script_SchemeXRReachTask("reach_task_location", static_cast<DataBase::Script_ComponentScheme_XRReachTask*>(storage.getSchemes().at("reach_task")));
+			/*const DataBase::Storage_Data& storage = DataBase::Storage::getInstance().getStorage().at(p_client_object->ID());*/
+			Script_SchemeXRReachTask* const p_action = new Script_SchemeXRReachTask("reach_task_location", nullptr);
 
 
 			p_action->add_condition(CWorldProperty(StalkerDecisionSpace::eWorldPropertyALife, true));
