@@ -10,7 +10,7 @@ namespace Scripts
 {
 Script_SchemeSRTeleport::Script_SchemeSRTeleport(
     CScriptGameObject* const p_client_object, DataBase::Script_ComponentScheme_SRTeleport* storage)
-    : inherited_scheme(p_client_object, storage), m_state(false), m_timer(0)
+    : inherited_scheme(p_client_object, storage), m_state(false), m_timer(0), m_p_storage(storage)
 {
     this->m_scheme_name = "sr_teleport";
 }
