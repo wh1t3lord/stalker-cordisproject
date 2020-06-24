@@ -4676,8 +4676,8 @@ public:
 
     inline const xr_map<xr_string, Script_IComponentScheme*>& getSchemes(void) const noexcept { return this->m_schemes; }
 
-/*
-    inline void setScheme(const xr_map<xr_string, void*>& map) noexcept
+ 
+    inline void setScheme(const xr_map<xr_string, DataBase::Script_IComponentScheme*>& map) noexcept
     {
         if (map.empty())
         {
@@ -4689,7 +4689,7 @@ public:
         this->m_schemes = map;
     }
 
-    inline void setScheme(const std::pair<xr_string, void*>& pair) noexcept
+    inline void setScheme(const std::pair<xr_string, DataBase::Script_IComponentScheme*>& pair) noexcept
     {
         if (pair.first.empty())
         {
@@ -4701,18 +4701,18 @@ public:
         this->m_schemes.insert(pair);
     }
 
-    inline void setScheme(const xr_string& scheme_name, void* const data) noexcept
+    inline void setScheme(const xr_string& scheme_name, DataBase::Script_IComponentScheme* const data) noexcept
     {
         if (scheme_name.empty())
         {
             MESSAGEWR("scheme_name.empty() == true! "
                 "Can't "
-                "assign return ...");
+                "assign");
             return;
         }
 
         this->m_schemes[scheme_name] = data;
-    }*/
+    } 
 
      inline void setSchemesActions(const xr_string& scheme_name, Script_ISchemeEntity* p_scheme)
     {
@@ -5649,8 +5649,9 @@ public:
     }
 
  
-/*
-    inline void setStorageSchemes(const std::uint16_t npc_id, const xr_map<xr_string, void*>& map) noexcept
+ 
+    inline void setStorageSchemes(const std::uint16_t npc_id,
+        const xr_map<xr_string, DataBase::Script_IComponentScheme*>& map) noexcept
     {
         if (map.empty())
         {
@@ -5659,10 +5660,10 @@ public:
         }
 
         this->m_storage[npc_id].setScheme(map);
-    } */
+    }   
 
-/*
-    inline void setStorageScheme(const std::uint16_t npc_id, const std::pair<xr_string, void*>& pair) noexcept
+ 
+    inline void setStorageScheme(const std::uint16_t npc_id, const std::pair<xr_string, DataBase::Script_IComponentScheme*>& pair) noexcept
     {
         if (pair.first.empty())
         {
@@ -5671,11 +5672,12 @@ public:
         }
 
         this->m_storage[npc_id].setScheme(pair);
-    }*/
+    } 
 
-/*
+ 
     inline void setStorageScheme(
-        const std::uint16_t npc_id, const xr_string& scheme_name, void* const data) noexcept
+        const std::uint16_t npc_id, const xr_string& scheme_name, 
+        DataBase::Script_IComponentScheme* const data) noexcept
     {
         if (scheme_name.empty())
         {
@@ -5686,7 +5688,7 @@ public:
         MESSAGEI("Registered scheme %s for npc [%d]", scheme_name, npc_id);
 
         this->m_storage[npc_id].setScheme(scheme_name, data);
-    }*/
+    } 
 
  
     inline void setStorageSchemesActionSchemeIDForUnSubscribing(

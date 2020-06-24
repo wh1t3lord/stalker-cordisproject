@@ -16,7 +16,7 @@ namespace Cordis
 					const DataBase::Storage_Data& storage = DataBase::Storage::getInstance().getStorage().at(this->m_object->ID());
 					if (storage.getSchemes().find("combat_ignore") != storage.getSchemes().end())
 					{
-						DataBase::Storage_Scheme* const p_storage = storage.getSchemes().at("combat_ignore");
+						DataBase::Script_ComponentScheme_XRCombatIgnore* const p_storage = static_cast<DataBase::Script_ComponentScheme_XRCombatIgnore*>(storage.getSchemes().at("combat_ignore"));
 						if (p_storage)
 						{
 							if (!Script_SchemeXRCombatIgnore::is_enemy_xr_combat_ignore(this->m_object, p_best_enemy, p_storage) == false)
@@ -98,7 +98,7 @@ namespace Cordis
 				return;
 			}
 
-			DataBase::Storage_Scheme* const p_storage = new DataBase::Storage_Scheme();
+			DataBase::Script_ComponentScheme_XRCombatIgnore* const p_storage = new DataBase::Script_ComponentScheme_XRCombatIgnore();
 			DataBase::Storage::getInstance().setStorageScheme(p_client_object->ID(), "post_combat_wait", p_storage);
 
 			p_planner->remove_evaluator(StalkerDecisionSpace::eWorldPropertyEnemy);
