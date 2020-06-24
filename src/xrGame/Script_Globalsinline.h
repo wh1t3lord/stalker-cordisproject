@@ -2114,7 +2114,7 @@ inline bool IsMonster(CScriptGameObject* object, int class_id = 0)
 {
     if (!object)
     {
-        Msg("[Scripts/Globals/IsMonster(object, class_id)] WARNING: trying to use class_id = %d", class_id);
+        MESSAGEW("trying to use class_id = %d", class_id);
     }
 
     int result = class_id ? class_id : object->clsid();
@@ -2128,7 +2128,7 @@ inline bool IsMonster(CSE_ALifeDynamicObject* server_object, int class_id = 0)
 {
     if (!server_object)
     {
-        Msg("[Scripts/Globals/IsMonster(server_object, class_id)] WARNING: trying to use class_id = %d", class_id);
+        MESSAGEW("trying to use class_id = %d", class_id);
     }
 
     int result = class_id ? class_id : server_object->m_script_clsid;
@@ -2142,7 +2142,7 @@ inline bool IsStalker(CScriptGameObject* object, int class_id = 0)
 {
     if (!object)
     {
-        Msg("[Scripts/Globals/IsStalker(object, class_id)] WARNING: trying to use class_id = %d", class_id);
+        MESSAGEW("trying to use class_id = %d", class_id);
     }
 
     int result = class_id ? class_id : object->clsid();
@@ -2157,7 +2157,7 @@ inline bool IsStalker(CSE_ALifeDynamicObject* server_object, int class_id = 0)
 {
     if (!server_object)
     {
-        Msg("[Scripts/Globals/IsStalker(server_object, class_id)] WARNING: trying to use class_id = %d", class_id);
+        MESSAGEW("trying to use class_id = %d", class_id);
     }
 
     int result = class_id ? class_id : server_object->m_script_clsid;
@@ -2172,7 +2172,7 @@ inline bool IsArtefact(CScriptGameObject* object, int class_id = 0)
 {
     if (!object)
     {
-        Msg("[Scripts/Globals/IsArtefact(object, class_id)] WARNING: trying to use class_id = %d", class_id);
+        MESSAGEW("trying to use class_id = %d", class_id);
     }
 
     int result = class_id ? class_id : object->clsid();
@@ -2187,7 +2187,7 @@ inline bool IsWeapon(CScriptGameObject* object, int class_id)
 {
     if (!object)
     {
-        Msg("[Scripts/Globals/IsWeapon(object, class_id)] WARNING: trying to use class_id = %d", class_id);
+        MESSAGEW("trying to use class_id = %d", class_id);
     }
 
     int result = class_id ? class_id : object->clsid();
@@ -2355,12 +2355,12 @@ inline void start_game_callback(void)
 
     Script_GlobalHelper::getInstance();
 
-    Msg("[Scripts/Globals/start_game_callback()] was called!");
+    MESSAGEI("initializing scripts!");
 }
 
 void system_deallocation(void)
 {
-    Msg("[Scripts/Globals/system_deallocation()] disconnect from server!");
+    MESSAGEI("disconnect from server!");
     Script_GlobalHelper::getInstance().DeallocateDynamicLtx();
     Script_SimulationBoard::getInstance().Deallocate();
     DataBase::Storage::getInstance().Deallocate();
@@ -2392,8 +2392,7 @@ inline void set_save_marker(NET_Packet& packet, const xr_string& mode, bool chec
 
             if (delta >= 8000)
             {
-                // Lord: переделать в In-Game логгирование
-                Log("WARNING! Maybe this is problem save point");
+                MESSAGEW("Maybe this is problem save point");
             }
 
             if (delta >= 10240)
@@ -3050,7 +3049,7 @@ inline void update_logic(CScriptGameObject* const p_object)
     bool is_object_alive = p_object->Alive();
     const DataBase::Storage_Data& storage = DataBase::Storage::getInstance().getStorage().at(p_object->ID());
     CScriptGameObject* const p_actor = DataBase::Storage::getInstance().getActor();
-    DataBase::Storage_Scheme* p_storage_combat = storage.getSchemes().at("combat");
+    DataBase::Script_ComponentScheme_XRCombat* p_storage_combat = reinterpret_cast<DataBase::Script_ComponentScheme_XRCombat*>(storage.getSchemes().at("combat"));
 
     if (is_object_alive && !storage.getActiveSchemeName().empty())
     {
@@ -3071,7 +3070,7 @@ inline void update_logic(CScriptGameObject* const p_object)
 
                 if (p_storage_combat && !p_storage_combat->getLogic().empty())
                 {
-                    if (!XR_LOGIC::try_switch_to_another_section(p_object, *p_storage_combat, p_actor))
+                    if (!XR_LOGIC::try_switch_to_another_section(p_object, p_storage_combat, p_actor))
                     {
                         if (!overrides.getCombatType().IsEmpty())
                         {
@@ -3092,7 +3091,7 @@ inline void update_logic(CScriptGameObject* const p_object)
             if (!is_switched)
             {
                 XR_LOGIC::try_switch_to_another_section(
-                    p_object, *storage.getSchemes().at(storage.getActiveSchemeName()), p_actor);
+                    p_object, storage.getSchemes().at(storage.getActiveSchemeName()), p_actor);
             }
         }
     }
@@ -3199,7 +3198,7 @@ inline xr_map<xr_string, xr_string> parse_ini_section_to_array(
     }
 
     if (result.empty())
-        Msg("[Scripts/Globals/parse_ini_section_to_array(p_ini, section_name)] WARNING: parsed data is empty!");
+        MESSAGEW("parsed data is empty!");
 
     return result;
 }
@@ -3212,7 +3211,7 @@ inline void start_surge(void)
     }
     else
     {
-        Msg("[Scripts/Globals/start_surge()] WARNING: can't obtain nearest cover and can't start manually!");
+        MESSAGEW("can't obtain nearest cover and can't start manually!");
     }
 }
 
@@ -3273,7 +3272,7 @@ inline void unstrap_weapon(
 {
     if (!p_npc)
     {
-        Msg("[Scripts/Globals/unstrap_weapon(p_npc)] WARNING: p_npc == nullptr! Return ...");
+        MESSAGEWR("p_npc == nullptr!");
         return;
     }
 
@@ -3297,7 +3296,7 @@ inline void unstrap_weapon(
 
     if (p_item == nullptr)
     {
-        Msg("[Scripts/Globals/unstrap_weapon(p_npc)] WARNING: can't find item! Return ...");
+        MESSAGEWR("can't find item!");
         return;
     }
 
@@ -3309,7 +3308,7 @@ inline void strap_weapon(
 {
     if (!p_npc)
     {
-        Msg("[Scripts/Globals/unstrap_weapon(p_npc)] WARNING: p_npc == nullptr! Return ...");
+        MESSAGEWR("p_npc == nullptr!");
         return;
     }
 
@@ -3333,7 +3332,7 @@ inline void strap_weapon(
 
     if (p_item == nullptr)
     {
-        Msg("[Scripts/Globals/unstrap_weapon(p_npc)] WARNING: p_item == nullptr! Return ...");
+        MESSAGEWR("p_item == nullptr!");
         return;
     }
 
@@ -3363,7 +3362,7 @@ inline void break_fence(
 {
     if (DataBase::Storage::getInstance().getAnimationObjectsByName().find("pri_a15_door") == DataBase::Storage::getInstance().getAnimationObjectsByName().end())
     {
-        Msg("[Scripts/Globals/break_fence()] WARNING: can't find object by 'pri_a15_door' Return ...");
+        MESSAGEWR("can't find object by 'pri_a15_door'");
         return;
     }
 
@@ -3371,7 +3370,7 @@ inline void break_fence(
 
    if (!p_binder)
    {
-       Msg("[Scripts/Globals/break_fence()] WARNING: something is went wrong! Object is nullptr Return ...");
+       MESSAGEWR("something is went wrong! Object is nullptr");
        return;
    }
 
@@ -3403,7 +3402,7 @@ inline void start_guitar(CScriptGameObject* const p_npc)
 
     if (!camp_id)
     {
-        Msg("[Scripts/Globals/start_guitar(p_npc)] WARNING: can't find camp_id, it doesnt registered! Return ...");
+        MESSAGEWR("can't find camp_id, it doesnt registered!");
         return;
     }
 
@@ -3468,7 +3467,7 @@ inline void unlock_medkit(CScriptGameObject* const p_client_object)
 
     if (DataBase::Storage::getInstance().getStorage().at(p_client_object->ID()).getSchemes().at("wounded"))
     {
-        DataBase::Storage::getInstance().getStorage().at(p_client_object->ID()).getSchemes().at("wounded")->getWoundedManager()->unlock_medkit();
+        reinterpret_cast<DataBase::Script_ComponentScheme_XRWounded*>(DataBase::Storage::getInstance().getStorage().at(p_client_object->ID()).getSchemes().at("wounded"))->getWoundedManager()->unlock_medkit();
     }
 }
 
@@ -3492,19 +3491,24 @@ inline bool is_wounded(CScriptGameObject* const p_client_object)
 
     
     // Lord: проверить на использование nil
-    return (DataBase::Storage::getInstance().getStorage().at(p_client_object->ID()).getSchemes().at("wounded")->getWoundedManager()->getStateName().empty() == false); 
+    return (reinterpret_cast<DataBase::Script_ComponentScheme_XRWounded*>(DataBase::Storage::getInstance().getStorage().at(p_client_object->ID()).getSchemes().at("wounded"))->getWoundedManager()->getStateName().empty() == false); 
 }
 
 inline void hit_callback(const std::uint16_t npc_id)
 {
     if (DataBase::Storage::getInstance().getStorage().at(npc_id).getSchemes().at("wounded"))
-        DataBase::Storage::getInstance()
-            .getStorage()
-            .at(npc_id)
-            .getSchemes()
-            .at("wounded")
-            ->getWoundedManager()
-            ->hit_callback();
+    {
+        DataBase::Script_ComponentScheme_XRWounded* const p_scheme_storage = static_cast<DataBase::Script_ComponentScheme_XRWounded*>(
+            DataBase::Storage::getInstance()
+                        .getStorage()
+                        .at(npc_id)
+                        .getSchemes()
+                        .at("wounded"))
+            ;
+
+        p_scheme_storage->getWoundedManager()->hit_callback();
+        
+    }
 }
 
 inline bool is_heavy_wounded(const std::uint16_t npc_id) 
@@ -3522,7 +3526,7 @@ inline bool is_heavy_wounded(const std::uint16_t npc_id)
     }
 
     if (DataBase::Storage::getInstance().getStorage().at(npc_id).getSchemes().at("wounded"))
-        return (DataBase::Storage::getInstance().getStorage().at(npc_id).getSchemes().at("wounded")->getWoundedManager()->getStateName().empty() == false);
+        return (static_cast<DataBase::Script_ComponentScheme_XRWounded*>(DataBase::Storage::getInstance().getStorage().at(npc_id).getSchemes().at("wounded"))->getWoundedManager()->getStateName().empty() == false);
 
     return false;
 }
@@ -3548,7 +3552,7 @@ inline bool is_psy_wounded_by_id(const std::uint16_t npc_id)
     states.emplace_back("psycho_pain");
     states.emplace_back("psycho_shoot");
 
-    DataBase::Storage_Scheme* p_storage = DataBase::Storage::getInstance().getStorage().at(npc_id).getSchemes().at("wounded");
+	DataBase::Script_ComponentScheme_XRWounded* p_storage = static_cast<DataBase::Script_ComponentScheme_XRWounded*>(DataBase::Storage::getInstance().getStorage().at(npc_id).getSchemes().at("wounded"));
     if (p_storage)
     {
         for (const xr_string& it : states)

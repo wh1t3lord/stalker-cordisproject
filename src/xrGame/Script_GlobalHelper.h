@@ -55,6 +55,8 @@
 #define _REGISTER_FUNCTION_DIALOG_MANAGER(function_name, function) \
     this->m_registered_functions_dialog_manager[#function_name] = function;
 
+#define _REGISTER_ALLOC(type, instance) std::bind(&DataBase::Script_AllocatorScheme<type>::allocate, &instance, std::placeholders::_1);
+
 namespace Cordis
 {
 namespace Scripts
@@ -1300,10 +1302,15 @@ public:
     }
 
     inline xr_map<xr_string,
-        std::function<void(CScriptGameObject* const, CScriptIniFile* const, const xr_string&, const xr_string&, DataBase::Storage_Scheme&)>>&
+        std::function<void(CScriptGameObject* const, CScriptIniFile* const, const xr_string&, const xr_string&, DataBase::Script_IComponentScheme*)>>&
     getSchemesAddToBinderCallbacks(void) noexcept
     {
         return this->m_registered_schemes_add_to_binder_callbacks;
+    }
+
+    inline xr_map<xr_string, std::function<void*(std::uint16_t)>>& getSchemesAllocatorCallbacks(void) noexcept 
+    {
+        return this->m_schemes_allocators;
     }
 
     // @ Uses in Script_SchemeSRLight
@@ -1527,10 +1534,9 @@ private:
         std::function<void(
             CScriptGameObject* const, CScriptIniFile* const, const xr_string&, const xr_string&, const xr_string&)>>
         m_registered_schemes_set_scheme_callbacks;
-    xr_map<xr_string,
-        std::function<void(CScriptGameObject* const, CScriptIniFile* const, const xr_string&, const xr_string&,
-            DataBase::Storage_Scheme&)>>
+    xr_map<xr_string, std::function<void(CScriptGameObject* const, CScriptIniFile* const, const xr_string&, const xr_string&, DataBase::Script_IComponentScheme*)>>
         m_registered_schemes_add_to_binder_callbacks;
+    xr_map<xr_string, std::function<void* (std::uint16_t)>> m_schemes_allocators;
     xr_map<xr_string, Script_SmartTerrainControl_States> m_registered_smart_terrain_control_script_states;
     xr_map<xr_string, xr_string> m_squad_community_by_behavior;
     xr_map<xr_string, xr_string> m_xr_smartcover_cover_substate;
@@ -1613,6 +1619,59 @@ private:
 #pragma region Cordis PDA the values of pda.script
     xr_vector<PDA_ChangeObjectData> m_registered_pda_change_objects;
     xr_vector<std::pair<xr_string, xr_string>> m_registered_pda_primary_objects;
+#pragma endregion
+
+#pragma region Cordis Scheme Allocators
+    DataBase::Script_AllocatorScheme<DataBase::Script_ComponentScheme_PHButton> m_allocator_ph_button;
+    DataBase::Script_AllocatorScheme<DataBase::Script_ComponentScheme_PHCode> m_allocator_ph_code;
+    DataBase::Script_AllocatorScheme<DataBase::Script_ComponentScheme_PHDeath> m_allocator_ph_death;
+    DataBase::Script_AllocatorScheme<DataBase::Script_ComponentScheme_PHDoor> m_allocator_ph_door;
+    DataBase::Script_AllocatorScheme<DataBase::Script_ComponentScheme_PHForce> m_allocator_ph_force;
+    DataBase::Script_AllocatorScheme<DataBase::Script_ComponentScheme_PHHit> m_allocator_ph_hit;
+    DataBase::Script_AllocatorScheme<DataBase::Script_ComponentScheme_PHIdle> m_allocator_ph_idle;
+    DataBase::Script_AllocatorScheme<DataBase::Script_ComponentScheme_PHOnHit> m_allocator_ph_on_hit;
+    DataBase::Script_AllocatorScheme<DataBase::Script_ComponentScheme_PHOscillate> m_allocator_ph_oscillate;
+    DataBase::Script_AllocatorScheme<DataBase::Script_ComponentScheme_PHSound> m_allocator_ph_sound;
+    DataBase::Script_AllocatorScheme<DataBase::Script_ComponentScheme_SRCamp> m_allocator_sr_camp;
+    DataBase::Script_AllocatorScheme<DataBase::Script_ComponentScheme_SRDeimos> m_allocator_sr_deimos;
+    DataBase::Script_AllocatorScheme<DataBase::Script_ComponentScheme_SRIdle> m_allocator_sr_idle;
+    DataBase::Script_AllocatorScheme<DataBase::Script_ComponentScheme_SRLight> m_allocator_sr_light;
+    DataBase::Script_AllocatorScheme<DataBase::Script_ComponentScheme_SRNoWeapon> m_allocator_sr_no_weapon;
+    DataBase::Script_AllocatorScheme<DataBase::Script_ComponentScheme_SRParticle> m_allocator_sr_particle;
+    DataBase::Script_AllocatorScheme<DataBase::Script_ComponentScheme_SRPostProcess> m_allocator_sr_post_process;
+    DataBase::Script_AllocatorScheme<DataBase::Script_ComponentScheme_SRPsyAntenna> m_allocator_sr_psy_antenna;
+    DataBase::Script_AllocatorScheme<DataBase::Script_ComponentScheme_SRSilenceZone> m_allocator_sr_silence_zone;
+    DataBase::Script_AllocatorScheme<DataBase::Script_ComponentScheme_SRTeleport> m_allocator_sr_teleport;
+    DataBase::Script_AllocatorScheme<DataBase::Script_ComponentScheme_SRTimer> m_allocator_sr_timer;
+    DataBase::Script_AllocatorScheme<DataBase::Script_ComponentScheme_XRAbuse> m_allocator_xr_abuse;
+    DataBase::Script_AllocatorScheme<DataBase::Script_ComponentScheme_XRAnimPoint> m_allocator_xr_animpoint;
+    DataBase::Script_AllocatorScheme<DataBase::Script_ComponentScheme_XRCamper> m_allocator_xr_camper;
+    DataBase::Script_AllocatorScheme<DataBase::Script_ComponentScheme_XRCombat> m_allocator_xr_combat;
+    DataBase::Script_AllocatorScheme<DataBase::Script_ComponentScheme_XRCombatCamper> m_allocator_xr_combat_camper;
+    DataBase::Script_AllocatorScheme<DataBase::Script_ComponentScheme_XRCombatIgnore> m_allocator_xr_combat_ignore;
+    DataBase::Script_AllocatorScheme<DataBase::Script_ComponentScheme_XRCombatZombied> m_allocator_xr_combat_zombied;
+    DataBase::Script_AllocatorScheme<DataBase::Script_ComponentScheme_XRCorpseDetection> m_allocator_xr_corpse_detection;
+    DataBase::Script_AllocatorScheme<DataBase::Script_ComponentScheme_XRDanger> m_allocator_xr_danger;
+    DataBase::Script_AllocatorScheme<DataBase::Script_ComponentScheme_XRDeath> m_allocator_xr_death;
+    DataBase::Script_AllocatorScheme<DataBase::Script_ComponentScheme_XRGatherItems> m_allocator_xr_gather_items;
+    DataBase::Script_AllocatorScheme<DataBase::Script_ComponentScheme_XRHelpWounded> m_allocator_xr_help_wounded;
+    DataBase::Script_AllocatorScheme<DataBase::Script_ComponentScheme_XRHit> m_allocator_xr_hit;
+    DataBase::Script_AllocatorScheme<DataBase::Script_ComponentScheme_XRKamp> m_allocator_xr_kamp;
+    DataBase::Script_AllocatorScheme<DataBase::Script_ComponentScheme_XRMeet> m_allocator_xr_meet;
+    DataBase::Script_AllocatorScheme<DataBase::Script_ComponentScheme_XRPatrol> m_allocator_xr_patrol;
+    DataBase::Script_AllocatorScheme<DataBase::Script_ComponentScheme_XRReachTask> m_allocator_xr_reach_task;
+    DataBase::Script_AllocatorScheme<DataBase::Script_ComponentScheme_XRRemark> m_allocator_xr_remark;
+    DataBase::Script_AllocatorScheme<DataBase::Script_ComponentScheme_XRSleeper> m_allocator_xr_sleeper;
+    DataBase::Script_AllocatorScheme<DataBase::Script_ComponentScheme_XRSmartCover> m_allocator_xr_smartcover;
+    DataBase::Script_AllocatorScheme<DataBase::Script_ComponentScheme_XRWalker> m_allocator_xr_walker;
+    DataBase::Script_AllocatorScheme<DataBase::Script_ComponentScheme_XRWounded> m_allocator_xr_wounded;
+    DataBase::Script_AllocatorScheme<DataBase::Script_ComponentScheme_MobCamp> m_allocator_mob_camp;
+    DataBase::Script_AllocatorScheme<DataBase::Script_ComponentScheme_MobCombat> m_allocator_mob_combat;
+    DataBase::Script_AllocatorScheme<DataBase::Script_ComponentScheme_MobDeath> m_allocator_mob_death;
+    DataBase::Script_AllocatorScheme<DataBase::Script_ComponentScheme_MobHome> m_allocator_mob_home;
+    DataBase::Script_AllocatorScheme<DataBase::Script_ComponentScheme_MobJump> m_allocator_mob_jump;
+    DataBase::Script_AllocatorScheme<DataBase::Script_ComponentScheme_MobRemark> m_allocator_mob_remark;
+    DataBase::Script_AllocatorScheme<DataBase::Script_ComponentScheme_MobWalker> m_allocator_mob_walker;
 #pragma endregion
 };
 

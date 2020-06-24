@@ -5,9 +5,9 @@ namespace Cordis
 {
 namespace Scripts
 {
-Script_SchemeMobCamp::Script_SchemeMobCamp(CScriptGameObject* const p_client_object, DataBase::Storage_Scheme& storage)
+Script_SchemeMobCamp::Script_SchemeMobCamp(CScriptGameObject* const p_client_object, DataBase::Script_ComponentScheme_MobCamp* storage)
     : inherited_scheme(p_client_object, storage), m_path_look(nullptr), m_path_home(nullptr), m_current_point_index(0),
-      m_time_point_changed(0), m_state_previous(0), m_state_current(0), m_is_previous_enemy(false), m_camp_node(0)
+      m_time_point_changed(0), m_state_previous(0), m_state_current(0), m_is_previous_enemy(false), m_camp_node(0), m_p_storage(storage)
 {
 }
 
@@ -15,20 +15,20 @@ Script_SchemeMobCamp::~Script_SchemeMobCamp(void)
 {
     if (this->m_path_home)
     {
-        Msg("[Scripts/Script_SchemeMobCamp/~dtor()] deleting path_home");
+        MESSAGEI("deleting path_home");
         xr_delete(this->m_path_home);
     }
 
     if (this->m_path_look)
     {
-        Msg("[SCripts/Script_SchemeMobCamp/~dtor()] deleting path_look");
+        MESSAGEI("deleting path_look");
         xr_delete(this->m_path_look);
     }
 }
 
 void Script_SchemeMobCamp::reset_scheme(const bool, CScriptGameObject* const p_client_object)
 {
-    Msg("[Scripts/Script_SchemeMobCamp/reset_scheme()] %s", this->m_npc->Name());
+    MESSAGEI("Resetting scheme for %s", this->m_npc->Name());
 
     XR_LOGIC::mob_capture(this->m_npc, true, this->m_scheme_name);
     this->m_p_storage->ClearSignals();
@@ -77,7 +77,7 @@ void Script_SchemeMobCamp::reset_scheme(const bool, CScriptGameObject* const p_c
 
 void Script_SchemeMobCamp::update(const float delta)
 {
-    if (XR_LOGIC::try_switch_to_another_section(this->m_npc, *this->m_p_storage, DataBase::Storage::getInstance().getActor()))
+    if (XR_LOGIC::try_switch_to_another_section(this->m_npc, this->m_p_storage, DataBase::Storage::getInstance().getActor()))
         return;
 
         if (!this->m_npc->Alive())
@@ -125,8 +125,8 @@ void Script_SchemeMobCamp::net_destroy(CScriptGameObject* const p_client_object)
 void Script_SchemeMobCamp::set_scheme(CScriptGameObject* const p_client_object, CScriptIniFile* const p_ini,
     const xr_string& scheme_name, const xr_string& section_name, const xr_string& gulag_name)
 {
-    DataBase::Storage_Scheme* p_storage =
-        XR_LOGIC::assign_storage_and_bind(p_client_object, p_ini, scheme_name, section_name, gulag_name);
+    DataBase::Script_ComponentScheme_MobCamp* p_storage =
+        XR_LOGIC::assign_storage_and_bind<DataBase::Script_ComponentScheme_MobCamp>(p_client_object, p_ini, scheme_name, section_name, gulag_name);
 
     if (!p_storage)
     {

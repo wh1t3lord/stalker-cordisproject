@@ -12,7 +12,7 @@ class Script_SchemePHMinigun : public Script_ISchemeEntity
 
 public:
     Script_SchemePHMinigun(void) = delete;
-    Script_SchemePHMinigun(CScriptGameObject* const p_client_object, DataBase::Storage_Scheme& storage);
+    Script_SchemePHMinigun(CScriptGameObject* const p_client_object, void* storage);
     ~Script_SchemePHMinigun(void);
 
     virtual void reset_scheme(const bool value, CScriptGameObject* const p_client_object);

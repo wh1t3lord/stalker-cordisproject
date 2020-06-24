@@ -5,7 +5,7 @@ namespace Cordis
 {
 namespace Scripts
 {
-Script_SchemeMobRemark::Script_SchemeMobRemark(CScriptGameObject* p_client_object, DataBase::Storage_Scheme& storage)
+Script_SchemeMobRemark::Script_SchemeMobRemark(CScriptGameObject* p_client_object, DataBase::Script_ComponentScheme_MobRemark* storage)
     : inherited_scheme(p_client_object, storage), m_is_tip_sent(false), m_is_action_end_signalled(false)
 {
     this->m_scheme_name = "mob_remark";
@@ -15,13 +15,13 @@ Script_SchemeMobRemark::~Script_SchemeMobRemark(void) {}
 
 void Script_SchemeMobRemark::reset_scheme(const bool, CScriptGameObject* const p_client_object)
 {
-    Msg("[Scripts/Script_SchemeMobRemark/reset_scheme()] called for %s", this->m_npc->Name());
+    MESSAGE("called for %s", this->m_npc->Name());
 
     Script_MobStateManager::getInstance().set_state(this->m_npc, this->m_p_storage->getStateName());
 
     this->m_npc->DisableTalk();
 
-    XR_LOGIC::mob_capture(this->m_npc, !this->m_p_storage->IsNoReset(), this->m_scheme_name);
+    XR_LOGIC::mob_capture(this->m_npc, !this->m_p_storage->isNoReset(), this->m_scheme_name);
 
     xr_vector<xr_string> sounds_name;
     xr_vector<xr_string> times_name;
@@ -51,7 +51,7 @@ void Script_SchemeMobRemark::reset_scheme(const bool, CScriptGameObject* const p
 
             if ((!picked_sound_name.empty()) && (!it.empty()))
             {
-                Msg("[Scripts/Script_SchemeMobRemark/reset_scheme()] NOT REACHED CODE! NOT EXISTED CODE! SEE ORIGINAL "
+                R_ASSERT2(false, "NOT REACHED CODE! NOT EXISTED CODE! SEE ORIGINAL "
                     "SCRIPT mob_remark.script");
             }
             else if (!it.empty())
@@ -65,12 +65,12 @@ void Script_SchemeMobRemark::reset_scheme(const bool, CScriptGameObject* const p
                     condition = CScriptActionCondition(CScriptActionCondition::TIME_FLAG, picked_time);
                 }
 
-                if (this->m_p_storage->IsAnimationMovement())
+                if (this->m_p_storage->isAnimationMovement())
                 {
                     const Fvector& position = this->m_npc->Position();
                     const Fvector& direction = this->m_npc->Direction();
 
-                    Msg("[Scripts/Script_SchemeMobRemark/reset_scheme()] snork position[%f %f %f] direction[%f %f %f]",
+                    Msg("snork position[%f %f %f] direction[%f %f %f]",
                         position.x, position.y, position.z, direction.x, direction.y, direction.z);
 
                     Globals::action(this->m_npc, CScriptAnimationAction(it.c_str(), true), condition);
@@ -123,7 +123,7 @@ void Script_SchemeMobRemark::update(const float delta)
         {
             this->m_is_action_end_signalled = true;
             this->m_p_storage->setSignals("action_end", true);
-            Msg("[Scripts/Script_SchemeMobRemark/update(delta)] signalling action_end!");
+            MESSAGEI("signalling action_end!");
         }
     }
 }
@@ -137,8 +137,8 @@ void Script_SchemeMobRemark::set_scheme(CScriptGameObject* const p_client_object
         return;
     }
 
-    DataBase::Storage_Scheme* p_storage =
-        XR_LOGIC::assign_storage_and_bind(p_client_object, p_ini, scheme_name, section_name, gulag_name);
+    DataBase::Script_ComponentScheme_MobRemark* p_storage =
+        XR_LOGIC::assign_storage_and_bind<DataBase::Script_ComponentScheme_MobRemark>(p_client_object, p_ini, scheme_name, section_name, gulag_name);
 
     if (!p_storage)
     {

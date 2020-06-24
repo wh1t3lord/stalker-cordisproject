@@ -10,8 +10,8 @@ namespace Cordis
 namespace Scripts
 {
 Script_SchemeSRNoWeapon::Script_SchemeSRNoWeapon(
-    CScriptGameObject* const p_client_object, DataBase::Storage_Scheme& storage)
-    : inherited_scheme(p_client_object, storage), m_state(_kStateNoWhere)
+    CScriptGameObject* const p_client_object, DataBase::Script_ComponentScheme_SRNoWeapon* storage)
+    : inherited_scheme(p_client_object, storage), m_state(_kStateNoWhere), m_p_storage(storage)
 {
     this->m_scheme_name = "sr_no_weapon";
 }
@@ -29,7 +29,7 @@ void Script_SchemeSRNoWeapon::update(const float delta)
 {
     CScriptGameObject* const p_client_actor = DataBase::Storage::getInstance().getActor();
 
-    if (XR_LOGIC::try_switch_to_another_section(this->m_npc, *this->m_p_storage, p_client_actor))
+    if (XR_LOGIC::try_switch_to_another_section(this->m_npc, this->m_p_storage, p_client_actor))
     {
         if (this->m_state == _kStateInside)
             this->zone_leave();
@@ -55,8 +55,8 @@ void Script_SchemeSRNoWeapon::set_scheme(CScriptGameObject* const p_client_objec
         return;
     }
 
-    DataBase::Storage_Scheme* p_storage =
-        XR_LOGIC::assign_storage_and_bind(p_client_object, p_ini, scheme_name, section_name, gulag_name);
+    DataBase::Script_ComponentScheme_SRNoWeapon* p_storage =
+        XR_LOGIC::assign_storage_and_bind<DataBase::Script_ComponentScheme_SRNoWeapon>(p_client_object, p_ini, scheme_name, section_name, gulag_name);
 
     if (!p_storage)
     {
@@ -85,7 +85,7 @@ void Script_SchemeSRNoWeapon::zone_enter(void)
         CurrentGameUI()->RemoveCustomStatic("can_use_weapon_now");
     }
 
-    Msg("[Scripts/Script_SchemeSRNoWeapon/zone_enter()] entering no weapon zone [%s]", this->m_npc->Name());
+    MESSAGE("entering no weapon zone [%s]", this->m_npc->Name());
 }
 
 void Script_SchemeSRNoWeapon::zone_leave(void)
@@ -106,7 +106,7 @@ void Script_SchemeSRNoWeapon::zone_leave(void)
         CurrentGameUI()->RemoveCustomStatic("can_use_weapon_now");
     }
 
-    Msg("[Scripts/Script_SchemeSRNoWeapon/zone_leave()] leaving no weapon zone [%s]", this->m_npc->Name());
+    MESSAGE("leaving no weapon zone [%s]", this->m_npc->Name());
 }
 
 void Script_SchemeSRNoWeapon::switch_state(CScriptGameObject* const p_client_actor)
@@ -131,7 +131,7 @@ void Script_SchemeSRNoWeapon::switch_state(CScriptGameObject* const p_client_act
         CScriptGameObject* const p_active_item = p_client_actor->GetActiveItem();
         if (p_active_item && Globals::IsWeapon(p_active_item))
         {
-            Msg("[Scripts/Script_SchemeSRNoWeapon/switch_state(p_client_actor)] WARNING: actor is inside, but with "
+            MESSAGEW("actor is inside, but with "
                 "active weapon %s",
                 p_active_item->Name());
         }

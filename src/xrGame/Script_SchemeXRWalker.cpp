@@ -5,12 +5,12 @@ namespace Cordis
 {
 namespace Scripts
 {
-Script_SchemeXRWalker::Script_SchemeXRWalker(const xr_string& action_name, DataBase::Storage_Scheme& storage)
+Script_SchemeXRWalker::Script_SchemeXRWalker(const xr_string& action_name, DataBase::Script_ComponentScheme_XRWalker* storage)
     : inherited_scheme(nullptr, action_name, storage), m_is_in_camp(false), m_p_camp(nullptr)
 {
-    this->m_p_storage->setXRWalkerDescriptionName("walker_camp");
+    this->m_p_storage->setDescriptionName("walker_camp");
     this->m_avail_actions =
-        Script_GlobalHelper::getInstance().getAnimpointTable().at(this->m_p_storage->getXRWalkerDescriptionName());
+        Script_GlobalHelper::getInstance().getAnimpointTable().at(this->m_p_storage->getDescriptionName());
 
     for (std::pair<std::function<bool(std::uint16_t, bool)>, xr_string>& it : this->m_avail_actions)
     {
@@ -47,7 +47,7 @@ void Script_SchemeXRWalker::execute(void)
 
     Script_CampData* const p_camp = Globals::get_current_camp(this->m_object->Position());
 
-    if (p_camp && this->m_p_storage->isXRWalkerUseCamp())
+    if (p_camp && this->m_p_storage->isUseCamp())
     {
         this->m_p_camp = p_camp;
         this->m_p_camp->register_npc(this->m_object->ID());
@@ -62,10 +62,10 @@ void Script_SchemeXRWalker::execute(void)
         }
     }
 
-    if (!this->m_is_in_camp && !this->m_p_storage->getXRWalkerSoundIdleName().empty())
+    if (!this->m_is_in_camp && !this->m_p_storage->getSoundIdleName().empty())
     {
         xr_string faction_name;
-        XR_SOUND::set_sound_play(this->m_object->ID(), this->m_p_storage->getXRWalkerSoundIdleName(), faction_name, 0);
+        XR_SOUND::set_sound_play(this->m_object->ID(), this->m_p_storage->getSoundIdleName(), faction_name, 0);
     }
 }
 
@@ -115,14 +115,14 @@ void Script_SchemeXRWalker::update(const float delta)
 void Script_SchemeXRWalker::set_scheme(CScriptGameObject* const p_client_object, CScriptIniFile* const p_ini,
     const xr_string& scheme_name, const xr_string& section_name, const xr_string& gulag_name)
 {
-    DataBase::Storage_Scheme* const p_storage =
-        XR_LOGIC::assign_storage_and_bind(p_client_object, p_ini, scheme_name, section_name, gulag_name);
+    DataBase::Script_ComponentScheme_XRWalker* const p_storage =
+        XR_LOGIC::assign_storage_and_bind<DataBase::Script_ComponentScheme_XRWalker>(p_client_object, p_ini, scheme_name, section_name, gulag_name);
     
     p_storage->setLogic(XR_LOGIC::cfg_get_switch_conditions(p_ini, section_name, p_client_object));
     xr_string path_walk_name = Globals::Utils::cfg_get_string(p_ini, section_name, "path_walk");
     if (path_walk_name.empty())
         path_walk_name = gulag_name;
-    p_storage->setXRWalkerPathWalkName(path_walk_name);
+    p_storage->setPathWalkName(path_walk_name);
     
     if (!Globals::patrol_path_exists(path_walk_name.c_str()))
     {
@@ -135,7 +135,7 @@ void Script_SchemeXRWalker::set_scheme(CScriptGameObject* const p_client_object,
     if (path_look_name.empty())
         path_look_name = gulag_name;
 
-    p_storage->setXRWalkerPathLookName(path_look_name);
+    p_storage->setPathLookName(path_look_name);
 
     if (path_walk_name == path_look_name)
     {
@@ -148,13 +148,13 @@ void Script_SchemeXRWalker::set_scheme(CScriptGameObject* const p_client_object,
     if (team_name.empty())
         team_name = gulag_name;
 
-    p_storage->setXRWalkerTeamName(team_name);
-    p_storage->setXRWalkerSoundIdleName(Globals::Utils::cfg_get_string(p_ini, section_name, "sound_idle"));
-    p_storage->setXRWalkerUseCamp(Globals::Utils::cfg_get_bool(p_ini, section_name, "use_camp"));
+    p_storage->setTeamName(team_name);
+    p_storage->setSoundIdleName(Globals::Utils::cfg_get_string(p_ini, section_name, "sound_idle"));
+    p_storage->setUseCamp(Globals::Utils::cfg_get_bool(p_ini, section_name, "use_camp"));
 
-    p_storage->setXRWalkerSuggestedStates("standing", Globals::Utils::cfg_get_string(p_ini, section_name, "def_state_standing"));
-    p_storage->setXRWalkerSuggestedStates("moving", Globals::Utils::cfg_get_string(p_ini, section_name, "def_state_moving1"));
-    p_storage->setXRWalkerSuggestedStates("moving", Globals::Utils::cfg_get_string(p_ini, section_name, "def_state_moving"));
+    p_storage->setSuggestedStates("standing", Globals::Utils::cfg_get_string(p_ini, section_name, "def_state_standing"));
+    p_storage->setSuggestedStates("moving", Globals::Utils::cfg_get_string(p_ini, section_name, "def_state_moving1"));
+    p_storage->setSuggestedStates("moving", Globals::Utils::cfg_get_string(p_ini, section_name, "def_state_moving"));
 }
 
 } // namespace Scripts

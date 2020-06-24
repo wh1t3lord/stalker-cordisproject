@@ -9,8 +9,8 @@ namespace Cordis
 namespace Scripts
 {
 Script_SchemeSRTeleport::Script_SchemeSRTeleport(
-    CScriptGameObject* const p_client_object, DataBase::Storage_Scheme& storage)
-    : inherited_scheme(p_client_object, storage), m_state(false), m_timer(0)
+    CScriptGameObject* const p_client_object, DataBase::Script_ComponentScheme_SRTeleport* storage)
+    : inherited_scheme(p_client_object, storage), m_state(false), m_timer(0), m_p_storage(storage)
 {
     this->m_scheme_name = "sr_teleport";
 }
@@ -35,11 +35,11 @@ void Script_SchemeSRTeleport::update(const float delta)
     }
     else
     {
-        if (Globals::get_time_global() - this->m_timer >= this->m_p_storage->getSRTeleportTimeout())
+        if (Globals::get_time_global() - this->m_timer >= this->m_p_storage->getTimeout())
         {
             std::uint32_t max_random = 0;
             for (const std::pair<std::uint32_t, std::pair<xr_string, xr_string>>& it :
-                this->m_p_storage->getSRTeleportPoints())
+                this->m_p_storage->getPoints())
             {
                 max_random += it.first;
             }
@@ -48,12 +48,12 @@ void Script_SchemeSRTeleport::update(const float delta)
                 Globals::Script_RandomInt::getInstance().Generate(std::uint32_t(0), max_random);
 
             for (const std::pair<std::uint32_t, std::pair<xr_string, xr_string>>& it :
-                this->m_p_storage->getSRTeleportPoints())
+                this->m_p_storage->getPoints())
             {
                 generated_value -= it.first;
                 if (generated_value <= 0)
                 {
-                    Msg("[Scripts/Script_SchemeSRTeleport/update(delta)] teleporting to %s look %s",
+                    MESSAGE("teleporting to %s look %s",
                         it.second.first.c_str(), it.second.second.c_str());
                     DataBase::Storage::getInstance().getActor()->SetActorPosition(
                         CPatrolPathParams(it.second.first.c_str()).point(std::uint32_t(0)));
@@ -74,8 +74,7 @@ void Script_SchemeSRTeleport::update(const float delta)
         }
     }
 
-    if (XR_LOGIC::try_switch_to_another_section(
-            this->m_npc, *this->m_p_storage, DataBase::Storage::getInstance().getActor()))
+    if (XR_LOGIC::try_switch_to_another_section(this->m_npc, this->m_p_storage, DataBase::Storage::getInstance().getActor()))
         return;
 }
 
@@ -88,8 +87,8 @@ void Script_SchemeSRTeleport::set_scheme(CScriptGameObject* const p_client_objec
         return;
     }
 
-    DataBase::Storage_Scheme* p_storage =
-        XR_LOGIC::assign_storage_and_bind(p_client_object, p_ini, scheme_name, section_name, gulag_name);
+    DataBase::Script_ComponentScheme_SRTeleport* p_storage =
+        XR_LOGIC::assign_storage_and_bind<DataBase::Script_ComponentScheme_SRTeleport>(p_client_object, p_ini, scheme_name, section_name, gulag_name);
 
     if (!p_storage)
     {
@@ -104,7 +103,7 @@ void Script_SchemeSRTeleport::set_scheme(CScriptGameObject* const p_client_objec
     if (!timeout)
         timeout = 900;
 
-    p_storage->setSRTeleportTimeout(timeout);
+    p_storage->setTimeout(timeout);
 
     xr_vector<std::pair<std::uint32_t, std::pair<xr_string, xr_string>>> points;
     std::pair<std::uint32_t, std::pair<xr_string, xr_string>> data;
@@ -130,7 +129,7 @@ void Script_SchemeSRTeleport::set_scheme(CScriptGameObject* const p_client_objec
         points.push_back(data);
     }
 
-    p_storage->setSRTeleportPoints(points);
+    p_storage->setPoints(points);
 
     if (points.empty())
     {

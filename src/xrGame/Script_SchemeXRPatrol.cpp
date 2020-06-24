@@ -15,7 +15,7 @@ namespace Cordis
 
 		Script_EvaluatorPatrolEnd::_value_type Script_EvaluatorPatrolEnd::evaluate(void)
 		{
-			return XR_LOGIC::is_active(this->m_object, *this->m_p_storage);
+			return XR_LOGIC::is_active(this->m_object, this->m_p_storage);
 		}
 
 		Script_EvaluatorPatrolComm::~Script_EvaluatorPatrolComm(void)
@@ -24,10 +24,11 @@ namespace Cordis
 
 		Script_EvaluatorPatrolComm::_value_type Script_EvaluatorPatrolComm::evaluate(void)
 		{
-			return DataBase::Storage::getInstance().getPatrolsXRPatrol().at(this->m_p_storage->getXRPatrolPatrolKeyName())->is_commander(this->m_object->ID());
+			return DataBase::Storage::getInstance().getPatrolsXRPatrol().at(this->m_p_storage->getPatrolKeyName())->is_commander(this->m_object->ID());
 		}
 
-		Script_SchemeXRPatrol::Script_SchemeXRPatrol(const xr_string& name, DataBase::Storage_Scheme& storage) : Script_ISchemeStalker(nullptr, name, storage), m_level_vertex_id(Globals::kUnsignedInt32Undefined), m_dist(0), m_direction(Fvector().set(0.0f, 0.0f, 1.0f)), m_is_on_point(false), m_is_was_reset(false), m_time_to_update(Globals::get_time_global() + 1000), m_current_state_name("patrol")
+		Script_SchemeXRPatrol::Script_SchemeXRPatrol(const xr_string& name, DataBase::Script_ComponentScheme_XRPatrol* storage) : Script_ISchemeStalker(nullptr, name, storage), m_level_vertex_id(Globals::kUnsignedInt32Undefined), m_dist(0), m_direction(Fvector().set(0.0f, 0.0f, 1.0f)), m_is_on_point(false), m_is_was_reset(false), m_time_to_update(Globals::get_time_global() + 1000),
+			m_current_state_name("patrol"), m_p_storage(storage)
 		{
 		}
 
@@ -44,7 +45,7 @@ namespace Cordis
 			this->m_p_storage->setPathLookInfo(Globals::Utils::path_parse_waypoints(this->m_p_storage->getPathLookName()));
 
 			std::function<bool(std::uint32_t, std::uint32_t)> callback = std::bind(&Script_SchemeXRPatrol::formation_callback, this, std::placeholders::_1, std::placeholders::_2);
-			this->m_p_move_manager->reset(this->m_p_storage->getPathWalkName(), this->m_p_storage->getPathWalkInfo(), this->m_p_storage->getPathLookName(), this->m_p_storage->getPathLookInfo(), "", this->m_p_storage->getXRPatrolSuggestedStates(), callback, false);
+			this->m_p_move_manager->reset(this->m_p_storage->getPathWalkName(), this->m_p_storage->getPathWalkInfo(), this->m_p_storage->getPathLookName(), this->m_p_storage->getPathLookInfo(), "", this->m_p_storage->getSuggestedStates(), callback, false);
 		}
 
 		void Script_SchemeXRPatrol::initialize(void)
@@ -63,7 +64,7 @@ namespace Cordis
 
 			this->m_time_to_update = Globals::get_time_global() + 1000;
 
-			DataBase::Storage::getInstance().getPatrolsXRPatrol().at(this->m_p_storage->getXRPatrolPatrolKeyName())->get_npc_command(this->m_object, this->m_level_vertex_id, this->m_direction, this->m_current_state_name);
+			DataBase::Storage::getInstance().getPatrolsXRPatrol().at(this->m_p_storage->getPatrolKeyName())->get_npc_command(this->m_object, this->m_level_vertex_id, this->m_direction, this->m_current_state_name);
 
 			this->m_level_vertex_id = Globals::Utils::send_to_nearest_accessible_vertex(this->m_object, this->m_level_vertex_id);
 			Fvector desired_direction = this->m_direction;
@@ -94,12 +95,12 @@ namespace Cordis
 				return;
 			}
 
-			DataBase::Storage::getInstance().getPatrolsXRPatrol().at(this->m_p_storage->getXRPatrolPatrolKeyName())->remove_npc(p_client_victim);
+			DataBase::Storage::getInstance().getPatrolsXRPatrol().at(this->m_p_storage->getPatrolKeyName())->remove_npc(p_client_victim);
 		}
 
 		void Script_SchemeXRPatrol::deactivate(CScriptGameObject* const p_client_object)
 		{
-			DataBase::Storage::getInstance().getPatrolsXRPatrol().at(this->m_p_storage->getXRPatrolPatrolKeyName())->remove_npc(p_client_object);
+			DataBase::Storage::getInstance().getPatrolsXRPatrol().at(this->m_p_storage->getPatrolKeyName())->remove_npc(p_client_object);
 		}
 
 		void Script_SchemeXRPatrol::net_destroy(CScriptGameObject* const p_client_object)
@@ -112,7 +113,8 @@ namespace Cordis
 			return false;
 		}
 
-		void Script_SchemeXRPatrol::add_to_binder(CScriptGameObject* const p_client_object, CScriptIniFile* const p_ini, const xr_string& scheme_name, const xr_string& section_name, DataBase::Storage_Scheme& storage)
+		void Script_SchemeXRPatrol::add_to_binder(CScriptGameObject* const p_client_object, CScriptIniFile* const p_ini, 
+			const xr_string& scheme_name, const xr_string& section_name, DataBase::Script_IComponentScheme* storage)
 		{
 			if (p_client_object == nullptr)
 			{
@@ -139,10 +141,10 @@ namespace Cordis
 
 			CScriptActionPlanner* const p_planner = Globals::get_script_action_planner(p_client_object);
 
-			p_planner->add_evaluator(properties.at("patrol_end"), new Script_EvaluatorPatrolEnd("patrol_end", storage));
-			p_planner->add_evaluator(properties.at("patrol_comm"), new Script_EvaluatorPatrolComm("patrol_comm", storage));
+			p_planner->add_evaluator(properties.at("patrol_end"), new Script_EvaluatorPatrolEnd("patrol_end", static_cast<DataBase::Script_ComponentScheme_XRPatrol*>(storage)));
+			p_planner->add_evaluator(properties.at("patrol_comm"), new Script_EvaluatorPatrolComm("patrol_comm", static_cast<DataBase::Script_ComponentScheme_XRPatrol*>(storage)));
 
-			Script_ActionCommander* const p_scheme_commander = new Script_ActionCommander(p_client_object, "action_commander", storage);
+			Script_ActionCommander* const p_scheme_commander = new Script_ActionCommander(p_client_object, "action_commander", static_cast<DataBase::Script_ComponentScheme_XRPatrol*>(storage));
 			p_scheme_commander->add_condition(CWorldProperty(StalkerDecisionSpace::eWorldPropertyAlive, true));
 			p_scheme_commander->add_condition(CWorldProperty(StalkerDecisionSpace::eWorldPropertyDanger, false));
 			p_scheme_commander->add_condition(CWorldProperty(StalkerDecisionSpace::eWorldPropertyEnemy, false));
@@ -162,7 +164,7 @@ namespace Cordis
 			p_planner->add_operator(operators.at("action_commander"), p_scheme_commander);
 			DataBase::Storage::getInstance().setStorageSchemesActions(p_client_object->ID(), scheme_name, p_scheme_commander);
 
-			Script_SchemeXRPatrol* const p_scheme = new Script_SchemeXRPatrol("action_patrol", storage);
+			Script_SchemeXRPatrol* const p_scheme = new Script_SchemeXRPatrol("action_patrol", static_cast<DataBase::Script_ComponentScheme_XRPatrol*>(storage));
 			p_scheme->add_condition(CWorldProperty(StalkerDecisionSpace::eWorldPropertyAlive, true));
 			p_scheme->add_condition(CWorldProperty(StalkerDecisionSpace::eWorldPropertyDanger, false));
 			p_scheme->add_condition(CWorldProperty(StalkerDecisionSpace::eWorldPropertyEnemy, false));
@@ -187,7 +189,7 @@ namespace Cordis
 
 		void Script_SchemeXRPatrol::set_scheme(CScriptGameObject* const p_client_object, CScriptIniFile* const p_ini, const xr_string& scheme_name, const xr_string& section_name, const xr_string& gulag_name)
 		{
-			DataBase::Storage_Scheme* const p_storage = XR_LOGIC::assign_storage_and_bind(p_client_object, p_ini, scheme_name, section_name, gulag_name);
+			DataBase::Script_ComponentScheme_XRPatrol* const p_storage = XR_LOGIC::assign_storage_and_bind<DataBase::Script_ComponentScheme_XRPatrol>(p_client_object, p_ini, scheme_name, section_name, gulag_name);
 			p_storage->setLogic(XR_LOGIC::cfg_get_switch_conditions(p_ini, section_name, p_client_object));
 			
 			xr_string path_walk_name = Globals::Utils::cfg_get_string(p_ini, section_name, "path_walk");
@@ -195,7 +197,7 @@ namespace Cordis
 				path_walk_name = gulag_name;
 
 			p_storage->setPathWalkName(path_walk_name);
-			p_storage->setXRPatrolPathName(path_walk_name);
+			p_storage->setPathName(path_walk_name);
 
 			xr_string path_look_name = Globals::Utils::cfg_get_string(p_ini, section_name, "path_look");
 			if (path_look_name.empty())
@@ -209,33 +211,33 @@ namespace Cordis
 				return;
 			}
 
-			p_storage->setXRPatrolFormationName(Globals::Utils::cfg_get_string(p_ini, section_name, "formation"));
-			p_storage->setXRPatrolSilent(Globals::Utils::cfg_get_bool(p_ini, section_name, "silent"));
+			p_storage->setFormationName(Globals::Utils::cfg_get_string(p_ini, section_name, "formation"));
+			p_storage->setSilent(Globals::Utils::cfg_get_bool(p_ini, section_name, "silent"));
 
-			if (p_storage->getXRPatrolFormationName().empty())
-				p_storage->setXRPatrolFormationName("back");
+			if (p_storage->getFormationName().empty())
+				p_storage->setFormationName("back");
 
-			p_storage->setXRPatrolMoveTypeName(Globals::Utils::cfg_get_string(p_ini, section_name, "move_type"));
-			if (p_storage->getXRPatrolMoveTypeName().empty())
-				p_storage->setXRPatrolMoveTypeName("patrol");
+			p_storage->setMoveTypeName(Globals::Utils::cfg_get_string(p_ini, section_name, "move_type"));
+			if (p_storage->getMoveTypeName().empty())
+				p_storage->setMoveTypeName("patrol");
 
-			p_storage->setXRPatrolSuggestedStates("standing", Globals::Utils::cfg_get_string(p_ini, section_name, "def_state_standing"));
+			p_storage->setSuggestedStates("standing", Globals::Utils::cfg_get_string(p_ini, section_name, "def_state_standing"));
 			xr_string moving_name = Globals::Utils::cfg_get_string(p_ini, section_name, "def_state_moving");
 			if (moving_name.empty())
 				moving_name = Globals::Utils::cfg_get_string(p_ini, section_name, "def_state_moving1");
 
-			p_storage->setXRPatrolSuggestedStates("moving", moving_name);
+			p_storage->setSuggestedStates("moving", moving_name);
 
-			p_storage->setXRPatrolCommander(Globals::Utils::cfg_get_bool(p_ini, section_name, "commander"));
-			p_storage->setXRPatrolPatrolKeyName(p_storage->getXRPatrolPathName());
+			p_storage->setCommander(Globals::Utils::cfg_get_bool(p_ini, section_name, "commander"));
+			p_storage->setPatrolKeyName(p_storage->getPathName());
 
 			Script_SE_SimulationSquad* const p_squad = Globals::get_object_squad(p_client_object->ID());
 			if (p_squad)
-				p_storage->setXRPatrolPatrolKeyName(xr_string(p_storage->getXRPatrolPatrolKeyName()).append(std::to_string(p_squad->ID).c_str()));
+				p_storage->setPatrolKeyName(xr_string(p_storage->getPatrolKeyName()).append(std::to_string(p_squad->ID).c_str()));
 
-			if (DataBase::Storage::getInstance().getPatrolsXRPatrol().find(p_storage->getXRPatrolPatrolKeyName()) == DataBase::Storage::getInstance().getPatrolsXRPatrol().end())
-				DataBase::Storage::getInstance().setPatrolsXRPatrol(p_storage->getXRPatrolPatrolKeyName(), new Script_XRPatrolManager(p_storage->getXRPatrolPathName()));
-			DataBase::Storage::getInstance().getPatrolsXRPatrol().at(p_storage->getXRPatrolPatrolKeyName())->add_npc(p_client_object, p_storage->isXRPatrolCommander());
+			if (DataBase::Storage::getInstance().getPatrolsXRPatrol().find(p_storage->getPatrolKeyName()) == DataBase::Storage::getInstance().getPatrolsXRPatrol().end())
+				DataBase::Storage::getInstance().setPatrolsXRPatrol(p_storage->getPatrolKeyName(), new Script_XRPatrolManager(p_storage->getPathName()));
+			DataBase::Storage::getInstance().getPatrolsXRPatrol().at(p_storage->getPatrolKeyName())->add_npc(p_client_object, p_storage->isCommander());
 		}
 
 
@@ -487,7 +489,9 @@ namespace Cordis
 			return false;
 		}
 
-		Script_ActionCommander::Script_ActionCommander(CScriptGameObject* const p_client_object, const xr_string& name, DataBase::Storage_Scheme& storage) : Script_ISchemeStalker(nullptr, name, storage), m_is_was_reset(false), m_current_state_name("patrol"), m_p_move_manager(DataBase::Storage::getInstance().getStorage().at(p_client_object->ID()).getMoveManager())
+		Script_ActionCommander::Script_ActionCommander(CScriptGameObject* const p_client_object, const xr_string& name, DataBase::Script_ComponentScheme_XRPatrol* storage) : Script_ISchemeStalker(nullptr, name, storage), 
+			m_is_was_reset(false), m_current_state_name("patrol"),
+			m_p_move_manager(DataBase::Storage::getInstance().getStorage().at(p_client_object->ID()).getMoveManager()), m_p_storage(storage)
 		{
 		}
 
@@ -513,7 +517,7 @@ namespace Cordis
 
 			if (this->m_old_state_name != new_state_name)
 			{
-				if (this->m_p_storage->isXRPatrolSilent() == false)
+				if (this->m_p_storage->isSilent() == false)
 				{
 					if (new_state_name == "sneak")
 					{
@@ -533,14 +537,14 @@ namespace Cordis
 				}
 			}
 
-			DataBase::Storage::getInstance().getPatrolsXRPatrol().at(this->m_p_storage->getXRPatrolPatrolKeyName())->set_command(this->m_object, new_state_name, this->m_p_storage->getXRPatrolFormationName());
+			DataBase::Storage::getInstance().getPatrolsXRPatrol().at(this->m_p_storage->getPatrolKeyName())->set_command(this->m_object, new_state_name, this->m_p_storage->getFormationName());
 		}
 
 		void Script_ActionCommander::finalize(void)
 		{
 			if (this->m_object->Alive())
 			{
-				DataBase::Storage::getInstance().getPatrolsXRPatrol().at(this->m_p_storage->getXRPatrolPatrolKeyName())->set_command(this->m_object, "guard", this->m_p_storage->getXRPatrolFormationName());
+				DataBase::Storage::getInstance().getPatrolsXRPatrol().at(this->m_p_storage->getPatrolKeyName())->set_command(this->m_object, "guard", this->m_p_storage->getFormationName());
 				this->m_p_move_manager->finalize(nullptr);
 			}
 
@@ -555,7 +559,7 @@ namespace Cordis
 				return;
 			}
 
-			DataBase::Storage::getInstance().getPatrolsXRPatrol().at(this->m_p_storage->getXRPatrolPatrolKeyName())->remove_npc(p_client_victim);
+			DataBase::Storage::getInstance().getPatrolsXRPatrol().at(this->m_p_storage->getPatrolKeyName())->remove_npc(p_client_victim);
 		}
 
 		void Script_ActionCommander::net_destroy(CScriptGameObject* const p_client_object)
@@ -565,7 +569,7 @@ namespace Cordis
 
 		void Script_ActionCommander::deactivate(CScriptGameObject* const p_client_object)
 		{
-			DataBase::Storage::getInstance().getPatrolsXRPatrol().at(this->m_p_storage->getXRPatrolPatrolKeyName())->remove_npc(p_client_object);
+			DataBase::Storage::getInstance().getPatrolsXRPatrol().at(this->m_p_storage->getPatrolKeyName())->remove_npc(p_client_object);
 		}
 
 		void Script_ActionCommander::activate_scheme(const bool is_loading, CScriptGameObject* const p_client_object)
@@ -577,25 +581,25 @@ namespace Cordis
 			this->m_p_storage->setPathLookInfo(Globals::Utils::path_parse_waypoints(this->m_p_storage->getPathLookName()));
 
 			std::function<bool(std::uint32_t, std::uint32_t)> callback = std::bind(&Script_ActionCommander::formation_callback, this, std::placeholders::_1, std::placeholders::_2);
-			this->m_p_move_manager->reset(this->m_p_storage->getPathWalkName(), this->m_p_storage->getPathWalkInfo(), this->m_p_storage->getPathLookName(), this->m_p_storage->getPathLookInfo(), "", this->m_p_storage->getXRPatrolSuggestedStates(), callback, false);
+			this->m_p_move_manager->reset(this->m_p_storage->getPathWalkName(), this->m_p_storage->getPathWalkInfo(), this->m_p_storage->getPathLookName(), this->m_p_storage->getPathLookInfo(), "", this->m_p_storage->getSuggestedStates(), callback, false);
 		}
 
 		bool Script_ActionCommander::formation_callback(std::uint32_t number, std::uint32_t index)
 		{
 			if (number == 0)
 			{
-				this->m_p_storage->setXRPatrolFormationName("line");
+				this->m_p_storage->setFormationName("line");
 			}
 			else if (number == 1)
 			{
-				this->m_p_storage->setXRPatrolFormationName("around");
+				this->m_p_storage->setFormationName("around");
 			}
 			else if (number == 2)
 			{
-				this->m_p_storage->setXRPatrolFormationName("back");
+				this->m_p_storage->setFormationName("back");
 			}
 
-			MESSAGE("formation is set to %s", this->m_p_storage->getXRPatrolFormationName().c_str());
+			MESSAGE("formation is set to %s", this->m_p_storage->getFormationName().c_str());
 
 			return false;
 		}

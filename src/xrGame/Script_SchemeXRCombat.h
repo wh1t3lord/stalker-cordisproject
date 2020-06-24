@@ -7,8 +7,8 @@ namespace Scripts
 class Script_EvaluatorCheckCombat : public CScriptPropertyEvaluator
 {
 public:
-    Script_EvaluatorCheckCombat(const xr_string& evaluator_name, DataBase::Storage_Scheme& storage)
-        : CScriptPropertyEvaluator(nullptr, evaluator_name.c_str()), m_p_storage(&storage)
+    Script_EvaluatorCheckCombat(const xr_string& evaluator_name, DataBase::Script_ComponentScheme_XRCombat* storage)
+        : CScriptPropertyEvaluator(nullptr, evaluator_name.c_str()), m_p_storage(storage)
     {
     }
 
@@ -17,14 +17,14 @@ public:
     virtual _value_type evaluate(void);
 
 private:
-    DataBase::Storage_Scheme* m_p_storage;
+    DataBase::Script_ComponentScheme_XRCombat* m_p_storage;
 };
 
 class Script_EvaluatorEnemy : public CScriptPropertyEvaluator
 {
 public:
-    Script_EvaluatorEnemy(const xr_string& evaluator_name, DataBase::Storage_Scheme& storage)
-        : CScriptPropertyEvaluator(nullptr, evaluator_name.c_str()), m_p_storage(&storage)
+    Script_EvaluatorEnemy(const xr_string& evaluator_name, DataBase::Script_ComponentScheme_XRCombat* storage)
+        : CScriptPropertyEvaluator(nullptr, evaluator_name.c_str()), m_p_storage(storage)
     {
     }
     ~Script_EvaluatorEnemy(void) {}
@@ -32,14 +32,14 @@ public:
     virtual _value_type evaluate(void);
 
 private:
-    DataBase::Storage_Scheme* m_p_storage;
+    DataBase::Script_ComponentScheme_XRCombat* m_p_storage;
 };
 
 namespace XR_COMBAT
 {
 // @ PRIVATE uses, in XR_LOGIC
     static void add_to_binder(CScriptGameObject* const p_client_object, CScriptIniFile* const p_ini,
-        const xr_string& scheme_name, const xr_string& section_name, DataBase::Storage_Scheme& storage);
+        const xr_string& scheme_name, const xr_string& section_name, DataBase::Script_IComponentScheme* storage);
 
     static void set_combat_checker(CScriptGameObject* const p_client_object, CScriptIniFile* const p_ini,
         const xr_string& scheme_name, const xr_string& section_name, const xr_string& gulag_name);
@@ -72,7 +72,7 @@ static void disable_scheme(CScriptGameObject* const p_client_object, const xr_st
         return;
     }
 
-    DataBase::Storage_Scheme* const p_storage_scheme = storage.getSchemes().at(scheme_name);
+    DataBase::Script_ComponentScheme_XRCombat* const p_storage_scheme = static_cast<DataBase::Script_ComponentScheme_XRCombat*>(storage.getSchemes().at(scheme_name));
 
     if (p_storage_scheme == nullptr)
     {

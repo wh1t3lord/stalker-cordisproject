@@ -10,7 +10,7 @@ namespace Cordis
 {
 	namespace Scripts
 	{
-		Script_SchemeXRAnimpoint::Script_SchemeXRAnimpoint(const xr_string& name, DataBase::Storage_Scheme& storage) : Script_ISchemeStalker(nullptr, name, storage)
+		Script_SchemeXRAnimpoint::Script_SchemeXRAnimpoint(const xr_string& name, DataBase::Script_ComponentScheme_XRAnimPoint* storage) : Script_ISchemeStalker(nullptr, name, storage), m_p_storage(storage)
 		{
 		}
 
@@ -54,7 +54,8 @@ namespace Cordis
 			this->m_p_storage->getAnimpoint()->stop();
 		}
 
-		void Script_SchemeXRAnimpoint::add_to_binder(CScriptGameObject* const p_client_object, CScriptIniFile* const p_ini, const xr_string& scheme_name, const xr_string& section_name, DataBase::Storage_Scheme& storage)
+		void Script_SchemeXRAnimpoint::add_to_binder(CScriptGameObject* const p_client_object, 
+			CScriptIniFile* const p_ini, const xr_string& scheme_name, const xr_string& section_name, DataBase::Script_IComponentScheme* storage)
 		{
 			if (p_client_object == nullptr)
 			{
@@ -80,14 +81,14 @@ namespace Cordis
 			operators["action_animpoint"] = Globals::XR_ACTIONS_ID::kAnimationPointAction + 1;
 			operators["action_reach_animpoint"] = Globals::XR_ACTIONS_ID::kAnimationPointAction + 2;
 
-			p_planner->add_evaluator(properties.at("need_animpoint"), new Script_EvaluatorNeedAnimpoint("animpoint_need", storage));
-			p_planner->add_evaluator(properties.at("reach_animpoint"), new Script_EvaluatorReachAnimpoint("animpoint_reach", storage));
+			p_planner->add_evaluator(properties.at("need_animpoint"), new Script_EvaluatorNeedAnimpoint("animpoint_need", static_cast<DataBase::Script_ComponentScheme_XRAnimPoint*>(storage)));
+			p_planner->add_evaluator(properties.at("reach_animpoint"), new Script_EvaluatorReachAnimpoint("animpoint_reach", static_cast<DataBase::Script_ComponentScheme_XRAnimPoint*>(storage)));
 
 
-			storage.setAnimpoint(new Script_Animpoint(p_client_object->ID(), storage));
-			DataBase::Storage::getInstance().setStorageSchemesActions(p_client_object->ID(), scheme_name, storage.getAnimpoint());
+			static_cast<DataBase::Script_ComponentScheme_XRAnimPoint*>(storage)->setAnimpoint(new Script_Animpoint(p_client_object->ID(), static_cast<DataBase::Script_ComponentScheme_XRAnimPoint*>(storage)));
+			DataBase::Storage::getInstance().setStorageSchemesActions(p_client_object->ID(), scheme_name, static_cast<DataBase::Script_ComponentScheme_XRAnimPoint*>(storage)->getAnimpoint());
 
-			Script_ActionReachAnimpoint* const p_scheme_reach = new Script_ActionReachAnimpoint("action_reach_animpoint", storage);
+			Script_ActionReachAnimpoint* const p_scheme_reach = new Script_ActionReachAnimpoint("action_reach_animpoint", static_cast<DataBase::Script_ComponentScheme_XRAnimPoint*>(storage));
 			p_scheme_reach->add_condition(CWorldProperty(StalkerDecisionSpace::eWorldPropertyAlive, true));
 			p_scheme_reach->add_condition(CWorldProperty(StalkerDecisionSpace::eWorldPropertyAnomaly, false));
 			p_scheme_reach->add_condition(CWorldProperty(StalkerDecisionSpace::eWorldPropertyEnemy, false));
@@ -105,7 +106,7 @@ namespace Cordis
 			p_planner->add_operator(operators.at("action_reach_animpoint"), p_scheme_reach);
 			DataBase::Storage::getInstance().setStorageSchemesActions(p_client_object->ID(), scheme_name, p_scheme_reach);
 
-			Script_SchemeXRAnimpoint* const p_scheme = new Script_SchemeXRAnimpoint("action_animpoint", storage);
+			Script_SchemeXRAnimpoint* const p_scheme = new Script_SchemeXRAnimpoint("action_animpoint", static_cast<DataBase::Script_ComponentScheme_XRAnimPoint*>(storage));
 			p_scheme->add_condition(CWorldProperty(StalkerDecisionSpace::eWorldPropertyAlive, true));
 			p_scheme->add_condition(CWorldProperty(StalkerDecisionSpace::eWorldPropertyAnomaly, false));
 			p_scheme->add_condition(CWorldProperty(StalkerDecisionSpace::eWorldPropertyEnemy, false));
@@ -128,33 +129,33 @@ namespace Cordis
 
 		void Script_SchemeXRAnimpoint::set_scheme(CScriptGameObject* const p_client_object, CScriptIniFile* const p_ini, const xr_string& scheme_name, const xr_string& section_name, const xr_string& gulag_name)
 		{
-			DataBase::Storage_Scheme* const p_storage = XR_LOGIC::assign_storage_and_bind(p_client_object, p_ini, scheme_name, section_name, gulag_name);
+			DataBase::Script_ComponentScheme_XRAnimPoint* const p_storage = XR_LOGIC::assign_storage_and_bind<DataBase::Script_ComponentScheme_XRAnimPoint>(p_client_object, p_ini, scheme_name, section_name, gulag_name);
 
 			p_storage->setLogic(XR_LOGIC::cfg_get_switch_conditions(p_ini, section_name, p_client_object));
 			xr_string cover_name = Globals::Utils::cfg_get_string(p_ini, section_name, "cover_name");
 			if (cover_name.empty())
 				cover_name = "$script_id$_cover";
-			p_storage->setXRAnimpointCoverName(cover_name);
-			p_storage->setXRAnimpointUseCamp(Globals::Utils::cfg_get_bool(p_ini, section_name, "use_camp"));
+			p_storage->setCoverName(cover_name);
+			p_storage->setUseCamp(Globals::Utils::cfg_get_bool(p_ini, section_name, "use_camp"));
 			float reach_distance = Globals::Utils::cfg_get_number(p_ini, section_name, "reach_distance");
 
 			if (fis_zero(reach_distance))
 				reach_distance = 0.75f;
 
 			reach_distance *= reach_distance;
-			p_storage->setXRAnimpointReachDistance(reach_distance);
+			p_storage->setReachDistance(reach_distance);
 
 			xr_string movement_name = Globals::Utils::cfg_get_string(p_ini, section_name, "reach_movement");
 
 			if (movement_name.empty())
 				movement_name = "walk";
 
-			p_storage->setXRAnimpointReachMovementName(movement_name);
+			p_storage->setReachMovementName(movement_name);
 
-			p_storage->setXRAnimpointAvailAnimations(Globals::Utils::parse_names(Globals::Utils::cfg_get_string(p_ini, section_name, "avail_animations")));
+			p_storage->setAvailAnimations(Globals::Utils::parse_names(Globals::Utils::cfg_get_string(p_ini, section_name, "avail_animations")));
 		}
 
-		Script_ActionReachAnimpoint::Script_ActionReachAnimpoint(const xr_string& name, DataBase::Storage_Scheme& storage) : Script_ISchemeStalker(nullptr, name, storage)
+		Script_ActionReachAnimpoint::Script_ActionReachAnimpoint(const xr_string& name, DataBase::Script_ComponentScheme_XRAnimPoint* storage) : Script_ISchemeStalker(nullptr, name, storage), m_p_storage(storage)
 		{
 		}
 
@@ -175,18 +176,18 @@ namespace Cordis
 
             bool is_distance_reached =
                 this->m_object->Position().distance_to_sqr(this->m_p_storage->getAnimpoint()->getVertexPosition()) <=
-                this->m_p_storage->getXRAnimpointReachDistance();
+                this->m_p_storage->getReachDistance();
 
             if (is_distance_reached)
             {
-                Globals::set_state(this->m_object, this->m_p_storage->getXRAnimpointReachMovementName(),
+                Globals::set_state(this->m_object, this->m_p_storage->getReachMovementName(),
                     StateManagerCallbackData(), 0,
                     std::pair<Fvector, CScriptGameObject* const>(this->m_p_storage->getAnimpoint()->getLookPosition(), nullptr),
                     StateManagerExtraData());
             }
             else
             {
-                Globals::set_state(this->m_object, this->m_p_storage->getXRAnimpointReachMovementName(),
+                Globals::set_state(this->m_object, this->m_p_storage->getReachMovementName(),
                     StateManagerCallbackData(), 0, std::pair<Fvector, CScriptGameObject* const>(Fvector(), nullptr),
                     StateManagerExtraData());
             }
@@ -204,10 +205,11 @@ namespace Cordis
 
 		Script_EvaluatorNeedAnimpoint::_value_type Script_EvaluatorNeedAnimpoint::evaluate(void)
 		{
-			return XR_LOGIC::is_active(this->m_object, *this->m_p_storage);
+			return XR_LOGIC::is_active(this->m_object, this->m_p_storage);
 		}
 
-		Script_Animpoint::Script_Animpoint(const std::uint16_t npc_id, DataBase::Storage_Scheme& storage) : Script_ISchemeEntity(nullptr, storage), m_p_storage(&storage), m_npc_id(npc_id), m_is_started(false), m_position_vertex(0), m_p_camp(nullptr)
+		Script_Animpoint::Script_Animpoint(const std::uint16_t npc_id, DataBase::Script_ComponentScheme_XRAnimPoint* storage) : Script_ISchemeEntity(nullptr, storage), m_p_storage(storage), m_npc_id(npc_id),
+			m_is_started(false), m_position_vertex(0), m_p_camp(nullptr)
 		{
 		}
 
@@ -228,7 +230,7 @@ namespace Cordis
 
 			if (this->m_is_started)
 			{
-				if (!this->m_p_storage->isXRAnimpointUseCamp() && this->m_p_storage->getXRAnimpointCoverName() == this->m_cover_name)
+				if (!this->m_p_storage->isUseCamp() && this->m_p_storage->getCoverName() == this->m_cover_name)
 				{
 					this->fill_approved_actions();
 
@@ -264,13 +266,13 @@ namespace Cordis
 		void Script_Animpoint::calculate_position(void)
 		{
 			Script_SE_SmartCover* p_cover = nullptr;
-			if (DataBase::Storage::getInstance().getGameRegisteredServerSmartCovers().find(this->m_p_storage->getXRAnimpointCoverName()) == DataBase::Storage::getInstance().getGameRegisteredServerSmartCovers().end())
+			if (DataBase::Storage::getInstance().getGameRegisteredServerSmartCovers().find(this->m_p_storage->getCoverName()) == DataBase::Storage::getInstance().getGameRegisteredServerSmartCovers().end())
 			{
-				p_cover = DataBase::Storage::getInstance().getGameRegisteredServerSmartCovers().at(this->m_p_storage->getXRAnimpointCoverName());
+				p_cover = DataBase::Storage::getInstance().getGameRegisteredServerSmartCovers().at(this->m_p_storage->getCoverName());
 			}
 			else
 			{
-				MESSAGEER("Can't find smart cover's data %s", this->m_p_storage->getXRAnimpointCoverName().c_str());
+				MESSAGEER("Can't find smart cover's data %s", this->m_p_storage->getCoverName().c_str());
 				return;
 			}
 
@@ -287,14 +289,14 @@ namespace Cordis
 
 			if (Script_GlobalHelper::getInstance().getAnimpointTable().find(description_name) == Script_GlobalHelper::getInstance().getAnimpointTable().end())
 			{
-				if (this->m_p_storage->getXRAnimpointAvailAnimations().empty())
+				if (this->m_p_storage->getAvailAnimations().empty())
 				{
 					MESSAGEER("Wrong animpoint smart_cover description %s | %s", description_name.c_str(), p_cover->name_replace());
 					return;
 				}
 			}
 
-			this->m_p_storage->setXRAnimpointDescriptionName(description_name);
+			this->m_p_storage->setDescriptionName(description_name);
 			this->m_avail_actions = Script_GlobalHelper::getInstance().getAnimpointTable().at(description_name);
 			this->m_p_storage->ClearApprovedActions(); // Lord: проверить если нужно вообще вызывать этот метод, если нет то удалить его из класса!
 		}
@@ -327,7 +329,7 @@ namespace Cordis
 			if (p_object == nullptr)
 				return false;
 
-			bool is_distance_reached = p_object->Position().distance_to_sqr(this->m_vertex_position) <= this->m_p_storage->getXRAnimpointReachDistance();
+			bool is_distance_reached = p_object->Position().distance_to_sqr(this->m_vertex_position) <= this->m_p_storage->getReachDistance();
 
 			float v1 = -deg(atan2(this->m_smart_direction.x, this->m_smart_direction.z));
 			float v2 = -deg(atan2(p_object->Direction().x, p_object->Direction().z));
@@ -341,9 +343,9 @@ namespace Cordis
 
 		void Script_Animpoint::fill_approved_actions(void)
 		{
-			if (this->m_p_storage->getXRAnimpointAvailAnimations().empty() == false)
+			if (this->m_p_storage->getAvailAnimations().empty() == false)
 			{
-				for (const xr_string& it : this->m_p_storage->getXRAnimpointAvailAnimations())
+				for (const xr_string& it : this->m_p_storage->getAvailAnimations())
 				{
 					this->m_p_storage->setApprovedActions({ [](std::uint16_t, bool) -> bool { return true; }, it });
 				}
@@ -370,7 +372,7 @@ namespace Cordis
 
 		void Script_Animpoint::start(void)
 		{
-			if (this->m_p_storage->isXRAnimpointUseCamp())
+			if (this->m_p_storage->isUseCamp())
 				this->m_p_camp = Globals::get_current_camp(this->m_position);
 
 			this->fill_approved_actions();
@@ -385,7 +387,7 @@ namespace Cordis
 			}
 
 			this->m_is_started = true;
-			this->m_cover_name = this->m_p_storage->getXRAnimpointCoverName();
+			this->m_cover_name = this->m_p_storage->getCoverName();
 		}
 
 		void Script_Animpoint::stop(void)
@@ -399,15 +401,15 @@ namespace Cordis
 
 		void Script_Animpoint::update(const float delta)
 		{
-			const xr_string& description_name = this->m_p_storage->getXRAnimpointDescriptionName();
+			const xr_string& description_name = this->m_p_storage->getDescriptionName();
 			xr_vector<xr_string> temp_actions;
-			if (!this->m_p_storage->isXRAnimpointUseCamp())
+			if (!this->m_p_storage->isUseCamp())
 			{
-				if (this->m_p_storage->getXRAnimpointAvailAnimations().empty())
+				if (this->m_p_storage->getAvailAnimations().empty())
 				{
 					if (this->m_p_storage->getApprovedActions().empty())
 					{
-						MESSAGEER("animpoint not in camp and approved_actions is null. %s", this->m_p_storage->getXRAnimpointCoverName().c_str());
+						MESSAGEER("animpoint not in camp and approved_actions is null. %s", this->m_p_storage->getCoverName().c_str());
 						return;
 					}
 
@@ -418,7 +420,7 @@ namespace Cordis
 				}
 				else
 				{
-					for (const xr_string& it : this->m_p_storage->getXRAnimpointAvailAnimations())
+					for (const xr_string& it : this->m_p_storage->getAvailAnimations())
 					{
 						temp_actions.push_back(it);
 					}
@@ -471,15 +473,15 @@ namespace Cordis
             std::uint32_t generated_id = Globals::Script_RandomInt::getInstance().Generate<std::uint32_t>(0, temp_actions.size() - 1);
             xr_string picked_action_name = temp_actions.at(generated_id);
             xr_string as_iterator = temp_actions.at(generated_id);
-            if (this->m_p_storage->getXRAnimpointBaseActionName().empty() == false)
+            if (this->m_p_storage->getBaseActionName().empty() == false)
             {
-                if (this->m_p_storage->getXRAnimpointBaseActionName() == xr_string(description_name).append("_weapon"))
+                if (this->m_p_storage->getBaseActionName() == xr_string(description_name).append("_weapon"))
                 {
                     picked_action_name = description_name;
                     picked_action_name.append("_weapon");
                 }
 
-                if (picked_action_name == xr_string(description_name).append("_weapon") && (this->m_p_storage->getXRAnimpointBaseActionName() == description_name))
+                if (picked_action_name == xr_string(description_name).append("_weapon") && (this->m_p_storage->getBaseActionName() == description_name))
                 {
                     temp_actions.erase(temp_actions.begin() + generated_id);
                     picked_action_name = temp_actions.at(Globals::Script_RandomInt::getInstance().Generate<std::uint32_t>(0, temp_actions.size() - 1));
@@ -489,11 +491,11 @@ namespace Cordis
             {
                 if (picked_action_name == xr_string(description_name).append("_weapon"))
                 {
-                    this->m_p_storage->setXRAnimpointBaseActionName(picked_action_name);
+                    this->m_p_storage->setBaseActionName(picked_action_name);
                 }
                 else
                 {
-                    this->m_p_storage->setXRAnimpointBaseActionName(description_name);
+                    this->m_p_storage->setBaseActionName(description_name);
                 }
             }
 

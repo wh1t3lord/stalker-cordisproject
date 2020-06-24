@@ -7,7 +7,7 @@ namespace Cordis
 	{
 		Script_EvaluatorUseSmartCoverInCombat::_value_type Script_EvaluatorUseSmartCoverInCombat::evaluate(void)
 		{
-			if (XR_LOGIC::is_active(this->m_object, *this->m_p_storage))
+			if (XR_LOGIC::is_active(this->m_object, this->m_p_storage))
 				return this->m_p_storage->isXRSmartCoverUseInCombat();
 
 			return false;
@@ -15,11 +15,12 @@ namespace Cordis
 
 		Script_EvaluatorNeedSmartCover::_value_type Script_EvaluatorNeedSmartCover::evaluate(void)
 		{
-			return XR_LOGIC::is_active(this->m_object, *this->m_p_storage);
+			return XR_LOGIC::is_active(this->m_object, this->m_p_storage);
 		}
 
 
-		Script_SchemeXRSmartCover::Script_SchemeXRSmartCover(const xr_string& name, DataBase::Storage_Scheme& storage) : Script_ISchemeStalker(nullptr, name, storage), m_target_enemy_id(0), m_is_initialized(false)
+		Script_SchemeXRSmartCover::Script_SchemeXRSmartCover(const xr_string& name, DataBase::Script_ComponentScheme_XRSmartCover* storage) : Script_ISchemeStalker(nullptr, name, storage),
+			m_target_enemy_id(0), m_is_initialized(false), m_p_storage(storage)
 		{
 		}
 
@@ -249,7 +250,9 @@ namespace Cordis
 			return this->m_object->in_smart_cover();
 		}
 
-		void Script_SchemeXRSmartCover::add_to_binder(CScriptGameObject* const p_client_object, CScriptIniFile* const p_ini, const xr_string& scheme_name, const xr_string& section_name, DataBase::Storage_Scheme& storage)
+		void Script_SchemeXRSmartCover::add_to_binder(CScriptGameObject* const p_client_object,
+			CScriptIniFile* const p_ini, const xr_string& scheme_name,
+			const xr_string& section_name, DataBase::Script_IComponentScheme* storage)
 		{
 			if (p_client_object == nullptr)
 			{
@@ -290,10 +293,10 @@ namespace Cordis
 			operators["action_smartcover"] = Globals::XR_ACTIONS_ID::XR_EVALUATORS_ID::kSmartCoverAction;
 			operators["action_combat_smartcover"] = Globals::XR_ACTIONS_ID::XR_EVALUATORS_ID::kSmartCoverAction + 2;
 
-			p_planner->add_evaluator(properties.at("need_smartcover"), new Script_EvaluatorNeedSmartCover("smartcover_need", storage));
-			p_planner->add_evaluator(properties.at("use_smartcover_in_combat"), new Script_EvaluatorUseSmartCoverInCombat("use_smartcover_in_combat", storage));
+			p_planner->add_evaluator(properties.at("need_smartcover"), new Script_EvaluatorNeedSmartCover("smartcover_need", static_cast<DataBase::Script_ComponentScheme_XRSmartCover*>(storage)));
+			p_planner->add_evaluator(properties.at("use_smartcover_in_combat"), new Script_EvaluatorUseSmartCoverInCombat("use_smartcover_in_combat", static_cast<DataBase::Script_ComponentScheme_XRSmartCover*>(storage)));
 
-			Script_SchemeXRSmartCover* const p_scheme = new Script_SchemeXRSmartCover("action_smartcover_activity", storage);
+			Script_SchemeXRSmartCover* const p_scheme = new Script_SchemeXRSmartCover("action_smartcover_activity", static_cast<DataBase::Script_ComponentScheme_XRSmartCover*>(storage));
 			p_scheme->add_condition(CWorldProperty(StalkerDecisionSpace::eWorldPropertyAlive, true));
 			p_scheme->add_condition(CWorldProperty(StalkerDecisionSpace::eWorldPropertyAnomaly, false));
 			p_scheme->add_condition(CWorldProperty(properties.at("need_smartcover"), true));
@@ -310,7 +313,7 @@ namespace Cordis
 			p_planner->add_operator(operators.at("action_smartcover"), p_scheme);
 			DataBase::Storage::getInstance().setStorageSchemesActions(p_client_object->ID(), scheme_name, p_scheme);
 
-			Script_SchemeXRSmartCover* const p_scheme_combat = new Script_SchemeXRSmartCover("action_combat_smartcover", storage);
+			Script_SchemeXRSmartCover* const p_scheme_combat = new Script_SchemeXRSmartCover("action_combat_smartcover", static_cast<DataBase::Script_ComponentScheme_XRSmartCover*>(storage));
 			p_scheme_combat->add_condition(CWorldProperty(StalkerDecisionSpace::eWorldPropertyAlive, true));
 			p_scheme_combat->add_condition(CWorldProperty(StalkerDecisionSpace::eWorldPropertyAnomaly, false));
 			p_scheme_combat->add_condition(CWorldProperty(properties.at("need_smartcover"), true));
@@ -336,7 +339,7 @@ namespace Cordis
 		{
 			MESSAGEI("allocate storage for scheme %s", scheme_name.c_str());
 
-			DataBase::Storage_Scheme* const p_storage = XR_LOGIC::assign_storage_and_bind(p_client_object, p_ini, scheme_name, section_name, gulag_name);
+			DataBase::Script_ComponentScheme_XRSmartCover* const p_storage = XR_LOGIC::assign_storage_and_bind<DataBase::Script_ComponentScheme_XRSmartCover>(p_client_object, p_ini, scheme_name, section_name, gulag_name);
 			p_storage->setLogic(XR_LOGIC::cfg_get_switch_conditions(p_ini, section_name, p_client_object));
 
 			xr_string cover_name = Globals::Utils::cfg_get_string(p_ini, section_name, "cover_name");

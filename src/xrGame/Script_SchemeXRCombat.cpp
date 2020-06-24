@@ -23,7 +23,8 @@ Script_EvaluatorEnemy::_value_type Script_EvaluatorEnemy::evaluate(void) { retur
 } // namespace Scripts
 } // namespace Cordis
 
-void Cordis::Scripts::XR_COMBAT::add_to_binder(CScriptGameObject* const p_client_object, CScriptIniFile* const p_ini, const xr_string& scheme_name, const xr_string& section_name, DataBase::Storage_Scheme& storage)
+void Cordis::Scripts::XR_COMBAT::add_to_binder(CScriptGameObject* const p_client_object, CScriptIniFile* const p_ini,
+	const xr_string& scheme_name, const xr_string& section_name, DataBase::Script_IComponentScheme* storage)
 {
 	if (!p_client_object)
 	{
@@ -49,7 +50,7 @@ void Cordis::Scripts::XR_COMBAT::add_to_binder(CScriptGameObject* const p_client
 	}
 
 	p_planner->add_evaluator(Globals::XR_ACTIONS_ID::XR_EVALUATORS_ID::kScriptCombat,
-		new Script_EvaluatorCheckCombat("script_combat", storage));
+		new Script_EvaluatorCheckCombat("script_combat", static_cast<DataBase::Script_ComponentScheme_XRCombat*>(storage)));
 	p_planner->action(StalkerDecisionSpace::eWorldOperatorCombatPlanner)
 		.add_condition(CWorldProperty(Globals::XR_ACTIONS_ID::XR_EVALUATORS_ID::kScriptCombat, false));
 
@@ -75,7 +76,7 @@ void Cordis::Scripts::XR_COMBAT::set_combat_checker(CScriptGameObject* const p_c
 
 	if ((section_name.empty() == false) || is_zombied)
 	{
-		DataBase::Storage_Scheme* const p_storage = XR_LOGIC::assign_storage_and_bind(p_client_object, p_ini, scheme_name, section_name, gulag_name);
+		DataBase::Script_ComponentScheme_XRCombat* const p_storage = XR_LOGIC::assign_storage_and_bind<DataBase::Script_ComponentScheme_XRCombat>(p_client_object, p_ini, scheme_name, section_name, gulag_name);
 
 		p_storage->setLogic(XR_LOGIC::cfg_get_switch_conditions(p_ini, section_name, p_client_object));
 		p_storage->setEnabled(true);

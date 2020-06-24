@@ -7,30 +7,30 @@ namespace Cordis
 		class Script_EvaluatorCamperEnd : public CScriptPropertyEvaluator
 		{
 		public:
-			Script_EvaluatorCamperEnd(const xr_string& name, DataBase::Storage_Scheme& storage) : CScriptPropertyEvaluator(nullptr, name.c_str()), m_p_storage(&storage)
+			Script_EvaluatorCamperEnd(const xr_string& name, DataBase::Script_ComponentScheme_XRCamper* storage) : CScriptPropertyEvaluator(nullptr, name.c_str()), m_p_storage(storage)
 			{
 
 			}
 
 			virtual _value_type evaluate(void)
 			{
-				return !XR_LOGIC::is_active(this->m_object, *this->m_p_storage);
+				return !XR_LOGIC::is_active(this->m_object, this->m_p_storage);
 			}
 
 		private:
-			DataBase::Storage_Scheme* m_p_storage;
+			DataBase::Script_ComponentScheme_XRCamper* m_p_storage;
 		};
 
 		class Script_EvaluatorCloseCombat : public CScriptPropertyEvaluator
 		{
 		public:
-			Script_EvaluatorCloseCombat(const xr_string& name, DataBase::Storage_Scheme& storage) : CScriptPropertyEvaluator(nullptr, name.c_str()), m_p_storage(&storage), m_is_close_combat(false)
+			Script_EvaluatorCloseCombat(const xr_string& name, DataBase::Script_ComponentScheme_XRCamper* storage) : CScriptPropertyEvaluator(nullptr, name.c_str()), m_p_storage(storage), m_is_close_combat(false)
 			{}
 
 			virtual _value_type evaluate(void);
 		private:
 			bool m_is_close_combat;
-			DataBase::Storage_Scheme* m_p_storage;
+			DataBase::Script_ComponentScheme_XRCamper* m_p_storage;
 		};
 
 		class Script_SchemeXRCamper : public Script_ISchemeStalker
@@ -39,7 +39,7 @@ namespace Cordis
 
 		public:
 			Script_SchemeXRCamper(void) = delete;
-			Script_SchemeXRCamper(const xr_string& name, DataBase::Storage_Scheme& storage);
+			Script_SchemeXRCamper(const xr_string& name, DataBase::Script_ComponentScheme_XRCamper* storage);
 			~Script_SchemeXRCamper(void);
 
 			virtual void initialize(void);
@@ -55,7 +55,7 @@ namespace Cordis
 			}
 
 			static void add_to_binder(CScriptGameObject* const p_client_object, CScriptIniFile* const p_ini,
-				const xr_string& scheme_name, const xr_string& section_name, DataBase::Storage_Scheme& storage);
+				const xr_string& scheme_name, const xr_string& section_name, DataBase::Script_IComponentScheme* storage);
 
 			// @ PRIVATE, uses in XR_LOGIC
 			static void set_scheme(CScriptGameObject* const p_client_object, CScriptIniFile* const p_ini,
@@ -72,6 +72,7 @@ namespace Cordis
 			std::uint8_t m_flag;
 			std::uint32_t m_scantime;
 			Script_MoveManager* m_p_move_manager;
+			DataBase::Script_ComponentScheme_XRCamper* m_p_storage;
 			CScriptGameObject* m_p_enemy;
 			Fvector m_enemy_position;
 			Fvector m_look_position;

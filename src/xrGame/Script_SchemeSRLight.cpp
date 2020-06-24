@@ -5,8 +5,8 @@ namespace Cordis
 {
 namespace Scripts
 {
-Script_SchemeSRLight::Script_SchemeSRLight(CScriptGameObject* const p_client_object, DataBase::Storage_Scheme& storage)
-    : inherited_scheme(p_client_object, storage), m_is_active(false)
+Script_SchemeSRLight::Script_SchemeSRLight(CScriptGameObject* const p_client_object, DataBase::Script_ComponentScheme_SRLight* storage)
+    : inherited_scheme(p_client_object, storage), m_is_active(false), m_p_storage(storage)
 {
     this->m_scheme_name = "sr_light";
 }
@@ -15,17 +15,17 @@ Script_SchemeSRLight::~Script_SchemeSRLight(void) {}
 
 void Script_SchemeSRLight::reset_scheme(const bool value, CScriptGameObject* const p_client_object)
 {
-    Msg("[Scripts/Script_SchemeSRLight/reset_scheme(is_loading, p_client_object)] %s", this->m_npc->Name());
+    MESSAGE("%s", this->m_npc->Name());
     Script_SRLightManager::getInstance().m_light_zones[this->m_id] = this;
 }
 
 void Script_SchemeSRLight::update(const float delta)
 {
     if (XR_LOGIC::try_switch_to_another_section(
-            this->m_npc, *this->m_p_storage, DataBase::Storage::getInstance().getActor()))
+            this->m_npc, this->m_p_storage, DataBase::Storage::getInstance().getActor()))
     {
         this->m_is_active = false;
-        Msg("[Scripts/Script_SchemeSRLight/update(delta)] Clear light zone");
+        MESSAGE("Clear light zone");
         Script_SRLightManager::getInstance().m_light_zones[this->m_id] = nullptr;
         return;
     }
@@ -42,8 +42,8 @@ void Script_SchemeSRLight::set_scheme(CScriptGameObject* const p_client_object, 
         return;
     }
 
-    DataBase::Storage_Scheme* p_storage =
-        XR_LOGIC::assign_storage_and_bind(p_client_object, p_ini, scheme_name, section_name, gulag_name);
+    DataBase::Script_ComponentScheme_SRLight* p_storage =
+        XR_LOGIC::assign_storage_and_bind<DataBase::Script_ComponentScheme_SRLight>(p_client_object, p_ini, scheme_name, section_name, gulag_name);
 
     if (!p_storage)
     {
@@ -52,7 +52,7 @@ void Script_SchemeSRLight::set_scheme(CScriptGameObject* const p_client_object, 
     }
 
     p_storage->setLogic(XR_LOGIC::cfg_get_switch_conditions(p_ini, section_name, p_client_object));
-    p_storage->setSRLightLight(Globals::Utils::cfg_get_bool(p_ini, section_name, "light_on"));
+    p_storage->setLight(Globals::Utils::cfg_get_bool(p_ini, section_name, "light_on"));
 }
 
 bool Script_SchemeSRLight::check_stalker(CScriptGameObject* const p_client_object, bool& is_returned_light_value)
@@ -65,7 +65,7 @@ bool Script_SchemeSRLight::check_stalker(CScriptGameObject* const p_client_objec
 
     if (this->m_npc->inside(p_client_object->Position()))
     {
-        is_returned_light_value = this->m_p_storage->IsSRLightLight();
+        is_returned_light_value = this->m_p_storage->isLight();
         return true;
     }
 
@@ -77,16 +77,15 @@ void Script_SRLightManager::check_light(CScriptGameObject* const p_client_object
 {
     if (!p_client_object)
     {
-        Msg("[Scripts/Script_SRLightManager/check_light(p_client_object)] WARNING: p_client_object was nullptr "
-            "return ...");
+        MESSAGEWR("p_client_object was nullptr ");
         return;
     }
 
     CScriptGameObject* const p_client_torch = p_client_object->GetObjectByName("device_torch");
     if (!p_client_torch)
     {
-        Msg("[Scripts/Script_SRLightManager/check_light(p_client_object)] WARNING: p_client_torch was nullptr "
-            "return ...");
+        MESSAGEWR("p_client_torch was nullptr ");
+        return;
     }
 
     bool is_light = false;

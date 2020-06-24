@@ -14,7 +14,7 @@ bool sr_camp_harmonica_precondition(Script_CampData* const p_camp)
 {
     if (!p_camp)
     {
-        Msg("[Scripts/sr_camp_harmonica_precondition(p_camp)] WARNING: p_camp == nullptr! return false");
+        MESSAGEWR("p_camp == nullptr! return false");
         return false;
     }
 
@@ -22,7 +22,7 @@ bool sr_camp_harmonica_precondition(Script_CampData* const p_camp)
     {
         if (p_camp->getNpcs().size() > 1)
         {
-            DataBase::Storage_Scheme* p_storage_scheme = nullptr;
+            DataBase::Script_ComponentScheme_SRCamp* p_storage_scheme = nullptr;
             CScriptGameObject* p_client_object = nullptr;
             for (const std::pair<std::uint16_t, std::pair<xr_string, xr_map<xr_string, std::uint32_t>>>& it :
                 p_camp->getNpcs())
@@ -37,8 +37,10 @@ bool sr_camp_harmonica_precondition(Script_CampData* const p_camp)
                             DataBase::Storage::getInstance().getStorage().at(it.first).getSchemes().end())
                         {
                             p_storage_scheme =
-                                DataBase::Storage::getInstance().getStorage().at(it.first).getSchemes().at(
-                                    DataBase::Storage::getInstance().getStorage().at(it.first).getActiveSchemeName());
+                               static_cast<DataBase::Script_ComponentScheme_SRCamp*>(
+                                     DataBase::Storage::getInstance().getStorage().at(it.first).getSchemes().at(
+                                                                        DataBase::Storage::getInstance().getStorage().at(it.first).getActiveSchemeName()))
+                                    ;
                         }
                     }
                 }
@@ -64,7 +66,7 @@ bool sr_camp_guitar_precondition(Script_CampData* const p_camp)
 {
     if (!p_camp)
     {
-        Msg("[Scripts/sr_camp_guitar_precondition(p_camp)] WARNING: p_camp == nullptr! Return false");
+        MESSAGEWR("p_camp == nullptr! Return false");
         return false;
     }
 
@@ -75,7 +77,7 @@ bool sr_camp_guitar_precondition(Script_CampData* const p_camp)
             for (const std::pair<std::uint16_t, std::pair<xr_string, xr_map<xr_string, std::uint32_t>>>& it :
                 p_camp->getNpcs())
             {
-                DataBase::Storage_Scheme* p_storage_scheme = nullptr;
+                DataBase::Script_ComponentScheme_SRCamp* p_storage_scheme = nullptr;
                 CScriptGameObject* p_npc = nullptr;
 
                 if (DataBase::Storage::getInstance().getStorage().find(it.first) !=
@@ -87,7 +89,7 @@ bool sr_camp_guitar_precondition(Script_CampData* const p_camp)
                     if (!storage.getActiveSchemeName().empty() &&
                         (storage.getSchemes().find(storage.getActiveSchemeName()) != storage.getSchemes().end()))
                     {
-                        p_storage_scheme = storage.getSchemes().at(storage.getActiveSchemeName());
+                        p_storage_scheme = static_cast<DataBase::Script_ComponentScheme_SRCamp*>(storage.getSchemes().at(storage.getActiveSchemeName()));
                     }
                 }
 
@@ -109,7 +111,7 @@ bool sr_camp_story_precondition(Script_CampData* const p_camp)
 {
     if (!p_camp)
     {
-        Msg("[Scripts/sr_camp_story_precondition(p_camp)] WARNING: p_camp == nullptr! Return false");
+        MESSAGEWR("p_camp == nullptr! Return false");
         return false;
     }
 
@@ -206,7 +208,7 @@ Script_CampData::~Script_CampData(void)
 {
     if (this->m_is_system_flag_deallocation)
     {
-        Msg("[Scripts/Script_CampData/~dtor()] deleting allocated this->m_p_ini!");
+        MESSAGEI("deleting allocated this->m_p_ini!");
         xr_delete(this->m_p_ini);
     }
 }
@@ -252,7 +254,7 @@ void Script_CampData::update(void)
             if (DataBase::Storage::getInstance().getStorage().find(it.first) != DataBase::Storage::getInstance().getStorage().end())
             {
                 const DataBase::Storage_Data& storage = DataBase::Storage::getInstance().getStorage().at(it.first);
-                DataBase::Storage_Scheme* p_scheme = storage.getSchemes().at(storage.getActiveSchemeName());
+                DataBase::Script_IComponentScheme* p_scheme = storage.getSchemes().at(storage.getActiveSchemeName());
 
                 for (Script_ISchemeEntity* p_scheme_entity : p_scheme->getActions())
                 {
@@ -345,7 +347,7 @@ void Script_CampData::get_director(void)
 
             if (!storage.getActiveSchemeName().empty() && (storage.getSchemes().find(storage.getActiveSchemeName()) != storage.getSchemes().end()))
             {
-                DataBase::Storage_Scheme* const p_scheme = storage.getSchemes().at(storage.getActiveSchemeName());
+                DataBase::Script_ComponentScheme_SRCamp* const p_scheme = static_cast<DataBase::Script_ComponentScheme_SRCamp*>(storage.getSchemes().at(storage.getActiveSchemeName()));
                 CScriptGameObject* const p_npc = storage.getClientObject();
 
                 if (it.second.second.at(this->m_active_state_name) == kNpcRoleDirector && p_scheme && p_scheme->getBaseActionName() == p_scheme->getDescriptionName())
@@ -403,7 +405,7 @@ void Script_CampData::get_camp_action(const std::uint16_t npc_id, xr_string& sta
 
     if (this->m_npcs.find(npc_id) == this->m_npcs.end())
     {
-        Msg("[Scripts/Script_CampData/get_camp_action(npc_id, state_name, is_director)] WARNING: can't find npc by id %d", npc_id);
+        MESSAGEW("can't find npc by id %d", npc_id);
         state_name.clear();
         is_director = false;
         return;
@@ -424,7 +426,7 @@ void Script_CampData::register_npc(const std::uint16_t npc_id)
 
         if (role == kNpcRoleNone)
         {
-            Msg("[Scripts/Script_CampData/register_npc(npc_id)] WARNING: wrong role for npc with id in camp %d %s", npc_id, this->m_p_object->Name());
+            MESSAGEWR("wrong role for npc with id in camp %d %s", npc_id, this->m_p_object->Name());
             return;
         }
 
@@ -434,7 +436,7 @@ void Script_CampData::register_npc(const std::uint16_t npc_id)
     this->m_p_sound_manager->register_npc(npc_id);
 
     const DataBase::Storage_Data& storage = DataBase::Storage::getInstance().getStorage().at(npc_id);
-    DataBase::Storage_Scheme* p_scheme = storage.getSchemes().at(storage.getActiveSchemeName());
+    DataBase::Script_IComponentScheme* p_scheme = storage.getSchemes().at(storage.getActiveSchemeName());
     
     for (Script_ISchemeEntity* p_scheme_entity : p_scheme->getActions())
     {
@@ -472,11 +474,11 @@ std::uint32_t Script_CampData::get_npc_role(const std::uint16_t npc_id, const xr
     }
 
     const DataBase::Storage_Data& storage = DataBase::Storage::getInstance().getStorage().at(npc_id);
-    DataBase::Storage_Scheme* const p_scheme = storage.getSchemes().at(storage.getActiveSchemeName());
+    DataBase::Script_ComponentScheme_SRCamp* const p_scheme = static_cast<DataBase::Script_ComponentScheme_SRCamp*>(storage.getSchemes().at(storage.getActiveSchemeName()));
 
     if (!p_scheme)
     {
-        Msg("[Scripts/Script_CampData/get_npc_role(npc_id, state)] WARNING: p_scheme == nullptr! Return ...");
+        MESSAGEWR("p_scheme == nullptr!");
         return kNpcRoleNone;
     }
 

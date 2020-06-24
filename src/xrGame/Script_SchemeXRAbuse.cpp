@@ -7,13 +7,13 @@ namespace Scripts
 {
 Script_EvaluatorAbuse::_value_type Script_EvaluatorAbuse::evaluate(void)
 {
-    if (!this->m_p_storage->getXRAbuseManager())
+    if (!this->m_p_storage->getManager())
     {
         R_ASSERT2(false, "can't be! Do you initialize and set it in add_to_binder function?");
         return false;
     }
 
-    return this->m_p_storage->getXRAbuseManager()->update();
+    return this->m_p_storage->getManager()->update();
 }
 
 void Script_SchemeXRAbuse::execute(void) 
@@ -32,7 +32,7 @@ void Script_SchemeXRAbuse::initialize(void)
 }
 
 void Script_SchemeXRAbuse::add_to_binder(CScriptGameObject* const p_client_object, CScriptIniFile* const p_ini,
-    const xr_string& scheme_name, const xr_string& section_name, DataBase::Storage_Scheme& storage)
+    const xr_string& scheme_name, const xr_string& section_name, DataBase::Script_IComponentScheme* storage)
 {
     if (!p_client_object)
     {
@@ -58,9 +58,9 @@ void Script_SchemeXRAbuse::add_to_binder(CScriptGameObject* const p_client_objec
 
     operators["abuse"] = Globals::XR_ACTIONS_ID::kAbuseBase;
 
-    p_planner->add_evaluator(properties.at("abuse"), new Script_EvaluatorAbuse("evaluator_abuse", storage));
+    p_planner->add_evaluator(properties.at("abuse"), new Script_EvaluatorAbuse("evaluator_abuse", static_cast<DataBase::Script_ComponentScheme_XRAbuse*>(storage)));
 
-    Script_SchemeXRAbuse* p_scheme = new Script_SchemeXRAbuse("action_abuse_hit", storage);
+    Script_SchemeXRAbuse* p_scheme = new Script_SchemeXRAbuse("action_abuse_hit", static_cast<DataBase::Script_ComponentScheme_XRAbuse*>(storage));
     p_scheme->add_condition(CWorldProperty(StalkerDecisionSpace::eWorldPropertyAlive, true));
     p_scheme->add_condition(CWorldProperty(StalkerDecisionSpace::eWorldPropertyDanger, true));
     p_scheme->add_condition(CWorldProperty(properties.at("wounded"), false));
@@ -70,7 +70,7 @@ void Script_SchemeXRAbuse::add_to_binder(CScriptGameObject* const p_client_objec
     p_planner->add_operator(operators.at("abuse"), p_scheme);
 
     p_planner->action(Globals::XR_ACTIONS_ID::kAlife).add_condition(CWorldProperty(properties.at("abuse"), false));
-    storage.setXRAbuseManager(new DataBase::Script_XRAbuseManager(p_client_object, storage));
+    static_cast<DataBase::Script_ComponentScheme_XRAbuse*>(storage)->setManager(new DataBase::Script_XRAbuseManager(p_client_object, storage));
 
 }
 
@@ -78,7 +78,7 @@ void Script_SchemeXRAbuse::add_to_binder(CScriptGameObject* const p_client_objec
 void Script_SchemeXRAbuse::set_abuse(CScriptGameObject* const p_client_object, CScriptIniFile* const p_ini,
     const xr_string& scheme_name, const xr_string& section_name, const xr_string& gulag_name)
 {
-    DataBase::Storage_Scheme* p_storage = XR_LOGIC::assign_storage_and_bind(p_client_object, p_ini, scheme_name, section_name, gulag_name);
+    DataBase::Script_ComponentScheme_XRAbuse* p_storage = XR_LOGIC::assign_storage_and_bind<DataBase::Script_ComponentScheme_XRAbuse>(p_client_object, p_ini, scheme_name, section_name, gulag_name);
 }
 
 void Script_SchemeXRAbuse::add_abuse(CScriptGameObject* const p_client_object, const float value)
@@ -92,12 +92,14 @@ void Script_SchemeXRAbuse::add_abuse(CScriptGameObject* const p_client_object, c
     if (DataBase::Storage::getInstance().getStorage().at(p_client_object->ID()).getSchemes().find("abuse") !=
         DataBase::Storage::getInstance().getStorage().at(p_client_object->ID()).getSchemes().end())
     {
-        DataBase::Storage::getInstance()
-            .getStorage()
-            .at(p_client_object->ID())
-            .getSchemes()
-            .at("abuse")
-            ->getXRAbuseManager()
+        static_cast<DataBase::Script_ComponentScheme_XRAbuse*>(
+            DataBase::Storage::getInstance()
+                        .getStorage()
+                        .at(p_client_object->ID())
+                        .getSchemes()
+                        .at("abuse"))
+            
+            ->getManager()
             ->AddAbuse(value);
     }
     else
@@ -118,12 +120,14 @@ void Script_SchemeXRAbuse::clear_abuse(CScriptGameObject* const p_client_object)
     if (DataBase::Storage::getInstance().getStorage().at(p_client_object->ID()).getSchemes().find("abuse") !=
         DataBase::Storage::getInstance().getStorage().at(p_client_object->ID()).getSchemes().end())
     {
-        DataBase::Storage::getInstance()
-            .getStorage()
-            .at(p_client_object->ID())
-            .getSchemes()
-            .at("abuse")
-            ->getXRAbuseManager()
+        static_cast<DataBase::Script_ComponentScheme_XRAbuse*>(
+                    DataBase::Storage::getInstance()
+                        .getStorage()
+                        .at(p_client_object->ID())
+                        .getSchemes()
+                        .at("abuse"))
+            
+            ->getManager()
             ->ClearAbuse();
     }
     else
@@ -144,13 +148,13 @@ void Script_SchemeXRAbuse::disable_abuse(CScriptGameObject* const p_client_objec
     if (DataBase::Storage::getInstance().getStorage().at(p_client_object->ID()).getSchemes().find("abuse") !=
         DataBase::Storage::getInstance().getStorage().at(p_client_object->ID()).getSchemes().end())
     {
-        DataBase::Storage::getInstance()
-            .getStorage()
-            .at(p_client_object->ID())
-            .getSchemes()
-            .at("abuse")
-            ->getXRAbuseManager()
-            ->DisableAbuse();
+        static_cast<DataBase::Script_ComponentScheme_XRAbuse*>(
+            DataBase::Storage::getInstance()
+                        .getStorage()
+                        .at(p_client_object->ID())
+                        .getSchemes()
+                        .at("abuse"))
+                        ->getManager()->DisableAbuse();
     }
     else
     {
@@ -170,12 +174,14 @@ void Script_SchemeXRAbuse::enable_abuse(CScriptGameObject* const p_client_object
     if (DataBase::Storage::getInstance().getStorage().at(p_client_object->ID()).getSchemes().find("abuse") !=
         DataBase::Storage::getInstance().getStorage().at(p_client_object->ID()).getSchemes().end())
     {
-        DataBase::Storage::getInstance()
-            .getStorage()
-            .at(p_client_object->ID())
-            .getSchemes()
-            .at("abuse")
-            ->getXRAbuseManager()
+        static_cast<DataBase::Script_ComponentScheme_XRAbuse*>(
+            DataBase::Storage::getInstance()
+                        .getStorage()
+                        .at(p_client_object->ID())
+                        .getSchemes()
+                        .at("abuse"))
+            
+            ->getManager()
             ->EnableAbuse();
     }
     else

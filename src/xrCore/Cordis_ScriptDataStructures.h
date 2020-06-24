@@ -338,15 +338,14 @@ public:
         {
             if (key_name.empty())
             {
-                Msg("[Scripts/CondlistWaypointsData/getValue(key_name)] WARNING: key_name.empty() == true! Can't find "
-                    "with empty string key! Return ...");
+                MESSAGEWR("key_name.empty() == true! Can't find "
+                    "with empty string key!");
                 return xr_string();
             }
 
             if (this->m_data.find(key_name) == this->m_data.end())
             {
-                Msg("[Scripts/CondlistWaypointsData/getValue(key_name)] WARNING: can't find key_name %s in map! Return "
-                    "an empty string ...",
+                MESSAGEWR("can't find key_name %s in map!",
                     key_name.c_str());
                 return xr_string();
             }
@@ -358,8 +357,7 @@ public:
         {
             if (field_name.empty())
             {
-                Msg("[Scripts/CondlistWaypointsData/setData(field_name, value_name)] WARNING: field_name.empty() == "
-                    "true! Can't assign an empty string! return ...");
+                Msg("field_name.empty() == true! Can't assign an empty string!");
                 return;
             }
 
@@ -376,7 +374,7 @@ public:
     inline const xr_vector<CondlistWayPointsData>& getData(void) const noexcept { return this->m_data; }
 
     inline void setData(const CondlistWayPointsData& data) noexcept { this->m_data.push_back(data); }
-
+    inline void clear(void) noexcept { this->m_data.clear(); }
 private:
     xr_vector<CondlistWayPointsData> m_data;
 };

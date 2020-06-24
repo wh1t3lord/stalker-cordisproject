@@ -7,8 +7,8 @@ namespace Scripts
 class Script_EvaluatorGatherItems : public CScriptPropertyEvaluator
 {
 public:
-    Script_EvaluatorGatherItems(const xr_string& evaluator_name, DataBase::Storage_Scheme& storage)
-        : CScriptPropertyEvaluator(nullptr, evaluator_name.c_str()), m_p_storage(&storage)
+    Script_EvaluatorGatherItems(const xr_string& evaluator_name, DataBase::Script_ComponentScheme_XRGatherItems* storage)
+        : CScriptPropertyEvaluator(nullptr, evaluator_name.c_str()), m_p_storage(storage)
     {
     }
 
@@ -16,7 +16,7 @@ public:
 
     virtual _value_type evaluate(void)
     {
-        if (!this->m_p_storage->isXRGatherItemsEnabled())
+        if (!this->m_p_storage->isGatherItemsEnabled())
             return false;
 
         return this->m_object->is_there_items_to_pickup();
@@ -24,7 +24,7 @@ public:
 
     // @ PRIVATE uses, in XR_LOGIC
     static inline void add_to_binder(CScriptGameObject* const p_client_object, CScriptIniFile* const p_ini,
-        const xr_string& scheme_name, const xr_string& section_name, DataBase::Storage_Scheme& storage)
+        const xr_string& scheme_name, const xr_string& section_name, DataBase::Script_IComponentScheme* storage)
     {
         if (!p_client_object)
         {
@@ -51,7 +51,7 @@ public:
 
         p_planner->remove_evaluator(StalkerDecisionSpace::eWorldPropertyItems);
         p_planner->add_evaluator(StalkerDecisionSpace::eWorldPropertyItems,
-            new Script_EvaluatorGatherItems("is_there_items_to_pickup", storage));
+            new Script_EvaluatorGatherItems("is_there_items_to_pickup", static_cast<DataBase::Script_ComponentScheme_XRGatherItems*>(storage)));
     }
 
     static void set_gather_items(CScriptGameObject* const p_client_object, CScriptIniFile* const p_ini,
@@ -79,11 +79,11 @@ public:
         if (storage.getIni()->line_exist(section_name.c_str(), "gather_items_enabled"))
             result = Globals::Utils::cfg_get_bool(storage.getIni(), section_name, "gather_items_enabled");
 
-        storage.getSchemes().at("gather_items")->setXRGatherItemsEnabled(result);
+        static_cast<DataBase::Script_ComponentScheme_XRGatherItems*>(storage.getSchemes().at("gather_items"))->setGatherItemsEnabled(result);
     }
 
 private:
-    DataBase::Storage_Scheme* m_p_storage;
+    DataBase::Script_ComponentScheme_XRGatherItems* m_p_storage;
 };
 } // namespace Scripts
 } // namespace Cordis

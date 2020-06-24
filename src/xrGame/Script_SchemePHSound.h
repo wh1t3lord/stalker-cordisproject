@@ -12,7 +12,7 @@ class Script_SchemePHSound : public Script_ISchemeEntity
 
 public:
     Script_SchemePHSound(void) = delete;
-    Script_SchemePHSound(CScriptGameObject* const p_client_object, DataBase::Storage_Scheme& storage);
+    Script_SchemePHSound(CScriptGameObject* const p_client_object, void* storage);
     ~Script_SchemePHSound(void);
 
 private:

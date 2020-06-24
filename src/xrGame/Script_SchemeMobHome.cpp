@@ -9,8 +9,8 @@ namespace Cordis
 {
 namespace Scripts
 {
-Script_SchemeMobHome::Script_SchemeMobHome(CScriptGameObject* const p_client_object, DataBase::Storage_Scheme& storage)
-    : inherited_scheme(p_client_object, storage)
+Script_SchemeMobHome::Script_SchemeMobHome(CScriptGameObject* const p_client_object, DataBase::Script_ComponentScheme_MobHome* storage)
+    : inherited_scheme(p_client_object, storage), m_p_storage(storage)
 {
 }
 
@@ -18,7 +18,7 @@ Script_SchemeMobHome::~Script_SchemeMobHome(void) {}
 
 void Script_SchemeMobHome::reset_scheme(const bool, CScriptGameObject* const p_client_object)
 {
-    Msg("[Scripts/Script_SchemeMobHome/reset_scheme()] %s ", this->m_npc->Name());
+    MESSAGE("%s ", this->m_npc->Name());
 
     Script_MobStateManager::getInstance().set_state(this->m_npc, this->m_p_storage->getStateName());
 
@@ -86,7 +86,7 @@ void Script_SchemeMobHome::reset_scheme(const bool, CScriptGameObject* const p_c
         mid_radius = min_radius + ((max_radius - min_radius) / 2);
     }
 
-    if (this->m_p_storage->IsGulagPoint())
+    if (this->m_p_storage->isGulagPoint())
     {
         Script_SE_SmartTerrain* p_smart_terrain =
             ai().alife()
@@ -96,17 +96,17 @@ void Script_SchemeMobHome::reset_scheme(const bool, CScriptGameObject* const p_c
 
         if (!p_smart_terrain)
         {
-            Msg("[scripts/Script_SchemeMobHome/reset_scheme()] WARNING: p_smart_terrain == nullptr!");
+            MESSAGEW("p_smart_terrain == nullptr!");
         }
 
         std::uint32_t level_vertex_id = (p_smart_terrain) ? p_smart_terrain->m_tNodeID : 0;
 
-        this->m_npc->set_home(level_vertex_id, min_radius, max_radius, this->m_p_storage->IsAggresive(), mid_radius);
+        this->m_npc->set_home(level_vertex_id, min_radius, max_radius, this->m_p_storage->isAggresive(), mid_radius);
     }
     else
     {
         this->m_npc->set_home(this->m_p_storage->getHomeName().c_str(), min_radius, max_radius,
-            this->m_p_storage->IsAggresive(), mid_radius);
+            this->m_p_storage->isAggresive(), mid_radius);
     }
 }
 
@@ -121,8 +121,8 @@ void Script_SchemeMobHome::set_scheme(CScriptGameObject* const p_client_object, 
         return;
     }
 
-    DataBase::Storage_Scheme* p_storage =
-        XR_LOGIC::assign_storage_and_bind(p_client_object, p_ini, scheme_name, section_name, gulag_name);
+    DataBase::Script_ComponentScheme_MobHome* p_storage =
+        XR_LOGIC::assign_storage_and_bind<DataBase::Script_ComponentScheme_MobHome>(p_client_object, p_ini, scheme_name, section_name, gulag_name);
 
     if (!p_storage)
     {

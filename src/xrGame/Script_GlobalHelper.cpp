@@ -4564,6 +4564,59 @@ Cordis::Scripts::Script_GlobalHelper::Script_GlobalHelper(void)
 /*        this->m_registered_schemes_add_to_binder_callbacks["sr_silence"] = Script_SchemeSRSilenceZone::add_to_binder; Not used!*/
         this->m_registered_schemes_add_to_binder_callbacks["sr_deimos"] = Script_SchemeSRDeimos::add_to_binder;
 
+        ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+		this->m_schemes_allocators["danger"] = _REGISTER_ALLOC(DataBase::Script_ComponentScheme_XRDanger, this->m_allocator_xr_danger);
+		this->m_schemes_allocators["gather_items"] = _REGISTER_ALLOC(DataBase::Script_ComponentScheme_XRGatherItems, this->m_allocator_xr_gather_items);
+		this->m_schemes_allocators["abuse"] = _REGISTER_ALLOC(DataBase::Script_ComponentScheme_XRAbuse, this->m_allocator_xr_abuse);
+		this->m_schemes_allocators["walker"] = _REGISTER_ALLOC(DataBase::Script_ComponentScheme_XRWalker, this->m_allocator_xr_walker);
+		this->m_schemes_allocators["remark"] = _REGISTER_ALLOC(DataBase::Script_ComponentScheme_XRRemark, this->m_allocator_xr_remark);
+		this->m_schemes_allocators["sleeper"] = _REGISTER_ALLOC(DataBase::Script_ComponentScheme_XRSleeper, this->m_allocator_xr_sleeper);
+		this->m_schemes_allocators["camper"] = _REGISTER_ALLOC(DataBase::Script_ComponentScheme_XRCamper, this->m_allocator_xr_camper);
+		this->m_schemes_allocators["meet"] = _REGISTER_ALLOC(DataBase::Script_ComponentScheme_XRMeet, this->m_allocator_xr_meet);
+		this->m_schemes_allocators["help_wounded"] = _REGISTER_ALLOC(DataBase::Script_ComponentScheme_XRHelpWounded, this->m_allocator_xr_help_wounded);
+		//this->m_schemes_allocators["corpse_detection"] = Script_SchemeXRCorpseDetection:: Lord: доделать!
+		this->m_schemes_allocators["combat"] = _REGISTER_ALLOC(DataBase::Script_ComponentScheme_XRCombat, this->m_allocator_xr_combat);
+		this->m_schemes_allocators["death"] = _REGISTER_ALLOC(DataBase::Script_ComponentScheme_XRDeath, this->m_allocator_xr_death);
+		this->m_schemes_allocators["hit"] = _REGISTER_ALLOC(DataBase::Script_ComponentScheme_XRHit, this->m_allocator_xr_hit);
+		this->m_schemes_allocators["wounded"] = _REGISTER_ALLOC(DataBase::Script_ComponentScheme_XRWounded, this->m_allocator_xr_wounded);
+		this->m_schemes_allocators["combat_ignore"] = _REGISTER_ALLOC(DataBase::Script_ComponentScheme_XRCombatIgnore, this->m_allocator_xr_combat_ignore);
+		this->m_schemes_allocators["combat_zombied"] = _REGISTER_ALLOC(DataBase::Script_ComponentScheme_XRCombatZombied, this->m_allocator_xr_combat_zombied);
+		this->m_schemes_allocators["patrol"] = _REGISTER_ALLOC(DataBase::Script_ComponentScheme_XRPatrol, this->m_allocator_xr_patrol);
+		this->m_schemes_allocators["smartcover"] = _REGISTER_ALLOC(DataBase::Script_ComponentScheme_XRSmartCover, this->m_allocator_xr_smartcover);
+		this->m_schemes_allocators["animpoint"] = _REGISTER_ALLOC(DataBase::Script_ComponentScheme_XRAnimPoint, this->m_allocator_xr_animpoint);
+		this->m_schemes_allocators["reach_task"] = _REGISTER_ALLOC(DataBase::Script_ComponentScheme_XRReachTask, this->m_allocator_xr_reach_task);
+
+		this->m_schemes_allocators["mob_remark"] = _REGISTER_ALLOC(DataBase::Script_ComponentScheme_MobRemark, this->m_allocator_mob_remark);
+		this->m_schemes_allocators["mob_walker"] = _REGISTER_ALLOC(DataBase::Script_ComponentScheme_MobWalker, this->m_allocator_mob_walker);
+		this->m_schemes_allocators["mob_combat"] = _REGISTER_ALLOC(DataBase::Script_ComponentScheme_MobCombat, this->m_allocator_mob_combat);
+		this->m_schemes_allocators["mob_death"] = _REGISTER_ALLOC(DataBase::Script_ComponentScheme_MobDeath, this->m_allocator_mob_death);
+		this->m_schemes_allocators["mob_jump"] = _REGISTER_ALLOC(DataBase::Script_ComponentScheme_MobJump, this->m_allocator_mob_jump);
+		this->m_schemes_allocators["mob_home"] = _REGISTER_ALLOC(DataBase::Script_ComponentScheme_MobHome, this->m_allocator_mob_home);
+
+		this->m_schemes_allocators["ph_door"] = _REGISTER_ALLOC(DataBase::Script_ComponentScheme_PHDoor, this->m_allocator_ph_door);
+		this->m_schemes_allocators["ph_idle"] = _REGISTER_ALLOC(DataBase::Script_ComponentScheme_PHIdle, this->m_allocator_ph_idle);
+		this->m_schemes_allocators["ph_hit"] = _REGISTER_ALLOC(DataBase::Script_ComponentScheme_PHHit, this->m_allocator_ph_hit);
+		this->m_schemes_allocators["ph_on_hit"] = _REGISTER_ALLOC(DataBase::Script_ComponentScheme_PHOnHit, this->m_allocator_ph_on_hit);
+		this->m_schemes_allocators["ph_button"] = _REGISTER_ALLOC(DataBase::Script_ComponentScheme_PHButton, this->m_allocator_ph_button);
+		this->m_schemes_allocators["ph_code"] = _REGISTER_ALLOC(DataBase::Script_ComponentScheme_PHCode, this->m_allocator_ph_code);
+/*		this->m_schemes_allocators["ph_on_death"] = _REGISTER_ALLOC(DataBase::;*/
+		/*        this->m_schemes_allocators["ph_minigun"] = Script_SchemePHMinigun::add_to_binder; Not used!*/
+		this->m_schemes_allocators["ph_oscillate"] = _REGISTER_ALLOC(DataBase::Script_ComponentScheme_PHOscillate, this->m_allocator_ph_oscillate);
+
+		this->m_schemes_allocators["sr_no_weapon"] = _REGISTER_ALLOC(DataBase::Script_ComponentScheme_SRNoWeapon, this->m_allocator_sr_no_weapon);
+		this->m_schemes_allocators["sr_teleport"] = _REGISTER_ALLOC(DataBase::Script_ComponentScheme_SRTeleport, this->m_allocator_sr_teleport);
+		this->m_schemes_allocators["sr_idle"] = _REGISTER_ALLOC(DataBase::Script_ComponentScheme_SRIdle, this->m_allocator_sr_idle);
+		this->m_schemes_allocators["sr_light"] = _REGISTER_ALLOC(DataBase::Script_ComponentScheme_SRLight, this->m_allocator_sr_light);
+		this->m_schemes_allocators["sr_timer"] = _REGISTER_ALLOC(DataBase::Script_ComponentScheme_SRTimer, this->m_allocator_sr_timer);
+		this->m_schemes_allocators["sr_psy_antenna"] = _REGISTER_ALLOC(DataBase::Script_ComponentScheme_SRPsyAntenna, this->m_allocator_sr_psy_antenna);
+		this->m_schemes_allocators["sr_postprocess"] = _REGISTER_ALLOC(DataBase::Script_ComponentScheme_SRPostProcess, this->m_allocator_sr_post_process);
+		this->m_schemes_allocators["sr_particle"] = _REGISTER_ALLOC(DataBase::Script_ComponentScheme_SRParticle, this->m_allocator_sr_particle);
+		/*        this->m_schemes_allocators["sr_cutscene"] = Script_SchemeSRC::add_to_binder;*/
+		/*        this->m_schemes_allocators["sr_crow_spawner"] = Script_SchemeSRCrr::add_to_binder;*/
+		/*        this->m_schemes_allocators["sr_silence"] = Script_SchemeSRSilenceZone::add_to_binder; Not used!*/
+		this->m_schemes_allocators["sr_deimos"] = _REGISTER_ALLOC(DataBase::Script_ComponentScheme_SRDeimos, this->m_allocator_sr_deimos);
+        ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 		this->m_registered_schemes_set_scheme_callbacks["danger"] = Script_EvaluatorDanger::set_danger;
 		this->m_registered_schemes_set_scheme_callbacks["gather_items"] = Script_EvaluatorGatherItems::set_gather_items;
 		this->m_registered_schemes_set_scheme_callbacks["abuse"] = Script_SchemeXRAbuse::set_abuse;

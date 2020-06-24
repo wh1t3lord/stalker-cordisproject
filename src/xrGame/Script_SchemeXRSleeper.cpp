@@ -9,8 +9,6 @@ namespace Cordis
 {
     namespace Scripts
     {
-   
-
     Script_SchemeXRSleeper::~Script_SchemeXRSleeper(void) {}
 
     void Script_SchemeXRSleeper::initialize(void) 
@@ -54,11 +52,11 @@ namespace Cordis
 
         if (this->m_p_storage->getPathWalkInfo().getData().empty())
         {
-            CPatrolPathParams patrol_main = CPatrolPathParams(this->m_p_storage->getXRSleeperPathMainName().c_str());
+            CPatrolPathParams patrol_main = CPatrolPathParams(this->m_p_storage->getPathMainName().c_str());
 
             if (patrol_main.m_path == nullptr)
             {
-                Msg("[Scripts/Script_SchemeXRSleeper/reset_scheme(value, p_client_object)] WARNING: can't find path by %s Return ...", this->m_p_storage->getXRSleeperPathMainName().c_str());
+                MESSAGEWR("can't find path by %s", this->m_p_storage->getPathMainName().c_str());
                 return;
             }
 
@@ -66,20 +64,20 @@ namespace Cordis
 
             if (num_ways == 1)
             {
-                this->m_p_storage->setXRSleeperPathWalkName(this->m_p_storage->getXRSleeperPathMainName());
+                this->m_p_storage->setPathWalkName(this->m_p_storage->getPathMainName());
                 this->m_p_storage->setPathWalkInfo(Globals::Utils::path_parse_waypoints_argumentlist(
-                    this->m_p_storage->getXRSleeperPathMainName(), 1, {{0, "wp00|ret=1"}}));
-                this->m_p_storage->setXRSleeperPathLookName("");
+                    this->m_p_storage->getPathMainName(), 1, {{0, "wp00|ret=1"}}));
+                this->m_p_storage->setPathLookName("");
                 this->m_p_storage->setPathLookInfo(CondlistWaypoints());
             }
             else if (num_ways == 2)
             {
-                this->m_p_storage->setXRSleeperPathWalkName(this->m_p_storage->getXRSleeperPathMainName());
+                this->m_p_storage->setPathWalkName(this->m_p_storage->getPathMainName());
                 this->m_p_storage->setPathWalkInfo(Globals::Utils::path_parse_waypoints_argumentlist(
-                    this->m_p_storage->getXRSleeperPathMainName(), 2, {{1, "wp00"}, {0, "wp01"}}));
-                this->m_p_storage->setXRSleeperPathLookName(this->m_p_storage->getXRSleeperPathMainName());
+                    this->m_p_storage->getPathMainName(), 2, {{1, "wp00"}, {0, "wp01"}}));
+                this->m_p_storage->setPathLookName(this->m_p_storage->getPathMainName());
                 this->m_p_storage->setPathLookInfo(Globals::Utils::path_parse_waypoints_argumentlist(
-                    this->m_p_storage->getXRSleeperPathMainName(), 2, {{0, "wp00"}, {1, "wp01|ret=1"}}));
+                    this->m_p_storage->getPathMainName(), 2, {{0, "wp00"}, {1, "wp01|ret=1"}}));
             }
             else
             {
@@ -89,8 +87,8 @@ namespace Cordis
         }
 
         std::function<bool(std::uint32_t, std::uint32_t)> my_callback = std::bind(&Script_SchemeXRSleeper::callback, this, std::placeholders::_1, std::placeholders::_2);
-        this->m_p_move_manager->reset(this->m_p_storage->getXRSleeperPathWalkName(),
-            this->m_p_storage->getPathWalkInfo(), this->m_p_storage->getXRSleeperPathLookName(),
+        this->m_p_move_manager->reset(this->m_p_storage->getPathWalkName(),
+            this->m_p_storage->getPathWalkInfo(), this->m_p_storage->getPathLookName(),
             this->m_p_storage->getPathLookInfo(), "", xr_map<xr_string, xr_string>(), my_callback, true); // Lord: протестировать будет ли регистрировать callback и не будет ли он удаляться! В ином случае брать как копию!
         this->m_is_reset = true;
     }
@@ -99,11 +97,11 @@ namespace Cordis
     { 
         this->m_state = kStateSleeping;
         Fvector position;
-        CPatrolPathParams patrol = CPatrolPathParams(this->m_p_storage->getXRSleeperPathMainName().c_str());
+        CPatrolPathParams patrol = CPatrolPathParams(this->m_p_storage->getPathMainName().c_str());
         if (patrol.count() == 2)
             position = patrol.point(1);
 
-        if (this->m_p_storage->isXRSleeperWakeable())
+        if (this->m_p_storage->isWakeable())
         {
             Globals::set_state(this->m_object, "sit", StateManagerCallbackData(), 0, std::pair<Fvector, CScriptGameObject* const>(position, nullptr), StateManagerExtraData());
         }
@@ -119,12 +117,12 @@ namespace Cordis
     void Script_SchemeXRSleeper::set_scheme(CScriptGameObject* const p_client_object, CScriptIniFile* const p_ini,
         const xr_string& scheme_name, const xr_string& section_name, const xr_string& gulag_name)
     {
-        DataBase::Storage_Scheme* const p_storage =
-            XR_LOGIC::assign_storage_and_bind(p_client_object, p_ini, scheme_name, section_name, gulag_name);
+        DataBase::Script_ComponentScheme_XRSleeper* const p_storage =
+            XR_LOGIC::assign_storage_and_bind<DataBase::Script_ComponentScheme_XRSleeper>(p_client_object, p_ini, scheme_name, section_name, gulag_name);
 
         p_storage->setLogic(XR_LOGIC::cfg_get_switch_conditions(p_ini, section_name, p_client_object));
-        p_storage->setXRSleeperPathMainName(Globals::Utils::cfg_get_string(p_ini, section_name, "path_main"));
-        p_storage->setXRSleeperWakeable(Globals::Utils::cfg_get_bool(p_ini, section_name, "wakeable"));
+        p_storage->setPathMainName(Globals::Utils::cfg_get_string(p_ini, section_name, "path_main"));
+        p_storage->setWakeable(Globals::Utils::cfg_get_bool(p_ini, section_name, "wakeable"));
     }
 
     } // namespace Scripts

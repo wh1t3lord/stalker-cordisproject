@@ -111,7 +111,7 @@ void Script_Binder_Monster::net_Destroy(void)
 
     if (DataBase::Storage::getInstance().getStorage().at(this->m_object->ID()).getActiveSchemeName().empty() == false)
     {
-        DataBase::Storage_Scheme* const p_storage = DataBase::Storage::getInstance().getStorage().at(this->m_object->ID()).getSchemes().at(DataBase::Storage::getInstance().getStorage().at(this->m_object->ID()).getActiveSchemeName());
+        DataBase::Script_IComponentScheme* const p_storage = DataBase::Storage::getInstance().getStorage().at(this->m_object->ID()).getSchemes().at(DataBase::Storage::getInstance().getStorage().at(this->m_object->ID()).getActiveSchemeName());
         for (Script_ISchemeEntity* const it : p_storage->getActions())
         {
             if (it)
@@ -149,7 +149,7 @@ void Script_Binder_Monster::shedule_Update(std::uint32_t time_delta)
     const DataBase::Storage_Data& storage = DataBase::Storage::getInstance().getStorage().at(this->m_object->ID());
     if (storage.getActiveSchemeName().empty() == false)
     {
-        XR_LOGIC::try_switch_to_another_section(this->m_object, *storage.getSchemes().at(storage.getActiveSchemeName()), DataBase::Storage::getInstance().getActor());
+        XR_LOGIC::try_switch_to_another_section(this->m_object, storage.getSchemes().at(storage.getActiveSchemeName()), DataBase::Storage::getInstance().getActor());
     }
 
     if (p_server_squad)
@@ -235,7 +235,7 @@ void Script_Binder_Monster::shedule_Update(std::uint32_t time_delta)
 
     if (DataBase::Storage::getInstance().getStorage().at(this->m_object->ID()).getActiveSectionName().empty() == false)
     {
-        DataBase::Storage_Scheme* const p_current_scheme = DataBase::Storage::getInstance().getStorage().at(this->m_object->ID()).getSchemes().at(DataBase::Storage::getInstance().getStorage().at(this->m_object->ID()).getActiveSchemeName());
+        DataBase::Script_IComponentScheme* const p_current_scheme = DataBase::Storage::getInstance().getStorage().at(this->m_object->ID()).getSchemes().at(DataBase::Storage::getInstance().getStorage().at(this->m_object->ID()).getActiveSchemeName());
         for (Script_ISchemeEntity* const it : p_current_scheme->getActions())
         {
             if (it)
@@ -272,7 +272,7 @@ void Script_Binder_Monster::waypoint_callback(CScriptGameObject* p_client_object
 {
     if (DataBase::Storage::getInstance().getStorage().at(this->m_object->ID()).getActiveSectionName().empty() == false)
     {
-        DataBase::Storage_Scheme* const p_current_scheme = DataBase::Storage::getInstance().getStorage().at(this->m_object->ID()).getSchemes().at(DataBase::Storage::getInstance().getStorage().at(this->m_object->ID()).getActiveSchemeName());
+        DataBase::Script_IComponentScheme* const p_current_scheme = DataBase::Storage::getInstance().getStorage().at(this->m_object->ID()).getSchemes().at(DataBase::Storage::getInstance().getStorage().at(this->m_object->ID()).getActiveSchemeName());
         for (Script_ISchemeEntity* const it : p_current_scheme->getActions())
         {
             if (it)
@@ -290,7 +290,7 @@ void Script_Binder_Monster::hit_callback(CScriptGameObject* p_client_object, con
 
     if (DataBase::Storage::getInstance().getStorage().at(this->m_object->ID()).getSchemes().find("hit") != DataBase::Storage::getInstance().getStorage().at(this->m_object->ID()).getSchemes().end())
     {
-        DataBase::Storage_Scheme* const p_current_scheme = DataBase::Storage::getInstance().getStorage().at(this->m_object->ID()).getSchemes().at("hit");
+        DataBase::Script_IComponentScheme* const p_current_scheme = DataBase::Storage::getInstance().getStorage().at(this->m_object->ID()).getSchemes().at("hit");
         if (p_current_scheme)
         {
             for (Script_ISchemeEntity* const it : p_current_scheme->getActions())
@@ -317,7 +317,7 @@ void Script_Binder_Monster::death_callback(CScriptGameObject* p_client_victim, C
 
 	if (DataBase::Storage::getInstance().getStorage().at(this->m_object->ID()).getSchemes().find("mob_death") != DataBase::Storage::getInstance().getStorage().at(this->m_object->ID()).getSchemes().end())
 	{
-		DataBase::Storage_Scheme* const p_current_scheme = DataBase::Storage::getInstance().getStorage().at(this->m_object->ID()).getSchemes().at("mob_death");
+		DataBase::Script_IComponentScheme* const p_current_scheme = DataBase::Storage::getInstance().getStorage().at(this->m_object->ID()).getSchemes().at("mob_death");
 		if (p_current_scheme)
 		{
 			for (Script_ISchemeEntity* const it : p_current_scheme->getActions())
@@ -330,7 +330,7 @@ void Script_Binder_Monster::death_callback(CScriptGameObject* p_client_victim, C
 
 	if (DataBase::Storage::getInstance().getStorage().at(this->m_object->ID()).getActiveSectionName().empty() == false)
 	{
-		DataBase::Storage_Scheme* const p_current_scheme = DataBase::Storage::getInstance().getStorage().at(this->m_object->ID()).getSchemes().at(DataBase::Storage::getInstance().getStorage().at(this->m_object->ID()).getActiveSchemeName());
+		DataBase::Script_IComponentScheme* const p_current_scheme = DataBase::Storage::getInstance().getStorage().at(this->m_object->ID()).getSchemes().at(DataBase::Storage::getInstance().getStorage().at(this->m_object->ID()).getActiveSchemeName());
 		for (Script_ISchemeEntity* const it : p_current_scheme->getActions())
 		{
 			if (it)

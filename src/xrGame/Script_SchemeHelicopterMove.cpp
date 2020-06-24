@@ -6,13 +6,13 @@ namespace Cordis
 namespace Scripts
 {
 Script_SchemeHelicopterMove::Script_SchemeHelicopterMove(
-    CScriptGameObject* const p_client_object, DataBase::Storage_Scheme& storage)
+    CScriptGameObject* const p_client_object, DataBase::Script_ComponentScheme_Helicopter* storage)
     : inherited_scheme(p_client_object, storage), m_p_helicopter(p_client_object->get_helicopter()),
       m_p_manager_fire(Script_HelicopterFireStorage::getInstance().AllocateFirer(p_client_object)),
       m_p_manager_fly(Script_HelicopterFlyStorage::getInstance().AllocateFlyer(p_client_object)),
       m_p_manager_look(Script_HelicopterLookStorage::getInstance().AllocateLooker(p_client_object)),
       m_p_patrol_move(nullptr), m_p_patrol_look(nullptr), m_last_index(0), m_state(0), m_next_index(0),
-      m_is_callback(false), m_is_by_stop_fire_fly(false), m_flag_to_wp_callback(false)
+      m_is_callback(false), m_is_by_stop_fire_fly(false), m_flag_to_wp_callback(false), m_p_storage(storage)
 {
     this->m_scheme_name = "heli_move";
 }
@@ -49,30 +49,30 @@ Script_SchemeHelicopterMove::~Script_SchemeHelicopterMove(void)
 
 void Script_SchemeHelicopterMove::reset_scheme(const bool is_loading, CScriptGameObject* const p_client_object)
 {
-    Msg("[Scripts/Scripts_SchemeHelicopterMove/reset_scheme(is_loading)] %s", this->m_npc->Name());
-    this->m_p_storage->ClearSignals();
-    this->m_p_helicopter->TurnEngineSound(this->m_p_storage->IsHelicopterEngineSound());
+    MESSAGEI("Resetting for %s", this->m_npc->Name());
+    this->m_p_true_storage->ClearSignals();
+    this->m_p_helicopter->TurnEngineSound(this->m_p_storage->IsEngineSound());
 
-    if (!Globals::patrol_path_exists(this->m_p_storage->getHelicopterPathMoveName().c_str()))
+    if (!Globals::patrol_path_exists(this->m_p_storage->getPathMoveName().c_str()))
     {
         R_ASSERT2(false, "Patrol path doesnt exist!");
         return;
     }
 
-    this->m_p_patrol_move = new CPatrolPathParams(this->m_p_storage->getHelicopterPathMoveName().c_str());
+    this->m_p_patrol_move = new CPatrolPathParams(this->m_p_storage->getPathMoveName().c_str());
     this->m_patrol_move_info =
-        Globals::Utils::path_parse_waypoints(this->m_p_storage->getHelicopterPathMoveName().c_str());
+        Globals::Utils::path_parse_waypoints(this->m_p_storage->getPathMoveName().c_str());
 
-    if (!this->m_p_storage->getHelicopterPathLookName().empty())
+    if (!this->m_p_storage->getPathLookName().empty())
     {
-        if (this->m_p_storage->getHelicopterPathLookName() == "actor")
+        if (this->m_p_storage->getPathLookName() == "actor")
         {
             this->m_p_manager_fly->set_look_point(DataBase::Storage::getInstance().getActor()->Position());
             this->update_look_state();
         }
         else
         {
-            this->m_p_patrol_look = new CPatrolPathParams(this->m_p_storage->getHelicopterPathLookName().c_str());
+            this->m_p_patrol_look = new CPatrolPathParams(this->m_p_storage->getPathLookName().c_str());
             this->m_p_manager_fly->set_look_point(this->m_p_patrol_look->point(std::uint32_t(0)));
             this->update_look_state();
 
@@ -88,7 +88,7 @@ void Script_SchemeHelicopterMove::reset_scheme(const bool is_loading, CScriptGam
         this->m_p_patrol_look = nullptr;
     }
 
-    this->m_max_velocity = this->m_p_storage->getHelicopterVelocity();
+    this->m_max_velocity = this->m_p_storage->getVelocity();
 
     if (is_loading)
     {
@@ -115,37 +115,37 @@ void Script_SchemeHelicopterMove::reset_scheme(const bool is_loading, CScriptGam
         this->m_is_callback = false;
         this->m_flag_to_wp_callback = false;
 
-        this->m_p_manager_fire->setEnemyTypeName(this->m_p_storage->getHelicopterEnemyName());
+        this->m_p_manager_fire->setEnemyTypeName(this->m_p_storage->getEnemyName());
         this->m_p_manager_fire->setEnemy(nullptr);
         this->m_p_manager_fire->setFlagByEnemy(true);
 
-        if (!this->m_p_storage->getHelicopterFirePointName().empty())
+        if (!this->m_p_storage->getFirePointName().empty())
         {
             this->m_p_manager_fire->setFirePoint(
-                CPatrolPathParams(this->m_p_storage->getHelicopterFirePointName().c_str()).point(std::uint32_t(0)));
+                CPatrolPathParams(this->m_p_storage->getFirePointName().c_str()).point(std::uint32_t(0)));
         }
 
-        if (!fis_zero(this->m_p_storage->getHelicopterMaxMinigunDistance()))
+        if (!fis_zero(this->m_p_storage->getMaxMinigunDistance()))
         {
-            this->m_p_helicopter->m_max_mgun_dist = this->m_p_storage->getHelicopterMaxMinigunDistance();
+            this->m_p_helicopter->m_max_mgun_dist = this->m_p_storage->getMaxMinigunDistance();
         }
 
-        if (!fis_zero(this->m_p_storage->getHelicopterMaxRocketDistance()))
+        if (!fis_zero(this->m_p_storage->getMaxRocketDistance()))
         {
-            this->m_p_helicopter->m_max_rocket_dist = this->m_p_storage->getHelicopterMaxRocketDistance();
+            this->m_p_helicopter->m_max_rocket_dist = this->m_p_storage->getMaxRocketDistance();
         }
 
-        if (!fis_zero(this->m_p_storage->getHelicopterMinMinigunDistance()))
+        if (!fis_zero(this->m_p_storage->getMinMinigunDistance()))
         {
-            this->m_p_helicopter->m_min_mgun_dist = this->m_p_storage->getHelicopterMinMinigunDistance();
+            this->m_p_helicopter->m_min_mgun_dist = this->m_p_storage->getMinMinigunDistance();
         }
 
-        if (!fis_zero(this->m_p_storage->getHelicopterMinRocketDistance()))
+        if (!fis_zero(this->m_p_storage->getMinRocketDistance()))
         {
-            this->m_p_helicopter->m_min_rocket_dist = this->m_p_storage->getHelicopterMinRocketDistance();
+            this->m_p_helicopter->m_min_rocket_dist = this->m_p_storage->getMinRocketDistance();
         }
 
-        if (this->m_p_storage->IsHelicopterUseMinigun())
+        if (this->m_p_storage->IsUseMinigun())
         {
             this->m_p_helicopter->m_use_mgun_on_attack = true;
         }
@@ -154,7 +154,7 @@ void Script_SchemeHelicopterMove::reset_scheme(const bool is_loading, CScriptGam
             this->m_p_helicopter->m_use_mgun_on_attack = false;
         }
 
-        if (this->m_p_storage->IsHelicopterUseRocket())
+        if (this->m_p_storage->IsUseRocket())
         {
             this->m_p_helicopter->m_use_rocket_on_attack = true;
         }
@@ -163,11 +163,11 @@ void Script_SchemeHelicopterMove::reset_scheme(const bool is_loading, CScriptGam
             this->m_p_helicopter->m_use_rocket_on_attack = false;
         }
 
-        this->m_p_manager_fire->setUpdVis(this->m_p_storage->getHelicopterUpdVis());
+        this->m_p_manager_fire->setUpdVis(this->m_p_storage->getUpdVis());
         this->m_p_manager_fire->update_enemy_state();
         this->update_movement_state();
 
-        if (this->m_p_storage->IsHelicopterShowHealth())
+        if (this->m_p_storage->IsShowHealth())
         {
             this->m_p_manager_fire->cs_remove();
             this->m_p_manager_fire->setShowHealth(true);
@@ -179,7 +179,7 @@ void Script_SchemeHelicopterMove::reset_scheme(const bool is_loading, CScriptGam
             this->m_p_manager_fire->cs_remove();
         }
 
-        this->m_p_helicopter->UseFireTrail(this->m_p_storage->IsHelicopterFireTrail());
+        this->m_p_helicopter->UseFireTrail(this->m_p_storage->IsFireTrail());
     }
 }
 
@@ -195,7 +195,7 @@ void Script_SchemeHelicopterMove::save(void)
 void Script_SchemeHelicopterMove::update(const float delta)
 {
     if (XR_LOGIC::try_switch_to_another_section(
-            this->m_npc, *this->m_p_storage, DataBase::Storage::getInstance().getActor()))
+            this->m_npc, this->m_p_storage, DataBase::Storage::getInstance().getActor()))
         return;
 
         if (this->m_is_callback)
@@ -205,13 +205,13 @@ void Script_SchemeHelicopterMove::update(const float delta)
         }
         else
         {
-            if (!this->m_p_storage->getHelicopterPathLookName().empty())
+            if (!this->m_p_storage->getPathLookName().empty())
             {
-                if (this->m_p_storage->getHelicopterPathLookName() == "actor")
+                if (this->m_p_storage->getPathLookName() == "actor")
                 {
                     this->m_p_manager_fly->set_look_point(DataBase::Storage::getInstance().getActor()->Position());
 
-                    if (this->m_p_storage->IsHelicopterStopFire())
+                    if (this->m_p_storage->IsStopFire())
                     {
                         if (this->m_p_helicopter->isVisible(DataBase::Storage::getInstance().getActor()))
                         {
@@ -232,7 +232,7 @@ void Script_SchemeHelicopterMove::update(const float delta)
                 this->update_look_state();
             }
 
-            if (this->m_p_storage->getHelicopterPathLookName().empty() && this->m_p_manager_look->getLookState())
+            if (this->m_p_storage->getPathLookName().empty() && this->m_p_manager_look->getLookState())
             {
                 this->m_p_manager_look->calculate_look_point(this->m_p_manager_fly->getDestinationPoint(), true);
             }
@@ -278,7 +278,7 @@ void Script_SchemeHelicopterMove::waypoint_callback(
 }
 
 void Script_SchemeHelicopterMove::add_to_binder(CScriptGameObject* const p_client_object, CScriptIniFile* const p_ini,
-    const xr_string& scheme_name, const xr_string& section_name, DataBase::Storage_Scheme& storage)
+    const xr_string& scheme_name, const xr_string& section_name, DataBase::Script_IComponentScheme* storage)
 {
     if (!p_client_object)
     {
@@ -292,19 +292,18 @@ void Script_SchemeHelicopterMove::add_to_binder(CScriptGameObject* const p_clien
         return;
     }
 
-    Msg("[Scripts/add_to_binder(p_client_object, p_ini, scheme_name, section_name, storage)] added "
-        "Script_SchemeMobWalker scheme to binder, name=%s scheme=%s section=%s",
+    MESSAGEI("added scheme to binder, name=%s scheme=%s section=%s",
         p_client_object->Name(), scheme_name.c_str(), section_name.c_str());
 
-    Script_ISchemeEntity* action = new Script_SchemeHelicopterMove(p_client_object, storage);
+    Script_ISchemeEntity* action = new Script_SchemeHelicopterMove(p_client_object, reinterpret_cast<DataBase::Script_ComponentScheme_Helicopter*>(storage));
     DataBase::Storage::getInstance().setStorageSchemesActions(p_client_object->ID(), action->getSchemeName(), action);
 }
 
 void Script_SchemeHelicopterMove::set_scheme(CScriptGameObject* const p_client_object, CScriptIniFile* const p_ini,
     const xr_string& scheme_name, const xr_string& section_name, const xr_string& gulag_name)
 {
-    DataBase::Storage_Scheme* const p_storage =
-        XR_LOGIC::assign_storage_and_bind(p_client_object, p_ini, scheme_name, section_name, gulag_name);
+    DataBase::Script_ComponentScheme_Helicopter* const p_storage =
+        XR_LOGIC::assign_storage_and_bind<DataBase::Script_ComponentScheme_Helicopter>(p_client_object, p_ini, scheme_name, section_name, gulag_name);
     if (!p_storage)
     {
         R_ASSERT2(false, "Deep shit you are in!");
@@ -312,26 +311,26 @@ void Script_SchemeHelicopterMove::set_scheme(CScriptGameObject* const p_client_o
 
     p_storage->setLogic(XR_LOGIC::cfg_get_switch_conditions(p_ini, section_name, p_client_object));
 
-    p_storage->setHelicopterPathMoveName(Globals::Utils::cfg_get_string(p_ini, section_name, "path_move"));
-    p_storage->setHelicopterPathLookName(Globals::Utils::cfg_get_string(p_ini, section_name, "path_look"));
-    p_storage->setHelicopterVelocity(Globals::Utils::cfg_get_number(p_ini, section_name, "max_velocity"));
-    p_storage->setHelicopterEnemyName(Globals::Utils::cfg_get_string(p_ini, section_name, "enemy"));
-    p_storage->setHelicopterFirePointName(Globals::Utils::cfg_get_string(p_ini, section_name, "fire_point"));
-    p_storage->setHelicopterMaxMinigunDistance(
+    p_storage->setPathMoveName(Globals::Utils::cfg_get_string(p_ini, section_name, "path_move"));
+    p_storage->setPathLookName(Globals::Utils::cfg_get_string(p_ini, section_name, "path_look"));
+    p_storage->setVelocity(Globals::Utils::cfg_get_number(p_ini, section_name, "max_velocity"));
+    p_storage->setEnemyName(Globals::Utils::cfg_get_string(p_ini, section_name, "enemy"));
+    p_storage->setFirePointName(Globals::Utils::cfg_get_string(p_ini, section_name, "fire_point"));
+    p_storage->setMaxMinigunDistance(
         Globals::Utils::cfg_get_number(p_ini, section_name, "max_mgun_attack_dist"));
-    p_storage->setHelicopterMaxRocketDistance(
+    p_storage->setMaxRocketDistance(
         Globals::Utils::cfg_get_number(p_ini, section_name, "max_rocket_attack_dist"));
-    p_storage->setHelicopterMinMinigunDistance(
+    p_storage->setMinMinigunDistance(
         Globals::Utils::cfg_get_number(p_ini, section_name, "min_mgun_attack_dist"));
-    p_storage->setHelicopterMinRocketDistance(
+    p_storage->setMinRocketDistance(
         Globals::Utils::cfg_get_number(p_ini, section_name, "min_rocket_attack_dist"));
-    p_storage->setHelicopterUseRocket(Globals::Utils::cfg_get_bool(p_ini, section_name, "use_rocket"));
-    p_storage->setHelicopterUseMinigun(Globals::Utils::cfg_get_bool(p_ini, section_name, "use_mgun"));
-    p_storage->setHelicopterEngineSound(Globals::Utils::cfg_get_bool(p_ini, section_name, "engine_sound"));
-    p_storage->setHelicopterUpdVis(Globals::Utils::cfg_get_number(p_ini, section_name, "upd_vis"));
-    p_storage->setHelicopterStopFire(Globals::Utils::cfg_get_bool(p_ini, section_name, "stop_fire"));
-    p_storage->setHelicopterShowHealth(Globals::Utils::cfg_get_bool(p_ini, section_name, "show_health"));
-    p_storage->setHelicopterFireTrail(Globals::Utils::cfg_get_bool(p_ini, section_name, "fire_trail"));
+    p_storage->setUseRocket(Globals::Utils::cfg_get_bool(p_ini, section_name, "use_rocket"));
+    p_storage->setUseMinigun(Globals::Utils::cfg_get_bool(p_ini, section_name, "use_mgun"));
+    p_storage->setEngineSound(Globals::Utils::cfg_get_bool(p_ini, section_name, "engine_sound"));
+    p_storage->setUpdVis(Globals::Utils::cfg_get_number(p_ini, section_name, "upd_vis"));
+    p_storage->setStopFire(Globals::Utils::cfg_get_bool(p_ini, section_name, "stop_fire"));
+    p_storage->setShowHealth(Globals::Utils::cfg_get_bool(p_ini, section_name, "show_health"));
+    p_storage->setFireTrail(Globals::Utils::cfg_get_bool(p_ini, section_name, "fire_trail"));
 
     DataBase::Storage::getInstance().setStorageMute(
         p_client_object->ID(), Globals::Utils::cfg_get_bool(p_ini, section_name, "mute"));
