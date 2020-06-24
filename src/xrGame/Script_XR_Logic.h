@@ -2333,6 +2333,7 @@ inline ComponentType* assign_storage_and_bind(CScriptGameObject* const p_client_
     {
         ComponentType* p_storage = static_cast<ComponentType*>(Script_GlobalHelper::getInstance().getSchemesAllocatorCallbacks()[scheme_name](p_client_object->ID())); 
         p_storage->setClientObject(p_client_object);
+        DataBase::Storage::getInstance().setStorageScheme(p_client_object->ID(), scheme_name, p_storage);
         Script_GlobalHelper::getInstance().getSchemesAddToBinderCallbacks()[scheme_name](p_client_object, p_ini, scheme_name, section_name, static_cast<DataBase::Script_IComponentScheme*>(p_storage));
     }
 
