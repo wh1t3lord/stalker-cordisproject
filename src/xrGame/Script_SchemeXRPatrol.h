@@ -30,7 +30,7 @@ namespace Cordis
 		class Script_ActionCommander : public Script_ISchemeStalker
 		{
 		public:
-			Script_ActionCommander(CScriptGameObject* const p_client_object, const xr_string& name, void* storage);
+			Script_ActionCommander(CScriptGameObject* const p_client_object, const xr_string& name, DataBase::Script_ComponentScheme_XRPatrol* storage);
 			~Script_ActionCommander(void);
 
 			virtual void initialize(void);
@@ -46,6 +46,7 @@ namespace Cordis
 		private:
 			bool m_is_was_reset;
 			Script_MoveManager* m_p_move_manager;
+			DataBase::Script_ComponentScheme_XRPatrol* m_p_storage;
 			xr_string m_current_state_name;
 			xr_string m_old_state_name;
 		};
