@@ -12,12 +12,6 @@ Cordis::Scripts::Script_Binder_Restrictor::~Script_Binder_Restrictor(void)
 void Cordis::Scripts::Script_Binder_Restrictor::reinit()
 {
 	CScriptBinderObject::reinit();
-	
-	if (DataBase::Storage::getInstance().getStorage().find(this->m_object->ID()) == DataBase::Storage::getInstance().getStorage().end())
-	{
-		R_ASSERT(false);
-		return;
-	}
 }
 
 bool Cordis::Scripts::Script_Binder_Restrictor::net_Spawn(SpawnType DC)
