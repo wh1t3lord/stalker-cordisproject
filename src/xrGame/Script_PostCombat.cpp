@@ -28,7 +28,7 @@ namespace Cordis
 				}
 			}
 
-			if (p_best_enemy && this->m_p_storage->getPostCombatTimer())
+			if (p_best_enemy && this->m_p_storage->getTimer())
 			{
 				this->m_p_storage->setPostCombatLastBestEnemyID(p_best_enemy->ID());
 				this->m_p_storage->setPostCombatLastBestEnemyName(p_best_enemy->Name());
@@ -36,7 +36,7 @@ namespace Cordis
 				return true;
 			}
 
-			if (p_best_enemy == nullptr && this->m_p_storage->getPostCombatTimer() == 0)
+			if (p_best_enemy == nullptr && this->m_p_storage->getTimer() == 0)
 			{
 				const DataBase::Data_Overrides& overrides = DataBase::Storage::getInstance().getStorage().at(this->m_object->ID()).getOverrides();
 				std::uint32_t min_time = overrides.getMinPostCombatTime() * 1000;
@@ -48,7 +48,7 @@ namespace Cordis
 				if (max_time == 0)
 					max_time = 15000;
 
-				if (this->m_p_storage->getPostCombatLastBestEnemyID() == DataBase::Storage::getInstance().getActor()->ID())
+				if (this->m_p_storage->getLastBestEnemyID() == DataBase::Storage::getInstance().getActor()->ID())
 				{
 					this->m_p_storage->setPostCombatTimer(Globals::get_time_global());
 				}
@@ -58,18 +58,18 @@ namespace Cordis
 				}
 			}
 
-			if (this->m_p_storage->getPostCombatTimer() == 0)
+			if (this->m_p_storage->getTimer() == 0)
 				return (p_best_enemy != nullptr);
 
-			if (Globals::get_time_global() < this->m_p_storage->getPostCombatTimer())
+			if (Globals::get_time_global() < this->m_p_storage->getTimer())
 				return true;
 
-			if (this->m_p_storage->getPostCombatAnimation() == nullptr)
+			if (this->m_p_storage->getAnimation() == nullptr)
 				return false;
 
-			this->m_p_storage->getPostCombatAnimation()->set_state("", false);
+			this->m_p_storage->getAnimation()->set_state("", false);
 
-			return (this->m_p_storage->getPostCombatAnimation()->getStates().getAnimationMarker() != 0);
+			return (this->m_p_storage->getAnimation()->getStates().getAnimationMarker() != 0);
 		}
 
 		Script_ActionPostCombatWait::~Script_ActionPostCombatWait(void)
@@ -140,9 +140,9 @@ namespace Cordis
 			XR_SOUND::set_sound_play(this->m_object->ID(), "post_combat_relax", xr_string(), 0);
 
 			if (this->m_is_anim_started)
-				this->m_p_storage->getPostCombatAnimation()->set_state();
+				this->m_p_storage->getAnimation()->set_state();
 
-			Script_StateAnimation* p_object = this->m_p_storage->getPostCombatAnimation();
+			Script_StateAnimation* p_object = this->m_p_storage->getAnimation();
 			
 			MESSAGEI("deleting animation from post combat storage!");
 			xr_delete(p_object);
@@ -184,8 +184,8 @@ namespace Cordis
 			if (!this->m_object->in_smart_cover() && (!check_weapon_locked()))
 			{
 				this->m_is_anim_started = true;
-				this->m_p_storage->getPostCombatAnimation()->set_state("hide", false);
-				this->m_p_storage->getPostCombatAnimation()->set_control();
+				this->m_p_storage->getAnimation()->set_state("hide", false);
+				this->m_p_storage->getAnimation()->set_control();
 			}
 
 			XR_SOUND::set_sound_play(this->m_object->ID(), "post_combat_wait", xr_string(), 0);
