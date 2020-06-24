@@ -574,10 +574,10 @@ void CObjectHandlerPlanner::setup(CAI_Stalker* object)
 
     set_goal(MonsterSpace::eObjectActionIdle, 0, 0, 0, 0, 0);
 
-/*
+
 #ifdef LOG_ACTION
     set_use_log(!!psAI_Flags.test(aiGOAPObject));
-#endif*/
+#endif
 }
 
 void CObjectHandlerPlanner::add_item(CInventoryItem* inventory_item)
@@ -614,10 +614,10 @@ void CObjectHandlerPlanner::remove_item(CInventoryItem* inventory_item)
 
 void CObjectHandlerPlanner::update()
 {
-/*
 #ifdef LOG_ACTION
     if ((psAI_Flags.test(aiGOAPObject) && !m_use_log) || (!psAI_Flags.test(aiGOAPObject) && m_use_log))
         set_use_log(!!psAI_Flags.test(aiGOAPObject));
-#endif*/
+#endif
+
     inherited::update();
 }

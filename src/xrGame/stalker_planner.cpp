@@ -47,10 +47,9 @@ LPCSTR CStalkerPlanner::object_name() const
 
 void CStalkerPlanner::setup(CAI_Stalker* object)
 {
-/*
 #ifdef LOG_ACTION
     set_use_log(!!psAI_Flags.test(aiGOAP));
-#endif*/
+#endif
 
     inherited::setup(object);
 
@@ -67,11 +66,10 @@ void CStalkerPlanner::setup(CAI_Stalker* object)
 
 void CStalkerPlanner::update(u32 time_delta)
 {
-/*
 #ifdef LOG_ACTION
     if ((psAI_Flags.test(aiGOAP) && !m_use_log) || (!psAI_Flags.test(aiGOAP) && m_use_log))
         set_use_log(!!psAI_Flags.test(aiGOAP));
-#endif*/
+#endif
 
     inherited::update();
 

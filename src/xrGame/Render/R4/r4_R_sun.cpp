@@ -20,7 +20,7 @@ const float MAP_GROW_FACTOR = 4.f;
 // tables to calculate view-frustum bounds in world space
 // note: D3D uses [0..1] range for Z
 static Fvector3 sun_corners[8] = {
-    {-1, -1, 0}, {-1, -1, +1}, {-1, +1, +1}, {-1, +1, 0}, {+1, +1, +1}, {+1, +1, 0}, {+1, -1, +1}, {+1, -1, 0}};
+    {-1, -1, 0}, {-1, -1, +1}, {-1, +1, +1}, {-1, +1, 0}, {+1, +1, +1}, {+1, +1, 0}, {+1, -1, +1}, {+1, -1, 0} };
 static int sun_facetable[6][4] = {
     {6, 7, 5, 4}, {1, 0, 7, 6}, {1, 2, 3, 0}, {3, 2, 4, 5},
     // near and far planes
@@ -94,10 +94,10 @@ BOOL LineIntersection2D(D3DXVECTOR2* result, const D3DXVECTOR2* lineA, const D3D
     //  NOTE: assumes the rays are already normalized!!!!
     VERIFY(_abs(D3DXVec2Dot(&lineA[1], &lineB[1])) < 1.f);
 
-    float x[2] = {lineA[0].x, lineB[0].x};
-    float y[2] = {lineA[0].y, lineB[0].y};
-    float dx[2] = {lineA[1].x, lineB[1].x};
-    float dy[2] = {lineA[1].y, lineB[1].y};
+    float x[2] = { lineA[0].x, lineB[0].x };
+    float y[2] = { lineA[0].y, lineB[0].y };
+    float dx[2] = { lineA[1].x, lineB[1].x };
+    float dy[2] = { lineA[1].y, lineB[1].y };
 
     float x_diff = x[0] - x[1];
     float y_diff = y[0] - y[1];
@@ -199,7 +199,7 @@ Fvector3 wform(Fmatrix& m, Fvector3 const& v)
     r.w = v.x * m._14 + v.y * m._24 + v.z * m._34 + m._44;
     // VERIFY		(r.w>0.f);
     float invW = 1.0f / r.w;
-    Fvector3 r3 = {r.x * invW, r.y * invW, r.z * invW};
+    Fvector3 r3 = { r.x * invW, r.y * invW, r.z * invW };
     return r3;
 }
 
@@ -316,7 +316,7 @@ D3DXVECTOR2 BuildTSMProjectionMatrix_caster_depth_bounds(D3DXMATRIX& lightSpaceB
 
 void CRender::render_sun()
 {
-    // PIX_EVENT(render_sun);
+    //PIX_EVENT(render_sun);
     light* fuckingsun = (light*)Lights.sun._get();
     D3DXMATRIX m_LightViewProj;
 
@@ -700,7 +700,7 @@ void CRender::render_sun()
         }
         for (int e = 0; e < 8; e++)
         {
-            pt = wform(x_full_inverse, corners[e]); // world space
+            pt = wform(x_full_inverse, sun_corners[e]); // world space
             pt = wform(xform, pt); // trapezoid space
             b_receivers.modify(pt);
         }
@@ -784,11 +784,11 @@ void CRender::render_sun()
 
     if (Target->use_minmax_sm_this_frame())
     {
-        // PIX_EVENT(SE_SUN_FAR_MINMAX_GENERATE);
+        //PIX_EVENT(SE_SUN_FAR_MINMAX_GENERATE);
         Target->create_minmax_SM();
     }
 
-    // PIX_EVENT(SE_SUN_FAR);
+    //PIX_EVENT(SE_SUN_FAR);
     Target->accum_direct(SE_SUN_FAR);
 
     // Restore XForms
@@ -832,14 +832,14 @@ void CRender::render_sun_near()
             hull.points.reserve(9);
             for (int p = 0; p < 8; p++)
             {
-                Fvector3 xf = wform(fullxform_inv, corners[p]);
+                Fvector3 xf = wform(fullxform_inv, sun_corners[p]);
                 hull.points.push_back(xf);
             }
             for (int plane = 0; plane < 6; plane++)
             {
                 hull.polys.push_back(t_volume::_poly());
                 for (int pt = 0; pt < 4; pt++)
-                    hull.polys.back().points.push_back(facetable[plane][pt]);
+                    hull.polys.back().points.push_back(sun_facetable[plane][pt]);
             }
         }
         hull.compute_caster_model(cull_planes, fuckingsun->direction);
@@ -935,8 +935,8 @@ void CRender::render_sun_near()
 
         // build viewport xform
         float view_dim = float(RImplementation.o.smapsize);
-        Fmatrix m_viewport = {view_dim / 2.f, 0.0f, 0.0f, 0.0f, 0.0f, -view_dim / 2.f, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f,
-            0.0f, view_dim / 2.f, view_dim / 2.f, 0.0f, 1.0f};
+        Fmatrix m_viewport = { view_dim / 2.f, 0.0f, 0.0f, 0.0f, 0.0f, -view_dim / 2.f, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f,
+            0.0f, view_dim / 2.f, view_dim / 2.f, 0.0f, 1.0f };
         Fmatrix m_viewport_inv;
         D3DXMatrixInverse((D3DXMATRIX*)&m_viewport_inv, 0, (D3DXMATRIX*)&m_viewport);
 
@@ -1028,11 +1028,11 @@ void CRender::render_sun_near()
 
     if (Target->use_minmax_sm_this_frame())
     {
-        // PIX_EVENT(SE_SUN_NEAR_MINMAX_GENERATE);
+        //PIX_EVENT(SE_SUN_NEAR_MINMAX_GENERATE);
         Target->create_minmax_SM();
     }
 
-    // PIX_EVENT(SE_SUN_NEAR);
+    //PIX_EVENT(SE_SUN_NEAR);
     Target->accum_direct(SE_SUN_NEAR);
 
     // Restore XForms
@@ -1046,7 +1046,7 @@ void CRender::render_sun_filtered()
     if (!RImplementation.o.sunfilter)
         return;
     Target->phase_accumulator();
-    // PIX_EVENT(SE_SUN_LUMINANCE);
+    //PIX_EVENT(SE_SUN_LUMINANCE);
     Target->accum_direct(SE_SUN_LUMINANCE);
 }
 
@@ -1152,7 +1152,7 @@ void CRender::render_sun_cascade(u32 cascade_ind)
         L_right.crossproduct(L_up, L_dir).normalize();
         mdir_View.build_camera_dir(L_pos, L_dir, L_up);
 
-//////////////////////////////////////////////////////////////////////////
+        //////////////////////////////////////////////////////////////////////////
 #ifdef _DEBUG
         typedef FixedConvexVolume<true> t_cuboid;
 #else
@@ -1171,9 +1171,9 @@ void CRender::render_sun_cascade(u32 cascade_ind)
                     // 					asd.mul(-2);
                     // 					asd.add(Device.vCameraPosition);
                     // 					near_p		= Device.vCameraPosition;//wform		(fullxform_inv,asd); //
-                    near_p = wform(fullxform_inv, corners[facetable[4][p]]);
+                    near_p = wform(fullxform_inv, sun_corners[sun_facetable[4][p]]);
 
-                    edge_vec = wform(fullxform_inv, corners[facetable[5][p]]);
+                    edge_vec = wform(fullxform_inv, sun_corners[sun_facetable[5][p]]);
                     edge_vec.sub(near_p);
                     edge_vec.normalize();
 
@@ -1204,8 +1204,8 @@ void CRender::render_sun_cascade(u32 cascade_ind)
 
         // build viewport xform
         float view_dim = float(RImplementation.o.smapsize);
-        Fmatrix m_viewport = {view_dim / 2.f, 0.0f, 0.0f, 0.0f, 0.0f, -view_dim / 2.f, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f,
-            0.0f, view_dim / 2.f, view_dim / 2.f, 0.0f, 1.0f};
+        Fmatrix m_viewport = { view_dim / 2.f, 0.0f, 0.0f, 0.0f, 0.0f, -view_dim / 2.f, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f,
+            0.0f, view_dim / 2.f, view_dim / 2.f, 0.0f, 1.0f };
         Fmatrix m_viewport_inv;
         D3DXMatrixInverse((D3DXMATRIX*)&m_viewport_inv, 0, (D3DXMATRIX*)&m_viewport);
 
@@ -1217,7 +1217,7 @@ void CRender::render_sun_cascade(u32 cascade_ind)
         //		light_cuboid.light_cuboid_points.reserve		(9);
         for (int p = 0; p < 8; p++)
         {
-            Fvector3 xf = wform(cull_xform_inv, corners[p]);
+            Fvector3 xf = wform(cull_xform_inv, sun_corners[p]);
             light_cuboid.light_cuboid_points[p] = xf;
         }
 
@@ -1225,7 +1225,7 @@ void CRender::render_sun_cascade(u32 cascade_ind)
         for (int plane = 0; plane < 4; plane++)
             for (int pt = 0; pt < 4; pt++)
             {
-                int asd = facetable[plane][pt];
+                int asd = sun_facetable[plane][pt];
                 light_cuboid.light_cuboid_polys[plane].points[pt] = asd;
             }
 
@@ -1367,11 +1367,11 @@ void CRender::render_sun_cascade(u32 cascade_ind)
 
     if (Target->use_minmax_sm_this_frame())
     {
-        // PIX_EVENT(SE_SUN_NEAR_MINMAX_GENERATE);
+        //PIX_EVENT(SE_SUN_NEAR_MINMAX_GENERATE);
         Target->create_minmax_SM();
     }
 
-    // PIX_EVENT(SE_SUN_NEAR);
+    //PIX_EVENT(SE_SUN_NEAR);
 
     if (cascade_ind == 0)
         Target->accum_direct_cascade(SE_SUN_NEAR, m_sun_cascades[cascade_ind].xform, m_sun_cascades[cascade_ind].xform,
@@ -1388,3 +1388,4 @@ void CRender::render_sun_cascade(u32 cascade_ind)
     RCache.set_xform_view(Device.mView);
     RCache.set_xform_project(Device.mProject);
 }
+

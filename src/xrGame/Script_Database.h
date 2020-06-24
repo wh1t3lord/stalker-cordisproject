@@ -1137,11 +1137,7 @@ struct Script_IComponentScheme
 
 	virtual ~Script_IComponentScheme(void) 
     {
-        for (Script_ISchemeEntity*& it : this->m_actions)
-        {
-            MESSAGEI("deleting action %s", it->getSchemeName().c_str());
-            xr_delete(it);
-        }
+        this->deleteActions();
     }
 
     inline bool isCalledClear(void) const noexcept { return this->m_is_called_interfaced_clear; }

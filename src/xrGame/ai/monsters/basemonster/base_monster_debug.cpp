@@ -187,12 +187,11 @@ void CBaseMonster::debug_fsm()
     if (!g_Alive())
         return;
 
-/*
     if (!psAI_Flags.test(aiMonsterDebug))
     {
         DBG().object_info(this, this).clear();
         return;
-    }*/
+    }
 
     EMonsterState state = StateMan->get_state_type();
 
