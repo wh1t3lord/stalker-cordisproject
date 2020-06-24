@@ -37,7 +37,7 @@ namespace Cordis
 
 		private:
 			bool m_is_anim_started;
-			DataBase::Storage_Scheme* m_p_storage;
+			DataBase::Script_ComponentScheme_PostCombat* m_p_storage;
 			Script_StateManager* m_p_state_manager;
 		};
 	}

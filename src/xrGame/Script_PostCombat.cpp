@@ -30,9 +30,9 @@ namespace Cordis
 
 			if (p_best_enemy && this->m_p_storage->getTimer())
 			{
-				this->m_p_storage->setPostCombatLastBestEnemyID(p_best_enemy->ID());
-				this->m_p_storage->setPostCombatLastBestEnemyName(p_best_enemy->Name());
-				this->m_p_storage->setPostCombatTimer(0);
+				this->m_p_storage->setLastBestEnemyID(p_best_enemy->ID());
+				this->m_p_storage->setLastBestEnemyName(p_best_enemy->Name());
+				this->m_p_storage->setTimer(0);
 				return true;
 			}
 
@@ -50,11 +50,11 @@ namespace Cordis
 
 				if (this->m_p_storage->getLastBestEnemyID() == DataBase::Storage::getInstance().getActor()->ID())
 				{
-					this->m_p_storage->setPostCombatTimer(Globals::get_time_global());
+					this->m_p_storage->setTimer(Globals::get_time_global());
 				}
 				else
 				{
-					this->m_p_storage->setPostCombatTimer(Globals::get_time_global() + Globals::Script_RandomInt::getInstance().Generate<std::uint32_t>(min_time, max_time));
+					this->m_p_storage->setTimer(Globals::get_time_global() + Globals::Script_RandomInt::getInstance().Generate<std::uint32_t>(min_time, max_time));
 				}
 			}
 
@@ -131,7 +131,7 @@ namespace Cordis
 			this->m_object->set_sight(SightManager::ESightType::eSightTypeCover, nullptr, 0);
 			this->m_p_state_manager = new Script_StateManager(this->m_object);
 			this->m_p_state_manager->setAnimState(new Script_StateAnimation(this->m_object, *this->m_p_state_manager, false));
-			this->m_p_storage->setPostCombatAnimation(new Script_StateAnimation(this->m_object, *this->m_p_state_manager, true));
+			this->m_p_storage->setAnimation(new Script_StateAnimation(this->m_object, *this->m_p_state_manager, true));
 			this->m_is_anim_started = false;
 		}
 
@@ -146,7 +146,7 @@ namespace Cordis
 			
 			MESSAGEI("deleting animation from post combat storage!");
 			xr_delete(p_object);
-			this->m_p_storage->setPostCombatAnimation(nullptr);
+			this->m_p_storage->setAnimation(nullptr);
 
 			CScriptActionBase::finalize();
 		}
