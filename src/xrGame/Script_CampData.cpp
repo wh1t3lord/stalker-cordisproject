@@ -89,7 +89,7 @@ bool sr_camp_guitar_precondition(Script_CampData* const p_camp)
                     if (!storage.getActiveSchemeName().empty() &&
                         (storage.getSchemes().find(storage.getActiveSchemeName()) != storage.getSchemes().end()))
                     {
-                        p_storage_scheme = storage.getSchemes().at(storage.getActiveSchemeName());
+                        p_storage_scheme = static_cast<DataBase::Script_ComponentScheme_SRCamp*>(storage.getSchemes().at(storage.getActiveSchemeName()));
                     }
                 }
 
@@ -436,7 +436,7 @@ void Script_CampData::register_npc(const std::uint16_t npc_id)
     this->m_p_sound_manager->register_npc(npc_id);
 
     const DataBase::Storage_Data& storage = DataBase::Storage::getInstance().getStorage().at(npc_id);
-    DataBase::Storage_Scheme* p_scheme = storage.getSchemes().at(storage.getActiveSchemeName());
+    DataBase::Script_IComponentScheme* p_scheme = storage.getSchemes().at(storage.getActiveSchemeName());
     
     for (Script_ISchemeEntity* p_scheme_entity : p_scheme->getActions())
     {
@@ -474,11 +474,11 @@ std::uint32_t Script_CampData::get_npc_role(const std::uint16_t npc_id, const xr
     }
 
     const DataBase::Storage_Data& storage = DataBase::Storage::getInstance().getStorage().at(npc_id);
-    DataBase::Storage_Scheme* const p_scheme = storage.getSchemes().at(storage.getActiveSchemeName());
+    DataBase::Script_ComponentScheme_SRCamp* const p_scheme = static_cast<DataBase::Script_ComponentScheme_SRCamp*>(storage.getSchemes().at(storage.getActiveSchemeName()));
 
     if (!p_scheme)
     {
-        Msg("[Scripts/Script_CampData/get_npc_role(npc_id, state)] WARNING: p_scheme == nullptr! Return ...");
+        MESSAGEWR("p_scheme == nullptr!");
         return kNpcRoleNone;
     }
 
