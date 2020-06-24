@@ -31,7 +31,7 @@ namespace Cordis
 		{
 		public:
 			Script_SchemeXRSmartCover(void) = delete;
-			Script_SchemeXRSmartCover(const xr_string& name, void* storage);
+			Script_SchemeXRSmartCover(const xr_string& name, DataBase::Script_ComponentScheme_XRSmartCover* storage);
 			~Script_SchemeXRSmartCover(void);
 
 			virtual void finalize(void);
@@ -46,13 +46,14 @@ namespace Cordis
 			bool position_riched(void);
 
 			static void add_to_binder(CScriptGameObject* const p_client_object, CScriptIniFile* const p_ini,
-				const xr_string& scheme_name, const xr_string& section_name, void* storage);
+				const xr_string& scheme_name, const xr_string& section_name, DataBase::Script_IComponentScheme* storage);
 
 			static void set_scheme(CScriptGameObject* const p_client_object, CScriptIniFile* const p_ini,
 				const xr_string& scheme_name, const xr_string& section_name, const xr_string& gulag_name);
 		private:
 			bool m_is_initialized;
 			std::uint16_t m_target_enemy_id;
+			DataBase::Script_ComponentScheme_XRSmartCover* m_p_storage;
 			Fvector m_fire_position;
 			xr_map<std::uint32_t, CondlistData> m_condlist_cover;
 			xr_map<std::uint32_t, CondlistData> m_condlist_target_path;
