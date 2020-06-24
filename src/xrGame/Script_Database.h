@@ -1133,6 +1133,8 @@ private:
 
 struct Script_IComponentScheme
 {
+    Script_IComponentScheme(void) : m_is_enabled(false), m_scheme_id_for_unsubscring(0), m_p_ini(nullptr), m_p_npc(nullptr) {}
+
 	virtual ~Script_IComponentScheme(void) 
     {
         for (Script_ISchemeEntity*& it : this->m_actions)
@@ -1270,10 +1272,10 @@ struct Script_IComponentScheme
 	}
 
 protected:
-    bool m_is_enabled = false;
-    std::uint32_t m_scheme_id_for_unsubscring = 0;
-	CScriptIniFile* m_p_ini = nullptr;
-    CScriptGameObject* m_p_npc = nullptr;
+    bool m_is_enabled;
+    std::uint32_t m_scheme_id_for_unsubscring;
+	CScriptIniFile* m_p_ini;
+    CScriptGameObject* m_p_npc;
 	xr_map<xr_string, bool> m_signals;
 	xr_vector<Script_ISchemeEntity*> m_actions;
 	xr_vector<LogicData> m_logic;
@@ -1283,7 +1285,7 @@ protected:
 
 struct Script_ComponentScheme_PHButton : public Script_IComponentScheme
 {
-	Script_ComponentScheme_PHButton(void) : m_is_blending(false) {}
+	Script_ComponentScheme_PHButton(void) : Script_IComponentScheme(), m_is_blending(false) {}
 
 	inline const xr_string& getAnimationName(void) const noexcept { return this->m_animation_name; }
 	inline void setAnimationName(const xr_string& animation_name) noexcept
@@ -1337,7 +1339,7 @@ private:
 
 struct Script_ComponentScheme_MobWalker : public Script_IComponentScheme
 {
-    Script_ComponentScheme_MobWalker(void) {}
+    Script_ComponentScheme_MobWalker(void) : Script_IComponentScheme() {}
 
     inline const xr_string& getPathLookName(void) const noexcept { return this->m_path_look_name; }
     inline void setPathLookName(const xr_string& path_name) noexcept 
@@ -1395,7 +1397,7 @@ private:
 
 struct Script_ComponentScheme_MobRemark : public Script_IComponentScheme
 {
-    Script_ComponentScheme_MobRemark(void) : m_is_no_reset(false), m_is_animation_movement(false) {}
+    Script_ComponentScheme_MobRemark(void) : Script_IComponentScheme(), m_is_no_reset(false), m_is_animation_movement(false) {}
 
     inline bool isNoReset(void) const noexcept { return this->m_is_no_reset; }
     inline void setNoReset(const bool value) noexcept { this->m_is_no_reset = value; }
@@ -1501,7 +1503,7 @@ private:
 
 struct Script_ComponentScheme_MobJump : public Script_IComponentScheme
 {
-    Script_ComponentScheme_MobJump(void) : m_p_path_jump(nullptr), m_ph_factor(0.0f) {}
+    Script_ComponentScheme_MobJump(void) : Script_IComponentScheme(), m_p_path_jump(nullptr), m_ph_factor(0.0f) {}
     ~Script_ComponentScheme_MobJump(void) 
     {
         if (this->m_p_path_jump)
@@ -1567,7 +1569,7 @@ private:
 
 struct Script_ComponentScheme_MobHome : public Script_IComponentScheme
 {
-    Script_ComponentScheme_MobHome(void) {}
+    Script_ComponentScheme_MobHome(void) : Script_IComponentScheme() {}
 
     inline const xr_string& getStateName(void) const noexcept { return this->m_state_name; }
     inline void setStateName(const xr_string& state_name) noexcept 
@@ -1638,7 +1640,7 @@ private:
 
 struct Script_ComponentScheme_MobCamp : public Script_IComponentScheme
 {
-    Script_ComponentScheme_MobCamp(void) : m_is_skip_transfer_enemy(false), m_time_change_point(0), m_home_min_radius(0), m_home_mid_radius(0), m_home_max_radius(0) {}
+    Script_ComponentScheme_MobCamp(void) : Script_IComponentScheme(), m_is_skip_transfer_enemy(false), m_time_change_point(0), m_home_min_radius(0), m_home_mid_radius(0), m_home_max_radius(0) {}
 
 	inline const xr_string& getLookPointName(void) const noexcept { return this->m_look_point_name; }
 	inline void setLookPointName(const xr_string& point_name) noexcept
@@ -1714,21 +1716,21 @@ private:
 
 struct Script_ComponentScheme_MobDeath : public Script_IComponentScheme
 {
-    Script_ComponentScheme_MobDeath(void) {}
+    Script_ComponentScheme_MobDeath(void) : Script_IComponentScheme() {}
 
     inline void clear(void) noexcept {}
 };
 
 struct Script_ComponentScheme_MobCombat : public Script_IComponentScheme
 {
-    Script_ComponentScheme_MobCombat(void) {}
+    Script_ComponentScheme_MobCombat(void) : Script_IComponentScheme() {}
 
     inline void clear(void) noexcept {}
 };
 
 struct Script_ComponentScheme_XRSmartCover : public Script_IComponentScheme
 {
-	Script_ComponentScheme_XRSmartCover(void) : m_is_precalc_cover(false), m_is_in_combat(false), m_idle_max_time(0), m_idle_min_time(0), m_lookout_min_time(0), m_lookout_max_time(0) {}
+	Script_ComponentScheme_XRSmartCover(void) : Script_IComponentScheme(), m_is_precalc_cover(false), m_is_in_combat(false), m_idle_max_time(0), m_idle_min_time(0), m_lookout_min_time(0), m_lookout_max_time(0) {}
 
 	inline void clear(void) noexcept
 	{
@@ -1814,7 +1816,7 @@ private:
 
 struct Script_ComponentScheme_SRCamp : public Script_IComponentScheme
 {
-    Script_ComponentScheme_SRCamp(void) {}
+    Script_ComponentScheme_SRCamp(void) : Script_IComponentScheme() {}
 
     inline void clear(void) noexcept 
     {
@@ -1877,7 +1879,7 @@ private:
 
 struct Script_ComponentScheme_PostCombat : public Script_IComponentScheme
 {
-	Script_ComponentScheme_PostCombat(void) : m_last_best_enemy_id(0), m_timer(0), m_p_animation(nullptr) {}
+	Script_ComponentScheme_PostCombat(void) : Script_IComponentScheme(), m_last_best_enemy_id(0), m_timer(0), m_p_animation(nullptr) {}
 	~Script_ComponentScheme_PostCombat(void)
 	{
 		if (this->m_p_animation)
@@ -1923,7 +1925,7 @@ private:
 };
 struct Script_ComponentScheme_XRAnimPoint : public Script_IComponentScheme
 {
-	Script_ComponentScheme_XRAnimPoint(void) : m_is_use_camp(false), m_reach_distance(0.0f), m_p_animpoint(nullptr) {}
+	Script_ComponentScheme_XRAnimPoint(void) : Script_IComponentScheme(), m_is_use_camp(false), m_reach_distance(0.0f), m_p_animpoint(nullptr) {}
 	~Script_ComponentScheme_XRAnimPoint(void)
 	{
 		if (this->m_p_animpoint)
@@ -2062,7 +2064,7 @@ private:
 };
 struct Script_ComponentScheme_XRPatrol : public Script_IComponentScheme
 {
-	Script_ComponentScheme_XRPatrol(void) : m_is_silent(false), m_is_commander(false) {}
+	Script_ComponentScheme_XRPatrol(void) : Script_IComponentScheme(), m_is_silent(false), m_is_commander(false) {}
 
 	inline bool isCommander(void) const noexcept { return this->m_is_commander; }
 	inline void setCommander(const bool value) noexcept { this->m_is_commander = value; }
@@ -2156,14 +2158,14 @@ private:
 
 struct Script_ComponentScheme_XRReachTask : public Script_IComponentScheme
 {
-    Script_ComponentScheme_XRReachTask(void) {}
+    Script_ComponentScheme_XRReachTask(void) : Script_IComponentScheme() {}
 
     inline void clear(void) noexcept {}
 };
 
 struct Script_ComponentScheme_XRCombatCamper : public Script_IComponentScheme
 {
-	Script_ComponentScheme_XRCombatCamper(void) : m_is_camper_action(false) {}
+	Script_ComponentScheme_XRCombatCamper(void) : Script_IComponentScheme(), m_is_camper_action(false) {}
 
 	inline bool isAction(void) const noexcept { return this->m_is_camper_action; }
 	inline void setAction(const bool value) noexcept { this->m_is_camper_action = value; }
@@ -2185,7 +2187,7 @@ private:
 };
 struct Script_ComponentScheme_XRCombatZombied : public Script_IComponentScheme
 {
-	Script_ComponentScheme_XRCombatZombied(void) : m_zombied_current_action(0) {}
+	Script_ComponentScheme_XRCombatZombied(void) : Script_IComponentScheme(), m_zombied_current_action(0) {}
 
 	inline std::uint32_t getCurrentAction(void) const noexcept { return this->m_zombied_current_action; }
 	inline void setCurrentAction(const std::uint32_t action_id) noexcept { this->m_zombied_current_action = action_id; }
@@ -2197,7 +2199,7 @@ private:
 };
 struct Script_ComponentScheme_XRCombatIgnore : public Script_IComponentScheme
 {
-	Script_ComponentScheme_XRCombatIgnore(void) : m_is_ignore_enabled(false), m_p_action(nullptr) {}
+	Script_ComponentScheme_XRCombatIgnore(void) : Script_IComponentScheme(), m_is_ignore_enabled(false), m_p_action(nullptr) {}
 
 	inline bool isXRCombatIgnoreEnabled(void) const noexcept { return this->m_is_ignore_enabled; }
 	inline void setXRCombatIgnoreEnabled(const bool value) noexcept { this->m_is_ignore_enabled = value; }
@@ -2211,7 +2213,7 @@ private:
 };
 struct Script_ComponentScheme_XRWounded : public Script_IComponentScheme
 {
-	Script_ComponentScheme_XRWounded(void) : m_is_xr_wounded_autoheal(false), m_is_xr_wounded_enable_talk(false), m_is_xr_wounded_not_for_help(false), m_is_xr_wounded_set(false), m_is_xr_wounded_use_medkit(false), m_p_wounded_manager(nullptr) {}
+	Script_ComponentScheme_XRWounded(void) : Script_IComponentScheme(), m_is_xr_wounded_autoheal(false), m_is_xr_wounded_enable_talk(false), m_is_xr_wounded_not_for_help(false), m_is_xr_wounded_set(false), m_is_xr_wounded_use_medkit(false), m_p_wounded_manager(nullptr) {}
 	~Script_ComponentScheme_XRWounded(void)
 	{
 		if (this->m_p_wounded_manager)
@@ -2368,7 +2370,7 @@ private:
 };
 struct Script_ComponentScheme_XRMeet : public Script_IComponentScheme
 {
-	Script_ComponentScheme_XRMeet(void) : m_is_meet_only_at_path(true), m_is_set(false), m_reset_distance(30.0f), m_p_meet_manager(nullptr) {}
+	Script_ComponentScheme_XRMeet(void) : Script_IComponentScheme(), m_is_meet_only_at_path(true), m_is_set(false), m_reset_distance(30.0f), m_p_meet_manager(nullptr) {}
 	~Script_ComponentScheme_XRMeet(void)
 	{
 		if (this->m_p_meet_manager)
@@ -2540,7 +2542,7 @@ private:
 };
 struct Script_ComponentScheme_XRCamper : public Script_IComponentScheme
 {
-	Script_ComponentScheme_XRCamper(void) : m_is_sniper(false), m_is_no_retreat(false), m_wp_flag(0),
+	Script_ComponentScheme_XRCamper(void) : Script_IComponentScheme(), m_is_sniper(false), m_is_no_retreat(false), m_wp_flag(0),
 		m_scan_begin(0), m_current_look_point(0), m_memory_enemy(0), m_idle(0), m_scantimefree(0),
 		m_radius(0.0f)
 	{}
@@ -2721,7 +2723,7 @@ private:
 };
 struct Script_ComponentScheme_XRKamp : public Script_IComponentScheme
 {
-	Script_ComponentScheme_XRKamp(void) : m_pos_vertex(0), m_radius(0), m_npc_position_num(0) {}
+	Script_ComponentScheme_XRKamp(void) : Script_IComponentScheme(), m_pos_vertex(0), m_radius(0), m_npc_position_num(0) {}
 
 	inline std::uint32_t getPosVertex(void) const noexcept { return this->m_pos_vertex; }
 	inline void setPosVertex(const std::uint32_t value) noexcept { this->m_pos_vertex = value; }
@@ -2758,7 +2760,7 @@ private:
 };
 struct Script_ComponentScheme_XRSleeper : public Script_IComponentScheme
 {
-	Script_ComponentScheme_XRSleeper(void) : m_is_wakeable(false) {}
+	Script_ComponentScheme_XRSleeper(void) : Script_IComponentScheme(), m_is_wakeable(false) {}
 
 	inline bool isWakeable(void) const noexcept { return this->m_is_wakeable; }
 	inline void setWakeable(const bool value) noexcept { this->m_is_wakeable = value; }
@@ -2824,7 +2826,7 @@ private:
 };
 struct Script_ComponentScheme_XRWalker : public Script_IComponentScheme
 {
-	Script_ComponentScheme_XRWalker(void) : m_is_use_camp(false) {}
+	Script_ComponentScheme_XRWalker(void) : Script_IComponentScheme(), m_is_use_camp(false) {}
 
 	inline void ClearApprovedActions(void) noexcept
 	{
@@ -2964,7 +2966,7 @@ private:
 };
 struct Script_ComponentScheme_XRRemark : public Script_IComponentScheme
 {
-	Script_ComponentScheme_XRRemark(void) : m_is_target_initialized(false), m_is_sound_animation_sync(false), m_target_id(0) {}
+	Script_ComponentScheme_XRRemark(void) : Script_IComponentScheme(), m_is_target_initialized(false), m_is_sound_animation_sync(false), m_target_id(0) {}
 
 	inline const xr_string& getTargetName(void) const noexcept { return this->m_target_name; }
 	inline void setTargetName(const xr_string& target_name) noexcept
@@ -3087,7 +3089,7 @@ private:
 };
 struct Script_ComponentScheme_XRGatherItems : public Script_IComponentScheme
 {
-	Script_ComponentScheme_XRGatherItems(void) : m_is_gather_items_enabled(false) {}
+	Script_ComponentScheme_XRGatherItems(void) : Script_IComponentScheme(), m_is_gather_items_enabled(false) {}
 
 	inline bool isGatherItemsEnabled(void) const noexcept { return this->m_is_gather_items_enabled; }
 	inline void setGatherItemsEnabled(const bool value) noexcept { this->m_is_gather_items_enabled = value; }
@@ -3103,14 +3105,14 @@ private:
 
 struct Script_ComponentScheme_XRHit : public Script_IComponentScheme
 {
-    Script_ComponentScheme_XRHit(void) {}
+    Script_ComponentScheme_XRHit(void) : Script_IComponentScheme() {}
 
     inline void clear(void) noexcept {}
 };
 
 struct Script_ComponentScheme_XRHelpWounded : public Script_IComponentScheme
 {
-	Script_ComponentScheme_XRHelpWounded(void) : m_is_wounded_enabled(false) {}
+	Script_ComponentScheme_XRHelpWounded(void) : Script_IComponentScheme(), m_is_wounded_enabled(false) {}
 
 	inline bool IsXRHelpWoundedHelpWoundedEnabled(void) const noexcept
 	{
@@ -3152,7 +3154,7 @@ private:
 };
 struct Script_ComponentScheme_XRCombat : public Script_IComponentScheme
 {
-	Script_ComponentScheme_XRCombat(void) {}
+	Script_ComponentScheme_XRCombat(void) : Script_IComponentScheme() {}
 
 	inline const xr_string& getXRCombatScriptCombatTypeName(void) const noexcept
 	{
@@ -3186,7 +3188,7 @@ private:
 };
 struct Script_ComponentScheme_XRCorpseDetection : public Script_IComponentScheme
 {
-	Script_ComponentScheme_XRCorpseDetection(void) : m_selected_corpse_id(0), m_level_vertex_id(0) {}
+	Script_ComponentScheme_XRCorpseDetection(void) : Script_IComponentScheme(), m_selected_corpse_id(0), m_level_vertex_id(0) {}
 	
     inline void clear(void) noexcept 
     {
@@ -3218,7 +3220,7 @@ private:
 };
 struct Script_ComponentScheme_XRAbuse : public Script_IComponentScheme
 {
-	Script_ComponentScheme_XRAbuse(void) : m_p_abuse_manager(nullptr) {}
+	Script_ComponentScheme_XRAbuse(void) : Script_IComponentScheme(), m_p_abuse_manager(nullptr) {}
 	~Script_ComponentScheme_XRAbuse(void)
 	{
 		if (this->m_p_abuse_manager)
@@ -3262,7 +3264,7 @@ private:
 
 struct Script_ComponentScheme_XRDanger : public Script_IComponentScheme
 {
-    Script_ComponentScheme_XRDanger(void) : m_danger_time(0) {}
+    Script_ComponentScheme_XRDanger(void) : Script_IComponentScheme(), m_danger_time(0) {}
 
     inline void clear(void) noexcept 
     {
@@ -3279,7 +3281,7 @@ private:
 
 struct Script_ComponentScheme_XRDeath : public Script_IComponentScheme
 {
-	Script_ComponentScheme_XRDeath(void) {}
+	Script_ComponentScheme_XRDeath(void) : Script_IComponentScheme() {}
 
 	inline const xr_map<std::uint32_t, CondlistData>& getInfo(void) const noexcept
 	{
@@ -3311,7 +3313,7 @@ private:
 
 struct Script_ComponentScheme_SRIdle : public Script_IComponentScheme
 {
-    Script_ComponentScheme_SRIdle(void) {}
+    Script_ComponentScheme_SRIdle(void) : Script_IComponentScheme() {}
 
     inline void clear(void) noexcept {}
 
@@ -3320,7 +3322,7 @@ private:
 
 struct Script_ComponentScheme_SRDeimos : public Script_IComponentScheme
 {
-	Script_ComponentScheme_SRDeimos(void) { this->clear(); }
+	Script_ComponentScheme_SRDeimos(void) : Script_IComponentScheme() { this->clear(); }
 
 	inline float getIntensity(void) const noexcept { return this->m_intensity; }
 	inline void setIntensity(const float value) noexcept { this->m_intensity = value; }
@@ -3475,7 +3477,7 @@ private:
 };
 struct Script_ComponentScheme_SRLight : public Script_IComponentScheme
 {
-	Script_ComponentScheme_SRLight(void) : m_is_light(false) {}
+	Script_ComponentScheme_SRLight(void) : Script_IComponentScheme(), m_is_light(false) {}
 
 	inline bool isLight(void) const noexcept { return this->m_is_light; }
 	inline void setLight(const bool value) noexcept { this->m_is_light = value; }
@@ -3490,7 +3492,7 @@ private:
 
 struct Script_ComponentScheme_SRSilenceZone : public Script_IComponentScheme
 {
-    Script_ComponentScheme_SRSilenceZone(void) {}
+    Script_ComponentScheme_SRSilenceZone(void) : Script_IComponentScheme() {}
 
     inline void clear(void) noexcept {}
 
@@ -3499,7 +3501,7 @@ private:
 
 struct Script_ComponentScheme_SRNoWeapon : public Script_IComponentScheme
 {
-    Script_ComponentScheme_SRNoWeapon(void) {}
+    Script_ComponentScheme_SRNoWeapon(void) : Script_IComponentScheme() {}
 
     inline void clear(void) noexcept {}
 
@@ -3508,7 +3510,7 @@ private:
 
 struct Script_ComponentScheme_SRParticle : public Script_IComponentScheme
 {
-	Script_ComponentScheme_SRParticle(void) : m_is_looped(false), m_mode(0) {}
+	Script_ComponentScheme_SRParticle(void) : Script_IComponentScheme(), m_is_looped(false), m_mode(0) {}
 
 	inline bool isLooped(void) const noexcept { return this->m_is_looped; }
 	inline void setLooped(const bool value) noexcept { this->m_is_looped = value; }
@@ -3557,7 +3559,7 @@ private:
 
 struct Script_ComponentScheme_SRPostProcess : public Script_IComponentScheme
 {
-	Script_ComponentScheme_SRPostProcess(void) : m_hit_intensity(0.0f), m_intensity(0.0f), m_intensity_speed(0.0f) {}
+	Script_ComponentScheme_SRPostProcess(void) : Script_IComponentScheme(), m_hit_intensity(0.0f), m_intensity(0.0f), m_intensity_speed(0.0f) {}
 
 	inline void clear(void) noexcept
 	{
@@ -3589,7 +3591,7 @@ private:
 
 struct Script_ComponentScheme_SRPsyAntenna : public Script_IComponentScheme
 {
-	Script_ComponentScheme_SRPsyAntenna(void) { this->clear(); }
+	Script_ComponentScheme_SRPsyAntenna(void) : Script_IComponentScheme() { this->clear(); }
 
 	inline void clear(void) noexcept
 	{
@@ -3685,7 +3687,7 @@ private:
 };
 struct Script_ComponentScheme_SRTeleport : public Script_IComponentScheme
 {
-	Script_ComponentScheme_SRTeleport(void) : m_timeout(0) {}
+	Script_ComponentScheme_SRTeleport(void) : Script_IComponentScheme(), m_timeout(0) {}
 
 	inline std::uint32_t getTimeout(void) const noexcept { return this->m_timeout; }
 	inline void setTimeout(const std::uint32_t value) noexcept { this->m_timeout = value; }
@@ -3714,7 +3716,7 @@ private:
 };
 struct Script_ComponentScheme_SRTimer : public Script_IComponentScheme
 {
-	Script_ComponentScheme_SRTimer(void) : m_p_sr_timer_ui(nullptr), m_p_sr_timer_timer(nullptr), m_sr_timer_start_value(0) {}
+	Script_ComponentScheme_SRTimer(void) : Script_IComponentScheme(), m_p_sr_timer_ui(nullptr), m_p_sr_timer_timer(nullptr), m_sr_timer_start_value(0) {}
 
 	inline const xr_string& getTypeName(void) const noexcept { return this->m_sr_timer_type_name; }
 	inline void setTypeName(const xr_string& timer_type_name) noexcept
@@ -3808,7 +3810,7 @@ private:
 };
 struct Script_ComponentScheme_PHSound : public Script_IComponentScheme
 {
-	Script_ComponentScheme_PHSound(void) : m_is_no_hit(false), m_is_looped(false), m_is_random(false), m_pause_min(0), m_pause_max(0) {}
+	Script_ComponentScheme_PHSound(void) : Script_IComponentScheme(), m_is_no_hit(false), m_is_looped(false), m_is_random(false), m_pause_min(0), m_pause_max(0) {}
 
 	inline bool IsLooped(void) const noexcept { return this->m_is_looped; }
 	inline void setLooped(const bool value) noexcept { this->m_is_looped = value; }
@@ -3857,7 +3859,7 @@ private:
 };
 struct Script_ComponentScheme_PHOscillate : public Script_IComponentScheme
 {
-	Script_ComponentScheme_PHOscillate(void) : m_period(0), m_angle(0.0f), m_force(0.0f) {}
+	Script_ComponentScheme_PHOscillate(void) : Script_IComponentScheme(), m_period(0), m_angle(0.0f), m_force(0.0f) {}
 
 	inline const xr_string& getJointName(void) const noexcept { return this->m_joint_name; }
 	inline void setJointName(const xr_string& joint_name) noexcept
@@ -3897,7 +3899,7 @@ private:
 
 struct Script_ComponentScheme_PHOnHit : public Script_IComponentScheme
 {
-    Script_ComponentScheme_PHOnHit(void) {}
+    Script_ComponentScheme_PHOnHit(void) : Script_IComponentScheme() {}
 
     inline void clear(void) noexcept {}
 
@@ -3906,7 +3908,7 @@ private:
 
 struct Script_ComponentScheme_PHIdle : public Script_IComponentScheme
 {
-	Script_ComponentScheme_PHIdle(void) : m_is_nonscript_usable(false) {}
+	Script_ComponentScheme_PHIdle(void) : Script_IComponentScheme(), m_is_nonscript_usable(false) {}
 
 	inline bool IsNonScriptUsable(void) const noexcept { return this->m_is_nonscript_usable; }
 	inline void setNonScriptUsable(const bool value) noexcept { this->m_is_nonscript_usable = value; }
@@ -3956,7 +3958,7 @@ private:
 };
 struct Script_ComponentScheme_PHHit : public Script_IComponentScheme
 {
-	Script_ComponentScheme_PHHit(void) : m_power(0.0f), m_impulse(0.0f) {}
+	Script_ComponentScheme_PHHit(void) : Script_IComponentScheme(), m_power(0.0f), m_impulse(0.0f) {}
 
 	inline void clear(void) noexcept
 	{
@@ -4009,16 +4011,16 @@ private:
 
 struct Script_ComponentScheme_PHDeath : public Script_IComponentScheme
 {
-    Script_ComponentScheme_PHDeath(void) {}
+    Script_ComponentScheme_PHDeath(void) : Script_IComponentScheme() {}
 
-
+    inline void clear(void) noexcept {}
 private:
 
 };
 
 struct Script_ComponentScheme_PHDoor : public Script_IComponentScheme
 {
-	Script_ComponentScheme_PHDoor(void) { this->clear(); }
+	Script_ComponentScheme_PHDoor(void) : Script_IComponentScheme() { this->clear(); }
 
 	inline Script_SchemePHDoor* getDoorAction(void) { return this->m_p_door_action; }
 	inline void setDoorAction(Script_SchemePHDoor* p_action) { this->m_p_door_action = p_action; }
@@ -4189,7 +4191,7 @@ private:
 };
 struct Script_ComponentScheme_PHCode : public Script_IComponentScheme
 {
-	Script_ComponentScheme_PHCode(void) : m_code(0) {}
+	Script_ComponentScheme_PHCode(void) : Script_IComponentScheme(), m_code(0) {}
 
 	inline void clear(void) noexcept
 	{
@@ -4232,7 +4234,7 @@ private:
 };
 struct Script_ComponentScheme_PHForce : public Script_IComponentScheme
 {
-	Script_ComponentScheme_PHForce(void) : m_time(0), m_delay(0), m_force(0.0f) {}
+	Script_ComponentScheme_PHForce(void) : Script_IComponentScheme(), m_time(0), m_delay(0), m_force(0.0f) {}
 
 	inline void clear(void) noexcept
 	{
@@ -4264,7 +4266,7 @@ private:
 };
 struct Script_ComponentScheme_Helicopter : public Script_IComponentScheme
 {
-	Script_ComponentScheme_Helicopter(void) { this->clear(); }
+	Script_ComponentScheme_Helicopter(void) : Script_IComponentScheme() { this->clear(); }
 
 	inline const xr_string& getPathMoveName(void) const noexcept { return this->m_path_move_name; }
 	inline void setPathMoveName(const xr_string& path_name) noexcept
