@@ -208,8 +208,8 @@ namespace Cordis
 			return XR_LOGIC::is_active(this->m_object, this->m_p_storage);
 		}
 
-		Script_Animpoint::Script_Animpoint(const std::uint16_t npc_id, DataBase::Script_ComponentScheme_XRAnimPoint* storage) : Script_ISchemeEntity(nullptr, storage), m_p_storage(&storage), m_npc_id(npc_id),
-			m_is_started(false), m_position_vertex(0), m_p_camp(nullptr), m_p_storage(storage)
+		Script_Animpoint::Script_Animpoint(const std::uint16_t npc_id, DataBase::Script_ComponentScheme_XRAnimPoint* storage) : Script_ISchemeEntity(nullptr, storage), m_p_storage(storage), m_npc_id(npc_id),
+			m_is_started(false), m_position_vertex(0), m_p_camp(nullptr)
 		{
 		}
 

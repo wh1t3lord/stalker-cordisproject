@@ -1854,6 +1854,29 @@ struct Script_ComponentScheme_XRAnimPoint : public Script_IComponentScheme
 		}
 	}
 
+    inline void ClearApprovedActions(void) noexcept 
+    {
+        this->m_approved_actions.clear();
+    }
+
+	inline void setApprovedActions(const std::pair<std::function<bool(std::uint16_t, bool)>, xr_string>& pair) noexcept
+	{
+		if (pair.first == nullptr)
+		{
+			MESSAGEWR("can't add pair, because the first "
+				"element (a function) is nullptr!");
+			return;
+		}
+
+		this->m_approved_actions.push_back(pair);
+	}
+
+	inline const xr_vector<std::pair<std::function<bool(std::uint16_t, bool)>, xr_string>>& getApprovedActions(
+		void) const noexcept
+	{
+		return this->m_approved_actions;
+	}
+
 	inline const xr_string& getCoverName(void) const noexcept { return this->m_cover_name; }
 	inline void setCoverName(const xr_string& name) noexcept
 	{
@@ -1937,6 +1960,7 @@ struct Script_ComponentScheme_XRAnimPoint : public Script_IComponentScheme
 		this->m_reach_distance = 0.0f;
 		this->m_description_name.clear();
 		this->m_reach_movement_name.clear();
+        this->ClearApprovedActions();
 
 		if (this->m_p_animpoint)
 		{
@@ -1950,6 +1974,7 @@ private:
 	bool m_is_use_camp;
 	float m_reach_distance;
 	Script_Animpoint* m_p_animpoint;
+    xr_vector<std::pair<std::function<bool(std::uint16_t, bool)>, xr_string>> m_approved_actions;
 	xr_vector<xr_string> m_avail_animations;
 	xr_string m_cover_name;
 	xr_string m_reach_movement_name;
