@@ -3899,6 +3899,8 @@ struct Script_ComponentScheme_PHOnHit : public Script_IComponentScheme
 {
     Script_ComponentScheme_PHOnHit(void) {}
 
+    inline void clear(void) noexcept {}
+
 private:
 };
 
