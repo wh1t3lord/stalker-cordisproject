@@ -107,15 +107,12 @@ void CStalkerAnimationManager::play_fx(float power_factor, int fx_index)
     VERIFY(
         fx_index < (int)m_data_storage->m_part_animations.A[object().movement().body_state()].m_global.A[0].A.size());
 #ifdef DEBUG
-   /* if (psAI_Flags.is(aiAnimation))
-    {*/
         LPCSTR name =
             m_skeleton_animated
                 ->LL_MotionDefName_dbg(
                     m_data_storage->m_part_animations.A[object().movement().body_state()].m_global.A[0].A[fx_index])
                 .first;
         MESSAGE("%6d [%s][%s][%s][%f]", Device.dwTimeGlobal, *object().cName(), "FX", name, power_factor);
-/*    }*/
 #endif
     m_skeleton_animated->PlayFX(
         m_data_storage->m_part_animations.A[object().movement().body_state()].m_global.A[0].A[fx_index], power_factor);

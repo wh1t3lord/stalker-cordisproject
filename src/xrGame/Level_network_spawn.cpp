@@ -77,7 +77,7 @@ void CLevel::g_cl_Spawn(LPCSTR name, u8 rp, u16 flags, Fvector pos)
 }
 
 #ifdef DEBUG
-//extern Flags32 psAI_Flags;
+extern Flags32 psAI_Flags;
 extern float debug_on_frame_gather_stats_frequency;
 #include "ai_debug.h"
 #endif // DEBUG

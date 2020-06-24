@@ -130,9 +130,8 @@ float CPatternFunction::ffGetValue()
             ef_storage().m_fpaBaseFunctions[m_dwaVariableTypes[i]]->dwfGetDiscreteValue(m_dwaAtomicFeatureRange[i]);
 
 #ifdef DEBUG
-/*
     if (psAI_Flags.test(aiFuncs))
-    {*/
+    {
         float value = ffEvaluate();
         string256 caString;
 
@@ -144,7 +143,7 @@ float CPatternFunction::ffGetValue()
         xr_sprintf(caString + j, sizeof(caString) - j, ") = %7.2f", value);
         MESSAGE("- %s", caString);
         return (value);
-/*    }*/
+    }
 #endif
 
     return (ffEvaluate());

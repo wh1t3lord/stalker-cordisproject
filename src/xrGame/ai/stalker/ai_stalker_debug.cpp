@@ -248,10 +248,11 @@ void CAI_Stalker::debug_text()
 {
     if (!m_dbg_hud_draw)
         return;
+
     m_dbg_hud_draw = false;
 
-    /*if (!psAI_Flags.test(aiStalker))
-        return;*/
+    if (!psAI_Flags.test(aiStalker))
+        return;
 
     CActor* actor = smart_cast<CActor*>(Level().Objects.net_Find(0));
     if (!actor)
@@ -961,7 +962,7 @@ void CAI_Stalker::OnHUDDraw(CCustomHUD* hud)
 
 void CAI_Stalker::dbg_draw_vision()
 {
-/*    VERIFY(!!psAI_Flags.is(aiVision));*/
+    VERIFY(!!psAI_Flags.is(aiVision));
 
     if (!smart_cast<CGameObject*>(Level().CurrentEntity()))
         return;

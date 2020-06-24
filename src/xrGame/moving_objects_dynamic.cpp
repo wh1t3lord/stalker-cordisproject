@@ -493,7 +493,7 @@ void moving_objects::resolve_collisions()
 void moving_objects::query_action_dynamic(moving_object* object)
 {
 #ifndef MASTER_GOLD
-  //  if (psAI_Flags.test(aiObstaclesAvoidingStatic))
+    if (psAI_Flags.test(aiObstaclesAvoidingStatic))
         return;
 
     if (object->action_frame() == Device.dwFrame)
