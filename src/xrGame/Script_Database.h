@@ -1133,16 +1133,15 @@ private:
 
 struct Script_IComponentScheme
 {
-    Script_IComponentScheme(void) : m_is_enabled(false), m_scheme_id_for_unsubscring(0), m_p_ini(nullptr), m_p_npc(nullptr) {}
+    Script_IComponentScheme(void) : m_is_enabled(false), m_scheme_id_for_unsubscring(0), m_p_ini(nullptr), m_p_npc(nullptr), m_is_called_interfaced_clear(false) {}
 
 	virtual ~Script_IComponentScheme(void) 
     {
-        for (Script_ISchemeEntity*& it : this->m_actions)
-        {
-            MESSAGEI("deleting action %s", it->getSchemeName().c_str());
-            xr_delete(it);
-        }
+        this->deleteActions();
     }
+
+    inline bool isCalledClear(void) const noexcept { return this->m_is_called_interfaced_clear; }
+    inline void setCalledClear(const bool value) noexcept { this->m_is_called_interfaced_clear = value; }
 
 	inline const xr_vector<Script_ISchemeEntity*>& getActions(void) const noexcept { return this->m_actions; }
 	inline void addAction(Script_ISchemeEntity* const p_data)
@@ -1271,8 +1270,38 @@ struct Script_IComponentScheme
 		this->m_scheme_name = scheme_name;
 	}
 
+    inline virtual void deleteActions(void) noexcept 
+    {
+		for (Script_ISchemeEntity*& it : this->m_actions)
+		{
+			if (it->getSchemeName().empty() == false)
+				MESSAGEI("deleting action %s", it->getSchemeName().c_str());
+
+			xr_delete(it);
+		}
+
+		this->m_actions.clear();
+    }
+
+    inline virtual void clear(void) noexcept 
+    {
+        this->m_is_enabled = false;
+        this->m_scheme_id_for_unsubscring = 0;
+        this->m_p_ini = nullptr;
+        this->m_p_npc = nullptr;
+        this->m_signals.clear();
+
+        this->deleteActions();
+
+        this->m_logic.clear();
+        this->m_logic_name.clear();
+        this->m_scheme_name.clear();
+        this->m_is_called_interfaced_clear = true;
+    }
+
 protected:
     bool m_is_enabled;
+    bool m_is_called_interfaced_clear;
     std::uint32_t m_scheme_id_for_unsubscring;
 	CScriptIniFile* m_p_ini;
     CScriptGameObject* m_p_npc;
@@ -1322,8 +1351,10 @@ struct Script_ComponentScheme_PHButton : public Script_IComponentScheme
 		this->m_on_press_condlist = condlist;
 	}
 
-	inline void clear(void) noexcept
+	inline void clear(void) noexcept override
 	{
+        Script_IComponentScheme::clear();
+
 		this->m_is_blending = false;
 		this->m_on_press_condlist.clear();
 		this->m_animation_name.clear();
@@ -1376,8 +1407,10 @@ struct Script_ComponentScheme_MobWalker : public Script_IComponentScheme
 	inline void setPathLookInfo(const CondlistWaypoints& data) noexcept { this->m_condlist_look = data; }
 
 
-    inline void clear(void) noexcept 
+    inline void clear(void) noexcept override 
     {
+        Script_IComponentScheme::clear();
+
         this->m_is_no_reset = false;
         this->m_path_look_name.clear();
         this->m_path_walk_name.clear();
@@ -1413,8 +1446,10 @@ struct Script_ComponentScheme_MobRemark : public Script_IComponentScheme
         this->m_state_name = state_name;
     }
 
-    inline void clear(void) noexcept 
+    inline void clear(void) noexcept override 
     {
+        Script_IComponentScheme::clear();
+
         this->m_is_no_reset = false;
         this->m_is_animation_movement = false;
         this->m_state_name.clear();
@@ -1546,8 +1581,10 @@ struct Script_ComponentScheme_MobJump : public Script_IComponentScheme
     inline const Fvector& getOffset(void) const noexcept { return this->m_offset; }
     inline void setOffset(const Fvector& data) noexcept { this->m_offset = data; }
 
-    inline void clear(void) noexcept 
+    inline void clear(void) noexcept override 
     {
+        Script_IComponentScheme::clear();
+
         this->m_ph_factor = 0.0f;
         
         if (this->m_p_path_jump)
@@ -1617,8 +1654,10 @@ struct Script_ComponentScheme_MobHome : public Script_IComponentScheme
     inline bool isGulagPoint(void) const noexcept { return this->m_is_gulag_point; }
     inline void setGulagPoint(const bool value) noexcept { this->m_is_gulag_point = value; }
 
-    inline void clear(void) noexcept 
+    inline void clear(void) noexcept override 
     {
+        Script_IComponentScheme::clear();
+
         this->m_is_aggresive = false;
         this->m_is_gulag_point = false;
         this->m_home_max_radius = 0;
@@ -1664,8 +1703,10 @@ struct Script_ComponentScheme_MobCamp : public Script_IComponentScheme
 		this->m_home_point_name = home_name;
 	}
 
-    inline void clear(void) noexcept 
+    inline void clear(void) noexcept override 
     {
+        Script_IComponentScheme::clear();
+
         this->m_is_skip_transfer_enemy = false;
         this->m_time_change_point = 0;
         this->m_home_max_radius = 0;
@@ -1718,22 +1759,24 @@ struct Script_ComponentScheme_MobDeath : public Script_IComponentScheme
 {
     Script_ComponentScheme_MobDeath(void) : Script_IComponentScheme() {}
 
-    inline void clear(void) noexcept {}
+    inline void clear(void) noexcept override { Script_IComponentScheme::clear(); }
 };
 
 struct Script_ComponentScheme_MobCombat : public Script_IComponentScheme
 {
     Script_ComponentScheme_MobCombat(void) : Script_IComponentScheme() {}
 
-    inline void clear(void) noexcept {}
+    inline void clear(void) noexcept override { Script_IComponentScheme::clear(); }
 };
 
 struct Script_ComponentScheme_XRSmartCover : public Script_IComponentScheme
 {
 	Script_ComponentScheme_XRSmartCover(void) : Script_IComponentScheme(), m_is_precalc_cover(false), m_is_in_combat(false), m_idle_max_time(0), m_idle_min_time(0), m_lookout_min_time(0), m_lookout_max_time(0) {}
 
-	inline void clear(void) noexcept
+	inline void clear(void) noexcept override
 	{
+        Script_IComponentScheme::clear();
+
 		this->m_is_in_combat = false;
 		this->m_is_precalc_cover = false;
 		this->m_idle_max_time = 0;
@@ -1818,8 +1861,10 @@ struct Script_ComponentScheme_SRCamp : public Script_IComponentScheme
 {
     Script_ComponentScheme_SRCamp(void) : Script_IComponentScheme() {}
 
-    inline void clear(void) noexcept 
+    inline void clear(void) noexcept override 
     {
+        Script_IComponentScheme::clear();
+
         this->m_base_action_name.clear();
         this->m_description_name.clear();
         this->ClearApprovedActions();
@@ -1904,8 +1949,10 @@ struct Script_ComponentScheme_PostCombat : public Script_IComponentScheme
 		this->m_p_animation = p_data;
 	}
 
-	inline void clear(void)
+	inline void clear(void) noexcept override
 	{
+        Script_IComponentScheme::clear();
+
 		this->m_last_best_enemy_id = 0;
 		this->m_timer = 0;
 		this->m_last_best_enemy_name.clear();
@@ -2032,8 +2079,10 @@ struct Script_ComponentScheme_XRAnimPoint : public Script_IComponentScheme
 		this->m_p_animpoint = p_animpoint;
 	}
 
-	inline void clear(void)
+	inline void clear(void) noexcept override
 	{
+        Script_IComponentScheme::clear();
+
 		this->m_is_use_camp = false;
 		this->m_avail_animations.clear();
 		this->m_base_action_name.clear();
@@ -2096,8 +2145,10 @@ struct Script_ComponentScheme_XRPatrol : public Script_IComponentScheme
 		this->m_suggested_states[state_name] = value_name;
 	}
 
-	inline void clear(void) noexcept
+	inline void clear(void) noexcept override
 	{
+        Script_IComponentScheme::clear();
+
 		this->m_is_commander = false;
 		this->m_is_silent = false;
 		this->m_suggested_states.clear();
@@ -2160,7 +2211,8 @@ struct Script_ComponentScheme_XRReachTask : public Script_IComponentScheme
 {
     Script_ComponentScheme_XRReachTask(void) : Script_IComponentScheme() {}
 
-    inline void clear(void) noexcept {}
+    inline void deleteActions(void) noexcept override { this->m_actions.clear(); }
+    inline void clear(void) noexcept override { Script_IComponentScheme::clear(); }
 };
 
 struct Script_ComponentScheme_XRCombatCamper : public Script_IComponentScheme
@@ -2173,8 +2225,10 @@ struct Script_ComponentScheme_XRCombatCamper : public Script_IComponentScheme
 	inline const Fvector& getLastSeenPosition(void) const noexcept { return this->m_camper_last_seen_position; }
 	inline void setLastSeenPosition(const Fvector& position) noexcept { this->m_camper_last_seen_position = position; }
 
-	inline void clear(void) noexcept
+	inline void clear(void) noexcept override
 	{
+        Script_IComponentScheme::clear();
+
 		this->m_is_camper_action = false;
 		this->m_camper_last_seen_position.x = 0.0f;
 		this->m_camper_last_seen_position.y = 0.0f;
@@ -2192,7 +2246,7 @@ struct Script_ComponentScheme_XRCombatZombied : public Script_IComponentScheme
 	inline std::uint32_t getCurrentAction(void) const noexcept { return this->m_zombied_current_action; }
 	inline void setCurrentAction(const std::uint32_t action_id) noexcept { this->m_zombied_current_action = action_id; }
 
-	inline void clear(void) noexcept { this->m_zombied_current_action = 0; }
+	inline void clear(void) noexcept override { Script_IComponentScheme::clear(); this->m_zombied_current_action = 0; }
 
 private:
 	std::uint32_t m_zombied_current_action;
@@ -2205,7 +2259,7 @@ struct Script_ComponentScheme_XRCombatIgnore : public Script_IComponentScheme
 	inline void setXRCombatIgnoreEnabled(const bool value) noexcept { this->m_is_ignore_enabled = value; }
 	inline void setAction(Script_ISchemeEntity* const p_action) { this->m_p_action = p_action; }
 	inline Script_ISchemeEntity* getAction(void) const { return this->m_p_action; }
-	inline void clear(void) noexcept { this->m_is_ignore_enabled = false; }
+	inline void clear(void) noexcept override { Script_IComponentScheme::clear(); this->m_is_ignore_enabled = false; }
 
 private:
 	bool m_is_ignore_enabled;
@@ -2307,8 +2361,10 @@ struct Script_ComponentScheme_XRWounded : public Script_IComponentScheme
 		this->m_xr_wounded_wounded_section_name = section_name;
 	}
 
-	inline void clear(void) noexcept
+	inline void clear(void) noexcept override
 	{
+        Script_IComponentScheme::clear();
+
 		this->m_is_xr_wounded_autoheal = false;
 		this->m_is_xr_wounded_enable_talk = false;
 		this->m_is_xr_wounded_not_for_help = false;
@@ -2464,8 +2520,10 @@ struct Script_ComponentScheme_XRMeet : public Script_IComponentScheme
 		this->m_meet_section_name = name;
 	}
 
-	inline void clear(void)
+	inline void clear(void) noexcept override
 	{
+        Script_IComponentScheme::clear();
+
 		this->m_is_meet_only_at_path = true;
 		this->m_is_set = false;
 		this->m_reset_distance = 30.0f;
@@ -2654,8 +2712,10 @@ struct Script_ComponentScheme_XRCamper : public Script_IComponentScheme
 	inline std::uint32_t getMemoryEnemy(void) const noexcept { return this->m_memory_enemy; }
 	inline void setMemoryEnemy(const std::uint32_t value) noexcept { this->m_memory_enemy = value; }
 
-	inline void clear(void) noexcept
+	inline void clear(void) noexcept override
 	{
+        Script_IComponentScheme::clear();
+
 		this->m_is_no_retreat = false;
 		this->m_is_sniper = false;
 		this->m_wp_flag = 0;
@@ -2743,8 +2803,10 @@ struct Script_ComponentScheme_XRKamp : public Script_IComponentScheme
 		this->m_npc_position_num = value;
 	}
 
-	inline void clear(void) noexcept
+	inline void clear(void) noexcept override
 	{
+        Script_IComponentScheme::clear();
+
 		this->m_center_point_name.clear();
 		this->m_def_state_moving_name.clear();
 		this->m_radius = 0;
@@ -2807,8 +2869,10 @@ struct Script_ComponentScheme_XRSleeper : public Script_IComponentScheme
     inline const CondlistWaypoints& getPathLookInfo(void) const noexcept { return this->m_condlist_look; }
     inline void setPathLookInfo(const CondlistWaypoints& data) noexcept { this->m_condlist_look = data; }
 
-	inline void clear(void) noexcept
+	inline void clear(void) noexcept override
 	{
+        Script_IComponentScheme::clear();
+
 		this->m_is_wakeable = false;
 		this->m_path_look_name.clear();
 		this->m_path_main_name.clear();
@@ -2924,8 +2988,10 @@ struct Script_ComponentScheme_XRWalker : public Script_IComponentScheme
 		this->m_sound_idle_name = sound_name;
 	}
 
-	inline void clear(void) noexcept
+	inline void clear(void) noexcept override
 	{
+        Script_IComponentScheme::clear();
+
 		this->m_is_use_camp = false;
 		this->m_description_name.clear();
 		this->m_path_look_name.clear();
@@ -3061,8 +3127,10 @@ struct Script_ComponentScheme_XRRemark : public Script_IComponentScheme
 		this->m_animation_condlist = condlist;
 	}
 
-	inline void clear(void) noexcept
+	inline void clear(void) noexcept override
 	{
+        Script_IComponentScheme::clear();
+
 		this->m_is_sound_animation_sync = false;
 		this->m_is_target_initialized = false;
 		this->m_target_id = 0;
@@ -3094,8 +3162,9 @@ struct Script_ComponentScheme_XRGatherItems : public Script_IComponentScheme
 	inline bool isGatherItemsEnabled(void) const noexcept { return this->m_is_gather_items_enabled; }
 	inline void setGatherItemsEnabled(const bool value) noexcept { this->m_is_gather_items_enabled = value; }
 
-	inline void clear(void) noexcept
+	inline void clear(void) noexcept override
 	{
+        Script_IComponentScheme::clear();
 		this->m_is_gather_items_enabled = false;
 	}
 
@@ -3107,7 +3176,7 @@ struct Script_ComponentScheme_XRHit : public Script_IComponentScheme
 {
     Script_ComponentScheme_XRHit(void) : Script_IComponentScheme() {}
 
-    inline void clear(void) noexcept {}
+    inline void clear(void) noexcept override { Script_IComponentScheme::clear(); }
 };
 
 struct Script_ComponentScheme_XRHelpWounded : public Script_IComponentScheme
@@ -3136,8 +3205,10 @@ struct Script_ComponentScheme_XRHelpWounded : public Script_IComponentScheme
     inline const Fvector& getVertexPosition(void) const noexcept { return this->m_vertex_position; }
     inline void setVertexPosition(const Fvector& data) noexcept { this->m_vertex_position = data; }
 
-	inline void clear(void) noexcept
+	inline void clear(void) noexcept override
 	{
+        Script_IComponentScheme::clear();
+
 		this->m_is_wounded_enabled = false;
         this->m_selected_id = 0;
         this->m_level_vertex_id = 0;
@@ -3176,8 +3247,10 @@ struct Script_ComponentScheme_XRCombat : public Script_IComponentScheme
 		this->m_xr_combat_combat_type_condlist = condlist;
 	}
 
-	inline void clear(void) noexcept
+	inline void clear(void) noexcept override
 	{
+        Script_IComponentScheme::clear();
+
 		this->m_xr_combat_combat_type_condlist.clear();
 		this->m_xr_combat_script_combat_type_name.clear();
 	}
@@ -3190,8 +3263,10 @@ struct Script_ComponentScheme_XRCorpseDetection : public Script_IComponentScheme
 {
 	Script_ComponentScheme_XRCorpseDetection(void) : Script_IComponentScheme(), m_selected_corpse_id(0), m_level_vertex_id(0) {}
 	
-    inline void clear(void) noexcept 
+    inline void clear(void) noexcept override 
     {
+        Script_IComponentScheme::clear();
+
         this->m_selected_corpse_id = 0; 
         this->m_level_vertex_id = 0;
         this->m_vertex_position.x = 0.0f;
@@ -3250,8 +3325,10 @@ struct Script_ComponentScheme_XRAbuse : public Script_IComponentScheme
 		this->m_p_abuse_manager = p_object;
 	}
 
-	inline void clear(void)
+	inline void clear(void) noexcept override
 	{
+        Script_IComponentScheme::clear();
+
 		if (this->m_p_abuse_manager)
 		{
 			MESSAGEI("deleting abuse manager!");
@@ -3266,8 +3343,9 @@ struct Script_ComponentScheme_XRDanger : public Script_IComponentScheme
 {
     Script_ComponentScheme_XRDanger(void) : Script_IComponentScheme(), m_danger_time(0) {}
 
-    inline void clear(void) noexcept 
+    inline void clear(void) noexcept override 
     {
+        Script_IComponentScheme::clear();
         this->m_danger_time = 0;
     }
 
@@ -3301,8 +3379,10 @@ struct Script_ComponentScheme_XRDeath : public Script_IComponentScheme
 		this->m_xr_death_info2 = data;
 	}
 
-	inline void clear(void) noexcept
+	inline void clear(void) noexcept override
 	{
+        Script_IComponentScheme::clear();
+
 		this->m_xr_death_info.clear();
 		this->m_xr_death_info2.clear();
 	}
@@ -3315,7 +3395,7 @@ struct Script_ComponentScheme_SRIdle : public Script_IComponentScheme
 {
     Script_ComponentScheme_SRIdle(void) : Script_IComponentScheme() {}
 
-    inline void clear(void) noexcept {}
+    inline void clear(void) noexcept override { Script_IComponentScheme::clear(); }
 
 private:
 };
@@ -3437,8 +3517,10 @@ struct Script_ComponentScheme_SRDeimos : public Script_IComponentScheme
     inline void setDeimosIntensity(const float value) noexcept { this->m_deimos_intensity = value; }
     inline float getDeimosIntensity(void) const noexcept { return this->m_deimos_intensity; }
 
-	inline void clear(void) noexcept
+	inline void clear(void) noexcept override
 	{
+        Script_IComponentScheme::clear();
+
 		this->m_camera_effector_name.clear();
 		this->m_camera_effector_repeating_time = 0;
 		this->m_intensity = 0.0f;
@@ -3482,8 +3564,9 @@ struct Script_ComponentScheme_SRLight : public Script_IComponentScheme
 	inline bool isLight(void) const noexcept { return this->m_is_light; }
 	inline void setLight(const bool value) noexcept { this->m_is_light = value; }
 
-	inline void clear(void) noexcept
+	inline void clear(void) noexcept override
 	{
+        Script_IComponentScheme::clear();
 		this->m_is_light = false;
 	}
 private:
@@ -3494,7 +3577,7 @@ struct Script_ComponentScheme_SRSilenceZone : public Script_IComponentScheme
 {
     Script_ComponentScheme_SRSilenceZone(void) : Script_IComponentScheme() {}
 
-    inline void clear(void) noexcept {}
+    inline void clear(void) noexcept override { Script_IComponentScheme::clear(); }
 
 private:
 };
@@ -3503,7 +3586,7 @@ struct Script_ComponentScheme_SRNoWeapon : public Script_IComponentScheme
 {
     Script_ComponentScheme_SRNoWeapon(void) : Script_IComponentScheme() {}
 
-    inline void clear(void) noexcept {}
+    inline void clear(void) noexcept override { Script_IComponentScheme::clear(); }
 
 private:
 };
@@ -3542,8 +3625,9 @@ struct Script_ComponentScheme_SRParticle : public Script_IComponentScheme
 		this->m_path_name = path_name;
 	}
 
-	inline void clear(void) noexcept
+	inline void clear(void) noexcept override
 	{
+        Script_IComponentScheme::clear();
 		this->m_is_looped = false;
 		this->m_mode = 0;
 		this->m_name.clear();
@@ -3561,8 +3645,9 @@ struct Script_ComponentScheme_SRPostProcess : public Script_IComponentScheme
 {
 	Script_ComponentScheme_SRPostProcess(void) : Script_IComponentScheme(), m_hit_intensity(0.0f), m_intensity(0.0f), m_intensity_speed(0.0f) {}
 
-	inline void clear(void) noexcept
+	inline void clear(void) noexcept override
 	{
+        Script_IComponentScheme::clear();
 		this->m_hit_intensity = 0.0f;
 		this->m_intensity_speed = 0.0f;
 		this->m_intensity = 0.0f;
@@ -3593,8 +3678,9 @@ struct Script_ComponentScheme_SRPsyAntenna : public Script_IComponentScheme
 {
 	Script_ComponentScheme_SRPsyAntenna(void) : Script_IComponentScheme() { this->clear(); }
 
-	inline void clear(void) noexcept
+	inline void clear(void) noexcept override
 	{
+        Script_IComponentScheme::clear();
 		this->m_is_sr_psy_antenna_no_static = false;
 		this->m_is_sr_psy_antenna_no_mumble = false;
 		this->m_sr_psy_antenna_intensity = 0.0f;
@@ -3704,8 +3790,9 @@ struct Script_ComponentScheme_SRTeleport : public Script_IComponentScheme
 		this->m_points = data;
 	}
 
-	inline void clear(void) noexcept
+	inline void clear(void) noexcept override
 	{
+        Script_IComponentScheme::clear();
 		this->m_points.clear();
 		this->m_timeout = 0;
 	}
@@ -3789,8 +3876,9 @@ struct Script_ComponentScheme_SRTimer : public Script_IComponentScheme
 		this->m_sr_timer_on_value = data;
 	}
 
-	inline void clear(void) noexcept
+	inline void clear(void) noexcept override
 	{
+        Script_IComponentScheme::clear();
 		this->m_sr_timer_start_value = 0;
 		this->m_p_sr_timer_timer = nullptr;
 		this->m_p_sr_timer_ui = nullptr;
@@ -3839,8 +3927,9 @@ struct Script_ComponentScheme_PHSound : public Script_IComponentScheme
 	inline std::uint32_t getPauseMax(void) const noexcept { return this->m_pause_max; }
 	inline void setPauseMax(const std::uint32_t value) noexcept { this->m_pause_max = value; }
 
-	inline void clear(void) noexcept
+	inline void clear(void) noexcept override
 	{
+        Script_IComponentScheme::clear();
 		this->m_is_random = false;
 		this->m_is_no_hit = false;
 		this->m_is_looped = false;
@@ -3882,8 +3971,9 @@ struct Script_ComponentScheme_PHOscillate : public Script_IComponentScheme
     inline float getForce(void) const noexcept { return this->m_force; }
     inline void setForce(const float value) noexcept { this->m_force = value; }
 
-	inline void clear(void) noexcept
+	inline void clear(void) noexcept override
 	{
+        Script_IComponentScheme::clear();
 		this->m_period = 0;
         this->m_force = 0.0f;
         this->m_angle = 0.0f;
@@ -3901,7 +3991,7 @@ struct Script_ComponentScheme_PHOnHit : public Script_IComponentScheme
 {
     Script_ComponentScheme_PHOnHit(void) : Script_IComponentScheme() {}
 
-    inline void clear(void) noexcept {}
+    inline void clear(void) noexcept override { Script_IComponentScheme::clear(); }
 
 private:
 };
@@ -3913,8 +4003,9 @@ struct Script_ComponentScheme_PHIdle : public Script_IComponentScheme
 	inline bool IsNonScriptUsable(void) const noexcept { return this->m_is_nonscript_usable; }
 	inline void setNonScriptUsable(const bool value) noexcept { this->m_is_nonscript_usable = value; }
 
-	inline void clear(void) noexcept
+	inline void clear(void) noexcept override
 	{
+		Script_IComponentScheme::clear();
 		this->m_is_nonscript_usable = false;
         this->m_condlist_on_use.clear();
         this->m_tip_name.clear();
@@ -3960,8 +4051,9 @@ struct Script_ComponentScheme_PHHit : public Script_IComponentScheme
 {
 	Script_ComponentScheme_PHHit(void) : Script_IComponentScheme(), m_power(0.0f), m_impulse(0.0f) {}
 
-	inline void clear(void) noexcept
+	inline void clear(void) noexcept override
 	{
+		Script_IComponentScheme::clear();
 		this->m_bone_name.clear();
 		this->m_direction_path_name.clear();
 		this->m_power = 0.0f;
@@ -4013,7 +4105,7 @@ struct Script_ComponentScheme_PHDeath : public Script_IComponentScheme
 {
     Script_ComponentScheme_PHDeath(void) : Script_IComponentScheme() {}
 
-    inline void clear(void) noexcept {}
+    inline void clear(void) noexcept override { Script_IComponentScheme::clear(); }
 private:
 
 };
@@ -4151,8 +4243,9 @@ struct Script_ComponentScheme_PHDoor : public Script_IComponentScheme
 		this->m_hit_on_bone = data;
 	}
 
-	inline void clear(void) noexcept
+	inline void clear(void) noexcept override
 	{
+		Script_IComponentScheme::clear();
 		this->m_is_closed = false;
 		this->m_is_locked = false;
 		this->m_is_no_force = false;
@@ -4193,8 +4286,9 @@ struct Script_ComponentScheme_PHCode : public Script_IComponentScheme
 {
 	Script_ComponentScheme_PHCode(void) : Script_IComponentScheme(), m_code(0) {}
 
-	inline void clear(void) noexcept
+	inline void clear(void) noexcept override
 	{
+		Script_IComponentScheme::clear();
 		this->m_code = 0;
 		this->m_on_code_condlist.clear();
 		this->m_on_check_code.clear();
@@ -4236,8 +4330,9 @@ struct Script_ComponentScheme_PHForce : public Script_IComponentScheme
 {
 	Script_ComponentScheme_PHForce(void) : Script_IComponentScheme(), m_time(0), m_delay(0), m_force(0.0f) {}
 
-	inline void clear(void) noexcept
+	inline void clear(void) noexcept override
 	{
+		Script_IComponentScheme::clear();
 		this->m_time = 0;
 		this->m_delay = 0;
         this->m_force = 0.0f;
@@ -4372,8 +4467,9 @@ struct Script_ComponentScheme_Helicopter : public Script_IComponentScheme
 	inline bool IsStopFire(void) const noexcept { return this->m_is_stop_fire; }
 	inline void setStopFire(const bool value) noexcept { this->m_is_stop_fire = value; }
 
-	inline void clear(void) noexcept
+	inline void clear(void) noexcept override
 	{
+		Script_IComponentScheme::clear();
 		this->m_is_use_rocket = false;
 		this->m_is_show_health = false;
 		this->m_is_fire_trail = false;
@@ -4428,6 +4524,9 @@ public:
 		{
 			ComponentType& reference = this->m_buffer.at(npc_id);
 			reference.clear();
+
+            R_ASSERT2(reference.isCalledClear(), "You must called this method in your override function! See others Script_ComponentScheme_!!!!");
+            reference.setCalledClear(false);
 
             return static_cast<void*>(&reference);
 		}

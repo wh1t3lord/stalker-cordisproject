@@ -39,8 +39,9 @@ public:
         {
             strconcat(sizeof(S), S, caBaseName, caBaseNames[i]);
             A[i] = tpKinematics->ID_Cycle_Safe(S);
+
 #ifdef DEBUG
-            if (A[i] /*&& psAI_Flags.test(aiAnimation)*/)
+            if (A[i])
                 MESSAGE("* Loaded animation %s", S);
 #endif
         }

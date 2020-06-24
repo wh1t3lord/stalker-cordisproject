@@ -281,7 +281,6 @@ void CGameObject::reload(LPCSTR section) { m_script_clsid = object_factory().scr
 void CGameObject::net_Destroy()
 {
 #ifdef DEBUG
-/*    if (psAI_Flags.test(aiDestroy))*/
         MESSAGEI("Destroying client object [%d][%s][%x]", ID(), *cName(), this);
 #endif
 
@@ -645,22 +644,14 @@ void CGameObject::net_Save(NET_Packet& net_packet)
 
 // Script Binder Save ---------------------------------------
 #ifdef DEBUG
-   // if (psAI_Flags.test(aiSerialize))
-   // {
         MESSAGE(">> **** Save script object [%s] *****", *cName());
         MESSAGE(">> Before save :: packet position = [%u]", net_packet.w_tell());
-   // }
-
 #endif
 
     scriptBinder.save(net_packet);
 
 #ifdef DEBUG
-
-   // if (psAI_Flags.test(aiSerialize))
-   // {
         MESSAGE(">> After save :: packet position = [%u]", net_packet.w_tell());
-   // }
 #endif
 
     // ----------------------------------------------------------
@@ -674,22 +665,14 @@ void CGameObject::net_Load(IReader& ireader)
 
 // Script Binder Load ---------------------------------------
 #ifdef DEBUG
-  //  if (psAI_Flags.test(aiSerialize))
-  //  {
         MESSAGE(">> **** Load script object [%s] *****", *cName());
         MESSAGE(">> Before load :: reader position = [%i]", ireader.tell());
-   // }
-
 #endif
 
     scriptBinder.load(ireader);
 
 #ifdef DEBUG
-
-   // if (psAI_Flags.test(aiSerialize))
-  //  {
         MESSAGE(">> After load :: reader position = [%i]", ireader.tell());
-   // }
 #endif
 // ----------------------------------------------------------
 #ifdef DEBUG

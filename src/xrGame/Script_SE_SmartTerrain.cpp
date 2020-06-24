@@ -924,7 +924,7 @@ void Script_SE_SmartTerrain::read_params(void)
     CInifile& ini = this->spawn_ini();
     if (!ini.section_exist(Globals::kSmartTerrainSMRTSection))
     {
-        R_ASSERT2(false, "YOU LOGIC MUST CONTAIN SECTION [smart_terrain]");
+        R_ASSERT2(false, "YOUR LOGIC-CONFIG MUST CONTAIN SECTION [smart_terrain]");
         this->m_is_disabled = true;
         return;
     }
