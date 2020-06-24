@@ -53,7 +53,6 @@ bool CInventoryOwner::OnReceiveInfo(shared_str info_id) const
         return false;
 
 #ifdef DEBUG
-   // if (psAI_Flags.test(aiInfoPortion))
         MESSAGE("[%s] Received Info [%s]", Name(), *info_id);
 #endif
 
@@ -81,7 +80,6 @@ void CInventoryOwner::OnDisableInfo(shared_str info_id) const
 //удалить запись из реестра
 
 #ifdef DEBUG
-  //  if (psAI_Flags.test(aiInfoPortion))
         MESSAGE("[%s] Disabled Info [%s]", Name(), info_id.c_str());
 #endif
 
