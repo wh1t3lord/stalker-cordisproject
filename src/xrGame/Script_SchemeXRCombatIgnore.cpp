@@ -98,7 +98,8 @@ namespace Cordis
 			}
 		}
 
-		bool Script_SchemeXRCombatIgnore::is_enemy_xr_combat_ignore(CScriptGameObject* const p_client_object, CScriptGameObject* const p_enemy, DataBase::Script_ComponentScheme_XRCombatIgnore* p_storage)
+		bool Script_SchemeXRCombatIgnore::is_enemy_xr_combat_ignore(CScriptGameObject* const p_client_object,
+			CScriptGameObject* const p_enemy, DataBase::Script_ComponentScheme_XRCombatIgnore* p_storage)
 		{
 			if (!p_client_object)
 			{
