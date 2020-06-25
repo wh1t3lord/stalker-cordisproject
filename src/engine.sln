@@ -1,6 +1,7 @@
+﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
-VisualStudioVersion = 16.0.29025.244
+VisualStudioVersion = 16.0.30204.135
 MinimumVisualStudioVersion = 14.0.25420.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "utils", "utils", "{89F6A7EE-3BBE-45D3-A8A8-5D9366CD987B}"
 EndProject
@@ -1969,7 +1970,7 @@ Global
 		{F2BB121D-7F4E-35E6-ADE4-76070B718E5C} = {D586E72D-E56B-4A8C-BAFE-147D46FAEED8}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {C5A32302-94F5-41B8-9606-017BB6BA69A6}
+		SolutionGuid = {CBCA6371-3B55-3FC7-A451-F7A7DB6058CF}
 	EndGlobalSection
 	GlobalSection(DPCodeReviewSolutionGUID) = preSolution
 		DPCodeReviewSolutionGUID = {00000000-0000-0000-0000-000000000000}

@@ -338,116 +338,7 @@ void CRenderDevice::message_loop_weather_editor()
 }
 
 void CRenderDevice::message_loop()
-{
-    static bool bDrag = false;
-    static int WindowX = 0;
-    static int WindowY = 0;
-    SDL_GetWindowSize(Device.m_sdlWnd, &WindowX, &WindowY);
-    if (FS.IsSDK())
-    {
-        SDL_Event event;
-
-        Device.b_is_Active = TRUE;
-        // Lord: Message system for SDK
-        while (!SDK_QuitMessage::GetState())
-        {
-            const Uint8* keystate = SDL_GetKeyboardState(NULL);
-            if (bDrag)
-            {
-                if (keystate[SDL_SCANCODE_W])
-                {
-                    SDK_Camera::GetInstance().MoveForward(0.1f);
-                }
-                if (keystate[SDL_SCANCODE_S])
-                {
-                    SDK_Camera::GetInstance().MoveForward(-0.1f);
-                }
-                if (keystate[SDL_SCANCODE_A])
-                {
-                    SDK_Camera::GetInstance().MoveRight(-0.1f);
-                }
-                if (keystate[SDL_SCANCODE_D])
-                {
-                    SDK_Camera::GetInstance().MoveRight(0.1f);
-                }
-            }
-
-            while (SDL_PollEvent(&event))
-            {
-                if (event.type == SDL_WINDOWEVENT_CLOSE)
-                {
-                    SDK_QuitMessage::TellAppToClose();
-                }
-                else if (event.type == SDL_WINDOWEVENT_MAXIMIZED)
-                {
-                    OnWM_Activate(1, event.window.data2);
-                }
-                else if (event.type == SDL_MOUSEBUTTONDOWN)
-                {
-                    switch (event.button.button)
-                    {
-                    case SDL_BUTTON_RIGHT:
-                    {
-                        bDrag = true;
-						// Lord: Что-то перемещает курсор при right click
-//                         SDL_WarpMouseInWindow(Device.m_sdlWnd, WindowX / 2, WindowY / 2);  
-//                         SDL_SetWindowGrab(Device.m_sdlWnd, SDL_TRUE);
-
-                        SDL_SetRelativeMouseMode(SDL_TRUE);
-
-                        break;
-                    }
-                    }
-                }
-                else if (event.type == SDL_MOUSEBUTTONUP)
-                {
-                    switch (event.button.button)
-                    {
-                    case SDL_BUTTON_RIGHT:
-                    {
-                        bDrag = false;
-                        SDL_SetRelativeMouseMode(SDL_FALSE);
-                        SDL_SetWindowGrab(Device.m_sdlWnd, SDL_FALSE);
-                        break;
-                    }
-                    }
-                }
-                else if (event.type == SDL_MOUSEMOTION)
-                {
-                    float dx = event.motion.xrel;
-                    float dy = event.motion.yrel;
-
-                    SDK_Camera::GetInstance().dx = dx;
-                    SDK_Camera::GetInstance().dy = dy;
-                    if (bDrag)
-                    {
-
-                        float scale = SDK_Camera::GetInstance().fSens;
-
-                        if (dx)
-                        {
-                            float d = float(dx) * scale;
-                            SDK_Camera::GetInstance().Rotate((d < 0) ? kLEFT : kRIGHT, _abs(d));
-
-                        }
-                        if (dy)
-                        {
-                            float d = float(dy) * scale * 3.f / 4.f;
-                            SDK_Camera::GetInstance().Rotate((d > 0) ? kUP : kDOWN, _abs(d));
-                            
-                        }
-                    }
- 
-
-                }
-
-                ImGui_ImplSDL2_ProcessEvent(&event);
-            }
-            on_idle();
-        }
-    }
-    else
-    {
+{ 
         if (editor())
         {
             message_loop_weather_editor();
@@ -512,7 +403,6 @@ void CRenderDevice::message_loop()
             on_idle();
             SDL_PumpEvents();
         }
-    }
 }
 bool done = false;
 void CRenderDevice::Run()
@@ -549,11 +439,7 @@ void CRenderDevice::Run()
     SDL_ShowWindow(m_sdlWnd);
     SDL_RaiseWindow(m_sdlWnd);
 
-    // Lord: Определяем использовать нам инпут ПЫС или нет
-    if (FS.IsSDK())
-        pInput->GrabInput(false);
-    else
-        pInput->GrabInput(true);
+    pInput->GrabInput(true);
 
     message_loop();
 

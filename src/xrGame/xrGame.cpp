@@ -126,8 +126,9 @@ BOOL APIENTRY DllMain(HANDLE hModule, u32 ul_reason_for_call, LPVOID lpReserved)
 #ifdef DEBUG
         GEnv.DRender = &DebugRenderImpl;
 #endif
+/* ToZazTread
         xrRender_initconsole();
-        load(0, nullptr, nullptr);
+        load(0, nullptr, nullptr);*/
         break;
     }
 

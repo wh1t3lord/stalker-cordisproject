@@ -18,23 +18,28 @@ int entry_point(pcstr commandLine)
 {
     Cordis::TaskManager::getInstance().initialize();
 
-    xrDebug::Initialize();
     R_ASSERT3(SDL_Init(SDL_INIT_VIDEO) == 0, "Unable to initialize SDL", SDL_GetError());
 
-    if (!strstr(commandLine, "-nosplash"))
-    {
-        const bool topmost = !strstr(commandLine, "-splashnotop");
-        splash::show(topmost);
-    }
+    Cordis::TaskManager::getInstance().getCore()->run([&]() {
+		if (!strstr(commandLine, "-nosplash"))
+		{
+			const bool topmost = !strstr(commandLine, "-splashnotop");
+			splash::show(topmost);
+		}
+    });
 
-    if (strstr(commandLine, "-dedicated"))
-        GEnv.isDedicatedServer = true;
+    Cordis::TaskManager::getInstance().getCore()->run([&]() {
+		xrDebug::Initialize();
+
+		if (strstr(commandLine, "-dedicated"))
+			GEnv.isDedicatedServer = true;
 
 #ifdef WINDOWS
-    StickyKeyFilter filter;
-    if (!GEnv.isDedicatedServer)
-        filter.initialize();
+		StickyKeyFilter filter;
+		if (!GEnv.isDedicatedServer)
+			filter.initialize();
 #endif
+   });
 
     pcstr fsltx = "-fsltx ";
     string_path fsgame = "";
