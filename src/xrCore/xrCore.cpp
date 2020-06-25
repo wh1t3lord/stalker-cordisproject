@@ -416,7 +416,12 @@ BOOL WINAPI DllMain(HINSTANCE hinstDLL, DWORD ul_reason_for_call, LPVOID lpvRese
         https://users.livejournal.com/-winnie/151099.html
         https://github.com/tebjan/TimerTool
     */
-    case DLL_PROCESS_ATTACH: timeBeginPeriod(1); break;
+    case DLL_PROCESS_ATTACH: {
+        timeBeginPeriod(1);
+        testing::InitGoogleTest();
+        RUN_ALL_TESTS();
+        break;
+    }
     case DLL_PROCESS_DETACH: timeEndPeriod  (1); break;
     }
     return TRUE;

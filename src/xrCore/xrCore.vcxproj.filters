@@ -190,6 +190,9 @@
     <Filter Include="Cordis\Scripts\Data Structures\Public">
       <UniqueIdentifier>{108ffb4e-18f1-4262-a65c-29b59b1ca098}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Unit Testing">
+      <UniqueIdentifier>{8beafa9e-e2a3-46fd-9dd0-19651e6d3931}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="FTimer.cpp">
@@ -437,6 +440,9 @@
     </ClCompile>
     <ClCompile Include="SDK_NodeTreeFolder.cpp">
       <Filter>Cordis\SDK\Data structures\Tree\Node\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Test.cpp">
+      <Filter>Unit Testing</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
