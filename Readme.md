@@ -16,4 +16,9 @@ HOW TO USE:
     3. Build the solution in IDE or use cmake file.
     
         
-        
+TO Build google test write this: "cmake ."
+And add to all projects which you want to test
+1. Open project configuration -> Preprocessor -> "$(xrSdkDir)googletest\googletest\;"
+2. add this ONCE to any .cpp file in your project: "#include <src\gtest-all.cc>"
+3. If you project is dll write this in DllMain function in section where is DLL_PROCESS_ATTACH (or just in main or WinMain function if a project is exe): "testing::initGoogleTest(); RUN_ALL_TESTS();"
+4. Or you can see implemented examples with unit testing in projects xrCore, xrGame and xrEngine (all three dlls), xr_3da (exe).
