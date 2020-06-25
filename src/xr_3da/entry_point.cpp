@@ -78,7 +78,7 @@ int main(int argc, char* argv[])
 		for (i = 1; i < argc; ++i)
 			sum += strlen(argv[i]) + strlen(" \0");
 
-		commandLine = (char*)xr_malloc(sum);
+		commandLine = xr_alloc<char>(sum);
 		ZeroMemory(commandLine, sum);
 
 		for (i = 1; i < argc; ++i)
@@ -91,9 +91,10 @@ int main(int argc, char* argv[])
 		commandLine = strdup("");
 
  
-    int result = entry_point(commandLine);
+	int result = entry_point(commandLine);
 
-	xr_free(commandLine);
+    if (commandLine && argc > 1)
+	    xr_free(commandLine);
 
     return result;
 }
