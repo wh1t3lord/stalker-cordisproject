@@ -220,7 +220,7 @@ void CGamePersistent::OnAppStart()
     inherited::OnAppStart();
     GEnv.UI = new UICore();
     // Lord: Вырезание меню
-    m_pMainMenu = new CMainMenu();
+//    m_pMainMenu = new CMainMenu(); ToZaz перенести в другое место
 #ifdef WINDOWS
     ansel = new AnselManager();
     ansel->Load();
