@@ -12,6 +12,8 @@
 #include "xrEngine/splash.h"
 #include <SDL.h>
 
+#include <src/gtest-all.cc>
+
 int entry_point(pcstr commandLine)
 {
     xrDebug::Initialize();
@@ -66,6 +68,8 @@ int APIENTRY WinMain(HINSTANCE inst, HINSTANCE prevInst, char* commandLine, int 
 
 int main(int argc, char* argv[])
 {
+	testing::InitGoogleTest(&argc, argv);
+
 	char* commandLine = nullptr;
 	int i;
 	if (argc > 1)
@@ -86,6 +90,7 @@ int main(int argc, char* argv[])
 	else
 		commandLine = strdup("");
 
+ 
     int result = entry_point(commandLine);
 
 	xr_free(commandLine);

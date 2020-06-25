@@ -4372,6 +4372,9 @@
     <Filter Include="Cordis\Scripts\Database\Public\Allocators\Public">
       <UniqueIdentifier>{80406785-d5d6-4c34-a0ff-f3fbcf58c79a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Unit Testing">
+      <UniqueIdentifier>{1f19092a-8d4c-4dde-b859-f9bbb3951fb9}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="mt_config.h">
@@ -14270,6 +14273,9 @@
     </ClCompile>
     <ClCompile Include="Script_XR_Logic.cpp">
       <Filter>Cordis\Scripts\XR\Logic\Public</Filter>
+    </ClCompile>
+    <ClCompile Include="TestComponentsScheme.cpp">
+      <Filter>Unit Testing</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

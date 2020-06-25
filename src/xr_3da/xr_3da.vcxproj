@@ -135,7 +135,7 @@
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp17</LanguageStandard>
       <EnableEnhancedInstructionSet Condition="'$(Platform)'=='Win32'">StreamingSIMDExtensions2</EnableEnhancedInstructionSet>
-      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Mixed|x64'">$(xrSdkDir)googletest\googletest\include\;$(xrSdkDir)Visual Leak Detector\include;$(xrSdkDir)lib_boost\;
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Mixed|x64'">$(xrSdkDir)googletest\googletest\;$(xrSdkDir)googletest\googletest\include\;$(xrSdkDir)Visual Leak Detector\include;$(xrSdkDir)lib_boost\;
         .;
         $(SolutionDir);
         $(xrExternals);
@@ -222,7 +222,6 @@ $(xrSdkDir)lib_boost\stage\lib\;        $(xrSdkDir)libraries;
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="entry_point.cpp" />
-    <ClCompile Include="Source.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader>Create</PrecompiledHeader>
     </ClCompile>
