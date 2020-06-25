@@ -200,6 +200,7 @@
         %(AdditionalIncludeDirectories)
       </AdditionalIncludeDirectories>
       <WarningLevel>TurnOffAllWarnings</WarningLevel>
+      <AdditionalOptions>/Zm1000 %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <Link>
       <AdditionalLibraryDirectories>$(xrSdkDir)lib_boost\stage\lib\;        $(xrSdkDir)libraries;
