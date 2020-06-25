@@ -146,6 +146,11 @@ using RTokenVec = xr_vector<xr_rtoken>;
 
 #pragma region Cordis Includes
 #include "Cordis_ScriptDataStructures.h"
+#include <tbb/tbb.h>
+#include <tbb/task_scheduler_init.h>
+#include <tbb/parallel_for.h>
+#include <tbb/blocked_range.h>
+#include "TaskManager.h"
 #pragma endregion
 
 // destructor
