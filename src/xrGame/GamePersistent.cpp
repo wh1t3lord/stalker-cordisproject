@@ -161,8 +161,6 @@ CGamePersistent::CGamePersistent(void)
 CGamePersistent::~CGamePersistent(void)
 {
     FS.r_close(pDemoFile);
-    // Lord:
-    SDK_Connection::GetInstance()->DisConnect();
     Device.seqFrame.Remove(this);
     Engine.Event.Handler_Detach(eDemoStart, this);
     Engine.Event.Handler_Detach(eQuickLoad, this);
@@ -219,6 +217,7 @@ void CGamePersistent::OnAppStart()
     init_game_globals();
     inherited::OnAppStart();
     GEnv.UI = new UICore();
+    CUIXmlInit::InitColorDefs();
     // Lord: Вырезание меню
 //    m_pMainMenu = new CMainMenu(); ToZaz перенести в другое место
 #ifdef WINDOWS
@@ -501,13 +500,6 @@ bool allow_intro()
 
 void CGamePersistent::start_logo_intro()
 {
-    if (FS.IsSDK())
-    {
-        m_intro_event = 0;
-        SDK_Connection::GetInstance()->Connect();
-        return;
-    }
-
     if (!allow_intro()) // TODO this is dirty hack, rewrite!
     {
         m_intro_event = 0;
@@ -647,11 +639,13 @@ void CGamePersistent::OnFrame()
         load_screen_renderer.stop();
 
     // Lord: Вырезание меню
-    if (!m_pMainMenu->IsActive())
-        m_pMainMenu->DestroyInternal(false);
+    if (this->m_pMainMenu)
+        if (!m_pMainMenu->IsActive())
+            m_pMainMenu->DestroyInternal(false);
 
     if (!g_pGameLevel)
         return;
+
     if (!g_pGameLevel->bReady)
         return;
 

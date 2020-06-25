@@ -85,7 +85,6 @@ CMainMenu::CMainMenu() : languageChanged(false)
     if (Device.b_is_Ready)
         OnDeviceCreate();
     ReadTextureInfo();
-    CUIXmlInit::InitColorDefs();
     g_btnHint = NULL;
     g_statHint = NULL;
     m_deactivated_frame = 0;

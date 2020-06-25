@@ -16,17 +16,11 @@
 
 int entry_point(pcstr commandLine)
 {
+    splash::show(true);
+
     Cordis::TaskManager::getInstance().initialize();
 
     R_ASSERT3(SDL_Init(SDL_INIT_VIDEO) == 0, "Unable to initialize SDL", SDL_GetError());
-
-    Cordis::TaskManager::getInstance().getCore()->run([&]() {
-		if (!strstr(commandLine, "-nosplash"))
-		{
-			const bool topmost = !strstr(commandLine, "-splashnotop");
-			splash::show(topmost);
-		}
-    });
 
     Cordis::TaskManager::getInstance().getCore()->run([&]() {
 		xrDebug::Initialize();
