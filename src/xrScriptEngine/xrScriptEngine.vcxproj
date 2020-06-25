@@ -211,7 +211,7 @@
       <PreprocessorDefinitions>_USRDLL;XRSCRIPTENGINE_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>
         .;
- $(xrSdkDir)Visual Leak Detector\include;   $(xrSdkDir)lib_boost\;    $(SolutionDir);
+ $(xrSdkDir)googletest\googletest\include\;$(xrSdkDir)Visual Leak Detector\include;   $(xrSdkDir)lib_boost\;    $(SolutionDir);
         $(xrExternals);
         $(ProjectDir);
         $(xrSdkDir)include;

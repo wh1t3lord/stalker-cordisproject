@@ -58,21 +58,41 @@ int StackoverflowFilter(const int exceptionCode)
     return EXCEPTION_CONTINUE_SEARCH;
 }
 
+/*
 int APIENTRY WinMain(HINSTANCE inst, HINSTANCE prevInst, char* commandLine, int cmdShow)
+{    
+    return entry_point(commandLine);
+}*/
+
+int main(int argc, char* argv[])
 {
-    int result = 0;
-    // BugTrap can't handle stack overflow exception, so handle it here
-    __try
-    {
-        result = entry_point(commandLine);
-    }
-    __except (StackoverflowFilter(GetExceptionCode()))
-    {
-        _resetstkoflw();
-        FATAL("stack overflow");
-    }
+	char* commandLine = nullptr;
+	int i;
+	if (argc > 1)
+	{
+		size_t sum = 0;
+		for (i = 1; i < argc; ++i)
+			sum += strlen(argv[i]) + strlen(" \0");
+
+		commandLine = (char*)xr_malloc(sum);
+		ZeroMemory(commandLine, sum);
+
+		for (i = 1; i < argc; ++i)
+		{
+			strcat(commandLine, argv[i]);
+			strcat(commandLine, " ");
+		}
+	}
+	else
+		commandLine = strdup("");
+
+    int result = entry_point(commandLine);
+
+	xr_free(commandLine);
+
     return result;
 }
+
 #elif defined(LINUX)
 int main(int argc, char *argv[])
 {

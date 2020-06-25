@@ -226,7 +226,7 @@
       <DisableSpecificWarnings>4996;%(DisableSpecificWarnings)</DisableSpecificWarnings>
       <AdditionalIncludeDirectories>
         .;
- $(xrSdkDir)Visual Leak Detector\include; $(xrSdkDir)lib_boost\;      $(SolutionDir);
+ $(xrSdkDir)googletest\googletest\include\;$(xrSdkDir)Visual Leak Detector\include; $(xrSdkDir)lib_boost\;      $(SolutionDir);
         $(xrExternals);
         $(ProjectDir);
         $(xrSdkDir)include;
