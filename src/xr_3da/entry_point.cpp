@@ -16,6 +16,8 @@
 
 int entry_point(pcstr commandLine)
 {
+    Cordis::TaskManager::getInstance().initialize();
+
     xrDebug::Initialize();
     R_ASSERT3(SDL_Init(SDL_INIT_VIDEO) == 0, "Unable to initialize SDL", SDL_GetError());
 
@@ -42,7 +44,7 @@ int entry_point(pcstr commandLine)
         sscanf(strstr(commandLine, fsltx) + sz, "%[^ ] ", fsgame);
     }
     Core.m_Timer.Start();
-    Core.Initialize("OpenXRay", commandLine, nullptr, true, *fsgame ? fsgame : nullptr);
+    Core.Initialize("Cordis Project", commandLine, nullptr, true, *fsgame ? fsgame : nullptr);
 
     const auto result = RunApplication();
 
