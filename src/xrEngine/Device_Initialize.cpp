@@ -45,8 +45,6 @@ void CRenderDevice::Initialize()
 
     if (!m_sdlWnd)
     {
-        if (!FS.IsSDK())
-        {
             const Uint32 flags = SDL_WINDOW_BORDERLESS | SDL_WINDOW_HIDDEN | SDL_WINDOW_RESIZABLE | SDL_WINDOW_OPENGL;
 
             if (psDeviceFlags.test(rsRGL))
@@ -59,35 +57,11 @@ void CRenderDevice::Initialize()
                 SDL_GL_SetAttribute(SDL_GL_STENCIL_SIZE, 8);
             }
 
-            m_sdlWnd = SDL_CreateWindow("S.T.A.L.K.E.R.: Call of Pripyat", 0, 0, 640, 480, flags);
+            m_sdlWnd = SDL_CreateWindow("Cordis Project", 0, 0, 640, 480, flags);
             R_ASSERT3(m_sdlWnd, "Unable to create SDL window", SDL_GetError());
             SDL_SetWindowHitTest(m_sdlWnd, WindowHitTest, nullptr);
             SDL_SetWindowMinimumSize(m_sdlWnd, 256, 192);
             xrDebug::SetApplicationWindow(m_sdlWnd);
-        }
-        else
-        {
-            constexpr uint32_t flags =
-                SDL_WINDOW_OPENGL | SDL_WINDOW_HIDDEN | SDL_WINDOW_RESIZABLE;
-
-            if (psDeviceFlags.test(rsRGL))
-            {
-                SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE);
-                SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 4);
-                SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 1);
-                SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1);
-                SDL_GL_SetAttribute(SDL_GL_DEPTH_SIZE, 24);
-                SDL_GL_SetAttribute(SDL_GL_STENCIL_SIZE, 8);
-            }
-
-            m_sdlWnd = SDL_CreateWindow("S.T.A.L.K.E.R.: Call of Pripyat", 0, 0, 640, 480, flags);
-            R_ASSERT3(m_sdlWnd, "Unable to create SDL window", SDL_GetError());
-            SDL_SetWindowHitTest(m_sdlWnd, WindowHitTest, nullptr);
-            SDL_SetWindowMinimumSize(m_sdlWnd, 256, 192);
-            xrDebug::SetApplicationWindow(m_sdlWnd);
-        }
-
-
     }
 }
 

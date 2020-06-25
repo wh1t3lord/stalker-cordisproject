@@ -48,7 +48,7 @@ CInput::CInput(const bool exclusive)
 
     xrDebug::SetDialogHandler(on_error_dialog);
 
-    SDL_StopTextInput(); // sanity
+//    SDL_StopTextInput(); // sanity
     Device.seqAppActivate.Add(this);
     Device.seqAppDeactivate.Add(this, REG_PRIORITY_HIGH);
     Device.seqFrame.Add(this, REG_PRIORITY_HIGH);
