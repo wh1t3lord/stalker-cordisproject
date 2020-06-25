@@ -16,4 +16,4 @@ HOW TO USE:
     3. Build the solution in IDE or use cmake file.
     
         
-        
+TO Build google test write this: "cmake -DBUILD_SHARED_LIBS=ON ."
