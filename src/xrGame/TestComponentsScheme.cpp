@@ -32,3 +32,8 @@ GTEST_TEST(CurrentTest, TestComponent_SRIdle_SetGet) {
 GTEST_TEST(CurrentTest, Test_CGameObject) {
 	CGameObject instance;
 }
+
+GTEST_TEST(CurrentTest, Test_CScriptGameObject) {
+	CGameObject owner;
+	CScriptGameObject instance(&owner);
+}
