@@ -61,3 +61,9 @@
 [submodule "skia"]
 	path = skia
 	url = https://skia.googlesource.com/skia.git
+[submodule "googletest"]
+	path = googletest
+	url = https://github.com/google/googletest
+[submodule "sdk/googletest"]
+	path = sdk/googletest
+	url = https://github.com/google/googletest

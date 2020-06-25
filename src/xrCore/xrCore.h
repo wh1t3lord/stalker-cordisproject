@@ -116,6 +116,10 @@ using RTokenVec = xr_vector<xr_rtoken>;
 #pragma endregion
 
 
+#pragma region Cordis Google Test
+#include <gtest/gtest.h>
+#pragma endregion
+
 #pragma region Cordis
 // @ default message
 // Color: Gray in log  ouput
