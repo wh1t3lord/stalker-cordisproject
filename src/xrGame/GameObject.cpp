@@ -156,7 +156,9 @@ void CGameObject::cNameVisual_set(shared_str N)
     }
     else
     {
-        GEnv.Render->model_Delete(renderable.visual);
+        if (GEnv.Render)
+            GEnv.Render->model_Delete(renderable.visual);
+
         NameVisual = 0;
     }
     OnChangeVisual();
