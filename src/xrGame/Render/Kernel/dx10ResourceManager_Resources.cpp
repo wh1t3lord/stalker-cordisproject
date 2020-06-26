@@ -386,9 +386,11 @@ void CResourceManager::DeleteGeom(const SGeometry* Geom)
     Msg("! ERROR: Failed to find compiled geometry-declaration");
 }
 
+tbb::spin_mutex _spin_create_texture;
 //--------------------------------------------------------------------------------------------------------------
 CTexture* CResourceManager::_CreateTexture(LPCSTR _Name)
 {
+    tbb::spin_mutex::scoped_lock mutex{_spin_create_texture};
     // DBG_VerifyTextures	();
     if (0 == xr_strcmp(_Name, "null"))
         return 0;

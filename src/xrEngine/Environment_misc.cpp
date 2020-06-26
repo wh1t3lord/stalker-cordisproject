@@ -233,8 +233,11 @@ CEnvDescriptor::CEnvDescriptor(shared_str const& identifier) : m_identifier(iden
     {                                                                        \
         Msg("! Invalid '%s' in env-section '%s'", #C, m_identifier.c_str()); \
     }
+
+tbb::spin_mutex _spin_env_desc_load;
 void CEnvDescriptor::load(CEnvironment& environment, CInifile& config)
 {
+    tbb::spin_mutex::scoped_lock mutex{_spin_env_desc_load};
     Ivector3 tm = {0, 0, 0};
     sscanf(m_identifier.c_str(), "%d:%d:%d", &tm.x, &tm.y, &tm.z);
     R_ASSERT3((tm.x >= 0) && (tm.x < 24) && (tm.y >= 0) && (tm.y < 60) && (tm.z >= 0) && (tm.z < 60),
@@ -432,8 +435,10 @@ void CEnvDescriptorMixer::lerp(
 //-----------------------------------------------------------------------------
 // Environment IO
 //-----------------------------------------------------------------------------
+tbb::spin_mutex _spin_append_env_amb;
 CEnvAmbient* CEnvironment::AppendEnvAmb(const shared_str& sect)
 {
+    tbb::spin_mutex::scoped_lock mutex{_spin_append_env_amb};
     for (const auto& ambient : Ambients)
         if (ambient->name().equal(sect))
             return ambient;
@@ -503,8 +508,10 @@ void CEnvironment::load_level_specific_ambients()
     xr_delete(level_ambients);
 }
 
+tbb::spin_mutex _spin_create_descriptor;
 CEnvDescriptor* CEnvironment::create_descriptor(shared_str const& identifier, CInifile* config)
 {
+    tbb::spin_mutex::scoped_lock mutex{_spin_create_descriptor};
     CEnvDescriptor* result = new CEnvDescriptor(identifier);
     if (config)
         result->load(*this, *config);
@@ -630,20 +637,28 @@ void CEnvironment::load_weather_effects()
 
 void CEnvironment::load()
 {
-    if (!CurrentEnv)
-        create_mixer();
+    Cordis::TaskManager::getInstance().getCore()->run([&]() {
+		if (!CurrentEnv)
+			create_mixer();
+        });
 
-    m_pRender->OnLoad();
 
-    if (!eff_Rain)
-        eff_Rain = new CEffect_Rain();
-    if (!eff_LensFlare)
-        eff_LensFlare = new CLensFlare();
-    if (!eff_Thunderbolt)
-        eff_Thunderbolt = new CEffect_Thunderbolt();
+    Cordis::TaskManager::getInstance().getCore()->run([&]() { m_pRender->OnLoad(); });
 
-    load_weathers();
-    load_weather_effects();
+	if (!eff_LensFlare)
+		eff_LensFlare = new CLensFlare();
+	if (!eff_Rain)
+		eff_Rain = new CEffect_Rain();
+	if (!eff_Thunderbolt)
+		eff_Thunderbolt = new CEffect_Thunderbolt();
+
+	Cordis::TaskManager::getInstance().getCore()->run([&]() {
+
+
+        load_weathers();
+    });
+
+    Cordis::TaskManager::getInstance().getCore()->run([&]() {    load_weather_effects(); });
 }
 
 void CEnvironment::unload()

@@ -210,11 +210,12 @@ extern void init_game_globals();
 
 void CGamePersistent::OnAppStart()
 {
-    SetupUIStyle();
-
+    Cordis::TaskManager::getInstance().getCore()->run([&]() {SetupUIStyle(); });
+    
+    Cordis::TaskManager::getInstance().getCore()->run([&]() {    init_game_globals(); });
     // load game materials
-    init_game_globals();
-    inherited::OnAppStart();
+    Cordis::TaskManager::getInstance().getCore()->run([&]() {    inherited::OnAppStart(); });
+
     GEnv.UI = new UICore();
     CUIXmlInit::InitColorDefs();
     Cordis::TaskManager::getInstance().getCore()->run([&](){
@@ -222,10 +223,15 @@ void CGamePersistent::OnAppStart()
         });
     // Lord: Вырезание меню
 //    m_pMainMenu = new CMainMenu(); ToZaz перенести в другое место
+
 #ifdef WINDOWS
-    ansel = new AnselManager();
-    ansel->Load();
-    ansel->Init();
+    Cordis::TaskManager::getInstance().getCore()->run([&]() {
+		ansel = new AnselManager();
+		ansel->Load();
+		ansel->Init();
+        });
+
+
 #endif
 }
 #include "../xrUICore/Buttons/UIBtnHint.h"

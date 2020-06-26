@@ -19,12 +19,16 @@ SGeometry::~SGeometry()
 }
 Shader::~Shader() { RImplementation.Resources->Delete(this); }
 //////////////////////////////////////////////////////////////////////////
+tbb::spin_mutex _spin_create_shader_string;
 void resptrcode_shader::create(LPCSTR s_shader, LPCSTR s_textures, LPCSTR s_constants, LPCSTR s_matrices)
 {
+    tbb::spin_mutex::scoped_lock mutex{_spin_create_shader_string};
     _set(RImplementation.Resources->Create(s_shader, s_textures, s_constants, s_matrices));
 }
+tbb::spin_mutex _spin_create_shader_blender;
 void resptrcode_shader::create(IBlender* B, LPCSTR s_shader, LPCSTR s_textures, LPCSTR s_constants, LPCSTR s_matrices)
 {
+    tbb::spin_mutex::scoped_lock mutex{_spin_create_shader_blender};
     _set(RImplementation.Resources->Create(B, s_shader, s_textures, s_constants, s_matrices));
 }
 

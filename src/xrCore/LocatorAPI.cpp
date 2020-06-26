@@ -1060,8 +1060,10 @@ FileStatus CLocatorAPI::exist(string_path& fn, pcstr path, pcstr name, pcstr ext
     return exist(fn, fsType);
 }
 
+tbb::spin_mutex _spin_file_list_open;
 xr_vector<pstr>* CLocatorAPI::file_list_open(pcstr initial, pcstr folder, u32 flags)
 {
+    tbb::spin_mutex::scoped_lock mutex{_spin_file_list_open};
     string_path N;
     R_ASSERT(initial && initial[0]);
     update_path(N, initial, folder);
@@ -1127,8 +1129,10 @@ xr_vector<pstr>* CLocatorAPI::file_list_open(pcstr _path, u32 flags)
     return dest;
 }
 
+tbb::spin_mutex _spin_file_list_close;
 void CLocatorAPI::file_list_close(xr_vector<pstr>*& lst)
 {
+    tbb::spin_mutex::scoped_lock mutex{ _spin_file_list_close };
     if (lst)
     {
         for (xr_vector<char*>::iterator I = lst->begin(); I != lst->end(); I++)
@@ -1761,8 +1765,10 @@ FS_Path* CLocatorAPI::get_path(pcstr path)
     return P->second;
 }
 
+tbb::spin_mutex _spin_update_path;
 pcstr CLocatorAPI::update_path(string_path& dest, pcstr initial, pcstr src)
 {
+    tbb::spin_mutex::scoped_lock mutex{_spin_update_path};
     return get_path(initial)->_update(dest, src);
 }
 /*

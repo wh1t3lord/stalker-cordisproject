@@ -233,9 +233,10 @@ uint64_t _cdecl _strtoui64(const char *nptr, char **endptr, int base)
 }
 #endif
 
-
+tbb::spin_mutex _spin_create_ini;
 CInifile* CInifile::Create(pcstr fileName, bool readOnly)
 {
+    tbb::spin_mutex::scoped_lock mutex{_spin_create_ini};
     return new CInifile(fileName, readOnly);
 }
 
