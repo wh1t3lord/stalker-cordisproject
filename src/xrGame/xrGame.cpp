@@ -86,11 +86,14 @@ static void
 load(int argc, char** argv, char** envp)
 {
     // Fill ui style token
-    FillUIStyleToken();
-    // register console commands
-    CCC_RegisterCommands();
-    // keyboard binding
+    Cordis::TaskManager::getInstance().getCore()->run([&]() { FillUIStyleToken(); });
+    Cordis::TaskManager::getInstance().getCore()->run([&]() { CCC_RegisterCommands(); });
     CCC_RegisterInput();
+
+    // register console commands
+
+    // keyboard binding
+
 #ifdef DEBUG
 // XXX nitrocaster PROFILER: temporarily disabled due to linkage issues
 // g_profiler			= new CProfiler();
@@ -117,7 +120,10 @@ BOOL APIENTRY DllMain(HANDLE hModule, u32 ul_reason_for_call, LPVOID lpReserved)
     case DLL_PROCESS_ATTACH:
     {
         testing::InitGoogleTest();
-        RUN_ALL_TESTS();
+
+        Cordis::TaskManager::getInstance().getCore()->run([&]() { xrRender_initconsole(); });
+        Cordis::TaskManager::getInstance().getCore()->run([&]() { RUN_ALL_TESTS(); });
+
 
         GEnv.Render = &RImplementation;
         GEnv.RenderFactory = &RenderFactoryImpl;
@@ -126,9 +132,9 @@ BOOL APIENTRY DllMain(HANDLE hModule, u32 ul_reason_for_call, LPVOID lpReserved)
 #ifdef DEBUG
         GEnv.DRender = &DebugRenderImpl;
 #endif
-/* ToZazTread
-        xrRender_initconsole();
-        load(0, nullptr, nullptr);*/
+
+
+        load(0, nullptr, nullptr);
         break;
     }
 

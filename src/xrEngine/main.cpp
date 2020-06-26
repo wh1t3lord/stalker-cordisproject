@@ -1,4 +1,4 @@
-﻿// Entry point is in xr_3da/entry_point.cpp
+// Entry point is in xr_3da/entry_point.cpp
 #include "stdafx.h"
 #include "main.h"
 
@@ -200,6 +200,8 @@ ENGINE_API void Startup()
 
     // Main cycle
     Device.Run();
+
+
     // Destroy APP
     xr_delete(g_SpatialSpacePhysic);
     xr_delete(g_SpatialSpace);
@@ -211,16 +213,17 @@ ENGINE_API void Startup()
 #if !defined(LINUX)
     if (!g_bBenchmark && !g_SASH.IsRunning())
 #endif
-        destroySettings();
+    destroySettings();
     LALib.OnDestroy();
 #if !defined(LINUX)
     if (!g_bBenchmark && !g_SASH.IsRunning())
 #endif
-        destroyConsole();
+    destroyConsole();
 #if !defined(LINUX)
     else
         Console->Destroy();
 #endif
+/*    Cordis::TaskManager::getInstance().getCore()->wait();*/
     destroyEngine();
     destroySound();
 }
@@ -276,43 +279,39 @@ ENGINE_API int RunApplication()
         xr_strcpy(Core.CompName, sizeof(Core.CompName), "Computer");
     }*/
 
+        if (pSettings == nullptr)
+        Cordis::TaskManager::getInstance().getCore()->wait();
+
+    InitConsole();
 	XRay::Module p_module = XRay::LoadModule("xrGame");
 	Engine.External.setModuleGame(std::move(p_module));
 
-    if (pSettings == nullptr)
-        Cordis::TaskManager::getInstance().getCore()->wait();
-
     Cordis::TaskManager::getInstance().getCore()->run([&]() {	InitSettings(); });
 
-    Cordis::TaskManager::getInstance().getCore()->run([&]() { InitConsole(); });
-
-    Cordis::TaskManager::getInstance().getCore()->run([&]() { Engine.External.CreateRendererList(); });
+    Engine.External.CreateRendererList();
 
 
     Cordis::TaskManager::getInstance().getCore()->run([&]() {    FPU::m24r(); });
     Cordis::TaskManager::getInstance().getCore()->run([&]() {    InitEngine(); });
   
-		if (CheckBenchmark())
-			return 0;
+    if (CheckBenchmark())
+		return 0;
 
 
-		if (!GEnv.isDedicatedServer)
-		{
-			if (strstr(Core.Params, "-r4"))
-				Console->Execute("renderer renderer_r4");
-			else
-			{
-				CCC_LoadCFG_custom cmd("renderer ");
-				cmd.Execute(Console->ConfigFile);
-				renderer_allow_override = true;
-			}
-		}
+	if (!GEnv.isDedicatedServer)
+	{
+		if (strstr(Core.Params, "-r4"))
+			Console->Execute("renderer renderer_r4");
 		else
-			Console->Execute("renderer renderer_r1");
-    
-
-    
-
+		{
+			CCC_LoadCFG_custom cmd("renderer ");
+			cmd.Execute(Console->ConfigFile);
+			renderer_allow_override = true;
+		}
+	}
+	else
+		Console->Execute("renderer renderer_r1");
+   
     Cordis::TaskManager::getInstance().getCore()->run([&]() { Engine.External.Initialize(); });
 
     Startup();

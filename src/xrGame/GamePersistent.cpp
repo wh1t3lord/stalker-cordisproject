@@ -214,7 +214,7 @@ void CGamePersistent::OnAppStart()
     
     Cordis::TaskManager::getInstance().getCore()->run([&]() {    init_game_globals(); });
     // load game materials
-    Cordis::TaskManager::getInstance().getCore()->run([&]() {    inherited::OnAppStart(); });
+/*    Cordis::TaskManager::getInstance().getCore()->run([&]() {    inherited::OnAppStart(); });*/
 
     GEnv.UI = new UICore();
     CUIXmlInit::InitColorDefs();
@@ -222,8 +222,8 @@ void CGamePersistent::OnAppStart()
         GMLib.Load();
         });
     // Lord: Вырезание меню
-//    m_pMainMenu = new CMainMenu(); ToZaz перенести в другое место
-
+    m_pMainMenu = new CMainMenu();
+    Device.setCanUseInput(true);
 #ifdef WINDOWS
     Cordis::TaskManager::getInstance().getCore()->run([&]() {
 		ansel = new AnselManager();

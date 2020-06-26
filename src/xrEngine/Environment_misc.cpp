@@ -637,28 +637,21 @@ void CEnvironment::load_weather_effects()
 
 void CEnvironment::load()
 {
-    Cordis::TaskManager::getInstance().getCore()->run([&]() {
-		if (!CurrentEnv)
-			create_mixer();
-        });
+    if (!eff_LensFlare)
+        eff_LensFlare = new CLensFlare();
 
+    if (!eff_Rain)
+        eff_Rain = new CEffect_Rain();
 
-    Cordis::TaskManager::getInstance().getCore()->run([&]() { m_pRender->OnLoad(); });
+    if (!eff_Thunderbolt)
+        eff_Thunderbolt = new CEffect_Thunderbolt();
 
-	if (!eff_LensFlare)
-		eff_LensFlare = new CLensFlare();
-	if (!eff_Rain)
-		eff_Rain = new CEffect_Rain();
-	if (!eff_Thunderbolt)
-		eff_Thunderbolt = new CEffect_Thunderbolt();
+    if (!CurrentEnv)
+        create_mixer();
 
-	Cordis::TaskManager::getInstance().getCore()->run([&]() {
-
-
-        load_weathers();
-    });
-
-    Cordis::TaskManager::getInstance().getCore()->run([&]() {    load_weather_effects(); });
+    m_pRender->OnLoad();
+    load_weathers();
+    load_weather_effects();
 }
 
 void CEnvironment::unload()
@@ -686,9 +679,12 @@ void CEnvironment::unload()
     xr_delete(eff_Rain);
     xr_delete(eff_LensFlare);
     xr_delete(eff_Thunderbolt);
+
     CurrentWeather = nullptr;
     CurrentWeatherName = nullptr;
-    CurrentEnv->clear();
+
+    if (CurrentEnv)
+        CurrentEnv->clear();
     Invalidate();
 
     m_pRender->OnUnload();

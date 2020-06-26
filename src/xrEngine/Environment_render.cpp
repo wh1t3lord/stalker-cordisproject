@@ -101,7 +101,8 @@ void CEnvironment::OnDeviceDestroy()
             envDescriptor->on_device_destroy();
     }
 
-    CurrentEnv->destroy();
+    if (CurrentEnv)
+        CurrentEnv->destroy();
 }
 
 #ifdef _EDITOR
