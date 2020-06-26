@@ -115,7 +115,7 @@ CMainMenu::CMainMenu() : languageChanged(false)
     {
         g_btnHint = new CUIButtonHint();
         g_statHint = new CUIButtonHint();
-        m_pGameSpyFull = new CGameSpy_Full();
+    //    m_pGameSpyFull = new CGameSpy_Full();
 #ifdef WINDOWS
 
         for (u32 i = 0; i < u32(ErrMax); i++)
@@ -137,12 +137,13 @@ CMainMenu::CMainMenu() : languageChanged(false)
 
 #endif
 
+/*
         m_account_mngr = new gamespy_gp::account_manager(m_pGameSpyFull->GetGameSpyGP());
         m_login_mngr = new gamespy_gp::login_manager(m_pGameSpyFull);
-        m_profile_store = new gamespy_profile::profile_store(m_pGameSpyFull);
+        m_profile_store = new gamespy_profile::profile_store(m_pGameSpyFull);*/
 #ifdef WINDOWS
-        m_stats_submitter = new gamespy_profile::stats_submitter(m_pGameSpyFull);
-        m_atlas_submit_queue = new atlas_submit_queue(m_stats_submitter);
+/*        m_stats_submitter = new gamespy_profile::stats_submitter(m_pGameSpyFull);*/
+   //     m_atlas_submit_queue = new atlas_submit_queue(m_stats_submitter);
 #endif
     }
 
@@ -159,13 +160,14 @@ CMainMenu::~CMainMenu()
     g_pGamePersistent->m_pMainMenu = nullptr;
 
 #ifdef WINDOWS
+/*
     xr_delete(m_account_mngr);
     xr_delete(m_login_mngr);
     xr_delete(m_profile_store);
     xr_delete(m_stats_submitter);
     xr_delete(m_atlas_submit_queue);
 
-    xr_delete(m_pGameSpyFull);
+    xr_delete(m_pGameSpyFull);*/
 #endif
 
     xr_delete(m_demo_info_loader);
@@ -564,6 +566,7 @@ void CMainMenu::OnFrame()
     }
 
 #ifdef WINDOWS
+/*
     if (IsActive() || m_sPDProgress.IsInProgress)
     {
         GSUpdateStatus status = m_pGameSpyFull->Update();
@@ -576,7 +579,7 @@ void CMainMenu::OnFrame()
         case GSUpdateStatus::OutOfService: SetErrorDialog(ErrGSServiceFailed); break;
         }
         m_atlas_submit_queue->update();
-    }
+    }*/
 #endif
 
     if (IsActive())

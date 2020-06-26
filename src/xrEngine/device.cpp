@@ -426,6 +426,9 @@ void CRenderDevice::Run()
     thread_spawn(SecondaryThreadProc, "X-RAY Secondary thread", 0, this);
     // thread_spawn(RenderThreadProc, "X-RAY Render thread", 0, this);
     // Message cycle
+    pInput->GrabInput(true);
+
+
     seqAppStart.Process();
     GEnv.Render->ClearTarget();
     splash::hide();
@@ -439,7 +442,7 @@ void CRenderDevice::Run()
     SDL_ShowWindow(m_sdlWnd);
     SDL_RaiseWindow(m_sdlWnd);
 
-    pInput->GrabInput(true);
+
 
     message_loop();
 

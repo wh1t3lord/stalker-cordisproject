@@ -159,8 +159,12 @@ CEnvironment::~CEnvironment()
 void CEnvironment::Invalidate()
 {
     bWFX = false;
-    Current[0] = 0;
-    Current[1] = 0;
+    if (Current && Current[0])
+        Current[0] = nullptr;
+
+    if (Current && Current[1])
+        Current[1] = nullptr;
+
     if (eff_LensFlare)
         eff_LensFlare->Invalidate();
 }
