@@ -227,6 +227,8 @@ ENGINE_API int RunApplication()
 {
     R_ASSERT2(Core.Params, "Core must be initialized");
 
+    Cordis::TaskManager::getInstance().getCore()->run([&]() {  InitConfig(pSettings, "system.ltx"); });
+
     InitInput();
 
 	if (GEnv.isDedicatedServer)
@@ -261,9 +263,8 @@ ENGINE_API int RunApplication()
     *g_sLaunchOnExit_app = 0;
     *g_sLaunchOnExit_params = 0;
 
-    InitConfig(pSettings, "system.ltx");
     // Cordis::TaskManager::getInstance().getCore()->run([&]() {});
-	Cordis::TaskManager::getInstance().getCore()->run([&]() {	InitSettings(); });
+
 
 /* ToZaz: Перенести позже
     // Adjust player & computer name for Asian
@@ -273,38 +274,45 @@ ENGINE_API int RunApplication()
         xr_strcpy(Core.CompName, sizeof(Core.CompName), "Computer");
     }*/
 
-
-    Cordis::TaskManager::getInstance().getCore()->run([&]() { InitConsole(); });
-
 	XRay::Module p_module = XRay::LoadModule("xrGame");
 	Engine.External.setModuleGame(std::move(p_module));
 
-    Cordis::TaskManager::getInstance().getCore()->run([&]() {Engine.External.CreateRendererList(); });
+    if (pSettings == nullptr)
+        Cordis::TaskManager::getInstance().getCore()->wait();
+
+    Cordis::TaskManager::getInstance().getCore()->run([&]() {	InitSettings(); });
+
+    Cordis::TaskManager::getInstance().getCore()->run([&]() { InitConsole(); });
+
+    Cordis::TaskManager::getInstance().getCore()->run([&]() { Engine.External.CreateRendererList(); });
 
 
     Cordis::TaskManager::getInstance().getCore()->run([&]() {    FPU::m24r(); });
     Cordis::TaskManager::getInstance().getCore()->run([&]() {    InitEngine(); });
+  
+		if (CheckBenchmark())
+			return 0;
+
+
+		if (!GEnv.isDedicatedServer)
+		{
+			if (strstr(Core.Params, "-r4"))
+				Console->Execute("renderer renderer_r4");
+			else
+			{
+				CCC_LoadCFG_custom cmd("renderer ");
+				cmd.Execute(Console->ConfigFile);
+				renderer_allow_override = true;
+			}
+		}
+		else
+			Console->Execute("renderer renderer_r1");
     
 
-	if (CheckBenchmark())
-		return 0;
-
-
-    if (!GEnv.isDedicatedServer)
-    {
-        if (strstr(Core.Params, "-r4"))
-            Console->Execute("renderer renderer_r4");
-        else
-        {
-            CCC_LoadCFG_custom cmd("renderer ");
-            cmd.Execute(Console->ConfigFile);
-            renderer_allow_override = true;
-        }
-    }
-    else
-        Console->Execute("renderer renderer_r1");
+    
 
     Cordis::TaskManager::getInstance().getCore()->run([&]() { Engine.External.Initialize(); });
+
     Startup();
     // check for need to execute something external
     if (/*xr_strlen(g_sLaunchOnExit_params) && */ xr_strlen(g_sLaunchOnExit_app))
