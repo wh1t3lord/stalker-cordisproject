@@ -161,7 +161,7 @@ private:
     // Main objects used for creating and rendering the 3D scene
     CTimer TimerMM;
     RenderDeviceStatictics stats;
-
+    bool m_is_can_use_input;
     void _SetupStates();
 
 public:
@@ -212,7 +212,7 @@ public:
 
     CRenderDevice()
         : fWidth_2(0), fHeight_2(0), m_editor_module(nullptr), m_editor_initialize(nullptr), m_editor_finalize(nullptr),
-          m_editor(nullptr), m_engine(nullptr)
+          m_editor(nullptr), m_engine(nullptr), m_is_can_use_input(false)
     {
         m_sdlWnd = NULL;
         b_is_Active = FALSE;
@@ -289,7 +289,8 @@ public:
         if (I != seqParallel.end())
             seqParallel.erase(I);
     }
-
+    inline bool isCanUseInput(void) const noexcept { return this->m_is_can_use_input; }
+    inline void setCanUseInput(const bool value) noexcept { this->m_is_can_use_input = value; }
 private:
     void CalcFrameStats();
 
