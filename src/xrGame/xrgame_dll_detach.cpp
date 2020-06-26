@@ -39,20 +39,24 @@ extern void InitHudSoundSettings();
 void init_game_globals()
 {
     CreateUIGeom();
-    InitHudSoundSettings();
+
+    Cordis::TaskManager::getInstance().getCore()->run([&]() {    InitHudSoundSettings(); });
+
     if (!GEnv.isDedicatedServer)
     {
         //		CInfoPortion::InitInternal					();
         //.		CEncyclopediaArticle::InitInternal			();
-        CPhraseDialog::InitInternal();
+ 
+        Cordis::TaskManager::getInstance().getCore()->run([&]() { CPhraseDialog::InitInternal(); });
+
         InventoryUtilities::CreateShaders();
     };
-    CCharacterInfo::InitInternal();
-    CSpecificCharacter::InitInternal();
-    CHARACTER_COMMUNITY::InitInternal();
-    CHARACTER_RANK::InitInternal();
-    CHARACTER_REPUTATION::InitInternal();
-    MONSTER_COMMUNITY::InitInternal();
+    Cordis::TaskManager::getInstance().getCore()->run([&]() { CCharacterInfo::InitInternal(); });
+    Cordis::TaskManager::getInstance().getCore()->run([&]() {    CSpecificCharacter::InitInternal(); });
+    Cordis::TaskManager::getInstance().getCore()->run([&]() {    CHARACTER_COMMUNITY::InitInternal(); });
+    Cordis::TaskManager::getInstance().getCore()->run([&]() {    CHARACTER_RANK::InitInternal(); });
+    Cordis::TaskManager::getInstance().getCore()->run([&]() {    CHARACTER_REPUTATION::InitInternal(); });
+    Cordis::TaskManager::getInstance().getCore()->run([&]() {    MONSTER_COMMUNITY::InitInternal(); });
 }
 
 extern CUIXml* g_uiSpotXml;
