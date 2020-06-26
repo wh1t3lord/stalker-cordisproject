@@ -17,10 +17,9 @@
 
 int entry_point(pcstr commandLine)
 {
-    splash::show(true);
-    Device.Initialize(commandLine);
     R_ASSERT3(SDL_Init(SDL_INIT_VIDEO) == 0, "Unable to initialize SDL", SDL_GetError());
-
+    Device.Initialize(commandLine);
+    splash::show(true);
     Cordis::TaskManager::getInstance().getCore()->run([&]() {
 		xrDebug::Initialize();
 
