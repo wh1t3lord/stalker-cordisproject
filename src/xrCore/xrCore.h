@@ -121,6 +121,7 @@ using RTokenVec = xr_vector<xr_rtoken>;
 #pragma endregion
 
 #pragma region Cordis
+#ifdef DEBUG
 // @ default message
 // Color: Gray in log  ouput
 #define MESSAGE(text_message, ...) { xr_string file_name = __FILE__; Msg("[%s|" __FUNCTION__ "|%d] "##text_message, file_name.substr(file_name.rfind("\\")+1).c_str(), __LINE__, __VA_ARGS__); }
@@ -142,6 +143,14 @@ using RTokenVec = xr_vector<xr_rtoken>;
 // @ version of MESSAGEE, but with Return statement at the end
 // Color: Red in log output
 #define MESSAGEER(text_message, ...) { xr_string file_name = __FILE__; Msg("[%s|" __FUNCTION__ "|%d] ERROR: "##text_message" Return ...", file_name.substr(file_name.rfind("\\")+1).c_str(), __LINE__, __VA_ARGS__); R_ASSERT(false); }
+#else
+#define MESSAGE(text_message, ...) {}
+#define MESSAGEI(text_message, ...) {}
+#define MESSAGEW(text_message, ...) {}
+#define MESSAGEWR(text_message, ...) {}
+#define MESSAGEE(text_message, ...) {}
+#define MESSAGEER(text_message, ...) {}
+#endif
 #pragma endregion
 
 #pragma region Cordis Includes

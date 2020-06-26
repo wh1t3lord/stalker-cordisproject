@@ -34,34 +34,41 @@ void CRenderDevice::initialize_weather_editor()
     GEnv.isEditor = true;
 }
 
-void CRenderDevice::Initialize()
+void CRenderDevice::Initialize(pcstr cmdline_args)
 {
-    Log("Initializing Engine...");
-    TimerGlobal.Start();
-    TimerMM.Start();
-
-    if (strstr(Core.Params, "-weather"))
-        initialize_weather_editor();
-
-    if (!m_sdlWnd)
+	if (!m_sdlWnd)
     {
-            const Uint32 flags = SDL_WINDOW_BORDERLESS | SDL_WINDOW_HIDDEN | SDL_WINDOW_RESIZABLE | SDL_WINDOW_OPENGL;
+		MESSAGE("Initializing Engine...");
 
-            if (psDeviceFlags.test(rsRGL))
-            {
-                SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE);
-                SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 4);
-                SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 1);
-                SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1);
-                SDL_GL_SetAttribute(SDL_GL_DEPTH_SIZE, 24);
-                SDL_GL_SetAttribute(SDL_GL_STENCIL_SIZE, 8);
-            }
+#ifdef DEBUG
+		TimerGlobal.Start();
+		TimerMM.Start();
+#endif
 
-            m_sdlWnd = SDL_CreateWindow("Cordis Project", 0, 0, 640, 480, flags);
-            R_ASSERT3(m_sdlWnd, "Unable to create SDL window", SDL_GetError());
-            SDL_SetWindowHitTest(m_sdlWnd, WindowHitTest, nullptr);
-            SDL_SetWindowMinimumSize(m_sdlWnd, 256, 192);
-            xrDebug::SetApplicationWindow(m_sdlWnd);
+        Cordis::TaskManager::getInstance().getCore()->run([&]() {
+			if (strstr(cmdline_args, "-weather"))
+				initialize_weather_editor();
+        });
+
+
+
+		const Uint32 flags = SDL_WINDOW_BORDERLESS | SDL_WINDOW_HIDDEN | SDL_WINDOW_RESIZABLE | SDL_WINDOW_OPENGL;
+
+		if (psDeviceFlags.test(rsRGL))
+		{
+			SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE);
+			SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 4);
+			SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 1);
+			SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1);
+			SDL_GL_SetAttribute(SDL_GL_DEPTH_SIZE, 24);
+			SDL_GL_SetAttribute(SDL_GL_STENCIL_SIZE, 8);
+		}
+
+		this->m_sdlWnd = SDL_CreateWindow("Cordis Project", 0, 0, 640, 480, flags);
+		R_ASSERT3(m_sdlWnd, "Unable to create SDL window", SDL_GetError());
+		SDL_SetWindowHitTest(m_sdlWnd, WindowHitTest, nullptr);
+		SDL_SetWindowMinimumSize(m_sdlWnd, 256, 192);
+		xrDebug::SetApplicationWindow(m_sdlWnd);
     }
 }
 

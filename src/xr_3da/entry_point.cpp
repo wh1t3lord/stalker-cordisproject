@@ -10,6 +10,7 @@
 #endif
 #include "xrEngine/main.h"
 #include "xrEngine/splash.h"
+#include "xrEngine/device.h"
 #include <SDL.h>
 
 #include <src/gtest-all.cc>
@@ -17,9 +18,7 @@
 int entry_point(pcstr commandLine)
 {
     splash::show(true);
-
-    Cordis::TaskManager::getInstance().initialize();
-
+    Device.Initialize(commandLine);
     R_ASSERT3(SDL_Init(SDL_INIT_VIDEO) == 0, "Unable to initialize SDL", SDL_GetError());
 
     Cordis::TaskManager::getInstance().getCore()->run([&]() {
@@ -69,6 +68,7 @@ int APIENTRY WinMain(HINSTANCE inst, HINSTANCE prevInst, char* commandLine, int 
 
 int main(int argc, char* argv[])
 {
+    Cordis::TaskManager::getInstance().initialize();
 	testing::InitGoogleTest(&argc, argv);
 
 	char* commandLine = nullptr;
