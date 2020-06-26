@@ -57,8 +57,10 @@ LPCSTR _CopyVal(LPCSTR src, LPSTR dst, char separator)
     return dst;
 }
 
+tbb::spin_mutex _spin_get_item_count;
 int _GetItemCount(LPCSTR src, char separator)
 {
+    tbb::spin_mutex::scoped_lock mutex{_spin_get_item_count};
     u32 cnt = 0;
     if (src && src[0])
     {
