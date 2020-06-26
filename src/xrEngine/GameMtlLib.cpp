@@ -119,9 +119,9 @@ void CGameMtlLibrary::Load()
         u32 count;
         for (IReader* O = OBJ->open_chunk_iterator(count); O; O = OBJ->open_chunk_iterator(count, O))
         {
-            SGameMtlPair* M = new SGameMtlPair(this);
-            M->Load(*O);
-            material_pairs.push_back(M);
+				SGameMtlPair* M = new SGameMtlPair(this);
+				M->Load(*O);
+				material_pairs.push_back(M);
         }
         OBJ->close();
     }

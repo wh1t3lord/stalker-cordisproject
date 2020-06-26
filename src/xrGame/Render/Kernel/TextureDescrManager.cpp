@@ -130,8 +130,10 @@ void CTextureDescrMngr::Load()
     timer.Start();
 #endif // #ifdef DEBUG
 
-    LoadTHM("$game_textures$");
     LoadTHM("$level$");
+    Cordis::TaskManager::getInstance().getCore()->run([&]() { LoadTHM("$game_textures$"); }); 
+
+
 
 #ifndef MASTER_GOLD
     Msg("%s, .thm loading time: %d ms", __FUNCTION__, timer.GetElapsed_ms());

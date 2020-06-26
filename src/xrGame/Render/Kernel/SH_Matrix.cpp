@@ -78,8 +78,10 @@ void CMatrix::Calculate()
     }
 }
 
+tbb::spin_mutex _load_mutex;
 void CMatrix::Load(IReader* fs)
 {
+    tbb::spin_mutex::scoped_lock my_lock{_load_mutex};
     dwMode = fs->r_u32();
     tcm = fs->r_u32();
     fs->r(&scaleU, sizeof(WaveForm));

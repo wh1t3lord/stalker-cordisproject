@@ -213,11 +213,13 @@ void CGamePersistent::OnAppStart()
     SetupUIStyle();
 
     // load game materials
-    GMLib.Load();
     init_game_globals();
     inherited::OnAppStart();
     GEnv.UI = new UICore();
     CUIXmlInit::InitColorDefs();
+    Cordis::TaskManager::getInstance().getCore()->run([&](){
+        GMLib.Load();
+        });
     // Lord: Вырезание меню
 //    m_pMainMenu = new CMainMenu(); ToZaz перенести в другое место
 #ifdef WINDOWS
