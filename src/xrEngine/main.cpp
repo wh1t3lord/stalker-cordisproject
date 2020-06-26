@@ -177,7 +177,8 @@ void CheckPrivilegySlowdown()
 ENGINE_API void Startup()
 {
     execUserScript();
-    InitSound();
+    Cordis::TaskManager::getInstance().getCore()->run([&]() {    InitSound(); });
+    Cordis::TaskManager::getInstance().getCore()->run([&]() {    LALib.OnCreate(); });
 
     // ...command line for auto start
     pcstr startArgs = strstr(Core.Params, "-start ");
@@ -188,8 +189,9 @@ ENGINE_API void Startup()
         Console->Execute(loadArgs + 1);
 
     // Initialize APP
-    Device.Create();
-    LALib.OnCreate();
+	Device.Create();
+
+
     pApp = new CApplication();
     g_pGamePersistent = dynamic_cast<IGame_Persistent*>(NEW_INSTANCE((MK_CLSID('G', '_', 'P', 'E', 'R', 'S', 'I', 'S'))));
     R_ASSERT(g_pGamePersistent);
