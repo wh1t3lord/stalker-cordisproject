@@ -5,6 +5,13 @@ Cordis::Scripts::Script_GlobalHelper::Script_GlobalHelper(void)
 {
 // @ Здесь инициализация всех "локальных" карт которые находятся в каждом скрипте
 // @ Инициаилизируется на запуске самого интро
+    Cordis::TaskManager::getInstance().getCore()->run([&]() {
+
+
+
+
+
+
 #pragma region Cordis Usable Clsid
     this->m_stalker_classes[Globals::get_script_clsid(CLSID_SE_ACTOR)] = true;
     this->m_stalker_classes[Globals::get_script_clsid(CLSID_SE_STALKER)] = true;
@@ -13553,4 +13560,5 @@ Cordis::Scripts::Script_GlobalHelper::Script_GlobalHelper(void)
     this->m_squad_community_by_behavior["monster_zombied_night"] = "monster";
     this->m_squad_community_by_behavior["monster_special"] = "monster";
 #pragma endregion
+});
 }
