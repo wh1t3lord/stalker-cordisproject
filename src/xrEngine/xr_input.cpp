@@ -311,13 +311,11 @@ void CInput::OnFrame(void)
 
     if (Device.dwPrecacheFrame == 0 && !Device.IsAnselActive)
     {
-        // Lord: Потом добавить обработку под тестировании уровня
-        if (!FS.IsSDK())
+        if (Device.isCanUseInput())
         {
-            KeyUpdate();
-            MouseUpdate();
+			KeyUpdate();
+			MouseUpdate();
         }
-
     }
     else
     {

@@ -156,10 +156,12 @@ public:
         if (messages[0].Prio == REG_PRIORITY_CAPTURE)
             messages[0].Object->OnPure();
         else
-        {
+		{
             for (int i = 0; i < messages.size(); ++i)
-                if (messages[i].Prio != REG_PRIORITY_INVALID)
-                    messages[i].Object->OnPure();
+            {
+			    if (messages[i].Prio != REG_PRIORITY_INVALID)
+				    messages[i].Object->OnPure();
+            }
         }
 
         if (changed)
