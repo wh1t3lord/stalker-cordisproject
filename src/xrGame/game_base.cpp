@@ -6,7 +6,10 @@
 #include "xrMessages.h"
 
 u64 g_qwStartGameTime = 12 * 60 * 60 * 1000;
-float g_fTimeFactor = pSettings->r_float("alife", "time_factor");
+/*
+ToZaz
+float GlobalValues::getInstance().getTimeFactor() = pSettings->r_float("alife", "time_factor");
+*/
 u64 g_qwEStartGameTime = 12 * 60 * 60 * 1000;
 
 EGameIDs ParseStringToGameType(LPCSTR str);
@@ -198,7 +201,7 @@ game_GameState::game_GameState()
     VERIFY(g_pGameLevel);
     m_qwStartProcessorTime = Level().timeServer_Async();
     m_qwStartGameTime = g_qwStartGameTime;
-    m_fTimeFactor = g_fTimeFactor;
+    m_fTimeFactor = GlobalValues::getInstance().getTimeFactor();
     m_qwEStartProcessorTime = m_qwStartProcessorTime;
     m_qwEStartGameTime = g_qwEStartGameTime;
     m_fETimeFactor = m_fTimeFactor;

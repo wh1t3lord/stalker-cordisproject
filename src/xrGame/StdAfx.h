@@ -14,6 +14,7 @@
 //#include <assert.h> // ~440 - but it has no include guard! Perhaps that's intentional?
 #include <math.h>
 #include <queue> // ~360
+#include "GlobalValues.h"
 #include "luabind/luabind.hpp" // luabind/*, almost 5000
 #include "xrServerEntities/smart_cast.h" // a lot
 #include "xrScriptEngine/script_space_forward.hpp" // ~765 // XXX: See to it this goes to pch_script

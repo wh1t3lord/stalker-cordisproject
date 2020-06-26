@@ -463,7 +463,7 @@ void game_sv_mp::ReconnectPlayer(ClientID const& clientID)
 }
 
 bool g_bConsoleCommandsCreated = false;
-extern float g_fTimeFactor;
+//extern float GlobalValues::getInstance().getTimeFactor();
 #define SAVE_SCREENSHOTS_KEY "-savescreenshots"
 void game_sv_mp::Create(shared_str& options)
 {
@@ -1803,7 +1803,7 @@ void game_sv_mp::ReadOptions(shared_str& options)
     float EnvTimeFactor = float(atof(TimeFactor)) * GetEnvironmentGameTimeFactor();
 
     SetEnvironmentGameTimeFactor(StartEnvGameTime, EnvTimeFactor);
-    SetGameTimeFactor(StartEnvGameTime, g_fTimeFactor);
+    SetGameTimeFactor(StartEnvGameTime, GlobalValues::getInstance().getTimeFactor());
 };
 
 static bool g_bConsoleCommandsCreated_MP = false;

@@ -88,7 +88,7 @@ extern BOOL g_bShowHitSectors;
 extern ESingleGameDifficulty g_SingleGameDifficulty;
 XRUICORE_API extern BOOL g_show_wnd_rect2;
 //-----------------------------------------------------------
-extern float g_fTimeFactor;
+//extern float GlobalValues::getInstance().getTimeFactor();
 extern BOOL b_toggle_weapon_aim;
 
 extern u32 UIStyleID;
@@ -1390,7 +1390,7 @@ struct CCC_StartTimeSingle : public IConsole_Command
         if (!Level().Server->GetGameState())
             return;
 
-        Level().SetGameTimeFactor(g_qwStartGameTime, g_fTimeFactor);
+        Level().SetGameTimeFactor(g_qwStartGameTime, GlobalValues::getInstance().getTimeFactor());
     }
 
     void GetStatus(TStatus& S) override
@@ -1418,7 +1418,7 @@ struct CCC_TimeFactorSingle : public CCC_Float
         if (!Level().Server->GetGameState())
             return;
 
-        Level().SetGameTimeFactor(g_fTimeFactor);
+        Level().SetGameTimeFactor(GlobalValues::getInstance().getTimeFactor());
     }
 };
 
@@ -2149,7 +2149,9 @@ void CCC_RegisterCommands()
 
 #ifndef MASTER_GOLD
     CMD1(CCC_StartTimeSingle, "start_time_single");
-    CMD4(CCC_TimeFactorSingle, "time_factor_single", &g_fTimeFactor, 0.f, 1000.0f);
+/* ToZaz  
+CMD4(CCC_TimeFactorSingle, "time_factor_single", &GlobalValues::getInstance().getTimeFactor(), 0.f, 1000.0f);
+*/
 #endif // MASTER_GOLD
 
     g_uCommonFlags.zero();

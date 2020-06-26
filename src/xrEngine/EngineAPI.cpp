@@ -183,9 +183,6 @@ void CEngineAPI::CreateRendererList()
     if (!VidQualityToken.empty())
         return;
 
-    hGame = XRay::LoadModule("xrGame");
-    CHECK_OR_EXIT(hGame, "Can't Load xrGame!");
-
     if (GEnv.isDedicatedServer)
     {
 #if defined(WINDOWS)
