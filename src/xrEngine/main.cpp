@@ -1,4 +1,4 @@
-// Entry point is in xr_3da/entry_point.cpp
+﻿// Entry point is in xr_3da/entry_point.cpp
 #include "stdafx.h"
 #include "main.h"
 
@@ -50,7 +50,6 @@ void RunBenchmark(pcstr name);
 ENGINE_API void InitEngine()
 {
     Engine.Initialize();
-    Device.Initialize();
 }
 
 namespace
@@ -252,28 +251,32 @@ ENGINE_API int RunApplication()
 #endif
     }
 #endif
+
     *g_sLaunchOnExit_app = 0;
     *g_sLaunchOnExit_params = 0;
 
     InitSettings();
+/* ToZaz: Перенести позже
     // Adjust player & computer name for Asian
     if (pSettings->line_exist("string_table", "no_native_input"))
     {
         xr_strcpy(Core.UserName, sizeof(Core.UserName), "Player");
         xr_strcpy(Core.CompName, sizeof(Core.CompName), "Computer");
-    }
+    }*/
 
 
     InitInput();
     InitConsole();
     Engine.External.CreateRendererList();
 
-    FPU::m24r();
-    InitEngine();
 
+    Cordis::TaskManager::getInstance().getCore()->run([&]() {    FPU::m24r(); });
+    Cordis::TaskManager::getInstance().getCore()->run([&]() {    InitEngine(); });
+    
 
-    if (CheckBenchmark())
-        return 0;
+	if (CheckBenchmark())
+		return 0;
+
 
     if (!GEnv.isDedicatedServer)
     {

@@ -258,7 +258,7 @@ public:
     void UpdateWindowRects();
     void SelectResolution(const bool windowed);
 
-    void Initialize(void);
+    void Initialize(pcstr cmdline_args);
     void ShutDown(void);
     virtual const RenderDeviceStatictics& GetStats() const override { return stats; }
     virtual void DumpStatistics(class IGameFont& font, class IPerformanceAlert* alert) override;

@@ -17,10 +17,10 @@ extern void msCreate(LPCSTR name);
 
 void CEngine::Initialize(void)
 {
-    Engine.Sheduler.Initialize();
-    Engine.Scheduler.Initialize();
+    Cordis::TaskManager::getInstance().getCore()->run([&]() {    Engine.Sheduler.Initialize(); });
+
 #ifdef DEBUG
-    msCreate("game");
+    Cordis::TaskManager::getInstance().getCore()->run([&]() {msCreate("game"); });
 #endif
 }
 
