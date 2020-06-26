@@ -18,8 +18,10 @@ ModuleHandle::~ModuleHandle()
     Close();
 }
 
+tbb::spin_mutex _spin_load_module;
 void* ModuleHandle::Open(pcstr moduleName)
 {
+    tbb::spin_mutex::scoped_lock mutex{_spin_load_module};
     if (IsLoaded())
         Close();
 
