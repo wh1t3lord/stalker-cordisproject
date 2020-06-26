@@ -34,7 +34,7 @@ extern u32 g_cl_InterpolationMaxPoints;
 extern int g_cl_save_demo;
 extern string64 gsCDKey;
 extern u32 g_dwMaxCorpses;
-extern float g_fTimeFactor;
+//extern float GlobalValues::getInstance().getTimeFactor();
 extern BOOL g_b_COD_PickUpMode;
 extern int g_iWeaponRemove;
 extern int g_iCorpseRemove;
@@ -1717,7 +1717,7 @@ public:
 
         float eFactor = Level().Server->GetGameState()->GetEnvironmentGameTimeFactor();
         Level().Server->GetGameState()->SetEnvironmentGameTimeFactor(NewTime, eFactor);
-        Level().Server->GetGameState()->SetGameTimeFactor(NewTime, g_fTimeFactor);
+        Level().Server->GetGameState()->SetGameTimeFactor(NewTime, GlobalValues::getInstance().getTimeFactor());
     }
 };
 class CCC_SetWeatherMP : public IConsole_Command

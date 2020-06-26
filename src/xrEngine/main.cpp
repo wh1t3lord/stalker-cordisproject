@@ -86,33 +86,23 @@ void InitConfig(T& config, pcstr name, bool fatal = true,
 
 ENGINE_API void InitSettings()
 {
-    xr_auth_strings_t ignoredPaths, checkedPaths;
-    fill_auth_check_params(ignoredPaths, checkedPaths); //TODO port xrNetServer to Linux
-    PathIncludePred includePred(&ignoredPaths);
-    CInifile::allow_include_func_t includeFilter;
-    includeFilter.bind(&includePred, &PathIncludePred::IsIncluded);
+    Cordis::TaskManager::getInstance().getCore()->run([&]() {
+		xr_auth_strings_t ignoredPaths, checkedPaths;
+		fill_auth_check_params(ignoredPaths, checkedPaths); //TODO port xrNetServer to Linux
+		PathIncludePred includePred(&ignoredPaths);
+		CInifile::allow_include_func_t includeFilter;
+		includeFilter.bind(&includePred, &PathIncludePred::IsIncluded);
 
-    InitConfig(pSettings, "system.ltx");
-    InitConfig(pSettingsAuth, "system.ltx", true, true, true, false, 0, includeFilter);
-    InitConfig(pSettingsOpenXRay, "openxray.ltx", false, true, true, false);
-    InitConfig(pGameIni, "game.ltx");
+
+		InitConfig(pSettingsAuth, "system.ltx", true, true, true, false, 0, includeFilter);
+        });
+    Cordis::TaskManager::getInstance().getCore()->run([&]() {    InitConfig(pSettingsOpenXRay, "openxray.ltx", false, true, true, false); });
+    Cordis::TaskManager::getInstance().getCore()->run([&]() {    InitConfig(pGameIni, "game.ltx"); });
 }
 
 ENGINE_API void InitConsole()
 {
-    if (GEnv.isDedicatedServer)
-        Console = new CTextConsole();
-    else
-        Console = new CConsole();
-
     Console->Initialize();
-    xr_strcpy(Console->ConfigFile, "user.ltx");
-    if (strstr(Core.Params, "-ltx "))
-    {
-        string64 c_name;
-        sscanf(strstr(Core.Params, "-ltx ") + strlen("-ltx "), "%[^ ] ", c_name);
-        xr_strcpy(Console->ConfigFile, c_name);
-    }
 }
 
 ENGINE_API void InitInput()
@@ -237,6 +227,22 @@ ENGINE_API int RunApplication()
 {
     R_ASSERT2(Core.Params, "Core must be initialized");
 
+    InitInput();
+
+	if (GEnv.isDedicatedServer)
+		Console = new CTextConsole();
+	else
+		Console = new CConsole();
+
+
+	xr_strcpy(Console->ConfigFile, "user.ltx");
+	if (strstr(Core.Params, "-ltx "))
+	{
+		string64 c_name;
+		sscanf(strstr(Core.Params, "-ltx ") + strlen("-ltx "), "%[^ ] ", c_name);
+		xr_strcpy(Console->ConfigFile, c_name);
+	}
+
 #ifdef NO_MULTI_INSTANCES
     if (!GEnv.isDedicatedServer)
     {
@@ -255,7 +261,10 @@ ENGINE_API int RunApplication()
     *g_sLaunchOnExit_app = 0;
     *g_sLaunchOnExit_params = 0;
 
-    InitSettings();
+    InitConfig(pSettings, "system.ltx");
+    // Cordis::TaskManager::getInstance().getCore()->run([&]() {});
+	Cordis::TaskManager::getInstance().getCore()->run([&]() {	InitSettings(); });
+
 /* ToZaz: Перенести позже
     // Adjust player & computer name for Asian
     if (pSettings->line_exist("string_table", "no_native_input"))
@@ -265,9 +274,12 @@ ENGINE_API int RunApplication()
     }*/
 
 
-    InitInput();
-    InitConsole();
-    Engine.External.CreateRendererList();
+    Cordis::TaskManager::getInstance().getCore()->run([&]() { InitConsole(); });
+
+	XRay::Module p_module = XRay::LoadModule("xrGame");
+	Engine.External.setModuleGame(std::move(p_module));
+
+    Cordis::TaskManager::getInstance().getCore()->run([&]() {Engine.External.CreateRendererList(); });
 
 
     Cordis::TaskManager::getInstance().getCore()->run([&]() {    FPU::m24r(); });
@@ -292,7 +304,7 @@ ENGINE_API int RunApplication()
     else
         Console->Execute("renderer renderer_r1");
 
-    Engine.External.Initialize();
+    Cordis::TaskManager::getInstance().getCore()->run([&]() { Engine.External.Initialize(); });
     Startup();
     // check for need to execute something external
     if (/*xr_strlen(g_sLaunchOnExit_params) && */ xr_strlen(g_sLaunchOnExit_app))

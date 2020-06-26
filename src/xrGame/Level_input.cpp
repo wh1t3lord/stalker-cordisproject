@@ -39,7 +39,7 @@ extern void restore_actor();
 #endif
 
 bool g_bDisableAllInput = false;
-extern float g_fTimeFactor;
+//extern float GlobalValues::getInstance().getTimeFactor();
 
 #define CURRENT_ENTITY() (game ? ((GameID() == eGameIDSingle) ? CurrentEntity() : CurrentControlEntity()) : NULL)
 
@@ -242,13 +242,13 @@ void CLevel::IR_OnKeyboardPress(int key)
         if (!Server)
             break;
 
-        SetGameTimeFactor(g_fTimeFactor);
+        SetGameTimeFactor(GlobalValues::getInstance().getTimeFactor());
 
 #ifdef DEBUG
         if (!m_bEnvPaused)
-            SetEnvironmentGameTimeFactor(GetEnvironmentGameTime(), g_fTimeFactor);
+            SetEnvironmentGameTimeFactor(GetEnvironmentGameTime(), GlobalValues::getInstance().getTimeFactor());
 #else // DEBUG
-        SetEnvironmentGameTimeFactor(GetEnvironmentGameTime(), g_fTimeFactor);
+        SetEnvironmentGameTimeFactor(GetEnvironmentGameTime(), GlobalValues::getInstance().getTimeFactor());
 #endif // DEBUG
 
         break;
@@ -274,7 +274,7 @@ void CLevel::IR_OnKeyboardPress(int key)
         if (!Server)
             break;
         if (m_bEnvPaused)
-            SetEnvironmentGameTimeFactor(GetEnvironmentGameTime(), g_fTimeFactor);
+            SetEnvironmentGameTimeFactor(GetEnvironmentGameTime(), GlobalValues::getInstance().getTimeFactor());
         else
             SetEnvironmentGameTimeFactor(GetEnvironmentGameTime(), 0.00001f);
 

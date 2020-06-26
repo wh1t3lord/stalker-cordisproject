@@ -9791,6 +9791,9 @@
     <ClInclude Include="Script_ComponentSchemes_Allocators.h">
       <Filter>Cordis\Scripts\Database\Public\Allocators\Public</Filter>
     </ClInclude>
+    <ClInclude Include="GlobalValues.h">
+      <Filter>Core</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="damage_manager.cpp">

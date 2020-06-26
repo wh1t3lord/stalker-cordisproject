@@ -87,6 +87,16 @@ public:
     void Destroy();
 
     void CreateRendererList();
+    inline void setModuleGame(XRay::Module p_module) 
+    {
+        if (this->hGame.get() == nullptr)
+        {
+            CHECK_OR_EXIT(p_module, "Can't load Game");
+            this->hGame = std::move(p_module);
+        }
+    }
+
+    inline bool isLoadedGame(void) const noexcept { return !!this->hGame; }
 
     CEngineAPI();
     ~CEngineAPI();
