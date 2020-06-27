@@ -2289,6 +2289,7 @@ inline void start_game_callback(void)
     // Loads schemes Lord: переименовать соответвующие наименования скриптов, но если _G[schemes[scheme]] -> нужно
     // расписывать через case, потому что строка будет указывать на namespace или getInstance() самого класса То есть
     // switch (scheme_name) { case "Script_StoryObject": Script_StoryObject::getInstance().DoSomething(); etc... };
+/*
     load_scheme("xr_danger", "danger", kSTypeStalker);
     load_scheme("xr_gather_items", "gather_items", kSTypeStalker);
     load_scheme("xr_abuse", "abuse", kSTypeStalker);
@@ -2351,8 +2352,9 @@ inline void start_game_callback(void)
     // load_scheme("sr_shooting","sr_shooting",kSTypeRestrictor);
     // load_scheme("sr_recoveritem","sr_recoveritem",kSTypeRestrictor);
     load_scheme("sr_silence", "sr_silence", kSTypeRestrictor);
-    load_scheme("sr_deimos", "sr_deimos", kSTypeRestrictor);
-
+    load_scheme("sr_deimos", "sr_deimos", kSTypeRestrictor);*/
+    
+    GlobalValues::getInstance().setTimeFactor(pSettings->r_float("alife", "time_factor"));
     Script_GlobalHelper::getInstance();
 
     MESSAGEI("initializing scripts!");

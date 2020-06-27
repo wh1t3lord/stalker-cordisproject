@@ -29,10 +29,11 @@ CALifeSimulator::CALifeSimulator(IPureServer* server, shared_str* command_line)
       CALifeSimulatorBase(server, alife_section)
 {
     // XXX: why do we need to reinitialize script engine?
+/*
     if (!strstr(Core.Params, "-keep_lua"))
     {
         ai().RestartScriptEngine();
-    }
+    }*/
 
     ai().set_alife(this);
 
@@ -56,6 +57,8 @@ CALifeSimulator::CALifeSimulator(IPureServer* server, shared_str* command_line)
 
     // Lord: здесь вызывается инициализация скриптов 
     Cordis::Scripts::Globals::start_game_callback();
+
+    g_pGamePersistent->Environment().load();
 /*
     luabind::functor<void> functor;
     R_ASSERT2(GEnv.ScriptEngine->functor(start_game_callback, functor), "failed to get start game callback");

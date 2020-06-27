@@ -295,6 +295,7 @@ public:
     virtual ~CEnvironment();
 
     virtual void load();
+    inline bool isLoaded(void) const noexcept { return this->m_is_loaded; }
     virtual void unload();
 
     void mods_load();
@@ -365,6 +366,7 @@ public:
         xr_vector<CLensFlareDescriptor*>& collection, shared_str const& id);
 
 public:
+    bool m_is_loaded;
     float p_var_alt;
     float p_var_long;
     float p_min_dist;
