@@ -152,9 +152,9 @@ CGamePersistent::CGamePersistent(void)
     }
 
     eQuickLoad = Engine.Event.Handler_Attach("Game:QuickLoad", this);
-/*  ToZazTread
+
     Fvector3* DofValue = Console->GetFVectorPtr("r2_dof");
-    SetBaseDof(*DofValue);*/
+    SetBaseDof(*DofValue);
 }
 // Lord:
 #include "SDKRender_Connection.h"

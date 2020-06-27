@@ -656,8 +656,11 @@ bool CInifile::section_exist(pcstr S) const
     return I != DATA.end() && xr_strcmp((*I)->Name.c_str(), S) == 0;
 }
 
+tbb::spin_mutex _spin_line_exist;
 bool CInifile::line_exist(pcstr S, pcstr L) const
 {
+    tbb::spin_mutex::scoped_lock mutex{_spin_line_exist};
+
     if (!section_exist(S))
         return false;
     Sect& I = r_section(S);
