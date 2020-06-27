@@ -43,10 +43,6 @@ game_PlayerState::game_PlayerState(NET_Packet* account_info)
         {
             setFlag(GAME_PLAYER_FLAG_SKIP);
         }
-        else
-        {
-            m_account.load_account();
-        }
     }
 }
 

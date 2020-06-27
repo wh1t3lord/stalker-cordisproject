@@ -637,6 +637,9 @@ void CEnvironment::load_weather_effects()
 
 void CEnvironment::load()
 {
+    if (this->m_is_loaded)
+        return;
+
     if (!eff_LensFlare)
         eff_LensFlare = new CLensFlare();
 
@@ -652,6 +655,8 @@ void CEnvironment::load()
     m_pRender->OnLoad();
     load_weathers();
     load_weather_effects();
+
+    this->m_is_loaded = true;
 }
 
 void CEnvironment::unload()

@@ -38,7 +38,7 @@ const float MAX_DIST_FACTOR = 0.95f;
 
 //////////////////////////////////////////////////////////////////////////
 // environment
-CEnvironment::CEnvironment() : CurrentEnv(0), m_ambients_config(0)
+CEnvironment::CEnvironment() : CurrentEnv(0), m_ambients_config(0), m_is_loaded(false)
 {
     bNeed_re_create_env = FALSE;
     bWFX = false;
@@ -101,21 +101,18 @@ CEnvironment::CEnvironment() : CurrentEnv(0), m_ambients_config(0)
     m_thunderbolts_config =
         new CInifile(FS.update_path(file_name, "$game_config$", "environment" DELIMITER "thunderbolts.ltx"), TRUE, TRUE, FALSE);
 
-    CInifile* config =
-        new CInifile(FS.update_path(file_name, "$game_config$", "environment" DELIMITER "environment.ltx"), TRUE, TRUE, FALSE);
+    CInifile config = CInifile(FS.update_path(file_name, "$game_config$", "environment" DELIMITER "environment.ltx"), TRUE, TRUE, FALSE);
 
     // params
-    p_var_alt = deg2rad(config->r_float("environment", "altitude"));
-    p_var_long = deg2rad(config->r_float("environment", "delta_longitude"));
-    p_min_dist = std::min(.95f, config->r_float("environment", "min_dist_factor"));
-    p_tilt = deg2rad(config->r_float("environment", "tilt"));
-    p_second_prop = config->r_float("environment", "second_propability");
+    p_var_alt = deg2rad(config.r_float("environment", "altitude"));
+    p_var_long = deg2rad(config.r_float("environment", "delta_longitude"));
+    p_min_dist = std::min(.95f, config.r_float("environment", "min_dist_factor"));
+    p_tilt = deg2rad(config.r_float("environment", "tilt"));
+    p_second_prop = config.r_float("environment", "second_propability");
     clamp(p_second_prop, 0.f, 1.f);
-    p_sky_color = config->r_float("environment", "sky_color");
-    p_sun_color = config->r_float("environment", "sun_color");
-    p_fog_color = config->r_float("environment", "fog_color");
-
-    xr_delete(config);
+    p_sky_color = config.r_float("environment", "sky_color");
+    p_sun_color = config.r_float("environment", "sun_color");
+    p_fog_color = config.r_float("environment", "fog_color");
 
     // OpenXRay environment configuration
     useDynamicSunDir = pSettingsOpenXRay->read_if_exists<bool>("environment", "dynamic_sun_dir", true);
