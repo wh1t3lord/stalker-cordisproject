@@ -177,7 +177,6 @@ void CheckPrivilegySlowdown()
 ENGINE_API void Startup()
 {
     execUserScript();
-    Cordis::TaskManager::getInstance().getCore()->run([&]() {    InitSound(); });
     Cordis::TaskManager::getInstance().getCore()->run([&]() {    LALib.OnCreate(); });
 
     // ...command line for auto start
@@ -271,20 +270,20 @@ ENGINE_API int RunApplication()
     // Cordis::TaskManager::getInstance().getCore()->run([&]() {});
 
 
-/* ToZaz: Перенести позже
-    // Adjust player & computer name for Asian
-    if (pSettings->line_exist("string_table", "no_native_input"))
-    {
-        xr_strcpy(Core.UserName, sizeof(Core.UserName), "Player");
-        xr_strcpy(Core.CompName, sizeof(Core.CompName), "Computer");
-    }*/
-
-        if (pSettings == nullptr)
+    if (pSettings == nullptr)
         Cordis::TaskManager::getInstance().getCore()->wait();
 
     InitConsole();
 	XRay::Module p_module = XRay::LoadModule("xrGame");
 	Engine.External.setModuleGame(std::move(p_module));
+
+    Cordis::TaskManager::getInstance().getCore()->run([&]() {
+		    if (pSettings->line_exist("string_table", "no_native_input"))
+		    {
+			    xr_strcpy(Core.UserName, sizeof(Core.UserName), "Player");
+			    xr_strcpy(Core.CompName, sizeof(Core.CompName), "Computer");
+		    }
+        });
 
     Cordis::TaskManager::getInstance().getCore()->run([&]() {	InitSettings(); });
 
@@ -293,7 +292,7 @@ ENGINE_API int RunApplication()
 
     Cordis::TaskManager::getInstance().getCore()->run([&]() {    FPU::m24r(); });
     Cordis::TaskManager::getInstance().getCore()->run([&]() {    InitEngine(); });
-  
+    Cordis::TaskManager::getInstance().getCore()->run([&]() {    InitSound(); });
     if (CheckBenchmark())
 		return 0;
 
