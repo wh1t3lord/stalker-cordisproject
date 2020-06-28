@@ -10,7 +10,8 @@ HOW TO USE:
         1.1 open your cmd/bash and navigate to boost library in cloned repo (or downloaded)
             Example: "cd C:\Users\user\cordisproject\sdk\lib_boost"
         1.2 Write the command: "bootstrap"
-        1.3 After, write the command: ".\b2" 
+        1.3 After, write the command: ".\b2"
+        1.4 After 1.3, write the  command: ".\b2 runtime-link=static"
     When the boost library is built you can start from second stage of this instruction
     2. Open Visual Studio or your favorite IDE (it can be just notepad)
     3. Build the solution in IDE or use cmake file.
