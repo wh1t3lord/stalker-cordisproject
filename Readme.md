@@ -23,3 +23,9 @@ And add to all projects which you want to test
 2. add this ONCE to any .cpp file in your project: "#include <src\gtest-all.cc>"
 3. If you project is dll write this in DllMain function in section where is DLL_PROCESS_ATTACH (or just in main or WinMain function if a project is exe): "testing::initGoogleTest(); RUN_ALL_TESTS();"
 4. Or you can see implemented examples with unit testing in projects xrCore, xrGame and xrEngine (all three dlls), xr_3da (exe).
+
+[RU]
+Для Windows подойдёт Visual Studio 2019. Для Linux Qt или любой другой в вашем понимании IDE. 
+
+1. Когда вы перешли в корневой каталог, вы должны скомпилировать boost библиотеку, для этого переходим по "sdk/lib_boost". В консоли пишем bootstrap, затем .\b2, после .\b2 runtime-link=static.
+2. Если вы хотите использовать googletest в вашем проекте, либо в любом другом, для этого вы должны указать в настройках проекта Configuration -> Preprocessor -> "$(xrSdkDir)googletest\googletest\;". Затем в любом .cpp файле указать включение файла реализации gtest-all.cc, то есть #include <src\gtest-all.cc>, НО ТОЛЬКО ОДИН ЕДИНСТВЕННЫЙ РАЗ. Самое использование сводится к "testing::initGoogleTest(); RUN_ALL_TESTS();", где вы должны это указать в любом месте в котором посчитаете нужным, обычно это выступает точка входа в приложение/библиотеку. Для большего понимания, вы можете уже сразу же посмотреть настроенные проекты под googletest - это xrCore, xrGame, xrEngine, xr_3da.
