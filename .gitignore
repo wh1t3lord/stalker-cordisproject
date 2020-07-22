@@ -14,7 +14,8 @@ bin*/
 !bind/
 !binary/
 !bindings/
-!sdk/Visual*Leak*Detector/
+!sdk/Visual*Leak*Detector/*
+sdk/yoga*/*
 intermediate/
 intermediate_plugs/
 lib/
