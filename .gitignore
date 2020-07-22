@@ -23,6 +23,7 @@ lib/
 !Externals/libtheora/lib/
 !Externals/AGS_SDK/ags_lib/lib
 !sdk/DXSDK/lib/
+!sdk/Visual*Leak*Detector/lib/
 CMakeFiles/
 *.aps
 *.user
