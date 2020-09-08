@@ -1,8 +1,0 @@
-﻿  Building Custom Rule D:/Cordis Project/Xray/sdk/Ultralight/samples/Browser/CMakeLists.txt
-  CMake does not need to re-run because D:/Cordis Project/Xray/sdk/Ultralight/samples/Browser/CMakeFiles/generate.stamp is up-to-date.
-  Browser.cpp
-  Tab.cpp
-  UI.cpp
-  main.cpp
-  Generating Code...
-  Browser.vcxproj -> D:\Cordis Project\Xray\sdk\Ultralight\samples\Browser\Debug\Browser.exe
