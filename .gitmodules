@@ -73,6 +73,6 @@
 [submodule "sdk/depot_tools"]
 	path = sdk/depot_tools
 	url = https://chromium.googlesource.com/chromium/tools/depot_tools.git
-[submodule "sdk/skia"]
-	path = sdk/skia
-	url = https://skia.googlesource.com/skia.git
+[submodule "sdk/boost"]
+	path = sdk/boost
+	url = https://github.com/boostorg/boost
