@@ -67,9 +67,6 @@
 [submodule "sdk/googletest"]
 	path = sdk/googletest
 	url = https://github.com/google/googletest
-[submodule "sdk/glfw"]
-	path = sdk/glfw
-	url = https://github.com/glfw/glfw
 [submodule "sdk/boost"]
 	path = sdk/boost
 	url = https://github.com/boostorg/boost
