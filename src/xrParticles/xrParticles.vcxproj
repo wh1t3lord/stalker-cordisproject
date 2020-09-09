@@ -183,7 +183,7 @@
       <PreprocessorDefinitions>VLD_FORCE_ENABLE;XR_PARTICLES_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>
         .;
-  $(xrSdkDir)googletest\googletest\include\; $(xrSdkDir)Visual Leak Detector\include; $(xrSdkDir)lib_boost\;    $(SolutionDir);
+  $(xrSdkDir)googletest\googletest\include\; $(xrSdkDir)Visual Leak Detector\include; $(xrSdkDir)boost\;    $(SolutionDir);
         $(xrExternals);
         $(ProjectDir);
         $(xrSdkDir)include;
@@ -197,11 +197,7 @@
       <AdditionalOptions>/Zm1000 %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <Link>
-      <AdditionalLibraryDirectories>$(xrSdkDir)Visual Leak Detector\lib\Win64\;$(xrSdkDir)lib_boost\stage\lib\;
-        $(xrSdkDir)libraries;
-        $(xrSdkDir)libraries/$(PlatformShortName);
-        $(xrLibDir);$(xrSdkDir)DXSDK/Lib/$(PlatformShortName);
-        %(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(xrSdkDir)Visual Leak Detector\lib\Win64\;$(xrSdkDir)boost\stage\lib\;$(xrSdkDir)libraries;$(xrSdkDir)libraries/$(PlatformShortName);$(xrLibDir);$(xrSdkDir)DXSDK/Lib/$(PlatformShortName);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Jumbo|x64'">
