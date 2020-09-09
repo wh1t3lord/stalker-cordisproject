@@ -188,7 +188,7 @@
       <PreprocessorDefinitions>XRAICORE_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <PrecompiledHeaderFile>pch.hpp</PrecompiledHeaderFile>
       <AdditionalIncludeDirectories>$(xrSdkDir)googletest\googletest\include\;$(xrSdkDir)Visual Leak Detector\include;
- $(xrSdkDir)lib_boost\;       .;
+ $(xrSdkDir)boost\;       .;
         $(SolutionDir);
         $(xrExternals);
         $(ProjectDir);
@@ -203,7 +203,7 @@
       <AdditionalOptions>/Zm1000 %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <Link>
-      <AdditionalLibraryDirectories>$(xrSdkDir)lib_boost\stage\lib\;        $(xrSdkDir)libraries;
+      <AdditionalLibraryDirectories>$(xrSdkDir)boost\stage\lib\;        $(xrSdkDir)libraries;
         $(xrSdkDir)libraries/$(PlatformShortName);
         $(xrLibDir);$(xrSdkDir)DXSDK/Lib/$(PlatformShortName);
         %(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>

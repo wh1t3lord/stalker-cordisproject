@@ -202,14 +202,14 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Mixed|x64'">
     <ClCompile>
-      <AdditionalIncludeDirectories>$(xrSdkDir)googletest\googletest\;$(xrSdkDir)googletest\googletest\include\;$(xrSdkDir)lib_boost\;$(xrSdkDir)Visual Leak Detector\include;$(xrExternals)OpenAutomate\inc;$(xrExternals)libogg\include;$(xrExternals)libtheora\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(xrSdkDir)googletest\googletest\;$(xrSdkDir)googletest\googletest\include\;$(xrSdkDir)boost\;$(xrSdkDir)Visual Leak Detector\include;$(xrExternals)OpenAutomate\inc;$(xrExternals)libogg\include;$(xrExternals)libtheora\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>VLD_FORCE_ENABLE;ENGINE_BUILD;INGAME_EDITOR;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalOptions>/Zm1000 %(AdditionalOptions)</AdditionalOptions>
       <WarningLevel>TurnOffAllWarnings</WarningLevel>
     </ClCompile>
     <Link>
       <AdditionalDependencies>vfw32.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>$(xrSdkDir)Visual Leak Detector\lib\Win64\;$(xrSdkDir)lib_boost\stage\lib\;        $(xrSdkDir)libraries;
+      <AdditionalLibraryDirectories>$(xrSdkDir)Visual Leak Detector\lib\Win64\;$(xrSdkDir)boost\stage\lib\;        $(xrSdkDir)libraries;
         $(xrSdkDir)libraries/$(PlatformShortName);
         $(xrLibDir);$(xrSdkDir)DXSDK/Lib/$(PlatformShortName);
         %(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>

@@ -224,23 +224,12 @@
     <ClCompile>
       <PreprocessorDefinitions>_USRDLL;XRGAMESPY_EXPORTS;XRAY_DISABLE_GAMESPY_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <DisableSpecificWarnings>4996;%(DisableSpecificWarnings)</DisableSpecificWarnings>
-      <AdditionalIncludeDirectories>
-        .;
- $(xrSdkDir)googletest\googletest\include\;$(xrSdkDir)Visual Leak Detector\include; $(xrSdkDir)lib_boost\;      $(SolutionDir);
-        $(xrExternals);
-        $(ProjectDir);
-        $(xrSdkDir)include;
-        $(xrSdkDir)DXSDK/Include;
-        $(xrExternals)luajit\src;
-        $(xrExternals)luabind;
-        $(xrExternals)GameSpy\src;
-        %(AdditionalIncludeDirectories)
-      </AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>.;$(xrSdkDir)googletest\googletest\include\;$(xrSdkDir)Visual Leak Detector\include;$(xrSdkDir)boost\;$(SolutionDir);$(xrExternals);$(ProjectDir);$(xrSdkDir)include;$(xrSdkDir)DXSDK/Include;$(xrExternals)luajit\src;$(xrExternals)luabind;$(xrExternals)GameSpy\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <WarningLevel>TurnOffAllWarnings</WarningLevel>
       <AdditionalOptions>/Zm1000 %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <Link>
-      <AdditionalLibraryDirectories>$(xrSdkDir)lib_boost\stage\lib\;
+      <AdditionalLibraryDirectories>$(xrSdkDir)boost\stage\lib\;
         $(xrSdkDir)libraries;
         $(xrSdkDir)libraries/$(PlatformShortName);
         $(xrLibDir);$(xrSdkDir)DXSDK/Lib/$(PlatformShortName);

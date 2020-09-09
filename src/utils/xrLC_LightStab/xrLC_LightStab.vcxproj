@@ -216,7 +216,7 @@
       <PreprocessorDefinitions>_USRDLL;XRLC_LIGHT_STAB_EXPORTS;_USE_MATH_DEFINES;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>
         .;
-  $(xrSdkDir)Visual Leak Detector\include;  $(xrSdkDir)lib_boost\;    $(SolutionDir);
+  $(xrSdkDir)Visual Leak Detector\include;  $(xrSdkDir)boost\;    $(SolutionDir);
         $(xrExternals);
         $(ProjectDir);
         $(xrSdkDir)include;
@@ -228,7 +228,7 @@
       </AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
-      <AdditionalLibraryDirectories>$(xrSdkDir)lib_boost\stage\lib\;      $(xrSdkDir)libraries;
+      <AdditionalLibraryDirectories>$(xrSdkDir)boost\stage\lib\;      $(xrSdkDir)libraries;
         $(xrSdkDir)libraries/$(PlatformShortName);
         $(xrLibDir);$(xrSdkDir)DXSDK/Lib/$(PlatformShortName);
         %(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
