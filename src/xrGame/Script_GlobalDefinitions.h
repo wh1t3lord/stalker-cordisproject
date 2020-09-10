@@ -1520,7 +1520,7 @@ struct StateManagerCallbackData
         if (this->m_callback_time)
             this->m_callback_time();
         else
-            Msg("[Scripts/StateManagerCallbackData/CallCallbackTime()] WARNINIG: function what you binded is nullptr!");
+            MESSAGEW("function what you binded is nullptr!");
     }
 
     inline void CallCallbackTurnEnd(void)
@@ -1528,8 +1528,7 @@ struct StateManagerCallbackData
         if (this->m_callback_turn_end)
             this->m_callback_turn_end();
         else
-            Msg("[Scripts/StateManagerCallbackData/CallCallbackTurnEnd(void)] WARNING: function what you binded is "
-                "nullptr!");
+            MESSAGEW("function what you binded is nullptr!");
     }
 
 private:
@@ -1634,8 +1633,7 @@ struct StateManagerAnimationData
         inline void setAnimationName(const xr_string& animation_name) noexcept
         {
             if (animation_name.empty())
-                Msg("[Scripts/StateManagerAnimationData/AnimationData/setAnimationName(animation_name)] WARNING: "
-                    "animation_name.empty() == true! You set an empty string");
+                MESSAGEW("animation_name.empty() == true! You set an empty string");
 
             this->m_animation_name = animation_name;
         }
@@ -1644,8 +1642,7 @@ struct StateManagerAnimationData
         inline void setSoundName(const xr_string& sound_name) noexcept
         {
             if (sound_name.empty())
-                Msg("[Scripts/StateManagerAnimationData/AnimationData/setSoundName(sound_name)] WARNING: "
-                    "sound_name.empty() == true! You set an empty string");
+                MESSAGEW("sound_name.empty() == true! You set an empty string");
 
             this->m_sound_name = sound_name;
         }
