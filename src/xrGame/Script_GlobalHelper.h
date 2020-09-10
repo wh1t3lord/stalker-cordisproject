@@ -111,7 +111,7 @@ public:
     {
         if (!map.size())
         {
-            Msg("[Script_GlobalHelper/setMonsterClasses(map)] WARNING: map.size() = 0! You are "
+            MESSAGEW("map.size() = 0! You are "
                 "trying to set an empty "
                 "map!");
             //   return;
@@ -124,7 +124,7 @@ public:
     {
         if (pair.first == Globals::kUnsignedInt32Undefined)
         {
-            Msg("[Script_GlobalHelper/setMonsterClasses(pair)] WARNING: pair.first = "
+            MESSAGEW("pair.first = "
                 "std::uint32_t(-1)! Your value is "
                 "undefined!");
             //     return;
@@ -137,8 +137,7 @@ public:
     {
         if (monster_id == Globals::kUnsignedInt32Undefined)
         {
-            Msg("[Script_GlobalHelper/setMonsterClasses(monster_id, value)] WARNING: "
-                "monster_id = std::uint32_t(-1)! "
+            MESSAGEW("monster_id = std::uint32_t(-1)! "
                 "Your value is undefined!");
             //     return;
         }
@@ -152,7 +151,7 @@ public:
     {
         if (!map.size())
         {
-            Msg("[Script_GlobalHelper/setStalkerClasses(map)] WARNING: map.size() = 0! You are "
+            MESSAGEW("map.size() = 0! You are "
                 "trying to set an empty "
                 "map!");
             //   return;
@@ -165,7 +164,7 @@ public:
     {
         if (pair.first == Globals::kUnsignedInt32Undefined)
         {
-            Msg("[Script_GlobalHelper/setStalkerClasses(pair)] WARNING: pair.first = "
+            MESSAGEW("pair.first = "
                 "std::uint32_t(-1)! Your value is "
                 "undefined!");
             //  return;
@@ -178,8 +177,7 @@ public:
     {
         if (stalker_id == Globals::kUnsignedInt32Undefined)
         {
-            Msg("[Script_GlobalHelper/setStalkerClasses(stalker_id, value)] WARNING: "
-                "stalker_id = std::uint32_t(-1)! "
+            MESSAGEW("stalker_id = std::uint32_t(-1)! "
                 "Your value is undefined!");
             //    return;
         }
@@ -193,7 +191,7 @@ public:
     {
         if (!map.size())
         {
-            Msg("[Script_GlobalHelper/setWeaponClasses(map)] WARNING: map.size() = 0! You are "
+            MESSAGEW("map.size() = 0! You are "
                 "trying to set an empty "
                 "map!");
             //   return;
@@ -206,7 +204,7 @@ public:
     {
         if (pair.first == Globals::kUnsignedInt32Undefined)
         {
-            Msg("[Script_GlobalHelper/setWeaponClasses(pair)] WARNING: pair.first = "
+            MESSAGEW("pair.first = "
                 "std::uint32_t(-1)! You value is "
                 "undefined!");
             // return;
@@ -219,7 +217,7 @@ public:
     {
         if (weapon_id == Globals::kUnsignedInt32Undefined)
         {
-            Msg("[Script_GlobalHelper/setWeaponClasses(weapon_id, value)] WARNING: weapon_id = "
+            MESSAGEW("weapon_id = "
                 "std::uint32_t(-1)! Your "
                 "value is undefined!");
             //    return;
@@ -234,7 +232,7 @@ public:
     {
         if (!map.size())
         {
-            Msg("[Script_GlobalHelper/setArtefactClasses(map)] WARNING: map.size() = 0! You "
+            MESSAGEW("map.size() = 0! You "
                 "are trying to set an empty "
                 "map!");
             //   return;
@@ -247,7 +245,7 @@ public:
     {
         if (pair.first == Globals::kUnsignedInt32Undefined)
         {
-            Msg("[Script_GlobalHelper/setArtefactClasses(pair)] WARNING: pair.first == "
+            MESSAGEW("pair.first == "
                 "std::uint32_t(-1)! You are "
                 "trying to set an undefined value!");
             //  return;
@@ -260,8 +258,7 @@ public:
     {
         if (artefact_id == Globals::kUnsignedInt32Undefined)
         {
-            Msg("[Script_GlobalHelper/setArtefactClasses(artefact_id, value)] WARNING: "
-                "artefact_id = "
+            MESSAGEW("artefact_id = "
                 "std::uint32_t(-1)! Your value is undefined!");
             //    return;
         }
@@ -275,7 +272,7 @@ public:
     {
         if (!map.size())
         {
-            Msg("[Script_GlobalHelper/setAmmoSection(map)] WARNING: map.size() = 0! You are "
+            MESSAGEW("map.size() = 0! You are "
                 "trying to set an empty "
                 "map!");
             //   return;
@@ -288,7 +285,7 @@ public:
     {
         if (pair.first == Globals::kUnsignedInt32Undefined)
         {
-            Msg("[Script_GlobalHelper/setAmmoSection(pair)] WARNING: pair.first = "
+            MESSAGEW("pair.first = "
                 "std::uint32_t(-1)! "
                 "Your value is undefined!!!");
             //  return;
@@ -301,8 +298,7 @@ public:
     {
         if (ammo_section == Globals::kUnsignedInt32Undefined)
         {
-            Msg("[Script_GlobalHelper/setAmmoSection(ammo_section, value)] WARNING: "
-                "ammo_section = std::uint32_t(-1)! "
+            MESSAGEW("ammo_section = std::uint32_t(-1)! "
                 "Your value is undefined!!!");
             //  return;
         }
@@ -316,7 +312,7 @@ public:
     {
         if (!map.size())
         {
-            Msg("[Script_GlobalHelper/setQuestSection(map)] WARNING: map.size() = 0! You are "
+            MESSAGEW("map.size() = 0! You are "
                 "trying to set an empty "
                 "map!");
             // return;
@@ -329,7 +325,7 @@ public:
     {
         if (!pair.first.size())
         {
-            Msg("[Script_GlobalHelper/setQuestSection] WARNING: pair.first.size() = 0! You are "
+            MESSAGEW("pair.first.size() = 0! You are "
                 "trying to set an "
                 "empty pair!");
             //   return;
@@ -342,7 +338,7 @@ public:
     {
         if (!section_name.size())
         {
-            Msg("[Script_GlobalHelper/setQuestSection] WARNING: section_name.size() = 0! You "
+            MESSAGEW("section_name.size() = 0! You "
                 "are trying to set an "
                 "empty string!");
             //    return;
@@ -360,7 +356,7 @@ public:
     {
         if (!map.size())
         {
-            Msg("[Script_GlobalHelper/setSquadCommunityByBehavior(map)] WARNING: map.size() = "
+            MESSAGEW("map.size() = "
                 "0! You are trying to set "
                 "an empty map!");
             //  return;
@@ -373,8 +369,7 @@ public:
     {
         if (!pair.first.size())
         {
-            Msg("[Script_GlobalHelper/setSquadCommunityByBehavior(pair)] WARNING: "
-                "pair.first.size() = 0! You are trying to set an empty pair!");
+            MESSAGEW("pair.first.size() = 0! You are trying to set an empty pair!");
             //  return;
         }
 
@@ -385,9 +380,7 @@ public:
     {
         if (!community_name.size())
         {
-            Msg("[Script_GlobalHelper/setSquadCommunityByBehavior(community_name, "
-                "behavior_name)] WARNING: "
-                "community_name.size() = 0! You are trying to set an empty string!");
+            MESSAGEW("community_name.size() = 0! You are trying to set an empty string!");
             // return;
         }
 
@@ -403,8 +396,7 @@ public:
     {
         if (!map.size())
         {
-            Msg("[Script_GlobalHelper/setRegisteredFunctionsXREffects(map)] WARNING: "
-                "map.size() = 0! You are trying to "
+            MESSAGEW("map.size() = 0! You are trying to "
                 "set an empty map!");
             //   return;
         }
@@ -416,8 +408,7 @@ public:
     {
         if (!pair.first.size())
         {
-            Msg("[Script_GlobalHelper/setRegisteredFunctionsXREffects(pair)] WARNING: "
-                "pair.first.size() = 0! You are trying to set an empty pair!");
+            MESSAGEW("pair.first.size() = 0! You are trying to set an empty pair!");
             // return;
         }
 
@@ -428,9 +419,7 @@ public:
     {
         if (!function_name.size())
         {
-            Msg("[Script_GlobalHelper/setRegisteredFunctionsXREffects(function_name, "
-                "function)] WARNING: "
-                "function_name.size() = 0! You are trying to set an empty string!");
+            MESSAGEW("function_name.size() = 0! You are trying to set an empty string!");
             // return;
         }
 
@@ -446,8 +435,7 @@ public:
     {
         if (!map.size())
         {
-            Msg("[Script_GlobalHelper/setRegisteredFunctionsXRCondition(map)] WARNING: "
-                "map.size() = 0! You are trying "
+            MESSAGEW("map.size() = 0! You are trying "
                 "to set an empty map!");
             //  return;
         }
@@ -459,8 +447,7 @@ public:
     {
         if (!pair.first.size())
         {
-            Msg("[Script_GlobalHelper/setRegisteredFunctionsXRCondition(pair)] WARNING: "
-                "pair.first.size() = 0! You are trying to set an empty pair!");
+            MESSAGEW("pair.first.size() = 0! You are trying to set an empty pair!");
             //  return;
         }
 
@@ -471,9 +458,7 @@ public:
     {
         if (!function_name.size())
         {
-            Msg("[Script_GlobalHelper/setRegisteredFunctionsXRCondition(function_name, "
-                "function)] WARNING: "
-                "function_name.size() = 0! You are trying to set an empty string!");
+            MESSAGEW("function_name.size() = 0! You are trying to set an empty string!");
             //    return;
         }
 
@@ -490,8 +475,7 @@ public:
     {
         if (!map.size())
         {
-            Msg("[Script_GlobalHelper/setRegisteredSmartCovers(map)] WARNING: map.size() = 0! "
-                "You are trying to set an "
+            MESSAGEW("You are trying to set an "
                 "empty map!");
             //     return;
         }
@@ -503,8 +487,7 @@ public:
     {
         if (!pair.first.size())
         {
-            Msg("[Script_GlobalHelper/setRegisteredSmartCovers(smart_name, data)] WARNING: "
-                "pair.first.size() = 0! You "
+            MESSAGEW("pair.first.size() = 0! You "
                 "are trying to set an empty string,");
             //   return;
         }
@@ -516,8 +499,7 @@ public:
     {
         if (!smart_name.size())
         {
-            Msg("[Script_GlobalHelper/setRegisteredSmartCovers(smart_name, data)] WARNING: "
-                "smart_name.size() = 0! You "
+            MESSAGEW("smart_name.size() = 0! You "
                 "are trying to set an empty string.");
             //   return;
         }
@@ -534,7 +516,7 @@ public:
     {
         if (!map.size())
         {
-            Msg("[Script_GlobalHelper/setJobTypesByScheme(map)] WARNING: map.size() = 0! You "
+            MESSAGEW("map.size() = 0! You "
                 "are trying to set an "
                 "empty map!");
             //   return;
@@ -547,8 +529,7 @@ public:
     {
         if (!pair.first.size())
         {
-            Msg("[Script_GlobalHelper/setJobTypesByScheme(type_name, scheme_name)] WARNING: "
-                "pair.first.size() = 0! You "
+            MESSAGEW("pair.first.size() = 0! You "
                 "are trying to set an empty string");
             // return;
         }
@@ -560,8 +541,7 @@ public:
     {
         if (!type_name.size())
         {
-            Msg("[Script_GlobalHelper/setJobTypesByScheme(type_name, scheme_name)] WARNING: "
-                "type_name.size() = 0! You "
+            MESSAGEW("type_name.size() = 0! You "
                 "are trying to set an empty string,");
             //   return;
         }
@@ -606,7 +586,7 @@ public:
     {
         if (!map.size())
         {
-            Msg("[Script_GlobalHelper/setGameSmartsByAssaultZones(map)] WARNING: map.size() = "
+            MESSAGEW("map.size() = "
                 "0! You are trying to set "
                 "an empty map!");
             //  return;
@@ -619,8 +599,7 @@ public:
     {
         if (!pair.first.size())
         {
-            Msg("[Script_GlobalHelper/setGameSmartsByAssaultZones(pair)] WARNING: "
-                "pair.first.size() = 0! You are "
+            MESSAGEW("pair.first.size() = 0! You are "
                 "trying to set an empty string!");
             //  return;
         }
@@ -632,8 +611,7 @@ public:
     {
         if (!smart_name.size())
         {
-            Msg("[Script_GlobalHelper/setGameSmartsByAssaultZones(smart_name, zone_name)] "
-                "WARNING: smart_name.size() = "
+            MESSAGEW("smart_name.size() = "
                 "0! You are trying to set an empty string!");
             //    return;
         }
@@ -663,8 +641,7 @@ public:
     {
         if (!map.size())
         {
-            Msg("[Script_GlobalHelper/setRegisteredSmartTerrainTerritoryType(map)] WARNING: "
-                "map.size() = 0! You are "
+            MESSAGEW("map.size() = 0! You are "
                 "trying to set an empty map!");
             //  return;
         }
@@ -676,8 +653,7 @@ public:
     {
         if (!pair.first.size())
         {
-            Msg("[Script_GlobalHelper/setRegisteredSmartTerrainTerritoryType(pair)] WARNING: "
-                "pair.first.size() = 0! "
+            MESSAGEW("pair.first.size() = 0! "
                 "You are trying to set an empty pair!");
             //   return;
         }
@@ -689,8 +665,7 @@ public:
     {
         if (!name.size())
         {
-            Msg("[Script_GlobalHelper/setRegisteredSmartTerrainTerritoryType(name, value)] "
-                "WARNING: name.size() = 0! "
+            MESSAGEW("name.size() = 0! "
                 "You are trying to set an empty string!");
             //    return;
         }
@@ -707,8 +682,7 @@ public:
     {
         if (!vector.size())
         {
-            Msg("[Script_GlobalHelper/setRegisteredSmartTerrainPathFields(vector)] WARNING: "
-                "vector.size() = 0! You are "
+            MESSAGEW("vector.size() = 0! You are "
                 "trying to set an empty vector!");
             //    return;
         }
@@ -720,8 +694,7 @@ public:
     {
         if (!name.size())
         {
-            Msg("[Script_GlobalHelper/setRegisteredSmartTerrainFields(name)] WARNING: "
-                "name.size() = 0! You are trying "
+            MESSAGEW("name.size() = 0! You are trying "
                 "to set an empty string!");
             //   return;
         }
@@ -738,8 +711,7 @@ public:
     {
         if (!map.size())
         {
-            Msg("[Script_GlobalHelper/setSimulationBoardGroupIDLevelsByName(map)] WARNING: "
-                "map.size() = 0! You are "
+            MESSAGEW("map.size() = 0! You are "
                 "trying to set an empty map!");
             //   return;
         }
@@ -751,8 +723,7 @@ public:
     {
         if (!pair.first.size())
         {
-            Msg("[Script_GlobalHelper/setSimulationBoardGroupIDLevelsByName(pair)] WARNING: "
-                "pair.first.size() = 0! you "
+            MESSAGEW("pair.first.size() = 0! you "
                 "are trying to set an empty string!");
             //   return;
         }
@@ -764,8 +735,7 @@ public:
     {
         if (!name.size())
         {
-            Msg("[Script_GlobalHelper/setSimulationBoardGropIDLevelsByName(name, id)] WARNING: "
-                "name.size() = 0! you "
+            MESSAGEW("name.size() = 0! you "
                 "are trying to set an empty string!");
             //    return;
         }
@@ -782,7 +752,7 @@ public:
     {
         if (!map.size())
         {
-            Msg("[Script_GlobalHelper/setSimulationSquadIsSquadMonster(map)] map.size() = 0! "
+            MESSAGEW("map.size() = 0! "
                 "you are trying to set an "
                 "empty map!");
             // return;
@@ -795,8 +765,7 @@ public:
     {
         if (!pair.first.size())
         {
-            Msg("[Script_GlobalHelper/setSimulationSquadIsSquadMonster(pair)] WARNING: "
-                "pair.first.size() = 0! you are "
+            MESSAGEW("pair.first.size() = 0! you are "
                 "trying to set an empty string");
             //  return;
         }
@@ -808,8 +777,7 @@ public:
     {
         if (!name.size())
         {
-            Msg("[Script_GlobalHelper/setSimulationSquadIsSquadMonster(name, value)] WARNING: "
-                "name.size() = 0! you are "
+            MESSAGEW("name.size() = 0! you are "
                 "trying to set an empty value");
             // return;
         }
@@ -828,8 +796,7 @@ public:
     {
         if (!map.size())
         {
-            Msg("[Script_GlobalHelper/setRegisteredSmartTerrainControlScriptStates(map)] "
-                "WARNING: map.size() = 0! you "
+            MESSAGEW("map.size() = 0! you "
                 "are trying to set an empty map!");
             //   return;
         }
@@ -842,8 +809,7 @@ public:
     {
         if (!pair.first.size())
         {
-            Msg("[Script_GlobalHelper/setRegisteredSmartTerrainControlScriptStates(pair)] "
-                "WARNING: pair.first is empty "
+            MESSAGEW("pair.first is empty "
                 "string! You are trying to set an empty string,");
             //   return;
         }
@@ -856,8 +822,7 @@ public:
     {
         if (!name.size())
         {
-            Msg("[Script_GlobalHelper/setRegisteredSmartTerrainControlScriptStates(name, "
-                "state)] WARNING: you are "
+            MESSAGEW("you are "
                 "trying to set an empty string");
             //    return;
         }
@@ -874,7 +839,7 @@ public:
     {
         if (!map.size())
         {
-            Msg("[Script_GlobalHelper/setRegisteredEatableVisuals(map)] WARNING: you're set an "
+            MESSAGEW("you're set an "
                 "empty map!");
             //  return;
         }
@@ -886,7 +851,7 @@ public:
     {
         if (!pair.first.size())
         {
-            Msg("[Script_GlobalHelper/setRegisteredEatableVisuals(pair)] WARNING: you're "
+            MESSAGEW("you're "
                 "trying to set an empty pair "
                 "to map!");
             //    return;
@@ -899,8 +864,7 @@ public:
     {
         if (!name.size())
         {
-            Msg("[Script_GlobalHelper/setRegisteredEatableVisuals(name, is_used)] WARNING: "
-                "name.size() = 0! (string is "
+            MESSAGEW("name.size() = 0! (string is "
                 "null!)");
             //   return;
         }
@@ -917,7 +881,7 @@ public:
     {
         if (!map.size())
         {
-            Msg("[Script_GlobalHelper/setRegisteredHarmonicaVisuals(map)] WARNING: map.size() "
+            MESSAGEW("map.size() "
                 "= 0! You are trying to "
                 "set an empty map! No assignment!");
             return;
@@ -930,8 +894,7 @@ public:
     {
         if (!pair.first.size())
         {
-            Msg("[Script_GlobalHelper/setRegisteredHarmonicaVisuals(pair)] WARNING: "
-                "pair.first.size() = 0! You are "
+            MESSAGEW("pair.first.size() = 0! You are "
                 "trying to set an empty pair!");
             //  return;
         }
@@ -943,8 +906,7 @@ public:
     {
         if (!visual_name.size())
         {
-            Msg("[Script_GlobalHelper/setRegisteredHarmonicaVisuals(visual_name, value)] "
-                "WARNING: visual_name.size() = "
+            MESSAGEW("visual_name.size() = "
                 "0! You are trying to set an empty string!");
             //   return;
         }
@@ -963,8 +925,7 @@ public:
     {
         if (!map.size())
         {
-            Msg("[Script_GlobalHelper/setAnimpointTable(pair)] WARNING: "
-                "map.size() = 0! You are trying to set an empty string!");
+            MESSAGEW("map.size() = 0! You are trying to set an empty string!");
             //  return;
         }
 
@@ -976,7 +937,7 @@ public:
     {
         if (!map.size())
         {
-            Msg("[DataBase/Storage/setStateLibrary(map)] WARNING: map.size() = 0! You are "
+            MESSAGEW("map.size() = 0! You are "
                 "trying to set an empty "
                 "map! ");
             //    return;
@@ -989,7 +950,7 @@ public:
     {
         if (!pair.first.size())
         {
-            Msg("[DataBase/Storage/setStateLibrary(pair)] WARNING: pair.first.size() = 0! You "
+            MESSAGEW("pair.first.size() = 0! You "
                 "are trying to set an "
                 "empty pair!");
             //    return;
@@ -1002,8 +963,7 @@ public:
     {
         if (!animation_name.size())
         {
-            Msg("[DataBase/Storage/setStateLibrary(animation_name, data)] WARNING: "
-                "animation_name.size() = 0! You are "
+            MESSAGEW("animation_name.size() = 0! You are "
                 "trying to set an empty string!");
             //   return;
         }
@@ -1045,26 +1005,20 @@ public:
     {
         if (!animpoint_name.size())
         {
-            Msg("[Script_GlobalHelper/setAnimpointTable(animpoint_name, function, "
-                "animpoint_animation_name)] WARNING: "
-                "animation_name.size() = 0! You are trying to set an empty string! No "
+            MESSAGEW("animation_name.size() = 0! You are trying to set an empty string! No "
                 "assignment!");
             //  return;
         }
 
         if (!pair.first)
         {
-            Msg("[Script_GlobalHelper/setAnimpointTable(animpoint_name, function, "
-                "animpoint_animation_name)] WARNING: "
-                "pair.first = null! You are trying to set an empty function!");
+            MESSAGEW("pair.first = null! You are trying to set an empty function!");
             // return;
         }
 
         if (!pair.second.size())
         {
-            Msg("[Script_GlobalHelper/setAnimpointTable(animpoint_name, function, "
-                "animpoint_animation_name)] WARNING: "
-                "pair.second.size() = 0! You are trying to set an empty string!");
+            MESSAGEW("pair.second.size() = 0! You are trying to set an empty string!");
             //   return;
         }
 
@@ -1076,25 +1030,19 @@ public:
     {
         if (!animpoint_name.size())
         {
-            Msg("[Script_GlobalHelper/setAnimpointTable(animpoint_name, function, "
-                "animpoint_animation_name)] WARNING: "
-                "animation_name.size() = 0! You are trying to set an empty string!");
+            MESSAGEW("animation_name.size() = 0! You are trying to set an empty string!");
             //  return;
         }
 
         if (!function)
         {
-            Msg("[Script_GlobalHelper/setAnimpointTable(animpoint_name, function, "
-                "animpoint_animation_name)] WARNING: "
-                "function = null! You are trying to set an empty function!");
+            MESSAGEW("function = null! You are trying to set an empty function!");
             //  return;
         }
 
         if (!animpoint_animation_name.size())
         {
-            Msg("[Script_GlobalHelper/setAnimpointTable(animpoint_name, function, "
-                "animpoint_animation_name)] WARNING: "
-                "animpoint_animation_name.size() = 0! You are trying to set an empty string!");
+            MESSAGEW("animpoint_animation_name.size() = 0! You are trying to set an empty string!");
             // return;
         }
 
@@ -1111,9 +1059,7 @@ public:
     {
         if (phrase_category_name.empty())
         {
-            Msg("[Scripts/Script_GlobalHelper/setPhraseTable(phrase_category_name, data)] "
-                "WARNING: "
-                "phrase_category_name.empty() == true! Can't assign return...");
+            MESSAGEW("phrase_category_name.empty() == true! Can't assign return...");
             return;
         }
 
@@ -1138,9 +1084,8 @@ public:
     {
         if (map.empty())
         {
-            Msg("[Scripts/Script_GlobalHelper/setPhraseTable(map)] WARNING: map.empty() == "
-                "true! Can't assign "
-                "return...");
+            MESSAGEW("map.empty() == "
+                "true! Can't assign ");
             return;
         }
 
@@ -1168,7 +1113,7 @@ public:
     {
         if (map.empty())
         {
-            Msg("[Scripts/Script_GlobalHelper/setPhrasePriorityTable(map)] WARNING: map.empty() == true! You are "
+            MESSAGEW("map.empty() == true! You are "
                 "trying to set an empty map");
         }
 
@@ -1180,23 +1125,18 @@ public:
     {
         if (dialog_type_name.empty())
         {
-            Msg("[Scripts/Script_GlobalHelper/setPhrasePriorityTable(dialog_type_name, npc_id, phrase_id, priority)] "
-                "WARNING: dialog_type_name.empty() == true! You are trying to set an empty string no assigment!");
+            MESSAGEW("dialog_type_name.empty() == true! You are trying to set an empty string no assigment!");
             return;
         }
 
         if (npc_id == Globals::kUnsignedInt16Undefined)
         {
-            Msg("[Scripts/Script_GlobalHelper/setPhrasePriorityTable(dialog_type_name, npc_id, phrase_id, priority)] "
-                "WARNING: npc_id is "
-                "undefined! std::uint16_t(-1)!");
+            MESSAGEW("npc_id is undefined! std::uint16_t(-1)!");
         }
 
         if (phrase_id == Globals::kUnsignedInt32Undefined)
         {
-            Msg("[Scripts/Script_GlobalHelper/setPhrasePriorityTable(dialog_type_name, npc_id, phrase_id, priority)] "
-                "WARNING: phrase_id "
-                "is undefined! std::uint32_t(-1)!");
+            MESSAGEW("phrase_id is undefined! std::uint32_t(-1)!");
         }
 
         this->m_phrase_priority_table[dialog_type_name][npc_id][phrase_id] = priority;
@@ -1213,15 +1153,13 @@ public:
     {
         if (name.empty())
         {
-            Msg("[Scripts/Script_GlobalHelper/setDynamicLtx(name, file)] WARNING: name.empty() == true! Can't assign "
-                "return");
+            MESSAGEWR("name.empty() == true! Can't assign ");
             return;
         }
 
         if (!file)
         {
-            Msg("[Scripts/Script_GlobalHelper/setDynamicLtx(name, file)] WARNING: file == nullptr! Can't assign "
-                "return");
+            MESSAGEWR("file == nullptr! Can't assign ");
             return;
         }
 
@@ -1232,14 +1170,14 @@ public:
     {
         if (pair.first.empty())
         {
-            Msg("[Scripts/Script_GlobalHelper/setDynamicLtx(pair)] WARNING: pair.first.empty() == true! Can't assign "
+            MESSAGEWR("pair.first.empty() == true! Can't assign "
                 "return");
             return;
         }
 
         if (!pair.second)
         {
-            Msg("[Scripts/Script_GlobalHelper/setDynamicLtx(pair)] WARNING: pair.second == nullptr! Can't assign "
+            MESSAGEWR("pair.second == nullptr! Can't assign "
                 "return");
             return;
         }
@@ -1251,7 +1189,7 @@ public:
     {
         if (map.empty())
         {
-            Msg("[Scripts/Script_GlobalHelper/setDynamicLtx(map)] WARNING: map.empty() == true! Can't assign return");
+            MESSAGEWR("map.empty() == true! Can't assign return");
             return;
         }
 
@@ -1265,7 +1203,7 @@ public:
         {
             for (std::pair<const xr_string, CScriptIniFile*>& it : this->m_registered_generated_gulag_inis)
             {
-                Msg("[Scripts/Script_GlobalHelper/DeallocateDynamicLtx()] deleting generated CScriptIniFile logic "
+                MESSAGEI("deleting generated CScriptIniFile logic "
                     "stuff from "
                     "GulagGenerator! %s",
                     it.second->fname());
@@ -1319,8 +1257,8 @@ public:
     {
         if (level_name.empty())
         {
-            Msg("[Scripts/Script_GlobalHelper/setIndoorLevels(level_name, value)] WARNING: level_name.empty() == true! "
-                "You set an empty string return ...");
+            MESSAGEWR("level_name.empty() == true! "
+                "You set an empty string");
             return;
         }
 
@@ -1333,7 +1271,7 @@ public:
             this->m_xr_danger_ignore_distance_by_danger_type.end())
             return this->m_xr_danger_ignore_distance_by_danger_type.at(type);
 
-        Msg("[Scripts/Script_GlobalHelper/setXRDangerIgnoreDistanceByDangerType(type)] WARNING: returns 0.0f, because "
+        MESSAGEWR("returns 0.0f, because "
             "can't find a danger type -> %d",
             static_cast<std::uint32_t>(type));
 
