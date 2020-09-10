@@ -169,9 +169,9 @@ inline bool cfg_get_bool(const CInifile* char_ini, const xr_string& section, con
         return false;
     }
 
-    MESSAGEW("ERROR object %s attempt to read a non-existant boolean field %s in section %s", object_name.c_str(),
+    MESSAGEE("object %s attempt to read a non-existant boolean field %s in section %s", object_name.c_str(),
         field.c_str(), section.c_str());
-    R_ASSERT(false);
+
     return false;
 }
 
@@ -202,9 +202,9 @@ inline bool cfg_get_bool(const CInifile* char_ini, const xr_string& section, con
         return false;
     }
 
-    Msg("[Script]: ERROR object %s attempt to read a non-existant boolean field %s in section %s", object_name.c_str(),
+    MESSAGEE("object %s attempt to read a non-existant boolean field %s in section %s", object_name.c_str(),
         field.c_str(), section.c_str());
-    R_ASSERT(false);
+
     return false;
 }
 
@@ -235,9 +235,9 @@ inline bool cfg_get_bool(CScriptIniFile* char_ini, const xr_string& section, con
         return false;
     }
 
-    Msg("[Script]: ERROR object %s attempt to read a non-existant boolean field %s in section %s", object_name.c_str(),
+    MESSAGEE("object %s attempt to read a non-existant boolean field %s in section %s", object_name.c_str(),
         field.c_str(), section.c_str());
-    R_ASSERT(false);
+
     return false;
 }
 
@@ -268,9 +268,9 @@ inline bool cfg_get_bool(CScriptIniFile* char_ini, const xr_string& section, con
         return false;
     }
 
-    Msg("[Script]: ERROR object %s attempt to read a non-existant boolean field %s in section %s", object_name.c_str(),
+    MESSAGEE("object %s attempt to read a non-existant boolean field %s in section %s", object_name.c_str(),
         field.c_str(), section.c_str());
-    R_ASSERT(false);
+
     return false;
 }
 
@@ -289,6 +289,7 @@ inline float cfg_get_number(const CInifile* char_ini, const xr_string& section, 
         return char_ini->r_float(section.c_str(), field.c_str());
 
     MESSAGEI("cfg_get_number has returned a default value");
+
     return 0.0f;
 }
 
@@ -307,6 +308,7 @@ inline float cfg_get_number(const CInifile* char_ini, const xr_string& section, 
         return char_ini->r_float(section.c_str(), field.c_str());
 
     MESSAGEI("cfg_get_number has returned a default value");
+
     return 0.0f;
 }
 
@@ -325,6 +327,7 @@ inline float cfg_get_number(CScriptIniFile* char_ini, const xr_string& section, 
         return char_ini->r_float(section.c_str(), field.c_str());
 
     MESSAGEI("cfg_get_number has returned a default value");
+
     return 0.0f;
 }
 
@@ -343,6 +346,7 @@ inline float cfg_get_number(CScriptIniFile* char_ini, const xr_string& section, 
         return char_ini->r_float(section.c_str(), field.c_str());
 
     MESSAGEI("cfg_get_number has returned a default value");
+
     return 0.0f;
 }
 
@@ -382,7 +386,7 @@ inline xr_string get_scheme_by_section(xr_string& data)
     if (result.find('@') == xr_string::npos)
     {
         //    R_ASSERT2(false, "invalid string!");
-        Msg("[Scripts/Globals/Utils/get_scheme_by_section(data)] Does it right logic section name %s ?", data.c_str());
+        MESSAGEI("Does it right logic section name %s ?", data.c_str());
         return result;
     }
 
@@ -394,7 +398,7 @@ inline xr_vector<xr_string> parse_names(const xr_string& buffer)
     xr_vector<xr_string> result;
     if (!buffer.size())
     {
-        Msg("[Scripts/Globals/Utils/parse_names(buffer)] WARNING: buffer.size() = 0! You are trying to parse an empty "
+        MESSAGEWR("buffer.size() = 0! You are trying to parse an empty "
             "string! Return empty vector");
         return result;
     }
@@ -528,7 +532,7 @@ inline xrTime r_CTime(NET_Packet& packet)
     int Y = packet.r_u8();
     if (Y == Globals::kUnsignedInt8Undefined)
     {
-        Msg("[Scripts/Globals/Utils/r_CTime(packet)] WARNING: bad initialize time from net_packet!");
+        MESSAGEWR("bad initialize time from net_packet!");
         return xrTime();
     }
 
@@ -547,7 +551,7 @@ inline xrTime r_CTime(NET_Packet& packet)
     }
     else
     {
-        Msg("[Scripts/Globals/Utils/r_CTime(packet)] WARNING: can't initialize time from net_packet!");
+        MESSAGEWR("can't initialize time from net_packet!");
         return xrTime();
     }
 }
@@ -557,7 +561,7 @@ inline xrTime r_CTime(IReader& packet)
     int Y = packet.r_u8();
     if (Y == Globals::kUnsignedInt8Undefined)
     {
-        Msg("[Scripts/Globals/Utils/r_CTime(packet)] WARNING: bad initialize time from IReader!");
+        MESSAGEWR("bad initialize time from IReader!");
         return xrTime();
     }
 
@@ -576,7 +580,7 @@ inline xrTime r_CTime(IReader& packet)
     }
     else
     {
-        Msg("[Scripts/Globals/Utils/r_CTime(packet)] WARNING: can't initialize time from IReader!");
+        MESSAGEWR("can't initialize time from IReader!");
         return xrTime();
     }
 }
@@ -585,8 +589,8 @@ inline void w_CTime(NET_Packet& packet, xrTime& time)
 {
     if (time == 0)
     {
-        Msg("[Scripts/Globals/Utils/w_CTime(packet, time)] WARNING: invalid xrTime structure, writing "
-            "std::uint8_t(-1). Return...");
+        MESSAGEWR("invalid xrTime structure, writing "
+            "std::uint8_t(-1)");
         packet.w_u8(Globals::kUnsignedInt8Undefined);
         return;
     }
@@ -613,7 +617,7 @@ inline void w_CTime(NET_Packet& packet, xrTime& time)
     }
     else
     {
-        Msg("[Scripts/Globals/Utils/w_CTime(packet, time)] WARNING: time equals default constructor xrTime()!");
+        MESSAGEW("time equals default constructor xrTime()!");
         packet.w_u8(0);
     }
 }
@@ -663,14 +667,14 @@ inline CondlistWaypoints::CondlistWayPointsData parse_waypoint_data(
 
 inline CondlistWaypoints path_parse_waypoints(const xr_string& path_name)
 {
+    CondlistWaypoints result;
+
     if (path_name.empty())
     {
-        Msg("[Scripts/Globals/Utils/path_parse_waypoints(path_name)] WARNING: path_name.empty() == true! Return empty "
+        MESSAGEWR("path_name.empty() == true! Return empty "
             "object ...");
-        return CondlistWaypoints();
+        return result;
     }
-
-    CondlistWaypoints result;
 
     CPatrolPathParams patrol = CPatrolPathParams(path_name.c_str());
     std::uint32_t count = patrol.count();
@@ -687,21 +691,22 @@ inline CondlistWaypoints path_parse_waypoints(const xr_string& path_name)
 inline CondlistWaypoints path_parse_waypoints_argumentlist(const xr_string& path_name, const std::uint32_t point_count,
     const xr_vector<std::pair<std::uint32_t, xr_string>>& data)
 {
+    CondlistWaypoints result;
     if (path_name.empty())
     {
-        Msg("[Scripts/Globals/Utils/path_parse_waypoints(path_name)] WARNING: path_name.empty() == true! Return empty "
+        MESSAGEWR("path_name.empty() == true! Return empty "
             "object ...");
-        return CondlistWaypoints();
+        return result;
     }
 
-    CondlistWaypoints result;
+
 
     CPatrolPathParams patrol = CPatrolPathParams(path_name.c_str());
     std::uint32_t count = patrol.count();
 
     if (count != point_count)
     {
-        Msg("[Scripts/Globals/Utils/path_parse_waypoints_argumentlist(path_name, point_count, data)] WARNING: count doesn't equal point_count! Return ...");
+        MESSAGEWR("count doesn't equal point_count! Return ...");
         return CondlistWaypoints();
     }
 
@@ -787,8 +792,8 @@ inline xr_map<std::uint32_t, xr_map<std::uint32_t, CondlistData>> parse_data_1v(
 
     if (buffer_name.empty())
     {
-        Msg("[Scripts/Globals/Utils/parse_data_1v(p_client_object, buffer_name)] WARNING: buffer_name.empty() == true! "
-            "Can't parse an empty string return ...");
+        MESSAGEWR("buffer_name.empty() == true! "
+            "Can't parse an empty string");
         return result;
     }
 
@@ -938,8 +943,7 @@ inline CSE_Abstract* alife_create(
         alife->spawn_item(section.c_str(), position, level_vertex_id, game_vertex_id, std::uint16_t(-1));
 
     if (server_instance)
-        Msg("[Scripts/Globals/Game/alife_create(section_name, position, level_vertex_id, game_vertex_id)] "
-            "server_instance is created name -> [%s]\n section_name -> [%s]\n x -> [%f] y -> [%f] z -> [%f] "
+        MESSAGE("server_instance is created name -> [%s]\n section_name -> [%s]\n x -> [%f] y -> [%f] z -> [%f] "
             "level_vertex_id -> [%d] game_vertex_id [%d]",
             server_instance->name_replace(), server_instance->name(), position.x, position.y, position.z,
             level_vertex_id, game_vertex_id);
@@ -956,8 +960,8 @@ inline CSE_Abstract* alife_create(const xr_string& section, const Fvector& posit
     CSE_ALifeDynamicObject* object = ai().alife().objects().object(parent_id, true);
     if (!object)
     {
-        Msg("! invalid parent id [%d] specified", parent_id);
-        return (0);
+        MESSAGEWR("invalid parent id [%d] specified", parent_id);
+        return static_cast<CSE_Abstract*>(nullptr);
     }
 
     CALifeSimulator* alife = const_cast<CALifeSimulator*>(ai().get_alife());
@@ -1017,10 +1021,10 @@ inline xr_string get_squad_relation_to_actor_by_id(const std::uint16_t& squad_id
 
     if (!squad)
     {
-        Msg("[Scripts/Globals/Game/get_squad_relation_to_actor_by_id(squad_id)] No scuh squad %s in board",
+        MESSAGEE("No scuh squad %s in board",
             std::to_string(squad_id).c_str());
-        R_ASSERT(false);
-        return "";
+ 
+        return xr_string();
     }
 
     int goodwill = 0;
@@ -1283,8 +1287,7 @@ inline bool check_all_squad_members(const xr_string& squad_name, const xr_string
             {
                 if (object)
                 {
-                    Msg("[Scripts/Globals/GameRelations/check_all_squad_members(squad_name, goodwill_name)] a "
-                        "member [%d] is an enemy",
+                    MESSAGE("a member [%d] is an enemy",
                         it->first);
                     is_goodwill = (object->GetAttitude(DataBase::Storage::getInstance().getActor()) <=
                         Globals::kRelationKoeffEnemy);
@@ -1294,8 +1297,7 @@ inline bool check_all_squad_members(const xr_string& squad_name, const xr_string
             {
                 if (object)
                 {
-                    Msg("[Scripts/Globals/GameRelations/check_all_squad_members(squad_name, goodwill_name)] a "
-                        "member [%d] is a friend",
+                    MESSAGE(" a member [%d] is a friend",
                         it->first);
                     is_goodwill = (object->GetAttitude(DataBase::Storage::getInstance().getActor()) >=
                         Globals::kRelationKoeffFriend);
@@ -1320,16 +1322,17 @@ inline int community_goodwill(LPCSTR community_name, int entity_id)
 
 inline int get_community_relation(const xr_string& faction, const xr_string& faction_to)
 {
+    int result = 0;
     if (!faction.size())
     {
         R_ASSERT2(false, "can't be an empty string!");
-        return 0;
+        return result;
     }
 
     if (!faction_to.size())
     {
         R_ASSERT2(false, "can't be an empty string!");
-        return 0;
+        return result;
     }
 
     CHARACTER_COMMUNITY community_from;
@@ -1337,17 +1340,18 @@ inline int get_community_relation(const xr_string& faction, const xr_string& fac
     CHARACTER_COMMUNITY community_to;
     community_to.set(faction_to.c_str());
 
-    return RELATION_REGISTRY().GetCommunityRelation(community_from.index(), community_to.index());
+    result = RELATION_REGISTRY().GetCommunityRelation(community_from.index(), community_to.index());
+
+    return result;
 }
 
 inline std::uint32_t get_npcs_relation(CScriptGameObject* const p_npc1, CScriptGameObject* const p_npc2)
 { 
     if (!p_npc1 || !p_npc2)
     {
-        Msg("[Scripts/Globals/GameRelations/get_npcs_relation(p_npc1, p_npc2)] WARNING: some of arguemnts is null Return ...");
+        MESSAGEWR("some of arguments is invalid");
         return ALife::ERelationType::eRelationTypeDummy;  
     }
-
 
     return p_npc1->GetRelationType(p_npc2); 
 }
@@ -1409,8 +1413,7 @@ inline void set_npcs_relation(
 {
     if (!new_relation_name.c_str())
     {
-        Msg("[Scripts/Globals/GameRelations/set_npcs_relation(server_object, client_object, new_relation_name)] "
-            "WARNING: new_relation_name was an empty string! Set default value => [%s]",
+        MESSAGEW("new_relation_name was an empty string! Set default value => [%s]",
             kRelationsTypeNeutral);
         new_relation_name = kRelationsTypeNeutral;
     }
@@ -1442,8 +1445,7 @@ inline void set_npcs_relation(CSE_ALifeMonsterAbstract* server_from_object, CSE_
 
     if (!new_relation_name.c_str())
     {
-        Msg("[Scripts/Globals/GameRelations/set_npcs_relation(server_object, client_object, new_relation_name)] "
-            "WARNING: new_relation_name was an empty string! Set default value => [%s]",
+        MESSAGEW("new_relation_name was an empty string! Set default value => [%s]",
             kRelationsTypeNeutral);
         new_relation_name = kRelationsTypeNeutral;
     }
@@ -1510,8 +1512,7 @@ inline void set_squad_goodwill(const xr_string& squad_id_name, const xr_string& 
         std::uint16_t squad_id = static_cast<std::uint16_t>(atoi(squad_id_name.c_str()));
         if (squad_id == 0)
         {
-            Msg("[Scripts/Globals/GameRelations/set_squad_goowill(squad_id_name, goodwill_name)] WARNING: There is no "
-                "squad! Return ...");
+            MESSAGEWR("There is no squad!");
             return;
         }
         else
@@ -1525,8 +1526,7 @@ inline void set_squad_goodwill(const xr_string& squad_id_name, const xr_string& 
         p_squad->set_squad_relation(goodwill_name);
     }
 
-    Msg("[Scripts/Globals/GameRelations/set_squad_goodwill(squad_id_name, goodwill_name)] WARNING: can't find squad "
-        "anyway check your argument -> %s",
+    MESSAGEW("can't find squad anyway check your argument -> %s",
         squad_id_name.c_str());
 }
 
@@ -1545,8 +1545,7 @@ inline void set_squad_goodwill_to_npc(
         std::uint16_t squad_id = static_cast<std::uint16_t>(atoi(squad_id_name.c_str()));
         if (squad_id == 0)
         {
-            Msg("[Scripts/Globals/set_squad_goodwill_to_npc(p_npc, squad_id_name, goodwill_name)] WARNING: can't find "
-                "any squad by %s Return ...",
+            MESSAGEWR("can't find any squad by %s",
                 squad_id_name.c_str());
             return;
         }
@@ -1569,8 +1568,7 @@ inline void set_squad_goodwill_to_npc(
         }
     }
 
-    Msg("[Scripts/Globals/set_squad_goodwill_to_npc(p_npc, squad_id_name, goodwill_name)] WARNING: can't find any "
-        "squad by %s Return ...",
+    MESSAGEW("can't find any squad by %s",
         squad_id_name.c_str());
 }
 
@@ -1578,22 +1576,19 @@ inline void change_factions_community_num(const xr_string& community_name, const
 {
     if (community_name.empty())
     {
-        Msg("[Scripts/Globals/GameRelations/change_factions_community_num(community_name, npc_id, delta)] WARNING: "
-            "community_name.empty() == true! Return ...");
+        MESSAGEWR("community_name.empty() == true!");
         return;
     }
 
     if (community_name == "none")
     {
-        Msg("[Scripts/Globals/GameRelations/change_factions_community_num(community_name, npc_id, delta)] WARNING: "
-            "community_name == \"none\" Return ...");
+        MESSAGEWR("community_name == \"none\"");
         return;
     }
 
     if (!npc_id)
     {
-        Msg("[Scripts/Globals/GameRelations/change_factions_community_num(community_name, npc_id, delta)] WARNING: "
-            "npc_id == 0! Return ...");
+        MESSAGEWR("npc_id == 0!");
         return;
     }
 
@@ -1909,7 +1904,7 @@ inline bool is_npc_in_actor_frustrum(CScriptGameObject* npc)
 
     if (!DataBase::Storage::getInstance().getActor())
     {
-        Msg("[Scripts/Globals/is_npc_in_actor_frustrum(npc)] DataBase's actor is null! Early calling!!!");
+        MESSAGEWR("DataBase's actor is null! Early calling!!!");
         return false;
     }
 
@@ -1932,7 +1927,7 @@ inline bool is_npc_in_actor_frustrum(CSE_ALifeDynamicObject* server_npc)
 
     if (!DataBase::Storage::getInstance().getActor())
     {
-        Msg("[Scripts/Globals/is_npc_in_actor_frustrum(server_npc)] DataBase's actor is null! Early calling!!!");
+        MESSAGEWR("DataBase's actor is null! Early calling!!!");
         return false;
     }
 
@@ -1963,7 +1958,7 @@ inline CScriptGameObject* get_story_object(const xr_string& object_id)
 
     if (result)
     {
-        Msg("[Scripts/Globals/get_story_object(object_id_name)] returned by DataBase!");
+        MESSAGEWR("returned by DataBase!");
         return result;
     }
     else
@@ -1971,7 +1966,7 @@ inline CScriptGameObject* get_story_object(const xr_string& object_id)
         result = Game::level::get_object_by_id(obj_id);
         if (result)
         {
-            Msg("[Scripts/Globals/get_story_object(object_id_name)] returned by "
+            MESSAGEWR("returned by "
                 "Game::level::get_object_by_id(obj_id)!");
             return result;
         }
@@ -2049,7 +2044,7 @@ inline bool has_alife_info(LPCSTR info_id)
     if (!known_info)
     {
         //   R_ASSERT2(false, "object in null!");
-        Msg("[Scripts/Globals/has_alife_info(info_id_name)] known_info = nullptr! Return false!");
+        MESSAGEWR("known_info = nullptr!");
         return false;
     }
 
@@ -2411,8 +2406,7 @@ inline void set_save_marker(NET_Packet& packet, const xr_string& mode, bool chec
 
             if (delta != c_delta)
             {
-                Msg("INCORRECT LOAD [%s].[%d][%d]", result.c_str(), delta, c_delta);
-                R_ASSERT(false);
+                MESSAGEE("INCORRECT LOAD [%s].[%d][%d]", result.c_str(), delta, c_delta);
             }
             else
             {
@@ -2471,8 +2465,7 @@ inline void set_save_marker(IReader& packet, const xr_string& mode, bool check, 
 
             if (delta != c_delta)
             {
-                Msg("INCORRECT LOAD [%s].[%d][%d]", result.c_str(), delta, c_delta);
-                R_ASSERT(false);
+                MESSAGEE("INCORRECT LOAD [%s].[%d][%d]", result.c_str(), delta, c_delta);
             }
             else
             {
@@ -2583,7 +2576,7 @@ inline xr_string get_job_restrictor(const char* waypoint_name)
     if (!waypoint_name)
     {
         R_ASSERT2(false, "string can't be empty!");
-        return xr_string("");
+        return xr_string();
     }
 
     const Fvector& position = CPatrolPathParams(waypoint_name).point(std::uint32_t(0));
@@ -2600,7 +2593,7 @@ inline xr_string get_job_restrictor(const char* waypoint_name)
         }
     }
 
-    return xr_string("");
+    return xr_string();
 }
 
 inline bool is_accessible_job(CSE_ALifeDynamicObject* server_object, const xr_string& waypoint_name)
@@ -2655,6 +2648,8 @@ inline CScriptIniFile* create_ini_file(LPCSTR ini_string)
 {
     IReader reader((void*)ini_string, xr_strlen(ini_string));
     //    return ((CScriptIniFile*)new CInifile(&reader, FS.get_path("$game_config$")->m_Path));
+
+    MESSAGEI("allocated script init file: %s", ini_string);
     return new CScriptIniFile(&reader, FS.get_path("$game_config$")->m_Path);
 }
 
@@ -2902,8 +2897,7 @@ inline std::uint32_t look_position_type(
 
     if (!p_state_manager)
     {
-        Msg("[Scripts/Globals/look_position_type(p_client_object, p_state_manager)] wARNING: p_state_manager == "
-            "nullptr! Return ...");
+        MESSAGEWR("p_state_manager == nullptr!");
         return SightManager::eSightTypePathDirection;
     }
 
@@ -2966,8 +2960,7 @@ inline void turn(CScriptGameObject* const p_client_object, Script_StateManager* 
 
         if (is_vector_nil(direction))
         {
-            Msg("[Scripts/Globals/turn(p_client_object, p_state_manager)] WARNING: You are trying to set a wrong "
-                "direction!");
+            MESSAGEW("You are trying to set a wrong direction!");
             p_state_manager->setLookPosition(
                 Fvector().set((p_client_object->Position().x + p_client_object->Direction().x),
                     (p_client_object->Position().y + p_client_object->Direction().y),
@@ -3396,7 +3389,7 @@ inline void start_guitar(CScriptGameObject* const p_npc)
 {
     if (!p_npc)
     {
-        Msg("[Scripts/Globals/start_guitar(p_npc)] WARNING: p_npc == nullptr! Return ...");
+        MESSAGEWR("p_npc == nullptr!");
         return;
     }
 
@@ -3420,7 +3413,7 @@ inline void start_harmonica(CScriptGameObject* const p_npc)
 {
     if (!p_npc)
     {
-        Msg("[Scripts/Globals/start_harmonica(p_npc)] WARNING: p_npc == nullptr! Return ...");
+        MESSAGEWR("p_npc == nullptr! Return ...");
         return;
     }
 
@@ -3428,7 +3421,7 @@ inline void start_harmonica(CScriptGameObject* const p_npc)
 
     if (!camp_id)
     {
-        Msg("[Scripts/Globals/start_harmonica(p_npc)] WARNING: can't find camp_id, it doesnt registered! Return ...");
+        MESSAGEWR("can't find camp_id, it does not registered! Return ...");
         return;
     }
 
@@ -3446,13 +3439,13 @@ inline bool is_npc_asleep(CScriptGameObject* const p_npc)
 {
     if (!p_npc)
     {
-        Msg("[Scripts/Globals/is_npc_asleep(p_npc)] WARNING: p_npc == nullptr! Return ...");
+        MESSAGEWR("p_npc == nullptr!");
         return false;
     }
 
     if (DataBase::Storage::getInstance().getStorage().find(p_npc->ID()) == DataBase::Storage::getInstance().getStorage().end())
     {
-        Msg("[Scripts/Globals/is_npc_asleep(p_npc)] WARNING: SOMETHING IS WRONG THE NPC DIDN'T REGISTERED IN STORAGE YET! %d Return ...", p_npc->ID());
+        MESSAGEWR("SOMETHING IS WRONG THE NPC DIDN'T REGISTERED IN STORAGE YET! %d", p_npc->ID());
         return false;
     }
     const DataBase::Storage_Data& storage = DataBase::Storage::getInstance().getStorage().at(p_npc->ID());
