@@ -131,7 +131,7 @@ void CTextureDescrMngr::Load()
 #endif // #ifdef DEBUG
 
     LoadTHM("$level$");
-    Cordis::TaskManager::getInstance().getCore()->run([&]() { LoadTHM("$game_textures$"); }); 
+    LoadTHM("$game_textures$");
 
 
 

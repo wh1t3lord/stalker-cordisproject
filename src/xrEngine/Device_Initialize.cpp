@@ -45,10 +45,10 @@ void CRenderDevice::Initialize(pcstr cmdline_args)
 		TimerMM.Start();
 #endif
 
-        Cordis::TaskManager::getInstance().getCore()->run([&]() {
-			if (strstr(cmdline_args, "-weather"))
-				initialize_weather_editor();
-        });
+ 
+		if (strstr(cmdline_args, "-weather"))
+			initialize_weather_editor();
+ 
 
 
 

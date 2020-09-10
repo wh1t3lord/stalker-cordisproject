@@ -86,8 +86,8 @@ static void
 load(int argc, char** argv, char** envp)
 {
     // Fill ui style token
-    Cordis::TaskManager::getInstance().getCore()->run([&]() { FillUIStyleToken(); });
-    Cordis::TaskManager::getInstance().getCore()->run([&]() { CCC_RegisterCommands(); });
+    FillUIStyleToken(); 
+    CCC_RegisterCommands(); 
     CCC_RegisterInput();
 
     // register console commands
@@ -121,8 +121,8 @@ BOOL APIENTRY DllMain(HANDLE hModule, u32 ul_reason_for_call, LPVOID lpReserved)
     {
         testing::InitGoogleTest();
 
-        Cordis::TaskManager::getInstance().getCore()->run([&]() { xrRender_initconsole(); });
-        Cordis::TaskManager::getInstance().getCore()->run([&]() { RUN_ALL_TESTS(); });
+        xrRender_initconsole(); 
+        RUN_ALL_TESTS(); 
 
 
         GEnv.Render = &RImplementation;
