@@ -1137,7 +1137,7 @@ struct Script_IComponentScheme
 
 	virtual ~Script_IComponentScheme(void) 
     {
-        // Lord: подумать вызывается ли полностью, либо определить когда оно всё таки удаляется
+        // Lord: подумать вызывается ли полностью, либо определить когда оно всё таки удаляется, ибо жалуется на xr_aligned_free, как будто оно уже было удалено
        // this->deleteActions();
     }
 
