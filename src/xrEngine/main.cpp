@@ -177,7 +177,7 @@ void CheckPrivilegySlowdown()
 ENGINE_API void Startup()
 {
     execUserScript();
-        LALib.OnCreate(); 
+    LALib.OnCreate(); 
 
     // ...command line for auto start
     pcstr startArgs = strstr(Core.Params, "-start ");
