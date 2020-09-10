@@ -1137,7 +1137,8 @@ struct Script_IComponentScheme
 
 	virtual ~Script_IComponentScheme(void) 
     {
-        this->deleteActions();
+        // Lord: подумать вызывается ли полностью, либо определить когда оно всё таки удаляется
+       // this->deleteActions();
     }
 
     inline bool isCalledClear(void) const noexcept { return this->m_is_called_interfaced_clear; }
