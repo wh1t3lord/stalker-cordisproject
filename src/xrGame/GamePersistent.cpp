@@ -210,26 +210,26 @@ extern void init_game_globals();
 
 void CGamePersistent::OnAppStart()
 {
-    Cordis::TaskManager::getInstance().getCore()->run([&]() {SetupUIStyle(); });
-    
-    Cordis::TaskManager::getInstance().getCore()->run([&]() {    init_game_globals(); });
+    SetupUIStyle();
+   
+	init_game_globals();  
     // load game materials
-/*    Cordis::TaskManager::getInstance().getCore()->run([&]() {    inherited::OnAppStart(); });*/
+/*  inherited::OnAppStart();*/
 
     GEnv.UI = new UICore();
     CUIXmlInit::InitColorDefs();
-    Cordis::TaskManager::getInstance().getCore()->run([&](){
-        GMLib.Load();
-        });
+ 
+    GMLib.Load();
+ 
     // Lord: Вырезание меню
     m_pMainMenu = new CMainMenu();
     Device.setCanUseInput(true);
 #ifdef WINDOWS
-    Cordis::TaskManager::getInstance().getCore()->run([&]() {
+ 
 		ansel = new AnselManager();
 		ansel->Load();
 		ansel->Init();
-        });
+ 
 
 
 #endif

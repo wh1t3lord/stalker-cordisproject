@@ -86,7 +86,7 @@ void InitConfig(T& config, pcstr name, bool fatal = true,
 
 ENGINE_API void InitSettings()
 {
-    Cordis::TaskManager::getInstance().getCore()->run([&]() {
+    
 		xr_auth_strings_t ignoredPaths, checkedPaths;
 		fill_auth_check_params(ignoredPaths, checkedPaths); //TODO port xrNetServer to Linux
 		PathIncludePred includePred(&ignoredPaths);
@@ -95,9 +95,9 @@ ENGINE_API void InitSettings()
 
 
 		InitConfig(pSettingsAuth, "system.ltx", true, true, true, false, 0, includeFilter);
-        });
-    Cordis::TaskManager::getInstance().getCore()->run([&]() {    InitConfig(pSettingsOpenXRay, "openxray.ltx", false, true, true, false); });
-    Cordis::TaskManager::getInstance().getCore()->run([&]() {    InitConfig(pGameIni, "game.ltx"); });
+        
+        InitConfig(pSettingsOpenXRay, "openxray.ltx", false, true, true, false); 
+        InitConfig(pGameIni, "game.ltx"); 
 }
 
 ENGINE_API void InitConsole()
@@ -177,7 +177,7 @@ void CheckPrivilegySlowdown()
 ENGINE_API void Startup()
 {
     execUserScript();
-    Cordis::TaskManager::getInstance().getCore()->run([&]() {    LALib.OnCreate(); });
+        LALib.OnCreate(); 
 
     // ...command line for auto start
     pcstr startArgs = strstr(Core.Params, "-start ");
@@ -231,7 +231,7 @@ ENGINE_API int RunApplication()
 {
     R_ASSERT2(Core.Params, "Core must be initialized");
 
-    Cordis::TaskManager::getInstance().getCore()->run([&]() {  InitConfig(pSettings, "system.ltx"); });
+      InitConfig(pSettings, "system.ltx"); 
 
     InitInput();
 
@@ -267,7 +267,7 @@ ENGINE_API int RunApplication()
     *g_sLaunchOnExit_app = 0;
     *g_sLaunchOnExit_params = 0;
 
-    // Cordis::TaskManager::getInstance().getCore()->run([&]() {});
+    // 
 
 
     if (pSettings == nullptr)
@@ -277,22 +277,22 @@ ENGINE_API int RunApplication()
 	XRay::Module p_module = XRay::LoadModule("xrGame");
 	Engine.External.setModuleGame(std::move(p_module));
 
-    Cordis::TaskManager::getInstance().getCore()->run([&]() {
+    
 		    if (pSettings->line_exist("string_table", "no_native_input"))
 		    {
 			    xr_strcpy(Core.UserName, sizeof(Core.UserName), "Player");
 			    xr_strcpy(Core.CompName, sizeof(Core.CompName), "Computer");
 		    }
-        });
+        
 
-    Cordis::TaskManager::getInstance().getCore()->run([&]() {	InitSettings(); });
+    InitSettings(); 
 
     Engine.External.CreateRendererList();
 
 
-    Cordis::TaskManager::getInstance().getCore()->run([&]() {    FPU::m24r(); });
-    Cordis::TaskManager::getInstance().getCore()->run([&]() {    InitEngine(); });
-    Cordis::TaskManager::getInstance().getCore()->run([&]() {    InitSound(); });
+    FPU::m24r(); 
+    InitEngine(); 
+    InitSound(); 
     if (CheckBenchmark())
 		return 0;
 
@@ -311,7 +311,7 @@ ENGINE_API int RunApplication()
 	else
 		Console->Execute("renderer renderer_r1");
    
-    Cordis::TaskManager::getInstance().getCore()->run([&]() { Engine.External.Initialize(); });
+     Engine.External.Initialize(); 
 
     Startup();
     // check for need to execute something external

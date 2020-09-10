@@ -21,7 +21,7 @@ int entry_point(pcstr commandLine)
     Device.Initialize(commandLine);
     splash::show(true);
 
-    Cordis::TaskManager::getInstance().getCore()->run([&]() {
+ 
 		xrDebug::Initialize();
 
 		if (strstr(commandLine, "-dedicated"))
@@ -32,7 +32,7 @@ int entry_point(pcstr commandLine)
 		if (!GEnv.isDedicatedServer)
 			filter.initialize();
 #endif
-   });
+ 
 
     pcstr fsltx = "-fsltx ";
     string_path fsgame = "";
@@ -68,7 +68,6 @@ int APIENTRY WinMain(HINSTANCE inst, HINSTANCE prevInst, char* commandLine, int 
 
 int main(int argc, char* argv[])
 {
-    Cordis::TaskManager::getInstance().initialize();
 	testing::InitGoogleTest(&argc, argv);
 
 	char* commandLine = nullptr;
