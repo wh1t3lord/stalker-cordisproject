@@ -91,7 +91,7 @@ inline std::pair<xr_vector<JobData>, xr_vector<JobDataExclusive*>> load_job(Scri
     std::pair<std::uint32_t, xr_vector<JobData_SubData>> stalker_generic_point;
     stalker_generic_point.first = 3; // prior
 
-    for (std::uint8_t i = 0; i < 20; ++i)
+    for (std::uint8_t i = 1; i < 21; ++i)
     {
         xr_string name = global_name;
         xr_string job_ltx_data = "";
