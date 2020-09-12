@@ -27,7 +27,7 @@ inline std::pair<xr_vector<JobData>, xr_vector<JobDataExclusive*>> load_job(Scri
         return std::pair<xr_vector<JobData>, xr_vector<JobDataExclusive*>>();
     }
 
-    Msg("[Scripts/GulagGenerator/load_job(smart)] LOAD JOB %s", smart->name_replace());
+    MESSAGEI("LOAD JOB %s", smart->name_replace());
     xr_string global_name = smart->name_replace();
     getLtx().clear();
     getLtx() += "[meet@generic_lager]\n";
