@@ -729,7 +729,7 @@ inline std::pair<xr_vector<JobData>, xr_vector<JobDataExclusive*>> load_job(Scri
 #pragma region XR_ANIMPOINT HANDLING
     std::uint32_t it_xranimpoint = 1;
     std::pair<std::uint32_t, xr_vector<JobData_SubData>> stalker_xranimpoint; // @ Lord: как приоритет??
-    stalker_xranimpoint.first = 50;
+    stalker_xranimpoint.first = 15;
     xr_string patrol_xranimpoint_point_name = global_name;
     patrol_xranimpoint_point_name += "_animpoint_";
     patrol_xranimpoint_point_name += std::to_string(it_xranimpoint).c_str();
