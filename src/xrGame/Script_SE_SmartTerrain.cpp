@@ -571,15 +571,15 @@ void Script_SE_SmartTerrain::register_npc(CSE_ALifeMonsterAbstract* object)
         return;
     }
 
-#ifdef DEBUG
     MESSAGEI("register object %s", object->name_replace());
-#endif // DEBUG
+ 
 
     ++(this->m_population);
 
     if (!this->m_is_registered)
     {
         this->m_npc_to_register.push_back(object);
+        return;
     }
 
     if (!Globals::IsStalker(object))
@@ -592,6 +592,7 @@ void Script_SE_SmartTerrain::register_npc(CSE_ALifeMonsterAbstract* object)
     if (arrived_to_smart(object, this))
     {
         this->m_npc_info[object->ID] = this->fill_npc_info(object);
+        this->select_npc_job(this->m_npc_info.at(object->ID));
     }
     else
     {
