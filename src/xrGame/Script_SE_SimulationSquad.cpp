@@ -925,6 +925,7 @@ void Script_SE_SimulationSquad::get_next_action(const bool is_under_simulation)
             }
 
 			this->m_current_action = StayReachOnTarget();
+            this->m_current_action.setName(Globals::kSimulationSquadCurrentActionIDStayOnTarget);
 			this->m_current_target_id = this->m_assigned_target_id;
 			this->m_current_action.make(is_under_simulation);
 			return;
@@ -934,12 +935,14 @@ void Script_SE_SimulationSquad::get_next_action(const bool is_under_simulation)
     if ((this->m_assigned_target_id == this->m_current_target_id) || this->m_assigned_target_id == 0)
     {
         this->m_current_action = StayReachOnTarget();
+        this->m_current_action.setName(Globals::kSimulationSquadCurrentActionIDStayOnTarget);
         this->m_current_target_id = this->m_assigned_target_id;
         this->m_current_action.make(is_under_simulation);
     }
     else
     {
         this->m_current_action = StayReachOnTarget(this->ID);
+        this->m_current_action.setName(Globals::kSimulationSquadCurrentActionIDReachTarget);
         this->m_current_action.make(is_under_simulation);
     }
 }
