@@ -1363,8 +1363,7 @@ inline void add_exclusive_job(const xr_string& section_name, const xr_string& wo
 
     if (!FS.exist("$game_config$", ini_path_name.c_str()))
     {
-        Msg("There is no configuration file [%s]", ini_path_name.c_str());
-        R_ASSERT(false);
+        MESSAGEE("There is no configuration file [%s]", ini_path_name.c_str());
         return;
     }
 
@@ -1383,8 +1382,7 @@ inline void add_exclusive_job(const xr_string& section_name, const xr_string& wo
         job_type_name = Script_GlobalHelper::getInstance().getJobTypesByScheme().at(scheme_name);
     else
     {
-        Msg("[Scripts/GulagGenerator/add_exclusive_job(section_name, work_field_name, smart_ini, all_jobs)] WARNIG: "
-            "can't detect unregistered job type by scheme %s",
+        MESSAGEW("can't detect unregistered job type by scheme %s",
             scheme_name.c_str());
         job_type_name = Script_GlobalHelper::getInstance().getJobTypesByScheme().at(0);
     }
@@ -1476,8 +1474,7 @@ inline void add_exclusive_job(const xr_string& section_name, const xr_string& wo
 
     if (!FS.exist("$game_config$", ini_path_name.c_str()))
     {
-        Msg("There is no configuration file [%s]", ini_path_name.c_str());
-        R_ASSERT(false);
+        MESSAGEE("There is no configuration file [%s]", ini_path_name.c_str());
         return;
     }
 
@@ -1496,8 +1493,7 @@ inline void add_exclusive_job(const xr_string& section_name, const xr_string& wo
         job_type_name = Script_GlobalHelper::getInstance().getJobTypesByScheme().at(scheme_name);
     else
     {
-        Msg("[Scripts/GulagGenerator/add_exclusive_job(section_name, work_field_name, smart_ini, all_jobs)] WARNIG: "
-            "can't detect unregistered job type by scheme %s",
+        MESSAGEW("can't detect unregistered job type by scheme %s",
             scheme_name.c_str());
         job_type_name = Script_GlobalHelper::getInstance().getJobTypesByScheme().at(0);
     }
