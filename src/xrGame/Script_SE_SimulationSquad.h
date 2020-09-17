@@ -32,9 +32,9 @@ private:
 
 public:
     // @ It is for stay_target
-    StayReachOnTarget(void) : m_squad_id(0), m_name(Globals::kSimulationSquadCurrentActionIDStayOnTarget) {}
+    StayReachOnTarget(void) : m_squad_id(0) /*, m_name(Globals::kSimulationSquadCurrentActionIDStayOnTarget)*/ {}
     // @ It is for reach_target
-    StayReachOnTarget(const std::uint16_t squad_id) : m_squad_id(squad_id), m_start_time(xrTime()), m_name(Globals::kSimulationSquadCurrentActionIDReachTarget) {}
+    StayReachOnTarget(const std::uint16_t squad_id) : m_squad_id(squad_id), m_start_time(xrTime()) /*, m_name(Globals::kSimulationSquadCurrentActionIDReachTarget)*/ {}
 
     inline const xr_string& getName(void) const noexcept { return this->m_name; }
     inline const xrTime& getStartTime(void) const noexcept { return this->m_start_time; }
@@ -58,7 +58,7 @@ public:
     {
         if (id == Globals::kUnsignedInt16Undefined)
         {
-            Msg("[Scripts/StayReachOnTarget/setSquadID(id)] WARNING: id is undefined! You are trying to set it!");
+            MESSAGEW("id is undefined! You are trying to set it!");
         }
 
         this->m_squad_id = id;
