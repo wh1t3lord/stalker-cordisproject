@@ -1777,18 +1777,14 @@ void Script_SE_SmartTerrain::load_jobs(void)
 
             if (!current_ini->line_exist(section_name.c_str(), "active"))
             {
-#ifdef DEBUG
                 MESSAGEER("%s", section_name.c_str());
-#endif // DEBUG
                 R_ASSERT2(false, "no 'active' in section");
             }
 
             xr_string active_section_name = current_ini->r_string(section_name.c_str(), "active");
 
-#ifdef DEBUG
             MESSAGE("parsed active section name %s",
-                active_section_name.c_str());
-#endif // DEBUG
+                active_section_name.c_str()); 
 
             const xr_string& job_type_name = it.second->m_job_id.second;
 
@@ -1805,22 +1801,22 @@ void Script_SE_SmartTerrain::load_jobs(void)
                     }
                 }
 
-#ifdef DEBUG
+ 
                 MESSAGE("parsed path_field_name %s", path_field_name.c_str());
-#endif // DEBUG
+ 
 
                 xr_string _path_name = current_ini->r_string(active_section_name.c_str(), path_field_name.c_str());
-#ifdef DEBUG
+ 
                 MESSAGE("parsed path_name %s", _path_name.c_str());
-#endif // DEBUG
+ 
 
                 xr_string path_name = this->name_replace();
                 path_name += "_";
                 path_name += _path_name;
 
-#ifdef DEBUG
+ 
               MESSAGE("generated path_name %s", path_name.c_str());
-#endif // DEBUG
+ 
 
                 if (path_field_name == Globals::kSmartTerrainPathFieldCenterPoint)
                 {
@@ -1829,16 +1825,16 @@ void Script_SE_SmartTerrain::load_jobs(void)
                     if (Globals::patrol_path_exists(patrol_path_name.c_str()))
                     {
                         path_name = patrol_path_name;
-#ifdef DEBUG
+ 
                         MESSAGE("current path_name %s", path_name.c_str());
-#endif // DEBUG
+ 
                     }
                 }
 
-#ifdef DEBUG
+ 
                 MESSAGE("creating (allocating) alife smart terrain task by "
                     "patrol path");
-#endif // DEBUG
+ 
                 it.second->m_alife_task = new CALifeSmartTerrainTask(path_name.c_str());
             }
             else if (job_type_name == Globals::GulagGenerator::kGulagJobSmartCover)
@@ -1856,16 +1852,16 @@ void Script_SE_SmartTerrain::load_jobs(void)
                     R_ASSERT2(false, "There is an exclusive job with wrong smart cover name!");
                 }
 
-                Msg("[Scripts/Script_SE_SmartTerrain/load_jobs()] creating alife smart terrain task by smart cover "
+                MESSAGE("[smartcover_job] creating alife smart terrain task by smart cover "
                     "level_vertex_id [%d] game_vertex_id [%d]",
                     smart_cover->m_tNodeID, smart_cover->m_tGraphID);
                 it.second->m_alife_task = new CALifeSmartTerrainTask(smart_cover->m_tGraphID, smart_cover->m_tNodeID);
             }
             else if (job_type_name == Globals::GulagGenerator::kGulagJobPoint)
             {
-                Msg("[Scripts/Script_SE_SmartTerrain/load_jobs()] creating alife smart terrain task by smart terrain "
+                MESSAGE("[point_job] creating alife smart terrain task by smart terrain "
                     "level_vertex_id game_vertex_id");
-                it.second->m_alife_task = new CALifeSmartTerrainTask(this->m_tGraphID, this->m_tNodeID);
+                it.second->m_alife_task = this->m_smart_alife_task.get();
             }
 
             if (!it.second->m_alife_task)
@@ -1885,8 +1881,8 @@ void Script_SE_SmartTerrain::update_jobs(void)
     if (this->m_smart_alarm_time == 0)
         return;
 
-    if (Globals::Game::get_game_time().diffSec(this->m_smart_alarm_time) > 21600)
-        this->m_smart_alarm_time = 0;
+	if (Globals::Game::get_game_time().diffSec(this->m_smart_alarm_time) > 21600)
+		this->m_smart_alarm_time = 0;
 
     for (const std::pair<std::uint32_t, CSE_ALifeDynamicObject*>& it : this->m_arriving_npc)
     {
