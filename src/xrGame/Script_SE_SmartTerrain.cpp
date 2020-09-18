@@ -1372,6 +1372,13 @@ void Script_SE_SmartTerrain::select_npc_job(NpcInfo& npc_info)
 
         if (selected_job_link_exclusive)
             npc_info.m_job_link2 = selected_job_link_exclusive;
+
+
+        if (DataBase::Storage::getInstance().getStorage().find(npc_info.m_server_object->ID) != DataBase::Storage::getInstance().getStorage().end())
+        {
+            // @ Lord: корректно будет ли передача nil нежели чем пустая строка
+            XR_LOGIC::switch_to_section(DataBase::Storage::getInstance().getStorage().at(npc_info.m_server_object->ID).getClientObject(), this->m_ltx, "nil");
+        }
     }
 }
 
