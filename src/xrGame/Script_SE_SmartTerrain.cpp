@@ -1368,10 +1368,18 @@ void Script_SE_SmartTerrain::select_npc_job(NpcInfo& npc_info)
         npc_info.m_begin_job = false;
 
         if (selected_job_link)
+        {
             npc_info.m_job_link1 = selected_job_link;
+            npc_info.m_job_link2 = nullptr; // Lord: так корретнее ибо только одну ссылку можем держать 
+        }
+
 
         if (selected_job_link_exclusive)
+        {
             npc_info.m_job_link2 = selected_job_link_exclusive;
+            npc_info.m_job_link1 = nullptr; // Lord: так корретнее ибо только одну ссылку можем держать
+        }
+
 
 
         if (DataBase::Storage::getInstance().getStorage().find(npc_info.m_server_object->ID) != DataBase::Storage::getInstance().getStorage().end())
