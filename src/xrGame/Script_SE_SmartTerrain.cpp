@@ -60,14 +60,8 @@ namespace Cordis
 {
 namespace Scripts
 {
-bool arrived_to_smart(CSE_ALifeMonsterAbstract* object, Script_SE_SmartTerrain* smart)
+bool arrived_to_smart(CSE_ALifeDynamicObject* object, Script_SE_SmartTerrain* smart)
 {
-    if (!object)
-    {
-        R_ASSERT2(false, "can't use an empty object!");
-        return false;
-    }
-
     if (!smart)
     {
         R_ASSERT2(false, "can't use an empty object!");
@@ -77,7 +71,7 @@ bool arrived_to_smart(CSE_ALifeMonsterAbstract* object, Script_SE_SmartTerrain* 
     const CGameGraph::CVertex* object_vertex = nullptr;
     Fvector object_position;
 
-    if (DataBase::Storage::getInstance().getStorage().find(object->ID) ==
+    if (object == nullptr || DataBase::Storage::getInstance().getStorage().find(object->ID) ==
         DataBase::Storage::getInstance().getStorage().end())
     {
         object_vertex = Globals::Game::get_game_graph()->vertex(object->m_tGraphID);
@@ -1905,7 +1899,7 @@ void Script_SE_SmartTerrain::update_jobs(void)
 
     for (const std::pair<std::uint32_t, CSE_ALifeDynamicObject*>& it : this->m_arriving_npc)
     {
-        if (arrived_to_smart(it.second->cast_monster_abstract(), this))
+        if (arrived_to_smart(it.second, this))
         {
             this->m_npc_info[it.second->ID] = this->fill_npc_info(it.second);
 
