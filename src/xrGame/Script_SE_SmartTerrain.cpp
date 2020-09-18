@@ -201,7 +201,7 @@ bool is_job_available_to_npc(const NpcInfo& npc_info, JobDataExclusive* job_info
 
     if (job_info->m_function)
     {
-        if (job_info->m_function(npc_info.m_server_object, smart, job_info->m_function_params))
+        if (!job_info->m_function(npc_info.m_server_object, smart, job_info->m_function_params))
             return false;
     }
 
