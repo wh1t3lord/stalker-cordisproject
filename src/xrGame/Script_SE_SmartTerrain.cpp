@@ -221,7 +221,7 @@ inline void job_iterator(std::pair<xr_vector<JobData>, xr_vector<JobDataExclusiv
     result_priority = selected_job_priority;
     result_link = nullptr;
     result_exclusive = nullptr;
-    result_id = 0;
+    result_id = Globals::kUnsignedInt32Undefined;
 
     for (JobData& it : jobs.first)
     {
@@ -1306,15 +1306,15 @@ void Script_SE_SmartTerrain::select_npc_job(NpcInfo& npc_info)
     job_iterator(this->m_jobs, npc_info, 0, this, selected_job_index, selected_job_link, selected_job_link_exclusive,
         selected_priority);
 
-    if (!selected_job_index)
+    if (selected_job_index == Globals::kUnsignedInt32Undefined)
     {
-        R_ASSERT2(false, "it can't be!");
+        R_ASSERT2(false, "it can't be! Can't find job something wrong check your data!");
         return;
     }
 
     if ((selected_job_link && selected_job_link_exclusive) || (selected_job_link == nullptr && selected_job_link_exclusive == nullptr))
     {
-        R_ASSERT2(false, "it can't be!");
+        R_ASSERT2(false, "it can't be! Maybe your job is invalid (nullptr) check your data!");
         return;
     }
 
