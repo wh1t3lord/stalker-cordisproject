@@ -93,7 +93,7 @@ bool arrived_to_smart(CSE_ALifeDynamicObject* object, Script_SE_SmartTerrain* sm
 
     const CGameGraph::CVertex* smart_vertex = Globals::Game::get_game_graph()->vertex(smart->m_tGraphID);
 
-    if (object->m_group_id)
+    if (object->cast_monster_abstract()->m_group_id)
     {
         Script_SE_SimulationSquad* squad = nullptr;
 
