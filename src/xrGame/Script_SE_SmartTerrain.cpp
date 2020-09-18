@@ -210,7 +210,7 @@ bool is_job_available_to_npc(const NpcInfo& npc_info, JobDataExclusive* job_info
 
 inline void job_iterator(std::pair<xr_vector<JobData>, xr_vector<JobDataExclusive*>>& jobs, NpcInfo& npc_info,
     std::uint32_t selected_job_priority, Script_SE_SmartTerrain* smart, std::uint32_t& result_id,
-    JobData_SubData* result_link, JobDataExclusive* result_exclusive, std::uint32_t& result_priority)
+    JobData_SubData*& result_link, JobDataExclusive*& result_exclusive, std::uint32_t& result_priority)
 {
     if (!smart)
     {
