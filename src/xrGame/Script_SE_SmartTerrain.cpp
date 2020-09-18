@@ -1900,9 +1900,6 @@ void Script_SE_SmartTerrain::load_jobs(void)
 
 void Script_SE_SmartTerrain::update_jobs(void)
 {
-    if (this->m_smart_alarm_time == 0)
-        return;
-
 	if (Globals::Game::get_game_time().diffSec(this->m_smart_alarm_time) > 21600)
 		this->m_smart_alarm_time = 0;
 

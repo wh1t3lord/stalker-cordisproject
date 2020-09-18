@@ -614,9 +614,9 @@ struct JobDataSmartTerrain
     {
         if (this->m_alife_task)
         {
-            Msg("[Scripts/Script_SE_SmartTerrain/JobDataSmartTerrain/~dtor()] deleting alife task for %s",
+            MESSAGEI("deleting alife task for %s",
                 this->m_job_id.first.c_str());
-            xr_delete(this->m_alife_task);
+         //   xr_delete(this->m_alife_task);
         }
     }
 
