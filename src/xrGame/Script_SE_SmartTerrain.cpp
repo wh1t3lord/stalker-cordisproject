@@ -225,39 +225,42 @@ inline void job_iterator(std::pair<xr_vector<JobData>, xr_vector<JobDataExclusiv
 
     for (JobData& it : jobs.first)
     {
-        for (std::pair<std::uint32_t, xr_vector<JobData_SubData>>& it_sub : it.m_jobs)
+        if (it.m_precondition_is_monster == npc_info.m_is_monster)
         {
-            for (JobData_SubData& it_job : it_sub.second)
-            {
-                if (result_priority > it_job.m_priority)
-                    return;
+			for (std::pair<std::uint32_t, xr_vector<JobData_SubData>>& it_sub : it.m_jobs)
+			{
+				for (JobData_SubData& it_job : it_sub.second)
+				{
+					if (result_priority > it_job.m_priority)
+						return;
 
-                if (is_job_available_to_npc(npc_info, it_job, smart))
-                {
-                    if (!it_job.m_npc_id)
-                    {
-                        result_priority = it_job.m_priority;
-                        result_link = &it_job;
-                        result_id = it_job.m_job_index;
-                        return;
-                    }
-                    else if (it_job.m_job_index == npc_info.m_job_id)
-                    {
-                        result_priority = it_job.m_priority;
-                        result_link = &it_job;
-                        result_id = it_job.m_job_index;
-                        return;
-                    }
-                }
-            }
+					if (is_job_available_to_npc(npc_info, it_job, smart))
+					{
+						if (!it_job.m_npc_id)
+						{
+							result_priority = it_job.m_priority;
+							result_link = &it_job;
+							result_id = it_job.m_job_index;
+							return;
+						}
+						else if (it_job.m_job_index == npc_info.m_job_id)
+						{
+							result_priority = it_job.m_priority;
+							result_link = &it_job;
+							result_id = it_job.m_job_index;
+							return;
+						}
+					}
+				}
+			}
         }
-        // @ Потому что следующая работа отведена под монстров но мы их не учитываем потому что is_job_available_to_npc
-        // всегда false
-        break;
     }
 
     for (JobDataExclusive* it : jobs.second)
     {
+        if (it->m_is_precondition_monster != npc_info.m_is_monster)
+            continue;
+
         if (result_priority > it->m_priority)
             return;
 
