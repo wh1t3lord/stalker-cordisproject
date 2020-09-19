@@ -67,7 +67,7 @@ public:
         xr_map<xr_string, std::uint32_t> operators;
 
         properties["event"] = Globals::XR_ACTIONS_ID::XR_EVALUATORS_ID::kReaction;
-        properties["need_walker"] = Globals::XR_ACTIONS_ID::XR_EVALUATORS_ID::kZmeyWalkerBase;
+        properties["need_walker"] = Globals::XR_ACTIONS_ID::XR_EVALUATORS_ID::kZmeyWalkerBase + 1;
         properties["state_mgr_logic_active"] = Globals::XR_ACTIONS_ID::XR_EVALUATORS_ID::kStateManager + 4;
         operators["action_walker"] = Globals::XR_ACTIONS_ID::kZmeyWalkerBase + 1;
 
