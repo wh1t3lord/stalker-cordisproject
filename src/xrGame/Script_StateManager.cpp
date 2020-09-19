@@ -18,6 +18,7 @@ Script_StateManager::Script_StateManager(CScriptGameObject* const p_client_objec
 {
     this->m_p_action_planner->setup(this->m_p_npc);
 
+#pragma region Goap Graph
 #pragma region Cordis State Manager Init this->m_properties
     this->m_properties["end"] = 1;
     this->m_properties["locked"] = 2;
@@ -701,6 +702,58 @@ Script_StateManager::Script_StateManager(CScriptGameObject* const p_client_objec
 
     this->m_p_animation = new Script_StateAnimation(this->m_p_npc, *this, true);
     this->m_p_animstate = new Script_StateAnimation(this->m_p_npc, *this, false);
+#pragma endregion
+
+    CScriptActionPlanner* p_planner = Globals::get_script_action_planner(this->m_p_npc);
+
+    xr_map<xr_string, std::uint32_t> properties;
+    xr_map<xr_string, std::uint32_t> operators;
+
+    properties["state_mgr_idle_combat"] = Globals::XR_ACTIONS_ID::XR_EVALUATORS_ID::kStateManager + 1;
+    properties["state_mgr_idle_alife"] = Globals::XR_ACTIONS_ID::XR_EVALUATORS_ID::kStateManager + 2;
+    properties["state_mgr_idle_smartcover"] = Globals::XR_ACTIONS_ID::XR_EVALUATORS_ID::kStateManager + 3;
+    properties["state_mgr_logic_active"] = Globals::XR_ACTIONS_ID::XR_EVALUATORS_ID::kStateManager + 4;
+    properties["state_mgr_idle_items"] = Globals::XR_ACTIONS_ID::XR_EVALUATORS_ID::kStateManager + 5;
+
+    operators["state_mgr_to_idle_combat"] = Globals::XR_ACTIONS_ID::kStateManager + 1;
+    operators["state_mgr_to_idle_alife"] = Globals::XR_ACTIONS_ID::kStateManager + 2;
+    operators["state_mgr_to_idle_items"] = Globals::XR_ACTIONS_ID::kStateManager + 3;
+
+    p_planner->add_evaluator(properties.at("state_mgr_idle_combat"), new Script_EvaluatorStateManagerIdle("state_mgr_idle_combat", this));
+    p_planner->add_evaluator(properties.at("state_mgr_idle_alife"), new Script_EvaluatorStateManagerIdleAlife("state_mgr_idle_alife", this));
+    p_planner->add_evaluator(properties.at("state_mgr_idle_items"), new Script_EvaluatorStateManagerIdleItems("state_mgr_idle_items", this));
+    p_planner->add_evaluator(properties.at("state_mgr_logic_active"), new Script_EvaluatorStateManagerLogicActive("state_mgr_logic_active", this));
+
+    Script_ActionStateManagerToIdle* p_logic_action_idle = new Script_ActionStateManagerToIdle("state_mgr_to_idle_combat", this);
+    p_logic_action_idle->add_condition(CWorldProperty(properties.at("state_mgr_idle_combat"), false));
+    p_logic_action_idle->add_effect(CWorldProperty(properties.at("state_mgr_idle_combat"), true));
+
+    p_planner->add_operator(operators.at("state_mgr_to_idle_combat"), p_logic_action_idle);
+
+    Script_ActionStateManagerToIdle* p_logic_action_idle_items = new Script_ActionStateManagerToIdle("state_mgr_to_idle_items", this);
+    p_logic_action_idle_items->add_condition(CWorldProperty(properties.at("state_mgr_idle_items"), false));
+    p_logic_action_idle_items->add_condition(CWorldProperty(StalkerDecisionSpace::eWorldPropertyItems, true));
+    p_logic_action_idle_items->add_condition(CWorldProperty(StalkerDecisionSpace::eWorldPropertyEnemy, false));
+    p_logic_action_idle_items->add_effect(CWorldProperty(properties.at("state_mgr_idle_items"), true));
+
+    p_planner->add_operator(operators.at("state_mgr_to_idle_items"), p_logic_action_idle_items);
+
+    Script_ActionStateManagerToIdle* p_logic_action_to_idle_alife = new Script_ActionStateManagerToIdle("state_mgr_to_idle_alife", this);
+
+    p_logic_action_to_idle_alife->add_condition(CWorldProperty(StalkerDecisionSpace::eWorldPropertyEnemy, false));
+    p_logic_action_to_idle_alife->add_condition(CWorldProperty(StalkerDecisionSpace::eWorldPropertyDanger, false));
+    p_logic_action_to_idle_alife->add_condition(CWorldProperty(properties.at("state_mgr_logic_active"), false));
+
+    p_logic_action_to_idle_alife->add_condition(CWorldProperty(properties.at("state_mgr_idle_alife"), false));
+    p_logic_action_to_idle_alife->add_effect(CWorldProperty(properties.at("state_mgr_idle_alife"), true));
+
+    p_planner->add_operator(operators.at("state_mgr_to_idle_alife"), p_logic_action_to_idle_alife);
+
+    p_planner->action(Globals::XR_ACTIONS_ID::kAlife).add_condition(CWorldProperty(properties.at("state_mgr_idle_alife"), true));
+    p_planner->action(StalkerDecisionSpace::eWorldOperatorGatherItems).add_condition(CWorldProperty(properties.at("state_mgr_idle_items"), true));
+    p_planner->action(StalkerDecisionSpace::eWorldOperatorCombatPlanner).add_condition(CWorldProperty(properties.at("state_mgr_idle_combat"), true));
+    p_planner->action(StalkerDecisionSpace::eWorldOperatorAnomalyPlanner).add_condition(CWorldProperty(properties.at("state_mgr_idle_combat"), true));
+    p_planner->action(StalkerDecisionSpace::eWorldOperatorDangerPlanner).add_condition(CWorldProperty(properties.at("state_mgr_idle_combat"), true));
 }
 
 Script_StateManager::~Script_StateManager(void)
