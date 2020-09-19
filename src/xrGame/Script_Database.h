@@ -2271,11 +2271,6 @@ struct Script_ComponentScheme_XRWounded : public Script_IComponentScheme
 	Script_ComponentScheme_XRWounded(void) : Script_IComponentScheme(), m_is_xr_wounded_autoheal(false), m_is_xr_wounded_enable_talk(false), m_is_xr_wounded_not_for_help(false), m_is_xr_wounded_set(false), m_is_xr_wounded_use_medkit(false), m_p_wounded_manager(nullptr) {}
 	~Script_ComponentScheme_XRWounded(void)
 	{
-		if (this->m_p_wounded_manager)
-		{
-			MESSAGEI("deleting wounded manager");
-			xr_delete(this->m_p_wounded_manager);
-		}
 	}
 
 	inline bool isSet(void) const noexcept { return this->m_is_xr_wounded_set; }
@@ -2382,30 +2377,12 @@ struct Script_ComponentScheme_XRWounded : public Script_IComponentScheme
 		this->m_xr_wounded_help_dialog_name.clear();
 		this->m_xr_wounded_wounded_section_name.clear();
 		this->m_xr_wounded_help_start_dialog_name.clear();
-
-		if (this->m_p_wounded_manager)
-		{
-			MESSAGEI("deleting wounded manager");
-			xr_delete(this->m_p_wounded_manager);
-		}
 	}
 
-	inline Script_WoundedManager* getWoundedManager(void) const { return this->m_p_wounded_manager; }
+	inline Script_WoundedManager* getWoundedManager(void) const { return this->m_p_wounded_manager.get(); }
 	inline void setWoundedManager(Script_WoundedManager* const p_manager)
 	{
-		if (this->m_p_wounded_manager)
-		{
-			R_ASSERT2(false, "you can't set to existed instance you must deallocate this!");
-			return;
-		}
-
-		if (!p_manager)
-		{
-			R_ASSERT2(false, "can't be you must allocate manager!");
-			return;
-		}
-
-		this->m_p_wounded_manager = p_manager;
+        this->m_p_wounded_manager.reset(p_manager);
 	}
 
 private:
@@ -2414,7 +2391,7 @@ private:
 	bool m_is_xr_wounded_autoheal;
 	bool m_is_xr_wounded_enable_talk;
 	bool m_is_xr_wounded_not_for_help;
-	Script_WoundedManager* m_p_wounded_manager;
+	std::unique_ptr<Script_WoundedManager> m_p_wounded_manager;
 	xr_map<std::uint32_t, std::tuple<std::uint32_t, xr_map<std::uint32_t, CondlistData>, xr_map<std::uint32_t, CondlistData>>> m_xr_wounded_health_state;
 	xr_map<std::uint32_t, std::tuple<std::uint32_t, xr_map<std::uint32_t, CondlistData>, xr_map<std::uint32_t, CondlistData>>> m_xr_wounded_health_state_see;
 	xr_map<std::uint32_t, std::tuple<std::uint32_t, xr_map<std::uint32_t, CondlistData>, xr_map<std::uint32_t, CondlistData>>> m_xr_wounded_psy_state;
