@@ -84,7 +84,7 @@ public:
         p_scheme->add_condition(CWorldProperty(Globals::XR_ACTIONS_ID::XR_EVALUATORS_ID::kSidorWoundedBase, false));
         p_scheme->add_condition(CWorldProperty(Globals::XR_ACTIONS_ID::XR_EVALUATORS_ID::kAbuseBase, false));
         p_scheme->add_condition(CWorldProperty(Globals::XR_ACTIONS_ID::XR_EVALUATORS_ID::kWoundedExist, false));
-        p_scheme->add_condition(CWorldProperty(Globals::XR_ACTIONS_ID::XR_EVALUATORS_ID::kCorpseExist, false));
+   //     p_scheme->add_condition(CWorldProperty(Globals::XR_ACTIONS_ID::XR_EVALUATORS_ID::kCorpseExist, false)); Lord: пока что не реализовано, смотреть в xr_corpse_detection
         p_scheme->add_condition(CWorldProperty(StalkerDecisionSpace::eWorldPropertyItems, false));
 
         p_scheme->add_effect(CWorldProperty(properties.at("need_walker"), false));
