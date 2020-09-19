@@ -19,11 +19,11 @@ void Storage::setStorageStateManager(
     this->m_storage[p_client_object->ID()].setStateManager(p_state_manager);
 
     xr_map<xr_string, std::uint32_t> properties;
-    properties["state_mgr_idle_combat"] = Globals::XR_ACTIONS_ID::kStateManager + 1;
-    properties["state_mgr_idle_alife"] = Globals::XR_ACTIONS_ID::kStateManager + 2;
-    properties["state_mgr_idle_smartcover"] = Globals::XR_ACTIONS_ID::kStateManager + 3;
-    properties["state_mgr_logic_active"] = Globals::XR_ACTIONS_ID::kStateManager + 4;
-    properties["state_mgr_idle_items"] = Globals::XR_ACTIONS_ID::kStateManager + 5;
+    properties["state_mgr_idle_combat"] = Globals::XR_ACTIONS_ID::XR_EVALUATORS_ID::kStateManager + 1;
+    properties["state_mgr_idle_alife"] = Globals::XR_ACTIONS_ID::XR_EVALUATORS_ID::kStateManager + 2;
+    properties["state_mgr_idle_smartcover"] = Globals::XR_ACTIONS_ID::XR_EVALUATORS_ID::kStateManager + 3;
+    properties["state_mgr_logic_active"] = Globals::XR_ACTIONS_ID::XR_EVALUATORS_ID::kStateManager + 4;
+    properties["state_mgr_idle_items"] = Globals::XR_ACTIONS_ID::XR_EVALUATORS_ID::kStateManager + 5;
 
     xr_map<xr_string, std::uint32_t> operators;
     operators["state_mgr_to_idle_combat"] = Globals::XR_ACTIONS_ID::kStateManager + 1;
