@@ -1702,7 +1702,7 @@ inline bool predicate_animpoint_energy(std::uint16_t npc_id, bool)
 
 inline bool predicate_animpoint_guitar(std::uint16_t npc_id, bool is_in_camp)
 {
-    if (DataBase::Storage::getInstance().getStorage().at(npc_id).getClientObject() && is_in_camp)
+    if (is_in_camp && DataBase::Storage::getInstance().getStorage().at(npc_id).getClientObject())
     {
         if (DataBase::Storage::getInstance().getStorage().at(npc_id).getClientObject()->GetObjectByName("guitar_a"))
             return true;
@@ -1713,7 +1713,7 @@ inline bool predicate_animpoint_guitar(std::uint16_t npc_id, bool is_in_camp)
 
 inline bool predicate_animpoint_harmonica(std::uint16_t npc_id, bool is_in_camp)
 {
-    if (DataBase::Storage::getInstance().getStorage().at(npc_id).getClientObject() && is_in_camp)
+    if (is_in_camp && DataBase::Storage::getInstance().getStorage().at(npc_id).getClientObject())
     {
         if (DataBase::Storage::getInstance().getStorage().at(npc_id).getClientObject()->get_visual_name())
         {
