@@ -285,11 +285,11 @@ private:
     std::uint16_t m_squad_id;
     std::uint16_t m_respawn_radius;
     std::uint32_t m_max_population;
-    std::uint32_t m_arrive_distance;
     std::uint32_t m_population;
     std::uint32_t m_stayed_squad_quan;
     std::uint32_t m_show_time;
     std::uint32_t m_check_time;
+    float m_arrive_distance;
     CScriptIniFile* m_ltx;
     xrTime m_smart_alarm_time;
     std::pair<xr_vector<JobData>, xr_vector<JobDataExclusive*>>

@@ -1021,12 +1021,12 @@ void Script_SE_SmartTerrain::read_params(void)
     this->m_spawn_point_name = script_ini ?
         Globals::Utils::cfg_get_string(script_ini, Globals::kSmartTerrainSMRTSection, "spawn_point") :
         Globals::Utils::cfg_get_string(&ini, Globals::kSmartTerrainSMRTSection, "spawn_point");
-    this->m_arrive_distance = static_cast<std::uint32_t>(script_ini ?
+    this->m_arrive_distance = static_cast<float>(script_ini ?
             Globals::Utils::cfg_get_number(script_ini, Globals::kSmartTerrainSMRTSection, "arrive_dist") :
             Globals::Utils::cfg_get_number(&ini, Globals::kSmartTerrainSMRTSection, "arrive_dist"));
 
-    if (this->m_arrive_distance < 0)
-        this->m_arrive_distance = 30;
+    if (this->m_arrive_distance < 0.0f || fis_zero(this->m_arrive_distance))
+        this->m_arrive_distance = 30.0f;
 
     xr_string max_population_name = script_ini ?
         Globals::Utils::cfg_get_string(script_ini, Globals::kSmartTerrainSMRTSection, "max_population") :
@@ -1385,7 +1385,7 @@ void Script_SE_SmartTerrain::select_npc_job(NpcInfo& npc_info)
         if (DataBase::Storage::getInstance().getStorage().find(npc_info.m_server_object->ID) != DataBase::Storage::getInstance().getStorage().end())
         {
             // @ Lord: корректно будет ли передача nil нежели чем пустая строка
-            XR_LOGIC::switch_to_section(DataBase::Storage::getInstance().getStorage().at(npc_info.m_server_object->ID).getClientObject(), this->m_ltx, "nil");
+            XR_LOGIC::switch_to_section(DataBase::Storage::getInstance().getStorage().at(npc_info.m_server_object->ID).getClientObject(), this->m_ltx, "");
         }
     }
 

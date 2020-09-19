@@ -621,6 +621,8 @@ namespace Cordis
 
 				return !p_server_object->cast_script_se_smartterrain()->am_i_reached(p_squad); // Lord: проверить какой гарантированно тип прилетает для каста!
 			}
+
+			return false;
 		}
 }
 }
