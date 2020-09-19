@@ -60,8 +60,14 @@ namespace Cordis
 {
 namespace Scripts
 {
-bool arrived_to_smart(CSE_ALifeDynamicObject* object, Script_SE_SmartTerrain* smart)
+bool arrived_to_smart(CSE_ALifeMonsterAbstract* object, Script_SE_SmartTerrain* smart)
 {
+    if (!object)
+    {
+        R_ASSERT2(false, "can't use an empty object!");
+        return false;
+    }
+
     if (!smart)
     {
         R_ASSERT2(false, "can't use an empty object!");
@@ -71,7 +77,7 @@ bool arrived_to_smart(CSE_ALifeDynamicObject* object, Script_SE_SmartTerrain* sm
     const CGameGraph::CVertex* object_vertex = nullptr;
     Fvector object_position;
 
-    if (object == nullptr || DataBase::Storage::getInstance().getStorage().find(object->ID) ==
+    if (DataBase::Storage::getInstance().getStorage().find(object->ID) ==
         DataBase::Storage::getInstance().getStorage().end())
     {
         object_vertex = Globals::Game::get_game_graph()->vertex(object->m_tGraphID);
@@ -93,7 +99,7 @@ bool arrived_to_smart(CSE_ALifeDynamicObject* object, Script_SE_SmartTerrain* sm
 
     const CGameGraph::CVertex* smart_vertex = Globals::Game::get_game_graph()->vertex(smart->m_tGraphID);
 
-    if (object->cast_monster_abstract()->m_group_id)
+    if (object->m_group_id)
     {
         Script_SE_SimulationSquad* squad = nullptr;
 
@@ -1382,6 +1388,20 @@ void Script_SE_SmartTerrain::select_npc_job(NpcInfo& npc_info)
             XR_LOGIC::switch_to_section(DataBase::Storage::getInstance().getStorage().at(npc_info.m_server_object->ID).getClientObject(), this->m_ltx, "nil");
         }
     }
+
+    if (npc_info.m_begin_job == false)
+    {
+        JobDataSmartTerrain* p_data = this->m_job_data.at(npc_info.m_job_id);
+
+        R_ASSERT2(p_data, "can't be!");
+
+        npc_info.m_begin_job = true;
+
+        if (DataBase::Storage::getInstance().getStorage().find(npc_info.m_server_object->ID) != DataBase::Storage::getInstance().getStorage().end())
+        {
+            this->setup_logic(DataBase::Storage::getInstance().getStorage().at(npc_info.m_server_object->ID).getClientObject());
+        }
+    }
 }
 
 void Script_SE_SmartTerrain::switch_to_desired_job(CScriptGameObject* const p_npc)
@@ -1899,14 +1919,17 @@ void Script_SE_SmartTerrain::update_jobs(void)
 
     for (const std::pair<std::uint32_t, CSE_ALifeDynamicObject*>& it : this->m_arriving_npc)
     {
-        if (arrived_to_smart(it.second, this))
+        if (it.second)
         {
-            this->m_npc_info[it.second->ID] = this->fill_npc_info(it.second);
+			if (arrived_to_smart(it.second->cast_monster_abstract(), this))
+			{
+				this->m_npc_info[it.second->ID] = this->fill_npc_info(it.second);
 
-            this->m_dead_time.clear();
+				this->m_dead_time.clear();
 
-            this->select_npc_job(this->m_npc_info.at(it.second->ID));
-            this->m_arriving_npc[it.first] = nullptr;
+				this->select_npc_job(this->m_npc_info.at(it.second->ID));
+				this->m_arriving_npc[it.first] = nullptr;
+			}
         }
     }
 
