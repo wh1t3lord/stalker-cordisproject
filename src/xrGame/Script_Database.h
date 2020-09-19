@@ -4895,8 +4895,8 @@ public:
             return;
         }
 
-        if (this->m_schemes[scheme_name])
-            this->m_schemes[scheme_name]->addAction(p_scheme);
+        if (this->m_schemes.find(scheme_name) != this->m_schemes.end())
+            this->m_schemes.at(scheme_name)->addAction(p_scheme);
     }
 
     inline void setSchemesSectionName(const xr_string& scheme_name, const xr_string& section_name) noexcept
