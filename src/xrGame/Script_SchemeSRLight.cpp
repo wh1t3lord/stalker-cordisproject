@@ -115,9 +115,12 @@ void Script_SRLightManager::check_light(CScriptGameObject* const p_client_object
         if (hours <= 4 || hours >= 22)
             is_light = true;
 
+        const xr_string& level_name = Globals::Game::level::get_name();
+
         if (!is_light)
-            if (Script_GlobalHelper::getInstance().getIndoorLevels().at(Globals::Game::level::get_name()))
-                is_light = true;
+            if (Script_GlobalHelper::getInstance().getIndoorLevels().find(level_name) != Script_GlobalHelper::getInstance().getIndoorLevels().end())
+                if (Script_GlobalHelper::getInstance().getIndoorLevels().at(level_name))
+                    is_light = true;
     }
 
     if (!is_forced && is_light)

@@ -704,6 +704,7 @@ Script_StateManager::Script_StateManager(CScriptGameObject* const p_client_objec
     this->m_p_animstate = new Script_StateAnimation(this->m_p_npc, *this, false);
 #pragma endregion
 
+/*
     CScriptActionPlanner* p_planner = Globals::get_script_action_planner(this->m_p_npc);
 
     xr_map<xr_string, std::uint32_t> properties;
@@ -753,7 +754,7 @@ Script_StateManager::Script_StateManager(CScriptGameObject* const p_client_objec
     p_planner->action(StalkerDecisionSpace::eWorldOperatorGatherItems).add_condition(CWorldProperty(properties.at("state_mgr_idle_items"), true));
     p_planner->action(StalkerDecisionSpace::eWorldOperatorCombatPlanner).add_condition(CWorldProperty(properties.at("state_mgr_idle_combat"), true));
     p_planner->action(StalkerDecisionSpace::eWorldOperatorAnomalyPlanner).add_condition(CWorldProperty(properties.at("state_mgr_idle_combat"), true));
-    p_planner->action(StalkerDecisionSpace::eWorldOperatorDangerPlanner).add_condition(CWorldProperty(properties.at("state_mgr_idle_combat"), true));
+    p_planner->action(StalkerDecisionSpace::eWorldOperatorDangerPlanner).add_condition(CWorldProperty(properties.at("state_mgr_idle_combat"), true));*/
 }
 
 Script_StateManager::~Script_StateManager(void)
