@@ -5880,7 +5880,10 @@ public:
             return;
         }
 
-        this->m_storage[npc_id].m_schemes[scheme_name]->setActionSchemeID(scheme_id);
+        if (this->m_storage[npc_id].m_schemes[scheme_name])
+        {
+            this->m_storage[npc_id].m_schemes[scheme_name]->setActionSchemeID(scheme_id);
+        }
     } 
 
  

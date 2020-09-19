@@ -179,35 +179,38 @@ public:
 
         if (!XR_MEET::is_meet(this->m_object))
         {
-            const xr_map<xr_string, std::uint32_t>& state_manager_properties = this->m_p_state_manager->getProperties();
-
-            if (state_manager_properties.empty())
+            if (this->m_p_state_manager)
             {
-                R_ASSERT2(false,
-                    "it can't be, you must initialize your properties in constructor of Script_StateManager instance");
-                return false;
-            }
-            bool result = (this->m_p_state_manager->getTargetStateName() == "idle") &&
-                (!(this->m_p_state_manager->getActionPlanner()
-                        ->evaluator(state_manager_properties.at("animstate_locked"))
-                        .evaluate())) &&
-                (!(this->m_p_state_manager->getActionPlanner()
-                        ->evaluator(state_manager_properties.at("animation_locked"))
-                        .evaluate())) &&
-                (this->m_p_state_manager->getActionPlanner()
-                        ->evaluator(state_manager_properties.at("movement"))
-                        .evaluate()) &&
-                (this->m_p_state_manager->getActionPlanner()
-                        ->evaluator(state_manager_properties.at("animstate"))
-                        .evaluate()) &&
-                (this->m_p_state_manager->getActionPlanner()
-                        ->evaluator(state_manager_properties.at("animation"))
-                        .evaluate()) &&
-                (this->m_p_state_manager->getActionPlanner()
-                        ->evaluator(state_manager_properties.at("smartcover"))
-                        .evaluate());
+				const xr_map<xr_string, std::uint32_t>& state_manager_properties = this->m_p_state_manager->getProperties();
 
-            return result;
+				if (state_manager_properties.empty())
+				{
+					R_ASSERT2(false,
+						"it can't be, you must initialize your properties in constructor of Script_StateManager instance");
+					return false;
+				}
+				bool result = (this->m_p_state_manager->getTargetStateName() == "idle") &&
+					(!(this->m_p_state_manager->getActionPlanner()
+						->evaluator(state_manager_properties.at("animstate_locked"))
+						.evaluate())) &&
+					(!(this->m_p_state_manager->getActionPlanner()
+						->evaluator(state_manager_properties.at("animation_locked"))
+						.evaluate())) &&
+					(this->m_p_state_manager->getActionPlanner()
+						->evaluator(state_manager_properties.at("movement"))
+						.evaluate()) &&
+					(this->m_p_state_manager->getActionPlanner()
+						->evaluator(state_manager_properties.at("animstate"))
+						.evaluate()) &&
+					(this->m_p_state_manager->getActionPlanner()
+						->evaluator(state_manager_properties.at("animation"))
+						.evaluate()) &&
+					(this->m_p_state_manager->getActionPlanner()
+						->evaluator(state_manager_properties.at("smartcover"))
+						.evaluate());
+
+				return result;
+            }
         }
 
         return false;
