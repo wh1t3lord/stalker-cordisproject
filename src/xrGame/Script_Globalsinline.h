@@ -901,6 +901,11 @@ inline xr_map<std::uint32_t, std::tuple<std::uint32_t, xr_map<std::uint32_t, Con
     return result;
 }
 
+inline bool vector_cmp_prec(const Fvector& a, const Fvector& b, const float c)
+{
+    return ((fabs(a.x - b.x) <= c) && (fabs(a.y - b.y) <= c) && (fabs(a.z - b.z) <= c));
+}
+
 } // namespace Utils
 
 namespace Game

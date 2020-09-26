@@ -98,6 +98,7 @@ inline std::uint32_t send_to_nearest_accessible_vertex(
 inline xr_map<std::uint32_t, xr_map<std::uint32_t, CondlistData>> parse_data_1v(
     CScriptGameObject* const p_client_object, const xr_string& buffer_name);
 inline xr_map<std::uint32_t, std::tuple<std::uint32_t, xr_map<std::uint32_t, CondlistData>, xr_map<std::uint32_t, CondlistData>>> parse_data(const xr_string& buffer_name);
+inline bool vector_cmp_prec(const Fvector& a, const Fvector& b, const float c);
 } // namespace Utils
 
 namespace Game
