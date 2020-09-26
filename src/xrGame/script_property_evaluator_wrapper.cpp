@@ -14,7 +14,7 @@
 
 void CScriptPropertyEvaluatorWrapper::setup(CScriptGameObject* object, CPropertyStorage* storage)
 {
-    luabind::call_member<void>(this, "setup", object, storage);
+    this->setup(object, storage);
 }
 
 void CScriptPropertyEvaluatorWrapper::setup_static(
@@ -27,15 +27,14 @@ bool CScriptPropertyEvaluatorWrapper::evaluate()
 {
     try
     {
-        return (luabind::call_member<bool>(this, "evaluate"));
+        return this->evaluate();
     }
 #ifdef DEBUG
     catch (luabind::cast_failed& exception)
     {
 #ifdef LOG_ACTION
-        GEnv.ScriptEngine->script_log(LuaMessageType::Error,
-            "SCRIPT RUNTIME ERROR : evaluator [%s] returns value with not a %s type!", m_evaluator_name,
-            exception.info().name());
+		MESSAGEE("evaluator [%s] returns value with not a %s type!", m_evaluator_name.c_str(),
+			exception.info().name());
 #else
         GEnv.ScriptEngine->script_log(LuaMessageType::Error,
             "SCRIPT RUNTIME ERROR : evaluator returns value with not a %s type!", exception.info().name());
@@ -44,9 +43,7 @@ bool CScriptPropertyEvaluatorWrapper::evaluate()
 #endif
     catch (...)
     {
-        //Alundaio: m_evaluator_name
-        GEnv.ScriptEngine->script_log(
-            LuaMessageType::Error, "SCRIPT RUNTIME ERROR : evaluator [%s] returns value with not a bool type!", m_evaluator_name);
+        MESSAGEE("evaluator [%s] returns value with not a bool type!", this->m_evaluator_name.c_str());
     }
     return (false);
 }
