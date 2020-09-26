@@ -26,7 +26,7 @@ public:
     xr_string m_evaluator_name;
 
 public:
-    IC CPropertyEvaluator(_object_type* object = 0, const xr_string& evaluator_name);
+    IC CPropertyEvaluator(_object_type* object = 0, const xr_string& evaluator_name = "");
     virtual ~CPropertyEvaluator();
     IC void init(_object_type* object, const xr_string& evaluator_name);
     virtual void setup(_object_type* object, CPropertyStorage* storage);
