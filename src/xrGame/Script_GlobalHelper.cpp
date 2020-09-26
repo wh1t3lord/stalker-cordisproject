@@ -2608,207 +2608,207 @@ Cordis::Scripts::Script_GlobalHelper::Script_GlobalHelper(void)
 #pragma region Cordis State Library initialization
     xr_map<xr_string, StateLibData> state_library;
     StateLibData state_lib_data = StateLibData(Globals::kUnsignedInt32Undefined, Globals::kUnsignedInt32Undefined,
-        Globals::kUnsignedInt32Undefined, Globals::kUnsignedInt32Undefined, Globals::kStringUndefined,
-        Globals::kStringUndefined, Globals::kStringUndefined);
+        Globals::kUnsignedInt32Undefined, Globals::kUnsignedInt32Undefined, "",
+        "", "");
     state_library["idle"] = state_lib_data;
     state_lib_data = StateLibData(Globals::kUnsignedInt32Undefined, Globals::kUnsignedInt32Undefined,
         Globals::kUnsignedInt32Undefined, SightManager::eSightTypeAnimationDirection, "unstrapped",
-        Globals::kStringUndefined, Globals::kStringUndefined);
+        "", "");
     state_library["smartcover"] = state_lib_data;
     state_lib_data =
         StateLibData(MonsterSpace::eMovementTypeWalk, MonsterSpace::eMentalStateFree, MonsterSpace::eBodyStateStand,
-            Globals::kUnsignedInt32Undefined, "none", Globals::kStringUndefined, Globals::kStringUndefined);
+            Globals::kUnsignedInt32Undefined, "none", "", "");
     state_library["walk"] = state_lib_data;
     state_lib_data =
         StateLibData(MonsterSpace::eMovementTypeWalk, MonsterSpace::eMentalStateFree, MonsterSpace::eBodyStateStand,
-            Globals::kUnsignedInt32Undefined, "none", Globals::kStringUndefined, Globals::kStringUndefined);
+            Globals::kUnsignedInt32Undefined, "none", "", "");
     state_library["walk_noweap"] = state_lib_data;
     state_lib_data =
         StateLibData(MonsterSpace::eMovementTypeRun, MonsterSpace::eMentalStateFree, MonsterSpace::eBodyStateStand,
-            Globals::kUnsignedInt32Undefined, "strapped", Globals::kStringUndefined, Globals::kStringUndefined);
+            Globals::kUnsignedInt32Undefined, "strapped", "", "");
     state_library["run"] = state_lib_data;
     state_lib_data =
         StateLibData(MonsterSpace::eMovementTypeRun, MonsterSpace::eMentalStatePanic, MonsterSpace::eBodyStateStand,
-            Globals::kUnsignedInt32Undefined, "strapped", Globals::kStringUndefined, Globals::kStringUndefined);
+            Globals::kUnsignedInt32Undefined, "strapped", "", "");
     state_library["sprint"] = state_lib_data;
     state_lib_data =
         StateLibData(MonsterSpace::eMovementTypeWalk, MonsterSpace::eMentalStateFree, MonsterSpace::eBodyStateStand,
-            Globals::kUnsignedInt32Undefined, "unstrapped", Globals::kStringUndefined, Globals::kStringUndefined);
+            Globals::kUnsignedInt32Undefined, "unstrapped", "", "");
     state_library["patrol"] = state_lib_data;
     state_lib_data =
         StateLibData(MonsterSpace::eMovementTypeWalk, MonsterSpace::eMentalStateFree, MonsterSpace::eBodyStateStand,
-            Globals::kUnsignedInt32Undefined, "fire", Globals::kStringUndefined, Globals::kStringUndefined);
+            Globals::kUnsignedInt32Undefined, "fire", "", "");
     state_library["patrol_fire"] = state_lib_data;
     state_lib_data = StateLibData(MonsterSpace::eMovementTypeWalk, MonsterSpace::eMentalStateDanger,
-        MonsterSpace::eBodyStateStand, Globals::kUnsignedInt32Undefined, "unstrapped", Globals::kStringUndefined,
-        Globals::kStringUndefined, false, 0, true);
+        MonsterSpace::eBodyStateStand, Globals::kUnsignedInt32Undefined, "unstrapped", "",
+        "", false, 0, true);
     state_library["raid"] = state_lib_data;
     state_lib_data = StateLibData(MonsterSpace::eMovementTypeWalk, MonsterSpace::eMentalStateDanger,
-        MonsterSpace::eBodyStateStand, Globals::kUnsignedInt32Undefined, "fire", Globals::kStringUndefined,
-        Globals::kStringUndefined);
+        MonsterSpace::eBodyStateStand, Globals::kUnsignedInt32Undefined, "fire", "",
+        "");
     state_library["raid_fire"] = state_lib_data;
     state_lib_data = StateLibData(MonsterSpace::eMovementTypeWalk, MonsterSpace::eMentalStateDanger,
-        MonsterSpace::eBodyStateCrouch, Globals::kUnsignedInt32Undefined, "unstrapped", Globals::kStringUndefined,
-        Globals::kStringUndefined);
+        MonsterSpace::eBodyStateCrouch, Globals::kUnsignedInt32Undefined, "unstrapped", "",
+        "");
     state_library["sneak"] = state_lib_data;
     state_lib_data = StateLibData(MonsterSpace::eMovementTypeRun, MonsterSpace::eMentalStateDanger,
-        MonsterSpace::eBodyStateCrouch, Globals::kUnsignedInt32Undefined, "unstrapped", Globals::kStringUndefined,
-        Globals::kStringUndefined);
+        MonsterSpace::eBodyStateCrouch, Globals::kUnsignedInt32Undefined, "unstrapped", "",
+        "");
     state_library["sneak_run"] = state_lib_data;
     state_lib_data = StateLibData(MonsterSpace::eMovementTypeWalk, MonsterSpace::eMentalStateDanger,
-        MonsterSpace::eBodyStateCrouch, Globals::kUnsignedInt32Undefined, "strapped", Globals::kStringUndefined,
-        Globals::kStringUndefined);
+        MonsterSpace::eBodyStateCrouch, Globals::kUnsignedInt32Undefined, "strapped", "",
+        "");
     state_library["sneak_no_wpn"] = state_lib_data;
     state_lib_data = StateLibData(MonsterSpace::eMovementTypeRun, MonsterSpace::eMentalStateDanger,
-        MonsterSpace::eBodyStateStand, Globals::kUnsignedInt32Undefined, "unstrapped", Globals::kStringUndefined,
-        Globals::kStringUndefined);
+        MonsterSpace::eBodyStateStand, Globals::kUnsignedInt32Undefined, "unstrapped", "",
+        "");
     state_library["assault"] = state_lib_data;
     state_lib_data =
         StateLibData(MonsterSpace::eMovementTypeRun, MonsterSpace::eMentalStateFree, MonsterSpace::eBodyStateStand,
-            Globals::kUnsignedInt32Undefined, "fire", Globals::kStringUndefined, Globals::kStringUndefined);
+            Globals::kUnsignedInt32Undefined, "fire", "", "");
     state_library["assault_fire"] = state_lib_data;
     state_lib_data =
         StateLibData(MonsterSpace::eMovementTypeRun, MonsterSpace::eMentalStateFree, MonsterSpace::eBodyStateStand,
-            Globals::kUnsignedInt32Undefined, "unstrapped", Globals::kStringUndefined, Globals::kStringUndefined);
+            Globals::kUnsignedInt32Undefined, "unstrapped", "", "");
     state_library["rush"] = state_lib_data;
     state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
-        MonsterSpace::eBodyStateStand, Globals::kUnsignedInt32Undefined, "strapped", Globals::kStringUndefined,
+        MonsterSpace::eBodyStateStand, Globals::kUnsignedInt32Undefined, "strapped", "",
         "idle");
     state_library["wait"] = state_lib_data;
     state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
-        MonsterSpace::eBodyStateStand, Globals::kUnsignedInt32Undefined, "none", Globals::kStringUndefined, "idle");
+        MonsterSpace::eBodyStateStand, Globals::kUnsignedInt32Undefined, "none", "", "idle");
     state_library["wait_trade"] = state_lib_data;
     state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
-        MonsterSpace::eBodyStateStand, Globals::kUnsignedInt32Undefined, "strapped", Globals::kStringUndefined,
-        Globals::kStringUndefined);
+        MonsterSpace::eBodyStateStand, Globals::kUnsignedInt32Undefined, "strapped", "",
+        "");
     state_library["wait_na"] = state_lib_data;
     state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
-        MonsterSpace::eBodyStateStand, Globals::kUnsignedInt32Undefined, "unstrapped", Globals::kStringUndefined,
+        MonsterSpace::eBodyStateStand, Globals::kUnsignedInt32Undefined, "unstrapped", "",
         "idle");
     state_library["guard"] = state_lib_data;
     state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
-        MonsterSpace::eBodyStateStand, Globals::kUnsignedInt32Undefined, "unstrapped", Globals::kStringUndefined,
-        Globals::kStringUndefined);
+        MonsterSpace::eBodyStateStand, Globals::kUnsignedInt32Undefined, "unstrapped", "",
+        "");
     state_library["guard_chasovoy"] = state_lib_data;
     state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
-        MonsterSpace::eBodyStateStand, Globals::kUnsignedInt32Undefined, "unstrapped", Globals::kStringUndefined,
-        Globals::kStringUndefined);
+        MonsterSpace::eBodyStateStand, Globals::kUnsignedInt32Undefined, "unstrapped", "",
+        "");
     state_library["guard_na"] = state_lib_data;
     state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
-        MonsterSpace::eBodyStateStand, Globals::kUnsignedInt32Undefined, "fire", Globals::kStringUndefined,
-        Globals::kStringUndefined);
+        MonsterSpace::eBodyStateStand, Globals::kUnsignedInt32Undefined, "fire", "",
+        "");
     state_library["guard_fire"] = state_lib_data;
     state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateDanger,
-        MonsterSpace::eBodyStateStand, Globals::kUnsignedInt32Undefined, "unstrapped", Globals::kStringUndefined,
-        Globals::kStringUndefined, true, 0, false);
+        MonsterSpace::eBodyStateStand, Globals::kUnsignedInt32Undefined, "unstrapped", "",
+        "", true, 0, false);
     state_library["threat"] = state_lib_data;
     state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateDanger,
-        MonsterSpace::eBodyStateStand, Globals::kUnsignedInt32Undefined, "unstrapped", Globals::kStringUndefined,
+        MonsterSpace::eBodyStateStand, Globals::kUnsignedInt32Undefined, "unstrapped", "",
         "bloodsucker_search");
     state_library["threat_danger"] = state_lib_data;
     state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateDanger,
-        MonsterSpace::eBodyStateStand, Globals::kUnsignedInt32Undefined, "unstrapped", Globals::kStringUndefined,
+        MonsterSpace::eBodyStateStand, Globals::kUnsignedInt32Undefined, "unstrapped", "",
         "give_orders");
     state_library["give_orders"] = state_lib_data;
     state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateDanger,
-        MonsterSpace::eBodyStateStand, Globals::kUnsignedInt32Undefined, "unstrapped", Globals::kStringUndefined,
-        Globals::kStringUndefined);
+        MonsterSpace::eBodyStateStand, Globals::kUnsignedInt32Undefined, "unstrapped", "",
+        "");
     state_library["threat_heli"] = state_lib_data;
     state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateDanger,
-        MonsterSpace::eBodyStateStand, Globals::kUnsignedInt32Undefined, "unstrapped", Globals::kStringUndefined,
-        Globals::kStringUndefined, true);
+        MonsterSpace::eBodyStateStand, Globals::kUnsignedInt32Undefined, "unstrapped", "",
+        "", true);
     state_library["threat_na"] = state_lib_data;
     state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateDanger,
-        MonsterSpace::eBodyStateStand, Globals::kUnsignedInt32Undefined, "fire", Globals::kStringUndefined,
-        Globals::kStringUndefined);
+        MonsterSpace::eBodyStateStand, Globals::kUnsignedInt32Undefined, "fire", "",
+        "");
     state_library["threat_fire"] = state_lib_data;
     state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateDanger,
-        MonsterSpace::eBodyStateStand, Globals::kUnsignedInt32Undefined, "sniper_fire", Globals::kStringUndefined,
-        Globals::kStringUndefined);
+        MonsterSpace::eBodyStateStand, Globals::kUnsignedInt32Undefined, "sniper_fire", "",
+        "");
     state_library["threat_sniper_fire"] = state_lib_data;
     state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateDanger,
-        MonsterSpace::eBodyStateCrouch, Globals::kUnsignedInt32Undefined, "unstrapped", Globals::kStringUndefined,
+        MonsterSpace::eBodyStateCrouch, Globals::kUnsignedInt32Undefined, "unstrapped", "",
         "hide");
     state_library["hide"] = state_lib_data;
     state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateDanger,
-        MonsterSpace::eBodyStateCrouch, Globals::kUnsignedInt32Undefined, "unstrapped", Globals::kStringUndefined,
-        Globals::kStringUndefined);
+        MonsterSpace::eBodyStateCrouch, Globals::kUnsignedInt32Undefined, "unstrapped", "",
+        "");
     state_library["hide_na"] = state_lib_data;
     state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateDanger,
-        MonsterSpace::eBodyStateCrouch, Globals::kUnsignedInt32Undefined, "fire", Globals::kStringUndefined,
-        Globals::kStringUndefined);
+        MonsterSpace::eBodyStateCrouch, Globals::kUnsignedInt32Undefined, "fire", "",
+        "");
     state_library["hide_fire"] = state_lib_data;
     state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateDanger,
-        MonsterSpace::eBodyStateCrouch, Globals::kUnsignedInt32Undefined, "sniper_fire", Globals::kStringUndefined,
-        Globals::kStringUndefined);
+        MonsterSpace::eBodyStateCrouch, Globals::kUnsignedInt32Undefined, "sniper_fire", "",
+        "");
     state_library["hide_sniper_fire"] = state_lib_data;
     state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
-        MonsterSpace::eBodyStateStand, Globals::kUnsignedInt32Undefined, Globals::kStringUndefined,
-        Globals::kStringUndefined, "caution");
+        MonsterSpace::eBodyStateStand, Globals::kUnsignedInt32Undefined, "",
+        "", "caution");
     state_library["caution"] = state_lib_data;
     state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
-        MonsterSpace::eBodyStateStand, Globals::kUnsignedInt32Undefined, "strapped", Globals::kStringUndefined,
+        MonsterSpace::eBodyStateStand, Globals::kUnsignedInt32Undefined, "strapped", "",
         "choosing");
     state_library["choose"] = state_lib_data;
     state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
-        MonsterSpace::eBodyStateStand, Globals::kUnsignedInt32Undefined, "strapped", Globals::kStringUndefined,
+        MonsterSpace::eBodyStateStand, Globals::kUnsignedInt32Undefined, "strapped", "",
         "press");
     state_library["press"] = state_lib_data;
     state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
-        MonsterSpace::eBodyStateStand, Globals::kUnsignedInt32Undefined, "strapped", Globals::kStringUndefined,
+        MonsterSpace::eBodyStateStand, Globals::kUnsignedInt32Undefined, "strapped", "",
         "warding");
     state_library["ward"] = state_lib_data;
     state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
-        MonsterSpace::eBodyStateStand, Globals::kUnsignedInt32Undefined, "none", Globals::kStringUndefined,
+        MonsterSpace::eBodyStateStand, Globals::kUnsignedInt32Undefined, "none", "",
         "ward_short");
     state_library["ward_short"] = state_lib_data;
     state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
-        MonsterSpace::eBodyStateStand, Globals::kUnsignedInt32Undefined, "none", Globals::kStringUndefined,
+        MonsterSpace::eBodyStateStand, Globals::kUnsignedInt32Undefined, "none", "",
         "warding");
     state_library["ward_noweap"] = state_lib_data;
     state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
-        MonsterSpace::eBodyStateStand, Globals::kUnsignedInt32Undefined, "none", Globals::kStringUndefined,
+        MonsterSpace::eBodyStateStand, Globals::kUnsignedInt32Undefined, "none", "",
         "warding_short");
     state_library["ward_noweap_short"] = state_lib_data;
     state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
-        MonsterSpace::eBodyStateStand, Globals::kUnsignedInt32Undefined, "none", Globals::kStringUndefined,
+        MonsterSpace::eBodyStateStand, Globals::kUnsignedInt32Undefined, "none", "",
         "fold_arms");
     state_library["fold_arms"] = state_lib_data;
     state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
-        MonsterSpace::eBodyStateStand, Globals::kUnsignedInt32Undefined, Globals::kStringUndefined,
-        Globals::kStringUndefined, "poisk");
+        MonsterSpace::eBodyStateStand, Globals::kUnsignedInt32Undefined, "",
+        "", "poisk");
     state_library["search"] = state_lib_data;
     state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
-        MonsterSpace::eBodyStateStand, Globals::kUnsignedInt32Undefined, "strapped", Globals::kStringUndefined,
+        MonsterSpace::eBodyStateStand, Globals::kUnsignedInt32Undefined, "strapped", "",
         "stoop_no_weap");
     state_library["stoop_no_weap"] = state_lib_data;
     state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
-        MonsterSpace::eBodyStateStand, Globals::kUnsignedInt32Undefined, "strapped", Globals::kStringUndefined,
+        MonsterSpace::eBodyStateStand, Globals::kUnsignedInt32Undefined, "strapped", "",
         "salut");
     state_library["salut"] = state_lib_data;
     state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
-        MonsterSpace::eBodyStateStand, Globals::kUnsignedInt32Undefined, "strapped", Globals::kStringUndefined,
+        MonsterSpace::eBodyStateStand, Globals::kUnsignedInt32Undefined, "strapped", "",
         "salut_free");
     state_library["salut_free"] = state_lib_data;
     state_lib_data = StateLibData(Globals::kUnsignedInt32Undefined, MonsterSpace::eMentalStateDanger,
-        MonsterSpace::eBodyStateStand, Globals::kUnsignedInt32Undefined, "strapped", Globals::kStringUndefined,
+        MonsterSpace::eBodyStateStand, Globals::kUnsignedInt32Undefined, "strapped", "",
         "prisoner");
     state_library["prisoner"] = state_lib_data;
     state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateDanger,
-        MonsterSpace::eBodyStateCrouch, Globals::kUnsignedInt32Undefined, "strapped", Globals::kStringUndefined,
+        MonsterSpace::eBodyStateCrouch, Globals::kUnsignedInt32Undefined, "strapped", "",
         "hide");
     state_library["hide_no_wpn"] = state_lib_data;
     state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
         MonsterSpace::eBodyStateStand, Globals::kUnsignedInt32Undefined, "strapped", "sit",
-        Globals::kStringUndefined);
+        "");
     state_library["sit"] = state_lib_data;
     state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
         MonsterSpace::eBodyStateStand, Globals::kUnsignedInt32Undefined, "strapped", "sit_knee",
-        Globals::kStringUndefined);
+        "");
     state_library["sit_knee"] = state_lib_data;
     state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
         MonsterSpace::eBodyStateStand, Globals::kUnsignedInt32Undefined, "strapped", "sit_ass",
-        Globals::kStringUndefined);
+        "");
     state_library["sit_ass"] = state_lib_data;
     state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
         MonsterSpace::eBodyStateStand, Globals::kUnsignedInt32Undefined, "strapped", "sit_knee", "play_guitar");
@@ -2817,175 +2817,175 @@ Cordis::Scripts::Script_GlobalHelper::Script_GlobalHelper(void)
         MonsterSpace::eBodyStateStand, Globals::kUnsignedInt32Undefined, "strapped", "sit_ass", "play_harmonica");
     state_library["play_harmonica"] = state_lib_data;
     state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
-        MonsterSpace::eBodyStateStand, Globals::kUnsignedInt32Undefined, "strapped", Globals::kStringUndefined,
+        MonsterSpace::eBodyStateStand, Globals::kUnsignedInt32Undefined, "strapped", "",
         "sleeping");
     state_library["sleep"] = state_lib_data;
     state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
-        MonsterSpace::eBodyStateStand, Globals::kUnsignedInt32Undefined, "strapped", Globals::kStringUndefined,
+        MonsterSpace::eBodyStateStand, Globals::kUnsignedInt32Undefined, "strapped", "",
         "hello");
     state_library["hello"] = state_lib_data;
     state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
-        MonsterSpace::eBodyStateStand, Globals::kUnsignedInt32Undefined, "unstrapped", Globals::kStringUndefined,
+        MonsterSpace::eBodyStateStand, Globals::kUnsignedInt32Undefined, "unstrapped", "",
         "hello");
     state_library["hello_wpn"] = state_lib_data;
     state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
-        MonsterSpace::eBodyStateStand, Globals::kUnsignedInt32Undefined, "strapped", Globals::kStringUndefined,
+        MonsterSpace::eBodyStateStand, Globals::kUnsignedInt32Undefined, "strapped", "",
         "refuse");
     state_library["refuse"] = state_lib_data;
     state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateDanger,
-        MonsterSpace::eBodyStateStand, Globals::kUnsignedInt32Undefined, "unstrapped", Globals::kStringUndefined,
+        MonsterSpace::eBodyStateStand, Globals::kUnsignedInt32Undefined, "unstrapped", "",
         "claim");
     state_library["claim"] = state_lib_data;
     state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateDanger,
-        MonsterSpace::eBodyStateStand, Globals::kUnsignedInt32Undefined, "unstrapped", Globals::kStringUndefined,
+        MonsterSpace::eBodyStateStand, Globals::kUnsignedInt32Undefined, "unstrapped", "",
         "backoff");
     state_library["backoff"] = state_lib_data;
     state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateDanger,
-        MonsterSpace::eBodyStateStand, Globals::kUnsignedInt32Undefined, "unstrapped", Globals::kStringUndefined,
+        MonsterSpace::eBodyStateStand, Globals::kUnsignedInt32Undefined, "unstrapped", "",
         "backoff");
     state_library["backoff2"] = state_lib_data;
     state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateDanger,
-        MonsterSpace::eBodyStateStand, Globals::kUnsignedInt32Undefined, Globals::kStringUndefined,
-        Globals::kStringUndefined, "punch");
+        MonsterSpace::eBodyStateStand, Globals::kUnsignedInt32Undefined, "",
+        "", "punch");
     state_library["punch"] = state_lib_data;
     state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateDanger,
-        MonsterSpace::eBodyStateCrouch, Globals::kUnsignedInt32Undefined, "strapped", Globals::kStringUndefined,
+        MonsterSpace::eBodyStateCrouch, Globals::kUnsignedInt32Undefined, "strapped", "",
         "search_corpse");
     state_library["search_corpse"] = state_lib_data;
     state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateDanger,
-        MonsterSpace::eBodyStateCrouch, Globals::kUnsignedInt32Undefined, "strapped", Globals::kStringUndefined,
+        MonsterSpace::eBodyStateCrouch, Globals::kUnsignedInt32Undefined, "strapped", "",
         "help_wounded");
     state_library["help_wounded"] = state_lib_data;
     state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateDanger,
-        MonsterSpace::eBodyStateCrouch, Globals::kUnsignedInt32Undefined, "strapped", Globals::kStringUndefined,
+        MonsterSpace::eBodyStateCrouch, Globals::kUnsignedInt32Undefined, "strapped", "",
         "dynamite");
     state_library["dynamite"] = state_lib_data;
     state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
-        MonsterSpace::eBodyStateStand, Globals::kUnsignedInt32Undefined, "strapped", Globals::kStringUndefined,
+        MonsterSpace::eBodyStateStand, Globals::kUnsignedInt32Undefined, "strapped", "",
         "binocular");
     state_library["binocular"] = state_lib_data;
     state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateDanger,
-        MonsterSpace::eBodyStateCrouch, Globals::kUnsignedInt32Undefined, "unstrapped", Globals::kStringUndefined,
+        MonsterSpace::eBodyStateCrouch, Globals::kUnsignedInt32Undefined, "unstrapped", "",
         "cr_raciya");
     state_library["hide_rac"] = state_lib_data;
     state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
-        MonsterSpace::eBodyStateStand, Globals::kUnsignedInt32Undefined, "strapped", Globals::kStringUndefined,
+        MonsterSpace::eBodyStateStand, Globals::kUnsignedInt32Undefined, "strapped", "",
         "raciya");
     state_library["wait_rac"] = state_lib_data;
     state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
-        MonsterSpace::eBodyStateStand, Globals::kUnsignedInt32Undefined, "none", Globals::kStringUndefined,
+        MonsterSpace::eBodyStateStand, Globals::kUnsignedInt32Undefined, "none", "",
         "raciya");
     state_library["wait_rac_noweap"] = state_lib_data;
     state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
-        MonsterSpace::eBodyStateStand, Globals::kUnsignedInt32Undefined, "unstrapped", Globals::kStringUndefined,
+        MonsterSpace::eBodyStateStand, Globals::kUnsignedInt32Undefined, "unstrapped", "",
         "raciya_stc");
     state_library["wait_rac_stc"] = state_lib_data;
     state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
-        MonsterSpace::eBodyStateStand, Globals::kUnsignedInt32Undefined, "unstrapped", Globals::kStringUndefined,
+        MonsterSpace::eBodyStateStand, Globals::kUnsignedInt32Undefined, "unstrapped", "",
         "raciya");
     state_library["guard_rac"] = state_lib_data;
     state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
-        MonsterSpace::eBodyStateStand, Globals::kUnsignedInt32Undefined, "strapped", Globals::kStringUndefined,
+        MonsterSpace::eBodyStateStand, Globals::kUnsignedInt32Undefined, "strapped", "",
         "probe_stand");
     state_library["probe_stand"] = state_lib_data;
     state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
-        MonsterSpace::eBodyStateStand, Globals::kUnsignedInt32Undefined, "strapped", Globals::kStringUndefined,
+        MonsterSpace::eBodyStateStand, Globals::kUnsignedInt32Undefined, "strapped", "",
         "probe_stand_detector_advanced");
     state_library["probe_stand_detector_advanced"] = state_lib_data;
     state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
-        MonsterSpace::eBodyStateStand, Globals::kUnsignedInt32Undefined, "strapped", Globals::kStringUndefined,
+        MonsterSpace::eBodyStateStand, Globals::kUnsignedInt32Undefined, "strapped", "",
         "probe_stand_detector_elite");
     state_library["probe_stand_detector_elite"] = state_lib_data;
     state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
-        MonsterSpace::eBodyStateStand, Globals::kUnsignedInt32Undefined, "strapped", Globals::kStringUndefined,
+        MonsterSpace::eBodyStateStand, Globals::kUnsignedInt32Undefined, "strapped", "",
         "probe_way");
     state_library["probe_way"] = state_lib_data;
     state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
-        MonsterSpace::eBodyStateStand, Globals::kUnsignedInt32Undefined, "strapped", Globals::kStringUndefined,
+        MonsterSpace::eBodyStateStand, Globals::kUnsignedInt32Undefined, "strapped", "",
         "probe_way_detector_advanced");
     state_library["probe_way_detector_advanced"] = state_lib_data;
     state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
-        MonsterSpace::eBodyStateStand, Globals::kUnsignedInt32Undefined, "strapped", Globals::kStringUndefined,
+        MonsterSpace::eBodyStateStand, Globals::kUnsignedInt32Undefined, "strapped", "",
         "probe_way_detector_elite");
     state_library["probe_way_detector_elite"] = state_lib_data;
     state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
-        MonsterSpace::eBodyStateStand, Globals::kUnsignedInt32Undefined, "strapped", Globals::kStringUndefined,
+        MonsterSpace::eBodyStateStand, Globals::kUnsignedInt32Undefined, "strapped", "",
         "probe_crouch");
     state_library["probe_crouch"] = state_lib_data;
     state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateDanger,
-        MonsterSpace::eBodyStateStand, Globals::kUnsignedInt32Undefined, "strapped", Globals::kStringUndefined,
+        MonsterSpace::eBodyStateStand, Globals::kUnsignedInt32Undefined, "strapped", "",
         "probe_crouch_detector_advanced");
     state_library["probe_crouch_detector_advanced"] = state_lib_data;
     state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
-        MonsterSpace::eBodyStateStand, Globals::kUnsignedInt32Undefined, "strapped", Globals::kStringUndefined,
+        MonsterSpace::eBodyStateStand, Globals::kUnsignedInt32Undefined, "strapped", "",
         "probe_crouch_detector_elite");
     state_library["probe_crouch_detector_elite"] = state_lib_data;
     state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
-        MonsterSpace::eBodyStateStand, Globals::kUnsignedInt32Undefined, "strapped", Globals::kStringUndefined,
+        MonsterSpace::eBodyStateStand, Globals::kUnsignedInt32Undefined, "strapped", "",
         "scaner_stand");
     state_library["scaner_stand"] = state_lib_data;
     state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
-        MonsterSpace::eBodyStateStand, Globals::kUnsignedInt32Undefined, "strapped", Globals::kStringUndefined,
+        MonsterSpace::eBodyStateStand, Globals::kUnsignedInt32Undefined, "strapped", "",
         "scaner_way");
     state_library["scaner_way"] = state_lib_data;
     state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
-        MonsterSpace::eBodyStateStand, Globals::kUnsignedInt32Undefined, "strapped", Globals::kStringUndefined,
+        MonsterSpace::eBodyStateStand, Globals::kUnsignedInt32Undefined, "strapped", "",
         "scaner_crouch");
     state_library["scaner_crouch"] = state_lib_data;
     state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
-        MonsterSpace::eBodyStateStand, Globals::kUnsignedInt32Undefined, "strapped", Globals::kStringUndefined,
+        MonsterSpace::eBodyStateStand, Globals::kUnsignedInt32Undefined, "strapped", "",
         "hands_up");
     state_library["hands_up"] = state_lib_data;
     state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateDanger,
         MonsterSpace::eBodyStateCrouch, SightManager::eSightTypeCurrentDirection, "strapped",
-        Globals::kStringUndefined, "wounded");
+        "", "wounded");
     state_library["wounded"] = state_lib_data;
     state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateDanger,
-        MonsterSpace::eBodyStateCrouch, SightManager::eSightTypeCurrentDirection, "drop", Globals::kStringUndefined,
+        MonsterSpace::eBodyStateCrouch, SightManager::eSightTypeCurrentDirection, "drop", "",
         "wounded_heavy_1");
     state_library["wounded_heavy"] = state_lib_data;
     state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateDanger,
-        MonsterSpace::eBodyStateCrouch, SightManager::eSightTypeCurrentDirection, "drop", Globals::kStringUndefined,
+        MonsterSpace::eBodyStateCrouch, SightManager::eSightTypeCurrentDirection, "drop", "",
         "wounded_heavy_2");
     state_library["wounded_heavy_2"] = state_lib_data;
     state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateDanger,
-        MonsterSpace::eBodyStateCrouch, SightManager::eSightTypeCurrentDirection, "drop", Globals::kStringUndefined,
+        MonsterSpace::eBodyStateCrouch, SightManager::eSightTypeCurrentDirection, "drop", "",
         "wounded_heavy_3");
     state_library["wounded_heavy_3"] = state_lib_data;
     state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateDanger,
-        MonsterSpace::eBodyStateCrouch, SightManager::eSightTypeCurrentDirection, "drop", Globals::kStringUndefined,
+        MonsterSpace::eBodyStateCrouch, SightManager::eSightTypeCurrentDirection, "drop", "",
         "wounded_zombie");
     state_library["wounded_zombie"] = state_lib_data;
     state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
-        MonsterSpace::eBodyStateCrouch, Globals::kUnsignedInt32Undefined, "strapped", Globals::kStringUndefined,
+        MonsterSpace::eBodyStateCrouch, Globals::kUnsignedInt32Undefined, "strapped", "",
         "trans_0");
     state_library["trans_0"] = state_lib_data;
     state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
-        MonsterSpace::eBodyStateCrouch, Globals::kUnsignedInt32Undefined, "strapped", Globals::kStringUndefined,
+        MonsterSpace::eBodyStateCrouch, Globals::kUnsignedInt32Undefined, "strapped", "",
         "trans_1");
     state_library["trans_1"] = state_lib_data;
     state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
-        MonsterSpace::eBodyStateCrouch, Globals::kUnsignedInt32Undefined, "strapped", Globals::kStringUndefined,
+        MonsterSpace::eBodyStateCrouch, Globals::kUnsignedInt32Undefined, "strapped", "",
         "trans_zombied");
     state_library["trans_zombied"] = state_lib_data;
     state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
-        MonsterSpace::eBodyStateCrouch, Globals::kUnsignedInt32Undefined, "strapped", Globals::kStringUndefined,
+        MonsterSpace::eBodyStateCrouch, Globals::kUnsignedInt32Undefined, "strapped", "",
         "talk_default");
     state_library["talk_default"] = state_lib_data;
     state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
-        MonsterSpace::eBodyStateCrouch, Globals::kUnsignedInt32Undefined, "drop", Globals::kStringUndefined,
+        MonsterSpace::eBodyStateCrouch, Globals::kUnsignedInt32Undefined, "drop", "",
         "psy_armed");
     state_library["psy_pain"] = state_lib_data;
     state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
-        MonsterSpace::eBodyStateCrouch, Globals::kUnsignedInt32Undefined, "strapped", Globals::kStringUndefined,
+        MonsterSpace::eBodyStateCrouch, Globals::kUnsignedInt32Undefined, "strapped", "",
         "psy_armed");
     state_library["psy_armed"] = state_lib_data;
     state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
-        MonsterSpace::eBodyStateCrouch, Globals::kUnsignedInt32Undefined, "fire", Globals::kStringUndefined,
+        MonsterSpace::eBodyStateCrouch, Globals::kUnsignedInt32Undefined, "fire", "",
         "psy_shoot", false, 1);
     state_library["psy_shoot"] = state_lib_data;
     state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateDanger,
-        MonsterSpace::eBodyStateCrouch, SightManager::eSightTypeCurrentDirection, "drop", Globals::kStringUndefined,
+        MonsterSpace::eBodyStateCrouch, SightManager::eSightTypeCurrentDirection, "drop", "",
         "wounded_heavy_1");
     state_library["lay_on_bed"] = state_lib_data;
 
@@ -3128,106 +3128,106 @@ Cordis::Scripts::Script_GlobalHelper::Script_GlobalHelper(void)
     state_library["animpoint_sit_low_harmonica"] = state_lib_data;
     state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
         MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "unstrapped",
-        "animpoint_stay_wall_weapon", Globals::kStringUndefined);
+        "animpoint_stay_wall_weapon", "");
     state_library["animpoint_stay_wall_weapon"] = state_lib_data;
     state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
         MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "unstrapped",
-        "animpoint_stay_table_weapon", Globals::kStringUndefined);
+        "animpoint_stay_table_weapon", "");
     state_library["animpoint_stay_table_weapon"] = state_lib_data;
     state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
         MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "unstrapped",
-        "animpoint_sit_high_weapon", Globals::kStringUndefined);
+        "animpoint_sit_high_weapon", "");
     state_library["animpoint_sit_high_weapon"] = state_lib_data;
     state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
         MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "unstrapped",
-        "animpoint_sit_normal_weapon", Globals::kStringUndefined);
+        "animpoint_sit_normal_weapon", "");
     state_library["animpoint_sit_normal_weapon"] = state_lib_data;
     state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
         MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "unstrapped",
-        "animpoint_sit_low_weapon", Globals::kStringUndefined);
+        "animpoint_sit_low_weapon", "");
     state_library["animpoint_sit_low_weapon"] = state_lib_data;
     state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
         MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "strapped",
-        "animpoint_stay_wall", Globals::kStringUndefined);
+        "animpoint_stay_wall", "");
     state_library["animpoint_stay_wall_no_rnd"] = state_lib_data;
     state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
         MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "strapped",
-        "animpoint_stay_table", Globals::kStringUndefined);
+        "animpoint_stay_table", "");
     state_library["animpoint_stay_table_no_rnd"] = state_lib_data;
     state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
         MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "strapped", "animpoint_sit_high",
-        Globals::kStringUndefined);
+        "");
     state_library["animpoint_sit_high_no_rnd"] = state_lib_data;
     state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
         MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "strapped",
-        "animpoint_sit_normal", Globals::kStringUndefined);
+        "animpoint_sit_normal", "");
     state_library["animpoint_sit_normal_no_rnd"] = state_lib_data;
     state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
         MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "strapped", "animpoint_sit_low",
-        Globals::kStringUndefined);
+        "");
     state_library["animpoint_sit_low_no_rnd"] = state_lib_data;
 #pragma endregion
 
 #pragma region Cordis State Library Manager Scenario
     state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
-        MonsterSpace::eBodyStateStand, Globals::kUnsignedInt32Undefined, "strapped", Globals::kStringUndefined,
+        MonsterSpace::eBodyStateStand, Globals::kUnsignedInt32Undefined, "strapped", "",
         "zat_b14_give_artefact_idle");
     state_library["zat_b14_give_artefact_idle"] = state_lib_data;
     state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
-        MonsterSpace::eBodyStateStand, Globals::kUnsignedInt32Undefined, "strapped", Globals::kStringUndefined,
+        MonsterSpace::eBodyStateStand, Globals::kUnsignedInt32Undefined, "strapped", "",
         "zat_b14_give_artefact_act");
     state_library["zat_b14_give_artefact_act"] = state_lib_data;
     state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
         MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "none",
-        Globals::kStringUndefined, "zat_b14_stay_wall");
+        "", "zat_b14_stay_wall");
     state_library["zat_b14_stay_wall"] = state_lib_data;
     state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
         MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "strapped",
-        Globals::kStringUndefined, "zat_b38_stalker_break_lock");
+        "", "zat_b38_stalker_break_lock");
     state_library["zat_b38_stalker_break_lock"] = state_lib_data;
     state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
         MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "strapped",
-        Globals::kStringUndefined, "zat_b38_stalker_turn_on_lift");
+        "", "zat_b38_stalker_turn_on_lift");
     state_library["zat_b38_stalker_turn_on_lift"] = state_lib_data;
     state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
         MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "unstrapped",
-        Globals::kStringUndefined, "zat_b38_stalker_jump_tonnel");
+        "", "zat_b38_stalker_jump_tonnel");
     state_library["zat_b38_stalker_jump_tonnel"] = state_lib_data;
     state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateDanger,
         MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "unstrapped",
-        Globals::kStringUndefined, "zat_b38_stalker_alert");
+        "", "zat_b38_stalker_alert");
     state_library["zat_b38_stalker_alert"] = state_lib_data;
     state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
         MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "unstrapped",
-        Globals::kStringUndefined, "zat_b20_noah_jump");
+        "", "zat_b20_noah_jump");
     state_library["zat_b20_noah_jump"] = state_lib_data;
     state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateDanger,
         MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "strapped",
-        Globals::kStringUndefined, "pri_a17_ice_climb");
+        "", "pri_a17_ice_climb");
     state_library["pri_a17_ice_climb"] = state_lib_data;
     state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateDanger,
         MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "unstrapped",
-        Globals::kStringUndefined, "pri_a17_fall_down");
+        "", "pri_a17_fall_down");
     state_library["pri_a17_fall_down"] = state_lib_data;
     state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateDanger,
         MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "unstrapped",
-        Globals::kStringUndefined, "pri_a17_pray_in");
+        "", "pri_a17_pray_in");
     state_library["pri_a17_pray_in"] = state_lib_data;
     state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateDanger,
         MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "unstrapped",
-        Globals::kStringUndefined, "pri_a17_pray");
+        "", "pri_a17_pray");
     state_library["pri_a17_pray"] = state_lib_data;
     state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
         MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "none",
-        Globals::kStringUndefined, "zat_b22_medic_turn_idle");
+        "", "zat_b22_medic_turn_idle");
     state_library["zat_b22_medic_turn_idle"] = state_lib_data;
     state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
         MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "none",
-        Globals::kStringUndefined, "zat_b22_medic_turn_out");
+        "", "zat_b22_medic_turn_out");
     state_library["zat_b22_medic_turn_out"] = state_lib_data;
     state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
         MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "fire",
-        Globals::kStringUndefined, "zat_b22_medic_suicide");
+        "", "zat_b22_medic_suicide");
     state_library["zat_b22_medic_suicide"] = state_lib_data;
     state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
         MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "none", "zat_b3_tech_idle",
@@ -3243,7 +3243,7 @@ Cordis::Scripts::Script_GlobalHelper::Script_GlobalHelper(void)
     state_library["zat_b3_tech_idle"] = state_lib_data;
     state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
         MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "none", "zat_b3_tech_idle",
-        Globals::kStringUndefined);
+        "");
     state_library["zat_b3_tech_idle_short"] = state_lib_data;
     state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
         MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "none", "zat_b3_tech_idle",
@@ -3251,27 +3251,27 @@ Cordis::Scripts::Script_GlobalHelper::Script_GlobalHelper(void)
     state_library["zat_b3_tech_surprise"] = state_lib_data;
     state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateDanger,
         MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "unstrapped",
-        Globals::kStringUndefined, "give_orders");
+        "", "give_orders");
     state_library["give_orders"] = state_lib_data;
     state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateDanger,
         MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "unstrapped",
-        Globals::kStringUndefined, "bloodsucker_search");
+        "", "bloodsucker_search");
     state_library["bloodsucker_search"] = state_lib_data;
     state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateDanger,
         MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "fire",
-        Globals::kStringUndefined, "bloodsucker_panic");
+        "", "bloodsucker_panic");
     state_library["bloodsucker_panic"] = state_lib_data;
     state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
         MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "fire",
-        Globals::kStringUndefined, "suicide_animation");
+        "", "suicide_animation");
     state_library["suicide_animation"] = state_lib_data;
     state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
         MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "none",
-        Globals::kStringUndefined, "jup_b10_drunk_ravings");
+        "", "jup_b10_drunk_ravings");
     state_library["jup_b10_drunk_ravings"] = state_lib_data;
     state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
         MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "strapped",
-        Globals::kStringUndefined, "pas_b400_vano_probe");
+        "", "pas_b400_vano_probe");
     state_library["pas_b400_vano_probe"] = state_lib_data;
     state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
         MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "strapped", "animpoint_sit_high",
@@ -3279,15 +3279,15 @@ Cordis::Scripts::Script_GlobalHelper::Script_GlobalHelper(void)
     state_library["pri_a28_kirillov_sit_high_radio"] = state_lib_data;
     state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
         MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "none",
-        Globals::kStringUndefined, "pri_a18_inspert_monolit_actor");
+        "", "pri_a18_inspert_monolit_actor");
     state_library["pri_a18_inspert_monolit_actor"] = state_lib_data;
     state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
         MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "strapped",
-        "pri_a20_colonel_radio", Globals::kStringUndefined);
+        "pri_a20_colonel_radio", "");
     state_library["pri_a20_colonel_radio"] = state_lib_data;
     state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
         MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "fire", "pri_a21_sentry_madness",
-        Globals::kStringUndefined);
+        "");
     state_library["pri_a21_sentry_madness"] = state_lib_data;
     state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
         MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "fire",
@@ -3295,19 +3295,19 @@ Cordis::Scripts::Script_GlobalHelper::Script_GlobalHelper(void)
     state_library["pri_a21_sentry_madness_suicide"] = state_lib_data;
     state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
         MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "none",
-        "pri_a22_colonel_lean_on_table", Globals::kStringUndefined);
+        "pri_a22_colonel_lean_on_table", "");
     state_library["pri_a22_colonel_lean_on_table"] = state_lib_data;
     state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
         MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "none",
-        Globals::kStringUndefined, "pri_a28_army_trance_out");
+        "", "pri_a28_army_trance_out");
     state_library["pri_a28_army_trance_out"] = state_lib_data;
     state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
         MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "none",
-        Globals::kStringUndefined, "zat_b106_wounded_idle");
+        "", "zat_b106_wounded_idle");
     state_library["zat_b106_wounded_idle"] = state_lib_data;
     state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
         MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "none",
-        Globals::kStringUndefined, "zat_b38_cop_dead");
+        "", "zat_b38_cop_dead");
     state_library["zat_b38_cop_dead"] = state_lib_data;
     state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
         MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "none",
@@ -3319,670 +3319,670 @@ Cordis::Scripts::Script_GlobalHelper::Script_GlobalHelper(void)
     state_library["jup_b15_zulus_sit_idle"] = state_lib_data;
     state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
         MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "none",
-        "jup_b15_zulus_sit_idle_short", Globals::kStringUndefined);
+        "jup_b15_zulus_sit_idle_short", "");
     state_library["jup_b15_zulus_sit_idle_short"] = state_lib_data;
     state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
         MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "none",
-        Globals::kStringUndefined, "jup_b15_zulus_sit_out");
+        "", "jup_b15_zulus_sit_out");
     state_library["jup_b15_zulus_sit_out"] = state_lib_data;
     state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
         MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "unstrapped",
-        Globals::kStringUndefined, "jup_b219_actor_one");
+        "", "jup_b219_actor_one");
     state_library["jup_b219_actor_one"] = state_lib_data;
     state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
         MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "unstrapped",
-        Globals::kStringUndefined, "jup_b219_actor_one_vano");
+        "", "jup_b219_actor_one_vano");
     state_library["jup_b219_actor_one_vano"] = state_lib_data;
     state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
         MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "unstrapped",
-        Globals::kStringUndefined, "jup_b219_actor_one_monolith");
+        "", "jup_b219_actor_one_monolith");
     state_library["jup_b219_actor_one_monolith"] = state_lib_data;
     state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
         MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "unstrapped",
-        Globals::kStringUndefined, "jup_b219_actor_one_soldier");
+        "", "jup_b219_actor_one_soldier");
     state_library["jup_b219_actor_one_soldier"] = state_lib_data;
     state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
         MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "unstrapped",
-        Globals::kStringUndefined, "jup_b219_actor_all");
+        "", "jup_b219_actor_all");
     state_library["jup_b219_actor_all"] = state_lib_data;
     state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
         MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "unstrapped",
-        Globals::kStringUndefined, "jup_b219_actor_soldier_vano");
+        "", "jup_b219_actor_soldier_vano");
     state_library["jup_b219_actor_soldier_vano"] = state_lib_data;
     state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
         MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "unstrapped",
-        Globals::kStringUndefined, "jup_b219_actor_soldier_monolith");
+        "", "jup_b219_actor_soldier_monolith");
     state_library["jup_b219_actor_soldier_monolith"] = state_lib_data;
     state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
         MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "unstrapped",
-        Globals::kStringUndefined, "jup_b219_actor_vano_monolith");
+        "", "jup_b219_actor_vano_monolith");
     state_library["jup_b219_actor_vano_monolith"] = state_lib_data;
     state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
         MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "unstrapped",
-        Globals::kStringUndefined, "jup_b219_zulus_one");
+        "", "jup_b219_zulus_one");
     state_library["jup_b219_zulus_one"] = state_lib_data;
     state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
         MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "unstrapped",
-        Globals::kStringUndefined, "jup_b219_zulus_one_vano");
+        "", "jup_b219_zulus_one_vano");
     state_library["jup_b219_zulus_one_vano"] = state_lib_data;
     state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
         MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "unstrapped",
-        Globals::kStringUndefined, "jup_b219_zulus_one_monolith");
+        "", "jup_b219_zulus_one_monolith");
     state_library["jup_b219_zulus_one_monolith"] = state_lib_data;
     state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
         MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "unstrapped",
-        Globals::kStringUndefined, "jup_b219_zulus_one_soldier");
+        "", "jup_b219_zulus_one_soldier");
     state_library["jup_b219_zulus_one_soldier"] = state_lib_data;
     state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
         MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "unstrapped",
-        Globals::kStringUndefined, "jup_b219_zulus_all");
+        "", "jup_b219_zulus_all");
     state_library["jup_b219_zulus_all"] = state_lib_data;
     state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
         MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "unstrapped",
-        Globals::kStringUndefined, "jup_b219_zulus_soldier_vano");
+        "", "jup_b219_zulus_soldier_vano");
     state_library["jup_b219_zulus_soldier_vano"] = state_lib_data;
     state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
         MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "unstrapped",
-        Globals::kStringUndefined, "jup_b219_zulus_soldier_monolith");
+        "", "jup_b219_zulus_soldier_monolith");
     state_library["jup_b219_zulus_soldier_monolith"] = state_lib_data;
     state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
         MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "unstrapped",
-        Globals::kStringUndefined, "jup_b219_zulus_vano_monolith");
+        "", "jup_b219_zulus_vano_monolith");
     state_library["jup_b219_zulus_vano_monolith"] = state_lib_data;
     state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
         MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "unstrapped",
-        Globals::kStringUndefined, "jup_b219_soldier_one");
+        "", "jup_b219_soldier_one");
     state_library["jup_b219_soldier_one"] = state_lib_data;
     state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
         MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "unstrapped",
-        Globals::kStringUndefined, "jup_b219_soldier_all");
+        "", "jup_b219_soldier_all");
     state_library["jup_b219_soldier_all"] = state_lib_data;
     state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
         MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "unstrapped",
-        Globals::kStringUndefined, "jup_b219_soldier_soldier_vano");
+        "", "jup_b219_soldier_soldier_vano");
     state_library["jup_b219_soldier_soldier_vano"] = state_lib_data;
     state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
         MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "unstrapped",
-        Globals::kStringUndefined, "jup_b219_soldier_soldier_monolith");
+        "", "jup_b219_soldier_soldier_monolith");
     state_library["jup_b219_soldier_soldier_monolith"] = state_lib_data;
     state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
         MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "unstrapped",
-        Globals::kStringUndefined, "jup_b219_monolith_one");
+        "", "jup_b219_monolith_one");
     state_library["jup_b219_monolith_one"] = state_lib_data;
     state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
         MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "unstrapped",
-        Globals::kStringUndefined, "jup_b219_monolith_all");
+        "", "jup_b219_monolith_all");
     state_library["jup_b219_monolith_all"] = state_lib_data;
     state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
         MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "unstrapped",
-        Globals::kStringUndefined, "jup_b219_monolith_soldier_monolith");
+        "", "jup_b219_monolith_soldier_monolith");
     state_library["jup_b219_monolith_soldier_monolith"] = state_lib_data;
     state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
         MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "unstrapped",
-        Globals::kStringUndefined, "jup_b219_monolith_vano_monolith");
+        "", "jup_b219_monolith_vano_monolith");
     state_library["jup_b219_monolith_vano_monolith"] = state_lib_data;
     state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
         MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "unstrapped",
-        Globals::kStringUndefined, "jup_b219_vano_one");
+        "", "jup_b219_vano_one");
     state_library["jup_b219_vano_one"] = state_lib_data;
     state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
         MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "unstrapped",
-        Globals::kStringUndefined, "jup_b219_vano_all");
+        "", "jup_b219_vano_all");
     state_library["jup_b219_vano_all"] = state_lib_data;
     state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
         MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "unstrapped",
-        Globals::kStringUndefined, "jup_b219_vano_soldier_vano");
+        "", "jup_b219_vano_soldier_vano");
     state_library["jup_b219_vano_soldier_vano"] = state_lib_data;
     state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
         MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "unstrapped",
-        Globals::kStringUndefined, "jup_b219_vano_vano_monolith");
+        "", "jup_b219_vano_vano_monolith");
     state_library["jup_b219_vano_vano_monolith"] = state_lib_data;
     state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
         MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "strapped",
-        Globals::kStringUndefined, "jup_b219_azot_one");
+        "", "jup_b219_azot_one");
     state_library["jup_b219_azot_one"] = state_lib_data;
     state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
         MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "strapped",
-        Globals::kStringUndefined, "jup_b219_azot_one_vano");
+        "", "jup_b219_azot_one_vano");
     state_library["jup_b219_azot_one_vano"] = state_lib_data;
     state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
         MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "strapped",
-        Globals::kStringUndefined, "jup_b219_azot_one_monolith");
+        "", "jup_b219_azot_one_monolith");
     state_library["jup_b219_azot_one_monolith"] = state_lib_data;
     state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
         MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "strapped",
-        Globals::kStringUndefined, "jup_b219_azot_one_soldier");
+        "", "jup_b219_azot_one_soldier");
     state_library["jup_b219_azot_one_soldier"] = state_lib_data;
     state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
         MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "strapped",
-        Globals::kStringUndefined, "jup_b219_azot_soldier_vano");
+        "", "jup_b219_azot_soldier_vano");
     state_library["jup_b219_azot_soldier_vano"] = state_lib_data;
     state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
         MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "strapped",
-        Globals::kStringUndefined, "jup_b219_azot_soldier_monolith");
+        "", "jup_b219_azot_soldier_monolith");
     state_library["jup_b219_azot_soldier_monolith"] = state_lib_data;
     state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
         MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "strapped",
-        Globals::kStringUndefined, "jup_b219_azot_vano_monolith");
+        "", "jup_b219_azot_vano_monolith");
     state_library["jup_b219_azot_vano_monolith"] = state_lib_data;
     state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
         MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "strapped",
-        Globals::kStringUndefined, "jup_b219_azot_all");
+        "", "jup_b219_azot_all");
     state_library["jup_b219_azot_all"] = state_lib_data;
     state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
         MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "none",
-        Globals::kStringUndefined, "zat_b100_heli_2_serch");
+        "", "zat_b100_heli_2_serch");
     state_library["zat_b100_heli_2_serch"] = state_lib_data;
     state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
         MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "none",
-        Globals::kStringUndefined, "zat_b101_heli_5_serch");
+        "", "zat_b101_heli_5_serch");
     state_library["zat_b101_heli_5_serch"] = state_lib_data;
     state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
         MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "none",
-        Globals::kStringUndefined, "jup_b217_guide_stand");
+        "", "jup_b217_guide_stand");
     state_library["jup_b217_guide_stand"] = state_lib_data;
     state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
         MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "none",
-        Globals::kStringUndefined, "jup_b217_nitro_stand");
+        "", "jup_b217_nitro_stand");
     state_library["jup_b217_nitro_stand"] = state_lib_data;
     state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
         MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "none",
-        Globals::kStringUndefined, "jup_b41_novikov_stand");
+        "", "jup_b41_novikov_stand");
     state_library["jup_b41_novikov_stand"] = state_lib_data;
     state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
         MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "unstrapped",
-        Globals::kStringUndefined, "pri_b305_actor");
+        "", "pri_b305_actor");
     state_library["pri_b305_actor"] = state_lib_data;
     state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
         MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "unstrapped",
-        Globals::kStringUndefined, "jup_a9_cam1_actor");
+        "", "jup_a9_cam1_actor");
     state_library["jup_a9_cam1_actor"] = state_lib_data;
     state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
         MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "unstrapped",
-        Globals::kStringUndefined, "jup_a9_cam2_actor");
+        "", "jup_a9_cam2_actor");
     state_library["jup_a9_cam2_actor"] = state_lib_data;
     state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
         MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "unstrapped",
-        Globals::kStringUndefined, "jup_a9_cam3_actor");
+        "", "jup_a9_cam3_actor");
     state_library["jup_a9_cam3_actor"] = state_lib_data;
     state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
         MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "strapped",
-        Globals::kStringUndefined, "jup_b217_nitro_straight");
+        "", "jup_b217_nitro_straight");
     state_library["jup_b217_nitro_straight"] = state_lib_data;
     state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
         MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "strapped",
-        Globals::kStringUndefined, "pri_a25_psy_medic_idle");
+        "", "pri_a25_psy_medic_idle");
     state_library["pri_a25_psy_medic_idle"] = state_lib_data;
     state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
         MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "strapped",
-        Globals::kStringUndefined, "pri_a25_psy_medic_out");
+        "", "pri_a25_psy_medic_out");
     state_library["pri_a25_psy_medic_out"] = state_lib_data;
 #pragma endregion
 
 #pragma region Cordis State Library PriA15
     state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
         MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "none",
-        Globals::kStringUndefined, "pri_a15_idle_none");
+        "", "pri_a15_idle_none");
     state_library["pri_a15_idle_none"] = state_lib_data;
     state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
         MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "strapped",
-        Globals::kStringUndefined, "pri_a15_idle_none");
+        "", "pri_a15_idle_none");
     state_library["pri_a15_idle_strap"] = state_lib_data;
     state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
         MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "unstrapped",
-        Globals::kStringUndefined, "pri_a15_idle_unstrap");
+        "", "pri_a15_idle_unstrap");
     state_library["pri_a15_idle_unstrap"] = state_lib_data;
     state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
         MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "none",
-        Globals::kStringUndefined, "pri_a15_vano_all");
+        "", "pri_a15_vano_all");
     state_library["pri_a15_vano_all"] = state_lib_data;
     state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
         MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "none",
-        Globals::kStringUndefined, "pri_a15_vano_1_sokolov");
+        "", "pri_a15_vano_1_sokolov");
     state_library["pri_a15_vano_1_sokolov"] = state_lib_data;
     state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
         MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "none",
-        Globals::kStringUndefined, "pri_a15_vano_1_zulus");
+        "", "pri_a15_vano_1_zulus");
     state_library["pri_a15_vano_1_zulus"] = state_lib_data;
     state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
         MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "none",
-        Globals::kStringUndefined, "pri_a15_vano_1_wanderer");
+        "", "pri_a15_vano_1_wanderer");
     state_library["pri_a15_vano_1_wanderer"] = state_lib_data;
     state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
         MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "none",
-        Globals::kStringUndefined, "pri_a15_vano_2_sokolov_zulus");
+        "", "pri_a15_vano_2_sokolov_zulus");
     state_library["pri_a15_vano_2_sokolov_zulus"] = state_lib_data;
     state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
         MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "none",
-        Globals::kStringUndefined, "pri_a15_vano_2_sokolov_wanderer");
+        "", "pri_a15_vano_2_sokolov_wanderer");
     state_library["pri_a15_vano_2_sokolov_wanderer"] = state_lib_data;
     state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
         MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "none",
-        Globals::kStringUndefined, "pri_a15_vano_2_zulus_wanderer");
+        "", "pri_a15_vano_2_zulus_wanderer");
     state_library["pri_a15_vano_2_zulus_wanderer"] = state_lib_data;
     state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
         MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "none",
-        Globals::kStringUndefined, "pri_a15_vano_3_vano_alive");
+        "", "pri_a15_vano_3_vano_alive");
     state_library["pri_a15_vano_3_vano_alive"] = state_lib_data;
     state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
         MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "none",
-        Globals::kStringUndefined, "pri_a15_sokolov_all");
+        "", "pri_a15_sokolov_all");
     state_library["pri_a15_sokolov_all"] = state_lib_data;
     state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
         MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "none",
-        Globals::kStringUndefined, "pri_a15_sokolov_1_vano");
+        "", "pri_a15_sokolov_1_vano");
     state_library["pri_a15_sokolov_1_vano"] = state_lib_data;
     state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
         MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "none",
-        Globals::kStringUndefined, "pri_a15_sokolov_1_zulus");
+        "", "pri_a15_sokolov_1_zulus");
     state_library["pri_a15_sokolov_1_zulus"] = state_lib_data;
     state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
         MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "none",
-        Globals::kStringUndefined, "pri_a15_sokolov_1_wanderer");
+        "", "pri_a15_sokolov_1_wanderer");
     state_library["pri_a15_sokolov_1_wanderer"] = state_lib_data;
     state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
         MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "none",
-        Globals::kStringUndefined, "pri_a15_sokolov_2_vano_zulus");
+        "", "pri_a15_sokolov_2_vano_zulus");
     state_library["pri_a15_sokolov_2_vano_zulus"] = state_lib_data;
     state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
         MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "none",
-        Globals::kStringUndefined, "pri_a15_sokolov_2_vano_wanderer");
+        "", "pri_a15_sokolov_2_vano_wanderer");
     state_library["pri_a15_sokolov_2_vano_wanderer"] = state_lib_data;
     state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
         MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "none",
-        Globals::kStringUndefined, "pri_a15_sokolov_2_zulus_wanderer");
+        "", "pri_a15_sokolov_2_zulus_wanderer");
     state_library["pri_a15_sokolov_2_zulus_wanderer"] = state_lib_data;
     state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
         MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "none",
-        Globals::kStringUndefined, "pri_a15_sokolov_3_sokolov_alive");
+        "", "pri_a15_sokolov_3_sokolov_alive");
     state_library["pri_a15_sokolov_3_sokolov_alive"] = state_lib_data;
     state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
         MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "unstrapped",
-        Globals::kStringUndefined, "pri_a15_zulus_all");
+        "", "pri_a15_zulus_all");
     state_library["pri_a15_zulus_all"] = state_lib_data;
     state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
         MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "unstrapped",
-        Globals::kStringUndefined, "pri_a15_zulus_1_vano");
+        "", "pri_a15_zulus_1_vano");
     state_library["pri_a15_zulus_1_vano"] = state_lib_data;
     state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
         MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "unstrapped",
-        Globals::kStringUndefined, "pri_a15_zulus_1_sokolov");
+        "", "pri_a15_zulus_1_sokolov");
     state_library["pri_a15_zulus_1_sokolov"] = state_lib_data;
     state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
         MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "unstrapped",
-        Globals::kStringUndefined, "pri_a15_zulus_1_wanderer");
+        "", "pri_a15_zulus_1_wanderer");
     state_library["pri_a15_zulus_1_wanderer"] = state_lib_data;
     state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
         MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "unstrapped",
-        Globals::kStringUndefined, "pri_a15_zulus_2_vano_sokolov");
+        "", "pri_a15_zulus_2_vano_sokolov");
     state_library["pri_a15_zulus_2_vano_sokolov"] = state_lib_data;
     state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
         MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "unstrapped",
-        Globals::kStringUndefined, "pri_a15_zulus_2_vano_wanderer");
+        "", "pri_a15_zulus_2_vano_wanderer");
     state_library["pri_a15_zulus_2_vano_wanderer"] = state_lib_data;
     state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
         MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "unstrapped",
-        Globals::kStringUndefined, "pri_a15_zulus_2_sokolov_wanderer");
+        "", "pri_a15_zulus_2_sokolov_wanderer");
     state_library["pri_a15_zulus_2_sokolov_wanderer"] = state_lib_data;
     state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
         MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "unstrapped",
-        Globals::kStringUndefined, "pri_a15_zulus_3_zulus_alive");
+        "", "pri_a15_zulus_3_zulus_alive");
     state_library["pri_a15_zulus_3_zulus_alive"] = state_lib_data;
     state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
         MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "unstrapped",
-        Globals::kStringUndefined, "pri_a15_wanderer_all");
+        "", "pri_a15_wanderer_all");
     state_library["pri_a15_wanderer_all"] = state_lib_data;
     state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
         MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "none",
-        Globals::kStringUndefined, "pri_a15_wanderer_1_vano");
+        "", "pri_a15_wanderer_1_vano");
     state_library["pri_a15_wanderer_1_vano"] = state_lib_data;
     state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
         MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "none",
-        Globals::kStringUndefined, "pri_a15_wanderer_1_sokolov");
+        "", "pri_a15_wanderer_1_sokolov");
     state_library["pri_a15_wanderer_1_sokolov"] = state_lib_data;
     state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
         MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "none",
-        Globals::kStringUndefined, "pri_a15_wanderer_1_zulus");
+        "", "pri_a15_wanderer_1_zulus");
     state_library["pri_a15_wanderer_1_zulus"] = state_lib_data;
     state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
         MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "none",
-        Globals::kStringUndefined, "pri_a15_wanderer_2_vano_sokolov");
+        "", "pri_a15_wanderer_2_vano_sokolov");
     state_library["pri_a15_wanderer_2_vano_sokolov"] = state_lib_data;
     state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
         MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "none",
-        Globals::kStringUndefined, "pri_a15_wanderer_2_vano_zulus");
+        "", "pri_a15_wanderer_2_vano_zulus");
     state_library["pri_a15_wanderer_2_vano_zulus"] = state_lib_data;
     state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
         MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "none",
-        Globals::kStringUndefined, "pri_a15_wanderer_2_sokolov_zulus");
+        "", "pri_a15_wanderer_2_sokolov_zulus");
     state_library["pri_a15_wanderer_2_sokolov_zulus"] = state_lib_data;
     state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
         MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "none",
-        Globals::kStringUndefined, "pri_a15_wanderer_3_wanderer_alive");
+        "", "pri_a15_wanderer_3_wanderer_alive");
     state_library["pri_a15_wanderer_3_wanderer_alive"] = state_lib_data;
     state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
         MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "none",
-        Globals::kStringUndefined, "pri_a15_actor_all");
+        "", "pri_a15_actor_all");
     state_library["pri_a15_actor_all"] = state_lib_data;
     state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
         MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "none",
-        Globals::kStringUndefined, "pri_a15_actor_1_vano");
+        "", "pri_a15_actor_1_vano");
     state_library["pri_a15_actor_1_vano"] = state_lib_data;
     state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
         MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "none",
-        Globals::kStringUndefined, "pri_a15_actor_1_sokolov");
+        "", "pri_a15_actor_1_sokolov");
     state_library["pri_a15_actor_1_sokolov"] = state_lib_data;
     state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
         MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "none",
-        Globals::kStringUndefined, "pri_a15_actor_1_zulus");
+        "", "pri_a15_actor_1_zulus");
     state_library["pri_a15_actor_1_zulus"] = state_lib_data;
     state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
         MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "none",
-        Globals::kStringUndefined, "pri_a15_actor_1_wanderer");
+        "", "pri_a15_actor_1_wanderer");
     state_library["pri_a15_actor_1_wanderer"] = state_lib_data;
     state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
         MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "none",
-        Globals::kStringUndefined, "pri_a15_actor_2_vano_sokolov");
+        "", "pri_a15_actor_2_vano_sokolov");
     state_library["pri_a15_actor_2_vano_sokolov"] = state_lib_data;
     state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
         MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "none",
-        Globals::kStringUndefined, "pri_a15_actor_2_vano_zulus");
+        "", "pri_a15_actor_2_vano_zulus");
     state_library["pri_a15_actor_2_vano_zulus"] = state_lib_data;
     state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
         MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "none",
-        Globals::kStringUndefined, "pri_a15_actor_2_vano_wanderer");
+        "", "pri_a15_actor_2_vano_wanderer");
     state_library["pri_a15_actor_2_vano_wanderer"] = state_lib_data;
     state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
         MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "none",
-        Globals::kStringUndefined, "pri_a15_actor_2_sokolov_zulus");
+        "", "pri_a15_actor_2_sokolov_zulus");
     state_library["pri_a15_actor_2_sokolov_zulus"] = state_lib_data;
     state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
         MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "none",
-        Globals::kStringUndefined, "pri_a15_actor_2_sokolov_wanderer");
+        "", "pri_a15_actor_2_sokolov_wanderer");
     state_library["pri_a15_actor_2_sokolov_wanderer"] = state_lib_data;
     state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
         MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "none",
-        Globals::kStringUndefined, "pri_a15_actor_2_zulus_wanderer");
+        "", "pri_a15_actor_2_zulus_wanderer");
     state_library["pri_a15_actor_2_zulus_wanderer"] = state_lib_data;
     state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
         MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "none",
-        Globals::kStringUndefined, "pri_a15_actor_3_vano_alive");
+        "", "pri_a15_actor_3_vano_alive");
     state_library["pri_a15_actor_3_vano_alive"] = state_lib_data;
     state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
         MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "none",
-        Globals::kStringUndefined, "pri_a15_actor_3_sokolov_alive");
+        "", "pri_a15_actor_3_sokolov_alive");
     state_library["pri_a15_actor_3_sokolov_alive"] = state_lib_data;
     state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
         MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "none",
-        Globals::kStringUndefined, "pri_a15_actor_3_zulus_alive");
+        "", "pri_a15_actor_3_zulus_alive");
     state_library["pri_a15_actor_3_zulus_alive"] = state_lib_data;
     state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
         MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "none",
-        Globals::kStringUndefined, "pri_a15_actor_3_wanderer_alive");
+        "", "pri_a15_actor_3_wanderer_alive");
     state_library["pri_a15_actor_3_wanderer_alive"] = state_lib_data;
     state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
         MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "none",
-        Globals::kStringUndefined, "pri_a15_actor_all_dead");
+        "", "pri_a15_actor_all_dead");
     state_library["pri_a15_actor_all_dead"] = state_lib_data;
     state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
         MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "unstrapped",
-        Globals::kStringUndefined, "pri_a15_military_tarasov_all");
+        "", "pri_a15_military_tarasov_all");
     state_library["pri_a15_military_tarasov_all"] = state_lib_data;
     state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
         MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "unstrapped",
-        Globals::kStringUndefined, "pri_a15_military_tarasov_1_vano");
+        "", "pri_a15_military_tarasov_1_vano");
     state_library["pri_a15_military_tarasov_1_vano"] = state_lib_data;
     state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
         MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "unstrapped",
-        Globals::kStringUndefined, "pri_a15_military_tarasov_1_sokolov");
+        "", "pri_a15_military_tarasov_1_sokolov");
     state_library["pri_a15_military_tarasov_1_sokolov"] = state_lib_data;
     state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
         MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "unstrapped",
-        Globals::kStringUndefined, "pri_a15_military_tarasov_1_zulus");
+        "", "pri_a15_military_tarasov_1_zulus");
     state_library["pri_a15_military_tarasov_1_zulus"] = state_lib_data;
     state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
         MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "unstrapped",
-        Globals::kStringUndefined, "pri_a15_military_tarasov_1_wanderer");
+        "", "pri_a15_military_tarasov_1_wanderer");
     state_library["pri_a15_military_tarasov_1_wanderer"] = state_lib_data;
     state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
         MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "unstrapped",
-        Globals::kStringUndefined, "pri_a15_military_tarasov_2_vano_sokolov");
+        "", "pri_a15_military_tarasov_2_vano_sokolov");
     state_library["pri_a15_military_tarasov_2_vano_sokolov"] = state_lib_data;
     state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
         MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "unstrapped",
-        Globals::kStringUndefined, "pri_a15_military_tarasov_2_vano_zulus");
+        "", "pri_a15_military_tarasov_2_vano_zulus");
     state_library["pri_a15_military_tarasov_2_vano_zulus"] = state_lib_data;
     state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
         MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "unstrapped",
-        Globals::kStringUndefined, "pri_a15_military_tarasov_2_vano_wanderer");
+        "", "pri_a15_military_tarasov_2_vano_wanderer");
     state_library["pri_a15_military_tarasov_2_vano_wanderer"] = state_lib_data;
     state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
         MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "unstrapped",
-        Globals::kStringUndefined, "pri_a15_military_tarasov_2_sokolov_zulus");
+        "", "pri_a15_military_tarasov_2_sokolov_zulus");
     state_library["pri_a15_military_tarasov_2_sokolov_zulus"] = state_lib_data;
     state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
         MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "unstrapped",
-        Globals::kStringUndefined, "pri_a15_military_tarasov_2_sokolov_wanderer");
+        "", "pri_a15_military_tarasov_2_sokolov_wanderer");
     state_library["pri_a15_military_tarasov_2_sokolov_wanderer"] = state_lib_data;
     state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
         MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "unstrapped",
-        Globals::kStringUndefined, "pri_a15_military_tarasov_2_zulus_wanderer");
+        "", "pri_a15_military_tarasov_2_zulus_wanderer");
     state_library["pri_a15_military_tarasov_2_zulus_wanderer"] = state_lib_data;
     state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
         MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "unstrapped",
-        Globals::kStringUndefined, "pri_a15_military_tarasov_3_vano_alive");
+        "", "pri_a15_military_tarasov_3_vano_alive");
     state_library["pri_a15_military_tarasov_3_vano_alive"] = state_lib_data;
     state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
         MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "unstrapped",
-        Globals::kStringUndefined, "pri_a15_military_tarasov_3_sokolov_alive");
+        "", "pri_a15_military_tarasov_3_sokolov_alive");
     state_library["pri_a15_military_tarasov_3_sokolov_alive"] = state_lib_data;
     state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
         MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "unstrapped",
-        Globals::kStringUndefined, "pri_a15_military_tarasov_3_zulus_alive");
+        "", "pri_a15_military_tarasov_3_zulus_alive");
     state_library["pri_a15_military_tarasov_3_zulus_alive"] = state_lib_data;
     state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
         MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "unstrapped",
-        Globals::kStringUndefined, "pri_a15_military_tarasov_3_wanderer_alive");
+        "", "pri_a15_military_tarasov_3_wanderer_alive");
     state_library["pri_a15_military_tarasov_3_wanderer_alive"] = state_lib_data;
     state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
         MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "unstrapped",
-        Globals::kStringUndefined, "pri_a15_military_tarasov_all_dead");
+        "", "pri_a15_military_tarasov_all_dead");
     state_library["pri_a15_military_tarasov_all_dead"] = state_lib_data;
     state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
         MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "unstrapped",
-        Globals::kStringUndefined, "pri_a15_military_2_all");
+        "", "pri_a15_military_2_all");
     state_library["pri_a15_military_2_all"] = state_lib_data;
     state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
         MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "unstrapped",
-        Globals::kStringUndefined, "pri_a15_military_2_1_vano");
+        "", "pri_a15_military_2_1_vano");
     state_library["pri_a15_military_2_1_vano"] = state_lib_data;
     state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
         MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "unstrapped",
-        Globals::kStringUndefined, "pri_a15_military_2_1_sokolov");
+        "", "pri_a15_military_2_1_sokolov");
     state_library["pri_a15_military_2_1_sokolov"] = state_lib_data;
     state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
         MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "unstrapped",
-        Globals::kStringUndefined, "pri_a15_military_2_1_zulus");
+        "", "pri_a15_military_2_1_zulus");
     state_library["pri_a15_military_2_1_zulus"] = state_lib_data;
     state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
         MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "unstrapped",
-        Globals::kStringUndefined, "pri_a15_military_2_1_wanderer");
+        "", "pri_a15_military_2_1_wanderer");
     state_library["pri_a15_military_2_1_wanderer"] = state_lib_data;
     state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
         MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "unstrapped",
-        Globals::kStringUndefined, "pri_a15_military_2_2_vano_sokolov");
+        "", "pri_a15_military_2_2_vano_sokolov");
     state_library["pri_a15_military_2_2_vano_sokolov"] = state_lib_data;
     state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
         MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "unstrapped",
-        Globals::kStringUndefined, "pri_a15_military_2_2_vano_zulus");
+        "", "pri_a15_military_2_2_vano_zulus");
     state_library["pri_a15_military_2_2_vano_zulus"] = state_lib_data;
     state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
         MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "unstrapped",
-        Globals::kStringUndefined, "pri_a15_military_2_2_vano_wanderer");
+        "", "pri_a15_military_2_2_vano_wanderer");
     state_library["pri_a15_military_2_2_vano_wanderer"] = state_lib_data;
     state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
         MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "unstrapped",
-        Globals::kStringUndefined, "pri_a15_military_2_2_sokolov_zulus");
+        "", "pri_a15_military_2_2_sokolov_zulus");
     state_library["pri_a15_military_2_2_sokolov_zulus"] = state_lib_data;
     state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
         MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "unstrapped",
-        Globals::kStringUndefined, "pri_a15_military_2_2_sokolov_wanderer");
+        "", "pri_a15_military_2_2_sokolov_wanderer");
     state_library["pri_a15_military_2_2_sokolov_wanderer"] = state_lib_data;
     state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
         MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "unstrapped",
-        Globals::kStringUndefined, "pri_a15_military_2_2_zulus_wanderer");
+        "", "pri_a15_military_2_2_zulus_wanderer");
     state_library["pri_a15_military_2_2_zulus_wanderer"] = state_lib_data;
     state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
         MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "unstrapped",
-        Globals::kStringUndefined, "pri_a15_military_2_3_vano_alive");
+        "", "pri_a15_military_2_3_vano_alive");
     state_library["pri_a15_military_2_3_vano_alive"] = state_lib_data;
     state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
         MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "unstrapped",
-        Globals::kStringUndefined, "pri_a15_military_2_3_sokolov_alive");
+        "", "pri_a15_military_2_3_sokolov_alive");
     state_library["pri_a15_military_2_3_sokolov_alive"] = state_lib_data;
     state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
         MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "unstrapped",
-        Globals::kStringUndefined, "pri_a15_military_2_3_zulus_alive");
+        "", "pri_a15_military_2_3_zulus_alive");
     state_library["pri_a15_military_2_3_zulus_alive"] = state_lib_data;
     state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
         MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "unstrapped",
-        Globals::kStringUndefined, "pri_a15_military_2_3_wanderer_alive");
+        "", "pri_a15_military_2_3_wanderer_alive");
     state_library["pri_a15_military_2_3_wanderer_alive"] = state_lib_data;
     state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
         MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "unstrapped",
-        Globals::kStringUndefined, "pri_a15_military_2_all_dead");
+        "", "pri_a15_military_2_all_dead");
     state_library["pri_a15_military_2_all_dead"] = state_lib_data;
     state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
         MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "unstrapped",
-        Globals::kStringUndefined, "pri_a15_military_3_all");
+        "", "pri_a15_military_3_all");
     state_library["pri_a15_military_3_all"] = state_lib_data;
     state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
         MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "unstrapped",
-        Globals::kStringUndefined, "pri_a15_military_3_1_vano");
+        "", "pri_a15_military_3_1_vano");
     state_library["pri_a15_military_3_1_vano"] = state_lib_data;
     state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
         MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "unstrapped",
-        Globals::kStringUndefined, "pri_a15_military_3_1_sokolov");
+        "", "pri_a15_military_3_1_sokolov");
     state_library["pri_a15_military_3_1_sokolov"] = state_lib_data;
     state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
         MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "unstrapped",
-        Globals::kStringUndefined, "pri_a15_military_3_1_zulus");
+        "", "pri_a15_military_3_1_zulus");
     state_library["pri_a15_military_3_1_zulus"] = state_lib_data;
     state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
         MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "unstrapped",
-        Globals::kStringUndefined, "pri_a15_military_3_1_wanderer");
+        "", "pri_a15_military_3_1_wanderer");
     state_library["pri_a15_military_3_1_wanderer"] = state_lib_data;
     state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
         MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "unstrapped",
-        Globals::kStringUndefined, "pri_a15_military_3_2_vano_sokolov");
+        "", "pri_a15_military_3_2_vano_sokolov");
     state_library["pri_a15_military_3_2_vano_sokolov"] = state_lib_data;
     state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
         MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "unstrapped",
-        Globals::kStringUndefined, "pri_a15_military_3_2_vano_zulus");
+        "", "pri_a15_military_3_2_vano_zulus");
     state_library["pri_a15_military_3_2_vano_zulus"] = state_lib_data;
     state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
         MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "unstrapped",
-        Globals::kStringUndefined, "pri_a15_military_3_2_vano_wanderer");
+        "", "pri_a15_military_3_2_vano_wanderer");
     state_library["pri_a15_military_3_2_vano_wanderer"] = state_lib_data;
     state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
         MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "unstrapped",
-        Globals::kStringUndefined, "pri_a15_military_3_2_sokolov_zulus");
+        "", "pri_a15_military_3_2_sokolov_zulus");
     state_library["pri_a15_military_3_2_sokolov_zulus"] = state_lib_data;
     state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
         MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "unstrapped",
-        Globals::kStringUndefined, "pri_a15_military_3_2_sokolov_wanderer");
+        "", "pri_a15_military_3_2_sokolov_wanderer");
     state_library["pri_a15_military_3_2_sokolov_wanderer"] = state_lib_data;
     state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
         MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "unstrapped",
-        Globals::kStringUndefined, "pri_a15_military_3_2_zulus_wanderer");
+        "", "pri_a15_military_3_2_zulus_wanderer");
     state_library["pri_a15_military_3_2_zulus_wanderer"] = state_lib_data;
     state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
         MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "unstrapped",
-        Globals::kStringUndefined, "pri_a15_military_3_3_vano_alive");
+        "", "pri_a15_military_3_3_vano_alive");
     state_library["pri_a15_military_3_3_vano_alive"] = state_lib_data;
     state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
         MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "unstrapped",
-        Globals::kStringUndefined, "pri_a15_military_3_3_sokolov_alive");
+        "", "pri_a15_military_3_3_sokolov_alive");
     state_library["pri_a15_military_3_3_sokolov_alive"] = state_lib_data;
     state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
         MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "unstrapped",
-        Globals::kStringUndefined, "pri_a15_military_3_3_zulus_alive");
+        "", "pri_a15_military_3_3_zulus_alive");
     state_library["pri_a15_military_3_3_zulus_alive"] = state_lib_data;
     state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
         MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "unstrapped",
-        Globals::kStringUndefined, "pri_a15_military_3_3_wanderer_alive");
+        "", "pri_a15_military_3_3_wanderer_alive");
     state_library["pri_a15_military_3_3_wanderer_alive"] = state_lib_data;
     state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
         MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "unstrapped",
-        Globals::kStringUndefined, "pri_a15_military_3_all_dead");
+        "", "pri_a15_military_3_all_dead");
     state_library["pri_a15_military_3_all_dead"] = state_lib_data;
     state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
         MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "unstrapped",
-        Globals::kStringUndefined, "pri_a15_military_4_all");
+        "", "pri_a15_military_4_all");
     state_library["pri_a15_military_4_all"] = state_lib_data;
     state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
         MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "unstrapped",
-        Globals::kStringUndefined, "pri_a15_military_4_1_vano");
+        "", "pri_a15_military_4_1_vano");
     state_library["pri_a15_military_4_1_vano"] = state_lib_data;
     state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
         MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "unstrapped",
-        Globals::kStringUndefined, "pri_a15_military_4_1_vano");
+        "", "pri_a15_military_4_1_vano");
     state_library["pri_a15_military_4_1_vano"] = state_lib_data;
     state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
         MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "unstrapped",
-        Globals::kStringUndefined, "pri_a15_military_4_1_sokolov");
+        "", "pri_a15_military_4_1_sokolov");
     state_library["pri_a15_military_4_1_sokolov"] = state_lib_data;
     state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
         MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "unstrapped",
-        Globals::kStringUndefined, "pri_a15_military_4_1_zulus");
+        "", "pri_a15_military_4_1_zulus");
     state_library["pri_a15_military_4_1_zulus"] = state_lib_data;
     state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
         MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "unstrapped",
-        Globals::kStringUndefined, "pri_a15_military_4_1_wanderer");
+        "", "pri_a15_military_4_1_wanderer");
     state_library["pri_a15_military_4_1_wanderer"] = state_lib_data;
     state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
         MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "unstrapped",
-        Globals::kStringUndefined, "pri_a15_military_4_2_vano_sokolov");
+        "", "pri_a15_military_4_2_vano_sokolov");
     state_library["pri_a15_military_4_2_vano_sokolov"] = state_lib_data;
     state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
         MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "unstrapped",
-        Globals::kStringUndefined, "pri_a15_military_4_2_vano_zulus");
+        "", "pri_a15_military_4_2_vano_zulus");
     state_library["pri_a15_military_4_2_vano_zulus"] = state_lib_data;
     state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
         MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "unstrapped",
-        Globals::kStringUndefined, "pri_a15_military_4_2_vano_wanderer");
+        "", "pri_a15_military_4_2_vano_wanderer");
     state_library["pri_a15_military_4_2_vano_wanderer"] = state_lib_data;
     state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
         MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "unstrapped",
-        Globals::kStringUndefined, "pri_a15_military_4_2_sokolov_zulus");
+        "", "pri_a15_military_4_2_sokolov_zulus");
     state_library["pri_a15_military_4_2_sokolov_zulus"] = state_lib_data;
     state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
         MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "unstrapped",
-        Globals::kStringUndefined, "pri_a15_military_4_2_sokolov_wanderer");
+        "", "pri_a15_military_4_2_sokolov_wanderer");
     state_library["pri_a15_military_4_2_sokolov_wanderer"] = state_lib_data;
     state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
         MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "unstrapped",
-        Globals::kStringUndefined, "pri_a15_military_4_2_zulus_wanderer");
+        "", "pri_a15_military_4_2_zulus_wanderer");
     state_library["pri_a15_military_4_2_zulus_wanderer"] = state_lib_data;
     state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
         MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "unstrapped",
-        Globals::kStringUndefined, "pri_a15_military_4_3_vano_alive");
+        "", "pri_a15_military_4_3_vano_alive");
     state_library["pri_a15_military_4_3_vano_alive"] = state_lib_data;
     state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
         MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "unstrapped",
-        Globals::kStringUndefined, "pri_a15_military_4_3_sokolov_alive");
+        "", "pri_a15_military_4_3_sokolov_alive");
     state_library["pri_a15_military_4_3_sokolov_alive"] = state_lib_data;
     state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
         MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "unstrapped",
-        Globals::kStringUndefined, "pri_a15_military_4_3_zulus_alive");
+        "", "pri_a15_military_4_3_zulus_alive");
     state_library["pri_a15_military_4_3_zulus_alive"] = state_lib_data;
     state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
         MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "unstrapped",
-        Globals::kStringUndefined, "pri_a15_military_4_3_wanderer_alive");
+        "", "pri_a15_military_4_3_wanderer_alive");
     state_library["pri_a15_military_4_3_wanderer_alive"] = state_lib_data;
     state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
         MonsterSpace::eBodyStateStand, SightManager::eSightTypeAnimationDirection, "unstrapped",
-        Globals::kStringUndefined, "pri_a15_military_4_all_dead");
+        "", "pri_a15_military_4_all_dead");
     state_library["pri_a15_military_4_all_dead"] = state_lib_data;
 
     this->m_state_library = std::move(state_library);
