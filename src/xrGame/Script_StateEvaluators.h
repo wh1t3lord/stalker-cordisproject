@@ -659,10 +659,10 @@ public:
 
     virtual _value_type evaluate(void)
     {
-        return ((!Script_GlobalHelper::getInstance()
+        return ((Script_GlobalHelper::getInstance()
                         .getStateLibrary()
                         .at(this->m_p_state_manager->getTargetStateName())
-                        .getMentalType()) ||
+                        .getMentalType() == Globals::kUnsignedInt32Undefined) ||
             (Script_GlobalHelper::getInstance()
                     .getStateLibrary()
                     .at(this->m_p_state_manager->getTargetStateName())
