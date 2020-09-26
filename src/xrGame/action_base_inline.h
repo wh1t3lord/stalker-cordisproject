@@ -15,11 +15,11 @@
 #define CBaseAction CActionBase<_object_type>
 
 TEMPLATE_SPECIALIZATION
-IC CBaseAction::CActionBase(_object_type* object, LPCSTR action_name) { init(object, action_name); }
+IC CBaseAction::CActionBase(_object_type* object, const xr_string& action_name) { init(object, action_name); }
 TEMPLATE_SPECIALIZATION
 CBaseAction::~CActionBase() {}
 TEMPLATE_SPECIALIZATION
-void CBaseAction::init(_object_type* object, LPCSTR action_name)
+void CBaseAction::init(_object_type* object, const xr_string& action_name)
 {
     m_storage = 0;
     m_object = object;
