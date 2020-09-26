@@ -522,10 +522,10 @@ public:
 
     virtual _value_type evaluate(void)
     {
-        return ((!Script_GlobalHelper::getInstance()
+        return ((Script_GlobalHelper::getInstance()
                         .getStateLibrary()
                         .at(this->m_p_state_manager->getTargetStateName())
-                        .getBodyStateType()) ||
+                        .getBodyStateType() == Globals::kUnsignedInt32Undefined) ||
             (Script_GlobalHelper::getInstance()
                     .getStateLibrary()
                     .at(this->m_p_state_manager->getTargetStateName())
@@ -619,8 +619,72 @@ public:
 
     virtual _value_type evaluate(void)
     {
-        // Lord: реализовать когда будет m_p_state_manager.callback
-        return false;
+        if (this->m_p_state_manager->getTargetStateName() == "smartcover")
+            return true;
+
+        CSightParams sight_type = this->m_object->sight_params();
+
+
+        if (this->m_p_state_manager->getLookObject())
+        {
+            if (sight_type.m_object == nullptr || (sight_type.m_object->ID() != this->m_p_state_manager->getLookObject()->ID()) || this->m_p_state_manager->isPointObjectDirection() != Globals::is_look_object_type(this->m_object, this->m_p_state_manager))
+            {
+                return false;
+            }
+            
+            this->callback();
+            return true;
+        }
+
+        if (Globals::is_vector_nil(this->m_p_state_manager->getLookPosition()) == false)
+        {
+            if (sight_type.m_sight_type != Globals::look_position_type(this->m_object, this->m_p_state_manager))
+            {
+                return false;
+            }
+            else if (sight_type.m_sight_type == SightManager::eSightTypeAnimationDirection)
+            {
+                return true;
+            }
+
+            Fvector direction = Fvector().sub(this->m_p_state_manager->getLookPosition(), this->m_object->Position());
+
+            if (Globals::is_look_object_type(this->m_object, this->m_p_state_manager))
+            {
+                direction.y = 0.0f;
+            }
+
+            direction.normalize();
+
+            if (Globals::Utils::vector_cmp_prec(sight_type.m_vector, direction, 0.01f) == false)
+            {
+                return false;
+            }
+
+            this->callback();
+
+            return true;
+        }
+
+        if (sight_type.m_object)
+            return false;
+
+        if (sight_type.m_sight_type != Globals::look_position_type(this->m_object, this->m_p_state_manager))
+            return false;
+
+        this->callback();
+        return true;
+    }
+
+    void callback(void) 
+    {
+        if (this->m_p_state_manager->getCallbackData().isCallbackTurnEndExist()) 
+        {
+            StateManagerCallbackData& executor = const_cast<StateManagerCallbackData&>(this->m_p_state_manager->getCallbackData());
+
+            executor.CallCallbackTurnEnd();
+            executor.setCallbackTurnEnd(nullptr);
+        }
     }
 
 private:
