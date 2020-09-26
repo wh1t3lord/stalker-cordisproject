@@ -336,11 +336,12 @@ public:
 
     virtual _value_type evaluate(void)
     {
-        return Script_GlobalHelper::getInstance()
-            .getStateLibrary()
-            .at(this->m_p_state_manager->getTargetStateName())
-            .getAnimationName()
-            .empty(); // Lord: доделать когда сделаешь state_mgr_animation.animation!
+        return (
+            Script_GlobalHelper::getInstance()
+                        .getStateLibrary()
+                        .at(this->m_p_state_manager->getTargetStateName())
+                        .getAnimationName() == this->m_p_state_manager->getAnimation()->getStates().getCurrentStateName())
+            ;
     }
 
 private:
@@ -360,8 +361,7 @@ public:
 
     virtual _value_type evaluate(void)
     {
-        // Lord: доделать когда сделаешь state_mgr_animation.animation
-        return false;
+        return this->m_p_state_manager->getAnimation()->getStates().getCurrentStateName().empty() == false;
     }
 
 private:
@@ -381,14 +381,14 @@ public:
 
     virtual _value_type evaluate(void)
     {
-        // Lord: доделать когда сделаешь state_mgr_animation.animation
-        return false;
+        return this->m_p_state_manager->getAnimation()->getStates().getCurrentStateName().empty();
     }
 
 private:
     Script_StateManager* m_p_state_manager;
 };
 
+/* удалить потом
 class Script_EvaluatorStateManagerNoneNow : public CScriptPropertyEvaluator
 {
 public:
@@ -407,7 +407,7 @@ public:
 
 private:
     Script_StateManager* m_p_state_manager;
-};
+};*/
 
 class Script_EvaluatorStateManagerAnimationLocked : public CScriptPropertyEvaluator
 {
@@ -422,8 +422,7 @@ public:
 
     virtual _value_type evaluate(void)
     {
-        // Lord: доделать когда сделаешь state_mgr_animation.animation
-        return false;
+        return this->m_p_state_manager->getAnimation()->getStates().getAnimationMarker();
     }
 
 private:
@@ -442,8 +441,7 @@ public:
 
     virtual _value_type evaluate(void)
     {
-        // Lord: реализовать когда будет state_manager_animastate
-        return false;
+        return Script_GlobalHelper::getInstance().getStateLibrary().at(this->m_p_state_manager->getTargetStateName()).getAnimStateTypeName() == this->m_p_state_manager->getAnimState()->getStates().getCurrentStateName();
     }
 
 private:
@@ -463,8 +461,7 @@ public:
 
     virtual _value_type evaluate(void)
     {
-        // Lord: доделать когда будет animstate!
-        return false;
+        return this->m_p_state_manager->getAnimState()->getStates().getCurrentStateName().empty() == false;
     }
 
 private:
@@ -484,8 +481,7 @@ public:
 
     virtual _value_type evaluate(void)
     {
-        // Lord: реализовать когда будет animstate
-        return false;
+        return this->m_p_state_manager->getAnimState()->getStates().getCurrentStateName().empty();
     }
 
 private:
@@ -504,8 +500,7 @@ public:
 
     virtual _value_type evaluate(void)
     {
-        // Lord: реализовать когда будет state_manager_animastate
-        return false;
+        return (this->m_p_state_manager->getAnimState()->getStates().getAnimationMarker()) && (this->m_p_state_manager->getAnimState()->getStates().getAnimationMarker() != Globals::kStateManagerAnimationMarkerIdle);
     }
 
 private:
@@ -703,8 +698,10 @@ public:
 
     virtual _value_type evaluate(void)
     {
-        // Lord: когда будет написан сам state_manager, сюда вернуться!
-        return false;
+        if (Globals::is_vector_nil(this->m_p_state_manager->getLookPosition()) == false || this->m_p_state_manager->getLookObject())
+            return false;
+
+        return true;
     }
 
 private:
