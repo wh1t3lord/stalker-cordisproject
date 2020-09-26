@@ -49,7 +49,7 @@ protected:
 
 #ifdef LOG_ACTION
 public:
-    LPCSTR m_action_name;
+    xr_string m_action_name;
     bool m_use_log;
     bool m_switched;
 
