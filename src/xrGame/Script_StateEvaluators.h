@@ -340,7 +340,7 @@ public:
             Script_GlobalHelper::getInstance()
                         .getStateLibrary()
                         .at(this->m_p_state_manager->getTargetStateName())
-                        .getAnimationName() == this->m_p_state_manager->getAnimation()->getStates().getCurrentStateName())
+                        .getAnimationName() == (this->m_p_state_manager->getAnimation() ? this->m_p_state_manager->getAnimation()->getStates().getCurrentStateName() : ""))
             ;
     }
 
