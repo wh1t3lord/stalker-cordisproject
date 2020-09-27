@@ -110,6 +110,7 @@ void Script_SimulationObjects::update_avaliability(CSE_ALifeDynamicObject* objec
         R_ASSERT2(false, "object was null!");
         return;
     }
+
     // Lord: ПЫС также туда могут передавать ai().alife().graph().actor();!!!!!
     // Lord: пока что временное решение но нужно подумать реально ли использовать DataBase или здесь всё таки только серверное используется (первый аргумент)?
     if ((XR_LOGIC::pick_section_from_condlist(/*DataBase::Storage::getInstance().getActor()  */ai().alife().graph().actor(), object, object->getSimulationAvail()) == "true") &&
@@ -138,7 +139,7 @@ void Script_SimulationObjects::get_properties(CSE_ALifeDynamicObject* object)
 
     if (!this->m_props_ini.section_exist(properties_section.c_str()))
     {
-        Msg("[Script_SimulationObjects] -> object [%s] has no simulation properties section!", object->name());
+        MESSAGEW("object [%s] has no simulation properties section!", object->name());
         properties_section = "default";
 
         if (object->script_clsid() == Globals::get_script_clsid(CLSID_SE_ONLINE_OFFLINE_GROUP))
@@ -156,17 +157,15 @@ void Script_SimulationObjects::get_properties(CSE_ALifeDynamicObject* object)
         bool result = this->m_props_ini.r_line(properties_section.c_str(), i, &_s, &_v);
         section = _s;
         value = _v;
-        // Lord: доделать
+ 
         if (section == "sim_avail")
-            object->getSimulationAvail() = XR_LOGIC::parse_condlist_by_server_object(
-                xr_string("simulation_object"), xr_string("sim_avail"), value);
+            object->getSimulationAvail() = XR_LOGIC::parse_condlist_by_server_object("simulation_object", "sim_avail", value);
         else
             object->getProperties()[section] = value;
-
-        if (!object->getSimulationAvail().size())
-            object->getSimulationAvail() =
-                XR_LOGIC::parse_condlist_by_server_object("simulation_object", "sim_avail", "true");
     }
+
+	if (object->getSimulationAvail().empty())
+		object->getSimulationAvail() = XR_LOGIC::parse_condlist_by_server_object("simulation_object", "sim_avail", "true");
 }
 
 } // namespace Scripts
