@@ -9,3 +9,11 @@ In addition, the models of the environment / inventory items / stalkers / mutant
 # Links 
 
 <a href="https://www.moddb.com/mods/cordisproject" title="View S.T.A.L.K.E.R.: Cordis Project on Mod DB" target="_blank"><img src="https://button.moddb.com/popularity/medium/mods/41886.png" alt="S.T.A.L.K.E.R.: Cordis Project" /></a>
+
+# Repository
+
+We have two official repositories this and gitlab page. 
+
+https://github.com/diamondhat/cordisproject
+
+https://gitlab.com/diamondhat/cordisproject
