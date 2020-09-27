@@ -24,3 +24,7 @@ CMakeFiles/
 # exclude doxygen output
 doc/doxygen/html/*
 Externals/LuaJIT-proj/*.obj
+
+#user-defined
+sdk/boost/
+sdk/googletest/
