@@ -328,7 +328,7 @@ class Script_EvaluatorStateManagerAnimation : public CScriptPropertyEvaluator
 {
 public:
     Script_EvaluatorStateManagerAnimation(const xr_string& evaluator_name, Script_StateManager* const p_state_manager)
-        : CScriptPropertyEvaluator(nullptr, evaluator_name.c_str())
+        : CScriptPropertyEvaluator(nullptr, evaluator_name.c_str()), m_p_state_manager(p_state_manager)
     {
     }
 
@@ -340,7 +340,7 @@ public:
             Script_GlobalHelper::getInstance()
                         .getStateLibrary()
                         .at(this->m_p_state_manager->getTargetStateName())
-                        .getAnimationName() == (this->m_p_state_manager->getAnimation() ? this->m_p_state_manager->getAnimation()->getStates().getCurrentStateName() : ""))
+                        .getAnimationName() == this->m_p_state_manager->getAnimation()->getStates().getCurrentStateName())
             ;
     }
 
