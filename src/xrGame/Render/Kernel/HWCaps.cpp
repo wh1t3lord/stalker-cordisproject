@@ -11,6 +11,7 @@
 
 namespace
 {
+/*
 #if !defined(_EDITOR) && !defined(USE_OGL)
 u32 GetNVGpuNum()
 {
@@ -105,9 +106,13 @@ u32 GetGpuNum()
 
     return res;
 }
-#else
-u32 GetGpuNum() { return 1; }
-#endif
+#else*/
+u32 GetGpuNum() 
+{
+    MESSAGEW("This API is temporary, because sdk of amd and nvidia was updated!!!");
+    return 1; 
+}
+//#endif
 }
 
 #ifdef USE_DX9

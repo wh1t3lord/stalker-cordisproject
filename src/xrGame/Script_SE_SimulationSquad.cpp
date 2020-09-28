@@ -469,31 +469,30 @@ void Script_SE_SimulationSquad::set_location_types(const xr_string& new_smart_na
             }
         }
 
-#ifdef DEBUG
+ 
         MESSAGE("Old smart terrain name [%s]",
             old_smart_name.c_str());
-#endif // DEBUG
+ 
 
         if (old_smart_name.empty() == false)
             this->set_location_types_section(old_smart_name);
 
-#ifdef DEBUG
         if (new_smart_name.empty() == false)
             MESSAGE("New smart terrain name [%s]",
             new_smart_name.c_str());
-#endif // DEBUG
+ 
 
         if (new_smart_name.empty() == false)
             this->set_location_types_section(new_smart_name);
     }
     else
     {
-        Msg("[Scripts/Script_SE_SmartTerrain/set_location_types(new_smart_name)] The target is squad or actor setting "
+        MESSAGEI("The target is squad or actor setting "
             "[squad_terrain]!");
 
         this->set_location_types_section("squad_terrain");
 
-        for (std::pair<const std::uint16_t, CSE_ALifeDynamicObject*>& it :
+        for (const std::pair<std::uint16_t, CSE_ALifeDynamicObject*>& it :
             Script_SimulationObjects::getInstance().getObjects())
         {
             CSE_ALifeDynamicObject* server_object = ai().alife().objects().object(it.first);

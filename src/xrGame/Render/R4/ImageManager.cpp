@@ -3,7 +3,7 @@
 #include "ImageManager.h"
 #include "xrEngine/xrImage_Resampler.h"
 //#include "freeimage/freeimage.h"
-#include "FreeImage\Dist\x64\FreeImage.h"
+/*#include "FreeImage\Dist\x64\FreeImage.h"*/
 //#include "Image.h"
 //#include "EditObject.h" // Lord: добавить
 #include "ResourceManager.h"

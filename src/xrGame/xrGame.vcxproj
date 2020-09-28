@@ -256,7 +256,7 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Mixed|x64'">
     <ClCompile>
-      <AdditionalIncludeDirectories>$(xrSdkDir)googletest\googletest\;$(xrSdkDir)googletest\googletest\include\;$(xrSdkDir)Visual Leak Detector\include;$(xrSdkDir)boost\;$(xrSdkDir)FreeMagic\Source;$(xrSdkDir)FreeMagic\Source\Core3D;$(xrSdkDir)FreeMagic\Source\Core;$(SolutionDir)xrServerEntities;$(xrSdkDir)ode/include;$(xrSdkDir)OpenAutomate\inc;$(xrSdkDir)CxImage;$(xrExternals)pugixml\src;Render\3DFluid;Render\Kernel;Render\R4;Render\WildMagic;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(xrSdkDir)googletest\googletest\;$(xrSdkDir)googletest\googletest\include\;$(xrSdkDir)Visual Leak Detector\include;$(xrSdkDir)boost\;$(xrSdkDir)FreeMagic\Source;$(xrSdkDir)FreeMagic\Source\Core3D;$(xrSdkDir)FreeMagic\Source\Core;$(SolutionDir)xrServerEntities;$(xrSdkDir)ode/include;$(xrSdkDir)OpenAutomate\inc;$(xrSdkDir)CxImage;Render\3DFluid;Render\Kernel;Render\R4;Render\WildMagic;$(xrSdkDir)luabind-deboostified;$(xrSdkDir)LuaJIT/src/;$(xrSdkDir);$(xrSdkDir)GameSpy/src/;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>VLD_FORCE_ENABLE;_USRDLL;XRGAME_EXPORTS;USE_DX11;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <DisableSpecificWarnings>4237;4250;%(DisableSpecificWarnings)</DisableSpecificWarnings>
       <CallingConvention>StdCall</CallingConvention>
@@ -269,7 +269,7 @@
     <Link>
       <DelayLoadDLLs>AnselSDK$(PlatformArchitecture).dll;</DelayLoadDLLs>
       <AdditionalDependencies>d3d9.lib;nvapi64.lib;amd_ags_$(PlatformShortName).lib;dxgi.lib;dxguid.lib;d3dcompiler.lib;d3d11.lib;d3dx11.lib;shlwapi.lib;AnselSDK$(PlatformArchitecture).lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>$(xrSdkDir)Visual Leak Detector\lib\Win64\;$(xrSdkDir)boost\stage\lib\;$(xrExternals)OpenAutomate\libraries;$(xrExternals)AGS_SDK\ags_lib\lib;$(xrExternals)nvapi\amd64;C:\Program Files %28x86%29\Windows Kits\8.1\Lib\winv6.3\um\x64;$(xrSdkDir)libraries;$(xrSdkDir)libraries/$(PlatformShortName);$(xrLibDir);$(xrSdkDir)DXSDK/Lib/$(PlatformShortName);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(xrSdkDir)Visual Leak Detector\lib\Win64\;$(xrSdkDir)boost\stage\lib\;$(xrSdkDir)OpenAutomate\libraries;$(xrSdkDir)AGS_SDK\ags_lib\lib;$(xrSdkDir)nvapi\amd64;C:\Program Files %28x86%29\Windows Kits\8.1\Lib\winv6.3\um\x64;$(xrSdkDir)libraries;$(xrSdkDir)libraries/$(PlatformShortName);$(xrLibDir);$(xrSdkDir)DXSDK/Lib/$(PlatformShortName);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
     <CustomBuildStep>
       <Command>if not exist "$(OutDir)AnselSDK$(PlatformArchitecture).dll" copy /y "$(xrSdkDir)binaries\$(PlatformShortName)\AnselSDK$(PlatformArchitecture).dll" "$(OutDir)AnselSDK$(PlatformArchitecture).dll"</Command>
@@ -15643,14 +15643,8 @@ $(xrLibDir);$(xrSdkDir)DXSDK/Lib/$(PlatformShortName);
     <ProjectReference Include="$(SolutionDir)xrNetServer\xrNetServer.vcxproj">
       <Project>{435bac9a-b225-457d-ab40-c9bd0cc8838c}</Project>
     </ProjectReference>
-    <ProjectReference Include="$(xrExternals)cximage\cximage.vcxproj">
-      <Project>{880cd250-ba77-4daf-a8d4-552f12dd3ae4}</Project>
-    </ProjectReference>
     <ProjectReference Include="$(SolutionDir)xrAICore\xrAICore.vcxproj">
       <Project>{5cb057d8-4464-40a6-af10-c26b826d1d90}</Project>
-    </ProjectReference>
-    <ProjectReference Include="$(xrExternals)LuaJIT-proj\LuaJIT.vcxproj">
-      <Project>{632aeeb6-dc06-4e15-9551-b2b09a4b73c5}</Project>
     </ProjectReference>
     <ProjectReference Include="$(SolutionDir)utils\xrMiscMath\xrMiscMath.vcxproj">
       <Project>{7885cf3c-ee04-4c67-9467-1fbf9a36b037}</Project>
@@ -15673,13 +15667,22 @@ $(xrLibDir);$(xrSdkDir)DXSDK/Lib/$(PlatformShortName);
     <ProjectReference Include="$(SolutionDir)xrSound\xrSound.vcxproj">
       <Project>{ccca7859-eb86-493e-9b53-c4235f45b3c5}</Project>
     </ProjectReference>
-    <ProjectReference Include="$(xrExternals)luabind.vcxproj">
+    <ProjectReference Include="..\..\sdk\cximage\cximage.vcxproj">
+      <Project>{880cd250-ba77-4daf-a8d4-552f12dd3ae4}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\..\sdk\GameSpy.vcxproj">
+      <Project>{67ff193e-2c20-402a-9026-9f5f6327503c}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\..\sdk\luabind.vcxproj">
       <Project>{ccd4afae-aa10-42c6-a452-fdee497ccdf1}</Project>
     </ProjectReference>
-    <ProjectReference Include="..\..\Externals\MagicFM.vcxproj">
+    <ProjectReference Include="..\..\sdk\LuaJIT-proj\LuaJIT.vcxproj">
+      <Project>{632aeeb6-dc06-4e15-9551-b2b09a4b73c5}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\..\sdk\MagicFM.vcxproj">
       <Project>{848e8ab3-9962-4c04-b813-5690399c8a3e}</Project>
     </ProjectReference>
-    <ProjectReference Include="..\..\Externals\oalib.vcxproj">
+    <ProjectReference Include="..\..\sdk\oalib.vcxproj">
       <Project>{61d4856f-fa82-4f02-bb88-909ddfb1fe74}</Project>
     </ProjectReference>
     <ProjectReference Include="..\utils\ETools\ETools.vcxproj">

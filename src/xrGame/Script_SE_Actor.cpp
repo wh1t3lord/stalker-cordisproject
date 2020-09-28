@@ -92,8 +92,8 @@ void Script_SE_Actor::on_reach_target(Script_SE_SimulationSquad* squad)
 bool Script_SE_Actor::IsSimulationAvailable(void)
 {
     if ((Script_GlobalHelper::getInstance().getGameNearestToActorServerSmartTerrain().second < 50) &&
-        (!Script_SimulationObjects::getInstance()
-                .getObjects()[Script_GlobalHelper::getInstance().getGameNearestToActorServerSmartTerrain().first]))
+        ((Script_SimulationObjects::getInstance()
+                .getObjects().find(Script_GlobalHelper::getInstance().getGameNearestToActorServerSmartTerrain().first) == Script_SimulationObjects::getInstance().getObjects().end()) || (Script_SimulationObjects::getInstance().getObjects().at(Script_GlobalHelper::getInstance().getGameNearestToActorServerSmartTerrain().first) == nullptr)))
         return false;
 
     if (DataBase::Storage::getInstance().getZoneByName().size())
@@ -130,12 +130,11 @@ bool Script_SE_Actor::IsSimulationAvailable(void)
     Script_SE_SmartTerrain* smart =
         ai().alife().objects().object(getCurrentSmartTerrainID())->cast_script_se_smartterrain();
 
-#ifdef DEBUG
     if (!smart)
     {
         R_ASSERT2(false, "object was null!");
     }
-#endif
+ 
 
     if (smart)
     {
