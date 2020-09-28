@@ -78,7 +78,7 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup>
-    <OutDir>$(xrIntDir)</OutDir>
+    <OutDir>$(xrOutputBinDir)</OutDir>
   </PropertyGroup>
   <ItemDefinitionGroup>
     <ClCompile>
