@@ -8,7 +8,7 @@ In addition, the models of the environment / inventory items / stalkers / mutant
 
 # Links 
 
-<a href="https://discordapp.com/widget?id=379259368102690816&theme=dark">![Discord](https://img.shields.io/discord/379259368102690816)</a>
+<a href="https://discord.gg/6dVdJQR">![Discord](https://img.shields.io/discord/379259368102690816)</a>
 
 ![GitHub release (latest by date)](https://img.shields.io/github/v/release/diamondhat/cordisproject)
 ![GitHub tag (latest by date)](https://img.shields.io/github/v/tag/diamondhat/cordisproject)
