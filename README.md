@@ -10,6 +10,20 @@ In addition, the models of the environment / inventory items / stalkers / mutant
 
 ![Discord](https://img.shields.io/discord/379259368102690816)
 
+![GitHub release (latest by date)](https://img.shields.io/github/v/release/diamondhat/cordisproject)
+![GitHub tag (latest by date)](https://img.shields.io/github/v/tag/diamondhat/cordisproject)
+![GitHub contributors](https://img.shields.io/github/contributors/diamondhat/cordisproject)
+
+![GitHub language count](https://img.shields.io/github/languages/count/diamondhat/cordisproject)
+![GitHub top language](https://img.shields.io/github/languages/top/diamondhat/cordisproject)
+![GitHub repo size](https://img.shields.io/github/repo-size/diamondhat/cordisproject)
+![Lines of code](https://img.shields.io/tokei/lines/github/diamondhat/cordisproject?label=total%20lines%20of%20code)
+
+![GitHub issues](https://img.shields.io/github/issues/diamondhat/cordisproject)
+![GitHub pull requests](https://img.shields.io/github/issues-pr/diamondhat/cordisproject)
+
+
+
 <a href="https://www.moddb.com/mods/cordisproject" title="View S.T.A.L.K.E.R.: Cordis Project on Mod DB" target="_blank"><img src="https://button.moddb.com/popularity/medium/mods/41886.png" alt="S.T.A.L.K.E.R.: Cordis Project" /></a>
 
 # Repository
