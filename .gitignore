@@ -19,6 +19,7 @@ sdk/yoga*/*
 intermediate/
 intermediate_plugs/
 lib/
+out/
 !Externals/libvorbis/lib/
 !Externals/libtheora/lib/
 !Externals/AGS_SDK/ags_lib/lib
