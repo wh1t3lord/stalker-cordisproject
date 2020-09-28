@@ -209,6 +209,14 @@ $(xrSdkDir)lib_boost\stage\lib\;        $(xrSdkDir)libraries;
     <Manifest>
       <AdditionalManifestFiles>as-invoker-manifest-part.xml %(AdditionalManifestFiles)</AdditionalManifestFiles>
     </Manifest>
+    <CustomBuildStep>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Mixed|x64'">if not exist "$(OutDir)dgbhelp.dll" copy /y "$(xrSdkDir)Visual Leak Detector\bin\Win64\dbghelp.dll" "$(OutDir)dbghelp.dll"
+if not exist "$(OutDir)Microsoft.DTfW.DHL.manifest" copy /y "$(xrSdkDir)Visual Leak Detector\bin\Win64\Microsoft.DTfW.DHL.manifest" "$(OutDir)Microsoft.DTfW.DHL.manifest"
+if not exist "$(OutDir)vld_x64.dll" copy /y "$(xrSdkDir)Visual Leak Detector\bin\Win64\vld_x64.dll" "$(OutDir)vld_x64.dll"
+if not exist "$(OutDir)vld_x64.pdb" copy /y "$(xrSdkDir)Visual Leak Detector\bin\Win64\vld_x64.pdb" "$(OutDir)vld_x64.pdb"</Command>
+      <Inputs Condition="'$(Configuration)|$(Platform)'=='Mixed|x64'">$(xrSdkDir)Visual Leak Detector\bin\Win64\dbghelp.dll;$(xrSdkDir)Visual Leak Detector\bin\Win64\Microsoft.DTfW.DHL.manifest;$(xrSdkDir)Visual Leak Detector\bin\Win64\vld_x64.dll;$(xrSdkDir)Visual Leak Detector\bin\Win64\vld_x64.pdb;</Inputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Mixed|x64'">$(OutDir)dbghelp.dll;$(OutDir)Microsoft.DTfW.DHL.manifest;$(OutDir)vld_x64.dll;$(OutDir)vld_x64.pdb;</Outputs>
+    </CustomBuildStep>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="entry_point.cpp" />
