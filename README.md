@@ -16,7 +16,7 @@ In addition, the models of the environment / inventory items / stalkers / mutant
 
 ![GitHub language count](https://img.shields.io/github/languages/count/diamondhat/cordisproject)
 ![GitHub top language](https://img.shields.io/github/languages/top/diamondhat/cordisproject)
-![GitHub commit activity](https://img.shields.io/github/commit-activity/y/diamondhat/cordisproject)
+![GitHub search hit counter](https://img.shields.io/github/search/diamondhat/cordisproject/commit)
 ![GitHub repo size](https://img.shields.io/github/repo-size/diamondhat/cordisproject)
 ![Lines of code](https://img.shields.io/tokei/lines/github/diamondhat/cordisproject?label=total%20lines%20of%20code)
 
