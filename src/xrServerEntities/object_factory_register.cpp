@@ -522,6 +522,9 @@ void CObjectFactory::register_classes()
 
 #pragma endregion
 
+
+
+
 #ifndef NO_XR_GAME
     // hack, for dedicated server only
     // because we do not have scripts
