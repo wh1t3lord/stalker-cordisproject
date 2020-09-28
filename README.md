@@ -27,7 +27,9 @@ In addition, the models of the environment / inventory items / stalkers / mutant
 
 <a href="https://www.moddb.com/mods/cordisproject" title="View S.T.A.L.K.E.R.: Cordis Project on Mod DB" target="_blank"><img src="https://button.moddb.com/popularity/medium/mods/41886.png" alt="S.T.A.L.K.E.R.: Cordis Project" /></a>
 
+# Wiki
 
+We have our full documented <a href="https://github.com/diamondhat/cordisproject/wiki">wiki with full documentation of code</a> (but WIP now...)
 
 # Repository
 
