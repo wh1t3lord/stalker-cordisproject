@@ -197,18 +197,7 @@
     <ClCompile>
       <PreprocessorDefinitions>_USRDLL;XRAPI_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <WarningLevel>TurnOffAllWarnings</WarningLevel>
-      <AdditionalIncludeDirectories>
-        .;
-   $(xrSdkDir)googletest\googletest\include\;     $(SolutionDir);
-        $(xrExternals);
-        $(ProjectDir);
-        $(xrSdkDir)include;
-        $(xrSdkDir)DXSDK/Include;
-        $(xrExternals)luajit\src;
-        $(xrExternals)luabind;
-        $(xrExternals)GameSpy\src;
-        %(AdditionalIncludeDirectories)
-      </AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>.;$(xrSdkDir)googletest\googletest\include\;$(SolutionDir);$(xrSdkDir);$(ProjectDir);$(xrSdkDir)include;$(xrSdkDir)DXSDK/Include;$(xrSdkDir)luajit\src;$(xrSdkDir)luabind;$(xrSdkDir)GameSpy\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AdditionalOptions>/Zm1000 %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
   </ItemDefinitionGroup>

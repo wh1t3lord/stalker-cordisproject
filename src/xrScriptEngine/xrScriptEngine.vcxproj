@@ -209,18 +209,7 @@
     <ClCompile>
       <PrecompiledHeaderFile>pch.hpp</PrecompiledHeaderFile>
       <PreprocessorDefinitions>_USRDLL;XRSCRIPTENGINE_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>
-        .;
- $(xrSdkDir)googletest\googletest\include\;$(xrSdkDir)Visual Leak Detector\include;   $(xrSdkDir)boost\;    $(SolutionDir);
-        $(xrExternals);
-        $(ProjectDir);
-        $(xrSdkDir)include;
-        $(xrSdkDir)DXSDK/Include;
-        $(xrExternals)luajit\src;
-        $(xrExternals)luabind;
-        $(xrExternals)GameSpy\src;
-        %(AdditionalIncludeDirectories)
-      </AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>.;$(xrSdkDir)googletest\googletest\include\;$(xrSdkDir)Visual Leak Detector\include;$(xrSdkDir)boost\;$(SolutionDir);$(xrSdkDir);$(ProjectDir);$(xrSdkDir)include;$(xrSdkDir)DXSDK/Include;$(xrSdkDir)luajit\src;$(xrSdkDir)luabind-deboostified;$(xrSdkDir)GameSpy\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <WarningLevel>TurnOffAllWarnings</WarningLevel>
       <AdditionalOptions>/Zm1000 %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
@@ -359,10 +348,13 @@
     <ProjectReference Include="$(SolutionDir)xrCore\xrCore.vcxproj">
       <Project>{a0f7d1fb-59a7-4717-a7e4-96f37e91998e}</Project>
     </ProjectReference>
-    <ProjectReference Include="$(xrExternals)luabind.vcxproj">
+    <ProjectReference Include="..\..\sdk\GameSpy.vcxproj">
+      <Project>{67ff193e-2c20-402a-9026-9f5f6327503c}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\..\sdk\luabind.vcxproj">
       <Project>{ccd4afae-aa10-42c6-a452-fdee497ccdf1}</Project>
     </ProjectReference>
-    <ProjectReference Include="..\..\Externals\LuaJIT-proj\LuaJIT.vcxproj">
+    <ProjectReference Include="..\..\sdk\LuaJIT-proj\LuaJIT.vcxproj">
       <Project>{632aeeb6-dc06-4e15-9551-b2b09a4b73c5}</Project>
     </ProjectReference>
   </ItemGroup>

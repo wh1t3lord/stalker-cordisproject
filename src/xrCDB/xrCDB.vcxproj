@@ -215,18 +215,7 @@
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Mixed|x64'">
     <ClCompile>
       <PreprocessorDefinitions>_USRDLL;XRCDB_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>$(xrSdkDir)googletest\googletest\include\;$(xrSdkDir)boost\;
-     $(xrSdkDir)Visual Leak Detector\include;   .;
-        $(SolutionDir);
-        $(xrExternals);
-        $(ProjectDir);
-        $(xrSdkDir)include;
-        $(xrSdkDir)DXSDK/Include;
-        $(xrExternals)luajit\src;
-        $(xrExternals)luabind;
-        $(xrExternals)GameSpy\src;
-        %(AdditionalIncludeDirectories)
-      </AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(xrSdkDir)googletest\googletest\include\;$(xrSdkDir)boost\;$(xrSdkDir)Visual Leak Detector\include;.;$(SolutionDir);$(xrSdkDir);$(ProjectDir);$(xrSdkDir)include;$(xrSdkDir)DXSDK/Include;$(xrSdkDir)luajit\src;$(xrSdkDir)luabind;$(xrSdkDir)GameSpy\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AdditionalOptions>/Zm1000 %(AdditionalOptions)</AdditionalOptions>
       <WarningLevel>TurnOffAllWarnings</WarningLevel>
     </ClCompile>
@@ -351,11 +340,14 @@
     <ProjectReference Include="$(SolutionDir)xrCore\xrCore.vcxproj">
       <Project>{a0f7d1fb-59a7-4717-a7e4-96f37e91998e}</Project>
     </ProjectReference>
-    <ProjectReference Include="$(xrExternals)OPCODE\OPCODE.vcxproj">
-      <Project>{dafd6d98-3dcd-40ad-bc85-ec71797b6767}</Project>
-    </ProjectReference>
     <ProjectReference Include="$(SolutionDir)utils\xrMiscMath\xrMiscMath.vcxproj">
       <Project>{7885cf3c-ee04-4c67-9467-1fbf9a36b037}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\..\sdk\GameSpy.vcxproj">
+      <Project>{67ff193e-2c20-402a-9026-9f5f6327503c}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\..\sdk\OPCODE\OPCODE.vcxproj">
+      <Project>{dafd6d98-3dcd-40ad-bc85-ec71797b6767}</Project>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

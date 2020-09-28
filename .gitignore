@@ -36,4 +36,4 @@ CMakeFiles/
 
 # exclude doxygen output
 doc/doxygen/html/*
-Externals/LuaJIT-proj/*.obj
+sdk/LuaJIT-proj/*.obj
