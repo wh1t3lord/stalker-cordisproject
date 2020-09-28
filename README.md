@@ -12,7 +12,7 @@ In addition, the models of the environment / inventory items / stalkers / mutant
 
 # Repository
 
-We have two official repositories. It's a github and gitlab.
+We have two official repositories. It's github and gitlab.
 
 https://github.com/diamondhat/cordisproject
 
