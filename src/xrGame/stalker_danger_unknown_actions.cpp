@@ -28,8 +28,8 @@
 
 using namespace StalkerDecisionSpace;
 
-const float DANGER_DISTANCE = 5.f;
-const u32 DANGER_INTERVAL = 120000;
+const float kDANGER_DISTANCE = 5.f;
+const u32 kDANGER_INTERVAL = 120000;
 
 //////////////////////////////////////////////////////////////////////////
 // CStalkerActionDangerUnknownTakeCover
@@ -146,7 +146,7 @@ void CStalkerActionDangerUnknownSearch::execute()
     {
         object().agent_manager().location().add(
             new CDangerCoverLocation(object().agent_manager().member().member(&object()).cover(), Device.dwTimeGlobal,
-                DANGER_INTERVAL, DANGER_DISTANCE));
+                kDANGER_INTERVAL, kDANGER_DISTANCE));
         return;
     }
 

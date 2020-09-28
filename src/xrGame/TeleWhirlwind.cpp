@@ -6,8 +6,8 @@
 #include "Hit.h"
 #include "PHDestroyable.h"
 #include "xrMessages.h"
-#include "Include/xrRender/Kinematics.h"
-#include "Include/xrRender/KinematicsAnimated.h"
+#include "Kinematics.h"
+#include "KinematicsAnimated.h"
 
 CTeleWhirlwind::CTeleWhirlwind()
 {
@@ -57,7 +57,7 @@ void CTeleWhirlwind::draw_out_impact(Fvector& dir, float& val)
     m_saved_impacts.erase(m_saved_impacts.begin());
 }
 
-static bool RemovePred(CTelekineticObject* tele_object)
+static bool TeleRemovePred(CTelekineticObject* tele_object)
 {
     return (!tele_object->get_object() || tele_object->get_object()->getDestroy());
 }
@@ -65,7 +65,7 @@ static bool RemovePred(CTelekineticObject* tele_object)
 void CTeleWhirlwind::clear_notrelevant()
 {
     //убрать все объеты со старыми параметрами
-    objects.erase(std::remove_if(objects.begin(), objects.end(), &RemovePred), objects.end());
+    objects.erase(std::remove_if(objects.begin(), objects.end(), &TeleRemovePred), objects.end());
 }
 
 void CTeleWhirlwind::play_destroy(CTeleWhirlwindObject* obj) {}

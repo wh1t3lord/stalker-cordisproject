@@ -48,7 +48,7 @@ struct GameTypeChooser
 {
     Flags16 m_GameType;
 #ifndef XRGAME_EXPORTS
-    void FillProp(LPCSTR pref, PropItemVec& items);
+ //   void FillProp(LPCSTR pref, PropItemVec& items);
 #endif // #ifndef XRGAME_EXPORTS
 
 #ifdef _EDITOR

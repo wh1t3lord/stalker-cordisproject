@@ -3,8 +3,8 @@
 #include "Level.h"
 #include "xrServerEntities/xrServer_Objects_ALife_Monsters.h"
 #include "xrCore/Animation/Motion.hpp"
-#include "Include/xrRender/RenderVisual.h"
-#include "Include/xrRender/KinematicsAnimated.h"
+#include "RenderVisual.h"
+#include "KinematicsAnimated.h"
 
 CPhantom::CPhantom() : m_fly_particles(nullptr), m_enemy(nullptr)
 {

@@ -2,7 +2,7 @@
 #include "PHCollisionDamageReceiver.h"
 #include "xrPhysics/IPhysicsShellHolder.h"
 #include "xrCore/xr_ini.h"
-#include "Include/xrRender/Kinematics.h"
+#include "Kinematics.h"
 #include "xrPhysics/Geometry.h"
 #include "xrPhysics/PhysicsShell.h"
 
@@ -24,9 +24,9 @@ void CPHCollisionDamageReceiver::Init()
         for (auto I = data.Data.cbegin(); I != data.Data.cend(); I++)
         {
             const CInifile::Item& item = *I;
-            u16 index = K->LL_BoneID(*item.first);
-            R_ASSERT3(index != BI_NONE, "Wrong bone name", *item.first);
-            BoneInsert(index, float(atof(*item.second)));
+            u16 index = K->LL_BoneID(item.first.c_str());
+            R_ASSERT3(index != BI_NONE, "Wrong bone name", item.first.c_str());
+            BoneInsert(index, float(atof(item.second.c_str())));
             CODEGeom* og = sh->PPhysicsShell()->get_GeomByID(index);
             // R_ASSERT3(og, "collision damage bone has no physics collision", *item.first);
             if (og)

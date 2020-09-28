@@ -1,3 +1,4 @@
+
 #include "StdAfx.h"
 #pragma hdrstop
 
@@ -5,7 +6,7 @@
 
 //////////////////////////////////////8/////////////////////////////////////////////////////
 
-static void w_vec_q8(NET_Packet& P, const Fvector& vec, const Fvector& min, const Fvector& max)
+static void ph_net_w_vec_q8(NET_Packet& P, const Fvector& vec, const Fvector& min, const Fvector& max)
 {
     P.w_float_q8(vec.x, min.x, max.x);
     P.w_float_q8(vec.y, min.y, max.y);
@@ -22,7 +23,7 @@ static void r_vec_q8(src& P, Fvector& vec, const Fvector& min, const Fvector& ma
     clamp(vec.y, min.y, max.y);
     clamp(vec.z, min.z, max.z);
 }
-static void w_qt_q8(NET_Packet& P, const Fquaternion& q)
+static void ph_net_w_qt_q8(NET_Packet& P, const Fquaternion& q)
 {
     // Fvector Q;
     // Q.set(q.x,q.y,q.z);
@@ -167,8 +168,8 @@ void SPHNetState::net_Save(NET_Packet& P, const Fvector& min, const Fvector& max
     // P.w_vec3(force);
     // P.w_vec3(torque);
     // P.w_vec3(position);
-    w_vec_q8(P, position, min, max);
-    w_qt_q8(P, quaternion);
+    ph_net_w_vec_q8(P, position, min, max);
+    ph_net_w_qt_q8(P, quaternion);
     // P.w_vec4(*((Fvector4*)&quaternion));
     // P.w_vec4(*((Fvector4*)&previous_quaternion));
     P.w_u8((u8)enabled);

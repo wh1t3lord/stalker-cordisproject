@@ -1,7 +1,7 @@
 #pragma once
 #include "limb.h"
 #include "IKFoot.h"
-#include "Include/xrRender/KinematicsAnimated.h"
+#include "KinematicsAnimated.h"
 #include "ik_anim_state.h"
 #include "ik_calculate_data.h"
 #include "ik_limb_state.h"

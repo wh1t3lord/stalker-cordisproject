@@ -26,7 +26,8 @@
 #include "stalker_decision_space.h"
 #include "Weapon.h"
 
-extern const float MIN_SUITABLE_ENEMY_DISTANCE = 3.f;
+/*constexpr float MIN_SUITABLE_ENEMY_DISTANCE = 3.f;*/
+constexpr float kMinSuitableEnemyDistance = 3.0f;
 
 #ifdef _DEBUG
 static int g_advance_search_count = 0;
@@ -71,7 +72,7 @@ void CAI_Stalker::on_best_cover_changed(const CCoverPoint* new_cover, const CCov
 
 void CAI_Stalker::compute_enemy_distances(float& minimum_enemy_distance, float& maximum_enemy_distance)
 {
-    minimum_enemy_distance = MIN_SUITABLE_ENEMY_DISTANCE;
+    minimum_enemy_distance = kMinSuitableEnemyDistance;
     maximum_enemy_distance = 170.f;
 
     if (!best_weapon())

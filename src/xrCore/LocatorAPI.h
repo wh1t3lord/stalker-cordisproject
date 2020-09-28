@@ -147,6 +147,8 @@ private:
     Lock* m_auth_lock;
     u64 m_auth_code;
     bool bSDK;
+    bool bWasInitialized;
+    bool bRawDataIsEmpty = false;
     const file* RegisterExternal(pcstr name);
     const file* Register(pcstr name, u32 vfs, u32 crc, u32 ptr, u32 size_real, u32 size_compressed, u32 modif);
     void ProcessArchive(pcstr path);
@@ -198,13 +200,19 @@ private:
     IReader* setup_fs_ltx(pcstr fs_name);
 
 public:
-    CLocatorAPI();
+    CLocatorAPI(void);
     ~CLocatorAPI();
     void _initialize(u32 flags, pcstr target_folder = nullptr, pcstr fs_name = nullptr);
     void _destroy();
 
-    inline bool IsSDK(void) { return bSDK; }
+    inline bool IsSDK(void) noexcept { return this->bSDK; }
+    inline bool IsRawDataEmpty(void) noexcept
+    {
+        if (this->bSDK)
+            return this->bRawDataIsEmpty;
 
+        return false;
+    }
     CStreamReader* rs_open(pcstr initial, pcstr N);
     IReader* r_open(pcstr initial, pcstr N);
     IReader* r_open(pcstr N) { return r_open(nullptr, N); }
@@ -263,7 +271,23 @@ public:
     void rescan_pathes();
     void lock_rescan();
     void unlock_rescan();
+
+    bool CheckSDKMainFolder(void);
+    bool dirExists(const xr_string& path);
+    bool fileExists(const xr_string& path);
+    bool CreateFolder(const xr_string& path);
+
+private:
+  //  void CreateSDKMainFolder(void);
+    void CreateSDKSubFolders(const xr_string&);
 };
 
 extern XRCORE_API xr_unique_ptr<CLocatorAPI> xr_FS;
+constexpr const char* levels_folder = "\\Levels";
+constexpr const char* sg_folder = "\\StaticGeometry";
+constexpr const char* particles_folder = "\\Particles";
+constexpr const char* groups_folder = "\\Groups";
+constexpr const char* textures_folder = "\\Textures";
+constexpr const char* sounds_folder = "\\Sounds";
+constexpr const char* translation_folder = "\\resources\\translation";
 #define FS (*xr_FS)

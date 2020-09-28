@@ -23,7 +23,7 @@
 #define DEVICE_RESET_PRECACHE_FRAME_COUNT 10
 
 #include "Include/editor/interfaces.hpp"
-#include "Include/xrRender/FactoryPtr.h"
+#include "xrGame/Render/Kernel/FactoryPtr.h"
 #include "Render.h"
 #include "SDL.h"
 
@@ -161,7 +161,7 @@ private:
     // Main objects used for creating and rendering the 3D scene
     CTimer TimerMM;
     RenderDeviceStatictics stats;
-
+    bool m_is_can_use_input;
     void _SetupStates();
 
 public:
@@ -211,8 +211,8 @@ public:
     Fmatrix mInvFullTransform;
 
     CRenderDevice()
-        : fWidth_2(0), fHeight_2(0), m_editor_module(nullptr), m_editor_initialize(nullptr),
-          m_editor_finalize(nullptr), m_editor(nullptr), m_engine(nullptr)
+        : fWidth_2(0), fHeight_2(0), m_editor_module(nullptr), m_editor_initialize(nullptr), m_editor_finalize(nullptr),
+          m_editor(nullptr), m_engine(nullptr), m_is_can_use_input(false)
     {
         m_sdlWnd = NULL;
         b_is_Active = FALSE;
@@ -258,7 +258,7 @@ public:
     void UpdateWindowRects();
     void SelectResolution(const bool windowed);
 
-    void Initialize(void);
+    void Initialize(pcstr cmdline_args);
     void ShutDown(void);
     virtual const RenderDeviceStatictics& GetStats() const override { return stats; }
     virtual void DumpStatistics(class IGameFont& font, class IPerformanceAlert* alert) override;
@@ -289,7 +289,8 @@ public:
         if (I != seqParallel.end())
             seqParallel.erase(I);
     }
-
+    inline bool isCanUseInput(void) const noexcept { return this->m_is_can_use_input; }
+    inline void setCanUseInput(const bool value) noexcept { this->m_is_can_use_input = value; }
 private:
     void CalcFrameStats();
 
@@ -368,7 +369,8 @@ public:
 class CUIResetAndResolutionNotifier : public pureUIReset, pureScreenResolutionChanged
 {
 public:
-    CUIResetAndResolutionNotifier(const int uiResetPrio = REG_PRIORITY_NORMAL, const int resolutionChangedPrio = REG_PRIORITY_NORMAL)
+    CUIResetAndResolutionNotifier(
+        const int uiResetPrio = REG_PRIORITY_NORMAL, const int resolutionChangedPrio = REG_PRIORITY_NORMAL)
     {
         Device.seqUIReset.Add(this, uiResetPrio);
         Device.seqResolutionChanged.Add(this, resolutionChangedPrio);

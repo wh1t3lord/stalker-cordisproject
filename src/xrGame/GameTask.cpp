@@ -19,6 +19,8 @@
 #include "Common/object_broker.h"
 #include "xrUICore/XML/UITextureMaster.h"
 
+// Lord: переписать биндинг луа на C++, уйти здесь от луа!
+
 CGameTask::CGameTask()
     : m_map_object_id(0), m_TimeToComplete(0), m_priority(0)
 {
@@ -133,7 +135,11 @@ void CGameTask::ChangeMapLocation(LPCSTR new_map_location, u16 new_map_object_id
     CreateMapLocation(false);
 }
 
-void CGameTask::ChangeStateCallback() { Actor()->callback(GameObject::eTaskStateChange)(this, GetTaskState()); }
+void CGameTask::ChangeStateCallback()
+{
+    // Actor()->callback(GameObject::eTaskStateChange)(this, GetTaskState()); Lord - [Script] Re-write
+    Actor()->GetScriptBinderObject()->task_callback(this, GetTaskState());
+}
 ETaskState CGameTask::UpdateState()
 {
     if ((m_ReceiveTime != m_TimeToComplete))
@@ -246,10 +252,14 @@ void CGameTask::load_task(IReader& stream)
 
 void CGameTask::CommitScriptHelperContents()
 {
+    Cordis::Scripts::Script_TaskManager::getInstance().task_complete(this->m_ID.c_str());
+    Cordis::Scripts::Script_TaskManager::getInstance().task_fail(this->m_ID.c_str());
+/*
     m_pScriptHelper.init_functors(m_pScriptHelper.m_s_complete_lua_functions, m_complete_lua_functions);
-    m_pScriptHelper.init_functors(m_pScriptHelper.m_s_fail_lua_functions, m_fail_lua_functions);
+    m_pScriptHelper.init_functors(m_pScriptHelper.m_s_fail_lua_functions, m_fail_lua_functions);*/
+/* Lord: проверить есть ли такие callback ли вообще? 
     m_pScriptHelper.init_functors(m_pScriptHelper.m_s_lua_functions_on_complete, m_lua_functions_on_complete);
-    m_pScriptHelper.init_functors(m_pScriptHelper.m_s_lua_functions_on_fail, m_lua_functions_on_fail);
+    m_pScriptHelper.init_functors(m_pScriptHelper.m_s_lua_functions_on_fail, m_lua_functions_on_fail);*/
 }
 
 void CGameTask::AddCompleteInfo_script(LPCSTR _str) { m_completeInfos.push_back(_str); }

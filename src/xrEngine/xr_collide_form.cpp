@@ -8,7 +8,7 @@
 #include "xrCore/FMesh.hpp"
 #include "xrCDB/Frustum.h"
 
-#include "Include/xrRender/Kinematics.h"
+#include "xrGame/Render/Kernel/Kinematics.h"
 #include "xrCore/Animation/Bone.hpp"
 #ifdef DEBUG
 IC float DET(const Fmatrix& a)

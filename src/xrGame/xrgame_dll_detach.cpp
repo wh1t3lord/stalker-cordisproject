@@ -39,20 +39,23 @@ extern void InitHudSoundSettings();
 void init_game_globals()
 {
     CreateUIGeom();
-    InitHudSoundSettings();
+
+    InitHudSoundSettings(); 
+
     if (!GEnv.isDedicatedServer)
     {
         //		CInfoPortion::InitInternal					();
         //.		CEncyclopediaArticle::InitInternal			();
-        CPhraseDialog::InitInternal();
+ 
+        CPhraseDialog::InitInternal(); 
+        CCharacterInfo::InitInternal(); 
+        CSpecificCharacter::InitInternal(); 
+        CHARACTER_COMMUNITY::InitInternal(); 
+        CHARACTER_RANK::InitInternal(); 
+        CHARACTER_REPUTATION::InitInternal(); 
+        MONSTER_COMMUNITY::InitInternal(); 
         InventoryUtilities::CreateShaders();
     };
-    CCharacterInfo::InitInternal();
-    CSpecificCharacter::InitInternal();
-    CHARACTER_COMMUNITY::InitInternal();
-    CHARACTER_RANK::InitInternal();
-    CHARACTER_REPUTATION::InitInternal();
-    MONSTER_COMMUNITY::InitInternal();
 }
 
 extern CUIXml* g_uiSpotXml;

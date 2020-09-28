@@ -15,8 +15,8 @@
 
 #include "PHReqComparer.h"
 
-#include "Include/xrRender/FactoryPtr.h"
-#include "Include/xrRender/WallMarkArray.h"
+#include "FactoryPtr.h"
+#include "WallMarkArray.h"
 //#ifdef	DEBUG
 
 //#endif

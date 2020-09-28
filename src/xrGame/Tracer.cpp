@@ -2,8 +2,8 @@
 #include "Tracer.h"
 #include "xrEngine/Render.h"
 
-#include "Include/xrRender/UIShader.h"
-#include "Include/xrRender/UIRender.h"
+#include "UIShader.h"
+#include "UIRender.h"
 #include "xrCore/_fbox2.h"
 
 const u32 MAX_TRACERS = (1024 * 5);

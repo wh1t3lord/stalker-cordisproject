@@ -13,6 +13,7 @@
 #include "script_ini_file.h"
 #include "xrScriptEngine/ScriptExporter.hpp"
 
+/*
 using namespace luabind;
 
 LPCSTR get_section_name(const CSE_Abstract* abstract) { return (abstract->name()); }
@@ -52,6 +53,7 @@ struct CWrapperBase : public T, public luabind::wrap_base
     }
 };
 
+#ifdef XRGAME_EXPORTS
 SCRIPT_EXPORT(CPureServerObject, (), {
     module(luaState)[class_<ISerializable>("iserializable"),
         class_<IPureServerObject, ISerializable>("ipure_server_object"),
@@ -106,3 +108,5 @@ SCRIPT_EXPORT(CSE_Spectator, (CSE_Abstract),
 
 SCRIPT_EXPORT(CSE_Temporary, (CSE_Abstract),
     { module(luaState)[luabind_class_abstract1(CSE_Temporary, "cse_temporary", CSE_Abstract)]; });
+#endif
+*/

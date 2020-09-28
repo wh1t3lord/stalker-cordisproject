@@ -147,7 +147,7 @@ public:
     void frustum_query(const MODEL* m_def, const CFrustum& F);
 
     ICF RESULT* r_begin() { return &*rd.begin(); };
-    //ICF RESULT* r_end() { return &*rd.end(); };
+    ICF RESULT* r_end() { return &*rd.end(); };
     ICF xr_vector<RESULT>* r_get() { return &rd; };
     RESULT& r_add();
     void r_free();

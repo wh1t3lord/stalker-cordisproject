@@ -12,6 +12,7 @@
 using namespace luabind;
 using namespace luabind::policy;
 
+#ifdef XRGAME_EXPORTS
 SCRIPT_EXPORT(Fcolor, (), {
     module(luaState)[class_<Fcolor>(
         "fcolor").def_readwrite("r", &Fcolor::r)
@@ -24,3 +25,4 @@ SCRIPT_EXPORT(Fcolor, (), {
                          .def("set", (Fcolor & (Fcolor::*)(const Fcolor&))(&Fcolor::set), return_reference_to<1>())
                          .def("set", (Fcolor & (Fcolor::*)(u32))(&Fcolor::set), return_reference_to<1>())];
 });
+#endif

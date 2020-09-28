@@ -23,7 +23,7 @@
 #include "xrMessages.h"
 #include "Inventory.h"
 #include "script_ini_file.h"
-#include "Include/xrRender/Kinematics.h"
+#include "Kinematics.h"
 #include "HangingLamp.h"
 #include "patrol_path_manager.h"
 #include "xrAICore/Navigation/ai_object_location.h"
@@ -60,9 +60,37 @@ Fvector CScriptGameObject::Center()
 }
 
 BIND_FUNCTION10(&object(), CScriptGameObject::Position, CGameObject, Position, Fvector, Fvector());
+
 BIND_FUNCTION10(&object(), CScriptGameObject::Direction, CGameObject, Direction, Fvector, Fvector());
+
 BIND_FUNCTION10(&object(), CScriptGameObject::Mass, CPhysicsShellHolder, GetMass, float, float(-1));
-BIND_FUNCTION10(&object(), CScriptGameObject::ID, CGameObject, ID, u16, u16(-1));
+
+u16 CScriptGameObject::ID() const 
+{
+    if ((this == nullptr) || (m_game_object == nullptr))
+    {
+        MESSAGEWR("object was deleted!");
+        return -1;
+    }
+
+    CGameObject* p_entity = &object();
+
+    if (p_entity)
+    {
+        if (p_entity->lua_game_object() == nullptr)
+        {
+            MESSAGEWR("returned undefined ID, because scripted object was deleted!");
+            return Cordis::Scripts::Globals::kUnsignedInt16Undefined;
+        }
+        
+        return p_entity->ID();
+    }
+
+
+    MESSAGEER("you operate with already deleted instance!");
+    return Cordis::Scripts::Globals::kUnsignedInt16Undefined;
+}
+
 BIND_FUNCTION10(&object(), CScriptGameObject::getVisible, CGameObject, getVisible, BOOL, FALSE);
 // BIND_FUNCTION01	(&object(),	CScriptGameObject::setVisible,			CGameObject,	setVisible,			BOOL,
 // BOOL);
@@ -535,7 +563,8 @@ void CScriptGameObject::set_patrol_extrapolate_callback(const luabind::functor<b
             LuaMessageType::Error, "CCustomMonster : cannot access class member set_patrol_extrapolate_callback!");
         return;
     }
-    monster->movement().patrol().extrapolate_callback().set(functor);
+    // Lord - [Script] Re-write
+  //  monster->movement().patrol().extrapolate_callback().set(functor);
 }
 
 void CScriptGameObject::set_patrol_extrapolate_callback(
@@ -548,7 +577,8 @@ void CScriptGameObject::set_patrol_extrapolate_callback(
             LuaMessageType::Error, "CCustomMonster : cannot access class member set_patrol_extrapolate_callback!");
         return;
     }
-    monster->movement().patrol().extrapolate_callback().set(functor, object);
+    // Lord - [Script] Re-write
+ //   monster->movement().patrol().extrapolate_callback().set(functor, object);
 }
 
 void CScriptGameObject::set_patrol_extrapolate_callback()
@@ -560,7 +590,8 @@ void CScriptGameObject::set_patrol_extrapolate_callback()
             LuaMessageType::Error, "CCustomMonster : cannot access class member set_patrol_extrapolate_callback!");
         return;
     }
-    monster->movement().patrol().extrapolate_callback().clear();
+    // Lord - [Script] Re-write
+ //   monster->movement().patrol().extrapolate_callback().clear();
 }
 
 void CScriptGameObject::extrapolate_length(float extrapolate_length)

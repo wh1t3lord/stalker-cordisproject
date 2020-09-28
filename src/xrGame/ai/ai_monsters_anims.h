@@ -8,7 +8,7 @@
 
 #pragma once
 
-#include "Include/xrRender/KinematicsAnimated.h"
+#include "KinematicsAnimated.h"
 #include "ai_debug.h"
 
 using ANIM_VECTOR = xr_vector<MotionID>;
@@ -39,9 +39,10 @@ public:
         {
             strconcat(sizeof(S), S, caBaseName, caBaseNames[i]);
             A[i] = tpKinematics->ID_Cycle_Safe(S);
+
 #ifdef DEBUG
-            if (A[i] && psAI_Flags.test(aiAnimation))
-                Msg("* Loaded animation %s", S);
+            if (A[i])
+                MESSAGE("* Loaded animation %s", S);
 #endif
         }
     }

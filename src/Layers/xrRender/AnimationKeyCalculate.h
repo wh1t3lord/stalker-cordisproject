@@ -356,11 +356,11 @@ IC void q_add_scaled_basem(
     q.normalize();
 }
 
-IC float DET(const Fmatrix& a)
-{
-    return ((a._11 * (a._22 * a._33 - a._23 * a._32) - a._12 * (a._21 * a._33 - a._23 * a._31) +
-        a._13 * (a._21 * a._32 - a._22 * a._31)));
-}
+// IC float DET(const Fmatrix& a) Lord: аккурантее
+// {
+//     return ((a._11 * (a._22 * a._33 - a._23 * a._32) - a._12 * (a._21 * a._33 - a._23 * a._31) +
+//         a._13 * (a._21 * a._32 - a._22 * a._31)));
+// }
 
 IC bool check_scale(const Fmatrix& m)
 {
@@ -394,13 +394,13 @@ IC void MixAdd(CKey& Result, const CKey* R, const float* BA, int b_count)
     MixinAdd(Result, R, BA, b_count);
 }
 IC void process_single_channel(
-    CKey& Result, const animation::channel_def& /*ch*/, const CKey* R, const CBlend* const BA[MAX_BLENDED], int b_count)
+    CKey& Result, const channel_def& /*ch*/, const CKey* R, const CBlend* const BA[MAX_BLENDED], int b_count)
 {
     MixInterlerp(Result, R, BA, b_count);
     VERIFY(_valid(Result.T));
     VERIFY(_valid(Result.Q));
 }
-IC void MixChannels(CKey& Result, const CKey* R, const animation::channel_def* BA, int b_count)
+IC void MixChannels(CKey& Result, const CKey* R, const channel_def* BA, int b_count)
 {
     VERIFY(b_count > 0);
     Result = R[0];
@@ -410,9 +410,9 @@ IC void MixChannels(CKey& Result, const CKey* R, const animation::channel_def* B
     for (int i = 1; i < b_count; i++)
         switch (BA[i].rule.extern_)
         {
-        case animation::add: key_mad(Result, CKey(Result), R[i], BA[i].factor); break;
+        case eAnimationAdd: key_mad(Result, CKey(Result), R[i], BA[i].factor); break;
 
-        case animation::lerp:
+        case eAnimationLerp:
             lerp_factor_sum += BA[i].factor;
             KEY_Interp(Result, CKey(Result), R[i], BA[i].factor / lerp_factor_sum);
             break;

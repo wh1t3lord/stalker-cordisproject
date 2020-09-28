@@ -182,10 +182,10 @@ void add_online_impl(CSE_ALifeDynamicObject* object, const bool& update_registri
         object->alife().server().entity_Destroy(l_tpAbstract);
 
 #ifdef DEBUG
-        //		if (psAI_Flags.test(aiALife))
-        //			Msg					("[LSS] Spawning item
-        //[%s][%s][%d]",l_tpALifeInventoryItem->base()->name_replace(),*l_tpALifeInventoryItem->base()->s_name,l_tpALifeDynamicObject->ID);
-        Msg("[LSS][%d] Going online [%d][%s][%d] with parent [%d][%s] on '%s'", Device.dwFrame, Device.dwTimeGlobal,
+        if (psAI_Flags.test(aiALife))
+            MESSAGE("[LSS] Spawning item [%s][%s][%d]",l_tpALifeInventoryItem->base()->name_replace(),*l_tpALifeInventoryItem->base()->s_name,l_tpALifeDynamicObject->ID);
+
+        MESSAGE("[LSS][%d] Going online [%d][%s][%d] with parent [%d][%s] on '%s'", Device.dwFrame, Device.dwTimeGlobal,
             l_tpALifeInventoryItem->base()->name_replace(), l_tpALifeInventoryItem->base()->ID, object->ID,
             object->name_replace(), "*SERVER*");
 #endif
@@ -228,10 +228,10 @@ void add_offline_impl(
         CSE_ALifeInventoryItem* inventory_item = smart_cast<CSE_ALifeInventoryItem*>(child);
         VERIFY2(inventory_item, "Non inventory item object has parent?!");
 #ifdef DEBUG
-        //		if (psAI_Flags.test(aiALife))
-        //			Msg					("[LSS] Destroying item
-        //[%s][%s][%d]",inventory_item->base()->name_replace(),*inventory_item->base()->s_name,inventory_item->base()->ID);
-        Msg("[LSS][%d] Going offline [%d][%s][%d] with parent [%d][%s] on '%s'", Device.dwFrame, Device.dwTimeGlobal,
+        if (psAI_Flags.test(aiALife))
+            MESSAGE("[LSS] Destroying item [%s][%s][%d]",inventory_item->base()->name_replace(),*inventory_item->base()->s_name,inventory_item->base()->ID);
+
+        MESSAGE("[LSS][%d] Going offline [%d][%s][%d] with parent [%d][%s] on '%s'", Device.dwFrame, Device.dwTimeGlobal,
             inventory_item->base()->name_replace(), inventory_item->base()->ID, object->ID, object->name_replace(),
             "*SERVER*");
 #endif

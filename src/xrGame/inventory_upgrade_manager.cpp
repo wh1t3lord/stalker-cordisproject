@@ -172,7 +172,7 @@ void Manager::load_all_inventory()
     auto ie = inv_section.Data.end();
     for (; ib != ie; ++ib)
     {
-        shared_str root_id((*ib).first);
+        shared_str root_id((*ib).first.c_str());
         //		if ( !item_upgrades_exist( root_id ) ) continue;
         item_upgrades_exist(root_id);
         add_root(root_id);
@@ -204,7 +204,7 @@ void Manager::load_all_properties()
     auto ie = inv_section.Data.end();
     for (; ib != ie; ++ib)
     {
-        shared_str property_id((*ib).first);
+        shared_str property_id((*ib).first.c_str());
         add_property(property_id);
     }
 

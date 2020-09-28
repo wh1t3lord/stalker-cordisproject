@@ -6,7 +6,7 @@
 #include "xrPhysics/ExtendedGeom.h"
 #include "xrPhysics/MathUtils.h"
 
-#include "Include/xrRender/KinematicsAnimated.h"
+#include "KinematicsAnimated.h"
 
 interactive_animation::interactive_animation(CPhysicsShellHolder* O, CBlend* b)
     : physics_shell_animated(O, false), blend(b)
@@ -14,12 +14,12 @@ interactive_animation::interactive_animation(CPhysicsShellHolder* O, CBlend* b)
 }
 
 interactive_animation::~interactive_animation() {}
-static float depth = 0;
+static float interactive_animation_depth = 0;
 bool interactive_animation::collide()
 {
-    depth = 0;
+    interactive_animation_depth = 0;
     physics_shell->CollideAll();
-    if (depth > 0.05)
+    if (interactive_animation_depth > 0.05)
         return true;
     return false;
 }
@@ -53,7 +53,7 @@ void interactive_animation::contact_callback(
     VERIFY(gd1);
     if (gd2 && gd2->ph_ref_object == gd1->ph_ref_object)
         return;
-    save_max(depth, c.geom.depth);
+    save_max(interactive_animation_depth, c.geom.depth);
     // if(gd1&&gd2&&(CPhysicsShellHolder*)gd1->callback_data==gd2->ph_ref_object)
     //																			do_colide=false;
 }

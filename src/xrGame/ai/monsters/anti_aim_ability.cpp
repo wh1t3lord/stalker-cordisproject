@@ -8,16 +8,12 @@
 #include "Inventory.h"
 #include "Weapon.h"
 
-namespace detail
-{
-static pcstr const s_anti_aim_timeout_string = "anti_aim_timeout";
-static pcstr const s_anti_aim_effectors_string = "anti_aim_effectors";
-static pcstr const s_anti_aim_freeze_time_string = "anti_aim_freeze_time";
-static pcstr const s_anti_aim_max_angle_string = "anti_aim_max_angle";
-static pcstr const s_anti_aim_detection_gain_speed_string = "anti_aim_detection_gain_speed";
-static pcstr const s_anti_aim_detection_loose_speed_string = "anti_aim_detection_loose_speed";
-
-} // namespace detail
+constexpr const char* s_anti_aim_timeout_string = "anti_aim_timeout";
+constexpr const char* s_anti_aim_effectors_string = "anti_aim_effectors";
+constexpr const char* s_anti_aim_freeze_time_string = "anti_aim_freeze_time";
+constexpr const char* s_anti_aim_max_angle_string = "anti_aim_max_angle";
+constexpr const char* s_anti_aim_detection_gain_speed_string = "anti_aim_detection_gain_speed";
+constexpr const char* s_anti_aim_detection_loose_speed_string = "anti_aim_detection_loose_speed";
 
 anti_aim_ability::anti_aim_ability(CBaseMonster* const object) : m_object(object)
 {
@@ -32,13 +28,12 @@ anti_aim_ability::anti_aim_ability(CBaseMonster* const object) : m_object(object
 anti_aim_ability::~anti_aim_ability() { do_deactivate(); }
 void anti_aim_ability::load_from_ini(CInifile const* ini, pcstr const section)
 {
-    using namespace detail;
-
     m_timeout = READ_IF_EXISTS(ini, r_float, section, s_anti_aim_timeout_string, 5.f);
     m_freeze_time = READ_IF_EXISTS(ini, r_float, section, s_anti_aim_freeze_time_string, 1.f);
     m_max_angle = READ_IF_EXISTS(ini, r_float, section, s_anti_aim_max_angle_string, 0.5f);
     m_detection_gain_speed = READ_IF_EXISTS(ini, r_float, section, s_anti_aim_detection_gain_speed_string, 1.f);
-    m_detection_loose_speed = READ_IF_EXISTS(ini, r_float, section, s_anti_aim_detection_loose_speed_string, 0.1f);
+    m_detection_loose_speed =
+        READ_IF_EXISTS(ini, r_float, section, s_anti_aim_detection_loose_speed_string, 0.1f);
     pcstr effectors = READ_IF_EXISTS(ini, r_string, section, s_anti_aim_effectors_string, NULL);
 
     if (effectors)

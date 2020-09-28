@@ -50,7 +50,6 @@ void RunBenchmark(pcstr name);
 ENGINE_API void InitEngine()
 {
     Engine.Initialize();
-    Device.Initialize();
 }
 
 namespace
@@ -87,33 +86,23 @@ void InitConfig(T& config, pcstr name, bool fatal = true,
 
 ENGINE_API void InitSettings()
 {
-    xr_auth_strings_t ignoredPaths, checkedPaths;
-    fill_auth_check_params(ignoredPaths, checkedPaths); //TODO port xrNetServer to Linux
-    PathIncludePred includePred(&ignoredPaths);
-    CInifile::allow_include_func_t includeFilter;
-    includeFilter.bind(&includePred, &PathIncludePred::IsIncluded);
+    
+		xr_auth_strings_t ignoredPaths, checkedPaths;
+		fill_auth_check_params(ignoredPaths, checkedPaths); //TODO port xrNetServer to Linux
+		PathIncludePred includePred(&ignoredPaths);
+		CInifile::allow_include_func_t includeFilter;
+		includeFilter.bind(&includePred, &PathIncludePred::IsIncluded);
 
-    InitConfig(pSettings, "system.ltx");
-    InitConfig(pSettingsAuth, "system.ltx", true, true, true, false, 0, includeFilter);
-    InitConfig(pSettingsOpenXRay, "openxray.ltx", false, true, true, false);
-    InitConfig(pGameIni, "game.ltx");
+
+		InitConfig(pSettingsAuth, "system.ltx", true, true, true, false, 0, includeFilter);
+        
+        InitConfig(pSettingsOpenXRay, "openxray.ltx", false, true, true, false); 
+        InitConfig(pGameIni, "game.ltx"); 
 }
 
 ENGINE_API void InitConsole()
 {
-    if (GEnv.isDedicatedServer)
-        Console = new CTextConsole();
-    else
-        Console = new CConsole();
-
     Console->Initialize();
-    xr_strcpy(Console->ConfigFile, "user.ltx");
-    if (strstr(Core.Params, "-ltx "))
-    {
-        string64 c_name;
-        sscanf(strstr(Core.Params, "-ltx ") + strlen("-ltx "), "%[^ ] ", c_name);
-        xr_strcpy(Console->ConfigFile, c_name);
-    }
 }
 
 ENGINE_API void InitInput()
@@ -188,7 +177,7 @@ void CheckPrivilegySlowdown()
 ENGINE_API void Startup()
 {
     execUserScript();
-    InitSound();
+    LALib.OnCreate(); 
 
     // ...command line for auto start
     pcstr startArgs = strstr(Core.Params, "-start ");
@@ -199,16 +188,19 @@ ENGINE_API void Startup()
         Console->Execute(loadArgs + 1);
 
     // Initialize APP
-    Device.Create();
-    LALib.OnCreate();
+	Device.Create();
+
+
     pApp = new CApplication();
-    g_pGamePersistent = dynamic_cast<IGame_Persistent*>(NEW_INSTANCE(CLSID_GAME_PERSISTANT));
+    g_pGamePersistent = dynamic_cast<IGame_Persistent*>(NEW_INSTANCE((MK_CLSID('G', '_', 'P', 'E', 'R', 'S', 'I', 'S'))));
     R_ASSERT(g_pGamePersistent);
     g_SpatialSpace = new ISpatial_DB("Spatial obj");
     g_SpatialSpacePhysic = new ISpatial_DB("Spatial phys");
 
     // Main cycle
     Device.Run();
+
+
     // Destroy APP
     xr_delete(g_SpatialSpacePhysic);
     xr_delete(g_SpatialSpace);
@@ -220,16 +212,17 @@ ENGINE_API void Startup()
 #if !defined(LINUX)
     if (!g_bBenchmark && !g_SASH.IsRunning())
 #endif
-        destroySettings();
+    destroySettings();
     LALib.OnDestroy();
 #if !defined(LINUX)
     if (!g_bBenchmark && !g_SASH.IsRunning())
 #endif
-        destroyConsole();
+    destroyConsole();
 #if !defined(LINUX)
     else
         Console->Destroy();
 #endif
+/*    Cordis::TaskManager::getInstance().getCore()->wait();*/
     destroyEngine();
     destroySound();
 }
@@ -237,6 +230,24 @@ ENGINE_API void Startup()
 ENGINE_API int RunApplication()
 {
     R_ASSERT2(Core.Params, "Core must be initialized");
+
+      InitConfig(pSettings, "system.ltx"); 
+
+    InitInput();
+
+	if (GEnv.isDedicatedServer)
+		Console = new CTextConsole();
+	else
+		Console = new CConsole();
+
+
+	xr_strcpy(Console->ConfigFile, "user.ltx");
+	if (strstr(Core.Params, "-ltx "))
+	{
+		string64 c_name;
+		sscanf(strstr(Core.Params, "-ltx ") + strlen("-ltx "), "%[^ ] ", c_name);
+		xr_strcpy(Console->ConfigFile, c_name);
+	}
 
 #ifdef NO_MULTI_INSTANCES
     if (!GEnv.isDedicatedServer)
@@ -252,42 +263,56 @@ ENGINE_API int RunApplication()
 #endif
     }
 #endif
+
     *g_sLaunchOnExit_app = 0;
     *g_sLaunchOnExit_params = 0;
 
-    InitSettings();
-    // Adjust player & computer name for Asian
-    if (pSettings->line_exist("string_table", "no_native_input"))
-    {
-        xr_strcpy(Core.UserName, sizeof(Core.UserName), "Player");
-        xr_strcpy(Core.CompName, sizeof(Core.CompName), "Computer");
-    }
+    // 
+
+
+    if (pSettings == nullptr)
+        Cordis::TaskManager::getInstance().getCore()->wait();
+
+    InitConsole();
+	XRay::Module p_module = XRay::LoadModule("xrGame");
+	Engine.External.setModuleGame(std::move(p_module));
+
+    
+		    if (pSettings->line_exist("string_table", "no_native_input"))
+		    {
+			    xr_strcpy(Core.UserName, sizeof(Core.UserName), "Player");
+			    xr_strcpy(Core.CompName, sizeof(Core.CompName), "Computer");
+		    }
+        
+
+    InitSettings(); 
 
     Engine.External.CreateRendererList();
 
-    FPU::m24r();
-    InitEngine();
-    InitInput();
-    InitConsole();
 
+    FPU::m24r(); 
+    InitEngine(); 
+    InitSound(); 
     if (CheckBenchmark())
-        return 0;
+		return 0;
 
-    if (!GEnv.isDedicatedServer)
-    {
-        if (strstr(Core.Params, "-r4"))
-            Console->Execute("renderer renderer_r4");
-        else
-        {
-            CCC_LoadCFG_custom cmd("renderer ");
-            cmd.Execute(Console->ConfigFile);
-            renderer_allow_override = true;
-        }
-    }
-    else
-        Console->Execute("renderer renderer_r1");
 
-    Engine.External.Initialize();
+	if (!GEnv.isDedicatedServer)
+	{
+		if (strstr(Core.Params, "-r4"))
+			Console->Execute("renderer renderer_r4");
+		else
+		{
+			CCC_LoadCFG_custom cmd("renderer ");
+			cmd.Execute(Console->ConfigFile);
+			renderer_allow_override = true;
+		}
+	}
+	else
+		Console->Execute("renderer renderer_r1");
+   
+     Engine.External.Initialize(); 
+
     Startup();
     // check for need to execute something external
     if (/*xr_strlen(g_sLaunchOnExit_params) && */ xr_strlen(g_sLaunchOnExit_app))

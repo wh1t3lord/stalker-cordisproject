@@ -20,7 +20,7 @@
 #include "map_location_defs.h"
 
 #include "actor_statistic_defs.h"
-
+#include "alife_registry_container_space.h"
 #pragma warning(push)
 #pragma warning(disable : 4005)
 

@@ -2,7 +2,7 @@
 #ifndef __XR_HITMARKER_H__
 #define __XR_HITMARKER_H__
 
-#include "Include/xrRender/FactoryPtr.h"
+#include "FactoryPtr.h"
 #include "xrUICore/ui_defs.h"
 #include "Common/Noncopyable.hpp"
 #include "xrCommon/xr_deque.h"

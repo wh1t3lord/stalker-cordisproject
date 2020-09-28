@@ -463,7 +463,7 @@ void game_sv_mp::ReconnectPlayer(ClientID const& clientID)
 }
 
 bool g_bConsoleCommandsCreated = false;
-extern float g_fTimeFactor;
+//extern float GlobalValues::getInstance().getTimeFactor();
 #define SAVE_SCREENSHOTS_KEY "-savescreenshots"
 void game_sv_mp::Create(shared_str& options)
 {
@@ -999,10 +999,10 @@ s32 game_sv_mp::ExcludeBanTimeFromVoteStr(char const* vote_string, char* new_vot
     return ret_time;
 }
 
-struct SearcherClientByName
+struct GameSVMPSearcherClientByName
 {
     string128 player_name;
-    SearcherClientByName(LPCSTR name)
+    GameSVMPSearcherClientByName(LPCSTR name)
     {
         strncpy_s(player_name, name, sizeof(player_name) - 1);
         xr_strlwr(player_name);
@@ -1089,7 +1089,7 @@ void game_sv_mp::OnVoteStart(LPCSTR VoteCommand, ClientID sender)
         }
         else if (!xr_stricmp(votecommands[i].name, "kick"))
         {
-            SearcherClientByName tmp_predicate(CommandParams);
+            GameSVMPSearcherClientByName tmp_predicate(CommandParams);
             IClient* tmp_client = m_server->FindClient(tmp_predicate);
             if (tmp_client)
             {
@@ -1107,7 +1107,7 @@ void game_sv_mp::OnVoteStart(LPCSTR VoteCommand, ClientID sender)
             s32 ban_time = ExcludeBanTimeFromVoteStr(CommandParams, tmp_victim_name, sizeof(tmp_victim_name));
             // if (ban_time)
             //{
-            SearcherClientByName tmp_predicate(tmp_victim_name);
+            GameSVMPSearcherClientByName tmp_predicate(tmp_victim_name);
             IClient* tmp_client = m_server->FindClient(tmp_predicate);
             if (tmp_client)
             {
@@ -1803,7 +1803,7 @@ void game_sv_mp::ReadOptions(shared_str& options)
     float EnvTimeFactor = float(atof(TimeFactor)) * GetEnvironmentGameTimeFactor();
 
     SetEnvironmentGameTimeFactor(StartEnvGameTime, EnvTimeFactor);
-    SetGameTimeFactor(StartEnvGameTime, g_fTimeFactor);
+    SetGameTimeFactor(StartEnvGameTime, GlobalValues::getInstance().getTimeFactor());
 };
 
 static bool g_bConsoleCommandsCreated_MP = false;

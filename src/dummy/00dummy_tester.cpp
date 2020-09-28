@@ -4,7 +4,7 @@
 
 // The project file preprocessor definitions are currently set to test:
 //  xrGame.dll
-
+#include "stdafx.h"
 //#include "xrSound/Sound.h"
 #include "xrGame/stalker_movement_manager_smart_cover.h"
 

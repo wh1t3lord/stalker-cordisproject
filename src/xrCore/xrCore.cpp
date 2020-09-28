@@ -21,6 +21,8 @@
 #include ".GitInfo.hpp"
 #endif
 
+#pragma comment(lib, "shlwapi")
+
 #ifndef GIT_INFO_CURRENT_BRANCH
 #define GIT_INFO_CURRENT_BRANCH unknown
 #endif
@@ -261,9 +263,9 @@ void xrCore::Initialize(pcstr _ApplicationName, pcstr commandLine, LogCallback c
         Memory._initialize();
 
         SDL_LogSetOutputFunction(SDLLogOutput, nullptr);
-        Msg("%s %s build %d, %s", "OpenXRay", GetBuildConfiguration(), buildId, buildDate);
+        MESSAGE("%s %s build %d, %s", "OpenXRay", GetBuildConfiguration(), buildId, buildDate);
         PrintBuildInfo();
-        Msg("\ncommand line %s\n", Params);
+        MESSAGE("\ncommand line %s\n", Params);
         _initialize_cpu();
         R_ASSERT(SDL_HasSSE());
         XRay::Math::Initialize();
@@ -301,6 +303,9 @@ void xrCore::Initialize(pcstr _ApplicationName, pcstr commandLine, LogCallback c
 #endif
 #endif
         FS._initialize(flags, nullptr, fs_fname);
+
+
+
         EFS._initialize();
 #ifdef DEBUG
 #ifndef _EDITOR
@@ -411,7 +416,12 @@ BOOL WINAPI DllMain(HINSTANCE hinstDLL, DWORD ul_reason_for_call, LPVOID lpvRese
         https://users.livejournal.com/-winnie/151099.html
         https://github.com/tebjan/TimerTool
     */
-    case DLL_PROCESS_ATTACH: timeBeginPeriod(1); break;
+    case DLL_PROCESS_ATTACH: {
+        timeBeginPeriod(1);
+        testing::InitGoogleTest();
+        RUN_ALL_TESTS();
+        break;
+    }
     case DLL_PROCESS_DETACH: timeEndPeriod  (1); break;
     }
     return TRUE;

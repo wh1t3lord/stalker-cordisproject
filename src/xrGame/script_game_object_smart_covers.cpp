@@ -42,15 +42,17 @@ void CScriptGameObject::use_smart_covers_only(bool value)
 
 void CScriptGameObject::set_smart_cover_target_selector()
 {
-    CAI_Stalker* stalker = smart_cast<CAI_Stalker*>(&object());
-    if (!stalker)
+    CAI_Stalker* p_stalker = smart_cast<CAI_Stalker*>(&object());
+    if (!p_stalker)
     {
-        GEnv.ScriptEngine->script_log(
-            LuaMessageType::Error, "CAI_Stalker : cannot access class member set_smart_cover_target_selector!");
+        MESSAGEWR("CAI_Stalker : cannot access class member set_smart_cover_target_selector!");
         return;
     }
 
-    stalker->movement().target_selector(CScriptCallbackEx<void>());
+    p_stalker->movement().target_selector_without_callback();
+
+    // Lord - [Script] Re-write
+//    stalker->movement().target_selector(CScriptCallbackEx<void>());
 }
 
 void CScriptGameObject::set_smart_cover_target_selector(luabind::functor<void> functor)
@@ -63,9 +65,10 @@ void CScriptGameObject::set_smart_cover_target_selector(luabind::functor<void> f
         return;
     }
 
-    CScriptCallbackEx<void> callback;
-    callback.set(functor);
-    stalker->movement().target_selector(callback);
+    // Lord - [Script] Re-write
+//     CScriptCallbackEx<void> callback;
+//     callback.set(functor);
+//     stalker->movement().target_selector(callback);
 }
 
 void CScriptGameObject::set_smart_cover_target_selector(luabind::functor<void> functor, luabind::object object)
@@ -73,14 +76,32 @@ void CScriptGameObject::set_smart_cover_target_selector(luabind::functor<void> f
     CAI_Stalker* stalker = smart_cast<CAI_Stalker*>(&this->object());
     if (!stalker)
     {
-        GEnv.ScriptEngine->script_log(
-            LuaMessageType::Error, "CAI_Stalker : cannot access class member set_smart_cover_target_selector!");
+        MESSAGEWR("CAI_Stalker : cannot access class member set_smart_cover_target_selector!");
         return;
     }
 
-    CScriptCallbackEx<void> callback;
-    callback.set(functor, object);
-    stalker->movement().target_selector(callback);
+    // Lord - [Script] Re-write
+//     CScriptCallbackEx<void> callback;
+//     callback.set(functor, object);
+//     stalker->movement().target_selector(callback);
+}
+
+void CScriptGameObject::set_smart_cover_target_selector(std::function<void(CScriptGameObject* const)>& my_function)
+{
+    if (my_function == nullptr)
+    {
+        MESSAGEWR("can't bind an empty function!");
+        return;
+    }
+
+	CAI_Stalker* const p_stalker = smart_cast<CAI_Stalker*>(&this->object());
+	if (!p_stalker)
+	{
+		MESSAGEWR("CAI_Stalker : cannot access class member set_smart_cover_target_selector!");
+		return;
+	}
+
+    p_stalker->movement().target_selector(my_function);
 }
 
 void CScriptGameObject::set_smart_cover_target_idle()

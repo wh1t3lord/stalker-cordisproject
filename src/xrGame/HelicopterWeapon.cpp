@@ -2,7 +2,7 @@
 #include "helicopter.h"
 #include "ExplosiveRocket.h"
 #include "xrMessages.h"
-#include "Include/xrRender/Kinematics.h"
+#include "Kinematics.h"
 #include "Level.h"
 
 void CHelicopter::BoneMGunCallbackX(CBoneInstance* B)
@@ -153,7 +153,7 @@ void CHelicopter::OnShot()
     StartSmokeParticles(fire_pos, zero_vel);
     OnShellDrop(fire_pos, zero_vel);
 
-    HUD_SOUND_ITEM::PlaySound(m_sndShot, fire_pos, this, false);
+    HUD_SOUND_ITEM::play_sound(m_sndShot, fire_pos, this, false);
 }
 
 void CHelicopter::MGunFireStart()
@@ -341,7 +341,7 @@ void CHelicopter::startRocket(u16 idx)
         dropCurrentRocket();
 
         m_last_launched_rocket = idx;
-        HUD_SOUND_ITEM::PlaySound(m_sndShotRocket, xform.c, this, false);
+        HUD_SOUND_ITEM::play_sound(m_sndShotRocket, xform.c, this, false);
     }
 }
 

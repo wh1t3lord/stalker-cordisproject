@@ -13,9 +13,8 @@
 #include "Common/object_broker.h"
 #include "restriction_space.h"
 #include "xrCore/xr_token.h"
-
 #ifdef _MSC_VER
-#pragma warning(disable: 4100) // unreferenced formal parameter
+#pragma warning(disable : 4100) // unreferenced formal parameter
 #endif
 #ifndef AI_COMPILER
 #include "character_info.h"
@@ -231,24 +230,24 @@ void SFillPropData::inc()
 static SFillPropData fp_data;
 #endif // #ifdef XRSE_FACTORY_EXPORTS
 
-#ifndef XRGAME_EXPORTS
-#ifdef XRSE_FACTORY_EXPORTS
-void CSE_ALifeTraderAbstract::FillProps(LPCSTR pref, PropItemVec& items)
-#else
-void CSE_ALifeTraderAbstract::FillProps (LPCSTR /*pref*/, PropItemVec& /*items*/)
-#endif
-{
-#ifdef XRSE_FACTORY_EXPORTS
-    PHelper().CreateU32(items, PrepareKey(pref, *base()->s_name, "Money"), &m_dwMoney, 0, u32(-1));
-    PHelper().CreateFlag32(
-    items, PrepareKey(pref, *base()->s_name, "Trader" DELIMITER "Infinite ammo"), &m_trader_flags, eTraderFlagInfiniteAmmo);
-    RListValue* value = PHelper().CreateRList(items, PrepareKey(pref, *base()->s_name, "npc profile"),
-    &m_sCharacterProfile, &*fp_data.character_profiles.begin(), fp_data.character_profiles.size());
-
-    value->OnChangeEvent.bind(this, &CSE_ALifeTraderAbstract::OnChangeProfile);
-#endif // #ifdef XRSE_FACTORY_EXPORTS
-}
-#endif // #ifndef XRGAME_EXPORTS
+//#ifndef XRGAME_EXPORTS
+//#ifdef XRSE_FACTORY_EXPORTS
+// void CSE_ALifeTraderAbstract::FillProps(LPCSTR pref, PropItemVec& items)
+// #else
+// void CSE_ALifeTraderAbstract::FillProps (LPCSTR /*pref*/, PropItemVec& /*items*/)
+// #endif
+// {
+// #ifdef XRSE_FACTORY_EXPORTS
+//     PHelper().CreateU32(items, PrepareKey(pref, *base()->s_name, "Money"), &m_dwMoney, 0, u32(-1));
+//     PHelper().CreateFlag32(
+//     items, PrepareKey(pref, *base()->s_name, "Trader" DELIMITER "Infinite ammo"), &m_trader_flags,
+//     eTraderFlagInfiniteAmmo); RListValue* value = PHelper().CreateRList(items, PrepareKey(pref, *base()->s_name, "npc
+//     profile"), &m_sCharacterProfile, &*fp_data.character_profiles.begin(), fp_data.character_profiles.size());
+//
+//     value->OnChangeEvent.bind(this, &CSE_ALifeTraderAbstract::OnChangeProfile);
+// #endif // #ifdef XRSE_FACTORY_EXPORTS
+// }
+//#endif // #ifndef XRGAME_EXPORTS
 ////////////////////////////////////////////////////////////////////////////
 // CSE_ALifeGraphPoint
 ////////////////////////////////////////////////////////////////////////////
@@ -297,31 +296,32 @@ void CSE_ALifeGraphPoint::STATE_Write(NET_Packet& tNetPacket)
 void CSE_ALifeGraphPoint::UPDATE_Read(NET_Packet& /*tNetPacket*/) {}
 void CSE_ALifeGraphPoint::UPDATE_Write(NET_Packet& /*tNetPacket*/) {}
 #ifndef XRGAME_EXPORTS
-void CSE_ALifeGraphPoint::FillProps(LPCSTR pref, PropItemVec& items)
-{
-#ifdef XRSE_FACTORY_EXPORTS
-    PHelper().CreateRToken8(items, PrepareKey(pref, *s_name, "Location" DELIMITER "1"), &m_tLocations[0],
-    &*fp_data.locations[0].begin(), fp_data.locations[0].size());
-    PHelper().CreateRToken8(items, PrepareKey(pref, *s_name, "Location" DELIMITER "2"), &m_tLocations[1],
-    &*fp_data.locations[1].begin(), fp_data.locations[1].size());
-    PHelper().CreateRToken8(items, PrepareKey(pref, *s_name, "Location" DELIMITER "3"), &m_tLocations[2],
-    &*fp_data.locations[2].begin(), fp_data.locations[2].size());
-    PHelper().CreateRToken8(items, PrepareKey(pref, *s_name, "Location" DELIMITER "4"), &m_tLocations[3],
-    &*fp_data.locations[3].begin(), fp_data.locations[3].size());
-    PHelper().CreateRList(items, PrepareKey(pref, *s_name, "Connection" DELIMITER "Level name"), &m_caConnectionLevelName,
-    &*fp_data.level_ids.begin(), fp_data.level_ids.size());
-    PHelper().CreateRText(items, PrepareKey(pref, *s_name, "Connection" DELIMITER "Point name"), &m_caConnectionPointName);
-#endif // #ifdef XRSE_FACTORY_EXPORTS
-}
+// void CSE_ALifeGraphPoint::FillProps(LPCSTR pref, PropItemVec& items)
+// {
+// #ifdef XRSE_FACTORY_EXPORTS
+//     PHelper().CreateRToken8(items, PrepareKey(pref, *s_name, "Location" DELIMITER "1"), &m_tLocations[0],
+//     &*fp_data.locations[0].begin(), fp_data.locations[0].size());
+//     PHelper().CreateRToken8(items, PrepareKey(pref, *s_name, "Location" DELIMITER "2"), &m_tLocations[1],
+//     &*fp_data.locations[1].begin(), fp_data.locations[1].size());
+//     PHelper().CreateRToken8(items, PrepareKey(pref, *s_name, "Location" DELIMITER "3"), &m_tLocations[2],
+//     &*fp_data.locations[2].begin(), fp_data.locations[2].size());
+//     PHelper().CreateRToken8(items, PrepareKey(pref, *s_name, "Location" DELIMITER "4"), &m_tLocations[3],
+//     &*fp_data.locations[3].begin(), fp_data.locations[3].size());
+//     PHelper().CreateRList(items, PrepareKey(pref, *s_name, "Connection" DELIMITER "Level name"),
+//     &m_caConnectionLevelName,
+//     &*fp_data.level_ids.begin(), fp_data.level_ids.size());
+//     PHelper().CreateRText(items, PrepareKey(pref, *s_name, "Connection" DELIMITER "Point name"),
+//     &m_caConnectionPointName);
+// #endif // #ifdef XRSE_FACTORY_EXPORTS
+// }
 
-void CSE_ALifeGraphPoint::on_render(CDUInterface* du, IServerEntityLEOwner* owner,
-    bool bSelected, const Fmatrix& parent, int priority, bool strictB2F)
+void CSE_ALifeGraphPoint::on_render(
+    CDUInterface* du, IServerEntityLEOwner* owner, bool bSelected, const Fmatrix& parent, int priority, bool strictB2F)
 {
 #ifdef XRSE_FACTORY_EXPORTS
     static const u32 IL[16] = {0, 1, 0, 2, 0, 3, 0, 4, 1, 3, 3, 2, 2, 4, 4, 1};
     static const u32 IT[12] = {1, 3, 0, 3, 2, 0, 2, 4, 0, 4, 1, 0};
-    static const Fvector PT[5] =
-    {
+    static const Fvector PT[5] = {
         {0.0f, 1.0f, 0.0f},
         {0.0f, 0.0f, -0.5f},
         {0.0f, 0.0f, 0.5f},
@@ -489,28 +489,39 @@ void CSE_ALifeObject::STATE_Read(NET_Packet& tNetPacket, u16 size)
 }
 
 void CSE_ALifeObject::UPDATE_Write(NET_Packet& /*tNetPacket*/) {}
-void CSE_ALifeObject::UPDATE_Read(NET_Packet& /*tNetPacket*/) {};
+void CSE_ALifeObject::UPDATE_Read(NET_Packet& /*tNetPacket*/){};
 
-#ifndef XRGAME_EXPORTS
-void CSE_ALifeObject::FillProps(LPCSTR pref, PropItemVec& items)
-{
-#ifdef XRSE_FACTORY_EXPORTS
-    inherited::FillProps(pref, items);
-    PHelper().CreateRText(items, PrepareKey(pref, *s_name, "Custom data"), &m_ini_string);
-    if (m_flags.is(flUseSwitches))
+bool CSE_ALifeObject::target_precondition(CSE_ALifeObject* squad) 
+{ 
+    if (!squad)
     {
-        PHelper().CreateFlag32(items, PrepareKey(pref, *s_name, "ALife" DELIMITER "Can switch online"), &m_flags, flSwitchOnline);
-        PHelper().CreateFlag32(
-        items, PrepareKey(pref, *s_name, "ALife" DELIMITER "Can switch offline"), &m_flags, flSwitchOffline);
+        R_ASSERT2(false, "Object was null!");
+        return false;
     }
-    PHelper().CreateFlag32(items, PrepareKey(pref, *s_name, "ALife" DELIMITER "Interactive"), &m_flags, flInteractive);
-    PHelper().CreateFlag32(items, PrepareKey(pref, *s_name, "ALife" DELIMITER "Used AI locations"), &m_flags, flUsedAI_Locations);
-    PHelper().CreateRToken32(items, PrepareKey(pref, *s_name, "ALife" DELIMITER "Story ID"), &m_story_id,
-    &*fp_data.story_names.begin(), fp_data.story_names.size());
-    PHelper().CreateRToken32(items, PrepareKey(pref, *s_name, "ALife" DELIMITER "Spawn Story ID"), &m_spawn_story_id,
-    &*fp_data.spawn_story_names.begin(), fp_data.spawn_story_names.size());
-#endif // #ifdef XRSE_FACTORY_EXPORTS
+
+
 }
+#ifndef XRGAME_EXPORTS
+// void CSE_ALifeObject::FillProps(LPCSTR pref, PropItemVec& items)
+// {
+// #ifdef XRSE_FACTORY_EXPORTS
+//     inherited::FillProps(pref, items);
+//     PHelper().CreateRText(items, PrepareKey(pref, *s_name, "Custom data"), &m_ini_string);
+//     if (m_flags.is(flUseSwitches))
+//     {
+//         PHelper().CreateFlag32(items, PrepareKey(pref, *s_name, "ALife" DELIMITER "Can switch online"), &m_flags,
+//         flSwitchOnline); PHelper().CreateFlag32( items, PrepareKey(pref, *s_name, "ALife" DELIMITER "Can switch
+//         offline"), &m_flags, flSwitchOffline);
+//     }
+//     PHelper().CreateFlag32(items, PrepareKey(pref, *s_name, "ALife" DELIMITER "Interactive"), &m_flags,
+//     flInteractive); PHelper().CreateFlag32(items, PrepareKey(pref, *s_name, "ALife" DELIMITER "Used AI locations"),
+//     &m_flags, flUsedAI_Locations); PHelper().CreateRToken32(items, PrepareKey(pref, *s_name, "ALife" DELIMITER "Story
+//     ID"), &m_story_id,
+//     &*fp_data.story_names.begin(), fp_data.story_names.size());
+//     PHelper().CreateRToken32(items, PrepareKey(pref, *s_name, "ALife" DELIMITER "Spawn Story ID"), &m_spawn_story_id,
+//     &*fp_data.spawn_story_names.begin(), fp_data.spawn_story_names.size());
+// #endif // #ifdef XRSE_FACTORY_EXPORTS
+// }
 #endif // #ifndef XRGAME_EXPORTS
 
 u32 CSE_ALifeObject::ef_equipment_type() const
@@ -547,16 +558,20 @@ u32 CSE_ALifeObject::ef_detector_type() const
     return (u32(-1));
 }
 
-bool CSE_ALifeObject::used_ai_locations() const /* noexcept */
-{ return !!m_flags.is(flUsedAI_Locations); }
+bool CSE_ALifeObject::used_ai_locations() const /* noexcept */ { return !!m_flags.is(flUsedAI_Locations); }
 bool CSE_ALifeObject::can_switch_online() const /* noexcept */
-{ return match_configuration() && !!m_flags.is(flSwitchOnline); }
+{
+    return match_configuration() && !!m_flags.is(flSwitchOnline);
+}
 bool CSE_ALifeObject::can_switch_offline() const /* noexcept */
-{ return !match_configuration() || !!m_flags.is(flSwitchOffline); }
-bool CSE_ALifeObject::can_save() const /* noexcept */
-{ return !!m_flags.is(flCanSave); }
+{
+    return !match_configuration() || !!m_flags.is(flSwitchOffline);
+}
+bool CSE_ALifeObject::can_save() const /* noexcept */ { return !!m_flags.is(flCanSave); }
 bool CSE_ALifeObject::interactive() const /* noexcept */
-{ return !!m_flags.is(flInteractive) && !!m_flags.is(flVisibleForAI) && !!m_flags.is(flUsefulForAI); }
+{
+    return !!m_flags.is(flInteractive) && !!m_flags.is(flVisibleForAI) && !!m_flags.is(flUsefulForAI);
+}
 
 void CSE_ALifeObject::use_ai_locations(bool value) { m_flags.set(flUsedAI_Locations, BOOL(value)); }
 void CSE_ALifeObject::can_switch_online(bool value) /* noexcept */ { m_flags.set(flSwitchOnline, BOOL(value)); }
@@ -602,10 +617,10 @@ void CSE_ALifeGroupAbstract::UPDATE_Read(NET_Packet& tNetPacket)
 
 void CSE_ALifeGroupAbstract::UPDATE_Write(NET_Packet& tNetPacket) { tNetPacket.w_u32(m_bCreateSpawnPositions); };
 #ifndef XRGAME_EXPORTS
-void CSE_ALifeGroupAbstract::FillProps(LPCSTR pref, PropItemVec& items)
-{
-    PHelper().CreateU16(items, PrepareKey(pref, "ALife" DELIMITER "Count"), &m_wCount, 0, 0xff);
-};
+// void CSE_ALifeGroupAbstract::FillProps(LPCSTR pref, PropItemVec& items)
+// {
+//     PHelper().CreateU16(items, PrepareKey(pref, "ALife" DELIMITER "Count"), &m_wCount, 0, 0xff);
+// };
 #endif // #ifndef XRGAME_EXPORTS
 
 ////////////////////////////////////////////////////////////////////////////
@@ -624,7 +639,7 @@ void CSE_ALifeDynamicObject::STATE_Read(NET_Packet& tNetPacket, u16 size) { inhe
 void CSE_ALifeDynamicObject::UPDATE_Write(NET_Packet& tNetPacket) { inherited::UPDATE_Write(tNetPacket); };
 void CSE_ALifeDynamicObject::UPDATE_Read(NET_Packet& tNetPacket) { inherited::UPDATE_Read(tNetPacket); };
 #ifndef XRGAME_EXPORTS
-void CSE_ALifeDynamicObject::FillProps(LPCSTR pref, PropItemVec& values) { inherited::FillProps(pref, values); }
+// void CSE_ALifeDynamicObject::FillProps(LPCSTR pref, PropItemVec& values) { inherited::FillProps(pref, values); }
 #endif // #ifndef XRGAME_EXPORTS
 
 ////////////////////////////////////////////////////////////////////////////
@@ -655,11 +670,11 @@ void CSE_ALifeDynamicObjectVisual::STATE_Read(NET_Packet& tNetPacket, u16 size)
 void CSE_ALifeDynamicObjectVisual::UPDATE_Write(NET_Packet& tNetPacket) { inherited1::UPDATE_Write(tNetPacket); };
 void CSE_ALifeDynamicObjectVisual::UPDATE_Read(NET_Packet& tNetPacket) { inherited1::UPDATE_Read(tNetPacket); };
 #ifndef XRGAME_EXPORTS
-void CSE_ALifeDynamicObjectVisual::FillProps(LPCSTR pref, PropItemVec& items)
-{
-    inherited1::FillProps(pref, items);
-    inherited2::FillProps(pref, items);
-}
+// void CSE_ALifeDynamicObjectVisual::FillProps(LPCSTR pref, PropItemVec& items)
+// {
+//     inherited1::FillProps(pref, items);
+//     inherited2::FillProps(pref, items);
+// }
 #endif // #ifndef XRGAME_EXPORTS
 
 ////////////////////////////////////////////////////////////////////////////
@@ -706,11 +721,11 @@ void CSE_ALifePHSkeletonObject::UPDATE_Read(NET_Packet& tNetPacket)
 bool CSE_ALifePHSkeletonObject::can_save() const /* noexcept */ { return CSE_PHSkeleton::need_save(); }
 bool CSE_ALifePHSkeletonObject::used_ai_locations() const /* noexcept */ { return false; }
 #ifndef XRGAME_EXPORTS
-void CSE_ALifePHSkeletonObject::FillProps(LPCSTR pref, PropItemVec& items)
-{
-    inherited1::FillProps(pref, items);
-    inherited2::FillProps(pref, items);
-}
+// void CSE_ALifePHSkeletonObject::FillProps(LPCSTR pref, PropItemVec& items)
+// {
+//     inherited1::FillProps(pref, items);
+//     inherited2::FillProps(pref, items);
+// }
 #endif // #ifndef XRGAME_EXPORTS
 
 ////////////////////////////////////////////////////////////////////////////
@@ -747,18 +762,18 @@ void CSE_ALifeSpaceRestrictor::STATE_Write(NET_Packet& tNetPacket)
 void CSE_ALifeSpaceRestrictor::UPDATE_Read(NET_Packet& tNetPacket) { inherited1::UPDATE_Read(tNetPacket); }
 void CSE_ALifeSpaceRestrictor::UPDATE_Write(NET_Packet& tNetPacket) { inherited1::UPDATE_Write(tNetPacket); }
 const xr_token defaul_retrictor_types[] = {{"NOT A restrictor", RestrictionSpace::eRestrictorTypeNone},
-{"NONE default restrictor", RestrictionSpace::eDefaultRestrictorTypeNone},
-{"OUT default restrictor", RestrictionSpace::eDefaultRestrictorTypeOut},
-{"IN default restrictor", RestrictionSpace::eDefaultRestrictorTypeIn}, {nullptr, 0}};
+    {"NONE default restrictor", RestrictionSpace::eDefaultRestrictorTypeNone},
+    {"OUT default restrictor", RestrictionSpace::eDefaultRestrictorTypeOut},
+    {"IN default restrictor", RestrictionSpace::eDefaultRestrictorTypeIn}, {nullptr, 0}};
 
 #ifndef XRGAME_EXPORTS
-void CSE_ALifeSpaceRestrictor::FillProps(LPCSTR pref, PropItemVec& items)
-{
-    inherited1::FillProps(pref, items);
-    PHelper().CreateToken8(
-        items, PrepareKey(pref, *s_name, "restrictor type"), &m_space_restrictor_type, defaul_retrictor_types);
-    PHelper().CreateFlag32(items, PrepareKey(pref, *s_name, "check for separator"), &m_flags, flCheckForSeparator);
-}
+// void CSE_ALifeSpaceRestrictor::FillProps(LPCSTR pref, PropItemVec& items)
+// {
+//     inherited1::FillProps(pref, items);
+//     PHelper().CreateToken8(
+//         items, PrepareKey(pref, *s_name, "restrictor type"), &m_space_restrictor_type, defaul_retrictor_types);
+//     PHelper().CreateFlag32(items, PrepareKey(pref, *s_name, "check for separator"), &m_flags, flCheckForSeparator);
+// }
 #endif // #ifndef XRGAME_EXPORTS
 
 ////////////////////////////////////////////////////////////////////////////
@@ -827,18 +842,18 @@ void CSE_ALifeLevelChanger::STATE_Write(NET_Packet& tNetPacket)
 void CSE_ALifeLevelChanger::UPDATE_Read(NET_Packet& tNetPacket) { inherited::UPDATE_Read(tNetPacket); }
 void CSE_ALifeLevelChanger::UPDATE_Write(NET_Packet& tNetPacket) { inherited::UPDATE_Write(tNetPacket); }
 #ifndef XRGAME_EXPORTS
-void CSE_ALifeLevelChanger::FillProps(LPCSTR pref, PropItemVec& items)
-{
-#ifdef XRSE_FACTORY_EXPORTS
-    inherited::FillProps(pref, items);
-
-    PHelper().CreateRList(items, PrepareKey(pref, *s_name, "Level to change"), &m_caLevelToChange,
-    &*fp_data.level_ids.begin(), fp_data.level_ids.size());
-    PHelper().CreateRText(items, PrepareKey(pref, *s_name, "Level point to change"), &m_caLevelPointToChange);
-
-    PHelper().CreateBOOL(items, PrepareKey(pref, *s_name, "Silent mode"), &m_bSilentMode);
-#endif // #ifdef XRSE_FACTORY_EXPORTS
-}
+// void CSE_ALifeLevelChanger::FillProps(LPCSTR pref, PropItemVec& items)
+// {
+// #ifdef XRSE_FACTORY_EXPORTS
+//     inherited::FillProps(pref, items);
+//
+//     PHelper().CreateRList(items, PrepareKey(pref, *s_name, "Level to change"), &m_caLevelToChange,
+//     &*fp_data.level_ids.begin(), fp_data.level_ids.size());
+//     PHelper().CreateRText(items, PrepareKey(pref, *s_name, "Level point to change"), &m_caLevelPointToChange);
+//
+//     PHelper().CreateBOOL(items, PrepareKey(pref, *s_name, "Silent mode"), &m_bSilentMode);
+// #endif // #ifdef XRSE_FACTORY_EXPORTS
+// }
 #endif // #ifndef XRGAME_EXPORTS
 
 ////////////////////////////////////////////////////////////////////////////
@@ -1129,23 +1144,23 @@ void CSE_ALifeObjectPhysic::load(NET_Packet& tNetPacket)
     inherited2::load(tNetPacket);
 }
 
-xr_token po_types[] = {
-{"Box", epotBox}, {"Fixed chain", epotFixedChain}, {"Free chain", epotFreeChain}, {"Skeleton", epotSkeleton}, {nullptr, 0}};
+xr_token po_types[] = {{"Box", epotBox}, {"Fixed chain", epotFixedChain}, {"Free chain", epotFreeChain},
+    {"Skeleton", epotSkeleton}, {nullptr, 0}};
 
 #ifndef XRGAME_EXPORTS
-void CSE_ALifeObjectPhysic::FillProps(LPCSTR pref, PropItemVec& values)
-{
-    inherited1::FillProps(pref, values);
-    inherited2::FillProps(pref, values);
-
-    PHelper().CreateToken32(values, PrepareKey(pref, *s_name, "Type"), &type, po_types);
-    PHelper().CreateFloat(values, PrepareKey(pref, *s_name, "Mass"), &mass, 0.1f, 10000.f);
-    PHelper().CreateFlag8(values, PrepareKey(pref, *s_name, "Active"), &_flags, flActive);
-
-    // motions & bones
-    PHelper().CreateChoose(values, PrepareKey(pref, *s_name, "Model" DELIMITER "Fixed bones"), &fixed_bones, smSkeletonBones, nullptr,
-    (void*)visual()->get_visual(), 8);
-}
+// void CSE_ALifeObjectPhysic::FillProps(LPCSTR pref, PropItemVec& values)
+// {
+//     inherited1::FillProps(pref, values);
+//     inherited2::FillProps(pref, values);
+//
+//     PHelper().CreateToken32(values, PrepareKey(pref, *s_name, "Type"), &type, po_types);
+//     PHelper().CreateFloat(values, PrepareKey(pref, *s_name, "Mass"), &mass, 0.1f, 10000.f);
+//     PHelper().CreateFlag8(values, PrepareKey(pref, *s_name, "Active"), &_flags, flActive);
+//
+//     // motions & bones
+//     PHelper().CreateChoose(values, PrepareKey(pref, *s_name, "Model" DELIMITER "Fixed bones"), &fixed_bones,
+//     smSkeletonBones, nullptr, (void*)visual()->get_visual(), 8);
+// }
 #endif // #ifndef XRGAME_EXPORTS
 
 bool CSE_ALifeObjectPhysic::used_ai_locations() const /* noexcept */ { return false; }
@@ -1317,74 +1332,79 @@ void CSE_ALifeObjectHangingLamp::load(NET_Packet& tNetPacket)
 
 void CSE_ALifeObjectHangingLamp::OnChangeFlag(PropValue* sender) { set_editor_flag(flUpdateProperties); }
 #ifndef XRGAME_EXPORTS
-void CSE_ALifeObjectHangingLamp::FillProps(LPCSTR pref, PropItemVec& values)
-{
-    inherited1::FillProps(pref, values);
-    inherited2::FillProps(pref, values);
-
-    PropValue* P = nullptr;
-    PHelper().CreateFlag16(values, PrepareKey(pref, *s_name, "Flags" DELIMITER "Physic"), &flags, flPhysic);
-    PHelper().CreateFlag16(values, PrepareKey(pref, *s_name, "Flags" DELIMITER "Cast Shadow"), &flags, flCastShadow);
-    PHelper().CreateFlag16(values, PrepareKey(pref, *s_name, "Flags" DELIMITER "Allow R1"), &flags, flR1);
-    PHelper().CreateFlag16(values, PrepareKey(pref, *s_name, "Flags" DELIMITER "Allow R2"), &flags, flR2);
-    P = PHelper().CreateFlag16(values, PrepareKey(pref, *s_name, "Flags" DELIMITER "Allow Ambient"), &flags, flPointAmbient);
-    P->OnChangeEvent.bind(this, &CSE_ALifeObjectHangingLamp::OnChangeFlag);
-    //
-    P = PHelper().CreateFlag16(values, PrepareKey(pref, *s_name, "Light" DELIMITER "Type"), &flags, flTypeSpot, "Point", "Spot");
-    P->OnChangeEvent.bind(this, &CSE_ALifeObjectHangingLamp::OnChangeFlag);
-    PHelper().CreateColor(values, PrepareKey(pref, *s_name, "Light" DELIMITER "Main" DELIMITER "Color"), &color);
-    PHelper().CreateFloat(values, PrepareKey(pref, *s_name, "Light" DELIMITER "Main" DELIMITER "Brightness"), &brightness, 0.1f, 5.f);
-    PHelper().CreateChoose(values, PrepareKey(pref, *s_name, "Light" DELIMITER "Main" DELIMITER "Color Animator"), &color_animator, smLAnim);
-    PHelper().CreateFloat(values, PrepareKey(pref, *s_name, "Light" DELIMITER "Main" DELIMITER "Range"), &range, 0.1f, 1000.f);
-    PHelper().CreateFloat(values, PrepareKey(pref, *s_name, "Light" DELIMITER "Main" DELIMITER "Virtual Size"), &m_virtual_size, 0.f, 100.f);
-    PHelper().CreateChoose(
-    values, PrepareKey(pref, *s_name, "Light" DELIMITER "Main" DELIMITER "Texture"), &light_texture, smTexture, "lights");
-    PHelper().CreateChoose(values, PrepareKey(pref, *s_name, "Light" DELIMITER "Main" DELIMITER "Bone"), &light_main_bone, smSkeletonBones, nullptr,
-    (void*)visual()->get_visual());
-    if (flags.is(flTypeSpot))
-    {
-        PHelper().CreateAngle(
-        values, PrepareKey(pref, *s_name, "Light" DELIMITER "Main" DELIMITER "Cone Angle"), &spot_cone_angle, deg2rad(1.f), deg2rad(120.f));
-        //      PHelper().CreateFlag16  (values, PrepareKey(pref,*s_name,"Light" DELIMITER "Main" DELIMITER "Volumetric"),    &flags,
-        //      flVolumetric);
-        P = PHelper().CreateFlag16(values, PrepareKey(pref, *s_name, "Flags" DELIMITER "Volumetric"), &flags, flVolumetric);
-        P->OnChangeEvent.bind(this, &CSE_ALifeObjectHangingLamp::OnChangeFlag);
-    }
-
-    if (flags.is(flPointAmbient))
-    {
-        PHelper().CreateFloat(
-        values, PrepareKey(pref, *s_name, "Light" DELIMITER "Ambient" DELIMITER "Radius"), &m_ambient_radius, 0.f, 1000.f);
-        PHelper().CreateFloat(values, PrepareKey(pref, *s_name, "Light" DELIMITER "Ambient" DELIMITER "Power"), &m_ambient_power);
-        PHelper().CreateChoose(
-        values, PrepareKey(pref, *s_name, "Light" DELIMITER "Ambient" DELIMITER "Texture"), &m_ambient_texture, smTexture, "lights");
-        PHelper().CreateChoose(values, PrepareKey(pref, *s_name, "Light" DELIMITER "Ambient" DELIMITER "Bone"), &light_ambient_bone,
-        smSkeletonBones, nullptr, (void*)visual()->get_visual());
-    }
-
-    if (flags.is(flVolumetric))
-    {
-        PHelper().CreateFloat(
-        values, PrepareKey(pref, *s_name, "Light" DELIMITER "Volumetric" DELIMITER "Quality"), &m_volumetric_quality, 0.f, 1.f);
-        PHelper().CreateFloat(
-        values, PrepareKey(pref, *s_name, "Light" DELIMITER "Volumetric" DELIMITER "Intensity"), &m_volumetric_intensity, 0.f, 10.f);
-        PHelper().CreateFloat(
-        values, PrepareKey(pref, *s_name, "Light" DELIMITER "Volumetric" DELIMITER "Distance"), &m_volumetric_distance, 0.f, 1.f);
-    }
-
-    // fixed bones
-    PHelper().CreateChoose(values, PrepareKey(pref, *s_name, "Model" DELIMITER "Fixed bones"), &fixed_bones, smSkeletonBones, nullptr,
-    (void*)visual()->get_visual(), 8);
-    // glow
-    PHelper().CreateFloat(values, PrepareKey(pref, *s_name, "Glow" DELIMITER "Radius"), &glow_radius, 0.01f, 100.f);
-    PHelper().CreateChoose(values, PrepareKey(pref, *s_name, "Glow" DELIMITER "Texture"), &glow_texture, smTexture, "glow");
-    // game
-    PHelper().CreateFloat(values, PrepareKey(pref, *s_name, "Game" DELIMITER "Health"), &m_health, 0.f, 100.f);
-}
+// void CSE_ALifeObjectHangingLamp::FillProps(LPCSTR pref, PropItemVec& values)
+// {
+//     inherited1::FillProps(pref, values);
+//     inherited2::FillProps(pref, values);
+//
+//     PropValue* P = nullptr;
+//     PHelper().CreateFlag16(values, PrepareKey(pref, *s_name, "Flags" DELIMITER "Physic"), &flags, flPhysic);
+//     PHelper().CreateFlag16(values, PrepareKey(pref, *s_name, "Flags" DELIMITER "Cast Shadow"), &flags,
+//     flCastShadow); PHelper().CreateFlag16(values, PrepareKey(pref, *s_name, "Flags" DELIMITER "Allow R1"),
+//     &flags, flR1); PHelper().CreateFlag16(values, PrepareKey(pref, *s_name, "Flags" DELIMITER "Allow R2"),
+//     &flags, flR2); P = PHelper().CreateFlag16(values, PrepareKey(pref, *s_name, "Flags" DELIMITER "Allow
+//     Ambient"), &flags, flPointAmbient); P->OnChangeEvent.bind(this, &CSE_ALifeObjectHangingLamp::OnChangeFlag);
+//     //
+//     P = PHelper().CreateFlag16(values, PrepareKey(pref, *s_name, "Light" DELIMITER "Type"), &flags, flTypeSpot,
+//     "Point", "Spot"); P->OnChangeEvent.bind(this, &CSE_ALifeObjectHangingLamp::OnChangeFlag);
+//     PHelper().CreateColor(values, PrepareKey(pref, *s_name, "Light" DELIMITER "Main" DELIMITER "Color"), &color);
+//     PHelper().CreateFloat(values, PrepareKey(pref, *s_name, "Light" DELIMITER "Main" DELIMITER "Brightness"),
+//     &brightness, 0.1f, 5.f); PHelper().CreateChoose(values, PrepareKey(pref, *s_name, "Light" DELIMITER "Main"
+//     DELIMITER "Color Animator"), &color_animator, smLAnim); PHelper().CreateFloat(values, PrepareKey(pref,
+//     *s_name, "Light" DELIMITER "Main" DELIMITER "Range"), &range, 0.1f, 1000.f); PHelper().CreateFloat(values,
+//     PrepareKey(pref, *s_name, "Light" DELIMITER "Main" DELIMITER "Virtual Size"), &m_virtual_size, 0.f, 100.f);
+//     PHelper().CreateChoose(
+//     values, PrepareKey(pref, *s_name, "Light" DELIMITER "Main" DELIMITER "Texture"), &light_texture, smTexture,
+//     "lights"); PHelper().CreateChoose(values, PrepareKey(pref, *s_name, "Light" DELIMITER "Main" DELIMITER
+//     "Bone"), &light_main_bone, smSkeletonBones, nullptr, (void*)visual()->get_visual()); if
+//     (flags.is(flTypeSpot))
+//     {
+//         PHelper().CreateAngle(
+//         values, PrepareKey(pref, *s_name, "Light" DELIMITER "Main" DELIMITER "Cone Angle"), &spot_cone_angle,
+//         deg2rad(1.f), deg2rad(120.f));
+//         //      PHelper().CreateFlag16  (values, PrepareKey(pref,*s_name,"Light" DELIMITER "Main" DELIMITER
+//         "Volumetric"),    &flags,
+//         //      flVolumetric);
+//         P = PHelper().CreateFlag16(values, PrepareKey(pref, *s_name, "Flags" DELIMITER "Volumetric"), &flags,
+//         flVolumetric); P->OnChangeEvent.bind(this, &CSE_ALifeObjectHangingLamp::OnChangeFlag);
+//     }
+//
+//     if (flags.is(flPointAmbient))
+//     {
+//         PHelper().CreateFloat(
+//         values, PrepareKey(pref, *s_name, "Light" DELIMITER "Ambient" DELIMITER "Radius"), &m_ambient_radius,
+//         0.f, 1000.f); PHelper().CreateFloat(values, PrepareKey(pref, *s_name, "Light" DELIMITER "Ambient"
+//         DELIMITER "Power"), &m_ambient_power); PHelper().CreateChoose( values, PrepareKey(pref, *s_name, "Light"
+//         DELIMITER "Ambient" DELIMITER "Texture"), &m_ambient_texture, smTexture, "lights");
+//         PHelper().CreateChoose(values, PrepareKey(pref, *s_name, "Light" DELIMITER "Ambient" DELIMITER "Bone"),
+//         &light_ambient_bone, smSkeletonBones, nullptr, (void*)visual()->get_visual());
+//     }
+//
+//     if (flags.is(flVolumetric))
+//     {
+//         PHelper().CreateFloat(
+//         values, PrepareKey(pref, *s_name, "Light" DELIMITER "Volumetric" DELIMITER "Quality"),
+//         &m_volumetric_quality, 0.f, 1.f); PHelper().CreateFloat( values, PrepareKey(pref, *s_name, "Light"
+//         DELIMITER "Volumetric" DELIMITER "Intensity"), &m_volumetric_intensity, 0.f, 10.f);
+//         PHelper().CreateFloat(
+//         values, PrepareKey(pref, *s_name, "Light" DELIMITER "Volumetric" DELIMITER "Distance"),
+//         &m_volumetric_distance, 0.f, 1.f);
+//     }
+//
+//     // fixed bones
+//     PHelper().CreateChoose(values, PrepareKey(pref, *s_name, "Model" DELIMITER "Fixed bones"), &fixed_bones,
+//     smSkeletonBones, nullptr, (void*)visual()->get_visual(), 8);
+//     // glow
+//     PHelper().CreateFloat(values, PrepareKey(pref, *s_name, "Glow" DELIMITER "Radius"), &glow_radius, 0.01f,
+//     100.f); PHelper().CreateChoose(values, PrepareKey(pref, *s_name, "Glow" DELIMITER "Texture"), &glow_texture,
+//     smTexture, "glow");
+//     // game
+//     PHelper().CreateFloat(values, PrepareKey(pref, *s_name, "Game" DELIMITER "Health"), &m_health, 0.f, 100.f);
+// }
 
 #define VIS_RADIUS 0.25f
 void CSE_ALifeObjectHangingLamp::on_render(
-CDUInterface* du, IServerEntityLEOwner* owner, bool bSelected, const Fmatrix& parent, int priority, bool strictB2F)
+    CDUInterface* du, IServerEntityLEOwner* owner, bool bSelected, const Fmatrix& parent, int priority, bool strictB2F)
 {
     inherited1::on_render(du, owner, bSelected, parent, priority, strictB2F);
     if ((1 == priority) && (false == strictB2F))
@@ -1433,7 +1453,7 @@ bool CSE_ALifeObjectHangingLamp::match_configuration() const /* noexcept */
     R_ASSERT3(flags.test(flR1) || flags.test(flR2), "no renderer type set for hanging-lamp ", name_replace());
 #ifdef XRGAME_EXPORTS
     return ((flags.test(flR1) && (GEnv.Render->get_generation() == IRender::GENERATION_R1)) ||
-    (flags.test(flR2) && (GEnv.Render->get_generation() == IRender::GENERATION_R2)));
+        (flags.test(flR2) && (GEnv.Render->get_generation() == IRender::GENERATION_R2)));
 #else
     return (true);
 #endif
@@ -1455,7 +1475,7 @@ void CSE_ALifeObjectProjector::STATE_Write(NET_Packet& tNetPacket) { inherited::
 void CSE_ALifeObjectProjector::UPDATE_Read(NET_Packet& tNetPacket) { inherited::UPDATE_Read(tNetPacket); }
 void CSE_ALifeObjectProjector::UPDATE_Write(NET_Packet& tNetPacket) { inherited::UPDATE_Write(tNetPacket); }
 #ifndef XRGAME_EXPORTS
-void CSE_ALifeObjectProjector::FillProps(LPCSTR pref, PropItemVec& values) { inherited::FillProps(pref, values); }
+// void CSE_ALifeObjectProjector::FillProps(LPCSTR pref, PropItemVec& values) { inherited::FillProps(pref, values); }
 #endif // #ifndef XRGAME_EXPORTS
 
 bool CSE_ALifeObjectProjector::used_ai_locations() const /* noexcept */ { return false; }
@@ -1474,7 +1494,8 @@ CSE_ALifeSchedulable::~CSE_ALifeSchedulable() {}
 bool CSE_ALifeSchedulable::need_update(CSE_ALifeDynamicObject* object)
 {
     return (!object ||
-    (object->m_bDirectControl && /**object->interactive() && /**/ object->used_ai_locations() && !object->m_bOnline));
+        (object->m_bDirectControl && /**object->interactive() && /**/ object->used_ai_locations() &&
+            !object->m_bOnline));
 }
 
 CSE_Abstract* CSE_ALifeSchedulable::init() { return (base()); }
@@ -1564,14 +1585,14 @@ void CSE_ALifeHelicopter::load(NET_Packet& tNetPacket)
 }
 bool CSE_ALifeHelicopter::can_save() const /* noexcept */ { return CSE_PHSkeleton::need_save(); }
 #ifndef XRGAME_EXPORTS
-void CSE_ALifeHelicopter::FillProps(LPCSTR pref, PropItemVec& values)
-{
-    inherited1::FillProps(pref, values);
-    inherited2::FillProps(pref, values);
-    inherited3::FillProps(pref, values);
-
-    PHelper().CreateChoose(values, PrepareKey(pref, *s_name, "Engine Sound"), &engine_sound, smSoundSource);
-}
+// void CSE_ALifeHelicopter::FillProps(LPCSTR pref, PropItemVec& values)
+// {
+//     inherited1::FillProps(pref, values);
+//     inherited2::FillProps(pref, values);
+//     inherited3::FillProps(pref, values);
+//
+//     PHelper().CreateChoose(values, PrepareKey(pref, *s_name, "Engine Sound"), &engine_sound, smSoundSource);
+// }
 #endif // #ifndef XRGAME_EXPORTS
 
 bool CSE_ALifeHelicopter::used_ai_locations() const /* noexcept */ { return false; }
@@ -1696,12 +1717,12 @@ void CSE_ALifeCar::SDoorState::write(NET_Packet& P)
 void CSE_ALifeCar::SWheelState::read(NET_Packet& P) { health = P.r_float(); }
 void CSE_ALifeCar::SWheelState::write(NET_Packet& P) { P.w_float(health); }
 #ifndef XRGAME_EXPORTS
-void CSE_ALifeCar::FillProps(LPCSTR pref, PropItemVec& values)
-{
-    inherited1::FillProps(pref, values);
-    inherited2::FillProps(pref, values);
-    PHelper().CreateFloat(values, PrepareKey(pref, *s_name, "Health"), &health, 0.f, 1.0f);
-}
+// void CSE_ALifeCar::FillProps(LPCSTR pref, PropItemVec& values)
+// {
+//     inherited1::FillProps(pref, values);
+//     inherited2::FillProps(pref, values);
+//     PHelper().CreateFloat(values, PrepareKey(pref, *s_name, "Health"), &health, 0.f, 1.0f);
+// }
 #endif // #ifndef XRGAME_EXPORTS
 
 ////////////////////////////////////////////////////////////////////////////
@@ -1730,11 +1751,11 @@ void CSE_ALifeObjectBreakable::STATE_Write(NET_Packet& tNetPacket)
 void CSE_ALifeObjectBreakable::UPDATE_Read(NET_Packet& tNetPacket) { inherited::UPDATE_Read(tNetPacket); }
 void CSE_ALifeObjectBreakable::UPDATE_Write(NET_Packet& tNetPacket) { inherited::UPDATE_Write(tNetPacket); }
 #ifndef XRGAME_EXPORTS
-void CSE_ALifeObjectBreakable::FillProps(LPCSTR pref, PropItemVec& values)
-{
-    inherited::FillProps(pref, values);
-    PHelper().CreateFloat(values, PrepareKey(pref, *s_name, "Health"), &m_health, 0.f, 100.f);
-}
+// void CSE_ALifeObjectBreakable::FillProps(LPCSTR pref, PropItemVec& values)
+// {
+//     inherited::FillProps(pref, values);
+//     PHelper().CreateFloat(values, PrepareKey(pref, *s_name, "Health"), &m_health, 0.f, 100.f);
+// }
 #endif // #ifndef XRGAME_EXPORTS
 
 bool CSE_ALifeObjectBreakable::used_ai_locations() const /* noexcept */ { return false; }
@@ -1785,12 +1806,13 @@ void CSE_ALifeObjectClimable::UPDATE_Write(NET_Packet& /*tNetPacket*/)
 }
 
 #ifndef XRGAME_EXPORTS
-void CSE_ALifeObjectClimable::FillProps(LPCSTR pref, PropItemVec& values)
-{
-    // inherited1::FillProps         (pref,values);
-    inherited2::FillProps(pref, values);
-    // PHelper().CreateFloat     (values, PrepareKey(pref,*s_name,"Health"),         &m_health,          0.f, 100.f);
-}
+// void CSE_ALifeObjectClimable::FillProps(LPCSTR pref, PropItemVec& values)
+// {
+//     // inherited1::FillProps         (pref,values);
+//     inherited2::FillProps(pref, values);
+//     // PHelper().CreateFloat     (values, PrepareKey(pref,*s_name,"Health"),         &m_health,          0.f,
+//     100.f);
+// }
 
 void CSE_ALifeObjectClimable::set_additional_info(void* info)
 {
@@ -1811,7 +1833,7 @@ void CSE_ALifeMountedWeapon::STATE_Write(NET_Packet& tNetPacket) { inherited::ST
 void CSE_ALifeMountedWeapon::UPDATE_Read(NET_Packet& tNetPacket) { inherited::UPDATE_Read(tNetPacket); }
 void CSE_ALifeMountedWeapon::UPDATE_Write(NET_Packet& tNetPacket) { inherited::UPDATE_Write(tNetPacket); }
 #ifndef XRGAME_EXPORTS
-void CSE_ALifeMountedWeapon::FillProps(LPCSTR pref, PropItemVec& values) { inherited::FillProps(pref, values); }
+// void CSE_ALifeMountedWeapon::FillProps(LPCSTR pref, PropItemVec& values) { inherited::FillProps(pref, values); }
 #endif // #ifndef XRGAME_EXPORTS
 
 CSE_ALifeStationaryMgun::CSE_ALifeStationaryMgun(LPCSTR caSection) : CSE_ALifeDynamicObjectVisual(caSection) {}
@@ -1833,7 +1855,7 @@ void CSE_ALifeStationaryMgun::UPDATE_Write(NET_Packet& tNetPacket)
 void CSE_ALifeStationaryMgun::STATE_Read(NET_Packet& tNetPacket, u16 size) { inherited::STATE_Read(tNetPacket, size); }
 void CSE_ALifeStationaryMgun::STATE_Write(NET_Packet& tNetPacket) { inherited::STATE_Write(tNetPacket); }
 #ifndef XRGAME_EXPORTS
-void CSE_ALifeStationaryMgun::FillProps(LPCSTR pref, PropItemVec& values) { inherited::FillProps(pref, values); }
+// void CSE_ALifeStationaryMgun::FillProps(LPCSTR pref, PropItemVec& values) { inherited::FillProps(pref, values); }
 #endif // #ifndef XRGAME_EXPORTS
 
 ////////////////////////////////////////////////////////////////////////////
@@ -1856,11 +1878,11 @@ void CSE_ALifeTeamBaseZone::STATE_Write(NET_Packet& tNetPacket)
 void CSE_ALifeTeamBaseZone::UPDATE_Read(NET_Packet& tNetPacket) { inherited::UPDATE_Read(tNetPacket); }
 void CSE_ALifeTeamBaseZone::UPDATE_Write(NET_Packet& tNetPacket) { inherited::UPDATE_Write(tNetPacket); }
 #ifndef XRGAME_EXPORTS
-void CSE_ALifeTeamBaseZone::FillProps(LPCSTR pref, PropItemVec& items)
-{
-    inherited::FillProps(pref, items);
-    PHelper().CreateU8(items, PrepareKey(pref, *s_name, "team"), &m_team, 0, 16);
-}
+// void CSE_ALifeTeamBaseZone::FillProps(LPCSTR pref, PropItemVec& items)
+// {
+//     inherited::FillProps(pref, items);
+//     PHelper().CreateU8(items, PrepareKey(pref, *s_name, "team"), &m_team, 0, 16);
+// }
 #endif // #ifndef XRGAME_EXPORTS
 
 ////////////////////////////////////////////////////////////////////////////
@@ -1887,7 +1909,7 @@ void CSE_ALifeSmartZone::STATE_Write(NET_Packet& tNetPacket) { inherited1::STATE
 void CSE_ALifeSmartZone::UPDATE_Read(NET_Packet& tNetPacket) { inherited1::UPDATE_Read(tNetPacket); }
 void CSE_ALifeSmartZone::UPDATE_Write(NET_Packet& tNetPacket) { inherited1::UPDATE_Write(tNetPacket); }
 #ifndef XRGAME_EXPORTS
-void CSE_ALifeSmartZone::FillProps(LPCSTR pref, PropItemVec& items) { inherited1::FillProps(pref, items); }
+// void CSE_ALifeSmartZone::FillProps(LPCSTR pref, PropItemVec& items) { inherited1::FillProps(pref, items); }
 #endif // #ifndef XRGAME_EXPORTS
 
 void CSE_ALifeSmartZone::update() {}
@@ -1932,5 +1954,5 @@ void CSE_ALifeInventoryBox::STATE_Write(NET_Packet& tNetPacket)
 void CSE_ALifeInventoryBox::UPDATE_Read(NET_Packet& tNetPacket) { inherited::UPDATE_Read(tNetPacket); }
 void CSE_ALifeInventoryBox::UPDATE_Write(NET_Packet& tNetPacket) { inherited::UPDATE_Write(tNetPacket); }
 #ifndef XRGAME_EXPORTS
-void CSE_ALifeInventoryBox::FillProps(LPCSTR pref, PropItemVec& values) { inherited::FillProps(pref, values); }
+// void CSE_ALifeInventoryBox::FillProps(LPCSTR pref, PropItemVec& values) { inherited::FillProps(pref, values); }
 #endif // #ifndef XRGAME_EXPORTS

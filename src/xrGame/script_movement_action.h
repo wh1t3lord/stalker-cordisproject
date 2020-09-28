@@ -81,6 +81,7 @@ public:
     MonsterSpace::EScriptMonsterSpeedParam m_tSpeedParam;
     u32 m_previous_patrol_point;
     float m_fDistToEnd;
+    CPatrolPathParams* m_p_captured_path;
 
 public:
     float m_jump_factor;

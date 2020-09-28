@@ -10,7 +10,7 @@
 
 namespace smart_cover
 {
-IC target_selector::callback_type const& target_selector::callback() const { return (m_script_callback); }
+//IC target_selector::callback_type const& target_selector::callback() const { return (m_script_callback); } Lord - Проверить используется ли в крестах или где-то ещё 
 } // namespace smart_cover
 
 #endif // SMART_COVER_PLANNER_TARGET_SELECTOR_INLINE_H_INCLUDED

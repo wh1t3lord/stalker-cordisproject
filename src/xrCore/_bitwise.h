@@ -4,6 +4,8 @@
 #include "math_constants.h"
 #include "_types.h"
 
+ 
+
 // float values defines
 #define fdSGN 0x080000000 // mask for sign bit
 #define fdMABS 0x07FFFFFFF // mask for absolute value (~sgn)

@@ -9,6 +9,22 @@
       <Configuration>Debug</Configuration>
       <Platform>x64</Platform>
     </ProjectConfiguration>
+    <ProjectConfiguration Include="Jumbo - Debug|Win32">
+      <Configuration>Jumbo - Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Jumbo - Debug|x64">
+      <Configuration>Jumbo - Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Jumbo|Win32">
+      <Configuration>Jumbo</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Jumbo|x64">
+      <Configuration>Jumbo</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
     <ProjectConfiguration Include="Mixed|Win32">
       <Configuration>Mixed</Configuration>
       <Platform>Win32</Platform>
@@ -62,7 +78,7 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup>
-    <OutDir>$(xrIntDir)</OutDir>
+    <OutDir>$(xrOutputBinDir)</OutDir>
   </PropertyGroup>
   <ItemDefinitionGroup>
     <ClCompile>
@@ -96,10 +112,11 @@
       <PreprocessorDefinitions>_USRDLL;XRGAME_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <FloatingPointModel>Fast</FloatingPointModel>
       <RuntimeTypeInfo>true</RuntimeTypeInfo>
-      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
       <AdditionalIncludeDirectories>$(SolutionDir)xrServerEntities;$(SolutionDir);$(ProjectDir);$(xrSdkDir)include;$(xrExternals)luajit\src;$(xrExternals)luabind;$(xrExternals)GameSpy\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <ShowIncludes>true</ShowIncludes>
       <MinimalRebuild>false</MinimalRebuild>
+      <BasicRuntimeChecks>Default</BasicRuntimeChecks>
     </ClCompile>
     <Link>
       <AdditionalLibraryDirectories>$(xrLibDir);$(xrSdkDir)libraries;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
@@ -126,7 +143,83 @@
       <ProgramDatabaseFile>$(IntDir)$(TargetName).pdb</ProgramDatabaseFile>
     </Link>
   </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Jumbo|Win32'">
+    <ClCompile>
+      <WarningLevel>TurnOffAllWarnings</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>_USRDLL;XRGAME_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <FloatingPointModel>Fast</FloatingPointModel>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <AdditionalIncludeDirectories>$(SolutionDir)xrServerEntities;$(SolutionDir);$(ProjectDir);$(xrSdkDir)include;$(xrExternals)luajit\src;$(xrExternals)luabind;$(xrExternals)GameSpy\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <ShowIncludes>true</ShowIncludes>
+      <MinimalRebuild>false</MinimalRebuild>
+    </ClCompile>
+    <Link>
+      <AdditionalLibraryDirectories>$(xrLibDir);$(xrSdkDir)libraries;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <OutputFile>$(IntDir)$(TargetName)$(TargetExt)</OutputFile>
+      <ProgramDatabaseFile>$(IntDir)$(TargetName).pdb</ProgramDatabaseFile>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Jumbo - Debug|Win32'">
+    <ClCompile>
+      <WarningLevel>TurnOffAllWarnings</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>_USRDLL;XRGAME_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <FloatingPointModel>Fast</FloatingPointModel>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <AdditionalIncludeDirectories>$(SolutionDir)xrServerEntities;$(SolutionDir);$(ProjectDir);$(xrSdkDir)include;$(xrExternals)luajit\src;$(xrExternals)luabind;$(xrExternals)GameSpy\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <ShowIncludes>true</ShowIncludes>
+      <MinimalRebuild>false</MinimalRebuild>
+    </ClCompile>
+    <Link>
+      <AdditionalLibraryDirectories>$(xrLibDir);$(xrSdkDir)libraries;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <OutputFile>$(IntDir)$(TargetName)$(TargetExt)</OutputFile>
+      <ProgramDatabaseFile>$(IntDir)$(TargetName).pdb</ProgramDatabaseFile>
+    </Link>
+  </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Mixed|x64'">
+    <ClCompile>
+      <WarningLevel>TurnOffAllWarnings</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>_USRDLL;XRGAME_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <FloatingPointModel>Fast</FloatingPointModel>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <AdditionalIncludeDirectories>$(SolutionDir)xrServerEntities;$(SolutionDir);$(ProjectDir);$(xrSdkDir)include;$(xrExternals)luajit\src;$(xrExternals)luabind;$(xrExternals)GameSpy\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <ShowIncludes>true</ShowIncludes>
+      <MinimalRebuild>false</MinimalRebuild>
+    </ClCompile>
+    <Link>
+      <AdditionalLibraryDirectories>$(xrLibDir);$(xrSdkDir)libraries;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <OutputFile>$(IntDir)$(TargetName)$(TargetExt)</OutputFile>
+      <ProgramDatabaseFile>$(IntDir)$(TargetName).pdb</ProgramDatabaseFile>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Jumbo|x64'">
+    <ClCompile>
+      <WarningLevel>TurnOffAllWarnings</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>_USRDLL;XRGAME_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <FloatingPointModel>Fast</FloatingPointModel>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <AdditionalIncludeDirectories>$(SolutionDir)xrServerEntities;$(SolutionDir);$(ProjectDir);$(xrSdkDir)include;$(xrExternals)luajit\src;$(xrExternals)luabind;$(xrExternals)GameSpy\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <ShowIncludes>true</ShowIncludes>
+      <MinimalRebuild>false</MinimalRebuild>
+    </ClCompile>
+    <Link>
+      <AdditionalLibraryDirectories>$(xrLibDir);$(xrSdkDir)libraries;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <OutputFile>$(IntDir)$(TargetName)$(TargetExt)</OutputFile>
+      <ProgramDatabaseFile>$(IntDir)$(TargetName).pdb</ProgramDatabaseFile>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Jumbo - Debug|x64'">
     <ClCompile>
       <WarningLevel>TurnOffAllWarnings</WarningLevel>
       <Optimization>Disabled</Optimization>

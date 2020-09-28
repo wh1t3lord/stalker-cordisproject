@@ -63,6 +63,7 @@ protected:
     template <typename _client_type, typename _server_type>
     IC void add(const CLASS_ID& clsid, LPCSTR script_clsid);
     IC const CObjectItemAbstract& item(const CLASS_ID& clsid) const;
+    inline const CObjectItemAbstract* item_sdk(const CLASS_ID& clsid, bool no_assert) const;
 #else
     IC const CObjectItemAbstract* item(const CLASS_ID& clsid, bool no_assert) const;
 #endif

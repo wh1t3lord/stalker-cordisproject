@@ -78,6 +78,7 @@ float angle_distance(float x, float y)
 // Either one or two solutions. Return the answer in radians
 //
 
+/* Lord: [JUMBO] но в общем была коллизия надо посмотреть не сильно отличаются 
 int solve_trig1(float a, float b, float c, float theta[2])
 {
     float temp = (a * a + b * b - c * c);
@@ -110,7 +111,7 @@ int solve_trig1(float a, float b, float c, float theta[2])
         // theta[1] = angle_normalize_signed(theta[1]);
     }
     return num;
-}
+}*/
 
 //
 // Solve the system

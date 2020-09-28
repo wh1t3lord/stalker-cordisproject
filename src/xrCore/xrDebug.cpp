@@ -593,6 +593,8 @@ int out_of_memory_handler(size_t size)
         Msg("* [x-ray]: process heap[%zu K]", processHeap / 1024);
         Msg("* [x-ray]: economy: strings[%zu K], smem[%zu K]", ecoStrings / 1024, ecoSmem);
     }
+
+    R_ASSERT2(false, "something goes wrong!");
     xrDebug::Fatal(DEBUG_INFO, "Out of memory. Memory request: %zu K", size / 1024);
     return 1;
 }

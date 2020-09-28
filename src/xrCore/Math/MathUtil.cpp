@@ -9,7 +9,7 @@
 #include "Layers/xrRender/SkeletonXVertRender.h"
 #define RENDER 1
 #include "xrEngine/Render.h"
-#include "Layers/xrRender/light.h"
+#include "xrGame/Render/Kernel/light.h"
 #endif
 #include "PLC_SSE.hpp"
 #if defined(WINDOWS) && defined(XR_X86)

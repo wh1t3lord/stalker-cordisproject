@@ -1,7 +1,7 @@
 #include "StdAfx.h"
 #include "SimpleDetector.h"
 #include "ui/ArtefactDetectorUI.h"
-#include "Include/xrRender/Kinematics.h"
+#include "Kinematics.h"
 #include "xrEngine/LightAnimLibrary.h"
 #include "player_hud.h"
 
@@ -66,7 +66,7 @@ void CSimpleDetector::UpdateAf()
     if (af_info.snd_time > af_info.cur_period)
     {
         af_info.snd_time = 0;
-        HUD_SOUND_ITEM::PlaySound(item_type->detect_snds, Fvector().set(0, 0, 0), this, true, false);
+        HUD_SOUND_ITEM::play_sound(item_type->detect_snds, Fvector().set(0, 0, 0), this, true, false);
         ui().Flash(true, fRelPow);
         if (item_type->detect_snds.m_activeSnd)
             item_type->detect_snds.m_activeSnd->snd.set_frequency(snd_freq);

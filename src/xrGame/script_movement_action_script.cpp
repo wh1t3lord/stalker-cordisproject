@@ -17,6 +17,7 @@
 
 using namespace luabind;
 
+/*
 SCRIPT_EXPORT(CScriptMovementAction, (), {
     module(luaState)[class_<CScriptMovementAction>("move")
                          .enum_("body")[value("crouch", int(MonsterSpace::eBodyStateCrouch)),
@@ -92,3 +93,4 @@ SCRIPT_EXPORT(CScriptMovementAction, (), {
                          .def("input", &CScriptMovementAction::SetInputKeys)
                          .def("completed", (bool (CScriptMovementAction::*)())(&CScriptMovementAction::completed))];
 });
+*/

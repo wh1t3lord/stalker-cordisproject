@@ -7,8 +7,8 @@
 #include "Level.h"
 #include "game_cl_base.h"
 #include "entity_alive.h"
-#include "Include/xrRender/KinematicsAnimated.h"
-#include "Include/xrRender/Kinematics.h"
+#include "KinematicsAnimated.h"
+#include "Kinematics.h"
 #include "Common/object_broker.h"
 #include "ActorHelmet.h"
 
@@ -312,8 +312,9 @@ float CEntityCondition::HitOutfitEffect(
     if (pHelmet)
         new_hit_power = pHelmet->HitThroughArmor(new_hit_power, element, ap, add_wound, hit_type);
 
-    if (bDebug)
+#ifdef DEBUG
         Msg("new_hit_power = %.3f  hit_type = %s  ap = %.3f", new_hit_power, ALife::g_cafHitType2String(hit_type), ap);
+#endif
 
     return new_hit_power;
 }
@@ -459,12 +460,15 @@ CWound* CEntityCondition::ConditionHit(SHit* pHDS)
     break;
     }
 
-    if (bDebug && !is_special_hit_2_self)
+    #ifdef DEBUG
+    if (!is_special_hit_2_self)
     {
         Msg("%s hitted in %s with %f[%f]", m_object->Name(),
             smart_cast<IKinematics*>(m_object->Visual())->LL_BoneName_dbg(pHDS->boneID), m_fHealthLost * 100.0f,
             hit_power_org);
     }
+    #endif
+
     //раны добавляются только живому
     if (bAddWound && GetHealth() > 0)
     {

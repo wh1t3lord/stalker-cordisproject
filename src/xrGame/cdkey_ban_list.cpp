@@ -19,7 +19,7 @@ void cdkey_ban_list::load()
     for (CInifile::Root::iterator i = banlist.begin(), ie = banlist.end(); i != ie; ++i)
     {
         banned_client* tmp_client = new banned_client();
-        if (tmp_client->load(&bl_ini, (*i)->Name))
+        if (tmp_client->load(&bl_ini, (*i)->Name.c_str()))
         {
             m_ban_list.push_back(tmp_client);
         }
@@ -157,7 +157,7 @@ void cdkey_ban_list::unban_player_by_index(size_t const index)
     save();
 }
 
-char const* print_time(time_t const& src_time, string64& dest_time)
+char const* cdkey_print_time(time_t const& src_time, string64& dest_time)
 {
     tm* tmp_tm = localtime(&src_time);
     xr_sprintf(dest_time, sizeof(dest_time), "%02d.%02d.%d_%02d:%02d:%02d", tmp_tm->tm_mday, tmp_tm->tm_mon + 1,
@@ -178,7 +178,7 @@ void cdkey_ban_list::print_ban_list(char const* filter_string)
         string64 temp_time;
         xr_sprintf(tmp_string, "- (player index : %d), (ip : %s), (name : %s), (end time : %s), (hex digest : %s);",
             index, (*i)->client_ip_addr.to_string().c_str(), (*i)->client_name.c_str(),
-            print_time((*i)->ban_end_time, temp_time), (*i)->client_hexstr_digest.c_str());
+            cdkey_print_time((*i)->ban_end_time, temp_time), (*i)->client_hexstr_digest.c_str());
         if (filter_string)
         {
             if (strstr(tmp_string, filter_string))
@@ -264,8 +264,8 @@ void cdkey_ban_list::banned_client::save(CInifile* ini, char const* name_sect)
 {
     ini->w_string(name_sect, CLIENT_HEX_DIGEST_KEY, client_hexstr_digest.c_str());
     string64 stor_string;
-    ini->w_string(name_sect, CLIENT_BAN_START_TIME_KEY, print_time(ban_start_time, stor_string));
-    ini->w_string(name_sect, CLIENT_BAN_END_TIME_KEY, print_time(ban_end_time, stor_string));
+    ini->w_string(name_sect, CLIENT_BAN_START_TIME_KEY, cdkey_print_time(ban_start_time, stor_string));
+    ini->w_string(name_sect, CLIENT_BAN_END_TIME_KEY, cdkey_print_time(ban_end_time, stor_string));
     ini->w_string(name_sect, CLIENT_NAME_KEY, client_name.c_str());
     ini->w_string(name_sect, CLIENT_IP_KEY, client_ip_addr.to_string().c_str());
     ini->w_string(name_sect, ADMIN_NAME_KEY, admin_name.c_str());

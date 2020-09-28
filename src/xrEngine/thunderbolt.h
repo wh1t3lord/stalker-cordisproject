@@ -10,10 +10,10 @@
 class ENGINE_API IRender_DetailModel;
 class ENGINE_API CLAItem;
 
-#include "Include/xrRender/FactoryPtr.h"
-#include "Include/xrRender/LensFlareRender.h"
-#include "Include/xrRender/ThunderboltDescRender.h"
-#include "Include/xrRender/ThunderboltRender.h"
+#include "xrGame/Render/Kernel/FactoryPtr.h"
+#include "xrGame/Render/Kernel/LensFlareRender.h"
+#include "xrGame/Render/Kernel/ThunderboltDescRender.h"
+#include "xrGame/Render/Kernel/ThunderboltRender.h"
 
 class CEnvironment;
 

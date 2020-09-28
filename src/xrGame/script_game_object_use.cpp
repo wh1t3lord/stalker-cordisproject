@@ -55,17 +55,36 @@ CScriptGameObject* CScriptGameObject::Parent() const
         return (0);
 }
 
-int CScriptGameObject::clsid() const { return (object().clsid()); }
-LPCSTR CScriptGameObject::Name() const { return (*object().cName()); }
+int CScriptGameObject::clsid() const 
+{
+    if (m_game_object == nullptr)
+    {
+        MESSAGEWR("object is already deleted!");
+        return -1;
+    }
+
+    return (object().clsid()); 
+}
+
+LPCSTR CScriptGameObject::Name() const 
+{ 
+    if ((this == nullptr) || (m_game_object == nullptr) || (m_game_object->lua_game_object() == nullptr))
+    {
+        MESSAGEI("instance was deleted and returned this, if you skip this you will get PVC!");
+        return xr_string("already_deleted_npc!").c_str();
+    }
+
+    return (*object().cName()); 
+}
 shared_str CScriptGameObject::cName() const { return (object().cName()); }
 LPCSTR CScriptGameObject::Section() const { return (*object().cNameSect()); }
-void CScriptGameObject::Kill(CScriptGameObject* who, bool bypass_actor_check /*AVO: added for actor before death callback*/)
+void CScriptGameObject::Kill(
+    CScriptGameObject* who, bool bypass_actor_check /*AVO: added for actor before death callback*/)
 {
     CEntity* l_tpEntity = smart_cast<CEntity*>(&object());
     if (!l_tpEntity)
     {
-        GEnv.ScriptEngine->script_log(
-            LuaMessageType::Error, "%s cannot access class member Kill!", *object().cName());
+        R_ASSERT2(false, "bad cast!");
         return;
     }
     if (!l_tpEntity->AlreadyDie())
@@ -106,23 +125,9 @@ ALife::ERelationType CScriptGameObject::GetRelationType(CScriptGameObject* who)
     return l_tpEntityAlive1->tfGetRelationType(l_tpEntityAlive2);
 }
 
+/*
 template <typename T>
-IC T* CScriptGameObject::action_planner()
-{
-    CAI_Stalker* manager = smart_cast<CAI_Stalker*>(&object());
-    if (!manager)
-    {
-        GEnv.ScriptEngine->script_log(
-            LuaMessageType::Error, "CAI_Stalker : cannot access class member action_planner!");
-        return (0);
-    }
-    return (&manager->brain());
-}
-
-CScriptActionPlanner* script_action_planner(CScriptGameObject* obj)
-{
-    return (obj->action_planner<CScriptActionPlanner>());
-}
+IC T* CScriptGameObject::action_planner()*/
 
 void CScriptGameObject::set_enemy_callback(const luabind::functor<bool>& functor)
 {
@@ -133,7 +138,8 @@ void CScriptGameObject::set_enemy_callback(const luabind::functor<bool>& functor
             LuaMessageType::Error, "CCustomMonster : cannot access class member set_enemy_callback!");
         return;
     }
-    monster->memory().enemy().useful_callback().set(functor);
+    // Lord - [Script] Re-write
+    //   monster->memory().enemy().useful_callback().set(functor);
 }
 
 void CScriptGameObject::set_enemy_callback(const luabind::functor<bool>& functor, const luabind::object& object)
@@ -145,33 +151,58 @@ void CScriptGameObject::set_enemy_callback(const luabind::functor<bool>& functor
             LuaMessageType::Error, "CCustomMonster : cannot access class member set_enemy_callback!");
         return;
     }
-    monster->memory().enemy().useful_callback().set(functor, object);
+    // Lord - [Script] Re-write
+    //   monster->memory().enemy().useful_callback().set(functor, object);
 }
 
-void CScriptGameObject::set_enemy_callback()
+void CScriptGameObject::set_enemy_callback(std::function<bool(CScriptGameObject* const, CScriptGameObject* const)>& func)
+{
+    if (func == nullptr)
+    {
+        MESSAGEWR("If you want delete function call the delete_enemy_callback() function!");
+        return;
+    }
+
+    CCustomMonster* monster = smart_cast<CCustomMonster*>(&this->object());
+
+    if (!monster)
+    {
+        MESSAGEWR("bad cast can't cast to CCustomMonster!");
+        return;
+    }
+
+    monster->memory().enemy().setUsefulCallback(func);
+}
+
+void CScriptGameObject::delete_enemy_callback(void)
 {
     CCustomMonster* monster = smart_cast<CCustomMonster*>(&object());
     if (!monster)
     {
-        GEnv.ScriptEngine->script_log(
-            LuaMessageType::Error, "CCustomMonster : cannot access class member set_enemy_callback!");
+        MESSAGEWR("bad cast can't cast to CCustomMonster");
         return;
     }
-    monster->memory().enemy().useful_callback().clear();
+
+    monster->memory().enemy().setUsefulCallback(nullptr);
 }
 
 void CScriptGameObject::SetCallback(GameObject::ECallbackType type, const luabind::functor<void>& functor)
 {
-    object().callback(type).set(functor);
+    // Lord - [Script] Re-write
+    //  object().callback(type).set(functor);
 }
 
 void CScriptGameObject::SetCallback(
     GameObject::ECallbackType type, const luabind::functor<void>& functor, const luabind::object& object)
 {
-    this->object().callback(type).set(functor, object);
+    // Lord - [Script] Re-write
+    //  this->object().callback(type).set(functor, object);
 }
 
-void CScriptGameObject::SetCallback(GameObject::ECallbackType type) { object().callback(type).clear(); }
+void CScriptGameObject::SetCallback(GameObject::ECallbackType type)
+{ /*object().callback(type).clear();*/
+}
+/*
 void CScriptGameObject::set_fastcall(const luabind::functor<bool>& functor, const luabind::object& object)
 {
     CPHScriptGameObjectCondition* c = new CPHScriptGameObjectCondition(object, functor, m_game_object);
@@ -179,7 +210,17 @@ void CScriptGameObject::set_fastcall(const luabind::functor<bool>& functor, cons
     CPHSriptReqGObjComparer cmpr(m_game_object);
     Level().ph_commander_scripts().RemoveCallsDeferred(&cmpr);
     Level().ph_commander_scripts().AddCallDeferred(c, a);
+}*/
+
+void CScriptGameObject::set_fastcall(std::function<bool(void)> func)
+{
+    CPHScriptGameObjectCondition* c = new CPHScriptGameObjectCondition(func, m_game_object);
+    CPHDummiAction* a = new CPHDummiAction();
+    CPHSriptReqGObjComparer cmpr(m_game_object);
+    Level().ph_commander_scripts().RemoveCallsDeferred(&cmpr);
+    Level().ph_commander_scripts().AddCallDeferred(c, a);
 }
+
 void CScriptGameObject::set_const_force(const Fvector& dir, float value, u32 time_interval)
 {
     CPhysicsShell* shell = object().cast_physics_shell_holder()->PPhysicsShell();

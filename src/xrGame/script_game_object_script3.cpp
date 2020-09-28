@@ -46,6 +46,7 @@ using namespace luabind::policy;
     Also, we can't to use just 'return smart_cast<TClass*>(&script_obj->object())' here, because
     db.actor:cast_Weapon() returns not 'nil', it returns CActor*.
 */
+/*
 template <typename TClass>
 TClass* ObjectCast(CScriptGameObject* scriptObj)
 {
@@ -485,3 +486,4 @@ class_<CScriptGameObject>& script_register_game_object2(class_<CScriptGameObject
         ;
     return instance;
 }
+*/

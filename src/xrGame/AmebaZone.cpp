@@ -4,7 +4,7 @@
 #include "ZoneVisual.h"
 #include "CustomZone.h"
 #include "xrEngine/xr_collide_form.h"
-#include "Include/xrRender/Kinematics.h"
+#include "Kinematics.h"
 #include "PhysicsShellHolder.h"
 #include "PHMovementControl.h"
 #include "CharacterPhysicsSupport.h"

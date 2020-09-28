@@ -3,7 +3,7 @@
 #include "bloodsucker_state_manager.h"
 #include "Actor.h"
 #include "ActorEffector.h"
-#include "Include/xrRender/KinematicsAnimated.h"
+#include "KinematicsAnimated.h"
 #include "Level.h"
 #include "material_manager.h"
 #include "bloodsucker_vampire_effector.h"
@@ -22,28 +22,30 @@
 #include "PHDestroyable.h"
 #include "CharacterPhysicsSupport.h"
 
+/*
 namespace detail
 {
 namespace bloodsucker
-{
+{*/
 // default hit settings
-float const default_critical_hit_chance = 0.25f;
-float const default_hit_camera_effector_angle = 0;
-float const default_critical_hit_camera_effector_angle = 3.1415f / 6;
+constexpr float  default_critical_hit_chance = 0.25f;
+constexpr float default_hit_camera_effector_angle = 0;
+constexpr float default_critical_hit_camera_effector_angle = 3.1415f / 6;
 
-float const default_camera_effector_move_angular_speed = 1.5f;
-u32 const default_visibility_state_change_min_delay = 1000;
+constexpr float default_camera_effector_move_angular_speed = 1.5f;
+constexpr u32 default_visibility_state_change_min_delay = 1000;
 
-float const default_full_visibility_radius = 5;
-float const default_partial_visibility_radius = 10;
-float const default_runaway_invisible_time = 3000;
+constexpr float default_full_visibility_radius = 5;
+constexpr float default_partial_visibility_radius = 10;
+constexpr float default_runaway_invisible_time = 3000;
 
-char const* const full_visibility_radius_string = "full_visibility_radius";
-char const* const partial_visibility_radius_string = "partial_visibility_radius";
-char const* const visibility_state_change_min_delay_string = "visibility_state_change_min_delay";
+constexpr char const* full_visibility_radius_string = "full_visibility_radius";
+constexpr char const* partial_visibility_radius_string = "partial_visibility_radius";
+constexpr char const* visibility_state_change_min_delay_string = "visibility_state_change_min_delay";
 
+/*
 } // namespace bloodsucker
-} // namespace detail
+} // namespace detail*/
 
 u32 CAI_Bloodsucker::m_time_last_vampire = 0;
 
@@ -56,8 +58,6 @@ CAI_Bloodsucker::CAI_Bloodsucker()
     collision_off = false;
     m_force_visibility_state = unset;
     m_runaway_invisible_time = 0;
-
-    using namespace detail::bloodsucker;
 }
 
 CAI_Bloodsucker::~CAI_Bloodsucker() { xr_delete(StateMan); }
@@ -249,8 +249,6 @@ void CAI_Bloodsucker::Load(LPCSTR section)
     m_sufficient_hits_before_vampire_random = -1 + (rand() % 3);
 
     invisible_particle_name = pSettings->r_string(section, "Particle_Invisible");
-
-    using namespace detail::bloodsucker;
 
     READ_IF_EXISTS(pSettings, r_float, section, "separate_factor", 0.f);
 
@@ -463,19 +461,16 @@ BOOL CAI_Bloodsucker::net_Spawn(CSE_Abstract* DC)
 
 float CAI_Bloodsucker::get_full_visibility_radius()
 {
-    using namespace detail::bloodsucker;
     return override_if_debug(full_visibility_radius_string, m_full_visibility_radius);
 }
 
 float CAI_Bloodsucker::get_partial_visibility_radius()
 {
-    using namespace detail::bloodsucker;
     return override_if_debug(partial_visibility_radius_string, m_partial_visibility_radius);
 }
 
 TTime CAI_Bloodsucker::get_visibility_state_change_min_delay()
 {
-    using namespace detail::bloodsucker;
     return override_if_debug(visibility_state_change_min_delay_string, m_visibility_state_change_min_delay);
 }
 
@@ -534,8 +529,6 @@ void CAI_Bloodsucker::update_invisibility()
 {
     if (CCustomMonster::use_simplified_visual())
         return;
-
-    using namespace detail::bloodsucker;
 
     if (!g_Alive())
     {

@@ -574,6 +574,7 @@ void CObjectHandlerPlanner::setup(CAI_Stalker* object)
 
     set_goal(MonsterSpace::eObjectActionIdle, 0, 0, 0, 0, 0);
 
+
 #ifdef LOG_ACTION
     set_use_log(!!psAI_Flags.test(aiGOAPObject));
 #endif
@@ -617,5 +618,6 @@ void CObjectHandlerPlanner::update()
     if ((psAI_Flags.test(aiGOAPObject) && !m_use_log) || (!psAI_Flags.test(aiGOAPObject) && m_use_log))
         set_use_log(!!psAI_Flags.test(aiGOAPObject));
 #endif
+
     inherited::update();
 }

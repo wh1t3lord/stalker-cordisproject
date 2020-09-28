@@ -11,7 +11,7 @@
 #include "Actor.h"
 #include "ActorEffector.h"
 #include "ai/monsters/ai_monster_effector.h"
-#include "Include/xrRender/KinematicsAnimated.h"
+#include "KinematicsAnimated.h"
 #include "sound_player.h"
 #include "Level.h"
 #include "xrScriptEngine/script_callback_ex.h"
@@ -281,8 +281,11 @@ void CBaseMonster::HitSignal(float amount, Fvector& vLocalDir, IGameObject* who,
 
     Morale.on_hit();
 
-    callback(GameObject::eHit)(
-        lua_game_object(), amount, vLocalDir, smart_cast<const CGameObject*>(who)->lua_game_object(), element);
+    // Lord - [Script] Re-write
+//     callback(GameObject::eHit)(
+//         lua_game_object(), amount, vLocalDir, smart_cast<const CGameObject*>(who)->lua_game_object(), element);
+
+    this->GetScriptBinderObject()->hit_callback(this->lua_game_object(), amount, vLocalDir, (smart_cast<const CGameObject*>(who))->lua_game_object(), element);
 
     // если нейтрал - добавить как врага
     CEntityAlive* obj = smart_cast<CEntityAlive*>(who);

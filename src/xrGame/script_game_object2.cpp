@@ -15,7 +15,7 @@
 #include "script_zone.h"
 #include "object_handler.h"
 #include "script_hit.h"
-#include "Include/xrRender/Kinematics.h"
+#include "Kinematics.h"
 #include "PDA.h"
 #include "InfoPortion.h"
 #include "memory_manager.h"
@@ -31,7 +31,7 @@
 #include "danger_manager.h"
 #include "memory_space.h"
 #include "Actor.h"
-#include "Include/xrRender/Kinematics.h"
+#include "Kinematics.h"
 #include "xrEngine/CameraBase.h"
 #include "ai/stalker/ai_stalker.h"
 #include "Car.h"
@@ -90,9 +90,14 @@ void CScriptGameObject::set_item(MonsterSpace::EObjectAction object_action)
 {
     CObjectHandler* object_handler = smart_cast<CAI_Stalker*>(&object());
     if (!object_handler)
-        GEnv.ScriptEngine->script_log(LuaMessageType::Error, "CObjectHandler : cannot access class member set_item!");
+    {
+        MESSAGEWR("CObjectHandler : cannot access class member set_item!");
+    }
     else
+    {
         object_handler->set_goal(object_action);
+    }
+
 }
 
 void CScriptGameObject::set_item(MonsterSpace::EObjectAction object_action, CScriptGameObject* lua_game_object)

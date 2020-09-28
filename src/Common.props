@@ -48,21 +48,24 @@
   <PropertyGroup Label="UserMacros">
     <xrBinRootDir>$(SolutionDir)..\bin\</xrBinRootDir>
     <xrLibRootDir>$(SolutionDir)..\lib\</xrLibRootDir>
-    <xrBinDir>$(SolutionDir)..\bin\$(xrPlatform)\$(Configuration)\</xrBinDir>
+    <!--xrBinDir>$(SolutionDir)..\bin\$(xrPlatform)\$(Configuration)\</xrBinDir-->
     <xrPlugBinDir>$(SolutionDir)..\bin\$(xrPlatform)\$(Configuration)\plugins\</xrPlugBinDir>
-    <xrLibDir>$(SolutionDir)..\lib\$(xrPlatform)\$(Configuration)\</xrLibDir>
-    <xrIntDir>$(SolutionDir)..\intermediate\$(xrPlatform)\$(Configuration)\</xrIntDir>
+    <!--xrLibDir>$(SolutionDir)..\lib\$(xrPlatform)\$(Configuration)\</xrLibDir-->
+    <!--xrIntDir>$(SolutionDir)..\intermediate\$(xrPlatform)\$(Configuration)\</xrIntDir-->
     <xrSdkDir>$(SolutionDir)..\sdk\</xrSdkDir>
-    <xrExternals>$(SolutionDir)..\Externals\</xrExternals>
+	<xrOutputRootDir>$(SolutionDir)..\out\</xrOutputRootDir>
+	<xrOutputBinDir>$(xrOutputRootDir)bin\$(xrPlatform)\$(Configuration)\</xrOutputBinDir>
+	<xrOutputLibDir>$(xrOutputRootDir)lib\$(xrPlatform)\$(Configuration)\</xrOutputLibDir>
+    <xrOutputIntDir>$(xrOutputRootDir)intermediate\$(xrPlatform)\$(Configuration)\</xrOutputIntDir>
   </PropertyGroup>
 
   <PropertyGroup Label="OutputDirectories">
-    <OutDir Condition="'$(ConfigurationType)'=='Application'"   >$(xrBinDir)</OutDir>
-    <OutDir Condition="'$(ConfigurationType)'=='DynamicLibrary'">$(xrBinDir)</OutDir>
-    <OutDir Condition="'$(ConfigurationType)'=='StaticLibrary'" >$(xrLibDir)</OutDir>
-    <OutDir Condition="'$(ConfigurationType)'=='Makefile'"      >$(xrLibDir)</OutDir>
+    <OutDir Condition="'$(ConfigurationType)'=='Application'"   >$(xrOutputBinDir)</OutDir>
+    <OutDir Condition="'$(ConfigurationType)'=='DynamicLibrary'">$(xrOutputBinDir)</OutDir>
+    <OutDir Condition="'$(ConfigurationType)'=='StaticLibrary'" >$(xrOutputLibDir)</OutDir>
+    <OutDir Condition="'$(ConfigurationType)'=='Makefile'"      >$(xrOutputLibDir)</OutDir>
 
-    <IntDir>$(xrIntDir)$(ProjectName)\</IntDir>
+    <IntDir>$(xrOutputIntDir)$(ProjectName)\</IntDir>
   </PropertyGroup>
 
   <PropertyGroup Condition="$(Configuration.StartsWith('Debug'  ))"> <UseDebugLibraries>true</UseDebugLibraries> </PropertyGroup>
@@ -78,13 +81,13 @@
       <AdditionalIncludeDirectories>
         .;
         $(SolutionDir);
-        $(xrExternals);
+        $(xrSdkDir);
         $(ProjectDir);
         $(xrSdkDir)include;
         $(xrSdkDir)DXSDK/Include;
-        $(xrExternals)luajit\src;
-        $(xrExternals)luabind;
-        $(xrExternals)GameSpy\src;
+        $(xrSdkDir)luajit\src;
+        $(xrSdkDir)luabind-deboostified;
+        $(xrSdkDir)GameSpy\src;
         %(AdditionalIncludeDirectories)
       </AdditionalIncludeDirectories>
       <!-- MultiProcessorCompilation don't compatible with LinkIncremental and UseDebugLibraries -->
@@ -124,9 +127,9 @@
       <AdditionalLibraryDirectories>
         $(xrSdkDir)libraries;
         $(xrSdkDir)libraries/$(PlatformShortName);
-        $(xrLibDir);$(xrSdkDir)DXSDK/Lib/$(PlatformShortName);
+        $(xrOutputLibDir);$(xrSdkDir)DXSDK/Lib/$(PlatformShortName);
         %(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <ImportLibrary>$(xrLibDir)$(TargetName).lib</ImportLibrary>
+      <ImportLibrary>$(xrOutputLibDir)$(TargetName).lib</ImportLibrary>
       <LargeAddressAware>true</LargeAddressAware>
       <SubSystem>Windows</SubSystem>
     </Link>
@@ -134,11 +137,11 @@
       <AdditionalLibraryDirectories>
         $(xrSdkDir)libraries;
         $(xrSdkDir)libraries/$(PlatformShortName);
-        $(xrLibDir);
+        $(xrOutputLibDir);
         $(xrSdkDir)DXSDK/Lib/$(PlatformShortName);
         %(AdditionalLibraryDirectories)
       </AdditionalLibraryDirectories>
-      <OutputFile>$(xrLibDir)$(TargetName).lib</OutputFile>
+      <OutputFile>$(xrOutputLibDir)$(TargetName).lib</OutputFile>
     </Lib>
   </ItemDefinitionGroup>
 </Project>

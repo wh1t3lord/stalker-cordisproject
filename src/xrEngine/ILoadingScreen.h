@@ -11,7 +11,7 @@
 class ILoadingScreen
 {
 public:
-    virtual ~ILoadingScreen() = default;
+    virtual ~ILoadingScreen() noexcept = default;
 
     virtual void Initialize() = 0;
 

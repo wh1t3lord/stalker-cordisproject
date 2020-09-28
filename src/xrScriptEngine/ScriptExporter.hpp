@@ -106,7 +106,14 @@ namespace ScriptExportDetails                                                   
     \
 }
 
+// Lord-Remark: воизбежание повторной регистрации! Ибо рендер у нас первым загружает либу
+#ifndef USE_DX11
 // register script exporter (accepts function body)
 #define SCRIPT_EXPORT(id, dependencies, ...) SCRIPT_EXPORT_WRAP(id, dependencies, __VA_ARGS__)
 // register script exporter (accepts function)
 #define SCRIPT_EXPORT_FUNC(id, dependencies, func) SCRIPT_EXPORT_FUNC_WRAP(id, dependencies, func)
+#else
+#define SCRIPT_EXPORT(id, dependencies, ...) 
+#define SCRIPT_EXPORT_FUNC(id, dependencies, func) 
+#endif
+

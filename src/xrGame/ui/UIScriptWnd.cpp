@@ -22,8 +22,8 @@ void CUIDialogWndEx::SendMessage(CUIWindow* pWnd, s16 msg, void* pData)
 
     ((*it)->m_callback)();
 
-    //	if ( (*it)->m_cpp_callback )
-    //		(*it)->m_cpp_callback(pData);
+//    	if ((*it)->m_cpp_callback)
+//     		(*it)->m_cpp_callback(pData);
 }
 
 bool CUIDialogWndEx::Load(LPCSTR xml_name) { return true; }
@@ -32,12 +32,10 @@ SCallbackInfo* CUIDialogWndEx::NewCallback()
     m_callbacks.push_back(new SCallbackInfo());
     return m_callbacks.back();
 }
-
-void CUIDialogWndEx::AddCallback(
-    LPCSTR control_id, s16 evt, const luabind::functor<void>& functor, const luabind::object& object)
+void CUIDialogWndEx::AddCallback(LPCSTR control_id, s16 evt, void (*callback)())
 {
     SCallbackInfo* c = NewCallback();
-    c->m_callback.set(functor, object);
+    c->m_callback = callback;
     c->m_control_name = control_id;
     c->m_event = evt;
 }

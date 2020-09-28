@@ -1,9 +1,7 @@
 #pragma once
-#ifndef __V2D__
-#define __V2D__
 #include "xrCommon/inlining_macros.h"
 #include "xrCore/math_constants.h"
-
+#include <algorithm>
 
 #ifdef min
 # undef min
@@ -266,5 +264,3 @@ typedef _vector2<int> Ivector2;
 template <class T>
 bool _valid(const _vector2<T>& v)
 { return _valid((T)v.x) && _valid((T)v.y); }
-
-#endif

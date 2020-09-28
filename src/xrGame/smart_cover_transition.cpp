@@ -13,23 +13,25 @@
 #include "xrScriptEngine/script_engine.hpp"
 #include "Common/object_broker.h"
 
-using smart_cover::detail::parse_table;
-using smart_cover::detail::parse_string;
 using smart_cover::detail::parse_fvector;
 using smart_cover::detail::parse_int;
-using smart_cover::transitions::action;
+using smart_cover::detail::parse_string;
+using smart_cover::detail::parse_table;
+
 using smart_cover::transitions::animation_action;
-
-action::action(luabind::object const& table)
+namespace smart_cover
 {
-    VERIFY(luabind::type(table) == LUA_TTABLE);
-
-    m_precondition_functor = parse_string(table, "precondition_functor");
-    m_precondition_params = parse_string(table, "precondition_params");
-
-    luabind::object anim_table;
-    parse_table(table, "actions", anim_table);
-    load_animations(anim_table);
+namespace transitions
+{
+action::action(const Cordis::Scripts::SmartCoverData::SmartCoverTransitionsData::SmartCoverActionsData& data)
+{
+    m_precondition_functor = data.m_precondition_functor.c_str();
+    m_precondition_params = data.m_preconditions_params.c_str();
+    animation_action* animation = new animation_action(data.m_action.m_position, data.m_action.m_animation.c_str(),
+        (MonsterSpace::EBodyState)data.m_action.m_body_state,
+        (MonsterSpace::EMovementType)data.m_action.m_movement_type);
+    m_animations.push_back(animation);
+    /*    load_animations(anim_table);*/
 }
 
 action::~action() { delete_data(m_animations); }
@@ -43,6 +45,7 @@ bool action::applicable() const
     return (functor(m_precondition_params.c_str()));
 }
 
+/*
 void action::load_animations(luabind::object const& table)
 {
     for (luabind::iterator it(table), end; it != end; it++)
@@ -55,7 +58,7 @@ void action::load_animations(luabind::object const& table)
         animation_action* animation = new animation_action(pos, anim_id, body_state, movement_type);
         m_animations.push_back(animation);
     }
-}
+}*/
 
 class body_state_predicate
 {
@@ -99,3 +102,6 @@ animation_action const& action::animation(MonsterSpace::EBodyState const& target
 }
 
 animation_action const& action::animation() const { return (*m_animations[Random.randI(m_animations.size())]); }
+
+}
+} // namespace smart_cover

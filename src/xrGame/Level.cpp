@@ -149,8 +149,9 @@ CLevel::~CLevel()
     xr_delete(levelGraphDebugRender);
     xr_delete(m_debug_renderer);
 #endif
+/* Lord: удалить
     if (!GEnv.isDedicatedServer)
-        GEnv.ScriptEngine->remove_script_process(ScriptProcessor::Level);
+        GEnv.ScriptEngine->remove_script_process(ScriptProcessor::Level);*/
     xr_delete(game);
     xr_delete(game_events);
     xr_delete(m_pBulletManager);
@@ -171,10 +172,16 @@ CLevel::~CLevel()
     // and I didn't find better place to put this code in
     // XXX nitrocaster: find better place for this clean()
     CTradeParameters::clean();
+
+    if (Cordis::Scripts::Script_GlobalHelper::getInstance().getGlobalTutorial())
+        if (Cordis::Scripts::Script_GlobalHelper::getInstance().getGlobalTutorial()->m_pStoredInputReceiver == this)
+            Cordis::Scripts::Script_GlobalHelper::getInstance().getGlobalTutorial()->m_pStoredInputReceiver = nullptr;
+
+        /*
     if (g_tutorial && g_tutorial->m_pStoredInputReceiver == this)
         g_tutorial->m_pStoredInputReceiver = nullptr;
     if (g_tutorial2 && g_tutorial2->m_pStoredInputReceiver == this)
-        g_tutorial2->m_pStoredInputReceiver = nullptr;
+        g_tutorial2->m_pStoredInputReceiver = nullptr;*/
     if (IsDemoPlay())
     {
         StopPlayDemo();
@@ -540,8 +547,10 @@ void CLevel::OnFrame()
     g_pGamePersistent->Environment().m_paused = m_bEnvPaused;
 #endif
     g_pGamePersistent->Environment().SetGameTime(GetEnvironmentGameDayTimeSec(), game->GetEnvironmentGameTimeFactor());
-    if (!GEnv.isDedicatedServer)
-        GEnv.ScriptEngine->script_process(ScriptProcessor::Level)->update();
+    // Lord: нужно ли это интерпретировать?
+//    if (!GEnv.isDedicatedServer)
+//        GEnv.ScriptEngine->script_process(ScriptProcessor::Level)->update();
+
     m_ph_commander->update();
     m_ph_commander_scripts->UpdateDeferred();
     m_ph_commander_scripts->update();
@@ -561,13 +570,15 @@ void CLevel::OnFrame()
             m_level_sound_manager->Update();
     }
     // defer LUA-GC-STEP
+/*
     if (!GEnv.isDedicatedServer)
     {
         if (g_mt_config.test(mtLUA_GC))
             Device.seqParallel.push_back(fastdelegate::FastDelegate0<>(this, &CLevel::script_gc));
         else
             script_gc();
-    }
+    }*/
+
     if (pStatGraphR)
     {
         static float fRPC_Mult = 10.0f;

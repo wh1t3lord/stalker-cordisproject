@@ -17,9 +17,13 @@ extern ENGINE_API BOOL g_bRendering;
 RenderableBase::~RenderableBase()
 {
     VERIFY(!g_bRendering);
-    GEnv.Render->model_Delete(renderable.visual);
+
+    if (GEnv.Render)
+        GEnv.Render->model_Delete(renderable.visual);
+
     if (renderable.pROS)
         GEnv.Render->ros_destroy(renderable.pROS);
+
     renderable.visual = NULL;
     renderable.pROS = NULL;
 }

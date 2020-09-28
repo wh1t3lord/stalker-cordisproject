@@ -45,7 +45,7 @@ bool CDialogScriptHelper::CheckInfo(const CInventoryOwner* pOwner) const
         {
 #ifdef DEBUG
             if (psAI_Flags.test(aiDialogs))
-                Msg("----rejected: [%s] has info %s", pOwner->Name(), *m_HasInfo[i]);
+                MESSAGE("----rejected: [%s] has info %s", pOwner->Name(), *m_HasInfo[i]);
 #endif
             return false;
         }
@@ -56,8 +56,8 @@ bool CDialogScriptHelper::CheckInfo(const CInventoryOwner* pOwner) const
         if (Actor()->HasInfo(m_DontHasInfo[i]))
         {
 #ifdef DEBUG
-            if (psAI_Flags.test(aiDialogs))
-                Msg("----rejected: [%s] dont has info %s", pOwner->Name(), *m_DontHasInfo[i]);
+           if (psAI_Flags.test(aiDialogs))
+                MESSAGE("----rejected: [%s] dont has info %s", pOwner->Name(), *m_DontHasInfo[i]);
 #endif
             return false;
         }
@@ -98,8 +98,8 @@ bool CDialogScriptHelper::Precondition(const CGameObject* pSpeakerGO, LPCSTR dia
     if (!CheckInfo(smart_cast<const CInventoryOwner*>(pSpeakerGO)))
     {
 #ifdef DEBUG
-        if (psAI_Flags.test(aiDialogs))
-            Msg("dialog [%s] phrase[%s] rejected by CheckInfo", dialog_id, phrase_id);
+       if (psAI_Flags.test(aiDialogs))
+            MESSAGE("dialog [%s] phrase[%s] rejected by CheckInfo", dialog_id, phrase_id);
 #endif
         return false;
     }
@@ -114,8 +114,8 @@ bool CDialogScriptHelper::Precondition(const CGameObject* pSpeakerGO, LPCSTR dia
         if (!predicate_result)
         {
 #ifdef DEBUG
-            if (psAI_Flags.test(aiDialogs))
-                Msg("dialog [%s] phrase[%s] rejected by script predicate", dialog_id, phrase_id);
+           if (psAI_Flags.test(aiDialogs))
+                MESSAGE("dialog [%s] phrase[%s] rejected by script predicate", dialog_id, phrase_id);
 #endif
             break;
         }
@@ -145,7 +145,7 @@ bool CDialogScriptHelper::Precondition(const CGameObject* pSpeakerGO1, const CGa
     {
 #ifdef DEBUG
         if (psAI_Flags.test(aiDialogs))
-            Msg("dialog [%s] phrase[%s] rejected by CheckInfo", dialog_id, phrase_id);
+            MESSAGE("dialog [%s] phrase[%s] rejected by CheckInfo", dialog_id, phrase_id);
 #endif
         return false;
     }
@@ -161,7 +161,7 @@ bool CDialogScriptHelper::Precondition(const CGameObject* pSpeakerGO1, const CGa
         {
 #ifdef DEBUG
             if (psAI_Flags.test(aiDialogs))
-                Msg("dialog [%s] phrase[%s] rejected by script predicate", dialog_id, phrase_id);
+                MESSAGE("dialog [%s] phrase[%s] rejected by script predicate", dialog_id, phrase_id);
 #endif
             break;
         }
@@ -176,8 +176,9 @@ void CDialogScriptHelper::Action(
 
     for (u32 i = 0; i < Actions().size(); ++i)
     {
-        luabind::functor<void> lua_function;
+ //       luabind::functor<void> lua_function;
         THROW(*Actions()[i]);
+/*
         bool functor_exists = GEnv.ScriptEngine->functor(*Actions()[i], lua_function);
         THROW3(functor_exists, "Cannot find phrase dialog script function", *Actions()[i]);
         try
@@ -186,6 +187,6 @@ void CDialogScriptHelper::Action(
         }
         catch (...)
         {
-        }
+        }*/
     }
 }

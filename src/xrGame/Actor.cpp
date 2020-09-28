@@ -49,7 +49,7 @@
 #include "xrCDB/Intersect.hpp"
 
 #include "alife_registry_wrappers.h"
-#include "Include/xrRender/Kinematics.h"
+#include "Kinematics.h"
 #include "Artefact.h"
 #include "CharacterPhysicsSupport.h"
 #include "material_manager.h"
@@ -66,7 +66,7 @@
 #include "player_hud.h"
 #include "ai/monsters/basemonster/base_monster.h"
 
-#include "Include/xrRender/UIRender.h"
+#include "UIRender.h"
 
 #include "xrAICore/Navigation/ai_object_location.h"
 #include "ui/UIMotionIcon.h"
@@ -582,13 +582,16 @@ void CActor::Hit(SHit* pHDS)
         if (g_Alive())
         {
             /* AVO: send script callback*/
-            callback(GameObject::eHit)(
-                this->lua_game_object(),
-                HDS.damage(),
-                HDS.direction(),
-                smart_cast<const CGameObject*>(HDS.who)->lua_game_object(),
-                HDS.boneID
-            );
+            // Lord - [Script] Re-write
+//             callback(GameObject::eHit)(
+//                 this->lua_game_object(),
+//                 HDS.damage(),
+//                 HDS.direction(),
+//                 smart_cast<const CGameObject*>(HDS.who)->lua_game_object(),
+//                 HDS.boneID
+//             );
+            this->GetScriptBinderObject()->hit_callback(this->lua_game_object(), HDS.damage(), HDS.direction(),
+                (smart_cast<const CGameObject*>(HDS.who))->lua_game_object(), HDS.boneID);
         }
         inherited::Hit(&HDS);
     }
@@ -844,12 +847,14 @@ void CActor::SwitchOutBorder(bool new_border_state)
 {
     if (new_border_state)
     {
-        callback(GameObject::eExitLevelBorder)(lua_game_object());
+        // Lord - [Script] Re-write
+     //   callback(GameObject::eExitLevelBorder)(lua_game_object());
     }
     else
     {
         //.		Msg("enter level border");
-        callback(GameObject::eEnterLevelBorder)(lua_game_object());
+        // Lord - [Script] Re-write
+       // callback(GameObject::eEnterLevelBorder)(lua_game_object());
     }
     m_bOutBorder = new_border_state;
 }

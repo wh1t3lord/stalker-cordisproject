@@ -393,7 +393,7 @@ float ComplexJtLimit::theta(int family, float psi) const
     return family == 1 ? theta1(psi) : theta2(psi);
 }
 
-inline int sign(float x) { return x < 0 ? -1 : 1; }
+int jt_sign(float x) { return x < 0 ? -1 : 1; }
 float ComplexJtLimit::theta1_d_aux(float v, float delta) const
 {
     float e1, e2, e1d, e2d, e3;
@@ -412,7 +412,7 @@ float ComplexJtLimit::theta1_d_aux(float v, float delta) const
     {
         float left_d = theta1_d_aux(v + delta, delta * 10.0f);
         float right_d = theta1_d_aux(v - delta, delta * 10.0f);
-        if (sign(left_d) != sign(right_d))
+        if (jt_sign(left_d) != jt_sign(right_d))
         {
             printf("signs are different in special case %lf %lf\n", left_d, right_d);
             return 0.0f;

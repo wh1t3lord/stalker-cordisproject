@@ -4,7 +4,7 @@
 #include "xrScriptEngine/script_callback_ex.h"
 #include "GameObject.h"
 #include "game_object_space.h"
-#include "Include/xrRender/KinematicsAnimated.h"
+#include "KinematicsAnimated.h"
 
 CBlend* PlayMotionByParts(
     IKinematicsAnimated* sa, MotionID motion_ID, BOOL bMixIn, PlayCallback Callback, LPVOID CallbackParam)
@@ -84,13 +84,20 @@ void anim_script_callback::anim_callback(CBlend* B)
     }
 }
 
-void anim_script_callback::update(CGameObject& O)
+void anim_script_callback::update(CGameObject& object)
 {
     if (!is_set)
         return;
+
     if (!on_end && !on_begin)
         return;
-    O.callback(GameObject::eScriptAnimation)(on_end);
+
+    // Lord - [Script] Re-write
+    //O.callback(GameObject::eScriptAnimation)(on_end);
+
+    if (object.GetScriptBinderObject())
+        object.GetScriptBinderObject()->animation_callback(on_end);
+
     on_end = false;
     on_begin = false;
 }

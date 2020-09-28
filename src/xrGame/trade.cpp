@@ -151,8 +151,9 @@ void CTrade::TradeCB(bool bStart)
 
 void CTrade::OnPerformTrade(u32 money_get, u32 money_put)
 {
-    if (pThis.type == TT_TRADER)
-        smart_cast<CAI_Trader*>(pThis.base)->callback(GameObject::eTradePerformTradeOperation)(money_get, money_put);
+    // Lord - [Script] Re-write
+//     if (pThis.type == TT_TRADER)
+//         smart_cast<CAI_Trader*>(pThis.base)->callback(GameObject::eTradePerformTradeOperation)(money_get, money_put);
 }
 
 void CTrade::StopTrade()

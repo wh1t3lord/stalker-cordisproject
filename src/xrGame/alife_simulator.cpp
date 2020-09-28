@@ -29,10 +29,11 @@ CALifeSimulator::CALifeSimulator(IPureServer* server, shared_str* command_line)
       CALifeSimulatorBase(server, alife_section)
 {
     // XXX: why do we need to reinitialize script engine?
+/*
     if (!strstr(Core.Params, "-keep_lua"))
     {
         ai().RestartScriptEngine();
-    }
+    }*/
 
     ai().set_alife(this);
 
@@ -53,9 +54,15 @@ CALifeSimulator::CALifeSimulator(IPureServer* server, shared_str* command_line)
     *command_line = temp;
 
     LPCSTR start_game_callback = pSettings->r_string(alife_section, "start_game_callback");
+
+    // Lord: здесь вызывается инициализация скриптов 
+    Cordis::Scripts::Globals::start_game_callback();
+
+    g_pGamePersistent->Environment().load();
+/*
     luabind::functor<void> functor;
     R_ASSERT2(GEnv.ScriptEngine->functor(start_game_callback, functor), "failed to get start game callback");
-    functor();
+    functor();*/
 
     load(p.m_game_or_spawn, !xr_strcmp(p.m_new_or_load, "load") ? false : true, !xr_strcmp(p.m_new_or_load, "new"));
 }
@@ -68,6 +75,9 @@ CALifeSimulator::~CALifeSimulator()
     configs_type::iterator const e = m_configs_lru.end();
     for (; i != e; ++i)
         FS.r_close((*i).second);
+
+    // @ Тут мы удаляем stuff связанный только со скриптами 
+    Cordis::Scripts::Globals::system_deallocation();
 }
 
 void CALifeSimulator::destroy()
@@ -117,8 +127,7 @@ IReader const* CALifeSimulator::get_config(shared_str config) const
     return m_configs_lru.front().second;
 }
 
-namespace detail
-{
+ 
 bool object_exists_in_alife_registry(u32 id)
 {
     if (ai().get_alife())
@@ -127,5 +136,3 @@ bool object_exists_in_alife_registry(u32 id)
     }
     return false;
 }
-
-} // detail

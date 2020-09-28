@@ -15,7 +15,7 @@
 using namespace luabind;
 using namespace luabind::policy;
 
-const CGameGraph* get_game_graph() { return &GEnv.AISpace->game_graph(); }
+
 const CGameGraph::CHeader* get_header(const CGameGraph* self_) { return (&self_->header()); }
 bool get_accessible1(const CGameGraph* self_, const u32& vertex_id) { return (self_->accessible(vertex_id)); }
 void get_accessible2(const CGameGraph* self_, const u32& vertex_id, bool value) { self_->accessible(vertex_id, value); }
@@ -37,6 +37,7 @@ GameGraph::LEVEL_MAP const& get_levels(CGameGraph const* graph)
     return graph->header().levels();
 }
 
+/*
 SCRIPT_EXPORT(CGameGraph, (), {
     typedef CGameGraph::CVertex CVertex;
     module(luaState)[class_<GameGraph::LEVEL_MAP::value_type>("GameGraph__LEVEL_MAP__value_type")
@@ -59,3 +60,4 @@ SCRIPT_EXPORT(CGameGraph, (), {
             .def("level_id", &CVertex::level_id)
             .def("level_vertex_id", &CVertex::level_vertex_id)];
 });
+*/

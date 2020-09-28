@@ -17,7 +17,7 @@
 #include "squad_hierarchy_holder.h"
 #include "group_hierarchy_holder.h"
 #include "PHDestroyable.h"
-#include "Include/xrRender/KinematicsAnimated.h"
+#include "KinematicsAnimated.h"
 #include "detail_path_manager.h"
 #include "memory_manager.h"
 #include "visual_memory_manager.h"
@@ -132,6 +132,10 @@ CBaseMonster::~CBaseMonster()
     xr_delete(m_anomaly_detector);
     xr_delete(CoverMan);
     xr_delete(Home);
+
+#ifdef DEBUG
+    DBG().object_info(this, this).clear();
+#endif
 }
 
 void CBaseMonster::update_pos_by_grouping_behaviour()

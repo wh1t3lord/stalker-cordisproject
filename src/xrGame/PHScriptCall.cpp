@@ -95,26 +95,33 @@ bool CPHScriptObjectCondition::compare(const CPHScriptObjectCondition* v) const
 bool CPHScriptObjectCondition::is_true() { return luabind::call_member<bool>(*m_lua_object, *m_method_name); }
 bool CPHScriptObjectCondition::obsolete() const { return false; }
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/*
 CPHScriptObjectActionN::CPHScriptObjectActionN(const luabind::object& object, const luabind::functor<void>& functor)
     : b_obsolete(false)
 {
-    m_callback.set(functor, object);
-}
+  //  m_callback.set(functor, object);
+}*/
 
-CPHScriptObjectActionN::~CPHScriptObjectActionN() { m_callback.clear(); }
+CPHScriptObjectActionN::CPHScriptObjectActionN(std::function<bool(void)> func) : m_callback(func), b_obsolete(false) {}
+
+CPHScriptObjectActionN::~CPHScriptObjectActionN() { /*m_callback.clear();*/ }
 void CPHScriptObjectActionN::run()
 {
-    m_callback();
+    //m_callback();
+    this->m_callback();
     b_obsolete = true;
 }
 
 bool CPHScriptObjectActionN::obsolete() const { return b_obsolete; }
+/*
 CPHScriptObjectConditionN::CPHScriptObjectConditionN(
     const luabind::object& object, const luabind::functor<bool>& functor)
 {
-    m_callback.set(functor, object);
-}
+ //   m_callback.set(functor, object);
+}*/
 
-CPHScriptObjectConditionN::~CPHScriptObjectConditionN() { m_callback.clear(); }
-bool CPHScriptObjectConditionN::is_true() { return m_callback(); }
+CPHScriptObjectConditionN::CPHScriptObjectConditionN(std::function<bool(void)> func) : m_callback(func) {}
+
+//CPHScriptObjectConditionN::~CPHScriptObjectConditionN() { m_callback.clear(); }
+bool CPHScriptObjectConditionN::is_true() { return this->m_callback(); }
 bool CPHScriptObjectConditionN::obsolete() const { return false; }

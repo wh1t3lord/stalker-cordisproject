@@ -115,13 +115,10 @@ bool CPhraseDialog::SayPhrase(DIALOG_SHARED_PTR& phrase_dialog, const shared_str
             {
                 phrase_dialog->m_PhraseVector.push_back(next_phrase_vertex->data());
 #ifdef DEBUG
-                if (psAI_Flags.test(aiDialogs))
-                {
                     LPCSTR phrase_text = next_phrase_vertex->data()->GetText();
                     shared_str id = next_phrase_vertex->data()->GetID();
-                    Msg("----added phrase text [%s] phrase_id=[%s] id=[%s] to dialog [%s]", phrase_text,
+                    MESSAGE("----added phrase text [%s] phrase_id=[%s] id=[%s] to dialog [%s]", phrase_text,
                         phrase_id.c_str(), id.c_str(), phrase_dialog->m_DialogId.c_str());
-                }
 #endif
             }
         }
@@ -223,11 +220,28 @@ void CPhraseDialog::load_shared(LPCSTR)
     if (NULL == phrase_list_node)
     {
         LPCSTR func = pXML->Read(dialog_node, "init_func", 0, "");
-
-        luabind::functor<void> lua_function;
-        bool functor_exists = GEnv.ScriptEngine->functor(func, lua_function);
-        THROW3(functor_exists, "Cannot find precondition", func);
-        lua_function(this);
+        Msg("[CPhraseDialog/load_shared] function: %s", func);
+        xr_string parse_function_name = func;
+        parse_function_name = parse_function_name.substr(parse_function_name.find('.') + 1);
+        if (Cordis::Scripts::Script_GlobalHelper::getInstance().getRegisteredFunctionsDialogManager().find(
+                parse_function_name) !=
+            Cordis::Scripts::Script_GlobalHelper::getInstance().getRegisteredFunctionsDialogManager().end())
+        {
+            Cordis::Scripts::Script_GlobalHelper::getInstance()
+                .getRegisteredFunctionsDialogManager()[parse_function_name]
+                .
+                operator()<CPhraseDialog*>(this);
+        }
+        else
+        {
+            R_ASSERT2(false, "can't find registered function, check your Script_GlobalHelper!");
+        }
+        // Lord: [UI_CEF]
+        /* Lord: переписать
+                luabind::functor<void> lua_function;
+                bool functor_exists = GEnv.ScriptEngine->functor(func, lua_function);
+                THROW3(functor_exists, "Cannot find precondition", func);
+                lua_function(this);*/
         return;
     }
 

@@ -16,6 +16,7 @@ void CScriptActionPlannerWrapper::setup(CScriptGameObject* object)
 #ifdef LOG_ACTION
     set_use_log(!!psAI_Flags.test(aiGOAPScript));
 #endif
+    // Lord: переделать?
     luabind::call_member<void>(this, "setup", object);
 }
 
@@ -31,6 +32,7 @@ void CScriptActionPlannerWrapper::update()
         set_use_log(!!psAI_Flags.test(aiGOAPScript));
 #endif
 
+    // Lord: переделать? 
     luabind::call_member<void>(this, "update");
 }
 

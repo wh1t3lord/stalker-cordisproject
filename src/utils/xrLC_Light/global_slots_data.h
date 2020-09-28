@@ -2,7 +2,7 @@
 #ifndef __GLOBAL_SLOTS_DATA_H__
 #define __GLOBAL_SLOTS_DATA_H__
 
-#include "Layers/xrRender/DetailFormat.h"
+#include "xrGame/Render/Kernel/DetailFormat.h"
 #include "recalculation.h"
 
 class INetReader;

@@ -49,7 +49,7 @@ protected:
 
 #ifdef LOG_ACTION
 public:
-    LPCSTR m_action_name;
+    xr_string m_action_name;
     bool m_use_log;
     bool m_switched;
 
@@ -60,9 +60,9 @@ public:
 #endif
 
 public:
-    IC CActionBase(_object_type* object, LPCSTR action_name = "");
+    IC CActionBase(_object_type* object, const xr_string& action_name = "");
     virtual ~CActionBase();
-    IC void init(_object_type* object, LPCSTR action_name);
+    IC void init(_object_type* object, const xr_string& action_name);
     virtual void setup(_object_type* object, CPropertyStorage* storage);
     virtual void initialize();
     virtual void execute();

@@ -47,6 +47,10 @@
 #include "xrDebug.h"
 //#include "vector.h"
 
+#ifdef DEBUG
+#include <vld.h>
+#endif
+
 #include "clsid.h"
 //#include "Threading/Lock.hpp"
 #include "xrMemory.h"
@@ -62,7 +66,8 @@
 #include "xr_shared.h"
 #include "string_concatenations.h"
 #include "_flags.h"
-
+#include "Cordis/Cordis_Functions.h"
+#include <tuple>
 // stl ext
 struct XRCORE_API xr_rtoken
 {
@@ -103,6 +108,60 @@ using RTokenVec = xr_vector<xr_rtoken>;
 
 #include "net_utils.h"
 
+#pragma region Cordis BOOST Includes 
+#include <boost/regex.hpp>
+#include <boost/algorithm/algorithm.hpp>
+#include <boost/algorithm/string.hpp>
+#include <boost/lexical_cast.hpp>
+#pragma endregion
+
+
+#pragma region Cordis Google Test
+#include <gtest/gtest.h>
+#pragma endregion
+
+#pragma region Cordis
+#ifdef DEBUG
+// @ default message
+// Color: Gray in log  ouput
+#define MESSAGE(text_message, ...) { xr_string file_name = __FILE__; Msg("[%s|" __FUNCTION__ "|%d] "##text_message, file_name.substr(file_name.rfind("\\")+1).c_str(), __LINE__, __VA_ARGS__); }
+
+// @ used for deallocation or something else rare and indeed vital information in log 
+// Color: Dark Blue in log ouput
+#define MESSAGEI(text_message, ...) { xr_string file_name = __FILE__; Msg("[%s|" __FUNCTION__ "|%d] information -> "##text_message, file_name.substr(file_name.rfind("\\")+1).c_str(), __LINE__, __VA_ARGS__); }
+
+// @ used for warnings
+// Color: Yellow in log output
+#define MESSAGEW(text_message, ...) { xr_string file_name = __FILE__; Msg("[%s|" __FUNCTION__ "|%d] WARNING: "##text_message, file_name.substr(file_name.rfind("\\")+1).c_str(), __LINE__, __VA_ARGS__); }
+// @ version of MESSAGEW macros, but with Return statement at the end
+// Color: Yellow in log ouput
+#define MESSAGEWR(text_message, ...){ xr_string file_name = __FILE__; Msg("[%s|" __FUNCTION__ "|%d] WARNING: "##text_message" Return ...", file_name.substr(file_name.rfind("\\")+1).c_str(), __LINE__, __VA_ARGS__); }
+
+// @ for errors
+// Color: Red in log output
+#define MESSAGEE(text_message, ...) { xr_string file_name = __FILE__; Msg("[%s|" __FUNCTION__ "|%d] ERROR: "##text_message, file_name.substr(file_name.rfind("\\")+1).c_str(), __LINE__, __VA_ARGS__); R_ASSERT(false); }
+// @ version of MESSAGEE, but with Return statement at the end
+// Color: Red in log output
+#define MESSAGEER(text_message, ...) { xr_string file_name = __FILE__; Msg("[%s|" __FUNCTION__ "|%d] ERROR: "##text_message" Return ...", file_name.substr(file_name.rfind("\\")+1).c_str(), __LINE__, __VA_ARGS__); R_ASSERT(false); }
+#else
+#define MESSAGE(text_message, ...) {}
+#define MESSAGEI(text_message, ...) {}
+#define MESSAGEW(text_message, ...) {}
+#define MESSAGEWR(text_message, ...) {}
+#define MESSAGEE(text_message, ...) {}
+#define MESSAGEER(text_message, ...) {}
+#endif
+#pragma endregion
+
+#pragma region Cordis Includes
+#include "Cordis_ScriptDataStructures.h"
+#include <tbb/tbb.h>
+#include <tbb/task_scheduler_init.h>
+#include <tbb/parallel_for.h>
+#include <tbb/blocked_range.h>
+#include "TaskManager.h"
+#pragma endregion
+
 // destructor
 template <class T>
 class destructor
@@ -124,6 +183,7 @@ class XRCORE_API xrCore
 
 public:
     string64 ApplicationName;
+    CTimer m_Timer;
     string_path ApplicationPath;
     string_path WorkingPath;
     string64 UserName;
@@ -131,20 +191,20 @@ public:
     char* Params;
     DWORD dwFrame;
     bool PluginMode;
-
+    bool bRunningOutsideDirectory = true;
     void Initialize(pcstr ApplicationName, pcstr commandLine = nullptr, LogCallback cb = nullptr, bool init_fs = true,
         pcstr fs_fname = nullptr, bool plugin = false);
     void _destroy();
     const char* GetBuildDate() const { return buildDate; }
     u32 GetBuildId() const { return buildId; }
     static constexpr pcstr GetBuildConfiguration();
-    inline void ActivateSDK(void)
+    inline void ActivateSDK(void) noexcept
     {
-        if (!UseSDK)
-            UseSDK = true;
+        if (!this->UseSDK)
+            this->UseSDK = true;
     }
 
-    inline bool CanUseSDK(void) { return UseSDK; }
+    inline bool CanUseSDK(void) noexcept { return this->UseSDK; }
 
 private:
     void CalculateBuildId();

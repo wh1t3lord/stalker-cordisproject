@@ -12,7 +12,7 @@
 #include "Static/UIStaticItem.h"
 #include "uiabstract.h"
 #include "xrUIXmlParser.h"
-#include "Include/xrRender/UIShader.h"
+#include "xrGame/Render/Kernel/UIShader.h"
 #include "xrCore/Threading/Lock.hpp"
 #include "xrCore/Threading/ScopeLock.hpp"
 #include <iostream>

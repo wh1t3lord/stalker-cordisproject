@@ -109,7 +109,7 @@ bool CLevel::Load_GameSpecific_After()
             for (auto I = S.Data.cbegin(); S.Data.cend() != I; ++I)
             {
                 Sounds_Random.push_back(ref_sound());
-                GEnv.Sound->create(Sounds_Random.back(), *I->first, st_Effect, sg_SourceType);
+                GEnv.Sound->create(Sounds_Random.back(), I->first.c_str(), st_Effect, sg_SourceType);
             }
             Sounds_Random_dwNextTime = Device.TimerAsync() + 50000;
             Sounds_Random_Enabled = FALSE;
@@ -141,6 +141,7 @@ bool CLevel::Load_GameSpecific_After()
     if (!GEnv.isDedicatedServer)
     {
         // loading scripts
+/* Lord: подумать было ли это важно?
         auto& scriptEngine = *GEnv.ScriptEngine;
         scriptEngine.remove_script_process(ScriptProcessor::Level);
         shared_str scripts;
@@ -148,7 +149,7 @@ bool CLevel::Load_GameSpecific_After()
             scripts = pLevel->r_string("level_scripts", "script");
         else
             scripts = "";
-        scriptEngine.add_script_process(ScriptProcessor::Level, scriptEngine.CreateScriptProcess("level", scripts));
+        scriptEngine.add_script_process(ScriptProcessor::Level, scriptEngine.CreateScriptProcess("level", scripts));*/
     }
 
     BlockCheatLoad();

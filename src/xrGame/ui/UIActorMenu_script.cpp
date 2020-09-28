@@ -96,7 +96,9 @@ bool CUIActorMenu::CanUpgradeItem(PIItem item)
 void CUIActorMenu::CurModeToScript()
 {
     int mode = (int)m_currMenuMode;
+    // Lord: [UI_CEF]
+/* Lord: переписать
     luabind::functor<void> funct;
     R_ASSERT(GEnv.ScriptEngine->functor("actor_menu.actor_menu_mode", funct));
-    funct(mode);
+    funct(mode);*/
 }

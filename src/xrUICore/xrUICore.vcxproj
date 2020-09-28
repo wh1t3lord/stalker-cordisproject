@@ -9,6 +9,22 @@
       <Configuration>Debug</Configuration>
       <Platform>x64</Platform>
     </ProjectConfiguration>
+    <ProjectConfiguration Include="Jumbo - Debug|Win32">
+      <Configuration>Jumbo - Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Jumbo - Debug|x64">
+      <Configuration>Jumbo - Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Jumbo|Win32">
+      <Configuration>Jumbo</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Jumbo|x64">
+      <Configuration>Jumbo</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
     <ProjectConfiguration Include="Mixed_COC|Win32">
       <Configuration>Mixed_COC</Configuration>
       <Platform>Win32</Platform>
@@ -61,6 +77,19 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Mixed|Win32'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
     <PlatformToolset>v142</PlatformToolset>
+<<<<<<< HEAD
+=======
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Jumbo|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <PlatformToolset>v142</PlatformToolset>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Jumbo - Debug|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <PlatformToolset>v142</PlatformToolset>
+>>>>>>> view
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Mixed_COC|Win32'" Label="Configuration">
@@ -71,6 +100,19 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Mixed|x64'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
     <PlatformToolset>v142</PlatformToolset>
+<<<<<<< HEAD
+=======
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Jumbo|x64'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <PlatformToolset>v142</PlatformToolset>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Jumbo - Debug|x64'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <PlatformToolset>v142</PlatformToolset>
+>>>>>>> view
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Mixed_COC|x64'" Label="Configuration">
@@ -117,11 +159,27 @@
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
     <Import Project="$(SolutionDir)Common.props" />
   </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Jumbo|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="$(SolutionDir)Common.props" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Jumbo - Debug|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="$(SolutionDir)Common.props" />
+  </ImportGroup>
   <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Mixed_COC|Win32'" Label="PropertySheets">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
     <Import Project="$(SolutionDir)Common.props" />
   </ImportGroup>
   <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Mixed|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="$(SolutionDir)Common.props" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Jumbo|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="$(SolutionDir)Common.props" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Jumbo - Debug|x64'" Label="PropertySheets">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
     <Import Project="$(SolutionDir)Common.props" />
   </ImportGroup>
@@ -184,6 +242,20 @@
       <AdditionalIncludeDirectories>.;$(SolutionDir);$(xrExternals);$(ProjectDir);$(xrSdkDir)include;$(xrSdkDir)DXSDK/Include;$(xrExternals)luajit\src;$(xrExternals)luabind;$(xrExternals)pugixml\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
   </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Jumbo|Win32'">
+    <ClCompile>
+      <PreprocessorDefinitions>XRUICORE_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PrecompiledHeaderFile>pch.hpp</PrecompiledHeaderFile>
+      <AdditionalIncludeDirectories>.;$(SolutionDir);$(xrExternals);$(ProjectDir);$(xrSdkDir)include;$(xrSdkDir)DXSDK/Include;$(xrExternals)luajit\src;$(xrExternals)luabind;$(xrExternals)pugixml\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Jumbo - Debug|Win32'">
+    <ClCompile>
+      <PreprocessorDefinitions>XRUICORE_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PrecompiledHeaderFile>pch.hpp</PrecompiledHeaderFile>
+      <AdditionalIncludeDirectories>.;$(SolutionDir);$(xrExternals);$(ProjectDir);$(xrSdkDir)include;$(xrSdkDir)DXSDK/Include;$(xrExternals)luajit\src;$(xrExternals)luabind;$(xrExternals)pugixml\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+  </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Mixed_COC|Win32'">
     <ClCompile>
       <PreprocessorDefinitions>XRUICORE_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
@@ -193,10 +265,54 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Mixed|x64'">
     <ClCompile>
+      <PreprocessorDefinitions>VLD_FORCE_ENABLE;XRUICORE_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PrecompiledHeaderFile>pch.hpp</PrecompiledHeaderFile>
+      <AdditionalIncludeDirectories>.;$(xrSdkDir)googletest\googletest\include\;$(xrSdkDir)Visual Leak Detector\include;$(xrSdkDir)boost\;$(SolutionDir);$(xrSdkDir);$(ProjectDir);$(xrSdkDir)include;$(xrSdkDir)DXSDK/Include;$(xrSdkDir)luajit\src;$(xrSdkDir)luabind-deboostified;$(xrSdkDir)pugixml\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+      <AdditionalOptions>/Zm1000 %(AdditionalOptions)</AdditionalOptions>
+      <WarningLevel>TurnOffAllWarnings</WarningLevel>
+    </ClCompile>
+    <Link>
+      <AdditionalLibraryDirectories>$(xrSdkDir)Visual Leak Detector\lib\Win64\;$(xrSdkDir)boost\stage\lib\;
+        $(xrSdkDir)libraries;
+        $(xrSdkDir)libraries/$(PlatformShortName);
+        $(xrLibDir);$(xrSdkDir)DXSDK/Lib/$(PlatformShortName);
+        %(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Jumbo|x64'">
+    <ClCompile>
       <PreprocessorDefinitions>XRUICORE_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <PrecompiledHeaderFile>pch.hpp</PrecompiledHeaderFile>
-      <AdditionalIncludeDirectories>.;$(SolutionDir);$(xrExternals);$(ProjectDir);$(xrSdkDir)include;$(xrSdkDir)DXSDK/Include;$(xrExternals)luajit\src;$(xrExternals)luabind;$(xrExternals)pugixml\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>.;$(xrSdkDir)lib_boost\;$(SolutionDir);$(xrExternals);$(ProjectDir);$(xrSdkDir)include;$(xrSdkDir)DXSDK/Include;$(xrExternals)luajit\src;$(xrExternals)luabind;$(xrExternals)pugixml\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+      <AdditionalOptions>/Zm120 %(AdditionalOptions)</AdditionalOptions>
+      <WarningLevel>TurnOffAllWarnings</WarningLevel>
     </ClCompile>
+    <Link>
+      <AdditionalLibraryDirectories>$(xrSdkDir)lib_boost\stage\lib\;
+        $(xrSdkDir)libraries;
+        $(xrSdkDir)libraries/$(PlatformShortName);
+        $(xrLibDir);$(xrSdkDir)DXSDK/Lib/$(PlatformShortName);
+        %(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Jumbo - Debug|x64'">
+    <ClCompile>
+      <PreprocessorDefinitions>XRUICORE_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PrecompiledHeaderFile>pch.hpp</PrecompiledHeaderFile>
+      <AdditionalIncludeDirectories>.;$(xrSdkDir)lib_boost\;$(SolutionDir);$(xrExternals);$(ProjectDir);$(xrSdkDir)include;$(xrSdkDir)DXSDK/Include;$(xrExternals)luajit\src;$(xrExternals)luabind;$(xrExternals)pugixml\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+      <AdditionalOptions>/Zm120 %(AdditionalOptions)</AdditionalOptions>
+      <WarningLevel>TurnOffAllWarnings</WarningLevel>
+    </ClCompile>
+    <Link>
+      <AdditionalLibraryDirectories>$(xrSdkDir)lib_boost\stage\lib\;
+        $(xrSdkDir)libraries;
+        $(xrSdkDir)libraries/$(PlatformShortName);
+        $(xrLibDir);$(xrSdkDir)DXSDK/Lib/$(PlatformShortName);
+        %(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+    </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Mixed_COC|x64'">
     <ClCompile>
@@ -216,8 +332,20 @@
     <ClCompile>
       <PreprocessorDefinitions>XRUICORE_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <PrecompiledHeaderFile>pch.hpp</PrecompiledHeaderFile>
-      <AdditionalIncludeDirectories>.;$(SolutionDir);$(xrExternals);$(ProjectDir);$(xrSdkDir)include;$(xrSdkDir)DXSDK/Include;$(xrExternals)luajit\src;$(xrExternals)luabind;$(xrExternals)pugixml\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>.;$(xrSdkDir)lib_boost\;$(SolutionDir);$(xrExternals);$(ProjectDir);$(xrSdkDir)include;$(xrSdkDir)DXSDK/Include;$(xrExternals)luajit\src;$(xrExternals)luabind;$(xrExternals)pugixml\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+      <BasicRuntimeChecks>Default</BasicRuntimeChecks>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
     </ClCompile>
+    <Link>
+      <AdditionalLibraryDirectories>
+    $(xrSdkDir)lib_boost\stage\lib\;
+    $(xrSdkDir)libraries;
+        $(xrSdkDir)libraries/$(PlatformShortName);
+        $(xrLibDir);$(xrSdkDir)DXSDK/Lib/$(PlatformShortName);
+        %(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+    </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ProjectReference Include="$(SolutionDir)xrCore\xrCore.vcxproj">
@@ -229,14 +357,14 @@
     <ProjectReference Include="$(SolutionDir)xrScriptEngine\xrScriptEngine.vcxproj">
       <Project>{132c62de-de85-4978-9675-c78ed4da46f0}</Project>
     </ProjectReference>
-    <ProjectReference Include="$(xrExternals)luabind.vcxproj">
-      <Project>{ccd4afae-aa10-42c6-a452-fdee497ccdf1}</Project>
-    </ProjectReference>
-    <ProjectReference Include="..\..\Externals\LuaJIT-proj\LuaJIT.vcxproj">
-      <Project>{632aeeb6-dc06-4e15-9551-b2b09a4b73c5}</Project>
-    </ProjectReference>
     <ProjectReference Include="$(SolutionDir)xrEngine\xrEngine.vcxproj">
       <Project>{2578c6d8-660d-48ae-9322-7422f8664f06}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\..\sdk\luabind.vcxproj">
+      <Project>{ccd4afae-aa10-42c6-a452-fdee497ccdf1}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\..\sdk\LuaJIT-proj\LuaJIT.vcxproj">
+      <Project>{632aeeb6-dc06-4e15-9551-b2b09a4b73c5}</Project>
     </ProjectReference>
     <ProjectReference Include="..\Layers\xrAPI\xrAPI.vcxproj">
       <Project>{1daec516-e52c-4a3c-a4da-ae3553e6e0f8}</Project>

@@ -296,7 +296,7 @@ void CSoundMemoryManager::add(const IGameObject* object, int sound_type, const F
     }
 }
 
-struct CRemoveOfflinePredicate
+struct CRemoveOfflineSoundPredicate
 {
     bool operator()(const CSoundObject& object) const
     {
@@ -314,7 +314,7 @@ void CSoundMemoryManager::update()
     clear_delayed_objects();
 
     VERIFY(m_sounds);
-    m_sounds->erase(std::remove_if(m_sounds->begin(), m_sounds->end(), CRemoveOfflinePredicate()), m_sounds->end());
+    m_sounds->erase(std::remove_if(m_sounds->begin(), m_sounds->end(), CRemoveOfflineSoundPredicate()), m_sounds->end());
 
 #ifdef USE_SELECTED_SOUND
     xr_delete(m_selected_sound);

@@ -190,11 +190,374 @@
     <Filter Include="Cordis\SDK\UI management">
       <UniqueIdentifier>{12df46ed-8294-4930-83a0-97c8b1413c68}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Cordis\SDK\UI management\Private">
+    <Filter Include="Cordis\SDK\Render">
+      <UniqueIdentifier>{5636342d-3e87-4061-8bd8-f088d54f4fcc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\SDK\Render\Kernel">
+      <UniqueIdentifier>{2c3ab64d-be8c-433a-a1a9-11c8fd86b313}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\SDK\Render\Kernel\Public">
+      <UniqueIdentifier>{8b0fb718-f7c1-448e-b39d-30d0173063db}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\SDK\Render\Kernel\Private">
+      <UniqueIdentifier>{bdeb611f-5169-41ec-9ba4-f6bb417e9a4c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\SDK\Scene management\GSC">
+      <UniqueIdentifier>{517b788a-8cc6-48e1-b841-66dc4b7f5751}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\SDK\Scene management\GSC\Picking">
+      <UniqueIdentifier>{2b362281-bd1d-497a-a1f3-91cd627fa4ee}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\SDK\Scene management\GSC\Physics">
+      <UniqueIdentifier>{bda1393d-e73c-4043-9e17-018a2b7eb4a1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\SDK\Scene management\GSC\Physics\Public">
+      <UniqueIdentifier>{4b36ade1-a7b4-4bed-8380-7fab12b3bc42}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\SDK\Scene management\GSC\Physics\Private">
+      <UniqueIdentifier>{753e197d-b8e5-42f5-8d4b-3b25a54f2c17}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\SDK\Scene management\GSC\Other Stuff">
+      <UniqueIdentifier>{8e3a56e4-b163-4381-9415-1ed8e1f3e3c2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\SDK\Scene management\GSC\Other Stuff\Image Manager">
+      <UniqueIdentifier>{749cf32f-73df-494a-a0ed-759e4dbace5c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\SDK\Scene management\GSC\Other Stuff\Image Manager\Private">
+      <UniqueIdentifier>{131950b9-55b1-46f6-8833-24b5faa96cb0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\SDK\Scene management\GSC\Other Stuff\Image Manager\Public">
+      <UniqueIdentifier>{b2afa8a3-c058-4703-bdc5-d1e8969fae22}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\SDK\Scene management\GSC\Other Stuff\Image Manager\Thumbnail">
+      <UniqueIdentifier>{3f9813c2-c8b7-4dd5-96e5-f3ea95d45b51}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\SDK\Scene management\GSC\Other Stuff\Image Manager\Thumbnail\Public">
+      <UniqueIdentifier>{ba21e595-a1ed-448e-8c83-2256e4cabaa0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\SDK\Scene management\GSC\Other Stuff\Image Manager\Thumbnail\Private">
+      <UniqueIdentifier>{1697a145-15b1-4cb8-9e65-d5d780c41de5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\SDK\Scene management\GSC\Model">
+      <UniqueIdentifier>{acf145d4-beb8-48d3-801b-e7ed0a768405}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\SDK\Scene management\GSC\Model\Editable Mesh">
+      <UniqueIdentifier>{1dcb798c-0148-4fed-824d-0f37c2f39af1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\SDK\Scene management\GSC\Model\Editable Mesh\Public">
+      <UniqueIdentifier>{384d7dbc-7781-4d24-a836-74110c92fd9a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\SDK\Scene management\GSC\Model\Editable Mesh\Private">
+      <UniqueIdentifier>{70b8ff3d-a3fd-47ad-9553-d40acf411f13}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\SDK\Scene management\GSC\Model\Editable Mesh\CSurface">
+      <UniqueIdentifier>{118e97e8-516e-45ac-9fd4-350c88ba66d4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\SDK\Scene management\GSC\Model\Editable Mesh\CSurface\Private">
+      <UniqueIdentifier>{d86ad5e3-5b78-43ae-acc3-91ea99d92c49}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\SDK\Scene management\GSC\Model\Editable Mesh\CSurface\Public">
+      <UniqueIdentifier>{ea851f82-25e2-4f07-a167-adefe1bf688e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\SDK\Scene management\GSC\Model\Editable Object">
+      <UniqueIdentifier>{73aa3b40-e505-4766-bfe3-3746129d418f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\SDK\Scene management\GSC\Model\Editable Object\Public">
+      <UniqueIdentifier>{56de9b21-27ae-4583-bf24-6e527d27441b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\SDK\Scene management\GSC\Model\Editable Object\Private">
+      <UniqueIdentifier>{56f2fd50-ca00-4815-9bfe-427961bd155b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\SDK\Scene management\GSC\Model\Export Skeleton">
+      <UniqueIdentifier>{210699a2-f5ed-4a0f-8b07-00342bf67050}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\SDK\Scene management\GSC\Model\Export Skeleton\Private">
+      <UniqueIdentifier>{b6e3d643-ce32-4fd3-9a83-2ee7e11d6fcd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\SDK\Scene management\GSC\Model\Export Skeleton\Public">
+      <UniqueIdentifier>{c9a88dff-e557-4f37-90df-c5672de7bc5b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\SDK\Scene management\GSC\Model\Export Object OGF">
+      <UniqueIdentifier>{2ca76d65-8f4f-42b9-8831-250b67dc1f12}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\SDK\Scene management\GSC\Model\Export Object OGF\Public">
+      <UniqueIdentifier>{6f90c852-5177-4192-9f91-7caaea2672fe}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\SDK\Scene management\GSC\Model\Export Object OGF\Private">
+      <UniqueIdentifier>{7d1c608a-0695-4d54-9be1-313cb39f4989}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\SDK\WildMagic">
+      <UniqueIdentifier>{e7f0de95-da88-41e8-8b8e-2dbc36adbf82}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="MeshMender2003">
+      <UniqueIdentifier>{1abe3304-6518-4610-985a-c25776d65af9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="MeshMender2003\Public">
+      <UniqueIdentifier>{2ccca01c-88cb-4bbb-9933-6064d9bb2e5f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="MeshMender2003\Private">
+      <UniqueIdentifier>{24dbfb57-6052-4b01-8d87-8e97d7b6f5ae}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\SDK\Scene management\GSC\Other Stuff\Editor Preferences">
+      <UniqueIdentifier>{b2e21a4b-d5d0-4591-99c5-6441f5bc9039}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\SDK\Scene management\GSC\Other Stuff\Editor Preferences\Public">
+      <UniqueIdentifier>{9e3a8627-8678-4a58-ad55-47e02167a057}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\SDK\Scene management\GSC\Other Stuff\Editor Preferences\Private">
+      <UniqueIdentifier>{18a3c0ce-8931-47da-86e5-2f9e3cfc45e7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Shading templates\SDK">
+      <UniqueIdentifier>{f308a181-ed59-44fb-903a-4fd5d28d6ee3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Shading templates\SDK\Public">
+      <UniqueIdentifier>{b49acf9f-4cb0-4d72-b02c-558a9ac064f7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Shading templates\SDK\Private">
+      <UniqueIdentifier>{05bba999-183e-4fad-968f-51a66a8850be}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\SDK\Scene management\Own">
+      <UniqueIdentifier>{484092c5-d4cf-4381-aac4-df99b33fa7b9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\SDK\Scene management\Own\Kernel">
+      <UniqueIdentifier>{df6f223d-f9ef-419a-93df-abde395ac818}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\SDK\Scene management\Own\Kernel\Custom Object">
+      <UniqueIdentifier>{9b94ddf4-0564-44c3-a6ab-47305569cc9a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\SDK\Scene management\Own\Kernel\Custom Object\Public">
+      <UniqueIdentifier>{a8849663-5707-4760-8caa-89d4dd8c23df}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\SDK\Scene management\Own\Kernel\Custom Object\Private">
+      <UniqueIdentifier>{dcfd6a75-9845-4740-92eb-4d6e4ae963e8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\SDK\Scene management\Own\Objects">
+      <UniqueIdentifier>{3ff27a07-71cf-43f9-9192-914428004055}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\SDK\Scene management\Own\Objects\Static Geometry">
+      <UniqueIdentifier>{04caae8f-76fc-4458-8b69-798278b2356b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\SDK\Scene management\Own\Objects\Static Geometry\Public">
+      <UniqueIdentifier>{a5d75dce-080e-4b38-be3c-55d67548e08e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\SDK\Scene management\Own\Objects\Static Geometry\Private">
+      <UniqueIdentifier>{3fb6dc6f-e7b8-4575-b362-4916d5922121}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\SDK\Scene management\Own\Objects\Sector">
+      <UniqueIdentifier>{9849ca6f-3dff-43e4-8735-e88cbc18bfc5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\SDK\Scene management\Own\Objects\Sector\Public">
+      <UniqueIdentifier>{66c19620-c21e-47a5-b813-85e6e958ff23}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\SDK\Scene management\Own\Objects\Sector\Private">
+      <UniqueIdentifier>{da1d5b67-203e-4d47-9749-de2db6feb789}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\SDK\Scene management\Own\Objects\Spawn Element">
+      <UniqueIdentifier>{f2c75f12-9f78-4746-a0b3-ae3b1f014d82}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\SDK\Scene management\Own\Objects\Spawn Element\Public">
+      <UniqueIdentifier>{44086bd3-c2a9-4219-87cb-fb577040bd1a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\SDK\Scene management\Own\Objects\Spawn Element\Private">
+      <UniqueIdentifier>{58171d37-3f66-407d-a269-f4b06b65f501}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\SDK\Scene management\Own\Objects\Way Point">
+      <UniqueIdentifier>{d7840e86-3b4f-468c-a884-8c7392e922eb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\SDK\Scene management\Own\Objects\Way Point\Public">
+      <UniqueIdentifier>{8942580f-356c-4131-bacb-be5ab991dfae}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\SDK\Scene management\Own\Objects\Way Point\Private">
+      <UniqueIdentifier>{ad1fac43-489b-4efb-9a2a-17d233b16c02}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\SDK\Scene management\Own\Objects\Light">
+      <UniqueIdentifier>{5cd628da-ad7f-46a8-ae26-19d177aa04fc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\SDK\Scene management\Own\Objects\Light\Public">
+      <UniqueIdentifier>{6aecc213-ab81-4ded-b49b-92df673fa04e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\SDK\Scene management\Own\Objects\Light\Private">
+      <UniqueIdentifier>{b36b8227-6790-4d47-9275-30fa4113fa46}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\SDK\Scene management\Own\Kernel\Scene Manager">
+      <UniqueIdentifier>{2914e362-3b14-43b9-8ac7-585cb224a6c4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\SDK\Scene management\Own\Kernel\Scene Manager\Public">
+      <UniqueIdentifier>{0b82b38d-2a5a-4078-86cb-4a62714da4fd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\SDK\Scene management\Own\Kernel\Scene Manager\Private">
+      <UniqueIdentifier>{88cfaef7-bb55-46a6-96bb-d9fb9030c687}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\SDK\UI management\Kernel">
+      <UniqueIdentifier>{7f5b1186-547c-43eb-b8e4-fe73765188c2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\SDK\UI management\Kernel\Private">
       <UniqueIdentifier>{29675fc3-99bd-4e9f-b1d3-8631a76ba9ab}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Cordis\SDK\UI management\Public">
+    <Filter Include="Cordis\SDK\UI management\Kernel\Public">
       <UniqueIdentifier>{625ab781-3dea-46d5-810a-3be1cbc9c1ed}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\SDK\UI management\Helpers">
+      <UniqueIdentifier>{0c13f614-6649-4ae8-a453-420f1b5e03b4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\SDK\UI management\Helpers\Main">
+      <UniqueIdentifier>{bb70c8f3-7a35-4f10-ad1d-8b2c1f0db48f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\SDK\UI management\Helpers\Main\Public">
+      <UniqueIdentifier>{a4c2ac3b-1df5-49cf-b312-4371f5a8b4e7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\SDK\UI management\Helpers\Main\Private">
+      <UniqueIdentifier>{89b72770-1a61-4be9-bd35-d38bdb36fa9f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\SDK\UI management\Right Window">
+      <UniqueIdentifier>{d8e94095-597c-43d0-b6dc-acba40ebd7f8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\SDK\UI management\Right Window\Public">
+      <UniqueIdentifier>{65461f0f-efa4-4746-8a95-5ed2aa9d5445}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\SDK\UI management\Right Window\Private">
+      <UniqueIdentifier>{e832cf16-8865-4505-af81-584814487fda}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\SDK\Scene management\Own\Cache">
+      <UniqueIdentifier>{0e03297b-1b82-4275-8f2f-d56cdbd1b233}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\SDK\Scene management\Own\Cache\Public">
+      <UniqueIdentifier>{5b4defe7-b496-4045-b04d-bbe0d99eef4b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\SDK\Scene management\Own\Cache\Private">
+      <UniqueIdentifier>{df7e28fe-90c0-4d85-8014-d341144a6872}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\SDK\Scene management\Own\Gizmos">
+      <UniqueIdentifier>{712b3bef-093a-45c7-bf92-1a66ccd67133}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\SDK\Scene management\Own\Gizmos\Move">
+      <UniqueIdentifier>{d8dd18b6-05a1-4491-8881-a3ee85ea6294}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\SDK\Scene management\Own\Gizmos\Rotation">
+      <UniqueIdentifier>{fe0eb2a7-b8bd-4a65-9bf2-1d18f81a8db5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\SDK\Scene management\Own\Gizmos\Scale">
+      <UniqueIdentifier>{811d063f-ac8c-4c87-960b-a93de0e65956}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\SDK\Scene management\Own\Gizmos\Move\Public">
+      <UniqueIdentifier>{a64596ed-79c9-4298-816a-3ce47d8d3107}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\SDK\Scene management\Own\Gizmos\Move\Private">
+      <UniqueIdentifier>{d9532efc-d379-48c1-b654-74bfbd6db893}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\SDK\Scene management\Own\Gizmos\Scale\Public">
+      <UniqueIdentifier>{541d1d13-f28c-4ba5-8138-a4710d9c7f77}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\SDK\Scene management\Own\Gizmos\Scale\Private">
+      <UniqueIdentifier>{0d0843a6-3407-4788-babe-478f6db288aa}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\SDK\Scene management\Own\Gizmos\Rotation\Public">
+      <UniqueIdentifier>{90df8acb-bd98-46ea-8c9d-3e03b23f415e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\SDK\Scene management\Own\Gizmos\Rotation\Private">
+      <UniqueIdentifier>{74cc4ade-3cea-41e9-82ce-9688ffc078c1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\SDK\Scene management\Own\Gizmos\Manager">
+      <UniqueIdentifier>{fa55db8c-b66b-4776-8f57-1bd45540dce6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\SDK\Scene management\Own\Gizmos\Manager\Public">
+      <UniqueIdentifier>{5069beec-3208-41b1-be82-7477b6e60996}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\SDK\Scene management\Own\Gizmos\Manager\Private">
+      <UniqueIdentifier>{208a9bc6-54e8-429d-ad02-79c6984f8732}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\SDK\Application Settings">
+      <UniqueIdentifier>{802d8826-f233-4dd4-8449-190d703cda06}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\SDK\Application Settings\Public">
+      <UniqueIdentifier>{a6e01f00-91fa-432b-9d61-2706437284f2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\SDK\Application Settings\Private">
+      <UniqueIdentifier>{5fb4734d-58ac-4dbc-8b9b-2c9b14e07eb0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\SDK\Keybinding manager">
+      <UniqueIdentifier>{0e5866d5-8ea6-4d0c-b4f7-224e97d12c5c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\SDK\Keybinding manager\Public">
+      <UniqueIdentifier>{23de6a77-74f7-4209-bb88-f15f6b21c033}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\SDK\Keybinding manager\Private">
+      <UniqueIdentifier>{6f92dff4-e55e-496e-b47f-b12299a06c2c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\SDK\File System State">
+      <UniqueIdentifier>{0ce86b15-7575-4e8d-bf33-0ffedc4e05c4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\SDK\File System State\Public">
+      <UniqueIdentifier>{a00ed5af-46c9-40f0-8dee-e8a21e4873ca}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\SDK\File System State\Private">
+      <UniqueIdentifier>{6afe1a4f-b8c1-4242-8773-6b83cc00a83e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\SDK\UI management\Icon Manager">
+      <UniqueIdentifier>{7edbc25a-58dd-49a3-b703-cc163711a396}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\SDK\UI management\Icon Manager\Public">
+      <UniqueIdentifier>{b11ccbb4-37a3-4659-acb1-3edf75dab389}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\SDK\UI management\Icon Manager\Private">
+      <UniqueIdentifier>{84fab1a1-58bc-4d48-961f-48169153e5b6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\SDK\UI management\ToolBar">
+      <UniqueIdentifier>{31e79885-84c9-4edc-86dd-de4e27cfa904}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\SDK\UI management\ToolBar\Public">
+      <UniqueIdentifier>{c78d8542-c0b0-4282-932c-e3c9c5914a03}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\SDK\UI management\ToolBar\Private">
+      <UniqueIdentifier>{99713423-3cc4-4f4f-adb3-d756a249121d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\SDK\UI management\Object List">
+      <UniqueIdentifier>{c4847fb6-3649-4a82-923d-adbe39ad9e51}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\SDK\UI management\Object List\Public">
+      <UniqueIdentifier>{a8d7041e-e921-4201-ba02-b0c042800ec5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\SDK\UI management\Object List\Private">
+      <UniqueIdentifier>{3b7c252b-bed5-4d54-b73b-dcc6490ab4e2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\SDK\Scene management\Own\Objects\Shapes">
+      <UniqueIdentifier>{8db0f3bf-44c2-4576-869f-207c754b5f90}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\SDK\Scene management\Own\Objects\Shapes\Public">
+      <UniqueIdentifier>{e2f3b812-87eb-4101-9bad-02fbf4ae2749}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\SDK\Scene management\Own\Objects\Shapes\Private">
+      <UniqueIdentifier>{eb6d8794-b811-4ddd-9668-851bacc64432}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\SDK\UI management\Object Properties">
+      <UniqueIdentifier>{bc03f2fd-e74d-447c-aed0-0d498fe19806}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\SDK\UI management\Object Properties\Public">
+      <UniqueIdentifier>{192a2071-6eb8-487d-beb1-86985649932b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\SDK\UI management\Object Properties\Private">
+      <UniqueIdentifier>{f0ef3b12-9c65-4009-9ff9-8d6521cfa51f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resources">
+      <UniqueIdentifier>{80b69493-09b8-44cf-a38a-15ec0d3abebc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\SDK\UI management\Settings">
+      <UniqueIdentifier>{fc0aabd9-5642-4bbb-8b8d-9b1874c7281f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\SDK\UI management\Settings\Public">
+      <UniqueIdentifier>{204ded98-b86f-4fc6-bb0f-de5dcad07d0d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\SDK\UI management\Settings\Private">
+      <UniqueIdentifier>{b7c6a23d-ff22-4066-8ad3-f1bc39139d3b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\SDK\Scene management\GSC\Other Stuff\IniFileStream">
+      <UniqueIdentifier>{48869062-33b7-4d53-bd93-a83647d147c6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\SDK\Scene management\GSC\Other Stuff\IniFileStream\Public">
+      <UniqueIdentifier>{d508de5a-4e0b-44e7-8f0e-4af5a0c0bbdd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\SDK\Scene management\GSC\Other Stuff\IniFileStream\Private">
+      <UniqueIdentifier>{507e3bcd-2319-4c29-b533-cc19c4357936}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -739,9 +1102,201 @@
       <Filter>Refactored\Execution &amp; 3D\Visuals\Skeleton</Filter>
     </ClInclude>
     <ClInclude Include="SDKUI.h">
-      <Filter>Cordis\SDK\UI management\Public</Filter>
+      <Filter>Cordis\SDK\UI management\Kernel\Public</Filter>
     </ClInclude>
-    <ClInclude Include="SDKUI_Helpers.h" />
+    <ClInclude Include="SDKUI_Render.h">
+      <Filter>Cordis\SDK\Render\Kernel\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="pick_defs.h">
+      <Filter>Cordis\SDK\Scene management\GSC\Picking</Filter>
+    </ClInclude>
+    <ClInclude Include="EditMesh.h">
+      <Filter>Cordis\SDK\Scene management\GSC\Model\Editable Mesh\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="CSurface.h">
+      <Filter>Cordis\SDK\Scene management\GSC\Model\Editable Mesh\CSurface\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="ImageManager.h">
+      <Filter>Cordis\SDK\Scene management\GSC\Other Stuff\Image Manager\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="EThumbnail.h">
+      <Filter>Cordis\SDK\Scene management\GSC\Other Stuff\Image Manager\Thumbnail\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="itterate_adjacents_dynamic.h">
+      <Filter>Cordis\SDK\Scene management\GSC\Other Stuff</Filter>
+    </ClInclude>
+    <ClInclude Include="EditObject.h">
+      <Filter>Cordis\SDK\Scene management\GSC\Model\Editable Object\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="PhysicsShellHolderEditorBase.h">
+      <Filter>Cordis\SDK\Scene management\GSC\Physics\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="ExportSkeleton.h">
+      <Filter>Cordis\SDK\Scene management\GSC\Model\Export Skeleton\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="WildMagic\WmlApprGaussPointsFit3.h">
+      <Filter>Cordis\SDK\WildMagic</Filter>
+    </ClInclude>
+    <ClInclude Include="WildMagic\WmlBox3.h">
+      <Filter>Cordis\SDK\WildMagic</Filter>
+    </ClInclude>
+    <ClInclude Include="WildMagic\WmlContBox3.h">
+      <Filter>Cordis\SDK\WildMagic</Filter>
+    </ClInclude>
+    <ClInclude Include="WildMagic\WmlContMinBox3.h">
+      <Filter>Cordis\SDK\WildMagic</Filter>
+    </ClInclude>
+    <ClInclude Include="WildMagic\WmlEigen.h">
+      <Filter>Cordis\SDK\WildMagic</Filter>
+    </ClInclude>
+    <ClInclude Include="WildMagic\WmlGMatrix.h">
+      <Filter>Cordis\SDK\WildMagic</Filter>
+    </ClInclude>
+    <ClInclude Include="WildMagic\WmlGVector.h">
+      <Filter>Cordis\SDK\WildMagic</Filter>
+    </ClInclude>
+    <ClInclude Include="WildMagic\WmlMath.h">
+      <Filter>Cordis\SDK\WildMagic</Filter>
+    </ClInclude>
+    <ClInclude Include="WildMagic\WmlMatrix.h">
+      <Filter>Cordis\SDK\WildMagic</Filter>
+    </ClInclude>
+    <ClInclude Include="WildMagic\WmlMatrix2.h">
+      <Filter>Cordis\SDK\WildMagic</Filter>
+    </ClInclude>
+    <ClInclude Include="WildMagic\WmlMatrix3.h">
+      <Filter>Cordis\SDK\WildMagic</Filter>
+    </ClInclude>
+    <ClInclude Include="WildMagic\WmlMatrix4.h">
+      <Filter>Cordis\SDK\WildMagic</Filter>
+    </ClInclude>
+    <ClInclude Include="WildMagic\WmlMinimize1.h">
+      <Filter>Cordis\SDK\WildMagic</Filter>
+    </ClInclude>
+    <ClInclude Include="WildMagic\WmlMinimizeN.h">
+      <Filter>Cordis\SDK\WildMagic</Filter>
+    </ClInclude>
+    <ClInclude Include="WildMagic\WmlQuaternion.h">
+      <Filter>Cordis\SDK\WildMagic</Filter>
+    </ClInclude>
+    <ClInclude Include="WildMagic\WmlSystem.h">
+      <Filter>Cordis\SDK\WildMagic</Filter>
+    </ClInclude>
+    <ClInclude Include="WildMagic\WmlVector.h">
+      <Filter>Cordis\SDK\WildMagic</Filter>
+    </ClInclude>
+    <ClInclude Include="WildMagic\WmlVector2.h">
+      <Filter>Cordis\SDK\WildMagic</Filter>
+    </ClInclude>
+    <ClInclude Include="WildMagic\WmlVector3.h">
+      <Filter>Cordis\SDK\WildMagic</Filter>
+    </ClInclude>
+    <ClInclude Include="WildMagic\WmlVector4.h">
+      <Filter>Cordis\SDK\WildMagic</Filter>
+    </ClInclude>
+    <ClInclude Include="WildMagic\WmlWinSystem.h">
+      <Filter>Cordis\SDK\WildMagic</Filter>
+    </ClInclude>
+    <ClInclude Include="ExportObjectOGF.h">
+      <Filter>Cordis\SDK\Scene management\GSC\Model\Export Object OGF\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="EditorPref.h">
+      <Filter>Cordis\SDK\Scene management\GSC\Other Stuff\Editor Preferences\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="NvMender2003\convert.h">
+      <Filter>MeshMender2003\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="NvMender2003\mender_input_output.h">
+      <Filter>MeshMender2003\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="NvMender2003\NVMeshMender.h">
+      <Filter>MeshMender2003\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="NvMender2003\remove_isolated_verts.h">
+      <Filter>MeshMender2003\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="blender_sdk.h">
+      <Filter>Shading templates\SDK\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="blender_editor_sdk.h">
+      <Filter>Shading templates\SDK\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="SDK_CustomObject.h">
+      <Filter>Cordis\SDK\Scene management\Own\Kernel\Custom Object\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="SDK_ObjectStaticGeometry.h">
+      <Filter>Cordis\SDK\Scene management\Own\Objects\Static Geometry\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="SDKUI_Helpers.h">
+      <Filter>Cordis\SDK\UI management\Helpers\Main\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="SDKUI_RightWindow.h">
+      <Filter>Cordis\SDK\UI management\Right Window\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="SDK_SceneManager.h">
+      <Filter>Cordis\SDK\Scene management\Own\Kernel\Scene Manager\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="SDK_Cache.h">
+      <Filter>Cordis\SDK\Scene management\Own\Cache\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="SDK_ObjectWayPoint.h">
+      <Filter>Cordis\SDK\Scene management\Own\Objects\Way Point\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="SDK_GizmoMove.h">
+      <Filter>Cordis\SDK\Scene management\Own\Gizmos\Move\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="SDK_GizmoManager.h">
+      <Filter>Cordis\SDK\Scene management\Own\Gizmos\Manager\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="SDK_Settings.h">
+      <Filter>Cordis\SDK\Application Settings\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="SDK_KeybindingManager.h">
+      <Filter>Cordis\SDK\Keybinding manager\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="SDK_IconManager.h">
+      <Filter>Cordis\SDK\UI management\Icon Manager\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="SDK_FileSystemState.h">
+      <Filter>Cordis\SDK\File System State\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="SDKUI_ToolBar.h">
+      <Filter>Cordis\SDK\UI management\ToolBar\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="SDKUI_ObjectList.h">
+      <Filter>Cordis\SDK\UI management\Object List\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="SDKUI_ObjectInspector.h">
+      <Filter>Cordis\SDK\UI management\Object Properties\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="SDK_ObjectShape.h">
+      <Filter>Cordis\SDK\Scene management\Own\Objects\Shapes\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Blender_2D_UI.h">
+      <Filter>Shading templates\SDK\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="SDK_GizmoRotation.h">
+      <Filter>Cordis\SDK\Scene management\Own\Gizmos\Rotation\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="SDK_GizmoScale.h">
+      <Filter>Cordis\SDK\Scene management\Own\Gizmos\Scale\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="SDK_ObjectLight.h">
+      <Filter>Cordis\SDK\Scene management\Own\Objects\Light\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="SDK_Names.h">
+      <Filter>Cordis\SDK\UI management\Kernel\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="resource.h" />
+    <ClInclude Include="SDKUI_Settings.h">
+      <Filter>Cordis\SDK\UI management\Settings\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="SIniFileStream.h">
+      <Filter>Cordis\SDK\Scene management\GSC\Other Stuff\IniFileStream\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="SDK_ObjectSpawnElement.h">
+      <Filter>Cordis\SDK\Scene management\Own\Objects\Spawn Element\Public</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -1336,14 +1891,226 @@
       <Filter>Core</Filter>
     </ClCompile>
     <ClCompile Include="SDKUI.cpp">
-      <Filter>Cordis\SDK\UI management\Private</Filter>
+      <Filter>Cordis\SDK\UI management\Kernel\Private</Filter>
     </ClCompile>
-    <ClCompile Include="SDKUI_Helpers.cpp" />
+    <ClCompile Include="SDKUI_Render.cpp">
+      <Filter>Cordis\SDK\Render\Kernel\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="EditMesh.cpp">
+      <Filter>Cordis\SDK\Scene management\GSC\Model\Editable Mesh\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="CSurface.cpp">
+      <Filter>Cordis\SDK\Scene management\GSC\Model\Editable Mesh\CSurface\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="ImageManager.cpp">
+      <Filter>Cordis\SDK\Scene management\GSC\Other Stuff\Image Manager\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="EThumbnail.cpp">
+      <Filter>Cordis\SDK\Scene management\GSC\Other Stuff\Image Manager\Thumbnail\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="EditObject.cpp">
+      <Filter>Cordis\SDK\Scene management\GSC\Model\Editable Object\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="PhysicsShellHolderEditorBase.cpp">
+      <Filter>Cordis\SDK\Scene management\GSC\Physics\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="ExportSkeleton.cpp">
+      <Filter>Cordis\SDK\Scene management\GSC\Model\Export Skeleton\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="WildMagic\RAPIDMinBox.cpp">
+      <Filter>Cordis\SDK\WildMagic</Filter>
+    </ClCompile>
+    <ClCompile Include="WildMagic\WmlApprGaussPointsFit3.cpp">
+      <Filter>Cordis\SDK\WildMagic</Filter>
+    </ClCompile>
+    <ClCompile Include="WildMagic\WmlBox3.cpp">
+      <Filter>Cordis\SDK\WildMagic</Filter>
+    </ClCompile>
+    <ClCompile Include="WildMagic\WmlContBox3.cpp">
+      <Filter>Cordis\SDK\WildMagic</Filter>
+    </ClCompile>
+    <ClCompile Include="WildMagic\WmlContMinBox3.cpp">
+      <Filter>Cordis\SDK\WildMagic</Filter>
+    </ClCompile>
+    <ClCompile Include="WildMagic\WmlEigen.cpp">
+      <Filter>Cordis\SDK\WildMagic</Filter>
+    </ClCompile>
+    <ClCompile Include="WildMagic\WmlMath.cpp">
+      <Filter>Cordis\SDK\WildMagic</Filter>
+    </ClCompile>
+    <ClCompile Include="WildMagic\WmlMatrix2.cpp">
+      <Filter>Cordis\SDK\WildMagic</Filter>
+    </ClCompile>
+    <ClCompile Include="WildMagic\WmlMatrix3.cpp">
+      <Filter>Cordis\SDK\WildMagic</Filter>
+    </ClCompile>
+    <ClCompile Include="WildMagic\WmlMatrix4.cpp">
+      <Filter>Cordis\SDK\WildMagic</Filter>
+    </ClCompile>
+    <ClCompile Include="WildMagic\WmlMinimize1.cpp">
+      <Filter>Cordis\SDK\WildMagic</Filter>
+    </ClCompile>
+    <ClCompile Include="WildMagic\WmlMinimizeN.cpp">
+      <Filter>Cordis\SDK\WildMagic</Filter>
+    </ClCompile>
+    <ClCompile Include="WildMagic\WmlQuaternion.cpp">
+      <Filter>Cordis\SDK\WildMagic</Filter>
+    </ClCompile>
+    <ClCompile Include="WildMagic\WmlSystem.cpp">
+      <Filter>Cordis\SDK\WildMagic</Filter>
+    </ClCompile>
+    <ClCompile Include="WildMagic\WmlVector2.cpp">
+      <Filter>Cordis\SDK\WildMagic</Filter>
+    </ClCompile>
+    <ClCompile Include="WildMagic\WmlVector3.cpp">
+      <Filter>Cordis\SDK\WildMagic</Filter>
+    </ClCompile>
+    <ClCompile Include="WildMagic\WmlVector4.cpp">
+      <Filter>Cordis\SDK\WildMagic</Filter>
+    </ClCompile>
+    <ClCompile Include="WildMagic\WmlWinSystem.cpp">
+      <Filter>Cordis\SDK\WildMagic</Filter>
+    </ClCompile>
+    <ClCompile Include="ExportObjectOGF.cpp">
+      <Filter>Cordis\SDK\Scene management\GSC\Model\Export Object OGF\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="EditorPref.cpp">
+      <Filter>Cordis\SDK\Scene management\GSC\Other Stuff\Editor Preferences\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="NvMender2003\NVMeshMender.cpp">
+      <Filter>MeshMender2003\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="blender_sdk.cpp">
+      <Filter>Shading templates\SDK\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="blender_editor_sdk.cpp">
+      <Filter>Shading templates\SDK\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="SDK_CustomObject.cpp">
+      <Filter>Cordis\SDK\Scene management\Own\Kernel\Custom Object\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="SDK_ObjectStaticGeometry.cpp">
+      <Filter>Cordis\SDK\Scene management\Own\Objects\Static Geometry\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="SDKUI_Helpers.cpp">
+      <Filter>Cordis\SDK\UI management\Helpers\Main\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="SDKUI_RightWindow.cpp">
+      <Filter>Cordis\SDK\UI management\Right Window\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="SDK_SceneManager.cpp">
+      <Filter>Cordis\SDK\Scene management\Own\Kernel\Scene Manager\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="SDK_Cache.cpp">
+      <Filter>Cordis\SDK\Scene management\Own\Cache\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="SDK_ObjectWayPoint.cpp">
+      <Filter>Cordis\SDK\Scene management\Own\Objects\Way Point\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="SDK_GizmoMove.cpp">
+      <Filter>Cordis\SDK\Scene management\Own\Gizmos\Move\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="SDK_GizmoManager.cpp">
+      <Filter>Cordis\SDK\Scene management\Own\Gizmos\Manager\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="SDK_Settings.cpp">
+      <Filter>Cordis\SDK\Application Settings\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="SDK_KeybindingManager.cpp">
+      <Filter>Cordis\SDK\Keybinding manager\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="SDK_IconManager.cpp">
+      <Filter>Cordis\SDK\UI management\Icon Manager\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="SDK_FileSystemState.cpp">
+      <Filter>Cordis\SDK\File System State\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="SDKUI_ToolBar.cpp">
+      <Filter>Cordis\SDK\UI management\ToolBar\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="SDKUI_ObjectList.cpp">
+      <Filter>Cordis\SDK\UI management\Object List\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="SDK_ObjectShape.cpp">
+      <Filter>Cordis\SDK\Scene management\Own\Objects\Shapes\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Blender_2D_UI.cpp">
+      <Filter>Shading templates\SDK\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="SDK_GizmoRotation.cpp">
+      <Filter>Cordis\SDK\Scene management\Own\Gizmos\Rotation\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="SDK_GizmoScale.cpp">
+      <Filter>Cordis\SDK\Scene management\Own\Gizmos\Scale\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="SDK_ObjectLight.cpp">
+      <Filter>Cordis\SDK\Scene management\Own\Objects\Light\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="SDKUI_Settings.cpp">
+      <Filter>Cordis\SDK\UI management\Settings\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="SDK_Names.cpp">
+      <Filter>Cordis\SDK\UI management\Kernel\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="SIniFileStream.cpp">
+      <Filter>Cordis\SDK\Scene management\GSC\Other Stuff\IniFileStream\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="SDKUI_ObjectInspector.cpp">
+      <Filter>Cordis\SDK\UI management\Object Properties\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="SDK_ObjectSpawnElement.cpp">
+      <Filter>Cordis\SDK\Scene management\Own\Objects\Spawn Element\Private</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Natvis Include="..\..\TypeHelper.natvis" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+    <None Include="WildMagic\WmlGMatrix.inl">
+      <Filter>Cordis\SDK\WildMagic</Filter>
+    </None>
+    <None Include="WildMagic\WmlGVector.inl">
+      <Filter>Cordis\SDK\WildMagic</Filter>
+    </None>
+    <None Include="WildMagic\WmlMath.inl">
+      <Filter>Cordis\SDK\WildMagic</Filter>
+    </None>
+    <None Include="WildMagic\WmlMatrix.inl">
+      <Filter>Cordis\SDK\WildMagic</Filter>
+    </None>
+    <None Include="WildMagic\WmlMatrix2.inl">
+      <Filter>Cordis\SDK\WildMagic</Filter>
+    </None>
+    <None Include="WildMagic\WmlMatrix3.inl">
+      <Filter>Cordis\SDK\WildMagic</Filter>
+    </None>
+    <None Include="WildMagic\WmlMatrix4.inl">
+      <Filter>Cordis\SDK\WildMagic</Filter>
+    </None>
+    <None Include="WildMagic\WmlQuaternion.inl">
+      <Filter>Cordis\SDK\WildMagic</Filter>
+    </None>
+    <None Include="WildMagic\WmlSystem.inl">
+      <Filter>Cordis\SDK\WildMagic</Filter>
+    </None>
+    <None Include="WildMagic\WmlVector.inl">
+      <Filter>Cordis\SDK\WildMagic</Filter>
+    </None>
+    <None Include="WildMagic\WmlVector2.inl">
+      <Filter>Cordis\SDK\WildMagic</Filter>
+    </None>
+    <None Include="WildMagic\WmlVector3.inl">
+      <Filter>Cordis\SDK\WildMagic</Filter>
+    </None>
+    <None Include="WildMagic\WmlVector4.inl">
+      <Filter>Cordis\SDK\WildMagic</Filter>
+    </None>
+    <None Include="WildMagic\WmlSystem.mcr">
+      <Filter>Cordis\SDK\WildMagic</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="xrRender_R4.rc" />
   </ItemGroup>
 </Project>

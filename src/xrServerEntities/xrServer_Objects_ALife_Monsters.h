@@ -9,7 +9,6 @@
 #pragma once
 #ifndef xrServer_Objects_ALife_MonstersH
 #define xrServer_Objects_ALife_MonstersH
-
 #include "xrServer_Objects_ALife.h"
 #include "xrServer_Objects_ALife_Items.h"
 #include "character_info_defs.h"
@@ -426,6 +425,7 @@ public:
 #endif
     virtual CSE_Abstract* cast_abstract() { return this; };
     virtual CSE_ALifeTraderAbstract* cast_trader_abstract() { return this; };
+
 public:
     virtual BOOL Net_Relevant();
     virtual void UPDATE_Read(NET_Packet& P);
@@ -433,6 +433,12 @@ public:
     virtual void STATE_Read(NET_Packet& P, u16 size);
     virtual void STATE_Write(NET_Packet& P);
     SERVER_ENTITY_EDITOR_METHODS
+
+    virtual bool IsSimulationAvailable(void)
+    {
+        // Lord: реализовать 
+        return true;
+    }
 };
 
 class CSE_ALifeCreatureCrow : public CSE_ALifeCreatureAbstract
@@ -720,7 +726,7 @@ public:
     void clear_location_types();
     void add_location_type(LPCSTR mask);
     void force_change_position(Fvector position);
-    //void force_change_game_vertex_id(GameGraph::_GRAPH_ID game_vertex_id);
+    // void force_change_game_vertex_id(GameGraph::_GRAPH_ID game_vertex_id);
     virtual void on_failed_switch_online();
 #else
 public:

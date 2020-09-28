@@ -1,6 +1,6 @@
 #pragma once
 
-enum
+enum RewardMultiplayerSoundMessagesType
 {
     ID_HEADSHOT = 0, // 0
     ID_ASSASSIN,

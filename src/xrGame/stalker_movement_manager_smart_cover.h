@@ -81,6 +81,8 @@ public:
 public:
     IC target_selector_type& target_selector();
     void target_selector(CScriptCallbackEx<void> const& callback);
+    void target_selector(std::function<void(CScriptGameObject* const)>& my_function);
+    void target_selector_without_callback(void);
     void target_idle();
     void target_lookout();
     void target_fire();

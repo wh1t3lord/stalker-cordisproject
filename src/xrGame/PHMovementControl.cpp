@@ -25,7 +25,7 @@
 #include "PHDebug.h"
 #endif
 
-#include "Include/xrRender/Kinematics.h"
+#include "Kinematics.h"
 
 #define GROUND_FRICTION 10.0f
 #define AIR_FRICTION 0.01f

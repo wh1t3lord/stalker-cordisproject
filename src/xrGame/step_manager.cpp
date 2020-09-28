@@ -1,7 +1,7 @@
 #include "StdAfx.h"
 #include "step_manager.h"
 #include "entity_alive.h"
-#include "Include/xrRender/Kinematics.h"
+#include "Kinematics.h"
 #include "Level.h"
 #include "GamePersistent.h"
 #include "material_manager.h"
@@ -273,16 +273,16 @@ void CStepManager::load_foot_bones(CInifile::Sect& data)
     {
         const CInifile::Item& item = *I;
 
-        u16 index = smart_cast<IKinematics*>(m_object->Visual())->LL_BoneID(*item.second);
-        VERIFY3(index != BI_NONE, "foot bone not found", *item.second);
+        u16 index = smart_cast<IKinematics*>(m_object->Visual())->LL_BoneID(item.second.c_str());
+        VERIFY3(index != BI_NONE, "foot bone not found", item.second.c_str());
 
-        if (xr_strcmp(*item.first, "front_left") == 0)
+        if (xr_strcmp(item.first.c_str(), "front_left") == 0)
             m_foot_bones[eFrontLeft] = index;
-        else if (xr_strcmp(*item.first, "front_right") == 0)
+        else if (xr_strcmp(item.first.c_str(), "front_right") == 0)
             m_foot_bones[eFrontRight] = index;
-        else if (xr_strcmp(*item.first, "back_right") == 0)
+        else if (xr_strcmp(item.first.c_str(), "back_right") == 0)
             m_foot_bones[eBackRight] = index;
-        else if (xr_strcmp(*item.first, "back_left") == 0)
+        else if (xr_strcmp(item.first.c_str(), "back_left") == 0)
             m_foot_bones[eBackLeft] = index;
     }
 }

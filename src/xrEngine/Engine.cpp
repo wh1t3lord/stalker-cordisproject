@@ -17,10 +17,10 @@ extern void msCreate(LPCSTR name);
 
 void CEngine::Initialize(void)
 {
-    Engine.Sheduler.Initialize();
-    Engine.Scheduler.Initialize();
+     Engine.Sheduler.Initialize(); 
+
 #ifdef DEBUG
-    msCreate("game");
+     msCreate("game");  
 #endif
 }
 

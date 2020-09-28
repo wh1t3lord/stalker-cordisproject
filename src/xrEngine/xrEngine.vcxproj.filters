@@ -235,6 +235,21 @@
     <Filter Include="Game API\StringTable">
       <UniqueIdentifier>{948b4643-0f42-4027-ac44-dbe3702887f4}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Cordis">
+      <UniqueIdentifier>{3a723178-898a-49d3-b87b-c6ddabeef8be}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\SDK">
+      <UniqueIdentifier>{c9a99218-b4e1-4144-b9b4-d82b9c8c5186}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\SDK\Camera">
+      <UniqueIdentifier>{45939ac8-4dd2-4f8e-881a-8c1bccd0f358}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\SDK\Camera\Public">
+      <UniqueIdentifier>{684587aa-51a8-4612-bdd5-a6f6856e7a6d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\SDK\Camera\Private">
+      <UniqueIdentifier>{11b14290-0809-4865-a76c-1b94f0c91cff}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="defines.h">
@@ -579,6 +594,9 @@
     <ClInclude Include="MonitorManager.hpp">
       <Filter>Interfaces</Filter>
     </ClInclude>
+    <ClInclude Include="SDK_Camera.h">
+      <Filter>Cordis\SDK\Camera\Public</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="defines.cpp">
@@ -901,6 +919,9 @@
     </ClCompile>
     <ClCompile Include="MonitorManager.cpp">
       <Filter>Interfaces</Filter>
+    </ClCompile>
+    <ClCompile Include="SDK_Camera.cpp">
+      <Filter>Cordis\SDK\Camera\Private</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

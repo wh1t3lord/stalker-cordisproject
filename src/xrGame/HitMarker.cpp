@@ -8,8 +8,8 @@
 
 #include "Grenade.h"
 
-#include "Include/xrRender/UIRender.h"
-#include "Include/xrRender/UIShader.h"
+#include "UIRender.h"
+#include "UIShader.h"
 
 //--------------------------------------------------------------------
 CHitMarker::CHitMarker()

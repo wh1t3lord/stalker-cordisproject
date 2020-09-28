@@ -23,7 +23,7 @@
 #include "cover_evaluators.h"
 #include "xrServer.h"
 #include "xr_level_controller.h"
-#include "Include/xrRender/Kinematics.h"
+#include "Kinematics.h"
 #include "xrServerEntities/character_info.h"
 #include "Actor.h"
 #include "relation_registry.h"
@@ -1110,12 +1110,6 @@ void CAI_Stalker::shedule_Update(u32 DT)
     UpdateInventoryOwner(DT);
     STOP_PROFILE
 
-    //#ifdef DEBUG
-    //	if (psAI_Flags.test(aiALife)) {
-    //		smart_cast<CSE_ALifeHumanStalker*>(ai().alife().objects().object(ID()))->check_inventory_consistency();
-    //	}
-    //#endif
-
     START_PROFILE("stalker/schedule_update/physics")
     VERIFY(_valid(Position()));
     m_pPhysics_support->in_shedule_Update(DT);
@@ -1128,9 +1122,9 @@ void CAI_Stalker::shedule_Update(u32 DT)
 float CAI_Stalker::Radius() const
 {
     float R = inherited::Radius();
-    CWeapon* W = smart_cast<CWeapon*>(inventory().ActiveItem());
-    if (W)
-        R += W->Radius();
+    CWeapon* p_weapon = smart_cast<CWeapon*>(inventory().ActiveItem());
+    if (p_weapon)
+        R += p_weapon->Radius();
     return R;
 }
 
@@ -1319,7 +1313,7 @@ void CAI_Stalker::fill_bones_body_parts(LPCSTR bone_id, const ECriticalWoundType
     auto I = body_part_section.Data.cbegin();
     auto E = body_part_section.Data.cend();
     for (; I != E; ++I)
-        m_bones_body_parts.insert(std::make_pair(kinematics->LL_BoneID((*I).first), u32(wound_type)));
+        m_bones_body_parts.insert(std::make_pair(kinematics->LL_BoneID((*I).first.c_str()), u32(wound_type)));
 }
 
 void CAI_Stalker::on_before_change_team()

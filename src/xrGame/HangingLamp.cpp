@@ -5,8 +5,8 @@
 #include "xrPhysics/PhysicsShell.h"
 #include "xrPhysics/MathUtils.h"
 #include "xrServer_Objects_ALife.h"
-#include "Include/xrRender/Kinematics.h"
-#include "Include/xrRender/KinematicsAnimated.h"
+#include "Kinematics.h"
+#include "KinematicsAnimated.h"
 #include "game_object_space.h"
 #include "xrScriptEngine/script_callback_ex.h"
 #include "script_game_object.h"
@@ -330,8 +330,12 @@ void CHangingLamp::TurnOff()
 void CHangingLamp::Hit(SHit* pHDS)
 {
     SHit HDS = *pHDS;
-    callback(GameObject::eHit)(
-        lua_game_object(), HDS.power, HDS.dir, smart_cast<const CGameObject*>(HDS.who)->lua_game_object(), HDS.bone());
+    // Lord - [Script] Re-write
+//     callback(GameObject::eHit)(
+//         lua_game_object(), HDS.power, HDS.dir, smart_cast<const CGameObject*>(HDS.who)->lua_game_object(), HDS.bone());
+    this->GetScriptBinderObject()->hit_callback(this->lua_game_object(), HDS.power, HDS.dir,
+        (smart_cast<const CGameObject*>(HDS.who))->lua_game_object(), HDS.bone());
+
     BOOL bWasAlive = Alive();
 
     if (m_pPhysicsShell)

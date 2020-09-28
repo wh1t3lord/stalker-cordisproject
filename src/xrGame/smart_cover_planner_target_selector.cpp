@@ -38,8 +38,8 @@ void target_selector::setup(animation_planner* object, CPropertyStorage* storage
     target.add_condition(CWorldProperty(eWorldPropertyPlannerHasTarget, true));
     set_target_state(target);
 }
-
-void target_selector::callback(callback_type const& callback) { m_script_callback = callback; }
+// Lord - [Script] Re-write?
+//void target_selector::callback(callback_type const& callback) { m_script_callback = callback; }
 void target_selector::update()
 {
     //. think about this line
@@ -47,7 +47,10 @@ void target_selector::update()
     //. when script callback is setup
     inherited::update();
 
-    m_script_callback(object().object().lua_game_object());
+    if (this->m_callback)
+        this->m_callback(object().object().lua_game_object());
+
+ //   m_script_callback(object().object().lua_game_object());
 }
 
 void target_selector::add_evaluators()
@@ -123,3 +126,5 @@ void target_selector::add_actions()
 }
 
 LPCSTR target_selector::object_name() const { return ("target_selector"); }
+
+ 

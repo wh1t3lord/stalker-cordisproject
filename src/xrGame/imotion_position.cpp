@@ -3,7 +3,7 @@
 #include "xrPhysics/PhysicsShell.h"
 #include "xrPhysics/MathUtils.h"
 #include "xrPhysics/ExtendedGeom.h"
-#include "Include/xrRender/Kinematics.h"
+#include "Kinematics.h"
 #include "Common/Noncopyable.hpp"
 #include "PhysicsShellHolder.h"
 #include "game_object_space.h"

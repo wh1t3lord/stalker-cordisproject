@@ -2,7 +2,7 @@
 
 #include "EngineAPI.h"
 #include "EventAPI.h"
-#include "xrCore/xrCore_benchmark_macros.h"
+#include "xrCore/xrCore.h"
 #include "xrSheduler.h"
 
 class ENGINE_API CEngine

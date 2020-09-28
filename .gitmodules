@@ -1,6 +1,3 @@
-[submodule "Externals/LuaJIT"]
-	path = Externals/LuaJIT
-	url = https://github.com/LuaJIT/LuaJIT.git
 [submodule "Externals/luabind"]
 	path = Externals/luabind
 	url = https://github.com/OpenXRay/luabind-deboostified.git
@@ -49,3 +46,72 @@
 [submodule "Externals/gli"]
 	path = Externals/gli
 	url = https://github.com/g-truc/gli.git
+[submodule "bgfx"]
+	path = bgfx
+	url = https://github.com/bkaradzic/bgfx.git
+[submodule "bx"]
+	path = bx
+	url = git://github.com/bkaradzic/bx.git
+[submodule "bimg"]
+	path = bimg
+	url = git://github.com/bkaradzic/bimg.git
+[submodule "depot_tools"]
+	path = depot_tools
+	url = https://chromium.googlesource.com/chromium/tools/depot_tools.git
+[submodule "skia"]
+	path = skia
+	url = https://skia.googlesource.com/skia.git
+[submodule "googletest"]
+	path = googletest
+	url = https://github.com/google/googletest
+[submodule "sdk/googletest"]
+	path = sdk/googletest
+	url = https://github.com/google/googletest
+[submodule "sdk/boost"]
+	path = sdk/boost
+	url = https://github.com/boostorg/boost
+[submodule "sdk/AGS_SDK"]
+	path = sdk/AGS_SDK
+	url = https://github.com/GPUOpen-LibrariesAndSDKs/AGS_SDK.git
+[submodule "sdk/BugTrap"]
+	path = sdk/BugTrap
+	url = https://github.com/OpenXRay/BugTrap.git
+[submodule "sdk/FreeMagic"]
+	path = sdk/FreeMagic
+	url = https://github.com/OpenXRay/FreeMagic.git
+[submodule "sdk/GameSpy"]
+	path = sdk/GameSpy
+	url = https://github.com/OpenXRay/GameSpy.git
+[submodule "sdk/LuaJIT"]
+	path = sdk/LuaJIT
+	url = https://github.com/OpenXRay/LuaJIT.git
+[submodule "sdk/OpenAutomate"]
+	path = sdk/OpenAutomate
+	url = https://github.com/OpenXRay/OpenAutomate.git
+[submodule "sdk/cryptopp"]
+	path = sdk/cryptopp
+	url = https://github.com/weidai11/cryptopp.git
+[submodule "sdk/gli"]
+	path = sdk/gli
+	url = https://github.com/g-truc/gli.git
+[submodule "sdk/libjpeg"]
+	path = sdk/libjpeg
+	url = https://github.com/OpenXRay/libjpeg.git
+[submodule "sdk/ogg"]
+	path = sdk/ogg
+	url = https://github.com/xiph/ogg.git
+[submodule "sdk/theora"]
+	path = sdk/theora
+	url = https://github.com/xiph/theora.git
+[submodule "sdk/vorbis"]
+	path = sdk/vorbis
+	url = https://github.com/xiph/vorbis.git
+[submodule "sdk/luabind-deboostified"]
+	path = sdk/luabind-deboostified
+	url = https://github.com/OpenXRay/luabind-deboostified.git
+[submodule "sdk/lzo"]
+	path = sdk/lzo
+	url = https://github.com/alexgdi/lzo.git
+[submodule "sdk/zlib"]
+	path = sdk/zlib
+	url = https://github.com/madler/zlib.git

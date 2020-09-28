@@ -14,6 +14,7 @@
 //#include <assert.h> // ~440 - but it has no include guard! Perhaps that's intentional?
 #include <math.h>
 #include <queue> // ~360
+#include "GlobalValues.h"
 #include "luabind/luabind.hpp" // luabind/*, almost 5000
 #include "xrServerEntities/smart_cast.h" // a lot
 #include "xrScriptEngine/script_space_forward.hpp" // ~765 // XXX: See to it this goes to pch_script
@@ -39,11 +40,11 @@
 #include "Common/object_saver.h" // ~500
 #include "Include/xrRender/animation_blend.h" // ~500
 #include "Include/xrRender/animation_motion.h" // ~500
-#include "Include/xrRender/Kinematics.h" // ~360
-#include "Include/xrRender/KinematicsAnimated.h" // ~500
-#include "Include/xrRender/RenderVisual.h" // ~370
-#include "Include/xrRender/UIRender.h" // ~450
-#include "Include/xrRender/UIShader.h" // ~490
+#include "Kinematics.h" // ~360
+#include "KinematicsAnimated.h" // ~500
+#include "RenderVisual.h" // ~370
+#include "UIRender.h" // ~450
+#include "UIShader.h" // ~490
 #include "xrCore/_plane2.h" // ~450
 #include "xrAICore/AISpaceBase.hpp" // ~650
 #include "xrAICore/Navigation/game_graph.h" // ~600
@@ -231,10 +232,280 @@
 #include "xrGame/ai/monsters/control_path_builder.h" // ~130
 #include "xrGame/ai/monsters/monster_corpse_manager.h" // ~130
 #include "xrGame/ai/stalker/ai_stalker.h"
-#include "Include/xrRender/WallMarkArray.h" // ~80
+#include "xrGame/ZoneCampfire.h"
+
+#include <d3dx9.h>
+
+#include <D3D11.h>
+#include <D3Dx11core.h>
+#include <D3DCompiler.h>
+
+#include "HW.h"
+#include "Shader.h"
+#include "R_Backend.h"
+#include "R_Backend_Runtime.h"
+#include "ResourceManager.h"
+#include "Blender.h"
+#include "Blender_CLSID.h"
+#include "xrRender_console.h"
+#include "r4.h"
+
+#include "xrCore/Imgui/imgui.h"
+#include "xrCore/Imgui/imgui_impl_sdl.h"
+#include "xrCore/Imgui/imgui_impl_dx11.h"
+
+#include "EditorPref.h"
+#include "SDK_Names.h"
+#include "SDKUI.h"
+
+#include "WallMarkArray.h" // ~80
 //#include "xrAICore/Navigation/ai_object_location.h" // ~95, very heavy to compile
 #include "xrAICore/Navigation/graph_engine.h" // ~80, VERY heavy to compile
 #include "xrAICore/Navigation/PatrolPath/patrol_path.h" // ~80, VERY heavy to compile
+
 #ifdef DEBUG
-#include "Include/xrRender/DebugRender.h"
+#include "DebugRender.h"
 #endif
+
+#define R_GL 0
+#define R_R1 1
+#define R_R2 2
+#define R_R3 3
+#define R_R4 4
+#define RENDER R_R4
+
+IC void jitter(CBlender_Compile& C)
+{
+    //	C.r_Sampler	("jitter0",	JITTER(0), true, D3DTADDRESS_WRAP, D3DTEXF_POINT, D3DTEXF_NONE, D3DTEXF_POINT);
+    //	C.r_Sampler	("jitter1",	JITTER(1), true, D3DTADDRESS_WRAP, D3DTEXF_POINT, D3DTEXF_NONE, D3DTEXF_POINT);
+    //	C.r_Sampler	("jitter2",	JITTER(2), true, D3DTADDRESS_WRAP, D3DTEXF_POINT, D3DTEXF_NONE, D3DTEXF_POINT);
+    //	C.r_Sampler	("jitter3",	JITTER(3), true, D3DTADDRESS_WRAP, D3DTEXF_POINT, D3DTEXF_NONE, D3DTEXF_POINT);
+    C.r_dx10Texture("jitter0", JITTER(0));
+    C.r_dx10Texture("jitter1", JITTER(1));
+    C.r_dx10Texture("jitter2", JITTER(2));
+    C.r_dx10Texture("jitter3", JITTER(3));
+    C.r_dx10Texture("jitter4", JITTER(4));
+    C.r_dx10Texture("jitterMipped", r2_jitter_mipped);
+    C.r_dx10Sampler("smp_jitter");
+}
+
+using AStringVec = xr_vector<xr_string>;
+using AStringIt = AStringVec::iterator;
+
+using LPAStringVec = xr_vector<xr_string*>;
+using LPAStringIt = LPAStringVec::iterator;
+
+inline float CalcSSA(Fvector& C, float R)
+{
+    float distSQ = Device.vCameraPosition.distance_to_sqr(C);
+    return R * R / distSQ;
+}
+// Lord: Понять как это используется и улучшить эти возможности
+enum
+{
+    rsFilterLinear = (1ul << 20ul),
+    rsEdgedFaces = (1ul << 21ul),
+    rsRenderTextures = (1ul << 22ul),
+    rsLighting = (1ul << 23ul),
+    rsFog = (1ul << 24ul),
+    rsRenderRealTime = (1ul << 25ul),
+    rsDrawGrid = (1ul << 26ul),
+    rsDrawSafeRect = (1ul << 27ul),
+    rsMuteSounds = (1ul << 28ul),
+    rsEnvironment = (1ul << 29ul),
+};
+extern "C" {
+__declspec(dllexport)  IFactoryObject*  xrFactory_Create(CLASS_ID clsid);
+
+__declspec(dllexport)  void xrFactory_Destroy(IFactoryObject* O);
+__declspec(dllexport)  CSE_Abstract* xrServer_Create(LPCSTR section, CSE_Motion*& motion, CSE_Visual*& visual);
+};
+
+
+#include "property_evaluator.h"
+#include "script_property_evaluator_wrapper.h"
+#include "physics_shell_scripted.h"
+#include "physics_joint_scripted.h"
+#include "script_object_action.h"
+#include "script_entity_action.h"
+#include "script_animation_action.h"
+#include "script_movement_action.h"
+#include "script_action_condition.h"
+#include "ScriptXMLInit.h"
+#include "script_sound_action.h"
+#include "script_ini_file.h"
+#include "script_hit.h"
+#include "xrEngine/IGame_Level.h"
+#include "ai_space.h"
+#include "date_time.h"
+#include "alife_simulator_base.h"
+#include "alife_object_registry.h"
+#include "alife_graph_registry.h"
+#include "alife_human_brain.h"
+#include "alife_time_manager.h"
+#include "relation_registry.h"
+#include "InfoPortionDefs.h"
+#include "xrServer_Objects_ALife_All.h"
+#include "xrServer_Objects_Alife_Smartcovers.h"
+#include "script_movement_action.h"
+#include "script_monster_hit_info.h"
+#include "script_effector.h"
+#include "xr_time.h"
+#include <random>
+#include "Script_GlobalDefinitions.h"
+#include "Script_Globals.h"
+#include "xrAICore/AISpaceBase.hpp"
+#include "xrAICore/Navigation/PatrolPath/patrol_path_storage.h"
+#include "xrAICore/Navigation/PatrolPath/patrol_path_params.h"
+#include "Level.h"
+#include "ui/UIGameTutorial.h"
+#include "map_manager.h"
+#include "xrAICore/Navigation/game_graph.h"
+#include "script_ini_file.h"
+#include "Script_Database.h"
+#include "Script_SE_SimulationSquad.h"
+#include "PhraseDialog.h"
+#include "Helicopter.h"
+#include "PostprocessAnimator.h"
+#include "ActorEffector.h"
+#include "Script_DialogManager.h"
+#include "Script_PhantomManager.h"
+#include "Script_SimulationObjects.h"
+#include "Script_EntitySounds.h"
+#include "Script_SE_Actor.h"
+#include "Script_SE_Monster.h"
+#include "Script_SE_SmartCover.h"
+#include "Script_SE_Outfit.h"
+#include "Script_SE_Artefact.h"
+#include "Script_SE_Helmet.h"
+#include "Script_SE_Helicopter.h"
+#include "Script_SE_Weapon.h"
+#include "Script_SE_WeaponShotgun.h"
+#include "Script_SE_WeaponAutomaticShotgun.h"
+#include "Script_SE_WeaponMagazined.h"
+#include "Script_SE_WeaponMagazinedWGL.h"
+#include "Script_SE_Item.h"
+#include "Script_SE_ItemTorch.h"
+#include "Script_SE_Physic.h"
+#include "Script_SE_Lamp.h"
+#include "Script_SE_Ammo.h"
+#include "Script_SE_Grenade.h"
+#include "Script_SE_Eatable.h"
+#include "Script_SE_InventoryBox.h"
+#include "Script_SE_Explosive.h"
+#include "Script_SE_PDA.h"
+#include "Script_SE_Detector.h"
+#include "Script_SE_LevelChanger.h"
+#include "Script_SE_NewAttachableItem.h"
+#include "Script_SE_Stalker.h"
+#include "Script_SE_WeaponAutomaticShotgun.h"
+#include "Script_SE_Restrictor.h"
+#include "Script_SE_ZoneVisual.h"
+#include "Script_SE_ZoneTorrid.h"
+#include "Script_SE_ZoneAnomaly.h"
+#include "Script_SmartTerrainControl.h"
+/*#include "Script_GulagGenerator.h"*/
+#include "Script_SE_SmartTerrain.h"
+#include "Script_SimulationBoard.h"
+#include "Script_LogicManager.h"
+#include "Script_TreasureManager.h"
+#include "Script_SoundManager.h"
+#include "Script_NewsManager.h"
+#include "Script_WeatherManager.h"
+#include "Script_CRD_Wounded.h"
+#include "Script_XR_Condition.h"
+#include "Script_XR_Gulag.h"
+/*#include "Script_XR_Logic.h"*/
+#include "Script_XR_Sound.h"
+#include "Script_XR_Effects.h"
+#include "Script_XR_Meet.h"
+#include "Script_XR_Patrol.h"
+#include "Script_SurgeManager.h"
+#include "Script_EntitySounds.h"
+#include "script_binder_object.h"
+#include "Script_Binder_Actor.h"
+#include "Script_Binder_AnomalField.h"
+#include "Script_Binder_AnomalZone.h"
+#include "Script_Binder_Artefact.h"
+#include "Script_Binder_Camp.h"
+#include "Script_Binder_Campfire.h"
+#include "Script_Binder_Crow.h"
+#include "Script_Binder_DoorLabx8.h"
+#include "Script_Binder_Faction.h"
+#include "Script_Binder_Helicopter.h"
+#include "Script_Binder_LevelChanger.h"
+#include "Script_Binder_Monster.h"
+#include "Script_Binder_PhysicObject.h"
+#include "Script_Binder_Restrictor.h"
+#include "Script_Binder_SignalLight.h"
+#include "Script_Binder_SmartCover.h"
+#include "Script_Binder_SmartTerrain.h"
+#include "Script_Binder_Stalker.h"
+#include "Script_ISchemeEntity.h"
+#include "Script_ISchemeMonster.h"
+#include "Script_ISchemeStalker.h"
+#include "Script_MobStateManager.h"
+#include "Script_SchemeMobWalker.h"
+#include "Script_SchemeMobRemark.h"
+#include "Script_SchemeMobJump.h"
+#include "Script_SchemeMobHome.h"
+#include "Script_SchemeMobDeath.h"
+#include "Script_SchemeMobCombat.h"
+#include "Script_SchemeMobCamp.h"
+#include "Script_HelicopterLook.h"
+#include "Script_HelicopterFly.h"
+#include "Script_HelicopterFire.h"
+#include "Script_SchemeHelicopterMove.h"
+#include "Script_SchemePHForce.h"
+#include "Script_SchemePHButton.h"
+#include "Script_SchemePHDeath.h"
+#include "Script_SchemePHCode.h"
+#include "Script_SchemePHDoor.h"
+#include "Script_SchemePHHit.h"
+#include "Script_SchemePHIdle.h"
+#include "Script_SchemePHMinigun.h"
+#include "Script_SchemePHOnHit.h"
+#include "Script_SchemePHOscillate.h"
+#include "Script_SchemePHSound.h"
+#include "Script_SchemeSRTimer.h"
+#include "Script_SchemeSRTeleport.h"
+#include "Script_SchemeSRSilenceZone.h"
+#include "Script_SchemeSRPsyAntenna.h"
+#include "Script_SchemeSRPostProcess.h"
+#include "Script_SchemeSRParticle.h"
+#include "Script_SchemeSRNoWeapon.h"
+#include "Script_SchemeSRLight.h"
+#include "Script_SchemeSRIdle.h"
+#include "Script_SchemeSRDeimos.h"
+#include "Script_StateEvaluators.h"
+#include "Script_StateActions.h"
+#include "Script_StateManager.h"
+#include "Script_MoveManager.h"
+#include "Script_SchemeXRDeath.h"
+#include "Script_SchemeXRHit.h"
+#include "Script_SchemeXRAbuse.h"
+#include "Script_SchemeXRCombat.h"
+#include "Script_SchemeXRCorpseDetection.h"
+#include "Script_SchemeXRHelpWounded.h"
+#include "Script_SchemeXRGatherItems.h"
+#include "Script_SchemeXRRemark.h"
+#include "Script_SchemeXRWalker.h"
+#include "Script_SchemeXRSleeper.h"
+#include "Script_SchemeXRCamper.h"
+#include "Script_SchemeXRMeet.h"
+#include "Script_SchemeXRWounded.h"
+#include "Script_SchemeXRCombatIgnore.h"
+#include "Script_SchemeXRCombatZombied.h"
+#include "Script_SchemeXRCombatCamper.h"
+#include "Script_SchemeXRPatrol.h"
+#include "Script_SchemeXRReachTask.h"
+#include "Script_SchemeXRAnimpoint.h"
+#include "Script_SchemeXRSmartCover.h"
+#include "Script_SchemeXRDanger.h"
+#include "Script_PostCombat.h"
+#include "Script_Dialogs.h"
+#include "Script_DialogsZaton.h"
+#include "Script_DialogsJupiter.h"
+#include "Script_DialogsPripyat.h"
+#include "Script_CampData.h"
+#include "Script_Globalsinline.h"

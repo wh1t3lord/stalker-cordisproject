@@ -9,7 +9,7 @@
 #include "StdAfx.h"
 #include "stalker_animation_state.h"
 #include "Common/object_broker.h"
-#include "Include/xrRender/Kinematics.h"
+#include "Kinematics.h"
 
 CStalkerAnimationState::CStalkerAnimationState() { m_in_place = new IN_PLACE_ANIMATIONS(); }
 CStalkerAnimationState::CStalkerAnimationState(const CStalkerAnimationState& stalker_animation_state)

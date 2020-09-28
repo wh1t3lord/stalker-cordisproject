@@ -30,7 +30,9 @@ private:
     mutable bool m_ready_to_save;
     u32 m_last_enemy_time;
     const CEntityAlive* m_last_enemy;
-    USEFULE_CALLBACK m_useful_callback;
+    // Lord: [Script] Наверное нужно переделать под m_cpp_callback
+  //  USEFULE_CALLBACK m_useful_callback;
+    std::function<bool(CScriptGameObject* const, CScriptGameObject* const)> m_p_useful_callback;
     bool m_enable_enemy_change;
     CEntityAlive const* m_smart_cover_enemy;
 
@@ -60,7 +62,15 @@ public:
     virtual void set_ready_to_save();
     IC u32 last_enemy_time() const;
     IC const CEntityAlive* last_enemy() const;
-    IC USEFULE_CALLBACK& useful_callback();
+    inline void setUsefulCallback(std::function<bool(CScriptGameObject* const, CScriptGameObject* const)> func) 
+    { 
+        if (this->m_p_useful_callback)
+        {
+            MESSAGEW("You are trying to set callback when this member is already exist! Be carefull");
+        }
+
+        this->m_p_useful_callback = func;
+    }
     void remove_links(IGameObject* object);
 
 public:

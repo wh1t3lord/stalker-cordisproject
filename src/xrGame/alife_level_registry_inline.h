@@ -18,21 +18,16 @@ IC void CALifeLevelRegistry::add(CSE_ALifeDynamicObject* object)
         return;
 
 #ifdef DEBUG
-    if (psAI_Flags.test(aiALife))
-    {
-        Msg("[LSS] adding object [%s][%d] to current level", object->name_replace(), object->ID);
-    }
+    MESSAGE("adding object [%s][%d] to current level", object->name_replace(), object->ID);
 #endif
+
     inherited::add(object->ID, object);
 }
 
 IC void CALifeLevelRegistry::remove(CSE_ALifeDynamicObject* object, bool no_assert)
 {
 #ifdef DEBUG
-    if (psAI_Flags.test(aiALife))
-    {
-        Msg("[LSS] removing object [%s][%d] from current level", object->name_replace(), object->ID);
-    }
+        MESSAGE("removing object [%s][%d] from current level", object->name_replace(), object->ID);
 #endif
     inherited::remove(object->ID, no_assert);
 }
@@ -40,16 +35,12 @@ IC void CALifeLevelRegistry::remove(CSE_ALifeDynamicObject* object, bool no_asse
 template <typename _update_predicate>
 IC void CALifeLevelRegistry::update(const _update_predicate& predicate, bool const iterate_as_first_time_next_time)
 {
-    //	u32					object_count =
-    inherited::update(predicate, iterate_as_first_time_next_time);
+    u32 object_count = inherited::update(predicate, iterate_as_first_time_next_time);
 #ifdef FULL_LEVEL_UPDATE
     m_first_update = true;
 #endif
 #ifdef DEBUG
-    if (psAI_Flags.test(aiALife))
-    {
-        //		Msg				("[LSS][OOS][%d : %d]",object_count, objects().size());
-    }
+       MESSAGE("[LSS][OOS][%d : %d]",object_count, objects().size());
 #endif
 }
 

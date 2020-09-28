@@ -1,6 +1,6 @@
 #include "stdafx.h"
 #include <nvtt/nvtt.h>
-#include "Layers/xrRender/ETextureParams.h"
+#include "xrGame/Render/Kernel/ETextureParams.h"
 
 class DDSErrorHandler : public nvtt::ErrorHandler
 {

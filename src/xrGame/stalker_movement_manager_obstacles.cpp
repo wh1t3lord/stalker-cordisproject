@@ -168,7 +168,7 @@ void stalker_movement_manager_obstacles::move_along_path(
         return;
     }
 
-//	Msg								( "%6d stalker %s is going", Device.dwTimeGlobal, object().cName().c_str() );
+	MESSAGE( "%6d stalker %s is going", Device.dwTimeGlobal, object().cName().c_str() );
 
 #ifndef MASTER_GOLD
     if (!psAI_Flags.test(aiObstaclesAvoiding))

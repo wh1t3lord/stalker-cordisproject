@@ -30,10 +30,11 @@ public:
 protected:
     typedef xr_vector<ITEM_DATA> T_VECTOR;
     static T_VECTOR* m_pItemDataVector;
-
+    static tbb::spin_mutex _spin_load_item_data;
     template <bool isNum>
     static void LoadItemData(u32 count, LPCSTR cfgRecord)
     {
+        tbb::spin_mutex::scoped_lock mutex{ _spin_load_item_data };
         for (u32 k = 0; k < count; k += 1)
         {
             string64 buf;
@@ -84,7 +85,8 @@ public:
     //удаление статичекого массива
     static void DeleteIdToIndexData();
 };
-
+TEMPLATE_SPECIALIZATION
+tbb::spin_mutex CSINI_IdToIndex::_spin_load_item_data;
 TEMPLATE_SPECIALIZATION
 typename CSINI_IdToIndex::T_VECTOR* CSINI_IdToIndex::m_pItemDataVector = NULL;
 

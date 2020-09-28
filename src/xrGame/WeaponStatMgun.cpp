@@ -1,6 +1,6 @@
 #include "StdAfx.h"
 #include "WeaponStatMgun.h"
-#include "Include/xrRender/Kinematics.h"
+#include "Kinematics.h"
 #include "xrPhysics/PhysicsShell.h"
 #include "WeaponAmmo.h"
 #include "Common/object_broker.h"

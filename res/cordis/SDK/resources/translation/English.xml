@@ -1,0 +1,463 @@
+<!--
+	Author: Lord
+
+	*** Скоращения ***
+	* sg - static geometry
+	* se - spawn elements
+	* sounde - Sound Environment
+	* l or lit - light
+	* s - sector
+	* p - portal
+	* fv - fog volumes
+	* g - glows(?)
+	* prefix st_text uses only for non-interactive elements in ImGui e.g. it's not for buttons, windows, treenodes, etc
+	* names which doesn't contain st_text uses as uniueq ID for each element in use
+	* 
+	*** Сокращения (заменить на соответствующую английскую интепретацию) ***
+
+-->
+
+<?xml version="1.0" ?>
+<string_table>
+	<!-- System information -->
+	<string id="st_language">English</string>
+	<!-- System information -->
+
+	<!-- Main data (Use this only for static ImGui::Text or something which can't be interactive e.g. buttons, sliders, WINDOWS!!! and etc) --> 
+	<string id="st_direction">Direction</string>
+	<string id="st_position">Position</string>
+	<string id="st_normal">Normal</string>
+	<string id="st_scale">Scale</string>
+	<string id="st_altitude">Altitude</string>
+	<string id="st_magnitude">Magnitude</string>
+	<string id="st_x">X</string>
+	<string id="st_y">Y</string>
+	<string id="st_z">Z</string>
+	<string id="st_warning">Warning</string>
+	<string id="st_error">Error</string>
+	<string id="st_screenshot">Screenshot</string>
+	<string id="st_undo">Undo</string>
+	<string id="st_redo">Redo</string>
+	<string id="st_properties">Properties</string>
+	<string id="st_camera_game">First person camera</string>
+	<string id="st_camera_orbit">Orbit camera</string>
+	<string id="st_state_readonly">read-only</string>
+	<string id="st_state_hide_readonly">(read-only)</string>
+	<string id="st_clear">Clear</string>
+	<string id="st_yes">Yes</string>
+	<string id="st_no">No</string>
+	<string id="st_text_closing_application">Application is closing...</string>
+	<string id="st_text_making_screenshot">Screenshot is made!</string>
+	<string id="st_text_movetool_activated">Move tool: ON</string>
+	<string id="st_text_movetool_deactivated">Move tool: OFF</string>
+	<string id="st_text_scaletool_activated">Scale tool: ON</string>
+	<string id="st_text_scaletool_deactivated">Scale tool: OFF</string>
+	<string id="st_text_rotatetool_activated">Rotate tool: ON</string>
+	<string id="st_text_rotatetool_deactivated">Rotate tool: OFF</string>
+	<string id="st_text_addtool_activated">Add tool: ON</string>
+	<string id="st_text_addtool_deactivated">Add tool: OFF</string>
+	<!-- Main data -->
+
+	<!-- Object Inspector -->
+		<!-- Static Geometry -->
+		<string id="st_object_inspector_sg_objectname">Name:</string>
+		<string id="st_object_inspector_sg_transform_section">Transform</string>
+		<string id="st_object_inspector_sg_position">Position</string>
+		<string id="st_object_inspector_sg_direction">Direction</string>
+		<string id="st_object_inspector_sg_scale">Scale</string>
+		<string id="st_object_inspector_sg_reference_model">Reference:</string>
+		<!-- Static Geometry -->
+
+		<!-- Spawn Elements -->
+		<string id="st_object_inspector_se_transform_position">Position</string>
+		<string id="st_object_inspector_se_transform_direction">Direction</string>
+		<string id="st_object_inspector_se_transform_scale">Scale</string>
+		<string id="st_object_inspector_se_transform">Transform</string>
+		<string id="st_object_inspector_se_gametype">Game type</string>
+		<string id="st_object_inspector_se_mprespawn">Multiplayer respawn</string> <!-- Maybe not used -->
+		<string id="st_object_inspector_se_profile">Profile (spawn section)</string>
+		<string id="st_object_inspector_se_customdata">Custom data</string>
+		<string id="st_object_inspector_se_alife">Alife</string>
+		<string id="st_object_inspector_se_alife_interactive">Interactive</string>
+		<string id="st_object_inspector_se_alife_usedailocations">Used AI locations</string>
+		<string id="st_object_inspector_se_alife_storyid">Story ID</string>
+		<string id="st_object_inspector_se_alife_spawnstoryid">Spawn Story ID</string>
+		<string id="st_object_inspector_se_artefactspawnplacescount">Artefact spawn places count</string>
+		<string id="st_object_inspector_se_visible_for_ai">Visiable for AI</string>
+		<string id="st_object_inspector_se_restrictortype">Restrictor type</string>
+		<string id="st_object_inspector_se_checkforseparator">Check for separator</string>
+		<string id="st_object_inspector_se_onoffmode">On/Off mode</string>
+		<string id="st_object_inspector_se_shifttime">Shift time (sec)</string>
+		<string id="st_object_inspector_se_enabledtime">Enabled time (sec)</string>
+		<string id="st_object_inspector_se_offlineinteractiveradius">Offline interactive radius</string>
+		<string id="st_object_inspector_se_team">Team</string>
+		<string id="st_object_inspector_se_squad">Squad</string>
+		<string id="st_object_inspector_se_group">Group</string>
+		<string id="st_object_inspector_se_personal">Personal</string>
+		<string id="st_object_inspector_se_health">Health</string>
+		<string id="st_object_inspector_se_money">Money</string>
+		<string id="st_object_inspector_se_trader">Trader</string>
+		<string id="st_object_inspector_se_infiniteammo">Infinite ammo</string>
+		<string id="st_object_inspector_se_model">Model</string>
+		<string id="st_object_inspector_se_canswitchonline">Can switch online</string>
+		<string id="st_object_inspector_se_canswitchoffline">Can switch offline</string>
+		<string id="st_object_inspector_se_visual">Visual</string>
+		<string id="st_object_inspector_se_animation">Animation</string>
+		<string id="st_object_inspector_se_obstacle">Obstacle</string>
+		<string id="st_object_inspector_se_animationcontrol">Animation control</string>
+		<string id="st_object_inspector_se_animationcontrol_play_tip">Play</string>
+		<string id="st_object_inspector_se_animationcontrol_pause">Pause</string>
+		<string id="st_object_inspector_se_animationcontrol_stop">Stop</string>
+		<string id="st_object_inspector_se_npcprofile">NPC profile</string>
+		<!-- Spawn Elements -->
+
+		<!-- Light -->
+		<string id="st_object_inspector_l_sunshadow">Sun Shadow</string>
+		<string id="st_object_inspector_l_sunshadow_visible">Visible</string>
+		<string id="st_object_inspector_l_sunshadow_altitude">Altitude</string>
+		<string id="st_object_inspector_l_sunshadow_longitude">Longitude</string>
+		<string id="st_object_inspector_l_count">Count</string> <!-- Lord: разобраться что это такое -->
+		<string id="st_object_inspector_l_system">System</string>
+		<string id="st_text_object_inspector_l_static">$Static</string>
+		<string id="st_text_object_inspector_l_hemi">$Hemi</string>
+		<string id="st_text_object_inspector_l_sun">$Sun</string>
+		<string id="st_object_inspector_l_name">Name</string>
+		<string id="st_object_inspector_l_transform">Transform</string>
+		<string id="st_object_inspector_l_transform_position">Position</string>
+		<string id="st_object_inspector_l_transform_direction">Direction</string>
+		<string id="st_object_inspector_l_transform_scale">Scale</string>
+		<string id="st_object_inspector_l_lighttype">Light Type:</string>
+		<string id="st_object_inspector_l_lightcolor">Color</string>
+		<string id="st_object_inspector_l_usage">Usage</string>
+		<string id="st_object_inspector_l_usage_lightmap">Light Map</string>
+		<string id="st_object_inspector_l_usage_dynamic">Dynamic</string>
+		<string id="st_object_inspector_l_usage_animated">Animated</string>
+		<string id="st_object_inspector_l_range">Range</string>
+		<string id="st_object_inspector_l_attenuation">Attenuation</string>
+		<string id="st_object_inspector_l_attenuation_constant">Constant</string>
+		<string id="st_object_inspector_l_attenuation_linear">Linear</string>
+		<string id="st_object_inspector_l_attenuation_quadratic">Quadratic</string>
+		<string id="st_object_inspector_l_attenuation_auto">Auto</string>
+		<string id="st_object_inspector_l_attenuation_linear_button">Linear</string>
+		<string id="st_object_inspector_l_attenuation_quadratic_button">Quadratic</string>
+		<string id="st_object_inspector_l_graphic">Graphic</string> <!-- Lord: сделать как текст? -->
+		<string id="st_object_inspector_l_fuzzy">Fuzzy</string>
+		<string id="st_object_inspector_l_render_in_scene">Render in the scene</string>
+		<!-- Light -->
+
+		<!-- Sound Source -->
+		<string id="st_object_inspector_ss_name">Name</string>
+		<string id="st_object_inspector_ss_transform">Transform</string>
+		<string id="st_object_inspector_ss_transform_position">Position</string>
+		<string id="st_object_inspector_ss_transform_direction">Direction</string>
+		<string id="st_object_inspector_ss_transform_scale">Scale</string>
+		<string id="st_object_inspector_ss_custom">Custom</string>
+		<string id="st_object_inspector_ss_custom_controls">Controls</string>
+		<string id="st_object_inspector_ss_source">Source</string>
+		<string id="st_object_inspector_ss_source_wavename">WAVE name</string>
+		<string id="st_object_inspector_ss_source_oggname">OGG name</string>
+		<string id="st_object_inspector_ss_source_frequency">Frequency</string>
+		<string id="st_object_inspector_ss_source_volume">Volume</string>
+		<string id="st_object_inspector_ss_source_mindist">Minimal distance</string>
+		<string id="st_object_inspector_ss_source_maxdist">Maximum distance</string>
+		<string id="st_object_inspector_ss_source_maxaidist">Maximum AI distance</string>
+		<string id="st_object_inspector_ss_game">Game</string>
+		<string id="st_object_inspector_ss_game_activetime">Active time</string>
+		<string id="st_object_inspector_ss_game_activetime_hint">Hint</string>
+		<string id="st_text_object_inspector_ss_game_activetime_hint">Zero - play sound looped round</string>
+		<string id="st_object_inspector_ss_game_activetime_from">From</string>
+		<string id="st_object_inspector_ss_game_activetime_to">To</string>
+		<string id="st_object_inspector_ss_game_playtime">Play time</string>
+		<string id="st_object_inspector_ss_game_playtime_hint">Hint</string>
+		<string id="st_text_object_inspector_ss_game_playtime_hint">Zero - play sound once.</string>
+		<string id="st_object_inspector_ss_game_playtime_from">From</string>
+		<string id="st_object_inspector_ss_game_playtime_to">To</string>
+		<string id="st_object_inspector_ss_game_pausedata">Pause data</string>
+		<string id="st_object_inspector_ss_game_pausedata_hint">Hint</string>
+		<string id="st_text_object_inspector_ss_game_pausedata_hint">Zero - play sound looped</string>
+		<string id="st_object_inspector_ss_game_pausedata_from">From</string>
+		<string id="st_object_inspector_ss_game_pausedata_to">To</string>
+		<!-- Sound Source -->
+
+
+		<!-- Sectors -->
+		<!-- Sectors -->
+
+		<!-- Static Particles -->
+		<string id="st_object_inspector_sp_name">Name</string>
+		<string id="st_object_inspector_sp_transform">Transform</string>
+		<string id="st_object_inspector_sp_transform_position">Position</string>
+		<string id="st_object_inspector_sp_transform_direction">Direction</string>
+		<string id="st_object_inspector_sp_transform_scale">Scale</string>
+		<string id="st_object_inspector_sp_reference">Reference</string>
+		<string id="st_text_object_inspector_sp_controls">Controls</string> <!-- Lord: наверное статиком сделать? -->
+		<string id="st_object_inspector_sp_controls_play">Play</string>
+		<string id="st_object_inspector_sp_controls_stop">Stop</string>
+		<string id="st_object_inspector_sp_gametype">Game type</string>
+		<!-- Static Particles -->
+
+		<!-- WallMarks -->
+		<string id="st_object_inspector_wm_aligment">Aligment</string>
+		<string id="st_object_inspector_wm_width">Width</string>
+		<string id="st_object_inspector_wm_height">Height</string>
+		<string id="st_object_inspector_wm_rotate">Rotate</string>
+		<string id="st_object_inspector_wm_shader">Shader</string>
+		<string id="st_object_inspector_wm_texture">Texture (source)</string>
+		<!-- WallMarks -->
+
+		<!-- Sound Environment -->
+		<string id="st_object_inspector_sounde_name">Name</string>
+		<string id="st_object_inspector_sounde_transform">Transform</string>
+		<string id="st_object_inspector_sounde_transform_position">Position</string>
+		<string id="st_object_inspector_sounde_transform_direction">Direction</string>
+		<string id="st_object_inspector_sounde_transform_scale">Scale</string>
+		<string id="st_object_inspector_sounde_environmentinner">Environment Inner</string>
+		<string id="st_object_inspector_sounde_environmentouter">Environment Outer</string>
+		<!-- Sound Environment -->
+
+		<!-- Shapes -->
+		<string id="st_object_inspector_s_name">Name</string>
+		<string id="st_object_inspector_s_transform">Transform</string>
+		<string id="st_object_inspector_s_transform_position">Position</string>
+		<string id="st_object_inspector_s_transform_direction">Direction</string>
+		<string id="st_object_inspector_s_transform_scale">Scale</string>
+		<string id="st_object_inspector_s_shapeusage">Shape usage</string>
+		<string id="st_text_object_inspector_s_shapeusage_common">Common</string>
+		<!-- Shapes -->
+
+		<!-- Way Points -->
+		<string id="st_object_inspector_wp_name">Way name</string>
+		<string id="st_object_inspector_wp_point_name">Point name</string>
+		<string id="st_object_inspector_wp_waypoint">Way Point</string>
+		<string id="st_object_inspector_wp_waypoint_transform">Transform</string>
+		<string id="st_object_inspector_wp_waypoint_transform_position">Position</string>
+			<!-- Not Used -->
+		<string id="st_object_inspector_wp_waypoint_transform_direction">Direction</string>
+		<string id="st_object_inspector_wp_waypoint_transform_scale">Scale</string>
+			<!-- Not Used -->
+		<string id="st_object_inspector_wp_waypoint_flags">Flags</string>
+		<!-- Way Points -->
+
+
+		<!-- Fog Volumes -->
+		<string id="st_object_inspector_fv_name">Name</string>
+		<string id="st_object_inspector_fv_transform">Transform</string>
+		<string id="st_object_inspector_fv_transform_position">Position</string>
+		<string id="st_object_inspector_fv_transform_direction">Direction</string>
+		<string id="st_object_inspector_fv_transform_scale">Scale</string>
+		<string id="st_object_inspector_fv_volumetype">Volume type</string>
+		<string id="st_object_inspector_fv_profile">Profile (ltx)</string>
+		<string id="st_object_inspector_fv_volumetype_emmiter">Emmiter</string>
+		<string id="st_object_inspector_fv_volumetype_occlusion">Occlusion</string>
+		<!-- Fog Volumes -->
+
+
+		<!-- AI Map -->
+		<string id="st_object_inspector_ai_drawnodes">Draw Nodes</string>
+		<string id="st_object_inspector_ai_slowcalculatemode">Slow Calculate Mode</string>
+		<string id="st_object_inspector_ai_visibleradius">Visible Radius</string>
+		<string id="st_object_inspector_ai_smoothheight">Smooth height</string>
+		<string id="st_object_inspector_ai_params">Params</string>
+		<string id="st_object_inspector_ai_params_brushsize">Brush size</string>
+		<string id="st_object_inspector_ai_params_canup">Can up</string>
+		<string id="st_object_inspector_ai_params_candown">Can down</string>
+		<!-- AI Map -->
+
+
+	<!-- Object Inspector --> 
+
+
+	<!-- Camera Manager -->
+	<string id="st_manager_show_camera">Show camera manager</string>
+	<string id="st_manager_camera">Camera manager</string>
+	<string id="st_text_position_camera_manager">Position:</string>
+	<string id="st_posX_camera_manager">X</string>
+	<string id="st_posY_camera_manager">Y</string>
+	<string id="st_posZ_camera_manager">Z</string>
+	<string id="st_text_direction_ro_camera_manager">Direction: (read-only)</string>
+	<string id="st_dirX_camera_manager">X</string>
+	<string id="st_dirY_camera_manager">Y</string>
+	<string id="st_dirZ_camera_manager">Z</string>
+	<string id="st_text_normal_ro_camera_manager">Normal: (read-only)</string>
+	<string id="st_norX_camera_manager">X</string>
+	<string id="st_norY_camera_manager">Y</string>
+	<string id="st_norZ_camera_manager">Z</string>
+	<string id="st_text_sensivity_camera_manager">Sens:</string>
+	<string id="st_sensvalue_camera_manager">Value</string>
+	<string id="st_camera_FOV">Field of view</string>
+	<string id="st_camera_speed">Camera speed</string>
+	<string id="st_camera_aspect">Aspect ratio</string>
+	<string id="st_speed_camera_manager">Camera speed</string>
+	<string id="st_camera_near_plane">Near plane (read-only)</string>
+	<string id="st_camera_far_plane">Far plane</string>
+	<string id="st_text_camera_sysatt">System attributes:</string>
+	<!-- Camera Manager -->
+
+	<!-- Log Manager -->
+	<string id="st_manager_show_log">Show log</string>
+	<string id="st_label_manager_log">Log manager</string>
+	<string id="st_log_all">All</string>
+	<string id="st_log_unimportant">Unimportant</string>
+	<string id="st_log_errors">Errors</string>
+	<string id="st_log_warnings">Warnings</string>
+	<string id="st_log_successful">Successful</string>
+	<string id="st_log_default">Default</string>
+	<string id="st_text_log_state_error">|ERROR</string>
+	<string id="st_text_log_state_warning">|WARNING</string>
+	<string id="st_text_log_state_info">|INFO</string>
+	<string id="st_text_log_state_old">|UNIMPORTANT</string>
+	<string id="st_text_log_state_successful">|SUCCESSFUL</string>
+	<string id="st_log_clear">Clear</string>
+	<string id="st_log_close">Close</string>
+	<!-- Log Manager -->
+
+	<!-- Weather Manager -->
+	<string id="st_manager_show_weather">Show weather manager</string>
+	<!-- Weather Manager -->
+
+	<!-- Right Window -->
+	<string id="st_name_staticgeometry">Static geometry</string>
+	<string id="st_name_groups">Groups</string>
+	<string id="st_name_light">Lights</string>
+	<string id="st_name_staticparticles">Static particles</string>
+	<string id="st_name_waypoints">Way points</string>
+	<string id="st_name_sound_environments">Sound environments</string>
+	<string id="st_name_sound_sources">Sound sources</string>
+	<string id="st_name_shapes">Shapes</string>
+	<string id="st_name_detail_objects">Detail objects</string>
+	<string id="st_name_wallmarks">Wallmarks</string>
+	<string id="st_name_fogvolumes">Fog volumes</string>
+	<string id="st_name_aimap">AI-MAP</string>
+	<string id="st_name_sectors">Sectors</string>
+	<string id="st_name_portals">Portals</string>
+	<string id="st_name_spawnelements">Spawn elements</string>
+	<string id="st_show_object_list">Show object list</string>
+	<string id="st_label_object_list">Object list</string>
+	<string id="st_show_scene_options">Show scene options</string>
+	<string id="st_catalog_sg">Catalog static geometry</string>
+	<string id="st_total_sg">Total static geometry:</string>
+	<string id="st_total_g">Total groups:</string>
+	<string id="st_total_l">Total lights:</string>
+	<string id="st_total_sp">Total static particles:</string>
+	<string id="st_total_wp">Total way points:</string>
+	<string id="st_total_se">Total sound environments:</string>
+	<string id="st_total_ss">Total sound sources:</string>
+	<string id="st_total_s">Total shapes:</string>
+	<string id="st_total_do">Total detail objects:</string>
+	<string id="st_total_w">Total wallmarks:</string>
+	<string id="st_total_fv">Total fog volumes:</string>
+	<string id="st_total_ai">Total ai nodes:</string> 
+	<string id="st_total_spawne">Total spawn elements:</string>
+	<string id="st_selectedobject">Selected object:</string>
+	<string id="st_text_section">Section:</string>
+		<!-- Scene options -->
+		<string id="st_levelprefix">Level prefix</string>
+		<string id="st_build_options">Build options</string>
+		<string id="st_build_hq">Hemisphere quality</string>
+		<string id="st_build_ssq">Sun shadow quality</string>
+		<string id="st_build_ppm">Pixel per meter</string>
+		<string id="st_build_lmc">Light map collapsing</string>
+		<string id="st_build_lme">Light map error</string>
+		<string id="st_build_js">Jitter samples</string>
+		<!-- Scene options -->
+
+		<!-- Static Geometry -->
+
+		<!-- Static Geometry -->
+
+		<!-- Sound environment -->
+		<!-- Sound environment -->
+
+		<!-- Sector -->
+		<!-- Sector -->
+
+		<!-- Shapes -->
+		<string id="st_shapes_geometrytype">Geometry type:</string>
+		<string id="st_shapes_geometry_cube">Cube</string>
+		<string id="st_shapes_geometry_sphere">Sphere</string>
+		<!-- Shapes -->
+	<!-- Right Window -->
+
+	<!-- Overlay -->
+	<string id="st_overlay_grid">Grid</string>
+	<string id="st_overlay_grid_type">Grid type</string>
+	<string id="st_overlay_background_color">Background color</string>
+	<string id="st_overlay_grid_color">Grid color</string>
+	<string id="st_overlay_overlay">Overlay</string>
+	<string id="st_overlay_projectinfo">Project info:</string>
+	<string id="st_overlay_drawgrid">Draw grid</string>
+	<string id="st_overlay_total">Total:</string>
+	<string id="st_overlay_camera">Camera:</string>
+	<string id="st_overlay_prevpos">Previous position</string>
+	<string id="st_overlay_sloc">Start location</string>
+	<string id="st_overlay_gizmosize">Gizmo size</string>
+	<string id="st_overlay_gizmo">Gizmo:</string>
+	<string id="st_overlay_gizmosens">Gizmo sens</string> <!-- Lord: maybe unused -->
+	<string id="st_overlay_editor">Editor</string>
+	<string id="st_overlay_editor_LE">Level editor</string>
+	<string id="st_overlay_editor_PE">Particle editor</string>
+	<string id="st_overlay_editor_AE">Actor editor</string>
+	<string id="st_overlay_editor_SE">Shader editor</string>
+	<string id="st_overlay_scenename">Scene name:</string>
+	<string id="st_overlay_fps">FPS</string>
+	<string id="st_overlay_device">Device:</string>
+	<string id="st_overlay_time_factor">Time factor</string>
+	<string id="st_overlay_lock_fps">Lock fps</string>
+	<string id="st_overlay_render">Render:</string>
+	<string id="st_overlay_render_fill_mode">Fill mode</string>
+	<string id="st_overlay_render_quality">Render quality</string> <!-- Is this real? -->
+ 	<string id="st_overlay_mute_sounds">Mute sounds</string>
+ 		<!-- Popup -->
+ 		<string id="st_overlay_popup_showonly">Show only:</string>
+ 		<string id="st_overlay_popup_sdkinfo">SDK information</string>
+ 		<string id="st_overlay_popup_projectinfo">Project information</string>
+ 		<string id="st_overlay_popup_systeminfo">System information</string>
+ 		<string id="st_overlay_popup_show">Show:</string>
+ 		<string id="st_overlay_popup_hide">Hide:</string>
+ 		<string id="st_overlay_popup_close">Close</string>
+ 		<string id="st_overlay_popup_all">All</string>
+ 		<!-- Popup -->
+	<!-- Overlay -->
+
+	<!-- Main Menu Bar -->
+	<string id="st_mainmenubar_help">Help</string>
+	<string id="st_mainmenubar_file">File</string>
+	<string id="st_mainmenubar_save">Save</string>
+	<string id="st_mainmenubar_save_as">Save As...</string>
+	<string id="st_mainmenubar_quit">Quit</string>
+	<string id="st_mainmenubar_recent_files">Recent files</string>
+	<string id="st_mainmenubar_others">Others</string>
+	<string id="st_mainmenubar_label_exit_to_windows">Exit to Windows</string>
+	<string id="st_text_mainmenubar_warning_quit">Are you sure?</string>
+	<!-- Main Menu Bar -->
+
+	<!-- Settings -->
+	<string id="st_label_settings">Settings</string>
+	<string id="st_settings_export">Export settings</string>
+	<string id="st_settings_import">Import settings</string>
+	<string id="st_download">Download</string>
+	<string id="st_current_font_integrated">ImGui font</string>
+	<string id="st_current_font">Current font:</string>
+	<string id="st_label_languages">Languages</string>
+	<string id="st_open_settings">Open settings</string>
+	<!-- Settings -->
+
+	<!-- Tool Bar -->
+	<string id="st_label_manager_tool">Tool manager</string>
+	<string id="st_movetool">Move tool</string>
+	<string id="st_label_desc_movetool">Description of Move Tool:</string>
+	<string id="st_desc_movetool">This is move tool for moving objects.</string>
+	<string id="st_scaletool">Scale tool</string>
+	<string id="st_label_desc_scaletool">Description of Scale tool:</string>
+	<string id="st_desc_scaletool">This is scale tool for scaling objects.</string>
+	<string id="st_rotatetool">Rotate tool</string>
+	<string id="st_label_desc_rotatetool">Description of Rotate tool:</string>
+	<string id="st_desc_rotatetool">This is rotate tool for rotating objects.</string>
+	<string id="st_brushtool">Brush tool</string>
+	<string id="st_label_desc_brushtool">Descirption of Brush tool:</string>
+	<string id="st_desc_brushtool">Dopisat</string>
+	<string id="st_addtool">Add tool</string>
+	<string id="st_label_desc_addtool">Description of Add tool:</string>
+	<string id="st_desc_addtool">This is Add tool for adding objects to the scene.</string>
+	<!-- Tool Bar -->
+</string_table>

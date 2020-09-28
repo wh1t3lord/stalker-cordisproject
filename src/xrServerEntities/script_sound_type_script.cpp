@@ -12,6 +12,7 @@
 
 using namespace luabind;
 
+#ifdef XRGAME_EXPORTS
 SCRIPT_EXPORT(CScriptSoundType, (), {
     class CScriptSoundType
     {
@@ -51,3 +52,4 @@ SCRIPT_EXPORT(CScriptSoundType, (), {
                     value("world_object_explode", int(SOUND_TYPE_WORLD_OBJECT_EXPLODING)),
                     value("world_ambient", int(SOUND_TYPE_WORLD_AMBIENT))]];
 });
+#endif

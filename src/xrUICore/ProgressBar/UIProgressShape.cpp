@@ -1,7 +1,7 @@
 #include "pch.hpp"
 #include "UIProgressShape.h"
-#include "Include/xrRender/UIShader.h"
-#include "Include/xrRender/UIRender.h"
+#include "xrGame/Render/Kernel/UIShader.h"
+#include "xrGame/Render/Kernel/UIRender.h"
 
 CUIProgressShape::CUIProgressShape()
 {

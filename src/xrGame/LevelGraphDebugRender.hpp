@@ -1,7 +1,7 @@
 #pragma once
 #ifdef DEBUG
 #include "xrCore/xrCore.h"
-#include "Include/xrRender/DebugShader.h"
+#include "DebugShader.h"
 class CGameGraph;
 class CLevelGraph;
 class CCoverPoint;

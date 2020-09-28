@@ -15,6 +15,18 @@
 #include "xrCore/client_id.h"
 #include "xrCore/clsid.h"
 
+namespace Cordis
+{
+namespace Scripts
+{
+class Script_SE_Actor;
+class Script_SE_SimulationSquad;
+class Script_SE_SmartCover;
+class Script_SE_SmartTerrain;
+class Script_SE_Stalker;
+} // namespace Scripts
+} // namespace Cordis
+
 class NET_Packet;
 class xrClientData;
 class CSE_ALifeGroupAbstract;
@@ -22,7 +34,7 @@ class CSE_ALifeSchedulable;
 class CSE_ALifeInventoryItem;
 class CSE_ALifeTraderAbstract;
 class CSE_ALifeObject;
-class CSE_ALifeDynamicObject;
+/*class CSE_ALifeDynamicObject;*/
 class CSE_ALifeItemAmmo;
 class CSE_ALifeItemWeapon;
 class CSE_ALifeItemDetector;
@@ -57,111 +69,53 @@ class CSE_Abstract : public IServerEntity, public CPureServerObject, public CScr
     using inherited3 = CScriptValueContainer;
 
 public:
-    enum ESpawnFlags
-    {
-        flSpawnEnabled = u32(1 << 0),
-        flSpawnOnSurgeOnly = u32(1 << 1),
-        flSpawnSingleItemOnly = u32(1 << 2),
-        flSpawnIfDestroyedOnly = u32(1 << 3),
-        flSpawnInfiniteCount = u32(1 << 4),
-        flSpawnDestroyOnSpawn = u32(1 << 5),
-    };
-
-private:
-    LPSTR s_name_replace;
-
-public:
-    BOOL net_Ready;
-    BOOL net_Processed; // Internal flag for connectivity-graph
-
-    u16 m_wVersion;
-    u16 m_script_version;
-    u16 RespawnTime;
-
-    u16 ID; // internal ID
-    u16 ID_Parent; // internal ParentID, 0xffff means no parent
-    u16 ID_Phantom; // internal PhantomID, 0xffff means no phantom
-    xrClientData* owner;
-
-    // spawn data
-    shared_str s_name;
-    //. u8                              s_gameid;
-    GameTypeChooser m_gameType;
-    u8 s_RP;
-    Flags16 s_flags; // state flags
-    xr_vector<u16> children;
-
-    // update data
-    Fvector o_Position;
-    Fvector o_Angle;
-    CLASS_ID m_tClassID;
-    int m_script_clsid;
-    shared_str m_ini_string;
-    CInifile* m_ini_file;
-
-    // for ALife control
-    bool m_bALifeControl;
-    ALife::_SPAWN_ID m_tSpawnID;
-
-    // ALife spawn params
-    // obsolete, just because we hope to uncomment all this stuff
-    Flags32 m_spawn_flags;
-
-    // client object custom data serialization
-    xr_vector<u8> client_data;
-    virtual void load(NET_Packet& tNetPacket);
-
     //////////////////////////////////////////////////////////////////////////
 
     CSE_Abstract(LPCSTR caSection);
-    virtual ~CSE_Abstract();
-    virtual void OnEvent(NET_Packet& /*tNetPacket*/, u16 /*type*/, u32 /*time*/, ClientID /*sender*/){}
+    virtual ~CSE_Abstract(void);
+    virtual void OnEvent(NET_Packet& /*tNetPacket*/, u16 /*type*/, u32 /*time*/, ClientID /*sender*/) {}
+    virtual void load(NET_Packet& tNetPacket);
 #ifndef XRGAME_EXPORTS
-    virtual void FillProps(LPCSTR pref, PropItemVec& items);
-    virtual void __stdcall FillProp(LPCSTR pref, PropItemVec& items);
-    virtual void __stdcall on_render(CDUInterface* /*du*/, IServerEntityLEOwner* /*owner*/, bool /*bSelected*/,
+    //     virtual void FillProps(LPCSTR pref, PropItemVec& items);
+    //     virtual void __cdecl FillProp(LPCSTR pref, PropItemVec& items);
+    virtual void __cdecl on_render(CDUInterface* /*du*/, IServerEntityLEOwner* /*owner*/, bool /*bSelected*/,
         const Fmatrix& /*parent*/, int /*priority*/, bool /*strictB2F*/)
     {
     }
-    virtual visual_data* __stdcall visual_collection() const { return nullptr; }
-    virtual u32 __stdcall visual_collection_size() const { return 0; }
-    virtual void __stdcall set_additional_info(void* /*info*/) {};
+    virtual visual_data* __cdecl visual_collection() const { return nullptr; }
+    virtual u32 __cdecl visual_collection_size() const { return 0; }
+    virtual void __cdecl set_additional_info(void* /*info*/){};
 #endif // #ifndef XRGAME_EXPORTS
     virtual BOOL Net_Relevant() { return FALSE; } // !!!! WARNING!!!
     //
-    virtual void __stdcall Spawn_Write(NET_Packet& tNetPacket, BOOL bLocal);
-    virtual BOOL __stdcall Spawn_Read(NET_Packet& tNetPacket);
-    virtual LPCSTR __stdcall name() const;
-    virtual LPCSTR __stdcall name_replace() const;
-    virtual void __stdcall set_name(LPCSTR s) { s_name = s; }
-    virtual void __stdcall set_name_replace(LPCSTR s)
+    virtual void __cdecl Spawn_Write(NET_Packet& tNetPacket, BOOL bLocal);
+    virtual BOOL __cdecl Spawn_Read(NET_Packet& tNetPacket);
+    // @ section_name();
+    virtual LPCSTR __cdecl name() const; 
+    // @ name();
+    virtual LPCSTR __cdecl name_replace() const; 
+
+    virtual void __cdecl set_name_replace(LPCSTR s)
     {
         xr_free(s_name_replace);
         s_name_replace = xr_strdup(s);
     };
-    virtual Fvector& __stdcall position();
-    virtual Fvector& __stdcall angle();
-    virtual Flags16& __stdcall flags();
-    virtual CSE_Visual* __stdcall visual();
-    virtual IServerEntityShape* __stdcall shape();
-    virtual CSE_Motion* __stdcall motion();
-    virtual bool __stdcall validate();
+    virtual Fvector& __cdecl position();
+
+    virtual Flags16& __cdecl flags();
+    virtual CSE_Visual* __cdecl visual();
+    virtual IServerEntityShape* __cdecl shape();
+    virtual CSE_Motion* __cdecl motion();
+    virtual bool __cdecl validate();
+    virtual Fvector& angle();
     //
 
-    IC const Fvector& Position() const { return o_Position; }
     // we need this to prevent virtual inheritance :-(
     virtual CSE_Abstract* base();
     virtual const CSE_Abstract* base() const;
     virtual CSE_Abstract* init();
     virtual bool match_configuration() const /* noexcept */ { return true; }
     // end of the virtual inheritance dependant code
-    IC int script_clsid() const
-    {
-        VERIFY(m_script_clsid >= 0);
-        return (m_script_clsid);
-    }
-    CInifile& spawn_ini();
-
     // for smart cast
     virtual CSE_ALifeGroupAbstract* cast_group_abstract() { return nullptr; }
     virtual CSE_ALifeSchedulable* cast_schedulable() { return nullptr; }
@@ -180,6 +134,73 @@ public:
     virtual CSE_ALifeSmartZone* cast_smart_zone() { return nullptr; }
     virtual CSE_ALifeOnlineOfflineGroup* cast_online_offline_group() { return nullptr; }
     virtual CSE_ALifeItemPDA* cast_item_pda() { return nullptr; }
+
+#pragma region Cordis
+    // @ Lord: наверное лучше делать через методы, чем приведение типов, дополнятЬ!!
+    virtual Cordis::Scripts::Script_SE_SimulationSquad* cast_script_se_simulationsquad(void) { return nullptr; }
+    virtual Cordis::Scripts::Script_SE_SmartTerrain* cast_script_se_smartterrain(void) { return nullptr; }
+    virtual Cordis::Scripts::Script_SE_SmartCover* cast_script_se_smartcover(void) { return nullptr; }
+    virtual Cordis::Scripts::Script_SE_Actor* cast_script_se_actor(void) { return nullptr; }
+    virtual Cordis::Scripts::Script_SE_Stalker* cast_script_se_stalker(void) { return nullptr; }
+#pragma endregion
+
+    inline int script_clsid(void) const
+    {
+        VERIFY(m_script_clsid >= 0);
+        return (m_script_clsid);
+    }
+    inline const Fvector& Position(void) const { return this->o_Position; }
+    CInifile& spawn_ini();
+    inline virtual void set_name(LPCSTR s) { s_name = s; }
+
+public:
+    std::uint8_t s_RP;
+    bool m_bALifeControl;
+    std::uint16_t m_wVersion;
+    std::uint16_t m_script_version;
+    std::uint16_t RespawnTime;
+    std::uint16_t ID; // internal ID
+    std::uint16_t ID_Parent; // internal ParentID, 0xffff means no parent
+    std::uint16_t ID_Phantom; // internal PhantomID, 0xffff means no phantom
+    ALife::_SPAWN_ID m_tSpawnID;
+    Flags16 s_flags; // state flags
+    GameTypeChooser m_gameType;
+    BOOL net_Ready;
+    BOOL net_Processed; // Internal flag for connectivity-graph
+    int m_script_clsid;
+
+public:
+    enum ESpawnFlags
+    {
+        flSpawnEnabled = u32(1 << 0),
+        flSpawnOnSurgeOnly = u32(1 << 1),
+        flSpawnSingleItemOnly = u32(1 << 2),
+        flSpawnIfDestroyedOnly = u32(1 << 3),
+        flSpawnInfiniteCount = u32(1 << 4),
+        flSpawnDestroyOnSpawn = u32(1 << 5),
+    };
+
+    Flags32 m_spawn_flags;
+    // spawn data
+    shared_str s_name;
+    shared_str m_ini_string;
+    CLASS_ID m_tClassID;
+    CInifile* m_ini_file;
+
+    //. u8                              s_gameid;
+    Fvector o_Position;
+    Fvector o_Angle;
+    xr_vector<std::uint16_t> children;
+    xr_vector<std::uint8_t> client_data; // client object custom data serialization
+    // update data
+
+    // for ALife control
+    // ALife spawn params
+    // obsolete, just because we hope to uncomment all this stuff
+    xrClientData* owner;
+
+private:
+    LPSTR s_name_replace;
 };
 
 extern u16 script_server_object_version();

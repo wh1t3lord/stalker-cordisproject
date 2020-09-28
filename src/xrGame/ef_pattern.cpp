@@ -141,7 +141,7 @@ float CPatternFunction::ffGetValue()
             j += xr_sprintf(caString + j, sizeof(caString) - j, " %3d", m_dwaVariableValues[i] + 1);
 
         xr_sprintf(caString + j, sizeof(caString) - j, ") = %7.2f", value);
-        Msg("- %s", caString);
+        MESSAGE("- %s", caString);
         return (value);
     }
 #endif

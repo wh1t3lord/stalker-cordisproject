@@ -11,7 +11,7 @@
 #include "CustomMonster.h"
 #include "xrEngine/Feel_Vision.h"
 #include "xrCore/Animation/Motion.hpp"
-#include "Include/xrRender/Kinematics.h"
+#include "Kinematics.h"
 #include "script_entity_action.h"
 #include "Weapon.h"
 #include "ParticlesObject.h"
@@ -260,7 +260,8 @@ void CScriptEntity::ProcessScripts()
 #endif
         if (true /*g_LuaDebug.test(1)*/)
         {
-            object().callback(GameObject::eActionTypeRemoved)(object().lua_game_object(), u32(eActionTypeRemoved));
+            // Lord - [Script] Re-write
+            //  object().callback(GameObject::eActionTypeRemoved)(object().lua_game_object(), u32(eActionTypeRemoved));
         }
 
         xr_delete(l_tpEntityAction);
@@ -282,32 +283,41 @@ void CScriptEntity::ProcessScripts()
         bool l_bCompleted;
         l_bCompleted = l_tpEntityAction->m_tWatchAction.m_bCompleted;
         bfAssignWatch(l_tpEntityAction);
-        if (l_tpEntityAction->m_tWatchAction.m_bCompleted && !l_bCompleted)
-            object().callback(GameObject::eActionTypeWatch)(object().lua_game_object(), u32(eActionTypeWatch));
+        // Lord - [Script] Re-write
+        //         if (l_tpEntityAction->m_tWatchAction.m_bCompleted && !l_bCompleted)
+        //             object().callback(GameObject::eActionTypeWatch)(object().lua_game_object(),
+        //             u32(eActionTypeWatch));
 
         l_bCompleted = l_tpEntityAction->m_tAnimationAction.m_bCompleted;
         bfAssignAnimation(l_tpEntityAction);
 
         l_bCompleted = l_tpEntityAction->m_tSoundAction.m_bCompleted;
         bfAssignSound(l_tpEntityAction);
-        if (l_tpEntityAction->m_tSoundAction.m_bCompleted && !l_bCompleted)
-            object().callback(GameObject::eActionTypeSound)(object().lua_game_object(), u32(eActionTypeSound));
+        // Lord - [Script] Re-write
+        //         if (l_tpEntityAction->m_tSoundAction.m_bCompleted && !l_bCompleted)
+        //             object().callback(GameObject::eActionTypeSound)(object().lua_game_object(),
+        //             u32(eActionTypeSound));
 
         l_bCompleted = l_tpEntityAction->m_tParticleAction.m_bCompleted;
         bfAssignParticles(l_tpEntityAction);
-        if (l_tpEntityAction->m_tParticleAction.m_bCompleted && !l_bCompleted)
-            object().callback(GameObject::eActionTypeParticle)(object().lua_game_object(), u32(eActionTypeParticle));
+        // Lord - [Script] Re-write
+        //         if (l_tpEntityAction->m_tParticleAction.m_bCompleted && !l_bCompleted)
+        //             object().callback(GameObject::eActionTypeParticle)(object().lua_game_object(),
+        //             u32(eActionTypeParticle));
 
         l_bCompleted = l_tpEntityAction->m_tObjectAction.m_bCompleted;
         bfAssignObject(l_tpEntityAction);
-        if (l_tpEntityAction->m_tObjectAction.m_bCompleted && !l_bCompleted)
-            object().callback(GameObject::eActionTypeObject)(object().lua_game_object(), u32(eActionTypeObject));
+        // Lord - [Script] Re-write
+        //         if (l_tpEntityAction->m_tObjectAction.m_bCompleted && !l_bCompleted)
+        //             object().callback(GameObject::eActionTypeObject)(object().lua_game_object(),
+        //             u32(eActionTypeObject));
 
         l_bCompleted = l_tpEntityAction->m_tMovementAction.m_bCompleted;
         bfAssignMovement(l_tpEntityAction);
-        if (l_tpEntityAction->m_tMovementAction.m_bCompleted && !l_bCompleted)
-            object().callback(GameObject::eActionTypeMovement)(
-                object().lua_game_object(), u32(eActionTypeMovement), -1);
+        // Lord - [Script] Re-write
+        //         if (l_tpEntityAction->m_tMovementAction.m_bCompleted && !l_bCompleted)
+        //             object().callback(GameObject::eActionTypeMovement)(
+        //                 object().lua_game_object(), u32(eActionTypeMovement), -1);
 
         // Установить выбранную анимацию
         if (!l_tpEntityAction->m_tAnimationAction.m_bCompleted)
@@ -360,8 +370,9 @@ const Fmatrix CScriptEntity::GetUpdatedMatrix(
 
     if (xr_strlen(caBoneName))
     {
-        CBoneInstance& l_tBoneInstance = smart_cast<IKinematics*>(
-            object().Visual())->LL_GetBoneInstance(smart_cast<IKinematics*>(object().Visual())->LL_BoneID(caBoneName));
+        CBoneInstance& l_tBoneInstance =
+            smart_cast<IKinematics*>(object().Visual())
+                ->LL_GetBoneInstance(smart_cast<IKinematics*>(object().Visual())->LL_BoneID(caBoneName));
         l_tMatrix.mulA_43(l_tBoneInstance.mTransform);
         l_tMatrix.mulA_43(object().XFORM());
     }
@@ -594,9 +605,10 @@ void ScriptCallBack(CBlend* B)
     VERIFY(l_tpScriptMonster);
     if (l_tpScriptMonster->GetCurrentAction() && !B->bone_or_part)
     {
-        if (!l_tpScriptMonster->GetCurrentAction()->m_tAnimationAction.m_bCompleted)
-            l_tpScriptMonster->object().callback(GameObject::eActionTypeAnimation)(
-                l_tpScriptMonster->object().lua_game_object(), u32(eActionTypeAnimation));
+        // Lord - [Script] Re-write
+        //         if (!l_tpScriptMonster->GetCurrentAction()->m_tAnimationAction.m_bCompleted)
+        //             l_tpScriptMonster->object().callback(GameObject::eActionTypeAnimation)(
+        //                 l_tpScriptMonster->object().lua_game_object(), u32(eActionTypeAnimation));
 
         l_tpScriptMonster->m_tpScriptAnimation.invalidate();
         l_tpScriptMonster->GetCurrentAction()->m_tAnimationAction.m_bCompleted = true;
@@ -666,9 +678,9 @@ void CScriptEntity::sound_callback(
 {
     if (!smart_cast<const CGameObject*>(object))
         return;
-
-    if (!this->object().callback(GameObject::eSound))
-        return;
+    // Lord - [Script] Re-write
+    //     if (!this->object().callback(GameObject::eSound))
+    //         return;
 
     m_saved_sounds.push_back(CSavedSound(object->ID(), sound_type, position, sound_power));
 }
@@ -680,10 +692,19 @@ void CScriptEntity::process_sound_callbacks()
 {
     xr_vector<CSavedSound>::const_iterator I = m_saved_sounds.begin();
     xr_vector<CSavedSound>::const_iterator E = m_saved_sounds.end();
+
+    // Lord - [Script] Re-write
+    //     for (; I != E; ++I)
+    //     {
+    //         object().callback(GameObject::eSound)(
+    //             object().lua_game_object(), (*I).m_game_object_id, (*I).m_sound_type, (*I).m_position,
+    //             (*I).m_sound_power);
+    //     }
+
     for (; I != E; ++I)
     {
-        object().callback(GameObject::eSound)(
-            object().lua_game_object(), (*I).m_game_object_id, (*I).m_sound_type, (*I).m_position, (*I).m_sound_power);
+        if (object().GetScriptBinderObject())
+            object().GetScriptBinderObject()->hear_callback(object().lua_game_object(), I->m_game_object_id, I->m_sound_type, I->m_position, I->m_sound_power);
     }
 
     m_saved_sounds.clear();

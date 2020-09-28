@@ -9,8 +9,8 @@
 #include "IPhysicsShellHolder.h"
 #include "ph_valid_ode.h"
 
-#include "Include/xrRender/Kinematics.h"
-#include "Include/xrRender/KinematicsAnimated.h"
+#include "xrGame/Render/Kernel/Kinematics.h"
+#include "xrGame/Render/Kernel/KinematicsAnimated.h"
 #include "ode/ode/src/util.h"
 
 #ifdef DEBUG

@@ -8,7 +8,7 @@
 #include "Wound.h"
 #include "xrMessages.h"
 #include "Level.h"
-#include "Include/xrRender/Kinematics.h"
+#include "Kinematics.h"
 #include "relation_registry.h"
 #include "monster_community.h"
 #include "EntityCondition.h"
@@ -312,7 +312,10 @@ void CEntityAlive::Die(IGameObject* who)
     inherited::Die(who);
 
     const CGameObject* who_object = smart_cast<const CGameObject*>(who);
-    callback(GameObject::eDeath)(lua_game_object(), who_object ? who_object->lua_game_object() : 0);
+    // Lord - [Script] Re-write
+    //callback(GameObject::eDeath)(lua_game_object(), who_object ? who_object->lua_game_object() : 0);
+    this->GetScriptBinderObject()->death_callback(
+        this->lua_game_object(), who_object ? who_object->lua_game_object() : nullptr);
 
     if (!getDestroy() && (GameID() == eGameIDSingle))
     {

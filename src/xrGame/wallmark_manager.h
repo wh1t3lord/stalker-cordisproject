@@ -1,5 +1,5 @@
 #pragma once
-#include "Include/xrRender/FactoryPtr.h"
+#include "FactoryPtr.h"
 #include "xrCore/_vector3d.h"
 
 class IGameObject;

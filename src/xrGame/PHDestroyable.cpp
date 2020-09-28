@@ -20,7 +20,7 @@
 #include "xrPhysics/IPHWorld.h"
 #endif
 
-#include "Include/xrRender/Kinematics.h"
+#include "Kinematics.h"
 /*
 [impulse_transition_to_parts]
 random_min              =1       ; х массу объекта = величина случайно направленного импульса
@@ -173,8 +173,8 @@ void CPHDestroyable::Load(CInifile* ini, LPCSTR section)
         if (data.Data.size() > 0)
             m_flags.set(fl_destroyable, true);
         for (auto I = data.Data.cbegin(); I != data.Data.cend(); I++)
-            if (I->first.size())
-                m_destroyed_obj_visual_names.push_back(I->first);
+            if (I->first.empty() == false)
+                m_destroyed_obj_visual_names.push_back(I->first.c_str());
     }
 }
 void CPHDestroyable::Load(LPCSTR section)

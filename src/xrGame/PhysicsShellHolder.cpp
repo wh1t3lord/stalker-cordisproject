@@ -3,7 +3,7 @@
 #include "xrPhysics/PhysicsShell.h"
 #include "xrMessages.h"
 #include "ph_shell_interface.h"
-#include "Include/xrRender/Kinematics.h"
+#include "Kinematics.h"
 #include "xrScriptEngine/script_callback_ex.h"
 #include "Level.h"
 #include "PHCommander.h"
@@ -531,7 +531,7 @@ std::string CPhysicsShellHolder::dump(EDumpType type) const
 {
     switch (type)
     {
-    case base: return dbg_object_base_dump_string(this); break;
+    case EDumpType::base: return dbg_object_base_dump_string(this); break;
     case poses: return dbg_object_poses_dump_string(this); break;
     case vis_geom: return dbg_object_visual_geom_dump_string(this); break;
     case props: return dbg_object_props_dump_string(this); break;

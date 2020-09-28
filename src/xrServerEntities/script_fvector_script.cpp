@@ -12,6 +12,7 @@
 using namespace luabind;
 using namespace luabind::policy;
 
+#ifdef XRGAME_EXPORTS
 SCRIPT_EXPORT(Fvector, (), {
     module(luaState)
         [class_<Fvector>("vector")
@@ -150,3 +151,4 @@ SCRIPT_EXPORT(Frect, (),
             .def_readwrite("y2", &Frect::y2)
     ];
 });
+#endif

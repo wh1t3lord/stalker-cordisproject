@@ -37,7 +37,7 @@ bool g_enemy_manager_second_update = false;
 
 #define USE_EVALUATOR
 
-CEnemyManager::CEnemyManager(CCustomMonster* object)
+CEnemyManager::CEnemyManager(CCustomMonster* object) : m_p_useful_callback(nullptr)
 {
     VERIFY(object);
     m_object = object;
@@ -71,7 +71,7 @@ bool CEnemyManager::useful(const CEntityAlive* entity_alive) const
         (m_object->Position().distance_to(entity_alive->Position()) >= m_max_ignore_distance))
         return (false);
 
-    return (m_useful_callback ? m_useful_callback(m_object->lua_game_object(), entity_alive->lua_game_object()) : true);
+    return (this->m_p_useful_callback ? this->m_p_useful_callback(this->m_object->lua_game_object(), entity_alive->lua_game_object()) : true);
 }
 
 float CEnemyManager::do_evaluate(const CEntityAlive* object) const { return (m_object->evaluate(this, object)); }
@@ -157,7 +157,8 @@ void CEnemyManager::reload(LPCSTR section)
     m_last_enemy_time = 0;
     m_last_enemy = 0;
     m_last_enemy_change = 0;
-    m_useful_callback.clear();
+   /// m_useful_callback.clear();
+    this->m_p_useful_callback = nullptr;
     VERIFY(m_ready_to_save);
 }
 

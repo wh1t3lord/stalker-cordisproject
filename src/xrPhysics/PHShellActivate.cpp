@@ -9,7 +9,7 @@
 
 #include "IPhysicsShellHolder.h"
 #include "PhysicsShellAnimator.h"
-#include "Include/xrRender/Kinematics.h"
+#include "xrGame/Render/Kernel/Kinematics.h"
 
 ///////////////////////////////////////////////////////////////
 //#pragma warning(push)

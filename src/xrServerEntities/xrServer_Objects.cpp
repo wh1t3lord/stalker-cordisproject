@@ -9,7 +9,7 @@
 #include "StdAfx.h"
 #include "xrServer_Objects.h"
 #include "game_base_space.h"
-
+#include "smart_cast.h"
 ////////////////////////////////////////////////////////////////////////////
 // CSE_Shape
 ////////////////////////////////////////////////////////////////////////////
@@ -69,7 +69,7 @@ void CSE_Shape::cform_write(NET_Packet& tNetPacket)
         }
     }
 }
-
+// Lord: изменить функционал
 void CSE_Shape::assign_shapes(CShapeData::shape_def* _shapes, u32 _cnt)
 {
     shapes.resize(_cnt);
@@ -88,7 +88,7 @@ void CSE_Spectator::STATE_Write(NET_Packet& tNetPacket) {}
 void CSE_Spectator::UPDATE_Read(NET_Packet& tNetPacket) {}
 void CSE_Spectator::UPDATE_Write(NET_Packet& tNetPacket) {}
 #ifndef XRGAME_EXPORTS
-void CSE_Spectator::FillProps(LPCSTR pref, PropItemVec& items) { inherited::FillProps(pref, items); }
+//void CSE_Spectator::FillProps(LPCSTR pref, PropItemVec& items) { inherited::FillProps(pref, items); }
 #endif // #ifndef XRGAME_EXPORTS
 
 ////////////////////////////////////////////////////////////////////////////
@@ -103,7 +103,7 @@ void CSE_Temporary::UPDATE_Read(NET_Packet& tNetPacket){};
 void CSE_Temporary::UPDATE_Write(NET_Packet& tNetPacket){};
 
 #ifndef XRGAME_EXPORTS
-void CSE_Temporary::FillProps(LPCSTR pref, PropItemVec& values){};
+//void CSE_Temporary::FillProps(LPCSTR pref, PropItemVec& values){};
 #endif // #ifndef XRGAME_EXPORTS
 
 /**
@@ -223,7 +223,7 @@ void CSE_PHSkeleton::load(NET_Packet& tNetPacket)
 void CSE_PHSkeleton::UPDATE_Write(NET_Packet& tNetPacket) {}
 void CSE_PHSkeleton::UPDATE_Read(NET_Packet& tNetPacket) {}
 #ifndef XRGAME_EXPORTS
-void CSE_PHSkeleton::FillProps(LPCSTR pref, PropItemVec& values) {}
+//void CSE_PHSkeleton::FillProps(LPCSTR pref, PropItemVec& values) {}
 #endif // #ifndef XRGAME_EXPORTS
 
 CSE_AbstractVisual::CSE_AbstractVisual(LPCSTR section) : inherited1(section), inherited2(section) {}
@@ -241,11 +241,11 @@ void CSE_AbstractVisual::STATE_Write(NET_Packet& tNetPacket)
 }
 
 #ifndef XRGAME_EXPORTS
-void CSE_AbstractVisual::FillProps(LPCSTR pref, PropItemVec& values)
-{
-    inherited1::FillProps(pref, values);
-    inherited2::FillProps(pref, values);
-}
+// void CSE_AbstractVisual::FillProps(LPCSTR pref, PropItemVec& values)
+// {
+//     inherited1::FillProps(pref, values);
+//     inherited2::FillProps(pref, values);
+// }
 #endif // #ifndef XRGAME_EXPORTS
 
 void CSE_AbstractVisual::UPDATE_Read(NET_Packet& tNetPacket) {}

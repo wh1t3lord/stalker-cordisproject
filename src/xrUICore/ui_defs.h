@@ -1,8 +1,8 @@
 #pragma once
 
-#include "Include/xrRender/FactoryPtr.h"
-#include "Include/xrRender/UIRender.h"
-#include "Include/xrRender/UIShader.h"
+#include "xrGame/Render/Kernel/FactoryPtr.h"
+#include "xrGame/Render/Kernel/UIRender.h"
+#include "xrGame/Render/Kernel/UIShader.h"
 #include "xrCore/_plane2.h"
 #include "xrCore/_vector2.h"
 #include "xrCore/_rect.h"

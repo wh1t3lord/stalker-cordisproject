@@ -1,7 +1,7 @@
 #pragma once
 
 #include "CustomZone.h"
-#include "Include/xrRender/KinematicsAnimated.h"
+#include "KinematicsAnimated.h"
 #include "ZoneVisual.h"
 
 class CHairsZone : public CVisualZone

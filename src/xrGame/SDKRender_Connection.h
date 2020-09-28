@@ -4,16 +4,19 @@
 */
 
 #pragma once
-#include "stdafx.h"
-
-class SDK_Connection : public pureRender, public pureFrame
+#include "StdAfx.h"
+#include "../xrCore/Imgui/imgui.h"
+#include "../xrCore/Imgui/imgui_impl_sdl.h"
+class SDK_Connection : public pureRender
 {
 private:
-    SDK_Connection(void) { }
+    SDK_Connection(void) {}
 
 public:
-    SDK_Connection(SDK_Connection&) = delete;
-    SDK_Connection& operator=(SDK_Connection const&) = delete;
+    SDK_Connection(const SDK_Connection&) = delete;
+    SDK_Connection& operator=(const SDK_Connection&) = delete;
+    SDK_Connection(SDK_Connection&&) = delete;
+    SDK_Connection& operator=(SDK_Connection&&) = delete;
     ~SDK_Connection(void) {}
 
     static SDK_Connection* GetInstance(void)
@@ -45,7 +48,6 @@ public:
     }
 
     void OnRender(void) override { GEnv.Render->Render(); }
-    void OnFrame(void) override { ; }
 
 private:
     bool bActivated = false;

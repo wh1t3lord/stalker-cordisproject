@@ -145,6 +145,54 @@
     <Filter Include="Cordis\SDK UI\ImGui\Public">
       <UniqueIdentifier>{9da24584-3b91-46e4-93ae-136a70159129}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Cordis\XML">
+      <UniqueIdentifier>{52c60c37-78d9-4050-a9ea-b00c37119992}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\XML\Public">
+      <UniqueIdentifier>{c46cf684-a36c-481e-b445-2a554cbbd1be}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\XML\Private">
+      <UniqueIdentifier>{33b71a54-4105-4ba9-8f91-23e57e2ad9fe}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\SDK\Data structures">
+      <UniqueIdentifier>{d6a41cba-d882-477e-8d5a-3517fd51c7a0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\SDK\Data structures\Tree">
+      <UniqueIdentifier>{ffe0b022-40ff-4f04-98a1-2a695dba00f1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\SDK\Data structures\Tree\Private">
+      <UniqueIdentifier>{35d14f0d-725d-4cba-8b29-12d9354720f4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\SDK\Data structures\Tree\Public">
+      <UniqueIdentifier>{fa7c401b-775c-4546-b87b-1bbc5839a20a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\SDK\Data structures\Tree\Node">
+      <UniqueIdentifier>{0a959e25-a53f-497d-9ac7-fd20d9c4ad66}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\SDK\Data structures\Tree\Node\Public">
+      <UniqueIdentifier>{7afedce4-d8f4-4414-b32a-da9f018688f1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\SDK\Data structures\Tree\Node\Private">
+      <UniqueIdentifier>{3d43d80d-9fe7-4302-965b-e91076076049}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Callbacks">
+      <UniqueIdentifier>{7a935f94-6994-410c-9704-23c2cde235c7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Callbacks\Public">
+      <UniqueIdentifier>{dc6ea920-1517-4df4-b4b2-336b1d1da17f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts">
+      <UniqueIdentifier>{6af0c7da-7d10-40c8-9e50-19635f7109d4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Data Structures">
+      <UniqueIdentifier>{5bb6c207-df56-4058-a091-2c6ae6e0ada4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cordis\Scripts\Data Structures\Public">
+      <UniqueIdentifier>{108ffb4e-18f1-4262-a65c-29b59b1ca098}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Unit Testing">
+      <UniqueIdentifier>{8beafa9e-e2a3-46fd-9dd0-19651e6d3931}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="FTimer.cpp">
@@ -374,6 +422,27 @@
     </ClCompile>
     <ClCompile Include="Imgui\imgui_demo.cpp">
       <Filter>Cordis\SDK UI\ImGui\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Cordis\XML\cordis_xml.cpp">
+      <Filter>Cordis\XML\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Cordis\XML\cordis_str.cpp">
+      <Filter>Cordis\XML\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Cordis\XML\cordis_xmlerror.cpp">
+      <Filter>Cordis\XML\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Cordis\XML\cordis_xmlparser.cpp">
+      <Filter>Cordis\XML\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="SDK_TreeFolder.cpp">
+      <Filter>Cordis\SDK\Data structures\Tree\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="SDK_NodeTreeFolder.cpp">
+      <Filter>Cordis\SDK\Data structures\Tree\Node\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Test.cpp">
+      <Filter>Unit Testing</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -793,6 +862,24 @@
     </ClInclude>
     <ClInclude Include="SDK_QuitMessage.h">
       <Filter>Cordis\SDK\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Cordis\XML\cordis_xml.h">
+      <Filter>Cordis\XML\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Cordis\XML\cordis_str.h">
+      <Filter>Cordis\XML\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="SDK_TreeFolder.h">
+      <Filter>Cordis\SDK\Data structures\Tree\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="SDK_NodeTreeFolder.h">
+      <Filter>Cordis\SDK\Data structures\Tree\Node\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Cordis\Cordis_Functions.h">
+      <Filter>Cordis\Callbacks\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Cordis_ScriptDataStructures.h">
+      <Filter>Cordis\Scripts\Data Structures\Public</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

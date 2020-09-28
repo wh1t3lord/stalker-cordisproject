@@ -16,7 +16,7 @@
 #include "xrEngine/GameMtlLib.h"
 
 #include "IPhysicsShellHolder.h"
-#include "Include/xrRender/Kinematics.h"
+#include "xrGame/Render/Kernel/Kinematics.h"
 #include "PHSimpleCharacterInline.h"
 #include "DamageSource.h"
 #include "PHCollideValidator.h"

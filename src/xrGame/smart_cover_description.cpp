@@ -14,15 +14,16 @@
 #include "smart_cover_object.h"
 #include "ai_monster_space.h"
 #include "smart_cover_transition.hpp"
+#include "Script_GlobalHelper.h"
 
 using namespace MonsterSpace;
 using smart_cover::description;
 using smart_cover::loophole;
 using smart_cover::detail::parse_float;
-using smart_cover::detail::parse_string;
-using smart_cover::detail::parse_table;
 using smart_cover::detail::parse_fvector;
 using smart_cover::detail::parse_int;
+using smart_cover::detail::parse_string;
+using smart_cover::detail::parse_table;
 
 namespace smart_cover
 {
@@ -85,27 +86,50 @@ description::description(shared_str const& table_id)
 
 void description::load_loopholes(shared_str const& table_id)
 {
-    string256 temp;
-    xr_strcpy(temp, "smart_covers.descriptions.");
-    xr_strcat(temp, *table_id);
-    xr_strcat(temp, ".loopholes");
-    m_table_id = table_id;
+    /*
+        string256 temp;
+        xr_strcpy(temp, "smart_covers.descriptions.");
+        xr_strcat(temp, *table_id);
+        xr_strcat(temp, ".loopholes");
+        m_table_id = table_id;
 
-    luabind::object loopholes;
-    bool result = GEnv.ScriptEngine->function_object(temp, loopholes, LUA_TTABLE);
-    VERIFY2(result, make_string("bad or missing loopholes table in smart_cover [%s]", table_id.c_str()));
-    for (luabind::iterator I(loopholes), E; I != E; ++I)
-    {
-        luabind::object table = *I;
-        if (luabind::type(table) != LUA_TTABLE)
+        luabind::object loopholes;
+        bool result = GEnv.ScriptEngine->function_object(temp, loopholes, LUA_TTABLE);
+        VERIFY2(result, make_string("bad or missing loopholes table in smart_cover [%s]", table_id.c_str()));
+        for (luabind::iterator I(loopholes), E; I != E; ++I)
         {
-            VERIFY(luabind::type(table) != LUA_TNIL);
-            continue;
-        }
+            luabind::object table = *I;
+            if (luabind::type(table) != LUA_TTABLE)
+            {
+                VERIFY(luabind::type(table) != LUA_TNIL);
+                continue;
+            }
 
-        smart_cover::loophole* loophole = new smart_cover::loophole(table);
-        VERIFY(m_loopholes.end() == std::find_if(m_loopholes.begin(), m_loopholes.end(),
-            [=](smart_cover::loophole* const lh) { return loophole->id()._get() == lh->id()._get(); }));
+            smart_cover::loophole* loophole = new smart_cover::loophole(table);
+            VERIFY(m_loopholes.end() == std::find_if(m_loopholes.begin(), m_loopholes.end(),
+                [=](smart_cover::loophole* const lh) { return loophole->id()._get() == lh->id()._get(); }));
+
+            m_loopholes.push_back(loophole);
+        }*/
+
+    if (Cordis::Scripts::Script_GlobalHelper::getInstance().getRegisteredSmartCovers().find(table_id.c_str()) ==
+        Cordis::Scripts::Script_GlobalHelper::getInstance().getRegisteredSmartCovers().end())
+    {
+        R_ASSERT2(false, "can't find smart cover!");
+        return;
+    }
+
+    this->m_table_id = table_id;
+
+    for (const Cordis::Scripts::SmartCoverLoopholeData& it : Cordis::Scripts::Script_GlobalHelper::getInstance()
+                                                                 .getRegisteredSmartCovers()
+                                                                 .at(table_id.c_str())
+                                                                 .getLoopholes())
+    {
+        smart_cover::loophole* loophole = new smart_cover::loophole(it);
+        VERIFY(m_loopholes.end() ==
+            std::find_if(m_loopholes.begin(), m_loopholes.end(),
+                [=](smart_cover::loophole* const lh) { return loophole->id()._get() == lh->id()._get(); }));
 
         m_loopholes.push_back(loophole);
     }
@@ -136,47 +160,84 @@ void description::process_loopholes()
 
 void description::load_transitions(shared_str const& table_id)
 {
-    string256 temp;
-    xr_strcpy(temp, "smart_covers.descriptions.");
-    xr_strcat(temp, *table_id);
-    xr_strcat(temp, ".transitions");
-
-    luabind::object transitions;
-    bool result = GEnv.ScriptEngine->function_object(temp, transitions, LUA_TTABLE);
-    VERIFY(result);
-    for (luabind::iterator I(transitions), E; I != E; ++I)
+    if (Cordis::Scripts::Script_GlobalHelper::getInstance().getRegisteredSmartCovers().find(table_id.c_str()) ==
+        Cordis::Scripts::Script_GlobalHelper::getInstance().getRegisteredSmartCovers().end())
     {
-        luabind::object table = *I;
-        if (luabind::type(table) != LUA_TTABLE)
-        {
-            VERIFY(luabind::type(table) != LUA_TNIL);
-            continue;
-        }
-
-        shared_str vertex_0_id = parse_vertex(table, "vertex0", true);
-        shared_str vertex_1_id = parse_vertex(table, "vertex1", false);
-        float weight = parse_float(table, "weight");
-
-        if (!m_transitions.vertex(vertex_0_id))
-            m_transitions.add_vertex(Loki::EmptyType(), vertex_0_id);
-
-        if (!m_transitions.vertex(vertex_1_id))
-            m_transitions.add_vertex(Loki::EmptyType(), vertex_1_id);
-
-        m_transitions.add_edge(vertex_0_id, vertex_1_id, weight);
-        TransitionGraph::CEdge* edge = m_transitions.edge(vertex_0_id, vertex_1_id);
-        load_actions(table, edge->data());
+        R_ASSERT2(false, "can't find smart cover!");
+        return;
     }
+
+    const xr_vector<Cordis::Scripts::SmartCoverData::SmartCoverTransitionsData>& transitions =
+        Cordis::Scripts::Script_GlobalHelper::getInstance()
+            .getRegisteredSmartCovers()
+            .at(table_id.c_str())
+            .getTransitions();
+
+    for (const Cordis::Scripts::SmartCoverData::SmartCoverTransitionsData& it : transitions)
+    {
+        shared_str v0 = transform_vertex(it.m_vertex0.c_str(), true);
+        shared_str v1 = transform_vertex(it.m_vertex1.c_str(), false);
+        if (!this->m_transitions.vertex(v0.c_str()))
+            this->m_transitions.add_vertex(Loki::EmptyType(), v0.c_str());
+
+        if (!this->m_transitions.vertex(v1.c_str()))
+            this->m_transitions.add_vertex(Loki::EmptyType(), v1.c_str());
+
+        this->m_transitions.add_edge(v0.c_str(), v1.c_str(), it.m_weight);
+        TransitionGraph::CEdge* edge = m_transitions.edge(v0.c_str(), v1.c_str());
+        load_actions(it.m_actions, edge->data());
+    }
+
+    /*
+        string256 temp;
+        xr_strcpy(temp, "smart_covers.descriptions.");
+        xr_strcat(temp, *table_id);
+        xr_strcat(temp, ".transitions");
+
+        luabind::object transitions;
+        bool result = GEnv.ScriptEngine->function_object(temp, transitions, LUA_TTABLE);
+        VERIFY(result);
+        for (luabind::iterator I(transitions), E; I != E; ++I)
+        {
+            luabind::object table = *I;
+            if (luabind::type(table) != LUA_TTABLE)
+            {
+                VERIFY(luabind::type(table) != LUA_TNIL);
+                continue;
+            }
+
+            shared_str vertex_0_id = parse_vertex(table, "vertex0", true);
+            shared_str vertex_1_id = parse_vertex(table, "vertex1", false);
+            float weight = parse_float(table, "weight");
+
+            if (!m_transitions.vertex(vertex_0_id))
+                m_transitions.add_vertex(Loki::EmptyType(), vertex_0_id);
+
+            if (!m_transitions.vertex(vertex_1_id))
+                m_transitions.add_vertex(Loki::EmptyType(), vertex_1_id);
+
+            m_transitions.add_edge(vertex_0_id, vertex_1_id, weight);
+            TransitionGraph::CEdge* edge = m_transitions.edge(vertex_0_id, vertex_1_id);
+            load_actions(table, edge->data());
+        }*/
 }
 
-void description::load_actions(luabind::object const& table, description::ActionsList& result)
+void description::load_actions(const xr_vector<Cordis::Scripts::SmartCoverData::SmartCoverTransitionsData::SmartCoverActionsData>& actions, description::ActionsList& result)
 {
-    luabind::object actions;
-    parse_table(table, "actions", actions);
-    for (luabind::iterator I(actions), E; I != E; ++I)
+/*
+    
+        luabind::object actions;
+   //     parse_table(table, "actions", actions);
+        for (luabind::iterator I(actions), E; I != E; ++I)
+        {
+            luabind::object tmp = *I;
+            transitions::action* action = new transitions::action(tmp);
+            result.push_back(action);
+        }*/
+
+    for (const Cordis::Scripts::SmartCoverData::SmartCoverTransitionsData::SmartCoverActionsData& it : actions) 
     {
-        luabind::object tmp = *I;
-        transitions::action* action = new transitions::action(tmp);
+        transitions::action* action = new transitions::action(it);
         result.push_back(action);
     }
 }

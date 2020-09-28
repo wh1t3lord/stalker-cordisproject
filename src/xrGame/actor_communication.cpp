@@ -50,7 +50,9 @@ bool CActor::OnReceiveInfo(shared_str info_id) const
     CInfoPortion info_portion;
     info_portion.Load(info_id);
 
-    callback(GameObject::eInventoryInfo)(lua_game_object(), *info_id);
+    // Lord - [Script] Re-write
+   // callback(GameObject::eInventoryInfo)(lua_game_object(), *info_id);
+    this->scriptBinder.object()->info_callback(info_id.c_str());
 
     if (!CurrentGameUI())
         return false;

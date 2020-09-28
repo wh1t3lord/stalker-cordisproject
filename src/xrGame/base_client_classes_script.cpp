@@ -9,8 +9,8 @@
 #include "pch_script.h"
 #include "base_client_classes_wrappers.h"
 #include "xrEngine/Feel_Sound.h"
-#include "Include/xrRender/RenderVisual.h"
-#include "Include/xrRender/Kinematics.h"
+#include "RenderVisual.h"
+#include "Kinematics.h"
 #include "ai/stalker/ai_stalker.h"
 #include "xrScriptEngine/ScriptExporter.hpp"
 

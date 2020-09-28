@@ -14,7 +14,7 @@
 #include "squad_hierarchy_holder.h"
 #include "group_hierarchy_holder.h"
 #include "CustomZone.h"
-#include "Include/xrRender/Kinematics.h"
+#include "Kinematics.h"
 #include "detail_path_manager.h"
 #include "memory_manager.h"
 #include "visual_memory_manager.h"
@@ -336,7 +336,7 @@ void CCustomMonster::shedule_Update(u32 DT)
             Device.seqParallel.push_back(fastdelegate::FastDelegate0<>(this, &CCustomMonster::Exec_Visibility));
 #else // DEBUG
         {
-            if (!psAI_Flags.test(aiStalker) || !!smart_cast<CActor*>(Level().CurrentEntity()))
+            if (!!smart_cast<CActor*>(Level().CurrentEntity()))
                 Device.seqParallel.push_back(fastdelegate::FastDelegate0<>(this, &CCustomMonster::Exec_Visibility));
             else
                 Exec_Visibility();
@@ -1160,7 +1160,7 @@ void CCustomMonster::OnRender()
             update_range_fov(
                 new_range, new_fov, memory().visual().current_state().m_max_view_distance * eye_range, eye_fov);
 
-        dbg_draw_frustum(new_fov, new_range, 1, eye_matrix.c, eye_matrix.k, eye_matrix.j);
+        dbg_draw_frustum_original(new_fov, new_range, 1, eye_matrix.c, eye_matrix.k, eye_matrix.j);
     }
 
     if (psAI_Flags.test(aiMotion))

@@ -50,7 +50,7 @@ void manager::load()
 
     for (const auto &i : sections)
     {
-        effect* object = new effect(*this, i->Name);
+        effect* object = new effect(*this, i->Name.c_str());
         object->load(*config);
         object->fill(m_collection);
         m_effects.push_back(object);

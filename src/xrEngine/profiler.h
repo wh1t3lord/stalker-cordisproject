@@ -103,8 +103,8 @@ inline CProfiler &profiler();
 inline CProfilePortion::CProfilePortion(const char *id, bool enableIf)
 {
     // XXX: wrap into global xrGame function and pass as enableIf
-    //if (!psAI_Flags.test(aiStats))
-    //    return;
+    if (!psAI_Flags.test(aiStats))
+        return;
     if (!enableIf || !psDeviceFlags.test(rsStatistic))
         return;
     enabled = true;

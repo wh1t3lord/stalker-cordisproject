@@ -11,7 +11,7 @@
 #include "ai/stalker/ai_stalker.h"
 #include "ai/stalker/ai_stalker_impl.h"
 #include "memory_space_impl.h"
-#include "Include/xrRender/Kinematics.h"
+#include "Kinematics.h"
 #include "xrAICore/Navigation/ai_object_location.h"
 #include "xrAICore/Navigation/level_graph.h"
 #include "stalker_movement_manager_smart_cover.h"

@@ -11,12 +11,16 @@
 #include "xrUICore/XML/xrUIXmlParser.h"
 #include "xr_level_controller.h"
 #include "xrEngine/profiler.h"
+#include "dxRenderFactory.h"
+#include "dxUIRender.h"
+#include "dxDebugRender.h"
+
 
 extern void FillUIStyleToken();
 extern void CleanupUIStyleToken();
 
 extern "C" {
-DLL_API IFactoryObject* __cdecl xrFactory_Create(CLASS_ID clsid)
+ IFactoryObject* xrFactory_Create(CLASS_ID clsid)
 {
     IFactoryObject* object = object_factory().client_object(clsid);
 #ifdef DEBUG
@@ -28,22 +32,68 @@ DLL_API IFactoryObject* __cdecl xrFactory_Create(CLASS_ID clsid)
     return (object);
 }
 
-DLL_API void __cdecl xrFactory_Destroy(IFactoryObject* O) { xr_delete(O); }
+  void xrFactory_Destroy(IFactoryObject* O) { xr_delete(O); }
+
+ CSE_Abstract* xrServer_Create(LPCSTR section, CSE_Motion*& motion, CSE_Visual*& visual)
+{
+    IServerEntity* obj = object_factory().server_object(pSettings->r_clsid(section, "class"), section);
+    motion = obj->motion();
+    visual = obj->visual();
+    return (CSE_Abstract*)obj;
+}
+
+__declspec(dllexport) void __cdecl xrServer_Destroy(IServerEntity*& entity)
+{
+    auto object = smart_cast<CSE_Abstract*>(entity);
+    xr_delete(entity);
+    entity = nullptr;
+}
+
+__declspec(dllexport) CSE_Motion* __cdecl xrServer_GetMotion(CSE_Abstract* object)
+{
+    if (!object)
+        return nullptr;
+
+    return object->motion();
+}
+
+__declspec(dllexport) CSE_Visual* __cdecl xrServer_GetVisual(CSE_Abstract* object)
+{
+    if (!object)
+        return nullptr;
+
+    return object->visual();
+}
 };
+
+extern "C" {
+XR_EXPORT void SetupEnv()
+{ return; }
+
+XR_EXPORT pcstr GetModeName() { return "renderer_r4"; }
+
+XR_EXPORT bool CheckRendererSupport() { return xrRender_test_hw() ? true : false; }
+}
+
+
 
 void CCC_RegisterCommands();
 
 #ifdef LINUX
 __attribute__((constructor))
 #endif
-static void load(int argc, char** argv, char** envp)
+static void
+load(int argc, char** argv, char** envp)
 {
     // Fill ui style token
-    FillUIStyleToken();
-    // register console commands
-    CCC_RegisterCommands();
-    // keyboard binding
+    FillUIStyleToken(); 
+    CCC_RegisterCommands(); 
     CCC_RegisterInput();
+
+    // register console commands
+
+    // keyboard binding
+
 #ifdef DEBUG
 // XXX nitrocaster PROFILER: temporarily disabled due to linkage issues
 // g_profiler			= new CProfiler();
@@ -55,7 +105,8 @@ static void load(int argc, char** argv, char** envp)
 #ifdef LINUX
 __attribute__((destructor))
 #endif
-static void unload()
+static void
+unload()
 {
     CleanupUIStyleToken();
     xr_delete(gStringTable);
@@ -68,6 +119,21 @@ BOOL APIENTRY DllMain(HANDLE hModule, u32 ul_reason_for_call, LPVOID lpReserved)
     {
     case DLL_PROCESS_ATTACH:
     {
+        testing::InitGoogleTest();
+
+        xrRender_initconsole(); 
+        RUN_ALL_TESTS(); 
+
+
+        GEnv.Render = &RImplementation;
+        GEnv.RenderFactory = &RenderFactoryImpl;
+        GEnv.DU = &DUImpl;
+        GEnv.UIRender = &UIRenderImpl;
+#ifdef DEBUG
+        GEnv.DRender = &DebugRenderImpl;
+#endif
+
+
         load(0, nullptr, nullptr);
         break;
     }

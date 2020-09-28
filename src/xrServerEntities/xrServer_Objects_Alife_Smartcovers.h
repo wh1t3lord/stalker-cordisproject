@@ -8,13 +8,12 @@
 
 #ifndef xrServer_Objects_ALife_SmartcoversH
 #define xrServer_Objects_ALife_SmartcoversH
-
 #include "xrServer_Objects_ALife.h"
-
+#include "PropertiesListTypes.h"
 #pragma warning(push)
 #pragma warning(disable : 4005)
 
-class CSE_ALifeDynamicObject;
+/*class CSE_ALifeDynamicObject;*/
 
 class CSE_SmartCover : public CSE_ALifeDynamicObject, public CSE_Shape
 {
@@ -42,7 +41,7 @@ public:
     BOOL m_can_fire;
     bool m_need_to_reparse_loopholes;
 #ifndef AI_COMPILER
-    luabind::object m_available_loopholes;
+    luabind::object m_available_loopholes; // @ Lord: подумать и переписать нужно
 #endif // #ifndef AI_COMPILER
 
 #ifdef XRSE_FACTORY_EXPORTS

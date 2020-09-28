@@ -100,6 +100,7 @@ CScriptMovementAction::CScriptMovementAction(
 
 CScriptMovementAction::CScriptMovementAction(
     MonsterSpace::EScriptMonsterMoveAction tAct, CPatrolPathParams* tPatrolPathParams, float dist_to_end)
+    : m_p_captured_path(tPatrolPathParams)
 {
     MonsterSpace::EScriptMonsterSpeedParam speed_param = MonsterSpace::eSP_Default;
     m_tMoveAction = tAct;
@@ -122,7 +123,16 @@ CScriptMovementAction::CScriptMovementAction(
     m_fDistToEnd = dist_to_end;
 }
 
-CScriptMovementAction::~CScriptMovementAction() {}
+CScriptMovementAction::~CScriptMovementAction()
+{
+    // Lord: протестировать на корректное удаление, посмотри в mob_walker в reset_scheme, там мы выделяем объект patrol для CScriptMovemenetAction и вызываем Globals::action но по
+    // оригиналу здесь он никак не сохраняется и получается лютейщая утечка памяти
+    if (this->m_p_captured_path)
+    {
+  //     xr_delete(this->m_p_captured_path);
+    }
+}
+
 void CScriptMovementAction::SetObjectToGo(CScriptGameObject* tpObjectToGo)
 {
     if (tpObjectToGo)

@@ -51,7 +51,8 @@ private:
     bool m_exitable;
 
 public:
-    loophole(luabind::adl::object const& description);
+/*    loophole(luabind::adl::object const& description);*/
+    loophole(const Cordis::Scripts::SmartCoverLoopholeData& data);
     ~loophole();
     IC shared_str const& id() const;
     IC float const& range() const;
@@ -73,8 +74,8 @@ public:
     void exit_position(Fvector& position) const;
 
 private:
-    void add_action(LPCSTR type, luabind::adl::object const& table);
-    void fill_transitions(luabind::adl::object const& transitions_table);
+/*    void add_action(LPCSTR type, const xr_string& animation_type, const xr_vector<xr_string>& animations);*/
+    void fill_transitions(const Cordis::Scripts::SmartCoverLoopholeData::SmartCoverTransitionsData& data);
 };
 
 } // namespace smart_cover

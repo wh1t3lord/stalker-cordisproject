@@ -14,6 +14,8 @@ using namespace luabind::policy;
 
 void get_matrix_hpb(Fmatrix* self, float* h, float* p, float* b) { self->getHPB(*h, *p, *b); }
 void matrix_transform(Fmatrix* self, Fvector* v) { self->transform(*v); }
+
+#ifdef XRGAME_EXPORTS
 SCRIPT_EXPORT(Fmatrix, (), {
     module(luaState)
         [class_<Fmatrix>("matrix")
@@ -152,3 +154,4 @@ SCRIPT_EXPORT(Fmatrix, (), {
             // const)(&Fmatrix::getXYZi))
     ];
 });
+#endif

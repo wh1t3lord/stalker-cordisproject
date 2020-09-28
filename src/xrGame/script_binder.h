@@ -34,7 +34,7 @@ public:
     virtual BOOL net_SaveRelevant();
     virtual void net_Relcase(IGameObject* object);
     void set_object(CScriptBinderObject* object);
-    IC CScriptBinderObject* object();
+    IC CScriptBinderObject* object() const;
 };
 
 #include "script_binder_inline.h"

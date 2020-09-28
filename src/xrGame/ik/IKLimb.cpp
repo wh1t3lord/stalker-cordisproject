@@ -1,7 +1,7 @@
 #include "StdAfx.h"
 #include "IKLimb.h"
 #include "Common/Noncopyable.hpp"
-#include "Include/xrRender/Kinematics.h"
+#include "Kinematics.h"
 #include "GameObject.h"
 #include "game_object_space.h"
 #include "ik_anim_state.h"
@@ -283,7 +283,7 @@ u16 get_ik_bone(IKinematics* K, LPCSTR S, u16 i)
 #ifdef DEBUG
     if (BI_NONE == bone)
     {
-        Msg("ik bone: %s does not found in visual: %s", sbone, *smart_cast<IRenderVisual*>(K)->getDebugName());
+        Msg("ik bone: %s does not found in visual: %s", sbone, smart_cast<IRenderVisual*>(K)->getDebugName().c_str());
         VERIFY(false);
     }
 #endif

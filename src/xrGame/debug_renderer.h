@@ -10,7 +10,7 @@
 
 #ifdef DEBUG
 
-#include "Include/xrRender/DebugRender.h"
+#include "DebugRender.h"
 
 class CDebugRenderer
 {
@@ -29,6 +29,8 @@ public:
     void draw_obb(const Fmatrix& matrix, const Fvector& half_size, const u32& color);
     void draw_ellipse(const Fmatrix& matrix, const u32& color);
 };
+
+void dbg_draw_frustum_original(float FOV, float _FAR, float A, Fvector& P, Fvector& D, Fvector& U);
 
 #include "debug_renderer_inline.h"
 

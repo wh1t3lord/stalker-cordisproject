@@ -3,12 +3,12 @@
 
 #pragma once
 
-const u32 MAX_PARTS = 4;
+constexpr unsigned int MAX_PARTS = 4;
 
-const f32 SAMPLE_FPS = 30.f;
-const f32 SAMPLE_SPF = (1.f / SAMPLE_FPS);
-f32 const END_EPS = SAMPLE_SPF + EPS;
-const f32 KEY_Quant = 32767.f;
-const f32 KEY_QuantI = 1.f / KEY_Quant;
+constexpr float SAMPLE_FPS = 30.f;
+constexpr float SAMPLE_SPF = (1.f / SAMPLE_FPS);
+constexpr float END_EPS = SAMPLE_SPF + EPS;
+constexpr float KEY_Quant = 32767.f;
+constexpr float KEY_QuantI = 1.f / KEY_Quant;
 
 #endif

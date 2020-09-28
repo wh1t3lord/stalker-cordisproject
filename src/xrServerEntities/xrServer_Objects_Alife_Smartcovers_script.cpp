@@ -26,4 +26,6 @@ static void CSE_SmartCover_Export(lua_State* luaState)
     ];
 }
 
+#ifdef XRGAME_EXPORTS
 SCRIPT_EXPORT_FUNC(CSE_SmartCover, (CSE_ALifeDynamicObject), CSE_SmartCover_Export);
+#endif

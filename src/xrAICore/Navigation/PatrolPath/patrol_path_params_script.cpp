@@ -19,28 +19,28 @@ Fvector CPatrolPathParams__point(const CPatrolPathParams* params, u32 index)
     return params->point(index);
 }
 
-SCRIPT_EXPORT(CPatrolPathParams, (), {
-    module(
-        luaState)[class_<CPatrolPathParams>("patrol")
-                      .enum_(
-                          "start")[value("start", int(ePatrolStartTypeFirst)), value("stop", int(ePatrolStartTypeLast)),
-                          value("nearest", int(ePatrolStartTypeNearest)), value("custom", int(ePatrolStartTypePoint)),
-                          value("next", int(ePatrolStartTypeNext)), value("dummy", int(ePatrolStartTypeDummy))]
-                      .enum_("stop")[value("stop", int(ePatrolRouteTypeStop)),
-                          value("continue", int(ePatrolRouteTypeContinue)), value("dummy", int(ePatrolRouteTypeDummy))]
-                      .def(constructor<LPCSTR>())
-                      .def(constructor<LPCSTR, EPatrolStartType>())
-                      .def(constructor<LPCSTR, EPatrolStartType, EPatrolRouteType>())
-                      .def(constructor<LPCSTR, EPatrolStartType, EPatrolRouteType, bool>())
-                      .def(constructor<LPCSTR, EPatrolStartType, EPatrolRouteType, bool, u32>())
-                      .def("count", &CPatrolPathParams::count)
-                      .def("level_vertex_id", &CPatrolPathParams::level_vertex_id)
-                      .def("game_vertex_id", &CPatrolPathParams::game_vertex_id)
-                      .def("point", &CPatrolPathParams__point)
-                      .def("name", &CPatrolPathParams::name)
-                      .def("index", (u32(CPatrolPathParams::*)(LPCSTR) const)(&CPatrolPathParams::point))
-                      .def("get_nearest", (u32(CPatrolPathParams::*)(const Fvector&) const)(&CPatrolPathParams::point))
-                      .def("flag", &CPatrolPathParams::flag)
-                      .def("flags", &CPatrolPathParams::flags)
-                      .def("terminal", &CPatrolPathParams::terminal)];
-});
+// SCRIPT_EXPORT(CPatrolPathParams, (), {
+//     module(
+//         luaState)[class_<CPatrolPathParams>("patrol")
+//                       .enum_(
+//                           "start")[value("start", int(ePatrolStartTypeFirst)), value("stop", int(ePatrolStartTypeLast)),
+//                           value("nearest", int(ePatrolStartTypeNearest)), value("custom", int(ePatrolStartTypePoint)),
+//                           value("next", int(ePatrolStartTypeNext)), value("dummy", int(ePatrolStartTypeDummy))]
+//                       .enum_("stop")[value("stop", int(ePatrolRouteTypeStop)),
+//                           value("continue", int(ePatrolRouteTypeContinue)), value("dummy", int(ePatrolRouteTypeDummy))]
+//                       .def(constructor<LPCSTR>())
+//                       .def(constructor<LPCSTR, EPatrolStartType>())
+//                       .def(constructor<LPCSTR, EPatrolStartType, EPatrolRouteType>())
+//                       .def(constructor<LPCSTR, EPatrolStartType, EPatrolRouteType, bool>())
+//                       .def(constructor<LPCSTR, EPatrolStartType, EPatrolRouteType, bool, u32>())
+//                       .def("count", &CPatrolPathParams::count)
+//                       .def("level_vertex_id", &CPatrolPathParams::level_vertex_id)
+//                       .def("game_vertex_id", &CPatrolPathParams::game_vertex_id)
+//                       .def("point", &CPatrolPathParams__point)
+//                       .def("name", &CPatrolPathParams::name)
+//                       .def("index", (u32(CPatrolPathParams::*)(LPCSTR) const)(&CPatrolPathParams::point))
+//                       .def("get_nearest", (u32(CPatrolPathParams::*)(const Fvector&) const)(&CPatrolPathParams::point))
+//                       .def("flag", &CPatrolPathParams::flag)
+//                       .def("flags", &CPatrolPathParams::flags)
+//                       .def("terminal", &CPatrolPathParams::terminal)];
+// });

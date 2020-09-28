@@ -59,8 +59,10 @@
 #include "doors_actor.h"
 #include "xrEngine/GameFont.h"
 #include "object_handler_planner_impl.h"
+#include "mt_config.h"
 
 CActor* g_debug_actor = 0;
+class ray_query_param_debug;
 
 void try_change_current_entity()
 {
@@ -246,6 +248,7 @@ void CAI_Stalker::debug_text()
 {
     if (!m_dbg_hud_draw)
         return;
+
     m_dbg_hud_draw = false;
 
     if (!psAI_Flags.test(aiStalker))
@@ -995,7 +998,7 @@ void CAI_Stalker::dbg_draw_vision()
 
 typedef xr_vector<Fvector> COLLIDE_POINTS;
 
-class ray_query_param
+class ray_query_param_debug
 {
 public:
     CCustomMonster* m_holder;
@@ -1007,7 +1010,7 @@ public:
     COLLIDE_POINTS* m_points;
 
 public:
-    IC ray_query_param(CCustomMonster* holder, float power_threshold, float distance, const Fvector& start_position,
+    IC ray_query_param_debug(CCustomMonster* holder, float power_threshold, float distance, const Fvector& start_position,
         const Fvector& direction, COLLIDE_POINTS& points)
     {
         m_holder = holder;
@@ -1022,7 +1025,7 @@ public:
 
 BOOL _ray_query_callback(collide::rq_result& result, LPVOID params)
 {
-    ray_query_param* param = (ray_query_param*)params;
+    ray_query_param_debug* param = (ray_query_param_debug*)params;
     param->m_points->push_back(Fvector().mad(param->m_start_position, param->m_direction, result.range));
 
     float power = param->m_holder->feel_vision_mtl_transp(result.O, result.element);
@@ -1042,8 +1045,7 @@ void fill_points(CCustomMonster* self, const Fvector& position, const Fvector& d
     collide::ray_defs ray_defs(position, direction, distance, CDB::OPT_CULL, collide::rqtBoth);
     VERIFY(!fis_zero(ray_defs.dir.square_magnitude()));
 
-    ray_query_param params(
-        self, self->memory().visual().transparency_threshold(), distance, position, direction, points);
+    ray_query_param_debug params(self, self->memory().visual().transparency_threshold(), distance, position, direction, points);
 
     Level().ObjectSpace.RayQuery(rq_storage, ray_defs, _ray_query_callback, &params, NULL, self);
 

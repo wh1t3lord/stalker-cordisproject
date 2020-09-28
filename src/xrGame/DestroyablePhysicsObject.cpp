@@ -6,8 +6,8 @@
 #include "hit_immunity.h"
 #include "damage_manager.h"
 #include "DestroyablePhysicsObject.h"
-#include "Include/xrRender/KinematicsAnimated.h"
-#include "Include/xrRender/Kinematics.h"
+#include "KinematicsAnimated.h"
+#include "Kinematics.h"
 #include "xrServer_Objects_ALife.h"
 #include "game_object_space.h"
 #include "xrScriptEngine/script_callback_ex.h"
@@ -70,8 +70,13 @@ BOOL CDestroyablePhysicsObject::net_Spawn(CSE_Abstract* DC)
 void CDestroyablePhysicsObject::Hit(SHit* pHDS)
 {
     SHit HDS = *pHDS;
-    callback(GameObject::eHit)(
-        lua_game_object(), HDS.power, HDS.dir, smart_cast<const CGameObject*>(HDS.who)->lua_game_object(), HDS.bone());
+    // Lord - [Script] Re-write
+    //     callback(GameObject::eHit)(
+    //         lua_game_object(), HDS.power, HDS.dir, smart_cast<const CGameObject*>(HDS.who)->lua_game_object(),
+    //         HDS.bone());
+    this->GetScriptBinderObject()->hit_callback(this->lua_game_object(), HDS.power, HDS.dir,
+        (smart_cast<const CGameObject*>(HDS.who))->lua_game_object(), HDS.bone());
+
     HDS.power = CHitImmunity::AffectHit(HDS.power, HDS.hit_type);
     float hit_scale = 1.f, wound_scale = 1.f;
     CDamageManager::HitScale(HDS.bone(), hit_scale, wound_scale);
@@ -91,7 +96,10 @@ void CDestroyablePhysicsObject::Destroy()
 {
     VERIFY(!physics_world()->Processing());
     const CGameObject* who_object = smart_cast<const CGameObject*>(FatalHit().initiator());
-    callback(GameObject::eDeath)(lua_game_object(), who_object ? who_object->lua_game_object() : 0);
+    // Lord - [Script] Re-write
+    // callback(GameObject::eDeath)(lua_game_object(), who_object ? who_object->lua_game_object() : 0);
+    this->GetScriptBinderObject()->death_callback(
+        this->lua_game_object(), who_object ? who_object->lua_game_object() : nullptr);
     CPHDestroyable::Destroy(ID(), "physic_destroyable_object");
     if (m_destroy_sound._handle())
     {

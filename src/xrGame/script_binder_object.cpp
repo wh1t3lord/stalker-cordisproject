@@ -30,3 +30,130 @@ void CScriptBinderObject::save(NET_Packet* output_packet) {}
 void CScriptBinderObject::load(IReader* input_packet) {}
 bool CScriptBinderObject::net_SaveRelevant() { return (false); }
 void CScriptBinderObject::net_Relcase(CScriptGameObject* object) {}
+
+void CScriptBinderObject::waypoint_callback(
+    CScriptGameObject* p_client_object, const std::uint32_t action_type_movement, const std::uint32_t point_index)
+{
+#ifdef DEBUG
+    MESSAGE("NOT "
+        "OVERLOADED FUNCTION! %s",
+        p_client_object->Name());
+#endif
+}
+
+void CScriptBinderObject::hit_callback(CScriptGameObject* p_client_object, const float amount,
+    const Fvector& local_direction, CScriptGameObject* p_client_who, const std::int16_t bone_index)
+{
+#ifdef DEBUG
+    MESSAGE("NOT "
+        "OVERLOADED FUNCTION!");
+#endif
+}
+
+void CScriptBinderObject::death_callback(CScriptGameObject* p_client_victim, CScriptGameObject* p_client_who)
+{
+#ifdef DEBUG
+    MESSAGE("NOT "
+        "OVERLOADED FUNCTION!");
+#endif
+}
+
+void CScriptBinderObject::hear_callback(CScriptGameObject* p_client_object, const std::uint16_t who_id,
+    const int sound_type, const Fvector& sound_position, const float sound_power)
+{
+#ifdef DEBUG
+    MESSAGE("NOT "
+        "OVERLOADED FUNCTION!");
+#endif
+}
+
+void CScriptBinderObject::use_callback(CScriptGameObject* p_client_object, CScriptGameObject* p_client_who)
+{
+#ifdef DEBUG
+    MESSAGE("NOT OVERLOADED FUNCTION!");
+#endif
+}
+
+void CScriptBinderObject::animation_callback(const bool) 
+{
+    #ifdef DEBUG
+    MESSAGE("not overloaded function for %s", this->m_object->Name());
+    #endif
+}
+
+void CScriptBinderObject::use_invertory_item(CScriptGameObject* p_client_object)
+{
+#ifdef DEBUG
+    MESSAGE("NOT OVERLOADED FUNCTION!");
+#endif
+}
+
+void CScriptBinderObject::take_item_from_box(CScriptGameObject* p_client_box, CScriptGameObject* p_client_item)
+{
+#ifdef DEBUG
+    MESSAGE("NOT OVERLOADED FUNCTION!");
+#endif
+}
+
+void CScriptBinderObject::task_callback(CGameTask* p_game_task, const std::uint32_t task_state)
+{
+#ifdef DEBUG
+    MESSAGE("NOT OVERLOADED FUNCTION!");
+#endif
+    if (task_state != eTaskStateFail)
+    {
+        if (task_state == eTaskStateCompleted)
+        {
+            Cordis::Scripts::Script_NewsManager::getInstance().SendTip(Cordis::Scripts::DataBase::Storage::getInstance().getActor(), "complete", "");
+        }
+        else
+        {
+            Cordis::Scripts::Script_NewsManager::getInstance().SendTip(Cordis::Scripts::DataBase::Storage::getInstance().getActor(), "new", "");
+        }
+    }
+
+    Cordis::Scripts::Script_TaskManager::getInstance().TaskCallback(p_game_task, task_state);
+}
+
+void CScriptBinderObject::on_trade(
+    CScriptGameObject* p_client_object, const bool is_sell_bye, const std::uint32_t money)
+{
+#ifdef DEBUG
+    MESSAGE("NOT OVERLOADED FUNCTION!");
+#endif
+}
+
+void CScriptBinderObject::on_item_drop(CScriptGameObject* p_client_object)
+{
+#ifdef DEBUG
+    MESSAGE("NOT OVERLOADED FUNCTION!");
+#endif
+}
+
+void CScriptBinderObject::on_item_take(CScriptGameObject* p_client_object)
+{
+#ifdef DEBUG
+    MESSAGE("NOT OVERLOADED FUNCTION!");
+#endif
+}
+
+void CScriptBinderObject::info_callback(const xr_string& info_name)
+{
+#ifdef DEBUG
+    MESSAGE("NOT OVERLOADED FUNCTION!");
+#endif
+}
+
+void CScriptBinderObject::on_point(const float distance, const Fvector& position, const std::uint32_t path_index)
+{
+#ifdef DEBUG
+    MESSAGE("not overloaded function!");
+#endif // DEBUG
+}
+
+void CScriptBinderObject::on_hit(const float power, const float impulse, const ALife::EHitType& hit_type, const std::uint16_t enemy_id)
+{
+#ifdef DEBUG
+    MESSAGE("not overloaded function!");
+#endif // DEBUG
+}

@@ -6,7 +6,7 @@
 #include "Inventory.h"
 #include "Level.h"
 #include "Actor.h"
-
+#undef PlaySound
 CWeaponAutomaticShotgun::CWeaponAutomaticShotgun()
 {
     m_eSoundClose = ESoundTypes(SOUND_TYPE_WEAPON_SHOOTING);

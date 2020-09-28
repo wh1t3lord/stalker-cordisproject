@@ -308,10 +308,9 @@ void CUICharacterInfo::UpdateRelation()
     }
 }
 
-namespace detail
-{ // helper function implemented in file alife_simulator.cpp
+ 
 bool object_exists_in_alife_registry(u32 id);
-} // namespace detail
+ 
 
 void CUICharacterInfo::Update()
 {
@@ -321,8 +320,7 @@ void CUICharacterInfo::Update()
     {
         m_bForceUpdate = false;
 
-        CSE_ALifeTraderAbstract* T =
-            detail::object_exists_in_alife_registry(m_ownerID) ? ch_info_get_from_id(m_ownerID) : NULL;
+        CSE_ALifeTraderAbstract* T = object_exists_in_alife_registry(m_ownerID) ? ch_info_get_from_id(m_ownerID) : NULL;
         if (NULL == T)
         {
             m_ownerID = u16(-1);
@@ -395,7 +393,7 @@ bool CUICharacterInfo::ignore_community(shared_str const& check_community)
     auto ie = faction_section.Data.end();
     for (; ib != ie; ++ib)
     {
-        if (check_community == (*ib).first)
+        if (check_community == (*ib).first.c_str())
         {
             return true;
         }

@@ -1,13 +1,13 @@
 #include "stdafx.h"
-#include "Include/xrRender/DrawUtils.h"
+#include "xrGame/Render/Kernel/DrawUtils.h"
 #include "Render.h"
 #include "xrCore/xr_token.h"
 #include "xrCDB/xrXRC.h"
 #include "XR_IOConsole.h"
 #include "MonitorManager.hpp"
-#include "SDL.h"	
+#include "SDL.h"
 #include "SDL_syswm.h"
-
+#include "SDK_Camera.h"
 extern u32 Vid_SelectedMonitor;
 extern u32 Vid_SelectedRefreshRate;
 
@@ -23,6 +23,12 @@ void CRenderDevice::_SetupStates()
     vCameraDirection.set(0, 0, 1);
     vCameraTop.set(0, 1, 0);
     vCameraRight.set(1, 0, 0);
+
+    if (FS.IsSDK())
+    {
+        SDK_Camera::GetInstance().Initialize();
+    }
+
     GEnv.Render->SetupStates();
 }
 
@@ -54,10 +60,6 @@ void CRenderDevice::Create()
     Memory.mem_compact();
     b_is_Ready = TRUE;
 
-
-
-
-
     _SetupStates();
     string_path fname;
     FS.update_path(fname, "$game_data$", "shaders.xr");
@@ -83,17 +85,9 @@ void CRenderDevice::UpdateWindowProps(const bool windowed)
             maximalResolution = true;
 
         // Set SDL_WINDOW_FULLSCREEN_DESKTOP if maximal resolution is selected
-        if (FS.IsSDK())
-        {
-            SDL_SetWindowSize(m_sdlWnd, r.first, r.second);
-        }
-        else
-        {
-            SDL_SetWindowFullscreen(m_sdlWnd, maximalResolution ? SDL_WINDOW_FULLSCREEN_DESKTOP : 0);
-            SDL_SetWindowSize(m_sdlWnd, psCurrentVidMode[0], psCurrentVidMode[1]);
-            SDL_SetWindowBordered(m_sdlWnd, drawBorders ? SDL_TRUE : SDL_FALSE);
-        }
-
+        SDL_SetWindowFullscreen(m_sdlWnd, maximalResolution ? SDL_WINDOW_FULLSCREEN_DESKTOP : 0);
+        SDL_SetWindowSize(m_sdlWnd, psCurrentVidMode[0], psCurrentVidMode[1]);
+        SDL_SetWindowBordered(m_sdlWnd, drawBorders ? SDL_TRUE : SDL_FALSE);
     }
     else
     {
@@ -116,7 +110,6 @@ void CRenderDevice::UpdateWindowProps(const bool windowed)
     SDL_FlushEvents(SDL_WINDOWEVENT, SDL_SYSWMEVENT);
 }
 
-
 void CRenderDevice::UpdateWindowRects()
 {
     m_rcWindowClient.x = 0;
@@ -128,7 +121,7 @@ void CRenderDevice::UpdateWindowRects()
     m_rcWindowBounds.w += m_rcWindowBounds.x;
     m_rcWindowBounds.h += m_rcWindowBounds.y;
 
-#if SDL_VERSION_ATLEAST(2,0,5)
+#if SDL_VERSION_ATLEAST(2, 0, 5)
     // Do we need code below?
     int top, left, bottom, right;
     SDL_GetWindowBordersSize(m_sdlWnd, &top, &left, &bottom, &right);

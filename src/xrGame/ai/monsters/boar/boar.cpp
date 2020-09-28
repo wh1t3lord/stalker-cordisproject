@@ -1,7 +1,7 @@
 #include "StdAfx.h"
 #include "boar.h"
 #include "boar_state_manager.h"
-#include "Include/xrRender/KinematicsAnimated.h"
+#include "KinematicsAnimated.h"
 #include "ai/monsters/monster_velocity_space.h"
 #include "game_object_space.h"
 #include "ai/monsters/control_animation_base.h"

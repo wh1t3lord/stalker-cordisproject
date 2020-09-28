@@ -13,7 +13,7 @@
 #include "xr_ioc_cmd.h"
 #include "GameFont.h"
 
-#include "Include/xrRender/UIRender.h"
+#include "xrGame/Render/Kernel/UIRender.h"
 
 static float const UI_BASE_WIDTH = 1024.0f;
 static float const UI_BASE_HEIGHT = 768.0f;

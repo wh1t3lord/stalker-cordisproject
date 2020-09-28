@@ -1,7 +1,7 @@
 #pragma once
 
 #include "xrUICore/XML//xrUIXmlParser.h"
-
+#include "xrUICore/ListBox/UIListBox.h"
 class CUIWindow;
 class CUIFrameWindow;
 class CUIStatic;

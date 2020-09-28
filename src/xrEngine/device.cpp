@@ -37,7 +37,7 @@
 #include "../xrCore/Imgui/Imgui.h"
 #include "../xrCore/Imgui/imgui_impl_sdl.h"
 #include "../xrCore/SDK_QuitMessage.h"
-
+#include "SDK_Camera.h"
 ENGINE_API CRenderDevice Device;
 ENGINE_API CLoadScreenRenderer load_screen_renderer;
 
@@ -338,34 +338,7 @@ void CRenderDevice::message_loop_weather_editor()
 }
 
 void CRenderDevice::message_loop()
-{
-    if (FS.IsSDK())
-    {
-        SDL_Event event;
-
-        Device.b_is_Active = TRUE;
-        // Lord: Message system for SDK
-        while (!SDK_QuitMessage::GetState())
-        {
-            while (SDL_PollEvent(&event))
-            {
-                if (event.type == SDL_WINDOWEVENT_CLOSE)
-                {
-                    SDK_QuitMessage::TellAppToClose();
-                }
-
-                if (event.type == SDL_WINDOWEVENT_MAXIMIZED)
-                {
-                    OnWM_Activate(1, event.window.data2);
-                }
-
-                ImGui_ImplSDL2_ProcessEvent(&event);
-                on_idle();
-            }
-        }
-    }
-    else
-    {
+{ 
         if (editor())
         {
             message_loop_weather_editor();
@@ -430,7 +403,6 @@ void CRenderDevice::message_loop()
             on_idle();
             SDL_PumpEvents();
         }
-    }
 }
 bool done = false;
 void CRenderDevice::Run()
@@ -454,6 +426,9 @@ void CRenderDevice::Run()
     thread_spawn(SecondaryThreadProc, "X-RAY Secondary thread", 0, this);
     // thread_spawn(RenderThreadProc, "X-RAY Render thread", 0, this);
     // Message cycle
+    pInput->GrabInput(true);
+
+
     seqAppStart.Process();
     GEnv.Render->ClearTarget();
     splash::hide();
@@ -467,11 +442,7 @@ void CRenderDevice::Run()
     SDL_ShowWindow(m_sdlWnd);
     SDL_RaiseWindow(m_sdlWnd);
 
-    // Lord: Определяем использовать нам инпут ПЫС или нет
-    if (FS.IsSDK())
-        pInput->GrabInput(false);
-    else
-        pInput->GrabInput(true);
+
 
     message_loop();
 
@@ -642,11 +613,11 @@ CRenderDevice* get_device() { return &Device; }
 u32 script_time_global() { return Device.dwTimeGlobal; }
 u32 script_time_global_async() { return Device.TimerAsync_MMT(); }
 
-SCRIPT_EXPORT(Device, (), {
-    using namespace luabind;
-    module(luaState)[def("time_global", &script_time_global), def("time_global_async", &script_time_global_async),
-        def("device", &get_device), def("is_enough_address_space_available", &is_enough_address_space_available)];
-});
+// SCRIPT_EXPORT(Device, (), {
+//     using namespace luabind;
+//     module(luaState)[def("time_global", &script_time_global), def("time_global_async", &script_time_global_async),
+//         def("device", &get_device), def("is_enough_address_space_available", &is_enough_address_space_available)];
+// });
 
 CLoadScreenRenderer::CLoadScreenRenderer() : b_registered(false), b_need_user_input(false) {}
 void CLoadScreenRenderer::start(bool b_user_input)

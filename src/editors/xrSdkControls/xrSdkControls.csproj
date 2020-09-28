@@ -9,8 +9,8 @@
     <RootNamespace>XRay.SdkControls</RootNamespace>
     <ProjectGuid>{E9DC16A3-D0FA-4924-AF6E-F6FDF3EA0661}</ProjectGuid>
     <OutputType>Library</OutputType>
-    <OutputPath>$(xrBinDir)</OutputPath>
-    <IntermediateOutputPath>$(xrIntDir)$(AssemblyName)</IntermediateOutputPath>
+    <OutputPath>$(xrOutputBinDir)</OutputPath>
+    <IntermediateOutputPath>$(xrOutputIntDir)$(AssemblyName)</IntermediateOutputPath>
     <PlatformTarget>AnyCPU</PlatformTarget>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
     <AppDesignerFolder>Properties</AppDesignerFolder>
@@ -29,6 +29,63 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)' == 'Release'">
     <Optimize>true</Optimize>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Jumbo|Win32'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>$(xrOutputBinDir)</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <LangVersion>7.3</LangVersion>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Jumbo|x86'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>$(xrOutputBinDir)</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <LangVersion>7.3</LangVersion>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Jumbo|x64'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>$(xrOutputBinDir)</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <LangVersion>7.3</LangVersion>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Jumbo - Debug|Win32'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>$(xrOutputBinDir)</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <LangVersion>7.3</LangVersion>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Jumbo - Debug|x86'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>$(xrOutputBinDir)</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <LangVersion>7.3</LangVersion>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Jumbo - Debug|x64'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>$(xrOutputBinDir)</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <LangVersion>7.3</LangVersion>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Mixed|x64'">
+    <OutputPath>$(xrOutputBinDir)</OutputPath>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Flobbster.Windows.Forms.PropertyGrid">

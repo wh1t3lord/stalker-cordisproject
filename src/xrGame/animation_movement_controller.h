@@ -1,7 +1,7 @@
 #pragma once
 #include "Common/Noncopyable.hpp"
 
-#include "Include/xrRender/KinematicsAnimated.h"
+#include "KinematicsAnimated.h"
 #include "poses_blending.h"
 
 // class IKinematicsAnimated;

@@ -11,8 +11,8 @@ constexpr unsigned int REG_PRIORITY_INVALID = 0x80000000; // -2147483648, lowest
 
 struct IPure
 {
-    virtual ~IPure() = default;
-    virtual void OnPure() = 0;
+    virtual ~IPure(void) noexcept = default;
+    virtual void OnPure(void) = 0;
 };
 
 struct pureFrame : IPure
@@ -156,10 +156,12 @@ public:
         if (messages[0].Prio == REG_PRIORITY_CAPTURE)
             messages[0].Object->OnPure();
         else
-        {
+		{
             for (int i = 0; i < messages.size(); ++i)
-                if (messages[i].Prio != REG_PRIORITY_INVALID)
-                    messages[i].Object->OnPure();
+            {
+			    if (messages[i].Prio != REG_PRIORITY_INVALID)
+				    messages[i].Object->OnPure();
+            }
         }
 
         if (changed)

@@ -18,11 +18,22 @@ extern ENGINE_API BOOL bShowPauseString;
 
 void CallFunction(shared_str const& func)
 {
-    luabind::functor<void> functor_to_call;
-    bool functor_exists = GEnv.ScriptEngine->functor(func.c_str(), functor_to_call);
-    THROW3(functor_exists, "Cannot find script function described in tutorial item ", func.c_str());
-    if (functor_to_call.is_valid())
-        functor_to_call();
+    /* Lord: интерпретировать, аргумент передаётся строка содержащая наименование функции (скриптовой) тобишь ->
+       xr_effects.something_like_that luabind::functor<void> functor_to_call; bool functor_exists =
+       GEnv.ScriptEngine->functor(func.c_str(), functor_to_call); THROW3(functor_exists, "Cannot find script function
+       described in tutorial item ", func.c_str()); if (functor_to_call.is_valid()) functor_to_call();*/
+
+    xr_string parsed = func.c_str();
+
+    parsed = parsed.substr(parsed.rfind('.') + 1);
+
+    if (Cordis::Scripts::Script_GlobalHelper::getInstance().getRegisteredFunctionsXREffects().find(parsed) == Cordis::Scripts::Script_GlobalHelper::getInstance().getRegisteredFunctionsXREffects().end())
+    {
+        MESSAGEWR("Can't find function by name %s for executing", parsed.c_str());
+        return;
+    }
+
+    Cordis::Scripts::Script_GlobalHelper::getInstance().getRegisteredFunctionsXREffects().at(parsed).operator()<CScriptGameObject* const, CScriptGameObject* const, const xr_vector<xr_string>&>(nullptr, nullptr, {});
 }
 
 void CallFunctions(xr_vector<shared_str>& v)
@@ -242,6 +253,13 @@ void CUISequencer::Destroy()
     if (!m_on_destroy_event.empty())
         m_on_destroy_event();
 
+    if (Cordis::Scripts::Script_GlobalHelper::getInstance().getGlobalTutorial() == this)
+    {
+        CUISequencer* instance = Cordis::Scripts::Script_GlobalHelper::getInstance().getGlobalTutorial();
+        xr_delete(instance);
+        Cordis::Scripts::Script_GlobalHelper::getInstance().setGlobalTutorial(nullptr);
+    }
+    /*
     if (g_tutorial == this)
     {
         g_tutorial = NULL;
@@ -249,7 +267,7 @@ void CUISequencer::Destroy()
     if (g_tutorial2 == this)
     {
         g_tutorial2 = NULL;
-    }
+    }*/
 }
 
 void CUISequencer::Stop()

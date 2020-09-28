@@ -3,7 +3,7 @@
 #include "xrPhysics/PhysicsShell.h"
 #include "PhysicsShellHolder.h"
 
-#include "Include/xrRender/Kinematics.h"
+#include "Kinematics.h"
 #include "Common/object_broker.h"
 #include "ai_sounds.h"
 #include "WeaponAmmo.h"
@@ -223,7 +223,7 @@ void CCarWeapon::OnShot()
     StartSmokeParticles(m_fire_pos, zero_vel);
     //	OnShellDrop				(m_fire_pos, zero_vel);
 
-    HUD_SOUND_ITEM::PlaySound(m_sndShot, m_fire_pos, m_object, false);
+    HUD_SOUND_ITEM::play_sound(m_sndShot, m_fire_pos, m_object, false);
 }
 
 void CCarWeapon::Action(u16 id, u32 flags)

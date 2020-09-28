@@ -15,10 +15,11 @@
 
 using namespace luabind;
 
-extern class_<CScriptGameObject>& script_register_game_object1(class_<CScriptGameObject>&);
-extern class_<CScriptGameObject>& script_register_game_object2(class_<CScriptGameObject>&);
-extern class_<CScriptGameObject>& script_register_game_object_trader(class_<CScriptGameObject>&);
+/*extern class_<CScriptGameObject>& script_register_game_object1(class_<CScriptGameObject>&);*/
+/*extern class_<CScriptGameObject>& script_register_game_object2(class_<CScriptGameObject>&);*/
+/*extern class_<CScriptGameObject>& script_register_game_object_trader(class_<CScriptGameObject>&);*/
 
+/*
 SCRIPT_EXPORT(CScriptGameObject, (), {
     // XXX nitrocaster: one can export enum like class, without defining dummy type
     class EnumCallbackType
@@ -115,3 +116,4 @@ SCRIPT_EXPORT(CScriptGameObject, (), {
         def("sell_condition", (void (*)(CScriptIniFile*, LPCSTR))(&::sell_condition)),
         def("sell_condition", (void (*)(float, float))(&::sell_condition)), def("show_condition", &::show_condition)];
 });
+*/

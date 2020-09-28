@@ -5,14 +5,14 @@
 //  Author      : Oles Shyshkovtsov, Alexander Maksimchuk, Victor Reutskiy and Dmitriy Iassenev
 //  Description : Server objects
 ////////////////////////////////////////////////////////////////////////////
-
+ 
 #include "StdAfx.h"
 #pragma hdrstop
 #pragma pack(push, 4)
 
 #include "xrServer_Objects_Abstract.h"
 #include "xrMessages.h"
-
+#include "smart_cast.h"
 ////////////////////////////////////////////////////////////////////////////
 // CSE_Visual
 ////////////////////////////////////////////////////////////////////////////
@@ -73,18 +73,18 @@ void CSE_Visual::OnChangeAnim(PropValue* sender)
 }
 
 #ifndef XRGAME_EXPORTS
-void CSE_Visual::FillProps(LPCSTR pref, PropItemVec& items)
-{
-    IServerEntity* abstract = smart_cast<IServerEntity*>(this);
-    VERIFY(abstract);
-    ChooseValue* V =
-        PHelper().CreateChoose(items, PrepareKey(pref, abstract->name(), "Model" DELIMITER "Visual"), &visual_name, smVisual);
-    V->OnChangeEvent.bind(this, &CSE_Visual::OnChangeVisual);
-    V = PHelper().CreateChoose(items, PrepareKey(pref, abstract->name(), "Model" DELIMITER "Animation"), &startup_animation,
-        smSkeletonAnims, nullptr, (void*)*visual_name);
-    V->OnChangeEvent.bind(this, &CSE_Visual::OnChangeAnim);
-    PHelper().CreateFlag8(items, PrepareKey(pref, abstract->name(), "Model" DELIMITER "Obstacle"), &flags, flObstacle);
-}
+// void CSE_Visual::FillProps(LPCSTR pref, PropItemVec& items)
+// {
+//     IServerEntity* abstract = smart_cast<IServerEntity*>(this);
+//     VERIFY(abstract);
+//     ChooseValue* V =
+//         PHelper().CreateChoose(items, PrepareKey(pref, abstract->name(), "Model" DELIMITER "Visual"), &visual_name, smVisual);
+//     V->OnChangeEvent.bind(this, &CSE_Visual::OnChangeVisual);
+//     V = PHelper().CreateChoose(items, PrepareKey(pref, abstract->name(), "Model" DELIMITER "Animation"), &startup_animation,
+//         smSkeletonAnims, nullptr, (void*)*visual_name);
+//     V->OnChangeEvent.bind(this, &CSE_Visual::OnChangeAnim);
+//     PHelper().CreateFlag8(items, PrepareKey(pref, abstract->name(), "Model" DELIMITER "Obstacle"), &flags, flObstacle);
+// }
 #endif // #ifndef XRGAME_EXPORTS
 
 ////////////////////////////////////////////////////////////////////////////
@@ -103,14 +103,14 @@ void CSE_Motion::OnChangeMotion(PropValue* sender)
 }
 
 #ifndef XRGAME_EXPORTS
-void CSE_Motion::FillProps(LPCSTR pref, PropItemVec& items)
-{
-    IServerEntity* abstract = smart_cast<IServerEntity*>(this);
-    VERIFY(abstract);
-    ChooseValue* V =
-        PHelper().CreateChoose(items, PrepareKey(pref, abstract->name(), "Motion"), &motion_name, smGameAnim);
-    V->OnChangeEvent.bind(this, &CSE_Motion::OnChangeMotion);
-}
+// void CSE_Motion::FillProps(LPCSTR pref, PropItemVec& items)
+// {
+//     IServerEntity* abstract = smart_cast<IServerEntity*>(this);
+//     VERIFY(abstract);
+//     ChooseValue* V =
+//         PHelper().CreateChoose(items, PrepareKey(pref, abstract->name(), "Motion"), &motion_name, smGameAnim);
+//     V->OnChangeEvent.bind(this, &CSE_Motion::OnChangeMotion);
+// }
 #endif // #ifndef XRGAME_EXPORTS
 
 #pragma pack(pop)

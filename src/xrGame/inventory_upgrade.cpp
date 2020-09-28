@@ -46,19 +46,21 @@ void Upgrade::construct(const shared_str& upgrade_id, Group& parental_group, Man
     LPCSTR precondition_functor_str = pSettings->r_string(id(), "precondition_functor");
     m_preconditions.parameter = pSettings->r_string(id(), "precondition_parameter");
     m_preconditions.parameter2 = m_section.c_str();
+/*  Lord: Интерпретировать!
     R_ASSERT2(GEnv.ScriptEngine->functor(precondition_functor_str, m_preconditions.functr),
         make_string(
             "Failed to get precondition functor in section[%s], functor[%s]", id_str(), precondition_functor_str));
-    m_preconditions();
+    m_preconditions();*/
 
     // effect_functor
     LPCSTR effect_functor_str = pSettings->r_string(id(), "effect_functor");
     m_effects.parameter = pSettings->r_string(id(), "effect_parameter");
     m_effects.parameter2 = m_section.c_str();
     m_effects.parameter3 = 1;
+/*  Lord: ИнтерпретироватЬ!
     R_ASSERT2(GEnv.ScriptEngine->functor(effect_functor_str, m_effects.functr),
         make_string("Failed to get effect functor in section[%s], functor[%s]", id_str(), effect_functor_str));
-    m_effects();
+    m_effects();*/
 
     // prereq_functor (1,2) : m_prerequisites, m_tooltip
     LPCSTR prereq_functor_str = pSettings->r_string(id(), "prereq_functor"); // prerequisites_functor
@@ -66,9 +68,10 @@ void Upgrade::construct(const shared_str& upgrade_id, Group& parental_group, Man
     m_prerequisites.parameter = pSettings->r_string(id(), "prereq_params"); // prerequisites_params
     m_prerequisites.parameter2 = m_section.c_str();
     //	m_tooltip.parameter			= pSettings->r_string( id(), "prereq_params" );
+/*  Lord: Интерпретировать!
     R_ASSERT2(GEnv.ScriptEngine->functor(prereq_functor_str, m_prerequisites.functr),
         make_string("Failed to get prerequisites functor in section[%s], functor[%s]", id_str(), prereq_functor_str));
-    m_prerequisites();
+    m_prerequisites();*/
 
     /*R_ASSERT2(
         GEnv.ScriptEngine->functor( tooltip_functor_str, m_tooltip.functr ),
@@ -195,7 +198,7 @@ UpgradeStateResult Upgrade::get_preconditions()
 void Upgrade::run_effects(bool loading)
 {
     m_effects.parameter3 = loading ? 1 : 0;
-    m_effects();
+    //m_effects(); Lord: переделать!
 }
 
 void Upgrade::set_highlight(bool value) { m_highlight = value; }

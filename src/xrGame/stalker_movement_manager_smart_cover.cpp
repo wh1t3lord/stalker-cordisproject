@@ -350,6 +350,7 @@ bool stalker_movement_manager_smart_cover::target_approached(float const& distan
     return (detail().distance_to_target() < distance);
 }
 
+/*
 namespace hash_fixed_vertex_manager
 {
 IC u32 to_u32(shared_str const& string)
@@ -359,6 +360,7 @@ IC u32 to_u32(shared_str const& string)
 }
 
 } // namespace hash_fixed_vertex_manager
+*/
 
 void stalker_movement_manager_smart_cover::loophole_path(smart_cover::cover const& cover, shared_str const& source_raw,
     shared_str const& target_raw, LoopholePath& path) const
@@ -453,7 +455,36 @@ void stalker_movement_manager_smart_cover::cleanup_after_animation_selector()
 void stalker_movement_manager_smart_cover::target_selector(CScriptCallbackEx<void> const& callback)
 {
     VERIFY(m_target_selector);
-    m_target_selector->callback(callback);
+    // Lord - [Script] Re-write
+/*    m_target_selector->callback(callback);*/
+}
+
+void stalker_movement_manager_smart_cover::target_selector(std::function<void(CScriptGameObject* const)>& my_function)
+{
+    if (my_function == nullptr)
+    {
+        MESSAGEWR("can't bind function, because it is empty!");
+        return;
+    }
+
+    if (this->m_target_selector == nullptr)
+    {
+        MESSAGEWR("invalid object!");
+        return;
+    }
+
+    this->m_target_selector->register_callback(my_function);
+}
+
+void stalker_movement_manager_smart_cover::target_selector_without_callback(void)
+{
+    if (this->m_target_selector == nullptr)
+    {
+        MESSAGEWR("invalid object!");
+        return;
+    }
+
+    this->m_target_selector->delete_callback();
 }
 
 void stalker_movement_manager_smart_cover::target_idle()
@@ -542,7 +573,11 @@ bool stalker_movement_manager_smart_cover::default_behaviour() const
     VERIFY(m_current.cover_loophole());
 
     VERIFY(m_target_selector);
-    if (m_target_selector->callback())
+    // Lord - [Script] Re-write
+//     if (m_target_selector->callback())
+//         return (m_default_behaviour);
+
+    if (this->m_target_selector->isExist())
         return (m_default_behaviour);
 
     if (m_current.cover_fire_object())

@@ -149,6 +149,7 @@ class object;
 }
 }
 
+// Lord: удалить все функции связаные с lua
 class CScriptGameObject
 {
     mutable CGameObject* m_game_object;
@@ -307,7 +308,18 @@ public:
     void external_sound_stop();
 
     template <typename T>
-    IC T* action_planner();
+    inline T* action_planner()
+    {
+        CAI_Stalker* manager = smart_cast<CAI_Stalker*>(&object());
+        if (!manager)
+        {
+            //         GEnv.ScriptEngine->script_log(
+            //             LuaMessageType::Error, "CAI_Stalker : cannot access class member action_planner!");
+            R_ASSERT2(false, "CAI_Stalker : cannot access class member action_planner!");
+            return (0);
+        }
+        return (&manager->brain());
+    }
 
     // CProjector
     Fvector GetCurrentDirection();
@@ -353,7 +365,12 @@ public:
 
     void ActorLookAtPoint(Fvector point);
     void IterateInventory(luabind::functor<void> functor, luabind::adl::object object);
+    void IterateInventory(std::function<void(CScriptGameObject* const)> func);
+    void IterateInventory(std::function<void(CScriptGameObject* const, CScriptGameObject* const)> func, CScriptGameObject* const p_npc);
     void IterateInventoryBox(luabind::functor<void> functor, luabind::adl::object object);
+    void IterateInventoryBox(std::function<void(CScriptGameObject* const)> func);
+    void IterateInventoryBox(std::function<void(CScriptGameObject* const, CScriptGameObject* const)> func,
+        CScriptGameObject* const p_object);
     void MarkItemDropped(CScriptGameObject* item);
     bool MarkedDropped(CScriptGameObject* item);
     void UnloadMagazine();
@@ -435,7 +452,8 @@ public:
 
     void set_enemy_callback(const luabind::functor<bool>& functor);
     void set_enemy_callback(const luabind::functor<bool>& functor, const luabind::adl::object& object);
-    void set_enemy_callback();
+    void set_enemy_callback(std::function<bool(CScriptGameObject* const, CScriptGameObject* const)>& func);
+    void delete_enemy_callback(void);
 
     //////////////////////////////////////////////////////////////////////////////////////
     ////////////////////////////use calback///////////////////////////////////////////////
@@ -444,6 +462,7 @@ public:
     void SetNonscriptUsable(bool nonscript_usable);
     ///////////////////////////////////////////////////////////////////////////////////////////
     void set_fastcall(const luabind::functor<bool>& functor, const luabind::adl::object& object);
+    void set_fastcall(std::function<bool(void)> func);
     void set_const_force(const Fvector& dir, float value, u32 time_interval);
     //////////////////////////////////////////////////////////////////////////
 
@@ -745,6 +764,7 @@ public:
     void set_smart_cover_target_selector();
     void set_smart_cover_target_selector(luabind::functor<void> functor);
     void set_smart_cover_target_selector(luabind::functor<void> functor, luabind::adl::object object);
+    void set_smart_cover_target_selector(std::function<void(CScriptGameObject* const)>& my_function);
 
     void set_smart_cover_target_idle();
     void set_smart_cover_target_lookout();

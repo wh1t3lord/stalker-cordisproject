@@ -15,11 +15,11 @@
 #define CBaseAction CActionBase<_object_type>
 
 TEMPLATE_SPECIALIZATION
-IC CBaseAction::CActionBase(_object_type* object, LPCSTR action_name) { init(object, action_name); }
+IC CBaseAction::CActionBase(_object_type* object, const xr_string& action_name) { init(object, action_name); }
 TEMPLATE_SPECIALIZATION
 CBaseAction::~CActionBase() {}
 TEMPLATE_SPECIALIZATION
-void CBaseAction::init(_object_type* object, LPCSTR action_name)
+void CBaseAction::init(_object_type* object, const xr_string& action_name)
 {
     m_storage = 0;
     m_object = object;
@@ -44,7 +44,7 @@ void CBaseAction::setup(_object_type* object, CPropertyStorage* storage)
     m_inertia_time = 0;
 #ifdef LOG_ACTION
     m_switched = false;
-    if (m_use_log && xr_strlen(m_action_name))
+    if (m_use_log && !this->m_action_name.empty())
         debug_log(eActionStateSetup);
 #endif
 }
@@ -53,9 +53,9 @@ TEMPLATE_SPECIALIZATION
 void CBaseAction::initialize()
 {
 #ifdef LOG_ACTION
-    VERIFY3(!m_switched, m_action_name, "::initialize()");
+    VERIFY3(!m_switched, m_action_name.empty() == false, "::initialize()");
     m_switched = true;
-    if (m_use_log && xr_strlen(m_action_name))
+    if (m_use_log && !this->m_action_name.empty())
         debug_log(eActionStateInitialized);
 #endif
     m_start_level_time = Device.dwTimeGlobal;
@@ -67,7 +67,7 @@ void CBaseAction::execute()
 {
     m_first_time = false;
 #ifdef LOG_ACTION
-    if (m_use_log && xr_strlen(m_action_name) && m_switched)
+    if (m_use_log && (!this->m_action_name.empty()) && m_switched)
         debug_log(eActionStateExecuted);
     m_switched = false;
 #endif
@@ -77,8 +77,8 @@ TEMPLATE_SPECIALIZATION
 void CBaseAction::finalize()
 {
 #ifdef LOG_ACTION
-    VERIFY3(!m_switched, m_action_name, "::finalize()");
-    if (m_use_log && xr_strlen(m_action_name))
+    VERIFY3(!m_switched, !this->m_action_name.empty(), "::finalize()");
+    if (m_use_log && !this->m_action_name.empty())
         debug_log(eActionStateFinalized);
 #endif
 }
@@ -99,27 +99,27 @@ IC void CBaseAction::debug_log(const EActionStates state_state) const
     {
     case eActionStateConstructed:
     {
-        Msg("[%6d] action %s is constructed", Device.dwTimeGlobal, m_action_name);
+        Msg("[%6d] action %s is constructed", Device.dwTimeGlobal, this->m_action_name.c_str());
         break;
     }
     case eActionStateSetup:
     {
-        Msg("[%6d] action %s is setup", Device.dwTimeGlobal, m_action_name);
+        Msg("[%6d] action %s is setup", Device.dwTimeGlobal, this->m_action_name.c_str());
         break;
     }
     case eActionStateInitialized:
     {
-        Msg("[%6d] action %s is initialized", Device.dwTimeGlobal, m_action_name);
+        Msg("[%6d] action %s is initialized", Device.dwTimeGlobal, this->m_action_name.c_str());
         break;
     }
     case eActionStateExecuted:
     {
-        Msg("[%6d] action %s is executed", Device.dwTimeGlobal, m_action_name);
+        Msg("[%6d] action %s is executed", Device.dwTimeGlobal, this->m_action_name.c_str());
         break;
     }
     case eActionStateFinalized:
     {
-        Msg("[%6d] action %s is finalized", Device.dwTimeGlobal, m_action_name);
+        Msg("[%6d] action %s is finalized", Device.dwTimeGlobal, this->m_action_name.c_str());
         break;
     }
     default: NODEFAULT;

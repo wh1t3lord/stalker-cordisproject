@@ -198,7 +198,7 @@ void CStalkerAnimationManager::add_animation_stats(
     const ANIMATION_ID& animation_id, const BLEND_ID* blend_id, bool just_started)
 {
     ::add_animation_stats(
-        animation_id.first, animation_id.second, *object().Visual()->getDebugName(), blend_id, just_started);
+        animation_id.first, animation_id.second, object().Visual()->getDebugName().c_str(), blend_id, just_started);
 }
 
 void CStalkerAnimationManager::add_animation_stats()

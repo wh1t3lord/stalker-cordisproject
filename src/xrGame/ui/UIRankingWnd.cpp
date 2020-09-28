@@ -154,7 +154,7 @@ void CUIRankingWnd::Init()
     auto ib = achievs_section.Data.begin();
     auto ie = achievs_section.Data.end();
     for (u8 i = 0; ib != ie; ++ib, ++i)
-        add_achievement(xml, (*ib).first);
+        add_achievement(xml, (*ib).first.c_str());
 
     xml.SetLocalRoot(stored_root);
 }
@@ -202,6 +202,7 @@ void CUIRankingWnd::get_statistic()
     m_stat_info[0]->SetTextColor(color_rgba(170, 170, 170, 255));
     m_stat_info[0]->SetText(buf);
 
+/* Lord: интерпретировать
     for (u8 i = 1; i < m_stat_count; ++i)
     {
         luabind::functor<LPCSTR> funct;
@@ -209,13 +210,14 @@ void CUIRankingWnd::get_statistic()
         LPCSTR str = funct(i);
         m_stat_info[i]->SetTextColor(color_rgba(170, 170, 170, 255));
         m_stat_info[i]->SetTextST(str);
-    }
+    }*/
 }
 void CUIRankingWnd::get_best_monster()
 {
+/* Lord: интерпретировать
     luabind::functor<LPCSTR> funct;
-    R_ASSERT(GEnv.ScriptEngine->functor("pda.get_monster_back", funct));
-    LPCSTR str = funct();
+    R_ASSERT(GEnv.ScriptEngine->functor("pda.get_monster_back", funct));*/
+    LPCSTR str = "";
     if (!xr_strcmp(str, ""))
         return;
 
@@ -226,8 +228,9 @@ void CUIRankingWnd::get_best_monster()
         m_last_monster_icon_back = str;
     }
 
+/* Lord: интерпретировать
     R_ASSERT(GEnv.ScriptEngine->functor("pda.get_monster_icon", funct));
-    str = funct();
+    str = funct();*/
     if (!xr_strcmp(str, ""))
         return;
 
@@ -240,9 +243,10 @@ void CUIRankingWnd::get_best_monster()
 }
 void CUIRankingWnd::get_favorite_weapon()
 {
+/* Lord: интерпретировать
     luabind::functor<LPCSTR> funct;
-    R_ASSERT(GEnv.ScriptEngine->functor("pda.get_favorite_weapon", funct));
-    LPCSTR str = funct();
+    R_ASSERT(GEnv.ScriptEngine->functor("pda.get_favorite_weapon", funct));*/
+    LPCSTR str = "";
 
     if (!xr_strcmp(str, ""))
         return;

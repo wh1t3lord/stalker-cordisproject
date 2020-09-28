@@ -31,11 +31,11 @@ public:
     mixed_delegate(ThisRef* ptr_this, R (xr_stdcall ClassType::*func_ptr)(Param1, Param2))
         : m_cpp_delegate(ptr_this, func_ptr){};
 
-    mixed_delegate(lua_object_type ptr_this, lua_function_type func_ptr) { m_lua_delegate.set(func_ptr, ptr_this); }
-    mixed_delegate(mixed_delegate const& copy)
-        : m_cpp_delegate(copy.m_cpp_delegate), m_lua_delegate(copy.m_lua_delegate)
-
-                                                   {};
+  //  mixed_delegate(lua_object_type ptr_this, lua_function_type func_ptr) { m_lua_delegate.set(func_ptr, ptr_this); }
+//     mixed_delegate(mixed_delegate const& copy)
+//         : m_cpp_delegate(copy.m_cpp_delegate), m_lua_delegate(copy.m_lua_delegate)
+// 
+//                                                    {};
 
     template <class ThisRef, class ClassType>
     void bind(ThisRef* ptr_this, R (xr_stdcall ClassType::*func_ptr)(Param1, Param2))
@@ -50,10 +50,10 @@ public:
         {
             m_cpp_delegate.clear();
         }
-        if (m_lua_delegate)
-        {
-            m_lua_delegate.clear();
-        }
+//         if (m_lua_delegate)
+//         {
+//             m_lua_delegate.clear();
+//         }
     }
 
     R operator()(Param1 arg1, Param2 arg2)
@@ -62,10 +62,10 @@ public:
         {
             return m_cpp_delegate.operator()(arg1, arg2);
         }
-        if (m_lua_delegate)
-        {
-            return m_lua_delegate.operator()(arg1, arg2);
-        }
+//         if (m_lua_delegate)
+//         {
+//             return m_lua_delegate.operator()(arg1, arg2);
+//         }
         FATAL("mixed delegate is not bound");
         return R();
     }
@@ -74,14 +74,14 @@ public:
     {
         if (m_cpp_delegate)
             return true;
-        if (m_lua_delegate)
-            return true;
+//         if (m_lua_delegate)
+//             return true;
         return false;
     }
 
 private:
     fastdelegate_type m_cpp_delegate;
-    lua_delegate_type m_lua_delegate;
+//    lua_delegate_type m_lua_delegate;
 }; // class mixed_delegate
 
 #endif //#ifndef MIXED_DELEGATE_INCLUDED

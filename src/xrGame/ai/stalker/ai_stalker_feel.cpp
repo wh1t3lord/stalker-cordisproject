@@ -42,7 +42,7 @@ void CAI_Stalker::renderable_Render()
 #ifdef DEBUG
     if (g_Alive())
     {
-        if (psAI_Flags.test(aiAnimationStats))
+       if (psAI_Flags.test(aiAnimationStats))
             animation().add_animation_stats();
     }
 #endif // DEBUG

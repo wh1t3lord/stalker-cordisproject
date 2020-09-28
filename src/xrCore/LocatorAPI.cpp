@@ -10,6 +10,7 @@
 #if defined(WINDOWS)
 #include <direct.h>
 #include <sys/stat.h>
+#include <Shlwapi.h>
 #endif
 #include <fcntl.h>
 #pragma warning(pop)
@@ -760,13 +761,6 @@ void CLocatorAPI::setup_fs_path(pcstr fs_name)
     else
         SDL_strlcpy(full_current_directory, SDL_GetBasePath(), sizeof full_current_directory);
 #endif
-
-    FS_Path* path = new FS_Path(full_current_directory, "", "", "", 0);
-#ifdef DEBUG
-    Msg("$fs_root$ = %s", full_current_directory);
-#endif // #ifdef DEBUG
-
-    pathes.insert(std::make_pair(xr_strdup("$fs_root$"), path));
 }
 
 IReader* CLocatorAPI::setup_fs_ltx(pcstr fs_name)
@@ -787,7 +781,50 @@ IReader* CLocatorAPI::setup_fs_ltx(pcstr fs_name)
     int file_handle;
     u32 file_size;
     IReader* result = nullptr;
-    CHECK_OR_EXIT(file_handle_internal(fs_file_name, file_size, file_handle),
+
+    bool IsADisk = false;
+    if (Core.WorkingPath[2] == '\\' && Core.WorkingPath[3] == '\0')
+        IsADisk = true;
+
+    xr_string _p = "";
+    if (FS.fileExists((Core.WorkingPath + xr_string("\\fsgame.ltx"))))
+    {
+        Core.bRunningOutsideDirectory = false;
+        _p = Core.WorkingPath;
+        _p.append("\\fsgame.ltx");
+    }
+    else
+    {
+        if (IsADisk)
+        {
+            CHECK_OR_EXIT(false, TEXT("Not found fsgame.ltx!"));
+        }
+
+        xr_string p = Core.WorkingPath;
+        p.erase(p.rfind('\\') + 1);
+
+        _p = p;
+        p.append("fsgame.ltx");
+        if (FS.fileExists(p))
+        {
+            Core.bRunningOutsideDirectory = true;
+            strcpy_s(Core.WorkingPath, _p.c_str());
+        }
+        else
+        {
+            R_ASSERT2(false,
+                TEXT("fsgame.ltx wasn't found, please check your folder and the folder where's your application!"));
+        }
+    }
+
+    FS_Path* path = new FS_Path(_p.c_str(), "", "", "", 0);
+#ifdef DEBUG
+    Msg("$fs_root$ = %s", _p.c_str());
+#endif // #ifdef DEBUG
+
+    pathes.insert(std::make_pair(xr_strdup("$fs_root$"), path));
+
+    CHECK_OR_EXIT(file_handle_internal((_p + "\\fsgame.ltx").c_str(), file_size, file_handle),
         make_string("Cannot open file \"%s\".\nCheck your working folder.", fs_file_name));
 
     void* buffer = FileDownload(fs_file_name, file_handle, file_size);
@@ -949,6 +986,7 @@ void CLocatorAPI::_initialize(u32 flags, pcstr target_folder, pcstr fs_name)
     //-----------------------------------------------------------
 
     CreateLog(nullptr != strstr(Core.Params, "-nolog"));
+    this->bWasInitialized = true;
 }
 
 void CLocatorAPI::_destroy()
@@ -978,13 +1016,13 @@ void CLocatorAPI::_destroy()
     m_archives.clear();
 }
 
-const CLocatorAPI::file* CLocatorAPI::GetFileDesc(pcstr path)
+const CLocatorAPI::file* CLocatorAPI::GetFileDesc(const char* path)
 {
     auto it = file_find_it(path);
     return it != m_files.end() ? &*it : nullptr;
 }
 
-FileStatus CLocatorAPI::exist(pcstr fn, FSType fsType /*= FSType::Virtual*/)
+FileStatus CLocatorAPI::exist(const char* fn, FSType fsType /*= FSType::Virtual*/)
 {
     if ((fsType | FSType::Virtual) == FSType::Virtual)
     {
@@ -1022,8 +1060,10 @@ FileStatus CLocatorAPI::exist(string_path& fn, pcstr path, pcstr name, pcstr ext
     return exist(fn, fsType);
 }
 
+tbb::spin_mutex _spin_file_list_open;
 xr_vector<pstr>* CLocatorAPI::file_list_open(pcstr initial, pcstr folder, u32 flags)
 {
+    tbb::spin_mutex::scoped_lock mutex{_spin_file_list_open};
     string_path N;
     R_ASSERT(initial && initial[0]);
     update_path(N, initial, folder);
@@ -1089,8 +1129,10 @@ xr_vector<pstr>* CLocatorAPI::file_list_open(pcstr _path, u32 flags)
     return dest;
 }
 
+tbb::spin_mutex _spin_file_list_close;
 void CLocatorAPI::file_list_close(xr_vector<pstr>*& lst)
 {
+    tbb::spin_mutex::scoped_lock mutex{ _spin_file_list_close };
     if (lst)
     {
         for (xr_vector<char*>::iterator I = lst->begin(); I != lst->end(); I++)
@@ -1723,8 +1765,10 @@ FS_Path* CLocatorAPI::get_path(pcstr path)
     return P->second;
 }
 
+tbb::spin_mutex _spin_update_path;
 pcstr CLocatorAPI::update_path(string_path& dest, pcstr initial, pcstr src)
 {
+    tbb::spin_mutex::scoped_lock mutex{_spin_update_path};
     return get_path(initial)->_update(dest, src);
 }
 /*
@@ -1819,6 +1863,146 @@ void CLocatorAPI::unlock_rescan()
     VERIFY(m_iLockRescan >= 0);
     if (0 == m_iLockRescan && m_Flags.is(flNeedRescan))
         rescan_pathes();
+}
+
+bool CLocatorAPI::CheckSDKMainFolder(void)
+{
+    if (!this->bSDK && !this->bWasInitialized)
+        return false;
+
+#ifdef _WIN32
+
+    xr_string path_to_folder = Core.WorkingPath;
+    if (Core.bRunningOutsideDirectory)
+    {
+        path_to_folder.erase(path_to_folder.rfind('\\') + 1);
+        path_to_folder.append("rawdata");
+    }
+    else
+    {
+        path_to_folder.append("\\rawdata");
+    }
+
+    if (this->dirExists(path_to_folder.c_str()))
+    {
+        if (PathIsDirectoryEmptyA(path_to_folder.c_str()))
+        {
+            this->bRawDataIsEmpty = true;
+            this->CreateSDKSubFolders(path_to_folder);
+            return true;
+        }
+
+        if (!this->dirExists(path_to_folder + xr_string(sg_folder)))
+        {
+            this->CreateFolder(path_to_folder + xr_string(sg_folder));
+        }
+
+        if (!this->dirExists(path_to_folder + xr_string(levels_folder)))
+        {
+            this->CreateFolder(path_to_folder + xr_string(levels_folder));
+        }
+
+        if (!this->dirExists(path_to_folder + xr_string(groups_folder)))
+        {
+            this->CreateFolder(path_to_folder + xr_string(groups_folder));
+        }
+
+        if (!this->dirExists(path_to_folder + xr_string(particles_folder)))
+        {
+            this->CreateFolder(path_to_folder + xr_string(particles_folder));
+        }
+
+        if (!this->dirExists(path_to_folder + xr_string(sounds_folder)))
+        {
+            this->CreateFolder(path_to_folder + xr_string(sounds_folder));
+        }
+
+        if (!this->dirExists(path_to_folder + xr_string(textures_folder)))
+        {
+            this->CreateFolder(path_to_folder + xr_string(textures_folder));
+        }
+
+		if (!this->dirExists(path_to_folder + xr_string(translation_folder)))
+		{
+			this->CreateFolder(path_to_folder + xr_string(translation_folder));
+		}
+    }
+    else
+    {
+        if (this->CreateFolder(path_to_folder.c_str()))
+        {
+            this->bRawDataIsEmpty = true;
+            this->CreateSDKSubFolders(path_to_folder);
+        }
+        else
+        {
+            R_ASSERT2(false, TEXT("Can't create a folder! Abort!"));
+        }
+    }
+#endif
+
+    return true;
+}
+
+bool CLocatorAPI::dirExists(const xr_string& str)
+{
+    if (!str.size())
+        return false;
+
+#ifdef _WIN32
+    DWORD ftyp = GetFileAttributesA(str.c_str());
+
+    if (ftyp == INVALID_FILE_ATTRIBUTES)
+        return false;
+
+    return (ftyp & FILE_ATTRIBUTE_DIRECTORY);
+#else
+    return false;
+#endif // _WIN32
+}
+
+bool CLocatorAPI::fileExists(const xr_string& path)
+{
+    if (path.empty())
+        return false;
+
+#ifdef _WIN32
+    if (PathFileExistsA(path.c_str()))
+        return true;
+#endif
+
+    return false;
+}
+
+bool CLocatorAPI::CreateFolder(const xr_string& path)
+{
+    if (!path.size())
+        return false;
+
+#ifdef _WIN32
+    if (CreateDirectoryA(path.c_str(), NULL))
+    {
+        return true;
+    }
+    return false;
+#else
+    return false;
+#endif
+}
+
+void CLocatorAPI::CreateSDKSubFolders(const xr_string& path)
+{
+    if (!path.size())
+        return;
+
+    this->CreateFolder(path + xr_string(sg_folder));
+    this->CreateFolder(path + xr_string(groups_folder));
+    this->CreateFolder(path + xr_string(textures_folder));
+    this->CreateFolder(path + xr_string(sounds_folder));
+    this->CreateFolder(path + xr_string(particles_folder));
+    this->CreateFolder(path + xr_string(levels_folder));
+	this->CreateFolder(path + xr_string(translation_folder));
+
 }
 
 void CLocatorAPI::check_pathes()

@@ -1073,8 +1073,11 @@ bool CInventory::Eat(PIItem pIItem)
 
     if (Actor()->m_inventory == this)
     {
-        if (IsGameTypeSingle())
-            Actor()->callback(GameObject::eUseObject)(smart_cast<CGameObject*>(pIItem)->lua_game_object());
+        // Lord - [Script] Re-write
+//         if (IsGameTypeSingle())
+//             Actor()->callback(GameObject::eUseObject)(smart_cast<CGameObject*>(pIItem)->lua_game_object());
+
+        Actor()->GetScriptBinderObject()->use_invertory_item(smart_cast<const CGameObject*>(pIItem)->lua_game_object());
 
         if (pItemToEat->IsUsingCondition() && pItemToEat->GetRemainingUses() < 1 && pItemToEat->CanDelete())
             CurrentGameUI()->GetActorMenu().RefreshCurrentItemCell();

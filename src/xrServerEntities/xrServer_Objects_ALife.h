@@ -5,9 +5,7 @@
 //  Author      : Oles Shyshkovtsov, Alexander Maksimchuk, Victor Reutskiy and Dmitriy Iassenev
 //  Description : Server objects for ALife simulator
 ////////////////////////////////////////////////////////////////////////////
-
-#ifndef xrServer_Objects_ALifeH
-#define xrServer_Objects_ALifeH
+#pragma once
 //#include "pch_script.h" - No, no NO!
 #include "xrServer_Objects.h"
 #include "alife_space.h"
@@ -136,11 +134,11 @@ public:
 
 public:
     using inherited = CSE_Abstract;
-    GameGraph::_GRAPH_ID m_tGraphID;
+    GameGraph::_GRAPH_ID m_tGraphID; // m_game_vertex_id
     float m_fDistance;
     bool m_bOnline;
     bool m_bDirectControl;
-    u32 m_tNodeID;
+    u32 m_tNodeID; // m_level_vertex_id
     flags32 m_flags;
     ALife::_STORY_ID m_story_id;
     ALife::_SPAWN_STORY_ID m_spawn_story_id;
@@ -165,6 +163,10 @@ public:
     void move_offline(bool value);
     bool visible_for_map() const;
     void visible_for_map(bool value);
+
+    // @ Script method
+    bool target_precondition(CSE_ALifeObject* squad);
+
     virtual u32 ef_equipment_type() const;
     virtual u32 ef_main_weapon_type() const;
     virtual u32 ef_weapon_type() const;
@@ -181,6 +183,25 @@ public:
     virtual void STATE_Read(NET_Packet& P, u16 size);
     virtual void STATE_Write(NET_Packet& P);
     SERVER_ENTITY_EDITOR_METHODS
+    
+    virtual bool IsSimulationAvailable(void)
+    {
+        // Lord: прочекать это используется только для se_actor, наверное всё же true должно стоять
+        return true;
+    }
+
+    inline xr_map<std::uint32_t, Cordis::Scripts::CondlistData>& getSimulationAvail(void) noexcept
+    {
+        return this->m_simulation_avail;
+    }
+    
+    inline xr_map<xr_string, xr_string>& getProperties(void) noexcept 
+    { return this->m_properties;
+    }
+
+private:
+    xr_map<xr_string, xr_string> m_properties;
+    xr_map<std::uint32_t, Cordis::Scripts::CondlistData> m_simulation_avail;
 };
 
 class CSE_ALifeGroupAbstract
@@ -261,11 +282,11 @@ public:
     virtual CSE_Abstract* base() { return (inherited1::base()); }
     virtual const CSE_Abstract* base() const { return (inherited1::base()); }
 #ifndef XRGAME_EXPORTS
-    virtual void FillProps(LPCSTR pref, PropItemVec& items)
-    {
-        inherited1::FillProps(pref, items);
-        inherited2::FillProps(pref, items);
-    };
+//     virtual void FillProps(LPCSTR pref, PropItemVec& items)
+//     {
+//         inherited1::FillProps(pref, items);
+//         inherited2::FillProps(pref, items);
+//     };
 #endif // #ifndef XRGAME_EXPORTS
 
     virtual CSE_Abstract* cast_abstract() { return (this); }
@@ -345,6 +366,7 @@ public:
     virtual bool used_ai_locations() const /* noexcept */;
     virtual void load(NET_Packet& tNetPacket);
     virtual CSE_Abstract* cast_abstract() { return this; }
+
 public:
     virtual void UPDATE_Read(NET_Packet& P);
     virtual void UPDATE_Write(NET_Packet& P);
@@ -424,7 +446,7 @@ public:
     virtual float suitable(CSE_ALifeMonsterAbstract* object) const { return 0.f; };
     virtual void register_npc(CSE_ALifeMonsterAbstract* object){};
     virtual void unregister_npc(CSE_ALifeMonsterAbstract* object){};
-    virtual CALifeSmartTerrainTask* task(CSE_ALifeMonsterAbstract* object) { return 0; };
+    virtual CALifeSmartTerrainTask* task(CSE_ALifeMonsterAbstract* object) { return nullptr; };
 #endif
     virtual void UPDATE_Read(NET_Packet& P);
     virtual void UPDATE_Write(NET_Packet& P);
@@ -623,6 +645,7 @@ public:
     virtual void load(NET_Packet& tNetPacket);
     virtual bool can_save() const /* noexcept */;
     virtual CSE_Abstract* cast_abstract() { return this; }
+
 protected:
     virtual void data_load(NET_Packet& tNetPacket);
     virtual void data_save(NET_Packet& tNetPacket);
@@ -747,4 +770,3 @@ public:
 
 #pragma warning(pop)
 
-#endif

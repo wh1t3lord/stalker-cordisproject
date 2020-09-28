@@ -10,13 +10,13 @@
 #include "Common/object_broker.h"
 #include "smart_cover_object.h"
 
-using smart_cover::loophole;
 using smart_cover::action;
-using smart_cover::detail::parse_string;
-using smart_cover::detail::parse_float;
-using smart_cover::detail::parse_table;
-using smart_cover::detail::parse_fvector;
+using smart_cover::loophole;
 using smart_cover::detail::parse_bool;
+using smart_cover::detail::parse_float;
+using smart_cover::detail::parse_fvector;
+using smart_cover::detail::parse_string;
+using smart_cover::detail::parse_table;
 
 namespace smart_cover
 {
@@ -24,8 +24,72 @@ shared_str transform_vertex(shared_str const& vertex_id, bool const& in);
 shared_str parse_vertex(luabind::object const& table, LPCSTR identifier, bool const& in);
 } // namespace smart_cover
 
-loophole::loophole(luabind::object const& description) : m_fov(0.f), m_range(0.f)
+loophole::loophole(const Cordis::Scripts::SmartCoverLoopholeData& data) : m_fov(0.f), m_range(0.f)
 {
+    this->m_id = data.m_id.c_str();
+    this->m_usable = data.m_is_usable;
+    this->m_fov_position = data.m_fieldofview_position;
+
+    this->m_fov_direction = data.m_fieldofview_direction;
+    if (this->m_fov_direction.square_magnitude() < EPS_L)
+    {
+        Msg("[smart_cover/loophole/ctor(data)] WARNING: fov direction for loophole %s is setup incorrectly",
+            this->m_id.c_str());
+        this->m_fov_direction.set(0.0f, 0.0f, 1.0f);
+    }
+    else
+        this->m_fov_direction.normalize();
+
+    this->m_danger_fov_direction = data.m_danger_fieldofview_direction;
+    if (this->m_danger_fov_direction.square_magnitude() < EPS_L)
+    {
+        Msg("[smart_cover/loophole/ctor(data)] WARNING: danger fov direction for loophole %s is setup incorrectly",
+            this->m_id.c_str());
+        this->m_danger_fov_direction.set(0.0f, 0.0f, 1.0f);
+    }
+    else
+        this->m_danger_fov_direction.normalize();
+
+    this->m_enter_direction = data.m_enter_direction;
+    if (this->m_enter_direction.square_magnitude() < EPS_L)
+    {
+        Msg("[smart_cover/loophole/ctor(data)] WARNING: enter direction for loophole %s is setup incorrectly",
+            this->m_id.c_str());
+        this->m_enter_direction.set(0.0f, 0.0f, 1.0f);
+    }
+    else
+        this->m_enter_direction.normalize();
+
+    for (const Cordis::Scripts::SmartCoverLoopholeData::SmartCoverActionsData& it : data.getActions())
+    {
+        shared_str id = shared_str(it.m_id.c_str());
+        VERIFY(m_actions.end() ==
+            std::find_if(
+                m_actions.begin(), m_actions.end(), [=](std::pair<shared_str, smart_cover::action*> const& other) {
+                    return id._get() == other.first._get();
+                }));
+        smart_cover::action* action = new smart_cover::action(it.getAnimations());
+        this->m_actions.insert(std::make_pair(it.m_id.c_str(), action));
+    }
+
+    this->m_usable = this->m_actions.size() ? true : false;
+
+    if (!this->m_usable)
+    {
+        Msg("[smart_cover/loophole/ctor()] WARNING: can't use loophole, because m_actions is empty! %s", data.m_id.c_str());
+        return;
+    }
+
+    for (const Cordis::Scripts::SmartCoverLoopholeData::SmartCoverTransitionsData& it : data.getTransitions())
+    {
+        this->fill_transitions(it);
+    }
+
+    this->m_fov = deg2rad(data.m_fieldofview);
+    this->m_danger_fov = deg2rad(data.m_fieldofview_danger);
+    this->m_range = data.m_range;
+
+    /*
     VERIFY2(luabind::type(description) == LUA_TTABLE, "invalid loophole description passed");
 
     m_id = parse_string(description, "id");
@@ -89,21 +153,14 @@ loophole::loophole(luabind::object const& description) : m_fov(0.f), m_range(0.f
 
     m_fov = deg2rad(parse_float(description, "fov", 0.f, 360.f));
     m_danger_fov = deg2rad(parse_float(description, "danger_fov", 0.f, 360.f));
-    m_range = parse_float(description, "range", 0.f);
+    m_range = parse_float(description, "range", 0.f);*/
 }
 
-void loophole::add_action(LPCSTR type, luabind::object const& table)
+/*
+void loophole::add_action(LPCSTR type, const xr_string& animation_type, const xr_vector<xr_string>& animations)
 {
-    VERIFY(luabind::type(table) == LUA_TTABLE);
-    smart_cover::action* action = new smart_cover::action(table);
 
-    shared_str id = shared_str(type);
-    VERIFY(m_actions.end() == std::find_if(m_actions.begin(), m_actions.end(),
-       [=](std::pair<shared_str, smart_cover::action*> const& other) {
-           return id._get() == other.first._get();
-       }));
-    m_actions.insert(std::make_pair(type, action));
-}
+}*/
 
 loophole::~loophole()
 {
@@ -111,8 +168,27 @@ loophole::~loophole()
     delete_data(m_transitions);
 }
 
-void loophole::fill_transitions(luabind::object const& transitions_table)
+void loophole::fill_transitions(const Cordis::Scripts::SmartCoverLoopholeData::SmartCoverTransitionsData& data)
 {
+    TransitionData temporary;
+    for (const xr_string& it : data.m_animations)
+    {
+        VERIFY2(std::find(temporary.begin(), temporary.end(), it.c_str()) == temporary.end(),
+            make_string("duplicated_animation found: %s", it.c_str()));
+        temporary.push_back(it.c_str());
+    }
+
+    if (!this->m_transitions.vertex(data.m_action_from.c_str()))
+        this->m_transitions.add_vertex(Loki::EmptyType(), data.m_action_from.c_str());
+
+    if (!this->m_transitions.vertex(data.m_action_to.c_str()))
+        this->m_transitions.add_vertex(Loki::EmptyType(), data.m_action_to.c_str());
+
+    this->m_transitions.add_edge(data.m_action_from.c_str(), data.m_action_to.c_str(), data.m_weight);
+    TransitionGraph::CEdge* edge = m_transitions.edge(data.m_action_from.c_str(), data.m_action_to.c_str());
+    VERIFY(!temporary.empty());
+    edge->data() = temporary;
+    /*
     VERIFY2(luabind::type(transitions_table) == LUA_TTABLE, "invalid loophole description passed");
     for (luabind::iterator I(transitions_table), E; I != E; ++I)
     {
@@ -149,7 +225,7 @@ void loophole::fill_transitions(luabind::object const& transitions_table)
         TransitionGraph::CEdge* edge = m_transitions.edge(action_from, action_to);
         VERIFY(!tmp.empty());
         edge->data() = tmp;
-    }
+    }*/
 }
 
 smart_cover::action::Animations const& loophole::action_animations(

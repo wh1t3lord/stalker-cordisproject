@@ -4,14 +4,27 @@
 !.appveyor*
 !.travis.yml
 
+
 # exclude binaries and temporary files
 CMakeCache.txt
 cmake_install.cmake
 install_manifest.txt
 bin*/
+!sdk/binaries/
+!bind/
+!binary/
+!bindings/
+!sdk/Visual*Leak*Detector/*
+sdk/yoga*/*
 intermediate/
 intermediate_plugs/
 lib/
+out/
+!Externals/libvorbis/lib/
+!Externals/libtheora/lib/
+!Externals/AGS_SDK/ags_lib/lib
+!sdk/DXSDK/lib/
+!sdk/Visual*Leak*Detector/lib/
 CMakeFiles/
 *.aps
 *.user
@@ -23,8 +36,4 @@ CMakeFiles/
 
 # exclude doxygen output
 doc/doxygen/html/*
-Externals/LuaJIT-proj/*.obj
-
-#user-defined
-sdk/boost/
-sdk/googletest/
+sdk/LuaJIT-proj/*.obj

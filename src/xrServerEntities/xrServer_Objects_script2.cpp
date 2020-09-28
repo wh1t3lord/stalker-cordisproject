@@ -1,3 +1,4 @@
+
 #include "pch_script.h"
 #include "xrServer_Objects.h"
 #include "xrServer_script_macroses.h"
@@ -5,6 +6,7 @@
 
 using namespace luabind;
 
+#ifdef XRGAME_EXPORTS
 SCRIPT_EXPORT(CSE_PHSkeleton, (), { module(luaState)[class_<CSE_PHSkeleton>("cse_ph_skeleton")]; });
 
 SCRIPT_EXPORT(CSE_AbstractVisual, (CSE_Visual, CSE_Abstract), {
@@ -25,3 +27,4 @@ SCRIPT_EXPORT(CSE_SpawnGroup, (CSE_Abstract),
     ];
 });
 /**/
+#endif

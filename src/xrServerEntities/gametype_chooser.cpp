@@ -1,3 +1,4 @@
+
 #include "StdAfx.h"
 #pragma hdrstop
 
@@ -53,24 +54,24 @@ void GameTypeChooser::SaveLTX(CInifile& ini, LPCSTR sect_name) { ini.w_u16(sect_
 #endif
 
 #ifndef XRGAME_EXPORTS
-void GameTypeChooser::FillProp(LPCSTR pref, PropItemVec& items)
-{
-    PHelper().CreateGameType(items, PrepareKey(pref, "Game Type"), this);
-    /*
-        PHelper().CreateFlag16  (items, PrepareKey(pref, "Game Type\\single"),      			&m_GameType,
-       eGameIDSingle);
-        PHelper().CreateFlag16  (items, PrepareKey(pref, "Game Type\\deathmatch"),				&m_GameType,
-       eGameIDDeathmatch);
-        PHelper().CreateFlag16  (items, PrepareKey(pref, "Game Type\\team deathmatch"),     	&m_GameType,
-       eGameIDTeamDeathmatch);
-        PHelper().CreateFlag16  (items, PrepareKey(pref, "Game Type\\artefact hunt"),       	&m_GameType,
-       eGameIDArtefactHunt);
-        PHelper().CreateFlag16  (items, PrepareKey(pref, "Game Type\\capture the artefact"),	&m_GameType,
-       eGameIDCaptureTheArtefact);
-        PHelper().CreateFlag16  (items, PrepareKey(pref, "Game Type\\domination zone"),     	&m_GameType,
-       eGameIDDominationZone);
-        PHelper().CreateFlag16  (items, PrepareKey(pref, "Game Type\\team domination zone"),	&m_GameType,
-       eGameIDTeamDominationZone);
-    */
-}
+// void GameTypeChooser::FillProp(LPCSTR pref, PropItemVec& items)
+// {
+//     PHelper().CreateGameType(items, PrepareKey(pref, "Game Type"), this);
+//     /*
+//         PHelper().CreateFlag16  (items, PrepareKey(pref, "Game Type\\single"),      			&m_GameType,
+//        eGameIDSingle);
+//         PHelper().CreateFlag16  (items, PrepareKey(pref, "Game Type\\deathmatch"),				&m_GameType,
+//        eGameIDDeathmatch);
+//         PHelper().CreateFlag16  (items, PrepareKey(pref, "Game Type\\team deathmatch"),     	&m_GameType,
+//        eGameIDTeamDeathmatch);
+//         PHelper().CreateFlag16  (items, PrepareKey(pref, "Game Type\\artefact hunt"),       	&m_GameType,
+//        eGameIDArtefactHunt);
+//         PHelper().CreateFlag16  (items, PrepareKey(pref, "Game Type\\capture the artefact"),	&m_GameType,
+//        eGameIDCaptureTheArtefact);
+//         PHelper().CreateFlag16  (items, PrepareKey(pref, "Game Type\\domination zone"),     	&m_GameType,
+//        eGameIDDominationZone);
+//         PHelper().CreateFlag16  (items, PrepareKey(pref, "Game Type\\team domination zone"),	&m_GameType,
+//        eGameIDTeamDominationZone);
+//     */
+// }
 #endif // #ifndef XRGAME_EXPORTS

@@ -71,6 +71,23 @@ IC const CObjectItemAbstract& CObjectFactory::item(const CLASS_ID& clsid) const
     VERIFY((I != clsids().end()) && ((*I)->clsid() == clsid));
     return (**I);
 }
+
+inline const CObjectItemAbstract* CObjectFactory::item_sdk(const CLASS_ID& clsid, bool no_assert) const
+{
+    if (!FS.IsSDK())
+        return nullptr;
+
+    actualize();
+   
+        const_iterator I = std::lower_bound(clsids().begin(), clsids().end(), clsid, CObjectItemPredicate());
+        if ((I == clsids().end()) || ((*I)->clsid() != clsid))
+        {
+            R_ASSERT(no_assert);
+            return (nullptr);
+        }
+        return (*I);
+}
+
 #else
 IC const CObjectItemAbstract* CObjectFactory::item(const CLASS_ID& clsid, bool no_assert) const
 {
@@ -125,6 +142,12 @@ inline CObjectFactory::ClientObjectBaseClass* CObjectFactory::client_object(cons
 inline CObjectFactory::ServerObjectBaseClass* CObjectFactory::server_object(const CLASS_ID& clsid, LPCSTR section) const
 {
 #ifndef NO_XR_GAME
+    if (FS.IsSDK())
+    {
+        const CObjectItemAbstract* object = this->item_sdk(clsid, true);
+        return (object ? object->server_object(section) : 0);
+    }
+
     return (item(clsid).server_object(section));
 #else
     const CObjectItemAbstract* object = item(clsid, true);

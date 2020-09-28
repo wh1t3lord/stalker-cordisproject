@@ -11,7 +11,7 @@ void CItemMgr::Load(const shared_str& sect_cost)
     u32 idx = 0;
     for (auto it = sect.Data.cbegin(); it != sect.Data.cend(); ++it, ++idx)
     {
-        _i& val = m_items[it->first];
+        _i& val = m_items[it->first.c_str()];
         val.slot_idx = 0xff;
         int c = sscanf(
             it->second.c_str(), "%d,%d,%d,%d,%d", &val.cost[0], &val.cost[1], &val.cost[2], &val.cost[3], &val.cost[4]);

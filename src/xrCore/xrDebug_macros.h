@@ -61,6 +61,17 @@
 #undef VERIFY
 #endif
 
+
+#define ASSERT(x)                                                                         \
+    {                                                                                     \
+        char buffer[1024];                                                                \
+        sprintf_s(buffer, "ASSERT: %s, %s, %d, %s", x, __FILE__, __LINE__, __FUNCTION__); \
+        __debugbreak();                                                                   \
+        TerminateProcess(GetCurrentProcess(), 0);                                         \
+    }
+
+
+
 #ifdef DEBUG
 #define NODEFAULT FATAL("nodefault reached")
 #define VERIFY(expr)\

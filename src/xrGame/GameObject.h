@@ -89,8 +89,8 @@ private:
     mutable CScriptGameObject* m_lua_game_object;
     int m_script_clsid;
     u32 m_spawn_time;
-    using CALLBACK_MAP = xr_map<GameObject::ECallbackType, CScriptCallbackExVoid>;
-    CALLBACK_MAP* m_callbacks;
+  //  using CALLBACK_MAP = xr_map<GameObject::ECallbackType, CScriptCallbackExVoid>;
+ //   CALLBACK_MAP* m_callbacks; Lord - [Script] Re-write
     ai_obstacle* m_ai_obstacle;
     Fmatrix m_previous_matrix;
     CALLBACK_VECTOR m_visual_callback;
@@ -103,6 +103,7 @@ protected:
 public:
     CGameObject();
     virtual ~CGameObject();
+
 // XXX: review
 #ifdef DEBUG
     virtual u32 GetDbgUpdateFrame() const override { return dbg_update_cl; }
@@ -339,7 +340,7 @@ public:
     // [12.11.07] Alexander Maniluk: added this method for moving object
     virtual void MoveTo(const Fvector& position) override {}
     // the only usage: aimers::base::fill_bones
-    virtual CScriptCallbackExVoid& callback(GameObject::ECallbackType type) const override;
+  //  virtual CScriptCallbackExVoid& callback(GameObject::ECallbackType type) const override;
     virtual LPCSTR visual_name(CSE_Abstract* server_entity) override;
     virtual void On_B_NotCurrentEntity() override {}
     virtual bool is_ai_obstacle() const override;

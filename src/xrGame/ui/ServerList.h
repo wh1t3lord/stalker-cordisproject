@@ -56,7 +56,7 @@ public:
     void AddServerToList(ServerInfo* pServerInfo);
     void UpdateServerInList(ServerInfo* pServerInfo, int index);
     void UpdateServerInList(ServerInfo* pServerInfo, CUIListItemServer* pItem);
-    void SetConnectionErrCb(connect_error_cb conn_err_cb) { m_connect_cb = conn_err_cb; }
+   // void SetConnectionErrCb(connect_error_cb conn_err_cb) { m_connect_cb = conn_err_cb; }
     void ConnectToSelected();
     void SetFilters(SServerFilters& sf);
     void SetPlayerName(LPCSTR name);
@@ -149,6 +149,6 @@ protected:
     void RefreshList_internal();
 
 private:
-    connect_error_cb m_connect_cb;
+  //  connect_error_cb m_connect_cb;
     inline CGameSpy_Browser& browser() const;
 };

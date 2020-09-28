@@ -1,0 +1,1 @@
+git submodule update --init --recursive && git submodule foreach --recursive git checkout master && git submodule foreach --recursive git pull && cd sdk && cd boost && bootstrap && .\b2 && cd .. && cd luabind-deboostified && git checkout xray && git pull && cd .. && cd .. && PAUSE

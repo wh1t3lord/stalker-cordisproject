@@ -11,8 +11,8 @@
 // refs
 class ENGINE_API IRender_DetailModel;
 
-#include "Include/xrRender/FactoryPtr.h"
-#include "Include/xrRender/RainRender.h"
+#include "xrGame/Render/Kernel/FactoryPtr.h"
+#include "xrGame/Render/Kernel/RainRender.h"
 //
 class ENGINE_API CEffect_Rain
 {

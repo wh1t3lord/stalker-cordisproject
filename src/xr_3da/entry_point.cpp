@@ -10,27 +10,29 @@
 #endif
 #include "xrEngine/main.h"
 #include "xrEngine/splash.h"
+#include "xrEngine/device.h"
 #include <SDL.h>
+
+#include <src/gtest-all.cc>
 
 int entry_point(pcstr commandLine)
 {
-    xrDebug::Initialize();
     R_ASSERT3(SDL_Init(SDL_INIT_VIDEO) == 0, "Unable to initialize SDL", SDL_GetError());
+    Device.Initialize(commandLine);
+    splash::show(true);
 
-    if (!strstr(commandLine, "-nosplash"))
-    {
-        const bool topmost = !strstr(commandLine, "-splashnotop");
-        splash::show(topmost);
-    }
+ 
+		xrDebug::Initialize();
 
-    if (strstr(commandLine, "-dedicated"))
-        GEnv.isDedicatedServer = true;
+		if (strstr(commandLine, "-dedicated"))
+			GEnv.isDedicatedServer = true;
 
 #ifdef WINDOWS
-    StickyKeyFilter filter;
-    if (!GEnv.isDedicatedServer)
-        filter.initialize();
+		StickyKeyFilter filter;
+		if (!GEnv.isDedicatedServer)
+			filter.initialize();
 #endif
+ 
 
     pcstr fsltx = "-fsltx ";
     string_path fsgame = "";
@@ -39,7 +41,8 @@ int entry_point(pcstr commandLine)
         const u32 sz = xr_strlen(fsltx);
         sscanf(strstr(commandLine, fsltx) + sz, "%[^ ] ", fsgame);
     }
-    Core.Initialize("OpenXRay", commandLine, nullptr, true, *fsgame ? fsgame : nullptr);
+    Core.m_Timer.Start();
+    Core.Initialize("Cordis Project", commandLine, nullptr, true, *fsgame ? fsgame : nullptr);
 
     const auto result = RunApplication();
 
@@ -57,21 +60,45 @@ int StackoverflowFilter(const int exceptionCode)
     return EXCEPTION_CONTINUE_SEARCH;
 }
 
+/*
 int APIENTRY WinMain(HINSTANCE inst, HINSTANCE prevInst, char* commandLine, int cmdShow)
+{    
+    return entry_point(commandLine);
+}*/
+
+int main(int argc, char* argv[])
 {
-    int result = 0;
-    // BugTrap can't handle stack overflow exception, so handle it here
-    __try
-    {
-        result = entry_point(commandLine);
-    }
-    __except (StackoverflowFilter(GetExceptionCode()))
-    {
-        _resetstkoflw();
-        FATAL("stack overflow");
-    }
+	testing::InitGoogleTest(&argc, argv);
+
+	char* commandLine = nullptr;
+	int i;
+	if (argc > 1)
+	{
+		size_t sum = 0;
+		for (i = 1; i < argc; ++i)
+			sum += strlen(argv[i]) + strlen(" \0");
+
+		commandLine = xr_alloc<char>(sum);
+		ZeroMemory(commandLine, sum);
+
+		for (i = 1; i < argc; ++i)
+		{
+			strcat(commandLine, argv[i]);
+			strcat(commandLine, " ");
+		}
+	}
+	else
+		commandLine = strdup("");
+
+ 
+	int result = entry_point(commandLine);
+
+    if (commandLine && argc > 1)
+	    xr_free(commandLine);
+
     return result;
 }
+
 #elif defined(LINUX)
 int main(int argc, char *argv[])
 {

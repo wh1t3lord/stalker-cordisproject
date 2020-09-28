@@ -2,6 +2,7 @@
 #include "xrCore/clsid.h"
 
 #define CLSID_OBJECT_ACTOR MK_CLSID('O', '_', 'A', 'C', 'T', 'O', 'R', ' ')
+#define CLSID_OBJECT_ACTOR_SDK MK_CLSID('S', '_', 'A', 'C', 'T', 'O', 'R', ' ')
 #define CLSID_OBJECT_HLAMP MK_CLSID('O', '_', 'H', 'L', 'A', 'M', 'P', ' ')
 #define CLSID_ENTITY MK_CLSID('E', 'N', 'T', 'I', 'T', 'Y', ' ', ' ')
 #define CLSID_SPECTATOR MK_CLSID('S', 'P', 'E', 'C', 'T', ' ', ' ', ' ')
@@ -226,13 +227,21 @@
 
 #define CLSID_ONLINE_OFFLINE_GROUP MK_CLSID('O', 'N', '_', 'O', 'F', 'F', '_', 'G')
 
+<<<<<<< HEAD
 // @ Как-то так наверное захардкоржено, надо исправлять и уходить от этого
 #pragma region CordisRegistration
+=======
+#pragma region GSCRegistrator
+>>>>>>> view
 #define CLSID_SE_STALKER MK_CLSID('A', 'I', '_', 'S', 'T', 'L', '_', 'S')
 #define CLSID_SE_AMMO MK_CLSID('A', 'M', 'M', 'O', '_', 'S', ' ', ' ')
 #define CLSID_SE_HELI MK_CLSID('C', '_', 'H', 'L', 'C', 'P', '_', 'S')
 #define CLSID_SE_ADVANCEDDETECTOR MK_CLSID('D', 'E', 'T', '_', 'A', 'D', 'V', 'A')
+<<<<<<< HEAD
 #define CLSID_SE_ELITEDETECTOR MK_CLSID('D', 'E', 'T', '_', 'S', 'C', 'I', 'E')
+=======
+#define CLSID_SE_ELITEDETECTOR MK_CLSID('D', 'E', 'T', '_', 'E', 'L', 'I', 'T')
+>>>>>>> view
 #define CLSID_SE_SCIENTIFICDETECTOR MK_CLSID('D', 'E', 'T', '_', 'S', 'C', 'I', 'E')
 #define CLSID_SE_SIMPLEDETECTOR MK_CLSID('D', 'E', 'T', '_', 'S', 'I', 'M', 'P')
 #define CLSID_SE_HELMET MK_CLSID('E', '_', 'H', 'L', 'M', 'E', 'T', ' ')
@@ -241,7 +250,11 @@
 #define CLSID_SE_GRENADE_RGD MK_CLSID('G', '_', 'R', 'G', 'D', '5', '_', 'S')
 #define CLSID_SE_LEVEL_CHANGER MK_CLSID('L', 'V', 'L', '_', 'C', 'H', 'N', 'G')
 #define CLSID_UI_MAIN_MENU MK_CLSID('M', 'A', 'I', 'N', '_', 'M', 'N', 'U')
+<<<<<<< HEAD
 #define CLSID_SE_SIM_SQUAD_SCRIPTED MK_CLSID('O', 'N', '_', 'O', 'F', 'F', '_', 'S')
+=======
+#define CLSID_SE_ONLINE_OFFLINE_GROUP MK_CLSID('O', 'N', '_', 'O', 'F', 'F', '_', 'S')
+>>>>>>> view
 #define CLSID_SE_DESTROYABLE_PHYSICS_OBJECT MK_CLSID('O', '_', 'D', 'S', 'T', 'R', '_', 'S')
 #define CLSID_SE_PHYSICS_OBJECT MK_CLSID('O', '_', 'P', 'H', 'Y', 'S', '_', 'S')
 #define CLSID_SE_ARTEFACT MK_CLSID('S', 'C', 'R', 'P', 'T', 'A', 'R', 'T')
@@ -287,7 +300,11 @@
 #define CLSID_SE_WEAPON_GROZA MK_CLSID('W', 'P', '_', 'G', 'R', 'O', 'Z', 'A')
 #define CLSID_SE_WEAPON_HPSA MK_CLSID('W', 'P', '_', 'H', 'P', 'S', 'A', ' ')
 #define CLSID_SE_WEAPON_KNIFE MK_CLSID('W', 'P', '_', 'K', 'N', 'I', 'F', 'E')
+<<<<<<< HEAD
 #define CLSID_SE_WEAPON_LP300 MK_CLSID('W', 'P', '_', 'L', 'R', '3', '0', '0')
+=======
+#define CLSID_SE_WEAPON_LR300 MK_CLSID('W', 'P', '_', 'L', 'R', '3', '0', '0')
+>>>>>>> view
 #define CLSID_SE_WEAPON_PM MK_CLSID('W', 'P', '_', 'P', 'M', ' ', ' ', ' ')
 #define CLSID_SE_WEAPON_RG6 MK_CLSID('W', 'P', '_', 'R', 'G', '6', ' ', ' ')
 #define CLSID_SE_WEAPON_RPG7 MK_CLSID('W', 'P', '_', 'R', 'P', 'G', '7', ' ')
@@ -306,4 +323,10 @@
 #define CLSID_SE_ZONE_MINCE MK_CLSID('Z', 'S', '_', 'M', 'I', 'N', 'C', 'E')
 #define CLSID_SE_ZONE_RADIOACTIVE MK_CLSID('Z', 'S', '_', 'R', 'A', 'D', 'I', 'O')
 #define CLSID_SE_ZONE_TORRID MK_CLSID('Z', 'S', '_', 'T', 'O', 'R', 'R', 'D')
+<<<<<<< HEAD
 #pragma endregion
+=======
+
+#pragma endregion
+
+>>>>>>> view

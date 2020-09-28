@@ -11,9 +11,9 @@
 #include "xrPhysics/phvalide.h"
 #include "ai_crow.h"
 #include "Level.h"
-#include "Include/xrRender/RenderVisual.h"
-#include "Include/xrRender/Kinematics.h"
-#include "Include/xrRender/KinematicsAnimated.h"
+#include "RenderVisual.h"
+#include "Kinematics.h"
+#include "KinematicsAnimated.h"
 #include "Actor.h"
 #include "xrScriptEngine/script_callback_ex.h"
 #include "game_object_space.h"
@@ -286,8 +286,12 @@ void CAI_Crow::Die(IGameObject* who)
     CreateSkeleton();
 
     const CGameObject* who_object = smart_cast<const CGameObject*>(who);
-    callback(GameObject::eDeath)(lua_game_object(), who_object ? who_object->lua_game_object() : 0);
-};
+    // Lord - [Script] Re-write 
+  //  callback(GameObject::eDeath)(lua_game_object(), who_object ? who_object->lua_game_object() : 0);
+    this->GetScriptBinderObject()->death_callback(
+        this->lua_game_object(), who_object ? who_object->lua_game_object() : nullptr);
+}
+
 void CAI_Crow::UpdateWorkload(float fdt)
 {
     if (o_workload_frame == Device.dwFrame)
@@ -469,7 +473,10 @@ void CAI_Crow::Hit(SHit* pHDS)
     inherited::Hit(&HDS);
 
     const CGameObject* who_object = smart_cast<const CGameObject*>(pHDS->who);
-    callback(GameObject::eHit)(lua_game_object(), who_object ? who_object->lua_game_object() : 0);
+    // Lord - [Script] Re-write
+//    callback(GameObject::eHit)(lua_game_object(), who_object ? who_object->lua_game_object() : 0);
+    this->GetScriptBinderObject()->hit_callback(this->lua_game_object(), HDS.power, HDS.direction(),
+        who_object ? who_object->lua_game_object() : nullptr, HDS.boneID);
 }
 
 BOOL CAI_Crow::UsedAI_Locations() { return (FALSE); }

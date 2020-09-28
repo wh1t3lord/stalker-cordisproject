@@ -34,7 +34,7 @@ extern u32 g_cl_InterpolationMaxPoints;
 extern int g_cl_save_demo;
 extern string64 gsCDKey;
 extern u32 g_dwMaxCorpses;
-extern float g_fTimeFactor;
+//extern float GlobalValues::getInstance().getTimeFactor();
 extern BOOL g_b_COD_PickUpMode;
 extern int g_iWeaponRemove;
 extern int g_iCorpseRemove;
@@ -1717,13 +1717,13 @@ public:
 
         float eFactor = Level().Server->GetGameState()->GetEnvironmentGameTimeFactor();
         Level().Server->GetGameState()->SetEnvironmentGameTimeFactor(NewTime, eFactor);
-        Level().Server->GetGameState()->SetGameTimeFactor(NewTime, g_fTimeFactor);
+        Level().Server->GetGameState()->SetGameTimeFactor(NewTime, GlobalValues::getInstance().getTimeFactor());
     }
 };
-class CCC_SetWeather : public IConsole_Command
+class CCC_SetWeatherMP : public IConsole_Command
 {
 public:
-    CCC_SetWeather(LPCSTR N) : IConsole_Command(N) { bEmptyArgsHandled = false; };
+    CCC_SetWeatherMP(LPCSTR N) : IConsole_Command(N) { bEmptyArgsHandled = false; };
     virtual void Execute(LPCSTR weather_name)
     {
         if (!g_pGamePersistent)
@@ -2113,7 +2113,7 @@ void register_mp_console_commands()
 
     CMD1(CCC_StartTimeEnvironment, "sv_setenvtime");
 
-    CMD1(CCC_SetWeather, "sv_setweather");
+    CMD1(CCC_SetWeatherMP, "sv_setweather");
 
     CMD4(CCC_Integer, "cl_cod_pickup_mode", &g_b_COD_PickUpMode, 0, 1);
 

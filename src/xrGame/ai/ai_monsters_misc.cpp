@@ -15,7 +15,7 @@
 #include "team_hierarchy_holder.h"
 #include "squad_hierarchy_holder.h"
 #include "group_hierarchy_holder.h"
-#include "Include/xrRender/KinematicsAnimated.h"
+#include "KinematicsAnimated.h"
 #include "ai_monsters_anims.h"
 #include "ef_pattern.h"
 #include "memory_manager.h"
@@ -212,16 +212,14 @@ void CAniVector::Load(IKinematicsAnimated* tpKinematics, LPCSTR caBaseName)
         {
             A.push_back(tpMotionDef);
 #ifdef DEBUG
-            if (psAI_Flags.test(aiAnimation))
-                Msg("* Loaded animation %s", S1);
+                MESSAGE("* Loaded animation %s", S1);
 #endif
         }
         else if (!!(tpMotionDef = tpKinematics->ID_FX_Safe(strconcat(sizeof(S1), S1, caBaseName, xr_itoa(i, S2, 10)))))
         {
             A.push_back(tpMotionDef);
 #ifdef DEBUG
-            if (psAI_Flags.test(aiAnimation))
-                Msg("* Loaded animation fx %s", S1);
+                MESSAGE("* Loaded animation fx %s", S1);
 #endif
         }
         else if (i < 10)

@@ -3,7 +3,7 @@
 #include "xrEngine/Engine.h"
 #include "xrCDB/Frustum.h"
 #include "vis_common.h"
-#include "Include/xrRender/FactoryPtr.h"
+#include "xrGame/Render/Kernel/FactoryPtr.h"
 #include "xrCore/xr_resource.h"
 #include "SDL.h"
 

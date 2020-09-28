@@ -13,6 +13,11 @@
 #include "script_value_container_impl.h"
 #include "clsid_game.h"
 #include "xrCore/xr_token.h"
+/*
+#include "xrGame/Script_SE_SimulationSquad.h"
+#include "xrGame/Script_SE_SmartCover.h"
+#include "xrGame/Script_SE_SmartTerrain.h"
+#include "xrGame/Script_SE_Actor.h"*/
 
 #pragma warning(push)
 #pragma warning(disable : 4995)
@@ -155,6 +160,7 @@ CSE_Abstract::~CSE_Abstract()
 CSE_Visual* CSE_Abstract::visual() { return (nullptr); }
 IServerEntityShape* CSE_Abstract::shape() { return (nullptr); }
 CSE_Motion* CSE_Abstract::motion() { return (nullptr); }
+ 
 CInifile& CSE_Abstract::spawn_ini()
 {
     if (!m_ini_file) {
@@ -386,26 +392,26 @@ const xr_token game_types[] = {{"any_game", eGameIDNoGame}, {"single", eGameIDSi
     {nullptr, 0}};
 
 #ifndef XRGAME_EXPORTS
-void CSE_Abstract::FillProps(LPCSTR pref, PropItemVec& items)
-{
-#ifdef XRSE_FACTORY_EXPORTS
-    m_gameType.FillProp(pref, items);
-#endif // #ifdef XRSE_FACTORY_EXPORTS
-    /*
-    #ifdef XRGAME_EXPORTS
-    #	ifdef DEBUG
-        PHelper().CreateToken8		(items,	PrepareKey(pref,"Game Type"),			&s_gameid,		game_types);
-        PHelper().CreateU16			(items,	PrepareKey(pref, "Respawn Time (s)"),	&RespawnTime,	0,43200);
-
-    */
-}
-
-void CSE_Abstract::FillProp(LPCSTR pref, PropItemVec& items)
-{
-    CScriptValueContainer::assign();
-    CScriptValueContainer::clear();
-    FillProps(pref, items);
-}
+// void CSE_Abstract::FillProps(LPCSTR pref, PropItemVec& items)
+// {
+// #ifdef XRSE_FACTORY_EXPORTS
+//     m_gameType.FillProp(pref, items);
+// #endif // #ifdef XRSE_FACTORY_EXPORTS
+//     /*
+//     #ifdef XRGAME_EXPORTS
+//     #	ifdef DEBUG
+//         PHelper().CreateToken8		(items,	PrepareKey(pref,"Game Type"),			&s_gameid,		game_types);
+//         PHelper().CreateU16			(items,	PrepareKey(pref, "Respawn Time (s)"),	&RespawnTime,	0,43200);
+// 
+//     */
+// }
+// 
+// void CSE_Abstract::FillProp(LPCSTR pref, PropItemVec& items)
+// {
+//     CScriptValueContainer::assign();
+//     CScriptValueContainer::clear();
+//     FillProps(pref, items);
+// }
 #endif // #ifndef XRGAME_EXPORTS
 
 bool CSE_Abstract::validate() { return (true); }

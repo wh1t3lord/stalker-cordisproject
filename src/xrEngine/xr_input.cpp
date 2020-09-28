@@ -229,8 +229,10 @@ void CInput::GrabInput(const bool grab)
     // If SDL_HINT_GRAB_KEYBOARD is set then the keyboard will be grabbed too
     SDL_SetWindowGrab(Device.m_sdlWnd, grab ? SDL_TRUE : SDL_FALSE);
 
-    // Grab the mouse
-    SDL_SetRelativeMouseMode(grab ? SDL_TRUE : SDL_FALSE);
+ 
+        SDL_SetRelativeMouseMode(grab ? SDL_TRUE : SDL_FALSE);
+  
+
  
     // We're done here.
     inputGrabbed = grab;
@@ -309,13 +311,11 @@ void CInput::OnFrame(void)
 
     if (Device.dwPrecacheFrame == 0 && !Device.IsAnselActive)
     {
-        // Lord: Потом добавить обработку под тестировании уровня
-        if (!FS.IsSDK())
+        if (Device.isCanUseInput())
         {
-            KeyUpdate();
-            MouseUpdate();
+			KeyUpdate();
+			MouseUpdate();
         }
-
     }
     else
     {

@@ -24,7 +24,7 @@
 #include "saved_game_wrapper.h"
 #include "xrNetServer/NET_Messages.h"
 
-#include "Include/xrRender/DebugRender.h"
+#include "DebugRender.h"
 
 #ifdef DEBUG
 #include "ai/monsters/basemonster/base_monster.h"
@@ -39,7 +39,7 @@ extern void restore_actor();
 #endif
 
 bool g_bDisableAllInput = false;
-extern float g_fTimeFactor;
+//extern float GlobalValues::getInstance().getTimeFactor();
 
 #define CURRENT_ENTITY() (game ? ((GameID() == eGameIDSingle) ? CurrentEntity() : CurrentControlEntity()) : NULL)
 
@@ -50,8 +50,9 @@ void CLevel::IR_OnMouseWheel(int x, int y)
 
 #ifdef INPUT_CALLBACKS
     /* avo: script callback */
-    if (g_actor)
-        g_actor->callback(GameObject::eMouseWheel)(x);
+    // Lord - [Script] Переписать
+   // if (g_actor)
+    //    g_actor->callback(GameObject::eMouseWheel)(x);
     /* avo: end */
 #endif
     if (CurrentGameUI()->IR_UIOnMouseWheel(x, y))
@@ -81,8 +82,9 @@ void CLevel::IR_OnMouseMove(int dx, int dy)
 
 #ifdef INPUT_CALLBACKS
     /* avo: script callback */
-    if (g_actor)
-        g_actor->callback(GameObject::eMouseMove)(dx, dy);
+    // Lord - [Script] Переписать!
+//     if (g_actor)
+//         g_actor->callback(GameObject::eMouseMove)(dx, dy);
     /* avo: end */
 #endif
 
@@ -126,8 +128,9 @@ void CLevel::IR_OnKeyboardPress(int key)
 
 #ifdef INPUT_CALLBACKS
     /* avo: script callback */
-    if (!g_bDisableAllInput && g_actor)
-        g_actor->callback(GameObject::eKeyPress)(key);
+    // Lord - [Script] Переписать
+//     if (!g_bDisableAllInput && g_actor)
+//         g_actor->callback(GameObject::eKeyPress)(key);
     /* avo: end */
 #endif
 
@@ -239,13 +242,13 @@ void CLevel::IR_OnKeyboardPress(int key)
         if (!Server)
             break;
 
-        SetGameTimeFactor(g_fTimeFactor);
+        SetGameTimeFactor(GlobalValues::getInstance().getTimeFactor());
 
 #ifdef DEBUG
         if (!m_bEnvPaused)
-            SetEnvironmentGameTimeFactor(GetEnvironmentGameTime(), g_fTimeFactor);
+            SetEnvironmentGameTimeFactor(GetEnvironmentGameTime(), GlobalValues::getInstance().getTimeFactor());
 #else // DEBUG
-        SetEnvironmentGameTimeFactor(GetEnvironmentGameTime(), g_fTimeFactor);
+        SetEnvironmentGameTimeFactor(GetEnvironmentGameTime(), GlobalValues::getInstance().getTimeFactor());
 #endif // DEBUG
 
         break;
@@ -271,7 +274,7 @@ void CLevel::IR_OnKeyboardPress(int key)
         if (!Server)
             break;
         if (m_bEnvPaused)
-            SetEnvironmentGameTimeFactor(GetEnvironmentGameTime(), g_fTimeFactor);
+            SetEnvironmentGameTimeFactor(GetEnvironmentGameTime(), GlobalValues::getInstance().getTimeFactor());
         else
             SetEnvironmentGameTimeFactor(GetEnvironmentGameTime(), 0.00001f);
 
@@ -504,8 +507,9 @@ void CLevel::IR_OnKeyboardRelease(int key)
 
 #ifdef INPUT_CALLBACKS
     /* avo: script callback */
-    if (g_actor)
-        g_actor->callback(GameObject::eKeyRelease)(key);
+    // Lord - [Script] Переписать
+//     if (g_actor)
+//         g_actor->callback(GameObject::eKeyRelease)(key);
     /* avo: end */
 #endif
 
@@ -535,8 +539,9 @@ void CLevel::IR_OnKeyboardHold(int key)
 
 #ifdef INPUT_CALLBACKS
     /* avo: script callback */
-    if (g_actor)
-        g_actor->callback(GameObject::eKeyHold)(key);
+    // Lord - [Script] Переписать
+//     if (g_actor)
+//         g_actor->callback(GameObject::eKeyHold)(key);
     /* avo: end */
 #endif
 

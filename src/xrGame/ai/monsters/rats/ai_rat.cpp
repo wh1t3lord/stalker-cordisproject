@@ -14,7 +14,7 @@
 #include "xrAICore/Navigation/game_level_cross_table.h"
 #include "xrServerEntities/xrServer_Objects_ALife_Monsters.h"
 #include "ai/monsters/rats/ai_rat_space.h"
-#include "Include/xrRender/KinematicsAnimated.h"
+#include "KinematicsAnimated.h"
 #include "detail_path_manager.h"
 #include "xrAICore/Navigation/ai_object_location.h"
 #include "movement_manager.h"

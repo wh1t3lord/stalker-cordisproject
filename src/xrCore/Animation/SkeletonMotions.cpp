@@ -6,7 +6,7 @@
 
 #include "FMesh.hpp"
 #include "Motion.hpp"
-#include "Include/xrRender/Kinematics.h"
+#include "xrGame/Render/Kernel/Kinematics.h"
 
 motions_container* g_pMotionsContainer = nullptr;
 
@@ -52,9 +52,9 @@ void CPartition::load(IKinematics* V, LPCSTR model_name)
         for (; it != it_e; ++it)
         {
             const CInifile::Item& I = *it;
-            if (I.first == part_name)
+            if (I.first.c_str() == part_name)
             {
-                P[i].Name = I.second;
+                P[i].Name = I.second.c_str();
             }
             else
             {

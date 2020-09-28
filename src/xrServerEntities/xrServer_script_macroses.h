@@ -227,7 +227,7 @@ struct CWrapperAbstractItem : public T, public luabind::wrap_base
 
 #ifndef XRGAME_EXPORTS
 #define luabind_virtual_abstract(a, b)                 \
-    DEFINE_LUABIND_VIRTUAL_FUNCTION(a, b, FillProps)   \
+  /*  DEFINE_LUABIND_VIRTUAL_FUNCTION(a, b, FillProps)   \ */ \
     DEFINE_LUABIND_VIRTUAL_FUNCTION(a, b, STATE_Write) \
     DEFINE_LUABIND_VIRTUAL_FUNCTION(a, b, STATE_Read)  \
     DEFINE_LUABIND_VIRTUAL_FUNCTION(a, b, init)

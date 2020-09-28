@@ -102,8 +102,10 @@ void CHitMemoryManager::add(float amount, const Fvector& vLocalDir, const IGameO
         m_last_hit_time = Device.dwTimeGlobal;
     }
 
-    object().callback(GameObject::eHit)(m_object->lua_game_object(), amount, vLocalDir,
-        smart_cast<const CGameObject*>(who)->lua_game_object(), element);
+    // Lord - [Script] Re-write
+//     object().callback(GameObject::eHit)(m_object->lua_game_object(), amount, vLocalDir,
+//         smart_cast<const CGameObject*>(who)->lua_game_object(), element);
+    object().GetScriptBinderObject()->hit_callback(m_object->lua_game_object(), amount, vLocalDir, (smart_cast<const CGameObject*>(who))->lua_game_object(), element); // Lord: протестить находит ли скрипт биндер
 
     Fvector direction;
     m_object->XFORM().transform_dir(direction, vLocalDir);

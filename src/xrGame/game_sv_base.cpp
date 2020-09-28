@@ -416,6 +416,7 @@ void game_sv_GameState::Create(shared_str& options)
     if (!GEnv.isDedicatedServer)
     {
         // loading scripts
+/*
         auto& scriptEngine = *GEnv.ScriptEngine;
         scriptEngine.remove_script_process(ScriptProcessor::Game);
         string_path S;
@@ -432,7 +433,7 @@ void game_sv_GameState::Create(shared_str& options)
                 scripts = "";
             scriptEngine.add_script_process(ScriptProcessor::Game, scriptEngine.CreateScriptProcess("game", scripts));
         }
-        xr_delete(l_tpIniFile);
+        xr_delete(l_tpIniFile);*/
     }
 
     //---------------------------------------------------------------------
@@ -617,12 +618,13 @@ void game_sv_GameState::Update()
 
     if (!GEnv.isDedicatedServer)
     {
+/* Lord: имеет ли это значение?
         if (Level().game)
         {
             CScriptProcess* script_process = GEnv.ScriptEngine->script_process(ScriptProcessor::Game);
             if (script_process)
                 script_process->update();
-        }
+        }*/
     }
 }
 
@@ -645,8 +647,9 @@ game_sv_GameState::game_sv_GameState()
 
 game_sv_GameState::~game_sv_GameState()
 {
+/* Lord: удалить
     if (!GEnv.isDedicatedServer)
-        GEnv.ScriptEngine->remove_script_process(ScriptProcessor::Game);
+        GEnv.ScriptEngine->remove_script_process(ScriptProcessor::Game);*/
     xr_delete(m_event_queue);
 
     SaveMapList();

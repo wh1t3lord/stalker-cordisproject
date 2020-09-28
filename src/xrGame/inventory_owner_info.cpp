@@ -53,8 +53,7 @@ bool CInventoryOwner::OnReceiveInfo(shared_str info_id) const
         return false;
 
 #ifdef DEBUG
-    if (psAI_Flags.test(aiInfoPortion))
-        Msg("[%s] Received Info [%s]", Name(), *info_id);
+        MESSAGE("[%s] Received Info [%s]", Name(), *info_id);
 #endif
 
     return true;
@@ -81,8 +80,7 @@ void CInventoryOwner::OnDisableInfo(shared_str info_id) const
 //удалить запись из реестра
 
 #ifdef DEBUG
-    if (psAI_Flags.test(aiInfoPortion))
-        Msg("[%s] Disabled Info [%s]", Name(), info_id.c_str());
+        MESSAGE("[%s] Disabled Info [%s]", Name(), info_id.c_str());
 #endif
 
     KNOWN_INFO_VECTOR& known_info = m_known_info_registry->registry().objects();

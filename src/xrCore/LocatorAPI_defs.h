@@ -73,7 +73,7 @@ public:
     bool operator<(const FS_File& _X) const { return xr_strcmp(name.c_str(), _X.name.c_str()) < 0; }
 };
 using FS_FileSet = xr_set<FS_File>;
-
+using FS_FileSetIt = FS_FileSet::iterator;
 extern bool XRCORE_API PatternMatch(LPCSTR s, LPCSTR mask);
 
 #endif // LocatorAPI_defsH

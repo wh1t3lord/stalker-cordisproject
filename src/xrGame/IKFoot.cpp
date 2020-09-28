@@ -6,7 +6,7 @@
 #include "GameObject.h"
 
 #include "xrPhysics/MathUtils.h"
-#include "Include/xrRender/Kinematics.h"
+#include "Kinematics.h"
 #include "xrCore/Animation/Bone.hpp"
 #include "xrEngine/EnnumerateVertices.h"
 #include "Common/Noncopyable.hpp"

@@ -15,6 +15,7 @@
 #include "xrCore/xrstring.h"
 #pragma managed(pop)
 
+
 #ifdef DEBUG
 #define VERIFY(expression) \
     do                     \

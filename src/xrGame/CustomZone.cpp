@@ -13,7 +13,7 @@
 #include "xrEngine/xr_collide_form.h"
 #include "Artefact.h"
 #include "xrAICore/Navigation/ai_object_location.h"
-#include "Include/xrRender/Kinematics.h"
+#include "Kinematics.h"
 #include "zone_effector.h"
 #include "BreakableObject.h"
 #include "GamePersistent.h"
@@ -649,7 +649,7 @@ void CCustomZone::PlayIdleParticles(bool bIdleLight)
 {
     m_idle_sound.play_at_pos(0, Position(), true);
 
-    if (*m_sIdleParticles)
+    if (m_sIdleParticles.size())
     {
         if (!m_pIdleParticles)
         {

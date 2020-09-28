@@ -23,7 +23,7 @@ IC bool compare_safe(const luabind::object& o1, const luabind::object& o2)
 #else
 #define process_error
 #endif
-
+/*
 template <typename TResult>
 class CScriptCallbackEx
 {
@@ -206,3 +206,26 @@ void CScriptCallbackEx<void>::operator()(Args&&... args)
         const_cast<CScriptCallbackEx<void>*>(this)->clear();
     }
 }
+
+
+*/
+// template <typename TResult, typename ClassType, typename MemoryFunc>
+// class CScriptCallbackEx
+// {
+// private:
+//     using unspecified_bool_type = bool (CScriptCallbackEx::*)() const;
+// 
+// protected:
+//     MemoryFunc m_functor;
+//     ClassType* m_object;
+// 
+// public:
+//     CScriptCallbackEx() {}
+//     virtual ~CScriptCallbackEx() {}
+// 
+//     template<typename ...T>
+//     void operator()(T... args) 
+//     { 
+//         (this->m_object->*m_functor)(args...);
+//     }
+// };

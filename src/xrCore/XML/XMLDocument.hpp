@@ -1,7 +1,10 @@
 #pragma once
 #ifndef xrXMLParserH
 #define xrXMLParserH
-
+#include "Common/Common.hpp"
+#include "../_types.h"
+#include "xrCore/_types.h"
+#include "xrCore/xrCore.h"
 #include "tinyxml.h"
 
 #include "xrCommon/xr_vector.h"
@@ -15,11 +18,10 @@ XRCORE_API extern pcstr UI_PATH;
 XRCORE_API extern pcstr UI_PATH_WITH_DELIMITER;
 
 using XML_NODE = TiXmlNode*;
-using XML_DOC  = TiXmlDocument;
+using XML_DOC = TiXmlDocument;
 
 class XRCORE_API XMLDocument : public Noncopyable
 {
-
 public:
     string_path m_xml_file_name;
     XMLDocument();
@@ -47,18 +49,22 @@ public:
     float ReadFlt(XML_NODE node, float default_flt_val) const;
 
     pcstr ReadAttrib(pcstr path, const size_t index, pcstr attrib, pcstr default_str_val = "") const;
-    pcstr ReadAttrib(XML_NODE start_node, pcstr path, const size_t index, pcstr attrib, pcstr default_str_val = "") const;
+    pcstr ReadAttrib(
+        XML_NODE start_node, pcstr path, const size_t index, pcstr attrib, pcstr default_str_val = "") const;
     pcstr ReadAttrib(XML_NODE node, pcstr attrib, pcstr default_str_val) const;
 
     int ReadAttribInt(pcstr path, const size_t index, pcstr attrib, int default_int_val = 0) const;
-    int ReadAttribInt(XML_NODE start_node, pcstr path, const size_t index, pcstr attrib, const int default_int_val = 0) const;
+    int ReadAttribInt(
+        XML_NODE start_node, pcstr path, const size_t index, pcstr attrib, const int default_int_val = 0) const;
     int ReadAttribInt(XML_NODE node, pcstr attrib, const int default_int_val) const;
 
     float ReadAttribFlt(pcstr path, const size_t index, pcstr attrib, const float default_flt_val = 0.0f) const;
-    float ReadAttribFlt(XML_NODE start_node, pcstr path, const size_t index, pcstr attrib, const float default_flt_val = 0.0f) const;
+    float ReadAttribFlt(
+        XML_NODE start_node, pcstr path, const size_t index, pcstr attrib, const float default_flt_val = 0.0f) const;
     float ReadAttribFlt(XML_NODE node, pcstr attrib, const float default_flt_val = 0.0f) const;
 
-    XML_NODE SearchForAttribute(pcstr path, const size_t index, pcstr tag_name, pcstr attrib, pcstr attrib_value_pattern) const;
+    XML_NODE SearchForAttribute(
+        pcstr path, const size_t index, pcstr tag_name, pcstr attrib, pcstr attrib_value_pattern) const;
     XML_NODE SearchForAttribute(XML_NODE start_node, pcstr tag_name, pcstr attrib, pcstr attrib_value_pattern) const;
 
     //возвращает количество узлов с заданым именем
