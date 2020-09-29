@@ -4017,7 +4017,7 @@ Cordis::Scripts::Script_GlobalHelper::Script_GlobalHelper(void)
 
 #pragma region SmartTerrain Initializing
     this->m_game_server_nearest_to_actor_smart_terrain.first = 0;
-    this->m_game_server_nearest_to_actor_smart_terrain.second = 0.0f;
+    this->m_game_server_nearest_to_actor_smart_terrain.second = std::numeric_limits<float>::max();
     this->m_registered_smart_terrain_territory_type[Globals::kSmartTerrainTerritoryBase] = true;
     this->m_registered_smart_terrain_territory_type[Globals::kSmartTerrainTerritoryDefault] = true;
     this->m_registered_smart_terrain_territory_type[Globals::kSmartTerrainTerritoryResource] = true;

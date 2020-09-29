@@ -190,9 +190,14 @@ public:
         return true;
     }
 
-    inline xr_map<std::uint32_t, Cordis::Scripts::CondlistData>& getSimulationAvail(void) noexcept
+    inline const xr_map<std::uint32_t, Cordis::Scripts::CondlistData>& getSimulationAvail(void) const noexcept
     {
         return this->m_simulation_avail;
+    }
+
+    inline void setSimulationAvail(const xr_map<std::uint32_t, Cordis::Scripts::CondlistData>& data) noexcept
+    {
+        this->m_simulation_avail = data;
     }
     
     inline xr_map<xr_string, xr_string>& getProperties(void) noexcept 

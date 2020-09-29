@@ -101,6 +101,9 @@ bool Script_SE_Actor::IsSimulationAvailable(void)
         for (const std::pair<xr_string, xr_string>& it :
             Script_GlobalHelper::getInstance().getGameSmartsByAssaultZones())
         {
+            if (DataBase::Storage::getInstance().getZoneByName().find(it.first) == DataBase::Storage::getInstance().getZoneByName().end())
+                continue;
+
             CScriptGameObject* client_zone = DataBase::Storage::getInstance().getZoneByName().at(it.first);
 
             if (client_zone)

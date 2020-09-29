@@ -113,7 +113,7 @@ void Script_SimulationObjects::update_avaliability(CSE_ALifeDynamicObject* objec
 
     // Lord: ПЫС также туда могут передавать ai().alife().graph().actor();!!!!!
     // Lord: пока что временное решение но нужно подумать реально ли использовать DataBase или здесь всё таки только серверное используется (первый аргумент)?
-    if ((XR_LOGIC::pick_section_from_condlist(/*DataBase::Storage::getInstance().getActor()  */ai().alife().graph().actor(), object, object->getSimulationAvail()) == "true") &&
+    if ((XR_LOGIC::pick_section_from_condlist(ai().alife().graph().actor(), object, object->getSimulationAvail()) == "true") &&
         object->IsSimulationAvailable())
     {
         this->m_objects[object->ID] = object;
@@ -159,13 +159,13 @@ void Script_SimulationObjects::get_properties(CSE_ALifeDynamicObject* object)
         value = _v;
  
         if (section == "sim_avail")
-            object->getSimulationAvail() = XR_LOGIC::parse_condlist_by_server_object("simulation_object", "sim_avail", value);
+            object->setSimulationAvail(XR_LOGIC::parse_condlist_by_server_object("simulation_object", "sim_avail", value));
         else
             object->getProperties()[section] = value;
     }
 
 	if (object->getSimulationAvail().empty())
-		object->getSimulationAvail() = XR_LOGIC::parse_condlist_by_server_object("simulation_object", "sim_avail", "true");
+		object->setSimulationAvail(XR_LOGIC::parse_condlist_by_server_object("simulation_object", "sim_avail", "true"));
 }
 
 } // namespace Scripts
