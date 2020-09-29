@@ -257,7 +257,8 @@ Script_SE_SimulationSquad* Script_SimulationBoard::get_squad_target(Script_SE_Si
         return nullptr;
     }
 
-    for (const std::pair<std::uint16_t, CSE_ALifeDynamicObject*>& it : Script_SimulationObjects::getInstance().getObjects())
+    const auto& data = Script_SimulationObjects::getInstance().getObjects();
+    for (const std::pair<std::uint16_t, CSE_ALifeDynamicObject*>& it : data)
     {
         float current_prior = 0.0f;
 
