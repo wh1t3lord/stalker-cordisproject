@@ -126,7 +126,7 @@ void Script_SchemeXRWalker::set_scheme(CScriptGameObject* const p_client_object,
     
     if (!Globals::patrol_path_exists(path_walk_name.c_str()))
     {
-        Msg("[Scripts/Script_SchemeXRWalker/set_scheme(p_client_object, p_ini, scheme_name, section_name, gulag_name)] WARNING: can't find path_walk by name %s Return ...", path_walk_name.c_str());
+        MESSAGEW("can't find path_walk by name %s", path_walk_name.c_str());
         return;
     }
 
@@ -139,7 +139,7 @@ void Script_SchemeXRWalker::set_scheme(CScriptGameObject* const p_client_object,
 
     if (path_walk_name == path_look_name)
     {
-        Msg("[Scripts/Script_SchemeXRWalker/set_scheme(p_client_object, p_ini, scheme_name, section_name, gulag_name)] WARNING: your scheme doesn't have any paths! Return ...");
+        MESSAGEW("your scheme doesn't have any paths!");
         return;
     }
 
