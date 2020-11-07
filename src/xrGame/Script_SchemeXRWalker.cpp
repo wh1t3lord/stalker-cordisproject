@@ -118,10 +118,13 @@ void Script_SchemeXRWalker::set_scheme(CScriptGameObject* const p_client_object,
     DataBase::Script_ComponentScheme_XRWalker* const p_storage =
         XR_LOGIC::assign_storage_and_bind<DataBase::Script_ComponentScheme_XRWalker>(p_client_object, p_ini, scheme_name, section_name, gulag_name);
     
+    // TODO: здесь проверить на корректность создания, и убрать там в лямбде [&]
     p_storage->setLogic(XR_LOGIC::cfg_get_switch_conditions(p_ini, section_name, p_client_object));
+
     xr_string path_walk_name = Globals::Utils::cfg_get_string(p_ini, section_name, "path_walk");
     if (path_walk_name.empty())
         path_walk_name = gulag_name;
+
     p_storage->setPathWalkName(path_walk_name);
     
     if (!Globals::patrol_path_exists(path_walk_name.c_str()))
@@ -130,6 +133,7 @@ void Script_SchemeXRWalker::set_scheme(CScriptGameObject* const p_client_object,
         return;
     }
 
+    // TODO: проверить как в оригинале отбирает путь, наверное здесь и есть ошибка
     xr_string path_look_name = Globals::Utils::cfg_get_string(p_ini, section_name, "path_look");
 
     if (path_look_name.empty())
