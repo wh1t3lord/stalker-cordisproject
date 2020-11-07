@@ -16,6 +16,10 @@ bin*/
 !bindings/
 !sdk/Visual*Leak*Detector/*
 sdk/yoga*/*
+sdk/XRayEngine/
+sdk/glTF/
+sdk/glm/
+sdk/imgui/
 intermediate/
 intermediate_plugs/
 lib/
