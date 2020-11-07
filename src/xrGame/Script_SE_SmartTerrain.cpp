@@ -335,9 +335,12 @@ Script_SE_SmartTerrain::~Script_SE_SmartTerrain(void)
     {
         for (std::pair<const std::uint32_t, JobDataSmartTerrain*>& it : this->m_job_data)
         {
-            MESSAGEI("deleting JobDataSmartTerrain from this->m_job_data! %s",
-                it.second->m_job_id.first);
-            xr_delete(it.second);
+            if (it.second)
+            {
+				MESSAGEI("deleting JobDataSmartTerrain from this->m_job_data! %s",
+					it.second->m_job_id.first);
+				xr_delete(it.second);
+            }
         }
     }
 }
