@@ -29,13 +29,12 @@ inline xr_string cfg_get_string(CScriptIniFile* char_ini, const xr_string& secti
         (char_ini->section_exist(section.c_str()) && char_ini->line_exist(section.c_str(), field.c_str())))
     {
         xr_string result = "";
-        result.append(gulag_name);
-        result.append("_");
-        result.append(char_ini->r_string(section.c_str(), field.c_str()));
-        if (gulag_name.size())
+
+        if (gulag_name.empty() == false)
         {
-            if (result == "nil")
-                result.clear();
+			result.append(gulag_name);
+			result.append("_");
+			result.append(char_ini->r_string(section.c_str(), field.c_str()));
 
             return result;
         }
