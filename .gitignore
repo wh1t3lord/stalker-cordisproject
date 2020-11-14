@@ -20,6 +20,7 @@ sdk/XRayEngine/
 sdk/glTF/
 sdk/glm/
 sdk/imgui/
+sdk/mimalloc/
 intermediate/
 intermediate_plugs/
 lib/
