@@ -4,9 +4,21 @@ namespace Cordis
 {
 namespace Scripts
 {
-// @ Main interface for schemes
-// @ Супер класс
-// @ Добавлять методы сюда для последующих схем которые могут существовать!
+
+/// <summary>
+/// This class is main interface for implemeneting schemes 
+/// But we have two types of schemes: 
+///     Schemes for monsters 
+///     Schemes for stalkers
+/// 
+/// Schemes for stalkers must inherited class CActionBase 
+/// And new interface for it stands Script_ISchemeStalker
+/// Script_ISchemeMonster for monsters respectively 
+/// 
+/// But Script_ISchemeEntity you can use for something else and not for alive objects 
+/// 
+/// 
+/// </summary>
 class Script_ISchemeEntity
 {
 public:
