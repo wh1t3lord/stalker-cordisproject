@@ -2977,6 +2977,8 @@ struct Script_ComponentScheme_XRWalker : public Script_IComponentScheme
 		this->m_sound_idle_name.clear();
 		this->m_suggested_states.clear();
 		this->m_team_name.clear();
+        this->m_path_walk_info.clear();
+        this->m_path_look_info.clear();
         this->ClearApprovedActions();
 	}
 
@@ -2998,6 +3000,26 @@ struct Script_ComponentScheme_XRWalker : public Script_IComponentScheme
 		return this->m_approved_actions;
 	}
 
+    inline const CondlistWaypoints& getPathWalkInfo(void) const noexcept 
+    {
+        return this->m_path_walk_info;
+    }
+
+    inline void setPathWalkInfo(const CondlistWaypoints& data) noexcept
+    {
+        this->m_path_walk_info = data;
+    }
+
+    inline const CondlistWaypoints& getPathLookInfo(void) const noexcept
+    {
+        return this->m_path_look_info;
+    }
+
+    inline void setPathLookInfo(const CondlistWaypoints& data) noexcept
+    {
+        this->m_path_look_info = data;
+    }
+
 private:
 	bool m_is_use_camp;
 	xr_map<xr_string, xr_string> m_suggested_states;
@@ -3007,6 +3029,9 @@ private:
 	xr_string m_team_name;
 	xr_string m_sound_idle_name;
 	xr_string m_path_look_name;
+
+    CondlistWaypoints m_path_walk_info;
+    CondlistWaypoints m_path_look_info;
 };
 struct Script_ComponentScheme_XRRemark : public Script_IComponentScheme
 {

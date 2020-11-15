@@ -114,7 +114,27 @@ void Script_SchemeXRWalker::update(const float delta)
 
 void Script_SchemeXRWalker::reset_scheme(const bool value, CScriptGameObject* const p_client_object)
 {
-    
+    if (this->m_p_storage->getPathWalkInfo().getData().empty())
+    {
+        this->m_p_storage->setPathWalkInfo(Globals::Utils::path_parse_waypoints(this->m_p_storage->getPathWalkName()));
+    }
+
+    if (this->m_p_storage->getPathLookInfo().getData().empty())
+    {
+        this->m_p_storage->setPathLookInfo(Globals::Utils::path_parse_waypoints(this->m_p_storage->getPathLookName()));
+    }
+
+    Script_MoveManager* const p_move_manager = DataBase::Storage::getInstance().getStorage().at(this->m_object->ID()).getMoveManager();
+
+    p_move_manager->reset(
+        this->m_p_storage->getPathWalkName(),
+        this->m_p_storage->getPathWalkInfo(),
+        this->m_p_storage->getPathLookName(),
+        this->m_p_storage->getPathLookInfo(),
+        this->m_p_storage->getTeamName(),
+        this->m_p_storage->getSuggestedStates(), 
+        nullptr, 
+        false);
 }
 
 void Script_SchemeXRWalker::set_scheme(CScriptGameObject* const p_client_object, CScriptIniFile* const p_ini,
