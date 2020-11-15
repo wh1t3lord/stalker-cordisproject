@@ -30,12 +30,12 @@ public:
     Script_SchemeXRWalker(CScriptGameObject* const p_client_object, const xr_string& action_name, DataBase::Script_ComponentScheme_XRWalker* storage);
     ~Script_SchemeXRWalker(void);
 
-    virtual void initialize(void);
-    virtual void execute(void);
-    virtual void finalize(void);
+    void initialize(void) override;
+    void execute(void) override;
+    void finalize(void) override;
 
-    virtual void activate_scheme(const bool is_loading, CScriptGameObject* const p_client_object);
-    virtual void update(const float delta);
+    void activate_scheme(const bool is_loading, CScriptGameObject* const p_client_object) override;
+    void update(const float delta) override;
 
     static inline void add_to_binder(CScriptGameObject* const p_client_object, CScriptIniFile* const p_ini,
         const xr_string& scheme_name, const xr_string& section_name, DataBase::Script_IComponentScheme* storage)
