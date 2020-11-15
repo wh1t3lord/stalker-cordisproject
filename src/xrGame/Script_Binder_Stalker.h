@@ -33,6 +33,7 @@ public:
 		const Fvector& sound_position, const float sound_power) override;
 	virtual void use_callback(CScriptGameObject* p_client_object, CScriptGameObject* p_client_who);
 
+    bool extrapolate_callback(std::uint32_t point);
 private:
     bool m_is_loaded;
     bool m_is_first_update;

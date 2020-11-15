@@ -47,6 +47,9 @@ bool Script_Binder_Stalker::net_Spawn(SpawnType DC)
 
     DataBase::Storage::getInstance().addObject(this->m_object);
 
+    std::function<bool(std::uint32_t)> p_binded_function = std::bind(&Script_Binder_Stalker::extrapolate_callback, this, std::placeholders::_1);
+
+    this->m_object->set_patrol_extrapolate_callback(p_binded_function);
     this->m_object->apply_loophole_direction_distance(1.0f);
 
     if (this->m_is_loaded == false)
@@ -227,6 +230,8 @@ void Script_Binder_Stalker::net_Destroy(void)
         DataBase::Storage::getInstance().setOfflineObjects(this->m_object->ID(), storage.getActiveSectionName());
         DataBase::Storage::getInstance().setOfflineObjects(this->m_object->ID(), this->m_object->level_vertex_id());
     }
+
+    this->m_object->set_patrol_extrapolate_callback(static_cast<std::function<bool(std::uint32_t)>>(nullptr));
 
     if (this->m_enemy_helicopter_id)
     {
@@ -466,6 +471,20 @@ void Script_Binder_Stalker::hear_callback(CScriptGameObject* p_client_object, co
 
 void Script_Binder_Stalker::use_callback(CScriptGameObject* p_client_object, CScriptGameObject* p_client_who)
 {
+}
+bool Script_Binder_Stalker::extrapolate_callback(std::uint32_t point)
+{
+
+    const DataBase::Storage_Data& storage = DataBase::Storage::getInstance().getStorage().at(this->m_object->ID());
+    if (storage.getActiveSectionName().empty() == false)
+    {
+        storage.getMoveManager()->extrapolate_callback(this->m_object);
+    }
+
+    if (CPatrolPathParams(this->m_object->GetPatrolPathName()).flags(point).get() == 0)
+        return true;
+
+    return false;
 }
 } // namespace Scripts
 } // namespace Cordis

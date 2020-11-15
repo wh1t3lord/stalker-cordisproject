@@ -449,6 +449,13 @@ public:
     void set_patrol_extrapolate_callback(const luabind::functor<bool>& functor);
     void set_patrol_extrapolate_callback(const luabind::functor<bool>& functor, const luabind::adl::object& object);
     void set_patrol_extrapolate_callback();
+    
+    /// <summary>
+    /// You need to bind the function from your client class like this 
+    /// std::bind(&Script_Binder_Stalker::your_method, this, std::placeholders::_1); 
+    /// </summary>
+    /// <param name="p_callback"></param>
+    void set_patrol_extrapolate_callback(std::function<bool(std::uint32_t)> p_callback);
 
     void set_enemy_callback(const luabind::functor<bool>& functor);
     void set_enemy_callback(const luabind::functor<bool>& functor, const luabind::adl::object& object);

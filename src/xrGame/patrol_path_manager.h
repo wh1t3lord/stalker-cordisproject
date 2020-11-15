@@ -42,6 +42,7 @@ private:
     u32 m_start_point_index;
     Fvector m_dest_position;
    // CExtrapolateCallback m_extrapolate_callback;
+    std::function<bool(std::uint32_t)> m_p_extrapolate_callback;
     CRestrictedObject* m_object;
     CGameObject* m_game_object;
 
@@ -55,7 +56,12 @@ public:
     IC CPatrolPathManager(CRestrictedObject* object, CGameObject* game_object);
     virtual ~CPatrolPathManager();
     virtual void reinit();
+
     IC CExtrapolateCallback& extrapolate_callback();
+
+    inline std::function<bool(std::uint32_t)> getExtrapolateCallback() { return this->m_p_extrapolate_callback; }
+    inline void setExtrapolateCallback(std::function<bool(std::uint32_t)> p_function) { this->m_p_extrapolate_callback = p_function; }
+
     IC void make_inactual();
     IC const CPatrolPath* get_path() const;
     IC void set_path(const CPatrolPath* path, shared_str path_name);
