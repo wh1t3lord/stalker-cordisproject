@@ -36,6 +36,8 @@ public:
 
     void activate_scheme(const bool is_loading, CScriptGameObject* const p_client_object) override;
     void update(const float delta) override;
+    void reset_scheme(const bool value, CScriptGameObject* const p_client_object) override;
+
 
     static inline void add_to_binder(CScriptGameObject* const p_client_object, CScriptIniFile* const p_ini,
         const xr_string& scheme_name, const xr_string& section_name, DataBase::Script_IComponentScheme* storage)

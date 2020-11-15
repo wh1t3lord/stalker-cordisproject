@@ -112,6 +112,11 @@ void Script_SchemeXRWalker::update(const float delta)
     Globals::set_state(this->m_object, animation_name, StateManagerCallbackData(), 0, std::pair<Fvector, CScriptGameObject* const>(Fvector(), nullptr), StateManagerExtraData());
 }
 
+void Script_SchemeXRWalker::reset_scheme(const bool value, CScriptGameObject* const p_client_object)
+{
+    
+}
+
 void Script_SchemeXRWalker::set_scheme(CScriptGameObject* const p_client_object, CScriptIniFile* const p_ini,
     const xr_string& scheme_name, const xr_string& section_name, const xr_string& gulag_name)
 {
