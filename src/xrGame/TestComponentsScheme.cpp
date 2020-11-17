@@ -299,9 +299,15 @@ GTEST_TEST(CurrentTest, Test_ClearMethodCorrectness_PHIdle) {
 GTEST_TEST(CurrentTest, Test_ClearMethodCorrectness_PHHit) {
 	Script_ComponentScheme_PHHit instance;
 
- 
+	instance.setImpulse(10.0f);
+	instance.setPower(10.0f);
+	instance.setBoneName("test");
+	instance.setDirectionPathName("test2");
 
 	instance.clear();
 
- 
+	EXPECT_TRUE(fis_zero(instance.getImpulse()));
+	EXPECT_TRUE(fis_zero(instance.getPower()));
+	EXPECT_TRUE(instance.getBoneName().empty());
+	EXPECT_TRUE(instance.getDirectionPathName().empty());
 }
