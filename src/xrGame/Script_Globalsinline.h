@@ -3719,6 +3719,14 @@ inline void load_info(CScriptGameObject* const p_client_object, CScriptIniFile* 
     }
 }
 
+DataBase::Storage_Data* getStorage(std::uint16_t npc_id)
+{
+    if (DataBase::Storage::getInstance().getStorage().find(npc_id) == DataBase::Storage::getInstance().getStorage().end())
+        return static_cast<DataBase::Storage_Data*>(nullptr);
+
+    return static_cast<DataBase::Storage_Data*>(&(const_cast<DataBase::Storage_Data&>(DataBase::Storage::getInstance().getStorage().at(npc_id))));
+}
+
 } // namespace Globals
 } // namespace Scripts
 } // namespace Cordis

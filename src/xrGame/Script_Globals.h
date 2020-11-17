@@ -353,6 +353,13 @@ inline void setup_gulag_and_logic_on_spawn(CScriptGameObject* const p_client_obj
 inline void load_info(CScriptGameObject* const p_client_object, CScriptIniFile* const p_ini);
 #pragma endregion
 
+/// <summary>
+/// Method for getting NPC DataBase's storage_data 
+/// </summary>
+/// <param name="npc_id">NPC id for getting storage_data must be valid and valid by type std::uint16_t</param>
+/// <returns>nullptr if we can't obtain npc_id and storage_data's pointer if npc_id valid and storage_data exists by npc_id</returns>
+inline DataBase::Storage_Data* getStorage(std::uint16_t npc_id);
+
 } // namespace Globals
 } // namespace Scripts
 } // namespace Cordis

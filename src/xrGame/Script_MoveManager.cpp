@@ -108,7 +108,7 @@ void Script_MoveManager::setup_movement_by_patrol_path(void)
 
     if (is_terminal)
     {
-        Msg("[Scripts/Script_MoveManager/setup_movement_by_patrol_path(void)] terminal waypoint! %s",
+        MESSAGE("terminal waypoint! %s",
             this->m_p_client_object->Name());
         this->waypoint_callback(this->m_p_client_object, 0, index);
     }
@@ -315,7 +315,9 @@ void Script_MoveManager::turn_end_callback(void)
 void Script_MoveManager::waypoint_callback(
     CScriptGameObject* p_client_object, const std::uint32_t action_type_movement, const std::uint32_t point_index)
 {
-    if (!point_index || point_index == Globals::kUnsignedInt32Undefined)
+
+    // TODO: специально затёр проверка ну !point_index нужно протестировать и понять что если 0 то это действительное состояние
+    if (point_index == Globals::kUnsignedInt32Undefined)
         return;
 
     this->m_last_index = point_index;

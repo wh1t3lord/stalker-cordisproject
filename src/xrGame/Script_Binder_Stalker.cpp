@@ -453,8 +453,17 @@ bool Script_Binder_Stalker::net_SaveRelevant(void) { return true; }
 
 void Script_Binder_Stalker::net_Relcase(CScriptGameObject* object) {}
 
-void Script_Binder_Stalker::waypoint_callback(CScriptGameObject* p_client_object, const std::uint32_t action_type_movement, const std::uint32_t point_index)
+void Script_Binder_Stalker::waypoint_callback(CScriptGameObject* p_client_object,
+    const std::uint32_t action_type_movement, const std::uint32_t point_index)
 {
+    DataBase::Storage_Data* p_storage = Globals::getStorage(this->m_object->ID());
+    if (p_storage == nullptr)
+    {
+        MESSAGEWR("Can't obtain storage by id: %d", this->m_object->ID());
+        return;
+    }
+
+    p_storage->getMoveManager()->waypoint_callback(p_client_object, action_type_movement, point_index);
 }
 
 void Script_Binder_Stalker::hit_callback(CScriptGameObject* p_client_object, const float amount, const Fvector& local_direction, CScriptGameObject* p_client_who, const std::int16_t bone_index)
