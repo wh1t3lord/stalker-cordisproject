@@ -171,3 +171,24 @@ GTEST_TEST(CurrentTest, Test_ClearMethodCorrectness_SRPsyAntenna) {
 	EXPECT_TRUE(instance.getHitTypeName().empty());
 	EXPECT_TRUE(instance.getPostProcessName().empty());
 }
+
+/// <summary>
+/// Here we test Script_ComponentScheme_SRTeleport clear method
+/// </summary>
+/// <param name=""></param>
+/// <param name=""></param>
+GTEST_TEST(CurrentTest, Test_ClearMethodCorrectness_SRTeleport) {
+	Script_ComponentScheme_SRTeleport instance;
+
+	instance.setTimeout(1402);
+
+
+	xr_vector<std::pair<std::uint32_t, std::pair<xr_string, xr_string>>> data;
+	data.push_back(std::pair<std::uint32_t, std::pair<xr_string, xr_string>>());
+	instance.setPoints(data);
+
+	instance.clear();
+
+	EXPECT_TRUE(instance.getTimeout() == 0);
+	EXPECT_TRUE(instance.getPoints().empty());
+}
