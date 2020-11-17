@@ -311,3 +311,52 @@ GTEST_TEST(CurrentTest, Test_ClearMethodCorrectness_PHHit) {
 	EXPECT_TRUE(instance.getBoneName().empty());
 	EXPECT_TRUE(instance.getDirectionPathName().empty());
 }
+
+/// <summary>
+/// Here we test Script_ComponentScheme_PHDoor clear method
+/// </summary>
+/// <param name=""></param>
+/// <param name=""></param>
+GTEST_TEST(CurrentTest, Test_ClearMethodCorrectness_PHDoor) {
+	Script_ComponentScheme_PHDoor instance;
+	
+	instance.setClosed(true);
+	instance.setLocked(true);
+	instance.setNoForce(true);
+	instance.setNotForNpc(true);
+	instance.setShowTips(true);
+	instance.setTipOpenName("test");
+	instance.setTipUnlockName("test2");
+	instance.setTipCloseName("test3");
+	instance.setSlider(true);
+	instance.setSoundCloseStartName("test4");
+	instance.setSoundCloseStopName("test5");
+	instance.setSoundOpenStartName("test6");
+	instance.setScriptUsedMoreThanOnce(true);
+	
+	xr_map<std::uint32_t, CondlistData> data;
+	data[0];
+
+	instance.setOnUseCondlist(data);
+
+	xr_map<std::uint32_t, xr_map<std::uint32_t, CondlistData>> data2;
+	data2[0];
+
+	instance.setHitOnBone(data2);
+
+	instance.clear();
+
+	EXPECT_FALSE(instance.IsSlider());
+	EXPECT_FALSE(instance.IsShowTips());
+	EXPECT_FALSE(instance.IsScriptUsedMoreThanOnce());
+	EXPECT_FALSE(instance.IsNoForce());
+	EXPECT_FALSE(instance.IsNotForNpc());
+	EXPECT_FALSE(instance.IsLocked());
+	EXPECT_FALSE(instance.IsClosed());
+	EXPECT_TRUE(instance.getTipCloseName().empty());
+	EXPECT_TRUE(instance.getTipOpenName().empty());
+	EXPECT_TRUE(instance.getTipUnlockName().empty());
+	EXPECT_TRUE(instance.getSoundCloseStartName().empty());
+	EXPECT_TRUE(instance.getSoundOpenStartName().empty());
+	EXPECT_TRUE(instance.getSoundCloseStopName().empty());
+}
