@@ -139,3 +139,35 @@ GTEST_TEST(CurrentTest, Test_ClearMethodCorrectness_SRPostProcess) {
 	EXPECT_TRUE(fis_zero(instance.getIntensitySpeed()));
 	EXPECT_TRUE(fis_zero(instance.getHitIntensity()));
 }
+
+/// <summary>
+/// Here we test Script_ComponentScheme_SRPsyAntenna clear method
+/// </summary>
+/// <param name=""></param>
+/// <param name=""></param>
+GTEST_TEST(CurrentTest, Test_ClearMethodCorrectness_SRPsyAntenna) {
+	Script_ComponentScheme_SRPsyAntenna instance;
+
+	float _max_float = std::numeric_limits<float>::max();
+	instance.setIntensity(_max_float);
+	instance.setPhantomProbability(_max_float);
+	instance.setHitIntensity(_max_float);
+	instance.setMuteSoundThreshold(_max_float);
+	instance.setHitFrequency(_max_float);
+	instance.setNoStatic(true);
+	instance.setNoMumble(true);
+	instance.setHitTypeName("test");
+	instance.setPostProcessName("process");
+
+	instance.clear();
+
+	EXPECT_TRUE(fis_zero(instance.getIntensity()));
+	EXPECT_TRUE(fis_zero(instance.getPhantomProbability()));
+	EXPECT_TRUE(fis_zero(instance.getMuteSoundThreshold()));
+	EXPECT_TRUE(fis_zero(instance.getHitFrequency()));
+	EXPECT_TRUE(fis_zero(instance.getHitIntensity()));
+	EXPECT_FALSE(instance.IsNoStatic());
+	EXPECT_FALSE(instance.IsNoMumble());
+	EXPECT_TRUE(instance.getHitTypeName().empty());
+	EXPECT_TRUE(instance.getPostProcessName().empty());
+}
