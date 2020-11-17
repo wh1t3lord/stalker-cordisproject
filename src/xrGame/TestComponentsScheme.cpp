@@ -192,3 +192,28 @@ GTEST_TEST(CurrentTest, Test_ClearMethodCorrectness_SRTeleport) {
 	EXPECT_TRUE(instance.getTimeout() == 0);
 	EXPECT_TRUE(instance.getPoints().empty());
 }
+
+/// <summary>
+/// Here we test Script_ComponentScheme_SRTimer clear method
+/// </summary>
+/// <param name=""></param>
+/// <param name=""></param>
+GTEST_TEST(CurrentTest, Test_ClearMethodCorrectness_SRTimer) {
+	Script_ComponentScheme_SRTimer instance;
+
+	instance.setTypeName("type");
+	instance.setTimerIDName("test");
+	instance.setStringName("test2");
+	instance.setStartValue(120);
+	xr_map<std::uint32_t, xr_map<std::uint32_t, CondlistData>> data;
+	data[0];
+	instance.setOnValue(data);
+
+	instance.clear();
+
+	EXPECT_TRUE(instance.getTypeName().empty());
+	EXPECT_TRUE(instance.getTimerIDName().empty());
+	EXPECT_TRUE(instance.getStringName().empty());
+	EXPECT_TRUE(instance.getStartValue() == 0);
+	EXPECT_TRUE(instance.getOnValue().empty());
+}

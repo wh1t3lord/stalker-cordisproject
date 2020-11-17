@@ -3888,6 +3888,7 @@ struct Script_ComponentScheme_SRTimer : public Script_IComponentScheme
 		this->m_sr_timer_string_name.clear();
 		this->m_sr_timer_timer_id_name.clear();
 		this->m_sr_timer_type_name.clear();
+        this->m_sr_timer_on_value.clear();
 	}
 
 private:
