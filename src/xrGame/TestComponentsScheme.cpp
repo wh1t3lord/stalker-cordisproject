@@ -360,3 +360,54 @@ GTEST_TEST(CurrentTest, Test_ClearMethodCorrectness_PHDoor) {
 	EXPECT_TRUE(instance.getSoundOpenStartName().empty());
 	EXPECT_TRUE(instance.getSoundCloseStopName().empty());
 }
+
+/// <summary>
+/// Here we test Script_ComponentScheme_PHCode clear method
+/// </summary>
+/// <param name=""></param>
+/// <param name=""></param>
+GTEST_TEST(CurrentTest, Test_ClearMethodCorrectness_PHCode) {
+	Script_ComponentScheme_PHCode instance;
+	instance.setTipName("test");
+	instance.setCode(150);
+	xr_map<std::uint32_t, CondlistData> data;
+	data[0];
+	instance.setOnCodeCondlist(data);
+
+	xr_map<xr_string, xr_map<std::uint32_t, CondlistData>> data1;
+	data1["test2"];
+	instance.setOnCheckCode(data1);
+
+	instance.clear();
+	
+	EXPECT_TRUE(instance.getTipName().empty());
+	EXPECT_TRUE(instance.getCode() == 0);
+	EXPECT_TRUE(instance.getOnCodeCondlist().empty());
+	EXPECT_TRUE(instance.getOnCheckCode().empty());
+}
+
+/// <summary>
+/// Here we test Script_ComponentScheme_PHForce clear method
+/// </summary>
+/// <param name=""></param>
+/// <param name=""></param>
+GTEST_TEST(CurrentTest, Test_ClearMethodCorrectness_PHForce) {
+	Script_ComponentScheme_PHForce instance;
+ 
+	instance.setForce(150.0f);
+	instance.setTime(10);
+	instance.setDelay(10);
+	Fvector point;
+
+	point.x = 1.0f; 
+	point.y = 1.0f;
+	point.z = 1.0f;
+
+	instance.setPoint(point);
+	instance.clear();
+
+	EXPECT_TRUE(Globals::is_vector_nil(instance.getPoint()));
+	EXPECT_TRUE(instance.getDelay() == 0);
+	EXPECT_TRUE(instance.getTime() == 0);
+	EXPECT_TRUE(fis_zero(instance.getForce()));
+}
