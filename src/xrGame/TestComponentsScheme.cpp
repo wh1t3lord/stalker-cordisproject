@@ -217,3 +217,43 @@ GTEST_TEST(CurrentTest, Test_ClearMethodCorrectness_SRTimer) {
 	EXPECT_TRUE(instance.getStartValue() == 0);
 	EXPECT_TRUE(instance.getOnValue().empty());
 }
+
+/// <summary>
+/// Here we test Script_ComponentScheme_PHSound clear method
+/// </summary>
+/// <param name=""></param>
+/// <param name=""></param>
+GTEST_TEST(CurrentTest, Test_ClearMethodCorrectness_PHSound) {
+	Script_ComponentScheme_PHSound instance;
+ 
+	instance.setPauseMax(150);
+	instance.setPauseMin(100);
+	instance.setThemeName("test");
+	instance.setNoHit(true);
+	instance.setRandom(true);
+	instance.setLooped(true);
+
+	instance.clear();
+
+	EXPECT_FALSE(instance.IsLooped());
+	EXPECT_FALSE(instance.IsRandom());
+	EXPECT_FALSE(instance.IsNoHit());
+	EXPECT_TRUE(instance.getPauseMax() == 0);
+	EXPECT_TRUE(instance.getPauseMin() == 0);
+	EXPECT_TRUE(instance.getThemeName().empty());
+}
+
+/// <summary>
+/// Here we test Script_ComponentScheme_PHOscillate clear method
+/// </summary>
+/// <param name=""></param>
+/// <param name=""></param>
+GTEST_TEST(CurrentTest, Test_ClearMethodCorrectness_PHOscillate) {
+	Script_ComponentScheme_PHOscillate instance;
+
+ 
+
+	instance.clear();
+
+ 
+}
