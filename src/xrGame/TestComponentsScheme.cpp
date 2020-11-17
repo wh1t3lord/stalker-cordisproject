@@ -251,6 +251,54 @@ GTEST_TEST(CurrentTest, Test_ClearMethodCorrectness_PHSound) {
 GTEST_TEST(CurrentTest, Test_ClearMethodCorrectness_PHOscillate) {
 	Script_ComponentScheme_PHOscillate instance;
 
+	instance.setJointName("test");
+	instance.setPeriod(150);
+	instance.setAngle(150.0f);
+	instance.setForce(1000.0f);
+
+	instance.clear();
+
+	EXPECT_TRUE(fis_zero(instance.getForce()));
+	EXPECT_TRUE(fis_zero(instance.getAngle()));
+	EXPECT_TRUE(instance.getPeriod() == 0);
+	EXPECT_TRUE(instance.getJointName().empty());
+}
+
+/// <summary>
+/// Here we test Script_ComponentScheme_PHIdle clear method
+/// </summary>
+/// <param name=""></param>
+/// <param name=""></param>
+GTEST_TEST(CurrentTest, Test_ClearMethodCorrectness_PHIdle) {
+	Script_ComponentScheme_PHIdle instance;
+
+	instance.setNonScriptUsable(true);
+	instance.setTipName("test");
+
+	xr_map<std::uint32_t, CondlistData> data;
+	data[0];
+	instance.setOnUseCondlist(data);
+
+	xr_map<std::uint32_t, xr_map<std::uint32_t, CondlistData>> data2;
+	data2[0];
+	instance.setHitOnBone(data2);
+
+	instance.clear();
+
+	EXPECT_TRUE(instance.getTipName().empty());
+	EXPECT_FALSE(instance.IsNonScriptUsable());
+	EXPECT_TRUE(instance.getOnUseCondlist().empty());
+	EXPECT_TRUE(instance.getHitOnBone().empty());
+}
+
+/// <summary>
+/// Here we test Script_ComponentScheme_PHHit clear method
+/// </summary>
+/// <param name=""></param>
+/// <param name=""></param>
+GTEST_TEST(CurrentTest, Test_ClearMethodCorrectness_PHHit) {
+	Script_ComponentScheme_PHHit instance;
+
  
 
 	instance.clear();
