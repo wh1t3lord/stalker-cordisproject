@@ -540,8 +540,7 @@ void Script_MoveManager::reset(const xr_string& path_walk_name, const CondlistWa
         this->m_path_walk_name = path_walk_name;
         if (this->m_p_patrol_walk)
         {
-            Msg("[Scripts/Script_MoveManager/reset(path_walk_name, path_walk_info, path_look_name, path_look_info, "
-                "team_name, suggested_state, move_callback_info, is_no_validation)] deleting this->m_p_patrol_walk %s",
+            MESSAGEI("deleting this->m_p_patrol_walk %s",
                 this->m_p_patrol_walk->m_path_name);
             xr_delete(this->m_p_patrol_walk);
         }
@@ -561,8 +560,7 @@ void Script_MoveManager::reset(const xr_string& path_walk_name, const CondlistWa
 
         if (this->m_p_patrol_look)
         {
-            Msg("[Scripts/Script_MoveManager/reset(path_walk_name, path_walk_info, path_look_name, path_look_info, "
-                "team_name, suggested_state, move_callback_info, is_no_validation)] deleting this->m_p_patrol_look %s",
+            MESSAGEI("deleting this->m_p_patrol_look %s",
                 this->m_p_patrol_look->m_path_name);
             xr_delete(this->m_p_patrol_look);
         }

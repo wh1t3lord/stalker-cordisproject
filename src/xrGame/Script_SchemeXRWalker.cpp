@@ -171,9 +171,23 @@ void Script_SchemeXRWalker::set_scheme(CScriptGameObject* const p_client_object,
     p_storage->setSoundIdleName(Globals::Utils::cfg_get_string(p_ini, section_name, "sound_idle"));
     p_storage->setUseCamp(Globals::Utils::cfg_get_bool(p_ini, section_name, "use_camp"));
 
-    p_storage->setSuggestedStates("standing", Globals::Utils::cfg_get_string(p_ini, section_name, "def_state_standing"));
-    p_storage->setSuggestedStates("moving", Globals::Utils::cfg_get_string(p_ini, section_name, "def_state_moving1"));
-    p_storage->setSuggestedStates("moving", Globals::Utils::cfg_get_string(p_ini, section_name, "def_state_moving"));
+    xr_string state_name = Globals::Utils::cfg_get_string(p_ini, section_name, "def_state_standing");
+    if (state_name.empty() == false)
+    {
+        p_storage->setSuggestedStates("standing", state_name);
+    }
+
+    state_name = Globals::Utils::cfg_get_string(p_ini, section_name, "def_state_moving1");
+    if (state_name.empty() == false)
+    {
+        p_storage->setSuggestedStates("moving", state_name);
+    }
+
+    state_name = Globals::Utils::cfg_get_string(p_ini, section_name, "def_state_moving");
+    if (state_name.empty() == false)
+    {
+        p_storage->setSuggestedStates("moving", state_name);
+    }
 }
 
 } // namespace Scripts
