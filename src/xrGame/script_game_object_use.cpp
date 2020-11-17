@@ -129,6 +129,23 @@ ALife::ERelationType CScriptGameObject::GetRelationType(CScriptGameObject* who)
 template <typename T>
 IC T* CScriptGameObject::action_planner()*/
 
+void CScriptGameObject::set_patrol_extrapolate_callback(std::function<bool(std::uint32_t)> p_callback)
+{
+	CCustomMonster* p_monster = smart_cast<CCustomMonster*>(&object());
+	if (!p_monster)
+	{
+		MESSAGEWR("CCustomMonster : cannot access class member set_patrol_extrapolate_callback!");
+		return;
+	}
+
+    if (p_callback == nullptr)
+    {
+        MESSAGEI("You turned off extrapolate callback!");
+    }
+
+    p_monster->movement().patrol().setExtrapolateCallback(p_callback);
+}
+
 void CScriptGameObject::set_enemy_callback(const luabind::functor<bool>& functor)
 {
     CCustomMonster* monster = smart_cast<CCustomMonster*>(&object());

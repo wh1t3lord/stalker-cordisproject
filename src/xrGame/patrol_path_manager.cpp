@@ -60,7 +60,11 @@ bool CPatrolPathManager::extrapolate_path()
 //         return (true);
 // 
 //     return (m_extrapolate_callback(m_curr_point_index));
-    return false;
+    
+    if (!this->m_p_extrapolate_callback)
+        return true;
+
+    return (this->m_p_extrapolate_callback(this->m_curr_point_index));
 }
 
 void CPatrolPathManager::reinit()
@@ -70,6 +74,7 @@ void CPatrolPathManager::reinit()
     m_failed = false;
     m_completed = true;
     //m_extrapolate_callback.clear();
+    this->m_p_extrapolate_callback = nullptr;
 
     reset();
 }

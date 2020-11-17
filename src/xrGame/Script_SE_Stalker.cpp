@@ -148,7 +148,7 @@ void Script_SE_Stalker::on_death(CSE_Abstract* killer)
         if (smart_terrain_id != Globals::kUnsignedInt16Undefined)
         {
             Msg("[Scripts/Script_SE_Stalker/on_death(killer)] Clear dead object %s", this->name_replace());
-            ai().alife().objects().object(this->ID)->cast_script_se_smartterrain()->clear_dead(this);
+            ai().alife().objects().object(smart_terrain_id)->cast_script_se_smartterrain()->clear_dead(this);
         }
     }
 

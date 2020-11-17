@@ -112,6 +112,31 @@ void Script_SchemeXRWalker::update(const float delta)
     Globals::set_state(this->m_object, animation_name, StateManagerCallbackData(), 0, std::pair<Fvector, CScriptGameObject* const>(Fvector(), nullptr), StateManagerExtraData());
 }
 
+void Script_SchemeXRWalker::reset_scheme(const bool value, CScriptGameObject* const p_client_object)
+{
+    if (this->m_p_storage->getPathWalkInfo().getData().empty())
+    {
+        this->m_p_storage->setPathWalkInfo(Globals::Utils::path_parse_waypoints(this->m_p_storage->getPathWalkName()));
+    }
+
+    if (this->m_p_storage->getPathLookInfo().getData().empty())
+    {
+        this->m_p_storage->setPathLookInfo(Globals::Utils::path_parse_waypoints(this->m_p_storage->getPathLookName()));
+    }
+
+    Script_MoveManager* const p_move_manager = DataBase::Storage::getInstance().getStorage().at(this->m_object->ID()).getMoveManager();
+
+    p_move_manager->reset(
+        this->m_p_storage->getPathWalkName(),
+        this->m_p_storage->getPathWalkInfo(),
+        this->m_p_storage->getPathLookName(),
+        this->m_p_storage->getPathLookInfo(),
+        this->m_p_storage->getTeamName(),
+        this->m_p_storage->getSuggestedStates(), 
+        nullptr, 
+        false);
+}
+
 void Script_SchemeXRWalker::set_scheme(CScriptGameObject* const p_client_object, CScriptIniFile* const p_ini,
     const xr_string& scheme_name, const xr_string& section_name, const xr_string& gulag_name)
 {
@@ -119,34 +144,28 @@ void Script_SchemeXRWalker::set_scheme(CScriptGameObject* const p_client_object,
         XR_LOGIC::assign_storage_and_bind<DataBase::Script_ComponentScheme_XRWalker>(p_client_object, p_ini, scheme_name, section_name, gulag_name);
     
     p_storage->setLogic(XR_LOGIC::cfg_get_switch_conditions(p_ini, section_name, p_client_object));
-    xr_string path_walk_name = Globals::Utils::cfg_get_string(p_ini, section_name, "path_walk");
-    if (path_walk_name.empty())
-        path_walk_name = gulag_name;
+
+    xr_string path_walk_name = Globals::Utils::cfg_get_string(p_ini, section_name, "path_walk", false, gulag_name);
+
+	if (!Globals::patrol_path_exists(path_walk_name.c_str()))
+	{
+		MESSAGEW("can't find path_walk by name %s", path_walk_name.c_str());
+		return;
+	}
+
     p_storage->setPathWalkName(path_walk_name);
-    
-    if (!Globals::patrol_path_exists(path_walk_name.c_str()))
-    {
-        Msg("[Scripts/Script_SchemeXRWalker/set_scheme(p_client_object, p_ini, scheme_name, section_name, gulag_name)] WARNING: can't find path_walk by name %s Return ...", path_walk_name.c_str());
-        return;
-    }
 
-    xr_string path_look_name = Globals::Utils::cfg_get_string(p_ini, section_name, "path_look");
-
-    if (path_look_name.empty())
-        path_look_name = gulag_name;
+    xr_string path_look_name = Globals::Utils::cfg_get_string(p_ini, section_name, "path_look", false, gulag_name);
 
     p_storage->setPathLookName(path_look_name);
 
     if (path_walk_name == path_look_name)
     {
-        Msg("[Scripts/Script_SchemeXRWalker/set_scheme(p_client_object, p_ini, scheme_name, section_name, gulag_name)] WARNING: your scheme doesn't have any paths! Return ...");
+        MESSAGEW("your scheme doesn't have any paths!");
         return;
     }
 
-    xr_string team_name = Globals::Utils::cfg_get_string(p_ini, section_name, "team");
-
-    if (team_name.empty())
-        team_name = gulag_name;
+    xr_string team_name = Globals::Utils::cfg_get_string(p_ini, section_name, "team", false, gulag_name);
 
     p_storage->setTeamName(team_name);
     p_storage->setSoundIdleName(Globals::Utils::cfg_get_string(p_ini, section_name, "sound_idle"));

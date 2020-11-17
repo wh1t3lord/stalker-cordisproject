@@ -30,7 +30,7 @@ public:
     void reset(const xr_string& path_walk_name, const CondlistWaypoints& path_walk_info,
         const xr_string& path_look_name, const CondlistWaypoints& path_look_info, const xr_string& team_name,
         const xr_map<xr_string, xr_string>& suggested_state,
-        std::function<bool(std::uint32_t, std::uint32_t)>& move_callback_info, const bool is_no_validation);
+        std::function<bool(std::uint32_t, std::uint32_t)> move_callback_info, const bool is_no_validation);
     
     inline bool is_at_terminal_waypoint(void) const noexcept { return this->m_is_at_terminal_waypoint; }
 

@@ -16,6 +16,11 @@ bin*/
 !bindings/
 !sdk/Visual*Leak*Detector/*
 sdk/yoga*/*
+sdk/XRayEngine/
+sdk/glTF/
+sdk/glm/
+sdk/imgui/
+sdk/mimalloc/
 intermediate/
 intermediate_plugs/
 lib/
@@ -33,7 +38,7 @@ CMakeFiles/
 *.so
 *.a
 *.o
-
+*.cache
 # exclude doxygen output
 doc/doxygen/html/*
 sdk/LuaJIT-proj/*.obj

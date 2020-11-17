@@ -2485,6 +2485,8 @@ inline xr_vector<LogicData> cfg_get_switch_conditions(
     }
 
     std::uint32_t line_count = p_ini->line_count(section_name.c_str());
+    
+    // TODO: подумать и чуть изменить модификатор
     auto add_condition = [&](std::function<LogicData(
                                  CScriptIniFile* const, const xr_string&, const xr_string&, CScriptGameObject* const)>
                                  function,
