@@ -334,7 +334,7 @@ public:
         inline const Flags32& getFlags(void) const noexcept { return this->m_flags; }
         inline void setFlags(const Flags32& flags) noexcept { this->m_flags = flags; }
 
-        inline const xr_string& getValue(const xr_string& key_name) const noexcept
+        inline xr_string getValue(const xr_string& key_name) const noexcept
         {
             if (key_name.empty())
             {
