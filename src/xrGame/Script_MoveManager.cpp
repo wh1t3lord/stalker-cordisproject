@@ -311,7 +311,7 @@ void Script_MoveManager::turn_end_callback(void)
         this->update_standing_state(this->m_p_patrol_look->point(this->m_last_look_index));
     }
 }
-
+// TODO: обратить внимание point_index потом, ибо значение больше (может быть) чем размер массива
 void Script_MoveManager::waypoint_callback(
     CScriptGameObject* p_client_object, const std::uint32_t action_type_movement, const std::uint32_t point_index)
 {
@@ -396,6 +396,7 @@ void Script_MoveManager::waypoint_callback(
         return;
     }
 
+    // TODO: обратить внимание здесь потом, ибо значение больше чем размер массива
     std::uint32_t point_chosen_index = Globals::choose_look_point(
         this->m_p_patrol_look, this->m_path_look_info, this->m_path_walk_info.getData()[point_index].getFlags());
 
@@ -445,11 +446,11 @@ void Script_MoveManager::waypoint_callback(
         xr_string retv_name = this->m_path_look_info.getData()[point_chosen_index].getValue("ret");
         if (retv_name.empty())
         {
-            this->m_retval_after_rotation = boost::lexical_cast<std::uint32_t>(retv_name);
+            this->m_retval_after_rotation = 0;
         }
         else
         {
-            this->m_retval_after_rotation = 0;
+            this->m_retval_after_rotation = boost::lexical_cast<std::uint32_t>(retv_name);
         }
 
         const Fvector& look_position = this->m_p_patrol_look->point(point_chosen_index);
