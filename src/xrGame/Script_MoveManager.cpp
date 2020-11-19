@@ -383,7 +383,7 @@ void Script_MoveManager::waypoint_callback(
     }
 
     xr_string stop_probability_name = this->m_path_walk_info.getData()[point_index].getValue("p");
-    std::uint32_t probability = boost::lexical_cast<std::uint32_t>(stop_probability_name);
+    std::uint32_t probability = stop_probability_name.empty() ? 101 : boost::lexical_cast<std::uint32_t>(stop_probability_name);
     if (!this->m_p_patrol_look || (probability < Globals::Script_RandomInt::getInstance().Generate(1, 100)))
     {
         this->update_movement_state();
