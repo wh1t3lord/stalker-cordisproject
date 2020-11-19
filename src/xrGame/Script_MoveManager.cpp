@@ -313,9 +313,10 @@ void Script_MoveManager::turn_end_callback(void)
 }
 // TODO: обратить внимание point_index потом, ибо значение больше (может быть) чем размер массива
 void Script_MoveManager::waypoint_callback(
-    CScriptGameObject* p_client_object, const std::uint32_t action_type_movement, const std::uint32_t point_index)
+    CScriptGameObject* p_client_object, const std::uint32_t action_type_movement, const std::uint32_t _point_index)
 {
-
+    std::uint32_t point_index = _point_index;
+    --point_index;
     // TODO: специально затёр проверка ну !point_index нужно протестировать и понять что если 0 то это действительное состояние
     if (point_index == Globals::kUnsignedInt32Undefined)
         return;
