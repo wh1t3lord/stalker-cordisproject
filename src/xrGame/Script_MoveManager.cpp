@@ -437,8 +437,7 @@ void Script_MoveManager::waypoint_callback(
                 std::uint32_t point_time = boost::lexical_cast<std::uint32_t>(suggested_time_string_data_name);
                 if (point_time && (point_time < 1000 || point_time > 45000))
                 {
-                    Msg("[Scripts/Script_MoveManager/waypoint_callback(p_client_object, action_type_movement, "
-                        "point_index)] incorrect time must be in [1000 | 45000] interval");
+                    MESSAGEW("incorrect time must be in [1000 | 45000] interval");
                 }
 
                 this->m_point_wait_time = point_time;
