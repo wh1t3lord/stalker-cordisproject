@@ -313,10 +313,8 @@ void Script_MoveManager::turn_end_callback(void)
 }
 // TODO: обратить внимание point_index потом, ибо значение больше (может быть) чем размер массива
 void Script_MoveManager::waypoint_callback(
-    CScriptGameObject* p_client_object, const std::uint32_t action_type_movement, const std::uint32_t _point_index)
+    CScriptGameObject* p_client_object, const std::uint32_t action_type_movement, const std::uint32_t point_index)
 {
-    std::uint32_t point_index = _point_index;
-    --point_index;
     // TODO: специально затёр проверка ну !point_index нужно протестировать и понять что если 0 то это действительное состояние
     if (point_index == Globals::kUnsignedInt32Undefined)
         return;
@@ -325,6 +323,13 @@ void Script_MoveManager::waypoint_callback(
 
     if (this->m_p_patrol_walk->terminal(point_index))
         this->m_is_at_terminal_waypoint = true;
+
+    // TODO: перед релизом удалить данный ассерт
+    if (point_index)
+    {
+        R_ASSERT((point_index - 1) <= this->m_path_walk_info.getData().size());
+    }
+
 
     xr_string condlist_data_name = this->m_path_walk_info.getData()[point_index].getValue("a");
     if (!condlist_data_name.empty())
@@ -401,7 +406,7 @@ void Script_MoveManager::waypoint_callback(
     std::uint32_t point_chosen_index = Globals::choose_look_point(
         this->m_p_patrol_look, this->m_path_look_info, this->m_path_walk_info.getData()[point_index].getFlags());
 
-    if (point_chosen_index)
+    if (point_chosen_index != Globals::kUnsignedInt32Undefined)
     {
         xr_string prepare_for_condlist_data_name = this->m_path_look_info.getData()[point_chosen_index].getValue("a");
 
