@@ -807,7 +807,8 @@ void Script_StateManager::set_state(const xr_string& state_name, StateManagerCal
         }
     
 
-    this->m_callback_data = callback;
+    this->m_callback_data.setCallbackTime(callback.getCallbackTime());
+    this->m_callback_data.setCallbackTurnEnd(callback.getCallbackTurnEnd());
     if (timeout >= 0)
     {
         this->m_callback_data.setTimeOut(timeout);
@@ -828,20 +829,23 @@ void Script_StateManager::update(void)
     if (this->m_p_animation->getStates().getCurrentStateName() ==
         Script_GlobalHelper::getInstance().getStateLibrary().at(this->m_target_state_name).getAnimationName())
     {
-        if (!this->m_callback_data.isAllFieldEmpty() && this->m_callback_data.isCallbackTimeExist())
+        if (!this->m_callback_data.isAllFieldEmpty())
         {
-            if (!this->m_callback_data.getBegin())
+            if (this->m_callback_data.isCallbackTimeExist())
             {
-                this->m_callback_data.setBegin(Globals::get_time_global());
-            }
-            else
-            {
-                if (Globals::get_time_global() - this->m_callback_data.getBegin() >= this->m_callback_data.getTimeOut())
-                {
-                    this->m_callback_data.setBegin(0);
-                    this->m_callback_data.setCallbackTime(nullptr);
-                    this->m_callback_data.CallCallbackTime();
-                }
+				if (!this->m_callback_data.getBegin())
+				{
+					this->m_callback_data.setBegin(Globals::get_time_global());
+				}
+				else
+				{
+					if (Globals::get_time_global() - this->m_callback_data.getBegin() >= this->m_callback_data.getTimeOut())
+					{
+						this->m_callback_data.setBegin(0);
+						this->m_callback_data.setCallbackTime(nullptr);
+						this->m_callback_data.CallCallbackTime();
+					}
+				}
             }
         }
     }

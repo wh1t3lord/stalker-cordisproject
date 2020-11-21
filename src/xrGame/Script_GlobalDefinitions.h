@@ -1500,8 +1500,8 @@ struct StateManagerCallbackData
         return (!this->m_begin && !this->m_timeout && !this->m_callback_time && !this->m_callback_turn_end);
     }
 
-    inline bool isCallbackTimeExist(void) const noexcept { return !!this->m_callback_time; }
-    inline bool isCallbackTurnEndExist(void) const noexcept { return !!this->m_callback_turn_end; }
+    inline bool isCallbackTimeExist(void) const noexcept { return (this->m_callback_time != nullptr); }
+    inline bool isCallbackTurnEndExist(void) const noexcept { return (this->m_callback_turn_end != nullptr); }
 
     inline std::uint32_t getBegin(void) const noexcept { return this->m_begin; }
     inline void setBegin(const std::uint32_t value) noexcept { this->m_begin = value; }
@@ -1530,6 +1530,9 @@ struct StateManagerCallbackData
         else
             MESSAGEW("function what you binded is nullptr!");
     }
+
+    inline std::function<void(void)> getCallbackTime(void) const noexcept { return this->m_callback_time; }
+    inline std::function<void(void)> getCallbackTurnEnd(void) const noexcept { return this->m_callback_turn_end; }
 
 private:
     std::uint32_t m_begin = 0;
