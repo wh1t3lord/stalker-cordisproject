@@ -47,7 +47,6 @@ private:
     std::uint32_t m_keep_state_until;
     std::uint32_t m_walk_until;
     std::uint32_t m_run_until;
-    std::uint32_t m_pt_wait_time;
     std::uint32_t m_last_look_index;
     std::uint32_t m_retval_after_rotation;
     CPatrolPathParams* m_p_patrol_walk;
