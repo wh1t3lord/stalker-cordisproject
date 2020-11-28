@@ -830,8 +830,8 @@ inline void hit_obj(
     }
 
     hit.set_bone_name(buffer[1].c_str());
-    hit.m_fPower = boost::lexical_cast<float>(buffer[2]);
-    hit.m_fImpulse = boost::lexical_cast<float>(buffer[3]);
+    hit.m_fPower = atof(buffer[2].c_str());
+    hit.m_fImpulse = atof(buffer[3].c_str());
 
     if (buffer.size() > 4)
     {
@@ -889,8 +889,8 @@ inline void hit_by_killer(
     hit.m_tHitType = ALife::EHitType::eHitTypeWound;
     hit.m_tDirection = point1.sub(point2);
     hit.set_bone_name(buffer[0].c_str());
-    hit.m_fPower = boost::lexical_cast<float>(buffer[1]);
-    hit.m_fImpulse = boost::lexical_cast<float>(buffer[2]);
+    hit.m_fPower = atof(buffer[1].c_str());
+    hit.m_fImpulse = atof(buffer[2].c_str());
 
     p_npc->Hit(&hit);
 }
@@ -1502,12 +1502,12 @@ inline void spawn_object(
     int index = 0;
 
     if (buffer.size() > 2)
-        index = boost::lexical_cast<int>(buffer[2]);
+        index = atoi(buffer[2].c_str());
 
     float yaw = 0.0f;
 
     if (buffer.size() > 3)
-        yaw = boost::lexical_cast<float>(buffer[3]);
+        yaw = atof(buffer[3].c_str());
 
     CSE_Abstract* p_server_object = Globals::Game::alife_create(
         spawn_section_name, patrol.point(index), patrol.level_vertex_id(0), patrol.game_vertex_id(0));
@@ -3898,8 +3898,8 @@ inline void create_cutscene_actor_with_weapon(
     }
 
     CPatrolPathParams patrol = CPatrolPathParams(path_name.c_str());
-    std::uint32_t index = buffer.size() > 2 ? boost::lexical_cast<std::uint32_t>(buffer[2]) : 0;
-    float yaw = buffer.size() > 3 ? boost::lexical_cast<float>(buffer[3]) : 0.0f;
+    std::uint32_t index = buffer.size() > 2 ? static_cast<std::uint32_t>(atoi((buffer[2].c_str()))) : 0;
+    float yaw = buffer.size() > 3 ? atof(buffer[3].c_str()) : 0.0f;
 
     CSE_Abstract* const p_server_npc = Globals::Game::alife_create(
         spawn_section_name, patrol.point(index), patrol.level_vertex_id(0), patrol.game_vertex_id(0));
@@ -3913,7 +3913,7 @@ inline void create_cutscene_actor_with_weapon(
         p_server_npc->o_Angle.y = yaw * PI / 180.0f;
     }
 
-    int slot_override = buffer.size() > 4 ? boost::lexical_cast<int>(buffer[4]) : 0;
+    int slot_override = buffer.size() > 4 ? atoi(buffer[4].c_str()) : 0;
 
     int slot = -1;
     CScriptGameObject* p_active_item = nullptr;
@@ -3974,7 +3974,7 @@ inline void set_force_sleep_animation(
         return;
     }
 
-    std::uint32_t value = boost::lexical_cast<std::uint32_t>(buffer[0]);
+    std::uint32_t value = static_cast<std::uint32_t>(atoi(buffer[0].c_str()));
     p_npc->force_stand_sleep_animation(value);
 }
 
@@ -4106,8 +4106,8 @@ inline void force_obj(
         return;
     }
 
-    float value = buffer.size() > 1 ? boost::lexical_cast<float>(buffer[1]) : 0.0f;
-    std::uint32_t time_interval = buffer.size() > 2 ? boost::lexical_cast<std::uint32_t>(buffer[2]) : 0;
+    float value = buffer.size() > 1 ? atof(buffer[1].c_str()) : 0.0f;
+    std::uint32_t time_interval = buffer.size() > 2 ? static_cast<std::uint32_t>(atoi(buffer[2].c_str())) : 0;
 
     p_object->set_const_force(Fvector().set(0.0f, 1.0f, 0.0f), value, time_interval);
 }
