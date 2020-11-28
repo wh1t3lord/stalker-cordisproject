@@ -798,9 +798,9 @@ inline xr_map<std::uint32_t, xr_map<std::uint32_t, CondlistData>> parse_data_1v(
         return result;
     }
 
-    boost::regex rgx("\\w+|[^\\|\\[\\]]+");
-    boost::sregex_token_iterator iter(buffer_name.begin(), buffer_name.end(), rgx);
-    boost::sregex_token_iterator end;
+    std::regex rgx("\\w+|[^|]+");
+    std::sregex_token_iterator iter(buffer_name.begin(), buffer_name.end(), rgx);
+    std::sregex_token_iterator end;
     bool is_condlist_found = false;
     xr_string previous_data;
     for (; iter != end; ++iter)
