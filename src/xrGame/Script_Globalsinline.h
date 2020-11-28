@@ -749,9 +749,9 @@ inline xr_vector<xr_string> parse_params(const xr_string& params)
         return result;
     }
 
-    static const boost::regex rgx("[^|]+");
-    boost::sregex_token_iterator iter(params.begin(), params.end(), rgx);
-    boost::sregex_token_iterator end;
+    static const std::regex rgx("[^|]+");
+    std::sregex_token_iterator iter(params.begin(), params.end(), rgx);
+    std::sregex_token_iterator end;
     for (; iter != end; ++iter)
     {
         xr_string temporary = iter->str().c_str();
