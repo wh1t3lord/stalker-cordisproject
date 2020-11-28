@@ -167,10 +167,11 @@ void Script_WeatherManager::set_state_as_string(const xr_string& data_name)
 {
     xr_string copy_data_name = data_name;
     boost::algorithm::trim(copy_data_name);
-    boost::regex rgx("[^;]+");
-    boost::sregex_token_iterator iter(copy_data_name.begin(), copy_data_name.end(), rgx);
 
-    boost::sregex_token_iterator end;
+    std::regex rgx("[^;]+");
+    std::sregex_token_iterator iter(copy_data_name.begin(), copy_data_name.end(), rgx);
+    std::sregex_token_iterator end;
+
     for (; iter != end; ++iter)
     {
         xr_string temporary = iter->str().c_str();
