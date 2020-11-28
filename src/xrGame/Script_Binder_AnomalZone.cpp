@@ -154,7 +154,7 @@ Script_Binder_Anomaly::Script_Binder_Anomaly(CScriptGameObject* object)
             xr_vector<int> parsed_data;
             xr_vector<xr_string> temp = Globals::Utils::parse_names(_coeffs_name);
             for (const xr_string& it : temp)
-                parsed_data.push_back(boost::lexical_cast<int>(it));
+                parsed_data.push_back(atoi(it.c_str()));
 
             this->m_table_artefacts_coeff[section_name] = parsed_data;
         }
