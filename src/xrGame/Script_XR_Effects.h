@@ -463,7 +463,7 @@ inline void teleport_actor(
 {
     if (buffer.empty())
     {
-        Msg("[Scripts/XR_EFFECTS/teleport_actor(p_actor, p_npc, buffer)] WARNING: buffer.empty() == true! Return ...");
+        MESSAGEWR("buffer.empty() == true!");
         return;
     }
 
@@ -486,7 +486,7 @@ inline void teleport_actor(
     }
 
     if (p_npc && p_npc->Name())
-        Msg("[Scripts/XR_EFFECTS/teleport_actor(p_actor, p_npc, buffer)] teleporting actor from %s", p_npc->Name());
+        MESSAGE("teleporting actor from %s", p_npc->Name());
 
     DataBase::Storage::getInstance().getActor()->SetActorPosition(patrol.point(std::uint32_t(0)));
 }
@@ -535,7 +535,7 @@ inline void teleport_npc(
 {
     if (buffer.empty())
     {
-        Msg("[Scripts/XR_EFFECTS/teleport_npc(p_actor, p_npc, buffer)] WARNING: buffer.empty() == true! Return ...");
+        MESSAGEWR("buffer.empty() == true!");
         return;
     }
 
@@ -555,15 +555,13 @@ inline void teleport_npc_by_story_id(
 {
     if (buffer.empty())
     {
-        Msg("[Scripts/XR_EFFECTS/teleport_npc_by_story_id(p_actor, p_npc, buffer)] WARNING: buffer.empty() == true! "
-            "Return ...");
+        MESSAGEWR("buffer.empty() == true!");
         return;
     }
 
     if (buffer.size() < 2)
     {
-        Msg("[Scripts/XR_EFFECTS/teleport_npc_by_story_id(p_actor, p_npc, buffer)] WARNING: buffer.size() < 2! Return "
-            "...");
+        MESSAGEWR("buffer.size() < 2!");
         return;
     }
 
@@ -599,13 +597,13 @@ inline void teleport_squad(
 {
     if (buffer.empty())
     {
-        Msg("[Scripts/XR_EFFECTS/teleport_squad(p_actor, p_npc, buffer)] WARNING: buffer.empty() == true! Return ...");
+        MESSAGEWR("buffer.empty() == true!");
         return;
     }
 
     if (buffer.size() < 2)
     {
-        Msg("[Scripts/XR_EFFECTS/teleport_squad(p_actor, p_npc, buffer)] WARNING: buffer.size() < 2! Return ...");
+        MESSAGEWR("buffer.size() < 2!");
         return;
     }
 
@@ -619,8 +617,8 @@ inline void teleport_squad(
 
     if (!p_server_squad)
     {
-        Msg("[Scripts/XR_EFFECTS/teleport_squad(p_actor, p_npc, buffer)] WARNING: p_sever_squad == nullptr! Can't find "
-            "%s Return ...",
+        MESSAGEWR("p_sever_squad == nullptr! Can't find "
+            "%s",
             buffer[0].c_str());
         return;
     }
@@ -642,13 +640,13 @@ inline void give_items(
 {
     if (!p_npc)
     {
-        Msg("[Scripts/XR_EFFECTS/give_items(p_actor, p_npc, buffer)] WARNING: p_npc == nullptr! Return ...");
+        MESSAGEWR("p_npc == nullptr!");
         return;
     }
 
     if (buffer.empty())
     {
-        Msg("[Scripts/XR_EFFECTS/give_items(p_actor, p_npc, buffer)] WARNING: buffer.empty() == true! Return ...");
+        MESSAGEWR("buffer.empty() == true!");
         return;
     }
 
@@ -664,13 +662,13 @@ inline void give_item(
 {
     if (buffer.empty())
     {
-        Msg("[Scripts/XR_EFFECTS/give_item(p_actor, p_npc, buffer)] WARNING: buffer.empty() == true! Return ...");
+        MESSAGEWR("buffer.empty() == true!");
         return;
     }
 
     if (!p_npc)
     {
-        Msg("[Scripts/XR_EFFECTS/give_item(p_actor, p_npc, buffer)] WARNING: p_npc == nullptr! Return ...");
+        MESSAGEWR("p_npc == nullptr!");
         return;
     }
 
@@ -692,8 +690,7 @@ inline void play_particle_on_path(
 {
     if (buffer.empty())
     {
-        Msg("[Scripts/XR_EFFECTS/play_particle_on_path(p_actor, p_npc, buffer)] WARNING: buffer.empty() == true! "
-            "Return ...");
+        MESSAGEWR("buffer.empty() == true!");
         return;
     }
 
