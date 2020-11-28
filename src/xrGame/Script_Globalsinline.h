@@ -404,10 +404,10 @@ inline xr_vector<xr_string> parse_names(const xr_string& buffer)
 
     const char* pattern = "[^:,]+";
 
-    boost::regex regex(pattern);
+    std::regex regex(pattern);
 
-    boost::sregex_iterator it(buffer.begin(), buffer.end(), regex);
-    boost::sregex_iterator end;
+    std::sregex_iterator it(buffer.begin(), buffer.end(), regex);
+    std::sregex_iterator end;
 
     for (; it != end; ++it)
     {
