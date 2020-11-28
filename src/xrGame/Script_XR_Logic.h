@@ -801,9 +801,9 @@ inline xr_string pick_section_from_condlist(
                     ///
                     xr_string buffer = it_infoportion_check.second.m_params;
                     xr_vector<xr_string> argument_buffer;
-                    boost::regex expr{"\\w+"};
-                    boost::regex_token_iterator<std::string::iterator> it{buffer.begin(), buffer.end(), expr};
-                    boost::regex_token_iterator<std::string::iterator> end;
+                    std::regex expr{"\\w+"};
+                    std::regex_token_iterator<std::string::iterator> it{buffer.begin(), buffer.end(), expr};
+                    std::regex_token_iterator<std::string::iterator> end;
 
                     std::uint8_t argument_counter = 0;
                     while (it != end)
@@ -1044,9 +1044,10 @@ inline xr_string pick_section_from_condlist(
                     }
 
 					xr_string buffer = it_infoportion_set.second.m_params;
-					static const boost::regex expr{ "[^:]+" };
-					boost::regex_token_iterator<std::string::iterator> it{ buffer.begin(), buffer.end(), expr };
-					boost::regex_token_iterator<std::string::iterator> end;
+					static const std::regex expr{ "[^:]+" };
+					std::regex_token_iterator<std::string::iterator> it{ buffer.begin(), buffer.end(), expr };
+					std::regex_token_iterator<std::string::iterator> end;
+
 					xr_vector<xr_string> argument_buffer;
 					std::uint8_t argument_counter = 0;
 					while (it != end)
@@ -1200,9 +1201,9 @@ inline xr_string pick_section_from_condlist(
                     ///
                     xr_string buffer = it_infoportion_check.second.m_params;
                     xr_vector<xr_string> argument_buffer;
-                    boost::regex expr{"\\w+"};
-                    boost::regex_token_iterator<std::string::iterator> it{buffer.begin(), buffer.end(), expr};
-                    boost::regex_token_iterator<std::string::iterator> end;
+                    std::regex expr{"\\w+"};
+                    std::regex_token_iterator<std::string::iterator> it{buffer.begin(), buffer.end(), expr};
+                    std::regex_token_iterator<std::string::iterator> end;
 
                     std::uint8_t argument_counter = 0;
                     while (it != end)
@@ -1441,9 +1442,9 @@ inline xr_string pick_section_from_condlist(
                     }
 
 					xr_string buffer = it_infoportion_set.second.m_params;
-					static const boost::regex expr{ "[^:]+" };
-					boost::regex_token_iterator<std::string::iterator> it{ buffer.begin(), buffer.end(), expr };
-					boost::regex_token_iterator<std::string::iterator> end;
+					static const std::regex expr{ "[^:]+" };
+					std::regex_token_iterator<std::string::iterator> it{ buffer.begin(), buffer.end(), expr };
+					std::regex_token_iterator<std::string::iterator> end;
 					xr_vector<xr_string> argument_buffer;
 					std::uint8_t argument_counter = 0;
 					while (it != end)
@@ -1592,9 +1593,9 @@ inline xr_string pick_section_from_condlist(
                     ///
                     xr_string buffer = it_infoportion_check.second.m_params;
                     xr_vector<xr_string> argument_buffer;
-                    static const boost::regex expr{"\\w+"};
-                    boost::regex_token_iterator<std::string::iterator> it{buffer.begin(), buffer.end(), expr};
-                    boost::regex_token_iterator<std::string::iterator> end;
+                    static const std::regex expr{"\\w+"};
+                    std::regex_token_iterator<std::string::iterator> it{buffer.begin(), buffer.end(), expr};
+                    std::regex_token_iterator<std::string::iterator> end;
 
                     std::uint8_t argument_counter = 0;
                     while (it != end)
@@ -1825,9 +1826,9 @@ inline xr_string pick_section_from_condlist(
                     if (it_infoportion_set.second.m_params.size())
                     {
                         xr_string buffer = it_infoportion_set.second.m_params;
-						static const boost::regex expr{ "[^:]+" };
-						boost::regex_token_iterator<std::string::iterator> it{ buffer.begin(), buffer.end(), expr };
-						boost::regex_token_iterator<std::string::iterator> end;
+						static const std::regex expr{ "[^:]+" };
+						std::regex_token_iterator<std::string::iterator> it{ buffer.begin(), buffer.end(), expr };
+						std::regex_token_iterator<std::string::iterator> end;
                         xr_vector<xr_string> argument_buffer;
 						std::uint8_t argument_counter = 0;
 						while (it != end)
