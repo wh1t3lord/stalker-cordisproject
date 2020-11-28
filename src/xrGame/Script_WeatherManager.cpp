@@ -166,7 +166,8 @@ const xr_map<xr_string, xr_string>& Script_WeatherManager::get_graph_by_name(con
 void Script_WeatherManager::set_state_as_string(const xr_string& data_name)
 {
     xr_string copy_data_name = data_name;
-    boost::algorithm::trim(copy_data_name);
+  //  boost::algorithm::trim(copy_data_name);
+    _Trim(copy_data_name);
 
     std::regex rgx("[^;]+");
     std::sregex_token_iterator iter(copy_data_name.begin(), copy_data_name.end(), rgx);
@@ -175,7 +176,9 @@ void Script_WeatherManager::set_state_as_string(const xr_string& data_name)
     for (; iter != end; ++iter)
     {
         xr_string temporary = iter->str().c_str();
-        boost::algorithm::trim(temporary);
+      //  boost::algorithm::trim(temporary);
+        _Trim(temporary);
+
         xr_string graph_name;
         xr_string current_state_name;
         xr_string next_state_name;
@@ -185,9 +188,15 @@ void Script_WeatherManager::set_state_as_string(const xr_string& data_name)
         next_state_name = temporary.substr(temporary.rfind(",") + 1);
         graph_name = temporary;
         graph_name.erase(temporary.find("="));
-        boost::trim(next_state_name);
-        boost::trim(current_state_name);
-        boost::trim(graph_name);
+
+        //boost::trim(next_state_name);
+        _Trim(next_state_name);
+
+      //  boost::trim(current_state_name);
+        _Trim(current_state_name);
+
+      //  boost::trim(graph_name);
+        _Trim(graph_name);
 
         const xr_map<xr_string, xr_string>& graph = this->get_graph_by_name(graph_name);
         if (graph.empty())

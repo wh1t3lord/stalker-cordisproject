@@ -18,25 +18,30 @@ void init_target(CScriptGameObject* const p_client_object, const xr_string& targ
             number_name = buffer.substr(buffer.rfind(",") + 1);
             target_name = buffer.erase(buffer.find(","));
 
-            boost::algorithm::trim(number_name);
-            boost::algorithm::trim(target_name);
+          //  boost::algorithm::trim(number_name);
+            _Trim(number_name);
+          //  boost::algorithm::trim(target_name);
+            _Trim(target_name);
         }
     };
 
     auto func_parse_type = [](xr_string buffer, xr_string& job_type, xr_string& target_data) -> void {
         if (buffer.find('|') == xr_string::npos)
         {
-            Msg("[Scripts/init_target/func_parse_type(buffer, job_type, target_data)] WARNING: can't parse string "
-                "because can't have symbol | Return ...");
-            R_ASSERT(false);
+            MESSAGEER("can't parse string "
+                "because can't have symbol |");
             return;
         }
 
-        boost::algorithm::trim(buffer);
+      //  boost::algorithm::trim(buffer);
+        _Trim(buffer);
         target_data = buffer.substr(buffer.rfind("|") + 1);
-        boost::algorithm::trim(target_data);
+     //   boost::algorithm::trim(target_data);
+        _Trim(target_data);
         job_type = buffer.erase(buffer.find("|"));
-        boost::algorithm::trim(job_type);
+
+      //  boost::algorithm::trim(job_type);
+        _Trim(job_type);
     };
 
     target_position.set(0.0f, 0.0f, 0.0f);

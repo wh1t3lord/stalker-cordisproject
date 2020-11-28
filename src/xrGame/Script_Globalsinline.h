@@ -405,15 +405,16 @@ inline xr_vector<xr_string> parse_names(const xr_string& buffer)
     const char* pattern = "[^:,]+";
 
     std::regex regex(pattern);
-
     std::sregex_iterator it(buffer.begin(), buffer.end(), regex);
     std::sregex_iterator end;
 
     for (; it != end; ++it)
     {
         xr_string value_name = it->str().c_str();
-        boost::algorithm::trim(value_name);
 
+        // boost::algorithm::trim
+        _Trim(value_name);
+ 
         result.push_back(value_name);
     }
 
@@ -755,7 +756,8 @@ inline xr_vector<xr_string> parse_params(const xr_string& params)
     for (; iter != end; ++iter)
     {
         xr_string temporary = iter->str().c_str();
-        boost::algorithm::trim(temporary);
+       // boost::algorithm::trim(temporary);
+        _Trim(temporary);
 
         if (!temporary.empty())
             result.push_back(temporary);
@@ -806,7 +808,10 @@ inline xr_map<std::uint32_t, xr_map<std::uint32_t, CondlistData>> parse_data_1v(
     for (; iter != end; ++iter)
     {
         xr_string temporary = iter->str().c_str();
-        boost::algorithm::trim(temporary);
+
+     //   boost::algorithm::trim(temporary);
+        _Trim(temporary);
+
         if (temporary.empty())
             continue;
 
@@ -851,7 +856,10 @@ inline xr_map<std::uint32_t, std::tuple<std::uint32_t, xr_map<std::uint32_t, Con
 	for (; iter != end; ++iter)
 	{
 		xr_string temporary = iter->str().c_str();
-		boost::algorithm::trim(temporary);
+
+	//	boost::algorithm::trim(temporary);
+        _Trim(temporary);
+
         if (temporary.empty())
         {
             R_ASSERT2(false, "it can't be! Check your string data");
@@ -3191,8 +3199,12 @@ inline xr_map<xr_string, xr_string> parse_ini_section_to_array(
             {
                 xr_string copy_id_name = id_name;
                 xr_string copy_value_name = value_name;
-                boost::trim(copy_id_name);
-                boost::trim(copy_value_name);
+
+                //boost::trim(copy_id_name);
+                _Trim(copy_id_name);
+
+               // boost::trim(copy_value_name);
+                _Trim(copy_value_name);
 
                 result[copy_id_name] = copy_value_name;
             }

@@ -22,6 +22,9 @@
 #pragma pack(push, 4)
 #pragma warning(push)
 #pragma warning(disable : 4200)
+
+
+
 struct XRCORE_API str_value
 {
     u32 dwReference;
