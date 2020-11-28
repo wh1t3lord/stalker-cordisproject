@@ -26,7 +26,9 @@ inline CScriptSound* set_sound_play(
         R_ASSERT2(false, "string was empty!");
         return nullptr;
     }
-
+    
+    CScriptSound* p_result = getSoundDatabase().find(npc_id) == getSoundDatabase().end() ? nullptr : getSoundDatabase().at(npc_id)->getSoundObject();
+    
     Script_ISoundEntity* sound_entity = Script_SoundThemeDataBase::getInstance().getTheme()[sound];
 
     if (!sound_entity)
@@ -57,10 +59,10 @@ inline CScriptSound* set_sound_play(
     }
     else
     {
-        return getSoundDatabase().at(npc_id)->getSoundObject();
+        return p_result;
     }
 
-    return getSoundDatabase().at(npc_id)->getSoundObject();
+    return p_result;
 }
 
 inline void update(const std::uint16_t npc_id)
