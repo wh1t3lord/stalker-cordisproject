@@ -840,9 +840,10 @@ inline xr_map<std::uint32_t, std::tuple<std::uint32_t, xr_map<std::uint32_t, Con
         return result;
     }
 
-	boost::regex rgx("\\d+|[^|]+@[^|]+|\\w+");
-	boost::sregex_token_iterator iter(buffer_name.begin(), buffer_name.end(), rgx);
-	boost::sregex_token_iterator end;
+	std::regex rgx("\\d+|[^|]+@[^|]+|\\w+");
+	std::sregex_token_iterator iter(buffer_name.begin(), buffer_name.end(), rgx);
+	std::sregex_token_iterator end;
+
 	bool is_condlist_found = false;
     bool is_first = true;
 	xr_string previous_data;
