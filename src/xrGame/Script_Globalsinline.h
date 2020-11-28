@@ -634,9 +634,10 @@ inline CondlistWaypoints::CondlistWayPointsData parse_waypoint_data(
         return result;
     }
 
-    boost::regex regex("\\w+=\\w+");
-    boost::sregex_iterator i(waypoint_name.begin(), waypoint_name.end(), regex);
-    boost::sregex_iterator j;
+    // TODO: проверить ECMAScript 
+    std::regex regex("\\w+=\\w+");
+    std::sregex_iterator i(waypoint_name.begin(), waypoint_name.end(), regex);
+    std::sregex_iterator j;
 
     // Строгая проверка, ибо в последующем в move_mgr и mob_walker не будет вылета
     // а понять трудно почему при a="название_анимации" не будет ничего работать
