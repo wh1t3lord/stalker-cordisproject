@@ -10,7 +10,7 @@ xr_string get_next_state(const xr_map<xr_string, xr_string>& graph, const xr_str
     float sum = 0.0f;
     for (const std::pair<xr_string, xr_string>& it : graph)
     {
-        sum += boost::lexical_cast<float>(it.second);
+        sum += atof(it.second.c_str());
     }
 
     float rnd = Globals::Script_RandomFloat::getInstance().Generate() * sum;
@@ -19,7 +19,9 @@ xr_string get_next_state(const xr_map<xr_string, xr_string>& graph, const xr_str
     for (const std::pair<xr_string, xr_string>& it : graph)
     {
         next_state_name = it.first;
-        rnd -= boost::lexical_cast<float>(it.second);
+
+        rnd -= atof(it.second.c_str());
+
         if (rnd <= 0.0f)
             break;
     }

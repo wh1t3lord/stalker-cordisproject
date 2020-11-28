@@ -66,11 +66,11 @@ float Script_SimulationObjects::evaluate_priority(CSE_ALifeDynamicObject* target
 
     for (const std::pair<xr_string, xr_string>& it : p_squad_prior->getBehavior())
     {
-        float squad_koeff = boost::lexical_cast<float>(it.first.c_str());
+        float squad_koeff = atof(it.first.c_str());
         float target_koeff = 0.0f;
         if (target->cast_script_se_smartterrain())
         {
-            target_koeff = boost::lexical_cast<float>(target->cast_script_se_smartterrain()->getProperties().at(it.first));
+            target_koeff = atof(target->cast_script_se_smartterrain()->getProperties().at(it.first).c_str());
         }
 
         priority += squad_koeff * target_koeff;

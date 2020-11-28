@@ -169,7 +169,7 @@ inline void run_cam_effector(
     int value = 1000 + Globals::Script_RandomInt::getInstance().Generate<std::uint32_t>(1, 100);
     if (buffer.size() > 1)
     {
-        value = boost::lexical_cast<int>(buffer[1]);
+        value = atoi(buffer[1].c_str());
     }
 
     if (buffer.size() > 2)
@@ -193,7 +193,8 @@ inline void stop_cam_effector(
         return;
     }
 
-    int id = boost::lexical_cast<int>(buffer[0]);
+    int id = atoi(buffer[0].c_str());
+
     if (id)
         Globals::Game::level::remove_cam_effector(id);
 }
@@ -211,13 +212,13 @@ inline void run_cam_effector_global(
 
     if (buffer.size() > 1)
     {
-        value = boost::lexical_cast<int>(buffer[1]);
+        value = atoi(buffer[1].c_str());
     }
 
     float current_field_of_view = Device.fFOV;
     if (buffer.size() > 2)
     {
-        current_field_of_view = boost::lexical_cast<float>(buffer[2]);
+        current_field_of_view = atof(buffer[2].c_str());
     }
 
     if (value)
@@ -277,7 +278,7 @@ inline void run_postprocess(
 
         if (buffer.size() > 1)
         {
-            value = boost::lexical_cast<int>(buffer[1]);
+            value = atoi(buffer[1].c_str());
         }
 
         if (value)
@@ -298,16 +299,15 @@ inline void stop_postprocess(
 {
     if (buffer.empty())
     {
-        Msg("[Scripts/XR_EFFECTS/stop_postprocess(p_actor, p_npc, buffer)] WARNING: buffer.empty() == true! Return "
-            "...");
+        MESSAGEWR("buffer.empty() == true!");
         return;
     }
 
-    int value = boost::lexical_cast<int>(buffer[0]);
+    int value = atoi(buffer[0].c_str());
 
     if (value)
     {
-        Msg("[Scripts/XR_EFFECTS/stop_postprocess(p_actor, p_npc, buffer)] removing complex effector id %s from %s",
+        MESSAGEI("removing complex effector id %s from %s",
             buffer[0].c_str(), p_npc->Name());
         Globals::Game::level::remove_complex_effector(value);
     }
@@ -721,14 +721,13 @@ inline void send_tip(
 {
     if (buffer.empty())
     {
-        Msg("[Scripts/XR_EFFECTS/send_tip(p_actor, p_npc, buffer)] WARNING: buffer.empty() == true! Return ...");
+        MESSAGEWR("buffer.empty() == true!");
         return;
     }
 
     if (buffer.size() < 2 || buffer.size() < 3)
     {
-        Msg("[Scripts/XR_EFFECTS/send_tip(p_actor, p_npc, buffer)] WARNING: buffer.size() < 2 || buffer.size() < 3. "
-            "Return ...");
+        MESSAGEWR("buffer.size() < 2 || buffer.size() < 3");
         return;
     }
 
@@ -740,19 +739,19 @@ inline void hit_npc(
 {
     if (buffer.empty())
     {
-        Msg("[Scripts/XR_EFFECTS/hit_npc(p_actor, p_npc, buffer)] WARNING: buffer.empty() == true! Return ...");
+        MESSAGEWR("buffer.empty() == true!");
         return;
     }
 
     if (buffer.size() < 5)
     {
-        Msg("[Scripts/XR_EFFECTS/hit_npc(p_actor, p_npc, buffer)] WARNING: buffer.size() < 5! Return ...");
+        MESSAGEWR("buffer.size() < 5!");
         return;
     }
 
     if (!p_npc)
     {
-        Msg("[Scripts/XR_EFFECTS/hit_npc(p_actor, p_npc, buffer)] WARNING: p_npc == nullptr! Return ...");
+        MESSAGEWR("p_npc == nullptr!");
         return;
     }
 
@@ -794,10 +793,10 @@ inline void hit_npc(
     }
 
     hit.set_bone_name(buffer[2].c_str());
-    hit.m_fPower = boost::lexical_cast<float>(buffer[3]);
-    hit.m_fImpulse = boost::lexical_cast<float>(buffer[4]);
+    hit.m_fPower = atof(buffer[3].c_str());
+    hit.m_fImpulse = atof(buffer[4].c_str());
 
-    Msg("[Scripts/XR_EFFECTS/hit_npc(p_actor, p_npc, buffer)] hit effect %s %s %f %f %f", p_npc->Name(),
+    MESSAGE("hit effect %s %s %f %f %f", p_npc->Name(),
         buffer[1].c_str(), hit.m_fPower, hit.m_fImpulse, p_npc->GetHealth());
 
     p_npc->Hit(&hit);
@@ -808,19 +807,19 @@ inline void hit_obj(
 {
     if (buffer.empty())
     {
-        Msg("[Scripts/XR_EFFECTS/hit_obj(p_actor, p_npc, buffer)] WARNING: buffer.empty() == true! Return ...");
+        MESSAGEWR("buffer.empty() == true!");
         return;
     }
 
     if (buffer.size() < 4)
     {
-        Msg("[Scripts/XR_EFFECTS/hit_obj(p_actor, p_npc, buffer)] WARNING: buffer.size() < 5! Return ...");
+        MESSAGEWR("buffer.size() < 5!");
         return;
     }
 
     if (!p_npc)
     {
-        Msg("[Scripts/XR_EFFECTS/hit_obj(p_actor, p_npc, buffer)] WARNING: p_npc == nullptr! Return ...");
+        MESSAGEWR("p_npc == nullptr!");
         return;
     }
 
@@ -829,7 +828,7 @@ inline void hit_obj(
 
     if (!p_client_object)
     {
-        Msg("[Scripts/XR_EFFECTS/hit_obj(p_actor, p_npc, buffer)] WARNING: p_client_object == nullptr! Return ...");
+        MESSAGEWR("p_client_object == nullptr!");
         return;
     }
 
@@ -858,13 +857,13 @@ inline void hit_by_killer(
 {
     if (buffer.empty())
     {
-        Msg("[Scripts/XR_EFFECTS/hit_by_killer(p_actor, p_npc, buffer)] WARNING: buffer.empty() == true! Return ...");
+        MESSAGEWR("buffer.empty() == true!");
         return;
     }
 
     if (!p_npc)
     {
-        Msg("[Scripts/XR_EFFECTS/hit_by_killer(p_actor, p_npc, buffer)] WARNING: p_npc == nullptr! Return ...");
+        MESSAGEWR("p_npc == nullptr!");
         return;
     }
 
@@ -873,7 +872,7 @@ inline void hit_by_killer(
 
     if (!killer_id || killer_id == Globals::kUnsignedInt16Undefined)
     {
-        Msg("[Scripts/XR_EFFECTS/hit_by_killer(p_actor, p_npc, buffer)] WARNING: killer_id is undefined. Return ...");
+        MESSAGEWR("killer_id is undefined");
         return;
     }
 
@@ -881,7 +880,7 @@ inline void hit_by_killer(
 
     if (!storage_killer.getClientObject())
     {
-        Msg("[Scripts/XR_EFFECTS/hit_by_killer(p_actor, p_npc, buffer)] WARNING: can't obtain client object!");
+        MESSAGEWR("can't obtain client object!");
         return;
     }
 
@@ -904,7 +903,7 @@ inline void hit_npc_from_actor(
 {
     if (!p_actor)
     {
-        Msg("[Scripts/XR_EFFECTS/hit_npc_from_actor(p_actor, p_npc, buffer)] WARNING: p_actor == nullptr! Return ...");
+        MESSAGEWR("p_actor == nullptr!");
         return;
     }
 
@@ -934,7 +933,7 @@ inline void restore_health(
 {
     if (!p_npc)
     {
-        Msg("[Scripts/XR_EFFECTS/restore_health(p_actor, p_npc, buffer)] WARNING: p_npc == nullptr! Return ...");
+        MESSAGEWR("p_npc == nullptr!");
         return;
     }
 
@@ -946,7 +945,7 @@ inline void make_enemy(
 {
     if (buffer.empty())
     {
-        Msg("[Scripts/XR_EFFECTS/make_enemy(p_actor, p_npc, buffer)] WARNING: buffer.empty() == true! Return ...");
+        MESSAGEWR("buffer.empty() == true!");
         return;
     }
 
@@ -970,8 +969,7 @@ inline void sniper_fire_mode(
 {
     if (buffer.empty())
     {
-        Msg("[Scripts/XR_EFFECTS/sniper_fire_mode(p_actor, p_npc, buffer)] WARNING: buffer.empty() == true! Return "
-            "...");
+        MESSAGEW("buffer.empty() == true!");
     }
     else
     {
@@ -1010,19 +1008,19 @@ inline void inc_counter(
 {
     if (buffer.empty())
     {
-        Msg("[Scripts/XR_EFFECTS/inc_counter(p_actor, p_npc, buffer)] WARNING: buffer.empty() == true! Return ...");
+        MESSAGEWR("buffer.empty() == true!");
         return;
     }
 
     if (!p_actor)
     {
-        Msg("[Scripts/XR_EFFECTS/inc_counter(p_actor, p_npc, buffer)] WARNING: p_actor == nullptr! Return ...");
+        MESSAGEWR("p_actor == nullptr!");
         return;
     }
 
     if (buffer.size() < 2)
     {
-        Msg("[Scripts/XR_EFFECTS/inc_counter(p_actor, p_npc, buffer)] WARNING: buffer.size() < 2! Return ...");
+        MESSAGEWR("buffer.size() < 2!");
         return;
     }
 
@@ -1033,8 +1031,11 @@ inline void inc_counter(
     std::uint8_t new_value = XR_LOGIC::pstor_retrieve_number(p_actor, buffer[0]) + inc_value;
 
     if (p_npc && p_npc->Name())
-        Msg("[Scripts/XR_EFFECTS/inc_counter(p_actor, p_npc, buffer)] inc_counter %s to value %s by %s",
-            buffer[0].c_str(), std::to_string(new_value).c_str(), p_npc->Name());
+    {
+		MESSAGE("inc_counter %s to value %s by %s",
+			buffer[0].c_str(), std::to_string(new_value).c_str(), p_npc->Name());
+    }
+
 
     XR_LOGIC::pstor_store(p_actor, buffer[0], std::to_string(new_value).c_str());
 }
@@ -1044,19 +1045,19 @@ inline void dec_counter(
 {
     if (buffer.empty())
     {
-        Msg("[Scripts/XR_EFFECTS/dec_counter(p_actor, p_npc, buffer)] WARNING: buffer.empty() == true! Return ...");
+        MESSAGEWR("buffer.empty() == true!");
         return;
     }
 
     if (!p_actor)
     {
-        Msg("[Scripts/XR_EFFECTS/dec_counter(p_actor, p_npc, buffer)] WARNING: p_actor == nullptr! Return ...");
+        MESSAGEWR("p_actor == nullptr!");
         return;
     }
 
     if (buffer.size() < 2)
     {
-        Msg("[Scripts/XR_EFFECTS/dec_counter(p_actor, p_npc, buffer)] WARNING: buffer.size() < 2! Return ...");
+        MESSAGEWR("buffer.size() < 2!");
         return;
     }
 
@@ -1072,8 +1073,11 @@ inline void dec_counter(
     XR_LOGIC::pstor_store(p_actor, buffer[0], std::to_string(new_value).c_str());
 
     if (p_npc && p_npc->Name())
-        Msg("[Scripts/XR_EFFECTS/dec_counter(p_actor, p_npc, buffer)] dec_counter %s value %s by %s", buffer[0].c_str(),
-            std::to_string(new_value).c_str(), p_npc->Name());
+    {
+		MESSAGE("dec_counter %s value %s by %s", buffer[0].c_str(),
+			std::to_string(new_value).c_str(), p_npc->Name());
+    }
+
 }
 
 inline void set_counter(
@@ -1081,13 +1085,13 @@ inline void set_counter(
 {
     if (buffer.empty())
     {
-        Msg("[Scripts/XR_EFFECTS/set_counter(p_actor, p_npc, buffer)] WARNING: buffer.empty() == true! Return ...");
+        MESSAGEWR("buffer.empty() == true!");
         return;
     }
 
     if (!p_actor)
     {
-        Msg("[Scripts/XR_EFFECTS/set_counter(p_actor, p_npc, buffer)] WARNING: p_actor == nullptr! Return ...");
+        MESSAGEWR("p_actor == nullptr!");
         return;
     }
 
@@ -1102,7 +1106,7 @@ inline void actor_punch(
 {
     if (!p_npc)
     {
-        Msg("[Scripts/XR_EFFECTS/actor_punch(p_actor, p_npc, buffer)] WARNING: p_npc == nullptr! Return ...");
+        MESSAGEWR("p_npc == nullptr!");
         return;
     }
 
@@ -1113,8 +1117,7 @@ inline void actor_punch(
 
     if (current_slot != 2 && current_slot != 3)
     {
-        Msg("[Scripts/XR_EFFECTS/actor_punch(p_actor, p_npc, buffer)] current_slot != 2 and current_slot != 3 Return "
-            "...");
+        MESSAGEWR("current_slot != 2 and current_slot != 3");
         return;
     }
 
@@ -1129,12 +1132,13 @@ inline void clearAbuse(
 {
     if (!p_npc)
     {
-        Msg("[Scripts/XR_EFFECTS/clearAbuse(p_actor, p_npc, buffer)] WARNING: p_npc == nullptr! Return ...");
+        MESSAGEWR("p_npc == nullptr!");
         return;
     }
 
     Script_SchemeXRAbuse::clear_abuse(p_npc);
-    Msg("[Scripts/XR_EFFECTS/clearAbuse(p_actor, p_npc, buffer)] abuse is cleared!");
+
+    MESSAGEI("abuse is cleared!");
 }
 
 inline void turn_off_underpass_lamps(
@@ -1170,10 +1174,15 @@ inline void turn_off_underpass_lamps(
         CScriptGameObject* const p_client_object = Globals::get_story_object(it.first);
 
         if (p_client_object)
+        {
             p_client_object->get_hanging_lamp()->TurnOff();
+        }
         else
-            Msg("[Scripts/XR_EFFECTS/turn_off_underpass_lamps(p_actor, p_npc, buffer)] can't turn off because object "
-                "is nullptr!");
+        {
+			MESSAGEW("can't turn off because object "
+				"is nullptr!");
+        }
+
     }
 }
 
@@ -1182,7 +1191,7 @@ inline void turn_off(
 {
     if (buffer.empty())
     {
-        Msg("[Scripts/XR_EFFECTS/turn_off(p_actor, p_npc, buffer)] WARNING: buffer.empty() == true! Return ...");
+        MESSAGEWR("buffer.empty() == true!");
         return;
     }
 
@@ -1192,7 +1201,7 @@ inline void turn_off(
 
         if (!p_client_object)
         {
-            Msg("[Scripts/XR_EFFECTS/turn_off(p_actor, p_npc, buffer)] WARNIN: p_client_object == nullptr! Return ...");
+            MESSAGEWR("p_client_object == nullptr!");
             return;
         }
 
@@ -1205,7 +1214,7 @@ inline void turn_off_object(
 {
     if (!p_npc)
     {
-        Msg("[Scripts/XR_EFFFECTS/turn_off_object(p_actor, p_npc, buffer)] WARNING: p_npc == nullptr! Return ...");
+        MESSAGEWR("p_npc == nullptr!");
         return;
     }
 
@@ -1217,7 +1226,7 @@ inline void turn_on(
 {
     if (buffer.empty())
     {
-        Msg("[Scripts/XR_EFFECTS/turn_on(p_actor, p_npc, buffer)] WARNING: buffer.empty() == true! Return ...");
+        MESSAGEWR("buffer.empty() == true!");
         return;
     }
 
@@ -1227,7 +1236,7 @@ inline void turn_on(
 
         if (!p_client_object)
         {
-            Msg("[Scripts/XR_EFFECTS/turn_on(p_actor, p_npc, buffer)] WARNING: p_client_object == nullptr! Return ...");
+            MESSAGEWR("p_client_object == nullptr!");
             return;
         }
 
@@ -1240,17 +1249,15 @@ inline void turn_on_and_force(
 {
     if (buffer.empty())
     {
-        Msg("[Scripts/XR_EFFECTS/turn_on_and_force(p_actor, p_npc, buffer)] WARNING: buffer.empty() == true! Return "
-            "...");
+        MESSAGEWR("buffer.empty() == true!");
         return;
     }
 
     CScriptGameObject* const p_client_object = Globals::get_story_object(buffer[0]);
 
     if (!p_client_object)
-    {
-        Msg("[Scripts/XR_EFFECTS/turn_on_and_force(p_actor, p_npc, buffer)] WARNING: p_client_object == nullptr! "
-            "Return ...");
+	{
+		MESSAGEWR("p_client_object == nullptr!");
         return;
     }
 
@@ -1273,8 +1280,7 @@ inline void turn_off_and_force(
 {
     if (buffer.empty())
     {
-        Msg("[Scripts/XR_EFFECTS/turn_off_and_force(p_actor, p_npc, buffer)] WARNING: buffer.empty() == true! Return "
-            "...");
+        MESSAGEWR("buffer.empty() == true!");
         return;
     }
 
@@ -1282,8 +1288,7 @@ inline void turn_off_and_force(
 
     if (!p_client_object)
     {
-        Msg("[Scripts/XR_EFFECTS/turn_off_and_force(p_actor, p_npc, buffer)] WARNING: p_client_object == nullptr! "
-            "Return ...");
+        MESSAGEWR("p_client_object == nullptr!");
         return;
     }
 
@@ -1296,7 +1301,7 @@ inline void turn_on_object(
 {
     if (!p_npc)
     {
-        Msg("[Scripts/XR_EFFECTS/turn_on_object(p_actor, p_npc, buffer)] WARNING: p_npc == nullptr! Return ...");
+        MESSAGEWR("p_npc == nullptr!");
         return;
     }
 
@@ -1329,8 +1334,7 @@ inline void disable_combat_ignore_handler(
 {
     if (!p_npc)
     {
-        Msg("[Scripts/XR_EFFECTS/disable_combat_ignore_handler(p_actor, p_npc, buffer)] WARNING: p_npc == nullptr! "
-            "Return ...");
+        MESSAGEWR("p_npc == nullptr!");
         return;
     }
 
@@ -1358,7 +1362,7 @@ inline void game_over(
 {
     if (!Script_GlobalHelper::getInstance().isGameOverCreditsStarted())
     {
-        Msg("[Scripts/XR_EFFECTS/game_over(p_actor, p_npc, buffer)] WARNING: flag is not true! Return ...");
+        MESSAGEWR("flag is not true!");
         return;
     }
 
@@ -1400,7 +1404,7 @@ inline void remove_item(
 {
     if (buffer.empty())
     {
-        Msg("[Scripts/XR_EFFECTS/remove_item(p_actor, p_npc, buffer)] WARNING: buffer.empty() == true! Return ...");
+        MESSAGEWR("buffer.empty() == true!");
         return;
     }
 
@@ -1412,8 +1416,7 @@ inline void remove_item(
     }
     else
     {
-        Msg("[Scripts/XR_EFFECTS/remove_item(p_actor, p_npc, buffer)] WARNING: actor doesnt have item -> %s",
-            buffer[0].c_str());
+        MESSAGEW("actor doesnt have item -> %s", buffer[0].c_str());
     }
 
     Script_NewsManager::getInstance().relocate_item("out", buffer[0].c_str());
@@ -1476,13 +1479,13 @@ inline void spawn_object(
 {
     if (buffer.empty())
     {
-        Msg("[Scripts/XR_EFFECTS/spawn_object(p_actor, p_npc, buffer)] WARNING: buffer.empty() == true! Return ...");
+        MESSAGEWR("buffer.empty() == true!");
         return;
     }
 
     if (buffer.size() < 2)
     {
-        Msg("[Scripts/XR_EFFECTS/spawn_object(p_actor, p_npc, buffer)] WARNING: buffer.empty() == true! Return ...");
+        MESSAGEWR("buffer.empty() == true!");
         return;
     }
 
@@ -1491,7 +1494,7 @@ inline void spawn_object(
 
     if (!Globals::patrol_path_exists(path_name.c_str()))
     {
-        Msg("[Scripts/XR_EFFECTS/spawn_object(p_actor, p_npc, buffer)] WARNING: patrol doesn't exist. CAN NOT SPAWN "
+        MESSAGEWR("patrol doesn't exist. CAN NOT SPAWN "
             "ITEM %s %s",
             path_name.c_str(), spawn_section_name.c_str());
         return;
@@ -1527,7 +1530,7 @@ inline void give_actor(
 {
     if (buffer.empty())
     {
-        Msg("[Scripts/XR_EFFECTS/give_actor(p_actor, p_npc, buffer)] WARNING: buffer.empty() == true! Return ...");
+        MESSAGEWR("buffer.empty() == true!");
         return;
     }
 
@@ -1585,12 +1588,11 @@ inline void destroy_object(
 
     if (!p_server_object)
     {
-        Msg("[Scripts/XR_EFFECTS/destroy_object(p_actor, p_npc, buffer)] WARNING: p_server_object == nullptr! Return "
-            "...");
+        MESSAGEWR("p_server_object == nullptr!");
         return;
     }
 
-    Msg("[Scripts/XR_EFFECTS/destory_object(p_actor, p_npc, buffer)] releasing object %s",
+    MESSAGEI("releasing object %s",
         p_server_object->name_replace());
     Globals::Game::alife_release(p_server_object, true);
 }
@@ -1600,8 +1602,7 @@ inline void scenario_autosave(
 {
     if (buffer.empty())
     {
-        Msg("[Scripts/XR_EFFECTS/scenario_autosave(p_actor, p_npc, buffer)] WARNING: buffer.empty() == true! Return "
-            "...");
+        MESSAGEWR("buffer.empty() == true!");
         return;
     }
 
@@ -1633,8 +1634,7 @@ inline void jup_b219_save_pos(
     }
     else
     {
-        Msg("[Scripts/XR_EFFECTS/jup_b219_save_pos(p_actor, p_npc, buffer)] WARNING: p_client_object == nullptr! "
-            "Return ...");
+        MESSAGEWR("p_client_object == nullptr!");
         return;
     }
 
@@ -1663,13 +1663,13 @@ inline void spawn_corpse(
 {
     if (buffer.empty())
     {
-        Msg("[Scripts/XR_EFFECTS/spawn_corpse(p_actor, p_npc, buffer)] WARNIING: buffer.empty() == true! Return ...");
+        MESSAGEWR("buffer.empty() == true!");
         return;
     }
 
     if (buffer.size() < 2)
     {
-        Msg("[Scripts/XR_EFFECTS/spawn_corpse(p_actor, p_npc, buffer)] WARNING: buffer.size() < 2! Return ...");
+        MESSAGEWR("buffer.size() < 2!");
         return;
     }
 
@@ -1678,7 +1678,7 @@ inline void spawn_corpse(
 
     if (!Globals::patrol_path_exists(path_name.c_str()))
     {
-        Msg("[Scripts/XR_EFFECTS/spawn_corpse(p_actor, p_npc, buffer)] WARNING: path_name doesn't exist! %s",
+        MESSAGEWR("path_name doesn't exist! %s",
             path_name.c_str());
         return;
     }
@@ -1696,7 +1696,7 @@ inline void spawn_corpse(
 
     if (!p_human)
     {
-        Msg("[Scripts/XR_EFFECTS/spawn_corpse(p_actor, p_npc, buffer)] WARNING: server object can't cast to alive "
+        MESSAGEWR("server object can't cast to alive "
             "human/creature and kill it! Check your spawn section -> %s",
             spawn_section_name.c_str());
         return;
@@ -1710,13 +1710,13 @@ inline void spawn_object_in(
 {
     if (buffer.empty())
     {
-        Msg("[Scripts/XR_EFFECTS/spawn_object_in(p_actor, p_npc, buffer)] WARNING: buffer.empty() == true! Return ...");
+        MESSAGEWR("buffer.empty() == true!");
         return;
     }
 
     if (buffer.size() < 2)
     {
-        Msg("[Scripts/XR_EFFECTS/spawn_object_in(p_actor, p_npc, buffer)] WARNING: buffer.size() < 2! Return ...");
+        MESSAGEWR("buffer.size() < 2!");
         return;
     }
 
@@ -1729,8 +1729,7 @@ inline void spawn_object_in(
         CSE_Abstract* const p_server_object = ai().alife().objects().object(target_id);
         if (!p_server_object)
         {
-            Msg("[Scripts/XR_EFFECTS/spawn_object_in(p_actor, p_npc, buffer)] WARNING: p_server_object == nullptr! "
-                "Return ...");
+            MESSAGEWR("p_server_object == nullptr!");
             return;
         }
 
@@ -1738,8 +1737,7 @@ inline void spawn_object_in(
         return;
     }
 
-    Msg("[Scripts/XR_EFFECTS/spawn_object_in(p_actor, p_npc, buffer)] WARNING: can't find object id by %s",
-        buffer[1].c_str());
+    MESSAGEW("can't find object id by %s", buffer[1].c_str());
 }
 
 inline void anim_obj_forward(
@@ -1747,8 +1745,7 @@ inline void anim_obj_forward(
 {
     if (buffer.empty())
     {
-        Msg("[Scripts/XR_EFFECTS/anim_obj_forward(p_actor, p_npc, buffer)] WARNING: buffer.empty() == true! Return "
-            "...");
+        MESSAGEWR("buffer.empty() == true!");
         return;
     }
 
@@ -1763,8 +1760,7 @@ inline void anim_obj_backward(
 {
     if (buffer.empty())
     {
-        Msg("[Scripts/XR_EFFECTS/anim_obj_backward(p_actor, p_npc, buffer)] WARNING: buffer.empty() == true! Return "
-            "...");
+        MESSAGEWR("buffer.empty() == true!");
         return;
     }
 
@@ -1776,7 +1772,7 @@ inline void anim_obj_stop(
 {
     if (buffer.empty())
     {
-        Msg("[Scripts/XR_EFFECTS/anim_obj_stop(p_actor, p_npc, buffer)] WARNING: buffer.empty() == true! Return ...");
+        MESSAGEWR("buffer.empty() == true!");
         return;
     }
 
@@ -1788,7 +1784,7 @@ inline void play_sound(
 {
     if (buffer.empty())
     {
-        Msg("[Scripts/XR_EFFECTS/play_sound(p_actor, p_npc, buffer)] WARNING: buffer.empty() == true! Return ...");
+        MESSAGEWR("buffer.empty() == true!");
         return;
     }
 
@@ -1818,7 +1814,7 @@ inline void play_sound(
     {
         if (!p_npc->Alive())
         {
-            Msg("[Scripts/XR_EFFECTS/play_sound(p_actor, p_npc, buffer)] WARNING: stalker is dead!");
+            MESSAGEWR("stalker is dead!");
             return;
         }
     }
@@ -1831,14 +1827,13 @@ inline void play_sound_by_story(
 {
     if (buffer.empty())
     {
-        Msg("[Scripts/XR_EFFECTS/play_sound_by_story(p_actor, p_npc, buffer)] WARNING: buffer.empty() == true! Return "
-            "...");
+        MESSAGEWR("buffer.empty() == true!");
         return;
     }
 
     if (buffer.size() < 2)
     {
-        Msg("[Scripts/XR_EFFECTS/play_sound_by_story(p_actor, p_npc, buffer)] WARNING: buffer.size() < 2! Return ...");
+        MESSAGEWR("buffer.size() < 2!");
         return;
     }
 
@@ -1874,7 +1869,7 @@ inline void stop_sound(
 {
     if (!p_npc)
     {
-        Msg("[Scripts/XR_EFFECTS/stop_sound(p_actor, p_npc, buffer)] WARNING: p_npc == nullptr! Return ...");
+        MESSAGEWR("p_npc == nullptr!");
         return;
     }
 
@@ -1886,14 +1881,13 @@ inline void play_sound_looped(
 {
     if (buffer.empty())
     {
-        Msg("[Scripts/XR_EFFECTS/play_sound_looper(p_actor, p_npc, buffer)] WARNING: buffer.empty() == true! Return "
-            "...");
+        MESSAGEWR("buffer.empty() == true!");
         return;
     }
 
     if (!p_npc)
     {
-        Msg("[Scripts/XR_EFFECTS/play_sound_looped(p_actor, p_npc, buffer)] WARNING: p_npc == nullptr! Return ...");
+        MESSAGEWR("p_npc == nullptr!");
         return;
     }
 
@@ -1906,7 +1900,7 @@ inline void stop_sound_looped(
 {
     if (!p_npc)
     {
-        Msg("[Scripts/XR_EFFECTS/stop_sound_looped(p_actor, p_npc, buffer)] WARNING: p_npc == nullptr! Return ...");
+        MESSAGEWR("p_npc == nullptr!");
         return;
     }
 
@@ -1918,7 +1912,7 @@ inline void barrel_explode(
 {
     if (buffer.empty())
     {
-        Msg("[Scripts/XR_EFFECTS/barrel_explode(p_actor, p_npc, buffer)] WARNING: buffer.empty() == true! Return ...");
+        MESSAGEWR("buffer.empty() == true!");
         return;
     }
 
@@ -1933,26 +1927,26 @@ inline void create_squad(
 {
     if (buffer.empty())
     {
-        Msg("[Scripts/XR_EFFECTS/create_squad(p_actor, p_npc, buffer)] WARNING: buffer.empty() == true! Return ...");
+        MESSAGEWR("buffer.empty() == true!");
         return;
     }
 
     if (!p_npc)
     {
-        Msg("[Scripts/XR_EFFECTS/create_squad(p_actor, p_npc, buffer)] WARNING: p_npc == nullptr! Return ...");
+        MESSAGEWR("p_npc == nullptr!");
         return;
     }
 
     if (buffer.size() < 2)
     {
-        Msg("[Scripts/XR_EFFECTS/create_squad(p_actor, p_npc, buffer)] WARNING: buffer.size() < 2! Return ...");
+        MESSAGEWR("buffer.size() < 2!");
         return;
     }
 
     std::uint16_t squad_id = static_cast<std::uint16_t>(atoi(buffer[0].c_str()));
     if (!squad_id)
     {
-        Msg("[Scripts/XR_EFFECTS/create_squad(p_actor, p_npc, buffer)] squad_id == 0! Return ...");
+        MESSAGEWR("squad_id == 0!");
         return;
     }
 
@@ -1962,7 +1956,7 @@ inline void create_squad(
 
     if (!p_ini->section_exist(buffer[0].c_str()))
     {
-        Msg("[Scripts/XR_EFFECTS/create_squad(p_actor, p_npc, buffer)] WARNING: section doesn't exist %s",
+        MESSAGEWR("section doesn't exist %s",
             buffer[0].c_str());
         return;
     }
@@ -1972,7 +1966,7 @@ inline void create_squad(
 
     if (!p_server_smart)
     {
-        Msg("[Scripts/XR_EFFECTS/create_squad(p_actor, p_npc, buffer)] WARNING: p_server_smart == nullptr! Return ...");
+        MESSAGEWR("p_server_smart == nullptr!");
         return;
     }
 
@@ -1995,14 +1989,13 @@ inline void create_squad_member(
 {
     if (buffer.empty())
     {
-        Msg("[Scripts/XR_EFFECTS/create_squad_member(p_actor, p_npc, buffer)] WARNING: buffer.empty() == true! Return "
-            "...");
+        MESSAGEWR("buffer.empty() == true!");
         return;
     }
 
     if (buffer.size() < 2)
     {
-        Msg("[Scripts/XR_EFFECTS/create_squad_member(p_actor, p_npc, buffer)] WARNING: buffer.size() < 2! Return ...");
+        MESSAGEWR("buffer.size() < 2!");
         return;
     }
 
@@ -2068,14 +2061,14 @@ inline void remove_squad(
 {
     if (buffer.empty())
     {
-        Msg("[Scripts/XR_EFFECTS/remove_squad(p_actor, p_npc, buffer)] WARNING: buffer.empty() == true! Return ...");
+        MESSAGEWR("buffer.empty() == true!");
         return;
     }
 
     Script_SE_SimulationSquad* const p_server_squad = Globals::get_story_squad(buffer[0]);
     if (!p_server_squad)
     {
-        Msg("[Scripts/XR_EFFECTS/remove_squad(p_actor, p_npc, buffer)] WARNING: can't find squad by %s",
+        MESSAGEWR("can't find squad by %s",
             buffer[0].c_str());
         return;
     }
@@ -2088,14 +2081,14 @@ inline void kill_squad(
 {
     if (buffer.empty())
     {
-        Msg("[Scripts/XR_EFFECTS/kill_squad(p_actor, p_npc, buffer)] WARNING: buffer.empty() == true! Return ...");
+        MESSAGEWR("buffer.empty() == true!");
         return;
     }
 
     Script_SE_SimulationSquad* const p_server_squad = Globals::get_story_squad(buffer[0]);
     if (!p_server_squad)
     {
-        Msg("[Scripts/XR_EFFECTS/kill_squad(p_actor, p_npc, buffer)] WARNING: can't find squad by %s Return ...",
+        MESSAGEWR("can't find squad by %s",
             buffer[0].c_str());
         return;
     }
@@ -2123,7 +2116,7 @@ inline void heal_squad(
 {
     if (buffer.empty())
     {
-        Msg("[Scripts/XR_EFFECTS/heal_squad(p_actor, p_npc, buffer)] WARNING: buffer.empty() == true! Return ...");
+        MESSAGEWR("buffer.empty() == true!");
         return;
     }
 
@@ -2139,7 +2132,7 @@ inline void heal_squad(
 
     if (!p_server_squad)
     {
-        Msg("[Scripts/XR_EFFECTS/heal_squad(p_actor, p_npc, buffer)] WARNING: can't find server squad by %s",
+        MESSAGEWR("can't find server squad by %s",
             story_id_name.c_str());
         return;
     }
@@ -2165,8 +2158,7 @@ inline void clear_smart_terrain(
 {
     if (buffer.empty())
     {
-        Msg("[Scripts/XR_EFFECTS/clear_smart_terrain(p_actor, p_npc, buffer)] WARNING: buffer.empty() == true! Return "
-            "...");
+        MESSAGEWR("buffer.empty() == true!");
         return;
     }
 
@@ -2198,7 +2190,7 @@ inline void give_task(
 {
     if (buffer.empty())
     {
-        Msg("[Scripts/XR_EFFECTS/give_task(p_actor, p_npc, buffer)] WARNING: buffer.empty() == true! Return ...");
+        MESSAGEWR("buffer.empty() == true!");
         return;
     }
 
@@ -2231,13 +2223,13 @@ inline void actor_friend(
 {
     if (!p_actor)
     {
-        Msg("[Scripts/XR_EFFECTS/actor_friend(p_actor, p_npc, buffer)] WARNING: p_actor == nullptr! Return ...");
+        MESSAGEWR("p_actor == nullptr!");
         return;
     }
 
     if (!p_npc)
     {
-        Msg("[Scripts/XR_EFFECTS/actor_friend(p_actor, p_npc, buffer)] WARNING: p_npc == nullptr! Return ...");
+        MESSAGEWR("p_npc == nullptr!");
         return;
     }
 
@@ -2249,13 +2241,13 @@ inline void actor_neutral(
 {
     if (!p_actor)
     {
-        Msg("[Scripts/XR_EFFECTS/actor_neutral(p_actor, p_npc, buffer)] WARNING: p_actor == nullptr! Return ...");
+        MESSAGEWR("p_actor == nullptr!");
         return;
     }
 
     if (!p_npc)
     {
-        Msg("[Scripts/XR_EFFECTS/actor_neutral(p_actor, p_npc, buffer)] WARNING: p_npc == nullptr! Return ...");
+        MESSAGEWR("p_npc == nullptr!");
         return;
     }
 
@@ -2267,13 +2259,13 @@ inline void actor_enemy(
 {
     if (!p_actor)
     {
-        Msg("[Scripts/XR_EFFECTS/actor_enemy(p_actor, p_npc, buffer)] WARNING: p_actor == nullptr! Return ...");
+        MESSAGEWR("p_actor == nullptr!");
         return;
     }
 
     if (!p_npc)
     {
-        Msg("[Scripts/XR_EFFECTS/actor_enemy(p_actor, p_npc, buffer)] WARNING: p_npc == nullptr! Return ...");
+        MESSAGEWR("p_npc == nullptr!");
         return;
     }
 
@@ -2285,8 +2277,7 @@ inline void set_squad_neutral_to_actor(
 {
     if (buffer.empty())
     {
-        Msg("[Scripts/XR_EFFECTS/set_squad_neutral_to_actor(p_actor, p_npc, buffer)] WARNING: buffer.empty() == true! "
-            "Return ...");
+        MESSAGEWR("buffer.empty() == true!");
         return;
     }
 
@@ -2294,8 +2285,8 @@ inline void set_squad_neutral_to_actor(
 
     if (!p_squad)
     {
-        Msg("[Scripts/XR_EFFECTS/set_squad_neutral_to_actor(p_actor, p_npc, buffer)] WARNING: p_squad == nullptr! "
-            "There is no squad! Return ...");
+        MESSAGEWR("p_squad == nullptr! "
+            "There is no squad!");
         return;
     }
 
@@ -2307,8 +2298,7 @@ inline void set_squad_friend_to_actor(
 {
     if (buffer.empty())
     {
-        Msg("[Scripts/XR_EFFECTS/set_squad_friend_to_actor(p_actor, p_npc, buffer)] WARNING: buffer.empty() == true! "
-            "Return ...");
+        MESSAGEWR("buffer.empty() == true!");
         return;
     }
 
@@ -2316,8 +2306,8 @@ inline void set_squad_friend_to_actor(
 
     if (!p_squad)
     {
-        Msg("[Scripts/XR_EFFECTS/set_squad_friend_to_actor(p_actor, p_npc, buffer)] WARNING: p_squad == nullptr! "
-            "There is no squad! Return ...");
+        MESSAGEWR("p_squad == nullptr! "
+            "There is no squad!");
         return;
     }
 
@@ -2329,8 +2319,7 @@ inline void set_squad_enemy_to_actor(
 {
     if (buffer.empty())
     {
-        Msg("[Scripts/XR_EFFECTS/set_squad_enemy_to_actor(p_actor, p_npc, buffer)] WARNING: buffer.empty() == true! "
-            "Return ...");
+        MESSAGEWR("buffer.empty() == true!");
         return;
     }
 
@@ -2338,8 +2327,8 @@ inline void set_squad_enemy_to_actor(
 
     if (!p_squad)
     {
-        Msg("[Scripts/XR_EFFECTS/set_squad_enemy_to_actor(p_actor, p_npc, buffer)] WARNING: p_squad == nullptr! "
-            "There is no squad! Return ...");
+        MESSAGEWR("p_squad == nullptr! "
+            "There is no squad!");
         return;
     }
 
@@ -2351,15 +2340,14 @@ inline void set_squad_goodwill(
 {
     if (buffer.empty())
     {
-        Msg("[Scripts/XR_EFFECTS/set_squad_goodwill(p_actor, p_npc, buffer)] WARNING: buffer.empty() == true! Return "
-            "...");
+        MESSAGEWR("buffer.empty() == true!");
         return;
     }
 
     if (buffer.size() < 2)
     {
-        Msg("[Scripts/XR_EFFECTS/set_squad_goodwill(p_actor, p_npc, buffer)] WARNING: not enough size for buffer "
-            "argument list! Must be == 2! Return ...");
+        MESSAGEWR("not enough size for buffer "
+            "argument list! Must be == 2!");
         return;
     }
 
@@ -2371,15 +2359,13 @@ inline void set_squad_goodwill_to_npc(
 {
     if (buffer.empty())
     {
-        Msg("[Scripts/XR_EFFECTS/set_squad_goodwill_to_npc(p_actor, p_npc, buffer)] WARNING: buffer.empty() == true! "
-            "Return ...");
+        MESSAGEWR("buffer.empty() == true!");
         return;
     }
 
     if (buffer.size() < 2)
     {
-        Msg("[Scripts/XR_EFFECTS/set_squad_goodwill_to_npc(p_actor, p_npc, buffer)] WARNING: buffer.size() < 2! Return "
-            "...");
+        MESSAGEWR("buffer.size() < 2!");
         return;
     }
 
@@ -2391,22 +2377,19 @@ inline void inc_faction_goodwill_to_actor(
 {
     if (buffer.empty())
     {
-        Msg("[Scripts/XR_EFFECTS/inc_faction_goodwill_to_actor(p_actor, p_npc, buffer)] WARNING: buffer.empty() == "
-            "true! Return ...");
+        MESSAGEWR("buffer.empty() == true!");
         return;
     }
 
     if (buffer.size() < 2)
     {
-        Msg("[Scrpts/XR_EFFECTS/inc_faction_goodwill_to_actor(p_actor, p_npc, buffer)] WARNING: buffer.size() < 2! "
-            "Return ...");
+        MESSAGEWR("buffer.size() < 2!");
         return;
     }
 
     if (!p_actor)
     {
-        Msg("[Scripts/XR_EFFECTS/inc_faction_goodwill_to_actor(p_actor, p_npc, buffer)] WARNING: p_actor == nullptr! "
-            "Return ...");
+        MESSAGEWR("p_actor == nullptr!");
         return;
     }
 
@@ -2418,22 +2401,19 @@ inline void dec_faction_goodwill_to_actor(
 {
     if (buffer.empty())
     {
-        Msg("[Scripts/XR_EFFECTS/dec_faction_goodwill_to_actor(p_actor, p_npc, buffer)] WARNING: buffer.empty() == "
-            "true! Return ...");
+        MESSAGEWR("buffer.empty() == true!");
         return;
     }
 
     if (buffer.size() < 2)
     {
-        Msg("[Scrpts/XR_EFFECTS/dec_faction_goodwill_to_actor(p_actor, p_npc, buffer)] WARNING: buffer.size() < 2! "
-            "Return ...");
+        MESSAGEWR("buffer.size() < 2!");
         return;
     }
 
     if (!p_actor)
     {
-        Msg("[Scripts/XR_EFFECTS/dec_faction_goodwill_to_actor(p_actor, p_npc, buffer)] WARNING: p_actor == nullptr! "
-            "Return ...");
+        MESSAGEWR("p_actor == nullptr!");
         return;
     }
 
@@ -2451,7 +2431,7 @@ inline void give_treasure(
 {
     if (buffer.empty())
     {
-        Msg("[Scripts/XR_EFFECTS/give_treasure(p_actor, p_npc, buffer)] WARNING: buffer.empty() == true! Return ...");
+        MESSAGEWR("buffer.empty() == true!");
         return;
     }
 
@@ -2478,18 +2458,22 @@ inline void set_surge_mess_and_task(
 {
     if (buffer.empty())
     {
-        Msg("[Scripts/XR_EFFECTS/set_surge_mess_and_task(p_actor, p_npc, buffer)] WARNING: buffer.empty() == true! "
-            "Return ...");
+        MESSAGEWR("buffer.empty() == true!");
         return;
     }
 
     Script_SurgeManager::getInstance().set_surge_message(buffer[0]);
 
     if (buffer.size() >= 2)
+    {
         Script_SurgeManager::getInstance().set_surge_task(buffer[1]);
+    }
     else
-        Msg("[Scripts/XR_EFFECTS/set_surge_mess_and_task(p_actor, p_npc, buffer)] WARNING: buffer.size() < 2! Can't "
-            "set task!");
+    {
+		MESSAGEW("buffer.size() < 2! Can't "
+			"set task!");
+    }
+
 }
 
 inline void make_actor_visible_to_squad(
@@ -2497,8 +2481,7 @@ inline void make_actor_visible_to_squad(
 {
     if (buffer.empty())
     {
-        Msg("[Scripts/XR_EFFECTS/make_actor_visible_to_squad(p_actor, p_npc, buffer)] WARNING: buffer.empty() == true! "
-            "Return ...");
+        MESSAGEWR("buffer.empty() == true!");
         return;
     }
 
@@ -2506,8 +2489,8 @@ inline void make_actor_visible_to_squad(
 
     if (!p_squad)
     {
-        Msg("[Scripts/XR_EFFECTS/make_actor_visible_to_squad(p_actor, p_npc, buffer)] WARNING: can't obtain squad from "
-            "id %s Return ...",
+        MESSAGEWR("can't obtain squad from "
+            "id %s",
             buffer[0].c_str());
         return;
     }
@@ -2527,7 +2510,7 @@ inline void stop_sr_cutscene(
 {
     if (!p_npc)
     {
-        Msg("[Scripts/XR_EFFECTS/stop_sr_cutscene(p_actor, p_npc, buffer)] WARNING: p_npc == nullptr! Return ...");
+        MESSAGEWR("p_npc == nullptr!");
         return;
     }
 
@@ -2544,14 +2527,14 @@ inline void enable_anomaly(
 {
     if (buffer.empty())
     {
-        Msg("[Scripts/XR_EFFECTS/enable_anomaly(p_actor, p_npc, buffer)] WARNING: buffer.empty() == true! Return ...");
+        MESSAGEWR("buffer.empty() == true!");
         return;
     }
 
     CScriptGameObject* const p_object = Globals::get_story_object(buffer[0]);
     if (!p_object)
     {
-        Msg("[Scripts/XR_EFFECTS/enable_anomaly(p_actor, p_npc, buffer)] WARNING: p_object == nullptr! %s Return ...",
+        MESSAGEWR("p_object == nullptr! %s",
             buffer[0].c_str());
         return;
     }
@@ -2564,15 +2547,14 @@ inline void disable_anomaly(
 {
     if (buffer.empty())
     {
-        Msg("[Scripts/XR_EFFECTS/disable_anomaly(p_actor, p_npc, buffer)] WARNING: buffer.empty() == true! Return ...");
+        MESSAGEWR("buffer.empty() == true!");
         return;
     }
 
     CScriptGameObject* const p_object = Globals::get_story_object(buffer[0]);
     if (!p_object)
     {
-        Msg("[Scripts/XR_EFFECTS/disable_anomaly(p_actor, p_npc, buffer)] WARNING: can't find object by %s Return ...",
-            buffer[0].c_str());
+        MESSAGEWR("can't find object by %s", buffer[0].c_str());
         return;
     }
 
@@ -2586,7 +2568,7 @@ inline void add_cs_text(
 {
     if (buffer.empty())
     {
-        Msg("[Scripts/XR_EFFECTS/add_cs_text(p_actor, p_npc, buffer)] WARNING: buffer.empty() == true! Return ...");
+        MESSAGEWR("buffer.empty() == true!");
         return;
     }
 
@@ -2616,8 +2598,7 @@ inline void spawn_item_to_npc(
 {
     if (buffer.empty())
     {
-        Msg("[Scripts/XR_EFFECTS/spawn_item_to_npc(p_actor, p_npc, buffer)] WARNING: buffer.empty() == true! Return "
-            "...");
+        MESSAGEWR("buffer.empty() == true!");
         return;
     }
 
@@ -2630,15 +2611,14 @@ inline void give_money_to_npc(
 {
     if (buffer.empty())
     {
-        Msg("[Scripts/XR_EFFECTS/give_money_to_npc(p_actor, p_npc, buffer)] WARNING: buffer.empty() == true! Return "
-            "...");
+        MESSAGEWR("buffer.empty() == true!");
         return;
     }
 
     int value = atoi(buffer[0].c_str());
 
     if (!value)
-        Msg("[Scripts/XR_EFFECTS/give_money_to_npc(p_actor, p_npc, buffer)] WARNING: money == 0! You give Zero!");
+        MESSAGEWR("money == 0! You give Zero!");
 
     p_npc->GiveMoney(value);
 }
@@ -2648,15 +2628,14 @@ inline void seize_money_to_npc(
 {
     if (buffer.empty())
     {
-        Msg("[Scripts/XR_EFFECTS/seize_money_to_npc(p_actor, p_npc, buffer)] WARNING: buffer.empty() == true! Return "
-            "...");
+        MESSAGEWR("buffer.empty() == true!");
         return;
     }
 
     int value = atoi(buffer[0].c_str());
 
     if (!value)
-        Msg("[Scripts/XR_EFFECTS/seize_money_to_npc(p_actor, p_npc, buffer)] WARNING: money == 0! You give Zero!");
+        MESSAGEW("money == 0! You give Zero!");
 
     p_npc->GiveMoney(-value);
 }
@@ -2666,13 +2645,13 @@ inline void relocate_item(
 {
     if (buffer.empty())
     {
-        Msg("[Scripts/XR_EFFECTS/relocate_item(p_actor, p_npc, buffer)] WARNING: buffer.empty() == true! Return ...");
+        MESSAGEWR("buffer.empty() == true!");
         return;
     }
 
     if (buffer.size() < 3)
     {
-        Msg("[Scripts/XR_EFFECTS/relocate_item(p_actor, p_npc, buffer)] WARNING: buffer.size() < 3! Return ...");
+        MESSAGEWR("buffer.size() < 3!");
         return;
     }
 
@@ -2693,7 +2672,7 @@ inline void relocate_item(
     }
     else
     {
-        Msg("[Scripts/XR_EFFECTS/relocate_item(p_actor, p_npc, buffer)] WARNING: p_to_object == nullptr! Return ...");
+        MESSAGEW("p_to_object == nullptr!");
     }
 }
 
@@ -2702,8 +2681,7 @@ inline void set_squads_enemies(
 {
     if (buffer.empty())
     {
-        Msg("[Scripts/XR_EFFECTS/set_squads_enemies(p_actor, p_npc, buffer)] WARNING: buffer.empty() == true! Return "
-            "...");
+        MESSAGEWR("buffer.empty() == true!");
         return;
     }
 
@@ -2712,13 +2690,13 @@ inline void set_squads_enemies(
 
     if (!p_squad1)
     {
-        Msg("[Scripts/XR_EFFECTS/set_squads_enemies(p_actor, p_npc, buffer)] WARNING: p_squad1 == nullptr! Return ...");
+        MESSAGEWR("p_squad1 == nullptr!");
         return;
     }
 
     if (!p_squad2)
     {
-        Msg("[Scripts/XR_EFFECTS/set_squads_enemies(p_actor, p_npc, buffer)] WARNING: p_squad2 == nullptr! Return ...");
+        MESSAGEWR("p_squad2 == nullptr!");
         return;
     }
 
@@ -2752,8 +2730,7 @@ inline void set_bloodsucker_state(
 {
     if (buffer.empty())
     {
-        Msg("[Scripts/XR_EFFECTS/set_bloodsucker_state(p_actor, p_npc, buffer)] WARNING: buffer.empty() == true! "
-            "Return ...");
+        MESSAGEWR("buffer.empty() == true!");
         return;
     }
 
@@ -2762,7 +2739,7 @@ inline void set_bloodsucker_state(
 
     if (buffer.size() < 2)
     {
-        Msg("[Scripts/XR_EFFECTS/set_bloodsucker_state(p_actor, p_npc, buffer)] WARNING: buffer.size() < 2!");
+        MESSAGEW("buffer.size() < 2!");
     }
     else
     {
@@ -2784,15 +2761,13 @@ inline void zat_b29_create_random_infop(
 {
     if (buffer.empty())
     {
-        Msg("[Scripts/XR_EFFECTS/zat_b29_create_random_infop(p_actor, p_npc, buffer)] WARNING: buffer.empty() == true! "
-            "Return ...");
+        MESSAGEWR("buffer.empty() == true!");
         return;
     }
 
     if (buffer.size() < 2)
     {
-        Msg("[Scripts/XR_EFFECTS/zat_b29_create_random_infop(p_actor, p_npc, buffer)] WARNING: buffer.size() < 2! "
-            "Return ...");
+        MESSAGEWR("buffer.size() < 2! ");
         return;
     }
 
@@ -2841,23 +2816,21 @@ inline void pick_artefact_from_anomaly(
 {
     if (buffer.empty())
     {
-        Msg("[Scripts/XR_EFFECTS/pick_artefact_from_anomaly(p_actor, p_npc, buffer)] WARNING: buffer.empty() == true! "
-            "Return ...");
+        MESSAGEWR("buffer.empty() == true!");
         return;
     }
 
     if (buffer.size() < 2)
     {
-        Msg("[Scripts/XR_EFFECTS/pick_artefact_from_anomaly(p_actor, p_npc, buffer)] WARNING: buffer.size() < 2! "
-            "Return ...");
+        MESSAGEWR("buffer.size() < 2!");
         return;
     }
 
     std::uint16_t npc_id = Globals::get_story_object_id(buffer[0]);
     if (!npc_id)
     {
-        Msg("[Scripts/XR_EFFECTS/pick_artefact_from_anomaly(p_actor, p_npc, buffer)] WARNING: npc_id == 0! Can't find "
-            "that id by %s Return ...",
+        MESSAGEWR("npc_id == 0! Can't find "
+            "that id by %s",
             buffer[0].c_str());
         return;
     }
@@ -2869,8 +2842,8 @@ inline void pick_artefact_from_anomaly(
         if ((!Globals::IsStalker(p_server_npc->cast_alife_dynamic_object(), 0) ||
                 !p_server_npc->cast_creature_abstract()->g_Alive()))
         {
-            Msg("[Scripts/XR_EFFECTS/pick_artefact_from_anomaly(p_actor, p_npc, buffer)] WARNING: Can't relocate item "
-                "to dead or not stalker! Return ...");
+            MESSAGEWR("Can't relocate item "
+                "to dead or not stalker!");
             return;
         }
     }
@@ -2882,8 +2855,8 @@ inline void pick_artefact_from_anomaly(
 
     if (!p_zone)
     {
-        Msg("[Scripts/XR_EFFECTS/pick_artefact_from_anomaly(p_actor, p_npc, buffer)] WARNING: Can't find anomal zone "
-            "(or it can be deleted) %s Return ...",
+        MESSAGEWR("Can't find anomal zone "
+            "(or it can be deleted) %s",
             anomalzone_name.c_str());
         return;
     }
@@ -2891,15 +2864,13 @@ inline void pick_artefact_from_anomaly(
     Script_Binder_Anomaly* const p_zone_object = dynamic_cast<Script_Binder_Anomaly*>(p_zone->binded_object());
     if (!p_zone_object)
     {
-        Msg("[Scripts/XR_EFFECTS/pick_artefact_from_anomaly(p_actor, p_npc, buffer)] WARNING: Bad cast. It is not "
-            "anomal zone at all, check your object and his binder! Return ...");
+        MESSAGEWR("Bad cast. It is not anomal zone at all, check your object and his binder!");
         return;
     }
 
     if (p_zone_object->getSpawnedCount() < 1)
     {
-        Msg("[Scripts/XR_EFFECTS/pick_artefact_from_anomaly(p_actor, p_npc, buffer)] WARNING: spawned count < 1! "
-            "Return ...");
+        MESSAGEWR("spawned count < 1!");
         return;
     }
 
@@ -2926,8 +2897,8 @@ inline void pick_artefact_from_anomaly(
 
     if (artefact_id == 0)
     {
-        Msg("[Scripts/XR_EFFECTS/pick_artefact_from_anomaly(p_actor, p_npc, buffer)] WARNING: Can't find artefact in "
-            "anomaly %s Return ...",
+        MESSAGEWR("Can't find artefact in "
+            "anomaly %s",
             anomalzone_name.c_str());
         return;
     }
@@ -2942,7 +2913,7 @@ inline void give_item_b29(
 {
     if (buffer.empty())
     {
-        Msg("[Scripts/XR_EFFECTS/give_item_b29(p_actor, p_npc, buffer)] WARNING: buffer.empty() == true! Return ...");
+        MESSAGEWR("buffer.empty() == true!");
         return;
     }
 
@@ -2981,14 +2952,13 @@ inline void relocate_item_b29(
 {
     if (buffer.empty())
     {
-        Msg("[Scripts/XR_EFFECTS/relocate_item_b29(p_actor, p_npc, buffer)] WARNING: buffer.empty() == true! Return "
-            "...");
+        MESSAGEWR("buffer.empty() == true!");
         return;
     }
 
     if (buffer.size() < 2)
     {
-        Msg("[Scripts/XR_EFFECTS/relocate_item_b29(p_actor, p_npc, buffer)] WARNING: buffer.size() < 2! Return ...");
+        MESSAGEWR("buffer.size() < 2");
         return;
     }
 
@@ -3020,8 +2990,7 @@ inline void relocate_item_b29(
     }
     else
     {
-        Msg("[Scripts/XR_EFFECTS/relocate_item_b29(p_actor, p_npc, buffer)] WARNING: can't find object by %s Return "
-            "...",
+        MESSAGEWR("can't find object by %s",
             buffer[1].c_str());
     }
 }
@@ -3031,7 +3000,7 @@ inline void reset_sound_npc(
 {
     if (!p_npc)
     {
-        Msg("[Scripts/XR_EFFECTS/reset_sound_npc(p_actor, p_npc, buffer)] WARNING: p_npc == nullptr! Return ...");
+        MESSAGEWR("p_npc == nullptr!");
         return;
     }
 
@@ -3066,7 +3035,7 @@ inline void clear_box(
 {
     if (buffer.empty())
     {
-        Msg("[Scripts/XR_EFFECTS/clear_box(p_actor, p_npc, buffer)] WARNING: buffer.empty() == true! Return ...");
+        MESSAGEWR("buffer.empty() == true!");
         return;
     }
 
@@ -3074,8 +3043,8 @@ inline void clear_box(
 
     if (!p_inventory_box)
     {
-        Msg("[Scripts/XR_EFFECTS/clear_box(p_actor, p_npc, buffer)] WARNING: p_inventory_box == nullptr! Can't find by "
-            "%s Return ...",
+        MESSAGEWR("p_inventory_box == nullptr! Can't find by "
+            "%s",
             buffer[0].c_str());
         return;
     }
@@ -3097,7 +3066,7 @@ inline void activate_weapon(
 {
     if (buffer.empty())
     {
-        Msg("[Scripts/XR_EFFECTS/activate_weapon(p_actor, p_npc, buffer)] WARNING: buffer.empty() == true! Return ...");
+        MESSAGEWR("buffer.empty() == true!");
         return;
     }
 
@@ -3105,8 +3074,8 @@ inline void activate_weapon(
 
     if (!p_weapon)
     {
-        Msg("[Scripts/XR_EFFECTS/activate_weapon(p_actor, p_npc, buffer)] WARNING: p_weapon == nullptr! can't find by "
-            "%s Return ...",
+        MESSAGEWR("p_weapon == nullptr! can't find by "
+            "%s",
             buffer[0].c_str());
         return;
     }
@@ -3119,7 +3088,7 @@ inline void set_game_time(
 {
     if (buffer.empty())
     {
-        Msg("[Scripts/XR_EFFECTS/set_game_time(p_actor, p_npc, buffer)] WARNING: buffer.empty() == true! Return ...");
+        MESSAGEWR("buffer.empty() == true!");
         return;
     }
 
@@ -3130,7 +3099,7 @@ inline void set_game_time(
 
     if (hours == 0)
     {
-        Msg("[Scripts/XR_EFFECTS/set_game_time(p_actor, p_npc, buffer)] WARNING: hours == 0! Something will be wrong! "
+        MESSAGEW("hours == 0! Something will be wrong! "
             "Check your arguments!");
     }
 
@@ -3138,7 +3107,7 @@ inline void set_game_time(
 
     if (minutes == 0)
     {
-        Msg("[Scripts/XR_EFFECTS/set_game_time(p_actor, p_npc, buffer)] minutes == 0!");
+        MESSAGEI("minutes == 0!");
     }
 
     int hours_to_change = hours - real_hours;
@@ -3162,7 +3131,7 @@ inline void set_game_time(
     Script_WeatherManager::getInstance().forced_weather_change();
     Script_SurgeManager::getInstance().setTimeForwarded(true);
 
-    Msg("[Scripts/XR_EFFECTS/set_game_time(p_actor, p_npc, buffer)] Time is changed to [%d][%d]", hours_to_change,
+    MESSAGE("Time is changed to [%d][%d]", hours_to_change,
         minutes_to_change);
 }
 
@@ -3171,8 +3140,7 @@ inline void forward_game_time(
 {
     if (buffer.empty())
     {
-        Msg("[Scripts/XR_EFFECTS/forward_game_time(p_actor, p_npc, buffer)] WARNING: buffer.empty() == true! Return "
-            "...");
+        MESSAGEWR("buffer.empty() == true!");
         return;
     }
 
@@ -3182,7 +3150,8 @@ inline void forward_game_time(
     Globals::change_game_time(0, hours, minutes);
     Script_WeatherManager::getInstance().forced_weather_change();
     Script_SurgeManager::getInstance().setTimeForwarded(true);
-    Msg("[Scripts/XR_EFFECTS/forward_game_time(p_actor, p_npc, buffer)] time is forwarded to %d %d", hours, minutes);
+
+    MESSAGE("time is forwarded to %d %d", hours, minutes);
 }
 
 inline void stop_tutorial(
@@ -3251,8 +3220,8 @@ inline void jup_b10_spawn_drunk_dead_items(
 
                 if (!p_server_box)
                 {
-                    Msg("[Scripts/XR_EFFECTS/jup_b10_spawn_drunk_dead_items(p_actor, p_npc, buffer)] WARNING: can't "
-                        "find server object by %d Return ...",
+                    MESSAGEWR("can't "
+                        "find server object by %d",
                         target_object_id);
                     return;
                 }
@@ -3264,7 +3233,7 @@ inline void jup_b10_spawn_drunk_dead_items(
             }
             else
             {
-                Msg("[Scripts/XR_EFFECTS/jup_b10_spawn_drunk_dead_items(p_actor, p_npc, buffer)] WARNING: can't find "
+                MESSAGEW("can't find "
                     "id by %s",
                     buffer[0].c_str());
             }
@@ -3288,8 +3257,7 @@ inline void anomaly_turn_off(
 {
     if (buffer.empty())
     {
-        Msg("[Scripts/XR_EFFECTS/anomaly_turn_off(p_actor, p_npc, buffer)] WARNING: buffer.empty() == true! Return "
-            "...");
+        MESSAGEWR("buffer.empty() == true!");
         return;
     }
 
@@ -3297,8 +3265,7 @@ inline void anomaly_turn_off(
 
     if (!p_anomaly)
     {
-        Msg("[Scripts/XR_EFFECTS/anomaly_turn_off(p_actor, p_npc, buffer)] WARNING: can't find a client object by %s "
-            "Return ...",
+        MESSAGEWR("can't find a client object by %s",
             buffer[0].c_str());
         return;
     }
@@ -3307,8 +3274,7 @@ inline void anomaly_turn_off(
 
     if (!p_binder)
     {
-        Msg("[Scripts/XR_EFFECTS/anomaly_turn_off(p_actor, p_npc, buffer)] WARNING: p_binder == nullptr! Bad cast "
-            "Return ...");
+        MESSAGEWR("p_binder == nullptr! Bad cast");
         return;
     }
 
@@ -3320,7 +3286,7 @@ inline void anomaly_turn_on(
 {
     if (buffer.empty())
     {
-        Msg("[Scripts/XR_EFFECTS/anomaly_turn_on(p_actor, p_npc, buffer)] WARNING: buffer.empty() == true! Return ...");
+        MESSAGEWR("buffer.empty() == true!");
         return;
     }
 
@@ -3328,8 +3294,8 @@ inline void anomaly_turn_on(
 
     if (!p_anomaly)
     {
-        Msg("[Scripts/XR_EFFECTS/anomaly_turn_on(p_actor, p_npc, buffer)] WARNING: p_anomaly == nullptr! Can't find "
-            "the anomaly by %s Return ...",
+        MESSAGEWR("p_anomaly == nullptr! Can't find "
+            "the anomaly by %s",
             buffer[0].c_str());
         return;
     }
@@ -3338,8 +3304,7 @@ inline void anomaly_turn_on(
 
     if (!p_binder)
     {
-        Msg("[Scripts/XR_EFFECTS/anomaly_turn_on(p_actor, p_npc, buffer)] WARNING: p_binder == nullptr! Bad cast "
-            "Return ...");
+        MESSAGEWR("p_binder == nullptr! Bad cast");
         return;
     }
 
@@ -3358,8 +3323,7 @@ inline void zat_b202_spawn_random_loot(
 {
     if (buffer.empty())
     {
-        Msg("[Scripts/XR_EFFECTS/zat_b202_spawn_random_loot(p_actor, p_npc, buffer)] WARNING: buffer.empty() == true! "
-            "Return ...");
+        MESSAGEWR("buffer.empty() == true!");
         return;
     }
 
@@ -3536,8 +3500,7 @@ inline void jup_b221_play_main(
 {
     if (buffer.empty())
     {
-        Msg("[Scripts/XR_EFFECTS/jup_b221_play_main(p_actor, p_npc, buffer)] WARNING: buffer.empty() == true! Return "
-            "...");
+        MESSAGEWR("buffer.empty() == true!");
         return;
     }
 
@@ -3576,8 +3539,8 @@ inline void jup_b221_play_main(
     }
     else
     {
-        Msg("[Scripts/XR_EFFECTS/jup_b221_play_main(p_actor, p_npc, buffer)] WARNING: wrong argument, check it, it "
-            "must be community name! Return ...");
+        MESSAGEWR("wrong argument, check it, it "
+            "must be community name!");
         return;
     }
 
@@ -3608,8 +3571,8 @@ inline void jup_b221_play_main(
         }
         else
         {
-            Msg("[Scripts/XR_EFFECTS/jup_b221_play_main(p_actor, p_npc, buffer)] WARNING: can't pick index_theme check "
-                "your code here! Return ...");
+            MESSAGEWR("can't pick index_theme check "
+                "your code here!");
             return;
         }
     }
@@ -3624,8 +3587,8 @@ inline void jup_b221_play_main(
         }
         else
         {
-            Msg("[Scripts/XR_EFFECTS/jup_b221_play_main(p_actor, p_npc, buffer)] WARNING: can't pick index_theme check "
-                "code Return ...");
+            MESSAGEW("can't pick index_theme check "
+                "code ");
         }
 
         XR_LOGIC::pstor_store(p_actor, "jup_b221_played_main_theme", "0");
@@ -3685,8 +3648,8 @@ inline void jup_b217_hard_animation_reset(
 
     if (!p_state_manager)
     {
-        Msg("[Scripts/XR_EFFECTS/jup_b217_hard_animation_reset(p_actor, p_npc, buffer)] WARNING: p_state_manager == "
-            "nullptr! Return ...");
+        MESSAGEWR("p_state_manager == "
+            "nullptr!");
         return;
     }
 
@@ -3915,8 +3878,7 @@ inline void create_cutscene_actor_with_weapon(
 {
     if (buffer.empty())
     {
-        Msg("[Scripts/XR_EFFECTS/create_cutscene_actor_with_weapon(p_actor, p_npc, buffer)] WARNING: buffer.empty() == "
-            "true! Return ...");
+        MESSAGEWR("buffer.empty() == true");
         return;
     }
 
@@ -3924,8 +3886,7 @@ inline void create_cutscene_actor_with_weapon(
 
     if (buffer.size() < 2)
     {
-        Msg("[Scripts/XR_EFFECTS/create_cutscene_actor_with_weapon(p_actor, p_npc, buffer)] WARNING: buffer.size() < "
-            "2! Return ...");
+        MESSAGEWR("buffer.size() < 2");
         return;
     }
 
@@ -3933,8 +3894,8 @@ inline void create_cutscene_actor_with_weapon(
 
     if (!Globals::patrol_path_exists(path_name.c_str()))
     {
-        Msg("[Scripts/XR_EFFECTS/create_cutscene_actor_with_weapon(p_actor, p_npc, buffer)] WARNING: path_name %s "
-            "doesn't exist! Return ...",
+        MESSAGEWR("path_name %s "
+            "doesn't exist!",
             path_name.c_str());
         return;
     }
@@ -4012,8 +3973,7 @@ inline void set_force_sleep_animation(
 {
     if (buffer.empty())
     {
-        Msg("[Scripts/XR_EFFECTS/set_force_sleep_animation(p_actor, p_npc, buffer)] WARNING: buffer.empty() == true! "
-            "Return ...");
+        MESSAGEWR("buffer.empty() == true!");
         return;
     }
 
@@ -4048,8 +4008,7 @@ inline void set_visual_memory_enabled(
 {
     if (buffer.empty())
     {
-        Msg("[Scripts/XR_EFFECTS/set_visual_memory_enabled(p_actor, p_npc, buffer)] WARNING: buffer.empty() == true! "
-            "Return ...");
+        MESSAGEWR("buffer.empty() == true!");
         return;
     }
 
@@ -4126,7 +4085,7 @@ inline void upgrade_hint(
 {
     if (buffer.empty())
     {
-        Msg("[Scripts/XR_EFFECTS/upgrade_hint(p_actor, p_npc, buffer)] WARNING: buffer.empty() == true! Return ...");
+        MESSAGEWR("buffer.empty() == true!");
         return;
     }
 
@@ -4138,7 +4097,7 @@ inline void force_obj(
 {
     if (buffer.empty())
     {
-        Msg("[Scripts/XR_EFFECTS/force_obj(p_actor, p_npc, buffer)] WARNING: buffer.empty() == true! Return ...");
+        MESSAGEWR("buffer.empty() == true!");
         return;
     }
 
@@ -4146,7 +4105,7 @@ inline void force_obj(
 
     if (!p_object)
     {
-        Msg("[Scripts/XR_EFFECTS/force_obj(p_actor, p_npc, buffer)] WARNING: Target object does not exist!");
+        MESSAGEWR("Target object does not exist!");
         return;
     }
 
@@ -4204,8 +4163,7 @@ inline void pri_a28_check_zones(
 
     if (index == 0)
     {
-        Msg("[Scripts/XR_EFFECTS/pri_a28_check_zones(p_actor, p_npc, buffer)] WARNING: Found no distance or zone "
-            "Return ...");
+        MESSAGEWR("Found no distance or zone");
         return;
     }
 

@@ -362,7 +362,7 @@ void Script_MoveManager::waypoint_callback(
 
     if (!retv_name.empty())
     {
-        std::uint32_t retv_number = boost::lexical_cast<std::uint32_t>(retv_name);
+        std::uint32_t retv_number = static_cast<std::uint32_t>(atoi(retv_name.c_str()));
         if (!this->m_move_callback_info)
         {
             R_ASSERT2(false, "you couldn't pass as argument function for that member's class");
@@ -389,7 +389,7 @@ void Script_MoveManager::waypoint_callback(
     }
 
     xr_string stop_probability_name = this->m_path_walk_info.getData()[point_index].getValue("p");
-    std::uint32_t probability = stop_probability_name.empty() ? 101 : boost::lexical_cast<std::uint32_t>(stop_probability_name);
+    std::uint32_t probability = stop_probability_name.empty() ? 101 : static_cast<std::uint32_t>(atoi(stop_probability_name.c_str()));
     if (!this->m_p_patrol_look || (probability < Globals::Script_RandomInt::getInstance().Generate(1, 100)))
     {
         this->update_movement_state();
@@ -434,7 +434,7 @@ void Script_MoveManager::waypoint_callback(
             }
             else
             {
-                std::uint32_t point_time = boost::lexical_cast<std::uint32_t>(suggested_time_string_data_name);
+                std::uint32_t point_time = static_cast<std::uint32_t>(atoi(suggested_time_string_data_name.c_str()));
                 if (point_time && (point_time < 1000 || point_time > 45000))
                 {
                     MESSAGEW("incorrect time must be in [1000 | 45000] interval");
@@ -455,7 +455,7 @@ void Script_MoveManager::waypoint_callback(
         }
         else
         {
-            this->m_retval_after_rotation = boost::lexical_cast<std::uint32_t>(retv_name);
+            this->m_retval_after_rotation = static_cast<std::uint32_t>(atoi(retv_name.c_str()));
         }
 
         const Fvector& look_position = this->m_p_patrol_look->point(point_chosen_index);

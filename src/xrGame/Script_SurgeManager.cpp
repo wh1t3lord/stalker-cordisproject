@@ -79,7 +79,7 @@ bool check_squad_smart_props(const std::uint16_t squad_id)
             if (p_smart_terrain)
             {
                 // Lord: проверить что за значение float или int
-                if (boost::lexical_cast<int>(p_smart_terrain->getProperties().at("surge")) <= 0)
+                if (atoi(p_smart_terrain->getProperties().at("surge").c_str()) <= 0)
                 {
                     return true;
                 }

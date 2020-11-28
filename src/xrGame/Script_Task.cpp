@@ -575,7 +575,7 @@ void Script_Task::give_reward(void)
     CScriptGameObject* const p_npc = DataBase::Storage::getInstance().getInvetoryUpgradesVictim();
 
     if (!money_name.empty())
-        relocate_money(p_npc, boost::lexical_cast<int>(money_name), "in");
+        relocate_money(p_npc, atoi(money_name.c_str()), "in");
 
     if (!items_name.empty())
     {
@@ -722,10 +722,11 @@ void Script_Task::load(IReader& packet)
     xr_string id_name;
     packet.r_stringZ(id_name);
 
-    if (id_name.empty() || id_name == "nil") // LorD: проверить будет ли дропать nil, если будет то найти и исправить когда это будет, чтобы все "nil" просто проверялись всегда как .empty()
+    // LorD: проверить будет ли дропать nil, если будет то найти и исправить когда это будет, чтобы все "nil" просто проверялись всегда как .empty()
+    if (id_name.empty() || id_name == "nil") 
         this->m_current_target_id = 0;
     else
-        this->m_current_target_id = boost::lexical_cast<std::uint16_t>(id_name);
+        this->m_current_target_id = static_cast<std::uint16_t>(atoi(id_name.c_str()));
    
     Globals::set_save_marker(packet, Globals::kSaveMarkerMode_Load, true, "Script_Task");
 }

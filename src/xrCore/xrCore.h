@@ -154,6 +154,7 @@ using RTokenVec = xr_vector<xr_rtoken>;
 #pragma endregion
 
 #pragma region Cordis Includes
+#include <regex>
 #include "Cordis_ScriptDataStructures.h"
 #include <tbb/tbb.h>
 #include <tbb/task_scheduler_init.h>

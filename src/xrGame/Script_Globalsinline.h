@@ -403,6 +403,7 @@ inline xr_vector<xr_string> parse_names(const xr_string& buffer)
     }
 
     const char* pattern = "[^:,]+";
+
     boost::regex regex(pattern);
 
     boost::sregex_iterator it(buffer.begin(), buffer.end(), regex);

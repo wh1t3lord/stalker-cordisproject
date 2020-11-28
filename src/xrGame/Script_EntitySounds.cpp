@@ -24,13 +24,13 @@ Script_SoundNPC::Script_SoundNPC(CScriptIniFile& sound_ini, const xr_string& sec
     
     xr_vector<xr_string> interval = Globals::Utils::parse_names(Globals::Utils::cfg_get_string(&sound_ini, section, "idle"));
     if (interval.size() > 0)
-        this->m_min_idle = boost::lexical_cast<float>(interval[0]);
+        this->m_min_idle = atof(interval[0].c_str());
 
     if (interval.size() >= 1)
-        this->m_max_idle = boost::lexical_cast<float>(interval[1]);
+        this->m_max_idle = atof(interval[1].c_str());
 
     if (interval.size() >= 2)
-        this->m_random = boost::lexical_cast<int>(interval[2]);
+        this->m_random = atoi(interval[2].c_str());
 
     xr_string data_avail_communities = Globals::Utils::cfg_get_string(&sound_ini, section, "avail_communities");
     xr_vector<xr_string> avail_communities = Globals::Utils::parse_names(data_avail_communities);
@@ -437,11 +437,13 @@ Script_SoundActor::Script_SoundActor(CScriptIniFile& ini, const xr_string& secti
     xr_vector<xr_string> iterval = Globals::Utils::parse_names(Globals::Utils::cfg_get_string(&ini, section, "idle"));
 
     if (iterval.size() > 0)
-        this->m_min_idle = boost::lexical_cast<float>(iterval[0]);
+        this->m_min_idle = atof(iterval[0].c_str());
+
     if (iterval.size() >= 1)
-        this->m_max_idle = boost::lexical_cast<float>(iterval[1]);
+        this->m_max_idle = atof(iterval[1].c_str());
+
     if (iterval.size() >= 2)
-        this->m_random = boost::lexical_cast<int>(iterval[2]);
+        this->m_random = atoi(iterval[2].c_str());
 
     if (FS.exist("$game_sounds$", (this->m_path + ".ogg").c_str()))
     {
@@ -660,11 +662,13 @@ Script_SoundObject::Script_SoundObject(CScriptIniFile& ini, const xr_string& sec
     xr_vector<xr_string> to_parse_numbers = Globals::Utils::parse_names(Globals::Utils::cfg_get_string(&ini, section, "idle"));
 
     if (to_parse_numbers.size() > 0)
-        this->m_min_idle = boost::lexical_cast<float>(to_parse_numbers[0]);
+        this->m_min_idle = atof(to_parse_numbers[0].c_str());
+
     if (to_parse_numbers.size() >= 1)
-        this->m_max_idle = boost::lexical_cast<float>(to_parse_numbers[1]);
+        this->m_max_idle = atof(to_parse_numbers[1].c_str());
+
     if (to_parse_numbers.size() >= 2)
-        this->m_random = boost::lexical_cast<int>(to_parse_numbers[2]);
+        this->m_random = atoi(to_parse_numbers[2].c_str());
 
     if (FS.exist("$game_sounds$", (this->m_path + ".ogg").c_str()))
     {

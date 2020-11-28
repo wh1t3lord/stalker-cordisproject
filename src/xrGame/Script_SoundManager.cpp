@@ -187,7 +187,7 @@ void Script_SoundManager::update(void)
 
         this->m_last_playing_npc = _npc_id;
         this->m_phrase_timeout = 0;
-        this->m_phrase_idle = boost::lexical_cast<std::uint32_t>(std::get<_kTupleGetTimeout>(next_phrase)) * 1000;
+        this->m_phrase_idle = static_cast<std::uint32_t>(atoi(std::get<_kTupleGetTimeout>(next_phrase).c_str())) * 1000;
         return;
     }
     else
@@ -233,7 +233,7 @@ void Script_SoundManager::update(void)
     }
 
     this->m_phrase_timeout = 0;
-    this->m_phrase_idle = boost::lexical_cast<std::uint32_t>(std::get<_kTupleGetTimeout>(next_phrase)) * 1000;
+    this->m_phrase_idle = static_cast<std::uint32_t>(atoi(std::get<_kTupleGetTimeout>(next_phrase).c_str())) * 1000;
 }
 
 Story::Story(const xr_string& story_id_name)

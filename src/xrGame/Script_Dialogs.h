@@ -132,7 +132,7 @@ inline void relocate_item_section_from_actor(CScriptGameObject* const p_first_sp
     }
     else
     {
-        _amount = boost::lexical_cast<std::uint32_t>(amount_name);
+        _amount = static_cast<std::uint32_t>(atoi(amount_name.c_str()));
         if (!_amount)
             _amount = 1;
 

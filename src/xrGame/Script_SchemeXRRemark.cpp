@@ -68,7 +68,7 @@ void init_target(CScriptGameObject* const p_client_object, const xr_string& targ
         xr_string path_name;
         xr_string point_data_name;
         func_parse_target(target_data, path_name, point_data_name);
-        std::uint32_t point = boost::lexical_cast<std::uint32_t>(point_data_name);
+        std::uint32_t point = static_cast<std::uint32_t>(atoi(point_data_name.c_str()));
         target_position = CPatrolPathParams(path_name.c_str()).point(point);
         is_target_initialized = true;
     }
