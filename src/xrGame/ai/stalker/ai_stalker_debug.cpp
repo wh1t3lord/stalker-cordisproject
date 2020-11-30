@@ -249,7 +249,7 @@ void CAI_Stalker::debug_text()
     if (!m_dbg_hud_draw)
         return;
 
-    m_dbg_hud_draw = false;
+/*    m_dbg_hud_draw = false;*/
 
     if (!psAI_Flags.test(aiStalker))
         return;

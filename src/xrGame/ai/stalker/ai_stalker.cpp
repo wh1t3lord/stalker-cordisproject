@@ -85,7 +85,7 @@ CAI_Stalker::CAI_Stalker()
     m_wounded = false;
 #ifdef DEBUG
     m_debug_planner = 0;
-    m_dbg_hud_draw = false;
+    m_dbg_hud_draw = true;
 #endif // DEBUG
     m_registered_in_combat_on_migration = false;
 }
