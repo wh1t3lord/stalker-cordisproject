@@ -764,63 +764,62 @@ void Script_StateManager::set_state(const xr_string& state_name, StateManagerCal
             if (this->m_p_npc->weapon_unstrapped())
                 this->m_p_npc->set_item(eObjectActionIdle, Globals::get_weapon(this->m_p_npc, state_name));
         }
-    }
 
-    if (Script_GlobalHelper::getInstance().getStateLibrary().at(state_name).IsSpecialDangerMove())
-    {
-        if (!this->m_p_npc->special_danger_move())
-            this->m_p_npc->special_danger_move(true);
-    }
-    else
-    {
-        if (this->m_p_npc->special_danger_move())
-            this->m_p_npc->special_danger_move(false);
-    }
+		if (Script_GlobalHelper::getInstance().getStateLibrary().at(state_name).IsSpecialDangerMove())
+		{
+			if (!this->m_p_npc->special_danger_move())
+				this->m_p_npc->special_danger_move(true);
+		}
+		else
+		{
+			if (this->m_p_npc->special_danger_move())
+				this->m_p_npc->special_danger_move(false);
+		}
 
-    this->m_target_state_name = state_name;
-    is_switched = true;
+		this->m_target_state_name = state_name;
+		is_switched = true;
 
-        this->m_is_fast_set = extra.isFastSet();
+		this->m_is_fast_set = extra.isFastSet();
 
-        if ((!this->m_is_position_direction_applied) ||
-            ((!Globals::is_vector_nil(this->m_animation_position)) &&
-                (!Globals::is_vector_nil(extra.getAnimationPosition())) &&
-                (this->m_animation_position.x != extra.getAnimationPosition().x &&
-                    this->m_animation_position.y != extra.getAnimationPosition().y &&
-                    this->m_animation_position.z != extra.getAnimationPosition().z)) ||
-            ((!Globals::is_vector_nil(this->m_animation_direction)) &&
-                (!Globals::is_vector_nil(extra.getAnimationDirection())) &&
-                (this->m_animation_direction.x != extra.getAnimationDirection().x &&
-                    this->m_animation_direction.y != extra.getAnimationDirection().y &&
-                    this->m_animation_direction.z != extra.getAnimationDirection().z)))
-        {
-            this->m_animation_direction = extra.getAnimationDirection();
-            this->m_animation_position = extra.getAnimationPosition();
-            this->m_is_position_direction_applied = false;
-        }
-        else
-        {
-            this->m_animation_position.set(0.0f, 0.0f, 0.0f);
-            this->m_animation_direction.set(0.0f, 0.0f, 0.0f);
-            this->m_is_position_direction_applied = false;
-            this->m_is_fast_set = false;
-        }
-    
+		if ((!this->m_is_position_direction_applied) ||
+			((!Globals::is_vector_nil(this->m_animation_position)) &&
+				(!Globals::is_vector_nil(extra.getAnimationPosition())) &&
+				(this->m_animation_position.x != extra.getAnimationPosition().x &&
+					this->m_animation_position.y != extra.getAnimationPosition().y &&
+					this->m_animation_position.z != extra.getAnimationPosition().z)) ||
+			((!Globals::is_vector_nil(this->m_animation_direction)) &&
+				(!Globals::is_vector_nil(extra.getAnimationDirection())) &&
+				(this->m_animation_direction.x != extra.getAnimationDirection().x &&
+					this->m_animation_direction.y != extra.getAnimationDirection().y &&
+					this->m_animation_direction.z != extra.getAnimationDirection().z)))
+		{
+			this->m_animation_direction = extra.getAnimationDirection();
+			this->m_animation_position = extra.getAnimationPosition();
+			this->m_is_position_direction_applied = false;
+		}
+		else
+		{
+			this->m_animation_position.set(0.0f, 0.0f, 0.0f);
+			this->m_animation_direction.set(0.0f, 0.0f, 0.0f);
+			this->m_is_position_direction_applied = false;
+			this->m_is_fast_set = false;
+		}
 
-    this->m_callback_data.setCallbackTime(callback.getCallbackTime());
-    this->m_callback_data.setCallbackTurnEnd(callback.getCallbackTurnEnd());
-    if (timeout >= 0)
-    {
-        this->m_callback_data.setTimeOut(timeout);
-        this->m_callback_data.setBegin(0);
-    }
-    else
-    {
-        if (this->m_callback_data.isAllFieldEmpty())
-        {
-            this->m_callback_data.setCallbackTime(nullptr);
-            this->m_callback_data.setCallbackTurnEnd(nullptr);
-        }
+        this->m_callback_data = callback;
+ 
+		if (timeout >= 0)
+		{
+			this->m_callback_data.setTimeOut(timeout);
+			this->m_callback_data.setBegin(0);
+		}
+		else
+		{
+			if (this->m_callback_data.isAllFieldEmpty())
+			{
+				this->m_callback_data.setCallbackTime(nullptr);
+				this->m_callback_data.setCallbackTurnEnd(nullptr);
+			}
+		}
     }
 }
 

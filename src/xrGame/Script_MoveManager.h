@@ -64,6 +64,8 @@ private:
     xr_string m_current_state_moving_name;
     xr_string m_current_state_standing_name;
     std::function<bool(std::uint32_t, std::uint32_t)> m_move_callback_info;
+    std::function<void(void)> m_p_callback_time;
+    std::function<void(void)> m_p_callback_turn_end;
     CondlistWaypoints m_path_walk_info;
     CondlistWaypoints m_path_look_info;
 };

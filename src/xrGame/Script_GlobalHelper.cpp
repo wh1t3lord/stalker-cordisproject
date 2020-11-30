@@ -2682,10 +2682,12 @@ Cordis::Scripts::Script_GlobalHelper::Script_GlobalHelper(void)
         MonsterSpace::eBodyStateStand, Globals::kUnsignedInt32Undefined, "strapped", "",
         "");
     state_library["wait_na"] = state_lib_data;
+
     state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
         MonsterSpace::eBodyStateStand, Globals::kUnsignedInt32Undefined, "unstrapped", "",
         "idle");
     state_library["guard"] = state_lib_data;
+
     state_lib_data = StateLibData(MonsterSpace::eMovementTypeStand, MonsterSpace::eMentalStateFree,
         MonsterSpace::eBodyStateStand, Globals::kUnsignedInt32Undefined, "unstrapped", "",
         "");

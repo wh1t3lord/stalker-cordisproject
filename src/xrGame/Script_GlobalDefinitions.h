@@ -1483,6 +1483,7 @@ struct StateManagerCallbackData
         this->m_callback_turn_end = data.m_callback_turn_end;
     }
 
+/*
     StateManagerCallbackData& operator=(const StateManagerCallbackData& data)
     {
         this->m_begin = data.getBegin();
@@ -1491,9 +1492,9 @@ struct StateManagerCallbackData
         this->m_callback_turn_end = data.m_callback_turn_end;
 
         return *this;
-    }
+    }*/
 
-    ~StateManagerCallbackData(void) = default;
+/*    ~StateManagerCallbackData(void) = default;*/
 
     inline bool isAllFieldEmpty(void) const noexcept
     {

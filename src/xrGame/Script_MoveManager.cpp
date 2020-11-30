@@ -26,7 +26,7 @@ Script_MoveManager::Script_MoveManager(CScriptGameObject* const p_client_object)
       m_p_patrol_walk(nullptr), m_is_can_use_get_current_point_index(false), m_current_point_initialization_time(0),
       m_current_point_index(0), m_last_index(0), m_p_patrol_look(nullptr), m_synchronization_signal_set_tm(0),
       m_keep_state_until(0), m_last_look_index(0), m_retval_after_rotation(0),
-      m_move_callback_info(nullptr), m_point_wait_time(0)
+      m_move_callback_info(nullptr), m_point_wait_time(0), m_p_callback_time(std::bind(&Script_MoveManager::time_callback, this)), m_p_callback_turn_end(std::bind(&Script_MoveManager::turn_end_callback, this))
 {
 }
 
@@ -211,9 +211,9 @@ void Script_MoveManager::update_movement_state(void)
 void Script_MoveManager::update_standing_state(const Fvector& look_position)
 {
     StateManagerCallbackData callback;
-    callback.setCallbackTime(std::bind(&Script_MoveManager::time_callback, this));
-    callback.setCallbackTurnEnd(std::bind(&Script_MoveManager::turn_end_callback, this));
-    Globals::set_state(this->m_p_client_object, this->m_current_state_moving_name, callback, this->m_point_wait_time,
+    callback.setCallbackTime(this->m_p_callback_time);
+    callback.setCallbackTurnEnd(this->m_p_callback_turn_end);
+    Globals::set_state(this->m_p_client_object, this->m_current_state_standing_name, callback, this->m_point_wait_time,
         std::pair<Fvector, CScriptGameObject* const>(look_position, nullptr), StateManagerExtraData());
 }
 
