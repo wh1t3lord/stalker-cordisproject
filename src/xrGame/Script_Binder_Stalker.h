@@ -44,6 +44,7 @@ public:
 		const Fvector& sound_position, const float sound_power) override;
 	
     void use_callback(CScriptGameObject* p_client_object, CScriptGameObject* p_client_who) override;
+    void animation_callback(const bool) override;
 
     bool extrapolate_callback(std::uint32_t point);
 private:

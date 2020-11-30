@@ -481,6 +481,21 @@ void Script_Binder_Stalker::hear_callback(CScriptGameObject* p_client_object, co
 void Script_Binder_Stalker::use_callback(CScriptGameObject* p_client_object, CScriptGameObject* p_client_who)
 {
 }
+
+void Script_Binder_Stalker::animation_callback(const bool value)
+{
+    auto p_storage = Globals::getStorage(this->m_object->ID());
+
+    if (p_storage)
+    {
+        p_storage->getStateManager()->getAnimation()->animation_callback(value);
+    }
+    else
+    {
+        MESSAGEW("can't find storage");
+    }
+}
+
 bool Script_Binder_Stalker::extrapolate_callback(std::uint32_t point)
 {
 

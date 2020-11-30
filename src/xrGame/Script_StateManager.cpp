@@ -855,12 +855,17 @@ void Script_StateManager::update(void)
 
     std::uint32_t last_pl_id = 0;
     std::uint32_t pl_id = this->m_p_action_planner->current_action_id();
+    MESSAGE("pl_id: %d", pl_id);
     while (pl_id != last_pl_id && pl_id != this->m_operators.at("end") && pl_id != this->m_operators.at("locked"))
     {
         last_pl_id = pl_id;
+        MESSAGE("last_pl_id: %d", last_pl_id);
         this->m_p_action_planner->update();
         pl_id = this->m_p_action_planner->current_action_id();
+        MESSAGE("pl_id: %d", pl_id);
     }
+
+    this->m_p_action_planner->show("");
 }
 
 const StateManagerCallbackData& Script_StateManager::getCallbackData(void) const noexcept
