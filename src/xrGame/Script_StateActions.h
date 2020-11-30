@@ -149,7 +149,9 @@ public:
     virtual void initialize(void)
     {
         CScriptActionBase::initialize();
-        // Lord: доделать когда будет state_mgr.animation
+        
+        this->m_p_state_manager->getAnimation()->set_state(Script_GlobalHelper::getInstance().getStateLibrary().at(this->m_p_state_manager->getTargetStateName()).getAnimationName());
+        this->m_p_state_manager->getAnimation()->set_control();
     }
 
     virtual void execute(void) { CScriptActionBase::execute(); }
@@ -172,7 +174,10 @@ public:
     virtual void initialize(void)
     {
         CScriptActionBase::initialize();
-        // Lord: доделать когда будет state_mgr.animation
+        
+        bool status = this->m_p_state_manager->isFastSet() || Script_GlobalHelper::getInstance().getStateLibrary().at(this->m_p_state_manager->getTargetStateName()).IsFastSet();
+        this->m_p_state_manager->getAnimation()->set_state("", status);
+        this->m_p_state_manager->getAnimation()->set_control();
     }
 
     virtual void execute(void) { CScriptActionBase::execute(); }

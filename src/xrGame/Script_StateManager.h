@@ -54,7 +54,7 @@ public:
     inline const Fvector& getAnimationDirection(void) const noexcept { return this->m_animation_direction; }
     inline const Fvector& getAnimationPosition(void) const noexcept { return this->m_animation_position; }
 
-
+    inline bool isFastSet(void) const noexcept { return this->m_is_fast_set; }
 
 private:
     bool m_is_position_direction_applied;
