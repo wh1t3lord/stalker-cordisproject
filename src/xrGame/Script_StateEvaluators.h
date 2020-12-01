@@ -312,13 +312,26 @@ public:
             this->m_p_action_planner = Globals::get_script_action_planner(this->m_object);
 
         if (!this->m_p_action_planner->initialized())
+        {
+#ifdef DEBUG
+            Msg("\n*** eva_state_mgr_end:evaluate = false");
+#endif
+
             return false;
+        }
+
 
         if (this->m_p_action_planner->current_action_id() == StalkerDecisionSpace::eWorldOperatorCombatPlanner)
         {
             if (Globals::cast_planner(
-                    &this->m_p_action_planner->action(StalkerDecisionSpace::eWorldOperatorCombatPlanner)))
+                &this->m_p_action_planner->action(StalkerDecisionSpace::eWorldOperatorCombatPlanner)))
+            {
+#ifdef DEBUG
+				Msg("\n*** eva_state_mgr_end:evaluate = false");
+#endif
+
                 return false;
+            }
         }
         else
         {
@@ -327,6 +340,9 @@ public:
                 this->m_p_state_manager->setCombat(true);
         }
 
+#ifdef DEBUG
+		Msg("\n*** eva_state_mgr_end:evaluate = false");
+#endif
         return false;
     }
 
@@ -346,11 +362,17 @@ public:
 
     virtual _value_type evaluate(void)
     {
-        return this->m_p_state_manager->getActionPlanner()->initialized() &&
+        _value_type result = this->m_p_state_manager->getActionPlanner()->initialized() &&
             (this->m_p_state_manager->getActionPlanner()
-                    ->evaluator(this->m_p_state_manager->getProperties().at("weapon_locked"))
-                    .evaluate() ||
+                ->evaluator(this->m_p_state_manager->getProperties().at("weapon_locked"))
+                .evaluate() ||
                 this->m_object->is_body_turning());
+
+#ifdef DEBUG
+        Msg("\n*** eva_state_mgr_locked:evaluate = %s", result ? "true" : "false");
+#endif
+
+        return result;
     }
 
 private:
@@ -371,8 +393,16 @@ public:
     virtual _value_type evaluate(void)
     {
         if (this->m_p_state_manager->isCombat() || this->m_p_state_manager->isAlife())
+        {
+#ifdef DEBUG
+            Msg("\n*** eva_state_mgr_locked_external:evaluate = true");
+#endif
             return true;
+        }
 
+#ifdef DEBUG
+        Msg("\n*** eva_state_mgr_locked_external:evaluate = false");
+#endif
         return false;
     }
 
@@ -392,12 +422,17 @@ public:
 
     virtual _value_type evaluate(void)
     {
-        return (
+        _value_type result = (
             Script_GlobalHelper::getInstance()
-                        .getStateLibrary()
-                        .at(this->m_p_state_manager->getTargetStateName())
-                        .getAnimationName() == (this->m_p_state_manager->getAnimation() ? this->m_p_state_manager->getAnimation()->getStates().getCurrentStateName() : ""))
-            ;
+            .getStateLibrary()
+            .at(this->m_p_state_manager->getTargetStateName())
+            .getAnimationName() == (this->m_p_state_manager->getAnimation() ? this->m_p_state_manager->getAnimation()->getStates().getCurrentStateName() : ""));
+
+#ifdef DEBUG
+        Msg("\n*** eva_state_mgr_animation:evaluate = %s", result ? "true" : "false");
+#endif
+
+        return result;
     }
 
 private:
