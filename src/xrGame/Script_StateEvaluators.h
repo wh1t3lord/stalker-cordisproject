@@ -35,7 +35,13 @@ public:
             this->m_p_action_planner = Globals::get_script_action_planner(this->m_object);
 
         if (!this->m_p_action_planner->initialized())
+        {
+#ifdef DEBUG
+            Msg("\n*** evaluator_state_mgr_idle:evaluate = false");
+#endif
             return false;
+        }
+
 
         if ((this->m_p_state_manager->getTargetStateName() == "idle") &&
             (!(this->m_p_state_manager->getActionPlanner()
@@ -62,13 +68,27 @@ public:
         }
 
         if (this->m_p_state_manager->isCombat())
+        {
+#ifdef DEBUG
+            Msg("\n*** evaluator_state_mgr_idle:evaluate = true");
+#endif
             return true;
+        }
+
 
         if (!(Globals::cast_planner(
-                  &this->m_p_action_planner->action(StalkerDecisionSpace::eWorldOperatorCombatPlanner)))
-                 ->initialized())
+            &this->m_p_action_planner->action(StalkerDecisionSpace::eWorldOperatorCombatPlanner)))
+            ->initialized())
+        {
+#ifdef DEBUG
+			Msg("\n*** evaluator_state_mgr_idle:evaluate = false");
+#endif
             return false;
+        }
 
+#ifdef DEBUG
+		Msg("\n*** evaluator_state_mgr_idle:evaluate = false");
+#endif
         return false;
     }
 
@@ -90,7 +110,13 @@ public:
     virtual _value_type evaluate(void)
     {
         if (!this->m_object->Alive())
+        {
+#ifdef DEBUG
+			Msg("\n*** evaluator_state_mgr_idle_alife:evaluate = true");
+#endif
             return true;
+        }
+
 
         CScriptActionPlanner* const p_action_planner = Globals::get_script_action_planner(this->m_object);
         if (!p_action_planner)
@@ -148,11 +174,21 @@ public:
 
             if (this->m_p_state_manager->isAlife())
             {
+#ifdef DEBUG
+                Msg("\n*** evaluator_state_mgr_idle_alife:evaluate = true");
+#endif
                 return true;
             }
 
+#ifdef DEBUG
+            Msg("\n*** evaluator_state_mgr_idle_alife:evaluate = %s (by t=%s)", result ? "true" : "false", result ? "true" : "false");
+#endif
             return result;
         }
+
+#ifdef DEBUG
+        Msg("\n*** evaluator_state_mgr_idle_alife:evaluate = false");
+#endif
 
         return false;
     }
@@ -175,7 +211,13 @@ public:
     virtual _value_type evaluate(void)
     {
         if (!this->m_object->Alive())
+        {
+#ifdef DEBUG
+            Msg("\n*** evaluator_state_mgr_idle_items:evaluate = true");
+#endif
             return true;
+        }
+
 
         if (!XR_MEET::is_meet(this->m_object))
         {
@@ -209,10 +251,16 @@ public:
 						->evaluator(state_manager_properties.at("smartcover"))
 						.evaluate());
 
+#ifdef DEBUG
+                Msg("\n*** evaluator_state_mgr_idle_items:evaluate = %s (by t=%s)");
+#endif
 				return result;
             }
         }
 
+#ifdef DEBUG
+		Msg("\n*** evaluator_state_mgr_idle_items:evaluate = false");
+#endif
         return false;
     }
 
@@ -233,8 +281,16 @@ public:
     virtual _value_type evaluate(void)
     {
         if (DataBase::Storage::getInstance().getStorage().at(this->m_object->ID()).getActiveSectionName().empty())
+        {
+#ifdef DEBUG
+            Msg("\n*** evaluator_state_mgr_logic_active:evaluate = false");
+#endif
             return false;
+        }
 
+#ifdef DEBUG
+        Msg("\n*** evaluator_state_mgr_logic_active:evaluate = true");
+#endif
         return true;
     }
 };
@@ -422,7 +478,13 @@ public:
 
     virtual _value_type evaluate(void)
     {
-        return this->m_p_state_manager->getAnimation()->getStates().getAnimationMarker();
+        _value_type result = this->m_p_state_manager->getAnimation()->getStates().getAnimationMarker();
+
+#ifdef DEBUG
+        Msg("\n *** eva_state_mgr_animation_locked:evaluate = %s", result ? "true" : "false");
+#endif
+
+        return result;
     }
 
 private:
@@ -441,7 +503,13 @@ public:
 
     virtual _value_type evaluate(void)
     {
-        return Script_GlobalHelper::getInstance().getStateLibrary().at(this->m_p_state_manager->getTargetStateName()).getAnimStateTypeName() == this->m_p_state_manager->getAnimState()->getStates().getCurrentStateName();
+        _value_type result = Script_GlobalHelper::getInstance().getStateLibrary().at(this->m_p_state_manager->getTargetStateName()).getAnimStateTypeName() == this->m_p_state_manager->getAnimState()->getStates().getCurrentStateName();
+
+#ifdef DEBUG
+        Msg("\n *** eva_state_mgr_animstate:evaluate = %s", result ? "true" : "false");
+#endif // DEBUG
+
+        return result;
     }
 
 private:
@@ -868,14 +936,20 @@ public:
 
     virtual _value_type evaluate(void)
     {
-        return (Script_GlobalHelper::getInstance()
-                       .getStateLibrary()
-                       .at(this->m_p_state_manager->getTargetStateName())
-                       .getMovementType() == Globals::kUnsignedInt32Undefined) ||
+        _value_type result = (Script_GlobalHelper::getInstance()
+            .getStateLibrary()
+            .at(this->m_p_state_manager->getTargetStateName())
+            .getMovementType() == Globals::kUnsignedInt32Undefined) ||
             (Script_GlobalHelper::getInstance()
-                    .getStateLibrary()
-                    .at(this->m_p_state_manager->getTargetStateName())
-                    .getMovementType() == static_cast<std::uint32_t>(this->m_object->target_movement_type()));
+                .getStateLibrary()
+                .at(this->m_p_state_manager->getTargetStateName())
+                .getMovementType() == static_cast<std::uint32_t>(this->m_object->target_movement_type()));
+
+#ifdef DEBUG
+        Msg("\n*** eva_state_mgr_movement:evaluate = %s", result ? "true" : "false");
+#endif // DEBUG
+
+        return result;
     }
 
 private:
