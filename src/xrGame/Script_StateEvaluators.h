@@ -452,7 +452,13 @@ public:
 
     virtual _value_type evaluate(void)
     {
-        return this->m_p_state_manager->getAnimation()->getStates().getCurrentStateName().empty() == false;
+        _value_type result = this->m_p_state_manager->getAnimation()->getStates().getCurrentStateName().empty() == false;
+
+#ifdef DEBUG
+        Msg("\n*** eva_state_mgr_animation_play_now:evaluate = %s", result ? "true" : "false");
+#endif
+
+        return result;
     }
 
 private:
@@ -472,7 +478,13 @@ public:
 
     virtual _value_type evaluate(void)
     {
-        return this->m_p_state_manager->getAnimation()->getStates().getCurrentStateName().empty();
+        _value_type result = this->m_p_state_manager->getAnimation()->getStates().getCurrentStateName().empty();
+
+#ifdef DEBUG
+        Msg("\n*** eva_state_mgr_animation_none_now:evaluate = %s", result ? "true" : "false");
+#endif
+
+        return result;
     }
 
 private:
@@ -600,10 +612,16 @@ public:
     {
     }
     ~Script_EvaluatorStateManagerAnimationStateLocked(void) {}
-
+    
     virtual _value_type evaluate(void)
     {
-        return (this->m_p_state_manager->getAnimState()->getStates().getAnimationMarker()) && (this->m_p_state_manager->getAnimState()->getStates().getAnimationMarker() != Globals::kStateManagerAnimationMarkerIdle);
+        _value_type result = (this->m_p_state_manager->getAnimState()->getStates().getAnimationMarker()) && (this->m_p_state_manager->getAnimState()->getStates().getAnimationMarker() != Globals::kStateManagerAnimationMarkerIdle);
+
+#ifdef DEBUG
+        Msg("\n*** eva_state_mgr_animstate_locked:evaluate = %s", result ? "true" : "false");
+#endif
+            
+        return result;
     }
 
 private:
