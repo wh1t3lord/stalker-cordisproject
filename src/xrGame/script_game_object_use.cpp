@@ -212,6 +212,7 @@ void CScriptGameObject::SetCallback(GameObject::ECallbackType type, const luabin
 void CScriptGameObject::SetCallback(
     GameObject::ECallbackType type, const luabind::functor<void>& functor, const luabind::object& object)
 {
+  
     // Lord - [Script] Re-write
     //  this->object().callback(type).set(functor, object);
 }

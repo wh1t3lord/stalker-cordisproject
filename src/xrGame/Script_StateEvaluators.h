@@ -24,6 +24,31 @@ public:
     {
         const xr_map<xr_string, std::uint32_t>& state_manager_properties = this->m_p_state_manager->getProperties();
 
+
+		if ((this->m_p_state_manager->getTargetStateName() == "idle") &&
+			(!(this->m_p_state_manager->getActionPlanner()
+				->evaluator(state_manager_properties.at("animstate_locked"))
+				.evaluate())) &&
+			(!(this->m_p_state_manager->getActionPlanner()
+				->evaluator(state_manager_properties.at("animation_locked"))
+				.evaluate())) &&
+			(this->m_p_state_manager->getActionPlanner()
+				->evaluator(state_manager_properties.at("movement"))
+				.evaluate()) &&
+			(this->m_p_state_manager->getActionPlanner()
+				->evaluator(state_manager_properties.at("animstate"))
+				.evaluate()) &&
+			(this->m_p_state_manager->getActionPlanner()
+				->evaluator(state_manager_properties.at("animation"))
+				.evaluate()) &&
+			(this->m_p_state_manager->getActionPlanner()
+				->evaluator(state_manager_properties.at("smartcover"))
+				.evaluate()))
+		{
+			if (this->m_p_action_planner->current_action_id() == Globals::XR_ACTIONS_ID::kStateManager + 1)
+				this->m_p_state_manager->setCombat(true);
+		}
+
         if (state_manager_properties.empty())
         {
             R_ASSERT2(false,
@@ -40,31 +65,6 @@ public:
             Msg("\n*** evaluator_state_mgr_idle:evaluate = false");
 #endif
             return false;
-        }
-
-
-        if ((this->m_p_state_manager->getTargetStateName() == "idle") &&
-            (!(this->m_p_state_manager->getActionPlanner()
-                    ->evaluator(state_manager_properties.at("animstate_locked"))
-                    .evaluate())) &&
-            (!(this->m_p_state_manager->getActionPlanner()
-                    ->evaluator(state_manager_properties.at("animation_locked"))
-                    .evaluate())) &&
-            (this->m_p_state_manager->getActionPlanner()
-                    ->evaluator(state_manager_properties.at("movement"))
-                    .evaluate()) &&
-            (this->m_p_state_manager->getActionPlanner()
-                    ->evaluator(state_manager_properties.at("animstate"))
-                    .evaluate()) &&
-            (this->m_p_state_manager->getActionPlanner()
-                    ->evaluator(state_manager_properties.at("animation"))
-                    .evaluate()) &&
-            (this->m_p_state_manager->getActionPlanner()
-                    ->evaluator(state_manager_properties.at("smartcover"))
-                    .evaluate()))
-        {
-            if (this->m_p_action_planner->current_action_id() == Globals::XR_ACTIONS_ID::kStateManager + 1)
-                this->m_p_state_manager->setCombat(true);
         }
 
         if (this->m_p_state_manager->isCombat())
@@ -107,7 +107,7 @@ public:
 
     ~Script_EvaluatorStateManagerIdleAlife(void) {}
 
-    virtual _value_type evaluate(void)
+    _value_type evaluate(void) override
     {
         if (!this->m_object->Alive())
         {
@@ -146,6 +146,9 @@ public:
                 return false;
             }
             bool result = (this->m_p_state_manager->getTargetStateName() == "idle") &&
+				(!(this->m_p_state_manager->getActionPlanner()
+					->evaluator(state_manager_properties.at("weapon_locked"))
+					.evaluate())) &&
                 (!(this->m_p_state_manager->getActionPlanner()
                         ->evaluator(state_manager_properties.at("animstate_locked"))
                         .evaluate())) &&
@@ -155,9 +158,6 @@ public:
                 (this->m_p_state_manager->getActionPlanner()
                         ->evaluator(state_manager_properties.at("movement"))
                         .evaluate()) &&
-                (!(this->m_p_state_manager->getActionPlanner()
-                        ->evaluator(state_manager_properties.at("weapon_locked"))
-                        .evaluate())) &&
                 (this->m_p_state_manager->getActionPlanner()
                         ->evaluator(state_manager_properties.at("animstate"))
                         .evaluate()) &&
@@ -420,7 +420,7 @@ public:
 
     ~Script_EvaluatorStateManagerAnimation(void) {}
 
-    virtual _value_type evaluate(void)
+    _value_type evaluate(void) override
     {
         _value_type result = (
             Script_GlobalHelper::getInstance()
@@ -613,7 +613,7 @@ public:
     }
     ~Script_EvaluatorStateManagerAnimationStateLocked(void) {}
     
-    virtual _value_type evaluate(void)
+    _value_type evaluate(void) override
     {
         _value_type result = (this->m_p_state_manager->getAnimState()->getStates().getAnimationMarker()) && (this->m_p_state_manager->getAnimState()->getStates().getAnimationMarker() != Globals::kStateManagerAnimationMarkerIdle);
 
@@ -1236,7 +1236,7 @@ public:
     }
     ~Script_EvaluatorStateManagerWeaponLocked(void) {}
 
-    virtual _value_type evaluate(void)
+    _value_type evaluate(void) override
     {
         bool is_weapon_unstrapped = this->m_object->weapon_unstrapped();
         bool is_weapon_strapped = this->m_object->weapon_strapped();
