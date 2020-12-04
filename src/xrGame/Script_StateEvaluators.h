@@ -343,7 +343,7 @@ public:
         {
             if ((current_action_id != StalkerDecisionSpace::eWorldOperatorCombatPlanner) &&
                 (current_action_id != StalkerDecisionSpace::eWorldOperatorAnomalyPlanner))
-                this->m_p_state_manager->setCombat(true);
+                this->m_p_state_manager->setCombat(false);
         }
 
 #ifdef DEBUG
