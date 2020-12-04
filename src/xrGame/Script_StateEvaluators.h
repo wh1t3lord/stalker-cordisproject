@@ -1249,19 +1249,44 @@ public:
         bool is_weapon_strapped = this->m_object->weapon_strapped();
 
         if (!is_weapon_strapped || !is_weapon_unstrapped)
+        {
+#ifdef DEBUG
+            Msg("\n*** eva_state_mgr_weapon_locked:evaluate = true (!is_weapon_strapped || !is_weapon_unstrapped)");
+#endif
             return true;
+        }
+
 
         CScriptGameObject* const p_client_best_weapon = this->m_object->best_weapon();
         if (!p_client_best_weapon)
+        {
+#ifdef DEBUG
+			Msg("\n*** eva_state_mgr_weapon_locked:evaluate = false (p_client_best_weapon == nullptr)");
+#endif
             return false;
+        }
+
 
         bool is_weapon_going_to_be_strapped = this->m_object->is_weapon_going_to_be_strapped(p_client_best_weapon);
 
         if (is_weapon_going_to_be_strapped && !is_weapon_strapped)
+        {
+#ifdef DEBUG
+            Msg("\n*** eva_state_mgr_weapon_locked:evaluate = true (is_weapon_going_to_be_strapped && !is_weapon_strapped)");
+#endif
             return true;
+        }
+
 
         if (!is_weapon_going_to_be_strapped && !is_weapon_unstrapped && this->m_object->GetActiveItem())
+        {
+#ifdef DEBUG
+            Msg("\n*** eva_state_mgr_weapon_locked:evaluate = true (!is_weapon_going_to_be_strapped && !is_weapon_unstrapped && this->m_object->GetActiveItem())");
+#endif
+
             return true;
+        }
+
 
         return false;
     }

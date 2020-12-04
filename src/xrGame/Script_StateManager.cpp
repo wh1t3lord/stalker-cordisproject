@@ -14,7 +14,7 @@ Script_StateManager::Script_StateManager(CScriptGameObject* const p_client_objec
     : m_p_npc(p_client_object), m_is_position_direction_applied(false), m_target_state_name("idle"),
       m_p_action_planner(new CScriptActionPlanner()), m_is_alife(true), m_is_combat(false),
       m_is_point_object_direction(false), m_is_need_reweapon(false), m_look_object_id(0), m_is_fast_set(false),
-      m_p_animation(nullptr), m_p_animstate(nullptr)
+      m_p_animation(nullptr), m_p_animstate(nullptr), m_p_look_object(nullptr)
 {
     this->m_p_action_planner->setup(this->m_p_npc);
 
