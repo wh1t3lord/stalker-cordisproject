@@ -37,9 +37,9 @@ public:
     {
     }
     ~Script_ActionStateManagerEnd(void) {}
-    virtual void initialize(void) { CScriptActionBase::initialize(); }
+    void initialize(void) override { CScriptActionBase::initialize(); }
 
-    virtual void execute(void) 
+    void execute(void) override
     {
         CScriptActionBase::execute(); 
         auto callback = this->m_p_state_manager->getCallbackData();
@@ -136,7 +136,7 @@ public:
         }
     }
 
-    virtual void finalize(void) { CScriptActionBase::finalize(); }
+    void finalize(void) override { CScriptActionBase::finalize(); }
 
 private:
     Script_StateManager* m_p_state_manager;
@@ -151,11 +151,11 @@ public:
     }
     ~Script_ActionStateManagerLocked(void) {}
 
-    virtual void initialize(void) { CScriptActionBase::initialize(); }
+    void initialize(void) override { CScriptActionBase::initialize(); }
 
-    virtual void execute(void) { CScriptActionBase::execute(); }
+    void execute(void) override { CScriptActionBase::execute(); }
 
-    virtual void finalize(void) { CScriptActionBase::finalize(); }
+    void finalize(void) override { CScriptActionBase::finalize(); }
 
 private:
     Script_StateManager* m_p_state_manager;
@@ -170,7 +170,7 @@ public:
     }
     ~Script_ActionStateManagerToIdle(void) {}
 
-    virtual void initialize(void)
+    void initialize(void) override
     {
         CScriptActionBase::initialize();
         this->m_object->inactualize_patrol_path();
@@ -198,7 +198,7 @@ public:
         this->m_object->set_path_type(MovementManager::ePathTypeLevelPath);
     }
 
-    virtual void execute(void)
+    void execute(void) override
     {
         Globals::Utils::send_to_nearest_accessible_vertex(this->m_object, this->m_object->level_vertex_id());
         this->m_object->set_path_type(MovementManager::ePathTypeLevelPath);
@@ -226,7 +226,7 @@ public:
         CScriptActionBase::execute();
     }
 
-    virtual void finalize(void) { CScriptActionBase::finalize(); }
+    void finalize(void) override { CScriptActionBase::finalize(); }
 
 private:
     Script_StateManager* m_p_state_manager;
@@ -243,7 +243,7 @@ public:
     }
     ~Script_ActionStateManagerAnimationStart(void) {}
 
-    virtual void initialize(void)
+    void initialize(void) override
     {
         CScriptActionBase::initialize();
         
@@ -251,9 +251,9 @@ public:
         this->m_p_state_manager->getAnimation()->set_control();
     }
 
-    virtual void execute(void) { CScriptActionBase::execute(); }
+    void execute(void) override { CScriptActionBase::execute(); }
 
-    virtual void finalize(void) { CScriptActionBase::finalize(); }
+    void finalize(void) override { CScriptActionBase::finalize(); }
 
 private:
     Script_StateManager* m_p_state_manager;
@@ -268,7 +268,7 @@ public:
     }
     ~Script_ActionStateManagerAnimationStop(void) {}
 
-    virtual void initialize(void)
+    void initialize(void) override
     {
         CScriptActionBase::initialize();
         
@@ -277,9 +277,9 @@ public:
         this->m_p_state_manager->getAnimation()->set_control();
     }
 
-    virtual void execute(void) { CScriptActionBase::execute(); }
+    void execute(void) override { CScriptActionBase::execute(); }
 
-    virtual void finalize(void) { CScriptActionBase::finalize(); }
+    void finalize(void) override { CScriptActionBase::finalize(); }
 
 private:
     Script_StateManager* m_p_state_manager;
@@ -297,15 +297,17 @@ public:
     }
     ~Script_ActionStateManagerAnimationStateStart(void) {}
 
-    virtual void initialize(void)
+    void initialize(void) override
     {
         CScriptActionBase::initialize();
-        // Lord: доделать когда будет state_mgr.animstate
+        
+        this->m_p_state_manager->getAnimState()->set_state(Script_GlobalHelper::getInstance().getStateLibrary().at(this->m_p_state_manager->getTargetStateName()).getAnimStateTypeName());
+        this->m_p_state_manager->getAnimState()->set_control();
     }
 
-    virtual void execute(void) { CScriptActionBase::execute(); }
+    void execute(void) override { CScriptActionBase::execute(); }
 
-    virtual void finalize(void) { CScriptActionBase::finalize(); }
+    void finalize(void) override { CScriptActionBase::finalize(); }
 
 private:
     Script_StateManager* m_p_state_manager;
@@ -321,15 +323,17 @@ public:
     }
     ~Script_ActionStateManagerAnimationStateStop(void) {}
 
-    virtual void initialize(void) { CScriptActionBase::initialize(); }
+    void initialize(void) override { CScriptActionBase::initialize(); }
 
-    virtual void execute(void)
+    void execute(void) override
     {
         CScriptActionBase::execute();
-        // Lord: доделать когда будет state_mgr.animstate
+        
+		this->m_p_state_manager->getAnimState()->set_state("", this->m_p_state_manager->isFastSet() ? this->m_p_state_manager->isFastSet() : Script_GlobalHelper::getInstance().getStateLibrary().at(this->m_p_state_manager->getTargetStateName()).IsFastSet());
+		this->m_p_state_manager->getAnimState()->set_control();
     }
 
-    virtual void finalize(void) { CScriptActionBase::finalize(); }
+    void finalize(void) override { CScriptActionBase::finalize(); }
 
 private:
     Script_StateManager* m_p_state_manager;
@@ -346,15 +350,15 @@ public:
     }
     ~Script_ActionStateManagerBodyStateCrouch(void) {}
 
-    virtual void initialize(void)
+    void initialize(void) override
     {
         CScriptActionBase::initialize();
         this->m_object->set_body_state(eBodyStateCrouch);
     }
 
-    virtual void execute(void) { CScriptActionBase::execute(); }
+    void execute(void) override { CScriptActionBase::execute(); }
 
-    virtual void finalize(void) { CScriptActionBase::finalize(); }
+    void finalize(void) override { CScriptActionBase::finalize(); }
 
 private:
     Script_StateManager* m_p_state_manager;
@@ -369,15 +373,15 @@ public:
     }
     ~Script_ActionStateManagerBodyStateStanding(void) {}
 
-    virtual void initialize(void)
+    void initialize(void) override
     {
         CScriptActionBase::initialize();
         this->m_object->set_body_state(eBodyStateStand);
     }
 
-    virtual void execute(void) { CScriptActionBase::execute(); }
+    void execute(void) override { CScriptActionBase::execute(); }
 
-    virtual void finalize(void) { CScriptActionBase::finalize(); }
+    void finalize(void) override { CScriptActionBase::finalize(); }
 
 private:
     Script_StateManager* m_p_state_manager;
@@ -393,16 +397,16 @@ public:
     }
     ~Script_ActionStateManagerBodyStateCrouchDanger(void) {}
 
-    virtual void initialize(void)
+    void initialize(void) override
     {
         CScriptActionBase::initialize();
         this->m_object->set_mental_state(eMentalStateDanger);
         this->m_object->set_body_state(eBodyStateCrouch);
     }
 
-    virtual void execute(void) { CScriptActionBase::execute(); }
+    void execute(void) override { CScriptActionBase::execute(); }
 
-    virtual void finalize(void) { CScriptActionBase::finalize(); }
+    void finalize(void) override { CScriptActionBase::finalize(); }
 
 private:
     Script_StateManager* m_p_state_manager;
@@ -418,16 +422,16 @@ public:
     }
     ~Script_ActionStateManagerBodyStateStandingFree(void) {}
 
-    virtual void initialize(void)
+    void initialize(void) override
     {
         CScriptActionBase::initialize();
         this->m_object->set_body_state(eBodyStateStand);
         this->m_object->set_mental_state(eMentalStateFree);
     }
 
-    virtual void execute(void) { CScriptActionBase::execute(); }
+    void execute(void) override { CScriptActionBase::execute(); }
 
-    virtual void finalize(void) { CScriptActionBase::finalize(); }
+    void finalize(void) override { CScriptActionBase::finalize(); }
 
 private:
     Script_StateManager* m_p_state_manager;
@@ -444,19 +448,19 @@ public:
     }
     ~Script_ActionStateManagerDirectionTurn(void) {}
 
-    virtual void initialize(void)
+    void initialize(void) override
     {
         CScriptActionBase::initialize();
         this->turn();
     }
 
-    virtual void execute(void)
+    void execute(void) override
     {
         CScriptActionBase::execute();
         this->turn();
     }
 
-    virtual void finalize(void) { CScriptActionBase::finalize(); }
+    void finalize(void) override { CScriptActionBase::finalize(); }
 
 private:
     inline void turn(void)
@@ -487,7 +491,7 @@ private:
             direction.normalize();
             if (Globals::is_vector_nil(direction))
             {
-                Msg("[Scripts/Script_ActionStateManagerDirectionTurn/turn()] WARNINIG: you are trying to set wrong "
+                MESSAGEW("you are trying to set wrong "
                     "direction");
                 this->m_p_state_manager->setLookPosition(
                     Fvector().set((this->m_object->Position().x + this->m_object->Direction().x),
@@ -513,7 +517,7 @@ public:
     }
     ~Script_ActionStateManagerDirectionSearch(void) {}
 
-    virtual void initialize(void)
+    void initialize(void) override
     {
         CScriptActionBase::initialize();
         if (Script_GlobalHelper::getInstance()
@@ -535,9 +539,9 @@ public:
         }
     }
 
-    virtual void execute(void) { CScriptActionBase::execute(); }
+    void execute(void) override { CScriptActionBase::execute(); }
 
-    virtual void finalize(void) { CScriptActionBase::finalize(); }
+    void finalize(void) override { CScriptActionBase::finalize(); }
 
 private:
     Script_StateManager* m_p_state_manager;
@@ -554,19 +558,19 @@ public:
     }
     ~Script_ActionStateManagerMentalFree(void) {}
 
-    virtual void initialize(void)
+    void initialize(void) override
     {
         CScriptActionBase::initialize();
         this->m_object->set_mental_state(eMentalStateFree);
     }
 
-    virtual void execute(void)
+    void execute(void) override
     {
         CScriptActionBase::execute();
         this->m_object->set_mental_state(eMentalStateFree);
     }
 
-    virtual void finalize(void) { CScriptActionBase::finalize(); }
+    void finalize(void) override { CScriptActionBase::finalize(); }
 
 private:
     Script_StateManager* m_p_state_manager;
@@ -581,19 +585,19 @@ public:
     }
     ~Script_ActionStateManagerMentalDanger(void) {}
 
-    virtual void initialize(void)
+    void initialize(void) override
     {
         CScriptActionBase::initialize();
         this->m_object->set_mental_state(eMentalStateDanger);
     }
 
-    virtual void execute(void)
+    void execute(void) override
     {
         CScriptActionBase::execute();
         this->m_object->set_mental_state(eMentalStateDanger);
     }
 
-    virtual void finalize(void) { CScriptActionBase::finalize(); }
+    void finalize(void) override { CScriptActionBase::finalize(); }
 
 private:
     Script_StateManager* m_p_state_manager;
@@ -608,19 +612,19 @@ public:
     }
     ~Script_ActionStateManagerMentalPanic(void) {}
 
-    virtual void initialize(void)
+    void initialize(void) override
     {
         CScriptActionBase::initialize();
         this->m_object->set_mental_state(eMentalStatePanic);
     }
 
-    virtual void execute(void)
+    void execute(void) override
     {
         CScriptActionBase::execute();
         this->m_object->set_mental_state(eMentalStatePanic);
     }
 
-    virtual void finalize(void) { CScriptActionBase::finalize(); }
+    void finalize(void) override { CScriptActionBase::finalize(); }
 
 private:
     Script_StateManager* m_p_state_manager;
@@ -637,15 +641,15 @@ public:
     }
     ~Script_ActionStateManagerMovementWalk(void) {}
 
-    virtual void initialize(void)
+    void initialize(void) override
     {
         CScriptActionBase::initialize();
         this->m_object->set_movement_type(eMovementTypeWalk);
     }
 
-    virtual void execute(void) { CScriptActionBase::execute(); }
+    void execute(void) override { CScriptActionBase::execute(); }
 
-    virtual void finalize(void) { CScriptActionBase::finalize(); }
+    void finalize(void) override { CScriptActionBase::finalize(); }
 
 private:
     Script_StateManager* m_p_state_manager;
@@ -660,15 +664,15 @@ public:
     }
     ~Script_ActionStateManagerMovementRun(void) {}
 
-    virtual void initialize(void)
+    void initialize(void) override
     {
         CScriptActionBase::initialize();
         this->m_object->set_movement_type(eMovementTypeRun);
     }
 
-    virtual void execute(void) { CScriptActionBase::execute(); }
+    void execute(void) override { CScriptActionBase::execute(); }
 
-    virtual void finalize(void) { CScriptActionBase::finalize(); }
+    void finalize(void) override { CScriptActionBase::finalize(); }
 
 private:
     Script_StateManager* m_p_state_manager;
@@ -683,15 +687,15 @@ public:
     }
     ~Script_ActionStateManagerMovementStand(void) {}
 
-    virtual void initialize(void)
+    void initialize(void) override
     {
         CScriptActionBase::initialize();
         this->m_object->set_movement_type(eMovementTypeStand);
     }
 
-    virtual void execute(void) { CScriptActionBase::execute(); }
+    void execute(void) override { CScriptActionBase::execute(); }
 
-    virtual void finalize(void) { CScriptActionBase::finalize(); }
+    void finalize(void) override { CScriptActionBase::finalize(); }
 
 private:
     Script_StateManager* m_p_state_manager;
@@ -706,16 +710,16 @@ public:
     }
     ~Script_ActionStateManagerMovementStandTurn(void) {}
 
-    virtual void initialize(void)
+    void initialize(void) override
     {
         CScriptActionBase::initialize();
         Globals::turn(this->m_object, this->m_p_state_manager);
         this->m_object->set_movement_type(eMovementTypeStand);
     }
 
-    virtual void execute(void) { CScriptActionBase::execute(); }
+    void execute(void) override { CScriptActionBase::execute(); }
 
-    virtual void finalize(void) { CScriptActionBase::finalize(); }
+    void finalize(void) override { CScriptActionBase::finalize(); }
 
 private:
     Script_StateManager* m_p_state_manager;
@@ -731,7 +735,7 @@ public:
     }
     ~Script_ActionStateManagerMovementStandSearch(void) {}
 
-    virtual void initialize(void)
+    void initialize(void) override
     {
         CScriptActionBase::initialize();
         this->m_object->set_movement_type(eMovementTypeStand);
@@ -740,9 +744,9 @@ public:
             nullptr, std::uint32_t(0));
     }
 
-    virtual void execute(void) { CScriptActionBase::execute(); }
+    void execute(void) override { CScriptActionBase::execute(); }
 
-    virtual void finalize(void) { CScriptActionBase::finalize(); }
+    void finalize(void) override { CScriptActionBase::finalize(); }
 
 private:
     Script_StateManager* m_p_state_manager;
@@ -757,16 +761,16 @@ public:
     }
     ~Script_ActionStateManagerMovementWalkTurn(void) {}
 
-    virtual void initialize(void)
+    void initialize(void) override
     {
         CScriptActionBase::initialize();
         this->m_object->set_movement_type(eMovementTypeWalk);
         Globals::turn(this->m_object, this->m_p_state_manager);
     }
 
-    virtual void execute(void) { CScriptActionBase::execute(); }
+    void execute(void) override { CScriptActionBase::execute(); }
 
-    virtual void finalize(void) { CScriptActionBase::finalize(); }
+    void finalize(void) override { CScriptActionBase::finalize(); }
 
 private:
     Script_StateManager* m_p_state_manager;
@@ -782,7 +786,7 @@ public:
     }
     ~Script_ActionStateManagerMovementWalkSearch(void) {}
 
-    virtual void initialize(void)
+    void initialize(void) override
     {
         CScriptActionBase::initialize();
         this->m_object->set_movement_type(eMovementTypeWalk);
@@ -791,9 +795,9 @@ public:
             nullptr, std::uint32_t(0));
     }
 
-    virtual void execute(void) { CScriptActionBase::execute(); }
+    void execute(void) override { CScriptActionBase::execute(); }
 
-    virtual void finalize(void) { CScriptActionBase::finalize(); }
+    void finalize(void) override { CScriptActionBase::finalize(); }
 
 private:
     Script_StateManager* m_p_state_manager;
@@ -808,16 +812,16 @@ public:
     }
     ~Script_ActionStateManagerMovementRunTurn(void) {}
 
-    virtual void initialize(void)
+    void initialize(void) override
     {
         CScriptActionBase::initialize();
         this->m_object->set_movement_type(eMovementTypeRun);
         Globals::turn(this->m_object, this->m_p_state_manager);
     }
 
-    virtual void execute(void) { CScriptActionBase::execute(); }
+    void execute(void) override { CScriptActionBase::execute(); }
 
-    virtual void finalize(void) { CScriptActionBase::finalize(); }
+    void finalize(void) override { CScriptActionBase::finalize(); }
 
 private:
     Script_StateManager* m_p_state_manager;
@@ -832,7 +836,7 @@ public:
     }
     ~Script_ActionStateManagerMovementRunSearch(void) {}
 
-    virtual void initialize(void)
+    void initialize(void) override
     {
         CScriptActionBase::initialize();
         this->m_object->set_movement_type(eMovementTypeRun);
@@ -841,9 +845,9 @@ public:
             nullptr, std::uint32_t(0));
     }
 
-    virtual void execute(void) { CScriptActionBase::execute(); }
+    void execute(void) override { CScriptActionBase::execute(); }
 
-    virtual void finalize(void) { CScriptActionBase::finalize(); }
+    void finalize(void) override { CScriptActionBase::finalize(); }
 
 private:
     Script_StateManager* m_p_state_manager;
@@ -860,7 +864,7 @@ public:
     }
     ~Script_ActionStateManagerWeaponUnStrapp(void) {}
 
-    virtual void initialize(void)
+    void initialize(void) override
     {
         CScriptActionBase::initialize();
         this->m_object->set_item(static_cast<MonsterSpace::EObjectAction>(
@@ -868,9 +872,9 @@ public:
             Globals::get_weapon(this->m_object, this->m_p_state_manager->getTargetStateName()));
     }
 
-    virtual void execute(void) { CScriptActionBase::execute(); }
+    void execute(void) override { CScriptActionBase::execute(); }
 
-    virtual void finalize(void) { CScriptActionBase::finalize(); }
+    void finalize(void) override { CScriptActionBase::finalize(); }
 
 private:
     Script_StateManager* m_p_state_manager;
@@ -885,7 +889,7 @@ public:
     }
     ~Script_ActionStateManagerWeaponStrapp(void) {}
 
-    virtual void initialize(void)
+    void initialize(void) override
     {
         CScriptActionBase::initialize();
         CScriptGameObject* const p_client_item =
@@ -897,9 +901,9 @@ public:
             this->m_object->set_item(MonsterSpace::eObjectActionIdle, nullptr);
     }
 
-    virtual void execute(void) { CScriptActionBase::execute(); }
+    void execute(void) override { CScriptActionBase::execute(); }
 
-    virtual void finalize(void) { CScriptActionBase::finalize(); }
+    void finalize(void) override { CScriptActionBase::finalize(); }
 
 private:
     Script_StateManager* m_p_state_manager;
@@ -914,15 +918,15 @@ public:
     }
     ~Script_ActionStateManagerWeaponNone(void) {}
 
-    virtual void initialize(void)
+    void initialize(void) override
     {
         CScriptActionBase::initialize();
         this->m_object->set_item(MonsterSpace::eObjectActionIdle, nullptr);
     }
 
-    virtual void execute(void) { CScriptActionBase::execute(); }
+    void execute(void) override { CScriptActionBase::execute(); }
 
-    virtual void finalize(void) { CScriptActionBase::finalize(); }
+    void finalize(void) override { CScriptActionBase::finalize(); }
 
 private:
     Script_StateManager* m_p_state_manager;
@@ -937,7 +941,7 @@ public:
     }
     ~Script_ActionStateManagerWeaponDrop(void) {}
 
-    virtual void initialize(void)
+    void initialize(void) override
     {
         CScriptActionBase::initialize();
         CScriptGameObject* const p_client_item =
@@ -998,7 +1002,7 @@ public:
     }
     ~Script_ActionStateManagerSmartCoverExit(void) {}
 
-    virtual void initialize(void)
+    void initialize(void) override
     {
         CScriptActionBase::initialize();
         this->m_object->set_smart_cover_target();
@@ -1016,9 +1020,9 @@ public:
         this->m_object->set_dest_level_vertex_id(vertex);
     }
 
-    virtual void execute(void) { CScriptActionBase::execute(); }
+    void execute(void) override { CScriptActionBase::execute(); }
 
-    virtual void finalize(void) { CScriptActionBase::finalize(); }
+    void finalize(void) override { CScriptActionBase::finalize(); }
 
 private:
     Script_StateManager* m_p_state_manager;
