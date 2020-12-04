@@ -302,7 +302,7 @@ class Script_EvaluatorStateManagerEnd : public CScriptPropertyEvaluator
 public:
     Script_EvaluatorStateManagerEnd(const xr_string& evaluator_name, Script_StateManager* const p_state_manager)
         : CScriptPropertyEvaluator(nullptr, evaluator_name.c_str()), m_p_action_planner(nullptr),
-          m_p_state_manager(p_state_manager)
+          m_p_state_manager(p_state_manager), m_p_action_planner_combat(nullptr)
     {
     }
 
@@ -313,6 +313,10 @@ public:
         if (!this->m_p_action_planner)
             this->m_p_action_planner = Globals::get_script_action_planner(this->m_object);
 
+        if (!this->m_p_action_planner_combat)
+            this->m_p_action_planner_combat = Globals::cast_planner(
+                &this->m_p_action_planner->action(StalkerDecisionSpace::eWorldOperatorCombatPlanner));
+
         if (!this->m_p_action_planner->initialized())
         {
 #ifdef DEBUG
@@ -322,11 +326,11 @@ public:
             return false;
         }
 
+        auto current_action_id = this->m_p_action_planner->current_action_id();
 
-        if (this->m_p_action_planner->current_action_id() == StalkerDecisionSpace::eWorldOperatorCombatPlanner)
+        if (current_action_id == StalkerDecisionSpace::eWorldOperatorCombatPlanner)
         {
-            if (Globals::cast_planner(
-                &this->m_p_action_planner->action(StalkerDecisionSpace::eWorldOperatorCombatPlanner)))
+            if (!this->m_p_action_planner_combat->initialized())
             {
 #ifdef DEBUG
 				Msg("\n*** eva_state_mgr_end:evaluate = false");
@@ -337,8 +341,8 @@ public:
         }
         else
         {
-            if ((this->m_p_action_planner->current_action_id() != StalkerDecisionSpace::eWorldOperatorCombatPlanner) &&
-                (this->m_p_action_planner->current_action_id() != StalkerDecisionSpace::eWorldOperatorAnomalyPlanner))
+            if ((current_action_id != StalkerDecisionSpace::eWorldOperatorCombatPlanner) &&
+                (current_action_id != StalkerDecisionSpace::eWorldOperatorAnomalyPlanner))
                 this->m_p_state_manager->setCombat(true);
         }
 
@@ -351,6 +355,7 @@ public:
 private:
     Script_StateManager* m_p_state_manager;
     CScriptActionPlanner* m_p_action_planner;
+    CScriptActionPlanner* m_p_action_planner_combat;
 };
 
 class Script_EvaluatorStateManagerLocked : public CScriptPropertyEvaluator
