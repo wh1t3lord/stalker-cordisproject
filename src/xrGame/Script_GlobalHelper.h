@@ -935,7 +935,7 @@ public:
     inline const xr_map<xr_string, StateLibData>& getStateLibrary(void) const noexcept { return this->m_state_library; }
     inline void setStateLibrary(const xr_map<xr_string, StateLibData>& map) noexcept
     {
-        if (!map.size())
+        if (map.empty())
         {
             MESSAGEW("map.size() = 0! You are "
                 "trying to set an empty "

@@ -2916,10 +2916,12 @@ inline std::uint32_t look_position_type(
         return SightManager::eSightTypePathDirection;
     }
 
-    if (Script_GlobalHelper::getInstance()
-            .getStateLibrary()
-            .at(p_state_manager->getTargetStateName())
-            .getDirectionType())
+    std::uint32_t direction_type = Script_GlobalHelper::getInstance()
+        .getStateLibrary()
+        .at(p_state_manager->getTargetStateName())
+        .getDirectionType();
+
+    if (direction_type != Globals::kUnsignedInt32Undefined)
     {
         return Script_GlobalHelper::getInstance()
             .getStateLibrary()
