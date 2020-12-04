@@ -64,9 +64,6 @@ Script_StateManager::Script_StateManager(CScriptGameObject* const p_client_objec
     this->m_properties["smartcover"] = 91;
     this->m_properties["in_smartcover"] = 92;
 
-    // Lord: проверить удаляются те Evaluators Actions которые выделил
-    // @  берём через .at, потому что если не находит то по сути возвращает ноль но это не обрабатывается, поэтому
-    // строгая привязка и сами проверяем что зарегистрировали выше (самопроверка самих же себя)
     this->m_p_action_planner->add_evaluator(
         this->m_properties.at("end"), new Script_EvaluatorStateManagerEnd("state_mgr_end", this));
     this->m_p_action_planner->add_evaluator(
