@@ -1248,7 +1248,7 @@ public:
         bool is_weapon_unstrapped = this->m_object->weapon_unstrapped();
         bool is_weapon_strapped = this->m_object->weapon_strapped();
 
-        if (!is_weapon_strapped || !is_weapon_unstrapped)
+        if (!(is_weapon_strapped || is_weapon_unstrapped))
         {
 #ifdef DEBUG
             Msg("\n*** eva_state_mgr_weapon_locked:evaluate = true (!is_weapon_strapped || !is_weapon_unstrapped)");
