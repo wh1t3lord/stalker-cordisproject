@@ -56,8 +56,8 @@ void CPlanner::update()
 
 #ifdef LOG_ACTION
     // printing solution
-    if (m_use_log)
-    {
+   // if (m_use_log)
+   // {
         if (this->m_solution_changed)
         {
             show_current_world_state();
@@ -67,7 +67,7 @@ void CPlanner::update()
             for (int i = 0; i < (int)this->solution().size(); ++i)
                 Msg("%s", action2string(this->solution()[i]));
         }
-    }
+   // }
 #endif
 
 #ifdef LOG_ACTION
