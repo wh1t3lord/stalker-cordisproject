@@ -24,30 +24,26 @@ public:
     {
         const xr_map<xr_string, std::uint32_t>& state_manager_properties = this->m_p_state_manager->getProperties();
 
-
-		if ((this->m_p_state_manager->getTargetStateName() == "idle") &&
-			(!(this->m_p_state_manager->getActionPlanner()
-				->evaluator(state_manager_properties.at("animstate_locked"))
-				.evaluate())) &&
-			(!(this->m_p_state_manager->getActionPlanner()
-				->evaluator(state_manager_properties.at("animation_locked"))
-				.evaluate())) &&
-			(this->m_p_state_manager->getActionPlanner()
-				->evaluator(state_manager_properties.at("movement"))
-				.evaluate()) &&
-			(this->m_p_state_manager->getActionPlanner()
-				->evaluator(state_manager_properties.at("animstate"))
-				.evaluate()) &&
-			(this->m_p_state_manager->getActionPlanner()
-				->evaluator(state_manager_properties.at("animation"))
-				.evaluate()) &&
-			(this->m_p_state_manager->getActionPlanner()
-				->evaluator(state_manager_properties.at("smartcover"))
-				.evaluate()))
-		{
-			if (this->m_p_action_planner->current_action_id() == Globals::XR_ACTIONS_ID::kStateManager + 1)
-				this->m_p_state_manager->setCombat(true);
-		}
+        bool is_result_for_combat = (
+                (this->m_p_state_manager->getTargetStateName() == "idle") &&
+                            (!(this->m_p_state_manager->getActionPlanner()
+                                ->evaluator(state_manager_properties.at("animstate_locked"))
+                                .evaluate())) &&
+                            (!(this->m_p_state_manager->getActionPlanner()
+                                ->evaluator(state_manager_properties.at("animation_locked"))
+                                .evaluate())) &&
+                            (this->m_p_state_manager->getActionPlanner()
+                                ->evaluator(state_manager_properties.at("movement"))
+                                .evaluate()) &&
+                            (this->m_p_state_manager->getActionPlanner()
+                                ->evaluator(state_manager_properties.at("animstate"))
+                                .evaluate()) &&
+                            (this->m_p_state_manager->getActionPlanner()
+                                ->evaluator(state_manager_properties.at("animation"))
+                                .evaluate()) &&
+                            (this->m_p_state_manager->getActionPlanner()
+                                ->evaluator(state_manager_properties.at("smartcover"))
+                                .evaluate()));
 
         if (state_manager_properties.empty())
         {
@@ -66,6 +62,12 @@ public:
 #endif
             return false;
         }
+
+		if (is_result_for_combat)
+		{
+			if (this->m_p_action_planner->current_action_id() == Globals::XR_ACTIONS_ID::kStateManager + 1)
+				this->m_p_state_manager->setCombat(true);
+		}
 
         if (this->m_p_state_manager->isCombat())
         {
