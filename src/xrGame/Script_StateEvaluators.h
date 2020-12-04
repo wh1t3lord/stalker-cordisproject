@@ -740,7 +740,7 @@ public:
     }
     ~Script_EvaluatorStateManagerDirection(void) {}
 
-    virtual _value_type evaluate(void)
+    _value_type evaluate(void) override
     {
         if (this->m_p_state_manager->getTargetStateName() == "smartcover")
             return true;
@@ -824,7 +824,7 @@ public:
     }
     ~Script_EvaluatorStateManagerDirectionSearch(void) {}
 
-    virtual _value_type evaluate(void)
+    _value_type evaluate(void) override
     {
         if (Globals::is_vector_nil(this->m_p_state_manager->getLookPosition()) == false || this->m_p_state_manager->getLookObject())
             return false;
