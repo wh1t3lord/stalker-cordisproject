@@ -4,6 +4,8 @@ namespace Cordis
 {
 namespace Scripts
 {
+    constexpr float kAimRatio = 1000.0f / 50.0f;
+    constexpr float kMinRatio = 1500.0f;
 /*
 class Script_ActionStateManager : public CScriptActionBase
 {
@@ -37,7 +39,102 @@ public:
     ~Script_ActionStateManagerEnd(void) {}
     virtual void initialize(void) { CScriptActionBase::initialize(); }
 
-    virtual void execute(void) { CScriptActionBase::execute(); }
+    virtual void execute(void) 
+    {
+        CScriptActionBase::execute(); 
+        auto callback = this->m_p_state_manager->getCallbackData();
+        if (callback.isAllFieldEmpty() == false)
+        {
+            if (callback.getBegin() == 0)
+            {
+                callback.setBegin(Globals::get_time_global());
+            }
+
+            if (Globals::get_time_global() - callback.getBegin() >= callback.getTimeOut())
+            {
+                if (callback.isCallbackTimeExist())
+                {
+                    callback.CallCallbackTime();
+                }
+
+                this->m_p_state_manager->clearCallbackData();
+            }
+        }
+
+        xr_string weapon_type_name = Script_GlobalHelper::getInstance().getStateLibrary().at(this->m_p_state_manager->getTargetStateName()).getWeaponTypeName();
+        bool is_weapon = Globals::IsWeapon(this->m_object->best_weapon());
+
+        if (is_weapon == false)
+        {
+            return;
+        }
+
+        if (weapon_type_name == "fire" || weapon_type_name == "sniper_fire")
+        {
+            float sniper_aim = 3000.0f;
+
+            if (this->m_p_state_manager->getLookObject())
+            {
+                CScriptGameObject* p_look_object = Globals::Game::level::get_object_by_id(this->m_p_state_manager->getLookObject()->ID());
+
+                if (p_look_object == nullptr)
+                {
+                    this->m_p_state_manager->setLookObject(nullptr);
+                    return;
+                }
+
+                if (this->m_object->CheckObjectVisibility(p_look_object) && (!Globals::IsStalker(p_look_object) || this->m_object->GetRelationType(p_look_object) == ALife::eRelationTypeEnemy) && p_look_object->Alive())
+                {
+                    if (weapon_type_name == "sniper_fire")
+                    {
+                        sniper_aim = this->m_object->Position().distance_to(p_look_object->Position()) * kAimRatio;
+
+                        if (sniper_aim <= kMinRatio)
+                        {
+                            this->m_object->set_item(eObjectActionFire1, this->m_object->best_weapon(), 1, kMinRatio);
+                            return;
+                        }
+
+                        this->m_object->set_item(eObjectActionFire1, this->m_object->best_weapon(), 1, sniper_aim);
+                    }
+                    else
+                    {
+                        // Lord: доделать
+              //          this->m_object->set_item(eObjectActionFire1, this->m_object->best_weapon(), )
+                    }
+
+                    return;
+                }
+                else
+                {
+                    this->m_object->set_item(eObjectActionIdle, this->m_object->best_weapon());
+                    return;
+                }
+            }
+
+            if (Globals::is_vector_nil(this->m_p_state_manager->getLookPosition()) == false && this->m_p_state_manager->getLookObject() == nullptr)
+            {
+                if (weapon_type_name == "sniper_fire")
+                {
+                    this->m_object->set_item(eObjectActionFire1, this->m_object->best_weapon(), 1, sniper_aim);
+                }
+                else
+                {
+                    // TODO: доделать
+             //       this->m_object->set_item(eObjectActionFire1, this->m_object->best_weapon(), );
+                }
+
+                return;
+            }
+
+            // TODO: доделать
+    //        this->m_object->set_item(eObjectActionFire1, this->m_object->best_weapon(), )
+        }
+        else if (weapon_type_name == "unstrapped")
+        {
+            this->m_object->set_item(static_cast<MonsterSpace::EObjectAction>(Globals::get_idle_state(this->m_p_state_manager->getTargetStateName())), this->m_object->best_weapon());
+        }
+    }
 
     virtual void finalize(void) { CScriptActionBase::finalize(); }
 

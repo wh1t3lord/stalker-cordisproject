@@ -360,6 +360,8 @@ inline void load_info(CScriptGameObject* const p_client_object, CScriptIniFile* 
 /// <returns>nullptr if we can't obtain npc_id and storage_data's pointer if npc_id valid and storage_data exists by npc_id</returns>
 inline DataBase::Storage_Data* getStorage(std::uint16_t npc_id);
 
+ 
+
 } // namespace Globals
 } // namespace Scripts
 } // namespace Cordis

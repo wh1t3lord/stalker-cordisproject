@@ -870,5 +870,10 @@ const StateManagerCallbackData& Script_StateManager::getCallbackData(void) const
     return this->m_callback_data;
 }
 
+void Script_StateManager::clearCallbackData(void) noexcept
+{
+    this->m_callback_data.clear();
+}
+
 } // namespace Scripts
 } // namespace Cordis

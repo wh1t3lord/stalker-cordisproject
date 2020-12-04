@@ -44,6 +44,7 @@ public:
     inline void setLookPosition(const Fvector& look_position) noexcept { this->m_look_position = look_position; }
 
     const StateManagerCallbackData& getCallbackData(void) const noexcept;
+    void clearCallbackData(void) noexcept;
 
     inline Script_StateAnimation* getAnimation(void) const { return this->m_p_animation; }
     inline void setAnimation(Script_StateAnimation* p_animation) { this->m_p_animation = p_animation; }

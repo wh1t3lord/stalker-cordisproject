@@ -1535,6 +1535,14 @@ struct StateManagerCallbackData
     inline std::function<void(void)> getCallbackTime(void) const noexcept { return this->m_callback_time; }
     inline std::function<void(void)> getCallbackTurnEnd(void) const noexcept { return this->m_callback_turn_end; }
 
+    inline void clear(void) noexcept
+    {
+        this->m_begin = 0;
+        this->m_timeout = 0;
+        this->m_callback_time = nullptr;
+        this->m_callback_turn_end = nullptr;
+    }
+
 private:
     std::uint32_t m_begin = 0;
     std::uint32_t m_timeout = 0;
