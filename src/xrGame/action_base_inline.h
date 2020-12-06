@@ -55,6 +55,7 @@ void CBaseAction::initialize()
 #ifdef LOG_ACTION
     VERIFY3(!m_switched, m_action_name.empty() == false, "::initialize()");
     m_switched = true;
+    m_use_log = !!psAI_Flags.test((1 << 17));
     if (m_use_log && !this->m_action_name.empty())
         debug_log(eActionStateInitialized);
 #endif

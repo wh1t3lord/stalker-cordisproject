@@ -802,8 +802,11 @@ void Script_StateManager::set_state(const xr_string& state_name, StateManagerCal
 			this->m_is_fast_set = false;
 		}
 
+        MESSAGE("state_callback[%s|%s]", this->m_p_npc->Name(), callback.isAllFieldEmpty() ? "true" : "false");
+
         this->m_callback_data = callback;
- 
+       
+
 		if (timeout >= 0)
 		{
 			this->m_callback_data.setTimeOut(timeout);
