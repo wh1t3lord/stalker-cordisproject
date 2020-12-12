@@ -224,8 +224,6 @@ Script_StateAnimation::select_animation(void)
         return result;
     }
 
-    R_ASSERT2(false, "unaccessable code!!!");
-
     return result;
 }
 
