@@ -837,11 +837,15 @@ void Script_StateManager::update(void)
 				}
 				else
 				{
-					if (Globals::get_time_global() - this->m_callback_data.getBegin() >= this->m_callback_data.getTimeOut())
+                    int current_time = Globals::get_time_global();
+                    int previous_time = this->m_callback_data.getBegin();
+                    int delta = current_time - previous_time;
+
+					if (delta >= this->m_callback_data.getTimeOut())
 					{
 						this->m_callback_data.setBegin(0);
-						this->m_callback_data.setCallbackTime(nullptr);
 						this->m_callback_data.CallCallbackTime();
+                        this->m_callback_data.setCallbackTime(nullptr);
 					}
 				}
             }
