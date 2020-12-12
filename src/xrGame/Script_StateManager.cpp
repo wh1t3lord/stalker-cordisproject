@@ -806,7 +806,6 @@ void Script_StateManager::set_state(const xr_string& state_name, StateManagerCal
 
         this->m_callback_data = callback;
        
-
 		if (timeout >= 0)
 		{
 			this->m_callback_data.setTimeOut(timeout);

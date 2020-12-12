@@ -2907,7 +2907,7 @@ inline std::uint32_t look_position_type(
     if (!p_client_object)
     {
         R_ASSERT2(false, "it can't be!");
-        return 0;
+        return SightManager::eSightTypePathDirection;
     }
 
     if (!p_state_manager)
@@ -2933,13 +2933,13 @@ inline std::uint32_t look_position_type(
              ->evaluator(p_state_manager->getProperties().at("movement_stand"))
              .evaluate())
     {
-        if (is_vector_nil(p_state_manager->getLookPosition()))
+        if (is_vector_nil(p_state_manager->getLookPosition()) == false)
             return SightManager::eSightTypeDirection;
 
         return SightManager::eSightTypePathDirection;
     }
 
-    if (is_vector_nil(p_state_manager->getLookPosition()))
+    if (is_vector_nil(p_state_manager->getLookPosition()) == false)
         return SightManager::eSightTypeDirection;
 
     return SightManager::eSightTypeCover;
