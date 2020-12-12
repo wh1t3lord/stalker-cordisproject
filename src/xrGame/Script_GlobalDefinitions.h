@@ -1574,8 +1574,7 @@ struct StateManagerAnimationStates
     inline void setTargetStateName(const xr_string& target_name) noexcept
     {
         if (target_name.empty())
-            Msg("[Scripts/StateManagerAnimationStates/setTargetStateName(target_name)] WARNING: target_name.empty() == "
-                "true! You set an empty string");
+            MESSAGEW("true! You set an empty string");
 
         this->m_target_state_name = target_name;
     }
@@ -1663,8 +1662,7 @@ struct StateManagerAnimationData
         inline void setAttachItemName(const xr_string& item_name) noexcept
         {
             if (item_name.empty())
-                Msg("[Scripts/StateManagerAnimationData/AnimationData/setAttachItemName(item_name)] WARNING: "
-                    "item_name.empty() == true! You set an empty string");
+                MESSAGEW("item_name.empty() == true! You set an empty string");
 
             this->m_attach_item_name = item_name;
         }
@@ -1673,8 +1671,7 @@ struct StateManagerAnimationData
         inline void setDetachItemName(const xr_string& item_name) noexcept
         {
             if (item_name.empty())
-                Msg("[Scripts/StateManagerAnimationData/AnimationData/setDetachItemName(item_name)] WARNING: "
-                    "item_name.empty() == true! You set an empty string");
+                MESSAGEW("item_name.empty() == true! You set an empty string");
 
             this->m_detach_item_name = item_name;
         }
@@ -1684,8 +1681,7 @@ struct StateManagerAnimationData
             if (this->m_function)
                 this->m_function(p_client_object, nullptr, xr_vector<xr_string>());
             else
-                Msg("[Scripts/StateManagerAnimationData/AnimationData/CallFunction(p_client_object)] WARNING: "
-                    "m_function is nullptr! Can't call! Return ...");
+                MESSAGEWR("m_function is nullptr! Can't call!");
         }
 
         inline void setFunction(
@@ -1711,13 +1707,13 @@ struct StateManagerAnimationData
     ~StateManagerAnimationData(void) = default;
 
     inline std::uint32_t getPropertiesMaxIdle(void) const noexcept { return this->m_properties_max_idle; }
-    inline void setPropertiesMaxIdle(const std::uint32_t value) noexcept { this->m_properties_max_idle = value; }
+    inline void setPropertiesMaxIdle(std::uint32_t value) noexcept { this->m_properties_max_idle = value; }
 
     inline std::uint32_t getPropertiesSumIdle(void) const noexcept { return this->m_properties_sum_idle; }
-    inline void setPropertiesSumIdle(const std::uint32_t value) noexcept { this->m_properties_sum_idle = value; }
+    inline void setPropertiesSumIdle(std::uint32_t value) noexcept { this->m_properties_sum_idle = value; }
 
     inline std::uint32_t getPropertiesRandom(void) const noexcept { return this->m_properties_random; }
-    inline void setPropertiesRandom(const std::uint32_t value) noexcept { this->m_properties_random = value; }
+    inline void setPropertiesRandom(std::uint32_t value) noexcept { this->m_properties_random = value; }
 
     inline const xr_map<std::uint32_t, xr_vector<AnimationData>>& getAnimationList(
         const xr_string& animation_id_name) const
