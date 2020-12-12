@@ -413,7 +413,7 @@ void Script_StateAnimation::add_animation(
         return;
     }
 
-    if (!this->m_p_client_object->weapon_unstrapped() || !this->m_p_client_object->weapon_strapped())
+    if (!(this->m_p_client_object->weapon_unstrapped() || this->m_p_client_object->weapon_strapped()))
     {
         R_ASSERT2(false, "illegal call for adding animation, weapon is strapping now!");
     }
