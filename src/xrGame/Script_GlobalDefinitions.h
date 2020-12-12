@@ -1897,13 +1897,13 @@ struct StateLibData
     ~StateLibData(void) = default;
 
     inline bool IsFastSet(void) const noexcept { return this->m_is_fast_set; }
-    inline void setFastSet(const bool& value) noexcept { this->m_is_fast_set = value; }
+    inline void setFastSet(bool value) noexcept { this->m_is_fast_set = value; }
 
     inline bool IsSpecialDangerMove(void) const noexcept { return this->m_is_special_danger_move; }
-    inline void setSpecialDangerMove(const bool& value) noexcept { this->m_is_special_danger_move = value; }
+    inline void setSpecialDangerMove(bool value) noexcept { this->m_is_special_danger_move = value; }
 
     inline std::uint16_t getWeaponSlot(void) const noexcept { return this->m_weapon_slot; }
-    inline void setWeaponSlot(const std::uint16_t& value) noexcept
+    inline void setWeaponSlot(std::uint16_t value) noexcept
     {
         if (value == Globals::kUnsignedInt16Undefined)
         {
@@ -1915,7 +1915,7 @@ struct StateLibData
     }
 
     inline std::uint32_t getMovementType(void) const noexcept { return this->m_movement_type; }
-    inline void setMovementType(const std::uint32_t& value) noexcept
+    inline void setMovementType(std::uint32_t value) noexcept
     {
         if (value == Globals::kUnsignedInt32Undefined)
         {
@@ -1925,7 +1925,7 @@ struct StateLibData
         this->m_movement_type = value;
     }
     inline std::uint32_t getMentalType(void) const noexcept { return this->m_mental_type; }
-    inline void setMentalType(const std::uint32_t& value) noexcept
+    inline void setMentalType(std::uint32_t value) noexcept
     {
         if (value == Globals::kUnsignedInt32Undefined)
         {
@@ -1935,7 +1935,7 @@ struct StateLibData
         this->m_mental_type = value;
     }
     inline std::uint32_t getBodyStateType(void) const noexcept { return this->m_bodystate_type; }
-    inline void setBodyStateType(const std::uint32_t& value) noexcept
+    inline void setBodyStateType(std::uint32_t value) noexcept
     {
         if (value == Globals::kUnsignedInt32Undefined)
         {
@@ -1945,7 +1945,7 @@ struct StateLibData
         this->m_bodystate_type = value;
     }
     inline std::uint32_t getDirectionType(void) const noexcept { return this->m_direction_type; }
-    inline void setDirectionType(const std::uint32_t& value) noexcept
+    inline void setDirectionType(std::uint32_t value) noexcept
     {
         if (value == Globals::kUnsignedInt32Undefined)
         {
