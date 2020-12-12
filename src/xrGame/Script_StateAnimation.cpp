@@ -63,7 +63,7 @@ void Script_StateAnimation::set_state(const xr_string& new_state_name, const boo
 
         this->m_states.setCurrentStateName(new_state_name);
         this->m_states.setTargetStateName(new_state_name);
-        this->m_states.setSequenceID(Globals::kUnsignedInt32Undefined);
+        this->m_states.setSequenceID(0);
 
         this->m_states.setNextRandom(Globals::get_time_global());
         return;
