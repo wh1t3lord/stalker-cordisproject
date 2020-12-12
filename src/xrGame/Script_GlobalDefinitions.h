@@ -1883,10 +1883,10 @@ struct StateLibData
 		m_direction_type(Globals::kUnsignedInt32Undefined), m_is_special_danger_move(false),
 		m_is_fast_set(false), m_weapon_slot(Globals::kUnsignedInt16Undefined) {}
 
-    StateLibData(const std::uint32_t& movement_type, const std::uint32_t& mental_type,
-        const std::uint32_t& bodystate_type, const std::uint32_t& direction_type, const xr_string& weapon_name,
+    StateLibData(std::uint32_t movement_type, std::uint32_t mental_type,
+        std::uint32_t bodystate_type, std::uint32_t direction_type, const xr_string& weapon_name,
         const xr_string& animstate_name, const xr_string& animation_name, bool is_fast_set = false,
-        const std::uint16_t& weapon_slot = 0, bool is_special_danger_move = false)
+        std::uint16_t weapon_slot = 0, bool is_special_danger_move = false)
         : m_movement_type(movement_type), m_mental_type(mental_type), m_bodystate_type(bodystate_type),
           m_direction_type(direction_type), m_weapon_name(weapon_name), m_animstate_name(animstate_name),
           m_animation_name(animation_name), m_is_special_danger_move(is_special_danger_move),
