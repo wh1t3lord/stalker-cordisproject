@@ -33,18 +33,19 @@ void Script_StateAnimation::set_state(const xr_string& new_state_name, const boo
     {
         this->m_p_client_object->clear_animations();
 
-        StateManagerAnimationData state;
+        const StateManagerAnimationData* state = nullptr;
 
-        if (this->m_states.getAnimationMarker() == kAnimationMarkerIn)
-            state = this->m_current_data_list.at(this->m_states.getTargetStateName());
-        else
-            state = this->m_current_data_list.at(this->m_states.getCurrentStateName());
+        if (this->m_states.getAnimationMarker() == kAnimationMarkerIn && (this->m_current_data_list.find(this->m_states.getTargetStateName()) != this->m_current_data_list.end()))
+            state = &this->m_current_data_list.at(this->m_states.getTargetStateName());
+        else if (this->m_current_data_list.find(this->m_states.getCurrentStateName()) != this->m_current_data_list.end())
+            state = &this->m_current_data_list.at(this->m_states.getCurrentStateName());
 
-        if (state.isInitialized() && state.isAnimationListExist("out"))
+
+        if ((state != nullptr) && (state->isAnimationListExist("out")))
         {
             int weapon_slot_id = this->weapon_slot();
             xr_vector<StateManagerAnimationData::AnimationData>& animations =
-                this->anim_for_slot(weapon_slot_id, state.getAnimationList("out"));
+                this->anim_for_slot(weapon_slot_id, state->getAnimationList("out"));
 
             if (!animations.empty())
             {
@@ -61,7 +62,11 @@ void Script_StateAnimation::set_state(const xr_string& new_state_name, const boo
         this->m_states.setAnimationMarker(0);
 
         this->m_states.setCurrentStateName(new_state_name);
+        this->m_states.setTargetStateName(new_state_name);
         this->m_states.setSequenceID(Globals::kUnsignedInt32Undefined);
+
+        this->m_states.setNextRandom(Globals::get_time_global());
+        return;
     }
 
     this->m_states.setTargetStateName(new_state_name);

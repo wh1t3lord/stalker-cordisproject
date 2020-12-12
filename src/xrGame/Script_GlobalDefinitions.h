@@ -1556,16 +1556,16 @@ struct StateManagerAnimationStates
     ~StateManagerAnimationStates(void) = default;
 
     inline std::uint8_t getAnimationMarker(void) const noexcept { return this->m_animation_marker; }
-    inline void setAnimationMarker(const std::uint8_t value) noexcept { this->m_animation_marker = value; }
+    inline void setAnimationMarker(std::uint8_t value) noexcept { this->m_animation_marker = value; }
 
     inline std::uint32_t getSequenceID(void) const noexcept { return this->m_sequence_id; }
-    inline void setSequenceID(const std::uint32_t value) noexcept { this->m_sequence_id = value; }
+    inline void setSequenceID(std::uint32_t value) noexcept { this->m_sequence_id = value; }
 
     inline std::uint32_t getNextRandom(void) const noexcept { return this->m_next_random; }
-    inline void setNextRandom(const std::uint32_t value) noexcept { this->m_next_random = value; }
+    inline void setNextRandom(std::uint32_t value) noexcept { this->m_next_random = value; }
 
     inline std::uint32_t getLastID(void) const noexcept { return this->m_last_id; }
-    inline void setLastID(const std::uint32_t value) noexcept { this->m_last_id = value; }
+    inline void setLastID(std::uint32_t value) noexcept { this->m_last_id = value; }
 
     inline const xr_string& getCurrentStateName(void) const noexcept { return this->m_current_state_name; }
     inline void setCurrentStateName(const xr_string& state_name) noexcept { this->m_current_state_name = state_name; }
