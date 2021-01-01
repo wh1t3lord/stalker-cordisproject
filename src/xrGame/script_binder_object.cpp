@@ -87,11 +87,11 @@ void CScriptBinderObject::task_callback(CGameTask* p_game_task, const std::uint3
     {
         if (task_state == eTaskStateCompleted)
         {
-            Cordis::Scripts::Script_NewsManager::getInstance().SendTip(Cordis::Scripts::DataBase::Storage::getInstance().getActor(), "complete", "");
+            Cordis::Scripts::Script_NewsManager::getInstance().SendTask(Cordis::Scripts::DataBase::Storage::getInstance().getActor(), "complete", p_game_task);
         }
         else
         {
-            Cordis::Scripts::Script_NewsManager::getInstance().SendTip(Cordis::Scripts::DataBase::Storage::getInstance().getActor(), "new", "");
+            Cordis::Scripts::Script_NewsManager::getInstance().SendTask(Cordis::Scripts::DataBase::Storage::getInstance().getActor(), "new", p_game_task);
         }
     }
 
