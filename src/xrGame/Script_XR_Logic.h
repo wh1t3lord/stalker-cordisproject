@@ -352,11 +352,12 @@ inline xr_map<std::uint32_t, CondlistData> parse_condlist_by_server_object(
                 sub_data.m_text_name.clear();
             else
             {
-                if (current_section.size())
+                if (current_section.empty() == false)
+                {
                     sub_data.m_text_name = current_section;
+                }
                 else
                 {
-                    R_ASSERT2(false, "it can't be!");
                     sub_data.m_text_name.clear();
                 }
             }
@@ -369,7 +370,7 @@ inline xr_map<std::uint32_t, CondlistData> parse_condlist_by_server_object(
 
         if (it == '{')
         {
-            if (current_section.size())
+            if (current_section.empty() == false)
             {
                 //		vector_sections.push_back(current_section);
                 sub_data.m_text_name = current_section;
@@ -561,11 +562,12 @@ inline xr_map<std::uint32_t, CondlistData> parse_condlist_by_script_object(
 				sub_data.m_text_name.clear();
 			else
 			{
-				if (current_section.size())
-					sub_data.m_text_name = current_section;
+                if (current_section.empty() == false)
+                {
+                    sub_data.m_text_name = current_section;
+                }
 				else
 				{
-					R_ASSERT2(false, "it can't be!");
 					sub_data.m_text_name.clear();
 				}
 			}
@@ -578,7 +580,7 @@ inline xr_map<std::uint32_t, CondlistData> parse_condlist_by_script_object(
 
 		if (it == '{')
 		{
-			if (current_section.size())
+			if (current_section.empty() == false)
 			{
 				//		vector_sections.push_back(current_section);
 				sub_data.m_text_name = current_section;
