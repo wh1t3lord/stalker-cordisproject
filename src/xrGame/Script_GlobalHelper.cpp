@@ -10028,8 +10028,8 @@ void Cordis::Scripts::Script_GlobalHelper::initialize_StateLib_Pripyat(void)
 	pri_a15_military_3_2_sokolov_zulus_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam15");
 	pri_a15_military_3_2_sokolov_zulus_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam16");
 	pri_a15_military_3_2_sokolov_zulus_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam17");
-	pri_a15_military_3_2_vano_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam17_1");
-	pri_a15_military_3_2_vano_wanderer_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam18");
+	pri_a15_military_3_2_sokolov_zulus_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam17_1");
+	pri_a15_military_3_2_sokolov_zulus_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam18");
 	pri_a15_military_3_2_sokolov_zulus_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam22");
 	pri_a15_military_3_2_sokolov_zulus_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam23");
 	pri_a15_military_3_2_sokolov_zulus_animation_data.addAnimation("into", 0, "pri_a15_soldier_2_cam24");
