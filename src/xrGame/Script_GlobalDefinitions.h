@@ -1725,8 +1725,7 @@ struct StateManagerAnimationData
     {
         if (animation_id_name.empty())
         {
-            Msg("[Scripts/StateManagerAnimationData/isAnimationListExist(animation_id_name)] WARNING: "
-                "animation_id_name.empty() == true! Return false ...");
+            MESSAGEWR("animation_id_name.empty() == true");
             return false;
         }
 

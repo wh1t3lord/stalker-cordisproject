@@ -5984,8 +5984,8 @@ Cordis::Scripts::Script_GlobalHelper::Script_GlobalHelper(void)
     animpoint_sit_normal_eat_bread_animation_data.addAnimation("rnd", 0, "animpoint_sit_normal_eat_idle_rnd_1");
     animpoint_sit_normal_eat_bread_animation_data.addAnimation("rnd", 0, "animpoint_sit_normal_eat_idle_rnd_2");
 
-    animpoint_sit_normal_eat_bread_animation_data.addAnimation("rnd", 0, "animpoint_sit_normal_eat_idle_rnd_1");
-    animpoint_sit_normal_eat_bread_animation_data.addAnimation("rnd", 0, "animpoint_sit_normal_eat_idle_rnd_2");
+	animpoint_sit_normal_eat_bread_animation_data.addAnimation("rnd", 1, "animpoint_sit_normal_eat_idle_rnd_1");
+	animpoint_sit_normal_eat_bread_animation_data.addAnimation("rnd", 1, "animpoint_sit_normal_eat_idle_rnd_2");
 
     this->m_state_manager_animation_list["animpoint_sit_normal_eat_bread"] =
         animpoint_sit_normal_eat_bread_animation_data;
@@ -6044,7 +6044,7 @@ Cordis::Scripts::Script_GlobalHelper::Script_GlobalHelper(void)
     animpoint_sit_low_eat_bread_animation_data.addAnimation("out", 1, "animpoint_sit_low_eat_out_2");
 
     animpoint_sit_low_eat_bread_animation_data.addAnimation("idle", 0, "animpoint_sit_low_eat_idle_1");
-    animpoint_sit_low_eat_bread_animation_data.addAnimation("idle", 0, "animpoint_sit_low_eat_idle_1");
+    animpoint_sit_low_eat_bread_animation_data.addAnimation("idle", 1, "animpoint_sit_low_eat_idle_1");
 
     animpoint_sit_low_eat_bread_animation_data.addAnimation("rnd", 0, "animpoint_sit_low_eat_idle_1");
     animpoint_sit_low_eat_bread_animation_data.addAnimation("rnd", 0, "animpoint_sit_low_eat_idle_2");
@@ -6078,7 +6078,7 @@ Cordis::Scripts::Script_GlobalHelper::Script_GlobalHelper(void)
     animpoint_sit_low_eat_kolbasa_animation_data.addAnimation("out", 1, "animpoint_sit_low_eat_out_2");
 
     animpoint_sit_low_eat_kolbasa_animation_data.addAnimation("idle", 0, "animpoint_sit_low_eat_idle_1");
-    animpoint_sit_low_eat_kolbasa_animation_data.addAnimation("idle", 0, "animpoint_sit_low_eat_idle_1");
+    animpoint_sit_low_eat_kolbasa_animation_data.addAnimation("idle", 1, "animpoint_sit_low_eat_idle_1");
 
     animpoint_sit_low_eat_kolbasa_animation_data.addAnimation("rnd", 0, "animpoint_sit_low_eat_idle_1");
     animpoint_sit_low_eat_kolbasa_animation_data.addAnimation("rnd", 0, "animpoint_sit_low_eat_idle_2");
@@ -6112,7 +6112,7 @@ Cordis::Scripts::Script_GlobalHelper::Script_GlobalHelper(void)
     animpoint_stay_wall_drink_vodka_animation_data.addAnimation("out", 1, "animpoint_stay_wall_drink_out_2");
 
     animpoint_stay_wall_drink_vodka_animation_data.addAnimation("idle", 0, "animpoint_stay_wall_drink_idle_1");
-    animpoint_stay_wall_drink_vodka_animation_data.addAnimation("idle", 0, "animpoint_stay_wall_drink_idle_1");
+    animpoint_stay_wall_drink_vodka_animation_data.addAnimation("idle", 1, "animpoint_stay_wall_drink_idle_1");
 
     animpoint_stay_wall_drink_vodka_animation_data.addAnimation("rnd", 0, "animpoint_stay_wall_drink_idle_rnd_1");
     animpoint_stay_wall_drink_vodka_animation_data.addAnimation("rnd", 0, "animpoint_stay_wall_drink_idle_rnd_2");
@@ -6146,7 +6146,7 @@ Cordis::Scripts::Script_GlobalHelper::Script_GlobalHelper(void)
     animpoint_stay_wall_drink_energy_animation_data.addAnimation("out", 1, "animpoint_stay_wall_drink_out_2");
 
     animpoint_stay_wall_drink_energy_animation_data.addAnimation("idle", 0, "animpoint_stay_wall_drink_idle_1");
-    animpoint_stay_wall_drink_energy_animation_data.addAnimation("idle", 0, "animpoint_stay_wall_drink_idle_1");
+    animpoint_stay_wall_drink_energy_animation_data.addAnimation("idle", 1, "animpoint_stay_wall_drink_idle_1");
 
     animpoint_stay_wall_drink_energy_animation_data.addAnimation("rnd", 0, "animpoint_stay_wall_drink_idle_rnd_1");
     animpoint_stay_wall_drink_energy_animation_data.addAnimation("rnd", 0, "animpoint_stay_wall_drink_idle_rnd_2");
@@ -6210,7 +6210,7 @@ Cordis::Scripts::Script_GlobalHelper::Script_GlobalHelper(void)
     animpoint_sit_high_drink_vodka_animation_data.addAnimation("out", 1, "animpoint_sit_high_drink_out_2");
 
     animpoint_sit_high_drink_vodka_animation_data.addAnimation("idle", 0, "animpoint_sit_high_drink_idle_1");
-    animpoint_sit_high_drink_vodka_animation_data.addAnimation("idle", 0, "animpoint_sit_high_drink_idle_1");
+    animpoint_sit_high_drink_vodka_animation_data.addAnimation("idle", 1, "animpoint_sit_high_drink_idle_1");
 
     animpoint_sit_high_drink_vodka_animation_data.addAnimation("rnd", 0, "animpoint_sit_high_drink_idle_rnd_1");
     animpoint_sit_high_drink_vodka_animation_data.addAnimation("rnd", 0, "animpoint_sit_high_drink_idle_rnd_2");
@@ -6244,7 +6244,7 @@ Cordis::Scripts::Script_GlobalHelper::Script_GlobalHelper(void)
     animpoint_sit_high_drink_energy_animation_data.addAnimation("out", 1, "animpoint_sit_high_drink_out_2");
 
     animpoint_sit_high_drink_energy_animation_data.addAnimation("idle", 0, "animpoint_sit_high_drink_idle_1");
-    animpoint_sit_high_drink_energy_animation_data.addAnimation("idle", 0, "animpoint_sit_high_drink_idle_1");
+    animpoint_sit_high_drink_energy_animation_data.addAnimation("idle", 1, "animpoint_sit_high_drink_idle_1");
 
     animpoint_sit_high_drink_energy_animation_data.addAnimation("rnd", 0, "animpoint_sit_high_drink_idle_rnd_1");
     animpoint_sit_high_drink_energy_animation_data.addAnimation("rnd", 0, "animpoint_sit_high_drink_idle_rnd_2");
@@ -6278,7 +6278,7 @@ Cordis::Scripts::Script_GlobalHelper::Script_GlobalHelper(void)
     animpoint_sit_normal_drink_vodka_animation_data.addAnimation("out", 1, "animpoint_sit_normal_drink_out_2");
 
     animpoint_sit_normal_drink_vodka_animation_data.addAnimation("idle", 0, "animpoint_sit_normal_drink_idle_1");
-    animpoint_sit_normal_drink_vodka_animation_data.addAnimation("idle", 0, "animpoint_sit_normal_drink_idle_1");
+    animpoint_sit_normal_drink_vodka_animation_data.addAnimation("idle", 1, "animpoint_sit_normal_drink_idle_1");
 
     animpoint_sit_normal_drink_vodka_animation_data.addAnimation("rnd", 0, "animpoint_sit_normal_drink_idle_rnd_1");
     animpoint_sit_normal_drink_vodka_animation_data.addAnimation("rnd", 0, "animpoint_sit_normal_drink_idle_rnd_2");
@@ -6312,7 +6312,7 @@ Cordis::Scripts::Script_GlobalHelper::Script_GlobalHelper(void)
     animpoint_sit_normal_drink_energy_animation_data.addAnimation("out", 1, "animpoint_sit_normal_drink_out_2");
 
     animpoint_sit_normal_drink_energy_animation_data.addAnimation("idle", 0, "animpoint_sit_normal_drink_idle_1");
-    animpoint_sit_normal_drink_energy_animation_data.addAnimation("idle", 0, "animpoint_sit_normal_drink_idle_1");
+    animpoint_sit_normal_drink_energy_animation_data.addAnimation("idle", 1, "animpoint_sit_normal_drink_idle_1");
 
     animpoint_sit_normal_drink_energy_animation_data.addAnimation(
         "rnd", 0, "animpoint_sit_normal_drink_idle_rnd_1");
@@ -6350,7 +6350,7 @@ Cordis::Scripts::Script_GlobalHelper::Script_GlobalHelper(void)
     animpoint_sit_low_drink_vodka_animation_data.addAnimation("out", 1, "animpoint_sit_low_drink_out_2");
 
     animpoint_sit_low_drink_vodka_animation_data.addAnimation("idle", 0, "animpoint_sit_low_drink_idle_1");
-    animpoint_sit_low_drink_vodka_animation_data.addAnimation("idle", 0, "animpoint_sit_low_drink_idle_1");
+    animpoint_sit_low_drink_vodka_animation_data.addAnimation("idle", 1, "animpoint_sit_low_drink_idle_1");
 
     animpoint_sit_low_drink_vodka_animation_data.addAnimation("rnd", 0, "animpoint_sit_low_drink_idle_rnd_1");
     animpoint_sit_low_drink_vodka_animation_data.addAnimation("rnd", 0, "animpoint_sit_low_drink_idle_rnd_2");
@@ -6384,7 +6384,7 @@ Cordis::Scripts::Script_GlobalHelper::Script_GlobalHelper(void)
     animpoint_sit_low_drink_energy_animation_data.addAnimation("out", 1, "animpoint_sit_low_drink_out_2");
 
     animpoint_sit_low_drink_energy_animation_data.addAnimation("idle", 0, "animpoint_sit_low_drink_idle_1");
-    animpoint_sit_low_drink_energy_animation_data.addAnimation("idle", 0, "animpoint_sit_low_drink_idle_1");
+    animpoint_sit_low_drink_energy_animation_data.addAnimation("idle", 1, "animpoint_sit_low_drink_idle_1");
 
     animpoint_sit_low_drink_energy_animation_data.addAnimation("rnd", 0, "animpoint_sit_low_drink_idle_rnd_1");
     animpoint_sit_low_drink_energy_animation_data.addAnimation("rnd", 0, "animpoint_sit_low_drink_idle_rnd_2");
@@ -6500,7 +6500,7 @@ Cordis::Scripts::Script_GlobalHelper::Script_GlobalHelper(void)
     animpoint_sit_low_guitar_animation_data.addAnimation("out", 1, "animpoint_sit_low_guitar_out_2");
 
     animpoint_sit_low_guitar_animation_data.addAnimation("idle", 0, "animpoint_sit_low_guitar_idle_1");
-    animpoint_sit_low_guitar_animation_data.addAnimation("idle", 0, "animpoint_sit_low_guitar_idle_1");
+    animpoint_sit_low_guitar_animation_data.addAnimation("idle", 1, "animpoint_sit_low_guitar_idle_1");
 
     animpoint_sit_low_guitar_animation_data.addAnimation("rnd", 0, "animpoint_sit_low_guitar_idle_rnd_2");
     animpoint_sit_low_guitar_animation_data.addAnimation("rnd", 1, "animpoint_sit_low_guitar_idle_rnd_2");
