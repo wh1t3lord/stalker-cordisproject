@@ -1456,6 +1456,20 @@ public:
     #pragma endregion
 
 private:
+    void initialize_StateLib_Descriptors(void);
+
+    void initialize_StateLib(void);
+    void initialize_StateLib_Animations(void);
+    void initialize_StateLib_Animpoints(void);
+    void initialize_StateLib_Zaton(void);
+    void initialize_StateLib_Jupiter(void);
+    void initialize_StateLib_Pripyat(void);
+
+    void load_XREFFECTS_Functions(void);
+
+    void initialize_SmartCovers(void);
+
+private:
     bool m_is_gameover_credits_started;
     CUISequencer* m_tutorial;
     xr_map<int, bool> m_monster_classes;
