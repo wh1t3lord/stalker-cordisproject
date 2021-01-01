@@ -11,18 +11,21 @@ class Script_Binder_Actor : public CScriptBinderObject
 public:
     Script_Binder_Actor(void) = delete;
     Script_Binder_Actor(CScriptGameObject* object);
-    virtual ~Script_Binder_Actor(void);
-    virtual void reinit(void);
-    virtual void reload(LPCSTR section_name);
-    virtual bool net_Spawn(SpawnType DC);
-    virtual void net_Destroy(void);
-    virtual void net_Import(NET_Packet* packet);
-    virtual void net_Export(NET_Packet* packet);
-    virtual void shedule_Update(std::uint32_t time_delta);
-    virtual void save(NET_Packet* output_packet);
-    virtual void load(IReader* input_packet);
-    virtual bool net_SaveRelevant(void);
-    virtual void net_Relcase(CScriptGameObject* object);
+    ~Script_Binder_Actor(void);
+
+    void reinit(void) override;
+    void reload(LPCSTR section_name) override;
+    bool net_Spawn(SpawnType DC) override;
+    void net_Destroy(void) override;
+    void net_Import(NET_Packet* packet) override;
+    void net_Export(NET_Packet* packet) override;
+    void shedule_Update(std::uint32_t time_delta) override;
+    void save(NET_Packet* output_packet) override;
+    void load(IReader* input_packet) override;
+    bool net_SaveRelevant(void) override;
+    void net_Relcase(CScriptGameObject* object) override;
+
+    void task_callback(CGameTask* p_game_task, const std::uint32_t task_state) override;
 
     inline bool IsHideWeapon(void) const noexcept { return this->m_is_hide_weapon; }
     inline void setHideWeapon(const bool value) noexcept { this->m_is_hide_weapon = value; }

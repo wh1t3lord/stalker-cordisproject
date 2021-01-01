@@ -46,5 +46,23 @@ void Script_Binder_Actor::load(IReader* input_packet) {}
 bool Script_Binder_Actor::net_SaveRelevant(void) { return false; }
 
 void Script_Binder_Actor::net_Relcase(CScriptGameObject* object) {}
+
+void Script_Binder_Actor::task_callback(CGameTask* p_game_task, const std::uint32_t task_state)
+{
+	if (task_state != eTaskStateFail)
+	{
+		if (task_state == eTaskStateCompleted)
+		{
+			Cordis::Scripts::Script_NewsManager::getInstance().SendTask(Cordis::Scripts::DataBase::Storage::getInstance().getActor(), "complete", p_game_task);
+		}
+		else
+		{
+			Cordis::Scripts::Script_NewsManager::getInstance().SendTask(Cordis::Scripts::DataBase::Storage::getInstance().getActor(), "new", p_game_task);
+		}
+	}
+
+	Cordis::Scripts::Script_TaskManager::getInstance().TaskCallback(p_game_task, task_state);
+}
+
 } // namespace Scripts
 } // namespace Cordis
