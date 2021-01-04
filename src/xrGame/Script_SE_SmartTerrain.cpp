@@ -1138,7 +1138,7 @@ void Script_SE_SmartTerrain::on_reach_target(Script_SE_SimulationSquad* squad)
              squad->squad_members().begin();
          it != squad->squad_members().end(); ++it)
     {
-        if (DataBase::Storage::getInstance().getOfflineObjects().at(it->first).second.size())
+        if (DataBase::Storage::getInstance().getOfflineObjects().find(it->first) == DataBase::Storage::getInstance().getOfflineObjects().end())
         {
             DataBase::Storage::getInstance().setOfflineObjects(it->first, Globals::kUnsignedInt16Undefined, "");
         }

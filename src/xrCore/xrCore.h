@@ -117,11 +117,13 @@ using RTokenVec = xr_vector<xr_rtoken>;
 
 
 #pragma region Cordis Google Test
+// TODO: воспользоваться потом boost_unit_test_framework
 #include <gtest/gtest.h>
 #pragma endregion
 
-#pragma region Cordis
-#ifdef DEBUG
+#pragma region Cordis Log Section
+
+#ifdef CRD_LOG_FULL
 // @ default message
 // Color: Gray in log  ouput
 #define MESSAGE(text_message, ...) { xr_string file_name = __FILE__; Msg("[%s|" __FUNCTION__ "|%d] "##text_message, file_name.substr(file_name.rfind("\\")+1).c_str(), __LINE__, __VA_ARGS__); }
@@ -151,6 +153,7 @@ using RTokenVec = xr_vector<xr_rtoken>;
 #define MESSAGEE(text_message, ...) {}
 #define MESSAGEER(text_message, ...) {}
 #endif
+
 #pragma endregion
 
 #pragma region Cordis Includes
