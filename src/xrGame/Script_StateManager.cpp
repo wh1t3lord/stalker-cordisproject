@@ -802,8 +802,10 @@ void Script_StateManager::set_state(const xr_string& state_name, StateManagerCal
 			this->m_is_fast_set = false;
 		}
 
+        MESSAGE("state_callback[%s|%s]", this->m_p_npc->Name(), callback.isAllFieldEmpty() ? "true" : "false");
+
         this->m_callback_data = callback;
- 
+       
 		if (timeout >= 0)
 		{
 			this->m_callback_data.setTimeOut(timeout);
@@ -835,11 +837,15 @@ void Script_StateManager::update(void)
 				}
 				else
 				{
-					if (Globals::get_time_global() - this->m_callback_data.getBegin() >= this->m_callback_data.getTimeOut())
+                    int current_time = Globals::get_time_global();
+                    int previous_time = this->m_callback_data.getBegin();
+                    int delta = current_time - previous_time;
+
+					if (delta >= this->m_callback_data.getTimeOut())
 					{
 						this->m_callback_data.setBegin(0);
-						this->m_callback_data.setCallbackTime(nullptr);
 						this->m_callback_data.CallCallbackTime();
+                        this->m_callback_data.setCallbackTime(nullptr);
 					}
 				}
             }

@@ -478,7 +478,7 @@ private:
             if (Script_GlobalHelper::getInstance()
                     .getStateLibrary()
                     .at(this->m_p_state_manager->getTargetStateName())
-                    .getDirectionType())
+                    .getDirectionType() != Globals::kUnsignedInt32Undefined)
             {
                 this->m_object->set_sight(SightManager::eSightTypeAnimationDirection, false, false);
                 return;

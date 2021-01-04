@@ -80,22 +80,7 @@ void CScriptBinderObject::take_item_from_box(CScriptGameObject* p_client_box, CS
 
 void CScriptBinderObject::task_callback(CGameTask* p_game_task, const std::uint32_t task_state)
 {
- 
     MESSAGEW("NOT OVERLOADED FUNCTION!");
- 
-    if (task_state != eTaskStateFail)
-    {
-        if (task_state == eTaskStateCompleted)
-        {
-            Cordis::Scripts::Script_NewsManager::getInstance().SendTip(Cordis::Scripts::DataBase::Storage::getInstance().getActor(), "complete", "");
-        }
-        else
-        {
-            Cordis::Scripts::Script_NewsManager::getInstance().SendTip(Cordis::Scripts::DataBase::Storage::getInstance().getActor(), "new", "");
-        }
-    }
-
-    Cordis::Scripts::Script_TaskManager::getInstance().TaskCallback(p_game_task, task_state);
 }
 
 void CScriptBinderObject::on_trade(

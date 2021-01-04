@@ -1556,16 +1556,16 @@ struct StateManagerAnimationStates
     ~StateManagerAnimationStates(void) = default;
 
     inline std::uint8_t getAnimationMarker(void) const noexcept { return this->m_animation_marker; }
-    inline void setAnimationMarker(const std::uint8_t value) noexcept { this->m_animation_marker = value; }
+    inline void setAnimationMarker(std::uint8_t value) noexcept { this->m_animation_marker = value; }
 
     inline std::uint32_t getSequenceID(void) const noexcept { return this->m_sequence_id; }
-    inline void setSequenceID(const std::uint32_t value) noexcept { this->m_sequence_id = value; }
+    inline void setSequenceID(std::uint32_t value) noexcept { this->m_sequence_id = value; }
 
     inline std::uint32_t getNextRandom(void) const noexcept { return this->m_next_random; }
-    inline void setNextRandom(const std::uint32_t value) noexcept { this->m_next_random = value; }
+    inline void setNextRandom(std::uint32_t value) noexcept { this->m_next_random = value; }
 
     inline std::uint32_t getLastID(void) const noexcept { return this->m_last_id; }
-    inline void setLastID(const std::uint32_t value) noexcept { this->m_last_id = value; }
+    inline void setLastID(std::uint32_t value) noexcept { this->m_last_id = value; }
 
     inline const xr_string& getCurrentStateName(void) const noexcept { return this->m_current_state_name; }
     inline void setCurrentStateName(const xr_string& state_name) noexcept { this->m_current_state_name = state_name; }
@@ -1574,8 +1574,7 @@ struct StateManagerAnimationStates
     inline void setTargetStateName(const xr_string& target_name) noexcept
     {
         if (target_name.empty())
-            Msg("[Scripts/StateManagerAnimationStates/setTargetStateName(target_name)] WARNING: target_name.empty() == "
-                "true! You set an empty string");
+            MESSAGEW("true! You set an empty string");
 
         this->m_target_state_name = target_name;
     }
@@ -1663,8 +1662,7 @@ struct StateManagerAnimationData
         inline void setAttachItemName(const xr_string& item_name) noexcept
         {
             if (item_name.empty())
-                Msg("[Scripts/StateManagerAnimationData/AnimationData/setAttachItemName(item_name)] WARNING: "
-                    "item_name.empty() == true! You set an empty string");
+                MESSAGEW("item_name.empty() == true! You set an empty string");
 
             this->m_attach_item_name = item_name;
         }
@@ -1673,8 +1671,7 @@ struct StateManagerAnimationData
         inline void setDetachItemName(const xr_string& item_name) noexcept
         {
             if (item_name.empty())
-                Msg("[Scripts/StateManagerAnimationData/AnimationData/setDetachItemName(item_name)] WARNING: "
-                    "item_name.empty() == true! You set an empty string");
+                MESSAGEW("item_name.empty() == true! You set an empty string");
 
             this->m_detach_item_name = item_name;
         }
@@ -1684,8 +1681,7 @@ struct StateManagerAnimationData
             if (this->m_function)
                 this->m_function(p_client_object, nullptr, xr_vector<xr_string>());
             else
-                Msg("[Scripts/StateManagerAnimationData/AnimationData/CallFunction(p_client_object)] WARNING: "
-                    "m_function is nullptr! Can't call! Return ...");
+                MESSAGEWR("m_function is nullptr! Can't call!");
         }
 
         inline void setFunction(
@@ -1711,13 +1707,13 @@ struct StateManagerAnimationData
     ~StateManagerAnimationData(void) = default;
 
     inline std::uint32_t getPropertiesMaxIdle(void) const noexcept { return this->m_properties_max_idle; }
-    inline void setPropertiesMaxIdle(const std::uint32_t value) noexcept { this->m_properties_max_idle = value; }
+    inline void setPropertiesMaxIdle(std::uint32_t value) noexcept { this->m_properties_max_idle = value; }
 
     inline std::uint32_t getPropertiesSumIdle(void) const noexcept { return this->m_properties_sum_idle; }
-    inline void setPropertiesSumIdle(const std::uint32_t value) noexcept { this->m_properties_sum_idle = value; }
+    inline void setPropertiesSumIdle(std::uint32_t value) noexcept { this->m_properties_sum_idle = value; }
 
     inline std::uint32_t getPropertiesRandom(void) const noexcept { return this->m_properties_random; }
-    inline void setPropertiesRandom(const std::uint32_t value) noexcept { this->m_properties_random = value; }
+    inline void setPropertiesRandom(std::uint32_t value) noexcept { this->m_properties_random = value; }
 
     inline const xr_map<std::uint32_t, xr_vector<AnimationData>>& getAnimationList(
         const xr_string& animation_id_name) const
@@ -1729,8 +1725,7 @@ struct StateManagerAnimationData
     {
         if (animation_id_name.empty())
         {
-            Msg("[Scripts/StateManagerAnimationData/isAnimationListExist(animation_id_name)] WARNING: "
-                "animation_id_name.empty() == true! Return false ...");
+            MESSAGEWR("animation_id_name.empty() == true");
             return false;
         }
 
@@ -1879,11 +1874,14 @@ private:
 
 struct StateLibData
 {
-    StateLibData(void) = default;
-    StateLibData(const std::uint32_t& movement_type, const std::uint32_t& mental_type,
-        const std::uint32_t& bodystate_type, const std::uint32_t& direction_type, const xr_string& weapon_name,
+	StateLibData(void) : m_movement_type(Globals::kUnsignedInt32Undefined), m_mental_type(Globals::kUnsignedInt32Undefined), m_bodystate_type(Globals::kUnsignedInt32Undefined),
+		m_direction_type(Globals::kUnsignedInt32Undefined), m_is_special_danger_move(false),
+		m_is_fast_set(false), m_weapon_slot(Globals::kUnsignedInt16Undefined) {}
+
+    StateLibData(std::uint32_t movement_type, std::uint32_t mental_type,
+        std::uint32_t bodystate_type, std::uint32_t direction_type, const xr_string& weapon_name,
         const xr_string& animstate_name, const xr_string& animation_name, bool is_fast_set = false,
-        const std::uint16_t& weapon_slot = 0, bool is_special_danger_move = false)
+        std::uint16_t weapon_slot = 0, bool is_special_danger_move = false)
         : m_movement_type(movement_type), m_mental_type(mental_type), m_bodystate_type(bodystate_type),
           m_direction_type(direction_type), m_weapon_name(weapon_name), m_animstate_name(animstate_name),
           m_animation_name(animation_name), m_is_special_danger_move(is_special_danger_move),
@@ -1894,13 +1892,13 @@ struct StateLibData
     ~StateLibData(void) = default;
 
     inline bool IsFastSet(void) const noexcept { return this->m_is_fast_set; }
-    inline void setFastSet(const bool& value) noexcept { this->m_is_fast_set = value; }
+    inline void setFastSet(bool value) noexcept { this->m_is_fast_set = value; }
 
     inline bool IsSpecialDangerMove(void) const noexcept { return this->m_is_special_danger_move; }
-    inline void setSpecialDangerMove(const bool& value) noexcept { this->m_is_special_danger_move = value; }
+    inline void setSpecialDangerMove(bool value) noexcept { this->m_is_special_danger_move = value; }
 
     inline std::uint16_t getWeaponSlot(void) const noexcept { return this->m_weapon_slot; }
-    inline void setWeaponSlot(const std::uint16_t& value) noexcept
+    inline void setWeaponSlot(std::uint16_t value) noexcept
     {
         if (value == Globals::kUnsignedInt16Undefined)
         {
@@ -1912,7 +1910,7 @@ struct StateLibData
     }
 
     inline std::uint32_t getMovementType(void) const noexcept { return this->m_movement_type; }
-    inline void setMovementType(const std::uint32_t& value) noexcept
+    inline void setMovementType(std::uint32_t value) noexcept
     {
         if (value == Globals::kUnsignedInt32Undefined)
         {
@@ -1922,7 +1920,7 @@ struct StateLibData
         this->m_movement_type = value;
     }
     inline std::uint32_t getMentalType(void) const noexcept { return this->m_mental_type; }
-    inline void setMentalType(const std::uint32_t& value) noexcept
+    inline void setMentalType(std::uint32_t value) noexcept
     {
         if (value == Globals::kUnsignedInt32Undefined)
         {
@@ -1932,7 +1930,7 @@ struct StateLibData
         this->m_mental_type = value;
     }
     inline std::uint32_t getBodyStateType(void) const noexcept { return this->m_bodystate_type; }
-    inline void setBodyStateType(const std::uint32_t& value) noexcept
+    inline void setBodyStateType(std::uint32_t value) noexcept
     {
         if (value == Globals::kUnsignedInt32Undefined)
         {
@@ -1942,7 +1940,7 @@ struct StateLibData
         this->m_bodystate_type = value;
     }
     inline std::uint32_t getDirectionType(void) const noexcept { return this->m_direction_type; }
-    inline void setDirectionType(const std::uint32_t& value) noexcept
+    inline void setDirectionType(std::uint32_t value) noexcept
     {
         if (value == Globals::kUnsignedInt32Undefined)
         {

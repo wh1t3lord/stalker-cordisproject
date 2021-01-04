@@ -935,7 +935,7 @@ public:
     inline const xr_map<xr_string, StateLibData>& getStateLibrary(void) const noexcept { return this->m_state_library; }
     inline void setStateLibrary(const xr_map<xr_string, StateLibData>& map) noexcept
     {
-        if (!map.size())
+        if (map.empty())
         {
             MESSAGEW("map.size() = 0! You are "
                 "trying to set an empty "
@@ -1454,6 +1454,20 @@ public:
     inline const xr_map<xr_string, std::pair<xr_vector<xr_string>, xr_vector<xr_string>>>& getXRAnimpointAssociationTable(void) const noexcept {return this->m_xr_animpoint_association_table;}
     inline const xr_map<xr_string, xr_string>& getXRSmartCoverCoverSubState(void) const noexcept { return this->m_xr_smartcover_cover_substate; }
     #pragma endregion
+
+private:
+    void initialize_StateLib_Descriptors(void);
+
+    void initialize_StateLib(void);
+    void initialize_StateLib_Animations(void);
+    void initialize_StateLib_Animpoints(void);
+    void initialize_StateLib_Zaton(void);
+    void initialize_StateLib_Jupiter(void);
+    void initialize_StateLib_Pripyat(void);
+
+    void load_XREFFECTS_Functions(void);
+
+    void initialize_SmartCovers(void);
 
 private:
     bool m_is_gameover_credits_started;

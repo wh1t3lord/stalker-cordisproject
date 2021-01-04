@@ -98,14 +98,15 @@ inline xr_string cfg_get_string(const CInifile* char_ini, const xr_string& secti
 inline xr_string cfg_get_string(
     CInifile& char_ini, const xr_string& section, const xr_string& field, bool mandatory, const xr_string& gulag_name)
 {
-    if (section.size() &&
+    if ((section.empty() == false) &&
         (char_ini.section_exist(section.c_str()) && char_ini.line_exist(section.c_str(), field.c_str())))
     {
         xr_string result = "";
         result.append(gulag_name);
         result.append("_");
         result.append(char_ini.r_string(section.c_str(), field.c_str()));
-		if (gulag_name.size())
+
+		if (gulag_name.empty() == false)
 		{
 			if (result == "nil")
 				result.clear();
@@ -146,7 +147,7 @@ inline bool cfg_get_bool(const CInifile* char_ini, const xr_string& section, con
 {
     xr_string object_name;
 
-    if (!section.size() || !field.size())
+    if (section.empty() || field.empty())
     {
         R_ASSERT2(false, "string can't be null");
         return false;
@@ -179,7 +180,7 @@ inline bool cfg_get_bool(const CInifile* char_ini, const xr_string& section, con
 {
     xr_string object_name;
 
-    if (!section.size() || !field.size())
+    if (section.empty() || field.empty())
     {
         R_ASSERT2(false, "string can't be null");
         return false;
@@ -212,7 +213,7 @@ inline bool cfg_get_bool(CScriptIniFile* char_ini, const xr_string& section, con
 {
     xr_string object_name;
 
-    if (!section.size() || !field.size())
+    if (section.empty() || field.empty())
     {
         R_ASSERT2(false, "string can't be null");
         return false;
@@ -245,7 +246,7 @@ inline bool cfg_get_bool(CScriptIniFile* char_ini, const xr_string& section, con
 {
     xr_string object_name;
 
-    if (!section.size() || !field.size())
+    if (section.empty() || field.empty())
     {
         R_ASSERT2(false, "string can't be null");
         return false;
@@ -278,7 +279,7 @@ inline float cfg_get_number(const CInifile* char_ini, const xr_string& section, 
 {
     xr_string object_name;
 
-    if (!section.size() || !field.size())
+    if (section.empty() || field.empty())
     {
         R_ASSERT2(false, "string can't be null!");
         return 0.0f;
@@ -286,8 +287,6 @@ inline float cfg_get_number(const CInifile* char_ini, const xr_string& section, 
 
     if (char_ini->section_exist(section.c_str()) && char_ini->line_exist(section.c_str(), field.c_str()))
         return char_ini->r_float(section.c_str(), field.c_str());
-
-    MESSAGEI("cfg_get_number has returned a default value");
 
     return 0.0f;
 }
@@ -297,7 +296,7 @@ inline float cfg_get_number(const CInifile* char_ini, const xr_string& section, 
 {
     xr_string object_name;
 
-    if (!section.size() || !field.size())
+    if (section.empty() || field.empty())
     {
         R_ASSERT2(false, "string can't be null!");
         return 0.0f;
@@ -305,8 +304,6 @@ inline float cfg_get_number(const CInifile* char_ini, const xr_string& section, 
 
     if (char_ini->section_exist(section.c_str()) && char_ini->line_exist(section.c_str(), field.c_str()))
         return char_ini->r_float(section.c_str(), field.c_str());
-
-    MESSAGEI("cfg_get_number has returned a default value");
 
     return 0.0f;
 }
@@ -316,7 +313,7 @@ inline float cfg_get_number(CScriptIniFile* char_ini, const xr_string& section, 
 {
     xr_string object_name;
 
-    if (!section.size() || !field.size())
+    if (section.empty() || field.empty())
     {
         R_ASSERT2(false, "string can't be null!");
         return 0.0f;
@@ -324,8 +321,6 @@ inline float cfg_get_number(CScriptIniFile* char_ini, const xr_string& section, 
 
     if (char_ini->section_exist(section.c_str()) && char_ini->line_exist(section.c_str(), field.c_str()))
         return char_ini->r_float(section.c_str(), field.c_str());
-
-    MESSAGEI("cfg_get_number has returned a default value");
 
     return 0.0f;
 }
@@ -335,7 +330,7 @@ inline float cfg_get_number(CScriptIniFile* char_ini, const xr_string& section, 
 {
     xr_string object_name;
 
-    if (!section.size() || !field.size())
+    if (section.empty() || field.empty())
     {
         R_ASSERT2(false, "string can't be null!");
         return 0.0f;
@@ -343,8 +338,6 @@ inline float cfg_get_number(CScriptIniFile* char_ini, const xr_string& section, 
 
     if (char_ini->section_exist(section.c_str()) && char_ini->line_exist(section.c_str(), field.c_str()))
         return char_ini->r_float(section.c_str(), field.c_str());
-
-    MESSAGEI("cfg_get_number has returned a default value");
 
     return 0.0f;
 }
@@ -395,13 +388,10 @@ inline xr_string get_scheme_by_section(xr_string& data)
 inline xr_vector<xr_string> parse_names(const xr_string& buffer)
 {
     xr_vector<xr_string> result;
-    if (!buffer.size())
-    {
-        MESSAGEWR("buffer.size() = 0! You are trying to parse an empty "
-            "string! Return empty vector");
-        return result;
-    }
 
+    if (buffer.empty())
+        return result;
+    
     const char* pattern = "[^:,]+";
 
     std::regex regex(pattern);
@@ -2916,10 +2906,12 @@ inline std::uint32_t look_position_type(
         return SightManager::eSightTypePathDirection;
     }
 
-    if (Script_GlobalHelper::getInstance()
-            .getStateLibrary()
-            .at(p_state_manager->getTargetStateName())
-            .getDirectionType())
+    std::uint32_t direction_type = Script_GlobalHelper::getInstance()
+        .getStateLibrary()
+        .at(p_state_manager->getTargetStateName())
+        .getDirectionType();
+
+    if (direction_type != Globals::kUnsignedInt32Undefined)
     {
         return Script_GlobalHelper::getInstance()
             .getStateLibrary()
@@ -2931,13 +2923,13 @@ inline std::uint32_t look_position_type(
              ->evaluator(p_state_manager->getProperties().at("movement_stand"))
              .evaluate())
     {
-        if (is_vector_nil(p_state_manager->getLookPosition()))
+        if (is_vector_nil(p_state_manager->getLookPosition()) == false)
             return SightManager::eSightTypeDirection;
 
         return SightManager::eSightTypePathDirection;
     }
 
-    if (is_vector_nil(p_state_manager->getLookPosition()))
+    if (is_vector_nil(p_state_manager->getLookPosition()) == false)
         return SightManager::eSightTypeDirection;
 
     return SightManager::eSightTypeCover;

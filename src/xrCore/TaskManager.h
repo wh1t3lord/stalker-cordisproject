@@ -2,6 +2,7 @@
 
 namespace Cordis
 {
+	// TODO: это также удалить ибо он уже есть
 	class XRCORE_API TaskManager
 	{
 	private:

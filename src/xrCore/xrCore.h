@@ -156,6 +156,8 @@ using RTokenVec = xr_vector<xr_rtoken>;
 #pragma region Cordis Includes
 #include <regex>
 #include "Cordis_ScriptDataStructures.h"
+
+// TODO: заменить на более новую библиотеку - это уже legacy
 #include <tbb/tbb.h>
 #include <tbb/task_scheduler_init.h>
 #include <tbb/parallel_for.h>

@@ -327,9 +327,9 @@ namespace Cordis
 			this->m_object->inactualize_patrol_path();
 			this->m_object->set_sight(SightManager::eSightTypePathDirection, static_cast<Fvector*>(nullptr), static_cast<std::uint32_t>(0));
 
-			xr_string generated_id_name = std::to_string(this->m_target_id).c_str();
+			xr_string generated_id_name(std::move(std::to_string(this->m_target_id)));
 			generated_id_name.append("_to_");
-			generated_id_name.append(std::to_string(this->m_squad_id).c_str());
+			generated_id_name.append(std::to_string(this->m_squad_id));
 
 			Script_ReachTaskManager* p_manager = nullptr;
 			if (DataBase::Storage::getInstance().getPatrolsXRReachTask().find(generated_id_name) == DataBase::Storage::getInstance().getPatrolsXRReachTask().end())
@@ -384,7 +384,9 @@ namespace Cordis
 				xr_string generated_id_name = std::to_string(this->m_target_id).c_str();
 				generated_id_name.append("_to_");
 				generated_id_name.append(std::to_string(this->m_squad_id).c_str());
-				DataBase::Storage::getInstance().getPatrolsXRReachTask().at(generated_id_name)->remove_npc(p_client_victim);
+
+				const auto& storage_reach_tasks = DataBase::Storage::getInstance().getPatrolsXRReachTask();
+				storage_reach_tasks.at(generated_id_name)->remove_npc(p_client_victim);
 			}
 		}
 
@@ -392,10 +394,12 @@ namespace Cordis
 		{
 			if (this->m_target_id)
 			{
-				xr_string generated_id_name = std::to_string(this->m_target_id).c_str();
+				xr_string generated_id_name(std::move(std::to_string(this->m_target_id)));
 				generated_id_name.append("_to_");
 				generated_id_name.append(std::to_string(this->m_squad_id).c_str());
-				DataBase::Storage::getInstance().getPatrolsXRReachTask().at(generated_id_name)->remove_npc(p_client_object);
+
+				const auto& storage_reach_tasks = DataBase::Storage::getInstance().getPatrolsXRReachTask();
+				storage_reach_tasks.at(generated_id_name)->remove_npc(p_client_object);
 			}
 		}
 

@@ -317,14 +317,6 @@ inline bool parse_condlistdata(xr_map<std::uint32_t, CondlistData>& data, xr_vec
 inline xr_map<std::uint32_t, CondlistData> parse_condlist_by_server_object(
     /*CSE_ALifeObject* npc,*/ const xr_string& section, const xr_string& field, const xr_string& source)
 {
-    //     if (!npc)
-    //     {
-    //         //   R_ASSERT2(false, "object is null!");
-    //         // Lord: without any assertion cuz first argument may be nullptr
-    //         Msg("[Script/XR_LOGIC/parse_condlist]: Warning 'npc' was nullptr!");
-    //         /*        return xr_map<std::uint32_t, CondlistData>();*/
-    //     }
-
     xr_map<std::uint32_t, CondlistData> result;
     xr_vector<xr_string> vector_sections;
     xr_vector<xr_string> vector_info_check;
@@ -360,11 +352,12 @@ inline xr_map<std::uint32_t, CondlistData> parse_condlist_by_server_object(
                 sub_data.m_text_name.clear();
             else
             {
-                if (current_section.size())
+                if (current_section.empty() == false)
+                {
                     sub_data.m_text_name = current_section;
+                }
                 else
                 {
-                    R_ASSERT2(false, "it can't be!");
                     sub_data.m_text_name.clear();
                 }
             }
@@ -377,7 +370,7 @@ inline xr_map<std::uint32_t, CondlistData> parse_condlist_by_server_object(
 
         if (it == '{')
         {
-            if (current_section.size())
+            if (current_section.empty() == false)
             {
                 //		vector_sections.push_back(current_section);
                 sub_data.m_text_name = current_section;
@@ -534,200 +527,210 @@ inline xr_map<std::uint32_t, CondlistData> parse_condlist_by_server_object(
 inline xr_map<std::uint32_t, CondlistData> parse_condlist_by_script_object(
     /*CScriptGameObject* npc,*/ const xr_string& section, const xr_string& field, const xr_string& source)
 {
-    //     if (!npc)
-    //         Msg("[Scripts/XR_LOGIC/parse_condlist_by_script_object] npc was nullptr!");
+	xr_map<std::uint32_t, CondlistData> result;
+	xr_vector<xr_string> vector_sections;
+	xr_vector<xr_string> vector_info_check;
+	xr_vector<xr_string> vector_info_set;
+	xr_string current_check = "";
+	xr_string current_set = "";
+	xr_string current_section = "";
+	std::uint32_t it = 0;
+	std::uint32_t total_it = 0;
+	bool was_found_check = false;
+	bool was_found_set = false;
+	bool was_found_section = false;
+	std::uint8_t counter_percent_symbol = 0;
+	xr_string mask_symbols = "%{}., qwertyuioplkjhgfdsamnbvcxz1234567890@-+=~!_():";
 
-    xr_map<std::uint32_t, CondlistData> result;
-    xr_vector<xr_string> vector_sections;
-    xr_vector<xr_string> vector_info_check;
-    xr_vector<xr_string> vector_info_set;
-    xr_string current_check = "";
-    xr_string current_set = "";
-    xr_string current_section = "";
-    std::uint32_t it = 0;
-    std::uint32_t total_it = 0;
-    bool was_found_check = false;
-    bool was_found_set = false;
-    bool was_found_section = false;
-    std::uint8_t counter_percent_symbol = 0;
-    xr_string mask_symbols = "%{}., qwertyuioplkjhgfdsamnbvcxz1234567890@-+=~!_():";
+	xr_vector<CondlistParsingData> buffer;
+	CondlistParsingData sub_data;
 
-    xr_vector<CondlistParsingData> buffer;
-    CondlistParsingData sub_data;
+	for (char it : source)
+	{
+		if (mask_symbols.find(it) == std::string::npos)
+		{
+			R_ASSERT2(false, "Incorrect symbol. Please check your file!");
+			break;
+		}
 
-    for (char it : source)
-    {
-        if (mask_symbols.find(it) == std::string::npos)
-        {
-            R_ASSERT2(false, "Incorrect symbol. Please check your file!");
-            break;
-        }
+		if (isspace(it))
+			continue;
 
-        if (isspace(it))
-            continue;
+		if (it == ',')
+		{
+			if (!was_found_section)
+				sub_data.m_text_name.clear();
+			else
+			{
+                if (current_section.empty() == false)
+                {
+                    sub_data.m_text_name = current_section;
+                }
+				else
+				{
+					sub_data.m_text_name.clear();
+				}
+			}
+			was_found_section = false;
+			buffer.push_back(sub_data);
+			sub_data.Clear();
+			current_section.clear();
+			continue;
+		}
 
-        if (it == ',')
-        {
-            if (!was_found_section)
-                sub_data.m_text_name.clear();
+		if (it == '{')
+		{
+			if (current_section.empty() == false)
+			{
+				//		vector_sections.push_back(current_section);
+				sub_data.m_text_name = current_section;
+				current_section.clear();
+				was_found_section = false;
+			}
 
-            buffer.push_back(sub_data);
-            sub_data.Clear();
-            continue;
-        }
+			if (was_found_set)
+			{
+				R_ASSERT2(false, "It can't be! You're lose percent for your set infoportion! Check your file!");
+				break;
+			}
 
-        if (it == '{')
-        {
-            if (current_section.size())
-            {
-                //		vector_sections.push_back(current_section);
-                sub_data.m_text_name = current_section;
-                current_section.clear();
-                was_found_section = false;
-            }
+			if (was_found_check)
+			{
+				R_ASSERT2(false, "Found duplicate!");
+				break;
+			}
 
-            if (was_found_set)
-            {
-                R_ASSERT2(false, "It can't be! You're lose percent for your set infoportion! Check your file!");
-                break;
-            }
+			was_found_check = true;
+			current_check += it;
+			continue;
+		}
 
-            if (was_found_check)
-            {
-                R_ASSERT2(false, "Found duplicate!");
-                break;
-            }
+		if (it == '}')
+		{
+			if (!was_found_check)
+			{
+				R_ASSERT2(false,
+					"Found right bracket without left bracket. No entry to check infoportion! Check your file!!!");
+				break;
+			}
 
-            was_found_check = true;
-            current_check += it;
-            continue;
-        }
+			was_found_check = false;
+			current_check += it;
+			//		vector_info_check.push_back(current_check);
+			sub_data.m_infocheck_name = current_check;
+			current_check.clear();
+			continue;
+		}
 
-        if (it == '}')
-        {
-            if (!was_found_check)
-            {
-                R_ASSERT2(false,
-                    "Found right bracket without left bracket. No entry to check infoportion! Check your file!!!");
-                break;
-            }
+		if (was_found_check)
+		{
+			current_check += it;
+			continue;
+		}
 
-            was_found_check = false;
-            current_check += it;
-            //		vector_info_check.push_back(current_check);
-            sub_data.m_infocheck_name = current_check;
-            current_check.clear();
-            continue;
-        }
+		if (it == '%')
+		{
+			if (current_section.size())
+			{
+				//	vector_sections.push_back(current_section);
+				sub_data.m_text_name = current_section;
+				current_section.clear();
+				was_found_section = false;
+			}
 
-        if (was_found_check)
-        {
-            current_check += it;
-            continue;
-        }
+			if (was_found_check)
+			{
+				R_ASSERT2(false, "Incorrect sentence of set infoportion. Can't be it has symbol bracket in!");
+				break;
+			}
 
-        if (it == '%')
-        {
-            if (current_section.size())
-            {
-                //	vector_sections.push_back(current_section);
-                sub_data.m_text_name = current_section;
-                current_section.clear();
-                was_found_section = false;
-            }
+			// @ We met more two time the '%' symbol error in parsing!!!!
+			if (counter_percent_symbol > 2)
+			{
+				R_ASSERT2(
+					false, "Incorrect sentence of set infoportion. More two symbols of percent!!! Check your file!");
+				break;
+			}
 
-            if (was_found_check)
-            {
-                R_ASSERT2(false, "Incorrect sentence of set infoportion. Can't be it has symbol bracket in!");
-                break;
-            }
+			++counter_percent_symbol;
 
-            // @ We met more two time the '%' symbol error in parsing!!!!
-            if (counter_percent_symbol > 2)
-            {
-                R_ASSERT2(
-                    false, "Incorrect sentence of set infoportion. More two symbols of percent!!! Check your file!");
-                break;
-            }
+			if (counter_percent_symbol < 2)
+			{
+				was_found_set = true;
+				current_set += it;
+				continue;
+			}
+			else if (counter_percent_symbol == 2)
+			{
+				was_found_set = false;
+				counter_percent_symbol = 0;
+				current_set += it;
+				//	vector_info_set.push_back(current_set);
+				sub_data.m_infoset_name = current_set;
+				current_set.clear();
+				continue;
+			}
+		}
 
-            ++counter_percent_symbol;
+		if (was_found_set)
+		{
+			if (!was_found_section)
+				was_found_section = true;
 
-            if (counter_percent_symbol < 2)
-            {
-                was_found_set = true;
-                current_set += it;
-                continue;
-            }
-            else if (counter_percent_symbol == 2)
-            {
-                was_found_set = false;
-                counter_percent_symbol = 0;
-                current_set += it;
-                //	vector_info_set.push_back(current_set);
-                sub_data.m_infoset_name = current_set;
-                current_set.clear();
-                continue;
-            }
-        }
+			current_set += it;
+			continue;
+		}
 
-        if (was_found_set)
-        {
-            if (!was_found_section)
-                was_found_section = true;
+		if (!was_found_set && !was_found_check)
+		{
+			switch (it)
+			{
+			case '+': {
+				R_ASSERT2(false, "You're lose bracket or percent symbol!");
+				break;
+			}
+			case '-': {
+				R_ASSERT2(false, "You're lose bracket or percent symbol!");
+				break;
+			}
+			case '=': {
+				R_ASSERT2(false, "You're lose bracket or percent symbol!");
+				break;
+			}
+			case '~': {
+				R_ASSERT2(false, "You're lose bracket or percent symbol!");
+				break;
+			}
+			case '!': {
+				R_ASSERT2(false, "You're lose bracket or percent symbol!");
+				break;
+			}
+			}
 
-            current_set += it;
-            continue;
-        }
+			was_found_section = true;
+			current_section += it;
+			continue;
+		}
+		else
+		{
+			R_ASSERT2(
+				false, "Incorrect parsing. Check your file! Can't parse section betwen two infoportion's sentences");
+			break;
+		}
 
-        if (!was_found_set && !was_found_check)
-        {
-            switch (it)
-            {
-            case '+': {
-                R_ASSERT2(false, "You're lose bracket or percent symbol!");
-                break;
-            }
-            case '-': {
-                R_ASSERT2(false, "You're lose bracket or percent symbol!");
-                break;
-            }
-            case '=': {
-                R_ASSERT2(false, "You're lose bracket or percent symbol!");
-                break;
-            }
-            case '~': {
-                R_ASSERT2(false, "You're lose bracket or percent symbol!");
-                break;
-            }
-            case '!': {
-                R_ASSERT2(false, "You're lose bracket or percent symbol!");
-                break;
-            }
-            }
+		++total_it;
+	}
 
-            current_section += it;
-            continue;
-        }
-        else
-        {
-            R_ASSERT2(
-                false, "Incorrect parsing. Check your file! Can't parse section betwen two infoportion's sentences");
-            break;
-        }
-
-        ++total_it;
-    }
-
-    // @ Added last sub_data, cuz in loop we can't add at last it : source!
+	// @ Added last sub_data, cuz in loop we can't add at last it : source!
 	if (current_section.size())
 		sub_data.m_text_name = current_section;
 
-    buffer.push_back(sub_data);
-    sub_data.Clear();
+	buffer.push_back(sub_data);
+	sub_data.Clear();
 
-    parse_condlistdata(result, buffer);
+	parse_condlistdata(result, buffer);
 
-    return result;
+	return result;
 }
 // Lord: исправить pick_section_from_condlist!!!!
 // Не правильно считывает {} false, true <- вот это вообще почему-то не учитывается
