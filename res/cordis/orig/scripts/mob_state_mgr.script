@@ -1,35 +1,3 @@
-function get_state(ini, section, obj)
-	local state  = utils.cfg_get_string(ini, section, "state", obj, false, "", "")
-	if (state == "") then
-		return nil
-	end
-
-	return state
-end
-
-function set_state(obj, actor, state)
-	if not state then
-		return
-	end
-
-	local obj_clsid = get_clsid(obj)
-	--printf("mob_state_mgr <set_state>: [%s].clsid = %s, state = %s", obj:name(), tostring(obj_clsid), state)
-	if obj_clsid == clsid.bloodsucker_s then
-		if state == "invis" then
-			obj:set_invisible(true)
-			return
-		elseif state == "vis" then
-			obj:set_invisible(false)
-			return
-		end
-	else
-		-- У неопознанных монстров пустая строка ("") является допустимым (заодно и дефолтным) состоянием
-		if state == "" then
-			return
-		end
-	end
-
-	abort("mob_state_mgr: object '%s': unknown state '%s' requested",
-		obj:name(), state)
-end
-
+version https://git-lfs.github.com/spec/v1
+oid sha256:503f66df307e30a004eff2afbc84f386477b2f3f29d3cea8f44213d8dfe173b1
+size 815

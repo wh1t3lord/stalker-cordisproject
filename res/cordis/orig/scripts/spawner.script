@@ -1,36 +1,3 @@
-local items_to_spawn = {}
-
-function spawn_items(npc, st)
-	local spawn_items_section = utils.cfg_get_string(st.ini,st.section_logic , "spawn", npc, false, "", nil)
-	if spawn_items_section ~= nil then
-		local n = st.ini:line_count(spawn_items_section)
-		local id, value = "", ""
-		for i=0,n-1 do
-			result, id, value	= st.ini:r_line(spawn_items_section,i,"","")
-			if value == "" then
-				value = 1
-			end
-			items_to_spawn[id] = tonumber(value)
-		end
-		local inv = {}
-		local function add(item)
-			inv[item:id()] = item
-		end
-		npc:inventory_for_each(add)
-		for k,v in pairs(items_to_spawn) do
-			if npc:object(k) == nil then
-				create_items(npc, k, v)
-			end
-		end
-	end
-end
-
-function create_items (npc, section, number)
-	for i=1,number do
-		alife():create(section,
-						npc:position(),
-						npc:level_vertex_id(),
-						npc:game_vertex_id(),
-						npc:id())
-	end
-end
+version https://git-lfs.github.com/spec/v1
+oid sha256:967acd0837d50187f7003de0ed0db0b9f0456bef38da4a1888cd6955204c4a52
+size 869

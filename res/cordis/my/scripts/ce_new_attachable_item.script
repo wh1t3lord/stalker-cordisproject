@@ -1,10 +1,3 @@
-class "CCE_NewAttachableItem" (attachable_item)
-
-function CCE_NewAttachableItem:__init() super()
-	printf		("CCE_NewAttachableItem::CCE_NewAttachableItem called!")
-end
-
-function CCE_NewAttachableItem:__finalize()
-	printf		("CCE_NewAttachableItem::~CCE_NewAttachableItem called!")
-end
-
+version https://git-lfs.github.com/spec/v1
+oid sha256:225d45c60de696cde008f25db593529b5c8d760a4a950c637a1c22cd8e0710af
+size 284

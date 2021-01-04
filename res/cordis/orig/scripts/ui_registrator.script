@@ -1,20 +1,3 @@
-
-function get_ui_clsid(game_type_option)
-
-	if(game_type_option == "single") then 
-		return "UI_SINGL" end
-
-	if(game_type_option == "deathmatch") then 
-		return "UI_DM" end
-
-	if(game_type_option == "teamdeathmatch") then 
-		return "UI_TDM" end
-
-	if(game_type_option == "artefacthunt") then 
-		return "UI_AHUNT" end
-
-	if(game_type_option == "capturetheartefact") then
-		return "UI_CTA" end
-
-
-end
+version https://git-lfs.github.com/spec/v1
+oid sha256:2434e0f77b09158e9386af862037d66c22d32ded989dc199a23101b62fcac63f
+size 393

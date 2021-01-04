@@ -1,35 +1,3 @@
-
-
-animations = 	{
-
-		sit			= {	prop	= { maxidle = 5,
-									sumidle = 3,
-									rnd = 80 },
-						into	= { [0] = { "idle_0_to_sit_0" }},
-						out		= { [0] = { "sit_0_to_idle_0" }},
-						idle	= { [0]	= "sit_0_idle_0" },
-						rnd		= { [0] = { "sit_0_idle_1",
-											"sit_0_idle_2",
-											"sit_0_idle_3" }}},
-		sit_knee	= {	prop	= { maxidle = 5,
-									sumidle = 3,
-									rnd = 80 },
-						into	= { [0] = { "idle_0_to_sit_1" }},
-						out		= { [0] = { "sit_1_to_idle_0" }},
-						idle	= { [0]	= "sit_1_idle_0" },
-						rnd		= { [0] = { "sit_1_idle_1",
-											"sit_1_idle_2",
-											"sit_1_idle_3" }}},
-		sit_ass		= {	prop	= { maxidle = 5,
-									sumidle = 3,
-									rnd = 80 },
-						into	= { [0] = { "idle_0_to_sit_2" }},
-						out		= { [0] = { "sit_2_to_idle_0" }},
-						idle	= { [0]	= "sit_2_idle_0" },
-						rnd		= { [0] = { "sit_2_idle_1",
-											"sit_2_idle_2",
-											"sit_2_idle_3" }}}
-
-				}
-
-utils.copy_table(animations, state_mgr_animstate_list_animpoint.add_animation_list())
+version https://git-lfs.github.com/spec/v1
+oid sha256:d9b315d8450c3cfa578d56e7cf2d65744f4ed288f10767d497a93b8e5cc22c94
+size 1026

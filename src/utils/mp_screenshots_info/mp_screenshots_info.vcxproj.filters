@@ -1,30 +1,3 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <ItemGroup>
-    <Filter Include="core">
-      <UniqueIdentifier>{8baeba25-10f7-4a0a-ac1f-647cb6a2789b}</UniqueIdentifier>
-    </Filter>
-  </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="pch.cpp">
-      <Filter>core</Filter>
-    </ClCompile>
-    <ClCompile Include="entry_point.cpp" />
-    <ClCompile Include="screenshots_common.cpp" />
-    <ClCompile Include="screenshots_reader.cpp" />
-    <ClCompile Include="screenshots_writer.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="pch.h">
-      <Filter>core</Filter>
-    </ClInclude>
-    <ClInclude Include="screenshots_common.h" />
-    <ClInclude Include="screenshots_reader.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <CustomBuild Include="screenshots_writer.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <Natvis Include="..\..\TypeHelper.natvis" />
-  </ItemGroup>
-</Project>
+version https://git-lfs.github.com/spec/v1
+oid sha256:03ce1c8deb53e2b3e0c56ada627fc74eb54898ab69472f88c8beeb88f8944c41
+size 961

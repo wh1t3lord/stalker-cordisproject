@@ -1,11 +1,3 @@
--- if return game_object then it ignores engine. If return nil, then engine tries to find item to kill
--- called from engine!
-function update_best_weapon(npc,cur_wpn)
-	return
-end
-
--- called from engine
--- return false to use Engine technique, return true to ignore engine technique
-function CSE_ALifeObject_spawn_supplies(se_obj,id,ini_string)
-	return false
-end
+version https://git-lfs.github.com/spec/v1
+oid sha256:2b00fcd54092caf32dcd7385555080e2398b2ba1c83991ca0cef6da04b1e84ac
+size 361

@@ -1,4 +1,3 @@
-function main()
-	level.add_pp_effector("test.ppe", 666, true)
---	level.remove_pp_effector(666)
-end
+version https://git-lfs.github.com/spec/v1
+oid sha256:a08c8c237d8d7700545fc5de3ff010dea9638f0714ddda3d6978394dea8b241e
+size 98

@@ -1,1 +1,3 @@
-isLua51	= (nil ~= _VERSION) and (string.find(_VERSION,"Lua 5.1",1,true) ~= nil)
+version https://git-lfs.github.com/spec/v1
+oid sha256:d2832325870dc760e85e4109fc981e70c111b7c032adc8907ac15d6d01823c7b
+size 80
