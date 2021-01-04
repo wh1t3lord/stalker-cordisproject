@@ -868,7 +868,9 @@ void Script_StateManager::update(void)
         MESSAGE("pl_id: %d", pl_id);
     }
 
+#ifdef DEBUG
     this->m_p_action_planner->show("");
+#endif
 }
 
 const StateManagerCallbackData& Script_StateManager::getCallbackData(void) const noexcept
