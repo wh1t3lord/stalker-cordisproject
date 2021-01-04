@@ -495,14 +495,14 @@ void xrDebug::Fail(bool& ignoreAlways, const ErrorLocation& loc, const char* exp
     string4096 assertionInfo;
     auto size = sizeof(assertionInfo);
     GatherInfo(assertionInfo, sizeof(assertionInfo), loc, expr, desc, arg1, arg2);
-#ifdef USE_OWN_ERROR_MESSAGE_WINDOW
+//#ifdef USE_OWN_ERROR_MESSAGE_WINDOW
     xr_strcat(assertionInfo,
            "\r\n"
            "Press CANCEL to abort execution\r\n"
            "Press TRY AGAIN to continue execution\r\n"
            "Press CONTINUE to continue execution and ignore all the errors of this type\r\n"
            "\r\n");
-#endif
+//#endif
     if (OnCrash)
         OnCrash();
     if (OnDialog)
@@ -512,7 +512,7 @@ void xrDebug::Fail(bool& ignoreAlways, const ErrorLocation& loc, const char* exp
         ShowMessage("X-Ray error", assertionInfo);
     else
     {
-#ifdef USE_OWN_ERROR_MESSAGE_WINDOW
+//#ifdef USE_OWN_ERROR_MESSAGE_WINDOW
         switch (ShowMessage("Fatal error", assertionInfo, false))
         {
         case resultUndefined:
@@ -536,12 +536,13 @@ void xrDebug::Fail(bool& ignoreAlways, const ErrorLocation& loc, const char* exp
             break;
         default: DEBUG_BREAK;
         }
-#else // !USE_OWN_ERROR_MESSAGE_WINDOW
+//#else // !USE_OWN_ERROR_MESSAGE_WINDOW
+/*
 #ifdef USE_BUG_TRAP
         BT_SetUserMessage(assertionInfo);
 #endif
-        DEBUG_BREAK;
-#endif
+        DEBUG_BREAK;*/
+/*#endif*/
     }
     if (OnDialog)
         OnDialog(false);
