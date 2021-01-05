@@ -228,13 +228,16 @@ void Script_MoveManager::time_callback(void)
     if (DataBase::Storage::getInstance().getStorage().at(this->m_p_client_object->ID()).getActiveSchemeName().empty())
         return;
 
-    if (this->m_last_index && this->m_p_patrol_walk->terminal(this->m_last_index))
+    if ((this->m_last_index != Globals::kUnsignedInt32Undefined) && this->m_p_patrol_walk->terminal(this->m_last_index))
     {
         if (Globals::Utils::is_stalker_at_waypoint(this->m_p_client_object, *this->m_p_patrol_walk, this->m_last_index))
         {
             this->waypoint_callback(this->m_p_client_object, 0, this->m_last_index);
             return;
         }
+
+        this->reset(this->m_path_walk_name, this->m_path_walk_info, this->m_path_look_name, this->m_path_look_info,
+            this->m_team_name, this->m_suggested_state, m_move_callback_info, this->m_is_no_validation);
     }
     else
     {
