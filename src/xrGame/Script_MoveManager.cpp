@@ -319,6 +319,8 @@ void Script_MoveManager::waypoint_callback(
     if (point_index == Globals::kUnsignedInt32Undefined)
         return;
 
+    MESSAGE("name=%s index=%d", p_client_object->Name(), point_index);
+
     this->m_last_index = point_index;
 
     if (this->m_p_patrol_walk->terminal(point_index))

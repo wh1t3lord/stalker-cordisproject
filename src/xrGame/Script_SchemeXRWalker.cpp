@@ -79,6 +79,8 @@ void Script_SchemeXRWalker::finalize(void)
         return;
     }
 
+    p_move_manager->finalize(nullptr);
+
     if (this->m_is_in_camp)
     {
         this->m_p_camp->unregister_npc(this->m_object->ID());
