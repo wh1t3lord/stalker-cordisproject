@@ -116,14 +116,12 @@ void Script_SchemeMobWalker::update(const float delta)
 void Script_SchemeMobWalker::waypoint_callback(
     CScriptGameObject* p_client_object, const std::uint32_t action_movement_type, const std::uint32_t index)
 {
-    Msg("[Scripts/Script_SchemeMobWalker/waypoint_callback(p_client_object, action_movement_type, index)] name = %s | "
-        "index = %d",
+    MESSAGE("name = %s | index = %d",
         this->m_npc->Name(), index);
 
     if (index == Globals::kUnsignedInt32Undefined || !index)
     {
-        Msg("[Scripts/Script_SchemeMobWalker/waypoint_callback(p_client_object, action_movement_type, index)] WARNING: "
-            "index equals std::uint32_t(-1) or 0! Return ...");
+        MESSAGEWR("index equals std::uint32_t(-1) or 0!");
         return;
     }
 
@@ -131,8 +129,7 @@ void Script_SchemeMobWalker::waypoint_callback(
 
     if (!(index > this->m_path_walk_info.getData().size()))
     {
-        Msg("[Scripts/Script_SchemeMobWalker/waypoint_callback(p_client_object, action_movement_type, index)] WARNING: "
-            "can't index out of range, return ...");
+        MESSAGEW("can't index out of range");
         xr_string suggested_sound_name = this->m_path_walk_info.getData().at(index).getValue("s");
         if (!suggested_sound_name.empty())
         {
@@ -155,8 +152,7 @@ void Script_SchemeMobWalker::waypoint_callback(
         if (!signal_name.empty())
         {
             // NOT IMPLEMENTED, see original scripts
-            Msg("[Scripts/Script_ScheemMobWalker/waypoint_callback(p_client_object, action_movement_type, index)] "
-                "WARNING: not implemented, signal handler");
+            MESSAGEW(" not implemented, signal handler");
         }
 
         xr_string monster_state_name = this->m_path_walk_info.getData().at(index).getValue("b");
@@ -172,8 +168,7 @@ void Script_SchemeMobWalker::waypoint_callback(
         Flags32 search_for = this->m_path_walk_info.getData().at(index).getFlags();
         if (!search_for.get())
         {
-            Msg("[Scripts/Script_SchemeMobWalker/waypoint_callback(p_client_object, action_movement_type, index)] no "
-                "flags. update_movement_state");
+            MESSAGE("no flags. update_movement_state");
             this->update_movement_state();
             return;
         }
@@ -243,7 +238,7 @@ void Script_SchemeMobWalker::waypoint_callback(
 
 void Script_SchemeMobWalker::update_movement_state(void)
 {
-    Msg("[Scripts/Script_SchemeMobWalker/update_movement_state()] called!");
+    MESSAGE("called!");
     XR_LOGIC::mob_capture(this->m_npc, true, this->m_scheme_name);
     std::uint32_t monster_move_action = 0;
 
@@ -256,7 +251,7 @@ void Script_SchemeMobWalker::update_movement_state(void)
 
     if (!this->m_sheduled_sound_name.empty())
     {
-        Msg("[Scripts/Script_SchemeMobWalker/update_movement_state()] playing scheduled sound %s",
+        MESSAGE("playing scheduled sound %s",
             this->m_scheme_name.c_str());
         Globals::action(this->m_npc,
             CScriptMovementAction(static_cast<MonsterSpace::EScriptMonsterMoveAction>(monster_move_action),
@@ -278,12 +273,12 @@ void Script_SchemeMobWalker::update_movement_state(void)
 
 void Script_SchemeMobWalker::update_standing_state(void)
 {
-    Msg("[Scripts/Script_SchemeMobWalker/update_standing_state()] called!");
+    MESSAGE("called!");
     XR_LOGIC::mob_capture(this->m_npc, true, this->m_scheme_name);
 
     if (!this->m_sheduled_sound_name.empty())
     {
-        Msg("[Scripts/Script_SchemeMobWalker/update_stading_state()] playing sheduled sound %s ",
+        MESSAGE("playing sheduled sound %s ",
             this->m_sheduled_sound_name.c_str());
 
         Globals::action(this->m_npc,

@@ -745,6 +745,8 @@ void Script_StateManager::set_state(const xr_string& state_name, StateManagerCal
     bool is_switched = false;
     xr_string last_state_name = this->m_target_state_name;
 
+    MESSAGE("this->m_target_state_name=[%s] | state_name=[%s]", this->m_target_state_name.c_str(), state_name.c_str());
+
     // Lord: проверить сравнение строк!
     if (this->m_target_state_name != state_name)
     {
@@ -824,6 +826,8 @@ void Script_StateManager::set_state(const xr_string& state_name, StateManagerCal
 
 void Script_StateManager::update(void)
 {
+    MESSAGE("this=[%s] | state_library=[%s]", this->m_p_animation->getStates().getCurrentStateName().c_str(), Script_GlobalHelper::getInstance().getStateLibrary().at(this->m_target_state_name).getAnimationName().c_str());
+
     if (this->m_p_animation->getStates().getCurrentStateName() ==
         Script_GlobalHelper::getInstance().getStateLibrary().at(this->m_target_state_name).getAnimationName())
     {

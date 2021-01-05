@@ -118,7 +118,7 @@ void Script_MoveManager::setup_movement_by_patrol_path(void)
     }
 }
 
-bool Script_MoveManager::is_arrived_to_first_waypoint(void) { return (!!this->m_last_index); }
+bool Script_MoveManager::is_arrived_to_first_waypoint(void) { return (this->m_last_index != Globals::kUnsignedInt32Undefined); }
 
 bool Script_MoveManager::is_synchronization_succesful(void)
 {
