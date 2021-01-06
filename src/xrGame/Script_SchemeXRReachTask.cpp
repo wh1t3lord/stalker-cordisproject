@@ -392,6 +392,7 @@ namespace Cordis
 
 		void Script_SchemeXRReachTask::net_destroy(CScriptGameObject* const p_client_object)
 		{
+			// TODO: поправить здесь ибо вылетает, проверить что у ПЫС
 			if (this->m_target_id)
 			{
 				xr_string generated_id_name(std::move(std::to_string(this->m_target_id)));
