@@ -531,7 +531,7 @@ void Script_SE_SimulationSquad::create_npc(Script_SE_SmartTerrain* spawn_smart)
     xr_string spawn_point_section_name =
         XR_LOGIC::pick_section_from_condlist(DataBase::Storage::getInstance().getActor(), this, spawn_point_condlist);
 
-    Msg("[Scripts/Script_SE_SimulationSquad/create_npc(spawn_smart)] Spawn smart terrain [%s]",
+    MESSAGE("Spawn smart terrain [%s]",
         spawn_smart->name_replace());
 
     Fvector base_spawn_position = spawn_smart->Position();
@@ -577,13 +577,13 @@ void Script_SE_SimulationSquad::create_npc(Script_SE_SmartTerrain* spawn_smart)
 
         if (min_value == Globals::kUnsignedInt32Undefined)
         {
-            Msg("[Scripts/Script_SE_SimulationSquad/create_npc(spawn_smart)] WARNING: can't parse min_value set to 0");
+            MESSAGEW("can't parse min_value set to 0");
             min_value = 0;
         }
 
         if (max_value == Globals::kUnsignedInt32Undefined)
         {
-            Msg("[Scripts/Script_SE_SimulationSquad/create_npc(spawn_smart)] WARNING: can't parse max_value! set to 1");
+            MESSAGEW("can't parse max_value! set to 1");
             max_value = 1;
         }
 
