@@ -207,16 +207,19 @@ Script_StateAnimation::select_animation(void)
         {
             animation = this->select_rnd(state.getAnimationList("rnd"), weapon_slot_id,
                 Globals::get_time_global() >= this->m_states.getNextRandom());
+
             _animation_result.push_back(animation);
         }
 
-        if (_animation_result.empty() && !state.getAnimationList("idle").empty())
+        if (_animation_result[0].getAnimationName().empty() && !state.getAnimationList("idle").empty())
         {
             _animation_result = this->anim_for_slot(weapon_slot_id, state.getAnimationList("idle"));
         }
 
         if (!_animation_result.empty())
+        {
             this->m_states.setAnimationMarker(kAnimationMarkerIdle);
+        }
 
         result.first = _animation_result;
         result.second = state;
