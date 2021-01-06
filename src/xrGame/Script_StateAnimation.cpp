@@ -406,7 +406,10 @@ void Script_StateAnimation::add_animation(
     }
 
     if (animations[0].getAnimationName().empty())
+    {
+        R_ASSERT2(false, "can't be your animation must be valid string and referenced to existed animation");
         return;
+    }
 
     if (!(this->m_p_client_object->weapon_unstrapped() || this->m_p_client_object->weapon_strapped()))
     {

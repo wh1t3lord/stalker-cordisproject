@@ -826,11 +826,10 @@ void Script_StateManager::set_state(const xr_string& state_name, StateManagerCal
 
 void Script_StateManager::update(void)
 {
-    MESSAGE("this=[%s] | state_library=[%s]", this->m_p_animation->getStates().getCurrentStateName().c_str(), Script_GlobalHelper::getInstance().getStateLibrary().at(this->m_target_state_name).getAnimationName().c_str());
-
     if (this->m_p_animation->getStates().getCurrentStateName() ==
         Script_GlobalHelper::getInstance().getStateLibrary().at(this->m_target_state_name).getAnimationName())
     {
+        MESSAGE("this=[%s] | state_library=[%s]", this->m_p_animation->getStates().getCurrentStateName().c_str(), Script_GlobalHelper::getInstance().getStateLibrary().at(this->m_target_state_name).getAnimationName().c_str());
         if (!this->m_callback_data.isAllFieldEmpty())
         {
             if (this->m_callback_data.isCallbackTimeExist())
