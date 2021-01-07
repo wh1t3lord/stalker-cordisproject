@@ -247,37 +247,70 @@ Script_SE_SimulationSquad* Script_SimulationBoard::create_squad(
     return server_object;
 }
 
-Script_SE_SimulationSquad* Script_SimulationBoard::get_squad_target(Script_SE_SimulationSquad* const p_squad)
+CSE_ALifeDynamicObject* Script_SimulationBoard::get_squad_target(Script_SE_SimulationSquad* const p_squad)
 {
     if (p_squad == nullptr)
     {
-#ifdef DEBUG
         MESSAGEWR("passed invalid squad!");
-#endif // DEBUG
         return nullptr;
     }
 
     const auto& data = Script_SimulationObjects::getInstance().getObjects();
+
+    xr_map<float, CSE_ALifeDynamicObject*> buffer;
+
+    CSE_ALifeDynamicObject* p_most_priority_task = nullptr;
+
     for (const std::pair<std::uint16_t, CSE_ALifeDynamicObject*>& it : data)
     {
         float current_prior = 0.0f;
-
-        if (it.first != p_squad->ID)
-        {
-            Script_SE_SmartTerrain* const p_smart = it.second->cast_script_se_smartterrain();
-            if (p_smart)
+		if (it.second)
+		{
+            if (it.second->ID != p_squad->ID)
             {
-                current_prior = p_smart->evaluate_prior(p_squad);
+                current_prior = it.second->cast_script_se_smartterrain()->evaluate_prior(p_squad);
             }
 
-            if (current_prior > 0.0f || fis_zero(current_prior) == false)
+			if (current_prior > 0.0f)
+			{
+                buffer[current_prior] = it.second;
+			}
+        }
+    }
+
+    if (buffer.empty() == false)
+    {
+        int index = static_cast<int>(floorf(0.3 * static_cast<float>(buffer.size())));
+
+        if (index == 0) 
+            index = 1;
+
+        int _local_iterator = 0;
+
+        for (const auto& it : buffer)
+        {
+            ++_local_iterator;
+
+            if (_local_iterator == index)
             {
-                // Lord: ÄÎÄÅËÀÒÜ!!!
+                p_most_priority_task = it.second;
             }
         }
     }
 
-	return nullptr;
+    if (p_most_priority_task == nullptr)
+    {
+        if (p_squad->getSmartTerrainID() != Globals::kUnsignedInt16Undefined)
+        {
+            p_most_priority_task = ai().alife().objects().object(p_squad->getSmartTerrainID());
+        }
+        else
+        {
+            p_most_priority_task = p_squad;
+        }
+    }
+
+	return p_most_priority_task;
 }
 
 } // namespace Scripts
