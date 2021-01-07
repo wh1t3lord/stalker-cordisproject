@@ -962,7 +962,7 @@ void Script_SE_SimulationSquad::generic_update(void)
 
     if (this->m_assigned_target_id && ai().alife().objects().object(this->m_assigned_target_id) && ai().alife().objects().object(this->m_assigned_target_id)->m_script_clsid != Globals::get_script_clsid(CLSID_SE_ONLINE_OFFLINE_GROUP))
     {
-        Script_SE_SimulationSquad* const p_squad_target = Script_SimulationBoard::getInstance().get_squad_target(this);
+        CSE_ALifeDynamicObject* const p_squad_target = Script_SimulationBoard::getInstance().get_squad_target(this);
         if (p_squad_target == nullptr)
         {
             MESSAGEWR("Invalid object!");
