@@ -437,6 +437,11 @@ bool Script_SE_SimulationSquad::target_precondition(CSE_ALifeObject* squad)
     return false;
 }
 
+float Script_SE_SimulationSquad::evaluate_priority(Script_SE_SimulationSquad* p_squad)
+{
+    return Script_SimulationObjects::evaluate_priority(this, p_squad);
+}
+
 void Script_SE_SimulationSquad::set_location_types_section(const xr_string& section)
 {
     if (locations_ini.section_exist(section.c_str()))

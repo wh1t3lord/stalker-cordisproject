@@ -268,7 +268,26 @@ CSE_ALifeDynamicObject* Script_SimulationBoard::get_squad_target(Script_SE_Simul
 		{
             if (it.second->ID != p_squad->ID)
             {
-                current_prior = it.second->cast_script_se_smartterrain()->evaluate_prior(p_squad);
+                auto* p_try_1 = it.second->cast_script_se_actor();
+                auto* p_try_2 = it.second->cast_script_se_simulationsquad();
+                auto* p_try_3 = it.second->cast_script_se_smartterrain();
+
+                if (p_try_1)
+                {
+                    current_prior = p_try_1->evaluate_priority(p_squad);
+                }
+                else if (p_try_2)
+                {
+                    current_prior = p_try_2->evaluate_priority(p_squad);
+                }
+                else if (p_try_3)
+                {
+                    current_prior = p_try_3->evaluate_prior(p_squad);
+                }
+                else 
+                {
+                    R_ASSERT2(false, "can't cast and can't be!");
+                }
             }
 
 			if (current_prior > 0.0f)

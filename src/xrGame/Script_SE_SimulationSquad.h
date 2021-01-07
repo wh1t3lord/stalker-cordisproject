@@ -187,6 +187,8 @@ public:
     bool assigned_target_available(void);
 
     bool target_precondition(CSE_ALifeObject* squad);
+    float evaluate_priority(Script_SE_SimulationSquad* p_squad);
+
 private:
     inline xr_string& pick_next_target(void) { return this->m_parsed_targets[this->m_next_target_index]; }
     void set_location_types_section(const xr_string& section);
@@ -201,6 +203,7 @@ private:
     bool update_current_action(void);
     void get_next_action(const bool is_under_simulation);
     void generic_update(void);
+
 private:
     bool m_is_always_walk; // @ Init by utils
     bool m_is_always_arrived; // @ Init by utils
