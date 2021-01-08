@@ -295,7 +295,7 @@ CSE_ALifeDynamicObject* Script_SimulationBoard::get_squad_target(Script_SE_Simul
 			if (current_prior > 0.0f)
 			{
                 // TODO: удалить потом
-                MESSAGE("valid priority for [%s][%f]", name.c_str(), current_prior);
+                MESSAGE("squad[%s] valid priority for [%s][%f]", p_squad->name_replace(), name.c_str(), current_prior);
                 buffer[current_prior] = it.second;
 			}
         }

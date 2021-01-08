@@ -18,9 +18,12 @@ float Script_SimulationObjects::evaluate_priority(CSE_ALifeDynamicObject* target
     float priority = 0.0f;
     Script_SE_SimulationSquad* const p_squad_prior = squad->cast_script_se_simulationsquad();
     Script_SE_Actor* const p_actor = target->cast_script_se_actor();
+
+    MESSAGE("calcuate priority for [%s]", target->name_replace());
+
     if (p_actor)
     {
-        if (!p_actor->target_precondition(p_squad_prior) || Globals::is_on_the_same_level(target, squad))
+        if ((p_actor->target_precondition(p_squad_prior) == false) || (Globals::is_on_the_same_level(target, squad) == false))
         {
             return priority;
         }
@@ -32,8 +35,6 @@ float Script_SimulationObjects::evaluate_priority(CSE_ALifeDynamicObject* target
     else
     {
         Script_SE_SmartTerrain* const p_smart = target->cast_script_se_smartterrain();
-
-        MESSAGE("calcuate priority for [%s]", p_smart->name_replace());
         if (p_smart)
         {
             if ((p_smart->target_precondition(squad, false) == false) || (Globals::is_on_the_same_level(target, squad) == false))
@@ -50,7 +51,7 @@ float Script_SimulationObjects::evaluate_priority(CSE_ALifeDynamicObject* target
             Script_SE_SimulationSquad* const p_squad = target->cast_script_se_simulationsquad();
             if (p_squad)
             {
-                if (!p_squad->target_precondition(squad) || Globals::is_on_the_same_level(target, squad))
+                if ((p_squad->target_precondition(squad) == false) || (Globals::is_on_the_same_level(target, squad) == false))
                 {
                     return priority;
                 }

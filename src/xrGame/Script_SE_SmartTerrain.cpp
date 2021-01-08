@@ -755,7 +755,7 @@ bool Script_SE_SmartTerrain::target_precondition(CSE_ALifeObject* squad, bool is
     if (is_need_to_dec_population)
         --squad_count;
 
-    if (squad_count && (this->m_max_population <= squad_count))
+    if ((this->m_max_population <= squad_count))
         return false;
 
     if (Script_SimulationBoard::getInstance().getSimulationActivities().find(p_squad->getPlayerID()) == Script_SimulationBoard::getInstance().getSimulationActivities().end())
