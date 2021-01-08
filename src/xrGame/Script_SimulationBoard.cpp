@@ -264,6 +264,8 @@ CSE_ALifeDynamicObject* Script_SimulationBoard::get_squad_target(Script_SE_Simul
     for (const std::pair<std::uint16_t, CSE_ALifeDynamicObject*>& it : data)
     {
         float current_prior = 0.0f;
+        xr_string name = it.second ? it.second->name_replace() : "";
+
 		if (it.second)
 		{
             if (it.second->ID != p_squad->ID)
@@ -292,6 +294,8 @@ CSE_ALifeDynamicObject* Script_SimulationBoard::get_squad_target(Script_SE_Simul
 
 			if (current_prior > 0.0f)
 			{
+                // TODO: удалить потом
+                MESSAGE("valid priority for [%s][%f]", name.c_str(), current_prior);
                 buffer[current_prior] = it.second;
 			}
         }

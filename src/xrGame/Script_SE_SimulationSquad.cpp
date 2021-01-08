@@ -976,6 +976,8 @@ void Script_SE_SimulationSquad::generic_update(void)
 
         if (p_squad_target->m_script_clsid == Globals::get_script_clsid(CLSID_SE_ONLINE_OFFLINE_GROUP))
         {
+            MESSAGE("assigned_target[%s][%d]", p_squad_target->name_replace(), p_squad_target->ID);
+
             this->m_assigned_target_id = p_squad_target->ID;
             this->m_current_action.Clear();
             this->get_next_action(true);
@@ -990,7 +992,9 @@ void Script_SE_SimulationSquad::generic_update(void)
             {
                 if (this->m_current_action.getName() == Globals::kSimulationSquadCurrentActionIDStayOnTarget || !this->m_assigned_target_id)
                 {
-                    this->m_assigned_target_id = Script_SimulationBoard::getInstance().get_squad_target(this)->ID;
+                    CSE_ALifeDynamicObject* p_object = Script_SimulationBoard::getInstance().get_squad_target(this);
+                    MESSAGE("assigned_target[%s][%d]", p_object->name_replace(), p_object->ID);
+                    this->m_assigned_target_id = p_object->ID;
                 }
 
                 this->m_current_action.Clear();
@@ -1002,9 +1006,11 @@ void Script_SE_SimulationSquad::generic_update(void)
         }
         else
         {
+            CSE_ALifeDynamicObject* p_object = Script_SimulationBoard::getInstance().get_squad_target(this);
             this->m_current_action.Clear();
             this->m_current_target_id = 0;
-            this->m_assigned_target_id = Script_SimulationBoard::getInstance().get_squad_target(this)->ID;
+            this->m_assigned_target_id = p_object->ID;
+            MESSAGE("assigned_target=[%s][%d]", p_object->name_replace(), p_object->ID);
         }
     }
 
