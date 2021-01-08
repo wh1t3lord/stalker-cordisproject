@@ -1040,22 +1040,55 @@ bool StayReachOnTarget::update(const bool is_under_simulation)
 	else if (this->m_name == Globals::kSimulationSquadCurrentActionIDReachTarget)
 	{
 		Script_SE_SimulationSquad* const p_squad = ai().alife().objects().object(this->m_squad_id)->cast_script_se_simulationsquad();
-		Script_SE_SmartTerrain* p_terrain = Script_SimulationObjects::getInstance().getObjects().at(p_squad->getAssignedTargetID())->cast_script_se_smartterrain();
+		CSE_ALifeDynamicObject* p_target = nullptr;
+
+		//		Script_SE_SmartTerrain* p_terrain = Script_SimulationObjects::getInstance().getObjects().at(p_squad->getAssignedTargetID())->cast_script_se_smartterrain();
+
+		if (Script_SimulationObjects::getInstance().getObjects().find(p_squad->getAssignedTargetID()) != Script_SimulationObjects::getInstance().getObjects().end())
+		{
+			p_target = Script_SimulationObjects::getInstance().getObjects().at(p_squad->getAssignedTargetID());
+		}
 
 		if (!is_under_simulation)
-			p_terrain = ai().alife().objects().object(p_squad->getAssignedTargetID())->cast_script_se_smartterrain();
+			p_target = ai().alife().objects().object(p_squad->getAssignedTargetID())->cast_script_se_smartterrain();
 
-		if (p_terrain == nullptr)
+		if (p_target == nullptr)
 		{
 			p_squad->setAssignedTargetID(0);
 			return true;
 		}
 
-		if (p_terrain->am_i_reached(p_squad))
-		{
-			p_terrain->on_after_reach(p_squad);
-			return true;
-		}
+        if (p_target)
+        {
+            auto* p_try_1 = p_target->cast_script_se_actor();
+            auto* p_try_2 = p_target->cast_script_se_simulationsquad();
+            auto* p_try_3 = p_target->cast_script_se_smartterrain();
+
+            if (p_try_1)
+            {
+                if (p_try_1->am_i_reached())
+                {
+                    return true;
+                }
+            }
+            else if (p_try_2)
+            {
+                if (p_try_2->am_i_reached())
+                {
+                    return true;
+                }
+            }
+            else if (p_try_3)
+            {
+                if (p_try_3->am_i_reached(p_squad))
+                {
+                    p_try_3->on_after_reach(p_squad);
+                    return true;
+                }
+            }
+
+        }
+
 	}
 
 	return false;
