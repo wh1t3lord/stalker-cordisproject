@@ -483,12 +483,11 @@ void Script_SE_SimulationSquad::set_location_types(const xr_string& new_smart_na
             this->set_location_types_section(old_smart_name);
 
         if (new_smart_name.empty() == false)
-            MESSAGE("New smart terrain name [%s]",
-            new_smart_name.c_str());
- 
-
-        if (new_smart_name.empty() == false)
+        {
+			MESSAGE("New smart terrain name [%s]",
+				new_smart_name.c_str());
             this->set_location_types_section(new_smart_name);
+        }
     }
     else
     {
@@ -684,6 +683,12 @@ void Script_SE_SimulationSquad::on_npc_death(CSE_ALifeDynamicObject* server_obje
 
         Script_SimulationBoard::getInstance().remove_squad(this);
     }
+}
+
+void Script_SE_SimulationSquad::on_reach_target(Script_SE_SimulationSquad* p_squad)
+{
+    p_squad->set_location_types("");
+    Script_SimulationBoard::getInstance().assigned_squad_to_smart(p_squad);
 }
 
 void Script_SE_SimulationSquad::remove_squad(void)
@@ -1071,13 +1076,44 @@ void StayReachOnTarget::make(const bool is_under_simulation)
 	else if (this->m_name == Globals::kSimulationSquadCurrentActionIDReachTarget)
 	{
 		Script_SE_SimulationSquad* const p_squad = ai().alife().objects().object(this->m_squad_id)->cast_script_se_simulationsquad();
-		Script_SE_SmartTerrain* p_terrain = Script_SimulationObjects::getInstance().getObjects().at(p_squad->getAssignedTargetID())->cast_script_se_smartterrain();
+
+        CSE_ALifeDynamicObject* p_target = nullptr;
+
+//		Script_SE_SmartTerrain* p_terrain = Script_SimulationObjects::getInstance().getObjects().at(p_squad->getAssignedTargetID())->cast_script_se_smartterrain();
+
+        if (Script_SimulationObjects::getInstance().getObjects().find(p_squad->getAssignedTargetID()) != Script_SimulationObjects::getInstance().getObjects().end())
+        {
+            p_target = Script_SimulationObjects::getInstance().getObjects().at(p_squad->getAssignedTargetID());
+        }
 
 		if (!is_under_simulation)
-			p_terrain = ai().alife().objects().object(p_squad->getAssignedTargetID())->cast_script_se_smartterrain();
+			p_target = ai().alife().objects().object(p_squad->getAssignedTargetID());
 
-		if (p_terrain)
-			p_terrain->on_reach_target(p_squad);
+        if (p_target)
+        {
+            //p_terrain->on_reach_target(p_squad);
+            auto* p_try_1 = p_target->cast_script_se_actor();
+            auto* p_try_2 = p_target->cast_script_se_simulationsquad();
+            auto* p_try_3 = p_target->cast_script_se_smartterrain();
+
+            if (p_try_1)
+            {
+                p_try_1->on_reach_target(p_squad);
+            }
+            else if (p_try_2)
+            {
+                p_try_2->on_reach_target(p_squad);
+            }
+            else if (p_try_3)
+            {
+                p_try_3->on_after_reach(p_squad);
+            }
+            else
+            {
+                R_ASSERT2(false, "can't be you must to cast to valid class which contains on_reach_target method!");
+            }
+        }
+
 
 		for (AssociativeVector<std::uint16_t, CSE_ALifeMonsterAbstract*>::const_iterator it = p_squad->squad_members().begin(); it != p_squad->squad_members().end(); ++it)
 		{

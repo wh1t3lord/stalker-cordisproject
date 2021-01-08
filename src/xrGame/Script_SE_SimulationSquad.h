@@ -92,13 +92,13 @@ public:
     Script_SE_SimulationSquad(LPCSTR section);
     virtual ~Script_SE_SimulationSquad(void);
 
-    virtual Script_SE_SimulationSquad* cast_script_se_simulationsquad(void) { return this; }
-    virtual CALifeSmartTerrainTask* get_current_task(void);
-    virtual void STATE_Read(NET_Packet& packet, u16 size);
-    virtual void STATE_Write(NET_Packet& packet);
-    virtual void on_register(void);
-    virtual void on_unregister(void);
-    virtual void update();
+    Script_SE_SimulationSquad* cast_script_se_simulationsquad(void) override { return this; }
+    CALifeSmartTerrainTask* get_current_task(void) override;
+    void STATE_Read(NET_Packet& packet, u16 size) override;
+    void STATE_Write(NET_Packet& packet) override;
+    void on_register(void) override;
+    void on_unregister(void) override;
+    void update() override;
 #pragma region Cordis Getters
     inline bool IsAlwaysArrived(void) const noexcept { return this->m_is_always_arrived; }
     inline std::uint32_t getSmartTerrainID(void) noexcept { return this->m_smart_terrain_id; }
@@ -119,7 +119,7 @@ public:
 
     inline CALifeSmartTerrainTask* getAlifeSmartTerrainTask(void)
     { // Lord: проверить не изменяются ли this->m_tGraphID, this->m_tNodeID!!!
-        Msg("[Scripts/Script_SE_SimulationSquad/getAlifeSmartTerrainTask()] game_vertex_id -> [%d] | level_vertex_id "
+        MESSAGE("game_vertex_id -> [%d] | level_vertex_id "
             "-> [%d], %s",
             this->m_tGraphID, this->m_tNodeID, this->name_replace());
         if (!this->m_alife_smart_terrain_task.get())
@@ -179,6 +179,7 @@ public:
     std::uint16_t add_squad_member(const xr_string& spawn_section_name, const Fvector& spawn_position,
         const std::uint32_t& level_vertex_id, const std::uint16_t& game_vertex_id);
     void on_npc_death(CSE_ALifeDynamicObject* server_object);
+    void on_reach_target(Script_SE_SimulationSquad* p_squad);
     void remove_squad(void);
     void set_squad_relation(const xr_string& relation_name = "");
     void assign_smart(Script_SE_SmartTerrain* smart = static_cast<Script_SE_SmartTerrain*>(nullptr));
