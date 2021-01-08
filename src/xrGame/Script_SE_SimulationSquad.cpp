@@ -505,7 +505,7 @@ void Script_SE_SimulationSquad::set_location_types(const xr_string& new_smart_na
             {
                 if (server_object->script_clsid() == Globals::get_script_clsid(CLSID_SE_SMART_TERRAIN))
                 {
-                    xr_string properties_base = server_object->getProperties()["base"];
+                    xr_string properties_base = server_object->getProperties().at("base");
                     if (properties_base.size())
                         this->set_location_types_section(server_object->name_replace());
                 }

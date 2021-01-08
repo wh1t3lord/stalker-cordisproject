@@ -135,12 +135,12 @@ void Script_SimulationObjects::get_properties(CSE_ALifeDynamicObject* object)
         return;
     }
 
-    xr_string properties_section = object->name();
+    xr_string properties_section = object->name_replace();
 
     if (object->script_clsid() == Globals::get_script_clsid(CLSID_SE_ONLINE_OFFLINE_GROUP))
-        properties_section = object->name_replace();
+        properties_section = object->name();
 
-    if (!this->m_props_ini.section_exist(properties_section.c_str()))
+    if (this->m_props_ini.section_exist(properties_section.c_str()) == false)
     {
         MESSAGEW("object [%s] has no simulation properties section!", object->name());
         properties_section = "default";
@@ -153,6 +153,8 @@ void Script_SimulationObjects::get_properties(CSE_ALifeDynamicObject* object)
     }
 
     std::uint32_t count_lines = this->m_props_ini.line_count(properties_section.c_str());
+
+    MESSAGE("properties for [%s] by parsing [%s]", object->name_replace(), properties_section.c_str());
     for (int i = 0; i < count_lines; ++i)
     {
         xr_string section, value;
@@ -162,9 +164,14 @@ void Script_SimulationObjects::get_properties(CSE_ALifeDynamicObject* object)
         value = _v;
  
         if (section == "sim_avail")
+        {
             object->setSimulationAvail(XR_LOGIC::parse_condlist_by_server_object("simulation_object", "sim_avail", value));
+        }
         else
-            object->getProperties()[section] = value;
+        {
+            MESSAGE("set prop to key[%s] value[%s]", section, value);
+            object->setProperties(section, value);
+        }
     }
 
 	if (object->getSimulationAvail().empty())
