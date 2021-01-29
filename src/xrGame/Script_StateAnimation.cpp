@@ -35,7 +35,8 @@ void Script_StateAnimation::set_state(const xr_string& new_state_name, const boo
 
         const StateManagerAnimationData* state = nullptr;
 
-        if (this->m_states.getAnimationMarker() == kAnimationMarkerIn && (this->m_current_data_list.find(this->m_states.getTargetStateName()) != this->m_current_data_list.end()))
+        if (this->m_states.getAnimationMarker() == kAnimationMarkerIn && 
+            (this->m_current_data_list.find(this->m_states.getTargetStateName()) != this->m_current_data_list.end()))
             state = &this->m_current_data_list.at(this->m_states.getTargetStateName());
         else if (this->m_current_data_list.find(this->m_states.getCurrentStateName()) != this->m_current_data_list.end())
             state = &this->m_current_data_list.at(this->m_states.getCurrentStateName());
@@ -342,7 +343,7 @@ void Script_StateAnimation::process_special_action(StateManagerAnimationData::An
                                   // единственный раз нет такого что есть функция и attachable_item
     if (!animation_data.getAttachItemName().empty())
     {
-        Msg("[Scripts/Script_StateAnimation/process_special_action(animation_data)] item %s attached",
+        MESSAGE("item %s attached",
             animation_data.getAttachItemName().c_str());
 
         CScriptGameObject* const p_client_attach_item =
@@ -356,7 +357,7 @@ void Script_StateAnimation::process_special_action(StateManagerAnimationData::An
 
     if (!animation_data.getDetachItemName().empty())
     {
-        Msg("[Scripts/Script_StateAnimation/process_speacial_action(animation_data)] item %s detached");
+        MESSAGE("item %s detached");
         CScriptGameObject* const p_client_detach_item =
             this->m_p_client_object->GetObjectByName(animation_data.getDetachItemName().c_str());
 
