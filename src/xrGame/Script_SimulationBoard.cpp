@@ -247,37 +247,93 @@ Script_SE_SimulationSquad* Script_SimulationBoard::create_squad(
     return server_object;
 }
 
-Script_SE_SimulationSquad* Script_SimulationBoard::get_squad_target(Script_SE_SimulationSquad* const p_squad)
+CSE_ALifeDynamicObject* Script_SimulationBoard::get_squad_target(Script_SE_SimulationSquad* const p_squad)
 {
     if (p_squad == nullptr)
     {
-#ifdef DEBUG
         MESSAGEWR("passed invalid squad!");
-#endif // DEBUG
         return nullptr;
     }
 
     const auto& data = Script_SimulationObjects::getInstance().getObjects();
+
+    xr_map<float, CSE_ALifeDynamicObject*> buffer;
+
+    CSE_ALifeDynamicObject* p_most_priority_task = nullptr;
+
     for (const std::pair<std::uint16_t, CSE_ALifeDynamicObject*>& it : data)
     {
         float current_prior = 0.0f;
+        xr_string name = it.second ? it.second->name_replace() : "";
 
-        if (it.first != p_squad->ID)
-        {
-            Script_SE_SmartTerrain* const p_smart = it.second->cast_script_se_smartterrain();
-            if (p_smart)
+		if (it.second)
+		{
+            if (it.second->ID != p_squad->ID)
             {
-                current_prior = p_smart->evaluate_prior(p_squad);
+                auto* p_try_1 = it.second->cast_script_se_actor();
+                auto* p_try_2 = it.second->cast_script_se_simulationsquad();
+                auto* p_try_3 = it.second->cast_script_se_smartterrain();
+
+                if (p_try_1)
+                {
+                    current_prior = p_try_1->evaluate_priority(p_squad);
+                }
+                else if (p_try_2)
+                {
+                    current_prior = p_try_2->evaluate_priority(p_squad);
+                }
+                else if (p_try_3)
+                {
+                    current_prior = p_try_3->evaluate_prior(p_squad);
+                }
+                else 
+                {
+                    R_ASSERT2(false, "can't cast and can't be!");
+                }
             }
 
-            if (current_prior > 0.0f || fis_zero(current_prior) == false)
+			if (current_prior > 0.0f)
+			{
+                // TODO: óäàëèòü ïîòîì
+                MESSAGE("squad[%s] valid priority for [%s][%f]", p_squad->name_replace(), name.c_str(), current_prior);
+                buffer[current_prior] = it.second;
+			}
+        }
+    }
+
+    if (buffer.empty() == false)
+    {
+        int index = static_cast<int>(floorf(0.3 * static_cast<float>(buffer.size())));
+
+        if (index == 0) 
+            index = 1;
+
+        int _local_iterator = 0;
+
+        for (const auto& it : buffer)
+        {
+            ++_local_iterator;
+
+            if (_local_iterator == index)
             {
-                // Lord: ÄÎÄÅËÀÒÜ!!!
+                p_most_priority_task = it.second;
             }
         }
     }
 
-	return nullptr;
+    if (p_most_priority_task == nullptr)
+    {
+        if (p_squad->getSmartTerrainID() != Globals::kUnsignedInt16Undefined)
+        {
+            p_most_priority_task = ai().alife().objects().object(p_squad->getSmartTerrainID());
+        }
+        else
+        {
+            p_most_priority_task = p_squad;
+        }
+    }
+
+	return p_most_priority_task;
 }
 
 } // namespace Scripts

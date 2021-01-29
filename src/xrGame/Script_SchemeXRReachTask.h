@@ -52,8 +52,8 @@ namespace Cordis
 			void execute(void) override;
 			void finalize(void) override;
 
-			virtual void death_callback(CScriptGameObject* const p_client_victim, CScriptGameObject* const p_client_who);
-			virtual void net_destroy(CScriptGameObject* const p_client_object);
+			void death_callback(CScriptGameObject* const p_client_victim, CScriptGameObject* const p_client_who) override;
+			void net_destroy(CScriptGameObject* const p_client_object) override;
 
 			static void set_reach_task(CScriptGameObject* const p_client_object, CScriptIniFile* const p_ini,
 				const xr_string& scheme_name, const xr_string& section_name, const xr_string& gulag_name);

@@ -200,8 +200,20 @@ public:
         this->m_simulation_avail = data;
     }
     
-    inline xr_map<xr_string, xr_string>& getProperties(void) noexcept 
-    { return this->m_properties;
+    inline const xr_map<xr_string, xr_string>& getProperties(void) noexcept 
+    { 
+        return this->m_properties;
+    }
+
+    inline void setProperties(const xr_string& key, const xr_string& value) noexcept
+    {
+        if (key.empty())
+        {
+            MESSAGEWR("Something is wrong and can't set an empty key to map");
+            return;
+        }
+
+        this->m_properties[key] = value;
     }
 
 private:

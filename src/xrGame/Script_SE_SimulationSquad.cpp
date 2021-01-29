@@ -437,6 +437,11 @@ bool Script_SE_SimulationSquad::target_precondition(CSE_ALifeObject* squad)
     return false;
 }
 
+float Script_SE_SimulationSquad::evaluate_priority(Script_SE_SimulationSquad* p_squad)
+{
+    return Script_SimulationObjects::getInstance().evaluate_priority(this, p_squad);
+}
+
 void Script_SE_SimulationSquad::set_location_types_section(const xr_string& section)
 {
     if (locations_ini.section_exist(section.c_str()))
@@ -478,12 +483,11 @@ void Script_SE_SimulationSquad::set_location_types(const xr_string& new_smart_na
             this->set_location_types_section(old_smart_name);
 
         if (new_smart_name.empty() == false)
-            MESSAGE("New smart terrain name [%s]",
-            new_smart_name.c_str());
- 
-
-        if (new_smart_name.empty() == false)
+        {
+			MESSAGE("New smart terrain name [%s]",
+				new_smart_name.c_str());
             this->set_location_types_section(new_smart_name);
+        }
     }
     else
     {
@@ -500,7 +504,7 @@ void Script_SE_SimulationSquad::set_location_types(const xr_string& new_smart_na
             {
                 if (server_object->script_clsid() == Globals::get_script_clsid(CLSID_SE_SMART_TERRAIN))
                 {
-                    xr_string properties_base = server_object->getProperties()["base"];
+                    xr_string properties_base = server_object->getProperties().at("base");
                     if (properties_base.size())
                         this->set_location_types_section(server_object->name_replace());
                 }
@@ -531,7 +535,7 @@ void Script_SE_SimulationSquad::create_npc(Script_SE_SmartTerrain* spawn_smart)
     xr_string spawn_point_section_name =
         XR_LOGIC::pick_section_from_condlist(DataBase::Storage::getInstance().getActor(), this, spawn_point_condlist);
 
-    Msg("[Scripts/Script_SE_SimulationSquad/create_npc(spawn_smart)] Spawn smart terrain [%s]",
+    MESSAGE("Spawn smart terrain [%s]",
         spawn_smart->name_replace());
 
     Fvector base_spawn_position = spawn_smart->Position();
@@ -577,13 +581,13 @@ void Script_SE_SimulationSquad::create_npc(Script_SE_SmartTerrain* spawn_smart)
 
         if (min_value == Globals::kUnsignedInt32Undefined)
         {
-            Msg("[Scripts/Script_SE_SimulationSquad/create_npc(spawn_smart)] WARNING: can't parse min_value set to 0");
+            MESSAGEW("can't parse min_value set to 0");
             min_value = 0;
         }
 
         if (max_value == Globals::kUnsignedInt32Undefined)
         {
-            Msg("[Scripts/Script_SE_SimulationSquad/create_npc(spawn_smart)] WARNING: can't parse max_value! set to 1");
+            MESSAGEW("can't parse max_value! set to 1");
             max_value = 1;
         }
 
@@ -679,6 +683,12 @@ void Script_SE_SimulationSquad::on_npc_death(CSE_ALifeDynamicObject* server_obje
 
         Script_SimulationBoard::getInstance().remove_squad(this);
     }
+}
+
+void Script_SE_SimulationSquad::on_reach_target(Script_SE_SimulationSquad* p_squad)
+{
+    p_squad->set_location_types("");
+    Script_SimulationBoard::getInstance().assigned_squad_to_smart(p_squad);
 }
 
 void Script_SE_SimulationSquad::remove_squad(void)
@@ -962,7 +972,7 @@ void Script_SE_SimulationSquad::generic_update(void)
 
     if (this->m_assigned_target_id && ai().alife().objects().object(this->m_assigned_target_id) && ai().alife().objects().object(this->m_assigned_target_id)->m_script_clsid != Globals::get_script_clsid(CLSID_SE_ONLINE_OFFLINE_GROUP))
     {
-        Script_SE_SimulationSquad* const p_squad_target = Script_SimulationBoard::getInstance().get_squad_target(this);
+        CSE_ALifeDynamicObject* const p_squad_target = Script_SimulationBoard::getInstance().get_squad_target(this);
         if (p_squad_target == nullptr)
         {
             MESSAGEWR("Invalid object!");
@@ -971,6 +981,8 @@ void Script_SE_SimulationSquad::generic_update(void)
 
         if (p_squad_target->m_script_clsid == Globals::get_script_clsid(CLSID_SE_ONLINE_OFFLINE_GROUP))
         {
+            MESSAGE("assigned_target[%s][%d]", p_squad_target->name_replace(), p_squad_target->ID);
+
             this->m_assigned_target_id = p_squad_target->ID;
             this->m_current_action.Clear();
             this->get_next_action(true);
@@ -985,7 +997,9 @@ void Script_SE_SimulationSquad::generic_update(void)
             {
                 if (this->m_current_action.getName() == Globals::kSimulationSquadCurrentActionIDStayOnTarget || !this->m_assigned_target_id)
                 {
-                    this->m_assigned_target_id = Script_SimulationBoard::getInstance().get_squad_target(this)->ID;
+                    CSE_ALifeDynamicObject* p_object = Script_SimulationBoard::getInstance().get_squad_target(this);
+                    MESSAGE("assigned_target[%s][%d]", p_object->name_replace(), p_object->ID);
+                    this->m_assigned_target_id = p_object->ID;
                 }
 
                 this->m_current_action.Clear();
@@ -997,9 +1011,11 @@ void Script_SE_SimulationSquad::generic_update(void)
         }
         else
         {
+            CSE_ALifeDynamicObject* p_object = Script_SimulationBoard::getInstance().get_squad_target(this);
             this->m_current_action.Clear();
             this->m_current_target_id = 0;
-            this->m_assigned_target_id = Script_SimulationBoard::getInstance().get_squad_target(this)->ID;
+            this->m_assigned_target_id = p_object->ID;
+            MESSAGE("assigned_target=[%s][%d]", p_object->name_replace(), p_object->ID);
         }
     }
 
@@ -1024,22 +1040,55 @@ bool StayReachOnTarget::update(const bool is_under_simulation)
 	else if (this->m_name == Globals::kSimulationSquadCurrentActionIDReachTarget)
 	{
 		Script_SE_SimulationSquad* const p_squad = ai().alife().objects().object(this->m_squad_id)->cast_script_se_simulationsquad();
-		Script_SE_SmartTerrain* p_terrain = Script_SimulationObjects::getInstance().getObjects().at(p_squad->getAssignedTargetID())->cast_script_se_smartterrain();
+		CSE_ALifeDynamicObject* p_target = nullptr;
+
+		//		Script_SE_SmartTerrain* p_terrain = Script_SimulationObjects::getInstance().getObjects().at(p_squad->getAssignedTargetID())->cast_script_se_smartterrain();
+
+		if (Script_SimulationObjects::getInstance().getObjects().find(p_squad->getAssignedTargetID()) != Script_SimulationObjects::getInstance().getObjects().end())
+		{
+			p_target = Script_SimulationObjects::getInstance().getObjects().at(p_squad->getAssignedTargetID());
+		}
 
 		if (!is_under_simulation)
-			p_terrain = ai().alife().objects().object(p_squad->getAssignedTargetID())->cast_script_se_smartterrain();
+			p_target = ai().alife().objects().object(p_squad->getAssignedTargetID())->cast_script_se_smartterrain();
 
-		if (p_terrain == nullptr)
+		if (p_target == nullptr)
 		{
 			p_squad->setAssignedTargetID(0);
 			return true;
 		}
 
-		if (p_terrain->am_i_reached(p_squad))
-		{
-			p_terrain->on_after_reach(p_squad);
-			return true;
-		}
+        if (p_target)
+        {
+            auto* p_try_1 = p_target->cast_script_se_actor();
+            auto* p_try_2 = p_target->cast_script_se_simulationsquad();
+            auto* p_try_3 = p_target->cast_script_se_smartterrain();
+
+            if (p_try_1)
+            {
+                if (p_try_1->am_i_reached())
+                {
+                    return true;
+                }
+            }
+            else if (p_try_2)
+            {
+                if (p_try_2->am_i_reached())
+                {
+                    return true;
+                }
+            }
+            else if (p_try_3)
+            {
+                if (p_try_3->am_i_reached(p_squad))
+                {
+                    p_try_3->on_after_reach(p_squad);
+                    return true;
+                }
+            }
+
+        }
+
 	}
 
 	return false;
@@ -1060,13 +1109,44 @@ void StayReachOnTarget::make(const bool is_under_simulation)
 	else if (this->m_name == Globals::kSimulationSquadCurrentActionIDReachTarget)
 	{
 		Script_SE_SimulationSquad* const p_squad = ai().alife().objects().object(this->m_squad_id)->cast_script_se_simulationsquad();
-		Script_SE_SmartTerrain* p_terrain = Script_SimulationObjects::getInstance().getObjects().at(p_squad->getAssignedTargetID())->cast_script_se_smartterrain();
+
+        CSE_ALifeDynamicObject* p_target = nullptr;
+
+//		Script_SE_SmartTerrain* p_terrain = Script_SimulationObjects::getInstance().getObjects().at(p_squad->getAssignedTargetID())->cast_script_se_smartterrain();
+
+        if (Script_SimulationObjects::getInstance().getObjects().find(p_squad->getAssignedTargetID()) != Script_SimulationObjects::getInstance().getObjects().end())
+        {
+            p_target = Script_SimulationObjects::getInstance().getObjects().at(p_squad->getAssignedTargetID());
+        }
 
 		if (!is_under_simulation)
-			p_terrain = ai().alife().objects().object(p_squad->getAssignedTargetID())->cast_script_se_smartterrain();
+			p_target = ai().alife().objects().object(p_squad->getAssignedTargetID());
 
-		if (p_terrain)
-			p_terrain->on_reach_target(p_squad);
+        if (p_target)
+        {
+            //p_terrain->on_reach_target(p_squad);
+            auto* p_try_1 = p_target->cast_script_se_actor();
+            auto* p_try_2 = p_target->cast_script_se_simulationsquad();
+            auto* p_try_3 = p_target->cast_script_se_smartterrain();
+
+            if (p_try_1)
+            {
+                p_try_1->on_reach_target(p_squad);
+            }
+            else if (p_try_2)
+            {
+                p_try_2->on_reach_target(p_squad);
+            }
+            else if (p_try_3)
+            {
+                p_try_3->on_after_reach(p_squad);
+            }
+            else
+            {
+                R_ASSERT2(false, "can't be you must to cast to valid class which contains on_reach_target method!");
+            }
+        }
+
 
 		for (AssociativeVector<std::uint16_t, CSE_ALifeMonsterAbstract*>::const_iterator it = p_squad->squad_members().begin(); it != p_squad->squad_members().end(); ++it)
 		{

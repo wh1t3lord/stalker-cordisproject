@@ -1151,7 +1151,7 @@ public:
     void exit_smart(Script_SE_SimulationSquad* server_squad, const std::uint32_t& smart_terrain_id);
     void fill_start_position(void);
     Script_SE_SimulationSquad* create_squad(Script_SE_SmartTerrain* smart, const xr_string& squad_id);
-    Script_SE_SimulationSquad* get_squad_target(Script_SE_SimulationSquad* const p_squad);
+    CSE_ALifeDynamicObject* get_squad_target(Script_SE_SimulationSquad* const p_squad);
 private:
     /*
     enum group_id_by_levels

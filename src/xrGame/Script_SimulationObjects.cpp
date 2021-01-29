@@ -18,9 +18,12 @@ float Script_SimulationObjects::evaluate_priority(CSE_ALifeDynamicObject* target
     float priority = 0.0f;
     Script_SE_SimulationSquad* const p_squad_prior = squad->cast_script_se_simulationsquad();
     Script_SE_Actor* const p_actor = target->cast_script_se_actor();
+
+    MESSAGE("calcuate priority for [%s]", target->name_replace());
+
     if (p_actor)
     {
-        if (!p_actor->target_precondition(p_squad_prior) || Globals::is_on_the_same_level(target, squad))
+        if ((p_actor->target_precondition(p_squad_prior) == false) || (Globals::is_on_the_same_level(target, squad) == false))
         {
             return priority;
         }
@@ -34,7 +37,7 @@ float Script_SimulationObjects::evaluate_priority(CSE_ALifeDynamicObject* target
         Script_SE_SmartTerrain* const p_smart = target->cast_script_se_smartterrain();
         if (p_smart)
         {
-            if (!p_smart->target_precondition(squad, false) || Globals::is_on_the_same_level(target, squad))
+            if ((p_smart->target_precondition(squad, false) == false) || (Globals::is_on_the_same_level(target, squad) == false))
             {
                 return priority;
             }
@@ -48,7 +51,7 @@ float Script_SimulationObjects::evaluate_priority(CSE_ALifeDynamicObject* target
             Script_SE_SimulationSquad* const p_squad = target->cast_script_se_simulationsquad();
             if (p_squad)
             {
-                if (!p_squad->target_precondition(squad) || Globals::is_on_the_same_level(target, squad))
+                if ((p_squad->target_precondition(squad) == false) || (Globals::is_on_the_same_level(target, squad) == false))
                 {
                     return priority;
                 }
@@ -132,12 +135,12 @@ void Script_SimulationObjects::get_properties(CSE_ALifeDynamicObject* object)
         return;
     }
 
-    xr_string properties_section = object->name();
+    xr_string properties_section = object->name_replace();
 
     if (object->script_clsid() == Globals::get_script_clsid(CLSID_SE_ONLINE_OFFLINE_GROUP))
-        properties_section = object->name_replace();
+        properties_section = object->name();
 
-    if (!this->m_props_ini.section_exist(properties_section.c_str()))
+    if (this->m_props_ini.section_exist(properties_section.c_str()) == false)
     {
         MESSAGEW("object [%s] has no simulation properties section!", object->name());
         properties_section = "default";
@@ -150,6 +153,8 @@ void Script_SimulationObjects::get_properties(CSE_ALifeDynamicObject* object)
     }
 
     std::uint32_t count_lines = this->m_props_ini.line_count(properties_section.c_str());
+
+    MESSAGE("properties for [%s] by parsing [%s]", object->name_replace(), properties_section.c_str());
     for (int i = 0; i < count_lines; ++i)
     {
         xr_string section, value;
@@ -159,9 +164,14 @@ void Script_SimulationObjects::get_properties(CSE_ALifeDynamicObject* object)
         value = _v;
  
         if (section == "sim_avail")
+        {
             object->setSimulationAvail(XR_LOGIC::parse_condlist_by_server_object("simulation_object", "sim_avail", value));
+        }
         else
-            object->getProperties()[section] = value;
+        {
+            MESSAGE("set prop to key[%s] value[%s]", section, value);
+            object->setProperties(section, value);
+        }
     }
 
 	if (object->getSimulationAvail().empty())

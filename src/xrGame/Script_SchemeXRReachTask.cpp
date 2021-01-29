@@ -282,7 +282,7 @@ namespace Cordis
 			return false;
 		}
 
-		Script_SchemeXRReachTask::Script_SchemeXRReachTask(const xr_string& name, DataBase::Script_ComponentScheme_XRReachTask* storage) : Script_ISchemeStalker(nullptr, name, storage), m_p_storage(storage)
+		Script_SchemeXRReachTask::Script_SchemeXRReachTask(const xr_string& name, DataBase::Script_ComponentScheme_XRReachTask* storage) : Script_ISchemeStalker(nullptr, name, storage), m_p_storage(storage), m_target_id(0)
 		{
 		}
 
@@ -392,7 +392,8 @@ namespace Cordis
 
 		void Script_SchemeXRReachTask::net_destroy(CScriptGameObject* const p_client_object)
 		{
-			// TODO: поправить здесь ибо вылетает, проверить что у ПЫС
+			// TODO: теперь нужно удостовериться что все значения устанавливаемые для данного поля m_target_id являются неотрицательными 
+			// И проверка на существование производится по 0 а не std::uint16_t(-1)
 			if (this->m_target_id)
 			{
 				xr_string generated_id_name(std::move(std::to_string(this->m_target_id)));
@@ -406,6 +407,9 @@ namespace Cordis
 
 		void Script_SchemeXRReachTask::set_reach_task(CScriptGameObject* const p_client_object, CScriptIniFile* const p_ini, const xr_string& scheme_name, const xr_string& section_name, const xr_string& gulag_name)
 		{
+			// TODO: удалить данное сообщение потом
+			MESSAGEI("reach task is set to %d %s", p_client_object->ID(), p_client_object->Name());
+
 			DataBase::Script_ComponentScheme_XRReachTask* const p_storage = XR_LOGIC::assign_storage_and_bind<DataBase::Script_ComponentScheme_XRReachTask>(p_client_object, p_ini, scheme_name, section_name, gulag_name);
 		}
 
