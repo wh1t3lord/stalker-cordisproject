@@ -407,6 +407,9 @@ namespace Cordis
 
 		void Script_SchemeXRReachTask::set_reach_task(CScriptGameObject* const p_client_object, CScriptIniFile* const p_ini, const xr_string& scheme_name, const xr_string& section_name, const xr_string& gulag_name)
 		{
+			// TODO: удалить данное сообщение потом
+			MESSAGEI("reach task is set to %d %s", p_client_object->ID(), p_client_object->Name());
+
 			DataBase::Script_ComponentScheme_XRReachTask* const p_storage = XR_LOGIC::assign_storage_and_bind<DataBase::Script_ComponentScheme_XRReachTask>(p_client_object, p_ini, scheme_name, section_name, gulag_name);
 		}
 
