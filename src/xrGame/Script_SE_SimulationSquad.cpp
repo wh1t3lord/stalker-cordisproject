@@ -621,7 +621,7 @@ void Script_SE_SimulationSquad::create_npc(Script_SE_SmartTerrain* spawn_smart)
 std::uint16_t Script_SE_SimulationSquad::add_squad_member(const xr_string& spawn_section_name,
     const Fvector& spawn_position, const std::uint32_t& level_vertex_id, const std::uint16_t& game_vertex_id)
 {
-    if (!spawn_section_name.size())
+    if (spawn_section_name.empty())
     {
         R_ASSERT2(false, "It can't empty!");
         return Globals::kUnsignedInt16Undefined;
@@ -630,10 +630,12 @@ std::uint16_t Script_SE_SimulationSquad::add_squad_member(const xr_string& spawn
     xr_string custom_data_name =
         Globals::Utils::cfg_get_string(Globals::get_system_ini(), spawn_section_name, "custom_data");
 
-    if (!custom_data_name.size())
-        Msg("[Scripts/Script_SE_SimulationSquad/add_squad_member(spawn_section_name, spawn_position, level_vertex_id, "
-            "game_vertex_id)] INCORRECT npc_spawn_section USED [%s]. You cannot use npc with custom_data in squads",
-            spawn_section_name.c_str());
+    if (custom_data_name.empty())
+    {
+		MESSAGEW("INCORRECT npc_spawn_section USED [%s]. You cannot use npc with custom_data in squads",
+			spawn_section_name.c_str());
+    }
+
 
     CSE_Abstract* server_object =
         Globals::Game::alife_create(spawn_section_name, spawn_position, level_vertex_id, game_vertex_id);
