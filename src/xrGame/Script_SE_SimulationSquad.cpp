@@ -80,7 +80,7 @@ Script_SE_SimulationSquad::Script_SE_SimulationSquad(LPCSTR section)
       m_next_target_index(0), m_is_need_to_reset_location_masks(false),
       m_sound_manager(Script_SoundManager::getSoundManager((xr_string("squad_").append(this->name()))))
 {
-    Msg("[Scripts/Script_SE_SimulationSquad/ctor(section)] %s", section);
+    MESSAGE("%s", section);
     this->m_player_id_name =
         Globals::Utils::cfg_get_string(Globals::get_system_ini(), this->m_settings_id_name, "faction");
     this->m_condlist_action = XR_LOGIC::parse_condlist_by_server_object("assign_action", "target_smart",
