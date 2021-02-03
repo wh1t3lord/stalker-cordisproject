@@ -795,7 +795,7 @@ void Script_SE_SimulationSquad::set_squad_behaviour(void)
 
 void Script_SE_SimulationSquad::init_squad_on_load(void)
 {
-    Msg("[Scripts/Script_SE_SimulationSquad/init_squad_on_load()] Init squad %s on load",
+    MESSAGE("Init squad %s on load",
         std::to_string(this->ID).c_str());
 
     this->set_squad_sympathy();
