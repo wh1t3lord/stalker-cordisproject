@@ -776,8 +776,7 @@ void Script_SE_SimulationSquad::set_squad_behaviour(void)
 
     if (!squad_behavior_ini.section_exist(behaviour_section_name.c_str()))
     {
-        Msg("[Scripts/Script_SE_SimulationSquad/set_squad_behaviour()] There is no section [%s] in "
-            "misc\\squad_behaviours.ltx",
+        MESSAGEE("There is no section [%s] in misc\\squad_behaviours.ltx",
             behaviour_section_name.c_str());
         R_ASSERT(false);
         return;
