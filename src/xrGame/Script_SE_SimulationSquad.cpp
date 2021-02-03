@@ -924,6 +924,9 @@ void Script_SE_SimulationSquad::get_next_action(const bool is_under_simulation)
 {
     Script_SE_SmartTerrain* const p_server_squad_target = ai().alife().objects().object(this->m_assigned_target_id)->cast_script_se_smartterrain();
 
+    // TODO: потом удалить
+    MESSAGE("assigned_target_id[%s]", std::to_string(this->m_assigned_target_id).c_str());
+
     if (this->m_current_target_id == 0)
     {
         if (p_server_squad_target == nullptr || p_server_squad_target->am_i_reached(this))
@@ -951,6 +954,8 @@ void Script_SE_SimulationSquad::get_next_action(const bool is_under_simulation)
     }
     else
     {
+        // TODO: потом удалить
+        MESSAGE("reach_target get action");
         this->m_current_action = StayReachOnTarget(this->ID);
         this->m_current_action.setName(Globals::kSimulationSquadCurrentActionIDReachTarget);
         this->m_current_action.make(is_under_simulation);
