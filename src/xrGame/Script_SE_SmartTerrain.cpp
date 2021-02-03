@@ -119,11 +119,12 @@ bool arrived_to_smart(CSE_ALifeMonsterAbstract* object, Script_SE_SmartTerrain* 
 
                 if (squad_target)
                 {
+/*
                     if (squad_target->cast_script_se_simulationsquad())
                         return squad_target->cast_script_se_simulationsquad()->am_i_reached();
 
                     if (squad_target->cast_script_se_actor())
-                        return squad_target->cast_script_se_actor()->am_i_reached();
+                        return squad_target->cast_script_se_actor()->am_i_reached();*/
 
                     if (squad_target->cast_script_se_smartterrain())
                         return squad_target->cast_script_se_smartterrain()->am_i_reached(squad);
@@ -134,11 +135,12 @@ bool arrived_to_smart(CSE_ALifeMonsterAbstract* object, Script_SE_SmartTerrain* 
                 else
                 {
                     CSE_ALifeDynamicObject* server_object = ai().alife().objects().object(squad->getAssignedTargetID());
+/*
                     if (server_object->cast_script_se_simulationsquad())
                         return server_object->cast_script_se_simulationsquad()->am_i_reached();
 
                     if (server_object->cast_script_se_actor())
-                        return server_object->cast_script_se_actor()->am_i_reached();
+                        return server_object->cast_script_se_actor()->am_i_reached();*/
 
                     if (server_object->cast_script_se_smartterrain())
                         return server_object->cast_script_se_smartterrain()->am_i_reached(squad);

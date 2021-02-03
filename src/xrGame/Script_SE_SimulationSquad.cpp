@@ -336,7 +336,7 @@ std::uint16_t Script_SE_SimulationSquad::getScriptTarget(void)
 
     if (!smart)
     {
-        Msg("[Scripts/Script_SE_SimulationSquad/getScriptTarget()] Incorrect next point [%s] for squad [%s]",
+        MESSAGEE("Incorrect next point [%s] for squad [%s]",
             _new_target.c_str(), std::to_string(this->ID).c_str());
         R_ASSERT(false);
         return std::uint16_t(0);
@@ -834,7 +834,7 @@ void Script_SE_SimulationSquad::show(void)
         return;
     }
 
-    xr_string spot_name = "";
+    xr_string spot_name;
 
     if (Script_GlobalHelper::getInstance().getSimulationSquadIsSquadMonster().find(this->m_player_id_name) ==
         Script_GlobalHelper::getInstance().getSimulationSquadIsSquadMonster().end())
@@ -848,7 +848,7 @@ void Script_SE_SimulationSquad::show(void)
             spot_name = "alife_presentation_squad_neutral";
     }
 
-    if (spot_name.size())
+    if (spot_name.empty() == false)
     {
         if (spot_name == this->m_spot_section_name)
         {
@@ -856,7 +856,7 @@ void Script_SE_SimulationSquad::show(void)
             return;
         }
 
-        if (!this->m_spot_section_name.size())
+        if (this->m_spot_section_name.empty())
         {
             Globals::Game::level::map_add_object_spot(this->m_current_spot_id, spot_name.c_str(), "");
         }
@@ -870,7 +870,7 @@ void Script_SE_SimulationSquad::show(void)
     }
     else
     {
-        if (this->m_spot_section_name.size())
+        if (this->m_spot_section_name.empty() == false)
         {
             Globals::Game::level::map_remove_object_spot(this->m_current_spot_id, this->m_spot_section_name.c_str());
             this->m_spot_section_name.clear();
@@ -989,36 +989,36 @@ void Script_SE_SimulationSquad::generic_update(void)
             this->get_next_action(true);
             return;
         }
-
-        if ((this->m_current_action.getName().empty() == false) && this->assigned_target_available())
-        {
-            bool is_finished = this->m_current_action.update(true);
-
-            if (is_finished)
-            {
-                if (this->m_current_action.getName() == Globals::kSimulationSquadCurrentActionIDStayOnTarget || !this->m_assigned_target_id)
-                {
-                    CSE_ALifeDynamicObject* p_object = Script_SimulationBoard::getInstance().get_squad_target(this);
-                    MESSAGE("assigned_target[%s][%d]", p_object->name_replace(), p_object->ID);
-                    this->m_assigned_target_id = p_object->ID;
-                }
-
-                this->m_current_action.Clear();
-            }
-            else
-            {
-                return;
-            }
-        }
-        else
-        {
-            CSE_ALifeDynamicObject* p_object = Script_SimulationBoard::getInstance().get_squad_target(this);
-            this->m_current_action.Clear();
-            this->m_current_target_id = 0;
-            this->m_assigned_target_id = p_object->ID;
-            MESSAGE("assigned_target=[%s][%d]", p_object->name_replace(), p_object->ID);
-        }
     }
+
+	if ((this->m_current_action.getName().empty() == false) && this->assigned_target_available())
+	{
+		bool is_finished = this->m_current_action.update(true);
+
+		if (is_finished)
+		{
+			if (this->m_current_action.getName() == Globals::kSimulationSquadCurrentActionIDStayOnTarget || !this->m_assigned_target_id)
+			{
+				CSE_ALifeDynamicObject* p_object = Script_SimulationBoard::getInstance().get_squad_target(this);
+				MESSAGE("assigned_target[%s][%d]", p_object->name_replace(), p_object->ID);
+				this->m_assigned_target_id = p_object->ID;
+			}
+
+			this->m_current_action.Clear();
+		}
+		else
+		{
+			return;
+		}
+	}
+	else
+	{
+		CSE_ALifeDynamicObject* p_object = Script_SimulationBoard::getInstance().get_squad_target(this);
+		this->m_current_action.Clear();
+		this->m_current_target_id = 0;
+		this->m_assigned_target_id = p_object->ID;
+		MESSAGE("assigned_target=[%s][%d]", p_object->name_replace(), p_object->ID);
+	}
 
     this->get_next_action(true);
 }
