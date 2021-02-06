@@ -126,6 +126,9 @@ bool arrived_to_smart(CSE_ALifeMonsterAbstract* object, Script_SE_SmartTerrain* 
                     if (squad_target->cast_script_se_actor())
                         return squad_target->cast_script_se_actor()->am_i_reached();*/
 
+                    // TODO: удалить потом
+                    MESSAGE("am_i_reached");
+
                     if (squad_target->cast_script_se_smartterrain())
                         return squad_target->cast_script_se_smartterrain()->am_i_reached(squad);
 
@@ -142,6 +145,9 @@ bool arrived_to_smart(CSE_ALifeMonsterAbstract* object, Script_SE_SmartTerrain* 
                     if (server_object->cast_script_se_actor())
                         return server_object->cast_script_se_actor()->am_i_reached();*/
 
+				    // TODO: удалить потом
+					MESSAGE("am_i_reached");
+
                     if (server_object->cast_script_se_smartterrain())
                         return server_object->cast_script_se_smartterrain()->am_i_reached(squad);
 
@@ -151,6 +157,9 @@ bool arrived_to_smart(CSE_ALifeMonsterAbstract* object, Script_SE_SmartTerrain* 
             }
             else if (squad->getCurrentAction().getName() == Globals::kSimulationSquadCurrentActionIDStayOnTarget)
             {
+                // TODO: удалить потом
+                MESSAGE("squad arrived to smart [%s] by action: stay on target", smart->name_replace());
+
                 return true;
             }
         }
@@ -158,6 +167,9 @@ bool arrived_to_smart(CSE_ALifeMonsterAbstract* object, Script_SE_SmartTerrain* 
 
     if (object_vertex->level_id() == smart_vertex->level_id())
     {
+        // TODO: удалить потом
+        MESSAGE("distance_to_target <= 10000.0f");
+
         return object_position.distance_to_sqr(smart->position()) <= 10000.0f;
     }
     else
@@ -579,13 +591,14 @@ void Script_SE_SmartTerrain::register_npc(CSE_ALifeMonsterAbstract* object)
         return;
     }
 
-    MESSAGEI("register object %s", object->name_replace());
+    MESSAGEI("smart[%s] register object %s", this->name_replace(), object->name_replace());
  
 
     ++(this->m_population);
 
     if (!this->m_is_registered)
     {
+        MESSAGE("smart[%s] npc_to_register on register", this->name_replace());
         this->m_npc_to_register.push_back(object);
         return;
     }
@@ -599,11 +612,15 @@ void Script_SE_SmartTerrain::register_npc(CSE_ALifeMonsterAbstract* object)
 
     if (arrived_to_smart(object, this))
     {
+        MESSAGE("smart[%s] select_npc_job on register", this->name_replace());
+
         this->m_npc_info[object->ID] = this->fill_npc_info(object);
         this->select_npc_job(this->m_npc_info.at(object->ID));
     }
     else
     {
+		MESSAGE("smart[%s] set arriving on register", this->name_replace());
+
         this->m_arriving_npc[object->ID] = object;
     }
 }
@@ -1928,6 +1945,9 @@ void Script_SE_SmartTerrain::update_jobs(void)
         {
 			if (arrived_to_smart(it.second->cast_monster_abstract(), this))
 			{
+                // TODO: удалить потом
+                MESSAGE("squad arrived to smart [%s] selecting job", this->name_replace());
+
 				this->m_npc_info[it.second->ID] = this->fill_npc_info(it.second);
 
 				this->m_dead_time.clear();

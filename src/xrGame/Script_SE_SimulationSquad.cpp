@@ -924,9 +924,12 @@ void Script_SE_SimulationSquad::get_next_action(const bool is_under_simulation)
 {
     Script_SE_SmartTerrain* const p_server_squad_target = ai().alife().objects().object(this->m_assigned_target_id)->cast_script_se_smartterrain();
 
-    // TODO: потом удалить
-    MESSAGE("assigned_target_id[%s]", std::to_string(this->m_assigned_target_id).c_str());
-
+    if (p_server_squad_target)
+    {
+        // TODO: удалить потом
+		MESSAGE("assigned_target[%s]", p_server_squad_target->name_replace());
+    }
+    
     if (this->m_current_target_id == 0)
     {
         if (p_server_squad_target == nullptr || p_server_squad_target->am_i_reached(this))
@@ -937,16 +940,23 @@ void Script_SE_SimulationSquad::get_next_action(const bool is_under_simulation)
 				p_server_squad_target->on_after_reach(this);
             }
 
+            // TODO: удалить потом 
+            MESSAGE("stay_on_target");
+
 			this->m_current_action = StayReachOnTarget();
             this->m_current_action.setName(Globals::kSimulationSquadCurrentActionIDStayOnTarget);
 			this->m_current_target_id = this->m_assigned_target_id;
 			this->m_current_action.make(is_under_simulation);
+
 			return;
         }
     }
 
     if ((this->m_assigned_target_id == this->m_current_target_id) || this->m_assigned_target_id == 0)
     {
+        // TODO: удалить потом
+        MESSAGE("stay_on_target");
+
         this->m_current_action = StayReachOnTarget();
         this->m_current_action.setName(Globals::kSimulationSquadCurrentActionIDStayOnTarget);
         this->m_current_target_id = this->m_assigned_target_id;
@@ -1145,7 +1155,7 @@ void StayReachOnTarget::make(const bool is_under_simulation)
             }
             else if (p_try_3)
             {
-                p_try_3->on_after_reach(p_squad);
+                p_try_3->on_reach_target(p_squad);
             }
             else
             {

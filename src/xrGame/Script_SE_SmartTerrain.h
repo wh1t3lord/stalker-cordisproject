@@ -146,7 +146,7 @@ public:
     virtual void on_unregister(void);
     virtual void STATE_Read(NET_Packet& packet, u16 size);
     virtual void STATE_Write(NET_Packet& packet);
-    virtual void register_npc(CSE_ALifeMonsterAbstract* object);
+    void register_npc(CSE_ALifeMonsterAbstract* object) override;
     virtual void unregister_npc(CSE_ALifeMonsterAbstract* object);
     virtual CALifeSmartTerrainTask* task(CSE_ALifeMonsterAbstract* object);
     void update(void) override;
