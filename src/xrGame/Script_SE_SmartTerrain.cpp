@@ -1172,20 +1172,22 @@ void Script_SE_SmartTerrain::clear_dead(CSE_ALifeDynamicObject* server_object)
         return;
     }
 
-    if (this->m_npc_info[server_object->ID].m_job_link1 && this->m_npc_info[server_object->ID].m_job_link2)
+    NpcInfo& npc_info = this->m_npc_info.at(server_object->ID);
+
+    if (npc_info.m_job_link1 && npc_info.m_job_link2)
     {
         R_ASSERT2(false, "CANNOT BE SOMETHING WRONG!");
         return;
     }
 
-    if (this->m_npc_info[server_object->ID].m_job_link1 ? this->m_npc_info[server_object->ID].m_job_link1->m_job_index :
-                                                          this->m_npc_info[server_object->ID].m_job_link2->m_job_index)
+    if (npc_info.m_job_link1 ? npc_info.m_job_link1->m_job_index :
+                                                          npc_info.m_job_link2->m_job_index)
     {
-        std::uint32_t m_job_index = this->m_npc_info[server_object->ID].m_job_link1 ?
-            this->m_npc_info[server_object->ID].m_job_link1->m_job_index :
-            this->m_npc_info[server_object->ID].m_job_link2->m_job_index;
+        std::uint32_t m_job_index = npc_info.m_job_link1 ?
+            npc_info.m_job_link1->m_job_index :
+            npc_info.m_job_link2->m_job_index;
         this->m_dead_time[m_job_index] = Globals::Game::get_game_time();
-        this->m_npc_info[server_object->ID].clear();
+        npc_info.clear();
         CSE_ALifeMonsterAbstract* object = server_object->cast_monster_abstract();
 
         if (!object)
@@ -1203,7 +1205,7 @@ void Script_SE_SmartTerrain::clear_dead(CSE_ALifeDynamicObject* server_object)
         return;
     }
 
-    if (this->m_arriving_npc[server_object->ID])
+    if (this->m_arriving_npc.at(server_object->ID))
     {
         this->m_arriving_npc[server_object->ID] = nullptr;
         CSE_ALifeMonsterAbstract* object = server_object->cast_monster_abstract();
