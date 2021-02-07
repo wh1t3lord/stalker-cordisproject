@@ -635,13 +635,13 @@ void Script_SE_SmartTerrain::unregister_npc(CSE_ALifeMonsterAbstract* object)
 
     --(this->m_population);
 
-    if (this->m_npc_info[object->ID].m_server_object)
+    if (this->m_npc_info.at(object->ID).m_server_object)
     {
         object->m_smart_terrain_id = Globals::kUnsignedInt16Undefined;
         return;
     }
 
-    if (this->m_arriving_npc[object->ID])
+    if (this->m_arriving_npc.at(object->ID))
     {
         this->m_arriving_npc[object->ID] = nullptr;
         object->m_smart_terrain_id = Globals::kUnsignedInt16Undefined;
