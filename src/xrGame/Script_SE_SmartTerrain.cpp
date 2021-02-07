@@ -662,7 +662,7 @@ CALifeSmartTerrainTask* Script_SE_SmartTerrain::task(CSE_ALifeMonsterAbstract* o
     if (this->m_arriving_npc[object->ID])
         return this->m_smart_alife_task.get();
 
-    return this->m_job_data[this->m_npc_info[object->ID].m_job_id]->m_alife_task;
+    return this->m_job_data.at(this->m_npc_info.at(object->ID).m_job_id)->m_alife_task;
 }
 
 void Script_SE_SmartTerrain::update(void)
