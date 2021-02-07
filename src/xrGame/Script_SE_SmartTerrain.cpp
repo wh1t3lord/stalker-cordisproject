@@ -1346,8 +1346,8 @@ void Script_SE_SmartTerrain::select_npc_job(NpcInfo& npc_info)
     {
         if (npc_info.m_job_link1 || npc_info.m_job_link2)
         {
-            this->m_npc_by_job_section[this->m_job_data[npc_info.m_job_link1 ? npc_info.m_job_link1->m_job_index :
-                                                                               npc_info.m_job_link2->m_job_index]
+            this->m_npc_by_job_section[this->m_job_data.at(npc_info.m_job_link1 ? npc_info.m_job_link1->m_job_index :
+                                                                               npc_info.m_job_link2->m_job_index)
                                            ->m_job_id.first] = 0;
             if (npc_info.m_job_link1)
             {
@@ -1373,14 +1373,14 @@ void Script_SE_SmartTerrain::select_npc_job(NpcInfo& npc_info)
         if (selected_job_link)
         {
             selected_job_link->m_npc_id = npc_info.m_server_object->ID;
-            this->m_npc_by_job_section[this->m_job_data[selected_job_link->m_job_index]->m_job_id.first] = selected_job_link->m_npc_id;
+            this->m_npc_by_job_section[this->m_job_data.at(selected_job_link->m_job_index)->m_job_id.first] = selected_job_link->m_npc_id;
         }
 
 
         if (selected_job_link_exclusive)
         {
             selected_job_link_exclusive->m_npc_id = npc_info.m_server_object->ID;
-            this->m_npc_by_job_section[this->m_job_data[selected_job_link->m_job_index]->m_job_id.first] = selected_job_link_exclusive->m_npc_id;
+            this->m_npc_by_job_section[this->m_job_data.at(selected_job_link->m_job_index)->m_job_id.first] = selected_job_link_exclusive->m_npc_id;
         }
 
 
