@@ -639,11 +639,50 @@ void Script_SE_SmartTerrain::unregister_npc(CSE_ALifeMonsterAbstract* object)
 
     --(this->m_population);
 
-    if (this->m_npc_info.at(object->ID).m_server_object)
+    if (this->m_npc_info.find(object->ID) != this->m_npc_info.end())
     {
-        object->m_smart_terrain_id = Globals::kUnsignedInt16Undefined;
-        return;
+		object->m_smart_terrain_id = Globals::kUnsignedInt16Undefined;
+        
+        NpcInfo& npc_info = this->m_npc_info.at(object->ID);
+
+        if (npc_info.m_job_link1 && npc_info.m_job_link2)
+        {
+            R_ASSERT2(false, "can't be check your initialization of npc_info");
+        }
+
+        if (npc_info.m_job_link1)
+        {
+            npc_info.m_job_link1->m_npc_id = 0;
+        }
+        else if (npc_info.m_job_link2)
+        {
+            npc_info.m_job_link2->m_npc_id = 0;
+        }
+
+        this->m_npc_info.erase(object->ID);
+
+        DataBase::Storage_Data* p_storage = Globals::getStorage(object->ID);
+        if (p_storage)
+        {
+            CScriptGameObject* p_client_object = p_storage->getClientObject();
+            auto stype_id = Globals::kSTypeMobile;
+            
+            if (Globals::IsStalker(p_client_object))
+            {
+                stype_id = Globals::kSTypeStalker;
+            }
+
+            // TODO: добавить другую перегрузку или свести всё к одному типу лучше к pointer
+            XR_LOGIC::intialize_job(p_client_object, *p_storage, false, DataBase::Storage::getInstance().getActor(), stype_id);
+        }
+
+		return;		
     }
+
+
+    // Если здесь вылетает, то это говорит о том, что у вас не правильная работа смарта
+    // Проверяйте лог
+    // Проверяйте содержимое работ и их распределение
 
     if (this->m_arriving_npc.at(object->ID))
     {
@@ -651,8 +690,6 @@ void Script_SE_SmartTerrain::unregister_npc(CSE_ALifeMonsterAbstract* object)
         object->m_smart_terrain_id = Globals::kUnsignedInt16Undefined;
         return;
     }
-
-    R_ASSERT2(false, "not reached!");
 }
 
 CALifeSmartTerrainTask* Script_SE_SmartTerrain::task(CSE_ALifeMonsterAbstract* object)
