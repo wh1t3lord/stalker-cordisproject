@@ -499,8 +499,7 @@ void Script_SE_SmartTerrain::STATE_Read(NET_Packet& packet, u16 size)
             {
                 this->m_last_respawn_update = xrTime();
 #ifdef DEBUG
-                MESSAGEW("[Scripts/Script_SE_SmartTerrain/STATE_Read(packet, size)] this->m_last_respawn_update = "
-                    "xrTime()!");
+                MESSAGEW("this->m_last_respawn_update = xrTime()!");
 #endif // DEBUG
             }
         }
