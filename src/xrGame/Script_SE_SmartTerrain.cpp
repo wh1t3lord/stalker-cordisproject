@@ -1954,8 +1954,6 @@ void Script_SE_SmartTerrain::update_jobs(void)
 
 				this->m_npc_info[it.second->ID] = this->fill_npc_info(it.second);
 
-      //          R_ASSERT2(this->m_npc_info[it.second->ID].m_server_object, "validation, if nullptr some is bad");
-
 				this->m_dead_time.clear();
 
 				this->select_npc_job(this->m_npc_info.at(it.second->ID));
