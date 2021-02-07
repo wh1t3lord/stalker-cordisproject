@@ -1217,7 +1217,6 @@ void Script_SE_SmartTerrain::clear_dead(CSE_ALifeDynamicObject* server_object)
         }
 
         object->m_smart_terrain_id = 0xffff;
-        //   return;
     }
 }
 
