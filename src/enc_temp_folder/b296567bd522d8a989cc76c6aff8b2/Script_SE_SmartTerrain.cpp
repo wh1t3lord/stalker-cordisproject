@@ -190,13 +190,9 @@ bool is_job_available_to_npc(const NpcInfo& npc_info, const JobData_SubData& job
 
     // @ Lord: убедить что будет выполняться оригинальное условие что объект вообще был инициализирован после
     // default инициализации, то есть xrTime() -> xrTime().setSomeValue();
+    if (smart->getDeadTime().at(job_info.m_job_index) > 0)
+        return false;
 
-    if (smart->getDeadTime().find(job_info.m_job_index) != smart->getDeadTime().end())
-    {
-		if (smart->getDeadTime().at(job_info.m_job_index) > 0)
-			return false;
-    }
-    
     if (job_info.m_function)
     {
         if (!job_info.m_function(npc_info.m_server_object, smart, job_info.m_function_params, npc_info))
