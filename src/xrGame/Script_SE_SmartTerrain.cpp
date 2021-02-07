@@ -1441,45 +1441,45 @@ void Script_SE_SmartTerrain::switch_to_desired_job(CScriptGameObject* const p_np
 
     if (npc_changing_id == 0)
     {
-        if (this->m_npc_info[npc_id].m_job_link1 && this->m_npc_info[npc_id].m_job_link2)
+        if (npc_info.m_job_link1 && npc_info.m_job_link2)
         {
             R_ASSERT2(false, "can't have two valid jobs!!!");
         }
 
-        if (this->m_npc_info[npc_id].m_job_link1)
-            this->m_npc_info[npc_id].m_job_link1 = nullptr;
+        if (npc_info.m_job_link1)
+            npc_info.m_job_link1 = nullptr;
 
-        if (this->m_npc_info[npc_id].m_job_link2)
-            this->m_npc_info[npc_id].m_job_link2 = nullptr;
+        if (npc_info.m_job_link2)
+            npc_info.m_job_link2 = nullptr;
 
-        this->m_npc_info[npc_id].m_job_id = -1;
-        this->m_npc_info[npc_id].m_job_prioprity = -1;
+        npc_info.m_job_id = -1;
+        npc_info.m_job_prioprity = -1;
 
-        this->select_npc_job(this->m_npc_info[npc_id]);
+        this->select_npc_job(npc_info);
         return;
     }
 
     if (this->m_npc_info.find(npc_changing_id) == this->m_npc_info.end())
     {
-        if (this->m_npc_info[npc_id].m_job_link1 && this->m_npc_info[npc_id].m_job_link2)
+        if (npc_info.m_job_link1 && npc_info.m_job_link2)
         {
             R_ASSERT2(false, "can't have two valid jobs!!!");
         }
 
-        if (this->m_npc_info[npc_id].m_job_link1)
-            this->m_npc_info[npc_id].m_job_link1 = nullptr;
+        if (npc_info.m_job_link1)
+            npc_info.m_job_link1 = nullptr;
 
-        if (this->m_npc_info[npc_id].m_job_link2)
-            this->m_npc_info[npc_id].m_job_link2 = nullptr;
+        if (npc_info.m_job_link2)
+            npc_info.m_job_link2 = nullptr;
 
-        this->m_npc_info[npc_id].m_job_id = -1;
-        this->m_npc_info[npc_id].m_job_prioprity = -1;
+        npc_info.m_job_id = -1;
+        npc_info.m_job_prioprity = -1;
 
-        this->select_npc_job(this->m_npc_info[npc_id]);
+        this->select_npc_job(npc_info);
         return;
     }
 
-    std::uint32_t desired_job_id = this->m_npc_info[npc_changing_id].m_job_id;
+    std::uint32_t desired_job_id = this->m_npc_info.at(npc_changing_id).m_job_id;
 
     if (npc_info.m_job_link1 && npc_info.m_job_link2)
     {
@@ -1488,18 +1488,18 @@ void Script_SE_SmartTerrain::switch_to_desired_job(CScriptGameObject* const p_np
 
     if (npc_info.m_job_link1)
     {
-        this->m_npc_by_job_section[this->m_job_data[npc_info.m_job_link1->m_job_index]->m_job_id.first] = 0;
+        this->m_npc_by_job_section[this->m_job_data.at(npc_info.m_job_link1->m_job_index)->m_job_id.first] = 0;
         npc_info.m_job_link1->m_npc_id = 0;
     }
 
     if (npc_info.m_job_link2)
     {
-        this->m_npc_by_job_section[this->m_job_data[npc_info.m_job_link2->m_job_index]->m_job_id.first] = 0;
+        this->m_npc_by_job_section[this->m_job_data.at(npc_info.m_job_link2->m_job_index)->m_job_id.first] = 0;
         npc_info.m_job_link2->m_npc_id = 0;
     }
 
-    JobData_SubData* const p_data = this->m_npc_info[npc_changing_id].m_job_link1;
-    JobDataExclusive* const p_data_exclusive = this->m_npc_info[npc_changing_id].m_job_link2;
+    JobData_SubData* const p_data = this->m_npc_info.at(npc_changing_id).m_job_link1;
+    JobDataExclusive* const p_data_exclusive = this->m_npc_info.at(npc_changing_id).m_job_link2;
 
     if (p_data && p_data_exclusive)
     {
@@ -1509,7 +1509,7 @@ void Script_SE_SmartTerrain::switch_to_desired_job(CScriptGameObject* const p_np
     if (p_data)
     {
         p_data->m_npc_id = npc_info.m_server_object->ID;
-        this->m_npc_by_job_section[this->m_job_data[p_data->m_job_index]->m_job_id.first] = p_data->m_npc_id;
+        this->m_npc_by_job_section[this->m_job_data.at(p_data->m_job_index)->m_job_id.first] = p_data->m_npc_id;
         npc_info.m_job_id = p_data->m_job_index;
         npc_info.m_job_prioprity = p_data->m_priority;
         npc_info.m_begin_job = true;
@@ -1518,7 +1518,7 @@ void Script_SE_SmartTerrain::switch_to_desired_job(CScriptGameObject* const p_np
     if (p_data_exclusive)
     {
         p_data_exclusive->m_npc_id = npc_info.m_server_object->ID;
-        this->m_npc_by_job_section[this->m_job_data[p_data_exclusive->m_job_index]->m_job_id.first] =
+        this->m_npc_by_job_section[this->m_job_data.at(p_data_exclusive->m_job_index)->m_job_id.first] =
             p_data_exclusive->m_npc_id;
         npc_info.m_job_id = p_data_exclusive->m_job_index;
         npc_info.m_job_prioprity = p_data_exclusive->m_priority;
@@ -1530,23 +1530,27 @@ void Script_SE_SmartTerrain::switch_to_desired_job(CScriptGameObject* const p_np
 
     if (DataBase::Storage::getInstance().getStorage().find(npc_id) !=
         DataBase::Storage::getInstance().getStorage().end())
+    {
         this->setup_logic(DataBase::Storage::getInstance().getStorage().at(npc_id).getClientObject());
+    }
 
-    if (this->m_npc_info[npc_changing_id].m_job_link1 && this->m_npc_info[npc_changing_id].m_job_link2)
+    NpcInfo& npc_info_for_changed_id = this->m_npc_info.at(npc_changing_id);
+
+    if (npc_info_for_changed_id.m_job_link1 && npc_info_for_changed_id.m_job_link2)
     {
         R_ASSERT2(false, "can't have two valid jobs!!!");
     }
 
-    if (this->m_npc_info[npc_changing_id].m_job_link1)
-        this->m_npc_info[npc_changing_id].m_job_link1 = nullptr;
+    if (npc_info_for_changed_id.m_job_link1)
+        npc_info_for_changed_id.m_job_link1 = nullptr;
 
-    if (this->m_npc_info[npc_changing_id].m_job_link2)
-        this->m_npc_info[npc_changing_id].m_job_link2 = nullptr;
+    if (npc_info_for_changed_id.m_job_link2)
+        npc_info_for_changed_id.m_job_link2 = nullptr;
 
-    this->m_npc_info[npc_changing_id].m_job_id = -1;
-    this->m_npc_info[npc_changing_id].m_job_prioprity = -1;
+    npc_info_for_changed_id.m_job_id = -1;
+    npc_info_for_changed_id.m_job_prioprity = -1;
 
-    this->select_npc_job(this->m_npc_info[npc_changing_id]);
+    this->select_npc_job(npc_info_for_changed_id);
 }
 
 void Script_SE_SmartTerrain::setup_logic(CScriptGameObject* const p_npc)
@@ -1950,6 +1954,8 @@ void Script_SE_SmartTerrain::update_jobs(void)
 
 				this->m_npc_info[it.second->ID] = this->fill_npc_info(it.second);
 
+      //          R_ASSERT2(this->m_npc_info[it.second->ID].m_server_object, "validation, if nullptr some is bad");
+
 				this->m_dead_time.clear();
 
 				this->select_npc_job(this->m_npc_info.at(it.second->ID));
@@ -1957,6 +1963,9 @@ void Script_SE_SmartTerrain::update_jobs(void)
 			}
         }
     }
+
+    // TODO: удалить
+    xr_vector<std::pair<std::uint32_t, NpcInfo>> before(this->m_npc_info.begin(), this->m_npc_info.end());
 
     // Lord: проверить сортировку и заполнение 
     xr_vector<std::pair<std::uint32_t, NpcInfo>> temp(this->m_npc_info.begin(), this->m_npc_info.end());
