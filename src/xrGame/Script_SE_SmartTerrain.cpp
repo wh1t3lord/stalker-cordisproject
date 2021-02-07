@@ -1561,8 +1561,8 @@ void Script_SE_SmartTerrain::setup_logic(CScriptGameObject* const p_npc)
         return;
     }
 
-    NpcInfo& npc_info = this->m_npc_info[p_npc->ID()];
-    JobDataSmartTerrain* job = this->m_job_data[npc_info.m_job_id];
+    NpcInfo& npc_info = this->m_npc_info.at(p_npc->ID());
+    JobDataSmartTerrain* job = this->m_job_data.at(npc_info.m_job_id);
     CScriptIniFile* ini = job->m_ini_file ? job->m_ini_file : this->m_ltx;
     xr_string ltx_name = job->m_ini_path_name.empty() ? this->m_ltx_name : job->m_ini_path_name;
     if (!ini)
