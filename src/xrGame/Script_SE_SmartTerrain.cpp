@@ -190,7 +190,7 @@ bool is_job_available_to_npc(const NpcInfo& npc_info, const JobData_SubData& job
 
     // @ Lord: убедить что будет выполняться оригинальное условие что объект вообще был инициализирован после
     // default инициализации, то есть xrTime() -> xrTime().setSomeValue();
-    if (smart->getDeadTime()[job_info.m_job_index] > 0)
+    if (smart->getDeadTime().at(job_info.m_job_index) > 0)
         return false;
 
     if (job_info.m_function)
@@ -1656,7 +1656,7 @@ void Script_SE_SmartTerrain::init_npc_after_load(void)
 
             if (info_npc.m_job_link1)
             {
-                this->m_npc_by_job_section[this->m_job_data[info_npc.m_job_link1->m_job_index]->m_job_id.first] = it.first;
+                this->m_npc_by_job_section[this->m_job_data.at(info_npc.m_job_link1->m_job_index)->m_job_id.first] = it.first;
             }
         }
         else
