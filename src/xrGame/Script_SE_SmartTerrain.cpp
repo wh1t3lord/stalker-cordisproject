@@ -1438,7 +1438,7 @@ void Script_SE_SmartTerrain::switch_to_desired_job(CScriptGameObject* const p_np
     const std::uint16_t npc_id = p_npc->ID();
     NpcInfo& npc_info = this->m_npc_info.at(npc_id);
 
-    std::uint16_t npc_changing_id = this->m_npc_by_job_section[npc_info.m_need_job];
+    std::uint16_t npc_changing_id = this->m_npc_by_job_section.at(npc_info.m_need_job);
 
     if (npc_changing_id == 0)
     {
