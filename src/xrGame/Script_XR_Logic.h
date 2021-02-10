@@ -121,7 +121,7 @@ inline CScriptIniFile* get_customdata_or_ini_file(CScriptGameObject* npc, const 
     return p_instance;
 }
 
-inline void intialize_job(CScriptGameObject* object, const DataBase::Storage_Data& storage, const bool& loaded,
+inline void initialize_job(CScriptGameObject* object, const DataBase::Storage_Data& storage, const bool& loaded,
     CScriptGameObject* actor, const std::uint16_t& stype)
 {
     if (!loaded)

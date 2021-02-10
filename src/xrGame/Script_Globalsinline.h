@@ -3680,17 +3680,17 @@ inline void setup_gulag_and_logic_on_spawn(CScriptGameObject* const p_client_obj
             }
             else
             {
-                XR_LOGIC::intialize_job(p_client_object, storage, loaded, DataBase::Storage::getInstance().getActor(), stype);
+                XR_LOGIC::initialize_job(p_client_object, storage, loaded, DataBase::Storage::getInstance().getActor(), stype);
             }
         }
         else
         {
-            XR_LOGIC::intialize_job(p_client_object, storage, loaded, DataBase::Storage::getInstance().getActor(), stype);
+            XR_LOGIC::initialize_job(p_client_object, storage, loaded, DataBase::Storage::getInstance().getActor(), stype);
         }
     }
     else
     {
-        XR_LOGIC::intialize_job(p_client_object, storage, loaded, DataBase::Storage::getInstance().getActor(), stype);
+        XR_LOGIC::initialize_job(p_client_object, storage, loaded, DataBase::Storage::getInstance().getActor(), stype);
     }
 }
 

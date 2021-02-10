@@ -717,9 +717,6 @@ inline void disable_generic_schemes(CScriptGameObject* const p_client_object, co
 inline void enable_generic_schemes(CScriptIniFile* const p_ini, CScriptGameObject* const p_client_object,
     const std::uint32_t stype, const xr_string& section_logic_name);
 inline CScriptIniFile* get_customdata_or_ini_file(CScriptGameObject* npc, const xr_string& filename);
-/*
-inline void intialize_job(CScriptGameObject* object, DataBase::Storage_Data& storage, const bool& loaded,
-    CScriptGameObject* actor, const std::uint16_t& stype);*/
 inline void parse_infopotions(xr_map<std::uint32_t, CondlistData::CondlistValues>& data, xr_string& buffer);
 inline bool parse_condlistdata(xr_map<std::uint32_t, CondlistData>& data, xr_vector<CondlistParsingData>& buffer);
 inline xr_map<std::uint32_t, CondlistData> parse_condlist_by_server_object(

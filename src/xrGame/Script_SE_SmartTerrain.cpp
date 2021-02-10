@@ -672,7 +672,7 @@ void Script_SE_SmartTerrain::unregister_npc(CSE_ALifeMonsterAbstract* object)
             }
 
             // TODO: добавить другую перегрузку или свести всё к одному типу лучше к pointer
-            XR_LOGIC::intialize_job(p_client_object, *p_storage, false, DataBase::Storage::getInstance().getActor(), stype_id);
+            XR_LOGIC::initialize_job(p_client_object, *p_storage, false, DataBase::Storage::getInstance().getActor(), stype_id);
         }
 
 		return;		

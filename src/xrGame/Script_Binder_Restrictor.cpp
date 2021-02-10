@@ -64,7 +64,7 @@ void Cordis::Scripts::Script_Binder_Restrictor::shedule_Update(u32 time_delta)
 	if (!this->m_is_initialized && DataBase::Storage::getInstance().getActor())
 	{
 		this->m_is_initialized = true;
-		XR_LOGIC::intialize_job(this->m_object, DataBase::Storage::getInstance().getStorage().at(this->m_object->ID()), this->m_is_loaded, DataBase::Storage::getInstance().getActor(), Globals::kSTypeRestrictor);
+		XR_LOGIC::initialize_job(this->m_object, DataBase::Storage::getInstance().getStorage().at(this->m_object->ID()), this->m_is_loaded, DataBase::Storage::getInstance().getActor(), Globals::kSTypeRestrictor);
 	}
 
 	this->m_object->info_clear();
