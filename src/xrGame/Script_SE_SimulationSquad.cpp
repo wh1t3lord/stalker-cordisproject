@@ -377,13 +377,18 @@ void Script_SE_SimulationSquad::assign_squad_member_to_smart(
 bool Script_SE_SimulationSquad::assigned_target_available(void)
 {
     bool is_target_object = this->m_assigned_target_id && ai().alife().objects().object(this->m_assigned_target_id);
+    
     if (is_target_object == false)
         return false;
 
     CSE_ALifeDynamicObject* const p_server_object = ai().alife().objects().object(this->m_assigned_target_id);
     Script_SE_SmartTerrain* const p_smart = p_server_object->cast_script_se_smartterrain();
+    
     if (p_smart)
-        p_smart->target_precondition(this, true);
+    {
+        return p_smart->target_precondition(this, true);
+    }
+
 
     return false;
 }
