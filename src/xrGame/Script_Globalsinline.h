@@ -3646,7 +3646,14 @@ inline void setup_gulag_and_logic_on_spawn(CScriptGameObject* const p_client_obj
     if (p_monster)
     {
         std::uint16_t smart_terrain_id = p_monster->m_smart_terrain_id;
-        MESSAGE("client_object=%s smart_terrain_id=%d is_loaded=%s", p_client_object->Name(), smart_terrain_id, loaded ? "true" : false);
+
+        MESSAGE("client_object=[%s][%d] clients_server_objet=[%s][%d] smart_terrain_id=%d is_loaded=%s", 
+            p_client_object->Name(),
+            p_client_object->ID(),
+            p_monster->name_replace(),
+            p_monster->ID,
+            smart_terrain_id,
+            loaded ? "true" : false);
 
         if (smart_terrain_id && smart_terrain_id != Globals::kUnsignedInt16Undefined)
         {

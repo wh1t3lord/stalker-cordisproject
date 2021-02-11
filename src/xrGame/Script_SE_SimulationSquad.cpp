@@ -384,12 +384,20 @@ bool Script_SE_SimulationSquad::assigned_target_available(void)
     CSE_ALifeDynamicObject* const p_server_object = ai().alife().objects().object(this->m_assigned_target_id);
     Script_SE_SmartTerrain* const p_smart = p_server_object->cast_script_se_smartterrain();
     
+    // TODO: удалить потом
+    MESSAGE("calling target_precondition from p_smart[%s]", p_smart->name_replace());
+
     if (p_smart)
     {
-        return p_smart->target_precondition(this, true);
+        bool result = p_smart->target_precondition(this, true);
+        
+        // TODO: тоже удалить
+        MESSAGE("result from function: %s", std::to_string(result).c_str());
+
+        return result;
     }
 
-
+    MESSAGE("forced return: false");
     return false;
 }
 
@@ -402,6 +410,9 @@ bool Script_SE_SimulationSquad::target_precondition(CSE_ALifeObject* squad)
     }
 
     Script_SE_SimulationSquad* const p_squad = squad->cast_script_se_simulationsquad();
+
+    // TODO: удалить
+    MESSAGE("squad[%s] his smart[%d]", p_squad->name_replace(), p_squad->getAssignedTargetID());
 
     if (p_squad)
     {
@@ -1010,6 +1021,8 @@ void Script_SE_SimulationSquad::generic_update(void)
             return;
         }
     }
+
+    MESSAGE("[%s] his smart[%d] current_action=[%s]", this->name_replace(), this->m_assigned_target_id, this->m_current_action.getName().c_str());
 
 	if ((this->m_current_action.getName().empty() == false) && this->assigned_target_available())
 	{

@@ -588,6 +588,8 @@ void Script_SE_SmartTerrain::STATE_Write(NET_Packet& packet)
 
 void Script_SE_SmartTerrain::register_npc(CSE_ALifeMonsterAbstract* object)
 {
+    // TODO: удалить после отладки весь мусор
+
     if (!object)
     {
         R_ASSERT2(false, "can't register nullptr!");
@@ -611,12 +613,20 @@ void Script_SE_SmartTerrain::register_npc(CSE_ALifeMonsterAbstract* object)
         object->m_task_reached = true;
     }
 
+    MESSAGE("id before [%s]", std::to_string(object->m_smart_terrain_id).c_str());
     object->m_smart_terrain_id = this->ID;
+	MESSAGE("smart[%s] select_npc_job on register changed smart_terrain_id[%s] for npc[%d]",
+		this->name_replace(),
+		std::to_string(object->m_smart_terrain_id).c_str(),
+		object->ID);
+
+    auto* p_original = ai().alife().objects().object(object->ID)->cast_monster_abstract();
+    MESSAGE("original: %d", p_original->m_smart_terrain_id);
+
+
 
     if (arrived_to_smart(object, this))
     {
-        MESSAGE("smart[%s] select_npc_job on register", this->name_replace());
-
         this->m_npc_info[object->ID] = this->fill_npc_info(object);
         this->select_npc_job(this->m_npc_info.at(object->ID));
     }
@@ -826,7 +836,7 @@ bool Script_SE_SmartTerrain::target_precondition(CSE_ALifeObject* squad, bool is
     const SimulationActivitiesType& squad_params = Script_SimulationBoard::getInstance().getSimulationActivities().at(p_squad->getPlayerID());
     if (squad_params.m_smart.empty())
     {
-        MESSAGEWR("m_smart was empty!");
+        MESSAGEWR("m_smart was empty! [%s][%s]", this->name_replace(), p_squad->name_replace());
         return false;
     }
 
