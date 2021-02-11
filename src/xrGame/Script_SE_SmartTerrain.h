@@ -206,10 +206,10 @@ public:
     inline std::uint16_t getSquadID(void) noexcept { return this->m_squad_id; }
     inline xr_string getSpawnPointName(void) noexcept { return this->m_spawn_point_name; }
     inline std::uint32_t getStaydSquadQuan(void) noexcept { return this->m_stayed_squad_quan; }
-    inline xr_map<std::uint32_t, NpcInfo>& getNpcInfo(void) noexcept
+    inline const xr_map<std::uint32_t, NpcInfo>& getNpcInfo(void) const noexcept
     {
         return this->m_npc_info;
-    } // @ Lord: const return!!!
+    }  
     inline xr_map<std::uint32_t, JobDataSmartTerrain*>& getJobData(void) noexcept { return this->m_job_data; }
     inline CALifeSmartTerrainTask* getAlifeSmartTerrainTask(void) { return this->m_smart_alife_task.get(); }
     inline CScriptIniFile* getIni(void) const noexcept { return this->m_ini.get(); }

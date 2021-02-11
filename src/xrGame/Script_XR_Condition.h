@@ -744,7 +744,7 @@ inline bool is_obj_on_job(CScriptGameObject* actor, CScriptGameObject* npc, cons
         }
     }
 
-    for (std::pair<const std::uint32_t, NpcInfo>& it : server_smart->getNpcInfo())
+    for (const std::pair<const std::uint32_t, NpcInfo>& it : server_smart->getNpcInfo())
     {
         JobDataSmartTerrain* job_data = nullptr;
 
@@ -800,7 +800,7 @@ inline bool is_distance_to_obj_on_job_le(
 
     Script_SE_SmartTerrain* server_smart = XR_GULAG::get_npc_smart(npc)->cast_script_se_smartterrain();
 
-    for (std::pair<const std::uint32_t, NpcInfo>& it : server_smart->getNpcInfo())
+    for (const std::pair<const std::uint32_t, NpcInfo>& it : server_smart->getNpcInfo())
     {
         JobDataSmartTerrain* job_data = nullptr;
 
