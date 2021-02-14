@@ -191,7 +191,7 @@ public:
     float evaluate_priority(Script_SE_SimulationSquad* p_squad);
 
 private:
-    inline xr_string& pick_next_target(void) { return this->m_parsed_targets[this->m_next_target_index]; }
+    inline const xr_string& pick_next_target(void) const { return this->m_parsed_targets.at(this->m_next_target_index); }
     void set_location_types_section(const xr_string& section);
     void set_squad_sympathy(const float& sympathy = 0.0f);
     void set_squad_behaviour(void);
