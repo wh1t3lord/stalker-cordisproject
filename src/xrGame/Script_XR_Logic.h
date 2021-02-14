@@ -739,23 +739,6 @@ inline xr_map<std::uint32_t, CondlistData> parse_condlist_by_script_object(
 inline xr_string pick_section_from_condlist(
     CScriptGameObject* actor, CSE_ALifeDynamicObject* npc, const xr_map<std::uint32_t, CondlistData>& condlist)
 {
-    // Lord: доделать
-    if (!actor)
-    {
-        //  R_ASSERT2(false, "object is null!");
-        //  return xr_string("");
-        Msg("[Scripts/XR_LOGIC/pick_section_from_condlist(client_actor, server_npc, condlist)] WARNING: client_actor = "
-            "nullptr! client_actor is null!");
-    }
-
-    if (!npc)
-    {
-        //   R_ASSERT2(false, "object is null!");
-        //   return xr_string("");
-        Msg("[Scripts/XR_LOGIC/pick_section_from_condlist(client_actor, server_npc, condlist)] WARNING: server_npc = "
-            "nullptr! server_npc is null!");
-    }
-
     std::uint32_t value = 0; // idk what does it mean. Translate this to normal
     bool is_infoportion_conditions_met = false;
 
@@ -789,8 +772,7 @@ inline xr_string pick_section_from_condlist(
                         calling_function_name) ==
                     Script_GlobalHelper::getInstance().getRegisteredFunctionsXRCondition().end())
                 {
-                    // @ Если мы ничего не нашли (Lord: проверить)
-                    Msg("[Scripts/XR_LOGIC/pick_section_from_condlist(actor, npc, condlist)] Object: [%s] - Function: "
+                    MESSAGEE("Object: [%s] - Function: "
                         "%s doesn't registered in Singleton Script_GlobalHelper in function "
                         "Script_GlobalHelper::RegisterFunctionsFromAnotherFiles!!!! ",
                         npc->s_name, it_infoportion_check.second.m_function_name.c_str());
@@ -812,7 +794,7 @@ inline xr_string pick_section_from_condlist(
                     while (it != end)
                     {
                         ++argument_counter;
-                        Msg("[Scripts/XR_LOGIC/pick_section_from_condlist(actor, npc, condlist)] Argument #%d: %s",
+                        MESSAGE("Argument #%d: %s",
                             argument_counter, it->str().c_str());
                         argument_buffer.push_back(it->str().c_str());
                         ++it;
@@ -820,7 +802,7 @@ inline xr_string pick_section_from_condlist(
 
                     //                     if (buffer.find(':') == xr_string::npos)
                     //                     {
-                    Msg("[Scripts/XR_LOGIC/pick_section_from_condlist(actor, npc, condlist)] Total arguments count: %d",
+                    MESSAGE("Total arguments count: %d",
                         argument_buffer.size());
 
                     /*                    xr_string& argument = buffer;*/
@@ -979,7 +961,7 @@ inline xr_string pick_section_from_condlist(
             {
                 if (!it_infoportion_check.second.m_required)
                 {
-                    Msg("[Scripts/XR_LOGIC/pick_section_from_condlist(actor, npc, condlist)] CANCELLED: actor has "
+                    MESSAGE("CANCELLED: actor has "
                         "infoportion '%s', which is NOT needed [%s]",
                         it_infoportion_check.second.m_infopotion_name,
                         std::to_string(Globals::has_alife_info(it_infoportion_check.second.m_infopotion_name.c_str()))
@@ -989,8 +971,7 @@ inline xr_string pick_section_from_condlist(
                 }
                 else
                 {
-                    Msg("[Scripts/XR_LOGIC/pick_section_from_condlist(actor, npc, condlist)] PASSED: actor has "
-                        "infoportion '%s', which is needed [%s]",
+                    MESSAGE("actor has infoportion '%s', which is needed [%s]",
                         it_infoportion_check.second.m_infopotion_name,
                         std::to_string(Globals::has_alife_info(it_infoportion_check.second.m_infopotion_name.c_str()))
                             .c_str());
@@ -1000,7 +981,7 @@ inline xr_string pick_section_from_condlist(
             {
                 if (it_infoportion_check.second.m_required)
                 {
-                    Msg("[Scripts/XR_LOGIC/pick_section_from_condlist(actor, npc, condlist)] CANCELLED: actor has NO "
+                    MESSAGE("CANCELLED: actor has NO "
                         "infop '%s', which is needed [%s]",
                         it_infoportion_check.second.m_infopotion_name,
                         std::to_string(Globals::has_alife_info(it_infoportion_check.second.m_infopotion_name.c_str()))
@@ -1010,7 +991,7 @@ inline xr_string pick_section_from_condlist(
                 }
                 else
                 {
-                    Msg("[Scripts/XR_LOGIC/pick_section_from_condlist(actor, npc, condlist)] PASSED: actor has NO "
+                    MESSAGE("PASSED: actor has NO "
                         "infop '%s', which is not needed [%s]",
                         it_infoportion_check.second.m_infopotion_name.c_str(),
                         std::to_string(Globals::has_alife_info(it_infoportion_check.second.m_infopotion_name.c_str()))
@@ -1098,12 +1079,15 @@ inline xr_string pick_section_from_condlist(
                     {
                         CScriptGameObject* client_actor = DataBase::Storage::getInstance().getActor();
                         if (client_actor)
+                        {
                             client_actor->GiveInfoPortion(it_infoportion_set.second.m_infopotion_name.c_str());
-                        else
-                            Msg("[XR_LOGIC/pick_section_from_condlist(server_actor, server_npc, condlist)] WARNING: "
-                                "Can not set an infoportion [%s] for actor, because "
-                                "DataBase::Storage::getInstane().getActor() == nullptr!",
-                                it_infoportion_set.second.m_infopotion_name.c_str());
+                        }
+						else
+                        {
+							MESSAGEW("Can not set an infoportion [%s] for actor, because DataBase::Storage::getInstane().getActor() == nullptr!",
+								it_infoportion_set.second.m_infopotion_name.c_str());
+                        }
+
                     }
                 }
                 else if (!it_infoportion_set.second.m_required)
@@ -1111,20 +1095,23 @@ inline xr_string pick_section_from_condlist(
                     if (Globals::has_alife_info(it_infoportion_set.second.m_infopotion_name.c_str()))
                     {
                         CScriptGameObject* client_actor = DataBase::Storage::getInstance().getActor();
+
                         if (client_actor)
+                        {
                             client_actor->DisableInfoPortion(it_infoportion_set.second.m_infopotion_name.c_str());
+                        }
                         else
-                            Msg("[XR_LOGIC/pick_section_from_condlist(server_actor, server_npc, condlist)] WARNING: "
-                                "Can not set an infoportion [%s] for actor, because "
-                                "DataBase::Storage::getInstane().getActor() == nullptr!",
-                                it_infoportion_set.second.m_infopotion_name.c_str());
+                        {
+							MESSAGEW("Can not set an infoportion [%s] for actor, because DataBase::Storage::getInstane().getActor() == nullptr!",
+								it_infoportion_set.second.m_infopotion_name.c_str());
+                        }
                     }
                 }
             }
 
             if (it.second.m_text_name == XR_LOGIC_TEXT_NEVER)
             {
-                return xr_string("");
+                return xr_string();
             }
             else
             {
@@ -1133,7 +1120,7 @@ inline xr_string pick_section_from_condlist(
         }
     }
 
-    return xr_string("");
+    return xr_string();
 }
 
 inline xr_string pick_section_from_condlist(
@@ -1520,7 +1507,7 @@ inline xr_string pick_section_from_condlist(
 
             if (it.second.m_text_name == XR_LOGIC_TEXT_NEVER)
             {
-                return xr_string("");
+                return xr_string();
             }
             else
             {
@@ -1529,7 +1516,7 @@ inline xr_string pick_section_from_condlist(
         }
     }
 
-    return xr_string("");
+    return xr_string();
 }
 
 inline xr_string pick_section_from_condlist(
@@ -1899,7 +1886,7 @@ inline xr_string pick_section_from_condlist(
 
             if (it.second.m_text_name == XR_LOGIC_TEXT_NEVER)
             {
-                return xr_string("");
+                return xr_string();
             }
             else
             {
@@ -1913,7 +1900,7 @@ inline xr_string pick_section_from_condlist(
         }
     }
 
-    return xr_string("");
+    return xr_string();
 }
 
 inline void pstor_load_all(CScriptGameObject* client_object, IReader& packet) 
