@@ -763,7 +763,7 @@ inline xr_string pick_section_from_condlist(
                     break;
                 }
             }
-            else if (it_infoportion_check.second.m_function_name.size())
+            else if (it_infoportion_check.second.m_function_name.empty() == false)
             {
                 xr_string calling_function_name = it_infoportion_check.second.m_function_name;
                 calling_function_name += XR_LOGIC_CLIENT_SERVER_ARGUMENTS;
