@@ -1500,35 +1500,36 @@ inline bool is_alive_one_server(
 
 inline bool is_alive_client(CScriptGameObject* actor, CScriptGameObject* npc, const xr_vector<xr_string>& buffer)
 {
-    if (!buffer.size())
-    {
-        Msg("[Scripts/XR_CONDITION/is_alive(actor, npc, buffer)] buffer.size() = 0!");
-        return false;
-    }
-
     CSE_ALifeCreatureAbstract* server_object = nullptr;
-    if (!npc)
-    {
-        server_object =
-            ai().alife().objects().object(Globals::get_story_object_id(buffer[0]))->cast_creature_abstract();
 
-        if (!server_object)
-        {
-            Msg("[Scripts/XR_CONDITION/is_alive(actor, npc, buffer)] WARNING: server_object = nullptr. Maybe bad cast "
-                "or object not found!");
-            return false;
-        }
+    if (buffer.empty() == false)
+    {
+		server_object =
+			ai().alife().objects().object(Globals::get_story_object_id(buffer[0]))->cast_creature_abstract();
+
+		if (!server_object)
+		{
+			MESSAGEWR("server_object = nullptr. Maybe bad cast or object not found!");
+			return false;
+		}
     }
-    else
+    else 
     {
-        server_object = ai().alife().objects().object(npc->ID())->cast_creature_abstract();
-
-        if (!server_object)
-        {
-            Msg("[Scripts/XR_CONDITION/is_alive(actor, npc, buffer)] WARNING: server_object = nullptr. Maybe bad cast "
-                "or object not found!");
+		if (!npc)
+		{
+            MESSAGEWR("you passed an invalid object and a empty string buffer, so function can't find anything for your request");
             return false;
-        }
+		}
+		else
+		{
+			server_object = ai().alife().objects().object(npc->ID())->cast_creature_abstract();
+
+			if (!server_object)
+			{
+				MESSAGEWR("server_object = nullptr. Maybe bad cast or object not found!");
+				return false;
+			}
+		}
     }
 
     if (server_object->g_Alive() && Globals::IsStalker(server_object, 0))
@@ -1540,37 +1541,36 @@ inline bool is_alive_client(CScriptGameObject* actor, CScriptGameObject* npc, co
 inline bool is_alive_client_server(
     CScriptGameObject* actor, CSE_ALifeDynamicObject* server_npc, const xr_vector<xr_string>& buffer)
 {
-    if (!buffer.size())
-    {
-        Msg("[Scripts/XR_CONDITION/is_alive(actor, server_npc, buffer)] buffer.size() = 0!");
-        return false;
-    }
-
     CSE_ALifeCreatureAbstract* server_object = nullptr;
-    if (!server_npc)
+    
+    if (buffer.empty() == false) 
     {
-        server_object =
-            ai().alife().objects().object(Globals::get_story_object_id(buffer[0]))->cast_creature_abstract();
+		server_object =
+			ai().alife().objects().object(Globals::get_story_object_id(buffer[0]))->cast_creature_abstract();
 
-        if (!server_object)
-        {
-            Msg("[Scripts/XR_CONDITION/is_alive(actor, server_npc, buffer)] WARNING: server_object = nullptr. Maybe "
-                "bad cast "
-                "or object not found!");
-            return false;
-        }
+		if (!server_object)
+		{
+			MESSAGEWR("server_object = nullptr. bad cast to creature abstract!");
+			return false;
+		}
     }
     else
     {
-        server_object = ai().alife().objects().object(server_npc->ID)->cast_creature_abstract();
+		if (!server_npc)
+		{
+			MESSAGEWR("you passed an invalid object and a empty string buffer, so function can't find anything for your request");
+			return false;
+		}
+		else
+		{
+			server_object = ai().alife().objects().object(server_npc->ID)->cast_creature_abstract();
 
-        if (!server_object)
-        {
-            Msg("[Scripts/XR_CONDITION/is_alive(actor, server_npc, buffer)] WARNING: server_object = nullptr. Maybe "
-                "bad cast "
-                "or object not found!");
-            return false;
-        }
+			if (!server_object)
+			{
+				MESSAGEWR("server_object = nullptr. bad cast!");
+				return false;
+			}
+		}
     }
 
     if (server_object->g_Alive() && Globals::IsStalker(server_object, 0))
@@ -1582,13 +1582,10 @@ inline bool is_alive_client_server(
 inline bool is_alive_server(
     CSE_ALifeDynamicObject* server_actor, CSE_ALifeDynamicObject* server_npc, const xr_vector<xr_string>& buffer)
 {
-    if (!buffer.size())
-    {
-        Msg("[Scripts/XR_CONDITION/is_alive(server_actor, server_npc, buffer)] buffer.size() = 0!");
-        return false;
-    }
-
     CSE_ALifeCreatureAbstract* server_object = nullptr;
+    
+
+
     if (!server_npc)
     {
         server_object =
