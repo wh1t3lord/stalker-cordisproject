@@ -1584,32 +1584,33 @@ inline bool is_alive_server(
 {
     CSE_ALifeCreatureAbstract* server_object = nullptr;
     
-
-
-    if (!server_npc)
+    if (buffer.empty() == false) 
     {
-        server_object =
-            ai().alife().objects().object(Globals::get_story_object_id(buffer[0]))->cast_creature_abstract();
+		server_object = ai().alife().objects().object(Globals::get_story_object_id(buffer[0]))->cast_creature_abstract();
 
-        if (!server_object)
-        {
-            Msg("[Scripts/XR_CONDITION/is_alive(server_actor, server_npc, buffer)] WARNING: server_object = nullptr. "
-                "Maybe bad cast "
-                "or object not found!");
-            return false;
-        }
+		if (!server_object)
+		{
+			MESSAGEWR("server_object = nullptr. bad cast!");
+			return false;
+		}
     }
     else
     {
-        server_object = ai().alife().objects().object(server_npc->ID)->cast_creature_abstract();
+		if (!server_npc)
+		{
+			MESSAGEWR("you passed an invalid object and a empty string buffer, so function can't find anything for your request");
+			return false;
+		}
+		else
+		{
+			server_object = ai().alife().objects().object(server_npc->ID)->cast_creature_abstract();
 
-        if (!server_object)
-        {
-            Msg("[Scripts/XR_CONDITION/is_alive(server_actor, server_npc, buffer)] WARNING: server_object = nullptr. "
-                "Maybe bad cast "
-                "or object not found!");
-            return false;
-        }
+			if (!server_object)
+			{
+				MESSAGEWR("server_object = nullptr. Maybe bad cast or object not found!");
+				return false;
+			}
+		}
     }
 
     if (server_object->g_Alive() && Globals::IsStalker(server_object, 0))
