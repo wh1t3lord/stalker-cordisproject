@@ -1418,42 +1418,40 @@ void Script_SE_SmartTerrain::select_npc_job(NpcInfo& npc_info)
 
                 npc_info.m_job_link2 = nullptr;
             }
+
+			if (selected_job_link)
+			{
+				selected_job_link->m_npc_id = npc_info.m_server_object->ID;
+				this->m_npc_by_job_section[this->m_job_data.at(selected_job_link->m_job_index)->m_job_id.first] = selected_job_link->m_npc_id;
+			}
+
+
+			if (selected_job_link_exclusive)
+			{
+				selected_job_link_exclusive->m_npc_id = npc_info.m_server_object->ID;
+				this->m_npc_by_job_section[this->m_job_data.at(selected_job_link->m_job_index)->m_job_id.first] = selected_job_link_exclusive->m_npc_id;
+			}
+
+
+			npc_info.m_job_id =
+				selected_job_link ? selected_job_link->m_job_index : selected_job_link_exclusive->m_job_index;
+			npc_info.m_job_prioprity =
+				selected_job_link ? selected_job_link->m_priority : selected_job_link_exclusive->m_priority;
+			npc_info.m_begin_job = false;
+
+			if (selected_job_link)
+			{
+				npc_info.m_job_link1 = selected_job_link;
+				npc_info.m_job_link2 = nullptr; // Lord: так корретнее ибо только одну ссылку можем держать 
+			}
+
+
+			if (selected_job_link_exclusive)
+			{
+				npc_info.m_job_link2 = selected_job_link_exclusive;
+				npc_info.m_job_link1 = nullptr; // Lord: так корретнее ибо только одну ссылку можем держать
+			}
         }
-
-        if (selected_job_link)
-        {
-            selected_job_link->m_npc_id = npc_info.m_server_object->ID;
-            this->m_npc_by_job_section[this->m_job_data.at(selected_job_link->m_job_index)->m_job_id.first] = selected_job_link->m_npc_id;
-        }
-
-
-        if (selected_job_link_exclusive)
-        {
-            selected_job_link_exclusive->m_npc_id = npc_info.m_server_object->ID;
-            this->m_npc_by_job_section[this->m_job_data.at(selected_job_link->m_job_index)->m_job_id.first] = selected_job_link_exclusive->m_npc_id;
-        }
-
-
-        npc_info.m_job_id =
-            selected_job_link ? selected_job_link->m_job_index : selected_job_link_exclusive->m_job_index;
-        npc_info.m_job_prioprity =
-            selected_job_link ? selected_job_link->m_priority : selected_job_link_exclusive->m_priority;
-        npc_info.m_begin_job = false;
-
-        if (selected_job_link)
-        {
-            npc_info.m_job_link1 = selected_job_link;
-            npc_info.m_job_link2 = nullptr; // Lord: так корретнее ибо только одну ссылку можем держать 
-        }
-
-
-        if (selected_job_link_exclusive)
-        {
-            npc_info.m_job_link2 = selected_job_link_exclusive;
-            npc_info.m_job_link1 = nullptr; // Lord: так корретнее ибо только одну ссылку можем держать
-        }
-
-
 
         if (DataBase::Storage::getInstance().getStorage().find(npc_info.m_server_object->ID) != DataBase::Storage::getInstance().getStorage().end())
         {
