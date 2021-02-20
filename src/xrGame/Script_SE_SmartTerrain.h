@@ -166,6 +166,7 @@ public:
         data.m_server_object = server_object;
         data.m_need_job = "nil"; // LorD: проверить будет ли дропать nil, если будет то найти и исправить когда это будет, чтобы все "nil" просто проверялись всегда как .empty()
         data.m_job_prioprity = -1;
+        data.m_job_id = Globals::kUnsignedInt32Undefined;
         data.m_begin_job = false;
 
         if (data.m_is_monster)
