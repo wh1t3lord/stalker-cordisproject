@@ -516,7 +516,7 @@ void Script_MoveManager::reset(const xr_string& path_walk_name, const CondlistWa
         }
         else
         {
-            moving_state_name_1 = suggested_state.at("standing");
+            moving_state_name_1 = suggested_state.at("moving");
             moving_state_name_2 = moving_state_name_1;
             moving_state_name_3 = moving_state_name_1;
         }
