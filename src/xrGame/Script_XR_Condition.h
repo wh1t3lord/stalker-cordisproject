@@ -378,7 +378,7 @@ inline bool is_playing_sound(CScriptGameObject* actor, CScriptGameObject* npc)
         return false;
     }
 
-    return XR_SOUND::getSoundDatabase()[npc->ID()];
+    return XR_SOUND::getSoundDatabase().at(npc->ID());
 }
 
 inline bool is_see_npc(CScriptGameObject* actor, CScriptGameObject* npc, const xr_vector<xr_string>& buffer)
