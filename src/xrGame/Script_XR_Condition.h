@@ -1184,9 +1184,7 @@ inline bool is_actor_health_le(CScriptGameObject* actor, CScriptGameObject* npc,
     if (value)
         return (actor->GetHealth() < value);
 
-    Msg("[Scripts/XR_CONDITION/is_actor_health_le(actor, npc, value)] WARNING: value is less than 0 or equals 0! "
-        "Return "
-        "false.");
+    MESSAGEWR("value is less than 0 or equals 0!");
 
     return false;
 }
@@ -1194,7 +1192,7 @@ inline bool is_actor_health_le(CScriptGameObject* actor, CScriptGameObject* npc,
 inline bool is_npc_community_client(
     CScriptGameObject* actor, CScriptGameObject* npc, const xr_vector<xr_string>& buffer)
 {
-    if (!buffer.size())
+    if (buffer.empty())
     {
         R_ASSERT2(false, "Argument list can't be empty!");
         return false;
@@ -1202,13 +1200,13 @@ inline bool is_npc_community_client(
 
     const xr_string& community_name = buffer[0];
 
-    if (!community_name.size())
+    if (community_name.empty())
     {
         R_ASSERT2(false, "can't be empty!");
         return false;
     }
 
-    if (!npc)
+    if (npc == nullptr)
     {
         R_ASSERT2(false, "object was null!");
         return false;
@@ -1223,7 +1221,7 @@ inline bool is_npc_community_client(
 inline bool is_npc_community_client_server(
     CScriptGameObject* actor, CSE_ALifeDynamicObject* server_npc, const xr_vector<xr_string>& buffer)
 {
-    if (!buffer.size())
+    if (buffer.empty())
     {
         R_ASSERT2(false, "Argument list can't be empty!");
         return false;
@@ -1231,24 +1229,30 @@ inline bool is_npc_community_client_server(
 
     const xr_string& community_name = buffer[0];
 
-    if (!community_name.size())
+    if (community_name.empty())
     {
         R_ASSERT2(false, "can't be empty!");
         return false;
     }
 
-    if (!server_npc)
+    if (server_npc == nullptr)
     {
         R_ASSERT2(false, "object was null!");
         return false;
     }
 
-    CScriptGameObject* npc = DataBase::Storage::getInstance().getStorage().at(server_npc->ID).getClientObject();
+    CScriptGameObject* npc = nullptr;
+    DataBase::Storage_Data* p_storage = Globals::getStorage(server_npc->ID);
 
-    if (!npc)
+    if (p_storage)
+    {
+        npc = p_storage->getClientObject();
+    }
+    
+    if (npc == nullptr)
     {
         CSE_ALifeTraderAbstract* server_trader = server_npc->cast_trader_abstract();
-        if (!server_trader)
+        if (server_trader == nullptr)
         {
             R_ASSERT2(false, "can't be check class!!!");
             return false;
@@ -1266,7 +1270,7 @@ inline bool is_npc_community_client_server(
 inline bool is_npc_community_server(
     CSE_ALifeDynamicObject* server_actor, CSE_ALifeDynamicObject* server_npc, const xr_vector<xr_string>& buffer)
 {
-    if (!buffer.size())
+    if (buffer.empty())
     {
         R_ASSERT2(false, "Argument list can't be empty!");
         return false;
@@ -1274,24 +1278,31 @@ inline bool is_npc_community_server(
 
     const xr_string& community_name = buffer[0];
 
-    if (!community_name.size())
+    if (community_name.empty())
     {
         R_ASSERT2(false, "can't be empty!");
         return false;
     }
 
-    if (!server_npc)
+    if (server_npc == nullptr)
     {
         R_ASSERT2(false, "object was null!");
         return false;
     }
 
-    CScriptGameObject* npc = DataBase::Storage::getInstance().getStorage().at(server_npc->ID).getClientObject();
+    CScriptGameObject* npc = nullptr;
 
-    if (!npc)
+    DataBase::Storage_Data* p_storage = Globals::getStorage(server_npc->ID);
+
+    if (p_storage)
+    {
+        npc = p_storage->getClientObject();
+    }
+
+    if (npc == nullptr)
     {
         CSE_ALifeTraderAbstract* server_trader = server_npc->cast_trader_abstract();
-        if (!server_trader)
+        if (server_trader == nullptr)
         {
             R_ASSERT2(false, "can't be check class!!!");
             return false;
