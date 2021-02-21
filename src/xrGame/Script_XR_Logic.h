@@ -1115,6 +1115,9 @@ inline xr_string pick_section_from_condlist(
             }
             else
             {
+                if (it.second.m_text_name.empty())
+                    return xr_string("true");
+
                 return it.second.m_text_name;
             }
         }
@@ -1511,6 +1514,9 @@ inline xr_string pick_section_from_condlist(
             }
             else
             {
+				if (it.second.m_text_name.empty())
+					return xr_string("true");
+
                 return it.second.m_text_name;
             }
         }
@@ -1890,12 +1896,10 @@ inline xr_string pick_section_from_condlist(
             }
             else
             {
-                xr_string result = it.second.m_text_name;
+				if (it.second.m_text_name.empty())
+					return xr_string("true");
 
-                if (result == "nil")
-                    result.clear();
-
-                return result;
+                return it.second.m_text_name;
             }
         }
     }
