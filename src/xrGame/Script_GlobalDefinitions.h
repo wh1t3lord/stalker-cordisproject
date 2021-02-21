@@ -1676,7 +1676,7 @@ struct StateManagerAnimationData
         inline void CallFunction(CScriptGameObject* const p_client_object)
         {
             if (this->m_function)
-                this->m_function(p_client_object, nullptr, xr_vector<xr_string>());
+                this->m_function(nullptr, p_client_object, xr_vector<xr_string>());
             else
                 MESSAGEWR("m_function is nullptr! Can't call!");
         }
