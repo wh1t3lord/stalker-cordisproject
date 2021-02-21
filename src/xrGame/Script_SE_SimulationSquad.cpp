@@ -324,7 +324,7 @@ std::uint16_t Script_SE_SimulationSquad::getScriptTarget(void)
 
     xr_string _new_target = this->pick_next_target();
 
-    if (_new_target == "nil") // LorD: проверить будет ли дропать nil, если будет то найти и исправить когда это будет, чтобы все "nil" просто проверялись всегда как .empty()
+    if (_new_target == "nil" || _new_target == "empty" || _new_target.empty()) // LorD: проверить будет ли дропать nil, если будет то найти и исправить когда это будет, чтобы все "nil" просто проверялись всегда как .empty()
         return 0;
     else if (_new_target == "loop")
     {
