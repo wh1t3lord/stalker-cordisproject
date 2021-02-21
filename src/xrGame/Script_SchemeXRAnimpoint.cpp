@@ -116,7 +116,7 @@ namespace Cordis
 			p_scheme->add_condition(CWorldProperty(Globals::XR_ACTIONS_ID::XR_EVALUATORS_ID::kSidorWoundedBase, false));
 			p_scheme->add_condition(CWorldProperty(Globals::XR_ACTIONS_ID::XR_EVALUATORS_ID::kAbuseBase, false));
 			p_scheme->add_condition(CWorldProperty(Globals::XR_ACTIONS_ID::XR_EVALUATORS_ID::kWoundedExist, false));
-			p_scheme->add_condition(CWorldProperty(Globals::XR_ACTIONS_ID::XR_EVALUATORS_ID::kCorpseExist, false));
+		//	p_scheme->add_condition(CWorldProperty(Globals::XR_ACTIONS_ID::XR_EVALUATORS_ID::kCorpseExist, false)); Lord: вернуть когда будет реализация
 			p_scheme->add_condition(CWorldProperty(StalkerDecisionSpace::eWorldPropertyItems, false));
 
 			p_scheme->add_effect(CWorldProperty(properties.at("need_animpoint"), false));
@@ -266,7 +266,7 @@ namespace Cordis
 		void Script_Animpoint::calculate_position(void)
 		{
 			Script_SE_SmartCover* p_cover = nullptr;
-			if (DataBase::Storage::getInstance().getGameRegisteredServerSmartCovers().find(this->m_p_storage->getCoverName()) == DataBase::Storage::getInstance().getGameRegisteredServerSmartCovers().end())
+			if (DataBase::Storage::getInstance().getGameRegisteredServerSmartCovers().find(this->m_p_storage->getCoverName()) != DataBase::Storage::getInstance().getGameRegisteredServerSmartCovers().end())
 			{
 				p_cover = DataBase::Storage::getInstance().getGameRegisteredServerSmartCovers().at(this->m_p_storage->getCoverName());
 			}
