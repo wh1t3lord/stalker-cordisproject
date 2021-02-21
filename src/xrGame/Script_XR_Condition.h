@@ -1062,7 +1062,14 @@ inline bool is_npc_in_zone_client(CScriptGameObject* actor, CScriptGameObject* n
 		return true;
 	}
 
-	CScriptGameObject* p_client_object = DataBase::Storage::getInstance().getStorage().at(npc->ID()).getClientObject();
+	CScriptGameObject* p_client_object = nullptr;
+
+    DataBase::Storage_Data* p_storage = Globals::getStorage(npc->ID());
+
+    if (p_storage)
+    {
+        p_client_object = p_storage->getClientObject();
+    }
 
 	if (p_client_object == nullptr)
 	{
@@ -1109,7 +1116,14 @@ inline bool is_npc_in_zone_client_server(
         return true;
     }
 
-    CScriptGameObject* npc = DataBase::Storage::getInstance().getStorage().at(server_npc->ID).getClientObject();
+    CScriptGameObject* npc = nullptr;
+
+    DataBase::Storage_Data* p_storage = Globals::getStorage(server_npc->ID);
+
+    if (p_storage)
+    {
+        npc = p_storage->getClientObject();
+    }
 
     if (npc == nullptr)
     {
