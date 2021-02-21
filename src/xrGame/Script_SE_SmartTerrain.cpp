@@ -241,6 +241,45 @@ inline void job_iterator(std::pair<xr_vector<JobData>, xr_vector<JobDataExclusiv
     result_exclusive = nullptr;
     result_id = Globals::kUnsignedInt32Undefined;
 
+	for (JobDataExclusive* it : jobs.second)
+	{
+		if (it->m_is_precondition_monster != npc_info.m_is_monster)
+			continue;
+
+		if (result_priority > it->m_priority)
+			return;
+
+		if (is_job_available_to_npc(npc_info, it, smart))
+		{
+			if (!it->m_npc_id)
+			{
+				if (result_link)
+				{
+					R_ASSERT2(false, "it can't be!");
+					return;
+				}
+
+				result_priority = it->m_priority;
+				result_exclusive = it;
+				result_id = it->m_job_index;
+				return;
+			}
+			else if (it->m_job_index == npc_info.m_job_id)
+			{
+				if (result_link)
+				{
+					R_ASSERT2(false, "it can't be!");
+					return;
+				}
+
+				result_priority = it->m_priority;
+				result_exclusive = it;
+				result_id = it->m_job_index;
+				return;
+			}
+		}
+	}
+
     for (JobData& it : jobs.first)
     {
         if (it.m_precondition_is_monster == npc_info.m_is_monster)
@@ -271,45 +310,6 @@ inline void job_iterator(std::pair<xr_vector<JobData>, xr_vector<JobDataExclusiv
 					}
 				}
 			}
-        }
-    }
-
-    for (JobDataExclusive* it : jobs.second)
-    {
-        if (it->m_is_precondition_monster != npc_info.m_is_monster)
-            continue;
-
-        if (result_priority > it->m_priority)
-            return;
-
-        if (is_job_available_to_npc(npc_info, it, smart))
-        {
-            if (!it->m_npc_id)
-            {
-                if (result_link)
-                {
-                    R_ASSERT2(false, "it can't be!");
-                    return;
-                }
-
-                result_priority = it->m_priority;
-                result_exclusive = it;
-                result_id = it->m_job_index;
-                return;
-            }
-            else if (it->m_job_index == npc_info.m_job_id)
-            {
-                if (result_link)
-                {
-                    R_ASSERT2(false, "it can't be!");
-                    return;
-                }
-
-                result_priority = it->m_priority;
-                result_exclusive = it;
-                result_id = it->m_job_index;
-                return;
-            }
         }
     }
 
