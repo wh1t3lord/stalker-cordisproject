@@ -4238,15 +4238,26 @@ inline bool is_monster_tushkano(CScriptGameObject* actor, CScriptGameObject* npc
     return npc->clsid() == CLSID_SE_MONSTER_TUSHKANO;
 }
 
-inline bool is_monster_burer(CScriptGameObject* actor, CScriptGameObject* npc)
+inline bool is_monster_burer_client(CScriptGameObject* actor, CScriptGameObject* p_npc)
 {
-    if (!npc)
+    if (p_npc == nullptr)
     {
         R_ASSERT2(false, "object is null!");
         return false;
     }
 
-    return npc->clsid() == CLSID_SE_MONSTER_BURER;
+    return p_npc->clsid() == CLSID_SE_MONSTER_BURER;
+}
+
+inline bool is_monster_burer_client_server(CScriptGameObject* p_actor, CSE_ALifeDynamicObject* p_npc)
+{
+    if (p_npc == nullptr)
+    {
+        R_ASSERT2(false, "object is null!");
+        return false;
+    }
+
+    return p_npc->script_clsid() == CLSID_SE_MONSTER_BURER;
 }
 
 inline bool is_monster_controller_client(CScriptGameObject* actor, CScriptGameObject* npc)
