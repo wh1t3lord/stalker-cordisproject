@@ -294,7 +294,11 @@ inline bool check_npc_name_client(CScriptGameObject* actor, CScriptGameObject* p
 		return false;
 	}
 
-	return (p_npc->Name() == npc_name);
+    xr_string client_object_name = p_npc->Name();
+
+    std::size_t found = client_object_name.find(npc_name);
+
+	return (found != xr_string::npos);
 }
 
 inline bool check_npc_name_client_server(
@@ -326,7 +330,11 @@ inline bool check_npc_name_client_server(
         return false;
     }
 
-    return (p_server_npc->name_replace() == npc_name);
+    xr_string server_object_name = p_server_npc->name_replace();
+
+    std::size_t found = server_object_name.find(npc_name);
+
+    return (found != xr_string::npos);
 }
 
 inline bool check_enemy_name_client(
