@@ -3307,13 +3307,13 @@ inline bool is_squads_in_zone_b41_client_server(CScriptGameObject* actor, CSE_AL
 inline bool is_target_squad_name_client_server(
     CScriptGameObject* actor, CSE_ALifeDynamicObject* server_npc, const xr_vector<xr_string>& buffer)
 {
-    if (!buffer.size())
+    if (buffer.empty())
     {
         R_ASSERT2(false, "argument list can't be empty!");
         return false;
     }
 
-    if (!server_npc)
+    if (server_npc == nullptr)
     {
         R_ASSERT2(false, "object was null!");
         return false;
@@ -3324,7 +3324,13 @@ inline bool is_target_squad_name_client_server(
         if (!ai().alife().objects().object(server_npc->cast_monster_abstract()->m_group_id))
             return false;
 
-        if (buffer[0].find(ai().alife().objects().object(server_npc->cast_monster_abstract()->m_group_id)->name()))
+        CSE_ALifeDynamicObject* p_server_object_by_group_id = ai().alife().objects().object(server_npc->cast_monster_abstract()->m_group_id);
+
+        xr_string server_object_name = p_server_object_by_group_id->name();
+
+        std::size_t found = server_object_name.find(buffer[0]);
+
+        if (found != xr_string::npos)
             return true;
     }
 
@@ -3334,13 +3340,13 @@ inline bool is_target_squad_name_client_server(
 inline bool is_target_squad_name_server(
     CSE_ALifeDynamicObject* server_actor, CSE_ALifeDynamicObject* server_npc, const xr_vector<xr_string>& buffer)
 {
-    if (!buffer.size())
+    if (buffer.empty())
     {
         R_ASSERT2(false, "argument list can't be empty!");
         return false;
     }
 
-    if (!server_npc)
+    if (server_npc == nullptr)
     {
         R_ASSERT2(false, "object was null!");
         return false;
@@ -3348,10 +3354,16 @@ inline bool is_target_squad_name_server(
 
     if (Globals::IsStalker(server_npc, 0) || Globals::IsMonster(server_npc, 0))
     {
-        if (!ai().alife().objects().object(server_npc->cast_monster_abstract()->m_group_id))
+        if (ai().alife().objects().object(server_npc->cast_monster_abstract()->m_group_id) == nullptr)
             return false;
 
-        if (buffer[0].find(ai().alife().objects().object(server_npc->cast_monster_abstract()->m_group_id)->name()))
+        CSE_ALifeDynamicObject* p_server_object_by_group_id = ai().alife().objects().object(server_npc->cast_monster_abstract()->m_group_id);
+
+        xr_string server_object_name = p_server_object_by_group_id->name();
+
+        std::size_t found = server_object_name.find(buffer[0]);
+
+        if (found != xr_string::npos)
             return true;
     }
 
@@ -3361,13 +3373,13 @@ inline bool is_target_squad_name_server(
 inline bool is_target_smart_name_client(
     CScriptGameObject* actor, CScriptGameObject* smart, const xr_vector<xr_string>& buffer)
 {
-    if (!buffer.size())
+    if (buffer.empty())
     {
         R_ASSERT2(false, "argument list can't be empty!");
         return false;
     }
 
-    if (!smart)
+    if (smart == nullptr)
     {
         R_ASSERT2(false, "object was null!");
         return false;
