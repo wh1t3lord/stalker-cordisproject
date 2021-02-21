@@ -432,7 +432,7 @@ Cordis::Scripts::Script_GlobalHelper::Script_GlobalHelper(void)
 #pragma endregion
 
 #pragma region Cordis Registering XR_CONDITION Functions
-    _REGISTER_FULL_FUNCTION_XR_CONDITION(actor_on_level, XR_CONDITION::is_actor_on_level)
+		_REGISTER_FULL_FUNCTION_XR_CONDITION(actor_on_level, XR_CONDITION::is_actor_on_level)
         _REGISTER_FULL_FUNCTION_XR_CONDITION(dist_to_actor_ge, XR_CONDITION::is_dist_to_actor_ge)
 		_REGISTER_FULL_FUNCTION_XR_CONDITION(dist_to_actor_le, XR_CONDITION::is_dist_to_actor_le)
 		_REGISTER_FULL_FUNCTION_XR_CONDITION(surge_started, XR_CONDITION::is_surge_started)
@@ -495,10 +495,9 @@ Cordis::Scripts::Script_GlobalHelper::Script_GlobalHelper(void)
 		_REGISTER_CCS_FUNCTION_XR_CONDITION(squad_in_zone, XR_CONDITION::is_squad_in_zone)
 		_REGISTER_CCS_FUNCTION_XR_CONDITION(actor_has_nimble_weapon, XR_CONDITION::is_actor_has_nimble_weapon)
 		_REGISTER_CCS_FUNCTION_XR_CONDITION(actor_has_active_nimble_weapon, XR_CONDITION::is_actor_has_active_nimble_weapon)
-
+		_REGISTER_CCS_FUNCTION_XR_CONDITION(is_monster_controller, XR_CONDITION::is_monster_controller)
+		_REGISTER_CCS_FUNCTION_XR_CONDITION(is_monster_flesh, XR_CONDITION::is_monster_flesh)
 		_REGISTER_CSS_FUNCTION_XR_CONDITION(target_squad_name, XR_CONDITION::is_target_squad_name)
-
-
 
 		_REGISTER_C_FUNCTION_XR_CONDITION(check_enemy_name, XR_CONDITION::check_enemy_name)
 		_REGISTER_C_FUNCTION_XR_CONDITION(target_smart_name, XR_CONDITION::is_target_smart_name)
@@ -549,8 +548,6 @@ Cordis::Scripts::Script_GlobalHelper::Script_GlobalHelper(void)
 		_REGISTER_C_PURE_FUNCTION_XR_CONDITION(is_monster_polter, XR_CONDITION::is_monster_polter)
 		_REGISTER_C_PURE_FUNCTION_XR_CONDITION(is_monster_tushkano, XR_CONDITION::is_monster_tushkano)
 		_REGISTER_C_PURE_FUNCTION_XR_CONDITION(is_monster_burer, XR_CONDITION::is_monster_burer)
-		_REGISTER_CCS_FUNCTION_XR_CONDITION(is_monster_controller, XR_CONDITION::is_monster_controller)
-		_REGISTER_C_PURE_FUNCTION_XR_CONDITION(is_monster_flesh, XR_CONDITION::is_monster_flesh)
 		_REGISTER_C_PURE_FUNCTION_XR_CONDITION(is_monster_boar, XR_CONDITION::is_monster_boar)
 		_REGISTER_C_PURE_FUNCTION_XR_CONDITION(pas_b400_actor_far_forward, XR_CONDITION::is_pas_b400_actor_far_forward)
 		_REGISTER_C_PURE_FUNCTION_XR_CONDITION(pas_b400_actor_far_backward, XR_CONDITION::is_pas_b400_actor_far_backward)

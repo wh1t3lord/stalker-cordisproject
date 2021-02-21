@@ -4271,15 +4271,26 @@ inline bool is_monster_controller_client_server(CScriptGameObject* actor, CSE_AL
     return p_npc->script_clsid() == CLSID_SE_MONSTER_CONTROLLER;
 }
 
-inline bool is_monster_flesh(CScriptGameObject* actor, CScriptGameObject* npc)
+inline bool is_monster_flesh_client(CScriptGameObject* actor, CScriptGameObject* p_npc)
 {
-    if (!npc)
+    if (p_npc == nullptr)
     {
         R_ASSERT2(false, "object is null!");
         return false;
     }
 
-    return npc->clsid() == CLSID_SE_MONSTER_FLESH;
+    return p_npc->clsid() == CLSID_SE_MONSTER_FLESH;
+}
+
+inline bool is_monster_flesh_client_server(CScriptGameObject* p_actor, CSE_ALifeDynamicObject* p_npc)
+{
+    if (p_npc == nullptr)
+    {
+        R_ASSERT2(false, "object is null!");
+        return false;
+    }
+
+    return p_npc->script_clsid() == CLSID_SE_MONSTER_FLESH;
 }
 
 inline bool is_monster_boar(CScriptGameObject* actor, CScriptGameObject* npc)
