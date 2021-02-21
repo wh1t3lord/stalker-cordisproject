@@ -4194,15 +4194,26 @@ inline bool is_monster_snork(CScriptGameObject* actor, CScriptGameObject* npc)
     return npc->clsid() == CLSID_SE_MONSTER_SNORK;
 }
 
-inline bool is_monster_dog(CScriptGameObject* actor, CScriptGameObject* npc)
+inline bool is_monster_dog_client(CScriptGameObject* p_actor, CScriptGameObject* p_npc)
 {
-    if (!npc)
+    if (p_npc == nullptr)
     {
         R_ASSERT2(false, "object is null!");
         return false;
     }
 
-    return npc->clsid() == CLSID_SE_MONSTER_DOG;
+    return p_npc->clsid() == CLSID_SE_MONSTER_DOG;
+}
+
+inline bool is_monster_dog_client_server(CScriptGameObject* p_actor, CSE_ALifeDynamicObject* p_npc)
+{
+    if (p_npc == nullptr)
+    {
+        R_ASSERT2(false, "object is null!");
+        return false;
+    }
+
+    return p_npc->script_clsid() == CLSID_SE_MONSTER_DOG;
 }
 
 inline bool is_monster_psy_dog(CScriptGameObject* actor, CScriptGameObject* npc)
