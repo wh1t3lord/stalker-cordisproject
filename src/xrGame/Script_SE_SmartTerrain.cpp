@@ -214,8 +214,12 @@ bool is_job_available_to_npc(const NpcInfo& npc_info, JobDataExclusive* job_info
         return false;
     }
 
-    if (smart->getDeadTime().at(job_info->m_job_index) > 0)
-        return false;
+    if (smart->getDeadTime().find(job_info->m_job_index) != smart->getDeadTime().end())
+    {
+		if (smart->getDeadTime().at(job_info->m_job_index) > 0)
+			return false;
+    }
+
 
     if (job_info->m_function)
     {
