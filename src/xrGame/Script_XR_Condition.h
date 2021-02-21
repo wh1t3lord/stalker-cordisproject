@@ -3267,19 +3267,15 @@ inline bool is_squads_in_zone_b41_client_server(CScriptGameObject* actor, CSE_AL
     Script_SE_SmartTerrain* server_smart = Script_SimulationBoard::getInstance().getSmartTerrainsByName().at("jup_b41");
     CScriptGameObject* client_zone = DataBase::Storage::getInstance().getZoneByName().at("jup_b41_sr_light");
 
-    if (!client_zone)
+    if (client_zone == nullptr)
     {
-#ifdef DEBUG
         MESSAGEWR("client_zone = nullptr!");
-#endif // DEBUG
         return false;
     }
 
-    if (!server_smart)
+    if (server_smart == nullptr)
     {
-#ifdef DEBUG
         MESSAGEWR("server_smart = nullptr!");
-#endif // DEBUG
         return false;
     }
 
