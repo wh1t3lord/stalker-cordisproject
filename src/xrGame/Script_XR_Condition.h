@@ -266,65 +266,53 @@ inline bool is_black_screen_client_server(CScriptGameObject* actor, CSE_ALifeDyn
     return Device.dwPrecacheFrame > 1;
 }
 
-inline bool check_npc_name_client(CScriptGameObject* actor, CScriptGameObject* npc, const xr_vector<xr_string>& buffer)
+inline bool check_npc_name_client(CScriptGameObject* actor, CScriptGameObject* p_npc, const xr_vector<xr_string>& buffer)
 {
-    if (!buffer.size())
-    {
-        R_ASSERT2(false, "Argument list can't be empty!");
-        return false;
-    }
+	if (buffer.empty())
+	{
+		R_ASSERT2(false, "Argument list can't be empty!");
+		return false;
+	}
 
-    if (!actor)
-    {
-        R_ASSERT2(false, "actor is null!");
-        return false;
-    }
+	if (p_npc == nullptr)
+	{
+		R_ASSERT2(false, "object was null!");
+		return false;
+	}
 
-    if (!npc)
-    {
-        R_ASSERT2(false, "npc is null!");
-        return false;
-    }
+	if (p_npc->Name() == nullptr)
+	{
+		R_ASSERT2(false, "string can't be null! Something goes wrong!");
+		return false;
+	}
 
-    if (!npc->Name())
-    {
-        R_ASSERT2(false, "String can't be nullptr! Something goes wrong!");
-        return false;
-    }
+	const xr_string& npc_name = buffer[0];
 
-    const xr_string& npc_name = buffer[0];
+	if (npc_name.empty())
+	{
+		R_ASSERT2(false, "Name can't be empty!");
+		return false;
+	}
 
-    if (!npc_name.size())
-    {
-        R_ASSERT2(false, "String can't be empty!");
-        return false;
-    }
-
-    return (npc->Name() == npc_name);
+	return (p_npc->Name() == npc_name);
 }
 
 inline bool check_npc_name_client_server(
-    CScriptGameObject* actor, CSE_ALifeDynamicObject* server_npc, const xr_vector<xr_string>& buffer)
+    CScriptGameObject* actor, CSE_ALifeDynamicObject* p_server_npc, const xr_vector<xr_string>& buffer)
 {
-    if (!buffer.size())
+    if (buffer.empty())
     {
         R_ASSERT2(false, "Argument list can't be empty!");
         return false;
     }
 
-    if (!actor)
+    if (p_server_npc == nullptr)
     {
         R_ASSERT2(false, "object was null!");
         return false;
     }
 
-    if (!server_npc)
-    {
-        R_ASSERT2(false, "object was null!");
-        return false;
-    }
-
-    if (!server_npc->name_replace())
+    if (p_server_npc->name_replace() == nullptr)
     {
         R_ASSERT2(false, "string can't be null! Something goes wrong!");
         return false;
@@ -332,25 +320,25 @@ inline bool check_npc_name_client_server(
 
     const xr_string& npc_name = buffer[0];
 
-    if (!npc_name.size())
+    if (npc_name.empty())
     {
         R_ASSERT2(false, "Name can't be empty!");
         return false;
     }
 
-    return (server_npc->name_replace() == npc_name);
+    return (p_server_npc->name_replace() == npc_name);
 }
 
 inline bool check_enemy_name_client(
-    CScriptGameObject* actor, CScriptGameObject* npc, const xr_vector<xr_string>& buffer)
+    CScriptGameObject* actor, CScriptGameObject* p_npc, const xr_vector<xr_string>& buffer)
 {
-    if (!buffer.size())
+    if (buffer.empty())
     {
         R_ASSERT2(false, "Argument list can't be empty!");
         return false;
     }
 
-    if (!npc)
+    if (p_npc == nullptr)
     {
         R_ASSERT2(false, "object was null!");
         return false;
@@ -358,24 +346,24 @@ inline bool check_enemy_name_client(
 
     const xr_string& npc_name = buffer[0];
 
-    if (!npc_name.size())
+    if (npc_name.empty())
     {
         R_ASSERT2(false, "Name can't be empty!");
         return false;
     }
 
-    const std::uint16_t& enemy_id = DataBase::Storage::getInstance().getStorage().at(npc->ID()).getEnemyID();
-    CScriptGameObject* enemy = DataBase::Storage::getInstance().getStorage().at(enemy_id).getClientObject();
+    const std::uint16_t& enemy_id = DataBase::Storage::getInstance().getStorage().at(p_npc->ID()).getEnemyID();
+    CScriptGameObject* p_enemy = DataBase::Storage::getInstance().getStorage().at(enemy_id).getClientObject();
 
-    if (!enemy)
+    if (p_enemy == nullptr)
     {
         R_ASSERT2(false, "object was null!");
         return false;
     }
 
-    if (enemy->Alive())
+    if (p_enemy->Alive())
     {
-        xr_string name = enemy->Name();
+        xr_string name = p_enemy->Name();
         return (name == npc_name);
     }
 
@@ -395,15 +383,15 @@ inline bool is_playing_sound(CScriptGameObject* actor, CScriptGameObject* npc)
 
 inline bool is_see_npc(CScriptGameObject* actor, CScriptGameObject* npc, const xr_vector<xr_string>& buffer)
 {
-    if (!buffer.size())
+    if (buffer.empty())
     {
         R_ASSERT2(false, "Argument list can't be empty!");
         return false;
     }
 
-    if (!npc)
+    if (npc == nullptr)
     {
-        Msg("[Scripts/XR_CONDITION/is_see_npc(actor, npc, npc_name)] WARNING: npc = nullptr! Returned value = false.");
+        MESSAGEWR("npc = nullptr! Returned value = false.");
         return false;
     }
 
@@ -411,9 +399,9 @@ inline bool is_see_npc(CScriptGameObject* actor, CScriptGameObject* npc, const x
 
     CScriptGameObject* npc1 = Globals::get_story_object(npc_name);
 
-    if (!npc1)
+    if (npc1 == nullptr)
     {
-        Msg("[Scripts/XR_CONDITION/is_see_npc(actor, npc, npc_name)] WARNING: npc1 = nullptr! Returned value = false.");
+        MESSAGEWR("npc1 = nullptr! Returned value = false.");
         return false;
     }
 
