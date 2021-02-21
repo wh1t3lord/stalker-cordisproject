@@ -1642,14 +1642,19 @@ inline std::uint32_t get_relation_id_by_name(const xr_string& relation_name)
 inline bool predicate_const_true(std::uint16_t, bool) { return true; }
 inline bool predicate_animpoint_bread(std::uint16_t npc_id, bool)
 {
-    if (DataBase::Storage::getInstance().getStorage().at(npc_id).getClientObject())
+    CScriptGameObject* p_client_object = DataBase::Storage::getInstance().getStorage().at(npc_id).getClientObject();
+
+    if (p_client_object)
     {
-        if (DataBase::Storage::getInstance().getStorage().at(npc_id).getClientObject()->get_visual_name())
+        if (p_client_object->get_visual_name())
         {
-            if (Script_GlobalHelper::getInstance().getRegisteredEatableVisuals().at(
-                    DataBase::Storage::getInstance().getStorage().at(npc_id).getClientObject()->get_visual_name()) &&
-                DataBase::Storage::getInstance().getStorage().at(npc_id).getClientObject()->GetObjectByName("bread"))
-                return true;
+            if (Script_GlobalHelper::getInstance().getRegisteredEatableVisuals().at(p_client_object->get_visual_name()))
+            {
+                if (p_client_object->GetObjectByName("bread"))
+                {
+                    return true;
+                }
+            }
         }
     }
 
@@ -1658,14 +1663,19 @@ inline bool predicate_animpoint_bread(std::uint16_t npc_id, bool)
 
 inline bool predicate_animpoint_kolbasa(std::uint16_t npc_id, bool)
 {
-    if (DataBase::Storage::getInstance().getStorage().at(npc_id).getClientObject())
+    CScriptGameObject* p_client_object = DataBase::Storage::getInstance().getStorage().at(npc_id).getClientObject();
+
+    if (p_client_object)
     {
-        if (DataBase::Storage::getInstance().getStorage().at(npc_id).getClientObject()->get_visual_name())
+        if (p_client_object->get_visual_name())
         {
-            if (Script_GlobalHelper::getInstance().getRegisteredEatableVisuals().at(
-                    DataBase::Storage::getInstance().getStorage().at(npc_id).getClientObject()->get_visual_name()) &&
-                DataBase::Storage::getInstance().getStorage().at(npc_id).getClientObject()->GetObjectByName("kolbasa"))
-                return true;
+            if (Script_GlobalHelper::getInstance().getRegisteredEatableVisuals().at(p_client_object->get_visual_name()))
+            {
+                if (p_client_object->GetObjectByName("kolbasa"))
+                {
+                    return true;
+                }
+            }
         }
     }
 
@@ -1674,14 +1684,19 @@ inline bool predicate_animpoint_kolbasa(std::uint16_t npc_id, bool)
 
 inline bool predicate_animpoint_vodka(std::uint16_t npc_id, bool)
 {
-    if (DataBase::Storage::getInstance().getStorage().at(npc_id).getClientObject())
+    CScriptGameObject* p_client_object = DataBase::Storage::getInstance().getStorage().at(npc_id).getClientObject();
+
+    if (p_client_object)
     {
-        if (DataBase::Storage::getInstance().getStorage().at(npc_id).getClientObject()->get_visual_name())
+        if (p_client_object->get_visual_name())
         {
-            if (Script_GlobalHelper::getInstance().getRegisteredEatableVisuals().at(
-                    DataBase::Storage::getInstance().getStorage().at(npc_id).getClientObject()->get_visual_name()) &&
-                DataBase::Storage::getInstance().getStorage().at(npc_id).getClientObject()->GetObjectByName("vodka"))
-                return true;
+            if (Script_GlobalHelper::getInstance().getRegisteredEatableVisuals().at(p_client_object->get_visual_name()))
+            {
+                if (p_client_object->GetObjectByName("vodka"))
+                {
+                    return true;
+                }
+            }
         }
     }
 
@@ -1690,15 +1705,20 @@ inline bool predicate_animpoint_vodka(std::uint16_t npc_id, bool)
 
 inline bool predicate_animpoint_energy(std::uint16_t npc_id, bool)
 {
-    if (DataBase::Storage::getInstance().getStorage().at(npc_id).getClientObject())
+    CScriptGameObject* p_client_object = DataBase::Storage::getInstance().getStorage().at(npc_id).getClientObject();
+
+    if (p_client_object)
     {
-        if (DataBase::Storage::getInstance().getStorage().at(npc_id).getClientObject()->get_visual_name())
+        if (p_client_object->get_visual_name())
         {
             if (Script_GlobalHelper::getInstance().getRegisteredEatableVisuals().at(
-                    DataBase::Storage::getInstance().getStorage().at(npc_id).getClientObject()->get_visual_name()) &&
-                DataBase::Storage::getInstance().getStorage().at(npc_id).getClientObject()->GetObjectByName(
-                    "energy_drink"))
-                return true;
+                p_client_object->get_visual_name()))
+            {
+                if (p_client_object->GetObjectByName("energy_drink"))
+                {
+                    return true;
+                }
+            }
         }
     }
 
@@ -1707,9 +1727,11 @@ inline bool predicate_animpoint_energy(std::uint16_t npc_id, bool)
 
 inline bool predicate_animpoint_guitar(std::uint16_t npc_id, bool is_in_camp)
 {
-    if (is_in_camp && DataBase::Storage::getInstance().getStorage().at(npc_id).getClientObject())
+    CScriptGameObject* p_client_object = DataBase::Storage::getInstance().getStorage().at(npc_id).getClientObject();
+
+    if (is_in_camp && p_client_object)
     {
-        if (DataBase::Storage::getInstance().getStorage().at(npc_id).getClientObject()->GetObjectByName("guitar_a"))
+        if (p_client_object->GetObjectByName("guitar_a"))
             return true;
     }
 
@@ -1718,15 +1740,19 @@ inline bool predicate_animpoint_guitar(std::uint16_t npc_id, bool is_in_camp)
 
 inline bool predicate_animpoint_harmonica(std::uint16_t npc_id, bool is_in_camp)
 {
-    if (is_in_camp && DataBase::Storage::getInstance().getStorage().at(npc_id).getClientObject())
+    CScriptGameObject* p_client_object = DataBase::Storage::getInstance().getStorage().at(npc_id).getClientObject();
+
+    if (is_in_camp && p_client_object)
     {
-        if (DataBase::Storage::getInstance().getStorage().at(npc_id).getClientObject()->get_visual_name())
+        if (p_client_object->get_visual_name())
         {
-            if (Script_GlobalHelper::getInstance().getRegisteredEatableVisuals().at(
-                    DataBase::Storage::getInstance().getStorage().at(npc_id).getClientObject()->get_visual_name()) &&
-                DataBase::Storage::getInstance().getStorage().at(npc_id).getClientObject()->GetObjectByName(
-                    "harmonica_a"))
-                return true;
+            if (Script_GlobalHelper::getInstance().getRegisteredEatableVisuals().at(p_client_object->get_visual_name()))
+            {
+                if (p_client_object->GetObjectByName("harmonica_a"))
+                {
+                    return true;
+                }
+            }
         }
     }
 
