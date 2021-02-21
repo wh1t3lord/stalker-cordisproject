@@ -25,6 +25,7 @@ intermediate/
 intermediate_plugs/
 lib/
 out/
+src/enc_temp_folder/
 !Externals/libvorbis/lib/
 !Externals/libtheora/lib/
 !Externals/AGS_SDK/ags_lib/lib
