@@ -94,9 +94,9 @@ void Script_SchemeMobRemark::update(const float delta)
 {
     if (!this->m_p_storage->getDialogCondlist().empty())
     {
-        if (!XR_LOGIC::pick_section_from_condlist(
+        if (XR_LOGIC::pick_section_from_condlist(
                 DataBase::Storage::getInstance().getActor(), this->m_npc, this->m_p_storage->getDialogCondlist())
-                 .empty())
+                 .empty() == false)
         {
             if (!this->m_npc->IsTalkEnabled())
                 this->m_npc->EnableTalk();

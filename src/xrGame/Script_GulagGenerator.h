@@ -1540,7 +1540,7 @@ inline void add_exclusive_job(const xr_string& section_name, const xr_string& wo
         xr_string result = XR_LOGIC::pick_section_from_condlist(
             DataBase::Storage::getInstance().getActor(), server_object, params.second);
 
-        if (result == "false" || !result.size())
+        if (result.empty() || result == "false")
             return false;
 
         return true;

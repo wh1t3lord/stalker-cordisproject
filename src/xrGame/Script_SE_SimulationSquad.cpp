@@ -558,7 +558,7 @@ void Script_SE_SimulationSquad::create_npc(Script_SE_SmartTerrain* spawn_smart)
     std::uint32_t base_level_vertex_id = spawn_smart->m_tNodeID;
     std::uint16_t base_game_vertex_id = spawn_smart->m_tGraphID;
 
-    if (spawn_point_section_name.size())
+    if (spawn_point_section_name.empty() == false && spawn_point_section_name != "empty")
     {
         if (spawn_point_section_name != "self")
         {
@@ -585,7 +585,7 @@ void Script_SE_SimulationSquad::create_npc(Script_SE_SmartTerrain* spawn_smart)
     xr_string random_spawn_name =
         Globals::Utils::cfg_get_string(Globals::get_system_ini(), this->m_settings_id_name, "npc_random");
 
-    if (random_spawn_name.size())
+    if (random_spawn_name.empty() == false)
     {
         xr_vector<xr_string> random_spawn_names = Globals::Utils::parse_names(random_spawn_name);
         std::uint32_t count_names = random_spawn_names.size();
