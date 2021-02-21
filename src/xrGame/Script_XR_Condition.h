@@ -1029,35 +1029,48 @@ inline bool is_actor_in_zone_server(
 
 inline bool is_npc_in_zone_client(CScriptGameObject* actor, CScriptGameObject* npc, const xr_vector<xr_string>& buffer)
 {
-    if (!buffer.size())
-    {
-        R_ASSERT2(false, "Argument list can't be empty!");
-        return false;
-    }
+	if (buffer.empty())
+	{
+		R_ASSERT2(false, "Argument list can't be empty!");
+		return false;
+	}
 
-    const xr_string& zone_name = buffer[0];
+	const xr_string& zone_name = buffer[0];
 
-    if (!zone_name.size())
-    {
-        R_ASSERT2(false, "can't be empty!");
-        return false;
-    }
+	if (zone_name.empty())
+	{
+		R_ASSERT2(false, "can't be empty!");
+		return false;
+	}
 
-    if (!npc)
-    {
-        R_ASSERT2(false, "object was null!");
-        return false;
-    }
+	if (npc == nullptr)
+	{
+		R_ASSERT2(false, "object was null!");
+		return false;
+	}
 
-    CScriptGameObject* zone = DataBase::Storage::getInstance().getZoneByName().at(zone_name);
+	CScriptGameObject* zone = nullptr;
 
-    if (!zone)
-    {
-        R_ASSERT2(false, "object was null!");
-        return false;
-    }
+	if (DataBase::Storage::getInstance().getZoneByName().find(zone_name) != DataBase::Storage::getInstance().getZoneByName().end())
+	{
+		zone = DataBase::Storage::getInstance().getZoneByName().at(zone_name);
+	}
 
-    return Globals::Utils::is_npc_in_zone(npc, zone);
+	if (zone == nullptr)
+	{
+		MESSAGE("zone = nullptr; returns true");
+		return true;
+	}
+
+	CScriptGameObject* p_client_object = DataBase::Storage::getInstance().getStorage().at(npc->ID()).getClientObject();
+
+	if (p_client_object == nullptr)
+	{
+		MESSAGE("p_client_object from storage = nullptr!");
+		return zone->inside(npc->Position());
+	}
+
+	return Globals::Utils::is_npc_in_zone(p_client_object, zone);
 }
 
 inline bool is_npc_in_zone_client_server(
@@ -1100,7 +1113,7 @@ inline bool is_npc_in_zone_client_server(
 
     if (npc == nullptr)
     {
-        MESSAGE("npc = nullptr!");
+        MESSAGE("npc from storage = nullptr!");
         return zone->inside(server_npc->Position());
     }
 
