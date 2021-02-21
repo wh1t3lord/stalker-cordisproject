@@ -1063,7 +1063,7 @@ inline bool is_npc_in_zone_client(CScriptGameObject* actor, CScriptGameObject* n
 inline bool is_npc_in_zone_client_server(
     CScriptGameObject* actor, CSE_ALifeDynamicObject* server_npc, const xr_vector<xr_string>& buffer)
 {
-    if (!buffer.size())
+    if (buffer.empty())
     {
         R_ASSERT2(false, "Argument list can't be empty!");
         return false;
@@ -1071,33 +1071,36 @@ inline bool is_npc_in_zone_client_server(
 
     const xr_string& zone_name = buffer[0];
 
-    if (!zone_name.size())
+    if (zone_name.empty())
     {
         R_ASSERT2(false, "can't be empty!");
         return false;
     }
 
-    if (!server_npc)
+    if (server_npc == nullptr)
     {
         R_ASSERT2(false, "object was null!");
         return false;
     }
 
-    CScriptGameObject* zone = DataBase::Storage::getInstance().getZoneByName().at(zone_name);
+    CScriptGameObject* zone = nullptr;
 
-    if (!zone)
+    if (DataBase::Storage::getInstance().getZoneByName().find(zone_name) != DataBase::Storage::getInstance().getZoneByName().end())
     {
-        Msg("[Scripts/XR_CONDITION/is_npc_in_zone(server_actor, server_npc, zone_name)] NOTIFY: zone = nullptr! "
-            "Returns true.");
+        zone = DataBase::Storage::getInstance().getZoneByName().at(zone_name);
+    }
+
+    if (zone == nullptr)
+    {
+        MESSAGE("zone = nullptr; returns true");
         return true;
     }
 
     CScriptGameObject* npc = DataBase::Storage::getInstance().getStorage().at(server_npc->ID).getClientObject();
 
-    if (!npc)
+    if (npc == nullptr)
     {
-        Msg("[Scripts/XR_CONDITION/is_npc_in_zone(server_actor, server_npc, zone_name)] NOTIFY: npc = nullptr! Returns "
-            "zone->inside(server_npc->Position())");
+        MESSAGE("npc = nullptr!");
         return zone->inside(server_npc->Position());
     }
 
