@@ -1434,7 +1434,7 @@ void Script_SE_SmartTerrain::select_npc_job(NpcInfo& npc_info)
 		if (selected_job_link_exclusive)
 		{
 			selected_job_link_exclusive->m_npc_id = npc_info.m_server_object->ID;
-			this->m_npc_by_job_section[this->m_job_data.at(selected_job_link->m_job_index)->m_job_id.first] = selected_job_link_exclusive->m_npc_id;
+			this->m_npc_by_job_section[this->m_job_data.at(selected_job_link_exclusive->m_job_index)->m_job_id.first] = selected_job_link_exclusive->m_npc_id;
 		}
 
 
