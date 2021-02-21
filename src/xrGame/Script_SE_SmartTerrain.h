@@ -122,7 +122,7 @@ struct JobDataExclusive
 
     bool m_is_precondition_monster;
     std::uint16_t m_npc_id; // @ Используется для выдачи работы если 0 работа свободна!
-    std::uint32_t m_priority;
+    int m_priority;
     std::uint32_t m_job_index = Globals::kUnsignedInt32Undefined;
     std::pair<xr_string, xr_map<std::uint32_t, CondlistData>> m_function_params;
     std::function<bool(CSE_ALifeDynamicObject*, Script_SE_SmartTerrain*,

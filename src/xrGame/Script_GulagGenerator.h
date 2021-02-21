@@ -1501,8 +1501,7 @@ inline void add_exclusive_job(const xr_string& section_name, const xr_string& wo
         job_type_name = Script_GlobalHelper::getInstance().getJobTypesByScheme().at(0);
     }
 
-    std::uint32_t new_priority =
-        static_cast<std::uint32_t>(Globals::Utils::cfg_get_number(ini_current_npc, logic_name, "prior"));
+    int new_priority = static_cast<int>(Globals::Utils::cfg_get_number(ini_current_npc, logic_name, "prior"));
     bool is_monster = Globals::Utils::cfg_get_bool(ini_current_npc, logic_name, "monster_job");
 
     if (scheme_name == Globals::GulagGenerator::kGulagJobNameMobHome)
