@@ -15,7 +15,6 @@
 *.jpg filter=lfs diff=lfs merge=lfs -text
 *.png filter=lfs diff=lfs merge=lfs -text
 *.exe filter=lfs diff=lfs merge=lfs -text
-*.script filter=lfs diff=lfs merge=lfs -text
 *.vcxproj filter=lfs diff=lfs merge=lfs -text
 *.vcxproj.* filter=lfs diff=lfs merge=lfs -text
 *.db filter=lfs diff=lfs merge=lfs -text
