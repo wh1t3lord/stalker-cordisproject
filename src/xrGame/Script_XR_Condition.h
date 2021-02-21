@@ -3321,7 +3321,7 @@ inline bool is_target_squad_name_client_server(
 
     if (Globals::IsStalker(server_npc, 0) || Globals::IsMonster(server_npc, 0))
     {
-        if (!ai().alife().objects().object(server_npc->cast_monster_abstract()->m_group_id))
+        if (ai().alife().objects().object(server_npc->cast_monster_abstract()->m_group_id) == nullptr)
             return false;
 
         CSE_ALifeDynamicObject* p_server_object_by_group_id = ai().alife().objects().object(server_npc->cast_monster_abstract()->m_group_id);
