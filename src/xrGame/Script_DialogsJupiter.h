@@ -266,6 +266,18 @@ namespace Cordis
             relocate_item_section_to_actor(p_first_speaker, p_second_speaker, "wpn_wincheaster1300_trapper");
         }
 
+        inline void zat_b106_trapper_reward(CScriptGameObject* const p_first_speaker, CScriptGameObject* const p_second_speaker)
+        {
+            if (Globals::has_alife_info("zat_b106_one_hit"))
+            {
+                relocate_money_to_actor(p_first_speaker, p_second_speaker, 3000);
+            }
+            else
+            {
+                relocate_money_to_actor(p_first_speaker, p_second_speaker, 2000);
+            }
+        }
+
         inline bool jup_a10_proverka_wpn(CScriptGameObject* const p_first_speaker, CScriptGameObject* const p_second_speaker)
         {
             xr_vector<xr_string> data = {
