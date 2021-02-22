@@ -1642,72 +1642,116 @@ inline std::uint32_t get_relation_id_by_name(const xr_string& relation_name)
 inline bool predicate_const_true(std::uint16_t, bool) { return true; }
 inline bool predicate_animpoint_bread(std::uint16_t npc_id, bool)
 {
-    return false;
-}
-
-inline bool predicate_animpoint_kolbasa(std::uint16_t npc_id, bool)
-{
-/* The original code is not working here
 	CScriptGameObject* p_client_object = DataBase::Storage::getInstance().getStorage().at(npc_id).getClientObject();
 
 	if (p_client_object)
 	{
 		if (p_client_object->get_visual_name())
 		{
-			if (Script_GlobalHelper::getInstance().getRegisteredEatableVisuals().at(p_client_object->get_visual_name()))
+			if (Script_GlobalHelper::getInstance().getRegisteredEatableVisuals().find(p_client_object->get_visual_name()) != Script_GlobalHelper::getInstance().getRegisteredEatableVisuals().end())
 			{
-				if (p_client_object->GetObjectByName("kolbasa"))
+				if (Script_GlobalHelper::getInstance().getRegisteredEatableVisuals().at(p_client_object->get_visual_name()))
 				{
-					return true;
+					if (p_client_object->GetObjectByName("bread"))
+					{
+						return true;
+					}
 				}
 			}
+			else
+			{
+				MESSAGEW("not found visual name in eatable_visuals %s [predicate for bread]", p_client_object->get_visual_name());
+			}
+
 		}
-	}*/
+	}
+
+    return false;
+}
+
+inline bool predicate_animpoint_kolbasa(std::uint16_t npc_id, bool)
+{
+	CScriptGameObject* p_client_object = DataBase::Storage::getInstance().getStorage().at(npc_id).getClientObject();
+
+	if (p_client_object)
+	{
+		if (p_client_object->get_visual_name())
+		{
+            if (Script_GlobalHelper::getInstance().getRegisteredEatableVisuals().find(p_client_object->get_visual_name()) != Script_GlobalHelper::getInstance().getRegisteredEatableVisuals().end())
+            {
+				if (Script_GlobalHelper::getInstance().getRegisteredEatableVisuals().at(p_client_object->get_visual_name()))
+				{
+					if (p_client_object->GetObjectByName("kolbasa"))
+					{
+						return true;
+					}
+				}
+            }
+            else
+            {
+                MESSAGEW("not found visual name in eatable_visuals %s [predicate for kolbasa]", p_client_object->get_visual_name());
+            }
+
+		}
+	}
 
     return false;
 }
 
 inline bool predicate_animpoint_vodka(std::uint16_t npc_id, bool)
 {
-/* The original code is not working here
+ 
     CScriptGameObject* p_client_object = DataBase::Storage::getInstance().getStorage().at(npc_id).getClientObject();
 
     if (p_client_object)
     {
         if (p_client_object->get_visual_name())
         {
-            if (Script_GlobalHelper::getInstance().getRegisteredEatableVisuals().at(p_client_object->get_visual_name()))
-            {
-                if (p_client_object->GetObjectByName("vodka"))
-                {
-                    return true;
-                }
-            }
+			if (Script_GlobalHelper::getInstance().getRegisteredEatableVisuals().find(p_client_object->get_visual_name()) != Script_GlobalHelper::getInstance().getRegisteredEatableVisuals().end())
+			{
+				if (Script_GlobalHelper::getInstance().getRegisteredEatableVisuals().at(p_client_object->get_visual_name()))
+				{
+					if (p_client_object->GetObjectByName("vodka"))
+					{
+						return true;
+					}
+				}
+			}
+			else
+			{
+				MESSAGEW("not found visual name in eatable_visuals %s [predicate for vodka]", p_client_object->get_visual_name());
+			}
         }
-    }*/
+    }
 
     return false;
 }
 
 inline bool predicate_animpoint_energy(std::uint16_t npc_id, bool)
 {
-/* The original code is not working here
+  
     CScriptGameObject* p_client_object = DataBase::Storage::getInstance().getStorage().at(npc_id).getClientObject();
 
     if (p_client_object)
     {
         if (p_client_object->get_visual_name())
         {
-            if (Script_GlobalHelper::getInstance().getRegisteredEatableVisuals().at(
-                p_client_object->get_visual_name()))
-            {
-                if (p_client_object->GetObjectByName("energy_drink"))
-                {
-                    return true;
-                }
-            }
+			if (Script_GlobalHelper::getInstance().getRegisteredEatableVisuals().find(p_client_object->get_visual_name()) != Script_GlobalHelper::getInstance().getRegisteredEatableVisuals().end())
+			{
+				if (Script_GlobalHelper::getInstance().getRegisteredEatableVisuals().at(p_client_object->get_visual_name()))
+				{
+					if (p_client_object->GetObjectByName("energy_drink"))
+					{
+						return true;
+					}
+				}
+			}
+			else
+			{
+				MESSAGEW("not found visual name in eatable_visuals %s [predicate for kolbasa]", p_client_object->get_visual_name());
+			}
         }
-    }*/
+    }
 
     return false;
 }
@@ -1727,22 +1771,28 @@ inline bool predicate_animpoint_guitar(std::uint16_t npc_id, bool is_in_camp)
 
 inline bool predicate_animpoint_harmonica(std::uint16_t npc_id, bool is_in_camp)
 {
-/* The original code is not working here
     CScriptGameObject* p_client_object = DataBase::Storage::getInstance().getStorage().at(npc_id).getClientObject();
 
     if (is_in_camp && p_client_object)
     {
         if (p_client_object->get_visual_name())
         {
-            if (Script_GlobalHelper::getInstance().getRegisteredEatableVisuals().at(p_client_object->get_visual_name()))
-            {
-                if (p_client_object->GetObjectByName("harmonica_a"))
-                {
-                    return true;
-                }
-            }
+			if (Script_GlobalHelper::getInstance().getRegisteredEatableVisuals().find(p_client_object->get_visual_name()) != Script_GlobalHelper::getInstance().getRegisteredEatableVisuals().end())
+			{
+				if (Script_GlobalHelper::getInstance().getRegisteredEatableVisuals().at(p_client_object->get_visual_name()))
+				{
+					if (p_client_object->GetObjectByName("harmonica_a"))
+					{
+						return true;
+					}
+				}
+			}
+			else
+			{
+				MESSAGEW("not found visual name in eatable_visuals %s [predicate for harmonica_a]", p_client_object->get_visual_name());
+			}
         }
-    }*/
+    }
 
     return false;
 }
