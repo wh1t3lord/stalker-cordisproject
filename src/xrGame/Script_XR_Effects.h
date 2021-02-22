@@ -539,13 +539,19 @@ inline void teleport_npc(
         return;
     }
 
-    if (!p_npc)
+    std::uint32_t patrol_point_index = 0;
+
+    if (buffer.size() > 1)
+    {
+        patrol_point_index = static_cast<std::uint32_t>(atoi(buffer[1].c_str()));
+    }
+
+    if (p_npc == nullptr)
     {
         R_ASSERT2(false, "object is null!");
         return;
     }
 
-    std::uint32_t patrol_point_index = static_cast<std::uint32_t>(atoi(buffer[1].c_str()));
     _reset_animation(p_npc);
     p_npc->SetNpcPosition(CPatrolPathParams(buffer[0].c_str()).point(patrol_point_index));
 }
