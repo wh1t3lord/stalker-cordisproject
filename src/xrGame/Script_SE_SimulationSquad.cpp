@@ -112,11 +112,54 @@ CALifeSmartTerrainTask* Script_SE_SimulationSquad::get_current_task(void)
         CSE_ALifeDynamicObject* server_object = ai().alife().objects().object(this->m_assigned_target_id);
         if (server_object)
         {
-            if (server_object->cast_script_se_smartterrain())
+            Script_SE_SmartTerrain* const p_smart_terrain = server_object->cast_script_se_smartterrain();
+            if (p_smart_terrain)
+            {
+                if (p_smart_terrain->getArrivingNpc().empty() == false)
+                {
+                    bool is_not_found_arriving_npc_by_commander_id = false;
+
+                    if (p_smart_terrain->getArrivingNpc().find(this->commander_id()) != p_smart_terrain->getArrivingNpc().end())
+                    {
+                        if (p_smart_terrain->getArrivingNpc().at(this->commander_id()) == nullptr)
+                        {
+                            is_not_found_arriving_npc_by_commander_id = true;
+                        }
+                    }
+                    else
+                    {
+                        is_not_found_arriving_npc_by_commander_id = true;
+                    }
+
+                    if (is_not_found_arriving_npc_by_commander_id)
+                    {
+                        if (p_smart_terrain->getNpcInfo().empty() == false)
+                        {
+                            if (p_smart_terrain->getNpcInfo().find(this->commander_id()) != p_smart_terrain->getNpcInfo().end())
+                            {
+                                const NpcInfo& npc_info_commander = p_smart_terrain->getNpcInfo().at(this->commander_id());
+
+                                if (npc_info_commander.m_job_id != Globals::kUnsignedInt32Undefined)
+                                {
+                                    if (p_smart_terrain->getJobData().find(npc_info_commander.m_job_id) != p_smart_terrain->getJobData().end())
+                                    {
+                                        return p_smart_terrain->getJobData().at(npc_info_commander.m_job_id)->m_alife_task;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+
                 return server_object->cast_script_se_smartterrain()->getAlifeSmartTerrainTask();
+            }
+
 
             if (server_object->cast_script_se_actor())
+            {
                 return server_object->cast_script_se_actor()->getAlifeSmartTerrainTask();
+            }
+
         }
     }
 
@@ -839,6 +882,16 @@ void Script_SE_SimulationSquad::show(void)
     if (this->m_is_show_disabled)
     {
         this->hide();
+        return;
+    }
+
+    if (Globals::Game::level::map_has_object_spot(this->commander_id(), "ui_pda2_trader_location") != 0
+        || Globals::Game::level::map_has_object_spot(this->commander_id(), "ui_pda2_mechanic_location") != 0
+        || Globals::Game::level::map_has_object_spot(this->commander_id(), "ui_pda2_scout_location") != 0
+        || Globals::Game::level::map_has_object_spot(this->commander_id(), "ui_pda2_quest_npc_location") != 0
+        || Globals::Game::level::map_has_object_spot(this->commander_id(), "ui_pda2_medic_location") != 0)
+    {
+        this->m_is_show_disabled = true;
         return;
     }
 

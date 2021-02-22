@@ -223,7 +223,7 @@ public:
     {
         if (section_name.empty())
         {
-            Msg("[Scripts/Script_SE_SmartTerrain/setAlreadySpawned(section_name, value)] WARNING: section_name.empty() "
+            MESSAGEWR("section_name.empty() "
                 "== true! Can't assign!");
             return;
         }
@@ -236,9 +236,7 @@ public:
     {
         if (id >= Globals::kUnsignedInt16Undefined)
         {
-#ifdef DEBUG
             MESSAGE("Something wrong with your id!");
-#endif // DEBUG
             return;
         }
 

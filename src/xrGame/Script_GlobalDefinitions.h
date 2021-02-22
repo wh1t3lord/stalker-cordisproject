@@ -608,6 +608,7 @@ private:
     CScriptParticles* m_particle = nullptr;
 };
 
+// Lord: добавить get и set методы
 struct JobDataSmartTerrain
 {
     ~JobDataSmartTerrain(void)
