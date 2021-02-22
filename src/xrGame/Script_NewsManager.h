@@ -29,6 +29,7 @@ public:
     void SendTask(CScriptGameObject* const p_actor, const xr_string& type_name, CGameTask* const p_task);
     void relocate_money(const xr_string& type_name, const int amount);
     void relocate_item(const xr_string& type_name, const xr_string& section_name, const std::uint32_t amount = 1);
+    void SendTreasure(int status_of_finding_treasure);
     /*
     inline void send_tip_nosound(const xr_string& tip_id_name) {}
     inline CScriptSound& get_sound_news(const xr_string& tip_id_name)

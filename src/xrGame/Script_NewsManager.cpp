@@ -218,5 +218,41 @@ void Script_NewsManager::relocate_item(
     }
 }
 
+void Script_NewsManager::SendTreasure(int status_of_finding_treasure)
+{
+    xr_string news_caption_name;
+
+    switch (status_of_finding_treasure)
+    {
+    case 0:
+    {
+        news_caption_name = Globals::Game::translate_string("st_found_new_treasure");
+        break;
+    }
+    case 1:
+    {
+        news_caption_name = Globals::Game::translate_string("st_got_treasure");
+        xr_string faction_name;
+        XR_SOUND::set_sound_play(DataBase::Storage::getInstance().getActor()->ID(), "pda_tips", faction_name, 0);
+
+        break;
+    }
+    case 2:
+    {
+        news_caption_name = Globals::Game::translate_string("st_found_old_treasure");
+        break;
+    }
+    }
+
+    if (DataBase::Storage::getInstance().getActor()->IsTalking())
+    {
+        DataBase::Storage::getInstance().getActor()->AddIconedTalkMessage(news_caption_name.c_str(), "", "ui_inGame2_Polucheni_koordinaty_taynika", "iconed_answer_item");
+    }
+    else
+    {
+        DataBase::Storage::getInstance().getActor()->GiveGameNews(news_caption_name.c_str(), "", "ui_inGame2_Polucheni_koordinaty_taynika", 0, 3000);
+    }
+}
+
 } // namespace Scripts
 } // namespace Cordis
