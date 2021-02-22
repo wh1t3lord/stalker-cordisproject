@@ -1140,37 +1140,23 @@ Cordis::Scripts::Script_GlobalHelper::Script_GlobalHelper(void)
     this->m_jup_a12_af_table[4] = "af_ice";
 
     this->m_jup_b9_money_count = { 3000, 2850, 2700, 2550, 2400, 2250, 2100, 1950, 1800, 1650 };
-
 #pragma endregion
 
 #pragma region Cordis Dialogs Pripyat
     this->m_pri_a25_medic_items["basic"]["conserva"] = 2;
-    this->m_pri_a25_medic_items["basic"]["medkit"] = 2;
-    this->m_pri_a25_medic_items["basic"]["medkit_army"] = 1;
+    this->m_pri_a25_medic_items["basic"]["medkit_army"] = 2;
     this->m_pri_a25_medic_items["basic"]["antirad"] = 2;
     this->m_pri_a25_medic_items["basic"]["bandage"] = 4;
-    this->m_pri_a25_medic_items["basic"]["drug_coagulant"] = 1;
-    this->m_pri_a25_medic_items["basic"]["drug_radioprotector"] = 1;
 
     this->m_pri_a25_medic_items["advanced"]["conserva"] = 3;
-    this->m_pri_a25_medic_items["advanced"]["medkit"] = 3;
-    this->m_pri_a25_medic_items["advanced"]["medkit_army"] = 2;
+    this->m_pri_a25_medic_items["advanced"]["medkit_army"] = 3;
     this->m_pri_a25_medic_items["advanced"]["antirad"] = 3;
     this->m_pri_a25_medic_items["advanced"]["bandage"] = 5;
-    this->m_pri_a25_medic_items["advanced"]["drug_coagulant"] = 1;
-    this->m_pri_a25_medic_items["advanced"]["drug_radioprotector"] = 1;
-    this->m_pri_a25_medic_items["advanced"]["drug_antidot"] = 1;
-    this->m_pri_a25_medic_items["advanced"]["drug_psy_blockade"] = 1;
 
     this->m_pri_a25_medic_items["elite"]["conserva"] = 4;
-    this->m_pri_a25_medic_items["elite"]["medkit"] = 5;
-    this->m_pri_a25_medic_items["elite"]["medkit_army"] = 3;
+    this->m_pri_a25_medic_items["elite"]["medkit_army"] = 5;
     this->m_pri_a25_medic_items["elite"]["antirad"] = 5;
     this->m_pri_a25_medic_items["elite"]["bandage"] = 8;
-    this->m_pri_a25_medic_items["elite"]["drug_coagulant"] = 2;
-    this->m_pri_a25_medic_items["elite"]["drug_radioprotector"] = 2;
-    this->m_pri_a25_medic_items["elite"]["drug_antidot"] = 1;
-    this->m_pri_a25_medic_items["elite"]["drug_psy_blockade"] = 1;
 
 
     this->m_pri_a22_supp_items["supply_ammo_1"]["ammo_9x18_fmj"] = 2;
