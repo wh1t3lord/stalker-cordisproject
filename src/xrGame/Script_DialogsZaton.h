@@ -2163,5 +2163,19 @@ inline void zat_b106_give_reward(CScriptGameObject* const p_first_speaker, CScri
     Script_TreasureManager::getInstance().give_treasure("zat_hiding_place_50");
 }
 
+inline bool is_zat_b3_tech_drinks_precond(CScriptGameObject* const p_first_speaker, CScriptGameObject* const p_second_speaker)
+{
+    if (Globals::has_alife_info("zat_b3_gauss_repaired") && Globals::has_alife_info("zat_b3_tech_drink_no_more") == false)
+    {
+        return true;
+    }
+    else if (Globals::has_alife_info("zat_b3_tech_see_produce_62") == false)
+    {
+        return true;
+    }
+
+    return false;
+}
+
 } // namespace Scripts
 } // namespace Cordis
