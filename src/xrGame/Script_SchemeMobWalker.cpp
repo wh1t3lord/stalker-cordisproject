@@ -343,8 +343,8 @@ void Script_SchemeMobWalker::set_scheme(CScriptGameObject* const p_client_object
     p_storage->setLogic(XR_LOGIC::cfg_get_switch_conditions(p_ini, section_name, p_client_object));
     p_storage->setStateName(Script_MobStateManager::getInstance().get_state(p_ini, section_name));
     p_storage->setNoReset(Globals::Utils::cfg_get_bool(p_ini, section_name, "no_reset"));
-    p_storage->setPathWalkName(Globals::Utils::cfg_get_string(p_ini, section_name, "path_walk", gulag_name));
-    p_storage->setPathLookName(Globals::Utils::cfg_get_string(p_ini, section_name, "path_look", gulag_name));
+    p_storage->setPathWalkName(Globals::Utils::cfg_get_string(p_ini, section_name, "path_walk", true, gulag_name));
+    p_storage->setPathLookName(Globals::Utils::cfg_get_string(p_ini, section_name, "path_look", false, gulag_name));
 
     if (p_storage->getPathLookName() == p_storage->getPathWalkName())
     {
