@@ -89,7 +89,12 @@ namespace Cordis
 			xr_string sound_name = XR_LOGIC::pick_section_from_condlist(DataBase::Storage::getInstance().getActor(), this->m_p_npc, this->m_p_storage->getFarSound());
 			xr_string temp;
 			if (sound_name.empty() == false)
-				XR_SOUND::set_sound_play(this->m_p_npc->ID(), sound_name, temp, 0);
+			{
+				if (sound_name != "empty")
+				{
+					XR_SOUND::set_sound_play(this->m_p_npc->ID(), sound_name, temp, 0);
+				}
+			}
 		}
 
 		void Script_XRMeetManager::set_start_distance(void)

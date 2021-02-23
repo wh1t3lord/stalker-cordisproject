@@ -29,19 +29,17 @@ inline CScriptSound* set_sound_play(
     
     CScriptSound* p_result = getSoundDatabase().find(npc_id) == getSoundDatabase().end() ? nullptr : getSoundDatabase().at(npc_id)->getSoundObject();
     
-    Script_ISoundEntity* sound_entity = Script_SoundThemeDataBase::getInstance().getTheme()[sound];
+    Script_ISoundEntity* sound_entity = Script_SoundThemeDataBase::getInstance().getTheme().at(sound);
 
     if (!sound_entity)
     {
-        MESSAGEWR("object was null! Wrong sound theme [%s], npc_id - %s", sound.c_str(), std::to_string(npc_id).c_str());
-        R_ASSERT(false);
+        MESSAGEER("object was null! Wrong sound theme [%s], npc_id - %s", sound.c_str(), std::to_string(npc_id).c_str());
         return nullptr;
     }
 
     if (sound_entity->getSoundType() == SCRIPTSOUNDTYPE_LOOPED)
     {
-        MESSAGEWR("You are trying to play sound [%s] which type is [%s]", sound.c_str(), SCRIPTSOUNDTYPE_LOOPED);
-        R_ASSERT(false);
+        MESSAGEER("You are trying to play sound [%s] which type is [%s]", sound.c_str(), SCRIPTSOUNDTYPE_LOOPED);
         return nullptr;
     }
 
