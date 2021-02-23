@@ -521,14 +521,10 @@ void Script_MoveManager::reset(const xr_string& path_walk_name, const CondlistWa
             moving_state_name_3 = moving_state_name_1;
         }
 
-        this->m_default_state_standing_condlist =
-            XR_LOGIC::parse_condlist_by_script_object("move_mgr", "def_state", standing_state_name);
-        this->m_default_state_moving1_condlist =
-            XR_LOGIC::parse_condlist_by_script_object("move_mgr", "def_state", moving_state_name_1);
-        this->m_default_state_moving2_condlist =
-            XR_LOGIC::parse_condlist_by_script_object("move_mgr", "def_state", moving_state_name_2);
-        this->m_default_state_moving3_condlist =
-            XR_LOGIC::parse_condlist_by_script_object("move_mgr", "def_state", moving_state_name_3);
+        this->m_default_state_standing_condlist = XR_LOGIC::parse_condlist_by_script_object("move_mgr", "def_state", standing_state_name);
+        this->m_default_state_moving1_condlist = XR_LOGIC::parse_condlist_by_script_object("move_mgr", "def_state", moving_state_name_1);
+        this->m_default_state_moving2_condlist = XR_LOGIC::parse_condlist_by_script_object("move_mgr", "def_state", moving_state_name_2);
+        this->m_default_state_moving3_condlist = XR_LOGIC::parse_condlist_by_script_object("move_mgr", "def_state", moving_state_name_3);
     }
 
     this->m_synchronization_signal_set_tm = Globals::get_time_global() + 1000;

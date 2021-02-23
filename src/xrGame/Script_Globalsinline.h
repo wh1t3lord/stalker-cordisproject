@@ -28,7 +28,7 @@ inline xr_string cfg_get_string(CScriptIniFile* char_ini, const xr_string& secti
     if (section.size() &&
         (char_ini->section_exist(section.c_str()) && char_ini->line_exist(section.c_str(), field.c_str())))
     {
-        xr_string result = "";
+        xr_string result;
 
         if (gulag_name.empty() == false)
         {
@@ -64,7 +64,7 @@ inline xr_string cfg_get_string(const CInifile* char_ini, const xr_string& secti
     if (section.size() &&
         (char_ini->section_exist(section.c_str()) && char_ini->line_exist(section.c_str(), field.c_str())))
     {
-        xr_string result = "";
+        xr_string result;
         result.append(gulag_name);
         result.append("_");
         result.append(char_ini->r_string(section.c_str(), field.c_str()));
@@ -101,7 +101,7 @@ inline xr_string cfg_get_string(
     if ((section.empty() == false) &&
         (char_ini.section_exist(section.c_str()) && char_ini.line_exist(section.c_str(), field.c_str())))
     {
-        xr_string result = "";
+        xr_string result;
         result.append(gulag_name);
         result.append("_");
         result.append(char_ini.r_string(section.c_str(), field.c_str()));
