@@ -126,7 +126,7 @@ using RTokenVec = xr_vector<xr_rtoken>;
 #ifdef CRD_LOG_FULL
 // @ default message
 // Color: Gray in log  ouput
-#define MESSAGE(text_message, ...) { xr_string file_name = __FILE__; Msg("[%s|" __FUNCTION__ "|%d] "##text_message, file_name.substr(file_name.rfind("\\")+1).c_str(), __LINE__, __VA_ARGS__); }
+#define MESSAGE(text_message, ...) { /*xr_string file_name = __FILE__; Msg("[%s|" __FUNCTION__ "|%d] "##text_message, file_name.substr(file_name.rfind("\\")+1).c_str(), __LINE__, __VA_ARGS__);*/ }
 
 // @ used for deallocation or something else rare and indeed vital information in log 
 // Color: Dark Blue in log ouput

@@ -70,10 +70,17 @@ namespace Cordis
 
 			if (state_name.empty() == false)
 			{
-				if (p_look_object)
-					Globals::set_state(this->m_p_npc, state_name, StateManagerCallbackData(), 0, std::pair<Fvector, CScriptGameObject* const>(Fvector(), nullptr), StateManagerExtraData());
-				else
-					Globals::set_state(this->m_p_npc, state_name, StateManagerCallbackData(), 0, std::pair<Fvector, CScriptGameObject* const>(Fvector(), p_look_object), StateManagerExtraData());
+				if (state_name != "nil")
+				{
+					if (p_look_object)
+					{
+						Globals::set_state(this->m_p_npc, state_name, StateManagerCallbackData(), 0, std::pair<Fvector, CScriptGameObject* const>(Fvector(), nullptr), StateManagerExtraData());
+					}
+					else
+					{
+						Globals::set_state(this->m_p_npc, state_name, StateManagerCallbackData(), 0, std::pair<Fvector, CScriptGameObject* const>(Fvector(), p_look_object), StateManagerExtraData());
+					}
+				}
 			}
 
 			xr_string sound_name = XR_LOGIC::pick_section_from_condlist(DataBase::Storage::getInstance().getActor(), this->m_p_npc, this->m_p_storage->getFarSound());
