@@ -47,9 +47,7 @@ namespace Cordis
 
 		Script_SchemeXRCamper::Script_SchemeXRCamper(const xr_string& name, DataBase::Script_ComponentScheme_XRCamper* storage) : inherited_scheme(nullptr, name, storage), 
 			m_is_danger(false), m_flag(0), m_p_enemy(nullptr), m_scantime(0), m_p_storage(storage)
-		{
-			this->m_p_move_manager = DataBase::Storage::getInstance().getStorage().at(this->m_object->ID()).getMoveManager();
-			
+		{			
 		}
 
 		Script_SchemeXRCamper::~Script_SchemeXRCamper(void)
@@ -60,6 +58,7 @@ namespace Cordis
 		{
 			CScriptActionBase::initialize();
 
+			this->m_p_move_manager = DataBase::Storage::getInstance().getStorage().at(this->m_object->ID()).getMoveManager();
 			this->m_object->set_desired_position();
 			this->m_object->set_desired_direction();
 
