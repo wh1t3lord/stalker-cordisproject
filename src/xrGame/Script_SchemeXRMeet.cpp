@@ -65,7 +65,10 @@ namespace Cordis
 			CScriptGameObject* p_look_object = nullptr;
 			if (victim_name.empty() == false)
 			{
-				p_look_object = Globals::get_story_object(victim_name);
+				if (victim_name != "nil")
+				{
+					p_look_object = Globals::get_story_object(victim_name);
+				}
 			}
 
 			if (state_name.empty() == false)
