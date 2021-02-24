@@ -361,7 +361,7 @@ namespace Cordis
 
 			p_planner->action(Globals::XR_ACTIONS_ID::kAlife).add_condition(CWorldProperty(properties.at("end"), true));
 			p_planner->action(StalkerDecisionSpace::eWorldOperatorGatherItems).add_condition(CWorldProperty(properties.at("end"), true));
-			p_planner->action(operators.at("search_corpse")).add_condition(CWorldProperty(properties.at("end"), true));
+			/*p_planner->action(operators.at("search_corpse")).add_condition(CWorldProperty(properties.at("end"), true)); Lord: раскомментировать когда будет реализовано */
 			p_planner->action(operators.at("help_wounded")).add_condition(CWorldProperty(properties.at("end"), true));
 			CScriptActionBase& temp = p_planner->action(StalkerDecisionSpace::eWorldOperatorCombatPlanner);
 			temp.add_condition(CWorldProperty(properties.at("close_combat"), true));
