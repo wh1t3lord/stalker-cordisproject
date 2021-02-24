@@ -39,7 +39,7 @@ namespace Cordis
 
 		public:
 			Script_SchemeXRCamper(void) = delete;
-			Script_SchemeXRCamper(const xr_string& name, DataBase::Script_ComponentScheme_XRCamper* storage);
+			Script_SchemeXRCamper(const xr_string& name, DataBase::Script_ComponentScheme_XRCamper* storage, CScriptGameObject* const p_client_object);
 			~Script_SchemeXRCamper(void);
 
 			virtual void initialize(void);

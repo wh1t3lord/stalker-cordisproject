@@ -45,9 +45,18 @@ namespace Cordis
 			return this->m_is_close_combat;
 		}
 
-		Script_SchemeXRCamper::Script_SchemeXRCamper(const xr_string& name, DataBase::Script_ComponentScheme_XRCamper* storage) : inherited_scheme(nullptr, name, storage), 
-			m_is_danger(false), m_flag(0), m_p_enemy(nullptr), m_scantime(0), m_p_storage(storage)
-		{			
+		Script_SchemeXRCamper::Script_SchemeXRCamper(
+			const xr_string& name,
+			DataBase::Script_ComponentScheme_XRCamper* storage,
+			CScriptGameObject* const p_client_object
+		) : inherited_scheme(p_client_object, name, storage),
+			m_is_danger(false),
+			m_flag(0),
+			m_p_enemy(nullptr),
+			m_scantime(0),
+			m_p_storage(storage)
+		{
+			this->m_p_move_manager = DataBase::Storage::getInstance().getStorage().at(p_client_object->ID()).getMoveManager();
 		}
 
 		Script_SchemeXRCamper::~Script_SchemeXRCamper(void)
@@ -58,7 +67,6 @@ namespace Cordis
 		{
 			CScriptActionBase::initialize();
 
-			this->m_p_move_manager = DataBase::Storage::getInstance().getStorage().at(this->m_object->ID()).getMoveManager();
 			this->m_object->set_desired_position();
 			this->m_object->set_desired_direction();
 
@@ -295,7 +303,16 @@ namespace Cordis
 			else
 			{
 				std::function<bool(std::uint32_t, std::uint32_t)> binded_function = std::bind(&Script_SchemeXRCamper::process_point, this, std::placeholders::_1, std::placeholders::_2);
-				this->m_p_move_manager->reset(this->m_p_storage->getPathWalkName(), Globals::Utils::path_parse_waypoints(this->m_p_storage->getPathWalkName()), this->m_p_storage->getPathLookName(), Globals::Utils::path_parse_waypoints(this->m_p_storage->getPathLookName()), "", this->m_p_storage->getSuggestedStates(), binded_function, false);
+				this->m_p_move_manager->reset(
+					this->m_p_storage->getPathWalkName(),
+					Globals::Utils::path_parse_waypoints(this->m_p_storage->getPathWalkName()),
+					this->m_p_storage->getPathLookName(),
+					Globals::Utils::path_parse_waypoints(this->m_p_storage->getPathLookName()),
+					"",
+					this->m_p_storage->getSuggestedStates(),
+					binded_function,
+					false
+				);
 
 				if (this->m_object->sniper_update_rate())
 					this->m_object->sniper_update_rate(false);
@@ -308,13 +325,13 @@ namespace Cordis
 
 		void Script_SchemeXRCamper::add_to_binder(CScriptGameObject* const p_client_object, CScriptIniFile* const p_ini, const xr_string& scheme_name, const xr_string& section_name, DataBase::Script_IComponentScheme* storage)
 		{
-			if (!p_client_object)
+			if (p_client_object == nullptr)
 			{
 				R_ASSERT2(false, "object is null!");
 				return;
 			}
 
-			if (!p_ini)
+			if (p_ini == nullptr)
 			{
 				R_ASSERT2(false, "object is null!");
 				return;
@@ -339,7 +356,7 @@ namespace Cordis
 			p_planner->add_evaluator(properties.at("end"), new Script_EvaluatorCamperEnd("camper_end", static_cast<DataBase::Script_ComponentScheme_XRCamper*>(storage)));
 			p_planner->add_evaluator(properties.at("close_combat"), new Script_EvaluatorCloseCombat("camper_close_combat", static_cast<DataBase::Script_ComponentScheme_XRCamper*>(storage)));
 
-			Script_SchemeXRCamper* p_scheme = new Script_SchemeXRCamper("action_camper_patrol", static_cast<DataBase::Script_ComponentScheme_XRCamper*>(storage));
+			Script_SchemeXRCamper* p_scheme = new Script_SchemeXRCamper("action_camper_patrol", static_cast<DataBase::Script_ComponentScheme_XRCamper*>(storage), p_client_object);
 			p_scheme->add_condition(CWorldProperty(StalkerDecisionSpace::eWorldPropertyAlive, true));
 			p_scheme->add_condition(CWorldProperty(properties.at("end"), false));
 			p_scheme->add_condition(CWorldProperty(properties.at("close_combat"), false));
