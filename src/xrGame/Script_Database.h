@@ -2653,6 +2653,7 @@ struct Script_ComponentScheme_XRCamper : public Script_IComponentScheme
 			MESSAGEWR("deprecated value!");
 			return;
 		}
+
 		this->m_wp_flag = value;
 	}
 
@@ -2662,12 +2663,6 @@ struct Script_ComponentScheme_XRCamper : public Script_IComponentScheme
 		if (state_name.empty())
 		{
 			MESSAGEWR("you trying to set an empty string as a key");
-			return;
-		}
-
-		if (value_name.empty())
-		{
-			MESSAGEW("you are trying to set an empty string");
 			return;
 		}
 
