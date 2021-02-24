@@ -34,14 +34,14 @@ Script_MoveManager::~Script_MoveManager(void)
 {
     if (this->m_p_patrol_look)
     {
-        Msg("[Scripts/Script_MoveManager/~dtor()] deleting this->m_p_patrol_look %s",
+        MESSAGEI("deleting this->m_p_patrol_look %s",
             this->m_p_patrol_look->m_path_name);
         xr_delete(this->m_p_patrol_look);
     }
 
     if (this->m_p_patrol_walk)
     {
-        Msg("[Scripts/Script_MoveManager/~dtor()] deleting this->m_p_patrol_walk %s",
+        MESSAGEI("deleting this->m_p_patrol_walk %s",
             this->m_p_patrol_walk->m_path_name);
         xr_delete(this->m_p_patrol_walk);
     }
@@ -409,11 +409,11 @@ void Script_MoveManager::waypoint_callback(
 
     // TODO: обратить внимание здесь потом, ибо значение больше чем размер массива
     std::uint32_t point_chosen_index = Globals::choose_look_point(
-        this->m_p_patrol_look, this->m_path_look_info, this->m_path_walk_info.getData()[point_index].getFlags());
+        this->m_p_patrol_look, this->m_path_look_info, this->m_path_walk_info.getData().at(point_index).getFlags());
 
     if (point_chosen_index != Globals::kUnsignedInt32Undefined)
     {
-        xr_string prepare_for_condlist_data_name = this->m_path_look_info.getData()[point_chosen_index].getValue("a");
+        xr_string prepare_for_condlist_data_name = this->m_path_look_info.getData().at(point_chosen_index).getValue("a");
 
         xr_map<std::uint32_t, CondlistData> condlist_animation;
         if (!prepare_for_condlist_data_name.empty())
@@ -430,7 +430,7 @@ void Script_MoveManager::waypoint_callback(
                     this->m_p_client_object, this->m_default_state_standing_condlist);
         }
 
-        xr_string suggested_time_string_data_name = this->m_path_look_info.getData()[point_chosen_index].getValue("t");
+        xr_string suggested_time_string_data_name = this->m_path_look_info.getData().at(point_chosen_index).getValue("t");
         if (!suggested_time_string_data_name.empty())
         {
             if (suggested_time_string_data_name == "*")
@@ -453,7 +453,7 @@ void Script_MoveManager::waypoint_callback(
             this->m_point_wait_time = kDefaultWaitTime;
         }
 
-        xr_string retv_name = this->m_path_look_info.getData()[point_chosen_index].getValue("ret");
+        xr_string retv_name = this->m_path_look_info.getData().at(point_chosen_index).getValue("ret");
         if (retv_name.empty())
         {
             this->m_retval_after_rotation = 0;
