@@ -375,8 +375,8 @@ namespace Cordis
 			DataBase::Script_ComponentScheme_XRCamper* const p_storage = XR_LOGIC::assign_storage_and_bind<DataBase::Script_ComponentScheme_XRCamper>(p_client_object, p_ini, scheme_name, section_name, gulag_name);
 			p_storage->setLogic(XR_LOGIC::cfg_get_switch_conditions(p_ini, section_name, p_client_object));
 
-			p_storage->setPathWalkName(Globals::Utils::cfg_get_string(p_ini, section_name, "path_walk"));
-			p_storage->setPathLookName(Globals::Utils::cfg_get_string(p_ini, section_name, "path_look"));
+			p_storage->setPathWalkName(Globals::Utils::cfg_get_string(p_ini, section_name, "path_walk", true, gulag_name));
+			p_storage->setPathLookName(Globals::Utils::cfg_get_string(p_ini, section_name, "path_look", true, gulag_name));
 
 			if (p_storage->getPathWalkName() == p_storage->getPathLookName())
 			{
